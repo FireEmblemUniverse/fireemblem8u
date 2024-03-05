@@ -114,11 +114,11 @@ void StartSubSpell_efxHurtmutOBJ(struct Anim * anim)
 
     if (GetAnimPosition(anim) == 0)
     {
-        scr = gUnknown_085E067C;
+        scr = AnimScr_EfxBindingBlade_Left;
     }
     else
     {
-        scr = gUnknown_085E12DC;
+        scr = AnimScr_EfxBindingBlade_Right;
     }
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);

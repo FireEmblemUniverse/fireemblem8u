@@ -377,7 +377,7 @@ void StartSubSpell_efxFimbulvetrOBJ(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8, gUnknown_0861ACB8);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_FimbulvetrOBJ1, AnimScr_FimbulvetrOBJ1, AnimScr_FimbulvetrOBJ1, AnimScr_FimbulvetrOBJ1);
     proc->anim2->xPosition += 24;
 
     SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
@@ -478,7 +478,7 @@ void StartSubSpell_efxFimbulvetrOBJ2Fall(struct Anim * anim, int unk)
     proc->terminator = 100;
     proc->unk29 = array[unk & 7];
 
-    anim2 = AnimCreate(gUnknown_0861AD24, 120);
+    anim2 = AnimCreate(AnimScr_FimbulvetrOBJ2, 120);
     proc->anim2 = anim2;
     anim2->oam2Base = OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(2);
     anim2->xPosition = 256;
@@ -533,13 +533,13 @@ void efxFimbulvetrOBJ2Fall_Loop(struct ProcEfxOBJ * proc)
         {
             if (proc->unk29 == 0)
             {
-                anim->pScrStart = gUnknown_0861AD84;
-                anim->pScrCurrent = gUnknown_0861AD84;
+                anim->pScrStart = AnimScr_FimbulvetrOBJ2Fall_TypeA;
+                anim->pScrCurrent = AnimScr_FimbulvetrOBJ2Fall_TypeA;
             }
             else
             {
-                anim->pScrStart = gUnknown_0861AD8C;
-                anim->pScrCurrent = gUnknown_0861AD8C;
+                anim->pScrStart = AnimScr_FimbulvetrOBJ2Fall_TypeB;
+                anim->pScrCurrent = AnimScr_FimbulvetrOBJ2Fall_TypeB;
             }
 
             anim->timer = 0;
@@ -553,13 +553,13 @@ void efxFimbulvetrOBJ2Fall_Loop(struct ProcEfxOBJ * proc)
         {
             if (proc->unk29 == 0)
             {
-                anim->pScrStart = gUnknown_0861AD84;
-                anim->pScrCurrent = gUnknown_0861AD84;
+                anim->pScrStart = AnimScr_FimbulvetrOBJ2Fall_TypeA;
+                anim->pScrCurrent = AnimScr_FimbulvetrOBJ2Fall_TypeA;
             }
             else
             {
-                anim->pScrStart = gUnknown_0861AD8C;
-                anim->pScrCurrent = gUnknown_0861AD8C;
+                anim->pScrStart = AnimScr_FimbulvetrOBJ2Fall_TypeB;
+                anim->pScrCurrent = AnimScr_FimbulvetrOBJ2Fall_TypeB;
             }
 
             anim->timer = 0;

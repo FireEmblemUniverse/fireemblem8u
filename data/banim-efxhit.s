@@ -1,40 +1,5 @@
 	.section .data
 
-	.global ProcScr_efxYushaSpinShield
-ProcScr_efxYushaSpinShield:  @ 0x085D8EC4
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80df308
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word EfxYushaSpinShieldMain
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global ProcScr_efxYushaSpinShieldOBJ
-ProcScr_efxYushaSpinShieldOBJ:  @ 0x085D8EDC
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x80df31c
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxYushaSpinShieldOBJ_806CD14
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxYushaSpinShieldOBJ_806CD7C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxYushaSpinShieldOBJ_806CDA4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word efxYushaSpinShieldOBJ_806CE08
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global ProcScr_efxHurtmutEff00
 ProcScr_efxHurtmutEff00:  @ 0x085D8F0C
         @ PROC_NAME

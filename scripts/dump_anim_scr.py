@@ -43,10 +43,10 @@ def dump_one_part(rom_data, off):
 
             sprite_ptr = data & 0x08FFFFFC
             ANIM_SPRITE = try_get_ptr_symbol(sprite_ptr)
-            if ANIM_SPRITE == 0:
-                ANIM_SPRITE = f"{data + 0x08000000:08X}"
+            if ANIM_SPRITE == None:
+                ANIM_SPRITE = f"{sprite_ptr:08X}"
 
-            print(f"    ANIMSCR_FORCE_SPRITE {ANIM_SPRITE}, {time}")
+            print(f"    ANIMSCR_FORCE_SPRITE " + ANIM_SPRITE + f", {time}")
 
         if (data & 0x80000000):
             ins = (0x7F000000 & data) >> 24
@@ -59,7 +59,7 @@ def dump_one_part(rom_data, off):
                     print("[ERROR]: ANFMT_INS_TYPE_END")
 
                 case 2: # ANFMT_INS_TYPE_LOOP
-                    print("[ERROR]: ANFMT_INS_TYPE_LOOP")
+                    print("    ANIMSCR_LOOP")
 
                 case 3: # ANFMT_INS_TYPE_MOVE
                     print("[ERROR]: ANFMT_INS_TYPE_MOVE")
@@ -99,18 +99,22 @@ def main(args):
     off = start & 0x01FFFFFF
     off_end = end & 0x01FFFFFF
 
+    index = 1
+    PreName = ""
+
     with open(rom, 'rb') as f:
         rom_data = f.read()
 
         while True:
             name = try_get_ptr_symbol(off + 0x08000000)
             if name == None:
-                name = f"AnimScr_{off + 0x08000000:08X}"
+                name = f"AnimScr_{PreName}_{index}"
 
             print(f".global {name}")
             print(f"{name}: @ 0x{off:06X}")
             off = dump_one_part(rom_data, off)
             print("")
+            index = index + 1
 
             if off_end <= off:
                 break

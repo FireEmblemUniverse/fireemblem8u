@@ -108,11 +108,11 @@ void StartSubSpell_efxFirebreathOBJ(struct Anim * anim)
 
     if (GetAnimPosition(anim) == 0)
     {
-        scr = gUnknown_085E2A24;
+        scr = AnimScr_FirebreathOBJ_Left;
     }
     else
     {
-        scr = gUnknown_085E35DC;
+        scr = AnimScr_FirebreathOBJ_Right;
     }
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
@@ -441,8 +441,8 @@ void StartSubSpell_efxIcebreathOBJ(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxIcebreathOBJ, PROC_TREE_3);
     proc->anim = anim;
 
-    scrB = gUnknown_085E420C;
-    scrA = gUnknown_085E4E3C;
+    scrB = AnimScr_IcebreathOBJ_Right;
+    scrA = AnimScr_IcebreathOBJ_Left;
     frontAnim = EfxCreateFrontAnim(anim, scrA, scrB, scrA, scrB);
     proc->anim2 = frontAnim;
 
@@ -766,7 +766,7 @@ void StartSubSpell_efxDarkbreathOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 55;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_085E5A78, gUnknown_085E5A78, gUnknown_08723208, gUnknown_08723208);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_DarkBreath_Close, AnimScr_DarkBreath_Close, AnimScr_DarkBreath_Far, AnimScr_DarkBreath_Far);
     proc->anim2 = frontAnim;
 
     proc->unk32 = 20;

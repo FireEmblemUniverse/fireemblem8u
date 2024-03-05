@@ -1383,473 +1383,7 @@ AnimScr_EfxSongObj2: @ 0x5DD4B4
 
 .global gUnk_085dd518
 gUnk_085dd518:
-    .4byte 0x00040010
-    .4byte 0xf0000031
-    .4byte 0x0f014001
-    .4byte 0x12e0f000
-    .4byte 0x15200f42
-    .4byte 0xe000e0f0
-    .4byte 0x4c0e0f20
-    .4byte 0xf01ea0d0
-    .4byte 0x001e00f0
-    .4byte 0x030e0e1a
-    .4byte 0x00000e00
-    .4byte 0x1dc0000d
-    .4byte 0x00ca0660
-    .4byte 0xd0010024
-    .4byte 0x0f2510f0
-    .4byte 0x220e4910
-    .4byte 0x5030e0d0
-    .4byte 0x000d000d
-    .4byte 0xc000c002
-    .4byte 0x000c0000
-    .4byte 0x080000b0
-    .4byte 0x0d0e000b
-    .4byte 0x0d0c1620
-    .4byte 0xc0003c0c
-    .4byte 0x02000100
-    .4byte 0x14101620
-    .4byte 0x003ba0a0
-    .4byte 0x0027000a
-    .4byte 0xc0040014
-    .4byte 0x01001600
-    .4byte 0x0a000b02
-    .4byte 0x000a000a
-    .4byte 0x091d0019
-    .4byte 0x04109000
-    .4byte 0x8270cb60
-    .4byte 0xedc610e0
-    .4byte 0xc4107410
-    .4byte 0x40c00900
-    .4byte 0x0c471064
-    .4byte 0xb03f7e00
-    .4byte 0x104c0000
-    .4byte 0x004e0055
-    .4byte 0x006c0048
-    .4byte 0x72209055
-    .4byte 0x0d1090a0
-    .4byte 0x09090080
-    .4byte 0x087910b6
-    .4byte 0x07100900
-    .4byte 0x300f1090
-    .4byte 0x0701083f
-    .4byte 0x70000808
-    .4byte 0x02007000
-    .4byte 0x060f209f
-    .4byte 0x00261050
-    .4byte 0x00160002
-    .4byte 0x0017000e
-    .4byte 0x60000007
-    .4byte 0x00060600
-    .4byte 0x00000607
-    .4byte 0x1d000005
-    .4byte 0x0fc01ff1
-    .4byte 0x44110f4a
-    .4byte 0x1f41c00d
-    .4byte 0x0eab100c
-    .4byte 0x9d00d074
-    .4byte 0x0e00a710
-    .4byte 0x0a98200c
-    .4byte 0x07009709
-    .4byte 0xad000090
-    .4byte 0x00f610b0
-    .4byte 0x626d1094
-    .4byte 0x107b20a0
-    .4byte 0x80600789
-    .4byte 0x51009040
-    .4byte 0x60020007
-    .4byte 0x00067800
-    .4byte 0xc3821040
-    .4byte 0x16000e00
-    .4byte 0x05060505
-    .4byte 0x11000f00
-    .4byte 0x04105050
-    .4byte 0x202b2004
-    .4byte 0xc1020030
-    .4byte 0x0f001a00
-    .4byte 0x40400400
-    .4byte 0x00132030
-    .4byte 0x02030003
-    .4byte 0x20200200
-    .4byte 0x1a10007f
-    .4byte 0x45310140
-    .4byte 0xd001ac30
-    .4byte 0x1f020f00
-    .4byte 0x000f40d7
-    .4byte 0xab100cbc
-    .4byte 0x0161210b
-    .4byte 0x6c070057
-    .4byte 0x00b410a0
-    .4byte 0xc1100a07
-    .4byte 0x0070aa00
-    .4byte 0x1d210973
-    .4byte 0x0a003f21
-    .4byte 0xac000060
-    .4byte 0x10d45a01
-    .4byte 0x05a800b7
-    .4byte 0x20040210
-    .4byte 0x854040a6
-    .4byte 0x00203711
-    .4byte 0x15100404
-    .4byte 0x5eaa1002
-    .4byte 0x02171003
-    .4byte 0x09708c70
-    .4byte 0x34010190
-    .4byte 0x8d02f20f
-    .4byte 0x7f52fe41
-    .4byte 0x0c000212
-    .4byte 0x20003401
-    .4byte 0x3f42900b
-    .4byte 0x0a0b0009
-    .4byte 0xb00c3800
-    .4byte 0x4821f621
-    .4byte 0x06079a30
-    .4byte 0x01076e08
-    .4byte 0x8043011a
-    .4byte 0xc4119e00
-    .4byte 0x5e500100
-    .4byte 0x048d1080
-    .4byte 0x85000b01
-    .4byte 0x0a001f41
-    .4byte 0x04001f02
-    .4byte 0x30130030
-    .4byte 0xf08af098
-    .4byte 0xfc01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01e001f0
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20205355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44605355
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x64a05355
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x71a75355
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7ece5355
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7f765355
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7fff5355
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7fff5355
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7f765355
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x7ece5355
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x71a75355
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x64a05355
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00000000
-    .4byte 0x44605355
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00000000
-    .4byte 0x20205355
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00002020
-    .4byte 0x00005355
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x20204460
-    .4byte 0x00005355
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x446064a0
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x64a071a7
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x71a77ece
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x7ece7f76
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x7f767fff
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x7fff7fff
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x7fff7f76
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x7f767ece
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x7ece71a7
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x71a764a0
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x64a04460
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x44602020
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20200000
-    .4byte 0x00005355
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x0004b010
-    .4byte 0xf0001f3f
-    .4byte 0xf001f001
-    .4byte 0xf001f001
-    .4byte 0xff01f001
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0f8
-    .4byte 0xf001f001
-    .4byte 0x00013001
-    .4byte 0x00000100
-    .4byte 0x04020002
-    .4byte 0x70000401
-    .4byte 0xf01df004
-    .4byte 0x03017001
-    .4byte 0x00000400
-    .4byte 0x00060005
-    .4byte 0x04050406
-    .4byte 0x0304041c
-    .4byte 0x01f03df0
-    .4byte 0x00070140
-    .4byte 0x09000800
-    .4byte 0x0b000a00
-    .4byte 0x040b0000
-    .4byte 0x0409040a
-    .4byte 0x07700408
-    .4byte 0x01f03df0
-    .4byte 0x000c0100
-    .4byte 0x0e00000d
-    .4byte 0x10000f00
-    .4byte 0x00001100
-    .4byte 0x04100411
-    .4byte 0x040e040f
-    .4byte 0x0c040d18
-    .4byte 0x01f03df0
-    .4byte 0x01001200
-    .4byte 0x00140013
-    .4byte 0x20160015
-    .4byte 0x0416000d
-    .4byte 0x04140415
-    .4byte 0x12600413
-    .4byte 0x01f03bf0
-    .4byte 0x18001700
-    .4byte 0x00191000
-    .4byte 0x1a0f601a
-    .4byte 0x18041904
-    .4byte 0xf0170418
-    .4byte 0x0001f03b
-    .4byte 0x18020817
-    .4byte 0x1a081908
-    .4byte 0x0c3b6008
-    .4byte 0x180c1903
-    .4byte 0xf00c170c
-    .4byte 0x0001f029
-    .4byte 0x08130812
-    .4byte 0x08150814
-    .4byte 0x3d201640
-    .4byte 0x0c150c16
-    .4byte 0x13180c14
-    .4byte 0x3bf0120c
-    .4byte 0x0c0001f0
-    .4byte 0x080d0008
-    .4byte 0x080f080e
-    .4byte 0x11000810
-    .4byte 0x100c1108
-    .4byte 0x070c0f0c
-    .4byte 0x0c0d0c0e
-    .4byte 0xf03bf00c
-    .4byte 0x00a31101
-    .4byte 0x09080808
-    .4byte 0x0b080a08
-    .4byte 0x0c0b0800
-    .4byte 0x0c090c0a
-    .4byte 0x070c3808
-    .4byte 0x01f039f0
-    .4byte 0x04081b52
-    .4byte 0x08050008
-    .4byte 0x0c060806
-    .4byte 0x041c0c05
-    .4byte 0x39f0030c
-    .4byte 0x939201f0
-    .4byte 0x08000108
-    .4byte 0x0c020802
-    .4byte 0xff000c01
-    .4byte 0x01f039f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0x01f001f0
-    .4byte 0xf001f0e0
-    .4byte 0x0001e001
+    .incbin "baserom.gba", 0x5DD518, 0x5DDC64 - 0x5DD518
 
 	.global Img_BreathSprites
 Img_BreathSprites:  @ 0x085DDC64
@@ -1881,5461 +1415,3023 @@ Pal_DarkBreathSprites:  @ 0x085DFA48
 
 	.global Pal_WretchedAirSprites
 Pal_WretchedAirSprites:  @ 0x085DFA68
-	.incbin "baserom.gba", 0x5DFA68, 0xC14
+	.incbin "baserom.gba", 0x5DFA68, 0x20
 
-	.global gUnknown_085E067C
-gUnknown_085E067C:  @ 0x085E067C
-@ Replacing .incbin "baserom.gba", 0x5E067C, 0xC60
-    .4byte Pal_WretchedAirSprites + 0x22
-    .4byte Pal_WretchedAirSprites + 0x3a
-    .4byte Pal_WretchedAirSprites + 0x52
-    .4byte Pal_WretchedAirSprites + 0x9a
-    .4byte Pal_WretchedAirSprites + 0xd6
-    .4byte Pal_WretchedAirSprites + 0x136
-    .4byte Pal_WretchedAirSprites + 0x1ba
-    .4byte Pal_WretchedAirSprites + 0x21a
-    .4byte Pal_WretchedAirSprites + 0x27a
-    .4byte Pal_WretchedAirSprites + 0x32e
-    .4byte Pal_WretchedAirSprites + 0x3be
-    .4byte Pal_WretchedAirSprites + 0x48a
-    .4byte Pal_WretchedAirSprites + 0x5c2
-    .4byte Pal_WretchedAirSprites + 0x68e
-    .4byte Pal_WretchedAirSprites + 0x74e
-    .4byte Pal_WretchedAirSprites + 0x802
-    .4byte Pal_WretchedAirSprites + 0x8c2
-    .4byte Pal_WretchedAirSprites + 0x952
-    .4byte Pal_WretchedAirSprites + 0x9fa
-    .4byte Pal_WretchedAirSprites + 0xa42
-    .4byte Pal_WretchedAirSprites + 0xa8a
-    .4byte Pal_WretchedAirSprites + 0xaf6
-    .4byte Pal_WretchedAirSprites + 0xb56
-    .4byte Pal_WretchedAirSprites + 0xb7a
-    .4byte Pal_WretchedAirSprites + 0xbc2
-    .4byte Pal_WretchedAirSprites + 0xbda
-    .4byte 0x80000000
-    .4byte 0x10000000
-    .4byte 0xfffc0464
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfff80400
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfffc0402
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0xfff40404
-    .4byte 0x0000fff4
-    .4byte 0x10004000
-    .4byte 0xfffc0442
-    .4byte 0x00000004
-    .4byte 0x10000000
-    .4byte 0xfff40444
-    .4byte 0x00000004
-    .4byte 0x10000000
-    .4byte 0x000f0464
-    .4byte 0x00000000
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xfff00405
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0x000c0400
-    .4byte 0x0000fffc
-    .4byte 0x10000000
-    .4byte 0xfff80464
-    .4byte 0x0000ffe8
-    .4byte 0x10000000
-    .4byte 0xffe40064
-    .4byte 0x00000004
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00130402
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0x000b0404
-    .4byte 0x0000fff8
-    .4byte 0x10004000
-    .4byte 0x00130442
-    .4byte 0x00000008
-    .4byte 0x10000000
-    .4byte 0x000b0444
-    .4byte 0x00000008
-    .4byte 0x50000000
-    .4byte 0xfff40000
-    .4byte 0x0000ffe2
-    .4byte 0x50000000
-    .4byte 0xffe00000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xfff00005
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xffe40002
-    .4byte 0x0000fffc
-    .4byte 0x10008000
-    .4byte 0xffdc0004
-    .4byte 0x0000fffc
-    .4byte 0x10004000
-    .4byte 0xffe40042
-    .4byte 0x0000000c
-    .4byte 0x10000000
-    .4byte 0xffdc0044
-    .4byte 0x0000000c
-    .4byte 0x50000000
-    .4byte 0xfff80002
-    .4byte 0x0000ffdd
-    .4byte 0x10008000
-    .4byte 0xfff00004
-    .4byte 0x0000ffdd
-    .4byte 0x10004000
-    .4byte 0xfff80042
-    .4byte 0x0000ffed
-    .4byte 0x10000000
-    .4byte 0xfff00044
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0x00060005
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xfff00009
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xffe00064
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80005
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0xffec0005
-    .4byte 0x0000ffda
-    .4byte 0x90000000
-    .4byte 0x00060009
-    .4byte 0x0000fff4
-    .4byte 0x10000000
-    .4byte 0x00100064
-    .4byte 0x0000ffd0
-    .4byte 0x10000000
-    .4byte 0x002c0064
-    .4byte 0x00000004
-    .4byte 0x90000000
-    .4byte 0xfff0000d
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xffdc0000
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x0006000d
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffd80009
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0xffec0009
-    .4byte 0x0000ffd9
-    .4byte 0x50000000
-    .4byte 0x000c0000
-    .4byte 0x0000ffcc
-    .4byte 0x50000000
-    .4byte 0x00280000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xfff00011
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x10000000
-    .4byte 0xfff00064
-    .4byte 0x0000fff8
-    .4byte 0x50000000
-    .4byte 0xffe00002
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0xffd80004
-    .4byte 0x0000fff8
-    .4byte 0x10004000
-    .4byte 0xffe00042
-    .4byte 0x00000008
-    .4byte 0x10000000
-    .4byte 0xffd80044
-    .4byte 0x00000008
-    .4byte 0x90000000
-    .4byte 0x00060411
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffec040d
-    .4byte 0x0000ffd8
-    .4byte 0x80000100
-    .4byte 0x00040005
-    .4byte 0x0000ffc4
-    .4byte 0x50000000
-    .4byte 0x002c0002
-    .4byte 0x0000fffc
-    .4byte 0x10008000
-    .4byte 0x00240004
-    .4byte 0x0000fffc
-    .4byte 0x10004000
-    .4byte 0x002c0042
-    .4byte 0x0000000c
-    .4byte 0x10000000
-    .4byte 0x00240044
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0xfff00015
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x10000000
-    .4byte 0xfff00063
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0xffd40005
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffec0411
-    .4byte 0x0000ffd8
-    .4byte 0x90000000
-    .4byte 0x00060415
-    .4byte 0x0000fff4
-    .4byte 0x10000000
-    .4byte 0xfff00064
-    .4byte 0x0000ffc8
-    .4byte 0x80000100
-    .4byte 0x00040009
-    .4byte 0x0000ffc4
-    .4byte 0x10000000
-    .4byte 0xffe40064
-    .4byte 0x0000ffec
-    .4byte 0x82000100
-    .4byte 0x00200009
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0xfff00019
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x50000000
-    .4byte 0xffd00000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xfff00064
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0x00070419
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffec0415
-    .4byte 0x0000ffd7
-    .4byte 0x80000100
-    .4byte 0x00040011
-    .4byte 0x0000ffc4
-    .4byte 0x90000000
-    .4byte 0xffd40009
-    .4byte 0x0000fff4
-    .4byte 0x50000000
-    .4byte 0xffec0000
-    .4byte 0x0000ffc4
-    .4byte 0x10000000
-    .4byte 0x00140064
-    .4byte 0x0000ffe4
-    .4byte 0x50000000
-    .4byte 0xffe00000
-    .4byte 0x0000ffe8
-    .4byte 0x82000100
-    .4byte 0x0020000d
-    .4byte 0x0000fff8
-    .4byte 0x90008000
-    .4byte 0x0000041d
-    .4byte 0x0000fff0
-    .4byte 0x50008000
-    .4byte 0xfff8041f
-    .4byte 0x0000fff0
-    .4byte 0x10008000
-    .4byte 0xfff00440
-    .4byte 0x0000fff0
-    .4byte 0x10008000
-    .4byte 0xfff00441
-    .4byte 0x00000000
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x50000000
-    .4byte 0xffd40002
-    .4byte 0x0000fffc
-    .4byte 0x10008000
-    .4byte 0xffcc0004
-    .4byte 0x0000fffc
-    .4byte 0x10004000
-    .4byte 0xffd40042
-    .4byte 0x0000000c
-    .4byte 0x10000000
-    .4byte 0xffcc0044
-    .4byte 0x0000000c
-    .4byte 0x50000000
-    .4byte 0xffe40002
-    .4byte 0x0000ffe4
-    .4byte 0x10008000
-    .4byte 0xffdc0004
-    .4byte 0x0000ffe4
-    .4byte 0x10004000
-    .4byte 0xffe40042
-    .4byte 0x0000fff4
-    .4byte 0x10000000
-    .4byte 0xffdc0044
-    .4byte 0x0000fff4
-    .4byte 0x10000000
-    .4byte 0xfff00062
-    .4byte 0x0000fff8
-    .4byte 0x90008000
-    .4byte 0x0017041d
-    .4byte 0x0000fff4
-    .4byte 0x50008000
-    .4byte 0x000f041f
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0x00070440
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0x00070441
-    .4byte 0x00000004
-    .4byte 0x90000000
-    .4byte 0xffec0419
-    .4byte 0x0000ffd5
-    .4byte 0x50000000
-    .4byte 0xfff00002
-    .4byte 0x0000ffc0
-    .4byte 0x10008000
-    .4byte 0xffe80004
-    .4byte 0x0000ffc0
-    .4byte 0x10004000
-    .4byte 0xfff00042
-    .4byte 0x0000ffd0
-    .4byte 0x10000000
-    .4byte 0xffe80044
-    .4byte 0x0000ffd0
-    .4byte 0x90000000
-    .4byte 0xffd4000d
-    .4byte 0x0000fff4
-    .4byte 0x80000100
-    .4byte 0x00040015
-    .4byte 0x0000ffc4
-    .4byte 0x50000000
-    .4byte 0x00100000
-    .4byte 0x0000ffe0
-    .4byte 0x10000000
-    .4byte 0x00040064
-    .4byte 0x0000ffd4
-    .4byte 0x82000100
-    .4byte 0x00200011
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x80000100
-    .4byte 0xffc60009
-    .4byte 0x0000fff8
-    .4byte 0x80000100
-    .4byte 0xffd80009
-    .4byte 0x0000ffe0
-    .4byte 0x50000000
-    .4byte 0x00000000
-    .4byte 0x0000ffd0
-    .4byte 0x90000000
-    .4byte 0xffe40005
-    .4byte 0x0000ffbb
-    .4byte 0x90008000
-    .4byte 0xfffc041d
-    .4byte 0x0000ffd3
-    .4byte 0x50008000
-    .4byte 0xfff4041f
-    .4byte 0x0000ffd3
-    .4byte 0x10008000
-    .4byte 0xffec0440
-    .4byte 0x0000ffd3
-    .4byte 0x10008000
-    .4byte 0xffec0441
-    .4byte 0x0000ffe3
-    .4byte 0x90000000
-    .4byte 0xffd40011
-    .4byte 0x0000fff4
-    .4byte 0x82000100
-    .4byte 0x00040019
-    .4byte 0x0000ffc4
-    .4byte 0x10000000
-    .4byte 0x00080064
-    .4byte 0x0000ffb0
-    .4byte 0x10000000
-    .4byte 0xffe80064
-    .4byte 0x0000ffdc
-    .4byte 0x82000100
-    .4byte 0x00080005
-    .4byte 0x0000ffd8
-    .4byte 0x80000100
-    .4byte 0x00200015
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x80000100
-    .4byte 0xffc6000d
-    .4byte 0x0000fff8
-    .4byte 0x80000100
-    .4byte 0xffd8000d
-    .4byte 0x0000ffe0
-    .4byte 0x50000000
-    .4byte 0x00040002
-    .4byte 0x0000ffcc
-    .4byte 0x10008000
-    .4byte 0xfffc0004
-    .4byte 0x0000ffcc
-    .4byte 0x10004000
-    .4byte 0x00040042
-    .4byte 0x0000ffdc
-    .4byte 0x10000000
-    .4byte 0xfffc0044
-    .4byte 0x0000ffdc
-    .4byte 0x90000000
-    .4byte 0xffd40015
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffe40009
-    .4byte 0x0000ffbb
-    .4byte 0x50000000
-    .4byte 0x00040000
-    .4byte 0x0000ffac
-    .4byte 0x50000000
-    .4byte 0xffe40000
-    .4byte 0x0000ffd8
-    .4byte 0x82000100
-    .4byte 0x00080009
-    .4byte 0x0000ffd8
-    .4byte 0x10000000
-    .4byte 0xffe00064
-    .4byte 0x0000ffb8
-    .4byte 0x80000100
-    .4byte 0x00200019
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x80000100
-    .4byte 0xffdc0005
-    .4byte 0x0000ffd0
-    .4byte 0x82000100
-    .4byte 0xffd80015
-    .4byte 0x0000ffe0
-    .4byte 0x90000000
-    .4byte 0xfff80005
-    .4byte 0x0000ffc8
-    .4byte 0x90000000
-    .4byte 0xffd40019
-    .4byte 0x0000fff4
-    .4byte 0x90000000
-    .4byte 0xffe40011
-    .4byte 0x0000ffbb
-    .4byte 0x50000000
-    .4byte 0x00080002
-    .4byte 0x0000ffa8
-    .4byte 0x10008000
-    .4byte 0x00000004
-    .4byte 0x0000ffa8
-    .4byte 0x10004000
-    .4byte 0x00080042
-    .4byte 0x0000ffb8
-    .4byte 0x10000000
-    .4byte 0x00000044
-    .4byte 0x0000ffb8
-    .4byte 0x80000100
-    .4byte 0x00080011
-    .4byte 0x0000ffd8
-    .4byte 0x10000000
-    .4byte 0xfff00064
-    .4byte 0x0000ffb8
-    .4byte 0x10000000
-    .4byte 0xffe00063
-    .4byte 0x0000ffb8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x90000000
-    .4byte 0xfff80009
-    .4byte 0x0000ffc8
-    .4byte 0x90000000
-    .4byte 0xfffc0005
-    .4byte 0x0000ffa4
-    .4byte 0x90000000
-    .4byte 0xffe40015
-    .4byte 0x0000ffbb
-    .4byte 0x10000000
-    .4byte 0xffe40064
-    .4byte 0x0000ffa4
-    .4byte 0x80000100
-    .4byte 0xffdc000d
-    .4byte 0x0000ffd0
-    .4byte 0x90008000
-    .4byte 0xffe4041d
-    .4byte 0x0000fff4
-    .4byte 0x50008000
-    .4byte 0xffdc041f
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0xffd40440
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0xffd40441
-    .4byte 0x00000004
-    .4byte 0x80000100
-    .4byte 0x00080019
-    .4byte 0x0000ffd8
-    .4byte 0x50000000
-    .4byte 0xffec0000
-    .4byte 0x0000ffb4
-    .4byte 0x00000000
-    .4byte 0xffe00064
-    .4byte 0x0000ffb8
-    .4byte 0x82000100
-    .4byte 0xffd80019
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0xfff8000d
-    .4byte 0x0000ffc8
-    .4byte 0x50000000
-    .4byte 0xfff00002
-    .4byte 0x0000ffb0
-    .4byte 0x10008000
-    .4byte 0xffe80004
-    .4byte 0x0000ffb0
-    .4byte 0x10004000
-    .4byte 0xfff00042
-    .4byte 0x0000ffc0
-    .4byte 0x10000000
-    .4byte 0xffe80044
-    .4byte 0x0000ffc0
-    .4byte 0x50000000
-    .4byte 0xffe00000
-    .4byte 0x0000ffa0
-    .4byte 0x90000000
-    .4byte 0xfffc0009
-    .4byte 0x0000ffa4
-    .4byte 0x90000000
-    .4byte 0xffe40019
-    .4byte 0x0000ffbc
-    .4byte 0x80000100
-    .4byte 0xffdc0011
-    .4byte 0x0000ffd0
-    .4byte 0x10000000
-    .4byte 0xffe00062
-    .4byte 0x0000ffb8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0xfff80011
-    .4byte 0x0000ffc8
-    .4byte 0x90000000
-    .4byte 0xffe40005
-    .4byte 0x0000ffac
-    .4byte 0x50000000
-    .4byte 0xffe40002
-    .4byte 0x0000ff9d
-    .4byte 0x10008000
-    .4byte 0xffdc0004
-    .4byte 0x0000ff9d
-    .4byte 0x10004000
-    .4byte 0xffe40042
-    .4byte 0x0000ffad
-    .4byte 0x10000000
-    .4byte 0xffdc0044
-    .4byte 0x0000ffad
-    .4byte 0x90000000
-    .4byte 0xfffc000d
-    .4byte 0x0000ffa4
-    .4byte 0x90008000
-    .4byte 0xfff4041d
-    .4byte 0x0000ffbc
-    .4byte 0x50008000
-    .4byte 0xffec041f
-    .4byte 0x0000ffbc
-    .4byte 0x10008000
-    .4byte 0xffe40440
-    .4byte 0x0000ffbc
-    .4byte 0x10008000
-    .4byte 0xffe40441
-    .4byte 0x0000ffcc
-    .4byte 0x80000100
-    .4byte 0xffdc0019
-    .4byte 0x0000ffd0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0x00000064
-    .4byte 0x0000ffc0
-    .4byte 0x90000000
-    .4byte 0xffd80005
-    .4byte 0x0000ff98
-    .4byte 0x90000000
-    .4byte 0xfffc0011
-    .4byte 0x0000ffa3
-    .4byte 0x90000000
-    .4byte 0xffe40009
-    .4byte 0x0000ffac
-    .4byte 0x90000000
-    .4byte 0xfff80015
-    .4byte 0x0000ffc8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80005
-    .4byte 0x0000ff98
-    .4byte 0x10000000
-    .4byte 0x00000063
-    .4byte 0x0000ffc0
-    .4byte 0x90000000
-    .4byte 0xfffc0015
-    .4byte 0x0000ffa3
-    .4byte 0x90000000
-    .4byte 0xffe4000d
-    .4byte 0x0000ffac
-    .4byte 0x90000000
-    .4byte 0xfff80019
-    .4byte 0x0000ffc8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80009
-    .4byte 0x0000ff98
-    .4byte 0x00000000
-    .4byte 0x00000064
-    .4byte 0x0000ffc0
-    .4byte 0x90000000
-    .4byte 0xfffc0019
-    .4byte 0x0000ffa3
-    .4byte 0x90000000
-    .4byte 0xffe40011
-    .4byte 0x0000ffac
-    .4byte 0x90008000
-    .4byte 0x0008041d
-    .4byte 0x0000ffc8
-    .4byte 0x50008000
-    .4byte 0x0000041f
-    .4byte 0x0000ffc8
-    .4byte 0x10008000
-    .4byte 0xfff80440
-    .4byte 0x0000ffc8
-    .4byte 0x10008000
-    .4byte 0xfff80441
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd8000d
-    .4byte 0x0000ff98
-    .4byte 0x90008000
-    .4byte 0x000c041d
-    .4byte 0x0000ffa3
-    .4byte 0x50008000
-    .4byte 0x0004041f
-    .4byte 0x0000ffa3
-    .4byte 0x10008000
-    .4byte 0xfffc0440
-    .4byte 0x0000ffa3
-    .4byte 0x10008000
-    .4byte 0xfffc0441
-    .4byte 0x0000ffb3
-    .4byte 0x90000000
-    .4byte 0xffe40015
-    .4byte 0x0000ffac
-    .4byte 0x10000000
-    .4byte 0x00000062
-    .4byte 0x0000ffc0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80011
-    .4byte 0x0000ff98
-    .4byte 0x90000000
-    .4byte 0xffe40019
-    .4byte 0x0000ffac
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80015
-    .4byte 0x0000ff98
-    .4byte 0x90008000
-    .4byte 0xfff4041d
-    .4byte 0x0000ffac
-    .4byte 0x50008000
-    .4byte 0xffec041f
-    .4byte 0x0000ffac
-    .4byte 0x10008000
-    .4byte 0xffe40440
-    .4byte 0x0000ffac
-    .4byte 0x10008000
-    .4byte 0xffe40441
-    .4byte 0x0000ffbc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0xffd80019
-    .4byte 0x0000ff98
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xffe8041d
-    .4byte 0x0000ff98
-    .4byte 0x50008000
-    .4byte 0xffe0041f
-    .4byte 0x0000ff98
-    .4byte 0x10008000
-    .4byte 0xffd80440
-    .4byte 0x0000ff98
-    .4byte 0x10008000
-    .4byte 0xffd80441
-    .4byte 0x0000ffa8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left1
+AnimSprite_EfxBindingBlade_Left1:  @ 0x5DFA88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, -4, -4
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E12DC
-gUnknown_085E12DC:  @ 0x085E12DC
-@ Replacing .incbin "baserom.gba", 0x5E12DC, 0x318
-    .4byte gUnknown_085E067C + 0x6e
-    .4byte gUnknown_085E067C + 0x86
-    .4byte gUnknown_085E067C + 0x9e
-    .4byte gUnknown_085E067C + 0xe6
-    .4byte gUnknown_085E067C + 0x122
-    .4byte gUnknown_085E067C + 0x182
-    .4byte gUnknown_085E067C + 0x206
-    .4byte gUnknown_085E067C + 0x266
-    .4byte gUnknown_085E067C + 0x2c6
-    .4byte gUnknown_085E067C + 0x37a
-    .4byte gUnknown_085E067C + 0x40a
-    .4byte gUnknown_085E067C + 0x4d6
-    .4byte gUnknown_085E067C + 0x60e
-    .4byte gUnknown_085E067C + 0x6da
-    .4byte gUnknown_085E067C + 0x79a
-    .4byte gUnknown_085E067C + 0x84e
-    .4byte gUnknown_085E067C + 0x90e
-    .4byte gUnknown_085E067C + 0x99e
-    .4byte gUnknown_085E067C + 0xa46
-    .4byte gUnknown_085E067C + 0xa8e
-    .4byte gUnknown_085E067C + 0xad6
-    .4byte gUnknown_085E067C + 0xb42
-    .4byte gUnknown_085E067C + 0xba2
-    .4byte gUnknown_085E067C + 0xbc6
-    .4byte gUnknown_085E067C + 0xc0e
-    .4byte gUnknown_085E067C + 0xc26
-    .4byte 0x80000000
-    .4byte 0x40000000
-    .4byte 0xfffd0000
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80004000
-    .4byte 0xfff60040
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80004000
-    .4byte 0xfff60002
-    .4byte 0x0000ffd8
-    .4byte 0x00004000
-    .4byte 0xfffe0044
-    .4byte 0x0000ffe8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffe0006
-    .4byte 0x0000ffd0
-    .4byte 0x00000000
-    .4byte 0xfff70064
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffe0008
-    .4byte 0x0000ffd0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffd000a
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffd000c
-    .4byte 0x0000ffc0
-    .4byte 0x80008000
-    .4byte 0xfffd0010
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00010065
-    .4byte 0x0000ffc4
-    .4byte 0x80008000
-    .4byte 0xfffd0012
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffd000e
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffd0010
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffd0012
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xfffc0014
-    .4byte 0x0000ffcc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd300fb
-    .4byte 0x00fb002d
-    .4byte 0x80008100
-    .4byte 0xfff80014
-    .4byte 0x0000ffcd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbd00f7
-    .4byte 0x00f70043
-    .4byte 0x80008100
-    .4byte 0xfff70014
-    .4byte 0x0000ffce
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbd00f7
-    .4byte 0x00f70043
-    .4byte 0x40000100
-    .4byte 0xfff30016
-    .4byte 0x0000ffd3
-    .4byte 0x40000000
-    .4byte 0xfff80056
-    .4byte 0x0000ffde
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffdc00fd
-    .4byte 0x00fd0024
-    .4byte 0x40000000
-    .4byte 0xfff70056
-    .4byte 0x0000ffdf
-    .4byte 0x40000100
-    .4byte 0xfff10016
-    .4byte 0x0000ffd5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xfff00016
-    .4byte 0x0000ffd7
-    .4byte 0x40000000
-    .4byte 0xfff50056
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0x0011001a
-    .4byte 0x0000fff5
-    .4byte 0x40000000
-    .4byte 0x00010018
-    .4byte 0x0000ffed
-    .4byte 0x00008000
-    .4byte 0xfff9005b
-    .4byte 0x0000ffed
-    .4byte 0x40000000
-    .4byte 0xffe90059
-    .4byte 0x0000ffe5
-    .4byte 0x00000000
-    .4byte 0xffe10058
-    .4byte 0x0000ffe5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0x0015001e
-    .4byte 0x0000fff6
-    .4byte 0x00000000
-    .4byte 0x0004003c
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0x0017005c
-    .4byte 0x0000fff7
-    .4byte 0x40000000
-    .4byte 0x0027005e
-    .4byte 0x0000ffff
-    .4byte 0x00004000
-    .4byte 0xffe9001c
-    .4byte 0x0000ffea
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left2
+AnimSprite_EfxBindingBlade_Left2:  @ 0x5DFAA0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0400, -8, -8
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E15F4
-gUnknown_085E15F4:  @ 0x085E15F4
-@ Replacing .incbin "baserom.gba", 0x5E15F4, 0x48
-    .4byte gUnknown_085E12DC + 0x6e
-    .4byte gUnknown_085E12DC + 0x86
-    .4byte gUnknown_085E12DC + 0x9d
-    .4byte gUnknown_085E12DC + 0xc1
-    .4byte gUnknown_085E12DC + 0xe5
-    .4byte gUnknown_085E12DC + 0xfd
-    .4byte gUnknown_085E12DC + 0x117
-    .4byte gUnknown_085E12DC + 0x13b
-    .4byte gUnknown_085E12DC + 0x15f
-    .4byte gUnknown_085E12DC + 0x1a5
-    .4byte gUnknown_085E12DC + 0x1bd
-    .4byte gUnknown_085E12DC + 0x1e1
-    .4byte gUnknown_085E12DC + 0x205
-    .4byte gUnknown_085E12DC + 0x235
-    .4byte gUnknown_085E12DC + 0x265
-    .4byte gUnknown_085E12DC + 0x28a
-    .4byte gUnknown_085E12DC + 0x2d2
-    .4byte 0x80000000
+.global AnimSprite_EfxBindingBlade_Left3
+AnimSprite_EfxBindingBlade_Left3:  @ 0x5DFAB8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0402, -12, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0404, 4, -12
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0442, -12, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0444, 4, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, -23, 0
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E163C
-gUnknown_085E163C:  @ 0x085E163C
-@ Replacing .incbin "baserom.gba", 0x5E163C, 0x324
-    .4byte gUnknown_085E12DC + 0x6d
-    .4byte gUnknown_085E12DC + 0x85
-    .4byte gUnknown_085E12DC + 0x9d
-    .4byte gUnknown_085E12DC + 0xc1
-    .4byte gUnknown_085E12DC + 0xe5
-    .4byte gUnknown_085E12DC + 0xfd
-    .4byte gUnknown_085E12DC + 0x117
-    .4byte gUnknown_085E12DC + 0x13b
-    .4byte gUnknown_085E12DC + 0x15f
-    .4byte gUnknown_085E12DC + 0x177
-    .4byte gUnknown_085E12DC + 0x18f
-    .4byte gUnknown_085E12DC + 0xfe
-    .4byte gUnknown_085E12DC + 0x117
-    .4byte gUnknown_085E12DC + 0x13b
-    .4byte gUnknown_085E12DC + 0x15f
-    .4byte gUnknown_085E12DC + 0x177
-    .4byte gUnknown_085E12DC + 0x18f
-    .4byte gUnknown_085E12DC + 0x15f
-    .4byte gUnknown_085E12DC + 0x177
-    .4byte gUnknown_085E12DC + 0x18f
-    .4byte gUnknown_085E12DC + 0xfe
-    .4byte gUnknown_085E12DC + 0x1a5
-    .4byte gUnknown_085E12DC + 0x1bd
-    .4byte gUnknown_085E12DC + 0x1e1
-    .4byte gUnknown_085E12DC + 0x205
-    .4byte gUnknown_085E12DC + 0x235
-    .4byte gUnknown_085E12DC + 0x265
-    .4byte gUnknown_085E12DC + 0x28a
-    .4byte gUnknown_085E12DC + 0x2d2
-    .4byte 0x80000000
-    .4byte 0x50000000
-    .4byte 0xfff30000
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0xffea0040
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0xffea0002
-    .4byte 0x0000ffd8
-    .4byte 0x10004000
-    .4byte 0xfff20044
-    .4byte 0x0000ffe8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff20006
-    .4byte 0x0000ffd0
-    .4byte 0x10000000
-    .4byte 0x00010064
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff20008
-    .4byte 0x0000ffd0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff3000a
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff3000c
-    .4byte 0x0000ffc0
-    .4byte 0x90008000
-    .4byte 0xfff30010
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff70065
-    .4byte 0x0000ffc4
-    .4byte 0x90008000
-    .4byte 0xfff30012
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff3000e
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff30010
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff30012
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0xfff40014
-    .4byte 0x0000ffcc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0x80008100
-    .4byte 0xfff80014
-    .4byte 0x0000ffcd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbdff09
-    .4byte 0x00f7ffbd
-    .4byte 0x80008100
-    .4byte 0xfff90014
-    .4byte 0x0000ffce
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbdff09
-    .4byte 0x00f7ffbd
-    .4byte 0x40000100
-    .4byte 0xfffd0016
-    .4byte 0x0000ffd3
-    .4byte 0x50000000
-    .4byte 0xfff80056
-    .4byte 0x0000ffde
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffdcff03
-    .4byte 0x00fdffdc
-    .4byte 0x50000000
-    .4byte 0xfff90056
-    .4byte 0x0000ffdf
-    .4byte 0x40000100
-    .4byte 0xffff0016
-    .4byte 0x0000ffd5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00000016
-    .4byte 0x0000ffd7
-    .4byte 0x50000000
-    .4byte 0xfffb0056
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xffdf001a
-    .4byte 0x0000fff5
-    .4byte 0x50000000
-    .4byte 0xffef0018
-    .4byte 0x0000ffed
-    .4byte 0x10008000
-    .4byte 0xffff005b
-    .4byte 0x0000ffed
-    .4byte 0x50000000
-    .4byte 0x00070059
-    .4byte 0x0000ffe5
-    .4byte 0x10000000
-    .4byte 0x00170058
-    .4byte 0x0000ffe5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffe3001e
-    .4byte 0x0000fff6
-    .4byte 0x10000000
-    .4byte 0xfff4003c
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0xffd9005c
-    .4byte 0x0000fff7
-    .4byte 0x50000000
-    .4byte 0xffc9005e
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x0007001c
-    .4byte 0x0000ffea
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left4
+AnimSprite_EfxBindingBlade_Left4:  @ 0x5DFB00
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0405, -16, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0400, -28, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, 0, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 20, 4
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E1960
-gUnknown_085E1960:  @ 0x085E1960
-@ Replacing .incbin "baserom.gba", 0x5E1960, 0x48
-    .4byte gUnknown_085E163C + 0x7a
-    .4byte gUnknown_085E163C + 0x92
-    .4byte gUnknown_085E163C + 0xa9
-    .4byte gUnknown_085E163C + 0xcd
-    .4byte gUnknown_085E163C + 0xf1
-    .4byte gUnknown_085E163C + 0x109
-    .4byte gUnknown_085E163C + 0x123
-    .4byte gUnknown_085E163C + 0x147
-    .4byte gUnknown_085E163C + 0x16b
-    .4byte gUnknown_085E163C + 0x1b1
-    .4byte gUnknown_085E163C + 0x1c9
-    .4byte gUnknown_085E163C + 0x1ed
-    .4byte gUnknown_085E163C + 0x211
-    .4byte gUnknown_085E163C + 0x241
-    .4byte gUnknown_085E163C + 0x271
-    .4byte gUnknown_085E163C + 0x296
-    .4byte gUnknown_085E163C + 0x2de
-    .4byte 0x80000000
+.global AnimSprite_EfxBindingBlade_Left5
+AnimSprite_EfxBindingBlade_Left5:  @ 0x5DFB3C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0402, -35, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0404, -19, -8
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0442, -35, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0444, -19, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -4, -30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 16, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E19A8
-gUnknown_085E19A8:  @ 0x085E19A8
-@ Replacing .incbin "baserom.gba", 0x5E19A8, 0x2A0
-    .4byte gUnknown_085E163C + 0x79
-    .4byte gUnknown_085E163C + 0x91
-    .4byte gUnknown_085E163C + 0xa9
-    .4byte gUnknown_085E163C + 0xcd
-    .4byte gUnknown_085E163C + 0xf1
-    .4byte gUnknown_085E163C + 0x109
-    .4byte gUnknown_085E163C + 0x123
-    .4byte gUnknown_085E163C + 0x147
-    .4byte gUnknown_085E163C + 0x16b
-    .4byte gUnknown_085E163C + 0x183
-    .4byte gUnknown_085E163C + 0x19b
-    .4byte gUnknown_085E163C + 0x10a
-    .4byte gUnknown_085E163C + 0x123
-    .4byte gUnknown_085E163C + 0x147
-    .4byte gUnknown_085E163C + 0x16b
-    .4byte gUnknown_085E163C + 0x183
-    .4byte gUnknown_085E163C + 0x19b
-    .4byte gUnknown_085E163C + 0x16b
-    .4byte gUnknown_085E163C + 0x183
-    .4byte gUnknown_085E163C + 0x19b
-    .4byte gUnknown_085E163C + 0x10a
-    .4byte gUnknown_085E163C + 0x1b1
-    .4byte gUnknown_085E163C + 0x1c9
-    .4byte gUnknown_085E163C + 0x1ed
-    .4byte gUnknown_085E163C + 0x211
-    .4byte gUnknown_085E163C + 0x241
-    .4byte gUnknown_085E163C + 0x271
-    .4byte gUnknown_085E163C + 0x296
-    .4byte gUnknown_085E163C + 0x2de
-    .4byte 0x80000000
-    .4byte 0x00000000
-    .4byte 0x0016007e
-    .4byte 0x0000fff6
-    .4byte 0x00000000
-    .4byte 0x0006007d
-    .4byte 0x0000fff0
-    .4byte 0x80004000
-    .4byte 0x00160004
-    .4byte 0x0000fffa
-    .4byte 0x00000000
-    .4byte 0xfff3007f
-    .4byte 0x0000ffea
-    .4byte 0x10004000
-    .4byte 0x0034007a
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x20000000
-    .4byte 0x0008007e
-    .4byte 0x0000ffec
-    .4byte 0x80004000
-    .4byte 0x00160040
-    .4byte 0x0000fffa
-    .4byte 0x10000000
-    .4byte 0xfff6007d
-    .4byte 0x0000ffe9
-    .4byte 0x10000000
-    .4byte 0x0039007f
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80004000
-    .4byte 0x00160044
-    .4byte 0x0000fffb
-    .4byte 0x10000000
-    .4byte 0xfff7007e
-    .4byte 0x0000ffe9
-    .4byte 0x30000000
-    .4byte 0x003b007e
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80004000
-    .4byte 0x00150000
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0x00130008
-    .4byte 0x0000ffe7
-    .4byte 0x80008000
-    .4byte 0x0023000a
-    .4byte 0x0000ffe7
-    .4byte 0x00008000
-    .4byte 0x002f0001
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00004000
-    .4byte 0x00000077
-    .4byte 0x0000ffcb
-    .4byte 0x00004000
-    .4byte 0xffe70077
-    .4byte 0x0000ffc8
-    .4byte 0x40008000
-    .4byte 0xffda000c
-    .4byte 0x0000ffca
-    .4byte 0x80004000
-    .4byte 0xffe2000d
-    .4byte 0x0000ffca
-    .4byte 0x40000000
-    .4byte 0x00020011
-    .4byte 0x0000ffca
-    .4byte 0x40000000
-    .4byte 0x00120051
-    .4byte 0x0000ffd2
-    .4byte 0x00000000
-    .4byte 0x000a0070
-    .4byte 0x0000ffda
-    .4byte 0x00000000
-    .4byte 0x00220050
-    .4byte 0x0000ffe0
-    .4byte 0x00000000
-    .4byte 0xffe2004d
-    .4byte 0x0000ffda
-    .4byte 0x40004000
-    .4byte 0xffe20013
-    .4byte 0x0000ffc2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00008000
-    .4byte 0xffd8001d
-    .4byte 0x0000ffd0
-    .4byte 0x40000000
-    .4byte 0xffda0038
-    .4byte 0x0000ffe4
-    .4byte 0x40000000
-    .4byte 0xffea003a
-    .4byte 0x0000fff4
-    .4byte 0x00000000
-    .4byte 0xffe2005c
-    .4byte 0x0000fff4
-    .4byte 0x40004000
-    .4byte 0x00050018
-    .4byte 0x00000000
-    .4byte 0x00004000
-    .4byte 0xffff0077
-    .4byte 0x0000ffc9
-    .4byte 0x20004000
-    .4byte 0xffe50077
-    .4byte 0x0000ffc8
-    .4byte 0x00000000
-    .4byte 0xffe2007c
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00004000
-    .4byte 0xfff8003e
-    .4byte 0x0000ffc8
-    .4byte 0x20004000
-    .4byte 0xffe0003e
-    .4byte 0x0000ffca
-    .4byte 0x00000000
-    .4byte 0xffd8005e
-    .4byte 0x0000ffd8
-    .4byte 0x00000000
-    .4byte 0xffe0001c
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left6
+AnimSprite_EfxBindingBlade_Left6:  @ 0x5DFB9C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 12, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 28, -4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 12, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 28, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -8, -35
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 8, -35
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -8, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 8, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -38, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E1C48
-gUnknown_085E1C48:  @ 0x085E1C48
-	.incbin "baserom.gba", 0x5E1C48, 0x10
+.global AnimSprite_EfxBindingBlade_Left7
+AnimSprite_EfxBindingBlade_Left7:  @ 0x5DFC20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 24, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 8, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -12, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -38, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -24, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -52, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E1C58
-gUnknown_085E1C58:  @ 0x085E1C58
-@ Replacing .incbin "baserom.gba", 0x5E1C58, 0x24C
-    .4byte gUnknown_085E19A8 + 0x7b
-    .4byte gUnknown_085E19A8 + 0xc3
-    .4byte gUnknown_085E19A8 + 0xff
-    .4byte 0x185e1ad4
-    .4byte gUnknown_085E19A8 + 0x147
-    .4byte gUnknown_085E19A8 + 0x176
-    .4byte gUnknown_085E19A8 + 0x1fa
-    .4byte gUnknown_085E19A8 + 0x266
-    .4byte 0x80000000
-    .4byte 0x10000000
-    .4byte 0xffe2007e
-    .4byte 0x0000fff6
-    .4byte 0x10000000
-    .4byte 0xfff2007d
-    .4byte 0x0000fff0
-    .4byte 0x90004000
-    .4byte 0xffca0004
-    .4byte 0x0000fffa
-    .4byte 0x10000000
-    .4byte 0x0005007f
-    .4byte 0x0000ffea
-    .4byte 0x00004000
-    .4byte 0xffbc007a
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x30000000
-    .4byte 0xfff0007e
-    .4byte 0x0000ffec
-    .4byte 0x90004000
-    .4byte 0xffca0040
-    .4byte 0x0000fffa
-    .4byte 0x00000000
-    .4byte 0x0002007d
-    .4byte 0x0000ffe9
-    .4byte 0x00000000
-    .4byte 0xffbf007f
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0xffca0044
-    .4byte 0x0000fffb
-    .4byte 0x00000000
-    .4byte 0x0001007e
-    .4byte 0x0000ffe9
-    .4byte 0x20000000
-    .4byte 0xffbd007e
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90004000
-    .4byte 0xffcb0000
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xffdd0008
-    .4byte 0x0000ffe7
-    .4byte 0x90008000
-    .4byte 0xffcd000a
-    .4byte 0x0000ffe7
-    .4byte 0x10008000
-    .4byte 0xffc90001
-    .4byte 0x00000003
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0xfff00077
-    .4byte 0x0000ffcb
-    .4byte 0x10004000
-    .4byte 0x00090077
-    .4byte 0x0000ffc8
-    .4byte 0x50008000
-    .4byte 0x001e000c
-    .4byte 0x0000ffca
-    .4byte 0x90004000
-    .4byte 0xfffe000d
-    .4byte 0x0000ffca
-    .4byte 0x50000000
-    .4byte 0xffee0011
-    .4byte 0x0000ffca
-    .4byte 0x50000000
-    .4byte 0xffde0051
-    .4byte 0x0000ffd2
-    .4byte 0x10000000
-    .4byte 0xffee0070
-    .4byte 0x0000ffda
-    .4byte 0x10000000
-    .4byte 0xffd60050
-    .4byte 0x0000ffe0
-    .4byte 0x10000000
-    .4byte 0x0016004d
-    .4byte 0x0000ffda
-    .4byte 0x50004000
-    .4byte 0xfffe0013
-    .4byte 0x0000ffc2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10008000
-    .4byte 0x0020001d
-    .4byte 0x0000ffd0
-    .4byte 0x50000000
-    .4byte 0x00160038
-    .4byte 0x0000ffe4
-    .4byte 0x50000000
-    .4byte 0x0006003a
-    .4byte 0x0000fff4
-    .4byte 0x10000000
-    .4byte 0x0016005c
-    .4byte 0x0000fff4
-    .4byte 0x50004000
-    .4byte 0xffdb0018
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0xfff10077
-    .4byte 0x0000ffc9
-    .4byte 0x30004000
-    .4byte 0x000b0077
-    .4byte 0x0000ffc8
-    .4byte 0x10000000
-    .4byte 0x0016007c
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0xfff8003e
-    .4byte 0x0000ffc8
-    .4byte 0x30004000
-    .4byte 0x0010003e
-    .4byte 0x0000ffca
-    .4byte 0x10000000
-    .4byte 0x0020005e
-    .4byte 0x0000ffd8
-    .4byte 0x10000000
-    .4byte 0x0018001c
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left8
+AnimSprite_EfxBindingBlade_Left8:  @ 0x5DFC80
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 20, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -38, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 8, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -12, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -28, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -56, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E1EA4
-gUnknown_085E1EA4:  @ 0x085E1EA4
-	.incbin "baserom.gba", 0x5E1EA4, 0x10
+.global AnimSprite_EfxBindingBlade_Left9
+AnimSprite_EfxBindingBlade_Left9:  @ 0x5DFCE0
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 16, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 32, -8
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 16, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 32, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0411, -38, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x040D, -12, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -36, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -60, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -44, -4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -60, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -44, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E1EB4
-gUnknown_085E1EB4:  @ 0x085E1EB4
-@ Replacing .incbin "baserom.gba", 0x5E1EB4, 0xB70
-    .4byte gUnknown_085E1C58 + 0x27
-    .4byte gUnknown_085E1C58 + 0x6f
-    .4byte gUnknown_085E1C58 + 0xab
-    .4byte 0x185e1d30
-    .4byte gUnknown_085E1C58 + 0xf3
-    .4byte gUnknown_085E1C58 + 0x122
-    .4byte gUnknown_085E1C58 + 0x1a6
-    .4byte gUnknown_085E1C58 + 0x212
-    .4byte 0x80000000
-    .4byte 0x00000000
-    .4byte 0x00100064
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0x00000000
-    .4byte 0x0000fff6
-    .4byte 0x00000000
-    .4byte 0x00100063
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xffea0002
-    .4byte 0x0000fff1
-    .4byte 0x00008000
-    .4byte 0xfffa0004
-    .4byte 0x0000fff1
-    .4byte 0x00004000
-    .4byte 0xffea0042
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0xfffa0044
-    .4byte 0x00000001
-    .4byte 0x40000000
-    .4byte 0xfffe0000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xa0000000
-    .4byte 0xffca0005
-    .4byte 0x0000fff7
-    .4byte 0x60000000
-    .4byte 0xffe50002
-    .4byte 0x0000fffb
-    .4byte 0x20008000
-    .4byte 0xfff50004
-    .4byte 0x0000fffb
-    .4byte 0x20004000
-    .4byte 0xffe50042
-    .4byte 0x0000fff3
-    .4byte 0x20000000
-    .4byte 0xfff50044
-    .4byte 0x0000fff3
-    .4byte 0x60000000
-    .4byte 0xfff60000
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000141
-    .4byte 0x01410000
-    .4byte 0x80000000
-    .4byte 0xffb50009
-    .4byte 0x0000ffec
-    .4byte 0x80000100
-    .4byte 0xffcd0005
-    .4byte 0x0000fffa
-    .4byte 0x40000000
-    .4byte 0xffe50002
-    .4byte 0x0000fff4
-    .4byte 0x00008000
-    .4byte 0xfff50004
-    .4byte 0x0000fff4
-    .4byte 0x00004000
-    .4byte 0xffe50042
-    .4byte 0x00000004
-    .4byte 0x00000000
-    .4byte 0xfff50044
-    .4byte 0x00000004
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffd70005
-    .4byte 0x0000ffed
-    .4byte 0x80000000
-    .4byte 0xffb3000d
-    .4byte 0x0000ffe7
-    .4byte 0x40000000
-    .4byte 0xfff40000
-    .4byte 0x0000fff5
-    .4byte 0x80000000
-    .4byte 0xffcc0009
-    .4byte 0x0000fff8
-    .4byte 0x00000000
-    .4byte 0x00080064
-    .4byte 0x0000fffe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000141
-    .4byte 0x01410000
-    .4byte 0x80000000
-    .4byte 0xffc40005
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffa00011
-    .4byte 0x0000ffe7
-    .4byte 0x40000000
-    .4byte 0xffdf0002
-    .4byte 0x0000fff7
-    .4byte 0x00008000
-    .4byte 0xffef0004
-    .4byte 0x0000fff7
-    .4byte 0x00004000
-    .4byte 0xffdf0042
-    .4byte 0x00000007
-    .4byte 0x00000000
-    .4byte 0xffef0044
-    .4byte 0x00000007
-    .4byte 0x80000100
-    .4byte 0xffb8000d
-    .4byte 0x0000fffd
-    .4byte 0x40000000
-    .4byte 0xfffc0000
-    .4byte 0x0000fffa
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0x40000000
-    .4byte 0xffe60002
-    .4byte 0x0000fffe
-    .4byte 0x00008000
-    .4byte 0xfff60004
-    .4byte 0x0000fffe
-    .4byte 0x00004000
-    .4byte 0xffe60042
-    .4byte 0x0000000e
-    .4byte 0x00000000
-    .4byte 0xfff60044
-    .4byte 0x0000000e
-    .4byte 0x80000000
-    .4byte 0xff9c0015
-    .4byte 0x0000ffe9
-    .4byte 0x80000000
-    .4byte 0xffce0005
-    .4byte 0x0000ffea
-    .4byte 0x80000100
-    .4byte 0xffbc0011
-    .4byte 0x0000fffd
-    .4byte 0x40000000
-    .4byte 0xffc20002
-    .4byte 0x0000ffe6
-    .4byte 0x00008000
-    .4byte 0xffd20004
-    .4byte 0x0000ffe6
-    .4byte 0x00004000
-    .4byte 0xffc20042
-    .4byte 0x0000fff6
-    .4byte 0x00000000
-    .4byte 0xffd20044
-    .4byte 0x0000fff6
-    .4byte 0x40000000
-    .4byte 0xfffb0000
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xffe00002
-    .4byte 0x00000000
-    .4byte 0x00008000
-    .4byte 0xfff00004
-    .4byte 0x00000000
-    .4byte 0x00004000
-    .4byte 0xffe00042
-    .4byte 0x00000010
-    .4byte 0x00000000
-    .4byte 0xfff00044
-    .4byte 0x00000010
-    .4byte 0x80000000
-    .4byte 0xff8c0019
-    .4byte 0x0000ffd9
-    .4byte 0x80000000
-    .4byte 0xffc70009
-    .4byte 0x0000ffef
-    .4byte 0x80000000
-    .4byte 0xffb20005
-    .4byte 0x0000ffe8
-    .4byte 0x00000000
-    .4byte 0x00050063
-    .4byte 0x00000001
-    .4byte 0x80000000
-    .4byte 0xff9c0011
-    .4byte 0x0000fff9
-    .4byte 0x40000000
-    .4byte 0xffec0000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffca0005
-    .4byte 0x0000fff9
-    .4byte 0x80000000
-    .4byte 0xffba000d
-    .4byte 0x0000ffe7
-    .4byte 0x80000000
-    .4byte 0xffa80005
-    .4byte 0x0000ffde
-    .4byte 0x40000000
-    .4byte 0xfff20000
-    .4byte 0x0000fff9
-    .4byte 0x40000000
-    .4byte 0xffea0000
-    .4byte 0x0000fffe
-    .4byte 0x40000000
-    .4byte 0xffaf0002
-    .4byte 0x00000003
-    .4byte 0x00008000
-    .4byte 0xffbf0004
-    .4byte 0x00000003
-    .4byte 0x00004000
-    .4byte 0xffaf0042
-    .4byte 0x00000013
-    .4byte 0x00000000
-    .4byte 0xffbf0044
-    .4byte 0x00000013
-    .4byte 0x80000100
-    .4byte 0xffd50009
-    .4byte 0x0000ffe9
-    .4byte 0xa0000000
-    .4byte 0xff8a0019
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0xa0000000
-    .4byte 0xffb90009
-    .4byte 0x0000ffe2
-    .4byte 0xa0000000
-    .4byte 0xffab0011
-    .4byte 0x0000fff8
-    .4byte 0x60000000
-    .4byte 0xffdf0002
-    .4byte 0x00000002
-    .4byte 0x20008000
-    .4byte 0xffef0004
-    .4byte 0x00000002
-    .4byte 0x20004000
-    .4byte 0xffdf0042
-    .4byte 0x0000fffa
-    .4byte 0x20000000
-    .4byte 0xffef0044
-    .4byte 0x0000fffa
-    .4byte 0x60000000
-    .4byte 0xffcb0002
-    .4byte 0x0000fffa
-    .4byte 0x20008000
-    .4byte 0xffdb0004
-    .4byte 0x0000fffa
-    .4byte 0x20004000
-    .4byte 0xffcb0042
-    .4byte 0x0000fff2
-    .4byte 0x20000000
-    .4byte 0xffdb0044
-    .4byte 0x0000fff2
-    .4byte 0x60000000
-    .4byte 0xff9f0002
-    .4byte 0x0000ffe8
-    .4byte 0x20008000
-    .4byte 0xffaf0004
-    .4byte 0x0000ffe8
-    .4byte 0x20004000
-    .4byte 0xff9f0042
-    .4byte 0x0000ffe0
-    .4byte 0x20000000
-    .4byte 0xffaf0044
-    .4byte 0x0000ffe0
-    .4byte 0x80000100
-    .4byte 0xff8d0009
-    .4byte 0x0000fff0
-    .4byte 0x60000000
-    .4byte 0xfff40000
-    .4byte 0x0000fffd
-    .4byte 0x82000100
-    .4byte 0xffc3000d
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0xa0000000
-    .4byte 0xffb4000d
-    .4byte 0x0000ffe3
-    .4byte 0xa0000000
-    .4byte 0xffa40015
-    .4byte 0x0000fff3
-    .4byte 0xa0000000
-    .4byte 0xffd40005
-    .4byte 0x0000fff3
-    .4byte 0xa0000000
-    .4byte 0xffa40005
-    .4byte 0x0000ffe9
-    .4byte 0xa0000000
-    .4byte 0xff8b0005
-    .4byte 0x0000ffde
-    .4byte 0x80000100
-    .4byte 0x007f000d
-    .4byte 0x0000fffc
-    .4byte 0x00000000
-    .4byte 0x000c0064
-    .4byte 0x00000002
-    .4byte 0x60000000
-    .4byte 0xfff40000
-    .4byte 0x0000fffc
-    .4byte 0x82000100
-    .4byte 0xffba0011
-    .4byte 0x0000ffff
-    .4byte 0x20000000
-    .4byte 0xffdc0064
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xa0000000
-    .4byte 0xffc70005
-    .4byte 0x0000fff8
-    .4byte 0xa0000000
-    .4byte 0xffaf0011
-    .4byte 0x0000ffe8
-    .4byte 0xa0000000
-    .4byte 0xff9f0019
-    .4byte 0x0000fff9
-    .4byte 0xa0000000
-    .4byte 0xff8f0009
-    .4byte 0x0000ffeb
-    .4byte 0x00000000
-    .4byte 0xfff30064
-    .4byte 0x00000008
-    .4byte 0x40000000
-    .4byte 0xfffb0000
-    .4byte 0x00000000
-    .4byte 0x60000000
-    .4byte 0xffe70000
-    .4byte 0x0000fffd
-    .4byte 0x20000000
-    .4byte 0xffd50063
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0xa0000000
-    .4byte 0xff960019
-    .4byte 0x0000fffc
-    .4byte 0xa0000000
-    .4byte 0xffa60015
-    .4byte 0x0000ffdf
-    .4byte 0xa0000000
-    .4byte 0xffbf0009
-    .4byte 0x0000fffa
-    .4byte 0x00000000
-    .4byte 0x00040063
-    .4byte 0x00000004
-    .4byte 0x20000000
-    .4byte 0xffe70063
-    .4byte 0x00000005
-    .4byte 0x60000000
-    .4byte 0xffeb0002
-    .4byte 0x00000001
-    .4byte 0x20008000
-    .4byte 0xfffb0004
-    .4byte 0x00000001
-    .4byte 0x20004000
-    .4byte 0xffeb0042
-    .4byte 0x0000fff9
-    .4byte 0x20000000
-    .4byte 0xfffb0044
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0xffd40009
-    .4byte 0x0000ffec
-    .4byte 0x20000000
-    .4byte 0xffcd0064
-    .4byte 0x0000ffe9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0xa0000000
-    .4byte 0xffa10019
-    .4byte 0x0000ffe1
-    .4byte 0xa0000000
-    .4byte 0xffbb000d
-    .4byte 0x0000fff8
-    .4byte 0x60000000
-    .4byte 0xffa90002
-    .4byte 0x00000011
-    .4byte 0x20008000
-    .4byte 0xffb90004
-    .4byte 0x00000011
-    .4byte 0x20004000
-    .4byte 0xffa90042
-    .4byte 0x00000009
-    .4byte 0x20000000
-    .4byte 0xffb90044
-    .4byte 0x00000009
-    .4byte 0x60000000
-    .4byte 0xfff70000
-    .4byte 0x00000001
-    .4byte 0x60000000
-    .4byte 0xffe60002
-    .4byte 0x0000fffe
-    .4byte 0x20008000
-    .4byte 0xfff60004
-    .4byte 0x0000fffe
-    .4byte 0x20004000
-    .4byte 0xffe60042
-    .4byte 0x0000fff6
-    .4byte 0x20000000
-    .4byte 0xfff60044
-    .4byte 0x0000fff6
-    .4byte 0x20000000
-    .4byte 0xffdf0064
-    .4byte 0x0000fffb
-    .4byte 0x80000100
-    .4byte 0xffd80009
-    .4byte 0x0000fffc
-    .4byte 0x82000100
-    .4byte 0xffcf000d
-    .4byte 0x0000ffe3
-    .4byte 0x20000000
-    .4byte 0xffc70062
-    .4byte 0x0000ffe5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80008000
-    .4byte 0xff93001d
-    .4byte 0x0000fffc
-    .4byte 0x40008000
-    .4byte 0xffa3001f
-    .4byte 0x0000fffc
-    .4byte 0x00008000
-    .4byte 0xffab0040
-    .4byte 0x0000fffc
-    .4byte 0x00008000
-    .4byte 0xffab0041
-    .4byte 0x0000000c
-    .4byte 0x80000000
-    .4byte 0xffb30011
-    .4byte 0x0000ffed
-    .4byte 0x80000000
-    .4byte 0x007f0015
-    .4byte 0x0000fff7
-    .4byte 0x80000000
-    .4byte 0xff8f0005
-    .4byte 0x0000ffe5
-    .4byte 0x40000000
-    .4byte 0xffea0002
-    .4byte 0x0000fff6
-    .4byte 0x00008000
-    .4byte 0xfffa0004
-    .4byte 0x0000fff6
-    .4byte 0x00004000
-    .4byte 0xffea0042
-    .4byte 0x00000006
-    .4byte 0x00000000
-    .4byte 0xfffa0044
-    .4byte 0x00000006
-    .4byte 0x80000000
-    .4byte 0xffcf0005
-    .4byte 0x0000fff8
-    .4byte 0x00000000
-    .4byte 0xffcb0062
-    .4byte 0x00000011
-    .4byte 0x80000100
-    .4byte 0xffcb000d
-    .4byte 0x0000ffe3
-    .4byte 0x82000100
-    .4byte 0xffbb0011
-    .4byte 0x00000009
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffb50015
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffdf0005
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffbf0009
-    .4byte 0x00000002
-    .4byte 0x80000000
-    .4byte 0xff920009
-    .4byte 0x0000ffe3
-    .4byte 0x80000100
-    .4byte 0xffcb0015
-    .4byte 0x0000ffe3
-    .4byte 0x82000100
-    .4byte 0xffac0011
-    .4byte 0x0000000c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x40000000
-    .4byte 0xffd10000
-    .4byte 0x00000004
-    .4byte 0x80000000
-    .4byte 0xffaa0019
-    .4byte 0x0000ffea
-    .4byte 0x80000000
-    .4byte 0xffd40009
-    .4byte 0x0000ffed
-    .4byte 0x80000000
-    .4byte 0xffa3000d
-    .4byte 0x0000fffe
-    .4byte 0x80000000
-    .4byte 0xff88000d
-    .4byte 0x0000ffdf
-    .4byte 0x00000000
-    .4byte 0xffca0064
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffba0019
-    .4byte 0x0000ffdf
-    .4byte 0x80000100
-    .4byte 0xff8e0015
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80008000
-    .4byte 0xffa2001d
-    .4byte 0x0000ffec
-    .4byte 0x40008000
-    .4byte 0xffb2001f
-    .4byte 0x0000ffec
-    .4byte 0x00008000
-    .4byte 0xffba0040
-    .4byte 0x0000ffec
-    .4byte 0x00008000
-    .4byte 0xffba0041
-    .4byte 0x0000fffc
-    .4byte 0x40000000
-    .4byte 0xffca0002
-    .4byte 0x0000ffff
-    .4byte 0x00008000
-    .4byte 0xffda0004
-    .4byte 0x0000ffff
-    .4byte 0x00004000
-    .4byte 0xffca0042
-    .4byte 0x0000000f
-    .4byte 0x00000000
-    .4byte 0xffda0044
-    .4byte 0x0000000f
-    .4byte 0x80000000
-    .4byte 0xffd0000d
-    .4byte 0x0000ffed
-    .4byte 0x80000000
-    .4byte 0xff980011
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff870011
-    .4byte 0x0000ffde
-    .4byte 0x00000000
-    .4byte 0xffc60063
-    .4byte 0x0000ffed
-    .4byte 0x80000100
-    .4byte 0xff800019
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffb30005
-    .4byte 0x0000fffd
-    .4byte 0x80000000
-    .4byte 0xffc60011
-    .4byte 0x0000ffeb
-    .4byte 0x80000000
-    .4byte 0xff8d0015
-    .4byte 0x0000fffc
-    .4byte 0x80000000
-    .4byte 0xff880015
-    .4byte 0x0000ffdd
-    .4byte 0x00000000
-    .4byte 0xffb80064
-    .4byte 0x0000ffe8
-    .4byte 0x40000000
-    .4byte 0xffb80000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffa20009
-    .4byte 0x0000fffb
-    .4byte 0x80000000
-    .4byte 0xff900019
-    .4byte 0x0000fff3
-    .4byte 0x80000000
-    .4byte 0xff880019
-    .4byte 0x0000ffd9
-    .4byte 0x80000000
-    .4byte 0xffbc0015
-    .4byte 0x0000ffe9
-    .4byte 0x00000000
-    .4byte 0xffb00062
-    .4byte 0x0000ffe4
-    .4byte 0x40000000
-    .4byte 0xffab0000
-    .4byte 0x0000ffed
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffb00019
-    .4byte 0x0000ffe7
-    .4byte 0x80000000
-    .4byte 0xff92000d
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0xff980009
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xff8d0011
-    .4byte 0x0000fff6
-    .4byte 0x80008000
-    .4byte 0xffa3001d
-    .4byte 0x0000ffe4
-    .4byte 0x40008000
-    .4byte 0xffb3001f
-    .4byte 0x0000ffe4
-    .4byte 0x00008000
-    .4byte 0xffbb0040
-    .4byte 0x0000ffe4
-    .4byte 0x00008000
-    .4byte 0xffbb0041
-    .4byte 0x0000fff4
-    .4byte 0x80000100
-    .4byte 0xff90000d
-    .4byte 0x0000ffdc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff9e0015
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff900019
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xff88001d
-    .4byte 0x0000ffe8
-    .4byte 0x40008000
-    .4byte 0xff98001f
-    .4byte 0x0000ffe8
-    .4byte 0x00008000
-    .4byte 0xffa00040
-    .4byte 0x0000ffe8
-    .4byte 0x00008000
-    .4byte 0xffa00041
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left10
+AnimSprite_EfxBindingBlade_Left10:  @ 0x5DFD94
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 8, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0411, -12, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0415, -38, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -36, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 20, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0009, -64, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -16, -16
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E2A24
-gUnknown_085E2A24:  @ 0x085E2A24
-@ Replacing .incbin "baserom.gba", 0x5E2A24, 0xBB8
-    .4byte gUnknown_085E1EB4 + 0x26
-    .4byte gUnknown_085E1EB4 + 0x3e
-    .4byte gUnknown_085E1EB4 + 0x62
-    .4byte gUnknown_085E1EB4 + 0xaa
-    .4byte gUnknown_085E1EB4 + 0xfe
-    .4byte gUnknown_085E1EB4 + 0x15e
-    .4byte gUnknown_085E1EB4 + 0x1a6
-    .4byte gUnknown_085E1EB4 + 0x21e
-    .4byte gUnknown_085E1EB4 + 0x2c6
-    .4byte gUnknown_085E1EB4 + 0x34a
-    .4byte gUnknown_085E1EB4 + 0x3e6
-    .4byte gUnknown_085E1EB4 + 0x4d6
-    .4byte gUnknown_085E1EB4 + 0x572
-    .4byte gUnknown_085E1EB4 + 0x5de
-    .4byte gUnknown_085E1EB4 + 0x67a
-    .4byte gUnknown_085E1EB4 + 0x752
-    .4byte gUnknown_085E1EB4 + 0x82a
-    .4byte gUnknown_085E1EB4 + 0x896
-    .4byte gUnknown_085E1EB4 + 0x90e
-    .4byte gUnknown_085E1EB4 + 0x9c2
-    .4byte gUnknown_085E1EB4 + 0xa16
-    .4byte gUnknown_085E1EB4 + 0xa6a
-    .4byte gUnknown_085E1EB4 + 0xaa6
-    .4byte gUnknown_085E1EB4 + 0xb06
-    .4byte gUnknown_085E1EB4 + 0xb1e
-    .4byte gUnknown_085E1EB4 + 0xb36
-    .4byte 0x80000000
-    .4byte 0x10000000
-    .4byte 0xffe80064
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfff00000
-    .4byte 0x0000fff6
-    .4byte 0x10000000
-    .4byte 0xffe80063
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00060002
-    .4byte 0x0000fff1
-    .4byte 0x10008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fff1
-    .4byte 0x10004000
-    .4byte 0x00060042
-    .4byte 0x00000001
-    .4byte 0x10000000
-    .4byte 0xfffe0044
-    .4byte 0x00000001
-    .4byte 0x50000000
-    .4byte 0xfff20000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xb0000000
-    .4byte 0x00160005
-    .4byte 0x0000fff7
-    .4byte 0x70000000
-    .4byte 0x000b0002
-    .4byte 0x0000fffb
-    .4byte 0x30008000
-    .4byte 0x00030004
-    .4byte 0x0000fffb
-    .4byte 0x30004000
-    .4byte 0x000b0042
-    .4byte 0x0000fff3
-    .4byte 0x30000000
-    .4byte 0x00030044
-    .4byte 0x0000fff3
-    .4byte 0x70000000
-    .4byte 0xfffa0000
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x002b0009
-    .4byte 0x0000ffec
-    .4byte 0x80000100
-    .4byte 0x00130005
-    .4byte 0x0000fffa
-    .4byte 0x50000000
-    .4byte 0x000b0002
-    .4byte 0x0000fff4
-    .4byte 0x10008000
-    .4byte 0x00030004
-    .4byte 0x0000fff4
-    .4byte 0x10004000
-    .4byte 0x000b0042
-    .4byte 0x00000004
-    .4byte 0x10000000
-    .4byte 0x00030044
-    .4byte 0x00000004
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00090005
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0x002d000d
-    .4byte 0x0000ffe7
-    .4byte 0x50000000
-    .4byte 0xfffc0000
-    .4byte 0x0000fff5
-    .4byte 0x90000000
-    .4byte 0x00140009
-    .4byte 0x0000fff8
-    .4byte 0x10000000
-    .4byte 0xfff00064
-    .4byte 0x0000fffe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x001c0005
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00400011
-    .4byte 0x0000ffe7
-    .4byte 0x50000000
-    .4byte 0x00110002
-    .4byte 0x0000fff7
-    .4byte 0x10008000
-    .4byte 0x00090004
-    .4byte 0x0000fff7
-    .4byte 0x10004000
-    .4byte 0x00110042
-    .4byte 0x00000007
-    .4byte 0x10000000
-    .4byte 0x00090044
-    .4byte 0x00000007
-    .4byte 0x80000100
-    .4byte 0x0028000d
-    .4byte 0x0000fffd
-    .4byte 0x50000000
-    .4byte 0xfff40000
-    .4byte 0x0000fffa
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x50000000
-    .4byte 0x000a0002
-    .4byte 0x0000fffe
-    .4byte 0x10008000
-    .4byte 0x00020004
-    .4byte 0x0000fffe
-    .4byte 0x10004000
-    .4byte 0x000a0042
-    .4byte 0x0000000e
-    .4byte 0x10000000
-    .4byte 0x00020044
-    .4byte 0x0000000e
-    .4byte 0x90000000
-    .4byte 0x00440015
-    .4byte 0x0000ffe9
-    .4byte 0x90000000
-    .4byte 0x00120005
-    .4byte 0x0000ffea
-    .4byte 0x80000100
-    .4byte 0x00240011
-    .4byte 0x0000fffd
-    .4byte 0x50000000
-    .4byte 0x002e0002
-    .4byte 0x0000ffe6
-    .4byte 0x10008000
-    .4byte 0x00260004
-    .4byte 0x0000ffe6
-    .4byte 0x10004000
-    .4byte 0x002e0042
-    .4byte 0x0000fff6
-    .4byte 0x10000000
-    .4byte 0x00260044
-    .4byte 0x0000fff6
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00100002
-    .4byte 0x00000000
-    .4byte 0x10008000
-    .4byte 0x00080004
-    .4byte 0x00000000
-    .4byte 0x10004000
-    .4byte 0x00100042
-    .4byte 0x00000010
-    .4byte 0x10000000
-    .4byte 0x00080044
-    .4byte 0x00000010
-    .4byte 0x90000000
-    .4byte 0x00540019
-    .4byte 0x0000ffd9
-    .4byte 0x90000000
-    .4byte 0x00190009
-    .4byte 0x0000ffef
-    .4byte 0x90000000
-    .4byte 0x002e0005
-    .4byte 0x0000ffe8
-    .4byte 0x10000000
-    .4byte 0xfff30063
-    .4byte 0x00000001
-    .4byte 0x90000000
-    .4byte 0x00440011
-    .4byte 0x0000fff9
-    .4byte 0x50000000
-    .4byte 0x00040000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00160005
-    .4byte 0x0000fff9
-    .4byte 0x90000000
-    .4byte 0x0026000d
-    .4byte 0x0000ffe7
-    .4byte 0x90000000
-    .4byte 0x00380005
-    .4byte 0x0000ffde
-    .4byte 0x50000000
-    .4byte 0xfffe0000
-    .4byte 0x0000fff9
-    .4byte 0x50000000
-    .4byte 0x00060000
-    .4byte 0x0000fffe
-    .4byte 0x50000000
-    .4byte 0x00410002
-    .4byte 0x00000003
-    .4byte 0x10008000
-    .4byte 0x00390004
-    .4byte 0x00000003
-    .4byte 0x10004000
-    .4byte 0x00410042
-    .4byte 0x00000013
-    .4byte 0x10000000
-    .4byte 0x00390044
-    .4byte 0x00000013
-    .4byte 0x80000100
-    .4byte 0x000b0009
-    .4byte 0x0000ffe9
-    .4byte 0xb0000000
-    .4byte 0x00560019
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xb0000000
-    .4byte 0x00270009
-    .4byte 0x0000ffe2
-    .4byte 0xb0000000
-    .4byte 0x00350011
-    .4byte 0x0000fff8
-    .4byte 0x70000000
-    .4byte 0x00110002
-    .4byte 0x00000002
-    .4byte 0x30008000
-    .4byte 0x00090004
-    .4byte 0x00000002
-    .4byte 0x30004000
-    .4byte 0x00110042
-    .4byte 0x0000fffa
-    .4byte 0x30000000
-    .4byte 0x00090044
-    .4byte 0x0000fffa
-    .4byte 0x70000000
-    .4byte 0x00250002
-    .4byte 0x0000fffa
-    .4byte 0x30008000
-    .4byte 0x001d0004
-    .4byte 0x0000fffa
-    .4byte 0x30004000
-    .4byte 0x00250042
-    .4byte 0x0000fff2
-    .4byte 0x30000000
-    .4byte 0x001d0044
-    .4byte 0x0000fff2
-    .4byte 0x70000000
-    .4byte 0x00510002
-    .4byte 0x0000ffe8
-    .4byte 0x30008000
-    .4byte 0x00490004
-    .4byte 0x0000ffe8
-    .4byte 0x30004000
-    .4byte 0x00510042
-    .4byte 0x0000ffe0
-    .4byte 0x30000000
-    .4byte 0x00490044
-    .4byte 0x0000ffe0
-    .4byte 0x80000100
-    .4byte 0x00530009
-    .4byte 0x0000fff0
-    .4byte 0x70000000
-    .4byte 0xfffc0000
-    .4byte 0x0000fffd
-    .4byte 0x82000100
-    .4byte 0x001d000d
-    .4byte 0x0000fffd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xb0000000
-    .4byte 0x002c000d
-    .4byte 0x0000ffe3
-    .4byte 0xb0000000
-    .4byte 0x003c0015
-    .4byte 0x0000fff3
-    .4byte 0xb0000000
-    .4byte 0x000c0005
-    .4byte 0x0000fff3
-    .4byte 0xb0000000
-    .4byte 0x003c0005
-    .4byte 0x0000ffe9
-    .4byte 0xb0000000
-    .4byte 0x00550005
-    .4byte 0x0000ffde
-    .4byte 0x80000100
-    .4byte 0xff61000d
-    .4byte 0x0000fffc
-    .4byte 0x10000000
-    .4byte 0xffec0064
-    .4byte 0x00000002
-    .4byte 0x70000000
-    .4byte 0xfffc0000
-    .4byte 0x0000fffc
-    .4byte 0x82000100
-    .4byte 0x00260011
-    .4byte 0x0000ffff
-    .4byte 0x30000000
-    .4byte 0x001c0064
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xb0000000
-    .4byte 0x00190005
-    .4byte 0x0000fff8
-    .4byte 0xb0000000
-    .4byte 0x00310011
-    .4byte 0x0000ffe8
-    .4byte 0xb0000000
-    .4byte 0x00410019
-    .4byte 0x0000fff9
-    .4byte 0xb0000000
-    .4byte 0x00510009
-    .4byte 0x0000ffeb
-    .4byte 0x10000000
-    .4byte 0x00050064
-    .4byte 0x00000008
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x00000000
-    .4byte 0x70000000
-    .4byte 0x00090000
-    .4byte 0x0000fffd
-    .4byte 0x30000000
-    .4byte 0x00230063
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xb0000000
-    .4byte 0x004a0019
-    .4byte 0x0000fffc
-    .4byte 0xb0000000
-    .4byte 0x003a0015
-    .4byte 0x0000ffdf
-    .4byte 0xb0000000
-    .4byte 0x00210009
-    .4byte 0x0000fffa
-    .4byte 0x10000000
-    .4byte 0xfff40063
-    .4byte 0x00000004
-    .4byte 0x30000000
-    .4byte 0x00110063
-    .4byte 0x00000005
-    .4byte 0x70000000
-    .4byte 0x00050002
-    .4byte 0x00000001
-    .4byte 0x30008000
-    .4byte 0xfffd0004
-    .4byte 0x00000001
-    .4byte 0x30004000
-    .4byte 0x00050042
-    .4byte 0x0000fff9
-    .4byte 0x30000000
-    .4byte 0xfffd0044
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0x000c0009
-    .4byte 0x0000ffec
-    .4byte 0x30000000
-    .4byte 0x002b0064
-    .4byte 0x0000ffe9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0xb0000000
-    .4byte 0x003f0019
-    .4byte 0x0000ffe1
-    .4byte 0xb0000000
-    .4byte 0x0025000d
-    .4byte 0x0000fff8
-    .4byte 0x70000000
-    .4byte 0x00470002
-    .4byte 0x00000011
-    .4byte 0x30008000
-    .4byte 0x003f0004
-    .4byte 0x00000011
-    .4byte 0x30004000
-    .4byte 0x00470042
-    .4byte 0x00000009
-    .4byte 0x30000000
-    .4byte 0x003f0044
-    .4byte 0x00000009
-    .4byte 0x70000000
-    .4byte 0xfff90000
-    .4byte 0x00000001
-    .4byte 0x70000000
-    .4byte 0x000a0002
-    .4byte 0x0000fffe
-    .4byte 0x30008000
-    .4byte 0x00020004
-    .4byte 0x0000fffe
-    .4byte 0x30004000
-    .4byte 0x000a0042
-    .4byte 0x0000fff6
-    .4byte 0x30000000
-    .4byte 0x00020044
-    .4byte 0x0000fff6
-    .4byte 0x30000000
-    .4byte 0x00190064
-    .4byte 0x0000fffb
-    .4byte 0x80000100
-    .4byte 0x00080009
-    .4byte 0x0000fffc
-    .4byte 0x82000100
-    .4byte 0x0011000d
-    .4byte 0x0000ffe3
-    .4byte 0x30000000
-    .4byte 0x00310062
-    .4byte 0x0000ffe5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90008000
-    .4byte 0x005d001d
-    .4byte 0x0000fffc
-    .4byte 0x50008000
-    .4byte 0x0055001f
-    .4byte 0x0000fffc
-    .4byte 0x10008000
-    .4byte 0x004d0040
-    .4byte 0x0000fffc
-    .4byte 0x10008000
-    .4byte 0x004d0041
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0x002d0011
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0xff610015
-    .4byte 0x0000fff7
-    .4byte 0x90000000
-    .4byte 0x00510005
-    .4byte 0x0000ffe5
-    .4byte 0x50000000
-    .4byte 0x00060002
-    .4byte 0x0000fff6
-    .4byte 0x10008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fff6
-    .4byte 0x10004000
-    .4byte 0x00060042
-    .4byte 0x00000006
-    .4byte 0x10000000
-    .4byte 0xfffe0044
-    .4byte 0x00000006
-    .4byte 0x90000000
-    .4byte 0x00110005
-    .4byte 0x0000fff8
-    .4byte 0x10000000
-    .4byte 0x002d0062
-    .4byte 0x00000011
-    .4byte 0x80000100
-    .4byte 0x0015000d
-    .4byte 0x0000ffe3
-    .4byte 0x82000100
-    .4byte 0x00250011
-    .4byte 0x00000009
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x002b0015
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00010005
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00210009
-    .4byte 0x00000002
-    .4byte 0x90000000
-    .4byte 0x004e0009
-    .4byte 0x0000ffe3
-    .4byte 0x80000100
-    .4byte 0x00150015
-    .4byte 0x0000ffe3
-    .4byte 0x82000100
-    .4byte 0x00340011
-    .4byte 0x0000000c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x001f0000
-    .4byte 0x00000004
-    .4byte 0x90000000
-    .4byte 0x00360019
-    .4byte 0x0000ffea
-    .4byte 0x90000000
-    .4byte 0x000c0009
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0x003d000d
-    .4byte 0x0000fffe
-    .4byte 0x90000000
-    .4byte 0x0058000d
-    .4byte 0x0000ffdf
-    .4byte 0x10000000
-    .4byte 0x002e0064
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00260019
-    .4byte 0x0000ffdf
-    .4byte 0x80000100
-    .4byte 0x00520015
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90008000
-    .4byte 0x004e001d
-    .4byte 0x0000ffec
-    .4byte 0x50008000
-    .4byte 0x0046001f
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x003e0040
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x003e0041
-    .4byte 0x0000fffc
-    .4byte 0x50000000
-    .4byte 0x00260002
-    .4byte 0x0000ffff
-    .4byte 0x10008000
-    .4byte 0x001e0004
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x00260042
-    .4byte 0x0000000f
-    .4byte 0x10000000
-    .4byte 0x001e0044
-    .4byte 0x0000000f
-    .4byte 0x90000000
-    .4byte 0x0010000d
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0x00480011
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00590011
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0x00320063
-    .4byte 0x0000ffed
-    .4byte 0x80000100
-    .4byte 0x00600019
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x002d0005
-    .4byte 0x0000fffd
-    .4byte 0x90000000
-    .4byte 0x001a0011
-    .4byte 0x0000ffeb
-    .4byte 0x90000000
-    .4byte 0x00530015
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x00580015
-    .4byte 0x0000ffdd
-    .4byte 0x10000000
-    .4byte 0x00400064
-    .4byte 0x0000ffe8
-    .4byte 0x50000000
-    .4byte 0x00380000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x003e0009
-    .4byte 0x0000fffb
-    .4byte 0x90000000
-    .4byte 0x00500019
-    .4byte 0x0000fff3
-    .4byte 0x90000000
-    .4byte 0x00580019
-    .4byte 0x0000ffd9
-    .4byte 0x90000000
-    .4byte 0x00240015
-    .4byte 0x0000ffe9
-    .4byte 0x10000000
-    .4byte 0x00480062
-    .4byte 0x0000ffe4
-    .4byte 0x50000000
-    .4byte 0x00450000
-    .4byte 0x0000ffed
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00300019
-    .4byte 0x0000ffe7
-    .4byte 0x90000000
-    .4byte 0x004e000d
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0x00480009
-    .4byte 0x0000ffe0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00530011
-    .4byte 0x0000fff6
-    .4byte 0x90008000
-    .4byte 0x004d001d
-    .4byte 0x0000ffe4
-    .4byte 0x50008000
-    .4byte 0x0045001f
-    .4byte 0x0000ffe4
-    .4byte 0x10008000
-    .4byte 0x003d0040
-    .4byte 0x0000ffe4
-    .4byte 0x10008000
-    .4byte 0x003d0041
-    .4byte 0x0000fff4
-    .4byte 0x80000100
-    .4byte 0x0050000d
-    .4byte 0x0000ffdc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00420015
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00500019
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0x0068001d
-    .4byte 0x0000ffe8
-    .4byte 0x50008000
-    .4byte 0x0060001f
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x00580040
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x00580041
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left11
+AnimSprite_EfxBindingBlade_Left11:  @ 0x5DFE24
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 32, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0419, -39, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0415, -12, -41
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, -36, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 4, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -28, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 16, -24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, -64, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -16, -16
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 0, -16
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 8, -16
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 8, 0
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E35DC
-gUnknown_085E35DC:  @ 0x085E35DC
-@ Replacing .incbin "baserom.gba", 0x5E35DC, 0xC30
-    .4byte gUnknown_085E2A24 + 0x6e
-    .4byte gUnknown_085E2A24 + 0x86
-    .4byte gUnknown_085E2A24 + 0xaa
-    .4byte gUnknown_085E2A24 + 0xf2
-    .4byte gUnknown_085E2A24 + 0x146
-    .4byte gUnknown_085E2A24 + 0x1a6
-    .4byte gUnknown_085E2A24 + 0x1ee
-    .4byte gUnknown_085E2A24 + 0x266
-    .4byte gUnknown_085E2A24 + 0x30e
-    .4byte gUnknown_085E2A24 + 0x392
-    .4byte gUnknown_085E2A24 + 0x42e
-    .4byte gUnknown_085E2A24 + 0x51e
-    .4byte gUnknown_085E2A24 + 0x5ba
-    .4byte gUnknown_085E2A24 + 0x626
-    .4byte gUnknown_085E2A24 + 0x6c2
-    .4byte gUnknown_085E2A24 + 0x79a
-    .4byte gUnknown_085E2A24 + 0x872
-    .4byte gUnknown_085E2A24 + 0x8de
-    .4byte gUnknown_085E2A24 + 0x956
-    .4byte gUnknown_085E2A24 + 0xa0a
-    .4byte gUnknown_085E2A24 + 0xa5e
-    .4byte gUnknown_085E2A24 + 0xab2
-    .4byte gUnknown_085E2A24 + 0xaee
-    .4byte gUnknown_085E2A24 + 0xb4e
-    .4byte gUnknown_085E2A24 + 0xb66
-    .4byte gUnknown_085E2A24 + 0xb7e
-    .4byte 0x80000000
-    .4byte 0x00000000
-    .4byte 0x000c0064
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xfffb0000
-    .4byte 0x0000fff0
-    .4byte 0x00000000
-    .4byte 0x000a0063
-    .4byte 0x0000fff3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xffea0002
-    .4byte 0x0000fff2
-    .4byte 0x00008000
-    .4byte 0xfffa0004
-    .4byte 0x0000fff2
-    .4byte 0x00004000
-    .4byte 0xffea0042
-    .4byte 0x00000002
-    .4byte 0x00000000
-    .4byte 0xfffa0044
-    .4byte 0x00000002
-    .4byte 0x40000000
-    .4byte 0xfffb0000
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffda0005
-    .4byte 0x0000fff1
-    .4byte 0x40000000
-    .4byte 0xfff10002
-    .4byte 0x00000002
-    .4byte 0x00008000
-    .4byte 0x00010004
-    .4byte 0x00000002
-    .4byte 0x00004000
-    .4byte 0xfff10042
-    .4byte 0x00000012
-    .4byte 0x00000000
-    .4byte 0x00010044
-    .4byte 0x00000012
-    .4byte 0x40000000
-    .4byte 0x00020000
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000141
-    .4byte 0x01410000
-    .4byte 0x80000000
-    .4byte 0xffce0009
-    .4byte 0x0000fff3
-    .4byte 0x80000100
-    .4byte 0xffe40005
-    .4byte 0x00000002
-    .4byte 0x40000000
-    .4byte 0xfff30002
-    .4byte 0x0000fff0
-    .4byte 0x00008000
-    .4byte 0x00030004
-    .4byte 0x0000fff0
-    .4byte 0x00004000
-    .4byte 0xfff30042
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00030044
-    .4byte 0x00000000
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffde0005
-    .4byte 0x0000fff2
-    .4byte 0x80000000
-    .4byte 0xffbb000d
-    .4byte 0x0000fff3
-    .4byte 0x40000000
-    .4byte 0xfffb0000
-    .4byte 0x0000fff3
-    .4byte 0x80000000
-    .4byte 0xffd60009
-    .4byte 0x00000002
-    .4byte 0x00000000
-    .4byte 0x00080064
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000141
-    .4byte 0x01410000
-    .4byte 0x80000000
-    .4byte 0xffd40005
-    .4byte 0x0000fff5
-    .4byte 0x80000000
-    .4byte 0xffae0011
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0xffeb0002
-    .4byte 0x0000fff2
-    .4byte 0x00008000
-    .4byte 0xfffb0004
-    .4byte 0x0000fff2
-    .4byte 0x00004000
-    .4byte 0xffeb0042
-    .4byte 0x00000002
-    .4byte 0x00000000
-    .4byte 0xfffb0044
-    .4byte 0x00000002
-    .4byte 0x80000100
-    .4byte 0xffce000d
-    .4byte 0x00000003
-    .4byte 0x40000000
-    .4byte 0xfffe0000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0x40000000
-    .4byte 0xffee0002
-    .4byte 0x0000fffd
-    .4byte 0x00008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fffd
-    .4byte 0x00004000
-    .4byte 0xffee0042
-    .4byte 0x0000000d
-    .4byte 0x00000000
-    .4byte 0xfffe0044
-    .4byte 0x0000000d
-    .4byte 0x80000000
-    .4byte 0xff9e0015
-    .4byte 0x0000ffee
-    .4byte 0x80000000
-    .4byte 0xffce0005
-    .4byte 0x0000fff4
-    .4byte 0x80000100
-    .4byte 0xffc40011
-    .4byte 0x00000004
-    .4byte 0x40000000
-    .4byte 0xffc70002
-    .4byte 0x0000ffee
-    .4byte 0x00008000
-    .4byte 0xffd70004
-    .4byte 0x0000ffee
-    .4byte 0x00004000
-    .4byte 0xffc70042
-    .4byte 0x0000fffe
-    .4byte 0x00000000
-    .4byte 0xffd70044
-    .4byte 0x0000fffe
-    .4byte 0x40000000
-    .4byte 0xfffe0000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x40000000
-    .4byte 0xffef0002
-    .4byte 0x0000fff3
-    .4byte 0x00008000
-    .4byte 0xffff0004
-    .4byte 0x0000fff3
-    .4byte 0x00004000
-    .4byte 0xffef0042
-    .4byte 0x00000003
-    .4byte 0x00000000
-    .4byte 0xffff0044
-    .4byte 0x00000003
-    .4byte 0x80000000
-    .4byte 0xffbf0005
-    .4byte 0x0000fff7
-    .4byte 0x40000000
-    .4byte 0xffe50002
-    .4byte 0x0000ffff
-    .4byte 0x00008000
-    .4byte 0xfff50004
-    .4byte 0x0000ffff
-    .4byte 0x00004000
-    .4byte 0xffe50042
-    .4byte 0x0000000f
-    .4byte 0x00000000
-    .4byte 0xfff50044
-    .4byte 0x0000000f
-    .4byte 0x80000000
-    .4byte 0xff960019
-    .4byte 0x0000ffec
-    .4byte 0x80000000
-    .4byte 0xffd20009
-    .4byte 0x0000fff0
-    .4byte 0x00000000
-    .4byte 0x000c0063
-    .4byte 0x0000ffec
-    .4byte 0x80000000
-    .4byte 0xffae0011
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffd70005
-    .4byte 0x0000fffd
-    .4byte 0x80000000
-    .4byte 0xffaf0005
-    .4byte 0x0000ffeb
-    .4byte 0x40000000
-    .4byte 0xffbc0002
-    .4byte 0x00000005
-    .4byte 0x00008000
-    .4byte 0xffcc0004
-    .4byte 0x00000005
-    .4byte 0x00004000
-    .4byte 0xffbc0042
-    .4byte 0x00000015
-    .4byte 0x00000000
-    .4byte 0xffcc0044
-    .4byte 0x00000015
-    .4byte 0x80008000
-    .4byte 0xff86001d
-    .4byte 0x0000ffe8
-    .4byte 0x40008000
-    .4byte 0xff96001f
-    .4byte 0x0000ffe8
-    .4byte 0x00008000
-    .4byte 0xff9e0040
-    .4byte 0x0000ffe8
-    .4byte 0x00008000
-    .4byte 0xff9e0041
-    .4byte 0x0000fff8
-    .4byte 0x80000000
-    .4byte 0xffc6000d
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0xfffe0000
-    .4byte 0x0000ffef
-    .4byte 0x80000100
-    .4byte 0xffe20009
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x40000000
-    .4byte 0xffde0002
-    .4byte 0x0000ffff
-    .4byte 0x00008000
-    .4byte 0xffee0004
-    .4byte 0x0000ffff
-    .4byte 0x00004000
-    .4byte 0xffde0042
-    .4byte 0x0000000f
-    .4byte 0x00000000
-    .4byte 0xffee0044
-    .4byte 0x0000000f
-    .4byte 0x80000000
-    .4byte 0xffcc0009
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffbe0011
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0xffed0002
-    .4byte 0x0000fff1
-    .4byte 0x00008000
-    .4byte 0xfffd0004
-    .4byte 0x0000fff1
-    .4byte 0x00004000
-    .4byte 0xffed0042
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0xfffd0044
-    .4byte 0x00000001
-    .4byte 0x40000000
-    .4byte 0xffae0002
-    .4byte 0x00000008
-    .4byte 0x00008000
-    .4byte 0xffbe0004
-    .4byte 0x00000008
-    .4byte 0x00004000
-    .4byte 0xffae0042
-    .4byte 0x00000018
-    .4byte 0x00000000
-    .4byte 0xffbe0044
-    .4byte 0x00000018
-    .4byte 0x80000100
-    .4byte 0xff9e0009
-    .4byte 0x0000ffe8
-    .4byte 0x40000000
-    .4byte 0x00050000
-    .4byte 0x0000ffec
-    .4byte 0x82000100
-    .4byte 0xffd6000d
-    .4byte 0x0000ffe7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffdd0005
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffb60005
-    .4byte 0x0000fffa
-    .4byte 0x80000000
-    .4byte 0xffc6000d
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffb60015
-    .4byte 0x0000fff1
-    .4byte 0x80000000
-    .4byte 0xff9d0005
-    .4byte 0x00000005
-    .4byte 0x80000100
-    .4byte 0xff91000d
-    .4byte 0x0000ffe7
-    .4byte 0x00000000
-    .4byte 0x000b0064
-    .4byte 0x0000ffef
-    .4byte 0x40000000
-    .4byte 0xfffd0000
-    .4byte 0x0000fffa
-    .4byte 0x82000100
-    .4byte 0xffcc0011
-    .4byte 0x0000ffe5
-    .4byte 0x00000000
-    .4byte 0xffee0064
-    .4byte 0x00000010
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff8a0005
-    .4byte 0x00000008
-    .4byte 0x00000000
-    .4byte 0xfffa0064
-    .4byte 0x0000fffb
-    .4byte 0x80000000
-    .4byte 0xffd30005
-    .4byte 0x0000ffef
-    .4byte 0x80000000
-    .4byte 0xff9e0009
-    .4byte 0x0000fffd
-    .4byte 0x80000000
-    .4byte 0xffbe0011
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffae0019
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0x00000000
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0xfff60000
-    .4byte 0x00000002
-    .4byte 0x00000000
-    .4byte 0xffe40063
-    .4byte 0x00000014
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffcc0009
-    .4byte 0x0000ffef
-    .4byte 0x80000000
-    .4byte 0xffa60019
-    .4byte 0x0000ffee
-    .4byte 0x80000000
-    .4byte 0xffb60015
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff8e000d
-    .4byte 0x0000fffb
-    .4byte 0x00000000
-    .4byte 0x000b0063
-    .4byte 0x0000ffee
-    .4byte 0x00000000
-    .4byte 0xfff30063
-    .4byte 0x00000001
-    .4byte 0x40000000
-    .4byte 0xfff40002
-    .4byte 0x0000fff1
-    .4byte 0x00008000
-    .4byte 0x00040004
-    .4byte 0x0000fff1
-    .4byte 0x00004000
-    .4byte 0xfff40042
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00040044
-    .4byte 0x00000001
-    .4byte 0x80000100
-    .4byte 0xffe20009
-    .4byte 0x0000ffff
-    .4byte 0x00000000
-    .4byte 0xffdd0064
-    .4byte 0x00000015
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x40000000
-    .4byte 0xffb60002
-    .4byte 0x0000ffee
-    .4byte 0x00008000
-    .4byte 0xffc60004
-    .4byte 0x0000ffee
-    .4byte 0x00004000
-    .4byte 0xffb60042
-    .4byte 0x0000fffe
-    .4byte 0x00000000
-    .4byte 0xffc60044
-    .4byte 0x0000fffe
-    .4byte 0x80000000
-    .4byte 0xffae0019
-    .4byte 0x0000fffc
-    .4byte 0x80000000
-    .4byte 0xffc6000d
-    .4byte 0x0000fff1
-    .4byte 0x80000000
-    .4byte 0xff860011
-    .4byte 0x0000fff9
-    .4byte 0x40000000
-    .4byte 0x00040000
-    .4byte 0x0000fff0
-    .4byte 0x40000000
-    .4byte 0xffee0002
-    .4byte 0x0000fff7
-    .4byte 0x00008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fff7
-    .4byte 0x00004000
-    .4byte 0xffee0042
-    .4byte 0x00000007
-    .4byte 0x00000000
-    .4byte 0xfffe0044
-    .4byte 0x00000007
-    .4byte 0x00000000
-    .4byte 0xffea0064
-    .4byte 0x00000006
-    .4byte 0x80000100
-    .4byte 0xffe40009
-    .4byte 0x0000ffe9
-    .4byte 0x82000100
-    .4byte 0xffd6000d
-    .4byte 0x00000006
-    .4byte 0x00000000
-    .4byte 0xffd20062
-    .4byte 0x00000018
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xff9e0005
-    .4byte 0x0000ffe9
-    .4byte 0x80008000
-    .4byte 0xffa2001d
-    .4byte 0x0000fff8
-    .4byte 0x40008000
-    .4byte 0xffb2001f
-    .4byte 0x0000fff8
-    .4byte 0x00008000
-    .4byte 0xffba0040
-    .4byte 0x0000fff8
-    .4byte 0x00008000
-    .4byte 0xffba0041
-    .4byte 0x00000008
-    .4byte 0x80000000
-    .4byte 0xff800015
-    .4byte 0x0000fff7
-    .4byte 0x40000000
-    .4byte 0xfff20002
-    .4byte 0x0000fff2
-    .4byte 0x00008000
-    .4byte 0x00020004
-    .4byte 0x0000fff2
-    .4byte 0x00004000
-    .4byte 0xfff20042
-    .4byte 0x00000002
-    .4byte 0x00000000
-    .4byte 0x00020044
-    .4byte 0x00000002
-    .4byte 0x80000000
-    .4byte 0xffd60005
-    .4byte 0x0000fffb
-    .4byte 0x00000000
-    .4byte 0xffd20062
-    .4byte 0x00000011
-    .4byte 0x80000100
-    .4byte 0xffd2000d
-    .4byte 0x0000ffe7
-    .4byte 0x82000100
-    .4byte 0xffc60011
-    .4byte 0x0000000c
-    .4byte 0x80000000
-    .4byte 0xffbe0011
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000016e
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffde0005
-    .4byte 0x0000ffee
-    .4byte 0x80000000
-    .4byte 0xffbe0009
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff920009
-    .4byte 0x0000ffe4
-    .4byte 0x80000100
-    .4byte 0xffc90015
-    .4byte 0x0000ffe6
-    .4byte 0x82000100
-    .4byte 0xffad0011
-    .4byte 0x0000000c
-    .4byte 0x80000000
-    .4byte 0xffb60015
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x40000000
-    .4byte 0xffd60000
-    .4byte 0x00000002
-    .4byte 0x80000000
-    .4byte 0xffd60009
-    .4byte 0x0000ffee
-    .4byte 0x80000000
-    .4byte 0xffa6000d
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff8a000d
-    .4byte 0x0000ffe2
-    .4byte 0x00000000
-    .4byte 0xffce0064
-    .4byte 0x0000fff0
-    .4byte 0x80000000
-    .4byte 0xffbe0019
-    .4byte 0x0000ffe5
-    .4byte 0x80000100
-    .4byte 0xff940015
-    .4byte 0x0000000b
-    .4byte 0x80000000
-    .4byte 0xffae0019
-    .4byte 0x0000ffef
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x40000000
-    .4byte 0xffc80002
-    .4byte 0x0000ffff
-    .4byte 0x00008000
-    .4byte 0xffd80004
-    .4byte 0x0000ffff
-    .4byte 0x00004000
-    .4byte 0xffc80042
-    .4byte 0x0000000f
-    .4byte 0x00000000
-    .4byte 0xffd80044
-    .4byte 0x0000000f
-    .4byte 0x80000000
-    .4byte 0xffce000d
-    .4byte 0x0000ffee
-    .4byte 0x80000000
-    .4byte 0xff960011
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff850011
-    .4byte 0x0000ffde
-    .4byte 0x00000000
-    .4byte 0xffc40063
-    .4byte 0x0000ffed
-    .4byte 0x80000100
-    .4byte 0xff800019
-    .4byte 0x00000008
-    .4byte 0x80008000
-    .4byte 0xffa0001d
-    .4byte 0x0000ffec
-    .4byte 0x40008000
-    .4byte 0xffb0001f
-    .4byte 0x0000ffec
-    .4byte 0x00008000
-    .4byte 0xffb80040
-    .4byte 0x0000ffec
-    .4byte 0x00008000
-    .4byte 0xffb80041
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffb10005
-    .4byte 0x0000fffd
-    .4byte 0x80000000
-    .4byte 0xffc40011
-    .4byte 0x0000ffec
-    .4byte 0x80000000
-    .4byte 0xff8b0015
-    .4byte 0x0000fffc
-    .4byte 0x80000000
-    .4byte 0xff820015
-    .4byte 0x0000ffde
-    .4byte 0x00000000
-    .4byte 0xffb60064
-    .4byte 0x0000ffe8
-    .4byte 0x40000000
-    .4byte 0xffb60000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffa00009
-    .4byte 0x0000fffb
-    .4byte 0x80000000
-    .4byte 0xff810019
-    .4byte 0x0000fff3
-    .4byte 0x80000000
-    .4byte 0xff810019
-    .4byte 0x0000ffda
-    .4byte 0x80000000
-    .4byte 0xffba0015
-    .4byte 0x0000ffea
-    .4byte 0x00000000
-    .4byte 0xffae0062
-    .4byte 0x0000ffe5
-    .4byte 0x40000000
-    .4byte 0xffa90000
-    .4byte 0x0000ffed
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xffae0019
-    .4byte 0x0000ffe8
-    .4byte 0x80000000
-    .4byte 0xff90000d
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0xff960009
-    .4byte 0x0000ffe1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xff8b0011
-    .4byte 0x0000fff6
-    .4byte 0x80008000
-    .4byte 0xffa1001d
-    .4byte 0x0000ffe5
-    .4byte 0x40008000
-    .4byte 0xffb1001f
-    .4byte 0x0000ffe5
-    .4byte 0x00008000
-    .4byte 0xffb90040
-    .4byte 0x0000ffe5
-    .4byte 0x00008000
-    .4byte 0xffb90041
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0xff8e000d
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00000200
-    .4byte 0x02000000
-    .4byte 0x80000000
-    .4byte 0xff880015
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0xff860019
-    .4byte 0x0000ffda
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xff840019
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80008000
-    .4byte 0xff81001d
-    .4byte 0x0000fff2
-    .4byte 0x40008000
-    .4byte 0xff91001f
-    .4byte 0x0000fff2
-    .4byte 0x00008000
-    .4byte 0xff990040
-    .4byte 0x0000fff2
-    .4byte 0x00008000
-    .4byte 0xff990041
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left12
+AnimSprite_EfxBindingBlade_Left12:  @ 0x5DFEF0
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 28, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 44, -4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 28, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 44, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 12, -28
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 28, -28
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 28, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 8, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -39, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -23, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -15, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -15, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0419, -12, -43
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 0, -64
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 16, -64
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 0, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 16, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -36, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -32, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -12, -44
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -64, -8
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E420C
-gUnknown_085E420C:  @ 0x085E420C
-@ Replacing .incbin "baserom.gba", 0x5E420C, 0xC30
-    .4byte gUnknown_085E35DC + 0x6e
-    .4byte gUnknown_085E35DC + 0x86
-    .4byte gUnknown_085E35DC + 0xaa
-    .4byte gUnknown_085E35DC + 0xf2
-    .4byte gUnknown_085E35DC + 0x146
-    .4byte gUnknown_085E35DC + 0x1a6
-    .4byte gUnknown_085E35DC + 0x1ee
-    .4byte gUnknown_085E35DC + 0x266
-    .4byte gUnknown_085E35DC + 0x30e
-    .4byte gUnknown_085E35DC + 0x3b6
-    .4byte gUnknown_085E35DC + 0x46a
-    .4byte gUnknown_085E35DC + 0x55a
-    .4byte gUnknown_085E35DC + 0x5f6
-    .4byte gUnknown_085E35DC + 0x66e
-    .4byte gUnknown_085E35DC + 0x716
-    .4byte gUnknown_085E35DC + 0x7fa
-    .4byte gUnknown_085E35DC + 0x8d2
-    .4byte gUnknown_085E35DC + 0x93e
-    .4byte gUnknown_085E35DC + 0x9b6
-    .4byte gUnknown_085E35DC + 0xa6a
-    .4byte gUnknown_085E35DC + 0xabe
-    .4byte gUnknown_085E35DC + 0xb12
-    .4byte gUnknown_085E35DC + 0xb4e
-    .4byte gUnknown_085E35DC + 0xbae
-    .4byte gUnknown_085E35DC + 0xbde
-    .4byte gUnknown_085E35DC + 0xbf6
-    .4byte 0x80000000
-    .4byte 0x10000000
-    .4byte 0xffec0064
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000fff0
-    .4byte 0x10000000
-    .4byte 0xffee0063
-    .4byte 0x0000fff3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00060002
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fff2
-    .4byte 0x10004000
-    .4byte 0x00060042
-    .4byte 0x00000002
-    .4byte 0x10000000
-    .4byte 0xfffe0044
-    .4byte 0x00000002
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00060005
-    .4byte 0x0000fff1
-    .4byte 0x50000000
-    .4byte 0xffff0002
-    .4byte 0x00000002
-    .4byte 0x10008000
-    .4byte 0xfff70004
-    .4byte 0x00000002
-    .4byte 0x10004000
-    .4byte 0xffff0042
-    .4byte 0x00000012
-    .4byte 0x10000000
-    .4byte 0xfff70044
-    .4byte 0x00000012
-    .4byte 0x50000000
-    .4byte 0xffee0000
-    .4byte 0x0000ffee
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x00120009
-    .4byte 0x0000fff3
-    .4byte 0x80000100
-    .4byte 0xfffc0005
-    .4byte 0x00000002
-    .4byte 0x50000000
-    .4byte 0xfffd0002
-    .4byte 0x0000fff0
-    .4byte 0x10008000
-    .4byte 0xfff50004
-    .4byte 0x0000fff0
-    .4byte 0x10004000
-    .4byte 0xfffd0042
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff50044
-    .4byte 0x00000000
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00020005
-    .4byte 0x0000fff2
-    .4byte 0x90000000
-    .4byte 0x0025000d
-    .4byte 0x0000fff3
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000fff3
-    .4byte 0x90000000
-    .4byte 0x000a0009
-    .4byte 0x00000002
-    .4byte 0x10000000
-    .4byte 0xfff00064
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x000c0005
-    .4byte 0x0000fff5
-    .4byte 0x90000000
-    .4byte 0x00320011
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0x00050002
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0xfffd0004
-    .4byte 0x0000fff2
-    .4byte 0x10004000
-    .4byte 0x00050042
-    .4byte 0x00000002
-    .4byte 0x10000000
-    .4byte 0xfffd0044
-    .4byte 0x00000002
-    .4byte 0x80000100
-    .4byte 0x0012000d
-    .4byte 0x00000003
-    .4byte 0x50000000
-    .4byte 0xfff20000
-    .4byte 0x0000fff6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x50000000
-    .4byte 0x00020002
-    .4byte 0x0000fffd
-    .4byte 0x10008000
-    .4byte 0xfffa0004
-    .4byte 0x0000fffd
-    .4byte 0x10004000
-    .4byte 0x00020042
-    .4byte 0x0000000d
-    .4byte 0x10000000
-    .4byte 0xfffa0044
-    .4byte 0x0000000d
-    .4byte 0x90000000
-    .4byte 0x00420015
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x00120005
-    .4byte 0x0000fff4
-    .4byte 0x80000100
-    .4byte 0x001c0011
-    .4byte 0x00000004
-    .4byte 0x50000000
-    .4byte 0x00290002
-    .4byte 0x0000ffee
-    .4byte 0x10008000
-    .4byte 0x00210004
-    .4byte 0x0000ffee
-    .4byte 0x10004000
-    .4byte 0x00290042
-    .4byte 0x0000fffe
-    .4byte 0x10000000
-    .4byte 0x00210044
-    .4byte 0x0000fffe
-    .4byte 0x50000000
-    .4byte 0xfff20000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00010002
-    .4byte 0x0000fff3
-    .4byte 0x10008000
-    .4byte 0xfff90004
-    .4byte 0x0000fff3
-    .4byte 0x10004000
-    .4byte 0x00010042
-    .4byte 0x00000003
-    .4byte 0x10000000
-    .4byte 0xfff90044
-    .4byte 0x00000003
-    .4byte 0x90000000
-    .4byte 0x00210005
-    .4byte 0x0000fff7
-    .4byte 0x50000000
-    .4byte 0x000b0002
-    .4byte 0x0000ffff
-    .4byte 0x10008000
-    .4byte 0x00030004
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x000b0042
-    .4byte 0x0000000f
-    .4byte 0x10000000
-    .4byte 0x00030044
-    .4byte 0x0000000f
-    .4byte 0x90000000
-    .4byte 0x004a0019
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x000e0009
-    .4byte 0x0000fff0
-    .4byte 0x10000000
-    .4byte 0xffec0063
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x00320011
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00090005
-    .4byte 0x0000fffd
-    .4byte 0x90000000
-    .4byte 0x00310005
-    .4byte 0x0000ffeb
-    .4byte 0x50000000
-    .4byte 0x00340002
-    .4byte 0x00000005
-    .4byte 0x10008000
-    .4byte 0x002c0004
-    .4byte 0x00000005
-    .4byte 0x10004000
-    .4byte 0x00340042
-    .4byte 0x00000015
-    .4byte 0x10000000
-    .4byte 0x002c0044
-    .4byte 0x00000015
-    .4byte 0x90008000
-    .4byte 0x006a001d
-    .4byte 0x0000ffe8
-    .4byte 0x50008000
-    .4byte 0x0062001f
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x005a0040
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x005a0041
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0x001a000d
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0xfff20000
-    .4byte 0x0000ffef
-    .4byte 0x80000100
-    .4byte 0xfffe0009
-    .4byte 0x0000ffe6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x00120002
-    .4byte 0x0000ffff
-    .4byte 0x10008000
-    .4byte 0x000a0004
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x00120042
-    .4byte 0x0000000f
-    .4byte 0x10000000
-    .4byte 0x000a0044
-    .4byte 0x0000000f
-    .4byte 0x90000000
-    .4byte 0x00140009
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00220011
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0x00030002
-    .4byte 0x0000fff1
-    .4byte 0x10008000
-    .4byte 0xfffb0004
-    .4byte 0x0000fff1
-    .4byte 0x10004000
-    .4byte 0x00030042
-    .4byte 0x00000001
-    .4byte 0x10000000
-    .4byte 0xfffb0044
-    .4byte 0x00000001
-    .4byte 0x50000000
-    .4byte 0x00420002
-    .4byte 0x00000008
-    .4byte 0x10008000
-    .4byte 0x003a0004
-    .4byte 0x00000008
-    .4byte 0x10004000
-    .4byte 0x00420042
-    .4byte 0x00000018
-    .4byte 0x10000000
-    .4byte 0x003a0044
-    .4byte 0x00000018
-    .4byte 0x80000100
-    .4byte 0x00420009
-    .4byte 0x0000ffe8
-    .4byte 0x50000000
-    .4byte 0xffeb0000
-    .4byte 0x0000ffec
-    .4byte 0x82000100
-    .4byte 0x000a000d
-    .4byte 0x0000ffe7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00030005
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x002a0005
-    .4byte 0x0000fffa
-    .4byte 0x90000000
-    .4byte 0x001a000d
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x002a0015
-    .4byte 0x0000fff1
-    .4byte 0x90000000
-    .4byte 0x00430005
-    .4byte 0x00000005
-    .4byte 0x80000100
-    .4byte 0x004f000d
-    .4byte 0x0000ffe7
-    .4byte 0x10000000
-    .4byte 0xffed0064
-    .4byte 0x0000ffef
-    .4byte 0x50000000
-    .4byte 0xfff30000
-    .4byte 0x0000fffa
-    .4byte 0x82000100
-    .4byte 0x00140011
-    .4byte 0x0000ffe5
-    .4byte 0x10000000
-    .4byte 0x000a0064
-    .4byte 0x00000010
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00560005
-    .4byte 0x00000008
-    .4byte 0x10000000
-    .4byte 0xfffe0064
-    .4byte 0x0000fffb
-    .4byte 0x90000000
-    .4byte 0x000d0005
-    .4byte 0x0000ffef
-    .4byte 0x90000000
-    .4byte 0x00420009
-    .4byte 0x0000fffd
-    .4byte 0x90000000
-    .4byte 0x00220011
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0xfff00000
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0xfffa0000
-    .4byte 0x00000002
-    .4byte 0x10000000
-    .4byte 0x00140063
-    .4byte 0x00000014
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00140009
-    .4byte 0x0000ffef
-    .4byte 0x90000000
-    .4byte 0x003a0019
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x002a0015
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0052000d
-    .4byte 0x0000fffb
-    .4byte 0x10000000
-    .4byte 0xffed0063
-    .4byte 0x0000ffee
-    .4byte 0x10000000
-    .4byte 0x00050063
-    .4byte 0x00000001
-    .4byte 0x50000000
-    .4byte 0xfffc0002
-    .4byte 0x0000fff1
-    .4byte 0x10008000
-    .4byte 0xfff40004
-    .4byte 0x0000fff1
-    .4byte 0x10004000
-    .4byte 0xfffc0042
-    .4byte 0x00000001
-    .4byte 0x10000000
-    .4byte 0xfff40044
-    .4byte 0x00000001
-    .4byte 0x80000100
-    .4byte 0xfffe0009
-    .4byte 0x0000ffff
-    .4byte 0x10000000
-    .4byte 0x001b0064
-    .4byte 0x00000015
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x003a0002
-    .4byte 0x0000ffee
-    .4byte 0x10008000
-    .4byte 0x00320004
-    .4byte 0x0000ffee
-    .4byte 0x10004000
-    .4byte 0x003a0042
-    .4byte 0x0000fffe
-    .4byte 0x10000000
-    .4byte 0x00320044
-    .4byte 0x0000fffe
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x001a000d
-    .4byte 0x0000fff1
-    .4byte 0x90000000
-    .4byte 0x005a0011
-    .4byte 0x0000fff9
-    .4byte 0x50000000
-    .4byte 0xffec0000
-    .4byte 0x0000fff0
-    .4byte 0x50000000
-    .4byte 0x00020002
-    .4byte 0x0000fff7
-    .4byte 0x10008000
-    .4byte 0xfffa0004
-    .4byte 0x0000fff7
-    .4byte 0x10004000
-    .4byte 0x00020042
-    .4byte 0x00000007
-    .4byte 0x10000000
-    .4byte 0xfffa0044
-    .4byte 0x00000007
-    .4byte 0x10000000
-    .4byte 0x000e0064
-    .4byte 0x00000006
-    .4byte 0x80000100
-    .4byte 0xfffc0009
-    .4byte 0x0000ffe9
-    .4byte 0x82000100
-    .4byte 0x000a000d
-    .4byte 0x00000006
-    .4byte 0x10000000
-    .4byte 0x00260062
-    .4byte 0x00000018
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00420005
-    .4byte 0x0000ffe9
-    .4byte 0x90008000
-    .4byte 0x004e001d
-    .4byte 0x0000fff8
-    .4byte 0x50008000
-    .4byte 0x0046001f
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0x003e0040
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0x003e0041
-    .4byte 0x00000008
-    .4byte 0x90000000
-    .4byte 0x00600015
-    .4byte 0x0000fff7
-    .4byte 0x50000000
-    .4byte 0xfffe0002
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0xfff60004
-    .4byte 0x0000fff2
-    .4byte 0x10004000
-    .4byte 0xfffe0042
-    .4byte 0x00000002
-    .4byte 0x10000000
-    .4byte 0xfff60044
-    .4byte 0x00000002
-    .4byte 0x90000000
-    .4byte 0x000a0005
-    .4byte 0x0000fffb
-    .4byte 0x10000000
-    .4byte 0x00260062
-    .4byte 0x00000011
-    .4byte 0x80000100
-    .4byte 0x000e000d
-    .4byte 0x0000ffe7
-    .4byte 0x82000100
-    .4byte 0x001a0011
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0x00220011
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00020005
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x00220009
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x004e0009
-    .4byte 0x0000ffe4
-    .4byte 0x80000100
-    .4byte 0x00170015
-    .4byte 0x0000ffe6
-    .4byte 0x82000100
-    .4byte 0x00330011
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0x002a0015
-    .4byte 0x0000fff1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x001a0000
-    .4byte 0x00000002
-    .4byte 0x90000000
-    .4byte 0x000a0009
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x003a000d
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0056000d
-    .4byte 0x0000ffe2
-    .4byte 0x10000000
-    .4byte 0x002a0064
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00220019
-    .4byte 0x0000ffe5
-    .4byte 0x80000100
-    .4byte 0x004c0015
-    .4byte 0x0000000b
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000ffef
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x00280002
-    .4byte 0x0000ffff
-    .4byte 0x10008000
-    .4byte 0x00200004
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x00280042
-    .4byte 0x0000000f
-    .4byte 0x10000000
-    .4byte 0x00200044
-    .4byte 0x0000000f
-    .4byte 0x90000000
-    .4byte 0x0012000d
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x004a0011
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x005b0011
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0x00340063
-    .4byte 0x0000ffed
-    .4byte 0x80000100
-    .4byte 0x00600019
-    .4byte 0x00000008
-    .4byte 0x90008000
-    .4byte 0x0050001d
-    .4byte 0x0000ffec
-    .4byte 0x50008000
-    .4byte 0x0048001f
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x00400040
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x00400041
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x002f0005
-    .4byte 0x0000fffd
-    .4byte 0x90000000
-    .4byte 0x001c0011
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x00550015
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x005e0015
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0x00420064
-    .4byte 0x0000ffe8
-    .4byte 0x50000000
-    .4byte 0x003a0000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00400009
-    .4byte 0x0000fffb
-    .4byte 0x90000000
-    .4byte 0x005f0019
-    .4byte 0x0000fff3
-    .4byte 0x90000000
-    .4byte 0x005f0019
-    .4byte 0x0000ffda
-    .4byte 0x90000000
-    .4byte 0x00260015
-    .4byte 0x0000ffea
-    .4byte 0x10000000
-    .4byte 0x004a0062
-    .4byte 0x0000ffe5
-    .4byte 0x50000000
-    .4byte 0x00470000
-    .4byte 0x0000ffed
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000ffe8
-    .4byte 0x90000000
-    .4byte 0x0050000d
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0x004a0009
-    .4byte 0x0000ffe1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00550011
-    .4byte 0x0000fff6
-    .4byte 0x90008000
-    .4byte 0x004f001d
-    .4byte 0x0000ffe5
-    .4byte 0x50008000
-    .4byte 0x0047001f
-    .4byte 0x0000ffe5
-    .4byte 0x10008000
-    .4byte 0x003f0040
-    .4byte 0x0000ffe5
-    .4byte 0x10008000
-    .4byte 0x003f0041
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0x0052000d
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00580015
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0x005a0019
-    .4byte 0x0000ffda
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x005c0019
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0x006f001d
-    .4byte 0x0000fff2
-    .4byte 0x50008000
-    .4byte 0x0067001f
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0x005f0040
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0x005f0041
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left13
+AnimSprite_EfxBindingBlade_Left13:  @ 0x5E0028
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 26, -8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 8, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -16, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -4, -69
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -12, -45
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 4, -45
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 12, -45
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 12, -29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0019, -36, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -80
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 16, -36
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0005, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -64, -8
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E4E3C
-gUnknown_085E4E3C:  @ 0x085E4E3C
-@ Replacing .incbin "baserom.gba", 0x5E4E3C, 0xC3C
-    .4byte gUnknown_085E420C + 0x6e
-    .4byte gUnknown_085E420C + 0x86
-    .4byte gUnknown_085E420C + 0xaa
-    .4byte gUnknown_085E420C + 0xf2
-    .4byte gUnknown_085E420C + 0x146
-    .4byte gUnknown_085E420C + 0x1a6
-    .4byte gUnknown_085E420C + 0x1ee
-    .4byte gUnknown_085E420C + 0x266
-    .4byte gUnknown_085E420C + 0x30e
-    .4byte gUnknown_085E420C + 0x3b6
-    .4byte gUnknown_085E420C + 0x46a
-    .4byte gUnknown_085E420C + 0x55a
-    .4byte gUnknown_085E420C + 0x5f6
-    .4byte gUnknown_085E420C + 0x66e
-    .4byte gUnknown_085E420C + 0x716
-    .4byte gUnknown_085E420C + 0x7fa
-    .4byte gUnknown_085E420C + 0x8d2
-    .4byte gUnknown_085E420C + 0x93e
-    .4byte gUnknown_085E420C + 0x9b6
-    .4byte gUnknown_085E420C + 0xa6a
-    .4byte gUnknown_085E420C + 0xabe
-    .4byte gUnknown_085E420C + 0xb12
-    .4byte gUnknown_085E420C + 0xb4e
-    .4byte gUnknown_085E420C + 0xbae
-    .4byte gUnknown_085E420C + 0xbde
-    .4byte gUnknown_085E420C + 0xbf6
-    .4byte 0x80000000
-    .4byte 0x10000000
-    .4byte 0xfff40064
-    .4byte 0x0000ffc4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0xfff60000
-    .4byte 0x0000ffc9
-    .4byte 0x10000000
-    .4byte 0xfff70063
-    .4byte 0x0000ffd5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x50000000
-    .4byte 0x00040002
-    .4byte 0x0000ffd2
-    .4byte 0x10008000
-    .4byte 0xfffc0004
-    .4byte 0x0000ffd2
-    .4byte 0x10004000
-    .4byte 0x00040042
-    .4byte 0x0000ffe2
-    .4byte 0x10000000
-    .4byte 0xfffc0044
-    .4byte 0x0000ffe2
-    .4byte 0x50000000
-    .4byte 0xfff80000
-    .4byte 0x0000ffe1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00080005
-    .4byte 0x0000ffdf
-    .4byte 0x50000000
-    .4byte 0xffff0002
-    .4byte 0x0000ffe7
-    .4byte 0x10008000
-    .4byte 0xfff70004
-    .4byte 0x0000ffe7
-    .4byte 0x10004000
-    .4byte 0xffff0042
-    .4byte 0x0000fff7
-    .4byte 0x10000000
-    .4byte 0xfff70044
-    .4byte 0x0000fff7
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000ffc6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x00140009
-    .4byte 0x0000ffe5
-    .4byte 0x80000100
-    .4byte 0xfffe0005
-    .4byte 0x0000fff2
-    .4byte 0x50000000
-    .4byte 0xfffe0002
-    .4byte 0x0000ffce
-    .4byte 0x10008000
-    .4byte 0xfff60004
-    .4byte 0x0000ffce
-    .4byte 0x10004000
-    .4byte 0xfffe0042
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0xfff60044
-    .4byte 0x0000ffde
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00030005
-    .4byte 0x0000ffd7
-    .4byte 0x90000000
-    .4byte 0x002c000d
-    .4byte 0x0000ffea
-    .4byte 0x50000000
-    .4byte 0xfff20000
-    .4byte 0x0000ffcf
-    .4byte 0x90000000
-    .4byte 0x000c0009
-    .4byte 0x00000003
-    .4byte 0x10000000
-    .4byte 0xfff40064
-    .4byte 0x0000ffc5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000febf
-    .4byte 0x01410000
-    .4byte 0x90000000
-    .4byte 0x00170005
-    .4byte 0x0000ffe2
-    .4byte 0x90000000
-    .4byte 0x00390011
-    .4byte 0x0000ffeb
-    .4byte 0x50000000
-    .4byte 0x00040002
-    .4byte 0x0000ffd3
-    .4byte 0x10008000
-    .4byte 0xfffc0004
-    .4byte 0x0000ffd3
-    .4byte 0x10004000
-    .4byte 0x00040042
-    .4byte 0x0000ffe3
-    .4byte 0x10000000
-    .4byte 0xfffc0044
-    .4byte 0x0000ffe3
-    .4byte 0x80000100
-    .4byte 0x001f000d
-    .4byte 0x00000007
-    .4byte 0x50000000
-    .4byte 0xfff40000
-    .4byte 0x0000ffc5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0x50000000
-    .4byte 0x003e0002
-    .4byte 0x0000ffe6
-    .4byte 0x10008000
-    .4byte 0x00360004
-    .4byte 0x0000ffe6
-    .4byte 0x10004000
-    .4byte 0x003e0042
-    .4byte 0x0000fff6
-    .4byte 0x10000000
-    .4byte 0x00360044
-    .4byte 0x0000fff6
-    .4byte 0x50000000
-    .4byte 0x00050002
-    .4byte 0x0000ffdf
-    .4byte 0x10008000
-    .4byte 0xfffd0004
-    .4byte 0x0000ffdf
-    .4byte 0x10004000
-    .4byte 0x00050042
-    .4byte 0x0000ffef
-    .4byte 0x10000000
-    .4byte 0xfffd0044
-    .4byte 0x0000ffef
-    .4byte 0x90000000
-    .4byte 0x00480015
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x00210005
-    .4byte 0x0000ffe7
-    .4byte 0x80000100
-    .4byte 0x002a0011
-    .4byte 0x00000006
-    .4byte 0x50000000
-    .4byte 0xfffe0000
-    .4byte 0x0000ffd1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x000b0002
-    .4byte 0x0000ffd3
-    .4byte 0x10008000
-    .4byte 0x00030004
-    .4byte 0x0000ffd3
-    .4byte 0x10004000
-    .4byte 0x000b0042
-    .4byte 0x0000ffe3
-    .4byte 0x10000000
-    .4byte 0x00030044
-    .4byte 0x0000ffe3
-    .4byte 0x90000000
-    .4byte 0x003c0005
-    .4byte 0x0000ffe3
-    .4byte 0x50000000
-    .4byte 0x00170002
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x000f0004
-    .4byte 0x0000ffe8
-    .4byte 0x10004000
-    .4byte 0x00170042
-    .4byte 0x0000fff8
-    .4byte 0x10000000
-    .4byte 0x000f0044
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0x00520019
-    .4byte 0x0000ffea
-    .4byte 0x90000000
-    .4byte 0x002d0009
-    .4byte 0x0000ffeb
-    .4byte 0x10000000
-    .4byte 0xfff30063
-    .4byte 0x0000ffc5
-    .4byte 0x80000100
-    .4byte 0x003a0011
-    .4byte 0x00000008
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00120005
-    .4byte 0x0000ffed
-    .4byte 0x90000000
-    .4byte 0x00460005
-    .4byte 0x0000ffe1
-    .4byte 0x50000000
-    .4byte 0x00340002
-    .4byte 0x00000005
-    .4byte 0x10008000
-    .4byte 0x002c0004
-    .4byte 0x00000005
-    .4byte 0x10004000
-    .4byte 0x00340042
-    .4byte 0x00000015
-    .4byte 0x10000000
-    .4byte 0x002c0044
-    .4byte 0x00000015
-    .4byte 0x90008000
-    .4byte 0x006a001d
-    .4byte 0x0000ffe8
-    .4byte 0x50008000
-    .4byte 0x0062001f
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x005a0040
-    .4byte 0x0000ffe8
-    .4byte 0x10008000
-    .4byte 0x005a0041
-    .4byte 0x0000fff8
-    .4byte 0x90000000
-    .4byte 0x0038000d
-    .4byte 0x0000ffeb
-    .4byte 0x50000000
-    .4byte 0xfff40000
-    .4byte 0x0000ffca
-    .4byte 0x80000100
-    .4byte 0x00090009
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x00100002
-    .4byte 0x0000fff1
-    .4byte 0x10008000
-    .4byte 0x00080004
-    .4byte 0x0000fff1
-    .4byte 0x10004000
-    .4byte 0x00100042
-    .4byte 0x00000001
-    .4byte 0x10000000
-    .4byte 0x00080044
-    .4byte 0x00000001
-    .4byte 0x90000000
-    .4byte 0x001b0009
-    .4byte 0x0000fff3
-    .4byte 0x90000000
-    .4byte 0x003e0011
-    .4byte 0x0000ffec
-    .4byte 0x50000000
-    .4byte 0x00010002
-    .4byte 0x0000ffd0
-    .4byte 0x10008000
-    .4byte 0xfff90004
-    .4byte 0x0000ffd0
-    .4byte 0x10004000
-    .4byte 0x00010042
-    .4byte 0x0000ffe0
-    .4byte 0x10000000
-    .4byte 0xfff90044
-    .4byte 0x0000ffe0
-    .4byte 0x50000000
-    .4byte 0x00420002
-    .4byte 0x00000008
-    .4byte 0x10008000
-    .4byte 0x003a0004
-    .4byte 0x00000008
-    .4byte 0x10004000
-    .4byte 0x00420042
-    .4byte 0x00000018
-    .4byte 0x10000000
-    .4byte 0x003a0044
-    .4byte 0x00000018
-    .4byte 0x80000100
-    .4byte 0x00510009
-    .4byte 0x0000ffda
-    .4byte 0x50000000
-    .4byte 0xffef0000
-    .4byte 0x0000ffc6
-    .4byte 0x82000100
-    .4byte 0x0011000d
-    .4byte 0x0000ffdc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00010005
-    .4byte 0x0000ffdc
-    .4byte 0x90000000
-    .4byte 0x002a0005
-    .4byte 0x0000fff6
-    .4byte 0x90000000
-    .4byte 0x0016000d
-    .4byte 0x0000fffa
-    .4byte 0x90000000
-    .4byte 0x004a0015
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x00430005
-    .4byte 0x00000005
-    .4byte 0x80000100
-    .4byte 0x0059000d
-    .4byte 0x0000ffd7
-    .4byte 0x10000000
-    .4byte 0xfff40064
-    .4byte 0x0000ffc6
-    .4byte 0x50000000
-    .4byte 0xfff60000
-    .4byte 0x0000ffd1
-    .4byte 0x82000100
-    .4byte 0x001e0011
-    .4byte 0x0000ffe3
-    .4byte 0x10000000
-    .4byte 0x000a0064
-    .4byte 0x00000007
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00520005
-    .4byte 0x00000006
-    .4byte 0x10000000
-    .4byte 0x00050064
-    .4byte 0x0000fff5
-    .4byte 0x90000000
-    .4byte 0x00120005
-    .4byte 0x0000ffe6
-    .4byte 0x90000000
-    .4byte 0x003e0009
-    .4byte 0x0000fff7
-    .4byte 0x90000000
-    .4byte 0x002c0011
-    .4byte 0x00000001
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000ffeb
-    .4byte 0x50000000
-    .4byte 0xfff50000
-    .4byte 0x0000ffc6
-    .4byte 0x50000000
-    .4byte 0xfffb0000
-    .4byte 0x0000ffd7
-    .4byte 0x10000000
-    .4byte 0x00160063
-    .4byte 0x0000000e
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x001d0009
-    .4byte 0x0000ffe9
-    .4byte 0x90000000
-    .4byte 0x00480019
-    .4byte 0x0000fff2
-    .4byte 0x90000000
-    .4byte 0x00330015
-    .4byte 0x00000003
-    .4byte 0x90000000
-    .4byte 0x0058000d
-    .4byte 0x00000006
-    .4byte 0x10000000
-    .4byte 0xfff50063
-    .4byte 0x0000ffc6
-    .4byte 0x10000000
-    .4byte 0x00060063
-    .4byte 0x0000fff8
-    .4byte 0x50000000
-    .4byte 0xfffe0002
-    .4byte 0x0000ffcc
-    .4byte 0x10008000
-    .4byte 0xfff60004
-    .4byte 0x0000ffcc
-    .4byte 0x10004000
-    .4byte 0xfffe0042
-    .4byte 0x0000ffdc
-    .4byte 0x10000000
-    .4byte 0xfff60044
-    .4byte 0x0000ffdc
-    .4byte 0x80000100
-    .4byte 0x00020009
-    .4byte 0x0000fff7
-    .4byte 0x10000000
-    .4byte 0x001d0064
-    .4byte 0x00000014
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x003a0002
-    .4byte 0x0000ffee
-    .4byte 0x10008000
-    .4byte 0x00320004
-    .4byte 0x0000ffee
-    .4byte 0x10004000
-    .4byte 0x003a0042
-    .4byte 0x0000fffe
-    .4byte 0x10000000
-    .4byte 0x00320044
-    .4byte 0x0000fffe
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x0024000d
-    .4byte 0x0000ffeb
-    .4byte 0x90000000
-    .4byte 0x005b0011
-    .4byte 0x00000004
-    .4byte 0x50000000
-    .4byte 0xfff40000
-    .4byte 0x0000ffc5
-    .4byte 0x50000000
-    .4byte 0x00060002
-    .4byte 0x0000fff0
-    .4byte 0x10008000
-    .4byte 0xfffe0004
-    .4byte 0x0000fff0
-    .4byte 0x10004000
-    .4byte 0x00060042
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfffe0044
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0x000e0064
-    .4byte 0x00000006
-    .4byte 0x80000100
-    .4byte 0xfffc0009
-    .4byte 0x0000ffd9
-    .4byte 0x82000100
-    .4byte 0x000a000d
-    .4byte 0x00000001
-    .4byte 0x10000000
-    .4byte 0x00260062
-    .4byte 0x00000018
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00420005
-    .4byte 0x0000ffe9
-    .4byte 0x90008000
-    .4byte 0x004e001d
-    .4byte 0x0000fff8
-    .4byte 0x50008000
-    .4byte 0x0046001f
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0x003e0040
-    .4byte 0x0000fff8
-    .4byte 0x10008000
-    .4byte 0x003e0041
-    .4byte 0x00000008
-    .4byte 0x90000000
-    .4byte 0x00600015
-    .4byte 0x0000ffff
-    .4byte 0x50000000
-    .4byte 0x00000002
-    .4byte 0x0000ffd2
-    .4byte 0x10008000
-    .4byte 0xfff80004
-    .4byte 0x0000ffd2
-    .4byte 0x10004000
-    .4byte 0x00000042
-    .4byte 0x0000ffe2
-    .4byte 0x10000000
-    .4byte 0xfff80044
-    .4byte 0x0000ffe2
-    .4byte 0x90000000
-    .4byte 0x000a0005
-    .4byte 0x0000fffb
-    .4byte 0x10000000
-    .4byte 0x00260062
-    .4byte 0x00000011
-    .4byte 0x80000100
-    .4byte 0x000e000d
-    .4byte 0x0000ffe7
-    .4byte 0x82000100
-    .4byte 0x001a0011
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0x002f0011
-    .4byte 0x0000ffeb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000fe92
-    .4byte 0x016e0000
-    .4byte 0xffff0002
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00040005
-    .4byte 0x0000ffdf
-    .4byte 0x90000000
-    .4byte 0x00220009
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x004e0009
-    .4byte 0x0000ffe4
-    .4byte 0x80000100
-    .4byte 0x00170015
-    .4byte 0x0000ffea
-    .4byte 0x82000100
-    .4byte 0x00330011
-    .4byte 0x0000000c
-    .4byte 0x90000000
-    .4byte 0x00390015
-    .4byte 0x0000ffec
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x001a0000
-    .4byte 0x00000002
-    .4byte 0x90000000
-    .4byte 0x000a0009
-    .4byte 0x0000ffe8
-    .4byte 0x90000000
-    .4byte 0x003a000d
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0056000d
-    .4byte 0x0000ffe2
-    .4byte 0x10000000
-    .4byte 0x002a0064
-    .4byte 0x0000fff0
-    .4byte 0x90000000
-    .4byte 0x00220019
-    .4byte 0x0000ffee
-    .4byte 0x80000100
-    .4byte 0x004c0015
-    .4byte 0x0000000b
-    .4byte 0x90000000
-    .4byte 0x00420019
-    .4byte 0x0000ffea
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x50000000
-    .4byte 0x00280002
-    .4byte 0x0000ffff
-    .4byte 0x10008000
-    .4byte 0x00200004
-    .4byte 0x0000ffff
-    .4byte 0x10004000
-    .4byte 0x00280042
-    .4byte 0x0000000f
-    .4byte 0x10000000
-    .4byte 0x00200044
-    .4byte 0x0000000f
-    .4byte 0x90000000
-    .4byte 0x0012000d
-    .4byte 0x0000ffee
-    .4byte 0x90000000
-    .4byte 0x004a0011
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x005b0011
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0x00340063
-    .4byte 0x0000ffed
-    .4byte 0x80000100
-    .4byte 0x00600019
-    .4byte 0x00000008
-    .4byte 0x90008000
-    .4byte 0x005a001d
-    .4byte 0x0000ffec
-    .4byte 0x50008000
-    .4byte 0x0052001f
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x004a0040
-    .4byte 0x0000ffec
-    .4byte 0x10008000
-    .4byte 0x004a0041
-    .4byte 0x0000fffc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x002f0005
-    .4byte 0x0000fffd
-    .4byte 0x90000000
-    .4byte 0x001c0011
-    .4byte 0x0000ffec
-    .4byte 0x90000000
-    .4byte 0x00550015
-    .4byte 0x0000fffc
-    .4byte 0x90000000
-    .4byte 0x005e0015
-    .4byte 0x0000ffde
-    .4byte 0x10000000
-    .4byte 0x00420064
-    .4byte 0x0000ffe8
-    .4byte 0x50000000
-    .4byte 0x003a0000
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x00400009
-    .4byte 0x0000fffb
-    .4byte 0x90000000
-    .4byte 0x005f0019
-    .4byte 0x0000fff3
-    .4byte 0x90000000
-    .4byte 0x005f0019
-    .4byte 0x0000ffda
-    .4byte 0x90000000
-    .4byte 0x00260015
-    .4byte 0x0000ffea
-    .4byte 0x10000000
-    .4byte 0x004a0062
-    .4byte 0x0000ffe5
-    .4byte 0x50000000
-    .4byte 0x00470000
-    .4byte 0x0000ffed
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00320019
-    .4byte 0x0000ffe8
-    .4byte 0x90000000
-    .4byte 0x0050000d
-    .4byte 0x0000fff9
-    .4byte 0x80000100
-    .4byte 0x004a0009
-    .4byte 0x0000ffe1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00550011
-    .4byte 0x0000fff6
-    .4byte 0x90008000
-    .4byte 0x004f001d
-    .4byte 0x0000ffe5
-    .4byte 0x50008000
-    .4byte 0x0047001f
-    .4byte 0x0000ffe5
-    .4byte 0x10008000
-    .4byte 0x003f0040
-    .4byte 0x0000ffe5
-    .4byte 0x10008000
-    .4byte 0x003f0041
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0x0052000d
-    .4byte 0x0000ffdd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000fe00
-    .4byte 0x02000000
-    .4byte 0x90000000
-    .4byte 0x00580015
-    .4byte 0x0000fff5
-    .4byte 0x80000100
-    .4byte 0x005a0019
-    .4byte 0x0000ffda
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x005c0019
-    .4byte 0x0000fff4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90008000
-    .4byte 0x006f001d
-    .4byte 0x0000fff2
-    .4byte 0x50008000
-    .4byte 0x0067001f
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0x005f0040
-    .4byte 0x0000fff2
-    .4byte 0x10008000
-    .4byte 0x005f0041
-    .4byte 0x00000002
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_EfxBindingBlade_Left14
+AnimSprite_EfxBindingBlade_Left14:  @ 0x5E00F4
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 26, -8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 8, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -20, -52
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -4, -52
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -20, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -4, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -4, -69
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -20, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 12, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0009, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 24, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -64, -8
+    ANIM_SPRITE_END
 
-	.global gUnknown_085E5A78
-gUnknown_085E5A78:  @ 0x085E5A78
-@ Replacing .incbin "baserom.gba", 0x5E5A78, 0x6C
-    .4byte gUnknown_085E4E3C + 0x6e
-    .4byte gUnknown_085E4E3C + 0x86
-    .4byte gUnknown_085E4E3C + 0xaa
-    .4byte gUnknown_085E4E3C + 0xf2
-    .4byte gUnknown_085E4E3C + 0x146
-    .4byte gUnknown_085E4E3C + 0x1a6
-    .4byte gUnknown_085E4E3C + 0x1ee
-    .4byte gUnknown_085E4E3C + 0x266
-    .4byte gUnknown_085E4E3C + 0x30e
-    .4byte gUnknown_085E4E3C + 0x3c2
-    .4byte gUnknown_085E4E3C + 0x476
-    .4byte gUnknown_085E4E3C + 0x566
-    .4byte gUnknown_085E4E3C + 0x602
-    .4byte gUnknown_085E4E3C + 0x67a
-    .4byte gUnknown_085E4E3C + 0x722
-    .4byte gUnknown_085E4E3C + 0x806
-    .4byte gUnknown_085E4E3C + 0x8de
-    .4byte gUnknown_085E4E3C + 0x94a
-    .4byte gUnknown_085E4E3C + 0x9c2
-    .4byte gUnknown_085E4E3C + 0xa76
-    .4byte gUnknown_085E4E3C + 0xaca
-    .4byte gUnknown_085E4E3C + 0xb1e
-    .4byte gUnknown_085E4E3C + 0xb5a
-    .4byte gUnknown_085E4E3C + 0xbba
-    .4byte gUnknown_085E4E3C + 0xbea
-    .4byte gUnknown_085E4E3C + 0xc02
-    .4byte 0x80000000
+.global AnimSprite_EfxBindingBlade_Left15
+AnimSprite_EfxBindingBlade_Left15:  @ 0x5E01B4
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, 4, -48
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0015, 8, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -24, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 12, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -4, -69
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -24, -88
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -8, -88
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -24, -72
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -8, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -72
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 24, -72
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left16
+AnimSprite_EfxBindingBlade_Left16:  @ 0x5E0268
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -24, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -28, -92
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -4, -69
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 20, -92
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 4, -48
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 12, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 28, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 36, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 36, 4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 4, -76
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 24, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0019, 8, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left17
+AnimSprite_EfxBindingBlade_Left17:  @ 0x5E0328
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -24, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 0, -80
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 16, -80
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 0, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 16, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 16, -96
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -28, -92
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -4, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 4, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 24, -72
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left18
+AnimSprite_EfxBindingBlade_Left18:  @ 0x5E03B8
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -24, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -4, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 12, -99
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 28, -99
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 12, -83
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 28, -83
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -28, -92
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -4, -68
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 12, -68
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 20, -68
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 20, -52
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 4, -48
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left19
+AnimSprite_EfxBindingBlade_Left19:  @ 0x5E0460
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -8, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 8, -104
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -28, -93
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -4, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -24, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left20
+AnimSprite_EfxBindingBlade_Left20:  @ 0x5E04A8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 8, -104
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -8, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -28, -93
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -4, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -24, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left21
+AnimSprite_EfxBindingBlade_Left21:  @ 0x5E04F0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 8, -104
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -8, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -28, -93
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -4, -84
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -24, -56
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -8, -56
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 0, -56
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 0, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left22
+AnimSprite_EfxBindingBlade_Left22:  @ 0x5E055C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 8, -104
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -28, -93
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -12, -93
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -4, -93
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -4, -77
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -4, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -8, -64
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left23
+AnimSprite_EfxBindingBlade_Left23:  @ 0x5E05BC
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 8, -104
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -4, -84
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left24
+AnimSprite_EfxBindingBlade_Left24:  @ 0x5E05E0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 8, -104
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -4, -84
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 12, -84
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 20, -84
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 20, -68
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left25
+AnimSprite_EfxBindingBlade_Left25:  @ 0x5E0628
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 8, -104
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Left26
+AnimSprite_EfxBindingBlade_Left26:  @ 0x5E0640
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 8, -104
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 24, -104
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 32, -104
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 32, -88
+    ANIM_SPRITE_END
+
+	.global AnimScr_EfxBindingBlade_Left
+AnimScr_EfxBindingBlade_Left:  @ 0x085E067C
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Left26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_EfxBindingBlade_Right1
+AnimSprite_EfxBindingBlade_Right1:  @ 0x5E06E8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, -4, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right2
+AnimSprite_EfxBindingBlade_Right2:  @ 0x5E0700
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0400, -8, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right3
+AnimSprite_EfxBindingBlade_Right3:  @ 0x5E0718
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0402, -4, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0404, -12, -12
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0442, -4, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0444, -12, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, 15, 0
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right4
+AnimSprite_EfxBindingBlade_Right4:  @ 0x5E0760
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0405, -16, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0400, 12, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0464, -8, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -28, 4
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right5
+AnimSprite_EfxBindingBlade_Right5:  @ 0x5E079C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0402, 19, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0404, 11, -8
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0442, 19, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0444, 11, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -32, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right6
+AnimSprite_EfxBindingBlade_Right6:  @ 0x5E07FC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -28, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -36, -4
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -28, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -36, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -8, -35
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -16, -35
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -8, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -16, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right7
+AnimSprite_EfxBindingBlade_Right7:  @ 0x5E0880
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -32, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -40, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -20, -38
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 16, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 44, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right8
+AnimSprite_EfxBindingBlade_Right8:  @ 0x5E08E0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -36, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -40, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -20, -39
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 12, -52
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 40, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right9
+AnimSprite_EfxBindingBlade_Right9:  @ 0x5E0940
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -32, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -40, -8
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -32, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -40, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0411, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x040D, -20, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, 4, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 44, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 36, -4
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 44, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 36, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right10
+AnimSprite_EfxBindingBlade_Right10:  @ 0x5E09F4
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -16, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -44, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0411, -20, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0415, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 4, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -28, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0009, 32, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right11
+AnimSprite_EfxBindingBlade_Right11:  @ 0x5E0A84
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -48, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0419, 7, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0415, -20, -41
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 4, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -44, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -20, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 20, -28
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -32, -24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 32, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 0, -16
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -8, -16
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -16, -16
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -16, 0
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right12
+AnimSprite_EfxBindingBlade_Right12:  @ 0x5E0B50
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -44, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -52, -4
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -44, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -52, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -28, -28
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -36, -28
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -28, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -36, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -16, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 23, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 15, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, 7, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, 7, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0419, -20, -43
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -16, -64
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -24, -64
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -16, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -24, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -44, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 4, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 16, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 4, -44
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 32, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right13
+AnimSprite_EfxBindingBlade_Right13:  @ 0x5E0C88
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -58, -8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -40, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 0, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -28, -69
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -4, -45
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -12, -45
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -20, -45
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -20, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -44, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0019, 4, -60
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -80
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -24, -36
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0005, 8, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 32, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right14
+AnimSprite_EfxBindingBlade_Right14:  @ 0x5E0D54
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -58, -8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -40, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 4, -52
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -4, -52
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 4, -36
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -4, -36
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -44, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -28, -69
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 4, -84
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -28, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0009, 8, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -32, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 32, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right15
+AnimSprite_EfxBindingBlade_Right15:  @ 0x5E0E14
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -36, -48
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0015, -40, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -44, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -28, -69
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 8, -88
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 0, -88
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 8, -72
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 0, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 8, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -72
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -32, -72
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right16
+AnimSprite_EfxBindingBlade_Right16:  @ 0x5E0EC8
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -4, -92
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -28, -69
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -28, -92
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -36, -48
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -28, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -36, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -44, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -44, 4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 8, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -20, -76
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -32, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0019, -40, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right17
+AnimSprite_EfxBindingBlade_Right17:  @ 0x5E0F88
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -16, -80
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -24, -80
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -16, -64
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -24, -64
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -32, -96
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -4, -92
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -28, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, -36, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -32, -72
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right18
+AnimSprite_EfxBindingBlade_Right18:  @ 0x5E1018
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -28, -99
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -36, -99
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -28, -83
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -36, -83
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -4, -92
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -12, -68
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -20, -68
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -28, -68
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -28, -52
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -36, -48
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right19
+AnimSprite_EfxBindingBlade_Right19:  @ 0x5E10C0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 0, -64
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -4, -93
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -8, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right20
+AnimSprite_EfxBindingBlade_Right20:  @ 0x5E1108
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 0, -64
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -4, -93
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -8, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right21
+AnimSprite_EfxBindingBlade_Right21:  @ 0x5E1150
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -40, -104
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 0, -64
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -4, -93
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 8, -56
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 0, -56
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -8, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right22
+AnimSprite_EfxBindingBlade_Right22:  @ 0x5E11BC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, 12, -93
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, 4, -93
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -4, -93
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -4, -77
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 0, -64
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right23
+AnimSprite_EfxBindingBlade_Right23:  @ 0x5E121C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -28, -84
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right24
+AnimSprite_EfxBindingBlade_Right24:  @ 0x5E1240
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -12, -84
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -20, -84
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -28, -84
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -28, -68
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right25
+AnimSprite_EfxBindingBlade_Right25:  @ 0x5E1288
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -40, -104
+    ANIM_SPRITE_END
+
+.global AnimSprite_EfxBindingBlade_Right26
+AnimSprite_EfxBindingBlade_Right26:  @ 0x5E12A0
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x041D, -24, -104
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x041F, -32, -104
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0440, -40, -104
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0441, -40, -88
+    ANIM_SPRITE_END
+
+	.global AnimScr_EfxBindingBlade_Right
+AnimScr_EfxBindingBlade_Right:  @ 0x085E12DC
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxBindingBlade_Right26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_HurtmutEff00OBJ1_1
+AnimSprite_HurtmutEff00OBJ1_1:  @ 0x5E1348
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -3, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_2
+AnimSprite_HurtmutEff00OBJ1_2:  @ 0x5E1360
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0040, -10, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_3
+AnimSprite_HurtmutEff00OBJ1_3:  @ 0x5E1378
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0002, -10, -40
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0044, -2, -24
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_4
+AnimSprite_HurtmutEff00OBJ1_4:  @ 0x5E139C
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0006, -2, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -9, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_5
+AnimSprite_HurtmutEff00OBJ1_5:  @ 0x5E13C0
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0008, -2, -48
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_6
+AnimSprite_HurtmutEff00OBJ1_6:  @ 0x5E13D8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x000A, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_7
+AnimSprite_HurtmutEff00OBJ1_7:  @ 0x5E13F0
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x000C, -3, -64
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0010, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_8
+AnimSprite_HurtmutEff00OBJ1_8:  @ 0x5E1414
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0065, 1, -60
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0012, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_9
+AnimSprite_HurtmutEff00OBJ1_9:  @ 0x5E1438
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x000E, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_10
+AnimSprite_HurtmutEff00OBJ1_10:  @ 0x5E1450
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0010, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_11
+AnimSprite_HurtmutEff00OBJ1_11:  @ 0x5E1468
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0012, -3, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_12
+AnimSprite_HurtmutEff00OBJ1_12:  @ 0x5E1480
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x0014, -4, -52
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_13
+AnimSprite_HurtmutEff00OBJ1_13:  @ 0x5E1498
+    ANIM_SPRITE_AFFIN 1, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE ATTR0_TALL + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0014, -8, -51
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_14
+AnimSprite_HurtmutEff00OBJ1_14:  @ 0x5E14BC
+    ANIM_SPRITE_AFFIN 1, 0xf7, -0x43, 0x43, 0xf7
+    ANIM_SPRITE ATTR0_TALL + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0014, -9, -50
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_15
+AnimSprite_HurtmutEff00OBJ1_15:  @ 0x5E14E0
+    ANIM_SPRITE_AFFIN 1, 0xf7, -0x43, 0x43, 0xf7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0016, -13, -45
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -8, -34
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_16
+AnimSprite_HurtmutEff00OBJ1_16:  @ 0x5E1510
+    ANIM_SPRITE_AFFIN 1, 0xfd, -0x24, 0x24, 0xfd
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -9, -33
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0016, -15, -43
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_17
+AnimSprite_HurtmutEff00OBJ1_17:  @ 0x5E1540
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0016, -16, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -11, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_18
+AnimSprite_HurtmutEff00OBJ1_18:  @ 0x5E1564
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x001A, 17, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0018, 1, -19
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x005B, -7, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0059, -23, -27
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0058, -31, -27
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ1_19
+AnimSprite_HurtmutEff00OBJ1_19:  @ 0x5E15AC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001E, 21, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x003C, 4, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x005C, 23, -9
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x005E, 39, -1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x001C, -23, -22
+    ANIM_SPRITE_END
+
+	.global AnimScr_HurtmutEff00OBJ1_Right
+AnimScr_HurtmutEff00OBJ1_Right:  @ 0x085E15F4
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_19, 2
+    ANIMSCR_BLOCKED
+
+	.global AnimScr_HurtmutEff01OBJ1_Right
+AnimScr_HurtmutEff01OBJ1_Right:  @ 0x085E163C
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ1_19, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_HurtmutEff01OBJ1_1
+AnimSprite_HurtmutEff01OBJ1_1:  @ 0x5E16B4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -13, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_2
+AnimSprite_HurtmutEff01OBJ1_2:  @ 0x5E16CC
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0040, -22, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_3
+AnimSprite_HurtmutEff01OBJ1_3:  @ 0x5E16E4
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0002, -22, -40
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0044, -14, -24
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_4
+AnimSprite_HurtmutEff01OBJ1_4:  @ 0x5E1708
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0006, -14, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 1, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_5
+AnimSprite_HurtmutEff01OBJ1_5:  @ 0x5E172C
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0008, -14, -48
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_6
+AnimSprite_HurtmutEff01OBJ1_6:  @ 0x5E1744
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x000A, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_7
+AnimSprite_HurtmutEff01OBJ1_7:  @ 0x5E175C
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x000C, -13, -64
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0010, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_8
+AnimSprite_HurtmutEff01OBJ1_8:  @ 0x5E1780
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0065, -9, -60
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0012, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_9
+AnimSprite_HurtmutEff01OBJ1_9:  @ 0x5E17A4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x000E, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_10
+AnimSprite_HurtmutEff01OBJ1_10:  @ 0x5E17BC
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0010, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_11
+AnimSprite_HurtmutEff01OBJ1_11:  @ 0x5E17D4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0012, -13, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_12
+AnimSprite_HurtmutEff01OBJ1_12:  @ 0x5E17EC
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x0014, -12, -52
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_13
+AnimSprite_HurtmutEff01OBJ1_13:  @ 0x5E1804
+    ANIM_SPRITE_AFFIN 1, -0xfb, -0x2d, -0x2d, 0xfb
+    ANIM_SPRITE ATTR0_TALL + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0014, -8, -51
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_14
+AnimSprite_HurtmutEff01OBJ1_14:  @ 0x5E1828
+    ANIM_SPRITE_AFFIN 1, -0xf7, -0x43, -0x43, 0xf7
+    ANIM_SPRITE ATTR0_TALL + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0014, -7, -50
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_15
+AnimSprite_HurtmutEff01OBJ1_15:  @ 0x5E184C
+    ANIM_SPRITE_AFFIN 1, -0xf7, -0x43, -0x43, 0xf7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0016, -3, -45
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -8, -34
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_16
+AnimSprite_HurtmutEff01OBJ1_16:  @ 0x5E187C
+    ANIM_SPRITE_AFFIN 1, -0xfd, -0x24, -0x24, 0xfd
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -7, -33
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0016, -1, -43
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_17
+AnimSprite_HurtmutEff01OBJ1_17:  @ 0x5E18AC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0016, 0, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0056, -5, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_18
+AnimSprite_HurtmutEff01OBJ1_18:  @ 0x5E18D0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x001A, -33, -11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0018, -17, -19
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x005B, -1, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0059, 7, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0058, 23, -27
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ1_19
+AnimSprite_HurtmutEff01OBJ1_19:  @ 0x5E1918
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001E, -29, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x003C, -12, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x005C, -39, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x005E, -55, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x001C, 7, -22
+    ANIM_SPRITE_END
+
+	.global AnimScr_HurtmutEff00OBJ1_Left
+AnimScr_HurtmutEff00OBJ1_Left:  @ 0x085E1960
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_19, 2
+    ANIMSCR_BLOCKED
+
+	.global AnimScr_HurtmutEff01OBJ1_Left
+AnimScr_HurtmutEff01OBJ1_Left:  @ 0x085E19A8
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_7, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_8, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_9, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_10, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_11, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ1_19, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_HurtmutEff00OBJ2_1
+AnimSprite_HurtmutEff00OBJ2_1:  @ 0x5E1A20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007E, 22, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007D, 6, -16
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, 22, -6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007F, -13, -22
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x007A, 52, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_2
+AnimSprite_HurtmutEff00OBJ2_2:  @ 0x5E1A68
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x007E, 8, -20
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0040, 22, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007D, -10, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007F, 57, 2
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_3
+AnimSprite_HurtmutEff00OBJ2_3:  @ 0x5E1AA4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0044, 22, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007E, -9, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x007E, 59, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_4
+AnimSprite_HurtmutEff00OBJ2_4:  @ 0x5E1AD4
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, 21, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_5
+AnimSprite_HurtmutEff00OBJ2_5:  @ 0x5E1AEC
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0008, 19, -25
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x000A, 35, -25
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0001, 47, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_6
+AnimSprite_HurtmutEff00OBJ2_6:  @ 0x5E1B1C
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, 0, -53
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, -25, -56
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x000C, -38, -54
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_32, 0x000D, -30, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0011, 2, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0051, 18, -46
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0070, 10, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0050, 34, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x004D, -30, -38
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_16, 0x0013, -30, -62
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_7
+AnimSprite_HurtmutEff00OBJ2_7:  @ 0x5E1BA0
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x001D, -40, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0038, -38, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, -22, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x005C, -30, -12
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_16, 0x0018, 5, 0
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, -1, -55
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0077, -27, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007C, -30, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff00OBJ2_8
+AnimSprite_HurtmutEff00OBJ2_8:  @ 0x5E1C0C
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x003E, -8, -56
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x003E, -32, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x005E, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001C, -32, -16
+    ANIM_SPRITE_END
+
+	.global AnimScr_HurtmutEff00OBJ2_Right
+AnimScr_HurtmutEff00OBJ2_Right:  @ 0x085E1C48
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_1, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_2, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_3, 3
+    ANIMSCR_BLOCKED
+
+	.global AnimScr_HurtmutEff01OBJ2_Right
+AnimScr_HurtmutEff01OBJ2_Right:  @ 0x085E1C58
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_1, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_2, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_3, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_4, 4
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_5, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff00OBJ2_8, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_HurtmutEff01OBJ2_1
+AnimSprite_HurtmutEff01OBJ2_1:  @ 0x5E1C7C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007E, -30, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007D, -14, -16
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0004, -54, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007F, 5, -22
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x007A, -68, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_2
+AnimSprite_HurtmutEff01OBJ2_2:  @ 0x5E1CC4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x007E, -16, -20
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0040, -54, -6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007D, 2, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007F, -65, 2
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_3
+AnimSprite_HurtmutEff01OBJ2_3:  @ 0x5E1D00
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0044, -54, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x007E, 1, -23
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x007E, -67, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_4
+AnimSprite_HurtmutEff01OBJ2_4:  @ 0x5E1D30
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x0000, -53, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_5
+AnimSprite_HurtmutEff01OBJ2_5:  @ 0x5E1D48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0008, -35, -25
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x000A, -51, -25
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0001, -55, 3
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_6
+AnimSprite_HurtmutEff01OBJ2_6:  @ 0x5E1D78
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, -16, -53
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, 9, -56
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x000C, 30, -54
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_32, 0x000D, -2, -54
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0011, -18, -54
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0051, -34, -46
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0070, -18, -38
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0050, -42, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x004D, 22, -38
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_16, 0x0013, -2, -62
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_7
+AnimSprite_HurtmutEff01OBJ2_7:  @ 0x5E1DFC
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x001D, 32, -48
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0038, 22, -28
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, 6, -12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x005C, 22, -12
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_16, 0x0018, -37, 0
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0077, -15, -55
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0077, 11, -56
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x007C, 22, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_HurtmutEff01OBJ2_8
+AnimSprite_HurtmutEff01OBJ2_8:  @ 0x5E1E68
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x003E, -8, -56
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x003E, 16, -54
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x005E, 32, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001C, 24, -16
+    ANIM_SPRITE_END
+
+	.global AnimScr_HurtmutEff00OBJ2_Left
+AnimScr_HurtmutEff00OBJ2_Left:  @ 0x085E1EA4
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_1, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_2, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_3, 3
+    ANIMSCR_BLOCKED
+
+	.global AnimScr_HurtmutEff01OBJ2_Left
+AnimScr_HurtmutEff01OBJ2_Left:  @ 0x085E1EB4
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_1, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_2, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_3, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_4, 4
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_5, 3
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_HurtmutEff01OBJ2_8, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_FirebreathOBJ_Left1
+AnimSprite_FirebreathOBJ_Left1:  @ 0x5E1ED8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 16, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left2
+AnimSprite_FirebreathOBJ_Left2:  @ 0x5E1EF0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 0, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 16, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left3
+AnimSprite_FirebreathOBJ_Left3:  @ 0x5E1F14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -22, -15
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -6, -15
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -22, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -6, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left4
+AnimSprite_FirebreathOBJ_Left4:  @ 0x5E1F5C
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0005, -54, -9
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -27, -5
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -11, -5
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -27, -13
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -11, -13
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0000, -10, 2
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left5
+AnimSprite_FirebreathOBJ_Left5:  @ 0x5E1FB0
+    ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -75, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -51, -6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -27, -12
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -11, -12
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -27, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -11, 4
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left6
+AnimSprite_FirebreathOBJ_Left6:  @ 0x5E2010
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -41, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -77, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -52, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -2
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left7
+AnimSprite_FirebreathOBJ_Left7:  @ 0x5E2058
+    ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -60, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -96, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -33, -9
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -17, -9
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -33, 7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -17, 7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -72, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -4, -6
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left8
+AnimSprite_FirebreathOBJ_Left8:  @ 0x5E20D0
+    ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -26, -2
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -10, -2
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -26, 14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -10, 14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -100, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -50, -22
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, -68, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -62, -26
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -46, -26
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -62, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -46, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left9
+AnimSprite_FirebreathOBJ_Left9:  @ 0x5E2178
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -32, 0
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -16, 0
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -32, 16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -16, 16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -116, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -57, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -78, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 5, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -100, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -20, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left10
+AnimSprite_FirebreathOBJ_Left10:  @ 0x5E21FC
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -54, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -70, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -88, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -22, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -81, 3
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -65, 3
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -81, 19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -65, 19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -43, -23
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0019, -118, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left11
+AnimSprite_FirebreathOBJ_Left11:  @ 0x5E2298
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0009, -71, -30
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0011, -85, -8
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -33, 2
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -17, 2
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -33, -6
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -17, -6
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -53, -6
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -37, -6
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -53, -14
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -37, -14
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -97, -24
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -81, -24
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -97, -32
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -81, -32
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -115, -16
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0000, -12, -3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, -61, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left12
+AnimSprite_FirebreathOBJ_Left12:  @ 0x5E2388
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x000D, -76, -29
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0015, -92, -13
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0005, -44, -13
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0005, -92, -23
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0005, -117, -34
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 127, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 12, 2
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0000, -12, -4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -70, -1
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0064, -36, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left13
+AnimSprite_FirebreathOBJ_Left13:  @ 0x5E2424
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0005, -57, -8
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0011, -81, -24
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0019, -97, -7
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0009, -113, -21
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -13, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, 0
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0000, -25, -3
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0063, -43, -20
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left14
+AnimSprite_FirebreathOBJ_Left14:  @ 0x5E2490
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0019, -106, -4
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0015, -90, -33
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0009, -65, -6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 4, 4
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0063, -25, 5
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -21, 1
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -5, 1
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -21, -7
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -5, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -44, -20
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0064, -51, -23
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left15
+AnimSprite_FirebreathOBJ_Left15:  @ 0x5E252C
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x0019, -95, -31
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x000D, -69, -8
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -87, 17
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -71, 17
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -87, 9
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -71, 9
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0000, -9, 1
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0002, -26, -2
+    ANIM_SPRITE ATTR0_TALL, 0x2000, 0x0004, -10, -2
+    ANIM_SPRITE ATTR0_WIDE, 0x2000, 0x0042, -26, -10
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0044, -10, -10
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0064, -33, -5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -40, -4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, -49, -29
+    ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x0062, -57, -27
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left16
+AnimSprite_FirebreathOBJ_Left16:  @ 0x5E2604
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -109, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -93, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -85, -4
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -85, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -77, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 127, -9
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -113, -27
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -22, -10
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -6, -10
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -22, 6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -6, 6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -49, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -53, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -53, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -69, 9
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left17
+AnimSprite_FirebreathOBJ_Left17:  @ 0x5E26DC
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -75, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -33, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -65, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -110, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -53, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -84, 12
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left18
+AnimSprite_FirebreathOBJ_Left18:  @ 0x5E2748
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -47, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -86, -22
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -44, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -93, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -120, -33
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -54, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -70, -33
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -114, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left19
+AnimSprite_FirebreathOBJ_Left19:  @ 0x5E27C0
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -94, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -78, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -70, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -70, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -54, -1
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -38, -1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -54, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -38, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -48, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -104, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -121, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -58, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -128, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left20
+AnimSprite_FirebreathOBJ_Left20:  @ 0x5E2874
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -77, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -58, -21
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -115, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -120, -35
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -72, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -72, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left21
+AnimSprite_FirebreathOBJ_Left21:  @ 0x5E28C8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -94, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -112, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -120, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -68, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -80, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -85, -19
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left22
+AnimSprite_FirebreathOBJ_Left22:  @ 0x5E291C
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -80, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -110, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -104, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left23
+AnimSprite_FirebreathOBJ_Left23:  @ 0x5E2958
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -115, -10
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -93, -28
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -77, -28
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -69, -28
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -69, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -112, -36
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left24
+AnimSprite_FirebreathOBJ_Left24:  @ 0x5E29B8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -98, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left25
+AnimSprite_FirebreathOBJ_Left25:  @ 0x5E29D0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -112, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Left26
+AnimSprite_FirebreathOBJ_Left26:  @ 0x5E29E8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -120, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -104, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -96, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -96, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_FirebreathOBJ_Left
+AnimScr_FirebreathOBJ_Left:  @ 0x085E2A24
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Left26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_FirebreathOBJ_Right1
+AnimSprite_FirebreathOBJ_Right1:  @ 0x5E2A90
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -24, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right2
+AnimSprite_FirebreathOBJ_Right2:  @ 0x5E2AA8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -16, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -24, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right3
+AnimSprite_FirebreathOBJ_Right3:  @ 0x5E2ACC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 6, -15
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -15
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 6, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right4
+AnimSprite_FirebreathOBJ_Right4:  @ 0x5E2B14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0005, 22, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 11, -5
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 3, -5
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 11, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 3, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0000, -6, 2
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right5
+AnimSprite_FirebreathOBJ_Right5:  @ 0x5E2B68
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 43, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, 19, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 11, -12
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 3, -12
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 11, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 3, 4
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right6
+AnimSprite_FirebreathOBJ_Right6:  @ 0x5E2BC8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 9, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 45, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -4, -11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 20, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -2
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right7
+AnimSprite_FirebreathOBJ_Right7:  @ 0x5E2C10
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 28, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 64, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 17, -9
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 9, -9
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 17, 7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 9, 7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 40, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -6
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right8
+AnimSprite_FirebreathOBJ_Right8:  @ 0x5E2C88
+    ANIM_SPRITE_AFFIN 1, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 10, -2
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 2, -2
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 10, 14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 2, 14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 68, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 18, -22
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 36, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 46, -26
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 38, -26
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 46, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 38, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right9
+AnimSprite_FirebreathOBJ_Right9:  @ 0x5E2D30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 16, 0
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 8, 0
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 16, 16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 8, 16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 84, -39
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 25, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 46, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -13, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 68, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 4, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right10
+AnimSprite_FirebreathOBJ_Right10:  @ 0x5E2DB4
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 22, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 38, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 56, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 6, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 65, 3
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 57, 3
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 65, 19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 57, 19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 11, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0019, 86, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right11
+AnimSprite_FirebreathOBJ_Right11:  @ 0x5E2E50
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0009, 39, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0011, 53, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 17, 2
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 9, 2
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 17, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 9, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 37, -6
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 29, -6
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 37, -14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 29, -14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 81, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 73, -24
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 81, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 73, -32
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 83, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0000, -4, -3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 29, -3
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right12
+AnimSprite_FirebreathOBJ_Right12:  @ 0x5E2F40
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x000D, 44, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0015, 60, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0005, 12, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0005, 60, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0005, 85, -34
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -159, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -20, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0000, -4, -4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 38, -1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0064, 28, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right13
+AnimSprite_FirebreathOBJ_Right13:  @ 0x5E2FDC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0005, 25, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0011, 49, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0019, 65, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0009, 81, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 5, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0000, 9, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0063, 35, -20
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right14
+AnimSprite_FirebreathOBJ_Right14:  @ 0x5E3048
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0019, 74, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0015, 58, -33
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0009, 33, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -12, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0063, 17, 5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 5, 1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, -3, 1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 5, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, -3, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 12, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0064, 43, -23
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right15
+AnimSprite_FirebreathOBJ_Right15:  @ 0x5E30E4
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x0019, 63, -31
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x000D, 37, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 71, 17
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 63, 17
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 71, 9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 63, 9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0000, -7, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x0002, 10, -2
+    ANIM_SPRITE_XFLIP ATTR0_TALL, 0x2000, 0x0004, 2, -2
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, 0x2000, 0x0042, 10, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0044, 2, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0064, 25, -5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 8, -4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 17, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x0062, 49, -27
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right16
+AnimSprite_FirebreathOBJ_Right16:  @ 0x5E31BC
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 93, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 85, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 77, -4
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 77, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 45, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -159, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 81, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 6, -10
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -10
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 6, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 17, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 45, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 21, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 37, 9
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right17
+AnimSprite_FirebreathOBJ_Right17:  @ 0x5E3294
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 43, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 1, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 33, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 78, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 21, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 52, 12
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right18
+AnimSprite_FirebreathOBJ_Right18:  @ 0x5E3300
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 31, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 54, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 12, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 61, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 88, -33
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 46, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 38, -33
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 82, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right19
+AnimSprite_FirebreathOBJ_Right19:  @ 0x5E3378
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 78, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 70, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 62, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 62, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 38, -1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 30, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 38, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 30, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 16, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 72, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 89, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 50, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 96, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right20
+AnimSprite_FirebreathOBJ_Right20:  @ 0x5E342C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 45, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 26, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 83, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 88, -35
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 64, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 56, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right21
+AnimSprite_FirebreathOBJ_Right21:  @ 0x5E3480
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 62, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 80, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 88, -39
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 36, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 72, -28
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 69, -19
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right22
+AnimSprite_FirebreathOBJ_Right22:  @ 0x5E34D4
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 48, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 78, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 72, -32
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right23
+AnimSprite_FirebreathOBJ_Right23:  @ 0x5E3510
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 83, -10
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 77, -28
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 69, -28
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 61, -28
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 61, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 80, -36
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right24
+AnimSprite_FirebreathOBJ_Right24:  @ 0x5E3570
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 66, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right25
+AnimSprite_FirebreathOBJ_Right25:  @ 0x5E3588
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 80, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_FirebreathOBJ_Right26
+AnimSprite_FirebreathOBJ_Right26:  @ 0x5E35A0
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 104, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 96, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 88, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 88, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_FirebreathOBJ_Right
+AnimScr_FirebreathOBJ_Right:  @ 0x085E35DC
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FirebreathOBJ_Right26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_IcebreathOBJ_Right1
+AnimSprite_IcebreathOBJ_Right1:  @ 0x5E3648
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 12, -20
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right2
+AnimSprite_IcebreathOBJ_Right2:  @ 0x5E3660
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 10, -13
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right3
+AnimSprite_IcebreathOBJ_Right3:  @ 0x5E3684
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -22, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -6, -14
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -22, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -6, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right4
+AnimSprite_IcebreathOBJ_Right4:  @ 0x5E36CC
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -38, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -15, 2
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 1, 2
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -15, 18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 1, 18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 2, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right5
+AnimSprite_IcebreathOBJ_Right5:  @ 0x5E3720
+    ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -50, -13
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -28, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -13, -16
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 3, -16
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -13, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 3, 0
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right6
+AnimSprite_IcebreathOBJ_Right6:  @ 0x5E3780
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -34, -14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -69, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -42, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 8, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right7
+AnimSprite_IcebreathOBJ_Right7:  @ 0x5E37C8
+    ANIM_SPRITE_AFFIN 1, 0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -44, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -82, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -21, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -5, -14
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -21, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -5, 2
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -50, 3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right8
+AnimSprite_IcebreathOBJ_Right8:  @ 0x5E3840
+    ANIM_SPRITE_AFFIN 1, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -18, -3
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -3
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -18, 13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -98, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -50, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, -60, 4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -57, -18
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -41, -18
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -57, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -41, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right9
+AnimSprite_IcebreathOBJ_Right9:  @ 0x5E38E8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -17, -13
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -1, -13
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -17, 3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -1, 3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -65, -9
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -27, -1
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -11, -1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -27, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -11, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -106, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -46, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 12, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -82, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right10
+AnimSprite_IcebreathOBJ_Right10:  @ 0x5E3990
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -41, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -81, -21
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -68, 5
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -52, 5
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -68, 21
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -52, 21
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -122, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -106, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -98, -24
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -98, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -58, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -30, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right11
+AnimSprite_IcebreathOBJ_Right11:  @ 0x5E3A44
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -34, -1
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -18, -1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -34, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -18, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -52, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -66, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -19, -15
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -3, -15
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -19, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -3, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -82, 8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -66, 8
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -82, 24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -66, 24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -98, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 5, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, -42, -25
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right12
+AnimSprite_IcebreathOBJ_Right12:  @ 0x5E3B34
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -35, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -74, -6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -58, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -74, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -99, 5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -111, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 11, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -3, -6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -52, -27
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -18, 16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right13
+AnimSprite_IcebreathOBJ_Right13:  @ 0x5E3BD0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -118, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -6, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -45, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -98, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -66, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -82, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 0, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -10, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -28, 20
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right14
+AnimSprite_IcebreathOBJ_Right14:  @ 0x5E3C48
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -52, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -90, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -74, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -114, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 11, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -13, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -12, -15
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 4, -15
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -12, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 4, 1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -30, -1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -35, 21
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right15
+AnimSprite_IcebreathOBJ_Right15:  @ 0x5E3CF0
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -74, -18
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -58, -18
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -74, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -58, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -82, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -58, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -122, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 4, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -18, -9
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -9
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -18, 7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -22, 6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -28, -23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, -42, 6
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -46, 24
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right16
+AnimSprite_IcebreathOBJ_Right16:  @ 0x5E3DD4
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -98, -23
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -94, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -78, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -70, -8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -70, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -128, -9
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -14, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 2, -14
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -14, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 2, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -42, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -46, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -46, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -58, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -66, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right17
+AnimSprite_IcebreathOBJ_Right17:  @ 0x5E3EAC
+    ANIM_SPRITE_AFFIN 2, 0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -34, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -66, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -110, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -55, -26
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, -83, 12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -74, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right18
+AnimSprite_IcebreathOBJ_Right18:  @ 0x5E3F18
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -42, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -42, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -90, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -118, -30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -50, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -66, -27
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, -108, 11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -82, -17
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right19
+AnimSprite_IcebreathOBJ_Right19:  @ 0x5E3F90
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -56, -1
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -40, -1
+    ANIM_SPRITE ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -56, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -40, 15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -50, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -106, 0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -123, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -60, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -128, 8
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -96, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -80, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -72, -20
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -72, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right20
+AnimSprite_IcebreathOBJ_Right20:  @ 0x5E4044
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, -79, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -60, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -117, -4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -126, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -74, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -74, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right21
+AnimSprite_IcebreathOBJ_Right21:  @ 0x5E4098
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, -96, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -127, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -127, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -70, -22
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, -82, -27
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -87, -19
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right22
+AnimSprite_IcebreathOBJ_Right22:  @ 0x5E40EC
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -82, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, -112, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -106, -31
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right23
+AnimSprite_IcebreathOBJ_Right23:  @ 0x5E4128
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, -117, -10
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -95, -27
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -79, -27
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -71, -27
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -71, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, -114, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right24
+AnimSprite_IcebreathOBJ_Right24:  @ 0x5E4188
+    ANIM_SPRITE_AFFIN 1, 0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, -120, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, -122, -38
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right25
+AnimSprite_IcebreathOBJ_Right25:  @ 0x5E41B8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, -124, -12
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Right26
+AnimSprite_IcebreathOBJ_Right26:  @ 0x5E41D0
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_32, 0x001D, -127, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_16, 0x001F, -111, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0040, -103, -14
+    ANIM_SPRITE ATTR0_TALL, ATTR1_SIZE_8, 0x0041, -103, 2
+    ANIM_SPRITE_END
+
+	.global AnimScr_IcebreathOBJ_Right
+AnimScr_IcebreathOBJ_Right:  @ 0x085E420C
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Right26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_IcebreathOBJ_Left1
+AnimSprite_IcebreathOBJ_Left1:  @ 0x5E4278
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -20, -20
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left2
+AnimSprite_IcebreathOBJ_Left2:  @ 0x5E4290
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -18, -13
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left3
+AnimSprite_IcebreathOBJ_Left3:  @ 0x5E42B4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 6, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -14
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 6, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left4
+AnimSprite_IcebreathOBJ_Left4:  @ 0x5E42FC
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 6, -15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -1, 2
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -9, 2
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -1, 18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -9, 18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -18, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left5
+AnimSprite_IcebreathOBJ_Left5:  @ 0x5E4350
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 18, -13
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -4, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -3, -16
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -11, -16
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -3, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -11, 0
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left6
+AnimSprite_IcebreathOBJ_Left6:  @ 0x5E43B0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 2, -14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 37, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 10, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left7
+AnimSprite_IcebreathOBJ_Left7:  @ 0x5E43F8
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 12, -11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 50, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 5, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -3, -14
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 5, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -3, 2
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 18, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -10
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left8
+AnimSprite_IcebreathOBJ_Left8:  @ 0x5E4470
+    ANIM_SPRITE_AFFIN 1, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 2, -3
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -6, -3
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 2, 13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -6, 13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 66, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 18, -12
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 28, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 41, -18
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 33, -18
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 41, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 33, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left9
+AnimSprite_IcebreathOBJ_Left9:  @ 0x5E4518
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 1, -13
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -7, -13
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 1, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -7, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 33, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 11, -1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 3, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 11, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 3, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 74, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 14, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -20, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 50, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left10
+AnimSprite_IcebreathOBJ_Left10:  @ 0x5E45C0
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 9, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 49, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 52, 5
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 44, 5
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 52, 21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 44, 21
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 106, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 98, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 90, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 90, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 26, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -2, -26
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left11
+AnimSprite_IcebreathOBJ_Left11:  @ 0x5E4674
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 18, -1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 10, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 18, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 10, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 20, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 34, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 3, -15
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -5, -15
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 3, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -5, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 66, 8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 58, 8
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 66, 24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 58, 24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 66, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -21, -20
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 10, -25
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left12
+AnimSprite_IcebreathOBJ_Left12:  @ 0x5E4764
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 3, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 42, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 26, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 42, -15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 67, 5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 79, -25
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -19, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -13, -6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 20, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 10, 16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left13
+AnimSprite_IcebreathOBJ_Left13:  @ 0x5E4800
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 86, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -2, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 13, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 66, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 34, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -16, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -6, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 20, 20
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left14
+AnimSprite_IcebreathOBJ_Left14:  @ 0x5E4878
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 20, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 58, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 42, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 82, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -19, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 5, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -4, -15
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -12, -15
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -4, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -12, 1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -2, -1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 27, 21
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left15
+AnimSprite_IcebreathOBJ_Left15:  @ 0x5E4920
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 58, -18
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 50, -18
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 58, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 50, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 26, -15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 90, -7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -20, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 2, -9
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -6, -9
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 2, 7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -6, 7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 14, 6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -4, -23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 10, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 38, 24
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left16
+AnimSprite_IcebreathOBJ_Left16:  @ 0x5E4A04
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 66, -23
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 78, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 70, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 62, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 62, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 96, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -2, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -10, -14
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -2, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -10, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 10, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 38, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 14, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 26, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 34, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left17
+AnimSprite_IcebreathOBJ_Left17:  @ 0x5E4ADC
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 2, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 34, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 78, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 23, -26
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 51, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 42, -15
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left18
+AnimSprite_IcebreathOBJ_Left18:  @ 0x5E4B48
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 26, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 10, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 58, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 86, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 42, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 34, -27
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 76, 11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -17
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left19
+AnimSprite_IcebreathOBJ_Left19:  @ 0x5E4BC0
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 40, -1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 32, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 40, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 32, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 18, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 74, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 91, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 52, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 96, 8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 80, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 72, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 64, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 64, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left20
+AnimSprite_IcebreathOBJ_Left20:  @ 0x5E4C74
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 47, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 28, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 85, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 94, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 66, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 58, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left21
+AnimSprite_IcebreathOBJ_Left21:  @ 0x5E4CC8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 64, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 95, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 95, -38
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 38, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 74, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 71, -19
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left22
+AnimSprite_IcebreathOBJ_Left22:  @ 0x5E4D1C
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 80, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 74, -31
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left23
+AnimSprite_IcebreathOBJ_Left23:  @ 0x5E4D58
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 85, -10
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 79, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 71, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 63, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 63, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 82, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left24
+AnimSprite_IcebreathOBJ_Left24:  @ 0x5E4DB8
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 88, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 90, -38
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left25
+AnimSprite_IcebreathOBJ_Left25:  @ 0x5E4DE8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 92, -12
+    ANIM_SPRITE_END
+
+.global AnimSprite_IcebreathOBJ_Left26
+AnimSprite_IcebreathOBJ_Left26:  @ 0x5E4E00
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 111, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 103, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 95, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 95, 2
+    ANIM_SPRITE_END
+
+	.global AnimScr_IcebreathOBJ_Left
+AnimScr_IcebreathOBJ_Left:  @ 0x085E4E3C
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_IcebreathOBJ_Left26, 2
+    ANIMSCR_BLOCKED
+
+.global AnimSprite_DarkBreathOBJ_Close1
+AnimSprite_DarkBreathOBJ_Close1:  @ 0x5E4EA8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -12, -60
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close2
+AnimSprite_DarkBreathOBJ_Close2:  @ 0x5E4EC0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -10, -55
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -9, -43
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close3
+AnimSprite_DarkBreathOBJ_Close3:  @ 0x5E4EE4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 4, -46
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -4, -46
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 4, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -4, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -8, -31
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close4
+AnimSprite_DarkBreathOBJ_Close4:  @ 0x5E4F2C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 8, -33
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -1, -25
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -9, -25
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -1, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -9, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -58
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close5
+AnimSprite_DarkBreathOBJ_Close5:  @ 0x5E4F80
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 20, -27
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0005, -2, -14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -2, -50
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -10, -50
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -2, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -10, -34
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close6
+AnimSprite_DarkBreathOBJ_Close6:  @ 0x5E4FE0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 3, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 44, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -14, -49
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 12, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -12, -59
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close7
+AnimSprite_DarkBreathOBJ_Close7:  @ 0x5E5028
+    ANIM_SPRITE_AFFIN 1, -0x141, 0x0, 0x0, 0x141
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 23, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 57, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 4, -45
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -4, -45
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 4, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -4, -29
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 31, 7
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -59
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close8
+AnimSprite_DarkBreathOBJ_Close8:  @ 0x5E50A0
+    ANIM_SPRITE_AFFIN 1, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 62, -26
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 54, -26
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 62, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 54, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 5, -33
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -3, -33
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 5, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -3, -17
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 72, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 33, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 42, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -2, -47
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close9
+AnimSprite_DarkBreathOBJ_Close9:  @ 0x5E5148
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 11, -45
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 3, -45
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 11, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 3, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 60, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 23, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 15, -24
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 23, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 15, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 82, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 45, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -13, -59
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0011, 58, 8
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close10
+AnimSprite_DarkBreathOBJ_Close10:  @ 0x5E51FC
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 18, -19
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 70, -31
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 52, 5
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 44, 5
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 52, 21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 44, 21
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 106, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 98, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 90, -24
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 90, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 56, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -54
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 9, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close11
+AnimSprite_DarkBreathOBJ_Close11:  @ 0x5E52B0
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 16, -15
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 8, -15
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 16, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 8, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 27, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 62, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 1, -48
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -7, -48
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 1, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -7, -32
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 66, 8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 58, 8
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 66, 24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 58, 24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 81, -38
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -17, -58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 17, -36
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close12
+AnimSprite_DarkBreathOBJ_Close12:  @ 0x5E53A0
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 1, -36
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 42, -10
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 22, -6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 74, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 67, 5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 89, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, -12, -58
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -10, -47
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 30, -29
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 10, 7
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close13
+AnimSprite_DarkBreathOBJ_Close13:  @ 0x5E543C
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 82, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 5, -11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 18, -26
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 62, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 44, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -11, -58
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -5, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 22, 14
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close14
+AnimSprite_DarkBreathOBJ_Close14:  @ 0x5E54B4
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 29, -23
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 72, -14
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 51, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 88, 6
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, -11, -58
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 6, -8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -2, -52
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -10, -52
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, -2, -36
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -10, -36
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 2, -9
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 29, 20
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close15
+AnimSprite_DarkBreathOBJ_Close15:  @ 0x5E555C
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 58, -18
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 50, -18
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 58, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 50, -2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 36, -21
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 91, 4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -12, -59
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 6, -16
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -2, -16
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 6, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -2, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 14, 6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, -4, -39
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x000D, 10, 1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 38, 24
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close16
+AnimSprite_DarkBreathOBJ_Close16:  @ 0x5E5640
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 66, -23
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 78, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 70, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 62, -8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 62, 8
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 96, -1
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 0, -46
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, -8, -46
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 0, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -8, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 10, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 38, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 14, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 26, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 47, -21
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close17
+AnimSprite_DarkBreathOBJ_Close17:  @ 0x5E5718
+    ANIM_SPRITE_AFFIN 2, -0x16e, 0x0, 0x0, 0x16e
+    ANIM_SPRITE_AFFIN 2, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 4, -33
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 34, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 78, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 23, -22
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x8200, 0x0011, 51, 12
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 57, -20
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close18
+AnimSprite_DarkBreathOBJ_Close18:  @ 0x5E5784
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 26, 2
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 10, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 58, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 86, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 42, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 34, -18
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0015, 76, 11
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 66, -22
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close19
+AnimSprite_DarkBreathOBJ_Close19:  @ 0x5E57FC
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 40, -1
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0004, 32, -1
+    ANIM_SPRITE_XFLIP ATTR0_WIDE, ATTR1_SIZE_8, 0x0042, 40, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 32, 15
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 18, -18
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 74, 0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 91, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0063, 52, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 96, 8
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 90, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 82, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 74, -20
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 74, -4
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close20
+AnimSprite_DarkBreathOBJ_Close20:  @ 0x5E58B0
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0005, 47, -3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 28, -20
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 85, -4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 94, -34
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0064, 66, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 58, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close21
+AnimSprite_DarkBreathOBJ_Close21:  @ 0x5E5904
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0009, 64, -5
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 95, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 95, -38
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 38, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x0062, 74, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, 71, -19
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close22
+AnimSprite_DarkBreathOBJ_Close22:  @ 0x5E5958
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 50, -24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x000D, 80, -7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0009, 74, -31
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close23
+AnimSprite_DarkBreathOBJ_Close23:  @ 0x5E5994
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0011, 85, -10
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 79, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 71, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 63, -27
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 63, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x000D, 82, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close24
+AnimSprite_DarkBreathOBJ_Close24:  @ 0x5E59F4
+    ANIM_SPRITE_AFFIN 1, -0x200, 0x0, 0x0, 0x200
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0015, 88, -11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x0019, 90, -38
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close25
+AnimSprite_DarkBreathOBJ_Close25:  @ 0x5E5A24
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x0019, 92, -12
+    ANIM_SPRITE_END
+
+.global AnimSprite_DarkBreathOBJ_Close26
+AnimSprite_DarkBreathOBJ_Close26:  @ 0x5E5A3C
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_32, 0x001D, 111, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_16, 0x001F, 103, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0040, 95, -14
+    ANIM_SPRITE_XFLIP ATTR0_TALL, ATTR1_SIZE_8, 0x0041, 95, 2
+    ANIM_SPRITE_END
+
+	.global AnimScr_DarkBreath_Close
+AnimScr_DarkBreath_Close:  @ 0x085E5A78
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close6, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close24, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_DarkBreathOBJ_Close26, 2
+    ANIMSCR_BLOCKED
 
 	.global Img_DarkBreathBg
 Img_DarkBreathBg:  @ 0x085E5AE4
@@ -7463,3743 +4559,2896 @@ Tsa9_EfxNormalEffectBG:
 
 	.global TsaA_EfxNormalEffectBG
 TsaA_EfxNormalEffectBG:
-    .incbin "baserom.gba", 0x5E9980, 0x5EAB58 - 0x5E9980
+    .incbin "baserom.gba", 0x5E9980, 0x5E9A18 - 0x5E9980
 
-	.global gUnknown_085EAB58
-gUnknown_085EAB58:  @ 0x085EAB58
-@ Replacing .incbin "baserom.gba", 0x5EAB58, 0x104
-    .4byte Pal_EfxNormalEffectBG + 0x8c9
-    .4byte Pal_EfxNormalEffectBG + 0x8ed
-    .4byte Pal_EfxNormalEffectBG + 0x929
-    .4byte Pal_EfxNormalEffectBG + 0x965
-    .4byte Pal_EfxNormalEffectBG + 0x995
-    .4byte Pal_EfxNormalEffectBG + 0x9d1
-    .4byte Pal_EfxNormalEffectBG + 0xa0d
-    .4byte Pal_EfxNormalEffectBG + 0xa49
-    .4byte Pal_EfxNormalEffectBG + 0xa6d
-    .4byte Pal_EfxNormalEffectBG + 0xaa9
-    .4byte Pal_EfxNormalEffectBG + 0xae5
-    .4byte Pal_EfxNormalEffectBG + 0xb21
-    .4byte Pal_EfxNormalEffectBG + 0xb5d
-    .4byte Pal_EfxNormalEffectBG + 0xb99
-    .4byte Pal_EfxNormalEffectBG + 0xbd5
-    .4byte Pal_EfxNormalEffectBG + 0xc05
-    .4byte Pal_EfxNormalEffectBG + 0xc41
-    .4byte Pal_EfxNormalEffectBG + 0xc7d
-    .4byte Pal_EfxNormalEffectBG + 0xcb9
-    .4byte Pal_EfxNormalEffectBG + 0xce9
-    .4byte Pal_EfxNormalEffectBG + 0xd25
-    .4byte Pal_EfxNormalEffectBG + 0xd61
-    .4byte Pal_EfxNormalEffectBG + 0xd85
-    .4byte Pal_EfxNormalEffectBG + 0xdc1
-    .4byte Pal_EfxNormalEffectBG + 0xdfd
-    .4byte Pal_EfxNormalEffectBG + 0xe39
-    .4byte Pal_EfxNormalEffectBG + 0xe75
-    .4byte Pal_EfxNormalEffectBG + 0xeb1
-    .4byte Pal_EfxNormalEffectBG + 0xeed
-    .4byte Pal_EfxNormalEffectBG + 0xf29
-    .4byte Pal_EfxNormalEffectBG + 0xf65
-    .4byte Pal_EfxNormalEffectBG + 0xfa1
-    .4byte Pal_EfxNormalEffectBG + 0xfdd
-    .4byte Pal_EfxNormalEffectBG + 0x1019
-    .4byte Pal_EfxNormalEffectBG + 0x1055
-    .4byte Pal_EfxNormalEffectBG + 0x1091
-    .4byte Pal_EfxNormalEffectBG + 0x10c1
-    .4byte Pal_EfxNormalEffectBG + 0x10fd
-    .4byte Pal_EfxNormalEffectBG + 0x1139
-    .4byte Pal_EfxNormalEffectBG + 0x1175
-    .4byte Pal_EfxNormalEffectBG + 0x11b1
-    .4byte Pal_EfxNormalEffectBG + 0x11ed
-    .4byte Pal_EfxNormalEffectBG + 0x1229
-    .4byte Pal_EfxNormalEffectBG + 0x1265
-    .4byte Pal_EfxNormalEffectBG + 0x12a1
-    .4byte Pal_EfxNormalEffectBG + 0x12dd
-    .4byte Pal_EfxNormalEffectBG + 0x1319
-    .4byte Pal_EfxNormalEffectBG + 0x1355
-    .4byte Pal_EfxNormalEffectBG + 0x1391
-    .4byte Pal_EfxNormalEffectBG + 0x13cd
-    .4byte Pal_EfxNormalEffectBG + 0x140a
-    .4byte Pal_EfxNormalEffectBG + 0x1445
-    .4byte Pal_EfxNormalEffectBG + 0x1481
-    .4byte Pal_EfxNormalEffectBG + 0x14bd
-    .4byte Pal_EfxNormalEffectBG + 0x14fa
-    .4byte Pal_EfxNormalEffectBG + 0x1535
-    .4byte Pal_EfxNormalEffectBG + 0x1571
-    .4byte Pal_EfxNormalEffectBG + 0x15ad
-    .4byte Pal_EfxNormalEffectBG + 0x15de
-    .4byte Pal_EfxNormalEffectBG + 0x1619
-    .4byte Pal_EfxNormalEffectBG + 0x1655
-    .4byte Pal_EfxNormalEffectBG + 0x1691
-    .4byte Pal_EfxNormalEffectBG + 0x16c2
-    .4byte Pal_EfxNormalEffectBG + 0x19f2
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield1_1
+AnimSprite_YushaSpinShield1_1:  @ 0x5E9A18
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x001C, -32, -51
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x2000, 0x009F, -19, -27
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EAC5C
-gUnknown_085EAC5C:  @ 0x085EAC5C
-@ Replacing .incbin "baserom.gba", 0x5EAC5C, 0x28
-    .4byte Pal_EfxNormalEffectBG + 0x16fd
-    .4byte Pal_EfxNormalEffectBG + 0x1721
-    .4byte Pal_EfxNormalEffectBG + 0x1745
-    .4byte Pal_EfxNormalEffectBG + 0x1769
-    .4byte Pal_EfxNormalEffectBG + 0x178d
-    .4byte Pal_EfxNormalEffectBG + 0x17b1
-    .4byte Pal_EfxNormalEffectBG + 0x17d5
-    .4byte Pal_EfxNormalEffectBG + 0x17f9
-    .4byte Pal_EfxNormalEffectBG + 0x181d
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield1_2
+AnimSprite_YushaSpinShield1_2:  @ 0x5E9A3C
+    ANIM_SPRITE_AFFIN 2, -0xf7, -0x41, 0x41, -0xf7
+    ANIM_SPRITE_AFFIN 2, -0xe8, -0x6b, 0x6b, -0xe8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -54
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -23, -30
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EAC84
-gUnknown_085EAC84:  @ 0x085EAC84
-@ Replacing .incbin "baserom.gba", 0x5EAC84, 0x1174
-    .4byte Pal_EfxNormalEffectBG + 0x1841
-    .4byte Pal_EfxNormalEffectBG + 0x1865
-    .4byte Pal_EfxNormalEffectBG + 0x1889
-    .4byte Pal_EfxNormalEffectBG + 0x18ae
-    .4byte Pal_EfxNormalEffectBG + 0x18d2
-    .4byte Pal_EfxNormalEffectBG + 0x18f6
-    .4byte Pal_EfxNormalEffectBG + 0x191a
-    .4byte Pal_EfxNormalEffectBG + 0x193e
-    .4byte Pal_EfxNormalEffectBG + 0x1962
-    .4byte Pal_EfxNormalEffectBG + 0x1986
-    .4byte Pal_EfxNormalEffectBG + 0x19aa
-    .4byte Pal_EfxNormalEffectBG + 0x19ce
-    .4byte 0x82000000
-    .4byte 0xb0000000
-    .4byte 0x0000001c
-    .4byte 0x0000ffcd
-    .4byte 0x20000000
-    .4byte 0x000b009f
-    .4byte 0x0000ffe5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffbf00f7
-    .4byte 0xff09ffbf
-    .4byte 0xffff0002
-    .4byte 0xff9500e8
-    .4byte 0xff18ff95
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffca
-    .4byte 0x02000100
-    .4byte 0x000f009f
-    .4byte 0x0000ffe2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff4c00b5
-    .4byte 0xff4bff4c
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffc8
-    .4byte 0x02000100
-    .4byte 0x0015009f
-    .4byte 0x0000ffdc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffc6
-    .4byte 0x00000100
-    .4byte 0x0017009f
-    .4byte 0x0000ffd6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff09ffbf
-    .4byte 0x0041ff09
-    .4byte 0xffff0002
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0x80000100
-    .4byte 0x0000001c
-    .4byte 0x0000ffc4
-    .4byte 0x02000100
-    .4byte 0x0018009f
-    .4byte 0x0000ffcc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff2eff6e
-    .4byte 0x0092ff2e
-    .4byte 0xffff0002
-    .4byte 0xff36ff63
-    .4byte 0x009dff36
-    .4byte 0x80000100
-    .4byte 0x0000001c
-    .4byte 0x0000ffc2
-    .4byte 0x02000100
-    .4byte 0x0016009f
-    .4byte 0x0000ffc6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff94ff19
-    .4byte 0x00e7ff94
-    .4byte 0xffff0002
-    .4byte 0xff8cff1d
-    .4byte 0x00e3ff8c
-    .4byte 0x80000100
-    .4byte 0x0001001c
-    .4byte 0x0000ffc0
-    .4byte 0x02000100
-    .4byte 0x0011009f
-    .4byte 0x0000ffc0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0002001c
-    .4byte 0x0000ffbe
-    .4byte 0x00000000
-    .4byte 0x000d009f
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x0001001c
-    .4byte 0x0000ffbc
-    .4byte 0x02000100
-    .4byte 0x0007009f
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00bbff52
-    .4byte 0x00ae00bb
-    .4byte 0xffff0002
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb9
-    .4byte 0x02000100
-    .4byte 0x0004009f
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0xffff0002
-    .4byte 0x00f2ffad
-    .4byte 0x005300f2
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb6
-    .4byte 0x02000100
-    .4byte 0x0002009f
-    .4byte 0x0000ffbe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f70042
-    .4byte 0xffbe00f7
-    .4byte 0xffff0002
-    .4byte 0x00ff000d
-    .4byte 0xfff300ff
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb4
-    .4byte 0x02000100
-    .4byte 0x0002009f
-    .4byte 0x0000ffc4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d10092
-    .4byte 0xff6e00d1
-    .4byte 0xffff0002
-    .4byte 0x00cc0099
-    .4byte 0xff6700cc
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb1
-    .4byte 0x02000100
-    .4byte 0x0004009f
-    .4byte 0x0000ffc5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x008000dd
-    .4byte 0xff230080
-    .4byte 0xffff0002
-    .4byte 0x008700d8
-    .4byte 0xff280087
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffaf
-    .4byte 0x02000100
-    .4byte 0x0008009f
-    .4byte 0x0000ffc6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000000ff
-    .4byte 0xff010000
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffad
-    .4byte 0x00000100
-    .4byte 0x0010009f
-    .4byte 0x0000ffc5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xff9900ea
-    .4byte 0xff16ff99
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffaa
-    .4byte 0x02000100
-    .4byte 0x0014009f
-    .4byte 0x0000ffc2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff4c00b5
-    .4byte 0xff4bff4c
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa8
-    .4byte 0x02000100
-    .4byte 0x0018009f
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa5
-    .4byte 0x02000100
-    .4byte 0x001b009f
-    .4byte 0x0000ffb5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa2
-    .4byte 0x00000100
-    .4byte 0x001a009f
-    .4byte 0x0000ffa9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3cff5c
-    .4byte 0x00a4ff3c
-    .4byte 0xffff0002
-    .4byte 0xff36ff63
-    .4byte 0x009dff36
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa1
-    .4byte 0x02000100
-    .4byte 0x0018009f
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff94ff19
-    .4byte 0x00e7ff94
-    .4byte 0xffff0002
-    .4byte 0xff8cff1d
-    .4byte 0x00e3ff8c
-    .4byte 0x80000100
-    .4byte 0x0004001c
-    .4byte 0x0000ffa0
-    .4byte 0x02000100
-    .4byte 0x0015009f
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0004001c
-    .4byte 0x0000ff9e
-    .4byte 0x00000000
-    .4byte 0x000f009f
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x0004001c
-    .4byte 0x0000ff9c
-    .4byte 0x02000100
-    .4byte 0x000a009f
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c4ff5c
-    .4byte 0x00a400c4
-    .4byte 0xffff0002
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x02000100
-    .4byte 0x0007009f
-    .4byte 0x0000ff9e
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f7ffbe
-    .4byte 0x004200f7
-    .4byte 0xffff0002
-    .4byte 0x00f2ffad
-    .4byte 0x005300f2
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x02000100
-    .4byte 0x0004009f
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00e8006b
-    .4byte 0xff9500e8
-    .4byte 0xffff0002
-    .4byte 0x00ff000d
-    .4byte 0xfff300ff
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x02000100
-    .4byte 0x0005009f
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c400a4
-    .4byte 0xff5c00c4
-    .4byte 0xffff0002
-    .4byte 0x00cc0099
-    .4byte 0xff6700cc
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff98
-    .4byte 0x02000100
-    .4byte 0x0009009f
-    .4byte 0x0000ffad
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x005700f0
-    .4byte 0xff100057
-    .4byte 0xffff0002
-    .4byte 0x008700d8
-    .4byte 0xff280087
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff97
-    .4byte 0x02000100
-    .4byte 0x000e009f
-    .4byte 0x0000ffaf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002c00fc
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0x001b00fe
-    .4byte 0xff02001b
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff97
-    .4byte 0x02000100
-    .4byte 0x0011009f
-    .4byte 0x0000ffb0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0x80000100
-    .4byte 0x0007001c
-    .4byte 0x0000ff96
-    .4byte 0x02000100
-    .4byte 0x0016009f
-    .4byte 0x0000ffae
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xff9900ea
-    .4byte 0xff16ff99
-    .4byte 0x80000100
-    .4byte 0x0007001c
-    .4byte 0x0000ff95
-    .4byte 0x02000100
-    .4byte 0x0018009f
-    .4byte 0x0000ffad
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff8100dd
-    .4byte 0xff23ff81
-    .4byte 0xffff0002
-    .4byte 0xff6e00d1
-    .4byte 0xff2fff6e
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff95
-    .4byte 0x02000100
-    .4byte 0x001b009f
-    .4byte 0x0000ffac
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff5c00c4
-    .4byte 0xff3cff5c
-    .4byte 0xffff0002
-    .4byte 0xff4c00b5
-    .4byte 0xff4bff4c
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff95
-    .4byte 0x02000100
-    .4byte 0x001c009f
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x001f009f
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0xffff0002
-    .4byte 0xff0f0053
-    .4byte 0xffadff0f
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x0020009f
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff010000
-    .4byte 0x0000ff01
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff93
-    .4byte 0x00000100
-    .4byte 0x0021009f
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04ffd5
-    .4byte 0x002bff04
-    .4byte 0xffff0002
-    .4byte 0xff01ffeb
-    .4byte 0x0015ff01
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x0021009f
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0xffff0002
-    .4byte 0xff22ff81
-    .4byte 0x007fff22
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x0021009f
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3cff5c
-    .4byte 0x00a4ff3c
-    .4byte 0xffff0002
-    .4byte 0xff36ff63
-    .4byte 0x009dff36
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x001f009f
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff6dff2f
-    .4byte 0x00d1ff6d
-    .4byte 0xffff0002
-    .4byte 0xff8cff1d
-    .4byte 0x00e3ff8c
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x001c009f
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffb1ff0d
-    .4byte 0x00f3ffb1
-    .4byte 0xffff0002
-    .4byte 0xff8cff1d
-    .4byte 0x00e3ff8c
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x001b009f
-    .4byte 0x0000ff94
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0xffff0002
-    .4byte 0xfff2ff01
-    .4byte 0x00fffff2
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff94
-    .4byte 0x02000100
-    .4byte 0x001a009f
-    .4byte 0x0000ff94
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002cff04
-    .4byte 0x00fc002c
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x0013009f
-    .4byte 0x0000ff93
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x000c001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x0012009f
-    .4byte 0x0000ff94
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x007fff23
-    .4byte 0x00dd007f
-    .4byte 0xffff0002
-    .4byte 0x00abff42
-    .4byte 0x00be00ab
-    .4byte 0x80000100
-    .4byte 0x000c001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x0010009f
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00a4ff3c
-    .4byte 0x00c400a4
-    .4byte 0xffff0002
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x000d001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x0010009f
-    .4byte 0x0000ff96
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d1ff6e
-    .4byte 0x009200d1
-    .4byte 0xffff0002
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x000d001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x000e009f
-    .4byte 0x0000ff98
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0xffff0002
-    .4byte 0x00e4ff8c
-    .4byte 0x007400e4
-    .4byte 0x80000100
-    .4byte 0x000e001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x000e009f
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00ff0000
-    .4byte 0x000000ff
-    .4byte 0xffff0002
-    .4byte 0x00ff0004
-    .4byte 0xfffc00ff
-    .4byte 0x80000100
-    .4byte 0x000e001c
-    .4byte 0x0000ff93
-    .4byte 0x02000100
-    .4byte 0x000d009f
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f70042
-    .4byte 0xffbe00f7
-    .4byte 0xffff0002
-    .4byte 0x00ff000d
-    .4byte 0xfff300ff
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x000f009f
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00dd007f
-    .4byte 0xff8100dd
-    .4byte 0xffff0002
-    .4byte 0x00cc0099
-    .4byte 0xff6700cc
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0011009f
-    .4byte 0x0000ffa6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00b500b4
-    .4byte 0xff4c00b5
-    .4byte 0xffff0002
-    .4byte 0x00b800b1
-    .4byte 0xff4f00b8
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0013009f
-    .4byte 0x0000ffa8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x009300d1
-    .4byte 0xff2f0093
-    .4byte 0xffff0002
-    .4byte 0x008700d8
-    .4byte 0xff280087
-    .4byte 0x80000100
-    .4byte 0x0010001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0015009f
-    .4byte 0x0000ffa9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x006c00e7
-    .4byte 0xff19006c
-    .4byte 0xffff0002
-    .4byte 0x007400e3
-    .4byte 0xff1d0074
-    .4byte 0x80000100
-    .4byte 0x0010001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0017009f
-    .4byte 0x0000ffaa
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002c00fc
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0x001b00fe
-    .4byte 0xff02001b
-    .4byte 0x80000100
-    .4byte 0x0011001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x001c009f
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0x80000100
-    .4byte 0x0011001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x001f009f
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xff9900ea
-    .4byte 0xff16ff99
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0023009f
-    .4byte 0x0000ffaa
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff6e00d1
-    .4byte 0xff2fff6e
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x00000100
-    .4byte 0x0026009f
-    .4byte 0x0000ffa8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff4c00b5
-    .4byte 0xff4bff4c
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0027009f
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x0029009f
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff090042
-    .4byte 0xffbeff09
-    .4byte 0xffff0002
-    .4byte 0xff0f0053
-    .4byte 0xffadff0f
-    .4byte 0x80000100
-    .4byte 0x0013001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x002b009f
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff010000
-    .4byte 0x0000ff01
-    .4byte 0x80000100
-    .4byte 0x0014001c
-    .4byte 0x0000ff92
-    .4byte 0x00000100
-    .4byte 0x002c009f
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04ffd5
-    .4byte 0x002bff04
-    .4byte 0xffff0002
-    .4byte 0xff010000
-    .4byte 0x0000ff01
-    .4byte 0x80000100
-    .4byte 0x0015001c
-    .4byte 0x0000ff92
-    .4byte 0x02000100
-    .4byte 0x002d009f
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff8100dd
-    .4byte 0xff23ff81
-    .4byte 0x80000100
-    .4byte 0x0017001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000000ff
-    .4byte 0xff010000
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x008000dd
-    .4byte 0xff230080
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00ff0000
-    .4byte 0x000000ff
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbdff09
-    .4byte 0x00f7ffbd
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff19006c
-    .4byte 0xff94ff19
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00a400c3
-    .4byte 0xff3d00a4
-    .4byte 0x80000100
-    .4byte 0x001b001c
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x001b001c
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0x80000100
-    .4byte 0x001c001c
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff22ff81
-    .4byte 0x007fff22
-    .4byte 0x80000100
-    .4byte 0x001c001c
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0x80000100
-    .4byte 0x001e001c
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff9500e8
-    .4byte 0xff18ff95
-    .4byte 0x80000100
-    .4byte 0x001f001c
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x005700f0
-    .4byte 0xff100057
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f00057
-    .4byte 0xffa900f0
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffaf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffb2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffba
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff5bff3d
-    .4byte 0x00c3ff5b
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffc3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffc8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff8001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_YushaSpinShield1_3
+AnimSprite_YushaSpinShield1_3:  @ 0x5E9A78
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xb5, -0xb4, 0xb4, -0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -29, -36
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EBDF8
-gUnknown_085EBDF8:  @ 0x085EBDF8
-@ Replacing .incbin "baserom.gba", 0x5EBDF8, 0x104
-    .4byte gUnknown_085EAC84 + 0x35
-    .4byte gUnknown_085EAC84 + 0x59
-    .4byte gUnknown_085EAC84 + 0x95
-    .4byte gUnknown_085EAC84 + 0xd1
-    .4byte gUnknown_085EAC84 + 0x101
-    .4byte gUnknown_085EAC84 + 0x13d
-    .4byte gUnknown_085EAC84 + 0x179
-    .4byte gUnknown_085EAC84 + 0x1b5
-    .4byte gUnknown_085EAC84 + 0x1d9
-    .4byte gUnknown_085EAC84 + 0x215
-    .4byte gUnknown_085EAC84 + 0x251
-    .4byte gUnknown_085EAC84 + 0x28d
-    .4byte gUnknown_085EAC84 + 0x2c9
-    .4byte gUnknown_085EAC84 + 0x305
-    .4byte gUnknown_085EAC84 + 0x341
-    .4byte gUnknown_085EAC84 + 0x371
-    .4byte gUnknown_085EAC84 + 0x3ad
-    .4byte gUnknown_085EAC84 + 0x3e9
-    .4byte gUnknown_085EAC84 + 0x425
-    .4byte gUnknown_085EAC84 + 0x455
-    .4byte gUnknown_085EAC84 + 0x491
-    .4byte gUnknown_085EAC84 + 0x4cd
-    .4byte gUnknown_085EAC84 + 0x4f1
-    .4byte gUnknown_085EAC84 + 0x52d
-    .4byte gUnknown_085EAC84 + 0x569
-    .4byte gUnknown_085EAC84 + 0x5a5
-    .4byte gUnknown_085EAC84 + 0x5e1
-    .4byte gUnknown_085EAC84 + 0x61d
-    .4byte gUnknown_085EAC84 + 0x659
-    .4byte gUnknown_085EAC84 + 0x695
-    .4byte gUnknown_085EAC84 + 0x6d1
-    .4byte gUnknown_085EAC84 + 0x70d
-    .4byte gUnknown_085EAC84 + 0x749
-    .4byte gUnknown_085EAC84 + 0x785
-    .4byte gUnknown_085EAC84 + 0x7c1
-    .4byte gUnknown_085EAC84 + 0x7fd
-    .4byte gUnknown_085EAC84 + 0x82d
-    .4byte gUnknown_085EAC84 + 0x869
-    .4byte gUnknown_085EAC84 + 0x8a5
-    .4byte gUnknown_085EAC84 + 0x8e1
-    .4byte gUnknown_085EAC84 + 0x91d
-    .4byte gUnknown_085EAC84 + 0x959
-    .4byte gUnknown_085EAC84 + 0x995
-    .4byte gUnknown_085EAC84 + 0x9d1
-    .4byte gUnknown_085EAC84 + 0xa0d
-    .4byte gUnknown_085EAC84 + 0xa49
-    .4byte gUnknown_085EAC84 + 0xa85
-    .4byte gUnknown_085EAC84 + 0xac1
-    .4byte gUnknown_085EAC84 + 0xafd
-    .4byte gUnknown_085EAC84 + 0xb39
-    .4byte gUnknown_085EAC84 + 0xb76
-    .4byte gUnknown_085EAC84 + 0xbb1
-    .4byte gUnknown_085EAC84 + 0xbed
-    .4byte gUnknown_085EAC84 + 0xc29
-    .4byte gUnknown_085EAC84 + 0xc66
-    .4byte gUnknown_085EAC84 + 0xca1
-    .4byte gUnknown_085EAC84 + 0xcdd
-    .4byte gUnknown_085EAC84 + 0xd19
-    .4byte gUnknown_085EAC84 + 0xd4a
-    .4byte gUnknown_085EAC84 + 0xd85
-    .4byte gUnknown_085EAC84 + 0xdc1
-    .4byte gUnknown_085EAC84 + 0xdfd
-    .4byte gUnknown_085EAC84 + 0xe2e
-    .4byte gUnknown_085EAC84 + 0x115e
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield1_4
+AnimSprite_YushaSpinShield1_4:  @ 0x5E9AB4
+    ANIM_SPRITE_AFFIN 1, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -31, -42
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EBEFC
-gUnknown_085EBEFC:  @ 0x085EBEFC
+.global AnimSprite_YushaSpinShield1_5
+AnimSprite_YushaSpinShield1_5:  @ 0x5E9AE4
+    ANIM_SPRITE_AFFIN 2, 0x41, -0xf7, 0xf7, 0x41
+    ANIM_SPRITE_AFFIN 2, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -32, -60
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -32, -52
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_6
+AnimSprite_YushaSpinShield1_6:  @ 0x5E9B20
+    ANIM_SPRITE_AFFIN 2, 0x92, -0xd2, 0xd2, 0x92
+    ANIM_SPRITE_AFFIN 2, 0x9d, -0xca, 0xca, 0x9d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -32, -62
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -30, -58
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_7
+AnimSprite_YushaSpinShield1_7:  @ 0x5E9B5C
+    ANIM_SPRITE_AFFIN 2, 0xe7, -0x6c, 0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, 0xe3, -0x74, 0x74, 0xe3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -33, -64
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -25, -64
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_8
+AnimSprite_YushaSpinShield1_8:  @ 0x5E9B98
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -34, -66
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x009F, -21, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_9
+AnimSprite_YushaSpinShield1_9:  @ 0x5E9BBC
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -33, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -15, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_10
+AnimSprite_YushaSpinShield1_10:  @ 0x5E9BF8
+    ANIM_SPRITE_AFFIN 2, 0xae, 0xbb, -0xbb, 0xae
+    ANIM_SPRITE_AFFIN 2, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -71
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -12, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_11
+AnimSprite_YushaSpinShield1_11:  @ 0x5E9C34
+    ANIM_SPRITE_AFFIN 2, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, 0x53, 0xf2, -0xf2, 0x53
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -10, -66
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_12
+AnimSprite_YushaSpinShield1_12:  @ 0x5E9C70
+    ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, -0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0xd, 0xff, -0xff, -0xd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -76
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -10, -60
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_13
+AnimSprite_YushaSpinShield1_13:  @ 0x5E9CAC
+    ANIM_SPRITE_AFFIN 2, -0x92, 0xd1, -0xd1, -0x92
+    ANIM_SPRITE_AFFIN 2, -0x99, 0xcc, -0xcc, -0x99
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -79
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -12, -59
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_14
+AnimSprite_YushaSpinShield1_14:  @ 0x5E9CE8
+    ANIM_SPRITE_AFFIN 2, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE_AFFIN 2, -0xd8, 0x87, -0x87, -0xd8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -81
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -16, -58
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_15
+AnimSprite_YushaSpinShield1_15:  @ 0x5E9D24
+    ANIM_SPRITE_AFFIN 1, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -83
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -24, -59
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_16
+AnimSprite_YushaSpinShield1_16:  @ 0x5E9D54
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xea, -0x67, 0x67, -0xea
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -86
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -28, -62
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_17
+AnimSprite_YushaSpinShield1_17:  @ 0x5E9D90
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xb5, -0xb4, 0xb4, -0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -88
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -32, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_18
+AnimSprite_YushaSpinShield1_18:  @ 0x5E9DCC
+    ANIM_SPRITE_AFFIN 2, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -91
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -35, -75
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_19
+AnimSprite_YushaSpinShield1_19:  @ 0x5E9E08
+    ANIM_SPRITE_AFFIN 1, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -94
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -34, -87
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_20
+AnimSprite_YushaSpinShield1_20:  @ 0x5E9E38
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0x9d, -0xca, 0xca, 0x9d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -95
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -32, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_21
+AnimSprite_YushaSpinShield1_21:  @ 0x5E9E74
+    ANIM_SPRITE_AFFIN 2, 0xe7, -0x6c, 0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, 0xe3, -0x74, 0x74, 0xe3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -36, -96
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -29, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_22
+AnimSprite_YushaSpinShield1_22:  @ 0x5E9EB0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -36, -98
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x009F, -23, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_23
+AnimSprite_YushaSpinShield1_23:  @ 0x5E9ED4
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -36, -100
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -18, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_24
+AnimSprite_YushaSpinShield1_24:  @ 0x5E9F10
+    ANIM_SPRITE_AFFIN 2, 0xa4, 0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -15, -98
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_25
+AnimSprite_YushaSpinShield1_25:  @ 0x5E9F4C
+    ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, -0xf7, 0x42
+    ANIM_SPRITE_AFFIN 2, 0x53, 0xf2, -0xf2, 0x53
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -12, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_26
+AnimSprite_YushaSpinShield1_26:  @ 0x5E9F88
+    ANIM_SPRITE_AFFIN 2, -0x6b, 0xe8, -0xe8, -0x6b
+    ANIM_SPRITE_AFFIN 2, -0xd, 0xff, -0xff, -0xd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -13, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_27
+AnimSprite_YushaSpinShield1_27:  @ 0x5E9FC4
+    ANIM_SPRITE_AFFIN 2, -0xa4, 0xc4, -0xc4, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0x99, 0xcc, -0xcc, -0x99
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -104
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -17, -83
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_28
+AnimSprite_YushaSpinShield1_28:  @ 0x5EA000
+    ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xd8, 0x87, -0x87, -0xd8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -22, -81
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_29
+AnimSprite_YushaSpinShield1_29:  @ 0x5EA03C
+    ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xfe, 0x1b, -0x1b, -0xfe
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -25, -80
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_30
+AnimSprite_YushaSpinShield1_30:  @ 0x5EA078
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -39, -106
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -30, -82
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_31
+AnimSprite_YushaSpinShield1_31:  @ 0x5EA0B4
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xea, -0x67, 0x67, -0xea
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -39, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -32, -83
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_32
+AnimSprite_YushaSpinShield1_32:  @ 0x5EA0F0
+    ANIM_SPRITE_AFFIN 2, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE_AFFIN 2, -0xd1, -0x92, 0x92, -0xd1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -35, -84
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_33
+AnimSprite_YushaSpinShield1_33:  @ 0x5EA12C
+    ANIM_SPRITE_AFFIN 2, -0xc4, -0xa4, 0xa4, -0xc4
+    ANIM_SPRITE_AFFIN 2, -0xb5, -0xb4, 0xb4, -0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -36, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_34
+AnimSprite_YushaSpinShield1_34:  @ 0x5EA168
+    ANIM_SPRITE_AFFIN 2, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -39, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_35
+AnimSprite_YushaSpinShield1_35:  @ 0x5EA1A4
+    ANIM_SPRITE_AFFIN 2, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, -0x53, -0xf1, 0xf1, -0x53
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -40, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_36
+AnimSprite_YushaSpinShield1_36:  @ 0x5EA1E0
+    ANIM_SPRITE_AFFIN 1, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -41, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_37
+AnimSprite_YushaSpinShield1_37:  @ 0x5EA210
+    ANIM_SPRITE_AFFIN 2, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, 0x15, -0xff, 0xff, 0x15
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -41, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_38
+AnimSprite_YushaSpinShield1_38:  @ 0x5EA24C
+    ANIM_SPRITE_AFFIN 2, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE_AFFIN 2, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -41, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_39
+AnimSprite_YushaSpinShield1_39:  @ 0x5EA288
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0x9d, -0xca, 0xca, 0x9d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -39, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_40
+AnimSprite_YushaSpinShield1_40:  @ 0x5EA2C4
+    ANIM_SPRITE_AFFIN 2, 0xd1, -0x93, 0x93, 0xd1
+    ANIM_SPRITE_AFFIN 2, 0xe3, -0x74, 0x74, 0xe3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -36, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_41
+AnimSprite_YushaSpinShield1_41:  @ 0x5EA300
+    ANIM_SPRITE_AFFIN 2, 0xf3, -0x4f, 0x4f, 0xf3
+    ANIM_SPRITE_AFFIN 2, 0xe3, -0x74, 0x74, 0xe3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -35, -108
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_42
+AnimSprite_YushaSpinShield1_42:  @ 0x5EA33C
+    ANIM_SPRITE_AFFIN 2, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 2, 0xff, -0xe, 0xe, 0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -34, -108
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_43
+AnimSprite_YushaSpinShield1_43:  @ 0x5EA378
+    ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, -0x2c, 0xfc
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -27, -109
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_44
+AnimSprite_YushaSpinShield1_44:  @ 0x5EA3B4
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -44, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -26, -108
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_45
+AnimSprite_YushaSpinShield1_45:  @ 0x5EA3F0
+    ANIM_SPRITE_AFFIN 2, 0xdd, 0x7f, -0x7f, 0xdd
+    ANIM_SPRITE_AFFIN 2, 0xbe, 0xab, -0xab, 0xbe
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -44, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -24, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_46
+AnimSprite_YushaSpinShield1_46:  @ 0x5EA42C
+    ANIM_SPRITE_AFFIN 2, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE_AFFIN 2, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -45, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -24, -106
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_47
+AnimSprite_YushaSpinShield1_47:  @ 0x5EA468
+    ANIM_SPRITE_AFFIN 2, 0x92, 0xd1, -0xd1, 0x92
+    ANIM_SPRITE_AFFIN 2, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -45, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -22, -104
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_48
+AnimSprite_YushaSpinShield1_48:  @ 0x5EA4A4
+    ANIM_SPRITE_AFFIN 2, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, 0x74, 0xe4, -0xe4, 0x74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -46, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -22, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_49
+AnimSprite_YushaSpinShield1_49:  @ 0x5EA4E0
+    ANIM_SPRITE_AFFIN 2, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, -0x4, 0xff, -0xff, -0x4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -46, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -21, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_50
+AnimSprite_YushaSpinShield1_50:  @ 0x5EA51C
+    ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, -0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0xd, 0xff, -0xff, -0xd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -23, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_51
+AnimSprite_YushaSpinShield1_51:  @ 0x5EA558
+    ANIM_SPRITE_AFFIN 2, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE_AFFIN 2, -0x99, 0xcc, -0xcc, -0x99
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -25, -90
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_52
+AnimSprite_YushaSpinShield1_52:  @ 0x5EA594
+    ANIM_SPRITE_AFFIN 2, -0xb4, 0xb5, -0xb5, -0xb4
+    ANIM_SPRITE_AFFIN 2, -0xb1, 0xb8, -0xb8, -0xb1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -27, -88
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_53
+AnimSprite_YushaSpinShield1_53:  @ 0x5EA5D0
+    ANIM_SPRITE_AFFIN 2, -0xd1, 0x93, -0x93, -0xd1
+    ANIM_SPRITE_AFFIN 2, -0xd8, 0x87, -0x87, -0xd8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -48, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -29, -87
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_54
+AnimSprite_YushaSpinShield1_54:  @ 0x5EA60C
+    ANIM_SPRITE_AFFIN 2, -0xe7, 0x6c, -0x6c, -0xe7
+    ANIM_SPRITE_AFFIN 2, -0xe3, 0x74, -0x74, -0xe3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -48, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -31, -86
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_55
+AnimSprite_YushaSpinShield1_55:  @ 0x5EA648
+    ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xfe, 0x1b, -0x1b, -0xfe
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -49, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -36, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_56
+AnimSprite_YushaSpinShield1_56:  @ 0x5EA684
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -49, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -39, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_57
+AnimSprite_YushaSpinShield1_57:  @ 0x5EA6C0
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xea, -0x67, 0x67, -0xea
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -43, -86
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_58
+AnimSprite_YushaSpinShield1_58:  @ 0x5EA6FC
+    ANIM_SPRITE_AFFIN 1, -0xd1, -0x92, 0x92, -0xd1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -46, -88
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_59
+AnimSprite_YushaSpinShield1_59:  @ 0x5EA72C
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xb5, -0xb4, 0xb4, -0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -47, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_60
+AnimSprite_YushaSpinShield1_60:  @ 0x5EA768
+    ANIM_SPRITE_AFFIN 2, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -49, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_61
+AnimSprite_YushaSpinShield1_61:  @ 0x5EA7A4
+    ANIM_SPRITE_AFFIN 2, -0x42, -0xf7, 0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0x53, -0xf1, 0xf1, -0x53
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -51, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -51, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_62
+AnimSprite_YushaSpinShield1_62:  @ 0x5EA7E0
+    ANIM_SPRITE_AFFIN 1, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -52, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, -52, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_63
+AnimSprite_YushaSpinShield1_63:  @ 0x5EA810
+    ANIM_SPRITE_AFFIN 2, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -53, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, -53, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_64
+AnimSprite_YushaSpinShield1_64:  @ 0x5EA84C
+    ANIM_SPRITE_AFFIN 1, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -55, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_65
+AnimSprite_YushaSpinShield1_65:  @ 0x5EA870
+    ANIM_SPRITE_AFFIN 1, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_66
+AnimSprite_YushaSpinShield1_66:  @ 0x5EA894
+    ANIM_SPRITE_AFFIN 1, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_67
+AnimSprite_YushaSpinShield1_67:  @ 0x5EA8B8
+    ANIM_SPRITE_AFFIN 1, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_68
+AnimSprite_YushaSpinShield1_68:  @ 0x5EA8DC
+    ANIM_SPRITE_AFFIN 1, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_69
+AnimSprite_YushaSpinShield1_69:  @ 0x5EA900
+    ANIM_SPRITE_AFFIN 1, 0xf7, -0x43, 0x43, 0xf7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_70
+AnimSprite_YushaSpinShield1_70:  @ 0x5EA924
+    ANIM_SPRITE_AFFIN 1, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_71
+AnimSprite_YushaSpinShield1_71:  @ 0x5EA948
+    ANIM_SPRITE_AFFIN 1, -0x6c, -0xe7, 0xe7, -0x6c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_72
+AnimSprite_YushaSpinShield1_72:  @ 0x5EA96C
+    ANIM_SPRITE_AFFIN 1, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_73
+AnimSprite_YushaSpinShield1_73:  @ 0x5EA990
+    ANIM_SPRITE_AFFIN 1, -0xc3, 0xa4, -0xa4, -0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -59, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_74
+AnimSprite_YushaSpinShield1_74:  @ 0x5EA9B4
+    ANIM_SPRITE_AFFIN 1, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -59, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_75
+AnimSprite_YushaSpinShield1_75:  @ 0x5EA9D8
+    ANIM_SPRITE_AFFIN 1, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -60, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_76
+AnimSprite_YushaSpinShield1_76:  @ 0x5EA9FC
+    ANIM_SPRITE_AFFIN 1, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -60, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_77
+AnimSprite_YushaSpinShield1_77:  @ 0x5EAA20
+    ANIM_SPRITE_AFFIN 1, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -62, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_78
+AnimSprite_YushaSpinShield1_78:  @ 0x5EAA44
+    ANIM_SPRITE_AFFIN 1, -0xe8, -0x6b, 0x6b, -0xe8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -63, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_79
+AnimSprite_YushaSpinShield1_79:  @ 0x5EAA68
+    ANIM_SPRITE_AFFIN 1, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_80
+AnimSprite_YushaSpinShield1_80:  @ 0x5EAA8C
+    ANIM_SPRITE_AFFIN 1, -0x57, 0xf0, -0xf0, -0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -81
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_81
+AnimSprite_YushaSpinShield1_81:  @ 0x5EAAB0
+    ANIM_SPRITE_AFFIN 1, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -78
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_82
+AnimSprite_YushaSpinShield1_82:  @ 0x5EAAD4
+    ANIM_SPRITE_AFFIN 1, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -70
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_83
+AnimSprite_YushaSpinShield1_83:  @ 0x5EAAF8
+    ANIM_SPRITE_AFFIN 1, 0xc3, -0xa5, 0xa5, 0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -61
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_84
+AnimSprite_YushaSpinShield1_84:  @ 0x5EAB1C
+    ANIM_SPRITE_AFFIN 1, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield1_85
+AnimSprite_YushaSpinShield1_85:  @ 0x5EAB40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, 0, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_YushaSpinShieldOBJ_LeftTypeA
+AnimScr_YushaSpinShieldOBJ_LeftTypeA:  @ 0x085EAB58
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_7, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_9, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_10, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_11, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_18, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_19, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_20, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_21, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_22, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_23, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_25, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_26, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_27, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_28, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_29, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_30, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_31, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_32, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_33, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_34, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_35, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_36, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_37, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_38, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_39, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_40, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_41, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_42, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_43, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_44, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_45, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_46, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_47, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_48, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_49, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_50, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_51, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_52, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_53, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_54, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_55, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_56, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_57, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_58, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_59, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_60, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_61, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_62, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_63, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_85, 2
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ2_RightTypeA
+AnimScr_YushaSpinShieldOBJ2_RightTypeA:  @ 0x085EAC5C
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_64, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_65, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_66, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_67, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_68, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_69, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_70, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_71, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_72, 1
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ3_RightTypeA
+AnimScr_YushaSpinShieldOBJ3_RightTypeA:  @ 0x085EAC84
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_73, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_74, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_75, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_76, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_77, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_78, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_79, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_80, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_81, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_82, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_83, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield1_84, 2
+    ANIMSCR_LOOP
+
+.global AnimSprite_YushaSpinShield2_1
+AnimSprite_YushaSpinShield2_1:  @ 0x5EACB8
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x001C, 0, -51
+	ANIM_SPRITE ATTR0_SQUARE, 0x2000, 0x009F, 11, -27
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_2
+AnimSprite_YushaSpinShield2_2:  @ 0x5EACDC
+	ANIM_SPRITE_AFFIN 2, 0xf7, -0x41, -0x41, -0xf7
+	ANIM_SPRITE_AFFIN 2, 0xe8, -0x6b, -0x6b, -0xe8
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -54
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 15, -30
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_3
+AnimSprite_YushaSpinShield2_3:  @ 0x5EAD18
+	ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+	ANIM_SPRITE_AFFIN 2, 0xb5, -0xb4, -0xb4, -0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -56
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 21, -36
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_4
+AnimSprite_YushaSpinShield2_4:  @ 0x5EAD54
+	ANIM_SPRITE_AFFIN 1, 0x58, -0xf0, -0xf0, -0x58
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -58
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 23, -42
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_5
+AnimSprite_YushaSpinShield2_5:  @ 0x5EAD84
+	ANIM_SPRITE_AFFIN 2, -0x41, -0xf7, -0xf7, 0x41
+	ANIM_SPRITE_AFFIN 2, -0x56, -0xf0, -0xf0, 0x56
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 0, -60
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 24, -52
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_6
+AnimSprite_YushaSpinShield2_6:  @ 0x5EADC0
+	ANIM_SPRITE_AFFIN 2, -0x92, -0xd2, -0xd2, 0x92
+	ANIM_SPRITE_AFFIN 2, -0x9d, -0xca, -0xca, 0x9d
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 0, -62
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 22, -58
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_7
+AnimSprite_YushaSpinShield2_7:  @ 0x5EADFC
+	ANIM_SPRITE_AFFIN 2, -0xe7, -0x6c, -0x6c, 0xe7
+	ANIM_SPRITE_AFFIN 2, -0xe3, -0x74, -0x74, 0xe3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 1, -64
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 17, -64
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_8
+AnimSprite_YushaSpinShield2_8:  @ 0x5EAE38
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, 2, -66
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x009F, 13, -67
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_9
+AnimSprite_YushaSpinShield2_9:  @ 0x5EAE5C
+	ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+	ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 1, -68
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 7, -67
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_10
+AnimSprite_YushaSpinShield2_10:  @ 0x5EAE98
+	ANIM_SPRITE_AFFIN 2, -0xae, 0xbb, 0xbb, 0xae
+	ANIM_SPRITE_AFFIN 2, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -71
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 4, -67
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_11
+AnimSprite_YushaSpinShield2_11:  @ 0x5EAED4
+	ANIM_SPRITE_AFFIN 2, -0x57, 0xf0, 0xf0, 0x57
+	ANIM_SPRITE_AFFIN 2, -0x53, 0xf2, 0xf2, 0x53
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -74
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 2, -66
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_12
+AnimSprite_YushaSpinShield2_12:  @ 0x5EAF10
+	ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, 0xf7, -0x42
+	ANIM_SPRITE_AFFIN 2, 0xd, 0xff, 0xff, -0xd
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -76
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 2, -60
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_13
+AnimSprite_YushaSpinShield2_13:  @ 0x5EAF4C
+	ANIM_SPRITE_AFFIN 2, 0x92, 0xd1, 0xd1, -0x92
+	ANIM_SPRITE_AFFIN 2, 0x99, 0xcc, 0xcc, -0x99
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -79
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 4, -59
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_14
+AnimSprite_YushaSpinShield2_14:  @ 0x5EAF88
+	ANIM_SPRITE_AFFIN 2, 0xdd, 0x80, 0x80, -0xdd
+	ANIM_SPRITE_AFFIN 2, 0xd8, 0x87, 0x87, -0xd8
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -81
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 8, -58
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_15
+AnimSprite_YushaSpinShield2_15:  @ 0x5EAFC4
+	ANIM_SPRITE_AFFIN 1, 0xff, 0x0, 0x0, -0xff
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -83
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 16, -59
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_16
+AnimSprite_YushaSpinShield2_16:  @ 0x5EAFF4
+	ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE_AFFIN 2, 0xea, -0x67, -0x67, -0xea
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -86
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 20, -62
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_17
+AnimSprite_YushaSpinShield2_17:  @ 0x5EB030
+	ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+	ANIM_SPRITE_AFFIN 2, 0xb5, -0xb4, -0xb4, -0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -88
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 24, -67
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_18
+AnimSprite_YushaSpinShield2_18:  @ 0x5EB06C
+	ANIM_SPRITE_AFFIN 2, 0x58, -0xf0, -0xf0, -0x58
+	ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -91
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 27, -75
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_19
+AnimSprite_YushaSpinShield2_19:  @ 0x5EB0A8
+	ANIM_SPRITE_AFFIN 1, -0x56, -0xf0, -0xf0, 0x56
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -94
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 26, -87
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_20
+AnimSprite_YushaSpinShield2_20:  @ 0x5EB0D8
+	ANIM_SPRITE_AFFIN 2, -0xa4, -0xc4, -0xc4, 0xa4
+	ANIM_SPRITE_AFFIN 2, -0x9d, -0xca, -0xca, 0x9d
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -95
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 24, -92
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_21
+AnimSprite_YushaSpinShield2_21:  @ 0x5EB114
+	ANIM_SPRITE_AFFIN 2, -0xe7, -0x6c, -0x6c, 0xe7
+	ANIM_SPRITE_AFFIN 2, -0xe3, -0x74, -0x74, 0xe3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 4, -96
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 21, -95
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_22
+AnimSprite_YushaSpinShield2_22:  @ 0x5EB150
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, 4, -98
+	ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x009F, 15, -99
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_23
+AnimSprite_YushaSpinShield2_23:  @ 0x5EB174
+	ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+	ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 4, -100
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 10, -99
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_24
+AnimSprite_YushaSpinShield2_24:  @ 0x5EB1B0
+	ANIM_SPRITE_AFFIN 2, -0xa4, 0xc4, 0xc4, 0xa4
+	ANIM_SPRITE_AFFIN 2, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 7, -98
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_25
+AnimSprite_YushaSpinShield2_25:  @ 0x5EB1EC
+	ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, 0xf7, 0x42
+	ANIM_SPRITE_AFFIN 2, -0x53, 0xf2, 0xf2, 0x53
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 4, -92
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_26
+AnimSprite_YushaSpinShield2_26:  @ 0x5EB228
+	ANIM_SPRITE_AFFIN 2, 0x6b, 0xe8, 0xe8, -0x6b
+	ANIM_SPRITE_AFFIN 2, 0xd, 0xff, 0xff, -0xd
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 5, -85
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_27
+AnimSprite_YushaSpinShield2_27:  @ 0x5EB264
+	ANIM_SPRITE_AFFIN 2, 0xa4, 0xc4, 0xc4, -0xa4
+	ANIM_SPRITE_AFFIN 2, 0x99, 0xcc, 0xcc, -0x99
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -104
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 9, -83
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_28
+AnimSprite_YushaSpinShield2_28:  @ 0x5EB2A0
+	ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, 0x57, -0xf0
+	ANIM_SPRITE_AFFIN 2, 0xd8, 0x87, 0x87, -0xd8
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -105
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 14, -81
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_29
+AnimSprite_YushaSpinShield2_29:  @ 0x5EB2DC
+	ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, 0x2c, -0xfc
+	ANIM_SPRITE_AFFIN 2, 0xfe, 0x1b, 0x1b, -0xfe
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -105
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 17, -80
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_30
+AnimSprite_YushaSpinShield2_30:  @ 0x5EB318
+	ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+	ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 7, -106
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 22, -82
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_31
+AnimSprite_YushaSpinShield2_31:  @ 0x5EB354
+	ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE_AFFIN 2, 0xea, -0x67, -0x67, -0xea
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 7, -107
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 24, -83
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_32
+AnimSprite_YushaSpinShield2_32:  @ 0x5EB390
+	ANIM_SPRITE_AFFIN 2, 0xdd, -0x7f, -0x7f, -0xdd
+	ANIM_SPRITE_AFFIN 2, 0xd1, -0x92, -0x92, -0xd1
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -107
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 27, -84
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_33
+AnimSprite_YushaSpinShield2_33:  @ 0x5EB3CC
+	ANIM_SPRITE_AFFIN 2, 0xc4, -0xa4, -0xa4, -0xc4
+	ANIM_SPRITE_AFFIN 2, 0xb5, -0xb4, -0xb4, -0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -107
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 28, -85
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_34
+AnimSprite_YushaSpinShield2_34:  @ 0x5EB408
+	ANIM_SPRITE_AFFIN 2, 0x80, -0xdd, -0xdd, -0x80
+	ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 31, -89
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_35
+AnimSprite_YushaSpinShield2_35:  @ 0x5EB444
+	ANIM_SPRITE_AFFIN 2, 0x58, -0xf0, -0xf0, -0x58
+	ANIM_SPRITE_AFFIN 2, 0x53, -0xf1, -0xf1, -0x53
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 32, -91
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_36
+AnimSprite_YushaSpinShield2_36:  @ 0x5EB480
+	ANIM_SPRITE_AFFIN 1, 0x0, -0xff, -0xff, 0x0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 33, -100
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_37
+AnimSprite_YushaSpinShield2_37:  @ 0x5EB4B0
+	ANIM_SPRITE_AFFIN 2, -0x2b, -0xfc, -0xfc, 0x2b
+	ANIM_SPRITE_AFFIN 2, -0x15, -0xff, -0xff, 0x15
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 33, -100
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_38
+AnimSprite_YushaSpinShield2_38:  @ 0x5EB4EC
+	ANIM_SPRITE_AFFIN 2, -0x56, -0xf0, -0xf0, 0x56
+	ANIM_SPRITE_AFFIN 2, -0x7f, -0xde, -0xde, 0x7f
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 33, -101
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_39
+AnimSprite_YushaSpinShield2_39:  @ 0x5EB528
+	ANIM_SPRITE_AFFIN 2, -0xa4, -0xc4, -0xc4, 0xa4
+	ANIM_SPRITE_AFFIN 2, -0x9d, -0xca, -0xca, 0x9d
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 31, -105
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_40
+AnimSprite_YushaSpinShield2_40:  @ 0x5EB564
+	ANIM_SPRITE_AFFIN 2, -0xd1, -0x93, -0x93, 0xd1
+	ANIM_SPRITE_AFFIN 2, -0xe3, -0x74, -0x74, 0xe3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 28, -107
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_41
+AnimSprite_YushaSpinShield2_41:  @ 0x5EB5A0
+	ANIM_SPRITE_AFFIN 2, -0xf3, -0x4f, -0x4f, 0xf3
+	ANIM_SPRITE_AFFIN 2, -0xe3, -0x74, -0x74, 0xe3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 27, -108
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_42
+AnimSprite_YushaSpinShield2_42:  @ 0x5EB5DC
+	ANIM_SPRITE_AFFIN 2, -0xfb, -0x2d, -0x2d, 0xfb
+	ANIM_SPRITE_AFFIN 2, -0xff, -0xe, -0xe, 0xff
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -108
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 26, -108
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_43
+AnimSprite_YushaSpinShield2_43:  @ 0x5EB618
+	ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, 0x2c, 0xfc
+	ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 19, -109
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_44
+AnimSprite_YushaSpinShield2_44:  @ 0x5EB654
+	ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+	ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 12, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 18, -108
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_45
+AnimSprite_YushaSpinShield2_45:  @ 0x5EB690
+	ANIM_SPRITE_AFFIN 2, -0xdd, 0x7f, 0x7f, 0xdd
+	ANIM_SPRITE_AFFIN 2, -0xbe, 0xab, 0xab, 0xbe
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 12, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 16, -107
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_46
+AnimSprite_YushaSpinShield2_46:  @ 0x5EB6CC
+	ANIM_SPRITE_AFFIN 2, -0xc4, 0xa4, 0xa4, 0xc4
+	ANIM_SPRITE_AFFIN 2, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 13, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 16, -106
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_47
+AnimSprite_YushaSpinShield2_47:  @ 0x5EB708
+	ANIM_SPRITE_AFFIN 2, -0x92, 0xd1, 0xd1, 0x92
+	ANIM_SPRITE_AFFIN 2, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 13, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 14, -104
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_48
+AnimSprite_YushaSpinShield2_48:  @ 0x5EB744
+	ANIM_SPRITE_AFFIN 2, -0x57, 0xf0, 0xf0, 0x57
+	ANIM_SPRITE_AFFIN 2, -0x74, 0xe4, 0xe4, 0x74
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 14, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 14, -101
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_49
+AnimSprite_YushaSpinShield2_49:  @ 0x5EB780
+	ANIM_SPRITE_AFFIN 2, 0x0, 0xff, 0xff, 0x0
+	ANIM_SPRITE_AFFIN 2, 0x4, 0xff, 0xff, -0x4
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 14, -109
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 13, -95
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_50
+AnimSprite_YushaSpinShield2_50:  @ 0x5EB7BC
+	ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, 0xf7, -0x42
+	ANIM_SPRITE_AFFIN 2, 0xd, 0xff, 0xff, -0xd
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 15, -94
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_51
+AnimSprite_YushaSpinShield2_51:  @ 0x5EB7F8
+	ANIM_SPRITE_AFFIN 2, 0x7f, 0xdd, 0xdd, -0x7f
+	ANIM_SPRITE_AFFIN 2, 0x99, 0xcc, 0xcc, -0x99
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 17, -90
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_52
+AnimSprite_YushaSpinShield2_52:  @ 0x5EB834
+	ANIM_SPRITE_AFFIN 2, 0xb4, 0xb5, 0xb5, -0xb4
+	ANIM_SPRITE_AFFIN 2, 0xb1, 0xb8, 0xb8, -0xb1
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 19, -88
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_53
+AnimSprite_YushaSpinShield2_53:  @ 0x5EB870
+	ANIM_SPRITE_AFFIN 2, 0xd1, 0x93, 0x93, -0xd1
+	ANIM_SPRITE_AFFIN 2, 0xd8, 0x87, 0x87, -0xd8
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 16, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 21, -87
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_54
+AnimSprite_YushaSpinShield2_54:  @ 0x5EB8AC
+	ANIM_SPRITE_AFFIN 2, 0xe7, 0x6c, 0x6c, -0xe7
+	ANIM_SPRITE_AFFIN 2, 0xe3, 0x74, 0x74, -0xe3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 16, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 23, -86
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_55
+AnimSprite_YushaSpinShield2_55:  @ 0x5EB8E8
+	ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, 0x2c, -0xfc
+	ANIM_SPRITE_AFFIN 2, 0xfe, 0x1b, 0x1b, -0xfe
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 17, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 28, -85
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_56
+AnimSprite_YushaSpinShield2_56:  @ 0x5EB924
+	ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+	ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 17, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 31, -85
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_57
+AnimSprite_YushaSpinShield2_57:  @ 0x5EB960
+	ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE_AFFIN 2, 0xea, -0x67, -0x67, -0xea
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 35, -86
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_58
+AnimSprite_YushaSpinShield2_58:  @ 0x5EB99C
+	ANIM_SPRITE_AFFIN 1, 0xd1, -0x92, -0x92, -0xd1
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 38, -88
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_59
+AnimSprite_YushaSpinShield2_59:  @ 0x5EB9CC
+	ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+	ANIM_SPRITE_AFFIN 2, 0xb5, -0xb4, -0xb4, -0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 39, -89
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_60
+AnimSprite_YushaSpinShield2_60:  @ 0x5EBA08
+	ANIM_SPRITE_AFFIN 2, 0x80, -0xdd, -0xdd, -0x80
+	ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 41, -91
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_61
+AnimSprite_YushaSpinShield2_61:  @ 0x5EBA44
+	ANIM_SPRITE_AFFIN 2, 0x42, -0xf7, -0xf7, -0x42
+	ANIM_SPRITE_AFFIN 2, 0x53, -0xf1, -0xf1, -0x53
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 19, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 43, -94
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_62
+AnimSprite_YushaSpinShield2_62:  @ 0x5EBA80
+	ANIM_SPRITE_AFFIN 1, 0x0, -0xff, -0xff, 0x0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 20, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_8, 0x009F, 44, -100
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_63
+AnimSprite_YushaSpinShield2_63:  @ 0x5EBAB0
+	ANIM_SPRITE_AFFIN 2, -0x2b, -0xfc, -0xfc, 0x2b
+	ANIM_SPRITE_AFFIN 2, 0x0, -0xff, -0xff, 0x0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 21, -110
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x0200, 0x009F, 45, -101
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_64
+AnimSprite_YushaSpinShield2_64:  @ 0x5EBAEC
+	ANIM_SPRITE_AFFIN 1, 0xdd, -0x7f, -0x7f, -0xdd
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 23, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_65
+AnimSprite_YushaSpinShield2_65:  @ 0x5EBB10
+	ANIM_SPRITE_AFFIN 1, 0xff, 0x0, 0x0, -0xff
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_66
+AnimSprite_YushaSpinShield2_66:  @ 0x5EBB34
+	ANIM_SPRITE_AFFIN 1, 0xdd, 0x80, 0x80, -0xdd
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_67
+AnimSprite_YushaSpinShield2_67:  @ 0x5EBB58
+	ANIM_SPRITE_AFFIN 1, 0x0, 0xff, 0xff, 0x0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_68
+AnimSprite_YushaSpinShield2_68:  @ 0x5EBB7C
+	ANIM_SPRITE_AFFIN 1, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_69
+AnimSprite_YushaSpinShield2_69:  @ 0x5EBBA0
+	ANIM_SPRITE_AFFIN 1, -0xf7, -0x43, -0x43, 0xf7
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_70
+AnimSprite_YushaSpinShield2_70:  @ 0x5EBBC4
+	ANIM_SPRITE_AFFIN 1, -0x56, -0xf0, -0xf0, 0x56
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_71
+AnimSprite_YushaSpinShield2_71:  @ 0x5EBBE8
+	ANIM_SPRITE_AFFIN 1, 0x6c, -0xe7, -0xe7, -0x6c
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_72
+AnimSprite_YushaSpinShield2_72:  @ 0x5EBC0C
+	ANIM_SPRITE_AFFIN 1, 0xf0, -0x57, -0x57, -0xf0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_73
+AnimSprite_YushaSpinShield2_73:  @ 0x5EBC30
+	ANIM_SPRITE_AFFIN 1, 0xc3, 0xa4, 0xa4, -0xc3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 27, -96
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_74
+AnimSprite_YushaSpinShield2_74:  @ 0x5EBC54
+	ANIM_SPRITE_AFFIN 1, -0xb5, 0xb4, 0xb4, 0xb5
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 27, -94
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_75
+AnimSprite_YushaSpinShield2_75:  @ 0x5EBC78
+	ANIM_SPRITE_AFFIN 1, -0xfb, -0x2d, -0x2d, 0xfb
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 28, -93
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_76
+AnimSprite_YushaSpinShield2_76:  @ 0x5EBC9C
+	ANIM_SPRITE_AFFIN 1, -0x7f, -0xde, -0xde, 0x7f
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 28, -92
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_77
+AnimSprite_YushaSpinShield2_77:  @ 0x5EBCC0
+	ANIM_SPRITE_AFFIN 1, 0x58, -0xf0, -0xf0, -0x58
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 30, -91
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_78
+AnimSprite_YushaSpinShield2_78:  @ 0x5EBCE4
+	ANIM_SPRITE_AFFIN 1, 0xe8, -0x6b, -0x6b, -0xe8
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 31, -89
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_79
+AnimSprite_YushaSpinShield2_79:  @ 0x5EBD08
+	ANIM_SPRITE_AFFIN 1, 0xf0, 0x57, 0x57, -0xf0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -85
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_80
+AnimSprite_YushaSpinShield2_80:  @ 0x5EBD2C
+	ANIM_SPRITE_AFFIN 1, 0x57, 0xf0, 0xf0, -0x57
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -81
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_81
+AnimSprite_YushaSpinShield2_81:  @ 0x5EBD50
+	ANIM_SPRITE_AFFIN 1, -0x57, 0xf0, 0xf0, 0x57
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -78
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_82
+AnimSprite_YushaSpinShield2_82:  @ 0x5EBD74
+	ANIM_SPRITE_AFFIN 1, -0xf0, 0x57, 0x57, 0xf0
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -70
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_83
+AnimSprite_YushaSpinShield2_83:  @ 0x5EBD98
+	ANIM_SPRITE_AFFIN 1, -0xc3, -0xa5, -0xa5, 0xc3
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -61
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_84
+AnimSprite_YushaSpinShield2_84:  @ 0x5EBDBC
+	ANIM_SPRITE_AFFIN 1, 0x80, -0xdd, -0xdd, -0x80
+	ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -56
+	ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield2_85
+AnimSprite_YushaSpinShield2_85:  @ 0x5EBDE0
+	ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, -8, -8
+	ANIM_SPRITE_END
+
+	.global AnimScr_YushaSpinShieldOBJ_RightTypeA
+AnimScr_YushaSpinShieldOBJ_RightTypeA:  @ 0x085EBDF8
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_7, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_9, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_10, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_11, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_18, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_19, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_20, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_21, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_22, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_23, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_25, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_26, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_27, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_28, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_29, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_30, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_31, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_32, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_33, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_34, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_35, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_36, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_37, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_38, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_39, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_40, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_41, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_42, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_43, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_44, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_45, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_46, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_47, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_48, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_49, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_50, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_51, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_52, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_53, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_54, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_55, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_56, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_57, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_58, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_59, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_60, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_61, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_62, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_63, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_85, 2
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ2_LeftTypeA
+AnimScr_YushaSpinShieldOBJ2_LeftTypeA:  @ 0x085EBEFC
 @ Replacing .incbin "baserom.gba", 0x5EBEFC, 0x28
-    .4byte gUnknown_085EAC84 + 0xe69
-    .4byte gUnknown_085EAC84 + 0xe8d
-    .4byte gUnknown_085EAC84 + 0xeb1
-    .4byte gUnknown_085EAC84 + 0xed5
-    .4byte gUnknown_085EAC84 + 0xef9
-    .4byte gUnknown_085EAC84 + 0xf1d
-    .4byte gUnknown_085EAC84 + 0xf41
-    .4byte gUnknown_085EAC84 + 0xf65
-    .4byte gUnknown_085EAC84 + 0xf89
-    .4byte 0x82000000
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_64, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_65, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_66, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_67, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_68, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_69, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_70, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_71, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_72, 1
+    ANIMSCR_LOOP
 
-	.global gUnknown_085EBF24
-gUnknown_085EBF24:  @ 0x085EBF24
-@ Replacing .incbin "baserom.gba", 0x5EBF24, 0x11A4
-    .4byte gUnknown_085EAC84 + 0xfad
-    .4byte gUnknown_085EAC84 + 0xfd1
-    .4byte gUnknown_085EAC84 + 0xff5
-    .4byte gUnknown_085EAC84 + 0x101a
-    .4byte gUnknown_085EAC84 + 0x103e
-    .4byte gUnknown_085EAC84 + 0x1062
-    .4byte gUnknown_085EAC84 + 0x1086
-    .4byte gUnknown_085EAC84 + 0x10aa
-    .4byte gUnknown_085EAC84 + 0x10ce
-    .4byte gUnknown_085EAC84 + 0x10f2
-    .4byte gUnknown_085EAC84 + 0x1116
-    .4byte gUnknown_085EAC84 + 0x113a
-    .4byte 0x82000000
-    .4byte 0xa0000000
-    .4byte 0xffe0001c
-    .4byte 0x0000ffcd
-    .4byte 0x60000000
-    .4byte 0xffe7003a
-    .4byte 0x0000ffdb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffbfff09
-    .4byte 0xff090041
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0x80000100
-    .4byte 0xffe1001c
-    .4byte 0x0000ffca
-    .4byte 0x42000100
-    .4byte 0xffe8003a
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3dff5c
-    .4byte 0xff5c00c3
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffe1001c
-    .4byte 0x0000ffc8
-    .4byte 0x42000100
-    .4byte 0xffe4003a
-    .4byte 0x0000ffd5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffa8
-    .4byte 0xffa800f0
-    .4byte 0xffff0002
-    .4byte 0xff21ff84
-    .4byte 0xff8400df
-    .4byte 0x80000100
-    .4byte 0xffe1001c
-    .4byte 0x0000ffc6
-    .4byte 0x42000100
-    .4byte 0xffe3003a
-    .4byte 0x0000ffd1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff090041
-    .4byte 0x004100f7
-    .4byte 0xffff0002
-    .4byte 0xff160067
-    .4byte 0x006700ea
-    .4byte 0x80000100
-    .4byte 0xffe0001c
-    .4byte 0x0000ffc4
-    .4byte 0x42000100
-    .4byte 0xffe0003a
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff2e0092
-    .4byte 0x009200d2
-    .4byte 0xffff0002
-    .4byte 0xff4200aa
-    .4byte 0x00aa00be
-    .4byte 0x80000100
-    .4byte 0xffe0001c
-    .4byte 0x0000ffc2
-    .4byte 0x42000100
-    .4byte 0xffe2003a
-    .4byte 0x0000ffc6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff9400e7
-    .4byte 0x00e7006c
-    .4byte 0xffff0002
-    .4byte 0xff8400df
-    .4byte 0x00df007c
-    .4byte 0x80000100
-    .4byte 0xffdf001c
-    .4byte 0x0000ffc0
-    .4byte 0x42000100
-    .4byte 0xffe4003a
-    .4byte 0x0000ffc1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffde001c
-    .4byte 0x0000ffbe
-    .4byte 0x40000000
-    .4byte 0xffe6003a
-    .4byte 0x0000ffc0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x005700f0
-    .4byte 0x00f0ffa9
-    .4byte 0xffff0002
-    .4byte 0x006800e9
-    .4byte 0x00e9ff98
-    .4byte 0x80000100
-    .4byte 0xffdf001c
-    .4byte 0x0000ffbc
-    .4byte 0x42000100
-    .4byte 0xffea003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00bb00ae
-    .4byte 0x00aeff45
-    .4byte 0xffff0002
-    .4byte 0x00a400c4
-    .4byte 0x00c4ff5c
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffb9
-    .4byte 0x42000100
-    .4byte 0xffea003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f00057
-    .4byte 0x0057ff10
-    .4byte 0xffff0002
-    .4byte 0x00be00ab
-    .4byte 0x00abff42
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffb6
-    .4byte 0x42000100
-    .4byte 0xffec003a
-    .4byte 0x0000ffbc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f7ffbe
-    .4byte 0xffbeff09
-    .4byte 0xffff0002
-    .4byte 0x00fe001a
-    .4byte 0x001aff02
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffb4
-    .4byte 0x42000100
-    .4byte 0xffed003a
-    .4byte 0x0000ffbe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d1ff6e
-    .4byte 0xff6eff2f
-    .4byte 0xffff0002
-    .4byte 0x00ddff81
-    .4byte 0xff81ff23
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffb1
-    .4byte 0x42000100
-    .4byte 0xffec003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0080ff23
-    .4byte 0xff23ff80
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffaf
-    .4byte 0x42000100
-    .4byte 0xffea003a
-    .4byte 0x0000ffbe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0000ff01
-    .4byte 0xff010000
-    .4byte 0xffff0002
-    .4byte 0xfff4ff01
-    .4byte 0xff01000c
-    .4byte 0x80000100
-    .4byte 0xffde001c
-    .4byte 0x0000ffad
-    .4byte 0x42000100
-    .4byte 0xffe6003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa9ff10
-    .4byte 0xff100057
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0x80000100
-    .4byte 0xffdd001c
-    .4byte 0x0000ffaa
-    .4byte 0x42000100
-    .4byte 0xffe3003a
-    .4byte 0x0000ffb9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3dff5c
-    .4byte 0xff5c00c3
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffdd001c
-    .4byte 0x0000ffa8
-    .4byte 0x42000100
-    .4byte 0xffe0003a
-    .4byte 0x0000ffb5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffa8
-    .4byte 0xffa800f0
-    .4byte 0xffff0002
-    .4byte 0xff21ff84
-    .4byte 0xff8400df
-    .4byte 0x80000100
-    .4byte 0xffdd001c
-    .4byte 0x0000ffa5
-    .4byte 0x42000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ffb0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100056
-    .4byte 0x005600f0
-    .4byte 0xffff0002
-    .4byte 0xff160067
-    .4byte 0x006700ea
-    .4byte 0x80000100
-    .4byte 0xffdd001c
-    .4byte 0x0000ffa2
-    .4byte 0x42000100
-    .4byte 0xffde003a
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3c00a4
-    .4byte 0x00a400c4
-    .4byte 0xffff0002
-    .4byte 0xff4200aa
-    .4byte 0x00aa00be
-    .4byte 0x80000100
-    .4byte 0xffdd001c
-    .4byte 0x0000ffa1
-    .4byte 0x42000100
-    .4byte 0xffe0003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff9400e7
-    .4byte 0x00e7006c
-    .4byte 0xffff0002
-    .4byte 0xff8400df
-    .4byte 0x00df007c
-    .4byte 0x80000100
-    .4byte 0xffdc001c
-    .4byte 0x0000ffa0
-    .4byte 0x42000100
-    .4byte 0xffe1003a
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xffdc001c
-    .4byte 0x0000ff9e
-    .4byte 0x40000000
-    .4byte 0xffe4003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x005700f0
-    .4byte 0x00f0ffa9
-    .4byte 0xffff0002
-    .4byte 0x006800e9
-    .4byte 0x00e9ff98
-    .4byte 0x80000100
-    .4byte 0xffdc001c
-    .4byte 0x0000ff9c
-    .4byte 0x42000100
-    .4byte 0xffe6003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c400a4
-    .4byte 0x00a4ff3c
-    .4byte 0xffff0002
-    .4byte 0x00a400c4
-    .4byte 0x00c4ff5c
-    .4byte 0x80000100
-    .4byte 0xffdb001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0xffe8003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f70042
-    .4byte 0x0042ff09
-    .4byte 0xffff0002
-    .4byte 0x00be00ab
-    .4byte 0x00abff42
-    .4byte 0x80000100
-    .4byte 0xffdb001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0xffe9003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00e8ff95
-    .4byte 0xff95ff18
-    .4byte 0xffff0002
-    .4byte 0x00ddff81
-    .4byte 0xff81ff23
-    .4byte 0x80000100
-    .4byte 0xffdb001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0xffe9003a
-    .4byte 0x0000ffa6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c4ff5c
-    .4byte 0xff5cff3c
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffda001c
-    .4byte 0x0000ff98
-    .4byte 0x42000100
-    .4byte 0xffe7003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffda001c
-    .4byte 0x0000ff97
-    .4byte 0x42000100
-    .4byte 0xffe4003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002cff04
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0x0039ff07
-    .4byte 0xff07ffc7
-    .4byte 0x80000100
-    .4byte 0xffda001c
-    .4byte 0x0000ff97
-    .4byte 0x42000100
-    .4byte 0xffe3003a
-    .4byte 0x0000ffa6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0xfff4ff01
-    .4byte 0xff01000c
-    .4byte 0x80000100
-    .4byte 0xffd9001c
-    .4byte 0x0000ff96
-    .4byte 0x42000100
-    .4byte 0xffe0003a
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa9ff10
-    .4byte 0xff100057
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0x80000100
-    .4byte 0xffd9001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff81ff23
-    .4byte 0xff23007f
-    .4byte 0xffff0002
-    .4byte 0xff9dff15
-    .4byte 0xff150063
-    .4byte 0x80000100
-    .4byte 0xffd8001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0xffdc003a
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff5cff3c
-    .4byte 0xff3c00a4
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffd8001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0xffdc003a
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff23ff80
-    .4byte 0xff8000dd
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffd8001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffdb003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffa8
-    .4byte 0xffa800f0
-    .4byte 0xffff0002
-    .4byte 0xff21ff84
-    .4byte 0xff8400df
-    .4byte 0x80000100
-    .4byte 0xffd7001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffd9003a
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff010000
-    .4byte 0x000000ff
-    .4byte 0xffff0002
-    .4byte 0xff08003d
-    .4byte 0x003d00f8
-    .4byte 0x80000100
-    .4byte 0xffd7001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffd9003a
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04002b
-    .4byte 0x002b00fc
-    .4byte 0xffff0002
-    .4byte 0xff08003d
-    .4byte 0x003d00f8
-    .4byte 0x80000100
-    .4byte 0xffd7001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffd8003a
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100056
-    .4byte 0x005600f0
-    .4byte 0xffff0002
-    .4byte 0xff160067
-    .4byte 0x006700ea
-    .4byte 0x80000100
-    .4byte 0xffd6001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffd8003a
-    .4byte 0x0000ff9a
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3c00a4
-    .4byte 0x00a400c4
-    .4byte 0xffff0002
-    .4byte 0xff4200aa
-    .4byte 0x00aa00be
-    .4byte 0x80000100
-    .4byte 0xffd6001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffd8003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff6d00d1
-    .4byte 0x00d10093
-    .4byte 0xffff0002
-    .4byte 0xff8400df
-    .4byte 0x00df007c
-    .4byte 0x80000100
-    .4byte 0xffd6001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffda003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffb100f3
-    .4byte 0x00f3004f
-    .4byte 0xffff0002
-    .4byte 0xff8400df
-    .4byte 0x00df007c
-    .4byte 0x80000100
-    .4byte 0xffd5001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffdb003a
-    .4byte 0x0000ff96
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd300fb
-    .4byte 0x00fb002d
-    .4byte 0xffff0002
-    .4byte 0xffc600f9
-    .4byte 0x00f9003a
-    .4byte 0x80000100
-    .4byte 0xffd5001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0xffdc003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002c00fc
-    .4byte 0x00fcffd4
-    .4byte 0xffff0002
-    .4byte 0x003500fa
-    .4byte 0x00faffcb
-    .4byte 0x80000100
-    .4byte 0xffd5001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffde003a
-    .4byte 0x0000ff93
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x005700f0
-    .4byte 0x00f0ffa9
-    .4byte 0xffff0002
-    .4byte 0x003500fa
-    .4byte 0x00faffcb
-    .4byte 0x80000100
-    .4byte 0xffd4001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ff94
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x007f00dd
-    .4byte 0x00ddff81
-    .4byte 0xffff0002
-    .4byte 0x006800e9
-    .4byte 0x00e9ff98
-    .4byte 0x80000100
-    .4byte 0xffd4001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00a400c4
-    .4byte 0x00c4ff5c
-    .4byte 0x80000100
-    .4byte 0xffd3001c
-    .4byte 0x0000ff93
-    .4byte 0x40000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d10092
-    .4byte 0x0092ff2f
-    .4byte 0xffff0002
-    .4byte 0x00be00ab
-    .4byte 0x00abff42
-    .4byte 0x80000100
-    .4byte 0xffd3001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffe0003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f00057
-    .4byte 0x0057ff10
-    .4byte 0xffff0002
-    .4byte 0x00dd0080
-    .4byte 0x0080ff23
-    .4byte 0x80000100
-    .4byte 0xffd2001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffe1003a
-    .4byte 0x0000ff98
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00ff0000
-    .4byte 0x0000ff01
-    .4byte 0xffff0002
-    .4byte 0x00fe001a
-    .4byte 0x001aff02
-    .4byte 0x80000100
-    .4byte 0xffd2001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0xffe2003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f7ffbe
-    .4byte 0xffbeff09
-    .4byte 0xffff0002
-    .4byte 0x00fe001a
-    .4byte 0x001aff02
-    .4byte 0x80000100
-    .4byte 0xffd1001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00ddff81
-    .4byte 0xff81ff23
-    .4byte 0x80000100
-    .4byte 0xffd1001c
-    .4byte 0x0000ff92
-    .4byte 0x40000100
-    .4byte 0xffdf003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00b5ff4c
-    .4byte 0xff4cff4b
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffd1001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffde003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0093ff2f
-    .4byte 0xff2fff6d
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffd0001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffdd003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x006cff19
-    .4byte 0xff19ff94
-    .4byte 0xffff0002
-    .4byte 0x007cff21
-    .4byte 0xff21ff84
-    .4byte 0x80000100
-    .4byte 0xffd0001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffdb003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002cff04
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0x0053ff0f
-    .4byte 0xff0fffad
-    .4byte 0x80000100
-    .4byte 0xffcf001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd9003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0xfff4ff01
-    .4byte 0xff01000c
-    .4byte 0x80000100
-    .4byte 0xffcf001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd6003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa9ff10
-    .4byte 0xff100057
-    .4byte 0xffff0002
-    .4byte 0xffd4ff04
-    .4byte 0xff04002c
-    .4byte 0x80000100
-    .4byte 0xffce001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd3003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff6eff2f
-    .4byte 0xff2f0092
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffce001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd2003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3dff5c
-    .4byte 0xff5c00c3
-    .4byte 0xffff0002
-    .4byte 0xff3aff5f
-    .4byte 0xff5f00c6
-    .4byte 0x80000100
-    .4byte 0xffce001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd1003a
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff23ff80
-    .4byte 0xff8000dd
-    .4byte 0xffff0002
-    .4byte 0xff21ff84
-    .4byte 0xff8400df
-    .4byte 0x80000100
-    .4byte 0xffce001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffd0003a
-    .4byte 0x0000ff9e
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff09ffbe
-    .4byte 0xffbe00f7
-    .4byte 0xffff0002
-    .4byte 0xff21ff84
-    .4byte 0xff8400df
-    .4byte 0x80000100
-    .4byte 0xffcd001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffce003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff010000
-    .4byte 0x000000ff
-    .4byte 0xffff0002
-    .4byte 0xff030023
-    .4byte 0x002300fd
-    .4byte 0x80000100
-    .4byte 0xffcc001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffcc003a
-    .4byte 0x0000ff9a
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04002b
-    .4byte 0x002b00fc
-    .4byte 0xffff0002
-    .4byte 0xff030023
-    .4byte 0x002300fd
-    .4byte 0x80000100
-    .4byte 0xffcb001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0xffcc003a
-    .4byte 0x0000ff99
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff81ff23
-    .4byte 0xff23007f
-    .4byte 0x80000100
-    .4byte 0xffc9001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0000ff01
-    .4byte 0xff010000
-    .4byte 0x80000100
-    .4byte 0xffc7001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0080ff23
-    .4byte 0xff23ff80
-    .4byte 0x80000100
-    .4byte 0xffc7001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00ff0000
-    .4byte 0x0000ff01
-    .4byte 0x80000100
-    .4byte 0xffc7001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b400b5
-    .4byte 0x00b5ff4c
-    .4byte 0x80000100
-    .4byte 0xffc7001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbd00f7
-    .4byte 0x00f70043
-    .4byte 0x80000100
-    .4byte 0xffc7001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff100056
-    .4byte 0x005600f0
-    .4byte 0x80000100
-    .4byte 0xffc6001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff19ff94
-    .4byte 0xff9400e7
-    .4byte 0x80000100
-    .4byte 0xffc6001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffa9ff10
-    .4byte 0xff100057
-    .4byte 0x80000100
-    .4byte 0xffc6001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00a4ff3d
-    .4byte 0xff3dff5c
-    .4byte 0x80000100
-    .4byte 0xffc5001c
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b400b5
-    .4byte 0x00b5ff4c
-    .4byte 0x80000100
-    .4byte 0xffc5001c
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd300fb
-    .4byte 0x00fb002d
-    .4byte 0x80000100
-    .4byte 0xffc4001c
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff22007f
-    .4byte 0x007f00de
-    .4byte 0x80000100
-    .4byte 0xffc4001c
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff10ffa8
-    .4byte 0xffa800f0
-    .4byte 0x80000100
-    .4byte 0xffc2001c
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff95ff18
-    .4byte 0xff18006b
-    .4byte 0x80000100
-    .4byte 0xffc1001c
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0057ff10
-    .4byte 0xff10ffa9
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f0ffa9
-    .4byte 0xffa9ff10
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffaf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f00057
-    .4byte 0x0057ff10
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffb2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x005700f0
-    .4byte 0x00f0ffa9
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffba
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff5b00c3
-    .4byte 0x00c300a5
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffc3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff23ff80
-    .4byte 0xff8000dd
-    .4byte 0x80000100
-    .4byte 0xffc0001c
-    .4byte 0x0000ffc8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x0000001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+	.global AnimScr_YushaSpinShieldOBJ3_LeftTypeA
+AnimScr_YushaSpinShieldOBJ3_LeftTypeA:  @ 0x085EBF24
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_73, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_74, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_75, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_76, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_77, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_78, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_79, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_80, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_81, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_82, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_83, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield2_84, 2
+    ANIMSCR_LOOP
 
-	.global gUnknown_085ED0C8
-gUnknown_085ED0C8:  @ 0x085ED0C8
-@ Replacing .incbin "baserom.gba", 0x5ED0C8, 0x104
-    .4byte gUnknown_085EBF24 + 0x35
-    .4byte gUnknown_085EBF24 + 0x59
-    .4byte gUnknown_085EBF24 + 0x95
-    .4byte gUnknown_085EBF24 + 0xd1
-    .4byte gUnknown_085EBF24 + 0x10d
-    .4byte gUnknown_085EBF24 + 0x149
-    .4byte gUnknown_085EBF24 + 0x185
-    .4byte gUnknown_085EBF24 + 0x1c1
-    .4byte gUnknown_085EBF24 + 0x1e5
-    .4byte gUnknown_085EBF24 + 0x221
-    .4byte gUnknown_085EBF24 + 0x25d
-    .4byte gUnknown_085EBF24 + 0x299
-    .4byte gUnknown_085EBF24 + 0x2d5
-    .4byte gUnknown_085EBF24 + 0x311
-    .4byte gUnknown_085EBF24 + 0x34d
-    .4byte gUnknown_085EBF24 + 0x389
-    .4byte gUnknown_085EBF24 + 0x3c5
-    .4byte gUnknown_085EBF24 + 0x401
-    .4byte gUnknown_085EBF24 + 0x43d
-    .4byte gUnknown_085EBF24 + 0x479
-    .4byte gUnknown_085EBF24 + 0x4b5
-    .4byte gUnknown_085EBF24 + 0x4f1
-    .4byte gUnknown_085EBF24 + 0x515
-    .4byte gUnknown_085EBF24 + 0x551
-    .4byte gUnknown_085EBF24 + 0x58d
-    .4byte gUnknown_085EBF24 + 0x5c9
-    .4byte gUnknown_085EBF24 + 0x605
-    .4byte gUnknown_085EBF24 + 0x641
-    .4byte gUnknown_085EBF24 + 0x67d
-    .4byte gUnknown_085EBF24 + 0x6b9
-    .4byte gUnknown_085EBF24 + 0x6f5
-    .4byte gUnknown_085EBF24 + 0x731
-    .4byte gUnknown_085EBF24 + 0x76d
-    .4byte gUnknown_085EBF24 + 0x7a9
-    .4byte gUnknown_085EBF24 + 0x7e5
-    .4byte gUnknown_085EBF24 + 0x821
-    .4byte gUnknown_085EBF24 + 0x85d
-    .4byte gUnknown_085EBF24 + 0x899
-    .4byte gUnknown_085EBF24 + 0x8d5
-    .4byte gUnknown_085EBF24 + 0x911
-    .4byte gUnknown_085EBF24 + 0x94d
-    .4byte gUnknown_085EBF24 + 0x989
-    .4byte gUnknown_085EBF24 + 0x9c5
-    .4byte gUnknown_085EBF24 + 0xa01
-    .4byte gUnknown_085EBF24 + 0xa3d
-    .4byte gUnknown_085EBF24 + 0xa79
-    .4byte gUnknown_085EBF24 + 0xaa9
-    .4byte gUnknown_085EBF24 + 0xae5
-    .4byte gUnknown_085EBF24 + 0xb21
-    .4byte gUnknown_085EBF24 + 0xb5d
-    .4byte gUnknown_085EBF24 + 0xb9a
-    .4byte gUnknown_085EBF24 + 0xbc9
-    .4byte gUnknown_085EBF24 + 0xc05
-    .4byte gUnknown_085EBF24 + 0xc41
-    .4byte gUnknown_085EBF24 + 0xc7e
-    .4byte gUnknown_085EBF24 + 0xcb9
-    .4byte gUnknown_085EBF24 + 0xcf5
-    .4byte gUnknown_085EBF24 + 0xd31
-    .4byte gUnknown_085EBF24 + 0xd6e
-    .4byte gUnknown_085EBF24 + 0xda9
-    .4byte gUnknown_085EBF24 + 0xde5
-    .4byte gUnknown_085EBF24 + 0xe21
-    .4byte gUnknown_085EBF24 + 0xe5e
-    .4byte gUnknown_085EBF24 + 0x118e
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield3_1
+AnimSprite_YushaSpinShield3_1:  @ 0x5EBF58
+    ANIM_SPRITE ATTR0_SQUARE, 0xA000, 0x001C, -32, -51
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x003A, -25, -37
+    ANIM_SPRITE_END
 
-	.global gUnknown_085ED1CC
-gUnknown_085ED1CC:  @ 0x085ED1CC
-@ Replacing .incbin "baserom.gba", 0x5ED1CC, 0x28
-    .4byte gUnknown_085EBF24 + 0xe99
-    .4byte gUnknown_085EBF24 + 0xebd
-    .4byte gUnknown_085EBF24 + 0xee1
-    .4byte gUnknown_085EBF24 + 0xf05
-    .4byte gUnknown_085EBF24 + 0xf29
-    .4byte gUnknown_085EBF24 + 0xf4d
-    .4byte gUnknown_085EBF24 + 0xf71
-    .4byte gUnknown_085EBF24 + 0xf95
-    .4byte gUnknown_085EBF24 + 0xfb9
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield3_2
+AnimSprite_YushaSpinShield3_2:  @ 0x5EBF7C
+    ANIM_SPRITE_AFFIN 2, -0xf7, -0x41, 0x41, -0xf7
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -54
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -24, -40
+    ANIM_SPRITE_END
 
-	.global gUnknown_085ED1F4
-gUnknown_085ED1F4:  @ 0x085ED1F4
-@ Replacing .incbin "baserom.gba", 0x5ED1F4, 0x11A4
-    .4byte gUnknown_085EBF24 + 0xfdd
-    .4byte gUnknown_085EBF24 + 0x1001
-    .4byte gUnknown_085EBF24 + 0x1025
-    .4byte gUnknown_085EBF24 + 0x104a
-    .4byte gUnknown_085EBF24 + 0x106e
-    .4byte gUnknown_085EBF24 + 0x1092
-    .4byte gUnknown_085EBF24 + 0x10b6
-    .4byte gUnknown_085EBF24 + 0x10da
-    .4byte gUnknown_085EBF24 + 0x10fe
-    .4byte gUnknown_085EBF24 + 0x1122
-    .4byte gUnknown_085EBF24 + 0x1146
-    .4byte gUnknown_085EBF24 + 0x116a
-    .4byte 0x82000000
-    .4byte 0xb0000000
-    .4byte 0x0000001c
-    .4byte 0x0000ffcd
-    .4byte 0x70000000
-    .4byte 0x0009003a
-    .4byte 0x0000ffdb
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffbf00f7
-    .4byte 0xff09ffbf
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffca
-    .4byte 0x42000100
-    .4byte 0x0008003a
-    .4byte 0x0000ffd8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffc8
-    .4byte 0x42000100
-    .4byte 0x000c003a
-    .4byte 0x0000ffd5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0xffff001c
-    .4byte 0x0000ffc6
-    .4byte 0x42000100
-    .4byte 0x000d003a
-    .4byte 0x0000ffd1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff09ffbf
-    .4byte 0x0041ff09
-    .4byte 0xffff0002
-    .4byte 0xff16ff99
-    .4byte 0x0067ff16
-    .4byte 0x80000100
-    .4byte 0x0000001c
-    .4byte 0x0000ffc4
-    .4byte 0x42000100
-    .4byte 0x0010003a
-    .4byte 0x0000ffca
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff2eff6e
-    .4byte 0x0092ff2e
-    .4byte 0xffff0002
-    .4byte 0xff42ff56
-    .4byte 0x00aaff42
-    .4byte 0x80000100
-    .4byte 0x0000001c
-    .4byte 0x0000ffc2
-    .4byte 0x42000100
-    .4byte 0x000e003a
-    .4byte 0x0000ffc6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff94ff19
-    .4byte 0x00e7ff94
-    .4byte 0xffff0002
-    .4byte 0xff84ff21
-    .4byte 0x00dfff84
-    .4byte 0x80000100
-    .4byte 0x0001001c
-    .4byte 0x0000ffc0
-    .4byte 0x42000100
-    .4byte 0x000c003a
-    .4byte 0x0000ffc1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0002001c
-    .4byte 0x0000ffbe
-    .4byte 0x50000000
-    .4byte 0x000a003a
-    .4byte 0x0000ffc0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x0001001c
-    .4byte 0x0000ffbc
-    .4byte 0x42000100
-    .4byte 0x0006003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00bbff52
-    .4byte 0x00ae00bb
-    .4byte 0xffff0002
-    .4byte 0x00a4ff3c
-    .4byte 0x00c400a4
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb9
-    .4byte 0x42000100
-    .4byte 0x0006003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0xffff0002
-    .4byte 0x00beff55
-    .4byte 0x00ab00be
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb6
-    .4byte 0x42000100
-    .4byte 0x0004003a
-    .4byte 0x0000ffbc
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f70042
-    .4byte 0xffbe00f7
-    .4byte 0xffff0002
-    .4byte 0x00feffe6
-    .4byte 0x001a00fe
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb4
-    .4byte 0x42000100
-    .4byte 0x0003003a
-    .4byte 0x0000ffbe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d10092
-    .4byte 0xff6e00d1
-    .4byte 0xffff0002
-    .4byte 0x00dd007f
-    .4byte 0xff8100dd
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffb1
-    .4byte 0x42000100
-    .4byte 0x0004003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x008000dd
-    .4byte 0xff230080
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffaf
-    .4byte 0x42000100
-    .4byte 0x0006003a
-    .4byte 0x0000ffbe
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x000000ff
-    .4byte 0xff010000
-    .4byte 0xffff0002
-    .4byte 0xfff400ff
-    .4byte 0xff01fff4
-    .4byte 0x80000100
-    .4byte 0x0002001c
-    .4byte 0x0000ffad
-    .4byte 0x42000100
-    .4byte 0x000a003a
-    .4byte 0x0000ffbd
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffaa
-    .4byte 0x42000100
-    .4byte 0x000d003a
-    .4byte 0x0000ffb9
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa8
-    .4byte 0x42000100
-    .4byte 0x0010003a
-    .4byte 0x0000ffb5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa5
-    .4byte 0x42000100
-    .4byte 0x0011003a
-    .4byte 0x0000ffb0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0xffff0002
-    .4byte 0xff16ff99
-    .4byte 0x0067ff16
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa2
-    .4byte 0x42000100
-    .4byte 0x0012003a
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3cff5c
-    .4byte 0x00a4ff3c
-    .4byte 0xffff0002
-    .4byte 0xff42ff56
-    .4byte 0x00aaff42
-    .4byte 0x80000100
-    .4byte 0x0003001c
-    .4byte 0x0000ffa1
-    .4byte 0x42000100
-    .4byte 0x0010003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff94ff19
-    .4byte 0x00e7ff94
-    .4byte 0xffff0002
-    .4byte 0xff84ff21
-    .4byte 0x00dfff84
-    .4byte 0x80000100
-    .4byte 0x0004001c
-    .4byte 0x0000ffa0
-    .4byte 0x42000100
-    .4byte 0x000f003a
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x90000000
-    .4byte 0x0004001c
-    .4byte 0x0000ff9e
-    .4byte 0x50000000
-    .4byte 0x000c003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x0004001c
-    .4byte 0x0000ff9c
-    .4byte 0x42000100
-    .4byte 0x000a003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c4ff5c
-    .4byte 0x00a400c4
-    .4byte 0xffff0002
-    .4byte 0x00a4ff3c
-    .4byte 0x00c400a4
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0x0008003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f7ffbe
-    .4byte 0x004200f7
-    .4byte 0xffff0002
-    .4byte 0x00beff55
-    .4byte 0x00ab00be
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0x0007003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00e8006b
-    .4byte 0xff9500e8
-    .4byte 0xffff0002
-    .4byte 0x00dd007f
-    .4byte 0xff8100dd
-    .4byte 0x80000100
-    .4byte 0x0005001c
-    .4byte 0x0000ff9a
-    .4byte 0x42000100
-    .4byte 0x0007003a
-    .4byte 0x0000ffa6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00c400a4
-    .4byte 0xff5c00c4
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff98
-    .4byte 0x42000100
-    .4byte 0x0009003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x005700f0
-    .4byte 0xff100057
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff97
-    .4byte 0x42000100
-    .4byte 0x000c003a
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002c00fc
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0x003900f9
-    .4byte 0xff070039
-    .4byte 0x80000100
-    .4byte 0x0006001c
-    .4byte 0x0000ff97
-    .4byte 0x42000100
-    .4byte 0x000d003a
-    .4byte 0x0000ffa6
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0xfff400ff
-    .4byte 0xff01fff4
-    .4byte 0x80000100
-    .4byte 0x0007001c
-    .4byte 0x0000ff96
-    .4byte 0x42000100
-    .4byte 0x0010003a
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0x80000100
-    .4byte 0x0007001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0x0011003a
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff8100dd
-    .4byte 0xff23ff81
-    .4byte 0xffff0002
-    .4byte 0xff9d00eb
-    .4byte 0xff15ff9d
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0x0014003a
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff5c00c4
-    .4byte 0xff3cff5c
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff95
-    .4byte 0x42000100
-    .4byte 0x0014003a
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0x0008001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0015003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0017003a
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff010000
-    .4byte 0x0000ff01
-    .4byte 0xffff0002
-    .4byte 0xff08ffc3
-    .4byte 0x003dff08
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0017003a
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04ffd5
-    .4byte 0x002bff04
-    .4byte 0xffff0002
-    .4byte 0xff08ffc3
-    .4byte 0x003dff08
-    .4byte 0x80000100
-    .4byte 0x0009001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0018003a
-    .4byte 0x0000ff9b
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0xffff0002
-    .4byte 0xff16ff99
-    .4byte 0x0067ff16
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0018003a
-    .4byte 0x0000ff9a
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3cff5c
-    .4byte 0x00a4ff3c
-    .4byte 0xffff0002
-    .4byte 0xff42ff56
-    .4byte 0x00aaff42
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0018003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff6dff2f
-    .4byte 0x00d1ff6d
-    .4byte 0xffff0002
-    .4byte 0xff84ff21
-    .4byte 0x00dfff84
-    .4byte 0x80000100
-    .4byte 0x000a001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0016003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffb1ff0d
-    .4byte 0x00f3ffb1
-    .4byte 0xffff0002
-    .4byte 0xff84ff21
-    .4byte 0x00dfff84
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0015003a
-    .4byte 0x0000ff96
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0xffff0002
-    .4byte 0xffc6ff07
-    .4byte 0x00f9ffc6
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff94
-    .4byte 0x42000100
-    .4byte 0x0014003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002cff04
-    .4byte 0x00fc002c
-    .4byte 0xffff0002
-    .4byte 0x0035ff06
-    .4byte 0x00fa0035
-    .4byte 0x80000100
-    .4byte 0x000b001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0012003a
-    .4byte 0x0000ff93
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0xffff0002
-    .4byte 0x0035ff06
-    .4byte 0x00fa0035
-    .4byte 0x80000100
-    .4byte 0x000c001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0011003a
-    .4byte 0x0000ff94
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x007fff23
-    .4byte 0x00dd007f
-    .4byte 0xffff0002
-    .4byte 0x0068ff17
-    .4byte 0x00e90068
-    .4byte 0x80000100
-    .4byte 0x000c001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0011003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00a4ff3c
-    .4byte 0x00c400a4
-    .4byte 0x80000100
-    .4byte 0x000d001c
-    .4byte 0x0000ff93
-    .4byte 0x40000100
-    .4byte 0x0011003a
-    .4byte 0x0000ff95
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00d1ff6e
-    .4byte 0x009200d1
-    .4byte 0xffff0002
-    .4byte 0x00beff55
-    .4byte 0x00ab00be
-    .4byte 0x80000100
-    .4byte 0x000d001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x0010003a
-    .4byte 0x0000ff97
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0xffff0002
-    .4byte 0x00ddff80
-    .4byte 0x008000dd
-    .4byte 0x80000100
-    .4byte 0x000e001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x000f003a
-    .4byte 0x0000ff98
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00ff0000
-    .4byte 0x000000ff
-    .4byte 0xffff0002
-    .4byte 0x00feffe6
-    .4byte 0x001a00fe
-    .4byte 0x80000100
-    .4byte 0x000e001c
-    .4byte 0x0000ff93
-    .4byte 0x42000100
-    .4byte 0x000e003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00f70042
-    .4byte 0xffbe00f7
-    .4byte 0xffff0002
-    .4byte 0x00feffe6
-    .4byte 0x001a00fe
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0011003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00dd007f
-    .4byte 0xff8100dd
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x40000100
-    .4byte 0x0011003a
-    .4byte 0x0000ff9d
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x00b500b4
-    .4byte 0xff4c00b5
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x000f001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0012003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x009300d1
-    .4byte 0xff2f0093
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x0010001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0013003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x006c00e7
-    .4byte 0xff19006c
-    .4byte 0xffff0002
-    .4byte 0x007c00df
-    .4byte 0xff21007c
-    .4byte 0x80000100
-    .4byte 0x0010001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0015003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0x002c00fc
-    .4byte 0xff04002c
-    .4byte 0xffff0002
-    .4byte 0x005300f1
-    .4byte 0xff0f0053
-    .4byte 0x80000100
-    .4byte 0x0011001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0017003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0xffff0002
-    .4byte 0xfff400ff
-    .4byte 0xff01fff4
-    .4byte 0x80000100
-    .4byte 0x0011001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x001a003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0xffff0002
-    .4byte 0xffd400fc
-    .4byte 0xff04ffd4
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x001d003a
-    .4byte 0x0000ffa1
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff6e00d1
-    .4byte 0xff2fff6e
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x001e003a
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff3d00a4
-    .4byte 0xff5cff3d
-    .4byte 0xffff0002
-    .4byte 0xff3a00a1
-    .4byte 0xff5fff3a
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x001f003a
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0012001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0020003a
-    .4byte 0x0000ff9e
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff090042
-    .4byte 0xffbeff09
-    .4byte 0xffff0002
-    .4byte 0xff21007c
-    .4byte 0xff84ff21
-    .4byte 0x80000100
-    .4byte 0x0013001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0022003a
-    .4byte 0x0000ff9c
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff010000
-    .4byte 0x0000ff01
-    .4byte 0xffff0002
-    .4byte 0xff03ffdd
-    .4byte 0x0023ff03
-    .4byte 0x80000100
-    .4byte 0x0014001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0024003a
-    .4byte 0x0000ff9a
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0002
-    .4byte 0xff04ffd5
-    .4byte 0x002bff04
-    .4byte 0xffff0002
-    .4byte 0xff03ffdd
-    .4byte 0x0023ff03
-    .4byte 0x80000100
-    .4byte 0x0015001c
-    .4byte 0x0000ff92
-    .4byte 0x42000100
-    .4byte 0x0024003a
-    .4byte 0x0000ff99
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff8100dd
-    .4byte 0xff23ff81
-    .4byte 0x80000100
-    .4byte 0x0017001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x000000ff
-    .4byte 0xff010000
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x008000dd
-    .4byte 0xff230080
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00ff0000
-    .4byte 0x000000ff
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffbdff09
-    .4byte 0x00f7ffbd
-    .4byte 0x80000100
-    .4byte 0x0019001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff10ffaa
-    .4byte 0x0056ff10
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff19006c
-    .4byte 0xff94ff19
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffa900f0
-    .4byte 0xff10ffa9
-    .4byte 0x80000100
-    .4byte 0x001a001c
-    .4byte 0x0000ff9f
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00a400c3
-    .4byte 0xff3d00a4
-    .4byte 0x80000100
-    .4byte 0x001b001c
-    .4byte 0x0000ffa0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00b4ff4b
-    .4byte 0x00b500b4
-    .4byte 0x80000100
-    .4byte 0x001b001c
-    .4byte 0x0000ffa2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xffd3ff05
-    .4byte 0x00fbffd3
-    .4byte 0x80000100
-    .4byte 0x001c001c
-    .4byte 0x0000ffa3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff22ff81
-    .4byte 0x007fff22
-    .4byte 0x80000100
-    .4byte 0x001c001c
-    .4byte 0x0000ffa4
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff100058
-    .4byte 0xffa8ff10
-    .4byte 0x80000100
-    .4byte 0x001e001c
-    .4byte 0x0000ffa5
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff9500e8
-    .4byte 0xff18ff95
-    .4byte 0x80000100
-    .4byte 0x001f001c
-    .4byte 0x0000ffa7
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x005700f0
-    .4byte 0xff100057
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffab
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f00057
-    .4byte 0xffa900f0
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffaf
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x00f0ffa9
-    .4byte 0x005700f0
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffb2
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0x0057ff10
-    .4byte 0x00f00057
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffba
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff5bff3d
-    .4byte 0x00c3ff5b
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffc3
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0xffff0001
-    .4byte 0xff230080
-    .4byte 0xff80ff23
-    .4byte 0x80000100
-    .4byte 0x0020001c
-    .4byte 0x0000ffc8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x10000000
-    .4byte 0xfff8001f
-    .4byte 0x0000fff8
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_YushaSpinShield3_3
+AnimSprite_YushaSpinShield3_3:  @ 0x5EBFB8
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -28, -43
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EE398
-gUnknown_085EE398:  @ 0x085EE398
-@ Replacing .incbin "baserom.gba", 0x5EE398, 0x104
-    .4byte gUnknown_085ED1F4 + 0x35
-    .4byte gUnknown_085ED1F4 + 0x59
-    .4byte gUnknown_085ED1F4 + 0x95
-    .4byte gUnknown_085ED1F4 + 0xd1
-    .4byte gUnknown_085ED1F4 + 0x10d
-    .4byte gUnknown_085ED1F4 + 0x149
-    .4byte gUnknown_085ED1F4 + 0x185
-    .4byte gUnknown_085ED1F4 + 0x1c1
-    .4byte gUnknown_085ED1F4 + 0x1e5
-    .4byte gUnknown_085ED1F4 + 0x221
-    .4byte gUnknown_085ED1F4 + 0x25d
-    .4byte gUnknown_085ED1F4 + 0x299
-    .4byte gUnknown_085ED1F4 + 0x2d5
-    .4byte gUnknown_085ED1F4 + 0x311
-    .4byte gUnknown_085ED1F4 + 0x34d
-    .4byte gUnknown_085ED1F4 + 0x389
-    .4byte gUnknown_085ED1F4 + 0x3c5
-    .4byte gUnknown_085ED1F4 + 0x401
-    .4byte gUnknown_085ED1F4 + 0x43d
-    .4byte gUnknown_085ED1F4 + 0x479
-    .4byte gUnknown_085ED1F4 + 0x4b5
-    .4byte gUnknown_085ED1F4 + 0x4f1
-    .4byte gUnknown_085ED1F4 + 0x515
-    .4byte gUnknown_085ED1F4 + 0x551
-    .4byte gUnknown_085ED1F4 + 0x58d
-    .4byte gUnknown_085ED1F4 + 0x5c9
-    .4byte gUnknown_085ED1F4 + 0x605
-    .4byte gUnknown_085ED1F4 + 0x641
-    .4byte gUnknown_085ED1F4 + 0x67d
-    .4byte gUnknown_085ED1F4 + 0x6b9
-    .4byte gUnknown_085ED1F4 + 0x6f5
-    .4byte gUnknown_085ED1F4 + 0x731
-    .4byte gUnknown_085ED1F4 + 0x76d
-    .4byte gUnknown_085ED1F4 + 0x7a9
-    .4byte gUnknown_085ED1F4 + 0x7e5
-    .4byte gUnknown_085ED1F4 + 0x821
-    .4byte gUnknown_085ED1F4 + 0x85d
-    .4byte gUnknown_085ED1F4 + 0x899
-    .4byte gUnknown_085ED1F4 + 0x8d5
-    .4byte gUnknown_085ED1F4 + 0x911
-    .4byte gUnknown_085ED1F4 + 0x94d
-    .4byte gUnknown_085ED1F4 + 0x989
-    .4byte gUnknown_085ED1F4 + 0x9c5
-    .4byte gUnknown_085ED1F4 + 0xa01
-    .4byte gUnknown_085ED1F4 + 0xa3d
-    .4byte gUnknown_085ED1F4 + 0xa79
-    .4byte gUnknown_085ED1F4 + 0xaa9
-    .4byte gUnknown_085ED1F4 + 0xae5
-    .4byte gUnknown_085ED1F4 + 0xb21
-    .4byte gUnknown_085ED1F4 + 0xb5d
-    .4byte gUnknown_085ED1F4 + 0xb9a
-    .4byte gUnknown_085ED1F4 + 0xbc9
-    .4byte gUnknown_085ED1F4 + 0xc05
-    .4byte gUnknown_085ED1F4 + 0xc41
-    .4byte gUnknown_085ED1F4 + 0xc7e
-    .4byte gUnknown_085ED1F4 + 0xcb9
-    .4byte gUnknown_085ED1F4 + 0xcf5
-    .4byte gUnknown_085ED1F4 + 0xd31
-    .4byte gUnknown_085ED1F4 + 0xd6e
-    .4byte gUnknown_085ED1F4 + 0xda9
-    .4byte gUnknown_085ED1F4 + 0xde5
-    .4byte gUnknown_085ED1F4 + 0xe21
-    .4byte gUnknown_085ED1F4 + 0xe5e
-    .4byte gUnknown_085ED1F4 + 0x118e
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield3_4
+AnimSprite_YushaSpinShield3_4:  @ 0x5EBFF4
+    ANIM_SPRITE_AFFIN 2, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -31, -58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -29, -47
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EE49C
-gUnknown_085EE49C:  @ 0x085EE49C
-@ Replacing .incbin "baserom.gba", 0x5EE49C, 0x28
-    .4byte gUnknown_085ED1F4 + 0xe99
-    .4byte gUnknown_085ED1F4 + 0xebd
-    .4byte gUnknown_085ED1F4 + 0xee1
-    .4byte gUnknown_085ED1F4 + 0xf05
-    .4byte gUnknown_085ED1F4 + 0xf29
-    .4byte gUnknown_085ED1F4 + 0xf4d
-    .4byte gUnknown_085ED1F4 + 0xf71
-    .4byte gUnknown_085ED1F4 + 0xf95
-    .4byte gUnknown_085ED1F4 + 0xfb9
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield3_5
+AnimSprite_YushaSpinShield3_5:  @ 0x5EC030
+    ANIM_SPRITE_AFFIN 2, 0x41, -0xf7, 0xf7, 0x41
+    ANIM_SPRITE_AFFIN 2, 0x67, -0xea, 0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -32, -60
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -32, -54
+    ANIM_SPRITE_END
 
-	.global gUnknown_085EE4C4
-gUnknown_085EE4C4:  @ 0x085EE4C4
-@ Replacing .incbin "baserom.gba", 0x5EE4C4, 0x34
-    .4byte gUnknown_085ED1F4 + 0xfdd
-    .4byte gUnknown_085ED1F4 + 0x1001
-    .4byte gUnknown_085ED1F4 + 0x1025
-    .4byte gUnknown_085ED1F4 + 0x104a
-    .4byte gUnknown_085ED1F4 + 0x106e
-    .4byte gUnknown_085ED1F4 + 0x1092
-    .4byte gUnknown_085ED1F4 + 0x10b6
-    .4byte gUnknown_085ED1F4 + 0x10da
-    .4byte gUnknown_085ED1F4 + 0x10fe
-    .4byte gUnknown_085ED1F4 + 0x1122
-    .4byte gUnknown_085ED1F4 + 0x1146
-    .4byte gUnknown_085ED1F4 + 0x116a
-    .4byte 0x82000000
+.global AnimSprite_YushaSpinShield3_6
+AnimSprite_YushaSpinShield3_6:  @ 0x5EC06C
+    ANIM_SPRITE_AFFIN 2, 0x92, -0xd2, 0xd2, 0x92
+    ANIM_SPRITE_AFFIN 2, 0xaa, -0xbe, 0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -32, -62
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -30, -58
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_7
+AnimSprite_YushaSpinShield3_7:  @ 0x5EC0A8
+    ANIM_SPRITE_AFFIN 2, 0xe7, -0x6c, 0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, 0xdf, -0x7c, 0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -33, -64
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -28, -63
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_8
+AnimSprite_YushaSpinShield3_8:  @ 0x5EC0E4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -34, -66
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, -26, -64
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_9
+AnimSprite_YushaSpinShield3_9:  @ 0x5EC108
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -33, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -22, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_10
+AnimSprite_YushaSpinShield3_10:  @ 0x5EC144
+    ANIM_SPRITE_AFFIN 2, 0xae, 0xbb, -0xbb, 0xae
+    ANIM_SPRITE_AFFIN 2, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -71
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -22, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_11
+AnimSprite_YushaSpinShield3_11:  @ 0x5EC180
+    ANIM_SPRITE_AFFIN 2, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, 0xab, 0xbe, -0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -20, -68
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_12
+AnimSprite_YushaSpinShield3_12:  @ 0x5EC1BC
+    ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, -0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, 0x1a, 0xfe, -0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -76
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -19, -66
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_13
+AnimSprite_YushaSpinShield3_13:  @ 0x5EC1F8
+    ANIM_SPRITE_AFFIN 2, -0x92, 0xd1, -0xd1, -0x92
+    ANIM_SPRITE_AFFIN 2, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -79
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -20, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_14
+AnimSprite_YushaSpinShield3_14:  @ 0x5EC234
+    ANIM_SPRITE_AFFIN 2, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -81
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -22, -66
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_15
+AnimSprite_YushaSpinShield3_15:  @ 0x5EC270
+    ANIM_SPRITE_AFFIN 2, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE_AFFIN 2, -0xff, -0xc, 0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -34, -83
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -26, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_16
+AnimSprite_YushaSpinShield3_16:  @ 0x5EC2AC
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -86
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -29, -71
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_17
+AnimSprite_YushaSpinShield3_17:  @ 0x5EC2E8
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -88
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -32, -75
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_18
+AnimSprite_YushaSpinShield3_18:  @ 0x5EC324
+    ANIM_SPRITE_AFFIN 2, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -91
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -33, -80
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_19
+AnimSprite_YushaSpinShield3_19:  @ 0x5EC360
+    ANIM_SPRITE_AFFIN 2, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE_AFFIN 2, 0x67, -0xea, 0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -94
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -34, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_20
+AnimSprite_YushaSpinShield3_20:  @ 0x5EC39C
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0xaa, -0xbe, 0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -35, -95
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -32, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_21
+AnimSprite_YushaSpinShield3_21:  @ 0x5EC3D8
+    ANIM_SPRITE_AFFIN 2, 0xe7, -0x6c, 0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, 0xdf, -0x7c, 0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -36, -96
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -31, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_22
+AnimSprite_YushaSpinShield3_22:  @ 0x5EC414
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -36, -98
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, -28, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_23
+AnimSprite_YushaSpinShield3_23:  @ 0x5EC438
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -36, -100
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -26, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_24
+AnimSprite_YushaSpinShield3_24:  @ 0x5EC474
+    ANIM_SPRITE_AFFIN 2, 0xa4, 0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -24, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_25
+AnimSprite_YushaSpinShield3_25:  @ 0x5EC4B0
+    ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, -0xf7, 0x42
+    ANIM_SPRITE_AFFIN 2, 0xab, 0xbe, -0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -23, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_26
+AnimSprite_YushaSpinShield3_26:  @ 0x5EC4EC
+    ANIM_SPRITE_AFFIN 2, -0x6b, 0xe8, -0xe8, -0x6b
+    ANIM_SPRITE_AFFIN 2, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -37, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -23, -90
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_27
+AnimSprite_YushaSpinShield3_27:  @ 0x5EC528
+    ANIM_SPRITE_AFFIN 2, -0xa4, 0xc4, -0xc4, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -104
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -25, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_28
+AnimSprite_YushaSpinShield3_28:  @ 0x5EC564
+    ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -28, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_29
+AnimSprite_YushaSpinShield3_29:  @ 0x5EC5A0
+    ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xf9, 0x39, -0x39, -0xf9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -38, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -29, -90
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_30
+AnimSprite_YushaSpinShield3_30:  @ 0x5EC5DC
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xff, -0xc, 0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -39, -106
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -32, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_31
+AnimSprite_YushaSpinShield3_31:  @ 0x5EC618
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -39, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -33, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_32
+AnimSprite_YushaSpinShield3_32:  @ 0x5EC654
+    ANIM_SPRITE_AFFIN 2, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE_AFFIN 2, -0xeb, -0x63, 0x63, -0xeb
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -36, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_33
+AnimSprite_YushaSpinShield3_33:  @ 0x5EC690
+    ANIM_SPRITE_AFFIN 2, -0xc4, -0xa4, 0xa4, -0xc4
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -36, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_34
+AnimSprite_YushaSpinShield3_34:  @ 0x5EC6CC
+    ANIM_SPRITE_AFFIN 2, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -40, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -37, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_35
+AnimSprite_YushaSpinShield3_35:  @ 0x5EC708
+    ANIM_SPRITE_AFFIN 2, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -39, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_36
+AnimSprite_YushaSpinShield3_36:  @ 0x5EC744
+    ANIM_SPRITE_AFFIN 2, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, 0x3d, -0xf8, 0xf8, 0x3d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -39, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_37
+AnimSprite_YushaSpinShield3_37:  @ 0x5EC780
+    ANIM_SPRITE_AFFIN 2, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, 0x3d, -0xf8, 0xf8, 0x3d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -41, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -40, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_38
+AnimSprite_YushaSpinShield3_38:  @ 0x5EC7BC
+    ANIM_SPRITE_AFFIN 2, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE_AFFIN 2, 0x67, -0xea, 0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -40, -102
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_39
+AnimSprite_YushaSpinShield3_39:  @ 0x5EC7F8
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, 0xaa, -0xbe, 0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -40, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_40
+AnimSprite_YushaSpinShield3_40:  @ 0x5EC834
+    ANIM_SPRITE_AFFIN 2, 0xd1, -0x93, 0x93, 0xd1
+    ANIM_SPRITE_AFFIN 2, 0xdf, -0x7c, 0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -42, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -38, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_41
+AnimSprite_YushaSpinShield3_41:  @ 0x5EC870
+    ANIM_SPRITE_AFFIN 2, 0xf3, -0x4f, 0x4f, 0xf3
+    ANIM_SPRITE_AFFIN 2, 0xdf, -0x7c, 0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -37, -106
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_42
+AnimSprite_YushaSpinShield3_42:  @ 0x5EC8AC
+    ANIM_SPRITE_AFFIN 2, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 2, 0xf9, -0x3a, 0x3a, 0xf9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -36, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_43
+AnimSprite_YushaSpinShield3_43:  @ 0x5EC8E8
+    ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, -0x2c, 0xfc
+    ANIM_SPRITE_AFFIN 2, 0xfa, 0x35, -0x35, 0xfa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -43, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -34, -109
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_44
+AnimSprite_YushaSpinShield3_44:  @ 0x5EC924
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, 0xfa, 0x35, -0x35, 0xfa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -44, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -33, -108
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_45
+AnimSprite_YushaSpinShield3_45:  @ 0x5EC960
+    ANIM_SPRITE_AFFIN 2, 0xdd, 0x7f, -0x7f, 0xdd
+    ANIM_SPRITE_AFFIN 2, 0xe9, 0x68, -0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -44, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -33, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_46
+AnimSprite_YushaSpinShield3_46:  @ 0x5EC99C
+    ANIM_SPRITE_AFFIN 1, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -45, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x003A, -33, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_47
+AnimSprite_YushaSpinShield3_47:  @ 0x5EC9CC
+    ANIM_SPRITE_AFFIN 2, 0x92, 0xd1, -0xd1, 0x92
+    ANIM_SPRITE_AFFIN 2, 0xab, 0xbe, -0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -45, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -32, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_48
+AnimSprite_YushaSpinShield3_48:  @ 0x5ECA08
+    ANIM_SPRITE_AFFIN 2, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, 0x80, 0xdd, -0xdd, 0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -46, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -31, -104
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_49
+AnimSprite_YushaSpinShield3_49:  @ 0x5ECA44
+    ANIM_SPRITE_AFFIN 2, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, 0x1a, 0xfe, -0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -46, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -30, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_50
+AnimSprite_YushaSpinShield3_50:  @ 0x5ECA80
+    ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, -0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, 0x1a, 0xfe, -0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -33, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_51
+AnimSprite_YushaSpinShield3_51:  @ 0x5ECABC
+    ANIM_SPRITE_AFFIN 1, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x003A, -33, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_52
+AnimSprite_YushaSpinShield3_52:  @ 0x5ECAEC
+    ANIM_SPRITE_AFFIN 2, -0xb4, 0xb5, -0xb5, -0xb4
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -47, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -34, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_53
+AnimSprite_YushaSpinShield3_53:  @ 0x5ECB28
+    ANIM_SPRITE_AFFIN 2, -0xd1, 0x93, -0x93, -0xd1
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -48, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -35, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_54
+AnimSprite_YushaSpinShield3_54:  @ 0x5ECB64
+    ANIM_SPRITE_AFFIN 2, -0xe7, 0x6c, -0x6c, -0xe7
+    ANIM_SPRITE_AFFIN 2, -0xdf, 0x7c, -0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -48, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -37, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_55
+AnimSprite_YushaSpinShield3_55:  @ 0x5ECBA0
+    ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xf1, 0x53, -0x53, -0xf1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -49, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -39, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_56
+AnimSprite_YushaSpinShield3_56:  @ 0x5ECBDC
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, -0xff, -0xc, 0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -49, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -42, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_57
+AnimSprite_YushaSpinShield3_57:  @ 0x5ECC18
+    ANIM_SPRITE_AFFIN 2, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -45, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_58
+AnimSprite_YushaSpinShield3_58:  @ 0x5ECC54
+    ANIM_SPRITE_AFFIN 2, -0xd1, -0x92, 0x92, -0xd1
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -46, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_59
+AnimSprite_YushaSpinShield3_59:  @ 0x5ECC90
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, -0xa1, -0xc6, 0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -47, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_60
+AnimSprite_YushaSpinShield3_60:  @ 0x5ECCCC
+    ANIM_SPRITE_AFFIN 2, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -50, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -48, -98
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_61
+AnimSprite_YushaSpinShield3_61:  @ 0x5ECD08
+    ANIM_SPRITE_AFFIN 2, -0x42, -0xf7, 0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0x7c, -0xdf, 0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -51, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -50, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_62
+AnimSprite_YushaSpinShield3_62:  @ 0x5ECD44
+    ANIM_SPRITE_AFFIN 2, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, 0x23, -0xfd, 0xfd, 0x23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -52, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -52, -102
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_63
+AnimSprite_YushaSpinShield3_63:  @ 0x5ECD80
+    ANIM_SPRITE_AFFIN 2, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, 0x23, -0xfd, 0xfd, 0x23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -53, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, -52, -103
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_64
+AnimSprite_YushaSpinShield3_64:  @ 0x5ECDBC
+    ANIM_SPRITE_AFFIN 1, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -55, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_65
+AnimSprite_YushaSpinShield3_65:  @ 0x5ECDE0
+    ANIM_SPRITE_AFFIN 1, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_66
+AnimSprite_YushaSpinShield3_66:  @ 0x5ECE04
+    ANIM_SPRITE_AFFIN 1, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_67
+AnimSprite_YushaSpinShield3_67:  @ 0x5ECE28
+    ANIM_SPRITE_AFFIN 1, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_68
+AnimSprite_YushaSpinShield3_68:  @ 0x5ECE4C
+    ANIM_SPRITE_AFFIN 1, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_69
+AnimSprite_YushaSpinShield3_69:  @ 0x5ECE70
+    ANIM_SPRITE_AFFIN 1, 0xf7, -0x43, 0x43, 0xf7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -57, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_70
+AnimSprite_YushaSpinShield3_70:  @ 0x5ECE94
+    ANIM_SPRITE_AFFIN 1, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_71
+AnimSprite_YushaSpinShield3_71:  @ 0x5ECEB8
+    ANIM_SPRITE_AFFIN 1, -0x6c, -0xe7, 0xe7, -0x6c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_72
+AnimSprite_YushaSpinShield3_72:  @ 0x5ECEDC
+    ANIM_SPRITE_AFFIN 1, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -58, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_73
+AnimSprite_YushaSpinShield3_73:  @ 0x5ECF00
+    ANIM_SPRITE_AFFIN 1, -0xc3, 0xa4, -0xa4, -0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -59, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_74
+AnimSprite_YushaSpinShield3_74:  @ 0x5ECF24
+    ANIM_SPRITE_AFFIN 1, 0xb5, 0xb4, -0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -59, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_75
+AnimSprite_YushaSpinShield3_75:  @ 0x5ECF48
+    ANIM_SPRITE_AFFIN 1, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -60, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_76
+AnimSprite_YushaSpinShield3_76:  @ 0x5ECF6C
+    ANIM_SPRITE_AFFIN 1, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -60, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_77
+AnimSprite_YushaSpinShield3_77:  @ 0x5ECF90
+    ANIM_SPRITE_AFFIN 1, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -62, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_78
+AnimSprite_YushaSpinShield3_78:  @ 0x5ECFB4
+    ANIM_SPRITE_AFFIN 1, -0xe8, -0x6b, 0x6b, -0xe8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -63, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_79
+AnimSprite_YushaSpinShield3_79:  @ 0x5ECFD8
+    ANIM_SPRITE_AFFIN 1, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_80
+AnimSprite_YushaSpinShield3_80:  @ 0x5ECFFC
+    ANIM_SPRITE_AFFIN 1, -0x57, 0xf0, -0xf0, -0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -81
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_81
+AnimSprite_YushaSpinShield3_81:  @ 0x5ED020
+    ANIM_SPRITE_AFFIN 1, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -78
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_82
+AnimSprite_YushaSpinShield3_82:  @ 0x5ED044
+    ANIM_SPRITE_AFFIN 1, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -70
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_83
+AnimSprite_YushaSpinShield3_83:  @ 0x5ED068
+    ANIM_SPRITE_AFFIN 1, 0xc3, -0xa5, 0xa5, 0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -61
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_84
+AnimSprite_YushaSpinShield3_84:  @ 0x5ED08C
+    ANIM_SPRITE_AFFIN 1, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -64, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield3_85
+AnimSprite_YushaSpinShield3_85:  @ 0x5ED0B0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, 0, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_YushaSpinShieldOBJ_LeftTypeB
+AnimScr_YushaSpinShieldOBJ_LeftTypeB:  @ 0x085ED0C8
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_7, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_9, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_10, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_11, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_18, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_19, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_20, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_21, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_22, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_23, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_25, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_26, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_27, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_28, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_29, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_30, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_31, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_32, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_33, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_34, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_35, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_36, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_37, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_38, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_39, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_40, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_41, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_42, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_43, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_44, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_45, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_46, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_47, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_48, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_49, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_50, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_51, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_52, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_53, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_54, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_55, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_56, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_57, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_58, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_59, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_60, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_61, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_62, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_63, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_85, 2
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ2_RightTypeB
+AnimScr_YushaSpinShieldOBJ2_RightTypeB:  @ 0x085ED1CC
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_64, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_65, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_66, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_67, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_68, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_69, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_70, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_71, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_72, 1
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ3_RightTypeB
+AnimScr_YushaSpinShieldOBJ3_RightTypeB:  @ 0x085ED1F4
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_73, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_74, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_75, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_76, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_77, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_78, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_79, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_80, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_81, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_82, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_83, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield3_84, 2
+    ANIMSCR_LOOP
+
+.global AnimSprite_YushaSpinShield4_1
+AnimSprite_YushaSpinShield4_1:  @ 0x5ED228
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0xA000, 0x001C, 0, -51
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, 0x6000, 0x003A, 9, -37
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_2
+AnimSprite_YushaSpinShield4_2:  @ 0x5ED24C
+    ANIM_SPRITE_AFFIN 2, 0xf7, -0x41, -0x41, -0xf7
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -54
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 8, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_3
+AnimSprite_YushaSpinShield4_3:  @ 0x5ED288
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 12, -43
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_4
+AnimSprite_YushaSpinShield4_4:  @ 0x5ED2C4
+    ANIM_SPRITE_AFFIN 2, 0x58, -0xf0, -0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, -1, -58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 13, -47
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_5
+AnimSprite_YushaSpinShield4_5:  @ 0x5ED300
+    ANIM_SPRITE_AFFIN 2, -0x41, -0xf7, -0xf7, 0x41
+    ANIM_SPRITE_AFFIN 2, -0x67, -0xea, -0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 0, -60
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 16, -54
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_6
+AnimSprite_YushaSpinShield4_6:  @ 0x5ED33C
+    ANIM_SPRITE_AFFIN 2, -0x92, -0xd2, -0xd2, 0x92
+    ANIM_SPRITE_AFFIN 2, -0xaa, -0xbe, -0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 0, -62
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 14, -58
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_7
+AnimSprite_YushaSpinShield4_7:  @ 0x5ED378
+    ANIM_SPRITE_AFFIN 2, -0xe7, -0x6c, -0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, -0xdf, -0x7c, -0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 1, -64
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 12, -63
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_8
+AnimSprite_YushaSpinShield4_8:  @ 0x5ED3B4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, 2, -66
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, 10, -64
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_9
+AnimSprite_YushaSpinShield4_9:  @ 0x5ED3D8
+    ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 1, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 6, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_10
+AnimSprite_YushaSpinShield4_10:  @ 0x5ED414
+    ANIM_SPRITE_AFFIN 2, -0xae, 0xbb, 0xbb, 0xae
+    ANIM_SPRITE_AFFIN 2, -0xc4, 0xa4, 0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -71
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 6, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_11
+AnimSprite_YushaSpinShield4_11:  @ 0x5ED450
+    ANIM_SPRITE_AFFIN 2, -0x57, 0xf0, 0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, -0xab, 0xbe, 0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 4, -68
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_12
+AnimSprite_YushaSpinShield4_12:  @ 0x5ED48C
+    ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, 0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0x1a, 0xfe, 0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -76
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 3, -66
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_13
+AnimSprite_YushaSpinShield4_13:  @ 0x5ED4C8
+    ANIM_SPRITE_AFFIN 2, 0x92, 0xd1, 0xd1, -0x92
+    ANIM_SPRITE_AFFIN 2, 0x7f, 0xdd, 0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -79
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 4, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_14
+AnimSprite_YushaSpinShield4_14:  @ 0x5ED504
+    ANIM_SPRITE_AFFIN 2, 0xdd, 0x80, 0x80, -0xdd
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -81
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 6, -66
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_15
+AnimSprite_YushaSpinShield4_15:  @ 0x5ED540
+    ANIM_SPRITE_AFFIN 2, 0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE_AFFIN 2, 0xff, -0xc, -0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 2, -83
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 10, -67
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_16
+AnimSprite_YushaSpinShield4_16:  @ 0x5ED57C
+    ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -86
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 13, -71
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_17
+AnimSprite_YushaSpinShield4_17:  @ 0x5ED5B8
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -88
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 16, -75
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_18
+AnimSprite_YushaSpinShield4_18:  @ 0x5ED5F4
+    ANIM_SPRITE_AFFIN 2, 0x58, -0xf0, -0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -91
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 17, -80
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_19
+AnimSprite_YushaSpinShield4_19:  @ 0x5ED630
+    ANIM_SPRITE_AFFIN 2, -0x56, -0xf0, -0xf0, 0x56
+    ANIM_SPRITE_AFFIN 2, -0x67, -0xea, -0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -94
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 18, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_20
+AnimSprite_YushaSpinShield4_20:  @ 0x5ED66C
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, -0xaa, -0xbe, -0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 3, -95
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 16, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_21
+AnimSprite_YushaSpinShield4_21:  @ 0x5ED6A8
+    ANIM_SPRITE_AFFIN 2, -0xe7, -0x6c, -0x6c, 0xe7
+    ANIM_SPRITE_AFFIN 2, -0xdf, -0x7c, -0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 4, -96
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 15, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_22
+AnimSprite_YushaSpinShield4_22:  @ 0x5ED6E4
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, 4, -98
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x003A, 12, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_23
+AnimSprite_YushaSpinShield4_23:  @ 0x5ED708
+    ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 4, -100
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 10, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_24
+AnimSprite_YushaSpinShield4_24:  @ 0x5ED744
+    ANIM_SPRITE_AFFIN 2, -0xa4, 0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, -0xc4, 0xa4, 0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 8, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_25
+AnimSprite_YushaSpinShield4_25:  @ 0x5ED780
+    ANIM_SPRITE_AFFIN 2, -0x42, 0xf7, 0xf7, 0x42
+    ANIM_SPRITE_AFFIN 2, -0xab, 0xbe, 0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 7, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_26
+AnimSprite_YushaSpinShield4_26:  @ 0x5ED7BC
+    ANIM_SPRITE_AFFIN 2, 0x6b, 0xe8, 0xe8, -0x6b
+    ANIM_SPRITE_AFFIN 2, 0x7f, 0xdd, 0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 5, -102
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 7, -90
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_27
+AnimSprite_YushaSpinShield4_27:  @ 0x5ED7F8
+    ANIM_SPRITE_AFFIN 2, 0xa4, 0xc4, 0xc4, -0xa4
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -104
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 9, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_28
+AnimSprite_YushaSpinShield4_28:  @ 0x5ED834
+    ANIM_SPRITE_AFFIN 2, 0xf0, 0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 12, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_29
+AnimSprite_YushaSpinShield4_29:  @ 0x5ED870
+    ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, 0xf9, 0x39, 0x39, -0xf9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 6, -105
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 13, -90
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_30
+AnimSprite_YushaSpinShield4_30:  @ 0x5ED8AC
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, 0xff, -0xc, -0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 7, -106
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 16, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_31
+AnimSprite_YushaSpinShield4_31:  @ 0x5ED8E8
+    ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 7, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 17, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_32
+AnimSprite_YushaSpinShield4_32:  @ 0x5ED924
+    ANIM_SPRITE_AFFIN 2, 0xdd, -0x7f, -0x7f, -0xdd
+    ANIM_SPRITE_AFFIN 2, 0xeb, -0x63, -0x63, -0xeb
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 20, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_33
+AnimSprite_YushaSpinShield4_33:  @ 0x5ED960
+    ANIM_SPRITE_AFFIN 2, 0xc4, -0xa4, -0xa4, -0xc4
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -107
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 20, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_34
+AnimSprite_YushaSpinShield4_34:  @ 0x5ED99C
+    ANIM_SPRITE_AFFIN 2, 0x80, -0xdd, -0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 8, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 21, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_35
+AnimSprite_YushaSpinShield4_35:  @ 0x5ED9D8
+    ANIM_SPRITE_AFFIN 2, 0x58, -0xf0, -0xf0, -0x58
+    ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 23, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_36
+AnimSprite_YushaSpinShield4_36:  @ 0x5EDA14
+    ANIM_SPRITE_AFFIN 2, 0x0, -0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, -0x3d, -0xf8, -0xf8, 0x3d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 23, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_37
+AnimSprite_YushaSpinShield4_37:  @ 0x5EDA50
+    ANIM_SPRITE_AFFIN 2, -0x2b, -0xfc, -0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, -0x3d, -0xf8, -0xf8, 0x3d
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 9, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 24, -101
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_38
+AnimSprite_YushaSpinShield4_38:  @ 0x5EDA8C
+    ANIM_SPRITE_AFFIN 2, -0x56, -0xf0, -0xf0, 0x56
+    ANIM_SPRITE_AFFIN 2, -0x67, -0xea, -0xea, 0x67
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 24, -102
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_39
+AnimSprite_YushaSpinShield4_39:  @ 0x5EDAC8
+    ANIM_SPRITE_AFFIN 2, -0xa4, -0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 2, -0xaa, -0xbe, -0xbe, 0xaa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 24, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_40
+AnimSprite_YushaSpinShield4_40:  @ 0x5EDB04
+    ANIM_SPRITE_AFFIN 2, -0xd1, -0x93, -0x93, 0xd1
+    ANIM_SPRITE_AFFIN 2, -0xdf, -0x7c, -0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 10, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 22, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_41
+AnimSprite_YushaSpinShield4_41:  @ 0x5EDB40
+    ANIM_SPRITE_AFFIN 2, -0xf3, -0x4f, -0x4f, 0xf3
+    ANIM_SPRITE_AFFIN 2, -0xdf, -0x7c, -0x7c, 0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 21, -106
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_42
+AnimSprite_YushaSpinShield4_42:  @ 0x5EDB7C
+    ANIM_SPRITE_AFFIN 2, -0xfb, -0x2d, -0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 2, -0xf9, -0x3a, -0x3a, 0xf9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -108
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 20, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_43
+AnimSprite_YushaSpinShield4_43:  @ 0x5EDBB8
+    ANIM_SPRITE_AFFIN 2, -0xfc, 0x2c, 0x2c, 0xfc
+    ANIM_SPRITE_AFFIN 2, -0xfa, 0x35, 0x35, 0xfa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 11, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 18, -109
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_44
+AnimSprite_YushaSpinShield4_44:  @ 0x5EDBF4
+    ANIM_SPRITE_AFFIN 2, -0xf0, 0x57, 0x57, 0xf0
+    ANIM_SPRITE_AFFIN 2, -0xfa, 0x35, 0x35, 0xfa
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 12, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 17, -108
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_45
+AnimSprite_YushaSpinShield4_45:  @ 0x5EDC30
+    ANIM_SPRITE_AFFIN 2, -0xdd, 0x7f, 0x7f, 0xdd
+    ANIM_SPRITE_AFFIN 2, -0xe9, 0x68, 0x68, 0xe9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 12, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 17, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_46
+AnimSprite_YushaSpinShield4_46:  @ 0x5EDC6C
+    ANIM_SPRITE_AFFIN 1, -0xc4, 0xa4, 0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 13, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x003A, 17, -107
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_47
+AnimSprite_YushaSpinShield4_47:  @ 0x5EDC9C
+    ANIM_SPRITE_AFFIN 2, -0x92, 0xd1, 0xd1, 0x92
+    ANIM_SPRITE_AFFIN 2, -0xab, 0xbe, 0xbe, 0xab
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 13, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 16, -105
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_48
+AnimSprite_YushaSpinShield4_48:  @ 0x5EDCD8
+    ANIM_SPRITE_AFFIN 2, -0x57, 0xf0, 0xf0, 0x57
+    ANIM_SPRITE_AFFIN 2, -0x80, 0xdd, 0xdd, 0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 14, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 15, -104
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_49
+AnimSprite_YushaSpinShield4_49:  @ 0x5EDD14
+    ANIM_SPRITE_AFFIN 2, 0x0, 0xff, 0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, -0x1a, 0xfe, 0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 14, -109
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 14, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_50
+AnimSprite_YushaSpinShield4_50:  @ 0x5EDD50
+    ANIM_SPRITE_AFFIN 2, 0x42, 0xf7, 0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, -0x1a, 0xfe, 0xfe, 0x1a
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 17, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_51
+AnimSprite_YushaSpinShield4_51:  @ 0x5EDD8C
+    ANIM_SPRITE_AFFIN 1, 0x7f, 0xdd, 0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x003A, 17, -99
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_52
+AnimSprite_YushaSpinShield4_52:  @ 0x5EDDBC
+    ANIM_SPRITE_AFFIN 2, 0xb4, 0xb5, 0xb5, -0xb4
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 15, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 18, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_53
+AnimSprite_YushaSpinShield4_53:  @ 0x5EDDF8
+    ANIM_SPRITE_AFFIN 2, 0xd1, 0x93, 0x93, -0xd1
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 16, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 19, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_54
+AnimSprite_YushaSpinShield4_54:  @ 0x5EDE34
+    ANIM_SPRITE_AFFIN 2, 0xe7, 0x6c, 0x6c, -0xe7
+    ANIM_SPRITE_AFFIN 2, 0xdf, 0x7c, 0x7c, -0xdf
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 16, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 21, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_55
+AnimSprite_YushaSpinShield4_55:  @ 0x5EDE70
+    ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, 0xf1, 0x53, 0x53, -0xf1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 17, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 23, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_56
+AnimSprite_YushaSpinShield4_56:  @ 0x5EDEAC
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 2, 0xff, -0xc, -0xc, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 17, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 26, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_57
+AnimSprite_YushaSpinShield4_57:  @ 0x5EDEE8
+    ANIM_SPRITE_AFFIN 2, 0xf0, -0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 2, 0xfc, -0x2c, -0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 29, -95
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_58
+AnimSprite_YushaSpinShield4_58:  @ 0x5EDF24
+    ANIM_SPRITE_AFFIN 2, 0xd1, -0x92, -0x92, -0xd1
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 30, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_59
+AnimSprite_YushaSpinShield4_59:  @ 0x5EDF60
+    ANIM_SPRITE_AFFIN 2, 0xa4, -0xc3, -0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 2, 0xa1, -0xc6, -0xc6, -0xa1
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 31, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_60
+AnimSprite_YushaSpinShield4_60:  @ 0x5EDF9C
+    ANIM_SPRITE_AFFIN 2, 0x80, -0xdd, -0xdd, -0x80
+    ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 18, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 32, -98
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_61
+AnimSprite_YushaSpinShield4_61:  @ 0x5EDFD8
+    ANIM_SPRITE_AFFIN 2, 0x42, -0xf7, -0xf7, -0x42
+    ANIM_SPRITE_AFFIN 2, 0x7c, -0xdf, -0xdf, -0x7c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 19, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 34, -100
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_62
+AnimSprite_YushaSpinShield4_62:  @ 0x5EE014
+    ANIM_SPRITE_AFFIN 2, 0x0, -0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 2, -0x23, -0xfd, -0xfd, 0x23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 20, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 36, -102
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_63
+AnimSprite_YushaSpinShield4_63:  @ 0x5EE050
+    ANIM_SPRITE_AFFIN 2, -0x2b, -0xfc, -0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 2, -0x23, -0xfd, -0xfd, 0x23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 21, -110
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x003A, 36, -103
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_64
+AnimSprite_YushaSpinShield4_64:  @ 0x5EE08C
+    ANIM_SPRITE_AFFIN 1, 0xdd, -0x7f, -0x7f, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 23, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_65
+AnimSprite_YushaSpinShield4_65:  @ 0x5EE0B0
+    ANIM_SPRITE_AFFIN 1, 0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_66
+AnimSprite_YushaSpinShield4_66:  @ 0x5EE0D4
+    ANIM_SPRITE_AFFIN 1, 0xdd, 0x80, 0x80, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_67
+AnimSprite_YushaSpinShield4_67:  @ 0x5EE0F8
+    ANIM_SPRITE_AFFIN 1, 0x0, 0xff, 0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_68
+AnimSprite_YushaSpinShield4_68:  @ 0x5EE11C
+    ANIM_SPRITE_AFFIN 1, -0xb5, 0xb4, 0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_69
+AnimSprite_YushaSpinShield4_69:  @ 0x5EE140
+    ANIM_SPRITE_AFFIN 1, -0xf7, -0x43, -0x43, 0xf7
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 25, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_70
+AnimSprite_YushaSpinShield4_70:  @ 0x5EE164
+    ANIM_SPRITE_AFFIN 1, -0x56, -0xf0, -0xf0, 0x56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_71
+AnimSprite_YushaSpinShield4_71:  @ 0x5EE188
+    ANIM_SPRITE_AFFIN 1, 0x6c, -0xe7, -0xe7, -0x6c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_72
+AnimSprite_YushaSpinShield4_72:  @ 0x5EE1AC
+    ANIM_SPRITE_AFFIN 1, 0xf0, -0x57, -0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 26, -97
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_73
+AnimSprite_YushaSpinShield4_73:  @ 0x5EE1D0
+    ANIM_SPRITE_AFFIN 1, 0xc3, 0xa4, 0xa4, -0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 27, -96
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_74
+AnimSprite_YushaSpinShield4_74:  @ 0x5EE1F4
+    ANIM_SPRITE_AFFIN 1, -0xb5, 0xb4, 0xb4, 0xb5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 27, -94
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_75
+AnimSprite_YushaSpinShield4_75:  @ 0x5EE218
+    ANIM_SPRITE_AFFIN 1, -0xfb, -0x2d, -0x2d, 0xfb
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 28, -93
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_76
+AnimSprite_YushaSpinShield4_76:  @ 0x5EE23C
+    ANIM_SPRITE_AFFIN 1, -0x7f, -0xde, -0xde, 0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 28, -92
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_77
+AnimSprite_YushaSpinShield4_77:  @ 0x5EE260
+    ANIM_SPRITE_AFFIN 1, 0x58, -0xf0, -0xf0, -0x58
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 30, -91
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_78
+AnimSprite_YushaSpinShield4_78:  @ 0x5EE284
+    ANIM_SPRITE_AFFIN 1, 0xe8, -0x6b, -0x6b, -0xe8
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 31, -89
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_79
+AnimSprite_YushaSpinShield4_79:  @ 0x5EE2A8
+    ANIM_SPRITE_AFFIN 1, 0xf0, 0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -85
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_80
+AnimSprite_YushaSpinShield4_80:  @ 0x5EE2CC
+    ANIM_SPRITE_AFFIN 1, 0x57, 0xf0, 0xf0, -0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -81
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_81
+AnimSprite_YushaSpinShield4_81:  @ 0x5EE2F0
+    ANIM_SPRITE_AFFIN 1, -0x57, 0xf0, 0xf0, 0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -78
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_82
+AnimSprite_YushaSpinShield4_82:  @ 0x5EE314
+    ANIM_SPRITE_AFFIN 1, -0xf0, 0x57, 0x57, 0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -70
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_83
+AnimSprite_YushaSpinShield4_83:  @ 0x5EE338
+    ANIM_SPRITE_AFFIN 1, -0xc3, -0xa5, -0xa5, 0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -61
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_84
+AnimSprite_YushaSpinShield4_84:  @ 0x5EE35C
+    ANIM_SPRITE_AFFIN 1, 0x80, -0xdd, -0xdd, -0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_32, 0x001C, 32, -56
+    ANIM_SPRITE_END
+
+.global AnimSprite_YushaSpinShield4_85
+AnimSprite_YushaSpinShield4_85:  @ 0x5EE380
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, -8, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_YushaSpinShieldOBJ_RightTypeB
+AnimScr_YushaSpinShieldOBJ_RightTypeB:  @ 0x085EE398
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_1, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_2, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_3, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_5, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_6, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_7, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_9, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_10, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_11, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_12, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_13, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_15, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_16, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_17, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_18, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_19, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_20, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_21, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_22, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_23, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_25, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_26, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_27, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_28, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_29, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_30, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_31, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_32, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_33, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_34, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_35, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_36, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_37, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_38, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_39, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_40, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_41, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_42, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_43, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_44, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_45, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_46, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_47, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_48, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_49, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_50, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_51, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_52, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_53, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_54, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_55, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_56, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_57, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_58, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_59, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_60, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_61, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_62, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_63, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_85, 2
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ2_LeftTypeB
+AnimScr_YushaSpinShieldOBJ2_LeftTypeB:  @ 0x085EE49C
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_64, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_65, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_66, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_67, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_68, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_69, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_70, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_71, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_72, 1
+    ANIMSCR_LOOP
+
+	.global AnimScr_YushaSpinShieldOBJ3_LeftTypeB
+AnimScr_YushaSpinShieldOBJ3_LeftTypeB:  @ 0x085EE4C4
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_73, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_74, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_75, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_76, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_77, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_78, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_79, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_80, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_81, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_82, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_83, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_84, 2
+    ANIMSCR_LOOP
 
 	.global gUnknown_085EE4F8
 gUnknown_085EE4F8:  @ 0x085EE4F8
@@ -22747,74 +18996,801 @@ Tsa_FimbulvetrBg_Tornado_F:  @ 0x0861892C
 
 	.global Img_FimbulvetrSprites_Snow
 Img_FimbulvetrSprites_Snow:  @ 0x08618BBC
-	.incbin "baserom.gba", 0x618BBC, 0x20FC
+	.incbin "baserom.gba", 0x618BBC, 0x618F0C - 0x618BBC
 
-	.global gUnknown_0861ACB8
-gUnknown_0861ACB8:  @ 0x0861ACB8
-@ Replacing .incbin "baserom.gba", 0x61ACB8, 0x6C
-    .4byte Img_FimbulvetrSprites_Snow + 0x352
-    .4byte Img_FimbulvetrSprites_Snow + 0x3ca
-    .4byte Img_FimbulvetrSprites_Snow + 0x4c6
-    .4byte Img_FimbulvetrSprites_Snow + 0x5da
-    .4byte Img_FimbulvetrSprites_Snow + 0x706
-    .4byte Img_FimbulvetrSprites_Snow + 0x84a
-    .4byte Img_FimbulvetrSprites_Snow + 0x976
-    .4byte Img_FimbulvetrSprites_Snow + 0xaa2
-    .4byte Img_FimbulvetrSprites_Snow + 0xbce
-    .4byte Img_FimbulvetrSprites_Snow + 0xcfa
-    .4byte Img_FimbulvetrSprites_Snow + 0xe1a
-    .4byte Img_FimbulvetrSprites_Snow + 0xf46
-    .4byte Img_FimbulvetrSprites_Snow + 0x1072
-    .4byte Img_FimbulvetrSprites_Snow + 0x1192
-    .4byte Img_FimbulvetrSprites_Snow + 0x12be
-    .4byte Img_FimbulvetrSprites_Snow + 0x13ea
-    .4byte Img_FimbulvetrSprites_Snow + 0x1516
-    .4byte Img_FimbulvetrSprites_Snow + 0x1642
-    .4byte Img_FimbulvetrSprites_Snow + 0x176e
-    .4byte Img_FimbulvetrSprites_Snow + 0x189a
-    .4byte Img_FimbulvetrSprites_Snow + 0x19ba
-    .4byte Img_FimbulvetrSprites_Snow + 0x1ada
-    .4byte Img_FimbulvetrSprites_Snow + 0x1c12
-    .4byte Img_FimbulvetrSprites_Snow + 0x1d32
-    .4byte Img_FimbulvetrSprites_Snow + 0x1e52
-    .4byte Img_FimbulvetrSprites_Snow + 0x1f72
-    .4byte 0x82000000
+.global AnimSprite_FimbulvetrOBJ_1
+AnimSprite_FimbulvetrOBJ_1:  @ 0x618F0C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -45, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -35, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -30, -18
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, -27, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -51, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -49, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -37, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -33, -26
+    ANIM_SPRITE_END
 
-	.global gUnknown_0861AD24
-gUnknown_0861AD24:  @ 0x0861AD24
-@ Replacing .incbin "baserom.gba", 0x61AD24, 0x60
-    .4byte Img_FimbulvetrSprites_Snow + 0x209d
-    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
-    .4byte 0x82000000
-    .4byte Img_FimbulvetrSprites_Snow + 0x20b5
-    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
-    .4byte 0x82000000
-    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
-    .4byte Img_FimbulvetrSprites_Snow + 0x20cd
-    .4byte 0x82000000
-    .4byte Img_FimbulvetrSprites_Snow + 0x1bf9
-    .4byte Img_FimbulvetrSprites_Snow + 0x20e5
-    .4byte 0x82000000
-    .4byte 0x80000000
-    .4byte 0xfff00018
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
-    .4byte 0x80000000
-    .4byte 0xfff0001c
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+.global AnimSprite_FimbulvetrOBJ_2
+AnimSprite_FimbulvetrOBJ_2:  @ 0x618F84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -48, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -24, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -48, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -24, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -8, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -64, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -40, -40
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, -8, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -32, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -64, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -56, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0000, -32, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -38, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -22, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -44, -44
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -30, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -12, -31
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -55, -25
+    ANIM_SPRITE_END
 
-	.global gUnknown_0861AD84
-gUnknown_0861AD84:  @ 0x0861AD84
-	.incbin "baserom.gba", 0x61AD84, 0x8
+.global AnimSprite_FimbulvetrOBJ_3
+AnimSprite_FimbulvetrOBJ_3:  @ 0x619080
+    ANIM_SPRITE_AFFIN 2, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE_AFFIN 2, 0xfc, 0x2c, -0x2c, 0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -58, -33
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -11, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -58, -9
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -13, -44
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -73, -73
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 8, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -83, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -39, -59
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 17, -29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -25, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -81, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -69, -51
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0000, -15, -85
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -33, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -39, -29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -11, -30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -47, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -17, -59
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 2, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -70, -33
+    ANIM_SPRITE_END
 
-	.global gUnknown_0861AD8C
-gUnknown_0861AD8C:  @ 0x0861AD8C
-	.incbin "baserom.gba", 0x61AD8C, 0x8    @ 0x61AD94 - 0x61AD8C
+.global AnimSprite_FimbulvetrOBJ_4
+AnimSprite_FimbulvetrOBJ_4:  @ 0x619194
+    ANIM_SPRITE_AFFIN 4, -0xa4, 0xc4, -0xc4, -0xa4
+    ANIM_SPRITE_AFFIN 4, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE_AFFIN 4, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 4, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -60, -37
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 0, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -66, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -7, -49
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -77, -80
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 18, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -89, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -38, -69
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 24, -33
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -21, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -90, -22
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -73, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, -7, -93
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -33, -44
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -39, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -1, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -51, -72
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -11, -66
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 11, -44
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -77, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_5
+AnimSprite_FimbulvetrOBJ_5:  @ 0x6192C0
+    ANIM_SPRITE_AFFIN 4, -0xc3, 0xa4, -0xa4, -0xc3
+    ANIM_SPRITE_AFFIN 4, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 4, 0x2c, 0xfc, -0xfc, 0x2c
+    ANIM_SPRITE_AFFIN 4, 0xdd, 0x7f, -0x7f, 0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -66, -41
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 8, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -72, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -3, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -80, -86
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 25, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -95, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -38, -76
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 30, -35
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -15, -36
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -96, -23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -81, -64
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 1, -99
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -32, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -41, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 5, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -55, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -7, -71
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 18, -47
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -81, -37
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_6
+AnimSprite_FimbulvetrOBJ_6:  @ 0x6193EC
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, 0, -8
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_7
+AnimSprite_FimbulvetrOBJ_7:  @ 0x619404
+    ANIM_SPRITE_AFFIN 4, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE_AFFIN 4, 0xc3, -0xa5, 0xa5, 0xc3
+    ANIM_SPRITE_AFFIN 4, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 4, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -68, -43
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 10, -21
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -74, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -1, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -82, -88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 27, -66
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -97, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -39, -78
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 32, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -13, -37
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -98, -24
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -83, -66
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 3, -101
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -32, -49
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -42, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 7, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -57, -81
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -6, -74
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 20, -48
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -83, -38
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_8
+AnimSprite_FimbulvetrOBJ_8:  @ 0x619530
+    ANIM_SPRITE_AFFIN 4, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 4, 0xdd, -0x80, 0x80, 0xdd
+    ANIM_SPRITE_AFFIN 4, 0x80, 0xdd, -0xdd, 0x80
+    ANIM_SPRITE_AFFIN 4, 0xa4, 0xc4, -0xc4, 0xa4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -70, -44
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 12, -22
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -76, -14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 1, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -84, -90
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 29, -68
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -99, -57
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -40, -80
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 34, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -12, -39
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -100, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -85, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 5, -103
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -32, -51
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -42, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 9, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -57, -81
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -4, -76
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 22, -49
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -85, -39
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_9
+AnimSprite_FimbulvetrOBJ_9:  @ 0x61965C
+    ANIM_SPRITE_AFFIN 4, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 4, 0xf0, -0x58, 0x58, 0xf0
+    ANIM_SPRITE_AFFIN 4, 0xa4, 0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 4, 0x80, 0xdd, -0xdd, 0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -72, -45
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 14, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -78, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 3, -57
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -86, -92
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 31, -70
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -101, -59
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -41, -82
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 36, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -10, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -102, -26
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -86, -69
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 7, -105
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -32, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -43, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 11, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -59, -83
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -3, -78
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 24, -51
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -87, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_10
+AnimSprite_FimbulvetrOBJ_10:  @ 0x619788
+    ANIM_SPRITE_AFFIN 4, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE_AFFIN 4, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 4, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE_AFFIN 4, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -74, -46
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 16, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -80, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 5, -59
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -88, -94
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 33, -72
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -103, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -42, -84
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 38, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -8, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -104, -27
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -88, -70
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 9, -107
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -33, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -44, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 13, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -61, -85
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -2, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 26, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -89, -41
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_11
+AnimSprite_FimbulvetrOBJ_11:  @ 0x6198B4
+    ANIM_SPRITE_AFFIN 3, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE_AFFIN 3, 0xdd, 0x7f, -0x7f, 0xdd
+    ANIM_SPRITE_AFFIN 3, 0x2c, 0xfc, -0xfc, 0x2c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -76, -47
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, 18, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -82, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 7, -61
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -90, -96
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 35, -73
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -105, -62
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -44, -86
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 40, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -6, -42
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -106, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, -90, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0000, 10, -109
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -46, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 13, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -63, -87
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -1, -81
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 28, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -91, -42
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_12
+AnimSprite_FimbulvetrOBJ_12:  @ 0x6199D4
+    ANIM_SPRITE_AFFIN 4, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE_AFFIN 4, 0xfc, 0x2c, -0x2c, 0xfc
+    ANIM_SPRITE_AFFIN 4, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 4, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -77, -47
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 19, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -83, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 8, -62
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -91, -97
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 36, -74
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -106, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -45, -87
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 41, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -5, -42
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -107, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -91, -73
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 11, -110
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -47, -43
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 14, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -64, -88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -1, -82
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 29, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -92, -42
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_13
+AnimSprite_FimbulvetrOBJ_13:  @ 0x619B00
+    ANIM_SPRITE_AFFIN 4, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE_AFFIN 4, 0xf0, 0x57, -0x57, 0xf0
+    ANIM_SPRITE_AFFIN 4, 0xfc, 0x2c, -0x2c, 0xfc
+    ANIM_SPRITE_AFFIN 4, -0x2c, 0xfc, -0xfc, -0x2c
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -78, -47
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 20, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -84, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 9, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -92, -98
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 37, -75
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -107, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -46, -88
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 42, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -4, -42
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -108, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -92, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 12, -111
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -57
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -48, -43
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 15, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -65, -89
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 0, -83
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 30, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -93, -42
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_14
+AnimSprite_FimbulvetrOBJ_14:  @ 0x619C2C
+    ANIM_SPRITE_AFFIN 3, -0xc4, -0xa4, 0xa4, -0xc4
+    ANIM_SPRITE_AFFIN 3, 0xdd, 0x7f, -0x7f, 0xdd
+    ANIM_SPRITE_AFFIN 3, -0x57, 0xf0, -0xf0, -0x57
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -79, -47
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 21, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -85, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 10, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -93, -99
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 38, -76
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -108, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -47, -89
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 43, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -3, -42
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -109, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0002, -93, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0000, 13, -112
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -35, -58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -49, -43
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 16, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -66, -90
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 1, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 31, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -94, -42
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_15
+AnimSprite_FimbulvetrOBJ_15:  @ 0x619D4C
+    ANIM_SPRITE_AFFIN 4, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 4, 0xc4, 0xa4, -0xa4, 0xc4
+    ANIM_SPRITE_AFFIN 4, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 4, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -80, -46
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 22, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -86, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 11, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -94, -99
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 39, -76
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -109, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -48, -89
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 44, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -2, -41
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -110, -27
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -94, -74
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 14, -112
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -36, -58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -50, -43
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 17, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -67, -90
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 2, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 32, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -95, -41
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_16
+AnimSprite_FimbulvetrOBJ_16:  @ 0x619E78
+    ANIM_SPRITE_AFFIN 4, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 4, 0xa4, 0xc4, -0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 4, 0xf0, -0x58, 0x58, 0xf0
+    ANIM_SPRITE_AFFIN 4, -0xa4, 0xc4, -0xc4, -0xa4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -81, -45
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 23, -23
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -87, -15
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 12, -62
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -95, -99
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 40, -75
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -110, -63
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -49, -89
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 45, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -1, -40
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -111, -26
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -95, -73
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 15, -112
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -37, -58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -51, -42
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 18, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -68, -90
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 3, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 33, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -96, -40
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_17
+AnimSprite_FimbulvetrOBJ_17:  @ 0x619FA4
+    ANIM_SPRITE_AFFIN 4, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 4, 0x80, 0xdd, -0xdd, 0x80
+    ANIM_SPRITE_AFFIN 4, 0xdd, -0x80, 0x80, 0xdd
+    ANIM_SPRITE_AFFIN 4, -0xc3, 0xa4, -0xa4, -0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -82, -44
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 24, -22
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -88, -14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 13, -61
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -96, -99
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 41, -74
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -111, -62
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -50, -89
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 46, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 0, -39
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -112, -25
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -96, -72
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 16, -112
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -38, -57
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -52, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 19, -38
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -69, -90
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 4, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 34, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -97, -39
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_18
+AnimSprite_FimbulvetrOBJ_18:  @ 0x61A0D0
+    ANIM_SPRITE_AFFIN 4, -0x2d, -0xfc, 0xfc, -0x2d
+    ANIM_SPRITE_AFFIN 4, 0x57, 0xf0, -0xf0, 0x57
+    ANIM_SPRITE_AFFIN 4, 0xc3, -0xa5, 0xa5, 0xc3
+    ANIM_SPRITE_AFFIN 4, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -83, -42
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 25, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -89, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 14, -59
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -97, -98
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 42, -72
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -112, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -51, -88
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 47, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 1, -37
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -113, -23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -97, -70
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 17, -111
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -39, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -53, -39
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 20, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -70, -89
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 5, -83
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 35, -51
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -98, -37
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_19
+AnimSprite_FimbulvetrOBJ_19:  @ 0x61A1FC
+    ANIM_SPRITE_AFFIN 4, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE_AFFIN 4, 0x2c, 0xfc, -0xfc, 0x2c
+    ANIM_SPRITE_AFFIN 4, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 4, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -84, -40
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 26, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -90, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 15, -57
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -98, -97
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 43, -70
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -113, -58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -52, -87
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 48, -35
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 2, -35
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -114, -21
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -98, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 18, -110
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -40, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -54, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 20, -36
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -71, -88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 6, -82
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 36, -49
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -99, -35
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_20
+AnimSprite_FimbulvetrOBJ_20:  @ 0x61A328
+    ANIM_SPRITE_AFFIN 4, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 4, 0x0, 0xff, -0xff, 0x0
+    ANIM_SPRITE_AFFIN 4, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE_AFFIN 4, -0xfc, 0x2c, -0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -85, -38
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 27, -16
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -91, -8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 16, -55
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -99, -95
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 44, -68
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -114, -56
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -53, -85
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 49, -33
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 3, -33
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -115, -19
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -99, -66
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 19, -109
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -41, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -55, -35
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 21, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -72, -86
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 7, -81
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 37, -47
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -100, -33
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_21
+AnimSprite_FimbulvetrOBJ_21:  @ 0x61A454
+    ANIM_SPRITE_AFFIN 3, 0x56, -0xf0, 0xf0, 0x56
+    ANIM_SPRITE_AFFIN 3, -0x2c, 0xfc, -0xfc, -0x2c
+    ANIM_SPRITE_AFFIN 3, -0xff, 0x0, 0x0, -0xff
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -86, -35
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 28, -13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -92, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 17, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -100, -93
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 45, -65
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -115, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -54, -83
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 50, -30
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 3, -30
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -116, -16
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0002, -100, -63
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0000, 20, -107
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -42, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 22, -31
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -73, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 8, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 38, -44
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -101, -30
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_22
+AnimSprite_FimbulvetrOBJ_22:  @ 0x61A574
+    ANIM_SPRITE_AFFIN 4, 0x7f, -0xde, 0xde, 0x7f
+    ANIM_SPRITE_AFFIN 4, -0x57, 0xf0, -0xf0, -0x57
+    ANIM_SPRITE_AFFIN 4, 0x2b, -0xfc, 0xfc, 0x2b
+    ANIM_SPRITE_AFFIN 4, -0xfc, -0x2c, 0x2c, -0xfc
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -87, -32
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 29, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -93, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 17, -49
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -101, -91
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 46, -62
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -55, -81
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 51, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 3, -27
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -117, -13
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -101, -60
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 21, -105
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -43, -50
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, -29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 23, -29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -74, -82
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 9, -77
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 39, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -102, -27
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_23
+AnimSprite_FimbulvetrOBJ_23:  @ 0x61A694
+    ANIM_SPRITE_AFFIN 4, 0xa4, -0xc4, 0xc4, 0xa4
+    ANIM_SPRITE_AFFIN 4, -0x7f, 0xdd, -0xdd, -0x7f
+    ANIM_SPRITE_AFFIN 4, 0x0, -0xff, 0xff, 0x0
+    ANIM_SPRITE_AFFIN 4, -0xf0, -0x57, 0x57, -0xf0
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -88, -28
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 30, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -94, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 18, -45
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -102, -88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 47, -58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -56, -78
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 52, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 3, -22
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -118, -9
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -102, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 22, -102
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -44, -46
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, -24
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 24, -25
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -75, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 10, -74
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 40, -37
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -103, -23
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_24
+AnimSprite_FimbulvetrOBJ_24:  @ 0x61A7B4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x001F, -8, 0
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_25
+AnimSprite_FimbulvetrOBJ_25:  @ 0x61A7CC
+    ANIM_SPRITE_AFFIN 4, 0xc3, -0xa5, 0xa5, 0xc3
+    ANIM_SPRITE_AFFIN 4, -0xa4, 0xc4, -0xc4, -0xa4
+    ANIM_SPRITE_AFFIN 4, -0x2d, -0xfc, 0xfc, -0x2d
+    ANIM_SPRITE_AFFIN 4, -0xdd, -0x7f, 0x7f, -0xdd
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0000, -89, -23
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0002, 31, -2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -95, 7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 19, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -103, -84
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 48, -53
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -57, -74
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0006, 53, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, 3, -16
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0006, -119, -5
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0002, -103, -51
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0000, 23, -98
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -45, -41
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, -18
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 25, -20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -76, -75
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 11, -70
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, 41, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0005, -104, -18
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_26
+AnimSprite_FimbulvetrOBJ_26:  @ 0x61A8EC
+    ANIM_SPRITE_AFFIN 4, -0xc4, -0xa4, 0xa4, -0xc4
+    ANIM_SPRITE_AFFIN 4, 0xdd, -0x80, 0x80, 0xdd
+    ANIM_SPRITE_AFFIN 4, -0x58, -0xf0, 0xf0, -0x58
+    ANIM_SPRITE_AFFIN 4, -0xc3, 0xa4, -0xa4, -0xc3
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0040, 24, -93
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0040, -90, -17
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 12, -65
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 49, -47
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 20, -34
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 42, -26
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, -105, -12
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -104, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -77, -70
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -46, -35
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -56, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -96, 13
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 26, -14
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, 3, -9
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0046, 54, -13
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, -120, 1
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, -58, -68
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0042, -104, -45
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0042, 32, 4
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_27
+AnimSprite_FimbulvetrOBJ_27:  @ 0x61AA0C
+    ANIM_SPRITE_AFFIN 4, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE_AFFIN 4, 0xf0, -0x58, 0x58, 0xf0
+    ANIM_SPRITE_AFFIN 4, -0xdd, 0x80, -0x80, -0xdd
+    ANIM_SPRITE_AFFIN 4, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0040, 25, -87
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0040, -91, -11
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 13, -60
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 50, -40
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 21, -27
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, 43, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0045, -106, -5
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -78, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -105, -73
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -47, -28
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -56, -3
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, -97, 20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0044, 27, -7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, -59, -62
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, -121, 8
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0046, 3, -1
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x0046, 55, -6
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x0042, 33, 11
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x0042, -105, -38
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_28
+AnimSprite_FimbulvetrOBJ_28:  @ 0x61AB2C
+    ANIM_SPRITE_AFFIN 4, -0x80, -0xdd, 0xdd, -0x80
+    ANIM_SPRITE_AFFIN 4, 0xfb, -0x2d, 0x2d, 0xfb
+    ANIM_SPRITE_AFFIN 4, -0xf0, 0x57, -0x57, -0xf0
+    ANIM_SPRITE_AFFIN 4, -0xa4, -0xc3, 0xc3, -0xa4
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -98, 29
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -106, -64
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -48, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -56, 7
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, 28, 2
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x0004, -79, -56
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, ATTR1_SIZE_16, 0x0008, 26, -79
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, 51, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, 22, -19
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, 14, -52
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, 51, -32
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, 44, -10
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_8, 0x000D, -107, 4
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4200, 0x0008, -92, -2
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4400, 0x000A, 34, 20
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x000E, -60, -54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x000E, 3, 9
+    ANIM_SPRITE ATTR0_SQUARE, 0x6000, 0x000E, 56, 3
+    ANIM_SPRITE_XFLIP ATTR0_SQUARE, ATTR1_SIZE_16, 0x000E, -122, 17
+    ANIM_SPRITE ATTR0_SQUARE + OBJ_ROT_SCALE_ON, 0x4600, 0x000A, -106, -29
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_29
+AnimSprite_FimbulvetrOBJ_29:  @ 0x61AC58
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0014, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_30
+AnimSprite_FimbulvetrOBJ_30:  @ 0x61AC70
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0018, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_31
+AnimSprite_FimbulvetrOBJ_31:  @ 0x61AC88
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ_32
+AnimSprite_FimbulvetrOBJ_32:  @ 0x61ACA0
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_16, 0x0012, -8, -8
+    ANIM_SPRITE_END
+
+	.global AnimScr_FimbulvetrOBJ1
+AnimScr_FimbulvetrOBJ1:  @ 0x0861ACB8
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_1, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_2, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_3, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_4, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_5, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_7, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_8, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_9, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_10, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_11, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_12, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_13, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_14, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_15, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_16, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_17, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_18, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_19, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_20, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_21, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_22, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_23, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_25, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_26, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_27, 2
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_28, 2
+    ANIMSCR_LOOP
+
+	.global AnimScr_FimbulvetrOBJ2
+AnimScr_FimbulvetrOBJ2:  @ 0x0861AD24
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_29, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_24, 1
+    ANIMSCR_LOOP
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_30, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_24, 1
+    ANIMSCR_LOOP
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_31, 1
+    ANIMSCR_LOOP
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_24, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ_32, 1
+    ANIMSCR_LOOP
+
+.global AnimSprite_FimbulvetrOBJ2Fall_1
+AnimSprite_FimbulvetrOBJ2Fall_1:  @ 0x61AD54
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x0018, -16, -16
+    ANIM_SPRITE_END
+
+.global AnimSprite_FimbulvetrOBJ2Fall_2
+AnimSprite_FimbulvetrOBJ2Fall_2:  @ 0x61AD6C
+    ANIM_SPRITE ATTR0_SQUARE, ATTR1_SIZE_32, 0x001C, -16, -16
+    ANIM_SPRITE_END
+
+	.global AnimScr_FimbulvetrOBJ2Fall_TypeA
+AnimScr_FimbulvetrOBJ2Fall_TypeA:  @ 0x0861AD84
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ2Fall_1, 1
+    ANIMSCR_LOOP
+
+	.global AnimScr_FimbulvetrOBJ2Fall_TypeB
+AnimScr_FimbulvetrOBJ2Fall_TypeB:  @ 0x0861AD8C
+    ANIMSCR_FORCE_SPRITE AnimSprite_FimbulvetrOBJ2Fall_2, 4
+    ANIMSCR_LOOP
 
 	.global Img_0861AD94
 Img_0861AD94:  @ 0x0861AD94
@@ -32095,8 +29071,8 @@ Tsa_0872150C:  @ 0x0872150C
 Tsa_08721784:  @ 0x08721784
 	.incbin "baserom.gba", 0x721784, 0x1A84    @ 0x723208 - 0x721784
 
-	.global gUnknown_08723208
-gUnknown_08723208:  @ 0x08723208
+	.global AnimScr_DarkBreath_Far
+AnimScr_DarkBreath_Far:  @ 0x08723208
 	.incbin "baserom.gba", 0x723208, 0x6C    @ 0x723274 - 0x723208
 
 	.global Img_08723274
