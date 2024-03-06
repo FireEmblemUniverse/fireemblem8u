@@ -1,26 +1,5 @@
     .section .data
 
-    .global gUnknown_089E87EC
-gUnknown_089E87EC: @ 0x009E87EC
-    .4byte 0x00000002
-    .4byte EventScr_089F0484
-    .4byte 0x00000001
-    .4byte 0x00000002
-    .4byte EventScr_089F049C
-    .4byte 0x00000002
-    .4byte 0x00000002
-    .4byte EventScr_089F0748
-    .4byte 0x00000003
-    .4byte 0x00000000
-    .4byte 0x00070003
-    .4byte EventScr_089F05FC
-    .4byte 0x00000701
-    .4byte 0x00000000
-    .4byte 0x00080003
-    .4byte EventScr_089F0628
-    .4byte 0x00000A07
-    .4byte 0x00000000
-    .4byte 0x00000000
     .4byte 0x00090006
     .4byte EventScr_089F0650
     .4byte 0x00100204
@@ -87,7 +66,7 @@ gUnknown_089E87EC: @ 0x009E87EC
 
     .global Ch2Events
 Ch2Events: @ 0x009E8934
-    .4byte gUnknown_089E87EC
+    .4byte EventListScr_Ch2_Turn
     .4byte 0x089E8814
     .4byte 0x089E8838
     .4byte 0x089E8890

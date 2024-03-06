@@ -770,6 +770,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); src/banim-efxop.o(.rodata);
+        . = ALIGN(4); src/banim-ekrdragon-utils.o(.rodata);
         . = ALIGN(4); data/const_data_banimekrdk.o(.rodata);
         . = ALIGN(4); src/banim-efxutils.o(.rodata);
         . = ALIGN(4); src/banim-efxsound.o(.rodata);
