@@ -2402,8 +2402,8 @@ extern u32 AnimScr_EfxLokmsunaObjRight[];
 extern struct ProcCmd ProcScr_EkrDracoZombie[];
 extern struct ProcCmd ProcScr_ekrDragonQuake[];
 extern struct ProcCmd ProcScr_ekrWhiteINOUT[];
-// extern ??? ProcScr_EkrDragon_08758720
-// extern ??? gUnknown_08758740
+extern struct ProcCmd ProcScr_EkrDragon_08758720[];
+extern u16 gUnknown_08758740[];
 // extern ??? ProcScr_EkrMyrrh
 extern struct ProcCmd ProcScr_EkrMyrrh[];
 extern s16 gUnknown_0875879C[];
