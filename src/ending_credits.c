@@ -3,6 +3,8 @@
 #include "hardware.h"
 #include "bmlib.h"
 #include "spline.h"
+#include "sysutil.h"
+#include "cg.h"
 
 struct CreditsCG
 {
@@ -17,7 +19,7 @@ struct CreditsSubProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct CreditsCG * unk_2c;
+    /* 2C */ const struct CreditsCG * unk_2c;
     /* 30 */ s16 unk_30;
     /* 32 */ STRUCT_PAD(0x32, 0x34);
     /* 34 */ s16 unk_34;
@@ -38,7 +40,7 @@ struct CreditsMainProc
     /* 38 */ s16 unk_38;
     /* 3C */ int unk_3c;
     /* 40 */ int unk_40;
-    /* 44 */ struct CreditsCG * unk_44;
+    /* 44 */ const struct CreditsCG * unk_44;
     /* 48 */ s8 unk_48;
     /* 4A */ s16 unk_4a;
 };
@@ -49,21 +51,18 @@ struct StaffReelEnt
     /* 04 */ void * tsa;
 };
 
-struct Unknown08206E24
+struct CreditsEnt
 {
-    /* 00 */ struct StaffReelEnt * entry;
-    /* 04 */ struct CreditsCG * cg[2];
+    /* 00 */ const struct StaffReelEnt * entry;
+    /* 04 */ const struct CreditsCG * cg[2];
     /* 0C */ int unk_0c;
     /* 10 */ int unk_10;
 };
 
-extern const struct Unknown08206E24 gUnknown_08206E24[];
-extern const struct StaffReelEnt * gUnknown_08206FB4;
+extern const struct CreditsEnt gUnknown_08206E24[];
 extern const u32 gUnknown_08206FDC[];
 
 extern u16 gUnknown_0201C5D4[];
-extern u16 gUnknown_08A40FC8[];
-
 
 #define CREDITS_PARENT(proc) ((struct CreditsMainProc *)(proc->proc_parent))
 
@@ -169,10 +168,28 @@ void sub_80C41E4(struct CreditsSubProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08AA2044[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08AA2044[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_80C40B0),
+
+    PROC_REPEAT(sub_80C40B8),
+    PROC_REPEAT(sub_80C412C),
+    PROC_REPEAT(sub_80C4158),
+    PROC_REPEAT(sub_80C4184),
+
+    PROC_CALL(sub_80C41E4),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C41F4
-void sub_80C41F4(ProcPtr parent, struct CreditsCG * cg)
+void sub_80C41F4(ProcPtr parent, const struct CreditsCG * cg)
 {
     struct CreditsSubProc * proc = Proc_Start(gUnknown_08AA2044, parent);
     proc->unk_2c = cg;
@@ -197,7 +214,7 @@ void sub_80C4238(struct CreditsMainProc * proc)
 {
     u32 something;
     s32 i;
-    const struct Unknown08206E24 * ptr;
+    const struct CreditsEnt * ptr;
 
     proc->unk_35 = (proc->unk_30 >> 8) / 0x100;
 
@@ -436,7 +453,7 @@ void sub_80C46F0(void)
 void sub_80C4738(struct CreditsMainProc * proc)
 {
     u32 chr;
-    const struct StaffReelEnt * ptr = gUnknown_08206FB4;
+    const struct StaffReelEnt * ptr = (&gUnknown_08206E24[20])->entry;
 
     Decompress(ptr->img, (void *)(0x6000000 + (chr = gUnknown_08206FDC[0])));
     Decompress(ptr->tsa, gGenericBuffer);
@@ -488,7 +505,47 @@ void sub_80C47F4(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_08AA2084[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08AA2084[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_80C4460),
+    PROC_REPEAT(sub_80C4664),
+
+    PROC_GOTO(1),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80C46E4),
+    PROC_SLEEP(1),
+
+    PROC_CALL_ARG(NewFadeOut, 16),
+    PROC_WHILE(FadeOutExists),
+
+    PROC_CALL(sub_80C46F0),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80C4738),
+    PROC_SLEEP(1),
+
+    PROC_CALL_ARG(NewFadeIn, 16),
+    PROC_WHILE(FadeInExists),
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_80C47B0),
+
+    PROC_CALL(StartSlowFadeToBlack),
+    PROC_REPEAT(WaitForFade),
+    PROC_SLEEP(30),
+
+    PROC_CALL(sub_80C47F4),
+    PROC_SLEEP(1),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C4878
 void sub_80C4878(ProcPtr parent)
@@ -496,3 +553,539 @@ void sub_80C4878(ProcPtr parent)
     Proc_StartBlocking(gUnknown_08AA2084, parent);
     return;
 }
+
+// clang-format off
+
+const struct StaffReelEnt StaffReelEnt_08206BA0 =
+{
+    .img = Img_StaffReelEnt_08A40FE8,
+    .tsa = Tsa_StaffReelEnt_08A4AE08,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BA8 =
+{
+    .img = Img_StaffReelEnt_08A41B30,
+    .tsa = Tsa_StaffReelEnt_08A4B090,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BB0 =
+{
+    .img = Img_StaffReelEnt_08A42748,
+    .tsa = Tsa_StaffReelEnt_08A4B2F4,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BB8 =
+{
+    .img = Img_StaffReelEnt_08A432C0,
+    .tsa = Tsa_StaffReelEnt_08A4B558,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BC0 =
+{
+    .img = Img_StaffReelEnt_08A43CBC,
+    .tsa = Tsa_StaffReelEnt_08A4B788,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BC8 =
+{
+    .img = Img_StaffReelEnt_08A45150,
+    .tsa = Tsa_StaffReelEnt_08A4BB50,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BD0 =
+{
+    .img = Img_StaffReelEnt_08A4561C,
+    .tsa = Tsa_StaffReelEnt_08A4BCC4,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BD8 =
+{
+    .img = Img_StaffReelEnt_08A45F58,
+    .tsa = Tsa_StaffReelEnt_08A4BEC0,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BE0 =
+{
+    .img = Img_StaffReelEnt_08A46988,
+    .tsa = Tsa_StaffReelEnt_08A4C0E4,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BE8 =
+{
+    .img = Img_StaffReelEnt_08A472B0,
+    .tsa = Tsa_StaffReelEnt_08A4C308,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BF0 =
+{
+    .img = Img_StaffReelEnt_08A48744,
+    .tsa = Tsa_StaffReelEnt_08A4C6EC,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206BF8 =
+{
+    .img = Img_StaffReelEnt_08A497A8,
+    .tsa = Tsa_StaffReelEnt_08A4C9F0,
+};
+
+const struct StaffReelEnt StaffReelEnt_08206C00 =
+{
+    .img = Img_StaffReelEnt_08A4A9D4,
+    .tsa = Tsa_StaffReelEnt_08A4CD40,
+};
+
+const struct CreditsCG CreditsCG_08206C08 =
+{
+    .img =
+    {
+        cg_0_part_0_tiles,
+        cg_0_part_1_tiles,
+        cg_0_part_2_tiles,
+        cg_0_part_3_tiles,
+        cg_0_part_4_tiles,
+        cg_0_part_5_tiles,
+        cg_0_part_6_tiles,
+        cg_0_part_7_tiles,
+        cg_0_part_8_tiles,
+        cg_0_part_9_tiles,
+    },
+    .tsa = cg_0_map,
+    .pal = cg_0_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206C3C =
+{
+    .img =
+    {
+        cg_1_part_0_tiles,
+        cg_1_part_1_tiles,
+        cg_1_part_2_tiles,
+        cg_1_part_3_tiles,
+        cg_1_part_4_tiles,
+        cg_1_part_5_tiles,
+        cg_1_part_6_tiles,
+        cg_1_part_7_tiles,
+        cg_1_part_8_tiles,
+        cg_1_part_9_tiles,
+    },
+    .tsa = cg_1_map,
+    .pal = cg_1_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206C70 =
+{
+    .img =
+    {
+        cg_2_part_0_tiles,
+        cg_2_part_1_tiles,
+        cg_2_part_2_tiles,
+        cg_2_part_3_tiles,
+        cg_2_part_4_tiles,
+        cg_2_part_5_tiles,
+        cg_2_part_6_tiles,
+        cg_2_part_7_tiles,
+        cg_2_part_8_tiles,
+        cg_2_part_9_tiles,
+    },
+    .tsa = cg_2_map,
+    .pal = cg_2_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206CA4 =
+{
+    .img =
+    {
+        cg_3_part_0_tiles,
+        cg_3_part_1_tiles,
+        cg_3_part_2_tiles,
+        cg_3_part_3_tiles,
+        cg_3_part_4_tiles,
+        cg_3_part_5_tiles,
+        cg_3_part_6_tiles,
+        cg_3_part_7_tiles,
+        cg_3_part_8_tiles,
+        cg_3_part_9_tiles,
+    },
+    .tsa = cg_3_map,
+    .pal = cg_3_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206CD8 =
+{
+    .img =
+    {
+        cg_4_part_0_tiles,
+        cg_4_part_1_tiles,
+        cg_4_part_2_tiles,
+        cg_4_part_3_tiles,
+        cg_4_part_4_tiles,
+        cg_4_part_5_tiles,
+        cg_4_part_6_tiles,
+        cg_4_part_7_tiles,
+        cg_4_part_8_tiles,
+        cg_4_part_9_tiles,
+    },
+    .tsa = cg_4_map,
+    .pal = cg_4_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206D0C =
+{
+    .img =
+    {
+        cg_5_part_0_tiles,
+        cg_5_part_1_tiles,
+        cg_5_part_2_tiles,
+        cg_5_part_3_tiles,
+        cg_5_part_4_tiles,
+        cg_5_part_5_tiles,
+        cg_5_part_6_tiles,
+        cg_5_part_7_tiles,
+        cg_5_part_8_tiles,
+        cg_5_part_9_tiles,
+    },
+    .tsa = cg_5_map,
+    .pal = cg_5_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206D40 =
+{
+    .img =
+    {
+        cg_6_part_0_tiles,
+        cg_6_part_1_tiles,
+        cg_6_part_2_tiles,
+        cg_6_part_3_tiles,
+        cg_6_part_4_tiles,
+        cg_6_part_5_tiles,
+        cg_6_part_6_tiles,
+        cg_6_part_7_tiles,
+        cg_6_part_8_tiles,
+        cg_6_part_9_tiles,
+    },
+    .tsa = cg_6_map,
+    .pal = cg_6_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206D74 =
+{
+    .img =
+    {
+        cg_7_part_0_tiles,
+        cg_7_part_1_tiles,
+        cg_7_part_2_tiles,
+        cg_7_part_3_tiles,
+        cg_7_part_4_tiles,
+        cg_7_part_5_tiles,
+        cg_7_part_6_tiles,
+        cg_7_part_7_tiles,
+        cg_7_part_8_tiles,
+        cg_7_part_9_tiles,
+    },
+    .tsa = cg_7_map,
+    .pal = cg_7_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206DA8 =
+{
+    .img =
+    {
+        cg_8_part_0_tiles,
+        cg_8_part_1_tiles,
+        cg_8_part_2_tiles,
+        cg_8_part_3_tiles,
+        cg_8_part_4_tiles,
+        cg_8_part_5_tiles,
+        cg_8_part_6_tiles,
+        cg_8_part_7_tiles,
+        cg_8_part_8_tiles,
+        cg_8_part_9_tiles,
+    },
+    .tsa = cg_8_map,
+    .pal = cg_8_palette,
+    .unk_30 = 0x78,
+};
+
+const struct CreditsCG CreditsCG_08206DDC =
+{
+    .img =
+    {
+        cg_9_part_0_tiles,
+        cg_9_part_1_tiles,
+        cg_9_part_2_tiles,
+        cg_9_part_3_tiles,
+        cg_9_part_4_tiles,
+        cg_9_part_5_tiles,
+        cg_9_part_6_tiles,
+        cg_9_part_7_tiles,
+        cg_9_part_8_tiles,
+        cg_9_part_9_tiles,
+    },
+    .tsa = cg_9_map,
+    .pal = cg_9_palette,
+    .unk_30 = 0x78,
+};
+
+const u32 Padding_08206E10[5] = {0};
+
+const struct CreditsEnt gUnknown_08206E24[] =
+{
+    [0] =
+    {
+        .entry = &StaffReelEnt_08206BA0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [1] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206C3C,
+            [1] = &CreditsCG_08206C70,
+        },
+        .unk_0c = 0x00016000,
+        .unk_10 = 0x00027000,
+    },
+    [2] =
+    {
+        .entry = &StaffReelEnt_08206BA8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [3] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206DA8,
+            [1] = &CreditsCG_08206DA8,
+        },
+        .unk_0c = 0x00034000,
+        .unk_10 = 0x00047000,
+    },
+    [4] =
+    {
+        .entry = &StaffReelEnt_08206BB0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [5] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206CA4,
+            [1] = &CreditsCG_08206CA4,
+        },
+        .unk_0c = 0x00055000,
+        .unk_10 = 0x00067000,
+    },
+    [6] =
+    {
+        .entry = &StaffReelEnt_08206BB8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [7] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206D40,
+            [1] = &CreditsCG_08206D40,
+        },
+        .unk_0c = 0x00074000,
+        .unk_10 = 0x00087000,
+    },
+    [8] =
+    {
+        .entry = &StaffReelEnt_08206BC0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [9] =
+    {
+        .entry = &StaffReelEnt_08206BC8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [10] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206D74,
+            [1] = &CreditsCG_08206D74,
+        },
+        .unk_0c = 0x0009E800,
+        .unk_10 = 0x000B7000,
+    },
+    [11] =
+    {
+        .entry = &StaffReelEnt_08206BD0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [12] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206DDC,
+            [1] = &CreditsCG_08206DDC,
+        },
+        .unk_0c = 0x000C2000,
+        .unk_10 = 0x000D7000,
+    },
+    [13] =
+    {
+        .entry = &StaffReelEnt_08206BD8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [14] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206CD8,
+            [1] = &CreditsCG_08206CD8,
+        },
+        .unk_0c = 0x000E4000,
+        .unk_10 = 0x000F7000,
+    },
+    [15] =
+    {
+        .entry = &StaffReelEnt_08206BE0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [16] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = &CreditsCG_08206D0C,
+            [1] = &CreditsCG_08206D0C,
+        },
+        .unk_0c = 0x00103000,
+        .unk_10 = 0x00117000,
+    },
+    [17] =
+    {
+        .entry = &StaffReelEnt_08206BE8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [18] =
+    {
+        .entry = &StaffReelEnt_08206BF0,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [19] =
+    {
+        .entry = &StaffReelEnt_08206BF8,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [20] =
+    {
+        .entry = &StaffReelEnt_08206C00,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+    [21] =
+    {
+        .entry = NULL,
+        .cg =
+        {
+            [0] = NULL,
+            [1] = NULL,
+        },
+        .unk_0c = 0,
+        .unk_10 = 0,
+    },
+};
+
+const u32 gUnknown_08206FDC[] =
+{
+    0x400,
+    0x3400,
+};
+
+// clang-format on

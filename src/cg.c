@@ -2,16 +2,7 @@
 #include "bmlib.h"
 #include "hardware.h"
 
-extern u8 cg_0_part_0_tiles[];
-extern u8 cg_0_part_1_tiles[];
-extern u8 cg_0_part_2_tiles[];
-extern u8 cg_0_part_3_tiles[];
-extern u8 cg_0_part_4_tiles[];
-extern u8 cg_0_part_5_tiles[];
-extern u8 cg_0_part_6_tiles[];
-extern u8 cg_0_part_7_tiles[];
-extern u8 cg_0_part_8_tiles[];
-extern u8 cg_0_part_9_tiles[];
+#include "cg.h"
 
 u8* CONST_DATA cg_0_tiles[] = {
     cg_0_part_0_tiles,
@@ -26,17 +17,6 @@ u8* CONST_DATA cg_0_tiles[] = {
     cg_0_part_9_tiles,
 };
 
-extern u8 cg_1_part_0_tiles[];
-extern u8 cg_1_part_1_tiles[];
-extern u8 cg_1_part_2_tiles[];
-extern u8 cg_1_part_3_tiles[];
-extern u8 cg_1_part_4_tiles[];
-extern u8 cg_1_part_5_tiles[];
-extern u8 cg_1_part_6_tiles[];
-extern u8 cg_1_part_7_tiles[];
-extern u8 cg_1_part_8_tiles[];
-extern u8 cg_1_part_9_tiles[];
-
 u8* CONST_DATA cg_1_tiles[] = {
     cg_1_part_0_tiles,
     cg_1_part_1_tiles,
@@ -49,17 +29,6 @@ u8* CONST_DATA cg_1_tiles[] = {
     cg_1_part_8_tiles,
     cg_1_part_9_tiles,
 };
-
-extern u8 cg_2_part_0_tiles[];
-extern u8 cg_2_part_1_tiles[];
-extern u8 cg_2_part_2_tiles[];
-extern u8 cg_2_part_3_tiles[];
-extern u8 cg_2_part_4_tiles[];
-extern u8 cg_2_part_5_tiles[];
-extern u8 cg_2_part_6_tiles[];
-extern u8 cg_2_part_7_tiles[];
-extern u8 cg_2_part_8_tiles[];
-extern u8 cg_2_part_9_tiles[];
 
 u8* CONST_DATA cg_2_tiles[] = {
     cg_2_part_0_tiles,
@@ -74,17 +43,6 @@ u8* CONST_DATA cg_2_tiles[] = {
     cg_2_part_9_tiles,
 };
 
-extern u8 cg_3_part_0_tiles[];
-extern u8 cg_3_part_1_tiles[];
-extern u8 cg_3_part_2_tiles[];
-extern u8 cg_3_part_3_tiles[];
-extern u8 cg_3_part_4_tiles[];
-extern u8 cg_3_part_5_tiles[];
-extern u8 cg_3_part_6_tiles[];
-extern u8 cg_3_part_7_tiles[];
-extern u8 cg_3_part_8_tiles[];
-extern u8 cg_3_part_9_tiles[];
-
 u8* CONST_DATA cg_3_tiles[] = {
     cg_3_part_0_tiles,
     cg_3_part_1_tiles,
@@ -97,17 +55,6 @@ u8* CONST_DATA cg_3_tiles[] = {
     cg_3_part_8_tiles,
     cg_3_part_9_tiles,
 };
-
-extern u8 cg_4_part_0_tiles[];
-extern u8 cg_4_part_1_tiles[];
-extern u8 cg_4_part_2_tiles[];
-extern u8 cg_4_part_3_tiles[];
-extern u8 cg_4_part_4_tiles[];
-extern u8 cg_4_part_5_tiles[];
-extern u8 cg_4_part_6_tiles[];
-extern u8 cg_4_part_7_tiles[];
-extern u8 cg_4_part_8_tiles[];
-extern u8 cg_4_part_9_tiles[];
 
 u8* CONST_DATA cg_4_tiles[] = {
     cg_4_part_0_tiles,
@@ -122,17 +69,6 @@ u8* CONST_DATA cg_4_tiles[] = {
     cg_4_part_9_tiles,
 };
 
-extern u8 cg_5_part_0_tiles[];
-extern u8 cg_5_part_1_tiles[];
-extern u8 cg_5_part_2_tiles[];
-extern u8 cg_5_part_3_tiles[];
-extern u8 cg_5_part_4_tiles[];
-extern u8 cg_5_part_5_tiles[];
-extern u8 cg_5_part_6_tiles[];
-extern u8 cg_5_part_7_tiles[];
-extern u8 cg_5_part_8_tiles[];
-extern u8 cg_5_part_9_tiles[];
-
 u8* CONST_DATA cg_5_tiles[] = {
     cg_5_part_0_tiles,
     cg_5_part_1_tiles,
@@ -145,17 +81,6 @@ u8* CONST_DATA cg_5_tiles[] = {
     cg_5_part_8_tiles,
     cg_5_part_9_tiles,
 };
-
-extern u8 cg_6_part_0_tiles[];
-extern u8 cg_6_part_1_tiles[];
-extern u8 cg_6_part_2_tiles[];
-extern u8 cg_6_part_3_tiles[];
-extern u8 cg_6_part_4_tiles[];
-extern u8 cg_6_part_5_tiles[];
-extern u8 cg_6_part_6_tiles[];
-extern u8 cg_6_part_7_tiles[];
-extern u8 cg_6_part_8_tiles[];
-extern u8 cg_6_part_9_tiles[];
 
 u8* CONST_DATA cg_6_tiles[] = {
     cg_6_part_0_tiles,
@@ -170,17 +95,6 @@ u8* CONST_DATA cg_6_tiles[] = {
     cg_6_part_9_tiles,
 };
 
-extern u8 cg_7_part_0_tiles[];
-extern u8 cg_7_part_1_tiles[];
-extern u8 cg_7_part_2_tiles[];
-extern u8 cg_7_part_3_tiles[];
-extern u8 cg_7_part_4_tiles[];
-extern u8 cg_7_part_5_tiles[];
-extern u8 cg_7_part_6_tiles[];
-extern u8 cg_7_part_7_tiles[];
-extern u8 cg_7_part_8_tiles[];
-extern u8 cg_7_part_9_tiles[];
-
 u8* CONST_DATA cg_7_tiles[] = {
     cg_7_part_0_tiles,
     cg_7_part_1_tiles,
@@ -194,17 +108,6 @@ u8* CONST_DATA cg_7_tiles[] = {
     cg_7_part_9_tiles,
 };
 
-extern u8 cg_8_part_0_tiles[];
-extern u8 cg_8_part_1_tiles[];
-extern u8 cg_8_part_2_tiles[];
-extern u8 cg_8_part_3_tiles[];
-extern u8 cg_8_part_4_tiles[];
-extern u8 cg_8_part_5_tiles[];
-extern u8 cg_8_part_6_tiles[];
-extern u8 cg_8_part_7_tiles[];
-extern u8 cg_8_part_8_tiles[];
-extern u8 cg_8_part_9_tiles[];
-
 u8* CONST_DATA cg_8_tiles[] = {
     cg_8_part_0_tiles,
     cg_8_part_1_tiles,
@@ -217,17 +120,6 @@ u8* CONST_DATA cg_8_tiles[] = {
     cg_8_part_8_tiles,
     cg_8_part_9_tiles,
 };
-
-extern u8 cg_9_part_0_tiles[];
-extern u8 cg_9_part_1_tiles[];
-extern u8 cg_9_part_2_tiles[];
-extern u8 cg_9_part_3_tiles[];
-extern u8 cg_9_part_4_tiles[];
-extern u8 cg_9_part_5_tiles[];
-extern u8 cg_9_part_6_tiles[];
-extern u8 cg_9_part_7_tiles[];
-extern u8 cg_9_part_8_tiles[];
-extern u8 cg_9_part_9_tiles[];
 
 u8* CONST_DATA cg_9_tiles[] = {
     cg_9_part_0_tiles,
