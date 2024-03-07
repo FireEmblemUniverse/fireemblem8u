@@ -368,9 +368,113 @@ gUnknown_08A40AD4:  @ 0x08A40AD4
 gUnknown_08A40B14:  @ 0x08A40B14
 	.incbin "baserom.gba", 0xA40B14, 0x4B4
 
-	.global gUnknown_08A40FC8
-gUnknown_08A40FC8:  @ 0x08A40FC8
-	.incbin "baserom.gba", 0xA40FC8, 0xBF64
+	.global Pal_StaffReelEnt_08A40FC8
+Pal_StaffReelEnt_08A40FC8:  @ 0x08A40FC8
+	.incbin "baserom.gba", 0xA40FC8, 0x20    @ 0xA40FE8 - 0xA40FC8
+
+	.global Img_StaffReelEnt_08A40FE8
+Img_StaffReelEnt_08A40FE8:  @ 0x08A40FE8
+	.incbin "baserom.gba", 0xA40FE8, 0xB48    @ 0xA41B30 - 0xA40FE8
+
+	.global Img_StaffReelEnt_08A41B30
+Img_StaffReelEnt_08A41B30:  @ 0x08A41B30
+	.incbin "baserom.gba", 0xA41B30, 0xC18    @ 0xA42748 - 0xA41B30
+
+	.global Img_StaffReelEnt_08A42748
+Img_StaffReelEnt_08A42748:  @ 0x08A42748
+	.incbin "baserom.gba", 0xA42748, 0xB78    @ 0xA432C0 - 0xA42748
+
+	.global Img_StaffReelEnt_08A432C0
+Img_StaffReelEnt_08A432C0:  @ 0x08A432C0
+	.incbin "baserom.gba", 0xA432C0, 0x9FC    @ 0xA43CBC - 0xA432C0
+
+	.global Img_StaffReelEnt_08A43CBC
+Img_StaffReelEnt_08A43CBC:  @ 0x08A43CBC
+	.incbin "baserom.gba", 0xA43CBC, 0x1494    @ 0xA45150 - 0xA43CBC
+
+	.global Img_StaffReelEnt_08A45150
+Img_StaffReelEnt_08A45150:  @ 0x08A45150
+	.incbin "baserom.gba", 0xA45150, 0x4CC    @ 0xA4561C - 0xA45150
+
+	.global Img_StaffReelEnt_08A4561C
+Img_StaffReelEnt_08A4561C:  @ 0x08A4561C
+	.incbin "baserom.gba", 0xA4561C, 0x93C    @ 0xA45F58 - 0xA4561C
+
+	.global Img_StaffReelEnt_08A45F58
+Img_StaffReelEnt_08A45F58:  @ 0x08A45F58
+	.incbin "baserom.gba", 0xA45F58, 0xA30    @ 0xA46988 - 0xA45F58
+
+	.global Img_StaffReelEnt_08A46988
+Img_StaffReelEnt_08A46988:  @ 0x08A46988
+	.incbin "baserom.gba", 0xA46988, 0x928    @ 0xA472B0 - 0xA46988
+
+	.global Img_StaffReelEnt_08A472B0
+Img_StaffReelEnt_08A472B0:  @ 0x08A472B0
+	.incbin "baserom.gba", 0xA472B0, 0x1494    @ 0xA48744 - 0xA472B0
+
+	.global Img_StaffReelEnt_08A48744
+Img_StaffReelEnt_08A48744:  @ 0x08A48744
+	.incbin "baserom.gba", 0xA48744, 0x1064    @ 0xA497A8 - 0xA48744
+
+	.global Img_StaffReelEnt_08A497A8
+Img_StaffReelEnt_08A497A8:  @ 0x08A497A8
+	.incbin "baserom.gba", 0xA497A8, 0x122C    @ 0xA4A9D4 - 0xA497A8
+
+	.global Img_StaffReelEnt_08A4A9D4
+Img_StaffReelEnt_08A4A9D4:  @ 0x08A4A9D4
+	.incbin "baserom.gba", 0xA4A9D4, 0x434    @ 0xA4AE08 - 0xA4A9D4
+
+	.global Tsa_StaffReelEnt_08A4AE08
+Tsa_StaffReelEnt_08A4AE08:  @ 0x08A4AE08
+	.incbin "baserom.gba", 0xA4AE08, 0x288    @ 0xA4B090 - 0xA4AE08
+
+	.global Tsa_StaffReelEnt_08A4B090
+Tsa_StaffReelEnt_08A4B090:  @ 0x08A4B090
+	.incbin "baserom.gba", 0xA4B090, 0x264    @ 0xA4B2F4 - 0xA4B090
+
+	.global Tsa_StaffReelEnt_08A4B2F4
+Tsa_StaffReelEnt_08A4B2F4:  @ 0x08A4B2F4
+	.incbin "baserom.gba", 0xA4B2F4, 0x264    @ 0xA4B558 - 0xA4B2F4
+
+	.global Tsa_StaffReelEnt_08A4B558
+Tsa_StaffReelEnt_08A4B558:  @ 0x08A4B558
+	.incbin "baserom.gba", 0xA4B558, 0x230    @ 0xA4B788 - 0xA4B558
+
+	.global Tsa_StaffReelEnt_08A4B788
+Tsa_StaffReelEnt_08A4B788:  @ 0x08A4B788
+	.incbin "baserom.gba", 0xA4B788, 0x3C8    @ 0xA4BB50 - 0xA4B788
+
+	.global Tsa_StaffReelEnt_08A4BB50
+Tsa_StaffReelEnt_08A4BB50:  @ 0x08A4BB50
+	.incbin "baserom.gba", 0xA4BB50, 0x174    @ 0xA4BCC4 - 0xA4BB50
+
+	.global Tsa_StaffReelEnt_08A4BCC4
+Tsa_StaffReelEnt_08A4BCC4:  @ 0x08A4BCC4
+	.incbin "baserom.gba", 0xA4BCC4, 0x1FC    @ 0xA4BEC0 - 0xA4BCC4
+
+	.global Tsa_StaffReelEnt_08A4BEC0
+Tsa_StaffReelEnt_08A4BEC0:  @ 0x08A4BEC0
+	.incbin "baserom.gba", 0xA4BEC0, 0x224    @ 0xA4C0E4 - 0xA4BEC0
+
+	.global Tsa_StaffReelEnt_08A4C0E4
+Tsa_StaffReelEnt_08A4C0E4:  @ 0x08A4C0E4
+	.incbin "baserom.gba", 0xA4C0E4, 0x224    @ 0xA4C308 - 0xA4C0E4
+
+	.global Tsa_StaffReelEnt_08A4C308
+Tsa_StaffReelEnt_08A4C308:  @ 0x08A4C308
+	.incbin "baserom.gba", 0xA4C308, 0x3E4    @ 0xA4C6EC - 0xA4C308
+
+	.global Tsa_StaffReelEnt_08A4C6EC
+Tsa_StaffReelEnt_08A4C6EC:  @ 0x08A4C6EC
+	.incbin "baserom.gba", 0xA4C6EC, 0x304    @ 0xA4C9F0 - 0xA4C6EC
+
+	.global Tsa_StaffReelEnt_08A4C9F0
+Tsa_StaffReelEnt_08A4C9F0:  @ 0x08A4C9F0
+	.incbin "baserom.gba", 0xA4C9F0, 0x350    @ 0xA4CD40 - 0xA4C9F0
+
+	.global Tsa_StaffReelEnt_08A4CD40
+Tsa_StaffReelEnt_08A4CD40:  @ 0x08A4CD40
+	.incbin "baserom.gba", 0xA4CD40, 0x1EC    @ 0xA4CF2C - 0xA4CD40
 
 	.global gGfx_BrownTextBox
 gGfx_BrownTextBox:  @ 0x08A4CF2C
@@ -1371,103 +1475,3 @@ gImg_WorldmapSkirmish:  @ 0x08AA1970
 	.global SpriteAnim_WorldmapSkirmish
 SpriteAnim_WorldmapSkirmish:  @ 0x08AA1C70
 	.incbin "baserom.gba", 0xAA1C70, 0x3D4
-
-	.global gUnknown_08AA2044
-gUnknown_08AA2044:  @ 0x08AA2044
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C40B0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C40B8
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C412C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C4158
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C4184
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C41E4
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08AA2084
-gUnknown_08AA2084:  @ 0x08AA2084
-        @ PROC_YIELD
-        .short 0xe, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C4460
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C4664
-        @ PROC_GOTO
-        .short 0xc, 0x1
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C46E4
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL_ARG
-        .short 0x18, 0x10
-        .word NewFadeOut
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word FadeOutExists
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C46F0
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C4738
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL_ARG
-        .short 0x18, 0x10
-        .word NewFadeIn
-        @ PROC_WHILE
-        .short 0x14, 0x0
-        .word FadeInExists
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C47B0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word StartSlowFadeToBlack
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word WaitForFade
-        @ PROC_SLEEP
-        .short 0xe, 0x1e
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C47F4
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0

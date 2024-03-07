@@ -10499,7 +10499,7 @@ CONST_DATA EventListScr EventScr_08A00680[] = {
     EVBIT_F(2)
     ASMC(BMapDispSuspend)
     MUSC(0x42)
-    ASMC(sub_80C4878)
+    ASMC(StartEndingCredits)
     STAL(90)
     EvtTextStartType2 // ENOSUPP in EAstdlib
     EvtBgFadeIn(0x0, 0, 2) // ENOSUPP in EAstdlib
