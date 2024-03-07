@@ -368,8 +368,8 @@ gUnknown_08A40AD4:  @ 0x08A40AD4
 gUnknown_08A40B14:  @ 0x08A40B14
 	.incbin "baserom.gba", 0xA40B14, 0x4B4
 
-	.global gUnknown_08A40FC8
-gUnknown_08A40FC8:  @ 0x08A40FC8
+	.global Pal_StaffReelEnt_08A40FC8
+Pal_StaffReelEnt_08A40FC8:  @ 0x08A40FC8
 	.incbin "baserom.gba", 0xA40FC8, 0x20    @ 0xA40FE8 - 0xA40FC8
 
 	.global Img_StaffReelEnt_08A40FE8

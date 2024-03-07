@@ -6,6 +6,8 @@
 #include "sysutil.h"
 #include "cg.h"
 
+#include "ending_credits.h"
+
 struct CreditsCG
 {
     /* 00 */ u8 * img[10];
@@ -19,7 +21,7 @@ struct CreditsSubProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ const struct CreditsCG * unk_2c;
+    /* 2C */ const struct CreditsCG * cg;
     /* 30 */ s16 unk_30;
     /* 32 */ STRUCT_PAD(0x32, 0x34);
     /* 34 */ s16 unk_34;
@@ -40,9 +42,9 @@ struct CreditsMainProc
     /* 38 */ s16 unk_38;
     /* 3C */ int unk_3c;
     /* 40 */ int unk_40;
-    /* 44 */ const struct CreditsCG * unk_44;
+    /* 44 */ const struct CreditsCG * cg;
     /* 48 */ s8 unk_48;
-    /* 4A */ s16 unk_4a;
+    /* 4A */ s16 timer;
 };
 
 struct StaffReelEnt
@@ -55,8 +57,8 @@ struct CreditsEnt
 {
     /* 00 */ const struct StaffReelEnt * entry;
     /* 04 */ const struct CreditsCG * cg[2];
-    /* 0C */ int unk_0c;
-    /* 10 */ int unk_10;
+    /* 0C */ int unk_0c; // delay before playing the CG
+    /* 10 */ int unk_10; // delay before playing next staff credit roll
 };
 
 extern const struct CreditsEnt gUnknown_08206E24[];
@@ -70,7 +72,7 @@ extern u16 gUnknown_0201C5D4[];
 int CheckGameEndFlag(void);
 
 //! FE8U = 0x080C40B0
-void sub_80C40B0(struct CreditsSubProc * proc)
+void CreditsBlendCG_Init(struct CreditsSubProc * proc)
 {
     proc->unk_30 = 0;
     proc->unk_34 = 0;
@@ -78,20 +80,20 @@ void sub_80C40B0(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C40B8
-void sub_80C40B8(struct CreditsSubProc * proc)
+void CreditsBlendCG_80C40B8(struct CreditsSubProc * proc)
 {
     proc->unk_30++;
 
-    if (proc->unk_30 < 0x78)
+    if (proc->unk_30 < 120)
     {
-        int tmp = sub_800B84C(0x77 - proc->unk_30, 0x78, 1);
-        int bldAmt = DivArm(0x1000, (0x1000 - tmp) * 0x10);
-        SetBlendAlpha(0x10 - bldAmt, bldAmt);
+        int tmp = sub_800B84C(119 - proc->unk_30, 120, 1);
+        int bldAmt = DivArm(0x1000, (0x1000 - tmp) * 16);
+        SetBlendAlpha(16 - bldAmt, bldAmt);
     }
     else
     {
         SetBlendAlpha(0, 16);
-        proc->unk_34 = proc->unk_2c->unk_30;
+        proc->unk_34 = proc->cg->unk_30;
 
         CREDITS_PARENT(proc)->unk_29_0 = 1;
 
@@ -102,7 +104,7 @@ void sub_80C40B8(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C412C
-void sub_80C412C(struct CreditsSubProc * proc)
+void CreditsBlendCG_80C412C(struct CreditsSubProc * proc)
 {
     int val;
     struct CreditsMainProc * parent;
@@ -127,7 +129,7 @@ void sub_80C412C(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C4158
-void sub_80C4158(struct CreditsSubProc * proc)
+void CreditsBlendCG_80C4158(struct CreditsSubProc * proc)
 {
     proc->unk_34--;
 
@@ -142,13 +144,13 @@ void sub_80C4158(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C4184
-void sub_80C4184(struct CreditsSubProc * proc)
+void CreditsBlendCG_80C4184(struct CreditsSubProc * proc)
 {
     proc->unk_30++;
 
-    if (proc->unk_30 < 0x78)
+    if (proc->unk_30 < 120)
     {
-        int tmp = sub_800B84C(0x77 - proc->unk_30, 0x78, 1);
+        int tmp = sub_800B84C(119 - proc->unk_30, 120, 1);
         int bldAmt = DivArm(0x1000, (0x1000 - tmp) * 16);
         SetBlendAlpha(bldAmt, 16 - bldAmt);
     }
@@ -162,7 +164,7 @@ void sub_80C4184(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C41E4
-void sub_80C41E4(struct CreditsSubProc * proc)
+void CreditsBlendCG_OnEnd(struct CreditsSubProc * proc)
 {
     CREDITS_PARENT(proc)->unk_29_2 = 0;
     return;
@@ -170,18 +172,18 @@ void sub_80C41E4(struct CreditsSubProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08AA2044[] =
+struct ProcCmd CONST_DATA ProcScr_EndingCredits_BlendCGMaybe[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_80C40B0),
+    PROC_CALL(CreditsBlendCG_Init),
 
-    PROC_REPEAT(sub_80C40B8),
-    PROC_REPEAT(sub_80C412C),
-    PROC_REPEAT(sub_80C4158),
-    PROC_REPEAT(sub_80C4184),
+    PROC_REPEAT(CreditsBlendCG_80C40B8),
+    PROC_REPEAT(CreditsBlendCG_80C412C),
+    PROC_REPEAT(CreditsBlendCG_80C4158),
+    PROC_REPEAT(CreditsBlendCG_80C4184),
 
-    PROC_CALL(sub_80C41E4),
+    PROC_CALL(CreditsBlendCG_OnEnd),
 
     PROC_END,
 };
@@ -189,23 +191,23 @@ struct ProcCmd CONST_DATA gUnknown_08AA2044[] =
 // clang-format on
 
 //! FE8U = 0x080C41F4
-void sub_80C41F4(ProcPtr parent, const struct CreditsCG * cg)
+void StartBlendCreditsCGMaybe(ProcPtr parent, const struct CreditsCG * cg)
 {
-    struct CreditsSubProc * proc = Proc_Start(gUnknown_08AA2044, parent);
-    proc->unk_2c = cg;
+    struct CreditsSubProc * proc = Proc_Start(ProcScr_EndingCredits_BlendCGMaybe, parent);
+    proc->cg = cg;
     return;
 }
 
 //! FE8U = 0x080C4210
-bool sub_80C4210(void)
+bool IsCreditsBlendCGActive(void)
 {
-    return Proc_Find(gUnknown_08AA2044) ? true : false;
+    return Proc_Find(ProcScr_EndingCredits_BlendCGMaybe) ? true : false;
 }
 
 //! FE8U = 0x080C4228
-void sub_80C4228(void)
+void EndCreditsBlendCG(void)
 {
-    Proc_EndEach(gUnknown_08AA2044);
+    Proc_EndEach(ProcScr_EndingCredits_BlendCGMaybe);
     return;
 }
 
@@ -222,7 +224,7 @@ void sub_80C4238(struct CreditsMainProc * proc)
     {
         if (!proc->unk_29_2)
         {
-            for (i = proc->unk_35 + 1; i < 0x17u; i++)
+            for (i = proc->unk_35 + 1; i < 23u; i++)
             {
                 ptr = &gUnknown_08206E24[i - 1];
 
@@ -235,11 +237,11 @@ void sub_80C4238(struct CreditsMainProc * proc)
 
                 if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EIRIKA)
                 {
-                    proc->unk_44 = ptr->cg[0];
+                    proc->cg = ptr->cg[0];
                 }
                 else
                 {
-                    proc->unk_44 = ptr->cg[1];
+                    proc->cg = ptr->cg[1];
                 }
 
                 proc->unk_3c = ptr->unk_0c;
@@ -283,9 +285,9 @@ void sub_80C43B4(struct CreditsMainProc * proc)
 
     if (proc->unk_38 != proc->unk_36)
     {
-        int tmp = unk_30 + 0xf0;
+        int tmp = unk_30 + 240;
         int val = tmp - (tmp / 0x100) * 0x100;
-        val = ((val / 8) * 0x20);
+        val = ((val / 8) * 32);
 
         CpuFastCopy(gUnknown_0201C5D4 + val, gBG0TilemapBuffer + val, 0x80);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -293,9 +295,9 @@ void sub_80C43B4(struct CreditsMainProc * proc)
         proc->unk_36 = proc->unk_38;
     }
 
-    if (!sub_80C4210() && (proc->unk_2c != proc->unk_30) && ((proc->unk_29_2) != 0) && (proc->unk_30 >= proc->unk_3c))
+    if (!IsCreditsBlendCGActive() && (proc->unk_2c != proc->unk_30) && ((proc->unk_29_2) != 0) && (proc->unk_30 >= proc->unk_3c))
     {
-        sub_80C41F4(proc, proc->unk_44);
+        StartBlendCreditsCGMaybe(proc, proc->cg);
     }
 
     BG_SetPosition(BG_0, 0, unk_30 & 0xff);
@@ -306,7 +308,7 @@ void sub_80C43B4(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C4460
-void sub_80C4460(struct CreditsMainProc * proc)
+void EndingCredits_Init(struct CreditsMainProc * proc)
 {
     u32 chr;
     int i;
@@ -330,7 +332,7 @@ void sub_80C4460(struct CreditsMainProc * proc)
 
     CpuFastFill(0, gPaletteBuffer, PLTT_SIZE);
 
-    ApplyPalette(gUnknown_08A40FC8, 7);
+    ApplyPalette(Pal_StaffReelEnt_08A40FC8, 7);
 
     CpuFastFill(-1, (void *)(0x6000000 + (chr = gUnknown_08206FDC[0])), 0x20);
 
@@ -362,7 +364,7 @@ void sub_80C4460(struct CreditsMainProc * proc)
     proc->unk_35 = 0;
     proc->unk_36 = 0;
     proc->unk_38 = 0;
-    proc->unk_4a = 0;
+    proc->timer = 0;
 
     return;
 }
@@ -370,19 +372,18 @@ void sub_80C4460(struct CreditsMainProc * proc)
 //! FE8U = 0x080C45E0
 void sub_80C45E0(struct CreditsMainProc * proc)
 {
-
     if (proc->unk_29_1)
     {
         if (proc->unk_48 < 10)
         {
-            Decompress(proc->unk_44->img[proc->unk_48], (void *)(0x06008000 + proc->unk_48 * 0x800));
+            Decompress(proc->cg->img[proc->unk_48], (void *)(0x06008000 + proc->unk_48 * 0x800));
         }
         else
         {
-            CallARM_FillTileRect(gBG3TilemapBuffer, proc->unk_44->tsa, 0);
+            CallARM_FillTileRect(gBG3TilemapBuffer, proc->cg->tsa, 0);
             BG_EnableSyncByMask(BG3_SYNC_BIT);
 
-            ApplyPalettes(proc->unk_44->pal, 0, 6);
+            ApplyPalettes(proc->cg->pal, 0, 6);
             EnablePaletteSync();
         }
 
@@ -398,7 +399,7 @@ void sub_80C45E0(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C4664
-void sub_80C4664(struct CreditsMainProc * proc)
+void EndingCredits_Loop_Main(struct CreditsMainProc * proc)
 {
     if (((gKeyStatusPtr->newKeys & START_BUTTON) != 0) && (CheckGameEndFlag() != 0))
     {
@@ -420,9 +421,9 @@ void sub_80C4664(struct CreditsMainProc * proc)
     sub_80C43B4(proc);
     sub_80C45E0(proc);
 
-    if ((u8)proc->unk_35 > 0x14)
+    if ((u8)proc->unk_35 > 20)
     {
-        proc->unk_4a = 0xf0;
+        proc->timer = 240;
         Proc_Break(proc);
     }
 
@@ -430,14 +431,14 @@ void sub_80C4664(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C46E4
-void sub_80C46E4(void)
+void EndingCredits_EndBlendCG(void)
 {
-    sub_80C4228();
+    EndCreditsBlendCG();
     return;
 }
 
 //! FE8U = 0x080C46F0
-void sub_80C46F0(void)
+void EndingCredits_80C46F0(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
     SetDefaultColorEffects();
@@ -450,7 +451,7 @@ void sub_80C46F0(void)
 }
 
 //! FE8U = 0x080C4738
-void sub_80C4738(struct CreditsMainProc * proc)
+void EndingCredits_ShowCopyright(struct CreditsMainProc * proc)
 {
     u32 chr;
     const struct StaffReelEnt * ptr = (&gUnknown_08206E24[20])->entry;
@@ -462,25 +463,25 @@ void sub_80C4738(struct CreditsMainProc * proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     gPaletteBuffer[0] = 0;
-    ApplyPalette(gUnknown_08A40FC8, 7);
+    ApplyPalette(Pal_StaffReelEnt_08A40FC8, 7);
     EnablePaletteSync();
 
-    proc->unk_4a = 0xf0;
+    proc->timer = 240;
 
     return;
 }
 
 //! FE8U = 0x080C47B0
-void sub_80C47B0(struct CreditsMainProc * proc)
+void EndingCredits_AwaitInputForEnd(struct CreditsMainProc * proc)
 {
-    proc->unk_4a--;
+    proc->timer--;
 
     if (((gKeyStatusPtr->newKeys & START_BUTTON) != 0) && (CheckGameEndFlag() != 0))
     {
-        proc->unk_4a = 0;
+        proc->timer = 0;
     }
 
-    if (proc->unk_4a < 1)
+    if (proc->timer < 1)
     {
         Proc_Break(proc);
     }
@@ -489,7 +490,7 @@ void sub_80C47B0(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C47F4
-void sub_80C47F4(void)
+void EndingCredits_OnEnd(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -507,39 +508,39 @@ void sub_80C47F4(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08AA2084[] =
+struct ProcCmd CONST_DATA ProcScr_EndingCredits[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_80C4460),
-    PROC_REPEAT(sub_80C4664),
+    PROC_CALL(EndingCredits_Init),
+    PROC_REPEAT(EndingCredits_Loop_Main),
 
     PROC_GOTO(1),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80C46E4),
+    PROC_CALL(EndingCredits_EndBlendCG),
     PROC_SLEEP(1),
 
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80C46F0),
+    PROC_CALL(EndingCredits_80C46F0),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80C4738),
+    PROC_CALL(EndingCredits_ShowCopyright),
     PROC_SLEEP(1),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
 
 PROC_LABEL(1),
-    PROC_REPEAT(sub_80C47B0),
+    PROC_REPEAT(EndingCredits_AwaitInputForEnd),
 
     PROC_CALL(StartSlowFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_SLEEP(30),
 
-    PROC_CALL(sub_80C47F4),
+    PROC_CALL(EndingCredits_OnEnd),
     PROC_SLEEP(1),
 
     PROC_END,
@@ -548,9 +549,9 @@ PROC_LABEL(1),
 // clang-format on
 
 //! FE8U = 0x080C4878
-void sub_80C4878(ProcPtr parent)
+void StartEndingCredits(ProcPtr parent)
 {
-    Proc_StartBlocking(gUnknown_08AA2084, parent);
+    Proc_StartBlocking(ProcScr_EndingCredits, parent);
     return;
 }
 

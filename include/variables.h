@@ -1195,7 +1195,7 @@ extern u8 gGfx_FinScreen[];
 extern u8 gTsa_FinScreen[];
 extern u16 gUnknown_08A40AD4[]; // pal
 extern u8 gUnknown_08A40B14[]; // tsa
-extern u16 gUnknown_08A40FC8[];
+extern u16 Pal_StaffReelEnt_08A40FC8[];
 extern u8 Img_StaffReelEnt_08A40FE8[];
 extern u8 Img_StaffReelEnt_08A41B30[];
 extern u8 Img_StaffReelEnt_08A42748[];
@@ -1291,8 +1291,8 @@ extern u8 gUnknown_08AA11D0[]; // tsa?
 // extern ??? gUnknown_08AA1950
 extern u8 gImg_WorldmapSkirmish[]; // gfx
 extern u8 SpriteAnim_WorldmapSkirmish[]; // ap proc data
-// extern ??? gUnknown_08AA2044
-// extern ??? gUnknown_08AA2084
+// extern ??? ProcScr_EndingCredits_BlendCGMaybe
+// extern ??? ProcScr_EndingCredits
 // extern ??? gBgConfig_OpSubtitle
 // extern ??? gUnknown_08AA21A4
 // extern ??? gProcScr_OpSubtitle

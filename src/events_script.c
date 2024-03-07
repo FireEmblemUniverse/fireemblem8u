@@ -8,6 +8,7 @@
 #include "constants/event-flags.h"
 #include "bmunit.h"
 #include "bmtrap.h"
+#include "ending_credits.h"
 
 #include "events/common-events.h"
 
