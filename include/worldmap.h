@@ -979,7 +979,7 @@ void sub_80C09B8(void);
 // ??? GmapEffect_Init(???);
 // ??? GmapEffect_Loop(???);
 struct GmapEffectProc * StartGmapEffect(ProcPtr, int);
-// ??? sub_80C13CC(???);
+void sub_80C13CC(ProcPtr proc);
 void EndGmapEffect(void);
 
 // ??? WorldMapHblank(???);
@@ -1083,9 +1083,24 @@ struct ProcGmapRmBorder1 {
 
     /* 29 */ bool flag;
     /* 2A */ u8 index;
+    /* 2B */ s8 unk_2b;
     /* 2C */ struct APHandle * sprite1;
     /* 30 */ s16 timer;
     /* 34 */ struct APHandle * sprite2;
+};
+
+struct ProcGmapRmBorder2
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ s8 flag;
+    /* 2A */ u8 unk_2a;
+    /* 2B */ u8 unk_2b;
+    /* 2C */ u8 unk_2c;
+    /* 2D */ s8 unk_2d;
+    /* 2E */ s16 x;
+    /* 30 */ s16 y;
+    /* 34 */ struct GmapEffectProc * unk_34;
 };
 
 struct GmMapRmBorderSet {
@@ -1107,7 +1122,7 @@ void GmapRmBorder1_80C29F8(struct ProcGmapRmBorder1 * proc);
 void GmapRmBorder1_80C2A1C(struct ProcGmapRmBorder1 * proc);
 // ??? StartGmapRmBorder1(???);
 // ??? DrawWmNationHighLightMapGfx(???);
-void WmShowNationHighlightedMap(int, int); // FEBuilder: "Display place name of world map"
+ProcPtr WmShowNationHighlightedMap(int, ProcPtr); // FEBuilder: "Display place name of world map"
 void EndGmapRmBorder1(int);
 int sub_80C2BC4(int);
 void sub_80C2C10(int);
@@ -1125,9 +1140,9 @@ void sub_80C2C10(int);
 // ??? sub_80C2EF0(???);
 // ??? sub_80C2F7C(???);
 // ??? sub_80C2F9C(???);
-void sub_80C2FC0(s16, s16, s16, s16, int, s8); // StartGmapRMBorder
+ProcPtr sub_80C2FC0(int, int, int, int, int, ProcPtr); // StartGmapRMBorder
 void sub_80C304C(int);
-int sub_80C3094(int);
+// bool sub_80C3094(int);
 void sub_80C30E0(int);
 // ??? sub_80C3124(???);
 // ??? sub_80C31A8(???);

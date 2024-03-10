@@ -15,6 +15,7 @@ void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
+int sub_80C3094(int); // implicit?
 
 //! FE8U = 0x0800BDCC
 u8 Event80_WmSkip_Unsure(struct EventEngineProc * proc)
@@ -992,7 +993,7 @@ u8 EventB8_WmShowBigMapHighlight(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        WmShowNationHighlightedMap(nation, 0);
+        WmShowNationHighlightedMap(nation, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1041,15 +1042,15 @@ u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
 //! FE8U = 0x0800CA9C
 u8 EventBB_(struct EventEngineProc * proc)
 {
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
-    u16 c = EVT_CMD_ARGV(proc->pEventCurrent)[3];
-    u16 d = EVT_CMD_ARGV(proc->pEventCurrent)[4];
+    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    s16 c = EVT_CMD_ARGV(proc->pEventCurrent)[3];
+    s16 d = EVT_CMD_ARGV(proc->pEventCurrent)[4];
     int e = EVT_CMD_ARG32_LE(proc->pEventCurrent + 4);
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C2FC0(a, b, c, d, e, 0);
+        sub_80C2FC0(a, b, c, d, e, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1058,8 +1059,8 @@ u8 EventBB_(struct EventEngineProc * proc)
 //! FE8U = 0x0800CADC
 u8 EventBC_MarkPoint(struct EventEngineProc * proc)
 {
-    u16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
-    u16 pal = EVT_CMD_ARGV(proc->pEventCurrent)[2];
+    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 pal = EVT_CMD_ARGV(proc->pEventCurrent)[2];
     s16 nodeId = EVT_CMD_ARGV(proc->pEventCurrent)[3];
     s16 eff = EVT_CMD_ARGV(proc->pEventCurrent)[4];
 
@@ -1069,7 +1070,7 @@ u8 EventBC_MarkPoint(struct EventEngineProc * proc)
         s16 y;
         *&x = nodeId[gWMNodeData].x;
         *&y = nodeId[gWMNodeData].y;
-        sub_80C2FC0(a, pal, x / 2, y / 2, eff, 0);
+        sub_80C2FC0(a, pal, x / 2, y / 2, eff, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
