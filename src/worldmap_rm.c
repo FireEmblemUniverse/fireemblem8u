@@ -6,6 +6,8 @@
 #include "gba_sprites.h"
 #include "bmlib.h"
 #include "uiutils.h"
+#include "ctc.h"
+
 #include "worldmap.h"
 #include "constants/worldmap.h"
 
@@ -669,3 +671,561 @@ PROC_LABEL(1),
     PROC_REPEAT(GmapRmBorder1_NationMergeOut),
     PROC_END,
 };
+
+//! FE8U = 0x080C2A40
+int StartGmapRmBorder1(void)
+{
+    int i;
+    int j;
+    int count;
+    struct ProcGmapRmBorder1 * proc;
+    struct ProcFindIterator procIter;
+
+    int local_18[3];
+
+    count = 0;
+
+    Proc_FindBegin(&procIter, ProcScr_GmapRmBorder1);
+
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (proc == NULL)
+        {
+            break;
+        }
+
+        local_18[count] = proc->unk_2b;
+
+        count++;
+    } while (1);
+
+    if (count == 0)
+    {
+        return 0;
+    }
+
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < count && i != local_18[j]; j++)
+        {
+        }
+
+        if (j == count)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+//! FE8U = 0x080C2AAC
+void DrawWmNationHighLightMapGfx(int chr, int index)
+{
+    void * vram = (void *)(0x06010000 + chr * 0x1000);
+    Decompress(GfxSet_WmNationMap[index].img, vram);
+
+    return;
+}
+
+//! FE8U = 0x080C2AD4
+ProcPtr WmShowNationHighlightedMap(int index, ProcPtr parent)
+{
+    int countMaybe;
+    struct ProcGmapRmBorder1 * proc;
+
+    countMaybe = StartGmapRmBorder1();
+
+    if (parent != NULL)
+    {
+        proc = Proc_StartBlocking(ProcScr_GmapRmBorder1, parent);
+    }
+    else
+    {
+        proc = Proc_Start(ProcScr_GmapRmBorder1, PROC_TREE_3);
+    }
+
+    DrawWmNationHighLightMapGfx(countMaybe, index);
+
+    proc->sprite1 = AP_Create(GfxSet_WmNationMap[index].sprite, 0xd);
+
+    proc->sprite1->tileBase = ((countMaybe << 12) >> 5) | -0x6400;
+    AP_SwitchAnimation(proc->sprite1, 0);
+
+    proc->sprite2 = AP_Create(GfxSet_WmNationMap[index].sprite, 0xd);
+    proc->sprite2->tileBase = ((countMaybe << 12) >> 5) | -0x6400;
+    AP_SwitchAnimation(proc->sprite2, 1);
+
+    proc->index = index;
+    proc->unk_2b = countMaybe;
+    proc->flag = 0;
+
+    return proc;
+}
+
+//! FE8U = 0x080C2B7C
+void EndGmapRmBorder1(int index)
+{
+    struct ProcGmapRmBorder1 * proc;
+    struct ProcFindIterator procIter;
+
+    if (index < 0)
+    {
+        Proc_EndEach(ProcScr_GmapRmBorder1);
+        return;
+    }
+
+    Proc_FindBegin(&procIter, ProcScr_GmapRmBorder1);
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+
+        if (proc->index == index)
+        {
+            Proc_End(proc);
+            return;
+        }
+    } while (proc != NULL);
+
+    return;
+}
+
+//! FE8U = 0x080C2BC4
+int sub_80C2BC4(int index)
+{
+    struct ProcGmapRmBorder1 * proc;
+    struct ProcFindIterator procIter;
+
+    if (index < 0)
+    {
+        return Proc_Find(ProcScr_GmapRmBorder1) != NULL;
+    }
+
+    Proc_FindBegin(&procIter, ProcScr_GmapRmBorder1);
+
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (proc->index == index)
+        {
+            return 1;
+        }
+    } while (proc != NULL);
+
+    return 0;
+}
+
+//! FE8U = 0x080C2C10
+void sub_80C2C10(int index)
+{
+    struct ProcGmapRmBorder1 * proc;
+    struct ProcFindIterator procIter;
+
+    Proc_FindBegin(&procIter, ProcScr_GmapRmBorder1);
+
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (index < 0)
+        {
+            proc->flag = 1;
+        }
+        else if (proc->index == index)
+        {
+            proc->flag = 1;
+            return;
+        }
+    } while (proc != NULL);
+
+    return;
+}
+
+//! FE8U = 0x080C2C54
+void WmDotPalAnim_OnEnd(void)
+{
+    return;
+}
+
+//! FE8U = 0x080C2C58
+void WmDotPalAnim_Init(struct ProcGmapRmBaPalAnim * proc)
+{
+    ApplyPalette(Pal_WmPlaceDot_Standard, 0x15);
+    EnablePaletteSync();
+
+    proc->timer = 0;
+    proc->flag = 1;
+
+    return;
+}
+
+//! FE8U = 0x080C2C80
+void sub_80C2C80(int a, int b, const u16 * srcA, const u16 * srcB, u16 * dst)
+{
+    int i;
+
+    int coeff = sub_800B7E0(a, b, 0);
+
+    for (i = 0; i < 0x10; i++)
+    {
+        u16 color = srcA[i];
+
+        int r1 = (color & 0x1f);
+        int g1 = ((color & 0x3e0) >> 5);
+        int b1 = ((color & 0x7c00) >> 10);
+
+        u16 color2 = srcB[i];
+        int r2 = r1 + DivArm(0x1000, coeff * ((color2 & 0x1f) - r1));
+        int g2 = g1 + DivArm(0x1000, coeff * (((color2 & 0x3e0) >> 5) - g1));
+        int b2 = b1 + DivArm(0x1000, coeff * (((color2 & 0x7c00) >> 10) - b1));
+
+        dst[i] = (b2 << 10) + (g2 << 5) + r2;
+    }
+
+    EnablePaletteSync();
+
+    return;
+}
+
+//! FE8U = 0x080C2D44
+void WmDotPalAnim_Loop1(struct ProcGmapRmBaPalAnim * proc)
+{
+    proc->timer++;
+
+    if (proc->timer < 30)
+    {
+        sub_80C2C80(proc->timer, 30, Pal_WmPlaceDot_Standard, Pal_WmPlaceDot_Standard - 0x10, gPaletteBuffer + 0x150);
+        proc->flag = 0;
+    }
+    else
+    {
+        CpuCopy16(Pal_WmPlaceDot_Highlight, gPaletteBuffer + 0x150, PLTT_SIZE_4BPP);
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C2DA4
+void WmDotPalAnim_Loop2(struct ProcGmapRmBaPalAnim * proc)
+{
+    proc->timer++;
+
+    if (proc->timer < 30)
+    {
+        sub_80C2C80(proc->timer, 30, Pal_WmPlaceDot_Highlight, Pal_WmPlaceDot_Highlight + 0x10, gPaletteBuffer + 0x150);
+    }
+    else
+    {
+        CpuCopy16(Pal_WmPlaceDot_Standard, gPaletteBuffer + 0x150, PLTT_SIZE_4BPP);
+        proc->timer = 0;
+        proc->flag = 1;
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_WmDotPalAnim[] =
+{
+    PROC_NAME("Gmap RM ba pal anim"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(WmDotPalAnim_OnEnd),
+
+    PROC_CALL(WmDotPalAnim_Init),
+    PROC_SLEEP(1),
+
+PROC_LABEL(0),
+    PROC_REPEAT(WmDotPalAnim_Loop1),
+    PROC_SLEEP(2),
+
+    PROC_REPEAT(WmDotPalAnim_Loop2),
+    PROC_SLEEP(2),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x080C2E04
+ProcPtr StartWmDotPalAnim(ProcPtr parent)
+{
+    if (parent != NULL)
+    {
+        Proc_StartBlocking(ProcScr_WmDotPalAnim, parent);
+    }
+    else
+    {
+        Proc_Start(ProcScr_WmDotPalAnim, PROC_TREE_3);
+    }
+
+    // return; // BUG
+}
+
+//! FE8U = 0x080C2E28
+void EndAllWmDotPalAnim(void)
+{
+    Proc_EndEach(ProcScr_WmDotPalAnim);
+    return;
+}
+
+//! FE8U = 0x080C2E38
+bool IsWmDotPalAnimActive(void)
+{
+    return Proc_Find(ProcScr_WmDotPalAnim) ? true : false;
+}
+
+//! FE8U = 0x080C2E50
+s8 sub_80C2E50(void)
+{
+    struct ProcGmapRmBaPalAnim * proc = Proc_Find(ProcScr_WmDotPalAnim);
+
+    if (proc != NULL)
+    {
+        return proc->flag;
+    }
+
+    return 0;
+}
+
+extern struct ProcCmd ProcScr_WmPlaceDot[];
+
+//! FE8U = 0x080C2E70
+void WmPlaceDot_OnEnd(struct ProcWmPlaceDot * proc)
+{
+    if (CountProcs(ProcScr_WmPlaceDot) == 1)
+    {
+        EndAllWmDotPalAnim();
+    }
+
+    if (((proc->unk_2a & 2) != 0) && (proc->effectProc != NULL))
+    {
+        sub_80C13CC(proc->effectProc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C2EA4
+void WmPlaceDot_Init(struct ProcWmPlaceDot * proc)
+{
+    if (CountProcs(ProcScr_WmPlaceDot) > 1)
+    {
+        return;
+    }
+
+    StartWmDotPalAnim(NULL);
+
+    Decompress(Img_WorldMapPlaceDot, (void *)(0x060133C0));
+    ApplyPalette(Pal_WmPlaceDot_Standard, 0x14);
+    EnablePaletteSync();
+
+    Proc_Goto(proc, 1);
+
+    return;
+}
+
+// clang-format off
+
+u16 CONST_DATA Sprite_WmPlaceDot[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
+};
+
+// clang-format on
+
+//! FE8U = 0x080C2EF0
+void PutWmDotSprite(struct ProcWmPlaceDot * proc)
+{
+    s16 xOam1;
+    s16 yOam0;
+    int palId;
+    s16 x;
+    s16 y;
+
+    GmapRm_GetPosition(&x, &y);
+
+    xOam1 = -(x + 4) + proc->x;
+    yOam0 = -(y + 4) + proc->y;
+
+    if (((xOam1 + 0x21) > 0 && (xOam1 + 0x21) < 0x112) && ((yOam0 + 0x21) > 0 && (yOam0 + 0x21) < 0xc2))
+    {
+        if ((proc->unk_2a & 1) != 0)
+        {
+            palId = 5;
+        }
+        else
+        {
+            palId = 4;
+        }
+
+        PutSprite(0xb, xOam1, yOam0, Sprite_WmPlaceDot, proc->unk_2c + (palId << 0xc | 0x19e) + 0xc00);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C2F7C
+void WmPlaceDot_Loop1(struct ProcWmPlaceDot * proc)
+{
+    PutWmDotSprite(proc);
+
+    if (sub_80C2E50() != 0)
+    {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C2F9C
+void WmPlaceDot_Loop2(struct ProcWmPlaceDot * proc)
+{
+    PutWmDotSprite(proc);
+
+    if (proc->flag != 0)
+    {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_WmPlaceDot[] =
+{
+    PROC_NAME("Gmap RM border"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(WmPlaceDot_OnEnd),
+
+    PROC_CALL(WmPlaceDot_Init),
+    PROC_REPEAT(WmPlaceDot_Loop1),
+
+PROC_LABEL(1),
+    PROC_REPEAT(WmPlaceDot_Loop2),
+    PROC_REPEAT(WmPlaceDot_Loop1),
+
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x080C2FC0
+ProcPtr StartWmPlaceDot(int a, int b, int x, int y, int e, ProcPtr parent)
+{
+    struct ProcWmPlaceDot * proc;
+
+    if (parent != NULL)
+    {
+        proc = Proc_StartBlocking(ProcScr_WmPlaceDot, parent);
+    }
+    else
+    {
+        proc = Proc_Start(ProcScr_WmPlaceDot, PROC_TREE_3);
+    }
+
+    proc->unk_2b = a;
+    proc->unk_2c = b;
+    proc->x = x;
+    proc->y = y;
+    proc->unk_2a = e;
+
+    if ((e & 2) != 0)
+    {
+        proc->effectProc = StartGmapEffect(0, 1);
+        proc->effectProc->flags_0 = 1;
+        proc->effectProc->unk_2c = x;
+        proc->effectProc->unk_2e = y;
+    }
+    else
+    {
+        proc->effectProc = NULL;
+    }
+
+    proc->flag = 0;
+
+    return proc;
+}
+
+//! FE8U = 0x080C304C
+void EndWmPlaceDotByIndex(int index)
+{
+    struct ProcWmPlaceDot * proc;
+    struct ProcFindIterator procIter;
+
+    if (index < 0)
+    {
+        Proc_EndEach(ProcScr_WmPlaceDot);
+        return;
+    }
+
+    Proc_FindBegin(&procIter, ProcScr_WmPlaceDot);
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (proc->unk_2b == index)
+        {
+            Proc_End(proc);
+            return;
+        }
+    } while (proc != NULL);
+
+    return;
+}
+
+//! FE8U = 0x080C3094
+bool IsWmPlaceDotActiveAtIndex(int index)
+{
+    struct ProcWmPlaceDot * proc;
+    struct ProcFindIterator procIter;
+
+    if (index < 0)
+    {
+        return Proc_Find(ProcScr_WmPlaceDot) ? true : false;
+    }
+
+    Proc_FindBegin(&procIter, ProcScr_WmPlaceDot);
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (proc->unk_2b == index)
+        {
+            return true;
+        }
+    } while (proc != NULL);
+
+    return false;
+}
+
+//! FE8U = 0x080C30E0
+void SetWmPlaceDotFlagForIndex(int index)
+{
+    struct ProcWmPlaceDot * proc;
+    struct ProcFindIterator procIter;
+
+    Proc_FindBegin(&procIter, ProcScr_WmPlaceDot);
+    do
+    {
+        proc = Proc_FindNext(&procIter);
+        if (index < 0)
+        {
+            proc->flag = 1;
+        }
+        else if (proc->unk_2b == index)
+        {
+            proc->flag = 1;
+            return;
+        }
+    } while (proc != NULL);
+
+    return;
+}

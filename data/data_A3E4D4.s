@@ -1,79 +1,5 @@
     .section .data
 
-	.global ProcScr_GmapRmBaPalAnim2
-ProcScr_GmapRmBaPalAnim2:  @ 0x08A3ECB0
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206adc
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word GmapRmBaPalAnim2_End
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word GmapRmBaPalAnim2_Init
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBaPalAnim2_Loop1
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word GmapRmBaPalAnim2_Loop2
-        @ PROC_SLEEP
-        .short 0xe, 0x2
-        .word 0x0
-        @ PROC_GOTO
-        .short 0xc, 0x0
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
-	.global gUnknown_08A3ED10
-gUnknown_08A3ED10:  @ 0x08A3ED10
-	.incbin "baserom.gba", 0xA3ED10, 0x8
-
-	.global ProcScr_GmapRmBorder2
-ProcScr_GmapRmBorder2:  @ 0x08A3ED18
-        @ PROC_NAME
-        .short 0x1, 0x0
-        .word 0x8206b50
-        @ PROC_MARK
-        .short 0xf, 0x8
-        .word 0x0
-        @ PROC_SET_END_CB
-        .short 0x4, 0x0
-        .word sub_80C2E70
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_80C2EA4
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C2F7C
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C2F9C
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_80C2F7C
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
 	.global ProcScr_GmapAutoMu
 ProcScr_GmapAutoMu:  @ 0x08A3ED60
         @ PROC_NAME
@@ -1432,16 +1358,16 @@ Img_WmHightLightMap8:
 Ap_WmHightLightMap8:
     .incbin "baserom.gba", 0xAA10E4, 0xAA114C - 0xAA10E4
 
-	.global gUnknown_08AA114C
-gUnknown_08AA114C:  @ 0x08AA114C
+	.global Img_WorldMapPlaceDot
+Img_WorldMapPlaceDot:  @ 0x08AA114C
 	.incbin "baserom.gba", 0xAA114C, 0x44
 
-	.global gUnknown_08AA1190
-gUnknown_08AA1190:  @ 0x08AA1190
+	.global Pal_WmPlaceDot_Highlight
+Pal_WmPlaceDot_Highlight:  @ 0x08AA1190
 	.incbin "baserom.gba", 0xAA1190, 0x20
 
-	.global gUnknown_08AA11B0
-gUnknown_08AA11B0:  @ 0x08AA11B0
+	.global Pal_WmPlaceDot_Standard
+Pal_WmPlaceDot_Standard:  @ 0x08AA11B0
 	.incbin "baserom.gba", 0xAA11B0, 0x20
 
 	.global gUnknown_08AA11D0
