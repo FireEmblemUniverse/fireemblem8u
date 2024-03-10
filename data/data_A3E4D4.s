@@ -1358,16 +1358,16 @@ Img_WmHightLightMap8:
 Ap_WmHightLightMap8:
     .incbin "baserom.gba", 0xAA10E4, 0xAA114C - 0xAA10E4
 
-	.global gUnknown_08AA114C
-gUnknown_08AA114C:  @ 0x08AA114C
+	.global Img_WorldMapPlaceDot
+Img_WorldMapPlaceDot:  @ 0x08AA114C
 	.incbin "baserom.gba", 0xAA114C, 0x44
 
-	.global gUnknown_08AA1190
-gUnknown_08AA1190:  @ 0x08AA1190
+	.global Pal_WmPlaceDot_Highlight
+Pal_WmPlaceDot_Highlight:  @ 0x08AA1190
 	.incbin "baserom.gba", 0xAA1190, 0x20
 
-	.global gUnknown_08AA11B0
-gUnknown_08AA11B0:  @ 0x08AA11B0
+	.global Pal_WmPlaceDot_Standard
+Pal_WmPlaceDot_Standard:  @ 0x08AA11B0
 	.incbin "baserom.gba", 0xAA11B0, 0x20
 
 	.global gUnknown_08AA11D0

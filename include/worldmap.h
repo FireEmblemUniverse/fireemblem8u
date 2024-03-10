@@ -1089,7 +1089,7 @@ struct ProcGmapRmBorder1 {
     /* 34 */ struct APHandle * sprite2;
 };
 
-struct ProcGmapRmBorder2
+struct ProcWmPlaceDot
 {
     /* 00 */ PROC_HEADER;
 
@@ -1100,7 +1100,7 @@ struct ProcGmapRmBorder2
     /* 2D */ s8 unk_2d;
     /* 2E */ s16 x;
     /* 30 */ s16 y;
-    /* 34 */ struct GmapEffectProc * unk_34;
+    /* 34 */ struct GmapEffectProc * effectProc;
 };
 
 struct GmMapRmBorderSet {
@@ -1126,24 +1126,24 @@ ProcPtr WmShowNationHighlightedMap(int, ProcPtr); // FEBuilder: "Display place n
 void EndGmapRmBorder1(int);
 int sub_80C2BC4(int);
 void sub_80C2C10(int);
-// ??? GmapRmBaPalAnim2_End(???);
-// ??? GmapRmBaPalAnim2_Init(???);
+// ??? WmDotPalAnim_OnEnd(???);
+// ??? WmDotPalAnim_Init(???);
 // ??? sub_80C2C80(???);
-// ??? GmapRmBaPalAnim2_Loop1(???);
-// ??? GmapRmBaPalAnim2_Loop2(???);
-// ??? sub_80C2E04(???);
-// ??? sub_80C2E28(???);
-// ??? sub_80C2E38(???);
+// ??? WmDotPalAnim_Loop1(???);
+// ??? WmDotPalAnim_Loop2(???);
+// ??? StartWmDotPalAnim(???);
+// ??? EndAllWmDotPalAnim(???);
+// ??? IsWmDotPalAnimActive(???);
 // ??? sub_80C2E50(???);
-// ??? sub_80C2E70(???);
-// ??? sub_80C2EA4(???);
-// ??? sub_80C2EF0(???);
-// ??? sub_80C2F7C(???);
-// ??? sub_80C2F9C(???);
-ProcPtr sub_80C2FC0(int, int, int, int, int, ProcPtr); // StartGmapRMBorder
-void sub_80C304C(int);
-// bool sub_80C3094(int);
-void sub_80C30E0(int);
+// ??? WmPlaceDot_OnEnd(???);
+// ??? WmPlaceDot_Init(???);
+// ??? PutWmDotSprite(???);
+// ??? WmPlaceDot_Loop1(???);
+// ??? WmPlaceDot_Loop2(???);
+ProcPtr StartWmPlaceDot(int, int, int, int, int, ProcPtr);
+void EndWmPlaceDotByIndex(int);
+// bool IsWmPlaceDotActiveAtIndex(int);
+void SetWmPlaceDotFlagForIndex(int);
 // ??? sub_80C3124(???);
 // ??? sub_80C31A8(???);
 // ??? sub_80C31C4(???);
@@ -1281,9 +1281,9 @@ extern struct ProcCmd ProcScr_GmapRmUpdateExt[];
 extern struct ProcCmd ProcScr_GmapRM[];
 extern struct ProcCmd ProcScr_GmapRmBaPalAnim1[];
 extern struct ProcCmd ProcScr_GmapRmBorder1[];
-extern struct ProcCmd ProcScr_GmapRmBaPalAnim2[];
-// extern ??? gUnknown_08A3ED10
-// extern ??? ProcScr_GmapRmBorder2
+extern struct ProcCmd ProcScr_WmDotPalAnim[];
+// extern ??? Sprite_WmPlaceDot
+// extern ??? ProcScr_WmPlaceDot
 // extern ??? ProcScr_GmapAutoMu
 // extern ??? gUnknown_08A3EE28
 // extern ??? gUnknown_08A3EE44

@@ -15,7 +15,7 @@ void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 FindGmScrollManage(void);
-int sub_80C3094(int); // implicit?
+int IsWmPlaceDotActiveAtIndex(int); // implicit?
 
 //! FE8U = 0x0800BDCC
 u8 Event80_WmSkip_Unsure(struct EventEngineProc * proc)
@@ -1050,7 +1050,7 @@ u8 EventBB_(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80C2FC0(a, b, c, d, e, NULL);
+        StartWmPlaceDot(a, b, c, d, e, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1070,7 +1070,7 @@ u8 EventBC_MarkPoint(struct EventEngineProc * proc)
         s16 y;
         *&x = nodeId[gWMNodeData].x;
         *&y = nodeId[gWMNodeData].y;
-        sub_80C2FC0(a, pal, x / 2, y / 2, eff, NULL);
+        StartWmPlaceDot(a, pal, x / 2, y / 2, eff, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1083,12 +1083,12 @@ u8 EventBD_(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        sub_80C304C(-1);
+        EndWmPlaceDotByIndex(-1);
 
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C30E0(a);
+    SetWmPlaceDotFlagForIndex(a);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -1100,15 +1100,15 @@ u8 EventBE_(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (sub_80C3094(a))
+        if (IsWmPlaceDotActiveAtIndex(a))
         {
-            sub_80C304C(a);
+            EndWmPlaceDotByIndex(a);
         }
 
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80C3094(a))
+    if (!IsWmPlaceDotActiveAtIndex(a))
     {
         return EVC_ADVANCE_YIELD;
     }
