@@ -847,8 +847,6 @@ void GmapRmBaPalAnim2_End(void)
     return;
 }
 
-extern u16 gUnknown_08AA11B0[];
-
 //! FE8U = 0x080C2C58
 void GmapRmBaPalAnim2_Init(struct ProcGmapRmBaPalAnim * proc)
 {
@@ -889,22 +887,19 @@ void sub_80C2C80(int a, int b, const u16 * srcA, const u16 * srcB, u16 * dst)
     return;
 }
 
-extern u16 gUnknown_08AA1190[];
-extern u16 gUnknown_08AA11B0[];
-
 //! FE8U = 0x080C2D44
 void GmapRmBaPalAnim2_Loop1(struct ProcGmapRmBaPalAnim * proc)
 {
     proc->timer++;
 
-    if (proc->timer < 0x1e)
+    if (proc->timer < 30)
     {
-        sub_80C2C80(proc->timer, 0x1e, gUnknown_08AA11B0, gUnknown_08AA11B0 - 0x10, gPaletteBuffer + 0x150);
+        sub_80C2C80(proc->timer, 30, gUnknown_08AA11B0, gUnknown_08AA11B0 - 0x10, gPaletteBuffer + 0x150);
         proc->flag = 0;
     }
     else
     {
-        CpuCopy16(gUnknown_08AA1190, gPaletteBuffer + 0x150, 0x20);
+        CpuCopy16(gUnknown_08AA1190, gPaletteBuffer + 0x150, PLTT_SIZE_4BPP);
         proc->timer = 0;
         Proc_Break(proc);
     }
@@ -917,13 +912,13 @@ void GmapRmBaPalAnim2_Loop2(struct ProcGmapRmBaPalAnim * proc)
 {
     proc->timer++;
 
-    if (proc->timer < 0x1e)
+    if (proc->timer < 30)
     {
-        sub_80C2C80(proc->timer, 0x1e, gUnknown_08AA1190, gUnknown_08AA1190 + 0x10, gPaletteBuffer + 0x150);
+        sub_80C2C80(proc->timer, 30, gUnknown_08AA1190, gUnknown_08AA1190 + 0x10, gPaletteBuffer + 0x150);
     }
     else
     {
-        CpuCopy16(gUnknown_08AA11B0, gPaletteBuffer + 0x150, 0x20);
+        CpuCopy16(gUnknown_08AA11B0, gPaletteBuffer + 0x150, PLTT_SIZE_4BPP);
         proc->timer = 0;
         proc->flag = 1;
         Proc_Break(proc);
@@ -932,7 +927,31 @@ void GmapRmBaPalAnim2_Loop2(struct ProcGmapRmBaPalAnim * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_GmapRmBaPalAnim2[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GmapRmBaPalAnim2[] =
+{
+    PROC_NAME("Gmap RM ba pal anim"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(GmapRmBaPalAnim2_End),
+
+    PROC_CALL(GmapRmBaPalAnim2_Init),
+    PROC_SLEEP(1),
+
+PROC_LABEL(0),
+    PROC_REPEAT(GmapRmBaPalAnim2_Loop1),
+    PROC_SLEEP(2),
+
+    PROC_REPEAT(GmapRmBaPalAnim2_Loop2),
+    PROC_SLEEP(2),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C2E04
 ProcPtr sub_80C2E04(ProcPtr parent)
@@ -993,9 +1012,6 @@ void sub_80C2E70(struct ProcGmapRmBorder2 * proc)
     return;
 }
 
-extern u8 gUnknown_08AA114C[];
-extern u16 gUnknown_08AA11B0[];
-
 //! FE8U = 0x080C2EA4
 void sub_80C2EA4(struct ProcGmapRmBorder2 * proc)
 {
@@ -1015,7 +1031,15 @@ void sub_80C2EA4(struct ProcGmapRmBorder2 * proc)
     return;
 }
 
-extern u16 gUnknown_08A3ED10[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A3ED10[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C2EF0
 void sub_80C2EF0(struct ProcGmapRmBorder2 * proc)
@@ -1073,6 +1097,27 @@ void sub_80C2F9C(struct ProcGmapRmBorder2 * proc)
 
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GmapRmBorder2[] =
+{
+    PROC_NAME("Gmap RM border"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(sub_80C2E70),
+
+    PROC_CALL(sub_80C2EA4),
+    PROC_REPEAT(sub_80C2F7C),
+
+PROC_LABEL(1),
+    PROC_REPEAT(sub_80C2F9C),
+    PROC_REPEAT(sub_80C2F7C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C2FC0
 ProcPtr sub_80C2FC0(int a, int b, int x, int y, int e, ProcPtr parent)

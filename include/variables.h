@@ -1280,9 +1280,9 @@ extern u16 Img_WmHightLightMap7[];
 extern u16 Ap_WmHightLightMap7[];
 extern u16 Img_WmHightLightMap8[];
 extern u16 Ap_WmHightLightMap8[];
-// extern ??? gUnknown_08AA114C
-// extern ??? gUnknown_08AA1190
-// extern ??? gUnknown_08AA11B0
+extern u8 gUnknown_08AA114C[];
+extern u16 gUnknown_08AA1190[];
+extern u16 gUnknown_08AA11B0[];
 extern u8 gUnknown_08AA11D0[]; // tsa?
 // extern ??? gUnknown_08AA1280
 // extern ??? gUnknown_08AA188C
