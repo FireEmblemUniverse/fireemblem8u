@@ -829,7 +829,7 @@ void GmMu_RemoveUnit(struct GMapMuProc *, int);
 void GmMu_ShowUnit(struct GMapMuProc *, int);
 void GmMu_HideUnit(struct GMapMuProc *, int);
 void sub_80BDEB4(struct GMapMuProc *, struct UnknownSub80BDEB4 *);
-// ??? sub_80BDFA4(???);
+void sub_80BDFA4(struct GMapMuProc *, struct UnknownSub80BDFA4 *);
 void GmMu_PauseMovement(struct GMapMuProc *, int);
 void GmMu_ResumeMovement(struct GMapMuProc *, int);
 void sub_80BE080(struct GMapMuProc *, int, s8);
@@ -839,7 +839,7 @@ void GmMu_SetSpriteLayer(struct GMapMuProc *, int, int);
 void GmMu_80BE108(struct GMapMuProc *, int, s8);
 s8 sub_80BE12C(struct GMapMuProc *, int);
 // ??? sub_80BE194(???);
-// ??? sub_80BE330(???);
+void sub_80BE330(struct GMapMuProc * muProc, int index);
 void GmMu_SetPosition(struct GMapMuProc *, int, s16, s16);
 void GmMu_GetPosition(struct GMapMuProc *, int, s16 *, s16 *);
 void GmMu_SetNode(struct GMapMuProc *, int, int);
@@ -1144,21 +1144,51 @@ ProcPtr StartWmPlaceDot(int, int, int, int, int, ProcPtr);
 void EndWmPlaceDotByIndex(int);
 // bool IsWmPlaceDotActiveAtIndex(int);
 void SetWmPlaceDotFlagForIndex(int);
-// ??? sub_80C3124(???);
-// ??? sub_80C31A8(???);
-// ??? sub_80C31C4(???);
-// ??? sub_80C31E0(???);
-// ??? sub_80C31FC(???);
-// ??? sub_80C3220(???);
-// ??? sub_80C3244(???);
-// ??? sub_80C3264(???);
-// ??? sub_80C3280(???);
-// ??? sub_80C32E4(???);
-// ??? sub_80C3350(???);
-void sub_80C3378(void *, int, int); // StartGmapAutoMu_1
-void sub_80C33D4(void *, int, int); // StartGmapAutoMu_2
-void sub_80C343C(int); // EndGmAutoMuFor
-s8 sub_80C3484(int); // GmAutoMuActiveFor
+
+/* worldmap_automu.h */
+
+struct Sub80C3378
+{
+    /* 00 */ u8 wm_uid;
+    /* 01 */ u8 unk_01;
+    /* 02 */ u8 unk_02;
+    /* 04 */ u16 unk_04;
+    /* 06 */ u16 srcNode;
+    /* 08 */ u16 dstNode;
+    /* 0A */ u16 delay;
+    /* 0C */ int speed;
+};
+
+struct Sub80C33D4
+{
+    /* 00 */ u8 wm_uid;
+    /* 01 */ u8 unk_01;
+    /* 02 */ u8 unk_02;
+    /* 04 */ u16 unk_04;
+    /* 06 */ u16 x1;
+    /* 08 */ u16 y1;
+    /* 0A */ u16 x2;
+    /* 0C */ u16 y2;
+    /* 0E */ u16 delay;
+    /* 10 */ int speed;
+};
+
+// ??? GmapAutoMu_OnEnd(???);
+// ??? GmapAutoMu_WaitInitialDelay(???);
+// ??? GmapAutoMu_80C31C4(???);
+// ??? GmapAutoMu_80C31E0(???);
+// ??? GmapAutoMu_80C31FC(???);
+// ??? GmapAutoMu_StartFadeIn(???);
+// ??? GmapAutoMu_StartFadeOut(???);
+// ??? GmapAutoMu_WaitForFadeEnd(???);
+// ??? GmapAutoMu_80C3280(???);
+// ??? GmapAutoMu_80C32E4(???);
+// ??? GmapAutoMu_80C3350(???);
+ProcPtr StartGmapAutoMu_Type0(struct Sub80C3378 *, int, ProcPtr);
+ProcPtr StartGmapAutoMu_Type1(struct Sub80C33D4 *, int, ProcPtr);
+void EndGmAutoMuFor(int);
+bool IsGmAutoMuActiveFor(int);
+
 // ??? sub_80C34D0(???);
 // ??? sub_80C3590(???);
 // ??? sub_80C35C4(???);

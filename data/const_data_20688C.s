@@ -1,8 +1,6 @@
 
     .section .rodata
 
-    .incbin "baserom.gba", 0x206B60, 0x10
-
 	.global gUnknown_08206B70
 gUnknown_08206B70:  @ 0x08206B70
 @ Replacing .incbin "baserom.gba", 0x206B70, 0x2B4
