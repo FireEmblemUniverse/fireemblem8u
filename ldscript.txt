@@ -583,6 +583,7 @@ SECTIONS
         src/worldmap_timemons.o(.text);
         src/worldmap_hb.o(.text);
         src/worldmap_rm.o(.text);
+        src/worldmap_automu.o(.text);
         asm/code_80BF13C.o(.text);
         src/ending_credits.o(.text);
         src/opsubtitle.o(.text);

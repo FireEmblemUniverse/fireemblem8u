@@ -663,20 +663,6 @@ u8 EventA7_WmUnitSetPosition(struct EventEngineProc * proc)
     return EVC_ADVANCE_CONTINUE;
 }
 
-struct Sub80C33D4
-{
-    /* 00 */ u8 unk_00;
-    /* 01 */ u8 unk_01;
-    /* 02 */ u8 unk_02;
-    /* 04 */ u16 unk_04;
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u16 unk_0a;
-    /* 0C */ u16 unk_0c;
-    /* 0E */ u16 unk_0e;
-    /* 10 */ int unk_10;
-};
-
 //! FE8U = 0x0800C6C0
 u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
 {
@@ -719,23 +705,11 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
         local.unk_0c = y2;
         local.unk_10 = time;
         local.unk_0e = delay;
-        sub_80C33D4(&local, flag, 0);
+        sub_80C33D4(&local, flag, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
 }
-
-struct Sub80C3378
-{
-    /* 00 */ u8 wm_uid;
-    /* 01 */ u8 unk_01;
-    /* 02 */ u8 unk_02;
-    /* 04 */ u16 unk_04;
-    /* 06 */ u16 node1;
-    /* 08 */ u16 node2;
-    /* 0A */ u16 delay;
-    /* 0C */ int speed;
-};
 
 //! FE8U = 0x0800C754
 u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
@@ -766,7 +740,7 @@ u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
         local.node2 = node2;
         local.speed = speed;
         local.delay = delay;
-        sub_80C3378(&local, conf, 0);
+        sub_80C3378(&local, conf, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
