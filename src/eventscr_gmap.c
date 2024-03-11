@@ -696,16 +696,16 @@ u8 EventA8_WmUnitMoveFree(struct EventEngineProc * proc)
     }
     else
     {
-        local.unk_00 = index;
+        local.wm_uid = index;
         local.unk_01 = acceleration;
         local.unk_02 = 0;
-        local.unk_06 = x1;
-        local.unk_08 = y1;
-        local.unk_0a = x2;
-        local.unk_0c = y2;
-        local.unk_10 = time;
-        local.unk_0e = delay;
-        sub_80C33D4(&local, flag, NULL);
+        local.x1 = x1;
+        local.y1 = y1;
+        local.x2 = x2;
+        local.y2 = y2;
+        local.speed = time;
+        local.delay = delay;
+        StartGmapAutoMu_Type1(&local, flag, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -736,11 +736,11 @@ u8 EventA9_WmUnitMovePaths(struct EventEngineProc * proc)
     {
         local.wm_uid = wm_uid;
         local.unk_01 = 0;
-        local.node1 = node1;
-        local.node2 = node2;
+        local.srcNode = node1;
+        local.dstNode = node2;
         local.speed = speed;
         local.delay = delay;
-        sub_80C3378(&local, conf, NULL);
+        StartGmapAutoMu_Type0(&local, conf, NULL);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -779,19 +779,19 @@ u8 EventAB_WmUnitResumeMove(struct EventEngineProc * proc)
 //! FE8U = 0x0800C814
 u8 EventAC_WmUnitMoveWait(struct EventEngineProc * proc)
 {
-    s16 a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
+    s16 unitId = EVT_CMD_ARGV(proc->pEventCurrent)[1];
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (sub_80C3484(a))
+        if (IsGmAutoMuActiveFor(unitId))
         {
-            sub_80C343C(a);
+            EndGmAutoMuFor(unitId);
         }
 
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80C3484(a))
+    if (!IsGmAutoMuActiveFor(unitId))
     {
         return EVC_ADVANCE_YIELD;
     }

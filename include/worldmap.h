@@ -1153,41 +1153,41 @@ struct Sub80C3378
     /* 01 */ u8 unk_01;
     /* 02 */ u8 unk_02;
     /* 04 */ u16 unk_04;
-    /* 06 */ u16 node1;
-    /* 08 */ u16 node2;
+    /* 06 */ u16 srcNode;
+    /* 08 */ u16 dstNode;
     /* 0A */ u16 delay;
     /* 0C */ int speed;
 };
 
 struct Sub80C33D4
 {
-    /* 00 */ u8 unk_00;
+    /* 00 */ u8 wm_uid;
     /* 01 */ u8 unk_01;
     /* 02 */ u8 unk_02;
     /* 04 */ u16 unk_04;
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08;
-    /* 0A */ u16 unk_0a;
-    /* 0C */ u16 unk_0c;
-    /* 0E */ u16 unk_0e;
-    /* 10 */ int unk_10;
+    /* 06 */ u16 x1;
+    /* 08 */ u16 y1;
+    /* 0A */ u16 x2;
+    /* 0C */ u16 y2;
+    /* 0E */ u16 delay;
+    /* 10 */ int speed;
 };
 
-// ??? sub_80C3124(???);
-// ??? sub_80C31A8(???);
-// ??? sub_80C31C4(???);
-// ??? sub_80C31E0(???);
-// ??? sub_80C31FC(???);
-// ??? sub_80C3220(???);
-// ??? sub_80C3244(???);
-// ??? sub_80C3264(???);
-// ??? sub_80C3280(???);
-// ??? sub_80C32E4(???);
-// ??? sub_80C3350(???);
-ProcPtr sub_80C3378(struct Sub80C3378 *, int, ProcPtr); // StartGmapAutoMu_1
-ProcPtr sub_80C33D4(struct Sub80C33D4 *, int, ProcPtr); // StartGmapAutoMu_2
-void sub_80C343C(int); // EndGmAutoMuFor
-s8 sub_80C3484(int); // GmAutoMuActiveFor
+// ??? GmapAutoMu_OnEnd(???);
+// ??? GmapAutoMu_WaitInitialDelay(???);
+// ??? GmapAutoMu_80C31C4(???);
+// ??? GmapAutoMu_80C31E0(???);
+// ??? GmapAutoMu_80C31FC(???);
+// ??? GmapAutoMu_StartFadeIn(???);
+// ??? GmapAutoMu_StartFadeOut(???);
+// ??? GmapAutoMu_WaitForFadeEnd(???);
+// ??? GmapAutoMu_80C3280(???);
+// ??? GmapAutoMu_80C32E4(???);
+// ??? GmapAutoMu_80C3350(???);
+ProcPtr StartGmapAutoMu_Type0(struct Sub80C3378 *, int, ProcPtr);
+ProcPtr StartGmapAutoMu_Type1(struct Sub80C33D4 *, int, ProcPtr);
+void EndGmAutoMuFor(int);
+bool IsGmAutoMuActiveFor(int);
 
 // ??? sub_80C34D0(???);
 // ??? sub_80C3590(???);
