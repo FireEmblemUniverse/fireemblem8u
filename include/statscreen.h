@@ -383,4 +383,22 @@ extern struct ProcCmd gProcScr_HelpPromptSpr[];
 extern DECL_INFO gHelpInfo_MbpHp;
 extern DECL_INFO gHelpInfo_CbpHp;
 
+extern DECL_INFO sHelpInfo_Char;
+extern DECL_INFO sHelpInfo_Class;
+extern DECL_INFO sHelpInfo_Level;
+extern DECL_INFO sHelpInfo_Exp;
+extern DECL_INFO sHelpInfo_HP;
+extern DECL_INFO gHelpInfo_Ss0Pow;
+extern DECL_INFO sHelpInfo_Ss0Skl;
+extern DECL_INFO sHelpInfo_Ss0Spd;
+extern DECL_INFO sHelpInfo_Ss0Lck;
+extern DECL_INFO sHelpInfo_Ss0Def;
+extern DECL_INFO sHelpInfo_Ss0Res;
+extern DECL_INFO sHelpInfo_Ss0Mov;
+extern DECL_INFO sHelpInfo_Ss0Con;
+extern DECL_INFO sHelpInfo_Ss0Aid;
+extern DECL_INFO sHelpInfo_Ss0Traveler;
+extern DECL_INFO sHelpInfo_Ss0Affinity;
+extern DECL_INFO sHelpInfo_Ss0Status;
+
 #endif // GUARD_STATSCREEN_H

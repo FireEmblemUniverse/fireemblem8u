@@ -2458,49 +2458,31 @@ const struct HelpBoxInfo* GetLastHelpBoxInfo(void)
 
 // Stat Screen Page 0 (Core stats & status) (Ss0)
 
-static DECL_INFO sHelpInfo_Char;
-static DECL_INFO sHelpInfo_Class;
-static DECL_INFO sHelpInfo_Level;
-static DECL_INFO sHelpInfo_Exp;
-static DECL_INFO sHelpInfo_HP;
-extern DECL_INFO gHelpInfo_Ss0Pow;
-static DECL_INFO sHelpInfo_Ss0Skl;
-static DECL_INFO sHelpInfo_Ss0Spd;
-static DECL_INFO sHelpInfo_Ss0Lck;
-static DECL_INFO sHelpInfo_Ss0Def;
-static DECL_INFO sHelpInfo_Ss0Res;
-static DECL_INFO sHelpInfo_Ss0Mov;
-static DECL_INFO sHelpInfo_Ss0Con;
-static DECL_INFO sHelpInfo_Ss0Aid;
-static DECL_INFO sHelpInfo_Ss0Traveler;
-static DECL_INFO sHelpInfo_Ss0Affinity;
-static DECL_INFO sHelpInfo_Ss0Status;
-
-static DECL_INFO sHelpInfo_Char =
+DECL_INFO sHelpInfo_Char =
 {
     NULL, &sHelpInfo_Class, NULL, &sHelpInfo_Ss0Lck,
     24, 80, 0, NULL, HbPopulate_SSCharacter,
 };
 
-static DECL_INFO sHelpInfo_Class =
+DECL_INFO sHelpInfo_Class =
 {
     &sHelpInfo_Char, &sHelpInfo_Level, NULL, &sHelpInfo_Ss0Res,
     6, 104, 0x6E8, NULL, HbPopulate_SSClass,
 };
 
-static DECL_INFO sHelpInfo_Level =
+DECL_INFO sHelpInfo_Level =
 {
     &sHelpInfo_Class, &sHelpInfo_HP, NULL, &sHelpInfo_Exp,
     6, 120, 0x542,
 };
 
-static DECL_INFO sHelpInfo_Exp =
+DECL_INFO sHelpInfo_Exp =
 {
     &sHelpInfo_Class, &sHelpInfo_HP, &sHelpInfo_Level, &sHelpInfo_Ss0Res,
     38, 120, 0x543,
 };
 
-static DECL_INFO sHelpInfo_HP =
+DECL_INFO sHelpInfo_HP =
 {
     &sHelpInfo_Level, NULL, NULL, &sHelpInfo_Ss0Res,
     6, 136, 0x544,
@@ -2512,67 +2494,67 @@ DECL_INFO gHelpInfo_Ss0Pow =
     102, 24, 0x546, NULL, HbPopulate_SSPower,
 };
 
-static DECL_INFO sHelpInfo_Ss0Skl =
+DECL_INFO sHelpInfo_Ss0Skl =
 {
     &gHelpInfo_Ss0Pow, &sHelpInfo_Ss0Spd, &sHelpInfo_Char, &sHelpInfo_Ss0Con,
     105, 40, 0x548,
 };
 
-static DECL_INFO sHelpInfo_Ss0Spd =
+DECL_INFO sHelpInfo_Ss0Spd =
 {
     &sHelpInfo_Ss0Skl, &sHelpInfo_Ss0Lck, &sHelpInfo_Char, &sHelpInfo_Ss0Aid,
     102, 56, 0x549,
 };
 
-static DECL_INFO sHelpInfo_Ss0Lck =
+DECL_INFO sHelpInfo_Ss0Lck =
 {
     &sHelpInfo_Ss0Spd, &sHelpInfo_Ss0Def, &sHelpInfo_Char, &sHelpInfo_Ss0Traveler,
     102, 72, 0x54A,
 };
 
-static DECL_INFO sHelpInfo_Ss0Def =
+DECL_INFO sHelpInfo_Ss0Def =
 {
     &sHelpInfo_Ss0Lck, &sHelpInfo_Ss0Res, &sHelpInfo_Char, &sHelpInfo_Ss0Affinity,
     102, 88, 0x54B,
 };
 
-static DECL_INFO sHelpInfo_Ss0Res =
+DECL_INFO sHelpInfo_Ss0Res =
 {
     &sHelpInfo_Ss0Def, NULL, &sHelpInfo_Class, &sHelpInfo_Ss0Status,
     102, 104, 0x54C,
 };
 
-static DECL_INFO sHelpInfo_Ss0Mov =
+DECL_INFO sHelpInfo_Ss0Mov =
 {
     NULL, &sHelpInfo_Ss0Con, &gHelpInfo_Ss0Pow, NULL,
     166, 24, 0x54D,
 };
 
-static DECL_INFO sHelpInfo_Ss0Con =
+DECL_INFO sHelpInfo_Ss0Con =
 {
     &sHelpInfo_Ss0Mov, &sHelpInfo_Ss0Aid, &sHelpInfo_Ss0Skl, NULL,
     166, 40, 0x54E,
 };
 
-static DECL_INFO sHelpInfo_Ss0Aid =
+DECL_INFO sHelpInfo_Ss0Aid =
 {
     &sHelpInfo_Ss0Con, &sHelpInfo_Ss0Traveler, &sHelpInfo_Ss0Spd, NULL,
     166, 56, 0x54F,
 };
 
-static DECL_INFO sHelpInfo_Ss0Traveler =
+DECL_INFO sHelpInfo_Ss0Traveler =
 {
     &sHelpInfo_Ss0Aid, &sHelpInfo_Ss0Affinity, &sHelpInfo_Ss0Lck, NULL,
     166, 72, 0x550,
 };
 
-static DECL_INFO sHelpInfo_Ss0Affinity =
+DECL_INFO sHelpInfo_Ss0Affinity =
 {
     &sHelpInfo_Ss0Traveler, &sHelpInfo_Ss0Status, &sHelpInfo_Ss0Def, NULL,
     166, 88, 0x551,
 };
 
-static DECL_INFO sHelpInfo_Ss0Status =
+DECL_INFO sHelpInfo_Ss0Status =
 {
     &sHelpInfo_Ss0Affinity, NULL, &sHelpInfo_Ss0Res, NULL,
     166, 104, 0, NULL, HbPopulate_SSStatus,
