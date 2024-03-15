@@ -21,10 +21,10 @@ struct MusicProc {
     /*0x58*/ s32 unk58; // 23
     /*0x5C*/ s32 unk5C; // 25
     /*0x60*/ s16 filler60[2];
-    /*0x64*/ s16 unk64;
-    /*0x66*/ s16 unk66;
-    /*0x68*/ s16 unk68;
-    /*0x6A*/ s16 unk6A;
+    /*0x64*/ s16 vc_init_volume;
+    /*0x66*/ s16 vc_end_volume;
+    /*0x68*/ s16 vc_clock;
+    /*0x6A*/ s16 vc_time_end;
 };
 
 static void MusicVc_OnLoop(struct Proc *proc);
@@ -256,10 +256,10 @@ void StartBgmVolumeChange(int volume, int b, int c, ProcPtr parent)
         proc = Proc_StartBlocking(sMusicProc2Script, parent);
     else
         proc = Proc_Start(sMusicProc2Script, PROC_TREE_3);
-    proc->unk64 = volume;
-    proc->unk66 = b;
-    proc->unk68 = 0;
-    proc->unk6A = c;
+    proc->vc_init_volume = volume;
+    proc->vc_end_volume = b;
+    proc->vc_clock = 0;
+    proc->vc_time_end = c;
     if (volume == 0)
         volume = 1;
     Sound_SetSEVolume(volume);
@@ -269,10 +269,11 @@ void StartBgmVolumeChange(int volume, int b, int c, ProcPtr parent)
 static void MusicVc_OnLoop(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
-    Sound_SetSEVolume(Interpolate(4, mproc->unk64, mproc->unk66, mproc->unk68++, mproc->unk6A));
-    if (mproc->unk68 >= mproc->unk6A)
+    int volume = Interpolate(4, mproc->vc_init_volume, mproc->vc_end_volume, mproc->vc_clock++, mproc->vc_time_end);
+    Sound_SetSEVolume(volume);
+    if (mproc->vc_clock >= mproc->vc_time_end)
     {
-        if (mproc->unk66 == 0)
+        if (mproc->vc_end_volume == 0)
         {
             m4aSongNumStop(GetCurrentBgmSong());
             gSoundSt.is_song_playing = FALSE;
@@ -377,12 +378,12 @@ int IsMusicProc2Running(void)
 void sub_800296C(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
-    if (IsBgmPlaying() != 0 && mproc->unk64 != 0)
+    if (IsBgmPlaying() != 0 && mproc->vc_init_volume != 0)
     {
         if (mproc->unk5C == -1)
-            StartBgmVolumeChange(mproc->unk64, mproc->unk66, mproc->unk58, proc);
+            StartBgmVolumeChange(mproc->vc_init_volume, mproc->vc_end_volume, mproc->unk58, proc);
         else
-            StartBgmVolumeChange(mproc->unk64, 0, mproc->unk58, proc);
+            StartBgmVolumeChange(mproc->vc_init_volume, 0, mproc->unk58, proc);
     }
 }
 
@@ -392,7 +393,7 @@ void sub_80029BC(struct Proc *proc)
     if (mproc->unk5C > 0)
     {
         StartBgm(mproc->unk5C, 0);
-        Sound_SetSEVolume(mproc->unk66);
+        Sound_SetSEVolume(mproc->vc_end_volume);
     }
     else
     {
@@ -412,24 +413,27 @@ static struct ProcCmd sMusicProc4Script[] =
     PROC_END,
 };
 
-void CallSomeSoundMaybe(int songId, int b, int c, int d, ProcPtr parent)
+void CallSomeSoundMaybe(int songId, int vc_init_volume, int vc_end_volume, int d, ProcPtr parent)
 {
     struct MusicProc *mproc;
 
-    if (IsBgmPlaying() != 0 && songId == gSoundSt.songId && b == c)
+    if (IsBgmPlaying() != 0 && songId == gSoundSt.songId && vc_init_volume == vc_end_volume)
         return;
 
     if (parent != NULL)
         mproc = Proc_StartBlocking(sMusicProc4Script, parent);
     else
         mproc = Proc_Start(sMusicProc4Script, PROC_TREE_3);
+
     mproc->unk58 = d;
+
     if (IsBgmPlaying() != 0 && songId == gSoundSt.songId)
         mproc->unk5C = -1;
     else
         mproc->unk5C = songId;
-    mproc->unk64 = b;
-    mproc->unk66 = c;
+
+    mproc->vc_init_volume = vc_init_volume;
+    mproc->vc_end_volume = vc_end_volume;
 }
 
 s8 MusicProc4Exists(void)

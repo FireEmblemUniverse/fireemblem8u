@@ -1,6 +1,6 @@
     .section .rodata
 
-	.incbin "baserom.gba", 0xDF308, 0xDF386 - 0xDF308
+	.incbin "baserom.gba", 0xDF334, 0xDF386 - 0xDF334
 
 	.global gUnknown_080DF386
 gUnknown_080DF386:  @ 0x080DF386

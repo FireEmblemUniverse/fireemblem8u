@@ -274,7 +274,8 @@ void BattleAIS_ExecCommands(void)
                     case ANIM_ROUND_NONCRIT_FAR:
                     case ANIM_ROUND_CRIT_FAR:
                     case ANIM_ROUND_MISS_CLOSE:
-                        if (type != -1) {
+                        if (type != -1)
+                        {
                             anim1->nextRoundId = anim1->nextRoundId + 1;
                             anim2->nextRoundId = anim2->nextRoundId + 1;
 
@@ -315,8 +316,10 @@ void BattleAIS_ExecCommands(void)
                             }
 #endif
 
-                            if (gBanimForceUnitChgDebug[GetAnimPosition(anim)] == NULL) {
-                                if (gpImgSheet[GetAnimPosition(anim1)] != anim1->pImgSheet) {
+                            if (gBanimForceUnitChgDebug[GetAnimPosition(anim)] == NULL)
+                            {
+                                if (gpImgSheet[GetAnimPosition(anim1)] != anim1->pImgSheet)
+                                {
                                     NewEkrChienCHR(anim1);
                                     gpImgSheet[GetAnimPosition(anim1)] = anim1->pImgSheet;
                                 }
@@ -697,9 +700,11 @@ void BattleAIS_ExecCommands(void)
         if (!(type & ANIM_BIT2_STOP) && gCtrlC01Blocking != 1)
             continue;
 
-        if (anim->state3 & ANIM_BIT3_NEXT_ROUND_START) {
+        if (anim->state3 & ANIM_BIT3_NEXT_ROUND_START)
+        {
             type = GetAnimNextRoundType(anim);
-            if (type != ANIM_ROUND_INVALID) {
+            if (type != ANIM_ROUND_INVALID)
+            {
                 anim1 = gAnims[GetAnimPosition(anim) * 2];
                 SwitchAISFrameDataFromBARoundType(anim1, type);
                 anim1->state3 &= ~ANIM_BIT3_NEXT_ROUND_START;
@@ -715,17 +720,23 @@ void BattleAIS_ExecCommands(void)
 
                 AnimScrAdvance(anim1);
                 AnimScrAdvance(anim2);
-            } else {
+            }
+            else
+            {
                 anim1 = gAnims[GetAnimPosition(anim) * 2 + 0];
                 anim1->state3 &= ~ANIM_BIT3_NEXT_ROUND_START;
 
                 anim2 = gAnims[GetAnimPosition(anim) * 2 + 1];
                 anim2->state3 &= ~ANIM_BIT3_NEXT_ROUND_START;
             } /* ANIM_ROUND_INVALID */
-        } else {
-            if (anim->state3 & ANIM_BIT3_NEW_ROUND_START) {
+        }
+        else
+        {
+            if (anim->state3 & ANIM_BIT3_NEW_ROUND_START)
+            {
                 type = GetAnimNextRoundType(anim);
-                if (type != ANIM_ROUND_INVALID) {
+                if (type != ANIM_ROUND_INVALID)
+                {
                     anim1 = gAnims[GetAnimPosition(anim) * 2];
                     SwitchAISFrameDataFromBARoundType(anim1, type);
                     anim1->state3 &= ~ANIM_BIT3_NEW_ROUND_START;
@@ -742,8 +753,11 @@ void BattleAIS_ExecCommands(void)
                     AnimScrAdvance(anim1);
                     AnimScrAdvance(anim2);
                 }
-            } else {
-                if (GetAISLayerId(anim) == 0) {
+            }
+            else
+            {
+                if (GetAISLayerId(anim) == 0)
+                {
                     type = GetBattleAnimRoundType(anim->nextRoundId * 2 + GetAnimPosition(anim));
                     if (type == ANIM_ROUND_INVALID)
                         gBanimDoneFlag[GetAnimPosition(anim)] = 1;

@@ -470,6 +470,7 @@ SECTIONS
         src/banim-ekrdragon-dracozombie.o(.text);
         src/banim-ekrdragon-utils.o(.text);
         asm/banim-ekrdragon.o(.text);
+        src/banim-ekrdragon-8070710.o(.text);
         src/banim-ekrdragon-myrrh.o(.text);
         src/banim-efxutils.o(.text);
         src/banim-efxsound.o(.text);
@@ -768,9 +769,11 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-shadowshot.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
+        . = ALIGN(4); src/banim-efxmisc.o(.rodata);
         . = ALIGN(4); data/const_data_efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); src/banim-efxop.o(.rodata);
+        . = ALIGN(4); src/banim-ekrdragon-utils.o(.rodata);
         . = ALIGN(4); data/const_data_banimekrdk.o(.rodata);
         . = ALIGN(4); src/banim-efxutils.o(.rodata);
         . = ALIGN(4); src/banim-efxsound.o(.rodata);
@@ -1009,6 +1012,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-shadowshot.o(.data);
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
+        . = ALIGN(4); src/banim-efxmisc.o(.data);
         . = ALIGN(4); data/banim-efxhit.o(.data);
         . = ALIGN(4); data/banim-efxspecialleffect.o(.data);
         . = ALIGN(4); data/banim-efxmagdhis.o(.data);

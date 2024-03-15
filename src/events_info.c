@@ -8,7 +8,6 @@
 #include "bmunit.h"
 #include "bmtrap.h"
 
-CONST_DATA u8 event_scr_align32_pad[0x8] = {0};
-
 #include "events/prologue-eventinfo.h"
 #include "events/ch1-eventinfo.h"
+#include "events/ch2-eventinfo.h"

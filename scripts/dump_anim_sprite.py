@@ -22,7 +22,7 @@ def dump_one_part(rom_data, off):
             pc  = ctypes.c_int16(int.from_bytes(rom_data[off + 8:off + 10], 'little')).value
             pd  = ctypes.c_int16(int.from_bytes(rom_data[off + 10:off + 12], 'little')).value
             PREFIX = "ANIM_SPRITE_AFFIN"
-            print(f"\t{PREFIX} {cnt}, {hex(pa)}, {hex(pb)}, {hex(pc)}, {hex(pd)}")
+            print(f"    {PREFIX} {cnt}, {hex(pa)}, {hex(pb)}, {hex(pc)}, {hex(pd)}")
             off = off + 12
             continue
 
@@ -65,10 +65,10 @@ def dump_one_part(rom_data, off):
             if oam1 != 0 or oam2 != 0 or x != 0 or y != 0:
                 print(f"@ [ERROR]: at hex{off}!")
 
-            print("\tANIM_SPRITE_END")
+            print("    ANIM_SPRITE_END")
             break;
 
-        print(f"\t{PREFIX} {OAM0}, {OAM1}, {OAM2}, {x}, {y}")
+        print(f"    {PREFIX} {OAM0}, {OAM1}, {OAM2}, {x}, {y}")
 
     return off
 
@@ -90,14 +90,25 @@ def main(args):
     off = start & 0x01FFFFFF
     off_end = end & 0x01FFFFFF
 
+    index = 1
+
+    PreName = None
+    PreName = "FirebreathOBJ"
+
     with open(rom, 'rb') as f:
         rom_data = f.read()
 
         while True:
-            print(f".global AnimSprite_{off + 0x08000000:08X}")
-            print(f"AnimSprite_{off + 0x08000000:08X}:")
+            if PreName != None:
+                name = f"AnimSprite_{PreName}_{index}"
+            else:
+                name = f"AnimSprite_{off + 0x08000000:08X}"
+
+            print(f".global {name}")
+            print(f"{name}:  @ 0x{off:06X}")
             off = dump_one_part(rom_data, off)
-            # print("")
+            print("")
+            index = index + 1
 
             if off_end <= off:
                 break

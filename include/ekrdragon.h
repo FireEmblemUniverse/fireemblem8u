@@ -606,18 +606,32 @@ bool CheckEkrDragonDead(struct Anim *anim);
 bool CheckEkrDragonRefrain(struct Anim *anim);
 void InitEkrDragonStatus(void);
 void sub_807027C(struct Anim *anim);
-u16 *GetEkrDragonPalette(void);
-// ??? SetEkrDragonPaletteBack(???);
-// ??? SetEkrDragonPaletteFront(???);
+u16 * GetEkrDragonPalette(void);
+void SetEkrDragonPaletteBack(int pos);
+void SetEkrDragonPaletteFront(int pos);
 void BanimSetFrontPaletteForDragon(struct Anim *anim);
 void NewEkrDragonQuakeTree3(struct EkrDragonQuakePriv *priv, int, int);
 void NewEkrDragonQuake(struct EkrDragonQuakePriv *priv, int, int, ProcPtr);
 void EkrDragonQuakeMain(struct ProcEkrDragonQuake * proc);
-// ??? NewEkrWhiteINOUT(???);
-// ??? sub_80705A8(???);
-// ??? sub_8070618(???);
-// ??? sub_8070670(???);
-// ??? sub_80706E0(???);
+
+struct ProcEkrDragonScreenFlashing {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ s16 timer;
+
+    STRUCT_PAD(0x2E, 0x44);
+
+    /* 44 */ int dura1, dura2, dura3;
+};
+
+void NewEkrWhiteINOUT(int dura1, int dura2, int dura3);
+void EkrWhiteINOUT_Loop1(struct ProcEkrDragonScreenFlashing * proc);
+void EkrWhiteINOUT_Loop2(struct ProcEkrDragonScreenFlashing * proc);
+void EkrWhiteINOUT_Loop3(struct ProcEkrDragonScreenFlashing * proc);
+void EkrWhiteINOUT_RefrainPalette(struct ProcEkrDragonScreenFlashing * proc);
+
 // ??? sub_8070710(???);
 // ??? sub_80707C0(???);
 // ??? sub_80707FC(???);

@@ -100,11 +100,11 @@ void StartSubSpell_efxDrzDrakbreathOBJ(struct Anim * anim)
 
     if (GetAnimPosition(anim) == 0)
     {
-        scr = gUnknown_085E2A24;
+        scr = AnimScr_FirebreathOBJ_Left;
     }
     else
     {
-        scr = gUnknown_085E35DC;
+        scr = AnimScr_FirebreathOBJ_Right;
     }
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
