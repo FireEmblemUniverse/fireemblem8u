@@ -538,17 +538,9 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085A92E0
 // extern ??? gUnknown_085A92E4
 // extern ??? gUnknown_085A9304
-// extern ??? ProcScr_SIOCON
-// extern ??? ProcScr_SIOVSYNC
-// extern ??? ProcScr_SIOMAIN
-// extern ??? gUnknown_085A93A0
-// extern ??? ProcScr_HOLD
-// extern ??? gUnknown_085A93E0
-// extern ??? gUnknown_085A93F0
-// extern ??? gUnknown_085A94A0
-// extern ??? gUnknown_085A94AC
-// extern ??? ProcScr_TacticianNameSelection
-// extern ??? gUnknown_085A96D4
+
+/* sio.h */
+
 // extern ??? gUnknown_085A96E4
 // extern ??? gUnknown_085A96F4
 // extern ??? gUnknown_085A9774

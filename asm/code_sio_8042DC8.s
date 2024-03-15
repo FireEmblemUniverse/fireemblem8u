@@ -1704,7 +1704,7 @@ _08043F84:
 	adds r0, r7, #0
 	movs r1, #0x50
 	movs r3, #0x88
-	bl sub_8042FFC
+	bl StartSioHold
 	str r0, [r7, #0x30]
 	mov r1, r9
 	adds r1, #1
@@ -1762,7 +1762,7 @@ _08043FEE:
 	adds r0, r7, #0
 	movs r1, #0x50
 	movs r3, #0x88
-	bl sub_8042FFC
+	bl StartSioHold
 	str r0, [r7, #0x30]
 	adds r0, r7, #0
 	movs r1, #7

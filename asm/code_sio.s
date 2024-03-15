@@ -2946,7 +2946,7 @@ sub_80469C4: @ 0x080469C4
 	movs r1, #0x10
 	adds r2, r7, #0
 	bl sub_804C2EC
-	ldr r4, _08046AC4  @ gUnk_Sio_0203DD0C
+	ldr r4, _08046AC4  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -3032,7 +3032,7 @@ _08046AAC:
 _08046AB8: .4byte Img_TacticianSelObj
 _08046ABC: .4byte 0x06014800
 _08046AC0: .4byte Font_0203DB64
-_08046AC4: .4byte gUnk_Sio_0203DD0C
+_08046AC4: .4byte gSioTexts
 _08046AC8: .4byte 0x0000074C
 _08046ACC: .4byte 0x0000074D
 _08046AD0:
@@ -3796,7 +3796,7 @@ _08047094:
 	subs r4, #1
 	cmp r4, #0
 	bge _08047094
-	ldr r4, _080471E8  @ gUnk_Sio_0203DD0C
+	ldr r4, _080471E8  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -3928,7 +3928,7 @@ _080471D8: .4byte gBG2TilemapBuffer+0x102
 _080471DC: .4byte gUnknown_085AE464
 _080471E0: .4byte Font_0203DB64
 _080471E4: .4byte Texts_0203DB14
-_080471E8: .4byte gUnk_Sio_0203DD0C
+_080471E8: .4byte gSioTexts
 _080471EC: .4byte 0x00000772
 _080471F0: .4byte 0x00000773
 _080471F4: .4byte 0x00000774
@@ -4170,7 +4170,7 @@ _080473D2:
 	subs r4, #1
 	cmp r4, #0
 	bge _080473D2
-	ldr r4, _08047550  @ gUnk_Sio_0203DD0C
+	ldr r4, _08047550  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -4325,7 +4325,7 @@ _08047540: .4byte gBG2TilemapBuffer+0x102
 _08047544: .4byte gUnknown_085AE464
 _08047548: .4byte Font_0203DB64
 _0804754C: .4byte Texts_0203DB14
-_08047550: .4byte gUnk_Sio_0203DD0C
+_08047550: .4byte gSioTexts
 _08047554: .4byte 0x00000772
 _08047558: .4byte 0x00000773
 _0804755C: .4byte 0x00000774

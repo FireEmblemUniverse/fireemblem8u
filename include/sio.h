@@ -39,23 +39,40 @@ struct TacticianTextConf {
 extern const struct TacticianTextConf gTacticianTextConf[];
 struct TacticianTextConf * GetTacticianTextConf(s16);
 
-u32 SioStrCpy(void const * src, void * dst);
+u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
-// ??? sub_8042E0C(???);
-// ??? sub_8042E2C(???);
+void SioInit(void);
+void SioPollingMsgAndAck(ProcPtr proc);
 // ??? SetBmStLinkArenaFlag(???);
 // ??? UnsetBmStLinkArenaFlag(???);
 bool CheckInLinkArena(void);    // <!> This function is defined as different types by files, maybe a bug.
-void sub_8042EA8();
-// ??? sub_8042EB4(???);
-// ??? sub_8042EF0(???);
-// ??? sub_8042F44(???);
-// ??? sub_8042F58(???);
-// ??? sub_8042F84(???);
-// ??? sub_8042F98(???);
-// ??? sub_8042FE0(???);
-// ??? sub_8042FFC(???);
-// ??? sub_804302C(???);
+void sub_8042EA8(void);
+
+struct Proc_Sio_085A93A0 {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x58);
+
+    /* 38 */ u32 timer;
+};
+
+void sub_8042EB4(struct Proc_Sio_085A93A0 * proc);
+void sub_8042EF0(struct Proc_Sio_085A93A0 * proc);
+void sub_8042F44(void);
+void sub_8042F58(ProcPtr proc);
+void sub_8042F84(void);
+void sub_8042F98(ProcPtr proc);
+
+struct ProcSioHold {
+    PROC_HEADER;
+
+    int x;
+    int y, y_min, y_max;
+};
+
+void SioHold_Loop(struct ProcSioHold * proc);
+// ??? StartSioHold(???);
+// ??? EndSioHold(???);
 // ??? sub_804303C(???);
 void ClearSioBG(void);
 // ??? sub_804309C(???);
@@ -433,7 +450,7 @@ ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
 // extern ??? gUnk_Sio_0203DA78
-// extern ??? gUnk_Sio_0203DA88
+extern struct Text gUnk_Sio_0203DA88[];
 extern struct Text Texts_0203DAB0;
 // extern ??? gUnk_Sio_0203DAC0
 // extern ??? gUnk_Sio_0203DAC5
@@ -444,7 +461,7 @@ extern struct Font Font_0203DB64;
 // extern ??? gUnk_Sio_0203DB7C
 // extern ??? gUnk_Sio_0203DC44
 // extern ??? gUnk_Sio_0203DC48
-// extern ??? gUnk_Sio_0203DD0C
+extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
 extern u8 gUnk_Sio_0203DD24;
 // extern ??? gUnk_Sio_0203DD28
@@ -510,3 +527,16 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080DA26A
 // extern ??? gUnknown_080DA27E
 // extern ??? gUnknown_080DA2B0
+
+extern CONST_DATA struct ProcCmd ProcScr_SIOCON[];
+extern CONST_DATA struct ProcCmd ProcScr_SIOVSYNC[];
+extern CONST_DATA struct ProcCmd ProcScr_SIOMAIN[];
+extern CONST_DATA u8 * gpSioUnkBuffer;
+extern CONST_DATA struct ProcCmd gUnknown_085A93A0[];
+extern CONST_DATA struct ProcCmd ProcScr_HOLD[];
+// extern ??? gUnknown_085A93E0
+// extern ??? gUnknown_085A93F0
+// extern ??? gUnknown_085A94A0
+// extern ??? gUnknown_085A94AC
+// extern ??? ProcScr_TacticianNameSelection
+// extern ??? gUnknown_085A96D4
