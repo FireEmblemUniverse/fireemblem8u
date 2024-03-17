@@ -116,7 +116,53 @@ void sub_80C3FE0(struct GMapBaseMenuProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_GmapBaseMenu[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GmapBaseMenu[] =
+{
+    PROC_NAME("Gmap Base Menu"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_SET_END_CB(nullsub_71),
+
+    PROC_CALL(sub_80C3EC8),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_80C3EDC),
+    PROC_YIELD,
+
+    PROC_CALL(sub_80C3F24),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_80C3F88),
+    PROC_YIELD,
+
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL(sub_80C3FB4),
+    PROC_YIELD,
+
+    PROC_GOTO(4),
+
+PROC_LABEL(3),
+    PROC_CALL(sub_80C3FE0),
+    PROC_YIELD,
+
+    PROC_GOTO(4),
+
+PROC_LABEL(4),
+    PROC_CALL(sub_80C3F04),
+
+    PROC_GOTO(0),
+
+PROC_LABEL(5),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C400C
 ProcPtr sub_80C400C(int kind, ProcPtr parent)

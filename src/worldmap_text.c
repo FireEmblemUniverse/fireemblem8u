@@ -56,7 +56,18 @@ void sub_80C35C4(struct GMap8A3EE44Proc * proc)
     return;
 }
 
-extern u16 gUnknown_08A3EE28[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_08A3EE28[] =
+{
+    4,
+    OAM0_SHAPE_64x32 + OAM0_Y(8), OAM1_SIZE_64x32 + OAM1_X(8), OAM2_CHR(0x200),
+    OAM0_SHAPE_64x32 + OAM0_Y(8), OAM1_SIZE_64x32 + OAM1_X(72), OAM2_CHR(0x208),
+    OAM0_SHAPE_64x32 + OAM0_Y(8), OAM1_SIZE_64x32 + OAM1_X(136), OAM2_CHR(0x210),
+    OAM0_SHAPE_32x32 + OAM0_Y(8), OAM1_SIZE_32x32 + OAM1_X(200), OAM2_CHR(0x218),
+};
+
+// clang-format on
 
 //! FE8U = 0x080C35EC
 void sub_80C35EC(struct GMap8A3EE44Proc * proc)
@@ -80,7 +91,21 @@ void sub_80C35EC(struct GMap8A3EE44Proc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3EE44[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3EE44[] =
+{
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_CALL(sub_80C35C4),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_80C35EC),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C3624
 void StartWmText(u8 flag)

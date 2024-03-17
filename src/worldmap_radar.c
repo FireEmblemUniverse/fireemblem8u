@@ -210,7 +210,15 @@ void sub_80C3A8C(struct GMapRadarProc * unused)
     return;
 }
 
-extern u8 gUnknown_08206B70[];
+// clang-format off
+
+u8 const gUnknown_08206B70[] =
+{
+    3, 0, 0, 0, 0, 1, 3, 1, 1, 1,
+    2, 2, 3, 2, 2, 3, 3, 3, 2, 3,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C3AB8
 void sub_80C3AB8(struct GMapRadarProc * proc)
@@ -284,8 +292,6 @@ void sub_80C3B40(struct GMapRadarProc * proc)
     return;
 }
 
-extern u8 gUnknown_08206B70[];
-
 extern u16 gUnknown_0201B430[];
 extern u16 gUnknown_0201B458[];
 
@@ -332,7 +338,10 @@ void sub_80C3BE4(struct GMapRadarProc * proc, int b)
     return;
 }
 
-extern s8 gUnknown_08A3EE6C[];
+s8 CONST_DATA gUnknown_08A3EE6C[] =
+{
+    1, 2, 5, 8,
+};
 
 //! FE8U = 0x080C3D24
 void sub_80C3D24(struct GMapRadarProc * proc)
@@ -351,7 +360,10 @@ void sub_80C3D24(struct GMapRadarProc * proc)
     return;
 }
 
-extern s8 gUnknown_08A3EE70[];
+s8 CONST_DATA gUnknown_08A3EE70[] =
+{
+    5, 2, 1, 0,
+};
 
 //! FE8U = 0x080C3D5C
 void sub_80C3D5C(struct GMapRadarProc * proc)
@@ -383,7 +395,30 @@ void sub_80C3D9C(struct GMapRadarProc * proc)
 extern u8 gUnknown_08AA1280[];
 extern u16 gUnknown_08AA188C[];
 
-extern struct ProcCmd ProcScr_GmapRader[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GmapRader[] =
+{
+    PROC_NAME("Gmap Rader"),
+    PROC_MARK(PROC_MARK_8),
+
+    PROC_15,
+    PROC_YIELD,
+
+    PROC_CALL(sub_80C3D9C),
+
+PROC_LABEL(0),
+    PROC_REPEAT(sub_80C3AB8),
+    PROC_REPEAT(sub_80C3D24),
+    PROC_REPEAT(sub_80C3B40),
+    PROC_REPEAT(sub_80C3D5C),
+
+    PROC_GOTO(0),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C3DAC
 void sub_80C3DAC(struct Proc * proc)
@@ -413,7 +448,17 @@ void sub_80C3DAC(struct Proc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_08A3EED4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_08A3EED4[] =
+{
+    PROC_MARK(PROC_MARK_8),
+    PROC_CALL(sub_80C3DAC),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080C3E80
 ProcPtr sub_80C3E80(ProcPtr parent)

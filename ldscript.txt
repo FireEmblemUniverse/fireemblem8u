@@ -845,7 +845,8 @@ SECTIONS
         . = ALIGN(4); src/worldmap_timemons.o(.rodata);
         . = ALIGN(4); src/worldmap_rm.o(.rodata);
         . = ALIGN(4); src/worldmap_automu.o(.rodata);
-        . = ALIGN(4); data/const_data_20688C.o(.rodata);
+        . = ALIGN(4); src/worldmap_radar.o(.rodata);
+        . = ALIGN(4); src/worldmap_basemenu.o(.rodata);
         . = ALIGN(4); src/ending_credits.o(.rodata);
         . = ALIGN(4); src/opsubtitle.o(.rodata);
         . = ALIGN(4); src/classchg-main.o(.rodata);
@@ -1177,6 +1178,9 @@ SECTIONS
         . = ALIGN(4); src/worldmap_timemons.o(.data);
         . = ALIGN(4); src/worldmap_rm.o(.data);
         . = ALIGN(4); src/worldmap_automu.o(.data);
+        . = ALIGN(4); src/worldmap_text.o(.data);
+        . = ALIGN(4); src/worldmap_radar.o(.data);
+        . = ALIGN(4); src/worldmap_basemenu.o(.data);
         . = ALIGN(4); data/data_A3E4D4.o(.data);
         . = ALIGN(4); src/ending_credits.o(.data);
         . = ALIGN(4); src/opsubtitle.o(.data);
