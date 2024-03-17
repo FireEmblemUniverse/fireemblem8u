@@ -436,7 +436,7 @@ void sub_8098A74(u16* tm) {
     ClearText(&gPrepItemScreenTexts[11]);
     ClearText(&gPrepItemScreenTexts[12]);
 
-    switch (sub_80C4070()) {
+    switch (GetGMapBaseMenuKind()) {
         case 0:
             textId = 0x0672; // TODO: msgid "Enter Armory"
             break;
@@ -468,7 +468,7 @@ void sub_8098B48(void) {
 
 //! FE8U = 0x08098B68
 void sub_8098B68(void) {
-    switch (sub_80C4070()) {
+    switch (GetGMapBaseMenuKind()) {
         case 3:
             PrepItemDrawPopupBox(136, 81, 9, 6, OAM2_CHR(0x40) + OAM2_LAYER(1) + OAM2_PAL(10));
             break;
@@ -716,7 +716,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
             if (gGMData.state.bits.state_0) {
-                switch (sub_80C4070()) {
+                switch (GetGMapBaseMenuKind()) {
                     case 3:
                         proc->selectedUnitIdx = proc->hoverUnitIdx;
 
@@ -1279,7 +1279,7 @@ void sub_8099E68(struct PrepItemScreenProc * proc)
         return;
     }
 
-    sub_80C409C(0);
+    SetGMapBaseMenuPid(0);
 
     return;
 }
@@ -1614,7 +1614,7 @@ void sub_809A114(struct PrepItemScreenProc* proc, u8 unk, s8 flag) {
     idx = ((unk) * 3);
     th = &gPrepItemTexts[idx % 0xf];
 
-    if (gGMData.state.bits.state_0 && sub_80C4070() == 2) {
+    if (gGMData.state.bits.state_0 && GetGMapBaseMenuKind() == 2) {
         isWorldMapMaybe = 1;
     } else {
         isWorldMapMaybe = 0;
@@ -1703,7 +1703,7 @@ void sub_809A274(struct PrepItemScreenProc* proc) {
             continue;
         }
 
-        if (((gGMData.state.bits.state_0)) && (sub_80C4070() == 2)) {
+        if (((gGMData.state.bits.state_0)) && (GetGMapBaseMenuKind() == 2)) {
             sub_809A230(GetUnitFromPrepList(i), (x + 24) & 0xffff, (y + 4) & 0xff);
         } else {
             PutUnitSprite(0, (x + 24), (y + 4) & 0xff, GetUnitFromPrepList(i));

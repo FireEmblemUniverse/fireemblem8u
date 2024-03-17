@@ -1134,12 +1134,12 @@ Pal_WmPlaceDot_Standard:  @ 0x08AA11B0
 gUnknown_08AA11D0:  @ 0x08AA11D0
 	.incbin "baserom.gba", 0xAA11D0, 0xB0
 
-	.global gUnknown_08AA1280
-gUnknown_08AA1280:  @ 0x08AA1280
+	.global Img_WorldmapMinimap
+Img_WorldmapMinimap:  @ 0x08AA1280
 	.incbin "baserom.gba", 0xAA1280, 0x60C
 
-	.global gUnknown_08AA188C
-gUnknown_08AA188C:  @ 0x08AA188C
+	.global Pal_WorldmapMinimap
+Pal_WorldmapMinimap:  @ 0x08AA188C
 	.incbin "baserom.gba", 0xAA188C, 0x20
 
 	.global gUnknown_08AA18AC

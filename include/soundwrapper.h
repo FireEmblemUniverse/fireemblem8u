@@ -16,7 +16,7 @@ struct SoundSt {
 extern struct SoundSt gSoundSt;
 
 int GetCurrentBgmSong(void);
-// ??? IsBgmPlaying(???);
+s8 IsBgmPlaying(void);
 void Sound_SetBGMVolume(int volume);
 void Sound_SetSEVolume(int vol);
 void Sound_FadeOutBGM(int speed);

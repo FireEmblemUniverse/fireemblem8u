@@ -27,7 +27,7 @@ void PrepItemList_Init(struct PrepItemListProc * proc)
     proc->unk_34 = 0xff;
 
     if (gGMData.state.bits.state_0) {
-        struct GMapBaseMenuProc* pGMapBaseMenuProc = sub_80C4048();
+        struct GMapBaseMenuProc* pGMapBaseMenuProc = FindGMapBaseMenu();
 
         if (pGMapBaseMenuProc) {
             proc->currentPage = pGMapBaseMenuProc->unk_2a;
@@ -239,7 +239,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
 void PrepItemList_OnEnd(struct PrepItemListProc * proc)
 {
     if (gGMData.state.bits.state_0) {
-        struct GMapBaseMenuProc* pGMapBaseMenuProc = sub_80C4048();
+        struct GMapBaseMenuProc* pGMapBaseMenuProc = FindGMapBaseMenu();
         if (pGMapBaseMenuProc) {
             pGMapBaseMenuProc->unk_2a = proc->currentPage;
         }

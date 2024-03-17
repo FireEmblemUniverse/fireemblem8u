@@ -1265,7 +1265,7 @@ u8 EventC6_WmDisplayText(struct EventEngineProc * proc)
     a = EVT_CMD_ARGV(proc->pEventCurrent)[1];
     b = EVT_CMD_ARGV(proc->pEventCurrent)[2];
 
-    sub_80C36A0(a | b);
+    StartWmTextMsg(a | b);
 
     if (proc->evStateBits & EV_STATE_0020)
     {
@@ -1283,7 +1283,7 @@ u8 EventC7_(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    StartWmText(1);
+    ShowWmText(1);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -1296,7 +1296,7 @@ u8 EventC8_(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    StartWmText(0);
+    ShowWmText(0);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -1306,11 +1306,11 @@ u8 EventC9_RemoveWmText(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        RemoveWmText();
+        HideWmText();
         return EVC_ADVANCE_CONTINUE;
     }
 
-    RemoveWmText();
+    HideWmText();
 
     return EVC_ADVANCE_YIELD;
 }

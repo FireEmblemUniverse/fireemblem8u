@@ -7,7 +7,7 @@
 #include "worldmap.h"
 
 //! FE8U = 0x080C36E8
-void sub_80C36E8(struct GMapRadarProc * proc)
+void WmMinimap_PutCursorIcon(struct GMapRadarProc * proc)
 {
     int xTmp;
     int yTmp;
@@ -32,7 +32,7 @@ void sub_80C36E8(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C3770
-void sub_80C3770(struct GMapRadarProc * proc)
+void WmMinimap_PutStoryNodeIcon(struct GMapRadarProc * proc)
 {
     int x;
     int y;
@@ -66,7 +66,7 @@ void sub_80C3770(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C380C
-void sub_80C380C(struct GMapRadarProc * proc)
+void WmMinimap_PutLordIcon(struct GMapRadarProc * proc)
 {
     int xTmp;
     int yTmp;
@@ -92,6 +92,7 @@ void sub_80C380C(struct GMapRadarProc * proc)
 
     xOam1 = xTmp - 3;
     yOam0 = yTmp + 7;
+
     if ((xTmp >= -0x1d) && (xTmp < 0x113) && (yOam0 >= -0x20) && (yOam0 < 0xc0))
     {
         PutSpriteExt(0, OAM1_X(xOam1), OAM0_Y(yOam0), gObject_8x8, OAM2_CHR(0xF4) + OAM2_PAL(9));
@@ -101,7 +102,7 @@ void sub_80C380C(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C38BC
-void sub_80C38BC(struct GMapRadarProc * proc)
+void WmMinimap_PutSkirmishIcons(struct GMapRadarProc * proc)
 {
     int i;
     int j;
@@ -173,7 +174,7 @@ extern u16 gUnknown_08AA1930[];
 extern u16 gUnknown_08AA1950[];
 
 //! FE8U = 0x080C3A28
-void sub_80C3A28(struct GMapRadarProc * proc)
+void WmMinimap_BlinkPalette(struct GMapRadarProc * proc)
 {
     int colorIdx = GM_MAIN->unk_50->unk_34;
 
@@ -188,22 +189,22 @@ void sub_80C3A28(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C3A64
-void sub_80C3A64(struct GMapRadarProc * proc)
+void PutWmMinimapSprites(struct GMapRadarProc * proc)
 {
-    sub_80C3770(proc);
-    sub_80C38BC(proc);
-    sub_80C380C(proc);
-    sub_80C36E8(proc);
-    sub_80C3A28(proc);
+    WmMinimap_PutStoryNodeIcon(proc);
+    WmMinimap_PutSkirmishIcons(proc);
+    WmMinimap_PutLordIcon(proc);
+    WmMinimap_PutCursorIcon(proc);
+
+    WmMinimap_BlinkPalette(proc);
 
     return;
 }
 
 extern u16 gUnknown_0201B458[];
-extern u8 gUnknown_08AA18AC[];
 
 //! FE8U = 0x080C3A8C
-void sub_80C3A8C(struct GMapRadarProc * unused)
+void GMapRadar_80C3A8C(struct GMapRadarProc * unused)
 {
     TileMap_FillRect(gUnknown_0201B458, 8, 8, 0);
     CallARM_FillTileRect(gUnknown_0201B458, gUnknown_08AA18AC, 0x000071E0);
@@ -221,7 +222,7 @@ u8 const gUnknown_08206B70[] =
 // clang-format on
 
 //! FE8U = 0x080C3AB8
-void sub_80C3AB8(struct GMapRadarProc * proc)
+void GMapRadar_80C3AB8(struct GMapRadarProc * proc)
 {
     int state;
 
@@ -234,7 +235,7 @@ void sub_80C3AB8(struct GMapRadarProc * proc)
         gGMData.state.bits.state_4_5 = 0;
         gGMData.state.raw |= state;
 
-        sub_80C3A8C(proc);
+        GMapRadar_80C3A8C(proc);
 
         *&proc->unk_2d = gGMData.ix >> 8;
         *&proc->unk_2e = gGMData.iy >> 8;
@@ -249,11 +250,11 @@ void sub_80C3AB8(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C3B40
-void sub_80C3B40(struct GMapRadarProc * proc)
+void GMapRadar_80C3B40(struct GMapRadarProc * proc)
 {
     int var;
 
-    sub_80C3A64(proc);
+    PutWmMinimapSprites(proc);
 
     proc->unk_2b = proc->unk_2d;
     proc->unk_2c = proc->unk_2e;
@@ -296,7 +297,7 @@ extern u16 gUnknown_0201B430[];
 extern u16 gUnknown_0201B458[];
 
 //! FE8U = 0x080C3BE4
-void sub_80C3BE4(struct GMapRadarProc * proc, int b)
+void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
 {
     switch (gUnknown_08206B70[proc->unk_2a + gGMData.state.bits.state_4_5 * 5])
     {
@@ -344,10 +345,10 @@ s8 CONST_DATA gUnknown_08A3EE6C[] =
 };
 
 //! FE8U = 0x080C3D24
-void sub_80C3D24(struct GMapRadarProc * proc)
+void GMapRadar_SlideIn(struct GMapRadarProc * proc)
 {
-    sub_80C3BE4(proc, gUnknown_08A3EE6C[proc->unk_34]);
-    sub_80C3A64(proc);
+    PutWmMinimapGfx(proc, gUnknown_08A3EE6C[proc->unk_34]);
+    PutWmMinimapSprites(proc);
 
     proc->unk_34++;
 
@@ -366,10 +367,10 @@ s8 CONST_DATA gUnknown_08A3EE70[] =
 };
 
 //! FE8U = 0x080C3D5C
-void sub_80C3D5C(struct GMapRadarProc * proc)
+void GMapRadar_SlideOut(struct GMapRadarProc * proc)
 {
-    sub_80C3BE4(proc, gUnknown_08A3EE70[proc->unk_34]);
-    sub_80C3A64(proc);
+    PutWmMinimapGfx(proc, gUnknown_08A3EE70[proc->unk_34]);
+    PutWmMinimapSprites(proc);
 
     proc->unk_34++;
 
@@ -384,16 +385,13 @@ void sub_80C3D5C(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C3D9C
-void sub_80C3D9C(struct GMapRadarProc * proc)
+void GMapRadar_Init(struct GMapRadarProc * proc)
 {
     proc->unk_34 = 0;
     proc->unk_29 = 0;
     proc->unk_2a = 0;
     return;
 }
-
-extern u8 gUnknown_08AA1280[];
-extern u16 gUnknown_08AA188C[];
 
 // clang-format off
 
@@ -405,13 +403,13 @@ struct ProcCmd CONST_DATA ProcScr_GmapRader[] =
     PROC_15,
     PROC_YIELD,
 
-    PROC_CALL(sub_80C3D9C),
+    PROC_CALL(GMapRadar_Init),
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_80C3AB8),
-    PROC_REPEAT(sub_80C3D24),
-    PROC_REPEAT(sub_80C3B40),
-    PROC_REPEAT(sub_80C3D5C),
+    PROC_REPEAT(GMapRadar_80C3AB8),
+    PROC_REPEAT(GMapRadar_SlideIn),
+    PROC_REPEAT(GMapRadar_80C3B40),
+    PROC_REPEAT(GMapRadar_SlideOut),
 
     PROC_GOTO(0),
 
@@ -421,7 +419,7 @@ PROC_LABEL(0),
 // clang-format on
 
 //! FE8U = 0x080C3DAC
-void sub_80C3DAC(struct Proc * proc)
+void StartWorldMapMinimapCore(struct Proc * proc)
 {
     SetWinEnable(0, 0, 0);
     SetWOutLayers(1, 1, 1, 1, 1);
@@ -437,9 +435,9 @@ void sub_80C3DAC(struct Proc * proc)
     SetBlendTargetB(0, 0, 1, 1, 1);
     SetBlendBackdropA(0);
 
-    Decompress(gUnknown_08AA1280, (void *)0x06003C00);
+    Decompress(Img_WorldmapMinimap, (void *)0x06003C00);
 
-    ApplyPalette(gUnknown_08AA188C, 7);
+    ApplyPalette(Pal_WorldmapMinimap, 7);
     ApplyPalette(gPal_GMapPI_ShopIcons, 0x19);
     EnablePaletteSync();
 
@@ -450,10 +448,10 @@ void sub_80C3DAC(struct Proc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3EED4[] =
+struct ProcCmd CONST_DATA ProcScr_WorldmapMinimapWrapper[] =
 {
     PROC_MARK(PROC_MARK_8),
-    PROC_CALL(sub_80C3DAC),
+    PROC_CALL(StartWorldMapMinimapCore),
 
     PROC_END,
 };
@@ -461,16 +459,16 @@ struct ProcCmd CONST_DATA gUnknown_08A3EED4[] =
 // clang-format on
 
 //! FE8U = 0x080C3E80
-ProcPtr sub_80C3E80(ProcPtr parent)
+ProcPtr StartWorldmapMinimap(ProcPtr parent)
 {
-    return Proc_Start(gUnknown_08A3EED4, parent);
+    return Proc_Start(ProcScr_WorldmapMinimapWrapper, parent);
 }
 
 //! FE8U = 0x080C3E94
-void sub_80C3E94(void)
+void EndWorldmapMinimap(void)
 {
     Proc_EndEach(ProcScr_GmapRader);
-    Proc_EndEach(gUnknown_08A3EED4);
+    Proc_EndEach(ProcScr_WorldmapMinimapWrapper);
 
     SetDefaultColorEffects();
 

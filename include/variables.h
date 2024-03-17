@@ -1284,9 +1284,9 @@ extern u8 Img_WorldMapPlaceDot[];
 extern u16 Pal_WmPlaceDot_Highlight[];
 extern u16 Pal_WmPlaceDot_Standard[];
 extern u8 gUnknown_08AA11D0[]; // tsa?
-// extern ??? gUnknown_08AA1280
-// extern ??? gUnknown_08AA188C
-// extern ??? gUnknown_08AA18AC
+extern u8 Img_WorldmapMinimap[];
+extern u16 Pal_WorldmapMinimap[];
+extern u8 gUnknown_08AA18AC[];
 // extern ??? gUnknown_08AA1930
 // extern ??? gUnknown_08AA1950
 extern u8 gImg_WorldmapSkirmish[]; // gfx

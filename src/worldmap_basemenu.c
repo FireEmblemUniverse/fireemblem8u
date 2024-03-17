@@ -6,31 +6,29 @@
 
 #include "worldmap.h"
 
-s8 IsBgmPlaying(void);
-
 //! FE8U = 0x080C3EC4
-void nullsub_71(void)
+void GMapBaseMenu_OnEnd_Null(void)
 {
     return;
 }
 
 //! FE8U = 0x080C3EC8
-void sub_80C3EC8(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_Init(struct GMapBaseMenuProc * proc)
 {
     proc->unk_2a = 0;
     proc->unk_2b = 0;
-    proc->unk_2c = -1;
+    proc->pid = -1;
     return;
 }
 
 //! FE8U = 0x080C3EDC
-void sub_80C3EDC(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_StartItemScreen(struct GMapBaseMenuProc * proc)
 {
-    proc->unk_30 = IsBgmPlaying();
+    proc->wasBgmPlaying = IsBgmPlaying();
 
-    if (proc->unk_30 != 0)
+    if (proc->wasBgmPlaying != 0)
     {
-        proc->unk_34 = GetCurrentBgmSong();
+        proc->bgmSongId = GetCurrentBgmSong();
     }
 
     StartPrepItemScreen(proc);
@@ -39,23 +37,23 @@ void sub_80C3EDC(struct GMapBaseMenuProc * proc)
 }
 
 //! FE8U = 0x080C3F04
-void sub_80C3F04(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_RestoreBgm(struct GMapBaseMenuProc * proc)
 {
-    if (proc->unk_30 != 0)
+    if (proc->wasBgmPlaying != 0)
     {
-        StartBgmFadeIn(proc->unk_34, 1, 0);
+        StartBgmFadeIn(proc->bgmSongId, 1, 0);
     }
 
     return;
 }
 
 //! FE8U = 0x080C3F24
-void sub_80C3F24(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_ShopFromItemScreen(struct GMapBaseMenuProc * proc)
 {
-    switch (proc->unk_29)
+    switch (proc->kind)
     {
-        case 0:
-            if (proc->unk_2c != 0)
+        case SHOP_TYPE_ARMORY:
+            if (proc->pid != 0)
             {
                 Proc_Goto(proc, 1);
                 return;
@@ -65,8 +63,8 @@ void sub_80C3F24(struct GMapBaseMenuProc * proc)
 
             break;
 
-        case 1:
-            if (proc->unk_2c != 0)
+        case SHOP_TYPE_VENDOR:
+            if (proc->pid != 0)
             {
                 Proc_Goto(proc, 2);
                 return;
@@ -76,8 +74,8 @@ void sub_80C3F24(struct GMapBaseMenuProc * proc)
 
             break;
 
-        case 2:
-            if (proc->unk_2c != 0)
+        case SHOP_TYPE_SECRET_SHOP:
+            if (proc->pid != 0)
             {
                 Proc_Goto(proc, 3);
                 return;
@@ -96,23 +94,23 @@ void sub_80C3F24(struct GMapBaseMenuProc * proc)
 }
 
 //! FE8U = 0x080C3F88
-void sub_80C3F88(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_StartArmory(struct GMapBaseMenuProc * proc)
 {
-    StartArmoryScreen(GetUnitFromCharId(proc->unk_2c), gGMData.units[0].location[gWMNodeData].armory, proc);
+    StartArmoryScreen(GetUnitFromCharId(proc->pid), gGMData.units[0].location[gWMNodeData].armory, proc);
     return;
 }
 
 //! FE8U = 0x080C3FB4
-void sub_80C3FB4(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_StartVendor(struct GMapBaseMenuProc * proc)
 {
-    StartVendorScreen(GetUnitFromCharId(proc->unk_2c), gGMData.units[0].location[gWMNodeData].vendor, proc);
+    StartVendorScreen(GetUnitFromCharId(proc->pid), gGMData.units[0].location[gWMNodeData].vendor, proc);
     return;
 }
 
 //! FE8U = 0x080C3FE0
-void sub_80C3FE0(struct GMapBaseMenuProc * proc)
+void GMapBaseMenu_StartSecretShop(struct GMapBaseMenuProc * proc)
 {
-    StartSecretShopScreen(GetUnitFromCharId(proc->unk_2c), gGMData.units[0].location[gWMNodeData].secretShop, proc);
+    StartSecretShopScreen(GetUnitFromCharId(proc->pid), gGMData.units[0].location[gWMNodeData].secretShop, proc);
     return;
 }
 
@@ -123,38 +121,38 @@ struct ProcCmd CONST_DATA ProcScr_GmapBaseMenu[] =
     PROC_NAME("Gmap Base Menu"),
     PROC_MARK(PROC_MARK_8),
 
-    PROC_SET_END_CB(nullsub_71),
+    PROC_SET_END_CB(GMapBaseMenu_OnEnd_Null),
 
-    PROC_CALL(sub_80C3EC8),
+    PROC_CALL(GMapBaseMenu_Init),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80C3EDC),
+    PROC_CALL(GMapBaseMenu_StartItemScreen),
     PROC_YIELD,
 
-    PROC_CALL(sub_80C3F24),
+    PROC_CALL(GMapBaseMenu_ShopFromItemScreen),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(sub_80C3F88),
+    PROC_CALL(GMapBaseMenu_StartArmory),
     PROC_YIELD,
 
     PROC_GOTO(4),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80C3FB4),
+    PROC_CALL(GMapBaseMenu_StartVendor),
     PROC_YIELD,
 
     PROC_GOTO(4),
 
 PROC_LABEL(3),
-    PROC_CALL(sub_80C3FE0),
+    PROC_CALL(GMapBaseMenu_StartSecretShop),
     PROC_YIELD,
 
     PROC_GOTO(4),
 
 PROC_LABEL(4),
-    PROC_CALL(sub_80C3F04),
+    PROC_CALL(GMapBaseMenu_RestoreBgm),
 
     PROC_GOTO(0),
 
@@ -165,7 +163,7 @@ PROC_LABEL(5),
 // clang-format on
 
 //! FE8U = 0x080C400C
-ProcPtr sub_80C400C(int kind, ProcPtr parent)
+ProcPtr StartGMapBaseMenu(int kind, ProcPtr parent)
 {
     struct GMapBaseMenuProc * proc;
 
@@ -178,64 +176,64 @@ ProcPtr sub_80C400C(int kind, ProcPtr parent)
         proc = Proc_Start(ProcScr_GmapBaseMenu, PROC_TREE_3);
     }
 
-    proc->unk_29 = kind;
+    proc->kind = kind;
 
     // return; BUG
 }
 
 //! FE8U = 0x080C4038
-void sub_80C4038(void)
+void EndGMapBaseMenu(void)
 {
     Proc_EndEach(ProcScr_GmapBaseMenu);
     return;
 }
 
 //! FE8U = 0x080C4048
-struct GMapBaseMenuProc * sub_80C4048(void)
+struct GMapBaseMenuProc * FindGMapBaseMenu(void)
 {
     return Proc_Find(ProcScr_GmapBaseMenu);
 }
 
 //! FE8U = 0x080C4058
-bool sub_80C4058(void)
+bool IsGMapBaseMenuActive(void)
 {
     return Proc_Find(ProcScr_GmapBaseMenu) ? true : false;
 }
 
 //! FE8U = 0x080C4070
-int sub_80C4070(void)
+int GetGMapBaseMenuKind(void)
 {
-    struct GMapBaseMenuProc * proc = sub_80C4048();
+    struct GMapBaseMenuProc * proc = FindGMapBaseMenu();
 
     if (proc != NULL)
     {
-        return proc->unk_29;
+        return proc->kind;
     }
 
     return 0;
 }
 
 //! FE8U = 0x080C4088
-int sub_80C4088(void)
+int GetGMapBaseMenuPid(void)
 {
-    struct GMapBaseMenuProc * proc = sub_80C4048();
+    struct GMapBaseMenuProc * proc = FindGMapBaseMenu();
 
     if (proc != NULL)
     {
-        return proc->unk_2c;
+        return proc->pid;
     }
 
     return 0;
 }
 
 //! FE8U = 0x080C409C
-void sub_80C409C(int pid)
+void SetGMapBaseMenuPid(int pid)
 {
-    struct GMapBaseMenuProc * proc = sub_80C4048();
+    struct GMapBaseMenuProc * proc = FindGMapBaseMenu();
 
     if (proc != NULL)
     {
-        proc->unk_2c = pid;
+        proc->pid = pid;
     }
 
     return;

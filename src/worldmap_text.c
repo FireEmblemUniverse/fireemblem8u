@@ -24,7 +24,7 @@ void sub_80C34D0(u16 * dstPal, int b, u16 colorA, u16 colorB)
 }
 
 //! FE8U = 0x080C3590
-void sub_80C3590(void)
+void ClearWmTextVram(void)
 {
     int i;
 
@@ -36,20 +36,20 @@ void sub_80C3590(void)
     return;
 }
 
-struct GMap8A3EE44Proc
+struct GMapTextProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
+    /* 29 */ u8 drawAtBottom;
+    /* 2A */ u8 visible;
 };
 
 //! FE8U = 0x080C35C4
-void sub_80C35C4(struct GMap8A3EE44Proc * proc)
+void WmText_Init(struct GMapTextProc * proc)
 {
-    proc->unk_29 = 1;
-    proc->unk_2a = 0;
+    proc->drawAtBottom = 1;
+    proc->visible = 0;
 
-    sub_80C3590();
+    ClearWmTextVram();
 
     gWmHblankStatus &= ~1;
 
@@ -58,7 +58,7 @@ void sub_80C35C4(struct GMap8A3EE44Proc * proc)
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_08A3EE28[] =
+u16 CONST_DATA Sprite_WmText[] =
 {
     4,
     OAM0_SHAPE_64x32 + OAM0_Y(8), OAM1_SIZE_64x32 + OAM1_X(8), OAM2_CHR(0x200),
@@ -70,37 +70,37 @@ u16 CONST_DATA gUnknown_08A3EE28[] =
 // clang-format on
 
 //! FE8U = 0x080C35EC
-void sub_80C35EC(struct GMap8A3EE44Proc * proc)
+void WmText_Loop_DrawText(struct GMapTextProc * proc)
 {
     int y;
 
-    if (proc->unk_2a == 0)
+    if (proc->visible == 0)
     {
         return;
     }
 
     y = 0;
 
-    if (proc->unk_29 == 1)
+    if (proc->drawAtBottom == 1)
     {
         y = 111;
     }
 
-    PutSpriteExt(1, 0, y, gUnknown_08A3EE28, OAM2_PAL(2));
+    PutSpriteExt(1, 0, y, Sprite_WmText, OAM2_PAL(2));
 
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_08A3EE44[] =
+struct ProcCmd CONST_DATA ProcScr_WorldMapTextHandler[] =
 {
     PROC_MARK(PROC_MARK_8),
 
-    PROC_CALL(sub_80C35C4),
+    PROC_CALL(WmText_Init),
     PROC_YIELD,
 
-    PROC_REPEAT(sub_80C35EC),
+    PROC_REPEAT(WmText_Loop_DrawText),
 
     PROC_END,
 };
@@ -108,43 +108,43 @@ struct ProcCmd CONST_DATA gUnknown_08A3EE44[] =
 // clang-format on
 
 //! FE8U = 0x080C3624
-void StartWmText(u8 flag)
+void ShowWmText(u8 atBottom)
 {
-    struct GMap8A3EE44Proc * proc = Proc_Find(gUnknown_08A3EE44);
+    struct GMapTextProc * proc = Proc_Find(ProcScr_WorldMapTextHandler);
 
     if (proc != NULL)
     {
-        sub_80C3590();
+        ClearWmTextVram();
         gWmHblankStatus &= ~1;
-        proc->unk_29 = flag;
-        proc->unk_2a = 1;
+        proc->drawAtBottom = atBottom;
+        proc->visible = 1;
     }
 
     return;
 }
 
 //! FE8U = 0x0800CDC8
-void RemoveWmText(void)
+void HideWmText(void)
 {
-    struct GMap8A3EE44Proc * proc = Proc_Find(gUnknown_08A3EE44);
+    struct GMapTextProc * proc = Proc_Find(ProcScr_WorldMapTextHandler);
 
     if (proc != NULL)
     {
         gWmHblankStatus &= ~1;
-        proc->unk_2a = 0;
+        proc->visible = 0;
     }
 
     return;
 }
 
 //! FE8U = 0x080C368C
-ProcPtr sub_80C368C(ProcPtr parent)
+ProcPtr StartWmTextHandler(ProcPtr parent)
 {
-    return Proc_Start(gUnknown_08A3EE44, parent);
+    return Proc_Start(ProcScr_WorldMapTextHandler, parent);
 }
 
 //! FE8U = 0x080C36A0
-void sub_80C36A0(int textId)
+void StartWmTextMsg(int textId)
 {
     EndTalk();
 

@@ -182,7 +182,7 @@ void PrepItemSupply_Init(struct PrepItemSupplyProc * proc)
     }
 
     if (gGMData.state.bits.state_0) {
-        struct GMapBaseMenuProc* pGMapBaseMenuProc = sub_80C4048();
+        struct GMapBaseMenuProc* pGMapBaseMenuProc = FindGMapBaseMenu();
         if (pGMapBaseMenuProc) {
             proc->currentPage = pGMapBaseMenuProc->unk_2b;
         } else {
@@ -1093,7 +1093,7 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc * proc)
 void PrepItemSupply_OnEnd(struct PrepItemSupplyProc * proc)
 {
     if (gGMData.state.bits.state_0) {
-        struct GMapBaseMenuProc* pGMapBaseMenuProc = sub_80C4048();
+        struct GMapBaseMenuProc* pGMapBaseMenuProc = FindGMapBaseMenu();
         if (pGMapBaseMenuProc) {
             pGMapBaseMenuProc->unk_2b = proc->currentPage;
         }

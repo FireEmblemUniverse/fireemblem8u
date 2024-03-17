@@ -19,6 +19,8 @@
 #include "savemenu.h"
 #include "sysutil.h"
 #include "unitlistscreen.h"
+#include "bmshop.h"
+
 #include "worldmap.h"
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
@@ -79,7 +81,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
     SetBlendConfig(3, 0, 0, 0x10);
 
     sub_80BF15C();
-    sub_80C3E94();
+    EndWorldmapMinimap();
 
     gGMData.state.bits.state_6 = 0;
     gGMData.state.bits.state_7 = 0;
@@ -530,7 +532,7 @@ void sub_80B9154(struct WorldMapMainProc * proc)
     proc->unk_54 = StartGmMu(proc);
 
     RefreshGmNodeLinks(&gGMData);
-    sub_80C368C(proc);
+    StartWmTextHandler(proc);
     sub_80B8FEC(proc);
     sub_80B90CC(proc);
 
@@ -831,7 +833,7 @@ PROC_LABEL(3),
     PROC_CALL(sub_80B9A34),
     PROC_WHILE(FadeInExists),
     PROC_CALL(sub_80BF13C),
-    PROC_CALL(sub_80C3E80),
+    PROC_CALL(StartWorldmapMinimap),
     PROC_SLEEP(1),
 
     // fallthrough
@@ -844,7 +846,7 @@ PROC_LABEL(4),
 
 PROC_LABEL(5),
     PROC_CALL(sub_80BF15C),
-    PROC_CALL(sub_80C3E94),
+    PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
     PROC_CALL(StartWMGeneralMenu),
 
@@ -852,7 +854,7 @@ PROC_LABEL(5),
 
 PROC_LABEL(6),
     PROC_CALL(sub_80BF15C),
-    PROC_CALL(sub_80C3E94),
+    PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
     PROC_CALL(sub_80B8A7C),
     PROC_REPEAT(sub_80B8B3C),
@@ -935,7 +937,7 @@ PROC_LABEL(13),
 
 PROC_LABEL(14),
     PROC_CALL(sub_80BF15C),
-    PROC_CALL(sub_80C3E94),
+    PROC_CALL(EndWorldmapMinimap),
 
     // fallthrough
 
@@ -948,7 +950,7 @@ PROC_LABEL(15),
 
 PROC_LABEL(16),
     PROC_CALL(sub_80BF15C),
-    PROC_CALL(sub_80C3E94),
+    PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(30),
     PROC_CALL(sub_80B9A58),
     PROC_REPEAT(Worldmap_WaitForSkirmishAnim),
@@ -969,7 +971,7 @@ PROC_LABEL(17),
 
 PROC_LABEL(18),
     PROC_CALL(sub_80BF15C),
-    PROC_CALL(sub_80C3E94),
+    PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
     PROC_CALL(StartWMNodeMenu),
     PROC_SLEEP(6),
@@ -980,7 +982,7 @@ PROC_LABEL(19),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
     PROC_CALL(sub_80B9810),
-    PROC_CALL(sub_80B9F14),
+    PROC_CALL(WorldMap_StartArmory),
     PROC_YIELD,
     PROC_CALL(sub_80B9154),
 
@@ -990,7 +992,7 @@ PROC_LABEL(20),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
     PROC_CALL(sub_80B9810),
-    PROC_CALL(sub_80B9F24),
+    PROC_CALL(WorldMap_StartVendor),
     PROC_YIELD,
     PROC_CALL(sub_80B9154),
 
@@ -1000,7 +1002,7 @@ PROC_LABEL(21),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
     PROC_CALL(sub_80B9810),
-    PROC_CALL(sub_80B9F34),
+    PROC_CALL(WorldMap_StartSecretShop),
     PROC_YIELD,
     PROC_CALL(sub_80B9154),
 
@@ -1412,7 +1414,7 @@ void sub_80B9AB0(void)
     Sound_FadeOutBGM(4);
     SetDispEnable(0, 0, 0, 0, 0);
     sub_80B895C();
-    RemoveWmText();
+    HideWmText();
     EndWMFaceCtrl();
     return;
 }
@@ -1488,7 +1490,7 @@ void sub_80B9BA4(struct WorldMapMainProc * proc)
     }
 
     sub_80B895C();
-    RemoveWmText();
+    HideWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
@@ -1535,7 +1537,7 @@ void WorldMap_WaitForChapterIntroEvents(ProcPtr proc)
 
     SetDispEnable(0, 0, 0, 0, 0);
     sub_80B895C();
-    RemoveWmText();
+    HideWmText();
     EndWMFaceCtrl();
     EndGmMuEntry();
     EndGmapRM();
@@ -1646,7 +1648,7 @@ void sub_80B9E64(void)
     s16 y;
 
     sub_80B895C();
-    RemoveWmText();
+    HideWmText();
     EndWMFaceCtrl();
 
     *&x = (gGMData.xCamera);
@@ -1681,30 +1683,30 @@ void NULL_080B9F08(void)
 }
 
 //! FE8U = 0x080B9F14
-void sub_80B9F14(ProcPtr proc)
+void WorldMap_StartArmory(ProcPtr proc)
 {
-    sub_80C400C(0, proc);
+    StartGMapBaseMenu(SHOP_TYPE_ARMORY, proc);
     return;
 }
 
 //! FE8U = 0x080B9F24
-void sub_80B9F24(ProcPtr proc)
+void WorldMap_StartVendor(ProcPtr proc)
 {
-    sub_80C400C(1, proc);
+    StartGMapBaseMenu(SHOP_TYPE_VENDOR, proc);
     return;
 }
 
 //! FE8U = 0x080B9F34
-void sub_80B9F34(ProcPtr proc)
+void WorldMap_StartSecretShop(ProcPtr proc)
 {
-    sub_80C400C(2, proc);
+    StartGMapBaseMenu(SHOP_TYPE_SECRET_SHOP, proc);
     return;
 }
 
 //! FE8U = 0x080B9F44
 void sub_80B9F44(ProcPtr proc)
 {
-    sub_80C400C(3, proc);
+    StartGMapBaseMenu(3, proc);
     return;
 }
 
