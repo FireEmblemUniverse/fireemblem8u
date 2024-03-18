@@ -607,9 +607,9 @@ void Worlmap_WaitGmapSogu(ProcPtr proc);
 // ??? sub_80B9E64(???);
 void ResetWorldMapScreen(void);
 void NULL_080B9F08(void);
-void sub_80B9F14(ProcPtr proc);
-void sub_80B9F24(ProcPtr proc);
-void sub_80B9F34(ProcPtr proc);
+void WorldMap_StartArmory(ProcPtr proc);
+void WorldMap_StartVendor(ProcPtr proc);
+void WorldMap_StartSecretShop(ProcPtr proc);
 void sub_80B9F44(ProcPtr proc);
 void sub_80B9F54(ProcPtr unused);
 void sub_80B9FC0(void);
@@ -1189,45 +1189,79 @@ ProcPtr StartGmapAutoMu_Type1(struct Sub80C33D4 *, int, ProcPtr);
 void EndGmAutoMuFor(int);
 bool IsGmAutoMuActiveFor(int);
 
+/* worldmap_text.h */
+
 // ??? sub_80C34D0(???);
-// ??? sub_80C3590(???);
-// ??? sub_80C35C4(???);
-// ??? sub_80C35EC(???);
-void StartWmText(int);
-void RemoveWmText(void);
-void sub_80C368C(ProcPtr);
-void sub_80C36A0(int);
-// ??? sub_80C36E8(???);
-// ??? sub_80C3770(???);
-// ??? sub_80C380C(???);
-// ??? sub_80C38BC(???);
-// ??? sub_80C3A28(???);
-// ??? sub_80C3A64(???);
-// ??? sub_80C3A8C(???);
-// ??? sub_80C3AB8(???);
-// ??? sub_80C3B40(???);
-// ??? sub_80C3BE4(???);
-// ??? sub_80C3D24(???);
-// ??? sub_80C3D5C(???);
-// ??? sub_80C3D9C(???);
-// ??? sub_80C3DAC(???);
-void sub_80C3E80(void);
-void sub_80C3E94(void);
-// ??? nullsub_71(???);
-// ??? sub_80C3EC8(???);
-// ??? sub_80C3EDC(???);
-// ??? sub_80C3F04(???);
-// ??? sub_80C3F24(???);
-// ??? sub_80C3F88(???);
-// ??? sub_80C3FB4(???);
-// ??? sub_80C3FE0(???);
-void sub_80C400C(int, ProcPtr);
-// ??? sub_80C4038(???);
-// ??? sub_80C4048(???);
-// ??? sub_80C4058(???);
-int sub_80C4070(void);
-int sub_80C4088();
-void sub_80C409C(int);
+// ??? ClearWmTextVram(???);
+// ??? WmText_Init(???);
+// ??? WmText_Loop_DrawText(???);
+void ShowWmText(u8);
+void HideWmText(void);
+ProcPtr StartWmTextHandler(ProcPtr);
+void StartWmTextMsg(int);
+
+/* worldmap_radar.h */
+
+struct GMapRadarProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ s8 unk_29;
+    /* 2A */ s8 unk_2a;
+    /* 2B */ u8 unk_2b;
+    /* 2C */ u8 unk_2c;
+    /* 2D */ u8 unk_2d;
+    /* 2E */ u8 unk_2e;
+    /* 2F */ s8 unk_2f;
+    /* 30 */ s8 unk_30;
+    /* 34 */ int unk_34;
+};
+
+// ??? WmMinimap_PutCursorIcon(???);
+// ??? WmMinimap_PutStoryNodeIcon(???);
+// ??? WmMinimap_PutLordIcon(???);
+// ??? WmMinimap_PutSkirmishIcons(???);
+// ??? WmMinimap_BlinkPalette(???);
+// ??? PutWmMinimapSprites(???);
+// ??? GMapRadar_80C3A8C(???);
+// ??? GMapRadar_80C3AB8(???);
+// ??? GMapRadar_80C3B40(???);
+// ??? PutWmMinimapGfx(???);
+// ??? GMapRadar_SlideIn(???);
+// ??? GMapRadar_SlideOut(???);
+// ??? GMapRadar_Init(???);
+// ??? StartWorldMapMinimapCore(???);
+ProcPtr StartWorldmapMinimap(ProcPtr);
+void EndWorldmapMinimap(void);
+
+/* worldmap_basemenu.h */
+
+struct GMapBaseMenuProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 kind;
+    /* 2A */ u8 unk_2a;
+    /* 2B */ u8 unk_2b;
+    /* 2C */ int pid;
+    /* 30 */ s8 wasBgmPlaying;
+    STRUCT_PAD(0x31, 0x34);
+    /* 34 */ int bgmSongId;
+};
+
+// ??? GMapBaseMenu_OnEnd_Null(???);
+// ??? GMapBaseMenu_Init(???);
+// ??? GMapBaseMenu_StartItemScreen(???);
+// ??? GMapBaseMenu_RestoreBgm(???);
+// ??? GMapBaseMenu_ShopFromItemScreen(???);
+// ??? GMapBaseMenu_StartArmory(???);
+// ??? GMapBaseMenu_StartVendor(???);
+// ??? GMapBaseMenu_StartSecretShop(???);
+ProcPtr StartGMapBaseMenu(int, ProcPtr);
+// ??? EndGMapBaseMenu(???);
+struct GMapBaseMenuProc * FindGMapBaseMenu(void);
+// ??? IsGMapBaseMenuActive(???);
+int GetGMapBaseMenuKind(void);
+int GetGMapBaseMenuPid();
+void SetGMapBaseMenuPid(int);
 
 // extern ??? gFont_0201AFC0
 // extern ??? gUnknown_0201AFF0
@@ -1315,12 +1349,12 @@ extern struct ProcCmd ProcScr_WmDotPalAnim[];
 // extern ??? Sprite_WmPlaceDot
 // extern ??? ProcScr_WmPlaceDot
 // extern ??? ProcScr_GmapAutoMu
-// extern ??? gUnknown_08A3EE28
-// extern ??? gUnknown_08A3EE44
+// extern ??? Sprite_WmText
+// extern ??? ProcScr_WorldMapTextHandler
 // extern ??? gUnknown_08A3EE6C
 // extern ??? gUnknown_08A3EE70
 // extern ??? ProcScr_GmapRader
-// extern ??? gUnknown_08A3EED4
+// extern ??? ProcScr_WorldmapMinimapWrapper
 // extern ??? ProcScr_GmapBaseMenu
 
 #endif // GUARD_WORLDMAP_H

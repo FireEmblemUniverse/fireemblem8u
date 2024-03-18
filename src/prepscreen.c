@@ -292,13 +292,13 @@ int PrepGetLatestCharId()
     if (0 == (gGMData.state.bits.state_0))
         return gPrepUnitList.latest_pid;
     else
-        return sub_80C4088();
+        return GetGMapBaseMenuPid();
 }
 
 void PrepSetLatestCharId(int val)
 {
     if (gGMData.state.bits.state_0)
-        sub_80C409C(val);
+        SetGMapBaseMenuPid(val);
     else
         gPrepUnitList.latest_pid = val;
 }
