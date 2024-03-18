@@ -8,6 +8,7 @@
 #include "bmlib.h"
 #include "bmsave.h"
 #include "prepscreen.h"
+#include "uiutils.h"
 #include "constants/characters.h"
 
 void sub_8044614(struct ProcTactician * proc)
@@ -307,4 +308,362 @@ bool sub_8044B78(struct ProcTactician * proc, const struct TacticianTextConf * c
         SioPlaySoundEffect(0);
 
     return false;
+}
+
+//! FE8U = 0x08044C54
+void sub_8044C54(struct ProcTactician * proc, const struct TacticianTextConf * conf)
+{
+    char var;
+
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_UP) != 0)
+    {
+        sub_80449E8(proc, 0, conf);
+    }
+
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0)
+    {
+        sub_80449E8(proc, 1, conf);
+    }
+
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) != 0)
+    {
+        sub_80449E8(proc, 2, conf);
+    }
+
+    if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) != 0)
+    {
+        sub_80449E8(proc, 3, conf);
+    }
+
+    if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
+    {
+        switch (conf->unk3E)
+        {
+            case 0:
+                TacticianTryAppendChar(proc, conf);
+                break;
+
+            case 4:
+                TacticianTryDeleteChar(proc, conf);
+                break;
+
+            case 5:
+                SaveTactician(proc, conf);
+                break;
+
+            case 6:
+                sub_8044B78(proc, conf, 1, 0);
+
+                break;
+
+            case 7:
+                sub_8044B78(proc, conf, 2, 0);
+
+                break;
+
+            case 1:
+                if (proc->line_idx != 0)
+                {
+                    SioPlaySoundEffect(2);
+                    proc->line_idx = 0;
+                    proc->unk39 = 0;
+
+                    Proc_Goto(proc, 1);
+                    return;
+                }
+
+                SioPlaySoundEffect(0);
+                break;
+
+            case 2:
+                if (proc->line_idx != 1)
+                {
+                    SioPlaySoundEffect(2);
+
+                    proc->line_idx = 1;
+                    proc->unk39 = 0;
+
+                    Proc_Goto(proc, 1);
+                    return;
+                }
+
+                SioPlaySoundEffect(0);
+                break;
+
+            case 3:
+                if (proc->line_idx < 2 || proc->line_idx > 3)
+                {
+                    SioPlaySoundEffect(2);
+
+                    proc->line_idx = 2;
+
+                    if (proc->unk32 != 0)
+                    {
+                        proc->line_idx = 3;
+                    }
+
+                    proc->unk39 = 0;
+
+                    Proc_Goto(proc, 1);
+                    return;
+                }
+
+                SioPlaySoundEffect(0);
+
+                break;
+        }
+    }
+
+    if ((gKeyStatusPtr->newKeys & R_BUTTON) != 0)
+    {
+        var = proc->unk39;
+
+        do
+        {
+            proc->unk39++;
+            proc->unk39 = (proc->unk39 % 3);
+
+            if (var == proc->unk39)
+                break;
+
+        } while (sub_8044B78(proc, conf, proc->unk39, 1) == 0);
+    }
+
+    if ((gKeyStatusPtr->newKeys & L_BUTTON) != 0)
+    {
+        TacticianTryDeleteChar(proc, conf);
+    }
+
+    if ((gKeyStatusPtr->newKeys & START_BUTTON) != 0)
+    {
+        SioPlaySoundEffect(3);
+        proc->conf_idx = 5;
+    }
+
+    if ((gKeyStatusPtr->newKeys & SELECT_BUTTON) != 0)
+    {
+        SioPlaySoundEffect(2);
+
+        proc->line_idx++;
+
+        if ((proc->line_idx == 2) && (proc->unk32 != 0))
+        {
+            proc->line_idx++;
+        }
+
+        proc->line_idx %= 4;
+
+        if (proc->line_idx == 3 && proc->unk32 == 0)
+        {
+            proc->line_idx = 0;
+        }
+
+        if (*conf->str[proc->line_idx * 3] == 0)
+        {
+            sub_80449E8(proc, 2, conf);
+        }
+
+        Proc_Goto(proc, 1);
+        return;
+    }
+
+    if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
+    {
+        if (proc->cur_len != 0)
+        {
+            TacticianTryDeleteChar(proc, conf);
+            return;
+        }
+
+        if (CheckInLinkArena() != 0)
+        {
+            SioPlaySoundEffect(1);
+            Proc_Goto(proc, 3);
+        }
+    }
+
+    return;
+}
+
+//! FE8U = 0x08044ED8
+void Tactician_Loop(struct ProcTactician * proc)
+{
+    char _cbuf[proc->max_len + 1];
+    struct TacticianTextConf * conf = GetTacticianTextConf(proc->conf_idx);
+    proc->unk36 = proc->conf_idx;
+
+    sub_8044C54(proc, conf);
+    if (proc->unk36 != proc->conf_idx)
+    {
+        SioPlaySoundEffect(3);
+    }
+
+    conf = GetTacticianTextConf(proc->conf_idx);
+    SioStrCpy(proc->str, _cbuf);
+
+    _cbuf[proc->max_len - 1] = 0;
+
+    sub_804CDD0(proc->child1, conf->xpos - 4, conf->unk32 + 1, StrLen(_cbuf) * 7, conf->unk34, (proc->line_idx <= 1) ? proc->line_idx : 2);
+}
+
+extern u8 gUnknown_03001810;
+
+//! FE8U = 0x08044F84
+void sub_8044F84(void)
+{
+    u16 vcount = REG_VCOUNT + 1;
+
+    if (vcount > DISPLAY_HEIGHT)
+    {
+        return;
+    }
+
+    if (vcount < 40)
+    {
+        REG_BLDCNT = 0x840;
+        REG_BLDALPHA = 0xF08;
+    }
+    else
+    {
+        REG_BLDCNT = 0x442;
+        REG_BLDALPHA = ((15 - gUnknown_03001810) << 8) + gUnknown_03001810;
+    }
+
+    return;
+}
+
+void sub_8044FE4(struct ProcTactician * proc)
+{
+    proc->unk3A = 0;
+    SetPrimaryHBlankHandler(sub_8044F84);
+    return;
+}
+
+//! FE8U = 0x08044FFC
+void sub_8044FFC(struct ProcTactician * proc)
+{
+    gUnknown_03001810 = Interpolate(INTERPOLATE_LINEAR, 15, 0, proc->unk3A, 8);
+    proc->unk3A++;
+
+    if (proc->unk3A > 8)
+    {
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804503C
+void sub_804503C(struct ProcTactician * proc)
+{
+    proc->text_idx++;
+    proc->text_idx &= 1;
+
+    sub_8044614(proc);
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+
+    proc->unk3A = 0;
+
+    return;
+}
+
+//! FE8U = 0x08045068
+void sub_8045068(struct ProcTactician * proc)
+{
+    gUnknown_03001810 = Interpolate(INTERPOLATE_LINEAR, 0, 15, proc->unk3A, 8);
+    proc->unk3A++;
+
+    if (proc->unk3A > 8)
+    {
+        SetPrimaryHBlankHandler(NULL);
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080450AC
+void NameSelect_DrawName(struct ProcTactician * proc)
+{
+    proc->unk3B = 1;
+
+    sub_804D80C();
+
+    ClearText(&Texts_0203DAB0);
+
+    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(0x141)); // TODO: msgid "Back"
+    Text_SetCursor(&Texts_0203DAB0, 38);
+
+    Text_DrawString(&Texts_0203DAB0, GetStringFromIndex(0x146)); // TODO: msgid "Entry"
+    PutText(&Texts_0203DAB0, TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 12));
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    return;
+}
+
+//! FE8U = 0x08045108
+void sub_8045108(struct ProcTactician * proc)
+{
+    sub_804D834(0x40, 0x58);
+
+    if (((gKeyStatusPtr->newKeys & DPAD_LEFT) != 0) && (proc->unk3B == 1))
+    {
+        proc->unk3B = 0;
+        SioPlaySoundEffect(3);
+    }
+
+    if (((gKeyStatusPtr->newKeys & DPAD_RIGHT) != 0) && (proc->unk3B == 0))
+    {
+        proc->unk3B = 1;
+        SioPlaySoundEffect(3);
+    }
+
+    DisplayUiHand(proc->unk3B * 40 + 80, 96);
+
+    if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
+    {
+        SioPlaySoundEffect(1);
+
+        TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 12), 12, 2, 0);
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        Proc_Break(proc);
+
+        return;
+    }
+
+    if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
+    {
+        if (proc->unk3B == 0)
+        {
+            SioPlaySoundEffect(2);
+            gUnk_Sio_0203DD24 = 1;
+            Proc_Goto(proc, 2);
+        }
+        else
+        {
+            SioPlaySoundEffect(1);
+        }
+
+        TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 11, 12), 12, 2, 0);
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+//! FE8U = 0x080451F0
+void sub_80451F0(void)
+{
+    EndMuralBackground();
+
+    if (!CheckInLinkArena())
+    {
+        nullsub_13();
+    }
+
+    return;
 }

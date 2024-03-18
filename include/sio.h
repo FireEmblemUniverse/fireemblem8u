@@ -18,11 +18,12 @@ struct ProcTactician {
     /* 31 */ u8 text_idx;
     /* 32 */ u8 unk32;
     /* 33 */ u8 unk33;
-    /* 34 */ u16 conf_idx;
-    /* 36 */ STRUCT_PAD(0x36, 0x38);
+    /* 34 */ s16 conf_idx;
+    /* 36 */ s16 unk36;
     /* 38 */ u8 cur_len;                /* used tactician name string length */
     /* 39 */ u8 unk39;
-    /* 3A */ u16 unk3A;
+    /* 3A */ u8 unk3A;
+    /* 3A */ u8 unk3B;
     /* 3C */ u8 max_len;                /* pre-configured max string length */
     /* 3D */ char str[0x4C - 0x3D];
     /* 4C */ u16 unk4C[0x10];
@@ -32,8 +33,10 @@ struct TacticianTextConf {
     /* 00 */ u8 * str[0xC];
     /* 30 */ u16 xpos;
     /* 32 */ u16 unk32;
-    /* 34 */ STRUCT_PAD(0x34, 0x36);
-    /* 36 */ s16 unk36[5];
+    /* 34 */ u8 unk34;
+    /* 35 */ STRUCT_PAD(0x35, 0x36);
+    /* 36 */ s16 unk36[4];
+    /* 3E */ u8 unk3E;
 };
 
 extern const struct TacticianTextConf gTacticianTextConf[];
@@ -387,7 +390,7 @@ void sub_8049788(void);
 void InitSioBG(void);
 // ??? sub_804C3A0(???);
 // ??? sub_804C3A4(???);
-// ??? nullsub_13(???);
+void nullsub_13(void);
 // ??? sub_804C3AC(???);
 // ??? sub_804C3EC(???);
 // ??? sub_804C47C(???);
@@ -411,7 +414,7 @@ void sub_804C508(void);
 // ??? sub_804CC78(???);
 // ??? sub_804CCCC(???);
 ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
-// ??? sub_804CDD0(???);
+void sub_804CDD0(void *, int, int, int, int, int);
 // ??? sub_804CDE8(???);
 // ??? sub_804CE5C(???);
 // ??? sub_804CE8C(???);
@@ -439,8 +442,8 @@ ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
 // ??? sub_804D778(???);
 // ??? sub_804D7B0(???);
 // ??? sub_804D7DC(???);
-// ??? sub_804D80C(???);
-// ??? sub_804D834(???);
+void sub_804D80C(void);
+void sub_804D834(int, int);
 // ??? sub_804D858(???);
 // ??? sub_804D8A4(???);
 // ??? sub_804D8C8(???);
