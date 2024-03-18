@@ -1,18 +1,6 @@
     .section .data
 
-	.incbin "baserom.gba", 0x5A93D0, 0x10
-
-	.global gUnknown_085A93E0
-gUnknown_085A93E0:  @ 0x085A93E0
-	.incbin "baserom.gba", 0x5A93E0, 0x10
-
-	.global gUnknown_085A93F0
-gUnknown_085A93F0:  @ 0x085A93F0
-@ Replacing .incbin "baserom.gba", 0x5A93F0, 0xB0
-    .4byte 0x200020
-    .4byte 0x100010
-    .4byte 0x2000200
-    .4byte 0xffff0008
+Sio_UnitConf_1:
     .4byte 0x73c0001
     .4byte 0x1
     .4byte 0x766
@@ -37,6 +25,8 @@ gUnknown_085A93F0:  @ 0x085A93F0
     .4byte 0x0
     .4byte 0x0
     .4byte 0x0
+
+Sio_UnitConf_2:
     .4byte 0x7410002
     .4byte 0x100
     .4byte 0x76c
@@ -56,10 +46,10 @@ gUnknown_085A93F0:  @ 0x085A93F0
 
 	.global gUnknown_085A94A0
 gUnknown_085A94A0:  @ 0x085A94A0
-    .4byte gUnknown_085A93F0 + 0x10, gUnknown_085A93F0 + 0x70, gUnknown_085A93F0 + 0x70
+    .4byte Sio_UnitConf_1, Sio_UnitConf_2, Sio_UnitConf_2
 
-	.global gUnknown_085A94AC
-gUnknown_085A94AC:  @ 0x085A94AC
+	.global ProcScr_Sio_085A94AC
+ProcScr_Sio_085A94AC:  @ 0x085A94AC
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

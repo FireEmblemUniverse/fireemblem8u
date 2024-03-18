@@ -5,6 +5,7 @@
 #include "soundwrapper.h"
 #include "bmunit.h"
 #include "bmitem.h"
+#include "bmsave.h"
 #include "constants/items.h"
 #include "sio.h"
 #include "sio_core.h"
@@ -135,6 +136,63 @@ void SioPlaySoundEffect(int idx)
 {
     u16 sfx_list[] = {0x6C, 0x6B, 0x6A, 0x66};
     PlaySoundEffect(sfx_list[idx]);
+}
+
+void sub_8043244(void)
+{
+    ReadMultiArenaSaveConfig(&gSioSaveConfig);
+    gSioSaveConfig._unk3_ = true;
+    WriteMultiArenaSaveConfig(&gSioSaveConfig);
+}
+
+bool sub_8043268(const u16 * list)
+{
+    if (gKeyStatusPtr->newKeys == 0)
+    {
+        if (++gUnk_Sio_0203DD4C >= 0x3C)
+        {
+            gUnknown_0300180C = gUnk_Sio_0203DD4C = 0;
+        }
+        return false;
+    }
+
+    gUnk_Sio_0203DD4C = 0;
+    gUnk_Sio_0203DD2C[gUnknown_03001808] = gKeyStatusPtr->newKeys;
+
+    if (gUnk_Sio_0203DD2C[gUnknown_03001808] == list[gUnknown_0300180C])
+    {
+        gUnknown_0300180C = gUnknown_0300180C + 1;
+
+        if (list[gUnknown_0300180C] == 0xFFFF)
+            return true;
+    }
+    else
+    {
+        gUnknown_0300180C = 0;
+    }
+
+    gUnknown_03001808 = (gUnknown_03001808 + 1) & 0xF;
+    return false;
+}
+
+/**
+ * Maybe some lists for sub_8043268() ?
+ */
+u16 gSioList_085A93D0[] = {
+    DPAD_LEFT, DPAD_LEFT, DPAD_RIGHT, DPAD_RIGHT, L_BUTTON, L_BUTTON, START_BUTTON, -1
+};
+
+u16 gSioList_085A93E0[] = {
+    DPAD_LEFT, DPAD_LEFT, DPAD_RIGHT, DPAD_RIGHT, L_BUTTON, L_BUTTON, START_BUTTON, -1
+};
+
+u16 gSioList_085A93F0[] = {
+    DPAD_LEFT, DPAD_LEFT, DPAD_RIGHT, DPAD_RIGHT, L_BUTTON, L_BUTTON, START_BUTTON, -1
+};
+
+bool sub_80432F4(void)
+{
+    return sub_8043268(gSioList_085A93F0);
 }
 
 u8 const gUnknown_080D9D5E[] = {1, 2, 4};

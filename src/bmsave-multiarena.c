@@ -280,23 +280,23 @@ void ReadMultiArenaSaveRankings(struct MultiArenaRankingEnt *dst)
     ReadSramFast(src_sram->rankings, dst, sizeof(src_sram->rankings));
 }
 
-void WriteMultiArenaSaveConfig(u16 const *config_src)
+void WriteMultiArenaSaveConfig(void const * config_src)
 {
     struct SaveBlockInfo block_info;
 
     struct MultiArenaSaveBlock * dst_sram = GetSaveWriteAddr(SAVE_ID_ARENA);
 
-    WriteAndVerifySramFast(config_src, &dst_sram->config, sizeof(u16));
+    WriteAndVerifySramFast(config_src, &dst_sram->config, 2);
 
     block_info.magic32 = SAVEMAGIC32_ARENA;
     block_info.kind = SAVEBLOCK_KIND_ARENA;
     WriteSaveBlockInfo(&block_info, SAVE_ID_ARENA);
 }
 
-void ReadMultiArenaSaveConfig(u16 *config_dst)
+void ReadMultiArenaSaveConfig(void * config_dst)
 {
     struct MultiArenaSaveBlock * src_sram = GetSaveReadAddr(SAVE_ID_ARENA);
-    ReadSramFast(&src_sram->config, config_dst, sizeof(u16));
+    ReadSramFast(&src_sram->config, config_dst, 2);
 }
 
 bool IsMultiArenaSaveReady(void)

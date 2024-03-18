@@ -39,6 +39,18 @@ struct TacticianTextConf {
 extern const struct TacticianTextConf gTacticianTextConf[];
 struct TacticianTextConf * GetTacticianTextConf(s16);
 
+enum sio_save_config_bitfile {
+    SIO_SAVE_CONF_B3 = 1 << 3,
+};
+
+struct SioSaveConf {
+    u8 _unk0_ : 3;
+    u8 _unk3_ : 1;
+    u8 _unk4_ : 4;
+    u8 _unk8_;
+};
+extern struct SioSaveConf gSioSaveConfig;
+
 u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
 void SioInit(void);
@@ -81,7 +93,7 @@ void ClearSioBG(void);
 // ??? sub_80431B4(???);
 void SioPlaySoundEffect(int);
 // ??? sub_8043244(???);
-// ??? sub_8043268(???);
+bool sub_8043268(const u16 * list);
 // ??? sub_80432F4(???);
 // ??? sub_8043308(???);
 // ??? sub_804331C(???);
@@ -454,7 +466,7 @@ extern struct Text gUnk_Sio_0203DA88[];
 extern struct Text Texts_0203DAB0;
 // extern ??? gUnk_Sio_0203DAC0
 // extern ??? gUnk_Sio_0203DAC5
-// extern ??? gUnk_Sio_0203DB10
+
 extern struct Text Texts_0203DB14[10];
 // extern ??? gUnk_Sio_0203DB1C
 extern struct Font Font_0203DB64;
@@ -465,8 +477,8 @@ extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
 extern u8 gUnk_Sio_0203DD24;
 // extern ??? gUnk_Sio_0203DD28
-// extern ??? gUnk_Sio_0203DD2C
-// extern ??? gUnk_Sio_0203DD4C
+extern u16 gUnk_Sio_0203DD2C[];
+extern int gUnk_Sio_0203DD4C;
 // extern ??? gUnk_Sio_0203DD50
 // extern ??? gUnk_Sio_0203DD8C
 // extern ??? gUnk_Sio_0203DD90
@@ -534,9 +546,22 @@ extern CONST_DATA struct ProcCmd ProcScr_SIOMAIN[];
 extern CONST_DATA u8 * gpSioUnkBuffer;
 extern CONST_DATA struct ProcCmd gUnknown_085A93A0[];
 extern CONST_DATA struct ProcCmd ProcScr_HOLD[];
-// extern ??? gUnknown_085A93E0
-// extern ??? gUnknown_085A93F0
+// extern ??? gSioList_085A93E0
+extern CONST_DATA u16 gSioList_085A93F0[];
 // extern ??? gUnknown_085A94A0
-// extern ??? gUnknown_085A94AC
+extern CONST_DATA struct ProcCmd ProcScr_Sio_085A94AC[];
 // extern ??? ProcScr_TacticianNameSelection
 // extern ??? gUnknown_085A96D4
+
+extern int gUnknown_03001808;
+extern int gUnknown_0300180C;
+// extern ??? gUnknown_03001810
+// extern ??? gUnknown_03001818
+// extern ??? gUnknown_0300182C
+// extern ??? gUnknown_03001830
+// extern ??? gUnknown_03001834
+// extern ??? gUnknown_03001838
+// extern ??? gUnknown_03001840
+// extern ??? gUnknown_03001850
+// extern ??? gUnknown_03001860
+// extern ??? gUnknown_03001864

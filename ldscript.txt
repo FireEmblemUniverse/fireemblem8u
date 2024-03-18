@@ -232,7 +232,7 @@ SECTIONS
         . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
         . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
         . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
-        . = 0x0203DB10 - __ewram_overlay_end; gUnk_Sio_0203DB10 = .;
+        . = 0x0203DB10 - __ewram_overlay_end; gSioSaveConfig = .;
         . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
         . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
         . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
