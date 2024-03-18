@@ -59,7 +59,7 @@ struct SioRegs
 
 #define SIO ((struct SioRegs *)(&REG_SIOCNT))
 
-int sub_80415B0(void)
+int SioPollingMsg(void)
 {
     u16 siocnt;
 
@@ -117,7 +117,7 @@ int sub_80415B0(void)
     }
 }
 
-int sub_80416D0(void)
+int GetSioIndex(void)
 {
     return (REG_SIOCNT & SIO_ID) >> 4; // TODO: shift constant
 }
@@ -366,7 +366,7 @@ void SioHandleIrq_Serial(void)
     gUnknown_03004E70 = 0;
 }
 
-void sub_8041C1C(void)
+void SioVsync_Loop(void)
 {
     int i;
     u32 len;
@@ -467,7 +467,7 @@ void sub_8041D8C(int num)
     PlaySoundEffect(table[num]);
 }
 
-void sub_8041DC4(void)
+void SioMain_Loop(void)
 {
     int i, j;
 

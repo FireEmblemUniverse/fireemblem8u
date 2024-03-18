@@ -1177,7 +1177,7 @@ _08045B4C:
 	bl SetUnitStatus
 	movs r1, #0
 	strb r1, [r5, #0x1b]
-	ldr r0, _08045B88  @ gUnk_Sio_0203DB10
+	ldr r0, _08045B88  @ gSioSaveConfig
 	ldrb r1, [r0]
 	movs r0, #4
 	ands r0, r1
@@ -1191,7 +1191,7 @@ _08045B78: .4byte gUnknown_080D9E44
 _08045B7C: .4byte gLinkArenaSt
 _08045B80: .4byte gUnk_Sio_0203DAC5
 _08045B84: .4byte gUnk_Sio_0203DDB4
-_08045B88: .4byte gUnk_Sio_0203DB10
+_08045B88: .4byte gSioSaveConfig
 _08045B8C:
 	adds r0, r5, #0
 	bl sub_804D40C
@@ -1206,7 +1206,7 @@ _08045BA0:
 	strb r4, [r5, #0xb]
 	cmp r6, #0
 	beq _08045BB8
-	ldr r0, _08045C04  @ gUnk_Sio_0203DB10
+	ldr r0, _08045C04  @ gSioSaveConfig
 	ldrb r1, [r0]
 	movs r0, #1
 	ands r0, r1
@@ -1256,7 +1256,7 @@ _08045BCC:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08045C04: .4byte gUnk_Sio_0203DB10
+_08045C04: .4byte gSioSaveConfig
 _08045C08: .4byte gUnk_Sio_0203DD90
 _08045C0C: .4byte gSioSt
 _08045C10: .4byte gLinkArenaSt
@@ -2946,7 +2946,7 @@ sub_80469C4: @ 0x080469C4
 	movs r1, #0x10
 	adds r2, r7, #0
 	bl sub_804C2EC
-	ldr r4, _08046AC4  @ gUnk_Sio_0203DD0C
+	ldr r4, _08046AC4  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -3032,7 +3032,7 @@ _08046AAC:
 _08046AB8: .4byte Img_TacticianSelObj
 _08046ABC: .4byte 0x06014800
 _08046AC0: .4byte Font_0203DB64
-_08046AC4: .4byte gUnk_Sio_0203DD0C
+_08046AC4: .4byte gSioTexts
 _08046AC8: .4byte 0x0000074C
 _08046ACC: .4byte 0x0000074D
 _08046AD0:
@@ -3796,7 +3796,7 @@ _08047094:
 	subs r4, #1
 	cmp r4, #0
 	bge _08047094
-	ldr r4, _080471E8  @ gUnk_Sio_0203DD0C
+	ldr r4, _080471E8  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -3928,7 +3928,7 @@ _080471D8: .4byte gBG2TilemapBuffer+0x102
 _080471DC: .4byte gUnknown_085AE464
 _080471E0: .4byte Font_0203DB64
 _080471E4: .4byte Texts_0203DB14
-_080471E8: .4byte gUnk_Sio_0203DD0C
+_080471E8: .4byte gSioTexts
 _080471EC: .4byte 0x00000772
 _080471F0: .4byte 0x00000773
 _080471F4: .4byte 0x00000774
@@ -4170,7 +4170,7 @@ _080473D2:
 	subs r4, #1
 	cmp r4, #0
 	bge _080473D2
-	ldr r4, _08047550  @ gUnk_Sio_0203DD0C
+	ldr r4, _08047550  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
 	bl InitText
@@ -4325,7 +4325,7 @@ _08047540: .4byte gBG2TilemapBuffer+0x102
 _08047544: .4byte gUnknown_085AE464
 _08047548: .4byte Font_0203DB64
 _0804754C: .4byte Texts_0203DB14
-_08047550: .4byte gUnk_Sio_0203DD0C
+_08047550: .4byte gSioTexts
 _08047554: .4byte 0x00000772
 _08047558: .4byte 0x00000773
 _0804755C: .4byte 0x00000774
@@ -4803,7 +4803,7 @@ sub_8047928: @ 0x08047928
 	beq _08047952
 	movs r0, #1
 	bl SioPlaySoundEffect
-	ldr r0, _08047A48  @ gUnk_Sio_0203DB10
+	ldr r0, _08047A48  @ gSioSaveConfig
 	bl WriteMultiArenaSaveConfig
 	adds r0, r6, #0
 	bl Proc_Break
@@ -4929,7 +4929,7 @@ _08047A3A:
 	bx r0
 	.align 2, 0
 _08047A44: .4byte gKeyStatusPtr
-_08047A48: .4byte gUnk_Sio_0203DB10
+_08047A48: .4byte gSioSaveConfig
 _08047A4C: .4byte gUnknown_080D9E50
 _08047A50: .4byte 0x00000745
 
@@ -5063,7 +5063,7 @@ sub_8047B34: @ 0x08047B34
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
-	ldr r4, _08047BC4  @ gUnk_Sio_0203DB10
+	ldr r4, _08047BC4  @ gSioSaveConfig
 	adds r0, r4, #0
 	bl ReadMultiArenaSaveConfig
 	ldrb r0, [r4]
@@ -5122,7 +5122,7 @@ sub_8047B34: @ 0x08047B34
 	movs r0, #3
 	b _08047BDC
 	.align 2, 0
-_08047BC4: .4byte gUnk_Sio_0203DB10
+_08047BC4: .4byte gSioSaveConfig
 _08047BC8: .4byte gUnknown_085AB358
 _08047BCC: .4byte 0x06014800
 _08047BD0: .4byte gUnknown_085ADBE8
@@ -5350,7 +5350,7 @@ sub_8047D88: @ 0x08047D88
 	push {r5, r6, r7}
 	sub sp, #4
 	adds r6, r0, #0
-	ldr r4, _08047E20  @ gUnk_Sio_0203DB10
+	ldr r4, _08047E20  @ gSioSaveConfig
 	adds r0, r4, #0
 	bl ReadMultiArenaSaveConfig
 	ldrb r0, [r4]
@@ -5409,7 +5409,7 @@ sub_8047D88: @ 0x08047D88
 	movs r0, #3
 	b _08047E38
 	.align 2, 0
-_08047E20: .4byte gUnk_Sio_0203DB10
+_08047E20: .4byte gSioSaveConfig
 _08047E24: .4byte gUnknown_085AB358
 _08047E28: .4byte 0x06014800
 _08047E2C: .4byte gUnknown_085ADBE8

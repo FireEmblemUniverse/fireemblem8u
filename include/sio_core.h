@@ -4,6 +4,7 @@
 #include "global.h"
 
 #include "proc.h"
+#include "fontgrp.h"
 
 #define SIO_MAX_PACKET 0x80
 
@@ -132,18 +133,18 @@ struct SioSt
 
 #define SIO_MAX_DATA (SIO_MAX_PACKET - offsetof(struct SioData, bytes))
 
-int sub_80415B0(void);
-int sub_80416D0(void);
+int SioPollingMsg(void);
+int GetSioIndex(void);
 void sub_80416E0(u16 arg_0, u16 sioCnt, u16 arg_2);
 void sub_8041718(void);
 void sub_8041898(void);
 void SioRegisterIrq(void);
 void SioReleaseIrq(void);
 void SioHandleIrq_Serial(void);
-void sub_8041C1C(void);
+void SioVsync_Loop(void);
 void SioHandleIrq_Timer3(void);
 void sub_8041D8C(int num);
-void sub_8041DC4(void);
+void SioMain_Loop(void);
 void sub_8042138(void);
 int sub_804213C(void);
 int sub_8042168(void);
@@ -198,7 +199,10 @@ struct LinkArenaStMaybe
     u8 unk_00;
     STRUCT_PAD(0x01, 0x03);
     u8 unk_03;
-    STRUCT_PAD(0x04, 0x9C);
+    u8 unk_04;
+    STRUCT_PAD(0x05, 0x0C);
+    /* 0C */ struct Text texts[11];
+    STRUCT_PAD(0x64, 0x9C);
     u8 unk_9C[5];
     u8 unk_A1[15][15];
 };

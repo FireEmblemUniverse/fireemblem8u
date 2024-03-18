@@ -2,124 +2,16 @@
 
 	.SYNTAX UNIFIED
 
-	THUMB_FUNC_START sub_8043244
-sub_8043244: @ 0x08043244
-	push {r4, lr}
-	ldr r4, _08043264  @ gUnk_Sio_0203DB10
-	adds r0, r4, #0
-	bl ReadMultiArenaSaveConfig
-	ldrb r0, [r4]
-	movs r1, #8
-	orrs r0, r1
-	strb r0, [r4]
-	adds r0, r4, #0
-	bl WriteMultiArenaSaveConfig
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08043264: .4byte gUnk_Sio_0203DB10
-
-	THUMB_FUNC_END sub_8043244
-
-	THUMB_FUNC_START sub_8043268
-sub_8043268: @ 0x08043268
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	ldr r0, _0804328C  @ gKeyStatusPtr
-	ldr r0, [r0]
-	ldrh r4, [r0, #8]
-	adds r3, r4, #0
-	cmp r3, #0
-	bne _08043298
-	ldr r1, _08043290  @ gUnk_Sio_0203DD4C
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-	cmp r0, #0x3b
-	ble _080432EC
-	ldr r0, _08043294  @ gUnknown_0300180C
-	str r3, [r1]
-	str r3, [r0]
-	b _080432EC
-	.align 2, 0
-_0804328C: .4byte gKeyStatusPtr
-_08043290: .4byte gUnk_Sio_0203DD4C
-_08043294: .4byte gUnknown_0300180C
-_08043298:
-	ldr r0, _080432CC  @ gUnk_Sio_0203DD4C
-	movs r6, #0
-	str r6, [r0]
-	ldr r1, _080432D0  @ gUnk_Sio_0203DD2C
-	ldr r2, _080432D4  @ gUnknown_03001808
-	ldr r0, [r2]
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	strh r4, [r0]
-	ldr r1, _080432D8  @ gUnknown_0300180C
-	ldr r4, [r1]
-	lsls r0, r4, #1
-	adds r0, r0, r5
-	ldrh r0, [r0]
-	cmp r3, r0
-	bne _080432E0
-	adds r0, r4, #1
-	str r0, [r1]
-	lsls r0, r0, #1
-	adds r0, r0, r5
-	ldrh r1, [r0]
-	ldr r0, _080432DC  @ 0x0000FFFF
-	cmp r1, r0
-	bne _080432E2
-	movs r0, #1
-	b _080432EE
-	.align 2, 0
-_080432CC: .4byte gUnk_Sio_0203DD4C
-_080432D0: .4byte gUnk_Sio_0203DD2C
-_080432D4: .4byte gUnknown_03001808
-_080432D8: .4byte gUnknown_0300180C
-_080432DC: .4byte 0x0000FFFF
-_080432E0:
-	str r6, [r1]
-_080432E2:
-	ldr r0, [r2]
-	adds r0, #1
-	movs r1, #0xf
-	ands r0, r1
-	str r0, [r2]
-_080432EC:
-	movs r0, #0
-_080432EE:
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
-	THUMB_FUNC_END sub_8043268
-
-	THUMB_FUNC_START sub_80432F4
-sub_80432F4: @ 0x080432F4
-	push {lr}
-	ldr r0, _08043304  @ gUnknown_085A93F0
-	bl sub_8043268
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08043304: .4byte gUnknown_085A93F0
-
-	THUMB_FUNC_END sub_80432F4
-
 	THUMB_FUNC_START sub_8043308
 sub_8043308: @ 0x08043308
 	push {lr}
 	adds r1, r0, #0
-	ldr r0, _08043318  @ gUnknown_085A94AC
+	ldr r0, _08043318  @ ProcScr_Sio_085A94AC
 	bl Proc_StartBlocking
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08043318: .4byte gUnknown_085A94AC
+_08043318: .4byte ProcScr_Sio_085A94AC
 
 	THUMB_FUNC_END sub_8043308
 
@@ -1462,7 +1354,7 @@ sub_8043D8C: @ 0x08043D8C
 	mov r9, r0
 	ldr r1, [r7, #0x2c]
 	str r1, [sp, #4]
-	ldr r0, _08043DD0  @ gUnknown_085A93E0
+	ldr r0, _08043DD0  @ gSioList_085A93E0
 	bl sub_8043268
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -1483,7 +1375,7 @@ sub_8043D8C: @ 0x08043D8C
 	bl Proc_Goto
 	b _08044270
 	.align 2, 0
-_08043DD0: .4byte gUnknown_085A93E0
+_08043DD0: .4byte gSioList_085A93E0
 _08043DD4: .4byte gUnk_Sio_0203DB7C
 _08043DD8:
 	ldr r1, [sp, #4]
@@ -1704,7 +1596,7 @@ _08043F84:
 	adds r0, r7, #0
 	movs r1, #0x50
 	movs r3, #0x88
-	bl sub_8042FFC
+	bl StartSioHold
 	str r0, [r7, #0x30]
 	mov r1, r9
 	adds r1, #1
@@ -1762,7 +1654,7 @@ _08043FEE:
 	adds r0, r7, #0
 	movs r1, #0x50
 	movs r3, #0x88
-	bl sub_8042FFC
+	bl StartSioHold
 	str r0, [r7, #0x30]
 	adds r0, r7, #0
 	movs r1, #7

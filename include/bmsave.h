@@ -603,8 +603,8 @@ void WriteMultiArenaSaveTeam(int team, struct Unit *units_src, char const *name_
 bool ReadMultiArenaSaveTeam(int team, struct Unit *units_dst, char *name_dst);
 void WriteMultiArenaSaveRankings(struct MultiArenaRankingEnt const *src);
 void ReadMultiArenaSaveRankings(struct MultiArenaRankingEnt *dst);
-void WriteMultiArenaSaveConfig(u16 const *config_src);
-void ReadMultiArenaSaveConfig(u16 *config_dst);
+void WriteMultiArenaSaveConfig(void const * config_src);
+void ReadMultiArenaSaveConfig(void * config_dst);
 bool IsMultiArenaSaveReady();
 void LoadAndVerfySuspendSave();
 // ??? ReadExtraMapSaveHead(???);

@@ -232,14 +232,14 @@ SECTIONS
         . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
         . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
         . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
-        . = 0x0203DB10 - __ewram_overlay_end; gUnk_Sio_0203DB10 = .;
+        . = 0x0203DB10 - __ewram_overlay_end; gSioSaveConfig = .;
         . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
         . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
         . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
         . = 0x0203DB7C - __ewram_overlay_end; gUnk_Sio_0203DB7C = .;
         . = 0x0203DC44 - __ewram_overlay_end; gUnk_Sio_0203DC44 = .;
         . = 0x0203DC48 - __ewram_overlay_end; gUnk_Sio_0203DC48 = .;
-        . = 0x0203DD0C - __ewram_overlay_end; gUnk_Sio_0203DD0C = .;
+        . = 0x0203DD0C - __ewram_overlay_end; gSioTexts = .;
         . = 0x0203DD1C - __ewram_overlay_end; Text_0203DB14 = .;
         . = 0x0203DD24 - __ewram_overlay_end; gUnk_Sio_0203DD24 = .;
         . = 0x0203DD28 - __ewram_overlay_end; gUnk_Sio_0203DD28 = .;
@@ -395,7 +395,8 @@ SECTIONS
         src/cp_staff.o(.text);
         src/cpextra_80407F0.o(.text);
         src/sio_core.o(.text);
-        asm/sio_utils.o(.text);
+        src/sio_main.o(.text);
+        src/sio_main2.o(.text);
         asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
         asm/sio_tactician.o(.text);
@@ -710,7 +711,9 @@ SECTIONS
         . = ALIGN(4); src/cp_staff.o(.rodata);
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); src/sio_core.o(.rodata);
-        . = ALIGN(4); data/sio_main.o(.rodata);
+        . = ALIGN(4); src/sio_main.o(.rodata);
+        . = ALIGN(4); data/const_data_sio.o(.rodata);
+        . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
@@ -947,6 +950,8 @@ SECTIONS
         . = ALIGN(4); src/cp_staff.o(.data);
         . = ALIGN(4); src/cpextra_80407F0.o(.data);
         . = ALIGN(4); src/sio_core.o(.data);
+        . = ALIGN(4); src/sio_main.o(.data);
+        . = ALIGN(4); src/sio_main2.o(.data);
         . = ALIGN(4); data/sio_main.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);

@@ -121,18 +121,6 @@ extern int gBaArenaFlag;
 // extern ??? gDungeonState
 // extern ??? gUnknown_030017AC
 
-// extern ??? gUnknown_03001808
-// extern ??? gUnknown_0300180C
-// extern ??? gUnknown_03001810
-// extern ??? gUnknown_03001818
-// extern ??? gUnknown_0300182C
-// extern ??? gUnknown_03001830
-// extern ??? gUnknown_03001834
-// extern ??? gUnknown_03001838
-// extern ??? gUnknown_03001840
-// extern ??? gUnknown_03001850
-// extern ??? gUnknown_03001860
-// extern ??? gUnknown_03001864
 extern u16 gUnknown_030018F0[];
 // extern ??? gUnitDef1
 // extern ??? gUnknown_03001C48
@@ -538,17 +526,9 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085A92E0
 // extern ??? gUnknown_085A92E4
 // extern ??? gUnknown_085A9304
-// extern ??? ProcScr_SIOCON
-// extern ??? ProcScr_SIOVSYNC
-// extern ??? ProcScr_SIOMAIN
-// extern ??? gUnknown_085A93A0
-// extern ??? ProcScr_HOLD
-// extern ??? gUnknown_085A93E0
-// extern ??? gUnknown_085A93F0
-// extern ??? gUnknown_085A94A0
-// extern ??? gUnknown_085A94AC
-// extern ??? ProcScr_TacticianNameSelection
-// extern ??? gUnknown_085A96D4
+
+/* sio.h */
+
 // extern ??? gUnknown_085A96E4
 // extern ??? gUnknown_085A96F4
 // extern ??? gUnknown_085A9774
