@@ -4,7 +4,7 @@ extern u8 gUnknown_03003750[];  // buffer to copy the code to
 
 // pointers to the loaded functions
 extern void (*gUnknown_03003740)(int, int, int, int);
-extern void (*gUnknown_03004150)(const char *, char *);
+extern void (*gpARM_HuffmanTextDecomp)(const char *, char *);
 extern void (*gUnknown_03003130)(int, int, const u16 *, int);
 extern void (*gUnknown_03004154)(int, int, const u16 *, int);
 extern void (*gUnknown_03004960)(int, int, int);
@@ -29,7 +29,7 @@ void StoreRoutinesToIRAM(void)
 
     // Set pointers to each of the functions
     gUnknown_03003740 = (void *)(gUnknown_03003750 + (DrawGlyph    - ARMCodeToCopy_Start));
-    gUnknown_03004150 = (void *)(gUnknown_03003750 + (DecodeString         - ARMCodeToCopy_Start));
+    gpARM_HuffmanTextDecomp = (void *)(gUnknown_03003750 + (DecodeString         - ARMCodeToCopy_Start));
     gUnknown_03003130 = (void *)(gUnknown_03003750 + (PutOamHi - ARMCodeToCopy_Start));
     gUnknown_03004154 = (void *)(gUnknown_03003750 + (PutOamLo   - ARMCodeToCopy_Start));
     gUnknown_03004960 = (void *)(gUnknown_03003750 + (MapFloodCoreStep              - ARMCodeToCopy_Start));
@@ -43,7 +43,7 @@ void DrawGlyphRam(int a, int b, int c, int d)
 
 void CallARM_DecompText(const char *a, char *b)
 {
-    gUnknown_03004150(a, b);
+    gpARM_HuffmanTextDecomp(a, b);
 }
 
 void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
