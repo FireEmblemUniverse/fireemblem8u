@@ -410,7 +410,7 @@ SECTIONS
         src/banim-ekrdispup.o(.text);
         src/banim-efxhpbar.o(.text);
         src/banim-efxdeath.o(.text);
-        asm/banim-efxbattle.o(.text);
+        src/banim-efxbattle.o(.text);
         src/banim-efxflashbg.o(.text);
         src/banim-efxflashunit.o(.text);
         src/banim-efxstatusunit.o(.text);

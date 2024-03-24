@@ -2498,7 +2498,7 @@ void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
 void EfxNoDamageYureMain(struct ProcEfxHPBar * proc);
 void NewEfxStatusCHG(struct Anim * anim);
 void EfxStatusCHGMain(struct ProcEfxHPBar * proc);
-void NewEfxFarAttackWithDistance(struct Anim * anim, int arg);
+void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg);
 // ??? sub_80534AC(???);
 // ??? sub_80534E4(???);
 // ??? sub_8053514(???);
