@@ -536,9 +536,9 @@ void NewEfxspdquake(struct Anim *anim)
 
 void sub_8055A64(struct ProcEfxSpdQuake *proc)
 {
-    struct Vec2 *vecs = proc->vecs;
-    s16 dx = vecs[proc->timer].x;
-    s16 dy = vecs[proc->timer].y;
+    const s16 * vecs = proc->vecs;
+    s16 dx = vecs[proc->timer * 2 + 0];
+    s16 dy = vecs[proc->timer * 2 + 1];
     struct Anim *anim;
 
     anim = gAnims[0];
@@ -570,7 +570,7 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
     }
 
     ++proc->timer;
-    if (vecs[proc->timer].x == 0x7FFF)
+    if (vecs[proc->timer * 2 + 0] == 0x7FFF)
         proc->timer = 0;
 }
 

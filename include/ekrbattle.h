@@ -85,7 +85,7 @@ struct ProcEfxSpdQuake {
     /* 29 */ STRUCT_PAD(0x29, 0x2C);
     /* 2C */ s16 timer;
     /* 2E */ STRUCT_PAD(0x2E, 0x44);
-    /* 44 */ struct Vec2 *vecs;
+    /* 44 */ const s16 * vecs;
     /* 48 */ STRUCT_PAD(0x48, 0x5C);
     /* 5C */ struct Anim * anim;
 };
@@ -574,9 +574,9 @@ extern struct ProcCmd gProc_ekrTogiColor[];
 
 extern const s16 gEfxNoDmgBgShakeOff[];
 // extern ??? gUnknown_080DA4BA
-extern CONST_DATA struct Vec2 gEfxQuakeVecs[];
+extern const s16 gEfxQuakeVecs[];
 // extern ??? gUnknown_080DA526
-extern CONST_DATA struct Vec2 gEfxQuakeVecs2[];
+extern const s16 gEfxQuakeVecs2[];
 // extern ??? gUnknown_080DA5BA
 // extern ??? gUnknown_080DA604
 // extern ??? gUnknown_080DA66E
@@ -987,7 +987,7 @@ void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // void sub_805AE14(void *);
 // void sub_805AE40(void *, s16, s16, s16, s16);
 // ??? sub_805AE58(???);
-// ??? sub_805AFA0(???);
+void sub_805AFA0(int, s16);
 
 struct ProcEkrTogi
 {

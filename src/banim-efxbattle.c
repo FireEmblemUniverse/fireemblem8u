@@ -9,21 +9,20 @@
 
 #include "efxbattle.h"
 
-struct ProcEfxFarAttack
+// clang-format off
+
+struct ProcCmd CONST_DATA gProc_efxFarAttack[] =
 {
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u16 unk_2a;
-    /* 2C */ s16 unk_2c;
-    /* 2E */ s16 unk_2e;
-    /* 30 */ s16 unk_30;
-    /* 32 */ s16 unk_32;
-    /* 34 */ s16 unk_34;
-    /* 36 */ s16 unk_36;
-    /* 38 */ s16 unk_38;
+    PROC_NAME("efxFarAttack"),
+
+    PROC_REPEAT(sub_80534E4),
+    PROC_REPEAT(sub_8053514),
+    PROC_REPEAT(sub_8053584),
+
+    PROC_END,
 };
 
-extern struct ProcCmd gProc_efxFarAttack[];
+// clang-format on
 
 //! FE8U = 0x080533D0
 void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
@@ -33,8 +32,8 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
 
     switch (gEkrDistanceType)
     {
-        case 1:
-        case 2:
+        case EKR_DISTANCE_FAR:
+        case EKR_DISTANCE_FARFAR:
             proc = Proc_Start(gProc_efxFarAttack, PROC_TREE_3);
             proc->unk_29 = GetAnimPosition(anim);
             proc->unk_2c = 0;
@@ -46,7 +45,7 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
             }
             else
             {
-                if (gEkrDistanceType == 1)
+                if (gEkrDistanceType == EKR_DISTANCE_FAR)
                 {
                     proc->unk_2e = 5;
                     proc->unk_30 = 5;
@@ -58,7 +57,7 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
                 }
             }
 
-            if (gEkrDistanceType == 1)
+            if (gEkrDistanceType == EKR_DISTANCE_FAR)
             {
                 val = 0x20;
             }
@@ -87,9 +86,9 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
 
             break;
 
-        case 0:
-        case 3:
-        case 4:
+        case EKR_DISTANCE_CLOSE:
+        case EKR_DISTANCE_MONOCOMBAT:
+        case EKR_DISTANCE_PROMOTION:
             break;
     }
 
@@ -200,7 +199,7 @@ void sub_8053618(int xPos)
     int a;
     int x;
 
-    if ((GetBanimDragonStatusType() == 2) || (GetBattleAnimArenaFlag() != 0))
+    if ((GetBanimDragonStatusType() == EKRDRGON_TYPE_DEMON_KING) || (GetBattleAnimArenaFlag() != 0))
     {
         return;
     }
@@ -217,37 +216,579 @@ void sub_8053618(int xPos)
     return;
 }
 
-struct EfxQuakeProc
+// clang-format off
+
+const s16 gUnknown_080DA4BA[] =
 {
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2C */ s16 unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ s16 unk_34;
-    /* 36 */ s16 unk_36;
-    /* 38 */ s16 unk_38;
-    /* 3A */ s16 unk_3a;
-    /* 3C */ s16 unk_3c;
-    /* 3E */ s16 unk_3e;
-    /* 40 */ int unk_40;
-    /* 44 */ struct Vec2 * unk_44;
-    /* 48 */ int unk_48;
-    /* 4C */ STRUCT_PAD(0x4c, 0x5C);
-    /* 5C */ struct Anim * unk_5c;
-    /* 60 */ struct Anim * unk_60;
-    /* 64 */ struct Anim * unk_64;
+    +0, -1,
+    +0, +0, 
+    +0, +1, 
+    +0, +0, 
+    +0, -1, 
+    +0, +0, 
+    +1, +1, 
+    +0, -1,
+    INT16_MAX,
 };
 
-extern uintptr_t gUnknown_085B9804[];
-extern struct ProcCmd gProc_efxQuakePure[];
+const s16 gEfxQuakeVecs[] =
+{
+    +1, +1,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -1, -1,
+    +0, +0,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    +0, +0,
+    -1, -1,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    -1, -1,
+    +0, +0,
+    +1, +1,
+    -1, -1,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DA526[] =
+{
+    +2, +2,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +2, +2,
+    -2, -2,
+    INT16_MAX,
+};
+
+const s16 gEfxQuakeVecs2[] =
+{
+    +3, +3,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    +0, +0,
+    +3, +3,
+    +0, +0,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    +3, +3,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    +3, +3,
+    -3, -3,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DA5BA[] =
+{
+    +6, +6,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    -6, -6,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DA604[] =
+{
+    +9, +9,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -9, -9,
+    +0, +0,
+    +0, +0,
+    +9, +9,
+    +0, +0,
+    +0, +0,
+    -9, -9,
+    +0, +0,
+    +9, +9,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    +6, +6,
+    -6, -6,
+    +3, +3,
+    -3, -3,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DA66E[] =
+{
+    +9, +9,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -9, -9,
+    +0, +0,
+    +0, +0,
+    +9, +9,
+    +0, +0,
+    +0, +0,
+    -9, -9,
+    +0, +0,
+    +9, +9,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    +6, +6,
+    -6, -6,
+    +0, +0,
+    +3, +3,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    -1, -1,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    -1, -1,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA720[] =
+{
+    +3, +3,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA732[] =
+{
+    +8, +8,
+    +0, +0,
+    -8, -8,
+    +0, +0,
+    +7, +7,
+    +0, +0,
+    -7, -7,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA754[] =
+{
+    +1, +1,
+    +0, +0,
+    -1, -1,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA766[] =
+{
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA778[] =
+{
+    +3, +3,
+    +0, +0,
+    -3, -3,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA78A[] =
+{
+    +0, +3,
+    +0, +0,
+    +0, -3,
+    +0, +0,
+    +0, +5,
+    +0, +0,
+    +0, -5,
+    +0, +0,
+    +0, +2,
+    +0, +0,
+    +0, -2,
+    +0, +0,
+    +0, +4,
+    +0, +0,
+    +0, -4,
+    +0, +0,
+    +0, +3,
+    +0, +0,
+    +0, -3,
+    +0, +0,
+    +0, +5,
+    +0, +0,
+    +0, -5,
+    +0, +0,
+    +0, +2,
+    +0, +0,
+    +0, -2,
+    +0, +0,
+    +0, +4,
+    +0, +0,
+    +0, -4,
+    +0, +0,
+    +0, +3,
+    +0, +0,
+    +0, -3,
+    +0, +0,
+    +0, +2,
+    +0, +0,
+    +0, -2,
+    +0, +0,
+    +0, +1,
+    +0, +0,
+    +0, -1,
+    +0, +0,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA840[] =
+{
+    -1, -1,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA852[] =
+{
+    +2, +2,
+    -1, -1,
+    +1, +1,
+    -2, -2,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA864[] =
+{
+    +2, +2,
+    -1, -1,
+    +1, +1,
+    -2, -2,
+    INT16_MAX,
+};
+
+const s16 gQuakeVecs_080DA876[] =
+{
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +4,
+    +0, +4,
+    +0, -4,
+    +0, -4,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +3,
+    +0, +3,
+    +0, -3,
+    +0, -3,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +2,
+    +0, +2,
+    +0, -2,
+    +0, -2,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    +0, +1,
+    +0, +1,
+    +0, -1,
+    +0, -1,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DA9F8[] =
+{
+    +6, +6,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +0, +0,
+    +1, +1,
+    +0, +0,
+    -1, -1,
+    INT16_MAX,
+};
+
+const s16 gUnknown_080DAA8E[] =
+{
+    +10, +10,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -10, -10,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    +10, +10,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    -10, -10,
+    +0, +0,
+    +0, +0,
+    +0, +0,
+    +8, +8,
+    +0, +0,
+    +0, +0,
+    -8, -8,
+    +0, +0,
+    +8, +8,
+    +0, +0,
+    -8, -8,
+    +0, +0,
+    +8, +8,
+    +0, +0,
+    +0, +0,
+    -8, -8,
+    +0, +0,
+    +8, +8,
+    +0, +0,
+    -8, -8,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +6, +6,
+    +0, +0,
+    -6, -6,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +4, +4,
+    +0, +0,
+    -4, -4,
+    +0, +0,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    +2, +2,
+    +0, +0,
+    -2, -2,
+    INT16_MAX,
+};
+
+struct ProcCmd CONST_DATA gProc_efxQuakePure[] =
+{
+    PROC_NAME("efxQuakePure"),
+    PROC_REPEAT(sub_80536B8),
+    PROC_END,
+};
+
+const void * CONST_DATA gUnknown_085B9804[] =
+{
+    gUnknown_080DA4BA, 0,
+    gEfxQuakeVecs, 0,
+    gUnknown_080DA526, 0,
+    gEfxQuakeVecs2, 0,
+    gUnknown_080DA5BA, 0,
+    gUnknown_080DA604, 0,
+    gQuakeVecs_080DA720, 0,
+    gQuakeVecs_080DA732, 0,
+    gQuakeVecs_080DA754, 0,
+    gQuakeVecs_080DA766, 0,
+    gQuakeVecs_080DA778, 0,
+    gQuakeVecs_080DA78A, 0,
+    gQuakeVecs_080DA840, 0,
+    gQuakeVecs_080DA852, 0,
+    gQuakeVecs_080DA864, 0,
+    gQuakeVecs_080DA876, 0,
+};
+
+// clang-format on
+
 
 //! FE8U = 0x08053678
 ProcPtr NewEfxQuakePure(int index, int kind)
 {
     struct EfxQuakeProc * proc = Proc_Start(gProc_efxQuakePure, PROC_TREE_3);
 
-    proc->unk_44 = (struct Vec2 *)gUnknown_085B9804[index * 2];
+    proc->unk_44 = (s16 *)gUnknown_085B9804[index * 2];
     proc->unk_29 = (int)gUnknown_085B9804[index * 2 + 1];
 
     proc->unk_2a = kind;
@@ -259,11 +800,11 @@ ProcPtr NewEfxQuakePure(int index, int kind)
 //! FE8U = 0x080536B8
 void sub_80536B8(struct EfxQuakeProc * proc)
 {
-    struct Vec2 * vec = proc->unk_44;
+    const s16 * vec = proc->unk_44;
 
-    if (vec[proc->unk_2c].x != INT16_MAX)
+    if (vec[proc->unk_2c * 2 + 0] != INT16_MAX)
     {
-        SetEkrBg2QuakeVec(vec[proc->unk_2c].x, vec[proc->unk_2c].y);
+        SetEkrBg2QuakeVec(vec[proc->unk_2c * 2 + 0], vec[proc->unk_2c * 2 + 1]);
         proc->unk_2c++;
     }
     else
@@ -272,7 +813,7 @@ void sub_80536B8(struct EfxQuakeProc * proc)
         {
             case 0:
                 proc->unk_2c = 0;
-                SetEkrBg2QuakeVec(vec->x, vec->y);
+                SetEkrBg2QuakeVec(vec[0], vec[1]);
                 break;
 
             case 1:
@@ -284,7 +825,16 @@ void sub_80536B8(struct EfxQuakeProc * proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_EfxHitQuakePure[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_EfxHitQuakePure[] =
+{
+    PROC_NAME("efxHitQuakePure"),
+    PROC_REPEAT(nullsub_56),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08053718
 ProcPtr NewEfxHitQuakePure(void)
@@ -298,16 +848,16 @@ void nullsub_56(void)
     return;
 }
 
-extern struct ProcCmd gProc_efxQuake[];
+// clang-format off
 
-extern struct Vec2 gUnknown_080DA4BA[];
-extern struct Vec2 gUnknown_080DA5BA[];
-extern struct Vec2 gUnknown_080DA526[];
-extern struct Vec2 gUnknown_080DA604[];
-extern struct Vec2 gUnknown_080DA66E[];
+struct ProcCmd CONST_DATA gProc_efxQuake[] =
+{
+    PROC_NAME("efxQuake"),
+    PROC_REPEAT(sub_805382C),
+    PROC_END,
+};
 
-extern struct Vec2 gEfxQuakeVecs[];
-extern struct Vec2 gEfxQuakeVecs2[];
+// clang-format on
 
 //! FE8U = 0x08053678
 ProcPtr NewEfxQuake(int kind)
@@ -392,9 +942,9 @@ void sub_805382C(struct EfxQuakeProc * proc)
     int x2;
     int y2;
 
-    struct Vec2 * vec = proc->unk_44;
+    const s16 * vec = proc->unk_44;
 
-    if (vec[proc->unk_2c].x == INT16_MAX)
+    if (vec[proc->unk_2c * 2 + 0] == INT16_MAX)
     {
         x1 = gEkrXPosReal[0] - gEkrBgPosition;
         y1 = gEkrYPosReal[0];
@@ -417,7 +967,7 @@ void sub_805382C(struct EfxQuakeProc * proc)
     }
     else
     {
-        SetEkrBg2QuakeVec(vec[proc->unk_2c].x, vec[proc->unk_2c].y);
+        SetEkrBg2QuakeVec(vec[proc->unk_2c * 2 + 0], vec[proc->unk_2c * 2 + 1]);
         proc->unk_2c++;
 
         BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
@@ -443,13 +993,13 @@ void sub_805382C(struct EfxQuakeProc * proc)
 
         switch (gEkrDistanceType)
         {
-            case 0:
+            case EKR_DISTANCE_CLOSE:
                 SetEkrFrontAnimPostion(0, x1, y1);
                 SetEkrFrontAnimPostion(1, x2, y2);
                 break;
 
-            case 1:
-            case 2:
+            case EKR_DISTANCE_FAR:
+            case EKR_DISTANCE_FARFAR:
                 if (GetAnimPosition(proc->unk_5c) == 0)
                 {
                     SetEkrFrontAnimPostion(0, x1, y1);
@@ -466,9 +1016,16 @@ void sub_805382C(struct EfxQuakeProc * proc)
     return;
 }
 
-extern struct Vec2 gUnknown_080DA9F8[];
-extern struct Vec2 gUnknown_080DAA8E[];
-void sub_805AFA0(int, s16);
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_EfxHitQuake[] =
+{
+    PROC_NAME("efxHitQuake"),
+    PROC_REPEAT(sub_8053BBC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08053718
 void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
@@ -522,21 +1079,21 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 
     proc->unk_48 = 1;
 
-    if (GetBanimDragonStatusType() != 0)
+    if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
     {
-        proc->unk_64 = 0;
+        proc->unk_64 = NULL;
         return;
     }
 
     if (GetBattleAnimArenaFlag() != 0)
     {
-        proc->unk_64 = 0;
+        proc->unk_64 = NULL;
         return;
     }
 
-    if (gEkrDistanceType == 0)
+    if (gEkrDistanceType == EKR_DISTANCE_CLOSE)
     {
-        proc->unk_64 = 0;
+        proc->unk_64 = NULL;
         return;
     }
 
@@ -595,26 +1152,26 @@ void sub_8053BBC(struct EfxQuakeProc * proc)
     int x2;
     int y2;
 
-    struct Vec2 * vec = proc->unk_44;
+    const s16 * vec = proc->unk_44;
 
-    if (vec[proc->unk_2c].x == INT16_MAX)
+    if (vec[proc->unk_2c * 2 + 0] == INT16_MAX)
     {
         SetEkrBg2QuakeVec(0, 0);
 
         switch (gEkrDistanceType)
         {
-            case 0:
+            case EKR_DISTANCE_CLOSE:
                 BG_SetPosition(BG_2, 0, 0);
 
-                if (GetBanimDragonStatusType() != 0)
+                if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
                 {
                     BG_SetPosition(BG_3, 0, 0);
                 }
                 break;
 
-            case 1:
-            case 2:
-                if (GetBanimDragonStatusType() != 0)
+            case EKR_DISTANCE_FAR:
+            case EKR_DISTANCE_FARFAR:
+                if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
                 {
                     BG_SetPosition(BG_3, 0, 0);
                 }
@@ -664,8 +1221,8 @@ void sub_8053BBC(struct EfxQuakeProc * proc)
             FillBGRect(GetAnimPosition(proc->unk_5c) * 15 + gBG2TilemapBuffer + 0x160, 0xf, 5, 0, 0);
         }
 
-        x = vec[proc->unk_2c].x;
-        y = vec[proc->unk_2c].y;
+        x = vec[proc->unk_2c * 2 + 0];
+        y = vec[proc->unk_2c * 2 + 1];
 
         SetEkrBg2QuakeVec(x, y);
 
@@ -687,7 +1244,7 @@ void sub_8053BBC(struct EfxQuakeProc * proc)
 
         if (proc->unk_29 == 1)
         {
-            if (GetBanimDragonStatusType() != 0)
+            if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
             {
                 BG_SetPosition(BG_3, -x, y);
             }
@@ -719,14 +1276,14 @@ void sub_8053BBC(struct EfxQuakeProc * proc)
 
         switch (gEkrDistanceType)
         {
-            case 0:
+            case EKR_DISTANCE_CLOSE:
                 SetEkrFrontAnimPostion(0, x1, y1);
                 SetEkrFrontAnimPostion(1, x2, y2);
 
                 break;
 
-            case 1:
-            case 2:
+            case EKR_DISTANCE_FAR:
+            case EKR_DISTANCE_FARFAR:
                 if (GetAnimPosition(proc->unk_5c) == 0)
                 {
                     SetEkrFrontAnimPostion(0, x1, y1);
