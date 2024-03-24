@@ -2498,20 +2498,63 @@ void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
 void EfxNoDamageYureMain(struct ProcEfxHPBar * proc);
 void NewEfxStatusCHG(struct Anim * anim);
 void EfxStatusCHGMain(struct ProcEfxHPBar * proc);
-void NewEfxFarAttackWithDistance(struct Anim * anim, int arg);
-// ??? sub_80534AC(???);
-// ??? sub_80534E4(???);
-// ??? sub_8053514(???);
-// ??? sub_8053584(???);
-void sub_8053618();
+
+/* banim-efxfarattack.h */
+
+struct ProcEfxFarAttack
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29;
+    /* 2A */ u16 unk_2a;
+    /* 2C */ s16 unk_2c;
+    /* 2E */ s16 unk_2e;
+    /* 30 */ s16 unk_30;
+    /* 32 */ s16 unk_32;
+    /* 34 */ s16 unk_34;
+    /* 36 */ s16 unk_36;
+    /* 38 */ s16 unk_38;
+};
+
+void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg);
+void sub_80534AC(struct ProcEfxFarAttack * unused, int x);
+void sub_80534E4(struct ProcEfxFarAttack * proc);
+void sub_8053514(struct ProcEfxFarAttack * proc);
+void sub_8053584(struct ProcEfxFarAttack * proc);
+void sub_8053618(int);
+
+/* banim-efxquake.h */
+
+struct EfxQuakeProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29;
+    /* 2A */ u8 unk_2a;
+    /* 2C */ s16 unk_2c;
+    /* 30 */ int unk_30;
+    /* 34 */ s16 unk_34;
+    /* 36 */ s16 unk_36;
+    /* 38 */ s16 unk_38;
+    /* 3A */ s16 unk_3a;
+    /* 3C */ s16 unk_3c;
+    /* 3E */ s16 unk_3e;
+    /* 40 */ int unk_40;
+    /* 44 */ const s16 * unk_44;
+    /* 48 */ int unk_48;
+    /* 4C */ STRUCT_PAD(0x4C, 0x5C);
+    /* 5C */ struct Anim * unk_5c;
+    /* 60 */ struct Anim * unk_60;
+    /* 64 */ struct Anim * unk_64;
+};
+
 ProcPtr NewEfxQuakePure(int, int);
-// ??? sub_80536B8(???);
-// ??? NewEfxHitQuakePure(???);
-// ??? nullsub_56(???);
+void efxQuakePure_Loop(struct EfxQuakeProc * proc);
+ProcPtr NewEfxHitQuakePure(void);
+void efxHitQuakePure_Loop_Null(void);
 ProcPtr NewEfxQuake(int);
-// ??? sub_805382C(???);
-void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int);
-// ??? sub_8053BBC(???);
+void efxQuake_Loop(struct EfxQuakeProc * proc);
+void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind);
+void efxHitQuake_Loop(struct EfxQuakeProc * proc);
+
 void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
 void NewEfxFlashBgRed(struct Anim * anim, int duartion);
 void NewEfxFlashBgBlack(struct Anim * anim, int duartion);

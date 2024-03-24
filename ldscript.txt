@@ -410,7 +410,7 @@ SECTIONS
         src/banim-ekrdispup.o(.text);
         src/banim-efxhpbar.o(.text);
         src/banim-efxdeath.o(.text);
-        asm/banim-efxbattle.o(.text);
+        src/banim-efxbattle.o(.text);
         src/banim-efxflashbg.o(.text);
         src/banim-efxflashunit.o(.text);
         src/banim-efxstatusunit.o(.text);
@@ -723,7 +723,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdispup.o(.rodata);
         . = ALIGN(4); src/banim-efxhpbar.o(.rodata);
         . = ALIGN(4); src/banim-efxdeath.o(.rodata);
-        . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
+        . = ALIGN(4); src/banim-efxbattle.o(.rodata);
         . = ALIGN(4); src/banim-efxflashbg.o(.rodata);
         . = ALIGN(4); src/banim-efxflashunit.o(.rodata);
         . = ALIGN(4); src/banim-efxstatusunit.o(.rodata);
@@ -965,7 +965,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdispup.o(.data);
         . = ALIGN(4); src/banim-efxhpbar.o(.data);
         . = ALIGN(4); src/banim-efxdeath.o(.data);
-        . = ALIGN(4); data/data_banim_5B93D0.o(.data);
+        . = ALIGN(4); src/banim-efxbattle.o(.data);
         . = ALIGN(4); src/banim-efxflashbg.o(.data);
         . = ALIGN(4); src/banim-efxflashunit.o(.data);
         . = ALIGN(4); src/banim-efxstatusunit.o(.data);
