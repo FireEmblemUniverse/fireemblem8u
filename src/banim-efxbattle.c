@@ -753,10 +753,10 @@ const s16 gUnknown_080DAA8E[] =
     INT16_MAX,
 };
 
-struct ProcCmd CONST_DATA gProc_efxQuakePure[] =
+struct ProcCmd CONST_DATA ProcScr_efxQuakePure[] =
 {
     PROC_NAME("efxQuakePure"),
-    PROC_REPEAT(sub_80536B8),
+    PROC_REPEAT(efxQuakePure_Loop),
     PROC_END,
 };
 
@@ -786,7 +786,7 @@ const void * CONST_DATA gUnknown_085B9804[] =
 //! FE8U = 0x08053678
 ProcPtr NewEfxQuakePure(int index, int kind)
 {
-    struct EfxQuakeProc * proc = Proc_Start(gProc_efxQuakePure, PROC_TREE_3);
+    struct EfxQuakeProc * proc = Proc_Start(ProcScr_efxQuakePure, PROC_TREE_3);
 
     proc->unk_44 = (s16 *)gUnknown_085B9804[index * 2];
     proc->unk_29 = (int)gUnknown_085B9804[index * 2 + 1];
@@ -798,7 +798,7 @@ ProcPtr NewEfxQuakePure(int index, int kind)
 }
 
 //! FE8U = 0x080536B8
-void sub_80536B8(struct EfxQuakeProc * proc)
+void efxQuakePure_Loop(struct EfxQuakeProc * proc)
 {
     const s16 * vec = proc->unk_44;
 
@@ -830,7 +830,7 @@ void sub_80536B8(struct EfxQuakeProc * proc)
 struct ProcCmd CONST_DATA ProcScr_EfxHitQuakePure[] =
 {
     PROC_NAME("efxHitQuakePure"),
-    PROC_REPEAT(nullsub_56),
+    PROC_REPEAT(efxHitQuakePure_Loop_Null),
     PROC_END,
 };
 
@@ -843,17 +843,17 @@ ProcPtr NewEfxHitQuakePure(void)
 }
 
 //! FE8U = 0x0805372C
-void nullsub_56(void)
+void efxHitQuakePure_Loop_Null(void)
 {
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProc_efxQuake[] =
+struct ProcCmd CONST_DATA ProcScr_efxQuake[] =
 {
     PROC_NAME("efxQuake"),
-    PROC_REPEAT(sub_805382C),
+    PROC_REPEAT(efxQuake_Loop),
     PROC_END,
 };
 
@@ -870,7 +870,7 @@ ProcPtr NewEfxQuake(int kind)
     }
 
     gUnknown_0201773C = 1;
-    proc = Proc_Start(gProc_efxQuake, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_efxQuake, PROC_TREE_3);
 
     proc->unk_2c = 0;
 
@@ -935,7 +935,7 @@ ProcPtr NewEfxQuake(int kind)
 }
 
 //! FE8U = 0x0805382C
-void sub_805382C(struct EfxQuakeProc * proc)
+void efxQuake_Loop(struct EfxQuakeProc * proc)
 {
     int x1;
     int y1;
@@ -1021,7 +1021,7 @@ void sub_805382C(struct EfxQuakeProc * proc)
 struct ProcCmd CONST_DATA ProcScr_EfxHitQuake[] =
 {
     PROC_NAME("efxHitQuake"),
-    PROC_REPEAT(sub_8053BBC),
+    PROC_REPEAT(efxHitQuake_Loop),
     PROC_END,
 };
 
@@ -1142,10 +1142,8 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     return;
 }
 
-void sub_805AE58(void *);
-
 //! FE8U = 0x08053BBC
-void sub_8053BBC(struct EfxQuakeProc * proc)
+void efxHitQuake_Loop(struct EfxQuakeProc * proc)
 {
     int x1;
     int y1;

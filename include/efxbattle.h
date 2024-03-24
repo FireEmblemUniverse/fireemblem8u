@@ -2547,13 +2547,13 @@ struct EfxQuakeProc
 };
 
 ProcPtr NewEfxQuakePure(int, int);
-void sub_80536B8(struct EfxQuakeProc * proc);
+void efxQuakePure_Loop(struct EfxQuakeProc * proc);
 ProcPtr NewEfxHitQuakePure(void);
-void nullsub_56(void);
+void efxHitQuakePure_Loop_Null(void);
 ProcPtr NewEfxQuake(int);
-void sub_805382C(struct EfxQuakeProc * proc);
+void efxQuake_Loop(struct EfxQuakeProc * proc);
 void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind);
-void sub_8053BBC(struct EfxQuakeProc * proc);
+void efxHitQuake_Loop(struct EfxQuakeProc * proc);
 
 void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
 void NewEfxFlashBgRed(struct Anim * anim, int duartion);

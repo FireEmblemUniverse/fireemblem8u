@@ -529,10 +529,10 @@ extern struct ProcCmd ProcScr_efxDeadPika[];
 extern struct ProcCmd ProcScr_efxDeadAlpha[];
 extern struct ProcCmd ProcScr_efxDeadDragonAlpha[];
 extern struct ProcCmd gProc_efxFarAttack[];
-extern struct ProcCmd gProc_efxQuakePure[];
+extern struct ProcCmd ProcScr_efxQuakePure[];
 // extern ??? gUnknown_085B9804
 extern struct ProcCmd ProcScr_EfxHitQuakePure[];
-extern struct ProcCmd gProc_efxQuake[];
+extern struct ProcCmd ProcScr_efxQuake[];
 extern struct ProcCmd ProcScr_EfxHitQuake[];
 extern struct ProcCmd ProcScr_efxFlashBG[];
 extern struct ProcCmd ProcScr_efxWhiteOUT[];
@@ -986,7 +986,7 @@ void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // void sub_805AA68(void *);
 // void sub_805AE14(void *);
 // void sub_805AE40(void *, s16, s16, s16, s16);
-// ??? sub_805AE58(???);
+void sub_805AE58(void *);
 void sub_805AFA0(int, s16);
 
 struct ProcEkrTogi
