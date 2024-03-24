@@ -46,12 +46,14 @@ struct ProcOpAnim {
     /* 32 */ s16 unk32;
     /* 34 */ u16 unk34;
     /* 36 */ u16 unk36;
-    /* 38 */ s16 unk38;
-    /* 3A */ s16 unk3A;
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
     /* 3C */ s16 unk3C;
     /* 3E */ s16 unk3E;
     /* 40 */ STRUCT_PAD(0x40, 0x46);
     /* 46 */ u8 unk46;
+    /* 47 */ STRUCT_PAD(0x47, 0x4C);
+    /* 4C */ s16 unk4C;
 };
 
 struct ProcOpAnimHS {
