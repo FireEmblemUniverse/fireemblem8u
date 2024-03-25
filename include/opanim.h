@@ -48,8 +48,8 @@ struct ProcOpAnim {
     /* 36 */ u16 unk36;
     /* 38 */ u16 unk38;
     /* 3A */ u16 unk3A;
-    /* 3C */ s16 unk3C;
-    /* 3E */ s16 unk3E;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
     /* 40 */ STRUCT_PAD(0x40, 0x46);
     /* 46 */ u8 unk46;
     /* 47 */ STRUCT_PAD(0x47, 0x4C);
@@ -321,6 +321,170 @@ extern CONST_DATA u16 tsa_opanim98[];
 extern CONST_DATA u16 tsa_opanim99[];
 extern CONST_DATA u16 tsa_opanim100[];
 extern u16 pal_08B103D8[];
+
+extern u8 Img_OpAnimGenericCharacterBG[];
+extern u8 Tsa_OpAnimGenericCharacterBG[];
+
+extern u8 Img_OpAnimJoshua[];
+extern u8 Img_OpAnimJoshua2[];
+extern u8 gUnknown_08ACC340[];
+extern u8 Tsa_OpAnimJoshua2[];
+
+extern u8 Img_OpAnimShinningRing[];
+extern u8 Tsa_OpAnimShinningRing[];
+
+extern struct ProcCmd gUnknown_08AA705C[];
+extern struct ProcCmd gUnknown_08AA707C[];
+
+extern u8 Img_OpAnimTethys[];
+extern u8 Tsa_OpAnimTethys[];
+
+extern u8 Img_OpAnimTethys2[];
+extern u8 gUnknown_08ADBC0C[];
+
+extern u16 pal_08B103D8[];
+
+extern u16 gUnknown_08ADBE78[];
+
+extern u8 gUnknown_08ADBE98[];
+extern u16 gUnknown_08ADC708[];
+extern u8 gUnknown_08ADC3C0[];
+
+extern u8 gUnknown_08ADC728[];
+extern u16 gUnknown_08ADD050[];
+extern u8 gUnknown_08ADCCB8[];
+
+extern u8 gUnknown_08ADD070[];
+extern u16 gUnknown_08ADDA54[];
+extern u8 gUnknown_08ADD6EC[];
+
+extern u8 gUnknown_08ADDA74[];
+extern u16 gUnknown_08ADE47C[];
+extern u8 gUnknown_08ADE080[];
+
+extern u8 gUnknown_08ADEEF4[];
+extern u16 gUnknown_08ADFA08[];
+extern u8 gUnknown_08ADF58C[];
+
+extern u8 gUnknown_08ADE49C[];
+extern u16 gUnknown_08ADEED4[];
+extern u8 gUnknown_08ADEB1C[];
+
+extern u8 gUnknown_08ADFA28[];
+extern u16 gUnknown_08AE04D4[];
+extern u8 gUnknown_08AE00E4[];
+
+extern u8 gUnknown_08AE04F4[];
+extern u16 Pal_OpAnimFaceVanessaShadow[];
+extern u8 gUnknown_08AE0A48[];
+
+extern u8 gUnknown_08AE0D94[];
+extern u16 gUnknown_08AE1634[];
+extern u8 gUnknown_08AE12BC[];
+
+extern u8 Img_OpAnimFaceVanessa[];
+extern u16 Pal_OpAnimFaceVanessa[];
+extern u8 Img_OpAnimFaceVanessaShadow[];
+
+extern u8 gUnknown_08AE20E4[];
+extern u16 gUnknown_08AE2BF4[];
+extern u8 gUnknown_08AE281C[];
+
+extern u8 gUnknown_08AE2C14[];
+extern u16 gUnknown_08AE3734[];
+extern u8 gUnknown_08AE33D4[];
+
+extern u8 gUnknown_08AE3754[];
+extern u16 gUnknown_08AE41E4[];
+extern u8 gUnknown_08AE3E54[];
+
+extern u8 gUnknown_08AE4204[];
+extern u16 gUnknown_08AE4CE8[];
+extern u8 gUnknown_08AE4940[];
+
+extern u8 gUnknown_08AE4D08[];
+extern u16 gUnknown_08AE5730[];
+extern u8 gUnknown_08AE53C8[];
+
+extern u8 gUnknown_08AE5750[];
+extern u16 gUnknown_08AE60B0[];
+extern u8 gUnknown_08AE5D54[];
+
+extern u8 gUnknown_08AE60D0[];
+extern u16 gUnknown_08AE69EC[];
+extern u8 gUnknown_08AE6648[];
+
+extern u8 gUnknown_08AE6A0C[];
+extern u16 gUnknown_08AE72C8[];
+extern u8 gUnknown_08AE6FA8[];
+
+extern u8 gUnknown_08AE84DC[];
+extern u16 gUnknown_08AE8D84[];
+extern u8 gUnknown_08AE8AB8[];
+
+extern u8 gUnknown_08AE72E8[];
+extern u16 gUnknown_08AE7C2C[];
+extern u8 gUnknown_08AE78B0[];
+
+extern u8 gUnknown_08AE7C4C[];
+extern u16 gUnknown_08AE84BC[];
+extern u8 gUnknown_08AE819C[];
+
+extern u8 gUnknown_08AE8DA4[];
+extern u16 gUnknown_08AE9720[];
+extern u8 gUnknown_08AE9364[];
+
+extern u8 gUnknown_08AE9740[];
+extern u16 gUnknown_08AEA02C[];
+extern u8 gUnknown_08AE9CA4[];
+
+extern u8 gUnknown_08AECAE0[];
+extern u16 gUnknown_08AED3E8[];
+extern u8 gUnknown_08AED0A4[];
+
+extern u8 gUnknown_08AED408[];
+extern u16 gUnknown_08AEDC80[];
+extern u8 gUnknown_08AED95C[];
+
+extern u8 gUnknown_08AEDCA0[];
+extern u16 gUnknown_08AEE564[];
+extern u8 gUnknown_08AEE218[];
+
+extern u8 gUnknown_08AEA04C[];
+extern u16 gUnknown_08AEAB50[];
+extern u8 gUnknown_08AEA7A8[];
+
+extern u8 gUnknown_08AEAB70[];
+extern u16 gUnknown_08AEB56C[];
+extern u8 gUnknown_08AEB1B8[];
+
+extern u8 gUnknown_08AEB58C[];
+extern u16 Pal_OpAnimFaceValterShadow[];
+extern u8 gUnknown_08AEBCEC[];
+
+extern u8 gUnknown_08AEC068[];
+extern u16 gUnknown_08AECAC0[];
+extern u8 gUnknown_08AEC724[];
+
+extern u8 Img_OpAnimFaceValter[];
+extern u16 Pal_OpAnimFaceValter[];
+extern u8 Img_OpAnimFaceValterShadow[];
+
+extern u8 gUnknown_08AEEEEC[];
+extern u16 gUnknown_08AEF880[];
+extern u8 gUnknown_08AEF580[];
+
+extern u8 gUnknown_08AEF8A0[];
+extern u16 Pal_OpAnimFaceVigardeShadow[];
+extern u8 gUnknown_08AEFDC8[];
+
+extern u8 gUnknown_08AF0150[];
+extern u16 gUnknown_08AF0DE8[];
+extern u8 gUnknown_08AF09E4[];
+
+extern u8 Img_OpAnimFaceVigarde[];
+extern u16 Pal_OpAnimFaceVigarde[];
+extern u8 Img_OpAnimFaceVigardeShadow[];
 
 void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
 void OpAnimfxTerminatorMain(struct Proc * proc);
