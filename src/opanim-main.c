@@ -611,7 +611,7 @@ void sub_80C72A4(u8 type)
         SetBlendTargetA(0, 1, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 0, 0);
 
-        ApplyPalettesOpAnim(pal_08AF47F0, 8, 4);
+        ApplyPalettesOpAnim(Pal_OpAnimShiningRing, 8, 4);
 
         BG_SetPosition(BG_1, 0, 0);
         SetWinEnable(0, 0, 0);
@@ -1485,5 +1485,1019 @@ void sub_80C8638(struct ProcOpAnim * proc)
 void sub_80C8684(void)
 {
     SetDefaultColorEffects();
+    return;
+}
+
+//! FE8U = 0x080C8690
+void sub_80C8690(struct ProcOpAnim * proc)
+{
+    int i;
+    s16 * vram;
+
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimGenericCharacterBG, (void *)(0x06002000 + GetBackgroundTileDataOffset(3)));
+            Decompress(Tsa_OpAnimGenericCharacterBG, gBG3TilemapBuffer);
+
+            for (i = 0; i < 0x280; i++)
+            {
+                gBG3TilemapBuffer[i] = gBG3TilemapBuffer[i] + 0xe100;
+            }
+
+            BG_EnableSyncByMask(BG3_SYNC_BIT);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimJoshua, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimJoshua2, gGenericBuffer);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimJoshua2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(gUnknown_08ACC340, gGenericBuffer + 0x800);
+
+            break;
+
+        case 4:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+
+        case 5:
+            Decompress(Img_OpAnimShiningRing, (void *)0x06004000);
+
+            break;
+
+        case 6:
+            Decompress(Tsa_OpAnimShiningRing, (void *)0x0600F000);
+
+            vram = (void *)0x0600F000;
+
+            for (i = 0; i < 0x280; i++, vram++)
+            {
+                *vram = *vram - 0x8000;
+            }
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        Proc_EndEach(gUnknown_08AA705C);
+        Proc_EndEach(gUnknown_08AA707C);
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C883C
+void sub_80C883C(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimLArachel, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimLArachel, gGenericBuffer);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimLArachel2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimLArachelLeft, gGenericBuffer + 0x800);
+
+            break;
+
+        case 3:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        Proc_EndEach(gUnknown_08AA705C);
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8934
+void sub_80C8934(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimCharacterSeth, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimCharacterSeth, gGenericBuffer);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimCharacterSeth2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(gUnknown_08AD236C, gGenericBuffer + 0x800);
+
+            break;
+
+        case 3:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8A20
+void sub_80C8A20(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimMyrrh, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimMyrrh2, gGenericBuffer);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimMyrrh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(gUnknown_08AD543C, gGenericBuffer + 0x800);
+
+            break;
+
+        case 3:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8B0C
+void sub_80C8B0C(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimSaleh, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimSaleh2, gGenericBuffer);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimSaleh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(gUnknown_08AD88D4, gGenericBuffer + 0x800);
+
+            break;
+
+        case 3:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8BF8
+void sub_80C8BF8(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimTethys, (void *)(0x6000000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimTethys, gGenericBuffer);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimTethys2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(gUnknown_08ADBC0C, gGenericBuffer + 0x800);
+
+            break;
+
+        case 3:
+            BG_Fill(gBG0TilemapBuffer, 0);
+            BG_Fill(gBG1TilemapBuffer, 0);
+
+            CpuFastFill(0, (void *)0x0600D800, 0x1000);
+
+            break;
+    }
+
+    if (proc->timer == 0x28)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8CE4
+void sub_80C8CE4(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    if (proc->timer == 0x28)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8D30
+void sub_80C8D30(struct ProcOpAnim * proc)
+{
+    int ret;
+    int i;
+
+    i = DivRem(proc->unk3E, 0x4c);
+    i = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, i, 0x4c);
+
+    if (i < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, i, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - i, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    CopyToPalOpAnim(pal_08B103D8, 0, 0x100);
+
+    ret = Interpolate(INTERPOLATE_LINEAR, 0xc, 0, proc->timer, 0x26);
+
+    for (i = 0; i < 8; i++)
+    {
+        sub_80C69B0(gPaletteBuffer + i * 0x10, 0, ret);
+    }
+
+    switch (proc->timer)
+    {
+        case 1:
+            break;
+
+        case 2:
+            CopyToPalOpAnim(gUnknown_08ADBE78, 0x220, 0x20);
+            CopyToPalOpAnim(gUnknown_08ADBE78, 0x260, 0x20);
+            CopyToPalOpAnim(gUnknown_08ADBE78, 0x2a0, 0x20);
+            CopyToPalOpAnim(gUnknown_08ADBE78, 0x2e0, 0x20);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceRennac, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceRennac, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceRennacShadow, (void *)0x06010F00);
+
+            break;
+
+        case 4:
+            Decompress(Img_OpAnimFaceLArachel, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceLArachel, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceLArachelShadow, (void *)0x06012D00);
+
+            break;
+
+        case 5:
+            Decompress(Img_OpAnimFaceDozla, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceDozla, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceDozlaShadow, (void *)0x06014B00);
+
+            break;
+    }
+
+    if (proc->timer == 0x26)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C8ED4
+void sub_80C8ED4(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 0x12);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 0x12);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceEwan, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceEwan, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceEwanShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceTethys, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceTethys, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceTethysShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceGerik, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceGerik, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceGerikShadow, (void *)0x06014B00);
+
+            break;
+
+        case 4:
+            Decompress(Img_OpAnimFaceMarisa, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceMarisa, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceMarisaShadow, (void *)0x06016900);
+
+            break;
+    }
+
+    if (proc->timer == 7)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9024
+void sub_80C9024(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 0xe);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 0xe);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceGarcia, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceGarcia, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceGarciaShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceRoss, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceRoss, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceRossShadow, (void *)0x06012D00);
+
+            break;
+    }
+
+    if (proc->timer == 8)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9100
+void sub_80C9100(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 0xc);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 0xc);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceVanessa, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceVanessa, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceVanessaShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceTana, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceTana, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceTanaShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceSyrene, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSyrene, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceSyreneShadow, (void *)0x06014B00);
+
+            break;
+    }
+
+    if (proc->timer == 9)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9218
+void sub_80C9218(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 10);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 10);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceGilliam, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceGilliam, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceGilliamShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceInnes, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceInnes, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceInnesShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceMoulder, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceMoulder, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceMoulderShadow, (void *)0x06014B00);
+
+            break;
+    }
+
+    if (proc->timer == 10)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9330
+void sub_80C9330(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 9);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 9);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceColm, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceColm, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceColmShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceNeimi, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceNeimi, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceNeimiShadow, (void *)0x06012D00);
+
+            break;
+    }
+
+    if (proc->timer == 11)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C940C
+void sub_80C940C(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 8);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 8);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceKnoll, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceKnoll, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceKnollShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceNatasha, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceNatasha, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceNatashaShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceCormag, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceCormag, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceCormagShadow, (void *)0x06014B00);
+
+            break;
+
+        case 4:
+            Decompress(Img_OpAnimFaceAmelia, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceAmelia, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceAmeliaShadow, (void *)0x06016900);
+
+            break;
+    }
+
+    if (proc->timer == 12)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C955C
+void sub_80C955C(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 7);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 7);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceLute, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceLute, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceLuteShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceArtur, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceArtur, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceArturShadow, (void *)0x06012D00);
+
+            break;
+    }
+
+    if (proc->timer == 13)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9638
+void sub_80C9638(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 6);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 6);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceDuessel, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceDuessel, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceDuesselShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceSelena, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSelena, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceSelenaShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceGlen, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceGlen, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceGlenShadow, (void *)0x06014B00);
+
+            break;
+    }
+
+    if (proc->timer == 14)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9750
+void sub_80C9750(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 5);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 5);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceKyle, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceKyle, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceKyleShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceFranz, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceFranz, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceFranzShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceForde, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceForde, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceFordeShadow, (void *)0x06014B00);
+
+            break;
+
+        case 4:
+            Decompress(Img_OpAnimFaceSeth, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSeth, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceSethShadow, (void *)0x06016900);
+
+            break;
+    }
+
+    if (proc->timer == 15)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C98A0
+void sub_80C98A0(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 4);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 4);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceValter, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceValter, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceValterShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceRiev, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceRiev, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceRievShadow, (void *)0x06012D00);
+
+            break;
+
+        case 3:
+            Decompress(Img_OpAnimFaceCaellach, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceCaellach, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceCaellachShadow, (void *)0x06014B00);
+
+            break;
+    }
+
+    if (proc->timer == 16)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C99B8
+void sub_80C99B8(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    ret = DivRem(proc->unk3E, 3);
+    ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x1a, ret, 3);
+
+    if (ret < 0xd)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 0x10, 8);
+    }
+    else
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x19 - ret, 0x10, 8);
+    }
+
+    proc->unk3E++;
+
+    switch (proc->timer)
+    {
+        case 1:
+            Decompress(Img_OpAnimFaceLyon, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceLyon, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceLyonShadow, (void *)0x06010F00);
+
+            break;
+
+        case 2:
+            Decompress(Img_OpAnimFaceVigarde, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceVigarde, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceVigardeShadow, (void *)0x06012D00);
+
+            break;
+    }
+
+    if (proc->timer == 18)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
     return;
 }
