@@ -4280,7 +4280,7 @@ _080CBCFE:
 	ldrh r0, [r1, #0x2a]
 	cmp r0, #1
 	bne _080CBD28
-	ldr r0, _080CBD5C  @ Tsa_OpAnimShinningRingBlinking
+	ldr r0, _080CBD5C  @ Tsa_OpAnimShiningRingBlinking
 	ldr r4, _080CBD60  @ 0x0600F000
 	adds r1, r4, #0
 	bl Decompress
@@ -4316,7 +4316,7 @@ _080CBD4C: .4byte 0x00000828
 _080CBD50: .4byte gUnknown_08AA7194
 _080CBD54: .4byte 0x000020F0
 _080CBD58: .4byte 0x00003168
-_080CBD5C: .4byte Tsa_OpAnimShinningRingBlinking
+_080CBD5C: .4byte Tsa_OpAnimShiningRingBlinking
 _080CBD60: .4byte 0x0600F000
 _080CBD64:
 	adds r0, #1

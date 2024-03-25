@@ -611,7 +611,7 @@ void sub_80C72A4(u8 type)
         SetBlendTargetA(0, 1, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 0, 0);
 
-        ApplyPalettesOpAnim(pal_08AF47F0, 8, 4);
+        ApplyPalettesOpAnim(Pal_OpAnimShiningRing, 8, 4);
 
         BG_SetPosition(BG_1, 0, 0);
         SetWinEnable(0, 0, 0);
@@ -1536,12 +1536,12 @@ void sub_80C8690(struct ProcOpAnim * proc)
             break;
 
         case 5:
-            Decompress(Img_OpAnimShinningRing, (void *)0x06004000);
+            Decompress(Img_OpAnimShiningRing, (void *)0x06004000);
 
             break;
 
         case 6:
-            Decompress(Tsa_OpAnimShinningRing, (void *)0x0600F000);
+            Decompress(Tsa_OpAnimShiningRing, (void *)0x0600F000);
 
             vram = (void *)0x0600F000;
 
@@ -1859,23 +1859,23 @@ void sub_80C8D30(struct ProcOpAnim * proc)
             break;
 
         case 3:
-            Decompress(gUnknown_08ADBE98, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08ADC708, 0x200, 0x20);
-            Decompress(gUnknown_08ADC3C0, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceRennac, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceRennac, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceRennacShadow, (void *)0x06010F00);
 
             break;
 
         case 4:
-            Decompress(gUnknown_08ADC728, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08ADD050, 0x240, 0x20);
-            Decompress(gUnknown_08ADCCB8, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceLArachel, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceLArachel, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceLArachelShadow, (void *)0x06012D00);
 
             break;
 
         case 5:
-            Decompress(gUnknown_08ADD070, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08ADDA54, 0x280, 0x20);
-            Decompress(gUnknown_08ADD6EC, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceDozla, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceDozla, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceDozlaShadow, (void *)0x06014B00);
 
             break;
     }
@@ -1915,30 +1915,30 @@ void sub_80C8ED4(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08ADDA74, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08ADE47C, 0x200, 0x20);
-            Decompress(gUnknown_08ADE080, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceEwan, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceEwan, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceEwanShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08ADEEF4, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08ADFA08, 0x240, 0x20);
-            Decompress(gUnknown_08ADF58C, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceTethys, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceTethys, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceTethysShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08ADE49C, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08ADEED4, 0x280, 0x20);
-            Decompress(gUnknown_08ADEB1C, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceGerik, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceGerik, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceGerikShadow, (void *)0x06014B00);
 
             break;
 
         case 4:
-            Decompress(gUnknown_08ADFA28, (void *)0x06015A00);
-            CopyToPalOpAnim(gUnknown_08AE04D4, 0x2c0, 0x20);
-            Decompress(gUnknown_08AE00E4, (void *)0x06016900);
+            Decompress(Img_OpAnimFaceMarisa, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceMarisa, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceMarisaShadow, (void *)0x06016900);
 
             break;
     }
@@ -1978,16 +1978,16 @@ void sub_80C9024(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AE04F4, (void *)0x06010000);
-            CopyToPalOpAnim(Pal_OpAnimFaceVanessaShadow, 0x200, 0x20);
-            Decompress(gUnknown_08AE0A48, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceGarcia, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceGarcia, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceGarciaShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AE0D94, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AE1634, 0x240, 0x20);
-            Decompress(gUnknown_08AE12BC, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceRoss, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceRoss, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceRossShadow, (void *)0x06012D00);
 
             break;
     }
@@ -2034,16 +2034,16 @@ void sub_80C9100(struct ProcOpAnim * proc)
             break;
 
         case 2:
-            Decompress(gUnknown_08AE20E4, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AE2BF4, 0x240, 0x20);
-            Decompress(gUnknown_08AE281C, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceTana, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceTana, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceTanaShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AE2C14, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08AE3734, 0x280, 0x20);
-            Decompress(gUnknown_08AE33D4, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceSyrene, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSyrene, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceSyreneShadow, (void *)0x06014B00);
 
             break;
     }
@@ -2083,23 +2083,23 @@ void sub_80C9218(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AE3754, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AE41E4, 0x200, 0x20);
-            Decompress(gUnknown_08AE3E54, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceGilliam, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceGilliam, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceGilliamShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AE4204, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AE4CE8, 0x240, 0x20);
-            Decompress(gUnknown_08AE4940, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceInnes, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceInnes, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceInnesShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AE4D08, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08AE5730, 0x280, 0x20);
-            Decompress(gUnknown_08AE53C8, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceMoulder, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceMoulder, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceMoulderShadow, (void *)0x06014B00);
 
             break;
     }
@@ -2139,21 +2139,21 @@ void sub_80C9330(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AE5750, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AE60B0, 0x200, 0x20);
-            Decompress(gUnknown_08AE5D54, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceColm, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceColm, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceColmShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AE60D0, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AE69EC, 0x240, 0x20);
-            Decompress(gUnknown_08AE6648, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceNeimi, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceNeimi, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceNeimiShadow, (void *)0x06012D00);
 
             break;
     }
 
-    if (proc->timer == 0xb)
+    if (proc->timer == 11)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2188,35 +2188,35 @@ void sub_80C940C(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AE6A0C, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AE72C8, 0x200, 0x20);
-            Decompress(gUnknown_08AE6FA8, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceKnoll, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceKnoll, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceKnollShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AE84DC, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AE8D84, 0x240, 0x20);
-            Decompress(gUnknown_08AE8AB8, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceNatasha, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceNatasha, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceNatashaShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AE72E8, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08AE7C2C, 0x280, 0x20);
-            Decompress(gUnknown_08AE78B0, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceCormag, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceCormag, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceCormagShadow, (void *)0x06014B00);
 
             break;
 
         case 4:
-            Decompress(gUnknown_08AE7C4C, (void *)0x06015A00);
-            CopyToPalOpAnim(gUnknown_08AE84BC, 0x2c0, 0x20);
-            Decompress(gUnknown_08AE819C, (void *)0x06016900);
+            Decompress(Img_OpAnimFaceAmelia, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceAmelia, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceAmeliaShadow, (void *)0x06016900);
 
             break;
     }
 
-    if (proc->timer == 0xc)
+    if (proc->timer == 12)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2251,21 +2251,21 @@ void sub_80C955C(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AE8DA4, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AE9720, 0x200, 0x20);
-            Decompress(gUnknown_08AE9364, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceLute, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceLute, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceLuteShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AE9740, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AEA02C, 0x240, 0x20);
-            Decompress(gUnknown_08AE9CA4, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceArtur, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceArtur, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceArturShadow, (void *)0x06012D00);
 
             break;
     }
 
-    if (proc->timer == 0xd)
+    if (proc->timer == 13)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2300,28 +2300,28 @@ void sub_80C9638(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AECAE0, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AED3E8, 0x200, 0x20);
-            Decompress(gUnknown_08AED0A4, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceDuessel, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceDuessel, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceDuesselShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AED408, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AEDC80, 0x240, 0x20);
-            Decompress(gUnknown_08AED95C, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceSelena, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSelena, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceSelenaShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AEDCA0, (void *)0x06013C00);
-            CopyToPalOpAnim(gUnknown_08AEE564, 0x280, 0x20);
-            Decompress(gUnknown_08AEE218, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceGlen, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceGlen, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceGlenShadow, (void *)0x06014B00);
 
             break;
     }
 
-    if (proc->timer == 0xe)
+    if (proc->timer == 14)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2356,35 +2356,35 @@ void sub_80C9750(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AEA04C, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AEAB50, 0x200, 0x20);
-            Decompress(gUnknown_08AEA7A8, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceKyle, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceKyle, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceKyleShadow, (void *)0x06010F00);
 
             break;
 
         case 2:
-            Decompress(gUnknown_08AEAB70, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AEB56C, 0x240, 0x20);
-            Decompress(gUnknown_08AEB1B8, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceFranz, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceFranz, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceFranzShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AEB58C, (void *)0x06013C00);
-            CopyToPalOpAnim(Pal_OpAnimFaceValterShadow, 0x280, 0x20);
-            Decompress(gUnknown_08AEBCEC, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceForde, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceForde, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceFordeShadow, (void *)0x06014B00);
 
             break;
 
         case 4:
-            Decompress(gUnknown_08AEC068, (void *)0x06015A00);
-            CopyToPalOpAnim(gUnknown_08AECAC0, 0x2c0, 0x20);
-            Decompress(gUnknown_08AEC724, (void *)0x06016900);
+            Decompress(Img_OpAnimFaceSeth, (void *)0x06015A00);
+            CopyToPalOpAnim(Pal_OpAnimFaceSeth, 0x2c0, 0x20);
+            Decompress(Img_OpAnimFaceSethShadow, (void *)0x06016900);
 
             break;
     }
 
-    if (proc->timer == 0xf)
+    if (proc->timer == 15)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2426,21 +2426,21 @@ void sub_80C98A0(struct ProcOpAnim * proc)
             break;
 
         case 2:
-            Decompress(gUnknown_08AEEEEC, (void *)0x06011E00);
-            CopyToPalOpAnim(gUnknown_08AEF880, 0x240, 0x20);
-            Decompress(gUnknown_08AEF580, (void *)0x06012D00);
+            Decompress(Img_OpAnimFaceRiev, (void *)0x06011E00);
+            CopyToPalOpAnim(Pal_OpAnimFaceRiev, 0x240, 0x20);
+            Decompress(Img_OpAnimFaceRievShadow, (void *)0x06012D00);
 
             break;
 
         case 3:
-            Decompress(gUnknown_08AEF8A0, (void *)0x06013C00);
-            CopyToPalOpAnim(Pal_OpAnimFaceVigardeShadow, 0x280, 0x20);
-            Decompress(gUnknown_08AEFDC8, (void *)0x06014B00);
+            Decompress(Img_OpAnimFaceCaellach, (void *)0x06013C00);
+            CopyToPalOpAnim(Pal_OpAnimFaceCaellach, 0x280, 0x20);
+            Decompress(Img_OpAnimFaceCaellachShadow, (void *)0x06014B00);
 
             break;
     }
 
-    if (proc->timer == 0x10)
+    if (proc->timer == 16)
     {
         proc->timer = 0;
         Proc_Break(proc);
@@ -2475,9 +2475,9 @@ void sub_80C99B8(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(gUnknown_08AF0150, (void *)0x06010000);
-            CopyToPalOpAnim(gUnknown_08AF0DE8, 0x200, 0x20);
-            Decompress(gUnknown_08AF09E4, (void *)0x06010F00);
+            Decompress(Img_OpAnimFaceLyon, (void *)0x06010000);
+            CopyToPalOpAnim(Pal_OpAnimFaceLyon, 0x200, 0x20);
+            Decompress(Img_OpAnimFaceLyonShadow, (void *)0x06010F00);
 
             break;
 
@@ -2489,7 +2489,7 @@ void sub_80C99B8(struct ProcOpAnim * proc)
             break;
     }
 
-    if (proc->timer == 0x12)
+    if (proc->timer == 18)
     {
         proc->timer = 0;
         Proc_Break(proc);
