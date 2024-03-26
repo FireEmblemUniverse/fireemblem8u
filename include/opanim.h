@@ -50,10 +50,13 @@ struct ProcOpAnim {
     /* 3A */ u16 unk3A;
     /* 3C */ u16 unk3C;
     /* 3E */ u16 unk3E;
-    /* 40 */ STRUCT_PAD(0x40, 0x46);
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ s16 unk44;
     /* 46 */ u8 unk46;
-    /* 47 */ STRUCT_PAD(0x47, 0x4C);
-    /* 4C */ s16 unk4C;
+    /* 47 */ u8 unk47;
+    /* 48 */ u16 * unk48;
+    /* 4C */ u16 * unk4C;
 };
 
 struct ProcOpAnimHS {
@@ -85,6 +88,15 @@ struct Proc08AA7034 {
 
     /* 29 */ STRUCT_PAD(0x29, 0x4C);
     /* 4C */ s16 timer;
+};
+
+// TODO: Maybe the struct above and below can be combined?
+
+struct ProcOpAnimBlend
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 unk4C;
 };
 
 extern CONST_DATA u16 Obj_OpAnimEphEirikaName[];
@@ -486,6 +498,8 @@ extern u8 Img_OpAnimFaceVigarde[];
 extern u16 Pal_OpAnimFaceVigarde[];
 extern u8 Img_OpAnimFaceVigardeShadow[];
 
+extern u16 Pal_OpAnimTethys[];
+
 void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
 void OpAnimfxTerminatorMain(struct Proc * proc);
 void NewOpAnimfxTerminator(ProcPtr parent);
@@ -494,8 +508,8 @@ void CopyToPalOpAnim(const void * src, int offset, int size);
 void CopyFirstPalDirectly(const u16 * src, u16 * dst);
 void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
 void ClearFirstPalDirectly(u16 * dst);
-void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C689C(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void sub_80C689C(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
 void sub_80C69B0(u16 *, int, u16);
 void OpAnimInit(struct ProcOpAnim * proc);
 void OpAnimAllBlack(struct ProcOpAnimFadeIn * proc);

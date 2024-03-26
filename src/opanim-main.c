@@ -1311,7 +1311,7 @@ void sub_80C835C(struct ProcOpAnim * proc)
     int time2;
     int ret;
 
-    BG_EnableSyncByMask(5);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG2_SYNC_BIT);
 
     if (proc->timer < 2)
     {
@@ -1419,7 +1419,7 @@ void sub_80C8564(struct ProcOpAnim * proc)
 }
 
 //! FE8U = 0x080C8580
-void sub_80C8580(struct ProcOpAnim * proc)
+void sub_80C8580(struct ProcOpAnimBlend * proc)
 {
     SetBlendConfig(BLEND_EFFECT_DARKEN, 8, 8, 14);
     SetBlendTargetA(0, 0, 1, 0, 0);
@@ -1430,7 +1430,7 @@ void sub_80C8580(struct ProcOpAnim * proc)
 }
 
 //! FE8U = 0x080C85B0
-void sub_80C85B0(struct ProcOpAnim * proc)
+void sub_80C85B0(struct ProcOpAnimBlend * proc)
 {
     SetBlendConfig(BLEND_EFFECT_DARKEN, 8, 8, Interpolate(INTERPOLATE_LINEAR, 0xe, 0, proc->unk4C, 0x28));
 
@@ -1454,7 +1454,7 @@ void sub_80C85FC(void)
 }
 
 //! FE8U = 0x080C8608
-void sub_80C8608(struct ProcOpAnim * proc)
+void sub_80C8608(struct ProcOpAnimBlend * proc)
 {
     SetBlendConfig(BLEND_EFFECT_DARKEN, 8, 8, 0);
     SetBlendTargetA(0, 0, 1, 0, 0);
@@ -1465,7 +1465,7 @@ void sub_80C8608(struct ProcOpAnim * proc)
 }
 
 //! FE8U = 0x080C8638
-void sub_80C8638(struct ProcOpAnim * proc)
+void sub_80C8638(struct ProcOpAnimBlend * proc)
 {
     SetBlendConfig(BLEND_EFFECT_DARKEN, 8, 8, Interpolate(INTERPOLATE_LINEAR, 0, 12, proc->unk4C, 0x28));
 
@@ -2500,4 +2500,823 @@ void sub_80C99B8(struct ProcOpAnim * proc)
     }
 
     return;
+}
+
+//! FE8U = 0x080C9A94
+void sub_80C9A94(struct ProcOpAnim * proc)
+{
+    SetDispEnable(0, 1, 1, 0, 0);
+
+    SetBlendConfig(1, Interpolate(INTERPOLATE_LINEAR, 0, 0xd, proc->timer, 0x30), 0x10, 8);
+
+    if (proc->timer == 0x30)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9AFC
+void sub_80C9AFC(struct ProcOpAnim * proc)
+{
+    int i;
+
+    int ret = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, 0x30);
+
+    CopyToPalOpAnim(pal_08B103D8, 0, 0x100);
+
+    for (i = 0; i < 8; i++)
+    {
+        sub_80C69B0(gPaletteBuffer + i * 0x10, 0x7FFF, ret);
+    }
+
+    if (proc->timer == 0x30)
+    {
+        gOpAnimSt.pal = 0x7FFF;
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080C9B6C
+void sub_80C9B6C(void)
+{
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    SetBlendConfig(BLEND_EFFECT_ALPHA, 0x10, 0, 8);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
+
+    SetDispEnable(1, 1, 0, 1, 1);
+
+    SetBackgroundTileDataOffset(BG_1, 0);
+    SetBackgroundMapDataOffset(BG_1, 0xe000);
+
+    return;
+}
+
+//! FE8U = 0x080C9C08
+void sub_80C9C08(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimJoshua, 0, 0x160);
+
+    proc->unk47 = 1;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 0x118;
+    proc->unk42 = 0xe8;
+    proc->unk40 = 0xe8;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9C5C
+void sub_80C9C5C(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimLArachel, 0, 0x160);
+
+    proc->unk47 = 0;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 0xc0;
+    proc->unk42 = 0x140;
+    proc->unk40 = 0x108;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9CAC
+void sub_80C9CAC(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimCharacterSeth, 0, 0x160);
+
+    proc->unk47 = 1;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 0xc0;
+    proc->unk42 = 0x140;
+    proc->unk40 = 0x118;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9CFC
+void sub_80C9CFC(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimMyrrh2, 0, 0x160);
+
+    proc->unk47 = 0;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 0x110;
+    proc->unk42 = 0xf0;
+    proc->unk40 = 0x108;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9D4C
+void sub_80C9D4C(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimSaleh2, 0, 0x160);
+    proc->unk47 = 1;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 0xe8;
+    proc->unk42 = 0x118;
+    proc->unk40 = 0xe8;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9DA0
+void sub_80C9DA0(struct ProcOpAnim * proc)
+{
+    sub_80C9B6C();
+    CopyToPalOpAnim(Pal_OpAnimTethys, 0, 0x160);
+
+    proc->unk47 = 0;
+    proc->unk48 = (u16 *)gGenericBuffer;
+    proc->unk4C = (u16 *)(gGenericBuffer + 0x800);
+    proc->unk44 = 200;
+    proc->unk42 = 0x138;
+    proc->unk40 = 0x128;
+    proc->unk30 = 0;
+    proc->unk32 = 0;
+
+    return;
+}
+
+//! FE8U = 0x080C9DF0
+void sub_80C9DF0(void)
+{
+    SetBlendConfig(BLEND_EFFECT_ALPHA, 0x10, 0, 8);
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
+
+    SetDispEnable(1, 1, 1, 1, 1);
+
+    gLCDControlBuffer.bg0cnt.priority = 1;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    return;
+}
+
+//! FE8U = 0x080C9E6C
+void sub_80C9E6C(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    if (proc->timer < 0x11)
+    {
+        int bldAmt = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x10);
+
+        gLCDControlBuffer.blendCoeffA = bldAmt;
+        gLCDControlBuffer.blendCoeffB = 16 - bldAmt;
+
+        if (proc->timer == 0x10)
+        {
+            proc->timer = 0;
+            Proc_Break(proc);
+            return;
+        }
+    }
+
+    proc->timer++;
+
+    return;
+}
+
+//! FE8U = 0x080C9EE8
+void sub_80C9EE8(void)
+{
+    CopyToPalOpAnim(pal_08B103D8, 0, 0x100);
+
+    SetBlendConfig(BLEND_EFFECT_ALPHA, 0, 0x10, 8);
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
+
+    SetDispEnable(0, 0, 1, 1, 1);
+
+    gLCDControlBuffer.bg0cnt.priority = 1;
+    gLCDControlBuffer.bg1cnt.priority = 2;
+    gLCDControlBuffer.bg2cnt.priority = 0;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    return;
+}
+
+//! FE8U = 0x080C9F7C
+void sub_80C9F7C(struct ProcOpAnim * proc)
+{
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    if (proc->timer < 0x11)
+    {
+        int bldAmt = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, 0x10);
+
+        gLCDControlBuffer.blendCoeffA = bldAmt;
+        gLCDControlBuffer.blendCoeffB = 16 - bldAmt;
+
+        if (proc->timer == 0x10)
+        {
+            proc->timer = 0;
+            Proc_Break(proc);
+            return;
+        }
+    }
+
+    proc->timer++;
+
+    return;
+}
+
+//! FE8U = 0x080C9FF8
+void sub_80C9FF8(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    ret = Interpolate(INTERPOLATE_RSQUARE, 0, proc->unk40, proc->timer, 0x1e);
+
+    if (proc->unk47 != 0)
+    {
+        TsaModifyFirstPalMaybe(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+    else
+    {
+        sub_80C689C(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+
+    proc->unk30 = ret;
+
+    if (proc->timer == 0x1e)
+    {
+        BG_EnableSyncByMask(BG1_SYNC_BIT);
+
+        proc->unk32 = (proc->unk42 + DISPLAY_WIDTH) - proc->unk40;
+
+        if (proc->unk47 != 0)
+        {
+            sub_80C689C(proc->unk32, 0, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+        }
+        else
+        {
+            TsaModifyFirstPalMaybe(proc->unk32, 0, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+        }
+
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CA10C
+void sub_80CA10C(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    ret = Interpolate(1, 8, 0, proc->timer, 0x28);
+    SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 16 - ret, 8);
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    ret = Interpolate(INTERPOLATE_LINEAR, proc->unk40, proc->unk40 + 0x10, proc->timer, 0x1e);
+
+    if (proc->unk47 != 0)
+    {
+        TsaModifyFirstPalMaybe(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+    else
+    {
+        sub_80C689C(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+
+    proc->unk30 = ret;
+
+    BG_EnableSyncByMask(BG1_SYNC_BIT);
+
+    ret = ((DISPLAY_WIDTH - proc->unk40) + proc->unk42) + Interpolate(INTERPOLATE_LINEAR, 0, 0x60, proc->timer, 0x3c) +
+        Interpolate(INTERPOLATE_SQUARE, 0, 0x60, proc->timer, 0x3c);
+
+    if (proc->unk47 != 0)
+    {
+        sub_80C689C(ret, proc->unk32, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+    }
+    else
+    {
+        TsaModifyFirstPalMaybe(ret, proc->unk32, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+    }
+
+    proc->unk32 = ret;
+
+    if (proc->timer == 0x1e)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CA26C
+void sub_80CA26C(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    if (proc->timer == 0xb)
+    {
+        SetDispEnable(1, 0, 0, 1, 1);
+
+        SetBlendTargetA(1, 0, 0, 0, 0);
+        SetBlendTargetB(0, 0, 0, 1, 0);
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x10, 0, 8);
+
+        SetDispEnable(1, 0, 0, 1, 1);
+    }
+
+    if (proc->timer < 0xb)
+    {
+        ret = Interpolate(INTERPOLATE_SQUARE, 8, 0, proc->timer + 0x1e, 0x28);
+        SetBlendConfig(BLEND_EFFECT_ALPHA, ret, 16 - ret, 8);
+
+        BG_EnableSyncByMask(BG1_SYNC_BIT);
+
+        ret = ((DISPLAY_WIDTH - proc->unk40) + proc->unk42) +
+            Interpolate(INTERPOLATE_LINEAR, 0, 0x60, proc->timer + 0x1e, 0x3c) +
+            Interpolate(INTERPOLATE_SQUARE, 0, 0x60, proc->timer + 0x1e, 0x3c);
+
+        if (proc->unk47 != 0)
+        {
+            sub_80C689C(ret, proc->unk32, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+        }
+        else
+        {
+            TsaModifyFirstPalMaybe(ret, proc->unk32, proc->unk44, 1, proc->unk48, proc->unk4C, 1);
+        }
+
+        proc->unk32 = ret;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CA3B8
+void sub_80CA3B8(struct ProcOpAnim * proc)
+{
+    int ret;
+
+    sub_80CA26C(proc);
+
+    OpAnim1_UpdateScroll(proc->unk38, proc->unk3A);
+    proc->unk3A = proc->unk38;
+
+    proc->unk38 = Interpolate(INTERPOLATE_LINEAR, 0, 0x270, proc->unk3C, 0x430);
+    proc->unk3C++;
+
+    if (proc->timer - 0xf >= 0)
+    {
+        int bldAmt = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer - 0xf, 0xf);
+        gLCDControlBuffer.blendCoeffA = bldAmt;
+        gLCDControlBuffer.blendCoeffB = 16 - bldAmt;
+    }
+
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
+
+    ret = Interpolate(INTERPOLATE_SQUARE, proc->unk40 + 0x10, proc->unk40 * 2 + 0x10, proc->timer, 0x1e);
+
+    if (proc->unk47 != 0)
+    {
+        TsaModifyFirstPalMaybe(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+    else
+    {
+        sub_80C689C(ret, proc->unk30, proc->unk44, 0, proc->unk48, proc->unk4C, 0);
+    }
+
+    proc->unk30 = ret;
+
+    if (proc->timer == 0x1e)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CA4A4
+void sub_80CA4A4(void)
+{
+    Proc_EndEach(gUnknown_08AA707C);
+    SetDispEnable(0, 0, 0, 0, 1);
+    SetDefaultColorEffects();
+    return;
+}
+
+//! FE8U = 0x080CA4DC
+void sub_80CA4DC(struct ProcOpAnim * proc)
+{
+    int bldAmt;
+    int ret;
+    u32 timer;
+    int i;
+
+    switch (proc->timer)
+    {
+        case 0:
+            break;
+
+        case 1:
+            OpAnim1_UpdateScroll(0x1b0, 0x188);
+
+            break;
+
+        case 2:
+            OpAnim1_UpdateScroll(0x1f0, 0x1b0);
+
+            break;
+
+        case 3:
+            OpAnim1_UpdateScroll(0x230, 0x1f0);
+
+            break;
+
+        case 4:
+            proc->unk3A = 0x230;
+            proc->unk38 = 0x230;
+
+            break;
+    }
+
+    if (proc->timer > 0x8e)
+    {
+        OpAnimPutObjCommon(0xae, 10, 4, 9);
+    }
+
+    if (proc->timer > 0x8d)
+    {
+        OpAnimPutObjCommon(0x38, 0x28, 4, 7);
+    }
+
+    if (proc->timer > 0x8c)
+    {
+        OpAnimPutObjCommon(0x9c, 0x3a, 3, 3);
+    }
+
+    if (proc->timer > 0x8b)
+    {
+        OpAnimPutObjCommon(0x22, 0, 4, 1);
+    }
+
+    if (proc->timer > 0x8a)
+    {
+        OpAnimPutObjCommon(0xd2, 0x10, 4, 5);
+    }
+
+    if (proc->timer > 0x89)
+    {
+        OpAnimPutObjCommon(0xc, 0x1a, 3, 1);
+    }
+
+    if (proc->timer > 0x88)
+    {
+        OpAnimPutObjCommon(0xcc, 0x2a, 3, 4);
+    }
+
+    if (proc->timer > 0x87)
+    {
+        OpAnimPutObjCommon(0x60, 0, 4, 0);
+    }
+
+    if (proc->timer > 0x86)
+    {
+        OpAnimPutObjCommon(0xe4, 0x10, 4, 0xb);
+    }
+
+    if (proc->timer > 0x85)
+    {
+        OpAnimPutObjCommon(0x58, 0x1e, 3, 3);
+    }
+
+    if (proc->timer > 0x84)
+    {
+        OpAnimPutObjCommon(0x54, 0x2e, 2, 1);
+    }
+
+    if (proc->timer > 0x83)
+    {
+        OpAnimPutObjCommon(0, 2, 4, 2);
+    }
+
+    if (proc->timer > 0x82)
+    {
+        OpAnimPutObjCommon(0xc6, 0x18, 4, 9);
+    }
+
+    if (proc->timer > 0x81)
+    {
+        OpAnimPutObjCommon(0x90, 0x22, 3, 5);
+    }
+
+    if (proc->timer > 0x80)
+    {
+        OpAnimPutObjCommon(0xa8, 0x44, 2, 0);
+    }
+
+    if (proc->timer > 0x7f)
+    {
+        OpAnimPutObjCommon(0xca, 2, 4, 7);
+    }
+
+    if (proc->timer > 0x7e)
+    {
+        OpAnimPutObjCommon(0x26, 0x18, 4, 2);
+    }
+
+    if (proc->timer > 0x7d)
+    {
+        OpAnimPutObjCommon(0x80, 0x26, 3, 0);
+    }
+
+    if (proc->timer > 0x7b)
+    {
+        OpAnimPutObjCommon(0x80, 0x32, 2, 5);
+    }
+
+    if (proc->timer > 0x79)
+    {
+        OpAnimPutObjCommon(0x86, 6, 4, 0);
+    }
+
+    if (proc->timer > 0x77)
+    {
+        OpAnimPutObjCommon(0x98, 0x16, 4, 1);
+    }
+
+    if (proc->timer > 0x75)
+    {
+        OpAnimPutObjCommon(0xe8, 0x16, 3, 3);
+    }
+
+    if (proc->timer > 0x73)
+    {
+        OpAnimPutObjCommon(100, 0x48, 2, 1);
+    }
+
+    if (proc->timer > 0x71)
+    {
+        OpAnimPutObjCommon(0x70, 6, 4, 10);
+    }
+
+    if (proc->timer > 0x6f)
+    {
+        OpAnimPutObjCommon(0x40, 0x14, 4, 8);
+    }
+
+    if (proc->timer > 0x6d)
+    {
+        OpAnimPutObjCommon(0, 0x2e, 3, 4);
+    }
+
+    if (proc->timer > 0x6b)
+    {
+        OpAnimPutObjCommon(0x2c, 0x4a, 2, 4);
+    }
+
+    if (proc->timer > 0x69)
+    {
+        OpAnimPutObjCommon(0x40, 8, 4, 6);
+    }
+
+    if (proc->timer > 0x67)
+    {
+        OpAnimPutObjCommon(0x78, 0x1a, 4, 2);
+    }
+
+    if (proc->timer > 0x65)
+    {
+        OpAnimPutObjCommon(0x24, 0x32, 3, 2);
+    }
+
+    if (proc->timer > 0x62)
+    {
+        OpAnimPutObjCommon(0xe, 0x4e, 2, 0);
+    }
+
+    if (proc->timer > 0x5f)
+    {
+        OpAnimPutObjCommon(0x16, 10, 4, 4);
+    }
+
+    if (proc->timer > 0x5c)
+    {
+        OpAnimPutObjCommon(0xb4, 0x28, 4, 1);
+    }
+
+    if (proc->timer > 0x59)
+    {
+        OpAnimPutObjCommon(0x42, 0x36, 3, 1);
+    }
+
+    if (proc->timer > 0x55)
+    {
+        OpAnimPutObjCommon(0xdc, 0x32, 2, 2);
+    }
+
+    if (proc->timer > 0x51)
+    {
+        OpAnimPutObjCommon(200, 0x48, 1, 0);
+    }
+
+    if (proc->timer > 0x4c)
+    {
+        OpAnimPutObjCommon(0x38, 0x28, 4, 0);
+    }
+
+    if (proc->timer > 0x47)
+    {
+        OpAnimPutObjCommon(0x8c, 0x54, 1, 2);
+    }
+
+    if (proc->timer > 0x41)
+    {
+        OpAnimPutObjCommon(0x10, 100, 1, 1);
+    }
+
+    if (proc->timer > 0x37)
+    {
+        OpAnimPutObjCommon(0, 0x7e, 0, 1);
+    }
+
+    if (proc->timer > 0x31)
+    {
+        OpAnimPutObjCommon(0xa0, 0x78, 0, 2);
+    }
+
+    if (proc->timer > 0x1d)
+    {
+        OpAnimPutObjCommon(0x58, 0x70, 0, 0);
+    }
+
+    timer = proc->timer - 0x52;
+
+    if (timer == 0)
+    {
+        SetDispEnable(0, 0, 1, 0, 1);
+        SetBackgroundTileDataOffset(BG_2, 0x8000);
+        SetBackgroundMapDataOffset(BG_2, 0xe800);
+    }
+
+    if (timer < 0x60)
+    {
+        CopyToPalOpAnim(pal_08B103D8, 0, 0x100);
+
+        ret = Interpolate(INTERPOLATE_RSQUARE, 0x10, 0xc, timer, 0x5f);
+
+        for (i = 0; i < 8; i++)
+        {
+            sub_80C69B0(gPaletteBuffer + i * 0x10, 0, ret);
+        }
+    }
+
+    timer = proc->timer - 0xb1;
+
+    if (timer == 0)
+    {
+        SetBlendConfig(BLEND_EFFECT_ALPHA, 0x10, 0, 0);
+        SetBlendTargetA(0, 0, 0, 0, 1);
+        SetBlendTargetB(0, 0, 1, 0, 0);
+    }
+
+    if (timer < 0x21)
+    {
+        bldAmt = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, timer, 0x20);
+        gLCDControlBuffer.blendCoeffA = bldAmt;
+        gLCDControlBuffer.blendCoeffB = 16 - bldAmt;
+    }
+
+    if (proc->timer == 0xd1)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CA92C
+void sub_80CA92C(struct ProcOpAnim * proc)
+{
+    SetDefaultColorEffects();
+    proc->unk46 = 1;
+    return;
+}
+
+//! FE8U = 0x080CA940
+void sub_80CA940(void)
+{
+    Proc_EndEach(gUnknown_08AA707C);
+
+    BG_SetPosition(BG_3, 0, 0);
+
+    SetDispEnable(0, 0, 1, 0, 1);
+    SetWinEnable(0, 0, 1);
+
+    SetWObjLayers(0, 0, 1, 0, 1);
+    SetWOutLayers(0, 0, 0, 0, 0);
+
+    gLCDControlBuffer.wincnt.wobj_enableBlend = 1;
+    gLCDControlBuffer.wincnt.wout_enableBlend = 0;
+
+    SetBlendConfig(BLEND_EFFECT_ALPHA, 4, 8, 8);
+    SetBlendTargetA(0, 0, 0, 0, 0);
+
+    return;
+}
+
+//! FE8U = 0x080CA9F8
+int sub_80CA9F8(int a, int b, int c, int d)
+{
+    int val = 0x10 - (d - c);
+
+    if (val < 0)
+    {
+        return 0xffff;
+    }
+
+    if (val >= 0x10)
+    {
+        return a;
+    }
+
+    return Interpolate(INTERPOLATE_RSQUARE, a + b * DISPLAY_WIDTH, a, val, 0x10);
 }
