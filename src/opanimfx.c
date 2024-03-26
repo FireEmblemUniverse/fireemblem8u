@@ -351,7 +351,7 @@ void ClearFirstPalDirectly(u16 * dst)
     } while (--i >= 0);
 }
 
-void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag)
+void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag)
 {
     u16 * dst;
     u16 * src;
