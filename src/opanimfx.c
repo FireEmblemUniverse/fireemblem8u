@@ -312,7 +312,7 @@ void NewOpAnimfxTerminator(ProcPtr parent)
     Proc_Start(ProcScr_OpAnimfxTerminator, parent);
 }
 
-void EndOpAnimfxTerminator(ProcPtr parent)
+void EndOpAnimfxTerminator(void)
 {
     Proc_End(Proc_Find(ProcScr_OpAnimfxTerminator));
 }

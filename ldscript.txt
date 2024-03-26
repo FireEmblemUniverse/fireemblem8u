@@ -594,7 +594,6 @@ SECTIONS
         src/opanimfx.o(.text);
         asm/opanimfx.o(.text);
         src/opanim-main.o(.text);
-        asm/opanim_80C6474.o(.text);
         src/opanim-healthsafetyscreen.o(.text);
         src/classchg-main.o(.text);
         src/classchg-handler.o(.text);
