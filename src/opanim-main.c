@@ -5,6 +5,8 @@
 #include "hardware.h"
 #include "bmlib.h"
 #include "gamecontrol.h"
+#include "sysutil.h"
+
 #include "opanim.h"
 
 void OpAnimInit(struct ProcOpAnim * proc)
@@ -3319,4 +3321,641 @@ int sub_80CA9F8(int a, int b, int c, int d)
     }
 
     return Interpolate(INTERPOLATE_RSQUARE, a + b * DISPLAY_WIDTH, a, val, 0x10);
+}
+
+//! FE8U = 0x080CAA38
+void sub_80CAA38(struct ProcOpAnim * proc)
+{
+    int x;
+
+    int timer = proc->timer + 10;
+
+    x = sub_80CA9F8(0x78, -1, timer, 0x14);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), 0xec, gUnknown_08AA709C, 0);
+        PutSpriteExt(2, OAM1_X(x - 0x2c), 0x000004EC, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 0x30), 0x00000804, gUnknown_08AA70BC, 0);
+    }
+
+    timer = proc->timer + 6;
+    x = sub_80CA9F8(0x78, -1, timer, 0x14);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), 0x20, gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, OAM1_X(x - 0x2c), 0x420, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x30), 0x00000838, gUnknown_08AA70BC, 0);
+    }
+
+    timer = proc->timer + 2;
+    x = sub_80CA9F8(0x78, -1, timer, 0x14);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), 0x54, gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(2, OAM1_X(x - 0x2c), 0x00000454, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, OAM1_X(x - 0x30), 0x0000086C, gUnknown_08AA70BC, 0);
+    }
+
+    if (proc->timer == 0x14)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CABB0
+void sub_80CABB0(struct ProcOpAnim * proc)
+{
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+    int timer;
+
+    timer = proc->timer + 2;
+
+    x1 = sub_80CA9F8(0x42, -1, timer, 0x12);
+    y1 = sub_80CA9F8(0x2a, -1, timer, 0x12);
+    x2 = sub_80CA9F8(0xae, +1, timer, 0x12);
+    y2 = sub_80CA9F8(0x76, +1, timer, 0x12);
+
+    if (x1 != 0x0000FFFF)
+    {
+        if ((y1 != 0x0000FFFF) && (y1 >= -0x28) && (y1 < 0xc9))
+        {
+            PutSpriteExt(1, OAM1_X(x1 - 0x30), OAM0_Y(y1 - 0x28), gUnknown_08AA709C, 0);
+            PutSpriteExt(
+                2, OAM1_X(x1 - 0x2c), OAM0_Y(y1 - 0x28) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+            PutSpriteExt(0, OAM1_X(x1 - 0x30), OAM0_Y(y1 - 0x20) | OAM0_WINDOW, gUnknown_08AA70DC, 0);
+        }
+
+        if ((x1 != 0x0000FFFF) && (y2 != 0x0000FFFF) && (y2 >= -0x28) && (y2 < 0xc9))
+        {
+            PutSpriteExt(1, OAM1_X(x1 - 0x30), OAM0_Y(y2 - 0x28), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+            PutSpriteExt(
+                2, OAM1_X(x1 - 0x2c), OAM0_Y(y2 - 0x28) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+            PutSpriteExt(0, OAM1_X(x1 - 0x30), OAM0_Y(y2 - 0x20) | OAM0_WINDOW, gUnknown_08AA70DC, 0);
+        }
+    }
+
+    if (x2 != 0x0000FFFF)
+    {
+        if ((y1 != 0x0000FFFF) && (y1 >= -0x28) && (y1 < 0xc9))
+        {
+            PutSpriteExt(1, OAM1_X(x2 - 0x30), OAM0_Y(y1 - 0x28), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+            PutSpriteExt(
+                2, OAM1_X(x2 - 0x2c), OAM0_Y(y1 - 0x28) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+            PutSpriteExt(0, OAM1_X(x2 - 0x30), OAM0_Y(y1 - 0x20) | OAM0_WINDOW, gUnknown_08AA70DC, 0);
+        }
+
+        if ((x2 != 0x0000FFFF) && (y2 != 0x0000FFFF) && (y2 >= -0x28) && (y2 < 0xc9))
+        {
+            PutSpriteExt(1, OAM1_X(x2 - 0x30), (y2 - 0x28) & 0xff, gUnknown_08AA709C, OAM2_CHR(0x2D0) + OAM2_PAL(6));
+            PutSpriteExt(
+                2, OAM1_X(x2 - 0x2c), ((y2 - 0x28) & 0xff) | OAM0_BLEND, gUnknown_08AA709C,
+                OAM2_CHR(0x348) + OAM2_PAL(7));
+            PutSpriteExt(0, OAM1_X(x2 - 0x30), ((y2 - 0x20) & 0xff) | OAM0_WINDOW, gUnknown_08AA70DC, 0);
+        }
+    }
+
+    if (proc->timer == 0x12)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CAE20
+void sub_80CAE20(struct ProcOpAnim * proc)
+{
+    int timer;
+    int x;
+
+    timer = proc->timer + 2;
+    x = sub_80CA9F8(0x3e, -1, timer, 0x10);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x20), 0x20, gUnknown_08AA709C, 0);
+        PutSpriteExt(2, OAM1_X(x - 0x1c), 0x420, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000838, gUnknown_08AA70EA, 0);
+    }
+
+    x = sub_80CA9F8(0xb2, +1, timer, 0x10);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x40), 0x20, gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, OAM1_X(x - 0x3c), 0x420, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000838, gUnknown_08AA70EA, 0);
+    }
+
+    if (proc->timer == 0x10)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CAF2C
+void sub_80CAF2C(struct ProcOpAnim * proc)
+{
+    int y;
+    int timer;
+
+    timer = proc->timer + 10;
+    y = sub_80CA9F8(0x50, -1, timer, 0xf);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        int oam2 = 0;
+        PutSpriteExt(1, 0, OAM0_Y(y - 0x28), gUnknown_08AA709C, oam2);
+        PutSpriteExt(2, 4, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, 0x10, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    timer = proc->timer + 6;
+    y = sub_80CA9F8(0x50, -1, timer, 0xf);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x48, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, 0x4c, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, 0x58, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    timer = proc->timer + 2;
+    y = sub_80CA9F8(0x50, -1, timer, 0xf);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x90, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(2, 0x94, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, 0xa0, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    if (proc->timer == 0xf)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB0A0
+void sub_80CB0A0(struct ProcOpAnim * proc)
+{
+    int y;
+    int timer;
+
+    timer = proc->timer + 10;
+    y = sub_80CA9F8(0x50, +1, timer, 0xd);
+
+    if (((y != 0x0000FFFF) && (y >= -0x28)) && (y < 0xc9))
+    {
+        int oam2 = 0;
+        PutSpriteExt(1, 0, OAM0_Y(y - 0x28), gUnknown_08AA709C, oam2);
+        PutSpriteExt(2, 4, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, 0x10, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    timer = proc->timer + 6;
+    y = sub_80CA9F8(0x50, +1, timer, 0xd);
+
+    if (((y != 0x0000FFFF) && (y >= -0x28)) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x48, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, 0x4c, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, 0x58, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    timer = proc->timer + 2;
+    y = sub_80CA9F8(0x50, +1, timer, 0xd);
+
+    if (((y != 0x0000FFFF) && (y >= -0x28)) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x90, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(2, 0x94, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, 0xa0, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7116, 0);
+    }
+
+    if (proc->timer == 0xd)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB20C
+void sub_80CB20C(struct ProcOpAnim * proc)
+{
+    int timer;
+    int x;
+
+    timer = proc->timer + 6;
+    x = sub_80CA9F8(0x3c, -1, timer, 0xb);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x20), 6, gUnknown_08AA709C, 0);
+        PutSpriteExt(2, OAM1_X(x - 0x1c), 0x00000406, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x0000081E, gUnknown_08AA70EA, 0);
+    }
+
+    timer = proc->timer + 2;
+    x = sub_80CA9F8(0x3c, -1, timer, 0xb);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x40), 0x3a, gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, OAM1_X(x - 0x3c), 0x0000043A, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000852, gUnknown_08AA70EA, 0);
+    }
+
+    if (proc->timer == 0xb)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB320
+void sub_80CB320(struct ProcOpAnim * proc)
+{
+    int timer;
+    int y;
+    int x;
+
+    x = 0x78;
+
+    if (proc->timer == 0)
+    {
+        SetWinEnable(1, 1, 1);
+
+        gLCDControlBuffer.wincnt.win0_enableBlend = 1;
+        SetWin0Layers(0, 0, 1, 0, 1);
+
+        gLCDControlBuffer.wincnt.win1_enableBlend = 1;
+        SetWin1Layers(0, 0, 1, 0, 1);
+
+        SetWin0Box(0, 0, 0, 0);
+        SetWin1Box(0, 0, 0, 0);
+    }
+
+    timer = proc->timer + 2;
+    y = sub_80CA9F8(0x1c, -1, timer, 10);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, (x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, 0);
+        PutSpriteExt(2, (x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, (x - 0x38), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA70EA, 0);
+    }
+
+    y = sub_80CA9F8(0x84, +1, timer, 10);
+
+    if ((x != 0x0000FFFF) && (y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x38), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA70EA, 0);
+    }
+
+    if (timer > 1 && timer < 10)
+    {
+        y = Interpolate(4, 0, 0x18, timer - 2, 8);
+
+        SetWin0Box(6, 0x50 - y, 0x76, y + 0x50);
+        SetWin1Box(0x7A, 0x50 - y, 0xea, y + 0x50);
+    }
+
+    PutSpriteExt(1, 0xe, 0x20, gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+    PutSpriteExt(2, 0x12, 0x420, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+    PutSpriteExt(1, 0x82, 0x20, gUnknown_08AA709C, OAM2_CHR(0x2D0) + OAM2_PAL(6));
+    PutSpriteExt(2, 0x86, 0x420, gUnknown_08AA709C, OAM2_CHR(0x348) + OAM2_PAL(7));
+
+    if (proc->timer == 10)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB594
+void sub_80CB594(struct ProcOpAnim * proc)
+{
+    int timer;
+    int x;
+
+    timer = proc->timer + 6;
+    x = sub_80CA9F8(0xb4, +1, timer, 9);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x20), 6, gUnknown_08AA709C, 0);
+        PutSpriteExt(2, OAM1_X(x - 0x1c), 0x00000406, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x0000081E, gUnknown_08AA70EA, 0);
+    }
+
+    timer = proc->timer + 2;
+    x = sub_80CA9F8(0xb4, +1, timer, 9);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x40), 0x3a, gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, OAM1_X(x - 0x3c), 0x0000043A, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000852, gUnknown_08AA70EA, 0);
+    }
+
+    if (proc->timer == 9)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB6A0
+void sub_80CB6A0(struct ProcOpAnim * proc)
+{
+    int x;
+    int y;
+    int timer;
+
+    timer = proc->timer + 10;
+    x = 0x78;
+
+    y = sub_80CA9F8(0x1c, 1, timer, 8);
+
+    if (((y != 0x0000FFFF) && (y >= -0x28)) && (y < 0xc9))
+    {
+        PutSpriteExt(1, x - 0x30, OAM0_Y(y - 0x30), gUnknown_08AA709C, 0);
+        PutSpriteExt(2, x - 0x2c, (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, x - 0x60, (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    timer = proc->timer + 6;
+    y = sub_80CA9F8(0x50, +1, timer, 8);
+
+    if ((x != 0x0000FFFF) && (y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x60), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    timer = proc->timer + 2;
+    y = sub_80CA9F8(0x84, +1, timer, 8);
+
+    if ((x != 0x0000FFFF) && (y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, OAM1_X(x - 0x60), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    if (proc->timer == 8)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CB878
+void sub_80CB878(struct ProcOpAnim * proc)
+{
+    int timer;
+    int y;
+    int x;
+
+    timer = proc->timer + 2;
+    x = 0x1e;
+    y = sub_80CA9F8(0x50, -1, timer, 7);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x28), gUnknown_08AA709C, 0);
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, 2, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA712A, 0);
+    }
+
+    y--, y++;
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x66, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(2, 0x6a, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, 0x7a, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA712A, 0);
+    }
+
+    y = sub_80CA9F8(0x50, 1, timer, 7);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0x2a, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, 0x2e, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, 0x3e, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA712A, 0);
+    }
+
+    y--, y++;
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, 0xa2, OAM0_Y(y - 0x28), gUnknown_08AA709C, OAM2_CHR(0x2D0) + OAM2_PAL(6));
+        PutSpriteExt(2, 0xa6, (OAM0_Y(y - 0x28)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x348) + OAM2_PAL(7));
+        PutSpriteExt(0, 0xb6, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA712A, 0);
+    }
+
+    if (proc->timer == 7)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CBA64
+void sub_80CBA64(struct ProcOpAnim * proc)
+{
+    int y;
+    int x;
+    int timer;
+
+    timer = proc->timer + 2;
+    x = 0x78;
+    y = sub_80CA9F8(0x1c, -1, timer, 6);
+
+    if ((y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, (x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, 0);
+        PutSpriteExt(2, (x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, (x - 0x60), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    timer = proc->timer + 6;
+    y = sub_80CA9F8(0x50, -1, timer, 6);
+
+    if ((x != 0x0000FFFF) && (y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x60), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    timer = proc->timer + 10;
+    y = sub_80CA9F8(0x84, -1, timer, 6);
+
+    if ((x != 0x0000FFFF) && (y != 0x0000FFFF) && (y >= -0x28) && (y < 0xc9))
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), OAM0_Y(y - 0x30), gUnknown_08AA709C, OAM2_CHR(0x1E0) + OAM2_PAL(4));
+        PutSpriteExt(
+            2, OAM1_X(x - 0x2c), (OAM0_Y(y - 0x30)) | OAM0_BLEND, gUnknown_08AA709C, OAM2_CHR(0x258) + OAM2_PAL(5));
+        PutSpriteExt(0, OAM1_X(x - 0x60), (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_08AA715C, 0);
+    }
+
+    if (proc->timer == 6)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CBC40
+void sub_80CBC40(struct ProcOpAnim * proc)
+{
+    int timer;
+    int x;
+    int i;
+    u16 * ptr;
+
+    timer = proc->timer + 2;
+    x = sub_80CA9F8(0x3e, -1, timer, 5);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), 0x28, gUnknown_08AA709C, 0);
+        PutSpriteExt(2, OAM1_X(x - 0x2c), 0x428, gUnknown_08AA709C, OAM2_CHR(0x78) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000828, gUnknown_08AA7194, 0);
+    }
+
+    x = sub_80CA9F8(0xb2, +1, timer, 5);
+
+    if (x != 0x0000FFFF)
+    {
+        PutSpriteExt(1, OAM1_X(x - 0x30), 0x28, gUnknown_08AA709C, OAM2_CHR(0xF0) + OAM2_PAL(2));
+        PutSpriteExt(2, OAM1_X(x - 0x2c), 0x428, gUnknown_08AA709C, OAM2_CHR(0x168) + OAM2_PAL(3));
+        PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000828, gUnknown_08AA7194, 0);
+    }
+
+    if (proc->timer == 1)
+    {
+        Decompress(Tsa_OpAnimShiningRingBlinking, (void *)0x0600F000);
+
+        ptr = (void *)0x0600F000;
+        for (i = 0; i < 0x280; i++, ptr++)
+        {
+            *ptr = *ptr + 0x8000;
+        }
+    }
+
+    if (proc->timer == 5)
+    {
+        proc->timer = 0;
+        Proc_Break(proc);
+    }
+    else
+    {
+        proc->timer++;
+    }
+
+    return;
+}
+
+//! FE8U = 0x080CBD7C
+void sub_80CBD7C(struct ProcOpAnim * proc)
+{
+    EndAllProcChildren(proc);
+    EndProc08AA6D04();
+    SetPrimaryHBlankHandler(NULL);
+    EndOpAnimfxTerminator();
+
+    gLCDControlBuffer.dispcnt.obj1dMap = 0;
+
+    gPaletteBuffer[0] = gOpAnimSt.pal;
+    EnablePaletteSync();
+
+    SetDispEnable(0, 0, 0, 0, 0);
+
+    return;
 }

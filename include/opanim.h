@@ -500,10 +500,22 @@ extern u8 Img_OpAnimFaceVigardeShadow[];
 
 extern u16 Pal_OpAnimTethys[];
 
+extern u8 Tsa_OpAnimShiningRingBlinking[];
+
+extern u16 gUnknown_08AA709C[];
+extern u16 gUnknown_08AA70BC[];
+extern u16 gUnknown_08AA70DC[];
+extern u16 gUnknown_08AA70EA[];
+extern u16 gUnknown_08AA7116[];
+extern u16 gUnknown_08AA712A[];
+extern u16 gUnknown_08AA715C[];
+
+extern u16 gUnknown_08AA7194[];
+
 void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
 void OpAnimfxTerminatorMain(struct Proc * proc);
 void NewOpAnimfxTerminator(ProcPtr parent);
-void EndOpAnimfxTerminator(ProcPtr parent);
+void EndOpAnimfxTerminator(void);
 void CopyToPalOpAnim(const void * src, int offset, int size);
 void CopyFirstPalDirectly(const u16 * src, u16 * dst);
 void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
