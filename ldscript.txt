@@ -267,7 +267,7 @@ SECTIONS
         . = ALIGN(4); src/bmshop.o(ewram_data);
         . = 0x3EFB8; gLoadUnitBuffer = .;
         . = 0x3EFB8; end = .;
-    } > ewram
+    }
 
     IWRAM __iwram_start (NOLOAD) :
     ALIGN(4)
