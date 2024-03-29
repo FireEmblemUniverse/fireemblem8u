@@ -23,11 +23,8 @@ gMaxLines = 0;
 SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
-    __ewram_overlay_beg = 0x02000000;
-    __ewram_overlay_end = __ewram_overlay_beg;
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_0 (NOLOAD) : ALIGN(4)
+    ewram_overlay_0 __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000; gUnk_02000000 = .;
         . = 0x000280; gMinimapWinBuf = .;
@@ -151,10 +148,8 @@ SECTIONS
         . = 0x01F148; gUnk_SoundRoom_0201F148 = .;
         . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
     }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_gamestart (NOLOAD) : ALIGN(4)
+    ewram_overlay_gamestart __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000;
         . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
@@ -163,10 +158,8 @@ SECTIONS
         . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
         . = 0x01FB28; gUnk_OpInfo_0201FB28 = .;
     }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_banim (NOLOAD) : ALIGN(4)
+    ewram_overlay_banim __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = ALIGN(4); src/banim-ekrbattle.o(ewram_overlay_banim);
         . = ALIGN(4); src/banim-efxlvup.o(ewram_overlay_banim);
@@ -178,10 +171,8 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrpopup.o(ewram_overlay_banim);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(ewram_overlay_banim);
     }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_sio (NOLOAD) : ALIGN(4)
+    ewram_overlay_sio __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000; gUnk_Sio_02000000 = .;
         . = 0x000C60; gUnk_Sio_02000C60 = .;
@@ -191,14 +182,12 @@ SECTIONS
         . = 0x001184; gUnk_Sio_02001184 = .;
         . = 0x001188; gUnk_Sio_02001188 = .;
     }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
-    . = __ewram_overlay_end;
-    ewram_data (NOLOAD) : ALIGN(4)
+    ewram_data __ewram_start (NOLOAD) : ALIGN(4)
     {
-        . = 0x02020188 - __ewram_overlay_end; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
-        . = 0x02022188 - __ewram_overlay_end; gOpAnimSt = .;
-        . = 0x02022288 - __ewram_overlay_end;
+        . = 0x20188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
+        . = 0x22188; gOpAnimSt = .;
+        . = 0x22288;
         . = ALIGN(4); src/hardware.o(ewram_data);
         . = ALIGN(4); src/soundwrapper.o(ewram_data);
         . = ALIGN(4); src/proc.o(ewram_data);
@@ -226,35 +215,35 @@ SECTIONS
         . = ALIGN(4); src/cp_decide.o(ewram_data);
         . = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
         . = ALIGN(4); src/sio_core.o(ewram_data);
-        . = 0x0203DA24 - __ewram_overlay_end; gLinkArenaSt = .;
-        . = 0x0203DA78 - __ewram_overlay_end; gUnk_Sio_0203DA78 = .;
-        . = 0x0203DA88 - __ewram_overlay_end; gUnk_Sio_0203DA88 = .;
-        . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
-        . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
-        . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
-        . = 0x0203DB10 - __ewram_overlay_end; gSioSaveConfig = .;
-        . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
-        . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
-        . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
-        . = 0x0203DB7C - __ewram_overlay_end; gUnk_Sio_0203DB7C = .;
-        . = 0x0203DC44 - __ewram_overlay_end; gUnk_Sio_0203DC44 = .;
-        . = 0x0203DC48 - __ewram_overlay_end; gUnk_Sio_0203DC48 = .;
-        . = 0x0203DD0C - __ewram_overlay_end; gSioTexts = .;
-        . = 0x0203DD1C - __ewram_overlay_end; Text_0203DB14 = .;
-        . = 0x0203DD24 - __ewram_overlay_end; gUnk_Sio_0203DD24 = .;
-        . = 0x0203DD28 - __ewram_overlay_end; gUnk_Sio_0203DD28 = .;
-        . = 0x0203DD2C - __ewram_overlay_end; gUnk_Sio_0203DD2C = .;
-        . = 0x0203DD4C - __ewram_overlay_end; gUnk_Sio_0203DD4C = .;
-        . = 0x0203DD50 - __ewram_overlay_end; gUnk_Sio_0203DD50 = .;
-        . = 0x0203DD8C - __ewram_overlay_end; gUnk_Sio_0203DD8C = .;
-        . = 0x0203DD90 - __ewram_overlay_end; gUnk_Sio_0203DD90 = .;
-        . = 0x0203DD94 - __ewram_overlay_end; gUnk_Sio_0203DD94 = .;
-        . = 0x0203DD95 - __ewram_overlay_end; gUnk_Sio_0203DD95 = .;
-        . = 0x0203DD9A - __ewram_overlay_end; gUnk_Sio_0203DD9A = .;
-        . = 0x0203DD9F - __ewram_overlay_end; gUnk_Sio_0203DD9F = .;
-        . = 0x0203DDB4 - __ewram_overlay_end; gUnk_Sio_0203DDB4 = .;
-        . = 0x0203DDDC - __ewram_overlay_end; gUnk_Sio_0203DDDC = .;
-        . = 0x0203DDE0 - __ewram_overlay_end;
+        . = 0x3DA24; gLinkArenaSt = .;
+        . = 0x3DA78; gUnk_Sio_0203DA78 = .;
+        . = 0x3DA88; gUnk_Sio_0203DA88 = .;
+        . = 0x3DAB0; Texts_0203DAB0 = .;
+        . = 0x3DAC0; gUnk_Sio_0203DAC0 = .;
+        . = 0x3DAC5; gUnk_Sio_0203DAC5 = .;
+        . = 0x3DB10; gSioSaveConfig = .;
+        . = 0x3DB14; Texts_0203DB14 = .;
+        . = 0x3DB1C; gUnk_Sio_0203DB1C = .;
+        . = 0x3DB64; Font_0203DB64 = .;
+        . = 0x3DB7C; gUnk_Sio_0203DB7C = .;
+        . = 0x3DC44; gUnk_Sio_0203DC44 = .;
+        . = 0x3DC48; gUnk_Sio_0203DC48 = .;
+        . = 0x3DD0C; gSioTexts = .;
+        . = 0x3DD1C; Text_0203DB14 = .;
+        . = 0x3DD24; gUnk_Sio_0203DD24 = .;
+        . = 0x3DD28; gUnk_Sio_0203DD28 = .;
+        . = 0x3DD2C; gUnk_Sio_0203DD2C = .;
+        . = 0x3DD4C; gUnk_Sio_0203DD4C = .;
+        . = 0x3DD50; gUnk_Sio_0203DD50 = .;
+        . = 0x3DD8C; gUnk_Sio_0203DD8C = .;
+        . = 0x3DD90; gUnk_Sio_0203DD90 = .;
+        . = 0x3DD94; gUnk_Sio_0203DD94 = .;
+        . = 0x3DD95; gUnk_Sio_0203DD95 = .;
+        . = 0x3DD9A; gUnk_Sio_0203DD9A = .;
+        . = 0x3DD9F; gUnk_Sio_0203DD9F = .;
+        . = 0x3DDB4; gUnk_Sio_0203DDB4 = .;
+        . = 0x3DDDC; gUnk_Sio_0203DDDC = .;
+        . = 0x3DDE0;
         . = ALIGN(4); src/uiutils.o(ewram_data);
         . = ALIGN(4); src/uiselecttarget.o(ewram_data);
         . = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
@@ -276,19 +265,17 @@ SECTIONS
         . = ALIGN(4); src/bmsave-xmap.o(ewram_data);
         . = ALIGN(4); src/savemenu.o(ewram_data);
         . = ALIGN(4); src/bmshop.o(ewram_data);
-        . = 0x0203EFB8 - __ewram_overlay_end; gLoadUnitBuffer = .;
-        . = 0x0203EFB8 - __ewram_overlay_end; end = .;
-    }
+        . = 0x3EFB8; gLoadUnitBuffer = .;
+        . = 0x3EFB8; end = .;
+    } > ewram
 
-    . = ORIGIN(iwram);
-    IWRAM (NOLOAD) :
+    IWRAM __iwram_start (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
     }
 
-    . = ORIGIN(rom);
-    ROM :
+    ROM __text_start :
     ALIGN(4)
     {
         /* .text */
