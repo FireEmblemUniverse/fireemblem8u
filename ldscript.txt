@@ -414,7 +414,6 @@ SECTIONS
         asm/code_battleanim.o(.text);
         src/banim-ekrarena.o(.text);
         src/banim-efxmagic.o(.text);
-        asm/banim-efxmagic-util.o(.text);
         src/banim-efxmagic-phywpn.o(.text);
         src/banim-efxmagic-refresh.o(.text);
         src/banim-efxmagic-ballista.o(.text);
@@ -969,7 +968,6 @@ SECTIONS
         . = ALIGN(4); data/banim-efxhitfx.o(.data);
         . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-utils.o(.data);
         . = ALIGN(4); src/banim-efxmagic-phywpn.o(.data);
         . = ALIGN(4); src/banim-efxmagic-refresh.o(.data);
         . = ALIGN(4); src/banim-efxmagic-ballista.o(.data);

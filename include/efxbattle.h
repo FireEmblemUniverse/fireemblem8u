@@ -126,7 +126,8 @@ struct ProcEfxOBJ {
     /* 68 */ struct Anim * anim4;
 };
 
-struct ProcEfxALPHA {
+struct ProcEfxALPHA
+{
     PROC_HEADER;
 
     /* 29 */ u8 unk29;
@@ -137,7 +138,13 @@ struct ProcEfxALPHA {
     /* 2E */ s16 unk2E;
     /* 30 */ s16 unk30;
 
-    STRUCT_PAD(0x32, 0x5C);
+    STRUCT_PAD(0x32, 0x44);
+
+    /* 44 */ int unk44;
+    /* 48 */ int unk48;
+    /* 4C */ int unk4C;
+
+    STRUCT_PAD(0x50, 0x5C);
 
     /* 5C */ struct Anim * anim;
 };
@@ -176,6 +183,35 @@ struct ProcEkrDispUP {
 };
 
 extern struct ProcEkrDispUP *gpProcEkrDispUP;
+
+struct ProcEfxCircleWIN
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2c);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 unk_2e;
+    /* 30 */ s16 unk_30;
+    /* 32 */ s16 unk_32;
+    /* 34 */ STRUCT_PAD(0x34, 0x3a);
+    /* 3A */ u16 unk_3a;
+    /* 3C */ STRUCT_PAD(0x3c, 0x44);
+    /* 44 */ int unk_44;
+    /* 48 */ STRUCT_PAD(0x48, 0x54);
+    /* 54 */ u16 * unk_54;
+    /* 58 */ int unk_58;
+    /* 5C */ struct Anim * anim;
+};
+
+struct ProcEfxMagicQuake
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2c);
+    /* 2C */ s16 timer;
+    /* 2E */ s16 terminator;
+    /* 30 */ STRUCT_PAD(0x30, 0x5c);
+    /* 5C */ struct Anim * anim;
+    /* 60 */ ProcPtr pQuakePureProc;
+};
 
 struct Unknown_030053E0 {
     u16 u00;
