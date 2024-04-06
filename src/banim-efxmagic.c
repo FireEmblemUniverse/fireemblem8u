@@ -4,6 +4,8 @@
 #include "efxbattle.h"
 #include "efxmagic.h"
 #include "hardware.h"
+#include "bmlib.h"
+#include "ekrdragon.h"
 
 CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimDummy,
@@ -445,20 +447,280 @@ void sub_805B958(struct ProcEfx *proc)
     }
 }
 
-void NewEfxALPHA(struct Anim *anim, int a, int b, int c, int d, int e)
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxALPHA[] =
 {
-    struct ProcEfx *proc;
+    PROC_NAME("efxALPHA"),
+    PROC_REPEAT(EfxALPHAMain),
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0805BA1C
+void NewEfxALPHA(struct Anim * anim, int a, int b, int c, int d, int e)
+{
+    struct ProcEfxALPHA * proc;
+
     gEfxBgSemaphore++;
+
     proc = Proc_Start(ProcScr_efxALPHA, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->step = a;
+    proc->unk2E = a;
     proc->unk30 = a + b;
     proc->unk44 = c;
     proc->unk48 = d;
-    proc->frame = e;
+    proc->unk4C = e;
 }
 
-const char aEfxalpha[] = "efxALPHA";
-const char aEfxcirclewin[] = "efxCircleWIN";
-const char aEfxmagicquake[] = "efxMagicQUAKE";
+//! FE8U = 0x0805BA64
+void EfxALPHAMain(struct ProcEfxALPHA * proc)
+{
+    int bldA;
+    int bldB;
+
+    proc->timer++;
+
+    if (proc->timer < proc->unk2E)
+    {
+        return;
+    }
+
+    bldA = Interpolate(INTERPOLATE_LINEAR, proc->unk44, proc->unk48, (proc->timer - proc->unk2E), (proc->unk30 - proc->unk2E));
+
+    switch (proc->unk4C)
+    {
+        case 0:
+            SetBlendAlpha(bldA, 16);
+            break;
+
+        case 1:
+            SetBlendBrighten(bldA);
+            break;
+
+        case 2:
+            bldB = Interpolate(INTERPOLATE_LINEAR, 8, 16, (proc->timer - proc->unk2E), (proc->unk30 - proc->unk2E));
+            SetBlendAlpha(bldA, bldB);
+            break;
+    }
+
+    if (proc->timer >= proc->unk30)
+    {
+        gEfxBgSemaphore--;
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxCircleWIN[] =
+{
+    PROC_NAME("efxCircleWIN"),
+    PROC_REPEAT(EfxCircleWINMain),
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0805BB24
+void sub_805BB24(struct Anim * anim, int terminator, u16 * c, u16 d, u16 e)
+{
+    struct ProcEfxCircleWIN * proc;
+
+    gEfxBgSemaphore++;
+
+    proc = Proc_Start(ProcScr_efxCircleWIN, PROC_TREE_3);
+
+    proc->anim = anim;
+
+    proc->timer = 0;
+    proc->unk_2e = 0;
+
+    proc->unk_44 = terminator;
+    proc->unk_54 = c;
+
+    GetAnimAnotherSide(anim);
+
+    proc->unk_32 = d;
+    proc->unk_3a = e;
+
+    return;
+}
+
+//! FE8U = 0x0805BB84
+void EfxCircleWINMain(struct ProcEfxCircleWIN * proc)
+{
+    u16 * unk_54;
+    struct Vec2 * vec;
+    s16 a;
+    s16 b;
+    s16 x;
+    s16 y;
+    u16 var;
+    u32 i;
+
+    u16 * buf = (gEkrBg2ScrollFlip == 0) ? gpBg2ScrollOffsetTable2 : gpBg2ScrollOffsetTable1;
+
+    unk_54 = proc->unk_54;
+    var = unk_54[proc->unk_2e];
+
+    vec = sub_8013278(var);
+
+    if (unk_54[proc->unk_2e + 1] != 0xFFFF)
+    {
+        proc->unk_2e++;
+    }
+
+    a = proc->unk_3a - var;
+
+    if (a < 0)
+    {
+        a = 0;
+    }
+
+    b = var + proc->unk_3a;
+
+    if (b > DISPLAY_HEIGHT)
+    {
+        b = DISPLAY_HEIGHT;
+    }
+
+    for (i = 0; i < DISPLAY_HEIGHT; buf++, i++)
+    {
+        if ((a > i) || (b < i))
+        {
+            *buf = 0;
+        }
+        else
+        {
+            x = vec->x + proc->unk_32;
+
+            if (x < 0)
+            {
+                x = 0;
+            }
+
+            y = vec->y + proc->unk_32;
+
+            if (y > DISPLAY_WIDTH)
+            {
+                y = DISPLAY_WIDTH;
+            }
+
+            *buf = y | (x << 8);
+            vec++;
+        }
+    }
+
+    proc->timer++;
+
+    if (proc->timer == proc->unk_44)
+    {
+        gEfxBgSemaphore--;
+        SetDefaultColorEffects();
+        Proc_Break(proc);
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_efxMagicQUAKE[] =
+{
+    PROC_NAME("efxMagicQUAKE"),
+    PROC_REPEAT(Loop6C_efxMagicQUAKE),
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0805BC80
+void StartSpellThing_MagicQuake(struct Anim * anim, int terminator, int c)
+{
+    struct ProcEfxMagicQuake * proc;
+
+    gEfxBgSemaphore++;
+
+    proc = Proc_Start(ProcScr_efxMagicQUAKE, PROC_TREE_3);
+    proc->anim = anim;
+    proc->pQuakePureProc = NewEfxQuakePure(c, 0);
+    proc->timer = 0;
+    proc->terminator = terminator;
+
+    return;
+}
+
+//! FE8U = 0x0805BCC4
+void Loop6C_efxMagicQUAKE(struct ProcEfxMagicQuake * proc)
+{
+    s16 x1;
+    s16 y1;
+    s16 x2;
+    s16 y2;
+
+    BG_SetPosition(2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+    BG_SetPosition(0, gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x, gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y);
+
+    EkrGauge_Setxy323A(-(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x), -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+    EkrDispUP_SetPositionSync(-(gEkrBg2QuakeVec.x + gEkrBg0QuakeVec.x), -(gEkrBg2QuakeVec.y + gEkrBg0QuakeVec.y));
+
+    if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
+    {
+        BG_SetPosition(BG_3, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
+    }
+
+    if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
+    {
+        x1 = (gEkrXPosReal[0] - gEkrBg2QuakeVec.x) - gEkrBgPosition;
+        y1 = (gEkrYPosReal[0] - gEkrBg2QuakeVec.y);
+    }
+    else
+    {
+        x1 = (gEkrXPosReal[0] + gEkrBg2QuakeVec.x) - gEkrBgPosition;
+        y1 = (gEkrYPosReal[0] - gEkrBg2QuakeVec.y);
+    }
+
+    x2 = ((gEkrXPosReal[1] + gEkrBg2QuakeVec.x) - gEkrBgPosition);
+    y2 = (gEkrYPosReal[1] - gEkrBg2QuakeVec.y);
+
+    SetEkrFrontAnimPostion(0, x1, y1);
+    SetEkrFrontAnimPostion(1, x2, y2);
+
+    proc->timer++;
+
+    if (proc->timer > proc->terminator)
+    {
+        gEfxBgSemaphore--;
+
+        BG_SetPosition(BG_2, 0, 0);
+        BG_SetPosition(BG_0, gEkrBg0QuakeVec.x, gEkrBg0QuakeVec.y);
+
+        EkrGauge_Setxy323A(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+        EkrDispUP_SetPositionSync(-gEkrBg0QuakeVec.x, -gEkrBg0QuakeVec.y);
+
+        if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
+        {
+            BG_SetPosition(BG_3, 0, 0);
+        }
+
+        x1 = (gEkrXPosReal[0] - gEkrBgPosition);
+        y1 = gEkrYPosReal[0];
+
+        x2 = (gEkrXPosReal[1] - gEkrBgPosition);
+        y2 = gEkrYPosReal[1];
+
+        SetEkrFrontAnimPostion(0, x1, y1);
+        SetEkrFrontAnimPostion(1, x2, y2);
+
+        Proc_End(proc->pQuakePureProc);
+
+        Proc_Break(proc);
+    }
+
+    return;
+}

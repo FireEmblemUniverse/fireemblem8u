@@ -93,7 +93,7 @@ void sub_8013168(u16 *dst, u8* src, int a3, int a4, int a5);
 // ??? sub_80131C4(???);
 void sub_80131D0(s16*);
 void sub_80131F0(s16*, int, int, int, int);
-// ??? sub_8013278(???);
+struct Vec2 * sub_8013278(int);
 // ??? DarkenPals(???);
 // ??? sub_8013428(???);
 // ??? sub_801342C(???);

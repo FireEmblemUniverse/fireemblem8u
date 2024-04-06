@@ -415,14 +415,9 @@ void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
 
 #undef _SWAP
 
-struct Unk
+struct Vec2 * sub_8013278(int arg_0)
 {
-    short a, b;
-};
-
-struct Unk *sub_8013278(int arg_0)
-{
-    #define BUF ((struct Unk *) gGenericBuffer)
+    #define BUF ((struct Vec2 *) gGenericBuffer)
 
     int r2;
     int sb;
@@ -442,34 +437,34 @@ struct Unk *sub_8013278(int arg_0)
         sp_18 = sp_00 + sb;
 
         if (sp_18 < DISPLAY_HEIGHT)
-            BUF[sp_00 + sb].b = r2;
+            BUF[sp_00 + sb].y = r2;
 
         r4 = sp_00 - sb;
 
         if (r4 < DISPLAY_HEIGHT)
-            BUF[sp_00 - sb].b = r2;
+            BUF[sp_00 - sb].y = r2;
 
         r3 = sp_00 + r2;
 
         if (r3 < DISPLAY_HEIGHT)
-            BUF[sp_00 + r2].b = sb;
+            BUF[sp_00 + r2].y = sb;
 
         r1 = sp_00 - r2;
 
         if (r1 < DISPLAY_HEIGHT)
-            BUF[sp_00 - r2].b = sb;
+            BUF[sp_00 - r2].y = sb;
 
         if (sp_18 < DISPLAY_HEIGHT)
-            BUF[sp_00 + sb].a = -r2;
+            BUF[sp_00 + sb].x = -r2;
 
         if (r4 < DISPLAY_HEIGHT)
-            BUF[sp_00 - sb].a = -r2;
+            BUF[sp_00 - sb].x = -r2;
 
         if (r3 < DISPLAY_HEIGHT)
-            BUF[sp_00 + r2].a = -sb;
+            BUF[sp_00 + r2].x = -sb;
 
         if (r1 < DISPLAY_HEIGHT)
-            BUF[sp_00 - r2].a = -sb;
+            BUF[sp_00 - r2].x = -sb;
 
         arg_0 = arg_0 - (sb*2 - 1);
 
