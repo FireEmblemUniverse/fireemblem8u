@@ -788,7 +788,7 @@ void ekrBattle_80503EC(struct ProcEkrBattle * proc);
 void ekrBattle_StartPromotion(struct ProcEkrBattle * proc);
 void ekrBattle_WaitPromotionIdle(struct ProcEkrBattle * proc);
 void ekrBattleInRoundIdle(struct ProcEkrBattle * proc);
-void ekrBattleOnBattkeEnd(struct ProcEkrBattle * proc);
+void ekrBattleOnBattleEnd(struct ProcEkrBattle * proc);
 void ekrBattle_8050600(struct ProcEkrBattle * proc);
 void ekrBattle_WaitForPostBattleAct(struct ProcEkrBattle * proc);
 void ekrBattleExecExpGain(struct ProcEkrBattle * proc);
