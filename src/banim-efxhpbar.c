@@ -418,7 +418,7 @@ void EfxHPBarLiveMain(struct ProcEfxHPBar * proc)
         proc->timer = 0x1E;
 }
 
-void NewEfxNoDmage(struct Anim * anim1, struct Anim * anim2, int death)
+void NewEfxNoDamage(struct Anim * anim1, struct Anim * anim2, int death)
 {
     struct BattleUnit * bu;
     struct ProcEfxHPBar * proc;
