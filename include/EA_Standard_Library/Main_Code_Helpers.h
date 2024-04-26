@@ -13,6 +13,10 @@
 #define CharacterEvent_(eid, scr, pid1, pid2, trigg_eid) CHAR_((eid), (scr), (pid1), (pid2), (trigg_eid))
 #define CharacterEventBothWays(eid, scr, pid1, pid2) CharacterEvent(eid, scr, pid1, pid2) CharacterEvent(eid, scr, pid2, pid1)
 
+#define Village(eid, scr, x, y) \
+    VILL(eid, scr, x, y, TILE_COMMAND_VISIT) \
+    LOCA(eid, 1, x, y - 1, TILE_COMMAND_20)
+
 #define House(eid, scr, x, y) LOCA(eid, scr, x, y, TILE_COMMAND_VISIT)
 #define Seize_(eid, scr, x, y) LOCA(eid, scr, x, y, TILE_COMMAND_SEIZE)
 #define Seize(x, y) Seize_(EVFLAG_WIN, EVENT_NOSCRIPT, x, y)
@@ -21,6 +25,13 @@
 #define DefeatBoss(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_BOSS)
 #define DefeatAll(event_scr) AFEV(EVFLAG_WIN, (event_scr), EVFLAG_DEFEAT_ALL)
 #define NoFade EVBIT_T(EV_STATE_SKIPPING | EV_STATE_0002 | EV_STATE_ABORT)
+
+#define Armory(list, x, y) EvtListShop(list, x, y, TILE_COMMAND_ARMORY)
+#define Vendor(list, x, y) EvtListShop(list, x, y, TILE_COMMAND_VENDOR)
+#define SecretShop(list, x, y) EvtListShop(list, x, y, TILE_COMMAND_SECRET)
+
+#define Chest(item, x, y) CHES(item, x, y)
+#define Door(x, y) DOOR(x, y)
 
 #define HouseEvent(msg, bg) \
     MUSI \

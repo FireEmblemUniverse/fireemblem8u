@@ -861,6 +861,26 @@ enum event_trigger_types {
     (EventListScr) (ent_script), \
     _EvtParams4((x), (y), (tile_command), 0),
 
+#define EvtListVillage(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_VILL, (ent_flag)), \
+    (EventListScr) (ent_script), \
+    _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListCHES(item, x, y) \
+    _EvtParams2(EVT_LIST_CMD_CHES, 0), \
+    (EventListScr) (item), \
+    _EvtParams4((x), (y), TILE_COMMAND_CHEST, 0),
+
+#define EvtListDOOR(x, y) \
+    _EvtParams2(EVT_LIST_CMD_DOOR, 0), \
+    (EventListScr) (1), \
+    _EvtParams4((x), (y), TILE_COMMAND_DOOR, 0),
+
+#define EvtListShop(list, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_SHOP, 0), \
+    (EventListScr) (list), \
+    _EvtParams4((x), (y), (tile_command), 0),
+
 #define EvtListArea(ent_flag, ent_script, x1, y1, x2, y2) \
     _EvtParams2(EVT_LIST_CMD_AREA, (ent_flag)), \
     (EventListScr) (ent_script), \

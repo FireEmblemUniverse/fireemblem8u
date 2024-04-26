@@ -38,9 +38,4 @@ void LoadTrapData(const struct TrapData * data);
 void LoadChapterTraps(void);
 void AddGorgonEggTrap(s8 x, s8 y, u8 turnsToHatch, u8 level, u8 unk_05);
 
-extern struct TrapData TrapData_Event_Prologue[];
-extern struct TrapData TrapData_Event_PrologueHard[];
-extern struct TrapData TrapData_Event_Ch1[];
-extern struct TrapData TrapData_Event_Ch1Hard[];
-
 #endif // GUARD_BMTRAP_H

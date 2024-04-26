@@ -759,7 +759,6 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxmisc.o(.rodata);
-        . = ALIGN(4); data/const_data_efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); src/banim-efxop.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-utils.o(.rodata);
@@ -1004,11 +1003,6 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
         . = ALIGN(4); src/banim-efxmisc.o(.data);
-        . = ALIGN(4); data/banim-efxhit.o(.data);
-        . = ALIGN(4); data/banim-efxspecialleffect.o(.data);
-        . = ALIGN(4); data/banim-efxmagdhis.o(.data);
-        . = ALIGN(4); data/banim-efxmantbata.o(.data);
-        . = ALIGN(4); data/banim-efxchill.o(.data);
         . = ALIGN(4); src/banim-efxskill.o(.data);
         . = ALIGN(4); src/banim-efxop.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
