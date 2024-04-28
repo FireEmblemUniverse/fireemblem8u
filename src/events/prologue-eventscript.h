@@ -241,7 +241,7 @@ CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[] = {
     TEXTEND
     REMA
     /* this unsets the event ID so the next turn Oneill will agro (see TURN events) */
-    ENUF(EVFLAG_TMP_8)
+    ENUF(EVFLAG_TMP(8))
     GOTO(0x1)
 
 LABEL(0x0)

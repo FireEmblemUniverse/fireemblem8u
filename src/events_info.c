@@ -11,3 +11,4 @@
 #include "events/prologue-eventinfo.h"
 #include "events/ch1-eventinfo.h"
 #include "events/ch2-eventinfo.h"
+#include "events/ch3-eventinfo.h"

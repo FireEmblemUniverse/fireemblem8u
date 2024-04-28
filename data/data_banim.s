@@ -7450,21 +7450,125 @@ AnimScr_YushaSpinShieldOBJ3_LeftTypeB:  @ 0x085EE4C4
     ANIMSCR_FORCE_SPRITE AnimSprite_YushaSpinShield4_84, 2
     ANIMSCR_LOOP
 
-	.global gUnknown_085EE4F8
-gUnknown_085EE4F8:  @ 0x085EE4F8
+	.global Img_EfxMagfcastBG
+Img_EfxMagfcastBG:  @ 0x085EE4F8
 	.incbin "baserom.gba", 0x5EE4F8, 0xD54
 
-	.global gUnknown_085EF24C
-gUnknown_085EF24C:  @ 0x085EF24C
-	.incbin "baserom.gba", 0x5EF24C, 0xF44
+	.global Pal_EfxMagfcastBG
+Pal_EfxMagfcastBG:  @ 0x085EF24C
+	.incbin "baserom.gba", 0x5EF24C, 0x20
 
-	.global gUnknown_085F0190
-gUnknown_085F0190:  @ 0x085F0190
+    .global Tsa1_EfxMagfcastBG
+Tsa1_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF26C, 0x5EF308 - 0x5EF26C
+
+    .global Tsa2_EfxMagfcastBG
+Tsa2_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF308, 0x5EF3A4 - 0x5EF308
+
+    .global Tsa3_EfxMagfcastBG
+Tsa3_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF3A4, 0x5EF444 - 0x5EF3A4
+
+    .global Tsa4_EfxMagfcastBG
+Tsa4_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF444, 0x5EF4E8 - 0x5EF444
+
+    .global Tsa5_EfxMagfcastBG
+Tsa5_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF4E8, 0x5EF59C - 0x5EF4E8
+
+    .global Tsa6_EfxMagfcastBG
+Tsa6_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF59C, 0x5EF644 - 0x5EF59C
+
+    .global Tsa7_EfxMagfcastBG
+Tsa7_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF644, 0x5EF6F4 - 0x5EF644
+
+    .global Tsa8_EfxMagfcastBG
+Tsa8_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF6F4, 0x5EF7A4 - 0x5EF6F4
+
+    .global Tsa9_EfxMagfcastBG
+Tsa9_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF7A4, 0x5EF85C - 0x5EF7A4
+
+    .global Tsa10_EfxMagfcastBG
+Tsa10_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF85C, 0x5EF914 - 0x5EF85C
+
+    .global Tsa11_EfxMagfcastBG
+Tsa11_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF914, 0x5EF9C8 - 0x5EF914
+
+    .global Tsa12_EfxMagfcastBG
+Tsa12_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EF9C8, 0x5EFA68 - 0x5EF9C8
+
+    .global Tsa13_EfxMagfcastBG
+Tsa13_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFA68, 0x5EFB1C - 0x5EFA68
+
+    .global Tsa14_EfxMagfcastBG
+Tsa14_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFB1C, 0x5EFBD0 - 0x5EFB1C
+
+    .global Tsa15_EfxMagfcastBG
+Tsa15_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFBD0, 0x5EFC84 - 0x5EFBD0
+
+    .global Tsa16_EfxMagfcastBG
+Tsa16_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFC84, 0x5EFD24 - 0x5EFC84
+
+    .global Tsa17_EfxMagfcastBG
+Tsa17_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFD24, 0x5EFDE0 - 0x5EFD24
+
+    .global Tsa18_EfxMagfcastBG
+Tsa18_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFDE0, 0x5EFE90 - 0x5EFDE0
+
+    .global Tsa19_EfxMagfcastBG
+Tsa19_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFE90, 0x5EFF60 - 0x5EFE90
+
+    .global Tsa20_EfxMagfcastBG
+Tsa20_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5EFF60, 0x5F0018 - 0x5EFF60
+
+    .global Tsa21_EfxMagfcastBG
+Tsa21_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5F0018, 0x5F00E8 - 0x5F0018
+
+    .global Tsa22_EfxMagfcastBG
+Tsa22_EfxMagfcastBG:
+    .incbin "baserom.gba", 0x5F00E8, 0x5F0190 - 0x5F00E8
+
+	.global Img_EfxMagdhisEffectBG
+Img_EfxMagdhisEffectBG:  @ 0x085F0190
 	.incbin "baserom.gba", 0x5F0190, 0xC74
 
-	.global gUnknown_085F0E04
-gUnknown_085F0E04:  @ 0x085F0E04
-	.incbin "baserom.gba", 0x5F0E04, 0x3AC
+	.global Pal_EfxMagdhisEffectBG
+Pal_EfxMagdhisEffectBG:  @ 0x085F0E04
+	.incbin "baserom.gba", 0x5F0E04, 0x20
+
+	.global Tsa1_EfxMagdhisEffectBG
+Tsa1_EfxMagdhisEffectBG:
+	.incbin "baserom.gba", 0x5F0E24, 0x5F0F24 - 0x5F0E24
+
+	.global Tsa2_EfxMagdhisEffectBG
+Tsa2_EfxMagdhisEffectBG:
+	.incbin "baserom.gba", 0x5F0F24, 0x5F1018 - 0x5F0F24
+
+	.global Tsa3_EfxMagdhisEffectBG
+Tsa3_EfxMagdhisEffectBG:
+	.incbin "baserom.gba", 0x5F1018, 0x5F10EC - 0x5F1018
+
+	.global Tsa4_EfxMagdhisEffectBG
+Tsa4_EfxMagdhisEffectBG:
+	.incbin "baserom.gba", 0x5F10EC, 0x5F11B0 - 0x5F10EC
 
 	.global gUnknown_085F11B0
 gUnknown_085F11B0:  @ 0x085F11B0
@@ -29772,33 +29876,45 @@ Tsa_087451F8:  @ 0x087451F8
 Tsa_08745470:  @ 0x08745470
 	.incbin "baserom.gba", 0x745470, 0x278    @ 0x7456E8 - 0x745470
 
-	.global gUnknown_087456E8
-gUnknown_087456E8:  @ 0x087456E8
-	.incbin "baserom.gba", 0x7456E8, 0xE20
+	.global Pal_EfxChillEffectBG
+Pal_EfxChillEffectBG:  @ 0x087456E8
+	.incbin "baserom.gba", 0x7456E8, 6 * 0x20
+
+    .global Tsa1_EfxChillEffectBG
+Tsa1_EfxChillEffectBG:
+    .incbin "baserom.gba", 0x7457A8, 0x745B74 - 0x7457A8
+
+    .global Tsa2_EfxChillEffectBG
+Tsa2_EfxChillEffectBG:
+    .incbin "baserom.gba", 0x745B74, 0x745FD0 - 0x745B74
+
+    .global Tsa3_EfxChillEffectBG
+Tsa3_EfxChillEffectBG:
+    .incbin "baserom.gba", 0x745FD0, 0x746508 - 0x745FD0
 
 	.global gUnknown_08746508
 gUnknown_08746508:  @ 0x08746508
 @ Replacing .incbin "baserom.gba", 0x746508, 0x204
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xca1
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xcd1
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xd01
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xd31
-    .4byte gUnknown_087456E8 + 0xdc1
-    .4byte gUnknown_087456E8 + 0xd61
-    .4byte gUnknown_087456E8 + 0xdf1
-    .4byte gUnknown_087456E8 + 0xd91
-    .4byte gUnknown_087456E8 + 0xdc1
-    .4byte gUnknown_087456E8 + 0xd01
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xd31
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xca1
-    .4byte gUnknown_087456E8 + 0xc71
-    .4byte gUnknown_087456E8 + 0xcd1
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xca1
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xcd1
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xd01
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xd31
+    .4byte Pal_EfxChillEffectBG + 0xdc1
+    .4byte Pal_EfxChillEffectBG + 0xd61
+    .4byte Pal_EfxChillEffectBG + 0xdf1
+    .4byte Pal_EfxChillEffectBG + 0xd91
+    .4byte Pal_EfxChillEffectBG + 0xdc1
+    .4byte Pal_EfxChillEffectBG + 0xd01
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xd31
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xca1
+    .4byte Pal_EfxChillEffectBG + 0xc71
+    .4byte Pal_EfxChillEffectBG + 0xcd1
     .4byte 0x80000000
     .4byte 0x90008000
     .4byte 0xfff80020

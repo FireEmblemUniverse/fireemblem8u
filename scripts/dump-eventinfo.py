@@ -4,7 +4,7 @@
 import sys, ctypes
 import symbols
 from fe8db import PID_IDX, EVENTINFO_COMMANDS, EVENT_SLOTS, DIRECTION_IDX
-from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX
+from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX, FACTION_NAMES
 from dump_events import unpack_EvtParams2, unpack_EvtParams4
 
 # ========================================================================
@@ -57,7 +57,7 @@ def parse_eventinfo(rom_data, off):
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
             turn, turn_max, faction, _0 = unpack_EvtParams4(arg2)
-            faction = FACTION_IDX[faction]
+            faction = FACTION_NAMES[faction]
 
             print(f"    TURN({ent_flag}, {scr}, {turn}, {turn_max}, {faction})")
 
@@ -74,6 +74,57 @@ def parse_eventinfo(rom_data, off):
                 print(f"    CHAR({ent_flag}, {ent_script}, {pid_a}, {pid_b})")
             else:
                 print(f"    CHAR_({ent_flag}, {ent_script}, {pid_a}, {pid_b}, {trigg_eid})")
+
+        case "EVT_LIST_CMD_LOCA":
+            scr_len = 3
+            scr = try_get_ptr_symbol(arg1)
+            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+
+            print(f"    LOCA({ent_flag}, {scr}, {x}, {y}, {tile_command})")
+
+        case "EVT_LIST_CMD_VILL":
+            scr_len = 3
+            scr = try_get_ptr_symbol(arg1)
+            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+
+            print(f"    VILL({ent_flag}, {scr}, {x}, {y}, {tile_command})")
+
+        case "EVT_LIST_CMD_CHES":
+            scr_len = 3
+            item = arg1
+            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+
+            if tile_command != 20:
+                print(f"// EVT_LIST_CMD_CHES ERROR at 0x{off:06X}")
+
+            print(f"    Chest(0x{item:02X}, {x}, {y})")
+
+        case "EVT_LIST_CMD_DOOR":
+            scr_len = 3
+            scr = arg1
+            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+
+            if scr != 1:
+                print(f"// TILE_COMMAND_DOOR ERROR1 at 0x{off:06X}")
+
+            if tile_command != 18:
+                print(f"// TILE_COMMAND_DOOR ERROR2 at 0x{off:06X}")
+
+            print(f"    Door({x}, {y})")
+
+        case "EVT_LIST_CMD_SHOP":
+            scr_len = 3
+            scr = try_get_ptr_symbol(arg1)
+            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+
+            if tile_command == 0x16:
+                print(f"    Armory({scr}, {x}, {y})")
+            elif tile_command == 0x17:
+                print(f"    Vendor({scr}, {x}, {y})")
+            elif tile_command == 0x18:
+                print(f"    SecretShop({scr}, {x}, {y})")
+            else:
+                print(f"// ERROR at 0x{off:06X}")
 
         case _:
             print(f"// ERROR at 0x{off:06X}")

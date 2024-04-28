@@ -184,10 +184,26 @@ void NewEfxHurtmutEff00(struct Anim *anim)
         NewEfxHurtmutEff01OBJ(anim);
 }
 
+CONST_DATA struct ProcCmd ProcScr_efxHurtmutEff00[] = {
+    PROC_NAME("efxHurtmutEff00"),
+    PROC_REPEAT(EfxHurtmutEff00Main),
+    PROC_END,
+};
+
 void EfxHurtmutEff00Main(struct ProcEfx * proc)
 {
     Proc_Break(proc);
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxHurtmutEff00OBJ[] = {
+    PROC_NAME("efxHurtmutEff00OBJ"),
+    PROC_REPEAT(efxHurtmutEff00OBJ_806CEC4),
+    PROC_SLEEP(26),
+    PROC_REPEAT(efxHurtmutEff00OBJ_806CF10),
+    PROC_SLEEP(8),
+    PROC_REPEAT(efxHurtmutEff00OBJ_806CF5C),
+    PROC_END,
+};
 
 void NewEfxHurtmutEff00OBJ(struct Anim *anim)
 {
@@ -241,6 +257,16 @@ void efxHurtmutEff00OBJ_806CF5C(struct ProcEfxOBJ * proc)
     AnimDelete(proc->anim2);
     Proc_Break(proc);
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxHurtmutEff01OBJ[] = {
+    PROC_NAME("efxHurtmutEff01OBJ"),
+    PROC_REPEAT(efxHurtmutEff01OBJ_806CFC4),
+    PROC_SLEEP(58),
+    PROC_REPEAT(efxHurtmutEff01OBJ_806D010),
+    PROC_SLEEP(21),
+    PROC_REPEAT(efxHurtmutEff01OBJ_806D05C),
+    PROC_END,
+};
 
 void NewEfxHurtmutEff01OBJ(struct Anim *anim)
 {
@@ -300,6 +326,12 @@ void efxHurtmutEff01OBJ_806D05C(struct ProcEfxOBJ * proc)
  * C2E: banim_code_effect_magic_rune_normal
  * C2F: banim_code_effect_magic_rune_critical
  */
+struct ProcCmd CONST_DATA ProcScr_efxMagfcast[] = {
+    PROC_NAME("efxMagfcast"),
+    PROC_REPEAT(EfxMagfcastMain),
+    PROC_END,
+};
+
 void NewEfxMagfcast(struct Anim *anim, int type)
 {
     s16 id2;    /* maybe not the class index */
@@ -339,6 +371,82 @@ void EfxMagfcastMain(struct ProcEfx * proc)
         Proc_Break(proc);
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxMagfcastBG[] = {
+    PROC_NAME("efxMagfcastBG"),
+    PROC_REPEAT(EfxMagfcastBGMain),
+    PROC_END,
+};
+
+const u16 FrameConfig_EfxMagFcastBg1[] = {
+    0, 2,
+    1, 3,
+    2, 7,
+    3, 3,
+    4, 2,
+
+    -1
+};
+
+const u16 FrameConfig_EfxMagFcastBg2[] = {
+    5, 3,
+
+    -1
+};
+
+const u16 FrameConfig_EfxMagFcastBg3[] = {
+    0, 7,
+    1, 7,
+    2, 8,
+    3, 11,
+    4, 2,
+    5, 2,
+    6, 2,
+    7, 2,
+
+    -1
+};
+
+const u16 FrameConfig_EfxMagFcastBg4[] = {
+    8, 3,
+    9, 23,
+    10, 4,
+    11, 23,
+    12, 4,
+    13, 26,
+    14, 4,
+    15, 4,
+
+    -1
+};
+
+CONST_DATA u16 * TsaLut1_EfxMagfcastBG[] = {
+    Tsa1_EfxMagfcastBG,
+    Tsa2_EfxMagfcastBG,
+    Tsa3_EfxMagfcastBG,
+    Tsa4_EfxMagfcastBG,
+    Tsa5_EfxMagfcastBG,
+    Tsa6_EfxMagfcastBG,
+};
+
+CONST_DATA u16 * TsaLut2_EfxMagfcastBG[] = {
+    Tsa7_EfxMagfcastBG,
+    Tsa8_EfxMagfcastBG,
+    Tsa9_EfxMagfcastBG,
+    Tsa10_EfxMagfcastBG,
+    Tsa11_EfxMagfcastBG,
+    Tsa12_EfxMagfcastBG,
+    Tsa13_EfxMagfcastBG,
+    Tsa14_EfxMagfcastBG,
+    Tsa15_EfxMagfcastBG,
+    Tsa16_EfxMagfcastBG,
+    Tsa17_EfxMagfcastBG,
+    Tsa18_EfxMagfcastBG,
+    Tsa19_EfxMagfcastBG,
+    Tsa20_EfxMagfcastBG,
+    Tsa21_EfxMagfcastBG,
+    Tsa22_EfxMagfcastBG,
+};
+
 void NewEfxMagfcastBG(struct Anim *anim, u32 type)
 {
     struct ProcEfxBG * proc;
@@ -350,27 +458,27 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
 
     switch (type) {
     case 0:
-        proc->frame_config = gUnknown_080DF386;
-        proc->tsal = gUnknown_085D8FC4;
-        proc->tsar = gUnknown_085D8FC4;
+        proc->frame_config = FrameConfig_EfxMagFcastBg1;
+        proc->tsal = TsaLut1_EfxMagfcastBG;
+        proc->tsar = TsaLut1_EfxMagfcastBG;
         break;
 
     case 1:
-        proc->frame_config = gUnknown_080DF39C;
-        proc->tsal = gUnknown_085D8FC4;
-        proc->tsar = gUnknown_085D8FC4;
+        proc->frame_config = FrameConfig_EfxMagFcastBg2;
+        proc->tsal = TsaLut1_EfxMagfcastBG;
+        proc->tsar = TsaLut1_EfxMagfcastBG;
         break;
 
     case 2:
-        proc->frame_config = gUnknown_080DF3A2;
-        proc->tsal = gUnknown_085D8FDC;
-        proc->tsar = gUnknown_085D8FDC;
+        proc->frame_config = FrameConfig_EfxMagFcastBg3;
+        proc->tsal = TsaLut2_EfxMagfcastBG;
+        proc->tsar = TsaLut2_EfxMagfcastBG;
         break;
 
     case 3:
-        proc->frame_config = gUnknown_080DF3C4;
-        proc->tsal = gUnknown_085D8FDC;
-        proc->tsar = gUnknown_085D8FDC;
+        proc->frame_config = FrameConfig_EfxMagFcastBg4;
+        proc->tsal = TsaLut2_EfxMagfcastBG;
+        proc->tsar = TsaLut2_EfxMagfcastBG;
         EfxPlaySEwithCmdCtrl(anim, anim->commandQueue[anim->commandQueueSize - 1]);
         break;
 
@@ -378,8 +486,8 @@ void NewEfxMagfcastBG(struct Anim *anim, u32 type)
         break;
     }
 
-    SpellFx_RegisterBgGfx(gUnknown_085EE4F8, 0x2000);
-    SpellFx_RegisterBgPal(gUnknown_085EF24C, 0x20);
+    SpellFx_RegisterBgGfx(Img_EfxMagfcastBG, 0x2000);
+    SpellFx_RegisterBgPal(Pal_EfxMagfcastBG, 0x20);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE) {
@@ -447,6 +555,12 @@ void NewEfxSunakemuri(struct Anim *anim, int type)
         NewEfxSunakemuriOBJ(anim, type);
     }
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxSunakemuri[] = {
+    PROC_NAME("efxSunakemuri"),
+    PROC_REPEAT(EfxSunakemuriMain),
+    PROC_END,
+};
 
 void EfxSunakemuriMain(struct ProcEfx * proc)
 {
@@ -565,6 +679,12 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     SpellFx_RegisterObjGfx(gUnknown_085F11B0, 0x1000);
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxSunakemuriOBJ[] = {
+    PROC_NAME("efxSunakemuriOBJ"),
+    PROC_REPEAT(EfxSunakemuriOBJMain),
+    PROC_END,
+};
+
 void EfxSunakemuriOBJMain(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer == 0x9) {
@@ -588,6 +708,12 @@ void NewEfxLokmsuna(struct Anim *anim)
         NewEfxLokmsunaOBJ(anim);
     }
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxLokmsuna[] = {
+    PROC_NAME("efxLokmsuna"),
+    PROC_REPEAT(EfxLokmsunaMain),
+    PROC_END,
+};
 
 void EfxLokmsunaMain(struct ProcEfx * proc)
 {
@@ -621,6 +747,12 @@ void NewEfxLokmsunaOBJ(struct Anim *anim)
     SpellFx_RegisterObjGfx(Img_EfxLokmsunaObj, 0x1000);
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxLokmsunaOBJ[] = {
+    PROC_NAME("efxLokmsunaOBJ"),
+    PROC_REPEAT(EfxLokmsunaIOBJMain),
+    PROC_END,
+};
+
 void EfxLokmsunaIOBJMain(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer == 0xF) {
@@ -640,6 +772,12 @@ void NewEfxKingPika(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxKingPika[] = {
+    PROC_NAME("efxKingPika"),
+    PROC_REPEAT(EfxKingPikaMain),
+    PROC_END,
+};
 
 void EfxKingPikaMain(struct ProcEfx * proc)
 {
@@ -676,6 +814,12 @@ void NewEfxFlashFX(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxFlashFX[] = {
+    PROC_NAME("efxFlashFX"),
+    PROC_REPEAT(EfxFlashFXMain),
+    PROC_END,
+};
 
 void EfxFlashFXMain(struct ProcEfx * proc)
 {
@@ -715,6 +859,12 @@ void NewEfxSongOBJ2(struct Anim *anim)
     PlaySFX(0xEE, 0x100, proc->anim->xPosition, 0x1);
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxSongOBJ2[] = {
+    PROC_NAME("efxSongOBJ"),
+    PROC_REPEAT(EfxSongOBJ2Main),
+    PROC_END,
+};
+
 void EfxSongOBJ2Main(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer == 0x18)
@@ -741,6 +891,12 @@ void NewEfxDanceOBJ(struct Anim *anim)
     SpellFx_RegisterObjGfx(Img_EfxDanceObj, 0x1000);
     PlaySFX(0xE1, 0x100, proc->anim->xPosition, 0x1);
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxDanceOBJ[] = {
+    PROC_NAME("efxDanceOBJ"),
+    PROC_REPEAT(EfxDanceOBJMain),
+    PROC_END,
+};
 
 void EfxDanceOBJMain(struct ProcEfxOBJ * proc)
 {
@@ -792,7 +948,13 @@ void NewEfxSpecalEffect(struct Anim *anim)
     NewEfxSRankWeaponEffect(anim);
 }
 
-void sub_806D980(ProcPtr proc)
+struct ProcCmd CONST_DATA ProcScr_efxSpecalEffect[] = {
+    PROC_NAME("efxSpecalEffect"),
+    PROC_REPEAT(EfxSpecalEffectMain),
+    PROC_END,
+};
+
+void EfxSpecalEffectMain(ProcPtr proc)
 {
     Proc_Break(proc);
 }
@@ -805,6 +967,12 @@ void NewEfxSRankWeaponEffect(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0x0;
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxSRankWeaponEffect[] = {
+    PROC_NAME("efxSRankWeaponEffect"),
+    PROC_REPEAT(EfxSRankWeaponEffectMain),
+    PROC_END,
+};
 
 void EfxSRankWeaponEffectMain(struct ProcEfx * proc)
 {
@@ -845,6 +1013,12 @@ void NewEfxSRankWeaponEffectBG(struct Anim *anim)
     SpellFx_SetSomeColorEffect();
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxSRankWeaponEffectBG[] = {
+    PROC_NAME("efxSRankWeaponEffectBG"),
+    PROC_REPEAT(EfxSRankWeaponEffectBGMain),
+    PROC_END,
+};
+
 void EfxSRankWeaponEffectBGMain(struct ProcEfxBG * proc)
 {
     if (++proc->timer == 0x3C) {
@@ -863,6 +1037,36 @@ void NewEfxSRankWeaponEffectSCR(void)
     proc->unk44 = 0;
     NewEfxSRankWeaponEffectSCR2(proc);
 }
+
+struct ProcCmd CONST_DATA efxSRankWeaponEffectSCR[] = {
+    PROC_NAME("efxSRankWeaponEffectSCR"),
+    PROC_REPEAT(EfxSRankWeaponEffectSCRMain),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA efxSRankWeaponEffectSCR2[] = {
+    PROC_NAME("efxSRankWeaponEffectSCR2"),
+    PROC_REPEAT(EfxSRankWeaponEffectSCR2Main),
+    PROC_END,
+};
+
+CONST_DATA s16 gUnknown_085D9154[] = {
+    0xFF00, 0xFF05, 0xFF09, 0xFF0E, 0xFF12, 0xFF16, 0xFF1B, 0xFF1F,
+    0xFF23, 0xFF28, 0xFF2C, 0xFF30, 0xFF35, 0xFF39, 0xFF3D, 0xFF42,
+    0xFF46, 0xFF4A, 0xFF4F, 0xFF53, 0xFF57, 0xFF5C, 0xFF60, 0xFF64,
+    0xFF69, 0xFF6D, 0xFF71, 0xFF76, 0xFF7A, 0xFF7E, 0xFF83, 0xFF87,
+    0xFF8B, 0xFF90, 0xFF94, 0xFF98, 0xFF9D, 0xFFA1, 0xFFA5, 0xFFAA,
+    0xFFAE, 0xFFB2, 0xFFB7, 0xFFBB, 0xFFBF, 0xFFC4, 0xFFC8, 0xFFCC,
+    0xFFD1, 0xFFD5, 0xFFD9, 0xFFDE, 0xFFE2, 0xFFE6, 0xFFEB, 0xFFEF,
+    0xFFF3, 0xFFF8, 0xFFFC, 0x0000, 0x0000, 0x0004, 0x0008, 0x000D,
+    0x0011, 0x0015, 0x001A, 0x001E, 0x0022, 0x0027, 0x002B, 0x002F,
+    0x0034, 0x0038, 0x003C, 0x0041, 0x0045, 0x0049, 0x004E, 0x0052,
+    0x0056, 0x005B, 0x005F, 0x0063, 0x0068, 0x006C, 0x0070, 0x0075,
+    0x0079, 0x007D, 0x0082, 0x0086, 0x008A, 0x008F, 0x0093, 0x0097,
+    0x009C, 0x00A0, 0x00A4, 0x00A9, 0x00AD, 0x00B1, 0x00B6, 0x00BA,
+    0x00BE, 0x00C3, 0x00C7, 0x00CB, 0x00D0, 0x00D4, 0x00D8, 0x00DD,
+    0x00E1, 0x00E5, 0x00EA, 0x00EE, 0x00F2, 0x00F7, 0x00FB, 0x0100,
+};
 
  void EfxSRankWeaponEffectSCRMain(struct ProcEfx * proc)
 {
@@ -921,6 +1125,12 @@ void NewEfxMagdhisEffect(struct Anim *anim)
     proc->timer = 0;
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxMagdhisEffect[] = {
+    PROC_NAME("efxMagdhisEffect"),
+    PROC_REPEAT(EfxMagdhisEffectMain),
+    PROC_END,
+};
+
 void EfxMagdhisEffectMain(struct ProcEfx * proc)
 {
     if (++proc->timer == 0x11) {
@@ -933,6 +1143,31 @@ void EfxMagdhisEffectMain(struct ProcEfx * proc)
         Proc_Break(proc);
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxMagdhisEffectBG[] = {
+    PROC_NAME("efxMagdhisEffectBG"),
+    PROC_REPEAT(EfxMagdhisEffectBGMain),
+    PROC_END,
+};
+
+CONST_DATA u16 * TsaLut_EfxMagdhisEffectBG[] = {
+    Tsa1_EfxMagdhisEffectBG,
+    Tsa2_EfxMagdhisEffectBG,
+    Tsa3_EfxMagdhisEffectBG,
+    Tsa4_EfxMagdhisEffectBG
+};
+
+const u16 FrameConf_EfxMagdhisEffectBG[] = {
+    0, 2,
+    1, 2,
+    2, 2,
+    3, 2,
+    2, 2,
+    1, 2,
+    0, 2,
+
+    -2
+};
+
 void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
 {
     struct ProcEfxBG * proc;
@@ -944,12 +1179,12 @@ void NewEfxMagdhisEffectBG(struct Anim *anim, int arg1)
     proc->terminator = 0;
     proc->unk30 = arg1;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DF4F4;
-    proc->tsal = gUnknown_085D9274;
-    proc->tsar = gUnknown_085D9274;
+    proc->frame_config = FrameConf_EfxMagdhisEffectBG;
+    proc->tsal = TsaLut_EfxMagdhisEffectBG;
+    proc->tsar = TsaLut_EfxMagdhisEffectBG;
 
-    SpellFx_RegisterBgPal(gUnknown_085F0E04, 0x20);
-    SpellFx_RegisterBgGfx(gUnknown_085F0190, 0x2000);
+    SpellFx_RegisterBgPal(Pal_EfxMagdhisEffectBG, 0x20);
+    SpellFx_RegisterBgGfx(Img_EfxMagdhisEffectBG, 0x2000);
     SpellFx_SetSomeColorEffect();
 
     gLCDControlBuffer.bg0cnt.priority = 0;
@@ -989,6 +1224,12 @@ void EfxMagdhisEffectBGMain(struct ProcEfxBG * proc)
 /**
  * C47: banim_code_cape_flowing
  */
+struct ProcCmd CONST_DATA ProcScr_efxMantBatabata[] = {
+    PROC_NAME("efxMantBatabata"),
+    PROC_REPEAT(EfxMantBatabata_Loop1),
+    PROC_REPEAT(EfxMantBatabata_Loop2),
+    PROC_END,
+};
 
 void NewEfxMantBatabata(struct Anim *anim)
 {
@@ -1061,7 +1302,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     SetAnimStateHidden(GetAnimPosition(proc->anim));
 }
 
-void sub_806DFA4(struct ProcEfxOBJ * proc)
+void EfxMantBatabata_Loop1(struct ProcEfxOBJ * proc)
 {
     proc->anim2->xPosition = proc->anim->xPosition;
 
@@ -1074,7 +1315,7 @@ void sub_806DFA4(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void sub_806DFD0(struct ProcEfxOBJ * proc)
+void EfxMantBatabata_Loop2(struct ProcEfxOBJ * proc)
 {
     proc->anim2->xPosition = proc->anim->xPosition;
 
@@ -1097,6 +1338,12 @@ void NewEfxChillEffect(struct Anim *anim)
     proc->anim = anim;
     proc->timer = 0;
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxChillEffect[] = {
+    PROC_NAME("efxChillEffect"),
+    PROC_REPEAT(EfxChillEffectMain),
+    PROC_END,
+};
 
 void EfxChillEffectMain(struct ProcEfx * proc)
 {
@@ -1124,6 +1371,26 @@ void EfxChillEffectMain(struct ProcEfx * proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxChillEffectBG[] = {
+    PROC_NAME("efxChillEffectBG"),
+    PROC_REPEAT(EfxChillEffectBGMain),
+    PROC_END,
+};
+
+const u16 FrameConf_EfxChillEffectBG[] = {
+    0, 11,
+    1, 11,
+    2, 11,
+
+    -1
+};
+
+u16 * TsaLut_EfxChillEffectBG[] = {
+    Tsa1_EfxChillEffectBG,
+    Tsa2_EfxChillEffectBG,
+    Tsa3_EfxChillEffectBG
+};
+
 void NewEfxChillEffectBG(struct Anim *anim)
 {
     struct ProcEfxBG * proc;
@@ -1134,9 +1401,9 @@ void NewEfxChillEffectBG(struct Anim *anim)
     proc->timer = 0;
     proc->terminator = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DF546;
-    proc->tsal = gUnknown_085D92D4;
-    proc->tsar = gUnknown_085D92D4;
+    proc->frame_config = FrameConf_EfxChillEffectBG;
+    proc->tsal = TsaLut_EfxChillEffectBG;
+    proc->tsar = TsaLut_EfxChillEffectBG;
     SpellFx_RegisterBgGfx(Img_ExcaliburBg2, 0x2000);
     BG_SetPosition(BG_1, 0x0, 0x0);
 }
@@ -1160,6 +1427,42 @@ void EfxChillEffectBGMain(struct ProcEfxBG * proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxChillEffectBGCOL[] = {
+    PROC_NAME("efxChillEffectBGCOL"),
+    PROC_MARK(10),
+    PROC_REPEAT(EfxChillEffectBGCOL_Loop),
+    PROC_END,
+};
+
+const u16 FrameConf_EfxChillEffectBGCOL[] = {
+    0, 1,
+    1, 2,
+    2, 2,
+    3, 2,
+    4, 2,
+    5, 2,
+    0, 1,
+    1, 2,
+    2, 2,
+    3, 2,
+    4, 2,
+    5, 2,
+    0, 1,
+    1, 2,
+    2, 2,
+    3, 2,
+    4, 2,
+    5, 2,
+
+    -1
+};
+
+struct ProcCmd CONST_DATA ProcScr_efxChillAnime[] = {
+    PROC_NAME("efxChillAnime"),
+    PROC_REPEAT(EfxChillAnime_Loop),
+    PROC_END,
+};
+
 void NewEfxChillEffectBGCOL(struct Anim * anim)
 {
     struct ProcEfxBGCOL * proc;
@@ -1167,11 +1470,11 @@ void NewEfxChillEffectBGCOL(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DF568;
-    proc->pal = gUnknown_087456E8;
+    proc->frame_config = FrameConf_EfxChillEffectBGCOL;
+    proc->pal = Pal_EfxChillEffectBG;
 }
 
-void sub_806E158(struct ProcEfxBGCOL * proc)
+void EfxChillEffectBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret;
     u16 i;
@@ -1239,7 +1542,7 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     SetAnimStateHidden(GetAnimPosition(proc->anim));
 }
 
-void sub_806E290(struct ProcEfxOBJ * proc)
+void EfxChillAnime_Loop(struct ProcEfxOBJ * proc)
 {
     struct Anim *_anim1, *_anim2;
     proc->anim2->xPosition = proc->anim->xPosition;
