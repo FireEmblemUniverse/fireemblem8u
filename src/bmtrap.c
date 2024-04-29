@@ -254,15 +254,15 @@ void LoadTrapData(const struct TrapData * data)
         while (data->type) {
             switch (data->type) {
                 case TRAP_BALLISTA:
-                    AddBallista(data->xPos, data->yPos, data->unk_03);
+                    AddBallista(data->xPos, data->yPos, data->subtype);
                     break;
 
                 case TRAP_FIRETILE:
-                    AddFireTile(data->xPos, data->yPos, data->unk_04, data->unk_05);
+                    AddFireTile(data->xPos, data->yPos, data->turn_counter, data->turn);
                     break;
 
                 case TRAP_GAS:
-                    AddGasTrap(data->xPos, data->yPos, data->unk_03, data->unk_04, data->unk_05);
+                    AddGasTrap(data->xPos, data->yPos, data->subtype, data->turn_counter, data->turn);
                     break;
 
                 case TRAP_8:
@@ -270,7 +270,7 @@ void LoadTrapData(const struct TrapData * data)
                     break;
 
                 case TRAP_9:
-                    AddTrap9(data->xPos, data->yPos, data->unk_03);
+                    AddTrap9(data->xPos, data->yPos, data->subtype);
                     break;
 
                 case TRAP_MINE:
@@ -278,14 +278,12 @@ void LoadTrapData(const struct TrapData * data)
                     break;
 
                 case TRAP_LIGHTARROW:
-                    AddArrowTrap(data->xPos, data->unk_04, data->unk_05);
-                    // break; // BUG?
+                    AddArrowTrap(data->xPos, data->turn_counter, data->turn);
 
                 case TRAP_GORGON_EGG:
-                    AddGorgonEggTrap(data->xPos, data->yPos, data->unk_03, data->unk_04, data->unk_05);
+                    AddGorgonEggTrap(data->xPos, data->yPos, data->subtype, data->turn_counter, data->turn);
                     break;
             }
-            
             data++;
         }
     }

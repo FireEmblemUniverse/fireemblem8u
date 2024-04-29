@@ -7,9 +7,9 @@ struct TrapData {
     /* 00 */ u8 type;
     /* 01 */ u8 xPos;
     /* 02 */ u8 yPos;
-    /* 03 */ u8 unk_03;
-    /* 04 */ u8 unk_04;
-    /* 05 */ u8 unk_05;
+    /* 03 */ u8 subtype;
+    /* 04 */ u8 turn_counter;
+    /* 05 */ u8 turn;
 } __attribute__((packed));
 
 struct UnknownBMTrapProc {

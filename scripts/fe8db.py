@@ -940,3 +940,20 @@ WM_PATH_IDX = {
 	0x1E: "WM_PATH_1E",
 	0x1F: "WM_PATH_1F",
 }
+
+TRAP_TYPE_IDX = {
+    0 : "TRAP_NONE",
+    1 : "TRAP_BALLISTA",
+    2 : "TRAP_OBSTACLE",
+    3 : "TRAP_MAPCHANGE",
+    4 : "TRAP_FIRETILE",
+    5 : "TRAP_GAS",
+    6 : "TRAP_MAPCHANGE2",
+    7 : "TRAP_LIGHTARROW",
+    8 : "TRAP_8",
+    9 : "TRAP_9",
+    10 : "TRAP_TORCHLIGHT",
+    11 : "TRAP_MINE",
+    12 : "TRAP_GORGON_EGG",
+    13 : "TRAP_LIGHT_RUNE",
+}
