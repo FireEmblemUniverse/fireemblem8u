@@ -1076,6 +1076,8 @@ SECTIONS
         . = ALIGN(4); src/data_battlequotes.o(.data);
         . = ALIGN(4); src/data_event_trigger.o(.data);
         . = ALIGN(4); data/data_uidebug.o(.data);
+        . = ALIGN(4); data/events_shoplist.o(.data);
+        . = ALIGN(4); data/events_trapdata.o(.data);
         . = ALIGN(4); src/eventcall.o(.data);
         . = ALIGN(4); src/events_script_utils.o(.data);
         . = ALIGN(4); data/data_eventscr_9EE0C0.o(.data);

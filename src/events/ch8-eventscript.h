@@ -126,7 +126,7 @@ CONST_DATA EventListScr EventScr_089F3124[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F318C[] = {
+CONST_DATA EventListScr EventScr_Ch8_EndingScene[] = {
     MUSC(0x31)
     SVAL(EVT_SLOT_2, 0x10)
     CALL(EventScr_SetBackground)

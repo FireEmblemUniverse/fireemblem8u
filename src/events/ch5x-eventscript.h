@@ -96,7 +96,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     TEXTEND
     REMA
     CAMERA(0, 18)
-    LOAD1(0x1, UnitDef_088B5A64)
+    LOAD1(0x1, UnitDef_Event_Ch5xAlly)
     ENUN
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -110,7 +110,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F25FC[] = {
+CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     ASMC(HandleCh5xUnits_End)
     MUSC(0x31)
     SVAL(EVT_SLOT_2, 0x10)

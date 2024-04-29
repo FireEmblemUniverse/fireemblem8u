@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "constants/terrains.h"
+#include "constants/event-flags.h"
 
 #include "bmunit.h"
 #include "bmmap.h"
@@ -27,7 +28,7 @@ struct ProcCmd CONST_DATA gProcScr_UpdateTraps[] =
     PROC_CALL(ResetCountedDownTraps),
     PROC_CALL(RefreshEntityBmMaps),
 
-    PROC_CALL(sub_802EA28),
+    PROC_CALL(PostTrapExecFlag),
 
     PROC_END,
 };
@@ -659,17 +660,17 @@ void sub_802EA1C(void)
     sub_8026414(3);
 }
 
-void sub_802EA28(void)
+void PostTrapExecFlag(void)
 {
     // TODO: EID/FLAG DEFINITIONS
 
-    if (CheckFlag(0x65) || CountAvailableBlueUnits() == 0)
+    if (CheckFlag(EVFLAG_GAMEOVER) || CountAvailableBlueUnits() == 0)
     {
         CallGameOverEvent();
     }
 
     if (!AreAnyEnemyUnitDead())
-        SetFlag(0x06);
+        SetFlag(EVFLAG_DEFEAT_ALL);
 }
 
 struct Trap* AddLightRune(int x, int y)

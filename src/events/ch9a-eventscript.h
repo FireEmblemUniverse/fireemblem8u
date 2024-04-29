@@ -134,7 +134,7 @@ LABEL(0x0)
 	FADI(16)
 	DISA(CHARACTER_FADO)
 	CLEA
-	LOAD1(0x0, UnitDef_088B7C0C)
+	LOAD1(0x0, UnitDef_Event_Ch9aAlly)
 	ENUN
 	SVAL(EVT_SLOT_1, 0x1)
 	SET_STATE(CHARACTER_TANA)
@@ -219,7 +219,7 @@ CONST_DATA EventListScr EventScr_089F3C34[] = {
 	ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F3DB8[] = {
+CONST_DATA EventListScr EventScr_Ch9a_EndingScene[] = {
 	MUSC(0x32)
 	SVAL(EVT_SLOT_2, 0x7)
 	CALL(EventScr_SetBackground)
@@ -376,7 +376,7 @@ CONST_DATA EventListScr EventScr_089F4018[] = {
 	DISA(0x85)
 	CHECK_ENEMIES
 	BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
-	CALL(EventScr_089F3DB8)
+	CALL(EventScr_Ch9a_EndingScene)
 	ENDB
 };
 

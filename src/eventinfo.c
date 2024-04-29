@@ -692,7 +692,7 @@ u16 GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank) {
 
 //! FE8U = 0x080837B0
 void sub_80837B0(void) {
-    SetFlag(0x65);
+    SetFlag(EVFLAG_GAMEOVER);
     StartBgm(0x3e, NULL);
     gPlaySt.config.disableBgm = 1;
     CallGameOverEvent();
@@ -1594,16 +1594,16 @@ s8 CheckForWaitEvents(void) {
     struct EventInfo info;
 
     if (AreAnyEnemyUnitDead() == 0) {
-        SetFlag(6);
+        SetFlag(EVFLAG_DEFEAT_ALL);
 
         if (GetBattleMapKind() == 2) {
             return 1;
         }
     } else {
-        ClearFlag(6);
+        ClearFlag(EVFLAG_DEFEAT_ALL);
     }
 
-    if (!CheckFlag(0x65) && (CountAvailableBlueUnits() != 0)) {
+    if (!CheckFlag(EVFLAG_GAMEOVER) && (CountAvailableBlueUnits() != 0)) {
         if (GetBattleMapKind() == 2) {
             return 0;
         }
@@ -1628,7 +1628,7 @@ void RunWaitEvents(void) {
     struct EventInfo info;
 
     if (AreAnyEnemyUnitDead() == 0) {
-        SetFlag(6);
+        SetFlag(EVFLAG_DEFEAT_ALL);
         if (GetBattleMapKind() == 2) {
             CallEndEvent();
             return;

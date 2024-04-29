@@ -12,7 +12,7 @@ CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
     LOAD1(0x1, UnitDef_088B6F54)
     ENUN
     FADU(16)
-    LOAD3(0x0, UnitDef_088B6E78)
+    LOAD3(0x0, UnitDef_Event_Ch7Ally)
     ENUN
     STAL(15)
     CAMERA2(9, 4)
@@ -97,7 +97,7 @@ CONST_DATA EventListScr EventScr_089F2CFC[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2D28[] = {
+CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x44)

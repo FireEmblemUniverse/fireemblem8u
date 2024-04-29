@@ -51,7 +51,15 @@ def parse_eventinfo(rom_data, off):
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
             flag = arg2
-            print(f"    AFEV({ent_flag}, {scr}, {flag})")
+
+            if scr == "EventScr_GameOver" and flag == 101:
+                print("    CauseGameOverIfLordDies")
+            elif ent_flag == 3 and flag == 2:
+                print(f"    DefeatBoss({scr})")
+            elif ent_flag == 3 and flag == 6:
+                print(f"    DefeatAll({scr})")
+            else:
+                print(f"    AFEV({ent_flag}, {scr}, {flag})")
 
         case "EVT_LIST_CMD_TURN":
             scr_len = 3
@@ -80,7 +88,10 @@ def parse_eventinfo(rom_data, off):
             scr = try_get_ptr_symbol(arg1)
             x, y, tile_command, _0 = unpack_EvtParams4(arg2)
 
-            print(f"    LOCA({ent_flag}, {scr}, {x}, {y}, {tile_command})")
+            if ent_flag == 3 and arg1 == 1 and tile_command == 17:
+                print(f"    Seize({x}, {y})")
+            else:
+                print(f"    LOCA({ent_flag}, {scr}, {x}, {y}, {tile_command})")
 
         case "EVT_LIST_CMD_VILL":
             scr_len = 3
@@ -125,6 +136,13 @@ def parse_eventinfo(rom_data, off):
                 print(f"    SecretShop({scr}, {x}, {y})")
             else:
                 print(f"// ERROR at 0x{off:06X}")
+
+        case "EVT_LIST_CMD_AREA":
+            scr_len = 3
+            scr = try_get_ptr_symbol(arg1)
+            x1, y1, x2, y2 = unpack_EvtParams4(arg2)
+
+            print(f"    AREA({ent_flag}, {scr}, {x1}, {y1}, {x2}, {y2})")
 
         case _:
             print(f"// ERROR at 0x{off:06X}")
