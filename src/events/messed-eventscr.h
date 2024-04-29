@@ -86,7 +86,7 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F4A7C[] = {
+CONST_DATA EventListScr EventScr_Ch11a_EndingScene[] = {
     MUSC(0x31)
     SVAL(EVT_SLOT_2, 0x27)
     CALL(EventScr_SetBackground)

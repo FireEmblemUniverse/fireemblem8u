@@ -3,7 +3,7 @@
 
 import sys, ctypes
 import symbols
-from fe8db import PID_IDX, EVENTINFO_COMMANDS, EVENT_SLOTS, DIRECTION_IDX
+from fe8db import PID_IDX, EVENTINFO_COMMANDS, EVENT_SLOTS, DIRECTION_IDX, TILE_COMMANDS, EVENT_FLAGS
 from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX, FACTION_NAMES
 from dump_events import unpack_EvtParams2, unpack_EvtParams4
 
@@ -42,6 +42,8 @@ def parse_eventinfo(rom_data, off):
     cmd, ent_flag = unpack_EvtParams2(arg0)
     scr_len = 1
 
+    ent_flag = EVENT_FLAGS(ent_flag)
+
     match EVENTINFO_COMMANDS[cmd]:
         case "EVT_LIST_CMD_END":
             scr_len = 1
@@ -54,9 +56,9 @@ def parse_eventinfo(rom_data, off):
 
             if scr == "EventScr_GameOver" and flag == 101:
                 print("    CauseGameOverIfLordDies")
-            elif ent_flag == 3 and flag == 2:
+            elif ent_flag == "EVFLAG_WIN" and flag == 2:
                 print(f"    DefeatBoss({scr})")
-            elif ent_flag == 3 and flag == 6:
+            elif ent_flag == "EVFLAG_WIN" and flag == 6:
                 print(f"    DefeatAll({scr})")
             else:
                 print(f"    AFEV({ent_flag}, {scr}, {flag})")
@@ -65,9 +67,31 @@ def parse_eventinfo(rom_data, off):
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
             turn, turn_max, faction, _0 = unpack_EvtParams4(arg2)
-            faction = FACTION_NAMES[faction]
 
-            print(f"    TURN({ent_flag}, {scr}, {turn}, {turn_max}, {faction})")
+            faction = FACTION_NAMES[faction]
+            duration = turn_max - turn + 1
+
+            if faction == "FACTION_BLUE" and ent_flag == 0 and turn_max == 0:
+                if turn == 1:
+                    print(f"    OpeningTurnEvent({scr})")
+                else:
+                    print(f"    Survive({scr}, {turn})")
+            elif turn_max == 0:
+                if faction == "FACTION_BLUE":
+                    print(f"    TurnEventPlayer({ent_flag}, {scr}, {turn})")
+                elif faction == "FACTION_RED":
+                    print(f"    TurnEventEnemy({ent_flag}, {scr}, {turn})")
+                elif faction == "FACTION_GREEN":
+                    print(f"    TurnEventNPC({ent_flag}, {scr}, {turn})")
+            else:
+                if faction == "FACTION_BLUE":
+                    print(f"    TurnEventPlayer_({ent_flag}, {scr}, {turn}, {duration})")
+                elif faction == "FACTION_RED":
+                    print(f"    TurnEventEnemy_({ent_flag}, {scr}, {turn}, {duration})")
+                elif faction == "FACTION_GREEN":
+                    print(f"    TurnEventNPC_({ent_flag}, {scr}, {turn}, {duration})")
+
+            # print(f"    TURN({ent_flag}, {scr}, {turn}, {turn_max}, {faction})")
 
         case "EVT_LIST_CMD_CHAR":
             scr_len = 4
@@ -86,26 +110,34 @@ def parse_eventinfo(rom_data, off):
         case "EVT_LIST_CMD_LOCA":
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
-            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+            x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
+            tile_command = TILE_COMMANDS(tile_command_idx)
 
-            if ent_flag == 3 and arg1 == 1 and tile_command == 17:
+            if ent_flag == "EVFLAG_WIN" and arg1 == 1 and tile_command_idx == 17:
                 print(f"    Seize({x}, {y})")
+            elif tile_command == "TILE_COMMAND_VISIT":
+                print(f"    House({ent_flag}, {scr}, {x}, {y})")
             else:
-                print(f"    LOCA({ent_flag}, {scr}, {x}, {y}, {tile_command})")
+                print(f"    LOCA({ent_flag}, {scr}, {x}, {y}, {TILE_COMMANDS(tile_command_idx)})")
 
         case "EVT_LIST_CMD_VILL":
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
-            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+            x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
+            tile_command = TILE_COMMANDS(tile_command_idx)
 
-            print(f"    VILL({ent_flag}, {scr}, {x}, {y}, {tile_command})")
+            if tile_command == "TILE_COMMAND_VISIT":
+                scr_len = 6
+                print(f"    Village({ent_flag}, {scr}, {x}, {y})")
+            else:
+                print(f"    VILL({ent_flag}, {scr}, {x}, {y}, {TILE_COMMANDS(tile_command_idx)})")
 
         case "EVT_LIST_CMD_CHES":
             scr_len = 3
             item = arg1
-            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+            x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
 
-            if tile_command != 20:
+            if tile_command_idx != 20:
                 print(f"// EVT_LIST_CMD_CHES ERROR at 0x{off:06X}")
 
             print(f"    Chest(0x{item:02X}, {x}, {y})")
@@ -113,12 +145,12 @@ def parse_eventinfo(rom_data, off):
         case "EVT_LIST_CMD_DOOR":
             scr_len = 3
             scr = arg1
-            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+            x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
 
             if scr != 1:
                 print(f"// TILE_COMMAND_DOOR ERROR1 at 0x{off:06X}")
 
-            if tile_command != 18:
+            if tile_command_idx != 18:
                 print(f"// TILE_COMMAND_DOOR ERROR2 at 0x{off:06X}")
 
             print(f"    Door({x}, {y})")
@@ -126,13 +158,13 @@ def parse_eventinfo(rom_data, off):
         case "EVT_LIST_CMD_SHOP":
             scr_len = 3
             scr = try_get_ptr_symbol(arg1)
-            x, y, tile_command, _0 = unpack_EvtParams4(arg2)
+            x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
 
-            if tile_command == 0x16:
+            if tile_command_idx == 0x16:
                 print(f"    Armory({scr}, {x}, {y})")
-            elif tile_command == 0x17:
+            elif tile_command_idx == 0x17:
                 print(f"    Vendor({scr}, {x}, {y})")
-            elif tile_command == 0x18:
+            elif tile_command_idx == 0x18:
                 print(f"    SecretShop({scr}, {x}, {y})")
             else:
                 print(f"// ERROR at 0x{off:06X}")

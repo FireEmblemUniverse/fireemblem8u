@@ -129,7 +129,7 @@ CONST_DATA EventListScr EventScr_089F43A0[] = {
 	ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F43F8[] = {
+CONST_DATA EventListScr EventScr_Ch10a_EndingScene[] = {
 	FADI(16)
 	SVAL(EVT_SLOT_2, 0xb)
 	CALL(EventScr_LoadUniqueAlly)

@@ -118,7 +118,7 @@ CONST_DATA u8 TrapData_Event_089ED9CA[] = {
 };
 
 // 0x89ED9CB
-CONST_DATA u8 TrapData_Event_089ED9CB[] = {
+CONST_DATA u8 TrapData_Event_ch10a[] = {
     /* type */ TRAP_BALLISTA,
     /* xPos */ 14,
     /* yPos */ 3,
@@ -149,7 +149,7 @@ CONST_DATA u8 TrapData_Event_089ED9DE[] = {
 };
 
 // 0x89ED9DF
-CONST_DATA u8 TrapData_Event_089ED9DF[] = {
+CONST_DATA u8 TrapData_Event_Ch11a[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1967,7 +1967,7 @@ CONST_DATA u8 TrapData_Event_089EDEAF[] = {
 };
 
 // 0x89EDEB0
-CONST_DATA u8 TrapData_Event_089EDEB0[] = {
+CONST_DATA u8 TrapData_Event_ch10aHard[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1977,7 +1977,7 @@ CONST_DATA u8 TrapData_Event_089EDEB1[] = {
 };
 
 // 0x89EDEB2
-CONST_DATA u8 TrapData_Event_089EDEB2[] = {
+CONST_DATA u8 TrapData_Event_Ch11aHard[] = {
     /* type */ TRAP_NONE
 };
 

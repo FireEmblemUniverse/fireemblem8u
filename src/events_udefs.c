@@ -10649,7 +10649,7 @@ CONST_DATA struct REDA REDA_088B8538[] = {
 };
 
 // 0x88B8540
-CONST_DATA struct UnitDefinition UnitDef_088B8540[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch10aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -13720,7 +13720,7 @@ CONST_DATA struct REDA REDA_088B988C[] = {
 };
 
 // 0x88B9894
-CONST_DATA struct UnitDefinition UnitDef_088B9894[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch11aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
