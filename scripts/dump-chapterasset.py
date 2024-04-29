@@ -45,7 +45,7 @@ def dump_one_part(rom_data, off):
         name = _symbols[ptr]
 
     print(f"// 0x{off + 0x08000000:07X}")
-    print(f"CONST_DATA struct ChapterEventGroup {name}[] = " + "{")
+    print(f"CONST_DATA struct ChapterEventGroup {name} = " + "{")
 
     turnBasedEvents = _events_sym(int.from_bytes(rom_data[off + 0:off + 4], 'little'))
     print(f"    .turnBasedEvents               = {turnBasedEvents},")

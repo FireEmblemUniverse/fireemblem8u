@@ -384,7 +384,7 @@ CONST_DATA EventListScr EventScr_Ch12a_BeginingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    LOAD1(0x0, UnitDef_088BA170)
+    LOAD1(0x0, UnitDef_Event_Ch12aAlly)
     ENUN
     CALL(EventScr_08591FD8)
     MUSCMID(0x7fff)
@@ -466,7 +466,7 @@ CONST_DATA EventListScr EventScr_Ch12a_BeginingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F51B0[] = {
+CONST_DATA EventListScr EventScr_Ch12a_EndingScene[] = {
     MUSC(0x31)
     FADI(16)
     CLEA
@@ -766,7 +766,7 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F5798[] = {
+CONST_DATA EventListScr EventScr_Ch13a_EndingScene[] = {
     CHECK_EVENTID(2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CAMERA_CAHR(CHARACTER_AIAS)
@@ -1117,7 +1117,7 @@ CONST_DATA EventListScr EventScr_089F5CC4[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F5DB8[] = {
+CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, 0x1c)
     CALL(EventScr_9EE5BC)

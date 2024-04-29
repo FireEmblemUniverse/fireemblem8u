@@ -1,10 +1,10 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch11a_Turn[] = {
-    Survive(EventScr_089F4EA4, 9)
+    TurnEventPlayer(0, EventScr_089F4EA4, 9)
     TurnEventPlayer_(0, EventScr_089F4F40, 4, 2)
-    Survive(EventScr_089F4F58, 8)
-    Survive(EventScr_089F4F70, 12)
+    TurnEventPlayer(0, EventScr_089F4F58, 8)
+    TurnEventPlayer(0, EventScr_089F4F70, 12)
     END_MAIN
 };
 
@@ -15,9 +15,9 @@ CONST_DATA EventListScr EventListScr_Ch11a_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch11a_Location[] = {
-    Chest(0x50, 3, 8)
-    Chest(0x96, 12, 11)
-    Chest(0x5D, 17, 5)
+    Chest(ITEM_STAFF_RESTORE, 3, 8)
+    Chest(ITEM_LANCE_SHORTSPEAR, 12, 11)
+    Chest(ITEM_BOOSTER_SKL, 17, 5)
     Door(4, 11)
     Door(17, 13)
     Door(18, 13)

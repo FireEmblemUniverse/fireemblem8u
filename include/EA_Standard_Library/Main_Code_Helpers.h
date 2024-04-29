@@ -1,5 +1,7 @@
 #pragma once
 
+#include "constants/items.h"
+
 #define TurnEventPlayer(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_BLUE)
 #define TurnEventPlayer_(eid, scr, turn, dura) TURN(eid, scr, turn, turn + dura - 1, FACTION_BLUE)
 #define TurnEventEnemy(eid, scr, turn) TURN(eid, scr, turn, 0, FACTION_RED)
@@ -31,6 +33,7 @@
 #define SecretShop(list, x, y) EvtListShop(list, x, y, TILE_COMMAND_SECRET)
 
 #define Chest(item, x, y) CHES(item, x, y)
+#define ChestMoney(amt, x, y) CHES(ITEM_GOLD | (amt << 16), x, y)
 #define Door(x, y) DOOR(x, y)
 
 #define HouseEvent(msg, bg) \

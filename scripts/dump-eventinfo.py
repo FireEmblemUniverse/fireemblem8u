@@ -4,7 +4,7 @@
 import sys, ctypes
 import symbols
 from fe8db import PID_IDX, EVENTINFO_COMMANDS, EVENT_SLOTS, DIRECTION_IDX, TILE_COMMANDS, EVENT_FLAGS
-from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX, FACTION_NAMES
+from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_IDX, FACTION_NAMES, ITEM_IDX
 from dump_events import unpack_EvtParams2, unpack_EvtParams4
 
 # ========================================================================
@@ -71,11 +71,8 @@ def parse_eventinfo(rom_data, off):
             faction = FACTION_NAMES[faction]
             duration = turn_max - turn + 1
 
-            if faction == "FACTION_BLUE" and ent_flag == 0 and turn_max == 0:
-                if turn == 1:
-                    print(f"    OpeningTurnEvent({scr})")
-                else:
-                    print(f"    Survive({scr}, {turn})")
+            if faction == "FACTION_BLUE" and ent_flag == 0 and turn_max == 0 and turn == 1:
+                print(f"    OpeningTurnEvent({scr})")
             elif turn_max == 0:
                 if faction == "FACTION_BLUE":
                     print(f"    TurnEventPlayer({ent_flag}, {scr}, {turn})")
@@ -134,13 +131,17 @@ def parse_eventinfo(rom_data, off):
 
         case "EVT_LIST_CMD_CHES":
             scr_len = 3
-            item = arg1
+            item = ITEM_IDX(arg1 & 0xFFFF)
             x, y, tile_command_idx, _0 = unpack_EvtParams4(arg2)
 
             if tile_command_idx != 20:
                 print(f"// EVT_LIST_CMD_CHES ERROR at 0x{off:06X}")
 
-            print(f"    Chest(0x{item:02X}, {x}, {y})")
+            if item == "ITEM_GOLD":
+                amt = (arg1 >> 16)
+                print(f"    ChestMoney({amt}, {x}, {y})")
+            else:
+                print(f"    Chest({item}, {x}, {y})")
 
         case "EVT_LIST_CMD_DOOR":
             scr_len = 3
