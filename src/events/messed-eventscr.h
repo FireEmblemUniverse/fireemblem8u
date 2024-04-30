@@ -4687,12 +4687,20 @@ LABEL(0x13)
 };
 
 CONST_DATA EventListScr EventScr_Ch21xa_EndingScene[] = {
-    CALL(EventScr_089F9F20)
+    CALL(EventScr_Ch21xa_EndingSceneExt)
+
+    /**
+     * MoveToGameEnding
+     *      --> GC proc label: LGAMECTRL_EXEC_ENDING_SCENE
+     *          --> CallGameEndingEvent
+     *              --> EventScr_EirikaModeGameEnd
+     *              --> EventScr_EphraimModeGameEnd
+     */
     MNC4
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F9F20[] = {
+CONST_DATA EventListScr EventScr_Ch21xa_EndingSceneExt[] = {
     MUSC(0x41)
     SVAL(EVT_SLOT_2, 0x34)
     CALL(EventScr_SetBackground)
@@ -8130,7 +8138,7 @@ CONST_DATA EventListScr EventScr_Ch21x_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FDB58[] = {
-    CALL(EventScr_089F9F20)
+    CALL(EventScr_Ch21xa_EndingSceneExt)
     MNC4
     ENDA
 };

@@ -563,7 +563,7 @@ extern CONST_DATA EventListScr EventScr_089F947C[];
 extern CONST_DATA EventListScr EventScr_Ch21xa_BeginingScene[];
 extern CONST_DATA EventListScr EventScr_089F94AC[];
 extern CONST_DATA EventListScr EventScr_Ch21xa_EndingScene[];
-extern CONST_DATA EventListScr EventScr_089F9F20[];
+extern CONST_DATA EventListScr EventScr_Ch21xa_EndingSceneExt[];
 extern CONST_DATA EventListScr EventScr_089FA138[];
 extern CONST_DATA EventListScr EventScr_089FA4E0[];
 extern CONST_DATA EventListScr EventScr_089FA634[];
