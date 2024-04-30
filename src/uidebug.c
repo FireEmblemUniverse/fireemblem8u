@@ -23,9 +23,14 @@ struct Struct089ED67C {
     /* 10 */ u8 _pad10[0x18 - 0x10];
 };
 
-extern const struct Struct089ED67C gUnknown_089ED67C[];
-extern const struct Struct089ED67C gUnknown_089ED694[];
-extern const struct Struct089ED67C gUnknown_089ED6AC[];
+CONST_DATA struct Struct089ED67C gUnknown_089ED67C[] = { 0 };
+CONST_DATA struct Struct089ED67C gUnknown_089ED694[] = { 0 };
+CONST_DATA struct Struct089ED67C gUnknown_089ED6AC[] = {
+    {0},
+    {0},
+    {0},
+    {0},
+};
 
 u8 sub_8084880()
 {

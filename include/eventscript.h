@@ -871,8 +871,8 @@ enum event_trigger_types {
     (EventListScr) (item), \
     _EvtParams4((x), (y), TILE_COMMAND_CHEST, 0),
 
-#define EvtListDOOR(x, y) \
-    _EvtParams2(EVT_LIST_CMD_DOOR, 0), \
+#define EvtListDOOR(x, y, ent_flag) \
+    _EvtParams2(EVT_LIST_CMD_DOOR, (ent_flag)), \
     (EventListScr) (1), \
     _EvtParams4((x), (y), TILE_COMMAND_DOOR, 0),
 

@@ -16,8 +16,8 @@ CONST_DATA EventListScr EventListScr_Ch8_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch8_Location[] = {
-    Door(20, 7)
-    Door(1, 5)
+    Door_(20, 7)
+    Door_(1, 5)
     Chest(ITEM_SWORD_SILVER, 1, 3)
     Chest(ITEM_ELYSIANWHIP, 2, 3)
     Seize(10, 2)

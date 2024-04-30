@@ -7,6 +7,10 @@
 #include "EAstdlib.h"
 #include "uimenu.h"
 #include "fontgrp.h"
+#include "hardware.h"
+#include "uiutils.h"
+#include "bmitem.h"
+#include "bmbattle.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
@@ -397,6 +401,108 @@ LABEL(0x9)
     REMU(CHARACTER_EIRIKA)
     ENDB
 };
+
+void CallRouteSplitMenu(ProcPtr proc)
+{
+    ClearBg0Bg1();
+    SetDispEnable(1, 1, 1, 1, 1);
+    SetTextFont(0);
+    InitSystemTextFont();
+    LoadUiFrameGraphics();
+    StartMenu(&MenuDef_RouteSplit, proc);
+}
+
+int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    const char *str = GetStringFromIndex(menu_item->def->nameMsgId);
+
+    Text_SetParams(&menu_item->text, 0, TEXT_COLOR_SYSTEM_WHITE);
+    Text_DrawString(&menu_item->text, str);
+    PutText(
+        &menu_item->text,
+        TILEMAP_LOCATED(gBG0TilemapBuffer, menu_item->xTile + 1, menu_item->yTile)
+    );
+    ResetText();
+    return 0;
+}
+
+u8 Command_EirikaMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EIRIKA;
+    SetEventSlotC(0xC17);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EPHRAIM;
+    SetEventSlotC(0xC18);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+void AutolevelSecondaryLord()
+{
+    u8 i;
+    struct BattleUnit bunit;
+    struct Unit *unit;
+
+    switch (gPlaySt.chapterModeIndex) {
+    case CHAPTER_MODE_EIRIKA:
+        unit = GetUnitFromCharId(CHARACTER_EPHRAIM);
+        break;
+
+    case CHAPTER_MODE_EPHRAIM:
+        unit = GetUnitFromCharId(CHARACTER_EIRIKA);
+        break;
+    }
+
+    /** 
+     * This may cause bug if unit is not initialized!
+     *
+     * if (!UNIT_IS_VALID(unit))
+     *     return;
+     */
+
+    if (unit->level < 15) {
+        u8 old_level = unit->level;
+        u8 tar_level = unit->level + 6;
+
+        if (tar_level < 10)
+            tar_level = 10;
+        if (tar_level > 15)
+            tar_level = 15;
+
+        while (old_level < tar_level) {
+            InitBattleUnit(&bunit, unit);
+            bunit.unit.exp += 100;
+            CheckBattleUnitLevelUp(&bunit);
+            UpdateUnitFromBattle(unit, &bunit);
+            old_level++;
+        }
+        unit->exp = 0;
+    }
+
+    for (i = 0; i < 8; i++) {
+        u8 rank = unit->ranks[i] - 1;
+        if (rank <= 0x45)
+            unit->ranks[i] = 0x47;
+    }
+
+    for (i = 0; i < 5; i++) {
+        if (0 == unit->items[i]) {
+            switch (gPlaySt.chapterModeIndex) {
+            case CHAPTER_MODE_EIRIKA:
+                UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
+                break;
+            
+            case CHAPTER_MODE_EPHRAIM:
+                UnitAddItem(unit, MakeNewItem(ITEM_SWORD_STEEL));
+                break;
+            }
+            break;
+        }
+    }
+}
 
 CONST_DATA struct MenuItemDef MenuItemDef_RouteSplit[] = {
     {

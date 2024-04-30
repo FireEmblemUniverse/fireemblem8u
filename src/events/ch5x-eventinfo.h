@@ -9,8 +9,8 @@ CONST_DATA EventListScr EventListScr_Ch5x_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch5x_Location[] = {
-    Door(23, 12)
-    Door(4, 10)
+    Door_(23, 12)
+    Door_(4, 10)
     Chest(ITEM_ELIXIR, 4, 8)
     Chest(ITEM_LANCE_KILLER, 5, 8)
     Seize(13, 7)

@@ -138,7 +138,7 @@ def dump_chaperasset_ext(rom_data, off, prefix):
     print(f"    .endingSceneEvents    = {endingSceneEvents},")
     off = off + 4
 
-    print("};\n")
+    print("};")
     return off
 
 def dump_one_eventinfo_prefix(rom_data, off, prefix):
@@ -207,7 +207,7 @@ def main(args):
         # 2nd: dump chapter asset
         dump_chaperasset_ext(rom_data, off, prefix)
 
-    print(f"// end at 0x{0x08000000 + off:08X}")
+    # print(f"// end at 0x{0x08000000 + off:08X}")
 
 if __name__ == '__main__':
     main(sys.argv)

@@ -279,6 +279,9 @@ void LoadTrapData(const struct TrapData * data)
 
                 case TRAP_LIGHTARROW:
                     AddArrowTrap(data->xPos, data->turn_counter, data->turn);
+#if BUGFIX
+                    break;
+#endif
 
                 case TRAP_GORGON_EGG:
                     AddGorgonEggTrap(data->xPos, data->yPos, data->subtype, data->turn_counter, data->turn);

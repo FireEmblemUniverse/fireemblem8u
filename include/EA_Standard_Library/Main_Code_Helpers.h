@@ -34,7 +34,8 @@
 
 #define Chest(item, x, y) CHES(item, x, y)
 #define ChestMoney(amt, x, y) CHES(ITEM_GOLD | (amt << 16), x, y)
-#define Door(x, y) DOOR(x, y)
+#define Door(x, y, flag) DOOR(x, y, flag)
+#define Door_(x, y) Door(x, y, 0)
 
 #define HouseEvent(msg, bg) \
     MUSI \

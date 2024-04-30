@@ -7,9 +7,17 @@
 #include "bmdifficulty.h"
 #include "chapterdata.h"
 #include "playerphase.h"
+#include "ctc.h"
+#include "hardware.h"
+#include "bmlib.h"
+#include "gba_sprites.h"
+#include "bmsave.h"
+#include "ekrbattle.h"
+#include "soundwrapper.h"
 #include "constants/event-flags.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
+#include "constants/video-global.h"
 
 CONST_DATA EventListScr EventScr_CallOnTutorialMode[] = {
     CHECK_TUTORIAL
@@ -748,4 +756,380 @@ CONST_DATA EventListScr EventScr_WholeTowerClear[] = {
     ASMC(UnlockPostgameAllyByClearCount)
     MNCH(-1)
     ENDA
+};
+
+CONST_DATA u16 Obj_089EE99C[] = {
+    3,
+    0x4100, 0xC000, 0x2200,
+    0x4100, 0xC040, 0x2208,
+    0x4100, 0xC080, 0x2210
+};
+
+CONST_DATA u16 * ImgLut_EventMapAnimMaskfx[] = {
+    Img_0899D6DC,
+    Img_99E1A4,
+    Img_99ED44,
+    Img_99F7D4,
+    Img_9A0154,
+    Img_9A0864,
+};
+
+u16 CONST_DATA * TsaLut_EventMapAnimMaskfx[] = {
+    TileSet_9A0E84,
+    TileSet_9A1050,
+    TileSet_9A1228,
+    TileSet_9A13EC,
+    TileSet_9A15B4,
+    TileSet_9A174C,
+};
+
+void sub_8085C10()
+{
+    UpdateBestGlobalSupportValue(0x100, 0x100, 1);
+}
+
+void sub_8085C24()
+{
+    UpdateBestGlobalSupportValue(0x100, 0x100, 2);
+}
+
+void sub_8085C38()
+{
+    UpdateBestGlobalSupportValue(0x100, 0x100, 3);
+}
+
+void sub_8085C4C()
+{
+    InitDungeon(0);
+}
+
+void sub_8085C58()
+{
+    InitDungeon(1);
+}
+
+/* Display the "Map Clear!"" Effect (From the Tower of Valni and Lagdou Ruins) */
+void DisplayMapClearMapAnim(ProcPtr proc)
+{
+    DisplayEventMapAnim(proc, 1);
+}
+
+void DisplayCongratulationsMapAnim(ProcPtr proc)
+{
+    DisplayEventMapAnim(proc, 0);
+}
+
+void DisplayEventMapAnim(ProcPtr parent, int val)
+{
+    struct ProcEventMapAnim * proc = Proc_StartBlocking(ProcScr_EventMapAnim, parent);
+
+#ifndef NONMATCHING
+    asm("add r2, r0, #0");
+#endif
+    proc->mode = val;
+
+    SetDispEnable(0, 0, 1, 1, 1);
+    FlushLCDControl();
+    
+    BG_SetPosition(0, 0, 0xFFD4);
+    BG_SetPosition(1, 0, 0);
+
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+
+    SetWinEnable(0, 0, 0);
+    gLCDControlBuffer.wincnt.wout_enableBlend = 1;
+    SetBlendConfig(1, 4, 0xC, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
+
+    Decompress(Img_PhaseChangeSquares, BG_CHR_ADDR(BGCHR_PHASE_CHANGE_SQUARES));
+    ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
+
+    DrawEventMapAnimMaskfx(0, 0);
+    ApplyPalette(Pal_EventMapAnimMaskfx, 0);
+
+    if (0 == val) {
+        Decompress(Img_Congratulations, BG_CHR_ADDR(0xA00));
+        ApplyPalette(Pal_Congratulations, 0x12);
+    } else {
+        Decompress(Img_MapClear, BG_CHR_ADDR(0xA00));
+        ApplyPalette(Pal_MapClear, 0x12);
+    }
+
+    BG_EnableSyncByMask(3);
+    gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
+    EnablePaletteSync();
+}
+
+void DrawEventMapAnimMaskfx(int index, int mode)
+{
+    if (0 == mode)
+        Decompress(ImgLut_EventMapAnimMaskfx[index], BG_CHR_ADDR(0x140));
+    else
+        Decompress(ImgLut_EventMapAnimMaskfx[index], BG_CHR_ADDR(0x200));
+}
+
+void sub_8085E08(int index, int mode)
+{
+    int i;
+    u16 *buf = gBG0TilemapBuffer;
+    int val = 0x200;
+    if (0 == mode)
+        val = 0x140;
+
+    Decompress(TsaLut_EventMapAnimMaskfx[index], buf);
+
+    for (i = 0; i < 0x160; i++, buf++)
+        *buf += val;
+}
+
+void sub_8085E48(struct ProcEventMapAnim * proc)
+{
+    if (0 == proc->mode)
+        StartBgm(0x3D, 0);
+    else
+        StartBgm(0x3C, 0);
+
+    SetDispEnable(1, 1, 1, 1, 1);
+    proc->timer = 0;
+}
+
+void sub_8085E94(struct ProcEventMapAnim * proc)
+{
+    int iy, ix;
+    struct Proc89EEA28 *child;
+
+    for (iy = 2; iy >= 0; --iy) {
+        for (ix = 14; ix >= 0; --ix) {
+            int val = (ix - proc->timer) + (0xE - iy);
+            int newX, newY;
+
+            if (val > 0x10)
+                val = 0x10;
+            if (val < 0)
+                val = 0;
+
+            val = (0x10 - val) & 0xFE;
+
+            newX = ix * 2;
+            newY = iy * 2 + 0x07;
+
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x00, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x01, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x20, BGPAL_PHASE_CHANGE);
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x21, BGPAL_PHASE_CHANGE);
+        }
+    }
+
+    proc->timer++;
+    BG_EnableSyncByMask(2);
+
+    if (0x1C == proc->timer) {
+        proc->timer = 0;
+        child = Proc_Start(gUnknown_089EEA28, proc);
+        child->mode = proc->mode;
+        Proc_Break(proc);
+    }
+}
+
+void nullsub_30()
+{
+    return;
+}
+
+void sub_8085F88(struct ProcEventMapAnim * proc)
+{
+    int iy, ix;
+
+    for (iy = 2; iy >= 0; --iy) {
+        for (ix = 14; ix >= 0; --ix) {
+            int val = (ix - proc->timer) + (0xE - iy);
+            int newX, newY;
+
+            if (val > 0x10)
+                val = 0x10;
+            if (val < 0)
+                val = 0;
+
+            val = val & 0xFE;
+
+            newX = ix * 2;
+            newY = iy * 2 + 0x07;
+
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x01, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 0)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x00, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 0, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x21, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBG1TilemapBuffer[TILEMAP_INDEX(newX + 1, newY + 1)] =
+                TILEREF(BGCHR_PHASE_CHANGE_SQUARES + val + 0x20, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+        }
+    }
+    
+    proc->timer++;
+    BG_EnableSyncByMask(2);
+
+    if (0x1C == proc->timer) {
+        Proc_EndEach(gUnknown_089EEA28);
+        proc->timer = 0;
+        proc->count = 0;
+        SetBlendConfig(1, 0x10, 0x10, 0);
+        SetBlendTargetA(1, 0, 0, 0, 0);
+        SetBlendTargetB(0, 1, 1, 1, 1);
+        Proc_Break(proc);
+    }
+}
+
+void sub_808609C(struct ProcEventMapAnim * proc)
+{
+    switch (proc->timer) {
+        case 0:
+            sub_8085E08(proc->count, 1 & proc->count);
+            BG_EnableSyncByMask(1);
+            proc->count += 1;
+            break;
+
+        case 1:
+            if (6 == proc->count) {
+                Proc_Break(proc);
+                return;
+            }
+            DrawEventMapAnimMaskfx(proc->count, 1 & proc->count);
+            proc->timer = -1;
+            break;
+
+        default:
+            break;
+    }
+
+    proc->timer++;
+}
+
+void sub_8086100(struct ProcEventMapAnim * proc)
+{
+    BG_SetPosition(0, 0, 0);
+    BG_Fill(gBG0TilemapBuffer, 0);
+    BG_Fill(gBG1TilemapBuffer, 0);
+    BG_EnableSyncByMask(3);
+    SetDefaultColorEffects();
+}
+
+void sub_8086134(struct Proc89EEA28 * proc)
+{
+    proc->timer = 0;
+}
+
+void sub_808613C(struct Proc89EEA28 * proc)
+{
+    int val1 = Interpolate(0, -24, 0, proc->timer, 0x10);
+    int val2 = Interpolate(0, 2, 0x100, proc->timer, 0x10);
+
+    SetObjAffine(
+        0,
+        Div(+COS(0) * 0x10, 0x100),
+        Div(-SIN(0) * 0x10, val2),
+        Div(+SIN(0) * 0x10, 0x100),
+        Div(+COS(0) * 0x10, val2)
+    );
+    
+    PutSprite(
+        0, 0x1FF & (val1 + 0x18), 0x40,
+        Obj_089EE99C, 0
+    );
+
+    if (0x10 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_808622C(struct Proc89EEA28 * proc)
+{
+    int val = Interpolate(0, 0, 0x10, proc->timer, 8);
+
+    if (0 == proc->mode)
+        ApplyPalette(Pal_Congratulations, 0x12);
+    else
+        ApplyPalette(Pal_MapClear, 0x12);
+
+    EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
+    EnablePaletteSync();
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
+
+    if (8 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_80862C4(struct Proc89EEA28 * proc)
+{
+    int val = Interpolate(0, 0x10, 0, proc->timer, 8);
+
+    if (0 == proc->mode)
+        ApplyPalette(Pal_Congratulations, 0x12);
+    else
+        ApplyPalette(Pal_MapClear, 0x12);
+
+    EfxPalWhiteInOut(gPaletteBuffer, 0x12, 1, val);
+    EnablePaletteSync();
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
+
+    if (8 == proc->timer) {
+        proc->timer = 0;
+        Proc_Break(proc);
+        return;
+    }
+
+    proc->timer++;
+}
+
+void sub_808635C(struct Proc89EEA28 * proc)
+{
+    SetObjAffine(
+        0,
+        Div(+COS(0) * 0x10, 0x100),
+        Div(-SIN(0) * 0x10, 0x100),
+        Div(+SIN(0) * 0x10, 0x100),
+        Div(+COS(0) * 0x10, 0x100)
+    );
+    PutSprite(0, 0x18, 0x40, Obj_089EE99C, 0);
+
+    if (0x20 == proc->timer)
+        Proc_BreakEach(ProcScr_EventMapAnim);
+
+    proc->timer++;
+}
+
+struct ProcCmd CONST_DATA ProcScr_EventMapAnim[] = {
+    PROC_SLEEP(1),
+    PROC_CALL(sub_8085E48),
+    PROC_REPEAT(sub_8085E94),
+    PROC_REPEAT(nullsub_30),
+    PROC_REPEAT(sub_8085F88),
+    PROC_REPEAT(sub_808609C),
+    PROC_CALL(sub_8086100),
+    PROC_SLEEP(8),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_089EEA28[] = {
+    PROC_CALL(sub_8086134),
+    PROC_REPEAT(sub_808613C),
+    PROC_REPEAT(sub_808622C),
+    PROC_REPEAT(sub_80862C4),
+    PROC_REPEAT(sub_808635C),
+    PROC_END,
 };

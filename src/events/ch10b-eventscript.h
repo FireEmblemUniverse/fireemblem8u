@@ -1,0 +1,462 @@
+#include "gbafe.h"
+
+CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
+    MUSC(0x25)
+    SVAL(EVT_SLOT_B, 0x0)
+    LOMA(0x4c)
+    FADU(16)
+    LOAD2(0x1, UnitDef_088C3D68)
+    SVAL(EVT_SLOT_1, 0x0)
+    SET_STATE(CHARACTER_EPHRAIM)
+    SVAL(EVT_SLOT_1, 0x0)
+    SET_STATE(CHARACTER_SETH)
+    LOAD3(0x0, UnitDef_088C3CB4)
+    ENUN
+    SVAL(EVT_SLOT_1, 0xffffffff)
+    SET_STATE(CHARACTER_EPHRAIM)
+    SVAL(EVT_SLOT_1, 0xffffffff)
+    SET_STATE(CHARACTER_SETH)
+    CUMO_CHAR(CHARACTER_MESSENGER)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x1c)
+    SVAL(EVT_SLOT_3, 0xab4)
+    CALL(Event_TextWithBG)
+    MUSI
+    EARTHQUAKE_START(0, 1)
+    STAL(120)
+    EARTHQUAKE_END
+    MOVE_1STEP(0x0, CHARACTER_SETH, FACING_DOWN)
+    ENUN
+    CUMO_CHAR(CHARACTER_EPHRAIM)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x1c)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xab5)
+    TEXTEND
+    REMA
+    MUSCMID(0x7fff)
+    FADI(16)
+    CLEA
+    CLEE
+    CLEN
+    SVAL(EVT_SLOT_B, 0xe000c)
+    LOMA(0x18)
+    UNIT_COLORS(0x222)
+    LOAD1(0x1, UnitDef_088C2E20)
+    ENUN
+    LOAD1(0x1, UnitDef_088C3168)
+    ENUN
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
+    LOAD2(0x1, UnitDef_088C31CC)
+    ENUN
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
+    LOAD2(0x1, UnitDef_088C31F4)
+    ENUN
+    FADU(16)
+    CUMO_CHAR(CHARACTER_DUESSEL)
+    STAL(60)
+    CURE
+    MUSC(0x2e)
+    SVAL(EVT_SLOT_2, 0x7)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xab6)
+    TEXTEND
+    MUSCFAST(0x7fff)
+    TEXTCONT
+    TEXTEND
+    MUSC(0x26)
+    TEXTCONT
+    TEXTEND
+    CALL(EventScr_TextShowWithFadeIn)
+    CLEN
+    UNIT_COLORS(0x22)
+    LOAD1(0x1, UnitDef_088C2FB0)
+    ENUN
+    CUMO_CHAR(CHARACTER_SELENA)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0xab7)
+    TEXTEND
+    REMA
+    LOAD2(0x1, UnitDef_088C31CC)
+    LOAD2(0x1, UnitDef_088C31F4)
+    ENUN
+    LOAD1(0x1, UnitDef_088C2D6C)
+    ENUN
+    FADI(16)
+    UNIT_COLORS(0x0)
+    CLEA
+    CLEE
+    CLEN
+    LOAD1(0x1, UnitDef_088C2E20)
+    ENUN
+    LOAD1(0x1, UnitDef_088C2D44)
+    ENUN
+    LOAD1(0x1, UnitDef_088C2D6C)
+    ENUN
+    LOAD1(0x1, UnitDef_088C3050)
+    ENUN
+    LOAD1(0x1, UnitDef_088C2FB0)
+    ENUN
+    SVAL(EVT_SLOT_2, UnitDef_088C2F4C)
+    SVAL(EVT_SLOT_3, 0x1)
+    CALL(EventScr_LoadUnitForTutorial)
+    CAMERA(22, 0)
+    FADU(16)
+    LOAD2(0x1, UnitDef_088C3244)
+    STAL2(32)
+    SVAL(EVT_SLOT_1, 0x0)
+    SET_STATE(CHARACTER_EPHRAIM)
+    SVAL(EVT_SLOT_1, 0x0)
+    SET_STATE(CHARACTER_SETH)
+    LOAD3(0x0, UnitDef_088C3280)
+    ENUN
+    SVAL(EVT_SLOT_1, 0xffffffff)
+    SET_STATE(CHARACTER_EPHRAIM)
+    SVAL(EVT_SLOT_1, 0xffffffff)
+    SET_STATE(CHARACTER_SETH)
+    CUMO_CHAR(CHARACTER_SETH)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x1c)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xab8)
+    TEXTEND
+    REMA
+    CALL(EventScr_08591FD8)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAAC4[] = {
+    MUSC(0x14)
+    CAMERA2(15, 11)
+    STAL(15)
+    LOAD1(0x1, UnitDef_088C3334)
+    ENUN
+    DISA(CHARACTER_VALTER)
+    CUMO_AT(19, 11)
+    STAL(60)
+    CURE
+    MUSI
+    SVAL(EVT_SLOT_2, 0x12)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xab9)
+    TEXTEND
+    REMA
+    FADI(16)
+    CLEAN
+    DISA(CHARACTER_SELENA)
+    FADU(16)
+    LOAD1(0x1, UnitDef_088C335C)
+    ENUN
+    DISA(CHARACTER_SELENA)
+    LOAD1(0x1, UnitDef_088C3384)
+    ENUN
+    LOAD1(0x1, UnitDef_088C2DF8)
+    ENUN
+    CUMO_CHAR(CHARACTER_VALTER)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0xaba)
+    TEXTEND
+    REMA
+    MUNO
+    MOVE(0x10, CHARACTER_VALTER, 23, 14)
+    ENUN
+    DISA(CHARACTER_VALTER)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAB7C[] = {
+    CHECK_EXISTS(CHARACTER_CORMAG)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_ALLEGIANCE(CHARACTER_CORMAG)
+    SVAL(EVT_SLOT_1, 0x0)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_1)
+    MUSC(0x14)
+    CAMERA_CAHR(CHARACTER_CORMAG)
+    STAL(15)
+    CUMO_CHAR(CHARACTER_CORMAG)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0xabb)
+    TEXTEND
+    REMA
+LABEL(0x0)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FABD0[] = {
+    CHECK_EXISTS(CHARACTER_CORMAG)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_ALLEGIANCE(CHARACTER_CORMAG)
+    SVAL(EVT_SLOT_1, 0x0)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_1)
+    MUSC(0x14)
+    CAMERA_CAHR(CHARACTER_CORMAG)
+    STAL(15)
+    CUMO_CHAR(CHARACTER_CORMAG)
+    STAL(60)
+    CURE
+    TEXTSTART
+    TEXTSHOW(0xabc)
+    TEXTEND
+    REMA
+LABEL(0x0)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_Ch10b_EndingScene[] = {
+    SVAL(EVT_SLOT_7, 0x0)
+    CHECK_ALIVE(0x89)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_ALIVE(0x8a)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    CHECK_ALIVE(0x8b)
+    BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
+    SVAL(EVT_SLOT_7, 0x1)
+LABEL(0x0)
+    CHECK_EVENTID(2)
+    BNE(0x1, EVT_SLOT_C, EVT_SLOT_0)
+    MUSC(0x2e)
+    CAMERA_CAHR(CHARACTER_BERAN)
+    CUMO_CHAR(CHARACTER_BERAN)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x12)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xac0)
+    TEXTEND
+    REMA
+    MUSCMID(0x7fff)
+    FADI(16)
+    CLEAN
+    SVAL(EVT_SLOT_2, 0xe)
+    CALL(EventScr_9EE5BC)
+    CLEE
+    FADU(16)
+    CAMERA_CAHR(CHARACTER_EPHRAIM)
+    CUMO_CHAR(CHARACTER_EPHRAIM)
+    STAL(60)
+    CURE
+    MUSC(0x31)
+    SVAL(EVT_SLOT_2, 0x1c)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xac1)
+    TEXTEND
+    REMA
+    FADI(16)
+    GOTO(0x2)
+LABEL(0x1)
+    MUSC(0x31)
+    FADI(16)
+LABEL(0x2)
+    MUSC(0x31)
+    SVAL(EVT_SLOT_2, 0x1d)
+    CALL(EventScr_LoadUniqueAlly)
+    CLEA
+    CLEE
+    CLEN
+    CLEAN
+    CAMERA2(15, 12)
+    FADU(16)
+    CUMO_AT(18, 13)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x12)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xac2)
+    TEXTEND
+    MUSCMID(0x7fff)
+    TEXTCONT
+    TEXTEND
+    MUSC(0x28)
+    TEXTCONT
+    TEXTEND
+    BEQ(0x3, EVT_SLOT_7, EVT_SLOT_0)
+    EvtTextShow2(0xac3) // ENOSUPP in EAstdlib
+    TEXTEND
+    REMA
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x65)
+    GIVEITEMTO(CHARACTER_DUESSEL)
+LABEL(0x3)
+    REMA
+    MUSCMID(0x7fff)
+    FADI(16)
+    CLEAN
+    CAMERA(0, 19)
+    EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
+    LOAD2(0x1, UnitDef_088C33AC)
+    ENUN
+    FADU(16)
+    CUMO_CHAR(CHARACTER_SETH)
+    STAL(60)
+    CURE
+    MUSC(0x24)
+    SVAL(EVT_SLOT_2, 0x7)
+    SVAL(EVT_SLOT_3, 0xac4)
+    CALL(Event_TextWithBG)
+    CLEN
+    LOAD2(0x1, UnitDef_088C33AC)
+    ENUN
+    CUMO_CHAR(CHARACTER_LARACHEL)
+    STAL(60)
+    CURE
+    MUSS(0x2a)
+    STAL(33)
+    SVAL(EVT_SLOT_2, 0x7)
+    SVAL(EVT_SLOT_3, 0xac5)
+    CALL(Event_TextWithBG)
+    MURE(0x4)
+    SVAL(EVT_SLOT_D, 0x0)
+    SVAL(EVT_SLOT_1, 0x10387)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x10347)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x1034f)
+    SENQUEUE1
+    SVAL(EVT_SLOT_1, 0x0)
+    SENQUEUE1
+    MOVE_DEFINED(CHARACTER_LARACHEL)
+    STAL2(50)
+    SVAL(EVT_SLOT_D, 0x0)
+    MOVE(0x10, CHARACTER_DOZLA, 15, 13)
+    MOVE(0x10, CHARACTER_RENNAC, 15, 13)
+    ENUN
+    LOAD2(0x1, UnitDef_088C3424)
+    ENUN
+    CUMO_CHAR(CHARACTER_SETH)
+    STAL(60)
+    CURE
+    SVAL(EVT_SLOT_2, 0x7)
+    CALL(EventScr_SetBackground)
+    TEXTSHOW(0xac6)
+    TEXTEND
+    REMA
+    ENUT(114)
+    MNCH(0x19)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAEDC[] = {
+    MUSS(0x30)
+    STAL(33)
+    TEXTSTART
+    TEXTSHOW(0xac7)
+    TEXTEND
+    REMA
+    MURE(0x2)
+    CUSA(CHARACTER_DUESSEL)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAF04[] = {
+    MUSS(0x30)
+    STAL(33)
+    TEXTSTART
+    TEXTSHOW(0xac8)
+    TEXTEND
+    REMA
+    MURE(0x2)
+    CUSA(CHARACTER_CORMAG)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAF2C[] = {
+    MUSS(0x30)
+    STAL(33)
+    TEXTSTART
+    TEXTSHOW(0xac9)
+    TEXTEND
+    REMA
+    MURE(0x2)
+    CUSA(CHARACTER_CORMAG)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAF54[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0xaca)
+    CALL(Event_TextWithBG)
+    MUNO
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x56)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAF90[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x2)
+    SVAL(EVT_SLOT_3, 0xacb)
+    CALL(Event_TextWithBG)
+    MUNO
+    CALL(EventScr_RemoveBGIfNeeded)
+    SVAL(EVT_SLOT_3, 0x64)
+    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAFCC[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x0)
+    SVAL(EVT_SLOT_3, 0xacc)
+    CALL(Event_TextWithBG)
+    MUNO
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FAFF4[] = {
+    MUSI
+    SVAL(EVT_SLOT_2, 0x0)
+    SVAL(EVT_SLOT_3, 0xacd)
+    CALL(Event_TextWithBG)
+    MUNO
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FB01C[] = {
+    SVAL(EVT_SLOT_2, UnitDef_088C3014)
+    CALL(EventScr_LoadReinforce)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FB034[] = {
+    CALL(EventScr_089FABD0)
+    SVAL(EVT_SLOT_1, 0x10000)
+    CHAI(CHARACTER_CORMAG)
+    SVAL(EVT_SLOT_1, 0x10000)
+    CHAI(CHARACTER_SOLDIER_83)
+    EVBIT_T(7)
+    ENDA
+};
+
+CONST_DATA EventListScr EventScr_089FB05C[] = {
+    SVAL(EVT_SLOT_2, UnitDef_088C30A0)
+    CALL(EventScr_LoadReinforce)
+    SVAL(EVT_SLOT_2, UnitDef_088C312C)
+    CALL(EventScr_LoadReinforceHardMode)
+    EVBIT_T(7)
+    ENDA
+};

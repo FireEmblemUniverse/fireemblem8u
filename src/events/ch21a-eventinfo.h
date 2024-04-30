@@ -12,8 +12,8 @@ CONST_DATA EventListScr EventListScr_Ch21a_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch21a_Location[] = {
-    Door(4, 19)
-    Door(18, 19)
+    Door_(4, 19)
+    Door_(18, 19)
     Chest(ITEM_BOOSTER_HP, 21, 18)
     Chest(ITEM_MASTERSEAL, 2, 18)
     END_MAIN

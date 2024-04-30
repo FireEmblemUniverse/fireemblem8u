@@ -23,7 +23,7 @@ CONST_DATA EventListScr EventListScr_Ch19a_Location[] = {
     Chest(ITEM_DARK_FENRIR, 4, 11)
     Chest(ITEM_STAFF_FORTIFY, 27, 10)
     ChestMoney(5000, 27, 12)
-    Door(3, 15)
+    Door_(3, 15)
     SecretShop(ShopList_Event_089ED8B8, 26, 7)
     Chest(ITEM_BOOSTER_SPD, 3, 12)
     Chest(ITEM_ANIMA_BOLTING, 27, 14)

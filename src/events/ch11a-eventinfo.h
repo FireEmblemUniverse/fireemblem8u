@@ -18,9 +18,9 @@ CONST_DATA EventListScr EventListScr_Ch11a_Location[] = {
     Chest(ITEM_STAFF_RESTORE, 3, 8)
     Chest(ITEM_LANCE_SHORTSPEAR, 12, 11)
     Chest(ITEM_BOOSTER_SKL, 17, 5)
-    Door(4, 11)
-    Door(17, 13)
-    Door(18, 13)
+    Door_(4, 11)
+    Door_(17, 13)
+    Door_(18, 13)
     END_MAIN
 };
 

@@ -34,7 +34,7 @@ def try_get_ptr_symbol(val):
 def dump_one_part(rom_data, off):
     ptr = 0x08000000 | off
     if ptr not in _symbols:
-        name = f"ShopList_Event_{off + 0x08000000:08X}"
+        name = f"ItemList_Event_{off + 0x08000000:08X}"
     else:
         name = _symbols[ptr]
 

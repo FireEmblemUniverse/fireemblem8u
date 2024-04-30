@@ -4,8 +4,33 @@
 #include "event.h"
 #include "eventinfo.h"
 #include "eventcall.h"
+#include "eventscript.h"
 #include "EAstdlib.h"
+#include "constants/worldmap.h"
 #include "constants/characters.h"
+
+void HandleCh5xUnits_Start(void)
+{
+    int i;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
+        struct Unit * unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        switch (unit->pCharacterData->number) {
+            case CHARACTER_EPHRAIM:
+            case CHARACTER_FORDE:
+            case CHARACTER_KYLE:
+            case CHARACTER_ORSON_CH5X:
+                continue;
+        }
+        if (US_BIT16 & unit->state)
+            unit->state |= US_BIT26;
+
+        unit->state |= US_BIT16 | US_HIDDEN;
+    }
+}
 
 CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     ASMC(HandleCh5xUnits_Start)
@@ -110,6 +135,34 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     ENDA
 };
 
+void HandleCh5xUnits_End(void)
+{
+    int i;
+    for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++) {
+        struct Unit * unit = GetUnit(i);
+
+        if (!UNIT_IS_VALID(unit))
+            continue;
+
+        switch (unit->pCharacterData->number) {
+            case CHARACTER_EPHRAIM:
+            case CHARACTER_FORDE:
+            case CHARACTER_KYLE:
+                unit->state &= ~US_DEAD;
+                unit->state |= US_HIDDEN | US_BIT16;
+                continue;
+
+            case CHARACTER_ORSON_CH5X:
+                ClearUnit(unit);
+                continue;
+        }
+
+        if (0 == (unit->state & US_BIT26))
+            unit->state &= ~(US_BIT16 | US_HIDDEN);
+
+    }
+}
+
 CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     ASMC(HandleCh5xUnits_End)
     MUSC(0x31)
@@ -167,9 +220,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     FADI(16)
     MUSCMID(0x7fff)
 
-    // [Unknow] at 0x9f2708
-    _EvtArg0(0xa6, 4, 0, 0x0),
-    (EventListScr)0x50000,
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EAstdlib
 
     MNCH(0x7)
     ENDA

@@ -17,14 +17,14 @@ CONST_DATA EventListScr EventListScr_Ch14a_Character[] = {
 
 CONST_DATA EventListScr EventListScr_Ch14a_Location[] = {
     Seize(9, 5)
-    Door(17, 19)
-    Door(10, 14)
-    Door(2, 19)
-    Door(22, 17)
-    Door(22, 8)
-    Door(18, 2)
-    Door(17, 2)
-    Door(9, 24)
+    Door_(17, 19)
+    Door_(10, 14)
+    Door_(2, 19)
+    Door_(22, 17)
+    Door_(22, 8)
+    Door_(18, 2)
+    Door_(17, 2)
+    Door_(9, 24)
     Chest(ITEM_STAFF_REPAIR, 22, 3)
     Chest(ITEM_LANCE_DRAGON, 8, 20)
     Chest(ITEM_LANCE_SPEAR, 22, 5)
@@ -32,7 +32,7 @@ CONST_DATA EventListScr EventListScr_Ch14a_Location[] = {
     Chest(ITEM_BOOSTER_POW, 10, 20)
     Chest(ITEM_GUIDINGRING, 18, 16)
     ChestMoney(10000, 2, 16)
-    Door(20, 1)
+    Door_(20, 1)
     END_MAIN
 };
 

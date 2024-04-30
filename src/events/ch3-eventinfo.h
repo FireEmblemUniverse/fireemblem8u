@@ -28,9 +28,9 @@ CONST_DATA EventListScr EventListScr_Ch3_Location[] = {
     Chest(ITEM_SWORD_IRON,    10, 3)
     Chest(ITEM_LANCE_JAVELIN, 6, 12)
     Seize(14, 1)
-    Door(6, 10)
-    Door(10, 5)
-    Door(2, 3)
+    Door_(6, 10)
+    Door_(10, 5)
+    Door_(2, 3)
     END_MAIN
 };
 

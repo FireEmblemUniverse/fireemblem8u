@@ -16,9 +16,9 @@ CONST_DATA EventListScr EventListScr_Ch16a_Location[] = {
     ChestMoney(5000, 20, 5)
     Chest(ITEM_KNIGHTCREST, 20, 3)
     Chest(ITEM_AXE_TOMAHAWK, 3, 12)
-    Door(1, 4)
-    Door(4, 3)
-    Door(3, 10)
+    Door_(1, 4)
+    Door_(4, 3)
+    Door_(3, 10)
     Chest(ITEM_BOOSTER_RES, 20, 1)
     END_MAIN
 };

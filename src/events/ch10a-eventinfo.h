@@ -20,8 +20,8 @@ CONST_DATA EventListScr EventListScr_Ch10a_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch10a_Location[] = {
-    Door(10, 9)
-    Door(11, 9)
+    Door_(10, 9)
+    Door_(11, 9)
     Seize(15, 1)
     House(0, EventScr_089F47A8, 11, 6)
     House(0, EventScr_089F47D0, 10, 7)

@@ -75,7 +75,7 @@ def parse_eventinfo(rom_data, off):
             elif ent_flag == "EVFLAG_WIN" and flag == 6:
                 print(f"    DefeatAll({scr})")
             else:
-                print(f"    AFEV({ent_flag}, {scr}, {flag})")
+                print(f"    AFEV({ent_flag}, {scr}, {EVENT_FLAGS(flag)})")
 
         case "EVT_LIST_CMD_TURN":
             scr_len = 3
@@ -168,7 +168,10 @@ def parse_eventinfo(rom_data, off):
             if tile_command_idx != 18:
                 print(f"// TILE_COMMAND_DOOR ERROR2 at 0x{off:06X}")
 
-            print(f"    Door({x}, {y})")
+            if ent_flag == 0:
+                print(f"    Door_({x}, {y})")
+            else:
+                print(f"    Door({x}, {y}, {ent_flag})")
 
         case "EVT_LIST_CMD_SHOP":
             scr_len = 3

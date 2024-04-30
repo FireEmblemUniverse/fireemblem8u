@@ -5,6 +5,8 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "EAstdlib.h"
+#include "eventscript.h"
+#include "constants/worldmap.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
@@ -220,9 +222,7 @@ LABEL(0x2)
     ENUT(234)
     MNC2(0x5)
 
-    // [Unknow] at 0x9f2164
-    _EvtArg0(0xa6, 4, 0, 0x0),
-    (EventListScr)0x80000,
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Renvall2) // ENOSUPP in EAstdlib
 
     ENDA
 };
