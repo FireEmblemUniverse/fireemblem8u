@@ -123,7 +123,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
             NewEfxFlashHPBar(animr5, 0, 5);
             NewEfxFlashUnit(animr5, 0, 8, 0);
         } else {
-            NewEfxNoDmage(animr5, animr8, 0);
+            NewEfxNoDamage(animr5, animr8, 0);
         }
         break;
 
@@ -171,7 +171,7 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
             NewEfxFlashUnit(animR5, 0, 8, 0);
         } else {
             gUnknown_02017750 = 2;
-            NewEfxNoDmage(animR5, animR8, 1);
+            NewEfxNoDamage(animR5, animR8, 1);
         }
         break;
 

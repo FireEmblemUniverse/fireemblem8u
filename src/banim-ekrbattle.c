@@ -626,10 +626,10 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
     }
 
     if (ret == 1)
-        proc->proc_idleCb = (ProcFunc)ekrBattleOnBattkeEnd;
+        proc->proc_idleCb = (ProcFunc)ekrBattleOnBattleEnd;
 }
 
-void ekrBattleOnBattkeEnd(struct ProcEkrBattle *proc)
+void ekrBattleOnBattleEnd(struct ProcEkrBattle *proc)
 {
     proc->speedup = false;
     proc->proc_idleCb = (ProcFunc)ekrBattle_8050600;

@@ -2557,7 +2557,7 @@ void NewEfxAvoid(struct Anim * anim);
 void EfxAvoidMain(struct ProcEfxHPBar * proc);
 void NewEfxHPBarLive(struct Anim * anim);
 void EfxHPBarLiveMain(struct ProcEfxHPBar * proc);
-void NewEfxNoDmage(struct Anim * anim1, struct Anim * anim2, int death);
+void NewEfxNoDamage(struct Anim * anim1, struct Anim * anim2, int death);
 void EfxNoDamageMain(struct ProcEfxHPBar * proc);
 void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
 void EfxNoDamageYureMain(struct ProcEfxHPBar * proc);
