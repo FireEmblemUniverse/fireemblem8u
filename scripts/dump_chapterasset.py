@@ -6,11 +6,23 @@ import symbols
 from fe8db import ITEM_IDX
 
 # ========================================================================
-elf = "fireemblem8.elf"
-with open(elf, 'rb') as f:
-    _symbols = { addr: name for addr, name in symbols.from_elf(f) }
+symbol_inited = 0
+_symbols = {}
+
+def init_symbol():
+    global symbol_inited
+    global _symbols
+
+    elf = "fireemblem8.elf"
+
+    if symbol_inited != 0x12345678:
+        symbol_inited = 0x12345678
+        with open(elf, 'rb') as f:
+            _symbols = { addr: name for addr, name in symbols.from_elf(f) }
 
 def try_get_ptr_symbol(val):
+    global _symbols
+
     is_symbol = False
 
     ptr = val
@@ -22,6 +34,8 @@ def try_get_ptr_symbol(val):
     if ptr > 0x03000000 and ptr < 0x03008000:
         is_symbol = True
 
+    init_symbol()
+
     if ptr not in _symbols:
         is_symbol = False
 
@@ -32,12 +46,16 @@ def try_get_ptr_symbol(val):
 # ========================================================================
 
 def _events_sym(ptr):
+    global _symbols
+
+    init_symbol()
+
     if ptr == 0:
         return "NULL"
     else:
         return _symbols[ptr]
 
-def dump_one_part(rom_data, off):
+def dump_chaperasset(rom_data, off):
     ptr = 0x08000000 | off
     if ptr not in _symbols:
         name = f"ChapterData_{off + 0x08000000:08X}"
@@ -155,7 +173,7 @@ def main(args):
         rom_data = f.read()
 
         while True:
-            off = dump_one_part(rom_data, off)
+            off = dump_chaperasset(rom_data, off)
 
             if off_end <= off:
                 break

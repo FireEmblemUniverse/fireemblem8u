@@ -8,11 +8,23 @@ from fe8db import EVENT0B_TRIGGER_TYPE, WM_NODES, WM_NATIONS, JID_IDX, FACTION_I
 from dump_events import unpack_EvtParams2, unpack_EvtParams4
 
 # ========================================================================
-elf = "fireemblem8.elf"
-with open(elf, 'rb') as f:
-    _symbols = { addr: name for addr, name in symbols.from_elf(f) }
+symbol_inited = 0
+_symbols = {}
+
+def init_symbol():
+    global symbol_inited
+    global _symbols
+
+    elf = "fireemblem8.elf"
+
+    if symbol_inited != 0x12345678:
+        symbol_inited = 0x12345678
+        with open(elf, 'rb') as f:
+            _symbols = { addr: name for addr, name in symbols.from_elf(f) }
 
 def try_get_ptr_symbol(val):
+    global _symbols
+
     is_symbol = False
 
     ptr = val
@@ -24,13 +36,15 @@ def try_get_ptr_symbol(val):
     if ptr > 0x03000000 and ptr < 0x03008000:
         is_symbol = True
 
+    init_symbol()
+
     if ptr not in _symbols:
         is_symbol = False
 
     if is_symbol == True:
         return _symbols[ptr]
     else:
-        return hex(val)
+        return f"(void *){hex(val)}"
 # ========================================================================
 
 def parse_eventinfo(rom_data, off):

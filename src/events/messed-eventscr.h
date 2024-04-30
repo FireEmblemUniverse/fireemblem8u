@@ -4125,7 +4125,7 @@ CONST_DATA EventListScr EventScr_089F947C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F94A0[] = {
+CONST_DATA EventListScr EventScr_Ch21xa_BeginingScene[] = {
     CALL(EventScr_089F94AC)
     ENDA
 };
@@ -4686,7 +4686,7 @@ LABEL(0x13)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F9F10[] = {
+CONST_DATA EventListScr EventScr_Ch21xa_EndingScene[] = {
     CALL(EventScr_089F9F20)
     MNC4
     ENDA
