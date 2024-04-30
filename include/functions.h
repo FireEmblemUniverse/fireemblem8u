@@ -375,15 +375,18 @@ int AreAnyEnemyUnitDead(void);
 void sub_808679C(void);
 // ??? sub_808683C(???);
 // ??? sub_8086928(???);
-void sub_8086934(u8 *buf, int a2, int a3);
-void sub_8086960(u8 *buf, int a2, int a3);
-void sub_8086984(u8 *buf, int a2, int a3);
-void sub_80869AC(u8 *buf, int a2, int a3);
-void sub_80869D8(u8 *buf, int a2, int a3);
-void sub_8086A08(u8 *buf, int a2, int a3);
-void sub_8086A24(u8 *buf, int a2, int a3);
-void sub_8086A40(int a1, int a2, int a3, int a4, int a5, int a6);
-void DrawStatBarGfx(int arg0, int arg1, u16* tilemap, int arg3, int arg4, int arg5, int arg6);
+void UnusedDrawOutline(u8 *buf, int bufWidth, int col);
+void DrawStatBarLeftBorder(u8 *buf, int bufWidth, int col);
+void DrawStatBarShadow(u8 *buf, int bufWidth, int col);
+void DrawStatBarRightBorder(u8 *buf, int bufWidth, int col);
+void DrawStatBarUnfilledCol(u8 *buf, int bufWidth, int col);
+void DrawStatBarFilledCol(u8 *buf, int bufWidth, int col);
+void DrawStatBarCappedCol(u8 *buf, int bufWidth, int col);
+void DrawStatBar(
+    int tile, int padding, int bufWidth, int barWidth, int progressLength, int cappedLength);
+void DrawStatBarGfx(
+    int tile, int bufWidth, u16* buf, int tileBase,
+    int barWidth, int progressLength, int cappedLength);
 // ??? BackgroundSlide_Init(???);
 // ??? BackgroundSlide_Loop(???);
 ProcPtr StartMuralBackground(ProcPtr, void*, int);
