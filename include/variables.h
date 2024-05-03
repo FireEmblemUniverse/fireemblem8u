@@ -817,6 +817,18 @@ extern u8 gAnimCharaPalConfig[0x100][7];
 extern u8 gAnimCharaPalIt[0x100][7];
 extern u8 gSummonConfig[4][2];
 // extern ??? gUnknown_0895F5A5
+extern u16 Img_0899D6DC[];
+extern u16 Img_99E1A4[];
+extern u16 Img_99ED44[];
+extern u16 Img_99F7D4[];
+extern u16 Img_9A0154[];
+extern u16 Img_9A0864[];
+extern u16 TileSet_9A0E84[];
+extern u16 TileSet_9A1050[];
+extern u16 TileSet_9A1228[];
+extern u16 TileSet_9A13EC[];
+extern u16 TileSet_9A15B4[];
+extern u16 TileSet_9A174C[];
 extern u16 CONST_DATA Pal_EventMapAnimMaskfx[];      /* a palatte */
 extern u16 CONST_DATA Img_Congratulations[];      /* a image */
 extern u16 CONST_DATA Img_MapClear[];      /* a image */
@@ -870,9 +882,9 @@ extern struct ProcCmd ProcScr_089EE030[];
 extern struct ProcCmd ProcScr_089EE048[];
 extern struct ProcCmd ProcScr_089EE068[];
 extern struct ProcCmd ProcScr_WorldFlush[];
-extern const u16 Obj_089EE99C[];
+extern u16 CONST_DATA Obj_089EE99C[];
 extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */
-extern u16 CONST_DATA *gUnknown_089EE9C8[];    /* images */
+extern u16 CONST_DATA *TsaLut_EventMapAnimMaskfx[];    /* images */
 extern struct ProcCmd ProcScr_EventMapAnim[];
 extern struct ProcCmd gUnknown_089EEA28[];
 // extern ??? gAutoUdefJids

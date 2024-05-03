@@ -136,7 +136,7 @@ LABEL(0x63)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F29FC[] = {
+CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
     MUSCFAST(0x7fff)
     SVAL(EVT_SLOT_2, 0x1a)
     CALL(EventScr_SetBackground)

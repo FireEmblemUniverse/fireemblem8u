@@ -5,6 +5,8 @@
 #include "eventinfo.h"
 #include "eventcall.h"
 #include "EAstdlib.h"
+#include "eventscript.h"
+#include "constants/worldmap.h"
 #include "constants/characters.h"
 
 CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
@@ -141,7 +143,7 @@ LABEL(0x8020)
     REMA
     FADI(16)
     MUSCMID(0x7fff)
-    LOAD1(0x0, UnitDef_088B4904)
+    LOAD1(0x0, UnitDef_Event_Ch4Ally)
     ENUN
     CALL(EventScr_08591FD8)
     FADU(16)
@@ -178,7 +180,7 @@ LABEL(0x8020)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2090[] = {
+CONST_DATA EventListScr EventScr_Ch5_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, 0x20)
     CALL(EventScr_9EE5BC)
@@ -220,9 +222,7 @@ LABEL(0x2)
     ENUT(234)
     MNC2(0x5)
 
-    // [Unknow] at 0x9f2164
-    _EvtArg0(0xa6, 4, 0, 0x0),
-    (EventListScr)0x80000,
+    WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Renvall2) // ENOSUPP in EAstdlib
 
     ENDA
 };

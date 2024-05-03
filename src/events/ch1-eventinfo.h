@@ -14,7 +14,7 @@ CONST_DATA EventListScr EventListScr_Ch1_Turn[] = {
     TURN(0x0, EventScr_Ch1_Turn1Player, 1, 1, FACTION_BLUE)
     TURN(0x0, EventScr_Ch1_Turn1Enemy, 1, 1, FACTION_RED)
     TURN(0x0, EventScr_Ch1_Turn_AllyReinforceArrive, 2, 2, FACTION_BLUE)
-    TURN(0xB, EventScr_Ch1_Turn_EnemyReinforceArrive, 1, 255, FACTION_BLUE)
+    TURN(EVFLAG_TMP(11), EventScr_Ch1_Turn_EnemyReinforceArrive, 1, 255, FACTION_BLUE)
     END_MAIN
 };
 
@@ -32,8 +32,8 @@ CONST_DATA EventListScr EventListScr_Ch1_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch1_Misc[] = {
-    AFEV(0x7, EventScr_Ch1_Misc_DefeatBoss, EVFLAG_DEFEAT_BOSS)
-    AREA(0xA, EventScr_Ch1_Misc_Area, 0, 0, 7, 9)
+    AFEV(EVFLAG_TMP(7), EventScr_Ch1_Misc_DefeatBoss, EVFLAG_DEFEAT_BOSS)
+    AREA(EVFLAG_TMP(10), EventScr_Ch1_Misc_Area, 0, 0, 7, 9)
     CauseGameOverIfLordDies
     END_MAIN
 };

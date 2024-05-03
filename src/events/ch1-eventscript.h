@@ -32,7 +32,8 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     MOVE(0, CHARACTER_BREGUET, 2, 3)
     ENUN
 
-    ENUT(0x1) /* Battle Quotes flag */
+    /* Force set battle-quotes flag to make the following script-battle not to show battle quote */
+    ENUT(EVFLAG_BATTLE_QUOTES)
 
     StartBattle
     CriticalHit(0, 20)
@@ -40,7 +41,8 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     EndAttack
     FIGHT(CHARACTER_BREGUET, CHARACHER_FRELIAN, 0, 0)
 
-    ENUF(0x1) /* Battle Quotes flag */
+    /* Clear battle Quotes flag */
+    ENUF(EVFLAG_BATTLE_QUOTES)
 
     SVAL(EVT_SLOT_B, 0x00020002)
     KILL(CHAR_EVT_POSITION_AT_SLOTB)
@@ -97,7 +99,12 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     SVAL(EVT_SLOT_2, EventScr_Ch1Tut_OnBeginning)
     CALL(EventScr_CallOnTutorialMode)
 
-    ENUT(0xB)
+    /**
+     * Temporary flag(11) is used for triggering event: EventScr_Ch1_Turn_EnemyReinforceArrive,
+     * this flag will be unset by event: EventScr_Ch1_Misc_Area
+     */
+    ENUT(EVFLAG_TMP(11))
+
     NoFade
     ENDA
 };
@@ -194,9 +201,9 @@ CONST_DATA EventListScr EventScr_Ch1_Loca_Visit2[] = {
 
 CONST_DATA EventListScr EventScr_Ch1_Misc_Area[] = {
     SVAL(EVT_SLOT_2, CHARACTER_EIRIKA)
-    CALL(EventScr_UnTriggerIfNotUnit)
+    CALL(EventScr_UnTriggerIfNotUnit)   /* This event may directly ENDB if the condition is not matched */
 
-    ENUF(0xB)
+    ENUF(EVFLAG_TMP(11))
     NoFade
     ENDA
 };

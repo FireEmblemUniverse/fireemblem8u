@@ -18,6 +18,7 @@
 #include "savemenu.h"
 #include "gamecontrol.h"
 #include "sio.h"
+#include "constants/event-flags.h"
 
 extern u16 EventScr_8A0035C[];
 extern u16 EventScr_8A00364[];
@@ -102,7 +103,7 @@ PROC_LABEL(LGAMECTRL_EXEC_SAVEMENU),
     PROC_YIELD,
     PROC_GOTO(LGAMECTRL_EXEC_BM),
 
-PROC_LABEL(6),
+PROC_LABEL(LGAMECTRL_EXEC_BM_EXT),
     PROC_CALL(GameControl_RememberChapterId),
     PROC_YIELD,
     PROC_CALL(StartBattleMap),
@@ -110,8 +111,8 @@ PROC_LABEL(6),
     PROC_GOTO(9),
 
 PROC_LABEL(LGAMECTRL_EXEC_BM),
-    PROC_CALL(sub_8009D1C),
-    PROC_CALL(sub_8009D44),
+    PROC_CALL(GameCtrl_CheckNewGameAndBranch),
+    PROC_CALL(GameCtrl_CheckGameCompleteAndBranch),
     PROC_CALL(GameControl_RememberChapterId),
     PROC_CALL(GameCtrlStartIntroMonologue),
     PROC_YIELD,
@@ -173,7 +174,7 @@ PROC_LABEL(16),
 
     // fallthrough
 
-PROC_LABEL(17),
+PROC_LABEL(LGAMECTRL_EXEC_ENDING_SCENE),
     PROC_CALL(GameCtrl_SavePlayThroughData),
 
     PROC_CALL(CallGameEndingEvent),
@@ -559,15 +560,15 @@ void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
     return;
 }
 
-void sub_8009D1C(struct GameCtrlProc* proc) {
+void GameCtrl_CheckNewGameAndBranch(struct GameCtrlProc* proc) {
     if ((gPlaySt.save_menu_type == 2) || (gPlaySt.save_menu_type == 4)) {
-        Proc_Goto(proc, 6);
+        Proc_Goto(proc, LGAMECTRL_EXEC_BM_EXT);
     }
 
     return;
 }
 
-void sub_8009D44(struct GameCtrlProc* proc) {
+void GameCtrl_CheckGameCompleteAndBranch(struct GameCtrlProc* proc) {
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         return;
     }
@@ -576,7 +577,7 @@ void sub_8009D44(struct GameCtrlProc* proc) {
         return;
     }
 
-    Proc_Goto(proc, 17);
+    Proc_Goto(proc, LGAMECTRL_EXEC_ENDING_SCENE);
 
     return;
 }
@@ -650,7 +651,7 @@ void sub_8009E54(ProcPtr proc)
             break;
     }
 
-    SetFlag(0x84);
+    SetFlag(EVFLAG_HIDE_BLINKING_ICON);
 
     return;
 }
@@ -670,7 +671,7 @@ void CallGameEndingEvent(ProcPtr proc) {
             break;
     }
 
-    SetFlag(0x84);
+    SetFlag(EVFLAG_HIDE_BLINKING_ICON);
 
     return;
 }

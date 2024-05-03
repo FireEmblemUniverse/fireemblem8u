@@ -16,10 +16,12 @@
 #include "popup.h"
 #include "bmlib.h"
 #include "eventinfo.h"
+#include "eventcall.h"
 #include "savemenu.h"
 #include "spline.h"
 #include "sysutil.h"
 #include "bmdifficulty.h"
+#include "constants/event-flags.h"
 
 // TODO: move to some constant header and maybe merge with something if that makes sense
 #define BGPAL_BMDIFFICULTY_UNK_0 0
@@ -161,11 +163,11 @@ void UnlockPostgameAllyByEnemyCount(void)
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         if ((gDungeonState.type == 0) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetFlag(0x6B); // Riev
+            SetFlag(EVFLAG_EXTRA_UNIT(4)); // Riev
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetFlag(0x6C); // Hayden
+            SetFlag(EVFLAG_EXTRA_UNIT(5)); // Hayden
         }
     }
 
@@ -181,11 +183,11 @@ void UnlockPostgameAllyByClearCount(void)
         struct Dungeon* dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
         if ((gDungeonState.type == 0) && (dungeon->postgameClearCount >= 3)) {
-            SetFlag(0x6F); // Selena
+            SetFlag(EVFLAG_EXTRA_UNIT(8)); // Selena
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameClearCount >= 3)) {
-            SetFlag(0x70); // Lyon
+            SetFlag(EVFLAG_EXTRA_UNIT(9)); // Lyon
         }
     }
 
@@ -209,16 +211,16 @@ s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
     u8 i;
 
     struct PostgameUnitLutEntry unitDefLut[] = {
-        { 0x67, (void*)0x88D1DC4, }, // Caellach
-        { 0x68, (void*)0x88D1DEC, }, // Glen
-        { 0x69, (void*)0x88D1E14, }, // Orson
-        { 0x6A, (void*)0x88D1E3C, }, // Valter
-        { 0x6B, (void*)0x88D1E64, }, // Riev
-        { 0x6C, (void*)0x88D1E8C, }, // Hayden
-        { 0x6D, (void*)0x88D1EB4, }, // Fado
-        { 0x6E, (void*)0x88D1EDC, }, // Ismaire
-        { 0x6F, (void*)0x88D1F04, }, // Selena
-        { 0x70, (void*)0x88D1F2C, }, // Lyon
+        { EVFLAG_EXTRA_UNIT(0), UnitDef_088D1DC4, }, // Caellach
+        { EVFLAG_EXTRA_UNIT(1), UnitDef_088D1DEC, }, // Glen
+        { EVFLAG_EXTRA_UNIT(2), UnitDef_088D1E14, }, // Orson
+        { EVFLAG_EXTRA_UNIT(3), UnitDef_088D1E3C, }, // Valter
+        { EVFLAG_EXTRA_UNIT(4), UnitDef_088D1E64, }, // Riev
+        { EVFLAG_EXTRA_UNIT(5), UnitDef_088D1E8C, }, // Hayden
+        { EVFLAG_EXTRA_UNIT(6), UnitDef_088D1EB4, }, // Fado
+        { EVFLAG_EXTRA_UNIT(7), UnitDef_088D1EDC, }, // Ismaire
+        { EVFLAG_EXTRA_UNIT(8), UnitDef_088D1F04, }, // Selena
+        { EVFLAG_EXTRA_UNIT(9), UnitDef_088D1F2C, }, // Lyon
         { },
     };
 

@@ -83,7 +83,7 @@ void CountDownTraps(void);
 void ResetCountedDownTraps(void);
 void sub_802EA00(void);
 void sub_802EA1C(void);
-void sub_802EA28(void);
+void PostTrapExecFlag(void);
 struct Trap* AddLightRune(int x, int y);
 struct Trap* RemoveLightRune(struct Trap* trap);
 void DecayTraps(void);
