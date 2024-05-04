@@ -671,7 +671,7 @@ SECTIONS
         . = ALIGN(4); src/bmcamadjust.o(.rodata);
         . = ALIGN(4); src/lightrunefx.o(.rodata);
         . = ALIGN(4); src/danceringfx.o(.rodata);
-        . = ALIGN(4); data/const_data_D7B20.o(.rodata);
+        . = ALIGN(4); src/bmmenu.o(.rodata);
         . = ALIGN(4); src/bmudisp.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);

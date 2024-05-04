@@ -112,7 +112,7 @@ u8 ChestCommandEffect(struct MenuProc * menu, struct MenuItemProc * menuItem);
 u8 PickCommandUsability(const struct MenuItemDef * def, int number);
 u8 PickCommandEffect(struct MenuProc * menu, struct MenuItemProc * menuItem);
 u8 PickSelection_OnSelect(ProcPtr proc, struct SelectTarget * target);
-s8 sub_8023EF0(u8 unitId);
+bool IsAdjacentForSupply(u8 pid);
 u8 SupplyUsability(const struct MenuItemDef * def, int number);
 u8 SupplyCommandEffect(struct MenuProc * menu, struct MenuItemProc * menuItem);
 u8 ArmoryCommandUsability(const struct MenuItemDef * def, int number);
