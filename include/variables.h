@@ -597,7 +597,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085AABD8
 // extern ??? gUnknown_085AADA0
 // extern ??? gUnknown_085AAE0C
-// extern ??? gUnknown_085AB358
+extern u8 gUnknown_085AB358[];
 extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085AC604
 // extern ??? gUnknown_085AC9DC
@@ -607,7 +607,7 @@ extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085AD80C
 // extern ??? gUnknown_085AD9CC
 // extern ??? gUnknown_085ADA38
-// extern ??? gUnknown_085ADBE8
+extern u16 gUnknown_085ADBE8[];
 extern u16 Pal_TacticianSelObj[];
 // extern ??? gUnknown_085ADCC8
 // extern ??? gUnknown_085ADDA8
