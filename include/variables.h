@@ -227,12 +227,6 @@ extern const char gUnknown_080D7954[];
 // extern ??? Vectors_LightRune2
 // extern ??? Vectors_LightRune3
 // extern ??? Vectors_DanceringFx
-// extern ??? gUnknown_080D7C04
-// extern ??? gUnknown_080D7C14
-// extern ??? gUnknown_080D7C18
-// extern ??? gUnknown_080D7C40
-// extern ??? gUnknown_080D7C42
-// extern ??? JunaItemEffLevelLut
 // extern ??? gUnknown_080D7FD0
 
 // extern ??? gMsgHuffmanTable
