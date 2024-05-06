@@ -944,6 +944,8 @@ SECTIONS
         . = ALIGN(4); data/sio_main.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
+        . = ALIGN(4); src/sio_menu.o(.data);
+        . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uiselecttarget.o(.data);

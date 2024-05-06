@@ -47,7 +47,3 @@ gUnknown_080D9EC0:  @ 0x080D9EC0
 	.global gUnknown_080D9EC8
 gUnknown_080D9EC8:  @ 0x080D9EC8
 	.incbin "baserom.gba", 0xD9EC8, 0x28
-
-	.global gUnknown_080D9EF0
-gUnknown_080D9EF0:  @ 0x080D9EF0
-	.incbin "baserom.gba", 0xD9EF0, 0xC

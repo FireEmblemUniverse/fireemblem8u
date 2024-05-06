@@ -53,7 +53,17 @@ void sub_8047AF4(void)
     return;
 }
 
-extern struct FaceVramEntry gUnknown_085A9E48[];
+// clang-format off
+
+struct FaceVramEntry CONST_DATA gUnknown_085A9E48[] =
+{
+    0x7000, 1,
+    0x7000, 1,
+    0x7000, 1,
+    0x7000, 1,
+};
+
+// clang-format on
 
 //! FE8U = 0x08047B34
 void sub_8047B34(struct SioMenuProc * proc)
@@ -68,7 +78,7 @@ void sub_8047B34(struct SioMenuProc * proc)
     StartMuralBackgroundExt(proc, 0, 0x10, 4, 0);
 
     Decompress(gUnknown_085AB358, (void *)0x06014800);
-    CopyToPaletteBuffer(gUnknown_085ADBE8, 0x260, 0x60);
+    ApplyPalettes(gUnknown_085ADBE8, 0x13, 3);
 
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
@@ -120,7 +130,19 @@ void sub_8047B34(struct SioMenuProc * proc)
     return;
 }
 
-extern const u8 gUnknown_080D9EF0[];
+// clang-format off
+
+const u8 gUnknown_080D9EF0[] =
+{
+    0x78, 0x10,
+    0x60, 0x24,
+    0x48, 0x38,
+    0x30, 0x4C,
+    0x18, 0x60,
+    0x00, 0x00,
+};
+
+// clang-format on
 
 //! FE8U = 0x08047C60
 void sub_8047C60(struct SioMenuProc * proc)
@@ -174,7 +196,17 @@ void sub_8047CF0(struct SioMenuProc * proc)
     return;
 }
 
-extern struct FaceVramEntry gUnknown_085A9E68[];
+// clang-format off
+
+struct FaceVramEntry CONST_DATA gUnknown_085A9E68[] =
+{
+    0x7000, 1,
+    0x7000, 1,
+    0x7000, 1,
+    0x7000, 1,
+};
+
+// clang-format on
 
 //! FE8U = 0x08047D88
 void sub_8047D88(struct SioMenuProc * proc)
@@ -191,7 +223,7 @@ void sub_8047D88(struct SioMenuProc * proc)
     StartMuralBackgroundExt(proc, 0, 0x10, 4, 0);
 
     Decompress(gUnknown_085AB358, (void *)0x06014800);
-    CopyToPaletteBuffer(gUnknown_085ADBE8, 0x260, 0x60);
+    ApplyPalettes(gUnknown_085ADBE8, 0x13, 3);
 
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
@@ -386,6 +418,7 @@ extern struct ProcCmd ProcScr_SIOBAT[];
 extern struct ProcCmd ProcScr_SIORESULT[];
 extern struct ProcCmd gUnknown_085A9DF8[];
 
+//! FE8U = 0x08048168
 void sub_8048168(struct SioMenuProc * proc)
 {
     int i;
@@ -425,8 +458,48 @@ void sub_8048168(struct SioMenuProc * proc)
     return;
 }
 
-const char SIOMENU[] = "SIOMENU";
-extern struct ProcCmd gUnknown_085A9E88[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085A9E88[] =
+{
+    PROC_NAME("SIOMENU"),
+
+PROC_LABEL(0),
+    PROC_CALL(sub_8047AF4),
+    PROC_CALL(sub_8047B34),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+    PROC_REPEAT(sub_8047C60),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8047D88),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(sub_8047CF0),
+    PROC_REPEAT(sub_8047FF8),
+    PROC_REPEAT(sub_80480B4),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(sub_8048168),
+    PROC_SLEEP(1),
+
+    PROC_GOTO(1),
+};
+
+// clang-format on
 
 //! FE8U = 0x080481E0
 void sub_80481E0(ProcPtr parent)
