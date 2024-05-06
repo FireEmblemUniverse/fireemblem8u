@@ -701,8 +701,8 @@ gUnknown_085A9D98:  @ 0x085A9D98
         .short 0x0, 0x0
         .word 0x0
 
-	.global gUnknown_085A9DF8
-gUnknown_085A9DF8:  @ 0x085A9DF8
+	.global ProcScr_SIO_RuleSettings
+ProcScr_SIO_RuleSettings:  @ 0x085A9DF8
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_8047780

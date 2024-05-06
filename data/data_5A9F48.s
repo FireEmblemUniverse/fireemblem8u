@@ -1303,8 +1303,8 @@ gUnknown_085AADA0:  @ 0x085AADA0
 gUnknown_085AAE0C:  @ 0x085AAE0C
     .incbin "baserom.gba", 0x5AAE0C, 0x54C
 
-	.global gUnknown_085AB358
-gUnknown_085AB358:  @ 0x085AB358
+	.global Img_LinkArenaMenu
+Img_LinkArenaMenu:  @ 0x085AB358
     .incbin "baserom.gba", 0x5AB358, 0xA10
 
 	.global Img_TacticianSelObj
@@ -1343,8 +1343,8 @@ gUnknown_085AD9CC:  @ 0x085AD9CC
 gUnknown_085ADA38:  @ 0x085ADA38
 	.incbin "baserom.gba", 0x5ADA38, 0x1B0
 
-	.global gUnknown_085ADBE8
-gUnknown_085ADBE8:  @ 0x085ADBE8
+	.global Pal_LinkArenaMenu
+Pal_LinkArenaMenu:  @ 0x085ADBE8
 	.incbin "baserom.gba", 0x5ADBE8, 0x60
 
 	.global Pal_TacticianSelObj
