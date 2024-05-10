@@ -51,15 +51,15 @@ struct SioSaveConf {
     u8 _unk3_ : 1;
     u8 _unk4_ : 4;
     u8 _unk8_;
-};
+} __attribute__((packed));
 extern struct SioSaveConf gSioSaveConfig;
 
 u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
 void SioInit(void);
 void SioPollingMsgAndAck(ProcPtr proc);
-// ??? SetBmStLinkArenaFlag(???);
-// ??? UnsetBmStLinkArenaFlag(???);
+void SetBmStLinkArenaFlag(void);
+void UnsetBmStLinkArenaFlag(void);
 bool CheckInLinkArena(void);    // <!> This function is defined as different types by files, maybe a bug.
 void sub_8042EA8(void);
 
@@ -91,8 +91,8 @@ void SioHold_Loop(struct ProcSioHold * proc);
 // ??? sub_804303C(???);
 void ClearSioBG(void);
 // ??? sub_804309C(???);
-// ??? sub_8043100(???);
-// ??? sub_8043164(???);
+void sub_8043100(int, int);
+void sub_8043164(void);
 // ??? sub_80431B4(???);
 void SioPlaySoundEffect(int);
 // ??? sub_8043244(???);
@@ -207,18 +207,42 @@ void SaveTactician(struct ProcTactician * proc, const struct TacticianTextConf *
 // ??? sub_80476CC(???);
 // ??? sub_8047780(???);
 // ??? sub_8047928(???);
-// ??? sub_8047A54(???);
-// ??? sub_8047AB8(???);
-// ??? sub_8047AF4(???);
-// ??? sub_8047B34(???);
-// ??? sub_8047C60(???);
+int sub_8047A54(ProcPtr, int);
+
+struct Proc85AA9C0
+{
+    /* 00 */ PROC_HEADER;
+    /* 2A */ s16 unk_2a;
+    /* 2C */ s16 unk_2c;
+    /* 2E */ s8 unk_2e;
+};
+
+struct SioMenuProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Proc85AA9C0 * unk_2c[5];
+    /* 40 */ u8 unk_40[4];
+    /* 44 */ s8 unk_44;
+    /* 48 */ int unk_48;
+    /* 4C */ int unk_4c;
+    /* 50 */ int unk_50;
+    /* 54 */ int unk_54;
+    /* 58 */ s8 unk_58;
+    /* 59 */ s8 unk_59;
+};
+
+// ??? CheckSomethingSaveRelated(???);
+// ??? SioMenu_Init(???);
+// ??? SioMenu_LoadGraphics(???);
+// ??? SioMenu_8047C60(???);
 // ??? sub_8047CF0(???);
-// ??? sub_8047D88(???);
-// ??? sub_8047EF8(???);
-// ??? sub_8047FF8(???);
-// ??? sub_80480B4(???);
-// ??? sub_8048168(???);
-void sub_80481E0(ProcPtr);
+// ??? SioMenu_RestartGraphicsMaybe(???);
+// ??? SioMenu_HandleDPadInput(???);
+// ??? SioMenu_Loop_HandleKeyInput(???);
+// ??? SioMenu_80480B4(???);
+// ??? SioMenu_End(???);
+void StartLinkArenaMainMenu(ProcPtr);
+
 void sub_8048260(ProcPtr); // StartNameSelect
 // ??? StartTacticianNameSelect(???);
 
@@ -271,12 +295,12 @@ void CallEraseSaveEvent(ProcPtr);
 // ??? sub_80494F0(???);
 // ??? sub_8049594(???);
 // ??? sub_80495F4(???);
-// ??? sub_80496A4(???);
+void sub_80496A4(void);
 // ??? sub_804970C(???);
 // ??? sub_8049744(???);
 void sub_8049788(void);
 // ??? sub_80497A0(???);
-// ??? sub_80497CC(???);
+void sub_80497CC(void);
 // ??? sub_8049828(???);
 // ??? sub_80498F4(???);
 // ??? sub_8049940(???);
@@ -348,8 +372,8 @@ void sub_8049788(void);
 // ??? sub_804B800(???);
 // ??? sub_804B850(???);
 // ??? sub_804B8D0(???);
-// ??? Set_0203DDDC(???);
-// ??? Clear_0203DDDC(???);
+void Set_0203DDDC(void);
+void Clear_0203DDDC(void);
 // ??? sub_804B938(???);
 // ??? sub_804B964(???);
 // ??? sub_804B9A4(???);
@@ -401,9 +425,9 @@ void sub_804C508(void);
 // ??? sub_804C590(???);
 // ??? sub_804C5A4(???);
 // ??? sub_804C5F8(???);
-// ??? sub_804C758(???);
-// ??? sub_804C7C8(???);
-// ??? sub_804C7DC(???);
+ProcPtr sub_804C758(ProcPtr, u8, u8, u8, u8);
+void sub_804C7C8(ProcPtr, int, int, int, int);
+void sub_804C7DC(ProcPtr, s16, s16);
 // ??? sub_804C7E4(???);
 // ??? sub_804C83C(???);
 // ??? sub_804C894(???);
@@ -422,7 +446,7 @@ void sub_804CDD0(void *, int, int, int, int, int);
 // ??? sub_804CEC4(???);
 // ??? sub_804CECC(???);
 // ??? sub_804CF04(???);
-// ??? sub_804CFB8(???);
+void sub_804CFB8(ProcPtr, s16, s16);
 // ??? sub_804CFE0(???);
 // ??? sub_804D01C(???);
 // ??? sub_804D1E0(???);
@@ -511,7 +535,7 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9EC0
 // extern ??? gUnknown_080D9EC8
 // extern ??? gUnknown_080D9EF0
-// extern ??? gUnknown_080D9EFC
+// extern ??? SioMenuProcLut
 // extern ??? gUnknown_080D9F18
 // extern ??? gUnknown_080D9F20
 // extern ??? gUnknown_080D9F28
@@ -555,6 +579,12 @@ extern CONST_DATA u16 gSioList_085A93F0[];
 extern CONST_DATA struct ProcCmd ProcScr_Sio_085A94AC[];
 // extern ??? ProcScr_TacticianNameSelection
 // extern ??? gUnknown_085A96D4
+extern struct ProcCmd ProcScr_DebugMonitor[];
+extern struct ProcCmd ProcScr_SIOTERM[];
+extern struct ProcCmd ProcScr_SIOPRA[];
+extern struct ProcCmd ProcScr_SIOBAT[];
+extern struct ProcCmd ProcScr_SIORESULT[];
+extern struct ProcCmd ProcScr_SIO_RuleSettings[];
 
 extern int gUnknown_03001808;
 extern int gUnknown_0300180C;

@@ -241,7 +241,7 @@ enum PlaySt_chapterStateBits {
     PLAY_FLAG_PREPSCREEN      = (1 << 4),
     PLAY_FLAG_COMPLETE        = (1 << 5),
     PLAY_FLAG_HARD            = (1 << 6),
-    PLAY_FLAG_EXTRA_MAP               = (1 << 7),
+    PLAY_FLAG_EXTRA_MAP       = (1 << 7),
 
     PLAY_FLAG_STATSCREENPAGE_SHIFT = 0,
     PLAY_FLAG_STATSCREENPAGE_MASK = PLAY_FLAG_STATSCREENPAGE0 | PLAY_FLAG_STATSCREENPAGE1,

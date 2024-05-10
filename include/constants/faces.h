@@ -13,6 +13,7 @@ enum {
     FID_DOZLA               = 0x23,
     FID_MYRRH               = 0x26,
 
+    FID_ANNA                = 0x64,
     FID_SHOP_ARMORY         = 0x65,
     FID_SHOP_VENDOR         = 0x66,
     FID_ARENA               = 0x67,
