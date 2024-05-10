@@ -27,9 +27,9 @@
 
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
- struct ProcCmd CONST_DATA ProcScr_ExecWarpStaff[] = {
+ struct ProcCmd CONST_DATA ProcScr_PostWarpStaffAction[] = {
     PROC_SLEEP(0),
-    PROC_CALL_2(sub_802EF70),
+    PROC_CALL_2(PostWarpStaff_ExecTrap),
     PROC_CALL(sub_802EF80),
 
     PROC_END,
@@ -232,8 +232,8 @@ void ExecRescueStaff(ProcPtr proc) {
     return;
 }
 
-int sub_802EF70(ProcPtr proc) {
-    return sub_80377CC(proc);
+int PostWarpStaff_ExecTrap(ProcPtr proc) {
+    return ExecTrapAfterWarp(proc);
 }
 
 int sub_802EF80() {
@@ -262,7 +262,7 @@ void ExecWarpStaff(ProcPtr proc) {
     BattleApplyItemEffect(proc);
     BeginBattleAnimations();
 
-    Proc_StartBlocking(ProcScr_ExecWarpStaff, proc);
+    Proc_StartBlocking(ProcScr_PostWarpStaffAction, proc);
 
     return;
 }
