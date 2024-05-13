@@ -195,7 +195,7 @@ s8 ActionRescue(ProcPtr proc) {
 
 //! FE8U = 0x080321B8
 int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc* proc) {
-    return sub_80377F0(proc, proc->unit);
+    return ExecTrapAfterDropAction(proc, proc->unit);
 }
 
 //! FE8U = 0x080321C8
@@ -455,9 +455,9 @@ void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc) {
 }
 
 //! FE8U = 0x08032658
-void DeathDropSpriteAnim_ExecAnyTrap(struct DeathDropAnimProc* proc) {
-    sub_8037830(proc, proc->unit);
-    return;
+void DeathDropSpriteAnim_ExecAnyTrap(struct DeathDropAnimProc * proc)
+{
+    ExecTrapAfterDeathDrop(proc, proc->unit);
 }
 
 //! FE8U = 0x08032664

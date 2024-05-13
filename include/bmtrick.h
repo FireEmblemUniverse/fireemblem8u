@@ -22,6 +22,9 @@ enum
     TRAP_MINE       = 11,
     TRAP_GORGON_EGG = 12, // TODO: figure out
     TRAP_LIGHT_RUNE = 13,
+    TRAP_14         = 14,
+    TRAP_FIRE_THIEF = 15,
+    TRAP_MINE_ASSASSIN = 16,
 };
 
 enum

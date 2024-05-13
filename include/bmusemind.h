@@ -9,7 +9,7 @@ void ExecRestore(ProcPtr proc);
 void ExecBarrierStaff(ProcPtr proc);
 void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut, int* yOut);
 void ExecRescueStaff(ProcPtr proc);
-int sub_802EF70(ProcPtr proc);
+int PostWarpStaff_ExecTrap(ProcPtr proc);
 int sub_802EF80();
 void ExecWarpStaff(ProcPtr proc);
 void ExecStatusStaff(ProcPtr proc);
