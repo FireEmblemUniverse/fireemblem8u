@@ -14,6 +14,37 @@
 
 #include "constants/faces.h"
 
+//! FE8U = 0x08047A54
+int sub_8047A54(struct SioMenuProc * proc, int lineNum)
+{
+    // clang-format off
+
+    int gUnknown_080D9EC8[] =
+    {
+        0x736, -1,
+        0x737, 0x738,
+        0x739, -1,
+        0x73A, -1,
+        0x73B, -1,
+    };
+
+    // clang-format on
+
+    if (lineNum == 0)
+    {
+        if (proc->unk_58 == 0)
+        {
+            return 0x735;
+        }
+    }
+    else if (proc->unk_58 == 0)
+    {
+        return -1;
+    }
+
+    return gUnknown_080D9EC8[proc->unk_48 * 2 + lineNum];
+}
+
 //! FE8U = 0x08047AB8
 bool CheckSomethingSaveRelated(void)
 {
