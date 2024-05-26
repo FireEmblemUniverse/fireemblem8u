@@ -387,6 +387,7 @@ SECTIONS
         asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
         asm/code_sio.o(.text);
+        src/sio_result.o(.text);
         src/sio_rulesettings.o(.text);
         src/sio_menu.o(.text);
         asm/code_sio_8048260.o(.text);
