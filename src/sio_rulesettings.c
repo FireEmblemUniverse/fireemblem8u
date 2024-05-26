@@ -27,68 +27,27 @@ extern const struct Unknown_080D9E50 gUnknown_080D9E50[];
 //! FE8U = 0x0804766C
 void sub_804766C(u8 * buf)
 {
-    buf[0] = gLinkArenaSt.unk_ec_1;
-    buf[1] = gLinkArenaSt.unk_ec_2;
-    buf[2] = gLinkArenaSt.unk_ec_3;
+    buf[0] = gLinkArenaSt.unk_ec.unk_0_0;
+    buf[1] = gLinkArenaSt.unk_ec.unk_0_1;
+    buf[2] = gLinkArenaSt.unk_ec.unk_0_2;
 
     return;
 }
-
-#if NONMATCHING
 
 //! FE8U = 0x0804768C
-void sub_804768C(u8 * buf)
+void sub_804768C(u8 * param_1)
 {
-    gLinkArenaSt.unk_ec_1 = buf[0] % 2;
-    gLinkArenaSt.unk_ec_2 = buf[1] % 2;
-    gLinkArenaSt.unk_ec_3 = buf[2] % 2;
+    struct LinkArenaStMaybe * las = &gLinkArenaSt;
+    struct LinkArenaStMaybe_ec * unk_ec = &las->unk_ec;
+
+    { u32 r4 = 1; ++r4; --r4; }
+
+    unk_ec->unk_0_0 = param_1[0] % 2;
+    unk_ec->unk_0_1 = param_1[1] % 2;
+    unk_ec->unk_0_2 = param_1[2] % 2;
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_804768C(u8 * buf)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, lr}\n\
-        ldr r5, _080476C8  @ gLinkArenaSt\n\
-        adds r5, #0xec\n\
-        movs r4, #1\n\
-        ldrb r2, [r0]\n\
-        ands r2, r4\n\
-        ldrb r3, [r5]\n\
-        movs r1, #2\n\
-        negs r1, r1\n\
-        ands r1, r3\n\
-        orrs r1, r2\n\
-        ldrb r2, [r0, #1]\n\
-        ands r2, r4\n\
-        lsls r2, r2, #1\n\
-        movs r3, #3\n\
-        negs r3, r3\n\
-        ands r1, r3\n\
-        orrs r1, r2\n\
-        ldrb r0, [r0, #2]\n\
-        ands r0, r4\n\
-        lsls r0, r0, #2\n\
-        movs r2, #5\n\
-        negs r2, r2\n\
-        ands r1, r2\n\
-        orrs r1, r0\n\
-        strb r1, [r5]\n\
-        pop {r4, r5}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080476C8: .4byte gLinkArenaSt\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080476CC
 void sub_80476CC(int idx, int state)

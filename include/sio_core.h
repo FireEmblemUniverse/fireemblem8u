@@ -208,9 +208,12 @@ struct LinkArenaStMaybe
     u8 unk_9C[5];
     u8 unk_A1[4][15];
     STRUCT_PAD(0xDD, 0xEC);
-    u8 unk_ec_1 : 1;
-    u8 unk_ec_2 : 1;
-    u8 unk_ec_3 : 1;
+    struct LinkArenaStMaybe_ec
+    {
+        u8 unk_0_0 : 1;
+        u8 unk_0_1 : 1;
+        u8 unk_0_2 : 1;
+    } unk_ec;
 };
 
 extern struct LinkArenaStMaybe gLinkArenaSt;
