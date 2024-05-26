@@ -387,6 +387,7 @@ SECTIONS
         asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
         asm/code_sio.o(.text);
+        src/sio_rulesettings.o(.text);
         src/sio_menu.o(.text);
         asm/code_sio_8048260.o(.text);
         src/uiutils.o(.text);
@@ -703,6 +704,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_sio.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
+        . = ALIGN(4); src/sio_rulesettings.o(.rodata);
         . = ALIGN(4); src/sio_menu.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);

@@ -594,7 +594,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 extern u8 Img_LinkArenaMenu[];
 extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085AC604
-// extern ??? gUnknown_085AC9DC
+extern u8 gUnknown_085AC9DC[]; // img
 // extern ??? gUnknown_085ACD20
 // extern ??? gUnknown_085ACEFC
 // extern ??? gUnknown_085AD0CC
@@ -603,7 +603,7 @@ extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085ADA38
 extern u16 Pal_LinkArenaMenu[];
 extern u16 Pal_TacticianSelObj[];
-// extern ??? gUnknown_085ADCC8
+extern u16 gUnknown_085ADCC8[]; // pal
 // extern ??? gUnknown_085ADDA8
 // extern ??? gUnknown_085ADDC8
 // extern ??? gUnknown_085ADDE8
@@ -615,7 +615,7 @@ extern u16 Pal_085ADE68[];
 // extern ??? gUnknown_085ADF40
 extern u16 Tsa_085AE190[];
 // extern ??? gUnknown_085AE464
-// extern ??? gUnknown_085AE778
+extern u8 gUnknown_085AE778[]; // tsa
 // extern ??? gUnknown_085AE7EC
 // extern ??? gUnknown_085AF170
 // extern ??? gUnknown_085B081C

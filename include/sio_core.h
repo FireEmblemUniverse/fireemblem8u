@@ -206,7 +206,14 @@ struct LinkArenaStMaybe
     /* 0C */ struct Text texts[11];
     STRUCT_PAD(0x64, 0x9C);
     u8 unk_9C[5];
-    u8 unk_A1[15][15];
+    u8 unk_A1[4][15];
+    STRUCT_PAD(0xDD, 0xEC);
+    struct LinkArenaStMaybe_ec
+    {
+        u8 unk_0_0 : 1;
+        u8 unk_0_1 : 1;
+        u8 unk_0_2 : 1;
+    } unk_ec;
 };
 
 extern struct LinkArenaStMaybe gLinkArenaSt;
