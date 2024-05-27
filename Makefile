@@ -79,6 +79,7 @@ BANIM_OBJECT := data/banim/data_banim.o
 MID_FILES    := $(wildcard $(MID_SUBDIR)/*.mid)
 MID_OBJECTS  := $(MID_FILES:.mid=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
+OBJECTS_LST  := objects.lst
 DEPS_DIR     := .dep
 
 AUTO_GEN_TARGETS :=
@@ -99,7 +100,7 @@ compare: $(ROM)
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h $(CFILES_GENERATED)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(OBJECTS_LST) src/*.s graphics/*.h $(CFILES_GENERATED)
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
@@ -166,8 +167,11 @@ MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*
 $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
 
-$(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
+$(OBJECTS_LST): $(ALL_OBJECTS)
+	@echo $(ALL_OBJECTS) > $@
+
+$(ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT) $(SYM_FILES)
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) @$(OBJECTS_LST) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
 	$(STRIP) -N .gcc2_compiled. $@
 
 %.gba: %.elf
