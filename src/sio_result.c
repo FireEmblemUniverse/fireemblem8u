@@ -60,25 +60,37 @@ void sub_8046E94(u16 * tm, u32 base)
     return;
 }
 
-extern u16 gUnknown_080D9E9C[];
-extern u16 gUnknown_080D9EA6[];
-
 //! FE8U = 0x08046EB8
 void sub_8046EB8(struct Text * th, char * nameStr, u8 rank, u16 points, u8 playerCount)
 {
-    u16 hackA[6];
-    u16 hackB[6];
+    // clang-format off
+    u16 gUnknown_080D9E9C[] =
+    {
+        0,
+        0x0782, // TODO: msgid "1st"
+        0x0783, // TODO: msgid "2nd"
+        0x0784, // TODO: msgid "3rd"
+        0x0785, // TODO: msgid "4th"
+    };
 
-    memcpy(hackA, gUnknown_080D9E9C, 10);
-    memcpy(hackB, gUnknown_080D9EA6, 12);
+    u16 gUnknown_080D9EA6[] =
+    {
+        0,
+        0x0786, // TODO: msgid "P1"
+        0x0787, // TODO: msgid "P2"
+        0x0788, // TODO: msgid "P3"
+        0x0789, // TODO: msgid "P4"
+        0x078A, // TODO: msgid "P5"
+    };
+    // clang-format on
 
     Text_InsertDrawString(th, 4, 0, nameStr);
 
-    SioDrawNumber(th, 0x54, 2, points);
+    SioDrawNumber(th, 84, 2, points);
 
-    Text_InsertDrawString(th, 0x5d, 0, GetStringFromIndex(0x77F));
-    Text_InsertDrawString(th, 0x80, 2, GetStringFromIndex(hackA[rank & 0xff]));
-    Text_InsertDrawString(th, 0x9a, 0, GetStringFromIndex(hackB[playerCount & 0xff]));
+    Text_InsertDrawString(th, 93, 0, GetStringFromIndex(0x77F));
+    Text_InsertDrawString(th, 128, 2, GetStringFromIndex(gUnknown_080D9E9C[rank & 0xff]));
+    Text_InsertDrawString(th, 154, 0, GetStringFromIndex(gUnknown_080D9EA6[playerCount & 0xff]));
 
     return;
 }
@@ -113,10 +125,10 @@ void sub_8047008(struct SioResultProc * proc)
     StartMuralBackgroundExt(proc, 0, 0x12, 2, 0);
 
     Decompress(gUnknown_085AC9DC, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
-    CopyToPaletteBuffer(gUnknown_085ADCC8, 0xc0, 0x20);
+    ApplyPalette(gUnknown_085ADCC8, 6);
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
-    CopyToPaletteBuffer(Pal_TacticianSelObj, 0x260, 0x80);
+    ApplyPalettes(Pal_TacticianSelObj, 0x13, 4);
 
     CallARM_FillTileRect(gBG2TilemapBuffer + 0x81, gUnknown_085AE464, 0x1000);
 
@@ -141,10 +153,10 @@ void sub_8047008(struct SioResultProc * proc)
 
     ClearText(&gSioTexts[0]);
 
-    Text_InsertDrawString(&gSioTexts[0], 0xc, 0, GetStringFromIndex(0x772));
-    Text_InsertDrawString(&gSioTexts[0], 0x54, 0, GetStringFromIndex(0x773));
-    Text_InsertDrawString(&gSioTexts[0], 0x78, 0, GetStringFromIndex(0x774));
-    Text_InsertDrawString(&gSioTexts[0], 0x96, 0, GetStringFromIndex(0x775));
+    Text_InsertDrawString(&gSioTexts[0], 12, 0, GetStringFromIndex(0x772));
+    Text_InsertDrawString(&gSioTexts[0], 84, 0, GetStringFromIndex(0x773));
+    Text_InsertDrawString(&gSioTexts[0], 120, 0, GetStringFromIndex(0x774));
+    Text_InsertDrawString(&gSioTexts[0], 150, 0, GetStringFromIndex(0x775));
 
     PutText(&gSioTexts[0], gBG0TilemapBuffer + 0xa5);
 
@@ -160,12 +172,12 @@ void sub_8047008(struct SioResultProc * proc)
 
     SetWOutLayers(1, 0, 1, 1, 1);
 
-    sub_804D1E0(0xd9, 0x39, 10, 5, proc->unk_36 + 0x38, proc);
+    sub_804D1E0(217, 57, 10, 5, proc->unk_36 + 56, proc);
     NewProc085AA980(proc, 5, 0);
     sub_804C558();
     sub_804C2EC(0xc0, 0x10, proc);
 
-    BG_EnableSyncByMask(0xf);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     return;
 }
@@ -179,7 +191,7 @@ void sub_804720C(struct SioResultProc * proc)
         proc->unk_38--;
 
         BG_SetPosition(1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 0x38);
+        sub_804D24C(10, proc->unk_36 + 56);
 
         return;
     }
@@ -190,7 +202,7 @@ void sub_804720C(struct SioResultProc * proc)
         proc->unk_38++;
 
         BG_SetPosition(1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 0x38);
+        sub_804D24C(10, proc->unk_36 + 56);
 
         return;
     }
@@ -205,7 +217,7 @@ void sub_804720C(struct SioResultProc * proc)
         proc->unk_38 = 3;
 
         BG_SetPosition(1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 0x38);
+        sub_804D24C(10, proc->unk_36 + 56);
     }
 
     if (((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0) && (proc->unk_34 + 5 < 10))
@@ -218,7 +230,7 @@ void sub_804720C(struct SioResultProc * proc)
         proc->unk_38 = -3;
 
         BG_SetPosition(1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 0x38);
+        sub_804D24C(10, proc->unk_36 + 56);
     }
 
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
@@ -261,11 +273,11 @@ void sub_8047324(struct SioResultProc * proc)
     StartMuralBackgroundExt(proc, 0, 0, 0, 0);
 
     Decompress(gUnknown_085AC9DC, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
-    CopyToPaletteBuffer(gUnknown_085ADCC8, 0xc0, 0x20);
+    ApplyPalette(gUnknown_085ADCC8, 6);
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
     Decompress(gUnknown_085ACEFC, (void *)(0x06016000));
-    CopyToPaletteBuffer(gUnknown_085ADE08, 0x260, 0x20);
+    ApplyPalette(gUnknown_085ADE08, 0x13);
 
     CallARM_FillTileRect(gBG2TilemapBuffer + 0x81, gUnknown_085AE464, 0x1000);
 
@@ -328,42 +340,44 @@ void sub_8047570(struct SioResultProc * proc)
 
     proc->unk_40++;
 
-    if (proc->unk_40 > 0x3b)
+    if (proc->unk_40 < 60)
     {
-        if (proc->unk_35 == 5)
-        {
-            Proc_Break(proc);
-        }
+        return;
+    }
 
-        if (proc->unk_38 >= 1)
+    if (proc->unk_35 == 5)
+    {
+        Proc_Break(proc);
+    }
+
+    if (proc->unk_38 >= 1)
+    {
+        proc->unk_36 -= 2;
+        proc->unk_38--;
+
+        BG_SetPosition(1, 0, proc->unk_36);
+        sub_804D24C(10, proc->unk_36 + 56);
+
+        otherProc->unk_30 += 2;
+    }
+    else
+    {
+        if (proc->unk_35 != proc->unk_34)
         {
             proc->unk_36 -= 2;
-            proc->unk_38--;
+            proc->unk_34--;
+
+            proc->unk_38 = 7;
 
             BG_SetPosition(1, 0, proc->unk_36);
-            sub_804D24C(10, proc->unk_36 + 0x38);
+            sub_804D24C(10, proc->unk_36 + 56);
 
             otherProc->unk_30 += 2;
         }
-        else
+
+        if ((proc->unk_38 == 0) && (proc->unk_34 == proc->unk_35))
         {
-            if (proc->unk_35 != proc->unk_34)
-            {
-                proc->unk_36 -= 2;
-                proc->unk_34--;
-
-                proc->unk_38 = 7;
-
-                BG_SetPosition(1, 0, proc->unk_36);
-                sub_804D24C(10, proc->unk_36 + 0x38);
-
-                otherProc->unk_30 += 2;
-            }
-
-            if ((proc->unk_38 == 0) && (proc->unk_34 == proc->unk_35))
-            {
-                Proc_Break(proc);
-            }
+            Proc_Break(proc);
         }
     }
 
@@ -382,7 +396,57 @@ void sub_804762C(ProcPtr proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085A9D98[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_SIORESULT[] =
+{
+    PROC_NAME("SIORESULT"),
+    PROC_YIELD,
+
+    PROC_CALL(sub_8047008),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    PROC_REPEAT(sub_804720C),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(EndMuralBackground),
+
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_085A9D98[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_8047324),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    PROC_REPEAT(sub_8047570),
+    PROC_REPEAT(sub_804762C),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(EndMuralBackground),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08047654
 void sub_8047654(int value, ProcPtr parent)

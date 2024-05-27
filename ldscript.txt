@@ -705,6 +705,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_sio.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
+        . = ALIGN(4); src/sio_result.o(.rodata);
         . = ALIGN(4); src/sio_rulesettings.o(.rodata);
         . = ALIGN(4); src/sio_menu.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
@@ -947,6 +948,8 @@ SECTIONS
         . = ALIGN(4); data/sio_main.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
+        . = ALIGN(4); src/sio_result.o(.data);
+        . = ALIGN(4); src/sio_rulesettings.o(.data);
         . = ALIGN(4); src/sio_menu.o(.data);
         . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);

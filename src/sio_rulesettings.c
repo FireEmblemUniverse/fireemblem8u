@@ -205,3 +205,28 @@ void sub_8047928(struct ProcSioRuleSettings * proc)
 
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_SIO_RuleSettings[] =
+{
+    PROC_CALL(sub_8047780),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    PROC_REPEAT(sub_8047928),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(EndMuralBackground),
+
+    PROC_END,
+};
+
+// clang-format on
