@@ -28,14 +28,6 @@ gUnknown_080D9E1C:  @ 0x080D9E1C
 gUnknown_080D9E44:  @ 0x080D9E44
 	.incbin "baserom.gba", 0xD9E44, 0xC
 
-	.global gUnknown_080D9E50
-gUnknown_080D9E50:  @ 0x080D9E50
+	.global gLinkArenaRuleData
+gLinkArenaRuleData:  @ 0x080D9E50
 	.incbin "baserom.gba", 0xD9E50, 0x4C
-
-	.global gUnknown_080D9E9C
-gUnknown_080D9E9C:  @ 0x080D9E9C
-	.incbin "baserom.gba", 0xD9E9C, 0xA
-
-	.global gUnknown_080D9EA6
-gUnknown_080D9EA6:  @ 0x080D9EA6
-	.incbin "baserom.gba", 0xD9EA6, 0x1A

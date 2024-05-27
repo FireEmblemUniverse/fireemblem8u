@@ -8528,7 +8528,7 @@ InitSioBG: @ 0x0804C33C
 	orrs r0, r1
 	strb r0, [r3, #0x18]
 	bl ReadGameSaveCoreGfx
-	ldr r0, _0804C39C  @ gUnknown_085ADCC8
+	ldr r0, _0804C39C  @ Pal_LinkArenaRankIcons
 	movs r1, #0xc0
 	lsls r1, r1, #2
 	movs r2, #0x40
@@ -8539,7 +8539,7 @@ InitSioBG: @ 0x0804C33C
 	.align 2, 0
 _0804C394: .4byte SioDefaultBgConfig
 _0804C398: .4byte gLCDControlBuffer
-_0804C39C: .4byte gUnknown_085ADCC8
+_0804C39C: .4byte Pal_LinkArenaRankIcons
 
 	THUMB_FUNC_END InitSioBG
 

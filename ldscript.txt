@@ -226,7 +226,7 @@ SECTIONS
         . = 0x3DB1C; gUnk_Sio_0203DB1C = .;
         . = 0x3DB64; Font_0203DB64 = .;
         . = 0x3DB7C; gUnk_Sio_0203DB7C = .;
-        . = 0x3DC44; gUnk_Sio_0203DC44 = .;
+        . = 0x3DC44; gSioResultRankings = .;
         . = 0x3DC48; gUnk_Sio_0203DC48 = .;
         . = 0x3DD0C; gSioTexts = .;
         . = 0x3DD1C; Text_0203DB14 = .;
@@ -387,6 +387,7 @@ SECTIONS
         asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
         asm/code_sio.o(.text);
+        src/sio_result.o(.text);
         src/sio_rulesettings.o(.text);
         src/sio_menu.o(.text);
         asm/code_sio_8048260.o(.text);
@@ -704,6 +705,7 @@ SECTIONS
         . = ALIGN(4); data/const_data_sio.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
+        . = ALIGN(4); src/sio_result.o(.rodata);
         . = ALIGN(4); src/sio_rulesettings.o(.rodata);
         . = ALIGN(4); src/sio_menu.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
@@ -946,6 +948,8 @@ SECTIONS
         . = ALIGN(4); data/sio_main.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
+        . = ALIGN(4); src/sio_result.o(.data);
+        . = ALIGN(4); src/sio_rulesettings.o(.data);
         . = ALIGN(4); src/sio_menu.o(.data);
         . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
