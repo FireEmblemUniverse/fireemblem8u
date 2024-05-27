@@ -197,7 +197,7 @@ static void expand_control_codes(char *src, char *dest)
         case '[':  // control code
             src++;
 
-            if (isdigit(*src))  // raw number
+            if (isdigit((uint8_t)*src))  // raw number
             {
                 int value;
 
@@ -262,7 +262,7 @@ char *skip_whitespace_and_comments(char *str)
 
     while (1)
     {
-        if (isspace(*str))
+        if (isspace((uint8_t)*str))
         {
             if (*str == '\n')
             {
@@ -294,7 +294,7 @@ char *skip_whitespace_and_comments(char *str)
 // skips all whitespace until a newline char or non-whitespace char is encountered
 char *skip_whitespace_no_newline(char *str)
 {
-    while (isspace(*str))
+    while (isspace((uint8_t)*str))
     {
         if (*str == '\n')
             break;
@@ -315,7 +315,7 @@ char *parse_ctrlcode_def(char *str)
 
     // identifier
     identStart = str;
-    if (isdigit(*str))
+    if (isdigit((uint8_t)*str))
         syntax_error("identifier cannot start with digit");
     while (is_valid_ctrlcode_id_char(*str))
         str++;
@@ -374,7 +374,7 @@ char *parse_string_entry(char *str)
 
     // identifier
     identStart = str;
-    if (isdigit(*str))
+    if (isdigit((uint8_t)*str))
         syntax_error("identifier cannot start with digit");
     while (is_valid_string_id_char(*str))
         str++;
