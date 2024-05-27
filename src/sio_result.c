@@ -30,10 +30,10 @@ struct SioResultProc
     /* 40 */ int unk_40;
 };
 
-extern struct MultiArenaRankingEnt gUnk_Sio_0203DC44[];
+extern struct MultiArenaRankingEnt gSioResultRankings[];
 
 //! FE8U = 0x08046E5C
-void sub_8046E5C(u16 * tm, u32 base)
+void DrawLinkArenaRankIcon(u16 * tm, u32 base)
 {
     u16 ref = base * 3 + 0x6078;
 
@@ -48,7 +48,7 @@ void sub_8046E5C(u16 * tm, u32 base)
 }
 
 //! FE8U = 0x08046E94
-void sub_8046E94(u16 * tm, u32 base)
+void DrawLinkArenaModeIcon(u16 * tm, u32 base)
 {
     u16 ref = base * 4 + 0x6078;
 
@@ -61,10 +61,10 @@ void sub_8046E94(u16 * tm, u32 base)
 }
 
 //! FE8U = 0x08046EB8
-void sub_8046EB8(struct Text * th, char * nameStr, u8 rank, u16 points, u8 playerCount)
+void DrawLinkArenaRankingRow(struct Text * th, char * nameStr, u8 rank, u16 points, u8 playerCount)
 {
     // clang-format off
-    u16 gUnknown_080D9E9C[] =
+    u16 rankMsgLut[] =
     {
         0,
         0x0782, // TODO: msgid "1st"
@@ -73,7 +73,7 @@ void sub_8046EB8(struct Text * th, char * nameStr, u8 rank, u16 points, u8 playe
         0x0785, // TODO: msgid "4th"
     };
 
-    u16 gUnknown_080D9EA6[] =
+    u16 playerMsgLut[] =
     {
         0,
         0x0786, // TODO: msgid "P1"
@@ -88,34 +88,34 @@ void sub_8046EB8(struct Text * th, char * nameStr, u8 rank, u16 points, u8 playe
 
     SioDrawNumber(th, 84, 2, points);
 
-    Text_InsertDrawString(th, 93, 0, GetStringFromIndex(0x77F));
-    Text_InsertDrawString(th, 128, 2, GetStringFromIndex(gUnknown_080D9E9C[rank & 0xff]));
-    Text_InsertDrawString(th, 154, 0, GetStringFromIndex(gUnknown_080D9EA6[playerCount & 0xff]));
+    Text_InsertDrawString(th, 93, 0, GetStringFromIndex(0x77F)); // TODO: msgid "Pts."
+    Text_InsertDrawString(th, 128, 2, GetStringFromIndex(rankMsgLut[rank & 0xff]));
+    Text_InsertDrawString(th, 154, 0, GetStringFromIndex(playerMsgLut[playerCount & 0xff]));
 
     return;
 }
 
 //! FE8U = 0x08046F68
-void sub_8046F68(void)
+void DrawLinkArenaRankings(void)
 {
     int i;
 
     for (i = 0; i < 10; i++)
     {
         ClearText(&Texts_0203DB14[i]);
-        sub_8046EB8(
-            &Texts_0203DB14[i], gUnk_Sio_0203DC44[i].name, gUnk_Sio_0203DC44[i].ranking + 1,
-            gUnk_Sio_0203DC44[i].points, gUnk_Sio_0203DC44[i].player_count + 1);
-        sub_8046E5C(TILEMAP_LOCATED(gBG1TilemapBuffer, 3, i * 2), i);
+        DrawLinkArenaRankingRow(
+            &Texts_0203DB14[i], gSioResultRankings[i].name, gSioResultRankings[i].ranking + 1,
+            gSioResultRankings[i].points, gSioResultRankings[i].player_count + 1);
+        DrawLinkArenaRankIcon(TILEMAP_LOCATED(gBG1TilemapBuffer, 3, i * 2), i);
         PutText(&Texts_0203DB14[i], TILEMAP_LOCATED(gBG1TilemapBuffer, 6, i * 2));
-        sub_8046E94(TILEMAP_LOCATED(gBG1TilemapBuffer, 20, i * 2), gUnk_Sio_0203DC44[i].mode);
+        DrawLinkArenaModeIcon(TILEMAP_LOCATED(gBG1TilemapBuffer, 20, i * 2), gSioResultRankings[i].mode);
     }
 
     return;
 }
 
 //! FE8U = 0x08047008
-void sub_8047008(struct SioResultProc * proc)
+void SioResult_Init(struct SioResultProc * proc)
 {
     int i;
 
@@ -124,13 +124,13 @@ void sub_8047008(struct SioResultProc * proc)
 
     StartMuralBackgroundExt(proc, 0, 0x12, 2, 0);
 
-    Decompress(gUnknown_085AC9DC, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
-    ApplyPalette(gUnknown_085ADCC8, 6);
+    Decompress(Img_LinkArenaRankIcons, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
+    ApplyPalette(Pal_LinkArenaRankIcons, 6);
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
     ApplyPalettes(Pal_TacticianSelObj, 0x13, 4);
 
-    CallARM_FillTileRect(gBG2TilemapBuffer + 0x81, gUnknown_085AE464, 0x1000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 1, 4), Tsa_SioResultRankings, 0x1000);
 
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
@@ -141,7 +141,7 @@ void sub_8047008(struct SioResultProc * proc)
     proc->unk_38 = 0;
     proc->unk_34 = 0;
 
-    BG_SetPosition(1, 0, proc->unk_36);
+    BG_SetPosition(BG_1, 0, proc->unk_36);
 
     for (i = 0; i < 10; i++)
     {
@@ -153,17 +153,17 @@ void sub_8047008(struct SioResultProc * proc)
 
     ClearText(&gSioTexts[0]);
 
-    Text_InsertDrawString(&gSioTexts[0], 12, 0, GetStringFromIndex(0x772));
-    Text_InsertDrawString(&gSioTexts[0], 84, 0, GetStringFromIndex(0x773));
-    Text_InsertDrawString(&gSioTexts[0], 120, 0, GetStringFromIndex(0x774));
-    Text_InsertDrawString(&gSioTexts[0], 150, 0, GetStringFromIndex(0x775));
+    Text_InsertDrawString(&gSioTexts[0], 12, 0, GetStringFromIndex(0x772)); // TODO: msgid "Name"
+    Text_InsertDrawString(&gSioTexts[0], 84, 0, GetStringFromIndex(0x773)); // TODO: msgid "Points"
+    Text_InsertDrawString(&gSioTexts[0], 120, 0, GetStringFromIndex(0x774)); // TODO: msgid "Rank"
+    Text_InsertDrawString(&gSioTexts[0], 150, 0, GetStringFromIndex(0x775)); // TODO: msgid "Players"
 
-    PutText(&gSioTexts[0], gBG0TilemapBuffer + 0xa5);
+    PutText(&gSioTexts[0], TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 5));
 
     sub_8043100(0x744, 1);
 
-    ReadMultiArenaSaveRankings(gUnk_Sio_0203DC44);
-    sub_8046F68();
+    ReadMultiArenaSaveRankings(gSioResultRankings);
+    DrawLinkArenaRankings();
 
     SetWinEnable(1, 0, 0);
 
@@ -183,14 +183,14 @@ void sub_8047008(struct SioResultProc * proc)
 }
 
 //! FE8U = 0x0804720C
-void sub_804720C(struct SioResultProc * proc)
+void SioResult_Loop_Main(struct SioResultProc * proc)
 {
     if (proc->unk_38 >= 1)
     {
         proc->unk_36 -= 4;
         proc->unk_38--;
 
-        BG_SetPosition(1, 0, proc->unk_36);
+        BG_SetPosition(BG_1, 0, proc->unk_36);
         sub_804D24C(10, proc->unk_36 + 56);
 
         return;
@@ -201,13 +201,13 @@ void sub_804720C(struct SioResultProc * proc)
         proc->unk_36 += 4;
         proc->unk_38++;
 
-        BG_SetPosition(1, 0, proc->unk_36);
+        BG_SetPosition(BG_1, 0, proc->unk_36);
         sub_804D24C(10, proc->unk_36 + 56);
 
         return;
     }
 
-    if (((gKeyStatusPtr->repeatedKeys & DPAD_UP) != 0) && (proc->unk_34 != '\0'))
+    if (((gKeyStatusPtr->repeatedKeys & DPAD_UP) != 0) && (proc->unk_34 != 0))
     {
         SioPlaySoundEffect(3);
 
@@ -216,7 +216,7 @@ void sub_804720C(struct SioResultProc * proc)
 
         proc->unk_38 = 3;
 
-        BG_SetPosition(1, 0, proc->unk_36);
+        BG_SetPosition(BG_1, 0, proc->unk_36);
         sub_804D24C(10, proc->unk_36 + 56);
     }
 
@@ -229,7 +229,7 @@ void sub_804720C(struct SioResultProc * proc)
 
         proc->unk_38 = -3;
 
-        BG_SetPosition(1, 0, proc->unk_36);
+        BG_SetPosition(BG_1, 0, proc->unk_36);
         sub_804D24C(10, proc->unk_36 + 56);
     }
 
@@ -263,7 +263,7 @@ u8 sub_8047308(int var)
 }
 
 //! FE8U = 0x08047324
-void sub_8047324(struct SioResultProc * proc)
+void SioResult_NewHS_Init(struct SioResultProc * proc)
 {
     int i;
 
@@ -272,14 +272,14 @@ void sub_8047324(struct SioResultProc * proc)
 
     StartMuralBackgroundExt(proc, 0, 0, 0, 0);
 
-    Decompress(gUnknown_085AC9DC, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
-    ApplyPalette(gUnknown_085ADCC8, 6);
+    Decompress(Img_LinkArenaRankIcons, (void *)(0x06000F00 + GetBackgroundTileDataOffset(1)));
+    ApplyPalette(Pal_LinkArenaRankIcons, 6);
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
     Decompress(gUnknown_085ACEFC, (void *)(0x06016000));
     ApplyPalette(gUnknown_085ADE08, 0x13);
 
-    CallARM_FillTileRect(gBG2TilemapBuffer + 0x81, gUnknown_085AE464, 0x1000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 1, 4), Tsa_SioResultRankings, 0x1000);
 
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
@@ -292,7 +292,7 @@ void sub_8047324(struct SioResultProc * proc)
     proc->unk_35 = sub_8047308(proc->unk_3c);
     proc->unk_40 = 0;
 
-    BG_SetPosition(1, 0, proc->unk_36);
+    BG_SetPosition(BG_1, 0, proc->unk_36);
 
     for (i = 0; i < 10; i++)
     {
@@ -304,15 +304,15 @@ void sub_8047324(struct SioResultProc * proc)
 
     ClearText(&gSioTexts[0]);
 
-    Text_InsertDrawString(&gSioTexts[0], 0xc, 0, GetStringFromIndex(0x772));
-    Text_InsertDrawString(&gSioTexts[0], 0x54, 0, GetStringFromIndex(0x773));
-    Text_InsertDrawString(&gSioTexts[0], 0x78, 0, GetStringFromIndex(0x774));
-    Text_InsertDrawString(&gSioTexts[0], 0x96, 0, GetStringFromIndex(0x775));
+    Text_InsertDrawString(&gSioTexts[0], 12, 0, GetStringFromIndex(0x772)); // TODO: msgid "Name"
+    Text_InsertDrawString(&gSioTexts[0], 84, 0, GetStringFromIndex(0x773)); // TODO: msgid "Points"
+    Text_InsertDrawString(&gSioTexts[0], 120, 0, GetStringFromIndex(0x774)); // TODO: msgid "Rank"
+    Text_InsertDrawString(&gSioTexts[0], 150, 0, GetStringFromIndex(0x775)); // TODO: msgid "Players"
 
-    PutText(&gSioTexts[0], gBG0TilemapBuffer + 0xa5);
+    PutText(&gSioTexts[0], TILEMAP_LOCATED(gBG0TilemapBuffer, 5, 5));
 
-    ReadMultiArenaSaveRankings(gUnk_Sio_0203DC44);
-    sub_8046F68();
+    ReadMultiArenaSaveRankings(gSioResultRankings);
+    DrawLinkArenaRankings();
 
     SetWinEnable(1, 1, 0);
 
@@ -334,7 +334,7 @@ void sub_8047324(struct SioResultProc * proc)
 }
 
 //! FE8U = 0x08047570
-void sub_8047570(struct SioResultProc * proc)
+void SioResult_NewHS_LoopScroll(struct SioResultProc * proc)
 {
     struct SioResultProcUnk2C * otherProc = proc->unk_2c;
 
@@ -355,7 +355,7 @@ void sub_8047570(struct SioResultProc * proc)
         proc->unk_36 -= 2;
         proc->unk_38--;
 
-        BG_SetPosition(1, 0, proc->unk_36);
+        BG_SetPosition(BG_1, 0, proc->unk_36);
         sub_804D24C(10, proc->unk_36 + 56);
 
         otherProc->unk_30 += 2;
@@ -369,7 +369,7 @@ void sub_8047570(struct SioResultProc * proc)
 
             proc->unk_38 = 7;
 
-            BG_SetPosition(1, 0, proc->unk_36);
+            BG_SetPosition(BG_1, 0, proc->unk_36);
             sub_804D24C(10, proc->unk_36 + 56);
 
             otherProc->unk_30 += 2;
@@ -385,7 +385,7 @@ void sub_8047570(struct SioResultProc * proc)
 }
 
 //! FE8U = 0x0804762C
-void sub_804762C(ProcPtr proc)
+void SioResult_NewHS_AwaitAPress(ProcPtr proc)
 {
     if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
@@ -403,14 +403,14 @@ struct ProcCmd CONST_DATA ProcScr_SIORESULT[] =
     PROC_NAME("SIORESULT"),
     PROC_YIELD,
 
-    PROC_CALL(sub_8047008),
+    PROC_CALL(SioResult_Init),
 
     PROC_CALL(FadeInBlackSpeed20),
     PROC_YIELD,
 
     PROC_CALL(Clear_0203DDDC),
 
-    PROC_REPEAT(sub_804720C),
+    PROC_REPEAT(SioResult_Loop_Main),
 
     PROC_CALL(Set_0203DDDC),
 
@@ -422,19 +422,19 @@ struct ProcCmd CONST_DATA ProcScr_SIORESULT[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gUnknown_085A9D98[] =
+struct ProcCmd CONST_DATA ProcScr_SIORESULT_NewHighScore[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_8047324),
+    PROC_CALL(SioResult_NewHS_Init),
 
     PROC_CALL(FadeInBlackSpeed20),
     PROC_YIELD,
 
     PROC_CALL(Clear_0203DDDC),
 
-    PROC_REPEAT(sub_8047570),
-    PROC_REPEAT(sub_804762C),
+    PROC_REPEAT(SioResult_NewHS_LoopScroll),
+    PROC_REPEAT(SioResult_NewHS_AwaitAPress),
 
     PROC_CALL(Set_0203DDDC),
 
@@ -449,9 +449,9 @@ struct ProcCmd CONST_DATA gUnknown_085A9D98[] =
 // clang-format on
 
 //! FE8U = 0x08047654
-void sub_8047654(int value, ProcPtr parent)
+void StartSioResultNewHighScore(int value, ProcPtr parent)
 {
-    struct SioResultProc * proc = Proc_StartBlocking(gUnknown_085A9D98, parent);
+    struct SioResultProc * proc = Proc_StartBlocking(ProcScr_SIORESULT_NewHighScore, parent);
 
     proc->unk_3c = value;
 

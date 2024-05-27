@@ -1315,8 +1315,8 @@ Img_TacticianSelObj:  @ 0x085ABD68
 gUnknown_085AC604:  @ 0x085AC604
 	.incbin "baserom.gba", 0x5AC604, 0x3D8
 
-	.global gUnknown_085AC9DC
-gUnknown_085AC9DC:  @ 0x085AC9DC
+	.global Img_LinkArenaRankIcons
+Img_LinkArenaRankIcons:  @ 0x085AC9DC
 	.incbin "baserom.gba", 0x5AC9DC, 0x344
 
 	.global gUnknown_085ACD20
@@ -1351,8 +1351,8 @@ Pal_LinkArenaMenu:  @ 0x085ADBE8
 Pal_TacticianSelObj:  @ 0x085ADC48
 	.incbin "baserom.gba", 0x5ADC48, 0x80
 
-	.global gUnknown_085ADCC8
-gUnknown_085ADCC8:  @ 0x085ADCC8
+	.global Pal_LinkArenaRankIcons
+Pal_LinkArenaRankIcons:  @ 0x085ADCC8
 	.incbin "baserom.gba", 0x5ADCC8, 0xE0
 
 	.global gUnknown_085ADDA8
@@ -1395,8 +1395,8 @@ gUnknown_085ADF40:  @ 0x085ADF40
 Tsa_085AE190:  @ 0x085AE190
 	.incbin "baserom.gba", 0x5AE190, 0x2D4
 
-	.global gUnknown_085AE464
-gUnknown_085AE464:  @ 0x085AE464
+	.global Tsa_SioResultRankings
+Tsa_SioResultRankings:  @ 0x085AE464
 	.incbin "baserom.gba", 0x5AE464, 0x314
 
 	.global gUnknown_085AE778

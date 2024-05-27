@@ -226,7 +226,7 @@ SECTIONS
         . = 0x3DB1C; gUnk_Sio_0203DB1C = .;
         . = 0x3DB64; Font_0203DB64 = .;
         . = 0x3DB7C; gUnk_Sio_0203DB7C = .;
-        . = 0x3DC44; gUnk_Sio_0203DC44 = .;
+        . = 0x3DC44; gSioResultRankings = .;
         . = 0x3DC48; gUnk_Sio_0203DC48 = .;
         . = 0x3DD0C; gSioTexts = .;
         . = 0x3DD1C; Text_0203DB14 = .;

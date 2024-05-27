@@ -910,7 +910,7 @@ sub_8045930: @ 0x08045930
 	str r0, [sp]
 	adds r4, r3, #0
 	movs r2, #0
-	ldr r1, _08045964  @ gUnk_Sio_0203DC44
+	ldr r1, _08045964  @ gSioResultRankings
 _0804594C:
 	ldr r0, [r1]
 	lsrs r0, r0, #5
@@ -924,7 +924,7 @@ _0804594C:
 	ble _080459E4
 	b _08045976
 	.align 2, 0
-_08045964: .4byte gUnk_Sio_0203DC44
+_08045964: .4byte gSioResultRankings
 _08045968:
 	adds r1, #0x14
 	adds r2, #1
@@ -934,7 +934,7 @@ _08045968:
 	negs r0, r0
 	b _08045A48
 _08045976:
-	ldr r6, _08045A58  @ gUnk_Sio_0203DC44
+	ldr r6, _08045A58  @ gSioResultRankings
 	lsls r1, r2, #2
 	adds r1, r1, r2
 	lsls r1, r1, #2
@@ -989,7 +989,7 @@ _08045976:
 	cmp r2, r7
 	bgt _08045976
 _080459E4:
-	ldr r5, _08045A58  @ gUnk_Sio_0203DC44
+	ldr r5, _08045A58  @ gSioResultRankings
 	lsls r1, r7, #2
 	adds r1, r1, r7
 	lsls r1, r1, #2
@@ -1048,7 +1048,7 @@ _08045A48:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08045A58: .4byte gUnk_Sio_0203DC44
+_08045A58: .4byte gSioResultRankings
 _08045A5C: .4byte gSioSt
 _08045A60: .4byte gUnk_Sio_0203DAC5
 
@@ -1085,7 +1085,7 @@ sub_8045A64: @ 0x08045A64
 	adds r0, r0, r1
 	ldr r0, [r0]
 	mov r9, r0
-	ldr r0, _08045ADC  @ gUnk_Sio_0203DC44
+	ldr r0, _08045ADC  @ gSioResultRankings
 	mov r8, r0
 	bl ReadMultiArenaSaveRankings
 	adds r0, r4, #0
@@ -1103,13 +1103,13 @@ sub_8045A64: @ 0x08045A64
 	beq _08045AE0
 	adds r0, r1, #0
 	adds r1, r7, #0
-	bl sub_8047654
+	bl StartSioResultNewHighScore
 	b _08045AE6
 	.align 2, 0
 _08045AD0: .4byte gLinkArenaSt
 _08045AD4: .4byte gUnk_Sio_0203DD90
 _08045AD8: .4byte gSioSt
-_08045ADC: .4byte gUnk_Sio_0203DC44
+_08045ADC: .4byte gSioResultRankings
 _08045AE0:
 	movs r0, #1
 	bl Sound_FadeOutBGM
@@ -2765,7 +2765,7 @@ sub_8046838: @ 0x08046838
 	movs r2, #0x12
 	movs r3, #2
 	bl StartMuralBackgroundExt
-	ldr r4, _0804696C  @ gUnknown_085AC9DC
+	ldr r4, _0804696C  @ Img_LinkArenaRankIcons
 	movs r0, #1
 	bl GetBackgroundTileDataOffset
 	adds r1, r0, #0
@@ -2773,7 +2773,7 @@ sub_8046838: @ 0x08046838
 	adds r1, r1, r0
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, _08046974  @ gUnknown_085ADCC8
+	ldr r0, _08046974  @ Pal_LinkArenaRankIcons
 	movs r1, #0xc0
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
@@ -2802,7 +2802,7 @@ sub_8046838: @ 0x08046838
 	bl sub_8043164
 	bl sub_804CEB0
 	add r0, sp, #4
-	bl sub_804766C
+	bl LoadLinkArenaRuleSettings
 	movs r0, #1
 	movs r1, #0xfe
 	movs r2, #0
@@ -2810,7 +2810,7 @@ sub_8046838: @ 0x08046838
 	movs r5, #0
 	movs r7, #0xc0
 	lsls r7, r7, #1
-	ldr r6, _08046994  @ gUnknown_080D9E50
+	ldr r6, _08046994  @ gLinkArenaRuleData
 _080468D4:
 	lsls r4, r5, #3
 	ldr r0, _08046998  @ gLinkArenaSt+0x0C
@@ -2841,18 +2841,18 @@ _080468D4:
 	adds r5, #1
 	cmp r5, #2
 	ble _080468D4
-	ldr r5, _08046994  @ gUnknown_080D9E50
+	ldr r5, _08046994  @ gLinkArenaRuleData
 	ldr r0, [r5, #0x18]
 	lsls r0, r0, #1
 	ldr r4, _080469A0  @ gBG1TilemapBuffer+0x23C
 	adds r0, r0, r4
 	movs r1, #0
-	bl sub_8046E94
+	bl DrawLinkArenaModeIcon
 	ldr r0, [r5, #0x1c]
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #1
-	bl sub_8046E94
+	bl DrawLinkArenaModeIcon
 	ldr r1, _080469A4  @ gUnknown_080D9D5E
 	mov r0, r8
 	subs r0, #0xc
@@ -2876,9 +2876,9 @@ _080468D4:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804696C: .4byte gUnknown_085AC9DC
+_0804696C: .4byte Img_LinkArenaRankIcons
 _08046970: .4byte 0x06000F00
-_08046974: .4byte gUnknown_085ADCC8
+_08046974: .4byte Pal_LinkArenaRankIcons
 _08046978: .4byte Img_TacticianSelObj
 _0804697C: .4byte 0x06014800
 _08046980: .4byte Pal_TacticianSelObj
@@ -2886,7 +2886,7 @@ _08046984: .4byte gUnknown_085AE778
 _08046988: .4byte gGenericBuffer
 _0804698C: .4byte gBG2TilemapBuffer+0x142
 _08046990: .4byte Font_0203DB64
-_08046994: .4byte gUnknown_080D9E50
+_08046994: .4byte gLinkArenaRuleData
 _08046998: .4byte gLinkArenaSt+0x0C
 _0804699C: .4byte gBG0TilemapBuffer+0x00C
 _080469A0: .4byte gBG1TilemapBuffer+0x23C
