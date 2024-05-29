@@ -21,7 +21,7 @@ extern u16 *gMinimapObjectFlashPal;
 extern u8 gUnknown_02000940[];
 extern u8 gUnknown_02000944[];
 extern struct PlaySt_OptionBits gUnknown_02000948[];
-// extern ??? gUnk_Sio_02000C60
+
 // extern ??? gUnk_Sio_02000C78
 // extern ??? gUnk_Sio_02000F00
 // extern ??? gBmMapBuffer
@@ -571,7 +571,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? gUnknown_085AA9D8
 // extern ??? gUnknown_085AAA0E
 // extern ??? gUnknown_085AAA48
-// extern ??? gUnknown_085AAA50
+extern u16 gUnknown_085AAA50[]; // sprite
 // extern ??? gUnknown_085AAA5E
 // extern ??? gUnknown_085AAA78
 // extern ??? gUnknown_085AAA90
@@ -595,31 +595,31 @@ extern u8 Img_LinkArenaMenu[];
 extern u8 Img_TacticianSelObj[];
 // extern ??? gUnknown_085AC604
 extern u8 Img_LinkArenaRankIcons[]; // img
-// extern ??? gUnknown_085ACD20
+extern u8 gUnknown_085ACD20[]; // img
 extern u8 gUnknown_085ACEFC[]; // img
-// extern ??? gUnknown_085AD0CC
+extern u8 gUnknown_085AD0CC[]; // img
 // extern ??? gUnknown_085AD80C
 // extern ??? gUnknown_085AD9CC
-// extern ??? gUnknown_085ADA38
+extern u8 gUnknown_085ADA38[]; // img
 extern u16 Pal_LinkArenaMenu[];
 extern u16 Pal_TacticianSelObj[];
 extern u16 Pal_LinkArenaRankIcons[]; // pal
 // extern ??? gUnknown_085ADDA8
-// extern ??? gUnknown_085ADDC8
+extern u16 gUnknown_085ADDC8[]; // pal
 // extern ??? gUnknown_085ADDE8
 extern u16 gUnknown_085ADE08[]; // pal
 // extern ??? gUnknown_085ADE28
 // extern ??? gUnknown_085ADE48
 extern u16 Pal_085ADE68[];
-// extern ??? gUnknown_085ADE88
+extern u8 gUnknown_085ADE88[]; // tsa?
 // extern ??? gUnknown_085ADF40
 extern u16 Tsa_085AE190[];
 extern u8 Tsa_SioResultRankings[]; // tsa
 extern u8 gUnknown_085AE778[]; // tsa
 // extern ??? gUnknown_085AE7EC
-// extern ??? gUnknown_085AF170
-// extern ??? gUnknown_085B081C
-// extern ??? gUnknown_085B089C
+extern u8 gUnknown_085AF170[]; // img
+extern u16 gUnknown_085B081C[]; // pal
+extern u8 gUnknown_085B089C[]; // tsa
 // extern ??? gUnknown_085B0DE8
 // extern ??? gUnknown_085B0F2C
 // extern ??? gProcScr_TargetSelection

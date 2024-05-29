@@ -6,6 +6,7 @@
 #include "bmunit.h"
 #include "bmitem.h"
 #include "bmsave.h"
+#include "ctc.h"
 #include "constants/items.h"
 #include "sio.h"
 #include "sio_core.h"
@@ -197,6 +198,97 @@ bool sub_80432F4(void)
 
 u8 const gUnknown_080D9D5E[] = {1, 2, 4};
 u8 const gUnknown_080D9D61[] = {
-    0x02, 0x06, 0x0D, 0x13, 0x14, 0xFE, 0x14, 0x13, 0x0D, 0x06, 0x02, 0x00, 0xFF, 0x01, 0x00,
-    // ...
+    0x02, 0x06, 0x0D, 0x13, 0x14, 0xFE, 0x14, 0x13, 0x0D, 0x06, 0x02, 0x00, 0xFF,
 };
+
+// Sprite data here is not used until "sio_postbattle.c",
+// suggesting that this may have been a particularly large file
+
+// clang-format off
+
+u16 const Sprite_080D9D6E[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(1) + OAM2_PAL(3),
+};
+
+u16 const Sprite_080D9D76[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x304) + OAM2_LAYER(1) + OAM2_PAL(4),
+};
+
+u16 const Sprite_080D9D7E[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x308) + OAM2_LAYER(1) + OAM2_PAL(5),
+};
+
+u16 const Sprite_080D9D86[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x30C) + OAM2_LAYER(1) + OAM2_PAL(6),
+};
+
+u16 const Sprite_080D9D8E[] =
+{
+    3,
+    OAM0_SHAPE_32x8 + OAM0_Y(1), OAM1_SIZE_32x8 + OAM1_X(16), OAM2_CHR(0x360) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(9), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x344) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_64x32 + OAM0_Y(4), OAM1_SIZE_64x32, OAM2_CHR(0x358) + OAM2_LAYER(1) + OAM2_PAL(7),
+};
+
+u16 const Sprite_080D9DA2[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(10), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x348) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x380) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(40), OAM2_CHR(0x384) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(24), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x386) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_16x16 + OAM0_Y(24), OAM1_SIZE_16x16 + OAM1_X(40), OAM2_CHR(0x38A) + OAM2_LAYER(1) + OAM2_PAL(7),
+};
+
+u16 const Sprite_080D9DC2[] =
+{
+    3,
+    OAM0_SHAPE_32x16 + OAM0_Y(12), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x34C) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x38C) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(24), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x390) + OAM2_LAYER(1) + OAM2_PAL(7),
+};
+
+u16 const Sprite_080D9DD6[] =
+{
+    2,
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x350) + OAM2_LAYER(1) + OAM2_PAL(7),
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x394) + OAM2_LAYER(1) + OAM2_PAL(7),
+};
+
+u16 const gUnknown_080D9DE4[] =
+{
+    2,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x355) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(16), OAM2_CHR(0x357) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+u16 const gUnknown_080D9DF2[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x100) + OAM2_PAL(14),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x104) + OAM2_PAL(14),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(64), OAM2_CHR(0x108) + OAM2_PAL(14),
+};
+
+u16 const gUnknown_080D9E06[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x100) + OAM2_PAL(14),
+};
+
+u16 const gUnknown_080D9E0E[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16, OAM2_CHR(0x4),
+};
+
+// clang-format on

@@ -7,6 +7,7 @@
 #include "fontgrp.h"
 #include "soundwrapper.h"
 #include "m4a.h"
+#include "bmio.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -57,59 +58,40 @@ struct SioProc85A9774
     /* 58 */ int unk_58;
 };
 
-struct SioUnknown_0203DD90
+// clang-format off
+
+u16 const * CONST_DATA gUnknown_085A96D4[] =
 {
-    // 00 -- ??
-    // 01 -- current phase
-    // 02 -- current cursor unit idx
-    // 03 -- current cursor unit idx (again)
-    // 04 -- current selected unit idx (attacker)
-    // 05 -- current selected combat target unit id
-    // 06 -- weapon index maybe?
-    // 07-09 -- ??
-    // 0a-0d = byte array - num units alive per team
-    // 14-24? - scores - word array
-    STRUCT_PAD(0x00, 0x24);
-    u16 unk_24[4]; // leader face IDs
-    // more?
+    Sprite_080D9D6E,
+    Sprite_080D9D76,
+    Sprite_080D9D7E,
+    Sprite_080D9D86,
 };
 
-struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
+u16 const * CONST_DATA gUnknown_085A96E4[] =
+{
+    Sprite_080D9D8E,
+    Sprite_080D9DA2,
+    Sprite_080D9DC2,
+    Sprite_080D9DD6,
+};
 
-extern u16 * gUnknown_085A96E4[];
-extern u16 * gUnknown_085A96D4[];
+s16 const gUnknown_080D9E1C[5][4] =
+{
+    { -1, -1, -1, -1, },
 
-extern u16 gUnknown_080D9DE4[];
-extern u16 gUnknown_080D9E06[];
-extern u16 gUnknown_080D9DF2[];
-extern u16 gUnknown_080D9E0E[];
+    { -1, -1, -1, -1, },
 
-extern u16 gUnknown_085AAA50[];
+    { 7, 13, -1, -1, },
 
-extern s16 gUnknown_080D9E1C[5][4];
+    { 5, 10, 15, -1, },
 
-extern u8 gUnknown_085ADE88[];
+    { 2, 7, 12, 17, },
+};
 
-extern struct Font gUnk_Sio_02000C60;
-
-extern struct Text Texts_0203DB14[];
-extern struct Text gUnk_Sio_0203DB1C[];
+// clang-format on
 
 extern char gUnk_Sio_0203DAC5[][15];
-
-extern u8 gUnknown_085ADA38[]; // img
-extern u8 gUnknown_085AD0CC[]; // img
-extern u8 gUnknown_085ACD20[]; // img
-extern u8 gUnknown_085AF170[]; // img
-
-extern u16 gUnknown_085ADDC8[]; // pal
-extern u16 gUnknown_085ADE08[]; // pal
-extern u16 gUnknown_085B081C[]; // pal
-
-extern u8 gUnknown_085B089C[]; // tsa
-
-void sub_8048884(struct SioProc85A971C_Unk44 *);
-void sub_804D6D4(void);
 
 //! FE8U = 0x08045208
 void sub_8045208(struct SioProc85A96F4 * proc)
@@ -185,7 +167,21 @@ void sub_804538C(struct SioProc85A96F4 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085A96F4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085A96F4[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_8045208),
+
+    PROC_REPEAT(sub_8045234),
+    PROC_REPEAT(sub_804538C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08045494
 ProcPtr sub_8045494(struct SioProc85A971C * parent, int delayMaybe, u16 fid, u8 oam2, u8 ranking)
@@ -383,6 +379,32 @@ void sub_804589C(ProcPtr proc)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085A971C[] =
+{
+    PROC_CALL(sub_8045640),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    PROC_REPEAT(sub_80457F8),
+    PROC_REPEAT(sub_804589C),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(BMapVSync_Start),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x080458E8
 void sub_80458E8(struct SioProc85A9774 * proc)
 {
@@ -406,3 +428,20 @@ void sub_8045920(void)
     StartBgmExt(0x3b, 0, 0);
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085A9774[] =
+{
+    PROC_SLEEP(16),
+
+    PROC_CALL(sub_80458E8),
+
+    PROC_SLEEP(210),
+
+    PROC_CALL(sub_8045920),
+
+    PROC_END,
+};
+
+// clang-format on

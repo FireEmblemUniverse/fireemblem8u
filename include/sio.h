@@ -54,6 +54,25 @@ struct SioSaveConf {
 } __attribute__((packed));
 extern struct SioSaveConf gSioSaveConfig;
 
+struct SioUnknown_0203DD90
+{
+    // 00 -- ??
+    // 01 -- current phase
+    // 02 -- current cursor unit idx
+    // 03 -- current cursor unit idx (again?)
+    // 04 -- current selected unit idx (attacker)
+    // 05 -- current selected combat target unit id
+    // 06 -- weapon index maybe?
+    // 07-09 -- ??
+    // 0A-0D = byte array - num units alive per team
+    // 14-24? - scores - word array
+    STRUCT_PAD(0x00, 0x24);
+    u16 unk_24[4]; // leader face IDs
+    // more?
+};
+
+struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
+
 u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
 void SioInit(void);
@@ -264,7 +283,7 @@ void sub_8048260(ProcPtr); // StartNameSelect
 // ??? sub_8048838(???);
 void CallEraseSaveEvent(ProcPtr);
 // ??? sub_8048864(???);
-// ??? sub_8048884(???);
+void sub_8048884(void *); // TODO: Fix param type
 // ??? sub_8048934(???);
 // ??? sub_8048988(???);
 // ??? nullsub_43(???);
@@ -461,7 +480,7 @@ void sub_804D24C(int, s16);
 // ??? sub_804D664(???);
 // ??? sub_804D6B4(???);
 // ??? sub_804D6C4(???);
-// ??? sub_804D6D4(???);
+void sub_804D6D4(void);
 // ??? sub_804D724(???);
 // ??? sub_804D778(???);
 // ??? sub_804D7B0(???);
@@ -486,6 +505,7 @@ void sub_804D834(int, int);
 
 // extern ??? gUnk_Sio_02000000
 
+extern struct Font gUnk_Sio_02000C60;
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
 // extern ??? gUnk_Sio_0203DA78
@@ -495,7 +515,7 @@ extern struct Text Texts_0203DAB0;
 // extern ??? gUnk_Sio_0203DAC5
 
 extern struct Text Texts_0203DB14[10];
-// extern ??? gUnk_Sio_0203DB1C
+extern struct Text gUnk_Sio_0203DB1C[];
 extern struct Font Font_0203DB64;
 // extern ??? gUnk_Sio_0203DB7C
 // extern ??? gSioResultRankings
@@ -523,10 +543,18 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9D56
 // extern ??? gUnknown_080D9D5E
 // extern ??? gUnknown_080D9D61
-// extern ??? gUnknown_080D9DE4
-// extern ??? gUnknown_080D9DF2
-// extern ??? gUnknown_080D9E06
-// extern ??? gUnknown_080D9E0E
+extern u16 const Sprite_080D9D6E[];
+extern u16 const Sprite_080D9D76[];
+extern u16 const Sprite_080D9D7E[];
+extern u16 const Sprite_080D9D86[];
+extern u16 const Sprite_080D9D8E[];
+extern u16 const Sprite_080D9DA2[];
+extern u16 const Sprite_080D9DC2[];
+extern u16 const Sprite_080D9DD6[];
+extern u16 const gUnknown_080D9DE4[];
+extern u16 const gUnknown_080D9DF2[];
+extern u16 const gUnknown_080D9E06[];
+extern u16 const gUnknown_080D9E0E[];
 // extern ??? gUnknown_080D9E1C
 // extern ??? gUnknown_080D9E44
 // extern ??? gLinkArenaRuleData
