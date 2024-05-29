@@ -502,7 +502,7 @@ extern struct Font Font_0203DB64;
 // extern ??? gUnk_Sio_0203DC48
 extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
-extern u8 gUnk_Sio_0203DD24;
+extern s8 gUnk_Sio_0203DD24;
 // extern ??? gUnk_Sio_0203DD28
 extern u16 gUnk_Sio_0203DD2C[];
 extern int gUnk_Sio_0203DD4C;
