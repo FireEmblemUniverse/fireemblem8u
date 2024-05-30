@@ -263,14 +263,14 @@ u16 const Sprite_080D9DD6[] =
     OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x394) + OAM2_LAYER(1) + OAM2_PAL(7),
 };
 
-u16 const gUnknown_080D9DE4[] =
+u16 const Sprite_080D9DE4[] =
 {
     2,
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x355) + OAM2_LAYER(1) + OAM2_PAL(8),
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(16), OAM2_CHR(0x357) + OAM2_LAYER(1) + OAM2_PAL(8),
 };
 
-u16 const gUnknown_080D9DF2[] =
+u16 const Sprite_080D9DF2[] =
 {
     3,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x100) + OAM2_PAL(14),
@@ -278,13 +278,13 @@ u16 const gUnknown_080D9DF2[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(64), OAM2_CHR(0x108) + OAM2_PAL(14),
 };
 
-u16 const gUnknown_080D9E06[] =
+u16 const Sprite_080D9E06[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x100) + OAM2_PAL(14),
 };
 
-u16 const gUnknown_080D9E0E[] =
+u16 const Sprite_080D9E0E[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,

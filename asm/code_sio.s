@@ -608,7 +608,7 @@ sub_8045DC0: @ 0x08045DC0
 	ldr r0, _08045ECC  @ Img_TacticianSelObj
 	ldr r1, _08045ED0  @ 0x06014800
 	bl Decompress
-	ldr r0, _08045ED4  @ gUnknown_085ADA38
+	ldr r0, _08045ED4  @ Img_LinkArenaPlayerBanners
 	ldr r1, _08045ED8  @ 0x06016000
 	bl Decompress
 	ldr r0, _08045EDC  @ gUnknown_085AC604
@@ -713,7 +713,7 @@ _08045E46:
 	.align 2, 0
 _08045ECC: .4byte Img_TacticianSelObj
 _08045ED0: .4byte 0x06014800
-_08045ED4: .4byte gUnknown_085ADA38
+_08045ED4: .4byte Img_LinkArenaPlayerBanners
 _08045ED8: .4byte 0x06016000
 _08045EDC: .4byte gUnknown_085AC604
 _08045EE0: .4byte 0x06016800

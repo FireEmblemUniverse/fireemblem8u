@@ -175,7 +175,7 @@ SECTIONS
     ewram_overlay_sio __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000; gUnk_Sio_02000000 = .;
-        . = 0x000C60; gUnk_Sio_02000C60 = .;
+        . = 0x000C60; Font_Sio_02000C60 = .;
         . = 0x000C78; gUnk_Sio_02000C78 = .;
         . = 0x000F00; gUnk_Sio_02000F00 = .;
         . = 0x001180; gUnk_Sio_02001180 = .;

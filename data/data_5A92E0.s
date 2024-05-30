@@ -52,7 +52,7 @@ ProcScr_SIOPRA:  @ 0x085A979C
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word gUnknown_085A971C
+        .word ProcScr_SioPostBattle
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -301,7 +301,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word sub_8045CBC
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word gUnknown_085A971C
+        .word ProcScr_SioPostBattle
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

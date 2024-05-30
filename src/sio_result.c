@@ -277,7 +277,7 @@ void SioResult_NewHS_Init(struct SioResultProc * proc)
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
     Decompress(gUnknown_085ACEFC, (void *)(0x06016000));
-    ApplyPalette(gUnknown_085ADE08, 0x13);
+    ApplyPalette(Pal_LinkArenaActiveBannerFx, 0x13);
 
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 1, 4), Tsa_SioResultRankings, 0x1000);
 

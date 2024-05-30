@@ -1180,7 +1180,7 @@ _08048B2C:
 	lsls r0, r0, #3
 	adds r0, #8
 	strh r0, [r5, #0x30]
-	ldr r0, _08048B70  @ gUnk_Sio_02000C60
+	ldr r0, _08048B70  @ Font_Sio_02000C60
 	bl SetTextFont
 	ldr r0, _08048B74  @ gUnk_Sio_02000C78
 	adds r1, r5, #0
@@ -1198,7 +1198,7 @@ _08048B2C:
 	.align 2, 0
 _08048B68: .4byte gUnknown_085AA084
 _08048B6C: .4byte gUnknown_080D9F98
-_08048B70: .4byte gUnk_Sio_02000C60
+_08048B70: .4byte Font_Sio_02000C60
 _08048B74: .4byte gUnk_Sio_02000C78
 
 	THUMB_FUNC_END sub_8048AA8
@@ -1600,7 +1600,7 @@ _08048E80:
 sub_8048E84: @ 0x08048E84
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _08048EB0  @ gUnk_Sio_02000C60
+	ldr r0, _08048EB0  @ Font_Sio_02000C60
 	bl SetTextFont
 	ldr r1, [r4, #0x54]
 	movs r0, #0x50
@@ -1618,7 +1618,7 @@ sub_8048E84: @ 0x08048E84
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08048EB0: .4byte gUnk_Sio_02000C60
+_08048EB0: .4byte Font_Sio_02000C60
 _08048EB4: .4byte gUnk_Sio_02000C78
 
 	THUMB_FUNC_END sub_8048E84
@@ -1907,7 +1907,7 @@ sub_80490EC: @ 0x080490EC
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl CopyToPaletteBuffer
-	ldr r0, _080491C8  @ gUnk_Sio_02000C60
+	ldr r0, _080491C8  @ Font_Sio_02000C60
 	ldr r1, _080491CC  @ 0x06016800
 	movs r2, #3
 	bl InitSpriteTextFont
@@ -1989,7 +1989,7 @@ _080491A4:
 	b _080491F0
 	.align 2, 0
 _080491C4: .4byte Pal_Text
-_080491C8: .4byte gUnk_Sio_02000C60
+_080491C8: .4byte Font_Sio_02000C60
 _080491CC: .4byte 0x06016800
 _080491D0: .4byte gUnk_Sio_02000C78
 _080491D4: .4byte gSioSt
@@ -9265,7 +9265,7 @@ _0804C8DE:
 	str r0, [sp]
 	movs r0, #4
 	adds r2, r5, #0
-	ldr r3, _0804C9EC  @ gUnknown_085AAA50
+	ldr r3, _0804C9EC  @ Sprite_085AAA50
 	bl PutSprite
 	adds r0, r7, #0
 	adds r0, #0x3a
@@ -9379,7 +9379,7 @@ _0804C9DE:
 	.align 2, 0
 _0804C9E4: .4byte gLinkArenaSt
 _0804C9E8: .4byte gUnknown_085AA9D8
-_0804C9EC: .4byte gUnknown_085AAA50
+_0804C9EC: .4byte Sprite_085AAA50
 _0804C9F0: .4byte gUnknown_085AAA5E
 _0804C9F4: .4byte gUnk_Sio_0203DDDC
 _0804C9F8: .4byte gPaletteBuffer
@@ -9798,7 +9798,7 @@ sub_804CCCC: @ 0x0804CCCC
 	movs r1, #0x60
 	movs r2, #0x20
 	bl PutSprite
-	ldr r3, _0804CD60  @ gUnknown_085AAA50
+	ldr r3, _0804CD60  @ Sprite_085AAA50
 	movs r0, #0x80
 	lsls r0, r0, #4
 	str r0, [sp]
@@ -9830,7 +9830,7 @@ _0804CD34:
 _0804CD54: .4byte gUnknown_085AAAA8
 _0804CD58: .4byte gUnknown_080DA132
 _0804CD5C: .4byte gUnknown_085AA9D8
-_0804CD60: .4byte gUnknown_085AAA50
+_0804CD60: .4byte Sprite_085AAA50
 _0804CD64: .4byte gUnknown_085AAAB0
 _0804CD68:
 	ldr r3, [r6]
@@ -10740,7 +10740,7 @@ _0804D412:
 	THUMB_FUNC_START sub_804D428
 sub_804D428: @ 0x0804D428
 	push {r4, r5, r6, lr}
-	ldr r5, _0804D46C  @ gUnknown_085ADE08
+	ldr r5, _0804D46C  @ Pal_LinkArenaActiveBannerFx
 	ldr r0, _0804D470  @ gUnk_Sio_0203DDDC
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -10774,7 +10774,7 @@ _0804D466:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D46C: .4byte gUnknown_085ADE08
+_0804D46C: .4byte Pal_LinkArenaActiveBannerFx
 _0804D470: .4byte gUnk_Sio_0203DDDC
 _0804D474: .4byte gPaletteBuffer
 _0804D478: .4byte 0x00000322
@@ -10809,7 +10809,7 @@ _0804D494:
 	adds r0, r0, r3
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _0804D648  @ gUnknown_085AAA50
+	ldr r3, _0804D648  @ Sprite_085AAA50
 	bl PutSprite
 	ldr r4, _0804D64C  @ gSinLookup+0x80
 	movs r1, #0
@@ -11005,7 +11005,7 @@ _0804D636:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D648: .4byte gUnknown_085AAA50
+_0804D648: .4byte Sprite_085AAA50
 _0804D64C: .4byte gSinLookup+0x80
 _0804D650: .4byte gSinLookup
 _0804D654: .4byte 0x0000014F
@@ -11086,7 +11086,7 @@ _0804D6D0: .4byte gUnknown_085AABC8
 	THUMB_FUNC_START sub_804D6D4
 sub_804D6D4: @ 0x0804D6D4
 	push {r4, r5, lr}
-	ldr r5, _0804D718  @ gUnknown_085ADE08
+	ldr r5, _0804D718  @ Pal_LinkArenaActiveBannerFx
 	ldr r0, _0804D71C  @ gUnk_Sio_0203DDDC
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -11120,7 +11120,7 @@ _0804D712:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D718: .4byte gUnknown_085ADE08
+_0804D718: .4byte Pal_LinkArenaActiveBannerFx
 _0804D71C: .4byte gUnk_Sio_0203DDDC
 _0804D720: .4byte gPaletteBuffer
 
@@ -11129,7 +11129,7 @@ _0804D720: .4byte gPaletteBuffer
 	THUMB_FUNC_START sub_804D724
 sub_804D724: @ 0x0804D724
 	push {r4, r5, r6, lr}
-	ldr r5, _0804D768  @ gUnknown_085ADE08
+	ldr r5, _0804D768  @ Pal_LinkArenaActiveBannerFx
 	ldr r0, _0804D76C  @ gUnk_Sio_0203DDDC
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -11163,7 +11163,7 @@ _0804D762:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D768: .4byte gUnknown_085ADE08
+_0804D768: .4byte Pal_LinkArenaActiveBannerFx
 _0804D76C: .4byte gUnk_Sio_0203DDDC
 _0804D770: .4byte gPaletteBuffer
 _0804D774: .4byte 0x00000262

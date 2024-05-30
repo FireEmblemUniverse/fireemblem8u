@@ -16,51 +16,51 @@
  * Battle result screen for the Link Arena.
  * Not to be confused with "sio_result.c", which refers to the
  * "Battle Data" UI.
-*/
+ */
 
 struct SioProc85A971C_Unk44
 {
-    /* 00 */ u8 a;
+    /* 00 */ u8 playerId;
     /* 01 */ STRUCT_PAD(0x01, 0x04);
-    /* 04 */ int b;
+    /* 04 */ int points;
 };
 
-struct SioProc85A971C
+struct SioPostBattleProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ ProcPtr unk_2c[4];
     /* 3C */ STRUCT_PAD(0x3c, 0x40);
     /* 40 */ u8 unk_40;
     /* 41 */ u8 unk_41;
-    /* 42 */ u8 unk_42;
+    /* 42 */ u8 playerId;
     /* 43 */ u8 unk_43;
     /* 44 */ struct SioProc85A971C_Unk44 unk_44[4];
     /* 64 */ int unk_64;
 };
 
-struct SioProc85A96F4
+struct SioPostBattleSpritesProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct SioProc85A971C * unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3c;
-    /* 40 */ u16 unk_40;
-    /* 42 */ u8 unk_42;
-    /* 43 */ u8 unk_43;
+    /* 2C */ struct SioPostBattleProc * unk_2c;
+    /* 30 */ int x;
+    /* 34 */ int y;
+    /* 38 */ int delayMaybe;
+    /* 3C */ int timer;
+    /* 40 */ u16 fid;
+    /* 42 */ u8 oam2;
+    /* 43 */ u8 ranking;
 };
 
-struct SioProc85A9774
+struct SioPostBattleMusicProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x58);
-    /* 58 */ int unk_58;
+    /* 58 */ int isPlayerWinner;
 };
 
 // clang-format off
 
-u16 const * CONST_DATA gUnknown_085A96D4[] =
+u16 const * CONST_DATA SpriteArray_085A96D4[] =
 {
     Sprite_080D9D6E,
     Sprite_080D9D76,
@@ -68,7 +68,7 @@ u16 const * CONST_DATA gUnknown_085A96D4[] =
     Sprite_080D9D86,
 };
 
-u16 const * CONST_DATA gUnknown_085A96E4[] =
+u16 const * CONST_DATA SpriteArray_085A96E4[] =
 {
     Sprite_080D9D8E,
     Sprite_080D9DA2,
@@ -91,25 +91,23 @@ s16 const gUnknown_080D9E1C[5][4] =
 
 // clang-format on
 
-extern char gUnk_Sio_0203DAC5[][15];
-
 //! FE8U = 0x08045208
-void sub_8045208(struct SioProc85A96F4 * proc)
+void SioPostBattleSprites_Init(struct SioPostBattleSpritesProc * proc)
 {
-    UnpackFaceChibiSprGraphics(proc->unk_40, proc->unk_42 * 8 + 0x180, proc->unk_42 + 10);
-    proc->unk_3c = 0;
-    proc->unk_34 = -0x26;
+    UnpackFaceChibiSprGraphics(proc->fid, proc->oam2 * 8 + 0x180, proc->oam2 + 10);
+    proc->timer = 0;
+    proc->y = -38;
     return;
 }
 
 //! FE8U = 0x08045234
-void sub_8045234(struct SioProc85A96F4 * proc)
+void SioPostBattleSprites_Loop_DrawSlideIn(struct SioPostBattleSpritesProc * proc)
 {
-    struct SioProc85A971C * unk2C = proc->unk_2c;
+    struct SioPostBattleProc * unk2C = proc->unk_2c;
 
     if (unk2C->unk_64 == 0)
     {
-        if (proc->unk_3c > 0x20)
+        if (proc->timer > 32)
         {
             Proc_Break(proc);
         }
@@ -117,66 +115,62 @@ void sub_8045234(struct SioProc85A96F4 * proc)
 
     if (unk2C->unk_64 != 0)
     {
-        proc->unk_34++;
+        proc->y++;
     }
 
-    proc->unk_38--;
+    proc->delayMaybe--;
 
-    if (proc->unk_38 < 0)
+    if (proc->delayMaybe < 0)
     {
-        proc->unk_38 = 0;
+        proc->delayMaybe = 0;
     }
 
-    if (proc->unk_38 == 0)
+    if (proc->delayMaybe == 0)
     {
-        if (proc->unk_3c < 0x21)
+        if (proc->timer <= 32)
         {
-            proc->unk_30 = Interpolate(4, -0x50, 0, proc->unk_3c, 0x20);
+            proc->x = Interpolate(INTERPOLATE_RSQUARE, -80, 0, proc->timer, 32);
         }
 
-        proc->unk_3c++;
+        proc->timer++;
 
-        PutSprite(4, proc->unk_30, proc->unk_34 - 0x10, gUnknown_085A96E4[proc->unk_43], 0);
-        PutSprite(4, proc->unk_30 + 0x48, proc->unk_34 - 6, gUnknown_085A96D4[proc->unk_42], 0);
-        PutSprite(4, proc->unk_30 + 0x60, proc->unk_34 + 8, gUnknown_080D9DE4, 0);
-        PutSprite(4, proc->unk_30 + 0x40, proc->unk_34 + 8, gUnknown_080D9E06, proc->unk_43 * 4 + 0x50);
-        PutSprite(4, -proc->unk_30 + 0x70, proc->unk_34 - 8, gUnknown_085AAA50, OAM2_PAL(proc->unk_42) + 0x400);
+        PutSprite(4, proc->x, proc->y - 16, SpriteArray_085A96E4[proc->ranking], 0);
+        PutSprite(4, proc->x + 72, proc->y - 6, SpriteArray_085A96D4[proc->oam2], 0);
+        PutSprite(4, proc->x + 96, proc->y + 8, Sprite_080D9DE4, 0);
+        PutSprite(4, proc->x + 64, proc->y + 8, Sprite_080D9E06, proc->ranking * 4 + 0x50);
+        PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_085AAA50, OAM2_PAL(proc->oam2) + 0x400);
+        PutSprite(4, -proc->x + 124, proc->y, Sprite_080D9DF2, proc->oam2 == 3 ? 0x40 : proc->oam2 * 9);
         PutSprite(
-            4, -proc->unk_30 + 0x7c, proc->unk_34, gUnknown_080D9DF2, proc->unk_42 == 3 ? 0x40 : proc->unk_42 * 9);
-        PutSprite(
-            5, -proc->unk_30 + 0xd0, proc->unk_34 - 8, gUnknown_080D9E0E,
-            OAM2_PAL(proc->unk_42 + 10) + 0x180 + (proc->unk_42 << 3));
+            5, -proc->x + 208, proc->y - 8, Sprite_080D9E0E, OAM2_PAL(proc->oam2 + 10) + 0x180 + (proc->oam2 << 3));
     }
 
     return;
 }
 
 //! FE8U = 0x0804538C
-void sub_804538C(struct SioProc85A96F4 * proc)
+void SioPostBattleSprites_Loop_DrawStatic(struct SioPostBattleSpritesProc * proc)
 {
-    PutSprite(4, proc->unk_30, proc->unk_34 - 0x10, gUnknown_085A96E4[proc->unk_43], 0);
-    PutSprite(4, proc->unk_30 + 0x48, proc->unk_34 - 6, gUnknown_085A96D4[proc->unk_42], 0);
-    PutSprite(4, proc->unk_30 + 0x60, proc->unk_34 + 8, gUnknown_080D9DE4, 0);
-    PutSprite(4, proc->unk_30 + 0x40, proc->unk_34 + 8, gUnknown_080D9E06, proc->unk_43 * 4 + 0x50);
-    PutSprite(4, -proc->unk_30 + 0x70, proc->unk_34 - 8, gUnknown_085AAA50, OAM2_PAL(proc->unk_42) + 0x400);
-    PutSprite(4, -proc->unk_30 + 0x7c, proc->unk_34, gUnknown_080D9DF2, proc->unk_42 == 3 ? 0x40 : proc->unk_42 * 9);
-    PutSprite(
-        5, -proc->unk_30 + 0xd0, proc->unk_34 - 8, gUnknown_080D9E0E,
-        OAM2_PAL(proc->unk_42 + 10) + 0x180 + (proc->unk_42 << 3));
+    PutSprite(4, proc->x, proc->y - 16, SpriteArray_085A96E4[proc->ranking], 0);
+    PutSprite(4, proc->x + 72, proc->y - 6, SpriteArray_085A96D4[proc->oam2], 0);
+    PutSprite(4, proc->x + 96, proc->y + 8, Sprite_080D9DE4, 0);
+    PutSprite(4, proc->x + 64, proc->y + 8, Sprite_080D9E06, proc->ranking * 4 + 0x50);
+    PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_085AAA50, OAM2_PAL(proc->oam2) + 0x400);
+    PutSprite(4, -proc->x + 124, proc->y, Sprite_080D9DF2, proc->oam2 == 3 ? 0x40 : proc->oam2 * 9);
+    PutSprite(5, -proc->x + 208, proc->y - 8, Sprite_080D9E0E, OAM2_PAL(proc->oam2 + 10) + 0x180 + (proc->oam2 << 3));
 
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085A96F4[] =
+struct ProcCmd CONST_DATA ProcScr_LinkArenaPostBattle_DrawSprites[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_8045208),
+    PROC_CALL(SioPostBattleSprites_Init),
 
-    PROC_REPEAT(sub_8045234),
-    PROC_REPEAT(sub_804538C),
+    PROC_REPEAT(SioPostBattleSprites_Loop_DrawSlideIn),
+    PROC_REPEAT(SioPostBattleSprites_Loop_DrawStatic),
 
     PROC_END,
 };
@@ -184,28 +178,28 @@ struct ProcCmd CONST_DATA gUnknown_085A96F4[] =
 // clang-format on
 
 //! FE8U = 0x08045494
-ProcPtr sub_8045494(struct SioProc85A971C * parent, int delayMaybe, u16 fid, u8 oam2, u8 ranking)
+ProcPtr StartDrawLinkArenaRankSprites(struct SioPostBattleProc * parent, int delayMaybe, u16 fid, u8 oam2, u8 ranking)
 {
-    struct SioProc85A96F4 * proc = Proc_Start(gUnknown_085A96F4, parent);
+    struct SioPostBattleSpritesProc * proc = Proc_Start(ProcScr_LinkArenaPostBattle_DrawSprites, parent);
 
     proc->unk_2c = parent;
-    proc->unk_38 = delayMaybe;
-    proc->unk_40 = fid;
-    proc->unk_43 = ranking;
-    proc->unk_42 = oam2;
+    proc->delayMaybe = delayMaybe;
+    proc->fid = fid;
+    proc->ranking = ranking;
+    proc->oam2 = oam2;
 
     return proc;
 }
 
 //! FE8U = 0x080454E4
-void sub_80454E4(struct SioProc85A971C * proc)
+void sub_80454E4(struct SioPostBattleProc * proc)
 {
     int i;
 
     int unk_40 = proc->unk_40;
     u16 * tm = gBG2TilemapBuffer;
 
-    if (proc->unk_42 == proc->unk_44[(proc->unk_41 - 1)].a)
+    if (proc->playerId == proc->unk_44[(proc->unk_41 - 1)].playerId)
     {
         CallARM_FillTileRect(
             tm + TILEMAP_INDEX(0, gUnknown_080D9E1C[unk_40][(proc->unk_41 - 1)]), gUnknown_085ADE88, 0x2078);
@@ -222,56 +216,56 @@ void sub_80454E4(struct SioProc85A971C * proc)
 }
 
 //! FE8U = 0x0804556C
-void sub_804556C(struct SioProc85A971C * proc)
+void sub_804556C(struct SioPostBattleProc * proc)
 {
     int i;
 
     int unk_40 = proc->unk_40;
-    SetTextFont(&gUnk_Sio_02000C60);
+    SetTextFont(&Font_Sio_02000C60);
 
     for (i = 0; i < unk_40; i++)
     {
         char * str = gUnk_Sio_0203DAC5[i];
 
         int len = GetStringTextLen(str);
-        len = (0x48 - len) / 2;
+        len = (72 - len) / 2;
 
         if (i < 3)
         {
-            Text_InsertDrawString(Texts_0203DB14, 0x48 * i + len, 0, str);
+            Text_InsertDrawString(Texts_0203DB14, 72 * i + len, 0, str);
         }
         else
         {
             Text_InsertDrawString(gUnk_Sio_0203DB1C, len, 0, str);
         }
 
-        SioDrawNumber(gUnk_Sio_0203DB1C, i * 0x20 + 0x98, 2, proc->unk_44[i].b);
+        SioDrawNumber(gUnk_Sio_0203DB1C, i * 32 + 152, 2, proc->unk_44[i].points);
     }
 
     return;
 }
 
-extern struct ProcCmd gUnknown_085A9774[];
+extern struct ProcCmd ProcScr_SioPostBattle_PlayMusic[];
 
 //! FE8U = 0x08045610
-ProcPtr sub_8045610(struct SioProc85A971C * parent)
+ProcPtr SioPostBattle_StartMusicProc(struct SioPostBattleProc * parent)
 {
-    struct SioProc85A9774 * proc = Proc_Start(gUnknown_085A9774, parent);
+    struct SioPostBattleMusicProc * proc = Proc_Start(ProcScr_SioPostBattle_PlayMusic, parent);
 
-    if (parent->unk_42 == parent->unk_44[0].a)
+    if (parent->playerId == parent->unk_44[0].playerId)
     {
-        proc->unk_58 = 1;
+        proc->isPlayerWinner = 1;
     }
     else
     {
-        proc->unk_58 = 0;
+        proc->isPlayerWinner = 0;
     }
 
     return proc;
 }
 
 //! FE8U = 0x08045640
-void sub_8045640(struct SioProc85A971C * proc)
+void SioPostBattle_Init(struct SioPostBattleProc * proc)
 {
     int i;
 
@@ -279,22 +273,22 @@ void sub_8045640(struct SioProc85A971C * proc)
     InitSioBG();
 
     Decompress(Img_TacticianSelObj, (void *)(0x06014800));
-    Decompress(gUnknown_085ADA38, (void *)(0x06016000));
-    Decompress(gUnknown_085AD0CC, (void *)(0x06016800));
+    Decompress(Img_LinkArenaPlayerBanners, (void *)(0x06016000));
+    Decompress(Img_LinkArenaPlacementRanks, (void *)(0x06016800));
 
-    CopyToPaletteBuffer(Pal_TacticianSelObj, 0x260, 0x80);
-    CopyToPaletteBuffer(gUnknown_085ADDC8, 0x2e0, 0x20);
+    ApplyPalettes(Pal_TacticianSelObj, 0x13, 4);
+    ApplyPalette(Pal_LinkArenaPlacementRanks, 0x17);
 
-    Decompress(gUnknown_085ACD20, (void *)(0x06000F00));
-    CopyToPaletteBuffer(gUnknown_085ADE08, 0x40, 0x20);
+    Decompress(Img_LinkArenaActiveBannerFx, (void *)(0x06000F00));
+    ApplyPalette(Pal_LinkArenaActiveBannerFx, 2);
 
-    Decompress(gUnknown_085AF170, (void *)(0x6000000 + GetBackgroundTileDataOffset(3)));
-    CopyToPaletteBuffer(gUnknown_085B081C, 0x140, 0x80);
-    Decompress(gUnknown_085B089C, gGenericBuffer);
+    Decompress(Img_LinkArenaPostBattleBg, (void *)(0x6000000 + GetBackgroundTileDataOffset(3)));
+    ApplyPalettes(Pal_LinkArenaPostBattleBg, 10, 4);
+    Decompress(Tsa_LinkArenaPostBattleBg, gGenericBuffer);
     CallARM_FillTileRect(gBG3TilemapBuffer, gGenericBuffer, 0xa000);
 
-    InitSpriteTextFont(&gUnk_Sio_02000C60, (void *)(0x06012000), 0xe);
-    CopyToPaletteBuffer(Pal_Text, 0x3c0, 0x20);
+    InitSpriteTextFont(&Font_Sio_02000C60, (void *)(0x06012000), 0xe);
+    ApplyPalette(Pal_Text, 0x1E);
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
     ResetTextFont();
 
@@ -306,32 +300,32 @@ void sub_8045640(struct SioProc85A971C * proc)
 
     proc->unk_40 = gSioSt->unk_007;
     proc->unk_41 = gSioSt->unk_007;
-    proc->unk_42 = gSioSt->selfId;
+    proc->playerId = gSioSt->selfId;
 
     CpuFill16(0, proc->unk_44, sizeof(proc->unk_44));
-
     sub_8048884(proc->unk_44);
+
     sub_804556C(proc);
 
-    proc->unk_64 = 0xb0;
+    proc->unk_64 = 176;
 
-    BG_SetPosition(2, 0, 0xb0);
+    BG_SetPosition(2, 0, 176);
 
     SetWinEnable(0, 0, 0);
 
-    SetBlendConfig(1, 8, 8, 0);
+    SetBlendAlpha(8, 8);
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8045610(proc);
+    SioPostBattle_StartMusicProc(proc);
 
-    BG_EnableSyncByMask(8);
+    BG_EnableSyncByMask(BG3_SYNC_BIT);
 
     return;
 }
 
 //! FE8U = 0x080457F8
-void sub_80457F8(struct SioProc85A971C * proc)
+void SioPostBattle_Loop_Main(struct SioPostBattleProc * proc)
 {
     int fid;
 
@@ -347,11 +341,11 @@ void sub_80457F8(struct SioProc85A971C * proc)
         if ((proc->unk_64 >> 3) == (gUnknown_080D9E1C[unk_40][(proc->unk_41 - 1)] + 4))
         {
             sub_80454E4(proc);
-            BG_EnableSyncByMask(4);
+            BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-            fid = gUnk_Sio_0203DD90.unk_24[proc->unk_44[(proc->unk_41 - 1)].a];
+            fid = gUnk_Sio_0203DD90.unk_24[proc->unk_44[(proc->unk_41 - 1)].playerId];
             proc->unk_2c[(proc->unk_41 - 1)] =
-                sub_8045494(proc, 0x28, fid, proc->unk_44[(proc->unk_41 - 1)].a, (proc->unk_41 - 1));
+                StartDrawLinkArenaRankSprites(proc, 40, fid, proc->unk_44[(proc->unk_41 - 1)].playerId, (proc->unk_41 - 1));
 
             proc->unk_41--;
         }
@@ -366,11 +360,11 @@ void sub_80457F8(struct SioProc85A971C * proc)
 }
 
 //! FE8U = 0x0804589C
-void sub_804589C(ProcPtr proc)
+void SioPostBattle_AwaitAPress(ProcPtr proc)
 {
     sub_804D6D4();
 
-    if ((gKeyStatusPtr->newKeys & 1) != 0)
+    if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
         m4aMPlayFadeOut(gMPlayTable[gSongTable[0x81].ms].info, 1);
         Proc_Break(proc);
@@ -381,17 +375,17 @@ void sub_804589C(ProcPtr proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085A971C[] =
+struct ProcCmd CONST_DATA ProcScr_SioPostBattle[] =
 {
-    PROC_CALL(sub_8045640),
+    PROC_CALL(SioPostBattle_Init),
 
     PROC_CALL(FadeInBlackSpeed20),
     PROC_YIELD,
 
     PROC_CALL(Clear_0203DDDC),
 
-    PROC_REPEAT(sub_80457F8),
-    PROC_REPEAT(sub_804589C),
+    PROC_REPEAT(SioPostBattle_Loop_Main),
+    PROC_REPEAT(SioPostBattle_AwaitAPress),
 
     PROC_CALL(Set_0203DDDC),
 
@@ -406,9 +400,9 @@ struct ProcCmd CONST_DATA gUnknown_085A971C[] =
 // clang-format on
 
 //! FE8U = 0x080458E8
-void sub_80458E8(struct SioProc85A9774 * proc)
+void SioPostBattleMusic_PlayFanfare(struct SioPostBattleMusicProc * proc)
 {
-    if (proc->unk_58 != 0)
+    if (proc->isPlayerWinner != 0)
     {
         StartBgmExt(0x3a, 0, 0);
     }
@@ -423,7 +417,7 @@ void sub_80458E8(struct SioProc85A9774 * proc)
 }
 
 //! FE8U = 0x08045920
-void sub_8045920(void)
+void SioPostBattleMusic_PlayStandardBgm(void)
 {
     StartBgmExt(0x3b, 0, 0);
     return;
@@ -431,15 +425,15 @@ void sub_8045920(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085A9774[] =
+struct ProcCmd CONST_DATA ProcScr_SioPostBattle_PlayMusic[] =
 {
     PROC_SLEEP(16),
 
-    PROC_CALL(sub_80458E8),
+    PROC_CALL(SioPostBattleMusic_PlayFanfare),
 
     PROC_SLEEP(210),
 
-    PROC_CALL(sub_8045920),
+    PROC_CALL(SioPostBattleMusic_PlayStandardBgm),
 
     PROC_END,
 };
