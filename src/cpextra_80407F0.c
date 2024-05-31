@@ -61,7 +61,7 @@ int GetSpecialItemFuncIndex(u16 item) {
 s8 AiTryDoSpecialItems() {
     int i;
 
-    if (gAiState.flags & AI_FLAG_1) {
+    if (gAiState.flags & AI_FLAG_STAY) {
         return 0;
     }
 
@@ -382,7 +382,7 @@ void sub_8040EF8(struct Unit* unit) {
     return;
 }
 
-void sub_8040F28(int x, int y, const s8* cost) {
+void GenerateExtendedMovementMapOnRangeNeglectWall(int x, int y, const s8* cost) {
     AiSetMovCostTableWithPassableWalls(cost);
 
     SetWorkingBmMap(gBmMapRange);
@@ -447,10 +447,10 @@ void sub_8041054(struct Unit* unit) {
 
 void AiUpdateNoMoveFlag(struct Unit* unit) {
 
-    if ((unit->ai3And4 & (1 << 13)) != 0) {
-        gAiState.flags |= (1 << 1);
+    if ((unit->ai_config & AI_UNIT_CONFIG_FLAG_STAY) != 0) {
+        gAiState.flags |= AI_FLAG_STAY;
     } else {
-        gAiState.flags &= ~(1 << 1);
+        gAiState.flags &= ~AI_FLAG_STAY;
     }
 
     return;
@@ -548,8 +548,8 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
     yBest = 0;
 
     if (gPlaySt.chapterTurnNumber < 2) {
-        gAiState.unk86[0] = 0;
-        gAiState.unk86[1] = 0;
+        gAiState.cmd_result[0] = 0;
+        gAiState.cmd_result[1] = 0;
 
         return 0;
     } else {
@@ -611,15 +611,15 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
             }
 
             if (countA >= input->unk_01) {
-                gAiState.unk86[0] = 1;
-                gAiState.unk86[1] = xBest;
-                gAiState.unk86[2] = yBest;
-                gAiState.unk86[3] = uidBest;
-                gAiState.unk86[4] = itemIdx;
-                gAiState.unk86[5] = countB;
+                gAiState.cmd_result[0] = 1;
+                gAiState.cmd_result[1] = xBest;
+                gAiState.cmd_result[2] = yBest;
+                gAiState.cmd_result[3] = uidBest;
+                gAiState.cmd_result[4] = itemIdx;
+                gAiState.cmd_result[5] = countB;
             } else {
-                gAiState.unk86[0] = 0;
-                gAiState.unk86[1] = countB;
+                gAiState.cmd_result[0] = 0;
+                gAiState.cmd_result[1] = countB;
             }
 
             return 0;
@@ -631,7 +631,7 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
 
 s8 AiDecideNightmareStaff() {
 
-    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], AI_ACTION_DKNIGHTMARE, gAiState.unk86[3], gAiState.unk86[4], 0, 0);
+    AiSetDecision(gAiState.cmd_result[1], gAiState.cmd_result[2], AI_ACTION_DKNIGHTMARE, gAiState.cmd_result[3], gAiState.cmd_result[4], 0, 0);
 
     return 1;
 }
@@ -654,9 +654,9 @@ s8 AiTryDKSummon(struct UnknownAiInputB* input) {
     int totalSummonedUnits = 0;
 
     if (gPlaySt.chapterTurnNumber == 1) {
-        gAiState.unk86[0] = 1;
-        gAiState.unk86[1] = gActiveUnit->xPos;
-        gAiState.unk86[2] = gActiveUnit->yPos;
+        gAiState.cmd_result[0] = 1;
+        gAiState.cmd_result[1] = gActiveUnit->xPos;
+        gAiState.cmd_result[2] = gActiveUnit->yPos;
         return 0;
     }
 
@@ -704,19 +704,19 @@ s8 AiTryDKSummon(struct UnknownAiInputB* input) {
         }
 
         if (totalSummonedUnits < input->unk_01) {
-            gAiState.unk86[0] = 1;
-            gAiState.unk86[1] = gActiveUnit->xPos;
-            gAiState.unk86[2] = gActiveUnit->yPos;
+            gAiState.cmd_result[0] = 1;
+            gAiState.cmd_result[1] = gActiveUnit->xPos;
+            gAiState.cmd_result[2] = gActiveUnit->yPos;
             return 0;
         }
     }
 
-    gAiState.unk86[0] = 0;
+    gAiState.cmd_result[0] = 0;
     return 0;
 }
 
 s8 AiDecideDKSummon() {
-    AiSetDecision(gAiState.unk86[1], gAiState.unk86[2], AI_ACTION_DKSUMMON, 0, 0, 0, 0);
+    AiSetDecision(gAiState.cmd_result[1], gAiState.cmd_result[2], AI_ACTION_DKSUMMON, 0, 0, 0, 0);
 
     return 1;
 }

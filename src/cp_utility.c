@@ -110,12 +110,12 @@ s8 AiFindTargetInReachByCharId(int uid, struct Vec2* out) {
         }
 
         if (unit->state & US_DEAD) {
-            gAiState.unk86[0] = 1;
+            gAiState.cmd_result[0] = 1;
             return 0;
         }
 
         if (unit->state & US_RESCUED) {
-            gAiState.unk86[0] = 3;
+            gAiState.cmd_result[0] = 3;
         }
 
         out->x = unit->xPos;
@@ -127,11 +127,11 @@ s8 AiFindTargetInReachByCharId(int uid, struct Vec2* out) {
     }
 
     if (!(GetUnitFromCharId(uid)->state & US_UNAVAILABLE)) {
-        gAiState.unk86[0] = 4;
+        gAiState.cmd_result[0] = 4;
         return 0;
     }
 
-    gAiState.unk86[0] = 1;
+    gAiState.cmd_result[0] = 1;
 
     return 0;
 }
@@ -234,7 +234,7 @@ s8 AiFindTargetInReachByFunc(s8(*func)(struct Unit* unit), struct Vec2* out) {
 }
 
 //! FE8U = 0x0803AA40
-s8 sub_803AA40(s8(*func)(struct Unit* unit), struct Vec2* out) {
+s8 AiFindTargetInReachNeglectWallByFunc(s8(*func)(struct Unit* unit), struct Vec2* out) {
     s16 ix;
     s16 iy;
 
@@ -243,7 +243,7 @@ s8 sub_803AA40(s8(*func)(struct Unit* unit), struct Vec2* out) {
     s16 xOut = 0;
     s16 yOut = 0;
 
-    sub_8040F28(gActiveUnit->xPos, gActiveUnit->yPos, GetUnitMovementCost(gActiveUnit));
+    GenerateExtendedMovementMapOnRangeNeglectWall(gActiveUnit->xPos, gActiveUnit->yPos, GetUnitMovementCost(gActiveUnit));
 
     xOut = -1;
 
@@ -406,7 +406,7 @@ s8 AiFindClosestTerrainPosition(const u8* terrainList, int flags, struct Vec2* o
                 }
             }
 
-            if (flags & AI_FLAG_1) {
+            if (flags & AI_FLAG_STAY) {
                 if (AiCountNearbyEnemyUnits(ix, iy) != 0) {
                     continue;
                 }
@@ -469,7 +469,7 @@ s8 AiFindClosestTerrainAdjacentPosition(const u8* terrainList, int flags, struct
                 }
             }
 
-            if (flags & AI_FLAG_1) {
+            if (flags & AI_FLAG_STAY) {
                 if (AiCountNearbyEnemyUnits(ix, iy) != 0) {
                     continue;
                 }
@@ -544,7 +544,7 @@ s8 AiFindClosestUnlockPosition(int flags, struct Vec2* outA, struct Vec2* outB) 
                             }
                         }
 
-                        if (flags & AI_FLAG_1) {
+                        if (flags & AI_FLAG_STAY) {
                             if (AiCountNearbyEnemyUnits(tmp.x, tmp.y) != 0) {
                                 continue;
                             }
@@ -595,10 +595,10 @@ s8 AiFindClosestUnlockPosition(int flags, struct Vec2* outA, struct Vec2* outB) 
     }
 
     if (!(zero & 0x10000)) // if (1)
-        gAiState.unk86[1] = 1;
+        gAiState.cmd_result[1] = 1;
 
     if (count == 0) {
-        gAiState.unk86[0] = 5;
+        gAiState.cmd_result[0] = 5;
     }
 
     if (bestDistance != 0xff) {
@@ -946,7 +946,7 @@ s8 AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out) {
 
     u8 bestDanger = 0xff;
 
-    if (gAiState.flags & AI_FLAG_1) {
+    if (gAiState.flags & AI_FLAG_STAY) {
         BmMapFill(gBmMapMovement, -1);
         gBmMapMovement[unit->yPos][unit->xPos] = 0;
     } else {
@@ -1110,7 +1110,7 @@ void AiTryMoveTowards(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
 }
 
 //! FE8U = 0x0803BBF4
-void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
+void AiTryMoveTowardsNeglectWall(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
     s16 ix;
     s16 iy;
 
@@ -1125,7 +1125,7 @@ void sub_803BBF4(s16 x, s16 y, u8 action, u8 maxDanger, u8 unk) {
     }
 
     if (unk) {
-        sub_8040F28(x, y, GetUnitMovementCost(gActiveUnit));
+        GenerateExtendedMovementMapOnRangeNeglectWall(x, y, GetUnitMovementCost(gActiveUnit));
     } else {
         sub_8040F54(x, y, gActiveUnit);
     }
@@ -1441,20 +1441,20 @@ void SaveNumberOfAlliedUnitsIn0To8Range(struct Unit* unit) {
         }
     }
 
-    unit->_u46 = count;
+    unit->ai_counter = count;
 
     return;
 }
 
 //! FE8U = 0x0803C258
 void CharStoreAI(struct Unit* unit, const struct UnitDefinition* uDef) {
-    unit->ai1 = uDef->ai[0];
+    unit->ai1 = uDef->ai[UDEF_AIIDX_AI_A];
 
-    unit->ai2 = uDef->ai[1];
+    unit->ai2 = uDef->ai[UDEF_AIIDX_AI_B];
 
-    unit->ai3And4 &= 0xFFF8;
-    unit->ai3And4 |= uDef->ai[2];
-    unit->ai3And4 |= (uDef->ai[3] << 8);
+    unit->ai_config &= ~AI_UNIT_CONFIG_HEALTHRESHOLD_MASK; // clear heal threshold
+    unit->ai_config |= uDef->ai[UDEF_AIIDX_AI_CONF_L];
+    unit->ai_config |= (uDef->ai[UDEF_AIIDX_AI_CONF_H] << 8);
 
     return;
 }
@@ -1580,7 +1580,7 @@ s8 sub_803C44C(struct Unit* unit) {
 //! FE8U = 0x0803C490
 void sub_803C490(struct Unit* unit) {
 
-    if (gAiState.flags & AI_FLAG_1) {
+    if (gAiState.flags & AI_FLAG_STAY) {
         GenerateUnitMovementMapExt(unit, 0);
     } else {
         GenerateUnitMovementMap(unit);
