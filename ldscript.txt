@@ -175,7 +175,7 @@ SECTIONS
     ewram_overlay_sio __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000; gUnk_Sio_02000000 = .;
-        . = 0x000C60; gUnk_Sio_02000C60 = .;
+        . = 0x000C60; Font_Sio_02000C60 = .;
         . = 0x000C78; gUnk_Sio_02000C78 = .;
         . = 0x000F00; gUnk_Sio_02000F00 = .;
         . = 0x001180; gUnk_Sio_02001180 = .;
@@ -386,6 +386,7 @@ SECTIONS
         src/sio_main2.o(.text);
         asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
+        src/sio_postbattle.o(.text);
         asm/code_sio.o(.text);
         src/sio_result.o(.text);
         src/sio_rulesettings.o(.text);
@@ -704,6 +705,7 @@ SECTIONS
         . = ALIGN(4); src/sio_main.o(.rodata);
         . = ALIGN(4); data/const_data_sio.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
+        . = ALIGN(4); src/sio_postbattle.o(.rodata);
         . = ALIGN(4); data/const_data_D8714.o(.rodata);
         . = ALIGN(4); src/sio_result.o(.rodata);
         . = ALIGN(4); src/sio_rulesettings.o(.rodata);
@@ -947,6 +949,7 @@ SECTIONS
         . = ALIGN(4); src/sio_main2.o(.data);
         . = ALIGN(4); data/sio_main.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
+        . = ALIGN(4); src/sio_postbattle.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);
         . = ALIGN(4); src/sio_result.o(.data);
         . = ALIGN(4); src/sio_rulesettings.o(.data);

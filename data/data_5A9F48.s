@@ -961,8 +961,8 @@ gUnknown_085AAA48:  @ 0x085AAA48
 .4byte gUnknown_085AA9D8 + 0xe
 .4byte gUnknown_085AA9D8 + 0x22
 
-	.global gUnknown_085AAA50
-gUnknown_085AAA50:  @ 0x085AAA50
+	.global Sprite_085AAA50
+Sprite_085AAA50:  @ 0x085AAA50
 	.incbin "baserom.gba", 0x5AAA50, 0xE
 
 	.global gUnknown_085AAA5E
@@ -1319,16 +1319,16 @@ gUnknown_085AC604:  @ 0x085AC604
 Img_LinkArenaRankIcons:  @ 0x085AC9DC
 	.incbin "baserom.gba", 0x5AC9DC, 0x344
 
-	.global gUnknown_085ACD20
-gUnknown_085ACD20:  @ 0x085ACD20
+	.global Img_LinkArenaActiveBannerFx
+Img_LinkArenaActiveBannerFx:  @ 0x085ACD20
 	.incbin "baserom.gba", 0x5ACD20, 0x1DC
 
 	.global gUnknown_085ACEFC
 gUnknown_085ACEFC:  @ 0x085ACEFC
 	.incbin "baserom.gba", 0x5ACEFC, 0x1D0
 
-	.global gUnknown_085AD0CC
-gUnknown_085AD0CC:  @ 0x085AD0CC
+	.global Img_LinkArenaPlacementRanks
+Img_LinkArenaPlacementRanks:  @ 0x085AD0CC
     .incbin "baserom.gba", 0x5AD0CC, 0x740
 
 	.global gUnknown_085AD80C
@@ -1339,8 +1339,8 @@ gUnknown_085AD80C:  @ 0x085AD80C
 gUnknown_085AD9CC:  @ 0x085AD9CC
 	.incbin "baserom.gba", 0x5AD9CC, 0x6C
 
-	.global gUnknown_085ADA38
-gUnknown_085ADA38:  @ 0x085ADA38
+	.global Img_LinkArenaPlayerBanners
+Img_LinkArenaPlayerBanners:  @ 0x085ADA38
 	.incbin "baserom.gba", 0x5ADA38, 0x1B0
 
 	.global Pal_LinkArenaMenu
@@ -1359,16 +1359,16 @@ Pal_LinkArenaRankIcons:  @ 0x085ADCC8
 gUnknown_085ADDA8:  @ 0x085ADDA8
 	.incbin "baserom.gba", 0x5ADDA8, 0x20
 
-	.global gUnknown_085ADDC8
-gUnknown_085ADDC8:  @ 0x085ADDC8
+	.global Pal_LinkArenaPlacementRanks
+Pal_LinkArenaPlacementRanks:  @ 0x085ADDC8
 	.incbin "baserom.gba", 0x5ADDC8, 0x20
 
 	.global gUnknown_085ADDE8
 gUnknown_085ADDE8:  @ 0x085ADDE8
 	.incbin "baserom.gba", 0x5ADDE8, 0x20
 
-	.global gUnknown_085ADE08
-gUnknown_085ADE08:  @ 0x085ADE08
+	.global Pal_LinkArenaActiveBannerFx
+Pal_LinkArenaActiveBannerFx:  @ 0x085ADE08
 	.incbin "baserom.gba", 0x5ADE08, 0x20
 
 	.global gUnknown_085ADE28
@@ -1407,16 +1407,16 @@ gUnknown_085AE778:  @ 0x085AE778
 gUnknown_085AE7EC:  @ 0x085AE7EC
     .incbin "baserom.gba", 0x5AE7EC, 0x984
 
-	.global gUnknown_085AF170
-gUnknown_085AF170:  @ 0x085AF170
+	.global Img_LinkArenaPostBattleBg
+Img_LinkArenaPostBattleBg:  @ 0x085AF170
     .incbin "baserom.gba", 0x5AF170, 0x16AC
 
-	.global gUnknown_085B081C
-gUnknown_085B081C:  @ 0x085B081C
+	.global Pal_LinkArenaPostBattleBg
+Pal_LinkArenaPostBattleBg:  @ 0x085B081C
 	.incbin "baserom.gba", 0x5B081C, 0x80
 
-	.global gUnknown_085B089C
-gUnknown_085B089C:  @ 0x085B089C
+	.global Tsa_LinkArenaPostBattleBg
+Tsa_LinkArenaPostBattleBg:  @ 0x085B089C
 	.incbin "baserom.gba", 0x5B089C, 0x54C
 
 	.global gUnknown_085B0DE8

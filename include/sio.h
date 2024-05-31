@@ -54,6 +54,25 @@ struct SioSaveConf {
 } __attribute__((packed));
 extern struct SioSaveConf gSioSaveConfig;
 
+struct SioUnknown_0203DD90
+{
+    // 00 -- ??
+    // 01 -- current phase
+    // 02 -- current cursor unit idx
+    // 03 -- current cursor unit idx (again?)
+    // 04 -- current selected unit idx (attacker)
+    // 05 -- current selected combat target unit id
+    // 06 -- weapon index maybe?
+    // 07-09 -- ??
+    // 0A-0D = byte array - num units alive per team
+    // 14-24? - scores - word array
+    STRUCT_PAD(0x00, 0x24);
+    u16 unk_24[4]; // leader face IDs
+    // more?
+};
+
+struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
+
 u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
 void SioInit(void);
@@ -145,18 +164,18 @@ void SaveTactician(struct ProcTactician * proc, const struct TacticianTextConf *
 // ??? NameSelect_DrawName(???);
 // ??? sub_8045108(???);
 // ??? sub_80451F0(???);
-// ??? sub_8045208(???);
-// ??? sub_8045234(???);
-// ??? sub_804538C(???);
-// ??? sub_8045494(???);
+// ??? SioPostBattleSprites_Init(???);
+// ??? SioPostBattleSprites_Loop_DrawSlideIn(???);
+// ??? SioPostBattleSprites_Loop_DrawStatic(???);
+// ??? StartDrawLinkArenaRankSprites(???);
 // ??? sub_80454E4(???);
 // ??? sub_804556C(???);
-// ??? sub_8045610(???);
-// ??? sub_8045640(???);
-// ??? sub_80457F8(???);
-// ??? sub_804589C(???);
-// ??? sub_80458E8(???);
-// ??? sub_8045920(???);
+// ??? SioPostBattle_StartMusicProc(???);
+// ??? SioPostBattle_Init(???);
+// ??? SioPostBattle_Loop_Main(???);
+// ??? SioPostBattle_AwaitAPress(???);
+// ??? SioPostBattleMusic_PlayFanfare(???);
+// ??? SioPostBattleMusic_PlayStandardBgm(???);
 // ??? sub_8045930(???);
 // ??? sub_8045A64(???);
 // ??? sub_8045AF4(???);
@@ -264,7 +283,7 @@ void sub_8048260(ProcPtr); // StartNameSelect
 // ??? sub_8048838(???);
 void CallEraseSaveEvent(ProcPtr);
 // ??? sub_8048864(???);
-// ??? sub_8048884(???);
+void sub_8048884(void *); // TODO: Fix param type
 // ??? sub_8048934(???);
 // ??? sub_8048988(???);
 // ??? nullsub_43(???);
@@ -461,7 +480,7 @@ void sub_804D24C(int, s16);
 // ??? sub_804D664(???);
 // ??? sub_804D6B4(???);
 // ??? sub_804D6C4(???);
-// ??? sub_804D6D4(???);
+void sub_804D6D4(void);
 // ??? sub_804D724(???);
 // ??? sub_804D778(???);
 // ??? sub_804D7B0(???);
@@ -486,23 +505,24 @@ void sub_804D834(int, int);
 
 // extern ??? gUnk_Sio_02000000
 
+extern struct Font Font_Sio_02000C60;
 // extern ??? gLinkArenaSt
 // extern ??? gUnknown_0203DA30
 // extern ??? gUnk_Sio_0203DA78
 extern struct Text gUnk_Sio_0203DA88[];
 extern struct Text Texts_0203DAB0;
 // extern ??? gUnk_Sio_0203DAC0
-// extern ??? gUnk_Sio_0203DAC5
+extern char gUnk_Sio_0203DAC5[][15];
 
 extern struct Text Texts_0203DB14[10];
-// extern ??? gUnk_Sio_0203DB1C
+extern struct Text gUnk_Sio_0203DB1C[];
 extern struct Font Font_0203DB64;
 // extern ??? gUnk_Sio_0203DB7C
 // extern ??? gSioResultRankings
 // extern ??? gUnk_Sio_0203DC48
 extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
-extern u8 gUnk_Sio_0203DD24;
+extern s8 gUnk_Sio_0203DD24;
 // extern ??? gUnk_Sio_0203DD28
 extern u16 gUnk_Sio_0203DD2C[];
 extern int gUnk_Sio_0203DD4C;
@@ -523,10 +543,18 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9D56
 // extern ??? gUnknown_080D9D5E
 // extern ??? gUnknown_080D9D61
-// extern ??? gUnknown_080D9DE4
-// extern ??? gUnknown_080D9DF2
-// extern ??? gUnknown_080D9E06
-// extern ??? gUnknown_080D9E0E
+extern u16 const Sprite_080D9D6E[];
+extern u16 const Sprite_080D9D76[];
+extern u16 const Sprite_080D9D7E[];
+extern u16 const Sprite_080D9D86[];
+extern u16 const Sprite_080D9D8E[];
+extern u16 const Sprite_080D9DA2[];
+extern u16 const Sprite_080D9DC2[];
+extern u16 const Sprite_080D9DD6[];
+extern u16 const Sprite_080D9DE4[];
+extern u16 const Sprite_080D9DF2[];
+extern u16 const Sprite_080D9E06[];
+extern u16 const Sprite_080D9E0E[];
 // extern ??? gUnknown_080D9E1C
 // extern ??? gUnknown_080D9E44
 // extern ??? gLinkArenaRuleData
@@ -576,7 +604,7 @@ extern CONST_DATA u16 gSioList_085A93F0[];
 // extern ??? gUnknown_085A94A0
 extern CONST_DATA struct ProcCmd ProcScr_Sio_085A94AC[];
 // extern ??? ProcScr_TacticianNameSelection
-// extern ??? gUnknown_085A96D4
+// extern ??? SpriteArray_085A96D4
 extern struct ProcCmd ProcScr_DebugMonitor[];
 extern struct ProcCmd ProcScr_SIOTERM[];
 extern struct ProcCmd ProcScr_SIOPRA[];
