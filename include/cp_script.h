@@ -1,8 +1,9 @@
 #ifndef GUARD_CP_SCRIPT_H
 #define GUARD_CP_SCRIPT_H
 
-enum
-{
+enum unit_ai1_data_enum {
+    // Unit::ai_a
+
     AI_CMD_CONDITIONAL            = 0x00,
     AI_CMD_CALL_FUNC              = 0x01,
     AI_CMD_SET_AI                 = 0x02,

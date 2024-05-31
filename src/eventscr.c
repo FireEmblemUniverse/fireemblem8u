@@ -3173,10 +3173,10 @@ u8 Event32_SpawnSingleUnit(struct EventEngineProc * proc)
     unitDef.items[2] = 0;
     unitDef.items[3] = 0;
 
-    unitDef.ai[0] = 0;
-    unitDef.ai[1] = 0;
-    unitDef.ai[2] = 0;
-    unitDef.ai[3] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_A] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_B] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_CONF_L] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_CONF_H] = 0;
 
     LoadUnit_800F704(&unitDef, 0, 0, subcmd == 0xf);
 

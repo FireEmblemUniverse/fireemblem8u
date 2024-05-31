@@ -236,9 +236,9 @@ struct SuspendSavePackedUnit {     /* Suspend Data */
     /* 11 */ u8 aiFlags;
     /* 12 */ u8 ranks[8];
     /* 1A */ u8 supports[UNIT_SUPPORT_MAX_COUNT];
-    /* 21 */ u8 ai1data;
+    /* 21 */ u8 ai_a_pc;
     /* 22 */ u8 ai2;
-    /* 23 */ u8 ai2data;
+    /* 23 */ u8 ai_b_pc;
 
     /* 24 */ u32 level      : 5;
              u32 xPos       : 6;
@@ -262,8 +262,8 @@ struct SuspendSavePackedUnit {     /* Suspend Data */
     
     /* 30 */ u8 ballistaIndex;
     
-    /* 31 */ u8 _u46;
-    /* 32 */ u16 ai3And4;
+    /* 31 */ u8 ai_counter;
+    /* 32 */ u16 ai_config;
     /* 34 */
 } BITPACKED;
 

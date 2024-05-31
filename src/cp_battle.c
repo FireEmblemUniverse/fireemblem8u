@@ -53,7 +53,7 @@ s8 AiAttemptOffensiveAction(s8 (* isEnemy)(struct Unit * unit))
             }
         }
 
-        if (gAiState.flags & AI_FLAG_1)
+        if (gAiState.flags & AI_FLAG_STAY)
         {
             BmMapFill(gBmMapMovement, -1);
             gBmMapMovement[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
@@ -433,7 +433,7 @@ s8 AiAttemptStealActionWithinMovement(void) {
     }
 
     if (rank != 0xFF) {
-        gActiveUnit->_u46++;
+        gActiveUnit->ai_counter++;
         AiSetDecision(pos.x, pos.y, AI_ACTION_STEAL, target, itemSlot, 0, 0);
 
         return 1;

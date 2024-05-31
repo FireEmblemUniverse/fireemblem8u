@@ -309,8 +309,8 @@ void LoadGorgonFromEgg(struct MAEffectProc * proc)
 
     gUnitDefEggHatching.ai[0] = proc->unit->ai1;
     gUnitDefEggHatching.ai[1] = proc->unit->ai2;
-    gUnitDefEggHatching.ai[2] = proc->unit->ai1data; // this looks incorrect
-    gUnitDefEggHatching.ai[3] = proc->unit->ai1data >> 8; // this is 0
+    gUnitDefEggHatching.ai[2] = proc->unit->ai_a_pc; // this looks incorrect
+    gUnitDefEggHatching.ai[3] = proc->unit->ai_a_pc >> 8; // this is 0
 
     LoadUnits(&gUnitDefEggHatching);
     GetUnitFromCharId(CHARACTER_MONSTER_BA);

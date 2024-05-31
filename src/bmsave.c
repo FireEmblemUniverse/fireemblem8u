@@ -675,11 +675,11 @@ void EncodeSuspendSavePackedUnit(struct Unit *unit, void *buf)
         ai1_byte |= 0x80;
 
     unit_su->ai1 = ai1_byte;
-    unit_su->ai1data = unit->ai1data;
+    unit_su->ai_a_pc = unit->ai_a_pc;
     unit_su->ai2 = unit->ai2;
-    unit_su->ai2data = unit->ai2data;
-    unit_su->ai3And4 = unit->ai3And4;
-    unit_su->_u46 = unit->_u46;
+    unit_su->ai_b_pc = unit->ai_b_pc;
+    unit_su->ai_config = unit->ai_config;
+    unit_su->ai_counter = unit->ai_counter;
     unit_su->aiFlags = unit->aiFlags; 
 }
 
@@ -737,11 +737,11 @@ void ReadSuspendSavePackedUnit(const void *sram_src, struct Unit *unit)
         unit->supports[i] = unit_su.supports[i];
 
     unit->ai1 = unit_su.ai1 & 0x7F;
-    unit->ai1data = unit_su.ai1data;
+    unit->ai_a_pc = unit_su.ai_a_pc;
     unit->ai2 = unit_su.ai2;
-    unit->ai2data = unit_su.ai2data;
-    unit->ai3And4 = unit_su.ai3And4;
-    unit->_u46 = unit_su._u46;
+    unit->ai_b_pc = unit_su.ai_b_pc;
+    unit->ai_config = unit_su.ai_config;
+    unit->ai_counter = unit_su.ai_counter;
     unit->aiFlags = unit_su.aiFlags;
 
     if (0x7F == unit->exp)

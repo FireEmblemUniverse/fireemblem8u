@@ -62,8 +62,8 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc);
 void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc);
 void CpPerform_PerformAction(struct CpPerformProc* proc);
 void CpPerform_WaitAction(struct CpPerformProc* proc);
-void CpPerform_803A63C(struct CpPerformProc* proc);
-void CpPerform_803A6D0(struct CpPerformProc* proc);
+void CpPerform_Cleanup(struct CpPerformProc* proc);
+void CpPerform_EquipBest(struct CpPerformProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_NAME("E_CPPERFORM"),
@@ -84,8 +84,8 @@ struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_CALL_2(HandlePostActionTraps),
     PROC_CALL_2(RunPotentialWaitEvents),
 
-    PROC_CALL(CpPerform_803A63C),
-    PROC_CALL(CpPerform_803A6D0),
+    PROC_CALL(CpPerform_Cleanup),
+    PROC_CALL(CpPerform_EquipBest),
 
 PROC_LABEL(1),
     PROC_END,
@@ -586,7 +586,7 @@ void CpPerform_WaitAction(struct CpPerformProc* proc) {
     return;
 }
 
-void CpPerform_803A63C(struct CpPerformProc* proc) {
+void CpPerform_Cleanup(struct CpPerformProc* proc) {
     UpdateAllPhaseHealingAIStatus();
     AiRefreshMap();
 
@@ -624,15 +624,16 @@ s8 AiWaitAndClearScreenAction(struct CpPerformProc* proc) {
     return 0;
 }
 
-void CpPerform_803A6D0(struct CpPerformProc* proc) {
-    u16 a[6];
-    u16 b;
-    u16 c;
-    u16 d;
+void CpPerform_EquipBest(struct CpPerformProc* proc) {
+    u16 equip_flags[UNIT_ITEM_COUNT + 1];
 
-    if ((sub_803E900() != 0) && (sub_803E93C(a) != 0)) {
-        sub_803EA58(gAiDecision.xMove, gAiDecision.yMove, &b, &c, &d);
-        sub_803EBF0(b, c, d, a);
+    if (AiCanEquip() && AiEquipGetFlags(equip_flags))
+    {
+        u16 range_danger;
+        u16 melee_danger;
+        u16 combined_danger;
+
+        AiEquipGetDanger(gAiDecision.xMove, gAiDecision.yMove, &range_danger, &melee_danger, &combined_danger);
+        AiEquipBestConsideringDanger(range_danger, melee_danger, combined_danger, equip_flags);
     }
-    return;
 }

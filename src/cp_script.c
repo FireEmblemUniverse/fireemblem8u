@@ -63,12 +63,12 @@ void AiScriptCmd_1B_NoOp(u8* pc);
 //! FE8U = 0x0803C4BC
 s8 AiTryExecScriptA(void) {
     gpAiScriptCurrent = gpAi1Table[0][gActiveUnit->ai1];
-    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai1data;
+    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai_a_pc;
 
     gAiScriptEnded = 1;
     gAiScriptKind = AI_SCRIPT_AI1;
 
-    AiScript_Exec(&gActiveUnit->ai1data);
+    AiScript_Exec(&gActiveUnit->ai_a_pc);
 
     return gAiScriptEnded;
 }
@@ -80,7 +80,7 @@ s8 AiExecFallbackScriptA(void) {
     gAiScriptEnded = 1;
     gAiScriptKind = AI_SCRIPT_AI1;
 
-    AiScript_Exec(&gActiveUnit->ai1data);
+    AiScript_Exec(&gActiveUnit->ai_a_pc);
 
     return gAiScriptEnded;
 }
@@ -88,12 +88,12 @@ s8 AiExecFallbackScriptA(void) {
 //! FE8U = 0x0803C54C
 s8 AiTryExecScriptB(void) {
     gpAiScriptCurrent = gpAi2Table[0][gActiveUnit->ai2];
-    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai2data;
+    gpAiScriptCurrent = gpAiScriptCurrent + gActiveUnit->ai_b_pc;
 
     gAiScriptEnded = 1;
     gAiScriptKind = AI_SCRIPT_AI2;
 
-    AiScript_Exec(&gActiveUnit->ai2data);
+    AiScript_Exec(&gActiveUnit->ai_b_pc);
 
     return gAiScriptEnded;
 }
@@ -106,7 +106,7 @@ s8 AiExecFallbackScriptB(void) {
     gAiScriptEnded = 1;
     gAiScriptKind = AI_SCRIPT_AI2;
 
-    AiScript_Exec(&gActiveUnit->ai2data);
+    AiScript_Exec(&gActiveUnit->ai_b_pc);
 
     return gAiScriptEnded;
 }
@@ -213,12 +213,12 @@ void AiScriptCmd_02_ChangeAi(u8* pc) {
 
     if (ai1 != 0xFF) {
         gActiveUnit->ai1 = ai1;
-        gActiveUnit->ai1data = 0;
+        gActiveUnit->ai_a_pc = 0;
     }
 
     if (ai2 != 0xFF) {
         gActiveUnit->ai2 = ai2;
-        gActiveUnit->ai2data = 0;
+        gActiveUnit->ai_b_pc = 0;
     }
 
     if (((gAiScriptKind == 0) && (ai1 == 0xFF)) || ((gAiScriptKind == 1 && (ai2 == 0xFF))))  {
@@ -328,13 +328,13 @@ void AiScriptCmd_04_ActionOnSelectedCharacter(u8* pc) {
 
             if (AiUnitWithCharIdExists(gpAiScriptCurrent->unk_04) == 1) {
                 if (GetUnitFromCharId(gpAiScriptCurrent->unk_04)->state & US_RESCUED) {
-                    gAiState.unk86[0] = 3;
+                    gAiState.cmd_result[0] = 3;
                     gAiScriptEnded = 0;
                 } else {
                     AiAttemptOffensiveAction(AiIsUnitEnemyAndScrCharId);
                 }
             } else {
-                gAiState.unk86[0] = 1;
+                gAiState.cmd_result[0] = 1;
                 gAiScriptEnded = 0;
             }
         }
@@ -381,7 +381,7 @@ void AiScriptCmd_07_DoStandardActionNoMove(u8* pc) {
     u8 rand = NextRN_N(100);
 
     if (rand <= gpAiScriptCurrent->unk_01) {
-        gAiState.flags |= AI_FLAG_1;
+        gAiState.flags |= AI_FLAG_STAY;
 
         if (!AiTryDoStaff(AiIsUnitEnemy)) {
             AiAttemptOffensiveAction(AiIsUnitEnemy);
@@ -465,11 +465,11 @@ void AiScriptCmd_0D_MoveTowardsCharacterUntilInRange(u8* pc) {
         if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 1) == 1) {
             struct Unit* unit = GetUnitFromCharId(gpAiScriptCurrent->unk_04);
             if ((unit->state & US_RESCUED) != 0) {
-                gAiState.unk86[0] = 3;
+                gAiState.cmd_result[0] = 3;
             } else {
                 AiUpdateDecision(0, 0, 0, 0, unit->index);
 
-                gAiState.unk86[0] = 2;
+                gAiState.cmd_result[0] = 2;
                 gAiDecision.actionPerformed = 0;
                 gAiScriptEnded = 0;
             }
@@ -510,9 +510,9 @@ void AiScriptCmd_10_DoLooting(u8* pc) {
             return;
         }
 
-        gActiveUnit->_u46++;
+        gActiveUnit->ai_counter++;
 
-        if (gActiveUnit->_u46 != gpAiScriptCurrent->unk_03) {
+        if (gActiveUnit->ai_counter != gpAiScriptCurrent->unk_03) {
             return;
         }
 
@@ -535,9 +535,9 @@ void AiScriptCmd_10_DoLooting(u8* pc) {
                 return;
             }
 
-            gActiveUnit->_u46++;
+            gActiveUnit->ai_counter++;
 
-            if (gActiveUnit->_u46 != gpAiScriptCurrent->unk_03) {
+            if (gActiveUnit->ai_counter != gpAiScriptCurrent->unk_03) {
                 return;
             }
 
@@ -589,12 +589,12 @@ void AiScriptCmd_13(u8* pc) {
     struct Vec2 pos;
 
     if (gpAiScriptCurrent->unk_08 == 0) {
-        if (sub_803AA40(AiIsUnitEnemy, &pos) == 1) {
-            sub_803BBF4(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
+        if (AiFindTargetInReachNeglectWallByFunc(AiIsUnitEnemy, &pos) == 1) {
+            AiTryMoveTowardsNeglectWall(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     } else {
-        if (sub_803AA40(AiIsUnitEnemyAndNotInScrList, &pos) == 1) {
-            sub_803BBF4(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
+        if (AiFindTargetInReachNeglectWallByFunc(AiIsUnitEnemyAndNotInScrList, &pos) == 1) {
+            AiTryMoveTowardsNeglectWall(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
         }
     }
 
@@ -775,7 +775,7 @@ void AiScriptCmd_18_TryAttackSnagWall(u8* pc) {
             AiTryMoveTowards(posA.x, posA.y, 0, 0xff, 1);
         }
     } else {
-        gAiState.unk86[0] = 4;
+        gAiState.cmd_result[0] = 4;
         gAiScriptEnded = 0;
     }
 
@@ -793,7 +793,7 @@ void AiScriptCmd_19_MoveTowardsTerrain(u8* pc) {
     if (AiFindClosestTerrainPosition(&gpAiScriptCurrent->unk_03, 0, &pos) == 1) {
         AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
     } else {
-        gAiState.unk86[0] = 4;
+        gAiState.cmd_result[0] = 4;
         gAiScriptEnded = 0;
     }
 
@@ -811,7 +811,7 @@ void AiScriptCmd_1A_MoveTowardsTerrain(u8* pc) {
     if (AiFindClosestTerrainPosition(gpAiScriptCurrent->unk_08, 0, &pos) == 1) {
         AiTryMoveTowards(pos.x, pos.y, 0, gpAiScriptCurrent->unk_02, 1);
     } else {
-        gAiState.unk86[0] = 4;
+        gAiState.cmd_result[0] = 4;
         gAiScriptEnded = 0;
     }
 
