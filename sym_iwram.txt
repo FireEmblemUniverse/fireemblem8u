@@ -41,8 +41,8 @@
 . = ALIGN(4); src/cp_script.o(.bss);
 . = ALIGN(4); src/cp_battle.o(.bss);
 . = ALIGN(4); src/sio_core.o(.bss);
-. = ALIGN(4); gUnknown_03001808 = .;
-. = 0x00180C; gUnknown_0300180C = .;
+. = ALIGN(4); gCurrentKeyInSeqIndex = .;
+. = 0x00180C; gTargetKeyInSeqIndex = .;
 . = 0x001810; gUnknown_03001810 = .;
 . = 0x001818; gUnknown_03001818 = .;
 . = 0x00182C; gUnknown_0300182C = .;

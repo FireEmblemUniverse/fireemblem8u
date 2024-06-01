@@ -146,38 +146,38 @@ void sub_8043244(void)
     WriteMultiArenaSaveConfig(&gSioSaveConfig);
 }
 
-bool sub_8043268(const u16 * list)
+bool IsKeyInputSequenceComplete(const u16 * list)
 {
     if (gKeyStatusPtr->newKeys == 0)
     {
-        if (++gUnk_Sio_0203DD4C >= 0x3C)
+        if (++gKeyInputSequenceTimer >= 60)
         {
-            gUnknown_0300180C = gUnk_Sio_0203DD4C = 0;
+            gTargetKeyInSeqIndex = gKeyInputSequenceTimer = 0;
         }
         return false;
     }
 
-    gUnk_Sio_0203DD4C = 0;
-    gUnk_Sio_0203DD2C[gUnknown_03001808] = gKeyStatusPtr->newKeys;
+    gKeyInputSequenceTimer = 0;
+    gKeyInputSequenceBuffer[gCurrentKeyInSeqIndex] = gKeyStatusPtr->newKeys;
 
-    if (gUnk_Sio_0203DD2C[gUnknown_03001808] == list[gUnknown_0300180C])
+    if (gKeyInputSequenceBuffer[gCurrentKeyInSeqIndex] == list[gTargetKeyInSeqIndex])
     {
-        gUnknown_0300180C = gUnknown_0300180C + 1;
+        gTargetKeyInSeqIndex = gTargetKeyInSeqIndex + 1;
 
-        if (list[gUnknown_0300180C] == 0xFFFF)
+        if (list[gTargetKeyInSeqIndex] == 0xFFFF)
             return true;
     }
     else
     {
-        gUnknown_0300180C = 0;
+        gTargetKeyInSeqIndex = 0;
     }
 
-    gUnknown_03001808 = (gUnknown_03001808 + 1) & 0xF;
+    gCurrentKeyInSeqIndex = (gCurrentKeyInSeqIndex + 1) & 0xF;
     return false;
 }
 
 /**
- * Maybe some lists for sub_8043268() ?
+ * Maybe some lists for IsKeyInputSequenceComplete() ?
  */
 u16 gSioList_085A93D0[] = {
     DPAD_LEFT, DPAD_LEFT, DPAD_RIGHT, DPAD_RIGHT, L_BUTTON, L_BUTTON, START_BUTTON, -1
@@ -193,12 +193,12 @@ u16 gSioList_085A93F0[] = {
 
 bool sub_80432F4(void)
 {
-    return sub_8043268(gSioList_085A93F0);
+    return IsKeyInputSequenceComplete(gSioList_085A93F0);
 }
 
 u8 const gUnknown_080D9D5E[] = {1, 2, 4};
 s8 const gUnknown_080D9D61[] = {
-    0x02, 0x06, 0x0D, 0x13, 0x14, 0xFE, 0x14, 0x13, 0x0D, 0x06, 0x02, 0x00, -1,
+    0x02, 0x06, 0x0D, 0x13, 0x14, -2, 0x14, 0x13, 0x0D, 0x06, 0x02, 0x00, -1,
 };
 
 // Sprite data here is not used until "sio_postbattle.c",

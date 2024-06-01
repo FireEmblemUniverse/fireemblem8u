@@ -225,15 +225,15 @@ SECTIONS
         . = 0x3DB14; Texts_0203DB14 = .;
         . = 0x3DB1C; gUnk_Sio_0203DB1C = .;
         . = 0x3DB64; Font_0203DB64 = .;
-        . = 0x3DB7C; gUnk_Sio_0203DB7C = .;
+        . = 0x3DB7C; gLinkArenaTeamList = .;
         . = 0x3DC44; gSioResultRankings = .;
         . = 0x3DC48; gUnk_Sio_0203DC48 = .;
         . = 0x3DD0C; gSioTexts = .;
         . = 0x3DD1C; Text_0203DB14 = .;
         . = 0x3DD24; gUnk_Sio_0203DD24 = .;
         . = 0x3DD28; gUnk_Sio_0203DD28 = .;
-        . = 0x3DD2C; gUnk_Sio_0203DD2C = .;
-        . = 0x3DD4C; gUnk_Sio_0203DD4C = .;
+        . = 0x3DD2C; gKeyInputSequenceBuffer = .;
+        . = 0x3DD4C; gKeyInputSequenceTimer = .;
         . = 0x3DD50; gUnk_Sio_0203DD50 = .;
         . = 0x3DD8C; gUnk_Sio_0203DD8C = .;
         . = 0x3DD90; gUnk_Sio_0203DD90 = .;

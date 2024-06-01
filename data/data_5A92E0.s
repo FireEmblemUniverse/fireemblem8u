@@ -10,7 +10,7 @@ ProcScr_SIOPRA:  @ 0x085A979C
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8043308
+        .word StartLinkArenaTeamList
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -97,7 +97,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8043308
+        .word StartLinkArenaTeamList
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -397,7 +397,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8043308
+        .word StartLinkArenaTeamList
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
