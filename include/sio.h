@@ -541,7 +541,7 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9D34
 // extern ??? gUnknown_080D9D4D
 // extern ??? gUnknown_080D9D56
-// extern ??? gUnknown_080D9D5E
+extern u8 const gUnknown_080D9D5E[];
 extern s8 const gUnknown_080D9D61[];
 extern u16 const Sprite_080D9D6E[];
 extern u16 const Sprite_080D9D76[];

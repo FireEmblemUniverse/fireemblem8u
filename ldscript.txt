@@ -948,7 +948,7 @@ SECTIONS
         . = ALIGN(4); src/sio_core.o(.data);
         . = ALIGN(4); src/sio_main.o(.data);
         . = ALIGN(4); src/sio_main2.o(.data);
-        . = ALIGN(4); data/sio_main.o(.data);
+        . = ALIGN(4); src/sio_teamlist.o(.data);
         . = ALIGN(4); data/sio_tactician.o(.data);
         . = ALIGN(4); src/sio_postbattle.o(.data);
         . = ALIGN(4); data/data_5A92E0.o(.data);

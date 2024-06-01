@@ -76,16 +76,123 @@ struct SioUnknown_085A94A0
     /* 0C */ s8 (*unk_0c)(void);
 };
 
-extern struct SioUnknown_085A94A0 * gUnknown_085A94A0[];
+// Forward declarations
+
+int sub_80437C0(u8, struct SioProc85A94AC *);
+s8 sub_804335C(void);
+s8 sub_8043394(void);
+
+// clang-format off
+
+struct SioUnknown_085A94A0 CONST_DATA Sio_UnitConf_1[] =
+{
+    [0] =
+    {
+        .unk_00 = 1,
+        .unk_02 = 0x073C,
+        .unk_04 = 1,
+        .unk_05 = 0,
+        .unk_08 = 0x0766,
+        .unk_0c = sub_804335C,
+    },
+    [1] =
+    {
+        .unk_00 = 3,
+        .unk_02 = 0x073D,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0x0767,
+        .unk_0c = sub_8043394,
+    },
+    [2] =
+    {
+        .unk_00 = 4,
+        .unk_02 = 0x073E,
+        .unk_04 = 0,
+        .unk_05 = 0,
+        .unk_08 = 0x0768,
+        .unk_0c = NULL,
+    },
+    [3] =
+    {
+        .unk_00 = 6,
+        .unk_02 = 0x073F,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0x0769,
+        .unk_0c = sub_8043394,
+    },
+    [4] =
+    {
+        .unk_00 = 7,
+        .unk_02 = 0x0740,
+        .unk_04 = 0,
+        .unk_05 = 0,
+        .unk_08 = 0x076A,
+        .unk_0c = NULL,
+    },
+    [5] =
+    {
+        .unk_00 = 0,
+        .unk_02 = 0,
+        .unk_04 = 0,
+        .unk_05 = 0,
+        .unk_08 = 0,
+        .unk_0c = NULL,
+    },
+};
+
+struct SioUnknown_085A94A0 CONST_DATA Sio_UnitConf_2[] =
+{
+    [0] =
+    {
+        .unk_00 = 2,
+        .unk_02 = 0x0741,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0x076C,
+        .unk_0c = NULL,
+    },
+    [1] =
+    {
+        .unk_00 = 3,
+        .unk_02 = 0x073D,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0x0767,
+        .unk_0c = NULL,
+    },
+    [2] =
+    {
+        .unk_00 = 7,
+        .unk_02 = 0x0740,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0x076A,
+        .unk_0c = NULL,
+    },
+    [3] =
+    {
+        .unk_00 = 0,
+        .unk_02 = 0,
+        .unk_04 = 0,
+        .unk_05 = 1,
+        .unk_08 = 0,
+        .unk_0c = NULL,
+    },
+};
+
+struct SioUnknown_085A94A0 * CONST_DATA gUnknown_085A94A0[] =
+{
+    Sio_UnitConf_1,
+    Sio_UnitConf_2,
+    Sio_UnitConf_2,
+};
+
+// clang-format on
 
 extern char gUnk_Sio_0203DD50[][15];
 extern struct Text gUnk_Sio_0203DA88[];
-
-extern u8 gUnknown_080D9D5E[];
-
-// Forward declaration
-
-int sub_80437C0(u8, struct SioProc85A94AC *);
 
 //! FE8U = 0x08043308
 void sub_8043308(ProcPtr parent)
@@ -1080,3 +1187,93 @@ void sub_8044530(struct SioProc85A94AC * proc)
 
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_Sio_085A94AC[] =
+{
+    PROC_YIELD,
+
+PROC_LABEL(0),
+    PROC_CALL(sub_804331C),
+
+    // fallthrough
+
+PROC_LABEL(1),
+    PROC_CALL(sub_8043904),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    // fallthrough
+
+PROC_LABEL(2),
+    PROC_REPEAT(sub_8043B6C),
+
+    // fallthrough
+
+PROC_LABEL(3),
+    PROC_REPEAT(sub_8043D8C),
+
+    PROC_GOTO(9),
+
+PROC_LABEL(4),
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(sub_8043CF4),
+
+    PROC_REPEAT(sub_8043D3C),
+
+    PROC_CALL(sub_8043904),
+
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+
+    PROC_CALL(Clear_0203DDDC),
+
+    PROC_GOTO(2),
+
+PROC_LABEL(5),
+    PROC_REPEAT(sub_804429C),
+
+    // fallthrough
+
+PROC_LABEL(6),
+    PROC_REPEAT(sub_8044324),
+
+    // fallthrough
+
+PROC_LABEL(7),
+    PROC_CALL(sub_80443B0),
+    PROC_REPEAT(sub_8044430),
+
+    PROC_GOTO(3),
+
+PROC_LABEL(8),
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_CALL(sub_8044530),
+    PROC_YIELD,
+
+    PROC_GOTO(1),
+
+PROC_LABEL(9),
+    PROC_CALL(EndMuralBackground),
+
+    PROC_CALL(Set_0203DDDC),
+
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+
+    PROC_END,
+};
+
+// clang-format on
