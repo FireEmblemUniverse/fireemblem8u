@@ -178,4 +178,10 @@ void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 
 int SortUnitList_GetUnitSoloAnimation(struct Unit * unit);
 bool SortUnitList(u8 key, u8 order);
 
+// extern ??? ProcScr_UnitListScreen_Field
+extern struct ProcCmd ProcScr_UnitListScreen_PrepMenu[];
+// extern ??? ProcScr_UnitListScreen_SoloAnim
+// extern ??? ProcScr_UnitListScreen_WorldMap
+// extern ??? ProcScr_bmview
+
 #endif // GUARD_UNITLISTSCREEN_H

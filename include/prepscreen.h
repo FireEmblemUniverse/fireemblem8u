@@ -259,7 +259,7 @@ extern u16 CONST_DATA Img_PrepItemUseScreen[];
 extern u16 CONST_DATA Tsa_PrepItemUseScreen[];
 extern u8 gUnknown_08A1BBD0[]; // tsa?
 extern u8 gUnknown_08A1BCC0[];
-// extern ??? gUnknown_08A1BD00
+extern u16 gUnknown_08A1BD00[]; // pal
 // extern ??? gUnknown_08A1BD40
 extern u16 gUnknown_08A1BD60[];
 extern u8 gImg_UiSpinningArrow_Vertical[]; // arrow gfx

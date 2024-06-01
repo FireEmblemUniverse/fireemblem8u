@@ -105,9 +105,9 @@ struct ProcSioHold {
 };
 
 void SioHold_Loop(struct ProcSioHold * proc);
-// ??? StartSioHold(???);
+ProcPtr StartSioHold(ProcPtr parent, int x, int y, int y_max, int y_min);
 // ??? EndSioHold(???);
-// ??? sub_804303C(???);
+void sub_804303C(ProcPtr proc, int num);
 void ClearSioBG(void);
 // ??? sub_804309C(???);
 void sub_8043100(int, int);
@@ -450,10 +450,10 @@ void sub_804C7DC(ProcPtr, s16, s16);
 // ??? sub_804C7E4(???);
 // ??? sub_804C83C(???);
 // ??? sub_804C894(???);
-// ??? sub_804CAEC(???);
+ProcPtr sub_804CAEC(ProcPtr, int, u8 *);
 // ??? sub_804CB94(???);
 // ??? sub_804CC14(???);
-// ??? sub_804CC5C(???);
+void sub_804CC5C(int);;
 // ??? sub_804CC78(???);
 // ??? sub_804CCCC(???);
 ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
@@ -469,7 +469,7 @@ void sub_804CFB8(ProcPtr, s16, s16);
 // ??? sub_804CFE0(???);
 // ??? sub_804D01C(???);
 void sub_804D1E0(int, int, int, int, u8, ProcPtr);
-void sub_804D24C(int, s16);
+void sub_804D24C(u8, s16);
 // ??? sub_804D2A4(???);
 // ??? sub_804D37C(???);
 // ??? StopBGM2(???);
@@ -542,7 +542,7 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9D4D
 // extern ??? gUnknown_080D9D56
 // extern ??? gUnknown_080D9D5E
-// extern ??? gUnknown_080D9D61
+extern s8 const gUnknown_080D9D61[];
 extern u16 const Sprite_080D9D6E[];
 extern u16 const Sprite_080D9D76[];
 extern u16 const Sprite_080D9D7E[];
@@ -599,7 +599,7 @@ extern CONST_DATA struct ProcCmd ProcScr_SIOMAIN[];
 extern CONST_DATA u8 * gpSioUnkBuffer;
 extern CONST_DATA struct ProcCmd gUnknown_085A93A0[];
 extern CONST_DATA struct ProcCmd ProcScr_HOLD[];
-// extern ??? gSioList_085A93E0
+extern CONST_DATA u16 gSioList_085A93E0[];
 extern CONST_DATA u16 gSioList_085A93F0[];
 // extern ??? gUnknown_085A94A0
 extern CONST_DATA struct ProcCmd ProcScr_Sio_085A94AC[];
