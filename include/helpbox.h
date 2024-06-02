@@ -32,39 +32,38 @@ struct ProcHelpBoxIntro {
     /* 64 */ s16 pretext_lines; /* lines for  prefix */
 };
 
-struct HelpBox8A016E0Proc {
+struct ProcBoxDialogue {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
+    /* 2C */ int x, y;
+    /* 34 */ int msg;
 
     /* 38 */ u8 unk_38;
 
     /* 3C */ u16* unk_3c;
-    /* 40 */ u8 unk_40;
+    /* 40 */ u8 pad_idx;
 };
 
-struct HelpBox8A01760Proc {
+struct ProcBoxDialogueDrawTextExt {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ const char * str;
     /* 30 */ struct Font * unk_30;
-    /* 34 */ struct Text * unk_34[5];
+    /* 34 */ struct Text * texts[5];
 
-    /* 48 */ s16 unk_48;
+    /* 48 */ s16 current_line;
     /* 4A */ s16 unk_4a;
     /* 4C */ s16 unk_4c;
     /* 4E */ s16 unk_4e;
     /* 50 */ u8 unk_50;
     /* 51 */ u8 unk_51;
-    /* 52 */ u8 unk_52;
+    /* 52 */ u8 x_offset;
     /* 53 */ u8 unk_53;
     /* 54 */ u8 unk_54;
     /* 55 */ u8 unk_55;
     /* 56 */ u8 unk_56;
     /* 57 */ u8 unk_57;
-    /* 58 */ u8 unk_58;
+    /* 58 */ u8 timer;
     /* 59 */ u8 unk_59;
 };
 
@@ -87,14 +86,14 @@ struct HelpBoxSt {
 
 extern struct HelpBoxSt gHelpBoxSt;
 
-struct Struct0203E7E8 {
-    /* 00 */ struct Font unk_00;
-    /* 18 */ struct Text unk_18[5];
+struct BoxDialogueConf {
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text texts[5];
     /* 40 */ u16 unk_40;
     /* 42 */ u16 unk_42;
 };
 
-extern struct Struct0203E7E8 gUnknown_0203E7E8;
+extern struct BoxDialogueConf gBoxDialogueConf;
 
 extern struct HelpBoxInfo gTmpHelpBoxInfo;
 extern const struct HelpBoxInfo * gpHelpBoxCurrentInfo;
@@ -105,8 +104,8 @@ extern struct ProcCmd ProcScr_Helpbox_bug_08A01678[];
 extern struct ProcCmd gUnknown_08A01698[];
 extern struct ProcCmd gUnknown_08A016C8[];
 extern struct ProcCmd gProcScr_BoxDialogue[];
-extern struct ProcCmd gUnknown_08A01740[];
-extern struct ProcCmd gUnknown_08A01818[];
+extern struct ProcCmd ProcScr_MergeBoxDialogue[];
+extern struct ProcCmd ProcScr_TalkBoxIdle[];
 
 void LoadHelpBoxGfx(void* dest, int pal);
 // ??? sub_80898C4(???);
@@ -145,22 +144,22 @@ int sub_808A454(int);
 void SetDialogueBoxConfig(u16);
 // ??? GetDialogueBoxConfig(???);
 // ??? sub_808A530(???);
-// ??? sub_808A5D0(???);
+// ??? InitBoxDialogue(???);
 // ??? sub_808A7B0(???);
-// ??? sub_808A838(???);
+// ??? SetBoxDialogueSize(???);
 // ??? sub_808A848(???);
 // ??? sub_808A87C(???);
 // ??? sub_808A8AC(???);
 // ??? sub_808A8E4(???);
-// ??? sub_808A974(???);
-// ??? sub_808A99C(???);
-// ??? sub_808A9C0(???);
+// ??? MergeBoxDialogue1(???);
+// ??? MergeBoxDialogue2(???);
+// ??? MergeBoxDialogue3(???);
 void sub_808A9F0(void);
 void sub_808AA04(int x_tile, int y_tile, int unk_index, ProcPtr parent);
 // ??? sub_808AA6C(???);
-void sub_808AADC(const char*, int*, int*);
-// ??? sub_808AB98(???);
-void sub_808AC0C(int, int, int);
+void GetBoxDialogueSize(const char*, int*, int*);
+// ??? DialogBoxGetGlyphLen(???);
+void DrawBoxDialogueText(int, int, int);
 void sub_808ACFC(int, int, int, int);
 // ??? sub_808B09C(???);
 // ??? sub_808B0D4(???);

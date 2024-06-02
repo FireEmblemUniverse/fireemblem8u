@@ -961,7 +961,7 @@ void sub_800E31C(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
         int boxWidth, boxHeight;
         GetStringFromIndex(stringIndex);
 
-        sub_808AADC(StringInsertSpecialPrefixByCtrl(), &boxWidth, &boxHeight);
+        GetBoxDialogueSize(StringInsertSpecialPrefixByCtrl(), &boxWidth, &boxHeight);
 
         if (x == (u8)(-1))
             x = (224 - boxWidth) / 2 - 8;

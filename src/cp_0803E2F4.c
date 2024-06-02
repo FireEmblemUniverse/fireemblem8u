@@ -704,7 +704,9 @@ s8 AiIsUnitAtPositionDifferentAllegiance(int x, int y) {
 }
 
 //! FE8U = 0x0803F018
-s8 sub_803F018(const void* input) {
+s8 AiFunc_CountEnemiesInRange(const void * arg)
+{
+    struct AiCountEnemiesInRangeArg const * cast = arg;
     u16 item;
     int ix;
     int iy;
@@ -712,12 +714,12 @@ s8 sub_803F018(const void* input) {
 
     u8 count = 0;
 
-    move = (UNIT_MOV(gActiveUnit) * (((u8*)(input))[0]));
+    move = (UNIT_MOV(gActiveUnit) * cast->move_coeff_q4);
     move = move >> 4;
 
     item = GetUnitEquippedWeapon(gActiveUnit);
 
-    if ((((u8*)(input))[1] != 0) && item != 0) {
+    if ((cast->attack_range != 0) && item != 0) {
         AiFloodMovementAndRange(gActiveUnit, move, item);
 
         for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
@@ -752,7 +754,7 @@ s8 sub_803F018(const void* input) {
         }
     }
 
-    gAiState.cmd_result[((u8*)(input))[2]] = count;
+    gAiState.cmd_result[cast->result_slot] = count;
     return 0;
 }
 
@@ -884,7 +886,7 @@ s8 sub_803F37C(const void* input) {
 }
 
 //! FE8U = 0x0803F3AC
-s8 sub_803F3AC(struct Vec2* out) {
+s8 AiTryMoveToSpecificPosition(struct Vec2* out) {
 
     const struct Vec2* posA;
     const struct Vec2* posB;
@@ -921,7 +923,7 @@ s8 sub_803F3AC(struct Vec2* out) {
 }
 
 //! FE8U = 0x0803F434
-s8 sub_803F434(const void* input) {
+s8 AiCountEnemyInRangeOrTryMoveToSpecificPosition(const void* input) {
     int enemiesInRange;
     struct Vec2 pos;
 
@@ -938,7 +940,7 @@ s8 sub_803F434(const void* input) {
         GenerateUnitMovementMap(gActiveUnit);
     }
 
-    if (sub_803F3AC(&pos) == 1) {
+    if (AiTryMoveToSpecificPosition(&pos) == 1) {
         AiTryMoveTowards(pos.x, pos.y, 0, 0xff, 1);
         return 1;
     }

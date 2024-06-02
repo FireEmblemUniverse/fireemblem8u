@@ -23,6 +23,12 @@ struct AiHealThreshold {
     /* 01 */ u8 enterThreshold;
 };
 
+struct AiCountEnemiesInRangeArg {
+    /* 00 */ u8 move_coeff_q4;
+    /* 01 */ u8 attack_range; // move range if 0, attack range otherwise
+    /* 02 */ u8 result_slot;
+};
+
 enum {
     AI_ENABLE_DOOR_KEY  = (1 << 0),
     AI_ENABLE_LOCKPICK  = (1 << 1),

@@ -954,10 +954,10 @@ extern unsigned CONST_DATA gMid_Dark;
 // extern ??? gUnknown_08A016C8
 // extern ??? gUnknown_08A016D8
 extern struct ProcCmd gProcScr_BoxDialogue[];
-// extern ??? gUnknown_08A01740
-// extern ??? gProcScr_BoxDialogueInterpreter
+// extern ??? ProcScr_MergeBoxDialogue
+// extern ??? ProcScr_BoxDialogueDrawTextExt
 // extern ??? gUnknown_08A01800
-// extern ??? gUnknown_08A01818
+// extern ??? ProcScr_TalkBoxIdle
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
 extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
