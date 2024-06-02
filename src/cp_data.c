@@ -593,10 +593,10 @@ const struct AiCombatScoreCoefficients gAiCombatScoreCoefficientTable[] = {
 u16 CONST_DATA gUnknown_085A8178[] = { 0 };
 
 // AI2 01=Move towards enemy (except [0x5A817A])
-u16 CONST_DATA gUnknown_085A817A[] = { 0 };
+u16 CONST_DATA PList_AiUnused1[] = { 0 };
 
 // AI2 02=Move towards enemy (except [0x5A817C])
-u16 CONST_DATA gUnknown_085A817C[] = { 0 };
+u16 CONST_DATA PList_AiUnused2[] = { 0 };
 
 // AI1 09=Do not attack [0x5A817E]
 u16 CONST_DATA gUnknown_085A817E[] = { 0 };
@@ -1063,8 +1063,10 @@ const u8 gUnknown_080D8660[] = {
 };
 
 // AI2 06=If possible to attack in 2 actions, move towards enemy Length:2
-const u8 gUnknown_080D8664[] = {
-    0x20, 0x01, 0, 0
+const struct AiCountEnemiesInRangeArg AiCountInRangArg_InRange2 = {
+    .move_coeff_q4 = 0x20, // 2.0
+    .attack_range = TRUE,
+    .result_slot = 0,
 };
 
 //AI1 0C=Attack if enemy is in half of unit's range Length:2
@@ -1099,7 +1101,7 @@ s8 AiTryDKSummon(const void*);
 s8 AiDecideDKSummon(const void*);
 
 // 0x00 = Move towards opponents. If blocked, do nothing
-struct AiScr CONST_DATA gAiScript_Ai2x00[] = {
+struct AiScr CONST_DATA AiScr_AiB_MoveToEnemy[] = {
     AI_MOVE_TO_ENEMY,
     AI_GOTO_START,
 };
@@ -1111,48 +1113,50 @@ struct AiScr CONST_DATA gAiScript_085A8430[] = {
 };
 
 // 0x12 = Wait one turn, then change AI2 to 0x0 (Pursue)
-struct AiScr CONST_DATA gAiScript_Ai2x12_85A8450[] = {
+struct AiScr CONST_DATA AiScr_AiB_MoveToEnemyAfterOneTurn[] = {
     AI_NOP_0E,
-    AI_SET_AI2(0x0),
+    AI_SET_AI2(AI_B_00),
     AI_GOTO_START,
 };
 
 // 0x11 = Wait one turn, then change AI2 to 0x4 (raid then attack)
-struct AiScr CONST_DATA gAiScript_Ai2x11_85A8480[] = {
+struct AiScr CONST_DATA AiScr_AiB_PillageThenPursueAfterOneTurn[] = {
     AI_NOP_0E,
-    AI_SET_AI2(0x4),
+    AI_SET_AI2(AI_B_04),
     AI_GOTO_START,
 };
 
 // 0x01 = Move towards opponents, but not character(s) 0x0 (5A817A)
-struct AiScr CONST_DATA gAiScript_085A84B0[] = {
-    AI_MOVE_TO_ENEMY_IGNORING(gUnknown_085A817A),
+// In FE6, it is Clarine, but now unused
+// Maybe we can redirect there to select which unit to ignore
+struct AiScr CONST_DATA AiScr_AiB_MoveToEnemy_IgnoreChar_Unused1[] = {
+    AI_MOVE_TO_ENEMY_IGNORING(PList_AiUnused1),
     AI_GOTO_START,
 };
 
 // 0x02 = Move towards opponents, but not character(s) 0x0 (5A817C)
-struct AiScr CONST_DATA gAiScript_085A84D0[] = {
-    AI_MOVE_TO_ENEMY_IGNORING(gUnknown_085A817C),
+struct AiScr CONST_DATA AiScr_AiB_MoveToEnemy_IgnoreChar_Unused2[] = {
+    AI_MOVE_TO_ENEMY_IGNORING(PList_AiUnused2),
     AI_GOTO_START,
 };
 
 // 0x03 = Do nothing
-struct AiScr CONST_DATA gAiScript_085A84F0[] = {
+struct AiScr CONST_DATA AiScr_AiB_NeverMove[] = {
     AI_NOP_0E,
     AI_GOTO_START,
 };
 
 // 0x04 = Loot villages/open chests, then change AI2 to 0x0
-struct AiScr CONST_DATA gAiScript_Ai2x04_85A8510[] = {
+struct AiScr CONST_DATA AiScr_AiB_PillageThenPursue[] = {
     AI_PILLAGE,
-    AI_SET_AI(0x0, 0x0),
+    AI_SET_AI(AI_A_00, AI_B_00),
     AI_GOTO_START,
 };
 
 // 0x05 = Loot villages/open chests, then change AI2 to 0xC
-struct AiScr CONST_DATA gAiScript_085A8540[] = {
+struct AiScr CONST_DATA AiScr_AiB_PillageThenEscape[] = {
     AI_PILLAGE,
-    AI_SET_AI(0x6, 0xC),
+    AI_SET_AI(AI_A_06, AI_B_0C),
     AI_GOTO_START,
 };
 
@@ -1173,7 +1177,7 @@ AI_LABEL(0x1),
 
 // 0x08 = ?
 struct AiScr CONST_DATA gAiScript_085A85D0[] = {
-    AI_CALL_FUNC(sub_803F434, 0x0),
+    AI_CALL_FUNC(AiCountEnemyInRangeOrTryMoveToSpecificPosition, 0x0),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_GOTO_START,
 AI_LABEL(0x1),
@@ -1181,19 +1185,19 @@ AI_LABEL(0x1),
 };
 
 // 0x06 = If could reach opponents in two turns, change AI2 to 0x0
-struct AiScr CONST_DATA gAiScript_085A8620[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
+struct AiScr CONST_DATA AiScr_AiB_MoveTwiceToEnemy[] = {
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &AiCountInRangArg_InRange2),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_NOP_0E,
     AI_GOTO_START,
 AI_LABEL(0x1),
-    AI_SET_AI2(0x0),
+    AI_SET_AI2(AI_B_00),
     AI_GOTO(0x1),
 };
 
 // 0x07 = If could reach opponents in two turns, change AI2 to 0x1
-struct AiScr CONST_DATA gAiScript_085A8690[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
+struct AiScr CONST_DATA AiScr_AiB_MoveTwiceToEnemy_IgnoreChar_Unused1[] = {
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &AiCountInRangArg_InRange2),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_NOP_0E,
     AI_GOTO_START,
@@ -1203,8 +1207,8 @@ AI_LABEL(0x1),
 };
 
 // unused?
-struct AiScr CONST_DATA gAiScript_085A8700[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D8664),
+struct AiScr CONST_DATA AiScr_AiB_MoveTwiceToEnemy_IgnoreChar_Unused2[] = {
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &AiCountInRangArg_InRange2),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0),
     AI_NOP_0E,
     AI_GOTO_START,
@@ -1370,7 +1374,7 @@ struct AiScr CONST_DATA gAiScript_ActionInRange_ExceptCivilian[] = {
 
 // unused
 struct AiScr CONST_DATA gAiScript_085A8B60[] = {
-    AI_ACTION_IGNORING(100, gUnknown_085A817C),
+    AI_ACTION_IGNORING(100, PList_AiUnused2),
     AI_GOTO_START,
 };
 
@@ -1396,7 +1400,7 @@ struct AiScr CONST_DATA gAiScript_085A8BE0[] = {
 
 // 0x0C = Attack if within Mov/2+Range(?)
 struct AiScr CONST_DATA gAiScript_085A8C00[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D8668),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, gUnknown_080D8668),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_ACTION_IN_PLACE(100),
     AI_GOTO_START,
@@ -1424,7 +1428,7 @@ struct AiScr CONST_DATA gAiScript_085A8CE0[] = {
 
 // unused
 struct AiScr CONST_DATA gAiScript_085A8D00[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D866C),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, gUnknown_080D866C),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_MOVE_TOWARDS(5, 7),
     AI_ACTION_IN_PLACE(100),
@@ -1436,7 +1440,7 @@ AI_LABEL(0x1),
 
 // unused
 struct AiScr CONST_DATA gAiScript_085A8D80[] = {
-    AI_CALL_FUNC(sub_803F018, gUnknown_080D866C),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, gUnknown_080D866C),
     AI_GOTO_IFGT(0x1, gAiState.cmd_result+0, 0x0),
     AI_MOVE_TOWARDS(17, 6),
     AI_ACTION_IN_PLACE(0x64),
@@ -1531,7 +1535,7 @@ const u8 CONST_DATA gUnknown_085A90C4[] = {
 };
 
 // 0x10 = If not in area [13,15]-[18,19], move to [15,17]; if in area, CHAI [0x0,0x0]
-struct AiScr CONST_DATA gAiScript_085A90C8[] = {
+struct AiScr CONST_DATA AiScr_AiB_GuardSpecificLocation[] = {
     AI_CALL_FUNC(sub_803F4A4, gUnknown_085A90C4),
     AI_GOTO_IFEQ(0x1, gAiState.cmd_result+0, 0x1),
     AI_CALL_FUNC(sub_803F9A8, gUnknown_085A90C0),
@@ -1542,14 +1546,14 @@ AI_LABEL(0x1),
 };
 
 struct AiScr* CONST_DATA gAi2ScriptTable[] = {
-    [AI_B_00] = gAiScript_Ai2x00,
-    [AI_B_01] = gAiScript_085A84B0,
-    [AI_B_02] = gAiScript_085A84D0,
-    [AI_B_03] = gAiScript_085A84F0,
-    [AI_B_04] = gAiScript_Ai2x04_85A8510,
-    [AI_B_05] = gAiScript_085A8540,
-    [AI_B_06] = gAiScript_085A8620,
-    [AI_B_07] = gAiScript_085A8690,
+    [AI_B_00] = AiScr_AiB_MoveToEnemy,
+    [AI_B_01] = AiScr_AiB_MoveToEnemy_IgnoreChar_Unused1,
+    [AI_B_02] = AiScr_AiB_MoveToEnemy_IgnoreChar_Unused2,
+    [AI_B_03] = AiScr_AiB_NeverMove,
+    [AI_B_04] = AiScr_AiB_PillageThenPursue,
+    [AI_B_05] = AiScr_AiB_PillageThenEscape,
+    [AI_B_06] = AiScr_AiB_MoveTwiceToEnemy,
+    [AI_B_07] = AiScr_AiB_MoveTwiceToEnemy_IgnoreChar_Unused1,
     [AI_B_08] = gAiScript_085A85D0,
     [AI_B_09] = gAiScript_085A8790,
     [AI_B_0A] = gAiScript_085A8E00,
@@ -1558,9 +1562,9 @@ struct AiScr* CONST_DATA gAi2ScriptTable[] = {
     [AI_B_0D] = gAiScript_085A8810,
     [AI_B_0E] = gAiScript_AttackWallsSnags,
     [AI_B_0F] = gAiScript_085A8430,
-    [AI_B_10] = gAiScript_085A90C8,
-    [AI_B_11] = gAiScript_Ai2x11_85A8480,
-    [AI_B_12] = gAiScript_Ai2x12_85A8450,
+    [AI_B_10] = AiScr_AiB_GuardSpecificLocation,
+    [AI_B_11] = AiScr_AiB_PillageThenPursueAfterOneTurn,
+    [AI_B_12] = AiScr_AiB_MoveToEnemyAfterOneTurn,
 };
 
 struct AiScr* CONST_DATA gAi1ScriptTable[] = {
