@@ -105,9 +105,9 @@ struct ProcSioHold {
 };
 
 void SioHold_Loop(struct ProcSioHold * proc);
-// ??? StartSioHold(???);
+ProcPtr StartSioHold(ProcPtr parent, int x, int y, int y_max, int y_min);
 // ??? EndSioHold(???);
-// ??? sub_804303C(???);
+void sub_804303C(ProcPtr proc, int num);
 void ClearSioBG(void);
 // ??? sub_804309C(???);
 void sub_8043100(int, int);
@@ -115,33 +115,33 @@ void sub_8043164(void);
 // ??? sub_80431B4(???);
 void SioPlaySoundEffect(int);
 // ??? sub_8043244(???);
-bool sub_8043268(const u16 * list);
+bool IsKeyInputSequenceComplete(const u16 * list);
 // ??? sub_80432F4(???);
-// ??? sub_8043308(???);
-// ??? sub_804331C(???);
-// ??? sub_804335C(???);
+// ??? StartLinkArenaTeamList(???);
+// ??? SioTeamList_Init(???);
+// ??? CanBuildNewLinkArenaTeam(???);
 // ??? sub_8043394(???);
 // ??? sub_80433C0(???);
-// ??? sub_80434B4(???);
+// ??? DrawLinkArenaTeamName(???);
 // ??? sub_804352C(???);
 // ??? sub_8043548(???);
-// ??? sub_80435F0(???);
-// ??? sub_80436C0(???);
+// ??? SioTeamList_EraseTeam(???);
+// ??? SioTeamList_SwapTeams(???);
 // ??? sub_80437C0(???);
-// ??? sub_80438C0(???);
-// ??? sub_8043904(???);
-// ??? sub_8043B08(???);
-// ??? sub_8043B6C(???);
-// ??? sub_8043CF4(???);
-// ??? sub_8043D3C(???);
+// ??? GetLATeamListHelpTextId(???);
+// ??? SioTeamList_SetupGfx(???);
+// ??? SioTeamList_Main_HandleDPadInput(???);
+// ??? SioTeamList_Loop_MainKeyHandler(???);
+// ??? SioTeamList_StartUnitList(???);
+// ??? SioTeamList_WaitForUnitListScreen(???);
 // ??? sub_8043D5C(???);
-// ??? sub_8043D8C(???);
+// ??? SioTeamList_8043D8C(???);
 // ??? sub_8044280(???);
-// ??? sub_804429C(???);
-// ??? sub_8044324(???);
-// ??? sub_80443B0(???);
-// ??? sub_8044430(???);
-// ??? sub_8044530(???);
+// ??? SioTeamList_804429C(???);
+// ??? SioTeamList_8044324(???);
+// ??? SioTeamList_StartEraseTeamSubMenu(???);
+// ??? SioTeamList_EraseTeam_KeyHandler(???);
+// ??? SioTeamList_LoadTeam_Dummy(???);
 
 void sub_8044560(struct ProcTactician * proc, u8 * str);
 void sub_8044614(struct ProcTactician * proc);
@@ -450,10 +450,10 @@ void sub_804C7DC(ProcPtr, s16, s16);
 // ??? sub_804C7E4(???);
 // ??? sub_804C83C(???);
 // ??? sub_804C894(???);
-// ??? sub_804CAEC(???);
+ProcPtr sub_804CAEC(ProcPtr, int, u8 *);
 // ??? sub_804CB94(???);
 // ??? sub_804CC14(???);
-// ??? sub_804CC5C(???);
+void sub_804CC5C(int);;
 // ??? sub_804CC78(???);
 // ??? sub_804CCCC(???);
 ProcPtr NewProc_085AAAC4(ProcPtr parent, int a, int b);
@@ -469,7 +469,7 @@ void sub_804CFB8(ProcPtr, s16, s16);
 // ??? sub_804CFE0(???);
 // ??? sub_804D01C(???);
 void sub_804D1E0(int, int, int, int, u8, ProcPtr);
-void sub_804D24C(int, s16);
+void sub_804D24C(u8, s16);
 // ??? sub_804D2A4(???);
 // ??? sub_804D37C(???);
 // ??? StopBGM2(???);
@@ -517,15 +517,15 @@ extern char gUnk_Sio_0203DAC5[][15];
 extern struct Text Texts_0203DB14[10];
 extern struct Text gUnk_Sio_0203DB1C[];
 extern struct Font Font_0203DB64;
-// extern ??? gUnk_Sio_0203DB7C
+// extern ??? gLinkArenaTeamList
 // extern ??? gSioResultRankings
 // extern ??? gUnk_Sio_0203DC48
 extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
 extern s8 gUnk_Sio_0203DD24;
 // extern ??? gUnk_Sio_0203DD28
-extern u16 gUnk_Sio_0203DD2C[];
-extern int gUnk_Sio_0203DD4C;
+extern u16 gKeyInputSequenceBuffer[];
+extern int gKeyInputSequenceTimer;
 // extern ??? gUnk_Sio_0203DD50
 // extern ??? gUnk_Sio_0203DD8C
 // extern ??? gUnk_Sio_0203DD90
@@ -541,8 +541,8 @@ extern s16 gUnknown_080D9C9E[];
 // extern ??? gUnknown_080D9D34
 // extern ??? gUnknown_080D9D4D
 // extern ??? gUnknown_080D9D56
-// extern ??? gUnknown_080D9D5E
-// extern ??? gUnknown_080D9D61
+extern u8 const gUnknown_080D9D5E[];
+extern s8 const gUnknown_080D9D61[];
 extern u16 const Sprite_080D9D6E[];
 extern u16 const Sprite_080D9D76[];
 extern u16 const Sprite_080D9D7E[];
@@ -599,10 +599,10 @@ extern CONST_DATA struct ProcCmd ProcScr_SIOMAIN[];
 extern CONST_DATA u8 * gpSioUnkBuffer;
 extern CONST_DATA struct ProcCmd gUnknown_085A93A0[];
 extern CONST_DATA struct ProcCmd ProcScr_HOLD[];
-// extern ??? gSioList_085A93E0
+extern CONST_DATA u16 gSioList_085A93E0[];
 extern CONST_DATA u16 gSioList_085A93F0[];
-// extern ??? gUnknown_085A94A0
-extern CONST_DATA struct ProcCmd ProcScr_Sio_085A94AC[];
+// extern ??? gSioTeamListConfigLut
+extern CONST_DATA struct ProcCmd ProcScr_SioTeamList[];
 // extern ??? ProcScr_TacticianNameSelection
 // extern ??? SpriteArray_085A96D4
 extern struct ProcCmd ProcScr_DebugMonitor[];
@@ -612,8 +612,8 @@ extern struct ProcCmd ProcScr_SIOBAT[];
 extern struct ProcCmd ProcScr_SIORESULT[];
 extern struct ProcCmd ProcScr_SIO_RuleSettings[];
 
-extern int gUnknown_03001808;
-extern int gUnknown_0300180C;
+extern int gCurrentKeyInSeqIndex;
+extern int gTargetKeyInSeqIndex;
 // extern ??? gUnknown_03001810
 // extern ??? gUnknown_03001818
 // extern ??? gUnknown_0300182C

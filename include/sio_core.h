@@ -200,11 +200,11 @@ struct LinkArenaStMaybe
     /* 03 */ u8 unk_03;
     /* 04 */ u8 unk_04;
     /* 05 */ u8 unk_05;
-    STRUCT_PAD(0x06, 0x0A);
+    u8 unk_06[4];
     /* 0A */ u8 unk_0A;
     /* 0B */ u8 unk_0B;
     /* 0C */ struct Text texts[11];
-    STRUCT_PAD(0x64, 0x9C);
+    /* 64 */ struct Text unk_64[7]; // maybe not all text?
     u8 unk_9C[5];
     u8 unk_A1[4][15];
     STRUCT_PAD(0xDD, 0xEC);

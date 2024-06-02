@@ -78,10 +78,10 @@ void SioMenu_Init(void)
 
     for (i = 0; i < 0x10; i++)
     {
-        gUnk_Sio_0203DD2C[i] = 0;
+        gKeyInputSequenceBuffer[i] = 0;
     }
 
-    gUnknown_03001808 = gUnknown_0300180C = gUnk_Sio_0203DD4C = 0;
+    gCurrentKeyInSeqIndex = gTargetKeyInSeqIndex = gKeyInputSequenceTimer = 0;
 
     return;
 }
