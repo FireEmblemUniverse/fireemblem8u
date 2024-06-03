@@ -2550,11 +2550,11 @@ void sub_8008FB4(struct TalkDebugProc * proc)
 }
 
 // The functions below seem to be unrelated to the dialog system
-// Possibly from a leftover event script command from FE7?
 
 //! FE8U = 0x08009038
-void nullsub_15(void)
+void nullsub_15(ProcPtr proc, int label)
 {
+    // "EventGotoLabel" from FE6 (and possibly FE7)
     return;
 }
 

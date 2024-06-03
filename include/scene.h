@@ -214,7 +214,7 @@ void sub_8008F54(void);
 void sub_8008F64(int chr, int b, int c, ProcPtr parent);
 void sub_8008FAC(struct TalkDebugProc *);
 void sub_8008FB4(struct TalkDebugProc *);
-void nullsub_15(void);
+void nullsub_15(ProcPtr, int);
 void sub_800903C(struct Proc0859163C *);
 void sub_800904C(struct Proc0859163C *);
 void sub_8009100(struct Proc0859163C *);
