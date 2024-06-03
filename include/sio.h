@@ -182,8 +182,8 @@ void SaveTactician(struct ProcTactician * proc, const struct TacticianTextConf *
 // ??? New6C_SIOMAIN2(???);
 // ??? sub_8045C28(???);
 // ??? sub_8045C68(???);
-// ??? sub_8045CBC(???);
-// ??? sub_8045CE0(???);
+void sub_8045CBC(void);
+void sub_8045CE0(void);
 // ??? sub_8045CEC(???);
 // ??? sub_8045DC0(???);
 // ??? sub_8045F00(???);
@@ -281,7 +281,7 @@ void sub_8048260(ProcPtr); // StartNameSelect
 // ??? sub_80487C0(???);
 // ??? sub_804881C(???);
 // ??? sub_8048838(???);
-void CallEraseSaveEvent(ProcPtr);
+void CallEraseSaveEvent(void);
 // ??? sub_8048864(???);
 void sub_8048884(void *); // TODO: Fix param type
 // ??? sub_8048934(???);
@@ -431,7 +431,7 @@ void Clear_0203DDDC(void);
 void sub_804C2EC(int, int, ProcPtr);
 // ??? sub_804C31C(???);
 void InitSioBG(void);
-// ??? sub_804C3A0(???);
+void sub_804C3A0(int, int);
 void sub_804C3A4(int);
 void nullsub_13(void);
 // ??? sub_804C3AC(???);
@@ -527,7 +527,7 @@ extern s8 gUnk_Sio_0203DD24;
 extern u16 gUnk_Sio_0203DD2C[];
 extern int gUnk_Sio_0203DD4C;
 // extern ??? gUnk_Sio_0203DD50
-// extern ??? gUnk_Sio_0203DD8C
+extern int gUnk_Sio_0203DD8C;
 // extern ??? gUnk_Sio_0203DD90
 // extern ??? gUnk_Sio_0203DD94
 // extern ??? gUnk_Sio_0203DD95
