@@ -59,7 +59,7 @@ void StartTacticianNameSelect(ProcPtr parent)
 extern struct SioMessage gUnknown_03004E80;
 
 //! FE8U = 0x080482E0
-bool sub_80482E0(ProcPtr proc)
+bool XMapTransfer_80482E0(ProcPtr proc)
 {
     int i;
     u8 buf[4];
@@ -77,7 +77,7 @@ bool sub_80482E0(ProcPtr proc)
         return true;
     }
 
-    if ((gSioSt->selfId > 1) || (gSioSt->playerStatus[gSioSt->selfId] == 2))
+    if ((gSioSt->selfId > 1) || (gSioSt->playerStatus[gSioSt->selfId] == PLAYER_STATUS_2))
     {
         nullsub_15(proc, 0);
         return false;
@@ -130,7 +130,7 @@ bool sub_80482E0(ProcPtr proc)
 }
 
 //! FE8U = 0x080483F8
-void sub_80483F8(ProcPtr proc)
+void XMapTransfer_80483F8(ProcPtr proc)
 {
     if (gSioSt->unk_009 > 3)
     {
@@ -141,7 +141,7 @@ void sub_80483F8(ProcPtr proc)
 }
 
 //! FE8U = 0x08048418
-void sub_8048418(ProcPtr proc)
+void XMapTransfer_8048418(ProcPtr proc)
 {
     u8 buf[4];
 
@@ -155,7 +155,6 @@ void sub_8048418(ProcPtr proc)
     }
 
     buf[0] = gUnk_Sio_0203DD8C;
-
     SioEmitData(buf, sizeof(buf));
 
     if (gUnk_Sio_0203DD8C != 0)
@@ -167,7 +166,7 @@ void sub_8048418(ProcPtr proc)
 }
 
 //! FE8U = 0x08048460
-bool sub_8048460(ProcPtr proc)
+bool XMapTransfer_8048460(ProcPtr proc)
 {
     u16 got;
     int i;
@@ -184,7 +183,7 @@ bool sub_8048460(ProcPtr proc)
         }
     }
 
-    if ((!sub_80421E4()) || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
+    if (!sub_80421E4() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
     {
         nullsub_15(proc, 0);
         return 0;
@@ -206,7 +205,7 @@ bool sub_8048460(ProcPtr proc)
 }
 
 //! FE8U = 0x080484D8
-void sub_80484D8(struct Text * th, const char * str, int number)
+void PutXMapProgressPercent(struct Text * th, const char * str, int number)
 {
     ClearText(th);
 
@@ -220,14 +219,14 @@ void sub_80484D8(struct Text * th, const char * str, int number)
 }
 
 //! FE8U = 0x08048524
-void sub_8048524(struct SioBigSendProc * proc)
+void DrawXMapSendProgress(struct SioBigSendProc * proc)
 {
     if (proc->unk_3C < proc->completionPercent)
     {
         PlaySoundEffect(0x7d);
         proc->unk_3C++;
 
-        sub_80484D8(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
+        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -237,14 +236,14 @@ void sub_8048524(struct SioBigSendProc * proc)
 }
 
 //! FE8U = 0x08048594
-void sub_8048594(struct SioBigReceiveProc * proc)
+void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
 {
     if (proc->unk_3C < proc->completionPercent)
     {
         PlaySoundEffect(0x7d);
         proc->unk_3C++;
 
-        sub_80484D8(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
+        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -256,7 +255,7 @@ void sub_8048594(struct SioBigReceiveProc * proc)
 extern u8 gUnk_Sio_02000000[];
 
 //! FE8U = 0x08048604
-void sub_8048604(struct SioBigSendProc * proc)
+void StartXMapTransfer(struct SioBigSendProc * proc)
 {
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
@@ -264,18 +263,18 @@ void sub_8048604(struct SioBigSendProc * proc)
     if (gSioSt->selfId == 0)
     {
         ReadSramFast(CART_SRAM + SRAM_OFFSET_XMAP, gUnk_Sio_02000000, SRAM_SIZE_XMAP);
-        StartSioBigSend(gUnk_Sio_02000000, SRAM_SIZE_XMAP, sub_8048524, 0, proc);
+        StartSioBigSend(gUnk_Sio_02000000, SRAM_SIZE_XMAP, DrawXMapSendProgress, 0, proc);
     }
     else
     {
-        StartSioBigReceive(gUnk_Sio_02000000, sub_8048594, proc);
+        StartSioBigReceive(gUnk_Sio_02000000, DrawXMapReceiveProgress, proc);
     }
 
     return;
 }
 
 //! FE8U = 0x0804867C
-bool sub_804867C(void)
+bool XMapTransfer_AwaitCompletion(void)
 {
     if (IsSioBigTransferActive())
     {
@@ -307,7 +306,6 @@ bool sub_80486E8(void)
     gSioMsgBuf.kind = SIO_MSG_89;
     gSioMsgBuf.sender = gSioSt->selfId;
     gSioMsgBuf.param = 0;
-
     SioSend(&gSioMsgBuf, 4);
 
     if ((gSioSt->unk_00A & gSioSt->unk_009) == gSioSt->unk_009)
@@ -320,7 +318,7 @@ bool sub_80486E8(void)
 }
 
 //! FE8U = 0x08048730
-void sub_8048730(void)
+void XMapTransfer_8048730(void)
 {
     UnpackUiBarPalette(6);
     DrawUiFrame2(0xd, 0xb, 0x10, 6, 0);
@@ -328,7 +326,7 @@ void sub_8048730(void)
     SetTextFont(&Font_0203DB64);
     InitSystemTextFont();
 
-    sub_80484D8(&gUnk_Sio_0203DA88[0], GetStringFromIndex(0x77E), 0);
+    PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], GetStringFromIndex(0x77E), 0);
     DrawStatBarGfx(0x100, 0xd, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, 0, 100);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -390,7 +388,7 @@ void sub_804881C(void)
 }
 
 //! FE8U = 0x08048838
-void sub_8048838(void)
+void EraseSaveData(void)
 {
     InitGlobalSaveInfodata();
 
@@ -403,7 +401,7 @@ void sub_8048838(void)
 
 // clang-format off
 
-EventScr CONST_DATA gUnknown_085A9F48[] =
+EventScr CONST_DATA EventScr_EraseSaveInfo[] =
 {
         EVBIT_MODIFY(0x4)
         TEXTSHOW(0x840)
@@ -414,7 +412,7 @@ EventScr CONST_DATA gUnknown_085A9F48[] =
         TEXTEND
         SVAL(EVT_SLOT_7, 0x1)
         BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
-        ASMC(sub_8048838)
+        ASMC(EraseSaveData)
         EvtTextShow2(0x842) // ENOSUPP in EAstdlib
         TEXTEND
 LABEL(0x0)
@@ -427,6 +425,6 @@ LABEL(0x0)
 //! FE8U = 0x08009A00
 void CallEraseSaveEvent(void)
 {
-    CallEvent((void *)gUnknown_085A9F48, EV_EXEC_QUIET);
+    CallEvent((void *)EventScr_EraseSaveInfo, EV_EXEC_QUIET);
     return;
 }
