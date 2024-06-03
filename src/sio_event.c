@@ -12,6 +12,8 @@
 #include "face.h"
 #include "event.h"
 
+#include "EAstdlib.h"
+
 #include "sio_core.h"
 #include "sio.h"
 
@@ -57,7 +59,7 @@ void StartTacticianNameSelect(ProcPtr parent)
 extern struct SioMessage gUnknown_03004E80;
 
 //! FE8U = 0x080482E0
-int sub_80482E0(ProcPtr proc)
+bool sub_80482E0(ProcPtr proc)
 {
     int i;
     u8 buf[4];
@@ -69,16 +71,16 @@ int sub_80482E0(ProcPtr proc)
         if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
         {
             nullsub_15(proc, 4);
-            return 0;
+            return false;
         }
 
-        return 1;
+        return true;
     }
 
     if ((gSioSt->selfId > 1) || (gSioSt->playerStatus[gSioSt->selfId] == 2))
     {
         nullsub_15(proc, 0);
-        return 0;
+        return false;
     }
 
     for (i = 0; i < 4; i++)
@@ -92,7 +94,7 @@ int sub_80482E0(ProcPtr proc)
     if (!sub_80421E4() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
     {
         nullsub_15(proc, 0);
-        return 0;
+        return false;
     }
 
     gUnknown_03004E80.kind = SIO_MSG_8C;
@@ -105,7 +107,7 @@ int sub_80482E0(ProcPtr proc)
         buf[0] = 1;
         SioEmitData(buf, sizeof(buf));
         nullsub_15(proc, 3);
-        return 0;
+        return false;
     }
 
     if ((gSioSt->unk_009 & 3) == 3)
@@ -121,10 +123,10 @@ int sub_80482E0(ProcPtr proc)
             nullsub_15(proc, 1);
         }
 
-        return 0;
+        return false;
     }
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x080483F8
@@ -217,8 +219,6 @@ void sub_80484D8(struct Text * th, const char * str, int number)
     return;
 }
 
-extern const char gUnknown_080D9F18[];
-
 //! FE8U = 0x08048524
 void sub_8048524(struct SioBigSendProc * proc)
 {
@@ -227,7 +227,7 @@ void sub_8048524(struct SioBigSendProc * proc)
         PlaySoundEffect(0x7d);
         proc->unk_3C++;
 
-        sub_80484D8(&gUnk_Sio_0203DA88[0], gUnknown_080D9F18, proc->unk_3C);
+        sub_80484D8(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -235,8 +235,6 @@ void sub_8048524(struct SioBigSendProc * proc)
 
     return;
 }
-
-extern const char gUnknown_080D9F20[];
 
 //! FE8U = 0x08048594
 void sub_8048594(struct SioBigReceiveProc * proc)
@@ -246,7 +244,7 @@ void sub_8048594(struct SioBigReceiveProc * proc)
         PlaySoundEffect(0x7d);
         proc->unk_3C++;
 
-        sub_80484D8(&gUnk_Sio_0203DA88[0], gUnknown_080D9F20, proc->unk_3C);
+        sub_80484D8(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -403,11 +401,32 @@ void sub_8048838(void)
     return;
 }
 
-extern u16 gUnknown_085A9F48[];
+// clang-format off
+
+EventScr CONST_DATA gUnknown_085A9F48[] =
+{
+        EVBIT_MODIFY(0x4)
+        TEXTSHOW(0x840)
+        TEXTEND
+        SVAL(EVT_SLOT_7, 0x1)
+        BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+        EvtTextShow2(0x841) // ENOSUPP in EAstdlib
+        TEXTEND
+        SVAL(EVT_SLOT_7, 0x1)
+        BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
+        ASMC(sub_8048838)
+        EvtTextShow2(0x842) // ENOSUPP in EAstdlib
+        TEXTEND
+LABEL(0x0)
+        REMA
+        ENDA
+};
+
+// clang-format on
 
 //! FE8U = 0x08009A00
 void CallEraseSaveEvent(void)
 {
-    CallEvent(gUnknown_085A9F48, EV_EXEC_QUIET);
+    CallEvent((void *)gUnknown_085A9F48, EV_EXEC_QUIET);
     return;
 }

@@ -1,29 +1,5 @@
     .section .data
 
-	.global gUnknown_085A9F48
-gUnknown_085A9F48:  @ 0x085A9F48
-@ Replacing .incbin "baserom.gba", 0x5A9F48, 0x50
-    .4byte 0x41020
-    .4byte 0x8401b20
-    .4byte 0x1d20
-    .4byte 0x70540
-    .4byte 0x1
-    .4byte 0xc41
-    .4byte 0x7000c
-    .4byte 0x8411b21
-    .4byte 0x1d20
-    .4byte 0x70540
-    .4byte 0x1
-    .4byte 0xc41
-    .4byte 0x7000c
-    .4byte 0xd40
-    .4byte sub_8048838
-    .4byte 0x8421b21
-    .4byte 0x1d20
-    .4byte 0x820
-    .4byte 0x1b22
-    .4byte 0x120
-
 	.global gUnknown_085A9F98
 gUnknown_085A9F98:  @ 0x085A9F98
 	.incbin "baserom.gba", 0x5A9F98, 0x8
