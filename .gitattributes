@@ -6,6 +6,9 @@
 # Declare files that will always have CRLF line endings on checkout.
 *.pal text eol=crlf
 
+# Declare files that will always have LF line endings on checkout.
+*.sha1 text eol=lf
+
 # Custom for Visual Studio
 *.cs     diff=csharp
 
