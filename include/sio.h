@@ -54,6 +54,12 @@ struct SioSaveConf {
 } __attribute__((packed));
 extern struct SioSaveConf gSioSaveConfig;
 
+struct SioUnknown_0203DD90_Unk2C
+{
+    /* 00 */ u8 unk_00;
+    /* 04 */ int unk_04;
+};
+
 struct SioUnknown_0203DD90
 {
     // 00 -- ??
@@ -64,14 +70,23 @@ struct SioUnknown_0203DD90
     // 05 -- current selected combat target unit id
     // 06 -- weapon index maybe?
     // 07-09 -- ??
-    // 0A-0D = byte array - num units alive per team
-    // 14-24? - scores - word array
-    STRUCT_PAD(0x00, 0x24);
-    u16 unk_24[4]; // leader face IDs
-    // more?
+    STRUCT_PAD(0x00, 0x0A);
+    /* 0A */ u8 unk_0A[4]; // num units alive per team?
+    /* 0E */ u8 unk_0E; // ?
+    /* 0F */ u8 unk_0F[4]; // player ids?
+    /* 14 */ int unk_14[4]; // scores
+    /* 24 */ u16 unk_24[4]; // leader face IDs
+    /* 2C */ struct SioUnknown_0203DD90_Unk2C unk_2c[4];
 };
 
 struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
+
+struct SioProc85A971C_Unk44
+{
+    /* 00 */ u8 playerId;
+    /* 01 */ STRUCT_PAD(0x01, 0x04);
+    /* 04 */ u32 points;
+};
 
 u32 SioStrCpy(u8 const * src, u8 * dst);
 void SioDrawNumber(struct Text * text, int x, int color, int number);
@@ -283,7 +298,7 @@ void sub_8048260(ProcPtr); // StartNameSelect
 // ??? EraseSaveData(???);
 void CallEraseSaveEvent(void);
 // ??? sub_8048864(???);
-void sub_8048884(void *); // TODO: Fix param type
+void sub_8048884(struct SioProc85A971C_Unk44 *);
 // ??? sub_8048934(???);
 // ??? sub_8048988(???);
 // ??? nullsub_43(???);
@@ -532,7 +547,6 @@ extern int gUnk_Sio_0203DD8C;
 // extern ??? gUnk_Sio_0203DD94
 // extern ??? gUnk_Sio_0203DD95
 // extern ??? gUnk_Sio_0203DD9A
-// extern ??? gUnk_Sio_0203DD9F
 // extern ??? gUnk_Sio_0203DDB4
 // extern ??? gUnk_Sio_0203DDDC
 

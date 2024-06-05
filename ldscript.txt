@@ -393,6 +393,7 @@ SECTIONS
         src/sio_rulesettings.o(.text);
         src/sio_menu.o(.text);
         src/sio_event.o(.text);
+        src/sio_points.o(.text);
         asm/code_sio_8048260.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
