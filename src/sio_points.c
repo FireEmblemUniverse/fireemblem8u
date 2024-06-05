@@ -50,18 +50,54 @@ struct SioProc85AA130
 extern u8 gUnknown_085AD80C[];
 extern u16 gUnknown_085ADDA8[];
 
-extern int gUnknown_085AA084[];
-extern s16 gUnknown_085AA0A4[];
-extern s16 gUnknown_085AA0CA[];
+// clang-format off
 
-extern u8 gUnknown_080D9F28[][4];
-extern u8 gUnknown_080D9F38[][4];
+const u8 gUnknown_080D9F28[][4] =
+{
+    0, 2, 1, 3,
+    1, 3, 0, 2,
+    2, 1, 3, 0,
+    3, 0, 2, 1,
+};
 
-extern u8 gUnknown_080D9F98[];
+const u8 gUnknown_080D9F38[][4] =
+{
+    0, 2, 1, 3,
+    2, 0, 3, 1,
+    3, 1, 0, 2,
+    1, 3, 2, 0,
+};
+
+const u16 gUnknown_080D9F48[] =
+{
+    0x5, 0x9, 0x6, 0x9, 0x7, 0x9, 0x8, 0x9,
+    0x9, 0x9, 0xC, 0x7, 0xC, 0x6, 0xC, 0x5,
+    0xC, 0x4, 0xC, 0x3, 0x9, 0x1, 0x8, 0x1,
+    0x7, 0x1, 0x6, 0x1, 0x5, 0x1, 0x2, 0x3,
+    0x2, 0x4, 0x2, 0x5, 0x2, 0x6, 0x2, 0x7,
+};
+
+const u8 gUnknown_080D9F98[] =
+{
+     1, 16,
+    23, 16,
+    23,  1,
+     1,  1,
+};
+
+// clang-format on
 
 extern struct Text gUnk_Sio_02000C78[];
 
-extern u16 gUnknown_085A9F98[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_085A9F98[] =
+{
+    1,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x200) + OAM2_PAL(3),
+};
+
+// clang-format on
 
 //! FE8U = 0x08048864
 void sub_8048864(void)
@@ -69,6 +105,36 @@ void sub_8048864(void)
     PutSprite(4, 0x38, 4, gUnknown_085A9F98, 0);
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085A9FA0[] =
+{
+    PROC_REPEAT(sub_8048864),
+    PROC_END,
+};
+
+u16 CONST_DATA gUnknown_085A9FB0[] =
+{
+    0x014C, 0x014D, 0x014E, 0x014F, 0x0150, 0x0151,
+    0x0152, 0x0153, 0x0154, 0x0155, 0x00CC, 0x0000,
+    0x00D6, 0x0002, 0x00D7, 0x0004, 0x00D8, 0x0006,
+    0x00D9, 0x0008, 0x00DA, 0x000A, 0x00DB, 0x000C,
+    0x00DC, 0x000E, 0x00DD, 0x0010, 0x00DE, 0x0012,
+    0x00DF, 0x0014, 0x00E0, 0x0016, 0x00E1, 0x0018,
+    0x00E2, 0x001A, 0x00E3, 0x001C, 0x00E4, 0x001E,
+    0x00E5, 0x0020, 0x00E6, 0x0022, 0x00E7, 0x0024,
+    0x00E8, 0x0026, 0x00E9, 0x0028, 0x00EA, 0x002A,
+    0x00EB, 0x002C, 0x00EC, 0x002E, 0x00ED, 0x0030,
+    0x00EE, 0x0032, 0x00EF, 0x0014, 0x00F0, 0x0016,
+    0x00F1, 0x0022, 0x00F2, 0x0024, 0x00F3, 0x0026,
+    0x00F4, 0x0028, 0x00F5, 0x0011, 0x00F6, 0x0019,
+    0x00F7, 0x001D, 0x00F8, 0x0021, 0x00F9, 0x0029,
+    0x00FA, 0x0029, 0x00FB, 0x002B, 0x00D6, 0x0000,
+    0x00D6, 0x0000, 0x00D6, 0x0000,
+};
+
+// clang-format on
 
 //! FE8U = 0x08048884
 void sub_8048884(struct SioProc85A971C_Unk44 * buf)
@@ -188,7 +254,16 @@ void nullsub_43(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA06C[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA06C[] =
+{
+    PROC_CALL(sub_8048988),
+    PROC_CALL(nullsub_43),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08048A6C
 void sub_8048A6C(void)
@@ -209,6 +284,18 @@ void sub_8048A94(void)
 
     return;
 }
+
+// clang-format off
+
+int CONST_DATA gUnknown_085AA084[] =
+{
+    + 0, -20,
+    -16, + 0,
+    + 0, +12,
+    +16, + 0,
+};
+
+// clang-format on
 
 //! FE8U = 0x08048AA8
 void sub_8048AA8(struct SioProc85AA0F0 * proc)
@@ -232,8 +319,8 @@ void sub_8048AA8(struct SioProc85AA0F0 * proc)
     }
     else
     {
-        proc->unk_2a = unit->xPos * 0x10 + gUnknown_085AA084[idx * 2 + 0] - 12;
-        proc->unk_2c = unit->yPos * 0x10 + gUnknown_085AA084[idx * 2 + 1];
+        proc->unk_2a = unit->xPos * 16 + gUnknown_085AA084[idx * 2 + 0] - 12;
+        proc->unk_2c = unit->yPos * 16 + gUnknown_085AA084[idx * 2 + 1];
     }
 
     proc->unk_2e = gUnknown_080D9F98[idx * 2 + 0] * 8 + 8;
@@ -246,6 +333,38 @@ void sub_8048AA8(struct SioProc85AA0F0 * proc)
 
     return;
 }
+
+// clang-format off
+
+s16 CONST_DATA gUnknown_085AA0A4[] =
+{
+    +0, +0,
+    +1, +1,
+    +1, +1,
+    +1, +1,
+    +2, +2,
+    +2, +1,
+    +1, +1,
+    +1, +1,
+    +1, +1,
+    +0,
+};
+
+s16 CONST_DATA gUnknown_085AA0CA[] =
+{
+    +0, -1,
+    +3, +3,
+    +2, +2,
+    +1, +0,
+    +0, +0,
+    +0, +0,
+    -1, -2,
+    -2, -3,
+    -3, +1,
+    +0,
+};
+
+// clang-format on
 
 //! FE8U = 0x08048B78
 void sub_8048B78(struct SioProc85AA0F0 * proc)
@@ -383,6 +502,26 @@ void sub_8048E6C(struct SioProc85AA0F0 * proc)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA0F0[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_8048AA8),
+
+    PROC_REPEAT(sub_8048B78),
+    PROC_REPEAT(sub_8048CB8),
+
+    PROC_CALL(sub_8048D64),
+
+    PROC_REPEAT(sub_8048DD0),
+    PROC_REPEAT(sub_8048E6C),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x08048E84
 void sub_8048E84(struct SioProc85AA130 * proc)
 {
@@ -465,8 +604,20 @@ void sub_8048FD4(struct SioProc85AA130 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA0F0[];
-extern struct ProcCmd gUnknown_085AA130[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA130[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_8048E84),
+
+    PROC_REPEAT(sub_8048EB8),
+    PROC_REPEAT(sub_8048FD4),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080490EC
 s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)

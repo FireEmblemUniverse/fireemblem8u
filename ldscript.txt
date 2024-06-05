@@ -714,6 +714,7 @@ SECTIONS
         . = ALIGN(4); src/sio_rulesettings.o(.rodata);
         . = ALIGN(4); src/sio_menu.o(.rodata);
         . = ALIGN(4); src/sio_event.o(.rodata);
+        . = ALIGN(4); src/sio_points.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
@@ -959,6 +960,7 @@ SECTIONS
         . = ALIGN(4); src/sio_rulesettings.o(.data);
         . = ALIGN(4); src/sio_menu.o(.data);
         . = ALIGN(4); src/sio_event.o(.data);
+        . = ALIGN(4); src/sio_points.o(.data);
         . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);
