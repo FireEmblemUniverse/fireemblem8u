@@ -1399,7 +1399,7 @@ sub_8049CD4: @ 0x08049CD4
 	adds r0, r0, r1
 	cmp r2, r0
 	blt _08049CF6
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	adds r0, r4, #0
 	movs r1, #3
 	bl Proc_Goto
@@ -1588,7 +1588,7 @@ _08049E7C:
 	ands r0, r1
 	cmp r0, #0
 	beq _08049EAC
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	ldr r0, _08049EA8  @ gPlaySt
 	adds r0, #0x41
 	ldrb r0, [r0]
@@ -1672,7 +1672,7 @@ _08049F34: .4byte gPlaySt
 	THUMB_FUNC_START sub_8049F38
 sub_8049F38: @ 0x08049F38
 	push {lr}
-	bl sub_8048A6C
+	bl StartLinkArenaPointsBox
 	pop {r0}
 	bx r0
 
@@ -1775,7 +1775,7 @@ _08049FE6:
 	movs r0, #3
 	movs r3, #0
 	bl sub_8049350
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	mov r0, r8
 	movs r1, #7
 	bl Proc_Goto
@@ -3168,7 +3168,7 @@ _0804AB32:
 	.align 2, 0
 _0804AB50: .4byte gUnk_Sio_0203DD94
 _0804AB54:
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	add r0, sp, #4
 	ldrb r1, [r0]
 	lsls r0, r1, #4
@@ -3191,7 +3191,7 @@ _0804AB80: .4byte gUnk_Sio_0203DAC5
 _0804AB84: .4byte gUnknown_03001850
 _0804AB88: .4byte gUnknown_085AA1FC
 _0804AB8C:
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	ldr r0, _0804ABB0  @ gUnknown_085AA21C
 	movs r1, #0x60
 	movs r2, #0
@@ -3598,7 +3598,7 @@ sub_804AE7C: @ 0x0804AE7C
 	ands r0, r1
 	cmp r0, #0
 	beq _0804AEBC
-	bl sub_8048A94
+	bl EndLinkArenaPointsBox
 	str r4, [r5, #0x58]
 	ldr r0, _0804AEB8  @ gPlaySt
 	adds r0, #0x41

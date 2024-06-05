@@ -148,7 +148,7 @@ gUnknown_085AA2FC:  @ 0x085AA2FC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -223,7 +223,7 @@ gUnknown_085AA2FC:  @ 0x085AA2FC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0
@@ -256,7 +256,7 @@ gUnknown_085AA2FC:  @ 0x085AA2FC
         .word sub_804A430
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804A44C
@@ -283,7 +283,7 @@ gUnknown_085AA2FC:  @ 0x085AA2FC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_804A7C0
@@ -353,7 +353,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word sub_804ACC4
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_CALL
         .short 0x2, 0x0
         .word sub_804A51C
@@ -377,7 +377,7 @@ gUnknown_085AA4CC:  @ 0x085AA4CC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_804A7C0
@@ -432,7 +432,7 @@ gUnknown_085AA5BC:  @ 0x085AA5BC
         .word sub_804B250
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_GOTO
         .short 0xc, 0x4
         .word 0x0
@@ -477,7 +477,7 @@ gUnknown_085AA5BC:  @ 0x085AA5BC
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_8048A94
+        .word EndLinkArenaPointsBox
         @ PROC_REPEAT
         .short 0x3, 0x0
         .word sub_804A7C0

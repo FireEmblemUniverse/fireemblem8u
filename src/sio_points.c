@@ -12,39 +12,39 @@
 #include "sio_core.h"
 #include "sio.h"
 
-struct SioProc085AA06C
+struct LAPointsBoxProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct Text unk_2c[4];
+    /* 2C */ struct Text text[4];
 };
 
-struct SioProc85AA0F0
+struct PointsNumberMoverProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2A */ s16 unk_2a;
-    /* 2C */ s16 unk_2c;
-    /* 2E */ s16 unk_2e;
-    /* 30 */ s16 unk_30;
-    /* 32 */ u8 unk_32;
-    /* 33 */ u8 unk_33;
-    /* 34 */ int unk_34;
-    /* 38 */ u32 unk_38;
-    /* 3C */ u32 unk_3c;
+    /* 2A */ s16 x;
+    /* 2C */ s16 y;
+    /* 2E */ s16 xTarget;
+    /* 30 */ s16 yTarget;
+    /* 32 */ u8 playerId;
+    /* 33 */ u8 unitId;
+    /* 34 */ int difference;
+    /* 38 */ u32 newScore;
+    /* 3C */ u32 timer;
     /* 40 */ s8 unk_40;
     /* 41 */ STRUCT_PAD(0x41, 0x44);
-    /* 44 */ int unk_44;
-    /* 48 */ struct Text unk_48;
+    /* 44 */ int unk_44; // used for showing the "rolling" number while accumulating points
+    /* 48 */ struct Text text;
 };
 
-struct SioProc85AA130
+struct PointsSpriteTextProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
+    /* 2C */ int x;
+    /* 30 */ int y;
     /* 34 */ STRUCT_PAD(0x34, 0x4C);
-    /* 4C */ s16 unk_4c;
+    /* 4C */ s16 timer;
     /* 4E */ STRUCT_PAD(0x4E, 0x54);
-    /* 54 */ const char * unk_54;
+    /* 54 */ const char * str;
 };
 
 extern u8 gUnknown_085AD80C[];
@@ -91,7 +91,7 @@ extern struct Text gUnk_Sio_02000C78[];
 
 // clang-format off
 
-u16 CONST_DATA gUnknown_085A9F98[] =
+u16 CONST_DATA Sprite_085A9F98[] =
 {
     1,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x200) + OAM2_PAL(3),
@@ -102,13 +102,13 @@ u16 CONST_DATA gUnknown_085A9F98[] =
 //! FE8U = 0x08048864
 void sub_8048864(void)
 {
-    PutSprite(4, 0x38, 4, gUnknown_085A9F98, 0);
+    PutSprite(4, 56, 4, Sprite_085A9F98, 0);
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085A9FA0[] =
+struct ProcCmd CONST_DATA ProcScr_085A9FA0[] =
 {
     PROC_REPEAT(sub_8048864),
     PROC_END,
@@ -149,7 +149,7 @@ void sub_8048884(struct SioProc85A971C_Unk44 * buf)
         for (i = 0; i < r3; i++)
         {
             buf[i].playerId = gUnk_Sio_0203DD90.unk_0F[i];
-            buf[i].points = gUnk_Sio_0203DD90.unk_14[gUnk_Sio_0203DD90.unk_0F[i]];
+            buf[i].points = gUnk_Sio_0203DD90.currentScore[gUnk_Sio_0203DD90.unk_0F[i]];
         }
     }
     else
@@ -157,7 +157,7 @@ void sub_8048884(struct SioProc85A971C_Unk44 * buf)
         for (i = 0; i < r3; i++)
         {
             buf[i].playerId = i;
-            buf[i].points = gUnk_Sio_0203DD90.unk_14[i];
+            buf[i].points = gUnk_Sio_0203DD90.currentScore[i];
         }
 
         for (i = 0; i <= r3 - 2; i++)
@@ -185,7 +185,7 @@ void sub_8048884(struct SioProc85A971C_Unk44 * buf)
 }
 
 //! FE8U = 0x08048934
-void sub_8048934(struct Text * th, int x, int y, int var, int number)
+void DrawLinkArenaPointsBox(struct Text * th, int x, int y, int var, int number)
 {
     int ix;
     int iy;
@@ -206,19 +206,19 @@ void sub_8048934(struct Text * th, int x, int y, int var, int number)
     }
 
     ClearText(th);
-    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, x + 4, y + 1), 2, number);
+    PutNumber(TILEMAP_LOCATED(gBG0TilemapBuffer, x + 4, y + 1), TEXT_COLOR_SYSTEM_BLUE, number);
 
     return;
 }
 
 //! FE8U = 0x08048988
-void sub_8048988(struct SioProc085AA06C * proc)
+void LAPointsBox_LoadBoxes(struct LAPointsBoxProc * proc)
 {
     int i;
     int oam2;
 
     Decompress(gUnknown_085AD80C, (void *)(0x06002800));
-    CopyToPaletteBuffer(Pal_TacticianSelObj, 0x40, 0x80);
+    ApplyPalettes(Pal_TacticianSelObj, 2, 4);
 
     SetTextFont(NULL);
     ResetTextFont();
@@ -231,55 +231,55 @@ void sub_8048988(struct SioProc085AA06C * proc)
         {
             if (gUnk_Sio_0203DD90.unk_0A[playerId] == 0)
             {
-                CopyToPaletteBuffer(gUnknown_085ADDA8, (playerId + 2) * 0x20, 0x20);
+                ApplyPalette(gUnknown_085ADDA8, playerId + 2);
             }
 
-            oam2 = 0x140 + (((playerId + 2) & 0xf) << 12);
+            oam2 = 0x140 + OAM2_PAL(playerId + 2);
 
-            InitTextDb(&proc->unk_2c[i], 4);
-            sub_8048934(
-                &proc->unk_2c[i], gUnknown_080D9F98[i * 2 + 0], gUnknown_080D9F98[i * 2 + 1], oam2,
-                gUnk_Sio_0203DD90.unk_14[playerId]);
+            InitTextDb(&proc->text[i], 4);
+            DrawLinkArenaPointsBox(
+                &proc->text[i], gUnknown_080D9F98[i * 2 + 0], gUnknown_080D9F98[i * 2 + 1], oam2,
+                gUnk_Sio_0203DD90.currentScore[playerId]);
         }
     }
 
-    BG_EnableSyncByMask(3);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     return;
 }
 
 //! FE8U = 0x08048A68
-void nullsub_43(void)
+void LAPointsBox_Dummy(void)
 {
     return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AA06C[] =
+struct ProcCmd CONST_DATA ProcScr_LinkArenaPointsBox[] =
 {
-    PROC_CALL(sub_8048988),
-    PROC_CALL(nullsub_43),
+    PROC_CALL(LAPointsBox_LoadBoxes),
+    PROC_CALL(LAPointsBox_Dummy),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x08048A6C
-void sub_8048A6C(void)
+void StartLinkArenaPointsBox(void)
 {
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
 
-    Proc_Start(gUnknown_085AA06C, PROC_TREE_3);
+    Proc_Start(ProcScr_LinkArenaPointsBox, PROC_TREE_3);
 
     return;
 }
 
 //! FE8U = 0x08048A94
-void sub_8048A94(void)
+void EndLinkArenaPointsBox(void)
 {
-    Proc_EndEach(gUnknown_085AA06C);
+    Proc_EndEach(ProcScr_LinkArenaPointsBox);
     ClearBg0Bg1();
 
     return;
@@ -298,38 +298,38 @@ int CONST_DATA gUnknown_085AA084[] =
 // clang-format on
 
 //! FE8U = 0x08048AA8
-void sub_8048AA8(struct SioProc85AA0F0 * proc)
+void PointsNumberMover_Init(struct PointsNumberMoverProc * proc)
 {
-    struct Unit * unit = GetUnit(proc->unk_33);
+    struct Unit * unit = GetUnit(proc->unitId);
 
-    int idx = gUnknown_080D9F38[gSioSt->selfId][proc->unk_32];
+    int idx = gUnknown_080D9F38[gSioSt->selfId][proc->playerId];
 
     if (proc->unk_40 != 0)
     {
-        if (unit->xPos == 8)
+        if (unit->xPos == 8) // redundant?
         {
-            proc->unk_2a = unit->xPos * 16 - 16;
+            proc->x = unit->xPos * 16 - 16;
         }
         else
         {
-            proc->unk_2a = unit->xPos * 16 - 16;
+            proc->x = unit->xPos * 16 - 16;
         }
 
-        proc->unk_2c = unit->yPos * 16;
+        proc->y = unit->yPos * 16;
     }
     else
     {
-        proc->unk_2a = unit->xPos * 16 + gUnknown_085AA084[idx * 2 + 0] - 12;
-        proc->unk_2c = unit->yPos * 16 + gUnknown_085AA084[idx * 2 + 1];
+        proc->x = unit->xPos * 16 + gUnknown_085AA084[idx * 2 + 0] - 12;
+        proc->y = unit->yPos * 16 + gUnknown_085AA084[idx * 2 + 1];
     }
 
-    proc->unk_2e = gUnknown_080D9F98[idx * 2 + 0] * 8 + 8;
-    proc->unk_30 = gUnknown_080D9F98[idx * 2 + 1] * 8 + 8;
+    proc->xTarget = gUnknown_080D9F98[idx * 2 + 0] * 8 + 8;
+    proc->yTarget = gUnknown_080D9F98[idx * 2 + 1] * 8 + 8;
 
     SetTextFont(&Font_Sio_02000C60);
-    SioDrawNumber(&gUnk_Sio_02000C78[0], proc->unk_32 * 0x20 + 0x18, 2, proc->unk_34);
+    SioDrawNumber(&gUnk_Sio_02000C78[0], proc->playerId * 32 + 24, TEXT_COLOR_SYSTEM_BLUE, proc->difference);
 
-    proc->unk_3c = 0;
+    proc->timer = 0;
 
     return;
 }
@@ -366,14 +366,18 @@ s16 CONST_DATA gUnknown_085AA0CA[] =
 
 // clang-format on
 
-//! FE8U = 0x08048B78
-void sub_8048B78(struct SioProc85AA0F0 * proc)
-{
-    struct Unit * unit = GetUnit(proc->unk_33);
+/**
+ * Effect where the score numbers "emerge" from the unit
+ */
 
-    if (proc->unk_3c <= 0x10)
+//! FE8U = 0x08048B78
+void PointsNumberMover_LoopNumberEmerge(struct PointsNumberMoverProc * proc)
+{
+    struct Unit * unit = GetUnit(proc->unitId);
+
+    if (proc->timer <= 0x10)
     {
-        int scale = Interpolate(1, 0x10, 0x100, proc->unk_3c, 0x10);
+        int scale = Interpolate(INTERPOLATE_SQUARE, 0x10, 0x100, proc->timer, 0x10);
 
         // clang-format off
         SetObjAffine(
@@ -386,29 +390,29 @@ void sub_8048B78(struct SioProc85AA0F0 * proc)
         // clang-format on
     }
 
-    if (proc->unk_40 != 0 && proc->unk_3c > 3 && proc->unk_3c < 0x17)
+    if (proc->unk_40 != 0 && proc->timer > 3 && proc->timer < 23)
     {
-        int idx = proc->unk_3c - 4;
+        int idx = proc->timer - 4;
 
         if (unit->xPos == 8)
         {
-            proc->unk_2a = proc->unk_2a + gUnknown_085AA0A4[idx];
+            proc->x = proc->x + gUnknown_085AA0A4[idx];
         }
         else
         {
-            proc->unk_2a = proc->unk_2a - gUnknown_085AA0A4[idx];
+            proc->x = proc->x - gUnknown_085AA0A4[idx];
         }
 
-        proc->unk_2c = proc->unk_2c - gUnknown_085AA0CA[idx];
+        proc->y = proc->y - gUnknown_085AA0CA[idx];
     }
 
-    CallARM_PushToSecondaryOAM(proc->unk_2a, proc->unk_2c + 0x100, gObject_32x16, 0x00009340 + proc->unk_32 * 4);
+    CallARM_PushToSecondaryOAM(proc->x, proc->y + 0x100, gObject_32x16, 0x9340 + proc->playerId * 4);
 
-    proc->unk_3c++;
+    proc->timer++;
 
-    if (proc->unk_3c > 0x40)
+    if (proc->timer > 0x40)
     {
-        proc->unk_3c = 0;
+        proc->timer = 0;
         Proc_Break(proc);
     }
 
@@ -416,16 +420,16 @@ void sub_8048B78(struct SioProc85AA0F0 * proc)
 }
 
 //! FE8U = 0x08048CB8
-void sub_8048CB8(struct SioProc85AA0F0 * proc)
+void PointsNumberMover_LoopMoveToPointsBox(struct PointsNumberMoverProc * proc)
 {
-    int x = Interpolate(5, proc->unk_2a, proc->unk_2e, proc->unk_3c, 0x30);
-    int y = Interpolate(5, proc->unk_2c, proc->unk_30, proc->unk_3c, 0x30);
+    int x = Interpolate(INTERPOLATE_RCUBIC, proc->x, proc->xTarget, proc->timer, 0x30);
+    int y = Interpolate(INTERPOLATE_RCUBIC, proc->y, proc->yTarget, proc->timer, 0x30);
 
-    CallARM_PushToSecondaryOAM(x, y, gObject_32x16, 0x00009340 + proc->unk_32 * 4);
+    CallARM_PushToSecondaryOAM(x, y, gObject_32x16, 0x9340 + proc->playerId * 4);
 
-    proc->unk_3c++;
+    proc->timer++;
 
-    if (proc->unk_3c > 0x20)
+    if (proc->timer > 0x20)
     {
         Proc_Break(proc);
     }
@@ -434,55 +438,55 @@ void sub_8048CB8(struct SioProc85AA0F0 * proc)
 }
 
 //! FE8U = 0x08048D1C
-void sub_8048D1C(struct Text * th, int x, int y, int number)
+void DrawLinkArenaScoreNumber(struct Text * th, int x, int y, int number)
 {
     ClearText(th);
-    SioDrawNumber(th, 0x18, 2, number);
+    SioDrawNumber(th, 24, TEXT_COLOR_SYSTEM_BLUE, number);
     PutText(th, TILEMAP_LOCATED(gBG0TilemapBuffer, x + 1, y + 1));
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
     return;
 }
 
 //! FE8U = 0x08048D64
-void sub_8048D64(struct SioProc85AA0F0 * proc)
+void PointsNumberMover_InitScoreChange(struct PointsNumberMoverProc * proc)
 {
-    int idx = gUnknown_080D9F38[gSioSt->selfId][proc->unk_32];
+    int idx = gUnknown_080D9F38[gSioSt->selfId][proc->playerId];
 
-    proc->unk_2a = gUnknown_080D9F98[idx * 2 + 0];
-    proc->unk_2c = gUnknown_080D9F98[idx * 2 + 1];
+    proc->x = gUnknown_080D9F98[idx * 2 + 0];
+    proc->y = gUnknown_080D9F98[idx * 2 + 1];
 
     SetTextFont(NULL);
 
-    sub_8048D1C(&proc->unk_48, proc->unk_2a, proc->unk_2c, proc->unk_38 - proc->unk_34);
+    DrawLinkArenaScoreNumber(&proc->text, proc->x, proc->y, proc->newScore - proc->difference);
 
-    proc->unk_3c = 0;
-    proc->unk_44 = proc->unk_38 - proc->unk_34;
+    proc->timer = 0;
+    proc->unk_44 = proc->newScore - proc->difference;
 
     return;
 }
 
 //! FE8U = 0x08048DD0
-void sub_8048DD0(struct SioProc85AA0F0 * proc)
+void PointsNumberMover_TickScore(struct PointsNumberMoverProc * proc)
 {
-    int number = Interpolate(0, proc->unk_38 - proc->unk_34, proc->unk_38, proc->unk_3c, 10);
+    int number = Interpolate(INTERPOLATE_LINEAR, proc->newScore - proc->difference, proc->newScore, proc->timer, 10);
 
     SetTextFont(NULL);
 
-    sub_8048D1C(&proc->unk_48, proc->unk_2a, proc->unk_2c, number);
+    DrawLinkArenaScoreNumber(&proc->text, proc->x, proc->y, number);
 
-    if ((proc->unk_44 != number) && (proc->unk_32 == gSioSt->selfId))
+    if ((proc->unk_44 != number) && (proc->playerId == gSioSt->selfId))
     {
         PlaySoundEffect(0x80);
     }
 
     proc->unk_44 = number;
 
-    proc->unk_3c++;
+    proc->timer++;
 
-    if (proc->unk_3c > 10)
+    if (proc->timer > 10)
     {
-        proc->unk_3c = 0;
-        gUnk_Sio_0203DD90.unk_14[proc->unk_32] = proc->unk_38;
+        proc->timer = 0;
+        gUnk_Sio_0203DD90.currentScore[proc->playerId] = proc->newScore;
         Proc_Break(proc);
     }
 
@@ -490,11 +494,11 @@ void sub_8048DD0(struct SioProc85AA0F0 * proc)
 }
 
 //! FE8U = 0x08048E6C
-void sub_8048E6C(struct SioProc85AA0F0 * proc)
+void PointsNumberMover_AwaitEnd(struct PointsNumberMoverProc * proc)
 {
-    proc->unk_3c++;
+    proc->timer++;
 
-    if (proc->unk_3c > 20)
+    if (proc->timer > 20)
     {
         Proc_Break(proc);
     }
@@ -504,18 +508,18 @@ void sub_8048E6C(struct SioProc85AA0F0 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AA0F0[] =
+struct ProcCmd CONST_DATA ProcScr_LinkArena_PointsNumberMover[] =
 {
     PROC_YIELD,
-    PROC_CALL(sub_8048AA8),
+    PROC_CALL(PointsNumberMover_Init),
 
-    PROC_REPEAT(sub_8048B78),
-    PROC_REPEAT(sub_8048CB8),
+    PROC_REPEAT(PointsNumberMover_LoopNumberEmerge),
+    PROC_REPEAT(PointsNumberMover_LoopMoveToPointsBox),
 
-    PROC_CALL(sub_8048D64),
+    PROC_CALL(PointsNumberMover_InitScoreChange),
 
-    PROC_REPEAT(sub_8048DD0),
-    PROC_REPEAT(sub_8048E6C),
+    PROC_REPEAT(PointsNumberMover_TickScore),
+    PROC_REPEAT(PointsNumberMover_AwaitEnd),
 
     PROC_END,
 };
@@ -523,26 +527,24 @@ struct ProcCmd CONST_DATA gUnknown_085AA0F0[] =
 // clang-format on
 
 //! FE8U = 0x08048E84
-void sub_8048E84(struct SioProc85AA130 * proc)
+void PointsSpriteText_Init(struct PointsSpriteTextProc * proc)
 {
     int pos;
     SetTextFont(&Font_Sio_02000C60);
 
-    pos = GetStringTextCenteredPos(0x50, proc->unk_54);
-    Text_InsertDrawString(gUnk_Sio_02000C78, pos + 0x80, 0, proc->unk_54);
-    proc->unk_4c = 0;
+    pos = GetStringTextCenteredPos(80, proc->str);
+    Text_InsertDrawString(gUnk_Sio_02000C78, pos + 128, 0, proc->str);
+    proc->timer = 0;
 
     return;
 }
 
 //! FE8U = 0x08048EB8
-void sub_8048EB8(struct SioProc85AA130 * proc)
+void PointsSpriteText_LoopIn(struct PointsSpriteTextProc * proc)
 {
-    int scale;
-
-    if (proc->unk_4c <= 0x10)
+    if (proc->timer <= 0x10)
     {
-        scale = Interpolate(1, 0x10, 0x100, proc->unk_4c, 0x10);
+        int scale = Interpolate(INTERPOLATE_SQUARE, 0x10, 0x100, proc->timer, 0x10);
 
         // clang-format off
         SetObjAffine(
@@ -555,15 +557,15 @@ void sub_8048EB8(struct SioProc85AA130 * proc)
         // clang-format on
     }
 
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x200, proc->unk_30 + 0x100, gObject_32x16, 0x00009350);
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x220, proc->unk_30 + 0x100, gObject_32x16, 0x00009354);
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x240, proc->unk_30 + 0x100, gObject_16x16, 0x00009358);
+    CallARM_PushToSecondaryOAM(proc->x + 0x200, proc->y + 0x100, gObject_32x16, 0x00009350);
+    CallARM_PushToSecondaryOAM(proc->x + 0x220, proc->y + 0x100, gObject_32x16, 0x00009354);
+    CallARM_PushToSecondaryOAM(proc->x + 0x240, proc->y + 0x100, gObject_16x16, 0x00009358);
 
-    proc->unk_4c++;
+    proc->timer++;
 
-    if (proc->unk_4c > 0x40)
+    if (proc->timer > 0x40)
     {
-        proc->unk_4c = 0;
+        proc->timer = 0;
         Proc_Break(proc);
     }
 
@@ -571,13 +573,13 @@ void sub_8048EB8(struct SioProc85AA130 * proc)
 }
 
 //! FE8U = 0x08048FD4
-void sub_8048FD4(struct SioProc85AA130 * proc)
+void PointsSpriteText_LoopOut(struct PointsSpriteTextProc * proc)
 {
     int scale;
 
-    if (proc->unk_4c <= 0x10)
+    if (proc->timer <= 0x10)
     {
-        scale = Interpolate(4, 0x100, 0x10, proc->unk_4c, 0x10);
+        scale = Interpolate(INTERPOLATE_RSQUARE, 0x100, 0x10, proc->timer, 0x10);
 
         // clang-format off
         SetObjAffine(
@@ -590,13 +592,13 @@ void sub_8048FD4(struct SioProc85AA130 * proc)
         // clang-format on
     }
 
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x200, proc->unk_30 + 0x100, gObject_32x16, 0x00009350);
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x220, proc->unk_30 + 0x100, gObject_32x16, 0x00009354);
-    CallARM_PushToSecondaryOAM(proc->unk_2c + 0x240, proc->unk_30 + 0x100, gObject_16x16, 0x00009358);
+    CallARM_PushToSecondaryOAM(proc->x + 0x200, proc->y + 0x100, gObject_32x16, 0x00009350);
+    CallARM_PushToSecondaryOAM(proc->x + 0x220, proc->y + 0x100, gObject_32x16, 0x00009354);
+    CallARM_PushToSecondaryOAM(proc->x + 0x240, proc->y + 0x100, gObject_16x16, 0x00009358);
 
-    proc->unk_4c++;
+    proc->timer++;
 
-    if (proc->unk_4c > 0x10)
+    if (proc->timer > 0x10)
     {
         Proc_Break(proc);
     }
@@ -606,13 +608,18 @@ void sub_8048FD4(struct SioProc85AA130 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AA130[] =
+/**
+ * Draws the sprite text for "Points" in the centre of the screen
+ * after combat in the Link Arena.
+*/
+
+struct ProcCmd CONST_DATA ProcScr_LinkArena_PointsSpriteText[] =
 {
     PROC_YIELD,
-    PROC_CALL(sub_8048E84),
+    PROC_CALL(PointsSpriteText_Init),
 
-    PROC_REPEAT(sub_8048EB8),
-    PROC_REPEAT(sub_8048FD4),
+    PROC_REPEAT(PointsSpriteText_LoopIn),
+    PROC_REPEAT(PointsSpriteText_LoopOut),
 
     PROC_END,
 };
@@ -627,17 +634,17 @@ s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
 
     int count = 0;
 
-    CopyToPaletteBuffer(Pal_Text, 0x320, 0x20);
+    ApplyPalette(Pal_Text, 0x19);
 
     InitSpriteTextFont(&Font_Sio_02000C60, (void *)(0x06016800), 3);
 
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
     ResetTextFont();
 
     InitSpriteText(gUnk_Sio_02000C78);
     SpriteText_DrawBackgroundExt(gUnk_Sio_02000C78, 0);
 
-    SetTextFont(0);
+    SetTextFont(NULL);
 
     for (i = 0; i < 4; i++)
     {
@@ -645,22 +652,22 @@ s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
 
         if (sub_8042194(playerId) != 0)
         {
-            if (gUnk_Sio_0203DD90.unk_2c[playerId].unk_04 != 0)
+            if (gUnk_Sio_0203DD90.unk_2c[playerId].newScore != 0)
             {
-                struct SioProc85AA0F0 * proc = Proc_StartBlocking(gUnknown_085AA0F0, parent);
-                proc->unk_32 = playerId;
-                proc->unk_33 = gUnk_Sio_0203DD90.unk_2c[playerId].unk_00;
-                proc->unk_38 = gUnk_Sio_0203DD90.unk_14[playerId] + gUnk_Sio_0203DD90.unk_2c[playerId].unk_04;
+                struct PointsNumberMoverProc * proc = Proc_StartBlocking(ProcScr_LinkArena_PointsNumberMover, parent);
+                proc->playerId = playerId;
+                proc->unitId = gUnk_Sio_0203DD90.unk_2c[playerId].unitId;
+                proc->newScore = gUnk_Sio_0203DD90.currentScore[playerId] + gUnk_Sio_0203DD90.unk_2c[playerId].newScore;
 
-                if (proc->unk_38 > 9999)
+                if (proc->newScore > 9999)
                 {
-                    proc->unk_38 = 9999;
+                    proc->newScore = 9999;
                 }
 
-                proc->unk_34 = proc->unk_38 - gUnk_Sio_0203DD90.unk_14[playerId];
+                proc->difference = proc->newScore - gUnk_Sio_0203DD90.currentScore[playerId];
                 proc->unk_40 = flag;
 
-                InitTextDb(&proc->unk_48, 4);
+                InitTextDb(&proc->text, 4);
 
                 count++;
             }
@@ -675,10 +682,10 @@ s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
     {
         if (flag != 0)
         {
-            struct SioProc85AA130 * proc = Proc_StartBlocking(gUnknown_085AA130, parent);
-            proc->unk_2c = x;
-            proc->unk_30 = y;
-            proc->unk_54 = str;
+            struct PointsSpriteTextProc * proc = Proc_StartBlocking(ProcScr_LinkArena_PointsSpriteText, parent);
+            proc->x = x;
+            proc->y = y;
+            proc->str = str;
         }
 
         return 1;
@@ -690,20 +697,20 @@ s8 sub_80490EC(int x, int y, const char * str, u8 flag, ProcPtr parent)
 //! FE8U = 0x08049238
 void sub_8049238(ProcPtr proc)
 {
-    sub_8048A6C();
+    StartLinkArenaPointsBox();
 
-    if (!sub_80490EC(0x58, 0x3c, GetStringFromIndex(0x00000771), 1, proc))
+    if (!sub_80490EC(88, 60, GetStringFromIndex(0x771), 1, proc)) // TODO: msgid "Points"
     {
-        sub_8048A94();
+        EndLinkArenaPointsBox();
     }
 
     return;
 }
 
 //! FE8U = 0x0804926C
-void sub_804926C(ProcPtr param_1)
+void sub_804926C(ProcPtr proc)
 {
-    sub_8048A6C();
-    sub_80490EC(0x58, 0x3c, GetStringFromIndex(0x00000771), 0, param_1);
+    StartLinkArenaPointsBox();
+    sub_80490EC(88, 60, GetStringFromIndex(0x771), 0, proc); // TODO: msgid "Points"
     return;
 }
