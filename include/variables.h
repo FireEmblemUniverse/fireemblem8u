@@ -533,13 +533,7 @@ extern u16 CONST_DATA Pal_EventCursorShinning[];
 // extern ??? FaceConfig_085A9E68
 // extern ??? ProcScr_SIOMENU
 // extern ??? EventScr_EraseSaveInfo
-// extern ??? gUnknown_085A9F98
-// extern ??? gUnknown_085AA06C
-// extern ??? gUnknown_085AA084
-// extern ??? gUnknown_085AA0A4
-// extern ??? gUnknown_085AA0CA
-// extern ??? gUnknown_085AA0F0
-// extern ??? gUnknown_085AA130
+
 // extern ??? gUnknown_085AA158
 // extern ??? gUnknown_085AA15C
 // extern ??? gUnknown_085AA1AC

@@ -18,13 +18,6 @@
  * "Battle Data" UI.
  */
 
-struct SioProc85A971C_Unk44
-{
-    /* 00 */ u8 playerId;
-    /* 01 */ STRUCT_PAD(0x01, 0x04);
-    /* 04 */ int points;
-};
-
 struct SioPostBattleProc
 {
     /* 00 */ PROC_HEADER;
