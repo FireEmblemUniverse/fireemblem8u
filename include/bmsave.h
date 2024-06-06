@@ -609,7 +609,7 @@ bool IsMultiArenaSaveReady();
 void LoadAndVerfySuspendSave();
 // ??? ReadExtraMapSaveHead(???);
 void const * GetExtraMapMapReadAddr(void);
-unsigned  GetExtraMapMapSize(void);
+u32 GetExtraMapMapSize(void);
 // ??? GetExtraMapInfoReadAddr(???);
 // ??? GetExtraMapInfoSize(???);
 // ??? ExtraMapChecksum(???);

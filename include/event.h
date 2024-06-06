@@ -422,7 +422,7 @@ void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
 u8 Event2B_ConfigLoadUnit(struct EventEngineProc * proc);
 u8 Event2C_LoadUnits(struct EventEngineProc * proc);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
-unsigned ModifyMoveUnitFlag(struct EventEngineProc *, s8);
+u32 ModifyMoveUnitFlag(struct EventEngineProc *, s8);
 u8 Event2D_ChangeSpritePal(struct EventEngineProc * proc);
 u8 Event2E_CheckAt(struct EventEngineProc * proc);
 u8 Event2F_MoveUnit(struct EventEngineProc * proc);

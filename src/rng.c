@@ -27,7 +27,7 @@ int NextRN(void) {
     return rn;
 }
 
-void InitRN(int seed) {
+void InitRN(s32 seed) {
     // This table is a collection of 8 possible initial rn state
     // 3 entries will be picked based of which "seed" was given
 
@@ -95,7 +95,7 @@ s8 Roll2RN(int threshold) {
 // the second implementation of RN is an LCG (Linear Congruental Generator),
 // where gLCGRNValue is set to a seed and then advanced and retrieved on demand.
 
-void SetLCGRNValue(int seed) {
+void SetLCGRNValue(s32 seed) {
     gLCGRNValue = seed;
 }
 

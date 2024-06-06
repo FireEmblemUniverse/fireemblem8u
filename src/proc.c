@@ -21,7 +21,7 @@ EWRAM_DATA struct Proc *gProcTreeRootArray[8] = {0};
 
 static struct Proc* AllocateProcess(void);
 static void FreeProcess(struct Proc *proc);
-static void InsertRootProcess(struct Proc *proc, int rootIndex);
+static void InsertRootProcess(struct Proc *proc, s32 rootIndex);
 static void InsertChildProcess(struct Proc *proc, struct Proc *parent);
 static void UnlinkProcess(struct Proc *proc);
 static void RunProcessScript(struct Proc *proc);

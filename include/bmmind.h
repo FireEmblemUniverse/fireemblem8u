@@ -81,7 +81,7 @@ struct DeathDropAnimProc {
 
 void StoreRNStateToActionStruct(void);
 void LoadRNStateFromActionStruct(void);
-unsigned int ApplyUnitAction(ProcPtr proc);
+u32 ApplyUnitAction(ProcPtr proc);
 s8 ActionRescue(ProcPtr);
 int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc * proc);
 int sub_80321C8(void);
