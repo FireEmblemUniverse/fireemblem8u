@@ -1193,12 +1193,12 @@ void StartSubSpell_efxCrimsonEyeOBJ(struct Anim * anim)
     frontAnim->yPosition = proc->unk3A;
     frontAnim->oamBase = 0x3A000300;
 
-    (struct Anim *)(proc->unk44) = frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
+    *(struct Anim **)(&proc->unk44) = frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     frontAnim->xPosition = proc->unk32;
     frontAnim->yPosition = proc->unk3A;
     frontAnim->oamBase = 0x38000300;
 
-    (struct Anim *)(proc->unk48) = frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
+    *(struct Anim **)(&proc->unk48) = frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     frontAnim->xPosition = proc->unk32;
     frontAnim->yPosition = proc->unk3A;
     frontAnim->oamBase = 0x36000300;

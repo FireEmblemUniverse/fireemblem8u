@@ -1304,7 +1304,7 @@ bool PrepareBattleGraphicsMaybe(void)
             gBanimEffectiveness[POS_R] = IsItemEffectiveAgainst(bu2->weapon, unit_bu1);
     }
 
-    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = (void *)zero = 0;
+    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = *(void **)&zero = 0;
 
     if (valid_l)
         (void)GetItemIndex(bu1->weaponBefore);
