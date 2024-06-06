@@ -1322,7 +1322,7 @@ struct AiScr CONST_DATA gAiScript_ActionInRange_ExceptNatasha[] = {
     AI_GOTO_START,
 };
 
-const u16 CONST_DATA gUnknown_085A8A24[] = { 0x100, 0x100, 0 };
+CONST_DATA u16 gUnknown_085A8A24[] = { 0x100, 0x100, 0 };
 
 // 0x12 = Do not attack character ??? (points to 00 01 00 01)
 struct AiScr CONST_DATA gAiScript_085A8A2C[] = {
@@ -1330,7 +1330,7 @@ struct AiScr CONST_DATA gAiScript_085A8A2C[] = {
     AI_GOTO_START,
 };
 
-const u16 CONST_DATA gUnknown_085A8A4C[] = { 0x100, 0 };
+CONST_DATA u16 gUnknown_085A8A4C[] = { 0x100, 0 };
 
 // 0x13 = Do not attack character ??? (points to 00 01 00 00)
 struct AiScr CONST_DATA gAiScript_085A8A50[] = {
@@ -1338,11 +1338,11 @@ struct AiScr CONST_DATA gAiScript_085A8A50[] = {
     AI_GOTO_START,
 };
 
-const u8 CONST_DATA gUnknown_085A8A70[] = {
+CONST_DATA u8 gUnknown_085A8A70[] = {
     5, 4, 80, 0
 };
 
-const u8 CONST_DATA gUnknown_085A8A74[] = {
+CONST_DATA u8 gUnknown_085A8A74[] = {
     5, 3, 0, 0
 };
 
@@ -1526,11 +1526,11 @@ AI_LABEL(0x1),
     AI_GOTO_START,
 };
 
-const u8 CONST_DATA gUnknown_085A90C0[] = {
+CONST_DATA u8 gUnknown_085A90C0[] = {
     0x0F, 0x11, 0, 0
 };
 
-const u8 CONST_DATA gUnknown_085A90C4[] = {
+CONST_DATA u8 gUnknown_085A90C4[] = {
     0x0D, 0x0F, 0x12, 0x13
 };
 
