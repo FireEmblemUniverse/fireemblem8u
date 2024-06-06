@@ -74,7 +74,7 @@ int Menu_SwitchIn(struct MenuProc * menu, struct MenuItemProc * menuItem);
 int Menu_SwitchOut_DoNothing(struct MenuProc * menu, struct MenuItemProc * menuItem);
 void sub_80234AC(int x, int y);
 void ItemSubMenuEnd(struct MenuProc * menu);
-u8 MenuCommand_SelectNo(struct MenuProc * menu, struct MenuItemProc * menuItem);
+u8 MenuCommand_SelectNo(struct MenuProc * menu/*, struct MenuItemProc * menuItem*/);
 u8 sub_8023538(struct MenuProc * menu);
 u8 sub_8023550(struct MenuProc * menu);
 u8 sub_80235A8(struct MenuProc * menu);

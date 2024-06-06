@@ -92,7 +92,7 @@ CONST_DATA struct MenuItemDef gSendToConvoyMenuItems[] = {
 
 CONST_DATA struct MenuItemDef gYesNoSelectionMenuItems[] = {
     {"はい", 0x843, 0, 0, 0x32, MenuAlwaysEnabled, 0, MenuCommand_SelectYes, 0, 0, 0}, // Yes >
-    {"いいえ", 0x844, 0, 0, 0x33, MenuAlwaysEnabled, 0, MenuCommand_SelectNo, 0, 0, 0}, // No
+    {"いいえ", 0x844, 0, 0, 0x33, MenuAlwaysEnabled, 0, (MenuSelectFunc)MenuCommand_SelectNo, 0, 0, 0}, // No
     MenuItemsEnd
 };
 
@@ -282,7 +282,7 @@ CONST_DATA struct MenuDef gYesNoSelectionMenuDef = {
     1,
     gYesNoSelectionMenuItems,
     0, 0, 0,
-    MenuCommand_SelectNo,
+    (MenuSelectFunc)MenuCommand_SelectNo,
     0, 0
 };
 
@@ -293,7 +293,7 @@ CONST_DATA struct MenuDef gItemSubMenuDef = {
     0,
     ItemSubMenuEnd,
     0,
-    MenuCommand_SelectNo,
+    (MenuSelectFunc)MenuCommand_SelectNo,
     MenuAutoHelpBoxSelect,
     MenuStdHelpBox
 };

@@ -1000,7 +1000,7 @@ void ItemSubMenuEnd(struct MenuProc* menu) {
     return;
 }
 
-u8 MenuCommand_SelectNo(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+u8 MenuCommand_SelectNo(struct MenuProc* menu/*, struct MenuItemProc* menuItem*/) {
     SetTextFont(NULL);
 
     TileMap_CopyRect(gUiTmScratchA, gBG0TilemapBuffer + 0x2B, 9, 19);
@@ -1025,7 +1025,7 @@ u8 sub_8023550(struct MenuProc* menu) {
 
     sub_8023538(menu);
     // This is really caused by implicit declaration
-    ((void (*)(struct MenuProc*))MenuCommand_SelectNo)(menu); // TODO: FIXME: UB
+    MenuCommand_SelectNo(menu);
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
 
