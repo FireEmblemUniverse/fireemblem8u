@@ -982,7 +982,7 @@ struct SMSHandle* AddUnitSprite(int y) {
         it = it->pNext;
     }
 
-    return;
+    // return;
 }
 
 //! FE8U = 0x080273A4

@@ -1844,7 +1844,7 @@ int StealItemMenuCommand_Draw(struct MenuProc* menu, struct MenuItemProc* menuIt
 
     DrawItemMenuLine(&menuItem->text, item, isStealable, gBG0TilemapBuffer + TILEMAP_INDEX(menuItem->xTile, menuItem->yTile));
 
-    return;
+    // return;
 }
 
 u8 StealItemMenuCommand_Effect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
@@ -2373,7 +2373,7 @@ int ItemMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 int ItemMenu_SwitchOut_DoNothing(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    return;
+    // return;
 }
 
 u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
