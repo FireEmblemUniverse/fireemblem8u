@@ -70,7 +70,7 @@ void TrySwitchViewedUnit(int x, int y);
 void PlayerPhase_HandleAutoEnd(ProcPtr proc);
 
 extern const struct MenuDef gMapMenuDef;
-extern const struct MenuDef gUnitActionMenuDef;
+extern CONST_DATA struct MenuDef gUnitActionMenuDef;
 
 extern u16 gUnknown_08A02F34[];
 extern u16 gUnknown_08A02F94[];
