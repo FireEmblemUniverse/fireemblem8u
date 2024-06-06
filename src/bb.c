@@ -59,7 +59,7 @@ void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
                 iter -= 2;
                 line++;
 
-                GetCharTextLen(iter, &width);
+                GetCharTextLen(iter, (u32*)&width);
 
                 Text_SetCursor(proc->text + line, (Text_GetCursor(proc->text) - width) - 0xC0);
             }

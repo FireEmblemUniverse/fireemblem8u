@@ -195,7 +195,7 @@ const char * sub_80AEAE8(char ** src, char ** dst)
     const char * result;
     int len;
 
-    result = GetCharTextLen(*src, &len);
+    result = GetCharTextLen(*src, (u32*)&len);
     result -= (uintptr_t)*src;
 
     memcpy(*dst, *src, (uintptr_t)result);

@@ -1305,7 +1305,7 @@ void GetBoxDialogueSize(const char* str, int* wOut, int* hOut) {
                 break;
 
             default:
-                str = GetCharTextLen(str, &charWidth);
+                str = GetCharTextLen(str, (u32*)&charWidth);
                 w += charWidth;
 
                 continue;
@@ -1358,7 +1358,7 @@ void DialogBoxGetGlyphLen(const char* str, u8* xOut) {
 
 
             default:
-                it = GetCharTextLen(it, &charWidth);
+                it = GetCharTextLen(it, (u32*)&charWidth);
                 x += charWidth;
 
                 continue;
