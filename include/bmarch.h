@@ -11,7 +11,7 @@ s32 IsBallista(struct Trap* trap);
 int sub_8037AC0(struct Trap* trap);
 int sub_8037AEC(struct Trap* trap);
 int GetBallistaItemUses(struct Trap* trap);
-// ??? ClearBallistaOccupied(???);
-// ??? SetBallistaOccupied(???);
+void ClearBallistaOccupied(struct Trap* trap);
+void SetBallistaOccupied(struct Trap* trap);
 
 #endif // GUARD_BMARCH_H

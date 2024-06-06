@@ -18,8 +18,6 @@
 
 struct Unit* EWRAM_DATA gSubjectUnit = NULL;
 
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
-
 void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
     int ix;
     int iy;
@@ -306,7 +304,7 @@ void TryAddToDropTargetList(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(GetUnit(gSubjectUnit->rescue), gBmMapTerrain[y][x])) {
+    if (!(s8)CanUnitCrossTerrain(GetUnit(gSubjectUnit->rescue), gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -809,7 +807,7 @@ void AddAsTarget_IfPositionCleanForSummon(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
+    if (!(s8)CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -841,7 +839,7 @@ void sub_8025CD8(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
+    if (!(s8)CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 
@@ -1272,7 +1270,7 @@ void TryAddToMineTargetList(int x, int y) {
         return;
     }
 
-    if (!CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
+    if (!(s8)CanUnitCrossTerrain(gSubjectUnit, gBmMapTerrain[y][x])) {
         return;
     }
 

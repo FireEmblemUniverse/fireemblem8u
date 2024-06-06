@@ -25,8 +25,6 @@
 #include "bmmind.h"
 #include "bmusemind.h"
 
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
-
  struct ProcCmd CONST_DATA ProcScr_PostWarpStaffAction[] = {
     PROC_SLEEP(0),
     PROC_CALL_2(PostWarpStaff_ExecTrap),
@@ -142,7 +140,7 @@ void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut,
                 continue;
             }
 
-            if (!CanUnitCrossTerrain(target, gBmMapTerrain[iy][ix])) {
+            if (!(s8)CanUnitCrossTerrain(target, gBmMapTerrain[iy][ix])) {
                 continue;
             }
 
@@ -181,7 +179,7 @@ void GetRescueStaffeePosition(struct Unit* unit, struct Unit* target, int* xOut,
                 continue;
             }
 
-            if (!CanUnitCrossTerrain(target, gBmMapTerrain[iy][ix])) {
+            if (!(s8)CanUnitCrossTerrain(target, gBmMapTerrain[iy][ix])) {
                 continue;
             }
 
