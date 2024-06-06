@@ -2280,7 +2280,7 @@ u8 AttackBallistaCommandUsability(const struct MenuItemDef* def, int number) {
     trap = GetTrapAt(gActiveUnit->xPos, gActiveUnit->yPos);
 
     // This is really caused by implicit declaration
-    isBallista = ((s32 (*)(struct Trap*))IsBallista)(trap); // TODO: FIXME: UB
+    isBallista = IsBallista(trap);
 
     if (isBallista == 0) {
         return MENU_NOTSHOWN;

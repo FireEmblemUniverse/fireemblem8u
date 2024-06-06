@@ -8,7 +8,20 @@
 #include "bmarch.h"
 
 
-inline s8 IsBallista(struct Trap* trap) {
+inline s32 IsBallista(struct Trap* trap) {
+
+    if (!trap) {
+        return 0;
+    }
+
+    if (trap->type != TRAP_BALLISTA) {
+        return 0;
+    }
+
+    return 1;
+}
+
+static inline s8 IsBallistaInternal(struct Trap* trap) {
 
     if (!trap) {
         return 0;
@@ -22,7 +35,7 @@ inline s8 IsBallista(struct Trap* trap) {
 }
 
 inline int sub_8037AC0(struct Trap* trap) {
-    if (!IsBallista(trap)) {
+    if (!IsBallistaInternal(trap)) {
         return 0;
     }
 
@@ -30,7 +43,7 @@ inline int sub_8037AC0(struct Trap* trap) {
 }
 
 inline int sub_8037AEC(struct Trap* trap) {
-    if (!IsBallista(trap)) {
+    if (!IsBallistaInternal(trap)) {
         return 0;
     }
 
@@ -38,7 +51,7 @@ inline int sub_8037AEC(struct Trap* trap) {
 }
 
 inline int GetBallistaItemUses(struct Trap* trap) {
-    if (!IsBallista(trap)) {
+    if (!IsBallistaInternal(trap)) {
         return 0;
     }
 
