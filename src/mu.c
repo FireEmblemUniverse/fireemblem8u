@@ -1243,7 +1243,7 @@ void MU_AllEnable(void) {
 
 void MU_GetComputedEndPosition(int* xOut, int* yOut, const u8* commands) {
     while (TRUE) {
-        switch (*commands++) {
+        switch ((s32)*commands++) {
 
         case MU_COMMAND_END:
             return;
