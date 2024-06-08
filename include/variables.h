@@ -377,7 +377,7 @@ extern struct ProcCmd CONST_DATA ProcScr_0859163C[];
 
 extern const char *gStrPrefix[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;
-// extern ??? gUnknown_08591AB4
+extern CONST_DATA int gUnknown_08591AB4[];
 
 extern struct ProcCmd CONST_DATA ProcScr_EventFadefx[];
 extern struct ProcCmd CONST_DATA ProcScr_ShinningStonefx[];

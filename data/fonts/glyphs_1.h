@@ -1,4 +1,4 @@
-struct Glyph gUnknown_08589C9C =
+CONST_DATA struct Glyph gUnknown_08589C9C =
 {
     .sjisNext = NULL,
     .sjisByte1 = 0,
