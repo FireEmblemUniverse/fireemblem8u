@@ -40,7 +40,10 @@ def parse_linker_script(filename):
             obj_list.append((obj, sec, comp))
     return obj_list
 
-def convert_binary_to_object(filename, objcopy, with_label, is_debug):
+def convert_binary_to_object(filename, objcopy, with_label, is_debug, build_dir):
+    build_filename = filename
+    if build_dir != '' and not filename.startswith(build_dir):
+        build_filename = build_dir + '/' + filename
     if with_label:
         label = os.path.basename(filename).split(".")
         # omit extension name .4bpp
@@ -49,14 +52,14 @@ def convert_binary_to_object(filename, objcopy, with_label, is_debug):
         else:
             label = label[0] + '_' + label[1]
         cmd = '%s -I binary -O elf32-littlearm -B armv4t -S --add-symbol %s=.data:0 %s %s.o' \
-            % (objcopy, label, filename, filename)
+            % (objcopy, label, filename, build_filename)
     else:
         cmd = '%s -I binary -O elf32-littlearm -B armv4t -S %s %s.o' \
-            % (objcopy, filename, filename)
+            % (objcopy, filename, build_filename)
     if is_debug:
         print(cmd)
     os.system(cmd)
-    return filename + '.o'
+    return build_filename + '.o'
 
 def is_binary(filename):
     return os.path.splitext(filename)[-1] not in ('.o', '.obj', '.elf')
@@ -104,7 +107,7 @@ def extract_symbol_file(filename, objcopy, is_debug):
 def change_outputfile_type(outputfile, objcopy, is_debug):
     cmd = 'mv %s %s' % (convert_binary_to_object(
         dump_binary_from_object(outputfile, '', objcopy, is_debug),
-        objcopy, False, is_debug), outputfile)
+        objcopy, False, is_debug, ''), outputfile)
     if is_debug:
         print(cmd)
     os.system(cmd)
@@ -139,25 +142,25 @@ def remove_section_in_object(filename, section, objcopy, is_debug):
     os.system(cmd)
 
 def process_first_object(filename, section, objcopy, comptype, compressor,
-                         is_debug):
+                         is_debug, build_dir):
     if is_binary(filename):
         if comptype is not None:
             filename = compress_binary(filename, comptype, compressor, is_debug)
-        filename = convert_binary_to_object(filename, objcopy, True, is_debug)
+        filename = convert_binary_to_object(filename, objcopy, True, is_debug, build_dir)
     else:
         if comptype is not None:
             filename = dump_binary_from_object(filename, section, objcopy,
                                                is_debug)
             filename = compress_binary(filename, comptype, compressor, is_debug)
-            filename = convert_binary_to_object(filename, objcopy, True, is_debug)
+            filename = convert_binary_to_object(filename, objcopy, True, is_debug, '')
     return filename
 
 def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
-                         comptype, compressor, is_debug):
+                         comptype, compressor, is_debug, build_dir):
     if is_binary(filename):
         if comptype is not None:
             filename = compress_binary(filename, comptype, compressor, is_debug)
-        filename = convert_binary_to_object(filename, objcopy, True, is_debug)
+        filename = convert_binary_to_object(filename, objcopy, True, is_debug, build_dir)
     else:
         if comptype is not None:
             cmd = 'cp %s %s.bak.o' % (outputfile, outputfile)
@@ -179,11 +182,17 @@ def process_input_object(filename, outputfile, section, base_addr, ld, objcopy,
                 print(cmd)
             os.system(cmd)
             filename = compress_binary(filename, comptype, compressor, is_debug)
-            filename = convert_binary_to_object(filename, objcopy, True, is_debug)
+            filename = convert_binary_to_object(filename, objcopy, True, is_debug, '')
     return filename
 
+def get_build_filename(filename, build_dir):
+    if build_dir != '' and filename.startswith('data/banim/'):
+        return build_dir + '/' + filename
+    else:
+        return filename
+
 def link_objects(obj_list, outputfile, base_addr,
-                 ld, objcopy, compressor, is_debug):
+                 ld, objcopy, compressor, is_debug, build_dir):
 #    os.mkdir('link_temp')
 #    os.chdir('link_temp')
     # handle the first object
@@ -192,21 +201,23 @@ def link_objects(obj_list, outputfile, base_addr,
     comptype = obj_list[0][2]
     section = obj_list[0][1]
     print('Compressing linking (1/%d): %s' % (total_number, filename))
+    filename = get_build_filename(filename, build_dir)
     filename = process_first_object(filename, section, objcopy,
-                                    comptype, compressor, is_debug)
+                                    comptype, compressor, is_debug, build_dir)
     link_first_object(outputfile, filename, base_addr, ld, is_debug)
     extract_symbol_file(outputfile, objcopy, is_debug)
     change_outputfile_type(outputfile, objcopy, is_debug)
     # link other objects
     for i, obj in enumerate(obj_list[1:]):
-        print('Compressing linking (%d/%d): %s'
-              % (i + 2, total_number, filename))
         filename = obj[0]
         comptype = obj[2]
         section = obj[1]
+        print('Compressing linking (%d/%d): %s'
+              % (i + 2, total_number, filename))
+        filename = get_build_filename(filename, build_dir)
         filename = process_input_object(filename, outputfile, section,
                                         base_addr, ld, objcopy,
-                                        comptype, compressor, is_debug)
+                                        comptype, compressor, is_debug, build_dir)
         link_to_output(outputfile, filename, section, base_addr, ld, True,
                        is_debug)
         extract_symbol_file(outputfile, objcopy, is_debug)
@@ -224,6 +235,7 @@ def main(argv):
     objcopy = ''
     compressor = ''
     linker_script = 'linker_script.txt'
+    build_dir = ''
     base_addr = 0
     is_debug = False
     is_dependency = False
@@ -231,7 +243,7 @@ def main(argv):
         opts, args = getopt.getopt(argv, "ho:l:c:t:b:dm",
                                    ["help", "output=", "script=", "base=",
                                     "ld=", "objcopy=", "compressor=", "debug",
-                                    "dependency"])
+                                    "dependency", "build-dir="])
     except getopt.GetoptError:
         print('Error: wrong option. Use -h for help information.')
         sys.exit(1)
@@ -256,6 +268,7 @@ Default: compressor.py.\n')
             print('\t-d, --debug\tEnable debug infomation output.\n')
             print('\t-m, --dependency\tOutput dependency from linker script \
 for makefile.\n')
+            print('\t--build-dir <dir>\tSet the build directory.\n')
             sys.exit()
         elif opt in ('-o', '--output'):
             outputfile = arg
@@ -273,11 +286,13 @@ for makefile.\n')
             is_debug = True
         elif opt in ('-m', '--dependency'):
             is_dependency = True
+        elif opt == '--build-dir':
+            build_dir = arg
     obj_list = parse_linker_script(linker_script)
     if is_dependency:
         s = []
         for obj in obj_list:
-            s.append(obj[0])
+            s.append(get_build_filename(obj[0], build_dir))
         print(" ".join(s))
         sys.exit()
     if objcopy == '':
@@ -285,7 +300,7 @@ for makefile.\n')
     if os.path.exists(outputfile):
         os.remove(outputfile)
     link_objects(obj_list, outputfile, base_addr, ld, objcopy, compressor,
-                 is_debug)
+                 is_debug, build_dir)
 
 
 if __name__ == "__main__":
