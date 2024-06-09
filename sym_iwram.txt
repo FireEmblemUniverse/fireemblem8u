@@ -83,9 +83,9 @@
 
 . = 0x002A68;
 . = ALIGN(4); src/agb_sram.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
+. = ALIGN(4); *libc.a:syscalls.o(.bss);
+. = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
+. = ALIGN(4); *libgcc.a:fp-bit.o(.bss);
 
 /* COMMON */
 . = 0x002C60; SoundMainRAM_Buffer = .;
@@ -171,4 +171,4 @@
 . = 0x0067A4; VerifySramFast = .;
 
 . = 0x67A8;
-. = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+. = ALIGN(4); *libc.a:sbrkr.o(COMMON);
