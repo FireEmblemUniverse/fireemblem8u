@@ -1000,6 +1000,10 @@ void ItemSubMenuEnd(struct MenuProc* menu) {
     return;
 }
 
+// In theory, this function should have a second parameter, but it has never been used in the code.
+// If we keep this second parameter, calling the function in the code below after type conversion will result in compilation errors with modern gcc compilers.
+// If we remove the second parameter, it will not cause any issues even if a second parameter (i.e., the r1 register) is passed in other non-explicit calls.
+// This issue is likely due to a lack of synchronization in the official code.
 u8 MenuCommand_SelectNo(struct MenuProc* menu/*, struct MenuItemProc* menuItem*/) {
     SetTextFont(NULL);
 
@@ -1024,7 +1028,6 @@ u8 sub_8023550(struct MenuProc* menu) {
     ProcPtr proc;
 
     sub_8023538(menu);
-    // This is really caused by implicit declaration
     MenuCommand_SelectNo(menu);
 
     proc = StartOrphanMenu(&gItemSelectMenuDef);
@@ -2279,7 +2282,6 @@ u8 AttackBallistaCommandUsability(const struct MenuItemDef* def, int number) {
 
     trap = GetTrapAt(gActiveUnit->xPos, gActiveUnit->yPos);
 
-    // This is really caused by implicit declaration
     isBallista = IsBallista(trap);
 
     if (isBallista == 0) {
