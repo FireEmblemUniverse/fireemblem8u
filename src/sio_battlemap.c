@@ -51,11 +51,6 @@ extern u16 gUnknown_03001840[];
 
 extern u8 gUnknown_080D9F28[][4];
 extern struct Vec2 gUnknown_080D9F48[];
-extern u8 gUnknown_080D9FA0[];
-extern s8 gUnknown_080D9FA8[];
-extern u8 gUnknown_080D9FB0[];
-
-extern u8 gUnknown_085AA158[];
 
 //! FE8U = 0x08049298
 void sub_8049298(struct Unit * unit)
@@ -184,17 +179,36 @@ int sub_80493A8(u8 target)
 void sub_80493D0(u8 a, int b, u8 * c, int * xOut, int * yOut)
 {
     struct Unit * unit;
-    int index;
-    int var;
 
-    // FIXME: Hack
-    u8 hackA[8];
-    s8 hackB[8];
-    memcpy(hackA, gUnknown_080D9FA0, 8);
-    memcpy(hackB, gUnknown_080D9FA8, 8);
+    // clang-format off
 
-    var = sub_80493A8(a);
-    index = Div(var, 5) << 1;
+    u8 gUnknown_080D9FA0[8] =
+    {
+        MU_COMMAND_MOVE_UP,
+        MU_COMMAND_HALT,
+
+        MU_COMMAND_MOVE_LEFT,
+        MU_COMMAND_HALT,
+
+        MU_COMMAND_MOVE_DOWN,
+        MU_COMMAND_HALT,
+
+        MU_COMMAND_MOVE_RIGHT,
+        MU_COMMAND_HALT,
+    };
+
+    s8 gUnknown_080D9FA8[8] =
+    {
+        +0, -1,
+        -1, +0,
+        +0, +1,
+        +1, +0,
+    };
+
+    // clang-format on
+
+    int var = sub_80493A8(a);
+    int index = Div(var, 5) << 1;
 
     *c = var;
 
@@ -204,23 +218,23 @@ void sub_80493D0(u8 a, int b, u8 * c, int * xOut, int * yOut)
     {
         gUnknown_03001838[b] = MU_Create(unit);
         MU_DisableAttractCamera(gUnknown_03001838[b]);
-        MU_StartMoveScript(gUnknown_03001838[b], hackA + index);
+        MU_StartMoveScript(gUnknown_03001838[b], gUnknown_080D9FA0 + index);
     }
 
     unit->state |= US_HIDDEN;
 
     RefreshUnitSprites();
 
-    *xOut = unit->xPos + hackB[index + 0];
-    *yOut = unit->yPos + hackB[index + 1];
+    *xOut = unit->xPos + gUnknown_080D9FA8[index + 0];
+    *yOut = unit->yPos + gUnknown_080D9FA8[index + 1];
 
     if ((unit->state & US_BIT9) != 0)
     {
         unit->xPos = *xOut;
         unit->yPos = *yOut;
 
-        *xOut = *xOut - hackB[index + 0];
-        *yOut = *yOut - hackB[index + 1];
+        *xOut = *xOut - gUnknown_080D9FA8[index + 0];
+        *yOut = *yOut - gUnknown_080D9FA8[index + 1];
 
         gUnknown_03001838[b] = NULL;
     }
@@ -240,6 +254,15 @@ void sub_80494D4(void)
 
     return;
 }
+
+// clang-format off
+
+const u8 gUnknown_080D9FB0[] =
+{
+    4, 2, 0, 1, 3,
+};
+
+// clang-format on
 
 //! FE8U = 0x080494F0
 void sub_80494F0(void)
@@ -454,6 +477,18 @@ void sub_80497CC(void)
 
     return;
 }
+
+// clang-format off
+
+u8 CONST_DATA gUnknown_085AA158[] =
+{
+    FACTION_ID_PURPLE,
+    FACTION_ID_RED,
+    FACTION_ID_BLUE,
+    FACTION_ID_GREEN,
+};
+
+// clang-format on
 
 //! FE8U = 0x08049828
 void sub_8049828(void)
@@ -682,7 +717,33 @@ void sub_8049B04(void)
     return;
 }
 
-extern u8 gUnknown_085AA15C[];
+// clang-format off
+
+u8 CONST_DATA gUnknown_085AA15C[] =
+{
+    0x0E, 0x0E, 0x13, 0x01,
+    0x0D, 0x0D, 0x00, 0x02,
+    0x0C, 0x0C, 0x01, 0x03,
+    0x0B, 0x0B, 0x02, 0x04,
+    0x0A, 0x0A, 0x03, 0x05,
+    0x06, 0x04, 0x13, 0x13,
+    0x07, 0x05, 0x12, 0x12,
+    0x08, 0x06, 0x11, 0x11,
+    0x09, 0x07, 0x10, 0x10,
+    0x0A, 0x08, 0x0F, 0x0F,
+    0x04, 0x04, 0x0B, 0x09,
+    0x03, 0x03, 0x0C, 0x0A,
+    0x02, 0x02, 0x0D, 0x0B,
+    0x01, 0x01, 0x0E, 0x0C,
+    0x00, 0x00, 0x0F, 0x0D,
+    0x0E, 0x10, 0x09, 0x09,
+    0x0F, 0x11, 0x08, 0x08,
+    0x10, 0x12, 0x07, 0x07,
+    0x11, 0x13, 0x06, 0x06,
+    0x12, 0x00, 0x05, 0x05,
+};
+
+// clang-format on
 
 //! FE8U = 0x08049B24
 void sub_8049B24(u16 keys, s8 flag)
@@ -805,7 +866,7 @@ void sub_8049C18(void)
 }
 
 //! FE8U = 0x08049C94
-s8 sub_8049C94(struct Unit * unit)
+bool sub_8049C94(struct Unit * unit)
 {
     int i;
 
@@ -813,18 +874,18 @@ s8 sub_8049C94(struct Unit * unit)
     {
         u16 item = unit->items[i];
 
-        if ((GetItemAttributes(item) & 1) == 0)
+        if ((GetItemAttributes(item) & IA_WEAPON) == 0)
         {
             continue;
         }
 
         if (CanUnitUseWeapon(unit, item) == 1)
         {
-            return 1;
+            return true;
         }
     }
 
-    return 0;
+    return false;
 }
 
 //! FE8U = 0x08049CD4
@@ -857,14 +918,20 @@ extern u8 gUnknown_080D9FB5[];
 //! FE8U = 0x08049D24
 void sub_8049D24(struct SioBattleMapProc * proc)
 {
-    u8 previous;
     int x;
     int y;
 
-    u8 auStack_24[4];
-    memcpy(auStack_24, gUnknown_080D9FB5, 2);
+    // clang-format off
 
-    previous = gUnk_Sio_0203DD90.unk_02;
+    u8 gUnknown_080D9FB5[2] =
+    {
+        MU_COMMAND_MOVE_UP,
+        MU_COMMAND_HALT,
+    };
+
+    // clang-format on
+
+    u8 previous = gUnk_Sio_0203DD90.unk_02;
 
     sub_8049C18();
     sub_8049B24(gKeyStatusPtr->repeatedKeys, 0);
@@ -881,7 +948,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
 
             gUnknown_03001838[0] = MU_Create(gActiveUnit);
             MU_DisableAttractCamera(gUnknown_03001838[0]);
-            MU_StartMoveScript(gUnknown_03001838[0], auStack_24);
+            MU_StartMoveScript(gUnknown_03001838[0], gUnknown_080D9FB5);
 
             proc->unk_2c = gActiveUnit->xPos;
             proc->unk_30 = gActiveUnit->yPos - 1;
@@ -971,8 +1038,8 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     gActiveUnitId = gUnknown_03001818[gUnk_Sio_0203DD90.unk_02];
 
     gActiveUnit = GetUnit(gActiveUnitId);
-    x = gActiveUnit->xPos * 0x10;
-    y = gActiveUnit->yPos * 0x10;
+    x = gActiveUnit->xPos * 16;
+    y = gActiveUnit->yPos * 16;
 
     SetCursorMapPosition(gActiveUnit->xPos, gActiveUnit->yPos);
 
@@ -1200,7 +1267,27 @@ void sub_804A3A8(ProcPtr proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA1AC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA1AC[] =
+{
+PROC_LABEL(0),
+    PROC_WHILE_EXISTS(gProcScr_BKSEL),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_804A108),
+
+    PROC_REPEAT(sub_804A158),
+
+    PROC_CALL(sub_804A1D0),
+    PROC_REPEAT(sub_804A298),
+    PROC_REPEAT(sub_804A3A8),
+
+PROC_LABEL(1),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804A430
 void sub_804A430(ProcPtr parent)
@@ -1283,8 +1370,15 @@ void sub_804A5A4(void)
     struct Unit * unitB;
     struct Unit * unitA = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04]);
 
-    u8 hack[4];
-    memcpy(hack, gUnknown_080D9FB7, 2);
+    // clang-format off
+
+    u8 gUnknown_080D9FB7[2] =
+    {
+        MU_COMMAND_MOVE_RIGHT,
+        MU_COMMAND_HALT,
+    };
+
+    // clang-format on
 
     MU_End(gUnknown_03001838[1]);
 
@@ -1293,7 +1387,7 @@ void sub_804A5A4(void)
 
     if (gUnknown_03001834[2] == 1)
     {
-        MU_StartMoveScript(gUnknown_03001838[0], hack);
+        MU_StartMoveScript(gUnknown_03001838[0], gUnknown_080D9FB7);
         unitA->xPos = 7;
     }
 

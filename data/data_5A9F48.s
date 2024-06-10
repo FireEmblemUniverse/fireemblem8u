@@ -1,47 +1,5 @@
     .section .data
 
-	.global gUnknown_085AA158
-gUnknown_085AA158:  @ 0x085AA158
-	.incbin "baserom.gba", 0x5AA158, 0x4
-
-	.global gUnknown_085AA15C
-gUnknown_085AA15C:  @ 0x085AA15C
-    .incbin "baserom.gba", 0x5AA15C, 0x50
-
-	.global gUnknown_085AA1AC
-gUnknown_085AA1AC:  @ 0x085AA1AC
-        @ PROC_LABEL
-        .short 0xb, 0x0
-        .word 0x0
-        @ PROC_WHILE_EXISTS
-        .short 0x8, 0x0
-        .word gProcScr_BKSEL
-        @ PROC_SLEEP
-        .short 0xe, 0x1
-        .word 0x0
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_804A108
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_804A158
-        @ PROC_CALL
-        .short 0x2, 0x0
-        .word sub_804A1D0
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_804A298
-        @ PROC_REPEAT
-        .short 0x3, 0x0
-        .word sub_804A3A8
-        @ PROC_LABEL
-        .short 0xb, 0x1
-        .word 0x0
-        @ PROC_END
-        .short 0x0, 0x0
-        .word 0x0
-
-
 	.global gUnknown_085AA1FC
 gUnknown_085AA1FC:  @ 0x085AA1FC
 	.incbin "baserom.gba", 0x5AA1FC, 0x20
