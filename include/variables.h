@@ -593,7 +593,7 @@ extern u8 Img_LinkArenaActiveBannerFx[]; // img
 extern u8 gUnknown_085ACEFC[]; // img
 extern u8 Img_LinkArenaPlacementRanks[]; // img
 // extern ??? gUnknown_085AD80C
-// extern ??? gUnknown_085AD9CC
+extern u8 gUnknown_085AD9CC[]; // img
 extern u8 Img_LinkArenaPlayerBanners[]; // img
 extern u16 Pal_LinkArenaMenu[];
 extern u16 Pal_TacticianSelObj[];

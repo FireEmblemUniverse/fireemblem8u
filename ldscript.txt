@@ -394,6 +394,7 @@ SECTIONS
         src/sio_menu.o(.text);
         src/sio_event.o(.text);
         src/sio_points.o(.text);
+        src/sio_battlemap.o(.text);
         asm/code_sio_8048260.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
@@ -715,6 +716,7 @@ SECTIONS
         . = ALIGN(4); src/sio_menu.o(.rodata);
         . = ALIGN(4); src/sio_event.o(.rodata);
         . = ALIGN(4); src/sio_points.o(.rodata);
+        . = ALIGN(4); src/sio_battlemap.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
@@ -961,6 +963,7 @@ SECTIONS
         . = ALIGN(4); src/sio_menu.o(.data);
         . = ALIGN(4); src/sio_event.o(.data);
         . = ALIGN(4); src/sio_points.o(.data);
+        . = ALIGN(4); src/sio_battlemap.o(.data);
         . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);

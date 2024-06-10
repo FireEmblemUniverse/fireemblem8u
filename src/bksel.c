@@ -635,7 +635,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-void NewBattleForecast() {
+void NewBattleForecast(ProcPtr unused) {
 
     struct BattleForecastProc* proc;
 

@@ -1,24 +1,16 @@
     .section .rodata
 
-	.global gUnknown_080D9FA0
-gUnknown_080D9FA0:  @ 0x080D9FA0
-	.incbin "baserom.gba", 0xD9FA0, 0x8
+	.global gAsciiStr_SIOMAIN
+gAsciiStr_SIOMAIN:  @ 0x080D9FBC
+	.asciz "SIOMAIN"
 
-	.global gUnknown_080D9FA8
-gUnknown_080D9FA8:  @ 0x080D9FA8
-	.incbin "baserom.gba", 0xD9FA8, 0x8
+	.global gAsciiStr_SIOWARP
+gAsciiStr_SIOWARP:  @ 0x080D9FC4
+	.asciz "SIOWARP"
 
-	.global gUnknown_080D9FB0
-gUnknown_080D9FB0:  @ 0x080D9FB0
-	.incbin "baserom.gba", 0xD9FB0, 0x5
-
-	.global gUnknown_080D9FB5
-gUnknown_080D9FB5:  @ 0x080D9FB5
-	.incbin "baserom.gba", 0xD9FB5, 0x2
-
-	.global gUnknown_080D9FB7
-gUnknown_080D9FB7:  @ 0x080D9FB7
-	.incbin "baserom.gba", 0xD9FB7, 0x1F
+	.global gAsciiStr_SIOWARPFX
+gAsciiStr_SIOWARPFX:  @ 0x080D9FCC
+	.asciz "SIOWARPFX"
 
 	.global gUnknown_080D9FD6
 gUnknown_080D9FD6:  @ 0x080D9FD6
