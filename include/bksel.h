@@ -51,7 +51,7 @@ void BattleForecast_LoopSlideIn(struct BattleForecastProc * proc);
 void BattleForecast_LoopSlideOut(struct BattleForecastProc * proc);
 bool MapEventEngineExists_(void);
 void TriggerBattleForcastToturialEvent(void);
-void NewBattleForecast(void);
+void NewBattleForecast(ProcPtr unused);
 void UpdateBattleForecastContents(void);
 void CloseBattleForecast(void);
 u8 StartBattleForecastHelpBox(ProcPtr parent, struct SelectTarget * target);

@@ -86,4 +86,6 @@ void GameCtrl_SavePlayThroughData(void);
 char* GetTacticianName(void);
 void SetTacticianName(const char* newName);
 
+extern struct ProcCmd gProc_MapTask[];
+
 #endif // GUARD_BMIO_H

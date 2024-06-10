@@ -2,6 +2,7 @@
 
 #include "global.h"
 #include "proc.h"
+#include "mu.h"
 
 struct Proc085AAAC4 {
     PROC_HEADER;
@@ -62,15 +63,17 @@ struct SioUnknown_0203DD90_Unk2C
 
 struct SioUnknown_0203DD90
 {
-    // 00 -- ??
-    // 01 -- current phase
-    // 02 -- current cursor unit idx
-    // 03 -- current cursor unit idx (again?)
-    // 04 -- current selected unit idx (attacker)
-    // 05 -- current selected combat target unit id
-    // 06 -- weapon index maybe?
+    u8 unk_00; // ?
+    u8 unk_01; // current phase
+    u8 unk_02; // current cursor unit idx
+    u8 unk_03; // current cursor unit idx (again?)
+    u8 unk_04; // current selected unit idx (attacker)
+    u8 unk_05; // current selected combat target unit id
+    u8 unk_06; // weapon index maybe?
+    u8 unk_07; // ?
     // 07-09 -- ??
-    STRUCT_PAD(0x00, 0x0A);
+    STRUCT_PAD(0x08, 0x09);
+    u8 unk_09; // ?
     /* 0A */ u8 unk_0A[4]; // num units alive per team?
     /* 0E */ u8 unk_0E; // ?
     /* 0F */ u8 unk_0F[4]; // player ids?
@@ -79,7 +82,7 @@ struct SioUnknown_0203DD90
     /* 2C */ struct SioUnknown_0203DD90_Unk2C unk_2c[4];
 };
 
-struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
+extern struct SioUnknown_0203DD90 gUnk_Sio_0203DD90;
 
 struct SioProc85A971C_Unk44
 {
@@ -302,8 +305,8 @@ void sub_8048884(struct SioProc85A971C_Unk44 *);
 // ??? DrawLinkArenaPointsBox(???);
 // ??? LAPointsBox_LoadBoxes(???);
 // ??? LAPointsBox_Dummy(???);
-// ??? StartLinkArenaPointsBox(???);
-// ??? EndLinkArenaPointsBox(???);
+void StartLinkArenaPointsBox(void);
+void EndLinkArenaPointsBox(void);
 // ??? PointsNumberMover_Init(???);
 // ??? PointsNumberMover_LoopNumberEmerge(???);
 // ??? PointsNumberMover_LoopMoveToPointsBox(???);
@@ -327,7 +330,7 @@ void sub_8048884(struct SioProc85A971C_Unk44 *);
 // ??? sub_80493D0(???);
 // ??? sub_80494D4(???);
 // ??? sub_80494F0(???);
-// ??? sub_8049594(???);
+void sub_8049594(void);
 // ??? sub_80495F4(???);
 void sub_80496A4(void);
 // ??? sub_804970C(???);
@@ -383,8 +386,8 @@ void sub_80497CC(void);
 // ??? sub_804B1C0(???);
 // ??? sub_804B250(???);
 // ??? sub_804B278(???);
-// ??? sub_804B38C(???);
-// ??? sub_804B3A0(???);
+void sub_804B38C(void);
+void sub_804B3A0(void);
 // ??? sub_804B3B0(???);
 // ??? sub_804B3D0(???);
 // ??? sub_804B408(???);
@@ -439,7 +442,7 @@ void Clear_0203DDDC(void);
 // ??? sub_804C1B8(???);
 // ??? sub_804C1D8(???);
 // ??? sub_804C1E4(???);
-// ??? sub_804C208(???);
+void sub_804C208(struct Unit *, struct MUProc *, int, int, int, int, ProcPtr);
 // ??? sub_804C260(???);
 // ??? sub_804C2B8(???);
 // ??? sub_804C2DC(???);
@@ -489,7 +492,7 @@ void sub_804D24C(u8, s16);
 // ??? sub_804D37C(???);
 // ??? StopBGM2(???);
 // ??? sub_804D3F0(???);
-// ??? sub_804D40C(???);
+void sub_804D40C(struct Unit *);
 // ??? sub_804D428(???);
 // ??? sub_804D47C(???);
 // ??? sub_804D664(???);
