@@ -19,7 +19,7 @@ void ForceSyncUnitSpriteSheet(void);
 void sub_8026FF4(int id, u8* ptr);
 void sub_8027068(int id, u8* ptr);
 void sub_80270DC(int frameId, u8* dst);
-// ??? GetUnitDisplayedSpritePalette(???);
+int GetUnitDisplayedSpritePalette(const struct Unit * unit);
 int GetUnitSpritePalette(const struct Unit* unit);
 void RefreshUnitSprites(void);
 struct SMSHandle* AddUnitSprite(int);
