@@ -54,7 +54,7 @@ void StartArenaResultsScreen(void) {
 void ArenaUi_Init(ProcPtr proc) {
     Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);
 
-    sub_80B52CC();
+    InitShopScreenConfig();
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;

@@ -35,6 +35,12 @@ enum fe_ch_idx {
     CHFE_L_DEnd = '\x1F',
 };
 
+enum talk_choice {
+    TALK_CHOICE_CANCEL = 0,
+    TALK_CHOICE_YES,
+    TALK_CHOICE_NO
+};
+
 enum
 {
     TALK_FLAG_INSTANTSHIFT   = (1 << 0),

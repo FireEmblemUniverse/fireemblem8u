@@ -11,6 +11,11 @@ enum {
     SHOP_TYPE_SECRET_SHOP   = 2
 };
 
+enum {
+    PL_SHOP_ENTRY = 0,
+    PL_SHOP_BUY,
+};
+
 struct BmShopProc {
     /* 00 */ PROC_HEADER;
 
@@ -42,7 +47,7 @@ struct BmShop2Proc {
     /* 54 */ struct BmShopProc* unk_54;
 };
 
-typedef void (*ShopFunc)(struct BmShopProc*, int);
+typedef void (* ShopFunc)(struct BmShopProc *, int);
 
 struct ShopState {
     /* 00 */ u16 unk_00;
@@ -53,13 +58,13 @@ struct ShopState {
     /* 0A */ u16 unk_0A;
     /* 0C */ u16 unk_0C;
     /* 10 */ int unk_10;
-    /* 14 */ ShopFunc unk_14;
-    /* 18 */ ProcPtr unk_18;
+    /* 14 */ ShopFunc draw_line;
+    /* 18 */ ProcPtr proc;
     /* 1C */ int unk1C;
 };
 
-int ShopProc_GetPortraitIndex(struct BmShopProc* proc);
-void StartShopDialogue(int baseMsgId, struct BmShopProc* proc);
+int Shop_GetPortraitIndex(struct BmShopProc * proc);
+void StartShopDialogue(int baseMsgId, struct BmShopProc * proc);
 void StartDefaultArmoryScreen(struct Unit* unit, ProcPtr proc);
 void StartArmoryScreenOrphaned(struct Unit* unit, u16* shopItems);
 void StartArmoryScreen(struct Unit* unit, u16* shopItems, ProcPtr parent);
@@ -73,73 +78,85 @@ void UpdateShopItemCounts(struct BmShopProc*);
 void sub_80B42E8(void);
 void sub_80B4308(void);
 // ??? sub_80B4328(???);
-// ??? ShopProc_EnterShopDialogue(???);
-// ??? ShopProc_HandleEntryPrompt(???);
-// ??? ShopProc_BuyDialogue(???);
-// ??? sub_80B43BC(???);
-// ??? sub_80B4418(???);
-// ??? ShopProc_InitBuyState(???);
-// ??? ShopProc_Loop_BuyKeyHandler(???);
-// ??? ShopProc_HandleBuyConfirmPrompt(???);
-// ??? ShopProc_TryAddItemToInventory(???);
-// ??? ShopProc_HandleSendToConvoyPrompt(???);
-// ??? ShopProc_NoSendToConvoyDialogue(???);
-// ??? ShopProc_AddItemToConvoy(???);
-void ShopProc_CheckIfConvoyFull(struct BmShopProc * proc);
-// ??? ShopProc_ConvoyFullDialogue(???);
-// ??? ShopProc_AnythingElseDialogue(???);
-// ??? ShopProc_SellDialogue(???);
-// ??? ShopProc_InitSellState(???);
-// ??? ShopProc_Loop_SellKeyHandler(???);
-// ??? ShopProc_HandleSellConfirmPrompt(???);
-// ??? ShopProc_SellAnythingElseDialogue(???);
-// ??? ShopProc_AnythingElseRestartDialogue(???);
-// ??? ShopProc_AnythingElseContinueDialogue(???);
-// ??? ShopProc_ExitShopDialogue(???);
-// ??? ShopProc_OnExit(???);
-// ??? ShopProc_EnterPrepScreenShopDialogue(???);
-// ??? ShopProc_Loop_UnkKeyHandler(???);
-// ??? StartShopFadeIn(???);
-// ??? StartShopFadeOut(???);
-// ??? ShopProc_Init(???);
+void Shop_EnterShopDialogue(struct BmShopProc * proc);
+void Shop_HandleEntryPrompt(struct BmShopProc * proc);
+void Shop_BuyDialogue(struct BmShopProc * proc);
+void ShopDrawBuyItemLine(struct BmShopProc * proc, int itemIndex);
+void ShopDrawSellItemLine(struct BmShopProc * proc, int itemIndex);
+void Shop_InitBuyState(struct BmShopProc * proc);
+void Shop_Loop_BuyKeyHandler(struct BmShopProc * proc);
+void Shop_HandleBuyConfirmPrompt(struct BmShopProc * proc);
+void Shop_TryAddItemToInventory(struct BmShopProc * proc);
+void Shop_HandleSendToConvoyPrompt(struct BmShopProc * proc);
+void Shop_SendToConvoyDialogue(struct BmShopProc * proc);
+void Shop_NoSendToConvoyDialogue(struct BmShopProc * proc);
+void Shop_AddItemToConvoy(struct BmShopProc * proc);
+void Shop_CheckIfConvoyFull(struct BmShopProc * proc);
+void Shop_ConvoyFullDialogue(struct BmShopProc * proc);
+void Shop_AnythingElseDialogue(struct BmShopProc * proc);
+void Shop_SellDialogue(struct BmShopProc * proc);
+void Shop_InitSellState(struct BmShopProc * proc);
+void Shop_Loop_SellKeyHandler(struct BmShopProc * proc);
+void Shop_HandleSellConfirmPrompt(struct BmShopProc * proc);
+void Shop_SellAnythingElseDialogue(struct BmShopProc * proc);
+void Shop_AnythingElseRestartDialogue(struct BmShopProc * proc);
+void Shop_AnythingElseContinueDialogue(struct BmShopProc * proc);
+void Shop_ExitShopDialogue(struct BmShopProc * proc);
+void Shop_OnExit(void);
+void Shop_EnterPrepScreenShopDialogue(struct BmShopProc * proc);
+void Shop_Loop_UnkKeyHandler(struct BmShopProc * proc);
+void StartShopFadeIn(struct BmShopProc * proc);
+void StartShopFadeOut(struct BmShopProc * proc);
+void Shop_Init(struct BmShopProc * proc);
 void StartUiGoldBox(ProcPtr);
-// ??? InitGoldBoxText(???);
+void InitGoldBoxText(u16 *);
 // ??? sub_80B4EB4(???);
-void DisplayGoldBoxText(u16* tm);
-// ??? sub_80B4F04(???);
-// ??? sub_80B4F90(???);
-// ??? sub_80B5040(???);
-// ??? sub_80B505C(???);
+void DisplayGoldBoxText(u16 *);
+void sub_80B4F04(struct BmShopProc * proc);
+void DrawShopSoldItems(struct BmShopProc * proc);
+void sub_80B5040(struct BmShop2Proc * proc);
+void sub_80B505C(struct BmShopProc * proc);
 // ??? sub_80B50C8(???);
-// ??? sub_80B5148(???);
-// ??? sub_80B5164(???);
-// ??? DrawShopItemLine(???);
-// ??? GetItemPurchasePrice(???);
+void sub_80B5148(struct BmShop2Proc * proc);
+void DrawShopItemPriceLine(struct Text *, int, struct Unit *, u16 *);
+void DrawShopItemLine(struct Text *, int, struct Unit *, u16 *);
+u16 GetItemPurchasePrice(struct Unit *, int);
 u16 GetItemSellPrice(int);
-// ??? IsItemSellable(???);
-// ??? GoldBox_OnLoop(???);
-void sub_80B52CC(void);
-// ??? sub_80B5378(???);
-// ??? DisplayShopUiArrows(???);
+s8 IsItemSellable(int);
+void GoldBox_OnLoop(struct BmShopProc * proc);
+void InitShopScreenConfig(void);
+void _DisplayShopUiArrows(void);
+void DisplayShopUiArrows(void);
 void UnpackUiVArrowGfx(int, int);
 void DisplayUiVArrow(int, int, u16, int);
-// ??? HandleShopBuyAction(???);
+void HandleShopBuyAction(struct BmShopProc * proc);
 // ??? sub_80B5498(???);
 // ??? sub_80B5528(???);
 // ??? sub_80B5534(???);
 // ??? sub_80B557C(???);
-// ??? sub_80B55AC(???);
-// ??? sub_80B5604(???);
-// ??? sub_80B568C(???);
-// ??? sub_80B5698(???);
-// ??? sub_80B56A8(???);
+void RegisterShopState(u16, u16, u16, u16, int, ShopFunc, struct BmShopProc * proc);
+void sub_80B5604(void);
+u16 sub_80B568C(void);
+int sub_80B5698(void);
+u16 sub_80B56A8(void);
 // ??? sub_80B56B4(???);
 // ??? sub_80B56C0(???);
-// ??? sub_80B56CC(???);
-// ??? ShouldDisplayUpArrow(???);
-// ??? ShouldDisplayDownArrow(???);
+s8 sub_80B56CC(void);
+s8 ShouldDisplayUpArrow(void);
+s8 ShouldDisplayDownArrow(void);
 
 extern struct ProcCmd CONST_DATA gProcScr_Shop[];
 extern struct ProcCmd CONST_DATA gProcScr_GoldBox[];
+extern struct ProcCmd CONST_DATA ProcScr_ShopDrawHand[];
+extern struct Text gText_GoldBox;
+extern EWRAM_DATA struct ShopState sShopState;
+extern struct ShopState * CONST_DATA gShopState;
+
+#define SHOP_ITEM_LINE 6
+extern EWRAM_DATA struct Text gShopItemTexts[SHOP_ITEM_LINE];
+
+extern u16 CONST_DATA gDefaultShopInventory[];
+extern int CONST_DATA gShopDialogueOffsetLut[];
+extern int CONST_DATA gShopPortraitLut[];
 
 #endif  // GUARD_BMSHOP_H

@@ -108,7 +108,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         /* Your inventory is full. Select an item to discard. */
         StartSubtitleHelp(proc, GetStringFromIndex(0x866));
 
-    SetTalkChoiceResult(2);
+    SetTalkChoiceResult(TALK_CHOICE_NO);
     Proc_StartBlocking(gProcCmd_ConvoyMenu, proc);
 }
 
