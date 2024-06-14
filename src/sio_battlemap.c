@@ -20,6 +20,10 @@
 #include "bmbattle.h"
 #include "uiutils.h"
 #include "bmmind.h"
+#include "popup.h"
+#include "cp_common.h"
+#include "cp_perform.h"
+#include "ctc.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -33,6 +37,8 @@ struct SioBattleMapProc
     /* 30 */ int unk_30;
     /* 34 */ int unk_34;
     /* 38 */ int unk_38;
+    /* 3C */ STRUCT_PAD(0x3C, 0x58);
+    /* 58 */ int unk_58;
 };
 
 struct SioProc85AA1AC
@@ -787,7 +793,7 @@ void sub_8049B24(u16 keys, s8 flag)
         r5 = -1;
     }
 
-    if ((gUnk_Sio_0203DD90.unk_03 == 0x13) && ((keys & DPAD_DOWN) != 0))
+    if ((gUnk_Sio_0203DD90.unk_03 == 19) && ((keys & DPAD_DOWN) != 0))
     {
         r5 = +1;
     }
@@ -808,7 +814,7 @@ void sub_8049B24(u16 keys, s8 flag)
 
             if (r2 == 0xFF)
             {
-                r2 = 0x13;
+                r2 = 19;
             }
         }
         else
@@ -1594,5 +1600,754 @@ void sub_804A914(void)
         }
     }
 
+    return;
+}
+
+//! FE8U = 0x0804A9A4
+void sub_804A9A4(ProcPtr proc)
+{
+    u8 r4_;
+
+    u8 r6 = gUnknown_03001818[gUnk_Sio_0203DD90.unk_04];
+    u8 r7 = gUnknown_03001818[gUnk_Sio_0203DD90.unk_05];
+
+    struct Unit * r4 = GetUnit(r6);
+    struct Unit * r2 = GetUnit(r7);
+
+    if ((r4->state & (US_DEAD | US_BIT16)) == 0)
+    {
+        r4->state &= ~US_HIDDEN;
+    }
+
+    if ((r2->state & (US_DEAD | US_BIT16)) == 0)
+    {
+        r2->state &= ~US_HIDDEN;
+    }
+
+    if (gUnk_Sio_0203DD90.unk_0A[r6 >> 6] == 0)
+    {
+        r4_ = r6 >> 6;
+    }
+    else if (gUnk_Sio_0203DD90.unk_0A[r7 >> 6] == 0)
+    {
+        r4_ = r7 >> 6;
+    }
+    else
+    {
+        goto _end;
+    }
+
+    gUnk_Sio_0203DD90.unk_0F[gLinkArenaSt.unk_A0 - gUnk_Sio_0203DD90.unk_0E] = r4_;
+    gUnk_Sio_0203DD90.unk_0E++;
+
+    if (gUnk_Sio_0203DD90.unk_0E == gLinkArenaSt.unk_A0)
+    {
+
+        if (gUnk_Sio_0203DD90.unk_0A[r6 >> 6] != 0)
+        {
+            r4_ = r6 >> 6;
+        }
+        else
+        {
+            r4_ = r7 >> 6;
+        }
+
+        gUnk_Sio_0203DD90.unk_0F[0] = r4_;
+
+        sub_80492E8(0xff);
+
+        Proc_Break(proc);
+
+        return;
+    }
+
+_end:
+    sub_80492E8(gPlaySt.faction);
+    Proc_Break(proc);
+
+    return;
+}
+
+//! FE8U = 0x0804AA88
+void sub_804AA88(void)
+{
+    MU_EndAll();
+    MU_EndAll();
+
+    sub_8049594();
+    sub_80495F4();
+
+    RefreshUnitSprites();
+
+    return;
+}
+
+//! FE8U = 0x0804AAA4
+void sub_804AAA4(void)
+{
+    if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
+    {
+        gSioMsgBuf.kind = SIO_MSG_84;
+        gSioMsgBuf.sender = gSioSt->selfId;
+        gSioMsgBuf.param = 0;
+        SioSend(&gSioMsgBuf, sizeof(gSioMsgBuf));
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804AADC
+bool sub_804AADC(void * data)
+{
+    u8 * cast = data;
+
+    switch (cast[0])
+    {
+        case 1:
+        case 6:
+        case 7:
+            return true;
+    }
+
+    return false;
+}
+
+extern const struct PopupInstruction gUnknown_085AA1FC[];
+extern const struct PopupInstruction gUnknown_085AA21C[];
+
+struct SioProc85AA4CC
+{
+    PROC_HEADER;
+    int unk_2c;
+    int unk_30;
+    int unk_34;
+    int unk_38;
+};
+
+extern u8 gUnknown_03001834[];
+extern u8 gUnknown_03001850[];
+
+//! FE8U = 0x0804AAFC
+void sub_804AAFC(struct SioProc85AA4CC * proc)
+{
+    u8 buf[4];
+
+    u16 got = SioReceiveData(gUnknown_03001834, buf, sub_804AADC);
+
+    if (got != 0)
+    {
+        switch (gUnknown_03001834[0])
+        {
+            case 1:
+                sub_80493D0(gUnknown_03001834[1], 0, &gUnk_Sio_0203DD90.unk_04, &proc->unk_2c, &proc->unk_30);
+                Proc_Goto(proc, 1);
+
+                break;
+
+            case 6:
+                EndLinkArenaPointsBox();
+                SioStrCpy(gUnk_Sio_0203DAC5[buf[0]], gUnknown_03001850);
+                NewPopup_Simple(gUnknown_085AA1FC, 0x60, 0, 0);
+
+                Proc_Goto(proc, 3);
+
+                break;
+
+            case 7:
+                EndLinkArenaPointsBox();
+                NewPopup_Simple(gUnknown_085AA21C, 0x60, 0, 0);
+
+                Proc_Goto(proc, 4);
+
+                break;
+        }
+    }
+
+    sub_804AAA4();
+
+    return;
+}
+
+//! FE8U = 0x0804ABB4
+bool sub_804ABB4(void * data)
+{
+    u8 * cast = data;
+
+    switch (cast[0])
+    {
+        case 2:
+        case 3:
+            return true;
+    }
+
+    return false;
+}
+
+//! FE8U = 0x0804ABCC
+void sub_804ABCC(struct SioProc85AA4CC * proc)
+{
+    struct Unit * unit;
+    u8 buf[4];
+
+    u16 got = SioReceiveData(gUnknown_03001834, buf, sub_804ABB4);
+
+    if (got != 0)
+    {
+        switch (gUnknown_03001834[0])
+        {
+            case 2:
+                unit = GetUnit(gUnknown_03001834[2]);
+
+                if ((unit->state & US_BIT9) == 0)
+                {
+                    MU_End(gUnknown_03001838[0]);
+                }
+                else
+                {
+                    unit->xPos = proc->unk_2c;
+                    unit->yPos = proc->unk_30;
+                }
+
+                unit->state &= 0xfffffffe;
+
+                RefreshUnitSprites();
+
+                Proc_Goto(proc, 0);
+
+                break;
+
+            case 3:
+                sub_80493D0(gUnknown_03001834[1], 1, &gUnk_Sio_0203DD90.unk_05, &proc->unk_34, &proc->unk_38);
+                Proc_Goto(proc, 2);
+                break;
+        }
+    }
+
+    sub_804AAA4();
+
+    return;
+}
+
+//! FE8U = 0x0804AC68
+void sub_804AC68(struct Unit * unit, int idx, int * xOut, int * yOut)
+{
+    gUnknown_03001838[idx] = MU_Create(unit);
+
+    *xOut = unit->xPos;
+    *yOut = unit->yPos;
+
+    unit->state &= ~US_BIT9;
+
+    return;
+}
+
+//! FE8U = 0x0804ACAC
+bool sub_804ACAC(void * data)
+{
+    u8 * cast = data;
+
+    switch (cast[0])
+    {
+        case 4:
+        case 5:
+            return true;
+    }
+
+    return false;
+}
+
+//! FE8U = 0x0804ACC4
+void sub_804ACC4(struct SioProc85AA4CC * proc)
+{
+    struct Unit * unitA;
+    struct Unit * unitB;
+    u8 buf[4];
+
+    u16 got = SioReceiveData(gUnknown_03001834, buf, sub_804ACAC);
+
+    if (got != 0)
+    {
+        switch (gUnknown_03001834[0])
+        {
+            case 4:
+                unitA = GetUnit(gUnknown_03001834[2]);
+
+                if ((unitA->state & US_BIT9) == 0)
+                {
+                    MU_End(gUnknown_03001838[1]);
+                }
+                else
+                {
+                    unitA->xPos = proc->unk_34;
+                    unitA->yPos = proc->unk_38;
+                }
+
+                unitA->state &= ~US_HIDDEN;
+
+                RefreshUnitSprites();
+                Proc_Goto(proc, 1);
+
+                break;
+
+            case 5:
+                unitA = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04]);
+                unitB = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_05]);
+
+                if ((unitA->state & US_BIT9) != 0)
+                {
+                    sub_804AC68(unitA, 0, &proc->unk_2c, &proc->unk_30);
+                }
+
+                if ((unitB->state & US_BIT9) != 0)
+                {
+                    sub_804AC68(unitB, 1, &proc->unk_34, &proc->unk_38);
+                }
+
+                Proc_Break(proc);
+
+                break;
+        }
+    }
+
+    sub_804AAA4();
+
+    return;
+}
+
+//! FE8U = 0x0804ADA0
+int sub_804ADA0(struct Unit * unit)
+{
+    int i;
+
+    u16 bestItem = 0;
+    u32 bestMight = 0;
+
+    for (i = 0; i < UNIT_ITEM_COUNT; i++)
+    {
+        u16 item = unit->items[i];
+
+        if (item == 0)
+        {
+            break;
+        }
+
+        if (!CanUnitUseWeapon(unit, item))
+        {
+            continue;
+        }
+
+        if (GetItemMight(item) <= bestMight)
+        {
+            continue;
+        }
+
+        bestItem = item;
+        bestMight = GetItemMight(item);
+    }
+
+    if (bestItem == 0)
+    {
+        return 0;
+    }
+
+    return bestMight + GetUnitPower(unit);
+}
+
+//! FE8U = 0x0804AE08
+int sub_804AE08(int playerId)
+{
+    int i;
+
+    int count = 0;
+    int score = 0;
+
+    for (i = playerId; i < playerId + 5; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+
+        if ((unit->state & (US_DEAD | US_BIT16)) != 0)
+        {
+            continue;
+        }
+
+        if (unit->pCharacterData == NULL)
+        {
+            continue;
+        }
+
+        count++;
+
+        score += sub_804ADA0(unit);
+        score += GetUnitCurrentHp(unit);
+    }
+
+    score += gUnk_Sio_0203DD90.currentScore[playerId >> 6];
+
+    score = Div(score, count);
+
+    return score;
+}
+
+//! FE8U = 0x0804AE7C
+bool sub_804AE7C(struct SioBattleMapProc * proc, int b)
+{
+    if ((gKeyStatusPtr->heldKeys & START_BUTTON) != 0)
+    {
+        EndLinkArenaPointsBox();
+        proc->unk_58 = b;
+
+        if (!gPlaySt.config.disableSoundEffects)
+        {
+            // Another non-usage of the PlaySoundEffects macro
+            m4aSongNumStart(0x68);
+            Proc_Goto(proc, 3);
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+//! FE8U = 0x0804AEC4
+void sub_804AEC4(ProcPtr proc)
+{
+    int i;
+
+    int bestScore = -1;
+
+    if (sub_804AE7C(proc, 0) == true)
+    {
+        return;
+    }
+
+    for (i = 0; i < 4; i++)
+    {
+        u32 score;
+
+        if (!sub_8042194(i))
+        {
+            continue;
+        }
+
+        if (gUnk_Sio_0203DD90.unk_0A[i] == 0)
+        {
+            continue;
+        }
+
+        if (gPlaySt.faction == i)
+        {
+            continue;
+        }
+
+        score = sub_804AE08(i * 0x40 + 1);
+
+        if (bestScore <= score)
+        {
+            continue;
+        }
+
+        bestScore = score;
+        gUnk_Sio_0203DD90.unk_02 = i;
+    }
+
+    Proc_Break(proc);
+
+    return;
+}
+
+//! FE8U = 0x0804AF2C
+int ITEMRANGEDONE_sub_804AF2C(int unused, struct Unit * unit)
+{
+    u16 weapon = GetUnitEquippedWeapon(unit);
+
+    if (weapon == 0)
+    {
+        return 1;
+    }
+
+    if (GetItemMaxRange(weapon) == 1)
+    {
+        return 1;
+    }
+
+    if (GetItemMinRange(weapon) > 1)
+    {
+        return 2;
+    }
+
+    return 1;
+}
+
+//! FE8U = 0x0804AF5C
+void sub_804AF5C(struct SioBattleMapProc * proc)
+{
+    struct AiCombatSimulationSt sim;
+    int i;
+    int bestSlot;
+    int slot;
+    int allegiance;
+
+    int bestScore = 0;
+    u8 selectedUnitId = 0;
+    u8 targetUnitId = 0;
+
+    if (sub_804AE7C(proc, 1) == true)
+    {
+        return;
+    }
+
+    gAiState.combatWeightTableId = 0xe;
+    allegiance = gPlaySt.faction * 0x40;
+
+    for (i = allegiance + 1; i < allegiance + 6; i++)
+    {
+        gActiveUnitId = i;
+        gActiveUnit = GetUnit(gActiveUnitId);
+
+        if ((gActiveUnit->state & (US_DEAD | US_BIT16)) != 0)
+        {
+            continue;
+        }
+
+        if (gActiveUnit->pCharacterData == NULL)
+        {
+            continue;
+        }
+
+        for (slot = 0; slot < UNIT_ITEM_COUNT; slot++)
+        {
+            int targetFaction;
+            int j;
+            int flags;
+
+            u16 item = gActiveUnit->items[slot];
+
+            if (item == 0)
+            {
+                continue;
+            }
+
+            if (!CanUnitUseWeapon(gActiveUnit, item))
+            {
+                continue;
+            }
+
+            bestSlot = slot;
+            flags = 0;
+
+            if (GetItemMinRange(item) > 2)
+            {
+                continue;
+            }
+
+            if ((GetItemAttributes(item) & IA_UNCOUNTERABLE) != 0)
+            {
+                continue;
+            }
+
+            if (GetItemMinRange(item) == 1)
+            {
+                flags |= 2;
+            }
+
+            if (GetItemMaxRange(item) > 1)
+            {
+                flags |= 1;
+            }
+
+            sim.itemSlot = bestSlot;
+
+            targetFaction = gUnk_Sio_0203DD90.unk_02 * 0x40;
+
+            for (j = targetFaction + 1; j < targetFaction + 6; j++)
+            {
+                struct AiCombatSimulationSt * simp = &sim;
+                int flags2;
+                u8 * r7 = gUnknown_03001834;
+                struct Unit * unit = GetUnit(j);
+
+                if ((unit->state & (US_DEAD | US_BIT16)) != 0)
+                {
+                    continue;
+                }
+
+                if (unit->pCharacterData == NULL)
+                {
+                    continue;
+                }
+
+                flags2 = flags & 2; // permuter
+                simp->targetId = j;
+
+                if (((u8)flags2) != 0)
+                {
+                    simp->xMove = unit->xPos + 1;
+                    simp->yMove = unit->yPos;
+
+                    AiSimulateBattleAgainstTargetAtPosition(&sim);
+
+                    if (bestScore <= sim.score)
+                    {
+                        bestScore = sim.score;
+                        selectedUnitId = gActiveUnitId;
+                        targetUnitId = j;
+
+                        if (flags == 3)
+                        {
+                            r7[2] = ITEMRANGEDONE_sub_804AF2C(3, unit);
+                        }
+                        else
+                        {
+                            r7[2] = 1;
+                        }
+                        r7[3] = bestSlot;
+                    }
+                }
+
+                if ((flags & 1) != 0)
+                {
+                    simp->xMove = unit->xPos + 1;
+                    simp->yMove = unit->yPos - 1;
+
+                    AiSimulateBattleAgainstTargetAtPosition(&sim);
+
+                    if (bestScore <= sim.score)
+                    {
+                        bestScore = sim.score;
+                        selectedUnitId = gActiveUnitId;
+                        targetUnitId = j;
+
+                        if (flags == 3)
+                        {
+                            r7[2] = ITEMRANGEDONE_sub_804AF2C(3, unit);
+                        }
+                        else
+                        {
+                            r7[2] = 2;
+                        }
+                        r7[3] = bestSlot;
+                    }
+                }
+            }
+        }
+    }
+
+    sub_80493D0(selectedUnitId, 0, &gUnk_Sio_0203DD90.unk_04, &proc->unk_2c, &proc->unk_30);
+    gUnknown_03001834[1] = targetUnitId;
+
+    Proc_Break(proc);
+
+    return;
+}
+
+//! FE8U = 0x0804B190
+void sub_804B190(ProcPtr proc)
+{
+    struct Unit * unit = GetUnit(gUnknown_03001834[1]);
+
+    StartAiTargetCursor(unit->xPos * 16, unit->yPos * 16, 2, proc);
+
+    return;
+}
+
+//! FE8U = 0x0804B1C0
+void sub_804B1C0(struct SioProc85AA4CC * proc)
+{
+    struct Unit * unitA;
+    struct Unit * unitB;
+
+    sub_80493D0(gUnknown_03001834[1], 1, &gUnk_Sio_0203DD90.unk_05, &proc->unk_34, &proc->unk_38);
+
+    unitA = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04]);
+    unitB = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_05]);
+
+    if ((unitA->state & US_BIT9) != 0)
+    {
+        sub_804AC68(unitA, 0, &proc->unk_2c, &proc->unk_30);
+    }
+
+    if ((unitB->state & US_BIT9) != 0)
+    {
+        sub_804AC68(unitB, 1, &proc->unk_34, &proc->unk_38);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804B250
+void sub_804B250(ProcPtr proc)
+{
+    if (sub_804AE7C(proc, 2) == 1)
+    {
+        return;
+    }
+
+    if (MU_IsAnyActive() != 0)
+    {
+        return;
+    }
+
+    Proc_Break(proc);
+
+    return;
+}
+
+extern u8 gUnknown_085AA22C[];
+
+//! FE8U = 0x0804B278
+void sub_804B278(void)
+{
+    int i;
+    int j;
+
+    int yOffset = (gUnknown_085AA22C[GetGameClock() & 0x1f] + 4) >> 1;
+
+    for (i = 0; i < 4; i++)
+    {
+        if (!sub_8042194(gUnknown_080D9F28[gSioSt->selfId][i]))
+        {
+            continue;
+        }
+
+        for (j = 0; j < 5; j++)
+        {
+            struct Unit * unit = GetUnit(gUnknown_03001818[i * 5 + j]);
+
+            if (!UNIT_IS_VALID(unit))
+            {
+                continue;
+            }
+
+            if ((unit->state & US_BIT9) == 0)
+            {
+                continue;
+            }
+
+            CallARM_PushToSecondaryOAM(
+                unit->xPos * 16, unit->yPos * 16 - yOffset, gObject_16x8,
+                ((GetUnitDisplayedSpritePalette(unit) & 0xf) << 12) + 0x9f0);
+            CallARM_PushToSecondaryOAM(
+                unit->xPos * 16, (unit->yPos * 16 - yOffset) + 8, gObject_16x8,
+                ((GetUnitDisplayedSpritePalette(unit) & 0xf) << 12) + 0x9F2);
+        }
+    }
+
+    return;
+}
+
+extern struct ProcCmd gUnknown_085AA24C[];
+
+//! FE8U = 0x0804B38C
+void sub_804B38C(void)
+{
+    Proc_Start(gUnknown_085AA24C, PROC_TREE_4);
+    return;
+}
+
+//! FE8U = 0x0804B3A0
+void sub_804B3A0(void)
+{
+    Proc_EndEach(gUnknown_085AA24C);
     return;
 }
