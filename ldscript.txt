@@ -503,7 +503,7 @@ SECTIONS
         src/eventcall.o(.text);
         src/events_script_utils.o(.text);
         src/events_script.o(.text);
-        asm/code_8086934.o(.text);
+        src/code_8086934.o(.text);
         src/statbar.o(.text);
         src/mural_background.o(.text);
         src/statscreen.o(.text);
