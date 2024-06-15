@@ -24,6 +24,10 @@
 #include "cp_common.h"
 #include "cp_perform.h"
 #include "ctc.h"
+#include "scene.h"
+#include "helpbox.h"
+#include "mapanim.h"
+#include "ekrbattle.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -37,8 +41,10 @@ struct SioBattleMapProc
     /* 30 */ int unk_30;
     /* 34 */ int unk_34;
     /* 38 */ int unk_38;
-    /* 3C */ STRUCT_PAD(0x3C, 0x58);
+    /* 3C */ STRUCT_PAD(0x3C, 0x54);
+    /* 54 */ struct MUProc * unk_54;
     /* 58 */ int unk_58;
+    /* 5C */ int unk_5c;
 };
 
 struct SioProc85AA1AC
@@ -2349,5 +2355,445 @@ void sub_804B38C(void)
 void sub_804B3A0(void)
 {
     Proc_EndEach(gUnknown_085AA24C);
+    return;
+}
+
+//! FE8U = 0x0804B3B0
+void sub_804B3B0(ProcPtr proc)
+{
+    SetStatScreenConfig(0x1f);
+    StartStatScreen(gActiveUnit, proc);
+    return;
+}
+
+//! FE8U = 0x0804B3D0
+void sub_804B3D0(ProcPtr proc)
+{
+    if (gUnk_Sio_0203DD90.unk_08 == 0)
+    {
+        Proc_Goto(proc, 0);
+        return;
+    }
+
+    MU_EndAll();
+    sub_8049350(6, gPlaySt.faction, 0, 0);
+
+    return;
+}
+
+//! FE8U = 0x0804B408
+void sub_804B408(ProcPtr proc)
+{
+    if (gUnk_Sio_0203DD90.unk_08 == 0)
+    {
+        gUnk_Sio_0203DD90.unk_09 = 0;
+        Proc_Goto(proc, 0);
+        return;
+    }
+
+    MU_EndAll();
+    sub_8049350(7, gPlaySt.faction, 0, 0);
+
+    return;
+}
+
+//! FE8U = 0x0804B43C
+void sub_804B43C(struct SioBattleMapProc * proc)
+{
+    if (gUnk_Sio_0203DD90.unk_08 == 0)
+    {
+        Proc_Goto(proc, proc->unk_58);
+        return;
+    }
+
+    MU_EndAll();
+    MU_EndAll();
+
+    gLinkArenaSt.unk_0B = 1;
+
+    sub_80492E8(0xff);
+
+    Proc_Goto(proc, 5);
+
+    return;
+}
+
+//! FE8U = 0x0804B480
+void sub_804B480(struct SioBattleMapProc * proc)
+{
+    int i;
+    int r6 = 0;
+
+    if (gLinkArenaSt.unk_00 == 1)
+    {
+        gLinkArenaSt.unk_0B = 1;
+        sub_80492E8(0xff);
+        Proc_Goto(proc, 8);
+        return;
+    }
+
+    gUnk_Sio_0203DD90.unk_0F[gLinkArenaSt.unk_A0 - gUnk_Sio_0203DD90.unk_0E] = gPlaySt.faction;
+    gUnk_Sio_0203DD90.unk_0E++;
+
+    gUnk_Sio_0203DD90.currentScore[gPlaySt.faction] = 0;
+
+    if (gUnk_Sio_0203DD90.unk_0E == gLinkArenaSt.unk_A0)
+    {
+        for (i = 0; i < gLinkArenaSt.unk_A0; i++)
+        {
+            if (gUnk_Sio_0203DD90.unk_0A[i] != 0)
+            {
+                r6 = i;
+            }
+        }
+
+        gUnk_Sio_0203DD90.unk_0F[0] = r6;
+
+        sub_80492E8(0xff);
+        Proc_Goto(proc, 8);
+
+        return;
+    }
+
+    sub_80492E8(gPlaySt.faction);
+    Proc_Goto(proc, 8);
+
+    return;
+}
+
+//! FE8U = 0x0804B518
+void sub_804B518(ProcPtr proc)
+{
+    if (gLinkArenaSt.unk_00 == 1)
+    {
+        gLinkArenaSt.unk_0B = 1;
+        sub_80492E8(0xff);
+
+        Proc_Goto(proc, 8);
+
+        return;
+    }
+
+    gLinkArenaSt.unk_0B = 2;
+    sub_80492E8(0xff);
+
+    Proc_Goto(proc, 8);
+
+    return;
+}
+
+//! FE8U = 0x0804B554
+void sub_804B554(struct SioBattleMapProc * proc)
+{
+    int i;
+    int r6 = 0;
+
+    gUnk_Sio_0203DD90.unk_0F[gLinkArenaSt.unk_A0 - gUnk_Sio_0203DD90.unk_0E] = gPlaySt.faction;
+    gUnk_Sio_0203DD90.unk_0E++;
+
+    gUnk_Sio_0203DD90.currentScore[gPlaySt.faction] = 0;
+
+    if (gUnk_Sio_0203DD90.unk_0E == gLinkArenaSt.unk_A0)
+    {
+        for (i = 0; i < gLinkArenaSt.unk_A0; i++)
+        {
+            if (gUnk_Sio_0203DD90.unk_0A[i] != 0)
+            {
+                r6 = i;
+            }
+        }
+
+        gUnk_Sio_0203DD90.unk_0F[0] = r6;
+
+        sub_80492E8(0xff);
+        Proc_Goto(proc, 5);
+
+        return;
+    }
+
+    sub_80492E8(gPlaySt.faction);
+    Proc_Goto(proc, 5);
+
+    return;
+}
+
+//! FE8U = 0x0804B5E0
+void sub_804B5E0(ProcPtr proc)
+{
+    gLinkArenaSt.unk_0B = 2;
+    sub_80492E8(0xff);
+
+    Proc_Goto(proc, 5);
+
+    return;
+}
+
+//! FE8U = 0x0804B604
+void sub_804B604(struct SioBattleMapProc * proc)
+{
+    proc->unk_58 = 0;
+
+    proc->unk_5c = gPlaySt.faction << 6;
+    gUnk_Sio_0203DD90.unk_0A[gPlaySt.faction] = 0;
+
+    return;
+}
+
+//! FE8U = 0x0804B624
+void sub_804B624(struct SioBattleMapProc * proc)
+{
+    struct Unit * unit;
+    struct MUProc * pMuProc;
+
+    while (1)
+    {
+        if (proc->unk_58 == 5)
+        {
+            Proc_Goto(proc, 1);
+            return;
+        }
+
+        unit = GetUnit(proc->unk_5c + proc->unk_58 + 1);
+
+        if ((unit->state & (US_DEAD | US_BIT16)) != 0)
+        {
+            proc->unk_58++;
+            continue;
+        }
+
+        if (unit->pCharacterData == NULL)
+        {
+            proc->unk_58++;
+            continue;
+        }
+
+        break;
+    }
+
+    RefreshUnitSprites();
+    HideUnitSprite(unit);
+
+    pMuProc = MU_Create(unit);
+
+    gWorkingMovementScript[0] = MU_COMMAND_MOVE_DOWN;
+    gWorkingMovementScript[1] = MU_COMMAND_HALT;
+
+    MU_StartMoveScript(pMuProc, gWorkingMovementScript);
+
+    sub_804BF4C(pMuProc);
+
+    proc->unk_54 = pMuProc;
+    proc->unk_58++;
+
+    unit->state &= ~US_BIT9;
+    unit->state |= (US_HIDDEN | US_DEAD);
+
+    return;
+}
+
+//! FE8U = 0x0804B6AC
+void sub_804B6AC(struct SioBattleMapProc * proc)
+{
+    MU_End(proc->unk_54);
+    return;
+}
+
+//! FE8U = 0x0804B6B8
+void sub_804B6B8(void)
+{
+    sub_8049594();
+    sub_80495F4();
+
+    RefreshUnitSprites();
+
+    return;
+}
+
+//! FE8U = 0x0804B6CC
+void sub_804B6CC(void)
+{
+    if (GetTalkChoiceResult() == 1)
+    {
+        gUnk_Sio_0203DD90.unk_08 = 1;
+        return;
+    }
+
+    gUnk_Sio_0203DD90.unk_08 = 0;
+
+    return;
+}
+
+extern EventScr gUnknown_085AA2B4[];
+
+//! FE8U = 0x0804B6F4
+void sub_804B6F4(void)
+{
+    CallEvent((u16 *)gUnknown_085AA2B4, EV_EXEC_CUTSCENE);
+    return;
+}
+
+extern EventScr gUnknown_085AA2D8[];
+
+//! FE8U = 0x0804B708
+void sub_804B708(void)
+{
+    CallEvent((u16 *)gUnknown_085AA2D8, EV_EXEC_CUTSCENE);
+    return;
+}
+
+//! FE8U = 0x0804B71C
+void sub_804B71C(struct SioBattleMapProc * proc)
+{
+    int i;
+
+    LoadHelpBoxGfx((void *)0x06015000, 6);
+    StartHelpBoxExt_Unk(64, 56, 0x756); // TODO: msgid "Each unit receives 30 extra pts."
+
+    for (i = 0; i < 4; i++)
+    {
+        if (!sub_8042194(i))
+        {
+            continue;
+        }
+
+        if (gUnk_Sio_0203DD90.unk_0A[i] == 0)
+        {
+            continue;
+        }
+
+        proc->unk_58 = i;
+    }
+
+    proc->unk_5c = 0;
+
+    return;
+}
+
+//! FE8U = 0x0804B76C
+void sub_804B76C(struct SioBattleMapProc * proc)
+{
+    struct Unit * unit;
+
+    while (1)
+    {
+        if (proc->unk_5c > 4)
+        {
+            CloseHelpBox();
+            Proc_Break(proc);
+            return;
+        }
+
+        unit = GetUnit(proc->unk_58 * 0x40 + proc->unk_5c + 1);
+
+        if ((unit->state & (US_DEAD | US_BIT16)) != 0)
+        {
+            proc->unk_5c++;
+            continue;
+        }
+
+        if (unit->pCharacterData == NULL)
+        {
+            proc->unk_5c++;
+            continue;
+        }
+
+        break;
+    }
+
+    gUnk_Sio_0203DD90.unk_2c[proc->unk_58].newScore = 30;
+    gUnk_Sio_0203DD90.unk_2c[proc->unk_58].unitId = proc->unk_58 * 0x40 + proc->unk_5c + 1;
+
+    sub_804926C(proc);
+
+    proc->unk_5c++;
+
+    return;
+}
+
+//! FE8U = 0x0804B7E4
+void sub_804B7E4(ProcPtr proc)
+{
+    if (gLinkArenaSt.unk_00 == 1)
+    {
+        Proc_Goto(proc, 1);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804B800
+void sub_804B800(void)
+{
+    BG_Fill(gBG2TilemapBuffer, 0);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    RenderBmMap();
+
+    if (sub_8055BB4())
+    {
+        SetBanimLinkArenaFlag(1);
+        BeginAnimsOnBattleAnimations();
+
+        return;
+    }
+
+    MU_EndAll();
+    RenderBmMap();
+
+    BeginBattleMapAnims();
+    gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;
+
+    return;
+}
+
+//! FE8U = 0x0804B850
+void sub_804B850(struct SioBattleMapProc * proc)
+{
+    struct MUProc * pMuProc;
+
+    if (gBattleActor.unit.curHP == 0)
+    {
+        pMuProc = Proc_Find(gProcScr_MoveUnit);
+        sub_804BF4C(pMuProc);
+        proc->unk_54 = pMuProc;
+    }
+
+    if (gBattleTarget.unit.curHP == 0)
+    {
+        RefreshUnitSprites();
+
+        HideUnitSprite(GetUnit(gBattleTarget.unit.index));
+
+        pMuProc = MU_Create(&gBattleTarget.unit);
+
+        gWorkingMovementScript[0] = GetFacingDirection(
+            gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
+        gWorkingMovementScript[1] = MU_COMMAND_HALT;
+
+        MU_StartMoveScript(pMuProc, gWorkingMovementScript);
+        sub_804BF4C(pMuProc);
+
+        proc->unk_54 = pMuProc;
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804B8D0
+void sub_804B8D0(void)
+{
+    struct Unit * unitA = GetUnit(gBattleActor.unit.index);
+    struct Unit * unitB = GetUnit(gBattleTarget.unit.index);
+
+    if (GetUnitCurrentHp(unitA) == 0)
+    {
+        unitA->state |= (US_HIDDEN | US_DEAD);
+    }
+
+    if (GetUnitCurrentHp(unitB) == 0)
+    {
+        unitB->state |= (US_HIDDEN | US_DEAD);
+    }
+
     return;
 }
