@@ -878,7 +878,7 @@ void SetEkrFrontAnimPostion(int type, s16, s16);
 int Get0201FAC8(void);
 void Set0201FAC8(int);
 
-// ??? sub_8055BB4(???);
+bool sub_8055BB4(void);
 s8 sub_8055BC4(void);
 void BeginAnimsOnBattleAnimations(void);
 void EkrMainEndExec(void);
