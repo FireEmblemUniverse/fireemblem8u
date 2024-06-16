@@ -541,7 +541,7 @@ SECTIONS
         src/savemenu.o(.text);
         src/savedraw.o(.text);
         src/difficultymenu.o(.text);
-        asm/code_80AC6AC.o(.text);
+        src/code_80AC6AC.o(.text);
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
