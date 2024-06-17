@@ -189,7 +189,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
     sub_809D8D4(gBG0TilemapBuffer + 0x6F, 0x4000, 6);
 
     Decompress(gUnknown_08A19CCC, (void*)0x06015000);
-    ApplyPalette(Pal_08A1A084, 0x14);
+    ApplyPalette(Pal_SpinningArrow, 0x14);
 
     StartMenuScrollBarExt(proc, 225, 47, 0x5800, 9);
     sub_8097668();

@@ -14,16 +14,16 @@ enum {
 enum {
     PL_SHOP_ENTRY = 0,
     PL_SHOP_BUY,
-    PL_SHOP_2,
-    PL_SHOP_3,
+    PL_SHOP_BUY_MAIN,
+    PL_SHOP_BUY_DONE,
     PL_SHOP_SELL,
-    PL_SHOP_5,
-    PL_SHOP_6,
+    PL_SHOP_SELL_MAIN,
+    PL_SHOP_6_UNUSED, // unused
     PL_SHOP_SELL_NOITEM,
-    PL_SHOP_8,
-    PL_SHOP_9,
-    PL_SHOP_10,
-    PL_SHOP_11,
+    PL_SHOP_ANYTHING_ELSE,
+    PL_SHOP_SENDTO_INVENTORY,
+    PL_SHOP_SENDTO_INVENTORY_EXT,
+    PL_SHOP_BUY_FULL_NO_INEVNTORY,
     PL_SHOP_EXIT,
     PL_SHOP_PREP_ENTRY,
     PL_SHOP_14,
@@ -38,9 +38,13 @@ enum { SHOP_ITEMS_MAX_AMT = 20 };
 #define SHOP_TEXT_LINES 5
 
 enum bmshop_bgchr {
-    OBJCHR_SHOP_GOLDBOX = 0x4C00,
+    OBJCHR_SHOP_SPINARROW = 0x4800 / 0x20,
+    OBJPAL_SHOP_SPINARROW = 3,
+
+    OBJCHR_SHOP_GOLDBOX = 0x4C00 / 0x20,
     OBJPAL_SHOP_GOLDBOX = 4,
 
+    BGPAL_SHOP_4 = 4,
     BGPAL_SHOP_MAINBG = 14,
 };
 
@@ -59,8 +63,8 @@ struct ProcShop {
 
     /* 5A */ u8 shopItemCount;
     /* 5B */ u8 unitItemCount;
-    /* 5C */ u8 curIndex;
-    /* 5D */ u8 unk_5d;
+    /* 5C */ u8 head_loc;
+    /* 5D */ u8 hand_loc;
     /* 5E */ u8 head_idx;
     /* 5F */ u8 hand_idx; // maybe top visible item in menu?
     /* 60 */ u8 buy_or_sel;
@@ -88,7 +92,7 @@ struct ShopState {
     /* 04 */ u16 lines;
     /* 06 */ u16 hand_loc;
     /* 08 */ u16 px_per_line;
-    /* 0A */ u16 unk_0A;
+    /* 0A */ u16 trig;
     /* 0C */ u16 bg2_off;
     /* 10 */ int bg2_base;
     /* 14 */ ShopFunc draw_line;
@@ -112,7 +116,7 @@ void TalkChoice_OnBuy(void);
 void TalkChoice_OnSell(void);
 // ??? Shop_null_80B4328(???);
 void Shop_EntryDialogue(struct ProcShop * proc);
-void Shop_HandleEntryDialogueChoice(struct ProcShop * proc);
+void Shop_HandleEntryDialoguePrompt(struct ProcShop * proc);
 void Shop_BuyDialogue(struct ProcShop * proc);
 void ShopDrawBuyItemLine(struct ProcShop * proc, int itemIndex);
 void ShopDrawSellItemLine(struct ProcShop * proc, int itemIndex);
@@ -149,7 +153,7 @@ void ShopInitTexts_OnBuy(struct ProcShop * proc);
 void DrawShopSoldItems(struct ProcShop * proc);
 void InitShopBuyStatus(struct ProcShopInit * proc);
 void ShopInitTexts_OnSell(struct ProcShop * proc);
-// ??? sub_80B50C8(???);
+void ShopDrawDefaultSellItemLine(struct ProcShop * proc);
 void InitShopSellStatus(struct ProcShopInit * proc);
 void DrawShopItemPriceLine(struct Text *, int, struct Unit *, u16 *);
 void DrawShopItemLine(struct Text *, int, struct Unit *, u16 *);
@@ -172,9 +176,9 @@ void Shop_TryMoveHandPage(void);
 u16 ShopSt_GetHeadLoc(void);
 int ShopSt_GetBg2Offset(void);
 u16 ShopSt_GetHandLoc(void);
-// ??? ShopSt_SetLineHeight(???);
-// ??? sub_80B56C0(???);
-s8 sub_80B56CC(void);
+void ShopSt_SetLineHeight(int px);
+void ShopSt_SetSetPageScrollTrigOffset(int trig);
+bool IsShopPageScrolling(void);
 s8 ShouldDisplayUpArrow(void);
 s8 ShouldDisplayDownArrow(void);
 

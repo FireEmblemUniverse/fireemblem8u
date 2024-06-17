@@ -31,7 +31,7 @@ extern u8 Img_08A1CD68[];
 extern u8 Img_UnitListBanners[];
 extern u8 Img_UnitListBanner_Animation[];
 
-extern u16 Pal_08A1A084[];
+extern u16 Pal_SpinningArrow[];
 
 extern u8 gUnknown_08A1C8B4[]; // tsa
 
@@ -1033,7 +1033,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     Decompress(gImg_UiSpinningArrow_Horizontal, gBG1TilemapBuffer + 0x280);
-    ApplyPalette(Pal_08A1A084, 0xf);
+    ApplyPalette(Pal_SpinningArrow, 0xf);
 
     proc->pSpriteProc = Proc_Start(ProcScr_bmview, proc);
     proc->pMuralProc = StartMuralBackground(0, 0, 10);

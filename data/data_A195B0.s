@@ -16,8 +16,8 @@ Pal_MenuScrollBar:  @ 0x08A19CAC
 gUnknown_08A19CCC:  @ 0x08A19CCC
 	.incbin "baserom.gba", 0xA19CCC, 0x3B8
 
-	.global Pal_08A1A084
-Pal_08A1A084:  @ 0x08A1A084
+	.global Pal_SpinningArrow
+Pal_SpinningArrow:  @ 0x08A1A084
 	.incbin "baserom.gba", 0xA1A084, 0x20
 
 	.global gUnknown_08A1A0A4
@@ -144,8 +144,8 @@ gUnknown_08A1BD40:  @ 0x08A1BD40
 gUnknown_08A1BD60:  @ 0x08A1BD60
 	.incbin "baserom.gba", 0xA1BD60, 0x9A4
 
-	.global gImg_UiSpinningArrow_Vertical
-gImg_UiSpinningArrow_Vertical:  @ 0x08A1C704
+	.global Img_SpinningArrow
+Img_SpinningArrow:  @ 0x08A1C704
 	.incbin "baserom.gba", 0xA1C704, 0xD4
 
 	.global gImg_UiSpinningArrow_Horizontal

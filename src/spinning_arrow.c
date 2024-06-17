@@ -198,7 +198,7 @@ ProcPtr LoadUiSpinningArrowGfx(int kind, int chr, int palId)
 
         if (kind == 1)
         {
-            Decompress(gImg_UiSpinningArrow_Vertical, (void *)(chr + 0x06010000));
+            Decompress(Img_SpinningArrow, (void *)(chr + 0x06010000));
         }
 
         oam2Chr = chr >> 5;

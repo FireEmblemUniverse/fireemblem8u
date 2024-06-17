@@ -82,101 +82,80 @@ struct ProcCmd CONST_DATA gProcScr_ShopFadeOut[] = {
 struct ProcCmd CONST_DATA gProcScr_Shop[] = {
     PROC_CALL(StartShopFadeIn),
     PROC_SLEEP(0),
-
     PROC_CALL(LockGame),
-
     PROC_CALL(Shop_Init),
     PROC_CALL(Shop_InitBuyState),
-
     PROC_START_CHILD(ProcScr_ShopDrawHand),
-
     PROC_CALL(FadeInBlackSpeed20),
     PROC_SLEEP(1),
-
     PROC_CALL(Shop_EntryDialogue),
 
 PROC_LABEL(PL_SHOP_ENTRY),
     PROC_SLEEP(1),
-    PROC_REPEAT(Shop_HandleEntryDialogueChoice),
+    PROC_REPEAT(Shop_HandleEntryDialoguePrompt),
     // fallthrough
 
 PROC_LABEL(PL_SHOP_BUY),
     PROC_CALL(Shop_BuyDialogue),
     // fallthrough
 
-PROC_LABEL(2),
+PROC_LABEL(PL_SHOP_BUY_MAIN),
     PROC_CALL(Shop_InitBuyState),
-
     PROC_SLEEP(1),
     PROC_REPEAT(Shop_Loop_BuyKeyHandler),
-
     PROC_CALL(Shop_HandleBuyConfirmPrompt),
+    PROC_GOTO(PL_SHOP_SENDTO_INVENTORY),
 
-    PROC_GOTO(9),
-
-PROC_LABEL(3),
+PROC_LABEL(PL_SHOP_BUY_DONE),
     PROC_CALL(Shop_AnythingElseDialogue),
-
-    PROC_GOTO(2),
+    PROC_GOTO(PL_SHOP_BUY_MAIN),
 
 PROC_LABEL(PL_SHOP_SELL),
     PROC_CALL(Shop_SellDialogue),
 
     // fallthrough
 
-PROC_LABEL(5),
+PROC_LABEL(PL_SHOP_SELL_MAIN),
     PROC_CALL(Shop_InitSellState),
     PROC_SLEEP(1),
-
     PROC_REPEAT(Shop_Loop_SellKeyHandler),
-
     PROC_CALL(Shop_HandleSellConfirmPrompt),
     PROC_SLEEP(2),
-
     PROC_CALL(Shop_SellAnythingElseDialogue),
-
-    PROC_GOTO(5),
+    PROC_GOTO(PL_SHOP_SELL_MAIN),
 
 PROC_LABEL(PL_SHOP_SELL_NOITEM),
     PROC_SLEEP(2),
     PROC_CALL(Shop_AnythingElseRestartDialogue),
     PROC_GOTO(PL_SHOP_ENTRY),
 
-PROC_LABEL(8),
+PROC_LABEL(PL_SHOP_ANYTHING_ELSE),
     PROC_SLEEP(1),
     PROC_CALL(Shop_AnythingElseContinueDialogue),
     PROC_GOTO(PL_SHOP_ENTRY),
 
-PROC_LABEL(9),
+PROC_LABEL(PL_SHOP_SENDTO_INVENTORY),
     PROC_CALL(Shop_TryAddItemToInventory),
     PROC_SLEEP(0),
-
     PROC_CALL(Shop_HandleSendToConvoyPrompt),
     PROC_SLEEP(0),
-
     PROC_CALL(Shop_CheckIfConvoyFull),
-
     PROC_CALL(Shop_ConvoyFullDialogue),
     PROC_SLEEP(0),
+    PROC_GOTO(PL_SHOP_SELL_NOITEM),
 
-    PROC_GOTO(7),
-
-PROC_LABEL(10),
+PROC_LABEL(PL_SHOP_SENDTO_INVENTORY_EXT),
     PROC_CALL(Shop_AddItemToConvoy),
     PROC_SLEEP(0),
-
     PROC_CALL(Shop_SendToConvoyDialogue),
     PROC_SLEEP(0),
+    PROC_GOTO(PL_SHOP_BUY_DONE),
 
-    PROC_GOTO(3),
-
-PROC_LABEL(11),
+PROC_LABEL(PL_SHOP_BUY_FULL_NO_INEVNTORY),
     PROC_SLEEP(0),
-
     PROC_CALL(Shop_NoSendToConvoyDialogue),
     PROC_SLEEP(0),
-
-    PROC_GOTO(7),
+    PROC_GOTO(PL_SHOP_SELL_NOITEM),
 
 PROC_LABEL(PL_SHOP_PREP_ENTRY),
     PROC_CALL(Shop_PrepEntryDialogue),
@@ -189,21 +168,14 @@ PROC_LABEL(PL_SHOP_PREP_ENTRY),
 PROC_LABEL(PL_SHOP_EXIT),
     PROC_CALL(Shop_ExitShopDialogue),
     PROC_SLEEP(1),
-
     PROC_CALL_ARG(_FadeBgmOut, 2),
-
     PROC_CALL(sub_8013F40),
     PROC_SLEEP(1),
-
     PROC_CALL(Shop_OnExit),
-
     PROC_END_EACH(ProcScr_ShopDrawHand),
-
     PROC_CALL(StartShopFadeOut),
     PROC_SLEEP(0),
-
     PROC_CALL(UnlockGame),
-
     PROC_END,
 };
 
@@ -229,7 +201,6 @@ u16 CONST_DATA Sprite_ShopGoldBox[] = {
 
 struct ProcCmd CONST_DATA gProcScr_GoldBox[] = {
     PROC_REPEAT(GoldBox_OnLoop),
-
     PROC_END,
 };
 
@@ -374,7 +345,7 @@ void Shop_EntryDialogue(struct ProcShop * proc)
     }
 }
 
-void Shop_HandleEntryDialogueChoice(struct ProcShop * proc)
+void Shop_HandleEntryDialoguePrompt(struct ProcShop * proc)
 {
     switch (GetTalkChoiceResult()) {
     case TALK_CHOICE_CANCEL:
@@ -472,8 +443,8 @@ void Shop_InitBuyState(struct ProcShop * proc)
 
 void Shop_Loop_BuyKeyHandler(struct ProcShop * proc)
 {
-    u8 unkA;
-    u32 unkC;
+    u8 head_loc;
+    u32 cursor_at_head;
     int price;
     int a;
     int b;
@@ -482,63 +453,68 @@ void Shop_Loop_BuyKeyHandler(struct ProcShop * proc)
 
     BG_SetPosition(2, 0, ShopSt_GetBg2Offset());
 
-    unkA = proc->curIndex;
-    unkC = ShopSt_GetHeadLoc() != unkA;
+    head_loc = proc->head_loc;
+    cursor_at_head = ShopSt_GetHeadLoc() != head_loc;
 
-    proc->curIndex = ShopSt_GetHeadLoc();
-    proc->unk_5d = ShopSt_GetHandLoc();
+    proc->head_loc = ShopSt_GetHeadLoc();
+    proc->hand_loc = ShopSt_GetHandLoc();
 
-    proc->head_idx = proc->curIndex;
-    proc->hand_idx = proc->unk_5d;
+    proc->head_idx = proc->head_loc;
+    proc->hand_idx = proc->hand_loc;
 
-    a = proc->curIndex;
+    a = proc->head_loc;
     a *= 16;
 
-    b = ((proc->unk_5d * 16)) - 72;
+    b = ((proc->hand_loc * 16)) - 72;
 
     DisplayUiHand(56, a - b);
 
-    if ((proc->helpTextActive != 0) && (unkC != 0)) {
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->shopItems[proc->curIndex]);
+    if ((proc->helpTextActive != 0) && (cursor_at_head != 0))
+    {
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 72);
+        StartItemHelpBox(56, a - b, proc->shopItems[proc->head_loc]);
     }
 
     DisplayShopUiArrows();
 
-    if (sub_80B56CC() != 0) {
+    if (IsShopPageScrolling() != 0)
         return;
-    }
 
-    if (proc->helpTextActive != 0) {
-        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON)) {
+    if (proc->helpTextActive != 0)
+    {
+        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
+        {
             proc->helpTextActive = 0;
             CloseHelpBox();
         }
-
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & R_BUTTON) {
+    if (gKeyStatusPtr->newKeys & R_BUTTON)
+    {
         proc->helpTextActive = 1;
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->shopItems[proc->curIndex]);
-
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 72);
+        StartItemHelpBox(56, a - b, proc->shopItems[proc->head_loc]);
         return;
     }
 
-    price = GetItemPurchasePrice(proc->unit, proc->shopItems[proc->curIndex]);
+    price = GetItemPurchasePrice(proc->unit, proc->shopItems[proc->head_loc]);
 
-    if (gKeyStatusPtr->newKeys & A_BUTTON) {
-        if (price > (int)GetPartyGoldAmount()) {
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        if (price > (int)GetPartyGoldAmount())
+        {
             StartShopDialogue(0x8B2, proc);
             // SHOP_TYPE_ARMORY: "You don't have the money![.][A]"
             // SHOP_TYPE_VENDOR: "You're short of funds.[A]"
             // SHOP_TYPE_SECRET_SHOP: "Heh! Not enough money![A]"
 
             Proc_Goto(proc, 1);
-        } else {
+        }
+        else
+        {
             SetTalkNumber(price);
             StartShopDialogue(0x8B5, proc);
             // SHOP_TYPE_ARMORY: "How does [.][G] gold[.][NL]sound to you?[.][Yes]"
@@ -547,23 +523,21 @@ void Shop_Loop_BuyKeyHandler(struct ProcShop * proc)
 
             Proc_Break(proc);
         }
-
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & B_BUTTON) {
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
         PlaySoundEffect(0x6B);
-        Proc_Goto(proc, 7);
-
+        Proc_Goto(proc, PL_SHOP_SELL_NOITEM);
         return;
     }
 }
 
 void Shop_HandleBuyConfirmPrompt(struct ProcShop * proc)
 {
-    if (GetTalkChoiceResult() != 1) {
-        Proc_Goto(proc, 1);
-    }
+    if (GetTalkChoiceResult() != TALK_CHOICE_YES)
+        Proc_Goto(proc, PL_SHOP_BUY);
 }
 
 void Shop_TryAddItemToInventory(struct ProcShop * proc)
@@ -584,21 +558,21 @@ void Shop_TryAddItemToInventory(struct ProcShop * proc)
             // SHOP_TYPE_VENDOR: "Your hands are full.[A]"
             // SHOP_TYPE_SECRET_SHOP: "Your hands are full.[A]"
 
-            Proc_Goto(proc, 11);
+            Proc_Goto(proc, PL_SHOP_BUY_FULL_NO_INEVNTORY);
         }
         return;
     }
 
-    UnitAddItem(proc->unit, proc->shopItems[proc->curIndex]);
+    UnitAddItem(proc->unit, proc->shopItems[proc->head_loc]);
     HandleShopBuyAction(proc);
 
-    Proc_Goto(proc, 3);
+    Proc_Goto(proc, PL_SHOP_BUY_DONE);
 }
 
 void Shop_HandleSendToConvoyPrompt(struct ProcShop * proc)
 {
-    if (GetTalkChoiceResult() != 1)
-        Proc_Goto(proc, 11);
+    if (GetTalkChoiceResult() != TALK_CHOICE_YES)
+        Proc_Goto(proc, PL_SHOP_BUY_FULL_NO_INEVNTORY);
 }
 
 void Shop_NoSendToConvoyDialogue(struct ProcShop * proc)
@@ -621,7 +595,7 @@ void Shop_NoSendToConvoyDialogue(struct ProcShop * proc)
 
 void Shop_AddItemToConvoy(struct ProcShop * proc)
 {
-    AddItemToConvoy(proc->shopItems[proc->curIndex]);
+    AddItemToConvoy(proc->shopItems[proc->head_loc]);
     HandleShopBuyAction(proc);
 }
 
@@ -635,9 +609,8 @@ void Shop_SendToConvoyDialogue(struct ProcShop * proc)
 
 void Shop_CheckIfConvoyFull(struct ProcShop * proc)
 {
-    if (GetConvoyItemCount() < CONVOY_ITEM_COUNT) {
-        Proc_Goto(proc, 10);
-    }
+    if (GetConvoyItemCount() < CONVOY_ITEM_COUNT)
+        Proc_Goto(proc, PL_SHOP_SENDTO_INVENTORY_EXT);
 }
 
 void Shop_ConvoyFullDialogue(struct ProcShop * proc)
@@ -667,7 +640,7 @@ void Shop_SellDialogue(struct ProcShop * proc)
 void Shop_InitSellState(struct ProcShop * proc)
 {
     RegisterShopState(
-        proc->curIndex,
+        proc->head_loc,
         proc->unitItemCount,
         5,
         0,
@@ -678,8 +651,8 @@ void Shop_InitSellState(struct ProcShop * proc)
 
 void Shop_Loop_SellKeyHandler(struct ProcShop * proc)
 {
-    u8 unkA;
-    u32 unkC;
+    u8 cur;
+    u32 cursor_at_head;
     int a;
     int b;
 
@@ -687,57 +660,61 @@ void Shop_Loop_SellKeyHandler(struct ProcShop * proc)
 
     BG_SetPosition(BG_2, 0, ShopSt_GetBg2Offset());
 
-    unkA = proc->curIndex;
-    unkC = ShopSt_GetHeadLoc() != unkA;
+    cur = proc->head_loc;
+    cursor_at_head = ShopSt_GetHeadLoc() != cur;
 
-    proc->curIndex = ShopSt_GetHeadLoc();
-    proc->unk_5d = ShopSt_GetHandLoc();
+    proc->head_loc = ShopSt_GetHeadLoc();
+    proc->hand_loc = ShopSt_GetHandLoc();
 
-    a = proc->curIndex;
+    a = proc->head_loc;
     a *= 16;
-
-    b = ((proc->unk_5d * 16)) - 72;
+    b = ((proc->hand_loc * 16)) - 0x48;
 
     DisplayUiHand(56, a - b);
 
-    if ((proc->helpTextActive != 0) && (unkC != 0)) {
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->unit->items[proc->curIndex]);
+    if (proc->helpTextActive && (cursor_at_head != 0))
+    {
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 0x48);
+        StartItemHelpBox(56, a - b, proc->unit->items[proc->head_loc]);
     }
 
-    if (sub_80B56CC() != 0) {
+    if (IsShopPageScrolling() != 0)
         return;
-    }
 
-    if (proc->helpTextActive != 0) {
-        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON)) {
-            proc->helpTextActive = 0;
+    if (proc->helpTextActive)
+    {
+        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
+        {
+            proc->helpTextActive = false;
             CloseHelpBox();
         }
-
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        proc->helpTextActive = 1;
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->unit->items[proc->curIndex]);
-
+    if (gKeyStatusPtr->newKeys & R_BUTTON)
+    {
+        proc->helpTextActive = true;
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 72);
+        StartItemHelpBox(56, a - b, proc->unit->items[proc->head_loc]);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & A_BUTTON) {
-        if (!IsItemSellable(proc->unit->items[proc->curIndex])) {
+    if (gKeyStatusPtr->newKeys & A_BUTTON)
+    {
+        if (!IsItemSellable(proc->unit->items[proc->head_loc]))
+        {
             StartShopDialogue(0x8BB, proc);
             // SHOP_TYPE_ARMORY: "I can't buy that.[.][A]"
             // SHOP_TYPE_VENDOR: "I can't buy that.[.][A]"
             // SHOP_TYPE_SECRET_SHOP: "Hee hee... Wait a minute.[.][NL]I can't buy that![.][A]"
 
-            Proc_Goto(proc, 4);
-        } else {
-            SetTalkNumber(GetItemSellPrice(proc->unit->items[proc->curIndex]));
+            Proc_Goto(proc, PL_SHOP_SELL);
+        }
+        else
+        {
+            SetTalkNumber(GetItemSellPrice(proc->unit->items[proc->head_loc]));
             StartShopDialogue(0x8B5, proc);
             // SHOP_TYPE_ARMORY: "How does [.][G] gold[.][NL]sound to you?[.][Yes]"
             // SHOP_TYPE_VENDOR: "That's worth [.][G] gold.[NL]Is that all right?[Yes]"
@@ -749,35 +726,35 @@ void Shop_Loop_SellKeyHandler(struct ProcShop * proc)
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & B_BUTTON) {
+    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    {
         PlaySoundEffect(0x6B);
-        Proc_Goto(proc, 8);
-
+        Proc_Goto(proc, PL_SHOP_ANYTHING_ELSE);
         return;
     }
 }
 
 void Shop_HandleSellConfirmPrompt(struct ProcShop * proc)
 {
-    if (GetTalkChoiceResult() == 1) {
+    if (GetTalkChoiceResult() == TALK_CHOICE_YES)
+    {
         PlaySeDelayed(0xB9, 8);
 
         gActionData.unitActionType = UNIT_ACTION_SHOPPED;
 
-        SetPartyGoldAmount(GetPartyGoldAmount() + GetItemSellPrice(proc->unit->items[proc->curIndex]));
+        SetPartyGoldAmount(GetPartyGoldAmount() + GetItemSellPrice(proc->unit->items[proc->head_loc]));
 
-        UnitRemoveItem(proc->unit, proc->curIndex);
+        UnitRemoveItem(proc->unit, proc->head_loc);
 
         UpdateShopItemCounts(proc);
         ShopInitTexts_OnSell(proc);
-        DisplayGoldBoxText(gBG0TilemapBuffer + 0xDB);
+        DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 6));
 
-        if (proc->unitItemCount == 0) {
-            Proc_Goto(proc, 7);
-        }
-    } else {
-        Proc_Goto(proc, 4);
+        if (proc->unitItemCount == 0)
+            Proc_Goto(proc, PL_SHOP_SELL_NOITEM);
     }
+    else
+        Proc_Goto(proc, PL_SHOP_SELL);
 }
 
 void Shop_SellAnythingElseDialogue(struct ProcShop * proc)
@@ -790,7 +767,7 @@ void Shop_SellAnythingElseDialogue(struct ProcShop * proc)
 
 void Shop_AnythingElseRestartDialogue(struct ProcShop * proc)
 {
-    proc->curIndex = 0;
+    proc->head_loc = 0;
     StartShopDialogue(0x89D, proc);
     // SHOP_TYPE_ARMORY: "Do you need anything else?[NL][BuySell]"
     // SHOP_TYPE_VENDOR: "Anything else for you?[NL][BuySell]"
@@ -837,91 +814,84 @@ void Shop_PrepEntryDialogue(struct ProcShop * proc)
 
 void Shop_Loop_UnkKeyHandler(struct ProcShop * proc)
 {
-    u8 unkA;
-    u32 unkC;
+    u8 head_loc;
+    u32 cursor_at_head;
     int a;
     int b;
 
     Shop_TryMoveHandPage();
 
-    BG_SetPosition(2, 0, ShopSt_GetBg2Offset());
+    BG_SetPosition(BG_2, 0, ShopSt_GetBg2Offset());
 
-    unkA = proc->curIndex;
-    unkC = ShopSt_GetHeadLoc() != unkA;
+    head_loc = proc->head_loc;
+    cursor_at_head = ShopSt_GetHeadLoc() != head_loc;
 
-    proc->curIndex = ShopSt_GetHeadLoc();
-    proc->unk_5d = ShopSt_GetHandLoc();
+    proc->head_loc = ShopSt_GetHeadLoc();
+    proc->hand_loc = ShopSt_GetHandLoc();
 
-    proc->head_idx = proc->curIndex;
-    proc->hand_idx = proc->unk_5d;
+    proc->head_idx = proc->head_loc;
+    proc->hand_idx = proc->hand_loc;
 
-    a = proc->curIndex;
+    a = proc->head_loc;
     a *= 16;
 
-    b = ((proc->unk_5d * 16)) - 72;
+    b = ((proc->hand_loc * 16)) - 0x48;
 
     DisplayUiHand(56, a - b);
 
-    if ((proc->helpTextActive != 0) && (unkC != 0)) {
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->shopItems[proc->curIndex]);
+    if ((proc->helpTextActive) && (cursor_at_head != 0))
+    {
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 0x48);
+        StartItemHelpBox(56, a - b, proc->shopItems[proc->head_loc]);
     }
 
     DisplayShopUiArrows();
 
-    if (sub_80B56CC() != 0) {
+    if (IsShopPageScrolling())
         return;
-    }
 
-    if (proc->helpTextActive != 0) {
-        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON)) {
+    if (proc->helpTextActive)
+    {
+        if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
+        {
             proc->helpTextActive = 0;
             CloseHelpBox();
         }
-
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & R_BUTTON) {
-        proc->helpTextActive = 1;
-        a = (proc->curIndex * 16);
-        b = ((proc->unk_5d * 16) - 72);
-        StartItemHelpBox(56, a - b, proc->shopItems[proc->curIndex]);
-
+    if (gKeyStatusPtr->newKeys & R_BUTTON)
+    {
+        proc->helpTextActive = TRUE;
+        a = (proc->head_loc * 16);
+        b = ((proc->hand_loc * 16) - 0x48);
+        StartItemHelpBox(56, a - b, proc->shopItems[proc->head_loc]);
         return;
     }
 
-    if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON)) {
+    if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
+    {
         PlaySoundEffect(0x6B);
         Proc_Goto(proc, 12);
-
         return;
     }
 }
 
 void StartShopFadeIn(struct ProcShop * proc)
 {
-
-    if (gBmSt.gameStateBits & BM_FLAG_PREPSCREEN) {
-        return;
-    }
-
-    if (gGMData.state.bits.state_0) {
-        return;
-    }
-
-    Proc_StartBlocking(gProcScr_ShopFadeIn, proc);
+    if (!(gBmSt.gameStateBits & BM_FLAG_PREPSCREEN) && !(gGMData.state.bits.state_0))
+        Proc_StartBlocking(gProcScr_ShopFadeIn, proc);
 }
 
 void StartShopFadeOut(struct ProcShop * proc)
 {
 
-    if (!(gBmSt.gameStateBits & BM_FLAG_PREPSCREEN) && !(gGMData.state.bits.state_0)) {
+    if (!(gBmSt.gameStateBits & BM_FLAG_PREPSCREEN) && !(gGMData.state.bits.state_0))
+    {
         Proc_StartBlocking(gProcScr_ShopFadeOut, proc);
         return;
     }
-
     ResetDialogueScreen();
 }
 
@@ -947,14 +917,14 @@ void Shop_Init(struct ProcShop * proc)
 
     ResetFaces();
 
-    proc->curIndex = 0;
+    proc->head_loc = 0;
     proc->head_idx = 0;
     proc->hand_idx = 0;
-    proc->unk_5d = 0;
+    proc->hand_loc = 0;
     proc->buy_or_sel = SHOP_ST_BUY;
     proc->helpTextActive = 0;
 
-    UnpackUiVArrowGfx(0x240, 3);
+    UnpackUiVArrowGfx(OBJCHR_SHOP_SPINARROW, OBJPAL_SHOP_SPINARROW);
 
     StartTalkFace(Shop_GetPortraitIndex(proc), 32, 8, 3, 1);
 
@@ -1000,12 +970,12 @@ void StartUiGoldBox(ProcPtr parent)
 {
     struct ProcShop * proc;
 
-    Decompress(Img_ShopGoldBox, OBJ_VRAM0 + OBJCHR_SHOP_GOLDBOX);
+    Decompress(Img_ShopGoldBox, OBJ_CHR_ADDR(OBJCHR_SHOP_GOLDBOX));
 
     proc = Proc_Start(gProcScr_GoldBox, parent);
     proc->goldbox_x = 0xAC;
     proc->goldbox_y = 0x2D;
-    proc->goldbox_oam2 = OBJ_PALETTE(OBJPAL_SHOP_GOLDBOX) + OBJ_CHAR(OBJCHR_SHOP_GOLDBOX / 0x20);
+    proc->goldbox_oam2 = OBJ_PALETTE(OBJPAL_SHOP_GOLDBOX) + OBJ_CHAR(OBJCHR_SHOP_GOLDBOX);
     ApplyPalette(gUiFramePaletteA, 0x10 + OBJPAL_SHOP_GOLDBOX);
     InitGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 28, 6));
     DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 6));
@@ -1035,7 +1005,7 @@ void DisplayGoldBoxText(u16 * tm)
 {
     SetTextFont(0);
     InitSystemTextFont();
-    ClearGoldBoxTextTm2Line(tm, 6);
+    ClearGoldBoxTextTm2Line(tm, SHOP_TEXT_LINES + 1);
     PutNumber(tm, 2, GetPartyGoldAmount());
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
@@ -1058,8 +1028,7 @@ void ShopInitTexts_OnBuy(struct ProcShop * parent)
             &gShopItemTexts[DivRem(i, SHOP_TEXT_LINES + 1)],
             gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F)));
 
-    BG_SetPosition(BG_2, 0, (((parent->hand_idx) << 0x14) + 0xFFB80000) >> 0x10);
-
+    BG_SetPosition(BG_2, 0, (parent->hand_idx * 0x10) - 0x48);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 }
 
@@ -1072,15 +1041,15 @@ void DrawShopSoldItems(struct ProcShop * proc)
     SetTextFont(0);
     InitSystemTextFont();
 
-    for (i = proc->hand_idx; i < proc->hand_idx + 5; i++)
+    for (i = proc->hand_idx; i < proc->hand_idx + SHOP_TEXT_LINES; i++)
     {
-        index = DivRem(i, 6);
+        index = DivRem(i, SHOP_TEXT_LINES + 1);
         ClearText(&gShopItemTexts[index]);
     }
 
-    for (i = proc->hand_idx; i < proc->hand_idx + 5; i++)
+    for (i = proc->hand_idx; i < proc->hand_idx + SHOP_TEXT_LINES; i++)
     {
-        index = DivRem(i,6);
+        index = DivRem(i, SHOP_TEXT_LINES + 1);
         item = proc->shopItems[i];
 
         if (item == 0)
@@ -1093,8 +1062,7 @@ void DrawShopSoldItems(struct ProcShop * proc)
             gBG2TilemapBuffer + TILEMAP_INDEX(7, ((i * 2) & 0x1F))
         );
     }
-
-    BG_SetPosition(2, 0, ((proc->hand_idx << 0x14) + 0xFFB80000) >> 0x10);
+    BG_SetPosition(BG_2, 0, (proc->hand_idx * 0x10) - 0x48);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 }
 
@@ -1111,7 +1079,7 @@ void ShopInitTexts_OnSell(struct ProcShop * parent)
     struct ProcShopInit * proc;
     int i;
 
-    parent->buy_or_sel = 1;
+    parent->buy_or_sel = SHOP_ST_SELL;
 
     proc = Proc_Start(ProcScr_ShopSellInit, PROC_TREE_3);
     proc->shopproc = parent;
@@ -1128,7 +1096,7 @@ void ShopInitTexts_OnSell(struct ProcShop * parent)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 }
 
-void sub_80B50C8(struct ProcShop * proc)
+void ShopDrawDefaultSellItemLine(struct ProcShop * proc)
 {
     int i;
     int index;
@@ -1164,7 +1132,7 @@ void sub_80B50C8(struct ProcShop * proc)
 void InitShopSellStatus(struct ProcShopInit * proc)
 {
     Shop_InitSellState(proc->shopproc);
-    sub_80B50C8(proc->shopproc);
+    ShopDrawDefaultSellItemLine(proc->shopproc);
     Proc_Break(proc);
 }
 
@@ -1184,8 +1152,8 @@ void DrawShopItemPriceLine(struct Text * th, int item, struct Unit * unit, u16 *
     PutNumber(
         dst + 0x11,
         (int)GetPartyGoldAmount() >= price
-            ? 2
-            : 1,
+            ? TEXT_COLOR_SYSTEM_BLUE
+            : TEXT_COLOR_SYSTEM_GRAY,
         price
     );
 }
@@ -1195,9 +1163,9 @@ void DrawShopItemLine(struct Text * th, int item, struct Unit * unit, u16 * dst)
     DrawItemMenuLine(th, item, IsItemDisplayUsable(unit, item), dst);
 
     if (IsItemSellable(item) != 0)
-        PutNumber(dst + 0x11, 2, GetItemSellPrice(item));
+        PutNumber(dst + 0x11, TEXT_COLOR_SYSTEM_BLUE, GetItemSellPrice(item));
     else
-        Text_InsertDrawString(th, 0x5C, 2, GetStringFromIndex(0x537));
+        Text_InsertDrawString(th, 0x5C, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(0x537));
 }
 
 u16 GetItemPurchasePrice(struct Unit * unit, int item)
@@ -1240,35 +1208,25 @@ void GoldBox_OnLoop(struct ProcShop * proc)
 
 void InitShopScreenConfig(void)
 {
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 1, 1);
+    SetWinEnable(0, 0, 0);
 
-    gLCDControlBuffer.dispcnt.win0_on = 0;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
-
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
-    BG_SetPosition(2, 0, 0);
-    BG_SetPosition(3, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
+    BG_SetPosition(BG_3, 0, 0);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(0xF);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     ResetText();
     LoadUiFrameGraphics();
-
     ResetIconGraphics_();
-
-    LoadIconPalettes(4);
-
+    LoadIconPalettes(BGPAL_SHOP_4);
     LoadHelpBoxGfx(0, -1);
 }
 
@@ -1279,27 +1237,32 @@ void _DisplayShopUiArrows(void)
 
 void DisplayShopUiArrows(void)
 {
-    if (ShouldDisplayUpArrow() != 0) {
-        DisplayUiVArrow(120, 64, 0x3240, 1);
-    }
+    if (ShouldDisplayUpArrow())
+        DisplayUiVArrow(
+            120, 64,
+            OBJ_PALETTE(OBJPAL_SHOP_SPINARROW) + OBJ_CHAR(OBJCHR_SHOP_SPINARROW),
+            true);
 
-    if (ShouldDisplayDownArrow() != 0) {
-        DisplayUiVArrow(120, 152, 0x3240, 0);
-    }
+    if (ShouldDisplayDownArrow())
+        DisplayUiVArrow(
+            120, 152,
+            OBJ_PALETTE(OBJPAL_SHOP_SPINARROW) + OBJ_CHAR(OBJCHR_SHOP_SPINARROW),
+            false);
 }
 
-void UnpackUiVArrowGfx(int index, int palIdx) {
-    Decompress(gImg_UiSpinningArrow_Vertical, (void *)((0x3FF & index) * 0x20 + 0x06010000));
-    ApplyPalette(Pal_08A1A084, palIdx + 0x10);
+void UnpackUiVArrowGfx(int chr, int pal)
+{
+    Decompress(Img_SpinningArrow, OBJ_VRAM0 + CHR_SIZE * OBJ_CHAR(chr));
+    ApplyPalette(Pal_SpinningArrow, pal + 0x10);
 }
 
-void DisplayUiVArrow(int x, int y, u16 oam2Base, int flip)
+void DisplayUiVArrow(int x, int y, u16 oam2Base, int flip_en)
 {
     int vflip;
     int offset = Div(DivRem(GetGameClock(), 40), 8) * 2;
 
     vflip = 0;
-    if (flip == 0)
+    if (flip_en == 0)
         vflip = ATTR1_FLIP_Y;
 
     PutSpriteExt(
@@ -1317,12 +1280,13 @@ void HandleShopBuyAction(struct ProcShop * proc)
 
     gActionData.unitActionType = UNIT_ACTION_SHOPPED;
 
-    SetPartyGoldAmount(GetPartyGoldAmount() - GetItemPurchasePrice(proc->unit, proc->shopItems[proc->curIndex]));
+    SetPartyGoldAmount(
+        GetPartyGoldAmount() - GetItemPurchasePrice(proc->unit, proc->shopItems[proc->head_loc]));
 
     UpdateShopItemCounts(proc);
     DrawShopSoldItems(proc);
 
-    DisplayGoldBoxText(gBG0TilemapBuffer + 0xDB);
+    DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 6));
 }
 
 int ShopTryMoveHand(int pos, int pre, bool scroll_en)
@@ -1437,7 +1401,7 @@ void RegisterShopState(u16 head_loc, u16 item_cnt, u16 lines, u16 hand_loc, int 
     gShopState->lines = lines;
     gShopState->hand_loc = hand_loc;
     gShopState->px_per_line = 16;
-    gShopState->unk_0A = 4;
+    gShopState->trig = 4;
     gShopState->draw_line = func;
     gShopState->proc = proc;
     gShopState->bg2_base = -bg2_base;
@@ -1467,7 +1431,7 @@ void Shop_TryMoveHandPage(void)
     gShopState->bg2_off = ShopUpdateBg2Offset(
                             gShopState->bg2_off,
                             gShopState->hand_loc * gShopState->px_per_line,
-                            gShopState->unk_0A);
+                            gShopState->trig);
 }
 
 u16 ShopSt_GetHeadLoc(void)
@@ -1490,12 +1454,12 @@ void ShopSt_SetLineHeight(int px)
     gShopState->px_per_line = px;
 }
 
-void sub_80B56C0(int unk)
+void ShopSt_SetSetPageScrollTrigOffset(int trig)
 {
-    gShopState->unk_0A = unk;
+    gShopState->trig = trig;
 }
 
-bool sub_80B56CC(void)
+bool IsShopPageScrolling(void)
 {
     if (gShopState->bg2_off != (gShopState->hand_loc * gShopState->px_per_line))
         return true;
