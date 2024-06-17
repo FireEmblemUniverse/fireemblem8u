@@ -321,11 +321,11 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
 
     SetupBackgrounds(0);
 
-    ApplyPalettes(gUnknown_08B1754C, 0xC, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, 0xC, 2);
     ApplyPalette(gUnknown_08A295B4, 0xE);
     Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A295D4, 0xc000);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_CommGameBgScreenInShop, 0xc000);
 
     BG_EnableSyncByMask(8);
 

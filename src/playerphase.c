@@ -991,7 +991,7 @@ int GetPlayerSelectKind(struct Unit * unit)
         return PLAYER_SELECT_NOUNIT;
     }
 
-    if (gBmSt.gameStateBits & BM_FLAG_4)
+    if (gBmSt.gameStateBits & BM_FLAG_PREPSCREEN)
     {
         if (!CanCharacterBePrepMoved(unit->pCharacterData->number))
         {

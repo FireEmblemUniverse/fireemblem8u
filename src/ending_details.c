@@ -442,7 +442,7 @@ void sub_80B6810(void) {
     u16* tm;
 
     ApplyPalettes(gPal_CharacterEndingMenu, 0xC, 2);
-    ApplyPalettes(gUnknown_08B1754C, 0xE, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, 0xE, 2);
 
     tm = gBG3TilemapBuffer;
     offset = (((0x8000 - (u32)GetBackgroundTileDataOffset(3)) * 0x8000) >> 0x14) + 0xe000;

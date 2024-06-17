@@ -174,8 +174,8 @@ struct ChoiceEntryInfo CONST_DATA gYesNoTalkChoice[2] =
 
 struct ChoiceEntryInfo CONST_DATA gBuySellTalkChoice[2] =
 {
-    { 0x845, sub_80B42E8 }, // Buy
-    { 0x846, sub_80B4308 }, // Sell
+    { 0x845, TalkChoice_OnBuy }, // Buy
+    { 0x846, TalkChoice_OnSell }, // Sell
 };
 
 struct ProcCmd CONST_DATA gProcScr_TalkChoice[] =

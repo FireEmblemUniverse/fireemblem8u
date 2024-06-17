@@ -585,7 +585,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     StartMuralBackground(proc, 0, 14);
 
-    ApplyPalettes(gUnknown_08B1754C, 0xE, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, 0xE, 2);
 
     StartHelpPromptSprite(200, 18, 2, (struct Proc*)proc);
 

@@ -416,8 +416,8 @@ extern CONST_DATA u8 Tsa_MapBattleBoxGfx2[];
 extern CONST_DATA u8 Tsa_MapBattleBoxGfx3[];
 extern u8 Img_MapBattleInfoHpBar[];
 extern u16 Img_MapBattleInfoNum[]; // gfx
-extern u8 gUnknown_089AD934[]; // tsa
-extern u16 gUnknown_089AD9F8[]; // pal
+extern u8 Tsa_ShopWindows[]; // tsa
+extern u16 Img_ShopGoldBox[]; // pal
 extern u16 CONST_DATA Img_WallBreakAnim[];
 extern u16 CONST_DATA Pal_WallBreakAnim[];
 extern const u8 Img_GmapSoguSprites[];

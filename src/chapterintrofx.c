@@ -290,7 +290,7 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
         unk_2 = (void*)BG_VRAM;
     }
 
-    ApplyPalettes(gUnknown_08B1754C, unk_3, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, unk_3, 2);
     Decompress(Img_CommGameBgScreen, unk_2);
 
     ref1 = TILEREF(0, unk_3 & 0xF);

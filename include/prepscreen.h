@@ -232,7 +232,7 @@ extern u16 CONST_DATA Img_PrepHelpButtonSprites[];
 extern u8 Img_MenuScrollBar[];
 extern u16 Pal_MenuScrollBar[];
 extern u8 gUnknown_08A19CCC[]; // gfx
-extern u16 Pal_08A1A084[]; // pal
+extern u16 Pal_SpinningArrow[]; // pal
 extern u8 gUnknown_08A1A0A4[]; // gfx
 extern u8 gUnknown_08A1A23C[]; // gfx
 extern u16 gUnknown_08A1A3FC[]; // pal
@@ -262,7 +262,7 @@ extern u8 gUnknown_08A1BCC0[];
 extern u16 gUnknown_08A1BD00[]; // pal
 // extern ??? gUnknown_08A1BD40
 extern u16 gUnknown_08A1BD60[];
-extern u8 gImg_UiSpinningArrow_Vertical[]; // arrow gfx
+extern u8 Img_SpinningArrow[]; // arrow gfx
 extern u8 gImg_UiSpinningArrow_Horizontal[];
 // extern ??? gUnknown_08A1C8B4
 // extern ??? Img_08A1CD68

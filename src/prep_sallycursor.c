@@ -755,7 +755,7 @@ void InitPrepScreenUnitsAndCamera(void)
 
     gBmSt.camera.x = GetCameraCenteredX(0);
     gBmSt.camera.y = GetCameraCenteredY(0);
-    gBmSt.gameStateBits |= BM_FLAG_4;
+    gBmSt.gameStateBits |= BM_FLAG_PREPSCREEN;
 
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -1324,7 +1324,7 @@ void EndPrepScreen(void)
 
     ShrinkPlayerUnits();
     Proc_EndEach(gProcScr_SALLYCURSOR);
-    gBmSt.gameStateBits &= ~BM_FLAG_4;
+    gBmSt.gameStateBits &= ~BM_FLAG_PREPSCREEN;
     gPlaySt.chapterStateBits &= ~PLAY_FLAG_PREPSCREEN;
     gPlaySt.unk4A_1 = 1;
 

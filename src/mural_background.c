@@ -48,9 +48,9 @@ ProcPtr StartMuralBackground(ProcPtr parent, void* vram, int pal) {
     }
 
     if (gBmSt.gameStateBits & BM_FLAG_LINKARENA) {
-        ApplyPalettes(gUnknown_08B1754C, pal, 2);
+        ApplyPalettes(Pal_CommGameBgScreenInShop, pal, 2);
     } else {
-        ApplyPalettes(gUnknown_08B1754C, pal, 2);
+        ApplyPalettes(Pal_CommGameBgScreenInShop, pal, 2);
     }
 
     Decompress(Img_CommGameBgScreen, vram);
@@ -80,9 +80,9 @@ ProcPtr StartMuralBackgroundAlt(ProcPtr parent, void * vram, int pal, u8 flag)
     }
 
     if (flag != 0) {
-        ApplyPalettes(gUnknown_08B1754C, pal, 2);
+        ApplyPalettes(Pal_CommGameBgScreenInShop, pal, 2);
     } else {
-        ApplyPalettes(gUnknown_08B1754C, pal, 2);
+        ApplyPalettes(Pal_CommGameBgScreenInShop, pal, 2);
     }
 
     Decompress(Img_CommGameBgScreen, vram);
@@ -107,7 +107,7 @@ ProcPtr StartMuralBackgroundExt(ProcPtr parent, void* vram, int a, int b, int pa
         vram = ((void*) VRAM) + GetBackgroundTileDataOffset(3);
     }
 
-    ApplyPalettes(gUnknown_08B1754C + palOffset * 0x10, 0xE, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop + palOffset * 0x10, 0xE, 2);
 
     Decompress(Img_CommGameBgScreen, vram);
 

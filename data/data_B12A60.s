@@ -4,8 +4,8 @@
 Img_CommGameBgScreen:  @ 0x08B12DB4
 	.incbin "baserom.gba", 0xB12DB4, 0x4798
 
-	.global gUnknown_08B1754C
-gUnknown_08B1754C:  @ 0x08B1754C
+	.global Pal_CommGameBgScreenInShop
+Pal_CommGameBgScreenInShop:  @ 0x08B1754C
 	.incbin "baserom.gba", 0xB1754C, 0x20
 
 	.global gUnknown_08B1756C

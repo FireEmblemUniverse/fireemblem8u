@@ -137,12 +137,12 @@ Img_MapBattleInfoHpBar:  @ 0x089AD78C
 Img_MapBattleInfoNum:  @ 0x089AD868
 	.incbin "baserom.gba", 0x9AD868, 0xCC
 
-	.global gUnknown_089AD934
-gUnknown_089AD934:  @ 0x089AD934
+	.global Tsa_ShopWindows
+Tsa_ShopWindows:  @ 0x089AD934
 	.incbin "baserom.gba", 0x9AD934, 0xC4
 
-	.global gUnknown_089AD9F8
-gUnknown_089AD9F8:  @ 0x089AD9F8
+	.global Img_ShopGoldBox
+Img_ShopGoldBox:  @ 0x089AD9F8
 	.incbin "baserom.gba", 0x9AD9F8, 0x88
 
 	.global Img_WallBreakAnim
