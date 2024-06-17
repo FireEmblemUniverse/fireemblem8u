@@ -8,8 +8,6 @@
 #include "hardware.h"
 #include "bmudisp.h"
 
-s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
-
 void UpdateMapViewWithFog(int vision_range)
 {
     if (vision_range < 0)
@@ -51,7 +49,7 @@ void FillWarpRangeMap(struct Unit *unit_act, struct Unit *unit_tar) {
                 if (gBmMapMovement[y][x] > 0x78)
                     continue;
                 
-                if (CanUnitCrossTerrain(unit_tar, gBmMapTerrain[y][x]) &&
+                if ((s8)CanUnitCrossTerrain(unit_tar, gBmMapTerrain[y][x]) &&
                     0 == gBmMapUnit[y][x])
                     continue;
                     
@@ -64,7 +62,7 @@ void FillWarpRangeMap(struct Unit *unit_act, struct Unit *unit_tar) {
                 if (gBmMapMovement[y][x] > 0x78)
                     continue;
                 
-                if (CanUnitCrossTerrain(unit_tar, gBmMapTerrain[y][x]) &&
+                if ((s8)CanUnitCrossTerrain(unit_tar, gBmMapTerrain[y][x]) &&
                     0 == gBmMapUnit[y][x] &&
                     0 != gBmMapFog[y][x])
                     continue;

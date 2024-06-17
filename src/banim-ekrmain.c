@@ -490,7 +490,7 @@ void SwitchAISFrameDataFromBARoundType(struct Anim * anim, int type)
     if (frame != 0xFF) {
         if (GetAnimPosition(anim) == EKR_POS_L) {
             // use r1 for scr
-            scr = gpBanimModesLeft;
+            scr = (u32*)gpBanimModesLeft;
             scr = (void *)gBanimScrLeft + scr[frame];
         } else {
             scr = (void *)gBanimScrRight + gpBanimModesRight[frame];

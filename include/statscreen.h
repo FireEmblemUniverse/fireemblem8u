@@ -158,11 +158,7 @@ struct HelpBoxInfo
     /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
 
-#if !MODERN
-#define DECL_INFO struct HelpBoxInfo CONST_DATA
-#else
-#define DECL_INFO struct HelpBoxInfo const
-#endif
+#define DECL_INFO CONST_DATA struct HelpBoxInfo
 
 int GetLastStatScreenUid(void);
 void SetLastStatScreenUid(int uid);

@@ -5,6 +5,7 @@
 #include "event.h"
 #include "uimenu.h"
 #include "bmtrap.h"
+#include "muctrl.h"
 
 struct UnkProc80855A0 {
     PROC_HEADER;

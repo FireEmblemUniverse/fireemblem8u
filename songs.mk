@@ -1,3 +1,6 @@
+$(MID_BUILDDIR)/%.o: $(MID_SUBDIR)/%.s
+	$(AS) $(ASFLAGS) -o $@ $<
+
 $(MID_SUBDIR)/song001_agbfe3_bgm_opening.s: %.s: %.mid
 	$(MID2AGB) $< $@ -E -G000 -R020 -P010 -V051
 

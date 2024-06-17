@@ -31,7 +31,7 @@ void NewEfxFlashBgRed(struct Anim * anim, int duartion)
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = duartion;
-    CpuFastFill16(0x001F001F, gEfxPal, PLTT_SIZE);
+    CpuFastFill16(0x001F, gEfxPal, PLTT_SIZE);
 }
 
 void NewEfxFlashBgBlack(struct Anim * anim, int duartion)

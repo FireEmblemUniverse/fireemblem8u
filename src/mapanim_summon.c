@@ -202,9 +202,6 @@ void ProcSummonDK_ResetCounter(struct SumProc* proc)
 
 s8 SelectSummonPos(int x, int y, struct SumThing* result)
 {
-    // It is very strange that in this function, CanUnitCrossTerrain should return as int(*)(Unit*, int)
-    extern int CanUnitCrossTerrain(struct Unit* unit, int terrain);
-
     struct SumThing array[9];
     u8 chosen, count = 0;
     short iy, ix;

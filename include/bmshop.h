@@ -57,10 +57,7 @@ struct ProcShop {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ struct Unit* unit;
-    /* 30 */ u16 shopItems[20];
-
-    /* 58 */ u16 unk_58;
-
+    /* 30 */ u16 shopItems[21];
     /* 5A */ u8 shopItemCount;
     /* 5B */ u8 unitItemCount;
     /* 5C */ u8 head_loc;

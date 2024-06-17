@@ -31,14 +31,8 @@ struct GuideSt
     /* 3D */ u8 unk_3d;
     /* 3E */ u8 unk_3e;
     /* 3F */ u8 numDetailLines;
-    /* 40 */ u8 unk_40[5];
-
-    /* 45 */ STRUCT_PAD(0x45, 0x54);
-
-    /* 54 */ u8 unk_54[5]; // size unknown
-
-    /* 59 */ STRUCT_PAD(0x59, 0x68);
-
+    /* 40 */ u8 unk_40[20];
+    /* 54 */ u8 unk_54[20];
     /* 68 */ u8 unk_68[5];
 
     /* 6D */ STRUCT_PAD(0x6d, 0x7c);

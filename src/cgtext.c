@@ -687,7 +687,7 @@ void GetCgTextDimensions(const char * str, u8 * wOut, u8 * hOut)
                 continue;
 
             default:
-                str = GetCharTextLen(str, &charWidth);
+                str = GetCharTextLen(str, (u32*)&charWidth);
                 w += charWidth;
 
                 continue;
@@ -801,7 +801,7 @@ void GetCgTextBoxDimensions(const char * str, int * wOut, int * hOut)
                 continue;
 
             default:
-                str = GetCharTextLen(str, &charWidth);
+                str = GetCharTextLen(str, (u32*)&charWidth);
                 w += charWidth;
 
                 continue;
@@ -1283,7 +1283,7 @@ void CgTextInterpreter_808FF18(struct CgTextInterpreterProc * proc)
 
     int a = (parent->thIndex + 1) * 2;
 
-    sub_808FEA4(parent->vram, parent->boxWidth, a);
+    sub_808FEA4((int*)parent->vram, parent->boxWidth, a);
 
     proc->unk_4c++;
 

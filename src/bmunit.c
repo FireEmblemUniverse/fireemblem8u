@@ -989,7 +989,7 @@ void UnitChangeFaction(struct Unit* unit, int faction) {
         GetUnit(newUnit->rescue)->rescue = newUnit->index;
 }
 
-inline s8 CanUnitCrossTerrain(struct Unit* unit, int terrain) {
+inline s32 CanUnitCrossTerrain(struct Unit* unit, int terrain) {
     const s8* lookup = GetUnitMovementCost(unit);
     return (lookup[terrain] > 0) ? TRUE : FALSE;
 }
@@ -1036,7 +1036,7 @@ void UnitGetDeathDropLocation(struct Unit* unit, int* xOut, int* yOut) {
             if (gBmMapHidden[iy][ix] & HIDDEN_BIT_UNIT)
                 continue;
 
-            if (!CanUnitCrossTerrain(rescuee, gBmMapTerrain[iy][ix]))
+            if (!(s8)CanUnitCrossTerrain(rescuee, gBmMapTerrain[iy][ix]))
                 continue;
 
             distance = RECT_DISTANCE(ix, iy, unit->xPos, unit->yPos);

@@ -1004,19 +1004,19 @@ bool PrepareBattleGraphicsMaybe(void)
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weapon, &animid1);
-        gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weapon, &animid2);
+        gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weapon, (u32*)&animid1);
+        gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weapon, (u32*)&animid2);
     }
     else
     {
         if (valid_l)
         {
-            gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weaponBefore, &animid1);
+            gBanimIdx[POS_L] = gBanimIdx_bak[POS_L] = GetBattleAnimationId(unit_bu1, animdef1, bu1->weaponBefore, (u32*)&animid1);
         }
 
         if (valid_r)
         {
-            gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weaponBefore, &animid2);
+            gBanimIdx[POS_R] = gBanimIdx_bak[POS_R] = GetBattleAnimationId(unit_bu2, animdef2, bu2->weaponBefore, (u32*)&animid2);
         }
     }
 
@@ -1304,7 +1304,7 @@ bool PrepareBattleGraphicsMaybe(void)
             gBanimEffectiveness[POS_R] = IsItemEffectiveAgainst(bu2->weapon, unit_bu1);
     }
 
-    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = (void *)zero = 0;
+    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = *(void **)&zero = 0;
 
     if (valid_l)
         (void)GetItemIndex(bu1->weaponBefore);

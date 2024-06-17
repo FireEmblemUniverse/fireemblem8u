@@ -2440,7 +2440,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
                     }
                 }
 
-                str = GetCharTextLen(str, &chrLen);
+                str = GetCharTextLen(str, (u32*)&chrLen);
 
                 currentLineLen += chrLen;
         }

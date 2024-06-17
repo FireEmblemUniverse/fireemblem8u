@@ -253,7 +253,7 @@ void sub_8085670(struct Proc * proc)
     {
         if (GetGameClock() % 2)
         {
-            (u16)gBmSt.camera.x &= ~2;
+            gBmSt.camera.x = (u16)gBmSt.camera.x & 0xFFFD;
             gBmSt.camera.x ^= 1;
         }
     }
@@ -274,7 +274,7 @@ void sub_80856D0(struct EventEngineProc * proc)
         }
     } else {
         if (GetGameClock() % 2) {
-            (u16)gBmSt.camera.y &= 0xFFFD;
+            gBmSt.camera.y = (u16)gBmSt.camera.y & 0xFFFD;
             gBmSt.camera.y ^= 1;
         }
     }
@@ -334,7 +334,7 @@ void sub_808581C(ProcPtr parent)
 
 void sub_8085844(ProcPtr parent)
 {
-    (u16)gBmSt.camera.x &= 0xFFFC;
+    gBmSt.camera.x = (u16)gBmSt.camera.x & 0xFFFC;
     Proc_EndEach(gUnknown_089EE000);
     Sound_FadeOutSE(4);
 }
@@ -348,7 +348,7 @@ CONST_DATA struct ProcCmd ProcScr_089EE048[] = {
 
 void sub_808586C(void)
 {
-    (u16)gBmSt.camera.y &= 0xFFFC;
+    gBmSt.camera.y = (u16)gBmSt.camera.y & 0xFFFC;
     Proc_EndEach(ProcScr_089EE030);
     Sound_FadeOutSE(4);
 }
@@ -366,7 +366,7 @@ void sub_808589C(struct Proc * proc)
     {
         if (GetGameClock() % 2)
         {
-            (u16)gBmSt.camera.x &= 0xFFFD;
+            gBmSt.camera.x = (u16)gBmSt.camera.x & 0xFFFD;
             gBmSt.camera.x ^= 1;
         }
     } else
@@ -390,7 +390,7 @@ void sub_808591C(struct EventEngineProc * proc)
 
 void sub_8085948(struct EventEngineProc * proc)
 {
-    (u16)gBmSt.camera.y &= 0xFFFC;
+    gBmSt.camera.y = (u16)gBmSt.camera.y & 0xFFFC;
     Sound_FadeOutSE(4);
     Proc_EndEach(ProcScr_089EE048);
 }

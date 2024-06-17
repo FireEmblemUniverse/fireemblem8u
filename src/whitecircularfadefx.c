@@ -90,7 +90,7 @@ void StartCircularFadeAnim(ProcPtr parent, int x, int y)
     u32 r, b, g;
     struct ProcWhiteCircleFx *proc;
     u32 *cur = BG_CHR_ADDR(BGCHR_BMFX_IMG);
-    int val = 0;
+    u32 val = 0;
 
     for (i = 0; i < 0x20; i++) {
         for (j = 0; j < 0x8; j++)

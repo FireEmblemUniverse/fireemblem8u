@@ -448,8 +448,7 @@ struct GMapData
     /* 02 */ short xCamera, yCamera;
     /* 08 */ int ix, iy;
     /* 10 */ struct GMUnit units[8];
-    /* 30 */ struct GMNode nodes[0x1C];
-    /* A0 */ int unk_a0; // pad?
+    /* 30 */ struct GMNode nodes[0x1D];
     /* A4 */ struct OpenPaths openPaths;
     /* C8 */ u8 current_node; // entry node id?
     /* C9 */ u8 unk_c9[3]; // List of active world map skirmishes

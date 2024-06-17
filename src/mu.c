@@ -763,7 +763,7 @@ void MU_SetDefaultFacing_Auto(void) {
         MU_SetDefaultFacing(proc);
 }
 
-void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]) {
+void MU_StartMoveScript_Auto(const u8 commands[/*MU_COMMAND_MAX_COUNT*/]) {
     struct MUProc* proc = Proc_Find(gProcScr_MoveUnit);
 
     if (proc)
@@ -802,7 +802,7 @@ s8 MU_IsActive(struct MUProc* proc) {
     return FALSE;
 }
 
-void MU_StartMoveScript(struct MUProc* proc, const u8 commands[MU_COMMAND_MAX_COUNT]) {
+void MU_StartMoveScript(struct MUProc* proc, const u8 commands[/*MU_COMMAND_MAX_COUNT*/]) {
     int i;
 
     for (i = 0; i < 0x40; ++i)
@@ -1243,7 +1243,7 @@ void MU_AllEnable(void) {
 
 void MU_GetComputedEndPosition(int* xOut, int* yOut, const u8* commands) {
     while (TRUE) {
-        switch (*commands++) {
+        switch ((s32)*commands++) {
 
         case MU_COMMAND_END:
             return;

@@ -350,7 +350,7 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
 
     gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
     gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 2;
+    gLCDControlBuffer.wincnt.wout_enableBg2 = 0;
     gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 

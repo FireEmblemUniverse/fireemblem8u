@@ -58,7 +58,6 @@ Temporary Items
 *.gba
 *.elf
 *.map
-objects.lst
 *.o
 src/*.s
 *.dump

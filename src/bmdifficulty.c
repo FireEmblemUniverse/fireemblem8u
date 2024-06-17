@@ -1121,7 +1121,7 @@ extern u16 gUnknown_02003B88[];
 extern struct Struct0859E7D4 gUnknown_02003BA8[];
 
 // obj data?
-const u16 CONST_DATA obj_859E79C[] = {
+CONST_DATA u16 obj_859E79C[] = {
     0x0002, 0x4000, 0x8000, 0x0100,
     0x4000, 0x8020, 0x0104, 0x0000,
     0x0000, 0x0000, 0x0000, 0x0000,
