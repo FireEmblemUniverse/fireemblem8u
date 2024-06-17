@@ -611,9 +611,9 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     }
 
     if (proc->unk_4C <= 0xFF) {
-        sub_80ADDFC(2, 0, 0, 0, 0x180, 0x180);
-        sub_80ADE90(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
-        sub_80ADEE0(2, 0x70, 0x58, 0x4C, 0x4C);
+        BgAffinRotScaling(2, 0, 0, 0, 0x180, 0x180);
+        BgAffinScaling(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
+        BgAffinAnchoring(2, 0x70, 0x58, 0x4C, 0x4C);
         FlushLCDControl();
 
         if (proc->unk_66 != 0) {

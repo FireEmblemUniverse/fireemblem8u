@@ -238,9 +238,9 @@ void Subtitle_LightFlareFx_Loop(struct OpSubtitleProc* proc) {
     c = Interpolate(0, 0, 214, proc->unk_4c, 60);
     d = Interpolate(0, 16, 128, proc->unk_4c, 60);
 
-    sub_80ADDFC(2, proc->unk_4e, 0, 0, a * 5 + 0x80, a * 5 + 0x80);
-    sub_80ADE90(2, 0x100, 0x100);
-    sub_80ADEE0(2, c, d, 80, 72);
+    BgAffinRotScaling(2, proc->unk_4e, 0, 0, a * 5 + 0x80, a * 5 + 0x80);
+    BgAffinScaling(2, 0x100, 0x100);
+    BgAffinAnchoring(2, c, d, 80, 72);
 
     proc->unk_4e -= 64;
 

@@ -893,23 +893,23 @@ void nop_80ADDF8(void)
     return;
 }
 
-void sub_80ADDFC(u8 bg, s16 angle, s16 c, s16 d, s16 e, s16 f)
+void BgAffinRotScaling(u8 bg, s16 angle, s16 x_center, s16 y_center, s16 sx, s16 sy)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
 
-    if (e <= 4)
-        e = 4;
+    if (sx <= 4)
+        sx = 4;
 
-    if (f <= 4)
-        f = 4;
+    if (sy <= 4)
+        sy = 4;
 
-    data.texX = c * 0x100;
-    data.texY = d * 0x100;
+    data.texX = x_center * 0x100;
+    data.texY = y_center * 0x100;
     data.scrX = 0;
     data.scrY = 0;
-    data.sx = 0x10000 / e;
-    data.sy = 0x10000 / f;
+    data.sx = 0x10000 / sx;
+    data.sy = 0x10000 / sy;
     data.alpha = angle * 0x10;
 
     dst = &gLCDControlBuffer.bg3affin;
@@ -919,45 +919,64 @@ void sub_80ADDFC(u8 bg, s16 angle, s16 c, s16 d, s16 e, s16 f)
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADE90(u8 bg, s16 a, s16 b)
+void BgAffinScaling(u8 bg, s16 sy, s16 sx)
 {
     struct BgAffineDstData * affin = NULL;
     if (bg == BG_2)
         affin = &gLCDControlBuffer.bg2affin;
 
-    affin->pb = (affin->pb * a) >> 8;
-    affin->pd = (affin->pd * a) >> 8;
-    affin->pa = (affin->pa * b) >> 8;
-    affin->pc = (affin->pc * b) >> 8;
+    /**
+     * y = y * (1 / sy)
+     * x = x * (1 / sx)
+     *
+     * Both of which are 8.8 fixed point numbers:
+     * a halfword with 8 integer bits and 8 fractional bits.
+     * 
+     * See tonc 10.4.1: https://www.coranac.com/tonc/text/affine.htm
+     */
+
+    affin->pb = (affin->pb * sy) >> 8;
+    affin->pd = (affin->pd * sy) >> 8;
+    affin->pa = (affin->pa * sx) >> 8;
+    affin->pc = (affin->pc * sx) >> 8;
 }
 
-void sub_80ADEE0(u8 bg, s16 a, s16 b, s16 c, s16 d)
+void BgAffinAnchoring(u8 bg, s16 q0_x, s16 q0_y, s16 p0_x, s16 p0_y)
 {
+    /**
+     * vector q0: origin in screen space
+     * vector p0: origin in texture space
+     *
+     * See tonc 12.3: https://www.coranac.com/tonc/text/affbg.htm:
+     *
+     * bgaff->dx= asx->tex_x - (pa*asx->scr_x + pb*asx->scr_y);
+     * bgaff->dy= asx->tex_y - (pc*asx->scr_x + pd*asx->scr_y);
+     */
     struct BgAffineDstData * affin = NULL;
     if (bg == BG_2)
         affin = &gLCDControlBuffer.bg2affin;
 
-    affin->dx = affin->pa * (-a) + affin->pb * (-b) + c * 0x100;
-    affin->dy = affin->pc * (-a) + affin->pd * (-b) + d * 0x100;
+    affin->dx = affin->pa * (-q0_x) + affin->pb * (-q0_y) + p0_x * 0x100;
+    affin->dy = affin->pc * (-q0_x) + affin->pd * (-q0_y) + p0_y * 0x100;
 }
 
-void sub_80ADF48(u8 bg, int angle, int a, int b, int c, int d)
+void BgAffinRotScalingHighPrecision(u8 bg, int angle, int texX, int texY, int sx, int sy)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
 
-    if (c <= 0x400)
-        c = 0x400;
+    if (sx <= 0x400)
+        sx = 0x400;
 
-    if (d <= 0x400)
-        d = 0x400;
+    if (sy <= 0x400)
+        sy = 0x400;
 
-    data.texX = a;
-    data.texY = b;
+    data.texX = texX;
+    data.texY = texY;
     data.scrX = 0;
     data.scrY = 0;
-    data.sx = 0x1000000 / c;
-    data.sy = 0x1000000 / d;
+    data.sx = 0x1000000 / sx;
+    data.sy = 0x1000000 / sy;
     data.alpha = angle >> 4;
 
     dst = &gLCDControlBuffer.bg3affin;
@@ -967,26 +986,26 @@ void sub_80ADF48(u8 bg, int angle, int a, int b, int c, int d)
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADFBC(u8 bg, int a, int b)
+void BgAffinScalingHighPrecision(u8 bg, int sy, int sx)
 {
     struct BgAffineDstData * affin = NULL;
     if (bg == BG_2)
         affin = &gLCDControlBuffer.bg2affin;
 
-    affin->pb = (affin->pb * a) >> 0x10;
-    affin->pd = (affin->pd * a) >> 0x10;
-    affin->pa = (affin->pa * b) >> 0x10;
-    affin->pc = (affin->pc * b) >> 0x10;
+    affin->pb = (affin->pb * sy) >> 0x10;
+    affin->pd = (affin->pd * sy) >> 0x10;
+    affin->pa = (affin->pa * sx) >> 0x10;
+    affin->pc = (affin->pc * sx) >> 0x10;
 }
 
-void sub_80ADFFC(u8 bg, int a, int b, int c, int d)
+void BgAffinAnchoringHighPrecision(u8 bg, int q0_x, int q0_y, int p0_x, int p0_y)
 {
     struct BgAffineDstData * affin = NULL;
     if (bg == BG_2)
         affin = &gLCDControlBuffer.bg2affin;
 
-    affin->dx = ((affin->pa * (-a) + affin->pb * (-b)) >> 8) + c;
-    affin->dy = ((affin->pc * (-a) + affin->pd * (-b)) >> 8) + d;
+    affin->dx = ((affin->pa * (-q0_x) + affin->pb * (-q0_y)) >> 8) + p0_x;
+    affin->dy = ((affin->pc * (-q0_x) + affin->pd * (-q0_y)) >> 8) + p0_y;
 }
 
 void sub_80AE044(int a, u16 * buf, int c, int d, int e, int f, int g, int h)
