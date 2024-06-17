@@ -64,8 +64,8 @@ gUnknown_08A29558:  @ 0x08A29558
 gUnknown_08A295B4:  @ 0x08A295B4
 	.incbin "baserom.gba", 0xA295B4, 0x20
 
-	.global gUnknown_08A295D4
-gUnknown_08A295D4:  @ 0x08A295D4
+	.global Tsa_CommGameBgScreenInShop
+Tsa_CommGameBgScreenInShop:  @ 0x08A295D4
 	.incbin "baserom.gba", 0xA295D4, 0x4B4
 
 	.global gUnknown_08A29A88

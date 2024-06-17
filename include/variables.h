@@ -1111,7 +1111,7 @@ extern u8 Img_GameMainMenuObjs[];
 // extern ??? gUnknown_08A294BA
 // extern ??? gUnknown_08A29558
 extern u16 gUnknown_08A295B4[]; // pal
-extern u8 gUnknown_08A295D4[]; // tsa
+extern u8 Tsa_CommGameBgScreenInShop[]; // tsa
 // extern ??? gUnknown_08A29A88
 // extern ??? gUnknown_08A2B1E4
 // extern ??? gUnknown_08A2C11C
@@ -1529,7 +1529,7 @@ extern u16 Pal_OpAnimHleathSafetyScreen[];
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide1[];
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide2[];
 extern u8 Img_CommGameBgScreen[];  // gfx
-extern u16 gUnknown_08B1754C[]; // pal
+extern u16 Pal_CommGameBgScreenInShop[]; // pal
 extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
 // extern ??? Tsa_08B176CC
 // extern ??? Img_08B177C0

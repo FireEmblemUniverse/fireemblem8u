@@ -61,10 +61,10 @@ void sub_80B04BC(struct Proc8A21568* proc) {
 
 //! FE8U = 0x080B04F8
 void sub_80B04F8(void) {
-    ApplyPalettes(gUnknown_08B1754C, 0, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, 0, 2);
     ApplyPalette(gUnknown_08A295B4, 2);
     Decompress(Img_CommGameBgScreen, (void*)0x06001000);
-    CallARM_FillTileRect(gBG0TilemapBuffer, gUnknown_08A295D4, 0x80);
+    CallARM_FillTileRect(gBG0TilemapBuffer, Tsa_CommGameBgScreenInShop, 0x80);
 
     BG_EnableSyncByMask(1);
 

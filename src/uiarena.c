@@ -65,7 +65,7 @@ void ArenaUi_Init(ProcPtr proc) {
     ResetFaces();
     StartTalkFace(0x67, 0x20, 8, 3, 1);
 
-    Decompress(gUnknown_089AD934, gGenericBuffer);
+    Decompress(Tsa_ShopWindows, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
     TileMap_FillRect(gBG1TilemapBuffer + 0x100, 0x1e, 0xc, 0);
