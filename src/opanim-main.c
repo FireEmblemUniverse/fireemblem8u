@@ -82,7 +82,7 @@ void BgAffineSetOpAnim(int scaling_radio, int angle)
     data.sy = scaling_radio;
     data.alpha = angle << 8;
 
-    BgAffineSet(&data, gOpAnimBgAffineDstData, 1);
+    BgAffineSet(&data, &gLCDControlBuffer.bg2affin, 1);
 }
 
 void SetupOpAnimWorldMapfx(struct ProcOpAnim * proc)

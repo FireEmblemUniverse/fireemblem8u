@@ -89,18 +89,18 @@ void FlushLCDControl(void)
     COPY_REG(u8, BLDY, &gLCDControlBuffer.blendY)
 
     // set both BG2PA and BG2PB with a single 32-bit copy
-    COPY_REG(u32, BG2PA, &gLCDControlBuffer.bg2pa)
+    COPY_REG(u32, BG2PA, &gLCDControlBuffer.bg2affin.pa)
     // set both BG2PC and BG2PD with a single 32-bit copy
-    COPY_REG(u32, BG2PC, &gLCDControlBuffer.bg2pc)
-    COPY_REG(u32, BG2X, &gLCDControlBuffer.bg2x)
-    COPY_REG(u32, BG2Y, &gLCDControlBuffer.bg2y)
+    COPY_REG(u32, BG2PC, &gLCDControlBuffer.bg2affin.pc)
+    COPY_REG(u32, BG2X, &gLCDControlBuffer.bg2affin.dx)
+    COPY_REG(u32, BG2Y, &gLCDControlBuffer.bg2affin.dy)
 
     // set both BG3PA and BG3PB with a single 32-bit copy
-    COPY_REG(u32, BG3PA, &gLCDControlBuffer.bg3pa)
+    COPY_REG(u32, BG3PA, &gLCDControlBuffer.bg3affin.pa)
     // set both BG3PC and BG3PD with a single 32-bit copy
-    COPY_REG(u32, BG3PC, &gLCDControlBuffer.bg3pc)
-    COPY_REG(u32, BG3X, &gLCDControlBuffer.bg3x)
-    COPY_REG(u32, BG3Y, &gLCDControlBuffer.bg3y)
+    COPY_REG(u32, BG3PC, &gLCDControlBuffer.bg3affin.pc)
+    COPY_REG(u32, BG3X, &gLCDControlBuffer.bg3affin.dx)
+    COPY_REG(u32, BG3Y, &gLCDControlBuffer.bg3affin.dy)
 
     #undef COPY_REG
 }

@@ -893,7 +893,7 @@ void nop_80ADDF8(void)
     return;
 }
 
-void sub_80ADDFC(u8 layer, s16 angle, s16 c, s16 d, s16 e, s16 f)
+void sub_80ADDFC(u8 bg, s16 angle, s16 c, s16 d, s16 e, s16 f)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
@@ -912,18 +912,18 @@ void sub_80ADDFC(u8 layer, s16 angle, s16 c, s16 d, s16 e, s16 f)
     data.sy = 0x10000 / f;
     data.alpha = angle * 0x10;
 
-    dst = &gOpAnimBgAffineDstData[1];
-    if (layer == 2)
-        dst = &gOpAnimBgAffineDstData[0];
+    dst = &gLCDControlBuffer.bg3affin;
+    if (bg == BG_2)
+        dst = &gLCDControlBuffer.bg2affin;
 
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADE90(u8 layer, s16 a, s16 b)
+void sub_80ADE90(u8 bg, s16 a, s16 b)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
     affin->pb = (affin->pb * a) >> 8;
     affin->pd = (affin->pd * a) >> 8;
@@ -931,17 +931,17 @@ void sub_80ADE90(u8 layer, s16 a, s16 b)
     affin->pc = (affin->pc * b) >> 8;
 }
 
-void sub_80ADEE0(u8 layer, s16 a, s16 b, s16 c, s16 d)
+void sub_80ADEE0(u8 bg, s16 a, s16 b, s16 c, s16 d)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
     affin->dx = affin->pa * (-a) + affin->pb * (-b) + c * 0x100;
     affin->dy = affin->pc * (-a) + affin->pd * (-b) + d * 0x100;
 }
 
-void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d)
+void sub_80ADF48(u8 bg, int angle, int a, int b, int c, int d)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
@@ -960,18 +960,18 @@ void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d)
     data.sy = 0x1000000 / d;
     data.alpha = angle >> 4;
 
-    dst = &gOpAnimBgAffineDstData[1];
-    if (layer == 2)
-        dst = &gOpAnimBgAffineDstData[0];
+    dst = &gLCDControlBuffer.bg3affin;
+    if (bg == BG_2)
+        dst = &gLCDControlBuffer.bg2affin;
 
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADFBC(u8 layer, int a, int b)
+void sub_80ADFBC(u8 bg, int a, int b)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
     affin->pb = (affin->pb * a) >> 0x10;
     affin->pd = (affin->pd * a) >> 0x10;
@@ -979,11 +979,11 @@ void sub_80ADFBC(u8 layer, int a, int b)
     affin->pc = (affin->pc * b) >> 0x10;
 }
 
-void sub_80ADFFC(u8 layer, int a, int b, int c, int d)
+void sub_80ADFFC(u8 bg, int a, int b, int c, int d)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
     affin->dx = ((affin->pa * (-a) + affin->pb * (-b)) >> 8) + c;
     affin->dy = ((affin->pc * (-a) + affin->pd * (-b)) >> 8) + d;

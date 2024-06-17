@@ -100,7 +100,7 @@ void sub_80C5548(int arg) {
 
     src.alpha = 0;
 
-    BgAffineSet(&src, gOpAnimBgAffineDstData, 1);
+    BgAffineSet(&src, &gLCDControlBuffer.bg2affin, 1);
 
     return;
 }
