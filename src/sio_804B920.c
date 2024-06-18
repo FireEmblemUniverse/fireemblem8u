@@ -188,7 +188,7 @@ void sub_804BC3C(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AA7B4[] =
+struct ProcCmd CONST_DATA ProcScr_085AA7B4[] =
 {
     PROC_YIELD,
 
@@ -207,7 +207,7 @@ struct ProcCmd CONST_DATA gUnknown_085AA7B4[] =
 //! FE8U = 0x0804BC84
 void sub_804BC84(u16 a, ProcPtr parent)
 {
-    struct SioProc85AA7B4 * proc = Proc_StartBlocking(gUnknown_085AA7B4, parent);
+    struct SioProc85AA7B4 * proc = Proc_StartBlocking(ProcScr_085AA7B4, parent);
     proc->unk_64 = a;
 
     SetDispEnable(1, 1, 1, 1, 1);
@@ -268,7 +268,7 @@ void sub_804BDD8(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AA7EC[] =
+struct ProcCmd CONST_DATA ProcScr_085AA7EC[] =
 {
     PROC_YIELD,
 
@@ -287,7 +287,7 @@ struct ProcCmd CONST_DATA gUnknown_085AA7EC[] =
 //! FE8U = 0x0804BDFC
 void sub_804BDFC(u16 a, ProcPtr parent)
 {
-    struct SioProc85AA7B4 * proc = Proc_StartBlocking(gUnknown_085AA7EC, parent);
+    struct SioProc85AA7B4 * proc = Proc_StartBlocking(ProcScr_085AA7EC, parent);
     proc->unk_64 = a;
 
     SetWinEnable(0, 1, 0);
@@ -312,7 +312,7 @@ void sub_804BE88(ProcPtr parent)
 //! FE8U = 0x0804BE98
 void sub_804BE98(ProcPtr proc)
 {
-    if (Proc_Find(gUnknown_085AA7B4) == NULL)
+    if (Proc_Find(ProcScr_085AA7B4) == NULL)
     {
         Proc_Break(proc);
     }
@@ -323,7 +323,7 @@ void sub_804BE98(ProcPtr proc)
 //! FE8U = 0x0804BEB8
 void sub_804BEB8(ProcPtr proc)
 {
-    if (Proc_Find(gUnknown_085AA7EC) == NULL)
+    if (Proc_Find(ProcScr_085AA7EC) == NULL)
     {
         Proc_Break(proc);
     }

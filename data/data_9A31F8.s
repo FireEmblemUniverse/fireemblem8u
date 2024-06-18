@@ -165,12 +165,12 @@ Img_PoisonAnim:  @ 0x089ADEB0
 Pal_PoisonAnim:  @ 0x089AE204
 	.incbin "baserom.gba", 0x9AE204, 0x20
 
-	.global gUnknown_089AE224
-gUnknown_089AE224:  @ 0x089AE224
+	.global Img_LinkArenaWarpFx
+Img_LinkArenaWarpFx:  @ 0x089AE224
 	.incbin "baserom.gba", 0x9AE224, 0x260
 
-	.global gUnknown_089AE484
-gUnknown_089AE484:  @ 0x089AE484
+	.global Pal_LinkArenaWarpFx
+Pal_LinkArenaWarpFx:  @ 0x089AE484
 	.incbin "baserom.gba", 0x9AE484, 0x20
 
 	.global gUnknown_089AE4A4

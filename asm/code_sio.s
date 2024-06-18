@@ -665,7 +665,7 @@ _08045E46:
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r6, #0
-	bl sub_804C2EC
+	bl StartLinkArenaButtonSpriteDraw
 	movs r0, #0x50
 	movs r1, #0x20
 	adds r2, r6, #0
@@ -788,7 +788,7 @@ sub_8045F48: @ 0x08045F48
 _08045F7A:
 	movs r0, #1
 	bl SioPlaySoundEffect
-	bl sub_804C31C
+	bl EndLinkArenaButtonSpriteDraw
 	b _08045FEE
 	.align 2, 0
 _08045F88: .4byte gUnk_Sio_0203DD28
@@ -804,7 +804,7 @@ _08045F94:
 	beq _08045FBC
 	movs r0, #1
 	bl SioPlaySoundEffect
-	bl sub_804C31C
+	bl EndLinkArenaButtonSpriteDraw
 	bl sub_8045CBC
 	bl sub_8045CE0
 	adds r0, r4, #0
@@ -873,7 +873,7 @@ _0804601E:
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r4, #0
-	bl sub_804C2EC
+	bl StartLinkArenaButtonSpriteDraw
 	b _0804618A
 _08046046:
 	movs r0, #6
@@ -901,7 +901,7 @@ _0804606C:
 	ands r0, r1
 	cmp r0, #0
 	beq _080460EE
-	bl sub_804C31C
+	bl EndLinkArenaButtonSpriteDraw
 	ldr r0, [r7]
 	movs r2, #0
 	movs r1, #6
@@ -971,7 +971,7 @@ _080460EE:
 	lsls r0, r0, #0x10
 	cmp r0, #0
 	beq _08046164
-	bl sub_804C31C
+	bl EndLinkArenaButtonSpriteDraw
 	ldr r0, [r5]
 	movs r2, #0
 	movs r1, #6
@@ -1069,7 +1069,7 @@ _080461C4:
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r4, #0
-	bl sub_804C2EC
+	bl StartLinkArenaButtonSpriteDraw
 	adds r0, r4, #0
 	movs r1, #3
 	bl Proc_Goto
@@ -2057,7 +2057,7 @@ sub_80469C4: @ 0x080469C4
 	movs r0, #0xc0
 	movs r1, #0x10
 	adds r2, r7, #0
-	bl sub_804C2EC
+	bl StartLinkArenaButtonSpriteDraw
 	ldr r4, _08046AC4  @ gSioTexts
 	adds r0, r4, #0
 	movs r1, #0x18
@@ -2601,7 +2601,7 @@ sub_8046E0C: @ 0x08046E0C
 	bl nullsub_13
 	bl sub_804C4F8
 	bl sub_804C590
-	bl sub_804C31C
+	bl EndLinkArenaButtonSpriteDraw
 	bl BMapVSync_End
 	bl StartPrepAtMenu
 	adds r0, r4, #0

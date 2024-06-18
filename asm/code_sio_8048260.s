@@ -984,7 +984,7 @@ _0804CAAA:
 	beq _0804CABC
 	movs r0, #0xc0
 	movs r1, #0x10
-	bl sub_804C2B8
+	bl PutLinkArenaButtonSpriteAt
 _0804CABC:
 	ldr r0, [r7, #0x48]
 	cmp r0, #0
@@ -1460,7 +1460,7 @@ _0804CE0E:
 	bl DisplayUiHand
 	movs r0, #0xc0
 	movs r1, #0x10
-	bl sub_804C2B8
+	bl PutLinkArenaButtonSpriteAt
 	add sp, #4
 	pop {r3}
 	mov r8, r3

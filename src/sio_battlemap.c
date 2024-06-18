@@ -1366,8 +1366,8 @@ void sub_804A51C(struct SioBattleMapProc * proc)
     unitB->xPos = proc->unk_34;
     unitB->yPos = proc->unk_38;
 
-    sub_804C208(unitA, gUnknown_03001838[0], 6, 5, 1, 1, proc);
-    sub_804C208(unitB, gUnknown_03001838[1], 8, 5, 0, 0, proc);
+    StartSioWarpFx(unitA, gUnknown_03001838[0], 6, 5, 1, 1, proc);
+    StartSioWarpFx(unitB, gUnknown_03001838[1], 8, 5, 0, 0, proc);
 
     return;
 }
@@ -1522,7 +1522,7 @@ void sub_804A7C0(ProcPtr proc)
 
         flag = 1;
 
-        sub_804C208(
+        StartSioWarpFx(
             unitA, gUnknown_03001838[0], gUnknown_080D9F48[indexA].x, gUnknown_080D9F48[indexA].y, 2, flag, proc);
     }
 
@@ -1546,7 +1546,7 @@ void sub_804A7C0(ProcPtr proc)
             flag = 0;
         }
 
-        sub_804C208(
+        StartSioWarpFx(
             unitB, gUnknown_03001838[1], gUnknown_080D9F48[indexB].x, gUnknown_080D9F48[indexB].y, 2, flag, proc);
     }
 
@@ -2580,7 +2580,7 @@ void sub_804B624(struct SioBattleMapProc * proc)
 
     MU_StartMoveScript(pMuProc, gWorkingMovementScript);
 
-    sub_804BF4C(pMuProc);
+    StartLinkArenaMUDeathFade(pMuProc);
 
     proc->unk_54 = pMuProc;
     proc->unk_58++;
@@ -2754,7 +2754,7 @@ void sub_804B850(struct SioBattleMapProc * proc)
     if (gBattleActor.unit.curHP == 0)
     {
         pMuProc = Proc_Find(gProcScr_MoveUnit);
-        sub_804BF4C(pMuProc);
+        StartLinkArenaMUDeathFade(pMuProc);
         proc->unk_54 = pMuProc;
     }
 
@@ -2771,7 +2771,7 @@ void sub_804B850(struct SioBattleMapProc * proc)
         gWorkingMovementScript[1] = MU_COMMAND_HALT;
 
         MU_StartMoveScript(pMuProc, gWorkingMovementScript);
-        sub_804BF4C(pMuProc);
+        StartLinkArenaMUDeathFade(pMuProc);
 
         proc->unk_54 = pMuProc;
     }
