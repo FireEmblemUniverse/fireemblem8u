@@ -141,6 +141,55 @@ struct MUConfig {
     /* 48 */ struct MUProc* pMUProc;
 };
 
+struct MUStepSoundProc
+{
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x58);
+
+    /* 58 */ u32 idSound1;
+    /* 5C */ u32 idSound2;
+    /* 60 */ u32 u60_buggedmaybe; // Checked for in MU_StartStepSfx but never initialized
+    /* 64 */ s16 xSound1;
+    /* 66 */ s16 xSound2;
+};
+
+struct MUFogBumpFxProc
+{
+    PROC_HEADER;
+
+    /* 2C */ int xDisplay;
+    /* 30 */ int yDisplay;
+
+    /* 34 */ STRUCT_PAD(0x34, 0x50);
+    /* 50 */ struct APHandle * pAPHandle;
+
+    /* 54 */ STRUCT_PAD(0x54, 0x64);
+    /* 64 */ s16 timer;
+};
+
+struct MUEffectProc
+{
+    PROC_HEADER;
+
+    /* 29 */ STRUCT_PAD(0x29, 0x54);
+    /* 54 */ struct MUProc * pMUProc;
+
+    /* 58 */ STRUCT_PAD(0x58, 0x64);
+    /* 64 */ s16 timeLeft;
+    /* 66 */ s16 frameIndex;
+};
+
+struct MUFlashEffectProc
+{
+    PROC_HEADER;
+
+    /* 2C */ struct MUProc * pMUProc;
+    /* 30 */ u8 timer;
+};
+
+typedef void(*MUStateHandlerFunc)(struct MUProc*);
+
 extern struct ProcCmd CONST_DATA gProcScr_MoveUnit[];
 extern struct ProcCmd CONST_DATA gProcScr_MUDeathFade[];
 extern struct ProcCmd CONST_DATA gProcScr_MUBlinkEffect[];

@@ -175,7 +175,7 @@ void SioResult_Init(struct SioResultProc * proc)
     sub_804D1E0(217, 57, 10, 5, proc->unk_36 + 56, proc);
     NewProc085AA980(proc, 5, 0);
     sub_804C558();
-    sub_804C2EC(0xc0, 0x10, proc);
+    StartLinkArenaButtonSpriteDraw(0xc0, 0x10, proc);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 

@@ -448,7 +448,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word sub_804C590
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804C31C
+        .word EndLinkArenaButtonSpriteDraw
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndMuralBackground
@@ -529,7 +529,7 @@ ProcScr_SIOTERM:  @ 0x085A9BA0
         .word sub_8046E4C
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804C31C
+        .word EndLinkArenaButtonSpriteDraw
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndMuralBackground
