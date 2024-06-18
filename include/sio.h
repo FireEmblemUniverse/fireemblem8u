@@ -441,7 +441,7 @@ void sub_804BF4C(struct MUProc *);
 // ??? sub_804C1B8(???);
 // ??? sub_804C1D8(???);
 // ??? sub_804C1E4(???);
-void sub_804C208(struct Unit *, struct MUProc *, int, int, int, int, ProcPtr);
+ProcPtr sub_804C208(struct Unit *, struct MUProc *, int, int, int, int, ProcPtr);
 // ??? sub_804C260(???);
 // ??? sub_804C2B8(???);
 // ??? sub_804C2DC(???);

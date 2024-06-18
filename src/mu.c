@@ -26,51 +26,6 @@
     Handles managing and displaying moving map sprites.
 */
 
-struct MUStepSoundProc {
-    PROC_HEADER;
-
-    /* 29 */ u8 _pad29[0x58 - 0x29];
-
-    /* 58 */ unsigned idSound1;
-    /* 5C */ unsigned idSound2;
-    /* 60 */ unsigned u60_buggedmaybe; // Checked for in MU_StartStepSfx but never initialized
-    /* 64 */ short xSound1;
-    /* 66 */ short xSound2;
-};
-
-struct MUFogBumpFxProc {
-    PROC_HEADER;
-
-    /* 2C */ int xDisplay;
-    /* 30 */ int yDisplay;
-
-    /* 34 */ u8 _pad34[0x50 - 0x34];
-    /* 50 */ struct APHandle* pAPHandle;
-
-    /* 54 */ u8 _pad54[0x64 - 0x54];
-    /* 64 */ short timer;
-};
-
-struct MUEffectProc {
-    PROC_HEADER;
-
-    /* 29 */ u8 _pad29[0x54 - 0x29];
-    /* 54 */ struct MUProc* pMUProc;
-
-    /* 58 */ u8 _pad58[0x64 - 0x58];
-    /* 64 */ short timeLeft;
-    /* 66 */ short frameIndex;
-};
-
-struct MUFlashEffectProc {
-    PROC_HEADER;
-
-    /* 2C */ struct MUProc* pMUProc;
-    /* 30 */ u8 timer;
-};
-
-typedef void(*MUStateHandlerFunc)(struct MUProc*);
-
 struct MUProc * MU_CreateInternal(u16 x, u16 y, u16 classIndex, int objTileId, unsigned palId);
 
 void MU_StepSound_OnInit(struct MUStepSoundProc* proc);
