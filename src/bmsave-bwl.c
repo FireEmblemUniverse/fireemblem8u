@@ -115,7 +115,7 @@ int GetNextChapterStatsEntry()
         return GetChapterStats(index - 1)->chapter_index;
 }
 
-void RegisterChapterTimeAndTurnCount(struct PlaySt* play_st)
+void RegisterChapterTimeAndTurnCount(struct PlaySt * play_st)
 {
     struct ChapterStats *chstat = GetChapterStats(GetNextChapterStatsSlot());
     int time, turn;

@@ -1490,7 +1490,7 @@ void TalkShiftClearAll_OnIdle(struct Proc* proc) {
 }
 
 //! FE8U = 0x08007DE8
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent) {
+void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16 * tm, int defaultChoice, int color, ProcPtr parent) {
     struct TalkChoiceProc* proc;
 
     int x = Text_GetCursor(text) + 16;
@@ -2124,7 +2124,7 @@ void SetTalkUnkStr(const char* str) {
     return;
 }
 
-void PrintStringToTexts(struct Text** texts, const char* str, u16* tm, int unk) {
+void PrintStringToTexts(struct Text** texts, const char* str, u16 * tm, int unk) {
     int uh;
 
     int line = 0;

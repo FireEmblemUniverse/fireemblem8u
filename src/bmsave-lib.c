@@ -864,9 +864,9 @@ bool LoadAndVerfyRankData(void *buf)
         return 1;
 }
 
-bool LoadBonusContentData(void *buf)
+bool LoadBonusContentData(void * buf)
 {
-    u16 *_buf = buf;
+    struct BonusClaimSaveData * _buf = buf;
     
     if (!IsSramWorking())
         return 0;
@@ -875,27 +875,25 @@ bool LoadBonusContentData(void *buf)
         _buf = (void*)gGenericBuffer;
 
     ReadSramFast(
-        &gSram->unkstruct3,
-        (void*)_buf,
-        sizeof(gSram->unkstruct3)
+        &gSram->bonusClaim,
+        (void *)_buf,
+        sizeof(gSram->bonusClaim)
     );
 
-    if (_buf[0x140 / 2] != Checksum16(_buf, 0x140))
+    if (_buf->cksum16 != Checksum16(_buf, sizeof(_buf->bonus)))
         return 0;
     else
         return 1;
 }
 
-void SaveBonusContentData(void *buf)
+void SaveBonusContentData(void * buf)
 {
-    u16 *_buf = buf;
-
-    _buf[0x140/2] = Checksum16(buf, 0x140);
-
-    WriteAndVerifySramFast(buf, &gSram->unkstruct3, sizeof(gSram->unkstruct3));
+    struct BonusClaimSaveData * _buf = buf;
+    _buf->cksum16 = Checksum16(_buf, sizeof(_buf->bonus));
+    WriteAndVerifySramFast(buf, &gSram->bonusClaim, sizeof(gSram->bonusClaim));
 }
 
-void SaveRankings(void *buf)
+void SaveRankings(void * buf)
 {
     struct GameRankSaveDataPacks *_buf = buf;
 

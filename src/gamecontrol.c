@@ -97,7 +97,7 @@ PROC_LABEL(LGAMECTRL_POST_TITLE_IDLE),
 
 PROC_LABEL(LGAMECTRL_EXEC_SAVEMENU),
     PROC_CALL(GameControl_EnableSoundEffects),
-    PROC_CALL(Make6C_SaveMenuNewGame),
+    PROC_CALL(StartSaveMenu),
     PROC_YIELD,
     PROC_CALL(GameControl_SwitchPostSaveMenu),
     PROC_YIELD,

@@ -34,9 +34,9 @@ const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex) {
     return gExtraMapInfo->event_info;
 }
 
-const char* GetChapterTitle(unsigned chIndex) {
+const char * GetChapterTitleName(unsigned chIndex)
+{
     if (chIndex != 0x7F)
-        // ???????????????????
         return GetStringFromIndex((int)(&GetROMChapterStruct(chIndex)->chapTitleTextId));
 
     return gExtraMapInfo->chapter_title;

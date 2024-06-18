@@ -892,7 +892,7 @@ void sub_808E7B4(struct ChapterStatusProc* proc) {
 
     sub_80895B4(0x80, 0x13);
 
-    sub_8089624(0xB80, sub_808979C(&gPlaySt));
+    PutChapterTitleGfx(0xB80, GetChapterTitleWM(&gPlaySt));
 
     return;
 }

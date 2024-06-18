@@ -40,28 +40,27 @@ void PutChapterBannerSprites(void) {
 }
 
 //! FE8U = 0x080B0674
-void sub_80B0674(void) {
-
+void sub_80B0674(void)
+{
     u32 flags = (-(gPlaySt.chapterStateBits & 0x40) >> 0x1f) & 4;
 
-    if (gPlaySt.config.controller == 0) {
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_COMMON) {
+    if (gPlaySt.config.controller == 0)
+    {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_COMMON)
             flags |= 0x10;
-        }
 
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EIRIKA) {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EIRIKA)
             flags |= 0x20;
-        }
 
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM) {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM)
             flags |= 0x40;
-        }
-    } else {
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM) {
+    }
+    else
+    {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM)
             flags |= 0x40;
-        } else {
+        else
             flags |= 0x20;
-        }
     }
 
     sub_80895B4(flags | 1, 0x18);
@@ -69,8 +68,8 @@ void sub_80B0674(void) {
 
     EnablePaletteSync();
 
-    sub_8089678(0xac0);
-    sub_8089624(0xb40, sub_8089768(&gPlaySt));
+    PutChapterTitleBG(0xac0);
+    PutChapterTitleGfx(0xb40, GetChapterTitleExtra(&gPlaySt));
 
     return;
 }
@@ -322,7 +321,7 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
     SetupBackgrounds(0);
 
     ApplyPalettes(Pal_CommGameBgScreenInShop, 0xC, 2);
-    ApplyPalette(gUnknown_08A295B4, 0xE);
+    ApplyPalette(Pal_08A295B4, 0xE);
     Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_CommGameBgScreenInShop, 0xc000);
@@ -603,7 +602,7 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc * proc)
         int count;
         int color = 0;
         struct Unit * unit = gpBonusClaimConfig[i].unit;
-        u16* tm = gBG0TilemapBuffer + 14;
+        u16 * tm = gBG0TilemapBuffer + 14;
 
         ClearText(th);
         Text_SetCursor(th, 0);

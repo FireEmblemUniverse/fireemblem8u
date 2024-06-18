@@ -89,7 +89,7 @@ struct ProcPromoSel {
     s16 msg_desc[3];
     u16 _u3e;
     u8 stat;
-    u8 menu_index;
+    u8 main_select;
     u16 pid;
     u16 u44;
     u8 u46;

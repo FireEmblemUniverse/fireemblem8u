@@ -395,16 +395,16 @@ ProcPtr StartMuralBackgroundExt(ProcPtr, void*, int, int, int);
 void EndMuralBackground(void);
 
 void sub_80895B4(int, int);
-void sub_8089624(int, u32);
-void sub_808966C(int, int);
-void sub_8089678(int);
+void PutChapterTitleGfx(int, u32);
+void _PutChapterTitleGfx(int, int);
+void PutChapterTitleBG(int);
 void sub_80896A8(int chr);
 void sub_80896D8(u16 bg[], int);
 void sub_80896FC(u16 *, int, int);
 void sub_8089720(u16 * tm, int pal);
 void sub_8089744(u16 * tm, int pal);
-int sub_8089768(struct PlaySt *);
-int sub_808979C(struct PlaySt *);
+int GetChapterTitleExtra(struct PlaySt *);
+int GetChapterTitleWM(struct PlaySt *);
 
 u8 CanPrepScreenSave();
 int sub_8095024();

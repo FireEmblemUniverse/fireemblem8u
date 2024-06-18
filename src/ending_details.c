@@ -81,9 +81,9 @@ struct UnkProc {
     /* 4C */ u16 unk_4c[5];
 };
 
-extern char gUnknown_020007A0[];
+extern char Pal_020007A0[];
 
-char* CONST_DATA gUnknown_08A3CD64 = gUnknown_020007A0;
+char* CONST_DATA gUnknown_08A3CD64 = Pal_020007A0;
 
 struct CharacterEndingEnt CONST_DATA gCharacterEndings_Eirika[] = {
     { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
@@ -315,7 +315,7 @@ extern u16 gUnknown_020017A0[];
 extern u16 gUnknown_02001FA0[];
 
 u16* CONST_DATA gUnknown_08A3D348[] = {
-    (u16*) gUnknown_020007A0,
+    (u16*) Pal_020007A0,
     gUnknown_02000FA0,
     gUnknown_020017A0,
     gUnknown_02001FA0,
@@ -439,7 +439,7 @@ void SetupCharacterEndingGfx(void) {
 void sub_80B6810(void) {
     int offset;
     int i;
-    u16* tm;
+    u16 * tm;
 
     ApplyPalettes(gPal_CharacterEndingMenu, 0xC, 2);
     ApplyPalettes(Pal_CommGameBgScreenInShop, 0xE, 2);
@@ -1752,13 +1752,13 @@ void sub_80B8014(void) {
     SetBlendBackdropB(0);
     SetBlendConfig(1, 6, 0x10, 0);
 
-    Decompress(gUnknown_08A21658, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
-    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
+    Decompress(Img_SaveMenuBG, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    ApplyPalettes(Pal_SaveMenuBG, 8, 8);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_SaveMenuBG, 0x8000);
 
-    Decompress(gUnknown_08A26380, (void *)(GetBackgroundTileDataOffset(2) + 0x06004C00));
-    Decompress(gUnknown_08A268F8, gGenericBuffer);
-    ApplyPalette(gUnknown_08A268D8, 7);
+    Decompress(Img_MainMenuBgFog, (void *)(GetBackgroundTileDataOffset(2) + 0x06004C00));
+    Decompress(Tsa_MainMenuBgFog, gGenericBuffer);
+    ApplyPalette(Pal_MainMenuBgFog, 7);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);

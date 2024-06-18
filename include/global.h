@@ -2,6 +2,8 @@
 #define GUARD_GLOBAL_H
 
 #include <stdlib.h>
+#include <stdint.h>
+#include <limits.h>
 
 #include "gba/gba.h"
 

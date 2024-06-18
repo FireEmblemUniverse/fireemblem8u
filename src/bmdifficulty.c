@@ -564,19 +564,19 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     SetBlendConfig(1, 6, 16, 0);
 
-    Decompress(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
+    Decompress(Img_SaveMenuBG, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
 
-    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
+    ApplyPalettes(Pal_SaveMenuBG, 8, 8);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_SaveMenuBG, 0x8000);
 
     // Load and display fog overlay
 
-    Decompress(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
+    Decompress(Img_MainMenuBgFog, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
-    Decompress(gUnknown_08A268F8, gGenericBuffer);
+    Decompress(Tsa_MainMenuBgFog, gGenericBuffer);
 
-    ApplyPalette(gUnknown_08A268D8, 7);
+    ApplyPalette(Pal_MainMenuBgFog, 7);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x7260);
 

@@ -112,7 +112,7 @@ void sub_809D300(struct Text * textBase, u16 * tm, int yLines, struct Unit * uni
 }
 
 //! FE8U = 0x0809D418
-void sub_809D418(u16* tm, int yLines) {
+void sub_809D418(u16 * tm, int yLines) {
     int i;
 
     for (i = yLines; i < yLines + 7 && i < gUnknown_02012F56; i++) {

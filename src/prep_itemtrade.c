@@ -142,7 +142,7 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
 }
 
 //! FE8U = 0x0809B74C
-void DrawPrepScreenItems(u16* tm, struct Text* th, struct Unit* unit, u8 checkPrepUsability) {
+void DrawPrepScreenItems(u16 * tm, struct Text* th, struct Unit* unit, u8 checkPrepUsability) {
     s8 isUsable;
     int i;
     int itemCount;
@@ -180,7 +180,7 @@ void DrawPrepScreenItems(u16* tm, struct Text* th, struct Unit* unit, u8 checkPr
 }
 
 //! FE8U = 0x0809B830
-void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit) {
+void DrawPrepScreenItemIcons(u16 * tm, struct Unit* unit) {
     int i;
 
     int itemCount = GetUnitItemCount(unit);
