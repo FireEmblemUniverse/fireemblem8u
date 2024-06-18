@@ -2,6 +2,7 @@
 #define GUARD_TYPES_H
 
 #include "gba/types.h"
+#include <limits.h>
 
 #ifndef __STDBOOL_H__
 typedef s8 bool;

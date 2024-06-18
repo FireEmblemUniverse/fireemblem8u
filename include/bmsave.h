@@ -133,9 +133,9 @@ struct bmsave_unkstruct2 {
     u16 magic2;
 };
 
-struct bmsave_unkstruct3 {
-    struct BonusClaimEnt unk0[0x10];
-    u32 unk140;
+struct BonusClaimSaveData {
+    struct BonusClaimEnt bonus[0x10];
+    u16 cksum16;
 };
 
 enum
@@ -388,7 +388,7 @@ struct SaveBlocks {
     /* 0x7190 */ struct GameRankSaveDataPacks gameRankSave;
     /* 0x7224 */ struct SoundRoomSaveData soundRoomSave;
     /* 0x7248 */ struct bmsave_unkstruct2 unkstruct2;
-    /* 0x725C */ struct bmsave_unkstruct3 unkstruct3;
+    /* 0x725C */ struct BonusClaimSaveData bonusClaim;
     /* 0x73A0 */ u8 reserved[4];
     /* 0x73A4 */ u8 _pad_[0x7400 - 0x73A4];
     /* 0x7400 */ struct ExtraMapSaveHead xmap; // see bmsave-xmap.c
@@ -418,7 +418,7 @@ struct SaveBlocksEwram {
     /* 0x70E4 */ struct GameRankSaveDataPacks gameRankSave;
     /* 0x7178 */ struct SoundRoomSaveData soundRoomSave;
     /* 0x719C */ struct bmsave_unkstruct2 unkstruct2;
-    /* 0x71B0 */ struct bmsave_unkstruct3 unkstruct3;
+    /* 0x71B0 */ struct BonusClaimSaveData bonusClaim;
 };
 
 extern struct UnitUsageStats *gPidStatsSaveLoc;

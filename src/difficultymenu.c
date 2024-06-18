@@ -44,11 +44,10 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
 
             chIndex = playSt.chapterIndex;
             playSt.chapterIndex = r2;
-            proc->unk_37[slot] = sub_8089768(&playSt);
+            proc->chapter_idx[slot] = sub_8089768(&playSt);
 
             playSt.chapterIndex = chIndex;
-            proc->unk_48[slot] = playSt.time_saved;
-
+            proc->played_time[slot] = playSt.time_saved;
             proc->unk_3a[slot] = 0;
 
             // BUG?
@@ -73,9 +72,9 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
         }
         else
         {
-            proc->unk_37[slot] = 0xff;
+            proc->chapter_idx[slot] = (u8)-1;
             proc->unk_3a[slot] = 0;
-            proc->unk_48[slot] = 0;
+            proc->played_time[slot] = 0;
 
             gUnknown_02000940[slot] = 0;
             gUnknown_02000944[slot] = 0;
@@ -88,8 +87,8 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
         if (IsValidSuspendSave(3))
         {
             ReadSuspendSavePlaySt(3, &playSt);
-            proc->unk_3f = playSt.gameSaveSlot;
-            proc->unk_54 = playSt.time_saved;
+            proc->sus_slot_cur = playSt.gameSaveSlot;
+            proc->total_time = playSt.time_saved;
         }
         else
         {
@@ -224,7 +223,7 @@ u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc)
 
     for (mask = 1; mask < endMask; mask <<= 1)
     {
-        if ((proc->active_options & mask) != 0)
+        if ((proc->main_options & mask) != 0)
         {
             count++;
         }
@@ -489,27 +488,24 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     }
 
     if (proc->sprites_proc->flags_1)
-    {
         return;
-    }
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON))
     {
         proc->unk_2c = 0;
         PlaySoundEffect(0x6a);
-        switch (proc->current_selection)
-        {
-            case 0:
-                savemenu_SetDifficultyChoice(0, 0);
-                break;
+        switch (proc->current_selection) {
+        case 0:
+            SaveMenu_SetDifficultyChoice(0, 0);
+            break;
 
-            case 1:
-                savemenu_SetDifficultyChoice(1, 0);
-                break;
+        case 1:
+            SaveMenu_SetDifficultyChoice(1, 0);
+            break;
 
-            case 2:
-                savemenu_SetDifficultyChoice(2, 0);
-                break;
+        case 2:
+            SaveMenu_SetDifficultyChoice(2, 0);
+            break;
         }
 
         Proc_Goto(proc, 1);
@@ -519,7 +515,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     {
         proc->unk_2c = 0;
         PlaySoundEffect(0x6b);
-        savemenu_SetDifficultyChoice(3, 0);
+        SaveMenu_SetDifficultyChoice(3, 0);
         Proc_Goto(proc, 2);
     }
 

@@ -9,27 +9,29 @@
 
 EWRAM_DATA struct ChapterTitleFxSt gChapterTitleFxSt = { 0 };
 
-void sub_80895B4(int config, int palId) {
-    u16* pal;
-
+void sub_80895B4(int config, int palId)
+{
+    u16 * pal;
     pal = (config & 1)
         ? gPal_08A07AD8
         : gPal_08A07C58;
 
-    if ((config & 0x80) == 0) {
-        if ((config & 8) != 0) {
+    if ((config & 0x80) == 0)
+    {
+        if ((config & 8) != 0)
+        {
             pal = pal + 0xA0;
-        } else {
-            if ((config & 0x10) == 0) {
-                if ((config & 0x20) != 0) {
+        }
+        else
+        {
+            if ((config & 0x10) == 0)
+            {
+                if ((config & 0x20) != 0)
                     pal = pal + 0x20;
-                }
-                if ((config & 0x40) != 0) {
+                if ((config & 0x40) != 0)
                     pal = pal + 0x40;
-                }
-                if ((config & 4) != 0) {
+                if ((config & 4) != 0)
                     pal = pal + 0x40;
-                }
             }
         }
     }

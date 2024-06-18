@@ -70,7 +70,7 @@ void sub_80A72EC(struct GameSaveBlockEwram* src, struct GameSaveBlock* dst) {
 }
 
 //! FE8U = 0x080A7328
-void sub_80A7328(struct bmsave_unkstruct3* src, struct bmsave_unkstruct3* dst) {
+void sub_80A7328(struct BonusClaimSaveData* src, struct BonusClaimSaveData* dst) {
     *dst = *src;
     return;
 }
@@ -154,8 +154,8 @@ void EraseInvalidSaveData(void)
     sub_80A733C(&ewram_->unkstruct2, (struct bmsave_unkstruct2*)gUnknown_02008000);
     WriteLinkArenaStruct2((struct bmsave_unkstruct2*)gUnknown_02008000);
 
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct3));
-    sub_80A7328(&ewram_->unkstruct3, (struct bmsave_unkstruct3*)gUnknown_02008000);
+    CpuFastFill(0, gUnknown_02008000, sizeof(struct BonusClaimSaveData));
+    sub_80A7328(&ewram_->bonusClaim, (struct BonusClaimSaveData*)gUnknown_02008000);
     SaveBonusContentData(gUnknown_02008000);
 
     for (i = 0; i < SAVE_ID_MAX; i++) {
