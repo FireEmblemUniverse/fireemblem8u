@@ -577,8 +577,8 @@ void ChapterIntro_DrawChapterTitleMaybe() {
     BG_Fill(gBG0TilemapBuffer, 0x1280);
     sub_80895B4(8, 5);
 
-    var = sub_808979C(&gPlaySt);
-    sub_808966C(0x280, var);
+    var = GetChapterTitleWM(&gPlaySt);
+    _PutChapterTitleGfx(0x280, var);
     sub_80896FC(gBG0TilemapBuffer + 0x123, 5, var);
 
     BG_EnableSyncByMask(1);

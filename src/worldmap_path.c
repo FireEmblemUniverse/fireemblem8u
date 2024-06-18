@@ -1863,26 +1863,18 @@ void ResetGmStoryNode(void)
 }
 
 //! FE8U = 0x080BCFDC
-int sub_80BCFDC(u32 chapterId)
+int GetPlayChapterId(u32 chapterId)
 {
     int i;
 
     if (chapterId - 0x25 < 9)
-    {
         chapterId = 0x24;
-    }
     else if (chapterId - 0x2f < 9)
-    {
         chapterId = 0x2e;
-    }
 
     for (i = 0; i < NODE_MAX; i++)
-    {
         if (chapterId == WMLoc_GetChapterId(i))
-        {
             return i;
-        }
-    }
 
     return -1;
 }
@@ -2053,7 +2045,7 @@ int sub_80BD20C(int index)
 }
 
 //! FE8U = 0x080BD224
-int sub_80BD224(struct GMapData * worldMapData)
+int GetChapterIndexOnWmNode(struct GMapData * worldMapData)
 {
     int chapterId = 0;
 

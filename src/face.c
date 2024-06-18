@@ -522,7 +522,7 @@ void FaceRefreshSprite(struct FaceProc* proc) {
 }
 
 //! FE8U = 0x08005894
-void PutFaceTm(u16* tm, u8* data, int tileref, s8 isFlipped) {
+void PutFaceTm(u16 * tm, u8* data, int tileref, s8 isFlipped) {
     int ix;
     int iy;
 
@@ -576,7 +576,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
 }
 
 //! FE8U = 0x08005988
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, s8 isFlipped) {
+void PutFaceChibi(int fid, u16 * tm, int chr, int pal, s8 isFlipped) {
     UnpackFaceChibiGraphics(fid, chr, pal);
 
     chr &= 0x3FF;
@@ -657,7 +657,7 @@ void EndFaceChibiSpr(void) {
 }
 
 //! FE8U = 0x08005B78
-void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info) {
+void PutFace80x72_Standard(u16 * tm, int tileref, const struct FaceData* info) {
     int x = info->xMouth - 1;
     int y = info->yMouth;
 
@@ -677,7 +677,7 @@ void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info) {
 }
 
 //! FE8U = 0x08005BCC
-void PutFace80x72_Raised(u16* tm, int tileref, const struct FaceData* info) {
+void PutFace80x72_Raised(u16 * tm, int tileref, const struct FaceData* info) {
     int x = info->xMouth - 1;
     int y = info->yMouth - 1;
 
@@ -713,7 +713,7 @@ s8 ShouldFaceBeRaised(int fid) {
 }
 
 //! FE8U = 0x08005CA4
-void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
+void PutFace80x72_Core(u16 * tm, int fid, int chr, int pal) {
     const struct FaceData* info;
 
     if (fid == 0) {

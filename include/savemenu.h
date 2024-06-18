@@ -6,26 +6,26 @@
 
 enum {
     PL_SAVEMENU_INIT,
-    PL_SAVEMENU_1,
+    PL_SAVEMENU_DIFFICULTY_SEL,
     PL_SAVEMENU_MAIN_LOOP,
-    PL_SAVEMENU_3,
-    PL_SAVEMENU_4,
-    PL_SAVEMENU_5,
-    PL_SAVEMENU_6,
-    PL_SAVEMENU_7,
+    PL_SAVEMENU_SCROLL_SLOT,
+    PL_SAVEMENU_BACK_TO_MAIN,
+    PL_SAVEMENU_SAVE_SLOT_SEL,
+    PL_SAVEMENU_SLOT_SELECTED,
+    PL_SAVEMENU_EXEC_MISC_OPTION,
     PL_SAVEMENU_8,
     PL_SAVEMENU_9,
     PL_SAVEMENU_10,
-    PL_SAVEMENU_11,
+    PL_SAVEMENU_POST_BONUS_CLAIM,
     PL_SAVEMENU_12,
     PL_SAVEMENU_13,
-    PL_SAVEMENU_14,
+    PL_SAVEMENU_EXEC_EXTRA_MISC_OPTION,
     PL_SAVEMENU_EXIT,
     PL_SAVEMENU_16,
     PL_SAVEMENU_EXIT_FADE,
     PL_SAVEMENU_NEW_GAME,
     PL_SAVEMENU_19,
-    PL_SAVEMENU_MAIN_LOOP0,
+    PL_SAVEMENU_SAVE_SLOT_SEL_FADEIN,
     PL_SAVEMENU_BLOCKING,
 };
 
@@ -38,8 +38,10 @@ enum {
     MAIN_MENU_NEW_GAME   = 4,
     MAIN_MENU_EXTRAS     = 5,
     MAIN_MENU_INVALID    = 6,
+    MAIN_MENU_7          = 7,
+    MAIN_MENU_EXIT       = 8,
 
-    /* SaveMenuProc::main_options and main_sel_bitmask */
+    /* SaveMenuProc::main_options and main_sel_bitfile */
     MAIN_MENU_OPTION_RESUME     = (1 << MAIN_MENU_RESUME),
     MAIN_MENU_OPTION_RESTART    = (1 << MAIN_MENU_RESTART),
     MAIN_MENU_OPTION_COPY       = (1 << MAIN_MENU_COPY),
@@ -47,6 +49,8 @@ enum {
     MAIN_MENU_OPTION_NEW_GAME   = (1 << MAIN_MENU_NEW_GAME),
     MAIN_MENU_OPTION_EXTRAS     = (1 << MAIN_MENU_EXTRAS),
     MAIN_MENU_OPTION_INVALID    = (1 << MAIN_MENU_INVALID),
+    MAIN_MENU_OPTION_7          = (1 << MAIN_MENU_7),
+    MAIN_MENU_OPTION_EXIT       = (1 << MAIN_MENU_EXIT),
 
     /* SaveMenuProc::extra_select */
     EXTRA_MENU_LINK_ARENA   = 0,
@@ -56,13 +60,36 @@ enum {
     EXTRA_MENU_BONUS_CLAIM  = 5,
     EXTRA_MENU_6            = 6,
 
-    /* SaveMenuProc::extra_sel_bitmask */
+    /* SaveMenuProc::extra_sel_bitfile */
     EXTRA_MENU_OPTION_LINK_ARENA   = (1 << EXTRA_MENU_LINK_ARENA),
     EXTRA_MENU_OPTION_SOUND_ROOM   = (1 << EXTRA_MENU_SOUND_ROOM),
     EXTRA_MENU_OPTION_SUPPORT      = (1 << EXTRA_MENU_SUPPORT),
     EXTRA_MENU_OPTION_MAP          = (1 << EXTRA_MENU_MAP),
     EXTRA_MENU_OPTION_BONUS_CLAIM  = (1 << EXTRA_MENU_BONUS_CLAIM),
     EXTRA_MENU_OPTION_6            = (1 << EXTRA_MENU_6),
+};
+
+enum video_savemenu {
+    BGCHR_SAVEMENU_SUBBOX_TEXT = 0x80,
+    BGPAL_SAVEMENU_SUBBOX_TEXT = 4,
+
+    BGCHR_SAVEMENU_BGFOG = 0x260,
+    BGPAL_SAVEMENU_BGFOG = 7,
+
+    OBJCHR_SAVEMENU_SPRITES = 0x40,
+    OBJPAL_SAVEMENU_SPRITES = 2,
+
+    OBJCHR_SAVEMENU_MAINCHOICE_STR = 0x200,
+
+    OBJCHR_SAVEMENU_TITLEBG = 0x2C0,
+    OBJPAL_SAVEMENU_TITLEBG = 8,
+
+    OBJCHR_SAVEMENU_TITLEGFX = 0x340,
+};
+
+enum video_savemenu_slotsel {
+    OBJCHR_SAVEMENU_SLOTSEL_HELPBOX = 0x200,
+    OBJPAL_SAVEMENU_SLOTSEL_HELPBOX = 9,
 };
 
 struct SaveDrawProc {
@@ -99,16 +126,16 @@ struct SaveMenuProc {
     /* 32 */ u8 extra_options; // extras menu current index
     /* 33 */ u8 max_choice;
     /* 34 */ u8 extra_select; // confirm / cancel options
-    /* 35 */ u8 extra_sel_bitmask; // bit mask
-    /* 36 */ u8 unk_36;
+    /* 35 */ u8 extra_sel_bitfile; // bit mask
+    /* 36 */ u8 cursor_config;
     /* 37 */ u8 chapter_idx[3];
     /* 3A */ u8 unk_3a[3];
     /* 3D */ u8 unk_3d;
-    /* 3E */ u8 unk_3e;
+    /* 3E */ u8 hb_en;
     /* 3F */ u8 sus_slot_cur;
     /* 40 */ u8 ctrl_timer;
     /* 41 */ u8 unk_41;
-    /* 42 */ u16 main_sel_bitmask;
+    /* 42 */ u16 main_sel_bitfile;
     /* 44 */ u16 unk_44;
     /* 46 */ u16 unk_46;
 
@@ -117,7 +144,7 @@ struct SaveMenuProc {
 
     /* 58 */ struct SaveDrawProc * savedraw;
     /* 5C */ u32 unk_5c;
-    /* 60 */ ProcPtr unk_60;
+    /* 60 */ ProcPtr approc;
 };
 
 enum savemenuproc_st {
@@ -181,31 +208,31 @@ struct ProcBonusClaimMenu
     /* 5C */ int unk_5c;
 };
 
-void sub_80A882C(ProcPtr proc);
-u8 SaveMenuGetSelectBitMask(u8 bitfile, u32 index);
-u8 sub_80A887C(u8 a, u8 b);
-u8 sub_80A88B8(u8);
-void sub_80A88E0(struct SaveMenuProc * proc);
-int LoadSaveMenuHelpText(int slot);
+void SaveMenu_NewGame(ProcPtr proc);
+u8 SaveMenuGetBitfile(u8 bitfile, u32 index);
+u8 SaveMenuGetBitfileByMask(u8 a, u8 b);
+u8 BitfileToIndex(u8);
+void SaveMenuHandleHelpBox(struct SaveMenuProc * proc);
+int LoadSaveMenuInfo(int slot);
 bool SaveMenuWaitHelpBoxAnim(struct SaveMenuProc * proc);
-void sub_80A8A9C(struct SaveMenuProc * proc);
+void SaveMenuPutChapterTitle(struct SaveMenuProc * proc);
 void SaveMenu_SetLcdChapterIdx(void);
 void SaveMenu_Init(void);
-void ProcSaveMenu_InitScreen(struct SaveMenuProc * proc);
+void SaveMenu_InitScreen(struct SaveMenuProc * proc);
 void SaveMenu_LoadExtraMenuGraphics(struct SaveMenuProc * proc);
 void SaveMenuInit(struct SaveMenuProc * proc);
 void SaveMenuInitUnused(struct SaveMenuProc * proc);
 void SaveMenu_JumpToTarget(struct SaveMenuProc * proc);
 void SameMenu_CtrlLoop(struct SaveMenuProc * proc);
 void SaveMenuWriteNewGame(struct SaveMenuProc * proc);
-void sub_80A9290(struct SaveMenuProc * proc);
-void SaveMenuPostChapterIDLE(struct SaveMenuProc * proc);
-void sub_80A96D0(struct SaveMenuProc * proc);
-void sub_80A96DC(struct SaveMenuProc * proc);
-void sub_80A96EC(struct SaveMenuProc * proc);
-void sub_80A99C0(struct SaveMenuProc * proc);
+void ExecSaveMenuMiscOption(struct SaveMenuProc * proc);
+void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc);
+void _ExecSaveMenuMiscOption(struct SaveMenuProc * proc);
+void SaveMenuRegisterSlotSelected(struct SaveMenuProc * proc);
+void SaveMenuWaitSlotBoxScrolling(struct SaveMenuProc * proc);
+void SaveMenuScrollSlot(struct SaveMenuProc * proc);
 void sub_80A9A08(struct SaveMenuProc * proc);
-void sub_80A9A18(struct SaveMenuProc * proc);
+void SaveMenuScrollBackToMain(struct SaveMenuProc * proc);
 void sub_80A9A68(struct SaveMenuProc * proc);
 void sub_80A9AB0(struct SaveMenuProc * proc);
 void sub_80A9AF4(struct SaveMenuProc * proc);
@@ -220,18 +247,18 @@ void sub_80AA018(struct SaveMenuProc * proc);
 void PostSaveMenuHandler(struct SaveMenuProc * proc);
 void ExtraMapStartSomeBgm(struct SaveMenuProc * proc);
 void ExecExtraMap(struct SaveMenuProc * proc);
-void sub_80AA158(struct SaveMenuProc * proc);
-void sub_80AA1BC(struct SaveMenuProc * proc);
+void SaveMenuStartExtraMiscScreen(struct SaveMenuProc * proc);
+void SaveMenuPostExtraMiscScreen(struct SaveMenuProc * proc);
 void SaveMenu_ResetLcdFormDifficulty(struct SaveMenuProc * proc);
 void sub_80AA248(struct SaveMenuProc * proc);
 void sub_80AA2A8(struct SaveMenuProc * proc);
 void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc);
 void SaveMenu_PostDifficultHandler(struct SaveMenuProc * proc);
-void sub_80AA47C(struct SaveMenuProc * proc);
+void SaveMenuSlotSelDrawSprite(struct SaveMenuProc * proc);
 void SaveMenuStartBonusClaim(struct SaveMenuProc * proc);
-void sub_80AA4B4(void);
+void SaveMenu_EndHelpPromptSprite(void);
 void StartSaveMenu(ProcPtr);
-void sub_80AA4F8(ProcPtr proc);
+void SaveMenuDirectlySelectSlotOnPrepScreen(ProcPtr proc);
 void Make6C_SaveMenuPostChapter(ProcPtr);
 void SaveMenu_SetDifficultyChoice(int, int);
 void sub_80AA550(struct ProcBonusClaimMenu * proc);
@@ -240,11 +267,11 @@ void sub_80AA658(struct ProcBonusClaimMenu * proc);
 void sub_80AA69C(struct ProcBonusClaimMenu * proc);
 void sub_80AA6D8(void);
 void StartBonusClaimMenu(ProcPtr);
-void sub_80AA700(void);
+void InitSaveMenuHelpTextSt(void);
 const char * GetLeaderNameForSaveMenu(void);
 int GetLeaderLevelForSaveMenu(void);
 const char * GetWMNodeNameForSaveMenu(void);
-void sub_80AA790(u16 *, u16 *, int);
+void SaveMenuCopyPalette(u16 *, u16 *, int);
 void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
 void sub_80AA9D8(struct SaveDrawProc *);
@@ -270,7 +297,7 @@ struct SaveDrawCursorProc {
     /* 30 */ s16 main_options;
     /* 32 */ s16 unk_32;
     /* 34 */ s16 unk_34;
-    /* 36 */ u8 unk_36;
+    /* 36 */ u8 cursor_en;
     /* 37 */ u8 unk_37;
     /* 38 */ u8 unk_38;
     /* 39 */ u8 unk_39;
@@ -298,8 +325,8 @@ struct Unknown020007E0 {
 
 extern struct Unknown020007E0 gUnknown_020007E0[];
 
-extern struct Font gUnknown_02000920;
-extern struct Text gUnknown_02000938;
+extern struct Font gSaveMenuSubBoxFont;
+extern struct Text gSaveMenuSubBoxText;
 
 struct Unknown03004990 {
     /* 000 */ u8 unk[0x79E - 0x000];
@@ -322,22 +349,22 @@ void sub_80AB56C(u32 a);
 // ??? sub_80AB720(???);
 void sub_80AB760(void*);
 void sub_80AB77C(void);
-void sub_80AB794(void);
-// ??? sub_80AB7BC(???);
-void sub_80AB83C(struct SaveMenuProc*, s8);
+void SaveMenuInitSubBoxText(void);
+// ??? SaveMenuDrawSubSelBoxExt(???);
+void SaveMenuDrawSubSelBox(struct SaveMenuProc *, s8);
 // ??? AddMainMenuOption(???);
 // ??? AddExtraMenuOption(???);
-void InitSaveMenuChoice(struct SaveMenuProc*);
-u8 SaveMenuModifySaveSlot(u8, int, int);
-s8 sub_80AB9FC(struct SaveMenuProc*, int);
-s8 sub_80ABA98(struct SaveMenuProc*);
-void StartSqMask(struct SaveMenuProc* parent, int b, int c);
-void StartSqMask(struct SaveMenuProc*, int, int);
+void InitSaveMenuChoice(struct SaveMenuProc *);
+u8 SaveMenuModifySaveSlot(u8 slot, s8 valid, s8 position);
+s8 SaveMenuTryMoveSaveSlotCursor(struct SaveMenuProc *, s8 position);
+bool SaveMenuHasOptions(struct SaveMenuProc * proc);
+void StartSqMask(struct SaveMenuProc * parent, int b, int c);
+void StartSqMask(struct SaveMenuProc *, int, int);
 void SaveBgUp_Loop(void);
 ProcPtr StartSaveBgUp(ProcPtr parent);
-void sub_80ABC14(u8, struct SaveMenuProc*);
-void sub_80ABD88(u8);
-void sub_80ABE3C(int param_1, int param_2);
+void SaveMenuInitSaveSlotData(u8, struct SaveMenuProc *);
+void SaveMenuInitSlotPalette(u8);
+void SaveDrawSetDifficultSlotPalette(int param_1, int param_2);
 u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc);
 void sub_80ABF74(u8);
 void DrawDifficultyModeText(struct DifficultyMenuProc *);
@@ -376,7 +403,7 @@ extern u16 * SpriteArray_08A2067C[];
 // extern ??? ProcScr_savedraw
 // extern ??? gProcScr_SaveDrawCursor
 // extern ??? gProcScr_08A206F8
-// extern ??? gUnknown_08A20720
+// extern ??? SaveMenuSubSelBoxTexts
 // extern ??? gProcScr_SqMask
 // extern ??? gProcScr_SaveBgUp
 extern u16 * SpriteArray_08A2099C[];

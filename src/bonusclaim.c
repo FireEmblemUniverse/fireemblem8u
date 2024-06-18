@@ -68,8 +68,8 @@ void sub_80B0674(void)
 
     EnablePaletteSync();
 
-    sub_8089678(0xac0);
-    sub_8089624(0xb40, sub_8089768(&gPlaySt));
+    PutChapterTitleBG(0xac0);
+    PutChapterTitleGfx(0xb40, GetChapterTitleExtra(&gPlaySt));
 
     return;
 }
@@ -321,7 +321,7 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
     SetupBackgrounds(0);
 
     ApplyPalettes(Pal_CommGameBgScreenInShop, 0xC, 2);
-    ApplyPalette(gUnknown_08A295B4, 0xE);
+    ApplyPalette(Pal_08A295B4, 0xE);
     Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_CommGameBgScreenInShop, 0xc000);
@@ -602,7 +602,7 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc * proc)
         int count;
         int color = 0;
         struct Unit * unit = gpBonusClaimConfig[i].unit;
-        u16* tm = gBG0TilemapBuffer + 14;
+        u16 * tm = gBG0TilemapBuffer + 14;
 
         ClearText(th);
         Text_SetCursor(th, 0);

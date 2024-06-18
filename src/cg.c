@@ -193,7 +193,7 @@ void sub_80B65F4(void) {
 void ModifySaveLinkArenaStruct2B(void *buf, int val);
 
 //! FE8U = 0x080B65F8
-void DisplayCGfx(u16* tm, int offset, int palId, int palCount, int idx)
+void DisplayCGfx(u16 * tm, int offset, int palId, int palCount, int idx)
 {
     int i;
 

@@ -21,7 +21,7 @@ struct Unknown_08A209FC gUnknown_08A209FC[] =
 };
 
 //! FE8U = 0x080ABC14
-void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
+void SaveMenuInitSaveSlotData(u8 slot, struct SaveMenuProc * proc)
 {
     struct PlaySt playSt;
     struct GMapData worldMapData;
@@ -32,19 +32,19 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
         if (IsSaveValid(slot))
         {
             int chIndex;
-            int r2;
+            int ch_idx;
             ReadGameSavePlaySt(slot, &playSt);
 
-            r2 = playSt.chapterIndex;
+            ch_idx = playSt.chapterIndex;
             if (!(playSt.chapterStateBits & PLAY_FLAG_COMPLETE) && (playSt.save_menu_type == 4))
             {
                 LoadSavedWMStuff(slot, &worldMapData);
-                r2 = sub_80BD224(&worldMapData);
+                ch_idx = GetChapterIndexOnWmNode(&worldMapData);
             }
 
             chIndex = playSt.chapterIndex;
-            playSt.chapterIndex = r2;
-            proc->chapter_idx[slot] = sub_8089768(&playSt);
+            playSt.chapterIndex = ch_idx;
+            proc->chapter_idx[slot] = GetChapterTitleExtra(&playSt);
 
             playSt.chapterIndex = chIndex;
             proc->played_time[slot] = playSt.time_saved;
@@ -52,23 +52,17 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
 
             // BUG?
             if (IsGameNotFirstChapter((struct PlaySt *)(uintptr_t)slot) != 0)
-            {
                 proc->unk_3a[slot] |= 1;
-            }
 
             if (LoadSavedEid8A(slot) != 0)
-            {
                 proc->unk_3a[slot] |= 2;
-            }
 
             if (playSt.chapterStateBits & PLAY_FLAG_COMPLETE)
-            {
                 proc->unk_3a[slot] |= 4;
-            }
 
-            gUnknown_02000940[slot] = playSt.chapterStateBits;
-            gUnknown_02000944[slot] = playSt.chapterModeIndex;
-            memcpy(&gUnknown_02000948[slot], &playSt.config, 8);
+            gPlayStChapterBits[slot] = playSt.chapterStateBits;
+            gPlayStChapterMode[slot] = playSt.chapterModeIndex;
+            memcpy(&gPlayStOptionBits[slot], &playSt.config, 8);
         }
         else
         {
@@ -76,10 +70,10 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
             proc->unk_3a[slot] = 0;
             proc->played_time[slot] = 0;
 
-            gUnknown_02000940[slot] = 0;
-            gUnknown_02000944[slot] = 0;
+            gPlayStChapterBits[slot] = 0;
+            gPlayStChapterMode[slot] = 0;
 
-            memset(&gUnknown_02000948[slot], 0, 8);
+            memset(&gPlayStOptionBits[slot], 0, 8);
         }
     }
     else if (proc->unk_44 == 0x100)
@@ -100,7 +94,7 @@ void sub_80ABC14(u8 slot, struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080ABD88
-void sub_80ABD88(u8 slot)
+void SaveMenuInitSlotPalette(u8 slot)
 {
     int i;
 #ifndef NONMATCHING
@@ -111,29 +105,29 @@ void sub_80ABD88(u8 slot)
 
     for (i = 0; i < 3; i++)
     {
-        u32 flags = gUnknown_02000940[i] & 0x40 ? 4 : 0;
+        u32 flags = gPlayStChapterBits[i] & PLAY_FLAG_HARD ? 4 : 0;
 
-        if (!gUnknown_02000948[i].controller)
+        if (!gPlayStOptionBits[i].controller)
         {
-            if (gUnknown_02000944[i] == 1)
+            if (gPlayStChapterMode[i] == 1)
             {
                 flags = flags | 0x10;
             }
 
-            if (gUnknown_02000944[i] == 2)
+            if (gPlayStChapterMode[i] == 2)
             {
                 flags = flags | 0x20;
                 flags = (u8)flags;
             }
 
-            if (gUnknown_02000944[i] == 3)
+            if (gPlayStChapterMode[i] == 3)
             {
                 flags = flags | 0x40;
             }
         }
         else
         {
-            if (gUnknown_02000944[i] == 3)
+            if (gPlayStChapterMode[i] == 3)
             {
                 flags = flags | 0x40;
             }
@@ -155,7 +149,6 @@ void sub_80ABD88(u8 slot)
     }
 
     EnablePaletteSync();
-    return;
 }
 
 extern u16 gUnknown_08A07B0A[];
@@ -164,9 +157,9 @@ extern u16 gUnknown_08A07C0A[];
 extern u16 gUnknown_08A07BEA[];
 
 //! FE8U = 0x080ABE3C
-void sub_80ABE3C(int param_1, int param_2)
+void SaveDrawSetDifficultSlotPalette(int param_1, int param_2)
 {
-    int r2;
+    int slot;
     u16 * r6;
     u16 * r8;
     int r9;
@@ -179,16 +172,16 @@ void sub_80ABE3C(int param_1, int param_2)
     if (param_1 > 0x10)
         param_1 = 0x10 - (param_1 & 0xf);
 
-    for (r2 = 0; r2 < 3; r2++)
+    for (slot = 0; slot < 3; slot++)
     {
         int tmp;
-        if (!(gUnknown_02000940[r2] & 0x40))
+        if (!(gPlayStChapterBits[slot] & PLAY_FLAG_HARD))
             continue;
 
-        tmp = (r2 * 0x20 + 0xa0);
+        tmp = (slot * 0x20 + 0xa0);
         r8 = &gPaletteBuffer[tmp + 0x109];
 
-        if (r2 == param_2)
+        if (slot == param_2)
         {
             ip = ketchup;
             r6 = pickle;
@@ -212,8 +205,6 @@ void sub_80ABE3C(int param_1, int param_2)
     }
 
     EnablePaletteSync();
-
-    return;
 }
 
 //! FE8U = 0x080ABF44
@@ -332,10 +323,10 @@ void DifficultySelect_OnEnd(struct DifficultyMenuProc * proc)
     return;
 }
 
-extern u16 gUnknown_08A25DCC[];    // pal
-extern u16 gUnknown_08A268D8[];    // pal
+extern u16 Pal_SaveMenuBG[];    // pal
+extern u16 Pal_MainMenuBgFog[];    // pal
 extern u16 Pal_SaveScreenSprits[]; // pal
-extern u16 gUnknown_08A295B4[];    // pal
+extern u16 Pal_08A295B4[];    // pal
 extern u16 Pal_DifficultyMenuObjs[];
 extern u8 Img_DifficultyMenuObjs[];
 
@@ -355,11 +346,11 @@ void InitDifficultySelectScreen(struct DifficultyMenuProc * proc)
         InitText(&proc->unk_38[i], 14);
     }
 
-    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
-    ApplyPalette(gUnknown_08A268D8, 7);
+    ApplyPalettes(Pal_SaveMenuBG, 8, 8);
+    ApplyPalette(Pal_MainMenuBgFog, 7);
 
     ApplyPalettes(Pal_SaveScreenSprits, 18, 8);
-    ApplyPalette(gUnknown_08A295B4, 2);
+    ApplyPalette(Pal_08A295B4, 2);
 
     Decompress(Img_DifficultyMenuObjs, (void *)0x06010800);
     ApplyPalettes(Pal_DifficultyMenuObjs, 17, 10);

@@ -19,4 +19,5 @@ enum event_flag_idx {
     #define EVFLAG_EXTRA_UNIT(i) (EVFLAG_EXTRA_UNIT_BASE + (i))
 
     EVFLAG_HIDE_BLINKING_ICON = 132,
+    EVFLAG_136 = 136,
 };

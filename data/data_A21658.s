@@ -1,27 +1,27 @@
     .section .data
 
-	.global gUnknown_08A21658
-gUnknown_08A21658:  @ 0x08A21658
+	.global Img_SaveMenuBG
+Img_SaveMenuBG:  @ 0x08A21658
 	.incbin "baserom.gba", 0xA21658, 0x4774
 
-	.global gUnknown_08A25DCC
-gUnknown_08A25DCC:  @ 0x08A25DCC
+	.global Pal_SaveMenuBG
+Pal_SaveMenuBG:  @ 0x08A25DCC
 	.incbin "baserom.gba", 0xA25DCC, 0x100
 
-	.global gUnknown_08A25ECC
-gUnknown_08A25ECC:  @ 0x08A25ECC
+	.global Tsa_SaveMenuBG
+Tsa_SaveMenuBG:  @ 0x08A25ECC
 	.incbin "baserom.gba", 0xA25ECC, 0x4B4
 
-	.global gUnknown_08A26380
-gUnknown_08A26380:  @ 0x08A26380
+	.global Img_MainMenuBgFog
+Img_MainMenuBgFog:  @ 0x08A26380
 	.incbin "baserom.gba", 0xA26380, 0x558
 
-	.global gUnknown_08A268D8
-gUnknown_08A268D8:  @ 0x08A268D8
+	.global Pal_MainMenuBgFog
+Pal_MainMenuBgFog:  @ 0x08A268D8
 	.incbin "baserom.gba", 0xA268D8, 0x20
 
-	.global gUnknown_08A268F8
-gUnknown_08A268F8:  @ 0x08A268F8
+	.global Tsa_MainMenuBgFog
+Tsa_MainMenuBgFog:  @ 0x08A268F8
 	.incbin "baserom.gba", 0xA268F8, 0x17C
 
 	.global Img_SaveScreenSprits
@@ -60,8 +60,8 @@ gUnknown_08A29498:  @ 0x08A29498
 gUnknown_08A29558:  @ 0x08A29558
 	.incbin "baserom.gba", 0xA29558, 0x5C
 
-	.global gUnknown_08A295B4
-gUnknown_08A295B4:  @ 0x08A295B4
+	.global Pal_08A295B4
+Pal_08A295B4:  @ 0x08A295B4
 	.incbin "baserom.gba", 0xA295B4, 0x20
 
 	.global Tsa_CommGameBgScreenInShop

@@ -2096,7 +2096,7 @@ _08046A4A:
 	add r1, sp, #4
 	bl ReadGameSavePlaySt
 	add r0, sp, #4
-	bl sub_8089768
+	bl GetChapterTitleExtra
 	adds r2, r7, #0
 	adds r2, #0x2c
 	adds r1, r2, r5
@@ -2242,7 +2242,7 @@ _08046B72:
 _08046B74:
 	movs r0, #0xd0
 	lsls r0, r0, #1
-	bl sub_8089678
+	bl PutChapterTitleBG
 	movs r3, #0
 	mov r9, r3
 	movs r0, #0xa0
@@ -2294,7 +2294,7 @@ _08046BB0:
 	ldr r3, [sp, #0x60]
 	ldm r3!, {r1}
 	str r3, [sp, #0x60]
-	bl sub_8089624
+	bl PutChapterTitleGfx
 	ldr r0, _08046C5C  @ gBG0TilemapBuffer+0x006
 	ldr r1, [sp, #0x5c]
 	adds r0, r1, r0

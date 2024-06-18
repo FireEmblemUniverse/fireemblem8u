@@ -37,7 +37,7 @@ ProcPtr StartMuralBackground(ProcPtr parent, void* vram, int pal) {
     int tileref;
     int i;
 
-    u16* tm = gBG3TilemapBuffer;
+    u16 * tm = gBG3TilemapBuffer;
 
     if (vram == NULL) {
         vram = ((void*) VRAM) + GetBackgroundTileDataOffset(3);
@@ -69,7 +69,7 @@ ProcPtr StartMuralBackgroundAlt(ProcPtr parent, void * vram, int pal, u8 flag)
 {
     int tileref;
     int i;
-    u16* tm = gBG3TilemapBuffer;
+    u16 * tm = gBG3TilemapBuffer;
 
     if (vram == 0) {
         vram = ((void*) VRAM) + GetBackgroundTileDataOffset(3);
@@ -101,7 +101,7 @@ ProcPtr StartMuralBackgroundExt(ProcPtr parent, void* vram, int a, int b, int pa
     int i;
     int tileref;
 
-    u16* tm = gBG3TilemapBuffer;
+    u16 * tm = gBG3TilemapBuffer;
 
     if (vram == 0) {
         vram = ((void*) VRAM) + GetBackgroundTileDataOffset(3);

@@ -427,7 +427,7 @@ void sub_8098A04(u16 * tm)
 }
 
 //! FE8U = 0x08098A74
-void sub_8098A74(u16* tm) {
+void sub_8098A74(u16 * tm) {
     int textId;
 
     TileMap_FillRect(tm, 10, 8, 0);
@@ -789,7 +789,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
 }
 
 //! FE8U = 0x08099328
-void sub_8099328(struct PrepItemScreenProc* proc, u16* tm, struct Unit* unit) {
+void sub_8099328(struct PrepItemScreenProc* proc, u16 * tm, struct Unit* unit) {
     TileMap_FillRect(tm, 10, 6, 0);
 
     ClearText(&gPrepItemScreenTexts[10]);
@@ -1532,7 +1532,7 @@ ProcPtr StartPrepItemScreen(ProcPtr proc) {
 }
 
 //! FE8U = 0x08099F7C
-void sub_8099F7C(struct Text* th, u16* tm, struct Unit* unit, u16 flags) {
+void sub_8099F7C(struct Text* th, u16 * tm, struct Unit* unit, u16 flags) {
     int itemCount;
     int i;
 

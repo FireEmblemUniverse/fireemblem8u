@@ -141,9 +141,9 @@ bool sub_80A6D1C(u8 *buf)
     return true;
 }
 
-const char* GetChapterTitle_(unsigned ch)
+const char * GetChapterTitleName_(unsigned ch)
 {
-    return GetChapterTitle(ch);
+    return GetChapterTitleName(ch);
 }
 
 bool bmsave_null_false1(void)

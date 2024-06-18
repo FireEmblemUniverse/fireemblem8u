@@ -701,7 +701,7 @@ struct PrepMenuTradeProc {
 void PrepItemTrade_ApplyItemSwap(struct Unit * unitA, int itemSlotA, struct Unit * unitB, int itemSlotB);
 s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc);
 void DrawPrepScreenItems(u16*, struct Text*, struct Unit*, u8);
-void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit);
+void DrawPrepScreenItemIcons(u16 * tm, struct Unit* unit);
 void PrepItemTrade_Init(struct PrepMenuTradeProc * proc);
 void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc * proc);
 void PrepItemTrade_OnEnd(void);

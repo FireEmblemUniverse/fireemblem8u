@@ -14,13 +14,13 @@ extern u8 gUnk_02000000[];
 // extern ??? gMinimapBackWinBuf
 // extern ??? gMinimapDisplayedWinBuf
 extern u16 *gMinimapObjectFlashPal;
-// extern ??? gUnknown_020007A0
+// extern ??? Pal_020007A0
 // extern ??? gUnknown_020007E0
-// extern ??? gUnknown_02000920
-// extern ??? gUnknown_02000938
-extern u8 gUnknown_02000940[];
-extern u8 gUnknown_02000944[];
-extern struct PlaySt_OptionBits gUnknown_02000948[];
+// extern ??? gSaveMenuSubBoxFont
+// extern ??? gSaveMenuSubBoxText
+extern u8 gPlayStChapterBits[];
+extern u8 gPlayStChapterMode[];
+extern struct PlaySt_OptionBits gPlayStOptionBits[];
 
 // extern ??? gUnk_Sio_02000C78
 // extern ??? gUnk_Sio_02000F00
@@ -1094,12 +1094,12 @@ extern struct ProcCmd CONST_DATA gProcScr_DrawDifficultyMenuSprites[];
 // extern ??? gProcScr_SoundRoom_DrawSprites
 // extern ??? gUnknown_08A21550
 // extern ??? gUnknown_08A21568
-extern u8 gUnknown_08A21658[]; // gfx, "records" background
-extern u16 gUnknown_08A25DCC[]; // pal, "records" background
-extern u8 gUnknown_08A25ECC[]; // tsa, "records" background
-extern u8 gUnknown_08A26380[]; // gfx, fog overlay
-extern u16 gUnknown_08A268D8[]; // pal, fog overlay
-extern u8 gUnknown_08A268F8[]; // tsa, fog overlay
+extern u8 Img_SaveMenuBG[]; // gfx, "records" background
+extern u16 Pal_SaveMenuBG[]; // pal, "records" background
+extern u8 Tsa_SaveMenuBG[]; // tsa, "records" background
+extern u8 Img_MainMenuBgFog[]; // gfx, fog overlay
+extern u16 Pal_MainMenuBgFog[]; // pal, fog overlay
+extern u8 Tsa_MainMenuBgFog[]; // tsa, fog overlay
 extern u8 Img_SaveScreenSprits[]; // gfx
 extern u16 Pal_SaveScreenSprits[]; // pal
 extern u16 Pal_08A28088[];
@@ -1110,7 +1110,7 @@ extern u8 Img_GameMainMenuObjs[];
 // extern ??? gUnknown_08A2949A
 // extern ??? gUnknown_08A294BA
 // extern ??? gUnknown_08A29558
-extern u16 gUnknown_08A295B4[]; // pal
+extern u16 Pal_08A295B4[]; // pal
 extern u8 Tsa_CommGameBgScreenInShop[]; // tsa
 // extern ??? gUnknown_08A29A88
 // extern ??? gUnknown_08A2B1E4

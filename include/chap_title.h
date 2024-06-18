@@ -12,8 +12,8 @@ typedef struct {
 } ChapTitle, * pChapTitle;
 
 struct ChapterTitleFxSt {
-    u16 unk_00;
-    u16 unk_02;
+    u16 chr_bg;
+    u16 chr_str;
 };
 
 extern struct ChapterTitleFxSt gChapterTitleFxSt;

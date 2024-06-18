@@ -256,7 +256,7 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
 
     x = 143;
 
-    if (saveMenuProc->main_sel_bitmask == 1)
+    if (saveMenuProc->main_sel_bitfile == 1)
     {
         FormatTime(saveMenuProc->total_time, &hours, &minutes, &seconds);
     }
@@ -353,11 +353,11 @@ void SaveDraw_Init(struct SaveDrawProc * proc)
 
     if (SAVE_MENU_PARENT(proc)->sus_slot_cur == 0xff)
     {
-        SAVE_MENU_PARENT(proc)->unk_60 = NULL;
+        SAVE_MENU_PARENT(proc)->approc = NULL;
     }
     else
     {
-        SAVE_MENU_PARENT(proc)->unk_60 =
+        SAVE_MENU_PARENT(proc)->approc =
             APProc_Create(gUnknown_08A280A8, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140, 0, 4);
     }
 
@@ -415,11 +415,11 @@ void sub_80AACBC(struct SaveDrawProc * proc)
 {
     if (proc->unk_3c != SAVE_MENU_PARENT(proc)->sus_slot)
     {
-        sub_80ABD88(SAVE_MENU_PARENT(proc)->sus_slot);
+        SaveMenuInitSlotPalette(SAVE_MENU_PARENT(proc)->sus_slot);
         proc->unk_3c = SAVE_MENU_PARENT(proc)->sus_slot;
     }
 
-    sub_80ABE3C(proc->unk_2a, proc->unk_3c);
+    SaveDrawSetDifficultSlotPalette(proc->unk_2a, proc->unk_3c);
 
     EnablePaletteSync();
 
@@ -470,14 +470,14 @@ void sub_80AADE0(struct SaveDrawProc * proc)
 
     if (saveMenuProc->unk_46 != 0)
     {
-        if (saveMenuProc->extra_sel_bitmask & EXTRA_MENU_OPTION_MAP)
+        if (saveMenuProc->extra_sel_bitfile & EXTRA_MENU_OPTION_MAP)
             PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[10], OAM2_PAL(4));
         else
             PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[8], OAM2_PAL(4));
     }
     else
     {
-        spriteIdx = sub_80A88B8(saveMenuProc->main_sel_bitmask);
+        spriteIdx = BitfileToIndex(saveMenuProc->main_sel_bitfile);
         PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[spriteIdx], OAM2_PAL(4));
     }
 }
@@ -499,7 +499,7 @@ void sub_80AAE90(struct SaveDrawProc * proc)
 
         for (i = 0; i < SAVE_MENU_PARENT(proc)->unk_31; i++)
         {
-            int spriteIdx = sub_80A88B8(SaveMenuGetSelectBitMask(SAVE_MENU_PARENT(proc)->main_options, i));
+            int spriteIdx = BitfileToIndex(SaveMenuGetBitfile(SAVE_MENU_PARENT(proc)->main_options, i));
 
             if (i == SAVE_MENU_PARENT(proc)->main_select)
             {
@@ -553,7 +553,7 @@ void sub_80AAF6C(struct SaveDrawProc * proc)
 
     for (i = 0; i < SAVE_MENU_PARENT(proc)->max_choice; i++)
     {
-        spriteIdx = sub_80A88B8(SaveMenuGetSelectBitMask(SAVE_MENU_PARENT(proc)->extra_options, i));
+        spriteIdx = BitfileToIndex(SaveMenuGetBitfile(SAVE_MENU_PARENT(proc)->extra_options, i));
 
         if (i == SAVE_MENU_PARENT(proc)->extra_select)
         {
@@ -582,7 +582,7 @@ void sub_80AB05C(struct SaveDrawProc * proc)
         for (i = 0; i < 3; i++)
         {
             int y;
-            if ((SAVE_MENU_PARENT(proc)->jump_label == PL_SAVEMENU_6) && (SAVE_MENU_PARENT(proc)->sus_slot == i))
+            if ((SAVE_MENU_PARENT(proc)->jump_label == PL_SAVEMENU_SLOT_SELECTED) && (SAVE_MENU_PARENT(proc)->sus_slot == i))
             {
                 y = 0x100;
             }
@@ -604,30 +604,30 @@ void sub_80AB05C(struct SaveDrawProc * proc)
             if (SAVE_MENU_PARENT(proc)->unk_44 != 0x100)
             {
                 int unused;
-                if (SAVE_MENU_PARENT(proc)->unk_60 != NULL)
+                if (SAVE_MENU_PARENT(proc)->approc != NULL)
                 {
-                    APProc_Delete(SAVE_MENU_PARENT(proc)->unk_60);
-                    SAVE_MENU_PARENT(proc)->unk_60 = NULL;
+                    APProc_Delete(SAVE_MENU_PARENT(proc)->approc);
+                    SAVE_MENU_PARENT(proc)->approc = NULL;
                 }
 
                 // redundant
-                if (SAVE_MENU_PARENT(proc)->main_sel_bitmask & 1)
+                if (SAVE_MENU_PARENT(proc)->main_sel_bitfile & 1)
                     PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
                 else
                     PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
             }
             else
             {
-                if (SAVE_MENU_PARENT(proc)->main_sel_bitmask == 1)
+                if (SAVE_MENU_PARENT(proc)->main_sel_bitfile == 1)
                 {
                     APProc_SetParameters(
-                        SAVE_MENU_PARENT(proc)->unk_60, 436 - SAVE_MENU_PARENT(proc)->unk_2f,
+                        SAVE_MENU_PARENT(proc)->approc, 436 - SAVE_MENU_PARENT(proc)->unk_2f,
                         SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140);
                 }
                 else
                 {
                     APProc_SetParameters(
-                        SAVE_MENU_PARENT(proc)->unk_60, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140);
+                        SAVE_MENU_PARENT(proc)->approc, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140);
                     PutSpriteExt(
                         4, 422 - SAVE_MENU_PARENT(proc)->unk_2f, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 30,
                         Sprite_08A20588, 0x3000);
@@ -636,12 +636,12 @@ void sub_80AB05C(struct SaveDrawProc * proc)
         }
     }
 
-    if ((SAVE_MENU_PARENT(proc)->jump_label) == PL_SAVEMENU_5 || (SAVE_MENU_PARENT(proc)->jump_label) == PL_SAVEMENU_6)
+    if ((SAVE_MENU_PARENT(proc)->jump_label) == PL_SAVEMENU_SAVE_SLOT_SEL || (SAVE_MENU_PARENT(proc)->jump_label) == PL_SAVEMENU_SLOT_SELECTED)
     {
-        if (SAVE_MENU_PARENT(proc)->unk_36 != 0)
+        if (SAVE_MENU_PARENT(proc)->cursor_config != 0)
         {
             PutSpriteExt(4, 44, 128, Sprite_08A20536, OAM2_PAL(2));
-            DisplayUiHand(((SAVE_MENU_PARENT(proc)->unk_36 - 1) % 2) * 44 + 52, 136);
+            DisplayUiHand(((SAVE_MENU_PARENT(proc)->cursor_config - 1) % 2) * 44 + 52, 136);
             sub_80AB4F4(1, 12, SAVE_MENU_PARENT(proc)->sus_slot * 32 + 32, proc);
         }
         else if (SAVE_MENU_PARENT(proc)->sus_slot != 0xff)
@@ -657,12 +657,12 @@ void SaveDraw_Loop_Main(struct SaveDrawProc * proc)
 {
     if (proc->unk_29 != 0)
     {
-        if (SAVE_MENU_PARENT(proc)->main_sel_bitmask < 0x100)
+        if (SAVE_MENU_PARENT(proc)->main_sel_bitfile < 0x100)
         {
-            if (SAVE_MENU_PARENT(proc)->main_sel_bitmask == 0x20)
-                proc->unk_33 = SAVE_MENU_PARENT(proc)->extra_sel_bitmask;
+            if (SAVE_MENU_PARENT(proc)->main_sel_bitfile == 0x20)
+                proc->unk_33 = SAVE_MENU_PARENT(proc)->extra_sel_bitfile;
             else
-                proc->unk_33 = SAVE_MENU_PARENT(proc)->main_sel_bitmask;
+                proc->unk_33 = SAVE_MENU_PARENT(proc)->main_sel_bitfile;
         }
 
         sub_80AAE90(proc);
@@ -700,7 +700,7 @@ struct SaveDrawProc * StartSaveDraw(ProcPtr parent)
 //! FE8U = 0x080AB314
 void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc)
 {
-    proc->unk_36 = 0;
+    proc->cursor_en = 0;
 
     proc->unk_2a = 0;
     proc->unk_2e = 0;
@@ -726,7 +726,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
         0, 1, 2, 3, 3, 2, 1, 0,
     };
 
-    if ((s8)((struct SaveMenuProc*)(proc->proc_parent))->scroll_cnt == 0) {
+    if ((s8)((struct SaveMenuProc *)(proc->proc_parent))->scroll_cnt == 0) {
         return;
     }
 
@@ -736,7 +736,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
         proc->sus_slot++;
     }
 
-    if (proc->unk_36 != 0) {
+    if (proc->cursor_en != 0) {
         yOam0 = proc->unk_32;
         xOam1 = proc->unk_2e;
 
@@ -785,7 +785,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
         proc->sus_slot = 0;
     } else {
         if (proc->sus_slot == 4) {
-            proc->unk_36 = 0;
+            proc->cursor_en = 0;
         }
     }
 
@@ -797,7 +797,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
         proc->unk_38 = 0;
     }
 
-    proc->unk_36 = 0;
+    proc->cursor_en = 0;
     proc->unk_39 = 1;
 
     return;
@@ -810,7 +810,7 @@ void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc)
 
     drawCursorProc->unk_32 = c - 12;
     drawCursorProc->unk_2e = b - 2;
-    drawCursorProc->unk_36 = 1;
+    drawCursorProc->cursor_en = 1;
     drawCursorProc->unk_3a = a;
     return;
 }
@@ -969,40 +969,46 @@ void sub_80AB77C(void) {
 }
 
 //! FE8U = 0x080AB794
-void sub_80AB794(void) {
-    InitTextFont(&gUnknown_02000920, (void*)0x06001000, 0x80, 4);
-    InitText(&gUnknown_02000938, 10);
-    return;
+void SaveMenuInitSubBoxText(void)
+{
+    InitTextFont(
+        &gSaveMenuSubBoxFont,
+        (void*)BG_VRAM + BGCHR_SAVEMENU_SUBBOX_TEXT * TILE_SIZE_4BPP,
+        BGCHR_SAVEMENU_SUBBOX_TEXT,
+        BGPAL_SAVEMENU_SUBBOX_TEXT);
+
+    InitText(&gSaveMenuSubBoxText, 10);
 }
 
 //! FE8U = 0x080AB7BC
-void sub_80AB7BC(int msgId, s8 flag) {
-    const char* str;
+void SaveMenuDrawSubSelBoxExt(int msgId, bool draw_en)
+{
+    const char * str;
 
-    if (flag != 0) {
+    if (draw_en != 0)
+    {
         str = GetStringFromIndex(msgId);
 
-        SetTextFont(&gUnknown_02000920);
+        SetTextFont(&gSaveMenuSubBoxFont);
 
-        ClearText(&gUnknown_02000938);
-        Text_SetCursor(&gUnknown_02000938, 0);
-        Text_SetColor(&gUnknown_02000938, 0);
-        Text_DrawString(&gUnknown_02000938, str);
+        ClearText(&gSaveMenuSubBoxText);
+        Text_SetCursor(&gSaveMenuSubBoxText, 0);
+        Text_SetColor(&gSaveMenuSubBoxText, 0);
+        Text_DrawString(&gSaveMenuSubBoxText, str);
 
-        Text_SetCursor(&gUnknown_02000938, 0x2c);
-        Text_DrawString(&gUnknown_02000938, GetStringFromIndex(0x142)); // TODO: msgid "Cancel"
+        Text_SetCursor(&gSaveMenuSubBoxText, 0x2c);
+        Text_DrawString(&gSaveMenuSubBoxText, GetStringFromIndex(0x142)); // TODO: msgid "Cancel"
 
-        PutText(&gUnknown_02000938, TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17));
-    } else {
+        PutText(&gSaveMenuSubBoxText, TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17));
+    }
+    else
+    {
         TileMap_FillRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 7, 17), 0xb, 1, 0);
     }
-
     BG_EnableSyncByMask(2);
-
-    return;
 }
 
-int CONST_DATA gUnknown_08A20720[] = {
+int CONST_DATA SaveMenuSubSelBoxTexts[] = {
     0x0000, // ""
     0x0143, // "Start[.]"
     0x0144, // "Copy"
@@ -1013,25 +1019,22 @@ int CONST_DATA gUnknown_08A20720[] = {
 };
 
 //! FE8U = 0x080AB83C
-void sub_80AB83C(struct SaveMenuProc* proc, s8 flag) {
-    sub_80AB7BC(gUnknown_08A20720[sub_80A88B8(proc->main_sel_bitmask)], flag);
-
-    if (flag == 0) {
-        proc->unk_36 = 0;
-    }
-
-    return;
+void SaveMenuDrawSubSelBox(struct SaveMenuProc * proc, s8 flag)
+{
+    SaveMenuDrawSubSelBoxExt(SaveMenuSubSelBoxTexts[BitfileToIndex(proc->main_sel_bitfile)], flag);
+    if (flag == 0)
+        proc->cursor_config = 0;
 }
 
 //! FE8U = 0x080AB874
-void AddMainMenuOption(struct SaveMenuProc* proc, int option) {
+void AddMainMenuOption(struct SaveMenuProc * proc, int option) {
     proc->main_options |= option;
     proc->unk_31++;
     return;
 }
 
 //! FE8U = 0x080AB888
-void AddExtraMenuOption(struct SaveMenuProc* proc, int option) {
+void AddExtraMenuOption(struct SaveMenuProc * proc, int option) {
     proc->extra_options |= option;
     proc->max_choice++;
     return;
@@ -1092,109 +1095,105 @@ void InitSaveMenuChoice(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080AB98C
-u8 SaveMenuModifySaveSlot(u8 slot, int b, int c) {
+u8 SaveMenuModifySaveSlot(u8 slot, bool valid, s8 position)
+{
     u8 i;
-    s8 castB = b;
-    s8 castC = c;
-
-    if (castC > 0) {
-        for (i = 0; i < 3; i++) {
-            if ((IsSaveValid(slot) == castB)) {
+    if (position > 0)
+    {
+        /* up */
+        for (i = 0; i < 3; i++)
+        {
+            if ((IsSaveValid(slot) == valid))
                 return slot;
-            }
 
-            if (slot == 2) {
+            if (slot == 2)
                 slot = 0;
-            } else {
+            else
                 slot++;
-            }
-        }
-    } else {
-        for (i = 0; i < 3; i++) {
-            if ((IsSaveValid(slot) == castB)) {
-                return slot;
-            }
-
-            if (slot == 0) {
-                slot = 2;
-            } else {
-                slot--;
-            }
         }
     }
+    else
+    {
+        /* down */
+        for (i = 0; i < 3; i++)
+        {
+            if ((IsSaveValid(slot) == valid))
+                return slot;
 
+            if (slot == 0)
+                slot = 2;
+            else
+                slot--;
+        }
+    }
     return -1;
 }
 
 //! FE8U = 0x080AB9FC
-s8 sub_80AB9FC(struct SaveMenuProc* proc, int b) {
-    s8 castB = b;
+bool SaveMenuTryMoveSaveSlotCursor(struct SaveMenuProc * proc, s8 position)
+{
     s8 flag = 0;
 
     u8 previous = proc->sus_slot;
 
-    switch (proc->main_sel_bitmask) {
-        case 0x80:
+    switch (proc->main_sel_bitfile) {
+    case MAIN_MENU_OPTION_7:
+        flag = 1;
+        break;
+
+    case MAIN_MENU_OPTION_COPY:
+        if (proc->cursor_slot == (u8)-1)
             flag = 1;
-            break;
 
-        case 4:
-            if (proc->cursor_slot == (u8)-1) {
-                flag = 1;
-            }
+        break;
 
-            break;
+    case MAIN_MENU_OPTION_RESTART:
+    case MAIN_MENU_OPTION_ERASE:
+        flag = 1;
+        break;
 
-        case 2:
-        case 8:
-            flag = 1;
-            break;
+    case MAIN_MENU_OPTION_NEW_GAME:
+        break;
 
-        case 0x10:
-            break;
-
-        case 1:
-            return 0;
-    }
-
-    if (castB >= 1) {
-        if (proc->sus_slot == 2) {
-            proc->sus_slot = 0;
-        } else {
-            proc->sus_slot++;
-        }
-    } else {
-        if (proc->sus_slot == 0) {
-            proc->sus_slot = 2;
-        } else {
-            proc->sus_slot--;
-        }
-    }
-
-    if (proc->main_sel_bitmask == 0x40) {
-        return 1;
-    }
-
-    proc->sus_slot = SaveMenuModifySaveSlot(proc->sus_slot, flag, castB);
-
-    if (previous == proc->sus_slot) {
+    case MAIN_MENU_OPTION_RESUME:
         return 0;
     }
 
-    return 1;
-}
-
-//! FE8U = 0x080ABA98
-s8 sub_80ABA98(struct SaveMenuProc * proc)
-{
-    if ((proc->main_sel_bitmask & proc->main_options) != 0) {
-        return 1;
+    if (position >= 1)
+    {
+        /* up */
+        if (proc->sus_slot == 2)
+            proc->sus_slot = 0;
+        else
+            proc->sus_slot++;
+    }
+    else
+    {
+        /* down */
+        if (proc->sus_slot == 0)
+            proc->sus_slot = 2;
+        else
+            proc->sus_slot--;
     }
 
-    return 0;
+    if (proc->main_sel_bitfile == MAIN_MENU_OPTION_INVALID)
+        return true;
+
+    proc->sus_slot = SaveMenuModifySaveSlot(proc->sus_slot, flag, position);
+    if (previous == proc->sus_slot)
+        return false;
+
+    return true;
 }
 
-//! FE8U = 0x080ABAB4
+bool SaveMenuHasOptions(struct SaveMenuProc * proc)
+{
+    if ((proc->main_sel_bitfile & proc->main_options) != 0)
+        return true;
+
+    return false;
+}
+
 void SqMask_Loop(struct SqMaskProc * proc)
 {
     proc->unk_29 += proc->unk_2b;
@@ -1227,7 +1226,7 @@ struct ProcCmd CONST_DATA gProcScr_SqMask[] = {
 };
 
 //! FE8U = 0x080ABBB0
-void StartSqMask(struct SaveMenuProc* parent, int b, int c)
+void StartSqMask(struct SaveMenuProc * parent, int b, int c)
 {
     u8 castB = b;
     u8 castC = c;
