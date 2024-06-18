@@ -186,7 +186,23 @@ void sub_804BC3C(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA7B4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA7B4[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_804BB54),
+    PROC_REPEAT(sub_804BBA0),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_804BC3C),
+    PROC_SLEEP(1),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804BC84
 void sub_804BC84(u16 a, ProcPtr parent)
@@ -250,7 +266,23 @@ void sub_804BDD8(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA7EC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA7EC[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_804BB54),
+    PROC_REPEAT(sub_804BD3C),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_804BDD8),
+    PROC_SLEEP(1),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804BDFC
 void sub_804BDFC(u16 a, ProcPtr parent)

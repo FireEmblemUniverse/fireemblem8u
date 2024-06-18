@@ -29,9 +29,29 @@ struct SioWarpProc
     /* 41 */ s8 unk_41;
 };
 
-extern u16 * gUnknown_085AA824[];
+struct SioProc85AA954
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ int x;
+    /* 30 */ int y;
+};
+
+// clang-format off
+
+u16 * CONST_DATA gUnknown_085AA824[] =
+{
+    Pal_AllWhite,
+    Pal_AllBlack,
+    Pal_AllRed,
+    Pal_AllGreen,
+    Pal_AllBlue,
+    Pal_AllYellow,
+};
 
 extern struct ProcCmd gUnknown_085AA83C[];
+
+// clang-format on
 
 //! FE8U = 0x0804BED8
 void sub_804BED8(struct MUProc * muProc, int palIdx)
@@ -56,6 +76,17 @@ void sub_804BF30(struct SioProc85AA83C * proc)
         OAM2_PAL(proc->unk_2c->pMUConfig->paletteIndex) + proc->unk_2c->pMUConfig->objTileIndex + 0x800;
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA83C[] =
+{
+    PROC_SLEEP(17),
+    PROC_CALL(sub_804BF30),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804BF4C
 void sub_804BF4C(struct MUProc * muProc)
@@ -127,7 +158,19 @@ void sub_804C02C(struct SioWarpProc * proc)
 }
 
 extern u16 gUnknown_089AE4A4[];
-extern u8 gUnknown_085AA854[];
+
+// clang-format off
+
+u8 CONST_DATA gUnknown_085AA854[] =
+{
+    0x00, 0x01, 0x02, 0x03, 0x03,
+    0x03, 0x03, 0x03, 0x03, 0x03,
+    0x03, 0x03, 0x03, 0x03, 0x03,
+    0x04, 0x05, 0x06, 0x07, 0x08,
+    0x09, 0xFF,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C078
 void sub_804C078(struct SioWarpProc * proc)
@@ -169,7 +212,22 @@ void sub_804C12C(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_SIOWARP[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_SIOWARP[] =
+{
+    PROC_NAME("SIOWARP"),
+    PROC_YIELD,
+
+    PROC_CALL(sub_804C02C),
+    PROC_REPEAT(sub_804C078),
+
+    PROC_CALL(sub_804C12C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C148
 void sub_804C148(struct SioWarpProc * parent)
@@ -244,7 +302,35 @@ void sub_804C1E4(ProcPtr proc)
     return;
 }
 
-extern struct ProcCmd ProcScr_SIOWARPFX[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_SIOWARPFX[] =
+{
+    PROC_NAME("SIOWARPFX"),
+    PROC_YIELD,
+
+    PROC_CALL(sub_804C148),
+    PROC_SLEEP(5),
+
+    PROC_CALL(sub_804C178),
+    PROC_SLEEP(15),
+
+    PROC_CALL(sub_804C188),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_804C194),
+    PROC_CALL(sub_804C148),
+    PROC_SLEEP(5),
+
+    PROC_CALL(sub_804C1B8),
+    PROC_CALL(sub_804C1D8),
+
+    PROC_REPEAT(sub_804C1E4),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C208
 ProcPtr sub_804C208(struct Unit * unit, struct MUProc * muProc, int x, int y, int facing, u8 playStepSe, ProcPtr parent)
@@ -270,7 +356,25 @@ ProcPtr sub_804C208(struct Unit * unit, struct MUProc * muProc, int x, int y, in
     return proc;
 }
 
-extern struct ProcCmd gUnknown_085AA914[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA914[] =
+{
+    PROC_YIELD,
+
+    PROC_CALL(sub_804C188),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_804C194),
+    PROC_CALL(sub_804C148),
+    PROC_SLEEP(5),
+
+    PROC_CALL(sub_804C1B8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C260
 ProcPtr sub_804C260(struct Unit * unit, struct MUProc * muProc, int x, int y, int facing, u8 playStepSe, ProcPtr parent)
@@ -296,7 +400,16 @@ ProcPtr sub_804C260(struct Unit * unit, struct MUProc * muProc, int x, int y, in
     return proc;
 }
 
-extern u16 gUnknown_080D9FD6[];
+// clang-format off
+
+u16 const gUnknown_080D9FD6[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2DA) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(32), OAM2_CHR(0x2DE) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C2B8
 void sub_804C2B8(int x, int y)
@@ -305,14 +418,6 @@ void sub_804C2B8(int x, int y)
     return;
 }
 
-struct SioProc85AA954
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ int x;
-    /* 30 */ int y;
-};
-
 //! FE8U = 0x0804C2DC
 void sub_804C2DC(struct SioProc85AA954 * proc)
 {
@@ -320,7 +425,16 @@ void sub_804C2DC(struct SioProc85AA954 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA954[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA954[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804C2DC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C2EC
 void sub_804C2EC(int x, int y, ProcPtr parent)
