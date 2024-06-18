@@ -94,7 +94,6 @@
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003080; gLCDControlBuffer = .;
-. = 0x0030C8; gOpAnimBgAffineDstData = .;
 . = 0x0030D8; gUnknown_030030D8 = .;
 . = 0x0030F0; gIRQHandlers = .;
 . = 0x003128; gUnknown_03003128 = .;

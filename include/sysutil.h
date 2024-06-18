@@ -150,13 +150,14 @@ void NewSysboxText(int vobj_offset, int pal, const char * str, int line, int del
 void EndAllProcChildren(ProcPtr proc);
 void nop_80ADDF8(void);
 
-/* Some objects scalling routine */
-void sub_80ADDFC(u8 layer, s16 angle, s16, s16, s16, s16);
-void sub_80ADE90(u8, s16, s16);
-void sub_80ADEE0(u8, s16, s16, s16, s16);
-void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d);
-void sub_80ADFBC(u8 layer, int a, int b);
-void sub_80ADFFC(u8 layer, int a, int b, int c, int d);
+/* Bg-affin rot/scale */
+void BgAffinRotScaling(u8 bg, s16 angle, s16 x_center, s16 y_center, s16 sx, s16 sy);
+void BgAffinScaling(u8 bg, s16 sy, s16 sx);
+void BgAffinAnchoring(u8 bg, s16 q0_x, s16 q0_y, s16 p0_x, s16 p0_y);
+
+void BgAffinRotScalingHighPrecision(u8 bg, int angle, int texX, int texY, int sx, int sy);
+void BgAffinScalingHighPrecision(u8 bg, int sy, int sx);
+void BgAffinAnchoringHighPrecision(u8 bg, int q0_x, int q0_y, int p0_x, int p0_y);
 
 /* No idea, maybe some tile map or palette modication */
 void sub_80AE044(int a, u16 * buf, int c, int d, int e, int f, int g, int h);

@@ -751,11 +751,11 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
     unkC = Interpolate(0, 0, 0xD6, proc->unk_4c, 0x3C);
     unkD = Interpolate(0, 0x10, 0x80, proc->unk_4c, 0x3C);
 
-    sub_80ADDFC(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
+    BgAffinRotScaling(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
 
-    sub_80ADE90(2, 0x100, 0x100);
+    BgAffinScaling(2, 0x100, 0x100);
 
-    sub_80ADEE0(2, unkC, unkD, 0x50, 0x48);
+    BgAffinAnchoring(2, unkC, unkD, 0x50, 0x48);
 
     proc->unk_4e -= 0x40;
 
