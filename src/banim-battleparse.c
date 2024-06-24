@@ -251,7 +251,7 @@ void ParseBattleHitToBanimCmd(void)
     u16 * r8, r9, r10;
     u16 sp00[2];
     struct BattleUnit * bul_sp04, * bur_sp08;
-    int round_sp0C, ret_sp10;
+    int round_sp0C, is_enemy;
     u32 distance_sp14, distance_sp18, distance_sp1C;
 
     for (i = 0; i < 0x14; i++)
@@ -315,11 +315,11 @@ void ParseBattleHitToBanimCmd(void)
     for (; 0 == (hit->info & BATTLE_HIT_INFO_END); hit++, round_sp0C++)
     {
         if (hit->info & BATTLE_HIT_INFO_RETALIATION)
-            ret_sp10 = true;
+            is_enemy = true;
         else
-            ret_sp10 = false;
+            is_enemy = false;
 
-        if (gEkrInitialPosition[POS_L] == ret_sp10)
+        if (gBanimPositionIsEnemy[POS_L] == is_enemy)
         {
             r5 = &sp00[POS_L];
             r8 = &sp00[POS_R];
@@ -434,7 +434,7 @@ void ParseBattleHitToBanimCmd(void)
         {
             if (hit->attributes & BATTLE_HIT_ATTR_DEVIL)
             {
-                if (gEkrInitialPosition[POS_L] == ret_sp10)
+                if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
                     new_hp = GetEfxHp(r9 * 2) - hit->hpChange;
                     if (new_hp < 0)
@@ -458,7 +458,7 @@ void ParseBattleHitToBanimCmd(void)
             /* _080585B4 */
             else if (hit->attributes & BATTLE_HIT_ATTR_HPSTEAL)
             {
-                if (gEkrInitialPosition[POS_L] == ret_sp10)
+                if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
                     new_hp = GetEfxHp(r10 * 2 + 1) - hit->hpChange;
                     if (new_hp < 0)
@@ -494,7 +494,7 @@ void ParseBattleHitToBanimCmd(void)
             /* _080586A0 */
             else
             {
-                if (gEkrInitialPosition[POS_L] == ret_sp10)
+                if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
                     new_hp = GetEfxHp(r10 * 2 + 1) - hit->hpChange;
                     if (new_hp < 0)
@@ -740,7 +740,7 @@ void ParseBattleHitToBanimCmd(void)
         negs r0, r0\n\
         lsrs r0, r0, #0x1f\n\
         str r0, [sp, #0x10]\n\
-        ldr r0, _08058390  @ gEkrInitialPosition\n\
+        ldr r0, _08058390  @ gBanimPositionIsEnemy\n\
         movs r2, #0\n\
         ldrsh r0, [r0, r2]\n\
         ldr r3, [sp, #0x10]\n\
@@ -762,7 +762,7 @@ void ParseBattleHitToBanimCmd(void)
         strh r2, [r0]\n\
         b _080583B4\n\
         .align 2, 0\n\
-    _08058390: .4byte gEkrInitialPosition\n\
+    _08058390: .4byte gBanimPositionIsEnemy\n\
     _08058394: .4byte gEkrInitialHitSide\n\
     _08058398:\n\
         mov r5, sp\n\
@@ -965,7 +965,7 @@ void ParseBattleHitToBanimCmd(void)
         ands r0, r1\n\
         cmp r0, #0\n\
         beq _080585B4\n\
-        ldr r0, _08058568  @ gEkrInitialPosition\n\
+        ldr r0, _08058568  @ gBanimPositionIsEnemy\n\
         movs r1, #0\n\
         ldrsh r0, [r0, r1]\n\
         ldr r2, [sp, #0x10]\n\
@@ -999,7 +999,7 @@ void ParseBattleHitToBanimCmd(void)
         .align 2, 0\n\
     _08058560: .4byte gUnknown_080DAEB4\n\
     _08058564: .4byte gAnimRoundData\n\
-    _08058568: .4byte gEkrInitialPosition\n\
+    _08058568: .4byte gBanimPositionIsEnemy\n\
     _0805856C: .4byte gEfxHpLut\n\
     _08058570: .4byte 0xFFFF8000\n\
     _08058574:\n\
@@ -1039,7 +1039,7 @@ void ParseBattleHitToBanimCmd(void)
         ands r1, r0\n\
         cmp r1, #0\n\
         beq _080586A0\n\
-        ldr r0, _08058628  @ gEkrInitialPosition\n\
+        ldr r0, _08058628  @ gBanimPositionIsEnemy\n\
         movs r3, #0\n\
         ldrsh r0, [r0, r3]\n\
         ldr r5, [sp, #0x10]\n\
@@ -1093,7 +1093,7 @@ void ParseBattleHitToBanimCmd(void)
         lsls r0, r0, #2\n\
         b _08058690\n\
         .align 2, 0\n\
-    _08058628: .4byte gEkrInitialPosition\n\
+    _08058628: .4byte gBanimPositionIsEnemy\n\
     _0805862C: .4byte gEfxHpLut\n\
     _08058630: .4byte gBanimMaxHP\n\
     _08058634:\n\
@@ -1151,7 +1151,7 @@ void ParseBattleHitToBanimCmd(void)
     _08058698: .4byte gEfxHpLut\n\
     _0805869C: .4byte gBanimMaxHP\n\
     _080586A0:\n\
-        ldr r0, _08058764  @ gEkrInitialPosition\n\
+        ldr r0, _08058764  @ gBanimPositionIsEnemy\n\
         movs r1, #0\n\
         ldrsh r0, [r0, r1]\n\
         ldr r2, [sp, #0x10]\n\
@@ -1255,7 +1255,7 @@ void ParseBattleHitToBanimCmd(void)
         strh r0, [r5]\n\
         b _0805881C\n\
         .align 2, 0\n\
-    _08058764: .4byte gEkrInitialPosition\n\
+    _08058764: .4byte gBanimPositionIsEnemy\n\
     _08058768: .4byte gEfxHpLut\n\
     _0805876C:\n\
         mov r1, r9\n\

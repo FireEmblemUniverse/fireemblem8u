@@ -448,7 +448,7 @@ extern s16 gBanimBG;
 extern s16 gEkrInitialHitSide;
 extern s16 gEkrSnowWeather;
 extern s16 gBanimValid[2];
-extern s16 gEkrInitialPosition[2];
+extern s16 gBanimPositionIsEnemy[2];
 extern s16 gBanimFactionPal[2];
 extern s16 gEkrSpellAnimIndex[2];
 extern EWRAM_DATA s16 gBanimFloorfx[2];
