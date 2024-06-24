@@ -15,6 +15,9 @@
 #include "sio_core.h"
 #include "sio.h"
 
+// FIXME
+ProcPtr sub_804CAEC(ProcPtr, int, u8 *);
+
 struct SioProc85AAA78
 {
     /* 00 */ PROC_HEADER;

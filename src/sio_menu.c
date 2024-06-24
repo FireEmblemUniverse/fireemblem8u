@@ -14,6 +14,10 @@
 
 #include "constants/faces.h"
 
+// FIXME
+void sub_804C7C8(ProcPtr, int, int, int, int);
+void sub_804C7DC(ProcPtr, s16, s16);
+
 //! FE8U = 0x08047A54
 int sub_8047A54(struct SioMenuProc * proc, int lineNum)
 {

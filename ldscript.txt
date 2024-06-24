@@ -397,6 +397,7 @@ SECTIONS
         src/sio_battlemap.o(.text);
         src/sio_804B920.o(.text);
         src/sio_mu.o(.text);
+        src/sio_uiutils.o(.text);
         asm/code_sio_8048260.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);

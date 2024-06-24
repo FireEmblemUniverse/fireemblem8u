@@ -462,12 +462,12 @@ void sub_804C558(void);
 // ??? sub_804C5A4(???);
 // ??? sub_804C5F8(???);
 ProcPtr sub_804C758(ProcPtr, u8, u8, u8, u8);
-void sub_804C7C8(ProcPtr, int, int, int, int);
-void sub_804C7DC(ProcPtr, s16, s16);
+// void sub_804C7C8(ProcPtr, int, int, int, int); TODO
+// void sub_804C7DC(ProcPtr, s16, s16); TODO
 // ??? sub_804C7E4(???);
 // ??? sub_804C83C(???);
 // ??? sub_804C894(???);
-ProcPtr sub_804CAEC(ProcPtr, int, u8 *);
+// ProcPtr sub_804CAEC(ProcPtr, int, u8 *); TODO
 // ??? sub_804CB94(???);
 // ??? sub_804CC14(???);
 void sub_804CC5C(int);;
@@ -482,10 +482,10 @@ ProcPtr sub_804CE8C(ProcPtr);
 void sub_804CEC4(ProcPtr, s16, s16, s16);
 // ??? sub_804CECC(???);
 // ??? sub_804CF04(???);
-void sub_804CFB8(ProcPtr, s16, s16);
+ProcPtr sub_804CFB8(ProcPtr, int, int);
 // ??? sub_804CFE0(???);
 // ??? sub_804D01C(???);
-void sub_804D1E0(int, int, int, int, u8, ProcPtr);
+void sub_804D1E0(int, int, u8, u8, u8, ProcPtr);
 void sub_804D24C(u8, s16);
 // ??? sub_804D2A4(???);
 // ??? sub_804D37C(???);
