@@ -722,6 +722,7 @@ SECTIONS
         . = ALIGN(4); src/sio_battlemap.o(.rodata);
         . = ALIGN(4); data/const_data_D9F18.o(.rodata);
         . = ALIGN(4); src/sio_mu.o(.rodata);
+        . = ALIGN(4); src/sio_uiutils.o(.rodata);
         . = ALIGN(4); data/const_data_D9FE4.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
@@ -972,6 +973,7 @@ SECTIONS
         . = ALIGN(4); data/data_5A9F48.o(.data);
         . = ALIGN(4); src/sio_804B920.o(.data);
         . = ALIGN(4); src/sio_mu.o(.data);
+        . = ALIGN(4); src/sio_uiutils.o(.data);
         . = ALIGN(4); data/data_5AA96C.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);

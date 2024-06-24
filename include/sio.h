@@ -443,7 +443,7 @@ void StartLinkArenaMUDeathFade(struct MUProc *);
 // ??? SioWarpFx_AwaitSioWarp(???);
 ProcPtr StartSioWarpFx(struct Unit *, struct MUProc *, int, int, int, int, ProcPtr);
 // ??? sub_804C260(???);
-// ??? PutLinkArenaButtonSpriteAt(???);
+void PutLinkArenaButtonSpriteAt(int, int);
 // ??? LAButtonSprites_Loop(???);
 void StartLinkArenaButtonSpriteDraw(int, int, ProcPtr);
 // ??? EndLinkArenaButtonSpriteDraw(???);

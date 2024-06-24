@@ -16,15 +16,22 @@
  * the Link Arena menus.
  */
 
-extern const u16 SioDefaultBgConfig[];
+extern s8 gUnk_Sio_0203DDDC;
 
 //! FE8U = 0x0804C33C
 void InitSioBG(void)
 {
-    u16 hack[12];
-    memcpy(hack, SioDefaultBgConfig, 0x18);
+    // clang-format off
+    u16 SioDefaultBgConfig[] =
+    {
+        0x0000, 0x6000, 0x0000,
+        0x0000, 0x6800, 0x0000,
+        0x0000, 0x7000, 0x0000,
+        0x8000, 0x7800, 0x0000,
+    };
+    // clang-format on
 
-    SetupBackgrounds(hack);
+    SetupBackgrounds(SioDefaultBgConfig);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
@@ -105,7 +112,17 @@ void sub_804C3EC(struct SioProc85AA980 * proc)
     return;
 }
 
-extern u16 gUnknown_085AA96C[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_085AA96C[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x200) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x204) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(64), OAM2_CHR(0x208) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C47C
 void sub_804C47C(void)
@@ -114,7 +131,18 @@ void sub_804C47C(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_085AA980[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_085AA980[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_804C3EC),
+    PROC_REPEAT(sub_804C47C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C49C
 void NewProc085AA980(ProcPtr parent, int b, int chr)
@@ -176,19 +204,123 @@ void sub_804C590(void)
     return;
 }
 
-extern s8 gUnk_Sio_0203DDDC;
+// clang-format off
 
-extern const u8 gUnknown_080DA0DA[];
+const u16 Sprite_080D9FFC[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x240),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x244),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x248),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x294),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x29C),
+};
+
+const u16 Sprite_080DA01C[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x24A),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x24E),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x252),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x294),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x29C),
+};
+
+const u16 Sprite_080DA03C[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x254),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x258),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x25C),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x294),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x29C),
+};
+
+const u16 Sprite_080DA05C[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x280),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x284),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x288),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x294),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x29C),
+};
+
+const u16 Sprite_080DA07C[] =
+{
+    5,
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x28A),
+    OAM0_SHAPE_32x16 + OAM0_Y(8), OAM1_SIZE_32x16 + OAM1_X(40), OAM2_CHR(0x28E),
+    OAM0_SHAPE_16x16 + OAM0_Y(8), OAM1_SIZE_16x16 + OAM1_X(72), OAM2_CHR(0x292),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x294),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x29C),
+};
+
+const u16 * CONST_DATA gUnknown_085AA9A0[] =
+{
+    Sprite_080D9FFC,
+    Sprite_080DA01C,
+    Sprite_080DA03C,
+    Sprite_080DA05C,
+    Sprite_080DA07C,
+};
+
+const u16 gUnknown_080DA09C[] =
+{
+    OAM2_LAYER(1) + OAM2_PAL(5),
+    OAM2_LAYER(1) + OAM2_PAL(4),
+    OAM2_PAL(3),
+    OAM2_PAL(4),
+};
+
+const u16 Sprite_080DA0A4[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2C0) + OAM2_PAL(4),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(32), OAM2_CHR(0x2C4) + OAM2_PAL(4),
+};
+
+const u16 Sprite_080DA0B2[] =
+{
+    3,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x2C0) + OAM2_PAL(4),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(8), OAM2_CHR(0x2C6) + OAM2_PAL(4),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x2C2) + OAM2_PAL(4),
+};
+
+const u16 Sprite_080DA0C6[] =
+{
+    3,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x2C0) + OAM2_PAL(4),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(8), OAM2_CHR(0x2C7) + OAM2_PAL(4),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x2C2) + OAM2_PAL(4),
+};
+
+const u16 * CONST_DATA gUnknown_085AA9B4[] =
+{
+    Sprite_080DA0A4,
+    Sprite_080DA0B2,
+    Sprite_080DA0C6,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C5A4
 void sub_804C5A4(u8 idx)
 {
-    u8 hack[0x20];
-    memcpy(hack, gUnknown_080DA0DA, 0x20);
+    // clang-format off
+    const u8 gUnknown_080DA0DA[] =
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+        0x0F, 0x0E, 0x0D, 0x0C, 0x0B, 0x0A, 0x09, 0x08,
+        0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+    };
+    // clang-format on
 
     if (gUnk_Sio_0203DDDC == 0)
     {
-        int color = hack[idx] + 0x10;
+        int color = gUnknown_080DA0DA[idx] + 0x10;
         gPaletteBuffer[0x131] = ((color) << 10) + ((color) << 5) + (color);
         EnablePaletteSync();
     }
@@ -213,14 +345,10 @@ struct SioProc85AA9C0
     /* 3E */ u8 unk_3e;
 };
 
-extern u16 * gUnknown_085AA9A0[];
-extern u16 gUnknown_080DA09C[];
-extern u16 * gUnknown_085AA9B4[];
-
 //! FE8U = 0x0804C5F8
 void sub_804C5F8(struct SioProc85AA9C0 * proc)
 {
-    int oam2 = 0x000082C8;
+    int oam2 = OAM2_CHR(0x2C8) + OAM2_PAL(8);
 
     PutSprite(4, proc->unk_2a, proc->unk_2c, gUnknown_085AA9A0[proc->unk_2f], gUnknown_080DA09C[proc->unk_2e]);
 
@@ -271,7 +399,16 @@ void sub_804C5F8(struct SioProc85AA9C0 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA9C0[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AA9C0[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804C5F8),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C758
 ProcPtr sub_804C758(ProcPtr parent, u8 x1, u8 y1, u8 d, u8 e)
@@ -314,21 +451,37 @@ void sub_804C7DC(struct SioProc85AA9C0 * proc, s16 x, s16 y)
     return;
 }
 
-extern const u8 gUnknown_080DA102[];
-
 extern u16 gUnknown_085ADDE8[];
+
+// clang-format off
+
+const u16 gUnknown_080DA0FA[] =
+{
+    1,
+    OAM0_SHAPE_64x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_64x32, OAM2_CHR(0x300) + OAM2_LAYER(1),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804C7E4
 void sub_804C7E4(void)
 {
-    u8 hack[0x20];
     u16 * ptr = gUnknown_085ADDE8;
-    memcpy(hack, gUnknown_080DA102, 0x20);
+
+    // clang-format off
+    const u8 gUnknown_080DA102[] =
+    {
+        0x0F, 0x0E, 0x0D, 0x0C, 0x0B, 0x0A, 0x09, 0x08,
+        0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+    };
+    // clang-format on
 
     if (gUnk_Sio_0203DDDC == 0)
     {
         int a = (GetGameClock() % 0x40);
-        int idx = hack[a / 2];
+        int idx = gUnknown_080DA102[a / 2];
 
         gPaletteBuffer[0x18E] = ptr[idx];
         EnablePaletteSync();
@@ -337,21 +490,27 @@ void sub_804C7E4(void)
     return;
 }
 
-extern const u8 gUnknown_080DA0DA[];
-
 extern u16 gUnknown_085ADE48[];
 
 //! FE8U = 0x0804C83C
 void sub_804C83C(void)
 {
-    u8 hack[0x20];
     u16 * ptr = gUnknown_085ADE48;
-    memcpy(hack, gUnknown_080DA0DA, 0x20);
+
+    // clang-format off
+    const u8 gUnknown_080DA0DA[] =
+    {
+        0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,
+        0x0F, 0x0E, 0x0D, 0x0C, 0x0B, 0x0A, 0x09, 0x08,
+        0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01, 0x00,
+    };
+    // clang-format on
 
     if (gUnk_Sio_0203DDDC == 0)
     {
         int a = (GetGameClock() % 0x40);
-        int idx = hack[a / 2];
+        int idx = gUnknown_080DA0DA[a / 2];
 
         gPaletteBuffer[0x13E] = ptr[idx];
         EnablePaletteSync();
@@ -372,20 +531,70 @@ struct SioProc85AAA78
     /* 48 */ int unk_48;
 };
 
-s8 gUnk_Sio_0203DDDC;
+// clang-format off
 
-extern u16 gUnknown_085AA9D8[];
-extern u16 gUnknown_085AAA0E[];
-extern u16 Sprite_085AAA50[];
-extern u16 gUnknown_085AAA5E[];
+u16 CONST_DATA gUnknown_085AA9D8[] =
+{
+    2,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x2B8) + OAM2_PAL(8),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x2BC) + OAM2_PAL(8),
+};
 
-extern u16 gUnknown_080DA0FA[];
+u16 CONST_DATA Sprite_085AA9E6[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x27B) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x27B) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_X(64), OAM2_CHR(0x27F) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+u16 CONST_DATA Sprite_085AA9FA[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x29B) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x29B) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_X(64), OAM2_CHR(0x29F) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+u16 CONST_DATA gUnknown_085AAA0E[] =
+{
+    9,
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_CHR(0x277) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(16), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(32), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(48), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(64), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(80), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(96), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(112), OAM2_CHR(0x278) + OAM2_PAL(3),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(128), OAM2_CHR(0x279) + OAM2_PAL(3),
+};
+
+u16 * CONST_DATA gUnknown_085AAA48[] =
+{
+    Sprite_085AA9E6,
+    Sprite_085AA9FA,
+};
+
+u16 CONST_DATA Sprite_085AAA50[] =
+{
+    2,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x240) + OAM2_PAL(3),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x248) + OAM2_PAL(3),
+};
+
+u16 CONST_DATA gUnknown_085AAA5E[] =
+{
+    4,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x24C) + OAM2_PAL(3),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x290) + OAM2_PAL(3),
+    OAM0_SHAPE_32x8 + OAM0_Y(24), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x2AD) + OAM2_PAL(3),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64) + OAM1_HFLIP, OAM2_CHR(0x24C) + OAM2_PAL(3),
+};
+
+// clang-format on
 
 extern u16 gUnknown_08A1BD40[];
-
-extern u16 * gUnknown_085AAA48[];
-
-void PutLinkArenaButtonSpriteAt(int, int);
 
 //! FE8U = 0x0804C894
 void sub_804C894(struct SioProc85AAA78 * proc)
@@ -513,7 +722,16 @@ struct SioTeamListProc
     /* 5C */ s8 unk_5c;
 };
 
-extern struct ProcCmd gUnknown_085AAA78[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAA78[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804C894),
+    PROC_END,
+};
+
+// clang-format on
 
 void sub_804CC14(int, int, int, int, int, ProcPtr);
 
@@ -583,14 +801,23 @@ void sub_804CB94(struct SioProc85AAA90 * proc)
                 continue;
             }
 
-            sub_8027E4C(4, proc->unk_2c + j * 0xe, y, 0x400, unit);
+            sub_8027E4C(4, proc->unk_2c + j * 0xe, y, OAM2_LAYER(1), unit);
         }
     }
 
     return;
 }
 
-extern struct ProcCmd gUnknown_085AAA90[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAA90[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804CB94),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CC14
 void sub_804CC14(int x, int y, int upperBound, int lowerBound, int count, ProcPtr parent)
@@ -658,12 +885,72 @@ struct SioProc85AAAC4
     /* 44 */ int unk_44;
 };
 
-extern u16 * gUnknown_085AAAA8[];
-extern u16 * gUnknown_085AAAB0[];
+// clang-format off
 
-extern u16 gUnknown_080DA132[];
-extern u16 gUnknown_085AA9D8[];
-extern u16 Sprite_085AAA50[];
+const u16 Sprite_080DA122[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x251) + OAM2_LAYER(1) + OAM2_PAL(9),
+};
+
+const u16 Sprite_080DA12A[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x253) + OAM2_LAYER(1) + OAM2_PAL(9),
+};
+
+const u16 * CONST_DATA gUnknown_085AAAA8[] =
+{
+    Sprite_080DA122,
+    Sprite_080DA12A,
+};
+
+const u16 gUnknown_080DA132[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x29A) + OAM2_LAYER(2) + OAM2_PAL(9),
+};
+
+const u16 Sprite_080DA13A[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2C0) + OAM2_LAYER(1),
+};
+
+const u16 Sprite_080DA142[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2C4) + OAM2_LAYER(1),
+};
+
+const u16 Sprite_080DA14A[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2C8) + OAM2_LAYER(1),
+};
+
+const u16 Sprite_080DA152[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2CC) + OAM2_LAYER(1),
+};
+
+const u16 Sprite_080DA15A[] =
+{
+    1,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2D0) + OAM2_LAYER(1),
+};
+
+const u16 * CONST_DATA gUnknown_085AAAB0[] =
+{
+    Sprite_080DA152,
+    Sprite_080DA14A,
+    Sprite_080DA15A,
+    Sprite_080DA142,
+    Sprite_080DA13A,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CCCC
 void sub_804CCCC(struct SioProc85AAAC4 * proc)
@@ -698,7 +985,16 @@ void sub_804CCCC(struct SioProc85AAAC4 * proc)
     return;
 }
 
-extern struct ProcCmd Proc_085AAAC4[];
+// clang-format off
+
+struct ProcCmd CONST_DATA Proc_085AAAC4[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804CCCC),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CD90
 ProcPtr NewProc_085AAAC4(ProcPtr parent, int x, int y)
@@ -745,7 +1041,34 @@ struct SioProc85AAAE8
     /* 30 */ s16 unk_30;
 };
 
-extern u16 * gUnknown_085AAADC[];
+// clang-format off
+
+const u16 Sprite_080DA162[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x2D4) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+const u16 Sprite_080DA16A[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x2D6) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+const u16 Sprite_080DA172[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x2D8) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+const u16 * CONST_DATA gUnknown_085AAADC[] =
+{
+    Sprite_080DA162,
+    Sprite_080DA16A,
+    Sprite_080DA172,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CDE8
 void sub_804CDE8(struct SioProc85AAAE8 * proc)
@@ -784,7 +1107,16 @@ void sub_804CE5C(struct SioProc85AAAE8 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AAAE8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAAE8[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804CDE8),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CE8C
 ProcPtr sub_804CE8C(ProcPtr parent)
@@ -799,7 +1131,16 @@ ProcPtr sub_804CE8C(ProcPtr parent)
     return proc;
 }
 
-extern struct ProcCmd gUnknown_085AAB00[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAB00[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804CE5C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CEB0
 void sub_804CEB0(void)
@@ -846,12 +1187,61 @@ struct SioProc85AAB18
     /* 4C */ s16 unk_4c;
 };
 
-extern s16 gUnknown_080DA1CA[];
+// clang-format off
 
-extern u16 gUnknown_080DA17A[];
-extern u16 gUnknown_080DA18E[];
-extern u16 gUnknown_080DA1A2[];
-extern u16 gUnknown_080DA1B6[];
+const u16 gUnknown_080DA17A[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x2CE) + OAM2_PAL(6),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x2CF) + OAM2_PAL(6),
+    OAM0_SHAPE_8x16 + OAM0_Y(8), OAM1_SIZE_8x16, OAM2_CHR(0x2D3) + OAM2_PAL(6),
+};
+
+const u16 gUnknown_080DA18E[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(16) + OAM1_HFLIP, OAM2_CHR(0x2CF) + OAM2_PAL(6),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(48) + OAM1_HFLIP, OAM2_CHR(0x2CE) + OAM2_PAL(6),
+    OAM0_SHAPE_8x16 + OAM0_Y(8), OAM1_SIZE_8x16 + OAM1_X(72) + OAM1_HFLIP, OAM2_CHR(0x2D3) + OAM2_PAL(6),
+};
+
+const u16 gUnknown_080DA1A2[] =
+{
+    3,
+    OAM0_SHAPE_32x8 + OAM0_Y(24), OAM1_SIZE_32x8 + OAM1_VFLIP, OAM2_CHR(0x2CE) + OAM2_PAL(6),
+    OAM0_SHAPE_32x8 + OAM0_Y(24), OAM1_SIZE_32x8 + OAM1_X(32) + OAM1_VFLIP, OAM2_CHR(0x2CF) + OAM2_PAL(6),
+    OAM0_SHAPE_8x16 + OAM0_Y(8), OAM1_SIZE_8x16 + OAM1_VFLIP, OAM2_CHR(0x2D3) + OAM2_PAL(6),
+};
+
+const u16 gUnknown_080DA1B6[] =
+{
+    3,
+    OAM0_SHAPE_32x8 + OAM0_Y(24), OAM1_SIZE_32x8 + OAM1_X(16) + OAM1_HFLIP + OAM1_VFLIP, OAM2_CHR(0x2CF) + OAM2_PAL(6),
+    OAM0_SHAPE_32x8 + OAM0_Y(24), OAM1_SIZE_32x8 + OAM1_X(48) + OAM1_HFLIP + OAM1_VFLIP, OAM2_CHR(0x2CE) + OAM2_PAL(6),
+    OAM0_SHAPE_8x16 + OAM0_Y(8), OAM1_SIZE_8x16 + OAM1_X(72) + OAM1_HFLIP + OAM1_VFLIP, OAM2_CHR(0x2D3) + OAM2_PAL(6),
+};
+
+const s16 gUnknown_080DA1CA[] =
+{
+    0x0002, 0x0003,
+    0x0002, 0x0006,
+    0x0006, 0x0009,
+    0x0008, 0x000C,
+    0x0007, 0x000B,
+    0x0007, 0x000B,
+    0x0006, 0x000A,
+    0x0006, 0x0009,
+    0x0005, 0x0008,
+    0x0005, 0x0007,
+    0x0004, 0x0006,
+    0x0004, 0x0005,
+    0x0003, 0x0004,
+    0x0002, 0x0003,
+    0x0001, 0x0001,
+    0x0000, 0x0000,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CF04
 void sub_804CF04(struct SioProc85AAB18 * proc)
@@ -885,7 +1275,16 @@ void sub_804CF04(struct SioProc85AAB18 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AAB18[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAB18[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804CF04),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804CFB8
 ProcPtr sub_804CFB8(ProcPtr parent, int b, int c)
@@ -926,9 +1325,27 @@ void sub_804CFE0(struct SioProc85AAB48 * proc)
     return;
 }
 
-extern u16 gUnknown_085AAB30[];
-extern u16 gUnknown_085AAB38[];
-extern u16 gUnknown_085AAB40[];
+// clang-format off
+
+u16 CONST_DATA gUnknown_085AAB30[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x257) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+u16 CONST_DATA gUnknown_085AAB38[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_VFLIP, OAM2_CHR(0x257) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+u16 CONST_DATA gUnknown_085AAB40[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x25D) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D01C
 void sub_804D01C(struct SioProc85AAB48 * proc)
@@ -997,7 +1414,18 @@ void sub_804D01C(struct SioProc85AAB48 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AAB48[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAB48[] =
+{
+    PROC_YIELD,
+    PROC_CALL(sub_804CFE0),
+    PROC_REPEAT(sub_804D01C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D1E0
 void sub_804D1E0(int a, int b, u8 c, u8 d, u8 e, ProcPtr parent)

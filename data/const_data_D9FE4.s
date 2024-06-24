@@ -1,49 +1,5 @@
     .section .rodata
 
-	.global SioDefaultBgConfig
-SioDefaultBgConfig:  @ 0x080D9FE4
-	.incbin "baserom.gba", 0xD9FE4, 0xB8
-
-	.global gUnknown_080DA09C
-gUnknown_080DA09C:  @ 0x080DA09C
-	.incbin "baserom.gba", 0xDA09C, 0x3E
-
-	.global gUnknown_080DA0DA
-gUnknown_080DA0DA:  @ 0x080DA0DA
-    .incbin "baserom.gba", 0xDA0DA, 0x20
-
-	.global gUnknown_080DA0FA
-gUnknown_080DA0FA:  @ 0x080DA0FA
-	.incbin "baserom.gba", 0xDA0FA, 0x8
-
-	.global gUnknown_080DA102
-gUnknown_080DA102:  @ 0x080DA102
-    .incbin "baserom.gba", 0xDA102, 0x30
-
-	.global gUnknown_080DA132
-gUnknown_080DA132:  @ 0x080DA132
-	.incbin "baserom.gba", 0xDA132, 0x48
-
-	.global gUnknown_080DA17A
-gUnknown_080DA17A:  @ 0x080DA17A
-	.incbin "baserom.gba", 0xDA17A, 0x14
-
-	.global gUnknown_080DA18E
-gUnknown_080DA18E:  @ 0x080DA18E
-	.incbin "baserom.gba", 0xDA18E, 0x14
-
-	.global gUnknown_080DA1A2
-gUnknown_080DA1A2:  @ 0x080DA1A2
-	.incbin "baserom.gba", 0xDA1A2, 0x14
-
-	.global gUnknown_080DA1B6
-gUnknown_080DA1B6:  @ 0x080DA1B6
-	.incbin "baserom.gba", 0xDA1B6, 0x14
-
-	.global gUnknown_080DA1CA
-gUnknown_080DA1CA:  @ 0x080DA1CA
-	.incbin "baserom.gba", 0xDA1CA, 0x42
-
 	.global gUnknown_080DA20C
 gUnknown_080DA20C:  @ 0x080DA20C
 @ replacing .incbin "baserom.gba", 0x000da20c, 0x10
