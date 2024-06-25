@@ -2540,7 +2540,7 @@ extern u16 gUnknown_08802B04[];
 extern u16 gPalEfxHpBarGreen[];
 extern u16 gUnknown_08802BC4[];
 extern u16 gPalEfxHpBarPurple[];
-extern u16 gUnknown_08802D24[];
+extern u16 Pal_BanimUnitFlashing[];
 
 void EkrEfxStatusClear(void);
 int CheckEkrHitDone(void);

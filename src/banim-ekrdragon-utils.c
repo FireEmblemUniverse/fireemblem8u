@@ -61,11 +61,11 @@ void sub_807027C(struct Anim * anim)
             return;
         
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
-            pal = gUnknown_08802D24;
+            pal = Pal_BanimUnitFlashing;
             break;
     
         case EKRDRGON_TYPE_DEMON_KING:
-            pal = gUnknown_08802D24;
+            pal = Pal_BanimUnitFlashing;
             break;
     }
 

@@ -267,12 +267,12 @@ void EfxFlashUnitMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         sub_807027C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         sub_807027C(proc->anim);
     }
 
@@ -286,12 +286,12 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
 
@@ -331,12 +331,12 @@ void EfxFlashUnitEffectMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         sub_807027C(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         sub_807027C(proc->anim);
     }
 
@@ -356,12 +356,12 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
 
