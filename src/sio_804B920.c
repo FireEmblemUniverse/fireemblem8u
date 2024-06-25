@@ -3,6 +3,8 @@
 #include "hardware.h"
 #include "bmlib.h"
 
+#include "sio.h"
+
 struct SioProc85AA7B4
 {
     /* 00 */ PROC_HEADER;
@@ -13,8 +15,6 @@ struct SioProc85AA7B4
 };
 
 extern s16 gUnk_Sio_02000F00[];
-
-extern u8 gUnk_Sio_0203DDDC;
 
 extern s16 * gUnk_Sio_02001180;
 extern s16 * gUnk_Sio_02001184;

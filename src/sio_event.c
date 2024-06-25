@@ -345,7 +345,7 @@ void sub_804879C(void)
 void sub_80487C0(struct Proc * proc)
 {
     int i;
-    struct Proc85AA9C0 ** iter;
+    struct SioProc85AA9C0 ** iter;
 
     struct SioMenuProc * pSioMenuProc = proc->proc_parent;
 

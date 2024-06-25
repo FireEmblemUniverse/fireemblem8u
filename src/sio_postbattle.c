@@ -131,7 +131,7 @@ void SioPostBattleSprites_Loop_DrawSlideIn(struct SioPostBattleSpritesProc * pro
         PutSprite(4, proc->x + 72, proc->y - 6, SpriteArray_085A96D4[proc->oam2], 0);
         PutSprite(4, proc->x + 96, proc->y + 8, Sprite_080D9DE4, 0);
         PutSprite(4, proc->x + 64, proc->y + 8, Sprite_080D9E06, proc->ranking * 4 + 0x50);
-        PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_085AAA50, OAM2_PAL(proc->oam2) + 0x400);
+        PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_LinkArena_NameBanner, OAM2_PAL(proc->oam2) + 0x400);
         PutSprite(4, -proc->x + 124, proc->y, Sprite_080D9DF2, proc->oam2 == 3 ? 0x40 : proc->oam2 * 9);
         PutSprite(
             5, -proc->x + 208, proc->y - 8, Sprite_080D9E0E, OAM2_PAL(proc->oam2 + 10) + 0x180 + (proc->oam2 << 3));
@@ -147,7 +147,7 @@ void SioPostBattleSprites_Loop_DrawStatic(struct SioPostBattleSpritesProc * proc
     PutSprite(4, proc->x + 72, proc->y - 6, SpriteArray_085A96D4[proc->oam2], 0);
     PutSprite(4, proc->x + 96, proc->y + 8, Sprite_080D9DE4, 0);
     PutSprite(4, proc->x + 64, proc->y + 8, Sprite_080D9E06, proc->ranking * 4 + 0x50);
-    PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_085AAA50, OAM2_PAL(proc->oam2) + 0x400);
+    PutSprite(4, -proc->x + 112, proc->y - 8, Sprite_LinkArena_NameBanner, OAM2_PAL(proc->oam2) + 0x400);
     PutSprite(4, -proc->x + 124, proc->y, Sprite_080D9DF2, proc->oam2 == 3 ? 0x40 : proc->oam2 * 9);
     PutSprite(5, -proc->x + 208, proc->y - 8, Sprite_080D9E0E, OAM2_PAL(proc->oam2 + 10) + 0x180 + (proc->oam2 << 3));
 

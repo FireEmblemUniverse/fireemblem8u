@@ -217,7 +217,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_END_EACH
         .short 0x9, 0x0
-        .word gUnknown_085AAB00
+        .word ProcScr_RuleSettingSpriteDraw_Static
         @ PROC_CALL
         .short 0x2, 0x0
         .word nullsub_13
