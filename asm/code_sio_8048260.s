@@ -268,7 +268,7 @@ _0804D494:
 	adds r0, r0, r3
 	str r0, [sp]
 	movs r0, #4
-	ldr r3, _0804D648  @ Sprite_085AAA50
+	ldr r3, _0804D648  @ Sprite_LinkArena_NameBanner
 	bl PutSprite
 	ldr r4, _0804D64C  @ gSinLookup+0x80
 	movs r1, #0
@@ -464,7 +464,7 @@ _0804D636:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0804D648: .4byte Sprite_085AAA50
+_0804D648: .4byte Sprite_LinkArena_NameBanner
 _0804D64C: .4byte gSinLookup+0x80
 _0804D650: .4byte gSinLookup
 _0804D654: .4byte 0x0000014F

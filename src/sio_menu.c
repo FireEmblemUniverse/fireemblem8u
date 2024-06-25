@@ -14,10 +14,6 @@
 
 #include "constants/faces.h"
 
-// FIXME
-void sub_804C7C8(ProcPtr, int, int, int, int);
-void sub_804C7DC(ProcPtr, s16, s16);
-
 //! FE8U = 0x08047A54
 int sub_8047A54(struct SioMenuProc * proc, int lineNum)
 {
@@ -153,7 +149,7 @@ void SioMenu_LoadGraphics(struct SioMenuProc * proc)
         proc->unk_2c[i] = sub_804C758(proc, 0xb0, 0xa0, i, proc->unk_40[i]);
     }
 
-    NewProc085AA980(proc->unk_2c[0], 0, 0);
+    StartLinkArenaTitleBanner(proc->unk_2c[0], 0, 0);
     sub_804C508();
 
     SetupFaceGfxData(FaceConfig_085A9E48);
@@ -302,7 +298,7 @@ void SioMenu_RestartGraphicsMaybe(struct SioMenuProc * proc)
         proc->unk_2c[i] = sub_804C758(proc, gUnknown_080D9EF0[idx + 0], gUnknown_080D9EF0[idx + 1], i, proc->unk_40[i]);
     }
 
-    NewProc085AA980(proc->unk_2c[0], 0, 0);
+    StartLinkArenaTitleBanner(proc->unk_2c[0], 0, 0);
     sub_804C508();
 
     SetupFaceGfxData(FaceConfig_085A9E68);
@@ -382,7 +378,7 @@ void SioMenu_Loop_HandleKeyInput(struct SioMenuProc * proc)
 
     if (idx != proc->unk_48)
     {
-        struct Proc85AA9C0 * child;
+        struct SioProc85AA9C0 * child;
 
         SioPlaySoundEffect(3);
 
@@ -392,7 +388,7 @@ void SioMenu_Loop_HandleKeyInput(struct SioMenuProc * proc)
         child = proc->unk_2c[proc->unk_48];
         child->unk_2e = 2;
 
-        sub_804CFB8(child, child->unk_2a, child->unk_2c);
+        StartSioMenuBurstFx(child, child->xBase, child->yBase);
 
         sub_8043100(sub_8047A54(proc, 0), 0);
         sub_8043100(sub_8047A54(proc, 1), 1);

@@ -107,13 +107,13 @@ void SioRuleSettings_Init(struct ProcSioRuleSettings * proc)
     sub_8043164();
 
     proc->unk_30 = 0;
-    proc->unk_2c = sub_804CE8C(proc);
+    proc->unk_2c = StartRuleSettingSpriteDrawInteractive(proc);
 
     BG_SetPosition(BG_1, 254, 0);
 
     LoadLinkArenaRuleSettings(buf);
 
-    sub_804CEC4(
+    UpdateRuleSettingSprites(
         proc->unk_2c, proc->unk_30, gLinkArenaRuleData[proc->unk_30].xPos[buf[proc->unk_30]] * 8,
         ((proc->unk_30 * 3) << 3) + 0x30);
 
@@ -132,7 +132,7 @@ void SioRuleSettings_Init(struct ProcSioRuleSettings * proc)
     DrawLinkArenaModeIcon(gBG1TilemapBuffer + 0x11E + gLinkArenaRuleData[1].xPos[0], 0);
     DrawLinkArenaModeIcon(gBG1TilemapBuffer + 0x11E + gLinkArenaRuleData[1].xPos[1], 1);
 
-    NewProc085AA980(proc->unk_2c, 6, 0);
+    StartLinkArenaTitleBanner(proc->unk_2c, 6, 0);
 
     sub_804C508();
 
@@ -196,7 +196,7 @@ void SioRuleSettings_Loop_Main(struct ProcSioRuleSettings * proc)
             var = -2;
         }
 
-        sub_804CEC4(
+        UpdateRuleSettingSprites(
             proc->unk_2c, proc->unk_30, (gLinkArenaRuleData[proc->unk_30].xPos[buf[proc->unk_30]] + var) * 8,
             ((proc->unk_30 * 3) << 3) + 0x30);
 

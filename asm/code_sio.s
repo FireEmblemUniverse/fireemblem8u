@@ -687,7 +687,7 @@ _08045E46:
 	adds r1, r1, r2
 	ldrb r1, [r1]
 	movs r2, #0
-	bl NewProc085AA980
+	bl StartLinkArenaTitleBanner
 	bl sub_804C508
 	ldr r0, [r6, #0x30]
 	movs r1, #0xe9
@@ -1912,7 +1912,7 @@ sub_8046838: @ 0x08046838
 	bl SetTextFont
 	bl ResetTextFont
 	bl sub_8043164
-	bl sub_804CEB0
+	bl StartRuleSettingSpriteDrawStatic
 	add r0, sp, #4
 	bl LoadLinkArenaRuleSettings
 	movs r0, #1
@@ -1973,7 +1973,7 @@ _080468D4:
 	ldrb r1, [r0]
 	mov r0, r9
 	movs r2, #0
-	bl NewProc085AA980
+	bl StartLinkArenaTitleBanner
 	bl sub_804C508
 	ldr r0, _080469A8  @ 0x0000074B
 	movs r1, #1
@@ -2334,7 +2334,7 @@ _08046BB0:
 	adds r0, r7, #0
 	movs r1, #1
 	movs r2, #0
-	bl NewProc085AA980
+	bl StartLinkArenaTitleBanner
 	bl sub_804C508
 	movs r0, #0xf
 	bl BG_EnableSyncByMask

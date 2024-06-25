@@ -121,14 +121,14 @@ void Tactician_InitScreen(struct ProcTactician * proc)
     proc->conf_idx = 6;
 
     conf = GetTacticianTextConf(6);
-    proc->child1 = NewProc_085AAAC4(proc, conf->xpos - 4, conf->unk32 + 1);
+    proc->child1 = StartNameEntrySpriteDraw(proc, conf->xpos - 4, conf->unk32 + 1);
     proc->unk39 = 0;
 
     for (i = 0; i < 10; i++)
         InitText(Texts_0203DB14 + i, 0x1A);
 
     InitText(&Texts_0203DAB0, 0xC);
-    NewProc085AA980(proc->child1, 3, 0x500);
+    StartLinkArenaTitleBanner(proc->child1, 3, 0x500);
     sub_804C508();
     gUnk_Sio_0203DD24 = 0;
     proc->text_idx = 0;
@@ -503,7 +503,7 @@ void Tactician_Loop(struct ProcTactician * proc)
 
     _cbuf[proc->max_len - 1] = 0;
 
-    sub_804CDD0(proc->child1, conf->xpos - 4, conf->unk32 + 1, StrLen(_cbuf) * 7, conf->unk34, (proc->line_idx <= 1) ? proc->line_idx : 2);
+    UpdateNameEntrySpriteDraw(proc->child1, conf->xpos - 4, conf->unk32 + 1, StrLen(_cbuf) * 7, conf->unk34, (proc->line_idx <= 1) ? proc->line_idx : 2);
 }
 
 extern u8 gUnknown_03001810;

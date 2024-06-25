@@ -172,8 +172,8 @@ void SioResult_Init(struct SioResultProc * proc)
 
     SetWOutLayers(1, 0, 1, 1, 1);
 
-    sub_804D1E0(217, 57, 10, 5, proc->unk_36 + 56, proc);
-    NewProc085AA980(proc, 5, 0);
+    StartLinkArenaMenuScrollBar(217, 57, 10, 5, proc->unk_36 + 56, proc);
+    StartLinkArenaTitleBanner(proc, 5, 0);
     sub_804C558();
     StartLinkArenaButtonSpriteDraw(0xc0, 0x10, proc);
 
@@ -191,7 +191,7 @@ void SioResult_Loop_Main(struct SioResultProc * proc)
         proc->unk_38--;
 
         BG_SetPosition(BG_1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 56);
+        UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
 
         return;
     }
@@ -202,7 +202,7 @@ void SioResult_Loop_Main(struct SioResultProc * proc)
         proc->unk_38++;
 
         BG_SetPosition(BG_1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 56);
+        UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
 
         return;
     }
@@ -217,7 +217,7 @@ void SioResult_Loop_Main(struct SioResultProc * proc)
         proc->unk_38 = 3;
 
         BG_SetPosition(BG_1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 56);
+        UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
     }
 
     if (((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0) && (proc->unk_34 + 5 < 10))
@@ -230,7 +230,7 @@ void SioResult_Loop_Main(struct SioResultProc * proc)
         proc->unk_38 = -3;
 
         BG_SetPosition(BG_1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 56);
+        UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
     }
 
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
@@ -356,7 +356,7 @@ void SioResult_NewHS_LoopScroll(struct SioResultProc * proc)
         proc->unk_38--;
 
         BG_SetPosition(BG_1, 0, proc->unk_36);
-        sub_804D24C(10, proc->unk_36 + 56);
+        UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
 
         otherProc->unk_30 += 2;
     }
@@ -370,7 +370,7 @@ void SioResult_NewHS_LoopScroll(struct SioResultProc * proc)
             proc->unk_38 = 7;
 
             BG_SetPosition(BG_1, 0, proc->unk_36);
-            sub_804D24C(10, proc->unk_36 + 56);
+            UpdateLinkArenaMenuScrollBar(10, proc->unk_36 + 56);
 
             otherProc->unk_30 += 2;
         }

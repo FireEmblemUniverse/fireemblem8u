@@ -15,46 +15,6 @@
 #include "sio_core.h"
 #include "sio.h"
 
-// FIXME
-ProcPtr sub_804CAEC(ProcPtr, int, u8 *);
-
-struct SioProc85AAA78
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x30);
-    /* 30 */ s16 unk_30[5];
-    /* 3A */ u8 unk_3a[2];
-    /* 3C */ STRUCT_PAD(0x3c, 0x40);
-    /* 40 */ int unk_40;
-    /* 44 */ u8 unk_44;
-    /* 45 */ STRUCT_PAD(0x45, 0x48);
-    /* 48 */ int unk_48;
-};
-
-struct SioTeamListProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct SioProc85AAA78 * unk_2c;
-    /* 30 */ ProcPtr pSioHoldProc;
-    /* 34 */ int numActiveOptions;
-    /* 38 */ int unk_38;
-    /* 3C */ int optionIdx;
-    /* 40 */ int unk_40;
-    /* 44 */ int unk_44;
-    /* 48 */ u8 unk_48;
-    /* 49 */ STRUCT_PAD(0x49, 0x4A);
-    /* 4A */ u16 yBg1;
-    /* 4C */ s8 unk_4c;
-    /* 4D */ u8 validOptions[5];
-    /* 52 */ u8 selectedOption;
-    /* 53 */ u8 selectedTeam;
-    /* 54 */ u8 unk_54;
-    /* 55 */ u8 unk_55;
-    /* 56 */ STRUCT_PAD(0x56, 0x58);
-    /* 58 */ int unk_58;
-    /* 5C */ s8 unk_5c;
-};
-
 extern struct ProcCmd ProcScr_SioTeamList[];
 
 struct LinkArenaTeamEnt
@@ -407,7 +367,7 @@ void SioTeamList_EraseTeam(struct SioTeamListProc * proc)
         sub_80437C0(gLinkArenaSt.unk_00, proc);
     }
 
-    sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+    UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
@@ -451,7 +411,7 @@ void SioTeamList_SwapTeams(struct SioTeamListProc * proc)
     DrawLinkArenaTeamName(teamB);
     DrawLinkArenaTeamName(teamA);
 
-    sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+    UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
 
     Proc_End(proc->pSioHoldProc);
 
@@ -598,7 +558,7 @@ void SioTeamList_SetupGfx(struct SioTeamListProc * proc)
     SetWin1Layers(1, 0, 1, 1, 0);
     SetWOutLayers(1, 0, 1, 1, 1);
 
-    NewProc085AA980(proc->unk_2c, gUnknown_080D9D5E[gLinkArenaSt.unk_00], 0);
+    StartLinkArenaTitleBanner(proc->unk_2c, gUnknown_080D9D5E[gLinkArenaSt.unk_00], 0);
     sub_804C558();
 
     sub_8043100(GetLATeamListHelpTextId(proc), 1);
@@ -790,10 +750,10 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
             sub_804303C(proc->pSioHoldProc, +4);
         }
 
-        sub_804CC5C(+4);
+        ScrollMultiArenaTeamSprites(+4);
 
         DisplayUiHand(80, (proc->unk_40 - proc->unk_48) * 16 + 40);
-        sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+        UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
 
         return;
     }
@@ -809,10 +769,10 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
             sub_804303C(proc->pSioHoldProc, -4);
         }
 
-        sub_804CC5C(-4);
+        ScrollMultiArenaTeamSprites(-4);
 
         DisplayUiHand(80, (proc->unk_40 - proc->unk_48) * 16 + 40);
-        sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+        UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
 
         return;
     }
@@ -971,7 +931,7 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
                 sub_804303C(proc->pSioHoldProc, +4);
             }
 
-            sub_804CC5C(+4);
+            ScrollMultiArenaTeamSprites(+4);
 
             proc->unk_48--;
             proc->unk_4c = +3;
@@ -979,7 +939,7 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
 
             BG_SetPosition(BG_1, 0, proc->yBg1);
 
-            sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+            UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
         }
         else
         {
@@ -1001,7 +961,7 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
                 sub_804303C(proc->pSioHoldProc, -4);
             }
 
-            sub_804CC5C(-4);
+            ScrollMultiArenaTeamSprites(-4);
 
             proc->unk_48++;
             proc->unk_4c = -3;
@@ -1009,7 +969,7 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
 
             BG_SetPosition(BG_1, 0, proc->yBg1);
 
-            sub_804D24C(proc->unk_38, proc->yBg1 + 40);
+            UpdateLinkArenaMenuScrollBar(proc->unk_38, proc->yBg1 + 40);
         }
         else
         {
