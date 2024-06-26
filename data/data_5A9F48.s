@@ -487,7 +487,7 @@ ProcScr_SIOMAIN2:  @ 0x085AA6BC
         .word 0x0
         @ PROC_START_CHILD_BLOCKING
         .short 0x6, 0x1
-        .word gUnknown_085AAB68
+        .word ProcScr_LinkArenaPhaseIntro
         @ PROC_YIELD
         .short 0xe, 0x0
         .word 0x0

@@ -571,9 +571,9 @@ extern u16 Sprite_LinkArena_NameBanner[]; // sprite
 // extern ??? Sprite_LAMenuScrollBar_DownArrow
 // extern ??? Sprite_LinkArenaMenuScrollBar
 // extern ??? ProcScr_LinkArenaMenuScrollBar
-// extern ??? gUnknown_085AABB8
-// extern ??? gUnknown_085AABC8
-// extern ??? gUnknown_085AABD8
+// extern ??? SpriteArray_LAVersusPlayerNumbers
+// extern ??? ProcScr_LAVersusSpriteDraw
+// extern ??? ProcScr_085AABD8
 // extern ??? gUnknown_085AADA0
 // extern ??? gUnknown_085AAE0C
 extern u8 Img_LinkArenaMenu[];

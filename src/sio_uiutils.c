@@ -1430,7 +1430,7 @@ void UpdateLinkArenaMenuScrollBar(u8 a, s16 b)
 }
 
 //! FE8U = 0x0804D2A4
-void sub_804D2A4(void)
+void LAPhaseIntro_Init(void)
 {
     // clang-format off
     u8 * gUnknown_080DA20C[] =
@@ -1475,7 +1475,7 @@ void sub_804D2A4(void)
 }
 
 //! FE8U = 0x0804D37C
-void sub_804D37C(void)
+void LAPhaseIntro_End(void)
 {
     gPlaySt.faction = gUnknown_03001860;
 
@@ -1491,7 +1491,7 @@ void sub_804D37C(void)
 }
 
 //! FE8U = 0x0804D3DC
-void StopBGM2(void)
+void LAPhaseIntro_StartBgm(void)
 {
     StartBgm(0x34, &gMPlayInfo_BGM2);
     return;
@@ -1499,9 +1499,9 @@ void StopBGM2(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AAB68[] =
+struct ProcCmd CONST_DATA ProcScr_LinkArenaPhaseIntro[] =
 {
-    PROC_CALL(sub_804D2A4),
+    PROC_CALL(LAPhaseIntro_Init),
     PROC_YIELD,
 
     PROC_START_CHILD(gProcScr_PhaseIntroText),
@@ -1511,8 +1511,8 @@ struct ProcCmd CONST_DATA gUnknown_085AAB68[] =
     PROC_CALL(PhaseIntro_InitDisp),
     PROC_REPEAT(PhaseIntro_WaitForEnd),
 
-    PROC_CALL(StopBGM2),
-    PROC_CALL(sub_804D37C),
+    PROC_CALL(LAPhaseIntro_StartBgm),
+    PROC_CALL(LAPhaseIntro_End),
 
     PROC_END,
 };
@@ -1558,9 +1558,9 @@ void sub_804D428(void)
         idx = (GetGameClock() % 0x20);
         idx = idx >> 1;
 
-        for (i = 0; i < 0xf; i++)
+        for (i = 0; i < 15; i++)
         {
-            gPaletteBuffer[0x191 + i] = ptr[(idx + i) & 0xf];
+            PAL_OBJ_COLOR(9, 1 + i) = ptr[(idx + i) & 15];
         }
 
         EnablePaletteSync();
@@ -1569,11 +1569,11 @@ void sub_804D428(void)
     return;
 }
 
-struct SioProc85AABC8
+struct LAVersusSpriteDrawProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
+    /* 2C */ int x;
+    /* 30 */ int yBase;
     /* 34 */ int unk_34;
     /* 38 */ int unk_38;
     /* 3C */ u16 unk_3c[4];
@@ -1581,46 +1581,46 @@ struct SioProc85AABC8
 
 // clang-format off
 
-const u16 Sprite_080DA23C[] =
+const u16 Sprite_LAVersus_P1[] =
 {
     1,
     OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(1) + OAM2_PAL(3),
 };
 
-const u16 Sprite_080DA244[] =
+const u16 Sprite_LAVersus_P2[] =
 {
     1,
     OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(1), OAM2_CHR(0x304) + OAM2_LAYER(1) + OAM2_PAL(4),
 };
 
-const u16 Sprite_080DA24C[] =
+const u16 Sprite_LAVersus_P3[] =
 {
     1,
     OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2), OAM2_CHR(0x308) + OAM2_LAYER(1) + OAM2_PAL(5),
 };
 
-const u16 Sprite_080DA254[] =
+const u16 Sprite_LAVersus_P4[] =
 {
     1,
     OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(3), OAM2_CHR(0x30C) + OAM2_LAYER(1) + OAM2_PAL(6),
 };
 
-const u16 * CONST_DATA gUnknown_085AABB8[] =
+const u16 * CONST_DATA SpriteArray_LAVersusPlayerNumbers[] =
 {
-    Sprite_080DA23C,
-    Sprite_080DA244,
-    Sprite_080DA24C,
-    Sprite_080DA254,
+    Sprite_LAVersus_P1,
+    Sprite_LAVersus_P2,
+    Sprite_LAVersus_P3,
+    Sprite_LAVersus_P4,
 };
 
-const u16 gUnknown_080DA25C[] =
+const u16 Sprite_080DA25C[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x348) + OAM2_LAYER(1) + OAM2_PAL(8),
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(32), OAM2_CHR(0x34C) + OAM2_LAYER(1) + OAM2_PAL(8),
 };
 
-const u16 gUnknown_080DA26A[] =
+const u16 Sprite_080DA26A[] =
 {
     3,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x34D) + OAM2_LAYER(1) + OAM2_PAL(9),
@@ -1631,13 +1631,13 @@ const u16 gUnknown_080DA26A[] =
 // clang-format on
 
 //! FE8U = 0x0804D47C
-void sub_804D47C(struct SioProc85AABC8 * proc)
+void LAVersusSpriteDraw_Loop(struct LAVersusSpriteDrawProc * proc)
 {
     int i;
 
     for (i = 0; i < 4; i++)
     {
-        PutSprite(4, proc->unk_2c, proc->unk_30 + i * 0x18, Sprite_LinkArena_NameBanner, ((i & 0xf) << 12) + 0x800);
+        PutSprite(4, proc->x, proc->yBase + i * 24, Sprite_LinkArena_NameBanner, OAM2_PAL(i) + OAM2_LAYER(2));
 
         // clang-format off
         SetObjAffine(
@@ -1664,11 +1664,13 @@ void sub_804D47C(struct SioProc85AABC8 * proc)
                 }
             }
             else
+            {
             _0804D544:
-                if (proc->unk_3c[i] <= 0x14F)
+                if (proc->unk_3c[i] <= 335)
                 {
                     proc->unk_3c[i] += 8;
                 }
+            }
 
             // clang-format off
             SetObjAffine(
@@ -1681,13 +1683,13 @@ void sub_804D47C(struct SioProc85AABC8 * proc)
             // clang-format on
         }
 
-        PutSprite(4, proc->unk_2c - 0x30, proc->unk_30 + i * 0x18, gUnknown_085AABB8[i], 0);
+        PutSprite(4, proc->x - 48, proc->yBase + i * 24, SpriteArray_LAVersusPlayerNumbers[i], 0);
     }
 
     if (proc->unk_34 != -1)
     {
-        PutSprite(4, proc->unk_2c - 0x48, proc->unk_30 + proc->unk_34 * 0x18 + 8, gUnknown_080DA25C, 0);
-        PutSprite(4, proc->unk_2c - 0x48, proc->unk_30 + proc->unk_34 * 0x18 + 0x12, gUnknown_080DA26A, 0);
+        PutSprite(4, proc->x - 72, proc->yBase + proc->unk_34 * 24 + 8, Sprite_080DA25C, 0);
+        PutSprite(4, proc->x - 72, proc->yBase + proc->unk_34 * 24 + 18, Sprite_080DA26A, 0);
         sub_804D428();
     }
 
@@ -1696,25 +1698,25 @@ void sub_804D47C(struct SioProc85AABC8 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AABC8[] =
+struct ProcCmd CONST_DATA ProcScr_LAVersusSpriteDraw[] =
 {
-    PROC_REPEAT(sub_804D47C),
+    PROC_REPEAT(LAVersusSpriteDraw_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0804D664
-ProcPtr sub_804D664(int x, int y, ProcPtr parent)
+ProcPtr StartLinkArenaVersusSpriteDraw(int x, int y, ProcPtr parent)
 {
-    struct SioProc85AABC8 * proc;
+    struct LAVersusSpriteDrawProc * proc;
     int i;
 
-    Proc_EndEach(gUnknown_085AABC8);
-    proc = Proc_Start(gUnknown_085AABC8, parent);
+    Proc_EndEach(ProcScr_LAVersusSpriteDraw);
+    proc = Proc_Start(ProcScr_LAVersusSpriteDraw, parent);
 
-    proc->unk_2c = x;
-    proc->unk_30 = y;
+    proc->x = x;
+    proc->yBase = y;
     proc->unk_34 = -1;
     proc->unk_38 = -1;
 
@@ -1727,16 +1729,16 @@ ProcPtr sub_804D664(int x, int y, ProcPtr parent)
 }
 
 //! FE8U = 0x0804D6B4
-void sub_804D6B4(void)
+void EndLinkArenaVersusSpriteDraw(void)
 {
-    Proc_EndEach(gUnknown_085AABC8);
+    Proc_EndEach(ProcScr_LAVersusSpriteDraw);
     return;
 }
 
 //! FE8U = 0x0804D6C4
-ProcPtr sub_804D6C4(void)
+ProcPtr GetLinkArenaVersusSpriteDraw(void)
 {
-    return Proc_Find(gUnknown_085AABC8);
+    return Proc_Find(ProcScr_LAVersusSpriteDraw);
 }
 
 //! FE8U = 0x0804D6D4
@@ -1752,9 +1754,9 @@ void sub_804D6D4(void)
         idx = GetGameClock() % 0x20;
         idx = idx >> 1;
 
-        for (i = 0; i < 0xf; i++)
+        for (i = 0; i < 15; i++)
         {
-            gPaletteBuffer[0x21 + i] = ptr[(idx + i) & 0xf];
+            PAL_BG_COLOR(2, 1 + i) = ptr[(idx + i) & 15];
         }
 
         EnablePaletteSync();
@@ -1776,9 +1778,9 @@ void sub_804D724(void)
         idx = GetGameClock() % 0x20;
         idx = idx >> 1;
 
-        for (i = 0; i < 0xf; i++)
+        for (i = 0; i < 15; i++)
         {
-            gPaletteBuffer[0x131 + i] = ptr[(idx + i) & 0xf];
+            PAL_OBJ_COLOR(3, 1 + i) = ptr[(idx + i) & 15];
         }
 
         EnablePaletteSync();
@@ -1790,7 +1792,7 @@ void sub_804D724(void)
 //! FE8U = 0x0804D778
 void sub_804D778(void)
 {
-    SetBlendConfig(1, 8, 0xc, 0);
+    SetBlendAlpha(8, 12);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 1, 1, 0);
@@ -1801,13 +1803,13 @@ void sub_804D778(void)
 struct SioProc85AABD8
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
+    /* 2C */ int x;
+    /* 30 */ int y;
 };
 
 // clang-format off
 
-const u16 gUnknown_080DA27E[] =
+const u16 Sprite_080DA27E[] =
 {
     8,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(2) + OAM2_PAL(3),
@@ -1825,9 +1827,9 @@ const u16 gUnknown_080DA27E[] =
 //! FE8U = 0x0804D7B0
 void sub_804D7B0(struct SioProc85AABD8 * proc)
 {
-    if (proc->unk_30 > 0x1e && proc->unk_30 < 0x99)
+    if (proc->y > 30 && proc->y < 153)
     {
-        PutSprite(4, proc->unk_2c, proc->unk_30, gUnknown_080DA27E, 0);
+        PutSprite(4, proc->x, proc->y, Sprite_080DA27E, 0);
         sub_804D724();
     }
 
@@ -1836,7 +1838,7 @@ void sub_804D7B0(struct SioProc85AABD8 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_085AABD8[] =
+struct ProcCmd CONST_DATA ProcScr_085AABD8[] =
 {
     PROC_YIELD,
     PROC_REPEAT(sub_804D7B0),
@@ -1850,11 +1852,11 @@ ProcPtr sub_804D7DC(int x, int y, ProcPtr parent)
 {
     struct SioProc85AABD8 * proc;
 
-    Proc_EndEach(gUnknown_085AABD8);
-    proc = Proc_Start(gUnknown_085AABD8, parent);
+    Proc_EndEach(ProcScr_085AABD8);
+    proc = Proc_Start(ProcScr_085AABD8, parent);
 
-    proc->unk_2c = x;
-    proc->unk_30 = y;
+    proc->x = x;
+    proc->y = y;
 
     return proc;
 }
@@ -1863,13 +1865,13 @@ ProcPtr sub_804D7DC(int x, int y, ProcPtr parent)
 void sub_804D80C(void)
 {
     Decompress(gGfx_SupportMenu, (void *)(0x06016800));
-    CopyToPaletteBuffer(gPal_SupportMenu, 0x240, 0x20);
+    ApplyPalette(gPal_SupportMenu, 0x12);
     return;
 }
 
 // clang-format off
 
-const u16 gUnknown_080DA2B0[] =
+const u16 Sprite_LinkArena_ChoiceBanner[] =
 {
     6,
     OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16, 0,
@@ -1883,8 +1885,8 @@ const u16 gUnknown_080DA2B0[] =
 // clang-format on
 
 //! FE8U = 0x0804D834
-void sub_804D834(int x, int y)
+void PutLinkArenaChoiceBannerSprite(int x, int y)
 {
-    PutSprite(1, x, y, gUnknown_080DA2B0, OAM2_CHR(0x340) + OAM2_LAYER(1) + OAM2_PAL(2));
+    PutSprite(1, x, y, Sprite_LinkArena_ChoiceBanner, OAM2_CHR(0x340) + OAM2_LAYER(1) + OAM2_PAL(2));
     return;
 }

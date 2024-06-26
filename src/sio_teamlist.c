@@ -1100,7 +1100,7 @@ void SioTeamList_StartEraseTeamSubMenu(struct SioTeamListProc * proc)
 //! FE8U = 0x08044430
 void SioTeamList_EraseTeam_KeyHandler(struct SioTeamListProc * proc)
 {
-    sub_804D834(96, proc->unk_58 * 8 + 24);
+    PutLinkArenaChoiceBannerSprite(96, proc->unk_58 * 8 + 24);
 
     if (((gKeyStatusPtr->newKeys & DPAD_LEFT) != 0) && (proc->unk_55 == 1))
     {

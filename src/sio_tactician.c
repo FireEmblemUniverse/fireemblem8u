@@ -605,7 +605,7 @@ void NameSelect_DrawName(struct ProcTactician * proc)
 //! FE8U = 0x08045108
 void sub_8045108(struct ProcTactician * proc)
 {
-    sub_804D834(0x40, 0x58);
+    PutLinkArenaChoiceBannerSprite(0x40, 0x58);
 
     if (((gKeyStatusPtr->newKeys & DPAD_LEFT) != 0) && (proc->unk3B == 1))
     {

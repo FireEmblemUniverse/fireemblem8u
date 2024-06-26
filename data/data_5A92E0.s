@@ -181,7 +181,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804D6B4
+        .word EndLinkArenaVersusSpriteDraw
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndMuralBackground
@@ -265,7 +265,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word 0x0
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804D6B4
+        .word EndLinkArenaVersusSpriteDraw
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndMuralBackground
@@ -340,7 +340,7 @@ ProcScr_SIOBAT:  @ 0x085A9888
         .word ResetFaces
         @ PROC_CALL
         .short 0x2, 0x0
-        .word sub_804D6B4
+        .word EndLinkArenaVersusSpriteDraw
         @ PROC_CALL
         .short 0x2, 0x0
         .word EndMuralBackground
