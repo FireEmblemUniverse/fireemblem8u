@@ -686,5 +686,5 @@ extern int gTargetKeyInSeqIndex;
 // extern ??? gUnknown_03001838
 // extern ??? gUnknown_03001840
 // extern ??? gUnknown_03001850
-// extern ??? gUnknown_03001860
+extern int gUnknown_03001860;
 // extern ??? gUnknown_03001864

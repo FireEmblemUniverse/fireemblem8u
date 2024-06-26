@@ -102,7 +102,11 @@ Img_PhaseChangeOther:  @ 0x085A0088
 
 	.global Pal_PhaseChangeOther
 Pal_PhaseChangeOther:  @ 0x085A0698
-	.incbin "baserom.gba", 0x5A0698, 0x40
+	.incbin "baserom.gba", 0x5A0698, 0x20
+
+	.global Pal_085A06B8
+Pal_085A06B8:  @ 0x085A06B8
+	.incbin "baserom.gba", 0x5A06B8, 0x20
 
 	.global Img_PhaseChangeSquares
 Img_PhaseChangeSquares:  @ 0x085A06D8

@@ -1,28 +1,5 @@
     .section .rodata
 
-	.global gUnknown_080DA20C
-gUnknown_080DA20C:  @ 0x080DA20C
-@ replacing .incbin "baserom.gba", 0x000da20c, 0x10
-.4byte gUnknown_085AE7EC + 0x5e8
-.4byte gUnknown_085AE7EC + 0x6a4
-.4byte gUnknown_085AE7EC + 0x768
-.4byte gUnknown_085AE7EC + 0x840
-
-	.global gUnknown_080DA21C
-gUnknown_080DA21C:  @ 0x080DA21C
-@ replacing .incbin "baserom.gba", 0x000da21c, 0x10
-.4byte gUnknown_085AE7EC + 0x904
-.4byte gUnknown_085AE7EC + 0x944
-.4byte gUnknown_085AE7EC + 0x924
-.4byte gUnknown_085AE7EC + 0x964
-
-	.global gUnknown_080DA22C
-gUnknown_080DA22C:  @ 0x080DA22C
-@ replacing .incbin "baserom.gba", 0xDA22C, 0x30
-    .4byte Pal_PhaseChangePlayer
-    .4byte Pal_PhaseChangeOther
-    .4byte Pal_PhaseChangeEnemy
-    .4byte Pal_PhaseChangeOther + 0x20
     .4byte 0x43000001
     .4byte 0x37008000
     .4byte 0x43000001

@@ -56,7 +56,6 @@ int CheckInLinkArena();
 
 /* section.data */
 
-extern CONST_DATA u16 Img_PhaseChangeUnk[];
 extern CONST_DATA u16 Img_PhaseChangeSquares[];
 extern CONST_DATA u16 Img_PhaseChangePlayer[];
 extern CONST_DATA u16 Img_PhaseChangeEnemy[];

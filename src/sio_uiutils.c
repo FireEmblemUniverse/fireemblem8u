@@ -7,6 +7,9 @@
 #include "bmunit.h"
 #include "bmudisp.h"
 #include "uiutils.h"
+#include "prepscreen.h"
+#include "m4a.h"
+#include "soundwrapper.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -1422,5 +1425,353 @@ void UpdateLinkArenaMenuScrollBar(u8 a, s16 b)
     proc->unk_38 = (proc->unk_34 * proc->unk_3d * 8) / proc->unk_3c;
     proc->unk_42 = (proc->unk_34 * 0x800) / (proc->unk_3c * 16);
 
+    return;
+}
+
+//! FE8U = 0x0804D2A4
+void sub_804D2A4(void)
+{
+    // clang-format off
+    u8 * gUnknown_080DA20C[] =
+    {
+        gUnknown_085AEDD4,
+        gUnknown_085AEE90,
+        gUnknown_085AEF54,
+        gUnknown_085AF02C,
+    };
+
+    u16 * gUnknown_080DA21C[] =
+    {
+        gUnknown_085AF0F0,
+        gUnknown_085AF130,
+        gUnknown_085AF110,
+        gUnknown_085AF150,
+    };
+
+    u16 * gUnknown_080DA22C[] =
+    {
+        Pal_PhaseChangePlayer,
+        Pal_PhaseChangeOther,
+        Pal_PhaseChangeEnemy,
+        Pal_085A06B8,
+    };
+    // clang-format on
+
+    Decompress(Img_PhaseChangeUnk, (void *)(0x06014000));
+    Decompress(Img_PhaseChangeSquares, (void *)(0x06002000));
+    Decompress(gUnknown_085AE7EC, (void *)(0x06002800));
+
+    Decompress(gUnknown_080DA20C[gPlaySt.faction], gGenericBuffer);
+    Copy2dChr(gGenericBuffer, (void *)(0x06002980), 3, 3);
+
+    CopyToPaletteBuffer(gUnknown_080DA21C[gPlaySt.faction], 0xa0, 0x20);
+    CopyToPaletteBuffer(gUnknown_080DA22C[gPlaySt.faction], 0x240, 0x20);
+
+    gUnknown_03001860 = gPlaySt.faction;
+    gPlaySt.faction = FACTION_BLUE;
+
+    return;
+}
+
+//! FE8U = 0x0804D37C
+void sub_804D37C(void)
+{
+    gPlaySt.faction = gUnknown_03001860;
+
+    SetWinEnable(0, 0, 0);
+    SetDefaultColorEffects();
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    return;
+}
+
+//! FE8U = 0x0804D3DC
+void StopBGM2(void)
+{
+    StartBgm(0x34, &gMPlayInfo_BGM2);
+    return;
+}
+
+//! FE8U = 0x0804D3F0
+void sub_804D3F0(struct Unit * unit, int itemSlot)
+{
+    u16 item = unit->items[itemSlot];
+
+    if (item != 0)
+    {
+        unit->items[itemSlot] = item | 0xff00;
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D40C
+void sub_804D40C(struct Unit * unit)
+{
+    int i;
+
+    for (i = 0; i < UNIT_ITEM_COUNT; i++)
+    {
+        sub_804D3F0(unit, i);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D428
+void sub_804D428(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = (GetGameClock() % 0x20);
+        idx = idx >> 1;
+
+        for (i = 0; i < 0xf; i++)
+        {
+            gPaletteBuffer[0x191 + i] = ptr[(idx + i) & 0xf];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+extern u16 gUnknown_080DA26A[];
+extern u16 Sprite_LinkArena_NameBanner[];
+extern u16 gUnknown_080DA25C[];
+
+extern u16 * gUnknown_085AABB8[];
+
+struct SioProc85AABC8
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+    /* 38 */ int unk_38;
+    /* 3C */ u16 unk_3c[4];
+};
+
+//! FE8U = 0x0804D47C
+void sub_804D47C(struct SioProc85AABC8 * proc)
+{
+    int i;
+
+    for (i = 0; i < 4; i++)
+    {
+        PutSprite(4, proc->unk_2c, proc->unk_30 + i * 0x18, Sprite_LinkArena_NameBanner, ((i & 0xf) << 12) + 0x800);
+
+        // clang-format off
+        SetObjAffine(
+            i,
+            Div(+COS(0) * 16, 0x100),
+            Div(-SIN(0) * 16, 0x100),
+            Div(+SIN(0) * 16, 0x100),
+            Div(+COS(0) * 16, 0x100)
+        );
+        // clang-format on
+
+        if (proc->unk_38 != -1)
+        {
+            if (proc->unk_38 != i)
+            {
+                if (proc->unk_3c[i] > 0x100)
+                {
+                    proc->unk_3c[i] -= 8;
+                }
+
+                if (proc->unk_38 == i)
+                {
+                    goto _0804D544;
+                }
+            }
+            else
+            _0804D544:
+                if (proc->unk_3c[i] <= 0x14F)
+                {
+                    proc->unk_3c[i] += 8;
+                }
+
+            // clang-format off
+            SetObjAffine(
+                i,
+                Div(+COS(0) * 16, proc->unk_3c[i]),
+                Div(-SIN(0) * 16, proc->unk_3c[i]),
+                Div(+SIN(0) * 16, proc->unk_3c[i]),
+                Div(+COS(0) * 16, proc->unk_3c[i])
+            );
+            // clang-format on
+        }
+
+        PutSprite(4, proc->unk_2c - 0x30, proc->unk_30 + i * 0x18, gUnknown_085AABB8[i], 0);
+    }
+
+    if (proc->unk_34 != -1)
+    {
+        PutSprite(4, proc->unk_2c - 0x48, proc->unk_30 + proc->unk_34 * 0x18 + 8, gUnknown_080DA25C, 0);
+        PutSprite(4, proc->unk_2c - 0x48, proc->unk_30 + proc->unk_34 * 0x18 + 0x12, gUnknown_080DA26A, 0);
+        sub_804D428();
+    }
+
+    return;
+}
+
+extern struct ProcCmd gUnknown_085AABC8[];
+
+//! FE8U = 0x0804D664
+ProcPtr sub_804D664(int x, int y, ProcPtr parent)
+{
+    struct SioProc85AABC8 * proc;
+    int i;
+
+    Proc_EndEach(gUnknown_085AABC8);
+    proc = Proc_Start(gUnknown_085AABC8, parent);
+
+    proc->unk_2c = x;
+    proc->unk_30 = y;
+    proc->unk_34 = -1;
+    proc->unk_38 = -1;
+
+    for (i = 0; i < 4; i++)
+    {
+        proc->unk_3c[i] = 0x100;
+    }
+
+    return proc;
+}
+
+//! FE8U = 0x0804D6B4
+void sub_804D6B4(void)
+{
+    Proc_EndEach(gUnknown_085AABC8);
+    return;
+}
+
+//! FE8U = 0x0804D6C4
+ProcPtr sub_804D6C4(void)
+{
+    return Proc_Find(gUnknown_085AABC8);
+}
+
+//! FE8U = 0x0804D6D4
+void sub_804D6D4(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = GetGameClock() % 0x20;
+        idx = idx >> 1;
+
+        for (i = 0; i < 0xf; i++)
+        {
+            gPaletteBuffer[0x21 + i] = ptr[(idx + i) & 0xf];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D724
+void sub_804D724(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = GetGameClock() % 0x20;
+        idx = idx >> 1;
+
+        for (i = 0; i < 0xf; i++)
+        {
+            gPaletteBuffer[0x131 + i] = ptr[(idx + i) & 0xf];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D778
+void sub_804D778(void)
+{
+    SetBlendConfig(1, 8, 0xc, 0);
+
+    SetBlendTargetA(0, 0, 0, 0, 0);
+    SetBlendTargetB(0, 1, 1, 1, 0);
+
+    return;
+}
+
+struct SioProc85AABD8
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+};
+
+extern u16 gUnknown_080DA27E[];
+
+//! FE8U = 0x0804D7B0
+void sub_804D7B0(struct SioProc85AABD8 * proc)
+{
+    if (proc->unk_30 > 0x1e && proc->unk_30 < 0x99)
+    {
+        PutSprite(4, proc->unk_2c, proc->unk_30, gUnknown_080DA27E, 0);
+        sub_804D724();
+    }
+
+    return;
+}
+
+extern struct ProcCmd gUnknown_085AABD8[];
+
+//! FE8U = 0x0804D7DC
+ProcPtr sub_804D7DC(int x, int y, ProcPtr parent)
+{
+    struct SioProc85AABD8 * proc;
+
+    Proc_EndEach(gUnknown_085AABD8);
+    proc = Proc_Start(gUnknown_085AABD8, parent);
+
+    proc->unk_2c = x;
+    proc->unk_30 = y;
+
+    return proc;
+}
+
+//! FE8U = 0x0804D80C
+void sub_804D80C(void)
+{
+    Decompress(gGfx_SupportMenu, (void *)(0x06016800));
+    CopyToPaletteBuffer(gPal_SupportMenu, 0x240, 0x20);
+    return;
+}
+
+extern u16 gUnknown_080DA2B0[];
+
+//! FE8U = 0x0804D834
+void sub_804D834(int x, int y)
+{
+    PutSprite(1, x, y, gUnknown_080DA2B0, OAM2_CHR(0x340) + OAM2_LAYER(1) + OAM2_PAL(2));
     return;
 }

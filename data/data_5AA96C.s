@@ -36,10 +36,10 @@ gUnknown_085AAB68:  @ 0x085AAB68
 	.global gUnknown_085AABB8
 gUnknown_085AABB8:  @ 0x085AABB8
 @ replacing .incbin "baserom.gba", 0x005aabb8, 0x10
-.4byte gUnknown_080DA22C + 0x10
-.4byte gUnknown_080DA22C + 0x18
-.4byte gUnknown_080DA22C + 0x20
-.4byte gUnknown_080DA22C + 0x28
+.4byte 0x080DA23C
+.4byte 0x080DA244
+.4byte 0x080DA24C
+.4byte 0x080DA254
 
 	.global gUnknown_085AABC8
 gUnknown_085AABC8:  @ 0x085AABC8
@@ -309,7 +309,39 @@ gUnknown_085AE778:  @ 0x085AE778
 
 	.global gUnknown_085AE7EC
 gUnknown_085AE7EC:  @ 0x085AE7EC
-    .incbin "baserom.gba", 0x5AE7EC, 0x984
+	.incbin "baserom.gba", 0x5AE7EC, 0x5E8    @ 0x5AEDD4 - 0x5AE7EC
+
+	.global gUnknown_085AEDD4
+gUnknown_085AEDD4:  @ 0x085AEDD4
+	.incbin "baserom.gba", 0x5AEDD4, 0xBC    @ 0x5AEE90 - 0x5AEDD4
+
+	.global gUnknown_085AEE90
+gUnknown_085AEE90:  @ 0x085AEE90
+	.incbin "baserom.gba", 0x5AEE90, 0xC4    @ 0x5AEF54 - 0x5AEE90
+
+	.global gUnknown_085AEF54
+gUnknown_085AEF54:  @ 0x085AEF54
+	.incbin "baserom.gba", 0x5AEF54, 0xD8    @ 0x5AF02C - 0x5AEF54
+
+	.global gUnknown_085AF02C
+gUnknown_085AF02C:  @ 0x085AF02C
+	.incbin "baserom.gba", 0x5AF02C, 0xC4    @ 0x5AF0F0 - 0x5AF02C
+
+	.global gUnknown_085AF0F0
+gUnknown_085AF0F0:  @ 0x085AF0F0
+	.incbin "baserom.gba", 0x5AF0F0, 0x20    @ 0x5AF110 - 0x5AF0F0
+
+	.global gUnknown_085AF110
+gUnknown_085AF110:  @ 0x085AF110
+	.incbin "baserom.gba", 0x5AF110, 0x20    @ 0x5AF130 - 0x5AF110
+
+	.global gUnknown_085AF130
+gUnknown_085AF130:  @ 0x085AF130
+	.incbin "baserom.gba", 0x5AF130, 0x20    @ 0x5AF150 - 0x5AF130
+
+	.global gUnknown_085AF150
+gUnknown_085AF150:  @ 0x085AF150
+	.incbin "baserom.gba", 0x5AF150, 0x20    @ 0x5AF170 - 0x5AF150
 
 	.global Img_LinkArenaPostBattleBg
 Img_LinkArenaPostBattleBg:  @ 0x085AF170
