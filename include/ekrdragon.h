@@ -605,7 +605,7 @@ void SetEkrDragonRefrain(struct Anim *anim);
 bool CheckEkrDragonDead(struct Anim *anim);
 bool CheckEkrDragonRefrain(struct Anim *anim);
 void InitEkrDragonStatus(void);
-void sub_807027C(struct Anim *anim);
+void EfxBgFlashingForDragon(struct Anim *anim);
 u16 * GetEkrDragonPalette(void);
 void SetEkrDragonPaletteBack(int pos);
 void SetEkrDragonPaletteFront(int pos);

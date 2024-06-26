@@ -51,7 +51,7 @@ void InitEkrDragonStatus(void)
     }
 }
 
-void sub_807027C(struct Anim * anim)
+void EfxBgFlashingForDragon(struct Anim * anim)
 {
     u16 * pal;
     switch (GetBanimDragonStatusType())
