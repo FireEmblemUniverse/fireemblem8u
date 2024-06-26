@@ -14,6 +14,7 @@
 #include "bmsave.h"
 #include "ekrbattle.h"
 #include "soundwrapper.h"
+#include "phasechangefx.h"
 #include "constants/event-flags.h"
 #include "constants/characters.h"
 #include "constants/classes.h"

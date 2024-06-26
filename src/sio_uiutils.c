@@ -10,6 +10,7 @@
 #include "prepscreen.h"
 #include "m4a.h"
 #include "soundwrapper.h"
+#include "phasechangefx.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -1496,6 +1497,28 @@ void StopBGM2(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AAB68[] =
+{
+    PROC_CALL(sub_804D2A4),
+    PROC_YIELD,
+
+    PROC_START_CHILD(gProcScr_PhaseIntroText),
+    PROC_START_CHILD(gProcScr_PhaseIntroSquares),
+    PROC_START_CHILD(gProcScr_PhaseIntroBlendBox),
+
+    PROC_CALL(PhaseIntro_InitDisp),
+    PROC_REPEAT(PhaseIntro_WaitForEnd),
+
+    PROC_CALL(StopBGM2),
+    PROC_CALL(sub_804D37C),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x0804D3F0
 void sub_804D3F0(struct Unit * unit, int itemSlot)
 {
@@ -1546,12 +1569,6 @@ void sub_804D428(void)
     return;
 }
 
-extern u16 gUnknown_080DA26A[];
-extern u16 Sprite_LinkArena_NameBanner[];
-extern u16 gUnknown_080DA25C[];
-
-extern u16 * gUnknown_085AABB8[];
-
 struct SioProc85AABC8
 {
     /* 00 */ PROC_HEADER;
@@ -1561,6 +1578,57 @@ struct SioProc85AABC8
     /* 38 */ int unk_38;
     /* 3C */ u16 unk_3c[4];
 };
+
+// clang-format off
+
+const u16 Sprite_080DA23C[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(1) + OAM2_PAL(3),
+};
+
+const u16 Sprite_080DA244[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(1), OAM2_CHR(0x304) + OAM2_LAYER(1) + OAM2_PAL(4),
+};
+
+const u16 Sprite_080DA24C[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2), OAM2_CHR(0x308) + OAM2_LAYER(1) + OAM2_PAL(5),
+};
+
+const u16 Sprite_080DA254[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(3), OAM2_CHR(0x30C) + OAM2_LAYER(1) + OAM2_PAL(6),
+};
+
+const u16 * CONST_DATA gUnknown_085AABB8[] =
+{
+    Sprite_080DA23C,
+    Sprite_080DA244,
+    Sprite_080DA24C,
+    Sprite_080DA254,
+};
+
+const u16 gUnknown_080DA25C[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x348) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(32), OAM2_CHR(0x34C) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+const u16 gUnknown_080DA26A[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x34D) + OAM2_LAYER(1) + OAM2_PAL(9),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x351) + OAM2_LAYER(1) + OAM2_PAL(9),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(64), OAM2_CHR(0x355) + OAM2_LAYER(1) + OAM2_PAL(9),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D47C
 void sub_804D47C(struct SioProc85AABC8 * proc)
@@ -1626,7 +1694,15 @@ void sub_804D47C(struct SioProc85AABC8 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AABC8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AABC8[] =
+{
+    PROC_REPEAT(sub_804D47C),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D664
 ProcPtr sub_804D664(int x, int y, ProcPtr parent)
@@ -1729,7 +1805,22 @@ struct SioProc85AABD8
     /* 30 */ int unk_30;
 };
 
-extern u16 gUnknown_080DA27E[];
+// clang-format off
+
+const u16 gUnknown_080DA27E[] =
+{
+    8,
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x304) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x308) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_8x16 + OAM0_BLEND, OAM1_SIZE_8x16 + OAM1_X(96), OAM2_CHR(0x30C) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_8x16 + OAM0_BLEND, OAM1_SIZE_8x16 + OAM1_X(104) + OAM1_HFLIP, OAM2_CHR(0x30C) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(112) + OAM1_HFLIP, OAM2_CHR(0x308) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(144) + OAM1_HFLIP, OAM2_CHR(0x304) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(176) + OAM1_HFLIP, OAM2_CHR(0x300) + OAM2_LAYER(2) + OAM2_PAL(3),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D7B0
 void sub_804D7B0(struct SioProc85AABD8 * proc)
@@ -1743,7 +1834,16 @@ void sub_804D7B0(struct SioProc85AABD8 * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AABD8[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_085AABD8[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804D7B0),
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D7DC
 ProcPtr sub_804D7DC(int x, int y, ProcPtr parent)
@@ -1767,7 +1867,20 @@ void sub_804D80C(void)
     return;
 }
 
-extern u16 gUnknown_080DA2B0[];
+// clang-format off
+
+const u16 gUnknown_080DA2B0[] =
+{
+    6,
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16, 0,
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4),
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x8),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8, OAM2_CHR(0xC),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x10),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8 + OAM1_X(64), OAM2_CHR(0x14),
+};
+
+// clang-format on
 
 //! FE8U = 0x0804D834
 void sub_804D834(int x, int y)

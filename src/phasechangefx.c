@@ -11,6 +11,7 @@
 #include "bmunit.h"
 #include "bm.h"
 #include "bmlib.h"
+#include "phasechangefx.h"
 #include "constants/video-global.h"
 
 /*
@@ -18,57 +19,18 @@
  * port from fe6@StanHash
  */
 
-
-/* struct definitions */
-
-struct PhaseIntroSubProc {
-    PROC_HEADER;
-    /* 29 */ u8 _pad_29[0x4C - 0x29];
-    /* 4C */ s16 timer;
-    /* 4E */ s16 stat_index;
-};
-
-
-/* function declarations */
-
-void PhaseIntroVMatchHi(void);
-void PhaseIntroVMatchMid(void);
-void PhaseIntroVMatchLo(void);
-void PhaseIntroUnk_Init(struct PhaseIntroSubProc *proc);
-void PhaseIntroUnk_Loop(struct PhaseIntroSubProc *proc);
-void PhaseIntroInitText(struct PhaseIntroSubProc *proc);
-void PhaseIntroText_PutText(struct PhaseIntroSubProc *proc);
-void PhaseIntroText_InLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntroText_OutLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntroClearText(struct PhaseIntroSubProc *proc);
-void PhaseIntroSquares_Init(struct PhaseIntroSubProc *proc);
-void PhaseIntroSquares_InLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntroSquares_OutLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntroBlendBox_Init(struct PhaseIntroSubProc *proc);
-void PhaseIntroBlendBox_InLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntroBlendBox_OutLoop(struct PhaseIntroSubProc *proc);
-void PhaseIntro_EndIfNoUnits(ProcPtr proc);
-void PhaseIntro_InitGraphics(ProcPtr proc);
-void PhaseIntro_InitDisp(ProcPtr proc);
-void PhaseIntro_WaitForEnd(ProcPtr proc);
 int CheckInLinkArena();
-
 
 /* section.data */
 
-extern CONST_DATA u16 Img_PhaseChangeSquares[];
-extern CONST_DATA u16 Img_PhaseChangePlayer[];
-extern CONST_DATA u16 Img_PhaseChangeEnemy[];
-extern CONST_DATA u16 Img_PhaseChangeOther[];
-extern CONST_DATA u16 Pal_PhaseChangePlayer[];
-extern CONST_DATA u16 Pal_PhaseChangeEnemy[];
-extern CONST_DATA u16 Pal_PhaseChangeOther[];
-
-u16 CONST_DATA obj_0859AEC8[] = {
-    0x0005, 0x4100, 0xc000, 0x0000,
-    0x4100, 0xC040, 0x0008, 0x4100,
-    0xC080, 0x0010, 0x0100, 0x80C0,
-    0x0018, 0x8100, 0x80E0, 0x001C
+u16 CONST_DATA obj_0859AEC8[] =
+{
+    5,
+    OAM0_SHAPE_64x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_64x32, 0,
+    OAM0_SHAPE_64x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_64x32 + OAM1_X(64), OAM2_CHR(0x8),
+    OAM0_SHAPE_64x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_64x32 + OAM1_X(128), OAM2_CHR(0x10),
+    OAM0_SHAPE_32x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x32 + OAM1_X(192), OAM2_CHR(0x18),
+    OAM0_SHAPE_16x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_16x32 + OAM1_X(224), OAM2_CHR(0x1C),
 };
 
 struct ProcCmd CONST_DATA gProcScr_PhaseIntroUnk[] = {

@@ -402,9 +402,7 @@ extern struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[];
 // extern ??? gProcCmd_MenuItemPanel
 // extern ??? sProcScr_PrepUnitSwap
 extern u16 CONST_DATA obj_0859AEC8[];
-// extern ??? gProcScr_PhaseIntroText
-// extern ??? gProcScr_PhaseIntroSquares
-// extern ??? gProcScr_PhaseIntroBlendBox
+
 // extern ??? ProcScr_GasTrapAnim
 // extern ??? ProcScr_FireTrapAnim
 // extern ??? ProcScr_UnkTrapAnim
@@ -454,15 +452,7 @@ extern u16 gPal_YellowTextBox[];
 extern u16 Pal_GreenTextColors[];
 extern u16 Pal_Text_Inverted[];
 extern u16 Pal_TalkBubble_Inverted[];
-extern u8 Img_PhaseChangeUnk[];
-// extern ??? Img_PhaseChangePlayer
-extern CONST_DATA u16 Pal_PhaseChangePlayer[];
-// extern ??? Img_PhaseChangeEnemy
-extern u16 Pal_PhaseChangeEnemy[];
-// extern ??? Img_PhaseChangeOther
-extern u16 Pal_PhaseChangeOther[];
-extern u16 Pal_085A06B8[];
-extern CONST_DATA u16 Img_PhaseChangeSquares[];
+
 extern u8 gUnknown_085A0838[]; // tsa
 extern u8 gUnknown_085A08F0[]; // tsa
 

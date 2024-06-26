@@ -8,9 +8,9 @@
 #include "sio.h"
 
 //! FE8U = 0x0804D858
-int sub_804D858(struct Unit * unit, int itemSlot)
+u8 sub_804D858(const struct MenuItemDef * def, int number)
 {
-    int item = gActiveUnit->items[itemSlot];
+    int item = gActiveUnit->items[number];
 
     if ((GetItemAttributes(item) & IA_WEAPON) == 0)
     {
@@ -88,3 +88,109 @@ u8 sub_804D950(struct MenuProc * menu)
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B;
 }
+
+// clang-format off
+
+struct MenuItemDef CONST_DATA MenuItems_085AABF0[] =
+{
+    {
+        .name = "　直接攻撃",
+        .overrideId = 1,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_804D8C8,
+    },
+
+    {
+        .name = "　間接攻撃",
+        .overrideId = 2,
+        .isAvailable = MenuAlwaysEnabled,
+        .onSelected = sub_804D8C8,
+    },
+
+    { 0 }, // end
+};
+
+struct MenuItemDef CONST_DATA MenuItems_085AAC5C[] =
+{
+    {
+        .name = "",
+        .overrideId = 3,
+        .isAvailable = sub_804D858,
+        .onDraw = sub_804D8DC,
+        .onSelected = sub_804D8A4,
+    },
+
+    {
+        .name = "",
+        .overrideId = 4,
+        .isAvailable = sub_804D858,
+        .onDraw = sub_804D8DC,
+        .onSelected = sub_804D8A4,
+    },
+
+    {
+        .name = "",
+        .overrideId = 5,
+        .isAvailable = sub_804D858,
+        .onDraw = sub_804D8DC,
+        .onSelected = sub_804D8A4,
+    },
+
+    {
+        .name = "",
+        .overrideId = 6,
+        .isAvailable = sub_804D858,
+        .onDraw = sub_804D8DC,
+        .onSelected = sub_804D8A4,
+    },
+
+    {
+        .name = "",
+        .overrideId = 7,
+        .isAvailable = sub_804D858,
+        .onDraw = sub_804D8DC,
+        .onSelected = sub_804D8A4,
+    },
+
+    { 0 }, // end
+};
+
+struct MenuItemDef CONST_DATA MenuItems_085AAD34[] =
+{
+    { 0 }, // end
+};
+
+struct MenuItemDef CONST_DATA MenuItems_085AAD58[] =
+{
+    { 0 }, // end
+};
+
+struct MenuDef CONST_DATA gUnknown_085AAD7C =
+{
+    .rect = { 16, 2, 8, 0 },
+    .menuItems = MenuItems_085AABF0,
+    .onBPress = sub_804D940,
+};
+
+struct MenuDef CONST_DATA gUnknown_085AADA0 =
+{
+    .rect = { 1, 1, 14, 0 },
+    .menuItems = MenuItems_085AAC5C,
+    .onBPress = sub_804D940,
+};
+
+struct MenuDef CONST_DATA gUnknown_085AADC4 =
+{
+    .rect = { 1, 2, 12, 0 },
+    .menuItems = MenuItems_085AAD34,
+    .onBPress = MenuCancelSelect,
+};
+
+struct MenuDef CONST_DATA gUnknown_085AADE8 =
+{
+    .rect = { 1, 2, 22, 0 },
+    .menuItems = MenuItems_085AAD58,
+    .onBPress = MenuCancelSelect,
+};
+
+// clang-format on
