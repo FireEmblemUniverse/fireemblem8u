@@ -7,6 +7,10 @@
 #include "bmunit.h"
 #include "bmudisp.h"
 #include "uiutils.h"
+#include "prepscreen.h"
+#include "m4a.h"
+#include "soundwrapper.h"
+#include "phasechangefx.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -1422,5 +1426,467 @@ void UpdateLinkArenaMenuScrollBar(u8 a, s16 b)
     proc->unk_38 = (proc->unk_34 * proc->unk_3d * 8) / proc->unk_3c;
     proc->unk_42 = (proc->unk_34 * 0x800) / (proc->unk_3c * 16);
 
+    return;
+}
+
+//! FE8U = 0x0804D2A4
+void LAPhaseIntro_Init(void)
+{
+    // clang-format off
+    u8 * gUnknown_080DA20C[] =
+    {
+        gUnknown_085AEDD4,
+        gUnknown_085AEE90,
+        gUnknown_085AEF54,
+        gUnknown_085AF02C,
+    };
+
+    u16 * gUnknown_080DA21C[] =
+    {
+        gUnknown_085AF0F0,
+        gUnknown_085AF130,
+        gUnknown_085AF110,
+        gUnknown_085AF150,
+    };
+
+    u16 * gUnknown_080DA22C[] =
+    {
+        Pal_PhaseChangePlayer,
+        Pal_PhaseChangeOther,
+        Pal_PhaseChangeEnemy,
+        Pal_085A06B8,
+    };
+    // clang-format on
+
+    Decompress(Img_PhaseChangeUnk, (void *)(0x06014000));
+    Decompress(Img_PhaseChangeSquares, (void *)(0x06002000));
+    Decompress(gUnknown_085AE7EC, (void *)(0x06002800));
+
+    Decompress(gUnknown_080DA20C[gPlaySt.faction], gGenericBuffer);
+    Copy2dChr(gGenericBuffer, (void *)(0x06002980), 3, 3);
+
+    CopyToPaletteBuffer(gUnknown_080DA21C[gPlaySt.faction], 0xa0, 0x20);
+    CopyToPaletteBuffer(gUnknown_080DA22C[gPlaySt.faction], 0x240, 0x20);
+
+    gUnknown_03001860 = gPlaySt.faction;
+    gPlaySt.faction = FACTION_BLUE;
+
+    return;
+}
+
+//! FE8U = 0x0804D37C
+void LAPhaseIntro_End(void)
+{
+    gPlaySt.faction = gUnknown_03001860;
+
+    SetWinEnable(0, 0, 0);
+    SetDefaultColorEffects();
+
+    gLCDControlBuffer.bg0cnt.priority = 0;
+    gLCDControlBuffer.bg1cnt.priority = 1;
+    gLCDControlBuffer.bg2cnt.priority = 2;
+    gLCDControlBuffer.bg3cnt.priority = 3;
+
+    return;
+}
+
+//! FE8U = 0x0804D3DC
+void LAPhaseIntro_StartBgm(void)
+{
+    StartBgm(0x34, &gMPlayInfo_BGM2);
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_LinkArenaPhaseIntro[] =
+{
+    PROC_CALL(LAPhaseIntro_Init),
+    PROC_YIELD,
+
+    PROC_START_CHILD(gProcScr_PhaseIntroText),
+    PROC_START_CHILD(gProcScr_PhaseIntroSquares),
+    PROC_START_CHILD(gProcScr_PhaseIntroBlendBox),
+
+    PROC_CALL(PhaseIntro_InitDisp),
+    PROC_REPEAT(PhaseIntro_WaitForEnd),
+
+    PROC_CALL(LAPhaseIntro_StartBgm),
+    PROC_CALL(LAPhaseIntro_End),
+
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D3F0
+void sub_804D3F0(struct Unit * unit, int itemSlot)
+{
+    u16 item = unit->items[itemSlot];
+
+    if (item != 0)
+    {
+        unit->items[itemSlot] = item | 0xff00;
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D40C
+void sub_804D40C(struct Unit * unit)
+{
+    int i;
+
+    for (i = 0; i < UNIT_ITEM_COUNT; i++)
+    {
+        sub_804D3F0(unit, i);
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D428
+void sub_804D428(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = (GetGameClock() % 0x20);
+        idx = idx >> 1;
+
+        for (i = 0; i < 15; i++)
+        {
+            PAL_OBJ_COLOR(9, 1 + i) = ptr[(idx + i) & 15];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+struct LAVersusSpriteDrawProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int x;
+    /* 30 */ int yBase;
+    /* 34 */ int unk_34;
+    /* 38 */ int unk_38;
+    /* 3C */ u16 unk_3c[4];
+};
+
+// clang-format off
+
+const u16 Sprite_LAVersus_P1[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(1) + OAM2_PAL(3),
+};
+
+const u16 Sprite_LAVersus_P2[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(1), OAM2_CHR(0x304) + OAM2_LAYER(1) + OAM2_PAL(4),
+};
+
+const u16 Sprite_LAVersus_P3[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2), OAM2_CHR(0x308) + OAM2_LAYER(1) + OAM2_PAL(5),
+};
+
+const u16 Sprite_LAVersus_P4[] =
+{
+    1,
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(3), OAM2_CHR(0x30C) + OAM2_LAYER(1) + OAM2_PAL(6),
+};
+
+const u16 * CONST_DATA SpriteArray_LAVersusPlayerNumbers[] =
+{
+    Sprite_LAVersus_P1,
+    Sprite_LAVersus_P2,
+    Sprite_LAVersus_P3,
+    Sprite_LAVersus_P4,
+};
+
+const u16 Sprite_080DA25C[] =
+{
+    2,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x348) + OAM2_LAYER(1) + OAM2_PAL(8),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(32), OAM2_CHR(0x34C) + OAM2_LAYER(1) + OAM2_PAL(8),
+};
+
+const u16 Sprite_080DA26A[] =
+{
+    3,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x34D) + OAM2_LAYER(1) + OAM2_PAL(9),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x351) + OAM2_LAYER(1) + OAM2_PAL(9),
+    OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(64), OAM2_CHR(0x355) + OAM2_LAYER(1) + OAM2_PAL(9),
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D47C
+void LAVersusSpriteDraw_Loop(struct LAVersusSpriteDrawProc * proc)
+{
+    int i;
+
+    for (i = 0; i < 4; i++)
+    {
+        PutSprite(4, proc->x, proc->yBase + i * 24, Sprite_LinkArena_NameBanner, OAM2_PAL(i) + OAM2_LAYER(2));
+
+        // clang-format off
+        SetObjAffine(
+            i,
+            Div(+COS(0) * 16, 0x100),
+            Div(-SIN(0) * 16, 0x100),
+            Div(+SIN(0) * 16, 0x100),
+            Div(+COS(0) * 16, 0x100)
+        );
+        // clang-format on
+
+        if (proc->unk_38 != -1)
+        {
+            if (proc->unk_38 != i)
+            {
+                if (proc->unk_3c[i] > 0x100)
+                {
+                    proc->unk_3c[i] -= 8;
+                }
+
+                if (proc->unk_38 == i)
+                {
+                    goto _0804D544;
+                }
+            }
+            else
+            {
+            _0804D544:
+                if (proc->unk_3c[i] <= 335)
+                {
+                    proc->unk_3c[i] += 8;
+                }
+            }
+
+            // clang-format off
+            SetObjAffine(
+                i,
+                Div(+COS(0) * 16, proc->unk_3c[i]),
+                Div(-SIN(0) * 16, proc->unk_3c[i]),
+                Div(+SIN(0) * 16, proc->unk_3c[i]),
+                Div(+COS(0) * 16, proc->unk_3c[i])
+            );
+            // clang-format on
+        }
+
+        PutSprite(4, proc->x - 48, proc->yBase + i * 24, SpriteArray_LAVersusPlayerNumbers[i], 0);
+    }
+
+    if (proc->unk_34 != -1)
+    {
+        PutSprite(4, proc->x - 72, proc->yBase + proc->unk_34 * 24 + 8, Sprite_080DA25C, 0);
+        PutSprite(4, proc->x - 72, proc->yBase + proc->unk_34 * 24 + 18, Sprite_080DA26A, 0);
+        sub_804D428();
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_LAVersusSpriteDraw[] =
+{
+    PROC_REPEAT(LAVersusSpriteDraw_Loop),
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D664
+ProcPtr StartLinkArenaVersusSpriteDraw(int x, int y, ProcPtr parent)
+{
+    struct LAVersusSpriteDrawProc * proc;
+    int i;
+
+    Proc_EndEach(ProcScr_LAVersusSpriteDraw);
+    proc = Proc_Start(ProcScr_LAVersusSpriteDraw, parent);
+
+    proc->x = x;
+    proc->yBase = y;
+    proc->unk_34 = -1;
+    proc->unk_38 = -1;
+
+    for (i = 0; i < 4; i++)
+    {
+        proc->unk_3c[i] = 0x100;
+    }
+
+    return proc;
+}
+
+//! FE8U = 0x0804D6B4
+void EndLinkArenaVersusSpriteDraw(void)
+{
+    Proc_EndEach(ProcScr_LAVersusSpriteDraw);
+    return;
+}
+
+//! FE8U = 0x0804D6C4
+ProcPtr GetLinkArenaVersusSpriteDraw(void)
+{
+    return Proc_Find(ProcScr_LAVersusSpriteDraw);
+}
+
+//! FE8U = 0x0804D6D4
+void sub_804D6D4(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = GetGameClock() % 0x20;
+        idx = idx >> 1;
+
+        for (i = 0; i < 15; i++)
+        {
+            PAL_BG_COLOR(2, 1 + i) = ptr[(idx + i) & 15];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D724
+void sub_804D724(void)
+{
+    int idx;
+    int i;
+
+    u16 * ptr = Pal_LinkArenaActiveBannerFx;
+
+    if (gUnk_Sio_0203DDDC == 0)
+    {
+        idx = GetGameClock() % 0x20;
+        idx = idx >> 1;
+
+        for (i = 0; i < 15; i++)
+        {
+            PAL_OBJ_COLOR(3, 1 + i) = ptr[(idx + i) & 15];
+        }
+
+        EnablePaletteSync();
+    }
+
+    return;
+}
+
+//! FE8U = 0x0804D778
+void sub_804D778(void)
+{
+    SetBlendAlpha(8, 12);
+
+    SetBlendTargetA(0, 0, 0, 0, 0);
+    SetBlendTargetB(0, 1, 1, 1, 0);
+
+    return;
+}
+
+struct SioProc85AABD8
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int x;
+    /* 30 */ int y;
+};
+
+// clang-format off
+
+const u16 Sprite_080DA27E[] =
+{
+    8,
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0x300) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x304) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x308) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_8x16 + OAM0_BLEND, OAM1_SIZE_8x16 + OAM1_X(96), OAM2_CHR(0x30C) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_8x16 + OAM0_BLEND, OAM1_SIZE_8x16 + OAM1_X(104) + OAM1_HFLIP, OAM2_CHR(0x30C) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(112) + OAM1_HFLIP, OAM2_CHR(0x308) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(144) + OAM1_HFLIP, OAM2_CHR(0x304) + OAM2_LAYER(2) + OAM2_PAL(3),
+    OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(176) + OAM1_HFLIP, OAM2_CHR(0x300) + OAM2_LAYER(2) + OAM2_PAL(3),
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D7B0
+void sub_804D7B0(struct SioProc85AABD8 * proc)
+{
+    if (proc->y > 30 && proc->y < 153)
+    {
+        PutSprite(4, proc->x, proc->y, Sprite_080DA27E, 0);
+        sub_804D724();
+    }
+
+    return;
+}
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_085AABD8[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_804D7B0),
+    PROC_END,
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D7DC
+ProcPtr sub_804D7DC(int x, int y, ProcPtr parent)
+{
+    struct SioProc85AABD8 * proc;
+
+    Proc_EndEach(ProcScr_085AABD8);
+    proc = Proc_Start(ProcScr_085AABD8, parent);
+
+    proc->x = x;
+    proc->y = y;
+
+    return proc;
+}
+
+//! FE8U = 0x0804D80C
+void sub_804D80C(void)
+{
+    Decompress(gGfx_SupportMenu, (void *)(0x06016800));
+    ApplyPalette(gPal_SupportMenu, 0x12);
+    return;
+}
+
+// clang-format off
+
+const u16 Sprite_LinkArena_ChoiceBanner[] =
+{
+    6,
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16, 0,
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4),
+    OAM0_SHAPE_32x16 + OAM0_Y(4), OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x8),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8, OAM2_CHR(0xC),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x10),
+    OAM0_SHAPE_32x8 + OAM0_Y(20), OAM1_SIZE_32x8 + OAM1_X(64), OAM2_CHR(0x14),
+};
+
+// clang-format on
+
+//! FE8U = 0x0804D834
+void PutLinkArenaChoiceBannerSprite(int x, int y)
+{
+    PutSprite(1, x, y, Sprite_LinkArena_ChoiceBanner, OAM2_CHR(0x340) + OAM2_LAYER(1) + OAM2_PAL(2));
     return;
 }

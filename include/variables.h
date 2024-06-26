@@ -402,9 +402,7 @@ extern struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[];
 // extern ??? gProcCmd_MenuItemPanel
 // extern ??? sProcScr_PrepUnitSwap
 extern u16 CONST_DATA obj_0859AEC8[];
-// extern ??? gProcScr_PhaseIntroText
-// extern ??? gProcScr_PhaseIntroSquares
-// extern ??? gProcScr_PhaseIntroBlendBox
+
 // extern ??? ProcScr_GasTrapAnim
 // extern ??? ProcScr_FireTrapAnim
 // extern ??? ProcScr_UnkTrapAnim
@@ -454,14 +452,7 @@ extern u16 gPal_YellowTextBox[];
 extern u16 Pal_GreenTextColors[];
 extern u16 Pal_Text_Inverted[];
 extern u16 Pal_TalkBubble_Inverted[];
-// extern ??? Img_PhaseChangeUnk
-// extern ??? Img_PhaseChangePlayer
-extern CONST_DATA u16 Pal_PhaseChangePlayer[];
-// extern ??? Img_PhaseChangeEnemy
-// extern ??? Pal_PhaseChangeEnemy
-// extern ??? Img_PhaseChangeOther
-// extern ??? Pal_PhaseChangeOther
-extern CONST_DATA u16 Img_PhaseChangeSquares[];
+
 extern u8 gUnknown_085A0838[]; // tsa
 extern u8 gUnknown_085A08F0[]; // tsa
 
@@ -580,9 +571,9 @@ extern u16 Sprite_LinkArena_NameBanner[]; // sprite
 // extern ??? Sprite_LAMenuScrollBar_DownArrow
 // extern ??? Sprite_LinkArenaMenuScrollBar
 // extern ??? ProcScr_LinkArenaMenuScrollBar
-// extern ??? gUnknown_085AABB8
-// extern ??? gUnknown_085AABC8
-// extern ??? gUnknown_085AABD8
+// extern ??? SpriteArray_LAVersusPlayerNumbers
+// extern ??? ProcScr_LAVersusSpriteDraw
+// extern ??? ProcScr_085AABD8
 // extern ??? gUnknown_085AADA0
 // extern ??? gUnknown_085AAE0C
 extern u8 Img_LinkArenaMenu[];
@@ -610,7 +601,15 @@ extern u8 gUnknown_085ADF40[]; // tsa
 extern u16 Tsa_085AE190[];
 extern u8 Tsa_SioResultRankings[]; // tsa
 extern u8 gUnknown_085AE778[]; // tsa
-// extern ??? gUnknown_085AE7EC
+extern u8 gUnknown_085AE7EC[];
+extern u8 gUnknown_085AEDD4[];
+extern u8 gUnknown_085AEE90[];
+extern u8 gUnknown_085AEF54[];
+extern u8 gUnknown_085AF02C[];
+extern u16 gUnknown_085AF0F0[];
+extern u16 gUnknown_085AF110[];
+extern u16 gUnknown_085AF130[];
+extern u16 gUnknown_085AF150[];
 extern u8 Img_LinkArenaPostBattleBg[]; // img
 extern u16 Pal_LinkArenaPostBattleBg[]; // pal
 extern u8 Tsa_LinkArenaPostBattleBg[]; // tsa

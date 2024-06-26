@@ -669,7 +669,7 @@ _08045E46:
 	movs r0, #0x50
 	movs r1, #0x20
 	adds r2, r6, #0
-	bl sub_804D664
+	bl StartLinkArenaVersusSpriteDraw
 	str r0, [r6, #0x2c]
 	ldr r0, _08045EF4  @ gUnknown_085A9864
 	bl SetupFaceGfxData
@@ -1817,7 +1817,7 @@ sub_80467AC: @ 0x080467AC
 	movs r2, #0
 	movs r3, #0
 	bl StartMuralBackgroundExt
-	bl sub_804D6B4
+	bl EndLinkArenaVersusSpriteDraw
 	movs r0, #3
 	bl EndFaceById
 	ldr r4, _08046828  @ gUnk_Sio_0203DA78
