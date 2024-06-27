@@ -565,7 +565,7 @@ void SetPidDefeatedFlag(u8 pid, int flag) {
 }
 
 //! FE8U = 0x080835A8
-s8 ShouldDisplayDefeatTalkForPid(u8 pid) {
+s8 CheckBattleDefeatTalk(u8 pid) {
     struct DefeatTalkEnt* ent = GetDefeatTalkEntry(pid);
 
     if (ent) {

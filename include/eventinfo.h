@@ -145,7 +145,7 @@ struct BattleTalkEnt* GetAvailableBattleTalk(u8 pid, struct BattleTalkEnt* it);
 bool ShouldCallBattleQuote(u8 charA, u8 charB);
 void CallBattleQuoteEventsIfAny(u8 charA, u8 charB);
 void SetPidDefeatedFlag(u8 pid, int flag);
-bool ShouldDisplayDefeatTalkForPid(u8 pid);
+bool CheckBattleDefeatTalk(u8 pid);
 void DisplayDefeatTalkForPid(u8 pid);
 void sub_8083654(u16 pid);
 void StartSupportTalk(u8, u8, int);

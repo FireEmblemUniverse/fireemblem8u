@@ -320,8 +320,8 @@ gUnknown_08802BC4:  @ 0x08802BC4
 gPalEfxHpBarPurple:  @ 0x08802C84
 	.incbin "baserom.gba", 0x802C84, 0xA0
 
-	.global gUnknown_08802D24
-gUnknown_08802D24:  @ 0x08802D24
+	.global Pal_BanimUnitFlashing
+Pal_BanimUnitFlashing:  @ 0x08802D24
 	.incbin "baserom.gba", 0x802D24, 0x20
 
 	.global Img_EkrExpBar

@@ -403,7 +403,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     DisableEfxStatusUnits(proc->ais_core);
 
     DisableEfxWeaponIcon();
-    EfxHPBarColorChangeSet29();
+    DisableEfxHpBarColorChange();
 
     SetWinEnable(0, 0, 0);
     SetDefaultColorEffects();
@@ -759,6 +759,6 @@ void EkrLvup_OnEnd(struct ProcEkrLevelup *proc)
     EnableEfxStatusUnits(proc->ais_main);
     EnableEfxStatusUnits(proc->ais_core);
     EnableEfxWeaponIcon();
-    EfxHPBarColorChangeClear29();
+    EnableEfxHpBarColorChange();
     proc->finished = true;
 }

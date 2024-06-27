@@ -916,8 +916,8 @@ void NewEfxSpecalEffect(struct Anim *anim)
     struct ProcEfx * proc;
     struct Anim *anim1, *anim2;
 
-    if (gUnknown_02017768[GetAnimPosition(anim)] == false) {
-        gUnknown_02017768[GetAnimPosition(anim)] = true;
+    if (gEfxSpecalEffectExist[GetAnimPosition(anim)] == false) {
+        gEfxSpecalEffectExist[GetAnimPosition(anim)] = true;
 
         if (GetAnimPosition(anim) == EKR_POS_L)
             bu = gpEkrBattleUnitLeft;

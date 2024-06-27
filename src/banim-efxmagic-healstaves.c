@@ -78,7 +78,7 @@ void efxLive_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == 166)
     {
-        NewEfxHPBarLive(anim);
+        NewEfxHpBarLive(anim);
     }
     else if (proc->timer == 181)
     {
@@ -170,7 +170,7 @@ void efxRelive_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 166)
     {
-        NewEfxHPBarLive(anim);
+        NewEfxHpBarLive(anim);
     }
     else if (proc->timer == duration + 181)
     {
@@ -262,7 +262,7 @@ void efxRecover_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 166)
     {
-        NewEfxHPBarLive(anim);
+        NewEfxHpBarLive(anim);
     }
     else if (proc->timer == duration + 181)
     {
@@ -356,7 +356,7 @@ void efxReblow_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 211)
     {
-        NewEfxHPBarLive(anim);
+        NewEfxHpBarLive(anim);
         return;
     }
     else if (proc->timer == duration + 221)

@@ -252,10 +252,10 @@ struct ProcEfxFlashing {
     /* 5C */ struct Anim * anim;
 };
 
-struct ProcEfxHPBarColorChange {
+struct ProcEfxHpBarColorChange {
     PROC_HEADER;
 
-    /* 29 */ u8 unk29;
+    /* 29 */ u8 disabled;
 
     STRUCT_PAD(0x2A, 0x2C);
 
@@ -275,24 +275,24 @@ struct ProcEfxHPBarColorChange {
 };
 
 
-extern struct ProcEfxHPBarColorChange * gpProcEfxHPBarColorChange;
+extern struct ProcEfxHpBarColorChange * gpProcEfxHpBarColorChange;
 
-struct ProcEfxHPBar {
+struct ProcEfxHpBar {
     PROC_HEADER;
 
     /* 29 */ u8 death;
     /* 2A */ u8 _pad_2A[0x2C - 0x2A];
-    /* 2C */ s16 pos;
+    /* 2C */ s16 timer;
     /* 2E */ s16 cur;
     /* 30 */ u8 _pad_30[0x48 - 0x30];
     /* 48 */ int diff;
-    /* 4C */ int pre;
-    /* 50 */ int post;
-    /* 54 */ int timer;
+    /* 4C */ int this;
+    /* 50 */ int next;
+    /* 54 */ int timer2;
     /* 58 */ int finished;
-    /* 5C */ struct Anim * anim5C;
-    /* 60 */ struct Anim * anim60;
-    /* 64 */ struct Anim * anim64;
+    /* 5C */ struct Anim * anim_main_other;
+    /* 60 */ struct Anim * anim_main_this;
+    /* 64 */ struct Anim * anim_this;
 };
 
 void ekrDispUPMain(struct ProcEkrDispUP * proc);
@@ -512,25 +512,25 @@ struct ProcEkrHensei {
     /* 2E */ s16 terminator;
 };
 
-extern u32 gEkrHPBarCount;
+extern u32 gEkrHpBarCount;
 extern u32 gEfxSpellAnimExists;
 extern u32 gUnknown_02017730;
-extern u32 gUnknown_02017734;
+extern u32 gEkrDeadExist;
 extern u32 gEkrDeadEventExist;
-extern u32 gUnknown_0201773C;
-extern u32 gUnknown_02017740;
+extern u32 gEfxQuakeExist;
+extern u32 gEfxHitQuakeExist;
 extern u32 gEkrInitPosReal;
-extern u32 gUnknown_02017748;
+extern u32 gEfxFarAttackExist;
 extern u32 gEfxBgSemaphore;
-extern u32 gUnknown_02017750;
+extern u32 gEfxHpBarResireFlag;
 extern u32 gUnknown_02017754;
-extern u32 gUnknown_02017758;
+extern u32 gEfxTeonoState;
 extern u32 gUnknown_0201775C;
-struct Vec2 gEkrBg2QuakeVec;
+extern struct Vec2 gEkrBg2QuakeVec;
 extern s16 gUnknown_02017764[2];
-extern s16 gUnknown_02017768[2];
+extern s16 gEfxSpecalEffectExist[2];
 
-extern s16 gEkrHitEfxBool[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
+extern s16 gEkrHitNow[];     /* [0] for left and [1] for right, if in hit routine, 1, otherwise 0 */
 extern u8 gSpellAnimBgfx[];
 extern u16 gEkrBarfxBuf[];
 extern u16 gEkrTsaBuffer[0x1000 / 2];
@@ -2540,40 +2540,40 @@ extern u16 gUnknown_08802B04[];
 extern u16 gPalEfxHpBarGreen[];
 extern u16 gUnknown_08802BC4[];
 extern u16 gPalEfxHpBarPurple[];
-extern u16 gUnknown_08802D24[];
+extern u16 Pal_BanimUnitFlashing[];
 
 void EkrEfxStatusClear(void);
 int CheckEkrHitDone(void);
-short EkrEfxIsUnitHittedNow(int pos);
-void NewEfxHPBar(struct Anim * anim);
-void EfxHp_BarDeclineWithDeathJudge(struct ProcEfxHPBar * proc);
-void efxHPBarMain(struct ProcEfxHPBar * proc);
-void efxHPBarWaitForFarFarCamMoveMaybe(struct ProcEfxHPBar * proc);
-void NewEfxHPBarResire(struct Anim * anim);
-void EfxHPBarResire_80526C8(struct ProcEfxHPBar * proc);
-void EfxHPBarResire_8052788(struct ProcEfxHPBar * proc);
-void EfxHPBarResire_805282C(struct ProcEfxHPBar * proc);
+short CheckEkrHitNow(int pos);
+void NewEfxHpBar(struct Anim * anim);
+void EfxHpBar_DeclineToDeath(struct ProcEfxHpBar * proc);
+void EfxHpBar_MoveCameraOnEnd(struct ProcEfxHpBar * proc);
+void EfxHpBar_WaitCameraMove(struct ProcEfxHpBar * proc);
+void NewEfxHpBarResire(struct Anim * anim);
+void EfxHpBarResire_WaitOnCurrentSide(struct ProcEfxHpBar * proc);
+void EfxHpBarResire_SetAnotherSide(struct ProcEfxHpBar * proc);
+void EfxHpBarResire_DeclineToDeath(struct ProcEfxHpBar * proc);
 void NewEfxAvoid(struct Anim * anim);
-void EfxAvoidMain(struct ProcEfxHPBar * proc);
-void NewEfxHPBarLive(struct Anim * anim);
-void EfxHPBarLiveMain(struct ProcEfxHPBar * proc);
+void EfxAvoidMain(struct ProcEfxHpBar * proc);
+void NewEfxHpBarLive(struct Anim * anim);
+void EfxHPBarLiveMain(struct ProcEfxHpBar * proc);
 void NewEfxNoDamage(struct Anim * anim1, struct Anim * anim2, int death);
-void EfxNoDamageMain(struct ProcEfxHPBar * proc);
+void EfxNoDamageMain(struct ProcEfxHpBar * proc);
 void NewEfxNoDamageYure(struct Anim * anim1, struct Anim * anim2);
-void EfxNoDamageYureMain(struct ProcEfxHPBar * proc);
+void EfxNoDamageYureMain(struct ProcEfxHpBar * proc);
 void NewEfxStatusCHG(struct Anim * anim);
-void EfxStatusCHGMain(struct ProcEfxHPBar * proc);
+void EfxStatusCHGMain(struct ProcEfxHpBar * proc);
 
 /* banim-efxfarattack.h */
 
 struct ProcEfxFarAttack
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
+    /* 29 */ u8 pos;
     /* 2A */ u16 unk_2a;
-    /* 2C */ s16 unk_2c;
+    /* 2C */ s16 timer;
     /* 2E */ s16 unk_2e;
-    /* 30 */ s16 unk_30;
+    /* 30 */ s16 terminator;
     /* 32 */ s16 unk_32;
     /* 34 */ s16 unk_34;
     /* 36 */ s16 unk_36;
@@ -2589,36 +2589,36 @@ void sub_8053618(int);
 
 /* banim-efxquake.h */
 
-struct EfxQuakeProc
+struct ProcEfxQuake
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2C */ s16 unk_2c;
+    /* 29 */ u8 quake_ui;
+    /* 2A */ u8 kind;
+    /* 2C */ s16 timer;
     /* 30 */ int unk_30;
-    /* 34 */ s16 unk_34;
+    /* 34 */ s16 ix;
     /* 36 */ s16 unk_36;
     /* 38 */ s16 unk_38;
     /* 3A */ s16 unk_3a;
-    /* 3C */ s16 unk_3c;
+    /* 3C */ s16 iy;
     /* 3E */ s16 unk_3e;
     /* 40 */ int unk_40;
-    /* 44 */ const s16 * unk_44;
+    /* 44 */ const s16 * vec;
     /* 48 */ int unk_48;
     /* 4C */ STRUCT_PAD(0x4C, 0x5C);
-    /* 5C */ struct Anim * unk_5c;
-    /* 60 */ struct Anim * unk_60;
+    /* 5C */ struct Anim * anim_l;
+    /* 60 */ struct Anim * anim_r;
     /* 64 */ struct Anim * unk_64;
 };
 
 ProcPtr NewEfxQuakePure(int, int);
-void efxQuakePure_Loop(struct EfxQuakeProc * proc);
+void efxQuakePure_Loop(struct ProcEfxQuake * proc);
 ProcPtr NewEfxHitQuakePure(void);
 void efxHitQuakePure_Loop_Null(void);
 ProcPtr NewEfxQuake(int);
-void efxQuake_Loop(struct EfxQuakeProc * proc);
+void efxQuake_Loop(struct ProcEfxQuake * proc);
 void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind);
-void efxHitQuake_Loop(struct EfxQuakeProc * proc);
+void efxHitQuake_Loop(struct ProcEfxQuake * proc);
 
 void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
 void NewEfxFlashBgRed(struct Anim * anim, int duartion);
@@ -2646,12 +2646,12 @@ void NewEfxFlashHPBar(struct Anim * anim, int duartion, int duartion2);
 void EfxFlashHPBarDelay(struct ProcEfxFlashing * proc);
 void EfxFlashHPBarMain1(struct ProcEfxFlashing * proc);
 void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc);
-void NewEfxHPBarColorChange(struct Anim * anim);
+void NewEfxHpBarColorChange(struct Anim * anim);
 void EndEfxHPBarColorChange(void);
-void EfxHPBarColorChangeSet29(void);
-void EfxHPBarColorChangeClear29(void);
-void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc);
-void NewEfxFlashUnit(struct Anim * anim, int a, int b, int c);
+void DisableEfxHpBarColorChange(void);
+void EnableEfxHpBarColorChange(void);
+void EfxHPBarColorChangeMain(struct ProcEfxHpBarColorChange * proc);
+void NewEfxFlashUnit(struct Anim * anim, u16 dura1, u16 dura2, int c);
 void EfxFlashUnitMain(struct ProcEfxFlashing * proc);
 void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc);
 void NewEfxFlashUnitEffectEnd(struct Anim * anim, int dura1, int dura2, int c);

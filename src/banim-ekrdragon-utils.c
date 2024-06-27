@@ -10,9 +10,9 @@ void SetEkrDragonDead(struct Anim * anim)
     AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_DEAD);
 }
 
-void SetEkrDragonRefrain(struct Anim * anim)
+void SetEkrDragonSkipTransfer(struct Anim * anim)
 {
-    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_REFRAIN);
+    AddEkrDragonStatusAttr(anim, EKRDRGON_ATTR_SKIP);
 }
 
 bool CheckEkrDragonDead(struct Anim * anim)
@@ -24,10 +24,10 @@ bool CheckEkrDragonDead(struct Anim * anim)
         return false;
 }
 
-bool CheckEkrDragonRefrain(struct Anim * anim)
+bool CheckEkrDragonSkipTransfer(struct Anim * anim)
 {
     u16 attr = GetEkrDragonStatusAttr(anim);
-    if (attr & EKRDRGON_ATTR_REFRAIN)
+    if (attr & EKRDRGON_ATTR_SKIP)
         return true;
     else
         return false;
@@ -51,7 +51,7 @@ void InitEkrDragonStatus(void)
     }
 }
 
-void sub_807027C(struct Anim * anim)
+void EfxBgFlashingForDragon(struct Anim * anim)
 {
     u16 * pal;
     switch (GetBanimDragonStatusType())
@@ -61,11 +61,11 @@ void sub_807027C(struct Anim * anim)
             return;
         
         case EKRDRGON_TYPE_DRACO_ZOMBIE:
-            pal = gUnknown_08802D24;
+            pal = Pal_BanimUnitFlashing;
             break;
     
         case EKRDRGON_TYPE_DEMON_KING:
-            pal = gUnknown_08802D24;
+            pal = Pal_BanimUnitFlashing;
             break;
     }
 
