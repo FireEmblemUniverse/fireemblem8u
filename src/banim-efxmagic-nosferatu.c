@@ -418,7 +418,7 @@ extern u16 * ImgArray_NosferatuBg[];
 //! FE8U = 0x0805F660
 void efxResireBG_Loop_B(struct ProcEfxBG * proc)
 {
-    if (gUnknown_02017750 == 2)
+    if (gEfxHpBarResireFlag == 2)
     {
         gEfxBgSemaphore--;
 
@@ -436,7 +436,7 @@ void efxResireBG_Loop_B(struct ProcEfxBG * proc)
             proc->timer = proc->terminator;
         }
 
-        if ((proc->timer == proc->terminator) && (gUnknown_02017750 == 1))
+        if ((proc->timer == proc->terminator) && (gEfxHpBarResireFlag == 1))
         {
             proc->timer = 0;
             proc->terminator = 0;

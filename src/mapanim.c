@@ -182,7 +182,7 @@ void MapAnimProc_DisplayDeahQuote(void)
             break;
         }
 
-        if (ShouldDisplayDefeatTalkForPid(charid)) {
+        if (CheckBattleDefeatTalk(charid)) {
             DeleteBattleAnimInfoThing();
             DisplayDefeatTalkForPid(charid);
         }

@@ -113,7 +113,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
         val2 = GetEfxHp(val2 * 2 + GetAnimPosition(animr5));
 
         if (val1 != val2) {
-            NewEfxHPBar(animr5);
+            NewEfxHpBar(animr5);
 
             if (CheckRoundCrit(animr7) == 1)
                 NewEfxHitQuake(animr5, animr7, b);
@@ -160,7 +160,7 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
     switch (type) {
     case EKR_HITTED:
         if (val1 != val2) {
-            NewEfxHPBarResire(animR5);
+            NewEfxHpBarResire(animR5);
 
             if (CheckRoundCrit(animR7) == 1)
                 NewEfxHitQuake(animR5, animR7, 4);
@@ -170,7 +170,7 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
             NewEfxFlashHPBar(animR5, 0, 5);
             NewEfxFlashUnit(animR5, 0, 8, 0);
         } else {
-            gUnknown_02017750 = 2;
+            gEfxHpBarResireFlag = 2;
             NewEfxNoDamage(animR5, animR8, 1);
         }
         break;

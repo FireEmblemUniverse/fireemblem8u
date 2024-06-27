@@ -63,28 +63,28 @@ EWRAM_OVERLAY(banim) u16 gEkrGaugeDecoder[18] = {0};
 EWRAM_OVERLAY(banim) u32 gEkrBattleEndFlag = 0;
 
 /* efx */
-EWRAM_OVERLAY(banim) u32 gEkrHPBarCount = 0;
+EWRAM_OVERLAY(banim) u32 gEkrHpBarCount = 0;
 EWRAM_OVERLAY(banim) u32 gEfxSpellAnimExists = 0;
 EWRAM_OVERLAY(banim) u32 gUnknown_02017730 = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017734 = 0;
+EWRAM_OVERLAY(banim) u32 gEkrDeadExist = 0;
 EWRAM_OVERLAY(banim) u32 gEkrDeadEventExist = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_0201773C = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017740 = 0;
+EWRAM_OVERLAY(banim) u32 gEfxQuakeExist = 0;
+EWRAM_OVERLAY(banim) u32 gEfxHitQuakeExist = 0;
 EWRAM_OVERLAY(banim) u32 gEkrInitPosReal = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017748 = 0;
+EWRAM_OVERLAY(banim) u32 gEfxFarAttackExist = 0;
 EWRAM_OVERLAY(banim) u32 gEfxBgSemaphore = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017750 = 0;
+EWRAM_OVERLAY(banim) u32 gEfxHpBarResireFlag = 0;
 EWRAM_OVERLAY(banim) u32 gUnknown_02017754 = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017758 = 0;
+EWRAM_OVERLAY(banim) u32 gEfxTeonoState = 0;
 EWRAM_OVERLAY(banim) u32 gUnknown_0201775C = 0;
 EWRAM_OVERLAY(banim) struct Vec2 gEkrBg2QuakeVec = {0};
 EWRAM_OVERLAY(banim) s16 gUnknown_02017764[2] = {0};
-EWRAM_OVERLAY(banim) s16 gUnknown_02017768[2] = {0};
+EWRAM_OVERLAY(banim) s16 gEfxSpecalEffectExist[2] = {0};
 EWRAM_OVERLAY(banim) struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2] = {NULL};
 EWRAM_OVERLAY(banim) struct ProcEfxWeaponIcon *gpProcEfxWeaponIcon = NULL;
 EWRAM_OVERLAY(banim) struct ProcEfxSpellCast * gpProcEfxSpellCast = NULL;
-EWRAM_OVERLAY(banim) struct ProcEfxHPBarColorChange * gpProcEfxHPBarColorChange =NULL;
-EWRAM_OVERLAY(banim) s16 gEkrHitEfxBool[2] = {0};
+EWRAM_OVERLAY(banim) struct ProcEfxHpBarColorChange * gpProcEfxHpBarColorChange =NULL;
+EWRAM_OVERLAY(banim) s16 gEkrHitNow[2] = {0};
 EWRAM_OVERLAY(banim) s16 gUnk_Banim_02017784[6] = {0};
 EWRAM_OVERLAY(banim) u8 gSpellAnimBgfx[0x1D00] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrBarfxBuf[0x180] = {0};
@@ -439,7 +439,7 @@ void ekrBattleSetFlashingEffect(struct ProcEkrBattle *proc)
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
         DisableEfxStatusUnits(gAnims[0]);
 
-    NewEfxHPBarColorChange(gAnims[0]);
+    NewEfxHpBarColorChange(gAnims[0]);
     proc->proc_idleCb = (ProcFunc)ekrBattleExecTriangleAtk;
 }
 
@@ -639,7 +639,7 @@ void ekrBattle_8050600(struct ProcEkrBattle *proc)
 {
     int pos, ret;
 
-    if (gEkrHPBarCount != 0)
+    if (gEkrHpBarCount != 0)
         return;
 
     if (gEkrDeadEventExist != 0)

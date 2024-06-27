@@ -339,29 +339,29 @@ void SetEkrBg2QuakeVec(int a, int b)
 
 void EkrEfxStatusClear(void)
 {
-    gEkrHPBarCount = 0;
+    gEkrHpBarCount = 0;
     gEfxSpellAnimExists = 0;
     gUnknown_02017730 = 0;
     gEkrDeadEventExist = 0;
-    gUnknown_0201773C = 0;
-    gUnknown_02017740 = 0;
-    gUnknown_02017748 = 0;
+    gEfxQuakeExist = 0;
+    gEfxHitQuakeExist = 0;
+    gEfxFarAttackExist = 0;
     gEfxBgSemaphore = 0;
-    gUnknown_02017750 = 0;
+    gEfxHpBarResireFlag = 0;
     gUnknown_02017754 = 0;
-    gUnknown_02017758 = 0;
+    gEfxTeonoState = 0;
     gUnknown_0201775C = 0;
     SetEkrBg2QuakeVec(0, 0);
     gUnknown_02017764[0] = 0;
     gUnknown_02017764[1] = 0;
-    gUnknown_02017768[0] = 0;
-    gUnknown_02017768[1] = 0;
-    gEkrHitEfxBool[0] = 0;
-    gEkrHitEfxBool[1] = 0;
+    gEfxSpecalEffectExist[0] = 0;
+    gEfxSpecalEffectExist[1] = 0;
+    gEkrHitNow[0] = 0;
+    gEkrHitNow[1] = 0;
 
     gpProcEfxStatusUnits[EKR_POS_L] = NULL;
     gpProcEfxStatusUnits[EKR_POS_R] = NULL;
 
     gpProcEfxSpellCast = NULL;
-    gpProcEfxHPBarColorChange = NULL;
+    gpProcEfxHpBarColorChange = NULL;
 }

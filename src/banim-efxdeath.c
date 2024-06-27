@@ -82,7 +82,7 @@ void sub_8052EAC(struct ProcEfxDead *proc)
 void sub_8052F24(struct ProcEfxDead *proc)
 {
     if (BattleEventEngineExists() == false) {
-        PlaySound8FForArenaMaybe();
+        PlayDeathSoundForArena();
         NewEfxDead(proc->anim1, proc->anim2);
         EfxPrepareScreenFx();
         gBanimValid[GetAnimPosition(proc->anim1)] = false;
@@ -115,8 +115,8 @@ CONST_DATA struct ProcCmd ProcScr_efxDead[] = {
 void NewEfxDead(struct Anim *anim1, struct Anim *anim2)
 {
     struct ProcEfxDead *proc;
-    gEkrHPBarCount++;
-    gUnknown_02017734 = 1;
+    gEkrHpBarCount++;
+    gEkrDeadExist = 1;
 
     proc = Proc_Start(ProcScr_efxDead, PROC_TREE_3);
     proc->anim1 = anim1;
@@ -173,8 +173,8 @@ void sub_8053080(struct ProcEfxDead *proc)
     }
 
     if (time == proc->terminator) {
-        gEkrHPBarCount--;
-        gUnknown_02017734 = 0;
+        gEkrHpBarCount--;
+        gEkrDeadExist = 0;
         Proc_Break(proc);
     }
 }

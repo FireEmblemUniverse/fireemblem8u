@@ -82,7 +82,7 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
             }
 
             gEkrBgPosition = proc->unk_32;
-            gUnknown_02017748 = 1;
+            gEfxFarAttackExist = 1;
 
             break;
 
@@ -184,7 +184,7 @@ void sub_8053584(struct ProcEfxFarAttack * proc)
             gEkrInitPosReal = 0;
         }
 
-        gUnknown_02017748 = 0;
+        gEfxFarAttackExist = 0;
 
         Proc_Break(proc);
     }
@@ -864,12 +864,12 @@ ProcPtr NewEfxQuake(int kind)
 {
     struct EfxQuakeProc * proc;
 
-    if (gUnknown_02017748 == 1)
+    if (gEfxFarAttackExist == 1)
     {
         return NULL;
     }
 
-    gUnknown_0201773C = 1;
+    gEfxQuakeExist = 1;
     proc = Proc_Start(ProcScr_efxQuake, PROC_TREE_3);
 
     proc->unk_2c = 0;
@@ -962,7 +962,7 @@ void efxQuake_Loop(struct EfxQuakeProc * proc)
             SetEkrBg2QuakeVec(0, 0);
         }
 
-        gUnknown_0201773C = 0;
+        gEfxQuakeExist = 0;
         Proc_End(proc);
     }
     else
@@ -1034,12 +1034,12 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     struct EfxQuakeProc * proc;
     struct Anim * anim;
 
-    if (gUnknown_02017740 != 0)
+    if (gEfxHitQuakeExist != 0)
     {
         return;
     }
 
-    gUnknown_02017740 = 1;
+    gEfxHitQuakeExist = 1;
 
     proc = Proc_Start(ProcScr_EfxHitQuake, PROC_TREE_3);
 
@@ -1193,7 +1193,7 @@ void efxHitQuake_Loop(struct EfxQuakeProc * proc)
         SetEkrFrontAnimPostion(0, x1, y1);
         SetEkrFrontAnimPostion(1, x2, y2);
 
-        gUnknown_02017740 = 0;
+        gEfxHitQuakeExist = 0;
 
         if (proc->unk_29 == 1)
         {

@@ -121,10 +121,10 @@ const u16 gFrameLut_EfxHPBarColorChange2[] = {
     -2
 };
 
-void NewEfxHPBarColorChange(struct Anim * anim)
+void NewEfxHpBarColorChange(struct Anim * anim)
 {
-    struct ProcEfxHPBarColorChange * proc;
-    gpProcEfxHPBarColorChange = proc = Proc_Start(ProcScr_efxHPBarColorChange, PROC_TREE_3);
+    struct ProcEfxHpBarColorChange * proc;
+    gpProcEfxHpBarColorChange = proc = Proc_Start(ProcScr_efxHPBarColorChange, PROC_TREE_3);
     proc->anim = anim;
     proc->timer1 = 0;
     proc->frame1 = 0;
@@ -171,20 +171,20 @@ void NewEfxHPBarColorChange(struct Anim * anim)
 
 void EndEfxHPBarColorChange(void)
 {
-    Proc_End(gpProcEfxHPBarColorChange);
+    Proc_End(gpProcEfxHpBarColorChange);
 }
 
 void DisableEfxHpBarColorChange(void)
 {
-    gpProcEfxHPBarColorChange->disabled = true;
+    gpProcEfxHpBarColorChange->disabled = true;
 }
 
 void EnableEfxHpBarColorChange(void)
 {
-    gpProcEfxHPBarColorChange->disabled = false;
+    gpProcEfxHpBarColorChange->disabled = false;
 }
 
-void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
+void EfxHPBarColorChangeMain(struct ProcEfxHpBarColorChange * proc)
 {
     int ret;
     u8 *buf1, *buf2;
