@@ -139,7 +139,7 @@ void sub_8052FEC(struct ProcEfxDead *proc)
         if (GetBanimDragonStatusType() == EKRDRGON_TYPE_DEMON_KING)
             SetEkrDragonDead(proc->anim1);
         else if (hp == 0)
-            SetEkrDragonRefrain(proc->anim1);
+            SetEkrDragonSkipTransfer(proc->anim1);
         else
             NewEfxDeadPika(proc->anim1, proc->anim2);
 
@@ -157,7 +157,7 @@ void sub_8053080(struct ProcEfxDead *proc)
         if (CheckEkrDragonDead(anim) == true)
             return;
         
-        if (CheckEkrDragonRefrain(proc->anim1) != false) {
+        if (CheckEkrDragonSkipTransfer(proc->anim1) != false) {
             NewEfxDeadDragonAlpha(proc->anim1, proc->anim2);
             EfxPlaySE(0xD6, 0x100);
             M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);

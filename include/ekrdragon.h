@@ -26,7 +26,7 @@ enum dragonstatue_attr {
     EKRDRGON_ATTR_BANIMFINISH = 1 << 2,
     EKRDRGON_ATTR_END = 1 << 3,
     EKRDRGON_ATTR_DEAD = 1 << 12,
-    EKRDRGON_ATTR_REFRAIN = 1 << 13,
+    EKRDRGON_ATTR_SKIP = 1 << 13,
 };
 
 extern struct EkrDragonStatus gEkrDragonStatusLeft, gEkrDragonStatusRight;
@@ -601,9 +601,9 @@ void EfxDracoZombiePrepareTSA(int x, int y, s8 pos);
 void NewEkrDragonDracoZombie(struct Anim *anim);
 void SetEkrDragonExit(struct Anim *anim);
 void SetEkrDragonDead(struct Anim *anim);
-void SetEkrDragonRefrain(struct Anim *anim);
+void SetEkrDragonSkipTransfer(struct Anim *anim);
 bool CheckEkrDragonDead(struct Anim *anim);
-bool CheckEkrDragonRefrain(struct Anim *anim);
+bool CheckEkrDragonSkipTransfer(struct Anim *anim);
 void InitEkrDragonStatus(void);
 void EfxBgFlashingForDragon(struct Anim *anim);
 u16 * GetEkrDragonPalette(void);
