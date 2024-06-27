@@ -2569,11 +2569,11 @@ void EfxStatusCHGMain(struct ProcEfxHpBar * proc);
 struct ProcEfxFarAttack
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
+    /* 29 */ u8 pos;
     /* 2A */ u16 unk_2a;
-    /* 2C */ s16 unk_2c;
+    /* 2C */ s16 timer;
     /* 2E */ s16 unk_2e;
-    /* 30 */ s16 unk_30;
+    /* 30 */ s16 terminator;
     /* 32 */ s16 unk_32;
     /* 34 */ s16 unk_34;
     /* 36 */ s16 unk_36;
@@ -2589,36 +2589,36 @@ void sub_8053618(int);
 
 /* banim-efxquake.h */
 
-struct EfxQuakeProc
+struct ProcEfxQuake
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-    /* 2A */ u8 unk_2a;
-    /* 2C */ s16 unk_2c;
+    /* 29 */ u8 quake_ui;
+    /* 2A */ u8 kind;
+    /* 2C */ s16 timer;
     /* 30 */ int unk_30;
-    /* 34 */ s16 unk_34;
+    /* 34 */ s16 ix;
     /* 36 */ s16 unk_36;
     /* 38 */ s16 unk_38;
     /* 3A */ s16 unk_3a;
-    /* 3C */ s16 unk_3c;
+    /* 3C */ s16 iy;
     /* 3E */ s16 unk_3e;
     /* 40 */ int unk_40;
-    /* 44 */ const s16 * unk_44;
+    /* 44 */ const s16 * vec;
     /* 48 */ int unk_48;
     /* 4C */ STRUCT_PAD(0x4C, 0x5C);
-    /* 5C */ struct Anim * unk_5c;
-    /* 60 */ struct Anim * unk_60;
+    /* 5C */ struct Anim * anim_l;
+    /* 60 */ struct Anim * anim_r;
     /* 64 */ struct Anim * unk_64;
 };
 
 ProcPtr NewEfxQuakePure(int, int);
-void efxQuakePure_Loop(struct EfxQuakeProc * proc);
+void efxQuakePure_Loop(struct ProcEfxQuake * proc);
 ProcPtr NewEfxHitQuakePure(void);
 void efxHitQuakePure_Loop_Null(void);
 ProcPtr NewEfxQuake(int);
-void efxQuake_Loop(struct EfxQuakeProc * proc);
+void efxQuake_Loop(struct ProcEfxQuake * proc);
 void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind);
-void efxHitQuake_Loop(struct EfxQuakeProc * proc);
+void efxHitQuake_Loop(struct ProcEfxQuake * proc);
 
 void NewEfxFlashBgWhite(struct Anim * anim, int duartion);
 void NewEfxFlashBgRed(struct Anim * anim, int duartion);

@@ -35,25 +35,25 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
         case EKR_DISTANCE_FAR:
         case EKR_DISTANCE_FARFAR:
             proc = Proc_Start(gProc_efxFarAttack, PROC_TREE_3);
-            proc->unk_29 = GetAnimPosition(anim);
-            proc->unk_2c = 0;
+            proc->pos = GetAnimPosition(anim);
+            proc->timer = 0;
 
             if (arg != -1)
             {
                 proc->unk_2e = arg >> 1;
-                proc->unk_30 = arg - (arg >> 1);
+                proc->terminator = arg - (arg >> 1);
             }
             else
             {
                 if (gEkrDistanceType == EKR_DISTANCE_FAR)
                 {
                     proc->unk_2e = 5;
-                    proc->unk_30 = 5;
+                    proc->terminator = 5;
                 }
                 else
                 {
                     proc->unk_2e = 7;
-                    proc->unk_30 = 7;
+                    proc->terminator = 7;
                 }
             }
 
@@ -66,7 +66,7 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
                 val = 0xf0;
             }
 
-            if (proc->unk_29 == 0)
+            if (proc->pos == POS_L)
             {
                 proc->unk_32 = -val;
                 proc->unk_34 = (-val >> 1);
@@ -122,7 +122,7 @@ void sub_80534E4(struct ProcEfxFarAttack * proc)
     EkrDragonTmCpyExt(proc->unk_32, 0);
     sub_8053618(proc->unk_32);
 
-    proc->unk_2c = 0;
+    proc->timer = 0;
 
     Proc_Break(proc);
 
@@ -132,7 +132,7 @@ void sub_80534E4(struct ProcEfxFarAttack * proc)
 //! FE8U = 0x08053514
 void sub_8053514(struct ProcEfxFarAttack * proc)
 {
-    u32 ret = Interpolate(INTERPOLATE_SQUARE, proc->unk_32, proc->unk_34, proc->unk_2c, proc->unk_2e);
+    u32 ret = Interpolate(INTERPOLATE_SQUARE, proc->unk_32, proc->unk_34, proc->timer, proc->unk_2e);
     gEkrBgPosition = ret;
 
     sub_80534AC(proc, ret);
@@ -144,11 +144,11 @@ void sub_8053514(struct ProcEfxFarAttack * proc)
         sub_805B034(gEkrBgPosition);
     }
 
-    proc->unk_2c++;
+    proc->timer++;
 
-    if (proc->unk_2c > proc->unk_2e)
+    if (proc->timer > proc->unk_2e)
     {
-        proc->unk_2c = 1;
+        proc->timer = 1;
         Proc_Break(proc);
     }
 
@@ -158,7 +158,7 @@ void sub_8053514(struct ProcEfxFarAttack * proc)
 //! FE8U = 0x08053584
 void sub_8053584(struct ProcEfxFarAttack * proc)
 {
-    u32 ret = Interpolate(INTERPOLATE_RSQUARE, proc->unk_36, proc->unk_38, proc->unk_2c, proc->unk_30);
+    u32 ret = Interpolate(INTERPOLATE_RSQUARE, proc->unk_36, proc->unk_38, proc->timer, proc->terminator);
     gEkrBgPosition = ret;
 
     sub_80534AC(proc, ret);
@@ -170,21 +170,16 @@ void sub_8053584(struct ProcEfxFarAttack * proc)
         sub_805B034(gEkrBgPosition);
     }
 
-    proc->unk_2c++;
+    proc->timer++;
 
-    if (proc->unk_2c > proc->unk_30)
+    if (proc->timer > proc->terminator)
     {
-
-        if (!proc->unk_29)
-        {
-            gEkrInitPosReal = 1;
-        }
+        if (proc->pos == POS_L)
+            gEkrInitPosReal = POS_R;
         else
-        {
-            gEkrInitPosReal = 0;
-        }
+            gEkrInitPosReal = POS_L;
 
-        gEfxFarAttackExist = 0;
+        gEfxFarAttackExist = false;
 
         Proc_Break(proc);
     }
@@ -760,7 +755,7 @@ struct ProcCmd CONST_DATA ProcScr_efxQuakePure[] =
     PROC_END,
 };
 
-const void * CONST_DATA gUnknown_085B9804[] =
+const void * CONST_DATA EfxQuakePureVecs[] =
 {
     gUnknown_080DA4BA, 0,
     gEfxQuakeVecs, 0,
@@ -780,52 +775,42 @@ const void * CONST_DATA gUnknown_085B9804[] =
     gQuakeVecs_080DA876, 0,
 };
 
-// clang-format on
-
-
-//! FE8U = 0x08053678
 ProcPtr NewEfxQuakePure(int index, int kind)
 {
-    struct EfxQuakeProc * proc = Proc_Start(ProcScr_efxQuakePure, PROC_TREE_3);
+    struct ProcEfxQuake * proc = Proc_Start(ProcScr_efxQuakePure, PROC_TREE_3);
 
-    proc->unk_44 = (s16 *)gUnknown_085B9804[index * 2];
-    proc->unk_29 = (int)gUnknown_085B9804[index * 2 + 1];
+    proc->vec = (s16 *)EfxQuakePureVecs[index * 2];
+    proc->quake_ui = (int)EfxQuakePureVecs[index * 2 + 1];
 
-    proc->unk_2a = kind;
-    proc->unk_2c = 0;
+    proc->kind = kind;
+    proc->timer = 0;
 
     return proc;
 }
 
-//! FE8U = 0x080536B8
-void efxQuakePure_Loop(struct EfxQuakeProc * proc)
+void efxQuakePure_Loop(struct ProcEfxQuake * proc)
 {
-    const s16 * vec = proc->unk_44;
+    const s16 * vec = proc->vec;
 
-    if (vec[proc->unk_2c * 2 + 0] != INT16_MAX)
+    if (vec[proc->timer * 2 + 0] != INT16_MAX)
     {
-        SetEkrBg2QuakeVec(vec[proc->unk_2c * 2 + 0], vec[proc->unk_2c * 2 + 1]);
-        proc->unk_2c++;
+        SetEkrBg2QuakeVec(vec[proc->timer * 2 + 0], vec[proc->timer * 2 + 1]);
+        proc->timer++;
     }
     else
     {
-        switch (proc->unk_2a)
-        {
-            case 0:
-                proc->unk_2c = 0;
-                SetEkrBg2QuakeVec(vec[0], vec[1]);
-                break;
+        switch (proc->kind) {
+        case 0:
+            proc->timer = 0;
+            SetEkrBg2QuakeVec(vec[0], vec[1]);
+            break;
 
-            case 1:
-                SetEkrBg2QuakeVec(0, 0);
-                break;
+        case 1:
+            SetEkrBg2QuakeVec(0, 0);
+            break;
         }
     }
-
-    return;
 }
-
-// clang-format off
 
 struct ProcCmd CONST_DATA ProcScr_EfxHitQuakePure[] =
 {
@@ -834,21 +819,15 @@ struct ProcCmd CONST_DATA ProcScr_EfxHitQuakePure[] =
     PROC_END,
 };
 
-// clang-format on
-
-//! FE8U = 0x08053718
 ProcPtr NewEfxHitQuakePure(void)
 {
     return Proc_Start(ProcScr_EfxHitQuakePure, PROC_TREE_3);
 }
 
-//! FE8U = 0x0805372C
 void efxHitQuakePure_Loop_Null(void)
 {
     return;
 }
-
-// clang-format off
 
 struct ProcCmd CONST_DATA ProcScr_efxQuake[] =
 {
@@ -857,12 +836,9 @@ struct ProcCmd CONST_DATA ProcScr_efxQuake[] =
     PROC_END,
 };
 
-// clang-format on
-
-//! FE8U = 0x08053678
 ProcPtr NewEfxQuake(int kind)
 {
-    struct EfxQuakeProc * proc;
+    struct ProcEfxQuake * proc;
 
     if (gEfxFarAttackExist == 1)
     {
@@ -872,79 +848,78 @@ ProcPtr NewEfxQuake(int kind)
     gEfxQuakeExist = 1;
     proc = Proc_Start(ProcScr_efxQuake, PROC_TREE_3);
 
-    proc->unk_2c = 0;
+    proc->timer = 0;
 
-    proc->unk_5c = gAnims[0];
-    proc->unk_60 = gAnims[2];
+    proc->anim_l = gAnims[0];
+    proc->anim_r = gAnims[2];
 
-    switch (kind)
-    {
-        case 0:
-            proc->unk_44 = gUnknown_080DA4BA;
-            proc->unk_29 = 0;
+    switch (kind) {
+    case 0:
+        proc->vec = gUnknown_080DA4BA;
+        proc->quake_ui = 0;
 
-            break;
+        break;
 
-        case 1:
-            proc->unk_44 = gEfxQuakeVecs;
-            proc->unk_29 = 0;
+    case 1:
+        proc->vec = gEfxQuakeVecs;
+        proc->quake_ui = 0;
 
-            break;
+        break;
 
-        case 2:
-            proc->unk_44 = gUnknown_080DA526;
-            proc->unk_29 = 0;
+    case 2:
+        proc->vec = gUnknown_080DA526;
+        proc->quake_ui = 0;
 
-            break;
+        break;
 
-        case 3:
-            proc->unk_44 = gEfxQuakeVecs2;
-            proc->unk_29 = 0;
+    case 3:
+        proc->vec = gEfxQuakeVecs2;
+        proc->quake_ui = 0;
 
-            break;
+        break;
 
-        case 4:
-            proc->unk_44 = gUnknown_080DA5BA;
-            proc->unk_29 = 0;
+    case 4:
+        proc->vec = gUnknown_080DA5BA;
+        proc->quake_ui = 0;
 
-            break;
+        break;
 
-        case 5:
-            proc->unk_44 = gUnknown_080DA604;
-            proc->unk_29 = 1;
+    case 5:
+        proc->vec = gUnknown_080DA604;
+        proc->quake_ui = 1;
 
-            break;
+        break;
 
-        case 6:
-            proc->unk_44 = gUnknown_080DA66E;
-            proc->unk_29 = 1;
+    case 6:
+        proc->vec = gUnknown_080DA66E;
+        proc->quake_ui = 1;
 
-            break;
+        break;
 
-        default:
-            proc->unk_44 = gUnknown_080DA4BA;
-            proc->unk_29 = 0;
+    default:
+        proc->vec = gUnknown_080DA4BA;
+        proc->quake_ui = 0;
 
-            break;
+        break;
     }
 
-    proc->unk_34 = 0;
-    proc->unk_3c = 0;
+    proc->ix = 0;
+    proc->iy = 0;
 
     return proc;
 }
 
 //! FE8U = 0x0805382C
-void efxQuake_Loop(struct EfxQuakeProc * proc)
+void efxQuake_Loop(struct ProcEfxQuake * proc)
 {
     int x1;
     int y1;
     int x2;
     int y2;
 
-    const s16 * vec = proc->unk_44;
+    const s16 * vec = proc->vec;
 
-    if (vec[proc->unk_2c * 2 + 0] == INT16_MAX)
+    if (vec[proc->timer * 2 + 0] == INT16_MAX)
     {
         x1 = gEkrXPosReal[0] - gEkrBgPosition;
         y1 = gEkrYPosReal[0];
@@ -958,7 +933,7 @@ void efxQuake_Loop(struct EfxQuakeProc * proc)
 
         if (GetBanimDragonStatusType() != 0)
         {
-            BG_SetPosition(BG_3, proc->unk_34, proc->unk_3c);
+            BG_SetPosition(BG_3, proc->ix, proc->iy);
             SetEkrBg2QuakeVec(0, 0);
         }
 
@@ -967,14 +942,14 @@ void efxQuake_Loop(struct EfxQuakeProc * proc)
     }
     else
     {
-        SetEkrBg2QuakeVec(vec[proc->unk_2c * 2 + 0], vec[proc->unk_2c * 2 + 1]);
-        proc->unk_2c++;
+        SetEkrBg2QuakeVec(vec[proc->timer * 2 + 0], vec[proc->timer * 2 + 1]);
+        proc->timer++;
 
         BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
 
         if (GetBanimDragonStatusType() != 0)
         {
-            BG_SetPosition(BG_3, proc->unk_34 + gEkrBg2QuakeVec.x, proc->unk_3c + gEkrBg2QuakeVec.y);
+            BG_SetPosition(BG_3, proc->ix + gEkrBg2QuakeVec.x, proc->iy + gEkrBg2QuakeVec.y);
         }
 
         if (GetBanimDragonStatusType() != 0)
@@ -991,25 +966,20 @@ void efxQuake_Loop(struct EfxQuakeProc * proc)
         x2 = (gEkrXPosReal[1] + gEkrBg2QuakeVec.x) - gEkrBgPosition;
         y2 = gEkrYPosReal[1] - gEkrBg2QuakeVec.y;
 
-        switch (gEkrDistanceType)
-        {
-            case EKR_DISTANCE_CLOSE:
+        switch (gEkrDistanceType) {
+        case EKR_DISTANCE_CLOSE:
+            SetEkrFrontAnimPostion(0, x1, y1);
+            SetEkrFrontAnimPostion(1, x2, y2);
+            break;
+
+        case EKR_DISTANCE_FAR:
+        case EKR_DISTANCE_FARFAR:
+            if (GetAnimPosition(proc->anim_l) == 0)
                 SetEkrFrontAnimPostion(0, x1, y1);
+            else
                 SetEkrFrontAnimPostion(1, x2, y2);
-                break;
 
-            case EKR_DISTANCE_FAR:
-            case EKR_DISTANCE_FARFAR:
-                if (GetAnimPosition(proc->unk_5c) == 0)
-                {
-                    SetEkrFrontAnimPostion(0, x1, y1);
-                }
-                else
-                {
-                    SetEkrFrontAnimPostion(1, x2, y2);
-                }
-
-                break;
+            break;
         }
     }
 
@@ -1031,7 +1001,7 @@ struct ProcCmd CONST_DATA ProcScr_EfxHitQuake[] =
 void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 {
     s16 x;
-    struct EfxQuakeProc * proc;
+    struct ProcEfxQuake * proc;
     struct Anim * anim;
 
     if (gEfxHitQuakeExist != 0)
@@ -1043,38 +1013,38 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 
     proc = Proc_Start(ProcScr_EfxHitQuake, PROC_TREE_3);
 
-    proc->unk_5c = anim1;
-    proc->unk_60 = anim2;
-    proc->unk_2c = 0;
-    proc->unk_29 = 1;
+    proc->anim_l = anim1;
+    proc->anim_r = anim2;
+    proc->timer = 0;
+    proc->quake_ui = 1;
 
     if (kind == 0)
     {
-        proc->unk_44 = gUnknown_080DA4BA;
+        proc->vec = gUnknown_080DA4BA;
     }
     else if (kind == 1)
     {
-        proc->unk_44 = gEfxQuakeVecs;
+        proc->vec = gEfxQuakeVecs;
     }
     else if (kind == 2)
     {
-        proc->unk_44 = gUnknown_080DA526;
+        proc->vec = gUnknown_080DA526;
     }
     else if (kind == 3)
     {
-        proc->unk_44 = gEfxQuakeVecs2;
+        proc->vec = gEfxQuakeVecs2;
     }
     else if (kind == 4)
     {
-        proc->unk_44 = gUnknown_080DA9F8;
+        proc->vec = gUnknown_080DA9F8;
     }
     else if (kind == 5)
     {
-        proc->unk_44 = gUnknown_080DAA8E;
+        proc->vec = gUnknown_080DAA8E;
     }
     else
     {
-        proc->unk_44 = gUnknown_080DA4BA;
+        proc->vec = gUnknown_080DA4BA;
     }
 
     proc->unk_48 = 1;
@@ -1097,7 +1067,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
         return;
     }
 
-    x = gEkrBgPosition - gEkrXPosBase[GetAnimPosition(proc->unk_5c)];
+    x = gEkrBgPosition - gEkrXPosBase[GetAnimPosition(proc->anim_l)];
 
     if (GetAnimPosition(anim1) == 0)
     {
@@ -1143,16 +1113,16 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 }
 
 //! FE8U = 0x08053BBC
-void efxHitQuake_Loop(struct EfxQuakeProc * proc)
+void efxHitQuake_Loop(struct ProcEfxQuake * proc)
 {
     int x1;
     int y1;
     int x2;
     int y2;
 
-    const s16 * vec = proc->unk_44;
+    const s16 * vec = proc->vec;
 
-    if (vec[proc->unk_2c * 2 + 0] == INT16_MAX)
+    if (vec[proc->timer * 2 + 0] == INT16_MAX)
     {
         SetEkrBg2QuakeVec(0, 0);
 
@@ -1195,7 +1165,7 @@ void efxHitQuake_Loop(struct EfxQuakeProc * proc)
 
         gEfxHitQuakeExist = 0;
 
-        if (proc->unk_29 == 1)
+        if (proc->quake_ui == 1)
         {
             if (GetBanimDragonStatusType() != 0)
             {
@@ -1214,21 +1184,21 @@ void efxHitQuake_Loop(struct EfxQuakeProc * proc)
         int x;
         int y;
 
-        if ((proc->unk_2c == 0) && (proc->unk_64 != NULL))
+        if ((proc->timer == 0) && (proc->unk_64 != NULL))
         {
-            FillBGRect(GetAnimPosition(proc->unk_5c) * 15 + gBG2TilemapBuffer + 0x160, 0xf, 5, 0, 0);
+            FillBGRect(GetAnimPosition(proc->anim_l) * 15 + gBG2TilemapBuffer + 0x160, 0xf, 5, 0, 0);
         }
 
-        x = vec[proc->unk_2c * 2 + 0];
-        y = vec[proc->unk_2c * 2 + 1];
+        x = vec[proc->timer * 2 + 0];
+        y = vec[proc->timer * 2 + 1];
 
         SetEkrBg2QuakeVec(x, y);
 
-        proc->unk_2c++;
+        proc->timer++;
 
         if (proc->unk_64 != NULL)
         {
-            s16 hm = gEkrBgPosition - gEkrXPosBase[GetAnimPosition(proc->unk_5c)];
+            s16 hm = gEkrBgPosition - gEkrXPosBase[GetAnimPosition(proc->anim_l)];
 
             struct Anim * anim = proc->unk_64;
 
@@ -1240,7 +1210,7 @@ void efxHitQuake_Loop(struct EfxQuakeProc * proc)
             BG_SetPosition(BG_2, gEkrBg2QuakeVec.x, gEkrBg2QuakeVec.y);
         }
 
-        if (proc->unk_29 == 1)
+        if (proc->quake_ui == 1)
         {
             if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL)
             {
@@ -1282,7 +1252,7 @@ void efxHitQuake_Loop(struct EfxQuakeProc * proc)
 
             case EKR_DISTANCE_FAR:
             case EKR_DISTANCE_FARFAR:
-                if (GetAnimPosition(proc->unk_5c) == 0)
+                if (GetAnimPosition(proc->anim_l) == 0)
                 {
                     SetEkrFrontAnimPostion(0, x1, y1);
                 }

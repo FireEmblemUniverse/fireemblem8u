@@ -530,7 +530,7 @@ extern struct ProcCmd ProcScr_efxDeadAlpha[];
 extern struct ProcCmd ProcScr_efxDeadDragonAlpha[];
 extern struct ProcCmd gProc_efxFarAttack[];
 extern struct ProcCmd ProcScr_efxQuakePure[];
-// extern ??? gUnknown_085B9804
+// extern ??? EfxQuakePureVecs
 extern struct ProcCmd ProcScr_EfxHitQuakePure[];
 extern struct ProcCmd ProcScr_efxQuake[];
 extern struct ProcCmd ProcScr_EfxHitQuake[];
