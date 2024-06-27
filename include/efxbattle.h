@@ -526,7 +526,7 @@ extern u32 gEfxHpBarResireFlag;
 extern u32 gUnknown_02017754;
 extern u32 gEfxTeonoState;
 extern u32 gUnknown_0201775C;
-struct Vec2 gEkrBg2QuakeVec;
+extern struct Vec2 gEkrBg2QuakeVec;
 extern s16 gUnknown_02017764[2];
 extern s16 gEfxSpecalEffectExist[2];
 
