@@ -328,13 +328,6 @@ extern struct Unknown020007E0 gUnknown_020007E0[];
 extern struct Font gSaveMenuSubBoxFont;
 extern struct Text gSaveMenuSubBoxText;
 
-struct Unknown03004990 {
-    /* 000 */ u8 unk[0x79E - 0x000];
-    /* 79E */ u8 unk_79E;
-};
-
-extern struct Unknown03004990* gUnknown_03004990;
-
 extern u16 Sprite_08A20570[];
 extern u16 Sprite_08A20578[];
 extern u16 Sprite_08A20580[];

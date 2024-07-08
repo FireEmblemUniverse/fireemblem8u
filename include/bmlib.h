@@ -269,12 +269,26 @@ void sub_8014BE0(int palid);
 void MemCpy(const void * src, void * dst, int size);
 void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width);
 int sub_8014CA4(int, int, int, int);
-// ??? sub_8014CC4(???);
-void sub_8014DA8(void*);
+
+struct Unknown03004990 {
+    /* 000 */ u16 buf[3 * 320];
+    /* 780 */ u16 * src[3];
+    /* 78C */ u16 * dst[3];
+    /* 798 */ u8 unk_798[3];
+    /* 79B */ u8 unk_79B;
+    /* 79C */ u8 unk_79C;
+    /* 79D */ bool unk_79D;
+    /* 79E */ bool unk_79E;
+};
+
+extern struct Unknown03004990 * gUnknown_03004990;
+
+void HBlank_8014CC4(void);
+void sub_8014DA8(struct Unknown03004990 * buf);
 void sub_8014E3C(void);
-// ??? sub_8014E74(???);
-// ??? sub_8014EA8(???);
-void sub_8014EC4(int, int);
+u16 * sub_8014E74(int, int);
+void sub_8014EA8(void);
+void sub_8014EC4(int index,void * pr_offset);
 // ??? sub_8014EDC(???);
 void sub_8014EF4(int);
 // ??? sub_8014F10(???);

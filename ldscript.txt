@@ -315,7 +315,7 @@ SECTIONS
         src/eventfx-earthquake.o(.text);
         src/eventfx-stoneshatter.o(.text);
         src/bmlib.o(.text);
-        asm/bmlib-hblank.o(.text);
+        src/bmlib-hblank.o(.text);
         src/bmlib-math.o(.text);
         src/bm.o(.text);
         src/bmitem.o(.text);

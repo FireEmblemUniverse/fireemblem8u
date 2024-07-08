@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "bm.h"
+#include "spline.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "fontgrp.h"

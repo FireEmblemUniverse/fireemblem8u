@@ -289,9 +289,6 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
     return;
 }
 
-u16 * sub_8014E74(int, int);
-void sub_8014EA8(void);
-
 //! FE8U = 0x080AA9D8
 void sub_80AA9D8(struct SaveDrawProc * proc)
 {
@@ -365,12 +362,12 @@ void SaveDraw_Init(struct SaveDrawProc * proc)
     proc->unk_40 = 0;
     proc->unk_3e = 0;
 
-    sub_8014DA8(__ewram_start);
-    sub_8014EC4(0, REG_ADDR_BG2HOFS);
+    sub_8014DA8(EWRAM_ENTRY);
+    sub_8014EC4(0, (void *)REG_ADDR_BG2HOFS);
     sub_8014EF4(0);
 
     sub_80AA9D8(proc);
-    gUnknown_03004990->unk_79E = 1;
+    gUnknown_03004990->unk_79E = true;
 
     sub_80AB548();
 
@@ -935,11 +932,11 @@ void sub_80AB720(struct SaveDrawProc * proc)
     proc->unk_40 = 0;
     proc->unk_3e = 0;
 
-    sub_8014EC4(0, REG_ADDR_BG2HOFS);
+    sub_8014EC4(0, (void *)REG_ADDR_BG2HOFS);
     sub_8014EF4(0);
     sub_80AA9D8(proc);
 
-    gUnknown_03004990->unk_79E = 1;
+    gUnknown_03004990->unk_79E = true;
 
     return;
 }
