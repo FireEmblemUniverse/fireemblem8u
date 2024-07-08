@@ -522,7 +522,7 @@ void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
 void ClearFirstPalDirectly(u16 * dst);
 void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
 void sub_80C689C(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C69B0(u16 *, int, u16);
+void sub_80C69B0(u16 *, u16, u16);
 void OpAnimInit(struct ProcOpAnim * proc);
 void OpAnimAllBlack(struct ProcOpAnimFadeIn * proc);
 void OpAnimFadeInMain(struct ProcOpAnimFadeIn * proc);
