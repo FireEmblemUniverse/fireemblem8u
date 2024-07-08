@@ -389,7 +389,7 @@ SECTIONS
         src/sio_tactician.o(.text);
         src/sio_postbattle.o(.text);
         src/sio_bat.o(.text);
-        asm/code_sio.o(.text);
+        src/sio_term.o(.text);
         src/sio_result.o(.text);
         src/sio_rulesettings.o(.text);
         src/sio_menu.o(.text);
