@@ -590,10 +590,6 @@ void sub_8046234(struct SioBatProc * proc)
     return;
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/Xgj0L */
-
 //! FE8U = 0x080462D4
 void sub_80462D4(struct SioBatProc * proc)
 {
@@ -622,13 +618,14 @@ void sub_80462D4(struct SioBatProc * proc)
             if (got != 0)
             {
                 struct LinkArenaStMaybe * las = &gLinkArenaSt;
+                u8 * buf2 = buf;
                 struct LinkArenaStMaybe_ec * unk_ec = &las->unk_ec;
 
                 // clang-format off
                 { u32 r4 = 1; ++r4; --r4; }
                 // clang-format on
 
-                unk_ec->unk_0_0 = buf[0] % 2;
+                unk_ec->unk_0_0 = buf2[0] % 2;
                 unk_ec->unk_0_2 = buf[1] % 2;
                 unk_ec->unk_0_1 = buf[2] % 2;
 
@@ -644,117 +641,6 @@ void sub_80462D4(struct SioBatProc * proc)
 
     return;
 }
-
-#else
-
-NAKEDFUNC
-void sub_80462D4(struct SioBatProc * proc)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        sub sp, #0x14\n\
-        adds r5, r0, #0\n\
-        ldr r7, [r5, #0x2c]\n\
-        ldr r0, _08046310  @ gSioSt\n\
-        ldr r2, [r0]\n\
-        movs r4, #6\n\
-        ldrsb r4, [r2, r4]\n\
-        cmp r4, #0\n\
-        bne _08046318\n\
-        ldr r1, [r5, #0x34]\n\
-        movs r0, #0x8c\n\
-        muls r0, r1, r0\n\
-        adds r0, r2, r0\n\
-        movs r1, #0x9a\n\
-        lsls r1, r1, #1\n\
-        adds r0, r0, r1\n\
-        ldrb r0, [r0]\n\
-        ldrb r2, [r2, #9]\n\
-        cmp r0, r2\n\
-        bne _08046398\n\
-        ldr r0, _08046314  @ 0x74E\n\
-        movs r1, #1\n\
-        bl sub_8043100\n\
-        str r4, [r7, #0x38]\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-        b _08046398\n\
-        .align 2, 0\n\
-    _08046310: .4byte gSioSt\n\
-    _08046314: .4byte 0x74E\n\
-    _08046318:\n\
-        bl GetGameClock\n\
-        movs r1, #0x26\n\
-        bl __umodsi3\n\
-        adds r6, r0, #0\n\
-        cmp r6, #0\n\
-        bne _08046398\n\
-        add r1, sp, #0x10\n\
-        mov r0, sp\n\
-        movs r2, #0\n\
-        bl SioReceiveData\n\
-        lsls r0, r0, #0x10\n\
-        cmp r0, #0\n\
-        beq _08046398\n\
-        ldr r4, _080463A0  @ gLinkArenaSt\n\
-        mov r0, sp\n\
-        adds r4, #0xec\n\
-        movs r3, #1\n\
-        ldrb r1, [r0]\n\
-        ands r1, r3\n\
-        ldrb r2, [r4]\n\
-        movs r0, #2\n\
-        negs r0, r0\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        mov r1, sp\n\
-        ldrb r1, [r1, #1]\n\
-        ands r1, r3\n\
-        lsls r1, r1, #2\n\
-        movs r2, #5\n\
-        negs r2, r2\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        mov r1, sp\n\
-        ldrb r1, [r1, #2]\n\
-        ands r1, r3\n\
-        lsls r1, r1, #1\n\
-        adds r2, #2\n\
-        ands r0, r2\n\
-        orrs r0, r1\n\
-        strb r0, [r4]\n\
-        mov r0, sp\n\
-        ldrb r0, [r0, #3]\n\
-        adds r1, r5, #0\n\
-        adds r1, #0x3b\n\
-        strb r0, [r1]\n\
-        mov r0, sp\n\
-        ldrb r0, [r0, #4]\n\
-        subs r1, #2\n\
-        strb r0, [r1]\n\
-        mov r0, sp\n\
-        adds r0, #6\n\
-        bl LoadRNState\n\
-        ldr r0, _080463A4  @ 0x74E\n\
-        movs r1, #1\n\
-        bl sub_8043100\n\
-        str r6, [r7, #0x38]\n\
-        adds r0, r5, #0\n\
-        bl Proc_Break\n\
-    _08046398:\n\
-        add sp, #0x14\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _080463A0: .4byte gLinkArenaSt\n\
-    _080463A4: .4byte 0x74E\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x080463A8
 void sub_80463A8(struct SioBatProc * proc)
