@@ -364,7 +364,7 @@ void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, 
     
     for (i = (start >> 3) + 1; i < (end >> 3) + 1; i++)
     {
-        if (((u32)i >= 0x40) || (i >= 0x20 && src2 == 0))
+        if ((i < 0 || i >= 0x40) || (i >= 0x20 && src2 == 0))
         {
             ClearFirstPalDirectly(dst + (i & 0x1f));
             continue;
@@ -413,7 +413,7 @@ void sub_80C689C(s16 end, s16 start, s16 offset, u16 bg, u16 * src1, u16 * src2,
 
     for (i = (start >> 3) - 1; i > (end >> 3) - 1; i--)
     {
-        if (((u32)i >= 0x40) || (i >= 0x20 && src2 == 0))
+        if ((i < 0 || i >= 0x40) || (i >= 0x20 && src2 == 0))
         {
             ClearFirstPalDirectly(dst + (i & 0x1f));
             continue;
