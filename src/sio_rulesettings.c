@@ -8,22 +8,6 @@
 #include "sio_core.h"
 #include "sio.h"
 
-struct ProcSioRuleSettings
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ ProcPtr unk_2c;
-    /* 30 */ int unk_30;
-};
-
-struct LinkArenaRuleInfo
-{
-    /* 00 */ int labelTextId;
-    /* 04 */ int xPos[2];
-    /* 0C */ int optionTextId[2];
-};
-
-extern const struct LinkArenaRuleInfo gLinkArenaRuleData[];
-
 //! FE8U = 0x0804766C
 void LoadLinkArenaRuleSettings(u8 * buf)
 {

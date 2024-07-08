@@ -3,6 +3,7 @@
 #include "global.h"
 #include "proc.h"
 #include "mu.h"
+#include "bmsave.h"
 
 struct Proc085AAAC4 {
     PROC_HEADER;
@@ -48,7 +49,9 @@ enum sio_save_config_bitfile {
 };
 
 struct SioSaveConf {
-    u8 _unk0_ : 3;
+    u8 _unk0_ : 1;
+    u8 _unk1_ : 1;
+    u8 _unk2_ : 1;
     u8 _unk3_ : 1;
     u8 _unk4_ : 4;
     u8 _unk8_;
@@ -129,7 +132,7 @@ void ClearSioBG(void);
 // ??? sub_804309C(???);
 void sub_8043100(int, int);
 void sub_8043164(void);
-// ??? sub_80431B4(???);
+void sub_80431B4(struct Unit * unit);
 void SioPlaySoundEffect(int);
 // ??? sub_8043244(???);
 bool IsKeyInputSequenceComplete(const u16 * list);
@@ -276,10 +279,29 @@ void DrawLinkArenaModeIcon(u16 *, u32);
 // ??? SioResult_NewHS_Init(???);
 // ??? SioResult_NewHS_LoopScroll(???);
 // ??? SioResult_NewHS_AwaitAPress(???);
-// ??? StartSioResultNewHighScore(???);
-// ??? LoadLinkArenaRuleSettings(???);
+
+/* sio_rulesettings.c */
+
+struct ProcSioRuleSettings
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ ProcPtr unk_2c;
+    /* 30 */ int unk_30;
+};
+
+struct LinkArenaRuleInfo
+{
+    /* 00 */ int labelTextId;
+    /* 04 */ int xPos[2];
+    /* 0C */ int optionTextId[2];
+};
+
+extern const struct LinkArenaRuleInfo gLinkArenaRuleData[];
+
+void StartSioResultNewHighScore(int value, ProcPtr parent);
+void LoadLinkArenaRuleSettings(u8 * buf);
 // ??? SaveLinkArenaRuleSettings(???);
-// ??? sub_80476CC(???);
+void sub_80476CC(int idx, int state);
 // ??? SioRuleSettings_Init(???);
 // ??? SioRuleSettings_Loop_Main(???);
 
@@ -390,7 +412,7 @@ void sub_80497CC(void);
 // ??? sub_8049940(???);
 // ??? sub_8049964(???);
 // ??? sub_80499D0(???);
-// ??? sub_8049A60(???);
+int sub_8049A60(void);
 // ??? sub_8049B04(???);
 // ??? sub_8049B24(???);
 // ??? sub_8049C18(???);
@@ -494,7 +516,7 @@ ProcPtr StartSioWarpFx(struct Unit *, struct MUProc *, int, int, int, int, ProcP
 void PutLinkArenaButtonSpriteAt(int, int);
 // ??? LAButtonSprites_Loop(???);
 void StartLinkArenaButtonSpriteDraw(int, int, ProcPtr);
-// ??? EndLinkArenaButtonSpriteDraw(???);
+void EndLinkArenaButtonSpriteDraw(void);
 void InitSioBG(void);
 void sub_804C3A0(int, int);
 void sub_804C3A4(int);
@@ -526,7 +548,7 @@ void UpdateNameEntrySpriteDraw(void *, int, int, int, int, int);
 // ??? RuleSettingSprites_Interactive_Loop(???);
 // ??? RuleSettingSprites_Static_Loop(???);
 ProcPtr StartRuleSettingSpriteDrawInteractive(ProcPtr);
-// ??? StartRuleSettingSpriteDrawStatic(???);
+void StartRuleSettingSpriteDrawStatic(void);
 void UpdateRuleSettingSprites(ProcPtr, s16, s16, s16);
 // ??? UpdateSioMenuBurstGlow(???);
 // ??? SioMenuBurstFx_Loop(???);
@@ -542,8 +564,8 @@ void UpdateLinkArenaMenuScrollBar(u8, s16);
 void sub_804D40C(struct Unit *);
 // ??? sub_804D428(???);
 // ??? LAVersusSpriteDraw_Loop(???);
-// ??? StartLinkArenaVersusSpriteDraw(???);
-// ??? EndLinkArenaVersusSpriteDraw(???);
+ProcPtr StartLinkArenaVersusSpriteDraw(int x, int y, ProcPtr parent);
+void EndLinkArenaVersusSpriteDraw(void);
 // ??? GetLinkArenaVersusSpriteDraw(???);
 void sub_804D6D4(void);
 // ??? sub_804D724(???);
@@ -583,7 +605,7 @@ extern struct Text Texts_0203DB14[10];
 extern struct Text gUnk_Sio_0203DB1C[];
 extern struct Font Font_0203DB64;
 // extern ??? gLinkArenaTeamList
-// extern ??? gSioResultRankings
+extern struct MultiArenaRankingEnt gSioResultRankings[];
 // extern ??? gUnk_Sio_0203DC48
 extern struct Text gSioTexts[];
 extern struct Text Text_0203DB14;
