@@ -270,26 +270,26 @@ void MemCpy(const void * src, void * dst, int size);
 void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width);
 int sub_8014CA4(int, int, int, int);
 
-struct Unknown03004990 {
+struct BgVerticalScrollSt {
     /* 000 */ u16 buf[3 * 320];
     /* 780 */ u16 * src[3];
     /* 78C */ u16 * dst[3];
     /* 798 */ u8 unk_798[3];
-    /* 79B */ u8 unk_79B;
-    /* 79C */ u8 unk_79C;
-    /* 79D */ bool unk_79D;
-    /* 79E */ bool unk_79E;
+    /* 79B */ u8 frame_flip;
+    /* 79C */ u8 frame;
+    /* 79D */ bool updating;
+    /* 79E */ bool scroll_en;
 };
 
-extern struct Unknown03004990 * gUnknown_03004990;
+extern struct BgVerticalScrollSt * gpBgVerticalScrollSt;
 
-void HBlank_8014CC4(void);
-void sub_8014DA8(struct Unknown03004990 * buf);
-void sub_8014E3C(void);
-u16 * sub_8014E74(int, int);
-void sub_8014EA8(void);
-void sub_8014EC4(int index,void * pr_offset);
-// ??? sub_8014EDC(???);
+void HBlank_BgVerticalScroll(void);
+void StartBgVerticalScroll(struct BgVerticalScrollSt * buf);
+void EndBgVerticalScroll(void);
+u16 * GetBgVerticalScrollBuffer(int, int);
+void FlipBgVerticalScroll(void);
+void SetBgVerticalScrollPosition(int index,void * pr_offset);
+// ??? ResetBgVerticalScrollPosition(???);
 void sub_8014EF4(int);
 // ??? sub_8014F10(???);
 // ??? sub_8014F30(???);

@@ -2010,3 +2010,8 @@ void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int
 
     PutText(text, gBG0TilemapBuffer + TILEMAP_INDEX(x, y));
 }
+
+int sub_8014CA4(int timer, int speed, int a, int b)
+{
+    return sub_800A42C(DivArm(speed, timer * 0x1000), a, b);
+}

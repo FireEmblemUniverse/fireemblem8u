@@ -290,41 +290,39 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
 }
 
 //! FE8U = 0x080AA9D8
-void sub_80AA9D8(struct SaveDrawProc * proc)
+void SaveDraw_ScrollFogBG(struct SaveDrawProc * proc)
 {
     u16 * ptr;
     int i;
     s16 x;
-    u32 unk_40;
-    u32 r6;
+    u32 bg_y;
+    u32 angle;
 
-    proc->unk_3e++;
-    proc->unk_40 += 2;
+    proc->bg_x++;
+    proc->bg_y += 2;
 
-    x = (proc->unk_3e & 0xfff) >> 3;
-    unk_40 = (proc->unk_40 / 8) & 0xff;
+    x = (proc->bg_x & 0xfff) >> 3;
+    bg_y = (proc->bg_y / 8) & 0xff;
 
-    ptr = sub_8014E74(0, 1);
-    r6 = unk_40;
+    ptr = GetBgVerticalScrollBuffer(0, true);
+    angle = bg_y;
 
-    for (i = 0; i < 0xA0; i++)
+    for (i = 0; i < DISPLAY_HEIGHT; i++)
     {
-        int v = SIN(r6) / 0x300;
+        int v = SIN(angle) / 0x300;
         ptr[i] = (v + x) & 0x1ff;
-        r6 += 0xC;
+        angle += 12;
     }
 
-    BG_SetPosition(2, x, unk_40);
+    BG_SetPosition(BG_2, x, bg_y);
 
-    sub_8014EA8();
-
-    return;
+    FlipBgVerticalScroll();
 }
 
 //! FE8U = 0x080AAA6C
 void SaveDraw_OnEnd(void)
 {
-    sub_8014E3C();
+    EndBgVerticalScroll();
     return;
 }
 
@@ -359,15 +357,15 @@ void SaveDraw_Init(struct SaveDrawProc * proc)
     }
 
     proc->unk_3c = SAVE_MENU_PARENT(proc)->sus_slot;
-    proc->unk_40 = 0;
-    proc->unk_3e = 0;
+    proc->bg_y = 0;
+    proc->bg_x = 0;
 
-    sub_8014DA8(EWRAM_ENTRY);
-    sub_8014EC4(0, (void *)REG_ADDR_BG2HOFS);
+    StartBgVerticalScroll(EWRAM_ENTRY);
+    SetBgVerticalScrollPosition(0, (void *)REG_ADDR_BG2HOFS);
     sub_8014EF4(0);
 
-    sub_80AA9D8(proc);
-    gUnknown_03004990->unk_79E = true;
+    SaveDraw_ScrollFogBG(proc);
+    gpBgVerticalScrollSt->scroll_en = true;
 
     sub_80AB548();
 
@@ -668,7 +666,7 @@ void SaveDraw_Loop_Main(struct SaveDrawProc * proc)
         sub_80AACBC(proc);
     }
 
-    sub_80AA9D8(proc);
+    SaveDraw_ScrollFogBG(proc);
     sub_80AB56C(proc->unk_2a);
 }
 
@@ -929,24 +927,24 @@ void sub_80AB56C(u32 a) {
 //! FE8U = 0x080AB720
 void sub_80AB720(struct SaveDrawProc * proc)
 {
-    proc->unk_40 = 0;
-    proc->unk_3e = 0;
+    proc->bg_y = 0;
+    proc->bg_x = 0;
 
-    sub_8014EC4(0, (void *)REG_ADDR_BG2HOFS);
+    SetBgVerticalScrollPosition(0, (void *)REG_ADDR_BG2HOFS);
     sub_8014EF4(0);
-    sub_80AA9D8(proc);
+    SaveDraw_ScrollFogBG(proc);
 
-    gUnknown_03004990->unk_79E = true;
+    gpBgVerticalScrollSt->scroll_en = true;
 
     return;
 }
 
 struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
-    PROC_SET_END_CB(sub_8014E3C),
+    PROC_SET_END_CB(EndBgVerticalScroll),
     PROC_SLEEP(0),
 
     PROC_CALL(sub_80AB720),
-    PROC_REPEAT(sub_80AA9D8),
+    PROC_REPEAT(SaveDraw_ScrollFogBG),
 
     PROC_END,
 };
@@ -954,7 +952,7 @@ struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
 //! FE8U = 0x080AB760
 void sub_80AB760(void* unused) {
     Proc_Start(gProcScr_08A206F8, PROC_TREE_3);
-    sub_8014DA8(EWRAM_ENTRY);
+    StartBgVerticalScroll(EWRAM_ENTRY);
     return;
 }
 

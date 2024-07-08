@@ -1289,7 +1289,7 @@ void HandleShopBuyAction(struct ProcShop * proc)
     DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 27, 6));
 }
 
-int ShopTryMoveHand(int pos, int pre, bool scroll_en)
+int ShopTryMoveHand(int pos, int pre, bool hscroll_en)
 {
     int previous;
 
@@ -1305,7 +1305,7 @@ int ShopTryMoveHand(int pos, int pre, bool scroll_en)
     {
         if (pos == 0)
         {
-            if (scroll_en && (gKeyStatusPtr->newKeys & DPAD_UP))
+            if (hscroll_en && (gKeyStatusPtr->newKeys & DPAD_UP))
                 pos = pre - 1;
         }
         else
@@ -1317,7 +1317,7 @@ int ShopTryMoveHand(int pos, int pre, bool scroll_en)
     {
         if (pos == (pre - 1))
         {
-            if (scroll_en && (gKeyStatusPtr->newKeys & DPAD_DOWN))
+            if (hscroll_en && (gKeyStatusPtr->newKeys & DPAD_DOWN))
                 pos = 0;
         }
         else
