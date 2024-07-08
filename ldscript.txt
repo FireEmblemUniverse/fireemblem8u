@@ -594,7 +594,6 @@ SECTIONS
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
         src/opanimfx.o(.text);
-        asm/opanimfx.o(.text);
         src/opanim-main.o(.text);
         src/opanim-healthsafetyscreen.o(.text);
         src/classchg-main.o(.text);
