@@ -219,20 +219,20 @@ void sub_80855F8(void)
     SetDispEnable(1, 1, 1, 1, 1);
 }
 
-CONST_DATA struct ProcCmd gUnknown_089EE000[] = {
+CONST_DATA struct ProcCmd ProcScr_EventHorizontalQuakefx[] = {
     PROC_YIELD,
 
 PROC_LABEL(0),
-    PROC_REPEAT(sub_8085618),
+    PROC_REPEAT(EventQuakefxHorizon_ViolentLoop),
 
 PROC_LABEL(1),
-    PROC_REPEAT(sub_8085670),
+    PROC_REPEAT(EventQuakefxHorizon_SlightLoop),
     PROC_END
 };
 
-void sub_8085618(struct Proc * proc)
+void EventQuakefxHorizon_ViolentLoop(struct Proc * proc)
 {
-    struct Proc8085618 * parent = proc->proc_parent;
+    struct ProcEventQuakeHandler * parent = proc->proc_parent;
 
     if (-1 == parent->unk4C)
     {
@@ -245,9 +245,9 @@ void sub_8085618(struct Proc * proc)
     }
 }
 
-void sub_8085670(struct Proc * proc)
+void EventQuakefxHorizon_SlightLoop(struct Proc * proc)
 {
-    struct Proc8085618 * parent = proc->proc_parent;
+    struct ProcEventQuakeHandler * parent = proc->proc_parent;
 
     if (-1 == parent->unk4C)
     {
@@ -264,103 +264,106 @@ void sub_8085670(struct Proc * proc)
     }
 }
 
-void sub_80856D0(struct EventEngineProc * proc)
+void EventQuakefxVeritical_Loop(struct Proc * proc)
 {
-    struct Proc8085618 *parent = proc->proc_parent;
+    struct ProcEventQuakeHandler * parent = proc->proc_parent;
 
-    if (0x36 == parent->unk4C) {
-        if (GetGameClock() % 2) {
+    if (0x36 == parent->unk4C)
+    {
+        if (GetGameClock() % 2)
             BG_SetPosition(3, GetGameClock() & 1, 0);
-        }
-    } else {
-        if (GetGameClock() % 2) {
+    }
+    else
+    {
+        if (GetGameClock() % 2)
+        {
             (u16)gBmSt.camera.y &= 0xFFFD;
             gBmSt.camera.y ^= 1;
         }
     }
 }
 
-CONST_DATA struct ProcCmd ProcScr_089EE030[] = {
+CONST_DATA struct ProcCmd ProcScr_EventVerticalQuakefx[] = {
     PROC_YIELD,
-    PROC_REPEAT(sub_80856D0),
+    PROC_REPEAT(EventQuakefxVeritical_Loop),
     PROC_END
 };
 
-void sub_8085728(ProcPtr parent)
+void StartEventVeriticalQuakefx(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(ProcScr_089EE030);
+    ProcPtr proc = Proc_Find(ProcScr_EventVerticalQuakefx);
     if (!proc)
-        proc = Proc_Start(ProcScr_089EE030, parent);
+        proc = Proc_Start(ProcScr_EventVerticalQuakefx, parent);
 
     Proc_Goto(proc, 0);
     PlaySoundEffect(0x26A);
 }
 
-void sub_808576C(ProcPtr parent)
+void StartEventHorizontalQuakefxViolently(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc) {
         PlaySoundEffect(0x26A);
-        proc = Proc_Start(gUnknown_089EE000, parent);
+        proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     }
     Proc_Goto(proc, 0);
 }
 
-void sub_80857B0(ProcPtr parent)
+void StartEventHorizontalQuakefxSlightly(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc) {
         PlaySoundEffect(0x26A);
-        proc = Proc_Start(gUnknown_089EE000, parent);
+        proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     }
     Proc_Goto(proc, 1);
 }
 
-void sub_80857F4(ProcPtr parent)
+void StartEventHorizontalQuakefxViolentlyNoSound(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc)
-        proc = Proc_Start(gUnknown_089EE000, parent);
+        proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     Proc_Goto(proc, 0);
 }
 
-void sub_808581C(ProcPtr parent)
+void StartEventHorizontalQuakefxSlightlyNoSound(ProcPtr parent)
 {
-    ProcPtr proc = Proc_Find(gUnknown_089EE000);
+    ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc)
-        proc = Proc_Start(gUnknown_089EE000, parent);
+        proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     Proc_Goto(proc, 1);
 }
 
-void sub_8085844(ProcPtr parent)
+void EndEventHorizontalQuakefx(ProcPtr parent)
 {
     (u16)gBmSt.camera.x &= 0xFFFC;
-    Proc_EndEach(gUnknown_089EE000);
+    Proc_EndEach(ProcScr_EventHorizontalQuakefx);
     Sound_FadeOutSE(4);
 }
 
-CONST_DATA struct ProcCmd ProcScr_089EE048[] = {
+void EndEventVerticalQuakefx(void)
+{
+    (u16)gBmSt.camera.y &= 0xFFFC;
+    Proc_EndEach(ProcScr_EventVerticalQuakefx);
+    Sound_FadeOutSE(4);
+}
+
+CONST_DATA struct ProcCmd ProcScr_EventQuakefx[] = {
     PROC_YIELD,
-    PROC_CALL(sub_8085894),
-    PROC_REPEAT(sub_808589C),
+    PROC_CALL(EventQuakefx_Init),
+    PROC_REPEAT(EventQuakefx_Loop),
     PROC_END
 };
 
-void sub_808586C(void)
-{
-    (u16)gBmSt.camera.y &= 0xFFFC;
-    Proc_EndEach(ProcScr_089EE030);
-    Sound_FadeOutSE(4);
-}
-
-void sub_8085894(struct Proc * proc)
+void EventQuakefx_Init(struct Proc * proc)
 {
     proc->unk4C = 0;
 }
 
-void sub_808589C(struct Proc * proc)
+void EventQuakefx_Loop(struct Proc * proc)
 {
-    struct Proc8085618 * parent = proc->proc_parent;
+    struct ProcEventQuakeHandler * parent = proc->proc_parent;
 
     if (-1 == parent->unk4C)
     {
@@ -369,7 +372,8 @@ void sub_808589C(struct Proc * proc)
             (u16)gBmSt.camera.x &= 0xFFFD;
             gBmSt.camera.x ^= 1;
         }
-    } else
+    }
+    else
     {
         if (GetGameClock() % 2)
             BG_SetPosition(3, GetBgXOffset(3) ^ 1, 0);
@@ -382,17 +386,17 @@ void sub_808589C(struct Proc * proc)
     }
 }
 
-void sub_808591C(struct EventEngineProc * proc)
+void StartEventQuakefx(ProcPtr proc)
 {
-    Proc_Start(ProcScr_089EE048, proc);
+    Proc_Start(ProcScr_EventQuakefx, proc);
     PlaySoundEffect(0x26A);
 }
 
-void sub_8085948(struct EventEngineProc * proc)
+void EndEventQuakefx(ProcPtr proc)
 {
     (u16)gBmSt.camera.y &= 0xFFFC;
     Sound_FadeOutSE(4);
-    Proc_EndEach(ProcScr_089EE048);
+    Proc_EndEach(ProcScr_EventQuakefx);
 }
 
 void SetEventId_0x84(ProcPtr proc)
