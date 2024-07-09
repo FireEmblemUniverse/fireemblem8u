@@ -157,7 +157,7 @@ extern void (* sHBlankHandler2)(void);
 extern u16 * gOamAffinePutIt;
 // extern ??? gUnknown_03004160
 // extern ??? gUnknown_03004960
-// extern ??? gUnknown_03004990
+// extern ??? gpBgVerticalScrollSt
 // extern ??? gStatGainSimUnit
 extern struct Unit * gActiveUnit;
 // extern ??? gUnknown_03004E70

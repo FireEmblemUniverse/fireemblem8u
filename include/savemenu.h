@@ -108,8 +108,8 @@ struct SaveDrawProc {
     /* 3B */ u8 unk_3b;
     /* 3C */ u8 unk_3c;
     // 3D - unused?
-    /* 3E */ u16 unk_3e;
-    /* 40 */ u16 unk_40;
+    /* 3E */ u16 bg_x;
+    /* 40 */ u16 bg_y;
 };
 
 struct SaveMenuProc {
@@ -274,7 +274,7 @@ const char * GetWMNodeNameForSaveMenu(void);
 void SaveMenuCopyPalette(u16 *, u16 *, int);
 void sub_80AA7AC(int a, int b);
 // ??? sub_80AA7EC(???);
-void sub_80AA9D8(struct SaveDrawProc *);
+void SaveDraw_ScrollFogBG(struct SaveDrawProc *);
 // ??? SaveDraw_OnEnd(???);
 // ??? SaveDraw_Init(???);
 // ??? sub_80AAB78(???);
@@ -327,13 +327,6 @@ extern struct Unknown020007E0 gUnknown_020007E0[];
 
 extern struct Font gSaveMenuSubBoxFont;
 extern struct Text gSaveMenuSubBoxText;
-
-struct Unknown03004990 {
-    /* 000 */ u8 unk[0x79E - 0x000];
-    /* 79E */ u8 unk_79E;
-};
-
-extern struct Unknown03004990* gUnknown_03004990;
 
 extern u16 Sprite_08A20570[];
 extern u16 Sprite_08A20578[];

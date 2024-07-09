@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "bm.h"
+#include "spline.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "fontgrp.h"
@@ -2008,4 +2009,9 @@ void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int
     Text_DrawString(text, str);
 
     PutText(text, gBG0TilemapBuffer + TILEMAP_INDEX(x, y));
+}
+
+int sub_8014CA4(int timer, int speed, int a, int b)
+{
+    return sub_800A42C(DivArm(speed, timer * 0x1000), a, b);
 }

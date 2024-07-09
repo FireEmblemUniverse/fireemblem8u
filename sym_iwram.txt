@@ -112,7 +112,7 @@
 . = 0x004960; gUnknown_03004960 = .;
 . = 0x004970; gSpriteAllocIt = .;
 . = 0x004980; gFaces = .;
-. = 0x004990; gUnknown_03004990 = .;
+. = 0x004990; gpBgVerticalScrollSt = .;
 . = 0x0049A0; gWorkingBmMap = .;
 . = 0x0049B0; gMovMapFillStPool1 = .;
 . = 0x004BB0; gWorkingTerrainMoveCosts = .;
