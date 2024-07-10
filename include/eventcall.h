@@ -12,7 +12,7 @@ struct UnkProc80855A0 {
     /* 4D */ u8 unk4D;
 };
 
-struct Proc8085618 {
+struct ProcEventQuakeHandler {
     PROC_HEADER;
     /* 29 */ u8 _pad_29[0x4C - 0x29];
     /* 4C */ s8 unk4C;
@@ -77,20 +77,20 @@ void ResetAllPlayerUnitState(void);
 // ??? sub_80855A0(???);
 // ??? sub_80855D4(???);
 // ??? sub_80855F8(???);
-void sub_8085618(struct Proc * proc);
-void sub_8085670(struct Proc * proc);
-// ??? sub_80856D0(???);
-// ??? sub_8085728(???);
-// ??? sub_808576C(???);
-// ??? sub_80857B0(???);
-// ??? sub_80857F4(???);
-// ??? sub_808581C(???);
-// ??? sub_8085844(???);
-// ??? sub_808586C(???);
-void sub_8085894(struct Proc * proc);
-void sub_808589C(struct Proc * proc);
-// ??? sub_808591C(???);
-// ??? sub_8085948(???);
+void EventQuakefxHorizon_ViolentLoop(struct Proc * proc);
+void EventQuakefxHorizon_SlightLoop(struct Proc * proc);
+void EventQuakefxVeritical_Loop(struct Proc * proc);
+void StartEventVeriticalQuakefx(ProcPtr parent);
+void StartEventHorizontalQuakefxViolently(ProcPtr parent);
+void StartEventHorizontalQuakefxSlightly(ProcPtr parent);
+void StartEventHorizontalQuakefxViolentlyNoSound(ProcPtr parent);
+void StartEventHorizontalQuakefxSlightlyNoSound(ProcPtr parent);
+void EndEventHorizontalQuakefx(ProcPtr parent);
+void EndEventVerticalQuakefx(void);
+void EventQuakefx_Init(struct Proc * proc);
+void EventQuakefx_Loop(struct Proc * proc);
+void StartEventQuakefx(ProcPtr proc);
+void EndEventQuakefx(ProcPtr proc);
 void SetEventId_0x84(ProcPtr);
 void UnsetEventId_0x84(ProcPtr);
 void sub_8085988(struct EventEngineProc * proc);

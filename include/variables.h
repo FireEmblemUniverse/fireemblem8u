@@ -864,9 +864,9 @@ extern u16 Pal_TalkBubble[];
 // extern ??? gUnknown_089ED6AC
 extern struct ProcCmd ProcScr_BmGameOver[];
 extern struct ProcCmd ProcScr_ForceAsyncButtonB[];
-extern struct ProcCmd gUnknown_089EE000[];
-extern struct ProcCmd ProcScr_089EE030[];
-extern struct ProcCmd ProcScr_089EE048[];
+extern struct ProcCmd ProcScr_EventHorizontalQuakefx[];
+extern struct ProcCmd ProcScr_EventVerticalQuakefx[];
+extern struct ProcCmd ProcScr_EventQuakefx[];
 extern struct ProcCmd ProcScr_089EE068[];
 extern struct ProcCmd ProcScr_WorldFlush[];
 extern u16 CONST_DATA Obj_089EE99C[];
