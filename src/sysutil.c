@@ -1298,7 +1298,6 @@ void EndFadeInOut(void)
     Proc_End(Proc_Find(ProcScr_BmFadeOUT));
 }
 
-//! FE8U = 0x080AE4D8
 void BmBgfx_Init(struct ProcBmBgfx * proc)
 {
     proc->conf = 0;
@@ -1320,7 +1319,6 @@ void BmBgfx_Init(struct ProcBmBgfx * proc)
     proc->counter = 0;
 }
 
-//! FE8U = 0x080AE518
 void BmBgfx_Loop(struct ProcBmBgfx * proc)
 {
     struct BmBgxConf * conf = proc->conf;
@@ -1387,60 +1385,70 @@ void BmBgfx_Loop(struct ProcBmBgfx * proc)
         if (conf->type == BMFX_CONFT_BLOCKING)
             break;
 
+#if NONMATCHING
+        switch (conf->type) {
+        case BMFX_CONFT_BREAK:
+        case BMFX_CONFT_END:
+            Proc_Break(proc);
+            return;
+
+        default:
+            break;
+        }
+#else
         if (conf->type < 11 && conf->type > 8)
         {
             Proc_Break(proc);
             break;
         }
+#endif
 
         if (proc->timer == 0)
         {
-            switch (conf->type)
-            {
-                case BMFX_CONFT_IMG:
-                case BMFX_CONFT_ZIMG:
-                    if (proc->vram_free_space == 0)
-                        proc->flip = 1 - proc->flip;
-                    break;
+            switch (conf->type) {
+            case BMFX_CONFT_IMG:
+            case BMFX_CONFT_ZIMG:
+                if (proc->vram_free_space == 0)
+                    proc->flip = 1 - proc->flip;
+                break;
             }
 
-            switch (conf->type)
-            {
-                case BMFX_CONFT_IMG:
-                    CpuFastCopy(
-                        conf->data,
-                        (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx),
-                        conf->size);
+            switch (conf->type) {
+            case BMFX_CONFT_IMG:
+                CpuFastCopy(
+                    conf->data,
+                    (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx),
+                    conf->size);
 
-                    proc->vram_free_space = proc->vram_free_space + conf->size;
-                    break;
+                proc->vram_free_space = proc->vram_free_space + conf->size;
+                break;
 
-                case BMFX_CONFT_ZIMG:
-                    Decompress(
-                        conf->data,
-                        (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx));
+            case BMFX_CONFT_ZIMG:
+                Decompress(
+                    conf->data,
+                    (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx));
 
-                    proc->vram_free_space = proc->vram_free_space + conf->size;
+                proc->vram_free_space = proc->vram_free_space + conf->size;
 
-                    break;
+                break;
 
-                case BMFX_CONFT_TSA:
-                    if (proc->size_per_fx == 0x8000)
-                        SetBackgroundTileDataOffset(proc->bg, (proc->vram_base + (proc->flip << 0xf)) & 0xFFFF);
+            case BMFX_CONFT_TSA:
+                if (proc->size_per_fx == 0x8000)
+                    SetBackgroundTileDataOffset(proc->bg, (proc->vram_base + (proc->flip << 0xf)) & 0xFFFF);
 
-                    CallARM_FillTileRect(
-                        BG_GetMapBuffer(proc->bg), conf->data,
-                        (u16)((proc->pal_bank << 0xc) +
-                              (((proc->vram_base_offset + proc->flip * proc->size_per_fx) << 0x11) >> 0x16)));
+                CallARM_FillTileRect(
+                    BG_GetMapBuffer(proc->bg), conf->data,
+                    (u16)((proc->pal_bank << 0xc) +
+                            (((proc->vram_base_offset + proc->flip * proc->size_per_fx) << 0x11) >> 0x16)));
 
-                    proc->vram_free_space = 0;
-                    BG_EnableSyncByMask(1 << proc->bg);
+                proc->vram_free_space = 0;
+                BG_EnableSyncByMask(1 << proc->bg);
 
-                    break;
+                break;
 
-                case BMFX_CONFT_PAL:
-                    ApplyPalettes(conf->data, proc->pal_bank, conf->size);
-                    break;
+            case BMFX_CONFT_PAL:
+                ApplyPalettes(conf->data, proc->pal_bank, conf->size);
+                break;
             }
         }
 
@@ -1456,7 +1464,6 @@ void BmBgfx_Loop(struct ProcBmBgfx * proc)
     proc->counter_procloop++;
 }
 
-//! FE8U = 0x080AE71C
 void BmBgfx_End(struct ProcBmBgfx * proc)
 {
     if (proc->conf->type == 10)
@@ -1476,7 +1483,6 @@ struct ProcCmd CONST_DATA ProcScr_BmBgfx[] =
     PROC_END,
 };
 
-//! FE8U = 0x080AE750
 bool CheckBmBgfxDone(void)
 {
     if (Proc_Find(ProcScr_BmBgfx))
@@ -1485,7 +1491,6 @@ bool CheckBmBgfxDone(void)
     return false;
 }
 
-//! FE8U = 0x080AE76C
 void BmBgfxAdvance(void)
 {
     struct ProcBmBgfx * proc = Proc_Find(ProcScr_BmBgfx);
@@ -1493,13 +1498,11 @@ void BmBgfxAdvance(void)
         proc->conf++;
 }
 
-//! FE8U = 0x080AE790
 void EndBmBgfx(void)
 {
     Proc_End(Proc_Find(ProcScr_BmBgfx));
 }
 
-//! FE8U = 0x080AE7A4
 void BmBgfxSetLoopEN(u8 loop_en)
 {
     struct ProcBmBgfx * proc = Proc_Find(ProcScr_BmBgfx);
@@ -1507,7 +1510,6 @@ void BmBgfxSetLoopEN(u8 loop_en)
         proc->loop_en = loop_en;
 }
 
-//! FE8U = 0x080AE7C4
 void StartBmBgfx(struct BmBgxConf * input, int bg, int x, int y, int vram_off, int size, int pal_bank, void * func, ProcPtr parent)
 {
     struct ProcBmBgfx * proc;
