@@ -247,6 +247,8 @@ struct ProcBmBgfx {
     /* 58 */ s8 (* callback)(ProcPtr);
 };
 
+extern struct ProcCmd ProcScr_BmBgfx[];
+
 void BmBgfx_Init(struct ProcBmBgfx * proc);
 void BmBgfx_Loop(struct ProcBmBgfx * proc);
 void BmBgfx_End(struct ProcBmBgfx * proc);
@@ -256,4 +258,25 @@ void EndBmBgfx(void);
 void BmBgfxSetLoopEN(u8);
 void StartBmBgfx(struct BmBgxConf * input, int bg, int x, int y, int e, int f, int g, void * func, ProcPtr parent);
 
-extern struct ProcCmd ProcScr_BmBgfx[];
+struct ProcMixPalette
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int speed;
+    /* 30 */ int targetPalId;
+    /* 34 */ int palCount;
+    /* 38 */ int timer;
+    /* 3C */ u16 * srcA;
+    /* 40 */ u16 * srcB;
+};
+
+void MixPaletteCore(struct ProcMixPalette * proc, int val);
+void MixPalette_Init(struct ProcMixPalette * proc);
+void MixPalette_Loop(struct ProcMixPalette * proc);
+void StartMixPalette(u16 * palA, u16 * palB, int speed, int targetPalId, int palCount, ProcPtr parent);
+void EndMixPalette(void);
+
+ProcPtr StartSpriteAnimfx(const u8 * gfx, const u16 * pal, const void * apDef, int x, int y, int animId, int palId, int palCount, u16 chr, int aObjNode);
+int GetBgXOffset(int bg);
+int GetBgYOffset(int bg);
+char * AppendString(const char * src, char * dst);
+char * AppendCharacter(int character, char * str);

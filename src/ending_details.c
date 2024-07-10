@@ -336,8 +336,8 @@ char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 text
 
     u8 count = 0;
 
-    str = AppendTextBuffer_80AEABC(GetStringFromIndex(textIdA), str);
-    str = AppendCharAndTerminate(1, str);
+    str = AppendString(GetStringFromIndex(textIdA), str);
+    str = AppendCharacter(1, str);
 
     if (defeatedChapter & 0x8000) {
         defeatedChapter &= 0x7FFF;
@@ -362,9 +362,9 @@ char* PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatedChapter, u16 text
         locationStr = GetStringFromIndex(GetROMChapterStruct(defeatedChapter)->chapTitleTextId);
     }
 
-    str = AppendTextBuffer_80AEABC(locationStr, str);
+    str = AppendString(locationStr, str);
 
-    str = AppendTextBuffer_80AEABC(GetStringFromIndex(textIdB) + count, str);
+    str = AppendString(GetStringFromIndex(textIdB) + count, str);
 
     return str;
 }

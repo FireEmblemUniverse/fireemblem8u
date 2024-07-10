@@ -2,6 +2,7 @@
 #include "proc.h"
 #include "ap.h"
 #include "ctc.h"
+#include "sysutil.h"
 #include "sprite-animfx.h"
 
 struct ProcCmd CONST_DATA ProcScr_EventSpriteAnim[] =

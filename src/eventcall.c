@@ -38,6 +38,7 @@
 #include "mapanim.h"
 #include "muctrl.h"
 #include "scene.h"
+#include "sysutil.h"
 
 #include "eventcall.h"
 
