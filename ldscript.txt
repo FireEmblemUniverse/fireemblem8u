@@ -550,8 +550,7 @@ SECTIONS
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
-        src/sysutil-bmbgfx.o(.text);
-        src/code_80AE86C.o(.text);
+        src/bonusclaim_helpbox.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
@@ -1161,8 +1160,7 @@ SECTIONS
         . = ALIGN(4); src/cursor_hand.o(.data);
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/sysutil.o(.data);
-        . = ALIGN(4); src/sysutil-bmbgfx.o(.data);
-        . = ALIGN(4); src/code_80AE86C.o(.data);
+        . = ALIGN(4); src/bonusclaim_helpbox.o(.data);
         . = ALIGN(4); src/soundroom_data.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);

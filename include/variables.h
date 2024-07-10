@@ -1070,7 +1070,7 @@ extern struct ProcCmd CONST_DATA gProcScr_DrawDifficultyMenuSprites[];
 // extern ??? gSprite_UiSpinningArrows_Vertical
 // extern ??? gProcScr_UiSpinningArrows
 
-// extern ??? gProcScr_08A20E24
+// extern ??? ProcScr_MixPalette
 // extern ??? gProcScr_BonusClaimHelpBox
 // extern ??? gSoundRoomTable
 // extern ??? gUnknown_08A212D4

@@ -472,16 +472,6 @@ void SetUiSpinningArrowPositions(int, int, int, int);
 void SetUiSpinningArrowFastMaybe(int);
 void EndUiSpinningArrows(void);
 
-// ??? sub_80AE86C(???);
-// ??? sub_80AE930(???);
-// ??? sub_80AE938(???);
-// ??? sub_80AE964(???);
-// ??? sub_80AE99C(???);
-ProcPtr StartSpriteAnimfx(const u8 * gfx, const u16 * pal, const void * apDef, int x, int y, int animId, int palId, int palCount, u16 chr, int aObjNode);
-int GetBgXOffset(int);
-// ??? GetBgYOffset(???);
-char* AppendTextBuffer_80AEABC(const char*, char*);
-char* AppendCharAndTerminate(int, char*);
 // ??? sub_80AEAE8(???);
 // ??? sub_80AEB1C(???);
 // ??? sub_80AEB28(???);
