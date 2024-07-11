@@ -239,7 +239,7 @@ void sub_8046D6C(struct SioTermProc * proc)
     gPlaySt.config.windowColor = 0;
     gLinkArenaSt.unk_04 = proc->unk_48;
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     sub_80496A4();
 
     BG_SetPosition(BG_1, 0, 0);

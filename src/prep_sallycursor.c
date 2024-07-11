@@ -953,7 +953,7 @@ void PrepScreen_StartUnitSwap(struct ProcPrepSallyCursor * proc)
 //! FE8U = 0x08033C90
 void PrepScreen_UnitSwapIdle(struct ProcPrepSallyCursor * proc)
 {
-    s8 r7 = ((s8 **)gBmMapRange)[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
+    s8 r7 = gMapRangeSigned[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
     u32 xLoc;
     u32 yLoc;
 

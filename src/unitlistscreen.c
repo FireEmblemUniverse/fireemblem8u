@@ -907,7 +907,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     ResetText();
     ResetTextFont();
     ResetIconGraphics();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     CpuFastFill(0, gPaletteBuffer + 0x1B0, PLTT_SIZE_4BPP);
 

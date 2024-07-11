@@ -238,7 +238,7 @@ struct ProcCmd CONST_DATA ProcScr_MuRestorePalInfo[] = {
 
  struct ProcCmd CONST_DATA ProcScr_MuHitFlash[] = {
     PROC_SLEEP(17),
-    PROC_CALL(MuHitFlash_RestorePalette),
+    PROC_CALL(MuFlashFadeFrom_RestorePal),
     PROC_END
 };
 
@@ -365,7 +365,7 @@ struct MuProc * StartMuInternal(u16 x, u16 y, u16 jid, int objTileId, unsigned p
     proc->slot = slot;
     proc->layer = OAM2_LAYER(2);
     proc->moveConfig = 0;
-    proc->boolForceMaxSpeed = false;
+    proc->fast_walk_b = false;
     config->pal = palId;
 
     ap = AP_Create(GetMuAnimForJid(jid), 10);
@@ -1073,7 +1073,7 @@ u16 GetMuQ4MovementSpeed(struct MuProc * proc)
     if (config & 0x80)
         config += 0x80; // I don't really get that one
 
-    if (proc->boolForceMaxSpeed)
+    if (proc->fast_walk_b)
         return 0x100;
 
     if (config != 0x40)
@@ -1135,7 +1135,7 @@ void MU_StartDeathFade(struct MuProc * mu)
     proc->timeLeft = 0x20;
     SetBlendConfig(0, 0x10, 0x10, 0);
     FreezeSpriteAnim(mu->sprite_anim);
-    MU_StartHitFlash(mu, MU_FLASH_WHITE);
+    StartMuHitFlash(mu, MU_FLASH_WHITE);
     mu->sprite_anim->objLayer = 13;
     PlaySoundEffect(SONG_D6);
 
@@ -1369,7 +1369,7 @@ void MuCritFlash_SetFadedPalette(struct MuFlashEffectProc * proc)
     struct MuProc * mu = proc->mu;
 
     mu->sprite_anim->tileBase =
-        (OBPAL_MU_FADE << 12) + mu->config->chr + mu->layer;
+        OAM2_PAL(OBPAL_MU_FADE) + mu->config->chr + mu->layer;
 }
 
 void MuCritFlash_SetRegularPalette(struct MuFlashEffectProc * proc)
@@ -1377,14 +1377,14 @@ void MuCritFlash_SetRegularPalette(struct MuFlashEffectProc * proc)
     struct MuProc * mu = proc->mu;
 
     mu->sprite_anim->tileBase =
-        ((mu->config->pal & 0xF) << 12) + mu->config->chr + mu->layer;
+        OAM2_PAL(mu->config->pal) + mu->config->chr + mu->layer;
 }
 
 void MuCritFlash_StartFadeBack_maybe(struct MuFlashEffectProc * proc)
 {
     StartPalFade(
         PAL_OBJ(proc->mu->config->pal),
-        0x15, 0x14, proc
+        0x10 + OBPAL_MU_FADE, 20, proc
     );
 }
 
@@ -1409,14 +1409,14 @@ void MuCritFlash_RestorePalette(struct MuFlashEffectProc * proc)
         ((mu->config->pal & 0xF) << 12) + mu->config->chr + mu->layer;
 }
 
-void MU_StartHitFlash(struct MuProc * mu, int flashType)
+void StartMuHitFlash(struct MuProc * mu, int flashType)
 {
     struct MuFlashEffectProc * proc;
 
     ApplyPalette(gMuFlashPalLut[flashType], 0x10 + OBPAL_MU_FADE);
 
     mu->sprite_anim->tileBase =
-        (OBPAL_MU_FADE << 12) + mu->config->chr + mu->layer;
+        OAM2_PAL(OBPAL_MU_FADE) + mu->config->chr + mu->layer;
 
     StartPalFade(
         PAL_OBJ(mu->config->pal),
@@ -1428,25 +1428,25 @@ void MU_StartHitFlash(struct MuProc * mu, int flashType)
     proc->mu = mu;
 }
 
-void MuHitFlash_RestorePalette(struct MuFlashEffectProc * proc)
+void MuFlashFadeFrom_RestorePal(struct MuFlashEffectProc * proc)
 {
     struct MuProc * mu = proc->mu;
 
     mu->sprite_anim->tileBase =
-        ((mu->config->pal & 0xF) << 12) + mu->config->chr + mu->layer;
+        OAM2_PAL(mu->config->pal) + mu->config->chr + mu->layer;
 }
 
-void MU_AllForceSetMaxMoveSpeed(void)
+void SetMuMaxWalkSpeed(void)
 {
-    Proc_ForEach(ProcScr_Mu, MU_ForceSetMaxMoveSpeed);
+    Proc_ForEach(ProcScr_Mu, MuMaxWalkSpeedFunc);
 }
 
-void MU_ForceSetMaxMoveSpeed(ProcPtr proc)
+void MuMaxWalkSpeedFunc(ProcPtr proc)
 {
-    ((struct MuProc *)(proc))->boolForceMaxSpeed = true;
+    ((struct MuProc *)(proc))->fast_walk_b = true;
 }
 
-void MU_SetSpecialSprite(struct MuProc * proc, int jid, const u16 * palette)
+void SetMuSpecialSprite(struct MuProc * proc, int jid, const u16 * pal)
 {
     proc->sprite_anim->frameTimer = 0;
     proc->sprite_anim->frameInterval = 0;
@@ -1463,18 +1463,18 @@ void MU_SetSpecialSprite(struct MuProc * proc, int jid, const u16 * palette)
         GetMuImgBufById(proc->config->slot)
     );
 
-    ApplyPalette(palette, 0x10 + proc->config->pal);
+    ApplyPalette(pal, 0x10 + proc->config->pal);
 }
 
-void MU_SetPaletteId(struct MuProc * proc, unsigned paletteId)
+void SetMuPal(struct MuProc * proc, unsigned paletteId)
 {
     proc->config->pal = paletteId;
 
     proc->sprite_anim->tileBase =
-        proc->config->chr + ((paletteId % 0x10) << 12) + proc->layer;
+        proc->config->chr + OAM2_PAL(paletteId % 0x10) + proc->layer;
 }
 
-struct MuProc * MU_GetByIndex(int slot)
+struct MuProc * GetMu(int slot)
 {
     if (!sMuConfig[slot].slot)
         return NULL;
@@ -1482,27 +1482,24 @@ struct MuProc * MU_GetByIndex(int slot)
     return sMuConfig[slot].mu;
 }
 
-struct MuProc * MU_GetByUnit(struct Unit * unit)
+struct MuProc * GetUnitMu(struct Unit * unit)
 {
     int i;
-
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        struct MuProc * proc = MU_GetByIndex(i);
+        struct MuProc * proc = GetMu(i);
 
         if (proc->unit == unit)
             return proc;
     }
-
     return NULL;
 }
 
-void MU_SortObjLayers(void)
+void SortMus(void)
 {
     struct MuProc * procs[MU_MAX_COUNT];
 
-    s8 i, j;
-    s8 count;
+    s8 i, j, count;
 
     // Clear proc list
     CpuFill32(0, procs, MU_MAX_COUNT * sizeof(struct MuProc *));
@@ -1511,7 +1508,7 @@ void MU_SortObjLayers(void)
     // Building proc list
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        struct MuProc * proc = MU_GetByIndex(i);
+        struct MuProc * proc = GetMu(i);
 
         if (proc)
         {

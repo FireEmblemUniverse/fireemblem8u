@@ -165,7 +165,7 @@ s8 AiFindTargetInReachByClassId(int classId, struct Vec2* out) {
             continue;
         }
 
-        if (bestDistance < ((s8**)gBmMapRange)[unit->yPos][unit->xPos]) {
+        if (bestDistance < gMapRangeSigned[unit->yPos][unit->xPos]) {
             continue;
         }
 
@@ -412,7 +412,7 @@ s8 AiFindClosestTerrainPosition(const u8* terrainList, int flags, struct Vec2* o
                 }
             }
 
-            if (bestDistance <= ((s8**) gBmMapRange)[iy][ix]) {
+            if (bestDistance <= gMapRangeSigned[iy][ix]) {
                 continue;
             }
 
@@ -433,7 +433,7 @@ s8 AiFindClosestTerrainPosition(const u8* terrainList, int flags, struct Vec2* o
 //! FE8U = 0x0803AE3C
 u8 AiGetPositionRange(int x, int y) {
 
-    if (((s8**) gBmMapRange)[y][x] >= MAP_MOVEMENT_MAX) {
+    if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX) {
         return 0xFF;
     }
 
@@ -479,7 +479,7 @@ s8 AiFindClosestTerrainAdjacentPosition(const u8* terrainList, int flags, struct
                 continue;
             }
 
-            if (bestDistance <= ((s8**) gBmMapRange)[tmp.y][tmp.x]) {
+            if (bestDistance <= gMapRangeSigned[tmp.y][tmp.x]) {
                 continue;
             }
 
@@ -579,7 +579,7 @@ s8 AiFindClosestUnlockPosition(int flags, struct Vec2* outA, struct Vec2* outB) 
                 }
             }
 
-            if (bestDistance <= ((s8**)gBmMapRange)[tmp.y][tmp.x]) {
+            if (bestDistance <= gMapRangeSigned[tmp.y][tmp.x]) {
                 continue;
             }
 
@@ -618,7 +618,7 @@ int AiCountUnitsInRange(void) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -643,7 +643,7 @@ int AiCountEnemyUnitsInRange(void) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -672,7 +672,7 @@ int AiCountAlliedUnitsInRange(void) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -1425,7 +1425,7 @@ void SaveNumberOfAlliedUnitsIn0To8Range(struct Unit* unit) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**) gBmMapMovement)[iy][ix] == 0) {
+            if (gMapMovementSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -1474,7 +1474,7 @@ s8 sub_803C284(struct Vec2* out) {
                 continue;
             }
 
-            if (((s8**) gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -1535,7 +1535,7 @@ int sub_803C3B0(void) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**) gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 

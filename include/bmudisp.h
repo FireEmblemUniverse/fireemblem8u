@@ -1,8 +1,10 @@
 #ifndef GUARD_BM_UDISP_H
 #define GUARD_BM_UDISP_H
 
+#define UNITSPRITE_MAX 0xD0
+
 // ??? sub_8026618(???);
-void SetupMapSpritesPalettes(void);
+void ApplyUnitSpritePalettes(void);
 // ??? sub_8026670(???);
 void ResetUnitSprites(void);
 // ??? ResetUnitSpritesB(???);

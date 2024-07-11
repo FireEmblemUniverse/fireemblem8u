@@ -678,7 +678,7 @@ void WarpSelect_OnInit(struct WarpSelectProc* proc)
 
 void WarpSelect_OnIdle(struct WarpSelectProc* proc)
 {
-    s8 warpAllowed = ((s8**) gBmMapMovement)[gBmSt.playerCursor.y][gBmSt.playerCursor.x] != -1;
+    s8 warpAllowed = gMapMovementSigned[gBmSt.playerCursor.y][gBmSt.playerCursor.x] != -1;
 
     HandlePlayerCursorMovement();
 
@@ -1034,7 +1034,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
     int xTorch = gBmSt.playerCursor.x;
     int yTorch = gBmSt.playerCursor.y;
 
-    s8 canTorch = ((s8**) gBmMapRange)[yTorch][xTorch];
+    s8 canTorch = gMapRangeSigned[yTorch][xTorch];
 
     HandlePlayerCursorMovement();
 

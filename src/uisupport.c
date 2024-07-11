@@ -509,7 +509,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     StartMuralBackgroundExt(proc, 0, 18, 2, 0);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     sub_80A0EC0((void*)proc);
@@ -1309,7 +1309,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     LoadUiFrameGraphics();
     LoadObjUIGfx();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     sub_80A221C();
     LoadIconPalettes(0xd);
 

@@ -125,7 +125,7 @@ struct MuProc {
     /* 41 */ u8 jid;
     /* 42 */ s8 facing;
     /* 43 */ u8 step_sound_clock;
-    /* 44 */ u8 boolForceMaxSpeed;
+    /* 44 */ u8 fast_walk_b;
     /* 46 */ u16 layer;
     /* 48 */ u16 move_clock_q4;
     /* 4A */ short moveConfig;
@@ -299,15 +299,15 @@ void MuCritFlash_SetRegularPalette(struct MuFlashEffectProc * proc);
 void MuCritFlash_StartFadeBack_maybe(struct MuFlashEffectProc * proc);
 void MuCritFlash_SpriteShakeLoop(struct MuFlashEffectProc * proc);
 void MuCritFlash_RestorePalette(struct MuFlashEffectProc * proc);
-void MU_StartHitFlash(struct MuProc * muProc, int flashType);
-void MuHitFlash_RestorePalette(struct MuFlashEffectProc * proc);
-void MU_AllForceSetMaxMoveSpeed(void);
-void MU_ForceSetMaxMoveSpeed(ProcPtr proc);
-void MU_SetSpecialSprite(struct MuProc * proc, int jid, const u16 * palette);
-void MU_SetPaletteId(struct MuProc * proc, unsigned paletteId);
-struct MuProc * MU_GetByIndex(int slot);
-struct MuProc * MU_GetByUnit(struct Unit * unit);
-void MU_SortObjLayers(void);
+void StartMuHitFlash(struct MuProc * muProc, int flashType);
+void MuFlashFadeFrom_RestorePal(struct MuFlashEffectProc * proc);
+void SetMuMaxWalkSpeed(void);
+void MuMaxWalkSpeedFunc(ProcPtr proc);
+void SetMuSpecialSprite(struct MuProc * proc, int jid, const u16 * palette);
+void SetMuPal(struct MuProc * proc, unsigned paletteId);
+struct MuProc * GetMu(int slot);
+struct MuProc * GetUnitMu(struct Unit * unit);
+void SortMus(void);
 
 extern u8 gMUGfxBuffer[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
 

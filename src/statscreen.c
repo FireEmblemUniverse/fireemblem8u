@@ -1513,7 +1513,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     // TODO: port the macros from mapanim wip
 

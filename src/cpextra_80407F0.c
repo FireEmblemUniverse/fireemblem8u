@@ -188,7 +188,7 @@ void AiSpecialItemAntitoxin(int item) {
 
 u8 sub_8040AE0(int x, int y) {
 
-    if ((s8)gBmMapRange[y][x] >= MAP_MOVEMENT_MAX) {
+    if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX) {
         return -1;
     }
 
@@ -213,7 +213,7 @@ s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
 
     sub_8040E98(unit);
 
-    if ((s8)gBmMapRange[pos->y][pos->x] >= MAP_MOVEMENT_MAX) {
+    if (gMapRangeSigned[pos->y][pos->x] >= MAP_MOVEMENT_MAX) {
         return 0;
     }
     
@@ -239,7 +239,7 @@ s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* pos
     InitAiMoveMapForUnit(unit);
     sub_8040F88(unit);
 
-    if ((AiFindClosestUnlockPosition(flags | 1, posA, posB) == 1) && ((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
+    if ((AiFindClosestUnlockPosition(flags | 1, posA, posB) == 1) && (gMapMovementSigned[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
         return 1;
     } else {
 
@@ -247,7 +247,7 @@ s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* pos
 
         if (AiFindClosestUnlockPosition(flags, posA, posB) == 1) {
 
-            if (((s8)gBmMapMovement[posA->y][posA->x] < MAP_MOVEMENT_MAX) && (gBmMapUnit[posA->y][posA->x] == 0)) {
+            if ((gMapMovementSigned[posA->y][posA->x] < MAP_MOVEMENT_MAX) && (gBmMapUnit[posA->y][posA->x] == 0)) {
                 return 0;
             }
 
@@ -478,7 +478,7 @@ int AiDetermineNightmareEffectiveness(int* numValidTargets, int* numHit, u8 thre
 
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
-            if (!(((s8**)(gBmMapRange))[iy][ix])) {
+            if (!(gMapRangeSigned[iy][ix])) {
                 continue;
             }
 

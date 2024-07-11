@@ -287,7 +287,7 @@ void ChangeUnitSpritePalette(u16 packed_pal)
         return;
 
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     switch (packed_pal & 0xf) {
     case 2:

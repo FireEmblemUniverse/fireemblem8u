@@ -27,7 +27,7 @@ void ForEachUnitInMovement(void(*func)(struct Unit* unit)) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapMovement)[iy][ix] == 0) {
+            if (gMapMovementSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -49,7 +49,7 @@ void ForEachUnitInRange(void(*func)(struct Unit* unit)) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -71,7 +71,7 @@ void ForEachPosInRange(void(*func)(int x, int y)) {
     for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-            if (((s8**)gBmMapRange)[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -156,15 +156,15 @@ void TryAddTrapsToTargetList() {
             continue;
         }
 
-        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_WALL_1B) && (((s8**)gBmMapRange)[trap->yPos][trap->xPos] != 0)) {
+        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_WALL_1B) && (gMapRangeSigned[trap->yPos][trap->xPos] != 0)) {
             AddTarget(trap->xPos, trap->yPos, 0, trap->extra);
         }
 
-        if ((gBmMapTerrain[trap->yPos + 1][trap->xPos] == TERRAIN_WALL_1B) && (((s8**)gBmMapRange)[trap->yPos + 1][trap->xPos] != 0)) {
+        if ((gBmMapTerrain[trap->yPos + 1][trap->xPos] == TERRAIN_WALL_1B) && (gMapRangeSigned[trap->yPos + 1][trap->xPos] != 0)) {
             AddTarget(trap->xPos, trap->yPos + 1, 0, trap->extra);
         }
 
-        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_SNAG) && (((s8**)gBmMapRange)[trap->yPos][trap->xPos] != 0)) {
+        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_SNAG) && (gMapRangeSigned[trap->yPos][trap->xPos] != 0)) {
             AddTarget(trap->xPos, trap->yPos, 0, trap->extra);
         }
     }

@@ -33,7 +33,7 @@ void MakeBattleMOVEUNIT(int maActor, struct BattleUnit* bu, struct Unit* unit)
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        MU_SetPaletteId(gManimSt.actor[maActor].mu, BM_OBJPAL_UNIT_GRAYED);
+        SetMuPal(gManimSt.actor[maActor].mu, BM_OBJPAL_UNIT_GRAYED);
         break;
     } // switch (unit->statusIndex)
 }

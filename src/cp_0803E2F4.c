@@ -94,7 +94,7 @@ void AiFillDangerMap(void) {
 
         for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
             for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
-                if (((s8**)(gBmMapRange))[iy][ix] == 0) {
+                if (gMapRangeSigned[iy][ix] == 0) {
                     continue;
                 }
 
@@ -173,7 +173,7 @@ s8 AiTryGetNearestHealPoint(struct Vec2* out) {
 
             count = AiCountNearbyEnemyUnits(ix, iy);
 
-            if ((count <= currentCount) && (((s8**)(gBmMapMovement))[iy][ix] <= currentMove)) {
+            if ((count <= currentCount) && (gMapMovementSigned[iy][ix] <= currentMove)) {
                 currentCount = count;
                 currentMove = gBmMapMovement[iy][ix];
                 out->x = ix;
@@ -287,7 +287,7 @@ s8 AiTryMoveTowardsEscape(void) {
 
     if (escapePoint != NULL) {
 
-        if (((s8**)(gBmMapMovement))[escapePoint->y][escapePoint->x] <= UNIT_MOV(gActiveUnit)) {
+        if (gMapMovementSigned[escapePoint->y][escapePoint->x] <= UNIT_MOV(gActiveUnit)) {
             AiTryMoveTowards(escapePoint->x, escapePoint->y, 0, -1, 1);
             AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_ESCAPE, escapePoint->x, escapePoint->y, escapePoint->facing, 0);
 
@@ -330,8 +330,8 @@ const struct AiEscapePt* GetEscapePointStructThingMaybe(void) {
             continue;
         }
 
-        if (resultMove > ((s8**)(gBmMapMovement))[list[i].y][list[i].x]) {
-            resultMove = ((s8**)(gBmMapMovement))[list[i].y][list[i].x];
+        if (resultMove > gMapMovementSigned[list[i].y][list[i].x]) {
+            resultMove = gMapMovementSigned[list[i].y][list[i].x];
             result = list + i;
         }
     }
@@ -666,7 +666,7 @@ s8 sub_803EEB0(int x, int y) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
             struct Unit* unit;
 
-            if (((s8**)(gBmMapMovement))[iy][ix] == 0) {
+            if (gMapMovementSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -725,7 +725,7 @@ s8 AiFunc_CountEnemiesInRange(const void * arg)
         for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
             for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
-                if (((s8**)(gBmMapRange))[iy][ix] == 0) {
+                if (gMapRangeSigned[iy][ix] == 0) {
                     continue;
                 }
 
@@ -792,7 +792,7 @@ s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
     if ((input->unk_05 != 0) && (item != 0)) {
         AiFloodMovementAndRange(gActiveUnit, move, item);
 
-        if (((s8**)(gBmMapRange))[yUnk][xUnk] == 0) {
+        if (gMapRangeSigned[yUnk][xUnk] == 0) {
             gActiveUnit->xPos = xPrev;
             gActiveUnit->yPos = yPrev;
             AiTryMoveTowards(xUnk, yUnk, 0, 0xff, 1);
@@ -824,17 +824,17 @@ s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
         for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {
 
             if (item != 0) {
-                if ((((s8**)(gBmMapMovement))[iy][ix] < MAP_MOVEMENT_MAX) && (((s8**)(gBmMapRange))[iy][ix] != 0) ) {
+                if ((gMapMovementSigned[iy][ix] < MAP_MOVEMENT_MAX) && (gMapRangeSigned[iy][ix] != 0) ) {
                     continue;
                 }
 
-                ((s8**)(gBmMapMovement))[iy][ix] = -1;
+                gMapMovementSigned[iy][ix] = -1;
             } else {
-                if ((((s8**)(gBmMapMovement))[iy][ix] < MAP_MOVEMENT_MAX) && (((s8**)(gBmMapRange))[iy][ix] < MAP_MOVEMENT_MAX) ) {
+                if ((gMapMovementSigned[iy][ix] < MAP_MOVEMENT_MAX) && (gMapRangeSigned[iy][ix] < MAP_MOVEMENT_MAX) ) {
                     continue;
                 }
 
-                ((s8**)(gBmMapMovement))[iy][ix] = -1;
+                gMapMovementSigned[iy][ix] = -1;
             }
 
         }

@@ -14,6 +14,7 @@
 #include "bmlib.h"
 #include "constants/terrains.h"
 #include "constants/event-flags.h"
+#include "constants/video-global.h"
 
 /**
 * Display standing map sprites and various tile/unit markers
@@ -21,7 +22,7 @@
 
 extern UnitIconWait unit_icon_wait_table[];
 
-u8 EWRAM_DATA gSMSGfxIndexLookup[0xD0] = {};
+u8 EWRAM_DATA gUnitSpriteSlots[0xD0] = {};
 
 u8 EWRAM_DATA gSMSGfxBuffer[3][8*0x20*0x20] = {};
 
@@ -343,88 +344,67 @@ u16 CONST_DATA sSprite_32x32_Window[] = {
 
 #define GetInfo(id) (unit_icon_wait_table[(id) & ((1<<7)-1)])
 
-//! FE8U = 0x08026618
-void sub_8026618(void) {
+void sub_8026618(void)
+{
     gSMSSyncFlag++;
-    return;
 }
 
-//! FE8U = 0x08026628
-void SetupMapSpritesPalettes(void) {
-
+void ApplyUnitSpritePalettes(void)
+{
     ApplyPalettes(gPal_MapSprite, 0x1C, 4);
 
-    if (gBmSt.gameStateBits & 0x40) {
-        ApplyPalette(gPal_MapSpriteArena, 0x1B);
-    } else {
-        ApplyPalette(gPal_NotMapSprite, 0x1B);
-    }
-
-    return;
+    if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
+        ApplyPalette(gPal_MapSpriteArena, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
+    else
+        ApplyPalette(gPal_NotMapSprite, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
 }
 
-//! FE8U = 0x08026670
-void sub_8026670(void) {
+void sub_8026670(void)
+{
     ApplyPalette(gPal_MapSpriteSepia, 0x1E);
-
-    return;
 }
 
-//! FE8U = 0x08026688
-void ResetUnitSprites(void) {
-
+void ResetUnitSprites(void)
+{
     int i;
-
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gUnitSpriteSlots[i] |= 0xFF;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x40-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x40 - 1;
 }
 
-//! FE8U = 0x080266BC
-void ResetUnitSpritesB(void) {
-
+void ResetUnitSpritesB(void)
+{
     int i;
 
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gUnitSpriteSlots[i] |= 0xFF;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x60-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x60 - 1;
 }
 
-//! FE8U = 0x080266F0
-int StartUiSMS(int smsId, int frameId) {
-
+int StartUiSMS(int smsId, int frameId)
+{
     int slot = gSomeSMSLookupTable_859B66C[frameId];
-
     Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
 
     switch (GetInfo(smsId).size) {
-        case UNIT_ICON_SIZE_16x16:
-            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+    case UNIT_ICON_SIZE_16x16:
+        gUnitSpriteSlots[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
+        break;
     }
 
-    return gSMSGfxIndexLookup[frameId] << 1;
+    return gUnitSpriteSlots[frameId] << 1;
 }
 
 //! FE8U = 0x0802677C
@@ -434,41 +414,41 @@ int SMS_SomethingGmapUnit(int smsId, int frameId, int slot) {
 
     switch (GetInfo(smsId).size) {
         case UNIT_ICON_SIZE_16x16:
-            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+            gUnitSpriteSlots[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_16x32:
 
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
+            gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
 
             break;
 
         case UNIT_ICON_SIZE_32x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
+            gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
 
             break;
     }
 
-    return gSMSGfxIndexLookup[frameId] << 1;
+    return gUnitSpriteSlots[frameId] << 1;
 }
 
 //! FE8U = 0x080267FC
 int UseUnitSprite(u32 id) {
 
-    if (gSMSGfxIndexLookup[id] == 0xFF) {
+    if (gUnitSpriteSlots[id] == 0xFF) {
 
         Decompress(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
 
         switch (GetInfo(id).size) {
             case UNIT_ICON_SIZE_16x16:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
+                gUnitSpriteSlots[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
                 gSMS16xGfxIndexCounter -= 1;
 
                 break;
 
             case UNIT_ICON_SIZE_16x32:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+                gUnitSpriteSlots[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
                 gSMS32xGfxIndexCounter += 2;
 
                 break;
@@ -478,7 +458,7 @@ int UseUnitSprite(u32 id) {
                     gSMS32xGfxIndexCounter += 2;
                 }
 
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
+                gUnitSpriteSlots[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
                 gSMS32xGfxIndexCounter += 4;
 
                 break;
@@ -488,7 +468,7 @@ int UseUnitSprite(u32 id) {
 
     }
 
-    return gSMSGfxIndexLookup[id] << 1;
+    return gUnitSpriteSlots[id] << 1;
 }
 
 //! FE8U = 0x080268C8
@@ -658,7 +638,7 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
     }
 
     if (param_2 == 0x3f) {
-        gSMSGfxIndexLookup[sp04] |= 0xff;
+        gUnitSpriteSlots[sp04] |= 0xff;
     }
     return;
 }

@@ -44,7 +44,6 @@ struct REDA * CopyEventMoveREDAs(const struct REDA * redas, u8 count)
 void ClearEventMoveBuffer(const struct REDA * redas)
 {
     u8 i;
-
     for (i = 0; i < 4; i++)
     {
         if (gEventREDAs.buf[i] == redas)
@@ -58,22 +57,20 @@ void ClearEventMoveBuffer(const struct REDA * redas)
 //! FE8U = 0x08079D74
 void MuCtr_StartDefinedMove(struct Unit * unit, const struct REDA * redas, s16 count, u16 flags)
 {
-    struct MuCtrlProc * proc = Proc_Start(gProcScr_MuCtrl, PROC_TREE_5);
+    struct MuCtrlProc * proc = Proc_Start(ProcScr_MuCtrl, PROC_TREE_5);
+    switch (count) {
+    case 0:
+        redas = NULL;
+        break;
 
-    switch (count)
-    {
-        case 0:
-            redas = NULL;
-            break;
+    case 1:
+        proc->reda_cur = *redas;
+        redas = &proc->reda_cur;
+        break;
 
-        case 1:
-            proc->reda_cur = *redas;
-            redas = &proc->reda_cur;
-            break;
-
-        default:
-            redas = CopyEventMoveREDAs(redas, count);
-            break;
+    default:
+        redas = CopyEventMoveREDAs(redas, count);
+        break;
     }
 
     MuCtr_InitDefinedMove(proc, unit, redas, count, flags);
@@ -86,7 +83,7 @@ void MuCtr_StartMoveTowards(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flags
     int x_;
     int y_;
 
-    struct MuCtrlProc * proc = Proc_Start(gProcScr_MuCtrl, PROC_TREE_5);
+    struct MuCtrlProc * proc = Proc_Start(ProcScr_MuCtrl, PROC_TREE_5);
 
     reda = &proc->reda_cur;
 
@@ -102,8 +99,6 @@ void MuCtr_StartMoveTowards(struct Unit * unit, s8 x, s8 y, u8 flagsA, u16 flags
     reda->delayFrames = 0;
 
     MuCtr_InitDefinedMove(proc, unit, reda, 1, flagsB);
-
-    return;
 }
 
 //! FE8U = 0x08079E78
@@ -127,11 +122,11 @@ void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const s
     proc->muProc = StartMu(unit);
     proc->redas = redas;
     proc->redaCount = count;
-    proc->unk_3a = 0;
+    proc->timer = 0;
     proc->delayFrames = redas->delayFrames;
     proc->flags = flags;
-    proc->unk_40 = pos.x;
-    proc->unk_41 = pos.y;
+    proc->x = pos.x;
+    proc->y = pos.y;
     proc->unk_42 = x;
     proc->unk_43 = y;
 
@@ -153,14 +148,13 @@ void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const s
 //! FE8U = 0x08079F84
 s8 MuCtrExists(void)
 {
-    return Proc_Find(gProcScr_MuCtrl) ? 1 : 0;
+    return Proc_Find(ProcScr_MuCtrl) ? 1 : 0;
 }
 
 //! FE8U = 0x08079F9C
-void MU_AllForceSetMaxMoveSpeed_(void)
+void SetMuMaxWalkSpeed_(void)
 {
-    MU_AllForceSetMaxMoveSpeed();
-    return;
+    SetMuMaxWalkSpeed();
 }
 
 //! FE8U = 0x08079FA8
@@ -189,8 +183,6 @@ void MoveUnitExt(struct Unit * unit, const struct REDA * redas, s16 count, u16 f
         RefreshEntityBmMaps();
         RefreshUnitSprites();
     }
-
-    return;
 }
 
 //! FE8U = 0x0807A014
@@ -202,8 +194,6 @@ void MoveUnit_(struct Unit * unit, s8 x, s8 y, u16 flags)
     reda.y = y;
 
     MoveUnitExt(unit, &reda, 1, flags);
-
-    return;
 }
 
 //! FE8U = 0x0807A054
@@ -246,35 +236,31 @@ void GenUnitDefinitionFinalPosition(const struct UnitDefinition * def, s8 * xOut
 //! FE8U = 0x0807A0E4
 s8 sub_807A0E4(struct MuCtrlProc * proc)
 {
-    const struct REDA * reda = proc->redas + proc->unk_3a;
+    const struct REDA * reda = proc->redas + proc->timer;
 
-    MU_SortObjLayers();
+    SortMus();
 
-    if (proc->muProc->boolForceMaxSpeed != 0)
+    if (proc->muProc->fast_walk_b != 0)
     {
         Proc_Goto(proc, 1);
-        return 0;
+        return false;
     }
 
     if (sub_807A294(reda->a, reda->b) == 1)
     {
         if (gKeyStatusPtr->heldKeys & A_BUTTON)
-        {
             proc->delayFrames -= 4;
-        }
         else
-        {
             proc->delayFrames--;
-        }
 
         if (proc->delayFrames < 1)
         {
             MuCtr_ExecREDA_807A358(proc);
-            return 0;
+            return false;
         }
     }
 
-    if (proc->unk_3a != 0)
+    if (proc->timer != 0)
     {
         struct Unit * unit = proc->unit;
 
@@ -285,15 +271,15 @@ s8 sub_807A0E4(struct MuCtrlProc * proc)
         RefreshUnitSprites();
     }
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x0807A194
-s8 sub_807A194(struct MuCtrlProc * proc)
+bool sub_807A194(struct MuCtrlProc * proc)
 {
     struct MuProc * muProc = proc->muProc;
 
-    MU_SortObjLayers();
+    SortMus();
 
     if (!IsMuActive(muProc))
     {
@@ -301,19 +287,19 @@ s8 sub_807A194(struct MuCtrlProc * proc)
         unit->xPos = proc->unk_42;
         unit->yPos = proc->unk_43;
 
-        proc->unk_3a++;
+        proc->timer++;
 
-        if ((proc->unk_3a < proc->redaCount && muProc->boolForceMaxSpeed == 0))
+        if ((proc->timer < proc->redaCount && muProc->fast_walk_b == 0))
         {
-            proc->delayFrames = (proc->unk_3a + proc->redas)->delayFrames;
-            return 0;
+            proc->delayFrames = (proc->timer + proc->redas)->delayFrames;
+            return false;
         }
 
         Proc_Goto(proc, 1);
-        return 0;
+        return false;
     }
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x0807A1FC
@@ -322,14 +308,14 @@ void MuCtr_OnEnd(struct MuCtrlProc * proc)
     struct MuProc * muProc = proc->muProc;
     struct Unit * unit = proc->unit;
 
-    if ((muProc->boolForceMaxSpeed != 0) && (proc->redaCount != 0))
+    if ((muProc->fast_walk_b != 0) && (proc->redaCount != 0))
     {
-        MoveUnit_(unit, proc->unk_40, proc->unk_41, proc->flags & 0xFFFE);
+        MoveUnit_(unit, proc->x, proc->y, proc->flags & 0xFFFE);
     }
     else
     {
-        unit->xPos = proc->unk_40;
-        unit->yPos = proc->unk_41;
+        unit->xPos = proc->x;
+        unit->yPos = proc->y;
         UnitFinalizeMovement(unit);
 
         ShowUnitSprite(unit);
@@ -342,7 +328,7 @@ void MuCtr_OnEnd(struct MuCtrlProc * proc)
     }
 
     MU_End(muProc);
-    MU_SortObjLayers();
+    SortMus();
 
     ClearEventMoveBuffer(proc->redas);
 
@@ -351,7 +337,7 @@ void MuCtr_OnEnd(struct MuCtrlProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_MuCtrl[] =
+struct ProcCmd CONST_DATA ProcScr_MuCtrl[] =
 {
     PROC_NAME("E_MuCtr"),
     PROC_SET_END_CB(MuCtr_OnEnd),
@@ -376,19 +362,19 @@ s8 sub_807A294(u8 pid, u16 b)
 {
     if (pid == 0)
     {
-        return 1;
+        return true;
     }
 
     gUnknown_03001C35 = pid;
-    gUnknown_03001C34 = 1;
+    gUnknown_03001C34 = true;
 
-    Proc_ForEach(gProcScr_MuCtrl, (ProcFunc)sub_807A300);
+    Proc_ForEach(ProcScr_MuCtrl, (ProcFunc)sub_807A300);
 
     if ((gUnknown_03001C34 == 0) && (b != 0xFFFF))
     {
         gUnknown_03001C36 = b;
         gUnknown_03001C34 = 0;
-        Proc_ForEach(gProcScr_MuCtrl, (ProcFunc)sub_807A324);
+        Proc_ForEach(ProcScr_MuCtrl, (ProcFunc)sub_807A324);
     }
 
     return gUnknown_03001C34;
@@ -398,21 +384,14 @@ s8 sub_807A294(u8 pid, u16 b)
 void sub_807A300(struct MuCtrlProc * proc)
 {
     if (proc->unit->pCharacterData->number == gUnknown_03001C35)
-    {
         gUnknown_03001C34 = 0;
-    }
-
-    return;
 }
 
 //! FE8U = 0x0807A324
 void sub_807A324(struct MuCtrlProc * proc)
 {
-    if (proc->unit->pCharacterData->number == gUnknown_03001C35 && gUnknown_03001C36 < proc->unk_3a)
-    {
-        gUnknown_03001C34 = 1;
-    }
-    return;
+    if (proc->unit->pCharacterData->number == gUnknown_03001C35 && gUnknown_03001C36 < proc->timer)
+        gUnknown_03001C34 = true;
 }
 
 //! FE8U = 0x0807A358
@@ -423,13 +402,13 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
     struct Vec2 pos;
 
     struct Unit * unit = proc->unit;
-    const struct REDA * reda = proc->redas + proc->unk_3a;
+    const struct REDA * reda = proc->redas + proc->timer;
     u16 flagsA = proc->flags;
     int flagsB = flagsA;
 
-    gBmMapOther[proc->unk_41][proc->unk_40] = 0;
+    gBmMapOther[proc->y][proc->x] = 0;
 
-    if (proc->unk_3a < (proc->redaCount - 1))
+    if (proc->timer < (proc->redaCount - 1))
     {
         pos.x = reda->x;
         pos.y = reda->y;
@@ -437,8 +416,8 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
     }
     else
     {
-        pos.x = proc->unk_40;
-        pos.y = proc->unk_41;
+        pos.x = proc->x;
+        pos.y = proc->y;
 
         if ((flagsA & 2) != 0)
         {
@@ -448,7 +427,7 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
 
     commands = sub_807A644(unit, &pos, flagsB & 1);
 
-    gBmMapOther[proc->unk_41][proc->unk_40] = unit->pCharacterData->number;
+    gBmMapOther[proc->y][proc->x] = unit->pCharacterData->number;
 
     if ((proc->unk_42 != pos.x) || (proc->unk_43 != pos.y))
     {
@@ -514,29 +493,19 @@ void AdjustNewUnitPosition(struct Unit * unit, struct Vec2 * pos, u16 flags)
                 s8 yCur = pos->y + iy;
 
                 if ((ix == 0) && (iy == 0))
-                {
                     continue;
-                }
 
                 if (gBmMapUnit[yCur][xCur] != 0)
-                {
                     continue;
-                }
 
                 if (gBmMapOther[yCur][xCur] != 0)
-                {
                     continue;
-                }
 
                 if (gBmMapHidden[yCur][xCur] != 0)
-                {
                     continue;
-                }
 
-                if (((s8 **)gBmMapRange)[yCur][xCur] < 0)
-                {
+                if (gMapRangeSigned[yCur][xCur] < 0)
                     continue;
-                }
 
                 buf[idx].x = xCur;
                 buf[idx].y = yCur;

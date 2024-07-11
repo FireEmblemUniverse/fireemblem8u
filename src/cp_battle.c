@@ -293,9 +293,9 @@ s8 AiAttemptBallistaCombat(s8 (*isEnemy)(struct Unit* unit), struct AiCombatSimu
 
             if (item != 0) {
                 ballistaCount++;
-                ((s8**)(gBmMapMovement))[iy][ix] = item;
+                gMapMovementSigned[iy][ix] = item;
             } else {
-                ((s8**)(gBmMapMovement))[iy][ix] = -1;
+                gMapMovementSigned[iy][ix] = -1;
             }
         }
     }
@@ -360,7 +360,7 @@ s8 AiAttemptBallistaCombat(s8 (*isEnemy)(struct Unit* unit), struct AiCombatSimu
 //! FE8U = 0x0803DB08
 u8 AiAttemptStealAction_GetMovementAt(int x, int y) {
 
-    if (((s8**)(gBmMapMovement))[y][x] >= MAP_MOVEMENT_MAX) {
+    if (gMapMovementSigned[y][x] >= MAP_MOVEMENT_MAX) {
         return -1;
     }
 
@@ -457,7 +457,7 @@ s8 AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st) {
                 continue;
             }
 
-            if (((s8**)(gBmMapRange))[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -499,11 +499,11 @@ s8 AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, u1
                 continue;
             }
 
-            if (((s8**)(gBmMapMovement))[iy][ix] != (u8)item) {
+            if (gMapMovementSigned[iy][ix] != (u8)item) {
                 continue;
             }
 
-            if (((s8**)(gBmMapRange))[iy][ix] == 0) {
+            if (gMapRangeSigned[iy][ix] == 0) {
                 continue;
             }
 
@@ -537,7 +537,7 @@ u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st) {
     score = AiGetInRangeCombatPositionScoreComponent(x, y, GetUnit(st->targetId));
     score += AiGetTerrainCombatPositionScoreComponent(x, y);
     score += AiGetFriendZoneCombatPositionScoreComponent(x, y);
-    score -= ((s8**)(gBmMapMovement))[y][x];
+    score -= gMapMovementSigned[y][x];
     score -= gBmMapOther[y][x] / 8;
 
     score += 0x7FFFFFFF;

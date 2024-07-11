@@ -459,7 +459,7 @@ void sub_80497A0(void)
 
     sub_80156D4();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
 
     sub_8049788();
@@ -540,7 +540,7 @@ void sub_8049828(void)
 
     ReadGameSaveCoreGfx();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
     RefreshUnitSprites();
 

@@ -340,7 +340,7 @@ void WorldmapStatus_InitGfx(void)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     StartMuralBackground(NULL, (void *)0x0600B000, -1);
 
     Decompress(gUnknown_08A986C0, (void *)0x06003000);

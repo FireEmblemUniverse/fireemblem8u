@@ -321,7 +321,7 @@ void SetupGraphicSystemsForWorldMap(void)
     SetupFaceGfxData(gUnknown_08A3D728);
     ResetUnitSprites();
     InitMus();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     gBmSt.camera.x = 0;
     gBmSt.camera.y = 0;

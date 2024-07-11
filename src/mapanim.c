@@ -324,8 +324,8 @@ void SetBattleMuPaletteByIndex(int actorNum)
     if (GetItemIndex(gManimSt.actor[actorNum].bu->weaponBefore) != ITEM_DIVINESTONE)
         return;
 
-    MU_SetPaletteId(gManimSt.actor[actorNum].mu, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
-    MU_SetSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, gUnknown_089A8F74);
+    SetMuPal(gManimSt.actor[actorNum].mu, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
+    SetMuSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, gUnknown_089A8F74);
 }
 
 void SetBattleMuPalette(void)

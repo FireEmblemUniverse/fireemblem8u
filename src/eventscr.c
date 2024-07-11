@@ -3064,7 +3064,7 @@ u8 Event30_ENUN(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        MU_AllForceSetMaxMoveSpeed_();
+        SetMuMaxWalkSpeed_();
     }
 
     if (MuCtrExists() == 1)

@@ -311,7 +311,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartHitFlash(
+        StartMuHitFlash(
             gManimSt.actor[map_target].mu,
             GetSpellAssocFlashColor(gManimSt.actor[map_actor].bu->weaponBefore)
         );

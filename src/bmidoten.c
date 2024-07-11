@@ -348,19 +348,19 @@ void MarkMovementMapEdges(void) {
             if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if ((s8) gBmMapMovement[iy][ix] == gMovMapFillState.maxMovementValue)
+            if (gMapMovementSigned[iy][ix] == gMovMapFillState.maxMovementValue)
                 continue;
 
-            if ((s8) gBmMapMovement[iy][ix - 1] < 0 && (ix != 0))
+            if (gMapMovementSigned[iy][ix - 1] < 0 && (ix != 0))
                 gBmMapMovement[iy][ix - 1] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gBmMapMovement[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
+            if (gMapMovementSigned[iy][ix + 1] < 0 && (ix != (gBmMapSize.x - 1)))
                 gBmMapMovement[iy][ix + 1] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gBmMapMovement[iy - 1][ix] < 0 && (iy != 0))
+            if (gMapMovementSigned[iy - 1][ix] < 0 && (iy != 0))
                 gBmMapMovement[iy - 1][ix] = gMovMapFillState.maxMovementValue;
 
-            if ((s8) gBmMapMovement[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
+            if (gMapMovementSigned[iy + 1][ix] < 0 && (iy != (gBmMapSize.y - 1)))
                 gBmMapMovement[iy + 1][ix] = gMovMapFillState.maxMovementValue;
         }
     }

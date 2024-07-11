@@ -23,11 +23,10 @@ struct MuCtrlProc
     /* 30 */ struct MuProc * muProc;
     /* 34 */ const struct REDA * redas;
     /* 38 */ u16 redaCount;
-    /* 3A */ u16 unk_3a;
+    /* 3A */ u16 timer;
     /* 3C */ s16 delayFrames;
     /* 3E */ u16 flags;
-    /* 40 */ s8 unk_40;
-    /* 41 */ s8 unk_41;
+    /* 40 */ s8 x, y;
     /* 42 */ s8 unk_42;
     /* 43 */ s8 unk_43;
     /* 44 */ struct REDA reda_cur;
@@ -39,7 +38,7 @@ void MuCtr_StartDefinedMove(struct Unit * unit, const struct REDA * redas, s16 c
 void MuCtr_StartMoveTowards(struct Unit *, s8, s8, u8, u16);
 void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const struct REDA * redas, s16 count, u16 flags);
 s8 MuCtrExists(void);
-void MU_AllForceSetMaxMoveSpeed_(void);
+void SetMuMaxWalkSpeed_(void);
 void MoveUnitExt(struct Unit* unit, const struct REDA * redas, s16 count, u16 flags);
 void MoveUnit_(struct Unit *, s8, s8, u16);
 void GenUnitDefinitionFinalPosition(const struct UnitDefinition* uDef, s8* xOut, s8* yOut, s8 findNearest);
@@ -58,6 +57,6 @@ extern s8 gUnknown_03001C34;
 extern u8 gUnknown_03001C35;
 extern u16 gUnknown_03001C36;
 
-extern struct ProcCmd gProcScr_MuCtrl[];
+extern struct ProcCmd ProcScr_MuCtrl[];
 
 #endif // GUARD_MUCTRL_H

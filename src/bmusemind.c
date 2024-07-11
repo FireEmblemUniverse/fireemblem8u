@@ -237,7 +237,7 @@ int PostWarpStaff_ExecTrap(ProcPtr proc) {
 }
 
 int sub_802EF80() {
-    MU_End(MU_GetByUnit(GetUnit(gActionData.targetIndex)));
+    MU_End(GetUnitMu(GetUnit(gActionData.targetIndex)));
 
     RefreshEntityBmMaps();
     RenderBmMap();

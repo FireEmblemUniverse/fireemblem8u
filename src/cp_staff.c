@@ -703,7 +703,7 @@ s8 sub_8040668(struct Vec2* out) {
                         continue;
                     }
 
-                    if (tmpRangeA > ((s8**)(gBmMapRange))[iy][ix]) {
+                    if (tmpRangeA > gMapRangeSigned[iy][ix]) {
                         tmpRangeA = gBmMapRange[iy][ix];
                     }
                 } else {
@@ -711,11 +711,11 @@ s8 sub_8040668(struct Vec2* out) {
                         continue;
                     }
 
-                    if (((s8**)(gBmMapMovement))[iy][ix] <= MAP_MOVEMENT_MAX) {
+                    if (gMapMovementSigned[iy][ix] <= MAP_MOVEMENT_MAX) {
                         continue;
                     }
 
-                    if (tmpRangeB > ((s8**)(gBmMapRange))[iy][ix]) {
+                    if (tmpRangeB > gMapRangeSigned[iy][ix]) {
                         xDecision = ix;
                         yDecision = iy;
                         tmpRangeB = gBmMapRange[iy][ix];
