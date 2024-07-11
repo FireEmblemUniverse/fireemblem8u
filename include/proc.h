@@ -106,7 +106,7 @@ enum
     PROC_MARK_1 = 0x01,
     PROC_MARK_2 = 0x02,
     PROC_MARK_3 = 0x03,
-    PROC_MARK_4 = 0x04,
+    PROC_MARK_MU = 0x04,
     PROC_MARK_5 = 0x05,
     PROC_MARK_6 = 0x06,
     PROC_MARK_7 = 0x07,

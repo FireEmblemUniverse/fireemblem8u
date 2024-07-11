@@ -1195,8 +1195,8 @@ void sub_809EB14(void)
 {
     if (gActiveUnit) {
         HideUnitSprite(gActiveUnit);
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
     }
 
     return;

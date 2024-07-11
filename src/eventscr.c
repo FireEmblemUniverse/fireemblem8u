@@ -3433,12 +3433,12 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
     case EVSUBCMD_KILL:
         if (!EVENT_IS_SKIPPING(proc))
         {
-            struct MUProc * muProc;
+            struct MuProc * muProc;
 
             HideUnitSprite(unit);
             unit->state |= US_HIDDEN;
-            muProc = MU_Create(unit);
-            MU_SetDefaultFacing_Auto();
+            muProc = StartMu(unit);
+            SetAutoMuDefaultFacing();
             MU_StartDeathFade(muProc);
 
             return EVC_ADVANCE_YIELD;
@@ -3448,7 +3448,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
 
     case EVSUBCMD_DISA_IF:
     {
-        s8 a = Proc_Find(gProcScr_MUDeathFade) != 0;
+        s8 a = Proc_Find(ProcScr_MuDeathFade) != 0;
         if (-a | a)
             return EVC_STOP_YIELD;
     }

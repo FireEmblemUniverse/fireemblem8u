@@ -14,7 +14,7 @@ struct KoidoProc {
 
     /* 2C */ int direction;
     /* 30 */ struct Unit* unit;
-    /* 34 */ struct MUProc* proc_mu;
+    /* 34 */ struct MuProc* proc_mu;
     /* 38 */ u8 mu_commands[0x03];
     /* 3B */ u8 unk_3B;
     /* 3C */ s8 config;
@@ -57,21 +57,21 @@ int GetSomeFacingDirection(int x0, int y0, int x1, int y1)
     return FACING_RIGHT;
 }
 
-struct MUProc* Make6CMOVEUNITForUnitBeingRescued(struct Unit* unit)
+struct MuProc* Make6CMOVEUNITForUnitBeingRescued(struct Unit* unit)
 {
     const u32 attributes = UNIT_CATTRIBUTES(unit);
 
     if (!(CA_MOUNTEDAID & attributes))
-        return MU_Create(unit);
+        return StartMu(unit);
     else
         return (CA_FEMALE & attributes)
-            ? MU_CreateExt(unit, CLASS_CIVILIAN_F2,0xC)
-            : MU_CreateExt(unit, CLASS_CIVILIAN_M2,0xC);
+            ? StartMuExt(unit, CLASS_CIVILIAN_F2,0xC)
+            : StartMuExt(unit, CLASS_CIVILIAN_M2,0xC);
 }
 
 void Loop6C_KOIDO(struct KoidoProc* proc)
 {
-    if (MU_IsAnyActive())
+    if (MuExistsActive())
         return;
     
     if (2 != proc->config)
@@ -88,12 +88,12 @@ void Loop6C_KOIDO(struct KoidoProc* proc)
 
 static inline void Make6CKOIDO_common(struct Unit* unit, int config, struct KoidoProc *proc)
 {
-    struct MUProc *proc_mu;
+    struct MuProc *proc_mu;
     proc->config = config;
 
     proc_mu = Make6CMOVEUNITForUnitBeingRescued(unit);
     proc->proc_mu = proc_mu;
-    MU_StartMoveScript(proc_mu, proc->mu_commands);
+    SetMuMoveScript(proc_mu, proc->mu_commands);
 }
 
 void Make6CKOIDO(struct Unit* unit, int direction, int config, ProcPtr parent)

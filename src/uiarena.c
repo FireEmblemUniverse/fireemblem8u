@@ -52,7 +52,7 @@ void StartArenaResultsScreen(void) {
 
 //! FE8U = 0x080B57A0
 void ArenaUi_Init(ProcPtr proc) {
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Hide);
 
     InitShopScreenConfig();
 
@@ -127,8 +127,8 @@ void ArenaUi_Init(ProcPtr proc) {
 //! FE8U = 0x080B5970
 void sub_80B5970(void) {
     UpdateUnitFromBattle(gArenaState.playerUnit, &gBattleActor);
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
     return;
 }
 
@@ -296,7 +296,7 @@ void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
 //! FE8U = 0x080B5BE4
 void ArenaUi_OnEnd(void) {
     Proc_EndEach(gProcScr_GoldBox);
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Show);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Show);
     return;
 }
 

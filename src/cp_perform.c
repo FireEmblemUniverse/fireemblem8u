@@ -73,7 +73,7 @@ struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_SLEEP(0),
 
     PROC_CALL(CpPerform_BeginUnitMovement),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
 
     PROC_CALL(CpPerform_MoveCameraOntoTarget),
     PROC_SLEEP(0),
@@ -167,9 +167,9 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc) {
     gAiDecision.yMove = gActionData.yMove;
 
     if (proc->isUnitVisible) {
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
-        MU_StartMoveScript_Auto(gWorkingMovementScript);
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
+        SetAutoMuMoveScript(gWorkingMovementScript);
     }
 
     return;
@@ -234,7 +234,7 @@ void AiStartEscapeAction(struct CpPerformProc* proc) {
     };
 
     if ((gAiDecision.xTarget != 5) && (proc->isUnitVisible)) {
-        MU_StartMoveScript_Auto(scripts[gAiDecision.xTarget]);
+        SetAutoMuMoveScript(scripts[gAiDecision.xTarget]);
     }
 
     return;
@@ -435,8 +435,8 @@ void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc) {
 
                 RideBallista(gActiveUnit);
 
-                MU_Create(gActiveUnit);
-                MU_SetDefaultFacing_Auto();
+                StartMu(gActiveUnit);
+                SetAutoMuDefaultFacing();
             }
 
             break;
@@ -602,7 +602,7 @@ s8 AiDummyAction(struct CpPerformProc* proc) {
 }
 
 s8 AiEscapeAction(struct CpPerformProc* proc) {
-    if (!MU_IsAnyActive()) {
+    if (!MuExistsActive()) {
         gActiveUnit->pCharacterData = NULL;
         return 1;
     }

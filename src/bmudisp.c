@@ -401,7 +401,7 @@ void ResetUnitSpritesB(void) {
 }
 
 //! FE8U = 0x080266F0
-int SMS_80266F0(int smsId, int frameId) {
+int StartUiSMS(int smsId, int frameId) {
 
     int slot = gSomeSMSLookupTable_859B66C[frameId];
 
@@ -1313,7 +1313,7 @@ void UnitSpriteHoverUpdate(void) {
             gMapSpriteSwitchHoverTimer++;
 
             if (gMapSpriteSwitchHoverTimer == 5) {
-                MU_Create(unit);
+                StartMu(unit);
                 HideUnitSprite(unit);
 
                 return;

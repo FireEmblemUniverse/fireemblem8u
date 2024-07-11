@@ -39,9 +39,9 @@ void sub_80812C0(void)
     else
         CallDelayed(sub_8081384, 0xC);
 
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameTimer = 0;
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameInterval = 0x100;
-    AP_SwitchAnimation(gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle, 0x5);
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0x100;
+    AP_SwitchAnimation(gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim, 0x5);
 }
 
 void sub_8081348(void)
@@ -58,8 +58,8 @@ void sub_8081384(void)
 
 void sub_80813C0(void)
 {
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameTimer = 0;
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameInterval = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0;
 }
 
 void MapAnim_BeginSubjectFastAnim(void)
@@ -67,12 +67,12 @@ void MapAnim_BeginSubjectFastAnim(void)
     MU_StartFastMoveAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
-void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
+void MapAnimMoveUnitTowardsTargetExt(struct MuProc * mu1, struct MuProc * mu2)
 {
     int x1, x2, y1, y2, distance;
 
-    x1 = mu1->xSubPosition;
-    x2 = mu2->xSubPosition;
+    x1 = mu1->x_q4;
+    x2 = mu2->x_q4;
 
     distance = x2 - x1;
     if (distance <= 0)
@@ -86,10 +86,10 @@ void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         x1 = x1 + 0x10;
 
-    mu1->xSubPosition = x1;
+    mu1->x_q4 = x1;
 
-    y1 = mu1->ySubPosition;
-    y2 = mu2->ySubPosition;
+    y1 = mu1->y_q4;
+    y2 = mu2->y_q4;
 
     distance = y2 - y1;
     if (distance <= 0)
@@ -103,15 +103,15 @@ void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         y1 = y1 + 0x10;
 
-    mu1->ySubPosition = y1;
+    mu1->y_q4 = y1;
 }
 
-void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
+void MapAnimMoveUnitAwayFromTargetExt(struct MuProc * mu1, struct MuProc * mu2)
 {
     int x1, x2, y1, y2, distance;
 
-    x1 = mu1->xSubPosition;
-    x2 = mu2->xSubPosition;
+    x1 = mu1->x_q4;
+    x2 = mu2->x_q4;
 
     distance = x1 - x2;
     if (distance <= 0)
@@ -125,10 +125,10 @@ void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         x1 = x1 + 0x10;
 
-    mu1->xSubPosition = x1;
+    mu1->x_q4 = x1;
 
-    y1 = mu1->ySubPosition;
-    y2 = mu2->ySubPosition;
+    y1 = mu1->y_q4;
+    y2 = mu2->y_q4;
 
     distance = y1 - y2;
     if (distance <= 0)
@@ -142,12 +142,12 @@ void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         y1 = y1 + 0x10;
 
-    mu1->ySubPosition = y1;
+    mu1->y_q4 = y1;
 }
 
 void MapAnim_MoveSubjectsTowardsTarget(void)
 {
-    struct MUProc * mu, * mu2;
+    struct MuProc * mu, * mu2;
 
     mu  = gManimSt.actor[gManimSt.subjectActorId].mu;
     mu2 = gManimSt.actor[gManimSt.targetActorId].mu;
@@ -165,7 +165,7 @@ void MapAnim_MoveSubjectsTowardsTarget(void)
 
 void MapAnim_MoveSubjectsAwayFromTarget(void)
 {
-    struct MUProc * mu, * mu2;
+    struct MuProc * mu, * mu2;
 
     mu  = gManimSt.actor[gManimSt.subjectActorId].mu;
     mu2 = gManimSt.actor[gManimSt.targetActorId].mu;
@@ -520,7 +520,7 @@ void SpellWarpMuShow(ProcPtr proc)
 void SpellWarpSetNewPosition(ProcPtr proc)
 {
     struct Unit * unit = gManimSt.actor[gManimSt.targetActorId].unit;
-    struct MUProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
+    struct MuProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
 
     MU_SetDisplayPosition(
         mu,

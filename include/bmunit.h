@@ -117,6 +117,12 @@ struct ClassData
     /* 50 */ const void * _pU50;
 };
 
+enum {
+    // ClassData::slowWalking
+    UNIT_WALKSPEED_FAST,
+    UNIT_WALKSPEED_SLOW,
+};
+
 struct Unit
 {
     /* 00 */ const struct CharacterData* pCharacterData;

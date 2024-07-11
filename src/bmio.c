@@ -1165,8 +1165,8 @@ void RefreshBMapDisplay_FromBattle(void) {
 void BMapDispResume_FromBattleDelayed(void) {
     LoadObjUIGfx();
 
-    MU_Create(&gBattleActor.unit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(&gBattleActor.unit);
+    SetAutoMuDefaultFacing();
 
     Proc_Start(sProc_DelayedBMapDispResume, PROC_TREE_3);
 }
@@ -1295,8 +1295,8 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     HideUnitSprite(GetUnit(gActionData.subjectIndex));
 
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 }
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {

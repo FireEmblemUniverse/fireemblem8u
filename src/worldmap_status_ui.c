@@ -140,7 +140,7 @@ struct WorldmapStatusProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Unit * unit;
-    /* 30 */ struct MUProc * muProc;
+    /* 30 */ struct MuProc * muProc;
     /* 34 */ struct Text text[2];
 };
 
@@ -307,7 +307,7 @@ void WorldmapStatus_InitDetails(struct WorldmapStatusProc * proc)
     }
 
     MU_EndAll();
-    proc->muProc = MU_CreateForUI(proc->unit, 216, 135);
+    proc->muProc = StartUiMu(proc->unit, 216, 135);
 
     PutWorldmapStatusDetails(proc);
 

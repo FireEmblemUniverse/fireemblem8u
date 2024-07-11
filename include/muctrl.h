@@ -20,7 +20,7 @@ struct MuCtrlProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Unit * unit;
-    /* 30 */ struct MUProc * muProc;
+    /* 30 */ struct MuProc * muProc;
     /* 34 */ const struct REDA * redas;
     /* 38 */ u16 redaCount;
     /* 3A */ u16 unk_3a;

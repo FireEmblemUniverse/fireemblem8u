@@ -24,7 +24,7 @@
 
 struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
     PROC_SLEEP(1),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
     PROC_CALL(RegisterTrapDeathBWL),
     PROC_CALL(ExecFireTileTrapAnim1),
     PROC_YIELD,
@@ -40,7 +40,7 @@ struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
 
 struct ProcCmd CONST_DATA sProcScr_ExecTrapMine[] = {
     PROC_SLEEP(1),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
     PROC_CALL(RegisterTrapDeathBWL),
     PROC_CALL(ExecFireTileTrapAnim2),
     PROC_YIELD,
@@ -83,8 +83,8 @@ void ApplyTrapDamageAnim(struct ProcBmTrap * proc)
 
     case 1:
         MU_EndAll();
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
         break;
 
     case 2:

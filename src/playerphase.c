@@ -699,7 +699,7 @@ void PlayerPhase_BackToMove(ProcPtr proc)
 
     HideUnitSprite(gActiveUnit);
     MU_EndAll();
-    MU_Create(gActiveUnit);
+    StartMu(gActiveUnit);
 
     Proc_Goto(proc, 1);
 
@@ -834,8 +834,8 @@ bool TryMakeCantoUnit(ProcPtr proc)
     gActiveUnit->state &= ~US_UNSELECTABLE;
 
     MU_EndAll();
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 
     if (gPlaySt.chapterVisionRange != 0)
     {
@@ -1074,7 +1074,7 @@ void PlayerPhase_DisplayUnitMovement(void)
 {
     GetMovementScriptFromPath();
     UnitApplyWorkingMovementScript(gActiveUnit, gActiveUnit->xPos, gActiveUnit->yPos);
-    MU_StartMoveScript_Auto(gWorkingMovementScript);
+    SetAutoMuMoveScript(gWorkingMovementScript);
 
     return;
 }
@@ -1082,7 +1082,7 @@ void PlayerPhase_DisplayUnitMovement(void)
 //! FE8U = 0x0801D64C
 void PlayerPhase_WaitForUnitMovement(ProcPtr proc)
 {
-    if (!MU_IsAnyActive())
+    if (!MuExistsActive())
     {
         Proc_Break(proc);
     }
@@ -1134,19 +1134,19 @@ void PlayerPhase_ReReadGameSaveGfx(void)
 //! FE8U = 0x0801D70C
 void MakeMoveunitForActiveUnit(void)
 {
-    if (!MU_Exists())
+    if (!MuExists())
     {
         if (UNIT_FACTION(gActiveUnit) == gPlaySt.faction)
         {
             if ((gActiveUnit->statusIndex != UNIT_STATUS_SLEEP) && (gActiveUnit->statusIndex != UNIT_STATUS_BERSERK))
             {
-                MU_Create(gActiveUnit);
+                StartMu(gActiveUnit);
                 HideUnitSprite(gActiveUnit);
             }
         }
     }
 
-    MU_SetDefaultFacing_Auto();
+    SetAutoMuDefaultFacing();
 
     return;
 }

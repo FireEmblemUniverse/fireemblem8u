@@ -33,7 +33,7 @@ EWRAM_DATA struct ActionData gActionData = { 0 };
 struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_SLEEP(0),
 
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
 
     PROC_CALL_2(AfterDrop_CheckTrapAfterDropMaybe),
     PROC_CALL(sub_80321C8),
@@ -217,7 +217,7 @@ s8 ActionDrop(ProcPtr proc) {
     if (gBmMapHidden[gActionData.yOther][gActionData.xOther] & HIDDEN_BIT_UNIT) {
         gWorkingMovementScript[0] = MU_COMMAND_BUMP;
         gWorkingMovementScript[1] = MU_COMMAND_HALT;
-        MU_StartMoveScript_Auto(gWorkingMovementScript);
+        SetAutoMuMoveScript(gWorkingMovementScript);
         return 0;
     }
 
@@ -559,12 +559,12 @@ bool DidUnitDie(struct Unit* unit) {
 
 //! FE8U = 0x080327B4
 void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc) {
-    struct MUProc* muProc;
+    struct MuProc* muProc;
 
     proc->unk_54 = NULL;
 
     if (DidUnitDie(&gBattleActor.unit)) {
-        muProc = Proc_Find(gProcScr_MoveUnit);
+        muProc = Proc_Find(ProcScr_Mu);
         MU_StartDeathFade(muProc);
         proc->unk_54 = muProc;
 
@@ -578,12 +578,12 @@ void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc) {
         TryRemoveUnitFromBallista(target);
 
         RefreshUnitSprites();
-        muProc = MU_Create(&gBattleTarget.unit);
+        muProc = StartMu(&gBattleTarget.unit);
 
         gWorkingMovementScript[0] = GetFacingDirection(gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
         gWorkingMovementScript[1] = MU_COMMAND_HALT;
 
-        MU_StartMoveScript(muProc, gWorkingMovementScript);
+        SetMuMoveScript(muProc, gWorkingMovementScript);
         MU_StartDeathFade(muProc);
 
         proc->unk_54 = muProc;

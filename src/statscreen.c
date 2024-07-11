@@ -1625,7 +1625,7 @@ void StatScreen_Display(struct Proc* proc)
     // Display Map Sprite
 
     MU_EndAll();
-    gStatScreen.mu = MU_CreateForUI(gStatScreen.unit, 80, 138);
+    gStatScreen.mu = StartUiMu(gStatScreen.unit, 80, 138);
 
     // Draw left panel labels and info
 

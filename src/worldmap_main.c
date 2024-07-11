@@ -320,7 +320,7 @@ void SetupGraphicSystemsForWorldMap(void)
     ResetFaces();
     SetupFaceGfxData(gUnknown_08A3D728);
     ResetUnitSprites();
-    MU_Init();
+    InitMus();
     SetupMapSpritesPalettes();
 
     gBmSt.camera.x = 0;

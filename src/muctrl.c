@@ -124,7 +124,7 @@ void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const s
     AdjustNewUnitPosition(unit, &pos, flags);
 
     proc->unit = unit;
-    proc->muProc = MU_Create(unit);
+    proc->muProc = StartMu(unit);
     proc->redas = redas;
     proc->redaCount = count;
     proc->unk_3a = 0;
@@ -291,11 +291,11 @@ s8 sub_807A0E4(struct MuCtrlProc * proc)
 //! FE8U = 0x0807A194
 s8 sub_807A194(struct MuCtrlProc * proc)
 {
-    struct MUProc * muProc = proc->muProc;
+    struct MuProc * muProc = proc->muProc;
 
     MU_SortObjLayers();
 
-    if (!MU_IsActive(muProc))
+    if (!IsMuActive(muProc))
     {
         struct Unit * unit = proc->unit;
         unit->xPos = proc->unk_42;
@@ -319,7 +319,7 @@ s8 sub_807A194(struct MuCtrlProc * proc)
 //! FE8U = 0x0807A1FC
 void MuCtr_OnEnd(struct MuCtrlProc * proc)
 {
-    struct MUProc * muProc = proc->muProc;
+    struct MuProc * muProc = proc->muProc;
     struct Unit * unit = proc->unit;
 
     if ((muProc->boolForceMaxSpeed != 0) && (proc->redaCount != 0))
@@ -452,10 +452,10 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
 
     if ((proc->unk_42 != pos.x) || (proc->unk_43 != pos.y))
     {
-        struct MUProc * muProc = proc->muProc;
+        struct MuProc * muProc = proc->muProc;
 
         MU_Show(muProc);
-        MU_StartMoveScript(muProc, commands);
+        SetMuMoveScript(muProc, commands);
 
         config = reda->flags;
 
@@ -468,11 +468,11 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
 
         if ((flagsB & 4) != 0)
         {
-            MU_EnableAttractCamera(muProc);
+            EnableMuCamera(muProc);
         }
         else
         {
-            MU_DisableAttractCamera(muProc);
+            DisableMuCamera(muProc);
         }
 
         HideUnitSprite(unit);

@@ -2203,7 +2203,7 @@ u8 RideCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     RideBallista(gActiveUnit);
 
     MU_EndAll();
-    MU_Create(gActiveUnit);
+    StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -2226,7 +2226,7 @@ u8 ExitCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     TryRemoveUnitFromBallista(gActiveUnit);
 
     MU_EndAll();
-    MU_Create(gActiveUnit);
+    StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

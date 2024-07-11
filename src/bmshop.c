@@ -801,7 +801,7 @@ void Shop_ExitShopDialogue(struct ProcShop * proc)
 void Shop_OnExit(void)
 {
     Proc_EndEach(gProcScr_GoldBox);
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Show);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Show);
 }
 
 void Shop_PrepEntryDialogue(struct ProcShop * proc)
@@ -904,7 +904,7 @@ void Shop_Init(struct ProcShop * proc)
     else
         StartBgm(0x35, 0);
 
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Hide);
 
     InitShopScreenConfig();
 

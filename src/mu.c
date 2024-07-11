@@ -18,12 +18,13 @@
 #include "mu.h"
 #include "bmlib.h"
 #include "proc.h"
+#include "ctc.h"
 #include "soundwrapper.h"
 #include "spellassoc.h"
 
 EWRAM_OVERLAY(0) int Unk_2004BDC = 0;
 EWRAM_OVERLAY(0) u8 gMUGfxBuffer[MU_GFX_MAX_SIZE * MU_MAX_COUNT] = { 0 };
-static struct MUConfig sMUConfigArray[MU_MAX_COUNT];
+static struct MuConfig sMuConfig[MU_MAX_COUNT];
 
 const u16 * CONST_DATA MUFlashColorLookup[] = {
     [MU_FLASH_WHITE] = Pal_AllWhite,
@@ -150,48 +151,40 @@ static MuStateFunc CONST_DATA sMuStateFuncs[] = {
     [MU_STATE_DEATHFADE]  = Mu_OnStateDoNothing,
 };
 
-struct ProcCmd CONST_DATA gProcScr_MoveUnit[] = {
+struct ProcCmd CONST_DATA ProcScr_Mu[] = {
     PROC_NAME("MOVEUNIT"),
-    PROC_MARK(4),
+    PROC_MARK(PROC_MARK_MU),
 
     PROC_SET_END_CB(MU_OnEnd),
     PROC_REPEAT(MU_OnLoop)
 };
 
-// obj tile id offset by MU id
-static u16 CONST_DATA sMUObjTileOffsetLookup_Default[MU_MAX_COUNT] = {
-    0x0000, 0x0010, 0x0008, 0x0018
+static u16 CONST_DATA sMuChrOffLut_Default[MU_MAX_COUNT] = {
+    0x00, 0x10, 0x08, 0x18
 };
 
-// obj tile id offset by MU id (variant?)
-static u16 CONST_DATA sMUObjTileOffsetLookup_Other[MU_MAX_COUNT] = {
-    0x0000, 0x0008, 0x0004, 0x0010
+static u16 CONST_DATA sMuChrOffLut[MU_MAX_COUNT] = {
+    0x00, 0x08, 0x04, 0x10
 };
 
-// Base Movement Speed Lookup
-static u8 CONST_DATA sMUBaseMoveSpeedLookup[2] = {
-    2, // fast class base movement speed
-    1  // slow class base movement speed
+static u8 CONST_DATA sMuWalkSpeedLut[2] = {
+    [UNIT_WALKSPEED_FAST] = 2,
+    [UNIT_WALKSPEED_SLOW] = 1,
 };
 
-// Buffer index by MU index (config) lookup
-static u8 CONST_DATA sMUBufferIdLookup[MU_MAX_COUNT+1] = {
-    0, // dummy entry (this array is 1-indexed)
-
+static u8 CONST_DATA sMuImgBufOffLut[MU_MAX_COUNT + 1] = {
+    0, // dummy because active ids start at 1
     0, 2, 1, 3
 };
 
-// gProc_MUDeathFadeEffect
-struct ProcCmd CONST_DATA gProcScr_MUDeathFade[] = {
-    PROC_REPEAT(MU_DeathFade_OnLoop),
+struct ProcCmd CONST_DATA ProcScr_MuDeathFade[] = {
+    PROC_REPEAT(MuDeathFade_OnLoop),
     PROC_SLEEP(15),
-
     PROC_END
 };
 
-// gProc_MUBlinkingEffect
-struct ProcCmd CONST_DATA gProcScr_MUBlinkEffect[] = {
-    PROC_REPEAT(MU_BlinkEffect_OnLoop),
+struct ProcCmd CONST_DATA ProcScr_MuBlinkEffect[] = {
+    PROC_REPEAT(MUBlinkEffect_OnLoop),
     PROC_END
 };
 
@@ -204,92 +197,77 @@ CONST_DATA vu8 static sUnknown_089A2CA8[0x40] = {
     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F
 };
 
- struct ProcCmd CONST_DATA ProcScr_MUPixelEffect[] = {
-    PROC_REPEAT(MU_PixelEffect_OnLoop),
+ struct ProcCmd CONST_DATA ProcScr_MuPixelEffect[] = {
+    PROC_REPEAT(MuPixelEffect_OnLoop),
     PROC_END
 };
 
-struct ProcCmd CONST_DATA gProcScr_MU_89A2CF8[] = {
+struct ProcCmd CONST_DATA ProcScr_MuRestorePalInfo[] = {
     PROC_SLEEP(8),
-    PROC_CALL(MU_807988C),
-
+    PROC_CALL(MuRestorePalInfo_Apply),
     PROC_END
 };
 
- struct ProcCmd CONST_DATA ProcScr_MUCritFlash[] = {
-    PROC_CALL(MU_CritFlash_Init),
+ struct ProcCmd CONST_DATA ProcScr_MuCritFlash[] = {
+    PROC_CALL(MuCritFlash_Init),
     PROC_SLEEP(1),
 
-    PROC_CALL(MU_CritFlash_SetFadedPalette),
+    PROC_CALL(MuCritFlash_SetFadedPalette),
     PROC_SLEEP(2),
 
-    PROC_CALL(MU_CritFlash_SetRegularPalette),
+    PROC_CALL(MuCritFlash_SetRegularPalette),
     PROC_SLEEP(3),
 
-    PROC_CALL(MU_CritFlash_SetFadedPalette),
+    PROC_CALL(MuCritFlash_SetFadedPalette),
     PROC_SLEEP(2),
 
-    PROC_CALL(MU_CritFlash_SetRegularPalette),
+    PROC_CALL(MuCritFlash_SetRegularPalette),
     PROC_SLEEP(3),
 
-    PROC_CALL(MU_CritFlash_SetFadedPalette),
+    PROC_CALL(MuCritFlash_SetFadedPalette),
     PROC_SLEEP(1),
 
-    PROC_CALL(MU_CritFlash_StartFadeBack_maybe),
-    PROC_REPEAT(MU_CritFlash_SpriteShakeLoop),
+    PROC_CALL(MuCritFlash_StartFadeBack_maybe),
+    PROC_REPEAT(MuCritFlash_SpriteShakeLoop),
 
     PROC_SLEEP(17),
-    PROC_CALL(MU_CritFlash_RestorePalette),
+    PROC_CALL(MuCritFlash_RestorePalette),
 
     PROC_END
 };
 
- struct ProcCmd CONST_DATA ProcScr_MUHitFlash[] = {
+ struct ProcCmd CONST_DATA ProcScr_MuHitFlash[] = {
     PROC_SLEEP(17),
-    PROC_CALL(MU_HitFlash_RestorePalette),
+    PROC_CALL(MuHitFlash_RestorePalette),
     PROC_END
 };
 
-// END CONST DATA
-
-void MU_Init(void)
+void InitMus(void)
 {
     int i;
-
     for (i = 0; i < MU_MAX_COUNT; ++i)
-        sMUConfigArray[i].muIndex = 0;
+        sMuConfig[i].muIndex = 0;
 }
 
-struct MUProc * MU_CreateExt(struct Unit* pUnit, unsigned jid, unsigned palId)
+struct MuProc * StartMuExt(struct Unit * unit, unsigned jid, unsigned pal)
 {
-    struct MUProc * proc = MU_CreateInternal(
-        pUnit->xPos,
-        pUnit->yPos,
-
-        jid,
-
-        -1,
-        palId
-    );
-
-    proc->pUnit = pUnit;
-    proc->boolAttractCamera = TRUE;
-
+    struct MuProc * proc;
+    
+    proc = StartMuInternal(unit->xPos, unit->yPos, jid, -1, pal);
+    proc->unit = unit;
+    proc->cam_b = true;
     return proc;
 }
 
-struct MUProc * MU_Create(struct Unit* pUnit)
+struct MuProc * StartMu(struct Unit * unit)
 {
-    struct MUProc * proc;
+    struct MuProc * proc;
 
-    unsigned jid = pUnit->pClassData->number;
+    unsigned jid = UNIT_CLASS_ID(unit);
 
-    if (pUnit->state & US_IN_BALLISTA)
+    if (unit->state & US_IN_BALLISTA)
     {
-        struct Trap* blst = GetTrap(pUnit->ballistaIndex);
-
-        switch (blst->extra) {
-
+        switch (GetTrap(unit->ballistaIndex)->extra) {
         case ITEM_BALLISTA_REGULAR:
             jid = CLASS_BLST_REGULAR_USED;
             break;
@@ -305,294 +283,267 @@ struct MUProc * MU_Create(struct Unit* pUnit)
         } // switch (blst->extra)
     }
 
-    proc = MU_CreateInternal(
-        pUnit->xPos,
-        pUnit->yPos,
-
-        jid,
-
-        -1,
-        GetUnitSpritePalette(pUnit)
-    );
-
-    proc->pUnit = pUnit;
-    proc->boolAttractCamera = TRUE;
-
+    proc = StartMuInternal(unit->xPos, unit->yPos, jid, -1, GetUnitSpritePalette(unit));
+    proc->unit = unit;
+    proc->cam_b = true;
     return proc;
 }
 
-void MU_ManualUpdate(struct MUProc * proc)
+void UpdateMu(struct MuProc * proc)
 {
     MU_OnLoop(proc);
 }
 
-void MU_EnableAttractCamera(struct MUProc * proc)
+void EnableMuCamera(struct MuProc * proc)
 {
-    proc->boolAttractCamera = TRUE;
+    proc->cam_b = true;
 }
 
-void MU_DisableAttractCamera(struct MUProc * proc)
+void DisableMuCamera(struct MuProc * proc)
 {
-    proc->boolAttractCamera = FALSE;
+    proc->cam_b = false;
 }
 
-struct MUProc * MU_CreateForUI(struct Unit* pUnit, int x, int y)
+struct MuProc * StartUiMu(struct Unit * unit, int x, int y)
 {
-    struct MUProc * proc = MU_Create(pUnit);
+    struct MuProc * proc = StartMu(unit);
 
     if (!proc)
         return NULL;
 
-    proc->xSubPosition = x << MU_SUBPIXEL_PRECISION;
-    proc->ySubPosition = y << MU_SUBPIXEL_PRECISION;
-
-    proc->stateId = MU_STATE_DISPLAY_UI;
-
+    proc->x_q4 = x << MU_SUBPIXEL_PRECISION;
+    proc->y_q4 = y << MU_SUBPIXEL_PRECISION;
+    proc->state = MU_STATE_DISPLAY_UI;
     return proc;
 }
 
-void MU_8078524(struct MUProc * proc)
+void StartUiStandingMu(struct MuProc * proc)
 {
-    SMS_80266F0(
-        GetClassSMSId(proc->displayedClassId),
+    StartUiSMS(
+        GetClassSMSId(proc->jid),
         proc->muIndex
     );
 }
 
-struct MUProc * MU_CreateInternal(u16 x, u16 y, u16 jid, int objTileId, unsigned palId)
+struct MuProc * StartMuInternal(u16 x, u16 y, u16 jid, int objTileId, unsigned palId)
 {
-    struct MUConfig * config;
-    struct MUProc * proc;
-    struct APHandle* ap;
+    struct MuConfig * config;
+    struct MuProc * proc;
+    struct APHandle * ap;
 
-    u8 soundTimer = 0;
-    u8 muIndex = 0;
+    u8 delay = 0;
+    u8 slot = 0;
 
     if (objTileId == -1)
-        config = MU_GenerateConfigDefault(objTileId = MU_BASE_OBJ_TILE, &muIndex);
+        config = GetDefaultMuConfig(objTileId = MU_BASE_OBJ_TILE, &slot);
     else
-        config = MU_GenerateConfigOther(objTileId, &muIndex);
+        config = GetNewMuConfig(objTileId, &slot);
 
     if (!config)
         return NULL;
 
-    if (Proc_Find(gProcScr_MoveUnit))
-        soundTimer = -2;
+    if (Proc_Find(ProcScr_Mu))
+        delay = -2;
 
-    proc = Proc_Start(gProcScr_MoveUnit, PROC_TREE_5);
+    proc = Proc_Start(ProcScr_Mu, PROC_TREE_5);
 
     if (!proc)
         return NULL;
 
-    proc->pUnit = NULL;
-    proc->stateId = MU_STATE_INACTIVE;
-
-    proc->xSubPosition = (x * 16) << MU_SUBPIXEL_PRECISION;
-    proc->ySubPosition = (y * 16) << MU_SUBPIXEL_PRECISION;
-
-    proc->xSubOffset = 0;
-    proc->ySubOffset = 0;
-
-    proc->facingId = MU_FACING_UNK11;
-
-    proc->moveTimer = 0;
-    proc->stepSoundTimer = soundTimer;
-
-    proc->displayedClassId = jid;
-    proc->boolIsHidden = 0;
-
+    proc->unit = NULL;
+    proc->state = MU_STATE_INACTIVE;
+    proc->x_q4 = (x * 16) << MU_SUBPIXEL_PRECISION;
+    proc->y_q4 = (y * 16) << MU_SUBPIXEL_PRECISION;
+    proc->x_offset_q4 = 0;
+    proc->y_offset_q4 = 0;
+    proc->facing = MU_FACING_UNK11;
+    proc->move_clock_q4 = 0;
+    proc->step_sound_clock = delay;
+    proc->jid = jid;
+    proc->hidden_b = 0;
     proc->pGfxVRAM = OBJ_VRAM0 + (0x20 * objTileId);
-
-    proc->muIndex = muIndex;
-
-    proc->objPriorityBits = 0x800;
-
+    proc->muIndex = slot;
+    proc->layer = OAM2_LAYER(2);
     proc->moveConfig = 0;
-    proc->boolForceMaxSpeed = FALSE;
+    proc->boolForceMaxSpeed = false;
+    config->pal = palId;
 
-    config->paletteIndex = palId;
-
-    ap = AP_Create(MU_GetAnimationByClassId(jid), 10);
+    ap = AP_Create(GetMuAnimForJid(jid), 10);
     AP_SwitchAnimation(ap, MU_FACING_SELECTED);
 
     Decompress(
-        MU_GetSheetGfx(proc),
-        MU_GetGfxBufferById(config->muIndex)
+        GetMuImg(proc),
+        GetMuImgBufById(config->muIndex)
     );
 
-    ap->pGraphics = MU_GetGfxBufferById(config->muIndex);
-    ap->tileBase = ((config->paletteIndex & 0xF) << 12) + config->objTileIndex + proc->objPriorityBits;
+    ap->pGraphics = GetMuImgBufById(config->muIndex);
+    ap->tileBase = OAM2_PAL(config->pal) + config->chr + proc->layer;
 
-    proc->pAPHandle = ap;
-    proc->pMUConfig = config;
-
-    config->pMUProc = proc;
-
+    proc->sprite_anim = ap;
+    proc->config = config;
+    config->mu = proc;
     return proc;
 }
 
-void MU_SetFacing(struct MUProc * proc, int facingId)
+void SetMuFacing(struct MuProc * proc, int facing)
 {
-    proc->facingId = facingId;
+    proc->facing = facing;
 
-    if (facingId == MU_FACING_STANDING)
+    if (facing == MU_FACING_STANDING)
         sub_8027068(proc->muIndex, proc->pGfxVRAM);
     else
-        AP_SwitchAnimation(proc->pAPHandle, proc->facingId);
+        AP_SwitchAnimation(proc->sprite_anim, proc->facing);
 }
 
-void MU_SetDefaultFacing(struct MUProc * proc)
+void SetMuDefaultFacing(struct MuProc * proc)
 {
-    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
-        MU_SetFacing(proc, 1);
+    if (GetClassData(proc->jid)->attributes & CA_MOUNTEDAID)
+        SetMuFacing(proc, 1);
     else
-        MU_SetFacing(proc, 2);
+        SetMuFacing(proc, 2);
 }
 
-void MU_SetDefaultFacing_Auto(void)
+void SetAutoMuDefaultFacing(void)
 {
-    struct MUProc * proc = Proc_Find(gProcScr_MoveUnit);
-
+    struct MuProc * proc = Proc_Find(ProcScr_Mu);
     if (proc)
-        MU_SetDefaultFacing(proc);
+        SetMuDefaultFacing(proc);
 }
 
-void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT])
+void SetAutoMuMoveScript(const u8 commands[MU_COMMAND_MAX_COUNT])
 {
-    struct MUProc * proc = Proc_Find(gProcScr_MoveUnit);
-
+    struct MuProc * proc = Proc_Find(ProcScr_Mu);
     if (proc)
-        MU_StartMoveScript(proc, commands);
+        SetMuMoveScript(proc, commands);
 }
 
-s8 MU_Exists(void)
+bool MuExists(void)
 {
-    return Proc_Find(gProcScr_MoveUnit) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_Mu) ? true : false;
 }
 
-s8 MU_IsAnyActive(void)
+bool MuExistsActive(void)
 {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
 #ifndef NONMATCHING
-        asm(""::"r"(&sMUConfigArray[i].muIndex));
-        asm(""::"r"(&sMUConfigArray[i].pMUProc));
+        asm(""::"r"(&sMuConfig[i].muIndex));
+        asm(""::"r"(&sMuConfig[i].mu));
 #endif
-        if (sMUConfigArray[i].muIndex == 0) continue;
+        if (sMuConfig[i].muIndex == 0) continue;
         while (0) ;
-        if (sMUConfigArray[i].pMUProc->stateId != MU_STATE_INACTIVE)
-            return TRUE;
+        if (sMuConfig[i].mu->state != MU_STATE_INACTIVE)
+            return true;
     }
 
     if (i >= MU_MAX_COUNT)
-        return FALSE;
+        return false;
 
-    return TRUE;
+    return true;
 }
 
-s8 MU_IsActive(struct MUProc * proc)
+bool IsMuActive(struct MuProc * mu)
 {
-    if (proc->pMUConfig->muIndex && proc->stateId != MU_STATE_INACTIVE)
-        return TRUE;
+    if (mu->config->muIndex && mu->state != MU_STATE_INACTIVE)
+        return true;
 
-    return FALSE;
+    return false;
 }
 
-void MU_StartMoveScript(struct MUProc * proc, const u8 commands[MU_COMMAND_MAX_COUNT])
+void SetMuMoveScript(struct MuProc * mu, const u8 commands[MU_COMMAND_MAX_COUNT])
 {
     int i;
 
     for (i = 0; i < 0x40; ++i)
-        proc->pMUConfig->commands[i] = commands[i];
+        mu->config->commands[i] = commands[i];
 
-    proc->pMUConfig->currentCommand = 0;
-    proc->stateId = MU_STATE_MOVEMENT;
+    mu->config->currentCommand = 0;
+    mu->state = MU_STATE_MOVEMENT;
 
-    MU_PlayStepSfx(proc);
+    PlayMuStepSe(mu);
 }
 
-struct MUProc * MU_CreateScripted(u16 x, u16 y, u16 jid, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT])
+struct MuProc * StartMuScripted(u16 x, u16 y, u16 jid, int pal, const u8 commands[MU_COMMAND_MAX_COUNT])
 {
-    struct MUProc * proc = MU_CreateInternal(x, y, jid, -1, palId);
-
+    struct MuProc * proc = StartMuInternal(x, y, jid, -1, pal);
     if (!proc)
         return NULL;
 
-    MU_StartMoveScript(proc, commands);
+    SetMuMoveScript(proc, commands);
     return proc;
 }
 
-void MuStepSe_Init(struct MUStepSoundProc * proc)
+void MuStepSe_Init(struct MuStepSoundProc * proc)
 {
-    proc->idSound1 = 0;
-    proc->xSound1 = 0;
+    proc->song1 = 0;
+    proc->x1 = 0;
 
-    proc->idSound2 = 0;
-    proc->xSound2 = 0;
+    proc->song2 = 0;
+    proc->x2 = 0;
 }
 
-void MuStepSe_PlaySeA(struct MUStepSoundProc * proc)
+void MuStepSe_PlaySeA(struct MuStepSoundProc * proc)
 {
-    PlaySeSpacial(proc->idSound1, proc->xSound1);
+    PlaySeSpacial(proc->song1, proc->x1);
 }
 
-void MuStepSe_PlaySeB(struct MUStepSoundProc * proc)
+void MuStepSe_PlaySeB(struct MuStepSoundProc * proc)
 {
-    if (proc->idSound2)
-        PlaySeSpacial(proc->idSound2, proc->xSound2);
+    if (proc->song2)
+        PlaySeSpacial(proc->song2, proc->x2);
 }
 
 void MU_StartStepSfx(int soundId, int b, int hPosition)
 {
-    struct MUStepSoundProc * proc;
+    struct MuStepSoundProc * proc;
 
     proc = Proc_Find(ProcScr_MuStepSe);
 
     if (!proc)
         proc = Proc_Start(ProcScr_MuStepSe, PROC_TREE_3);
 
-    if (!proc->idSound1)
+    if (!proc->song1)
     {
-        proc->idSound1 = soundId;
-        proc->xSound1 = hPosition;
+        proc->song1 = soundId;
+        proc->x1 = hPosition;
     }
     else if (!proc->u60_buggedmaybe) // TODO: FIXME: Is this a bug? u60_buggedmaybe is never initialized
     {
-        proc->idSound2 = soundId + b;
-        proc->xSound2 = hPosition;
+        proc->song2 = soundId + b;
+        proc->x2 = hPosition;
     }
 }
 
-void MU_PlayStepSfx(struct MUProc * proc)
+void PlayMuStepSe(struct MuProc * proc)
 {
     MU_AdvanceStepSfx(proc);
 }
 
-void MU_8078894(struct MUProc * proc) {}
+void MU_8078894(struct MuProc * proc) {}
 
-void MU_InterpretCommandScript(struct MUProc * proc)
+void MU_InterpretCommandScript(struct MuProc * proc)
 {
-    while (TRUE)
+    while (true)
     {
         short command = MU_AdvanceGetCommand(proc);
 
         switch (command) {
         case MU_COMMAND_WAIT:
-            proc->moveTimer = MU_AdvanceGetCommand(proc);
-            proc->stateId = MU_STATE_SLEEPING;
+            proc->move_clock_q4 = MU_AdvanceGetCommand(proc);
+            proc->state = MU_STATE_SLEEPING;
 
             return;
 
         case MU_COMMAND_BUMP:
             MU_8078894(proc);
 
-            proc->stateId = MU_STATE_BUMPING;
+            proc->state = MU_STATE_BUMPING;
 
             MU_StartFogBumpFx(
-                (proc->xSubPosition >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x,
-                (proc->ySubPosition >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y
+                (proc->x_q4 >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x,
+                (proc->y_q4 >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y
             );
 
             return;
@@ -614,11 +565,11 @@ void MU_InterpretCommandScript(struct MUProc * proc)
         case MU_COMMAND_MOVE_UP:
             command = command - MU_COMMAND_MOVE_BASE;
 
-            if (command != proc->facingId) {
-                MU_GetAnimationByClassId(proc->displayedClassId); // TODO: FIXME: is this a bug?
-                MU_SetFacing(proc, command);
+            if (command != proc->facing) {
+                GetMuAnimForJid(proc->jid); // TODO: FIXME: is this a bug?
+                SetMuFacing(proc, command);
 
-                proc->stateId = MU_STATE_MOVEMENT;
+                proc->state = MU_STATE_MOVEMENT;
             }
 
             return;
@@ -629,9 +580,9 @@ void MU_InterpretCommandScript(struct MUProc * proc)
         case MU_COMMAND_FACE_UP:
             command = command - MU_COMMAND_FACE_BASE;
 
-            if (command != proc->facingId) {
-                MU_GetAnimationByClassId(proc->displayedClassId); // TODO: FIXME: is this a bug?
-                MU_SetFacing(proc, command);
+            if (command != proc->facing) {
+                GetMuAnimForJid(proc->jid); // TODO: FIXME: is this a bug?
+                SetMuFacing(proc, command);
             }
 
             break;
@@ -641,21 +592,21 @@ void MU_InterpretCommandScript(struct MUProc * proc)
             break;
 
         case MU_COMMAND_CAMERA_ON:
-            MU_EnableAttractCamera(proc);
+            EnableMuCamera(proc);
             break;
 
         case MU_COMMAND_CAMERA_OFF:
-            MU_DisableAttractCamera(proc);
+            DisableMuCamera(proc);
             break;
 
         } // switch (command)
-    } // while (TRUE)
+    } // while (true)
 }
 
 void MU_StartFogBumpFx(int x, int y)
 {
-    struct APHandle* ap;
-    struct MUFogBumpFxProc * proc;
+    struct APHandle * ap;
+    struct MuFogBumpProc * proc;
 
     Decompress(
         Img_GmapSoguSprites,
@@ -669,13 +620,13 @@ void MU_StartFogBumpFx(int x, int y)
 
     proc = Proc_Start(ProcScr_MuFogBump, PROC_TREE_3);
 
-    proc->pAPHandle = ap;
+    proc->sprite_anim = ap;
 
     proc->xDisplay = x + 8;
     proc->yDisplay = y - 4;
 }
 
-void MuFogBump_Init(struct MUFogBumpFxProc * proc)
+void MuFogBump_Init(struct MuFogBumpProc * proc)
 {
     PlaySoundEffect(0x77);
 
@@ -693,7 +644,7 @@ void MuFogBump_Init(struct MUFogBumpFxProc * proc)
     );
 }
 
-void MuFogBump_ScaleLoop(struct MUFogBumpFxProc * proc)
+void MuFogBump_ScaleLoop(struct MuFogBumpProc * proc)
 {
     int scale;
 
@@ -712,20 +663,20 @@ void MuFogBump_ScaleLoop(struct MUFogBumpFxProc * proc)
     );
 
     AP_Update(
-        proc->pAPHandle,
+        proc->sprite_anim,
 
         (proc->xDisplay - 8),
         (proc->yDisplay - 8) | 0x300
     );
 }
 
-void MuFogBump_EndLoop(struct MUFogBumpFxProc * proc)
+void MuFogBump_EndLoop(struct MuFogBumpProc * proc)
 {
     if (proc->timer++ >= 40)
         Proc_Break(proc);
 
     AP_Update(
-        proc->pAPHandle,
+        proc->sprite_anim,
 
         (proc->xDisplay),
         (proc->yDisplay) | 0x100
@@ -734,74 +685,74 @@ void MuFogBump_EndLoop(struct MUFogBumpFxProc * proc)
 
 u8 MU_IsFogBumpFxActive(void)
 {
-    return Proc_Find(ProcScr_MuFogBump) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_MuFogBump) ? true : false;
 }
 
-void Mu_OnStateBump(struct MUProc * proc)
+void Mu_OnStateBump(struct MuProc * proc)
 {
     if (!MU_IsFogBumpFxActive())
-        proc->stateId = MU_STATE_SLEEPING;
+        proc->state = MU_STATE_SLEEPING;
 }
 
-void Mu_OnStateMoving(struct MUProc * proc)
+void Mu_OnStateMoving(struct MuProc * proc)
 {
-    proc->stateId = MU_STATE_MOVEMENT;
+    proc->state = MU_STATE_MOVEMENT;
 }
 
-void Mu_OnStateSleeping(struct MUProc * proc)
+void Mu_OnStateSleeping(struct MuProc * proc)
 {
-    if (proc->moveTimer == 0)
-        proc->stateId = MU_STATE_MOVEMENT;
+    if (proc->move_clock_q4 == 0)
+        proc->state = MU_STATE_MOVEMENT;
     else
-        proc->moveTimer--;
+        proc->move_clock_q4--;
 }
 
-void Mu_OnStateNone(struct MUProc * proc) {}
+void Mu_OnStateNone(struct MuProc * proc) {}
 
-void Mu_OnStateDoNothing(struct MUProc * proc) {}
+void Mu_OnStateDoNothing(struct MuProc * proc) {}
 
-void Mu_OnStateMovement(struct MUProc * proc)
+void Mu_OnStateMovement(struct MuProc * proc)
 {
     unsigned moveSpeed = MU_GetMovementSpeed(proc);
 
-    proc->moveTimer = moveSpeed + proc->moveTimer;
+    proc->move_clock_q4 = moveSpeed + proc->move_clock_q4;
 
-    proc->xSubPosition += moveSpeed * sMoveOffsetLut[proc->facingId * 2 + 0];
-    proc->ySubPosition += moveSpeed * sMoveOffsetLut[proc->facingId * 2 + 1];
+    proc->x_q4 += moveSpeed * sMoveOffsetLut[proc->facing * 2 + 0];
+    proc->y_q4 += moveSpeed * sMoveOffsetLut[proc->facing * 2 + 1];
 
-    if ((proc->moveTimer / 16) >= 16)
+    if ((proc->move_clock_q4 / 16) >= 16)
     {
-        proc->moveTimer -= 0x100;
+        proc->move_clock_q4 -= 0x100;
 
-        proc->xSubPosition -= proc->moveTimer * sMoveOffsetLut[proc->facingId * 2 + 0];
-        proc->ySubPosition -= proc->moveTimer * sMoveOffsetLut[proc->facingId * 2 + 1];
+        proc->x_q4 -= proc->move_clock_q4 * sMoveOffsetLut[proc->facing * 2 + 0];
+        proc->y_q4 -= proc->move_clock_q4 * sMoveOffsetLut[proc->facing * 2 + 1];
 
-        proc->moveTimer = 0;
+        proc->move_clock_q4 = 0;
 
-        proc->xSubPosition &= ~0xF;
-        proc->ySubPosition &= ~0xF;
+        proc->x_q4 &= ~0xF;
+        proc->y_q4 &= ~0xF;
     }
 
-    if (proc->boolAttractCamera && !Proc_Find(gProcScr_CamMove))
+    if (proc->cam_b && !Proc_Find(gProcScr_CamMove))
     {
-        gBmSt.camera.x = GetCameraAdjustedX(proc->xSubPosition >> MU_SUBPIXEL_PRECISION);
-        gBmSt.camera.y = GetCameraAdjustedY(proc->ySubPosition >> MU_SUBPIXEL_PRECISION);
+        gBmSt.camera.x = GetCameraAdjustedX(proc->x_q4 >> MU_SUBPIXEL_PRECISION);
+        gBmSt.camera.y = GetCameraAdjustedY(proc->y_q4 >> MU_SUBPIXEL_PRECISION);
     }
 
     if (!(proc->moveConfig & 0x80))
         MU_AdvanceStepSfx(proc);
 }
 
-void MU_AdvanceStepSfx(struct MUProc * proc)
+void MU_AdvanceStepSfx(struct MuProc * proc)
 {
     const u16 * pStepSoundDefinition;
 
     unsigned cursor;
     struct Vec2 position;
 
-    if (GetClassData(proc->displayedClassId)->attributes & CA_MOUNTEDAID)
+    if (GetClassData(proc->jid)->attributes & CA_MOUNTEDAID)
     {
-        switch (proc->displayedClassId) {
+        switch (proc->jid) {
         case CLASS_WYVERN_RIDER:
         case CLASS_WYVERN_RIDER_F:
         case CLASS_WYVERN_LORD:
@@ -825,11 +776,11 @@ void MU_AdvanceStepSfx(struct MUProc * proc)
             pStepSoundDefinition = MuSoundScr_Mounted;
             break;
 
-        } // proc->displayedClassId
+        } // proc->jid
     }
     else
     {
-        switch (proc->displayedClassId) {
+        switch (proc->jid) {
         case CLASS_REVENANT:
         case CLASS_ENTOUMBED:
             pStepSoundDefinition = MuSoundScr_Zombie;
@@ -901,10 +852,10 @@ void MU_AdvanceStepSfx(struct MUProc * proc)
             pStepSoundDefinition = MuSoundScr_Foot;
             break;
 
-        } // switch (proc->displayedClassId)
+        } // switch (proc->jid)
     }
 
-    cursor = DivRem(proc->stepSoundTimer++, pStepSoundDefinition[0]);
+    cursor = DivRem(proc->step_sound_clock++, pStepSoundDefinition[0]);
     MU_ComputeDisplayPosition(proc, &position);
 
     if (pStepSoundDefinition[2 + cursor])
@@ -917,48 +868,48 @@ void MU_AdvanceStepSfx(struct MUProc * proc)
     }
 }
 
-void MU_OnLoop(struct MUProc * proc)
+void MU_OnLoop(struct MuProc * proc)
 {
-    if (proc->stateId)
+    if (proc->state)
     {
-        if (proc->moveTimer == 0)
-            if ((u8)(proc->stateId - MU_STATE_MOVEMENT) <= (MU_STATE_SLEEPING - MU_STATE_MOVEMENT))
+        if (proc->move_clock_q4 == 0)
+            if ((u8)(proc->state - MU_STATE_MOVEMENT) <= (MU_STATE_SLEEPING - MU_STATE_MOVEMENT))
                 MU_InterpretCommandScript(proc);
 
-        sMuStateFuncs[proc->stateId](proc);
+        sMuStateFuncs[proc->state](proc);
     }
 
-    if (proc->facingId == MU_FACING_STANDING)
+    if (proc->facing == MU_FACING_STANDING)
         MU_DisplayAsSMS(proc);
     else
         MU_DisplayAsMMS(proc);
 }
 
-void MU_OnEnd(struct MUProc * proc)
+void MU_OnEnd(struct MuProc * proc)
 {
-    proc->pMUConfig->muIndex = 0;
-    AP_Delete(proc->pAPHandle);
+    proc->config->muIndex = 0;
+    AP_Delete(proc->sprite_anim);
 }
 
 void MU_EndAll(void)
 {
-    Proc_EndEach(gProcScr_MoveUnit);
+    Proc_EndEach(ProcScr_Mu);
 }
 
-void MU_End(struct MUProc * proc)
+void MU_End(struct MuProc * proc)
 {
     MU_EndInternal(proc);
 }
 
-void MU_EndInternal(struct MUProc * proc)
+void MU_EndInternal(struct MuProc * proc)
 {
     Proc_End(proc);
 }
 
-void MU_80790CC(struct MUProc * proc)
+void MU_80790CC(struct MuProc * proc)
 {
     MU_8078894(proc);
-    proc->stateId = MU_STATE_INACTIVE;
+    proc->state = MU_STATE_INACTIVE;
 }
 
 void MU_AllDisable(void)
@@ -973,7 +924,7 @@ void MU_AllEnable(void)
 
 void MU_GetComputedEndPosition(int * xOut, int * yOut, const u8 * commands)
 {
-    while (TRUE)
+    while (true)
     {
         switch (*commands++) {
         case MU_COMMAND_END:
@@ -1011,10 +962,10 @@ s8 MU_CanStart(void)
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
-        if (sMUConfigArray[i].muIndex == 0)
-            return TRUE;
+        if (sMuConfig[i].muIndex == 0)
+            return true;
 
-    return FALSE;
+    return false;
 }
 
 void MU_AllRestartAnimations(void)
@@ -1023,85 +974,85 @@ void MU_AllRestartAnimations(void)
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        if (sMUConfigArray[i].muIndex)
+        if (sMuConfig[i].muIndex)
         {
-            sMUConfigArray[i].pMUProc->pAPHandle->frameTimer    = 0;
-            sMUConfigArray[i].pMUProc->pAPHandle->frameInterval = 0x100;
+            sMuConfig[i].mu->sprite_anim->frameTimer    = 0;
+            sMuConfig[i].mu->sprite_anim->frameInterval = 0x100;
         }
     }
 }
 
-struct MUConfig * MU_GenerateConfigDefault(int objTileId, u8* outIndex)
-{
-    int i;
-
-    for (i = 0; i < MU_MAX_COUNT; ++i)
-{
-        if (sMUConfigArray[i].muIndex)
-            continue;
-
-        sMUConfigArray[i].muIndex = i + 1;
-        sMUConfigArray[i].objTileIndex = sMUObjTileOffsetLookup_Default[i] + objTileId;
-
-        *outIndex = i;
-
-        return sMUConfigArray + i;
-    }
-
-    return NULL;
-}
-
-struct MUConfig * MU_GenerateConfigOther(int objTileId, u8* outIndex)
+struct MuConfig * GetDefaultMuConfig(int objTileId, u8 * outIndex)
 {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        if (sMUConfigArray[i].muIndex)
+        if (sMuConfig[i].muIndex)
             continue;
 
-        sMUConfigArray[i].muIndex = i + 1;
-        sMUConfigArray[i].objTileIndex = sMUObjTileOffsetLookup_Other[i] + objTileId;
+        sMuConfig[i].muIndex = i + 1;
+        sMuConfig[i].chr = sMuChrOffLut_Default[i] + objTileId;
 
         *outIndex = i;
 
-        return sMUConfigArray + i;
+        return sMuConfig + i;
     }
 
     return NULL;
 }
 
-u8 MU_ComputeDisplayPosition(struct MUProc * proc, struct Vec2 * out)
+struct MuConfig * GetNewMuConfig(int objTileId, u8 * outIndex)
 {
-    if (proc->stateId == MU_STATE_DISPLAY_UI)
+    int i;
+
+    for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        out->x = (proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION;
-        out->y = (proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION;
+        if (sMuConfig[i].muIndex)
+            continue;
+
+        sMuConfig[i].muIndex = i + 1;
+        sMuConfig[i].chr = sMuChrOffLut[i] + objTileId;
+
+        *outIndex = i;
+
+        return sMuConfig + i;
+    }
+
+    return NULL;
+}
+
+u8 MU_ComputeDisplayPosition(struct MuProc * proc, struct Vec2 * out)
+{
+    if (proc->state == MU_STATE_DISPLAY_UI)
+    {
+        out->x = (proc->x_q4 + proc->x_offset_q4) >> MU_SUBPIXEL_PRECISION;
+        out->y = (proc->y_q4 + proc->y_offset_q4) >> MU_SUBPIXEL_PRECISION;
     }
     else
     {
-        short x = ((proc->xSubPosition + proc->xSubOffset) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x + 8;
-        short y = ((proc->ySubPosition + proc->ySubOffset) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y + 8;
+        short x = ((proc->x_q4 + proc->x_offset_q4) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.x + 8;
+        short y = ((proc->y_q4 + proc->y_offset_q4) >> MU_SUBPIXEL_PRECISION) - gBmSt.camera.y + 8;
 
         out->x = x;
         out->y = y + 8;
 
         if ((u16)(x + 16) > 0x110)
-            return FALSE;
+            return false;
 
         if (y < -0x10)
-            return FALSE;
+            return false;
 
         if (y > 0xB0)
-            return FALSE;
+            return false;
     }
 
-    return TRUE;
+    return true;
 }
 
-void MU_DisplayAsSMS(struct MUProc * proc)
+void MU_DisplayAsSMS(struct MuProc * proc)
 {
-    if (!proc->boolIsHidden)
+    if (!proc->hidden_b)
     {
         struct Vec2 position;
 
@@ -1111,7 +1062,7 @@ void MU_DisplayAsSMS(struct MUProc * proc)
         position.x &= 0x01FF;
         position.y &= 0x00FF;
 
-        if (proc->stateId == MU_STATE_DEATHFADE)
+        if (proc->state == MU_STATE_DEATHFADE)
             position.y |= 0x400;
 
         sub_8026FF4(
@@ -1120,24 +1071,24 @@ void MU_DisplayAsSMS(struct MUProc * proc)
         );
 
         sub_8027DB4(
-            proc->pAPHandle->objLayer,
+            proc->sprite_anim->objLayer,
 
             position.x - 8,
             position.y - 16,
 
             ((((unsigned)(proc->pGfxVRAM - OBJ_VRAM0) & 0x1FFFF) >> 5)
-                | ((proc->pMUConfig->paletteIndex & 0xF) << 12))
-                + proc->objPriorityBits,
+                | ((proc->config->pal & 0xF) << 12))
+                + proc->layer,
 
-            proc->displayedClassId,
+            proc->jid,
             proc->muIndex
         );
     }
 }
 
-void MU_DisplayAsMMS(struct MUProc * proc)
+void MU_DisplayAsMMS(struct MuProc * proc)
 {
-    if (!proc->boolIsHidden)
+    if (!proc->hidden_b)
     {
         struct Vec2 position;
 
@@ -1147,17 +1098,17 @@ void MU_DisplayAsMMS(struct MUProc * proc)
         position.x &= 0x01FF;
         position.y &= 0x00FF;
 
-        if (proc->stateId != MU_STATE_DISPLAY_UI)
-            if (proc->pUnit && UNIT_FACTION(proc->pUnit) == FACTION_RED)
+        if (proc->state != MU_STATE_DISPLAY_UI)
+            if (proc->unit && UNIT_FACTION(proc->unit) == FACTION_RED)
                 if (gPlaySt.chapterVisionRange != 0)
                     if (!gBmMapFog[MU_GetDisplayYOrg(proc) >> 4][MU_GetDisplayXOrg(proc) >> 4])
                         return; // whew
 
-        if (proc->stateId == MU_STATE_DEATHFADE)
+        if (proc->state == MU_STATE_DEATHFADE)
             position.y |= 0x400;
 
         AP_Update(
-            proc->pAPHandle,
+            proc->sprite_anim,
 
             position.x,
             position.y
@@ -1165,7 +1116,7 @@ void MU_DisplayAsMMS(struct MUProc * proc)
     }
 }
 
-u16 MU_GetMovementSpeed(struct MUProc * proc)
+u16 MU_GetMovementSpeed(struct MuProc * proc)
 {
     int config = proc->moveConfig;
 
@@ -1199,10 +1150,10 @@ u16 MU_GetMovementSpeed(struct MUProc * proc)
             return 0x40;
     }
 
-    return 16 * sMUBaseMoveSpeedLookup[GetClassData(proc->displayedClassId)->slowWalking];
+    return 16 * sMuWalkSpeedLut[GetClassData(proc->jid)->slowWalking];
 }
 
-void MU_SetMoveConfig(struct MUProc * proc, u16 config)
+void MU_SetMoveConfig(struct MuProc * proc, u16 config)
 {
     if (config > 0x100)
         proc->moveConfig = 0x100;
@@ -1210,51 +1161,51 @@ void MU_SetMoveConfig(struct MUProc * proc, u16 config)
         proc->moveConfig = config;
 }
 
-void* MU_GetGfxBufferById(int muIndex)
+void* GetMuImgBufById(int muIndex)
 {
-    return gMUGfxBuffer + (sMUBufferIdLookup[muIndex] * MU_GFX_MAX_SIZE);
+    return gMUGfxBuffer + (sMuImgBufOffLut[muIndex] * MU_GFX_MAX_SIZE);
 }
 
-const void * MU_GetSheetGfx(struct MUProc * proc)
+const void * GetMuImg(struct MuProc * proc)
 {
-    return gMuInfoTable[proc->displayedClassId - 1].img;
+    return gMuInfoTable[proc->jid - 1].img;
 }
 
-const void * MU_GetAnimationByClassId(u16 classId)
+const void * GetMuAnimForJid(u16 classId)
 {
     return gMuInfoTable[classId - 1].anim;
 }
 
-void MU_StartDeathFade(struct MUProc * muProc)
+void MU_StartDeathFade(struct MuProc * muProc)
 {
-    struct MUEffectProc * proc;
+    struct MuEffectProc * proc;
 
-    muProc->stateId = MU_STATE_DEATHFADE;
+    muProc->state = MU_STATE_DEATHFADE;
 
-    proc = Proc_Start(gProcScr_MUDeathFade, muProc);
+    proc = Proc_Start(ProcScr_MuDeathFade, muProc);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
     proc->timeLeft = 0x20;
 
     SetBlendConfig(0, 0x10, 0x10, 0);
 
-    muProc->pAPHandle->frameTimer = 0;
-    muProc->pAPHandle->frameInterval = 0;
+    muProc->sprite_anim->frameTimer = 0;
+    muProc->sprite_anim->frameInterval = 0;
 
     MU_StartHitFlash(muProc, 0);
 
-    muProc->pAPHandle->objLayer = 0xD;
+    muProc->sprite_anim->objLayer = 0xD;
 
     PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
 
-    if (muProc->pUnit->state & US_IN_BALLISTA)
+    if (muProc->unit->state & US_IN_BALLISTA)
     {
-        TryRemoveUnitFromBallista(muProc->pUnit);
-        HideUnitSprite(muProc->pUnit);
+        TryRemoveUnitFromBallista(muProc->unit);
+        HideUnitSprite(muProc->unit);
     }
 }
 
-void MU_DeathFade_OnLoop(struct MUEffectProc * proc)
+void MuDeathFade_OnLoop(struct MuEffectProc * proc)
 {
     short time = (proc->timeLeft--) >> 1;
 
@@ -1262,41 +1213,41 @@ void MU_DeathFade_OnLoop(struct MUEffectProc * proc)
 
     if (proc->timeLeft == 0)
     {
-        MU_End(proc->pMUProc);
+        MU_End(proc->mu);
         Proc_Break(proc);
     }
 }
 
-void MU_BlinkEffect_OnLoop(struct MUEffectProc * proc)
+void MUBlinkEffect_OnLoop(struct MuEffectProc * proc)
 {
-    struct MUProc * muProc = (struct MUProc *) proc->proc_parent;
-    int boolHidden = FALSE;
+    struct MuProc * muProc = (struct MuProc *) proc->proc_parent;
+    int boolHidden = false;
 
     if ((proc->timeLeft & 0x7) < 4)
-        boolHidden = TRUE;
+        boolHidden = true;
 
-    muProc->boolIsHidden = boolHidden;
+    muProc->hidden_b = boolHidden;
 
     if (--proc->timeLeft < 0)
     {
         Proc_Break(proc);
-        muProc->boolIsHidden = TRUE;
+        muProc->hidden_b = true;
     }
 }
 
-void MU_StartBlinkEffect(struct MUProc * muProc)
+void MU_StartBlinkEffect(struct MuProc * muProc)
 {
-    struct MUEffectProc * proc;
+    struct MuEffectProc * proc;
 
-    muProc->stateId = MU_STATE_DEATHFADE;
+    muProc->state = MU_STATE_DEATHFADE;
 
-    proc = Proc_Start(gProcScr_MUBlinkEffect, muProc);
+    proc = Proc_Start(ProcScr_MuBlinkEffect, muProc);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
     proc->timeLeft = 0x40;
 
-    muProc->pAPHandle->frameTimer = 0;
-    muProc->pAPHandle->frameInterval = 0;
+    muProc->sprite_anim->frameTimer = 0;
+    muProc->sprite_anim->frameInterval = 0;
 
     PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
 }
@@ -1326,10 +1277,10 @@ void MU_SetupPixelEffect(u32* data, int frame)
     }
 }
 
-void MU_PixelEffect_OnLoop(struct MUEffectProc * proc)
+void MuPixelEffect_OnLoop(struct MuEffectProc * proc)
 {
     MU_SetupPixelEffect(
-        MU_GetGfxBufferById(((struct MUProc *)(proc->proc_parent))->muIndex),
+        GetMuImgBufById(((struct MuProc *)(proc->proc_parent))->muIndex),
         proc->frameIndex
     );
 
@@ -1344,58 +1295,58 @@ void MU_PixelEffect_OnLoop(struct MUEffectProc * proc)
 
     if (--proc->timeLeft == 0)
     {
-        MU_End(proc->pMUProc);
+        MU_End(proc->mu);
         Proc_Break(proc);
     }
 }
 
-void MU_StartPixelEffect(struct MUProc * muProc)
+void MU_StartPixelEffect(struct MuProc * muProc)
 {
-    struct MUEffectProc * proc;
+    struct MuEffectProc * proc;
 
-    muProc->stateId = MU_STATE_DEATHFADE;
+    muProc->state = MU_STATE_DEATHFADE;
 
-    proc = Proc_Start(ProcScr_MUPixelEffect, muProc);
+    proc = Proc_Start(ProcScr_MuPixelEffect, muProc);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
 
     proc->timeLeft = 0x40;
     proc->frameIndex = 0;
 
-    muProc->pAPHandle->frameTimer = 0;
-    muProc->pAPHandle->frameInterval = 0;
+    muProc->sprite_anim->frameTimer = 0;
+    muProc->sprite_anim->frameInterval = 0;
 
     PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
 }
 
-void MU_Hide(struct MUProc * proc)
+void MU_Hide(struct MuProc * proc)
 {
-    proc->boolIsHidden = TRUE;
+    proc->hidden_b = true;
 }
 
-void MU_Show(struct MUProc * proc)
+void MU_Show(struct MuProc * proc)
 {
-    proc->boolIsHidden = FALSE;
+    proc->hidden_b = false;
 }
 
-void MU_SetDisplayPosition(struct MUProc * proc, int x, int y)
+void MU_SetDisplayPosition(struct MuProc * proc, int x, int y)
 {
-    proc->xSubPosition = x << MU_SUBPIXEL_PRECISION;
-    proc->ySubPosition = y << MU_SUBPIXEL_PRECISION;
+    proc->x_q4 = x << MU_SUBPIXEL_PRECISION;
+    proc->y_q4 = y << MU_SUBPIXEL_PRECISION;
 }
 
-void MU_SetDisplayOffset(struct MUProc * proc, int xOff, int yOff)
+void MU_SetDisplayOffset(struct MuProc * proc, int xOff, int yOff)
 {
-    proc->xSubOffset = xOff << MU_SUBPIXEL_PRECISION;
-    proc->ySubOffset = yOff << MU_SUBPIXEL_PRECISION;
+    proc->x_offset_q4 = xOff << MU_SUBPIXEL_PRECISION;
+    proc->y_offset_q4 = yOff << MU_SUBPIXEL_PRECISION;
 }
 
-void MU_StartFlashFade(struct MUProc * proc, int flashType)
+void MU_StartFlashFade(struct MuProc * proc, int flashType)
 {
-    proc->pAPHandle->tileBase =
-        proc->pMUConfig->objTileIndex + (MU_FADE_OBJ_PAL << 12) + proc->objPriorityBits;
+    proc->sprite_anim->tileBase =
+        proc->config->chr + (MU_FADE_OBJ_PAL << 12) + proc->layer;
 
-    ApplyPalette(PAL_OBJ(proc->pMUConfig->paletteIndex), 0x10 + MU_FADE_OBJ_PAL);
+    ApplyPalette(PAL_OBJ(proc->config->pal), 0x10 + MU_FADE_OBJ_PAL);
 
     StartPalFade(
         MUFlashColorLookup[flashType],
@@ -1403,57 +1354,57 @@ void MU_StartFlashFade(struct MUProc * proc, int flashType)
     );
 }
 
-void MU_8079858(struct MUProc * muProc)
+void MU_8079858(struct MuProc * muProc)
 {
-    struct MUEffectProc * proc;
+    struct MuEffectProc * proc;
 
     StartPalFade(
-        PAL_OBJ(muProc->pMUConfig->paletteIndex),
+        PAL_OBJ(muProc->config->pal),
         0x15, 8, (struct Proc*) muProc
     );
 
-    proc = Proc_Start(gProcScr_MU_89A2CF8, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_MuRestorePalInfo, PROC_TREE_3);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
 }
 
-void MU_807988C(struct MUEffectProc * proc)
+void MuRestorePalInfo_Apply(struct MuEffectProc * proc)
 {
-    struct MUProc * muProc = proc->pMUProc;
+    struct MuProc * muProc = proc->mu;
 
-    muProc->pAPHandle->tileBase =
-        ((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        ((muProc->config->pal & 0xF) << 12) + muProc->config->chr + muProc->layer;
 }
 
-void MU_StartActionAnim(struct MUProc * proc)
+void MU_StartActionAnim(struct MuProc * proc)
 {
-    AP_SwitchAnimation(proc->pAPHandle, MU_FACING_SELECTED);
+    AP_SwitchAnimation(proc->sprite_anim, MU_FACING_SELECTED);
 
-    proc->pAPHandle->frameTimer    = 0;
-    proc->pAPHandle->frameInterval = 0x100;
+    proc->sprite_anim->frameTimer    = 0;
+    proc->sprite_anim->frameInterval = 0x100;
 
-    CallDelayedArg(MU_EndSelectionApAnim, (int) proc->pAPHandle, 30);
+    CallDelayedArg(MU_EndSelectionApAnim, (int) proc->sprite_anim, 30);
 }
 
 void MU_EndSelectionApAnim(int argAp)
 {
-    struct APHandle* ap = (struct APHandle*) argAp;
+    struct APHandle * ap = (struct APHandle *) argAp;
 
     ap->frameTimer    = 0;
     ap->frameInterval = 0;
 }
 
-void MU_StartDelayedFaceTarget(struct MUProc * proc)
+void MU_StartDelayedFaceTarget(struct MuProc * proc)
 {
-    proc->pAPHandle->frameTimer    = 0;
-    proc->pAPHandle->frameInterval = 0x100;
+    proc->sprite_anim->frameTimer    = 0;
+    proc->sprite_anim->frameInterval = 0x100;
 
-    CallDelayedArg(MU_EndRefaceApAnim, (int) proc->pAPHandle, 30);
+    CallDelayedArg(MU_EndRefaceApAnim, (int) proc->sprite_anim, 30);
 }
 
 void MU_EndRefaceApAnim(int argAp)
 {
-    struct APHandle* ap = (struct APHandle*) argAp;
+    struct APHandle * ap = (struct APHandle *) argAp;
 
     int actor1 = gManimSt.subjectActorId;
     int actor2 = 1 - actor1;
@@ -1467,165 +1418,165 @@ void MU_EndRefaceApAnim(int argAp)
     ap->frameInterval = 0;
 }
 
-void MU_StartFastMoveAnim(struct MUProc * proc)
+void MU_StartFastMoveAnim(struct MuProc * proc)
 {
-    proc->pAPHandle->frameTimer    = 0;
-    proc->pAPHandle->frameInterval = 0x40;
+    proc->sprite_anim->frameTimer    = 0;
+    proc->sprite_anim->frameInterval = 0x40;
 
-    CallDelayedArg(MU_EndFasterApAnim, (int) proc->pAPHandle, 20);
+    CallDelayedArg(MU_EndFasterApAnim, (int) proc->sprite_anim, 20);
 }
 
 void MU_EndFasterApAnim(int argAp)
 {
-    struct APHandle* ap = (struct APHandle*) argAp;
+    struct APHandle * ap = (struct APHandle *) argAp;
 
     ap->frameTimer    = 0;
     ap->frameInterval = 0;
 }
 
-void MU_StartCritFlash(struct MUProc * muProc, int flashType)
+void MU_StartCritFlash(struct MuProc * muProc, int flashType)
 {
-    struct MUFlashEffectProc * proc;
+    struct MuFlashEffectProc * proc;
 
     ApplyPalette(MUFlashColorLookup[flashType], 0x10 + MU_FADE_OBJ_PAL);
 
-    proc = Proc_Start(ProcScr_MUCritFlash, muProc);
+    proc = Proc_Start(ProcScr_MuCritFlash, muProc);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
 }
 
-void MU_CritFlash_Init(struct MUFlashEffectProc * proc)
+void MuCritFlash_Init(struct MuFlashEffectProc * proc)
 {
     proc->timer = 0;
 }
 
-void MU_CritFlash_SetFadedPalette(struct MUFlashEffectProc * proc)
+void MuCritFlash_SetFadedPalette(struct MuFlashEffectProc * proc)
 {
-    struct MUProc * muProc = proc->pMUProc;
+    struct MuProc * muProc = proc->mu;
 
-    muProc->pAPHandle->tileBase =
-        (MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        (MU_FADE_OBJ_PAL << 12) + muProc->config->chr + muProc->layer;
 }
 
-void MU_CritFlash_SetRegularPalette(struct MUFlashEffectProc * proc)
+void MuCritFlash_SetRegularPalette(struct MuFlashEffectProc * proc)
 {
-    struct MUProc * muProc = proc->pMUProc;
+    struct MuProc * muProc = proc->mu;
 
-    muProc->pAPHandle->tileBase =
-        ((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        ((muProc->config->pal & 0xF) << 12) + muProc->config->chr + muProc->layer;
 }
 
-void MU_CritFlash_StartFadeBack_maybe(struct MUFlashEffectProc * proc)
+void MuCritFlash_StartFadeBack_maybe(struct MuFlashEffectProc * proc)
 {
     StartPalFade(
-        PAL_OBJ(proc->pMUProc->pMUConfig->paletteIndex),
+        PAL_OBJ(proc->mu->config->pal),
         0x15, 0x14, (struct Proc*) proc
     );
 }
 
-void MU_CritFlash_SpriteShakeLoop(struct MUFlashEffectProc * proc)
+void MuCritFlash_SpriteShakeLoop(struct MuFlashEffectProc * proc)
 {
     proc->timer++;
 
-    MU_SetDisplayOffset(proc->pMUProc, ((proc->timer & 1) ? 2 : -2), 0);
+    MU_SetDisplayOffset(proc->mu, ((proc->timer & 1) ? 2 : -2), 0);
 
     if (proc->timer >= 12)
     {
-        MU_SetDisplayOffset(proc->pMUProc, 0, 0);
+        MU_SetDisplayOffset(proc->mu, 0, 0);
         Proc_Break(proc);
     }
 }
 
-void MU_CritFlash_RestorePalette(struct MUFlashEffectProc * proc)
+void MuCritFlash_RestorePalette(struct MuFlashEffectProc * proc)
 {
-    struct MUProc * muProc = proc->pMUProc;
+    struct MuProc * muProc = proc->mu;
 
-    muProc->pAPHandle->tileBase =
-        ((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        ((muProc->config->pal & 0xF) << 12) + muProc->config->chr + muProc->layer;
 }
 
-void MU_StartHitFlash(struct MUProc * muProc, int flashType)
+void MU_StartHitFlash(struct MuProc * muProc, int flashType)
 {
-    struct MUFlashEffectProc * proc;
+    struct MuFlashEffectProc * proc;
 
     ApplyPalette(MUFlashColorLookup[flashType], 0x10 + MU_FADE_OBJ_PAL);
 
-    muProc->pAPHandle->tileBase =
-        (MU_FADE_OBJ_PAL << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        (MU_FADE_OBJ_PAL << 12) + muProc->config->chr + muProc->layer;
 
     StartPalFade(
-        PAL_OBJ(muProc->pMUConfig->paletteIndex),
+        PAL_OBJ(muProc->config->pal),
         0x15, 0x14, (struct Proc*) muProc
     );
 
-    proc = Proc_Start(ProcScr_MUHitFlash, muProc);
+    proc = Proc_Start(ProcScr_MuHitFlash, muProc);
 
-    proc->pMUProc = muProc;
+    proc->mu = muProc;
 }
 
-void MU_HitFlash_RestorePalette(struct MUFlashEffectProc * proc)
+void MuHitFlash_RestorePalette(struct MuFlashEffectProc * proc)
 {
-    struct MUProc * muProc = proc->pMUProc;
+    struct MuProc * muProc = proc->mu;
 
-    muProc->pAPHandle->tileBase =
-        ((muProc->pMUConfig->paletteIndex & 0xF) << 12) + muProc->pMUConfig->objTileIndex + muProc->objPriorityBits;
+    muProc->sprite_anim->tileBase =
+        ((muProc->config->pal & 0xF) << 12) + muProc->config->chr + muProc->layer;
 }
 
 void MU_AllForceSetMaxMoveSpeed(void)
 {
-    Proc_ForEach(gProcScr_MoveUnit, MU_ForceSetMaxMoveSpeed);
+    Proc_ForEach(ProcScr_Mu, MU_ForceSetMaxMoveSpeed);
 }
 
 void MU_ForceSetMaxMoveSpeed(ProcPtr proc)
 {
-    ((struct MUProc *)(proc))->boolForceMaxSpeed = TRUE;
+    ((struct MuProc *)(proc))->boolForceMaxSpeed = true;
 }
 
-void MU_SetSpecialSprite(struct MUProc * proc, int displayedClassId, const u16 * palette)
+void MU_SetSpecialSprite(struct MuProc * proc, int jid, const u16 * palette)
 {
-    proc->pAPHandle->frameTimer = 0;
-    proc->pAPHandle->frameInterval = 0;
+    proc->sprite_anim->frameTimer = 0;
+    proc->sprite_anim->frameInterval = 0;
 
-    proc->displayedClassId = displayedClassId;
+    proc->jid = jid;
 
     AP_SetDefinition(
-        proc->pAPHandle,
-        MU_GetAnimationByClassId(proc->displayedClassId)
+        proc->sprite_anim,
+        GetMuAnimForJid(proc->jid)
     );
 
     Decompress(
-        MU_GetSheetGfx(proc),
-        MU_GetGfxBufferById(proc->pMUConfig->muIndex)
+        GetMuImg(proc),
+        GetMuImgBufById(proc->config->muIndex)
     );
 
-    ApplyPalette(palette, 0x10 + proc->pMUConfig->paletteIndex);
+    ApplyPalette(palette, 0x10 + proc->config->pal);
 }
 
-void MU_SetPaletteId(struct MUProc * proc, unsigned paletteId)
+void MU_SetPaletteId(struct MuProc * proc, unsigned paletteId)
 {
-    proc->pMUConfig->paletteIndex = paletteId;
+    proc->config->pal = paletteId;
 
-    proc->pAPHandle->tileBase =
-        proc->pMUConfig->objTileIndex + ((paletteId % 0x10) << 12) + proc->objPriorityBits;
+    proc->sprite_anim->tileBase =
+        proc->config->chr + ((paletteId % 0x10) << 12) + proc->layer;
 }
 
-struct MUProc * MU_GetByIndex(int muIndex)
+struct MuProc * MU_GetByIndex(int muIndex)
 {
-    if (!sMUConfigArray[muIndex].muIndex)
+    if (!sMuConfig[muIndex].muIndex)
         return NULL;
 
-    return sMUConfigArray[muIndex].pMUProc;
+    return sMuConfig[muIndex].mu;
 }
 
-struct MUProc * MU_GetByUnit(struct Unit* unit)
+struct MuProc * MU_GetByUnit(struct Unit * unit)
 {
     int i;
 
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        struct MUProc * proc = MU_GetByIndex(i);
+        struct MuProc * proc = MU_GetByIndex(i);
 
-        if (proc->pUnit == unit)
+        if (proc->unit == unit)
             return proc;
     }
 
@@ -1634,19 +1585,19 @@ struct MUProc * MU_GetByUnit(struct Unit* unit)
 
 void MU_SortObjLayers(void)
 {
-    struct MUProc * procs[MU_MAX_COUNT];
+    struct MuProc * procs[MU_MAX_COUNT];
 
     s8 i, j;
     s8 count;
 
     // Clear proc list
-    CpuFill32(0, procs, MU_MAX_COUNT * sizeof(struct MUProc *));
+    CpuFill32(0, procs, MU_MAX_COUNT * sizeof(struct MuProc *));
     count = 0;
 
     // Building proc list
     for (i = 0; i < MU_MAX_COUNT; ++i)
     {
-        struct MUProc * proc = MU_GetByIndex(i);
+        struct MuProc * proc = MU_GetByIndex(i);
 
         if (proc)
         {
@@ -1660,9 +1611,9 @@ void MU_SortObjLayers(void)
     {
         for (j = (i + 1); j < count; ++j)
         {
-            if (procs[j]->ySubPosition < procs[i]->ySubPosition)
+            if (procs[j]->y_q4 < procs[i]->y_q4)
             {
-                struct MUProc * tmp = procs[i];
+                struct MuProc * tmp = procs[i];
 
                 procs[i] = procs[j];
                 procs[j] = tmp;
@@ -1672,5 +1623,5 @@ void MU_SortObjLayers(void)
 
     // Set obj layer based on order
     for (i = 0; i < count; ++i)
-        procs[i]->pAPHandle->objLayer = 10 - i;
+        procs[i]->sprite_anim->objLayer = 10 - i;
 }

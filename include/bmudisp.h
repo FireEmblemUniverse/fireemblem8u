@@ -6,7 +6,7 @@ void SetupMapSpritesPalettes(void);
 // ??? sub_8026670(???);
 void ResetUnitSprites(void);
 // ??? ResetUnitSpritesB(???);
-int SMS_80266F0(int smsId, int frameId);
+int StartUiSMS(int smsId, int frameId);
 int SMS_SomethingGmapUnit(int smsId, int frameId, int slot);
 int UseUnitSprite(u32);
 int ApplyUnitSpriteImage16x16(int, u32);

@@ -105,66 +105,65 @@ enum
     MU_FLASH_YELLOW,
 };
 
-struct MUConfig;
+struct MuConfig;
 
-struct MUProc {
+struct MuProc {
     PROC_HEADER;
 
-    /* 2C */ struct Unit * pUnit;
-    /* 30 */ struct APHandle * pAPHandle;
-    /* 34 */ struct MUConfig * pMUConfig;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ struct APHandle * sprite_anim;
+    /* 34 */ struct MuConfig * config;
     /* 38 */ void* pGfxVRAM;
 
     /* 3C */ u8 muIndex;
     /* 3D */ u8 _u3D;
-    /* 3E */ u8 boolAttractCamera;
-    /* 3F */ u8 stateId;
-    /* 40 */ u8 boolIsHidden;
-    /* 41 */ u8 displayedClassId;
-    /* 42 */ s8 facingId;
-    /* 43 */ u8 stepSoundTimer;
+    /* 3E */ u8 cam_b;
+    /* 3F */ u8 state;
+    /* 40 */ u8 hidden_b;
+    /* 41 */ u8 jid;
+    /* 42 */ s8 facing;
+    /* 43 */ u8 step_sound_clock;
     /* 44 */ u8 boolForceMaxSpeed;
-    /* 46 */ u16 objPriorityBits;
-    /* 48 */ u16 moveTimer;
+    /* 46 */ u16 layer;
+    /* 48 */ u16 move_clock_q4;
     /* 4A */ short moveConfig;
 
     // Coordinates are in 16th of pixel
-    /* 4C */ short xSubPosition;
-    /* 4E */ short ySubPosition;
-    /* 50 */ short xSubOffset;
-    /* 52 */ short ySubOffset;
+    /* 4C */ short x_q4;
+    /* 4E */ short y_q4;
+    /* 50 */ short x_offset_q4;
+    /* 52 */ short y_offset_q4;
 };
 
-#define MU_GetDisplayXOrg(proc) ((((proc)->xSubPosition + (proc)->xSubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
-#define MU_GetDisplayYOrg(proc) ((((proc)->ySubPosition + (proc)->ySubOffset) >> MU_SUBPIXEL_PRECISION) + 8)
+#define MU_GetDisplayXOrg(proc) ((((proc)->x_q4 + (proc)->x_offset_q4) >> MU_SUBPIXEL_PRECISION) + 8)
+#define MU_GetDisplayYOrg(proc) ((((proc)->y_q4 + (proc)->y_offset_q4) >> MU_SUBPIXEL_PRECISION) + 8)
 
 
-struct MUConfig {
+struct MuConfig {
     /* 00 */ u8  muIndex;
-    /* 01 */ u8  paletteIndex;
-    /* 02 */ u16 objTileIndex;
+    /* 01 */ u8  pal;
+    /* 02 */ u16 chr;
     /* 04 */ u8  currentCommand;
     /* 05 */ s8  commands[MU_COMMAND_MAX_COUNT];
     /* 45 */ // 3 byte padding
-    /* 48 */ struct MUProc * pMUProc;
+    /* 48 */ struct MuProc * mu;
 };
 
-#define MU_AdvanceGetCommand(proc) (proc->pMUConfig->commands[proc->pMUConfig->currentCommand++])
+#define MU_AdvanceGetCommand(proc) (proc->config->commands[proc->config->currentCommand++])
 
-struct MUStepSoundProc
+struct MuStepSoundProc
 {
     PROC_HEADER;
+    STRUCT_PAD(0x29, 0x58);
 
-    /* 29 */ STRUCT_PAD(0x29, 0x58);
-
-    /* 58 */ u32 idSound1;
-    /* 5C */ u32 idSound2;
+    /* 58 */ u32 song1;
+    /* 5C */ u32 song2;
     /* 60 */ u32 u60_buggedmaybe; // Checked for in MU_StartStepSfx but never initialized
-    /* 64 */ s16 xSound1;
-    /* 66 */ s16 xSound2;
+    /* 64 */ s16 x1;
+    /* 66 */ s16 x2;
 };
 
-struct MUFogBumpFxProc
+struct MuFogBumpProc
 {
     PROC_HEADER;
 
@@ -172,29 +171,29 @@ struct MUFogBumpFxProc
     /* 30 */ int yDisplay;
 
     /* 34 */ STRUCT_PAD(0x34, 0x50);
-    /* 50 */ struct APHandle * pAPHandle;
+    /* 50 */ struct APHandle * sprite_anim;
 
     /* 54 */ STRUCT_PAD(0x54, 0x64);
     /* 64 */ s16 timer;
 };
 
-struct MUEffectProc
+struct MuEffectProc
 {
     PROC_HEADER;
 
     /* 29 */ STRUCT_PAD(0x29, 0x54);
-    /* 54 */ struct MUProc * pMUProc;
+    /* 54 */ struct MuProc * mu;
 
     /* 58 */ STRUCT_PAD(0x58, 0x64);
     /* 64 */ s16 timeLeft;
     /* 66 */ s16 frameIndex;
 };
 
-struct MUFlashEffectProc
+struct MuFlashEffectProc
 {
     PROC_HEADER;
 
-    /* 2C */ struct MUProc * pMUProc;
+    /* 2C */ struct MuProc * mu;
     /* 30 */ u8 timer;
 };
 
@@ -206,109 +205,109 @@ struct MuInfo {
 extern CONST_DATA struct MuInfo unit_icon_move_table[];
 #define gMuInfoTable unit_icon_move_table
 
-typedef void (* MuStateFunc)(struct MUProc *);
+typedef void (* MuStateFunc)(struct MuProc *);
 
-void MU_Init();
-struct MUProc * MU_CreateExt(struct Unit* pUnit, unsigned jid, unsigned palId);
-struct MUProc * MU_Create(struct Unit* pUnit);
-void MU_ManualUpdate(struct MUProc * proc);
-void MU_EnableAttractCamera(struct MUProc * proc);
-void MU_DisableAttractCamera(struct MUProc * proc);
-struct MUProc * MU_CreateForUI(struct Unit* pUnit, int x, int y);
-void MU_8078524(struct MUProc * proc);
-struct MUProc * MU_CreateInternal(u16 x, u16 y, u16 jid, int objTileId, unsigned palId);
-void MU_SetFacing(struct MUProc * proc, int facingId);
-void MU_SetDefaultFacing(struct MUProc * proc);
-void MU_SetDefaultFacing_Auto(void);
-void MU_StartMoveScript_Auto(const u8 commands[MU_COMMAND_MAX_COUNT]);
-s8 MU_Exists(void);
-s8 MU_IsAnyActive(void);
-s8 MU_IsActive(struct MUProc * proc);
-void MU_StartMoveScript(struct MUProc * proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
-struct MUProc * MU_CreateScripted(u16 x, u16 y, u16 jid, unsigned palId, const u8 commands[MU_COMMAND_MAX_COUNT]);
-void MuStepSe_Init(struct MUStepSoundProc * proc);
-void MuStepSe_PlaySeA(struct MUStepSoundProc * proc);
-void MuStepSe_PlaySeB(struct MUStepSoundProc * proc);
+void InitMus();
+struct MuProc * StartMuExt(struct Unit * unit, unsigned jid, unsigned palId);
+struct MuProc * StartMu(struct Unit * unit);
+void UpdateMu(struct MuProc * proc);
+void EnableMuCamera(struct MuProc * proc);
+void DisableMuCamera(struct MuProc * proc);
+struct MuProc * StartUiMu(struct Unit * unit, int x, int y);
+void StartUiStandingMu(struct MuProc * proc);
+struct MuProc * StartMuInternal(u16 x, u16 y, u16 jid, int objTileId, unsigned palId);
+void SetMuFacing(struct MuProc * proc, int facing);
+void SetMuDefaultFacing(struct MuProc * proc);
+void SetAutoMuDefaultFacing(void);
+void SetAutoMuMoveScript(const u8 commands[MU_COMMAND_MAX_COUNT]);
+s8 MuExists(void);
+s8 MuExistsActive(void);
+s8 IsMuActive(struct MuProc * proc);
+void SetMuMoveScript(struct MuProc * proc, const u8 commands[MU_COMMAND_MAX_COUNT]);
+struct MuProc * StartMuScripted(u16 x, u16 y, u16 jid, int palId, const u8 commands[MU_COMMAND_MAX_COUNT]);
+void MuStepSe_Init(struct MuStepSoundProc * proc);
+void MuStepSe_PlaySeA(struct MuStepSoundProc * proc);
+void MuStepSe_PlaySeB(struct MuStepSoundProc * proc);
 void MU_StartStepSfx(int soundId, int b, int hPosition);
-void MU_PlayStepSfx(struct MUProc * proc);
-void MU_8078894(struct MUProc * proc);
-void MU_InterpretCommandScript(struct MUProc * proc);
+void PlayMuStepSe(struct MuProc * proc);
+void MU_8078894(struct MuProc * proc);
+void MU_InterpretCommandScript(struct MuProc * proc);
 void MU_StartFogBumpFx(int x, int y);
-void MuFogBump_Init(struct MUFogBumpFxProc * proc);
-void MuFogBump_ScaleLoop(struct MUFogBumpFxProc * proc);
-void MuFogBump_EndLoop(struct MUFogBumpFxProc * proc);
+void MuFogBump_Init(struct MuFogBumpProc * proc);
+void MuFogBump_ScaleLoop(struct MuFogBumpProc * proc);
+void MuFogBump_EndLoop(struct MuFogBumpProc * proc);
 u8 MU_IsFogBumpFxActive(void);
-void Mu_OnStateBump(struct MUProc * proc);
-void Mu_OnStateMoving(struct MUProc * proc);
-void Mu_OnStateSleeping(struct MUProc * proc);
-void Mu_OnStateNone(struct MUProc * proc);
-void Mu_OnStateDoNothing(struct MUProc * proc);
-void Mu_OnStateMovement(struct MUProc * proc);
-void MU_AdvanceStepSfx(struct MUProc * proc);
-void MU_OnLoop(struct MUProc * proc);
-void MU_OnEnd(struct MUProc * proc);
+void Mu_OnStateBump(struct MuProc * proc);
+void Mu_OnStateMoving(struct MuProc * proc);
+void Mu_OnStateSleeping(struct MuProc * proc);
+void Mu_OnStateNone(struct MuProc * proc);
+void Mu_OnStateDoNothing(struct MuProc * proc);
+void Mu_OnStateMovement(struct MuProc * proc);
+void MU_AdvanceStepSfx(struct MuProc * proc);
+void MU_OnLoop(struct MuProc * proc);
+void MU_OnEnd(struct MuProc * proc);
 void MU_EndAll(void);
-void MU_End(struct MUProc * proc);
-void MU_EndInternal(struct MUProc * proc);
-void MU_80790CC(struct MUProc * proc);
+void MU_End(struct MuProc * proc);
+void MU_EndInternal(struct MuProc * proc);
+void MU_80790CC(struct MuProc * proc);
 void MU_AllDisable(void);
 void MU_AllEnable(void);
 void MU_GetComputedEndPosition(int * xOut, int * yOut, const u8 * commands);
 s8 MU_CanStart(void);
 void MU_AllRestartAnimations(void);
-static struct MUConfig * MU_GenerateConfigDefault(int objTileId, u8 * outIndex);
-static struct MUConfig * MU_GenerateConfigOther(int objTileId, u8 * outIndex);
-u8 MU_ComputeDisplayPosition(struct MUProc * proc, struct Vec2 * out);
-void MU_DisplayAsSMS(struct MUProc * proc);
-void MU_DisplayAsMMS(struct MUProc * proc);
-u16 MU_GetMovementSpeed(struct MUProc * proc);
-void MU_SetMoveConfig(struct MUProc * proc, u16 config);
-void* MU_GetGfxBufferById(int muIndex);
-const void * MU_GetSheetGfx(struct MUProc * proc);
-const void * MU_GetAnimationByClassId(u16 classId);
-void MU_StartDeathFade(struct MUProc * muProc);
-void MU_DeathFade_OnLoop(struct MUEffectProc * proc);
-void MU_BlinkEffect_OnLoop(struct MUEffectProc * proc);
-void MU_StartBlinkEffect(struct MUProc * muProc);
+static struct MuConfig * GetDefaultMuConfig(int objTileId, u8 * outIndex);
+static struct MuConfig * GetNewMuConfig(int objTileId, u8 * outIndex);
+u8 MU_ComputeDisplayPosition(struct MuProc * proc, struct Vec2 * out);
+void MU_DisplayAsSMS(struct MuProc * proc);
+void MU_DisplayAsMMS(struct MuProc * proc);
+u16 MU_GetMovementSpeed(struct MuProc * proc);
+void MU_SetMoveConfig(struct MuProc * proc, u16 config);
+void* GetMuImgBufById(int muIndex);
+const void * GetMuImg(struct MuProc * proc);
+const void * GetMuAnimForJid(u16 classId);
+void MU_StartDeathFade(struct MuProc * muProc);
+void MuDeathFade_OnLoop(struct MuEffectProc * proc);
+void MUBlinkEffect_OnLoop(struct MuEffectProc * proc);
+void MU_StartBlinkEffect(struct MuProc * muProc);
 void MU_SetupPixelEffect(u32* data, int frame);
-void MU_PixelEffect_OnLoop(struct MUEffectProc * proc);
-void MU_StartPixelEffect(struct MUProc * muProc);
-void MU_Hide(struct MUProc * proc);
-void MU_Show(struct MUProc * proc);
-void MU_SetDisplayPosition(struct MUProc * proc, int x, int y);
-void MU_SetDisplayOffset(struct MUProc * proc, int xOff, int yOff);
-void MU_StartFlashFade(struct MUProc * proc, int flashType);
-void MU_8079858(struct MUProc * muProc);
-void MU_807988C(struct MUEffectProc * proc);
-void MU_StartActionAnim(struct MUProc * proc);
+void MuPixelEffect_OnLoop(struct MuEffectProc * proc);
+void MU_StartPixelEffect(struct MuProc * muProc);
+void MU_Hide(struct MuProc * proc);
+void MU_Show(struct MuProc * proc);
+void MU_SetDisplayPosition(struct MuProc * proc, int x, int y);
+void MU_SetDisplayOffset(struct MuProc * proc, int xOff, int yOff);
+void MU_StartFlashFade(struct MuProc * proc, int flashType);
+void MU_8079858(struct MuProc * muProc);
+void MuRestorePalInfo_Apply(struct MuEffectProc * proc);
+void MU_StartActionAnim(struct MuProc * proc);
 void MU_EndSelectionApAnim(int argAp);
-void MU_StartDelayedFaceTarget(struct MUProc * proc);
+void MU_StartDelayedFaceTarget(struct MuProc * proc);
 void MU_EndRefaceApAnim(int argAp);
 void MU_EndFasterApAnim(int argAp);
-void MU_StartFastMoveAnim(struct MUProc * proc);
-void MU_StartCritFlash(struct MUProc * muProc, int flashType);
-void MU_CritFlash_Init(struct MUFlashEffectProc * proc);
-void MU_CritFlash_SetFadedPalette(struct MUFlashEffectProc * proc);
-void MU_CritFlash_SetRegularPalette(struct MUFlashEffectProc * proc);
-void MU_CritFlash_StartFadeBack_maybe(struct MUFlashEffectProc * proc);
-void MU_CritFlash_SpriteShakeLoop(struct MUFlashEffectProc * proc);
-void MU_CritFlash_RestorePalette(struct MUFlashEffectProc * proc);
-void MU_StartHitFlash(struct MUProc * muProc, int flashType);
-void MU_HitFlash_RestorePalette(struct MUFlashEffectProc * proc);
+void MU_StartFastMoveAnim(struct MuProc * proc);
+void MU_StartCritFlash(struct MuProc * muProc, int flashType);
+void MuCritFlash_Init(struct MuFlashEffectProc * proc);
+void MuCritFlash_SetFadedPalette(struct MuFlashEffectProc * proc);
+void MuCritFlash_SetRegularPalette(struct MuFlashEffectProc * proc);
+void MuCritFlash_StartFadeBack_maybe(struct MuFlashEffectProc * proc);
+void MuCritFlash_SpriteShakeLoop(struct MuFlashEffectProc * proc);
+void MuCritFlash_RestorePalette(struct MuFlashEffectProc * proc);
+void MU_StartHitFlash(struct MuProc * muProc, int flashType);
+void MuHitFlash_RestorePalette(struct MuFlashEffectProc * proc);
 void MU_AllForceSetMaxMoveSpeed(void);
 void MU_ForceSetMaxMoveSpeed(ProcPtr proc);
-void MU_SetSpecialSprite(struct MUProc * proc, int displayedClassId, const u16 * palette);
-void MU_SetPaletteId(struct MUProc * proc, unsigned paletteId);
-struct MUProc * MU_GetByIndex(int muIndex);
-struct MUProc * MU_GetByUnit(struct Unit* unit);
+void MU_SetSpecialSprite(struct MuProc * proc, int jid, const u16 * palette);
+void MU_SetPaletteId(struct MuProc * proc, unsigned paletteId);
+struct MuProc * MU_GetByIndex(int muIndex);
+struct MuProc * MU_GetByUnit(struct Unit * unit);
 void MU_SortObjLayers(void);
 
 extern u8 gMUGfxBuffer[MU_GFX_MAX_SIZE * MU_MAX_COUNT];
 
-extern struct ProcCmd CONST_DATA gProcScr_MoveUnit[];
-extern struct ProcCmd CONST_DATA gProcScr_MUDeathFade[];
-extern struct ProcCmd CONST_DATA gProcScr_MUBlinkEffect[];
-extern struct ProcCmd CONST_DATA gProcScr_MU_89A2CF8[];
+extern struct ProcCmd CONST_DATA ProcScr_Mu[];
+extern struct ProcCmd CONST_DATA ProcScr_MuDeathFade[];
+extern struct ProcCmd CONST_DATA ProcScr_MuBlinkEffect[];
+extern struct ProcCmd CONST_DATA ProcScr_MuRestorePalInfo[];
 extern u16 CONST_DATA MuSoundScr_Foot[];
 extern u16 CONST_DATA MuSoundScr_FootHeavy[];
 extern u16 CONST_DATA MuSoundScr_Mounted[];
@@ -325,10 +324,10 @@ extern u16 CONST_DATA MuSoundScr_Unused2[];
 extern u16 CONST_DATA MuSoundScr_Boat[];
 extern u16 CONST_DATA MuSoundScr_Myrrh[];
 // extern ??? gUnknown_089A2C28
-// extern ??? gProcScr_MoveUnit
-extern CONST_DATA struct ProcCmd gProcScr_MUDeathFade[];
-extern CONST_DATA struct ProcCmd gProcScr_MUBlinkEffect[];
-extern CONST_DATA struct ProcCmd gProcScr_MU_89A2CF8[];
+// extern ??? ProcScr_Mu
+extern CONST_DATA struct ProcCmd ProcScr_MuDeathFade[];
+extern CONST_DATA struct ProcCmd ProcScr_MuBlinkEffect[];
+extern CONST_DATA struct ProcCmd ProcScr_MuRestorePalInfo[];
 
 extern const u16 * CONST_DATA MUFlashColorLookup[];
 

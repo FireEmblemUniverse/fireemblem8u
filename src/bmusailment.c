@@ -213,7 +213,7 @@ void KillAllRedUnits_Loop(struct UnknownBMUSAilmentProc* proc) {
         proc->unk_4C++;
         Proc_Goto(proc, 0);
     } else {
-        MU_StartDeathFade(MU_Create(unit));
+        MU_StartDeathFade(StartMu(unit));
         proc->unk_4C++;
         Proc_Break(proc);
     }

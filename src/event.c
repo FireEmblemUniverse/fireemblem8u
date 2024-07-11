@@ -419,7 +419,7 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
     if (IsBattleDeamonActive())
         return FALSE;
 
-    if (Proc_Find(gProcScr_MUDeathFade))
+    if (Proc_Find(ProcScr_MuDeathFade))
         return FALSE;
 
     return TRUE;

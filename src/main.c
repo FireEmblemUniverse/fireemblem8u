@@ -55,7 +55,7 @@ void AgbMain()
     SramInit();
     Proc_Init();
     AP_ClearAll();
-    MU_Init();
+    InitMus();
     SetLCGRNValue(0x42D690E9);
     InitRN(AdvanceGetLCGRNValue());
     DisableKeyComboResetEN();

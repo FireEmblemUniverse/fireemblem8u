@@ -21,10 +21,10 @@ void MakeBattleMOVEUNIT(int maActor, struct BattleUnit* bu, struct Unit* unit)
 
     gManimSt.actor[maActor].unit = unit;
     gManimSt.actor[maActor].bu   = bu;
-    gManimSt.actor[maActor].mu   = MU_Create(unit);
+    gManimSt.actor[maActor].mu   = StartMu(unit);
 
-    gManimSt.actor[maActor].mu->pAPHandle->frameTimer    = 0;
-    gManimSt.actor[maActor].mu->pAPHandle->frameInterval = 0;
+    gManimSt.actor[maActor].mu->sprite_anim->frameTimer    = 0;
+    gManimSt.actor[maActor].mu->sprite_anim->frameInterval = 0;
 
     if (BUNIT_IS_OBSTACLE(bu))
         MU_Hide(gManimSt.actor[maActor].mu);
@@ -47,19 +47,19 @@ void SetBattleAnimFacing(int maActor, int maOpponent, int facing)
             gManimSt.actor[maActor].unit->xPos,    gManimSt.actor[maActor].unit->yPos,
             gManimSt.actor[maOpponent].unit->xPos, gManimSt.actor[maOpponent].unit->yPos);
 
-        MU_SetFacing(gManimSt.actor[maActor].mu, muFacing);
+        SetMuFacing(gManimSt.actor[maActor].mu, muFacing);
 
         break;
 
     case MA_FACING_DEFAULT:
-        MU_SetDefaultFacing(gManimSt.actor[maActor].mu);
+        SetMuDefaultFacing(gManimSt.actor[maActor].mu);
         break;
 
     case MA_FACING_UNK:
         muFacing = GetFacingDirection(
             gManimSt.actor[maActor].unit->xPos, gManimSt.actor[maActor].unit->yPos, 0, 0);
 
-        MU_SetFacing(gManimSt.actor[maActor].mu, muFacing);
+        SetMuFacing(gManimSt.actor[maActor].mu, muFacing);
         break;
     } // switch (facing)
 }
@@ -127,7 +127,7 @@ void sub_807B4D0(void)
 
     // Apply
     for (i = 0; i < count; ++i)
-        gManimSt.actor[array[i]].mu->pAPHandle->objLayer = gUnknown_08205714[i];
+        gManimSt.actor[array[i]].mu->sprite_anim->objLayer = gUnknown_08205714[i];
 }
 
 void BeginMapAnimForPoisonDmg(void)
@@ -360,7 +360,7 @@ CONST_DATA struct ProcCmd gProc_MapAnimEnd[] = {
     PROC_CALL(MapAnimProc_DisplayDeahQuote),
     PROC_WHILE(BattleEventEngineExists),
     PROC_CALL(MapAnmiProc_DisplayDeathFade),
-    PROC_WHILE_EXISTS(gProcScr_MUDeathFade),
+    PROC_WHILE_EXISTS(ProcScr_MuDeathFade),
     PROC_CALL(DeleteBattleAnimInfoThing),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnimProc_DisplayItemStealingPopup),
