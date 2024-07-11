@@ -470,7 +470,7 @@ void sub_80B9028(struct WorldMapMainProc * proc)
 
         GmMu_SetPosition(proc->unk_54, i, *a, *b);
 
-        GmMu_ShowUnit(proc->unk_54, i);
+        GmShowMuUnit(proc->unk_54, i);
     }
 
     return;

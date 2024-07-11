@@ -2858,7 +2858,7 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y)
             return FALSE; // Failed to start camera movement
     }
 
-    if (!MU_CanStart())
+    if (!CanStartMu())
         return FALSE; // No room to make MU for the moving unit
 
     return TRUE; // Yay!

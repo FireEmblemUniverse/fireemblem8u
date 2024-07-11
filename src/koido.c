@@ -102,9 +102,9 @@ void Make6CKOIDO(struct Unit* unit, int direction, int config, ProcPtr parent)
 
     proc->unit = unit;
     proc->direction = direction;
-    proc->mu_commands[0] = MU_COMMAND_CAMERA_OFF;
+    proc->mu_commands[0] = MOVE_CMD_CAMERA_OFF;
     proc->mu_commands[1] = direction;
-    proc->mu_commands[2] = MU_COMMAND_HALT;
+    proc->mu_commands[2] = MOVE_CMD_HALT;
 
     Make6CKOIDO_common(unit, config, proc);
 }
@@ -115,9 +115,9 @@ void Make6CKOIDOAMM(struct Unit* unit, int direction)
 
     proc->unit = unit;
     proc->direction = direction;
-    proc->mu_commands[0] = MU_COMMAND_CAMERA_OFF;
+    proc->mu_commands[0] = MOVE_CMD_CAMERA_OFF;
     proc->mu_commands[1] = direction;
-    proc->mu_commands[2] = MU_COMMAND_HALT;
+    proc->mu_commands[2] = MOVE_CMD_HALT;
 
     Make6CKOIDO_common(unit, 0, proc);
 }

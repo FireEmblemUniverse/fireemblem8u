@@ -52,7 +52,7 @@ void StartArenaResultsScreen(void) {
 
 //! FE8U = 0x080B57A0
 void ArenaUi_Init(ProcPtr proc) {
-    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Hide);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) HideMu);
 
     InitShopScreenConfig();
 
@@ -296,7 +296,7 @@ void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
 //! FE8U = 0x080B5BE4
 void ArenaUi_OnEnd(void) {
     Proc_EndEach(gProcScr_GoldBox);
-    Proc_ForEach(ProcScr_Mu, (ProcFunc) MU_Show);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) ShowMu);
     return;
 }
 

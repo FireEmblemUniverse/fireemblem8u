@@ -227,10 +227,10 @@ void AiStartCombatAction(struct CpPerformProc* proc) {
 
 void AiStartEscapeAction(struct CpPerformProc* proc) {
     u8 scripts[4][3] = {
-        { MU_COMMAND_MOVE_LEFT,  MU_COMMAND_MOVE_LEFT,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_RIGHT, MU_COMMAND_MOVE_RIGHT, MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_DOWN,  MU_COMMAND_MOVE_DOWN,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_UP,    MU_COMMAND_MOVE_UP,    MU_COMMAND_HALT },
+        { MOVE_CMD_MOVE_LEFT,  MOVE_CMD_MOVE_LEFT,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_RIGHT, MOVE_CMD_MOVE_RIGHT, MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_DOWN,  MOVE_CMD_MOVE_DOWN,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_UP,    MOVE_CMD_MOVE_UP,    MOVE_CMD_HALT },
     };
 
     if ((gAiDecision.xTarget != 5) && (proc->isUnitVisible)) {

@@ -638,7 +638,7 @@ void sub_80BDD94(struct GMapMuProc * muProc, int index)
 }
 
 //! FE8U = 0x080BDDC4
-void GmMu_ShowUnit(struct GMapMuProc * muProc, int index)
+void GmShowMuUnit(struct GMapMuProc * muProc, int index)
 {
     struct GMapMuPrimProc * muPrimProc;
     int i;
@@ -667,7 +667,7 @@ void GmMu_ShowUnit(struct GMapMuProc * muProc, int index)
 }
 
 //! FE8U = 0x080BDE3C
-void GmMu_HideUnit(struct GMapMuProc * muProc, int index)
+void GmHideMuUnit(struct GMapMuProc * muProc, int index)
 {
     struct GMapMuPrimProc * muPrimProc;
     int i;
@@ -1073,7 +1073,7 @@ void sub_80BE45C(struct GMapMuPrimProc * proc)
 
     if (sfxLut[divRem + 2] != 0)
     {
-        MU_StartStepSfx(sfxLut[divRem + 2], sfxLut[1], (s16)hPos);
+        StartPlayMuStepSe(sfxLut[divRem + 2], sfxLut[1], (s16)hPos);
     }
 
     return;

@@ -215,8 +215,8 @@ s8 ActionDrop(ProcPtr proc) {
     struct Unit* target = GetUnit(gActionData.targetIndex);
 
     if (gBmMapHidden[gActionData.yOther][gActionData.xOther] & HIDDEN_BIT_UNIT) {
-        gWorkingMovementScript[0] = MU_COMMAND_BUMP;
-        gWorkingMovementScript[1] = MU_COMMAND_HALT;
+        gWorkingMovementScript[0] = MOVE_CMD_BUMP;
+        gWorkingMovementScript[1] = MOVE_CMD_HALT;
         SetAutoMuMoveScript(gWorkingMovementScript);
         return 0;
     }
@@ -581,7 +581,7 @@ void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc) {
         muProc = StartMu(&gBattleTarget.unit);
 
         gWorkingMovementScript[0] = GetFacingDirection(gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
-        gWorkingMovementScript[1] = MU_COMMAND_HALT;
+        gWorkingMovementScript[1] = MOVE_CMD_HALT;
 
         SetMuMoveScript(muProc, gWorkingMovementScript);
         MU_StartDeathFade(muProc);

@@ -171,24 +171,24 @@ void GenerateBestMovementScript(int x, int y, u8 output[])
         // Build neighbor cost list
 
         if (x == (gBmMapSize.x - 1))
-            neighbourCosts[MU_COMMAND_MOVE_LEFT] |= 0xFF;
+            neighbourCosts[MOVE_CMD_MOVE_LEFT] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_LEFT] = gWorkingBmMap[y][x+1];
+            neighbourCosts[MOVE_CMD_MOVE_LEFT] = gWorkingBmMap[y][x+1];
 
         if (x == 0)
-            neighbourCosts[MU_COMMAND_MOVE_RIGHT] |= 0xFF;
+            neighbourCosts[MOVE_CMD_MOVE_RIGHT] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_RIGHT] = gWorkingBmMap[y][x-1];
+            neighbourCosts[MOVE_CMD_MOVE_RIGHT] = gWorkingBmMap[y][x-1];
 
         if (y == (gBmMapSize.y - 1))
-            neighbourCosts[MU_COMMAND_MOVE_UP] |= 0xFF;
+            neighbourCosts[MOVE_CMD_MOVE_UP] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_UP] = gWorkingBmMap[y+1][x];
+            neighbourCosts[MOVE_CMD_MOVE_UP] = gWorkingBmMap[y+1][x];
 
         if (y == 0)
-            neighbourCosts[MU_COMMAND_MOVE_DOWN] |= 0xFF;
+            neighbourCosts[MOVE_CMD_MOVE_DOWN] |= 0xFF;
         else
-            neighbourCosts[MU_COMMAND_MOVE_DOWN] = gWorkingBmMap[y-1][x];
+            neighbourCosts[MOVE_CMD_MOVE_DOWN] = gWorkingBmMap[y-1][x];
 
         // find best cost
 
@@ -238,19 +238,19 @@ void GenerateBestMovementScript(int x, int y, u8 output[])
         switch (nextDirection)
         {
 
-        case MU_COMMAND_MOVE_LEFT:
+        case MOVE_CMD_MOVE_LEFT:
             x++;
             break;
 
-        case MU_COMMAND_MOVE_RIGHT:
+        case MOVE_CMD_MOVE_RIGHT:
             x--;
             break;
 
-        case MU_COMMAND_MOVE_UP:
+        case MOVE_CMD_MOVE_UP:
             y++;
             break;
 
-        case MU_COMMAND_MOVE_DOWN:
+        case MOVE_CMD_MOVE_DOWN:
             y--;
             break;
 
@@ -263,19 +263,19 @@ void GenerateBestMovementScript(int x, int y, u8 output[])
 
 void RevertMovementScript(u8* begin, u8* end)
 {
-    u8 buffer[MU_COMMAND_MAX_COUNT];
+    u8 buffer[MOVE_CMD_MAX_COUNT];
 
     u8* it = buffer;
 
     while (end > begin)
         *it++ = *--end;
 
-    *it = MU_COMMAND_HALT;
+    *it = MOVE_CMD_HALT;
 
-    for (it = buffer; *it != MU_COMMAND_HALT;)
+    for (it = buffer; *it != MOVE_CMD_HALT;)
         *begin++ = *it++;
 
-    *begin = MU_COMMAND_HALT;
+    *begin = MOVE_CMD_HALT;
 }
 
 void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
@@ -289,19 +289,19 @@ void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
         switch (*it)
         {
 
-        case MU_COMMAND_MOVE_UP: // up
+        case MOVE_CMD_MOVE_UP: // up
             y--;
             break;
 
-        case MU_COMMAND_MOVE_DOWN: // down
+        case MOVE_CMD_MOVE_DOWN: // down
             y++;
             break;
 
-        case MU_COMMAND_MOVE_LEFT: // left
+        case MOVE_CMD_MOVE_LEFT: // left
             x--;
             break;
 
-        case MU_COMMAND_MOVE_RIGHT: // right
+        case MOVE_CMD_MOVE_RIGHT: // right
             x++;
             break;
 
@@ -311,7 +311,7 @@ void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
         {
             if (gBmMapHidden[y][x] & HIDDEN_BIT_TRAP)
             {
-                *++it = MU_COMMAND_HALT;
+                *++it = MOVE_CMD_HALT;
 
                 gActionData.unitActionType = UNIT_ACTION_TRAPPED;
                 gActionData.xMove = x;
@@ -323,15 +323,15 @@ void UnitApplyWorkingMovementScript(struct Unit* unit, int x, int y)
 
         if (gBmMapHidden[y][x] & HIDDEN_BIT_UNIT)
         {
-            *it++ = MU_COMMAND_BUMP;
-            *it++ = MU_COMMAND_HALT;
+            *it++ = MOVE_CMD_BUMP;
+            *it++ = MOVE_CMD_HALT;
 
             gActionData.unitActionType = UNIT_ACTION_TRAPPED;
 
             return;
         }
 
-        if (*it == MU_COMMAND_HALT)
+        if (*it == MOVE_CMD_HALT)
             break;
 
         it++;

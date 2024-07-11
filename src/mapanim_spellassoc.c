@@ -24,12 +24,12 @@ const struct ProcCmd * GetItemAnim6CCode(void)
 
 void MapAnim_AnimateSubjectIdle(ProcPtr proc)
 {
-    MU_StartActionAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuActionAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
 void MapAnim_SubjectResetAnim(ProcPtr proc)
 {
-    MU_StartDelayedFaceTarget(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuDelayedFaceDefender(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
 void sub_80812C0(void)
@@ -64,7 +64,7 @@ void sub_80813C0(void)
 
 void MapAnim_BeginSubjectFastAnim(void)
 {
-    MU_StartFastMoveAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuSpeedUpAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
 void MapAnimMoveUnitTowardsTargetExt(struct MuProc * mu1, struct MuProc * mu2)
@@ -291,7 +291,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartCritFlash(
+        StartMuCritFlash(
             gManimSt.actor[map_target].mu,
             GetSpellAssocFlashColor(gManimSt.actor[map_actor].bu->weaponBefore)
         );
@@ -302,7 +302,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartFastMoveAnim(gManimSt.actor[map_actor].mu);
+        StartMuSpeedUpAnim(gManimSt.actor[map_actor].mu);
     }
     else
     {
@@ -477,17 +477,17 @@ void MapAnimCallSpellAssocRepair(ProcPtr proc)
 
 void SpellWarpStartFlashFade(ProcPtr proc)
 {
-    MU_StartFlashFade(gManimSt.actor[gManimSt.targetActorId].mu, 0);
+    StartMuFadeIntoFlash(gManimSt.actor[gManimSt.targetActorId].mu, 0);
 }
 
 void sub_8081CF8(ProcPtr proc)
 {
-    MU_8079858(gManimSt.actor[gManimSt.targetActorId].mu);
+    StartMuFadeFromFlash(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpMuHide(ProcPtr proc)
 {
-    MU_Hide(gManimSt.actor[gManimSt.targetActorId].mu);
+    HideMu(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpStartExplosion(ProcPtr proc)
@@ -514,7 +514,7 @@ void SpellWarpStartImplosion(ProcPtr proc)
 
 void SpellWarpMuShow(ProcPtr proc)
 {
-    MU_Show(gManimSt.actor[gManimSt.targetActorId].mu);
+    ShowMu(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpSetNewPosition(ProcPtr proc)
@@ -522,7 +522,7 @@ void SpellWarpSetNewPosition(ProcPtr proc)
     struct Unit * unit = gManimSt.actor[gManimSt.targetActorId].unit;
     struct MuProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
 
-    MU_SetDisplayPosition(
+    SetMuScreenPosition(
         mu,
         gManimSt.xtarget * 0x10,
         gManimSt.ytarget * 0x10);

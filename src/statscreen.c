@@ -1138,7 +1138,7 @@ void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
     SetBlendConfig(1, proc->timer, 0x10 - proc->timer, 0);
 
-    MU_SetDisplayPosition(gStatScreen.mu,
+    SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
     gStatScreen.yDispOff = Interpolate(2, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
@@ -1177,7 +1177,7 @@ void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
     SetBlendConfig(1, 0x10 - proc->timer, proc->timer, 0);
 
-    MU_SetDisplayPosition(gStatScreen.mu,
+    SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
     gStatScreen.yDispOff = Interpolate(5, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
@@ -1199,7 +1199,7 @@ void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
 void ClearSlide(struct Proc* proc)
 {
     if (gStatScreen.mu)
-        MU_SetDisplayPosition(gStatScreen.mu,
+        SetMuScreenPosition(gStatScreen.mu,
             80, 138);
 
     gLCDControlBuffer.bg0cnt.priority = 1;

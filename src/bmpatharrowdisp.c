@@ -79,31 +79,31 @@ void GetPathFromMovementScript(void) {
         if (cmd <= 0xa) {
             switch (cmd) {
 
-            case MU_COMMAND_END + 1:
-            case MU_COMMAND_HALT + 1:
+            case MOVE_CMD_END + 1:
+            case MOVE_CMD_HALT + 1:
                 return;
-            case MU_COMMAND_FACE_LEFT + 1:
-            case MU_COMMAND_FACE_RIGHT + 1:
-            case MU_COMMAND_FACE_DOWN + 1:
-            case MU_COMMAND_FACE_UP + 1:
-            case MU_COMMAND_WAIT + 1:
+            case MOVE_CMD_FACE_LEFT + 1:
+            case MOVE_CMD_FACE_RIGHT + 1:
+            case MOVE_CMD_FACE_DOWN + 1:
+            case MOVE_CMD_FACE_UP + 1:
+            case MOVE_CMD_SLEEP + 1:
                 continue;
-            case MU_COMMAND_MOVE_LEFT + 1:
+            case MOVE_CMD_MOVE_LEFT + 1:
                 AddPointToPathArrowProc(
                     gpPathArrowProc->pathX[gpPathArrowProc->pathLen] - 1,
                     gpPathArrowProc->pathY[gpPathArrowProc->pathLen]);
                 break;
-            case MU_COMMAND_MOVE_RIGHT + 1:
+            case MOVE_CMD_MOVE_RIGHT + 1:
                 AddPointToPathArrowProc(
                     gpPathArrowProc->pathX[gpPathArrowProc->pathLen] + 1,
                     gpPathArrowProc->pathY[gpPathArrowProc->pathLen]);
                 break;
-            case MU_COMMAND_MOVE_UP + 1:
+            case MOVE_CMD_MOVE_UP + 1:
                 AddPointToPathArrowProc(
                     gpPathArrowProc->pathX[gpPathArrowProc->pathLen],
                     gpPathArrowProc->pathY[gpPathArrowProc->pathLen] - 1);
                 break;
-            case MU_COMMAND_MOVE_DOWN + 1:
+            case MOVE_CMD_MOVE_DOWN + 1:
                 AddPointToPathArrowProc(
                     gpPathArrowProc->pathX[gpPathArrowProc->pathLen],
                     gpPathArrowProc->pathY[gpPathArrowProc->pathLen] + 1);
@@ -125,20 +125,20 @@ void GetMovementScriptFromPath(void) {
         newX = gpPathArrowProc->pathX[i];
         x = gpPathArrowProc->pathX[i - 1];
         if (newX < x) {
-            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_LEFT;
+            gWorkingMovementScript[i - 1] = MOVE_CMD_MOVE_LEFT;
         }
         else if (newX > x) {
-            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_RIGHT;
+            gWorkingMovementScript[i - 1] = MOVE_CMD_MOVE_RIGHT;
         }
 
         else if (gpPathArrowProc->pathY[i] < gpPathArrowProc->pathY[i - 1]) {
-            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_UP;
+            gWorkingMovementScript[i - 1] = MOVE_CMD_MOVE_UP;
         }
         else {
-            gWorkingMovementScript[i - 1] = MU_COMMAND_MOVE_DOWN;
+            gWorkingMovementScript[i - 1] = MOVE_CMD_MOVE_DOWN;
         }
     }
-    gWorkingMovementScript[i - 1] = MU_COMMAND_HALT;
+    gWorkingMovementScript[i - 1] = MOVE_CMD_HALT;
 }
 
 void GenerateMovementMapForActiveUnit(void) {

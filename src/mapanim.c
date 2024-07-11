@@ -86,7 +86,7 @@ void _InitFontForUIDefault(void) {
 }
 
 void MapAnim_Cleanup(void) {
-    MU_AllRestartAnimations();
+    ResetMuAnims();
 	ResetTextFont();
 	DeleteBattleAnimInfoThing();
 	InitBmBgLayers();

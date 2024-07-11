@@ -26,7 +26,7 @@ void MapEventBattle_SetUpHitData(ProcPtr proc)
 
 void MapEventBattle_OnEnd(void)
 {
-    MU_AllRestartAnimations();
+    ResetMuAnims();
     ResetTextFont();
     DeleteBattleAnimInfoThing();
     InitBmBgLayers();

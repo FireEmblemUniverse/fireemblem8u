@@ -27,7 +27,7 @@ void MakeBattleMOVEUNIT(int maActor, struct BattleUnit* bu, struct Unit* unit)
     gManimSt.actor[maActor].mu->sprite_anim->frameInterval = 0;
 
     if (BUNIT_IS_OBSTACLE(bu))
-        MU_Hide(gManimSt.actor[maActor].mu);
+        HideMu(gManimSt.actor[maActor].mu);
 
     switch (unit->statusIndex) {
 

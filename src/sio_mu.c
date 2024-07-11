@@ -149,7 +149,7 @@ void SioWarp_Init(struct SioWarpProc * proc)
 
     if (proc->playStepSe)
     {
-        MU_StartStepSfx(0x7f, 2, proc->x * 8);
+        StartPlayMuStepSe(0x7f, 2, proc->x * 8);
     }
 
     return;
@@ -250,14 +250,14 @@ void SioWarpFx_804C178(struct SioWarpProc * proc)
 //! FE8U = 0x0804C188
 void SioWarpFx_HideMoveUnit(struct SioWarpProc * proc)
 {
-    MU_Hide(proc->muProc);
+    HideMu(proc->muProc);
     return;
 }
 
 //! FE8U = 0x0804C194
 void SioWarpFx_SetMUPosition(struct SioWarpProc * proc)
 {
-    MU_SetDisplayPosition(proc->muProc, proc->x * 16, proc->y * 16);
+    SetMuScreenPosition(proc->muProc, proc->x * 16, proc->y * 16);
 
     proc->unit->xPos = proc->x;
     proc->unit->yPos = proc->y;
@@ -273,7 +273,7 @@ void SioWarpFx_ShowMoveUnit(struct SioWarpProc * proc)
         SetMuFacing(proc->muProc, proc->facing);
     }
 
-    MU_Show(proc->muProc);
+    ShowMu(proc->muProc);
 
     return;
 }

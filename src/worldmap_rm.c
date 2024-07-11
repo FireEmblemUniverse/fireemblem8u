@@ -252,13 +252,13 @@ void GmapRm_RemoveUnits(struct ProcGmapRm * proc)
     else
         proc->flag &= ~GMAPRM_FLAG_3;
 
-    GmMu_HideUnit(GM_MU, WM_MU_0);
+    GmHideMuUnit(GM_MU, WM_MU_0);
 }
 
 void GmapRm_DisplayLeaderUnit(struct ProcGmapRm * proc)
 {
     if (proc->flag & GMAPRM_FLAG_3)
-        GmMu_ShowUnit(GM_MU, WM_MU_0);
+        GmShowMuUnit(GM_MU, WM_MU_0);
 }
 
 void GmapRm_80C2320(struct ProcGmapRm * proc)

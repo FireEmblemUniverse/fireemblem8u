@@ -147,7 +147,7 @@ void MuCtr_InitDefinedMove(struct MuCtrlProc * proc, struct Unit * unit, const s
     gBmMapOther[y][x] = 0;
     gBmMapOther[pos.y][pos.x] = unit->pCharacterData->number;
 
-    MU_Hide(proc->muProc);
+    HideMu(proc->muProc);
 }
 
 //! FE8U = 0x08079F84
@@ -280,7 +280,7 @@ s8 sub_807A0E4(struct MuCtrlProc * proc)
 
         ShowUnitSprite(unit);
         unit->state &= ~US_HIDDEN;
-        MU_Hide(proc->muProc);
+        HideMu(proc->muProc);
         gBmMapUnit[unit->yPos][unit->xPos] = unit->index;
         RefreshUnitSprites();
     }
@@ -454,7 +454,7 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
     {
         struct MuProc * muProc = proc->muProc;
 
-        MU_Show(muProc);
+        ShowMu(muProc);
         SetMuMoveScript(muProc, commands);
 
         config = reda->flags;
@@ -464,7 +464,7 @@ void MuCtr_ExecREDA_807A358(struct MuCtrlProc * proc)
             config |= 0x40;
         }
 
-        MU_SetMoveConfig(muProc, config);
+        SetMuConfig(muProc, config);
 
         if ((flagsB & 4) != 0)
         {

@@ -159,4 +159,6 @@ int CountProcs(const struct ProcCmd * script);
 void Proc_FindBegin(struct ProcFindIterator* it, const struct ProcCmd* script);
 ProcPtr Proc_FindNext(struct ProcFindIterator* it);
 
+#define Proc_Exists(script) (Proc_Find((script)) ? true : false)
+
 #endif  // GUARD_PROC_H

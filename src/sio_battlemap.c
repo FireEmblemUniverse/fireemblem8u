@@ -196,17 +196,17 @@ void sub_80493D0(u8 a, int b, u8 * c, int * xOut, int * yOut)
 
     u8 gUnknown_080D9FA0[8] =
     {
-        MU_COMMAND_MOVE_UP,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_UP,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_LEFT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_LEFT,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_DOWN,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_DOWN,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_RIGHT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_RIGHT,
+        MOVE_CMD_HALT,
     };
 
     s8 gUnknown_080D9FA8[8] =
@@ -563,7 +563,7 @@ void sub_80498F4(void)
 
     gUnknown_03001838[0] = StartMu(unit);
 
-    MU_SetDisplayPosition(gUnknown_03001838[0], unit->xPos * 16, (unit->yPos - 1) * 16);
+    SetMuScreenPosition(gUnknown_03001838[0], unit->xPos * 16, (unit->yPos - 1) * 16);
 
     DisableMuCamera(gUnknown_03001838[0]);
     SetMuFacing(gUnknown_03001838[0], 3);
@@ -937,8 +937,8 @@ void sub_8049D24(struct SioBattleMapProc * proc)
 
     u8 gUnknown_080D9FB5[2] =
     {
-        MU_COMMAND_MOVE_UP,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_UP,
+        MOVE_CMD_HALT,
     };
 
     // clang-format on
@@ -1386,8 +1386,8 @@ void sub_804A5A4(void)
 
     u8 gUnknown_080D9FB7[2] =
     {
-        MU_COMMAND_MOVE_RIGHT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_RIGHT,
+        MOVE_CMD_HALT,
     };
 
     // clang-format on
@@ -2575,8 +2575,8 @@ void sub_804B624(struct SioBattleMapProc * proc)
 
     mu = StartMu(unit);
 
-    gWorkingMovementScript[0] = MU_COMMAND_MOVE_DOWN;
-    gWorkingMovementScript[1] = MU_COMMAND_HALT;
+    gWorkingMovementScript[0] = MOVE_CMD_MOVE_DOWN;
+    gWorkingMovementScript[1] = MOVE_CMD_HALT;
 
     SetMuMoveScript(mu, gWorkingMovementScript);
 
@@ -2768,7 +2768,7 @@ void sub_804B850(struct SioBattleMapProc * proc)
 
         gWorkingMovementScript[0] = GetFacingDirection(
             gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
-        gWorkingMovementScript[1] = MU_COMMAND_HALT;
+        gWorkingMovementScript[1] = MOVE_CMD_HALT;
 
         SetMuMoveScript(mu, gWorkingMovementScript);
         StartLinkArenaMUDeathFade(mu);

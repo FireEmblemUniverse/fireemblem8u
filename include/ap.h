@@ -46,4 +46,12 @@ void APProc_Delete(struct APProc * proc);
 void APProc_DeleteAll(void);
 bool APProc_Exists(void);
 
+#define ResetSpriteAnimClock(anim) \
+    (anim)->frameTimer = 0; \
+    (anim)->frameInterval = 0x100
+
+#define FreezeSpriteAnim(anim) \
+    (anim)->frameTimer = 0; \
+    (anim)->frameInterval = 0
+
 #endif // GUARD_AP_H

@@ -5,8 +5,8 @@
 
 void ChangeActiveUnitFacing(int xLook, int yLook) {
     int direction = GetFacingDirection(gActiveUnit->xPos, gActiveUnit->yPos, xLook, yLook)
-        + MU_COMMAND_FACE_BASE;
+        + MOVE_CMD_FACE_BASE;
     gWorkingMovementScript[0] = direction;
-    gWorkingMovementScript[1] = MU_COMMAND_HALT;
+    gWorkingMovementScript[1] = MOVE_CMD_HALT;
     SetAutoMuMoveScript(gWorkingMovementScript);
 }
