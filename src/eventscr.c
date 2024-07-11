@@ -1871,7 +1871,7 @@ u8 Event23_DisaleMapDisp(struct EventEngineProc * proc)
     if (!(proc->evStateBits & EV_STATE_GFXLOCKED))
     {
         BMapDispSuspend();
-        MU_AllDisable();
+        LockMus();
     }
 
     proc->evStateBits |= EV_STATE_GFXLOCKED;
@@ -1884,7 +1884,7 @@ u8 Event24_EnableMapDisp(struct EventEngineProc * proc)
     if (proc->evStateBits & EV_STATE_GFXLOCKED)
     {
         BMapDispResume();
-        MU_AllEnable();
+        ReleaseMus();
     }
 
     proc->evStateBits &= ~EV_STATE_GFXLOCKED;
@@ -2858,7 +2858,7 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y)
             return FALSE; // Failed to start camera movement
     }
 
-    if (!MU_CanStart())
+    if (!CanStartMu())
         return FALSE; // No room to make MU for the moving unit
 
     return TRUE; // Yay!
@@ -3064,7 +3064,7 @@ u8 Event30_ENUN(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        MU_AllForceSetMaxMoveSpeed_();
+        SetMuMaxWalkSpeed_();
     }
 
     if (MuCtrExists() == 1)
@@ -3389,7 +3389,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEA:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
         {
@@ -3405,7 +3405,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEN:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_GREEN + 1; i < FACTION_RED; i++)
         {
@@ -3418,7 +3418,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEE:
-        MU_EndAll();
+        EndAllMus();
         for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++)
         {
             struct Unit * it = GetUnit(i);
@@ -3433,12 +3433,12 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
     case EVSUBCMD_KILL:
         if (!EVENT_IS_SKIPPING(proc))
         {
-            struct MUProc * muProc;
+            struct MuProc * muProc;
 
             HideUnitSprite(unit);
             unit->state |= US_HIDDEN;
-            muProc = MU_Create(unit);
-            MU_SetDefaultFacing_Auto();
+            muProc = StartMu(unit);
+            SetAutoMuDefaultFacing();
             MU_StartDeathFade(muProc);
 
             return EVC_ADVANCE_YIELD;
@@ -3448,7 +3448,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
 
     case EVSUBCMD_DISA_IF:
     {
-        s8 a = Proc_Find(gProcScr_MUDeathFade) != 0;
+        s8 a = Proc_Find(ProcScr_MuDeathFade) != 0;
         if (-a | a)
             return EVC_STOP_YIELD;
     }

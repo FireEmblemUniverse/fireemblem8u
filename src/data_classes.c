@@ -479,7 +479,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_ARMOR_KNIGHT,
         .promotion = CLASS_GENERAL,
         .SMSId = 0x6,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x76,
         .sort_order = 0xc,
 
@@ -536,7 +536,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_ARMOR_KNIGHT_F,
         .promotion = CLASS_GENERAL_F,
         .SMSId = 0x6,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x76,
         .sort_order = 0xc,
 
@@ -593,7 +593,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_GENERAL,
         .promotion = CLASS_ARMOR_KNIGHT,
         .SMSId = 0x7,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x77,
         .sort_order = 0xd,
 
@@ -654,7 +654,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_GENERAL_F,
         .promotion = CLASS_ARMOR_KNIGHT_F,
         .SMSId = 0x7,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x77,
         .sort_order = 0xd,
 
@@ -2575,7 +2575,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_SHAMAN,
         .promotion = CLASS_DRUID,
         .SMSId = 0x26,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x7e,
         .sort_order = 0x1b,
 
@@ -2632,7 +2632,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_SHAMAN_F,
         .promotion = CLASS_DRUID_F,
         .SMSId = 0x26,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x7e,
         .sort_order = 0x1b,
 
@@ -2689,7 +2689,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_DRUID,
         .promotion = CLASS_SHAMAN,
         .SMSId = 0x27,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x7f,
         .sort_order = 0x1c,
 
@@ -2750,7 +2750,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_DRUID_F,
         .promotion = CLASS_SHAMAN_F,
         .SMSId = 0x27,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x7f,
         .sort_order = 0x1c,
 
@@ -3036,7 +3036,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_GREAT_KNIGHT,
         .promotion = CLASS_ARMOR_KNIGHT,
         .SMSId = 0x2b,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x96,
         .sort_order = 0x22,
 
@@ -3097,7 +3097,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .number = CLASS_GREAT_KNIGHT_F,
         .promotion = CLASS_ARMOR_KNIGHT_F,
         .SMSId = 0x2b,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x96,
         .sort_order = 0x22,
 
@@ -6105,7 +6105,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_M1,
         .SMSId = 0x5e,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x5e,
 
         .baseHP  = 8,
@@ -6155,7 +6155,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_F1,
         .SMSId = 0x5f,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x63,
 
         .baseHP  = 7,
@@ -6205,7 +6205,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_M2,
         .SMSId = 0x60,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x59,
 
         .baseHP  = 10,
@@ -6255,7 +6255,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_F2,
         .SMSId = 0x61,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x62,
 
         .baseHP  = 9,
@@ -6305,7 +6305,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_M3,
         .SMSId = 0x60,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x5c,
 
         .baseHP  = 12,
@@ -6355,7 +6355,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x351,
         .number = CLASS_CIVILIAN_F3,
         .SMSId = 0x61,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x61,
 
         .baseHP  = 10,
@@ -6403,7 +6403,7 @@ CONST_DATA struct ClassData gClassData[] = {
     [CLASS_PEER - 1] = {
         .number = CLASS_PEER,
         .SMSId = 0x62,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6453,7 +6453,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x353,
         .number = CLASS_QUEEN,
         .SMSId = 0x63,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6501,7 +6501,7 @@ CONST_DATA struct ClassData gClassData[] = {
     [CLASS_PRINCE - 1] = {
         .number = CLASS_PRINCE,
         .SMSId = 0x64,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6551,7 +6551,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x353,
         .number = CLASS_QUEEN_2,
         .SMSId = 0x65,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6643,7 +6643,7 @@ CONST_DATA struct ClassData gClassData[] = {
     [CLASS_FALLEN_PRINCE - 1] = {
         .number = CLASS_FALLEN_PRINCE,
         .SMSId = 0x67,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6691,7 +6691,7 @@ CONST_DATA struct ClassData gClassData[] = {
     [CLASS_TENT - 1] = {
         .number = CLASS_TENT,
         .SMSId = 0x68,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 15,
@@ -6743,7 +6743,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .descTextId = 0x352,
         .number = CLASS_PONTIFEX,
         .SMSId = 0x69,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,
@@ -6791,7 +6791,7 @@ CONST_DATA struct ClassData gClassData[] = {
     [CLASS_FALLEN_PEER - 1] = {
         .number = CLASS_FALLEN_PEER,
         .SMSId = 0x6a,
-        .slowWalking = 0x1,
+        .slowWalking = UNIT_WALKSPEED_SLOW,
         .defaultPortraitId = 0x1,
 
         .baseHP  = 10,

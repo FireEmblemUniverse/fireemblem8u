@@ -20,8 +20,8 @@ void sub_80CD62C(void)
     BMapDispResume();
     RefreshBMapGraphics();
     RefreshEntityBmMaps();
-    MU_EndAll();
-    MU_Create(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
     RenderBmMap();
     RefreshUnitSprites();
 }

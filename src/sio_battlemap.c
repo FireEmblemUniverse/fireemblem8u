@@ -42,7 +42,7 @@ struct SioBattleMapProc
     /* 34 */ int unk_34;
     /* 38 */ int unk_38;
     /* 3C */ STRUCT_PAD(0x3C, 0x54);
-    /* 54 */ struct MUProc * unk_54;
+    /* 54 */ struct MuProc * unk_54;
     /* 58 */ int unk_58;
     /* 5C */ int unk_5c;
 };
@@ -58,7 +58,7 @@ extern u8 gUnknown_03001818[];
 extern struct Vec2 gUnknown_0300182C;
 extern int gUnknown_03001830;
 extern u8 gUnknown_03001834[];
-extern struct MUProc * gUnknown_03001838[];
+extern struct MuProc * gUnknown_03001838[];
 extern u16 gUnknown_03001840[];
 
 extern u8 gUnknown_080D9F28[][4];
@@ -196,17 +196,17 @@ void sub_80493D0(u8 a, int b, u8 * c, int * xOut, int * yOut)
 
     u8 gUnknown_080D9FA0[8] =
     {
-        MU_COMMAND_MOVE_UP,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_UP,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_LEFT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_LEFT,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_DOWN,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_DOWN,
+        MOVE_CMD_HALT,
 
-        MU_COMMAND_MOVE_RIGHT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_RIGHT,
+        MOVE_CMD_HALT,
     };
 
     s8 gUnknown_080D9FA8[8] =
@@ -228,9 +228,9 @@ void sub_80493D0(u8 a, int b, u8 * c, int * xOut, int * yOut)
 
     if ((unit->state & US_BIT9) == 0)
     {
-        gUnknown_03001838[b] = MU_Create(unit);
-        MU_DisableAttractCamera(gUnknown_03001838[b]);
-        MU_StartMoveScript(gUnknown_03001838[b], gUnknown_080D9FA0 + index);
+        gUnknown_03001838[b] = StartMu(unit);
+        DisableMuCamera(gUnknown_03001838[b]);
+        SetMuMoveScript(gUnknown_03001838[b], gUnknown_080D9FA0 + index);
     }
 
     unit->state |= US_HIDDEN;
@@ -459,7 +459,7 @@ void sub_80497A0(void)
 
     sub_80156D4();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
 
     sub_8049788();
@@ -540,7 +540,7 @@ void sub_8049828(void)
 
     ReadGameSaveCoreGfx();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
     RefreshUnitSprites();
 
@@ -561,12 +561,12 @@ void sub_80498F4(void)
 {
     struct Unit * unit = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04]);
 
-    gUnknown_03001838[0] = MU_Create(unit);
+    gUnknown_03001838[0] = StartMu(unit);
 
-    MU_SetDisplayPosition(gUnknown_03001838[0], unit->xPos * 16, (unit->yPos - 1) * 16);
+    SetMuScreenPosition(gUnknown_03001838[0], unit->xPos * 16, (unit->yPos - 1) * 16);
 
-    MU_DisableAttractCamera(gUnknown_03001838[0]);
-    MU_SetFacing(gUnknown_03001838[0], 3);
+    DisableMuCamera(gUnknown_03001838[0]);
+    SetMuFacing(gUnknown_03001838[0], 3);
 
     return;
 }
@@ -852,7 +852,7 @@ void sub_8049C18(void)
 
     if (unitA != NULL)
     {
-        MU_EndAll();
+        EndAllMus();
         ShowUnitSprite(unitA);
     }
 
@@ -871,7 +871,7 @@ void sub_8049C18(void)
         return;
     }
 
-    MU_DisableAttractCamera(MU_Create(unitB));
+    DisableMuCamera(StartMu(unitB));
     HideUnitSprite(unitB);
 
     return;
@@ -937,8 +937,8 @@ void sub_8049D24(struct SioBattleMapProc * proc)
 
     u8 gUnknown_080D9FB5[2] =
     {
-        MU_COMMAND_MOVE_UP,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_UP,
+        MOVE_CMD_HALT,
     };
 
     // clang-format on
@@ -956,11 +956,11 @@ void sub_8049D24(struct SioBattleMapProc * proc)
         if (((gActiveUnitId >> 6) == gSioSt->selfId) && (sub_8049C94(gActiveUnit) == 1))
         {
             PlaySoundEffect(0x69);
-            MU_EndAll();
+            EndAllMus();
 
-            gUnknown_03001838[0] = MU_Create(gActiveUnit);
-            MU_DisableAttractCamera(gUnknown_03001838[0]);
-            MU_StartMoveScript(gUnknown_03001838[0], gUnknown_080D9FB5);
+            gUnknown_03001838[0] = StartMu(gActiveUnit);
+            DisableMuCamera(gUnknown_03001838[0]);
+            SetMuMoveScript(gUnknown_03001838[0], gUnknown_080D9FB5);
 
             proc->unk_2c = gActiveUnit->xPos;
             proc->unk_30 = gActiveUnit->yPos - 1;
@@ -984,7 +984,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
     {
         if ((gActiveUnit->state & US_BIT9) == 0)
         {
-            MU_EndAll();
+            EndAllMus();
             Proc_Goto(proc, 4);
             return;
         }
@@ -1086,7 +1086,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     {
         PlaySoundEffect(0x6b);
 
-        MU_End(gUnknown_03001838[0]);
+        EndMu(gUnknown_03001838[0]);
         GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04])->state &= ~US_HIDDEN;
 
         sub_80492D8();
@@ -1105,7 +1105,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     {
         if ((gActiveUnit->state & US_BIT9) == 0)
         {
-            MU_EndAll();
+            EndAllMus();
             Proc_Goto(proc, 6);
             return;
         }
@@ -1320,7 +1320,7 @@ void sub_804A44C(struct SioBattleMapProc * proc)
     {
         if ((unit->state & US_BIT9) == 0)
         {
-            MU_End(gUnknown_03001838[1]);
+            EndMu(gUnknown_03001838[1]);
         }
         else
         {
@@ -1342,7 +1342,7 @@ void sub_804A44C(struct SioBattleMapProc * proc)
     {
         if ((unit->state & US_BIT9) != 0)
         {
-            gUnknown_03001838[1] = (void *)MU_Create(unit);
+            gUnknown_03001838[1] = (void *)StartMu(unit);
             proc->unk_34 = unit->xPos;
             proc->unk_38 = unit->yPos;
             unit->state &= ~US_BIT9;
@@ -1386,20 +1386,20 @@ void sub_804A5A4(void)
 
     u8 gUnknown_080D9FB7[2] =
     {
-        MU_COMMAND_MOVE_RIGHT,
-        MU_COMMAND_HALT,
+        MOVE_CMD_MOVE_RIGHT,
+        MOVE_CMD_HALT,
     };
 
     // clang-format on
 
-    MU_End(gUnknown_03001838[1]);
+    EndMu(gUnknown_03001838[1]);
 
     unitB = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_05]);
     unitB->state &= ~US_HIDDEN;
 
     if (gUnknown_03001834[2] == 1)
     {
-        MU_StartMoveScript(gUnknown_03001838[0], gUnknown_080D9FB7);
+        SetMuMoveScript(gUnknown_03001838[0], gUnknown_080D9FB7);
         unitA->xPos = 7;
     }
 
@@ -1416,7 +1416,7 @@ void sub_804A614(ProcPtr proc)
     struct Unit * unitA;
     struct Unit * unitB;
 
-    if (MU_IsAnyActive() == 1)
+    if (MuExistsActive() == 1)
     {
         return;
     }
@@ -1465,7 +1465,7 @@ void sub_804A6A4(ProcPtr proc)
     SetUnitStatus(unitA, 0);
     SetUnitStatus(unitB, 0);
 
-    MU_EndAll();
+    EndAllMus();
 
     if (GetUnitCurrentHp(unitA) != 0)
     {
@@ -1515,8 +1515,8 @@ void sub_804A7C0(ProcPtr proc)
     }
     else
     {
-        gUnknown_03001838[0] = (void *)MU_Create(unitA);
-        MU_DisableAttractCamera(gUnknown_03001838[0]);
+        gUnknown_03001838[0] = (void *)StartMu(unitA);
+        DisableMuCamera(gUnknown_03001838[0]);
 
         unitA->state |= US_HIDDEN;
 
@@ -1532,8 +1532,8 @@ void sub_804A7C0(ProcPtr proc)
     }
     else
     {
-        gUnknown_03001838[1] = (void *)MU_Create(unitB);
-        MU_DisableAttractCamera(gUnknown_03001838[1]);
+        gUnknown_03001838[1] = (void *)StartMu(unitB);
+        DisableMuCamera(gUnknown_03001838[1]);
 
         unitB->state |= US_HIDDEN;
 
@@ -1677,8 +1677,8 @@ _end:
 //! FE8U = 0x0804AA88
 void sub_804AA88(void)
 {
-    MU_EndAll();
-    MU_EndAll();
+    EndAllMus();
+    EndAllMus();
 
     sub_8049594();
     sub_80495F4();
@@ -1806,7 +1806,7 @@ void sub_804ABCC(struct SioProc85AA4CC * proc)
 
                 if ((unit->state & US_BIT9) == 0)
                 {
-                    MU_End(gUnknown_03001838[0]);
+                    EndMu(gUnknown_03001838[0]);
                 }
                 else
                 {
@@ -1837,7 +1837,7 @@ void sub_804ABCC(struct SioProc85AA4CC * proc)
 //! FE8U = 0x0804AC68
 void sub_804AC68(struct Unit * unit, int idx, int * xOut, int * yOut)
 {
-    gUnknown_03001838[idx] = MU_Create(unit);
+    gUnknown_03001838[idx] = StartMu(unit);
 
     *xOut = unit->xPos;
     *yOut = unit->yPos;
@@ -1880,7 +1880,7 @@ void sub_804ACC4(struct SioProc85AA4CC * proc)
 
                 if ((unitA->state & US_BIT9) == 0)
                 {
-                    MU_End(gUnknown_03001838[1]);
+                    EndMu(gUnknown_03001838[1]);
                 }
                 else
                 {
@@ -2289,7 +2289,7 @@ void sub_804B250(ProcPtr proc)
         return;
     }
 
-    if (MU_IsAnyActive() != 0)
+    if (MuExistsActive() != 0)
     {
         return;
     }
@@ -2375,7 +2375,7 @@ void sub_804B3D0(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     sub_8049350(6, gPlaySt.faction, 0, 0);
 
     return;
@@ -2391,7 +2391,7 @@ void sub_804B408(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     sub_8049350(7, gPlaySt.faction, 0, 0);
 
     return;
@@ -2406,8 +2406,8 @@ void sub_804B43C(struct SioBattleMapProc * proc)
         return;
     }
 
-    MU_EndAll();
-    MU_EndAll();
+    EndAllMus();
+    EndAllMus();
 
     gLinkArenaSt.unk_0B = 1;
 
@@ -2543,7 +2543,7 @@ void sub_804B604(struct SioBattleMapProc * proc)
 void sub_804B624(struct SioBattleMapProc * proc)
 {
     struct Unit * unit;
-    struct MUProc * pMuProc;
+    struct MuProc * mu;
 
     while (1)
     {
@@ -2573,16 +2573,16 @@ void sub_804B624(struct SioBattleMapProc * proc)
     RefreshUnitSprites();
     HideUnitSprite(unit);
 
-    pMuProc = MU_Create(unit);
+    mu = StartMu(unit);
 
-    gWorkingMovementScript[0] = MU_COMMAND_MOVE_DOWN;
-    gWorkingMovementScript[1] = MU_COMMAND_HALT;
+    gWorkingMovementScript[0] = MOVE_CMD_MOVE_DOWN;
+    gWorkingMovementScript[1] = MOVE_CMD_HALT;
 
-    MU_StartMoveScript(pMuProc, gWorkingMovementScript);
+    SetMuMoveScript(mu, gWorkingMovementScript);
 
-    StartLinkArenaMUDeathFade(pMuProc);
+    StartLinkArenaMUDeathFade(mu);
 
-    proc->unk_54 = pMuProc;
+    proc->unk_54 = mu;
     proc->unk_58++;
 
     unit->state &= ~US_BIT9;
@@ -2594,7 +2594,7 @@ void sub_804B624(struct SioBattleMapProc * proc)
 //! FE8U = 0x0804B6AC
 void sub_804B6AC(struct SioBattleMapProc * proc)
 {
-    MU_End(proc->unk_54);
+    EndMu(proc->unk_54);
     return;
 }
 
@@ -2737,7 +2737,7 @@ void sub_804B800(void)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     RenderBmMap();
 
     BeginBattleMapAnims();
@@ -2749,13 +2749,13 @@ void sub_804B800(void)
 //! FE8U = 0x0804B850
 void sub_804B850(struct SioBattleMapProc * proc)
 {
-    struct MUProc * pMuProc;
+    struct MuProc * mu;
 
     if (gBattleActor.unit.curHP == 0)
     {
-        pMuProc = Proc_Find(gProcScr_MoveUnit);
-        StartLinkArenaMUDeathFade(pMuProc);
-        proc->unk_54 = pMuProc;
+        mu = Proc_Find(ProcScr_Mu);
+        StartLinkArenaMUDeathFade(mu);
+        proc->unk_54 = mu;
     }
 
     if (gBattleTarget.unit.curHP == 0)
@@ -2764,16 +2764,16 @@ void sub_804B850(struct SioBattleMapProc * proc)
 
         HideUnitSprite(GetUnit(gBattleTarget.unit.index));
 
-        pMuProc = MU_Create(&gBattleTarget.unit);
+        mu = StartMu(&gBattleTarget.unit);
 
         gWorkingMovementScript[0] = GetFacingDirection(
             gBattleActor.unit.xPos, gBattleActor.unit.yPos, gBattleTarget.unit.xPos, gBattleTarget.unit.yPos);
-        gWorkingMovementScript[1] = MU_COMMAND_HALT;
+        gWorkingMovementScript[1] = MOVE_CMD_HALT;
 
-        MU_StartMoveScript(pMuProc, gWorkingMovementScript);
-        StartLinkArenaMUDeathFade(pMuProc);
+        SetMuMoveScript(mu, gWorkingMovementScript);
+        StartLinkArenaMUDeathFade(mu);
 
-        proc->unk_54 = pMuProc;
+        proc->unk_54 = mu;
     }
 
     return;

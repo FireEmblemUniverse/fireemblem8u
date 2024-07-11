@@ -180,7 +180,7 @@ struct MapAnimStarfxConf {
 struct MapAnimActorState {
     /* 00 */ struct Unit * unit;
     /* 04 */ struct BattleUnit * bu;
-    /* 08 */ struct MUProc * mu;
+    /* 08 */ struct MuProc * mu;
     /* 0C */ u8 hp_max;
     /* 0D */ u8 hp_cur;
     /* 0E */ u16 hp_displayed_q4;
@@ -821,8 +821,8 @@ void sub_8081348(void);
 void sub_8081384(void);
 void sub_80813C0(void);
 void MapAnim_BeginSubjectFastAnim(void);
-void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2);
-void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2);
+void MapAnimMoveUnitTowardsTargetExt(struct MuProc * mu1, struct MuProc * mu2);
+void MapAnimMoveUnitAwayFromTargetExt(struct MuProc * mu1, struct MuProc * mu2);
 void MapAnim_MoveSubjectsTowardsTarget(void);
 void MapAnim_MoveSubjectsAwayFromTarget(void);
 void MapAnim_MoveCameraOnSubject(ProcPtr proc);

@@ -224,7 +224,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
 
         RefreshEntityBmMaps();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
         break;
 
     case UNIT_STATUS_SILENCED:

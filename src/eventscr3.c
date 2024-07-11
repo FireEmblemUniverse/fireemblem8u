@@ -193,7 +193,7 @@ void StartScriptBattleAnim(s8 useMapAnims)
     }
     else
     {
-        MU_EndAll();
+        EndAllMus();
         RenderBmMap();
         BeginBattleMapAnims();
         gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;
@@ -328,8 +328,8 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
     {
         UnitBeginAction(unitA);
         HideUnitSprite(gActiveUnit);
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
 
         if ((GetItemType(unitA->items[0]) == ITYPE_STAFF) || (item != 0))
         {

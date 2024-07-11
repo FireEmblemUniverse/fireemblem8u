@@ -26,7 +26,7 @@ void MapEventBattle_SetUpHitData(ProcPtr proc)
 
 void MapEventBattle_OnEnd(void)
 {
-    MU_AllRestartAnimations();
+    ResetMuAnims();
     ResetTextFont();
     DeleteBattleAnimInfoThing();
     InitBmBgLayers();
@@ -52,7 +52,7 @@ PROC_LABEL(0x0),
     PROC_GOTO(0x0),
 PROC_LABEL(0x1),
     PROC_CALL(MapAnmiProc_DisplayDeathFade),
-    PROC_WHILE_EXISTS(gProcScr_MUDeathFade),
+    PROC_WHILE_EXISTS(ProcScr_MuDeathFade),
     PROC_CALL(DeleteBattleAnimInfoThing),
     PROC_SLEEP(0x1),
     PROC_CALL(UnlockGame),

@@ -476,7 +476,7 @@ void sub_808DEF0(s8 flag) {
         CpuFastFill16(0, PAL_OBJ(0xD), 0x20);
         EnablePaletteSync();
     } else {
-        SetupMapSpritesPalettes();
+        ApplyUnitSpritePalettes();
     }
 
     return;
@@ -550,7 +550,7 @@ void ChapterStatus_Init(struct ChapterStatusProc* proc) {
 
     proc->numEnemyUnits = CountUnitsByFaction(FACTION_RED);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     for (i = 0; i < 2; i++) {
         if (proc->units[i] == 0) {

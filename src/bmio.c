@@ -978,7 +978,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     ClearBattleMapState();
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetChapterFlags();
     ResetUnitSprites();
     ResetMenuOverrides();
@@ -1045,7 +1045,7 @@ void RestartBattleMap(void) {
     SetInterrupt_LCDVBlank(OnVBlank);
 
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     ClearTraps();
@@ -1098,7 +1098,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     );
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     InitChapterMap(gPlaySt.chapterIndex);
@@ -1146,7 +1146,7 @@ void RefreshBMapDisplay_FromBattle(void) {
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     ClearBg0Bg1();
 
@@ -1165,8 +1165,8 @@ void RefreshBMapDisplay_FromBattle(void) {
 void BMapDispResume_FromBattleDelayed(void) {
     LoadObjUIGfx();
 
-    MU_Create(&gBattleActor.unit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(&gBattleActor.unit);
+    SetAutoMuDefaultFacing();
 
     Proc_Start(sProc_DelayedBMapDispResume, PROC_TREE_3);
 }
@@ -1176,7 +1176,7 @@ void InitMoreBMapGraphics(void) {
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     RenderBmMap();
     RefreshUnitSprites();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
     InitSystemTextFont();
 }
@@ -1295,8 +1295,8 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     HideUnitSprite(GetUnit(gActionData.subjectIndex));
 
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 }
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {

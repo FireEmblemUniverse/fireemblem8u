@@ -6,6 +6,8 @@
 #include "bonusclaim.h"
 #include "bmsave.h"
 
+EWRAM_OVERLAY(gamestartsave) u8 sGameStartSaveBuf[0x8000] = { 0 };
+
 //! FE8U = 0x080A720C
 void CopyGlobalSaveInfo(struct GlobalSaveInfo * src, struct GlobalSaveInfo * dst)
 {
@@ -94,8 +96,6 @@ void sub_80A7360(struct GameRankSaveDataPacks* src, struct GameRankSaveDataPacks
     return;
 }
 
-extern u8 gUnknown_02008000[];
-
 //! FE8U = 0x080A7374
 void EraseInvalidSaveData(void)
 {
@@ -127,42 +127,43 @@ void EraseInvalidSaveData(void)
     WriteGlobalSaveInfo(&((struct SaveBlocksEwram*)((void *)ewram + 0x8000))->globalSaveInfo);
 
     /* Erase the suspand data */
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++)
+    {
         CpuFastFill(0, (void *)ewram + 0x8000, sizeof(struct SuspendSaveBlock));
         sub_80A72B0(&ewram_->suspendSaveBlocks[i], (void *)ewram + 0x8000);
         WriteAndVerifySramFast((void *)ewram + 0x8000, &sram->suspendSaveBlocks[i], sizeof(struct SuspendSaveBlock));
     }
 
     /* Erase the save data */
-    for (i = 0; i < 3; i++) {
-        CpuFastFill(0, gUnknown_02008000, sizeof(struct GameSaveBlock));
-        sub_80A72EC(&ewram_->gameSaveBlocks[i], (struct GameSaveBlock*)gUnknown_02008000);
-        WriteAndVerifySramFast(gUnknown_02008000, &sram->gameSaveBlocks[i], sizeof(struct GameSaveBlock));
+    for (i = 0; i < 3; i++)
+    {
+        CpuFastFill(0, sGameStartSaveBuf, sizeof(struct GameSaveBlock));
+        sub_80A72EC(&ewram_->gameSaveBlocks[i], (struct GameSaveBlock*)sGameStartSaveBuf);
+        WriteAndVerifySramFast(sGameStartSaveBuf, &sram->gameSaveBlocks[i], sizeof(struct GameSaveBlock));
     }
 
     // GameRankSaveDataPacks
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct GameRankSaveDataPacks));
-    sub_80A7360(&ewram_->gameRankSave, (struct GameRankSaveDataPacks*)gUnknown_02008000);
-    SaveRankings(gUnknown_02008000);
+    CpuFastFill(0, sGameStartSaveBuf, sizeof(struct GameRankSaveDataPacks));
+    sub_80A7360(&ewram_->gameRankSave, (struct GameRankSaveDataPacks*)sGameStartSaveBuf);
+    SaveRankings(sGameStartSaveBuf);
 
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct SoundRoomSaveData));
-    sub_80A734C(&ewram_->soundRoomSave, (struct SoundRoomSaveData*)gUnknown_02008000);
-    WriteSoundRoomSaveData((struct SoundRoomSaveData *)gUnknown_02008000);
+    CpuFastFill(0, sGameStartSaveBuf, sizeof(struct SoundRoomSaveData));
+    sub_80A734C(&ewram_->soundRoomSave, (struct SoundRoomSaveData*)sGameStartSaveBuf);
+    WriteSoundRoomSaveData((struct SoundRoomSaveData *)sGameStartSaveBuf);
 
     // "bmsave_unkstruct2", flags for viewing CGs?
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct bmsave_unkstruct2));
-    sub_80A733C(&ewram_->unkstruct2, (struct bmsave_unkstruct2*)gUnknown_02008000);
-    WriteLinkArenaStruct2((struct bmsave_unkstruct2*)gUnknown_02008000);
+    CpuFastFill(0, sGameStartSaveBuf, sizeof(struct bmsave_unkstruct2));
+    sub_80A733C(&ewram_->unkstruct2, (struct bmsave_unkstruct2*)sGameStartSaveBuf);
+    WriteLinkArenaStruct2((struct bmsave_unkstruct2*)sGameStartSaveBuf);
 
-    CpuFastFill(0, gUnknown_02008000, sizeof(struct BonusClaimSaveData));
-    sub_80A7328(&ewram_->bonusClaim, (struct BonusClaimSaveData*)gUnknown_02008000);
-    SaveBonusContentData(gUnknown_02008000);
+    CpuFastFill(0, sGameStartSaveBuf, sizeof(struct BonusClaimSaveData));
+    sub_80A7328(&ewram_->bonusClaim, (struct BonusClaimSaveData*)sGameStartSaveBuf);
+    SaveBonusContentData(sGameStartSaveBuf);
 
-    for (i = 0; i < SAVE_ID_MAX; i++) {
-        CpuFastFill(0, gUnknown_02008000, sizeof(struct SaveBlockInfo));
-        SetGlobalSaveInfoPtr(&ewram_->saveBlockInfo[i], (struct SaveBlockInfo*)gUnknown_02008000);
-        WriteSaveBlockInfo((struct SaveBlockInfo *)gUnknown_02008000, i);
+    for (i = 0; i < SAVE_ID_MAX; i++)
+    {
+        CpuFastFill(0, sGameStartSaveBuf, sizeof(struct SaveBlockInfo));
+        SetGlobalSaveInfoPtr(&ewram_->saveBlockInfo[i], (struct SaveBlockInfo*)sGameStartSaveBuf);
+        WriteSaveBlockInfo((struct SaveBlockInfo *)sGameStartSaveBuf, i);
     }
-
-    return;
 }

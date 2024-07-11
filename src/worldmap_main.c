@@ -320,8 +320,8 @@ void SetupGraphicSystemsForWorldMap(void)
     ResetFaces();
     SetupFaceGfxData(gUnknown_08A3D728);
     ResetUnitSprites();
-    MU_Init();
-    SetupMapSpritesPalettes();
+    InitMus();
+    ApplyUnitSpritePalettes();
 
     gBmSt.camera.x = 0;
     gBmSt.camera.y = 0;
@@ -470,7 +470,7 @@ void sub_80B9028(struct WorldMapMainProc * proc)
 
         GmMu_SetPosition(proc->unk_54, i, *a, *b);
 
-        GmMu_ShowUnit(proc->unk_54, i);
+        GmShowMuUnit(proc->unk_54, i);
     }
 
     return;

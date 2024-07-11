@@ -1183,7 +1183,7 @@ void StartPrepItemSupplyProc(struct Unit * unit, ProcPtr parent)
 void sub_809EAF4(void)
 {
     if (gActiveUnit) {
-        MU_EndAll();
+        EndAllMus();
         ShowUnitSprite(gActiveUnit);
     }
 
@@ -1195,8 +1195,8 @@ void sub_809EB14(void)
 {
     if (gActiveUnit) {
         HideUnitSprite(gActiveUnit);
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
     }
 
     return;

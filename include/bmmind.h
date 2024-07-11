@@ -58,7 +58,7 @@ struct CombatActionProc {
 
     /* 29 */ u8 unk_29[0x54-0x29];
 
-    /* 54 */ struct MUProc* unk_54;
+    /* 54 */ struct MuProc* unk_54;
     /* 58 */ u8 unk_58[0x64-0x58];
 
     /* 64 */ s16 unitIdA;

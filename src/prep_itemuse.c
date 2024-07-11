@@ -383,7 +383,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     BG_SetPosition(BG_0, 0,0);
     BG_SetPosition(BG_1, 0,0);

@@ -24,7 +24,7 @@
 
 struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
     PROC_SLEEP(1),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
     PROC_CALL(RegisterTrapDeathBWL),
     PROC_CALL(ExecFireTileTrapAnim1),
     PROC_YIELD,
@@ -40,7 +40,7 @@ struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
 
 struct ProcCmd CONST_DATA sProcScr_ExecTrapMine[] = {
     PROC_SLEEP(1),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
     PROC_CALL(RegisterTrapDeathBWL),
     PROC_CALL(ExecFireTileTrapAnim2),
     PROC_YIELD,
@@ -78,17 +78,17 @@ void ApplyTrapDamageAnim(struct ProcBmTrap * proc)
 
     switch (proc->post_exec_type) {
     case 0:
-        MU_EndAll();
+        EndAllMus();
         break;
 
     case 1:
-        MU_EndAll();
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        EndAllMus();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
         break;
 
     case 2:
-        MU_End(MU_GetByUnit(unit));
+        EndMu(GetUnitMu(unit));
         break;
     }
 
@@ -226,7 +226,7 @@ bool ExecTrapAfterWarp(ProcPtr proc)
 bool ExecTrapAfterDropAction(ProcPtr proc, struct Unit * unit)
 {
     if (!GetPickTrapType(unit)) {
-        MU_End(MU_GetByUnit(unit));
+        EndMu(GetUnitMu(unit));
         RenderBmMap();
         RefreshEntityBmMaps();
         ForceSyncUnitSpriteSheet();

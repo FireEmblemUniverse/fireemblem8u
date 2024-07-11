@@ -302,7 +302,7 @@ void SetupBonusClaimTargets(struct BonusClaimProc * proc)
     }
 
     proc->targets = count + 1;
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
 }
 

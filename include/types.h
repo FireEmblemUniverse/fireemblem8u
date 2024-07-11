@@ -370,7 +370,7 @@ enum
 
 struct SMSHandle
 {
-    /* 00 */ struct SMSHandle* pNext;
+    /* 00 */ struct SMSHandle * pNext;
 
     /* 04 */ short xDisplay;
     /* 06 */ short yDisplay;
@@ -379,12 +379,6 @@ struct SMSHandle
 
     /* 0A */ u8 _u0A;
     /* 0B */ s8 config;
-};
-
-struct MMSData
-{
-    const void* pGraphics;
-    const void* pAnimation;
 };
 
 struct MapChange

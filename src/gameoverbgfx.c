@@ -78,7 +78,7 @@ struct ProcCmd CONST_DATA ProcScr_GameOverScreen_RandomScroll[] = {
 struct ProcCmd CONST_DATA ProcScr_GameOverScreen[] = {
     PROC_SET_END_CB(GameOverScreen_End),
     PROC_CALL(GameOverScreen_Init),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_START_CHILD(ProcScr_GameOverScreen_RandomScroll),
     PROC_REPEAT(GameOverScreen_LoopFadeIn),
     PROC_CALL(GameOverScreen_BeginIdle),

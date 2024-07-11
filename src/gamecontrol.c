@@ -540,7 +540,7 @@ void sub_8009CC0(ProcPtr proc)
 
 void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
 
-    MU_EndAll();
+    EndAllMus();
 
     switch (proc->nextAction) {
     case GAME_ACTION_EVENT_RETURN:

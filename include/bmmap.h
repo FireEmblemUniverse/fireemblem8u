@@ -40,6 +40,9 @@ extern u8 ** gBmMapOther;
 extern u8 *   gTilesetTerrainLookup;
 extern u16 ** gBmMapBaseTiles;
 
+#define gMapRangeSigned ((s8 **) gBmMapRange)
+#define gMapMovementSigned ((s8 **) gBmMapMovement)
+
 enum
 {
     // Magic values for gBmMapMovement

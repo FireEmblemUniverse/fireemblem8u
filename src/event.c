@@ -141,7 +141,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
-            MU_EndAll();
+            EndAllMus();
             EndBMapMain();
             memset((u8*)(gEventCallQueue), 0, 0x80);
         }
@@ -419,7 +419,7 @@ bool8 EventEngine_CanStartSkip(struct EventEngineProc* proc) { // Events_CanSkip
     if (IsBattleDeamonActive())
         return FALSE;
 
-    if (Proc_Find(gProcScr_MUDeathFade))
+    if (Proc_Find(ProcScr_MuDeathFade))
         return FALSE;
 
     return TRUE;

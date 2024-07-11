@@ -24,12 +24,12 @@ const struct ProcCmd * GetItemAnim6CCode(void)
 
 void MapAnim_AnimateSubjectIdle(ProcPtr proc)
 {
-    MU_StartActionAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuActionAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
 void MapAnim_SubjectResetAnim(ProcPtr proc)
 {
-    MU_StartDelayedFaceTarget(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuDelayedFaceDefender(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
 void sub_80812C0(void)
@@ -39,9 +39,9 @@ void sub_80812C0(void)
     else
         CallDelayed(sub_8081384, 0xC);
 
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameTimer = 0;
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameInterval = 0x100;
-    AP_SwitchAnimation(gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle, 0x5);
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0x100;
+    AP_SwitchAnimation(gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim, 0x5);
 }
 
 void sub_8081348(void)
@@ -58,21 +58,21 @@ void sub_8081384(void)
 
 void sub_80813C0(void)
 {
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameTimer = 0;
-    gManimSt.actor[gManimSt.subjectActorId].mu->pAPHandle->frameInterval = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
+    gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0;
 }
 
 void MapAnim_BeginSubjectFastAnim(void)
 {
-    MU_StartFastMoveAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
+    StartMuSpeedUpAnim(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
-void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
+void MapAnimMoveUnitTowardsTargetExt(struct MuProc * mu1, struct MuProc * mu2)
 {
     int x1, x2, y1, y2, distance;
 
-    x1 = mu1->xSubPosition;
-    x2 = mu2->xSubPosition;
+    x1 = mu1->x_q4;
+    x2 = mu2->x_q4;
 
     distance = x2 - x1;
     if (distance <= 0)
@@ -86,10 +86,10 @@ void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         x1 = x1 + 0x10;
 
-    mu1->xSubPosition = x1;
+    mu1->x_q4 = x1;
 
-    y1 = mu1->ySubPosition;
-    y2 = mu2->ySubPosition;
+    y1 = mu1->y_q4;
+    y2 = mu2->y_q4;
 
     distance = y2 - y1;
     if (distance <= 0)
@@ -103,15 +103,15 @@ void MapAnimMoveUnitTowardsTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         y1 = y1 + 0x10;
 
-    mu1->ySubPosition = y1;
+    mu1->y_q4 = y1;
 }
 
-void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
+void MapAnimMoveUnitAwayFromTargetExt(struct MuProc * mu1, struct MuProc * mu2)
 {
     int x1, x2, y1, y2, distance;
 
-    x1 = mu1->xSubPosition;
-    x2 = mu2->xSubPosition;
+    x1 = mu1->x_q4;
+    x2 = mu2->x_q4;
 
     distance = x1 - x2;
     if (distance <= 0)
@@ -125,10 +125,10 @@ void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         x1 = x1 + 0x10;
 
-    mu1->xSubPosition = x1;
+    mu1->x_q4 = x1;
 
-    y1 = mu1->ySubPosition;
-    y2 = mu2->ySubPosition;
+    y1 = mu1->y_q4;
+    y2 = mu2->y_q4;
 
     distance = y1 - y2;
     if (distance <= 0)
@@ -142,12 +142,12 @@ void MapAnimMoveUnitAwayFromTargetExt(struct MUProc * mu1, struct MUProc * mu2)
     else
         y1 = y1 + 0x10;
 
-    mu1->ySubPosition = y1;
+    mu1->y_q4 = y1;
 }
 
 void MapAnim_MoveSubjectsTowardsTarget(void)
 {
-    struct MUProc * mu, * mu2;
+    struct MuProc * mu, * mu2;
 
     mu  = gManimSt.actor[gManimSt.subjectActorId].mu;
     mu2 = gManimSt.actor[gManimSt.targetActorId].mu;
@@ -165,7 +165,7 @@ void MapAnim_MoveSubjectsTowardsTarget(void)
 
 void MapAnim_MoveSubjectsAwayFromTarget(void)
 {
-    struct MUProc * mu, * mu2;
+    struct MuProc * mu, * mu2;
 
     mu  = gManimSt.actor[gManimSt.subjectActorId].mu;
     mu2 = gManimSt.actor[gManimSt.targetActorId].mu;
@@ -291,7 +291,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartCritFlash(
+        StartMuCritFlash(
             gManimSt.actor[map_target].mu,
             GetSpellAssocFlashColor(gManimSt.actor[map_actor].bu->weaponBefore)
         );
@@ -302,7 +302,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartFastMoveAnim(gManimSt.actor[map_actor].mu);
+        StartMuSpeedUpAnim(gManimSt.actor[map_actor].mu);
     }
     else
     {
@@ -311,7 +311,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
-        MU_StartHitFlash(
+        StartMuHitFlash(
             gManimSt.actor[map_target].mu,
             GetSpellAssocFlashColor(gManimSt.actor[map_actor].bu->weaponBefore)
         );
@@ -477,17 +477,17 @@ void MapAnimCallSpellAssocRepair(ProcPtr proc)
 
 void SpellWarpStartFlashFade(ProcPtr proc)
 {
-    MU_StartFlashFade(gManimSt.actor[gManimSt.targetActorId].mu, 0);
+    StartMuFadeIntoFlash(gManimSt.actor[gManimSt.targetActorId].mu, 0);
 }
 
 void sub_8081CF8(ProcPtr proc)
 {
-    MU_8079858(gManimSt.actor[gManimSt.targetActorId].mu);
+    StartMuFadeFromFlash(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpMuHide(ProcPtr proc)
 {
-    MU_Hide(gManimSt.actor[gManimSt.targetActorId].mu);
+    HideMu(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpStartExplosion(ProcPtr proc)
@@ -514,15 +514,15 @@ void SpellWarpStartImplosion(ProcPtr proc)
 
 void SpellWarpMuShow(ProcPtr proc)
 {
-    MU_Show(gManimSt.actor[gManimSt.targetActorId].mu);
+    ShowMu(gManimSt.actor[gManimSt.targetActorId].mu);
 }
 
 void SpellWarpSetNewPosition(ProcPtr proc)
 {
     struct Unit * unit = gManimSt.actor[gManimSt.targetActorId].unit;
-    struct MUProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
+    struct MuProc * mu = gManimSt.actor[gManimSt.targetActorId].mu;
 
-    MU_SetDisplayPosition(
+    SetMuScreenPosition(
         mu,
         gManimSt.xtarget * 0x10,
         gManimSt.ytarget * 0x10);
@@ -546,7 +546,7 @@ void sub_8081E60(ProcPtr proc)
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
-    MU_EndAll();
+    EndAllMus();
 }
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[] = {

@@ -636,7 +636,7 @@ void AiScriptCmd_17_DoEscape(u8* pc) {
 
 //! FE8U = 0x0803CF60
 int sub_803CF60(int x, int y) {
-    return ((AiGetTerrainCombatPositionScoreComponent(x, y) + AiGetFriendZoneCombatPositionScoreComponent(x, y)) - ((s8**)(gBmMapMovement))[y][x] - gBmMapOther[y][x] / 8) + 0x7FFFFFFF;
+    return ((AiGetTerrainCombatPositionScoreComponent(x, y) + AiGetFriendZoneCombatPositionScoreComponent(x, y)) - gMapMovementSigned[y][x] - gBmMapOther[y][x] / 8) + 0x7FFFFFFF;
 }
 
 //! FE8U = 0x0803CFB4
@@ -675,7 +675,7 @@ s8 sub_803CFB4(int x, int y, struct Vec2* out, u8* itemSlotOut) {
                     continue;
                 }
 
-                if (((s8**)(gBmMapRange))[iy][ix] == 0) {
+                if (gMapRangeSigned[iy][ix] == 0) {
                     continue;
                 }
 
@@ -736,7 +736,7 @@ s8 sub_803D124(const u8* terrainList, u32 flags, struct Vec2* out) {
                 }
             }
 
-            if (best <= ((s8**)(gBmMapRange))[iy][ix]) {
+            if (best <= gMapRangeSigned[iy][ix]) {
                 continue;
             }
 

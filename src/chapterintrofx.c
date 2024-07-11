@@ -782,7 +782,7 @@ void ChapterIntro_InitMapDisplay() {
 
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     LoadObjUIGfx();
 
     var = GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX;

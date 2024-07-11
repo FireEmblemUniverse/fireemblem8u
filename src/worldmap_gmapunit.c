@@ -6,6 +6,7 @@
 #include "bmunit.h"
 #include "bmudisp.h"
 #include "ctc.h"
+#include "mu.h"
 #include "spline.h"
 
 #include "worldmap.h"
@@ -16,13 +17,13 @@ void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, int isBlend);
 //! FE8U = 0x080BAC1C
 const void * MMS_GetGfx(u16 idx)
 {
-    return gMMSDataTable[idx - 1].pGraphics;
+    return gMuInfoTable[idx - 1].img;
 }
 
 //! FE8U = 0x080BAC30
 const void * MMS_GetROMTCS2(u16 idx)
 {
-    return gMMSDataTable[idx - 1].pAnimation;
+    return gMuInfoTable[idx - 1].anim;
 }
 
 //! FE8U = 0x080BAC44
@@ -86,7 +87,7 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
         if (proc->animId == 4)
         {
             int oam2;
-            sub_80270DC(gUnknown_08205F7C[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
+            SetStandingMuFacingWM(gUnknown_08205F7C[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
 
             oam2 = proc->unk_30 + OAM2_PAL(proc->pal) + gUnknown_08205F7C[proc->index] + proc->unk_2e;
             SMS_DisplayOne(proc->unk_38, proc->unk_2c, xOam1, yOam0, oam2, proc->flags & GMAPUNIT_FLAG_BLEND);
@@ -178,7 +179,7 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
     mapUnitProc->unk_38 = classId;
     mapUnitProc->unk_3a = classId;
 
-    SMS_SomethingGmapUnit(GetClassSMSId(classId), mapUnitProc->index, gUnknown_08205F7C[mapUnitProc->index]);
+    StartWorldMapSMS(GetClassSMSId(classId), mapUnitProc->index, gUnknown_08205F7C[mapUnitProc->index]);
     mapUnitProc->unk_2c = 8;
 
     ap = AP_Create(MMS_GetROMTCS2(classId), 8);

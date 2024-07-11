@@ -159,7 +159,7 @@ void MapAnim_Poison2ResetMap(void)
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
-    MU_EndAll();
+    EndAllMus();
 }
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimGorgonHatch[] =
@@ -320,7 +320,7 @@ void LoadGorgonFromEgg(struct MAEffectProc * proc)
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
-    MU_EndAll();
+    EndAllMus();
 }
 
 //! FE8U = 0x0807D09C

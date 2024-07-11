@@ -73,7 +73,7 @@ struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_SLEEP(0),
 
     PROC_CALL(CpPerform_BeginUnitMovement),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
 
     PROC_CALL(CpPerform_MoveCameraOntoTarget),
     PROC_SLEEP(0),
@@ -167,9 +167,9 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc) {
     gAiDecision.yMove = gActionData.yMove;
 
     if (proc->isUnitVisible) {
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
-        MU_StartMoveScript_Auto(gWorkingMovementScript);
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
+        SetAutoMuMoveScript(gWorkingMovementScript);
     }
 
     return;
@@ -188,7 +188,7 @@ void AiRefreshMap() {
 
     NewBMXFADE(1);
 
-    MU_EndAll();
+    EndAllMus();
     RefreshEntityBmMaps();
 
     ShowUnitSprite(gActiveUnit);
@@ -227,14 +227,14 @@ void AiStartCombatAction(struct CpPerformProc* proc) {
 
 void AiStartEscapeAction(struct CpPerformProc* proc) {
     u8 scripts[4][3] = {
-        { MU_COMMAND_MOVE_LEFT,  MU_COMMAND_MOVE_LEFT,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_RIGHT, MU_COMMAND_MOVE_RIGHT, MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_DOWN,  MU_COMMAND_MOVE_DOWN,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_UP,    MU_COMMAND_MOVE_UP,    MU_COMMAND_HALT },
+        { MOVE_CMD_MOVE_LEFT,  MOVE_CMD_MOVE_LEFT,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_RIGHT, MOVE_CMD_MOVE_RIGHT, MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_DOWN,  MOVE_CMD_MOVE_DOWN,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_UP,    MOVE_CMD_MOVE_UP,    MOVE_CMD_HALT },
     };
 
     if ((gAiDecision.xTarget != 5) && (proc->isUnitVisible)) {
-        MU_StartMoveScript_Auto(scripts[gAiDecision.xTarget]);
+        SetAutoMuMoveScript(scripts[gAiDecision.xTarget]);
     }
 
     return;
@@ -428,15 +428,15 @@ void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc) {
             }
 
             if (((s8)gAiDecision.itemSlot == -1) && !(gActiveUnit->state & US_IN_BALLISTA)) {
-                MU_EndAll();
+                EndAllMus();
 
                 gActiveUnit->xPos = gAiDecision.xMove;
                 gActiveUnit->yPos = gAiDecision.yMove;
 
                 RideBallista(gActiveUnit);
 
-                MU_Create(gActiveUnit);
-                MU_SetDefaultFacing_Auto();
+                StartMu(gActiveUnit);
+                SetAutoMuDefaultFacing();
             }
 
             break;
@@ -602,7 +602,7 @@ s8 AiDummyAction(struct CpPerformProc* proc) {
 }
 
 s8 AiEscapeAction(struct CpPerformProc* proc) {
-    if (!MU_IsAnyActive()) {
+    if (!MuExistsActive()) {
         gActiveUnit->pCharacterData = NULL;
         return 1;
     }

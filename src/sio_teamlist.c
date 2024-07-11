@@ -521,7 +521,7 @@ void SioTeamList_SetupGfx(struct SioTeamListProc * proc)
 
     sub_8043164();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
     ForceSyncUnitSpriteSheet();
 

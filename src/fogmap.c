@@ -55,7 +55,7 @@ void FillWarpRangeMap(struct Unit *unit_act, struct Unit *unit_tar) {
                     0 == gBmMapUnit[y][x])
                     continue;
                     
-                ((s8**)gBmMapMovement)[y][x] = -1;
+                gMapMovementSigned[y][x] = -1;
             }
         }
     } else {
@@ -69,9 +69,9 @@ void FillWarpRangeMap(struct Unit *unit_act, struct Unit *unit_tar) {
                     0 != gBmMapFog[y][x])
                     continue;
 
-                ((s8**)gBmMapMovement)[y][x] = -1;
+                gMapMovementSigned[y][x] = -1;
             }
         }
     }
-    ((s8**)gBmMapMovement)[unit_act->yPos][unit_act->xPos] = -1;
+    gMapMovementSigned[unit_act->yPos][unit_act->xPos] = -1;
 }

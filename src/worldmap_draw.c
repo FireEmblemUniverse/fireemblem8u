@@ -23,13 +23,13 @@ void RemoveGmUnit(int index)
 //! FE8U = 0x080BF554
 void ShowGmUnit(int index)
 {
-    GmMu_ShowUnit(GM_MU, index);
+    GmShowMuUnit(GM_MU, index);
 }
 
 //! FE8U = 0x080BF570
 void HideGmUnit(int index)
 {
-    GmMu_HideUnit(GM_MU, index);
+    GmHideMuUnit(GM_MU, index);
 }
 
 //! FE8U = 0x080BF58C

@@ -48,7 +48,7 @@ CONST_DATA struct ProcCmd ProcScr_BmGameOver[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(StartSlowFadeToBlack),
     PROC_SLEEP(0x50),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_CALL(SkilGameOverForToturialExtraMap),
     PROC_CALL(StartGameOverScreen),
     PROC_YIELD,
@@ -166,7 +166,7 @@ void ResetAllPlayerUnitState(void)
     }
 
     RefreshEntityBmMaps();
-    MU_EndAll();
+    EndAllMus();
 }
 
 void TryLockParentProc(ProcPtr proc)
@@ -410,37 +410,39 @@ void UnsetEventId_0x84(ProcPtr proc)
     ClearFlag(0x84);
 }
 
-void sub_8085988(struct EventEngineProc * proc)
+void UnitTornOut_Init(struct ProcUnitTornOut * proc)
 {
-    proc->unitLoadCount = 0;
+    proc->timer = 0;
 }
 
-void sub_8085990(struct EventEngineProc * proc)
+void UnitTornOut_Loop(struct ProcUnitTornOut * proc)
 {
     struct Unit * unit = proc->unit;
-    int count = proc->unitLoadCount;
-    sub_8026C1C(unit, count);
-    
-    if (63 == proc->unitLoadCount++) {
+    int timer = proc->timer;
+
+    TornOutUnitSprite(unit, timer);
+
+    if (proc->timer++ == 63)
+    {
         unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
         RefreshEntityBmMaps();
         RefreshUnitSprites();
         Proc_Break(proc);
-    }    
+    }
 }
 
-CONST_DATA struct ProcCmd ProcScr_089EE068[] = {
+CONST_DATA struct ProcCmd ProcScr_UnitTornOut[] = {
     PROC_YIELD,
-    PROC_CALL(sub_8085988),
-    PROC_REPEAT(sub_8085990),
+    PROC_CALL(UnitTornOut_Init),
+    PROC_REPEAT(UnitTornOut_Loop),
     PROC_END
 };
 
-void sub_80859D0(ProcPtr proc, ProcPtr parent)
+void StartUnitTornOut(struct Unit * unit, ProcPtr parent)
 {
-    struct Proc89EE068 *_proc;
-    _proc = Proc_Start(ProcScr_089EE068, parent);
-    _proc->unk_proc = proc;
+    struct ProcUnitTornOut * proc;
+    proc = Proc_Start(ProcScr_UnitTornOut, parent);
+    proc->unit = unit;
 }
 
 void nullsub_20(ProcPtr proc)

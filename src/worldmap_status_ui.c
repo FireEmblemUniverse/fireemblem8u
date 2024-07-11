@@ -140,7 +140,7 @@ struct WorldmapStatusProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Unit * unit;
-    /* 30 */ struct MUProc * muProc;
+    /* 30 */ struct MuProc * muProc;
     /* 34 */ struct Text text[2];
 };
 
@@ -306,8 +306,8 @@ void WorldmapStatus_InitDetails(struct WorldmapStatusProc * proc)
         ApplyPalette(gUnknown_08A01F04, 2);
     }
 
-    MU_EndAll();
-    proc->muProc = MU_CreateForUI(proc->unit, 216, 135);
+    EndAllMus();
+    proc->muProc = StartUiMu(proc->unit, 216, 135);
 
     PutWorldmapStatusDetails(proc);
 
@@ -340,7 +340,7 @@ void WorldmapStatus_InitGfx(void)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     StartMuralBackground(NULL, (void *)0x0600B000, -1);
 
     Decompress(gUnknown_08A986C0, (void *)0x06003000);
@@ -481,7 +481,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldmapStatusUi[] =
 
     PROC_CALL(WorldmapStatus_80C0FA4),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(UnlockGame),

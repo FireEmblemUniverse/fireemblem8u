@@ -79,7 +79,7 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
     DisableMapPaletteAnimations();
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     LoadObjUIGfx();
 
     x = GetCameraCenteredX(GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX * 0x10);

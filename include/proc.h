@@ -106,7 +106,7 @@ enum
     PROC_MARK_1 = 0x01,
     PROC_MARK_2 = 0x02,
     PROC_MARK_3 = 0x03,
-    PROC_MARK_4 = 0x04,
+    PROC_MARK_MU = 0x04,
     PROC_MARK_5 = 0x05,
     PROC_MARK_6 = 0x06,
     PROC_MARK_7 = 0x07,
@@ -158,5 +158,7 @@ struct Proc * Proc_FindAfterWithParent(struct Proc * proc, struct Proc * parent)
 int CountProcs(const struct ProcCmd * script);
 void Proc_FindBegin(struct ProcFindIterator* it, const struct ProcCmd* script);
 ProcPtr Proc_FindNext(struct ProcFindIterator* it);
+
+#define Proc_Exists(script) (Proc_Find((script)) ? true : false)
 
 #endif  // GUARD_PROC_H

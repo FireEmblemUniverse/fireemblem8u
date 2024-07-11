@@ -12,6 +12,7 @@
 #include "constants/worldmap.h"
 #include "constants/classes.h"
 #include "constants/faces.h"
+#include "constants/songs.h"
 #include "constants/video-banim.h"
 #include "constants/video-wm.h"
 #include "constants/video-global.h"

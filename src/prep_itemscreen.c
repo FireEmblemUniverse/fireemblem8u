@@ -333,7 +333,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc * proc)
     BG_SetPosition(2, -40, (proc->unk_34 - 4) & 0xff);
     BG_EnableSyncByMask(7);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     CpuFastFill(0, PAL_OBJ(0x0B), 0x20);
 
     ForceSyncUnitSpriteSheet();
