@@ -835,7 +835,7 @@ extern struct ProcCmd ProcScr_ForceAsyncButtonB[];
 extern struct ProcCmd ProcScr_EventHorizontalQuakefx[];
 extern struct ProcCmd ProcScr_EventVerticalQuakefx[];
 extern struct ProcCmd ProcScr_EventQuakefx[];
-extern struct ProcCmd ProcScr_089EE068[];
+extern struct ProcCmd ProcScr_UnitTornOut[];
 extern struct ProcCmd ProcScr_WorldFlush[];
 extern u16 CONST_DATA Obj_089EE99C[];
 extern u16 CONST_DATA *ImgLut_EventMapAnimMaskfx[];    /* images */

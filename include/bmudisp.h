@@ -2,6 +2,7 @@
 #define GUARD_BM_UDISP_H
 
 #define UNITSPRITE_MAX 0xD0
+#define UNITSPRITE_ID_BITS 7
 
 // ??? sub_8026618(???);
 void ApplyUnitSpritePalettes(void);
@@ -9,13 +10,13 @@ void ApplyUnitSpritePalettes(void);
 void ResetUnitSprites(void);
 // ??? ResetUnitSpritesB(???);
 int StartUiSMS(int smsId, int frameId);
-int SMS_SomethingGmapUnit(int smsId, int frameId, int slot);
+int StartWorldMapSMS(int smsId, int frameId, int slot);
 int UseUnitSprite(u32);
+int ApplyUnitSpriteUiImage16x16(int, u32);
 int ApplyUnitSpriteImage16x16(int, u32);
-int SomethingSMS_16x16(int, u32);
 int ApplyUnitSpriteImage16x32(int, u32);
 int ApplyUnitSpriteImage32x32(int, u32);
-void sub_8026C1C(struct Unit*, int);
+void TornOutUnitSprite(struct Unit*, int);
 void SyncUnitSpriteSheet(void);
 void ForceSyncUnitSpriteSheet(void);
 void sub_8026FF4(int id, u8* ptr);

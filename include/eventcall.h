@@ -93,9 +93,22 @@ void StartEventQuakefx(ProcPtr proc);
 void EndEventQuakefx(ProcPtr proc);
 void SetEventId_0x84(ProcPtr);
 void UnsetEventId_0x84(ProcPtr);
-void sub_8085988(struct EventEngineProc * proc);
-void sub_8085990(struct EventEngineProc * proc);
-void sub_80859D0(ProcPtr proc, ProcPtr parent);
+
+struct ProcUnitTornOut {
+    PROC_HEADER;
+    STRUCT_PAD(0x29, 0x4C);
+
+    /* 4C */ s16 counter;
+
+    STRUCT_PAD(0x4E, 0x54);
+
+    /* 54 */ struct Unit * unit;
+};
+
+void UnitTornOut_Init(struct ProcUnitTornOut * proc);
+void UnitTornOut_Loop(struct ProcUnitTornOut * proc);
+void StartUnitTornOut(struct Unit * unit, ProcPtr parent);
+
 void nullsub_20(ProcPtr);
 void WorldFlushInit(struct ProcWorldFlush * proc);
 void WorldFlushOut(struct ProcWorldFlush * proc);

@@ -179,7 +179,7 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
     mapUnitProc->unk_38 = classId;
     mapUnitProc->unk_3a = classId;
 
-    SMS_SomethingGmapUnit(GetClassSMSId(classId), mapUnitProc->index, gUnknown_08205F7C[mapUnitProc->index]);
+    StartWorldMapSMS(GetClassSMSId(classId), mapUnitProc->index, gUnknown_08205F7C[mapUnitProc->index]);
     mapUnitProc->unk_2c = 8;
 
     ap = AP_Create(MMS_GetROMTCS2(classId), 8);
