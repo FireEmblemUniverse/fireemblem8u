@@ -381,12 +381,6 @@ struct SMSHandle
     /* 0B */ s8 config;
 };
 
-struct MMSData
-{
-    const void* pGraphics;
-    const void* pAnimation;
-};
-
 struct MapChange
 {
     /* 00 */ s8 id;

@@ -70,16 +70,7 @@ SECTIONS
         . = 0x003BFC;
         . = ALIGN(4); src/statscreen.o(ewram_overlay_0);
         . = ALIGN(4); src/uichapterstatus.o(ewram_overlay_0);
-        . = 0x004BE0; gMUGfxBuffer = .;
-        . = 0x007838; gUnknown_02007838 = .;
-        . = 0x0078D8; gUnknown_020078D8 = .;
-        . = 0x008000; gUnknown_02008000 = .;
-        . = 0x0087A0; gUnknown_020087A0 = .;
-        . = 0x00A2D8; gUnknown_0200A2D8 = .;
-        . = 0x00A300; gUnknown_0200A300 = .;
-        . = 0x00AF00; gUnknown_0200AF00 = .;
-        . = 0x00C300; gUnknown_0200C300 = .;
-        . = 0x00CB00; gUnknown_0200CB00 = .;
+        . = ALIGN(4); src/mu.o(ewram_overlay_0);
         . = 0x00D3E0; gSortedUnitsBuf = .;
         . = 0x00D6E0; gSortedUnits = .;
         . = 0x00D7E0; gUnknown_0200D7E0 = .;
@@ -149,10 +140,22 @@ SECTIONS
         . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
     }
 
+    ewram_overlay_gamestartsave __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x008000;
+        . = ALIGN(4); src/bmsave-misc.o(ewram_overlay_gamestartsave);
+    }
+
     ewram_overlay_gamestart __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x000000;
         . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
+        . = 0x007838; gUnknown_02007838 = .;
+        . = 0x0078D8; gUnknown_020078D8 = .;
+        . = 0x00A2D8; gUnknown_0200A2D8 = .;
+        . = 0x00A300; gUnknown_0200A300 = .;
+        . = 0x00C300; gUnknown_0200C300 = .;
+        . = 0x00CB00; gUnknown_0200CB00 = .;
         . = 0x01CDD4; gUnk_OpSubtitle_0201CDD4 = .;
         . = 0x01DB00; gUnk_Opinfo_0201DB00 = .;
         . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
@@ -181,6 +184,13 @@ SECTIONS
         . = 0x001180; gUnk_Sio_02001180 = .;
         . = 0x001184; gUnk_Sio_02001184 = .;
         . = 0x001188; gUnk_Sio_02001188 = .;
+    }
+
+    ewram_overlay_worldmap __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000;
+        . = 0x0087A0; gUnknown_020087A0 = .;
+        . = 0x00AF00; gUnknown_0200AF00 = .;
     }
 
     ewram_data __ewram_start (NOLOAD) : ALIGN(4)

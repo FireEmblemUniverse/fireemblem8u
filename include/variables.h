@@ -55,7 +55,7 @@ extern u16 gUiTmScratchC[];
 // extern ??? gMUGfxBuffer
 // extern ??? gUnknown_02007838
 // extern ??? gUnknown_020078D8
-// extern ??? gUnknown_02008000
+// extern ??? sGameStartSaveBuf
 // extern ??? gUnknown_020087A0
 // extern ??? gUnknown_0200A2D8
 // extern ??? gUnknown_0200A300
@@ -824,38 +824,6 @@ extern u16 CONST_DATA Pal_MapClear[];      /* a palatte */
 extern u8 gUnknown_089A234C[]; // "combat record" img
 extern u8 gUnknown_089A27B4[]; // "combat record" tsa
 extern u16 gUnknown_089A28E0[]; // "combat record" pal
-// extern ??? gUnknown_089A2920
-// extern ??? gUnknown_089A2938
-// extern ??? gUnknown_089A2968
-// extern ??? gUnknown_089A2988
-// extern ??? gMUSfxDef_Foot
-// extern ??? gMUSfxDef_Heavy
-// extern ??? gMUSfxDef_Mounted
-// extern ??? gMUSfxDef_Wyvern
-// extern ??? gMUSfxDef_Pegasus
-// extern ??? gMUSfxDef_Zombie
-// extern ??? gMUSfxDef_Skeleton
-// extern ??? gMUSfxDef_Mogall
-// extern ??? gMUSfxDef_Spider
-// extern ??? gMUSfxDef_Dog
-// extern ??? gMUSfxDef_Gorgon
-// extern ??? gMUSfxDef_Boat
-// extern ??? gMUSfxDef_Myrrh
-// extern ??? gUnknown_089A2C28
-// extern ??? gProcScr_MoveUnit
-// extern ??? gUnknown_089A2C68
-// extern ??? gUnknown_089A2C70
-// extern ??? gUnknown_089A2C78
-// extern ??? gUnknown_089A2C7A
-extern CONST_DATA struct ProcCmd gProcScr_MUDeathFade[];
-extern CONST_DATA struct ProcCmd gProcScr_MUBlinkEffect[];
-// extern ??? gUnknown_089A2CA8
-// extern ??? gUnknown_089A2CE8
-extern CONST_DATA struct ProcCmd gProcScr_MU_89A2CF8[];
-// extern ??? gUnknown_089A2D10
-// extern ??? gUnknown_089A2D98
-#define gMMSDataTable unit_icon_move_table
-extern CONST_DATA struct MMSData gMMSDataTable[]; // Moving Map Sprite Table
 
 // extern ??? Img_TalkBubble
 extern u16 Pal_TalkBubble[];
