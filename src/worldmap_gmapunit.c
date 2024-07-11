@@ -87,7 +87,7 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
         if (proc->animId == 4)
         {
             int oam2;
-            sub_80270DC(gUnknown_08205F7C[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
+            SetStandingMuFacingWM(gUnknown_08205F7C[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
 
             oam2 = proc->unk_30 + OAM2_PAL(proc->pal) + gUnknown_08205F7C[proc->index] + proc->unk_2e;
             SMS_DisplayOne(proc->unk_38, proc->unk_2c, xOam1, yOam0, oam2, proc->flags & GMAPUNIT_FLAG_BLEND);

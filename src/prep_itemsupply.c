@@ -1183,7 +1183,7 @@ void StartPrepItemSupplyProc(struct Unit * unit, ProcPtr parent)
 void sub_809EAF4(void)
 {
     if (gActiveUnit) {
-        MU_EndAll();
+        EndAllMus();
         ShowUnitSprite(gActiveUnit);
     }
 

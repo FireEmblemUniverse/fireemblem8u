@@ -327,7 +327,7 @@ void MuCtr_OnEnd(struct MuCtrlProc * proc)
         RefreshUnitSprites();
     }
 
-    MU_End(muProc);
+    EndMu(muProc);
     SortMus();
 
     ClearEventMoveBuffer(proc->redas);

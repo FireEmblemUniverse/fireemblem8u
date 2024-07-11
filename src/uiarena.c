@@ -214,7 +214,7 @@ void ArenaUi_StartArenaBattle(ProcPtr proc) {
     gActiveUnit->state |= US_HAS_MOVED;
 
     PidStatsAddBattleAmt(gActiveUnit);
-    MU_EndAll();
+    EndAllMus();
 
     gActionData.trapType = 0;
 

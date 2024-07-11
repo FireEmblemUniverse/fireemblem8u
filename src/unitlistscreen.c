@@ -78,7 +78,7 @@ PROC_LABEL(1),
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
@@ -541,7 +541,7 @@ void sub_8090514(s8 flag)
 //! FE8U = 0x08090620
 void UnitList_StartStatScreen(struct UnitListScreenProc * proc)
 {
-    MU_EndAll();
+    EndAllMus();
     Proc_End(proc->pSpriteProc);
     Proc_End(proc->pMuralProc);
     EndGreenText();

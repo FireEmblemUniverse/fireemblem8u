@@ -306,7 +306,7 @@ void WorldmapStatus_InitDetails(struct WorldmapStatusProc * proc)
         ApplyPalette(gUnknown_08A01F04, 2);
     }
 
-    MU_EndAll();
+    EndAllMus();
     proc->muProc = StartUiMu(proc->unit, 216, 135);
 
     PutWorldmapStatusDetails(proc);
@@ -481,7 +481,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldmapStatusUi[] =
 
     PROC_CALL(WorldmapStatus_80C0FA4),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(UnlockGame),

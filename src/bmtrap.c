@@ -78,17 +78,17 @@ void ApplyTrapDamageAnim(struct ProcBmTrap * proc)
 
     switch (proc->post_exec_type) {
     case 0:
-        MU_EndAll();
+        EndAllMus();
         break;
 
     case 1:
-        MU_EndAll();
+        EndAllMus();
         StartMu(gActiveUnit);
         SetAutoMuDefaultFacing();
         break;
 
     case 2:
-        MU_End(GetUnitMu(unit));
+        EndMu(GetUnitMu(unit));
         break;
     }
 
@@ -226,7 +226,7 @@ bool ExecTrapAfterWarp(ProcPtr proc)
 bool ExecTrapAfterDropAction(ProcPtr proc, struct Unit * unit)
 {
     if (!GetPickTrapType(unit)) {
-        MU_End(GetUnitMu(unit));
+        EndMu(GetUnitMu(unit));
         RenderBmMap();
         RefreshEntityBmMaps();
         ForceSyncUnitSpriteSheet();

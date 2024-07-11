@@ -141,7 +141,7 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
         ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
         if (proc->evStateBits & EV_STATE_CHANGEGM) {
-            MU_EndAll();
+            EndAllMus();
             EndBMapMain();
             memset((u8*)(gEventCallQueue), 0, 0x80);
         }

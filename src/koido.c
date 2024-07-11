@@ -75,7 +75,7 @@ void Loop6C_KOIDO(struct KoidoProc* proc)
         return;
     
     if (2 != proc->config)
-        MU_End(proc->proc_mu);
+        EndMu(proc->proc_mu);
     
     Proc_Break(proc);
 

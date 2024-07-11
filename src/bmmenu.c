@@ -2202,7 +2202,7 @@ u8 RideCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     gActionData.unitActionType = UNIT_ACTION_RIDE_BALLISTA;
     RideBallista(gActiveUnit);
 
-    MU_EndAll();
+    EndAllMus();
     StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
@@ -2225,7 +2225,7 @@ u8 ExitCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     gActionData.unitActionType = UNIT_ACTION_EXIT_BALLISTA;
     TryRemoveUnitFromBallista(gActiveUnit);
 
-    MU_EndAll();
+    EndAllMus();
     StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;

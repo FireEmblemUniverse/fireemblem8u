@@ -400,7 +400,7 @@ s8 ActionSteal(ProcPtr proc) {
     gBattleTarget.weapon = item;
     BattleApplyMiscAction(proc);
 
-    MU_EndAll();
+    EndAllMus();
     BeginMapAnimForSteal();
 
     return 0;
@@ -411,7 +411,7 @@ s8 ActionSummon(ProcPtr proc) {
     InitBattleUnit(&gBattleActor, gActiveUnit);
 
     BattleApplyMiscAction(proc);
-    MU_EndAll();
+    EndAllMus();
     BeginMapAnimForSummon();
 
     return 0;
@@ -422,7 +422,7 @@ s8 ActionSummonDK(ProcPtr proc) {
     InitBattleUnit(&gBattleActor, gActiveUnit);
 
     BattleApplyMiscAction(proc);
-    MU_EndAll();
+    EndAllMus();
     BeginMapAnimForSummonDK();
 
     return 0;
@@ -594,7 +594,7 @@ void BATTLE_PostCombatDeathFades(struct CombatActionProc* proc) {
 
 //! FE8U = 0x08032860
 void BATTLE_DeleteLinkedMOVEUNIT(struct CombatActionProc* proc) {
-    MU_End(proc->unk_54);
+    EndMu(proc->unk_54);
     return;
 }
 

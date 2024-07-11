@@ -827,7 +827,7 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
             {
                 if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])))
                 {
-                    MU_EndAll();
+                    EndAllMus();
                     EndPlayerPhaseSideWindows();
                     SetStatScreenConfig(
                         STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
@@ -1102,7 +1102,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
     {
-        MU_EndAll();
+        EndAllMus();
         gActiveUnit->state &= ~US_HIDDEN;
         gBmSt.gameStateBits &= ~BM_FLAG_3;
 
@@ -1129,7 +1129,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
             struct Unit * unit = GetUnit(uid);
             if (CanShowUnitStatScreen(unit))
             {
-                MU_EndAll();
+                EndAllMus();
                 SetStatScreenConfig(
                     STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
                     STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);

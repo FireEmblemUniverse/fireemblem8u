@@ -156,7 +156,7 @@ struct ProcCmd CONST_DATA ProcScr_Mu[] = {
     PROC_MARK(PROC_MARK_MU),
 
     PROC_SET_END_CB(MU_OnEnd),
-    PROC_REPEAT(MU_OnLoop)
+    PROC_REPEAT(Mu_OnLoop)
 };
 
 static u16 CONST_DATA sMuChrOffLut_Default[MU_MAX_COUNT] = {
@@ -291,7 +291,7 @@ struct MuProc * StartMu(struct Unit * unit)
 
 void UpdateMu(struct MuProc * proc)
 {
-    MU_OnLoop(proc);
+    Mu_OnLoop(proc);
 }
 
 void EnableMuCamera(struct MuProc * proc)
@@ -390,7 +390,7 @@ void SetMuFacing(struct MuProc * proc, int facing)
     proc->facing = facing;
 
     if (facing == MU_FACING_STANDING)
-        sub_8027068(proc->slot, proc->pGfxVRAM);
+        SetStandingMuFacing(proc->slot, proc->pGfxVRAM);
     else
         AP_SwitchAnimation(proc->sprite_anim, proc->facing);
 }
@@ -554,7 +554,7 @@ void RunMuMoveScript(struct MuProc * proc)
 
         case MOVE_CMD_END:
             EndMuMovement(proc);
-            MU_End(proc);
+            EndMu(proc);
             return;
 
         case MOVE_CMD_MOVE_LEFT:
@@ -833,12 +833,10 @@ void UpdateMuStepSounds(struct MuProc * proc)
     GetMuDisplayPosition(proc, &position);
 
     if (scr[2 + pc])
-    {
         StartPlayMuStepSe(scr[2 + pc], scr[1], position.x);
-    }
 }
 
-void MU_OnLoop(struct MuProc * proc)
+void Mu_OnLoop(struct MuProc * proc)
 {
     if (proc->state)
     {
@@ -861,17 +859,17 @@ void MU_OnEnd(struct MuProc * proc)
     AP_Delete(proc->sprite_anim);
 }
 
-void MU_EndAll(void)
+void EndAllMus(void)
 {
     Proc_EndEach(ProcScr_Mu);
 }
 
-void MU_End(struct MuProc * proc)
+void EndMu(struct MuProc * proc)
 {
-    MU_EndInternal(proc);
+    EndMuExt(proc);
 }
 
-void MU_EndInternal(struct MuProc * proc)
+void EndMuExt(struct MuProc * proc)
 {
     Proc_End(proc);
 }
@@ -882,12 +880,12 @@ void HaltMu(struct MuProc * proc)
     proc->state = MU_STATE_INACTIVE;
 }
 
-void MU_AllDisable(void)
+void LockMus(void)
 {
     Proc_BlockEachMarked(PROC_MARK_MU);
 }
 
-void MU_AllEnable(void)
+void ReleaseMus(void)
 {
     Proc_UnblockEachMarked(PROC_MARK_MU);
 }
@@ -1151,7 +1149,7 @@ void MuDeathFade_OnLoop(struct MuEffectProc * proc)
     SetBlendConfig(0, (proc->timeLeft--) >> 1, 0x10, 0);
     if (proc->timeLeft == 0)
     {
-        MU_End(proc->mu);
+        EndMu(proc->mu);
         Proc_Break(proc);
     }
 }
@@ -1233,7 +1231,7 @@ void MuPixelEffect_OnLoop(struct MuEffectProc * proc)
 
     if (--proc->timeLeft == 0)
     {
-        MU_End(proc->mu);
+        EndMu(proc->mu);
         Proc_Break(proc);
     }
 }

@@ -1687,7 +1687,7 @@ void efxRest_Loop_Main(struct ProcEfx * proc)
 
             RefreshEntityBmMaps();
             RefreshUnitSprites();
-            MU_EndAll();
+            EndAllMus();
         }
 
         SetUnitEfxDebuff(anim, 0);

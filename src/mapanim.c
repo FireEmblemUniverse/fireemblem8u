@@ -93,7 +93,7 @@ void MapAnim_Cleanup(void) {
 	LoadUiFrameGraphics();
 	LoadObjUIGfx();
 	if (EventEngineExists())
-        MU_EndAll();
+        EndAllMus();
 }
 
 void MapAnim_AdvanceBattleRound(void) {

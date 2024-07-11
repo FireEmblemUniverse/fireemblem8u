@@ -474,7 +474,7 @@ struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_SLEEP(0),
     PROC_CALL(sub_8038230),
     PROC_CALL(SetupDungeonRecordUi),

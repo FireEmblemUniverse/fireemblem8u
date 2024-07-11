@@ -852,7 +852,7 @@ void sub_8049C18(void)
 
     if (unitA != NULL)
     {
-        MU_EndAll();
+        EndAllMus();
         ShowUnitSprite(unitA);
     }
 
@@ -956,7 +956,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
         if (((gActiveUnitId >> 6) == gSioSt->selfId) && (sub_8049C94(gActiveUnit) == 1))
         {
             PlaySoundEffect(0x69);
-            MU_EndAll();
+            EndAllMus();
 
             gUnknown_03001838[0] = StartMu(gActiveUnit);
             DisableMuCamera(gUnknown_03001838[0]);
@@ -984,7 +984,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
     {
         if ((gActiveUnit->state & US_BIT9) == 0)
         {
-            MU_EndAll();
+            EndAllMus();
             Proc_Goto(proc, 4);
             return;
         }
@@ -1086,7 +1086,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     {
         PlaySoundEffect(0x6b);
 
-        MU_End(gUnknown_03001838[0]);
+        EndMu(gUnknown_03001838[0]);
         GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04])->state &= ~US_HIDDEN;
 
         sub_80492D8();
@@ -1105,7 +1105,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     {
         if ((gActiveUnit->state & US_BIT9) == 0)
         {
-            MU_EndAll();
+            EndAllMus();
             Proc_Goto(proc, 6);
             return;
         }
@@ -1320,7 +1320,7 @@ void sub_804A44C(struct SioBattleMapProc * proc)
     {
         if ((unit->state & US_BIT9) == 0)
         {
-            MU_End(gUnknown_03001838[1]);
+            EndMu(gUnknown_03001838[1]);
         }
         else
         {
@@ -1392,7 +1392,7 @@ void sub_804A5A4(void)
 
     // clang-format on
 
-    MU_End(gUnknown_03001838[1]);
+    EndMu(gUnknown_03001838[1]);
 
     unitB = GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_05]);
     unitB->state &= ~US_HIDDEN;
@@ -1465,7 +1465,7 @@ void sub_804A6A4(ProcPtr proc)
     SetUnitStatus(unitA, 0);
     SetUnitStatus(unitB, 0);
 
-    MU_EndAll();
+    EndAllMus();
 
     if (GetUnitCurrentHp(unitA) != 0)
     {
@@ -1677,8 +1677,8 @@ _end:
 //! FE8U = 0x0804AA88
 void sub_804AA88(void)
 {
-    MU_EndAll();
-    MU_EndAll();
+    EndAllMus();
+    EndAllMus();
 
     sub_8049594();
     sub_80495F4();
@@ -1806,7 +1806,7 @@ void sub_804ABCC(struct SioProc85AA4CC * proc)
 
                 if ((unit->state & US_BIT9) == 0)
                 {
-                    MU_End(gUnknown_03001838[0]);
+                    EndMu(gUnknown_03001838[0]);
                 }
                 else
                 {
@@ -1880,7 +1880,7 @@ void sub_804ACC4(struct SioProc85AA4CC * proc)
 
                 if ((unitA->state & US_BIT9) == 0)
                 {
-                    MU_End(gUnknown_03001838[1]);
+                    EndMu(gUnknown_03001838[1]);
                 }
                 else
                 {
@@ -2375,7 +2375,7 @@ void sub_804B3D0(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     sub_8049350(6, gPlaySt.faction, 0, 0);
 
     return;
@@ -2391,7 +2391,7 @@ void sub_804B408(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     sub_8049350(7, gPlaySt.faction, 0, 0);
 
     return;
@@ -2406,8 +2406,8 @@ void sub_804B43C(struct SioBattleMapProc * proc)
         return;
     }
 
-    MU_EndAll();
-    MU_EndAll();
+    EndAllMus();
+    EndAllMus();
 
     gLinkArenaSt.unk_0B = 1;
 
@@ -2594,7 +2594,7 @@ void sub_804B624(struct SioBattleMapProc * proc)
 //! FE8U = 0x0804B6AC
 void sub_804B6AC(struct SioBattleMapProc * proc)
 {
-    MU_End(proc->unk_54);
+    EndMu(proc->unk_54);
     return;
 }
 
@@ -2737,7 +2737,7 @@ void sub_804B800(void)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
     RenderBmMap();
 
     BeginBattleMapAnims();

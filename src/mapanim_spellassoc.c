@@ -546,7 +546,7 @@ void sub_8081E60(ProcPtr proc)
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
-    MU_EndAll();
+    EndAllMus();
 }
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[] = {

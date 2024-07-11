@@ -98,7 +98,7 @@ struct ProcUnitTornOut {
     PROC_HEADER;
     STRUCT_PAD(0x29, 0x4C);
 
-    /* 4C */ s16 counter;
+    /* 4C */ s16 timer;
 
     STRUCT_PAD(0x4E, 0x54);
 

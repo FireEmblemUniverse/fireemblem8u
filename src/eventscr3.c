@@ -193,7 +193,7 @@ void StartScriptBattleAnim(s8 useMapAnims)
     }
     else
     {
-        MU_EndAll();
+        EndAllMus();
         RenderBmMap();
         BeginBattleMapAnims();
         gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;

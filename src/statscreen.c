@@ -302,7 +302,7 @@ PROC_LABEL(10),
     PROC_CALL(StatScreen_OnClose),
 
     PROC_CALL(BMapDispResume),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_CALL(EndGreenText),
 
     PROC_END,
@@ -1624,7 +1624,7 @@ void StatScreen_Display(struct Proc* proc)
 
     // Display Map Sprite
 
-    MU_EndAll();
+    EndAllMus();
     gStatScreen.mu = StartUiMu(gStatScreen.unit, 80, 138);
 
     // Draw left panel labels and info

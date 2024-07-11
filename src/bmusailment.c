@@ -228,7 +228,7 @@ PROC_LABEL(0),
     PROC_REPEAT(KillAllRedUnits_Loop),
     PROC_SLEEP(32),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_GOTO(0),
 
@@ -555,7 +555,7 @@ void TerrainHealDisplay_Display(struct UnknownBMUSAilmentProc* proc) {
 }
 
 void FinishDamageDisplay() {
-    MU_EndAll();
+    EndAllMus();
 
     if (gBattleActor.unit.curHP != 0) {
         ShowUnitSprite(GetUnit(gActionData.subjectIndex));
@@ -675,7 +675,7 @@ void SetClassToHatchingGorgonEgg(struct Unit* unit) {
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
     }
 
     return;
@@ -792,7 +792,7 @@ void StatusDecayDisplay_Next(struct UnknownBMUSAilmentProc* proc) {
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
     }
 
     SetUnitStatus(GetUnit(gActionData.subjectIndex), 0);

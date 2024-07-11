@@ -434,7 +434,7 @@ void PrepClassChgOnCancel(struct ProcPromoSel *proc)
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
         StartMu(gActiveUnit);
     }
 }

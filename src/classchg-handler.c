@@ -243,5 +243,5 @@ void StartBmPromotion(ProcPtr proc)
     new_proc->unit = GetUnit(gActionData.subjectIndex);
     new_proc->item_slot = gActionData.itemSlotIndex;
     BMapDispSuspend();
-    MU_EndAll();
+    EndAllMus();
 }

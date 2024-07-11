@@ -170,7 +170,7 @@ struct Unit
     /* 3A */ u8 _u3A;
     /* 3B */ u8 _u3B;
 
-    /* 3C */ struct SMSHandle* pMapSpriteHandle;
+    /* 3C */ struct SMSHandle * pMapSpriteHandle;
 
     /* 40 */ u16 ai_config; // a bitmask
     /* 42 */ u8 ai1;        // enum to gAi1ScriptTable

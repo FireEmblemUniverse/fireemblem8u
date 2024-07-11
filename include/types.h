@@ -370,7 +370,7 @@ enum
 
 struct SMSHandle
 {
-    /* 00 */ struct SMSHandle* pNext;
+    /* 00 */ struct SMSHandle * pNext;
 
     /* 04 */ short xDisplay;
     /* 06 */ short yDisplay;

@@ -48,7 +48,7 @@ CONST_DATA struct ProcCmd ProcScr_BmGameOver[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(StartSlowFadeToBlack),
     PROC_SLEEP(0x50),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_CALL(SkilGameOverForToturialExtraMap),
     PROC_CALL(StartGameOverScreen),
     PROC_YIELD,
@@ -166,7 +166,7 @@ void ResetAllPlayerUnitState(void)
     }
 
     RefreshEntityBmMaps();
-    MU_EndAll();
+    EndAllMus();
 }
 
 void TryLockParentProc(ProcPtr proc)
@@ -412,17 +412,17 @@ void UnsetEventId_0x84(ProcPtr proc)
 
 void UnitTornOut_Init(struct ProcUnitTornOut * proc)
 {
-    proc->counter = 0;
+    proc->timer = 0;
 }
 
 void UnitTornOut_Loop(struct ProcUnitTornOut * proc)
 {
     struct Unit * unit = proc->unit;
-    int count = proc->counter;
+    int timer = proc->timer;
 
-    TornOutUnitSprite(unit, count);
+    TornOutUnitSprite(unit, timer);
 
-    if (proc->counter++ == 63)
+    if (proc->timer++ == 63)
     {
         unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
         RefreshEntityBmMaps();

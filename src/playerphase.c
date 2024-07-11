@@ -126,7 +126,7 @@ PROC_LABEL(6),
 PROC_LABEL(8),
     PROC_YIELD,
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_GOTO(0),
 
@@ -265,7 +265,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
             if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])))
             {
 
-                MU_EndAll();
+                EndAllMus();
 
                 EndPlayerPhaseSideWindows();
                 SetStatScreenConfig(
@@ -295,7 +295,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     if (unit)
                     {
-                        MU_EndAll();
+                        EndAllMus();
                         ShowUnitSprite(unit);
                     }
 
@@ -330,7 +330,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
             if (unit)
             {
-                MU_EndAll();
+                EndAllMus();
                 ShowUnitSprite(unit);
             }
 
@@ -567,7 +567,7 @@ _0801CDE2:
         case ACT_CANCEL:
             if (gActiveUnit)
             {
-                MU_EndAll();
+                EndAllMus();
 
                 gActiveUnit->state &= ~US_HIDDEN;
 
@@ -614,7 +614,7 @@ _0801CDE2:
                 break;
             }
 
-            MU_EndAll();
+            EndAllMus();
             SetStatScreenConfig(
                 STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
                 STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
@@ -698,7 +698,7 @@ void PlayerPhase_BackToMove(ProcPtr proc)
     }
 
     HideUnitSprite(gActiveUnit);
-    MU_EndAll();
+    EndAllMus();
     StartMu(gActiveUnit);
 
     Proc_Goto(proc, 1);
@@ -833,7 +833,7 @@ bool TryMakeCantoUnit(ProcPtr proc)
     gActiveUnit->state |= US_HAS_MOVED;
     gActiveUnit->state &= ~US_UNSELECTABLE;
 
-    MU_EndAll();
+    EndAllMus();
     StartMu(gActiveUnit);
     SetAutoMuDefaultFacing();
 
@@ -904,7 +904,7 @@ void PlayerPhase_FinishAction(ProcPtr proc)
 
     if (ShouldCallEndEvent())
     {
-        MU_EndAll();
+        EndAllMus();
 
         RefreshEntityBmMaps();
         RenderBmMap();
@@ -917,7 +917,7 @@ void PlayerPhase_FinishAction(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
 
     return;
 }
@@ -931,7 +931,7 @@ void sub_801D404(void)
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
     }
 
     return;
@@ -1165,7 +1165,7 @@ void ClearActiveUnit(struct Unit * unit)
 
     if (gActiveUnit != NULL)
     {
-        MU_EndAll();
+        EndAllMus();
         gActiveUnit->state &= ~US_HIDDEN;
     }
 

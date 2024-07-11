@@ -170,7 +170,7 @@ void MADebug_InitScreen(struct MADebugProc* proc)
 {
     int i, j;
 
-    MU_EndAll();
+    EndAllMus();
     ResetText();
 
     SetBlendConfig(2, 8, 8, 0);

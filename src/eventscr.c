@@ -1871,7 +1871,7 @@ u8 Event23_DisaleMapDisp(struct EventEngineProc * proc)
     if (!(proc->evStateBits & EV_STATE_GFXLOCKED))
     {
         BMapDispSuspend();
-        MU_AllDisable();
+        LockMus();
     }
 
     proc->evStateBits |= EV_STATE_GFXLOCKED;
@@ -1884,7 +1884,7 @@ u8 Event24_EnableMapDisp(struct EventEngineProc * proc)
     if (proc->evStateBits & EV_STATE_GFXLOCKED)
     {
         BMapDispResume();
-        MU_AllEnable();
+        ReleaseMus();
     }
 
     proc->evStateBits &= ~EV_STATE_GFXLOCKED;
@@ -3389,7 +3389,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEA:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
         {
@@ -3405,7 +3405,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEN:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_GREEN + 1; i < FACTION_RED; i++)
         {
@@ -3418,7 +3418,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEE:
-        MU_EndAll();
+        EndAllMus();
         for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++)
         {
             struct Unit * it = GetUnit(i);
