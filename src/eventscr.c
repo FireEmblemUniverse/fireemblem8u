@@ -3929,7 +3929,7 @@ void ScriptBattleDeamon(struct ScriptedBattleProc * proc)
     if (proc->lock == GetGameLock())
     {
         EventBattleReloadBmStatus();
-        Proc_SetMark(proc->evtproc, PROC_MARK_6);
+        Proc_SetMark(proc->evtproc, PROC_MARK_EVENT);
         Proc_Break(proc);
     }
 }
@@ -3982,7 +3982,7 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
             childProc = Proc_StartBlocking(ProcScr_ScriptBattleDeamon, proc);
             childProc->evtproc = proc;
             childProc->lock = GetGameLock();
-            Proc_SetMark(proc, PROC_MARK_7);
+            Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
         }
 
         StartEventBattle(unitA, unitB, isBallista, scriptted, weaponId, hits, -subcmd || subcmd);
@@ -4016,7 +4016,7 @@ void WaitEventPromoteDone(struct ProcEventPromote * proc)
     if (proc->lock == GetGameLock())
     {
         sub_8012324();
-        Proc_SetMark(proc->event_engine, PROC_MARK_6);
+        Proc_SetMark(proc->event_engine, PROC_MARK_EVENT);
         Proc_Break(proc);
     }
 
@@ -4043,7 +4043,7 @@ u8 Event40_PromoteUnit(struct EventEngineProc * proc)
     childProc->event_engine = proc;
     childProc->lock = GetGameLock();
 
-    Proc_SetMark(proc, PROC_MARK_7);
+    Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
 
     unit = GetUnitStructFromEventParameter(pid);
     SetUnitStatus(unit, 0);

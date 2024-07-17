@@ -119,7 +119,7 @@ EWRAM_OVERLAY(0) union WeatherEffectData sWeatherEffect = {};
 EWRAM_OVERLAY(0) union GradientEffectData sGradientEffect = {};
 
 static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
     PROC_SET_END_CB(BMapVSync_OnEnd),
 
     PROC_SLEEP(0),
@@ -139,7 +139,7 @@ PROC_LABEL(0),
 CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
     PROC_NAME("MAPTASK"),
     PROC_END_DUPLICATES,
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_SLEEP(0),
 
@@ -1203,7 +1203,7 @@ struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
 void EndBMapMain(void) {
     struct BMapMainProc* mapMain;
 
-    Proc_EndEachMarked(PROC_MARK_1);
+    Proc_EndEachMarked(PROC_MARK_DISP);
 
     mapMain = Proc_Find(gProc_BMapMain);
     mapMain->gameCtrl->proc_lockCnt--;

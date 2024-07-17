@@ -369,7 +369,7 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -399,7 +399,7 @@ void sub_80C4E18(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -441,7 +441,7 @@ void sub_80C4EC4(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -480,7 +480,7 @@ void sub_80C4F60(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, coeff << 4);
 
         SetBlendConfig(1, 0x10 - var, var, 0);
@@ -512,7 +512,7 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, (0x1000 - coeff) << 4);
 
         SetBlendConfig(1, 0x10 - var, var, 0);
@@ -571,7 +571,7 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 46) {
-        int coeff = sub_800B7E0(proc->timer_2c, 46, 0);
+        int coeff = _DivArm1(proc->timer_2c, 46, 0);
 
         sub_80C4BB4(
             gUnknown_08B1756C,
@@ -720,7 +720,7 @@ void sub_80C538C(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 60) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 60, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 60, 0);
 
         sub_80C4BB4(
             gUnk_OpSubtitle_0201CDD4,

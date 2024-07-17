@@ -33,7 +33,7 @@ void sub_800A950(struct Struct02003BE8 *, int, int *);
 // ??? sub_800B388(???);
 // ??? sub_800B574(???);
 // ??? sub_800B764(???);
-int sub_800B7E0(int, int, int);
-int sub_800B84C(int, int, int);
+int _DivArm1(int, int, int);
+int _DivArm2(int, int, int);
 
 #endif // GUARD_SPLINE_H

@@ -34,9 +34,9 @@ struct GMapAutoMuProc
 //! FE8U = 0x080C3124
 void GmapAutoMu_OnEnd(struct GMapAutoMuProc * proc)
 {
-    if (sub_80BE12C(GM_MAIN->unk_54, proc->unitId) != 0)
+    if (sub_80BE12C(GM_MU, proc->unitId) != 0)
     {
-        sub_80BE330(GM_MAIN->unk_54, proc->unitId);
+        sub_80BE330(GM_MU, proc->unitId);
     }
 
     EndGmapUnitFade();
@@ -49,7 +49,7 @@ void GmapAutoMu_OnEnd(struct GMapAutoMuProc * proc)
             break;
 
         case 1:
-            GmMu_SetPosition(GM_MAIN->unk_54, proc->unitId, proc->target.dst.pos.x, proc->target.dst.pos.y);
+            GmMu_SetPosition(GM_MU, proc->unitId, proc->target.dst.pos.x, proc->target.dst.pos.y);
             break;
     }
 
@@ -117,7 +117,7 @@ void GmapAutoMu_80C31FC(struct GMapAutoMuProc * proc)
 //! FE8U = 0x080C3220
 void GmapAutoMu_StartFadeIn(struct GMapAutoMuProc * proc)
 {
-    GmMu_StartFadeIn(GM_MAIN->unk_54, proc->unitId, 30);
+    GmMu_StartFadeIn(GM_MU, proc->unitId, 30);
     ShowGmUnit(proc->unitId);
 
     return;
@@ -126,7 +126,7 @@ void GmapAutoMu_StartFadeIn(struct GMapAutoMuProc * proc)
 //! FE8U = 0x080C3244
 void GmapAutoMu_StartFadeOut(struct GMapAutoMuProc * proc)
 {
-    GmMu_StartFadeOut(GM_MAIN->unk_54, proc->unitId, 30);
+    GmMu_StartFadeOut(GM_MU, proc->unitId, 30);
 
     return;
 }
@@ -157,7 +157,7 @@ void GmapAutoMu_80C3280(struct GMapAutoMuProc * proc)
     input.unk_03 = 0xff;
     input.unk_04 = 4;
 
-    sub_80BDEB4(GM_MAIN->unk_54, &input);
+    sub_80BDEB4(GM_MU, &input);
 
     return;
 }
@@ -180,7 +180,7 @@ void GmapAutoMu_80C32E4(struct GMapAutoMuProc * proc)
     input.unk_04 = 0xff;
     input.unk_05 = 4;
 
-    sub_80BDFA4(GM_MAIN->unk_54, &input);
+    sub_80BDFA4(GM_MU, &input);
 
     return;
 }
@@ -188,7 +188,7 @@ void GmapAutoMu_80C32E4(struct GMapAutoMuProc * proc)
 //! FE8U = 0x080C3350
 void GmapAutoMu_80C3350(struct GMapAutoMuProc * proc)
 {
-    if (!sub_80BE12C(GM_MAIN->unk_54, proc->unitId))
+    if (!sub_80BE12C(GM_MU, proc->unitId))
     {
         Proc_Break(proc);
     }
@@ -201,7 +201,7 @@ void GmapAutoMu_80C3350(struct GMapAutoMuProc * proc)
 struct ProcCmd CONST_DATA ProcScr_GmapAutoMu[] =
 {
     PROC_NAME("Gmap Auto Mu"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapAutoMu_OnEnd),
     PROC_YIELD,

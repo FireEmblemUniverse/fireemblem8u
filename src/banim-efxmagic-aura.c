@@ -421,7 +421,7 @@ void efxOuraBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxOuraBGCOL[] =
 {
     PROC_NAME("efxOuraBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxOuraBGCOL_Loop),
     PROC_END,
 };

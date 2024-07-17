@@ -131,10 +131,10 @@ int GetPaletteIdForAllegience(int faction)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapUnit[] =
+struct ProcCmd CONST_DATA ProcScr_GmapUnit[] =
 {
     PROC_NAME("GmapUnit"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapUnit_Destruct),
 
@@ -166,7 +166,7 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
         return -1;
     }
 
-    mapUnitProc = Proc_Start(gProcScr_GmapUnit, container->proc_parent);
+    mapUnitProc = Proc_Start(ProcScr_GmapUnit, container->proc_parent);
     if (mapUnitProc == NULL)
     {
         return -2;
@@ -186,7 +186,7 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
 
     if (ap == NULL)
     {
-        Proc_End(gProcScr_GmapUnit);
+        Proc_End(ProcScr_GmapUnit);
         return -3;
     }
 
@@ -195,8 +195,8 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
     Decompress(MMS_GetGfx(classId), GetMapUnitMMSGfxBuffer(i));
     ap->pGraphics = GetMapUnitMMSGfxBuffer(i);
 
-    mapUnitProc->unk_30 = container->unk_2c;
-    ap->tileBase = (i * 4) + container->unk_2c + (mapUnitProc->pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
+    mapUnitProc->unk_30 = container->layer;
+    ap->tileBase = (i * 4) + container->layer + (mapUnitProc->pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
 
     mapUnitProc->ap = ap;
 
@@ -346,7 +346,7 @@ void MapUnitC_SetFaction(struct GMapUnitContainerProc * container, int index, in
 
     pal = GetPaletteIdForAllegience(mapUnitProc->faction);
     mapUnitProc->pal = pal;
-    mapUnitProc->ap->tileBase = container->unk_2c + (index * 4) + (pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
+    mapUnitProc->ap->tileBase = container->layer + (index * 4) + (pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
 
     return;
 }
@@ -356,7 +356,7 @@ void MapUnitC_SetPalette(struct GMapUnitContainerProc * container, int index, in
 {
     struct GMapUnitProc * mapUnitProc = container->pMapUnitProcs[index];
     mapUnitProc->pal = pal;
-    mapUnitProc->ap->tileBase = container->unk_2c + (index * 4) + (pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
+    mapUnitProc->ap->tileBase = container->layer + (index * 4) + (pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
     return;
 }
 
@@ -417,8 +417,8 @@ s8 sub_80BB0E0(struct GMapUnitContainerProc * container, int index, int classId)
         Decompress(MMS_GetGfx(r2), GetMapUnitMMSGfxBuffer(index));
 
         ap->pGraphics = GetMapUnitMMSGfxBuffer(index);
-        mapUnitProc->unk_30 = container->unk_2c;
-        ap->tileBase = container->unk_2c + (index * 4) + (mapUnitProc->pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
+        mapUnitProc->unk_30 = container->layer;
+        ap->tileBase = container->layer + (index * 4) + (mapUnitProc->pal & 0xf) * 0x1000 + mapUnitProc->unk_2e;
         mapUnitProc->ap = ap;
     }
 
@@ -468,10 +468,10 @@ void GmapUnitContainer_Init(struct GMapUnitContainerProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapUnitContainer[] =
+struct ProcCmd CONST_DATA ProcScr_GmapUnitContainer[] =
 {
     PROC_NAME("GmapUnit"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapUnitContainer_Destruct),
 
@@ -486,8 +486,8 @@ struct ProcCmd CONST_DATA gProcScr_GmapUnitContainer[] =
 //! FE8U = 0x080BB1E8
 ProcPtr NewGmapUnitContainer(ProcPtr parent, int layer, int chr)
 {
-    struct GMapUnitContainerProc * proc = Proc_Start(gProcScr_GmapUnitContainer, parent);
-    proc->unk_2c = layer;
+    struct GMapUnitContainerProc * proc = Proc_Start(ProcScr_GmapUnitContainer, parent);
+    proc->layer = layer;
     proc->unk_30 = chr;
 
     return proc;
@@ -588,7 +588,7 @@ void GmapUnitFade_Loop(struct GMapUnitFadeProc * proc)
     if (proc->unk_2e < proc->unk_2c)
     {
         int i;
-        int var = sub_800B7E0(proc->unk_2e, proc->unk_2c, 0);
+        int var = _DivArm1(proc->unk_2e, proc->unk_2c, 0);
 
         for (i = 0; i < 0x10; i++)
         {
@@ -616,10 +616,10 @@ void GmapUnitFade_Loop(struct GMapUnitFadeProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapUnitFade[] =
+struct ProcCmd CONST_DATA ProcScr_GmapUnitFade[] =
 {
     PROC_NAME("Gmap Unit Fade"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapUnitFade_Destruct),
     PROC_SLEEP(0),
@@ -639,11 +639,11 @@ ProcPtr StartGmapUnitFade(int index, int palA, int palB, int arg3, ProcPtr paren
 
     if (parent)
     {
-        proc = Proc_StartBlocking(gProcScr_GmapUnitFade, parent);
+        proc = Proc_StartBlocking(ProcScr_GmapUnitFade, parent);
     }
     else
     {
-        proc = Proc_Start(gProcScr_GmapUnitFade, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_GmapUnitFade, PROC_TREE_3);
     }
 
     proc->unk_29 = palA;
@@ -670,14 +670,14 @@ ProcPtr StartGmapUnitFade(int index, int palA, int palB, int arg3, ProcPtr paren
 //! FE8U = 0x080BB47C
 void EndGmapUnitFade(void)
 {
-    Proc_EndEach(gProcScr_GmapUnitFade);
+    Proc_EndEach(ProcScr_GmapUnitFade);
     return;
 }
 
 //! FE8U = 0x080BB48C
 ProcPtr GetGmapUnitFade(void)
 {
-    return Proc_Find(gProcScr_GmapUnitFade);
+    return Proc_Find(ProcScr_GmapUnitFade);
 }
 
 //! FE8U = 0x080BB49C

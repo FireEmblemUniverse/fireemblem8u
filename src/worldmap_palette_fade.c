@@ -83,10 +83,10 @@ void GmPalFade_Loop(struct GmapPalFadeProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapPalFade[] =
+struct ProcCmd CONST_DATA ProcScr_GmapPalFade[] =
 {
     PROC_NAME("Gmap Pal Fade"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmPalFade_OnEnd_Null),
     PROC_YIELD,
@@ -107,11 +107,11 @@ ProcPtr StartGmPalFade(ProcPtr parent, struct GmPalFadeInput * input)
         struct GmapPalFadeProc * proc;
         if (parent)
         {
-            proc = Proc_StartBlocking(gProcScr_GmapPalFade, parent);
+            proc = Proc_StartBlocking(ProcScr_GmapPalFade, parent);
         }
         else
         {
-            proc = Proc_Start(gProcScr_GmapPalFade, PROC_TREE_3);
+            proc = Proc_Start(ProcScr_GmapPalFade, PROC_TREE_3);
         }
 
         proc->unk_2c = input->unk_0c;
@@ -132,20 +132,20 @@ ProcPtr StartGmPalFade(ProcPtr parent, struct GmPalFadeInput * input)
 //! FE8U = 0x080BF730
 s8 IsGmPalFadeActive(void)
 {
-    return (Proc_Find(gProcScr_GmapPalFade)) ? 1 : 0;
+    return (Proc_Find(ProcScr_GmapPalFade)) ? 1 : 0;
 }
 
 //! FE8U = 0x080BF748
 void EndGmPalFade(void)
 {
-    struct GmapPalFadeProc * proc = Proc_Find(gProcScr_GmapPalFade);
+    struct GmapPalFadeProc * proc = Proc_Find(ProcScr_GmapPalFade);
     if (proc)
     {
         CpuCopy16(proc->unk_3c, gPaletteBuffer + proc->unk_35, proc->unk_34 * 2);
 
         EnablePaletteSync();
 
-        Proc_EndEach(gProcScr_GmapPalFade);
+        Proc_EndEach(ProcScr_GmapPalFade);
     }
 
     return;

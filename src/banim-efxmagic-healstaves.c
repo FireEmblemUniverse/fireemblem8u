@@ -556,7 +556,7 @@ void efxLiveBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxLiveBGCOL[] =
 {
     PROC_NAME("efxLiveBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxLiveBGCOL_Loop),
     PROC_END,
 };
@@ -1234,7 +1234,7 @@ void efxReserveBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxReserveBGCOL[] =
 {
     PROC_NAME("efxReserveBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxReserveBGCOL_Loop),
     PROC_END,
 };
@@ -1485,7 +1485,7 @@ void efxReserveBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxReserveBGCOL2[] =
 {
     PROC_NAME("efxReserveBGCOL2"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxReserveBGCOL2_Loop),
     PROC_END,
 };

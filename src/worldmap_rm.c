@@ -13,7 +13,7 @@
 
 CONST_DATA struct ProcCmd ProcScr_GmapRmUpdateDirect[] = {
     PROC_NAME("Gmap RM update"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_REPEAT(GmapRmUpdateDirect_Loop),
     PROC_END
 };
@@ -27,7 +27,7 @@ void GmapRmUpdateDirect_Loop(struct Proc * proc)
 
 CONST_DATA struct ProcCmd ProcScr_GmapRmUpdateExt[] = {
     PROC_NAME("Gmap RM update"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(GmapRmUpdateExt_End),
     PROC_YIELD,
     PROC_REPEAT(GmapRmUpdateExt_Delay),
@@ -95,7 +95,7 @@ void EndGmapRmUpdateExt(void)
 
 struct ProcCmd CONST_DATA ProcScr_GmapRM[] = {
     PROC_NAME("Gmap RM"),
-    PROC_MARK(8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(GmapRm_OnEnd),
     PROC_CALL(GmapRm_InitNop),
     PROC_SLEEP(1),
@@ -380,7 +380,7 @@ void GmapRm_EndAll(void)
 
 struct ProcCmd CONST_DATA ProcScr_GmapRmBaPalAnim1[] = {
     PROC_NAME("Gmap RM ba pal anim"),
-    PROC_MARK(8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(GmapRmBaPalAnim1_End),
     PROC_CALL(GmapRmBaPalAnim1_Init),
     PROC_SLEEP(1),
@@ -414,7 +414,7 @@ void GmapRmBaPalAnim1_Loop1(struct ProcGmapRmBaPalAnim * proc)
 {
     if (++proc->timer < 45)
     {
-        u32 coeff = sub_800B84C(proc->timer, 45, 0);
+        u32 coeff = _DivArm2(proc->timer, 45, 0);
         SetBlendConfig(0, DivArm(0x1000, coeff * 0x10), 0x10, 0);
         proc->flag = 0;
     }
@@ -430,7 +430,7 @@ void GmapRmBaPalAnim1_Loop2(struct ProcGmapRmBaPalAnim * proc)
 {
     if (++proc->timer < 45)
     {
-        u32 coeff = sub_800B84C(proc->timer, 45, 0);
+        u32 coeff = _DivArm2(proc->timer, 45, 0);
         SetBlendConfig(0, 0x10 - DivArm(0x1000, coeff * 0x10), 0x10, 0);
     }
     else
@@ -559,7 +559,7 @@ void GmapRmBorder1_NationMergeIn(struct ProcGmapRmBorder1 * proc)
 
     if (++proc->timer < 22)
     {
-        u32 coeff = sub_800B7E0(proc->timer, 22, 2);
+        u32 coeff = _DivArm1(proc->timer, 22, 2);
         int ret = DivArm(0x1000, coeff * 0x10);
 
         SetBlendConfig(0, ret, 0x10 - ret, 0);
@@ -595,7 +595,7 @@ void GmapRmBorder1_NationMergeOut(struct ProcGmapRmBorder1 * proc)
 
     if (++proc->timer < 22)
     {
-        u32 coeff = sub_800B7E0(proc->timer, 22, 2);
+        u32 coeff = _DivArm1(proc->timer, 22, 2);
         int ret = DivArm(0x1000, coeff * 0x10);
 
         SetBlendConfig(0, 0x10 - ret, ret, 0);
@@ -657,7 +657,7 @@ void GmapRmBorder1_80C2A1C(struct ProcGmapRmBorder1 * proc)
 
 struct ProcCmd CONST_DATA ProcScr_GmapRmBorder1[] = {
     PROC_NAME("Gmap RM border"),
-    PROC_MARK(8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(GmapRmBorder1_End),
     PROC_CALL(GmapRmBorder1_80C2750),
     PROC_REPEAT(GmapRmBorder1_NationMergeIn),
@@ -864,7 +864,7 @@ void sub_80C2C80(int a, int b, const u16 * srcA, const u16 * srcB, u16 * dst)
 {
     int i;
 
-    int coeff = sub_800B7E0(a, b, 0);
+    int coeff = _DivArm1(a, b, 0);
 
     for (i = 0; i < 0x10; i++)
     {
@@ -932,7 +932,7 @@ void WmDotPalAnim_Loop2(struct ProcGmapRmBaPalAnim * proc)
 struct ProcCmd CONST_DATA ProcScr_WmDotPalAnim[] =
 {
     PROC_NAME("Gmap RM ba pal anim"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(WmDotPalAnim_OnEnd),
 
@@ -1103,7 +1103,7 @@ void WmPlaceDot_Loop2(struct ProcWmPlaceDot * proc)
 struct ProcCmd CONST_DATA ProcScr_WmPlaceDot[] =
 {
     PROC_NAME("Gmap RM border"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(WmPlaceDot_OnEnd),
 

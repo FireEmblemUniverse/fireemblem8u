@@ -2573,8 +2573,8 @@ _0800B7D0:
 
 	THUMB_FUNC_END sub_800B764
 
-	THUMB_FUNC_START sub_800B7E0
-sub_800B7E0: @ 0x0800B7E0
+	THUMB_FUNC_START _DivArm1
+_DivArm1: @ 0x0800B7E0
 	push {r4, r5, r6, r7, lr}
 	adds r5, r1, #0
 	adds r6, r2, #0
@@ -2630,10 +2630,10 @@ _0800B846:
 	pop {r1}
 	bx r1
 
-	THUMB_FUNC_END sub_800B7E0
+	THUMB_FUNC_END _DivArm1
 
-	THUMB_FUNC_START sub_800B84C
-sub_800B84C: @ 0x0800B84C
+	THUMB_FUNC_START _DivArm2
+_DivArm2: @ 0x0800B84C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -2733,4 +2733,4 @@ _0800B906:
 	pop {r4, r5, r6, r7}
 	pop {r1}
 	bx r1
-	THUMB_FUNC_END sub_800B84C
+	THUMB_FUNC_END _DivArm2

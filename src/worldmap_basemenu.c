@@ -119,7 +119,7 @@ void GMapBaseMenu_StartSecretShop(struct GMapBaseMenuProc * proc)
 struct ProcCmd CONST_DATA ProcScr_GmapBaseMenu[] =
 {
     PROC_NAME("Gmap Base Menu"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GMapBaseMenu_OnEnd_Null),
 

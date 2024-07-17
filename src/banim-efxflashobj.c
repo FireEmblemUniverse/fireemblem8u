@@ -9,7 +9,7 @@
 
 CONST_DATA struct ProcCmd ProcScr_efxWeaponIcon[] = {
     PROC_NAME("efxWeaponIcon"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_SET_END_CB(sub_8054F78),
     PROC_REPEAT(sub_8054F10),
     PROC_END
@@ -114,7 +114,7 @@ void sub_8054F78(struct ProcEfxWeaponIcon *proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxSpellCast[] = {
     PROC_NAME("efxSpellCast"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(sub_8055038),
     PROC_REPEAT(sub_805509C),
     PROC_REPEAT(sub_80550DC),

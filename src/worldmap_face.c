@@ -4,47 +4,21 @@
 #include "hardware.h"
 #include "worldmap.h"
 
-struct WMFaceWrapper {
-    /* 00 */ s16 unk_00; // x?
-    /* 02 */ s16 unk_02; // y?
-    /* 04 */ struct FaceProc* faceProc;
-    /* 08 */ u16 faceId;
-    /* 0A */ s8 unk_0a; // possibly "fade direction" (+1 for fade in, -1 for fade out?)
-};
-
-struct WMFaceHolderProc {
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct WMFaceWrapper faceWrapper[2];
-};
-
-struct WMFaceCtrlProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2A */ u16 unk_2a; // some index into an array, functionality appears to be unused
-    /* 2C */ struct WMFaceHolderProc* faceHolderProc;
-    /* 30 */ s8 increment;
-    /* 31 */ u8 blendAmt;
-    /* 32 */ u8 unk_32; // unreferenced
-    /* 33 */ u8 unk_33; // initialized to 0 and unused
-    /* 34 */ u8 unk_34; // initialized to 0 and unused
-};
-
 //! FE8U = 0x080B820C
-void WorldMapFaceHolder_Init(struct WMFaceHolderProc* proc) {
+void WorldMapFaceHolder_Init(struct WMFaceHolderProc * proc)
+{
     int i;
-
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++)
+    {
         proc->faceWrapper[i].faceProc = NULL;
         proc->faceWrapper[i].unk_0a = 0;
-        proc->faceWrapper[i].unk_02 = 0;
-        proc->faceWrapper[i].unk_00 = 0;
+        proc->faceWrapper[i].y = 0;
+        proc->faceWrapper[i].x = 0;
         proc->faceWrapper[i].faceId |= 0xFFFF;
     }
-
-    return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_WorldMapFaceHolder[] = {
+struct ProcCmd CONST_DATA ProcScr_WorldMapFaceHolder[] = {
     PROC_MARK(8),
     PROC_CALL(WorldMapFaceHolder_Init),
     PROC_BLOCK,
@@ -53,15 +27,14 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapFaceHolder[] = {
 };
 
 //! FE8U = 0x080B823C
-void WMFaceCtrl_Init(struct WMFaceCtrlProc* proc) {
-    proc->unk_2a = 0;
-    proc->faceHolderProc = Proc_Start(gProcScr_WorldMapFaceHolder, proc);
+void WMFaceCtrl_Init(struct WMFaceCtrlProc * proc)
+{
+    proc->timer = 0;
+    proc->faceHolderProc = Proc_Start(ProcScr_WorldMapFaceHolder, proc);
     proc->increment = 0;
     proc->blendAmt = 0;
     proc->unk_33 = 0;
     proc->unk_34 = 0;
-
-    return;
 }
 
 //! FE8U = 0x080B826C
@@ -92,7 +65,8 @@ int GetWMFaceVramOffset(void) {
 }
 
 //! FE8U = 0x080B82C8
-void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 isFlippedMaybe) {
+void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 flip)
+{
     int bgX;
     u16* r0;
     int x;
@@ -105,30 +79,32 @@ void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 isFlippedMaybe) {
 
     r0 = BG_GetMapBuffer(bg) + y * 0x20 + x;
 
-    sub_8006738(
+    PutFaceOnBackGround(
         r0,
         (offset >> 5) + 0x4000,
-        isFlippedMaybe
+        flip
     );
 
     BG_EnableSyncByMask(1 << (bg));
 
     BG_SetPosition(bg, bgX, y_);
-
-    return;
 }
 
 //! FE8U = 0x080B8350
-void HandleWMFaceFade(struct WMFaceCtrlProc* proc) {
+void HandleWMFaceFade(struct WMFaceCtrlProc * proc)
+{
     int i;
 
     SetBlendConfig(1, proc->blendAmt >> 1, 0x10 - (proc->blendAmt >> 1), 0);
 
     proc->blendAmt += proc->increment;
 
-    if (proc->blendAmt == 0) {
-        for (i = 0; i < 2; i++) {
-            if ((proc->faceHolderProc->faceWrapper[i].faceProc != NULL) && ((proc->faceHolderProc->faceWrapper[i].unk_0a == -1))) {
+    if (proc->blendAmt == 0)
+    {
+        for (i = 0; i < 2; i++)
+        {
+            if ((proc->faceHolderProc->faceWrapper[i].faceProc != NULL) && ((proc->faceHolderProc->faceWrapper[i].unk_0a == -1)))
+            {
                 EndFaceById(i);
 
                 proc->faceHolderProc->faceWrapper[i].unk_0a = 0;
@@ -139,11 +115,14 @@ void HandleWMFaceFade(struct WMFaceCtrlProc* proc) {
         proc->increment = 0;
     }
 
-    if (proc->blendAmt == 0x20) {
-        for (i = 0; i < 2; i++) {
-            struct FaceProc* faceProc = proc->faceHolderProc->faceWrapper[i].faceProc;
+    if (proc->blendAmt == 0x20)
+    {
+        for (i = 0; i < 2; i++)
+        {
+            struct FaceProc * faceProc = proc->faceHolderProc->faceWrapper[i].faceProc;
 
-            if (faceProc != NULL && (proc->faceHolderProc->faceWrapper[i].unk_0a == 1)) {
+            if (faceProc != NULL && (proc->faceHolderProc->faceWrapper[i].unk_0a == 1))
+            {
                 SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) & ~(FACE_DISP_BLEND));
                 proc->faceHolderProc->faceWrapper[i].unk_0a = 0;
             }
@@ -151,39 +130,44 @@ void HandleWMFaceFade(struct WMFaceCtrlProc* proc) {
 
         proc->increment = 0;
     }
-
-    return;
 }
 
 //! FE8U = 0x080B843C
-void sub_80B843C(struct WMFaceCtrlProc* proc) {
+void WMFaceCtrl_LoopExt(struct WMFaceCtrlProc * proc)
+{
     int i;
     int iVar10;
-    struct WMFaceHolderProc* internalProc = proc->faceHolderProc;
-    int bgMaybe = GetWMFaceBg();
+    struct WMFaceHolderProc * internalProc = proc->faceHolderProc;
+    int bg = GetWMFaceBg();
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 2; i++)
+    {
         iVar10 = 0;
 
-        if (internalProc->faceWrapper[i].faceProc != NULL) {
-            struct FaceProc* faceProc = internalProc->faceWrapper[i].faceProc;
-            int x = internalProc->faceWrapper[i].unk_00;
-            u16* yptrUnsigned = &internalProc->faceWrapper[i].unk_02;
+        if (internalProc->faceWrapper[i].faceProc != NULL)
+        {
+            struct FaceProc * faceProc = internalProc->faceWrapper[i].faceProc;
+            int x = internalProc->faceWrapper[i].x;
+            u16 * yptrUnsigned = &internalProc->faceWrapper[i].y;
 
-            if (((*yptrUnsigned & 0x800) != 0) && ((*yptrUnsigned & 0xff) < 0x10)) {
-                if ((*yptrUnsigned & 0x100) != 0) {
+            if (((*yptrUnsigned & 0x800) != 0) && ((*yptrUnsigned & 0xff) < 0x10))
+            {
+                if ((*yptrUnsigned & 0x100) != 0)
+                {
                     faceProc->xPos = x + (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                if ((*yptrUnsigned & 0x200) != 0) {
+                if ((*yptrUnsigned & 0x200) != 0)
+                {
                     faceProc->xPos = x - (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
                 (*yptrUnsigned)++;
 
-                if ((*yptrUnsigned & 0xff) > 0xf) {
+                if ((*yptrUnsigned & 0xff) > 0xf)
+                {
                     iVar10 = 2;
 
                     SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) &~ 0x4000);
@@ -191,56 +175,56 @@ void sub_80B843C(struct WMFaceCtrlProc* proc) {
                 }
             }
 
-            if (((*yptrUnsigned & 0x1000) != 0) && ((*yptrUnsigned & 0xff) < 0x10)) {
-                if ((*yptrUnsigned & 0xff) == 0) {
+            if (((*yptrUnsigned & 0x1000) != 0) && ((*yptrUnsigned & 0xff) < 0x10))
+            {
+                if ((*yptrUnsigned & 0xff) == 0)
                     SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | 0x4000);
-                }
 
-                if ((*yptrUnsigned & 0x100) != 0) {
+                if ((*yptrUnsigned & 0x100) != 0)
+                {
                     faceProc->xPos = ({ x - 0x20; }) + (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
-                if ((*yptrUnsigned & 0x200) != 0) {
+                if ((*yptrUnsigned & 0x200) != 0)
+                {
                     faceProc->xPos = ({ x + 0x20; }) - (((0x10 - (*yptrUnsigned & 0xff)) * 0x20 * (0x10 - (*yptrUnsigned & 0xff))) / 256);
                     iVar10 = 1;
                 }
 
                 (*yptrUnsigned)++;
 
-                if ((*yptrUnsigned & 0xff) > 0xf) {
+                if ((*yptrUnsigned & 0xff) > 0xf)
                     iVar10 = 2;
-                }
             }
 
             switch (iVar10) {
-                case 1:
-                    BG_Fill(BG_GetMapBuffer(bgMaybe), 0);
-                    sub_80B82C8(
-                        GetWMFaceBg(),
-                        GetWMFaceVramOffset(),
-                        faceProc->xPos,
-                        0x1c,
-                        (*yptrUnsigned >> 10) & 1
-                    );
-                    BG_EnableSyncByMask(1 << (bgMaybe));
+            case 1:
+                BG_Fill(BG_GetMapBuffer(bg), 0);
+                sub_80B82C8(
+                    GetWMFaceBg(),
+                    GetWMFaceVramOffset(),
+                    faceProc->xPos,
+                    0x1c,
+                    (*yptrUnsigned >> 10) & 1
+                );
+                BG_EnableSyncByMask(1 << (bg));
 
-                    break;
+                break;
 
-                case 2:
-                    BG_Fill(BG_GetMapBuffer(bgMaybe), 0);
-                    BG_EnableSyncByMask(1 << (bgMaybe));
+            case 2:
+                BG_Fill(BG_GetMapBuffer(bg), 0);
+                BG_EnableSyncByMask(1 << (bg));
 
-                    break;
+                break;
             }
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x080B8630
-void WMFaceCtrl_Loop(struct WMFaceCtrlProc* proc) {
+void WMFaceCtrl_Loop(struct WMFaceCtrlProc * proc)
+{
     u8 gUnknown_08205F28[] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 1, 1, 1, 2, 2,
@@ -252,19 +236,15 @@ void WMFaceCtrl_Loop(struct WMFaceCtrlProc* proc) {
         -1,
     };
 
-    proc->unk_2a++;
+    proc->timer++;
 
-    if (gUnknown_08205F28[proc->unk_2a] == 0xFF) {
-        proc->unk_2a = 0;
-    }
+    if (gUnknown_08205F28[proc->timer] == (u8)-1)
+        proc->timer = 0;
 
-    sub_80B843C(proc);
+    WMFaceCtrl_LoopExt(proc);
 
-    if (proc->increment != 0) {
+    if (proc->increment != 0)
         HandleWMFaceFade(proc);
-    }
-
-    return;
 }
 
 //! FE8U = 0x080B867C
@@ -272,7 +252,7 @@ void nullsub_57(void) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_WorldMapFaceCtrl[] = {
+struct ProcCmd CONST_DATA ProcScr_WorldMapFaceCtrl[] = {
     PROC_MARK(8),
     PROC_SET_END_CB(nullsub_57),
 
@@ -284,24 +264,24 @@ struct ProcCmd CONST_DATA gProcScr_WorldMapFaceCtrl[] = {
 
 //! FE8U = 0x080B8680
 ProcPtr StartWMFaceCtrl(ProcPtr parent) {
-    return Proc_Start(gProcScr_WorldMapFaceCtrl, parent);
+    return Proc_Start(ProcScr_WorldMapFaceCtrl, parent);
 }
 
 //! FE8U = 0x080B8694
 void EndWMFaceCtrl(void)
 {
-    Proc_EndEach(gProcScr_WorldMapFaceCtrl);
+    Proc_EndEach(ProcScr_WorldMapFaceCtrl);
     return;
 }
 
 //! FE8U = 0x080B86A4
 int GetWMFaceBlendAmt(void)
 {
-    struct WMFaceCtrlProc* proc;
+    struct WMFaceCtrlProc * proc;
 
-    Proc_Find(gProcScr_WorldMapFaceCtrl);
+    Proc_Find(ProcScr_WorldMapFaceCtrl);
 
-    proc = Proc_Find(gProcScr_WorldMapFaceCtrl);
+    proc = Proc_Find(ProcScr_WorldMapFaceCtrl);
 
     if (proc) {
         return proc->blendAmt >> 1;
@@ -316,14 +296,17 @@ void WmDrawFace(int faceSlot, int faceId, u16 config)
     int bg;
     u32 offset;
 
-    struct WMFaceCtrlProc* proc = Proc_Find(gProcScr_WorldMapFaceCtrl);
+    struct WMFaceCtrlProc * proc = Proc_Find(ProcScr_WorldMapFaceCtrl);
 
-    struct WMFaceWrapper* pWrapper = proc->faceHolderProc->faceWrapper + faceSlot;
+    struct WMFaceWrapper * pWrapper = proc->faceHolderProc->faceWrapper + faceSlot;
 
-    if (gGMData.state.bits.state_3) {
+    if (gGMData.state.bits.state_3)
+    {
         SetBlendTargetA(0, 0, 1, 0, 0);
         SetBlendTargetB(0, 1, 0, 1, 1);
-    } else {
+    }
+    else
+    {
         SetBlendTargetA(0, 1, 0, 0, 0);
         SetBlendTargetB(0, 0, 1, 1, 1);
     }
@@ -331,67 +314,65 @@ void WmDrawFace(int faceSlot, int faceId, u16 config)
     bg = GetWMFaceBg();
     offset = GetWMFaceVramOffset();
 
-    if (pWrapper->faceProc == NULL) {
+    if (pWrapper->faceProc == NULL)
+    {
         int x;
         int disp;
-        struct FaceProc* faceProc;
+        struct FaceProc * faceProc;
 
         pWrapper->faceId = faceId;
 
-        pWrapper->unk_00 = config & 0x00ff;
-        pWrapper->unk_02 = (config & 0xff00) + 0x800;
+        pWrapper->x = config & 0x00ff;
+        pWrapper->y = (config & 0xff00) + 0x800;
 
         sub_80066FC(offset / CHR_SIZE, faceId);
         sub_800671C(4, faceId);
 
         BG_Fill(BG_GetMapBuffer(bg), 0);
 
-        x = pWrapper->unk_00;
+        x = pWrapper->x;
 
-        if (config & 0x400) {
-            disp = (FACE_DISP_BIT_14 | FACE_DISP_BLEND | FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(FACE_HLAYER_1) | FACE_DISP_FLIPPED);
-        } else {
-            disp = (FACE_DISP_BIT_14 | FACE_DISP_BLEND | FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(FACE_HLAYER_1));
-        }
+        if (config & 0x400)
+            disp = (FACE_DISP_HIDDEN | FACE_DISP_BLEND | FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(FACE_HLAYER_1) | FACE_DISP_FLIPPED);
+        else
+            disp = (FACE_DISP_HIDDEN | FACE_DISP_BLEND | FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(FACE_HLAYER_1));
 
-        if (config & 0x8000) {
+        if (config & 0x8000)
             disp = disp | FACE_DISP_BIT_13;
-        }
 
         faceProc = StartFace2(faceSlot, faceId, x, 28, disp);
 
         pWrapper->faceProc = faceProc;
 
-        if ((config & 0x6000) == 0x6000) {
+        if ((config & 0x6000) == 0x6000)
             faceProc->spriteLayer = 6;
-        } else if (config & 0x4000) {
+        else if (config & 0x4000)
             faceProc->spriteLayer = 5;
-        } else if (config & 0x2000) {
+        else if (config & 0x2000)
             faceProc->spriteLayer = 4;
-        } else {
+        else
             faceProc->spriteLayer = 3;
-        }
 
         SetFaceBlinkControlById(faceSlot, 5);
 
         pWrapper->unk_0a = +1;
         proc->increment = +2;
 
-        if (proc->blendAmt == 0x20) {
+        if (proc->blendAmt == 0x20)
+        {
             proc->blendAmt = 0;
             SetBlendConfig(1, 0, 0x10, 0);
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x080B8844
-void WmClearFace(int faceSlot, u16 config) {
+void WmClearFace(int faceSlot, u16 config)
+{
     int bg;
     u32 offset;
 
-    struct WMFaceCtrlProc* proc = Proc_Find(gProcScr_WorldMapFaceCtrl);
+    struct WMFaceCtrlProc * proc = Proc_Find(ProcScr_WorldMapFaceCtrl);
 
     struct WMFaceWrapper* pWrapper = proc->faceHolderProc->faceWrapper + faceSlot;
 
@@ -406,7 +387,7 @@ void WmClearFace(int faceSlot, u16 config) {
     bg = GetWMFaceBg();
     offset = GetWMFaceVramOffset();
 
-    if (pWrapper->faceProc != NULL && (pWrapper->unk_02 & 0x1000) == 0) {
+    if (pWrapper->faceProc != NULL && (pWrapper->y & 0x1000) == 0) {
         int tmp;
 
         sub_80066FC(offset / CHR_SIZE, (s16)pWrapper->faceId);
@@ -414,9 +395,9 @@ void WmClearFace(int faceSlot, u16 config) {
 
         BG_Fill(BG_GetMapBuffer(bg), 0);
 
-        tmp = 0xFFFFFF00 & (u16)pWrapper->unk_02;
+        tmp = 0xFFFFFF00 & (u16)pWrapper->y;
         // Seems to be required to match...
-        tmp &= (u16)pWrapper->unk_02;
+        tmp &= (u16)pWrapper->y;
 
         if (config & 0x300) {
             tmp &= 0x0000FCFF;
@@ -427,7 +408,7 @@ void WmClearFace(int faceSlot, u16 config) {
 
         tmp &= 0xff00;
 
-        pWrapper->unk_02 = tmp + 0x1000;
+        pWrapper->y = tmp + 0x1000;
 
         pWrapper->unk_0a = -1;
         proc->increment = -2;
@@ -437,39 +418,39 @@ void WmClearFace(int faceSlot, u16 config) {
             SetBlendConfig(1, 0x10, 0, 0);
         }
     }
-
-    return;
 }
 
 //! FE8U = 0x080B895C
-void sub_80B895C(void) {
+void HideWmFace(void)
+{
     int i;
 
-    struct WMFaceCtrlProc* proc = Proc_Find(gProcScr_WorldMapFaceCtrl);
+    struct WMFaceCtrlProc * proc = Proc_Find(ProcScr_WorldMapFaceCtrl);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    for (i = 0; i < 2; i++) {
-        struct WMFaceWrapper* pWrapper = &proc->faceHolderProc->faceWrapper[i];
+    for (i = 0; i < 2; i++)
+    {
+        struct WMFaceWrapper * pWrapper = &proc->faceHolderProc->faceWrapper[i];
 
-        struct FaceProc* faceProc = pWrapper->faceProc;
+        struct FaceProc * faceProc = pWrapper->faceProc;
 
-        if (faceProc != NULL && (pWrapper->unk_02 & 0x1000) == 0) {
-            SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | FACE_DISP_BIT_14);
+        if (faceProc != NULL && (pWrapper->y & 0x1000) == 0)
+        {
+            SetFaceDisplayBits(faceProc, GetFaceDisplayBits(faceProc) | FACE_DISP_HIDDEN);
 
-            pWrapper->unk_02 &= ~0xff;
-            pWrapper->unk_02 += 0x1000;
+            pWrapper->y &= ~0xff;
+            pWrapper->y += 0x1000;
 
             pWrapper->unk_0a = -1;
             proc->increment = -2;
 
-            if (proc->blendAmt == 0) {
+            if (proc->blendAmt == 0)
+            {
                 proc->blendAmt = 0x20;
                 SetBlendConfig(0, 0x10, 0, 0);
             }
         }
     }
-
-    return;
 }

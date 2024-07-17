@@ -221,7 +221,7 @@ void efxDrzDrakbreathBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
 {
     PROC_NAME("efxDrzDrakbreathBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxDrzDrakbreathBGCOL_Loop),
 

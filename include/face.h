@@ -35,7 +35,7 @@ enum
 #define FACE_DISP_BLEND (1 << 10)
 #define FACE_DISP_BIT_12 (1 << 12)
 #define FACE_DISP_BIT_13 (1 << 13)
-#define FACE_DISP_BIT_14 (1 << 14)
+#define FACE_DISP_HIDDEN (1 << 14)
 
 struct FaceBlinkProc;
 
@@ -152,7 +152,7 @@ void sub_80066A8(struct UnkFaceProc* proc);
 void sub_80066E0(struct FaceProc* parent, int fid);
 void sub_80066FC(int offset, int fid);
 void sub_800671C(int pal, int fid);
-void sub_8006738(u16* a, u16 b, s8 c);
+void PutFaceOnBackGround(u16* a, u16 b, s8 c);
 
 extern const struct FaceData portrait_data[];
 extern struct FaceProc* gFaces[];

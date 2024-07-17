@@ -82,7 +82,7 @@ void WmMinimap_PutLordIcon(struct GMapRadarProc * proc)
         return;
     }
 
-    GmMu_GetPosition(GM_MAIN->unk_54, 0, &xPos, &yPos);
+    GmMu_GetPosition(GM_MU, 0, &xPos, &yPos);
 
     x = *&xPos;
     y = *&yPos;
@@ -126,7 +126,7 @@ void WmMinimap_PutSkirmishIcons(struct GMapRadarProc * proc)
             continue;
         }
 
-        GmMu_GetPosition(GM_MAIN->unk_54, r9, &sp_1c, &sl);
+        GmMu_GetPosition(GM_MU, r9, &sp_1c, &sl);
 
         x = sp_1c;
         y = sl;
@@ -176,7 +176,7 @@ extern u16 gUnknown_08AA1950[];
 //! FE8U = 0x080C3A28
 void WmMinimap_BlinkPalette(struct GMapRadarProc * proc)
 {
-    int colorIdx = GM_MAIN->unk_50->unk_34;
+    int colorIdx = GM_CURSOR->unk_34;
 
     u16 * pal = PAL_OBJ(9);
 
@@ -264,7 +264,7 @@ void GMapRadar_80C3B40(struct GMapRadarProc * proc)
 
     if ((gGMData.state.bits.state_2) != 0)
     {
-        if ((s8)gGMData.unk01 < 1)
+        if ((s8)gGMData.sprite_disp < 1)
         {
             return;
         }
@@ -398,7 +398,7 @@ void GMapRadar_Init(struct GMapRadarProc * proc)
 struct ProcCmd CONST_DATA ProcScr_GmapRader[] =
 {
     PROC_NAME("Gmap Rader"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_15,
     PROC_YIELD,
@@ -450,7 +450,7 @@ void StartWorldMapMinimapCore(struct Proc * proc)
 
 struct ProcCmd CONST_DATA ProcScr_WorldmapMinimapWrapper[] =
 {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_CALL(StartWorldMapMinimapCore),
 
     PROC_END,

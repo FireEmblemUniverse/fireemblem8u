@@ -36,7 +36,7 @@ static struct Font sTalkFont;
 
 struct ProcCmd CONST_DATA gProcScr_TalkSkipListener[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_REPEAT(TalkSkipListener_OnIdle),
 
     PROC_END,
@@ -44,7 +44,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkSkipListener[] =
 
 struct ProcCmd CONST_DATA gProcScr_Talk[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SET_END_CB(Talk_OnEnd),
 
     PROC_SLEEP(1),
@@ -99,7 +99,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkFaceMove[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkPause[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SLEEP(1),
 
     PROC_REPEAT(TalkPause_OnIdle),
@@ -109,7 +109,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkPause[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkWaitForInput[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SLEEP(8),
 
     PROC_REPEAT(TalkWaitForInput_OnIdle),
@@ -158,7 +158,7 @@ const u16* CONST_DATA gPressKeyArrowSpriteLut[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkShiftClearAll[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(TalkShiftClearAll_OnInit),
     PROC_REPEAT(TalkShiftClearAll_OnIdle),
@@ -188,7 +188,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkChoice[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkShiftClear[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(TalkShiftClear_OnInit),
     PROC_REPEAT(TalkShiftClear_OnIdle),
@@ -200,7 +200,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkShiftClear[] =
 
 struct ProcCmd CONST_DATA ProcScr_TalkSpriteShiftClear[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(sub_80080D0),
     PROC_SLEEP(0),
@@ -221,7 +221,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkBubbleOpen[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkOpen[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SET_END_CB(TalkOpen_OnEnd),
 
     PROC_CALL(TalkOpen_InitBlend),

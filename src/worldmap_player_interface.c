@@ -782,10 +782,10 @@ void GMapPI_Init(struct GMapPIProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapPlayerInterface[] =
+struct ProcCmd CONST_DATA ProcScr_GMapPlayerInterface[] =
 {
     PROC_NAME("PI"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_15,
     PROC_YIELD,
 
@@ -832,7 +832,7 @@ void StartWorldMapPlayerInterface(struct Proc * parent)
     ApplyPalette(gPal_GMapPI_ShopIcons, 3);
 
     ResetTextFont();
-    Proc_Start(gProcScr_GMapPlayerInterface, parent->proc_parent);
+    Proc_Start(ProcScr_GMapPlayerInterface, parent->proc_parent);
 
     return;
 }
@@ -841,7 +841,7 @@ void StartWorldMapPlayerInterface(struct Proc * parent)
 
 struct ProcCmd CONST_DATA gUnknown_08A3E4D4[] =
 {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_WHILE(DoesBMXFADEExist),
     PROC_CALL(StartWorldMapPlayerInterface),
@@ -862,7 +862,7 @@ ProcPtr sub_80BF13C(ProcPtr parent)
 //! FE8U = 0x080BF15C
 void sub_80BF15C(void)
 {
-    Proc_EndEach(gProcScr_GMapPlayerInterface);
+    Proc_EndEach(ProcScr_GMapPlayerInterface);
     Proc_EndEach(gUnknown_08A3E4D4);
 
     SetDefaultColorEffects();

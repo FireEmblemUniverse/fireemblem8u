@@ -27,7 +27,7 @@ extern u16 EventScr_EphraimModeGameEnd[];
 
 extern struct ProcCmd CONST_DATA ProcScr_GameEarlyStartUI[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA ProcScr_OpAnim[]; // intro cutscene
-extern struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[];
+extern struct ProcCmd CONST_DATA ProcScr_WorldMapWrapper[];
 
 struct ProcCmd CONST_DATA gUnused_085916BC[] =
 {
@@ -40,7 +40,7 @@ struct ProcCmd CONST_DATA gUnused_085916BC[] =
 struct ProcCmd CONST_DATA gProcScr_GameControl[] =
 {
     PROC_NAME("GAMECTRL"),
-    PROC_MARK(PROC_MARK_B),
+    PROC_MARK(PROC_MARK_GAMECTRL),
 
     PROC_15,
     PROC_CALL(GameControl_CallEraseSaveEventWithKeyCombo),
@@ -116,7 +116,7 @@ PROC_LABEL(LGAMECTRL_EXEC_BM),
     PROC_CALL(GameControl_RememberChapterId),
     PROC_CALL(GameCtrlStartIntroMonologue),
     PROC_YIELD,
-    PROC_START_CHILD_BLOCKING(gProcScr_WorldMapWrapper),
+    PROC_START_CHILD_BLOCKING(ProcScr_WorldMapWrapper),
     PROC_CALL(EndWM),
     PROC_CALL(sub_8009E28),
     PROC_YIELD,
@@ -370,7 +370,7 @@ void GameControl_8009A60_Null(ProcPtr proc)
 
 void EndProcIfNotMarkedB(ProcPtr proc)
 {
-    if (((struct Proc*)proc)->proc_mark != PROC_MARK_B)
+    if (((struct Proc*)proc)->proc_mark != PROC_MARK_GAMECTRL)
         Proc_End(proc);
 }
 

@@ -53,7 +53,7 @@ const struct Unknown08206498 gUnknown_08206498[] =
 //! FE8U = 0x080BBAD4
 void GmapCursor_Loop(struct GmapCursorProc * proc)
 {
-    proc->unk_32 = gGMData.unk01;
+    proc->unk_32 = gGMData.sprite_disp;
 
     proc->unk_38 = gGMData.ix;
     proc->unk_3c = gGMData.iy;
@@ -106,7 +106,7 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapCursor[] =
 {
     PROC_NAME("GmapCursor"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(nullsub_59),
 

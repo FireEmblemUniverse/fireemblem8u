@@ -37,7 +37,7 @@
 struct ProcCmd CONST_DATA gProcScr_PlayerPhase[] =
 {
     PROC_NAME("E_PLAYERPHASE"),
-    PROC_MARK(PROC_MARK_2),
+    PROC_MARK(PROC_MARK_MAIN),
     PROC_YIELD,
 
 PROC_LABEL(0),
@@ -177,7 +177,7 @@ u8 * CONST_DATA gOpenLimitViewImgLut[] =
 struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
 {
     PROC_NAME("MLVCHC"),
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_CALL(MoveLimitViewChange_OnInit),
     PROC_REPEAT(MoveLimitViewChange_OnLoop),
@@ -188,7 +188,7 @@ struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
 struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] =
 {
     PROC_NAME("E_MOVELIMITVIEW"),
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_SET_END_CB(MoveLimitView_OnEnd),
 

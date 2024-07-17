@@ -334,7 +334,7 @@ void Face_OnInit(struct FaceProc* proc) {
 void Face_OnIdle(struct FaceProc* proc) {
     int oam0;
 
-    if (GetFaceDisplayBits(proc) & FACE_DISP_BIT_14) {
+    if (GetFaceDisplayBits(proc) & FACE_DISP_HIDDEN) {
         return;
     }
 
@@ -1474,7 +1474,7 @@ u16 const gUnknown_080D77FC[] =
 };
 
 //! FE8U = 0x08006738
-void sub_8006738(u16* a, u16 b, s8 c) {
+void PutFaceOnBackGround(u16* a, u16 b, s8 c) {
     int i;
     int j;
     const u16* src = gUnknown_080D77FC;

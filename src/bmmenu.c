@@ -117,7 +117,7 @@ u8 MapMenu_UnitCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 u8 MapMenu_OptionsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Proc_Start(gProcScr_Config1, PROC_TREE_3);
+    Proc_Start(ProcScr_Config1, PROC_TREE_3);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

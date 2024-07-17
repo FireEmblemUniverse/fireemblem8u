@@ -209,7 +209,7 @@ void efxFenrirBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFenrirBGCOL[] =
 {
     PROC_NAME("efxFenrirBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_SET_END_CB(efxFenrirBGCOL_OnEnd),
     PROC_REPEAT(efxFenrirBGCOL_Loop),

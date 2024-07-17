@@ -231,7 +231,7 @@ void efxFirebreathBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFirebreathBGCOL[] =
 {
     PROC_NAME("efxFirebreathBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxFirebreathBGCOL_Loop),
 
@@ -645,7 +645,7 @@ void efxDarkbreathBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDarkbreathBGCOL[] =
 {
     PROC_NAME("efxDarkbreathBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxDarkbreathBGCOL_Loop),
 

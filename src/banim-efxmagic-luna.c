@@ -404,7 +404,7 @@ void efxLunaBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxLunaBGCOL[] =
 {
     PROC_NAME("efxLunaBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_SET_END_CB(efxLunaBGCOL_OnEnd),
 

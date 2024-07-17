@@ -8,7 +8,7 @@
 
 CONST_DATA struct ProcCmd ProcScr_efxFlashBG[] = {
     PROC_NAME("efxFlashBG"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashBgMain),
     PROC_REPEAT(EfxFlashRestorePalSync),
     PROC_END

@@ -12,7 +12,7 @@
 // TODO: move elsewhere
 CONST_DATA struct ProcCmd ProcScr_efxFlashHPBar[] = {
     PROC_NAME("efxFlashHPBar"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashHPBarDelay),
     PROC_REPEAT(EfxFlashHPBarMain1),
     PROC_REPEAT(EfxFlashHPBarRestorePal),
@@ -90,7 +90,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxHPBarColorChange[] = {
     PROC_NAME("efxHPBarColorChange"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxHPBarColorChangeMain),
     PROC_END
 };
@@ -241,7 +241,7 @@ void EfxHPBarColorChangeMain(struct ProcEfxHpBarColorChange * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxFlashUnit[] = {
     PROC_NAME("efxFlashUnit"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashUnitMain),
     PROC_REPEAT(EfxFlashUnitRestorePal),
     PROC_END
@@ -298,7 +298,7 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxFlashUnitEffectEnd[] = {
     PROC_NAME("efxFlashUnitEffectEnd"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashUnitEffectMain),
     PROC_REPEAT(EfxFlashUnitEffectRestorePal),
     PROC_END

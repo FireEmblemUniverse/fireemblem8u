@@ -72,17 +72,17 @@ void MapMUPrim_MakeUnitForChar(struct GMapMuPrimProc * proc, int pid, int nodeId
 {
     if (proc->unk_2b >= 0)
     {
-        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
         proc->unk_2b = -1;
     }
 
-    proc->unk_2b = NewMapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, GetCharacterClassId(pid), 0);
+    proc->unk_2b = NewMapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, GetCharacterClassId(pid), 0);
 
     MapUnitC_SetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, nodeId[gWMNodeData].x,
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, nodeId[gWMNodeData].x,
         nodeId[gWMNodeData].y + 6);
-    MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 4);
-    MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+    MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 4);
+    MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
     return;
 }
 
@@ -91,17 +91,17 @@ void MapMUPrim_MakeUnitForClass(struct GMapMuPrimProc * proc, int jid, int nodeI
 {
     if (proc->unk_2b >= 0)
     {
-        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
         proc->unk_2b = -1;
     }
 
-    proc->unk_2b = NewMapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, jid, 0);
+    proc->unk_2b = NewMapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, jid, 0);
 
     MapUnitC_SetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, nodeId[gWMNodeData].x,
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, nodeId[gWMNodeData].x,
         nodeId[gWMNodeData].y + 6);
-    MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 4);
-    MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+    MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 4);
+    MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
 
     return;
 }
@@ -111,7 +111,7 @@ void MapMUPrim_RemoveLinkedMapUnit(struct GMapMuPrimProc * proc)
 {
     if (proc->unk_2b >= 0)
     {
-        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+        MapUnitC_DeleteGmapUnit(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
         proc->unk_2b = -1;
     }
 
@@ -151,7 +151,7 @@ void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
 
     if (proc->unk_2d[gWMNodeData].shipTravelFlag & 1
         && proc->unk_2e[gWMNodeData].shipTravelFlag & 1)
-        sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 0x50);
+        sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 0x50);
 
 
     unkSplineStruct = &gUnknown_0201B3A4[proc->unk_2a];
@@ -165,15 +165,15 @@ void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
     unkSplineStruct->unk_02 = sub_80BCE34(proc->unk_2d, proc->unk_2e, proc->unk_50, unkSplineStruct->unk_04, unkSplineStruct->unk_08, 4);
 
     MapUnitC_SetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2d[gWMNodeData].x,
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_2d[gWMNodeData].x,
         proc->unk_2d[gWMNodeData].y + 6);
 
     if (proc->unk_31 >= 0)
-        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_31);
+        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_31);
 
     proc->unk_54 = 0;
     MapUnitC_GetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &proc->unk_44, &proc->unk_46);
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &proc->unk_44, &proc->unk_46);
     proc->unk_40 = 0;
 
     return;
@@ -188,7 +188,7 @@ s8 sub_80BD5B8(struct GMapMuPrimProc * proc)
     u16 x2;
     u16 y2;
 
-    MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x1, &y1);
+    MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x1, &y1);
 
     x2 = x1 - proc->unk_44;
     y2 = y1 - proc->unk_46;
@@ -287,23 +287,23 @@ void sub_80BD740(struct GMapMuPrimProc * proc)
     animId = sub_80BD6A8(proc);
 
     if (((animId >= 0) &&
-         (MapUnitC_GetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b) != animId)) &&
+         (MapUnitC_GetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b) != animId)) &&
         (proc->flags_4))
     {
-        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, animId);
-        MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, animId);
+        MapUnitC_SetGfxNeedsUpdate(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
     }
 
     if (proc->flags_3)
     {
-        MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x1, &y1);
+        MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x1, &y1);
         GetWMCenteredCameraPosition(x1, y1 - 14, &x2, &y2);
         gGMData.xCamera = x2;
         gGMData.yCamera = y2;
     }
 
     MapUnitC_GetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &proc->unk_44, &proc->unk_46);
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &proc->unk_44, &proc->unk_46);
 
     return;
 }
@@ -339,30 +339,30 @@ void GmMuPrim_80BD830(struct GMapMuPrimProc * proc)
     {
         sub_800A950(&gUnknown_0201B3A4[proc->unk_2a], proc->unk_54 * 0x1000, coord);
         MapUnitC_SetPosition(
-            ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, coord[0] >> 4, (coord[1] >> 4) + 6);
+            ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, coord[0] >> 4, (coord[1] >> 4) + 6);
         sub_80BD740(proc);
     }
     else
     {
         if ((proc->unk_2d[gWMNodeData].shipTravelFlag & 1) && (proc->unk_2e[gWMNodeData].shipTravelFlag & 1))
         {
-            sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 0);
+            sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 0);
         }
 
         MapUnitC_SetPosition(
-            ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2e[gWMNodeData].x,
+            ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_2e[gWMNodeData].x,
             proc->unk_2e[gWMNodeData].y + 6);
 
         if ((proc->flags_4) && (proc->unk_32 >= 0))
         {
-            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_32);
+            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_32);
         }
 
         gGMData.units[proc->unk_2a].location = proc->unk_2e;
 
         if (proc->flags_3)
         {
-            MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x1, &y1);
+            MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x1, &y1);
             GetWMCenteredCameraPosition(x1, y1 - 14, &x2, &y2);
             gGMData.xCamera = x2;
             gGMData.yCamera = y2;
@@ -390,11 +390,11 @@ void GmMuPrim_80BD9D8(struct GMapMuPrimProc * proc)
     proc->unk_54 = 0;
 
     MapUnitC_GetPosition(
-        ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &proc->unk_44, &proc->unk_46);
+        ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &proc->unk_44, &proc->unk_46);
 
     if (proc->unk_31 >= 0)
     {
-        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_31);
+        MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_31);
     }
 
     proc->unk_40 = 0;
@@ -431,25 +431,25 @@ void GmMuPrim_80BDA78(struct GMapMuPrimProc * proc)
 
     if (proc->unk_54 < proc->unk_50)
     {
-        coeff = sub_800B84C(proc->unk_54, proc->unk_50, proc->unk_2f);
+        coeff = _DivArm2(proc->unk_54, proc->unk_50, proc->unk_2f);
         x = proc->unk_48 + DivArm(0x1000, (proc->unk_4c - proc->unk_48) * coeff);
         y = proc->unk_4a + DivArm(0x1000, (proc->unk_4e - proc->unk_4a) * coeff);
-        MapUnitC_SetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, x, y + 6);
+        MapUnitC_SetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, x, y + 6);
         sub_80BD740(proc);
     }
     else
     {
         MapUnitC_SetPosition(
-            ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_4c, proc->unk_4e + 6);
+            ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_4c, proc->unk_4e + 6);
 
         if ((proc->flags_4) && (proc->unk_32 >= 0))
         {
-            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_32);
+            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_32);
         }
 
         if (proc->flags_3)
         {
-            MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x, &y);
+            MapUnitC_GetPosition(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x, &y);
             GetWMCenteredCameraPosition(x, y - 14, &x2, &y2);
             gGMData.xCamera = x2;
             gGMData.yCamera = y2;
@@ -470,10 +470,10 @@ void GmMu_OnEnd_Null(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapMuPrim[] =
+struct ProcCmd CONST_DATA ProcScr_GMapMuPrim[] =
 {
     PROC_NAME("Gmap MU prim"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmMuPrim_OnEnd_Null),
     PROC_CALL(GmMuPrim_OnInit),
@@ -505,7 +505,7 @@ void GmMu_OnInit(struct GMapMuProc * proc)
 
     for (i = 0; i < 7; i++)
     {
-        proc->unk_2c[i] = Proc_Start(gProcScr_GMapMuPrim, proc->proc_parent);
+        proc->unk_2c[i] = Proc_Start(ProcScr_GMapMuPrim, proc->proc_parent);
     }
 
     return;
@@ -513,10 +513,10 @@ void GmMu_OnInit(struct GMapMuProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapMu[] =
+struct ProcCmd CONST_DATA ProcScr_GMapMu[] =
 {
     PROC_NAME("Gmap MU"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmMu_OnEnd_Null),
     PROC_CALL(GmMu_OnInit),
@@ -531,7 +531,7 @@ struct ProcCmd CONST_DATA gProcScr_GMapMu[] =
 //! FE8U = 0x080BDC28
 ProcPtr StartGmMu(ProcPtr parent)
 {
-    return Proc_Start(gProcScr_GMapMu, parent);
+    return Proc_Start(ProcScr_GMapMu, parent);
 }
 
 // clang-format off
@@ -575,7 +575,7 @@ void GmMu_SetUnit(struct GMapMuProc * muProc, int index, u8 useClass, int id, in
         faction = sub_80BD20C(index);
     }
 
-    MapUnitC_SetFaction(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->unk_4c, muPrimProc->unk_2b, faction);
+    MapUnitC_SetFaction(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, faction);
 
     muPrimProc->unk_40 = 0;
     muPrimProc->unk_2c = 0;
@@ -646,7 +646,7 @@ void GmShowMuUnit(struct GMapMuProc * muProc, int index)
     if (index >= 0)
     {
         muPrimProc = muProc->unk_2c[index];
-        MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, 1);
+        MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, 1);
         gGMData.units[index].state |= 1;
     }
     else
@@ -657,7 +657,7 @@ void GmShowMuUnit(struct GMapMuProc * muProc, int index)
             if (muPrimProc->unk_2b >= 0)
             {
                 MapUnitC_SetDisplayEnabled(
-                    ((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, 1);
+                    ((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, 1);
                 gGMData.units[i].state |= 1;
             }
         }
@@ -675,7 +675,7 @@ void GmHideMuUnit(struct GMapMuProc * muProc, int index)
     if (index >= 0)
     {
         muPrimProc = muProc->unk_2c[index];
-        MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, 0);
+        MapUnitC_SetDisplayEnabled(((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, 0);
         gGMData.units[index].state &= ~1;
     }
     else
@@ -686,7 +686,7 @@ void GmHideMuUnit(struct GMapMuProc * muProc, int index)
             if (muPrimProc->unk_2b >= 0)
             {
                 MapUnitC_SetDisplayEnabled(
-                    ((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, 0);
+                    ((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, 0);
                 gGMData.units[i].state &= ~1;
             }
         }
@@ -794,7 +794,7 @@ void sub_80BE080(struct GMapMuProc * muProc, int index, s8 blendEnabled)
 {
     struct GMapMuPrimProc * muPrimProc = muProc->unk_2c[index];
     MapUnitC_SetBlendEnabled(
-        ((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, blendEnabled);
+        ((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, blendEnabled);
     return;
 }
 
@@ -802,7 +802,7 @@ void sub_80BE080(struct GMapMuProc * muProc, int index, s8 blendEnabled)
 void sub_80BE0A4(struct GMapMuProc * muProc, int index, s16 * x, s16 * y)
 {
     struct GMapMuPrimProc * muPrimProc = muProc->unk_2c[index];
-    MapUnitC_GetPosition(((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, x, y);
+    MapUnitC_GetPosition(((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, x, y);
     return;
 }
 
@@ -810,14 +810,14 @@ void sub_80BE0A4(struct GMapMuProc * muProc, int index, s16 * x, s16 * y)
 int sub_80BE0C8(struct GMapMuProc * muProc, int index)
 {
     struct GMapMuPrimProc * muPrimProc = muProc->unk_2c[index];
-    return MapUnitC_GetLayer(((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b);
+    return MapUnitC_GetLayer(((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b);
 }
 
 //! FE8U = 0x080BE0E8
 void GmMu_SetSpriteLayer(struct GMapMuProc * muProc, int index, int layer)
 {
     struct GMapMuPrimProc * muPrimProc = muProc->unk_2c[index];
-    MapUnitC_SetLayer(((struct WorldMapMainProc *)(muProc->proc_parent))->unk_4c, muPrimProc->unk_2b, layer);
+    MapUnitC_SetLayer(((struct WorldMapMainProc *)(muProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, layer);
     return;
 }
 
@@ -873,21 +873,21 @@ s8 sub_80BE194(struct GMapMuPrimProc * proc)
         case 0x01:
             if ((proc->unk_2d[gWMNodeData].shipTravelFlag & 1) && (proc->unk_2e[gWMNodeData].shipTravelFlag & 1))
             {
-                sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 0);
+                sub_80BB0E0(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 0);
             }
 
             MapUnitC_SetPosition(
-                ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_2e[gWMNodeData].x,
+                ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_2e[gWMNodeData].x,
                 proc->unk_2e[gWMNodeData].y + 6);
 
-            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 4);
+            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 4);
 
             gGMData.units[proc->unk_2a].location = proc->unk_2e;
 
             if (proc->flags_3)
             {
                 MapUnitC_GetPosition(
-                    ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x1, &y1);
+                    ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x1, &y1);
                 GetWMCenteredCameraPosition(x1, y1 - 14, &x2, &y2);
                 gGMData.xCamera = x2;
                 gGMData.yCamera = y2;
@@ -897,15 +897,15 @@ s8 sub_80BE194(struct GMapMuPrimProc * proc)
 
         case 0x02:
             MapUnitC_SetPosition(
-                ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, proc->unk_4c,
+                ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, proc->unk_4c,
                 proc->unk_4e + 6);
 
-            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, 4);
+            MapUnitC_SetAnimId(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, 4);
 
             if (proc->flags_3)
             {
                 MapUnitC_GetPosition(
-                    ((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b, &x1, &y1);
+                    ((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b, &x1, &y1);
                 GetWMCenteredCameraPosition(x1, y1 - 0xe, &x2, &y2);
                 gGMData.xCamera = x2;
                 gGMData.yCamera = y2;
@@ -951,7 +951,7 @@ void GmMu_SetPosition(struct GMapMuProc * muProc, int index, s16 xBase, s16 yBas
     s16 x = xBase;
     s16 y = yBase + 6;
 
-    MapUnitC_SetPosition(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->unk_4c, muPrimProc->unk_2b, x, y);
+    MapUnitC_SetPosition(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, x, y);
 
     muPrimProc->unk_44 = x;
     muPrimProc->unk_46 = y;
@@ -965,7 +965,7 @@ void GmMu_SetPosition(struct GMapMuProc * muProc, int index, s16 xBase, s16 yBas
 void GmMu_GetPosition(struct GMapMuProc * muProc, int index, s16 * x, s16 * y)
 {
     struct GMapMuPrimProc * muPrimProc = muProc->unk_2c[index];
-    MapUnitC_GetPosition(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->unk_4c, muPrimProc->unk_2b, x, y);
+    MapUnitC_GetPosition(((struct WorldMapMainProc *)(muPrimProc->proc_parent))->gm_unitc, muPrimProc->unk_2b, x, y);
     *y -= 6;
     return;
 }
@@ -1012,7 +1012,7 @@ void sub_80BE45C(struct GMapMuPrimProc * proc)
     int hPos;
     int tmp;
 
-    int jid = sub_80BB194(((struct WorldMapMainProc *)(proc->proc_parent))->unk_4c, proc->unk_2b);
+    int jid = sub_80BB194(((struct WorldMapMainProc *)(proc->proc_parent))->gm_unitc, proc->unk_2b);
 
     if (GetClassData(jid)->attributes & 1)
     {
