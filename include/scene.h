@@ -97,17 +97,15 @@ struct TalkDebugProc {
     s16 unk_64;
 };
 
-struct Proc0859163C
+struct ProcScreenFlashing
 {
     PROC_HEADER;
-    int unk_2c;
-    int unk_30;
-    int unk_34;
-    int unk_38;
-    int unk_3c;
-    int unk_40;
-    int unk_44;
-    int unk_48;
+    int duration;
+    int mask;
+    int speed_fadein;
+    int speed_fadeout;
+    int timer;
+    int r, b, g;
 };
 
 struct ChoiceEntryInfo
@@ -221,10 +219,10 @@ void sub_8008F64(int chr, int b, int c, ProcPtr parent);
 void sub_8008FAC(struct TalkDebugProc *);
 void sub_8008FB4(struct TalkDebugProc *);
 void nullsub_15(ProcPtr, int);
-void sub_800903C(struct Proc0859163C *);
-void sub_800904C(struct Proc0859163C *);
-void sub_8009100(struct Proc0859163C *);
-void sub_800915C(int, int, int, int, int, int, int, ProcPtr);
+void ScreenFlash_Init(struct ProcScreenFlashing *);
+void ScreenFlash_FadeIn(struct ProcScreenFlashing *);
+void ScreenFlash_FadeOut(struct ProcScreenFlashing *);
+void StartScreenFlashing(int, int, int, int, int, int, int, ProcPtr);
 
 extern struct ProcCmd gProcScr_TalkOpen[];
 
