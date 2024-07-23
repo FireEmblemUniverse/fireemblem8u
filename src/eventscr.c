@@ -756,39 +756,38 @@ u8 Event18_ColorFade(struct EventEngineProc * proc)
     u16 g = proc->pEventCurrent[4];
     u16 b = proc->pEventCurrent[5];
 
-    switch (subcode)
+    switch (subcode) {
+    case EVSUBCMD_STARTFADE:
+        EventStartFade();
+        return EVC_ADVANCE_YIELD;
+
+    case EVSUBCMD_ENDFADE:
+        EventEndFade();
+        return EVC_ADVANCE_YIELD;
+
+    case EVSUBCMD_FADECOLORS:
     {
-        case 0:
-            sub_80127C4();
-            return EVC_ADVANCE_YIELD;
+        s8 i;
 
-        case 1:
-            sub_8012824();
-            return EVC_ADVANCE_YIELD;
+        if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
+            speed = 0;
 
-        case 2:
+        mask = 0;
+
+        for (i = size; i > 0; --i)
         {
-            s8 i;
-
-            if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-                speed = 0;
-
-            mask = 0;
-
-            for (i = size; i > 0; --i)
-            {
-                s8 tmp = start;
-                mask = mask | (1 << tmp);
-                start = tmp + 1;
-            }
-
-            NewEventFadefx(speed, mask, r, g, b, proc);
-
-            return EVC_ADVANCE_YIELD;
+            s8 tmp = start;
+            mask = mask | (1 << tmp);
+            start = tmp + 1;
         }
 
-        default:
-            return EVC_ERROR;
+        NewEventFadefx(speed, mask, r, g, b, proc);
+
+        return EVC_ADVANCE_YIELD;
+    }
+
+    default:
+        return EVC_ERROR;
 
     } // switch (subcode)
 }

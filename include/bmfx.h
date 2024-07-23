@@ -68,8 +68,8 @@ struct EventFadeSt {
 } BITPACKED;
 
 void EventFadefx_Loop(struct ProcEventFade * proc);
-void sub_80127C4(void);
-void sub_8012824(void);
+void EventStartFade(void);
+void EventEndFade(void);
 void NewEventFadefx(u16 speed, u32 mask, u16 r, u16 g, u16 b, ProcPtr parent);
 void StartEventWarpAnim_ret(ProcPtr parent, s16 x, s16 y, s8 kind, s8 flag);
 s8 EventWarpAnimExists_ret(void);

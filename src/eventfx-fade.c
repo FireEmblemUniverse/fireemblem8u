@@ -37,7 +37,7 @@ void EventFadefx_Loop(struct ProcEventFade * proc)
     }
 }
 
-void sub_80127C4(void)
+void EventStartFade(void)
 {
     u8 i;
     struct EventFadeSt * st;
@@ -54,7 +54,7 @@ void sub_80127C4(void)
     }
 }
 
-void sub_8012824(void)
+void EventEndFade(void)
 {
     u8 i;
     struct EventFadeSt * st;
