@@ -373,7 +373,7 @@ extern struct Glyph *TextGlyphs_Talk[];
 extern struct Glyph *TextGlyphs_Special[];
 extern struct ProcCmd CONST_DATA gProcScr_TalkPutSpriteText_Unused[];
 extern struct ProcCmd CONST_DATA ProcScr_0859160C[];
-extern struct ProcCmd CONST_DATA ProcScr_0859163C[];
+extern struct ProcCmd CONST_DATA ProcScr_ScreenFlashing[];
 
 extern const char *gStrPrefix[][2];
 //extern struct {u32 *unk0; u32 *unk4; u32 *unk8;} gStrPrefix;

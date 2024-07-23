@@ -283,13 +283,13 @@ struct ProcCmd CONST_DATA ProcScr_08591624[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_0859163C[] =
+struct ProcCmd CONST_DATA ProcScr_ScreenFlashing[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_800903C),
-    PROC_REPEAT(sub_800904C),
-    PROC_REPEAT(sub_8009100),
+    PROC_CALL(ScreenFlash_Init),
+    PROC_REPEAT(ScreenFlash_FadeIn),
+    PROC_REPEAT(ScreenFlash_FadeOut),
 
     PROC_END,
 };
@@ -2558,88 +2558,70 @@ void nullsub_15(ProcPtr proc, int label)
     return;
 }
 
-//! FE8U = 0x0800903C
-void sub_800903C(struct Proc0859163C * proc)
+void ScreenFlash_Init(struct ProcScreenFlashing * proc)
 {
-    proc->unk_3c = 0;
+    proc->timer = 0;
     ArchiveCurrentPalettes();
-    return;
 }
 
-//! FE8U = 0x0800904C
-void sub_800904C(struct Proc0859163C * proc)
+void ScreenFlash_FadeIn(struct ProcScreenFlashing * proc)
 {
-    int r;
-    int g;
-    int b;
+    int r, b, g;
+    proc->timer += proc->speed_fadein;
 
-    proc->unk_3c += proc->unk_34;
-
-    if (proc->unk_3c < 0x100)
+    if (proc->timer < 0x100)
     {
-        r = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_40) / 0x100;
-        g = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_48) / 0x100;
-        b = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_44) / 0x100;
+        r = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->r) / 0x100;
+        g = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->g) / 0x100;
+        b = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->b) / 0x100;
     }
     else
     {
-        r = (proc->unk_40 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
-        g = (proc->unk_48 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
-        b = (proc->unk_44 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
+        r = (proc->r * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
+        g = (proc->g * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
+        b = (proc->b * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
     }
 
-    WriteFadedPaletteFromArchive(r, g, b, proc->unk_30);
+    WriteFadedPaletteFromArchive(r, g, b, proc->mask);
 
-    if (proc->unk_3c == 0x100)
+    if (proc->timer == 0x100)
     {
-        proc->unk_2c--;
+        proc->duration--;
 
-        if (proc->unk_2c < 1)
+        if (proc->duration < 1)
         {
-            proc->unk_3c = 0;
+            proc->timer = 0;
             Proc_Break(proc);
         }
     }
-    else if (proc->unk_3c == 0x200)
-    {
-        proc->unk_3c = 0;
-    }
-
-    return;
+    else if (proc->timer == 0x200)
+        proc->timer = 0;
 }
 
-//! FE8U = 0x08009100
-void sub_8009100(struct Proc0859163C * proc)
+void ScreenFlash_FadeOut(struct ProcScreenFlashing * proc)
 {
-    proc->unk_3c += proc->unk_38;
+    proc->timer += proc->speed_fadeout;
 
     WriteFadedPaletteFromArchive(
-        ((0x100 - proc->unk_3c) * proc->unk_40 + (proc->unk_3c * 0x100)) / 0x100,
-        ((0x100 - proc->unk_3c) * proc->unk_48 + (proc->unk_3c * 0x100)) / 0x100,
-        ((0x100 - proc->unk_3c) * proc->unk_44 + (proc->unk_3c * 0x100)) / 0x100,
-        proc->unk_30
+        ((0x100 - proc->timer) * proc->r + (proc->timer * 0x100)) / 0x100,
+        ((0x100 - proc->timer) * proc->g + (proc->timer * 0x100)) / 0x100,
+        ((0x100 - proc->timer) * proc->b + (proc->timer * 0x100)) / 0x100,
+        proc->mask
     );
 
-    if (proc->unk_3c == 0x100)
-    {
+    if (proc->timer == 0x100)
         Proc_Break(proc);
-    }
-
-    return;
 }
 
-//! FE8U = 0x0800915C
-void sub_800915C(int a, int b, int c, int d, int e, int f, int g, ProcPtr parent)
+void StartScreenFlashing(int mask, int duration, int speed_fadein, int speed_fadeout, int r, int g, int b, ProcPtr parent)
 {
-    struct Proc0859163C * proc = Proc_StartBlocking(ProcScr_0859163C, parent);
+    struct ProcScreenFlashing * proc = Proc_StartBlocking(ProcScr_ScreenFlashing, parent);
 
-    proc->unk_2c = b;
-    proc->unk_30 = a;
-    proc->unk_34 = c;
-    proc->unk_38 = d;
-    proc->unk_40 = e;
-    proc->unk_48 = f;
-    proc->unk_44 = g;
-
-    return;
+    proc->duration = duration;
+    proc->mask = mask;
+    proc->speed_fadein  = speed_fadein;
+    proc->speed_fadeout = speed_fadeout;
+    proc->r = r;
+    proc->g = g;
+    proc->b = b;
 }

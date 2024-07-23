@@ -194,12 +194,12 @@ void SwapUnitStatsChar100(void)
 
 void sub_8085550(ProcPtr proc)
 {
-    sub_800915C(-1, 2, 0x20, 4, 0x180, 0x180, 0x180, proc);
+    StartScreenFlashing(-1, 2, 0x20, 4, 0x180, 0x180, 0x180, proc);
 }
 
 void sub_8085578(ProcPtr proc)
 {
-    sub_800915C(-1, 2, 0x20, 4, 0x200, 0x140, 0x140, proc);
+    StartScreenFlashing(-1, 2, 0x20, 4, 0x200, 0x140, 0x140, proc);
 }
 
 void sub_80855A0(struct UnkProc80855A0 * proc)
