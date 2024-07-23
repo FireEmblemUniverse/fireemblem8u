@@ -23,7 +23,7 @@
 int gUnknown_08591AB4[3] = { 0, 0, 0 };
 
 CONST_DATA struct ProcCmd ProcScr_StdEventEngine[] = {
-    PROC_MARK(PROC_MARK_6),
+    PROC_MARK(PROC_MARK_EVENT),
     PROC_SET_END_CB(EventEngine_OnEnd),
     PROC_YIELD,
     PROC_CALL(_FreezeMenu),
@@ -33,7 +33,7 @@ CONST_DATA struct ProcCmd ProcScr_StdEventEngine[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_BattleEventEngine[] = {
-    PROC_MARK(PROC_MARK_6),
+    PROC_MARK(PROC_MARK_EVENT),
     PROC_SET_END_CB(EventEngine_OnEnd),
     PROC_YIELD,
     PROC_REPEAT(EventEngine_OnUpdate),
@@ -46,7 +46,7 @@ CONST_DATA EventFuncType gEventLoCmdTable[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_SomeEventDeamon[] = {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_YIELD,
     PROC_CALL(nop_800CCE8),
     PROC_REPEAT(nullsub_32),
@@ -54,7 +54,7 @@ CONST_DATA struct ProcCmd ProcScr_SomeEventDeamon[] = {
 };
 
 CONST_DATA struct ProcCmd ProcScr_EventFaceDeamon[] = {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(EventFaceDeamonDelete),
     PROC_YIELD,
     PROC_CALL(nop_800CD38),

@@ -850,10 +850,10 @@ void MapRoute_80BC2DC(struct GmRouteProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapRoute[] =
+struct ProcCmd CONST_DATA ProcScr_GMapRoute[] =
 {
     PROC_NAME("GmapRoute"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(nullsub_38),
     PROC_SLEEP(0),
@@ -886,7 +886,7 @@ PROC_LABEL(2),
 //! FE8U = 0x080BC3A4
 ProcPtr StartGMapRoute(ProcPtr parent, struct OpenPaths * pPaths, int c, int d)
 {
-    struct GmRouteProc * proc = Proc_Start(gProcScr_GMapRoute, parent);
+    struct GmRouteProc * proc = Proc_Start(ProcScr_GMapRoute, parent);
     proc->chr = c;
     proc->pal = d;
     proc->pOpenPaths = pPaths;
@@ -966,7 +966,7 @@ extern struct MenuRect gMenuRect_WMGeneralMenuRect;
 //! FE8U = 0x080BC454
 struct MenuProc * StartWMGeneralMenu(ProcPtr parent)
 {
-    gGMData.unk01 = 0;
+    gGMData.sprite_disp = 0;
     InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
     return StartMenuAt(&gMenu_WMGeneralMenu, gMenuRect_WMGeneralMenuRect, parent);
 }
@@ -1128,7 +1128,7 @@ struct MenuProc * StartWMNodeMenu(struct WorldMapMainProc * parent)
 {
     struct MenuProc * menuProc;
 
-    gGMData.unk01 = 0;
+    gGMData.sprite_disp = 0;
 
     InitTextFont(&gFont_0201AFC0, (void *)0x06001000, 0x80, 0);
 
@@ -1853,13 +1853,8 @@ int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e,
 void ResetGmStoryNode(void)
 {
     int i;
-
     for (i = 0; i < NODE_MAX; i++)
-    {
         gGMData.nodes[i].state &= ~GM_NODE_STATE_CLEARED;
-    }
-
-    return;
 }
 
 //! FE8U = 0x080BCFDC

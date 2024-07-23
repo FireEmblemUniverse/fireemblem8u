@@ -1,98 +1,43 @@
 #include "global.h"
-
 #include "spline.h"
-
 #include "worldmap.h"
 
-struct GMapMoveCursorProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2A */ s16 unk_2a;
-    /* 2C */ s16 unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ int unk_3c;
-    /* 40 */ u8 unk_40;
-    /* 41 */ STRUCT_PAD(0x41, 0x44);
-    /* 44 */ int unk_44;
-    /* 48 */ int unk_48;
-};
-
-struct GMapScrollManageProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int * unk_2c; // pointer to ?
-    /* 30 */ int unk_30; // some set of bits?
-    /* 34 */ s16 unk_34; // spline degree (?)
-    /* 36 */ s16 unk_36; // initial camera x
-    /* 38 */ s16 unk_38; // initial camera y
-    /* 3A */ s16 unk_3a; // target camera x
-    /* 3C */ s16 unk_3c; // target camera y
-    /* 40 */ int unk_40; // duration
-    /* 44 */ int unk_44; // frame counter
-    /* 48 */ s16 unk_48; // start frame countdown (will only start once this reaches 0, else decrease this)
-};
-
-struct GmScrollInfo
-{
-    /* 00 */ int * unk_00; // pointer to ?
-    /* 04 */ int unk_04; // some bits?
-    /* 08 */ s16 unk_08; // spline degree (?)
-    /* 0A */ s16 unk_0a; // initial camera x
-    /* 0C */ s16 unk_0c; // initial camera y
-    /* 0E */ s16 unk_0e; // target camera x
-    /* 10 */ s16 unk_10; // target camera y
-    /* 12 */ STRUCT_PAD(0x12, 0x14);
-    /* 14 */ int unk_14; // duration
-    /* 18 */ s16 unk_18; // delay
-};
-
-//! FE8U = 0x080BF180
 void GmMoveCursor_OnEnd(struct GMapMoveCursorProc * proc)
 {
-    gGMData.ix = proc->unk_38;
-    gGMData.iy = proc->unk_3c;
-    return;
+    gGMData.ix = proc->xdst;
+    gGMData.iy = proc->ydst;
 }
 
-//! FE8U = 0x080BF190
 void GmMoveCursor_OnInit(struct GMapMoveCursorProc * proc)
 {
-    proc->unk_2c = 0;
-    return;
+    proc->timer = 0;
 }
 
-//! FE8U = 0x080BF198
 void GmMoveCursor_OnLoop(struct GMapMoveCursorProc * proc)
 {
-    proc->unk_2c++;
+    proc->timer++;
 
-    if (proc->unk_2c < proc->unk_2a)
+    if (proc->timer < proc->duration)
     {
-        int coeff = sub_800B7E0(proc->unk_2c, proc->unk_2a, proc->unk_40);
-        int x = proc->unk_30 + DivArm(0x1000, proc->unk_44 * coeff);
-        int y = proc->unk_34 + DivArm(0x1000, proc->unk_48 * coeff);
+        int coeff = _DivArm1(proc->timer, proc->duration, proc->move_type);
+        int x = proc->xsrc + DivArm(0x1000, proc->xmove * coeff);
+        int y = proc->ysrc + DivArm(0x1000, proc->ymove * coeff);
 
         gGMData.ix = x;
         gGMData.iy = y;
     }
     else
     {
-        gGMData.ix = proc->unk_38;
-        gGMData.iy = proc->unk_3c;
+        gGMData.ix = proc->xdst;
+        gGMData.iy = proc->ydst;
         Proc_End(proc);
     }
-
-    return;
 }
 
-// clang-format off
-
-struct ProcCmd CONST_DATA gProcScr_GmMoveCursor[] =
+struct ProcCmd CONST_DATA ProcScr_GmMoveCursor[] =
 {
     PROC_NAME("Gmap Move Cursor"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmMoveCursor_OnEnd),
 
@@ -103,121 +48,97 @@ struct ProcCmd CONST_DATA gProcScr_GmMoveCursor[] =
     PROC_END,
 };
 
-// clang-format on
-
-//! FE8U = 0x080BF210
-ProcPtr StartGmMoveCursor(struct Vec2 * posA, struct Vec2 * posB, int c, int d, ProcPtr parent)
+ProcPtr StartGmMoveCursor(struct Vec2 * src, struct Vec2 * dst, int duration, int move_type, ProcPtr parent)
 {
     struct GMapMoveCursorProc * proc;
 
     if (parent)
+        proc = Proc_Start(ProcScr_GmMoveCursor, parent);
+    else
+        proc = Proc_Start(ProcScr_GmMoveCursor, PROC_TREE_3);
+
+    if (src == NULL)
     {
-        proc = Proc_Start(gProcScr_GmMoveCursor, parent);
+        proc->xsrc = gGMData.ix;
+        proc->ysrc = gGMData.iy;
     }
     else
     {
-        proc = Proc_Start(gProcScr_GmMoveCursor, PROC_TREE_3);
+        proc->xsrc = src->x << 8;
+        proc->ysrc = src->y << 8;
     }
 
-    if (posA == NULL)
+    if (dst == NULL)
     {
-        proc->unk_30 = gGMData.ix;
-        proc->unk_34 = gGMData.iy;
+        proc->xdst = 0;
+        proc->ydst = 0;
     }
     else
     {
-        proc->unk_30 = posA->x << 8;
-        proc->unk_34 = posA->y << 8;
+        proc->xdst = dst->x << 8;
+        proc->ydst = dst->y << 8;
     }
 
-    if (posB == NULL)
-    {
-        proc->unk_38 = 0;
-        proc->unk_3c = 0;
-    }
-    else
-    {
-        proc->unk_38 = posB->x << 8;
-        proc->unk_3c = posB->y << 8;
-    }
+    proc->xmove = proc->xdst - proc->xsrc;
+    proc->ymove = proc->ydst - proc->ysrc;
 
-    proc->unk_44 = proc->unk_38 - proc->unk_30;
-    proc->unk_48 = proc->unk_3c - proc->unk_34;
-
-    proc->unk_2a = c;
-    proc->unk_40 = d;
+    proc->duration = duration;
+    proc->move_type = move_type;
 
     return proc;
 }
 
-//! FE8U = 0x080BF294
 s8 GmMoveCursorExists(void)
 {
-    return (Proc_Find(gProcScr_GmMoveCursor)) ? 1 : 0;
+    return Proc_Exists(ProcScr_GmMoveCursor);
 }
 
-//! FE8U = 0x080BF2AC
 void GmScrollManage_OnEnd(struct GMapScrollManageProc * proc)
 {
-    gGMData.xCamera = proc->unk_3a;
-    gGMData.yCamera = proc->unk_3c;
+    gGMData.xCamera = proc->xdst;
+    gGMData.yCamera = proc->ydst;
 
-    if (proc->unk_2c)
-    {
-        *proc->unk_2c |= proc->unk_30;
-    }
-
-    return;
+    if (proc->wm_flag)
+        *proc->wm_flag |= proc->lock;
 }
 
-//! FE8U = 0x080BF2D0
 void GmScrollManage_OnInit(struct GMapScrollManageProc * proc)
 {
-    proc->unk_44 = 0;
-    return;
+    proc->timer = 0;
 }
 
-//! FE8U = 0x080BF2D8
 void GmScrollManage_OnLoop(struct GMapScrollManageProc * proc)
 {
-    if (proc->unk_48 > 0)
+    if (proc->delay > 0)
     {
-        proc->unk_48--;
+        proc->delay--;
         return;
     }
 
-    if (*proc->unk_2c & proc->unk_30)
-    {
-        proc->unk_44 = proc->unk_40;
-    }
+    if (*proc->wm_flag & proc->lock)
+        proc->timer = proc->duration;
     else
-    {
-        proc->unk_44 += 0x1000;
-    }
+        proc->timer += 0x1000;
 
-    if (proc->unk_44 < proc->unk_40)
+    if (proc->timer < proc->duration)
     {
-        int coeff = sub_800B84C(proc->unk_44, proc->unk_40, proc->unk_34);
-        int x = proc->unk_36 + DivArm(0x1000, (proc->unk_3a - proc->unk_36) * coeff);
-        int y = proc->unk_38 + DivArm(0x1000, (proc->unk_3c - proc->unk_38) * coeff);
+        int coeff = _DivArm2(proc->timer, proc->duration, proc->move_type);
+        int x = proc->xsrc + DivArm(0x1000, (proc->xdst - proc->xsrc) * coeff);
+        int y = proc->ysrc + DivArm(0x1000, (proc->ydst - proc->ysrc) * coeff);
 
         gGMData.xCamera = x;
         gGMData.yCamera = y;
     }
     else
-    {
         Proc_Break(proc);
-    }
-
-    return;
 }
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmScrollManage[] =
+struct ProcCmd CONST_DATA ProcScr_GmScrollManage[] =
 {
     PROC_NAME("Gmap Scroll Manage"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmScrollManage_OnEnd),
 
@@ -232,91 +153,82 @@ struct ProcCmd CONST_DATA gProcScr_GmScrollManage[] =
 //! FE8U = 0x080BF370
 ProcPtr StartGmScrollManage(struct GmScrollInfo * input, ProcPtr parent)
 {
-    u16 r1;
+    u16 _src;
 
-    struct GMapScrollManageProc * proc = Proc_Start(gProcScr_GmScrollManage, parent);
+    struct GMapScrollManageProc * proc = Proc_Start(ProcScr_GmScrollManage, parent);
 
-    if ((input->unk_0a < 0) || (input->unk_0c < 0))
+    if ((input->xsrc < 0) || (input->ysrc < 0))
     {
-        input->unk_0a = gGMData.xCamera;
-        input->unk_0c = gGMData.yCamera;
+        input->xsrc = gGMData.xCamera;
+        input->ysrc = gGMData.yCamera;
     }
 
-    r1 = input->unk_0a;
-    proc->unk_36 = r1;
-    proc->unk_38 = input->unk_0c;
+    _src = input->xsrc;
+    proc->xsrc = _src;
+    proc->ysrc = input->ysrc;
 
-    gGMData.xCamera = r1;
-    gGMData.yCamera = proc->unk_38;
+    gGMData.xCamera = _src;
+    gGMData.yCamera = proc->ysrc;
 
-    if (input->unk_0e < 0)
-    {
-        proc->unk_3a = r1;
-    }
+    if (input->xdst < 0)
+        proc->xdst = _src;
     else
+        proc->xdst = input->xdst;
+
+    proc->ydst = input->ydst;
+    proc->move_type = input->move_type;
+    proc->duration = input->duration << 0xc;
+    proc->delay = input->delay;
+
+    proc->wm_flag = input->flags;
+
+    if (proc->wm_flag != 0)
     {
-        proc->unk_3a = input->unk_0e;
+        *proc->wm_flag &= ~input->lock;
+        proc->lock = input->lock;
     }
-
-    proc->unk_3c = input->unk_10;
-    proc->unk_34 = input->unk_08;
-    proc->unk_40 = input->unk_14 << 0xc;
-    proc->unk_48 = input->unk_18;
-
-    proc->unk_2c = input->unk_00;
-
-    if (proc->unk_2c != 0)
-    {
-        *proc->unk_2c &= ~input->unk_04;
-        proc->unk_30 = input->unk_04;
-    }
-
     return proc;
 }
 
-// TODO: definition doesn't match usage
-
-//! FE8U = 0x080BF3F4
-ProcPtr FindGmScrollManage(void)
+#if BUFFIX
+bool GmScrollManageExist(void)
+#else
+ProcPtr GmScrollManageExist(void)
+#endif
 {
-    return (Proc_Find(gProcScr_GmScrollManage));
+    return Proc_Find(ProcScr_GmScrollManage);
 }
 
-//! FE8U = 0x080BF404
 void StartGmScroll(s16 xStart, s16 yStart, s16 xEnd, s16 yEnd, s16 speed, s16 delay)
 {
     struct GmScrollInfo info;
 
     struct WorldMapMainProc * worldMapProc = GM_MAIN;
-    info.unk_00 = &worldMapProc->unk_30;
+    info.flags = &worldMapProc->scrolling;
 
-    info.unk_04 = 1;
-    info.unk_08 = 1;
-    info.unk_0a = xStart;
-    info.unk_0c = yStart;
-    info.unk_0e = xEnd;
-    info.unk_10 = yEnd;
-    info.unk_14 = speed;
-    info.unk_18 = delay;
+    info.lock = 1;
+    info.move_type = 1;
+    info.xsrc = xStart;
+    info.ysrc = yStart;
+    info.xdst = xEnd;
+    info.ydst = yEnd;
+    info.duration = speed;
+    info.delay = delay;
 
     StartGmScrollManage(&info, worldMapProc);
 
     GM_CURSOR->unk_32--;
 }
 
-//! FE8U = 0x080BF490
-int sub_80BF490(void)
+bool CheckGmScrolling(void)
 {
-    return !(GM_MAIN->unk_30 & 1);
+    return !(GM_MAIN->scrolling & 1);
 }
 
-//! FE8U = 0x080BF4A8
 void EndGmScroll(void)
 {
     struct WorldMapMainProc * worldMapProc = Proc_Find(ProcScr_WorldMapMain);
-    Proc_EndEach(gProcScr_GmScrollManage);
+    Proc_EndEach(ProcScr_GmScrollManage);
 
-    worldMapProc->unk_30 |= 1;
-
-    return;
+    worldMapProc->scrolling |= 1;
 }

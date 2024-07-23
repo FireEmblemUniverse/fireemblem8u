@@ -560,7 +560,7 @@ void efxopThunderBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxopThunderBGCOL[] =
 {
     PROC_NAME("efxopThunderBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxopThunderBGCOL_Loop),
 
@@ -810,7 +810,7 @@ void efxopLiveBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxopLiveBGCOL[] =
 {
     PROC_NAME("efxopLiveBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxopLiveBGCOL_Loop),
 

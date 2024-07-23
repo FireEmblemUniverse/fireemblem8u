@@ -109,7 +109,7 @@ void GmTmConfront_Loop_MoveUnitPositions(struct GmapTmConfrontProc * proc)
 
     if (proc->unk_2a < proc->unk_2c)
     {
-        int var = sub_800B7E0(proc->unk_2a, proc->unk_2c, 1);
+        int var = _DivArm1(proc->unk_2a, proc->unk_2c, 1);
 
         for (i = 0; i < 2; i++)
         {
@@ -185,10 +185,10 @@ void GmTmConfront_WaitForAnim(ProcPtr proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapTmConfront[] =
+struct ProcCmd CONST_DATA ProcScr_GmapTmConfront[] =
 {
     PROC_NAME("Gmap Tm Confront"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmTmConfront_OnEnd),
     PROC_YIELD,
@@ -227,11 +227,11 @@ ProcPtr StartWorldmapSkirmishAnim(int a, int b, ProcPtr parent)
 
     if (parent != NULL)
     {
-        proc = Proc_StartBlocking(gProcScr_GmapTmConfront, parent);
+        proc = Proc_StartBlocking(ProcScr_GmapTmConfront, parent);
     }
     else
     {
-        proc = Proc_Start(gProcScr_GmapTmConfront, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_GmapTmConfront, PROC_TREE_3);
     }
 
     proc->unk_2e[1] = a;
@@ -245,12 +245,12 @@ ProcPtr StartWorldmapSkirmishAnim(int a, int b, ProcPtr parent)
 //! FE8U = 0x080C080C
 void EndWorldmapSkirmishAnim(void)
 {
-    Proc_EndEach(gProcScr_GmapTmConfront);
+    Proc_EndEach(ProcScr_GmapTmConfront);
     return;
 }
 
 //! FE8U = 0x080C081C
 bool IsWorldmapSkirmishAnimActive(void)
 {
-    return Proc_Find(gProcScr_GmapTmConfront) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_GmapTmConfront) ? TRUE : FALSE;
 }

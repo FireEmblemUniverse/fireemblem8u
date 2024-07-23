@@ -87,7 +87,7 @@ void efxGespenstBG4_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxGespenstBGCOL2[] =
 {
     PROC_NAME("efxGespenstBGCOL2"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxGespenstBGCOL2_Loop),
 

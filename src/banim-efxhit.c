@@ -148,7 +148,7 @@ void efxCriricalEffectBGMain(struct ProcEfxBG * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxCriricalEffectBGCOL[] = {
     PROC_NAME("efxCriticalEffectBGCOL"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxCriricalEffectBGCOLMain),
     PROC_END
 };
@@ -379,7 +379,7 @@ void efxPierceCriticalEffectBGMain(struct ProcEfxBG * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxPierceCriticalEffectBGCOL[] = {
     PROC_NAME("efxPierceCriticalEffectBGCOL"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxPierceCriticalEffectBGCOLMain),
     PROC_END
 };

@@ -609,7 +609,7 @@ const s16 gEfxNoDmgBgShakeOff[] = {
 
 CONST_DATA struct ProcCmd ProcScr_efxStatusCHG[] = {
     PROC_NAME("efxStatusCHG"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxStatusCHGMain),
     PROC_REPEAT(EfxHpBar_MoveCameraOnEnd),
     PROC_REPEAT(EfxHpBar_WaitCameraMove),

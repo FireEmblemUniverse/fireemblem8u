@@ -16,7 +16,7 @@
 
 CONST_DATA struct ProcCmd ProcScr_efxStatusUnit[] = {
     PROC_NAME("efxStatusUnit"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_SET_END_CB(EfxStatusUnitEnd),
     PROC_REPEAT(EfxStatusUnitMain),
     PROC_END

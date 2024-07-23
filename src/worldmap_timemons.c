@@ -299,7 +299,7 @@ void GmapTimeMons_WaitSpriteDone(struct ProcGmapTimeMons * proc)
 
 CONST_DATA struct ProcCmd ProcScr_GmapTimeMons[] = {
     PROC_NAME("Gmap Time Mons"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(nullsub_72),
     PROC_CALL(GmapTimeMons_Init),
     PROC_REPEAT(GmapTimeMons_ExecMonsterMergeMu),

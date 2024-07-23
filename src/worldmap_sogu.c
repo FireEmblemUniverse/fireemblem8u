@@ -78,7 +78,7 @@ void GmapSogu_Loop2(struct ProcGmapSogu * proc)
 
 CONST_DATA struct ProcCmd ProcScr_GmapSogu[] = {
     PROC_NAME("Gmap Sogu"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(GmapSogu_End),
     PROC_CALL(GmapSogu_Init),
     PROC_REPEAT(GmapSogu_Loop1),

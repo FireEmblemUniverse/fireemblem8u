@@ -291,7 +291,7 @@ void efxShineBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineBGCOL[] =
 {
     PROC_NAME("efxShineBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxShineBGCOL_Loop),
     PROC_END,
 };

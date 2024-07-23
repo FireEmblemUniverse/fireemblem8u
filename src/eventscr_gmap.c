@@ -14,7 +14,7 @@
 void GetWMCenteredCameraPosition(s16, s16, s16 *, s16 *);
 
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
-s8 FindGmScrollManage(void);
+s8 GmScrollManageExist(void);
 int IsWmPlaceDotActiveAtIndex(int); // implicit?
 
 //! FE8U = 0x0800BDCC
@@ -182,7 +182,7 @@ u8 Event89_WmScrollWait(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (FindGmScrollManage())
+        if (GmScrollManageExist())
         {
             EndGmScroll();
         }
@@ -190,7 +190,7 @@ u8 Event89_WmScrollWait(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!FindGmScrollManage())
+    if (!GmScrollManageExist())
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -201,14 +201,14 @@ u8 Event89_WmScrollWait(struct EventEngineProc * proc)
 //! FE8U = 0x0800C0B8
 u8 Event8A_WmShowCursor_Unsure(struct EventEngineProc * proc)
 {
-    gGMData.unk01 = 1;
+    gGMData.sprite_disp = 1;
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800C0C8
 void Event8B_WmHideCursor_Unsure(void)
 {
-    gGMData.unk01 = 0;
+    gGMData.sprite_disp = 0;
     return;
 }
 
@@ -389,7 +389,7 @@ u8 Event97_WmInitNextStoryNode(struct EventEngineProc * proc)
         gGMData.nodes[nodeId].state |= 2;
 
         GM_ICON->nodeId = nodeId;
-        GM_ICON->unk_32_1 = 1;
+        GM_ICON->merge_next_node = true;
     }
     else
     {
@@ -433,7 +433,7 @@ u8 Event98_WmSetNextStoryNodePath(struct EventEngineProc * proc)
         gGMData.nodes[nodeId].state |= 2;
 
         GM_ICON->nodeId = nodeId;
-        GM_ICON->unk_32_1 = 1;
+        GM_ICON->merge_next_node = true;
     }
     else
     {
@@ -476,7 +476,7 @@ u8 Event9A_WmSetStoryNodeSilent(struct EventEngineProc * proc)
     gGMData.nodes[nodeId].state |= 2;
 
     GM_ICON->nodeId = nodeId;
-    GM_ICON->unk_32_1 = 1;
+    GM_ICON->merge_next_node = true;
 
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1103,21 +1103,21 @@ u8 EventBF_(struct EventEngineProc * proc)
 //! FE8U = 0x0800CBD8
 u8 EventC0_(struct EventEngineProc * proc)
 {
-    sub_80B9154(GM_MAIN);
+    WorldMap_Init(GM_MAIN);
     return EVC_ADVANCE_YIELD;
 }
 
 //! FE8U = 0x0800CBF0
 u8 EventC1_SKIPWM(struct EventEngineProc * proc)
 {
-    gGMData.state.bits.state_6 = 1;
+    gGMData.state.bits.skip_wm = 1;
     return EVC_ADVANCE_CONTINUE;
 }
 
 //! FE8U = 0x0800CC04
 u8 EventC2_WmNoFade(struct EventEngineProc * proc)
 {
-    gGMData.state.bits.state_7 = 1;
+    gGMData.state.bits.no_fade = 1;
     return EVC_ADVANCE_CONTINUE;
 }
 

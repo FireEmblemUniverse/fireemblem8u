@@ -204,7 +204,7 @@ void ArenaUi_FadeOutBgm(void) {
 //! FE8U = 0x080B5AB4
 void ArenaUi_StartArenaBattle(ProcPtr proc) {
 
-    Proc_SetMark(proc, PROC_MARK_7);
+    Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
 
     ResetDialogueScreen();
 

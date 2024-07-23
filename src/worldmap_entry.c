@@ -83,7 +83,7 @@ void GmapBaseEntry_OnEnd(struct GmapBaseEntryProc * proc)
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
         GM_ICON->nodeId = proc->unk_29;
-        GM_ICON->unk_32_1 = 1;
+        GM_ICON->merge_next_node = true;
     }
 
     EndGmapEffect();
@@ -116,7 +116,7 @@ void GmapBaseEntry_80BF8CC(struct GmapBaseEntryProc * proc)
     if ((gGMData.nodes[proc->unk_29].state & 2) != 0)
     {
         GM_ICON->nodeId = proc->unk_29;
-        GM_ICON->unk_32_1 = 1;
+        GM_ICON->merge_next_node = true;
     }
 
     SetBlendConfig(BLEND_EFFECT_NONE, 0, 0x10, 0);
@@ -222,7 +222,7 @@ void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapBaseEntry[] =
 {
     PROC_NAME("Gmap Base Entry"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapBaseEntry_OnEnd),
 
@@ -366,7 +366,7 @@ void sub_80BFC44(struct GmapBaseEntryProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapMuEntry1[] =
 {
     PROC_NAME("Gmap Mu Entry"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(sub_80BFB4C),
 
@@ -559,7 +559,7 @@ void GmMuEntry_80C0080(struct GmapMuEntryProc * proc)
 
     if (proc->unk_38 < proc->unk_34)
     {
-        unk = sub_800B7E0(proc->unk_38, proc->unk_34, proc->unk_30);
+        unk = _DivArm1(proc->unk_38, proc->unk_34, proc->unk_30);
 
         proc->unk_2a = proc->unk_2c + DivArm(0x1000, proc->unk_3c * unk);
         proc->unk_2b = proc->unk_2e + DivArm(0x1000, proc->unk_40 * unk);
@@ -592,7 +592,7 @@ void GmMuEntry_80C0144(struct GmapMuEntryProc * proc)
 
     if (proc->unk_38 < proc->unk_34)
     {
-        unk = sub_800B7E0(proc->unk_38, proc->unk_34, proc->unk_30);
+        unk = _DivArm1(proc->unk_38, proc->unk_34, proc->unk_30);
         proc->unk_2a = proc->unk_2c + DivArm(0x1000, proc->unk_3c * unk);
         proc->unk_2b = proc->unk_2e + DivArm(0x1000, proc->unk_40 * unk);
     }
@@ -618,7 +618,7 @@ void GmMuEntry_80C0144(struct GmapMuEntryProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapMuEntry2[] =
 {
     PROC_NAME("Gmap Mu Entry"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmMuEntry_OnEnd_Null),
 

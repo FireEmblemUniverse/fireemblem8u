@@ -675,7 +675,7 @@ void SaveDraw_Loop_Main(struct SaveDrawProc * proc)
 struct ProcCmd CONST_DATA ProcScr_savedraw[] =
 {
     PROC_NAME("savedraw"),
-    PROC_MARK(PROC_MARK_C),
+    PROC_MARK(PROC_MARK_SAVEDRAW),
     PROC_SET_END_CB(SaveDraw_OnEnd),
 
     PROC_CALL(SaveDraw_Init),

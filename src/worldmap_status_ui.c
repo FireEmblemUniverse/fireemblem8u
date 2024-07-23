@@ -144,12 +144,12 @@ struct WorldmapStatusProc
     /* 34 */ struct Text text[2];
 };
 
-extern struct ProcCmd gProcScr_WorldmapStatusUi[];
+extern struct ProcCmd ProcScr_WorldmapStatusUi[];
 
 //! FE8U = 0x080C0A10
 void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc)
 {
-    struct WorldmapStatusProc * statusProc = Proc_Find(gProcScr_WorldmapStatusUi);
+    struct WorldmapStatusProc * statusProc = Proc_Find(ProcScr_WorldmapStatusUi);
 
     if (statusProc->unit->pCharacterData->descTextId)
     {
@@ -166,7 +166,7 @@ void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc)
 //! FE8U = 0x080C0A44
 void WorldmapStatus_GetClassDescription(struct HelpBoxProc * proc)
 {
-    struct WorldmapStatusProc * statusProc = Proc_Find(gProcScr_WorldmapStatusUi);
+    struct WorldmapStatusProc * statusProc = Proc_Find(ProcScr_WorldmapStatusUi);
     proc->mid = statusProc->unit->pClassData->descTextId;
     return;
 }
@@ -411,9 +411,9 @@ void WorldmapStatus_PutTimeAndGold(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_WmStatus_PutTimeAndGold[] =
+struct ProcCmd CONST_DATA ProcScr_WmStatus_PutTimeAndGold[] =
 {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_REPEAT(WorldmapStatus_PutTimeAndGold),
 
     PROC_END,
@@ -457,9 +457,9 @@ void WorldmapStatus_80C0FA4(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_WorldmapStatusUi[] =
+struct ProcCmd CONST_DATA ProcScr_WorldmapStatusUi[] =
 {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(WorldmapStatus_OnEnd),
 
@@ -475,7 +475,7 @@ struct ProcCmd CONST_DATA gProcScr_WorldmapStatusUi[] =
     PROC_CALL(WorldmapStatus_InitDetails),
     PROC_CALL(WorldmapStatus_80C0E58),
 
-    PROC_START_CHILD(gProcScr_WmStatus_PutTimeAndGold),
+    PROC_START_CHILD(ProcScr_WmStatus_PutTimeAndGold),
 
     PROC_REPEAT(WorldmapStatus_Loop_KeyHandler),
 

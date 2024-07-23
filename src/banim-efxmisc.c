@@ -1429,7 +1429,7 @@ void EfxChillEffectBGMain(struct ProcEfxBG * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxChillEffectBGCOL[] = {
     PROC_NAME("efxChillEffectBGCOL"),
-    PROC_MARK(10),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxChillEffectBGCOL_Loop),
     PROC_END,
 };

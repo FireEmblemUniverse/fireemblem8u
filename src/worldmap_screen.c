@@ -202,10 +202,10 @@ s8 sub_80BA6DC(struct GMapScreenVSyncProc * proc, int arg1, int arg2, int arg3, 
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapScreenVSync[] =
+struct ProcCmd CONST_DATA ProcScr_GMapScreenVSync[] =
 {
     PROC_NAME("GMapScreenVSync"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_CALL(GMScreenVSync_Init),
     PROC_REPEAT(GMScreenVSync_Loop),
@@ -243,7 +243,7 @@ ProcPtr NewMapScreenVSync(u8 * arg0, u16 * arg1, u8 * arg2, void * arg3, void * 
 {
     struct GMapScreenVSyncProc * proc;
 
-    proc = Proc_Start(gProcScr_GMapScreenVSync, NULL);
+    proc = Proc_Start(ProcScr_GMapScreenVSync, NULL);
     if (proc == NULL)
     {
         return NULL;
@@ -471,10 +471,10 @@ void sub_80BAB0C(struct GmScreenProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GMapScreen[] =
+struct ProcCmd CONST_DATA ProcScr_GMapScreen[] =
 {
     PROC_NAME("GmapScreen"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(MapScreen_OnDelete),
 
@@ -493,7 +493,7 @@ struct ProcCmd CONST_DATA gProcScr_GMapScreen[] =
 //! FE8U = 0x080BABF0
 ProcPtr NewMapScreen(ProcPtr parent)
 {
-    struct GmScreenProc * proc = Proc_Start(gProcScr_GMapScreen, parent);
+    struct GmScreenProc * proc = Proc_Start(ProcScr_GMapScreen, parent);
     proc->gmroute = StartGMapRoute(proc, &gGMData.openPaths, 0x5000, 0xe);
     return proc;
 }

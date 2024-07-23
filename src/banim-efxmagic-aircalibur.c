@@ -173,7 +173,7 @@ void efxAlacaliburBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA gProcScr_efxAlacaliburBGCOL[] =
 {
     PROC_NAME("efxAlacaliburBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxAlacaliburBGCOL_Loop),
 

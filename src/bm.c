@@ -84,7 +84,7 @@ struct ProcCmd CONST_DATA gProc_BMapMain[] = {
 
     PROC_NAME("E_BMAPMAIN"),
     PROC_15,
-    PROC_MARK(2),
+    PROC_MARK(PROC_MARK_MAIN),
 
     PROC_SLEEP(0),
 

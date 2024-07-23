@@ -52,7 +52,7 @@ extern u32 gUnknown_0200F15C[]; // equipped item icons
 struct ProcCmd CONST_DATA ProcScr_UnitListScreen_Field[] =
 {
     PROC_NAME("bmenu"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_CALL(LockGame),
 

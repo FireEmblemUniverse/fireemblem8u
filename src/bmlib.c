@@ -802,7 +802,7 @@ void PalFade_OnLoop(struct PalFadeProc *proc);
 
 struct ProcCmd CONST_DATA ProcScr_PalFade[] =
 {
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(PalFade_OnLoop),
 
     PROC_END,
@@ -1288,7 +1288,7 @@ struct FadeKindEnt const gUnknown_080D7964[] =
 };
 
 struct ProcCmd CONST_DATA ProcScr_FadeCore[] = {
-    PROC_MARK(10),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_CALL(FadeCore_Init),
     PROC_YIELD,
     PROC_CALL(FadeCore_Tick),

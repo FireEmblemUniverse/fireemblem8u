@@ -340,7 +340,7 @@ void GmapEffect_80C119C(struct GmapEffectProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapEffectPal[] =
 {
     PROC_NAME("Gmap Effect Pa"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapEffectPal_OnEnd),
 
@@ -419,7 +419,7 @@ void GmapEffect_Loop(struct GmapEffectProc * proc)
 struct ProcCmd CONST_DATA gProcScr_GmapEffect[] =
 {
     PROC_NAME("Gmap Effect"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapEffect_OnEnd),
 

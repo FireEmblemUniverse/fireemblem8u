@@ -1488,7 +1488,7 @@ void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc)
     SaveMenuPutChapterTitle(proc);
     SaveMenuInitSlotPalette(proc->sus_slot);
 
-    Proc_UnblockEachMarked(PROC_MARK_C);
+    Proc_UnblockEachMarked(PROC_MARK_SAVEDRAW);
     Proc_UnblockEachMarked(PROC_MARK_D);
 
     BG_EnableSyncByMask(3);

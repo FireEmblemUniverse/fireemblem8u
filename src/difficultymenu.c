@@ -606,7 +606,7 @@ void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc)
 
         if (proc->unk_3c < 4)
         {
-            int unk = sub_800B84C(proc->unk_3c, 4, 0);
+            int unk = _DivArm2(proc->unk_3c, 4, 0);
 
             proc->unk_2c = proc->unk_30 + DivArm(0x1000, proc->unk_38 * unk);
             proc->unk_2e = proc->unk_32 + DivArm(0x1000, proc->unk_3a * unk);

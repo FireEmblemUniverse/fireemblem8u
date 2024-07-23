@@ -48,8 +48,8 @@ enum {
 // extern ??? gGameOptions
 // extern ??? gProcScr_RedrawConfigHelpText
 // extern ??? gProcScr_DrawConfigUiSprites
-extern struct ProcCmd CONST_DATA gProcScr_Config1[];
-extern struct ProcCmd CONST_DATA gProcScr_Config2[];
-extern struct ProcCmd CONST_DATA gProcScr_Config3[];
+extern struct ProcCmd CONST_DATA ProcScr_Config1[];
+extern struct ProcCmd CONST_DATA ProcScr_Config2[];
+extern struct ProcCmd CONST_DATA ProcScr_Config3[];
 
 #endif // GUARD_UI_CONFIG_H

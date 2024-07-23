@@ -1072,7 +1072,7 @@ void sub_80B24C0(void) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_Config1[] = {
+struct ProcCmd CONST_DATA ProcScr_Config1[] = {
     PROC_NAME("E_config"),
 
     PROC_CALL(LockGame),
@@ -1107,7 +1107,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gProcScr_Config2[] = {
+struct ProcCmd CONST_DATA ProcScr_Config2[] = {
     PROC_NAME("E_config"),
 
     PROC_CALL(LockGame),
@@ -1134,7 +1134,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gProcScr_Config3[] = {
+struct ProcCmd CONST_DATA ProcScr_Config3[] = {
     PROC_NAME("E_config"),
 
     PROC_CALL(LockGame),
