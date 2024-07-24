@@ -118,6 +118,9 @@ enum song_idx {
     SONG_EC = 0xEC, // no damage
     SONG_FD = 0xFD, // manim
     SONG_10F = 0x10F,
+    SONG_13F = 0x13F,
+    SONG_140 = 0x140,
+    SONG_141 = 0x141,
     SONG_269 = 0x269,
     SONG_26A = 0x26A,
     SONG_2E0 = 0x2E0,
@@ -136,4 +139,5 @@ enum song_idx {
     SONG_30E = 0x30E,
     SONG_30F = 0x30F,
     SONG_3BB = 0x3BB,
+    SONG_3BF = 0x3BF,
 };

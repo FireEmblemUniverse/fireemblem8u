@@ -127,7 +127,7 @@ extern u16 gUnknown_030018F0[];
 // extern ??? gUnitDef2
 // extern ??? gUnitDefEggHatching
 // extern ??? gUnknown_03001C74
-extern u8 gUnknown_03001C7C;
+extern s8 gUnknown_03001C7C;
 // extern ??? gActiveEventRegistry
 
 // extern ??? gUnknown_03001D50
@@ -259,7 +259,7 @@ extern const u8 gUnknown_08205855[];
 extern const int gUnknown_08205884[];
 extern const u8 gUnknown_0820588C[];
 extern const u8 gUnknown_0820588E[];
-extern unsigned const gUnknown_082058A8[];
+//extern unsigned const gUnknown_082058A8[];
 extern u8 const gUnknown_082058B0[];
 // extern ??? gUnknown_082058B4
 // extern ??? gUnknown_082058D4
