@@ -348,14 +348,14 @@ extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D4[];
 extern struct MapAnimfxConf CONST_DATA gUnknown_089A43D8[];
 extern CONST_DATA struct ProcCmd ProcScr_089A4434[];
 extern CONST_DATA struct ProcCmd ProcScr_089A448C[];
-// extern ??? gUnknown_089A44A4
-// extern ??? gUnknown_089A45DC
-// extern ??? gUnknown_089A4644
-// extern ??? gUnknown_089A4664
-// extern ??? gUnknown_089A46AC
-// extern ??? gUnknown_089A46DC
-// extern ??? ProcScr_GlowingCross
-// extern ??? ProcScr_GlowCrossExit
+extern struct MapAnimfxConf CONST_DATA gUnknown_089A44A4[];
+extern struct ProcCmd gUnknown_089A45DC[];
+extern struct ProcCmd gUnknown_089A4644[];
+extern u8 * CONST_DATA gUnknown_089A4664[];
+extern struct ProcCmd gUnknown_089A46AC[];
+extern struct ProcCmd gUnknown_089A46DC[];
+extern struct ProcCmd ProcScr_GlowingCross[];
+extern struct ProcCmd ProcScr_GlowCrossExit[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimDefaultItemEffect[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocNightMare[];
 extern CONST_DATA struct ProcCmd ProcScr_SpellAssocLatona[];

@@ -822,7 +822,7 @@ SECTIONS
         . = ALIGN(4); src/mapanim_api.o(.rodata);
         . = ALIGN(4); src/mapanim_debug.o(.rodata);
         . = ALIGN(4); src/mapanim_staffeffect.o(.rodata);
-        . = ALIGN(4); data/const_data_205714.o(.rodata);
+        . = ALIGN(4); src/mapanim_eventcall.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
         . = ALIGN(4); src/unitlistscreen.o(.rodata);
@@ -1114,7 +1114,6 @@ SECTIONS
         . = ALIGN(4); src/mapanim_lvup.o(.data);
         . = ALIGN(4); src/mapanim_spellassocfx.o(.data);
         . = ALIGN(4); src/mapanim_eventcall.o(.data);
-        . = ALIGN(4); data/mapanim_eventcall.o(.data);
         . = ALIGN(4); src/mapanim_spellassoc.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
         . = ALIGN(4); src/eventinfo.o(.data);

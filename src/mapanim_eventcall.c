@@ -355,6 +355,20 @@ void sub_807F89C(struct MAEffectProc * proc)
     proc->unk44 = 0;
 }
 
+// clang-format off
+
+const int gUnknown_08205884[] =
+{
+    0x80, 0x1E0,
+};
+
+const u8 gUnknown_0820588C[] =
+{
+    4, 5,
+};
+
+// clang-format on
+
 void sub_807F964(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
@@ -405,6 +419,18 @@ void sub_807F964(struct MAEffectProc * proc)
 
     proc->timer--;
 }
+
+// clang-format off
+
+const u8 gUnknown_0820588E[] =
+{
+    4, 5, 6, 7, 7, 7, 4,
+    5, 5, 6, 6, 4, 4, 5,
+    5, 3, 4, 3, 4, 3, 4,
+    2, 2, 2, 0, 0,
+};
+
+// clang-format on
 
 void sub_807FAA0(struct MAEffectProc * proc)
 {
@@ -714,6 +740,76 @@ void sub_8080050(struct MAEffectProc * proc)
     SetSecondaryHBlankHandler(sub_8080408);
 }
 
+// clang-format off
+
+struct MapAnimfxConf CONST_DATA gUnknown_089A43D4[] =
+{
+    {
+        .img = (const u16 *)0x089D8010,
+        .pal = (const u16 *)0x089DCD48,
+        .tsa = (const u16 *)0x089DCE48,
+    },
+    {
+        .img = (const u16 *)0x089D8198,
+        .pal = (const u16 *)0x089DCD68,
+        .tsa = (const u16 *)0x089DCF10,
+    },
+    {
+        .img = (const u16 *)0x089D84A8,
+        .pal = (const u16 *)0x089DCD88,
+        .tsa = (const u16 *)0x089DCFFC,
+    },
+    {
+        .img = (const u16 *)0x089D8910,
+        .pal = (const u16 *)0x089DCDA8,
+        .tsa = (const u16 *)0x089DD114,
+    },
+    {
+        .img = (const u16 *)0x089D925C,
+        .pal = (const u16 *)0x089DCDC8,
+        .tsa = (const u16 *)0x089DD284,
+    },
+    {
+        .img = (const u16 *)0x089DA40C,
+        .pal = (const u16 *)0x089DCDE8,
+        .tsa = (const u16 *)0x089DD4E8,
+    },
+    {
+        .img = (const u16 *)0x089DB1A0,
+        .pal = (const u16 *)0x089DCE08,
+        .tsa = (const u16 *)0x089DD790,
+    },
+    {
+        .img = (const u16 *)0x089DBFE0,
+        .pal = (const u16 *)0x089DCE28,
+        .tsa = (const u16 *)0x089DDA68,
+    },
+};
+
+const u32 gUnknown_082058A8[] =
+{
+    0x160, 0x260,
+};
+
+const u8 gUnknown_082058B0[] =
+{
+    4, 5,
+};
+
+const struct Unk082058B4 gUnknown_082058B4[] =
+{
+    { 0, 5, 0, },
+    { 1, 4, 0, },
+    { 2, 4, 0, },
+    { 3, 3, 0, },
+    { 4, 3, 0, },
+    { 5, 2, 1, },
+    { 6, 2, 1, },
+    { 7, 1, 0, },
+};
+
+// clang-format on
+
 void sub_8080138(struct MAEffectProc* proc)
 {
     if (proc->timer == 0)
@@ -772,8 +868,6 @@ void sub_8080138(struct MAEffectProc* proc)
     proc->timer--;
 }
 
-extern const u8 gUnknown_082058B0[];
-
 //! FE8U = 0x08080288
 void sub_8080288(struct MAEffectProc * proc)
 {
@@ -819,7 +913,7 @@ void sub_8080288(struct MAEffectProc * proc)
         else
         {
             SetBlendTargetA(0, 0, 0, 1, 1);
-            SetBlendConfig(2, 0x10, 0x10, 0x10);
+            SetBlendConfig(BLEND_EFFECT_BRIGHTEN, 16, 16, 16);
             SetDispEnable(0, 0, 0, 1, 1);
 
             proc->frame = 0;
@@ -870,6 +964,31 @@ void sub_80803D8(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_089A4434[] =
+{
+    PROC_SET_END_CB(sub_8080038),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8080050),
+    PROC_REPEAT(sub_8080138),
+    PROC_REPEAT(sub_8080288),
+
+    PROC_SLEEP(30),
+
+    PROC_REPEAT(sub_808038C),
+    PROC_CALL(sub_80803D8),
+
+    PROC_SLEEP(60),
+
+    PROC_CALL(MapSpellAnim_CommonEnd),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x08080408
 void sub_8080408(void)
 {
@@ -914,7 +1033,17 @@ void sub_808044C(struct Proc89A448C * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_089A45DC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_089A448C[] =
+{
+    PROC_YIELD,
+    PROC_REPEAT(sub_808044C),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08080474
 void sub_8080474(ProcPtr parent)
@@ -932,11 +1061,155 @@ void sub_8080474(ProcPtr parent)
     return;
 }
 
-extern struct MapAnimfxConf gUnknown_089A44A4[];
+// clang-format off
 
-extern const int gUnknown_082058D4[];
-extern const u8 gUnknown_082058DC[];
+struct MapAnimfxConf CONST_DATA gUnknown_089A44A4[] =
+{
+    {
+        .img = (const u8 *)0x089DDE8C,
+        .pal = (const u16 *)0x089E4C7C,
+        .tsa = (const u8 *)0x089E4FBC,
+    },
+    {
+        .img = (const u8 *)0x089DDF10,
+        .pal = (const u16 *)0x089E4C9C,
+        .tsa = (const u8 *)0x089E5074,
+    },
+    {
+        .img = (const u8 *)0x089DDF9C,
+        .pal = (const u16 *)0x089E4CBC,
+        .tsa = (const u8 *)0x089E5130,
+    },
+    {
+        .img = (const u8 *)0x089DE030,
+        .pal = (const u16 *)0x089E4CDC,
+        .tsa = (const u8 *)0x089E51EC,
+    },
+    {
+        .img = (const u8 *)0x089DE0BC,
+        .pal = (const u16 *)0x089E4CFC,
+        .tsa = (const u8 *)0x089E52AC,
+    },
+    {
+        .img = (const u8 *)0x089DE14C,
+        .pal = (const u16 *)0x089E4D1C,
+        .tsa = (const u8 *)0x089E5364,
+    },
+    {
+        .img = (const u8 *)0x089DE1CC,
+        .pal = (const u16 *)0x089E4D3C,
+        .tsa = (const u8 *)0x089E541C,
+    },
+    {
+        .img = (const u8 *)0x089DEA30,
+        .pal = (const u16 *)0x089E4D5C,
+        .tsa = (const u8 *)0x089E5600,
+    },
+    {
+        .img = (const u8 *)0x089DF470,
+        .pal = (const u16 *)0x089E4D7C,
+        .tsa = (const u8 *)0x089E5814,
+    },
+    {
+        .img = (const u8 *)0x089DFF90,
+        .pal = (const u16 *)0x089E4D9C,
+        .tsa = (const u8 *)0x089E5A58,
+    },
+    {
+        .img = (const u8 *)0x089E0AB8,
+        .pal = (const u16 *)0x089E4DBC,
+        .tsa = (const u8 *)0x089E5D08,
+    },
+    {
+        .img = (const u8 *)0x089E1480,
+        .pal = (const u16 *)0x089E4DDC,
+        .tsa = (const u8 *)0x089E5FEC,
+    },
+    {
+        .img = (const u8 *)0x089E2154,
+        .pal = (const u16 *)0x089E4DFC,
+        .tsa = (const u8 *)0x089E6290,
+    },
+    {
+        .img = (const u8 *)0x089E2C1C,
+        .pal = (const u16 *)0x089E4E1C,
+        .tsa = (const u8 *)0x089E64D0,
+    },
+    {
+        .img = (const u8 *)0x089E34A8,
+        .pal = (const u16 *)0x089E4E3C,
+        .tsa = (const u8 *)0x089E66A0,
+    },
+    {
+        .img = (const u8 *)0x089E3B88,
+        .pal = (const u16 *)0x089E4E5C,
+        .tsa = (const u8 *)0x089E6808,
+    },
+    {
+        .img = (const u8 *)0x089E4024,
+        .pal = (const u16 *)0x089E4E7C,
+        .tsa = (const u8 *)0x089E6924,
+    },
+    {
+        .img = (const u8 *)0x089E4344,
+        .pal = (const u16 *)0x089E4E9C,
+        .tsa = (const u8 *)0x089E6A14,
+    },
+    {
+        .img = (const u8 *)0x089E44B8,
+        .pal = (const u16 *)0x089E4EBC,
+        .tsa = (const u8 *)0x089E6AE4,
+    },
+    {
+        .img = (const u8 *)0x089E45D0,
+        .pal = (const u16 *)0x089E4EDC,
+        .tsa = (const u8 *)0x089E6BB0,
+    },
+    {
+        .img = (const u8 *)0x089E46E8,
+        .pal = (const u16 *)0x089E4EFC,
+        .tsa = (const u8 *)0x089E6C80,
+    },
+    {
+        .img = (const u8 *)0x089E47CC,
+        .pal = (const u16 *)0x089E4F1C,
+        .tsa = (const u8 *)0x089E6D50,
+    },
+    {
+        .img = (const u8 *)0x089E48C0,
+        .pal = (const u16 *)0x089E4F3C,
+        .tsa = (const u8 *)0x089E6E1C,
+    },
+    {
+        .img = (const u8 *)0x089E49D8,
+        .pal = (const u16 *)0x089E4F5C,
+        .tsa = (const u8 *)0x089E6EE8,
+    },
+    {
+        .img = (const u8 *)0x089E4AEC,
+        .pal = (const u16 *)0x089E4F7C,
+        .tsa = (const u8 *)0x089E6FB4,
+    },
+    {
+        .img = (const u8 *)0x089E4BC8,
+        .pal = (const u16 *)0x089E4F9C,
+        .tsa = (const u8 *)0x089E7080,
+    },
+};
 
+const int gUnknown_082058D4[] =
+{
+    0x160, 0x260,
+};
+
+const u8 gUnknown_082058DC[] =
+{
+    4, 5,
+};
+
+// clang-format on
+
+//! FE8U = 0x08080498
 void sub_8080498(int frame, int unk44)
 {
     Decompress(gUnknown_089A44A4[frame].img, (void *)(0x6000000 + gUnknown_082058D4[unk44] * 0x20));
@@ -952,6 +1225,7 @@ void sub_8080498(int frame, int unk44)
     return;
 }
 
+//! FE8U = 0x08080530
 void sub_8080530(int frame, int unk44)
 {
     Decompress(gUnknown_089A44A4[frame].img, (void *)(0x6000000 + gUnknown_082058D4[unk44] * 0x20));
@@ -964,8 +1238,7 @@ void sub_8080530(int frame, int unk44)
     return;
 }
 
-extern const u8 gUnknown_082058DC[];
-
+//! FE8U = 0x080805AC
 void sub_80805AC(int idxA, int idxB, int val)
 {
     s32 i;
@@ -1027,8 +1300,6 @@ void sub_8080654(struct MAEffectProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_089A4644[];
-
 //! FE8U = 0x08080660
 void sub_8080660(struct MAEffectProc * proc)
 {
@@ -1061,7 +1332,14 @@ void sub_8080660(struct MAEffectProc * proc)
     return;
 }
 
-extern u8 gUnknown_082058DE[];
+// clang-format off
+
+const u8 gUnknown_082058DE[] =
+{
+    0, 1, 2, 3,
+};
+
+// clang-format on
 
 //! FE8U = 0x08080730
 void sub_8080730(struct MAEffectProc * proc)
@@ -1100,7 +1378,14 @@ void sub_8080730(struct MAEffectProc * proc)
     return;
 }
 
-extern u8 gUnknown_082058E2[];
+// clang-format off
+
+const u8 gUnknown_082058E2[] =
+{
+    4, 5,
+};
+
+// clang-format on
 
 //! FE8U = 0x080807C8
 void sub_80807C8(struct MAEffectSummonProc * proc)
@@ -1157,7 +1442,16 @@ void sub_80807C8(struct MAEffectSummonProc * proc)
     return;
 }
 
-extern u8 gUnknown_082058E4[];
+// clang-format off
+
+const u8 gUnknown_082058E4[] =
+{
+     6,  7,  8,  9,
+    10, 11, 12, 13,
+    14, 15, 16, 17,
+};
+
+// clang-format on
 
 //! FE8U = 0x08080890
 void sub_8080890(struct MAEffectSummonProc * proc)
@@ -1256,7 +1550,14 @@ void sub_8080900(struct MAEffectSummonProc * proc)
     return;
 }
 
-extern u8 gUnknown_082058F0[];
+// clang-format off
+
+const u8 gUnknown_082058F0[] =
+{
+    18, 19, 20, 21,
+};
+
+// clang-format on
 
 //! FE8U = 0x080809D8
 void sub_80809D8(struct MAEffectSummonProc * proc)
@@ -1340,7 +1641,10 @@ void sub_80809D8(struct MAEffectSummonProc * proc)
     return;
 }
 
-extern u8 gUnknown_082058F4[];
+const u8 gUnknown_082058F4[] =
+{
+    22, 23, 24, 25,
+};
 
 //! FE8U = 0x08080B18
 void sub_8080B18(struct MAEffectSummonProc * proc)
@@ -1378,6 +1682,31 @@ void sub_8080B84(void)
     return;
 }
 
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_089A45DC[] =
+{
+    PROC_SET_END_CB(sub_8080654),
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8080660),
+    PROC_REPEAT(sub_8080730),
+    PROC_REPEAT(sub_80807C8),
+    PROC_REPEAT(sub_8080890),
+    PROC_REPEAT(sub_8080900),
+    PROC_REPEAT(sub_80809D8),
+    PROC_REPEAT(sub_8080B18),
+    PROC_CALL(sub_8080B84),
+
+    PROC_SLEEP(60),
+
+    PROC_CALL(MapSpellAnim_CommonEnd),
+
+    PROC_END,
+};
+
+// clang-format on
+
 //! FE8U = 0x08080BA8
 void sub_8080BA8(struct MAEffectSummonProc * proc)
 {
@@ -1398,15 +1727,51 @@ void sub_8080BA8(struct MAEffectSummonProc * proc)
     return;
 }
 
+// clang-format off
+
 struct Pair
 {
     s8 x;
     s8 y;
 };
 
-extern struct Pair gUnknown_082058F8[];
-extern struct Pair gUnknown_08205918[];
-extern struct Pair gUnknown_08205938[];
+const struct Pair gUnknown_082058F8[] =
+{
+    { -1, +0, },
+    { +0, +0, },
+    { +1, +0, },
+    { +0, +0, },
+    { +0, -1, },
+    { +0, +0, },
+    { +0, +1, },
+    { +0, +0, },
+};
+
+const struct Pair gUnknown_08205918[] =
+{
+    { -1, +0, },
+    { +1, +0, },
+    { +0, -1, },
+    { +0, +1, },
+    { -1, +0, },
+    { +1, +0, },
+    { +0, -1, },
+    { +0, +1, },
+};
+
+const struct Pair gUnknown_08205938[] =
+{
+    { -2, +0, },
+    { +1, +0, },
+    { +0, -2, },
+    { +0, +1, },
+    { -1, +0, },
+    { +2, +0, },
+    { +0, -1, },
+    { +0, +2, },
+};
+
+// clang-format on
 
 //! FE8U = 0x08080BD8
 void sub_8080BD8(struct MAEffectSummonProc * proc)
@@ -1473,7 +1838,19 @@ void sub_8080BD8(struct MAEffectSummonProc * proc)
     return;
 }
 
-extern struct ProcCmd gUnknown_089A46AC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_089A4644[] =
+{
+    PROC_CALL(sub_8080BA8),
+    PROC_YIELD,
+
+    PROC_REPEAT(sub_8080BD8),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x0807AD08
 void New6C_SummonGfx(ProcPtr parent, int xBase, int yBase)
@@ -1485,8 +1862,6 @@ void New6C_SummonGfx(ProcPtr parent, int xBase, int yBase)
 
     return;
 }
-
-extern u8 * gUnknown_089A4664[];
 
 extern u8 gUnknown_089E714C[];
 extern u16 gUnknown_089E7DEC[];
@@ -1509,6 +1884,32 @@ void sub_8080D6C(struct MAEffectProc * proc)
 
     return;
 }
+
+// clang-format off
+
+u8 * CONST_DATA gUnknown_089A4664[] =
+{
+    (u8 *)0x089E7E0C,
+    (u8 *)0x089E7E2C,
+    (u8 *)0x089E7E50,
+    (u8 *)0x089E7E78,
+    (u8 *)0x089E7EA0,
+    (u8 *)0x089E7ECC,
+    (u8 *)0x089E7EFC,
+    (u8 *)0x089E7F2C,
+    (u8 *)0x089E7F5C,
+    (u8 *)0x089E7F8C,
+    (u8 *)0x089E7FBC,
+    (u8 *)0x089E7FFC,
+    (u8 *)0x089E8040,
+    (u8 *)0x089E8090,
+    (u8 *)0x089E80EC,
+    (u8 *)0x089E8148,
+    (u8 *)0x089E81A4,
+    (u8 *)0x089E8200,
+};
+
+// clang-format on
 
 //! FE8U = 0x08080DCC
 void sub_8080DCC(struct MAEffectProc * proc)
@@ -1567,7 +1968,22 @@ void sub_8080E84(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_089A46DC[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_089A46AC[] =
+{
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8080D6C),
+    PROC_REPEAT(sub_8080DCC),
+    PROC_CALL(sub_8080E84),
+
+    PROC_CALL(MapSpellAnim_CommonEnd),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08080E9C
 void sub_8080E9C(ProcPtr parent, struct Unit * unit)
@@ -1658,7 +2074,22 @@ void sub_8081008(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_GlowingCross[];
+// clang-format off
+
+struct ProcCmd CONST_DATA gUnknown_089A46DC[] =
+{
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_8080EE4),
+    PROC_REPEAT(sub_8080F44),
+    PROC_CALL(sub_8081008),
+
+    PROC_CALL(MapSpellAnim_CommonEnd),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x08081020
 void StartGlowingCross(ProcPtr parent, struct Unit * unit)
@@ -1702,8 +2133,6 @@ void sub_8081078(struct MAEffectProc * proc)
 
     return;
 }
-
-extern u8 * gUnknown_089A4664[];
 
 //! FE8U = 0x08081100
 void sub_8081100(struct MAEffectProc * proc)
@@ -1754,7 +2183,21 @@ void sub_80811AC(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_GlowCrossExit[];
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GlowingCross[] =
+{
+    PROC_SLEEP(1),
+    PROC_SET_END_CB(sub_80811AC),
+
+    PROC_CALL(sub_8081078),
+    PROC_REPEAT(sub_8081100),
+
+    PROC_END,
+};
+
+// clang-format on
 
 //! FE8U = 0x080811D0
 void RemoveGlowingCrossDirectlyWithAnim(ProcPtr parent, int timer)
@@ -1795,3 +2238,27 @@ void nullsub_58(void)
 {
     return;
 }
+
+// clang-format off
+
+struct ProcCmd CONST_DATA ProcScr_GlowCrossExit[] =
+{
+    PROC_SLEEP(1),
+
+    PROC_CALL(sub_80811EC),
+    PROC_REPEAT(sub_8081208),
+    PROC_CALL(nullsub_58),
+
+    PROC_CALL(MapSpellAnim_CommonEnd),
+
+    PROC_END,
+};
+
+const u8 gUnused_08205958[] =
+{
+    0, 0, 0, 0,
+    0x50, 0, 0, 0,
+    0x8A, 0, 0, 0,
+};
+
+// clang-format on

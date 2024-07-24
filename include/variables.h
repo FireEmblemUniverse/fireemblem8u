@@ -259,7 +259,7 @@ extern const u8 gUnknown_08205855[];
 extern const int gUnknown_08205884[];
 extern const u8 gUnknown_0820588C[];
 extern const u8 gUnknown_0820588E[];
-extern unsigned const gUnknown_082058A8[];
+//extern unsigned const gUnknown_082058A8[];
 extern u8 const gUnknown_082058B0[];
 // extern ??? gUnknown_082058B4
 // extern ??? gUnknown_082058D4
