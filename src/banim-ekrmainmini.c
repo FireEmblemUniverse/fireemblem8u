@@ -31,8 +31,6 @@ struct ProcEkrUnitMainMini
     /* 5C */ void * unk_5C;
 };
 
-void sub_805AE58(void *);
-
 //! FE8U = 0x0805A3DC
 void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 {
@@ -867,4 +865,133 @@ void sub_805AE40(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
     priv = buf->proc18;
     priv->unk32 = c;
     priv->unk3A = d;
+}
+
+//! FE8U = 0x0805AE58
+void sub_805AE58(struct BanimUnkStructComm * buf)
+{
+    int tmp;
+    int offsetC;
+
+    int offsetA = 0;
+    int offsetB = 0;
+
+    u16 * tmA = gUnknown_085B9D6C[buf->unk0C * 2 + 0];
+    u16 * tmB = gUnknown_085B9D6C[buf->unk0C * 2 + 1];
+
+    sub_80559B0(0);
+
+    switch (buf->unk0C)
+    {
+        case 0:
+        case 4:
+            offsetA = 33;
+            offsetB = 48;
+
+            offsetC = 0;
+
+            break;
+
+        case 1:
+            offsetA = 29;
+            offsetB = 48;
+
+            if (gEkrInitPosReal == 1)
+            {
+                offsetC = 0;
+            }
+            else
+            {
+                offsetC = -4;
+            }
+
+            break;
+
+        case 2:
+            offsetA = 3;
+            offsetB = 48;
+
+            if (gEkrInitPosReal == 1)
+            {
+                offsetC = 0;
+            }
+            else
+            {
+                offsetC = -30;
+            }
+
+            break;
+
+        case 3:
+        default:
+            if (buf->unk00 != -1)
+            {
+                offsetA = 39;
+                offsetB = 3;
+            }
+
+            if (buf->unk06 != -1)
+            {
+                offsetA = 3;
+                offsetB = 42;
+            }
+
+            offsetC = 0;
+
+            break;
+    }
+
+    tmp = 0x35A;
+
+    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, buf->unk02, buf->unk04);
+    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, buf->unk08, buf->unk0A);
+
+    EfxTmCpyExt((gTmA_Banim + tmp + offsetC) - 0x2B5, 0x42, gBG2TilemapBuffer, 0x20, 0x20, 0x14, -1, -1);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    return;
+}
+
+//! FE8U = 0x0805AFA0
+void sub_805AFA0(s16 distance, s16 position)
+{
+    int offset;
+
+    switch (distance)
+    {
+        case EKR_DISTANCE_CLOSE:
+        case EKR_DISTANCE_PROMOTION:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 33;
+            }
+
+            break;
+
+        case EKR_DISTANCE_FAR:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 29;
+            }
+
+            break;
+
+        case EKR_DISTANCE_FARFAR:
+        case EKR_DISTANCE_MONOCOMBAT:
+        default:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 3;
+            }
+
+            break;
+    }
+
+    EfxTmCpyExt(gUnknown_080DAF60, -1, gTmA_Banim + 0x35A + offset, 0x42, 0xf, 5, -1, -1);
+
+    return;
 }

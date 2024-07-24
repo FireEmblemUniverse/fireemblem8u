@@ -435,7 +435,6 @@ SECTIONS
         src/banim-main.o(.text);
         src/banim-ekrmain.o(.text);
         src/banim-ekrmainmini.o(.text);
-        asm/code_battleanim.o(.text);
         src/banim-ekrarena.o(.text);
         src/banim-efxmagic.o(.text);
         src/banim-efxmagic-phywpn.o(.text);
