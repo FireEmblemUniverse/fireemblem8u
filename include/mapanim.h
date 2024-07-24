@@ -104,9 +104,7 @@ struct MAEffectProc {
     /* 40 */ u16 frame;
     /* 42 */ u16 timer;
     /* 44 */ u16 unk44;
-
-    STRUCT_PAD(0x46, 0x48);
-
+    u16 unk46;
     /* 48 */ short unk48;
     /* 4A */ short frame_idx;
     /* 4C */ short unk4C;

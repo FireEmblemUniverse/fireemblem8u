@@ -509,7 +509,6 @@ SECTIONS
         src/mapanim_lvup.o(.text);
         src/mapanim_spellassocfx.o(.text);
         src/mapanim_eventcall.o(.text);
-        asm/mapanim_eventcall.o(.text);
         src/mapanim_spellassoc.o(.text);
         src/mapanim_scanline.o(.text);
         asm/code_mapanim.o(.text);

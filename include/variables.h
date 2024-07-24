@@ -127,7 +127,7 @@ extern u16 gUnknown_030018F0[];
 // extern ??? gUnitDef2
 // extern ??? gUnitDefEggHatching
 // extern ??? gUnknown_03001C74
-extern u8 gUnknown_03001C7C;
+extern s8 gUnknown_03001C7C;
 // extern ??? gActiveEventRegistry
 
 // extern ??? gUnknown_03001D50
