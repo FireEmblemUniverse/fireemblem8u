@@ -600,7 +600,7 @@ extern const u8 BattleTypeToAnimModeEndOfDodge[5];
 extern const u8 BanimTypesPosLeft[5];
 extern const u8 BanimTypesPosRight[5];
 extern const u16 BanimLeftDefaultPos[5];
-// extern ??? gUnknown_080DAF60
+extern u16 gUnknown_080DAF60[];
 extern const u8 Img_080DB034[];
 extern const u8 Img_080DB538[];
 extern const u8 Img_080DB9C4[];
@@ -986,8 +986,8 @@ void sub_805AA28(struct AnimBuffer * pAnimBuf);
 // void sub_805AA68(void *);
 // void sub_805AE14(void *);
 // void sub_805AE40(void *, s16, s16, s16, s16);
-void sub_805AE58(void *);
-void sub_805AFA0(int, s16);
+void sub_805AE58(struct BanimUnkStructComm *);
+void sub_805AFA0(s16, s16);
 
 struct ProcEkrTogi
 {
