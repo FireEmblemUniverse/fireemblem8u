@@ -395,7 +395,6 @@ SECTIONS
         src/sio_main.o(.text);
         src/sio_main2.o(.text);
         src/sio_teamlist.o(.text);
-        asm/code_sio_8042DC8.o(.text);
         src/sio_tactician.o(.text);
         src/sio_postbattle.o(.text);
         src/sio_bat.o(.text);

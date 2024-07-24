@@ -42,7 +42,7 @@ struct TacticianTextConf {
 };
 
 extern const struct TacticianTextConf gTacticianTextConf[];
-struct TacticianTextConf * GetTacticianTextConf(s16);
+const struct TacticianTextConf * GetTacticianTextConf(s16);
 
 enum sio_save_config_bitfile {
     SIO_SAVE_CONF_B3 = 1 << 3,

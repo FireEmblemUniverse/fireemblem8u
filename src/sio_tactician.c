@@ -11,6 +11,53 @@
 #include "uiutils.h"
 #include "constants/characters.h"
 
+//! FE8U = 0x08044550
+const struct TacticianTextConf * GetTacticianTextConf(s16 idx)
+{
+    return gTacticianTextConf + idx;
+}
+
+void sub_8044560(struct ProcTactician * proc, u8 * str_buf)
+{
+    int i;
+    int j;
+    int k;
+
+    int idx = 0;
+
+    for (; *str_buf != 0 ; str_buf += 2)
+    {
+        for (i = 0; i <= 0x50; i++)
+        {
+            const struct TacticianTextConf * conf = GetTacticianTextConf(i);
+
+            for (j = 0; j < 3; j++)
+            {
+                for (k = 0; k < 3; k++)
+                {
+                    u16 * str = (u16 *)(conf->str + j * 3)[k];
+
+                    if (*str == *(u16 *)str_buf)
+                    {
+                        proc->unk4C[idx] = ((j & 3) << 0xe) | (i & 0x3FFF);
+                        proc->unk39 = k;
+
+                        idx++;
+
+                        goto _080445F8;
+                    }
+                }
+            }
+        }
+
+    _080445F8:
+        // need a semi-colon for modern compilers
+        ; // exit loop
+    }
+
+    return;
+}
+
 void sub_8044614(struct ProcTactician * proc)
 {
     int i, j;
@@ -83,7 +130,7 @@ void Tactician_InitScreen(struct ProcTactician * proc)
     int i, char_cnt;
     char * str;
     u8 str_buf[0x10];
-    struct TacticianTextConf * conf;
+    const struct TacticianTextConf * conf;
 
     ClearSioBG();
     InitSioBG();
@@ -280,7 +327,7 @@ bool sub_8044B78(struct ProcTactician * proc, const struct TacticianTextConf * c
 
     if (proc->cur_len != 0)
     {
-        struct TacticianTextConf * conf2;
+        const struct TacticianTextConf * conf2;
         int r8, line_idx;
         u16 conf_idx;
 
@@ -489,7 +536,7 @@ void sub_8044C54(struct ProcTactician * proc, const struct TacticianTextConf * c
 void Tactician_Loop(struct ProcTactician * proc)
 {
     char _cbuf[proc->max_len + 1];
-    struct TacticianTextConf * conf = GetTacticianTextConf(proc->conf_idx);
+    const struct TacticianTextConf * conf = GetTacticianTextConf(proc->conf_idx);
     proc->unk36 = proc->conf_idx;
 
     sub_8044C54(proc, conf);
