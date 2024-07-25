@@ -372,7 +372,7 @@ SECTIONS
         src/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
         src/prep_sallycursor.o(.text);
-        asm/bmcommanddbg.o(.text);
+        src/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
         src/unitinfowindow.o(.text);
         src/bb.o(.text);
