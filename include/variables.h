@@ -152,7 +152,7 @@ extern u16 gOam[];
 extern u32 * gOamHiPutIt;
 extern void (* sHBlankHandler2)(void);
 // extern ??? gUnknown_03003750
-// extern ??? gUnknown_03004150
+extern void (*gpARM_HuffmanTextDecomp)(const char *, char *);
 // extern ??? gUnknown_03004154
 extern u16 * gOamAffinePutIt;
 // extern ??? gUnknown_03004160
