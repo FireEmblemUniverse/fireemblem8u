@@ -477,7 +477,6 @@ SECTIONS
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
         src/banim-ekrdragon-utils.o(.text);
-        asm/banim-ekrdragon.o(.text);
         src/banim-ekrdragon-8070710.o(.text);
         src/banim-ekrdragon-myrrh.o(.text);
         src/banim-efxutils.o(.text);
