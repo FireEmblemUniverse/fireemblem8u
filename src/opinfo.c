@@ -1144,13 +1144,13 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     NewEkrUnitMainMini(&gOpInfoData);
 
-    gUnk_Opinfo_0201DB00.unk00 = proc->classReelEnt->unk_0D;
-    gUnk_Opinfo_0201DB00.unk02 = 10;
-    gUnk_Opinfo_0201DB00.unk04 = 0x380;
-    gUnk_Opinfo_0201DB00.unk06 = proc->classReelEnt->unk_0E;
-    gUnk_Opinfo_0201DB00.unk08 = 11;
-    gUnk_Opinfo_0201DB00.unk0A = 0x3C0;
-    gUnk_Opinfo_0201DB00.unk0C = r5;
+    gUnk_Opinfo_0201DB00.terrain_l = proc->classReelEnt->unk_0D;
+    gUnk_Opinfo_0201DB00.pal_l = 10;
+    gUnk_Opinfo_0201DB00.chr_l = 0x380;
+    gUnk_Opinfo_0201DB00.terrain_r = proc->classReelEnt->unk_0E;
+    gUnk_Opinfo_0201DB00.pal_r = 11;
+    gUnk_Opinfo_0201DB00.chr_r = 0x3C0;
+    gUnk_Opinfo_0201DB00.distance = r5;
     gUnk_Opinfo_0201DB00.unk0E = -1;
 
     gUnk_Opinfo_0201DB00.unk1C = (void *)0x06010000;

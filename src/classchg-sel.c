@@ -518,13 +518,13 @@ void sub_80CD34C(void)
 }
 
 void sub_80CD408(u32 a, s16 b, s16 c) {
-    gUnknown_0201FADC.unk00 = a;
-    gUnknown_0201FADC.unk02 = 0xe;
-    gUnknown_0201FADC.unk04 = 0x380;
-    gUnknown_0201FADC.unk06 = a;
-    gUnknown_0201FADC.unk08 = 0xf;
-    gUnknown_0201FADC.unk0A = 0xf0 << 2;
-    gUnknown_0201FADC.unk0C = 0;
+    gUnknown_0201FADC.terrain_l = a;
+    gUnknown_0201FADC.pal_l = 0xe;
+    gUnknown_0201FADC.chr_l = 0x380;
+    gUnknown_0201FADC.terrain_r = a;
+    gUnknown_0201FADC.pal_r = 0xf;
+    gUnknown_0201FADC.chr_r = 0xf0 << 2;
+    gUnknown_0201FADC.distance = 0;
     gUnknown_0201FADC.unk0E = -1;
     gUnknown_0201FADC.unk1C = (void *)0x06010000;
     gUnknown_0201FADC.unk20 = gUnk_Banim_020145C8;

@@ -119,7 +119,7 @@ def main(args):
             if off_end <= off:
                 break
 
-        print(f"// End at: {off + 0x08000000:08X}")
+        print(f"// End at: 0x{off + 0x08000000:08X}")
 
 if __name__ == '__main__':
     main(sys.argv)

@@ -41,6 +41,15 @@ def dump_one_part(rom_data, off):
 
         if oam0 & (1 << 8):
             OAM0 = OAM0 + " + OBJ_ROT_SCALE_ON"
+        if oam0 & (1 << 9):
+            OAM0 = OAM0 + " + OBJ_DISABLE"
+
+        if oam0 & (1 << 10):
+            OAM0 = OAM0 + " + OBJ_MODE_1"
+        if oam0 & (2 << 10):
+            OAM0 = OAM0 + " + OBJ_MODE_2"
+        if oam0 & (3 << 10):
+            OAM0 = OAM0 + " + OBJ_MODE_3"
 
         if oam1 & (1 << 12): # ATTR1_FLIP_X
             PREFIX = "ANIM_SPRITE_XFLIP"
@@ -90,10 +99,10 @@ def main(args):
     off = start & 0x01FFFFFF
     off_end = end & 0x01FFFFFF
 
-    index = 1
+    index = 77
 
     PreName = None
-    PreName = "FirebreathOBJ"
+    PreName = "EkrBaseKaiten"
 
     with open(rom, 'rb') as f:
         rom_data = f.read()
@@ -113,7 +122,7 @@ def main(args):
             if off_end <= off:
                 break
 
-        print(f"@ End at: {off + 0x08000000:08X}")
+        print(f"@ End at: 0x{off + 0x08000000:08X}")
 
 if __name__ == '__main__':
     main(sys.argv)

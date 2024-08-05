@@ -7899,12 +7899,12 @@ Img_ThunderSpellBg:  @ 0x085F2DC0
 Pal_ThunderSpellBg:  @ 0x085F367C
 	.incbin "baserom.gba", 0x5F367C, 0x200    @ 0x5F387C - 0x5F367C
 
-	.global Tsa_085F387C
-Tsa_085F387C:  @ 0x085F387C
+	.global Tsa_EfxThuderBg1
+Tsa_EfxThuderBg1:  @ 0x085F387C
 	.incbin "baserom.gba", 0x5F387C, 0xCC    @ 0x5F3948 - 0x5F387C
 
-	.global Tsa_085F3948
-Tsa_085F3948:  @ 0x085F3948
+	.global Tsa_EfxThuderBg2
+Tsa_EfxThuderBg2:  @ 0x085F3948
 	.incbin "baserom.gba", 0x5F3948, 0x160    @ 0x5F3AA8 - 0x5F3948
 
 	.global Img_BoltingSprites

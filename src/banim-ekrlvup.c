@@ -331,13 +331,13 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xA), 0x800);
     RegisterDataMove(gBG2TilemapBuffer, BG_SCREEN_ADDR(0xB), 0x800);
 
-    buf->unk00 = gBanimFloorfx[EKR_POS_L];
-    buf->unk02 = 3;
-    buf->unk04 = 0x100;
-    buf->unk06 = gBanimFloorfx[EKR_POS_R];
-    buf->unk08 = 4;
-    buf->unk0A = 0x140;
-    buf->unk0C = gEkrDistanceType;
+    buf->terrain_l = gBanimFloorfx[EKR_POS_L];
+    buf->pal_l = 3;
+    buf->chr_l = 0x100;
+    buf->terrain_r = gBanimFloorfx[EKR_POS_R];
+    buf->pal_r = 4;
+    buf->chr_r = 0x140;
+    buf->distance = gEkrDistanceType;
     buf->unk0E = -1;
     buf->unk1C = OBJ_VRAM0;
     buf->unk20 = gUnk_Banim_020145C8;
@@ -345,9 +345,9 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 
     if (gEkrDistanceType == 2) {
         if (gEkrInitPosReal == 0)
-            buf->unk06 = -1;
+            buf->terrain_r = -1;
         else
-            buf->unk00 = -1;
+            buf->terrain_l = -1;
     }
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
@@ -709,13 +709,13 @@ void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
     SetBackgroundScreenSize(2, 0);
 
     buf = &_buf;
-    buf->unk00 = gBanimFloorfx[0];
-    buf->unk02 = 4;
-    buf->unk04 = 0x280;
-    buf->unk06 = gBanimFloorfx[1];
-    buf->unk08 = 5;
-    buf->unk0A = 0x280;
-    buf->unk0C = gEkrDistanceType;
+    buf->terrain_l = gBanimFloorfx[0];
+    buf->pal_l = 4;
+    buf->chr_l = 0x280;
+    buf->terrain_r = gBanimFloorfx[1];
+    buf->pal_r = 5;
+    buf->chr_r = 0x280;
+    buf->distance = gEkrDistanceType;
     buf->unk0E = 0x2;
     buf->unk1C = NULL;
     buf->unk20 = gUnk_Banim_020145C8;

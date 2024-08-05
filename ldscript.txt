@@ -764,6 +764,7 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-ballista.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-bindingblade.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-breath.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-thunder.o(.rodata);
         . = ALIGN(4); data/const_data_efxmagic_DC944.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.rodata);
@@ -1013,13 +1014,17 @@ SECTIONS
         . = ALIGN(4); data/banim-efxlvupfx.o(.data);
         . = ALIGN(4); data/banim-ekrmainminifx.o(.data);
         . = ALIGN(4); data/banim-efxhitfx.o(.data);
-        . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
+        . = ALIGN(4); data/banim-efxlvupobj.o(.data);
+        . = ALIGN(4); data/banim-ekrskill.o(.data);
+        . = ALIGN(4); data/banim-efxhitobj.o(.data);
+        . = ALIGN(4); data/banim-ekrbattleintro.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);
         . = ALIGN(4); src/banim-efxmagic-phywpn.o(.data);
         . = ALIGN(4); src/banim-efxmagic-refresh.o(.data);
         . = ALIGN(4); src/banim-efxmagic-ballista.o(.data);
         . = ALIGN(4); src/banim-efxmagic-bindingblade.o(.data);
         . = ALIGN(4); src/banim-efxmagic-breath.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-thunder.o(.data);
         . = ALIGN(4); data/banim-efxmagic-thunder.o(.data);
         . = ALIGN(4); data/banim-efxmagic-fire.o(.data);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.data);
