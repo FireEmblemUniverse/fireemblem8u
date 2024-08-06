@@ -1073,13 +1073,13 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     {
         proc->unk_36 = 64;
         proc->unk_3e = 104;
-        anim = AnimCreate(gUnknown_085C7338, 5);
+        anim = AnimCreate(AnimScr_EkrMainMini_R_Far, 5);
     }
     else
     {
         proc->unk_36 = 176;
         proc->unk_3e = 104;
-        anim = AnimCreate(gUnknown_085C72AC, 5);
+        anim = AnimCreate(AnimScr_EkrMainMini_L_Far, 5);
     }
 
     anim->xPosition = proc->unk_36 - x;

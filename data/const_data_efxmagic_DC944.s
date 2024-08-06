@@ -1,18 +1,6 @@
     .section .rodata
 
-	.asciz "efxThunder"
-	.align 2, 0
-
-	.asciz "efxThunderBG"
-	.byte 0
-
-	.global gUnknown_080DCCA6
-gUnknown_080DCCA6:  @ 0x080DCCA6
-	.incbin "baserom.gba", 0xDCCA6, 0x1A
-
-	.global gUnknown_080DCCC0
-gUnknown_080DCCC0:  @ 0x080DCCC0
-	.incbin "baserom.gba", 0xDCCC0, 0x66
+	.incbin "baserom.gba", 0xDCD04, 0xDCD26 - 0xDCD04
 
 	.global gUnknown_080DCD26
 gUnknown_080DCD26:  @ 0x080DCD26

@@ -1,3 +1,4 @@
+    .include "animscr.inc"
 	.section .data
 
 	.global Img_LvupApfx
@@ -146,63 +147,88 @@ Tsa6_EfxLvupBG2:
 
 	.global Img_EfxLvupOBJ2
 Img_EfxLvupOBJ2:  @ 0x085C6730
-	.incbin "baserom.gba", 0x5C6730, 0xAB4
+	.incbin "baserom.gba", 0x5C6730, 0x5C69C8 - 0x5C6730
 
-@ Following are some animation scripts. these contain pointers, sometimes
-@ packed with other data into one word. Ideally there'd be some macros here
-@ based on the decoding in animedrv.c - but I think the alignment guarantees
-@ that shifting the objects referenced here doesn't affect the other data.
+	.global AnimSprite_EfxLvupOBJ2_085C69C8
+AnimSprite_EfxLvupOBJ2_085C69C8:	@ 0x085C69C8
+	.incbin "baserom.gba", 0x5C69C8, 0x5C6A04 - 0x5C69C8
+
+	.global AnimSprite_EfxLvupOBJ2_085C6A04
+AnimSprite_EfxLvupOBJ2_085C6A04:	@ 0x085C6A04
+	.incbin "baserom.gba", 0x5C6A04, 0x5C6A58 - 0x5C6A04
+
+	.global AnimSprite_EfxLvupOBJ2_085C6A58
+AnimSprite_EfxLvupOBJ2_085C6A58:	@ 0x085C6A58
+	.incbin "baserom.gba", 0x5C6A58, 0x5C6AC4 - 0x5C6A58
+
+	.global AnimSprite_EfxLvupOBJ2_085C6AC4
+AnimSprite_EfxLvupOBJ2_085C6AC4:	@ 0x085C6AC4
+	.incbin "baserom.gba", 0x5C6AC4, 0x5C6B48 - 0x5C6AC4
+
+	.global AnimSprite_EfxLvupOBJ2_085C6B48
+AnimSprite_EfxLvupOBJ2_085C6B48:	@ 0x085C6B48
+	.incbin "baserom.gba", 0x5C6B48, 0x5C6BCC - 0x5C6B48
+
+	.global AnimSprite_EfxLvupOBJ2_085C6BCC
+AnimSprite_EfxLvupOBJ2_085C6BCC:	@ 0x085C6BCC
+	.incbin "baserom.gba", 0x5C6BCC, 0x5C6C5C - 0x5C6BCC
+
+	.global AnimSprite_EfxLvupOBJ2_085C6C5C
+AnimSprite_EfxLvupOBJ2_085C6C5C:	@ 0x085C6C5C
+	.incbin "baserom.gba", 0x5C6C5C, 0x5C6CEC - 0x5C6C5C
+
+	.global AnimSprite_EfxLvupOBJ2_085C6CEC
+AnimSprite_EfxLvupOBJ2_085C6CEC:	@ 0x085C6CEC
+	.incbin "baserom.gba", 0x5C6CEC, 0x5C6D70 - 0x5C6CEC
+
+	.global AnimSprite_EfxLvupOBJ2_085C6D70
+AnimSprite_EfxLvupOBJ2_085C6D70:	@ 0x085C6D70
+	.incbin "baserom.gba", 0x5C6D70, 0x5C6DF4 - 0x5C6D70
+
+	.global AnimSprite_EfxLvupOBJ2_085C6DF4
+AnimSprite_EfxLvupOBJ2_085C6DF4:	@ 0x085C6DF4
+	.incbin "baserom.gba", 0x5C6DF4, 0x5C6E84 - 0x5C6DF4
+
+	.global AnimSprite_EfxLvupOBJ2_085C6E84
+AnimSprite_EfxLvupOBJ2_085C6E84:	@ 0x085C6E84
+	.incbin "baserom.gba", 0x5C6E84, 0x5C6F14 - 0x5C6E84
+
+	.global AnimSprite_EfxLvupOBJ2_085C6F14
+AnimSprite_EfxLvupOBJ2_085C6F14:	@ 0x085C6F14
+	.incbin "baserom.gba", 0x5C6F14, 0x5C6FB0 - 0x5C6F14
+
+	.global AnimSprite_EfxLvupOBJ2_085C6FB0
+AnimSprite_EfxLvupOBJ2_085C6FB0:	@ 0x085C6FB0
+	.incbin "baserom.gba", 0x5C6FB0, 0x5C704C - 0x5C6FB0
+
+	.global AnimSprite_EfxLvupOBJ2_085C704C
+AnimSprite_EfxLvupOBJ2_085C704C:	@ 0x085C704C
+	.incbin "baserom.gba", 0x5C704C, 0x5C70E8 - 0x5C704C
+
+	.global AnimSprite_EfxLvupOBJ2_085C70E8
+AnimSprite_EfxLvupOBJ2_085C70E8:	@ 0x085C70E8
+	.incbin "baserom.gba", 0x5C70E8, 0x5C7178 - 0x5C70E8
+
+	.global AnimSprite_EfxLvupOBJ2_085C7178
+AnimSprite_EfxLvupOBJ2_085C7178:	@ 0x085C7178
+	.incbin "baserom.gba", 0x5C7178, 0x5C71E4 - 0x5C7178
 
 	.global AnimScr_EfxLvupOBJ2
 AnimScr_EfxLvupOBJ2:  @ 0x085C71E4
-@ Replacing .incbin "baserom.gba", 0x5C71E4, 0xC8
-    .4byte Img_EfxLvupOBJ2 + 0x299
-    .4byte Img_EfxLvupOBJ2 + 0x2d5
-    .4byte Img_EfxLvupOBJ2 + 0x329
-    .4byte Img_EfxLvupOBJ2 + 0x395
-    .4byte Img_EfxLvupOBJ2 + 0x419
-    .4byte Img_EfxLvupOBJ2 + 0x49d
-    .4byte Img_EfxLvupOBJ2 + 0x52d
-    .4byte Img_EfxLvupOBJ2 + 0x5bd
-    .4byte Img_EfxLvupOBJ2 + 0x641
-    .4byte Img_EfxLvupOBJ2 + 0x6c5
-    .4byte Img_EfxLvupOBJ2 + 0x755
-    .4byte Img_EfxLvupOBJ2 + 0x7e5
-    .4byte Img_EfxLvupOBJ2 + 0x881
-    .4byte Img_EfxLvupOBJ2 + 0x91d
-    .4byte Img_EfxLvupOBJ2 + 0x9b9
-    .4byte 0x20000000 + Img_EfxLvupOBJ2 + 0xa4a
-    .4byte 0x80000000
-    .4byte 0x80004000
-    .4byte 0xffd00000
-    .4byte 0x00000008
-    .4byte 0x80004000
-    .4byte 0xfff00004
-    .4byte 0x00000008
-    .4byte 0x80004000
-    .4byte 0x00100008
-    .4byte 0x00000008
-    .4byte 0x00008000
-    .4byte 0x0030000c
-    .4byte 0x00000008
-    .4byte 0x80004000
-    .4byte 0xffd0000d
-    .4byte 0x0000fff8
-    .4byte 0x80004000
-    .4byte 0xfff00011
-    .4byte 0x0000fff8
-    .4byte 0x80004000
-    .4byte 0x00100015
-    .4byte 0x0000fff8
-    .4byte 0x40004000
-    .4byte 0xffd00019
-    .4byte 0x0000fff0
-    .4byte 0x00004000
-    .4byte 0xfff0001d
-    .4byte 0x0000fff0
-    .4byte 0x40004000
-    .4byte 0x00000039
-    .4byte 0x0000fff0
-    .4byte 0x00000001
-    .4byte 0x00000000
-    .4byte 0x00000000
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C69C8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6A04, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6A58, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6AC4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6B48, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6BCC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6C5C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6CEC, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6D70, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6DF4, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6E84, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6F14, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C6FB0, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C704C, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C70E8, 1
+    ANIMSCR_FORCE_SPRITE AnimSprite_EfxLvupOBJ2_085C7178, 10
+    ANIMSCR_BLOCKED

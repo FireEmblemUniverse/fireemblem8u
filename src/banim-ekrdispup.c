@@ -216,13 +216,13 @@ void sub_8051E00(void)
     gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrDistanceType * 2];
     gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrDistanceType * 2 + 1];
 
-    unk0201FADC->unk00 = gBanimFloorfx[0];
-    unk0201FADC->unk02 = 4;
-    unk0201FADC->unk04 = 640;
-    unk0201FADC->unk06 = gBanimFloorfx[1];
-    unk0201FADC->unk08 = 5;
-    unk0201FADC->unk0A = 640;
-    unk0201FADC->unk0C = gEkrDistanceType;
+    unk0201FADC->terrain_l = gBanimFloorfx[0];
+    unk0201FADC->pal_l = 4;
+    unk0201FADC->chr_l = 640;
+    unk0201FADC->terrain_r = gBanimFloorfx[1];
+    unk0201FADC->pal_r = 5;
+    unk0201FADC->chr_r = 640;
+    unk0201FADC->distance = gEkrDistanceType;
     unk0201FADC->unk0E = 2;
     unk0201FADC->unk1C = 0;
     unk0201FADC->unk20 = &gUnk_Banim_020145C8[0];

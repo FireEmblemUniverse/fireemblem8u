@@ -667,7 +667,7 @@ void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
     if (__oam) { __oam++; __oam--; } // serialize code
     __oam |= _chr;
 
-    NewEkrsubAnimeEmulator(x - 0x12, y - 0x04, gUnknown_085C9270, 0, __oam, 0, PROC_TREE_5);
+    NewEkrsubAnimeEmulator(x - 0x12, y - 0x04, AnimScr_LvupStatupfx1, 0, __oam, 0, PROC_TREE_5);
     if (index == 0)
         return;
 
@@ -675,15 +675,15 @@ void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
 
     if (gain >= 0)
     {
-        proc->child2 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92A0, 2, __oam, 0, PROC_TREE_5);
+        proc->child2 = NewEkrsubAnimeEmulator(x, y, AnimScr_LvupStatupfx2, 2, __oam, 0, PROC_TREE_5);
     }
     else
     {
         int _oam = 0x400 | _pal | chr2;
-        proc->child1 = NewEkrsubAnimeEmulator(x - 3, y, gUnknown_085C92EC, 2, _oam, 0, PROC_TREE_5);
+        proc->child1 = NewEkrsubAnimeEmulator(x - 3, y, AnimScr_LvupStatupfx5, 2, _oam, 0, PROC_TREE_5);
 
         _pal |= _chr;
-        proc->child2 = NewEkrsubAnimeEmulator(x, y, gUnknown_085C92D0, 2, _pal, 0, PROC_TREE_5);
+        proc->child2 = NewEkrsubAnimeEmulator(x, y, AnimScr_LvupStatupfx3, 2, _pal, 0, PROC_TREE_5);
         PutEkrLvupStatGainLabelGfx2(gain, chr2);
     }
     proc->x = x;
@@ -720,7 +720,7 @@ void sub_8074E6C(struct ProcEobjLvup * proc)
         proc->child1 = NewEkrsubAnimeEmulator(
             proc->x - 3,
             proc->y,
-            gUnknown_085C9328,
+            AnimScr_LvupStatupObj,
             2,
             oam2,
             0,

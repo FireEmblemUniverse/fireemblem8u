@@ -478,8 +478,8 @@ struct ProcCmd CONST_DATA ProcScr_efxopThunderBG[] =
 
 u16 * CONST_DATA TsaArray_Thunder_ClassReel[] =
 {
-    Tsa_085F387C,
-    Tsa_085F3948,
+    Tsa_EfxThuderBg1,
+    Tsa_EfxThuderBg2,
 };
 
 // clang-format on

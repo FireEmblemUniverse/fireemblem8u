@@ -5,6 +5,12 @@
 #include "efxmagic.h"
 #include "hardware.h"
 
+struct ProcCmd CONST_DATA ProcScr_efxThunder[] = {
+    PROC_NAME("efxThunder"),
+    PROC_REPEAT(Loop6C_efxThunder),
+    PROC_END,
+};
+
 void StartSpellAnimThunder(struct Anim *anim)
 {
     struct ProcEfx *proc;
@@ -18,7 +24,7 @@ void StartSpellAnimThunder(struct Anim *anim)
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
 }
 
-void Loop6C_efxThunder(struct ProcEfx *proc)
+void Loop6C_efxThunder(struct ProcEfx * proc)
 {
     struct Anim *animc = GetAnimAnotherSide(proc->anim);
     int cur, frame = EfxGetCamMovDuration();
@@ -55,17 +61,37 @@ void Loop6C_efxThunder(struct ProcEfx *proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxThunderBG[] = {
+    PROC_NAME("efxThunderBG"),
+    PROC_REPEAT(EfxThunderBGMain),
+    PROC_END,
+};
+
 void NewEfxThunderBG(struct Anim *anim)
 {
+    static const u16 frame_config[] = {
+        0, 4, 1, 40, -1
+    };
+
+    static CONST_DATA u16 * tsa_l[] = {
+        Tsa_EfxThuderBg1,
+        Tsa_EfxThuderBg2
+    };
+
+    static CONST_DATA u16 * tsa_r[] = {
+        Tsa_EfxThuderBg1,
+        Tsa_EfxThuderBg2
+    };
+
     struct ProcEfxBG *proc;
     gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxThunderBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCCA6;
-    proc->tsal = gUnknown_085D5458;
-    proc->tsar = gUnknown_085D5460;
+    proc->frame_config = frame_config;
+    proc->tsal = tsa_l;
+    proc->tsar = tsa_r;
 
     SpellFx_RegisterBgGfx(Img_ThunderSpellBg, 0x10C0);
     SpellFx_SetSomeColorEffect();
@@ -78,7 +104,7 @@ void NewEfxThunderBG(struct Anim *anim)
     }
 }
 
-void EfxThunderBGMain(struct ProcEfxBG *proc)
+void EfxThunderBGMain(struct ProcEfxBG * proc)
 {
     int val, ret;
 
@@ -107,19 +133,34 @@ void EfxThunderBGMain(struct ProcEfxBG *proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxThunderBGCOL[] = {
+    PROC_NAME("efxThunderBGCOL"),
+    PROC_MARK(10),
+    PROC_REPEAT(EfxThunderBGCOL_Loop),
+    PROC_END,
+};
+
 void NewEfxThunderBGCOL(struct Anim * anim)
 {
+    static const u16 frame_config[] = {
+        0x0000, 0x0004, 0x0001, 0x0004, 0x0002, 0x0002, 0x0003, 0x0002,
+        0x0004, 0x0014, 0x0005, 0x0002, 0x0006, 0x0001, 0x0007, 0x0001,
+        0x0008, 0x0001, 0x0009, 0x0001, 0x000A, 0x0001, 0x000B, 0x0001,
+        0x000C, 0x0001, 0x000D, 0x0001, 0x000E, 0x0001, 0x000F, 0x0001,
+        -1
+    };
+
     struct ProcEfxBGCOL *proc;
     gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxThunderBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCCC0;
+    proc->frame_config = frame_config;
     proc->pal = Pal_ThunderSpellBg;
 }
 
-void sub_805D9F8(struct ProcEfxBGCOL * proc)
+void EfxThunderBGCOL_Loop(struct ProcEfxBGCOL * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
@@ -149,7 +190,7 @@ void NewEfxThunderOBJ(struct Anim *anim)
     SpellFx_RegisterObjGfx(Img_BoltingSprites, 0x1000);
 }
 
-void EfxThunderOBJMain(struct ProcEfxOBJ *proc)
+void EfxThunderOBJMain(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer > 0x32) {
         AnimDelete(proc->anim2);
