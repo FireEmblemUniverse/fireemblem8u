@@ -1074,7 +1074,7 @@ SECTIONS
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); src/banim-ekrpopup.o(.data);
         . = ALIGN(4); src/banim-ekrhensei.o(.data);
-        . = ALIGN(4); data/data_banim_78D500.o(.data);
+        . = ALIGN(4); data/banim-ekrdragonfx.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);
         . = ALIGN(4); data/data-ekrdk.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonkingobj.o(.data);

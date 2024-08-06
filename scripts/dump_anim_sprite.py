@@ -99,10 +99,10 @@ def main(args):
     off = start & 0x01FFFFFF
     off_end = end & 0x01FFFFFF
 
-    index = 77
+    index = 3
 
     PreName = None
-    PreName = "EkrBaseKaiten"
+    PreName = "DemoKingTunkFace"
 
     with open(rom, 'rb') as f:
         rom_data = f.read()

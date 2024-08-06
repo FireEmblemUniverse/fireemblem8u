@@ -56,7 +56,9 @@ def dump_one_part(rom_data, off):
                     break
 
                 case 1: # ANFMT_INS_TYPE_END
-                    print("[ERROR]: ANFMT_INS_TYPE_END")
+                    print("    ANIMSCR_DISABLED")
+                    break
+
 
                 case 2: # ANFMT_INS_TYPE_LOOP
                     print("    ANIMSCR_LOOP")
