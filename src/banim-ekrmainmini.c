@@ -864,12 +864,12 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
     int offsetA = 0;
     int offsetB = 0;
 
-    u16 * tmA = gUnknown_085B9D6C[buf->unk0C * 2 + 0];
-    u16 * tmB = gUnknown_085B9D6C[buf->unk0C * 2 + 1];
+    u16 * tmA = gUnknown_085B9D6C[buf->distance * 2 + 0];
+    u16 * tmB = gUnknown_085B9D6C[buf->distance * 2 + 1];
 
     sub_80559B0(0);
 
-    switch (buf->unk0C)
+    switch (buf->distance)
     {
         case 0:
         case 4:
@@ -912,13 +912,13 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 
         case 3:
         default:
-            if (buf->unk00 != -1)
+            if (buf->terrain_l != -1)
             {
                 offsetA = 39;
                 offsetB = 3;
             }
 
-            if (buf->unk06 != -1)
+            if (buf->terrain_r != -1)
             {
                 offsetA = 3;
                 offsetB = 42;
@@ -931,8 +931,8 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 
     tmp = 0x35A;
 
-    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, buf->unk02, buf->unk04);
-    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, buf->unk08, buf->unk0A);
+    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, buf->pal_l, buf->chr_l);
+    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, buf->pal_r, buf->chr_r);
 
     EfxTmCpyExt((gTmA_Banim + tmp + offsetC) - 0x2B5, 0x42, gBG2TilemapBuffer, 0x20, 0x20, 0x14, -1, -1);
 
