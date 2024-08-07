@@ -4,10 +4,12 @@
 #define UNITSPRITE_MAX 0xD0
 #define UNITSPRITE_ID_BITS 7
 
-u16* sPoisonIconSprites[12];
-u16* sSleepIconSprites[7];
-u16* sBerserkIconSprites[9];
-u16* sSilenceIconSprites[18];
+extern u16* sPoisonIconSprites[12];
+extern u16* sSleepIconSprites[7];
+extern u16* sBerserkIconSprites[9];
+extern u16* sSilenceIconSprites[18];
+
+extern u16 sSprite_0859B968[7];
 
 // ??? sub_8026618(???);
 void ApplyUnitSpritePalettes(void);
