@@ -436,8 +436,8 @@ void efxHazymoonOBJ2_Loop_A(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 1)
     {
-        anim->pScrStart = gUnknown_086517DC;
-        anim->pScrCurrent = gUnknown_086517DC;
+        anim->pScrStart = AnimScr_EfxHazymoonOBJ2_1;
+        anim->pScrCurrent = AnimScr_EfxHazymoonOBJ2_1;
         anim->timer = 0;
 
         proc->terminator = 10;
@@ -463,8 +463,8 @@ void efxHazymoonOBJ2_Loop_B(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 1)
     {
-        anim->pScrStart = gUnknown_08651AE4;
-        anim->pScrCurrent = gUnknown_08651AE4;
+        anim->pScrStart = AnimScr_EfxHazymoonOBJ2_2;
+        anim->pScrCurrent = AnimScr_EfxHazymoonOBJ2_2;
         anim->timer = 0;
 
         proc->terminator = 10;
@@ -490,8 +490,8 @@ void efxHazymoonOBJ2_Loop_C(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 1)
     {
-        anim->pScrStart = gUnknown_08651DE0;
-        anim->pScrCurrent = gUnknown_08651DE0;
+        anim->pScrStart = AnimScr_EfxHazymoonOBJ2_3;
+        anim->pScrCurrent = AnimScr_EfxHazymoonOBJ2_3;
         anim->timer = 0;
 
         proc->terminator = 10;
@@ -609,7 +609,7 @@ void StartSubSpell_efxHazymoonOBJ3RND(struct Anim * anim, int x, int y)
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_0862D6E0, gUnknown_0862D6E0, gUnknown_0862D6E0, gUnknown_0862D6E0);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxHazymoonOBJ3RND, AnimScr_EfxHazymoonOBJ3RND, AnimScr_EfxHazymoonOBJ3RND, AnimScr_EfxHazymoonOBJ3RND);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition = x;

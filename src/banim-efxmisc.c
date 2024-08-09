@@ -228,8 +228,8 @@ void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ * proc)
 
     anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DE984, 0x1000);
+    SpellFx_RegisterObjPal(Pal_EfxHurtmutEff00OBJ, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxHurtmutEff00OBJ1, 0x1000);
     Proc_Break(proc);
 }
 
@@ -246,8 +246,8 @@ void efxHurtmutEff00OBJ_806CF10(struct ProcEfxOBJ * proc)
 
     anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DF224, 0x1000);
+    SpellFx_RegisterObjPal(Pal_EfxHurtmutEff00OBJ, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxHurtmutEff00OBJ2, 0x1000);
     Proc_Break(proc);
 }
 
@@ -291,8 +291,8 @@ void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ * proc)
 
     anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DE984, 0x1000);
+    SpellFx_RegisterObjPal(Pal_EfxHurtmutEff00OBJ, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxHurtmutEff00OBJ1, 0x1000);
     Proc_Break(proc);
 }
 
@@ -309,8 +309,8 @@ void efxHurtmutEff01OBJ_806D010(struct ProcEfxOBJ * proc)
 
     anim2->timer = 0;
 
-    SpellFx_RegisterObjPal(gUnknown_085DFA08, 0x20);
-    SpellFx_RegisterObjGfx(gUnknown_085DF224, 0x1000);
+    SpellFx_RegisterObjPal(Pal_EfxHurtmutEff00OBJ, 0x20);
+    SpellFx_RegisterObjGfx(Img_EfxHurtmutEff00OBJ2, 0x1000);
     Proc_Break(proc);
 }
 
@@ -578,18 +578,18 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     proc->anim = anim;
     proc->timer = 0;
 
-    scr1 = gUnknown_085F1710;
+    scr1 = AnimScr_EfxSunakemuriOBJ1_R;
     if (type != 0) {
-        scr1 = gUnknown_085F19A0;
+        scr1 = AnimScr_EfxSunakemuriOBJ3_R;
         if (type == 1)
-            scr1 = gUnknown_085F1858;
+            scr1 = AnimScr_EfxSunakemuriOBJ2_R;
     }
 
-    scr2 = gUnknown_085F17B4;
+    scr2 = AnimScr_EfxSunakemuriOBJ1_L;
     if (type != 0) {
-        scr2 = gUnknown_085F1A44;
+        scr2 = AnimScr_EfxSunakemuriOBJ3_L;
         if (type == 1)
-            scr2 = gUnknown_085F18FC;
+            scr2 = AnimScr_EfxSunakemuriOBJ2_L;
     }
 
     proc->anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
@@ -631,14 +631,14 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_GUNNELS:
     case TERRAIN_BRACE:
     case TERRAIN_MAST:
-        SpellFx_RegisterObjPal(gUnknown_085F1620, 0x20);
+        SpellFx_RegisterObjPal(Pal_EfxSunakemuriOBJ1, 0x20);
         break;
     
     case TERRAIN_BRIDGE_14:
         if (IsAnimSoundInPositionMaybe(proc->anim) != EKR_POS_L)
-            SpellFx_RegisterObjPal(gUnknown_085F1620, 0x20);
+            SpellFx_RegisterObjPal(Pal_EfxSunakemuriOBJ1, 0x20);
         else
-            SpellFx_RegisterObjPal(gUnknown_085F1640, 0x20);
+            SpellFx_RegisterObjPal(Pal_EfxSunakemuriOBJ2, 0x20);
         break;
 
     case TERRAIN_RIVER:
@@ -646,7 +646,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_LAKE:
     case TERRAIN_DEEPS:
     case TERRAIN_WATER:
-        SpellFx_RegisterObjPal(gUnknown_085F1640, 0x20);
+        SpellFx_RegisterObjPal(Pal_EfxSunakemuriOBJ2, 0x20);
         break;
 
     case TERRAIN_ARMORY:
@@ -668,7 +668,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
     case TERRAIN_FENCE_32:
     case TERRAIN_RUINS_37:
     case TERRAIN_DECK:
-        SpellFx_RegisterObjPal(gUnknown_085F1660, 0x20);
+        SpellFx_RegisterObjPal(Pal_EfxSunakemuriOBJ3, 0x20);
         break;
 
     case TERRAIN_TILE_00:
@@ -676,7 +676,7 @@ void NewEfxSunakemuriOBJ(struct Anim *anim, int type)
         break;
     }
 
-    SpellFx_RegisterObjGfx(gUnknown_085F11B0, 0x1000);
+    SpellFx_RegisterObjGfx(Img_EfxSunakemuriOBJ, 0x1000);
 }
 
 struct ProcCmd CONST_DATA ProcScr_efxSunakemuriOBJ[] = {
@@ -1007,9 +1007,9 @@ void NewEfxSRankWeaponEffectBG(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxSRankWeaponEffectBG, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    SpellFx_RegisterBgGfx(gUnknown_085E8C04, 0x2000);
-    SpellFx_RegisterBgPal(gUnknown_085E8CC4, 0x20);
-    SpellFx_WriteBgMap(proc->anim, gUnknown_085E8CE4, gUnknown_085E8CE4);
+    SpellFx_RegisterBgGfx(Img_EfxSRankWeaponEffectBG, 0x2000);
+    SpellFx_RegisterBgPal(Pal_EfxSRankWeaponEffectBG, 0x20);
+    SpellFx_WriteBgMap(proc->anim, Tsa_EfxSRankWeaponEffectBG, Tsa_EfxSRankWeaponEffectBG);
     SpellFx_SetSomeColorEffect();
 }
 
@@ -1242,43 +1242,43 @@ void NewEfxMantBatabata(struct Anim *anim)
     switch (banim_index) {
     case 0x2:
     case 0x4:
-        scr1 = gUnknown_085F1F18;
-        scr2 = gUnknown_085F20C4;
+        scr1 = AnimScr_EfxMantBatabata2_R;
+        scr2 = AnimScr_EfxMantBatabata2_L;
         break;
 
     case 0xA:
     case 0xB:
-        scr1 = gUnknown_085F2270;
-        scr2 = gUnknown_085F2418;
+        scr1 = AnimScr_EfxMantBatabata3_R;
+        scr2 = AnimScr_EfxMantBatabata3_L;
         break;
 
     case 0x2A:
-        scr1 = gUnknown_085F24F4;
-        scr2 = gUnknown_085F25D8;
+        scr1 = AnimScr_EfxMantBatabata4_R;
+        scr2 = AnimScr_EfxMantBatabata4_L;
         break;
 
     case 0x32:
     case 0x33:
-        scr1 = gUnknown_085F26E0;
-        scr2 = gUnknown_085F27E4;
+        scr1 = AnimScr_EfxMantBatabata5_R;
+        scr2 = AnimScr_EfxMantBatabata5_L;
         break;
 
     case 0x4F:
     case 0x50:
-        scr1 = gUnknown_085F29C0;
-        scr2 = gUnknown_085F2C3C;
+        scr1 = AnimScr_EfxMantBatabata6_R;
+        scr2 = AnimScr_EfxMantBatabata6_L;
         break;
 
     case 0x51:
-        scr1 = gUnknown_085F2D44;
-        scr2 = gUnknown_085F2DAC;
+        scr1 = AnimScr_EfxMantBatabata7_R;
+        scr2 = AnimScr_EfxMantBatabata7_L;
         break;
 
     case 0x0:
     case 0x1:
     default:
-        scr1 = gUnknown_085F1BD8;
-        scr2 = gUnknown_085F1D6C;
+        scr1 = AnimScr_EfxMantBatabata1_R;
+        scr2 = AnimScr_EfxMantBatabata1_L;
         break;
     }
 

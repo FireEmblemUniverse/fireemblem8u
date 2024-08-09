@@ -15,18 +15,18 @@ CONST_DATA AnimScr BanimScr_DefaultAnim[] = {
     ANIMSCR_BLOCKED
 };
 
-CONST_DATA void * gUnknown_085B9D6C[] =
+CONST_DATA void * TsaConfs_BanimTmA[] =
 {
-    gUnknown_085B9E58,
-    gUnknown_085B9EF0,
-    gUnknown_085B9F88,
-    gUnknown_085BA020,
-    gUnknown_085B9F88,
-    gUnknown_085BA020,
-    gUnknown_085B9F88,
-    gUnknown_085BA020,
-    gUnknown_085B9E58,
-    gUnknown_085B9EF0,
+    TsaConf_BanimTmA1,
+    TsaConf_BanimTmA2,
+    TsaConf_BanimTmA3,
+    TsaConf_BanimTmA4,
+    TsaConf_BanimTmA3,
+    TsaConf_BanimTmA4,
+    TsaConf_BanimTmA3,
+    TsaConf_BanimTmA4,
+    TsaConf_BanimTmA1,
+    TsaConf_BanimTmA2,
 };
 
 const u8 BanimDefaultModeConfig[ANIM_ROUND_MAX * 4] = {

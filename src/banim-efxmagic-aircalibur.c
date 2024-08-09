@@ -260,7 +260,7 @@ void sub_805EE24(struct Anim * anim)
     proc = Proc_Start(gProcScr_efxAlacaliburOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_086267D8, gUnknown_08625094, gUnknown_0862688C, gUnknown_08625148);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxAlacaliburOBJ_LeftFront, AnimScr_EfxAlacaliburOBJ_RightFront, AnimScr_EfxAlacaliburOBJ_LeftBack, AnimScr_EfxAlacaliburOBJ_RightBack);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)

@@ -225,7 +225,7 @@ void StartSubSpell_efxThunderstormOBJ(struct Anim * anim)
 //! FE8U = 0x0805E924
 void efxThunderstormOBJ_Loop(struct ProcEfxOBJ * proc)
 {
-    proc->anim2 = EfxCreateFrontAnim(proc->anim, gUnknown_0860A5D4, gUnknown_0860A5D4, gUnknown_0860A5D4, gUnknown_0860A5D4);
+    proc->anim2 = EfxCreateFrontAnim(proc->anim, AnimScr_EfxThunderstormOBJ, AnimScr_EfxThunderstormOBJ, AnimScr_EfxThunderstormOBJ, AnimScr_EfxThunderstormOBJ);
 
     SpellFx_RegisterObjPal(Pal_BoltingSprites, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_BoltingSprites, 32 * 4 * CHR_SIZE);

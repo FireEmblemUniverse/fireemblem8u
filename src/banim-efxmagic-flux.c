@@ -450,8 +450,8 @@ void efxMistyRainObj_OnEnd(struct ProcEfxOBJ * proc)
 //! FE8U = 0x0805F24C
 void efxMistyRainObj_805F24C(struct ProcEfxOBJ * proc)
 {
-    proc->anim2->pScrStart = gUnknown_0862D6A8;
-    proc->anim2->pScrCurrent = gUnknown_0862D6A8;
+    proc->anim2->pScrStart = AnimScr_EfxMistyRainObj1;
+    proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj1;
 
     proc->anim2->timer = 0;
 
@@ -466,8 +466,8 @@ void efxMistyRainObj_805F24C(struct ProcEfxOBJ * proc)
 //! FE8U = 0x0805F288
 void efxMistyRainObj_805F288(struct ProcEfxOBJ * proc)
 {
-    proc->anim2->pScrStart = gUnknown_0862D82C;
-    proc->anim2->pScrCurrent = gUnknown_0862D82C;
+    proc->anim2->pScrStart = AnimScr_EfxMistyRainObj2;
+    proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj2;
 
     proc->anim2->timer = 0;
 
@@ -482,8 +482,8 @@ void efxMistyRainObj_805F288(struct ProcEfxOBJ * proc)
 //! FE8U = 0x0805F2C4
 void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc)
 {
-    proc->anim2->pScrStart = gUnknown_0862DCE0;
-    proc->anim2->pScrCurrent = gUnknown_0862DCE0;
+    proc->anim2->pScrStart = AnimScr_EfxMistyRainObj3;
+    proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj3;
 
     proc->anim2->timer = 0;
 
@@ -499,8 +499,8 @@ void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc)
 void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
-    anim->pScrStart = gUnknown_0862DC24;
-    anim->pScrCurrent = gUnknown_0862DC24;
+    anim->pScrStart = AnimScr_EfxMistyRainObj4;
+    anim->pScrCurrent = AnimScr_EfxMistyRainObj4;
 
     anim->timer = 0;
 
@@ -524,8 +524,8 @@ void efxMistyRainObj2_805F32C(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 40)
     {
-        anim->pScrStart = gUnknown_0862DC58;
-        anim->pScrCurrent = gUnknown_0862DC58;
+        anim->pScrStart = AnimScr_EfxMistyRainObj5;
+        anim->pScrCurrent = AnimScr_EfxMistyRainObj5;
         anim->timer = 0;
 
         proc->timer = 0;

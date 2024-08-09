@@ -1051,7 +1051,7 @@ void StartSubSpell_efxMaohFlashBGCOL(struct Anim * anim)
     proc->frame_config = frames;
 
     proc->pal = Pal_087F3C54;
-    SpellFx_RegisterBgPal(gUnknown_08603B50, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EkrElfireBG, PLTT_SIZE_4BPP);
 
     return;
 }

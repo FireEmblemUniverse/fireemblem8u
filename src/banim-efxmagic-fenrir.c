@@ -257,8 +257,8 @@ void StartSubSpell_efxFenrirBGCOL(struct Anim * anim, int terminator)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = gUnknown_08652554;
-    SpellFx_RegisterBgPal(gUnknown_08652554, PLTT_SIZE_4BPP);
+    proc->pal = Pal_EfxFenrirBGCOL;
+    SpellFx_RegisterBgPal(Pal_EfxFenrirBGCOL, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -580,14 +580,14 @@ void StartSubSpell_efxFenrirBG2_B(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCD72;
+    proc->frame_config = FrameConfig_AnimaHitBG;
 
-    proc->tsal = gUnknown_085D55B4;
-    proc->tsar = gUnknown_085D55B4;
-    proc->img = gUnknown_085D5560;
+    proc->tsal = TsaLut_AnimaHitBG;
+    proc->tsar = TsaLut_AnimaHitBG;
+    proc->img = ImgLut_AnimaHitBG;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_08656914, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EfxFenrirBG2_B, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE)

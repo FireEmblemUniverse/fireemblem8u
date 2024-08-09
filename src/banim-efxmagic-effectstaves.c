@@ -233,7 +233,7 @@ void StartSubSpell_efxSilenceOBJ(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxSilenceOBJ, PROC_TREE_3);
     proc->anim = anim;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08680FFC, gUnknown_08680FFC, gUnknown_08680FFC, gUnknown_08680FFC);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxSilenceOBJ, AnimScr_EfxSilenceOBJ, AnimScr_EfxSilenceOBJ, AnimScr_EfxSilenceOBJ);
 
     SpellFx_RegisterObjPal(Pal_Silence, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_SilenceSprites, 32 * 4 * CHR_SIZE);
@@ -517,7 +517,7 @@ void sub_8062898(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxSleepOBJ, PROC_TREE_3);
     proc->anim = anim;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0868C2E8, gUnknown_0868C2E8, gUnknown_0868C2E8, gUnknown_0868C2E8);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxSleepOBJ1, AnimScr_EfxSleepOBJ1, AnimScr_EfxSleepOBJ1, AnimScr_EfxSleepOBJ1);
 
     SpellFx_RegisterObjPal(Pal_SleepSprites, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_SleepSprites, 32 * 2 * CHR_SIZE);
@@ -548,7 +548,7 @@ void StartSubSpell_efxSleepOBJ2(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxSleepOBJ2, PROC_TREE_3);
     proc->anim = anim;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_0868C168, gUnknown_0868C168, gUnknown_0868C168, gUnknown_0868C168);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxSleepOBJ2, AnimScr_EfxSleepOBJ2, AnimScr_EfxSleepOBJ2, AnimScr_EfxSleepOBJ2);
     proc->anim2 = frontAnim;
     frontAnim->yPosition -= 8;
 
@@ -827,7 +827,7 @@ void StartSubSpell_efxHammarneOBJ(struct Anim * anim)
 
     proc = Proc_Start(ProcScr_efxHammarneOBJ, PROC_TREE_3);
     proc->anim = anim;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08684908, gUnknown_08684908, gUnknown_08684908, gUnknown_08684908);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxHammarneOBJ, AnimScr_EfxHammarneOBJ, AnimScr_EfxHammarneOBJ, AnimScr_EfxHammarneOBJ);
 
     SpellFx_RegisterObjPal(Pal_HammerneSprites, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_SleepSprites, 32 * 2 * CHR_SIZE);

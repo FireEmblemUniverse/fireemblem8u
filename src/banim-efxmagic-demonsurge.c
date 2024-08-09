@@ -117,8 +117,8 @@ void sub_806B664(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_086EAE14;
-    anim->pScrCurrent = gUnknown_086EAE14;
+    anim->pScrStart = AnimScr_086EAE14;
+    anim->pScrCurrent = AnimScr_086EAE14;
 
     anim->timer = 0;
 
@@ -154,7 +154,7 @@ void StartSubSpell_efxGorgon_806B680(struct Anim * anim)
     proc = Proc_Start(ProcScr_085D8B24, PROC_TREE_3);
     proc->anim = anim;
 
-    scr = gUnknown_086EAE24;
+    scr = AnimScr_086EAE24;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
