@@ -864,8 +864,8 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
     int offsetA = 0;
     int offsetB = 0;
 
-    u16 * tmA = gUnknown_085B9D6C[buf->distance * 2 + 0];
-    u16 * tmB = gUnknown_085B9D6C[buf->distance * 2 + 1];
+    u16 * tmA = TsaConfs_BanimTmA[buf->distance * 2 + 0];
+    u16 * tmB = TsaConfs_BanimTmA[buf->distance * 2 + 1];
 
     sub_80559B0(0);
 

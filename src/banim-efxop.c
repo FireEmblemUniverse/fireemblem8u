@@ -391,7 +391,7 @@ void StartCRSubSpell_efxopFireOBJ(struct Anim * anim, struct ProcEfx * parent)
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_085F843C, gUnknown_085F80B4);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_EfxFireOBJ_R_Front, AnimScr_EfxFireOBJ_L_Front);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)
@@ -653,7 +653,7 @@ void StartCRSubSpell_efxopThunderOBJ(struct Anim * anim, struct ProcEfx * unused
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_085F5550, gUnknown_085F4A24);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_EfxThunderOBJ_L, AnimScr_EfxThunderOBJ_R);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)
@@ -971,7 +971,7 @@ void StartCRSubSpell_efxopLiveOBJ(struct Anim * anim, struct ProcEfx * unused)
     proc->timer = 0;
     proc->terminator = 51;
 
-    scr = gUnknown_08675114;
+    scr = AnimScr_EfxLiveOBJ1;
     frontAnim = CRSpellCreateFrontAnim(anim, 1, scr, scr);
     proc->anim2 = frontAnim;
 
@@ -1581,7 +1581,7 @@ void efxopMistyrainOBJ_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862D6A8;
+    u32 * scr = AnimScr_EfxMistyRainObj1;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1600,7 +1600,7 @@ void efxopMistyrainOBJ_Loop_B(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862D82C;
+    u32 * scr = AnimScr_EfxMistyRainObj2;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1619,7 +1619,7 @@ void efxopMistyrainOBJ_Loop_C(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862DCE0;
+    u32 * scr = AnimScr_EfxMistyRainObj3;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1638,7 +1638,7 @@ void efxopMistyrainOBJ2_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862DC24;
+    u32 * scr = AnimScr_EfxMistyRainObj4;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1663,7 +1663,7 @@ void efxopMistyrainOBJ2_Loop_B(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 40)
     {
-        u32 * scr = gUnknown_0862DC58;
+        u32 * scr = AnimScr_EfxMistyRainObj5;
 
         anim->pScrStart = scr;
         anim->pScrCurrent = scr;

@@ -213,8 +213,8 @@ void sub_8051E00(void)
         break;
     }
 
-    gUnknown_02000044[0] = gUnknown_085B9D6C[gEkrDistanceType * 2];
-    gUnknown_02000044[1] = gUnknown_085B9D6C[gEkrDistanceType * 2 + 1];
+    gUnknown_02000044[0] = TsaConfs_BanimTmA[gEkrDistanceType * 2];
+    gUnknown_02000044[1] = TsaConfs_BanimTmA[gEkrDistanceType * 2 + 1];
 
     unk0201FADC->terrain_l = gBanimFloorfx[0];
     unk0201FADC->pal_l = 4;

@@ -131,9 +131,9 @@ void NewEfxCriricalEffectBG(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    SpellFx_RegisterBgGfx(gUnknown_085E7028, 0x2000);
-    SpellFx_RegisterBgPal(Pal_085E8108, 0x20);
-    SpellFx_WriteBgMap(proc->anim, gUnknown_085E8308, gUnknown_085E87A8);
+    SpellFx_RegisterBgGfx(Img_EfxCriricalEffectBG, 0x2000);
+    SpellFx_RegisterBgPal(Pal_EfxCriricalEffectBG, 0x20);
+    SpellFx_WriteBgMap(proc->anim, Tsa_EfxCriricalEffectBG_L, Tsa_EfxCriricalEffectBG_R);
     SpellFx_SetSomeColorEffect();
 }
 
@@ -181,7 +181,7 @@ void NewEfxCriricalEffectBGCOL(struct Anim * anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = frams;
-    proc->pal = Pal_085E8108;
+    proc->pal = Pal_EfxCriricalEffectBG;
 }
 
 void efxCriricalEffectBGCOLMain(struct ProcEfxBGCOL * proc)

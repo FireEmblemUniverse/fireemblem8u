@@ -841,7 +841,7 @@ void StartSubSpell_efxLiveOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 51;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1);
 
     SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_HealSprites_Sparkles, 32 * 4 * CHR_SIZE);
@@ -874,7 +874,7 @@ void StartSubSpell_efxReserveOBJ(struct Anim * anim)
     proc->terminator = 51;
     proc->unk30 = 52;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114, gUnknown_08675114);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1, AnimScr_EfxLiveOBJ1);
 
     SpellFx_RegisterObjPal(Pal_HealSprites_Sparkles, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_HealSprites_Sparkles, 32 * 4 * CHR_SIZE);
@@ -906,8 +906,8 @@ void efxReserveOBJ_Loop_A(struct ProcEfxOBJ * proc)
 
     if (proc->timer == proc->terminator)
     {
-        anim->pScrStart = gUnknown_086751A4;
-        anim->pScrCurrent = gUnknown_086751A4;
+        anim->pScrStart = AnimScr_EfxLiveOBJ2;
+        anim->pScrCurrent = AnimScr_EfxLiveOBJ2;
 
         anim->timer = 0;
         proc->timer = 0;
@@ -991,8 +991,8 @@ void efxReblowOBJ_Loop_A(struct ProcEfxOBJ * proc)
 
     if (proc->unk29 == 0)
     {
-        scrA = gUnknown_086766C0;
-        scrB = gUnknown_08677CC0;
+        scrA = AnimScr_EfxReblowOBJ_Right1;
+        scrB = AnimScr_EfxReblowOBJ_Left1;
 
         if (gEkrDistanceType != 0)
         {
@@ -1007,8 +1007,8 @@ void efxReblowOBJ_Loop_A(struct ProcEfxOBJ * proc)
     }
     else
     {
-        scrA = gUnknown_08676734;
-        scrB = gUnknown_08677D34;
+        scrA = AnimScr_EfxReblowOBJ_Right2;
+        scrB = AnimScr_EfxReblowOBJ_Left2;
 
         if (gEkrDistanceType != 0)
         {
@@ -1845,7 +1845,7 @@ void StartSubSpell_efxRestOBJ(struct Anim * anim)
 
     proc = Proc_Start(ProcScr_efxRestOBJ, PROC_TREE_3);
     proc->anim = anim;
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_0867EE04, gUnknown_0867EE04, gUnknown_0867EE04, gUnknown_0867EE04);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxRestOBJ, AnimScr_EfxRestOBJ, AnimScr_EfxRestOBJ, AnimScr_EfxRestOBJ);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)
