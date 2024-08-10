@@ -99,10 +99,10 @@ def main(args):
     off = start & 0x01FFFFFF
     off_end = end & 0x01FFFFFF
 
-    index = 3
+    index = 1
 
     PreName = None
-    PreName = "DemoKingTunkFace"
+    PreName = "EfxHazymoonOBJ2_3"
 
     with open(rom, 'rb') as f:
         rom_data = f.read()

@@ -1440,7 +1440,7 @@ void StartSubSpell_efxDivineOBJ(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_08646510, gUnknown_08646510, gUnknown_08646510, gUnknown_08646510);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxDevineOBJ, AnimScr_EfxDevineOBJ, AnimScr_EfxDevineOBJ, AnimScr_EfxDevineOBJ);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)

@@ -184,11 +184,17 @@ void NewEfxThunderOBJ(struct Anim *anim)
     proc = Proc_Start(ProcScr_efxThunderOBJ, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_085F5550, gUnknown_085F4A24, gUnknown_085F5550, gUnknown_085F4A24);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxThunderOBJ_L, AnimScr_EfxThunderOBJ_R, AnimScr_EfxThunderOBJ_L, AnimScr_EfxThunderOBJ_R);
 
     SpellFx_RegisterObjPal(Pal_BoltingSprites, 0x20);
     SpellFx_RegisterObjGfx(Img_BoltingSprites, 0x1000);
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxThunderOBJ[] = {
+    PROC_NAME("efxThunderOBJ"),
+    PROC_REPEAT(EfxThunderOBJMain),
+    PROC_END,
+};
 
 void EfxThunderOBJMain(struct ProcEfxOBJ * proc)
 {

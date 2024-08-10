@@ -564,7 +564,7 @@ extern const u16 * CONST_DATA gUnknown_085B9CC4[];
 extern struct ProcCmd ProcScr_ekrUnitKakudai[];
 
 extern AnimScr BanimScr_DefaultAnim[];
-extern void *gUnknown_085B9D6C[];
+extern void *TsaConfs_BanimTmA[];
 extern struct ProcCmd gProc_ekrChienCHR[];
 extern struct ProcCmd gProc_efxAnimeDrvProc[];
 extern struct ProcCmd ProcScr_ekrUnitMainMini[];
@@ -607,8 +607,7 @@ extern const u8 Img_080DB9C4[];
 extern const u8 Img_080DBE1C[];
 extern const u8 Img_080DC350[];
 extern const u16 Pal_080DC85C[2];
-extern const u16 gUnknown_080DCD26[];
-extern const u16 gUnknown_080DCD72[];
+extern const u16 FrameConfig_AnimaHitBG[];
 extern const u16 gUnknown_080DCDE4[];
 // extern ??? gFrameConfig_080DD1F4
 // extern ??? gUnknown_080DD8C6
