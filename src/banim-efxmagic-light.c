@@ -945,7 +945,7 @@ void StartSubSpell_efxPurgeOBJ(struct Anim * anim, int x, int y)
     proc = Proc_Start(ProcScr_efxPurgeOBJ, PROC_TREE_3);
     proc->anim = anim;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_0866F58C, gUnknown_0866F58C, gUnknown_0866F58C, gUnknown_0866F58C);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxPurge, AnimScr_EfxPurge, AnimScr_EfxPurge, AnimScr_EfxPurge);
 
     proc->anim2 = frontAnim;
     frontAnim->xPosition = x;

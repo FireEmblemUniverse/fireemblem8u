@@ -1518,8 +1518,8 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     struct Anim *anim2;
 
     if (arg1 == 0) {
-        scr1 = gUnknown_08746508;
-        scr2 = gUnknown_0874670C;
+        scr1 = AnimScr_EfxChill_R;
+        scr2 = AnimScr_EfxChill_L;
     }
 
     proc = Proc_Start(ProcScr_efxChillAnime, PROC_TREE_3);

@@ -427,8 +427,8 @@ void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind)
         case 0:
             proc->unk29 = 1;
             proc->frame_config = gUnknown_080DD8C6;
-            proc->tsal = gUnknown_0866F774;
-            proc->tsar = gUnknown_0866F774;
+            proc->tsal = Tsa_HealSpellBg;
+            proc->tsar = Tsa_HealSpellBg;
 
             SpellFx_RegisterBgGfx(Img_HealSpellBg, 32 * 1 * CHR_SIZE);
 
@@ -451,10 +451,10 @@ void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind)
             proc->unk29 = 1;
             proc->frame_config = gUnknown_080DD8D2;
 
-            proc->tsal = gUnknown_08670D40;
-            proc->tsar = gUnknown_086716A0;
+            proc->tsal = Tsa_EfxLiveBG_B_L;
+            proc->tsar = Tsa_EfxLiveBG_B_R;
 
-            SpellFx_RegisterBgGfx(gUnknown_08670548, 28 * 6 * CHR_SIZE);
+            SpellFx_RegisterBgGfx(Img_EfxLiveBG_B, 28 * 6 * CHR_SIZE);
 
             break;
     }
@@ -482,8 +482,8 @@ void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind)
     {
         case 0:
             proc->frame_config = gUnknown_080DD8CC;
-            proc->tsal = gUnknown_0866F774;
-            proc->tsar = gUnknown_0866F774;
+            proc->tsal = Tsa_HealSpellBg;
+            proc->tsar = Tsa_HealSpellBg;
 
             SpellFx_RegisterBgGfx(Img_HealSpellBg, 32 * 1 * CHR_SIZE);
 
@@ -505,10 +505,10 @@ void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind)
         case 2:
             proc->frame_config = gUnknown_080DD8D8;
 
-            proc->tsal = gUnknown_08670D40;
-            proc->tsar = gUnknown_086716A0;
+            proc->tsal = Tsa_EfxLiveBG_B_L;
+            proc->tsar = Tsa_EfxLiveBG_B_R;
 
-            SpellFx_RegisterBgGfx(gUnknown_08670548, 28 * 6 * CHR_SIZE);
+            SpellFx_RegisterBgGfx(Img_EfxLiveBG_B, 28 * 6 * CHR_SIZE);
 
             break;
     }
@@ -1400,7 +1400,7 @@ void StartSubSpell_efxReserveBG2(struct Anim * anim)
     proc->tsal = TsaArray_FortifyBg2;
     proc->tsar = TsaArray_FortifyBg2;
 
-    SpellFx_RegisterBgGfx(gUnknown_08670548, 28 * 6 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_EfxLiveBG_B, 28 * 6 * CHR_SIZE);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg2cnt.priority = 1;

@@ -1143,8 +1143,8 @@ void efxBerserkOBJ_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D2B4;
-    anim->pScrCurrent = gUnknown_0868D2B4;
+    anim->pScrStart = AnimScr_EfxBerserk1;
+    anim->pScrCurrent = AnimScr_EfxBerserk1;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1160,8 +1160,8 @@ void efxBerserkOBJ_Loop_C(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D2C8;
-    anim->pScrCurrent = gUnknown_0868D2C8;
+    anim->pScrStart = AnimScr_EfxBerserk2;
+    anim->pScrCurrent = AnimScr_EfxBerserk2;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1177,8 +1177,8 @@ void efxBerserkOBJ_Loop_E(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D2DC;
-    anim->pScrCurrent = gUnknown_0868D2DC;
+    anim->pScrStart = AnimScr_EfxBerserk3;
+    anim->pScrCurrent = AnimScr_EfxBerserk3;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1194,8 +1194,8 @@ void efxBerserkOBJ_Loop_G(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D2F0;
-    anim->pScrCurrent = gUnknown_0868D2F0;
+    anim->pScrStart = AnimScr_EfxBerserk4;
+    anim->pScrCurrent = AnimScr_EfxBerserk4;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1211,8 +1211,8 @@ void efxBerserkOBJ_Loop_I(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D304;
-    anim->pScrCurrent = gUnknown_0868D304;
+    anim->pScrStart = AnimScr_EfxBerserk5;
+    anim->pScrCurrent = AnimScr_EfxBerserk5;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1228,8 +1228,8 @@ void efxBerserkOBJ_Loop_B(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D678;
-    anim->pScrCurrent = gUnknown_0868D678;
+    anim->pScrStart = AnimScr_EfxBerserk6;
+    anim->pScrCurrent = AnimScr_EfxBerserk6;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1245,8 +1245,8 @@ void efxBerserkOBJ_Loop_D(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D684;
-    anim->pScrCurrent = gUnknown_0868D684;
+    anim->pScrStart = AnimScr_EfxBerserk7;
+    anim->pScrCurrent = AnimScr_EfxBerserk7;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1262,8 +1262,8 @@ void efxBerserkOBJ_Loop_F(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D690;
-    anim->pScrCurrent = gUnknown_0868D690;
+    anim->pScrStart = AnimScr_EfxBerserk8;
+    anim->pScrCurrent = AnimScr_EfxBerserk8;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1279,8 +1279,8 @@ void efxBerserkOBJ_Loop_H(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D69C;
-    anim->pScrCurrent = gUnknown_0868D69C;
+    anim->pScrStart = AnimScr_EfxBerserk9;
+    anim->pScrCurrent = AnimScr_EfxBerserk9;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1296,8 +1296,8 @@ void efxBerserkOBJ_Loop_J(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = gUnknown_0868D6A8;
-    anim->pScrCurrent = gUnknown_0868D6A8;
+    anim->pScrStart = AnimScr_EfxBerserk10;
+    anim->pScrCurrent = AnimScr_EfxBerserk10;
     anim->timer = 0;
 
     SpellFx_RegisterObjPal(Pal_BerserkSprites, PLTT_SIZE_4BPP);
@@ -1536,9 +1536,9 @@ void StartSubSpell_efxMshieldBGOBJ(struct Anim * anim)
 
     proc = Proc_Start(ProcScr_efxMshieldBGOBJ, PROC_TREE_3);
     proc->anim = anim;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08692524, gUnknown_08692524, gUnknown_08692524, gUnknown_08692524);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxMshield1, AnimScr_EfxMshield1, AnimScr_EfxMshield1, AnimScr_EfxMshield1);
 
-    SpellFx_RegisterObjPal(gUnknown_0868E46C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjPal(Img_EfxMshield, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_SleepSprites, 32 * 2 * CHR_SIZE);
 
     return;
@@ -1565,7 +1565,7 @@ void StartSubSpell_efxMshieldBGOBJ2(struct Anim * anim)
 
     proc = Proc_Start(ProcScr_efxMshieldBGOBJ2, PROC_TREE_3);
     proc->anim = anim;
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_08692674, gUnknown_08692674, gUnknown_08692674, gUnknown_08692674);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxMshield2, AnimScr_EfxMshield2, AnimScr_EfxMshield2, AnimScr_EfxMshield2);
 
     return;
 }

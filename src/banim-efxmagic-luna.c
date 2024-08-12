@@ -660,7 +660,7 @@ void efxLunaOBJ_Loop_A(struct ProcEfxOBJ * proc)
 
     proc->unk30 = proc->unk44 * 0x2AAA;
 
-    scr = gUnknown_0872DFEC;
+    scr = AnimScr_EfxLuna1;
     anim = EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
     proc->anim2 = anim;
 
@@ -721,8 +721,8 @@ void efxLunaOBJ_Loop_B(struct ProcEfxOBJ * proc)
         proc->timer = 0;
         proc->terminator = 0;
 
-        anim->pScrStart = gUnknown_0872E24C;
-        anim->pScrCurrent = gUnknown_0872E24C;
+        anim->pScrStart = AnimScr_EfxLuna4;
+        anim->pScrCurrent = AnimScr_EfxLuna4;
         anim->timer = 0;
 
         Proc_Break(proc);
@@ -772,8 +772,8 @@ void efxLunaOBJ_Loop_C(struct ProcEfxOBJ * proc)
         proc->timer = 0;
         proc->terminator = 0;
 
-        anim->pScrStart = gUnknown_0872E024;
-        anim->pScrCurrent = gUnknown_0872E024;
+        anim->pScrStart = AnimScr_EfxLuna2;
+        anim->pScrCurrent = AnimScr_EfxLuna2;
         anim->timer = 0;
 
         Proc_Break(proc);

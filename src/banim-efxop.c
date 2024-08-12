@@ -741,10 +741,10 @@ struct ProcCmd CONST_DATA ProcScr_efxopLiveBG[] =
     PROC_END,
 };
 
-// FIXME: Either this or gUnknown_0866F774 may need to change its type
+// FIXME: Either this or Tsa_HealSpellBg may need to change its type
 u16 * CONST_DATA gUnknown_085D959C[] =
 {
-    (u16 *)gUnknown_0866F774,
+    (u16 *)Tsa_HealSpellBg,
 };
 
 // clang-format on
@@ -2263,7 +2263,7 @@ void StartCRSubSpell_efxopStoneOBJ(struct Anim * anim, struct ProcEfx * parent)
     proc->anim = anim;
     proc->timer = 0;
 
-    scr = gUnknown_086BDA5C;
+    scr = AnimScr_EfxStone;
     frontAnim = CRSpellCreateFrontAnim(anim, 1, scr, scr);
     proc->anim2 = frontAnim;
 

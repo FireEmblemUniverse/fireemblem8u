@@ -269,11 +269,11 @@ void StartSubSpell_efxCrimsonEyeOBJFinishPiece(struct Anim * anim, int terminato
 
     if (flag)
     {
-        scr = gUnknown_086B5984;
+        scr = AnimScr_EfxCrimsonEyeOBJFinishPiece1;
     }
     else
     {
-        scr = gUnknown_086B598C;
+        scr = AnimScr_EfxCrimsonEyeOBJFinishPiece2;
     }
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
@@ -1175,7 +1175,7 @@ void StartSubSpell_efxCrimsonEyeOBJ(struct Anim * anim)
     proc->unk32 -= 16;
     proc->unk3A -= 16;
 
-    scr = gUnknown_086B5974;
+    scr = AnimScr_EfxCrimsonEyeOBJ;
 
     proc->anim2 = frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 

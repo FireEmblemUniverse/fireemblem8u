@@ -314,7 +314,7 @@ void StartSubSpell_efxFenrirOBJ(struct Anim * anim, int terminator)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3);
 
     SpellFx_RegisterObjPal(Pal_FenrirSprites_A, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_FenrirSprites, 32 * 4 * CHR_SIZE);
@@ -743,13 +743,13 @@ void StartSubSpell_efxFenrirOBJ2Chiri(struct Anim * anim, int idx)
     switch (idx & 1)
     {
         case 0:
-            otherAnim = AnimCreate(gUnknown_0865C77C, 120);
+            otherAnim = AnimCreate(AnimScr_EfxFenrir1, 120);
             proc->anim2 = otherAnim;
 
             break;
 
         case 1:
-            otherAnim = AnimCreate(gUnknown_0865C7A8, 120);
+            otherAnim = AnimCreate(AnimScr_EfxFenrir2, 120);
             proc->anim2 = otherAnim;
 
             break;
