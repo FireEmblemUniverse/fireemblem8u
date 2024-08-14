@@ -17,15 +17,14 @@
 
 extern u16 gUnknown_03001864[MULTIBOOT_NCHILD];
 
-void sub_804D9C4(struct MultiBootParam * mp);
-int sub_804DDF0(struct MultiBootParam * mp, u16 data);
-int sub_804DF24(struct MultiBootParam * mp);
-int sub_804DF38(struct MultiBootParam * mp);
-void sub_804DE3C(struct MultiBootParam * mp);
-void sub_804E03C(void);
+int MultiBootSend(struct MultiBootParam * mp, u16 data);
+int MultiBootCheckComplete(struct MultiBootParam * mp);
+int MultiBootHandShake(struct MultiBootParam * mp);
+void MultiBootStartProbe(struct MultiBootParam * mp);
+void MultiBootWaitSendDone(void);
 
 //! FE8U = 0x0804D9C4
-void sub_804D9C4(struct MultiBootParam * mp)
+void MultiBootInit(struct MultiBootParam * mp)
 {
     mp->client_bit = 0;
     mp->probe_count = 0;
@@ -42,13 +41,13 @@ void sub_804D9C4(struct MultiBootParam * mp)
 }
 
 //! FE8U = 0x0804DA00
-int sub_804DA00(struct MultiBootParam * mp)
+int MultiBootMain(struct MultiBootParam * mp)
 {
     int i;
     int j;
     int k;
 
-    if (sub_804DF24(mp))
+    if (MultiBootCheckComplete(mp))
     {
         return 0;
     }
@@ -67,30 +66,30 @@ output_burst:
         i = REG_SIOCNT & (SIO_MULTI_BUSY | SIO_ERROR | SIO_ID | SIO_MULTI_SD | SIO_MULTI_SI);
         if (i != SIO_MULTI_SD)
         {
-            sub_804D9C4(mp);
+            MultiBootInit(mp);
             return i ^ SIO_MULTI_SD;
         }
     }
 
     if (mp->probe_count >= 0xe0)
     {
-        i = sub_804DF38(mp);
+        i = MultiBootHandShake(mp);
         if (i)
         {
             return i;
         }
 
-        if (mp->server_type == MULTIBOOT_SERVER_TYPE_QUICK && mp->probe_count > 0xe1 && sub_804DF24(mp) == 0)
+        if (mp->server_type == MULTIBOOT_SERVER_TYPE_QUICK && mp->probe_count > 0xe1 && MultiBootCheckComplete(mp) == 0)
         {
-            sub_804E03C();
+            MultiBootWaitSendDone();
             goto output_burst;
         }
 
-        if (sub_804DF24(mp) == 0)
+        if (MultiBootCheckComplete(mp) == 0)
         {
             if (mp->handshake_timeout == 0)
             {
-                sub_804D9C4(mp);
+                MultiBootInit(mp);
                 return MULTIBOOT_ERROR_HANDSHAKE_FAILURE;
             }
             mp->handshake_timeout--;
@@ -143,13 +142,13 @@ output_burst:
             {
                 if (mp->response_bit != mp->client_bit)
                 {
-                    sub_804DE3C(mp);
+                    MultiBootStartProbe(mp);
                     goto case_1;
                 }
             }
 
         output_master_info:
-            return sub_804DDF0(mp, (MULTIBOOT_MASTER_INFO << 8) | mp->client_bit);
+            return MultiBootSend(mp, (MULTIBOOT_MASTER_INFO << 8) | mp->client_bit);
 
         case_1:
         case 1:
@@ -174,7 +173,7 @@ output_burst:
             }
 
             mp->probe_count = 2;
-            return sub_804DDF0(mp, (MULTIBOOT_MASTER_START_PROBE << 8) | mp->probe_target_bit);
+            return MultiBootSend(mp, (MULTIBOOT_MASTER_START_PROBE << 8) | mp->probe_target_bit);
 
         case 2:
             for (i = MULTIBOOT_NCHILD; i != 0; i--)
@@ -200,7 +199,7 @@ output_burst:
                 {
                     if ((j >> 8) != MULTIBOOT_CLIENT_INFO && (j >> 8) != MULTIBOOT_CLIENT_DLREADY)
                     {
-                        sub_804D9C4(mp);
+                        MultiBootInit(mp);
                         return MULTIBOOT_ERROR_NO_DLREADY;
                     }
                     if (j == gUnknown_03001864[i - 1])
@@ -212,7 +211,7 @@ output_burst:
 
             if (k == 0)
             {
-                return sub_804DDF0(mp, (MULTIBOOT_MASTER_REQUEST_DLREADY << 8) | mp->palette_data);
+                return MultiBootSend(mp, (MULTIBOOT_MASTER_REQUEST_DLREADY << 8) | mp->palette_data);
             }
 
             mp->probe_count = 0xd1;
@@ -223,7 +222,7 @@ output_burst:
                 k += mp->client_data[i - 1];
             }
             mp->handshake_data = k;
-            return sub_804DDF0(mp, (MULTIBOOT_MASTER_START_DL << 8) | (k & 0xff));
+            return MultiBootSend(mp, (MULTIBOOT_MASTER_START_DL << 8) | (k & 0xff));
 
         case 0xd1:
             for (i = MULTIBOOT_NCHILD; i != 0; i--)
@@ -233,7 +232,7 @@ output_burst:
                 {
                     if ((j >> 8) != MULTIBOOT_CLIENT_DLREADY)
                     {
-                        sub_804D9C4(mp);
+                        MultiBootInit(mp);
                         return MULTIBOOT_ERROR_NO_DLREADY;
                     }
                 }
@@ -247,7 +246,7 @@ output_burst:
                 mp->handshake_timeout = MULTIBOOT_HANDSHAKE_TIMEOUT;
                 return 0;
             }
-            sub_804D9C4(mp);
+            MultiBootInit(mp);
             mp->check_wait = MULTIBOOT_CONNECTION_CHECK_WAIT * 2;
             return MULTIBOOT_ERROR_BOOT_FAILURE;
 
@@ -275,7 +274,7 @@ output_burst:
         output_header:
             if (mp->probe_target_bit == 0)
             {
-                sub_804D9C4(mp);
+                MultiBootInit(mp);
                 return MULTIBOOT_ERROR_NO_PROBE_TARGET;
             }
 
@@ -284,7 +283,7 @@ output_burst:
             {
                 goto output_master_info;
             }
-            i = sub_804DDF0(mp, (mp->masterp[mp->probe_count - 4 + 1] << 8) | mp->masterp[mp->probe_count - 4]);
+            i = MultiBootSend(mp, (mp->masterp[mp->probe_count - 4 + 1] << 8) | mp->masterp[mp->probe_count - 4]);
 
             if (i)
             {
@@ -292,7 +291,7 @@ output_burst:
             }
             if (mp->server_type == MULTIBOOT_SERVER_TYPE_QUICK)
             {
-                sub_804E03C();
+                MultiBootWaitSendDone();
                 goto output_burst;
             }
             return 0;
@@ -300,14 +299,14 @@ output_burst:
 }
 
 //! FE8U = 0x0804DDF0
-int sub_804DDF0(struct MultiBootParam * mp, u16 data)
+int MultiBootSend(struct MultiBootParam * mp, u16 data)
 {
     int i;
 
     i = REG_SIOCNT & (SIO_MULTI_BUSY | SIO_MULTI_SD | SIO_MULTI_SI);
     if (i != SIO_MULTI_SD)
     {
-        sub_804D9C4(mp);
+        MultiBootInit(mp);
         return i ^ SIO_MULTI_SD;
     }
 
@@ -319,11 +318,11 @@ int sub_804DDF0(struct MultiBootParam * mp, u16 data)
 }
 
 //! FE8U = 0x0804DE3C
-void sub_804DE3C(struct MultiBootParam * mp)
+void MultiBootStartProbe(struct MultiBootParam * mp)
 {
     if (mp->probe_count != 0)
     {
-        sub_804D9C4(mp);
+        MultiBootInit(mp);
         return;
     }
     mp->check_wait = 0;
@@ -332,13 +331,13 @@ void sub_804DE3C(struct MultiBootParam * mp)
 }
 
 //! FE8U = 0x0804DE60
-void sub_804DE60(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed)
+void MultiBootStartMaster(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed)
 {
     int i;
 
     if (mp->probe_count != 0 || mp->client_bit == 0 || mp->check_wait != 0)
     {
-        sub_804D9C4(mp);
+        MultiBootInit(mp);
         return;
     }
 
@@ -346,7 +345,7 @@ void sub_804DE60(struct MultiBootParam * mp, const u8 * srcp, int length, u8 pal
     length = (length + 15) & ~15;
     if (length < MULTIBOOT_SEND_SIZE_MIN || length > MULTIBOOT_SEND_SIZE_MAX)
     {
-        sub_804D9C4(mp);
+        MultiBootInit(mp);
         return;
     }
 
@@ -376,7 +375,7 @@ void sub_804DE60(struct MultiBootParam * mp, const u8 * srcp, int length, u8 pal
 }
 
 //! FE8U = 0x0804DF24
-int sub_804DF24(struct MultiBootParam * mp)
+int MultiBootCheckComplete(struct MultiBootParam * mp)
 {
     if (mp->probe_count == 0xe9)
     {
@@ -387,7 +386,7 @@ int sub_804DF24(struct MultiBootParam * mp)
 }
 
 //! FE8U = 0x0804DF38
-int sub_804DF38(struct MultiBootParam * mp)
+int MultiBootHandShake(struct MultiBootParam * mp)
 {
     int i, j;
 
@@ -401,7 +400,7 @@ int sub_804DF38(struct MultiBootParam * mp)
         mp->probe_count = 0xe1;
         must_data = 0x0000;
         send_data = 0x100000;
-        return sub_804DDF0(mp, 0x0000);
+        return MultiBootSend(mp, 0x0000);
 
         default:
             for (i = MULTIBOOT_NCHILD; i != 0; i--)
@@ -421,7 +420,7 @@ int sub_804DF38(struct MultiBootParam * mp)
             }
             send_data >>= 5;
         output_common:
-            return sub_804DDF0(mp, send_data);
+            return MultiBootSend(mp, send_data);
 
         case 0xe7:
         case 0xe8:
@@ -430,7 +429,7 @@ int sub_804DF38(struct MultiBootParam * mp)
                 j = REG_SIOMULTI(i);
                 if ((mp->client_bit & (1 << i)) && j != must_data)
                 {
-                    sub_804D9C4(mp);
+                    MultiBootInit(mp);
                     return MULTIBOOT_ERROR_HANDSHAKE_FAILURE;
                 }
             }
@@ -452,7 +451,7 @@ int sub_804DF38(struct MultiBootParam * mp)
 
 //! FE8U = 0x0804E024
 NAKEDFUNC
-void sub_804E024(u32 cycles)
+void MultiBootWaitCycles(u32 cycles)
 {
     asm("\n\
         .syntax unified\n\
@@ -460,21 +459,21 @@ void sub_804E024(u32 cycles)
         lsrs r2, r2, #0x18\n\
         movs r1, #0xc\n\
         cmp r2, #2\n\
-        beq _0804E036\n\
+        beq MultiBootWaitCyclesLoop\n\
         movs r1, #0xd\n\
         cmp r2, #8\n\
-        beq _0804E036\n\
+        beq MultiBootWaitCyclesLoop\n\
         movs r1, #4\n\
-    _0804E036:\n\
+    MultiBootWaitCyclesLoop:\n\
         subs r0, r0, r1\n\
-        bgt _0804E036\n\
+        bgt MultiBootWaitCyclesLoop\n\
         bx lr\n\
         .syntax divided\n\
     ");
 }
 
 //! FE8U = 0x0804E03C
-void sub_804E03C(void)
+void MultiBootWaitSendDone(void)
 {
     int i;
 
@@ -486,5 +485,5 @@ void sub_804E03C(void)
         }
     }
 
-    sub_804E024(600);
+    MultiBootWaitCycles(600);
 }
