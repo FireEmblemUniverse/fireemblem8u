@@ -454,7 +454,7 @@ void StartSubSpell_efxShineOBJ(struct Anim * anim, int x, int y)
     proc->timer = 0;
     proc->terminator = 70;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxShine, AnimScr_EfxShine, AnimScr_EfxShine, AnimScr_EfxShine);
     proc->anim2 = frontAnim;
     frontAnim->xPosition = x;
     frontAnim->yPosition = y;

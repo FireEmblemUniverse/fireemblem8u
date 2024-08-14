@@ -892,28 +892,28 @@ void StartSubSpell_efxIvaldiOBJ1(struct Anim * anim, int terminator, s16 x, s16 
     u32 * gUnknown_080DE5E4[6][2] =
     {
         {
-            gUnknown_086936C4,
-            gUnknown_0869307C,
+            AnimScr_EfxIvald_L1,
+            AnimScr_EfxIvald_R1,
         },
         {
-            gUnknown_086936F0,
-            gUnknown_086930A8,
+            AnimScr_EfxIvald_L2,
+            AnimScr_EfxIvald_R2,
         },
         {
-            gUnknown_0869371C,
-            gUnknown_086930D4,
+            AnimScr_EfxIvald_L3,
+            AnimScr_EfxIvald_R3,
         },
         {
-            gUnknown_08693760,
-            gUnknown_08693118,
+            AnimScr_EfxIvald_L4,
+            AnimScr_EfxIvald_R4,
         },
         {
-            gUnknown_08693760,
-            gUnknown_08693118,
+            AnimScr_EfxIvald_L4,
+            AnimScr_EfxIvald_R4,
         },
         {
-            gUnknown_08693760,
-            gUnknown_08693118,
+            AnimScr_EfxIvald_L4,
+            AnimScr_EfxIvald_R4,
         }
     };
     // clang-format on
@@ -996,8 +996,8 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiOBJ2[] =
 // clang-format on
 
 u32 * const gUnknown_080DE624[2] = {
-    gUnknown_08693160,
-    gUnknown_0869316C,
+    AnimScr_EfxIvald2_L,
+    AnimScr_EfxIvald2_R,
 };
 
 //! FE8U = 0x08066390

@@ -329,6 +329,12 @@ void sub_805DE74(struct ProcEfxBG * proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxElfireBG[] = {
+    PROC_NAME("efxElfireBG"),
+    PROC_REPEAT(EfxElfireBG_Loop),
+    PROC_END,
+};
+
 void StartSubSpell_efxElfireBG(struct Anim * anim)
 {
     struct ProcEfxBG * proc;
@@ -363,15 +369,31 @@ void EfxElfireBG_Loop(struct ProcEfxBG * proc)
     }
 }
 
+struct ProcCmd CONST_DATA ProcScr_efxElfireBGCOL[] = {
+    PROC_NAME("efxElfireBGCOL"),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
+    PROC_REPEAT(EfxElfireBGCOL_Loop),
+    PROC_END,
+};
+
 void StartSubSpell_efxElfireBGCOL(struct Anim * anim)
 {
+    static const u16 frame_config[] = {
+        0x0000, 0x0002, 0x0001, 0x0002, 0x0002, 0x0002, 0x0003, 0x0002,
+        0x0004, 0x0002, 0x0005, 0x0002, 0x0006, 0x0002, 0x0004, 0x0002,
+        0x0006, 0x0002, 0x0004, 0x0002, 0x0006, 0x0002, 0x0007, 0x0002,
+        0x0008, 0x0001, 0x0009, 0x0001, 0x000A, 0x0001, 0x000B, 0x0001,
+        0x000C, 0x0001, 0x000D, 0x0002, 0x000E, 0x0002, 0x000F, 0x0003,
+        0x0000, 0x0002, 0xFFFF
+    };
     struct ProcEfxBGCOL * proc;
+
     gEfxBgSemaphore++;
     proc = Proc_Start(ProcScr_efxElfireBGCOL, PROC_TREE_3);
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCDE4;
+    proc->frame_config = frame_config;
     proc->pal = Pal_EkrElfireBG;
     SpellFx_RegisterBgPal(Pal_EkrElfireBG, 0x20);
 }
@@ -391,6 +413,12 @@ void EfxElfireBGCOL_Loop(struct ProcEfxBGCOL * proc)
         Proc_Break(proc);
     }
 }
+
+struct ProcCmd CONST_DATA ProcScr_efxElfireOBJ[] = {
+    PROC_NAME("efxElfireOBJ"),
+    PROC_REPEAT(EfxElfireObj_Loop),
+    PROC_END,
+};
 
 void StartSubSpell_efxElfireOBJ(struct Anim * anim)
 {

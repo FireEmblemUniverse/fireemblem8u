@@ -102,7 +102,7 @@ def main(args):
     index = 1
 
     PreName = None
-    PreName = "EfxHazymoonOBJ2_3"
+    PreName = "EfxStone"
 
     with open(rom, 'rb') as f:
         rom_data = f.read()

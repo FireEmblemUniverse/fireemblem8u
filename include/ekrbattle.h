@@ -608,7 +608,6 @@ extern const u8 Img_080DBE1C[];
 extern const u8 Img_080DC350[];
 extern const u16 Pal_080DC85C[2];
 extern const u16 FrameConfig_AnimaHitBG[];
-extern const u16 gUnknown_080DCDE4[];
 // extern ??? gFrameConfig_080DD1F4
 // extern ??? gUnknown_080DD8C6
 // extern ??? gUnknown_080DD8CC

@@ -758,7 +758,7 @@ void StartSubSpell_efxExcaliburOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 40;
 
-    scr = gUnknown_087312BC;
+    scr = AnimScr_EfxExcalibur;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
     proc->anim2 = frontAnim;

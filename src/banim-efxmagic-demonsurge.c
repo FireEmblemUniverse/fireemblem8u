@@ -696,7 +696,7 @@ void StartSubSpell_efxGorgonOBJTwisterPiece(struct Anim * anim, int flag, int c,
     proc->terminator = terminator;
     proc->unk44 = c;
 
-    scr = gUnknown_086B5974;
+    scr = AnimScr_EfxCrimsonEyeOBJ;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 

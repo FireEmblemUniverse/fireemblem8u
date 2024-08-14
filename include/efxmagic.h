@@ -831,7 +831,7 @@ void sub_80696F0(void);
 int sub_8069704(int a, int b, int c);
 int sub_806977C(int a, int b, int c);
 void efxDarkGradoOBJ01piece_Loop(struct ProcEfxOBJ * proc);
-void sub_8069878(struct Anim * anim, s16 b, s16 c, s16 d, u16 e);
+void NewEfxDarkGradoOBJ01piece(struct Anim * anim, s16 b, s16 c, s16 d, u16 e);
 void efxDarkGradoOBJ01_Loop(struct ProcEfxOBJ * proc);
 void StartSubSpell_efxDarkGradoOBJ01(struct Anim * anim);
 void efxDarkGradoOBJ02piece_Loop(struct ProcEfxOBJ * proc);

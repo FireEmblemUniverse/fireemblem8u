@@ -135,7 +135,7 @@ void EfxThunderBGMain(struct ProcEfxBG * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxThunderBGCOL[] = {
     PROC_NAME("efxThunderBGCOL"),
-    PROC_MARK(10),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxThunderBGCOL_Loop),
     PROC_END,
 };

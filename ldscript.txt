@@ -762,7 +762,6 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-breath.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-thunder.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-fire.o(.rodata);
-        . = ALIGN(4); data/const_data_efxmagic_DC944.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.rodata);
@@ -1022,7 +1021,6 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-breath.o(.data);
         . = ALIGN(4); src/banim-efxmagic-thunder.o(.data);
         . = ALIGN(4); src/banim-efxmagic-fire.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-fire.o(.data);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.data);
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.data);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.data);
