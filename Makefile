@@ -170,7 +170,11 @@ $(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_ba
 
 MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*.o > $(DEPS_DIR)/$*.d
 
+MAKECMDGOALS_NODEP := clean tag
+
+ifeq (,$(filter $(MAKECMDGOALS),$(MAKECMDGOALS_NODEP)))
 -include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
+endif
 
 $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
