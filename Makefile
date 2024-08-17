@@ -121,6 +121,13 @@ tag:
 
 .PHONY: tag
 
+#### Recipes ####
+
+# Comprssed Texts Recipes
+
+src/msg_data.c: msg_list.txt
+	$(TEXTENCODE) $< $@
+
 # Graphics Recipes
 
 include graphics_file_rules.mk
@@ -159,9 +166,8 @@ $(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_ba
 %_oam_r.bin: %_motion.o
 	$(OBJCOPY) -O binary -j .data.oam_r $< $@
 
-#### Recipes ####
-
 # Automatic dependency generation
+
 MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*.o > $(DEPS_DIR)/$*.d
 
 -include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
@@ -178,10 +184,6 @@ $(ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT) $(SYM_FILES)
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
-
-# Generate msg_data.c
-src/msg_data.c: msg_list.txt
-	$(TEXTENCODE) $< $@
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
