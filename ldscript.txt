@@ -289,7 +289,8 @@ SECTIONS
     ALIGN(4)
     {
         /* .text */
-        asm/crt0.o(.text);
+        src/rom_header.o(.text);
+        src/crt0.o(.text);
         asm/arm.o(.text);
         src/main.o(.text);
         src/fe3_dummy.o(.text);
@@ -608,9 +609,9 @@ SECTIONS
         src/classchg-menuselect.o(.text);
         src/classchg-postconfirm.o(.text);
         src/bmguide.o(.text);
-        asm/m4a_1.o(.text);
+        src/m4a_1.o(.text);
         src/m4a.o(.text);
-        asm/libagbsyscall.o(.text);
+        src/libagbsyscall.o(.text);
         src/agb_sram.o(.text);
         *libgcc.a:_ashldi3.o(.text);
         *libgcc.a:_call_via_rX.o(.text);

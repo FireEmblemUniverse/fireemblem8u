@@ -3,11 +3,6 @@
 
 .include "gba.inc"
 
-.global Init
-Init:
-	b crt0
-	.include "asm/rom_header.inc"
-
 .global crt0
 crt0:
 	@ Switch to IRQ Mode

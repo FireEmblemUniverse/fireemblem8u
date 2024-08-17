@@ -70,9 +70,11 @@ ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
+SRC_S_FILES  := src/rom_header.s src/crt0.s src/m4a_1.s src/libagbsyscall.s
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s sound/songs/mml/*.s sound/voicegroups/*.s)
-SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
+SFILES       := $(ASM_S_FILES) $(SRC_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
+SFILES_COMPILED := $(CFILES:.c=.s)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
@@ -99,8 +101,7 @@ compare: $(ROM)
 .PHONY: compare
 
 clean:
-	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(OBJECTS_LST) src/*.s graphics/*.h $(CFILES_GENERATED)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(OBJECTS_LST) $(SFILES_COMPILED) graphics/*.h $(CFILES_GENERATED)
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
@@ -109,6 +110,7 @@ clean:
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
+	find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 
 .PHONY: clean
 
@@ -118,6 +120,13 @@ tag:
 	cscope -Rbkq
 
 .PHONY: tag
+
+#### Recipes ####
+
+# Comprssed Texts Recipes
+
+src/msg_data.c: msg_list.txt
+	$(TEXTENCODE) $< $@
 
 # Graphics Recipes
 
@@ -157,12 +166,15 @@ $(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_ba
 %_oam_r.bin: %_motion.o
 	$(OBJCOPY) -O binary -j .data.oam_r $< $@
 
-#### Recipes ####
-
 # Automatic dependency generation
+
 MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*.o > $(DEPS_DIR)/$*.d
 
+MAKECMDGOALS_NODEP := clean tag
+
+ifeq (,$(filter $(MAKECMDGOALS),$(MAKECMDGOALS_NODEP)))
 -include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
+endif
 
 $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
@@ -176,10 +188,6 @@ $(ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT) $(SYM_FILES)
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
-
-# Generate msg_data.c
-src/msg_data.c: msg_list.txt
-	$(TEXTENCODE) $< $@
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
