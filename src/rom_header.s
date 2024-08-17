@@ -1,3 +1,10 @@
+.syntax unified
+.arm
+
+.global Init
+Init:
+	b crt0
+
 	.global RomHeaderNintendoLogo
 RomHeaderNintendoLogo:
 	.byte 0x24,0xff,0xae,0x51,0x69,0x9a,0xa2,0x21

@@ -70,9 +70,11 @@ ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
+SRC_S_FILES  := $(wildcard $(C_SUBDIR)/*.s)
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 SOUND_S_FILES := $(wildcard sound/*.s sound/songs/*.s sound/songs/mml/*.s sound/voicegroups/*.s)
-SFILES       := $(ASM_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
+SFILES       := $(ASM_S_FILES) $(SRC_S_FILES) $(DATA_S_FILES) $(SOUND_S_FILES)
+SFILES_COMPILED := $(CFILES:.c=.s)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
@@ -100,7 +102,7 @@ compare: $(ROM)
 
 clean:
 	find . \( -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(OBJECTS_LST) src/*.s graphics/*.h $(CFILES_GENERATED)
+	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) $(OBJECTS_LST) $(SFILES_COMPILED) graphics/*.h $(CFILES_GENERATED)
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
