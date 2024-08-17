@@ -523,8 +523,6 @@ void sub_8082730(int x, int y, int unk)
     return;
 }
 
-#if NONMATCHING
-
 //! FE8U = 0x08082764
 void sub_8082764(int arg_1) {
     int i;
@@ -548,11 +546,11 @@ void sub_8082764(int arg_1) {
         gManimScanlineBufs[1][i] = (0x10 - ((i - r4) >> 1)) * 0x100 | ((i - r4) >> 1);
     }
 
-    for (i = ip - 1; i >= 0x50 && i >= r4 + 0x20; i--) {
+    for (i = ip - 1; i >= 0x50 && i >= ip - 0x20; i--) {
         gManimScanlineBufs[1][i] = (0x10 - ((ip - i) >> 1)) * 0x100 | ((ip - i) >> 1);
     }
 
-    for (i = r4 + (0x50 - ip); i < ip; i++) {
+    for (i = r4 + 0x20; i < ip - 0x20; i++) {
         gManimScanlineBufs[1][i] = 0x10;
     }
 
@@ -560,154 +558,6 @@ void sub_8082764(int arg_1) {
 
     return;
 }
-
-#else
-
-/* https://decomp.me/scratch/H9WJv */
-
-NAKEDFUNC
-void sub_8082764(int param_1)
-{
-    asm("\n\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0x70\n\
-        ble _08082776\n\
-        movs r1, #0x70\n\
-    _08082776:\n\
-        movs r0, #0x50\n\
-        subs r4, r0, r1\n\
-        adds r1, #0x50\n\
-        mov ip, r1\n\
-        cmp r4, #0\n\
-        ble _08082798\n\
-        ldr r0, _08082858  @ gManimScanlineBufs\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #5\n\
-        adds r1, r2, #0\n\
-        ldr r0, [r0, #4]\n\
-        adds r2, r4, #0\n\
-    _0808278E:\n\
-        strh r1, [r0]\n\
-        adds r0, #2\n\
-        subs r2, #1\n\
-        cmp r2, #0\n\
-        bne _0808278E\n\
-    _08082798:\n\
-        mov r2, ip\n\
-        movs r7, #0x20\n\
-        adds r7, r7, r4\n\
-        mov sl, r7\n\
-        subs r0, r2, #1\n\
-        mov r9, r0\n\
-        adds r6, r2, #0\n\
-        subs r6, #0x20\n\
-        cmp r2, #0x9f\n\
-        bgt _080827C4\n\
-        ldr r0, _08082858  @ gManimScanlineBufs\n\
-        ldr r1, [r0, #4]\n\
-        movs r7, #0x80\n\
-        lsls r7, r7, #5\n\
-        adds r3, r7, #0\n\
-        lsls r0, r2, #1\n\
-        adds r0, r0, r1\n\
-    _080827BA:\n\
-        strh r3, [r0]\n\
-        adds r0, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x9f\n\
-        ble _080827BA\n\
-    _080827C4:\n\
-        adds r2, r4, #0\n\
-        cmp r2, #0x4f\n\
-        bgt _080827F6\n\
-        cmp r2, sl\n\
-        bge _080827F6\n\
-        ldr r0, _08082858  @ gManimScanlineBufs\n\
-        ldr r1, [r0, #4]\n\
-        movs r0, #0x10\n\
-        mov r8, r0\n\
-        mov r5, sl\n\
-        lsls r0, r2, #1\n\
-        adds r3, r0, r1\n\
-    _080827DC:\n\
-        subs r1, r2, r4\n\
-        asrs r1, r1, #1\n\
-        mov r7, r8\n\
-        subs r0, r7, r1\n\
-        lsls r0, r0, #8\n\
-        orrs r0, r1\n\
-        strh r0, [r3]\n\
-        adds r3, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x4f\n\
-        bgt _080827F6\n\
-        cmp r2, r5\n\
-        blt _080827DC\n\
-    _080827F6:\n\
-        mov r2, r9\n\
-        cmp r2, #0x4f\n\
-        ble _08082826\n\
-        adds r4, r6, #0\n\
-        cmp r2, r6\n\
-        blt _08082826\n\
-        ldr r0, _08082858  @ gManimScanlineBufs\n\
-        ldr r1, [r0, #4]\n\
-        movs r5, #0x10\n\
-        lsls r0, r2, #1\n\
-        adds r3, r0, r1\n\
-    _0808280C:\n\
-        mov r0, ip\n\
-        subs r1, r0, r2\n\
-        asrs r1, r1, #1\n\
-        subs r0, r5, r1\n\
-        lsls r0, r0, #8\n\
-        orrs r0, r1\n\
-        strh r0, [r3]\n\
-        subs r3, #2\n\
-        subs r2, #1\n\
-        cmp r2, #0x4f\n\
-        ble _08082826\n\
-        cmp r2, r4\n\
-        bge _0808280C\n\
-    _08082826:\n\
-        mov r2, sl\n\
-        adds r3, r6, #0\n\
-        cmp r2, r3\n\
-        bge _08082844\n\
-        ldr r0, _08082858  @ gManimScanlineBufs\n\
-        ldr r1, [r0, #4]\n\
-        movs r4, #0x10\n\
-        lsls r0, r2, #1\n\
-        adds r0, r0, r1\n\
-        subs r2, r3, r2\n\
-    _0808283A:\n\
-        strh r4, [r0]\n\
-        adds r0, #2\n\
-        subs r2, #1\n\
-        cmp r2, #0\n\
-        bne _0808283A\n\
-    _08082844:\n\
-        bl SwapScanlineBufs\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08082858: .4byte gManimScanlineBufs\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 //! FE8U = 0x0808285C
 void WorldFlushHBlank(void)
