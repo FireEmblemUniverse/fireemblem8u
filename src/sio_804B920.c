@@ -5,21 +5,6 @@
 
 #include "sio.h"
 
-struct SioProc85AA7B4
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x4C);
-    /* 4C */ s16 unk_4c;
-    /* 4E */ STRUCT_PAD(0x4E, 0x64);
-    /* 64 */ s16 unk_64;
-};
-
-extern s16 gUnk_Sio_02000F00[];
-
-extern s16 * gUnk_Sio_02001180;
-extern s16 * gUnk_Sio_02001184;
-extern s16 * gUnk_Sio_02001188;
-
 //! FE8U = 0x0804B920
 void Set_0203DDDC(void)
 {

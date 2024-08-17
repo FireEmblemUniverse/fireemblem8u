@@ -15,39 +15,6 @@
 
 #include "constants/faces.h"
 
-struct SioBatProc_Unk2C
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x34);
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-};
-
-struct SioBatProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct SioBatProc_Unk2C * unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3a;
-    /* 3B */ u8 unk_3b;
-    /* 3C */ STRUCT_PAD(0x3C, 0x4C);
-    /* 4C */ s16 unk_4c;
-    /* 4E */ STRUCT_PAD(0x4E, 0x58);
-    /* 58 */ int unk_58;
-    /* 5C */ STRUCT_PAD(0x5C, 0x64);
-    /* 64 */ s16 unk_64;
-};
-
-extern struct Font Font_0203DB64;
-extern char gUnknown_03004E86[];
-extern int gUnk_Sio_0203DD28;
-extern struct SioMessage gUnknown_03004E80;
-extern u8 gUnk_Sio_0203DAC0[];
-extern struct Text gUnk_Sio_0203DA78;
-
 //! FE8U = 0x08045930
 int sub_8045930(u8 ranking, u32 playerCount, u32 mode, u32 points)
 {
@@ -126,8 +93,6 @@ void sub_8045A64(struct SioBatProc * proc)
     return;
 }
 
-extern u8 gUnknown_080D9E44[];
-
 //! FE8U = 0x08045AF4
 void sub_8045AF4(void)
 {
@@ -136,7 +101,7 @@ void sub_8045AF4(void)
 
     // TODO: rodata
     u8 hack[3];
-    memcpy(hack, gUnknown_080D9E44, 3);
+    memcpy(hack, gUnknown_080D9E44, sizeof(gUnknown_080D9E44));
 
     InitUnits();
 
@@ -198,7 +163,28 @@ void sub_8045AF4(void)
     return;
 }
 
-extern struct ProcCmd ProcScr_SIOMAIN2[];
+struct ProcCmd CONST_DATA ProcScr_SIOMAIN2[] = {
+    PROC_15,
+    PROC_NAME("SIOMAIN"),
+    PROC_YIELD,
+    PROC_CALL(sub_8049828),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+PROC_LABEL(0),
+    PROC_CALL(sub_80499D0),
+    PROC_SLEEP(1),
+    PROC_START_CHILD_BLOCKING(ProcScr_LinkArenaPhaseIntro),
+    PROC_YIELD,
+    PROC_REPEAT(sub_8049964),
+    PROC_GOTO(0),
+PROC_LABEL(2),
+    PROC_CALL(sub_804B71C),
+    PROC_REPEAT(sub_804B76C),
+PROC_LABEL(3),
+    PROC_CALL(sub_8049B04),
+    PROC_END,
+};
 
 //! FE8U = 0x08045C14
 void New6C_SIOMAIN2(void)
@@ -303,8 +289,6 @@ void sub_8045CEC(void)
 
     return;
 }
-
-extern struct FaceVramEntry gUnknown_085A9864[];
 
 //! FE8U = 0x08045DC0
 void sub_8045DC0(struct SioBatProc * proc)
@@ -706,8 +690,6 @@ void sub_8046478(struct Unit * unit)
     return;
 }
 
-extern struct MultiArenaSaveTeam * gUnknown_085A9884;
-
 //! FE8U = 0x080464B0
 void sub_80464B0(struct SioBatProc * proc)
 {
@@ -955,3 +937,17 @@ void sub_80469B8(void)
     sub_8042980(0);
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_085AA75C[] = {
+    PROC_CALL(sub_804B800),
+    PROC_SLEEP(1),
+    PROC_CALL(BattleApplyGameStateUpdates),
+    PROC_WHILE(DoesBMXFADEExist),
+    PROC_CALL(BATTLE_GOTO1_IfNobodyIsDead),
+    PROC_CALL(sub_804B850),
+    PROC_SLEEP(32),
+    PROC_CALL(BATTLE_DeleteLinkedMOVEUNIT),
+PROC_LABEL(1),
+    PROC_CALL(sub_804B8D0),
+    PROC_END,
+};

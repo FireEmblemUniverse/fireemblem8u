@@ -21,7 +21,7 @@
  * Contains Link Arena functions that are called by events
  */
 
-extern struct ProcCmd ProcScr_TacticianNameSelection[];
+
 
 //! FE8U = 0x08048260
 void sub_8048260(ProcPtr parent)
@@ -251,8 +251,6 @@ void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
 
     return;
 }
-
-extern u8 gUnk_Sio_02000000[];
 
 //! FE8U = 0x08048604
 void StartXMapTransfer(struct SioBigSendProc * proc)

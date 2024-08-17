@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "m4a.h"
 #include "bmio.h"
+#include "prepscreen.h"
 
 #include "sio_core.h"
 #include "sio.h"
@@ -17,39 +18,6 @@
  * Not to be confused with "sio_result.c", which refers to the
  * "Battle Data" UI.
  */
-
-struct SioPostBattleProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ ProcPtr unk_2c[4];
-    /* 3C */ STRUCT_PAD(0x3c, 0x40);
-    /* 40 */ u8 unk_40;
-    /* 41 */ u8 unk_41;
-    /* 42 */ u8 playerId;
-    /* 43 */ u8 unk_43;
-    /* 44 */ struct SioProc85A971C_Unk44 unk_44[4];
-    /* 64 */ int unk_64;
-};
-
-struct SioPostBattleSpritesProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct SioPostBattleProc * unk_2c;
-    /* 30 */ int x;
-    /* 34 */ int y;
-    /* 38 */ int delayMaybe;
-    /* 3C */ int timer;
-    /* 40 */ u16 fid;
-    /* 42 */ u8 oam2;
-    /* 43 */ u8 ranking;
-};
-
-struct SioPostBattleMusicProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x58);
-    /* 58 */ int isPlayerWinner;
-};
 
 // clang-format off
 
@@ -81,6 +49,8 @@ s16 const gUnknown_080D9E1C[5][4] =
 
     { 2, 7, 12, 17, },
 };
+
+u8 const gUnknown_080D9E44[3] = { 3, 7, 15 };
 
 // clang-format on
 
@@ -431,4 +401,202 @@ struct ProcCmd CONST_DATA ProcScr_SioPostBattle_PlayMusic[] =
     PROC_END,
 };
 
-// clang-format on
+struct ProcCmd CONST_DATA ProcScr_SIOPRA[] = {
+    PROC_NAME("SIOPRA"),
+    PROC_YIELD,
+    PROC_CALL(StartLinkArenaTeamList),
+    PROC_YIELD,
+    PROC_CALL(sub_8046DB4),
+    PROC_CALL(sub_8045AF4),
+    PROC_CALL(nullsub_13),
+    PROC_CALL(sub_804C4F8),
+    PROC_CALL(sub_804C590),
+    PROC_YIELD,
+    PROC_CALL(New6C_SIOMAIN2),
+    PROC_YIELD,
+    PROC_REPEAT(sub_8045C28),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_START_CHILD_BLOCKING(ProcScr_SioPostBattle),
+    PROC_YIELD,
+    PROC_CALL(sub_8043244),
+PROC_LABEL(4),
+PROC_LABEL(1),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_END,
+};
+
+/* Apparently these should belongs to sio_bat? */
+const struct LinkArenaRuleInfo gLinkArenaRuleData[] = {
+    { 0x776, 14, 17, 0x77B, 0x77C },
+    { 0x777, 16, 22, 0x779, 0x77A },
+    { 0x778, 14, 17, 0x77B, 0x77C },
+};
+
+CONST_DATA struct FaceVramEntry gUnknown_085A9864[] = {
+    { 0x7000, 1 },
+    { 0x7000, 1 },
+    { 0x7000, 1 },
+    { 0x7000, 1 },
+};
+
+CONST_DATA struct MultiArenaSaveTeam * gUnknown_085A9884 = (void *)gGenericBuffer;
+
+struct ProcCmd CONST_DATA ProcScr_SIOBAT[] = {
+    PROC_NAME("SIOBAT"),
+PROC_LABEL(0),
+    PROC_CALL(StartLinkArenaTeamList),
+    PROC_YIELD,
+    PROC_CALL(sub_8046DB4),
+    PROC_CALL(nullsub_13),
+    PROC_CALL(sub_804C4F8),
+    PROC_CALL(sub_804C590),
+    PROC_CALL(sub_8045DC0),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+    PROC_CALL(sub_8045F00),
+PROC_LABEL(3),
+    PROC_REPEAT(sub_8045F48),
+    PROC_CALL(sub_80469AC),
+    PROC_REPEAT(sub_804619C),
+    PROC_CALL(sub_8042F84),
+    PROC_REPEAT(sub_8042F98),
+    PROC_CALL(sub_8046234),
+    PROC_REPEAT(sub_80462D4),
+    PROC_CALL(sub_8042F84),
+    PROC_REPEAT(sub_8042F98),
+    PROC_REPEAT(sub_80463A8),
+    PROC_SLEEP(10),
+    PROC_CALL(sub_804645C),
+    PROC_SLEEP(80),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(EndLinkArenaVersusSpriteDraw),
+    PROC_CALL(EndMuralBackground),
+    PROC_CALL(sub_8046838),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+    PROC_SLEEP(180),
+    PROC_CALL(sub_8042F84),
+    PROC_REPEAT(sub_8042F98),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_END_EACH(ProcScr_RuleSettingSpriteDraw_Static),
+    PROC_CALL(nullsub_13),
+    PROC_CALL(sub_804C4F8),
+    PROC_CALL(sub_804C590),
+    PROC_CALL(sub_80467AC),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+    PROC_CALL(sub_80464B0),
+    PROC_REPEAT(sub_8046580),
+    PROC_REPEAT(sub_8046704),
+    PROC_CALL(sub_8042F84),
+    PROC_REPEAT(sub_8042F98),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(EndLinkArenaVersusSpriteDraw),
+    PROC_CALL(EndMuralBackground),
+    PROC_CALL(nullsub_13),
+    PROC_SLEEP(1),
+    PROC_CALL(New6C_SIOMAIN2),
+    PROC_YIELD,
+    PROC_REPEAT(sub_8045C28),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_80469B8),
+    PROC_CALL(sub_8045CBC),
+    PROC_START_CHILD_BLOCKING(ProcScr_SioPostBattle),
+    PROC_YIELD,
+    PROC_CALL(sub_8045CE0),
+    PROC_CALL(sub_8045A64),
+    PROC_YIELD,
+    PROC_CALL(sub_8043244),
+    PROC_CALL(nullsub_13),
+    PROC_GOTO(1),
+PROC_LABEL(2),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(ResetFaces),
+    PROC_CALL(EndLinkArenaVersusSpriteDraw),
+    PROC_CALL(EndMuralBackground),
+    PROC_GOTO(0),
+PROC_LABEL(4),
+    PROC_CALL(sub_8042F84),
+    PROC_REPEAT(sub_8042F98),
+    PROC_SLEEP(1),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_80469B8),
+    PROC_CALL(sub_8045CBC),
+    PROC_CALL(sub_8045CE0),
+PROC_LABEL(1),
+    PROC_CALL(sub_8041898),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA ProcScr_SIOTERM[] = {
+    PROC_NAME("SIOTERM"),
+PROC_LABEL(0),
+    PROC_CALL(StartLinkArenaTeamList),
+    PROC_YIELD,
+    PROC_CALL(sub_8046DB4),
+PROC_LABEL(3),
+    PROC_CALL(sub_80469C4),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+    PROC_REPEAT(sub_8046CF0),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_804309C),
+    PROC_CALL(sub_8046D6C),
+    PROC_CALL(nullsub_13),
+    PROC_CALL(sub_804C4F8),
+    PROC_CALL(sub_804C590),
+    PROC_CALL(EndLinkArenaButtonSpriteDraw),
+    PROC_CALL(EndMuralBackground),
+    PROC_CALL(BMapVSync_End),
+    PROC_YIELD,
+    PROC_CALL(StartPrepAtMenuWithConfig),
+PROC_LABEL(5),
+    PROC_REPEAT(sub_8046DEC),
+    PROC_CALL(BMapVSync_Start),
+    PROC_CALL(sub_8046DD0),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_8048260),
+    PROC_YIELD,
+    PROC_CALL(sub_8046E0C),
+    PROC_YIELD,
+    PROC_GOTO(0),
+PROC_LABEL(2),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_GOTO(3),
+PROC_LABEL(4),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_8046E4C),
+    PROC_CALL(EndLinkArenaButtonSpriteDraw),
+    PROC_CALL(EndMuralBackground),
+    PROC_GOTO(0),
+PROC_LABEL(1),
+    PROC_END,
+};
