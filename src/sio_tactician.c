@@ -11,6 +11,33 @@
 #include "uiutils.h"
 #include "constants/characters.h"
 
+struct ProcCmd CONST_DATA ProcScr_TacticianNameSelection[] = {
+    PROC_YIELD,
+    PROC_CALL(Tactician_InitScreen),
+    PROC_CALL(FadeInBlackSpeed20),
+    PROC_YIELD,
+    PROC_CALL(Clear_0203DDDC),
+PROC_LABEL(0),
+    PROC_REPEAT(Tactician_Loop),
+    PROC_GOTO(2),
+PROC_LABEL(1),
+    PROC_CALL(sub_8044FE4),
+    PROC_REPEAT(sub_8044FFC),
+    PROC_CALL(sub_804503C),
+    PROC_REPEAT(sub_8045068),
+    PROC_GOTO(0),
+PROC_LABEL(3),
+    PROC_CALL(NameSelect_DrawName),
+    PROC_REPEAT(sub_8045108),
+    PROC_GOTO(0),
+PROC_LABEL(2),
+    PROC_CALL(Set_0203DDDC),
+    PROC_CALL(sub_8013F40),
+    PROC_YIELD,
+    PROC_CALL(sub_80451F0),
+    PROC_END,
+};
+
 //! FE8U = 0x08044550
 const struct TacticianTextConf * GetTacticianTextConf(s16 idx)
 {
@@ -552,8 +579,6 @@ void Tactician_Loop(struct ProcTactician * proc)
 
     UpdateNameEntrySpriteDraw(proc->child1, conf->xpos - 4, conf->unk32 + 1, StrLen(_cbuf) * 7, conf->unk34, (proc->line_idx <= 1) ? proc->line_idx : 2);
 }
-
-extern u8 gUnknown_03001810;
 
 //! FE8U = 0x08044F84
 void sub_8044F84(void)

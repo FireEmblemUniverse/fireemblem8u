@@ -82,21 +82,6 @@ void sub_804C3AC(u8 * src, u8 * dst, int c, int d)
     return;
 }
 
-struct LinkArenaTitleBannerProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ STRUCT_PAD(0x34, 0x58);
-    /* 58 */ int unk_58;
-    /* 5C */ u32 chr;
-};
-
-extern u8 gUnknown_085B0DE8[];
-extern u8 gUnknown_085AAE0C[];
-
-extern u8 gUnknown_085B0F2C[];
-
 //! FE8U = 0x0804C3EC
 void LATitleBanner_Init(struct LinkArenaTitleBannerProc * proc)
 {
@@ -437,7 +422,7 @@ void sub_804C7DC(struct SioProc85AA9C0 * proc, s16 x, s16 y)
     return;
 }
 
-extern u16 gUnknown_085ADDE8[];
+
 
 // clang-format off
 
@@ -475,8 +460,6 @@ void sub_804C7E4(void)
 
     return;
 }
-
-extern u16 gUnknown_085ADE48[];
 
 //! FE8U = 0x0804C83C
 void sub_804C83C(void)
@@ -717,16 +700,6 @@ ProcPtr sub_804CAEC(struct SioTeamListProc * parent, int numActiveOptions, u8 * 
     return proc;
 }
 
-struct LATeamSpriteDrawProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int xBase;
-    /* 30 */ int yBase;
-    /* 34 */ int yMin;
-    /* 38 */ int yMax;
-    /* 3C */ int numTeams;
-};
-
 //! FE8U = 0x0804CB94
 void LATeamSpriteDraw_Loop(struct LATeamSpriteDrawProc * proc)
 {
@@ -802,8 +775,6 @@ void ScrollMultiArenaTeamSprites(int amount)
     return;
 }
 
-extern u16 gUnknown_085ADE28[];
-
 //! FE8U = 0x0804CC78
 void UpdateNameEntrySpriteGlow(void)
 {
@@ -827,18 +798,6 @@ void UpdateNameEntrySpriteGlow(void)
 
     return;
 }
-
-struct NameEntrySpriteDrawProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int xCurrent;
-    /* 30 */ int yCurrent;
-    /* 34 */ int xNew;
-    /* 38 */ int yNew;
-    /* 3C */ int cursorKind;
-    /* 40 */ int xPointer;
-    /* 44 */ int unk_44; // maybe mode (Katakana/Hiragana)?
-};
 
 // clang-format off
 
@@ -989,15 +948,6 @@ void UpdateNameEntrySpriteDraw(void * proc, int xNew, int yNew, int xPointer, in
     return;
 }
 
-struct RuleSettingSpriteDrawProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2A */ s16 yPrevious;
-    /* 2C */ s16 yNew;
-    /* 2E */ s16 xOption;
-    /* 30 */ s16 yOption;
-};
-
 // clang-format off
 
 const u16 Sprite_RuleSettings_HideUnitsIcon[] =
@@ -1135,15 +1085,6 @@ void UpdateSioMenuBurstGlow(int idx)
     return;
 }
 
-struct SioMenuBurstFxProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int xBase;
-    /* 30 */ int yBase;
-    /* 34 */ STRUCT_PAD(0x34, 0x4C);
-    /* 4C */ s16 glowPalIdx;
-};
-
 // clang-format off
 
 const u16 Sprite_SioMenuBurst_TopLeft[] =
@@ -1254,21 +1195,6 @@ ProcPtr StartSioMenuBurstFx(ProcPtr parent, int x, int y)
 
     // return proc; // BUG
 }
-
-struct LAMenuScrollBarProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int xBase;
-    /* 30 */ int yBase;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ u8 unk_3c;
-    /* 3D */ u8 unk_3d;
-    /* 3E */ s16 unk_3e;
-    /* 40 */ s16 unk_40;
-    /* 42 */ u16 unk_42;
-    /* 44 */ u8 oam2Arrows[2];
-};
 
 //! FE8U = 0x0804CFE0
 void LinkArenaMenuScroll_Init(struct LAMenuScrollBarProc * proc)
@@ -1569,16 +1495,6 @@ void sub_804D428(void)
     return;
 }
 
-struct LAVersusSpriteDrawProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int x;
-    /* 30 */ int yBase;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ u16 unk_3c[4];
-};
-
 // clang-format off
 
 const u16 Sprite_LAVersus_P1[] =
@@ -1799,13 +1715,6 @@ void sub_804D778(void)
 
     return;
 }
-
-struct SioProc85AABD8
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int x;
-    /* 30 */ int y;
-};
 
 // clang-format off
 

@@ -24,7 +24,7 @@ static void RefreshMinesOnBmMap(void);
 enum { MAP_POOL_SIZE = 0x7B8 };
 
 // TODO: figure out what's up with this (overlaps with a lot of other objects?)
-extern u16 gBmMapBuffer[];
+
 
 EWRAM_DATA struct Vec2 gBmMapSize = {};
 

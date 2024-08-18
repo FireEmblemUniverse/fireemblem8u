@@ -12,44 +12,6 @@
 #include "sio_core.h"
 #include "sio.h"
 
-struct LAPointsBoxProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct Text text[4];
-};
-
-struct PointsNumberMoverProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2A */ s16 x;
-    /* 2C */ s16 y;
-    /* 2E */ s16 xTarget;
-    /* 30 */ s16 yTarget;
-    /* 32 */ u8 playerId;
-    /* 33 */ u8 unitId;
-    /* 34 */ int difference;
-    /* 38 */ u32 newScore;
-    /* 3C */ u32 timer;
-    /* 40 */ s8 unk_40;
-    /* 41 */ STRUCT_PAD(0x41, 0x44);
-    /* 44 */ int unk_44; // used for showing the "rolling" number while accumulating points
-    /* 48 */ struct Text text;
-};
-
-struct PointsSpriteTextProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int x;
-    /* 30 */ int y;
-    /* 34 */ STRUCT_PAD(0x34, 0x4C);
-    /* 4C */ s16 timer;
-    /* 4E */ STRUCT_PAD(0x4E, 0x54);
-    /* 54 */ const char * str;
-};
-
-extern u8 gUnknown_085AD80C[];
-extern u16 gUnknown_085ADDA8[];
-
 // clang-format off
 
 const u8 gUnknown_080D9F28[][4] =
@@ -68,13 +30,28 @@ const u8 gUnknown_080D9F38[][4] =
     1, 3, 2, 0,
 };
 
-const u16 gUnknown_080D9F48[] =
+const struct Vec2 gUnknown_080D9F48[] =
 {
-    0x5, 0x9, 0x6, 0x9, 0x7, 0x9, 0x8, 0x9,
-    0x9, 0x9, 0xC, 0x7, 0xC, 0x6, 0xC, 0x5,
-    0xC, 0x4, 0xC, 0x3, 0x9, 0x1, 0x8, 0x1,
-    0x7, 0x1, 0x6, 0x1, 0x5, 0x1, 0x2, 0x3,
-    0x2, 0x4, 0x2, 0x5, 0x2, 0x6, 0x2, 0x7,
+    { 5, 9 },
+    { 6, 9 },
+    { 7, 9 },
+    { 8, 9 },
+    { 9, 9 },
+    { 12, 7 },
+    { 12, 6 },
+    { 12, 5 },
+    { 12, 4 },
+    { 12, 3 },
+    { 9, 1 },
+    { 8, 1 },
+    { 7, 1 },
+    { 6, 1 },
+    { 5, 1 },
+    { 2, 3 },
+    { 2, 4 },
+    { 2, 5 },
+    { 2, 6 },
+    { 2, 7 },
 };
 
 const u8 gUnknown_080D9F98[] =
@@ -84,10 +61,6 @@ const u8 gUnknown_080D9F98[] =
     23,  1,
      1,  1,
 };
-
-// clang-format on
-
-extern struct Text gUnk_Sio_02000C78[];
 
 // clang-format off
 

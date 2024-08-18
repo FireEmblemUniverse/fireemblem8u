@@ -28,41 +28,15 @@
 #include "helpbox.h"
 #include "mapanim.h"
 #include "ekrbattle.h"
+#include "event.h"
+#include "eventcall.h"
+#include "eventscript.h"
+#include "EAstdlib.h"
 
 #include "sio_core.h"
 #include "sio.h"
 
 #include "constants/terrains.h"
-
-struct SioBattleMapProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ int unk_34;
-    /* 38 */ int unk_38;
-    /* 3C */ STRUCT_PAD(0x3C, 0x54);
-    /* 54 */ struct MuProc * unk_54;
-    /* 58 */ int unk_58;
-    /* 5C */ int unk_5c;
-};
-
-struct SioProc85AA1AC
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x64);
-    /* 64 */ s16 unk_64;
-};
-
-extern u8 gUnknown_03001818[];
-extern struct Vec2 gUnknown_0300182C;
-extern int gUnknown_03001830;
-extern u8 gUnknown_03001834[];
-extern struct MuProc * gUnknown_03001838[];
-extern u16 gUnknown_03001840[];
-
-extern u8 gUnknown_080D9F28[][4];
-extern struct Vec2 gUnknown_080D9F48[];
 
 //! FE8U = 0x08049298
 void sub_8049298(struct Unit * unit)
@@ -581,10 +555,6 @@ void sub_8049940(ProcPtr proc)
 
     return;
 }
-
-extern struct ProcCmd gUnknown_085AA2FC[];
-extern struct ProcCmd gUnknown_085AA4CC[];
-extern struct ProcCmd gUnknown_085AA5BC[];
 
 //! FE8U = 0x08049964
 void sub_8049964(ProcPtr parent)
@@ -1119,8 +1089,6 @@ void sub_8049F44(struct SioBattleMapProc * proc)
     return;
 }
 
-extern struct MenuDef gUnknown_085AADA0;
-
 //! FE8U = 0x0804A108
 void sub_804A108(struct SioProc85AA1AC * proc)
 {
@@ -1490,8 +1458,6 @@ void sub_804A6A4(ProcPtr proc)
     return;
 }
 
-extern struct Vec2 gUnknown_080D9F48[];
-
 //! FE8U = 0x0804A7C0
 void sub_804A7C0(ProcPtr proc)
 {
@@ -1718,20 +1684,17 @@ bool sub_804AADC(void * data)
     return false;
 }
 
-extern const struct PopupInstruction gUnknown_085AA1FC[];
-extern const struct PopupInstruction gUnknown_085AA21C[];
-
-struct SioProc85AA4CC
-{
-    PROC_HEADER;
-    int unk_2c;
-    int unk_30;
-    int unk_34;
-    int unk_38;
+CONST_DATA struct PopupInstruction gUnknown_085AA1FC[] = {
+    POPUP_STR(gUnknown_03001850),
+    POPUP_SPACE(3),
+    POPUP_MSG(0x757), // The team surrendered.
+    POPUP_END
 };
 
-extern u8 gUnknown_03001834[];
-extern u8 gUnknown_03001850[];
+CONST_DATA struct PopupInstruction gUnknown_085AA21C[] = {
+    POPUP_MSG(0x758), // No one can do damage this turn
+    POPUP_END
+};
 
 //! FE8U = 0x0804AAFC
 void sub_804AAFC(struct SioProc85AA4CC * proc)
@@ -2299,7 +2262,16 @@ void sub_804B250(ProcPtr proc)
     return;
 }
 
-extern u8 gUnknown_085AA22C[];
+CONST_DATA u8 gUnknown_085AA22C[] = {
+    0, 0, 0, 0, 0, 0, 0,
+    1, 1,
+    2, 2, 2,
+    3, 3, 3, 3,
+    4, 4, 4, 4, 4, 4, 4,
+    3, 3,
+    2, 2, 2,
+    1, 1, 1, 1
+};
 
 //! FE8U = 0x0804B278
 void sub_804B278(void)
@@ -2342,7 +2314,24 @@ void sub_804B278(void)
     return;
 }
 
-extern struct ProcCmd gUnknown_085AA24C[];
+struct ProcCmd CONST_DATA gUnknown_085AA24C[] = {
+    PROC_15,
+    PROC_MARK(1),
+    PROC_YIELD,
+    PROC_REPEAT(sub_804B278)
+    // ? maybe just a cut to the following part
+};
+struct ProcCmd CONST_DATA gUnknown_085AA26C[] = {
+    PROC_CALL(sub_804B604),
+PROC_LABEL(0),
+    PROC_CALL(sub_804B624),
+    PROC_SLEEP(32),
+    PROC_CALL(sub_804B6AC),
+    PROC_GOTO(0),
+PROC_LABEL(1),
+    PROC_CALL(sub_804B6B8),
+    PROC_END,
+};
 
 //! FE8U = 0x0804B38C
 void sub_804B38C(void)
@@ -2623,7 +2612,16 @@ void sub_804B6CC(void)
     return;
 }
 
-extern EventScr gUnknown_085AA2B4[];
+CONST_DATA EventScr gUnknown_085AA2B4[] = {
+    STAL(1)
+    EVBIT_T(7)
+    EVBIT_MODIFY(0x4)
+    TEXTSHOW(0x88c) // do you surrender?
+    TEXTEND
+    REMA
+    ASMC(sub_804B6CC)
+    ENDA
+};
 
 //! FE8U = 0x0804B6F4
 void sub_804B6F4(void)
@@ -2632,7 +2630,16 @@ void sub_804B6F4(void)
     return;
 }
 
-extern EventScr gUnknown_085AA2D8[];
+CONST_DATA EventScr gUnknown_085AA2D8[] = {
+    STAL(1)
+    EVBIT_T(7)
+    EVBIT_MODIFY(0x4)
+    TEXTSHOW(0x88d) // You can do no damage. Would you like to quit?
+    TEXTEND
+    REMA
+    ASMC(sub_804B6CC)
+    ENDA
+};
 
 //! FE8U = 0x0804B708
 void sub_804B708(void)
@@ -2797,3 +2804,132 @@ void sub_804B8D0(void)
 
     return;
 }
+
+struct ProcCmd CONST_DATA gUnknown_085AA2FC[] = {
+PROC_LABEL(0),
+    PROC_REPEAT(sub_8049CD4),
+    PROC_CALL(sub_8049F38),
+PROC_LABEL(1),
+    PROC_REPEAT(sub_8049D0C),
+    PROC_REPEAT(sub_8049D24),
+PROC_LABEL(4),
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_YIELD,
+    PROC_CALL(sub_804B3B0),
+    PROC_YIELD,
+    PROC_CALL(sub_80497A0),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_GOTO(0),
+PROC_LABEL(2),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_804B6F4),
+    PROC_YIELD,
+    PROC_CALL(sub_804B3D0),
+    PROC_START_CHILD_BLOCKING(gUnknown_085AA26C),
+    PROC_YIELD,
+    PROC_CALL(sub_804B480),
+PROC_LABEL(3),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_804B708),
+    PROC_YIELD,
+    PROC_CALL(sub_804B408),
+    PROC_CALL(sub_804B518),
+PROC_LABEL(5),
+    PROC_REPEAT(sub_8049D0C),
+    PROC_REPEAT(sub_8049F44),
+PROC_LABEL(6),
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_YIELD,
+    PROC_CALL(sub_804B3B0),
+    PROC_YIELD,
+    PROC_CALL(sub_80497A0),
+    PROC_CALL(RefreshBMapGraphics),
+    PROC_CALL(sub_8049F38),
+    PROC_CALL(sub_80498F4),
+    PROC_GOTO(5),
+PROC_LABEL(7),
+    PROC_REPEAT(sub_804A430),
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_CALL(sub_804A44C),
+    PROC_CALL(sub_804A51C),
+    PROC_YIELD,
+    PROC_CALL(sub_804A5A4),
+    PROC_REPEAT(sub_804A614),
+    PROC_REPEAT(sub_804A6A4),
+    PROC_CALL(sub_8049238),
+    PROC_YIELD,
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_REPEAT(sub_804A7C0),
+    PROC_REPEAT(sub_804A9A4),
+    PROC_CALL(sub_804AA88),
+PROC_LABEL(8),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_085AA4CC[] = {
+PROC_LABEL(0),
+    PROC_CALL(sub_8049F38),
+    PROC_REPEAT(sub_804AAFC),
+PROC_LABEL(1),
+    PROC_REPEAT(sub_804ABCC),
+    PROC_GOTO(2),
+PROC_LABEL(3),
+    PROC_START_CHILD_BLOCKING(gUnknown_085AA26C),
+    PROC_YIELD,
+    PROC_WHILE_EXISTS(ProcScr_Popup),
+    PROC_CALL(sub_804B554),
+PROC_LABEL(4),
+    PROC_WHILE_EXISTS(ProcScr_Popup),
+    PROC_CALL(sub_804B5E0),
+PROC_LABEL(2),
+    PROC_REPEAT(sub_804ACC4),
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_CALL(sub_804A51C),
+    PROC_YIELD,
+    PROC_CALL(sub_804A5A4),
+    PROC_REPEAT(sub_804A614),
+    PROC_REPEAT(sub_804A6A4),
+    PROC_CALL(sub_8049238),
+    PROC_YIELD,
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_REPEAT(sub_804A7C0),
+    PROC_REPEAT(sub_804A9A4),
+    PROC_CALL(sub_804AA88),
+PROC_LABEL(5),
+    PROC_END,
+};
+
+struct ProcCmd CONST_DATA gUnknown_085AA5BC[] = {
+    PROC_CALL(sub_8049F38),
+    PROC_YIELD,
+PROC_LABEL(0),
+    PROC_REPEAT(sub_804AEC4),
+PROC_LABEL(1),
+    PROC_REPEAT(sub_804AF5C),
+    PROC_CALL(sub_804B190),
+    PROC_YIELD,
+    PROC_CALL(sub_804B1C0),
+PROC_LABEL(2),
+    PROC_REPEAT(sub_804B250),
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_GOTO(4),
+PROC_LABEL(3),
+    PROC_SLEEP(1),
+    PROC_CALL(sub_804B6F4),
+    PROC_YIELD,
+    PROC_CALL(sub_804B43C),
+PROC_LABEL(4),
+    PROC_CALL(sub_804A51C),
+    PROC_YIELD,
+    PROC_CALL(sub_804A5A4),
+    PROC_REPEAT(sub_804A614),
+    PROC_REPEAT(sub_804A6A4),
+    PROC_CALL(sub_8049238),
+    PROC_YIELD,
+    PROC_CALL(EndLinkArenaPointsBox),
+    PROC_REPEAT(sub_804A7C0),
+    PROC_REPEAT(sub_804A9A4),
+    PROC_CALL(sub_804AA88),
+PROC_LABEL(5),
+    PROC_END,
+};

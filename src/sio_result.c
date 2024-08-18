@@ -8,30 +8,6 @@
 
 #include "sio.h"
 
-struct SioResultProcUnk2C
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x30);
-    /* 30 */ int unk_30;
-};
-
-struct SioResultProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct SioResultProcUnk2C * unk_2c;
-    /* 30 */ int unk_30;
-    /* 34 */ u8 unk_34;
-    /* 35 */ u8 unk_35;
-    /* 36 */ u16 unk_36;
-    /* 38 */ s8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ STRUCT_PAD(0x3A, 0x3C);
-    /* 3C */ int unk_3c;
-    /* 40 */ int unk_40;
-};
-
-extern struct MultiArenaRankingEnt gSioResultRankings[];
-
 //! FE8U = 0x08046E5C
 void DrawLinkArenaRankIcon(u16 * tm, u32 base)
 {

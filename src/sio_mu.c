@@ -1,5 +1,5 @@
 #include "global.h"
-
+#include "sio.h"
 #include "hardware.h"
 #include "bmlib.h"
 #include "mu.h"
@@ -8,34 +8,6 @@
 #include "m4a.h"
 #include "bmunit.h"
 #include "ctc.h"
-
-struct SioProc85AA83C
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ struct MuProc * muProc;
-};
-
-struct SioWarpProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ struct Unit * unit;
-    /* 30 */ struct MuProc * muProc;
-    /* 34 */ int x;
-    /* 38 */ int y;
-    /* 3C */ int facing;
-    /* 40 */ u8 unk_40;
-    /* 41 */ s8 playStepSe;
-};
-
-struct SioProc85AA954
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x2C);
-    /* 2C */ int x;
-    /* 30 */ int y;
-};
 
 // clang-format off
 
@@ -48,8 +20,6 @@ u16 * CONST_DATA PalArray_SolidColors[] =
     Pal_AllBlue,
     Pal_AllYellow,
 };
-
-extern struct ProcCmd ProcScr_085AA83C[];
 
 // clang-format on
 

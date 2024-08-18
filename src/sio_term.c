@@ -11,17 +11,6 @@
 #include "sio.h"
 #include "sio_core.h"
 
-struct SioTermProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ int unk_2c[3];
-    /* 38 */ int unk_38[3];
-    /* 44 */ STRUCT_PAD(0x44, 0x48);
-    /* 48 */ int unk_48;
-    /* 4C */ int unk_4c;
-    /* 50 */ int unk_50;
-};
-
 extern struct Font Font_0203DB64;
 extern struct Text gSioTexts[];
 
