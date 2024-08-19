@@ -1392,19 +1392,19 @@ extern struct ProcCmd CONST_DATA ProcScr_E_Guide1[];
 extern struct ProcCmd CONST_DATA ProcScr_E_Guide2[];
 extern u8 Img_CommGameBgScreen[];  // gfx
 extern u16 Pal_CommGameBgScreenInShop[]; // pal
-extern u16 gUnknown_08B1756C[]; // pal, used in opsubtitle
+extern u16 Pal_08B1756C[]; // pal, used in opsubtitle
 // extern ??? Tsa_08B176CC
 // extern ??? Img_08B177C0
 // extern ??? Img_08B17864
 // extern ??? Pal_08B17B44
-extern u8 gUnknown_08B17B64[]; // gfx?
-extern u8 gUnknown_08B18D68[];
-extern u16 gUnknown_08B18ED4[]; // pal
-// extern ??? gUnknown_08B18F34
-// extern ??? gUnknown_08B196D8
-// extern ??? gUnknown_08B19854
-// extern ??? gUnknown_08B19874
-// extern ??? gUnknown_08B19DEC
+extern u8 Img_08B17B64[]; // gfx?
+extern u8 Tsa_08B18D68[];
+extern u16 Pal_08B18ED4[]; // pal
+// extern ??? Img_08B18F34
+// extern ??? Img_08B196D8
+// extern ??? Pal_08B19854
+// extern ??? Img_08B19874
+// extern ??? Pal_08B19DEC
 // extern ??? gGuideTable
 // extern ??? _impure_ptr
 // extern ??? gUnknown_08B1FA24

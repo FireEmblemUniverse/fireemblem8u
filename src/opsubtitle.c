@@ -183,8 +183,8 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
 
-    Decompress(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
+    Decompress(Img_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    ApplyPalettes(Pal_08B18ED4, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
 
@@ -203,7 +203,7 @@ void Subtitle_LightFlareFx_Init(struct OpSubtitleProc* proc) {
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
-    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -574,13 +574,13 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
         int coeff = _DivArm1(proc->timer_2c, 46, 0);
 
         sub_80C4BB4(
-            gUnknown_08B1756C,
+            Pal_08B1756C,
             PAL_BG(0xF),
             16,
             coeff
         );
     } else {
-        ApplyPalette(gUnknown_08B1756C, 0xF);
+        ApplyPalette(Pal_08B1756C, 0xF);
 
         Proc_Break(proc);
 
