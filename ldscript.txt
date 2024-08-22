@@ -747,7 +747,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
-        . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); src/banim-battleparse.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); src/banim-ekrmainmini.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
@@ -1227,6 +1227,8 @@ SECTIONS
         . = ALIGN(4); src/classchg-postconfirm.o(.data);
         . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
+        . = ALIGN(4); src/bmguide_config.o(.data);
+        . = ALIGN(4); data/data_fe6sio.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

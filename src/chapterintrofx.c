@@ -394,13 +394,13 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.bg2cnt.screenSize = 1;
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
 
-    Decompress(gUnknown_08B17B64, BG_CHAR_ADDR(2));
-    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
+    Decompress(Img_08B17B64, BG_CHAR_ADDR(2));
+    ApplyPalettes(Pal_08B18ED4, 0, 3);
 
-    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
-    Decompress(gUnknown_08B19874, OBJ_VRAM1);
-    ApplyPalette(gUnknown_08B19DEC, 0x12);
+    Decompress(Img_08B19874, OBJ_VRAM1);
+    ApplyPalette(Pal_08B19DEC, 0x12);
 
     ChapterIntro_8020010(proc, 0, 0xE);
 
@@ -669,10 +669,10 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
-    Decompress(gUnknown_08B18F34, BG_CHAR_ADDR(2));
-    ApplyPalette(gUnknown_08B19854, 4);
+    Decompress(Img_08B18F34, BG_CHAR_ADDR(2));
+    ApplyPalette(Pal_08B19854, 4);
 
-    Decompress(gUnknown_08B196D8, gGenericBuffer);
+    Decompress(Img_08B196D8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
 
     BG_EnableSyncByMask(4);

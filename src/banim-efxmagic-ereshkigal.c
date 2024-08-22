@@ -171,15 +171,15 @@ void StartSubSpell_efxSuperdruidOBJ2(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxSuperdruidOBJ2, PROC_TREE_3);
     proc->anim = anim;
 
-    scr = gUnknown_08752020;
+    scr = AnimScr_08752020;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition = anim->xPosition;
     frontAnim->yPosition = anim->yPosition;
 
-    SpellFx_RegisterObjGfx(gUnknown_08751808, 32 * 4 * CHR_SIZE);
-    SpellFx_RegisterObjPal(gUnknown_08751DB4, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_08751808, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_08751DB4, PLTT_SIZE_4BPP);
 
     return;
 }
