@@ -311,15 +311,7 @@ Img_OpAnimFaceDozlaShadow:  @ 0x08ADD6EC
 
 	.global Pal_OpAnimFaceDozla
 Pal_OpAnimFaceDozla:  @ 0x08ADDA54
-@ Replacing .incbin "baserom.gba", 0xADDA54, 0x20
-    .4byte 0x63ff4f34
-    .4byte 0x2a7d3b5f
-    .4byte 0x2d6e25d3
-    .4byte 0x264b28c9
-    .4byte 0x15071586
-    .4byte gUnknown_08B1FE7C + 0x62342
-    .4byte 0x27ff10f1
-    .4byte 0x7ffe7353
+	.incbin "baserom.gba", 0xADDA54, 0x20
 
 	.global Img_OpAnimFaceEwan
 Img_OpAnimFaceEwan:  @ 0x08ADDA74
@@ -331,15 +323,7 @@ Img_OpAnimFaceEwanShadow:  @ 0x08ADE080
 
 	.global Pal_OpAnimFaceEwan
 Pal_OpAnimFaceEwan:  @ 0x08ADE47C
-@ Replacing .incbin "baserom.gba", 0xADE47C, 0x20
-    .4byte 0x63ff4f34
-    .4byte 0x2a7d3b5f
-    .4byte 0x2d6e25d3
-    .4byte 0x153d24a8
-    .4byte Pal_OpAnimShiningRing + 0xc4c9
-    .4byte 0x61627a08
-    .4byte 0x6e4e7b35
-    .4byte 0x7ffe3d8b
+	.incbin "baserom.gba", 0xADE47C, 0x20
 
 	.global Img_OpAnimFaceGerik
 Img_OpAnimFaceGerik:  @ 0x08ADE49C
@@ -363,15 +347,7 @@ Img_OpAnimFaceTethysShadow:  @ 0x08ADF58C
 
 	.global Pal_OpAnimFaceTethys
 Pal_OpAnimFaceTethys:  @ 0x08ADFA08
-@ Replacing .incbin "baserom.gba", 0xADFA08, 0x20
-    .4byte 0x6fdf4f34
-    .4byte 0x2e7d473f
-    .4byte 0x2d6e25d3
-    .4byte 0x14fd24a8
-    .4byte 0x08900c79
-    .4byte 0x31ff52ff
-    .4byte 0x20ac27ff
-    .4byte 0x67354e73
+	.incbin "baserom.gba", 0xADFA08, 0x20
 
 	.global Img_OpAnimFaceMarisa
 Img_OpAnimFaceMarisa:  @ 0x08ADFA28

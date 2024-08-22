@@ -417,8 +417,8 @@ void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
     // clang-format off
     u32 * gUnknown_080DEA74[2] =
     {
-        gUnknown_086C95C0,
-        gUnknown_086C978C,
+        AnimScr_086C95C0,
+        AnimScr_086C978C,
     };
     // clang-format on
 

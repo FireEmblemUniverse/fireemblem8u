@@ -363,8 +363,8 @@ void StartSubSpell_efxDarkLongMonsBG02(struct Anim * anim)
 
     proc->tsal = TsaArray_efxDarkLongMonsBG02;
 
-    SpellFx_RegisterBgGfx(gUnknown_086E7EB0, 32 * 8 * CHR_SIZE);
-    SpellFx_RegisterBgPal(gUnknown_086E91B8, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_086E7EB0, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_086E91B8, PLTT_SIZE_4BPP);
 
     BG_SetPosition(BG_1, 0, 0);
 
@@ -444,7 +444,7 @@ void StartSubSpell_efxDarkLongMonsOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 188;
 
-    scr = gUnknown_086DA920;
+    scr = AnimScr_086DA920;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
@@ -459,8 +459,8 @@ void StartSubSpell_efxDarkLongMonsOBJ(struct Anim * anim)
 
     frontAnim->yPosition = 32;
 
-    SpellFx_RegisterObjPal(gUnknown_086DA33C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(gUnknown_086D9C40, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_086DA33C, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_086D9C40, 32 * 4 * CHR_SIZE);
 
     return;
 }

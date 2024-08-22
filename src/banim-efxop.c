@@ -2029,7 +2029,7 @@ void StartCRSubSpell_efxopEvilEyeOBJ(struct Anim * anim, struct ProcEfx * parent
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_086C978C, gUnknown_086C95C0);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_086C978C, AnimScr_086C95C0);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition -= 56;

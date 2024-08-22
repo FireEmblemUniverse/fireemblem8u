@@ -674,11 +674,11 @@ void StartSubSpell_efxLiveBGCOL_A(struct Anim * anim, u32 kind)
     }
     else if (kind == 1)
     {
-        proc->pal = gUnknown_08672220;
+        proc->pal = Pal_08672220;
     }
     else
     {
-        proc->pal = gUnknown_08672000;
+        proc->pal = Pal_08672000;
     }
 
     return;
@@ -715,11 +715,11 @@ void StartSubSpell_efxLiveBGCOL_B(struct Anim * anim, u32 kind)
     }
     else if (kind == 1)
     {
-        proc->pal = gUnknown_08672220;
+        proc->pal = Pal_08672220;
     }
     else
     {
-        proc->pal = gUnknown_08672000;
+        proc->pal = Pal_08672000;
     }
 
     return;
@@ -1327,11 +1327,11 @@ void StartSubSpell_efxReserveBGCOL(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->pal = gUnknown_08678720;
+        proc->pal = Pal_08678720;
     }
     else
     {
-        proc->pal = gUnknown_08678920;
+        proc->pal = Pal_08678920;
     }
 
     return;
@@ -1574,7 +1574,7 @@ void StartSubSpell_efxReserveBGCOL2(struct Anim * anim, u32 kind)
     }
     else
     {
-        proc->pal = gUnknown_08678B20;
+        proc->pal = Pal_08678B20;
     }
 
     return;

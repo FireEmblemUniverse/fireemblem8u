@@ -747,7 +747,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
-        . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); src/banim-battleparse.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); src/banim-ekrmainmini.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
