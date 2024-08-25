@@ -716,7 +716,7 @@ SECTIONS
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); src/sio_core.o(.rodata);
         . = ALIGN(4); src/sio_main.o(.rodata);
-        . = ALIGN(4); data/const_data_sio.o(.rodata);
+        . = ALIGN(4); src/sio_tactician.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); src/sio_postbattle.o(.rodata);
         . = ALIGN(4); src/sio_result.o(.rodata);

@@ -24,7 +24,7 @@ struct ProcTactician {
     /* 32 */ u8 unk32;
     /* 33 */ u8 unk33;
     /* 34 */ s16 conf_idx;
-    /* 36 */ s16 unk36;
+    /* 36 */ s16 conf_idx_bak;
     /* 38 */ u8 cur_len;                /* used tactician name string length */
     /* 39 */ u8 unk39;
     /* 3A */ u8 unk3A;
@@ -36,12 +36,11 @@ struct ProcTactician {
 
 struct TacticianTextConf {
     /* 00 */ u8 * str[0xC];
-    /* 30 */ u16 xpos;
-    /* 32 */ u16 unk32;
-    /* 34 */ u8 unk34;
-    /* 35 */ STRUCT_PAD(0x35, 0x36);
-    /* 36 */ s16 unk36[4];
-    /* 3E */ u8 unk3E;
+    /* 30 */ u16 x, y;
+    /* 34 */ u8 kind;
+    /* 35 */ u8 _pad_;
+    /* 36 */ s16 adj_idx[4];
+    /* 3E */ u8 action;
 };
 
 extern const struct TacticianTextConf gTacticianTextConf[];
@@ -214,12 +213,12 @@ void TacticianDrawCharacters(struct ProcTactician * proc);
 int StrLen(u8 * buf);
 void Tactician_InitScreen(struct ProcTactician * proc);
 void SioUpdateTeam(char * str, int team);
-void sub_80449E8(struct ProcTactician * proc, int idx, const struct TacticianTextConf * conf);
+void Tactician_MoveHand(struct ProcTactician * proc, int idx, const struct TacticianTextConf * conf);
 void TacticianTryAppendChar(struct ProcTactician * proc, const struct TacticianTextConf * conf);
 void TacticianTryDeleteChar(struct ProcTactician * proc, const struct TacticianTextConf * conf);
 void SaveTactician(struct ProcTactician * proc, const struct TacticianTextConf * conf);
 bool sub_8044B78(struct ProcTactician * proc, const struct TacticianTextConf * conf, u32 c, int d);
-void sub_8044C54(struct ProcTactician * proc, const struct TacticianTextConf * conf);
+void Tactician_LoopCore(struct ProcTactician * proc, const struct TacticianTextConf * conf);
 void Tactician_Loop(struct ProcTactician * proc);
 void sub_8044F84(void);
 void sub_8044FE4(struct ProcTactician * proc);
@@ -933,11 +932,8 @@ extern int gUnk_Sio_0203DD8C;
 // extern ??? gUnk_Sio_0203DDB4
 extern s8 gUnk_Sio_0203DDDC;
 
-// extern ??? gUnknown_080D8714
-extern s16 gUnknown_080D9C9E[];
-// extern ??? gUnknown_080D9D34
-// extern ??? gUnknown_080D9D4D
-// extern ??? gUnknown_080D9D56
+extern const s16 SioTacticianIndexMap[];
+extern const int gLinkArenaStatusMsg[];
 extern u8 const gUnknown_080D9D5E[];
 extern s8 const gUnknown_080D9D61[];
 extern u16 const Sprite_080D9D6E[];
