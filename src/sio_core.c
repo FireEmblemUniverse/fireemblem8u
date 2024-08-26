@@ -618,7 +618,7 @@ void SioMain_Loop(void)
                             break;
 
                         case SIO_MSG_86:
-                            gLinkArenaSt.unk_9C[message->param] = 1;
+                            gLinkArenaSt.linking_status[message->param] = 1;
                             gSioSt->playerStatus[message->param] = PLAYER_STATUS_5;
                             gSioSt->unk_009 |= 1 << message->param;
                             gSioSt->timeoutClock[message->param] = 0;
