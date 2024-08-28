@@ -238,7 +238,7 @@ void EfxPrepareScreenFx(void)
     ApplyPalette(Pal_Text, 3);
     InitTextFont(&gBanimFont, (void *)0x6001880, 0xC4, 2);
     SetTextDrawNoClear();
-    LZ77UnCompVram(gUnknown_08801C14, (void *)0x6001000);
+    LZ77UnCompVram(Img_08801C14, (void *)0x6001000);
 
     /* left unit name */
     if (gBanimValid[EKR_POS_L] == false)

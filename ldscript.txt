@@ -1070,7 +1070,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);
         . = ALIGN(4); data/data-ekrdk.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonkingobj.o(.data);
-        . = ALIGN(4); data/data-ekrdk2.o(.data);
+        . = ALIGN(4); data/data-banimmisc.o(.data);
         . = ALIGN(4); src/data_characters.o(.data);
         . = ALIGN(4); src/data_classes.o(.data);
         . = ALIGN(4); src/data_items.o(.data);

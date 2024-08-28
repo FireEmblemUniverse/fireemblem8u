@@ -150,7 +150,79 @@ TSA1_EfxSelfThunderBG15:
 
 	.global TSA1_EfxSelfThunderBG16
 TSA1_EfxSelfThunderBG16:
-	.incbin "baserom.gba", 0x7FDDC8, 0x7FF488 - 0x7FDDC8
+	.incbin "baserom.gba", 0x7FDDC8, 0x7FDF14 - 0x7FDDC8
+
+	.global TSA2_EfxSelfThunderBG1
+TSA2_EfxSelfThunderBG1:	@ 0x087FDF14
+	.incbin "baserom.gba", 0x7FDF14, 0x7FE03C - 0x7FDF14
+
+	.global TSA2_EfxSelfThunderBG2
+TSA2_EfxSelfThunderBG2:	@ 0x087FE03C
+	.incbin "baserom.gba", 0x7FE03C, 0x7FE17C - 0x7FE03C
+
+	.global TSA2_EfxSelfThunderBG3
+TSA2_EfxSelfThunderBG3:	@ 0x087FE17C
+	.incbin "baserom.gba", 0x7FE17C, 0x7FE2D4 - 0x7FE17C
+
+	.global TSA2_EfxSelfThunderBG4
+TSA2_EfxSelfThunderBG4:	@ 0x087FE2D4
+	.incbin "baserom.gba", 0x7FE2D4, 0x7FE434 - 0x7FE2D4
+
+	.global TSA2_EfxSelfThunderBG5
+TSA2_EfxSelfThunderBG5:	@ 0x087FE434
+	.incbin "baserom.gba", 0x7FE434, 0x7FE5AC - 0x7FE434
+
+	.global TSA2_EfxSelfThunderBG6
+TSA2_EfxSelfThunderBG6:	@ 0x087FE5AC
+	.incbin "baserom.gba", 0x7FE5AC, 0x7FE71C - 0x7FE5AC
+
+	.global TSA2_EfxSelfThunderBG7
+TSA2_EfxSelfThunderBG7:	@ 0x087FE71C
+	.incbin "baserom.gba", 0x7FE71C, 0x7FE898 - 0x7FE71C
+
+	.global TSA2_EfxSelfThunderBG8
+TSA2_EfxSelfThunderBG8:	@ 0x087FE898
+	.incbin "baserom.gba", 0x7FE898, 0x7FEA08 - 0x7FE898
+
+	.global TSA2_EfxSelfThunderBG9
+TSA2_EfxSelfThunderBG9:	@ 0x087FEA08
+	.incbin "baserom.gba", 0x7FEA08, 0x7FEB60 - 0x7FEA08
+
+	.global TSA2_EfxSelfThunderBG10
+TSA2_EfxSelfThunderBG10:	@ 0x087FEB60
+	.incbin "baserom.gba", 0x7FEB60, 0x7FECA0 - 0x7FEB60
+
+	.global TSA2_EfxSelfThunderBG11
+TSA2_EfxSelfThunderBG11:	@ 0x087FECA0
+	.incbin "baserom.gba", 0x7FECA0, 0x7FEDE8 - 0x7FECA0
+
+	.global TSA2_EfxSelfThunderBG12
+TSA2_EfxSelfThunderBG12:	@ 0x087FEDE8
+	.incbin "baserom.gba", 0x7FEDE8, 0x7FEF20 - 0x7FEDE8
+
+	.global TSA2_EfxSelfThunderBG13
+TSA2_EfxSelfThunderBG13:	@ 0x087FEF20
+	.incbin "baserom.gba", 0x7FEF20, 0x7FF058 - 0x7FEF20
+
+	.global TSA2_EfxSelfThunderBG14
+TSA2_EfxSelfThunderBG14:	@ 0x087FF058
+	.incbin "baserom.gba", 0x7FF058, 0x7FF1AC - 0x7FF058
+
+	.global TSA2_EfxSelfThunderBG15
+TSA2_EfxSelfThunderBG15:	@ 0x087FF1AC
+	.incbin "baserom.gba", 0x7FF1AC, 0x7FF2F8 - 0x7FF1AC
+
+	.global TSA2_EfxSelfThunderBG16
+TSA2_EfxSelfThunderBG16:	@ 0x087FF2F8
+	.incbin "baserom.gba", 0x7FF2F8, 0x7FF448 - 0x7FF2F8
+
+	.global Pal1_EfxSelfThunderBG
+Pal1_EfxSelfThunderBG:	@ 0x087FF448
+	.incbin "baserom.gba", 0x7FF448, 0x7FF468 - 0x7FF448
+
+	.global Pal2_EfxSelfThunderBG
+Pal2_EfxSelfThunderBG:	@ 0x087FF468
+	.incbin "baserom.gba", 0x7FF468, 0x7FF488 - 0x7FF468
 
 	.global Img_DemoKingTunkFace
 Img_DemoKingTunkFace:  @ 0x087FF488
