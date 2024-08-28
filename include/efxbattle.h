@@ -2564,7 +2564,7 @@ extern CONST_DATA struct ProcCmd ProcScr_ekrPopup2[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[];
 extern CONST_DATA struct ProcCmd ProcScr_ekrHenseiEnd[];
 
-extern u16 gUnknown_08801C14[];
+extern u16 Img_08801C14[];
 extern u16 Img_EfxLeftNameBox[];
 extern u16 Img_EfxLeftItemBox[];
 extern u16 Img_EfxRightNameBox[];
