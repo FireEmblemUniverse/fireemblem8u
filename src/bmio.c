@@ -962,10 +962,10 @@ void InitPlayConfig(int isDifficult, s8 unk) {
 }
 
 void ClearBattleMapState(void) {
-    int logicLock = gBmSt.gameLogicSemaphore;
+    int logicLock = gBmSt.lock;
 
     CpuFill16(0, &gBmSt, sizeof(gBmSt));
-    gBmSt.gameLogicSemaphore = logicLock;
+    gBmSt.lock = logicLock;
 }
 
 void StartBattleMap(struct GameCtrlProc* gameCtrl) {
@@ -973,7 +973,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
@@ -1041,7 +1041,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 void RestartBattleMap(void) {
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     sub_80156D4();
@@ -1087,7 +1087,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
@@ -1142,7 +1142,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 }
 
 void RefreshBMapDisplay_FromBattle(void) {
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ReadGameSaveCoreGfx();

@@ -34,6 +34,73 @@ struct CharacterEndingEnt {
     /* 04 */ int textId;
 };
 
+struct CharacterEndingProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x2E - 0x29];
+    /* 2E */ u16 unk_2e;
+    /* 30 */ struct CharacterEndingEnt* unk_30;
+    /* 34 */ struct CharacterEndingEnt* unk_34;
+    /* 38 */ struct Unit* unitA;
+    /* 3C */ struct Unit* unitB;
+    /* 40 */ u32 unk_40[8]; // flags for characters who have already been shown in an ending
+};
+
+struct EndingBattleDisplayProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct Unit* units[2];
+    /* 34 */ int unk_34;
+    /* 38 */ struct CharacterEndingEnt* pCharacterEnding;
+    /* 3C */ u16 battleAmounts[2];
+    /* 40 */ u16 winAmounts[2];
+    /* 44 */ u16 lossAmounts[2];
+};
+
+struct EndingBattleTextProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct CharacterEndingEnt* pCharacterEnding;
+    /* 30 */ struct Unit* unitA;
+    /* 34 */ struct Unit* unitB;
+    /* 38 */ u32 unk_38;
+    /* 3C */ int pauseTimer;
+    /* 40 */ int defaultPauseDelay;
+    /* 44 */ const char* str;
+    /* 48 */ struct Text* Text;
+};
+
+struct FinScreenProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x4c-0x29];
+    /* 4C */ u16 unk_4c;
+    /* 4E */ u8 _pad2[0x58-0x4e];
+    /* 58 */ int unk_58;
+};
+
+struct EndingTurnRecordProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int unk_2c;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 _pad[0x4c-0x3a];
+    /* 4C */ s16 unk_4c;
+};
+
+struct UnkProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 _pad[0x40-0x29];
+    /* 40 */ u8 unk_40[12]; // size unknown
+    /* 4C */ u16 unk_4c[5];
+};
+
+extern char Pal_020007A0[];
+
 // ??? PrepareUnitDefeatLocationString(???);
 // ??? GetPidTitleTextId(???);
 // ??? GetPidDefeatType(???);

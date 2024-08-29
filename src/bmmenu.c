@@ -55,7 +55,7 @@ struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(LockGame),
 
     PROC_CALL(BackToUnitMenu_CamWatch),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(BackToUnitMenu_RestartMenu),
 
@@ -70,7 +70,7 @@ struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
     PROC_CALL(sub_8022E38),
 
     PROC_WHILE_EXISTS(gProcScr_BKSEL),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(sub_8022E54),
 
@@ -217,7 +217,7 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 
         int y = gActiveUnit->yPos;
 
-        Proc_EndEach(gProcScr_CamMove);
+        Proc_EndEach(ProcScr_CamMove);
 
         if (GetCameraAdjustedY(y << 4) > gBmSt.cameraMax.y) {
             y = (gBmSt.cameraMax.y >> 4) + 2;

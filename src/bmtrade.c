@@ -55,7 +55,7 @@ CONST_DATA struct ProcCmd ProcScr_TradeMenu[] = {
     PROC_CALL(LockGame),
     PROC_YIELD,
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(TradeMenu_InitItemDisplay),
     PROC_CALL(TradeMenu_InitUnitNameDisplay),

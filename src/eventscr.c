@@ -2850,7 +2850,7 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y)
 {
     if (proc->evStateBits & EV_STATE_UNITCAM)
     {
-        if (Proc_Find(gProcScr_CamMove))
+        if (Proc_Find(ProcScr_CamMove))
             return FALSE; // Camera proc already exists
 
         if (EnsureCameraOntoPosition(proc, x, y))
