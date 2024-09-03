@@ -26,7 +26,7 @@
 #include "constants/event-flags.h"
 #include "constants/characters.h"
 
-extern u16 Pal_020007A0[];
+extern u16 gEndingTmScratchA[];
 
 EWRAM_DATA struct SaveMenuRTextData gSaveMenuRTextData = { 0 };
 
@@ -325,7 +325,7 @@ void SaveMenu_InitScreen(struct SaveMenuProc * proc)
 
     ApplyPalette(Pal_08A295B4, 2);
     SaveMenuCopyPalette(PAL_OBJ(0x2), PAL_OBJ(0x1), 1);
-    SaveMenuCopyPalette(gUnknown_08A2C23C, Pal_020007A0, 2);
+    SaveMenuCopyPalette(gUnknown_08A2C23C, gEndingTmScratchA, 2);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 

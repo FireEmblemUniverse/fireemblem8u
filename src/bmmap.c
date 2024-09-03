@@ -21,6 +21,8 @@ static void RefreshUnitsOnBmMap(void);
 static void RefreshTorchlightsOnBmMap(void);
 static void RefreshMinesOnBmMap(void);
 
+EWRAM_OVERLAY(bmstart) u16 gBmMapBuffer[0x800 / 2] = {};
+
 enum { MAP_POOL_SIZE = 0x7B8 };
 
 // TODO: figure out what's up with this (overlaps with a lot of other objects?)

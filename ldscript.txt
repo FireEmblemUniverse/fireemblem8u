@@ -26,36 +26,21 @@ SECTIONS
 
     ewram_overlay_0 __ewram_start (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; gUnk_02000000 = .;
-        . = 0x000280; gMinimapWinBuf = .;
-        . = 0x000500; gMinimapFrontWinBuf = .;
-        . = 0x000504; gMinimapBackWinBuf = .;
-        . = 0x000508; gMinimapDisplayedWinBuf = .;
-        . = 0x00050C; gMinimapObjectFlashPal = .;
-        . = 0x0007A0; Pal_020007A0 = .;
-        . = 0x0007E0; gUnknown_020007E0 = .;
-        . = 0x000920; gSaveMenuSubBoxFont = .;
-        . = 0x000938; gSaveMenuSubBoxText = .;
-        . = 0x000940; gPlayStChapterBits = .;
-        . = 0x000944; gPlayStChapterMode = .;
-        . = 0x000948; gPlayStOptionBits = .;
-        . = 0x000968; gBonusClaimData = .;
-        . = 0x000D68; gBonusClaimDataUpdated = .;
-        . = 0x000FA0; gUnknown_02000FA0 = .;
-        . = 0x001000; gBmMapBuffer = .;
-        . = 0x001168; gBonusClaimItemList = .;
-        . = 0x001368; gBonusClaimConfig = .;
-        . = 0x001568; gBonusClaimItemCount = .;
-        . = 0x001668; gBonusClaimText = .;
-        . = 0x0017A0; gUnknown_020017A0 = .;
-        . = 0x001F70; gConvoyItemCount = .;
-        . = 0x001FA0; gUnknown_02001FA0 = .;
-        . = 0x002038; gUnknown_02002038 = .;
-        . = 0x002774; gUnknown_02002774 = .;
-        . = 0x00278C; gTradeMenuText = .;
-        . = 0x0027A0; gUnknown_020027A0 = .;
-        . = 0x0027DC; src/bmio.o(ewram_overlay_0);
-        . = 0x002FDC; src/bksel.o(ewram_overlay_0);
+        . = ALIGN(4); src/minimap.o(ewram_overlay_0);
+
+        . = 0x0007E0;
+        . = ALIGN(4); src/savedraw.o(ewram_overlay_0);
+        . = ALIGN(4); src/difficultymenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bonusclaim.o(ewram_overlay_0);
+        . = ALIGN(4); src/convoymenu.o(ewram_overlay_0);
+
+        . = 0x002774;
+        . = ALIGN(4); src/bmmenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmtrade.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmio.o(ewram_overlay_0);
+
+        . = 0x002FDC;
+        . = ALIGN(4); src/bksel.o(ewram_overlay_0);
         . = ALIGN(4); src/bmdifficulty.o(ewram_overlay_0);
         . = ALIGN(4); src/bmdifficulty-ewram.o(ewram_overlay_0);
         . = ALIGN(4); src/statscreen.o(ewram_overlay_0);
@@ -71,6 +56,17 @@ SECTIONS
         . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
     }
 
+    ewram_overlay_gameending __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = ALIGN(4); src/ending_details.o(ewram_overlay_gameending);
+    }
+
+    ewram_overlay_bmstart __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x001000;
+        . = ALIGN(4); src/bmmap.o(ewram_overlay_bmstart);
+    }
+
     ewram_overlay_gamestartsave __ewram_start (NOLOAD) : ALIGN(4)
     {
         . = 0x008000;
@@ -81,6 +77,7 @@ SECTIONS
     {
         . = 0x000000;
         . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
+        . = 0x002038; gUnknown_02002038 = .;
         . = 0x007838; gUnknown_02007838 = .;
         . = 0x0078D8; gUnknown_020078D8 = .;
         . = 0x00A2D8; gUnknown_0200A2D8 = .;

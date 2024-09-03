@@ -25,6 +25,7 @@
 #include "EAstdlib.h"
 
 EWRAM_DATA struct TradeMenuProc * gpTradeMenuProc = NULL;
+EWRAM_OVERLAY(0) struct Text gTradeMenuText[2][UNIT_ITEM_COUNT] = {};
 
 CONST_DATA struct Vec2 gTradeItemDisplayTileLocation[2][UNIT_ITEM_COUNT] = {
     [POS_L] = {

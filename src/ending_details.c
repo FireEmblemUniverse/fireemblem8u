@@ -17,7 +17,14 @@
 #include "sysutil.h"
 #include "constants/characters.h"
 
-char* CONST_DATA gUnknown_08A3CD64 = Pal_020007A0;
+EWRAM_OVERLAY(gameending) u16 gEndingDetailBuf[0x3D0] = {};
+EWRAM_OVERLAY(gameending) u16 gEndingTmScratchA[0x800 / 2] = {};
+EWRAM_OVERLAY(gameending) u16 gEndingTmScratchB[0x800 / 2] = {};
+EWRAM_OVERLAY(gameending) u16 gEndingTmScratchC[0x800 / 2] = {};
+EWRAM_OVERLAY(gameending) u16 gEndingTmScratchD[0x800 / 2] = {};
+EWRAM_OVERLAY(gameending) struct Text gEndingDetailTexts[19] = {};
+
+char * CONST_DATA gpDefeatedEndingLocString = (char *)gEndingTmScratchA;
 
 struct CharacterEndingEnt CONST_DATA gCharacterEndings_Eirika[] = {
     { CHARACTER_ENDING_PAIRED, CHARACTER_SETH,     CHARACTER_NATASHA,  0x0000081F, },
@@ -244,19 +251,15 @@ struct EndingDefeatEnt CONST_DATA gCharacterEndingDefeatLut[] = {
     { CHARACTER_NONE },
 };
 
-extern u16 gUnknown_02000FA0[];
-extern u16 gUnknown_020017A0[];
-extern u16 gUnknown_02001FA0[];
-
-u16* CONST_DATA gUnknown_08A3D348[] = {
-    (u16*) Pal_020007A0,
-    gUnknown_02000FA0,
-    gUnknown_020017A0,
-    gUnknown_02001FA0,
+u16 * CONST_DATA gSoloEndingBattleDispConf[] = {
+    gEndingTmScratchA,
+    gEndingTmScratchB,
+    gEndingTmScratchC,
+    gEndingTmScratchD,
 };
 
-extern struct Text gUnknown_020027A0[];
-struct Text* gUnknown_08A3D358 = gUnknown_020027A0;
+extern struct Text gEndingDetailTexts[];
+struct Text* gUnknown_08A3D358 = gEndingDetailTexts;
 
 // forward declarations
 void StartSoloEndingBattleDisplay(struct CharacterEndingEnt*, struct Unit*, struct CharacterEndingProc*);
@@ -334,7 +337,7 @@ char* GetPidDefeatedEndingString(int pid) {
     struct UnitUsageStats* bwl;
     int defeatDetails;
 
-    char* str = gUnknown_08A3CD64;
+    char* str = gpDefeatedEndingLocString;
 
     int type = GetPidDefeatType(pid);
 
@@ -359,7 +362,7 @@ char* GetPidDefeatedEndingString(int pid) {
             return NULL;
     }
 
-    return gUnknown_08A3CD64;
+    return gpDefeatedEndingLocString;
 }
 
 //! FE8U = 0x080B67E8
@@ -398,9 +401,9 @@ void sub_80B6810(void) {
 void sub_80B689C(int a, int b) {
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    sub_80AC844(gUnknown_08A3D348[2], 0, 1, 2, a, b + 2, 0x1e, 0x10);
-    sub_80AC844(gUnknown_08A3D348[1], 0, 1, 1, a, b + 2, 0x1e, 0x12);
-    sub_80AC844(gUnknown_08A3D348[0], 0, 0, 0, a, b, 0x1e, 0x14);
+    sub_80AC844(gSoloEndingBattleDispConf[2], 0, 1, 2, a, b + 2, 0x1e, 0x10);
+    sub_80AC844(gSoloEndingBattleDispConf[1], 0, 1, 1, a, b + 2, 0x1e, 0x12);
+    sub_80AC844(gSoloEndingBattleDispConf[0], 0, 0, 0, a, b, 0x1e, 0x14);
 
     BG_EnableSyncByMask(7);
 
@@ -734,27 +737,27 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc* proc) {
 
     sub_80B6CA8(proc);
 
-    BG_Fill(gUnknown_08A3D348[0], 0);
-    BG_Fill(gUnknown_08A3D348[1], 0);
-    BG_Fill(gUnknown_08A3D348[2], 0);
+    BG_Fill(gSoloEndingBattleDispConf[0], 0);
+    BG_Fill(gSoloEndingBattleDispConf[1], 0);
+    BG_Fill(gSoloEndingBattleDispConf[2], 0);
 
     Decompress(gTsa_SoloEndingWindow, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_08A3D348[2], gGenericBuffer, 0x0000C260);
+    CallARM_FillTileRect(gSoloEndingBattleDispConf[2], gGenericBuffer, 0x0000C260);
 
     Decompress(gTsa_SoloEndingNameplate, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_08A3D348[1], gGenericBuffer, 0x0000C260);
+    CallARM_FillTileRect(gSoloEndingBattleDispConf[1], gGenericBuffer, 0x0000C260);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
-    PutDrawText(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 5, gSoloEndingBattleDispConf[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 0x1a0, 0x38, 0x502);
 
@@ -825,38 +828,38 @@ void sub_80B6F34(struct EndingBattleDisplayProc* proc) {
 
     sub_80B6CA8(proc);
 
-    BG_Fill(gUnknown_08A3D348[0], 0);
-    BG_Fill(gUnknown_08A3D348[1], 0);
-    BG_Fill(gUnknown_08A3D348[2], 0);
+    BG_Fill(gSoloEndingBattleDispConf[0], 0);
+    BG_Fill(gSoloEndingBattleDispConf[1], 0);
+    BG_Fill(gSoloEndingBattleDispConf[2], 0);
 
     Decompress(gTsa_PairedEndingWindow, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_08A3D348[2], gGenericBuffer, 0x0000C260);
+    CallARM_FillTileRect(gSoloEndingBattleDispConf[2], gGenericBuffer, 0x0000C260);
 
     Decompress(gTsa_PairedEndingNameplates, gGenericBuffer);
-    CallARM_FillTileRect(gUnknown_08A3D348[1], gGenericBuffer, 0x0000C260);
+    CallARM_FillTileRect(gSoloEndingBattleDispConf[1], gGenericBuffer, 0x0000C260);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
-    PutDrawText(gUnknown_08A3D358 + 5, gUnknown_08A3D348[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 5, gSoloEndingBattleDispConf[0] + 0x61, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
-    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
-    PutDrawText(gUnknown_08A3D358 + 7, gUnknown_08A3D348[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + 0x31, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + 0x31, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + 0x31, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
-    PutNumber(gUnknown_08A3D348[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x31 + CountDigits(proc->battleAmounts[0]), 2, proc->battleAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x35 + CountDigits(proc->winAmounts[0]), 2, proc->winAmounts[0]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x39 + CountDigits(proc->lossAmounts[0]), 2, proc->lossAmounts[0]);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidB));
-    PutDrawText(gUnknown_08A3D358 + 6, gUnknown_08A3D348[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
+    PutDrawText(gUnknown_08A3D358 + 6, gSoloEndingBattleDispConf[0] + 0x22E, 0, GetStringTextCenteredPos(0x78, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0, 0, GetStringFromIndex(0x51F));
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x20, 0, GetStringFromIndex(0x520));
-    PutDrawText(gUnknown_08A3D358 + 8, gUnknown_08A3D348[0] + 0x221, 3, 0x40, 0, GetStringFromIndex(0x521));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x221, 3, 0, 0, GetStringFromIndex(0x51F));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x221, 3, 0x20, 0, GetStringFromIndex(0x520));
+    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + 0x221, 3, 0x40, 0, GetStringFromIndex(0x521));
 
-    PutNumber(gUnknown_08A3D348[0] + 0x221 + CountDigits(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
-    PutNumber(gUnknown_08A3D348[0] + 0x225 + CountDigits(proc->winAmounts[1]), 2, proc->winAmounts[1]);
-    PutNumber(gUnknown_08A3D348[0] + 0x229 + CountDigits(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x221 + CountDigits(proc->battleAmounts[1]), 2, proc->battleAmounts[1]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x225 + CountDigits(proc->winAmounts[1]), 2, proc->winAmounts[1]);
+    PutNumber(gSoloEndingBattleDispConf[0] + 0x229 + CountDigits(proc->lossAmounts[1]), 2, proc->lossAmounts[1]);
 
     proc->unk_34 = 0;
 
@@ -1399,7 +1402,7 @@ void sub_80B7648(struct EndingTurnRecordProc* proc) {
     return;
 }
 
-struct Text* CONST_DATA gUnknown_08A3D674 = gUnknown_020027A0;
+struct Text* CONST_DATA gpEndingDetailTexts = gEndingDetailTexts;
 
 //! FE8U = 0x080B770C
 void sub_80B770C(void) {
@@ -1429,17 +1432,17 @@ void sub_80B770C(void) {
     gLCDControlBuffer.wincnt.wout_enableObj = 1;
 
     for (i = 0; i < 9; i++) {
-        InitText(gUnknown_08A3D674 + i, 5);
-        InitText(gUnknown_08A3D674 + 9 + i, 13);
+        InitText(gpEndingDetailTexts + i, 5);
+        InitText(gpEndingDetailTexts + 9 + i, 13);
     }
 
-    InitText(gUnknown_08A3D674 + 18, 4);
-    InitText(gUnknown_08A3D674 + 19, 2);
+    InitText(gpEndingDetailTexts + 18, 4);
+    InitText(gpEndingDetailTexts + 19, 2);
 
-    Text_DrawString(gUnknown_08A3D674 + 18, GetStringFromIndex(0x15D));
+    Text_DrawString(gpEndingDetailTexts + 18, GetStringFromIndex(0x15D));
 
-    Text_SetColor(gUnknown_08A3D674 + 19, 3);
-    Text_DrawString(gUnknown_08A3D674 + 19, GetStringFromIndex(0x157));
+    Text_SetColor(gpEndingDetailTexts + 19, 3);
+    Text_DrawString(gpEndingDetailTexts + 19, GetStringFromIndex(0x157));
 
     return;
 }
@@ -1463,15 +1466,15 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
     TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, r7), 0x1f, 1, 0);
     BG_EnableSyncByMask(2);
 
-    ClearText(gUnknown_08A3D674 + sp0C);
-    ClearText(gUnknown_08A3D674 + 9 + sp0C);
+    ClearText(gpEndingDetailTexts + sp0C);
+    ClearText(gpEndingDetailTexts + 9 + sp0C);
 
     if ((u32)param_1 == -1) {
         r4 = GetGameTotalTurnCount();
 
-        PutDrawText(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + ({r6 + 0xC;}), 3, 0, 0, GetStringFromIndex(0x15f));
+        PutDrawText(gpEndingDetailTexts + 9 + sp0C, gBG1TilemapBuffer + ({r6 + 0xC;}), 3, 0, 0, GetStringFromIndex(0x15f));
         PutNumber(gBG1TilemapBuffer + ({r6 + 0x17;}), 2, r4);
-        PutText(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
+        PutText(gpEndingDetailTexts + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
 
         return 0;
     }
@@ -1481,24 +1484,24 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
         r9 = GetROMChapterStruct(sl)->prepScreenNumber >> 1;
         switch (sl) {
             case 0:
-                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x15a)); // TODO: msgid "Prologue"
+                PutDrawText(gpEndingDetailTexts + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x15a)); // TODO: msgid "Prologue"
                 break;
 
             case 21:
             case 22:
             case 34:
             case 35:
-                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x159)); // TODO: msgid "Final[.]"
+                PutDrawText(gpEndingDetailTexts + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x159)); // TODO: msgid "Final[.]"
                 break;
 
             case 5:
-                PutText(gUnknown_08A3D674 + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
+                PutText(gpEndingDetailTexts + 0x13, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7));
                 PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1  + var), r7), 2, r9);
-                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
+                PutDrawText(gpEndingDetailTexts + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + var), r7), 2, 0, 0, GetStringFromIndex(0x158));
                 break;
 
             default:
-                PutDrawText(gUnknown_08A3D674 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
+                PutDrawText(gpEndingDetailTexts + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(var, r7), 3, 0, 0, GetStringFromIndex(0x0157));
                 PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1 + var), r7), 2, r9);
                 break;
         }
@@ -1519,9 +1522,9 @@ int sub_80B7800(struct ChapterStats* param_1, int param_2) {
                 break;
         }
 
-        PutDrawText(gUnknown_08A3D674 + 9 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(5 + var, r7), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(sl)->chapTitleTextId));
+        PutDrawText(gpEndingDetailTexts + 9 + sp0C, gBG1TilemapBuffer + TILEMAP_INDEX(5 + var, r7), 0, 0, 0, GetStringFromIndex(GetROMChapterStruct(sl)->chapTitleTextId));
         PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(0x14 + var, r7), 2, uVar10);
-        PutText(gUnknown_08A3D674 + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x15 + var, r7));
+        PutText(gpEndingDetailTexts + 18, gBG1TilemapBuffer + TILEMAP_INDEX(0x15 + var, r7));
     }
 
     return sp10;
@@ -1696,7 +1699,7 @@ void sub_80B8014(void) {
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x00007260);
 
     BG_EnableSyncByMask(0xc);
-    sub_80AB760(gUnk_02000000);
+    sub_80AB760(gEndingDetailBuf);
     StartBgm(0x46, 0);
 
     return;

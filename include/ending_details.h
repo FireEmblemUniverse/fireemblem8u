@@ -99,7 +99,13 @@ struct UnkProc {
     /* 4C */ u16 unk_4c[5];
 };
 
-extern char Pal_020007A0[];
+extern u16 gEndingDetailBuf[0x3D0];
+extern u16 gEndingTmScratchA[];
+extern u16 gEndingTmScratchB[];
+extern u16 gEndingTmScratchC[];
+extern u16 gEndingTmScratchD[];
+
+extern char * CONST_DATA gpDefeatedEndingLocString;
 
 // ??? PrepareUnitDefeatLocationString(???);
 // ??? GetPidTitleTextId(???);
