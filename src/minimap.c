@@ -33,11 +33,11 @@ extern u8 gGfx_MinimapTiles[];
 extern u16 gPal_MinimapTiles[];
 extern u16 gPal_08A1FFD0[];
 
-extern s16 gMinimapWinBuf[320 * 2];
-
-extern s16* gMinimapFrontWinBuf;
-extern s16* gMinimapBackWinBuf;
-extern s16* gMinimapDisplayedWinBuf;
+EWRAM_OVERLAY(0) s16 gMinimapWinBuf[2][320] = {};
+EWRAM_OVERLAY(0) s16 * gMinimapFrontWinBuf = NULL;
+EWRAM_OVERLAY(0) s16 * gMinimapBackWinBuf = NULL;
+EWRAM_OVERLAY(0) s16 * gMinimapDisplayedWinBuf = NULL;
+EWRAM_OVERLAY(0) u16 * gMinimapObjectFlashPal = NULL;
 
 void ApplyMinimapGraphics(int);
 void Minimap_InitProcVars(struct MinimapProc*);
@@ -765,9 +765,9 @@ void InitMinimapWindowBuffers() {
 
 //! FE8U = 0x080A7F1C
 void Minimap_InitOpenAnim(struct MinimapProc* proc) {
-    gMinimapFrontWinBuf = gMinimapWinBuf;
-    gMinimapBackWinBuf = gMinimapWinBuf - 320;
-    gMinimapDisplayedWinBuf = gMinimapWinBuf;
+    gMinimapFrontWinBuf = gMinimapWinBuf[1];
+    gMinimapBackWinBuf = gMinimapWinBuf[0];
+    gMinimapDisplayedWinBuf = gMinimapWinBuf[1];
 
     SetWinEnable(1, 0, 0);
 
@@ -856,9 +856,9 @@ void Minimap_InitCloseAnim(struct MinimapProc* proc) {
 
     SetBlendConfig(3, 16, 0, 4);
 
-    gMinimapFrontWinBuf = gMinimapWinBuf;
-    gMinimapBackWinBuf = gMinimapWinBuf - 320;
-    gMinimapDisplayedWinBuf = gMinimapWinBuf;
+    gMinimapFrontWinBuf = gMinimapWinBuf[1];
+    gMinimapBackWinBuf = gMinimapWinBuf[0];
+    gMinimapDisplayedWinBuf = gMinimapWinBuf[1];
 
     proc->animClock = 0;
 

@@ -214,7 +214,7 @@ void InBattleMainRoutine(void)
         break;
     }
 
-    gBmSt.sync_hardware = true;
+    gBmSt.main_loop_ended = true;
     gBmSt.prevVCount = REG_VCOUNT;
     VBlankIntrWait();
 }

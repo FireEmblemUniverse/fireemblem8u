@@ -417,7 +417,7 @@ void sub_805B94C(ProcPtr proc)
 
 void sub_805B958(struct ProcEfx *proc)
 {
-    if (gBmSt.sync_hardware != false) {
+    if (gBmSt.main_loop_ended != false) {
         if (proc->unk48 == 0x2) {
             if (gEkrBg2ScrollFlip == 1) {
                 gEkrBg2ScrollFlip = 0;

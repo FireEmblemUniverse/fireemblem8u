@@ -51,11 +51,13 @@ extern u16 gUnknown_085A0D4C[];
 
 extern u8 gSummonConfig[4][2];
 
+EWRAM_OVERLAY(0) struct Font gItemSelectMenuFont = {};
+
 struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(LockGame),
 
     PROC_CALL(BackToUnitMenu_CamWatch),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(BackToUnitMenu_RestartMenu),
 
@@ -70,7 +72,7 @@ struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
     PROC_CALL(sub_8022E38),
 
     PROC_WHILE_EXISTS(gProcScr_BKSEL),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(sub_8022E54),
 
@@ -217,7 +219,7 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 
         int y = gActiveUnit->yPos;
 
-        Proc_EndEach(gProcScr_CamMove);
+        Proc_EndEach(ProcScr_CamMove);
 
         if (GetCameraAdjustedY(y << 4) > gBmSt.cameraMax.y) {
             y = (gBmSt.cameraMax.y >> 4) + 2;
@@ -986,7 +988,7 @@ int Menu_SwitchOut_DoNothing(struct MenuProc* menu, struct MenuItemProc* menuIte
 }
 
 void sub_80234AC(int x, int y) {
-    InitTextFont(&gUnknown_02002774, (void*)VRAM + 0x4000, 0x200, 0);
+    InitTextFont(&gItemSelectMenuFont, (void*)VRAM + 0x4000, 0x200, 0);
 
     TileMap_CopyRect(gBG0TilemapBuffer + 0x2B, gUiTmScratchA, 9, 19);
     TileMap_CopyRect(gBG1TilemapBuffer + 0x2B, gUiTmScratchB, 9, 19);

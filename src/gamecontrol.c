@@ -379,7 +379,7 @@ void sub_8009A84(ProcPtr proc)
     CpuFastFill16(0, gPaletteBuffer, 0x400);
     EnablePaletteSync();
     Proc_ForAll(EndProcIfNotMarkedB);
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
 }
 
 void sub_8009ABC(ProcPtr proc)
@@ -695,7 +695,7 @@ void StartGame(void)
 {
     struct GameCtrlProc* proc;
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);

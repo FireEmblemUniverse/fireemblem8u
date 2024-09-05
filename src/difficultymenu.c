@@ -20,6 +20,10 @@ struct Unknown_08A209FC gUnknown_08A209FC[] =
     { 0, 0x60, },
 };
 
+EWRAM_OVERLAY(0) u8 gPlayStChapterBits[4] = {};
+EWRAM_OVERLAY(0) u8 gPlayStChapterMode[4] = {};
+EWRAM_OVERLAY(0) struct PlaySt_OptionBits gPlayStOptionBits[4] = {};
+
 //! FE8U = 0x080ABC14
 void SaveMenuInitSaveSlotData(u8 slot, struct SaveMenuProc * proc)
 {

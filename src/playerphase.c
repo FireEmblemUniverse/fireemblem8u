@@ -89,7 +89,7 @@ PROC_LABEL(2),
     // fallthrough
 
 PROC_LABEL(7),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL_2(PlayerPhase_PrepareAction),
 

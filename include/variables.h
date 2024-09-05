@@ -7,14 +7,6 @@
 #include "proc.h"
 
 extern u8 __ewram_start[];
-extern u8 gUnk_02000000[];
-// extern ??? gAnims
-// extern ??? gMinimapWinBuf
-// extern ??? gMinimapFrontWinBuf
-// extern ??? gMinimapBackWinBuf
-// extern ??? gMinimapDisplayedWinBuf
-extern u16 *gMinimapObjectFlashPal;
-// extern ??? Pal_020007A0
 // extern ??? gUnknown_020007E0
 // extern ??? gSaveMenuSubBoxFont
 // extern ??? gSaveMenuSubBoxText
@@ -28,19 +20,11 @@ extern u16 gBmMapBuffer[];
 // extern ??? gConvoyItemCount
 // extern ??? gUnknown_02002038
 // extern ??? gBanimRightImgSheetBuf
-extern struct Font gUnknown_02002774;
+extern struct Font gItemSelectMenuFont;
 
 extern u8 gEkrKakudaiSomeBufRight[];
-// extern ??? gUnknown_0200310C
-// extern ??? gUnknown_020038AC
-// extern ??? gUnknown_020038C4
-// extern ??? gUnknown_020038C8
-// extern ??? gUnknown_02003B08
-// extern ??? gUnknown_02003B48
-// extern ??? gUnknown_02003B70
-// extern ??? gUnknown_02003B88
-// extern ??? gUnknown_02003BA8
-// extern ??? gUnknown_02003BE8
+
+/* bmdifficulty.h */
 
 extern u16 gUiTmScratchA[];
 extern u16 gUiTmScratchB[];
@@ -58,24 +42,13 @@ extern u16 gUiTmScratchC[];
 extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200C300
 // extern ??? gUnknown_0200CB00
-// extern ??? gSortedUnitsBuf
-// extern ??? gSortedUnits
-// extern ??? gUnknown_0200D7E0
-// extern ??? gUnknown_0200DFE0
-// extern ??? gUnknown_0200E060
-// extern ??? gUnknown_0200E098
-// extern ??? gUnknown_0200E0A0
-// extern ??? gUnknown_0200E0A8
-// extern ??? gUnknown_0200E140
-// extern ??? gUnknown_0200E148
-// extern ??? gUnknown_0200E150
-// extern ??? gUnknown_0200E158
-// extern ??? gUnknown_0200F158
-// extern ??? gUnknown_0200F15C
+
+/* unitlistscreen */
+
 extern u16 gUnk_OpSubtitle_0201CDD4[]; // used as a palette buffer in opsubtitle
 // extern ??? gUnk_Opinfo_0201DB00
 // extern ??? gUnk_OpInfo_0201DB28
-extern char gStringBufferAlt[];
+extern char gBufPrep[];
 
 // TODO: define this in hardware.c?
 extern u8 gGenericBuffer[0x2000];
@@ -894,14 +867,18 @@ extern u16 gUnknown_08A176B4[];
 extern u16 gTSA_GoalBox_TwoLines[];
 extern u16 gTSA_GoalBox_OneLine[];
 
-// extern ??? gUnknown_08A17B30
-// extern ??? gUnknown_08A17B36
-// extern ??? gSpriteArray_08A17B58
-// extern ??? Sprite_08A17B64
-// extern ??? Sprite_08A17B6C
-// extern ??? gSpriteArray_08A17C20
+extern u8 CONST_DATA gUnknown_08A17B30[];
+extern u8 CONST_DATA gUnknown_08A17B36[];
+extern u16 CONST_DATA Sprite_08A17B40[];
+extern u16 CONST_DATA Sprite_08A17B48[];
+extern u16 CONST_DATA Sprite_08A17B50[];
+extern u16 * CONST_DATA gSpriteArray_08A17B58[];
+extern u8 gUnknown_08A17B36[];
+extern u16 * gSpriteArray_08A17B58[];
+extern u16 Sprite_08A17B64[];
+extern u16 Sprite_08A17B6C[];
+extern u16 * gSpriteArray_08A17C20[];
 // extern ??? gUnitListScreenFields
-// extern ??? gUnknown_08A17C4C
 
 // extern ??? gSram
 // extern ??? sSupportUnkLut

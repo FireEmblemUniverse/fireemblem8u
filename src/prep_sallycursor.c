@@ -146,14 +146,14 @@ PROC_LABEL(1),
 
 PROC_LABEL(53),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_DeploySupplyUnit),
 
     PROC_GOTO(52),
 
 PROC_LABEL(54),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_RemoveSupplyUnit),
 
     PROC_GOTO(52),
@@ -181,13 +181,13 @@ PROC_LABEL(3),
     PROC_CALL(EndPlayerPhaseSideWindows),
     PROC_CALL(PrepScreen_StartUnitSwap),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(PrepScreen_UnitSwapIdle),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(PrepScreen_StartUnitSwapAnim),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_WHILE(PrepUnitSwapProcExits),
 
     PROC_CALL(InitMapChangeGraphicsIfFog),
@@ -200,7 +200,7 @@ PROC_LABEL(3),
 
 PROC_LABEL(4),
     PROC_CALL(HideMoveRangeGraphics),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(sub_8033DD8),
     PROC_YIELD,
 

@@ -4,7 +4,18 @@
 #include "global.h"
 #include "proc.h"
 
-struct APProc;
+#define AP_MAX_COUNT 0x14 // 20
+
+struct APProc {
+    PROC_HEADER;
+
+    u8 _pad[0x50-0x29];
+    
+    struct APHandle* pHandle;
+
+    u32 xPosition;
+    u32 yPosition;
+};
 
 struct APHandle {
     /* 00 */ const u16 * pDefinition;      // Pointer to Definition Root
@@ -39,8 +50,8 @@ void AP_ExecDummyFrame(struct APHandle *);
 void AP_Init(struct APHandle *, const u16 *, u16);
 struct APHandle * AP_Find(const u16 * definition);
 ProcPtr APProc_Create(const void * apDefinition, int xPos, int yPos, int tileBase, int anim, int aObjNode);
-// ??? APProc_OnUpdate(???);
-// ??? APProc_OnEnd(???);
+void APProc_OnUpdate(struct APProc * proc);
+void APProc_OnEnd(struct APProc * proc);
 void APProc_SetParameters(struct APProc * proc, int x, int y, int tileBase);
 void APProc_Delete(struct APProc * proc);
 void APProc_DeleteAll(void);
@@ -53,5 +64,9 @@ bool APProc_Exists(void);
 #define FreezeSpriteAnim(anim) \
     (anim)->frameTimer = 0; \
     (anim)->frameInterval = 0
+
+extern struct ProcCmd CONST_DATA ProcScr_ApProc[];
+extern u8 CONST_DATA sOamTileSizeLut[];
+// extern struct APHandle sAPArray[AP_MAX_COUNT];
 
 #endif // GUARD_AP_H

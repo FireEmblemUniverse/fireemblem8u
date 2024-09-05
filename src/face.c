@@ -146,7 +146,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_SLEEP(0),
 
     PROC_CALL(Face_OnInit),
@@ -162,7 +162,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE_ExtraFrame[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_SLEEP(1),
 
     PROC_CALL(Face_OnInit),

@@ -15,6 +15,8 @@
 
 int CheckInLinkArena(void);
 
+
+
 //! FE8U = 0x08097CC4
 int sub_8097CC4(void)
 {
