@@ -242,7 +242,7 @@ void ekrTogiEnd_End(ProcPtr proc)
     EndEkrBattleDeamon();
     EndEkrGauge();
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     Proc_Break(proc);

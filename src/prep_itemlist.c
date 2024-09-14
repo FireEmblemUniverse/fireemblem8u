@@ -54,7 +54,7 @@ void sub_809EBF0(void)
 {
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 0xc, 1, 0);
 
-    PutDrawText(gUnknown_02013660 + 15, gBG0TilemapBuffer + 0x34, 0, 0, 0, GetStringFromIndex(0x5A9)); // TODO: msgid "Owner"
+    PutDrawText(PrepItemSuppyTexts.th + 15, gBG0TilemapBuffer + 0x34, 0, 0, 0, GetStringFromIndex(0x5A9)); // TODO: msgid "Owner"
 
     BG_EnableSyncByMask(1);
     return;
@@ -66,17 +66,17 @@ void PrepItemList_DrawCurrentOwnerText(struct PrepItemListProc* proc) {
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x38, 10, 1, 0);
 
-    ClearText(gUnknown_02013660 + 1);
+    ClearText(PrepItemSuppyTexts.th + 1);
 
     if (gUnknown_02012F56 <= idx) {
-        PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 1, 0, 0, GetStringFromIndex(0x536));
+        PutDrawText(PrepItemSuppyTexts.th + 1, gBG0TilemapBuffer + 0x38, 1, 0, 0, GetStringFromIndex(0x536));
     } else {
         int pid = gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].pid;
 
         if (pid == 0) {
-            PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 3, 0, 0, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
+            PutDrawText(PrepItemSuppyTexts.th + 1, gBG0TilemapBuffer + 0x38, 3, 0, 0, GetStringFromIndex(0x598)); // TODO: msgid "Supply"
         } else {
-            PutDrawText(gUnknown_02013660 + 1, gBG0TilemapBuffer + 0x38, 0, 0, 0, GetStringFromIndex(GetUnitFromCharId(pid)->pCharacterData->nameTextId));
+            PutDrawText(PrepItemSuppyTexts.th + 1, gBG0TilemapBuffer + 0x38, 0, 0, 0, GetStringFromIndex(GetUnitFromCharId(pid)->pCharacterData->nameTextId));
         }
     }
 
@@ -171,17 +171,17 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
 
     StartHelpPromptSprite(195, 147, 9, proc);
 
-    InitText(gUnknown_02013660 + 0, 6);
-    InitText(gUnknown_02013660 + 1, 5);
+    InitText(PrepItemSuppyTexts.th + 0, 6);
+    InitText(PrepItemSuppyTexts.th + 1, 5);
 
-    InitText(gUnknown_02013660 + 15, 4);
+    InitText(PrepItemSuppyTexts.th + 15, 4);
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        InitText(gUnknown_02013660 + 2 + i, 7);
+        InitText(PrepItemSuppyTexts.th + 2 + i, 7);
     }
 
     for (i = 0; i < 8; i++) {
-        InitTextDb(gUnknown_02013660 + 7 + i, 7);
+        InitTextDb(PrepItemSuppyTexts.th + 7 + i, 7);
     }
 
     StoreConvoyWeaponIconGraphics(0x4000, 6);
@@ -197,7 +197,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
     sub_809F5F4(proc);
 
     sub_809D300(
-        gUnknown_02013660 + 7,
+        PrepItemSuppyTexts.th + 7,
         gBG2TilemapBuffer + 0xF,
         (proc->yOffsetPerPage[proc->currentPage]) >> 4,
         proc->unit
@@ -205,7 +205,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
 
     BG_EnableSyncByMask(4);
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, gUnknown_02013660 + 2, proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, PrepItemSuppyTexts.th + 2, proc->unit, 0);
     sub_809EBF0();
 
     StartUiSpinningArrows(proc);
@@ -228,7 +228,7 @@ void PrepItemList_InitGfx(struct PrepItemListProc * proc)
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    PutDrawText(gUnknown_02013660, gBG0TilemapBuffer, 0, GetStringTextCenteredPos(48, str), 0, str);
+    PutDrawText(PrepItemSuppyTexts.th, gBG0TilemapBuffer, 0, GetStringTextCenteredPos(48, str), 0, str);
 
     PrepItemList_DrawCurrentOwnerText(proc);
 
@@ -262,7 +262,7 @@ void sub_809F150(struct PrepItemListProc * proc)
     SomethingPrepListRelated(proc->unit, proc->currentPage, 3);
     sub_809F370(proc);
 
-    sub_809D300(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
+    sub_809D300(PrepItemSuppyTexts.th + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     DrawPrepScreenItemIcons(gBG0TilemapBuffer + 0x122, proc->unit);
 
     ShowSysHandCursor(
@@ -401,11 +401,11 @@ void PrepItemList_ScrollVertical(struct PrepItemListProc * proc, int amount)
     BG_EnableSyncByMask(5);
 
     if (amount < 0) {
-        sub_809D47C(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) - 1,  proc->unit);
+        sub_809D47C(PrepItemSuppyTexts.th + 7, gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) - 1,  proc->unit);
     }
 
     if (amount > 0) {
-        sub_809D47C(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) + 7, proc->unit);
+        sub_809D47C(PrepItemSuppyTexts.th + 7, gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) + 7, proc->unit);
     }
 
     proc->yOffsetPerPage[proc->currentPage] += amount;
@@ -437,9 +437,9 @@ void sub_809F498(struct PrepItemListProc * proc)
     sub_809F370(proc);
     ResetIconGraphics_();
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gUnknown_02013660 + 2, proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, PrepItemSuppyTexts.th + 2, proc->unit, 0);
     sub_809D300(
-        gUnknown_02013660 + 7,
+        PrepItemSuppyTexts.th + 7,
         gBG2TilemapBuffer + 0xF,
         proc->yOffsetPerPage[proc->currentPage] >> 4,
         proc->unit
@@ -727,8 +727,8 @@ void sub_809FB70(struct PrepItemListProc * proc)
     }
 
     sub_809F370(proc);
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gUnknown_02013660 + 2, proc->unit, 0);
-    sub_809D300(gUnknown_02013660 + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, PrepItemSuppyTexts.th + 2, proc->unit, 0);
+    sub_809D300(PrepItemSuppyTexts.th + 7, gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, proc);
     BG_EnableSyncByMask(4);
 

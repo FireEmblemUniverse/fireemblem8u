@@ -229,7 +229,7 @@ void EfxleveluphbNop(ProcPtr proc)
 
 void EfxleveluphbMain(ProcPtr proc)
 {
-    if (gBmSt.sync_hardware != false)
+    if (gBmSt.main_loop_ended != false)
     {
         if (gEkrBg2ScrollFlip == 1)
         {

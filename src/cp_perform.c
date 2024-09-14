@@ -50,7 +50,7 @@ void AiTargetCursor_Main(struct UnkProcA* proc);
 struct ProcCmd CONST_DATA gProcScr_AiTargetCursor[] = {
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_REPEAT(AiTargetCursor_Main),
 
     PROC_END,

@@ -468,7 +468,7 @@ void HelpBoxIntroDrawTexts(struct ProcHelpBoxIntro * proc)
 
     otherProc->pretext_lines = proc->pretext_lines;
 
-    // TODO: Unknown? Seems pointless, but needed for match
+    // GetStringFromIndex writes to sMsgString.buffer1, which is then used by StringInsertSpecialPrefixByCtrl a couple lines later
     GetStringFromIndex(proc->msg);
 
     otherProc->string = StringInsertSpecialPrefixByCtrl();

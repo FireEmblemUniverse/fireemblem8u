@@ -377,7 +377,7 @@ void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc);
 void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
 ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 
-// extern ??? gBgConfig_SaveMenu
+extern u16 gBgConfig_SaveMenu[]; // bg config
 // extern ??? gProcScr_08A20068
 // extern ??? ProcScr_CallExtraMap
 // extern ??? ProcScr_SaveMenu

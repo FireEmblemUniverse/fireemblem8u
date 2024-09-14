@@ -457,7 +457,7 @@ int DebugMenuInit(void) {
 void DEBUGONLY_Startup(void) {
     struct MenuProc* menuProc;
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     RefreshBMapGraphics();

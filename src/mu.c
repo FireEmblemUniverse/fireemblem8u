@@ -708,7 +708,7 @@ void Mu_OnStateMovement(struct MuProc * proc)
         proc->y_q4 &= ~0xF;
     }
 
-    if (proc->cam_b && !Proc_Find(gProcScr_CamMove))
+    if (proc->cam_b && !Proc_Find(ProcScr_CamMove))
     {
         gBmSt.camera.x = GetCameraAdjustedX(proc->x_q4 >> MU_SUBPIXEL_PRECISION);
         gBmSt.camera.y = GetCameraAdjustedY(proc->y_q4 >> MU_SUBPIXEL_PRECISION);

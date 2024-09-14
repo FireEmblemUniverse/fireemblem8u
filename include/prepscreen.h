@@ -108,6 +108,33 @@ enum prepitem_textindex {
 
 extern struct Text gPrepItemTexts[32];
 
+struct PrepItemSuppyText {
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text th[18];
+};
+extern struct PrepItemSuppyText PrepItemSuppyTexts;
+
+/* This should be the same as: struct PrepItemSuppyText */
+struct Unknown02013648 {
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text textA;
+    /* 20 */ struct Text textB;
+    /* 28 */ struct Text textArray[5];
+    /* 50 */ u8 _pad[0x90-0x50];
+    /* 90 */ struct Text textC;
+};
+#define _PrepItemSuppyTexts ((struct Unknown02013648 *)&PrepItemSuppyTexts)
+
+struct WmSellProc {
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct Unit* unit;
+    /* 30 */ u8 unk_30;
+    /* 31 */ u8 unk_31;
+    /* 32 */ u16 unk_32;
+    /* 34 */ u16 unk_34;
+};
+
 struct PrepItemSupplyProc {
     /* 00 */ PROC_HEADER;
 
@@ -143,7 +170,15 @@ struct SioPidPool {
 
 extern struct SioPidPool gSioPidPool;
 
-extern struct Text gPrepMainMenuTexts[9];
+struct Win1H {
+    /* 00 */ u8 left;
+    /* 01 */ u8 right;
+};
+
+extern struct Win1H gUnknown_02012F58[][160];
+extern struct Win1H* gUnknown_02013458[];
+
+extern struct Text gPrepMainMenuTexts[10];
 extern u8 gPrepUnitPool[];
 extern u8 gBanimScrRight[];
 extern struct PrepUnitList gPrepUnitList;
@@ -153,16 +188,8 @@ extern u16 gUnknown_02012F54;
 extern u16 gUnknown_02012F56;
 // extern ??? gUnknown_02012F58
 // extern ??? gUnknown_02013458
-// extern ??? gUnknown_02013460
-extern struct Text gPrepItemScreenTexts[16];
-extern struct Text gUnknown_02013590[];
-extern struct Text gPrepUnitTexts[];
-// extern ??? gUnknown_02013648
-extern struct Text gUnknown_02013660[16];
-// extern ??? gUnknown_02013668
-// extern ??? gUnknown_02013670
-// extern ??? gUnknown_02013698
-// extern ??? gUnknown_020136D8
+extern u16 gUnknown_02013460[];
+extern struct Text gPrepUnitTexts[0x16];
 extern int sSupportScreenUnitCount;
 extern u16 gUnknown_020136F4[];
 
@@ -264,10 +291,10 @@ extern u16 gUnknown_08A1BD00[]; // pal
 extern u16 gUnknown_08A1BD60[];
 extern u8 Img_SpinningArrow[]; // arrow gfx
 extern u8 gImg_UiSpinningArrow_Horizontal[];
-// extern ??? gUnknown_08A1C8B4
-// extern ??? Img_08A1CD68
-// extern ??? Img_UnitListBanners
-// extern ??? Img_UnitListBanner_Animation
+extern u8 gUnknown_08A1C8B4[]; // tsa
+extern u8 Img_08A1CD68[];
+extern u8 Img_UnitListBanners[];
+extern u8 Img_UnitListBanner_Animation[];
 extern u16 Pal_08A1D448[];
 extern u16 CONST_DATA gUnknown_08A1D4C8[];
 extern u8 Img_PrepTextShadow[];

@@ -38,6 +38,532 @@ PROC_LABEL(2),
     PROC_END,
 };
 
+const struct TacticianTextConf gTacticianTextConf[] = {
+    [0] = {
+        .str = { "", "","","","","","","","","","","",},
+        .x = 0x0,
+        .y = 0x0,
+        .adj_idx = { 0, 0, 0, 0 },
+    },
+    [1] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xCA,
+        .y = 0x48,
+        .kind = 1,
+        .adj_idx = { 5, 2, 60, 6 },
+        .action = 1
+    },
+    [2] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xCA,
+        .y = 0x58,
+        .kind = 1,
+        .adj_idx = { 1, 3, 65, 11 },
+        .action = 2
+    },
+    [3] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xCA,
+        .y = 0x68,
+        .kind = 1,
+        .adj_idx = { 2, 4, 70, 16 },
+        .action = 3
+    },
+    [4] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xCA,
+        .y = 0x78,
+        .kind = 1,
+        .adj_idx = { 5, 5, 75, 21 },
+        .action = 4
+    },
+    [5] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xCA,
+        .y = 0x88,
+        .kind = 1,
+        .adj_idx = { 4, 4, 80, 26 },
+        .action = 5
+    },
+    [6] = {
+        .str = { "A", "","","A","","","A","","","A","","",},
+        .x = 0x10,
+        .y = 0x48,
+        .adj_idx = { 26, 11, 4, 7 },
+    },
+    [7] = {
+        .str = { "B", "","","B","","","B","","","B","","",},
+        .x = 0x1A,
+        .y = 0x48,
+        .adj_idx = { 27, 12, 6, 8 },
+    },
+    [8] = {
+        .str = { "C", "","","C","","","C","","","C","","",},
+        .x = 0x24,
+        .y = 0x48,
+        .adj_idx = { 28, 13, 7, 9 },
+    },
+    [9] = {
+        .str = { "D", "","","D","","","D","","","D","","",},
+        .x = 0x2E,
+        .y = 0x48,
+        .adj_idx = { 29, 14, 8, 10 },
+    },
+    [10] = {
+        .str = { "E", "","","E","","","E","","","E","","",},
+        .x = 0x38,
+        .y = 0x48,
+        .adj_idx = { 30, 15, 9, 31 },
+    },
+    [11] = {
+        .str = { "P", "","","P","","","P","","","P","","",},
+        .x = 0x10,
+        .y = 0x58,
+        .adj_idx = { 6, 16, 4, 12 },
+    },
+    [12] = {
+        .str = { "Q", "","","Q","","","Q","","","Q","","",},
+        .x = 0x1A,
+        .y = 0x58,
+        .adj_idx = { 7, 17, 11, 13 },
+    },
+    [13] = {
+        .str = { "R", "","","R","","","R","","","R","","",},
+        .x = 0x24,
+        .y = 0x58,
+        .adj_idx = { 8, 18, 12, 14 },
+    },
+    [14] = {
+        .str = { "S", "","","S","","","S","","","S","","",},
+        .x = 0x2E,
+        .y = 0x58,
+        .adj_idx = { 9, 19, 13, 15 },
+    },
+    [15] = {
+        .str = { "T", "","","T","","","T","","","T","","",},
+        .x = 0x38,
+        .y = 0x58,
+        .adj_idx = { 10, 20, 14, 36 },
+    },
+    [16] = {
+        .str = { "a", "","","a","","","a","","","a","","",},
+        .x = 0x10,
+        .y = 0x68,
+        .adj_idx = { 11, 21, 4, 17 },
+    },
+    [17] = {
+        .str = { "b", "","","b","","","b","","","b","","",},
+        .x = 0x1A,
+        .y = 0x68,
+        .adj_idx = { 12, 22, 16, 18 },
+    },
+    [18] = {
+        .str = { "c", "","","c","","","c","","","c","","",},
+        .x = 0x24,
+        .y = 0x68,
+        .adj_idx = { 13, 23, 17, 19 },
+    },
+    [19] = {
+        .str = { "d", "","","d","","","d","","","d","","",},
+        .x = 0x2E,
+        .y = 0x68,
+        .adj_idx = { 14, 24, 18, 20 },
+    },
+    [20] = {
+        .str = { "e", "","","e","","","e","","","e","","",},
+        .x = 0x38,
+        .y = 0x68,
+        .adj_idx = { 15, 25, 19, 41 },
+    },
+    [21] = {
+        .str = { "p", "","","p","","","p","","","p","","",},
+        .x = 0x10,
+        .y = 0x78,
+        .adj_idx = { 16, 26, 4, 22 },
+    },
+    [22] = {
+        .str = { "q", "","","q","","","q","","","q","","",},
+        .x = 0x1A,
+        .y = 0x78,
+        .adj_idx = { 17, 27, 21, 23 },
+    },
+    [23] = {
+        .str = { "r", "","","r","","","r","","","r","","",},
+        .x = 0x24,
+        .y = 0x78,
+        .adj_idx = { 18, 28, 22, 24 },
+    },
+    [24] = {
+        .str = { "s", "","","s","","","s","","","s","","",},
+        .x = 0x2E,
+        .y = 0x78,
+        .adj_idx = { 19, 29, 23, 25 },
+    },
+    [25] = {
+        .str = { "t", "","","t","","","t","","","t","","",},
+        .x = 0x38,
+        .y = 0x78,
+        .adj_idx = { 20, 30, 24, 46 },
+    },
+    [26] = {
+        .str = { "1", "","","1","","","1","","","1","","",},
+        .x = 0x10,
+        .y = 0x88,
+        .adj_idx = { 21, 6, 5, 27 },
+    },
+    [27] = {
+        .str = { "2", "","","2","","","2","","","2","","",},
+        .x = 0x1A,
+        .y = 0x88,
+        .adj_idx = { 22, 7, 26, 28 },
+    },
+    [28] = {
+        .str = { "3", "","","3","","","3","","","3","","",},
+        .x = 0x24,
+        .y = 0x88,
+        .adj_idx = { 23, 8, 27, 29 },
+    },
+    [29] = {
+        .str = { "4", "","","4","","","4","","","4","","",},
+        .x = 0x2E,
+        .y = 0x88,
+        .adj_idx = { 24, 9, 28, 30 },
+    },
+    [30] = {
+        .str = { "5", "","","5","","","5","","","5","","",},
+        .x = 0x38,
+        .y = 0x88,
+        .adj_idx = { 25, 10, 29, 51 },
+    },
+    [31] = {
+        .str = { "F", "","","F","","","F","","","F","","",},
+        .x = 0x50,
+        .y = 0x48,
+        .adj_idx = { 51, 36, 10, 32 },
+    },
+    [32] = {
+        .str = { "G", "","","G","","","G","","","G","","",},
+        .x = 0x5A,
+        .y = 0x48,
+        .adj_idx = { 52, 37, 31, 33 },
+    },
+    [33] = {
+        .str = { "H", "","","H","","","H","","","H","","",},
+        .x = 0x64,
+        .y = 0x48,
+        .adj_idx = { 53, 38, 32, 34 },
+    },
+    [34] = {
+        .str = { "I", "","","I","","","I","","","I","","",},
+        .x = 0x6E,
+        .y = 0x48,
+        .adj_idx = { 54, 39, 33, 35 },
+    },
+    [35] = {
+        .str = { "J", "","","J","","","J","","","J","","",},
+        .x = 0x78,
+        .y = 0x48,
+        .adj_idx = { 55, 40, 34, 56 },
+    },
+    [36] = {
+        .str = { "U", "","","U","","","U","","","U","","",},
+        .x = 0x50,
+        .y = 0x58,
+        .adj_idx = { 31, 41, 15, 37 },
+    },
+    [37] = {
+        .str = { "V", "","","V","","","V","","","V","","",},
+        .x = 0x5A,
+        .y = 0x58,
+        .adj_idx = { 32, 42, 36, 38 },
+    },
+    [38] = {
+        .str = { "W", "","","W","","","W","","","W","","",},
+        .x = 0x64,
+        .y = 0x58,
+        .adj_idx = { 33, 43, 37, 39 },
+    },
+    [39] = {
+        .str = { "X", "","","X","","","X","","","X","","",},
+        .x = 0x6E,
+        .y = 0x58,
+        .adj_idx = { 34, 44, 38, 40 },
+    },
+    [40] = {
+        .str = { "Y", "","","Y","","","Y","","","Y","","",},
+        .x = 0x78,
+        .y = 0x58,
+        .adj_idx = { 35, 45, 39, 61 },
+    },
+    [41] = {
+        .str = { "f", "","","f","","","f","","","f","","",},
+        .x = 0x50,
+        .y = 0x68,
+        .adj_idx = { 36, 46, 20, 42 },
+    },
+    [42] = {
+        .str = { "g", "","","g","","","g","","","g","","",},
+        .x = 0x5A,
+        .y = 0x68,
+        .adj_idx = { 37, 47, 41, 43 },
+    },
+    [43] = {
+        .str = { "h", "","","h","","","h","","","h","","",},
+        .x = 0x64,
+        .y = 0x68,
+        .adj_idx = { 38, 48, 42, 44 },
+    },
+    [44] = {
+        .str = { "i", "","","i","","","i","","","i","","",},
+        .x = 0x6E,
+        .y = 0x68,
+        .adj_idx = { 39, 49, 43, 45 },
+    },
+    [45] = {
+        .str = { "j", "","","j","","","j","","","j","","",},
+        .x = 0x78,
+        .y = 0x68,
+        .adj_idx = { 40, 50, 44, 66 },
+    },
+    [46] = {
+        .str = { "u", "","","u","","","u","","","u","","",},
+        .x = 0x50,
+        .y = 0x78,
+        .adj_idx = { 41, 51, 25, 47 },
+    },
+    [47] = {
+        .str = { "v", "","","v","","","v","","","v","","",},
+        .x = 0x5A,
+        .y = 0x78,
+        .adj_idx = { 42, 52, 46, 48 },
+    },
+    [48] = {
+        .str = { "w", "","","w","","","w","","","w","","",},
+        .x = 0x64,
+        .y = 0x78,
+        .adj_idx = { 43, 53, 47, 49 },
+    },
+    [49] = {
+        .str = { "x", "","","x","","","x","","","x","","",},
+        .x = 0x6E,
+        .y = 0x78,
+        .adj_idx = { 44, 54, 48, 50 },
+    },
+    [50] = {
+        .str = { "y", "","","y","","","y","","","y","","",},
+        .x = 0x78,
+        .y = 0x78,
+        .adj_idx = { 45, 55, 49, 71 },
+    },
+    [51] = {
+        .str = { "6", "","","6","","","6","","","6","","",},
+        .x = 0x50,
+        .y = 0x88,
+        .adj_idx = { 46, 31, 30, 52 },
+    },
+    [52] = {
+        .str = { "7", "","","7","","","7","","","7","","",},
+        .x = 0x5A,
+        .y = 0x88,
+        .adj_idx = { 47, 32, 51, 53 },
+    },
+    [53] = {
+        .str = { "8", "","","8","","","8","","","8","","",},
+        .x = 0x64,
+        .y = 0x88,
+        .adj_idx = { 48, 33, 52, 54 },
+    },
+    [54] = {
+        .str = { "9", "","","9","","","9","","","9","","",},
+        .x = 0x6E,
+        .y = 0x88,
+        .adj_idx = { 49, 34, 53, 55 },
+    },
+    [55] = {
+        .str = { "0", "","","0","","","0","","","0","","",},
+        .x = 0x78,
+        .y = 0x88,
+        .adj_idx = { 50, 35, 54, 76 },
+    },
+    [56] = {
+        .str = { "K", "","","K","","","K","","","K","","",},
+        .x = 0x90,
+        .y = 0x48,
+        .adj_idx = { 76, 61, 35, 57 },
+    },
+    [57] = {
+        .str = { "L", "","","L","","","L","","","L","","",},
+        .x = 0x9A,
+        .y = 0x48,
+        .adj_idx = { 77, 62, 56, 58 },
+    },
+    [58] = {
+        .str = { "M", "","","M","","","M","","","M","","",},
+        .x = 0xA4,
+        .y = 0x48,
+        .adj_idx = { 78, 63, 57, 59 },
+    },
+    [59] = {
+        .str = { "N", "","","N","","","N","","","N","","",},
+        .x = 0xAE,
+        .y = 0x48,
+        .adj_idx = { 79, 64, 58, 60 },
+    },
+    [60] = {
+        .str = { "O", "","","O","","","O","","","O","","",},
+        .x = 0xB8,
+        .y = 0x48,
+        .adj_idx = { 80, 65, 59, 4 },
+    },
+    [61] = {
+        .str = { "Z", "","","Z","","","Z","","","Z","","",},
+        .x = 0x90,
+        .y = 0x58,
+        .adj_idx = { 56, 66, 40, 62 },
+    },
+    [62] = {
+        .str = { "!", "","","!","","","!","","","!","","",},
+        .x = 0x9A,
+        .y = 0x58,
+        .adj_idx = { 57, 67, 61, 63 },
+    },
+    [63] = {
+        .str = { "?", "","","?","","","?","","","?","","",},
+        .x = 0xA4,
+        .y = 0x58,
+        .adj_idx = { 58, 68, 62, 64 },
+    },
+    [64] = {
+        .str = { ",", "","",",","","",",","","",",","","",},
+        .x = 0xAE,
+        .y = 0x58,
+        .adj_idx = { 59, 69, 63, 65 },
+    },
+    [65] = {
+        .str = { ".", "","",".","","",".","","",".","","",},
+        .x = 0xB8,
+        .y = 0x58,
+        .adj_idx = { 60, 70, 64, 4 },
+    },
+    [66] = {
+        .str = { "k", "","","k","","","k","","","k","","",},
+        .x = 0x90,
+        .y = 0x68,
+        .adj_idx = { 61, 71, 45, 67 },
+    },
+    [67] = {
+        .str = { "l", "","","l","","","l","","","l","","",},
+        .x = 0x9A,
+        .y = 0x68,
+        .adj_idx = { 62, 72, 66, 68 },
+    },
+    [68] = {
+        .str = { "m", "","","m","","","m","","","m","","",},
+        .x = 0xA4,
+        .y = 0x68,
+        .adj_idx = { 63, 73, 67, 69 },
+    },
+    [69] = {
+        .str = { "n", "","","n","","","n","","","n","","",},
+        .x = 0xAE,
+        .y = 0x68,
+        .adj_idx = { 64, 74, 68, 70 },
+    },
+    [70] = {
+        .str = { "o", "","","o","","","o","","","o","","",},
+        .x = 0xB8,
+        .y = 0x68,
+        .adj_idx = { 65, 75, 69, 4 },
+    },
+    [71] = {
+        .str = { "z", "","","z","","","z","","","z","","",},
+        .x = 0x90,
+        .y = 0x78,
+        .adj_idx = { 66, 76, 50, 72 },
+    },
+    [72] = {
+        .str = { ":", "","",":","","",":","","",":","","",},
+        .x = 0x9A,
+        .y = 0x78,
+        .adj_idx = { 67, 77, 71, 73 },
+    },
+    [73] = {
+        .str = { "/", "","","/","","","/","","","/","","",},
+        .x = 0xA4,
+        .y = 0x78,
+        .adj_idx = { 68, 78, 72, 74 },
+    },
+    [74] = {
+        .str = { "&", "","","&","","","&","","","&","","",},
+        .x = 0xAE,
+        .y = 0x78,
+        .adj_idx = { 69, 79, 73, 75 },
+    },
+    [75] = {
+        .str = { "-", "","","-","","","-","","","-","","",},
+        .x = 0xB8,
+        .y = 0x78,
+        .adj_idx = { 70, 80, 74, 4 },
+    },
+    [76] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0x90,
+        .y = 0x88,
+        .adj_idx = { 71, 56, 55, 77 },
+    },
+    [77] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0x9A,
+        .y = 0x88,
+        .adj_idx = { 72, 57, 76, 78 },
+    },
+    [78] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xA4,
+        .y = 0x88,
+        .adj_idx = { 73, 58, 77, 79 },
+    },
+    [79] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xAE,
+        .y = 0x88,
+        .adj_idx = { 74, 59, 78, 80 },
+    },
+    [80] = {
+        .str = { " ", "",""," ","",""," ","",""," ","","",},
+        .x = 0xB8,
+        .y = 0x88,
+        .adj_idx = { 75, 60, 79, 5 },
+    },
+};
+
+const s16 SioTacticianIndexMap[] = {
+    0x06, 0x07, 0x08, 0x09, 0x0A,
+    0x1F, 0x20, 0x21, 0x22, 0x23,
+    0x38, 0x39, 0x3A, 0x3B, 0x3C,
+    0x0B, 0x0C ,0x0D, 0x0E, 0x0F,
+    0x24, 0x25, 0x26, 0x27, 0x28,
+    0x3D, 0x3E, 0x3F, 0x40, 0x41,
+    0x10, 0x11, 0x12, 0x13, 0x14,
+    0x29, 0x2A, 0x2B, 0x2C, 0x2D,
+    0x42, 0x43, 0x44, 0x45, 0x46,
+    0x15, 0x16, 0x17, 0x18, 0x19,
+    0x2E, 0x2F, 0x30, 0x31, 0x32,
+    0x47, 0x48, 0x49, 0x4A, 0x4B,
+    0x1A, 0x1B, 0x1C, 0x1D, 0x1E,
+    0x33, 0x34, 0x35, 0x36, 0x37,
+    0x4C, 0x4D, 0x4E, 0x4F, 0x50,
+};
+
+const int gLinkArenaStatusMsg[] = {
+    0x76D, // Not Linked
+    0x76E, // Connecting
+    0x76F, // Link Error
+    0x770, // Done
+    0x770, // Done
+};
+
+
 //! FE8U = 0x08044550
 const struct TacticianTextConf * GetTacticianTextConf(s16 idx)
 {
@@ -96,13 +622,13 @@ void sub_8044614(struct ProcTactician * proc)
 
         for (j = 0; j < 0xF; j++)
         {
-            int idx = gUnknown_080D9C9E[i * 15 + j];
+            int idx = SioTacticianIndexMap[i * 15 + j];
             const struct TacticianTextConf * conf = gTacticianTextConf + idx;
             u8 * str = conf->str[proc->line_idx * 3];
 
             if (*str != '\0')
             {
-                Text_SetCursor(Texts_0203DB14 + (i + proc->text_idx * 5), conf->xpos);
+                Text_SetCursor(Texts_0203DB14 + (i + proc->text_idx * 5), conf->x);
                 Text_DrawString(
                     Texts_0203DB14 + (i + proc->text_idx * 5),
                     conf->str[proc->line_idx * 3]
@@ -195,7 +721,7 @@ void Tactician_InitScreen(struct ProcTactician * proc)
     proc->conf_idx = 6;
 
     conf = GetTacticianTextConf(6);
-    proc->child1 = StartNameEntrySpriteDraw(proc, conf->xpos - 4, conf->unk32 + 1);
+    proc->child1 = StartNameEntrySpriteDraw(proc, conf->x - 4, conf->y + 1);
     proc->unk39 = 0;
 
     for (i = 0; i < 10; i++)
@@ -256,23 +782,23 @@ void SioUpdateTeam(char * str, int team)
     WriteMultiArenaSaveTeam(team, buffer, str);
 }
 
-void sub_80449E8(struct ProcTactician * proc, int idx, const struct TacticianTextConf * conf)
+void Tactician_MoveHand(struct ProcTactician * proc, int pos, const struct TacticianTextConf * conf)
 {
     int str_idx;
-    u16 ret;
-    const struct TacticianTextConf * conf2;
+    u16 adj_idx;
+    const struct TacticianTextConf * adj_conf;
 
-    ret = conf->unk36[idx];
-    conf2 = gTacticianTextConf + conf->unk36[idx];
+    adj_idx  = conf->adj_idx[pos];
+    adj_conf = gTacticianTextConf + conf->adj_idx[pos];
 
     str_idx = proc->line_idx * 3;
 
-    while (*conf2->str[str_idx] == '\0')
+    while (*adj_conf->str[str_idx] == '\0')
     {
-        ret = conf2->unk36[idx];
-        conf2 = gTacticianTextConf + conf2->unk36[idx];
+        adj_idx  = adj_conf->adj_idx[pos];
+        adj_conf = gTacticianTextConf + adj_conf->adj_idx[pos];
     }
-    proc->conf_idx = ret;
+    proc->conf_idx = adj_idx;
 }
 
 void TacticianTryAppendChar(struct ProcTactician * proc, const struct TacticianTextConf * conf)
@@ -385,106 +911,105 @@ bool sub_8044B78(struct ProcTactician * proc, const struct TacticianTextConf * c
 }
 
 //! FE8U = 0x08044C54
-void sub_8044C54(struct ProcTactician * proc, const struct TacticianTextConf * conf)
+void Tactician_LoopCore(struct ProcTactician * proc, const struct TacticianTextConf * conf)
 {
     char var;
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_UP) != 0)
     {
-        sub_80449E8(proc, 0, conf);
+        Tactician_MoveHand(proc, 0, conf);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0)
     {
-        sub_80449E8(proc, 1, conf);
+        Tactician_MoveHand(proc, 1, conf);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_LEFT) != 0)
     {
-        sub_80449E8(proc, 2, conf);
+        Tactician_MoveHand(proc, 2, conf);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) != 0)
     {
-        sub_80449E8(proc, 3, conf);
+        Tactician_MoveHand(proc, 3, conf);
     }
 
     if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
-        switch (conf->unk3E)
-        {
-            case 0:
-                TacticianTryAppendChar(proc, conf);
-                break;
+        switch (conf->action) {
+        case 0:
+            TacticianTryAppendChar(proc, conf);
+            break;
 
-            case 4:
-                TacticianTryDeleteChar(proc, conf);
-                break;
+        case 4:
+            TacticianTryDeleteChar(proc, conf);
+            break;
 
-            case 5:
-                SaveTactician(proc, conf);
-                break;
+        case 5:
+            SaveTactician(proc, conf);
+            break;
 
-            case 6:
-                sub_8044B78(proc, conf, 1, 0);
+        case 6:
+            sub_8044B78(proc, conf, 1, 0);
 
-                break;
+            break;
 
-            case 7:
-                sub_8044B78(proc, conf, 2, 0);
+        case 7:
+            sub_8044B78(proc, conf, 2, 0);
 
-                break;
+            break;
 
-            case 1:
-                if (proc->line_idx != 0)
+        case 1:
+            if (proc->line_idx != 0)
+            {
+                SioPlaySoundEffect(2);
+                proc->line_idx = 0;
+                proc->unk39 = 0;
+
+                Proc_Goto(proc, 1);
+                return;
+            }
+
+            SioPlaySoundEffect(0);
+            break;
+
+        case 2:
+            if (proc->line_idx != 1)
+            {
+                SioPlaySoundEffect(2);
+
+                proc->line_idx = 1;
+                proc->unk39 = 0;
+
+                Proc_Goto(proc, 1);
+                return;
+            }
+
+            SioPlaySoundEffect(0);
+            break;
+
+        case 3:
+            if (proc->line_idx < 2 || proc->line_idx > 3)
+            {
+                SioPlaySoundEffect(2);
+
+                proc->line_idx = 2;
+
+                if (proc->unk32 != 0)
                 {
-                    SioPlaySoundEffect(2);
-                    proc->line_idx = 0;
-                    proc->unk39 = 0;
-
-                    Proc_Goto(proc, 1);
-                    return;
+                    proc->line_idx = 3;
                 }
 
-                SioPlaySoundEffect(0);
-                break;
+                proc->unk39 = 0;
 
-            case 2:
-                if (proc->line_idx != 1)
-                {
-                    SioPlaySoundEffect(2);
+                Proc_Goto(proc, 1);
+                return;
+            }
 
-                    proc->line_idx = 1;
-                    proc->unk39 = 0;
+            SioPlaySoundEffect(0);
 
-                    Proc_Goto(proc, 1);
-                    return;
-                }
-
-                SioPlaySoundEffect(0);
-                break;
-
-            case 3:
-                if (proc->line_idx < 2 || proc->line_idx > 3)
-                {
-                    SioPlaySoundEffect(2);
-
-                    proc->line_idx = 2;
-
-                    if (proc->unk32 != 0)
-                    {
-                        proc->line_idx = 3;
-                    }
-
-                    proc->unk39 = 0;
-
-                    Proc_Goto(proc, 1);
-                    return;
-                }
-
-                SioPlaySoundEffect(0);
-
-                break;
+            break;
         }
     }
 
@@ -534,7 +1059,7 @@ void sub_8044C54(struct ProcTactician * proc, const struct TacticianTextConf * c
 
         if (*conf->str[proc->line_idx * 3] == 0)
         {
-            sub_80449E8(proc, 2, conf);
+            Tactician_MoveHand(proc, 2, conf);
         }
 
         Proc_Goto(proc, 1);
@@ -564,10 +1089,10 @@ void Tactician_Loop(struct ProcTactician * proc)
 {
     char _cbuf[proc->max_len + 1];
     const struct TacticianTextConf * conf = GetTacticianTextConf(proc->conf_idx);
-    proc->unk36 = proc->conf_idx;
+    proc->conf_idx_bak = proc->conf_idx;
 
-    sub_8044C54(proc, conf);
-    if (proc->unk36 != proc->conf_idx)
+    Tactician_LoopCore(proc, conf);
+    if (proc->conf_idx_bak != proc->conf_idx)
     {
         SioPlaySoundEffect(3);
     }
@@ -577,7 +1102,7 @@ void Tactician_Loop(struct ProcTactician * proc)
 
     _cbuf[proc->max_len - 1] = 0;
 
-    UpdateNameEntrySpriteDraw(proc->child1, conf->xpos - 4, conf->unk32 + 1, StrLen(_cbuf) * 7, conf->unk34, (proc->line_idx <= 1) ? proc->line_idx : 2);
+    UpdateNameEntrySpriteDraw(proc->child1, conf->x - 4, conf->y + 1, StrLen(_cbuf) * 7, conf->kind, (proc->line_idx <= 1) ? proc->line_idx : 2);
 }
 
 //! FE8U = 0x08044F84

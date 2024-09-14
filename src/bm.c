@@ -28,56 +28,12 @@
 
 #include "bm.h"
 
-enum {
-    CAMERA_MARGIN_LEFT   = 16 * 3,
-    CAMERA_MARGIN_RIGHT  = 16 * 11,
-    CAMERA_MARGIN_TOP    = 16 * 2,
-    CAMERA_MARGIN_BOTTOM = 16 * 7,
-};
-
-struct CamMoveProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Vec2 to;
-    /* 30 */ struct Vec2 from;
-    /* 34 */ struct Vec2 watchedCoordinate;
-    /* 38 */ s16 calibration;
-    /* 3A */ s16 distance;
-    /* 3C */ int frame;
-    /* 40 */ s8 xCalibrated;
-};
-
-struct UnkMapCursorProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Vec2 to;
-    /* 30 */ struct Vec2 from;
-    /* 34 */ int clock;
-    /* 38 */ int duration;
-};
-
 struct PalFadeSt EWRAM_DATA sPalFadeSt[0x20] = { 0 };
 struct BmSt EWRAM_DATA gBmSt = {};
 struct PlaySt EWRAM_DATA gPlaySt = {};
 struct Vec2 EWRAM_DATA sLastCoordMapCursorDrawn = {};
 u32 EWRAM_DATA sLastTimeMapCursorDrawn = 0;
 s8 EWRAM_DATA sCameraAnimTable[0x100] = { 0 };
-
-// TODO: Move elsewhere
-extern struct ProcCmd gProcScr_ResetCursorPosition[];
-extern struct ProcCmd ProcScr_PhaseIntro[];
-extern struct ProcCmd gProcScr_ChapterIntroTitleOnly[];
-
-void BmMain_StartIntroFx(ProcPtr proc);
-int CallBeginningEvents(void);
-void UndeployEveryone(void);
-int BmMain_ChangePhase(void);
-void BmMain_SuspendBeforePhase(void);
-s8 sub_8015434(void);
-void BmMain_StartPhase(ProcPtr proc);
-int BmMain_UpdateTraps(ProcPtr proc);
-void sub_80155C4(void);
-void BmMain_ResumePlayerPhase(ProcPtr proc);
 
 struct ProcCmd CONST_DATA gProc_BMapMain[] = {
     PROC_SLEEP(0),
@@ -118,7 +74,7 @@ PROC_LABEL(3),
 PROC_LABEL(9),
     PROC_START_CHILD(gProcScr_ResetCursorPosition),
     PROC_START_CHILD_BLOCKING(ProcScr_PhaseIntro),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(TickActiveFactionTurn),
 
@@ -223,34 +179,34 @@ s8 CONST_DATA sDirKeysToOffsetLut[][2] = {
 
 u16 CONST_DATA sSprite_MapCursorA[] = {
     4,
-    0x00FC, 0x01FE, 0x0000,
-    0x00FC, 0x100A, 0x0000,
-    0x0009, 0x21FE, 0x0000,
-    0x0009, 0x300A, 0x0000,
+    OAM0_SHAPE_8x8 + OAM0_Y(252), OAM1_SIZE_8x8 + OAM1_X(510),                          0,
+    OAM0_SHAPE_8x8 + OAM0_Y(252), OAM1_SIZE_8x8 + OAM1_X(10) + OAM1_HFLIP,              0,
+    OAM0_SHAPE_8x8 + OAM0_Y(9),   OAM1_SIZE_8x8 + OAM1_X(510) + OAM1_VFLIP,             0,
+    OAM0_SHAPE_8x8 + OAM0_Y(9),   OAM1_SIZE_8x8 + OAM1_X(10) + OAM1_HFLIP + OAM1_VFLIP, 0,
 };
 
 u16 CONST_DATA sSprite_MapCursorB[] = {
-    4,
-    0x00FD, 0x01FF, 0x0000,
-    0x00FD, 0x1009, 0x0000,
-    0x0008, 0x21FF, 0x0000,
-    0x0008, 0x3009, 0x0000,
+4,
+    OAM0_SHAPE_8x8 + OAM0_Y(253), OAM1_SIZE_8x8 + OAM1_X(511),                          0,
+    OAM0_SHAPE_8x8 + OAM0_Y(253), OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP,               0,
+    OAM0_SHAPE_8x8 + OAM0_Y(8),   OAM1_SIZE_8x8 + OAM1_X(511) + OAM1_VFLIP,             0,
+    OAM0_SHAPE_8x8 + OAM0_Y(8),   OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP + OAM1_VFLIP,  0,
 };
 
 u16 CONST_DATA sSprite_MapCursorC[] = {
     4,
-    0x00FE, 0x0000, 0x0000,
-    0x00FE, 0x1008, 0x0000,
-    0x0007, 0x2000, 0x0000,
-    0x0007, 0x3008, 0x0000,
+    OAM0_SHAPE_8x8 + OAM0_Y(254), OAM1_SIZE_8x8,                                        0,
+    OAM0_SHAPE_8x8 + OAM0_Y(254), OAM1_SIZE_8x8 + OAM1_X(8) + OAM1_HFLIP,               0,
+    OAM0_SHAPE_8x8 + OAM0_Y(7),   OAM1_SIZE_8x8 + OAM1_VFLIP,                           0,
+    OAM0_SHAPE_8x8 + OAM0_Y(7),   OAM1_SIZE_8x8 + OAM1_X(8) + OAM1_HFLIP + OAM1_VFLIP,  0,
 };
 
 u16 CONST_DATA sSprite_MapCursorStretched[] = {
     4,
-    0x00F8, 0x01FC, 0x0000,
-    0x00F8, 0x100C, 0x0000,
-    0x000A, 0x21FC, 0x0000,
-    0x000A, 0x300C, 0x0000,
+    OAM0_SHAPE_8x8 + OAM0_Y(248), OAM1_SIZE_8x8 + OAM1_X(508),                          0,
+    OAM0_SHAPE_8x8 + OAM0_Y(248), OAM1_SIZE_8x8 + OAM1_X(12) + OAM1_HFLIP,              0,
+    OAM0_SHAPE_8x8 + OAM0_Y(10),  OAM1_SIZE_8x8 + OAM1_X(508) + OAM1_VFLIP,             0,
+    OAM0_SHAPE_8x8 + OAM0_Y(10),  OAM1_SIZE_8x8 + OAM1_X(12) + OAM1_HFLIP + OAM1_VFLIP, 0,
 };
 
 u16* CONST_DATA sMapCursorSpriteLut[] = {
@@ -277,50 +233,47 @@ u16* CONST_DATA sMapCursorSpriteLut[] = {
 
 u16 CONST_DATA sSprite_SysUpArrowA[] = {
     1,
-    0x8000, 0x0000, 0x004C,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4C),
 };
 
 u16 CONST_DATA sSprite_SysUpArrowB[] = {
     1,
-    0x8000, 0x0000, 0x004D,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4D),
 };
 
 u16 CONST_DATA sSprite_SysUpArrowC[] = {
     1,
-    0x80FF, 0x0000, 0x004D,
+    OAM0_SHAPE_8x16 | OAM0_Y(-1), OAM1_SIZE_8x16, OAM2_CHR(0x4D),
 };
 
 u16 CONST_DATA sSprite_SysDownArrowA[] = {
     1,
-    0x8000, 0x0000, 0x004E,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4E),
 };
 
 u16 CONST_DATA sSprite_SysDownArrowB[] = {
     1,
-    0x8000, 0x0000, 0x004F,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4F),
 };
 
 u16 CONST_DATA sSprite_SysDownArrowC[] = {
     1,
-    0x8001, 0x0000, 0x004F,
+    OAM0_SHAPE_8x16 | OAM0_Y(+1), OAM1_SIZE_8x16, OAM2_CHR(0x4F),
 };
 
-u16* CONST_DATA gUnknown_0859A530[] = {
+u16* CONST_DATA gSysUpArrowSpriteLut[] = {
     sSprite_SysUpArrowA,
     sSprite_SysUpArrowB,
     sSprite_SysUpArrowC,
 };
 
-u16* CONST_DATA gUnknown_0859A53C[] = {
+u16* CONST_DATA gSysDownArrowSpriteLut[] = {
     sSprite_SysDownArrowA,
     sSprite_SysDownArrowB,
     sSprite_SysDownArrowC,
 };
 
-void CamMove_OnInit(struct CamMoveProc* proc);
-void CamMove_OnLoop(struct CamMoveProc* proc);
-
-struct ProcCmd CONST_DATA gProcScr_CamMove[] = {
+struct ProcCmd CONST_DATA ProcScr_CamMove[] = {
     PROC_NAME("GENS"),
     PROC_SLEEP(0),
 
@@ -330,15 +283,12 @@ struct ProcCmd CONST_DATA gProcScr_CamMove[] = {
     PROC_END,
 };
 
-void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc);
 
-struct ProcCmd CONST_DATA gProcScr_UnkMapCursor[] = {
+
+struct ProcCmd CONST_DATA ProcScr_UnkMapCursor[] = {
     PROC_REPEAT(UnkMapCursor_OnLoop),
     PROC_END,
 };
-
-void sub_801613C(void);
-void sub_80160E0(struct CamMoveProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_0859A580[] = {
     PROC_SET_END_CB(sub_801613C),
@@ -347,8 +297,8 @@ struct ProcCmd CONST_DATA gProcScr_0859A580[] = {
 };
 
 //! FE8U = 0x080152A4
-void OnVBlank(void) {
-
+void OnVBlank(void)
+{
     INTR_CHECK = INTR_FLAG_VBLANK;
 
     IncrementGameClock();
@@ -358,22 +308,21 @@ void OnVBlank(void) {
 
     SyncLoOam();
 
-    if (gBmSt.sync_hardware) {
-        gBmSt.sync_hardware = 0;
+    if (gBmSt.main_loop_ended)
+    {
+        gBmSt.main_loop_ended = 0;
 
         FlushLCDControl();
         FlushBackgrounds();
         FlushTiles();
         SyncHiOam();
     }
-
     m4aSoundMain();
-
-    return;
 }
 
 //! FE8U = 0x080152F4
-void OnGameLoopMain(void) {
+void OnMain(void)
+{
 
     UpdateKeyStatus(gKeyStatusPtr);
 
@@ -393,29 +342,30 @@ void OnGameLoopMain(void) {
     Proc_Run(gProcTreeRootArray[4]);
     PushSpriteLayerObjects(13);
 
-    gBmSt.sync_hardware = 1;
+    gBmSt.main_loop_ended = 1;
     gBmSt.prevVCount = REG_VCOUNT;
 
     VBlankIntrWait();
-
-    return;
 }
 
 //! FE8U = 0x08015360
-void LockGame(void) {
-    gBmSt.gameLogicSemaphore++;
+void LockGame(void)
+{
+    gBmSt.lock++;
     return;
 }
 
 //! FE8U = 0x08015370
-void UnlockGame(void) {
-    gBmSt.gameLogicSemaphore--;
+void UnlockGame(void)
+{
+    gBmSt.lock--;
     return;
 }
 
 //! FE8U = 0x08015380
-u8 GetGameLock(void) {
-    return gBmSt.gameLogicSemaphore;
+u8 GetGameLock(void)
+{
+    return gBmSt.lock;
 }
 
 //! FE8U = 0x0801538C
@@ -463,10 +413,10 @@ int BmMain_ChangePhase(void)
     RefreshUnitSprites();
     SwitchPhases();
 
-    if (RunPhaseSwitchEvents() == 1)
-        return 0;
+    if (RunPhaseSwitchEvents() == true)
+        return false;
 
-    return 1;
+    return true;
 }
 
 //! FE8U = 0x08015434
@@ -952,7 +902,7 @@ void SetCursorMapPosition(int x, int y) {
 void UpdateStatArrowSprites(int x, int y, u8 isDown) {
     int frame =  GetGameClock() / 8 % 3;
 
-    PutSprite(4, x, y, isDown ? gUnknown_0859A53C[frame] : gUnknown_0859A530[frame], 0);
+    PutSprite(4, x, y, isDown ? gSysDownArrowSpriteLut[frame] : gSysUpArrowSpriteLut[frame], 0);
 
     return;
 }
@@ -1065,14 +1015,14 @@ s8 sub_8015D84(ProcPtr parent, int x, int y) {
         return 0;
     }
 
-    if (Proc_Find(gProcScr_CamMove)) {
+    if (Proc_Find(ProcScr_CamMove)) {
         return 0;
     }
 
     if (parent != 0) {
-        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
+        proc = Proc_StartBlocking(ProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gBmSt.camera.x;
@@ -1098,14 +1048,14 @@ s8 EnsureCameraOntoPosition(ProcPtr parent, int x, int y) {
         return 0;
     }
 
-    if (Proc_Find(gProcScr_CamMove)) {
+    if (Proc_Find(ProcScr_CamMove)) {
         return 0;
     }
 
     if (parent) {
-        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
+        proc = Proc_StartBlocking(ProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gBmSt.camera.x;
@@ -1140,14 +1090,14 @@ s8 CameraMove_8015EDC(ProcPtr parent) {
         return 0;
     }
 
-    if (Proc_Find(gProcScr_CamMove)) {
+    if (Proc_Find(ProcScr_CamMove)) {
         return 0;
     }
 
     if (parent) {
-        proc = Proc_StartBlocking(gProcScr_CamMove, parent);
+        proc = Proc_StartBlocking(ProcScr_CamMove, parent);
     } else {
-        proc = Proc_Start(gProcScr_CamMove, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_CamMove, PROC_TREE_3);
     }
 
     proc->from.x = gBmSt.camera.x;
@@ -1181,7 +1131,7 @@ void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc) {
 void sub_8015F90(int x, int y, int duration) {
     struct UnkMapCursorProc* proc;
 
-    proc = Proc_Start(gProcScr_UnkMapCursor, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_UnkMapCursor, PROC_TREE_3);
 
     proc->to.x = gBmSt.playerCursor.x << 4;
     proc->to.y = gBmSt.playerCursor.y << 4;

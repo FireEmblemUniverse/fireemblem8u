@@ -23,43 +23,12 @@
 #include "bmdifficulty.h"
 #include "constants/event-flags.h"
 
-// TODO: move to some constant header and maybe merge with something if that makes sense
-#define BGPAL_BMDIFFICULTY_UNK_0 0
-#define OBPAL_BMDIFFICULTY_UNK_5 5
-
-/*
-* Difficulty mode stuff and also tower/ruins stuff
-* May have been separate files
-*/
-
-struct Struct020038C8 {
-    struct Text text[4][8];
-    u8 idk[0x40];
-};
-
-extern struct Struct020038C8 gUnknown_020038C8[2];
-extern struct Text gUnknown_02003B48[8];
-
-extern struct Struct030017A0 gDungeonState;
-
-extern int gUnknown_020038C4;
-
-struct Struct080D7FD0 {
-    s8 x;
-    s8 y;
-    u16 _pad;
-    u8 numDigits;
-};
-
-struct Outer080D7FD0 {
-    struct Struct080D7FD0 current[4];
-    s8 x;
-    s8 y;
-    struct Struct080D7FD0 record[4];
-    s8 x2;
-    s8 y2;
-};
-
+EWRAM_OVERLAY(0) u16 gUnknown_0200310C[0x3D0] = {};
+EWRAM_OVERLAY(0) struct Font gUnknown_020038AC = {};
+EWRAM_OVERLAY(0) int gUnknown_020038C4 = 0;
+EWRAM_OVERLAY(0) struct Struct020038C8 gUnknown_020038C8[2] = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_02003B48[8] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_02003B88[0x10] = {};
 
 const struct Outer080D7FD0 gUnknown_080D7FD0 = {
     {
@@ -466,8 +435,6 @@ void StartDungeonRecordProcFromMenu(ProcPtr proc) {
     return;
 }
 
-extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
-
 struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(LockGame),
@@ -521,10 +488,6 @@ void sub_8038230() {
     StartBgm(0x40, 0);
     return;
 }
-
-extern u16 gBgConfig_SaveMenu[]; // bg config
-
-extern u16 gUnknown_0200310C[];
 
 void SetupDungeonRecordUi(ProcPtr proc) {
     int i;
@@ -880,9 +843,6 @@ struct Text* DrawTimeText_WithReset(struct Text* th, int time, s8 xBase, s8 yBas
     return th;
 }
 
-extern struct Font gUnknown_020038AC;
-extern struct Text gUnknown_02003B70;
-
 void DrawDungeonRecordUiText(ProcPtr proc) {
     int time;
     struct Dungeon currentDungeon;
@@ -911,7 +871,7 @@ void DrawDungeonRecordUiText(ProcPtr proc) {
     DrawDungeonRecordUiLabels(&text);
 
     DrawNumberText(
-        &gUnknown_02003B70,
+        &gUnknown_02003B48[5],
         recordDungeon.clearCount,
         3,
         0x1A,
@@ -1116,10 +1076,6 @@ void sub_8038F78(struct Text* th) {
     return;
 }
 
-extern struct Struct02003BE8 gUnknown_02003BE8;
-extern u16 gUnknown_02003B88[];
-extern int gUnknown_02003BA8[];
-
 // obj data?
 const u16 CONST_DATA obj_859E79C[] = {
     0x0002, 0x4000, 0x8000, 0x0100,
@@ -1179,7 +1135,7 @@ void sub_803901C(struct BMDifficultyProc * proc)
     return;
 }
 
-extern struct Text gUnknown_02003B08;
+
 
 void sub_80390D4(struct BMDifficultyProc* proc) {
     int pos[2];
@@ -1200,7 +1156,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
     } else {
         if (proc->labelIndex == 4) {
             DrawTimeText_WithReset(
-                &gUnknown_02003B08,
+                &gUnknown_020038C8[1].text[4][0],
                 proc->unk_30,
                 gUnknown_080D7FD0.record[4].x,
                 gUnknown_080D7FD0.record[4].y,
@@ -1426,7 +1382,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
         }
 
         DrawNumberText_WithReset(
-            &gUnknown_02003B70,
+            &gUnknown_02003B48[5],
             val,
             3,
             0x1A,

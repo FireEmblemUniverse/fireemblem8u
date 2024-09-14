@@ -23,10 +23,19 @@
 #include "constants/characters.h"
 #include "constants/items.h"
 
+EWRAM_OVERLAY(0) struct BonusClaimEnt gBonusClaimData[50] = {};
+EWRAM_OVERLAY(0) u8 bonusclaim_maybe_not_pad1[0x18] = {};
+EWRAM_OVERLAY(0) struct BonusClaimEnt gBonusClaimDataUpdated[50] = {};
+EWRAM_OVERLAY(0) u8 bonusclaim_maybe_not_pad2[0x18] = {};
+EWRAM_OVERLAY(0) struct BonusClaimItemEnt gBonusClaimItemList[0x80] = {};
+EWRAM_OVERLAY(0) struct BonusClaimConfig gBonusClaimConfig[0x40] = {};
+EWRAM_OVERLAY(0) int gBonusClaimItemCounts[0x40] = {};
+EWRAM_OVERLAY(0) struct Text gBonusClaimText[0x121] = {}; // maybe lower
+
 struct BonusClaimEnt * CONST_DATA gpBonusClaimData = gBonusClaimData;
 struct BonusClaimEnt * CONST_DATA gpBonusClaimDataUpdated = gBonusClaimDataUpdated;
 struct BonusClaimItemEnt * CONST_DATA gpBonusClaimItemList = gBonusClaimItemList;
-int* CONST_DATA gpBonusClaimItemCount = &gBonusClaimItemCount;
+int* CONST_DATA gpBonusClaimItemCount = gBonusClaimItemCounts;
 struct Text * CONST_DATA gpBonusClaimText = gBonusClaimText;
 struct BonusClaimConfig * CONST_DATA gpBonusClaimConfig = gBonusClaimConfig;
 

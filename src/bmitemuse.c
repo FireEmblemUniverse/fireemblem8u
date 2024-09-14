@@ -43,10 +43,10 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 
     PROC_CALL(LockGame),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(WarpSelect_OnInit),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(WarpSelect_OnIdle),
 
@@ -72,7 +72,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectTorch[] =
     PROC_CALL(LockGame),
 
     PROC_CALL(TorchSelect_OnInit),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(TorchSelect_OnIdle),
 

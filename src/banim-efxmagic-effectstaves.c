@@ -945,7 +945,7 @@ void StartSubSpell_efxBerserkBG(struct Anim * anim, int terminator)
     SpellFx_RegisterBgPal(Pal_BerserkBg, PLTT_SIZE_4BPP);
     SpellFx_RegisterBgGfx(Img_086849B8, 32 * 8 * CHR_SIZE);
 
-    EfxTmCpyBG(gUnknown_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
+    EfxTmCpyBG(Tsa_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 

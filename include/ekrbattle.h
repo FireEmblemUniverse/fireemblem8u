@@ -75,7 +75,9 @@ enum gEkrDistanceType_index {
     EKR_DISTANCE_FAR,
     EKR_DISTANCE_FARFAR,
     EKR_DISTANCE_MONOCOMBAT,
-    EKR_DISTANCE_PROMOTION
+    EKR_DISTANCE_PROMOTION,
+
+    EKR_DISTANCE_MAX
 };
 extern s16 gEkrDistanceType;
 

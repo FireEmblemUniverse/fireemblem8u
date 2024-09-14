@@ -609,14 +609,14 @@ void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 
     struct Anim * frontAnim;
 
     // clang-format off
-    u32 * gUnknown_080DEBC8[] =
+    u32 * scrs[] =
     {
-        gUnknown_086FF4A8, gUnknown_086FF5BC,
-        gUnknown_086FF4B0, gUnknown_086FF5C4,
-        gUnknown_086FF4B8, gUnknown_086FF5CC,
-        gUnknown_086FF4C0, gUnknown_086FF5D4,
-        gUnknown_086FF4C8, gUnknown_086FF5DC,
-        gUnknown_086FF4D0, gUnknown_086FF5E4,
+        AnimScr_086FF4A8, AnimScr_086FF5BC,
+        AnimScr_086FF4B0, AnimScr_086FF5C4,
+        AnimScr_086FF4B8, AnimScr_086FF5CC,
+        AnimScr_086FF4C0, AnimScr_086FF5D4,
+        AnimScr_086FF4C8, AnimScr_086FF5DC,
+        AnimScr_086FF4D0, AnimScr_086FF5E4,
     };
 
     s16 gUnknown_080DEBF8[] =
@@ -647,7 +647,7 @@ void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 
     proc->timer = 0;
     proc->terminator = terminator;
 
-    scr = gUnknown_080DEBC8[index * 2];
+    scr = scrs[index * 2];
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
@@ -708,8 +708,8 @@ void StartSubSpell_efxNaglfarOBJ2(struct Anim * anim, int terminator, u8 c)
     // clang-format off
     u32 * gUnknown_080DEC30[4] =
     {
-        gUnknown_08700098, gUnknown_087003EC,
-        gUnknown_087000A4, gUnknown_087003F8,
+        AnimScr_08700098, AnimScr_087003EC,
+        AnimScr_087000A4, AnimScr_087003F8,
     };
     // clang-format on
 

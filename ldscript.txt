@@ -26,118 +26,45 @@ SECTIONS
 
     ewram_overlay_0 __ewram_start (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; gUnk_02000000 = .;
-        . = 0x000280; gMinimapWinBuf = .;
-        . = 0x000500; gMinimapFrontWinBuf = .;
-        . = 0x000504; gMinimapBackWinBuf = .;
-        . = 0x000508; gMinimapDisplayedWinBuf = .;
-        . = 0x00050C; gMinimapObjectFlashPal = .;
-        . = 0x0007A0; Pal_020007A0 = .;
-        . = 0x0007E0; gUnknown_020007E0 = .;
-        . = 0x000920; gSaveMenuSubBoxFont = .;
-        . = 0x000938; gSaveMenuSubBoxText = .;
-        . = 0x000940; gPlayStChapterBits = .;
-        . = 0x000944; gPlayStChapterMode = .;
-        . = 0x000948; gPlayStOptionBits = .;
-        . = 0x000968; gBonusClaimData = .;
-        . = 0x000D68; gBonusClaimDataUpdated = .;
-        . = 0x000FA0; gUnknown_02000FA0 = .;
-        . = 0x001000; gBmMapBuffer = .;
-        . = 0x001168; gBonusClaimItemList = .;
-        . = 0x001368; gBonusClaimConfig = .;
-        . = 0x001568; gBonusClaimItemCount = .;
-        . = 0x001668; gBonusClaimText = .;
-        . = 0x0017A0; gUnknown_020017A0 = .;
-        . = 0x001F70; gConvoyItemCount = .;
-        . = 0x001FA0; gUnknown_02001FA0 = .;
-        . = 0x002038; gUnknown_02002038 = .;
-        . = 0x002774; gUnknown_02002774 = .;
-        . = 0x00278C; gTradeMenuText = .;
-        . = 0x0027A0; gUnknown_020027A0 = .;
-        . = 0x0027DC; src/bmio.o(ewram_overlay_0);
-        . = 0x002FDC; gaBattleForecastTextStructs = .;
-        . = 0x00300C; gBkselPals = .;
-        . = 0x00310C; gUnknown_0200310C = .;
-        . = 0x0038AC; gUnknown_020038AC = .;
-        . = 0x0038C4; gUnknown_020038C4 = .;
-        . = 0x0038C8; gUnknown_020038C8 = .;
-        . = 0x003B08; gUnknown_02003B08 = .;
-        . = 0x003B48; gUnknown_02003B48 = .;
-        . = 0x003B70; gUnknown_02003B70 = .;
-        . = 0x003B88; gUnknown_02003B88 = .;
-        . = 0x003BA8; gUnknown_02003BA8 = .;
-        . = 0x003BE8; gUnknown_02003BE8 = .;
-        . = 0x003BFC;
+        . = ALIGN(4); src/minimap.o(ewram_overlay_0);
+
+        . = 0x0007E0;
+        . = ALIGN(4); src/savedraw.o(ewram_overlay_0);
+        . = ALIGN(4); src/difficultymenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bonusclaim.o(ewram_overlay_0);
+        . = ALIGN(4); src/convoymenu.o(ewram_overlay_0);
+
+        . = 0x002774;
+        . = ALIGN(4); src/bmmenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmtrade.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmio.o(ewram_overlay_0);
+
+        . = 0x002FDC;
+        . = ALIGN(4); src/bksel.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmdifficulty.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmdifficulty-ewram.o(ewram_overlay_0);
         . = ALIGN(4); src/statscreen.o(ewram_overlay_0);
         . = ALIGN(4); src/uichapterstatus.o(ewram_overlay_0);
         . = ALIGN(4); src/mu.o(ewram_overlay_0);
-        . = 0x00D3E0; gSortedUnitsBuf = .;
-        . = 0x00D6E0; gSortedUnits = .;
-        . = 0x00D7E0; gUnknown_0200D7E0 = .;
-        . = 0x00DFE0; gUnknown_0200DFE0 = .;
-        . = 0x00E060; gUnknown_0200E060 = .;
-        . = 0x00E098; gUnknown_0200E098 = .;
-        . = 0x00E0A0; gUnknown_0200E0A0 = .;
-        . = 0x00E0A8; gUnknown_0200E0A8 = .;
-        . = 0x00E140; gUnknown_0200E140 = .;
-        . = 0x00E148; gUnknown_0200E148 = .;
-        . = 0x00E150; gUnknown_0200E150 = .;
-        . = 0x00E158; gUnknown_0200E158 = .;
-        . = 0x00F158; gUnknown_0200F158 = .;
-        . = 0x00F15C; gUnknown_0200F15C = .;
-        . = 0x00F17C; gStringBufferAlt = .;
-        . = 0x01117C; gPrepMainMenuTexts = .;
-        . = 0x0111CC; gPrepUnitPool = .;
-        . = 0x0121CC; gPrepUnitList = .;
-        . = 0x0122D4; gPrepScreenItemList = .;
-        . = 0x012914; gUnknown_02012914 = .;
-        . = 0x012F54; gUnknown_02012F54 = .;
-        . = 0x012F56; gUnknown_02012F56 = .;
-        . = 0x012F58; gUnknown_02012F58 = .;
-        . = 0x013458; gUnknown_02013458 = .;
-        . = 0x013460; gUnknown_02013460 = .;
-        . = 0x013498; gPrepItemTexts = .;
-        . = 0x013510; gPrepItemScreenTexts = .;
-        . = 0x013590; gUnknown_02013590 = .;
-        . = 0x013598; gPrepUnitTexts = .;
-        . = 0x013648; gUnknown_02013648 = .;
-        . = 0x013660; gUnknown_02013660 = .;
-        . = 0x013668; gUnknown_02013668 = .;
-        . = 0x013670; gUnknown_02013670 = .;
-        . = 0x013698; gUnknown_02013698 = .;
-        . = 0x0136D8; gUnknown_020136D8 = .;
-        . = 0x0136F0; sSupportScreenUnitCount = .;
-        . = 0x0136F4; gUnknown_020136F4 = .;
-        . = 0x014EF4; gUnknown_02014EF4 = .;
-        . = 0x019D00; gUnknown_02019D00 = .;
-        . = 0x01AFC0; gFont_0201AFC0 = .;
-        . = 0x01AFF0; gUnknown_0201AFF0 = .;
-        . = 0x01B0D8; gUnknown_0201B0D8 = .;
-        . = 0x01B100; gUnknown_0201B100 = .;
-        . = 0x01B104; gUnknown_0201B104 = .;
-        . = 0x01B1E4; gUnknown_0201B1E4 = .;
-        . = 0x01B3A4; gUnknown_0201B3A4 = .;
-        . = 0x01B430; gUnknown_0201B430 = .;
-        . = 0x01B458; gUnknown_0201B458 = .;
-        . = 0x01B718; gUnknown_0201B718 = .;
-        . = 0x01B71C; gUnknown_0201B71C = .;
-        . = 0x01B758; gUnknown_0201B758 = .;
-        . = 0x01B7DA; gUnknown_0201B7DA = .;
-        . = 0x01B864; gUnknown_0201B864 = .;
-        . = 0x01B930; gUnknown_0201B930 = .;
-        . = 0x01B958; gUnknown_0201B958 = .;
-        . = 0x01BBD8; gUnknown_0201BBD8 = .;
-        . = 0x01BE30; gWmHblankStatus = .;
-        . = 0x01BE32; gUnknown_0201BE32 = .;
-        . = 0x01C5B4; gUnknown_0201C5B4 = .;
-        . = 0x01C5C0; gUnknown_0201C5C0 = .;
-        . = 0x01C5CC; gUnknown_0201C5CC = .;
-        . = 0x01C5CF; gUnknown_0201C5CF = .;
-        . = 0x01C5D0; gUnknown_0201C5D0 = .;
-        . = 0x01C5D1; gUnknown_0201C5D1 = .;
-        . = 0x01C5D4; gUnknown_0201C5D4 = .;
+        . = ALIGN(4); src/unitlistscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prepscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_itemscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_unitselect.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_itemsupply.o(ewram_overlay_0);
+        . = ALIGN(4); src/uisupport.o(ewram_overlay_0);
         . = 0x01F148; gUnk_SoundRoom_0201F148 = .;
         . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
+    }
+
+    ewram_overlay_gameending __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = ALIGN(4); src/ending_details.o(ewram_overlay_gameending);
+    }
+
+    ewram_overlay_bmstart __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x001000;
+        . = ALIGN(4); src/bmmap.o(ewram_overlay_bmstart);
     }
 
     ewram_overlay_gamestartsave __ewram_start (NOLOAD) : ALIGN(4)
@@ -150,6 +77,7 @@ SECTIONS
     {
         . = 0x000000;
         . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
+        . = 0x002038; gUnknown_02002038 = .;
         . = 0x007838; gUnknown_02007838 = .;
         . = 0x0078D8; gUnknown_020078D8 = .;
         . = 0x00A2D8; gUnknown_0200A2D8 = .;
@@ -191,6 +119,33 @@ SECTIONS
         . = 0x000000;
         . = 0x0087A0; gUnknown_020087A0 = .;
         . = 0x00AF00; gUnknown_0200AF00 = .;
+        . = 0x019D00; gUnknown_02019D00 = .;
+        . = 0x01AFC0; gFont_0201AFC0 = .;
+        . = 0x01AFF0; gUnknown_0201AFF0 = .;
+        . = 0x01B0D8; gUnknown_0201B0D8 = .;
+        . = 0x01B100; gUnknown_0201B100 = .;
+        . = 0x01B104; gUnknown_0201B104 = .;
+        . = 0x01B1E4; gUnknown_0201B1E4 = .;
+        . = 0x01B3A4; gUnknown_0201B3A4 = .;
+        . = 0x01B430; gUnknown_0201B430 = .;
+        . = 0x01B458; gUnknown_0201B458 = .;
+        . = 0x01B718; gUnknown_0201B718 = .;
+        . = 0x01B71C; gUnknown_0201B71C = .;
+        . = 0x01B758; gUnknown_0201B758 = .;
+        . = 0x01B7DA; gUnknown_0201B7DA = .;
+        . = 0x01B864; gUnknown_0201B864 = .;
+        . = 0x01B930; gUnknown_0201B930 = .;
+        . = 0x01B958; gUnknown_0201B958 = .;
+        . = 0x01BBD8; gUnknown_0201BBD8 = .;
+        . = 0x01BE30; gWmHblankStatus = .;
+        . = 0x01BE32; gUnknown_0201BE32 = .;
+        . = 0x01C5B4; gUnknown_0201C5B4 = .;
+        . = 0x01C5C0; gUnknown_0201C5C0 = .;
+        . = 0x01C5CC; gUnknown_0201C5CC = .;
+        . = 0x01C5CF; gUnknown_0201C5CF = .;
+        . = 0x01C5D0; gUnknown_0201C5D0 = .;
+        . = 0x01C5D1; gUnknown_0201C5D1 = .;
+        . = 0x01C5D4; gUnknown_0201C5D4 = .;
     }
 
     ewram_data __ewram_start (NOLOAD) : ALIGN(4)
@@ -720,7 +675,7 @@ SECTIONS
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); src/sio_core.o(.rodata);
         . = ALIGN(4); src/sio_main.o(.rodata);
-        . = ALIGN(4); data/const_data_sio.o(.rodata);
+        . = ALIGN(4); src/sio_tactician.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
         . = ALIGN(4); src/sio_postbattle.o(.rodata);
         . = ALIGN(4); src/sio_result.o(.rodata);
@@ -751,7 +706,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
-        . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); src/banim-battleparse.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); src/banim-ekrmainmini.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
@@ -1074,7 +1029,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);
         . = ALIGN(4); data/data-ekrdk.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonkingobj.o(.data);
-        . = ALIGN(4); data/data-ekrdk2.o(.data);
+        . = ALIGN(4); data/data-banimmisc.o(.data);
         . = ALIGN(4); src/data_characters.o(.data);
         . = ALIGN(4); src/data_classes.o(.data);
         . = ALIGN(4); src/data_items.o(.data);
@@ -1231,6 +1186,8 @@ SECTIONS
         . = ALIGN(4); src/classchg-postconfirm.o(.data);
         . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
+        . = ALIGN(4); src/bmguide_config.o(.data);
+        . = ALIGN(4); data/data_fe6sio.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

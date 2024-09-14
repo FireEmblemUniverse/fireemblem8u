@@ -205,7 +205,7 @@ struct LinkArenaStMaybe
     /* 0B */ u8 unk_0B;
     /* 0C */ struct Text texts[11];
     /* 64 */ struct Text unk_64[7]; // maybe not all text?
-    /* 9C */ u8 unk_9C[4];
+    /* 9C */ u8 linking_status[4];
     /* A0 */ u8 unk_A0;
     /* A1 */ u8 unk_A1[4][15];
     STRUCT_PAD(0xDD, 0xEC);

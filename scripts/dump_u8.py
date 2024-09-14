@@ -6,7 +6,36 @@ import sys, ctypes
 def dump_one_part(rom_data, off):
     data = rom_data[off]
     off = off + 1
-    print(f"0x{data:02X}")
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X}, ", end="")
+
+    data = rom_data[off]
+    off = off + 1
+    print(f"0x{data:02X},")
+
     return off
 
 def main(args):

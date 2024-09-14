@@ -17,6 +17,10 @@
 
 // clang-format off
 
+EWRAM_OVERLAY(0) struct Unknown020007E0 gUnknown_020007E0[0x14] = {};
+EWRAM_OVERLAY(0) struct Font gSaveMenuSubBoxFont = {};
+EWRAM_OVERLAY(0) struct Text gSaveMenuSubBoxText = {};
+
 u16 CONST_DATA Sprite_08A2051C[] =
 {
     4,

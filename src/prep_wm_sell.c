@@ -19,27 +19,6 @@
 #include "sysutil.h"
 #include "constants/faces.h"
 
-struct WmSellProc {
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Unit* unit;
-    /* 30 */ u8 unk_30;
-    /* 31 */ u8 unk_31;
-    /* 32 */ u16 unk_32;
-    /* 34 */ u16 unk_34;
-};
-
-struct Unknown02013648 {
-    /* 00 */ struct Font font;
-    /* 18 */ struct Text textA;
-    /* 20 */ struct Text textB;
-    /* 28 */ struct Text textArray[5];
-    /* 50 */ u8 _pad[0x90-0x50];
-    /* 90 */ struct Text textC;
-};
-
-extern struct Unknown02013648 gUnknown_02013648;
-
 //! FE8U = 0x0809FDA0
 void WmSell_DrawSupplyDialogueSpriteText(void) {
     int i;
@@ -56,7 +35,7 @@ int CONST_DATA gShopSellTextIndexLookup[] = {
     0x5A4, // TODO msgid "Are you sure?"
 };
 
-char* CONST_DATA gpShopSellStringBuffer = gStringBufferAlt;
+char * CONST_DATA gpShopSellStringBuffer = gBufPrep;
 
 //! FE8U = 0x0809FDD4
 void sub_809FDD4(int index, ProcPtr parent) {
@@ -105,19 +84,19 @@ void WmSell_Init(struct WmSellProc* proc) {
 
 //! FE8U = 0x0809FE68
 void sub_809FE68(void) {
-    InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 11);
+    InitSpriteTextFont(&_PrepItemSuppyTexts->font, (void*)0x06011000, 11);
     ApplyPalette(Pal_Text, 0x1B);
 
-    InitSpriteText(&gUnknown_02013648.textC);
+    InitSpriteText(&_PrepItemSuppyTexts->textC);
 
-    SetTextFont(&gUnknown_02013648.font);
+    SetTextFont(&_PrepItemSuppyTexts->font);
     SetTextFontGlyphs(0);
 
-    SpriteText_DrawBackgroundExt(&gUnknown_02013648.textC, 0);
+    SpriteText_DrawBackgroundExt(&_PrepItemSuppyTexts->textC, 0);
 
-    Text_InsertDrawString(&gUnknown_02013648.textC, 0, 0, GetStringFromIndex(0x059C)); // TODO msgid "Sell     Quit[.]"
-    Text_InsertDrawString(&gUnknown_02013648.textC, 64, 0, GetStringFromIndex(0x059B)); // TODO msgid "Sell?[.]"
-    Text_InsertDrawString(&gUnknown_02013648.textC, 128, 3, GetStringFromIndex(0x059D)); // TODO msgid "Value[.]"
+    Text_InsertDrawString(&_PrepItemSuppyTexts->textC, 0, 0, GetStringFromIndex(0x059C)); // TODO msgid "Sell     Quit[.]"
+    Text_InsertDrawString(&_PrepItemSuppyTexts->textC, 64, 0, GetStringFromIndex(0x059B)); // TODO msgid "Sell?[.]"
+    Text_InsertDrawString(&_PrepItemSuppyTexts->textC, 128, 3, GetStringFromIndex(0x059D)); // TODO msgid "Value[.]"
 
     SetTextFont(0);
 
@@ -184,7 +163,7 @@ void WmSell_PutSupplyFaceAndText(void) {
 
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
 
-    PutDrawText(&gUnknown_02013648.textA, gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598)); // TODO msgid "Supply"
+    PutDrawText(&_PrepItemSuppyTexts->textA, gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598)); // TODO msgid "Supply"
     PutFaceChibi(FID_SUPPLY, gBG0TilemapBuffer + 0x34 - 0x13, 0x270, 2, 1);
 
     BG_EnableSyncByMask(1);
@@ -276,13 +255,13 @@ void WmSell_Setup(struct WmSellProc* proc) {
     StartDrawPrepFundsSprite(165, 128, 10, proc);
     ShowPrepFundsSpriteAt(165, 128);
 
-    InitText(&gUnknown_02013648.textA, 4);
-    InitText(&gUnknown_02013648.textB, 2);
+    InitText(&_PrepItemSuppyTexts->textA, 4);
+    InitText(&_PrepItemSuppyTexts->textB, 2);
 
     sub_809FE68();
 
     for (i = 0; i < 5; i++) {
-        InitText(&gUnknown_02013648.textArray[i], 7);
+        InitText(&_PrepItemSuppyTexts->textArray[i], 7);
     }
 
     SetPrimaryHBlankHandler(0);
@@ -290,7 +269,7 @@ void WmSell_Setup(struct WmSellProc* proc) {
 
     BG_EnableSyncByMask(4);
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &_PrepItemSuppyTexts->textArray[0], proc->unit, 0);
     WmSell_PutSupplyFaceAndText();
 
     StartParallelWorker(WmSell_DrawValueSpriteText, proc);
@@ -342,7 +321,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
 //! FE8U = 0x080A03C4
 void sub_80A03C4(struct WmSellProc* proc) {
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &_PrepItemSuppyTexts->textArray[0], proc->unit, 0);
 
     WmSell_DrawItemGoldValue(proc->unit->items[proc->unk_30]);
 
@@ -443,7 +422,7 @@ void WmSell_ConfirmSellItem(struct WmSellProc* proc) {
 
     count = GetUnitItemCount(proc->unit);
     if (count == 0) {
-        DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.textArray[0], proc->unit, 0);
+        DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &_PrepItemSuppyTexts->textArray[0], proc->unit, 0);
 
         Proc_Goto(proc, 3);
     } else {

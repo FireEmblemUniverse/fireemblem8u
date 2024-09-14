@@ -12,17 +12,9 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 
-int GetUnitBestWRankType(struct Unit*);
-int GetClassBestWRankType(const struct ClassData*);
-int ArenaGenerateOpposingClassId(int);
-s8 IsWeaponMagic(int);
-int ArenaGetOpposingLevel(int);
-int ArenaGetPowerRanking(struct Unit*, s8);
-void ArenaGenerateOpponentUnit(void);
-void ArenaGenerateBaseWeapons(void);
-s8 ArenaAdjustOpponentDamage(void);
-s8 ArenaAdjustOpponentPowerRanking(void);
-void ArenaGenerateMatchupGoldValue(void);
+
+
+
 void ArenaSetResult(int);
 void ArenaSetFallbackWeaponsMaybe(void);
 

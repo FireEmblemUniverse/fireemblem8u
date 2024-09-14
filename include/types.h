@@ -54,12 +54,13 @@ typedef void (*InterruptHandler)(void);
 
 struct Vec2 { short x, y; };
 struct Vec2u { u16 x, y; };
+struct Vec2l { int x, y; }; // also Struct0859E7D4
 
 struct BmSt // Game State Struct
 {
-    /* 00 */ s8  sync_hardware;
+    /* 00 */ s8  main_loop_ended;
 
-    /* 01 */ s8  gameLogicSemaphore;
+    /* 01 */ s8  lock;
     /* 02 */ s8  gameGfxSemaphore;
 
     /* 03 */ u8  _unk04;

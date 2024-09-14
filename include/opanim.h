@@ -35,6 +35,7 @@ struct OpAnimSt {
 };
 
 extern struct OpAnimSt gOpAnimSt;
+// #define gOpAnimSt ((struct OpAnimSt *)gGenericBuffer);
 
 struct ProcOpAnim {
     PROC_HEADER;
