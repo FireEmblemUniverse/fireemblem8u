@@ -2,37 +2,6 @@
 
 #include "spline.h"
 
-struct UnkSplineStruct1
-{
-    /* 00 */ s16 unk_00;
-    /* 02 */ s16 unk_02;
-    /* 04 */ u32 * unk_04;
-    /* 08 */ s16 * unk_08;
-};
-
-struct UnkSplineStruct2
-{
-    /* 00 */ s16 unk_00;
-    /* 02 */ s16 unk_02;
-    /* 04 */ s16 unk_04;
-    /* 06 */ s16 unk_06;
-    /* 08 */ u32 * unk_08;
-    /* 0C */ u32 * unk_0c;
-    /* 10 */ u32 * unk_10;
-    /* 14 */ s16 * unk_14;
-    /* 18 */ s16 * unk_18;
-    /* 1C */ s16 * unk_1c;
-    /* 20 */ s16 * unk_20;
-};
-
-struct UnkSplineStruct3
-{
-    /* 00 */ int unk_00;
-    /* 04 */ int unk_04;
-    /* 08 */ int unk_08;
-    /* 0C */ int unk_0c;
-};
-
 //! FE8U = 0x0800A42C
 int sub_800A42C(int val, int start, int end)
 {

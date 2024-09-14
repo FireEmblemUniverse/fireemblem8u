@@ -826,7 +826,7 @@ int sub_80BCA1C(int);
 // ??? sub_80BCBAC(???);
 s8 sub_80BCCFC(s8, s8, s8);
 // ??? sub_80BCDE4(???);
-int sub_80BCE34(int, int, s16, u16 *, struct Struct0859E7D4 *, int);
+int sub_80BCE34(int, int, s16, u16 *, int *, int);
 void ResetGmStoryNode(void);
 int GetPlayChapterId(u32);
 int GetNextUnclearedNode(struct GMapData *);
