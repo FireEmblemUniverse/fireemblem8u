@@ -129,7 +129,7 @@ void DungeonRecordUi_GotoNextLabel(struct BMDifficultyProc* proc);
 
 extern struct Struct02003BE8 gUnknown_02003BE8;
 extern u16 gUnknown_02003B88[];
-extern struct Struct0859E7D4 gUnknown_02003BA8[];
+extern int gUnknown_02003BA8[];
 extern u16 gUnknown_0200310C[];
 extern struct Font gUnknown_020038AC;
 extern struct Text gUnknown_02003B48[8];
@@ -138,7 +138,7 @@ extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[];
 extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[];
 extern const u16 CONST_DATA obj_859E79C[];
 extern u16 CONST_DATA gUnknown_0859E7C8[];
-extern struct Struct0859E7D4 CONST_DATA gUnknown_0859E7D4[];
+extern int CONST_DATA gUnknown_0859E7D4[];
 extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
 
 #endif  // GUARD_BMDIFFICULTY_H

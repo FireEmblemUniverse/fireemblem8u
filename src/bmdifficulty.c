@@ -1076,8 +1076,6 @@ void sub_8038F78(struct Text* th) {
     return;
 }
 
-extern struct Struct0859E7D4 gUnknown_02003BA8[];
-
 // obj data?
 const u16 CONST_DATA obj_859E79C[] = {
     0x0002, 0x4000, 0x8000, 0x0100,
@@ -1093,20 +1091,21 @@ u16 CONST_DATA gUnknown_0859E7C8[] = {
     0x0C00, 0x0DEB, 0x1000,
 };
 
-struct Struct0859E7D4 CONST_DATA gUnknown_0859E7D4[] = {
-    { -56,   0, },
-    { -70,  14, },
-    { -74,   6, },
-    {  38, -14, },
-    {  42,  -6, },
-    {  24,   0, },
+int CONST_DATA gUnknown_0859E7D4[] = {
+    -56,   0,
+    -70,  14,
+    -74,   6,
+     38, -14,
+     42,  -6,
+     24,   0,
 };
 
-void sub_803901C(struct BMDifficultyProc* proc) {
+void sub_803901C(struct BMDifficultyProc * proc)
+{
     int r7;
     int r8;
-    u16* iter1;
-    struct Struct0859E7D4* iter2;
+    u16 * iter1;
+    int * iter2;
 
     sub_8038F78(&gUnknown_020038C8[0].text[proc->labelIndex][0]);
 
@@ -1121,11 +1120,12 @@ void sub_803901C(struct BMDifficultyProc* proc) {
 
     gUnknown_02003BE8.unk_02 = r8 = 6;
 
-    for (r7 = 0; r7 < r8; r7++) {
+    for (r7 = 0; r7 < r8; r7++)
+    {
         gUnknown_02003B88[r7] = DivArm(4096, iter1[r7] * 45);
 
-        gUnknown_02003BA8[r7].x = iter2[r7].x << 4;
-        gUnknown_02003BA8[r7].y = iter2[r7].y << 4;
+        gUnknown_02003BA8[r7 * 2 + 0] = iter2[r7 * 2 + 0] << 4;
+        gUnknown_02003BA8[r7 * 2 + 1] = iter2[r7 * 2 + 1] << 4;
     }
 
     proc->unk_34 = 0;
@@ -1320,12 +1320,13 @@ u16 CONST_DATA gUnknown_0859E82C[] = {
     0x16, 0x1E, 0x00,
 };
 
-struct Struct0859E7D4 CONST_DATA gUnknown_0859E838[] = {
-    { 0x980, 0x380, },
-    { 0x8D0, 0x430, },
-    { 0x960, 0x320, },
-    { 0xA30, 0x2D0, },
-    { 0x980, 0x380, },
+int CONST_DATA gUnknown_0859E838[] =
+{
+    0x980, 0x380,
+    0x8D0, 0x430,
+    0x960, 0x320,
+    0xA30, 0x2D0,
+    0x980, 0x380,
 };
 
 void sub_803943C(struct BMDifficultyProc* proc) {

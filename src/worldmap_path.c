@@ -1786,7 +1786,7 @@ int sub_80BCDE4(int nodeA, int nodeB, int * startingNode)
 }
 
 //! FE8U = 0x080BCE34
-int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e, int f)
+int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, int * e, int f)
 {
     int nodeId;
     int pathId;
@@ -1805,11 +1805,11 @@ int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e,
 
     nodeId = pathId[gWMPathData].node[startingNodeIdx];
 
-    e->x = nodeId[gWMNodeData].x << (f);
-    e->y = nodeId[gWMNodeData].y << (f);
+    e[0] = nodeId[gWMNodeData].x << (f);
+    e[1] = nodeId[gWMNodeData].y << (f);
 
     d++;
-    e++;
+    e += 2;
 
     local_24 = sub_80BC3D4(pathId);
 
@@ -1819,11 +1819,11 @@ int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e,
         {
             *d = DivArm(0x1000, pathId[gWMPathData].movementPath[i].elapsedTime * c);
 
-            e->x = pathId[gWMPathData].movementPath[i].x << (f);
-            e->y = pathId[gWMPathData].movementPath[i].y << (f);
+            e[0] = pathId[gWMPathData].movementPath[i].x << (f);
+            e[1] = pathId[gWMPathData].movementPath[i].y << (f);
 
             d++;
-            e++;
+            e += 2;
         }
     }
     else
@@ -1832,19 +1832,19 @@ int sub_80BCE34(int nodeA, int nodeB, s16 c, u16 * d, struct Struct0859E7D4 * e,
         {
             *d = DivArm(0x1000, c * (0x1000 - (pathId[gWMPathData].movementPath[i].elapsedTime)));
 
-            e->x = pathId[gWMPathData].movementPath[i].x << (f);
-            e->y = pathId[gWMPathData].movementPath[i].y << (f);
+            e[0] = pathId[gWMPathData].movementPath[i].x << (f);
+            e[1] = pathId[gWMPathData].movementPath[i].y << (f);
 
             d++;
-            e++;
+            e += 2;
         }
     }
 
     *d = c;
 
     nodeId = pathId[gWMPathData].node[1 - startingNodeIdx];
-    e->x = nodeId[gWMNodeData].x << (f);
-    e->y = nodeId[gWMNodeData].y << (f);
+    e[0] = nodeId[gWMNodeData].x << (f);
+    e[1] = nodeId[gWMNodeData].y << (f);
 
     return local_24 + 2;
 }
