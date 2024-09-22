@@ -629,19 +629,13 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
 
     if (sub_80BCCFC(gGMData.units[0].location, param_2, 0) != 0)
     {
-        if ((sub_80BD29C() == 2))
+        if ((sub_80BD29C() == 2) && (gGMData.nodes[param_2].state & 2) != 0)
         {
-            if ((gGMData.nodes[param_2].state & 2) != 0)
-            {
-                param_1->unk_3e = param_2;
-                Proc_Goto(param_1, 14);
-            }
-            else
-                goto label;
+            param_1->unk_3e = param_2;
+            Proc_Goto(param_1, 14);
         }
         else
         {
-        label:
             Proc_Goto(param_1, 6);
         }
 
