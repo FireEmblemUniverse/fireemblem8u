@@ -1385,23 +1385,11 @@ void BmBgfx_Loop(struct ProcBmBgfx * proc)
         if (conf->type == BMFX_CONFT_BLOCKING)
             break;
 
-#if NONMATCHING
-        switch (conf->type) {
-        case BMFX_CONFT_BREAK:
-        case BMFX_CONFT_END:
-            Proc_Break(proc);
-            return;
-
-        default:
-            break;
-        }
-#else
         if (conf->type < 11 && conf->type > 8)
         {
             Proc_Break(proc);
             break;
         }
-#endif
 
         if (proc->timer == 0)
         {

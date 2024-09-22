@@ -565,26 +565,21 @@ void Talk_OnIdle(ProcPtr proc) {
                 Proc_Break(proc);
                 return;
 
-            case 1:
-                goto _08006CD0;
-
             case 2:
                 if (sTalkState->instantScroll || sTalkState->printDelay <= 0) {
                     break;
-                    goto _08006CC2;
                 }
 
                 return;
 
             case 3:
-        _08006CC2:
                 sTalkState->printClock = sTalkState->printDelay;
                 sTalkState->instantScroll = 0;
 
                 return;
 
+            case 1:
             default:
-        _08006CD0:
                 if (!(CheckTalkFlag(TALK_FLAG_SPRITE))) {
                     if (TalkPrepNextChar(proc) == 1) {
                         return;
@@ -2285,9 +2280,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
                             continue;
 
                         case 0x10:
-                            str++;
-                            str++;
-                            str++;
+                            str += 3;
 
                             continue;
                     }
