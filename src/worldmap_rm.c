@@ -301,15 +301,8 @@ ProcPtr StartGmapRm(int x, int y, u32 mask, ProcPtr parent)
     else
         proc = Proc_Start(ProcScr_GmapRM, PROC_TREE_3);
 
-#if NONMATCHING
-    proc->flag = mask & (~GMAPRM_FLAG_UNBLOCK);
-#else
-{
-    u8 * flag_it = &proc->flag;
-    u8 _mask = ~GMAPRM_FLAG_UNBLOCK;
-    *flag_it = _mask & mask;
-}
-#endif
+    proc->flag = (~GMAPRM_FLAG_UNBLOCK);
+    proc->flag &= mask;
 
     proc->x = x;
     proc->y = y;
