@@ -285,7 +285,8 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
             ApplyPalette(gPal_08AB0114, 0);
             gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0x7FFF; // White
 
-            goto _080C5A14;
+            proc->timer++;
+            break;
 
         case 1:
             Decompress(gGfx_08AADC08, (void*)0x0600C000);
@@ -298,7 +299,8 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
 
             BG_EnableSyncByMask(1);
 
-            goto _080C5A14;
+            proc->timer++;
+            break;
 
         case 2:
             Decompress(gGfx_08AAE8EC, (void*)0x0600D000);
@@ -309,7 +311,8 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
                 gBG0TilemapBuffer[i] += 0x2080;
             }
 
-            goto _080C5A14;
+            proc->timer++;
+            break;
 
         case 3:
             Decompress(gGfx_TitleLargeGlowingOrb, (void*)0x06014400);
@@ -317,19 +320,16 @@ void Title_SetupSpecialEffectGraphics(struct TitleScreenProc* proc) {
             Decompress(gGfx_TitleSmallLightBubbles, (void*)0x06015400);
             ApplyPalette(gPal_TitleSmallLightBubbles, 0x17);
 
-            goto _080C5A14;
+            // fallthrough
 
         default:
-_080C5A14:
             proc->timer++;
-
-            return;
+            break;
 
         case 4:
             proc->timer = 0;
             Proc_Break(proc);
-
-            return;
+            break;
     }
 }
 

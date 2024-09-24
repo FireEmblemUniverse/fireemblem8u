@@ -217,21 +217,20 @@ void ProcessTurnSupportExp(void)
 
             case 0:
                 if (!(unit->rescue == other->index))
-                    break;
-
-                goto add_support_points;
+                    continue;
+                break;
 
             case 1:
                 if ((unit->state & US_RESCUED) || (other->state & US_RESCUED))
-                    break;
-
-            add_support_points:
-                if (GetUnitTotalSupportLevel(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
-                    UnitGainSupportExp(unit, j);
-
+                    continue;
                 break;
 
+            default:
+                continue;
             }
+
+            if (GetUnitTotalSupportLevel(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
+                UnitGainSupportExp(unit, j);
         }
     }
 }

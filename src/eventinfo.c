@@ -105,20 +105,18 @@ struct EventInfo * SearchAvailableEvent(struct EventInfo * info)
 
         if (!CheckFlag(EVT_CMD_HI(info->listScript[0])))
         {
-            if (cmdInfo[cmdId].func(info) != 1)
+            if (cmdInfo[cmdId].func(info) == 1)
             {
-            label:
-                info->listScript += len[r6 << 1];
-                continue;
+                goto _end; // FIXME: Goto appears to be required for match
             }
-
-            if (info->script)
-                return info;
-
-            break;
         }
-        goto label;
+
+        info->listScript += len[r6 << 1];
     }
+
+_end:
+    if (info->script)
+        return info;
     return NULL;
 }
 
