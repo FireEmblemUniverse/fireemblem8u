@@ -1,195 +1,193 @@
     .section .data
-    .include "animscr.inc"
-    .include "gba_sprites.inc"
 
     .global Img_EfxSkill1
 Img_EfxSkill1:  @ 0x085C935C
-    .incbin "baserom.gba", 0x5C935C, 0x5C9740 - 0x5C935C
+    .incbin "graphics/efxskill/efxskill_1.feimg.bin.lz"
 
     .global Img_EfxSkill2
 Img_EfxSkill2:
-    .incbin "baserom.gba", 0x5C9740, 0x5C9B38 - 0x5C9740
+    .incbin "graphics/efxskill/efxskill_2.feimg.bin.lz"
 
     .global Img_EfxSkill3
 Img_EfxSkill3:
-    .incbin "baserom.gba", 0x5C9B38, 0x5C9F48 - 0x5C9B38
+    .incbin "graphics/efxskill/efxskill_3.feimg.bin.lz"
 
     .global Img_EfxSkill4
 Img_EfxSkill4:
-    .incbin "baserom.gba", 0x5C9F48, 0x5CA380 - 0x5C9F48
+    .incbin "graphics/efxskill/efxskill_4.feimg.bin.lz"
 
     .global Img_EfxSkill5
 Img_EfxSkill5:
-    .incbin "baserom.gba", 0x5CA380, 0x5CA7FC - 0x5CA380
+    .incbin "graphics/efxskill/efxskill_5.feimg.bin.lz"
 
     .global Img_EfxSkill6
 Img_EfxSkill6:
-    .incbin "baserom.gba", 0x5CA7FC, 0x5CACF4 - 0x5CA7FC
+    .incbin "graphics/efxskill/efxskill_6.feimg.bin.lz"
 
     .global Img_EfxSkill7
 Img_EfxSkill7:
-    .incbin "baserom.gba", 0x5CACF4, 0x5CB2CC - 0x5CACF4
+    .incbin "graphics/efxskill/efxskill_7.feimg.bin.lz"
 
     .global Img_EfxSkill8
 Img_EfxSkill8:
-    .incbin "baserom.gba", 0x5CB2CC, 0x5CB9AC - 0x5CB2CC
+    .incbin "graphics/efxskill/efxskill_8.feimg.bin.lz"
 
     .global Img_EfxSkill9
 Img_EfxSkill9:
-    .incbin "baserom.gba", 0x5CB9AC, 0x5CC0E8 - 0x5CB9AC
+    .incbin "graphics/efxskill/efxskill_9.feimg.bin.lz"
 
     .global Img_EfxSkillA
 Img_EfxSkillA:
-    .incbin "baserom.gba", 0x5CC0E8, 0x5CC820 - 0x5CC0E8
+    .incbin "graphics/efxskill/efxskill_10.feimg.bin.lz"
 
     .global Img_EfxSkillB
 Img_EfxSkillB:
-    .incbin "baserom.gba", 0x5CC820, 0x5CCF14 - 0x5CC820
+    .incbin "graphics/efxskill/efxskill_11.feimg.bin.lz"
 
     .global Img_EfxSkillC
 Img_EfxSkillC:
-    .incbin "baserom.gba", 0x5CCF14, 0x5CD5A0 - 0x5CCF14
+    .incbin "graphics/efxskill/efxskill_12.feimg.bin.lz"
 
     .global Img_EfxSkillD
 Img_EfxSkillD:
-    .incbin "baserom.gba", 0x5CD5A0, 0x5CDC00 - 0x5CD5A0
+    .incbin "graphics/efxskill/efxskill_13.feimg.bin.lz"
 
     .global Img_EfxSkillE
 Img_EfxSkillE:
-    .incbin "baserom.gba", 0x5CDC00, 0x5CE200 - 0x5CDC00
+    .incbin "graphics/efxskill/efxskill_14.feimg.bin.lz"
 
     .global Img_EfxSkillF
 Img_EfxSkillF:
-    .incbin "baserom.gba", 0x5CE200, 0x5CE7C4 - 0x5CE200
+    .incbin "graphics/efxskill/efxskill_15.feimg.bin.lz"
 
     .global Img_EfxSkill10
 Img_EfxSkill10:
-    .incbin "baserom.gba", 0x5CE7C4, 0x5CEC6C - 0x5CE7C4
+    .incbin "graphics/efxskill/efxskill_16.feimg.bin.lz"
 
     .global Pal_EfxSkill1
 Pal_EfxSkill1:
-    .incbin "baserom.gba", 0x5CEC6C, 0x5CEC8C - 0x5CEC6C
+    .incbin "graphics/efxskill/efxskill_1.gbapal"
 
     .global Pal_EfxSkill2
 Pal_EfxSkill2:
-    .incbin "baserom.gba", 0x5CEC8C, 0x5CECAC - 0x5CEC8C
+    .incbin "graphics/efxskill/efxskill_2.gbapal"
 
     .global Pal_EfxSkill3
 Pal_EfxSkill3:
-    .incbin "baserom.gba", 0x5CECAC, 0x5CECCC - 0x5CECAC
+    .incbin "graphics/efxskill/efxskill_3.gbapal"
 
     .global Pal_EfxSkill4
 Pal_EfxSkill4:
-    .incbin "baserom.gba", 0x5CECCC, 0x5CECEC - 0x5CECCC
+    .incbin "graphics/efxskill/efxskill_4.gbapal"
 
     .global Pal_EfxSkill5
 Pal_EfxSkill5:
-    .incbin "baserom.gba", 0x5CECEC, 0x5CED0C - 0x5CECEC
+    .incbin "graphics/efxskill/efxskill_5.gbapal"
 
     .global Pal_EfxSkill6
 Pal_EfxSkill6:
-    .incbin "baserom.gba", 0x5CED0C, 0x5CED2C - 0x5CED0C
+    .incbin "graphics/efxskill/efxskill_6.gbapal"
 
     .global Pal_EfxSkill7
 Pal_EfxSkill7:
-    .incbin "baserom.gba", 0x5CED2C, 0x5CED4C - 0x5CED2C
+    .incbin "graphics/efxskill/efxskill_7.gbapal"
 
     .global Pal_EfxSkill8
 Pal_EfxSkill8:
-    .incbin "baserom.gba", 0x5CED4C, 0x5CED6C - 0x5CED4C
+    .incbin "graphics/efxskill/efxskill_8.gbapal"
 
     .global Pal_EfxSkill9
 Pal_EfxSkill9:
-    .incbin "baserom.gba", 0x5CED6C, 0x5CED8C - 0x5CED6C
+    .incbin "graphics/efxskill/efxskill_9.gbapal"
 
     .global Pal_EfxSkillA
 Pal_EfxSkillA:
-    .incbin "baserom.gba", 0x5CED8C, 0x5CEDAC - 0x5CED8C
+    .incbin "graphics/efxskill/efxskill_10.gbapal"
 
     .global Pal_EfxSkillB
 Pal_EfxSkillB:
-    .incbin "baserom.gba", 0x5CEDAC, 0x5CEDCC - 0x5CEDAC
+    .incbin "graphics/efxskill/efxskill_11.gbapal"
 
     .global Pal_EfxSkillC
 Pal_EfxSkillC:
-    .incbin "baserom.gba", 0x5CEDCC, 0x5CEDEC - 0x5CEDCC
+    .incbin "graphics/efxskill/efxskill_12.gbapal"
 
     .global Pal_EfxSkillD
 Pal_EfxSkillD:
-    .incbin "baserom.gba", 0x5CEDEC, 0x5CEE0C - 0x5CEDEC
+    .incbin "graphics/efxskill/efxskill_13.gbapal"
 
     .global Pal_EfxSkillE
 Pal_EfxSkillE:
-    .incbin "baserom.gba", 0x5CEE0C, 0x5CEE2C - 0x5CEE0C
+    .incbin "graphics/efxskill/efxskill_14.gbapal"
 
     .global Pal_EfxSkillF
 Pal_EfxSkillF:
-    .incbin "baserom.gba", 0x5CEE2C, 0x5CEE4C - 0x5CEE2C
+    .incbin "graphics/efxskill/efxskill_15.gbapal"
 
     .global Pal_EfxSkill10
 Pal_EfxSkill10:
-    .incbin "baserom.gba", 0x5CEE4C, 0x5CEE6C - 0x5CEE4C
+    .incbin "graphics/efxskill/efxskill_16.gbapal"
 
     .global Tsa_EfxSkill1
 Tsa_EfxSkill1:
-    .incbin "baserom.gba", 0x5CEE6C, 0x5CEF04 - 0x5CEE6C
+    .incbin "graphics/efxskill/efxskill_1.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill2
 Tsa_EfxSkill2:
-    .incbin "baserom.gba", 0x5CEF04, 0x5CEFA4 - 0x5CEF04
+    .incbin "graphics/efxskill/efxskill_2.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill3
 Tsa_EfxSkill3:
-    .incbin "baserom.gba", 0x5CEFA4, 0x5CF044 - 0x5CEFA4
+    .incbin "graphics/efxskill/efxskill_3.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill4
 Tsa_EfxSkill4:
-    .incbin "baserom.gba", 0x5CF044, 0x5CF0E8 - 0x5CF044
+    .incbin "graphics/efxskill/efxskill_4.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill5
 Tsa_EfxSkill5:
-    .incbin "baserom.gba", 0x5CF0E8, 0x5CF1A0 - 0x5CF0E8
+    .incbin "graphics/efxskill/efxskill_5.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill6
 Tsa_EfxSkill6:
-    .incbin "baserom.gba", 0x5CF1A0, 0x5CF264 - 0x5CF1A0
+    .incbin "graphics/efxskill/efxskill_6.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill7
 Tsa_EfxSkill7:
-    .incbin "baserom.gba", 0x5CF264, 0x5CF33C - 0x5CF264
+    .incbin "graphics/efxskill/efxskill_7.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill8
 Tsa_EfxSkill8:
-    .incbin "baserom.gba", 0x5CF33C, 0x5CF440 - 0x5CF33C
+    .incbin "graphics/efxskill/efxskill_8.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill9
 Tsa_EfxSkill9:
-    .incbin "baserom.gba", 0x5CF440, 0x5CF544 - 0x5CF440
+    .incbin "graphics/efxskill/efxskill_9.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillA
 Tsa_EfxSkillA:
-    .incbin "baserom.gba", 0x5CF544, 0x5CF648 - 0x5CF544
+    .incbin "graphics/efxskill/efxskill_10.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillB
 Tsa_EfxSkillB:
-    .incbin "baserom.gba", 0x5CF648, 0x5CF750 - 0x5CF648
+    .incbin "graphics/efxskill/efxskill_11.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillC
 Tsa_EfxSkillC:
-    .incbin "baserom.gba", 0x5CF750, 0x5CF83C - 0x5CF750
+    .incbin "graphics/efxskill/efxskill_12.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillD
 Tsa_EfxSkillD:
-    .incbin "baserom.gba", 0x5CF83C, 0x5CF91C - 0x5CF83C
+    .incbin "graphics/efxskill/efxskill_13.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillE
 Tsa_EfxSkillE:
-    .incbin "baserom.gba", 0x5CF91C, 0x5CF9F4 - 0x5CF91C
+    .incbin "graphics/efxskill/efxskill_14.fetsa1.bin.lz"
 
     .global Tsa_EfxSkillF
 Tsa_EfxSkillF:
-    .incbin "baserom.gba", 0x5CF9F4, 0x5CFAC0 - 0x5CF9F4
+    .incbin "graphics/efxskill/efxskill_15.fetsa1.bin.lz"
 
     .global Tsa_EfxSkill10
 Tsa_EfxSkill10:
-    .incbin "baserom.gba", 0x5CFAC0, 0x5CFB70 - 0x5CFAC0
+    .incbin "graphics/efxskill/efxskill_16.fetsa1.bin.lz"
