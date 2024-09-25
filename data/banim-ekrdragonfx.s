@@ -1359,389 +1359,389 @@ gUnknown_087A73E0: @ 0x7A73E0
     ANIMSCR_FORCE_SPRITE AnimSprite_EfxMaohFlashEyeFire2Obj1_12, 2
     ANIMSCR_DISABLED
 
-	.global Img_087A73F4
-Img_087A73F4:  @ 0x087A73F4
-	.incbin "baserom.gba", 0x7A73F4, 0xB44    @ 0x7A7F38 - 0x7A73F4
-
-	.global Img_087A7F38
-Img_087A7F38:  @ 0x087A7F38
-	.incbin "baserom.gba", 0x7A7F38, 0xB3C    @ 0x7A8A74 - 0x7A7F38
-
-	.global Img_087A8A74
-Img_087A8A74:  @ 0x087A8A74
-	.incbin "baserom.gba", 0x7A8A74, 0xB24    @ 0x7A9598 - 0x7A8A74
-
-	.global Img_087A9598
-Img_087A9598:  @ 0x087A9598
-	.incbin "baserom.gba", 0x7A9598, 0xA94    @ 0x7AA02C - 0x7A9598
-
-	.global Img_087AA02C
-Img_087AA02C:  @ 0x087AA02C
-	.incbin "baserom.gba", 0x7AA02C, 0xA7C    @ 0x7AAAA8 - 0x7AA02C
-
-	.global Img_087AAAA8
-Img_087AAAA8:  @ 0x087AAAA8
-	.incbin "baserom.gba", 0x7AAAA8, 0xAB0    @ 0x7AB558 - 0x7AAAA8
-
-	.global Img_087AB558
-Img_087AB558:  @ 0x087AB558
-	.incbin "baserom.gba", 0x7AB558, 0xA98    @ 0x7ABFF0 - 0x7AB558
-
-	.global Img_087ABFF0
-Img_087ABFF0:  @ 0x087ABFF0
-	.incbin "baserom.gba", 0x7ABFF0, 0xAD8    @ 0x7ACAC8 - 0x7ABFF0
-
-	.global Img_087ACAC8
-Img_087ACAC8:  @ 0x087ACAC8
-	.incbin "baserom.gba", 0x7ACAC8, 0xA84    @ 0x7AD54C - 0x7ACAC8
-
-	.global Img_087AD54C
-Img_087AD54C:  @ 0x087AD54C
-	.incbin "baserom.gba", 0x7AD54C, 0xAA0    @ 0x7ADFEC - 0x7AD54C
-
-	.global Img_087ADFEC
-Img_087ADFEC:  @ 0x087ADFEC
-	.incbin "baserom.gba", 0x7ADFEC, 0xA88    @ 0x7AEA74 - 0x7ADFEC
-
-	.global Img_087AEA74
-Img_087AEA74:  @ 0x087AEA74
-	.incbin "baserom.gba", 0x7AEA74, 0xAA4    @ 0x7AF518 - 0x7AEA74
-
-	.global Img_087AF518
-Img_087AF518:  @ 0x087AF518
-	.incbin "baserom.gba", 0x7AF518, 0xB58    @ 0x7B0070 - 0x7AF518
-
-	.global Img_087B0070
-Img_087B0070:  @ 0x087B0070
-	.incbin "baserom.gba", 0x7B0070, 0xB90    @ 0x7B0C00 - 0x7B0070
-
-	.global Img_087B0C00
-Img_087B0C00:  @ 0x087B0C00
-	.incbin "baserom.gba", 0x7B0C00, 0xB28    @ 0x7B1728 - 0x7B0C00
-
-	.global Img_087B1728
-Img_087B1728:  @ 0x087B1728
-	.incbin "baserom.gba", 0x7B1728, 0xB08    @ 0x7B2230 - 0x7B1728
-
-	.global Pal_087B2230
-Pal_087B2230:  @ 0x087B2230
-	.incbin "baserom.gba", 0x7B2230, 0x20    @ 0x7B2250 - 0x7B2230
-
-	.global Pal_087B2250
-Pal_087B2250:  @ 0x087B2250
-	.incbin "baserom.gba", 0x7B2250, 0x20    @ 0x7B2270 - 0x7B2250
-
-	.global Pal_087B2270
-Pal_087B2270:  @ 0x087B2270
-	.incbin "baserom.gba", 0x7B2270, 0x20    @ 0x7B2290 - 0x7B2270
-
-	.global Pal_087B2290
-Pal_087B2290:  @ 0x087B2290
-	.incbin "baserom.gba", 0x7B2290, 0x20    @ 0x7B22B0 - 0x7B2290
-
-	.global Pal_087B22B0
-Pal_087B22B0:  @ 0x087B22B0
-	.incbin "baserom.gba", 0x7B22B0, 0x20    @ 0x7B22D0 - 0x7B22B0
-
-	.global Pal_087B22D0
-Pal_087B22D0:  @ 0x087B22D0
-	.incbin "baserom.gba", 0x7B22D0, 0x20    @ 0x7B22F0 - 0x7B22D0
-
-	.global Pal_087B22F0
-Pal_087B22F0:  @ 0x087B22F0
-	.incbin "baserom.gba", 0x7B22F0, 0x20    @ 0x7B2310 - 0x7B22F0
-
-	.global Pal_087B2310
-Pal_087B2310:  @ 0x087B2310
-	.incbin "baserom.gba", 0x7B2310, 0x20    @ 0x7B2330 - 0x7B2310
-
-	.global Pal_087B2330
-Pal_087B2330:  @ 0x087B2330
-	.incbin "baserom.gba", 0x7B2330, 0x20    @ 0x7B2350 - 0x7B2330
-
-	.global Pal_087B2350
-Pal_087B2350:  @ 0x087B2350
-	.incbin "baserom.gba", 0x7B2350, 0x20    @ 0x7B2370 - 0x7B2350
-
-	.global Pal_087B2370
-Pal_087B2370:  @ 0x087B2370
-	.incbin "baserom.gba", 0x7B2370, 0x20    @ 0x7B2390 - 0x7B2370
-
-	.global Pal_087B2390
-Pal_087B2390:  @ 0x087B2390
-	.incbin "baserom.gba", 0x7B2390, 0x20    @ 0x7B23B0 - 0x7B2390
-
-	.global Pal_087B23B0
-Pal_087B23B0:  @ 0x087B23B0
-	.incbin "baserom.gba", 0x7B23B0, 0x20    @ 0x7B23D0 - 0x7B23B0
-
-	.global Pal_087B23D0
-Pal_087B23D0:  @ 0x087B23D0
-	.incbin "baserom.gba", 0x7B23D0, 0x20    @ 0x7B23F0 - 0x7B23D0
-
-	.global Pal_087B23F0
-Pal_087B23F0:  @ 0x087B23F0
-	.incbin "baserom.gba", 0x7B23F0, 0x20    @ 0x7B2410 - 0x7B23F0
-
-	.global Pal_087B2410
-Pal_087B2410:  @ 0x087B2410
-	.incbin "baserom.gba", 0x7B2410, 0x20    @ 0x7B2430 - 0x7B2410
-
-	.global Tsa_087B2430
-Tsa_087B2430:  @ 0x087B2430
-	.incbin "baserom.gba", 0x7B2430, 0x274    @ 0x7B26A4 - 0x7B2430
-
-	.global Tsa_087B26A4
-Tsa_087B26A4:  @ 0x087B26A4
-	.incbin "baserom.gba", 0x7B26A4, 0x278    @ 0x7B291C - 0x7B26A4
-
-	.global Tsa_087B291C
-Tsa_087B291C:  @ 0x087B291C
-	.incbin "baserom.gba", 0x7B291C, 0x274    @ 0x7B2B90 - 0x7B291C
-
-	.global Tsa_087B2B90
-Tsa_087B2B90:  @ 0x087B2B90
-	.incbin "baserom.gba", 0x7B2B90, 0x274    @ 0x7B2E04 - 0x7B2B90
-
-	.global Tsa_087B2E04
-Tsa_087B2E04:  @ 0x087B2E04
-	.incbin "baserom.gba", 0x7B2E04, 0x278    @ 0x7B307C - 0x7B2E04
-
-	.global Tsa_087B307C
-Tsa_087B307C:  @ 0x087B307C
-	.incbin "baserom.gba", 0x7B307C, 0x274    @ 0x7B32F0 - 0x7B307C
-
-	.global Tsa_087B32F0
-Tsa_087B32F0:  @ 0x087B32F0
-	.incbin "baserom.gba", 0x7B32F0, 0x278    @ 0x7B3568 - 0x7B32F0
-
-	.global Tsa_087B3568
-Tsa_087B3568:  @ 0x087B3568
-	.incbin "baserom.gba", 0x7B3568, 0x274    @ 0x7B37DC - 0x7B3568
-
-	.global Tsa_087B37DC
-Tsa_087B37DC:  @ 0x087B37DC
-	.incbin "baserom.gba", 0x7B37DC, 0x278    @ 0x7B3A54 - 0x7B37DC
-
-	.global Tsa_087B3A54
-Tsa_087B3A54:  @ 0x087B3A54
-	.incbin "baserom.gba", 0x7B3A54, 0x274    @ 0x7B3CC8 - 0x7B3A54
-
-	.global Tsa_087B3CC8
-Tsa_087B3CC8:  @ 0x087B3CC8
-	.incbin "baserom.gba", 0x7B3CC8, 0x278    @ 0x7B3F40 - 0x7B3CC8
-
-	.global Tsa_087B3F40
-Tsa_087B3F40:  @ 0x087B3F40
-	.incbin "baserom.gba", 0x7B3F40, 0x274    @ 0x7B41B4 - 0x7B3F40
-
-	.global Tsa_087B41B4
-Tsa_087B41B4:  @ 0x087B41B4
-	.incbin "baserom.gba", 0x7B41B4, 0x274    @ 0x7B4428 - 0x7B41B4
-
-	.global Tsa_087B4428
-Tsa_087B4428:  @ 0x087B4428
-	.incbin "baserom.gba", 0x7B4428, 0x278    @ 0x7B46A0 - 0x7B4428
-
-	.global Tsa_087B46A0
-Tsa_087B46A0:  @ 0x087B46A0
-	.incbin "baserom.gba", 0x7B46A0, 0x274    @ 0x7B4914 - 0x7B46A0
-
-	.global Tsa_087B4914
-Tsa_087B4914:  @ 0x087B4914
-	.incbin "baserom.gba", 0x7B4914, 0x274    @ 0x7B4B88 - 0x7B4914
-
-	.global Img_087B4B88
-Img_087B4B88:  @ 0x087B4B88
-	.incbin "baserom.gba", 0x7B4B88, 0xAF0    @ 0x7B5678 - 0x7B4B88
-
-	.global Img_087B5678
-Img_087B5678:  @ 0x087B5678
-	.incbin "baserom.gba", 0x7B5678, 0xB20    @ 0x7B6198 - 0x7B5678
-
-	.global Img_087B6198
-Img_087B6198:  @ 0x087B6198
-	.incbin "baserom.gba", 0x7B6198, 0xBBC    @ 0x7B6D54 - 0x7B6198
-
-	.global Img_087B6D54
-Img_087B6D54:  @ 0x087B6D54
-	.incbin "baserom.gba", 0x7B6D54, 0xD98    @ 0x7B7AEC - 0x7B6D54
-
-	.global Img_087B7AEC
-Img_087B7AEC:  @ 0x087B7AEC
-	.incbin "baserom.gba", 0x7B7AEC, 0xE7C    @ 0x7B8968 - 0x7B7AEC
-
-	.global Img_087B8968
-Img_087B8968:  @ 0x087B8968
-	.incbin "baserom.gba", 0x7B8968, 0xF94    @ 0x7B98FC - 0x7B8968
-
-	.global Img_087B98FC
-Img_087B98FC:  @ 0x087B98FC
-	.incbin "baserom.gba", 0x7B98FC, 0x1014    @ 0x7BA910 - 0x7B98FC
-
-	.global Img_087BA910
-Img_087BA910:  @ 0x087BA910
-	.incbin "baserom.gba", 0x7BA910, 0x1194    @ 0x7BBAA4 - 0x7BA910
-
-	.global Img_087BBAA4
-Img_087BBAA4:  @ 0x087BBAA4
-	.incbin "baserom.gba", 0x7BBAA4, 0x1234    @ 0x7BCCD8 - 0x7BBAA4
-
-	.global Img_087BCCD8
-Img_087BCCD8:  @ 0x087BCCD8
-	.incbin "baserom.gba", 0x7BCCD8, 0x1234    @ 0x7BDF0C - 0x7BCCD8
-
-	.global Img_087BDF0C
-Img_087BDF0C:  @ 0x087BDF0C
-	.incbin "baserom.gba", 0x7BDF0C, 0x1150    @ 0x7BF05C - 0x7BDF0C
-
-	.global Img_087BF05C
-Img_087BF05C:  @ 0x087BF05C
-	.incbin "baserom.gba", 0x7BF05C, 0xE98    @ 0x7BFEF4 - 0x7BF05C
-
-	.global Img_087BFEF4
-Img_087BFEF4:  @ 0x087BFEF4
-	.incbin "baserom.gba", 0x7BFEF4, 0xB24    @ 0x7C0A18 - 0x7BFEF4
-
-	.global Img_087C0A18
-Img_087C0A18:  @ 0x087C0A18
-	.incbin "baserom.gba", 0x7C0A18, 0xBCC    @ 0x7C15E4 - 0x7C0A18
-
-	.global Img_087C15E4
-Img_087C15E4:  @ 0x087C15E4
-	.incbin "baserom.gba", 0x7C15E4, 0xD24    @ 0x7C2308 - 0x7C15E4
-
-	.global Img_087C2308
-Img_087C2308:  @ 0x087C2308
-	.incbin "baserom.gba", 0x7C2308, 0xA2C    @ 0x7C2D34 - 0x7C2308
-
-	.global Pal_087C2D34
-Pal_087C2D34:  @ 0x087C2D34
-	.incbin "baserom.gba", 0x7C2D34, 0x20    @ 0x7C2D54 - 0x7C2D34
-
-	.global Pal_087C2D54
-Pal_087C2D54:  @ 0x087C2D54
-	.incbin "baserom.gba", 0x7C2D54, 0x20    @ 0x7C2D74 - 0x7C2D54
-
-	.global Pal_087C2D74
-Pal_087C2D74:  @ 0x087C2D74
-	.incbin "baserom.gba", 0x7C2D74, 0x20    @ 0x7C2D94 - 0x7C2D74
-
-	.global Pal_087C2D94
-Pal_087C2D94:  @ 0x087C2D94
-	.incbin "baserom.gba", 0x7C2D94, 0x20    @ 0x7C2DB4 - 0x7C2D94
-
-	.global Pal_087C2DB4
-Pal_087C2DB4:  @ 0x087C2DB4
-	.incbin "baserom.gba", 0x7C2DB4, 0x20    @ 0x7C2DD4 - 0x7C2DB4
-
-	.global Pal_087C2DD4
-Pal_087C2DD4:  @ 0x087C2DD4
-	.incbin "baserom.gba", 0x7C2DD4, 0x20    @ 0x7C2DF4 - 0x7C2DD4
-
-	.global Pal_087C2DF4
-Pal_087C2DF4:  @ 0x087C2DF4
-	.incbin "baserom.gba", 0x7C2DF4, 0x20    @ 0x7C2E14 - 0x7C2DF4
-
-	.global Pal_087C2E14
-Pal_087C2E14:  @ 0x087C2E14
-	.incbin "baserom.gba", 0x7C2E14, 0x20    @ 0x7C2E34 - 0x7C2E14
-
-	.global Pal_087C2E34
-Pal_087C2E34:  @ 0x087C2E34
-	.incbin "baserom.gba", 0x7C2E34, 0x20    @ 0x7C2E54 - 0x7C2E34
-
-	.global Pal_087C2E54
-Pal_087C2E54:  @ 0x087C2E54
-	.incbin "baserom.gba", 0x7C2E54, 0x20    @ 0x7C2E74 - 0x7C2E54
-
-	.global Pal_087C2E74
-Pal_087C2E74:  @ 0x087C2E74
-	.incbin "baserom.gba", 0x7C2E74, 0x20    @ 0x7C2E94 - 0x7C2E74
-
-	.global Pal_087C2E94
-Pal_087C2E94:  @ 0x087C2E94
-	.incbin "baserom.gba", 0x7C2E94, 0x20    @ 0x7C2EB4 - 0x7C2E94
-
-	.global Pal_087C2EB4
-Pal_087C2EB4:  @ 0x087C2EB4
-	.incbin "baserom.gba", 0x7C2EB4, 0x20    @ 0x7C2ED4 - 0x7C2EB4
-
-	.global Pal_087C2ED4
-Pal_087C2ED4:  @ 0x087C2ED4
-	.incbin "baserom.gba", 0x7C2ED4, 0x20    @ 0x7C2EF4 - 0x7C2ED4
-
-	.global Pal_087C2EF4
-Pal_087C2EF4:  @ 0x087C2EF4
-	.incbin "baserom.gba", 0x7C2EF4, 0x20    @ 0x7C2F14 - 0x7C2EF4
-
-	.global Pal_087C2F14
-Pal_087C2F14:  @ 0x087C2F14
-	.incbin "baserom.gba", 0x7C2F14, 0x20    @ 0x7C2F34 - 0x7C2F14
-
-	.global Tsa_087C2F34
-Tsa_087C2F34:  @ 0x087C2F34
-	.incbin "baserom.gba", 0x7C2F34, 0x270    @ 0x7C31A4 - 0x7C2F34
-
-	.global Tsa_087C31A4
-Tsa_087C31A4:  @ 0x087C31A4
-	.incbin "baserom.gba", 0x7C31A4, 0x278    @ 0x7C341C - 0x7C31A4
-
-	.global Tsa_087C341C
-Tsa_087C341C:  @ 0x087C341C
-	.incbin "baserom.gba", 0x7C341C, 0x278    @ 0x7C3694 - 0x7C341C
-
-	.global Tsa_087C3694
-Tsa_087C3694:  @ 0x087C3694
-	.incbin "baserom.gba", 0x7C3694, 0x25C    @ 0x7C38F0 - 0x7C3694
-
-	.global Tsa_087C38F0
-Tsa_087C38F0:  @ 0x087C38F0
-	.incbin "baserom.gba", 0x7C38F0, 0x248    @ 0x7C3B38 - 0x7C38F0
-
-	.global Tsa_087C3B38
-Tsa_087C3B38:  @ 0x087C3B38
-	.incbin "baserom.gba", 0x7C3B38, 0x23C    @ 0x7C3D74 - 0x7C3B38
-
-	.global Tsa_087C3D74
-Tsa_087C3D74:  @ 0x087C3D74
-	.incbin "baserom.gba", 0x7C3D74, 0x234    @ 0x7C3FA8 - 0x7C3D74
-
-	.global Tsa_087C3FA8
-Tsa_087C3FA8:  @ 0x087C3FA8
-	.incbin "baserom.gba", 0x7C3FA8, 0x238    @ 0x7C41E0 - 0x7C3FA8
-
-	.global Tsa_087C41E0
-Tsa_087C41E0:  @ 0x087C41E0
-	.incbin "baserom.gba", 0x7C41E0, 0x240    @ 0x7C4420 - 0x7C41E0
-
-	.global Tsa_087C4420
-Tsa_087C4420:  @ 0x087C4420
-	.incbin "baserom.gba", 0x7C4420, 0x240    @ 0x7C4660 - 0x7C4420
-
-	.global Tsa_087C4660
-Tsa_087C4660:  @ 0x087C4660
-	.incbin "baserom.gba", 0x7C4660, 0x24C    @ 0x7C48AC - 0x7C4660
-
-	.global Tsa_087C48AC
-Tsa_087C48AC:  @ 0x087C48AC
-	.incbin "baserom.gba", 0x7C48AC, 0x244    @ 0x7C4AF0 - 0x7C48AC
-
-	.global Tsa_087C4AF0
-Tsa_087C4AF0:  @ 0x087C4AF0
-	.incbin "baserom.gba", 0x7C4AF0, 0x1B0    @ 0x7C4CA0 - 0x7C4AF0
-
-	.global Tsa_087C4CA0
-Tsa_087C4CA0:  @ 0x087C4CA0
-	.incbin "baserom.gba", 0x7C4CA0, 0x1C4    @ 0x7C4E64 - 0x7C4CA0
-
-	.global Tsa_087C4E64
-Tsa_087C4E64:  @ 0x087C4E64
-	.incbin "baserom.gba", 0x7C4E64, 0x1D0    @ 0x7C5034 - 0x7C4E64
-
-	.global Tsa_087C5034
-Tsa_087C5034:  @ 0x087C5034
-	.incbin "baserom.gba", 0x7C5034, 0x15C    @ 0x7C5190 - 0x7C5034
+    .global Img_DemonLightBg_Close_1
+Img_DemonLightBg_Close_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_1.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_2
+Img_DemonLightBg_Close_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_2.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_3
+Img_DemonLightBg_Close_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_3.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_4
+Img_DemonLightBg_Close_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_4.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_5
+Img_DemonLightBg_Close_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_5.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_6
+Img_DemonLightBg_Close_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_6.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_7
+Img_DemonLightBg_Close_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_7.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_8
+Img_DemonLightBg_Close_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_8.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_9
+Img_DemonLightBg_Close_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_9.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_10
+Img_DemonLightBg_Close_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_10.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_11
+Img_DemonLightBg_Close_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_11.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_12
+Img_DemonLightBg_Close_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_12.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_13
+Img_DemonLightBg_Close_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_13.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_14
+Img_DemonLightBg_Close_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_14.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_15
+Img_DemonLightBg_Close_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_15.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_16
+Img_DemonLightBg_Close_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_16.feimg1.bin.lz"
+
+    .global Pal_DemonLightBg_Close_1
+Pal_DemonLightBg_Close_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_1.gbapal"
+
+    .global Pal_DemonLightBg_Close_2
+Pal_DemonLightBg_Close_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_2.gbapal"
+
+    .global Pal_DemonLightBg_Close_3
+Pal_DemonLightBg_Close_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_3.gbapal"
+
+    .global Pal_DemonLightBg_Close_4
+Pal_DemonLightBg_Close_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_4.gbapal"
+
+    .global Pal_DemonLightBg_Close_5
+Pal_DemonLightBg_Close_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_5.gbapal"
+
+    .global Pal_DemonLightBg_Close_6
+Pal_DemonLightBg_Close_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_6.gbapal"
+
+    .global Pal_DemonLightBg_Close_7
+Pal_DemonLightBg_Close_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_7.gbapal"
+
+    .global Pal_DemonLightBg_Close_8
+Pal_DemonLightBg_Close_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_8.gbapal"
+
+    .global Pal_DemonLightBg_Close_9
+Pal_DemonLightBg_Close_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_9.gbapal"
+
+    .global Pal_DemonLightBg_Close_10
+Pal_DemonLightBg_Close_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_10.gbapal"
+
+    .global Pal_DemonLightBg_Close_11
+Pal_DemonLightBg_Close_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_11.gbapal"
+
+    .global Pal_DemonLightBg_Close_12
+Pal_DemonLightBg_Close_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_12.gbapal"
+
+    .global Pal_DemonLightBg_Close_13
+Pal_DemonLightBg_Close_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_13.gbapal"
+
+    .global Pal_DemonLightBg_Close_14
+Pal_DemonLightBg_Close_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_14.gbapal"
+
+    .global Pal_DemonLightBg_Close_15
+Pal_DemonLightBg_Close_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_15.gbapal"
+
+    .global Pal_DemonLightBg_Close_16
+Pal_DemonLightBg_Close_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_16.gbapal"
+
+    .global Tsa_DemonLightBg_Close_1
+Tsa_DemonLightBg_Close_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_1.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_2
+Tsa_DemonLightBg_Close_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_2.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_3
+Tsa_DemonLightBg_Close_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_3.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_4
+Tsa_DemonLightBg_Close_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_4.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_5
+Tsa_DemonLightBg_Close_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_5.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_6
+Tsa_DemonLightBg_Close_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_6.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_7
+Tsa_DemonLightBg_Close_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_7.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_8
+Tsa_DemonLightBg_Close_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_8.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_9
+Tsa_DemonLightBg_Close_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_9.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_10
+Tsa_DemonLightBg_Close_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_10.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_11
+Tsa_DemonLightBg_Close_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_11.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_12
+Tsa_DemonLightBg_Close_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_12.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_13
+Tsa_DemonLightBg_Close_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_13.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_14
+Tsa_DemonLightBg_Close_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_14.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_15
+Tsa_DemonLightBg_Close_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_15.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_16
+Tsa_DemonLightBg_Close_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_16.fetsa1.bin.lz"
+
+    .global Img_DemonLightBg_Close_17
+Img_DemonLightBg_Close_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_17.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_18
+Img_DemonLightBg_Close_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_18.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_19
+Img_DemonLightBg_Close_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_19.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_20
+Img_DemonLightBg_Close_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_20.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_21
+Img_DemonLightBg_Close_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_21.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_22
+Img_DemonLightBg_Close_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_22.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_23
+Img_DemonLightBg_Close_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_23.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_24
+Img_DemonLightBg_Close_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_24.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_25
+Img_DemonLightBg_Close_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_25.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_26
+Img_DemonLightBg_Close_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_26.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_27
+Img_DemonLightBg_Close_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_27.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_28
+Img_DemonLightBg_Close_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_28.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_29
+Img_DemonLightBg_Close_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_29.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_30
+Img_DemonLightBg_Close_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_30.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_31
+Img_DemonLightBg_Close_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_31.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Close_32
+Img_DemonLightBg_Close_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_32.feimg1.bin.lz"
+
+    .global Pal_DemonLightBg_Close_17
+Pal_DemonLightBg_Close_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_17.gbapal"
+
+    .global Pal_DemonLightBg_Close_18
+Pal_DemonLightBg_Close_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_18.gbapal"
+
+    .global Pal_DemonLightBg_Close_19
+Pal_DemonLightBg_Close_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_19.gbapal"
+
+    .global Pal_DemonLightBg_Close_20
+Pal_DemonLightBg_Close_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_20.gbapal"
+
+    .global Pal_DemonLightBg_Close_21
+Pal_DemonLightBg_Close_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_21.gbapal"
+
+    .global Pal_DemonLightBg_Close_22
+Pal_DemonLightBg_Close_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_22.gbapal"
+
+    .global Pal_DemonLightBg_Close_23
+Pal_DemonLightBg_Close_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_23.gbapal"
+
+    .global Pal_DemonLightBg_Close_24
+Pal_DemonLightBg_Close_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_24.gbapal"
+
+    .global Pal_DemonLightBg_Close_25
+Pal_DemonLightBg_Close_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_25.gbapal"
+
+    .global Pal_DemonLightBg_Close_26
+Pal_DemonLightBg_Close_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_26.gbapal"
+
+    .global Pal_DemonLightBg_Close_27
+Pal_DemonLightBg_Close_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_27.gbapal"
+
+    .global Pal_DemonLightBg_Close_28
+Pal_DemonLightBg_Close_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_28.gbapal"
+
+    .global Pal_DemonLightBg_Close_29
+Pal_DemonLightBg_Close_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_29.gbapal"
+
+    .global Pal_DemonLightBg_Close_30
+Pal_DemonLightBg_Close_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_30.gbapal"
+
+    .global Pal_DemonLightBg_Close_31
+Pal_DemonLightBg_Close_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_31.gbapal"
+
+    .global Pal_DemonLightBg_Close_32
+Pal_DemonLightBg_Close_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_32.gbapal"
+
+    .global Tsa_DemonLightBg_Close_17
+Tsa_DemonLightBg_Close_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_17.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_18
+Tsa_DemonLightBg_Close_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_18.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_19
+Tsa_DemonLightBg_Close_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_19.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_20
+Tsa_DemonLightBg_Close_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_20.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_21
+Tsa_DemonLightBg_Close_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_21.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_22
+Tsa_DemonLightBg_Close_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_22.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_23
+Tsa_DemonLightBg_Close_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_23.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_24
+Tsa_DemonLightBg_Close_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_24.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_25
+Tsa_DemonLightBg_Close_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_25.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_26
+Tsa_DemonLightBg_Close_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_26.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_27
+Tsa_DemonLightBg_Close_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_27.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_28
+Tsa_DemonLightBg_Close_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_28.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_29
+Tsa_DemonLightBg_Close_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_29.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_30
+Tsa_DemonLightBg_Close_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_30.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_31
+Tsa_DemonLightBg_Close_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_31.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Close_32
+Tsa_DemonLightBg_Close_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Close_32.fetsa1.bin.lz"
 
 	.global Img_087C5190
 Img_087C5190:  @ 0x087C5190
@@ -1899,389 +1899,389 @@ Tsa_087CC9B8:  @ 0x087CC9B8
 Tsa_087CCAD8:  @ 0x087CCAD8
 	.incbin "baserom.gba", 0x7CCAD8, 0x120    @ 0x7CCBF8 - 0x7CCAD8
 
-	.global Img_087CCBF8
-Img_087CCBF8:  @ 0x087CCBF8
-	.incbin "baserom.gba", 0x7CCBF8, 0xB40    @ 0x7CD738 - 0x7CCBF8
-
-	.global Img_087CD738
-Img_087CD738:  @ 0x087CD738
-	.incbin "baserom.gba", 0x7CD738, 0xB3C    @ 0x7CE274 - 0x7CD738
-
-	.global Img_087CE274
-Img_087CE274:  @ 0x087CE274
-	.incbin "baserom.gba", 0x7CE274, 0xB24    @ 0x7CED98 - 0x7CE274
-
-	.global Img_087CED98
-Img_087CED98:  @ 0x087CED98
-	.incbin "baserom.gba", 0x7CED98, 0xA8C    @ 0x7CF824 - 0x7CED98
-
-	.global Img_087CF824
-Img_087CF824:  @ 0x087CF824
-	.incbin "baserom.gba", 0x7CF824, 0xA74    @ 0x7D0298 - 0x7CF824
-
-	.global Img_087D0298
-Img_087D0298:  @ 0x087D0298
-	.incbin "baserom.gba", 0x7D0298, 0xAA4    @ 0x7D0D3C - 0x7D0298
-
-	.global Img_087D0D3C
-Img_087D0D3C:  @ 0x087D0D3C
-	.incbin "baserom.gba", 0x7D0D3C, 0xA84    @ 0x7D17C0 - 0x7D0D3C
-
-	.global Img_087D17C0
-Img_087D17C0:  @ 0x087D17C0
-	.incbin "baserom.gba", 0x7D17C0, 0xAD4    @ 0x7D2294 - 0x7D17C0
-
-	.global Img_087D2294
-Img_087D2294:  @ 0x087D2294
-	.incbin "baserom.gba", 0x7D2294, 0xA84    @ 0x7D2D18 - 0x7D2294
-
-	.global Img_087D2D18
-Img_087D2D18:  @ 0x087D2D18
-	.incbin "baserom.gba", 0x7D2D18, 0xAA0    @ 0x7D37B8 - 0x7D2D18
-
-	.global Img_087D37B8
-Img_087D37B8:  @ 0x087D37B8
-	.incbin "baserom.gba", 0x7D37B8, 0xA80    @ 0x7D4238 - 0x7D37B8
-
-	.global Img_087D4238
-Img_087D4238:  @ 0x087D4238
-	.incbin "baserom.gba", 0x7D4238, 0xAAC    @ 0x7D4CE4 - 0x7D4238
-
-	.global Img_087D4CE4
-Img_087D4CE4:  @ 0x087D4CE4
-	.incbin "baserom.gba", 0x7D4CE4, 0xB50    @ 0x7D5834 - 0x7D4CE4
-
-	.global Img_087D5834
-Img_087D5834:  @ 0x087D5834
-	.incbin "baserom.gba", 0x7D5834, 0xB88    @ 0x7D63BC - 0x7D5834
-
-	.global Img_087D63BC
-Img_087D63BC:  @ 0x087D63BC
-	.incbin "baserom.gba", 0x7D63BC, 0xB28    @ 0x7D6EE4 - 0x7D63BC
-
-	.global Img_087D6EE4
-Img_087D6EE4:  @ 0x087D6EE4
-	.incbin "baserom.gba", 0x7D6EE4, 0xB04    @ 0x7D79E8 - 0x7D6EE4
-
-	.global Pal_087D79E8
-Pal_087D79E8:  @ 0x087D79E8
-	.incbin "baserom.gba", 0x7D79E8, 0x20    @ 0x7D7A08 - 0x7D79E8
-
-	.global Pal_087D7A08
-Pal_087D7A08:  @ 0x087D7A08
-	.incbin "baserom.gba", 0x7D7A08, 0x20    @ 0x7D7A28 - 0x7D7A08
-
-	.global Pal_087D7A28
-Pal_087D7A28:  @ 0x087D7A28
-	.incbin "baserom.gba", 0x7D7A28, 0x20    @ 0x7D7A48 - 0x7D7A28
-
-	.global Pal_087D7A48
-Pal_087D7A48:  @ 0x087D7A48
-	.incbin "baserom.gba", 0x7D7A48, 0x20    @ 0x7D7A68 - 0x7D7A48
-
-	.global Pal_087D7A68
-Pal_087D7A68:  @ 0x087D7A68
-	.incbin "baserom.gba", 0x7D7A68, 0x20    @ 0x7D7A88 - 0x7D7A68
-
-	.global Pal_087D7A88
-Pal_087D7A88:  @ 0x087D7A88
-	.incbin "baserom.gba", 0x7D7A88, 0x20    @ 0x7D7AA8 - 0x7D7A88
-
-	.global Pal_087D7AA8
-Pal_087D7AA8:  @ 0x087D7AA8
-	.incbin "baserom.gba", 0x7D7AA8, 0x20    @ 0x7D7AC8 - 0x7D7AA8
-
-	.global Pal_087D7AC8
-Pal_087D7AC8:  @ 0x087D7AC8
-	.incbin "baserom.gba", 0x7D7AC8, 0x20    @ 0x7D7AE8 - 0x7D7AC8
-
-	.global Pal_087D7AE8
-Pal_087D7AE8:  @ 0x087D7AE8
-	.incbin "baserom.gba", 0x7D7AE8, 0x20    @ 0x7D7B08 - 0x7D7AE8
-
-	.global Pal_087D7B08
-Pal_087D7B08:  @ 0x087D7B08
-	.incbin "baserom.gba", 0x7D7B08, 0x20    @ 0x7D7B28 - 0x7D7B08
-
-	.global Pal_087D7B28
-Pal_087D7B28:  @ 0x087D7B28
-	.incbin "baserom.gba", 0x7D7B28, 0x20    @ 0x7D7B48 - 0x7D7B28
-
-	.global Pal_087D7B48
-Pal_087D7B48:  @ 0x087D7B48
-	.incbin "baserom.gba", 0x7D7B48, 0x20    @ 0x7D7B68 - 0x7D7B48
-
-	.global Pal_087D7B68
-Pal_087D7B68:  @ 0x087D7B68
-	.incbin "baserom.gba", 0x7D7B68, 0x20    @ 0x7D7B88 - 0x7D7B68
-
-	.global Pal_087D7B88
-Pal_087D7B88:  @ 0x087D7B88
-	.incbin "baserom.gba", 0x7D7B88, 0x20    @ 0x7D7BA8 - 0x7D7B88
-
-	.global Pal_087D7BA8
-Pal_087D7BA8:  @ 0x087D7BA8
-	.incbin "baserom.gba", 0x7D7BA8, 0x20    @ 0x7D7BC8 - 0x7D7BA8
-
-	.global Pal_087D7BC8
-Pal_087D7BC8:  @ 0x087D7BC8
-	.incbin "baserom.gba", 0x7D7BC8, 0x20    @ 0x7D7BE8 - 0x7D7BC8
-
-	.global Tsa_087D7BE8
-Tsa_087D7BE8:  @ 0x087D7BE8
-	.incbin "baserom.gba", 0x7D7BE8, 0x274    @ 0x7D7E5C - 0x7D7BE8
-
-	.global Tsa_087D7E5C
-Tsa_087D7E5C:  @ 0x087D7E5C
-	.incbin "baserom.gba", 0x7D7E5C, 0x278    @ 0x7D80D4 - 0x7D7E5C
-
-	.global Tsa_087D80D4
-Tsa_087D80D4:  @ 0x087D80D4
-	.incbin "baserom.gba", 0x7D80D4, 0x274    @ 0x7D8348 - 0x7D80D4
-
-	.global Tsa_087D8348
-Tsa_087D8348:  @ 0x087D8348
-	.incbin "baserom.gba", 0x7D8348, 0x274    @ 0x7D85BC - 0x7D8348
-
-	.global Tsa_087D85BC
-Tsa_087D85BC:  @ 0x087D85BC
-	.incbin "baserom.gba", 0x7D85BC, 0x278    @ 0x7D8834 - 0x7D85BC
-
-	.global Tsa_087D8834
-Tsa_087D8834:  @ 0x087D8834
-	.incbin "baserom.gba", 0x7D8834, 0x274    @ 0x7D8AA8 - 0x7D8834
-
-	.global Tsa_087D8AA8
-Tsa_087D8AA8:  @ 0x087D8AA8
-	.incbin "baserom.gba", 0x7D8AA8, 0x278    @ 0x7D8D20 - 0x7D8AA8
-
-	.global Tsa_087D8D20
-Tsa_087D8D20:  @ 0x087D8D20
-	.incbin "baserom.gba", 0x7D8D20, 0x274    @ 0x7D8F94 - 0x7D8D20
-
-	.global Tsa_087D8F94
-Tsa_087D8F94:  @ 0x087D8F94
-	.incbin "baserom.gba", 0x7D8F94, 0x278    @ 0x7D920C - 0x7D8F94
-
-	.global Tsa_087D920C
-Tsa_087D920C:  @ 0x087D920C
-	.incbin "baserom.gba", 0x7D920C, 0x274    @ 0x7D9480 - 0x7D920C
-
-	.global Tsa_087D9480
-Tsa_087D9480:  @ 0x087D9480
-	.incbin "baserom.gba", 0x7D9480, 0x278    @ 0x7D96F8 - 0x7D9480
-
-	.global Tsa_087D96F8
-Tsa_087D96F8:  @ 0x087D96F8
-	.incbin "baserom.gba", 0x7D96F8, 0x274    @ 0x7D996C - 0x7D96F8
-
-	.global Tsa_087D996C
-Tsa_087D996C:  @ 0x087D996C
-	.incbin "baserom.gba", 0x7D996C, 0x274    @ 0x7D9BE0 - 0x7D996C
-
-	.global Tsa_087D9BE0
-Tsa_087D9BE0:  @ 0x087D9BE0
-	.incbin "baserom.gba", 0x7D9BE0, 0x278    @ 0x7D9E58 - 0x7D9BE0
-
-	.global Tsa_087D9E58
-Tsa_087D9E58:  @ 0x087D9E58
-	.incbin "baserom.gba", 0x7D9E58, 0x274    @ 0x7DA0CC - 0x7D9E58
-
-	.global Tsa_087DA0CC
-Tsa_087DA0CC:  @ 0x087DA0CC
-	.incbin "baserom.gba", 0x7DA0CC, 0x274    @ 0x7DA340 - 0x7DA0CC
-
-	.global Img_087DA340
-Img_087DA340:  @ 0x087DA340
-	.incbin "baserom.gba", 0x7DA340, 0xB00    @ 0x7DAE40 - 0x7DA340
-
-	.global Img_087DAE40
-Img_087DAE40:  @ 0x087DAE40
-	.incbin "baserom.gba", 0x7DAE40, 0xB20    @ 0x7DB960 - 0x7DAE40
-
-	.global Img_087DB960
-Img_087DB960:  @ 0x087DB960
-	.incbin "baserom.gba", 0x7DB960, 0xBB8    @ 0x7DC518 - 0x7DB960
-
-	.global Img_087DC518
-Img_087DC518:  @ 0x087DC518
-	.incbin "baserom.gba", 0x7DC518, 0xD70    @ 0x7DD288 - 0x7DC518
-
-	.global Img_087DD288
-Img_087DD288:  @ 0x087DD288
-	.incbin "baserom.gba", 0x7DD288, 0xE40    @ 0x7DE0C8 - 0x7DD288
-
-	.global Img_087DE0C8
-Img_087DE0C8:  @ 0x087DE0C8
-	.incbin "baserom.gba", 0x7DE0C8, 0xF68    @ 0x7DF030 - 0x7DE0C8
-
-	.global Img_087DF030
-Img_087DF030:  @ 0x087DF030
-	.incbin "baserom.gba", 0x7DF030, 0xFFC    @ 0x7E002C - 0x7DF030
-
-	.global Img_087E002C
-Img_087E002C:  @ 0x087E002C
-	.incbin "baserom.gba", 0x7E002C, 0x1164    @ 0x7E1190 - 0x7E002C
-
-	.global Img_087E1190
-Img_087E1190:  @ 0x087E1190
-	.incbin "baserom.gba", 0x7E1190, 0x11FC    @ 0x7E238C - 0x7E1190
-
-	.global Img_087E238C
-Img_087E238C:  @ 0x087E238C
-	.incbin "baserom.gba", 0x7E238C, 0x1200    @ 0x7E358C - 0x7E238C
-
-	.global Img_087E358C
-Img_087E358C:  @ 0x087E358C
-	.incbin "baserom.gba", 0x7E358C, 0x10E0    @ 0x7E466C - 0x7E358C
-
-	.global Img_087E466C
-Img_087E466C:  @ 0x087E466C
-	.incbin "baserom.gba", 0x7E466C, 0xE48    @ 0x7E54B4 - 0x7E466C
-
-	.global Img_087E54B4
-Img_087E54B4:  @ 0x087E54B4
-	.incbin "baserom.gba", 0x7E54B4, 0xB20    @ 0x7E5FD4 - 0x7E54B4
-
-	.global Img_087E5FD4
-Img_087E5FD4:  @ 0x087E5FD4
-	.incbin "baserom.gba", 0x7E5FD4, 0xBBC    @ 0x7E6B90 - 0x7E5FD4
-
-	.global Img_087E6B90
-Img_087E6B90:  @ 0x087E6B90
-	.incbin "baserom.gba", 0x7E6B90, 0xD10    @ 0x7E78A0 - 0x7E6B90
-
-	.global Img_087E78A0
-Img_087E78A0:  @ 0x087E78A0
-	.incbin "baserom.gba", 0x7E78A0, 0xA2C    @ 0x7E82CC - 0x7E78A0
-
-	.global Pal_087E82CC
-Pal_087E82CC:  @ 0x087E82CC
-	.incbin "baserom.gba", 0x7E82CC, 0x20    @ 0x7E82EC - 0x7E82CC
-
-	.global Pal_087E82EC
-Pal_087E82EC:  @ 0x087E82EC
-	.incbin "baserom.gba", 0x7E82EC, 0x20    @ 0x7E830C - 0x7E82EC
-
-	.global Pal_087E830C
-Pal_087E830C:  @ 0x087E830C
-	.incbin "baserom.gba", 0x7E830C, 0x20    @ 0x7E832C - 0x7E830C
-
-	.global Pal_087E832C
-Pal_087E832C:  @ 0x087E832C
-	.incbin "baserom.gba", 0x7E832C, 0x20    @ 0x7E834C - 0x7E832C
-
-	.global Pal_087E834C
-Pal_087E834C:  @ 0x087E834C
-	.incbin "baserom.gba", 0x7E834C, 0x20    @ 0x7E836C - 0x7E834C
-
-	.global Pal_087E836C
-Pal_087E836C:  @ 0x087E836C
-	.incbin "baserom.gba", 0x7E836C, 0x20    @ 0x7E838C - 0x7E836C
-
-	.global Pal_087E838C
-Pal_087E838C:  @ 0x087E838C
-	.incbin "baserom.gba", 0x7E838C, 0x20    @ 0x7E83AC - 0x7E838C
-
-	.global Pal_087E83AC
-Pal_087E83AC:  @ 0x087E83AC
-	.incbin "baserom.gba", 0x7E83AC, 0x20    @ 0x7E83CC - 0x7E83AC
-
-	.global Pal_087E83CC
-Pal_087E83CC:  @ 0x087E83CC
-	.incbin "baserom.gba", 0x7E83CC, 0x20    @ 0x7E83EC - 0x7E83CC
-
-	.global Pal_087E83EC
-Pal_087E83EC:  @ 0x087E83EC
-	.incbin "baserom.gba", 0x7E83EC, 0x20    @ 0x7E840C - 0x7E83EC
-
-	.global Pal_087E840C
-Pal_087E840C:  @ 0x087E840C
-	.incbin "baserom.gba", 0x7E840C, 0x20    @ 0x7E842C - 0x7E840C
-
-	.global Pal_087E842C
-Pal_087E842C:  @ 0x087E842C
-	.incbin "baserom.gba", 0x7E842C, 0x20    @ 0x7E844C - 0x7E842C
-
-	.global Pal_087E844C
-Pal_087E844C:  @ 0x087E844C
-	.incbin "baserom.gba", 0x7E844C, 0x20    @ 0x7E846C - 0x7E844C
-
-	.global Pal_087E846C
-Pal_087E846C:  @ 0x087E846C
-	.incbin "baserom.gba", 0x7E846C, 0x20    @ 0x7E848C - 0x7E846C
-
-	.global Pal_087E848C
-Pal_087E848C:  @ 0x087E848C
-	.incbin "baserom.gba", 0x7E848C, 0x20    @ 0x7E84AC - 0x7E848C
-
-	.global Pal_087E84AC
-Pal_087E84AC:  @ 0x087E84AC
-	.incbin "baserom.gba", 0x7E84AC, 0x20    @ 0x7E84CC - 0x7E84AC
-
-	.global Tsa_087E84CC
-Tsa_087E84CC:  @ 0x087E84CC
-	.incbin "baserom.gba", 0x7E84CC, 0x270    @ 0x7E873C - 0x7E84CC
-
-	.global Tsa_087E873C
-Tsa_087E873C:  @ 0x087E873C
-	.incbin "baserom.gba", 0x7E873C, 0x278    @ 0x7E89B4 - 0x7E873C
-
-	.global Tsa_087E89B4
-Tsa_087E89B4:  @ 0x087E89B4
-	.incbin "baserom.gba", 0x7E89B4, 0x278    @ 0x7E8C2C - 0x7E89B4
-
-	.global Tsa_087E8C2C
-Tsa_087E8C2C:  @ 0x087E8C2C
-	.incbin "baserom.gba", 0x7E8C2C, 0x25C    @ 0x7E8E88 - 0x7E8C2C
-
-	.global Tsa_087E8E88
-Tsa_087E8E88:  @ 0x087E8E88
-	.incbin "baserom.gba", 0x7E8E88, 0x248    @ 0x7E90D0 - 0x7E8E88
-
-	.global Tsa_087E90D0
-Tsa_087E90D0:  @ 0x087E90D0
-	.incbin "baserom.gba", 0x7E90D0, 0x244    @ 0x7E9314 - 0x7E90D0
-
-	.global Tsa_087E9314
-Tsa_087E9314:  @ 0x087E9314
-	.incbin "baserom.gba", 0x7E9314, 0x240    @ 0x7E9554 - 0x7E9314
-
-	.global Tsa_087E9554
-Tsa_087E9554:  @ 0x087E9554
-	.incbin "baserom.gba", 0x7E9554, 0x244    @ 0x7E9798 - 0x7E9554
-
-	.global Tsa_087E9798
-Tsa_087E9798:  @ 0x087E9798
-	.incbin "baserom.gba", 0x7E9798, 0x248    @ 0x7E99E0 - 0x7E9798
-
-	.global Tsa_087E99E0
-Tsa_087E99E0:  @ 0x087E99E0
-	.incbin "baserom.gba", 0x7E99E0, 0x248    @ 0x7E9C28 - 0x7E99E0
-
-	.global Tsa_087E9C28
-Tsa_087E9C28:  @ 0x087E9C28
-	.incbin "baserom.gba", 0x7E9C28, 0x250    @ 0x7E9E78 - 0x7E9C28
-
-	.global Tsa_087E9E78
-Tsa_087E9E78:  @ 0x087E9E78
-	.incbin "baserom.gba", 0x7E9E78, 0x248    @ 0x7EA0C0 - 0x7E9E78
-
-	.global Tsa_087EA0C0
-Tsa_087EA0C0:  @ 0x087EA0C0
-	.incbin "baserom.gba", 0x7EA0C0, 0x1A8    @ 0x7EA268 - 0x7EA0C0
-
-	.global Tsa_087EA268
-Tsa_087EA268:  @ 0x087EA268
-	.incbin "baserom.gba", 0x7EA268, 0x1B4    @ 0x7EA41C - 0x7EA268
-
-	.global Tsa_087EA41C
-Tsa_087EA41C:  @ 0x087EA41C
-	.incbin "baserom.gba", 0x7EA41C, 0x1B4    @ 0x7EA5D0 - 0x7EA41C
-
-	.global Tsa_087EA5D0
-Tsa_087EA5D0:  @ 0x087EA5D0
-	.incbin "baserom.gba", 0x7EA5D0, 0x15C    @ 0x7EA72C - 0x7EA5D0
+    .global Img_DemonLightBg_Far_1
+Img_DemonLightBg_Far_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_1.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_2
+Img_DemonLightBg_Far_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_2.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_3
+Img_DemonLightBg_Far_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_3.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_4
+Img_DemonLightBg_Far_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_4.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_5
+Img_DemonLightBg_Far_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_5.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_6
+Img_DemonLightBg_Far_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_6.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_7
+Img_DemonLightBg_Far_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_7.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_8
+Img_DemonLightBg_Far_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_8.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_9
+Img_DemonLightBg_Far_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_9.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_10
+Img_DemonLightBg_Far_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_10.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_11
+Img_DemonLightBg_Far_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_11.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_12
+Img_DemonLightBg_Far_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_12.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_13
+Img_DemonLightBg_Far_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_13.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_14
+Img_DemonLightBg_Far_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_14.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_15
+Img_DemonLightBg_Far_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_15.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_16
+Img_DemonLightBg_Far_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_16.feimg1.bin.lz"
+
+    .global Pal_DemonLightBg_Far_1
+Pal_DemonLightBg_Far_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_1.gbapal"
+
+    .global Pal_DemonLightBg_Far_2
+Pal_DemonLightBg_Far_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_2.gbapal"
+
+    .global Pal_DemonLightBg_Far_3
+Pal_DemonLightBg_Far_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_3.gbapal"
+
+    .global Pal_DemonLightBg_Far_4
+Pal_DemonLightBg_Far_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_4.gbapal"
+
+    .global Pal_DemonLightBg_Far_5
+Pal_DemonLightBg_Far_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_5.gbapal"
+
+    .global Pal_DemonLightBg_Far_6
+Pal_DemonLightBg_Far_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_6.gbapal"
+
+    .global Pal_DemonLightBg_Far_7
+Pal_DemonLightBg_Far_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_7.gbapal"
+
+    .global Pal_DemonLightBg_Far_8
+Pal_DemonLightBg_Far_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_8.gbapal"
+
+    .global Pal_DemonLightBg_Far_9
+Pal_DemonLightBg_Far_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_9.gbapal"
+
+    .global Pal_DemonLightBg_Far_10
+Pal_DemonLightBg_Far_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_10.gbapal"
+
+    .global Pal_DemonLightBg_Far_11
+Pal_DemonLightBg_Far_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_11.gbapal"
+
+    .global Pal_DemonLightBg_Far_12
+Pal_DemonLightBg_Far_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_12.gbapal"
+
+    .global Pal_DemonLightBg_Far_13
+Pal_DemonLightBg_Far_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_13.gbapal"
+
+    .global Pal_DemonLightBg_Far_14
+Pal_DemonLightBg_Far_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_14.gbapal"
+
+    .global Pal_DemonLightBg_Far_15
+Pal_DemonLightBg_Far_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_15.gbapal"
+
+    .global Pal_DemonLightBg_Far_16
+Pal_DemonLightBg_Far_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_16.gbapal"
+
+    .global Tsa_DemonLightBg_Far_1
+Tsa_DemonLightBg_Far_1:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_1.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_2
+Tsa_DemonLightBg_Far_2:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_2.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_3
+Tsa_DemonLightBg_Far_3:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_3.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_4
+Tsa_DemonLightBg_Far_4:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_4.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_5
+Tsa_DemonLightBg_Far_5:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_5.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_6
+Tsa_DemonLightBg_Far_6:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_6.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_7
+Tsa_DemonLightBg_Far_7:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_7.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_8
+Tsa_DemonLightBg_Far_8:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_8.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_9
+Tsa_DemonLightBg_Far_9:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_9.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_10
+Tsa_DemonLightBg_Far_10:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_10.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_11
+Tsa_DemonLightBg_Far_11:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_11.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_12
+Tsa_DemonLightBg_Far_12:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_12.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_13
+Tsa_DemonLightBg_Far_13:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_13.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_14
+Tsa_DemonLightBg_Far_14:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_14.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_15
+Tsa_DemonLightBg_Far_15:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_15.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_16
+Tsa_DemonLightBg_Far_16:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_16.fetsa1.bin.lz"
+
+    .global Img_DemonLightBg_Far_17
+Img_DemonLightBg_Far_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_17.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_18
+Img_DemonLightBg_Far_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_18.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_19
+Img_DemonLightBg_Far_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_19.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_20
+Img_DemonLightBg_Far_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_20.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_21
+Img_DemonLightBg_Far_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_21.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_22
+Img_DemonLightBg_Far_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_22.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_23
+Img_DemonLightBg_Far_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_23.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_24
+Img_DemonLightBg_Far_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_24.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_25
+Img_DemonLightBg_Far_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_25.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_26
+Img_DemonLightBg_Far_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_26.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_27
+Img_DemonLightBg_Far_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_27.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_28
+Img_DemonLightBg_Far_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_28.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_29
+Img_DemonLightBg_Far_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_29.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_30
+Img_DemonLightBg_Far_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_30.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_31
+Img_DemonLightBg_Far_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_31.feimg1.bin.lz"
+
+    .global Img_DemonLightBg_Far_32
+Img_DemonLightBg_Far_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_32.feimg1.bin.lz"
+
+    .global Pal_DemonLightBg_Far_17
+Pal_DemonLightBg_Far_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_17.gbapal"
+
+    .global Pal_DemonLightBg_Far_18
+Pal_DemonLightBg_Far_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_18.gbapal"
+
+    .global Pal_DemonLightBg_Far_19
+Pal_DemonLightBg_Far_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_19.gbapal"
+
+    .global Pal_DemonLightBg_Far_20
+Pal_DemonLightBg_Far_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_20.gbapal"
+
+    .global Pal_DemonLightBg_Far_21
+Pal_DemonLightBg_Far_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_21.gbapal"
+
+    .global Pal_DemonLightBg_Far_22
+Pal_DemonLightBg_Far_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_22.gbapal"
+
+    .global Pal_DemonLightBg_Far_23
+Pal_DemonLightBg_Far_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_23.gbapal"
+
+    .global Pal_DemonLightBg_Far_24
+Pal_DemonLightBg_Far_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_24.gbapal"
+
+    .global Pal_DemonLightBg_Far_25
+Pal_DemonLightBg_Far_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_25.gbapal"
+
+    .global Pal_DemonLightBg_Far_26
+Pal_DemonLightBg_Far_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_26.gbapal"
+
+    .global Pal_DemonLightBg_Far_27
+Pal_DemonLightBg_Far_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_27.gbapal"
+
+    .global Pal_DemonLightBg_Far_28
+Pal_DemonLightBg_Far_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_28.gbapal"
+
+    .global Pal_DemonLightBg_Far_29
+Pal_DemonLightBg_Far_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_29.gbapal"
+
+    .global Pal_DemonLightBg_Far_30
+Pal_DemonLightBg_Far_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_30.gbapal"
+
+    .global Pal_DemonLightBg_Far_31
+Pal_DemonLightBg_Far_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_31.gbapal"
+
+    .global Pal_DemonLightBg_Far_32
+Pal_DemonLightBg_Far_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_32.gbapal"
+
+    .global Tsa_DemonLightBg_Far_17
+Tsa_DemonLightBg_Far_17:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_17.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_18
+Tsa_DemonLightBg_Far_18:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_18.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_19
+Tsa_DemonLightBg_Far_19:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_19.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_20
+Tsa_DemonLightBg_Far_20:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_20.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_21
+Tsa_DemonLightBg_Far_21:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_21.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_22
+Tsa_DemonLightBg_Far_22:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_22.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_23
+Tsa_DemonLightBg_Far_23:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_23.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_24
+Tsa_DemonLightBg_Far_24:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_24.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_25
+Tsa_DemonLightBg_Far_25:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_25.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_26
+Tsa_DemonLightBg_Far_26:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_26.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_27
+Tsa_DemonLightBg_Far_27:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_27.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_28
+Tsa_DemonLightBg_Far_28:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_28.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_29
+Tsa_DemonLightBg_Far_29:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_29.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_30
+Tsa_DemonLightBg_Far_30:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_30.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_31
+Tsa_DemonLightBg_Far_31:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_31.fetsa1.bin.lz"
+
+    .global Tsa_DemonLightBg_Far_32
+Tsa_DemonLightBg_Far_32:
+    .incbin "graphics/efxdragon/DemonLightBg_Far_32.fetsa1.bin.lz"
 
 	.global Img_087EA72C
 Img_087EA72C:  @ 0x087EA72C

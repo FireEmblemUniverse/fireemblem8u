@@ -2,67 +2,67 @@
 
     .global Img_EfxSkill1
 Img_EfxSkill1:  @ 0x085C935C
-    .incbin "graphics/efxskill/efxskill_1.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_1.feimg1.bin.lz"
 
     .global Img_EfxSkill2
 Img_EfxSkill2:
-    .incbin "graphics/efxskill/efxskill_2.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_2.feimg1.bin.lz"
 
     .global Img_EfxSkill3
 Img_EfxSkill3:
-    .incbin "graphics/efxskill/efxskill_3.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_3.feimg1.bin.lz"
 
     .global Img_EfxSkill4
 Img_EfxSkill4:
-    .incbin "graphics/efxskill/efxskill_4.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_4.feimg1.bin.lz"
 
     .global Img_EfxSkill5
 Img_EfxSkill5:
-    .incbin "graphics/efxskill/efxskill_5.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_5.feimg1.bin.lz"
 
     .global Img_EfxSkill6
 Img_EfxSkill6:
-    .incbin "graphics/efxskill/efxskill_6.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_6.feimg1.bin.lz"
 
     .global Img_EfxSkill7
 Img_EfxSkill7:
-    .incbin "graphics/efxskill/efxskill_7.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_7.feimg1.bin.lz"
 
     .global Img_EfxSkill8
 Img_EfxSkill8:
-    .incbin "graphics/efxskill/efxskill_8.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_8.feimg1.bin.lz"
 
     .global Img_EfxSkill9
 Img_EfxSkill9:
-    .incbin "graphics/efxskill/efxskill_9.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_9.feimg1.bin.lz"
 
     .global Img_EfxSkillA
 Img_EfxSkillA:
-    .incbin "graphics/efxskill/efxskill_10.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_10.feimg1.bin.lz"
 
     .global Img_EfxSkillB
 Img_EfxSkillB:
-    .incbin "graphics/efxskill/efxskill_11.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_11.feimg1.bin.lz"
 
     .global Img_EfxSkillC
 Img_EfxSkillC:
-    .incbin "graphics/efxskill/efxskill_12.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_12.feimg1.bin.lz"
 
     .global Img_EfxSkillD
 Img_EfxSkillD:
-    .incbin "graphics/efxskill/efxskill_13.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_13.feimg1.bin.lz"
 
     .global Img_EfxSkillE
 Img_EfxSkillE:
-    .incbin "graphics/efxskill/efxskill_14.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_14.feimg1.bin.lz"
 
     .global Img_EfxSkillF
 Img_EfxSkillF:
-    .incbin "graphics/efxskill/efxskill_15.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_15.feimg1.bin.lz"
 
     .global Img_EfxSkill10
 Img_EfxSkill10:
-    .incbin "graphics/efxskill/efxskill_16.feimg.bin.lz"
+    .incbin "graphics/efxskill/efxskill_16.feimg1.bin.lz"
 
     .global Pal_EfxSkill1
 Pal_EfxSkill1:

@@ -2,6 +2,7 @@
 
 import sys, struct, os
 import array
+import numpy as np
 from PIL import Image
 import lzss_lib
 
@@ -56,7 +57,20 @@ def create_image_from_4bpp(img_data, tsa_data, pal_bytes, ntiles_x, ntiles_y):
         base_x = tile_idx % ntiles_x
 
         tsa_idx = tsa_data[tile_idx]
-        tile = tiles_8x8[tsa_idx]
+        flip = tsa_idx & (3 << 10)
+        tsa_idx_ext = tsa_idx & (0x3FF)
+        tile = tiles_8x8[tsa_idx_ext]
+
+        real_tile = tile
+        if flip != 0:
+            flip = flip >> 10
+            tile_2d = np.array(tile).reshape((8, 8))
+            if flip == 1:   # hf
+                real_tile = np.flip(tile_2d, axis=1).flatten()
+            elif flip == 2: # vf
+                real_tile = np.flip(tile_2d, axis=0).flatten()
+            elif flip == 3: # se
+                real_tile = np.flip(tile_2d).flatten()
 
         for y in range(8):
             for x in range(0, 8):
@@ -65,7 +79,7 @@ def create_image_from_4bpp(img_data, tsa_data, pal_bytes, ntiles_x, ntiles_y):
                 real_x = x + base_x * 8
                 real_y = y + base_y * 8
 
-                pixels[real_x + 0 + real_y * width] = tile[y * 8 + x]
+                pixels[real_x + 0 + real_y * width] = real_tile[y * 8 + x]
 
     img.putpalette(pal_data)
     img.putdata(pixels)

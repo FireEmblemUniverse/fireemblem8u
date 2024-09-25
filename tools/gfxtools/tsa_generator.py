@@ -7,20 +7,30 @@ from PIL import Image
 '''
 方案1:
 常见于 banim 相关的图片
-1. 整张图按行从左向右扫描, 将获得的独特的 tile 入栈, 从而获得 tile array
-2. 上述获得的第一个 tile 丢到末尾作为最后一个 tile
-3. tile array 第 0 个 tile 置空
+1. 第 0 个 tile 置 0
+2. 整张图按行从左向右扫描, 将获得的独特的 tile 入栈, 从而获得 tile array
+3. 上述获得的第一个 tile 丢到末尾作为最后一个 tile
 '''
 def process_tiles_method1(tiles, ntile_x, ntile_y):
     unique_tiles = []
     tsa_data = []
     tile_dict = {}
 
+    unique_tiles.append([0] * 32)
+
+    is_first = True
+
     for tile_y in range(0, ntile_y):
         for tile_x in range(0, ntile_x):
             tile = tiles[tile_y][tile_x]
 
             tile_4bpp = convert_to_4bpp(tile)
+
+            # skip tile[0]
+            if tile_4bpp == [0] * 32:
+                tsa_data.append(0)
+                continue
+
             tile_tuple = tuple(tile_4bpp)
 
             tile_2d = tile.reshape((8, 8))
@@ -47,20 +57,24 @@ def process_tiles_method1(tiles, ntile_x, ntile_y):
                 tsa_data.append(tile_dict[tile_se_tuple] | (3 << 10))
             else:
                 # fine, we did not find it
-                unique_tiles.append(tile_4bpp)
-                tile_index = len(unique_tiles) - 1
+                if is_first:
+                    is_first = False
+                    first_tile_4bpp = tile_4bpp
+                    tile_index = -1
+                else:
+                    unique_tiles.append(tile_4bpp)
+                    tile_index = len(unique_tiles) - 1
+
                 tile_dict[tile_tuple] = tile_index
                 tsa_data.append(tile_index)
 
     # put the first tile to the tale
     last_idx = len(unique_tiles)
-    print(last_idx)
     for i, tsa in enumerate(tsa_data):
-        if tsa == 0:
+        if tsa == -1:
             tsa_data[i] = last_idx
 
-    unique_tiles.append(unique_tiles[0])
-    unique_tiles[0] = [0] * 32
+    unique_tiles.append(first_tile_4bpp)
 
     return unique_tiles, tsa_data
 
@@ -104,7 +118,7 @@ def main(args):
         out_img  = args[2]
         out_tsa  = args[3]
     except IndexError:
-        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg.bin] [*.fetsa<x>.bin]")
+        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg1.bin] [*.fetsa<x>.bin]")
 
     method = extract_suffix_from_filename(out_tsa)
     if method is None:
