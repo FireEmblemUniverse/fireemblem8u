@@ -74,6 +74,14 @@ tools/agbcc
 *.fk
 data/banim/*.bin
 
+*.feimg1.bin
+*.feimg2.bin
+*.feimg3.bin
+
+*.fetsa1.bin
+*.fetsa2.bin
+*.fetsa3.bin
+
 # =========================
 # Dump Scripts Output
 # =========================
