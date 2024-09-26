@@ -312,7 +312,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Break(proc);
 
-                    goto _0801CB38;
+                    break;
 
                 case PLAYER_SELECT_NOCONTROL:
                     UnitBeginAction(unit);
@@ -320,30 +320,35 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Goto(proc, 11);
 
-                    goto _0801CB38;
+                    break;
+
+                default:
+                    goto else_stmt;
             }
         }
-
-        if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
+        else
         {
-            struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
-
-            if (unit)
+else_stmt:
+            if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
             {
-                EndAllMus();
-                ShowUnitSprite(unit);
+                struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
+
+                if (unit)
+                {
+                    EndAllMus();
+                    ShowUnitSprite(unit);
+                }
+
+                EndPlayerPhaseSideWindows();
+                StartMinimapPlayerPhase();
+
+                Proc_Goto(proc, 9);
+
+                return;
             }
-
-            EndPlayerPhaseSideWindows();
-            StartMinimapPlayerPhase();
-
-            Proc_Goto(proc, 9);
-
-            return;
         }
     }
 
-_0801CB38:
     UnitSpriteHoverUpdate();
 
     PutMapCursor(
