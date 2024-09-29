@@ -1,14 +1,23 @@
 
 MAKEFLAGS += --no-print-directory
 
-TOOLDIRS := $(filter-out tools/agbcc,$(wildcard tools/*))
+TOOLDIRS := ./tools
 
-.PHONY: all $(TOOLDIRS) clean
+TOOLS :=
+TOOLS += $(TOOLDIRS)/aif2pcm
+TOOLS += $(TOOLDIRS)/bin2c
+TOOLS += $(TOOLDIRS)/textencode
+TOOLS += $(TOOLDIRS)/jsonproc
+TOOLS += $(TOOLDIRS)/mid2agb
+TOOLS += $(TOOLDIRS)/scaninc
+TOOLS += $(TOOLDIRS)/gbagfx
 
-all: $(TOOLDIRS)
+.PHONY: all $(TOOLS) clean
 
-$(TOOLDIRS):
+all: $(TOOLS)
+
+$(TOOLS):
 	@$(MAKE) -C $@
 
 clean:
-	@$(foreach tooldir,$(TOOLDIRS),$(MAKE) clean -C $(tooldir);)
+	@$(foreach tooldir,$(TOOLS),$(MAKE) clean -C $(tooldir);)
