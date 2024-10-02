@@ -18,7 +18,7 @@ CONST_DATA EventListScr EventScr_UnkCh3B_EndingScene[] = {
 };
 
 CONST_DATA u8 gAutoUdefJids[2][4] = {
-    0x58, 0x5B, 0x5F, 0x61, 0, 0, 0, 0
+    CLASS_BAEL, CLASS_MAUTHEDOOG, CLASS_MOGALL, CLASS_GORGON, 0, 0, 0, 0
 };
 
 void AutoGenerateUnitdef(u8 idx, int jid, s8 x_from, s8 y_from, s8 x_to, s8 y_to)
