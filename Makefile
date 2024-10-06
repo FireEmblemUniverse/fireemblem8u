@@ -33,7 +33,7 @@ AIF2PCM    := tools/aif2pcm/aif2pcm$(EXE)
 MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
-FETSATOOL  := tools/gfxtools/tsa_generator.py
+FETSATOOL  := scripts/gfxtools/tsa_generator.py
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
