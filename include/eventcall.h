@@ -148,7 +148,7 @@ void AutolevelSecondaryLord();
 extern u8 gUdefCnt;
 extern struct UnitDefinition gUdefs[];
 extern struct REDA gUdefREDAs[];
-extern CONST_DATA u8 gAutoUdefJids[8];
+extern CONST_DATA u8 gAutoUdefJids[2][4];
 
 extern CONST_DATA EventListScr EventScr_9EEA58[];
 extern CONST_DATA EventListScr EventScr_9EEAAC[];

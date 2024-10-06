@@ -17,8 +17,8 @@ CONST_DATA EventListScr EventScr_UnkCh3B_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA u8 gAutoUdefJids[8] = {
-    0x58, 0x5B, 0x5F, 0x61, 0, 0, 0, 0
+CONST_DATA u8 gAutoUdefJids[2][4] = {
+    CLASS_BAEL, CLASS_MAUTHEDOOG, CLASS_MOGALL, CLASS_GORGON, 0, 0, 0, 0
 };
 
 void AutoGenerateUnitdef(u8 idx, int jid, s8 x_from, s8 y_from, s8 x_to, s8 y_to)
@@ -62,40 +62,16 @@ void AutoGenerateUnitdef(u8 idx, int jid, s8 x_from, s8 y_from, s8 x_to, s8 y_to
 
 void sub_808679C(void)
 {
-#if NONMATCHING
-    AutoGenerateUnitdef(0, gAutoUdefJids[0 + 4 * gUdefCnt], 0, 2, 14, 2);
-    AutoGenerateUnitdef(1, gAutoUdefJids[1 + 4 * gUdefCnt], 0, 3, 14, 3);
-    AutoGenerateUnitdef(2, gAutoUdefJids[2 + 4 * gUdefCnt], 0, 4, 14, 4);
-    AutoGenerateUnitdef(3, gAutoUdefJids[3 + 4 * gUdefCnt], 0, 5, 14, 5);
-#else
-    int val;
-    u8 jid;
-    u8 * jid_lut;
-
-    jid = gAutoUdefJids[0 + 4 * gUdefCnt];
-    AutoGenerateUnitdef(0, jid, 0, 2, 14, 2);
-
-    val = 4 * gUdefCnt;
-    jid_lut = gAutoUdefJids + 1;
-    jid = jid_lut[val];
-    AutoGenerateUnitdef(1, jid, 0, 3, 14, 3);
-
-    val = 4 * gUdefCnt;
-    jid_lut = gAutoUdefJids + 2;
-    jid = jid_lut[val];
-    AutoGenerateUnitdef(2, jid, 0, 4, 14, 4);
-
-    val = 4 * gUdefCnt;
-    jid_lut = gAutoUdefJids + 3;
-    jid = jid_lut[val];
-    AutoGenerateUnitdef(3, jid, 0, 5, 14, 5);
-#endif
+    AutoGenerateUnitdef(0, gAutoUdefJids[gUdefCnt][0], 0, 2, 14, 2);
+    AutoGenerateUnitdef(1, gAutoUdefJids[gUdefCnt][1], 0, 3, 14, 3);
+    AutoGenerateUnitdef(2, gAutoUdefJids[gUdefCnt][2], 0, 4, 14, 4);
+    AutoGenerateUnitdef(3, gAutoUdefJids[gUdefCnt][3], 0, 5, 14, 5);
 
     /* Terminator */
     gUdefs[4].charIndex = 0;
 
     gUdefCnt++;
-    if (gAutoUdefJids[4 * gUdefCnt] == 0)
+    if (gAutoUdefJids[gUdefCnt][0] == 0)
         gUdefCnt = 0;
 }
 

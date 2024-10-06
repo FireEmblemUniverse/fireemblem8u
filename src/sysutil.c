@@ -277,19 +277,8 @@ void DisplayExtendedSysHand(struct SysHandCursorProc * proc)
 {
     int i;
 
-#if !NONMATCHING
-    u32 clk;
-    u16 * src, * dst, * _dst;
-
-    clk = GetGameClock();
-    dst = gPaletteBuffer;
-    _dst = dst + (proc->pal_bank * 0x10  + 0x10E);
-    src = &PAL_BUF_COLOR(Pal_08A1D448, gPlaySt.config.windowColor, (clk / 4) % 0x10);
-    *_dst = *src;
-#else
     gPaletteBuffer[proc->pal_bank * 0x10  + 0x10E] =
-        Pal_08A1D448[gPlaySt.config.windowColor * 0x10 + ((GetGameClock() / 5) % 0x10)];
-#endif
+        ((gPlaySt.config.windowColor << 4) + ((GetGameClock() / 4) % 0x10))[Pal_08A1D448];
 
     EnablePaletteSync();
     PutSpriteExt(4, proc->x, proc->y + 8, gObject_8x8,
