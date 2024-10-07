@@ -312,7 +312,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Break(proc);
 
-                    goto _0801CB38;
+                    break;
 
                 case PLAYER_SELECT_NOCONTROL:
                     UnitBeginAction(unit);
@@ -320,30 +320,35 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Goto(proc, 11);
 
-                    goto _0801CB38;
+                    break;
+
+                default:
+                    goto else_stmt;
             }
         }
-
-        if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
+        else
         {
-            struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
-
-            if (unit)
+else_stmt:
+            if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
             {
-                EndAllMus();
-                ShowUnitSprite(unit);
+                struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
+
+                if (unit)
+                {
+                    EndAllMus();
+                    ShowUnitSprite(unit);
+                }
+
+                EndPlayerPhaseSideWindows();
+                StartMinimapPlayerPhase();
+
+                Proc_Goto(proc, 9);
+
+                return;
             }
-
-            EndPlayerPhaseSideWindows();
-            StartMinimapPlayerPhase();
-
-            Proc_Goto(proc, 9);
-
-            return;
         }
     }
 
-_0801CB38:
     UnitSpriteHoverUpdate();
 
     PutMapCursor(
@@ -492,14 +497,10 @@ void PlayerPhase_RangeDisplayIdle(ProcPtr proc)
             {
                 action = ACT_CANCEL;
             }
-
-            goto _0801CDE2;
         }
-
-        if (StartDestSelectedEvent())
+        else if (StartDestSelectedEvent())
         {
             action = ACT_EVENT;
-            goto _0801CDE2;
         }
         else
         {
@@ -513,43 +514,42 @@ void PlayerPhase_RangeDisplayIdle(ProcPtr proc)
                 {
                     action = ACT_CANCEL;
                 }
-
-                goto _0801CDE2;
+            }
+            else if (!CanMoveActiveUnitTo(gBmSt.playerCursor.x, gBmSt.playerCursor.y))
+            {
+                action = ACT_FAIL;
             }
             else
             {
-                if (!CanMoveActiveUnitTo(gBmSt.playerCursor.x, gBmSt.playerCursor.y))
-                {
-                    action = ACT_FAIL;
-                    goto _0801CDE2;
-                }
-
                 action = ACT_MOVE;
+                goto else_stmt;
             }
         }
     }
-
-    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    else
     {
-        if (gActiveUnit->state & US_HAS_MOVED)
+else_stmt:
+        if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
-            action = ACT_FAIL;
+            if (gActiveUnit->state & US_HAS_MOVED)
+            {
+                action = ACT_FAIL;
+            }
+            else
+            {
+                action = ACT_CANCEL;
+            }
         }
-        else
+        else if (gKeyStatusPtr->newKeys & R_BUTTON)
         {
-            action = ACT_CANCEL;
+            action = ACT_INFOSCREEN;
         }
-    }
-    else if (gKeyStatusPtr->newKeys & R_BUTTON)
-    {
-        action = ACT_INFOSCREEN;
-    }
-    else if (gKeyStatusPtr->newKeys & L_BUTTON)
-    {
-        action = ACT_RESET_CURSOR;
+        else if (gKeyStatusPtr->newKeys & L_BUTTON)
+        {
+            action = ACT_RESET_CURSOR;
+        }
     }
 
-_0801CDE2:
     switch (action)
     {
         case ACT_FAIL:

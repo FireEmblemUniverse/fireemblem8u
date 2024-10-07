@@ -151,70 +151,71 @@ s8 AiAttemptCombatWithinMovement(s8 (* isEnemy)(struct Unit * unit))
         BmMapFill(gBmMapMovement, -1);
         gBmMapMovement[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
 
-        if (GetRiddenBallistaAt(gActiveUnit->xPos, gActiveUnit->yPos) != 0) {
-            goto _0803D7EA;
+        if (GetRiddenBallistaAt(gActiveUnit->xPos, gActiveUnit->yPos) == 0) {
+            TryRemoveUnitFromBallista(gActiveUnit);
+            goto else_stmt;
         }
-
-        TryRemoveUnitFromBallista(gActiveUnit);
     }
+    else
+    {
+else_stmt:
+        SetWorkingBmMap(gBmMapRange);
 
-    SetWorkingBmMap(gBmMapRange);
+        for (i = 0; i < UNIT_ITEM_COUNT; i++) {
+            u16 item = gActiveUnit->items[i];
 
-    for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        u16 item = gActiveUnit->items[i];
+            if (item == 0) {
+                break;
+            }
 
-        if (item == 0) {
-            break;
-        }
+            if (item == ITEM_NIGHTMARE) {
+                continue;
+            }
 
-        if (item == ITEM_NIGHTMARE) {
-            continue;
-        }
+            if (!CanUnitUseWeapon(gActiveUnit, item)) {
+                continue;
+            }
 
-        if (!CanUnitUseWeapon(gActiveUnit, item)) {
-            continue;
-        }
+            tmpResult.itemSlot = i;
 
-        tmpResult.itemSlot = i;
+            {
+                int uid;
+                for (uid = 1; uid < 0xC0; uid++) {
+                    struct Unit* unit = GetUnit(uid);
 
-        {
-            int uid;
-            for (uid = 1; uid < 0xC0; uid++) {
-                struct Unit* unit = GetUnit(uid);
+                    if (!UNIT_IS_VALID(unit)) {
+                        continue;
+                    }
 
-                if (!UNIT_IS_VALID(unit)) {
-                    continue;
-                }
+                    if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED | US_BIT16)) {
+                        continue;
+                    }
 
-                if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED | US_BIT16)) {
-                    continue;
-                }
+                    if (!isEnemy(unit)) {
+                        continue;
+                    }
 
-                if (!isEnemy(unit)) {
-                    continue;
-                }
+                    if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item)) {
+                        continue;
+                    }
 
-                if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item)) {
-                    continue;
-                }
+                    AiFillReversedAttackRangeMap(unit, item);
 
-                AiFillReversedAttackRangeMap(unit, item);
+                    tmpResult.targetId = unit->index;
 
-                tmpResult.targetId = unit->index;
+                    if (!AiSimulateBestBattleAgainstTarget(&tmpResult)) {
+                        continue;
+                    }
 
-                if (!AiSimulateBestBattleAgainstTarget(&tmpResult)) {
-                    continue;
-                }
-
-                if (tmpResult.score >= finalResult.score) {
-                    finalResult = tmpResult;
-                    finalResult.itemSlot = i;
+                    if (tmpResult.score >= finalResult.score) {
+                        finalResult = tmpResult;
+                        finalResult.itemSlot = i;
+                    }
                 }
             }
         }
     }
 
-_0803D7EA:
     if (UNIT_CATTRIBUTES(gActiveUnit) & CA_BALLISTAE) {
         if (AiAttemptBallistaCombat(isEnemy, &tmpResult) == 1) {
             if (tmpResult.score >= finalResult.score) {
