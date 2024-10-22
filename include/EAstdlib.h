@@ -90,7 +90,7 @@
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTCONT EvtContinueText
-#define TEXTEND EvtTextEnd
+#define TEXTEND EvtTextWaitLock
 #define BACG EvtDisplayTextBg
 #define FACE_SHOW EvtDisplayFace
 #define CLEAN EvtClearScreen

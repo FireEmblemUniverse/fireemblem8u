@@ -92,7 +92,7 @@ char * GetStringFromIndex(int index)
 {
     if (index == sActiveMsg)
         return sMsgString.buffer1;
-    CallARM_DecompText(gMsgStringTable[index], sMsgString.buffer1);
+    CallARM_DecompText(gMsgTable[index], sMsgString.buffer1);
     SetMsgTerminator(sMsgString.buffer1);
     sActiveMsg = index;
     return sMsgString.buffer1;
@@ -100,7 +100,7 @@ char * GetStringFromIndex(int index)
 
 char * GetStringFromIndexInBuffer(int index, char *buffer)
 {
-    CallARM_DecompText(gMsgStringTable[index], buffer);
+    CallARM_DecompText(gMsgTable[index], buffer);
     SetMsgTerminator(buffer);
     return buffer;
 }

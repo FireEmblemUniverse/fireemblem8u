@@ -126,8 +126,25 @@ tag:
 
 # Comprssed Texts Recipes
 
-src/msg_data.c: msg_list.txt
-	$(TEXTENCODE) $< $@
+# =========
+# = Texts =
+# =========
+TEXT_DIR := texts
+TEXT_TOOLS := scripts/texttools
+
+TEXT_DECODER := $(PYTHON)  $(TEXT_TOOLS)/textdecoder.py
+TEXT_DPARSER := $(PYTHON) $(TEXT_TOOLS)/textdeparser.py
+TEXT_PROCESS := $(PYTHON) $(TEXT_TOOLS)/textprocess.py
+
+TEXT_MAIN := $(TEXT_DIR)/texts.txt
+TEXT_DEFS := $(TEXT_DIR)/textdefs.txt
+TEXT_SRC  := $(TEXT_MAIN) $(shell find $(TEXT_DIR) -type f -name "*.txt")
+
+TEXT_HEADER := include/constants/msg.h
+MSG_LIST    := src/msg_data.c
+
+src/msg_data.c: $(TEXT_SRC) $(TEXT_DEFS)
+	@$(TEXT_PROCESS) $(TEXT_MAIN) $(TEXT_DEFS) $@ $(TEXT_HEADER) utf8
 
 # Graphics Recipes
 
