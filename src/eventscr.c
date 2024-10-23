@@ -1105,7 +1105,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800E51C
-u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
+u8 Event1D_TalkContinue(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1127,7 +1127,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800E560
-u8 Event1D_TEXTEND(struct EventEngineProc * proc)
+u8 Event1D_WaitForLockTalk(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {

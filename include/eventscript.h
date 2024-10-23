@@ -187,8 +187,8 @@ enum event_cmd_idx {
     [EV_CMD_CHECKVARIOUS] = Event19_Checks,             \
     [EV_CMD_SETTEXTTYPE] = Event1A_TEXTSTART,           \
     [EV_CMD_DISPLAYTEXT] = Event1B_TEXTSHOW,            \
-    [EV_CMD_CONTINUETEXT] = Event1C_TEXTCONT,           \
-    [EV_CMD_ENDTEXT] = Event1D_TEXTEND,                 \
+    [EV_CMD_CONTINUETEXT] = Event1D_TalkContinue,       \
+    [EV_CMD_ENDTEXT] = Event1D_WaitForLockTalk,         \
     [EV_CMD_DISPLAYFACE] = Event1E_,                    \
     [EV_CMD_MOVEFACE] = Event1F_,                       \
     [EV_CMD_CLEARTEXTBOX] = Event20_,                   \
@@ -661,7 +661,7 @@ enum event_sub_cmd_idx {
 #define EvtTextShow2(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW2, (msg)),
 #define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
 #define EvtContinueText _EvtAutoCmdLen2(EV_CMD_CONTINUETEXT),
-#define EvtTextEnd _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
+#define EvtTextWaitLock _EvtAutoCmdLen2(EV_CMD_ENDTEXT),
 #define EvtDisplayFace(slot, fid) _EvtArg0(EV_CMD_DISPLAYFACE, 2, (slot), (fid)),
 #define EvtDisplayTextBg(bg) _EvtArg0(EV_CMD_SHOWBG, 4, EVSUBCMD_BACG, (bg)), 0,
 #define EvtBgTransion(bg, type, speed) _EvtArg0(EV_CMD_SHOWBG, 4, EVSUBCMD_0x2141, (bg)), _EvtParams2(type, speed),
