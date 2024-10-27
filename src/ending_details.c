@@ -18,6 +18,7 @@
 
 #include "ending_details.h"
 
+#include "constants/chapters.h"
 #include "constants/characters.h"
 #include "constants/msg.h"
 #include "constants/songs.h"
@@ -1614,18 +1615,18 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
 
         switch (chapterIndex)
         {
-            case 0x00:
+            case CHAPTER_L_PROLOGUE:
                 PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_15A)); // TODO: msgid "Prologue"
                 break;
 
-            case 0x15:
-            case 0x16:
-            case 0x22:
-            case 0x23:
+            case CHAPTER_E_21:
+            case CHAPTER_E_21X:
+            case CHAPTER_I_21:
+            case CHAPTER_I_21X:
                 PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_159)); // TODO: msgid "Final[.]"
                 break;
 
-            case 0x05:
+            case CHAPTER_L_5X:
                 PutText(gpEndingDetailTexts + 19, gBG1TilemapBuffer + TILEMAP_INDEX(x, y));
                 PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1  + x), y), TEXT_COLOR_SYSTEM_BLUE, r9);
                 PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + x), y), TEXT_COLOR_SYSTEM_BLUE, 0, 0, GetStringFromIndex(MSG_158));
@@ -1639,10 +1640,10 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
 
         switch (chapterIndex)
         {
-            case 0x15:
-            case 0x16:
-            case 0x22:
-            case 0x23:
+            case CHAPTER_E_21:
+            case CHAPTER_E_21X:
+            case CHAPTER_I_21:
+            case CHAPTER_I_21X:
                 // Compute the combined total turn count for both parts of final chapter
                 chapterTurn = chapterStats->chapter_turn;
                 ++chapterStats;
