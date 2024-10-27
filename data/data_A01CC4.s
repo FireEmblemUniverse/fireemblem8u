@@ -184,8 +184,8 @@ gPal_08A07C58:  @ 0x08A07C58
 Img_ChapterIntroFog:  @ 0x08A07DD8
 	.incbin "baserom.gba", 0xA07DD8, 0x1C84
 
-	.global gUnknown_08A09A5C
-gUnknown_08A09A5C:  @ 0x08A09A5C
+	.global Pal_PlayerRankFog
+Pal_PlayerRankFog:  @ 0x08A09A5C
 	.incbin "baserom.gba", 0xA09A5C, 0x3F0
 
 	.global gGfx_08A09E4C

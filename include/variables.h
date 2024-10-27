@@ -461,7 +461,7 @@ extern u16 CONST_DATA Tsa_EventWarp[];
 
 extern u8 gUnknown_085A638C[];
 extern u16 gUnknown_085A643C[];
-extern u8 gUnknown_085A647C[]; // tsa
+extern u8 Tsa_PlayerRankFog[]; // tsa
 
 extern u16 CONST_DATA Img_DanceringFx[];
 extern u16 CONST_DATA Tsa_DanceringFx[];
@@ -833,7 +833,7 @@ extern u16 gPal_08A07AD8[]; // pal
 // extern ??? gUnknown_08A07C0A
 extern u16 gPal_08A07C58[]; // pal
 extern u16 CONST_DATA Img_ChapterIntroFog[];
-extern u16 gUnknown_08A09A5C[]; // pal
+extern u16 Pal_PlayerRankFog[]; // pal
 extern u8 gGfx_08A09E4C[]; // gfx
 // extern ??? gUnknown_08A0A4E8
 extern u8 gTsa_08A0A9F8[]; // tsa
@@ -997,19 +997,19 @@ extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gUnknown_08A3CB50
 // extern ??? gCGDataTable
 
-extern u16 gPal_CharacterEndingMenu[];
-extern u8 gGfx_CharacterEndingMenu[];
-extern u8 gUnknown_08A3FFEC[]; // tsa
-extern u8 gUnknown_08A40068[]; // tsa
+extern u16 Pal_CharacterEndingMenu[];
+extern u8 Img_CharacterEndingMenu[];
+extern u8 Tsa_CharacterEnding_TopBorder[]; // tsa
+extern u8 Tsa_CharacterEnding_BottomBorder[]; // tsa
 extern u8 gTsa_SoloEndingNameplate[];
 extern u8 gTsa_SoloEndingWindow[];
 extern u8 gTsa_PairedEndingNameplates[];
 extern u8 gTsa_PairedEndingWindow[];
-extern u16 gPal_FinScreen[];
-extern u8 gGfx_FinScreen[];
-extern u8 gTsa_FinScreen[];
-extern u16 gUnknown_08A40AD4[]; // pal
-extern u8 gUnknown_08A40B14[]; // tsa
+extern u16 Pal_FinScreen[];
+extern u8 Img_FinScreen[];
+extern u8 Tsa_FinScreen[];
+extern u16 Pal_08A40AD4[]; // pal
+extern u8 Tsa_08A40B14[]; // tsa
 extern u16 Pal_StaffReelEnt_08A40FC8[];
 extern u8 Img_StaffReelEnt_08A40FE8[];
 extern u8 Img_StaffReelEnt_08A41B30[];

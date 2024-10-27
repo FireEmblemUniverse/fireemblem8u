@@ -1380,7 +1380,7 @@ struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp) {
 }
 
 //! FE8U = 0x08006618
-void sub_8006618(int slot, int x, int y) {
+void SetFacePosition(int slot, int x, int y) {
 
     gFaces[slot]->xPos = x;
     gFaces[slot]->yPos = y;
