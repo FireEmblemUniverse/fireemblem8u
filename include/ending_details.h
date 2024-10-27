@@ -67,7 +67,7 @@ struct EndingBattleTextProc {
     /* 3C */ int pauseTimer;
     /* 40 */ int defaultPauseDelay;
     /* 44 */ const char* str;
-    /* 48 */ struct Text* Text;
+    /* 48 */ struct Text* text;
 };
 
 struct FinScreenProc {
