@@ -40,6 +40,8 @@ enum song_idx {
     SONG_43 = 0x43,
     SONG_44 = 0x44,
     SONG_45 = 0x45,
+    SONG_BGM_ED_AFTER = 0x046,
+    SONG_BGM_ED_STAFF_2 = 0x056,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
     SONG_5C = 0x5C,

@@ -1,14 +1,16 @@
 #ifndef GUARD_ENDINGDETAILS_H
 #define GUARD_ENDINGDETAILS_H
 
-enum {
+enum
+{
     CHARACTER_ENDING_NONE   = 0,
 
     CHARACTER_ENDING_SOLO   = 1,
     CHARACTER_ENDING_PAIRED = 2,
 };
 
-enum {
+enum
+{
     DEFEAT_DIED                 = 0,
     DEFEAT_WOUNDED_PARTEDWAYS   = 1, // unused in FE8
     DEFEAT_WOUNDED_REMAINED     = 2,
@@ -17,69 +19,84 @@ enum {
     DEFEAT_TYPE_5               = 5,
 };
 
-struct EndingTitleEnt {
+#define DEFEAT_SKIRMISH_FLAG_BIT 15
+#define DEFEAT_SKIRMISH_MASK (1 << DEFEAT_SKIRMISH_FLAG_BIT)
+
+#define SetDefeatDetails(defeatLocation, defeatSkirmish) ((defeatLocation) | ((defeatSkirmish) << DEFEAT_SKIRMISH_FLAG_BIT))
+#define GetDefeatLocation(defeatDetails) ((defeatDetails) & ~DEFEAT_SKIRMISH_MASK)
+#define IsSkirmishDefeat(defeatDetails) ((defeatDetails) & DEFEAT_SKIRMISH_MASK)
+
+struct EndingTitleEnt
+{
     /* 00 */ u8 pid;
     /* 04 */ int titleTextId;
 };
 
-struct EndingDefeatEnt {
+struct EndingDefeatEnt
+{
     /* 00 */ u8 pid;
     /* 01 */ u8 defeatType;
 };
 
-struct CharacterEndingEnt {
+struct CharacterEndingEnt
+{
     /* 00 */ u8 type;
     /* 01 */ u8 pidA;
     /* 02 */ u8 pidB;
     /* 04 */ int textId;
 };
 
-struct CharacterEndingProc {
+struct CharacterEndingProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x2E - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x2E);
     /* 2E */ u16 unk_2e;
-    /* 30 */ struct CharacterEndingEnt* unk_30;
-    /* 34 */ struct CharacterEndingEnt* unk_34;
-    /* 38 */ struct Unit* unitA;
-    /* 3C */ struct Unit* unitB;
+    /* 30 */ struct CharacterEndingEnt * unk_30;
+    /* 34 */ struct CharacterEndingEnt * unk_34;
+    /* 38 */ struct Unit * unitA;
+    /* 3C */ struct Unit * unitB;
     /* 40 */ u32 unk_40[8]; // flags for characters who have already been shown in an ending
 };
 
-struct EndingBattleDisplayProc {
+struct EndingBattleDisplayProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Unit* units[2];
+    /* 2C */ struct Unit * units[2];
     /* 34 */ int unk_34;
-    /* 38 */ struct CharacterEndingEnt* pCharacterEnding;
+    /* 38 */ struct CharacterEndingEnt * pCharacterEnding;
     /* 3C */ u16 battleAmounts[2];
     /* 40 */ u16 winAmounts[2];
     /* 44 */ u16 lossAmounts[2];
 };
 
-struct EndingBattleTextProc {
+struct EndingBattleTextProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct CharacterEndingEnt* pCharacterEnding;
-    /* 30 */ struct Unit* unitA;
-    /* 34 */ struct Unit* unitB;
+    /* 2C */ struct CharacterEndingEnt * pCharacterEnding;
+    /* 30 */ struct Unit * unitA;
+    /* 34 */ struct Unit * unitB;
     /* 38 */ u32 unk_38;
     /* 3C */ int pauseTimer;
     /* 40 */ int defaultPauseDelay;
-    /* 44 */ const char* str;
-    /* 48 */ struct Text* text;
+    /* 44 */ const char * str;
+    /* 48 */ struct Text * text;
 };
 
-struct FinScreenProc {
+struct FinScreenProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x4c-0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
     /* 4C */ u16 unk_4c;
-    /* 4E */ u8 _pad2[0x58-0x4e];
+    /* 4E */ STRUCT_PAD(0x4E, 0x58);
     /* 58 */ int unk_58;
 };
 
-struct EndingTurnRecordProc {
+struct EndingTurnRecordProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int unk_2c;
@@ -87,14 +104,15 @@ struct EndingTurnRecordProc {
     /* 34 */ int unk_34;
     /* 38 */ u8 unk_38;
     /* 39 */ u8 unk_39;
-    /* 3A */ u8 _pad[0x4c-0x3a];
+    /* 3A */ STRUCT_PAD(0x3A, 0x4C);
     /* 4C */ s16 unk_4c;
 };
 
-struct UnkProc {
+struct UnkProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x40-0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x40);
     /* 40 */ u8 unk_40[12]; // size unknown
     /* 4C */ u16 unk_4c[5];
 };
@@ -129,16 +147,16 @@ void StartCharacterEndings(ProcPtr parent);
 // ??? sub_80B6CA8(???);
 // ??? SoloEndingBattleDisp_Init(???);
 // ??? SoloEndingBattleDisp_Loop(???);
-// ??? StartSoloEndingBattleDisplay(???);
+void StartSoloEndingBattleDisplay(struct CharacterEndingEnt *, struct Unit *, struct CharacterEndingProc *);
 // ??? sub_80B6F34(???);
 // ??? sub_80B71DC(???);
 // ??? sub_80B723C(???);
 // ??? sub_80B7274(???);
-// ??? StartPairedEndingBattleDisplay(???);
+void StartPairedEndingBattleDisplay(struct CharacterEndingEnt *, struct Unit *, struct Unit *, struct CharacterEndingProc *);
 // ??? EndingBattleInitText(???);
 // ??? EndingBattleText_Loop(???);
-// ??? StartEndingBattleText(???);
-// ??? EndEndingBattleText(???);
+void StartEndingBattleText(struct CharacterEndingEnt *, struct Unit *, struct Unit *, struct CharacterEndingProc *);
+void EndEndingBattleText(void);
 // ??? SetupFinScreenGfx(???);
 // ??? Fin_Init(???);
 // ??? Fin_Loop_KeyListener(???);
