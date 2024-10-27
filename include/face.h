@@ -145,7 +145,7 @@ int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc* proc);
 void sub_80064D4(struct FaceProc* proc, int unk);
 void sub_80064DC(int slot, int unk);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
-void sub_8006618(int slot, int x, int y);
+void SetFacePosition(int slot, int x, int y);
 void sub_800662C(struct UnkFaceProc* proc);
 void sub_8006650(struct UnkFaceProc* proc);
 void sub_80066A8(struct UnkFaceProc* proc);

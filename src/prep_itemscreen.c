@@ -1508,7 +1508,7 @@ void UpdatePrepItemScreenFace(int slot, struct Unit* unit, u16 x, u16 y, u16 dis
         }
     } else {
         if (unit != NULL) {
-            sub_8006618(slot, (s16)x, (s16)y);
+            SetFacePosition(slot, (s16)x, (s16)y);
             SetFaceDisplayBitsById(slot, disp);
         }
     }

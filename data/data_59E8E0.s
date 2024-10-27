@@ -260,8 +260,8 @@ gUnknown_085A638C:  @ 0x085A638C
 gUnknown_085A643C:  @ 0x085A643C
 	.incbin "baserom.gba", 0x5A643C, 0x40
 
-	.global gUnknown_085A647C
-gUnknown_085A647C:  @ 0x085A647C
+	.global Tsa_PlayerRankFog
+Tsa_PlayerRankFog:  @ 0x085A647C
 	.incbin "baserom.gba", 0x5A647C, 0x804
 
 	.global Img_DanceringFx

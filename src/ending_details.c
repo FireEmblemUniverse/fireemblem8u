@@ -270,7 +270,7 @@ u16 * CONST_DATA gSoloEndingBattleDispConf[] =
     gEndingTmScratchD,
 };
 
-struct Text * CONST_DATA gUnknown_08A3D358 = gEndingDetailTexts;
+struct Text * CONST_DATA gpCharacterEndingTexts = gEndingDetailTexts;
 
 //! FE8U = 0x080B6674
 char * PrepareUnitDefeatLocationString(u16 textIdA, u16 defeatDetails, u16 textIdB, char * str)
@@ -388,7 +388,7 @@ char * GetPidDefeatedEndingString(int pid)
 //! FE8U = 0x080B67E8
 void SetupCharacterEndingGfx(void)
 {
-    Decompress(gGfx_CharacterEndingMenu, BG_CHR_ADDR(0x260));
+    Decompress(Img_CharacterEndingMenu, BG_CHR_ADDR(0x260));
     Decompress(Img_CommGameBgScreen, BG_CHR_ADDR(0x400));
     return;
 }
@@ -400,7 +400,7 @@ void sub_80B6810(void)
     int i;
     u16 * tm;
 
-    ApplyPalettes(gPal_CharacterEndingMenu, 12, 2);
+    ApplyPalettes(Pal_CharacterEndingMenu, 12, 2);
     ApplyPalettes(Pal_CommGameBgScreenInShop, 14, 2);
 
     tm = gBG3TilemapBuffer;
@@ -410,8 +410,8 @@ void sub_80B6810(void)
         *tm++ = i + offset;
     }
 
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A3FFEC, TILEREF(0x260, 12));
-    CallARM_FillTileRect(gBG2TilemapBuffer + TILEMAP_INDEX(0, 18), gUnknown_08A40068, TILEREF(0x260, 12));
+    CallARM_FillTileRect(gBG2TilemapBuffer, Tsa_CharacterEnding_TopBorder, TILEREF(0x260, 12));
+    CallARM_FillTileRect(gBG2TilemapBuffer + TILEMAP_INDEX(0, 18), Tsa_CharacterEnding_BottomBorder, TILEREF(0x260, 12));
 
     BG_EnableSyncByMask(BG2_SYNC_BIT | BG3_SYNC_BIT);
 
@@ -433,7 +433,7 @@ void sub_80B689C(int a, int b)
 }
 
 //! FE8U = 0x080B6920
-void sub_80B6920(void)
+void InitCharacterEndingText(void)
 {
     int i;
 
@@ -441,13 +441,13 @@ void sub_80B6920(void)
 
     for (i = 0; i < 2; i++)
     {
-        InitText(gUnknown_08A3D358 + 5 + i, 15);
-        InitText(gUnknown_08A3D358 + 7 + i, 10);
+        InitText(gpCharacterEndingTexts + 5 + i, 15);
+        InitText(gpCharacterEndingTexts + 7 + i, 10);
     }
 
     for (i = 0; i < 5; i++)
     {
-        InitText(gUnknown_08A3D358 + i, 26);
+        InitText(gpCharacterEndingTexts + i, 26);
     }
 
     return;
@@ -463,27 +463,27 @@ void CharacterEnding_Init(struct CharacterEndingProc * proc)
 
     proc->unk_2e = 0;
 
-    CpuFill16(0, proc->unk_40, sizeof(proc->unk_40));
+    CpuFill16(0, proc->pidShownFlags, sizeof(proc->pidShownFlags));
 
     switch (gPlaySt.chapterModeIndex)
     {
         case CHAPTER_MODE_COMMON:
         case CHAPTER_MODE_EIRIKA:
-            proc->unk_30 = gCharacterEndingsByRoute[0];
+            proc->pCharacterEnding = gCharacterEndingsByRoute[0];
             break;
 
         case CHAPTER_MODE_EPHRAIM:
-            proc->unk_30 = gCharacterEndingsByRoute[1];
+            proc->pCharacterEnding = gCharacterEndingsByRoute[1];
             break;
     }
 
-    proc->unk_34 = proc->unk_30;
+    proc->pCharacterEndingBkp = proc->pCharacterEnding;
 
     return;
 }
 
 //! FE8U = 0x080B69D4
-void sub_80B69D4(void)
+void CharacterEnding_80B69D4(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -500,7 +500,7 @@ void sub_80B69D4(void)
 }
 
 //! FE8U = 0x080B6A10
-struct Unit * sub_80B6A10(int pid)
+struct Unit * GetUnitForCharacterEnding(int pid)
 {
     int i;
 
@@ -593,38 +593,38 @@ void LoadNextCharacterEnding(struct CharacterEndingProc * proc)
     proc->unitB = NULL;
     proc->unitA = NULL;
 
-    for (;; proc->unk_30++)
+    for (;; proc->pCharacterEnding++)
     {
-        if (proc->unk_30->type == CHARACTER_ENDING_NONE)
+        if (proc->pCharacterEnding->type == CHARACTER_ENDING_NONE)
         {
             Proc_Goto(proc, 100);
             return;
         }
 
-        if ((*&proc->unk_40[proc->unk_30->pidA >> 5] >> (proc->unk_30->pidA & 0x1f)) & 1)
+        if ((*&proc->pidShownFlags[proc->pCharacterEnding->pidA >> 5] >> (proc->pCharacterEnding->pidA & 0x1f)) & 1)
         {
             continue;
         }
 
-        if (proc->unk_30->pidB != 0)
+        if (proc->pCharacterEnding->pidB != 0)
         {
-            if ((*&proc->unk_40[proc->unk_30->pidB >> 5] >> (proc->unk_30->pidB & 0x1f)) & 1)
+            if ((*&proc->pidShownFlags[proc->pCharacterEnding->pidB >> 5] >> (proc->pCharacterEnding->pidB & 0x1f)) & 1)
             {
                 continue;
             }
         }
 
-        proc->unitA = sub_80B6A10(proc->unk_30->pidA);
+        proc->unitA = GetUnitForCharacterEnding(proc->pCharacterEnding->pidA);
 
         if (proc->unitA == NULL)
         {
             continue;
         }
 
-        switch (proc->unk_30->type)
+        switch (proc->pCharacterEnding->type)
         {
             case CHARACTER_ENDING_SOLO:
-                if (DoesUnitHavePairedEnding(proc->unk_34, proc->unitA))
+                if (DoesUnitHavePairedEnding(proc->pCharacterEndingBkp, proc->unitA))
                 {
                     continue;
                 }
@@ -632,14 +632,14 @@ void LoadNextCharacterEnding(struct CharacterEndingProc * proc)
                 break;
 
             case CHARACTER_ENDING_PAIRED:
-                proc->unitB = sub_80B6A10(proc->unk_30->pidB);
+                proc->unitB = GetUnitForCharacterEnding(proc->pCharacterEnding->pidB);
 
                 if (proc->unitB == NULL)
                 {
                     continue;
                 }
 
-                if (GetUnitASupporterPid(proc->unitA) != proc->unk_30->pidB)
+                if (GetUnitASupporterPid(proc->unitA) != proc->pCharacterEnding->pidB)
                 {
                     continue;
                 }
@@ -657,14 +657,14 @@ void LoadNextCharacterEnding(struct CharacterEndingProc * proc)
                 break;
         }
 
-        *&proc->unk_40[(proc->unk_30->pidA >> 5)] |= 1 << (proc->unk_30->pidA & 0x1f);
+        *&proc->pidShownFlags[(proc->pCharacterEnding->pidA >> 5)] |= 1 << (proc->pCharacterEnding->pidA & 0x1f);
 
-        if (proc->unk_30->pidB == 0)
+        if (proc->pCharacterEnding->pidB == 0)
         {
             return;
         }
 
-        *&proc->unk_40[proc->unk_30->pidB >> 5] |= 1 << (proc->unk_30->pidB & 0x1f);
+        *&proc->pidShownFlags[proc->pCharacterEnding->pidB >> 5] |= 1 << (proc->pCharacterEnding->pidB & 0x1f);
 
         return;
     }
@@ -673,14 +673,14 @@ void LoadNextCharacterEnding(struct CharacterEndingProc * proc)
 //! FE8U = 0x080B6BD8
 void CharacterEnding_StartBattleDisplay(struct CharacterEndingProc * proc)
 {
-    switch (proc->unk_30->type)
+    switch (proc->pCharacterEnding->type)
     {
         case CHARACTER_ENDING_SOLO:
-            StartSoloEndingBattleDisplay(proc->unk_30, proc->unitA, proc);
+            StartSoloEndingBattleDisplay(proc->pCharacterEnding, proc->unitA, proc);
             break;
 
         case CHARACTER_ENDING_PAIRED:
-            StartPairedEndingBattleDisplay(proc->unk_30, proc->unitA, proc->unitB, proc);
+            StartPairedEndingBattleDisplay(proc->pCharacterEnding, proc->unitA, proc->unitB, proc);
             break;
     }
 
@@ -690,7 +690,7 @@ void CharacterEnding_StartBattleDisplay(struct CharacterEndingProc * proc)
 //! FE8U = 0x080B6C00
 void CharacterEnding_StartBattleDisplayText(struct CharacterEndingProc * proc)
 {
-    StartEndingBattleText(proc->unk_30, proc->unitA, proc->unitB, proc);
+    StartEndingBattleText(proc->pCharacterEnding, proc->unitA, proc->unitB, proc);
     return;
 }
 
@@ -713,9 +713,9 @@ void CharacterEnding_End(void)
 //! FE8U = 0x080B6C74
 void CharacterEnding_Unused_80B6C74(struct CharacterEndingProc * proc)
 {
-    proc->unk_30++;
+    proc->pCharacterEnding++;
 
-    if (proc->unk_30->type == CHARACTER_ENDING_NONE)
+    if (proc->pCharacterEnding->type == CHARACTER_ENDING_NONE)
     {
         Proc_Goto(proc, 100);
     }
@@ -733,7 +733,7 @@ struct ProcCmd CONST_DATA gProcScr_CharacterEndings[] =
     PROC_CALL(LoadNextCharacterEnding),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80B69D4),
+    PROC_CALL(CharacterEnding_80B69D4),
     PROC_CALL_ARG(NewFadeIn, 4),
     PROC_WHILE(FadeInExists),
 
@@ -772,7 +772,7 @@ void StartCharacterEndings(ProcPtr parent)
 }
 
 //! FE8U = 0x080B6CA8
-void sub_80B6CA8(struct EndingBattleDisplayProc * proc)
+void CharacterEnding_LoadUnitBattleStats(struct EndingBattleDisplayProc * proc)
 {
     int i;
 
@@ -802,9 +802,9 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc * proc)
 {
     const char * str;
 
-    sub_80B6920();
+    InitCharacterEndingText();
 
-    sub_80B6CA8(proc);
+    CharacterEnding_LoadUnitBattleStats(proc);
 
     BG_Fill(gSoloEndingBattleDispConf[0], 0);
     BG_Fill(gSoloEndingBattleDispConf[1], 0);
@@ -818,17 +818,17 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc * proc)
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
 
-    PutDrawText(gUnknown_08A3D358 + 5, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 3), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
+    PutDrawText(gpCharacterEndingTexts + 5, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 3), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
 
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1) + CountDigits(proc->battleAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->battleAmounts[0]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(21, 1) + CountDigits(proc->winAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->winAmounts[0]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(25, 1) + CountDigits(proc->lossAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->lossAmounts[0]);
 
-    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 416, 56, 0x502);
+    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 416, 56, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4) | FACE_DISP_BLEND);
 
     if (proc->units[0]->state & US_DEAD)
     {
@@ -836,7 +836,7 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc * proc)
         WriteFadedPaletteFromArchive(0xc0, 0xc0, 0xc0, 0x400000);
     }
 
-    proc->unk_34 = 0;
+    proc->timer = 0;
     SetDefaultColorEffects();
 
     return;
@@ -844,12 +844,12 @@ void SoloEndingBattleDisp_Init(struct EndingBattleDisplayProc * proc)
 
 // clang-format off
 
-u8 CONST_DATA gUnknown_08A3D40C[] =
+u8 CONST_DATA gCharEndingSlideOffsetLut[] =
 {
-    0x00, 0x03, 0x06, 0x08, 0x0A,
-    0x0C, 0x0E, 0x10, 0x12, 0x14,
-    0x15, 0x16, 0x17, 0x18, 0x19,
-    0x1A, 0x1B, 0x1C, 0x1D, 0x1E,
+     0,  3,  6,  8, 10,
+    12, 14, 16, 18, 20,
+    21, 22, 23, 24, 25,
+    26, 27, 28, 29, 30,
 };
 
 // clang-format on
@@ -857,18 +857,18 @@ u8 CONST_DATA gUnknown_08A3D40C[] =
 //! FE8U = 0x080B6ED0
 void SoloEndingBattleDisp_Loop(struct EndingBattleDisplayProc * proc)
 {
-    int a = 30;
+    int xBase = 30;
 
-    int b = gUnknown_08A3D40C[proc->unk_34];
-    proc->unk_34++;
+    int xOffset = gCharEndingSlideOffsetLut[proc->timer];
+    proc->timer++;
 
-    a -= b;
+    xBase -= xOffset;
 
-    sub_8006618(0, (a * 8 + 176) & 0x1FF, 56);
+    SetFacePosition(0, (xBase * 8 + 176) & 0x1FF, 56);
 
-    sub_80B689C(a, 0);
+    sub_80B689C(xBase, 0);
 
-    if (b == 30)
+    if (xOffset == 30)
     {
         Proc_Break(proc);
     }
@@ -904,13 +904,13 @@ void StartSoloEndingBattleDisplay(struct CharacterEndingEnt * endingEnt, struct 
 }
 
 //! FE8U = 0x080B6F34
-void sub_80B6F34(struct EndingBattleDisplayProc * proc)
+void PairedEndingBattleDisp_Init(struct EndingBattleDisplayProc * proc)
 {
     const char * str;
 
-    sub_80B6920();
+    InitCharacterEndingText();
 
-    sub_80B6CA8(proc);
+    CharacterEnding_LoadUnitBattleStats(proc);
 
     BG_Fill(gSoloEndingBattleDispConf[0], 0);
     BG_Fill(gSoloEndingBattleDispConf[1], 0);
@@ -923,53 +923,53 @@ void sub_80B6F34(struct EndingBattleDisplayProc * proc)
     CallARM_FillTileRect(gSoloEndingBattleDispConf[1], gGenericBuffer, TILEREF(0x260, 12));
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidA));
-    PutDrawText(gUnknown_08A3D358 + 5, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 3), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
+    PutDrawText(gpCharacterEndingTexts + 5, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 3), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
-    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
-    PutDrawText(gUnknown_08A3D358 + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
+    PutDrawText(gpCharacterEndingTexts + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
+    PutDrawText(gpCharacterEndingTexts + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
+    PutDrawText(gpCharacterEndingTexts + 7, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
 
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(17, 1) + CountDigits(proc->battleAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->battleAmounts[0]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(21, 1) + CountDigits(proc->winAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->winAmounts[0]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(25, 1) + CountDigits(proc->lossAmounts[0]), TEXT_COLOR_SYSTEM_BLUE, proc->lossAmounts[0]);
 
     str = GetStringFromIndex(GetPidTitleTextId(proc->pCharacterEnding->pidB));
-    PutDrawText(gUnknown_08A3D358 + 6, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(14, 17), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
+    PutDrawText(gpCharacterEndingTexts + 6, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(14, 17), TEXT_COLOR_SYSTEM_WHITE, GetStringTextCenteredPos(120, str), 0, str);
 
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
-    PutDrawText(gUnknown_08A3D358 + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_51F));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 32, 0, GetStringFromIndex(MSG_520));
+    PutDrawText(gpCharacterEndingTexts + 8, gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17), TEXT_COLOR_SYSTEM_GOLD, 64, 0, GetStringFromIndex(MSG_521));
 
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(1, 17) + CountDigits(proc->battleAmounts[1]), TEXT_COLOR_SYSTEM_BLUE, proc->battleAmounts[1]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(5, 17) + CountDigits(proc->winAmounts[1]), TEXT_COLOR_SYSTEM_BLUE, proc->winAmounts[1]);
     PutNumber(gSoloEndingBattleDispConf[0] + TILEMAP_INDEX(9, 17) + CountDigits(proc->lossAmounts[1]), TEXT_COLOR_SYSTEM_BLUE, proc->lossAmounts[1]);
 
-    proc->unk_34 = 0;
+    proc->timer = 0;
 
     SetDefaultColorEffects();
 
-    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 304, 48, 0x503);
-    StartFace2(1, gCharacterData[proc->pCharacterEnding->pidB - 1].portraitId, 416, 48, 0x502);
+    StartFace2(0, gCharacterData[proc->pCharacterEnding->pidA - 1].portraitId, 304, 48, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_FLIPPED | FACE_DISP_HLAYER(4) | FACE_DISP_BLEND);
+    StartFace2(1, gCharacterData[proc->pCharacterEnding->pidB - 1].portraitId, 416, 48, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4) | FACE_DISP_BLEND);
 
     return;
 }
 
 //! FE8U = 0x080B71DC
-void sub_80B71DC(struct EndingBattleDisplayProc * proc)
+void PairedEndingBattleDisp_Loop_SlideIn(struct EndingBattleDisplayProc * proc)
 {
-    int a = 30;
+    int xBase = 30;
 
-    int b = gUnknown_08A3D40C[proc->unk_34];
-    proc->unk_34++;
+    int xOffset = gCharEndingSlideOffsetLut[proc->timer];
+    proc->timer++;
 
-    a -= b;
+    xBase -= xOffset;
 
-    sub_8006618(0, (a * 8 + 64) & 0x1FF, 48);
-    sub_8006618(1, (a * 8 + 176) & 0x1FF, 48);
+    SetFacePosition(0, (xBase * 8 + 64) & 0x1FF, 48);
+    SetFacePosition(1, (xBase * 8 + 176) & 0x1FF, 48);
 
-    sub_80B689C(a, 0);
+    sub_80B689C(xBase, 0);
 
-    if (b == 30)
+    if (xOffset == 30)
     {
         Proc_Break(proc);
     }
@@ -978,9 +978,9 @@ void sub_80B71DC(struct EndingBattleDisplayProc * proc)
 }
 
 //! FE8U = 0x080B723C
-void sub_80B723C(struct EndingBattleDisplayProc * proc)
+void PairedEndingBattleDisp_InitBlend(struct EndingBattleDisplayProc * proc)
 {
-    proc->unk_34 = 0;
+    proc->timer = 0;
 
     SetBlendAlpha(0x10, 0);
     SetBlendTargetA(0, 0, 0, 0, 0);
@@ -990,15 +990,15 @@ void sub_80B723C(struct EndingBattleDisplayProc * proc)
 }
 
 //! FE8U = 0x080B7274
-void sub_80B7274(struct EndingBattleDisplayProc * proc)
+void PairedEndingBattleDisp_Loop_Blend(struct EndingBattleDisplayProc * proc)
 {
-    int var = proc->unk_34 >> 2;
+    int bldAmt = proc->timer >> 2;
 
-    proc->unk_34++;
+    proc->timer++;
 
-    SetBlendAlpha(0x10 - var, var);
+    SetBlendAlpha(0x10 - bldAmt, bldAmt);
 
-    if (var == 8)
+    if (bldAmt == 8)
     {
         Proc_Break(proc);
     }
@@ -1012,13 +1012,13 @@ struct ProcCmd CONST_DATA gProcScr_EndingBattleDisplay_Paired[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_80B6F34),
-    PROC_REPEAT(sub_80B71DC),
+    PROC_CALL(PairedEndingBattleDisp_Init),
+    PROC_REPEAT(PairedEndingBattleDisp_Loop_SlideIn),
 
     PROC_SLEEP(16),
 
-    PROC_CALL(sub_80B723C),
-    PROC_REPEAT(sub_80B7274),
+    PROC_CALL(PairedEndingBattleDisp_InitBlend),
+    PROC_REPEAT(PairedEndingBattleDisp_Loop_Blend),
 
     PROC_END,
 };
@@ -1043,7 +1043,7 @@ void EndingBattleInitText(struct EndingBattleTextProc * proc)
 {
     int i;
 
-    proc->text = gUnknown_08A3D358;
+    proc->text = gpCharacterEndingTexts;
 
     proc->defaultPauseDelay = 4;
     proc->pauseTimer = 4;
@@ -1055,8 +1055,8 @@ void EndingBattleInitText(struct EndingBattleTextProc * proc)
     {
         int y = TILEMAP_INDEX(0, 6 + i * 2);
 
-        ClearText(gUnknown_08A3D358 + i);
-        PutText(gUnknown_08A3D358 + i, gBG0TilemapBuffer + 2 + y);
+        ClearText(gpCharacterEndingTexts + i);
+        PutText(gpCharacterEndingTexts + i, gBG0TilemapBuffer + 2 + y);
     }
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -1181,10 +1181,10 @@ void EndEndingBattleText(void)
 //! FE8U = 0x080B745C
 void SetupFinScreenGfx(void)
 {
-    ApplyPalette(gPal_FinScreen, 14);
+    ApplyPalette(Pal_FinScreen, 14);
 
-    Decompress(gGfx_FinScreen, BG_CHR_ADDR(0x80));
-    Decompress(gTsa_FinScreen, gGenericBuffer);
+    Decompress(Img_FinScreen, BG_CHR_ADDR(0x80));
+    Decompress(Tsa_FinScreen, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, TILEREF(0x80, 14));
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -1195,8 +1195,8 @@ void SetupFinScreenGfx(void)
 //! FE8U = 0x080B74B0
 void Fin_Init(struct FinScreenProc * proc)
 {
-    proc->unk_4c = 0;
-    proc->unk_58 = 0;
+    proc->blendTimer = 0;
+    proc->timer = 0;
 
     SetupBackgrounds(NULL);
 
@@ -1211,7 +1211,7 @@ void Fin_Init(struct FinScreenProc * proc)
 //! FE8U = 0x080B74D8
 void Fin_Loop_KeyListener(struct FinScreenProc * proc)
 {
-    proc->unk_58++;
+    proc->timer++;
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON))
     {
@@ -1228,7 +1228,7 @@ void sub_80B7500(struct FinScreenProc * proc)
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    proc->unk_4c = 0;
+    proc->blendTimer = 0;
 
     SetupFinScreenGfx();
 
@@ -1238,18 +1238,18 @@ void sub_80B7500(struct FinScreenProc * proc)
 //! FE8U = 0x080B7540
 void sub_80B7540(struct FinScreenProc * proc)
 {
-    int b;
+    int blendAmt;
 
-    s16 a = proc->unk_4c;
-    proc->unk_4c++;
+    s16 timer = proc->blendTimer;
+    proc->blendTimer++;
 
-    b = a >> 2;
-    SetBlendAlpha(b, 0x10);
+    blendAmt = timer >> 2;
+    SetBlendAlpha(blendAmt, 0x10);
 
-    if (b == 16)
+    if (blendAmt == 16)
     {
         Proc_Break(proc);
-        proc->unk_4c = 0;
+        proc->blendTimer = 0;
     }
 
     return;
@@ -1315,7 +1315,7 @@ void StartFinScreen(ProcPtr parent)
 // clang-format off
 
 // Sprites
-u16 CONST_DATA gUnknown_08A3D540[] =
+u16 CONST_DATA Sprite_08A3D540[] =
 {
     5,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,
@@ -1325,49 +1325,49 @@ u16 CONST_DATA gUnknown_08A3D540[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(128), OAM2_CHR(0x10),
 };
 
-u16 CONST_DATA gUnknown_08A3D560[] =
+u16 CONST_DATA Sprite_08A3D560[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x40),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x44),
 };
 
-u16 CONST_DATA gUnknown_08A3D56E[] =
+u16 CONST_DATA Sprite_08A3D56E[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x48),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4C),
 };
 
-u16 CONST_DATA gUnknown_08A3D57C[] =
+u16 CONST_DATA Sprite_08A3D57C[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x50),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x54),
 };
 
-u16 CONST_DATA gUnknown_08A3D58A[] =
+u16 CONST_DATA Sprite_08A3D58A[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x58),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x5C),
 };
 
-u16 CONST_DATA gUnknown_08A3D598[] =
+u16 CONST_DATA Sprite_08A3D598[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x88),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x8C),
 };
 
-u16 CONST_DATA gUnknown_08A3D5A6[] =
+u16 CONST_DATA Sprite_08A3D5A6[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x80),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x84),
 };
 
-u16 CONST_DATA gUnknown_08A3D5B4[] =
+u16 CONST_DATA Sprite_08A3D5B4[] =
 {
     2,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x1B),
@@ -1446,7 +1446,7 @@ u16 CONST_DATA gSprite_08A3D61A[] =
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x154),
 };
 
-u16 * CONST_DATA gUnknown_08A3D624[] =
+u16 * CONST_DATA SpriteArray_08A3D624[] =
 {
     gSprite_08A3D5EA,
     gSprite_08A3D5E2,
@@ -1456,7 +1456,7 @@ u16 * CONST_DATA gUnknown_08A3D624[] =
     gSprite_08A3D5C2,
 };
 
-u16 * CONST_DATA gUnknown_08A3D63C[] =
+u16 * CONST_DATA SpriteArray_08A3D63C[] =
 {
     gSprite_08A3D61A,
     gSprite_08A3D612,
@@ -1473,10 +1473,10 @@ void sub_80B75AC(struct EndingTurnRecordProc * proc)
 {
     SetDispEnable(1, 1, 0, 1, 1);
 
-    ApplyPalette(gUnknown_08A09A5C, 5);
+    ApplyPalette(Pal_PlayerRankFog, 5);
 
     Decompress(Img_ChapterIntroFog, BG_CHR_ADDR(0x200));
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_085A647C, TILEREF(0x200, 5));
+    CallARM_FillTileRect(gBG2TilemapBuffer, Tsa_PlayerRankFog, TILEREF(0x200, 5));
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -1516,13 +1516,13 @@ struct ProcCmd CONST_DATA gProcScr_08A3D654[] =
 // clang-format on
 
 //! FE8U = 0x080B7648
-void sub_80B7648(struct EndingTurnRecordProc * proc)
+void TurnRecord_Init(struct EndingTurnRecordProc * proc)
 {
-    proc->unk_30 = 0;
-    proc->unk_34 = 32;
-    proc->unk_39 = 0;
-    proc->unk_2c = 0;
-    proc->unk_38 = GetNextChapterStatsSlot();
+    proc->yPos = 0;
+    proc->yScrollAmt = 32;
+    proc->displayId = 0;
+    proc->chapterId = 0;
+    proc->chapterStatsIdx = GetNextChapterStatsSlot();
 
     SetDispEnable(0, 0, 0, 0, 0);
 
@@ -1537,18 +1537,18 @@ void sub_80B7648(struct EndingTurnRecordProc * proc)
 
     SetWinEnable(0, 0, 0);
 
-    ApplyPalettes(gUnknown_08A40AD4, 14, 2);
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A40B14, TILEREF(0, 14));
+    ApplyPalettes(Pal_08A40AD4, 14, 2);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_08A40B14, TILEREF(0, 14));
 
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 
     return;
 }
 
-struct Text * CONST_DATA gpEndingDetailTexts = gEndingDetailTexts;
+struct Text * CONST_DATA gpTurnRecordTexts = gEndingDetailTexts;
 
 //! FE8U = 0x080B770C
-void sub_80B770C(void)
+void TurnRecord_SetupText(void)
 {
     int i;
 
@@ -1561,23 +1561,23 @@ void sub_80B770C(void)
 
     for (i = 0; i < 9; i++)
     {
-        InitText(gpEndingDetailTexts + 0 + i, 5);
-        InitText(gpEndingDetailTexts + 9 + i, 13);
+        InitText(gpTurnRecordTexts + 0 + i, 5);
+        InitText(gpTurnRecordTexts + 9 + i, 13);
     }
 
-    InitText(gpEndingDetailTexts + 18, 4);
-    InitText(gpEndingDetailTexts + 19, 2);
+    InitText(gpTurnRecordTexts + 18, 4);
+    InitText(gpTurnRecordTexts + 19, 2);
 
-    Text_DrawString(gpEndingDetailTexts + 18, GetStringFromIndex(MSG_15D));
+    Text_DrawString(gpTurnRecordTexts + 18, GetStringFromIndex(MSG_15D));
 
-    Text_SetColor(gpEndingDetailTexts + 19, TEXT_COLOR_SYSTEM_GOLD);
-    Text_DrawString(gpEndingDetailTexts + 19, GetStringFromIndex(MSG_157));
+    Text_SetColor(gpTurnRecordTexts + 19, TEXT_COLOR_SYSTEM_GOLD);
+    Text_DrawString(gpTurnRecordTexts + 19, GetStringFromIndex(MSG_157));
 
     return;
 }
 
 //! FE8U = 0x080B7800
-int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
+int HandleTurnRecordText(struct ChapterStats * chapterStats, int displayId)
 {
     int r6;
     int y;
@@ -1585,25 +1585,25 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
     int textIndex;
 
     int x = 3;
-    s8 sp10 = 0;
+    s8 chapterIncrement = 0; // Number of chapters to advance over in caller func
 
-    textIndex = param_2 % 9;
-    y = (param_2 * 2) & 0x1f;
+    textIndex = displayId % 9;
+    y = (displayId * 2) & 0x1f;
     r6 = y * 0x20;
 
     TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, y), 31, 1, 0);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
-    ClearText(gpEndingDetailTexts + 0 + textIndex);
-    ClearText(gpEndingDetailTexts + 9 + textIndex);
+    ClearText(gpTurnRecordTexts + 0 + textIndex);
+    ClearText(gpTurnRecordTexts + 9 + textIndex);
 
     if ((u32)chapterStats == -1)
     {
         int gameTotalTurns = GetGameTotalTurnCount();
 
-        PutDrawText(gpEndingDetailTexts + 9 + textIndex, gBG1TilemapBuffer + ({r6 + 0xC;}), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_15F));
+        PutDrawText(gpTurnRecordTexts + 9 + textIndex, gBG1TilemapBuffer + ({r6 + 0xC;}), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_15F));
         PutNumber(gBG1TilemapBuffer + ({r6 + 0x17;}), TEXT_COLOR_SYSTEM_BLUE, gameTotalTurns);
-        PutText(gpEndingDetailTexts + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
+        PutText(gpTurnRecordTexts + 18, gBG1TilemapBuffer + ({r6 + 0x18;}));
 
         return 0;
     }
@@ -1616,24 +1616,24 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
         switch (chapterIndex)
         {
             case CHAPTER_L_PROLOGUE:
-                PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_15A)); // TODO: msgid "Prologue"
+                PutDrawText(gpTurnRecordTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_15A)); // TODO: msgid "Prologue"
                 break;
 
             case CHAPTER_E_21:
             case CHAPTER_E_21X:
             case CHAPTER_I_21:
             case CHAPTER_I_21X:
-                PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_159)); // TODO: msgid "Final[.]"
+                PutDrawText(gpTurnRecordTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_159)); // TODO: msgid "Final[.]"
                 break;
 
             case CHAPTER_L_5X:
-                PutText(gpEndingDetailTexts + 19, gBG1TilemapBuffer + TILEMAP_INDEX(x, y));
+                PutText(gpTurnRecordTexts + 19, gBG1TilemapBuffer + TILEMAP_INDEX(x, y));
                 PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1  + x), y), TEXT_COLOR_SYSTEM_BLUE, r9);
-                PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + x), y), TEXT_COLOR_SYSTEM_BLUE, 0, 0, GetStringFromIndex(MSG_158));
+                PutDrawText(gpTurnRecordTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (2 + x), y), TEXT_COLOR_SYSTEM_BLUE, 0, 0, GetStringFromIndex(MSG_158));
                 break;
 
             default:
-                PutDrawText(gpEndingDetailTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_157));
+                PutDrawText(gpTurnRecordTexts + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(x, y), TEXT_COLOR_SYSTEM_GOLD, 0, 0, GetStringFromIndex(MSG_157));
                 PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(CountDigits(r9) + (1 + x), y), TEXT_COLOR_SYSTEM_BLUE, r9);
                 break;
         }
@@ -1648,7 +1648,7 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
                 chapterTurn = chapterStats->chapter_turn;
                 ++chapterStats;
                 chapterTurn += chapterStats->chapter_turn;
-                sp10 = 1;
+                chapterIncrement = 1;
                 break;
 
             default:
@@ -1656,32 +1656,32 @@ int sub_80B7800(struct ChapterStats * chapterStats, int param_2)
                 break;
         }
 
-        PutDrawText(gpEndingDetailTexts + 9 + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(5 + x, y), TEXT_COLOR_SYSTEM_WHITE, 0, 0, GetStringFromIndex(GetROMChapterStruct(chapterIndex)->chapTitleTextId));
+        PutDrawText(gpTurnRecordTexts + 9 + textIndex, gBG1TilemapBuffer + TILEMAP_INDEX(5 + x, y), TEXT_COLOR_SYSTEM_WHITE, 0, 0, GetStringFromIndex(GetROMChapterStruct(chapterIndex)->chapTitleTextId));
         PutNumber(gBG1TilemapBuffer + TILEMAP_INDEX(20 + x, y), TEXT_COLOR_SYSTEM_BLUE, chapterTurn);
-        PutText(gpEndingDetailTexts + 18, gBG1TilemapBuffer + TILEMAP_INDEX(21 + x, y));
+        PutText(gpTurnRecordTexts + 18, gBG1TilemapBuffer + TILEMAP_INDEX(21 + x, y));
     }
 
-    return sp10;
+    return chapterIncrement;
 }
 
 //! FE8U = 0x080B7B30
-void sub_80B7B30(struct EndingTurnRecordProc * proc)
+void TurnRecord_Loop_Main(struct EndingTurnRecordProc * proc)
 {
-    int pos = proc->unk_30 >> 6;
+    int y = proc->yPos >> 6;
 
-    BG_SetPosition(BG_1, 0, pos - 136);
+    BG_SetPosition(BG_1, 0, y - 136);
 
-    if ((pos & 15) == 0)
+    if ((y & 15) == 0)
     {
-        if (proc->unk_39 == (pos / 16))
+        if (proc->displayId == (y / 16))
         {
-            if (proc->unk_2c >= proc->unk_38)
+            if (proc->chapterId >= proc->chapterStatsIdx)
             {
-                int unk = proc->unk_2c - proc->unk_38;
+                int unk = proc->chapterId - proc->chapterStatsIdx;
 
                 if (unk == 1)
                 {
-                    sub_80B7800((void *)-1, proc->unk_39);
+                    HandleTurnRecordText((void *)-1, proc->displayId);
                 }
                 else if (unk >= 3)
                 {
@@ -1689,25 +1689,26 @@ void sub_80B7B30(struct EndingTurnRecordProc * proc)
                 }
                 else
                 {
-                    sub_80B7800(NULL, proc->unk_39);
+                    HandleTurnRecordText(NULL, proc->displayId);
                 }
             }
             else
             {
-                proc->unk_2c += sub_80B7800(GetChapterStats(proc->unk_2c), proc->unk_39);
+                proc->chapterId += HandleTurnRecordText(GetChapterStats(proc->chapterId), proc->displayId);
             }
 
-            proc->unk_2c++;
-            proc->unk_39++;
+            proc->chapterId++;
+            proc->displayId++;
         }
     }
 
     if (gKeyStatusPtr->heldKeys & A_BUTTON)
     {
-        proc->unk_30 += proc->unk_34;
+        // Double scrolling speed if holding the A Button
+        proc->yPos += proc->yScrollAmt;
     }
 
-    proc->unk_30 += proc->unk_34;
+    proc->yPos += proc->yScrollAmt;
 
     return;
 }
@@ -1722,15 +1723,15 @@ void sub_80B7BD8(struct UnkProc * proc)
 {
     int i;
 
-    PutSpriteExt(2, 24, 20, gUnknown_08A3D540, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(9));
-    PutSpriteExt(2, 16, 128, gUnknown_08A3D5B4, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(6));
+    PutSpriteExt(2, 24, 20, Sprite_08A3D540, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(9));
+    PutSpriteExt(2, 16, 128, Sprite_08A3D5B4, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(6));
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
     {
-        PutSpriteExt(2, 16, 56, gUnknown_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 56, gUnknown_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 88, gUnknown_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 88, gUnknown_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
+        PutSpriteExt(2, 16, 56, Sprite_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 56, Sprite_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 88, Sprite_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 88, Sprite_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
 
         for (i = 0; i < 3; i++)
         {
@@ -1748,7 +1749,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                     2,
                     (i & 1) * 112 + 80 + i * 512,
                     (i >> 1) * 32 + 304,
-                    gUnknown_08A3D624[proc->unk_40[i]],
+                    SpriteArray_08A3D624[proc->unk_40[i]],
                     OAM2_PAL(i + 10) + OAM2_CHR(0x80) + OAM2_LAYER(1)
                 );
             }
@@ -1768,19 +1769,19 @@ void sub_80B7BD8(struct UnkProc * proc)
                 2,
                 (i & 1) * 112 + 80 + i * 512,
                 (i >> 1) * 32 + 304,
-                gUnknown_08A3D63C[proc->unk_40[i]],
+                SpriteArray_08A3D63C[proc->unk_40[i]],
                 OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(15)
             );
         }
     }
     else
     {
-        PutSpriteExt(2, 16, 48, gUnknown_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 48, gUnknown_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 72, gUnknown_08A3D598, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 72, gUnknown_08A3D57C, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 96, gUnknown_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 96, gUnknown_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
+        PutSpriteExt(2, 16, 48, Sprite_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 48, Sprite_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 72, Sprite_08A3D598, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 72, Sprite_08A3D57C, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 96, Sprite_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 96, Sprite_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
 
         for (i = 0; i < 5; i++)
         {
@@ -1798,7 +1799,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                     2,
                     (i & 1) * 112 + 80 + i * 512,
                     (i >> 1) * 24 + 296,
-                    gUnknown_08A3D624[proc->unk_40[i]],
+                    SpriteArray_08A3D624[proc->unk_40[i]],
                     OAM2_PAL(i + 10) + OAM2_CHR(0x80) + OAM2_LAYER(1)
                 );
             }
@@ -1818,7 +1819,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                 2,
                 (i & 1) * 112 + 80 + (i * 512),
                 (i >> 1) * 24 + 296,
-                gUnknown_08A3D63C[proc->unk_40[i]],
+                SpriteArray_08A3D63C[proc->unk_40[i]],
                 OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(15)
             );
         }
@@ -1828,7 +1829,7 @@ void sub_80B7BD8(struct UnkProc * proc)
 }
 
 //! FE8U = 0x080B8014
-void sub_80B8014(void)
+void TurnRecord_SetupGfx(void)
 {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
@@ -1868,7 +1869,7 @@ void sub_80B8014(void)
 }
 
 //! FE8U = 0x080B8168
-int sub_80B8168(void)
+int TurnRecord_End(void)
 {
     sub_80AB77C();
     // return; // BUG
@@ -1879,21 +1880,21 @@ int sub_80B8168(void)
 struct ProcCmd CONST_DATA gProcScr_EndingTurnRecord[] =
 {
     PROC_YIELD,
-    PROC_CALL(sub_80B7648),
+    PROC_CALL(TurnRecord_Init),
 
-    PROC_CALL(sub_80B770C),
-    PROC_CALL(sub_80B8014),
+    PROC_CALL(TurnRecord_SetupText),
+    PROC_CALL(TurnRecord_SetupGfx),
 
     PROC_CALL_ARG(NewFadeIn, 4),
     PROC_WHILE(FadeInExists),
 
-    PROC_REPEAT(sub_80B7B30),
+    PROC_REPEAT(TurnRecord_Loop_Main),
     PROC_SLEEP(120),
 
     PROC_CALL_ARG(NewFadeOut, 4),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(sub_80B8168),
+    PROC_CALL(TurnRecord_End),
     PROC_SLEEP(60),
 
     PROC_END,
