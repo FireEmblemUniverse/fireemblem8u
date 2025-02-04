@@ -347,34 +347,34 @@ int GetCursorQuadrant() {
     }
 }
 
-void GetHpBarLeftTile(s16* buffer, s16 hp, int tileBase) {
-    if (hp > 5) {
+void GetHpBarLeftTile(u16 * buffer, s16 hp, int tileBase)
+{
+    if (hp > 5)
         hp = 5;
-    }
 
     *buffer = hp + tileBase;
 
     return;
 }
 
-void GetHpBarMidTiles(s16* buffer, s16 hp, int tileBase) {
+void GetHpBarMidTiles(u16 * buffer, s16 hp, int tileBase)
+{
     int i;
 
     int hpEighth = hp >> 3;
-
     int eighthTileIdx = hp & 7;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 5; i++)
+    {
         int fullTileIdx = tileBase + 14;
         int emptyTileIdx = tileBase + 6;
 
-        if (i < hpEighth) {
+        if (i < hpEighth) // full
             *buffer = fullTileIdx;
-        } else if (i == hpEighth) {
+        else if (i == hpEighth) // partial
             *buffer = emptyTileIdx + eighthTileIdx;
-        } else {
+        else // empty
             *buffer = emptyTileIdx;
-        }
 
         buffer++;
     }
@@ -382,16 +382,15 @@ void GetHpBarMidTiles(s16* buffer, s16 hp, int tileBase) {
     return;
 }
 
-void GetHpBarRightTile(s16* buffer, s16 hp, int tileBase) {
+void GetHpBarRightTile(u16 * buffer, s16 hp, int tileBase)
+{
     int base;
 
-    if (hp >= 5) {
+    if (hp >= 5)
         hp = 5;
-    }
 
-    if (hp < 0) {
+    if (hp < 0)
         hp = 0;
-    }
 
     base = tileBase + 15;
 
@@ -400,15 +399,13 @@ void GetHpBarRightTile(s16* buffer, s16 hp, int tileBase) {
     return;
 }
 
-void DrawHpBar(s16* buffer, struct Unit* unit, int tileBase) {
+void DrawHpBar(u16 * buffer, struct Unit * unit, int tileBase)
+{
     s16 hpCurrent = 50 * GetUnitCurrentHp(unit);
-
     s16 hpPercent = Div(hpCurrent, GetUnitMaxHp(unit));
 
     GetHpBarLeftTile(buffer, hpPercent, tileBase);
-
     GetHpBarMidTiles(buffer + 1, hpPercent - 5, tileBase);
-
     GetHpBarRightTile(buffer + 6, hpPercent - 45, tileBase);
 
     return;
