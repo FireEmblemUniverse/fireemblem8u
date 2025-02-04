@@ -18,35 +18,36 @@
 #include "worldmap.h"
 #include "constants/terrains.h"
 
-struct PlayerInterfaceProc {
-    PROC_HEADER;
+struct PlayerInterfaceProc
+{
+    /* 00 */ PROC_HEADER;
 
-    struct Text unk_2c[2];
+    /* 2C */ struct Text unk_2c[2];
 
-    s8 unk_3c;
-    s8 unk_3d;
-    s8 unk_3e;
-    s8 unk_3f;
+    /* 3C */ s8 unk_3c;
+    /* 3D */ s8 unk_3d;
+    /* 3E */ s8 unk_3e;
+    /* 3F */ s8 unk_3f;
 
-    s16* unk_40;
-    s16 unk_44;
-    s16 unk_46;
-    s16 unk_48;
-    u8 unk_4a;
-    u8 unk_4b;
-    u8 xCursorPrev;
-    u8 yCursorPrev;
-    u8 xCursor;
-    u8 yCursor;
-    s8 unk_50;
-    u8 unk_51;
-    u8 unk_52;
-    u8 unk_53;
-    u8 unk_54;
-    s8 unk_55;
-    s8 isRetracting;
-    s8 quadrant;
-    int unk_58;
+    /* 40 */ u16 * unk_40;
+    /* 44 */ s16 unk_44;
+    /* 46 */ s16 unk_46;
+    /* 48 */ s16 unk_48;
+    /* 4A */ u8 unk_4a;
+    /* 4B */ u8 unk_4b;
+    /* 4C */ u8 xCursorPrev;
+    /* 4D */ u8 yCursorPrev;
+    /* 4E */ u8 xCursor;
+    /* 4F */ u8 yCursor;
+    /* 50 */ s8 unk_50;
+    /* 51 */ u8 unk_51;
+    /* 52 */ u8 unk_52;
+    /* 53 */ u8 unk_53;
+    /* 54 */ u8 unk_54;
+    /* 55 */ s8 unk_55;
+    /* 56 */ s8 isRetracting;
+    /* 57 */ s8 quadrant;
+    /* 58 */ int unk_58;
 };
 
 struct PlayerInterfaceConfigEntry {
