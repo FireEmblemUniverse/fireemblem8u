@@ -96,20 +96,22 @@ void MapAnim_Cleanup(void) {
         EndAllMus();
 }
 
-void MapAnim_AdvanceBattleRound(void) {
-    struct MapAnimState *state = &gManimSt;
-    struct BattleHit *round = state->pCurrentRound;
-    u8 r = (round->info >> 3);
-    state->subjectActorId = r % 2;
-    state->targetActorId = 1 - state->subjectActorId;
-    state->hitAttributes = *(u32 *)round;
-    state->hitInfo = round->info;
-    state->hitDamage = round->hpChange;
-    if (state->actorCount_maybe == 1) {
-        state->subjectActorId = 0;
-        state->targetActorId = 0;
+void MapAnim_AdvanceBattleRound(void)
+{
+    gManimSt.subjectActorId = !!(gManimSt.pCurrentRound->info & BATTLE_HIT_INFO_RETALIATION);
+    gManimSt.targetActorId = 1 - gManimSt.subjectActorId;
+
+    gManimSt.hitAttributes = gManimSt.pCurrentRound->attributes;
+    gManimSt.hitInfo = gManimSt.pCurrentRound->info;
+    gManimSt.hitDamage = gManimSt.pCurrentRound->hpChange;
+
+    if (gManimSt.actorCount_maybe == 1)
+    {
+        gManimSt.subjectActorId = 0;
+        gManimSt.targetActorId = 0;
     }
-    state->pCurrentRound++;
+
+    gManimSt.pCurrentRound++;
 }
 
 void MapAnim_PrepareNextBattleRound(ProcPtr p) {
