@@ -216,9 +216,12 @@ void MapAnimProc_DisplayExpBar(struct Proc* proc)
         if (gManimSt.actor[1].bu->expGain != 0)
             actorNum = 1;
 
+        // fallthrough
+
     case 1:
         if (gManimSt.actor[0].bu->expGain != 0)
             actorNum = 0;
+
         break;
     }
 
