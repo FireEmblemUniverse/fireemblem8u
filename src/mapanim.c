@@ -238,7 +238,8 @@ void MapAnim_InitInfoBox(ProcPtr proc)
 {
     SetDefaultColorEffects();
 
-    switch (gManimSt.u62) {
+    switch (gManimSt.u62)
+    {
     case 1:
     case 2:
         return;
@@ -247,41 +248,43 @@ void MapAnim_InitInfoBox(ProcPtr proc)
         break;
     }
 
-    if (GetSpellAssocReturnBool(gManimSt.actor[0].bu->weaponBefore)) {
+    if (GetSpellAssocReturnBool(gManimSt.actor[0].bu->weaponBefore))
+    {
         int y;
-        if (gManimSt.actorCount_maybe == 1) {
-            y = gManimSt.actor[0].unit->yPos*16 - gBmSt.camera.y;
+        if (gManimSt.actorCount_maybe == 1)
+        {
+            y = gManimSt.actor[0].unit->yPos * 16 - gBmSt.camera.y;
 
             if (y >= 112)
                 y = y - 40;
             else
                 y = y + 24;
 
-        } else {
+        }
+        else
+        {
             int array[2];
-            int i, actorNum;
+            int i;
+            int actorNum;
 
             for (i = 0; i < gManimSt.actorCount_maybe; ++i)
-                array[i] = gManimSt.actor[i].unit->yPos*16 - gBmSt.camera.y;
+                array[i] = gManimSt.actor[i].unit->yPos * 16 - gBmSt.camera.y;
 
-            if (array[0] - array[1] >= 0) {
-                if (array[0] - array[1] >= 80)
-                    goto disp_center;
-            }
-            else if (array[1] - array[0] >= 80) {
-            disp_center:
+            if (ABS(array[0] - array[1]) >= 80)
+            {
                 y = 64;
-                goto disp;
             }
-
-            actorNum = array[0] > array[1] ? 0 : 1;
-            if (array[actorNum] >= 112)
-                y = array[1 - actorNum] - 40;
             else
-                y = array[actorNum] + 24;
+            {
+                actorNum = array[0] > array[1] ? 0 : 1;
+
+                if (array[actorNum] >= 112)
+                    y = array[1 - actorNum] - 40;
+                else
+                    y = array[actorNum] + 24;
+            }
         }
 
-    disp:
         NewMapBattleInfoThing(15, y / 8, proc);
     }
 }
