@@ -87,24 +87,24 @@ struct PlayerInterfaceConfigEntry CONST_DATA sPlayerInterfaceConfigLut[4] =
     }
 };
 
-s8 CONST_DATA gUnknown_08A01848[6] =
+s8 CONST_DATA gUnitBurstMapUiTextXTable[6] =
 {
     1, 1, 1, 1, 1, 1
 };
 
-s8 CONST_DATA gUnknown_08A0184E[18] =
+s8 CONST_DATA gUnitBurstMapUiTextYTable[18] =
 {
     1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1,
     3, 3, 3, 3, 3, 3
 };
 
-s8 CONST_DATA gUnknown_08A01860[6] =
+s8 CONST_DATA gUnitBurstMapUiXOffsetTable[6] =
 {
     0, -1, -6, 0, -1, -6
 };
 
-s8 CONST_DATA gUnknown_08A01866[6] =
+s8 CONST_DATA gUnitBurstMapUiYOffsetTable[6] =
 {
     -6, -6, -6, 3, 3, 3
 };
@@ -338,7 +338,7 @@ PROC_LABEL(0),
 
 // clang-format on
 
-void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc *, struct Unit *);
+void UnitMapUiUpdate(struct PlayerInterfaceProc *, struct Unit *);
 
 int GetWindowQuadrant(int x, int y)
 {
@@ -516,7 +516,7 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 
         Proc_Break(proc);
 
-        DrawUnitDisplayHpOrStatus(proc, GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]));
+        UnitMapUiUpdate(proc, GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]));
     }
 
     return;
@@ -722,7 +722,7 @@ void sub_808C288(struct PlayerInterfaceProc * proc)
     return;
 }
 
-void GetMinimugFactionPalette(int faction, int palId)
+void ApplyUnitMapUiFramePal(int faction, int palId)
 {
     u16 * pal = NULL;
 
@@ -774,7 +774,7 @@ int sub_808C33C(void)
     }
 }
 
-void sub_808C360(struct PlayerInterfaceProc * proc, u16 * buffer, struct Unit * unit)
+void ClearUnitMapUiStatus(struct PlayerInterfaceProc * proc, u16 * buffer, struct Unit * unit)
 {
     buffer[0] = TILEREF(0x120, 2);
     buffer[1] = TILEREF(0x121, 2);
@@ -787,7 +787,7 @@ void sub_808C360(struct PlayerInterfaceProc * proc, u16 * buffer, struct Unit * 
     return;
 }
 
-void MMB_DrawStatusText(u16 * buffer, struct Unit * unit)
+void PutUnitMapUiStatus(u16 * buffer, struct Unit * unit)
 {
     int offset;
 
@@ -859,7 +859,7 @@ void MMB_DrawStatusText(u16 * buffer, struct Unit * unit)
     return;
 }
 
-void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc * proc, struct Unit * unit)
+void UnitMapUiUpdate(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     s16 frameCount = proc->unitClock;
 
@@ -872,7 +872,7 @@ void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc * proc, struct Unit * 
     {
         if ((frameCount & 0x40) != 0)
         {
-            MMB_DrawStatusText(proc->statusTm, unit);
+            PutUnitMapUiStatus(proc->statusTm, unit);
             BG_EnableSyncByMask(BG0_SYNC_BIT);
         }
         else
@@ -886,8 +886,8 @@ void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc * proc, struct Unit * 
                 StoreNumberStringOrDashesToSmallBuffer(GetUnitCurrentHp(unit));
             }
 
-            proc->hpCurHi = gUnknown_02028E44[6] - '0';
-            proc->hpCurLo = gUnknown_02028E44[7] - '0';
+            proc->hpCurHi = gNumberStr[6] - '0';
+            proc->hpCurLo = gNumberStr[7] - '0';
 
             if (GetUnitMaxHp(unit) >= 100)
             {
@@ -898,10 +898,10 @@ void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc * proc, struct Unit * 
                 StoreNumberStringOrDashesToSmallBuffer(GetUnitMaxHp(unit));
             }
 
-            proc->hpMaxHi = gUnknown_02028E44[6] - '0';
-            proc->hpMaxLo = gUnknown_02028E44[7] - '0';
+            proc->hpMaxHi = gNumberStr[6] - '0';
+            proc->hpMaxLo = gNumberStr[7] - '0';
 
-            sub_808C360(proc, proc->statusTm, unit);
+            ClearUnitMapUiStatus(proc, proc->statusTm, unit);
             BG_EnableSyncByMask(BG0_SYNC_BIT);
         }
     }
@@ -937,7 +937,7 @@ void DrawUnitDisplayHpOrStatus(struct PlayerInterfaceProc * proc, struct Unit * 
     return;
 }
 
-void InitMinimugBoxMaybe(struct PlayerInterfaceProc * proc, struct Unit * unit)
+void DrawUnitMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     char * str;
     int pos;
@@ -983,69 +983,54 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc * proc, struct Unit * unit)
         proc->yHp = 17;
     }
 
-    DrawUnitDisplayHpOrStatus(proc, unit);
+    UnitMapUiUpdate(proc, unit);
     DrawHpBar(gUiTmScratchA + TILEMAP_INDEX(5, 4), unit, TILEREF(0x140, 1));
 
     CallARM_FillTileRect(gUiTmScratchB, gTSA_MinimugBox, TILEREF(0x0, 3));
-    GetMinimugFactionPalette(UNIT_FACTION(unit), 3);
+    ApplyUnitMapUiFramePal(UNIT_FACTION(unit), 3);
 
     return;
 }
 
-int sub_808C710(int x, int y)
+int GetUnitBurstMapUiOrientationAt(int x, int y)
 {
     int cursorQuadrant = GetCursorQuadrant();
 
-    int ret = 1;
+    int result = 1;
 
     if ((y < 6) || ((y < 12) && (sPlayerInterfaceConfigLut[cursorQuadrant].yGoal < 0)))
     {
-        ret = 4;
+        result = 4;
     }
 
     if (x < 2)
     {
-        ret = ret - 1;
+        result = result - 1;
     }
 
     if (x > 22)
     {
-        ret = ret + 1;
+        result = result + 1;
     }
 
-    return ret;
+    return result;
 }
 
-void sub_808C750(struct PlayerInterfaceProc * proc, struct Unit * unit)
+void DrawUnitBurstMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     int x;
     int y;
-    int unk;
+    int orientation;
     char * nameStr;
     int pos;
 
-    int tmp = unit->xPos * 16 - gBmSt.camera.x;
+    x = (unit->xPos * 16 - gBmSt.camera.x) / 8;
+    y = (unit->yPos * 16 - gBmSt.camera.y) / 8;
 
-    if (tmp < 0)
-    {
-        tmp += 7;
-    }
+    orientation = GetUnitBurstMapUiOrientationAt(x, y);
 
-    x = tmp >> 3;
-
-    tmp = unit->yPos * 16 - gBmSt.camera.y;
-
-    if (tmp < 0)
-    {
-        tmp += 7;
-    }
-
-    y = tmp >> 3;
-
-    unk = sub_808C710(x, y);
-
-    x = x + gUnknown_08A01860[unk];
-    y = y + gUnknown_08A01866[unk];
+    x = x + gUnitBurstMapUiXOffsetTable[orientation];
+    y = y + gUnitBurstMapUiYOffsetTable[orientation];
 
     proc->xBurst = x;
     proc->yBurst = y;
@@ -1061,7 +1046,9 @@ void sub_808C750(struct PlayerInterfaceProc * proc, struct Unit * unit)
     Text_SetParams(proc->texts, pos, TEXT_COLOR_SYSTEM_BLACK);
     Text_DrawString(proc->texts, nameStr);
 
-    PutText(proc->texts, gBG0TilemapBuffer + TILEMAP_INDEX(x + gUnknown_08A01848[unk], y + gUnknown_08A0184E[unk]));
+    PutText(proc->texts, gBG0TilemapBuffer + TILEMAP_INDEX(
+        x + gUnitBurstMapUiTextXTable[orientation],
+        y + gUnitBurstMapUiTextYTable[orientation]));
 
     proc->statusTm = gBG0TilemapBuffer + TILEMAP_INDEX(x + 1, y + 3);
 
@@ -1070,20 +1057,20 @@ void sub_808C750(struct PlayerInterfaceProc * proc, struct Unit * unit)
     proc->xHp = x + 1;
     proc->yHp = y + 3;
 
-    DrawUnitDisplayHpOrStatus(proc, unit);
+    UnitMapUiUpdate(proc, unit);
 
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A0186C[unk], TILEREF(0x100, 3));
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A0186C[orientation], TILEREF(0x100, 3));
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 1), gUnknown_08A17604, TILEREF(0x100, 3));
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 4), gUnknown_08A01884[unk], TILEREF(0x100, 3));
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 4), gUnknown_08A01884[orientation], TILEREF(0x100, 3));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    GetMinimugFactionPalette(UNIT_FACTION(unit), 3);
+    ApplyUnitMapUiFramePal(UNIT_FACTION(unit), 3);
 
     return;
 }
 
-void sub_808C8EC(struct PlayerInterfaceProc * proc)
+void ClearUnitBurstMapUi(struct PlayerInterfaceProc * proc)
 {
     if (proc->wBurst == 8 && proc->hBurst == 5)
     {
@@ -1118,33 +1105,33 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
     Text_DrawString(proc->texts, str);
     PutText(proc->texts, gUiTmScratchA + TILEMAP_INDEX(1, 12));
 
-    CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), gTSA_TerrainBox_Something, TILEREF(0x100, 2));
+    CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), Tsa_TerrainMapUi_Labels, TILEREF(0x100, 2));
 
     if (TerrainTable_MovCost_BerserkerNormal[terrainId] > 0)
     {
         StoreNumberStringToSmallBuffer(TerrainTable_Def_Common[terrainId]);
-        PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gUnknown_02028E44 + 7, TILEREF(0x128, 2), 2);
+        PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gNumberStr + 7, TILEREF(0x128, 2), 2);
 
         StoreNumberStringToSmallBuffer(TerrainTable_Avo_Common[terrainId]);
-        PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gUnknown_02028E44 + 7, TILEREF(0x128, 2), 2);
+        PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gNumberStr + 7, TILEREF(0x128, 2), 2);
     }
 
     switch (terrainId)
     {
         case TERRAIN_SNAG:
         case TERRAIN_WALL_1B:
-            CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), gTSA_TerrainBox_Destructable, TILEREF(0x100, 2));
+            CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(0x100, 2));
 
             num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 
             if (num == 100)
             {
-                CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(4, 15), gUnknown_08A176B4, TILEREF(0x100, 0));
+                CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(4, 15), Tsa_TerrainMapUi_ObstacleFullHp, TILEREF(0x100, 0));
             }
             else
             {
                 StoreNumberStringToSmallBuffer(num);
-                PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gUnknown_02028E44 + 7, TILEREF(0x128, 2), 2);
+                PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gNumberStr + 7, TILEREF(0x128, 2), 2);
             }
 
             break;
@@ -1155,7 +1142,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
             CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), gTSA_TerrainBox_Ballistae, TILEREF(0x100, 0));
 
             StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
-            PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gUnknown_02028E44 + 7, TILEREF(0x128, 2), 2);
+            PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gNumberStr + 7, TILEREF(0x128, 2), 2);
 
             break;
     }
@@ -1306,7 +1293,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     proc->xCursor = gBmSt.playerCursor.x;
     proc->yCursor = gBmSt.playerCursor.y;
 
-    InitMinimugBoxMaybe(proc, unit);
+    DrawUnitMapUi(proc, unit);
 
     Proc_Break(proc);
 
@@ -1319,7 +1306,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
 
     proc->unitClock++;
 
-    DrawUnitDisplayHpOrStatus(proc, unit);
+    UnitMapUiUpdate(proc, unit);
 
     if ((proc->unitClock & 0x3F) == 0)
     {
@@ -1369,7 +1356,7 @@ void MMB_CheckForUnit(struct PlayerInterfaceProc * proc)
     }
     else
     {
-        InitMinimugBoxMaybe(proc, unit);
+        DrawUnitMapUi(proc, unit);
         sub_808C234(proc);
     }
 
@@ -1400,7 +1387,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 
     if ((proc->burstUnitIdPrev != proc->burstUnitId) && (proc->burstUnitIdPrev != 0))
     {
-        sub_808C8EC(proc);
+        ClearUnitBurstMapUi(proc);
         proc->showHideClock = 0;
 
         return;
@@ -1450,7 +1437,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 
     if (proc->showHideClock == 8)
     {
-        sub_808C750(proc, GetUnit(proc->burstUnitId));
+        DrawUnitBurstMapUi(proc, GetUnit(proc->burstUnitId));
     }
     else
     {
@@ -1466,7 +1453,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
             proc->hideContents = false;
         }
 
-        DrawUnitDisplayHpOrStatus(proc, GetUnit(proc->burstUnitId));
+        UnitMapUiUpdate(proc, GetUnit(proc->burstUnitId));
     }
 
     return;
