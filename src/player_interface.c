@@ -17,8 +17,9 @@
 #include "bmlib.h"
 #include "worldmap.h"
 
-#include "constants/terrains.h"
+#include "constants/event-flags.h"
 #include "constants/msg.h"
+#include "constants/terrains.h"
 
 struct PlayerInterfaceProc
 {
@@ -41,14 +42,14 @@ struct PlayerInterfaceProc
     /* 4D */ u8 yCursorPrev;
     /* 4E */ u8 xCursor;
     /* 4F */ u8 yCursor;
-    /* 50 */ s8 unk_50;
+    /* 50 */ s8 cursorQuadrant;
     /* 51 */ u8 hpCurHi;
     /* 52 */ u8 hpCurLo;
     /* 53 */ u8 hpMaxHi;
     /* 54 */ u8 hpMaxLo;
     /* 55 */ s8 hideContents;
     /* 56 */ s8 isRetracting;
-    /* 57 */ s8 quadrant;
+    /* 57 */ s8 windowQuadrant;
     /* 58 */ int showHideClock;
 };
 
@@ -57,6 +58,7 @@ struct PlayerInterfaceConfigEntry
     /* 00 */ s8 xTerrain, yTerrain;
     /* 02 */ s8 xMinimug, yMinimug;
     /* 04 */ s8 xGoal, yGoal;
+    STRUCT_PAD(0x06, 0x08);
 };
 
 // clang-format off
@@ -471,9 +473,9 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc)
     int tmIndex;
     int width;
 
-    int y = sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0 ? 0 : 14;
+    int y = sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug < 0 ? 0 : 14;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         tmIndex = TILEMAP_INDEX(0, y);
 
@@ -494,7 +496,7 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 
     width = sMMBSlideInWidthLut[proc->showHideClock];
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         TileMap_CopyRect(gUiTmScratchA + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
         TileMap_CopyRect(gUiTmScratchB + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
@@ -525,11 +527,11 @@ void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc)
     int tmIndex;
     int width;
 
-    int y = sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0 ? 0 : 14;
+    int y = sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug < 0 ? 0 : 14;
 
     proc->hideContents = true;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         tmIndex = TILEMAP_INDEX(0, y);
 
@@ -550,7 +552,7 @@ void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 
     width = sMMBSlideOutWidthLut[proc->showHideClock];
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         TileMap_CopyRect(gUiTmScratchA + (13 - width), gBG0TilemapBuffer + tmIndex, width, 6);
         TileMap_CopyRect(gUiTmScratchB + (13 - width), gBG1TilemapBuffer + tmIndex, width, 6);
@@ -567,7 +569,7 @@ void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc)
     {
         proc->isRetracting = false;
         proc->showHideClock = 0;
-        proc->quadrant = -1;
+        proc->windowQuadrant = -1;
 
         Proc_Break(proc);
     }
@@ -579,7 +581,7 @@ void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int width;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain < 0)
     {
         TileMap_FillRect(gBG0TilemapBuffer + TILEMAP_INDEX(0, 13), 7, 7, 0);
         TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, 13), 7, 7, 0);
@@ -594,7 +596,7 @@ void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 
     width = sTerrainSlideInWidthLut[proc->showHideClock] + 1;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain < 0)
     {
         TileMap_CopyRect(
             gUiTmScratchA + TILEMAP_INDEX(7 - width, 10), gBG0TilemapBuffer + TILEMAP_INDEX(0, 13), width, 7);
@@ -628,7 +630,7 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 
     proc->hideContents = true;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain < 0)
     {
         TileMap_FillRect(gBG0TilemapBuffer + TILEMAP_INDEX(0, 13), 7, 7, 0);
         TileMap_FillRect(gBG1TilemapBuffer + TILEMAP_INDEX(0, 13), 7, 7, 0);
@@ -643,7 +645,7 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 
     width = sTerrainSlideOutWidthLut[proc->showHideClock];
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain < 0)
     {
         TileMap_CopyRect(
             gUiTmScratchA + TILEMAP_INDEX(6 - width, 10), gBG0TilemapBuffer + TILEMAP_INDEX(0, 13), width, 7);
@@ -677,7 +679,7 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
     int x;
     int y;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         x = 0;
     }
@@ -686,7 +688,7 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
         x = 18;
     }
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug < 0)
     {
         y = 0;
     }
@@ -703,10 +705,9 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
 
 void sub_808C288(struct PlayerInterfaceProc * proc)
 {
-
     int x;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xTerrain < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain < 0)
     {
         x = 0;
     }
@@ -964,7 +965,7 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc * proc, struct Unit * unit)
     proc->statusTm = gUiTmScratchA + TILEMAP_INDEX(5, 3);
     proc->unitClock = 0;
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].xMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug < 0)
     {
         proc->xHp = 5;
     }
@@ -973,7 +974,7 @@ void InitMinimugBoxMaybe(struct PlayerInterfaceProc * proc, struct Unit * unit)
         proc->xHp = 23;
     }
 
-    if (sPlayerInterfaceConfigLut[proc->unk_50].yMinimug < 0)
+    if (sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug < 0)
     {
         proc->yHp = 3;
     }
@@ -1164,10 +1165,10 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
 
 void TerrainDisplay_Init(struct PlayerInterfaceProc * proc)
 {
-    proc->quadrant = -1;
+    proc->windowQuadrant = -1;
     proc->isRetracting = false;
     proc->showHideClock = 0;
-    proc->unk_50 = 1;
+    proc->cursorQuadrant = 1;
 
     InitTextDb(proc->texts, 5);
 
@@ -1182,16 +1183,17 @@ void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 
     proc->hideContents = true;
 
-    proc->unk_50 = GetCursorQuadrant();
+    proc->cursorQuadrant = GetCursorQuadrant();
 
     quadrant = GetWindowQuadrant(
-        sPlayerInterfaceConfigLut[proc->unk_50].xTerrain, sPlayerInterfaceConfigLut[proc->unk_50].yTerrain);
+        sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain,
+        sPlayerInterfaceConfigLut[proc->cursorQuadrant].yTerrain);
 
     ui1Proc = Proc_Find(gProcScr_UnitDisplay_MinimugBox);
 
     if (ui1Proc != NULL)
     {
-        if ((ui1Proc->quadrant > -1) && (ui1Proc->quadrant == quadrant))
+        if ((ui1Proc->windowQuadrant > -1) && (ui1Proc->windowQuadrant == quadrant))
         {
             return;
         }
@@ -1205,13 +1207,13 @@ void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     if (ui1Proc != NULL)
 #endif // BUGFIX
     {
-        if ((piProc->quadrant > -1) && (piProc->quadrant == quadrant))
+        if ((piProc->windowQuadrant > -1) && (piProc->windowQuadrant == quadrant))
         {
             return;
         }
     }
 
-    proc->quadrant = quadrant;
+    proc->windowQuadrant = quadrant;
 
     DrawTerrainDisplayWindow(proc);
 
@@ -1240,9 +1242,11 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
     {
         int cursorQuadrant = GetCursorQuadrant();
 
-        if ((cursorQuadrant == proc->unk_50) ||
-            ((sPlayerInterfaceConfigLut[cursorQuadrant].xTerrain == sPlayerInterfaceConfigLut[proc->unk_50].xTerrain) &&
-             (sPlayerInterfaceConfigLut[cursorQuadrant].yTerrain == sPlayerInterfaceConfigLut[proc->unk_50].yTerrain)))
+        if ((cursorQuadrant == proc->cursorQuadrant) ||
+            ((sPlayerInterfaceConfigLut[cursorQuadrant].xTerrain ==
+              sPlayerInterfaceConfigLut[proc->cursorQuadrant].xTerrain) &&
+             (sPlayerInterfaceConfigLut[cursorQuadrant].yTerrain ==
+              sPlayerInterfaceConfigLut[proc->cursorQuadrant].yTerrain)))
         {
             DrawTerrainDisplayWindow(proc);
             sub_808C288(proc);
@@ -1259,7 +1263,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 
 void MMB_Init(struct PlayerInterfaceProc * proc)
 {
-    proc->quadrant = -1;
+    proc->windowQuadrant = -1;
     InitTextDb(proc->texts, 7);
     proc->showHideClock = 0;
     proc->isRetracting = false;
@@ -1281,22 +1285,23 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 
     proc->hideContents = true;
 
-    proc->unk_50 = GetCursorQuadrant();
+    proc->cursorQuadrant = GetCursorQuadrant();
 
     quadrant = GetWindowQuadrant(
-        sPlayerInterfaceConfigLut[proc->unk_50].xMinimug, sPlayerInterfaceConfigLut[proc->unk_50].yMinimug);
+        sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug,
+        sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug);
 
     tiProc = Proc_Find(gProcScr_TerrainDisplay);
 
     if (tiProc != NULL)
     {
-        if ((tiProc->quadrant > -1) && (tiProc->quadrant == quadrant))
+        if ((tiProc->windowQuadrant > -1) && (tiProc->windowQuadrant == quadrant))
         {
             return;
         }
     }
 
-    proc->quadrant = quadrant;
+    proc->windowQuadrant = quadrant;
 
     proc->xCursor = gBmSt.playerCursor.x;
     proc->yCursor = gBmSt.playerCursor.y;
@@ -1336,9 +1341,11 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
     {
         int cursorQuadrant = GetCursorQuadrant();
 
-        if ((cursorQuadrant == proc->unk_50) ||
-            ((sPlayerInterfaceConfigLut[cursorQuadrant].xMinimug == sPlayerInterfaceConfigLut[proc->unk_50].xMinimug) &&
-             (sPlayerInterfaceConfigLut[cursorQuadrant].yMinimug == sPlayerInterfaceConfigLut[proc->unk_50].yMinimug)))
+        if ((cursorQuadrant == proc->cursorQuadrant) ||
+            ((sPlayerInterfaceConfigLut[cursorQuadrant].xMinimug ==
+              sPlayerInterfaceConfigLut[proc->cursorQuadrant].xMinimug) &&
+             (sPlayerInterfaceConfigLut[cursorQuadrant].yMinimug ==
+              sPlayerInterfaceConfigLut[proc->cursorQuadrant].yMinimug)))
         {
             Proc_Goto(proc, 1);
             return;
@@ -1502,7 +1509,7 @@ void InitPlayerPhaseInterface(void)
     }
     else
     {
-        if ((gPlaySt.config.disableGoalDisplay == 0) && (CheckFlag(0x66) == 0))
+        if ((gPlaySt.config.disableGoalDisplay == 0) && (CheckFlag(EVFLAG_OBJWINDOW_DISABLE) == 0))
         {
             Proc_Start(gProcScr_GoalDisplay, PROC_TREE_3);
         }
@@ -1612,8 +1619,8 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
 
     proc->showHideClock = 0;
     proc->isRetracting = false;
-    proc->unk_50 = 0;
-    proc->quadrant = -1;
+    proc->cursorQuadrant = 0;
+    proc->windowQuadrant = -1;
 
     InitText(&proc->texts[0], 8);
     InitText(&proc->texts[1], 8);
@@ -1731,22 +1738,22 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     proc->showHideClock = 0;
     proc->hideContents = true;
 
-    proc->unk_50 = GetCursorQuadrant();
+    proc->cursorQuadrant = GetCursorQuadrant();
 
-    quadrant =
-        GetWindowQuadrant(sPlayerInterfaceConfigLut[proc->unk_50].xGoal, sPlayerInterfaceConfigLut[proc->unk_50].yGoal);
+    quadrant = GetWindowQuadrant(
+        sPlayerInterfaceConfigLut[proc->cursorQuadrant].xGoal, sPlayerInterfaceConfigLut[proc->cursorQuadrant].yGoal);
 
     tiProc = Proc_Find(gProcScr_TerrainDisplay);
 
     if (tiProc != NULL)
     {
-        if ((tiProc->quadrant > -1) && (tiProc->quadrant == quadrant))
+        if ((tiProc->windowQuadrant > -1) && (tiProc->windowQuadrant == quadrant))
         {
             return;
         }
     }
 
-    proc->quadrant = quadrant;
+    proc->windowQuadrant = quadrant;
 
     sub_808D200(proc);
 
@@ -1821,7 +1828,7 @@ void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int unk = sGoalSlideInWidthLut[proc->showHideClock];
 
-    sub_808D514(proc->unk_50, unk, proc->unitClock);
+    sub_808D514(proc->cursorQuadrant, unk, proc->unitClock);
 
     proc->showHideClock++;
 
@@ -1844,7 +1851,7 @@ void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 
     unk = sGoalSlideOutWidthLut[proc->showHideClock];
 
-    sub_808D514(proc->unk_50, unk, proc->unitClock);
+    sub_808D514(proc->cursorQuadrant, unk, proc->unitClock);
 
     proc->showHideClock++;
 
@@ -1853,7 +1860,7 @@ void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
         proc->showHideClock = 0;
         proc->hideContents = false;
         proc->isRetracting = false;
-        proc->quadrant = -1;
+        proc->windowQuadrant = -1;
 
         Proc_Break(proc);
     }
@@ -1892,7 +1899,7 @@ void GoalDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
     if (Proc_Find(ProcScr_CamMove) == NULL)
     {
         int cursorQuadrant = GetCursorQuadrant();
-        int quadrant = proc->unk_50;
+        int quadrant = proc->cursorQuadrant;
 
         if (cursorQuadrant == quadrant)
         {
@@ -1994,9 +2001,9 @@ void sub_808D924(int x, int y)
 
 void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc * proc)
 {
-    proc->unk_50 = GetCursorQuadrant();
+    proc->cursorQuadrant = GetCursorQuadrant();
 
-    sub_808D8A0(proc, proc->unk_50, proc->showHideClock);
+    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
 
     proc->showHideClock = 0;
 
@@ -2010,7 +2017,7 @@ void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc * proc)
 {
     proc->showHideClock += 4;
 
-    sub_808D8A0(proc, proc->unk_50, proc->showHideClock);
+    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
     sub_808D924(proc->xHp, proc->yHp);
 
     if (proc->showHideClock == 24)
@@ -2040,7 +2047,7 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc * proc)
     if (!Proc_Find(ProcScr_CamMove))
     {
         int cursorQuadrant = GetCursorQuadrant();
-        int quadrant = proc->unk_50;
+        int quadrant = proc->cursorQuadrant;
 
         if (cursorQuadrant == quadrant)
         {
@@ -2065,7 +2072,7 @@ void MenuButtonDisp_Loop_OnSlideOut(struct PlayerInterfaceProc * proc)
 {
     proc->showHideClock -= 4;
 
-    sub_808D8A0(proc, proc->unk_50, proc->showHideClock);
+    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
 
     sub_808D924(proc->xHp, proc->yHp);
 
