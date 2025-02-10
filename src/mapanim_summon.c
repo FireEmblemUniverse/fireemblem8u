@@ -311,7 +311,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[] = {
     PROC_CALL(GenerateSummonUnitDef),
     PROC_CALL(New6C_SummonGfx_FromActionPos),
     PROC_SLEEP(0x5),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[] = {
@@ -344,5 +344,5 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[] = {
     PROC_LABEL(PROC_LABEL_SUMDK_LOAD_POS_END),
     PROC_CALL(ProcSummonDK_CheckIsEnough),
     PROC_LABEL(PROC_LABEL_SUMDK_LOAD_TERMINAL),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };

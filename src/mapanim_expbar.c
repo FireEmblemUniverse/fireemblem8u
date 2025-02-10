@@ -125,7 +125,7 @@ CONST_DATA u16 gUnknown_089A36C0[] = {
     0x006, 0x21E, 0x000, 0x000
 };
 
-CONST_DATA struct ProcCmd gProc_MapAnimExpBar[] = {
+CONST_DATA struct ProcCmd ProcScr_MapAnimExpBar[] = {
     PROC_SET_END_CB(ProcMapInfoBox_OnEnd),
     PROC_SLEEP(0x1),
     PROC_CALL(ProcMAExpBar_OnDraw),

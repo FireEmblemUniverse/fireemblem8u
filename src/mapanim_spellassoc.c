@@ -14,7 +14,7 @@
 #include "constants/classes.h"
 #include "constants/terrains.h"
 
-const struct ProcCmd * GetItemAnim6CCode(void)
+const struct ProcCmd * MapAnim_GetRoundProcScript(void)
 {
     if (gManimSt.specialProcScr)
         return gManimSt.specialProcScr;

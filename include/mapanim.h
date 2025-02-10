@@ -187,6 +187,13 @@ struct MapAnimActorState {
     /* 12 */ STRUCT_PAD(0x12, 0x14);
 };
 
+enum
+{
+    MANIM_KIND_DAMAGE = 0,
+    MANIM_KIND_STEAL = 1,
+    MANIM_KIND_REFRESH = 2,
+};
+
 struct MapAnimState {
     /* 00 */ struct MapAnimActorState actor[4];
 
@@ -197,11 +204,11 @@ struct MapAnimState {
     /* 5A */ u16 hitAttributes;
     /* 5C */ u8 hitInfo;
     /* 5D */ s8 hitDamage;
-    /* 5E */ u8 actorCount_maybe;
+    /* 5E */ u8 actorCount;
     /* 5F */ u8 hp_changing;
     /* 60 */ u8 xtarget;
     /* 61 */ u8 ytarget;
-    /* 62 */ u8 u62;
+    /* 62 */ u8 mapAnimKind;
 };
 
 extern struct MapAnimState gManimSt;
@@ -290,13 +297,13 @@ extern CONST_DATA struct ProcCmd ProcScr_MapAnimSummon[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimSumDK[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimDance[];
 extern CONST_DATA struct ProcCmd ProcScr_MapAnimBattle[];
-extern CONST_DATA struct ProcCmd gProc_MapAnimEnd[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimEnd[];
 extern CONST_DATA u16 gUnknown_089A3648[];
 extern CONST_DATA int gUnknown_089A3668[];
 extern CONST_DATA u8* TsaSet_MapBattleBoxGfx[3][2];
 extern CONST_DATA struct ProcCmd ProcScr_MapBattleInfoBox[];
 extern CONST_DATA u16 gUnknown_089A36C0[];
-extern CONST_DATA struct ProcCmd gProc_MapAnimExpBar[];
+extern CONST_DATA struct ProcCmd ProcScr_MapAnimExpBar[];
 extern CONST_DATA char *MADebugStrings1[];
 // extern ??? gUnknown_089A3798
 extern CONST_DATA char* MADebugStrings2[];
@@ -390,7 +397,7 @@ extern u16 ApConf_089A6254[];
 extern u16 CONST_DATA Obj_PoisonAnim[];
 extern u16 CONST_DATA Obj_WallBreakAnim[];
 extern const u16 ApHandle_GmapSoguSprites[];
-extern const u16 gUnknown_089A8F74[];
+extern const u16 Pal_MapAnimManaketeMu[];
 extern u8 gGfx_ArenaBuildingFront[];
 extern u8 gTsa_ArenaBuildingFront[];
 extern u16 gPal_ArenaBuildingFront[];
@@ -807,28 +814,28 @@ extern u8 Tsa_089E8200[];
 
 extern u16 gUnknown_089E7DEC[];
 
-void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc);
+void MapAnim_StoleItemPopup(ProcPtr proc);
 void DisplayWpnBrokePopup(ProcPtr proc);
-s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *);
+s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit * bu);
 void DisplayWRankUpPopup(ProcPtr proc);
-s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *);
-void _InitFontForUIDefault();
+s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit * bu);
+void MapAnim_PrepareBattleTalk(void);
 void MapAnim_Cleanup(void);
 void MapAnim_AdvanceBattleRound(void);
-void MapAnim_PrepareNextBattleRound(ProcPtr p);
-void MapAnim_DisplayRoundAnim(ProcPtr p);
-void MapAnim_ShowPoisonEffectIfAny(ProcPtr p);
-void MapAnim_MoveCameraOntoSubject(ProcPtr p);
-void MapAnim_MoveCameraOntoTarget(ProcPtr p);
-void MapAnimProc_DisplayDeahQuote(void);
-void MapAnmiProc_DisplayDeathFade(void);
-void MapAnimProc_DisplayExpBar(struct Proc* proc);
+void MapAnim_PrepareNextBattleRound(ProcPtr proc);
+void MapAnim_DisplayRoundAnim(ProcPtr proc);
+void MapAnim_ShowPoisonEffectIfAny(ProcPtr proc);
+void MapAnim_MoveCameraOntoSubject(ProcPtr proc);
+void MapAnim_MoveCameraOntoTarget(ProcPtr proc);
+void MapAnim_DisplayDeathQuote(void);
+void MapAnim_DisplayDeathFade(void);
+void MapAnim_DisplayExpBar(ProcPtr proc);
 void MapAnim_InitInfoBox(ProcPtr proc);
 void MapAnim_CallBattleQuoteEvents(void);
 // ??? SetBattleMuPaletteByIndex(???);
 void SetBattleMuPalette(void);
-// ??? PlaySoundIdA0(???);
-// ??? sub_807ACEC(???);
+// ??? MapAnim_PlayStealSe(???);
+// ??? MapAnim_PlayStealSe_Unused(???);
 // ??? New6C_SummonGfx_FromActionPos(???);
 // ??? GenerateSummonUnitDef(???);
 // ??? ProcSummonDK_InitCounters(???);
@@ -863,8 +870,8 @@ void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int 
 // ??? PrepareMapBattleBoxNumGfx(???);
 void sub_807BB10(u16* arg0, int* arg1, int arg2, int arg3, int arg4);
 void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* arg4);
-void DeleteBattleAnimInfoThing(void);
-void NewMapBattleInfoThing(int x, int y, struct Proc* parent);
+void EndMapAnimInfoWindow(void);
+void StartMapAnimInfoWindow(int x, int y, struct Proc* parent);
 void ProcMapInfoBox_OnEnd(void);
 void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc);
 // ??? sub_807BCA8(???);
@@ -1103,7 +1110,7 @@ void RemoveGlowingCrossDirectlyWithAnim(ProcPtr, int);
 // ??? sub_80811EC(???);
 // ??? sub_8081208(???);
 // ??? nullsub_58(???);
-const struct ProcCmd * GetItemAnim6CCode(void);
+const struct ProcCmd * MapAnim_GetRoundProcScript(void);
 void MapAnim_AnimateSubjectIdle(ProcPtr proc);
 void MapAnim_SubjectResetAnim(ProcPtr proc);
 void sub_80812C0(void);

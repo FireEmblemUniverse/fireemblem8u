@@ -84,12 +84,12 @@ void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* buf)
         sub_807BB10(tilemap, &unk4, gUnknown_089A3668[arg3], it[0], it[1]);
 }
 
-void DeleteBattleAnimInfoThing(void)
+void EndMapAnimInfoWindow(void)
 {
     Proc_EndEach(ProcScr_MapBattleInfoBox);
 }
 
-void NewMapBattleInfoThing(int x, int y, struct Proc* parent)
+void StartMapAnimInfoWindow(int x, int y, struct Proc* parent)
 {
     struct MAInfoFrameProc* proc = Proc_Start(ProcScr_MapBattleInfoBox, PROC_TREE_3);
 
@@ -116,7 +116,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
 
     PrepareMapBattleBoxNumGfx(Img_MapBattleInfoHpBar);
 
-    switch (gManimSt.actorCount_maybe) {
+    switch (gManimSt.actorCount) {
     case 1:
         DisplayBattleInfoBox(proc, 0, -5);
         break;
@@ -141,7 +141,7 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
     s8 updated = FALSE;
     int i;
 
-    for (i = 0; i < gManimSt.actorCount_maybe; ++i) {
+    for (i = 0; i < gManimSt.actorCount; ++i) {
         u16 r4 = gManimSt.actor[i].hp_displayed_q4;
 
         if (r4 > gManimSt.actor[i].hp_cur*16)
@@ -217,7 +217,7 @@ void DisplayBattleInfoBox(struct MAInfoFrameProc* proc, int index, int arg2)
         BM_BGPAL_BANIM_IFBACK + index);
 
     Decompress(
-        TsaSet_MapBattleBoxGfx[gManimSt.actorCount_maybe][index], gGenericBuffer);
+        TsaSet_MapBattleBoxGfx[gManimSt.actorCount][index], gGenericBuffer);
 
     CallARM_FillTileRect(
         TILEMAP_LOCATED(gBG1TilemapBuffer,

@@ -69,7 +69,7 @@ void SetupBattleMOVEUNITs(void)
     int maFacing = GetSpellAssocFacing(gManimSt.actor[0].bu->weaponBefore);
     sub_807B4D0();
 
-    switch (gManimSt.actorCount_maybe) {
+    switch (gManimSt.actorCount) {
     case 2:
         if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK) {
             // In triangle attacks, both partners face the opponent too
@@ -90,9 +90,9 @@ void sub_807B4D0(void)
 {
     u8 array[4];
     int i, j;
-    int count = gManimSt.actorCount_maybe;
+    int count = gManimSt.actorCount;
 
-    switch (gManimSt.actorCount_maybe) {
+    switch (gManimSt.actorCount) {
     case 2:
         if (gBattleHitArray[0].attributes & BATTLE_HIT_ATTR_TATTACK)
             count += 2;
@@ -135,8 +135,8 @@ void BeginMapAnimForPoisonDmg(void)
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 0;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_DAMAGE;
+    gManimSt.actorCount = 1;
 
     gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
@@ -150,8 +150,8 @@ void BeginMapAnimForEggDmg(void)
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 0;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_DAMAGE;
+    gManimSt.actorCount = 1;
 
     gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
@@ -165,8 +165,8 @@ void BeginMapAnimForCritAtk(void)
     gBattleActor.weaponBefore = ITEM_VULNERARY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 0;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_DAMAGE;
+    gManimSt.actorCount = 1;
 
     gManimSt.pCurrentRound = gBattleHitArray;
     MapAnim_AdvanceBattleRound();
@@ -180,8 +180,8 @@ void BeginMapAnimForSteal(void)
     gBattleActor.weaponBefore = ITEM_SWORD_IRON;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 1;
-    gManimSt.actorCount_maybe = 2;
+    gManimSt.mapAnimKind = MANIM_KIND_STEAL;
+    gManimSt.actorCount = 2;
 
     gManimSt.subjectActorId = 0;
     gManimSt.targetActorId = 1;
@@ -195,8 +195,8 @@ void BeginMapAnimForSummon(void)
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 2;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_REFRESH;
+    gManimSt.actorCount = 1;
 
     gManimSt.subjectActorId = 0;
     gManimSt.targetActorId = 1;
@@ -210,8 +210,8 @@ void BeginMapAnimForSummonDK(void)
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 2;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_REFRESH;
+    gManimSt.actorCount = 1;
 
     gManimSt.subjectActorId = 0;
     gManimSt.targetActorId = 1;
@@ -225,8 +225,8 @@ void BeginMapAnimForDance(void)
     gBattleActor.weaponBefore = ITEM_STAFF_FORTIFY;
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 2;
-    gManimSt.actorCount_maybe = 1;
+    gManimSt.mapAnimKind = MANIM_KIND_REFRESH;
+    gManimSt.actorCount = 1;
 
     gManimSt.subjectActorId = 0;
     gManimSt.targetActorId = 0;
@@ -243,7 +243,7 @@ void BeginBattleMapAnims(void)
     }
 
     gManimSt.hp_changing = 0;
-    gManimSt.u62 = 0;
+    gManimSt.mapAnimKind = MANIM_KIND_DAMAGE;
 
     SetupMapAnimSpellData(&gBattleActor, &gBattleTarget, gBattleHitArray);
     SetupMapBattleAnim(&gBattleActor, &gBattleTarget, gBattleHitArray);
@@ -256,9 +256,9 @@ void BeginBattleMapAnims(void)
 
 void SetupMapAnimSpellData(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
 {
-    gManimSt.actorCount_maybe = GetSpellAssocCharCount(actor->weaponBefore);
+    gManimSt.actorCount = GetSpellAssocCharCount(actor->weaponBefore);
     gManimSt.pCurrentRound    = hit;
-    gManimSt.specialProcScr   = GetSpellAssocAlt6CPointer(actor->weaponBefore);
+    gManimSt.specialProcScr   = GetSpellAssocMapAnimProcScript(actor->weaponBefore);
 }
 
 void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, struct BattleHit* hit)
@@ -267,7 +267,7 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
 
     MakeBattleMOVEUNIT(0, actor, &actor->unit);
 
-    if (gManimSt.actorCount_maybe > 1)
+    if (gManimSt.actorCount > 1)
     {
         HideUnitSprite(&gBattleTarget.unit); // NOTE: uses gBattleTarget instead of target argument
         MakeBattleMOVEUNIT(1, target, &target->unit);
@@ -284,7 +284,7 @@ void SetupMapBattleAnim(struct BattleUnit* actor, struct BattleUnit* target, str
 
     SetupBattleMOVEUNITs();
 
-    for (i = 0; i < gManimSt.actorCount_maybe; ++i)
+    for (i = 0; i < gManimSt.actorCount; ++i)
     {
         gManimSt.actor[i].hp_cur = gManimSt.actor[i].bu->hpInitial;
         gManimSt.actor[i].hp_max = GetUnitMaxHp(gManimSt.actor[i].unit);
@@ -329,12 +329,12 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimDance[] = {
     PROC_SLEEP(0xA),
     PROC_CALL(sub_80813C0),
     PROC_SLEEP(0x14),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimBattle[] = {
     PROC_CALL(LockGame),
-    PROC_CALL(_InitFontForUIDefault),
+    PROC_CALL(MapAnim_PrepareBattleTalk),
     PROC_SLEEP(0x1),
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
@@ -356,16 +356,16 @@ PROC_LABEL(0x0),
     PROC_GOTO(0x0),
 };
 
-CONST_DATA struct ProcCmd gProc_MapAnimEnd[] = {
-    PROC_CALL(MapAnimProc_DisplayDeahQuote),
+CONST_DATA struct ProcCmd ProcScr_MapAnimEnd[] = {
+    PROC_CALL(MapAnim_DisplayDeathQuote),
     PROC_WHILE(BattleEventEngineExists),
-    PROC_CALL(MapAnmiProc_DisplayDeathFade),
+    PROC_CALL(MapAnim_DisplayDeathFade),
     PROC_WHILE_EXISTS(ProcScr_MuDeathFade),
-    PROC_CALL(DeleteBattleAnimInfoThing),
+    PROC_CALL(EndMapAnimInfoWindow),
     PROC_SLEEP(0x1),
-    PROC_CALL(MapAnimProc_DisplayItemStealingPopup),
+    PROC_CALL(MapAnim_StoleItemPopup),
     PROC_YIELD,
-    PROC_CALL(MapAnimProc_DisplayExpBar),
+    PROC_CALL(MapAnim_DisplayExpBar),
     PROC_YIELD,
     PROC_CALL(DisplayWpnBrokePopup),
     PROC_SLEEP(0x8),

@@ -79,7 +79,7 @@ u16 CONST_DATA MuSoundScr_Mounted[] = {
 
 u16 CONST_DATA MuSoundScr_Wyvern[] = {
     0x14, 1,
-    SONG_A0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_SE_BMP_MOVE_BIRD1A_T1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
 u16 CONST_DATA MuSoundScr_Pegasus[] = {

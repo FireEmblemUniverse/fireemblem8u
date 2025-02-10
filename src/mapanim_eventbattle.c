@@ -28,7 +28,7 @@ void MapEventBattle_OnEnd(void)
 {
     ResetMuAnims();
     ResetTextFont();
-    DeleteBattleAnimInfoThing();
+    EndMapAnimInfoWindow();
     InitBmBgLayers();
     LoadLegacyUiFrameGraphics();
     LoadObjUIGfx();
@@ -37,7 +37,7 @@ void MapEventBattle_OnEnd(void)
 /* section.data */
 CONST_DATA struct ProcCmd ProcScr_MapAnimEventBattle[] = {
     PROC_CALL(LockGame),
-    PROC_CALL(_InitFontForUIDefault),
+    PROC_CALL(MapAnim_PrepareBattleTalk),
     PROC_SLEEP(0x1),
     PROC_SLEEP(0x5),
     PROC_CALL(MapAnim_InitInfoBox),
@@ -51,9 +51,9 @@ PROC_LABEL(0x0),
     PROC_SLEEP(0x5),
     PROC_GOTO(0x0),
 PROC_LABEL(0x1),
-    PROC_CALL(MapAnmiProc_DisplayDeathFade),
+    PROC_CALL(MapAnim_DisplayDeathFade),
     PROC_WHILE_EXISTS(ProcScr_MuDeathFade),
-    PROC_CALL(DeleteBattleAnimInfoThing),
+    PROC_CALL(EndMapAnimInfoWindow),
     PROC_SLEEP(0x1),
     PROC_CALL(UnlockGame),
     PROC_CALL(MapEventBattle_OnEnd),
