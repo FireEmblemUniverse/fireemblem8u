@@ -41,7 +41,7 @@ extern struct SpellAssoc gSpellAssocData[];
 struct SpellAssoc *GetSpellAssocStructPtr(u16 item);
 u8 GetSpellAssocCharCount(u16 item);
 u16 GetSpellAssocEfxIndex(u16 item);
-struct ProcCmd *GetSpellAssocAlt6CPointer(u16 item);
+struct ProcCmd *GetSpellAssocMapAnimProcScript(u16 item);
 u8 GetSpellAssocReturnBool(int item);
 u8 GetSpellAssocFacing(u16 item);
 u8 GetSpellAssocFlashColor(u16 item);

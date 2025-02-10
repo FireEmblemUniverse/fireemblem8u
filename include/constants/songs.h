@@ -87,7 +87,7 @@ enum song_idx {
     SONG_9A = 0x9A,
     SONG_9B = 0x9B,
     SONG_9C = 0x9C,
-    SONG_A0 = 0xA0,
+    SONG_SE_BMP_MOVE_BIRD1A_T1 = 0xA0, // also map anim steal
     SONG_A4 = 0xA4,
     SONG_A5 = 0xA5,
     SONG_A6 = 0xA6,

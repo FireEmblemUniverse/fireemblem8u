@@ -30,10 +30,9 @@
 
 EWRAM_DATA struct MapAnimState gManimSt = { 0 };
 
-// unreferenced
-void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc)
+void MapAnim_StoleItemPopup(ProcPtr proc)
 {
-    if (gManimSt.u62 == 1)
+    if (gManimSt.mapAnimKind == MANIM_KIND_STEAL)
         NewPopup_ItemStealing(gManimSt.actor[1].bu->weapon, proc);
 }
 
@@ -82,7 +81,7 @@ bool BattleUnit_ShouldDisplayWRankUp(struct BattleUnit * bu)
     return false;
 }
 
-void _InitFontForUIDefault(void)
+void MapAnim_PrepareBattleTalk(void)
 {
     ResetText();
 }
@@ -91,7 +90,7 @@ void MapAnim_Cleanup(void)
 {
     ResetMuAnims();
     ResetTextFont();
-    DeleteBattleAnimInfoThing();
+    EndMapAnimInfoWindow();
     InitBmBgLayers();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
@@ -109,7 +108,7 @@ void MapAnim_AdvanceBattleRound(void)
     gManimSt.hitInfo = gManimSt.pCurrentRound->info;
     gManimSt.hitDamage = gManimSt.pCurrentRound->hpChange;
 
-    if (gManimSt.actorCount_maybe == 1)
+    if (gManimSt.actorCount == 1)
     {
         gManimSt.subjectActorId = 0;
         gManimSt.targetActorId = 0;
@@ -123,19 +122,19 @@ void MapAnim_PrepareNextBattleRound(ProcPtr proc)
     if (gManimSt.pCurrentRound->info & BATTLE_HIT_INFO_END)
     {
         Proc_Break(proc);
-        Proc_GotoScript(proc, gProc_MapAnimEnd);
+        Proc_GotoScript(proc, ProcScr_MapAnimEnd);
         return;
     }
 
     MapAnim_AdvanceBattleRound();
-    gManimSt.specialProcScr = GetSpellAssocAlt6CPointer(gManimSt.actor[gManimSt.subjectActorId].bu->weaponBefore);
+    gManimSt.specialProcScr = GetSpellAssocMapAnimProcScript(gManimSt.actor[gManimSt.subjectActorId].bu->weaponBefore);
 
     Proc_Break(proc);
 }
 
 void MapAnim_DisplayRoundAnim(ProcPtr proc)
 {
-    Proc_StartBlocking(GetItemAnim6CCode(), proc);
+    Proc_StartBlocking(MapAnim_GetRoundProcScript(), proc);
 }
 
 void MapAnim_ShowPoisonEffectIfAny(ProcPtr proc)
@@ -154,15 +153,15 @@ void MapAnim_MoveCameraOntoSubject(ProcPtr proc)
 
 void MapAnim_MoveCameraOntoTarget(ProcPtr proc)
 {
-    if (gManimSt.actorCount_maybe != 1)
+    if (gManimSt.actorCount != 1)
         EnsureCameraOntoPosition(proc, gManimSt.actor[1].unit->xPos, gManimSt.actor[1].unit->yPos);
 }
 
-void MapAnimProc_DisplayDeahQuote(void)
+void MapAnim_DisplayDeathQuote(void)
 {
     int actorNum = -1;
 
-    switch (gManimSt.actorCount_maybe)
+    switch (gManimSt.actorCount)
     {
     case 2:
         if (gManimSt.actor[1].hp_cur == 0)
@@ -175,13 +174,13 @@ void MapAnimProc_DisplayDeahQuote(void)
             actorNum = 0;
 
         break;
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 
     if (actorNum != -1)
     {
-        int charid = UNIT_CHAR_ID(gManimSt.actor[actorNum].unit);
+        int pid = UNIT_CHAR_ID(gManimSt.actor[actorNum].unit);
 
-        switch (charid)
+        switch (pid)
         {
         case CHARACTER_EIRIKA:
         case CHARACTER_EPHRAIM:
@@ -191,19 +190,19 @@ void MapAnimProc_DisplayDeahQuote(void)
             break;
         }
 
-        if (CheckBattleDefeatTalk(charid))
+        if (CheckBattleDefeatTalk(pid))
         {
-            DeleteBattleAnimInfoThing();
-            DisplayDefeatTalkForPid(charid);
+            EndMapAnimInfoWindow();
+            DisplayDefeatTalkForPid(pid);
         }
     }
 }
 
-void MapAnmiProc_DisplayDeathFade(void)
+void MapAnim_DisplayDeathFade(void)
 {
     int actorNum = -1;
 
-    switch (gManimSt.actorCount_maybe)
+    switch (gManimSt.actorCount)
     {
     case 2:
         if (gManimSt.actor[1].hp_cur == 0)
@@ -216,17 +215,17 @@ void MapAnmiProc_DisplayDeathFade(void)
             actorNum = 0;
 
         break;
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 
     if (actorNum != -1)
         MU_StartDeathFade(gManimSt.actor[actorNum].mu);
 }
 
-void MapAnimProc_DisplayExpBar(struct Proc * proc)
+void MapAnim_DisplayExpBar(ProcPtr proc)
 {
     int actorNum = -1;
 
-    switch (gManimSt.actorCount_maybe)
+    switch (gManimSt.actorCount)
     {
     case 2:
         if (gManimSt.actor[1].bu->expGain != 0)
@@ -243,7 +242,7 @@ void MapAnimProc_DisplayExpBar(struct Proc * proc)
 
     if (actorNum >= 0)
     {
-        struct MAExpBarProc * expProc = Proc_StartBlocking(gProc_MapAnimExpBar, proc);
+        struct MAExpBarProc * expProc = Proc_StartBlocking(ProcScr_MapAnimExpBar, proc);
 
         expProc->expFrom = gManimSt.actor[actorNum].bu->expPrevious;
         expProc->expTo   = gManimSt.actor[actorNum].bu->expPrevious + gManimSt.actor[actorNum].bu->expGain;
@@ -255,10 +254,10 @@ void MapAnim_InitInfoBox(ProcPtr proc)
 {
     SetDefaultColorEffects();
 
-    switch (gManimSt.u62)
+    switch (gManimSt.mapAnimKind)
     {
-    case 1:
-    case 2:
+    case MANIM_KIND_STEAL:
+    case MANIM_KIND_REFRESH:
         return;
 
     default:
@@ -268,7 +267,7 @@ void MapAnim_InitInfoBox(ProcPtr proc)
     if (GetSpellAssocReturnBool(gManimSt.actor[0].bu->weaponBefore))
     {
         int y;
-        if (gManimSt.actorCount_maybe == 1)
+        if (gManimSt.actorCount == 1)
         {
             y = gManimSt.actor[0].unit->yPos * 16 - gBmSt.camera.y;
 
@@ -284,7 +283,7 @@ void MapAnim_InitInfoBox(ProcPtr proc)
             int i;
             int actorNum;
 
-            for (i = 0; i < gManimSt.actorCount_maybe; ++i)
+            for (i = 0; i < gManimSt.actorCount; ++i)
                 array[i] = gManimSt.actor[i].unit->yPos * 16 - gBmSt.camera.y;
 
             if (ABS(array[0] - array[1]) >= 80)
@@ -302,13 +301,13 @@ void MapAnim_InitInfoBox(ProcPtr proc)
             }
         }
 
-        NewMapBattleInfoThing(15, y / 8, proc);
+        StartMapAnimInfoWindow(15, y / 8, proc);
     }
 }
 
 void MapAnim_CallBattleQuoteEvents(void)
 {
-    if (gManimSt.actorCount_maybe == 2)
+    if (gManimSt.actorCount == 2)
     {
         CallBattleQuoteEventsIfAny(
             UNIT_CHAR_ID(gManimSt.actor[0].unit), UNIT_CHAR_ID(gManimSt.actor[1].unit));
@@ -336,7 +335,7 @@ void SetBattleMuPaletteByIndex(int actorNum)
     } // switch (gManimSt.actor[actorNum].unit->statusIndex)
 
     // Check other actor weapon
-    switch (GetItemIndex(gManimSt.actor[actorNum ^ 1 ].bu->weaponBefore))
+    switch (GetItemIndex(gManimSt.actor[actorNum ^ 1].bu->weaponBefore))
     {
     case ITEM_STAFF_SILENCE:
     case ITEM_STAFF_SLEEP:
@@ -344,19 +343,19 @@ void SetBattleMuPaletteByIndex(int actorNum)
     case ITEM_MONSTER_STONE:
         return;
 
-    } // switch (GetItemIndex(gManimSt.actor[actorNum ^ 1 ].bu->weaponBefore))
+    } // switch (GetItemIndex(gManimSt.actor[actorNum ^ 1].bu->weaponBefore))
 
     // Check actor weapon
     if (GetItemIndex(gManimSt.actor[actorNum].bu->weaponBefore) != ITEM_DIVINESTONE)
         return;
 
     SetMuPal(gManimSt.actor[actorNum].mu, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
-    SetMuSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, gUnknown_089A8F74);
+    SetMuSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, Pal_MapAnimManaketeMu);
 }
 
 void SetBattleMuPalette(void)
 {
-    switch (gManimSt.actorCount_maybe)
+    switch (gManimSt.actorCount)
     {
     case 2:
         SetBattleMuPaletteByIndex(1);
@@ -368,19 +367,18 @@ void SetBattleMuPalette(void)
 
         break;
 
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 }
 
-void PlaySoundIdA0(void)
+void MapAnim_PlayStealSe(void)
 {
-    PlaySoundEffect(SONG_A0);
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }
 
-void sub_807ACEC(void)
+void MapAnim_PlayStealSe_Unused(void)
 {
-    PlaySoundEffect(SONG_A0);
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }
-
 
 /** 
  * section.data
@@ -401,7 +399,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] =
     PROC_START_CHILD_BLOCKING(ProcScr_PoisonDmgMapEffect),
     PROC_SLEEP(1),
 
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] =
@@ -420,7 +418,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] =
     PROC_START_CHILD_BLOCKING(ProcScr_EggDmgMapEffect2),
     PROC_SLEEP(1),
 
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] =
@@ -436,7 +434,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] =
     PROC_START_CHILD_BLOCKING(ProcScr_CritAtkMapEffect),
     PROC_SLEEP(1),
 
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] =
@@ -463,7 +461,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] =
     PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
     PROC_SLEEP(1),
 
-    PROC_CALL(PlaySoundIdA0),
+    PROC_CALL(MapAnim_PlayStealSe),
     PROC_SLEEP(20),
 
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
@@ -478,7 +476,7 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] =
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
     PROC_SLEEP(20),
 
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
 // clang-format on

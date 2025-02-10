@@ -41,8 +41,8 @@ Obj_WallBreakAnim:  @ 0x089A6FD8
 ApHandle_GmapSoguSprites:  @ 0x089A8EF8
 	.incbin "baserom.gba", 0x9A8EF8, 0x7C
 
-	.global gUnknown_089A8F74
-gUnknown_089A8F74:  @ 0x089A8F74
+	.global Pal_MapAnimManaketeMu
+Pal_MapAnimManaketeMu:  @ 0x089A8F74
 	.incbin "baserom.gba", 0x9A8F74, 0x20
 
 	.global gGfx_ArenaBuildingFront
