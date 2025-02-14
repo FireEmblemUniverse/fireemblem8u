@@ -414,7 +414,7 @@ void AtMenu_StartSubmenu(struct ProcAtMenu * proc)
 
     switch (proc->state) {
     case 5:
-        sub_808E79C(proc);
+        StartChapterStatusScreen_FromPrep(proc);
         break;
 
     case 2: /* Items */
