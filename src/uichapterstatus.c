@@ -26,38 +26,6 @@
 #include "constants/msg.h"
 #include "constants/songs.h"
 
-struct ChapterStatusProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 restoreStateOnExit;
-    /* 2A */ u8 focusUnitOnExit;
-    /* 2B */ u8 timesCompleted;
-    /* 2C */ u8 numObjectiveTextLines;
-    /* 2D */ u8 unk_2d; // initialized to 0 and unreferenced
-    /* 2E */ u8 unitIndex;
-    /* 2F */ u8 unitIndexPrev;
-    /* 30 */ u8 numAllyUnits;
-    /* 31 */ u8 numEnemyUnits;
-
-    /* 34 */ struct Unit* units[2];
-
-    /* 3C */ u16 unk_3c; // initialized to 0 and unreferenced
-    /* 3E */ u8 helpTextActive;
-    /* 3F */ u8 unk_3f;
-    /* 40 */ u8 timer;
-
-    /* 41 */ STRUCT_PAD(0x41, 0x64);
-
-    /* 64 */ u16 unk_64; // initialized to 0 and unreferenced
-};
-
-struct StatusScreenSt
-{
-    /* 00 */ struct Text th;
-    /* 08 */ struct Font font;
-};
-
 EWRAM_OVERLAY(0) struct Text gChapterStatusText[2] = {0};
 EWRAM_OVERLAY(0) struct StatusScreenSt gStatusScreenSt = {0};
 
