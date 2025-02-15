@@ -31,7 +31,7 @@ extern u16 gUiTmScratchB[];
 extern u16 gUiTmScratchC[];
 
 // extern ??? gChapterStatusText
-// extern ??? gUnknown_02004BBC
+// extern ??? gStatusScreenSt
 // extern ??? gMUGfxBuffer
 // extern ??? gUnknown_02007838
 // extern ??? gUnknown_020078D8
@@ -964,14 +964,14 @@ extern u16 Pal_SoundRoomVolumeGraph[];
 // extern ??? gUnknown_08A2C92C
 // extern ??? Img_SoundRoomUiElements
 // extern ??? Pal_SoundRoomUiElements
-extern u8 gUnknown_08A2D32C[]; // Gfx
-extern u16 gUnknown_08A2E1B8[]; // Pal
-extern u8 gUnknown_08A2E1F8[]; // Gfx
-extern u8 gUnknown_08A2E214[]; // Gfx
-extern u16 gUnknown_08A2E4A4[]; // Pal
-extern u8 gUnknown_08A2E4C4[]; // TSA
-extern u8 gUnknown_08A2E5EC[]; // Gfx
-extern u16 gUnknown_08A2E8F0[]; // Pal
+extern u8 Img_PlayStatusSprites[]; // Gfx
+extern u16 Pal_PlayStatusSprites[]; // Pal
+extern u8 Img_ChapterStatusSelectorSprite[]; // Gfx
+extern u8 Img_StatusScreenLabelSprites[]; // Gfx
+extern u16 Pal_StatusScreenLabelSprites[]; // Pal
+extern u8 Tsa_ChapterStatusUi[]; // TSA
+extern u8 Img_08A2E5EC[]; // Gfx
+extern u16 Pal_08A2E8F0[]; // Pal
 extern u8 Img_SysBlackBox[]; // Gfx
 
 extern u8 gUnknown_08A301B0[]; // gfx?

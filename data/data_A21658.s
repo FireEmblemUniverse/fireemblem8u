@@ -120,36 +120,36 @@ Img_SoundRoomUiElements:  @ 0x08A2CABC
 Pal_SoundRoomUiElements:  @ 0x08A2D2CC
 	.incbin "baserom.gba", 0xA2D2CC, 0x60
 
-	.global gUnknown_08A2D32C
-gUnknown_08A2D32C:  @ 0x08A2D32C
+	.global Img_PlayStatusSprites
+Img_PlayStatusSprites:  @ 0x08A2D32C
 	.incbin "baserom.gba", 0xA2D32C, 0xE8C
 
-	.global gUnknown_08A2E1B8
-gUnknown_08A2E1B8:  @ 0x08A2E1B8
+	.global Pal_PlayStatusSprites
+Pal_PlayStatusSprites:  @ 0x08A2E1B8
 	.incbin "baserom.gba", 0xA2E1B8, 0x40
 
-	.global gUnknown_08A2E1F8
-gUnknown_08A2E1F8:  @ 0x08A2E1F8
+	.global Img_ChapterStatusSelectorSprite
+Img_ChapterStatusSelectorSprite:  @ 0x08A2E1F8
 	.incbin "baserom.gba", 0xA2E1F8, 0x1C
 
-	.global gUnknown_08A2E214
-gUnknown_08A2E214:  @ 0x08A2E214
+	.global Img_StatusScreenLabelSprites
+Img_StatusScreenLabelSprites:  @ 0x08A2E214
 	.incbin "baserom.gba", 0xA2E214, 0x290
 
-	.global gUnknown_08A2E4A4
-gUnknown_08A2E4A4:  @ 0x08A2E4A4
+	.global Pal_StatusScreenLabelSprites
+Pal_StatusScreenLabelSprites:  @ 0x08A2E4A4
 	.incbin "baserom.gba", 0xA2E4A4, 0x20
 
-	.global gUnknown_08A2E4C4
-gUnknown_08A2E4C4:  @ 0x08A2E4C4
+	.global Tsa_ChapterStatusUi
+Tsa_ChapterStatusUi:  @ 0x08A2E4C4
 	.incbin "baserom.gba", 0xA2E4C4, 0x128
 
-	.global gUnknown_08A2E5EC
-gUnknown_08A2E5EC:  @ 0x08A2E5EC
+	.global Img_08A2E5EC
+Img_08A2E5EC:  @ 0x08A2E5EC
 	.incbin "baserom.gba", 0xA2E5EC, 0x304
 
-	.global gUnknown_08A2E8F0
-gUnknown_08A2E8F0:  @ 0x08A2E8F0
+	.global Pal_08A2E8F0
+Pal_08A2E8F0:  @ 0x08A2E8F0
 	.incbin "baserom.gba", 0xA2E8F0, 0x60
 
 	.global Img_SysBlackBox

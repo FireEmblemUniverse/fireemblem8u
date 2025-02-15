@@ -54,8 +54,8 @@ extern u16 gUnknown_08A01F04[]; // pal
 extern u8 gUnknown_08A2C4C8[]; // tsa
 extern u8 gUnknown_08A2C5A8[]; // tsa
 
-extern u8 gUnknown_08A2D32C[]; // gfx
-extern u16 gUnknown_08A2E1B8[]; // pal
+extern u8 Img_PlayStatusSprites[]; // gfx
+extern u16 Pal_PlayStatusSprites[]; // pal
 
 extern u8 Img_SoundRoomUiElements[];
 extern u16 Pal_SoundRoomUiElements[];
@@ -674,8 +674,8 @@ void SoundRoomUi_Init(struct SoundRoomProc * proc)
 
     sub_80AF4D0(TILEMAP_LOCATED(gBG0TilemapBuffer, 15, 6), proc);
 
-    Decompress(gUnknown_08A2D32C, (void *)0x06016000);
-    ApplyPalette(gUnknown_08A2E1B8, 0x1C);
+    Decompress(Img_PlayStatusSprites, (void *)0x06016000);
+    ApplyPalette(Pal_PlayStatusSprites, 0x1C);
 
     BG_SetPosition(BG_0, 0, 0);
     BG_SetPosition(BG_2, -4, 0);

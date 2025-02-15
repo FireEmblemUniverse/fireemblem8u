@@ -133,7 +133,7 @@ u8 sub_802263C(void) {
 }
 
 u8 MapMenu_StatusCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    NewChapterStatusScreen(NULL);
+    StartChapterStatusScreen(NULL);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }

@@ -229,7 +229,7 @@ PROC_LABEL(56),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(EndPrepScreenMenu_),
 
-    PROC_CALL(sub_808E79C),
+    PROC_CALL(StartChapterStatusScreen_FromPrep),
     PROC_YIELD,
 
     PROC_CALL(BMapDispResume),
