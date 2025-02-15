@@ -987,8 +987,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gPlaySt.faction = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gPlaySt.chapterTurnNumber = 0;
 
-    // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-    if (GetBattleMapKind() == 2) {
+    if (GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) {
         if (!(gPlaySt.chapterStateBits & PLAY_FLAG_PREPSCREEN))
             gPlaySt.chapterVisionRange = 3 * (NextRN_100() & 1);
     } else {

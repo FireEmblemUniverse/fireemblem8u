@@ -317,14 +317,14 @@ void PidStatsRecordDefeatInfo(u8 pid, u8 killerPid, int deathCause)
 
     type = GetBattleMapKind();
     switch (type) {
-    case 2:
+    case BATTLEMAP_KIND_SKIRMISH:
         bwl->deathSkirm = true;
         bwl->deathLoc = gGMData.units[0].location;
         break;
 
 
-    case 0:
-    case 1:
+    case BATTLEMAP_KIND_STORY:
+    case BATTLEMAP_KIND_DUNGEON:
     default:
         bwl->deathSkirm = false;
         bwl->deathLoc = gPlaySt.chapterIndex;

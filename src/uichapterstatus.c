@@ -820,7 +820,7 @@ void ChapterStatus_DrawText(struct ChapterStatusProc * proc)
     proc->numObjectiveTextLines = 1;
 
     str = GetStringFromIndex(
-        GetBattleMapKind() != 2
+        GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH
             ? GetROMChapterStruct(gPlaySt.chapterIndex)->statusObjectiveTextId
             : MSG_1C0 // "Defeat all monsters[.]"
     );
