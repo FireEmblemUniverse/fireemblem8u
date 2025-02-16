@@ -1039,7 +1039,7 @@ void PutUnitSpriteIconsOam(void)
         0xD,
     };
 
-    if (GetBattleMapKind() != 2) {
+    if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH) {
         protectCharacterId = GetROMChapterStruct(gPlaySt.chapterIndex)->protectCharacterIndex;
     } else {
         protectCharacterId = 0;

@@ -12,6 +12,7 @@ enum song_idx {
     SONG_0C = 0x0C,
     SONG_0E = 0x0E,
     SONG_0F = 0x0F,
+    SONG_BGM_MAP_PL10 = 0x010,
     SONG_11 = 0x11,
     SONG_12 = 0x12,
     SONG_13 = 0x13,

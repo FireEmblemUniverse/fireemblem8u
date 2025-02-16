@@ -337,7 +337,7 @@ int GetPlayerLeaderUnitId(void)
     do
     {
         struct Unit * unit;
-        if (GetBattleMapKind() == 0)
+        if (GetBattleMapKind() == BATTLEMAP_KIND_STORY)
         {
             return unitId;
         }
@@ -1192,7 +1192,8 @@ void StartPrepSaveScreen(ProcPtr proc)
 
     if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE))
     {
-        if ((GetBattleMapKind() - 1) <= 1)
+        u32 mapKind = GetBattleMapKind();
+        if (mapKind == BATTLEMAP_KIND_DUNGEON || mapKind == BATTLEMAP_KIND_SKIRMISH)
         {
             gPlaySt.save_menu_type = 4;
         }

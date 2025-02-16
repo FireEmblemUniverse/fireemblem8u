@@ -675,7 +675,7 @@ u8 DebugMenu_FogIdle(struct MenuProc* menuProc, struct MenuItemProc* menuItemPro
     }
 
     if (gPlaySt.chapterVisionRange == 0) {
-        if (GetBattleMapKind() == 2) {
+        if (GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) {
             UpdateMapViewWithFog(3);
         } else {
             UpdateMapViewWithFog(GetROMChapterStruct(gPlaySt.chapterIndex)->initialFogLevel);

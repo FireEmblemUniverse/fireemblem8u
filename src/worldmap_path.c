@@ -10,6 +10,7 @@
 #include "bmmenu.h"
 #include "bmguide.h"
 
+#include "constants/chapters.h"
 #include "constants/worldmap.h"
 
 #include "worldmap.h"
@@ -1918,65 +1919,65 @@ u32 GetBattleMapKind(void)
 
     switch (chapterId)
     {
-        case 0x02:
-        case 0x03:
-        case 0x04:
-        case 0x06:
-        case 0x07:
-        case 0x08:
-        case 0x09:
-        case 0x0A:
-        case 0x0B:
-        case 0x0D:
-        case 0x0E:
-        case 0x0F:
-        case 0x10:
-        case 0x11:
-        case 0x12:
-        case 0x13:
-        case 0x14:
-        case 0x17:
-        case 0x18:
-        case 0x1A:
-        case 0x1B:
-        case 0x1C:
-        case 0x1D:
-        case 0x1E:
-        case 0x1F:
-        case 0x20:
-        case 0x21:
-        case 0x24:
-        case 0x25:
-        case 0x26:
-        case 0x27:
-        case 0x28:
-        case 0x29:
-        case 0x2A:
-        case 0x2B:
-        case 0x2C:
-        case 0x2D:
-        case 0x2E:
-        case 0x2F:
-        case 0x30:
-        case 0x31:
-        case 0x32:
-        case 0x33:
-        case 0x34:
-        case 0x35:
-        case 0x36:
-        case 0x37:
-        case 0x39:
-        case 0x3A:
-        case 0x3D:
-        case 0x3E:
+        case CHAPTER_L_2:
+        case CHAPTER_L_3:
+        case CHAPTER_L_4:
+        case CHAPTER_L_5:
+        case CHAPTER_L_6:
+        case CHAPTER_L_7:
+        case CHAPTER_L_8:
+        case CHAPTER_E_9:
+        case CHAPTER_E_10:
+        case CHAPTER_E_13:
+        case CHAPTER_E_14:
+        case CHAPTER_E_15:
+        case CHAPTER_E_16:
+        case CHAPTER_E_17:
+        case CHAPTER_E_18:
+        case CHAPTER_E_19:
+        case CHAPTER_E_20:
+        case CHAPTER_I_9:
+        case CHAPTER_I_10:
+        case CHAPTER_I_13:
+        case CHAPTER_I_14:
+        case CHAPTER_I_15:
+        case CHAPTER_I_16:
+        case CHAPTER_I_17:
+        case CHAPTER_I_18:
+        case CHAPTER_I_19:
+        case CHAPTER_I_20:
+        case CHAPTER_T_01:
+        case CHAPTER_T_02:
+        case CHAPTER_T_03:
+        case CHAPTER_T_04:
+        case CHAPTER_T_05:
+        case CHAPTER_T_06:
+        case CHAPTER_T_07:
+        case CHAPTER_T_08:
+        case CHAPTER_2C:
+        case CHAPTER_2D:
+        case CHAPTER_R_01:
+        case CHAPTER_R_02:
+        case CHAPTER_R_03:
+        case CHAPTER_R_04:
+        case CHAPTER_R_05:
+        case CHAPTER_R_06:
+        case CHAPTER_R_07:
+        case CHAPTER_R_08:
+        case CHAPTER_R_09:
+        case CHAPTER_R_10:
+        case CHAPTER_MALKAEN_COAST:
+        case CHAPTER_3A:
+        case CHAPTER_E_11:
+        case CHAPTER_I_11:
         default:
-            if (chapterId - 0x25 < 9)
+            if (chapterId - CHAPTER_T_02 < 9)
             {
-                chapterId = 0x24;
+                chapterId = CHAPTER_T_01;
             }
-            else if (chapterId - 0x2f < 9)
+            else if (chapterId - CHAPTER_R_02 < 9)
             {
-                chapterId = 0x2e;
+                chapterId = CHAPTER_R_01;
             }
 
             for (i = 0; i < NODE_MAX; i++)
@@ -1992,40 +1993,40 @@ u32 GetBattleMapKind(void)
                     }
                     else if (i[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
                     {
-                        return 0;
+                        return BATTLEMAP_KIND_STORY;
                     }
 
-                    return 1;
+                    return BATTLEMAP_KIND_DUNGEON;
                 }
             }
 
             break;
 
-        case 0x00:
-        case 0x01:
-        case 0x05:
-        case 0x0C:
-        case 0x15:
-        case 0x16:
-        case 0x19:
-        case 0x22:
-        case 0x23:
-        case 0x38:
-        case 0x3B:
-        case 0x3C:
-        case 0x3F:
-        case 0x40:
-        case 0x41:
-        case 0x42:
-        case 0x43:
-        case 0x44:
-        case 0x45:
-        case 0x46:
-        case 0x47:
-            return 0;
+        case CHAPTER_L_PROLOGUE:
+        case CHAPTER_L_1:
+        case CHAPTER_L_5X:
+        case CHAPTER_E_12:
+        case CHAPTER_E_21:
+        case CHAPTER_E_21X:
+        case CHAPTER_I_12:
+        case CHAPTER_I_21:
+        case CHAPTER_I_21X:
+        case CHAPTER_CASTLE_FRELIA:
+        case CHAPTER_3B:
+        case CHAPTER_3C:
+        case CHAPTER_3F:
+        case CHAPTER_40:
+        case CHAPTER_41:
+        case CHAPTER_42:
+        case CHAPTER_43:
+        case CHAPTER_44:
+        case CHAPTER_45:
+        case CHAPTER_46:
+        case CHAPTER_47:
+            return BATTLEMAP_KIND_STORY;
     }
 
-    return 2;
+    return BATTLEMAP_KIND_SKIRMISH;
 }
 
 //! FE8U = 0x080BD20C

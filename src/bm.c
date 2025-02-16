@@ -28,6 +28,9 @@
 
 #include "bm.h"
 
+#include "constants/event-flags.h"
+#include "constants/songs.h"
+
 struct PalFadeSt EWRAM_DATA sPalFadeSt[0x20] = { 0 };
 struct BmSt EWRAM_DATA gBmSt = {};
 struct PlaySt EWRAM_DATA gPlaySt = {};
@@ -397,7 +400,7 @@ int CallBeginningEvents(void)
 {
     const struct ChapterEventGroup* pChapterEvents = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
-    if (GetBattleMapKind() != 2)
+    if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
         CallEvent(pChapterEvents->beginningSceneEvents, 1);
     else
         CallEvent((u16 *)EventScr_SkirmishCommonBeginning, 1);
@@ -1146,7 +1149,7 @@ void sub_8015F90(int x, int y, int duration) {
 }
 
 static inline int CheckAltBgm(u8 base, u8 alt) {
-    if (!CheckFlag(4)) {
+    if (!CheckFlag(EVFLAG_BGM_CHANGE)) {
         return base;
     } else {
         return alt;
@@ -1156,13 +1159,13 @@ static inline int CheckAltBgm(u8 base, u8 alt) {
 //! FE8U = 0x08015FC8
 int GetCurrentMapMusicIndex(void) {
     int aliveUnits;
-    u32 thing;
+    u32 mapKind;
 
     u8 blueBgmIdx = CheckAltBgm(MAP_BGM_BLUE, MAP_BGM_BLUE_GREEN_ALT);
     u8 redBgmIdx = CheckAltBgm(MAP_BGM_RED, MAP_BGM_RED_ALT);
     u8 greenBgmIdx;
 
-    if (!CheckFlag(4)) {
+    if (!CheckFlag(EVFLAG_BGM_CHANGE)) {
         greenBgmIdx = MAP_BGM_GREEN;
         greenBgmIdx++; greenBgmIdx--;
     } else {
@@ -1178,17 +1181,17 @@ int GetCurrentMapMusicIndex(void) {
 
         case FACTION_BLUE:
 
-            if (CheckFlag(4)) {
+            if (CheckFlag(EVFLAG_BGM_CHANGE)) {
                 return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];
             }
 
-            if ((GetBattleMapKind() == 2) || GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold != 0) {
-                aliveUnits = CountUnitsInState(0x80, 0x0001000C);
-                thing = GetBattleMapKind();
+            if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) || GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold != 0) {
+                aliveUnits = CountUnitsInState(FACTION_RED, US_UNAVAILABLE);
+                mapKind = GetBattleMapKind();
 
-                if ((thing != 2 && aliveUnits <= (GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold))
-                    || (thing == 2 && aliveUnits <= 1))
-                    return 0x10;
+                if ((mapKind != BATTLEMAP_KIND_SKIRMISH && aliveUnits <= GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold)
+                    || (mapKind == BATTLEMAP_KIND_SKIRMISH && aliveUnits <= 1))
+                    return SONG_BGM_MAP_PL10;
             }
 
             return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];
@@ -1197,7 +1200,7 @@ int GetCurrentMapMusicIndex(void) {
 
 //! FE8U = 0x080160D0
 void StartMapSongBgm(void) {
-    StartBgm(GetCurrentMapMusicIndex(), 0);
+    StartBgm(GetCurrentMapMusicIndex(), NULL);
     return;
 }
 
