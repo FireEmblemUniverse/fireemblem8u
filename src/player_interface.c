@@ -383,22 +383,22 @@ int GetCursorQuadrant(void)
 
     y = cursorY - camY;
 
-    if ((x < 0x79) && (y < 0x51))
+    if ((x < (DISPLAY_WIDTH / 2) + 1) && (y < (DISPLAY_HEIGHT / 2) + 1))
     {
         return 0;
     }
 
-    if ((x >= 0x79) && (y < 0x51))
+    if ((x >= (DISPLAY_WIDTH / 2) + 1) && (y < (DISPLAY_HEIGHT / 2) + 1))
     {
         return 1;
     }
 
-    if ((x < 0x79) && (y >= 0x51))
+    if ((x < (DISPLAY_WIDTH / 2) + 1) && (y >= (DISPLAY_HEIGHT / 2) + 1))
     {
         return 2;
     }
 
-    if ((x >= 0x79) && (y >= 0x51))
+    if ((x >= (DISPLAY_WIDTH / 2) + 1) && (y >= (DISPLAY_HEIGHT / 2) + 1))
     {
         return 3;
     }
@@ -728,21 +728,21 @@ void ApplyUnitMapUiFramePal(int faction, int palId)
 
     switch (faction)
     {
-        case FACTION_BLUE:
-            pal = gPal_PlayerInterface_Blue;
-            break;
+    case FACTION_BLUE:
+        pal = gPal_PlayerInterface_Blue;
+        break;
 
-        case FACTION_RED:
-            pal = gPal_PlayerInterface_Red;
-            break;
+    case FACTION_RED:
+        pal = gPal_PlayerInterface_Red;
+        break;
 
-        case FACTION_GREEN:
-            pal = gPal_PlayerInterface_Green;
-            break;
+    case FACTION_GREEN:
+        pal = gPal_PlayerInterface_Green;
+        break;
 
-        default:
-            nullsub_8();
-            break;
+    default:
+        nullsub_8();
+        break;
     }
 
     ApplyPalette(pal, palId);
@@ -800,53 +800,53 @@ void PutUnitMapUiStatus(u16 * buffer, struct Unit * unit)
 
     switch (unit->statusIndex)
     {
-        case UNIT_STATUS_POISON:
-            offset = 0;
-            break;
+    case UNIT_STATUS_POISON:
+        offset = 0;
+        break;
 
-        case UNIT_STATUS_SLEEP:
-            offset = 0xA0;
-            break;
+    case UNIT_STATUS_SLEEP:
+        offset = 0xA0;
+        break;
 
-        case UNIT_STATUS_SILENCED:
-            offset = 0x140;
-            break;
+    case UNIT_STATUS_SILENCED:
+        offset = 0x140;
+        break;
 
-        case UNIT_STATUS_BERSERK:
-            offset = 0x1E0;
-            break;
+    case UNIT_STATUS_BERSERK:
+        offset = 0x1E0;
+        break;
 
-        case UNIT_STATUS_ATTACK:
-            offset = 0x280;
-            break;
+    case UNIT_STATUS_ATTACK:
+        offset = 0x280;
+        break;
 
-        case UNIT_STATUS_DEFENSE:
-            offset = 0x320;
-            break;
+    case UNIT_STATUS_DEFENSE:
+        offset = 0x320;
+        break;
 
-        case UNIT_STATUS_CRIT:
-            offset = 0x3C0;
-            break;
+    case UNIT_STATUS_CRIT:
+        offset = 0x3C0;
+        break;
 
-        case UNIT_STATUS_AVOID:
-            offset = 0x460;
-            break;
+    case UNIT_STATUS_AVOID:
+        offset = 0x460;
+        break;
 
-        case UNIT_STATUS_PETRIFY:
-        case UNIT_STATUS_13:
-            offset = 0x500;
-            break;
+    case UNIT_STATUS_PETRIFY:
+    case UNIT_STATUS_13:
+        offset = 0x500;
+        break;
 
-        case UNIT_STATUS_NONE:
-        case UNIT_STATUS_SICK:
-        case UNIT_STATUS_RECOVER:
-            return;
+    case UNIT_STATUS_NONE:
+    case UNIT_STATUS_SICK:
+    case UNIT_STATUS_RECOVER:
+        return;
 
-        case UNIT_STATUS_12:
-            break;
+    case UNIT_STATUS_12:
+        break;
     }
 
-    CpuFastCopy(gGfx_StatusText + offset, (void *)(VRAM + 0x2DE0), 5 * CHR_SIZE);
+    CpuFastCopy(gGfx_StatusText + offset, BG_CHR_ADDR(0x16F), 5 * CHR_SIZE);
 
     buffer[0] = tileIdx++;
     buffer[1] = tileIdx++;
@@ -868,9 +868,9 @@ void UnitMapUiUpdate(struct PlayerInterfaceProc * proc, struct Unit * unit)
         frameCount = 0;
     }
 
-    if ((frameCount & 0x3F) == 0)
+    if ((frameCount & 63) == 0)
     {
-        if ((frameCount & 0x40) != 0)
+        if ((frameCount & 64) != 0)
         {
             PutUnitMapUiStatus(proc->statusTm, unit);
             BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -906,7 +906,7 @@ void UnitMapUiUpdate(struct PlayerInterfaceProc * proc, struct Unit * unit)
         }
     }
 
-    if ((proc->hideContents == false) && ((frameCount & 0x40) == 0 || (unit->statusIndex == UNIT_STATUS_NONE)))
+    if ((proc->hideContents == false) && ((frameCount & 64) == 0 || (unit->statusIndex == UNIT_STATUS_NONE)))
     {
         int xDigits;
         int yDigits;
@@ -1118,33 +1118,33 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
 
     switch (terrainId)
     {
-        case TERRAIN_SNAG:
-        case TERRAIN_WALL_1B:
-            CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(0x100, 2));
+    case TERRAIN_SNAG:
+    case TERRAIN_WALL_1B:
+        CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(0x100, 2));
 
-            num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
+        num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
 
-            if (num == 100)
-            {
-                CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(4, 15), Tsa_TerrainMapUi_ObstacleFullHp, TILEREF(0x100, 0));
-            }
-            else
-            {
-                StoreNumberStringToSmallBuffer(num);
-                PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gNumberStr + 7, TILEREF(0x128, 2), 2);
-            }
+        if (num == 100)
+        {
+            CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(4, 15), Tsa_TerrainMapUi_ObstacleFullHp, TILEREF(0x100, 0));
+        }
+        else
+        {
+            StoreNumberStringToSmallBuffer(num);
+            PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 15), gNumberStr + 7, TILEREF(0x128, 2), 2);
+        }
 
-            break;
+        break;
 
-        case TERRAIN_BALLISTA_REGULAR:
-        case TERRAIN_BALLISTA_LONG:
-        case TERRAIN_BALLISTA_KILLER:
-            CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), gTSA_TerrainBox_Ballistae, TILEREF(0x100, 0));
+    case TERRAIN_BALLISTA_REGULAR:
+    case TERRAIN_BALLISTA_LONG:
+    case TERRAIN_BALLISTA_KILLER:
+        CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), gTSA_TerrainBox_Ballistae, TILEREF(0x100, 0));
 
-            StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
-            PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gNumberStr + 7, TILEREF(0x128, 2), 2);
+        StoreNumberStringToSmallBuffer(GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y));
+        PutDigits(gUiTmScratchA + TILEMAP_INDEX(5, 14), gNumberStr + 7, TILEREF(0x128, 2), 2);
 
-            break;
+        break;
     }
 
     CallARM_FillTileRect(gUiTmScratchB + TILEMAP_INDEX(0, 11), gTSA_TerrainBox, TILEREF(0x0, 1));
@@ -1308,7 +1308,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
 
     UnitMapUiUpdate(proc, unit);
 
-    if ((proc->unitClock & 0x3F) == 0)
+    if ((proc->unitClock & 63) == 0)
     {
         sub_808C234(proc);
     }
@@ -1474,10 +1474,10 @@ void InitPlayerPhaseInterface(void)
     SetBlendBackdropA(0);
     SetBlendTargetB(0, 0, 1, 1, 1);
 
-    Decompress(gGfx_PlayerInterfaceFontTiles, (void *)(VRAM + 0x2000));
-    Decompress(gGfx_PlayerInterfaceNumbers, (void *)(VRAM + 0x15C00));
+    Decompress(gGfx_PlayerInterfaceFontTiles, BG_CHR_ADDR(0x100));
+    Decompress(gGfx_PlayerInterfaceNumbers, OBJ_CHR_ADDR(0x2E0));
 
-    CpuFastCopy((void *)(VRAM + 0x2EA0), (void *)(VRAM + 0x15D40), 0x20);
+    CpuFastCopy(BG_CHR_ADDR(0x175), OBJ_CHR_ADDR(0x2EA), CHR_SIZE);
 
     ApplyPalette(gPaletteBuffer, 0x18);
 
@@ -1640,76 +1640,76 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
 
     switch (goalWindowType)
     {
-        case GOAL_TYPE_SEIZE:
-        case GOAL_TYPE_DEFEAT_BOSS:
-        case GOAL_TYPE_SPECIAL:
-            proc->unitClock = 0;
+    case GOAL_TYPE_SEIZE:
+    case GOAL_TYPE_DEFEAT_BOSS:
+    case GOAL_TYPE_SPECIAL:
+        proc->unitClock = 0;
 
-            return;
+        return;
 
-        case GOAL_TYPE_DEFEAT_ALL:
-            Text_InsertDrawString(
-                &proc->texts[1], 16, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C1)); // TODO: msgid "Left"
+    case GOAL_TYPE_DEFEAT_ALL:
+        Text_InsertDrawString(
+            &proc->texts[1], 16, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C1)); // TODO: msgid "Left"
 
-            if (gPlaySt.chapterVisionRange != 0)
+        if (gPlaySt.chapterVisionRange != 0)
+        {
+            Text_InsertDrawString(&proc->texts[1], 40, TEXT_COLOR_SYSTEM_GRAY, GetStringFromIndex(MSG_535));
+        }
+        else
+        {
+            Text_InsertDrawNumberOrBlank(
+                &proc->texts[1], 48, TEXT_COLOR_SYSTEM_BLUE, CountUnitsByFaction(FACTION_RED));
+        }
+
+        break;
+
+    case GOAL_TYPE_DEFENSE:
+        turnNumber = gPlaySt.chapterTurnNumber;
+
+        if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
+        {
+
+            if (turnNumber >= (GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1))
             {
-                Text_InsertDrawString(&proc->texts[1], 40, TEXT_COLOR_SYSTEM_GRAY, GetStringFromIndex(MSG_535));
+                goto _0808D3DC;
             }
-            else
+        }
+        else
+        {
+            if (turnNumber >= -1)
             {
-                Text_InsertDrawNumberOrBlank(
-                    &proc->texts[1], 48, TEXT_COLOR_SYSTEM_BLUE, CountUnitsByFaction(FACTION_RED));
+            _0808D3DC:
+                str = GetStringFromIndex(MSG_1C3); // TODO: msgid "Last Turn[.]"
+                Text_InsertDrawString(
+                    &proc->texts[1], GetStringTextCenteredPos(64, str), TEXT_COLOR_SYSTEM_GREEN, str);
+
+                break;
             }
+        }
 
-            break;
+        Text_InsertDrawNumberOrBlank(&proc->texts[1], 10, TEXT_COLOR_SYSTEM_BLUE, gPlaySt.chapterTurnNumber);
+        Text_InsertDrawString(
+            &proc->texts[1], 18, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_539)); // TODO: msgid "/[.]"
 
-        case GOAL_TYPE_DEFENSE:
-            turnNumber = gPlaySt.chapterTurnNumber;
+        th = &proc->texts[1];
 
-            if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
-            {
+        if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
+        {
+            lastTurnNumber = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1;
+        }
+        else
+        {
+            lastTurnNumber = -1;
+        }
 
-                if (turnNumber >= (GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1))
-                {
-                    goto _0808D3DC;
-                }
-            }
-            else
-            {
-                if (turnNumber >= -1)
-                {
-                _0808D3DC:
-                    str = GetStringFromIndex(MSG_1C3); // TODO: msgid "Last Turn[.]"
-                    Text_InsertDrawString(
-                        &proc->texts[1], GetStringTextCenteredPos(64, str), TEXT_COLOR_SYSTEM_GREEN, str);
+        Text_InsertDrawNumberOrBlank(th, 34, TEXT_COLOR_SYSTEM_BLUE, lastTurnNumber);
+        Text_InsertDrawString(
+            &proc->texts[1], 42, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C2)); // TODO: msgid "Turn"
 
-                    break;
-                }
-            }
+        break;
 
-            Text_InsertDrawNumberOrBlank(&proc->texts[1], 10, TEXT_COLOR_SYSTEM_BLUE, gPlaySt.chapterTurnNumber);
-            Text_InsertDrawString(
-                &proc->texts[1], 18, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_539)); // TODO: msgid "/[.]"
-
-            th = &proc->texts[1];
-
-            if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
-            {
-                lastTurnNumber = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowEndTurnNumber - 1;
-            }
-            else
-            {
-                lastTurnNumber = -1;
-            }
-
-            Text_InsertDrawNumberOrBlank(th, 34, TEXT_COLOR_SYSTEM_BLUE, lastTurnNumber);
-            Text_InsertDrawString(
-                &proc->texts[1], 42, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C2)); // TODO: msgid "Turn"
-
-            break;
-
-        default:
-            return;
+    default:
+        return;
     }
 
     proc->unitClock = 1;
@@ -1937,7 +1937,7 @@ s8 IsAnyPlayerSideWindowRetracting(void)
 
 void MenuButtonDisp_Init(struct PlayerInterfaceProc * proc)
 {
-    Decompress(Img_PrepHelpButtonSprites, OBJ_VRAM1 + 0x1000);
+    Decompress(Img_PrepHelpButtonSprites, OBJ_CHR_ADDR(0x280));
 
     proc->xHp = 136;
     proc->yHp = 140;
@@ -1980,8 +1980,8 @@ void sub_808D8A0(struct PlayerInterfaceProc * proc, int param_2, int param_3)
 
 void sub_808D924(int x, int y)
 {
-    PutSprite(4, OAM1_X(x + 0x00), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x280) + OAM2_PAL(2));
-    PutSprite(4, OAM1_X(x + 0x20), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x284) + OAM2_PAL(2));
+    PutSprite(4, OAM1_X(x + 0), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x280) + OAM2_PAL(2));
+    PutSprite(4, OAM1_X(x + 32), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x284) + OAM2_PAL(2));
 
     return;
 }
