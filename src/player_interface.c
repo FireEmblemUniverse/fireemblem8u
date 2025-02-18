@@ -17,49 +17,11 @@
 #include "bmlib.h"
 #include "worldmap.h"
 
+#include "player_interface.h"
+
 #include "constants/event-flags.h"
 #include "constants/msg.h"
 #include "constants/terrains.h"
-
-struct PlayerInterfaceProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ struct Text texts[2];
-
-    /* 3C */ s8 xBurst;
-    /* 3D */ s8 yBurst;
-    /* 3E */ s8 wBurst;
-    /* 3F */ s8 hBurst;
-
-    /* 40 */ u16 * statusTm;
-    /* 44 */ s16 unitClock;
-    /* 46 */ s16 xHp;
-    /* 48 */ s16 yHp;
-    /* 4A */ u8 burstUnitIdPrev;
-    /* 4B */ u8 burstUnitId;
-    /* 4C */ u8 xCursorPrev;
-    /* 4D */ u8 yCursorPrev;
-    /* 4E */ u8 xCursor;
-    /* 4F */ u8 yCursor;
-    /* 50 */ s8 cursorQuadrant;
-    /* 51 */ u8 hpCurHi;
-    /* 52 */ u8 hpCurLo;
-    /* 53 */ u8 hpMaxHi;
-    /* 54 */ u8 hpMaxLo;
-    /* 55 */ s8 hideContents;
-    /* 56 */ s8 isRetracting;
-    /* 57 */ s8 windowQuadrant;
-    /* 58 */ int showHideClock;
-};
-
-struct PlayerInterfaceConfigEntry
-{
-    /* 00 */ s8 xTerrain, yTerrain;
-    /* 02 */ s8 xMinimug, yMinimug;
-    /* 04 */ s8 xGoal, yGoal;
-    STRUCT_PAD(0x06, 0x08);
-};
 
 // clang-format off
 
@@ -149,16 +111,6 @@ s8 CONST_DATA sTerrainSlideOutWidthLut[6] =
     5, 4, 0, 0, 0, 0
 };
 
-// clang-format on
-
-void TerrainDisplay_Init(struct PlayerInterfaceProc * proc);
-void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc);
-void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc);
-void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc);
-void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc);
-
-// clang-format off
-
 struct ProcCmd CONST_DATA gProcScr_TerrainDisplay[] =
 {
     PROC_NAME("TI"),
@@ -180,17 +132,6 @@ PROC_LABEL(0),
 
     PROC_END,
 };
-
-// clang-format on
-
-void MMB_Init(struct PlayerInterfaceProc * proc);
-void MMB_Loop_OnSideChange(struct PlayerInterfaceProc * proc);
-void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc);
-void MMB_Loop_Display(struct PlayerInterfaceProc * proc);
-void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc);
-void MMB_CheckForUnit(struct PlayerInterfaceProc * proc);
-
-// clang-format off
 
 struct ProcCmd CONST_DATA gProcScr_UnitDisplay_MinimugBox[] =
 {
@@ -227,13 +168,6 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-// clang-format on
-
-void BurstDisplay_Init(struct PlayerInterfaceProc * proc);
-void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc);
-
-// clang-format off
-
 struct ProcCmd CONST_DATA gProcScr_UnitDisplay_Burst[] =
 {
     PROC_NAME("UI2"),
@@ -246,20 +180,12 @@ struct ProcCmd CONST_DATA gProcScr_UnitDisplay_Burst[] =
     PROC_END,
 };
 
-// clang-format on
-
-void InitPlayerPhaseInterface(void);
-
-// clang-format off
-
 struct ProcCmd CONST_DATA gProcScr_SideWindowMaker[] =
 {
     PROC_WHILE(DoesBMXFADEExist),
     PROC_CALL(InitPlayerPhaseInterface),
     PROC_END,
 };
-
-// clang-format on
 
 s8 CONST_DATA sGoalSlideInWidthLut[5] =
 {
@@ -270,14 +196,6 @@ s8 CONST_DATA sGoalSlideOutWidthLut[3] =
 {
     3, 1, 0
 };
-
-void GoalDisplay_Init(struct PlayerInterfaceProc * proc);
-void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc);
-void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc);
-void GoalDisplay_Loop_Display(struct PlayerInterfaceProc * proc);
-void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc);
-
-// clang-format off
 
 struct ProcCmd CONST_DATA gProcScr_GoalDisplay[] =
 {
@@ -300,17 +218,6 @@ PROC_LABEL(0),
 
     PROC_END,
 };
-
-// clang-format on
-
-void MenuButtonDisp_Init(struct PlayerInterfaceProc * proc);
-s8 IsAnyPlayerSideWindowRetracting(void);
-void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc * proc);
-void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc * proc);
-void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc * proc);
-void MenuButtonDisp_Loop_OnSlideOut(struct PlayerInterfaceProc * proc);
-
-// clang-format off
 
 struct ProcCmd CONST_DATA gProcScr_PrepMap_MenuButtonDisplay[] =
 {
@@ -338,8 +245,7 @@ PROC_LABEL(0),
 
 // clang-format on
 
-void UnitMapUiUpdate(struct PlayerInterfaceProc *, struct Unit *);
-
+//! FE8U = 0x0808BBAC
 int GetWindowQuadrant(int x, int y)
 {
     if (x < 0)
@@ -363,6 +269,7 @@ int GetWindowQuadrant(int x, int y)
     }
 }
 
+//! FE8U = 0x0808BBCC
 int GetCursorQuadrant(void)
 {
     int cursorX;
@@ -404,6 +311,7 @@ int GetCursorQuadrant(void)
     }
 }
 
+//! FE8U = 0x0808BC10
 void GetHpBarLeftTile(u16 * buffer, s16 hp, int tileBase)
 {
     if (hp > 5)
@@ -414,6 +322,7 @@ void GetHpBarLeftTile(u16 * buffer, s16 hp, int tileBase)
     return;
 }
 
+//! FE8U = 0x0808BC2C
 void GetHpBarMidTiles(u16 * buffer, s16 hp, int tileBase)
 {
     int i;
@@ -439,6 +348,7 @@ void GetHpBarMidTiles(u16 * buffer, s16 hp, int tileBase)
     return;
 }
 
+//! FE8U = 0x0808BC68
 void GetHpBarRightTile(u16 * buffer, s16 hp, int tileBase)
 {
     int base;
@@ -456,6 +366,7 @@ void GetHpBarRightTile(u16 * buffer, s16 hp, int tileBase)
     return;
 }
 
+//! FE8U = 0x0808BC94
 void DrawHpBar(u16 * buffer, struct Unit * unit, int tileBase)
 {
     s16 hpCurrent = 50 * GetUnitCurrentHp(unit);
@@ -468,6 +379,7 @@ void DrawHpBar(u16 * buffer, struct Unit * unit, int tileBase)
     return;
 }
 
+//! FE8U = 0x0808BCF8
 void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int tmIndex;
@@ -522,6 +434,7 @@ void MMB_Loop_SlideIn(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808BE70
 void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 {
     int tmIndex;
@@ -577,6 +490,7 @@ void MMB_Loop_SlideOut(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808BFD4
 void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int width;
@@ -624,6 +538,7 @@ void TerrainDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808C100
 void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 {
     int width;
@@ -674,6 +589,7 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808C234
 void sub_808C234(struct PlayerInterfaceProc * proc)
 {
     int x;
@@ -703,6 +619,7 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808C288
 void sub_808C288(struct PlayerInterfaceProc * proc)
 {
     int x;
@@ -722,6 +639,7 @@ void sub_808C288(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808C2CC
 void ApplyUnitMapUiFramePal(int faction, int palId)
 {
     u16 * pal = NULL;
@@ -750,6 +668,7 @@ void ApplyUnitMapUiFramePal(int faction, int palId)
     return;
 }
 
+//! FE8U = 0x0808C314
 int sub_808C314(void)
 {
     if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) < DISPLAY_WIDTH / 2 - 8)
@@ -762,6 +681,7 @@ int sub_808C314(void)
     }
 }
 
+//! FE8U = 0x0808C33C
 int sub_808C33C(void)
 {
     if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) > DISPLAY_WIDTH / 2 - 8)
@@ -774,6 +694,7 @@ int sub_808C33C(void)
     }
 }
 
+//! FE8U = 0x0808C360
 void ClearUnitMapUiStatus(struct PlayerInterfaceProc * proc, u16 * buffer, struct Unit * unit)
 {
     buffer[0] = TILEREF(0x120, 2);
@@ -787,6 +708,7 @@ void ClearUnitMapUiStatus(struct PlayerInterfaceProc * proc, u16 * buffer, struc
     return;
 }
 
+//! FE8U = 0x0808C388
 void PutUnitMapUiStatus(u16 * buffer, struct Unit * unit)
 {
     int offset;
@@ -859,6 +781,7 @@ void PutUnitMapUiStatus(u16 * buffer, struct Unit * unit)
     return;
 }
 
+//! FE8U = 0x0808C45C
 void UnitMapUiUpdate(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     s16 frameCount = proc->unitClock;
@@ -937,6 +860,7 @@ void UnitMapUiUpdate(struct PlayerInterfaceProc * proc, struct Unit * unit)
     return;
 }
 
+//! FE8U = 0x0808C5D0
 void DrawUnitMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     char * str;
@@ -992,6 +916,7 @@ void DrawUnitMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
     return;
 }
 
+//! FE8U = 0x0808C710
 int GetUnitBurstMapUiOrientationAt(int x, int y)
 {
     int cursorQuadrant = GetCursorQuadrant();
@@ -1016,6 +941,7 @@ int GetUnitBurstMapUiOrientationAt(int x, int y)
     return result;
 }
 
+//! FE8U = 0x0808C750
 void DrawUnitBurstMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
 {
     int x;
@@ -1070,6 +996,7 @@ void DrawUnitBurstMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
     return;
 }
 
+//! FE8U = 0x0808C8EC
 void ClearUnitBurstMapUi(struct PlayerInterfaceProc * proc)
 {
     if (proc->wBurst == 8 && proc->hBurst == 5)
@@ -1086,6 +1013,7 @@ void ClearUnitBurstMapUi(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808C964
 void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
 {
     char * str;
@@ -1150,6 +1078,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
     CallARM_FillTileRect(gUiTmScratchB + TILEMAP_INDEX(0, 11), gTSA_TerrainBox, TILEREF(0x0, 1));
 }
 
+//! FE8U = 0x0808CB34
 void TerrainDisplay_Init(struct PlayerInterfaceProc * proc)
 {
     proc->windowQuadrant = -1;
@@ -1162,6 +1091,7 @@ void TerrainDisplay_Init(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CB5C
 void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 {
     int quadrant;
@@ -1212,6 +1142,7 @@ void TerrainDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CC00
 void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 {
     proc->xCursorPrev = proc->xCursor;
@@ -1248,6 +1179,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CCA0
 void MMB_Init(struct PlayerInterfaceProc * proc)
 {
     proc->windowQuadrant = -1;
@@ -1258,6 +1190,7 @@ void MMB_Init(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CCC8
 void MMB_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 {
     int quadrant;
@@ -1300,6 +1233,7 @@ void MMB_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CD74
 void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
 {
     struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
@@ -1346,6 +1280,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CE50
 void MMB_CheckForUnit(struct PlayerInterfaceProc * proc)
 {
     struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
@@ -1363,6 +1298,7 @@ void MMB_CheckForUnit(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CE9C
 void BurstDisplay_Init(struct PlayerInterfaceProc * proc)
 {
     InitTextDb(proc->texts, 7);
@@ -1376,6 +1312,7 @@ void BurstDisplay_Init(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CEC8
 void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 {
     struct PlayerInterfaceProc * tiProc;
@@ -1459,6 +1396,7 @@ void BurstDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808CFC4
 void InitPlayerPhaseInterface(void)
 {
     SetWinEnable(0, 0, 0);
@@ -1515,12 +1453,14 @@ void InitPlayerPhaseInterface(void)
     return;
 }
 
+//! FE8U = 0x0808D13C
 void StartPlayerPhaseSideWindows(void)
 {
     Proc_Start(gProcScr_SideWindowMaker, PROC_TREE_3);
     return;
 }
 
+//! FE8U = 0x0808D150
 void EndPlayerPhaseSideWindows(void)
 {
     Proc_EndEach(gProcScr_UnitDisplay_MinimugBox);
@@ -1536,19 +1476,21 @@ void EndPlayerPhaseSideWindows(void)
     return;
 }
 
-s8 sub_808D190(void)
+//! FE8U = 0x0808D190
+bool sub_808D190(void)
 {
     if (((gBmSt.playerCursor.y * 16) - gBmSt.camera.y) > 64)
     {
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
+//! FE8U = 0x0808D1B4
 int sub_808D1B4(void)
 {
-    if (sub_808D190() != 0)
+    if (sub_808D190())
     {
         if (sub_808C314() == -1)
         {
@@ -1576,6 +1518,7 @@ int sub_808D1B4(void)
     return 0;
 }
 
+//! FE8U = 0x0808D200
 void sub_808D200(struct PlayerInterfaceProc * proc)
 {
     TileMap_FillRect(gUiTmScratchB + TILEMAP_INDEX(20, 10), 11, 9, 0);
@@ -1595,6 +1538,7 @@ void sub_808D200(struct PlayerInterfaceProc * proc)
     }
 }
 
+//! FE8U = 0x0808D288
 void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
 {
     int goalTextId;
@@ -1602,7 +1546,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
     int turnNumber;
     int lastTurnNumber;
     char * str;
-    struct Text * th;
+    struct Text * text;
 
     proc->showHideClock = 0;
     proc->isRetracting = false;
@@ -1623,7 +1567,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
     }
     else
     {
-        goalTextId = MSG_19E; // TODO: msgid "Defeat enemy"
+        goalTextId = MSG_19E; // "Defeat enemy"
     }
 
     str = GetStringFromIndex(goalTextId);
@@ -1649,7 +1593,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
 
     case GOAL_TYPE_DEFEAT_ALL:
         Text_InsertDrawString(
-            &proc->texts[1], 16, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C1)); // TODO: msgid "Left"
+            &proc->texts[1], 16, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C1)); // "Left"
 
         if (gPlaySt.chapterVisionRange != 0)
         {
@@ -1679,7 +1623,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
             if (turnNumber >= -1)
             {
             _0808D3DC:
-                str = GetStringFromIndex(MSG_1C3); // TODO: msgid "Last Turn[.]"
+                str = GetStringFromIndex(MSG_1C3); // "Last Turn[.]"
                 Text_InsertDrawString(
                     &proc->texts[1], GetStringTextCenteredPos(64, str), TEXT_COLOR_SYSTEM_GREEN, str);
 
@@ -1689,9 +1633,9 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
 
         Text_InsertDrawNumberOrBlank(&proc->texts[1], 10, TEXT_COLOR_SYSTEM_BLUE, gPlaySt.chapterTurnNumber);
         Text_InsertDrawString(
-            &proc->texts[1], 18, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_539)); // TODO: msgid "/[.]"
+            &proc->texts[1], 18, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_539)); // "/[.]"
 
-        th = &proc->texts[1];
+        text = &proc->texts[1];
 
         if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
         {
@@ -1702,9 +1646,9 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
             lastTurnNumber = -1;
         }
 
-        Text_InsertDrawNumberOrBlank(th, 34, TEXT_COLOR_SYSTEM_BLUE, lastTurnNumber);
+        Text_InsertDrawNumberOrBlank(text, 34, TEXT_COLOR_SYSTEM_BLUE, lastTurnNumber);
         Text_InsertDrawString(
-            &proc->texts[1], 42, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C2)); // TODO: msgid "Turn"
+            &proc->texts[1], 42, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(MSG_1C2)); // "Turn"
 
         break;
 
@@ -1717,6 +1661,7 @@ void GoalDisplay_Init(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808D47C
 void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 {
     int quadrant;
@@ -1755,10 +1700,11 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
     return;
 }
 
-void sub_808D514(int param_1, int param_2, int param_3)
+//! FE8U = 0x0808D514
+void sub_808D514(int quadrant, int param_2, int param_3)
 {
-    int x = sPlayerInterfaceConfigLut[param_1].xGoal;
-    int y = sPlayerInterfaceConfigLut[param_1].yGoal;
+    int x = sPlayerInterfaceConfigLut[quadrant].xGoal;
+    int y = sPlayerInterfaceConfigLut[quadrant].yGoal;
 
     if ((x < 0) && (y < 0))
     {
@@ -1811,6 +1757,7 @@ void sub_808D514(int param_1, int param_2, int param_3)
     return;
 }
 
+//! FE8U = 0x0808D6D4
 void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int unk = sGoalSlideInWidthLut[proc->showHideClock];
@@ -1830,6 +1777,7 @@ void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808D71C
 void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 {
     int unk;
@@ -1855,21 +1803,25 @@ void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808D778
 void sub_808D778(void)
 {
     return;
 }
 
+//! FE8U = 0x0808D77C
 void __malloc_unlock_0(void)
 {
     return;
 }
 
+//! FE8U = 0x0808D780
 void sub_808D780(void)
 {
     return;
 }
 
+//! FE8U = 0x0808D784
 void GoalDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
 {
     proc->xCursorPrev = proc->xCursor;
@@ -1907,7 +1859,8 @@ void GoalDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
     return;
 }
 
-s8 IsAnyPlayerSideWindowRetracting(void)
+//! FE8U = 0x0808D814
+bool IsAnyPlayerSideWindowRetracting(void)
 {
     struct PlayerInterfaceProc * proc;
 
@@ -1915,26 +1868,27 @@ s8 IsAnyPlayerSideWindowRetracting(void)
 
     if (proc != NULL && proc->isRetracting)
     {
-        return 1;
+        return true;
     }
 
     proc = Proc_Find(gProcScr_TerrainDisplay);
 
     if (proc != NULL && proc->isRetracting)
     {
-        return 1;
+        return true;
     }
 
     proc = Proc_Find(gProcScr_GoalDisplay);
 
     if (proc != NULL && proc->isRetracting)
     {
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
+//! FE8U = 0x0808D870
 void MenuButtonDisp_Init(struct PlayerInterfaceProc * proc)
 {
     Decompress(Img_PrepHelpButtonSprites, OBJ_CHR_ADDR(0x280));
@@ -1946,39 +1900,41 @@ void MenuButtonDisp_Init(struct PlayerInterfaceProc * proc)
     return;
 }
 
-void sub_808D8A0(struct PlayerInterfaceProc * proc, int param_2, int param_3)
+//! FE8U = 0x0808D8A0
+void UpdateMenuButtonPos(struct PlayerInterfaceProc * proc, int quadrant, int offset)
 {
-    int x = sPlayerInterfaceConfigLut[param_2].xGoal;
-    int y = sPlayerInterfaceConfigLut[param_2].yGoal;
+    int x = sPlayerInterfaceConfigLut[quadrant].xGoal;
+    int y = sPlayerInterfaceConfigLut[quadrant].yGoal;
 
     if ((x < 0) && (y < 0))
     {
         proc->xHp = 8;
-        proc->yHp = param_3 - 20;
+        proc->yHp = offset - 20;
     }
 
     if ((x > 0) && (y < 0))
     {
         proc->xHp = 172;
-        proc->yHp = param_3 - 20;
+        proc->yHp = offset - 20;
     }
 
     if ((x < 0) && (y > 0))
     {
         proc->xHp = 8;
-        proc->yHp = 164 - param_3;
+        proc->yHp = 164 - offset;
     }
 
     if ((x > 0) && (y > 0))
     {
         proc->xHp = 172;
-        proc->yHp = 164 - param_3;
+        proc->yHp = 164 - offset;
     }
 
     return;
 }
 
-void sub_808D924(int x, int y)
+//! FE8U = 0x0808D924
+void DrawMenuButtonAt(int x, int y)
 {
     PutSprite(4, OAM1_X(x + 0), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x280) + OAM2_PAL(2));
     PutSprite(4, OAM1_X(x + 32), OAM0_Y(y), gObject_32x16, OAM2_CHR(0x284) + OAM2_PAL(2));
@@ -1986,11 +1942,12 @@ void sub_808D924(int x, int y)
     return;
 }
 
+//! FE8U = 0x0808D97C
 void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc * proc)
 {
     proc->cursorQuadrant = GetCursorQuadrant();
 
-    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
+    UpdateMenuButtonPos(proc, proc->cursorQuadrant, proc->showHideClock);
 
     proc->showHideClock = 0;
 
@@ -2000,12 +1957,13 @@ void MenuButtonDisp_UpdateCursorPos(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808D9B8
 void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc * proc)
 {
     proc->showHideClock += 4;
 
-    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
-    sub_808D924(proc->xHp, proc->yHp);
+    UpdateMenuButtonPos(proc, proc->cursorQuadrant, proc->showHideClock);
+    DrawMenuButtonAt(proc->xHp, proc->yHp);
 
     if (proc->showHideClock == 24)
     {
@@ -2016,9 +1974,10 @@ void MenuButtonDisp_Loop_OnSlideIn(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808D9FC
 void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc * proc)
 {
-    sub_808D924(proc->xHp, proc->yHp);
+    DrawMenuButtonAt(proc->xHp, proc->yHp);
 
     proc->xCursorPrev = proc->xCursor;
     proc->yCursorPrev = proc->yCursor;
@@ -2031,7 +1990,7 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc * proc)
         return;
     }
 
-    if (!Proc_Find(ProcScr_CamMove))
+    if (Proc_Find(ProcScr_CamMove) == NULL)
     {
         int cursorQuadrant = GetCursorQuadrant();
         int quadrant = proc->cursorQuadrant;
@@ -2055,13 +2014,13 @@ void MenuButtonDisp_Loop_Display(struct PlayerInterfaceProc * proc)
     return;
 }
 
+//! FE8U = 0x0808DAA0
 void MenuButtonDisp_Loop_OnSlideOut(struct PlayerInterfaceProc * proc)
 {
     proc->showHideClock -= 4;
 
-    sub_808D8A0(proc, proc->cursorQuadrant, proc->showHideClock);
-
-    sub_808D924(proc->xHp, proc->yHp);
+    UpdateMenuButtonPos(proc, proc->cursorQuadrant, proc->showHideClock);
+    DrawMenuButtonAt(proc->xHp, proc->yHp);
 
     if (proc->showHideClock == 0)
     {
