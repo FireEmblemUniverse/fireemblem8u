@@ -22,55 +22,6 @@
 #include "constants/msg.h"
 #include "constants/songs.h"
 
-struct Selector
-{
-    /* 00 */ u16 helpTextId;
-    /* 02 */ u16 optionTextId;
-    /* 04 */ u8 xPos;
-    /* 05 */ u8 unk_05;
-    STRUCT_PAD(0x06, 0x08);
-};
-
-struct GameOption
-{
-    /* 00 */ u16 msgId;
-    /* 04 */ struct Selector selectors[4];
-    /* 24 */ u8 icon;
-    /* 28 */ s8 (*func)(ProcPtr);
-};
-
-struct ConfigScreen
-{
-    /* 00 */ STRUCT_PAD(0x00, 0x2A);
-    /* 2A */ s16 unk_2a; // current index
-    /* 2C */ s16 unk_2c; // top of menu index
-    /* 2E */ u16 unk_2e; // ? maybe offset on current bg?
-    /* 30 */ u16 unk_30;
-    /* 32 */ s16 unk_32;
-    /* 34 */ s16 unk_34;
-    /* 36 */ u8 unk_36;
-    /* 37 */ s8 unk_37; // some flags / state var
-    /* 38 */ struct Text unk_38[6]; // size: 0x30
-
-    /* 68 */ struct Text unk_68;
-    /* 70 */ struct Text unk_70[6];
-
-    /* A0 */ struct Text unk_a0;
-    /* A8 */ struct Text unk_a8;
-};
-
-struct ConfigProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x30);
-
-    /* 30 */ s16 unk_30;
-    /* 32 */ s16 unk_32;
-    /* 34 */ s16 unk_34;
-
-    /* 36 */ u8 unk_36;
-};
-
 struct ConfigScreen * CONST_DATA gConfigUiState = (struct ConfigScreen *)gGenericBuffer;
 
 u8 CONST_DATA gGameOptionsUiOrder[] =
@@ -99,10 +50,6 @@ u16 CONST_DATA gSprite_ConfigurationUiHeader[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x8),
 };
-
-s8 WindowColorOptionChangeHandler(ProcPtr proc);
-s8 MusicOptionChangeHandler(ProcPtr proc);
-s8 GenericOptionChangeHandler(ProcPtr);
 
 struct GameOption CONST_DATA gGameOptions[] =
 {
@@ -682,8 +629,6 @@ struct GameOption CONST_DATA gGameOptions[] =
     }
 };
 
-void DrawGameOptionHelpText(void);
-
 struct ProcCmd CONST_DATA gProcScr_RedrawConfigHelpText[] =
 {
     PROC_NAME("E_CfExplReWrite"),
@@ -693,9 +638,6 @@ struct ProcCmd CONST_DATA gProcScr_RedrawConfigHelpText[] =
 
     PROC_END,
 };
-
-void ConfigSprites_Init(void);
-void DrawConfigUiSprites(void);
 
 struct ProcCmd CONST_DATA gProcScr_DrawConfigUiSprites[] =
 {
@@ -713,14 +655,6 @@ PROC_LABEL(0),
 };
 
 // clang-format on
-
-extern u16 gUnknown_08A07A98[]; // pal
-extern u8 gUnknown_08A0733C[]; // gfx
-extern u8 gUnknown_08A0754C[]; // gfx
-extern u8 gUnknown_08A079B4[]; // tsa
-
-u8 GetGameOption(u8);
-void SetGameOption(u8, u8);
 
 //! FE8U: 0x080B169C
 s16 sub_80B169C(void)
