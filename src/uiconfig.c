@@ -59,26 +59,26 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0A1,
-                MSG_0BF,
+                MSG_0A1, // "Show animation without backgrounds"
+                MSG_0BF, // "1[.]"
                 112,
                 1
             },
             {
-                MSG_0A2,
-                MSG_0C0,
+                MSG_0A2, // "Show animation with backgrounds[.]"
+                MSG_0C0, // "2[.]"
                 127,
                 1
             },
             {
-                MSG_0A3,
-                MSG_0BE,
+                MSG_0A3, // "Turn combat animation off[.]"
+                MSG_0BE, // "OFF[.]"
                 142,
                 2
             },
             {
-                MSG_0A4,
-                MSG_0C7,
+                MSG_0A4, // "Set animation for each unit manually"
+                MSG_0C7, // "Solo"
                 165,
                 2
             },
@@ -93,14 +93,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0AB,
-                MSG_0BD,
+                MSG_0AB, // "Turn Terrain window on or off[.]"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0AB,
-                MSG_0BE,
+                MSG_0AB, // "Turn Terrain window on or off[.]"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -127,20 +127,20 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0AC,
-                MSG_0CA,
+                MSG_0AC, // "Show normal unit window[.]"
+                MSG_0CA, // "Panel[.]"
                 112,
                 3
             },
             {
-                MSG_0AD,
-                MSG_0CB,
+                MSG_0AD, // "Show unit window with tail"
+                MSG_0CB, // "Burst[.]"
                 143,
                 4
             },
             {
-                MSG_0AE,
-                MSG_0BE,
+                MSG_0AE, // "Turn unit window off"
+                MSG_0BE, // "OFF[.]"
                 182,
                 2
             },
@@ -161,14 +161,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B3,
-                MSG_0BD,
+                MSG_0B3, // "Set cursor to start on main hero"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B3,
-                MSG_0BE,
+                MSG_0B3, // "Set cursor to start on main hero"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -194,26 +194,26 @@ struct GameOption CONST_DATA gGameOptions[] =
         .msgId = MSG_096, // Text Speed
         .selectors = {
             {
-                MSG_0A7,
-                MSG_0C3,
+                MSG_0A7, // "Set message speed (slow)"
+                MSG_0C3, // "Slow"
                 112,
                 3
             },
             {
-                MSG_0A8,
-                MSG_0C4,
+                MSG_0A8, // "Set message speed[.]"
+                MSG_0C4, // "Norm"
                 143,
                 3
             },
             {
-                MSG_0A9,
-                MSG_0C5,
+                MSG_0A9, // "Set message speed (fast)"
+                MSG_0C5, // "Fast"
                 174,
                 3
             },
             {
-                MSG_0AA,
-                MSG_0C6,
+                MSG_0AA, // "Set message speed (autoscroll)"
+                MSG_0C6, // "Max[.]"
                 205,
                 2
             },
@@ -228,14 +228,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0A5,
-                MSG_0C4,
+                MSG_0A5, // "Set unit movement speed[.]"
+                MSG_0C4, // "Norm"
                 112,
                 3
             },
             {
-                MSG_0A6,
-                MSG_0C5,
+                MSG_0A6, // "Set unit movement speed (fast)"
+                MSG_0C5, // "Fast"
                 143,
                 3
             },
@@ -262,14 +262,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B5,
-                MSG_0BD,
+                MSG_0B5, // "Turn music on or off"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B5,
-                MSG_0BE,
+                MSG_0B5, // "Turn music on or off"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -296,14 +296,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B6,
-                MSG_0BD,
+                MSG_0B6, // "Turn sound effects on or off"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B6,
-                MSG_0BE,
+                MSG_0B6, // "Turn sound effects on or off"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -330,26 +330,26 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B7,
-                MSG_0BF,
+                MSG_0B7, // "Change window color[.]"
+                MSG_0BF, // "1[.]"
                 112,
                 1
             },
             {
-                MSG_0B7,
-                MSG_0C0,
+                MSG_0B7, // "Change window color[.]"
+                MSG_0C0, // "2[.]"
                 127,
                 1
             },
             {
-                MSG_0B7,
-                MSG_0C1,
+                MSG_0B7, // "Change window color[.]"
+                MSG_0C1, // "3[.]"
                 142,
                 1
             },
             {
-                MSG_0B7,
-                MSG_0C2,
+                MSG_0B7, // "Change window color[.]"
+                MSG_0C2, // "4[.]"
                 157,
                 1
             },
@@ -363,20 +363,20 @@ struct GameOption CONST_DATA gGameOptions[] =
         .msgId = MSG_09B, // CPU Level[.]
         .selectors = {
             {
-                MSG_0B8,
-                MSG_0BF,
+                MSG_0B8, // "Set enemy AI"
+                MSG_0BF, // "1[.]"
                 112,
                 1
             },
             {
-                MSG_0B8,
-                MSG_0C0,
+                MSG_0B8, // "Set enemy AI"
+                MSG_0C0, // "2[.]"
                 127,
                 1
             },
             {
-                MSG_0B8,
-                MSG_0C1,
+                MSG_0B8, // "Set enemy AI"
+                MSG_0C1, // "3[.]"
                 142,
                 1
             },
@@ -396,20 +396,20 @@ struct GameOption CONST_DATA gGameOptions[] =
         .msgId = MSG_093, // Combat
         .selectors = {
             {
-                MSG_0AF,
-                MSG_0C8,
+                MSG_0AF, // "Show basic Combat Info window[.]"
+                MSG_0C8, // "Strat[.]"
                 112,
                 3
             },
             {
-                MSG_0B0,
-                MSG_0C9,
+                MSG_0B0, // "Show detailed Combat Info window"
+                MSG_0C9, // "Detail"
                 143,
                 3
             },
             {
-                MSG_0B1,
-                MSG_0BE,
+                MSG_0B1, // "Turn Combat Info window off[.]"
+                MSG_0BE, // "OFF[.]"
                 182,
                 2
             },
@@ -430,14 +430,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B2,
-                MSG_0BD,
+                MSG_0B2, // "Set Easy/Help Scroll display"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B2,
-                MSG_0BE,
+                MSG_0B2, // "Set Easy/Help Scroll display"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -464,14 +464,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B4,
-                MSG_0BD,
+                MSG_0B4, // "Set turn to end automatically[.]"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B4,
-                MSG_0BE,
+                MSG_0B4, // "Set turn to end automatically[.]"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -498,14 +498,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0B9,
-                MSG_0BD,
+                MSG_0B9, // "Set colors for individual units[.]"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0B9,
-                MSG_0BE,
+                MSG_0B9, // "Set colors for individual units[.]"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -532,14 +532,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0BA,
-                MSG_0BD,
+                MSG_0BA, // "Turn Chapter Goal display on or off[.]"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0BA,
-                MSG_0BE,
+                MSG_0BA, // "Turn Chapter Goal display on or off[.]"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -566,14 +566,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0BB,
-                MSG_0BD,
+                MSG_0BB, // "Set Control Window display"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0BB,
-                MSG_0BE,
+                MSG_0BB, // "Set Control Window display"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -600,14 +600,14 @@ struct GameOption CONST_DATA gGameOptions[] =
         .selectors =
         {
             {
-                MSG_0BC,
-                MSG_0BD,
+                MSG_0BC, // "Rank Display"
+                MSG_0BD, // "ON"
                 112,
                 2
             },
             {
-                MSG_0BC,
-                MSG_0BE,
+                MSG_0BC, // "Rank Display"
+                MSG_0BE, // "OFF[.]"
                 135,
                 2
             },
@@ -657,6 +657,7 @@ PROC_LABEL(0),
 // clang-format on
 
 //! FE8U: 0x080B169C
+// Unused in FE8; appears to be leftover from FE7
 s16 sub_80B169C(void)
 {
     int unk = gConfigUiState->unk_32;
@@ -670,13 +671,13 @@ s16 sub_80B169C(void)
 //! FE8U = 0x080B16CC
 u8 GetSelectedGameOption(void)
 {
-    return gConfigUiState->unk_2a;
+    return gConfigUiState->selectedOptionIdx;
 }
 
 //! FE8U = 0x080B16DC
 u8 GetSelectedOptionValue(void)
 {
-    return GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]);
+    return GetGameOption(gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]);
 }
 
 static inline int GetGameOptionIconChr(int icon)
@@ -710,12 +711,12 @@ void DrawGameOptionHelpText(void)
 {
     const char * str;
 
-    ClearText(&gConfigUiState->unk_a8);
+    ClearText(&gConfigUiState->optionHelpText);
 
     str = GetStringFromIndex(
-        gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].selectors[GetSelectedOptionValue()].helpTextId);
+        gGameOptions[gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]].selectors[GetSelectedOptionValue()].helpTextId);
     PutDrawText(
-        &gConfigUiState->unk_a8, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22, str);
+        &gConfigUiState->optionHelpText, TILEMAP_LOCATED(gBG0TilemapBuffer, 4, 18), TEXT_COLOR_SYSTEM_WHITE, 0, 22, str);
 
     return;
 }
@@ -725,11 +726,11 @@ void DrawGameOptionText(int selectedIdx, int textIdx, int y)
 {
     const char * str;
 
-    ClearText(&gConfigUiState->unk_38[textIdx]);
+    ClearText(&gConfigUiState->optionTexts[textIdx]);
 
     str = GetStringFromIndex(gGameOptions[gGameOptionsUiOrder[selectedIdx]].msgId);
     PutDrawText(
-        &gConfigUiState->unk_38[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 4, y), TEXT_COLOR_SYSTEM_WHITE, 0, 9, str);
+        &gConfigUiState->optionTexts[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, 4, y), TEXT_COLOR_SYSTEM_WHITE, 0, 9, str);
 
     return;
 }
@@ -743,7 +744,7 @@ void DrawOptionValueTexts(int selectedIdx, int textIdx, int y)
 
     int x = gGameOptions[optionIdx].selectors[0].xPos / 8;
 
-    ClearText(&gConfigUiState->unk_70[textIdx]);
+    ClearText(&gConfigUiState->valueTexts[textIdx]);
 
     for (i = 0; i < 4; i++)
     {
@@ -753,12 +754,12 @@ void DrawOptionValueTexts(int selectedIdx, int textIdx, int y)
         }
 
         Text_InsertDrawString(
-            &gConfigUiState->unk_70[textIdx], gGameOptions[optionIdx].selectors[i].xPos - 112,
+            &gConfigUiState->valueTexts[textIdx], gGameOptions[optionIdx].selectors[i].xPos - 112,
             (i == GetGameOption(optionIdx)) ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY,
             GetStringFromIndex(gGameOptions[optionIdx].selectors[i].optionTextId));
     }
 
-    PutText(&gConfigUiState->unk_70[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, x, y));
+    PutText(&gConfigUiState->valueTexts[textIdx], TILEMAP_LOCATED(gBG1TilemapBuffer, x, y));
 
     return;
 }
@@ -776,28 +777,29 @@ void DrawConfigUiSprites(void)
 {
     int y;
 
-    int optionIdx = gGameOptionsUiOrder[gConfigUiState->unk_2a];
+    int optionIdx = gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx];
 
     u8 time = (GetGameClock() % 16) & 8;
 
     CallARM_PushToSecondaryOAM(18, 8, gSprite_ConfigurationUiHeader, OAM2_CHR(0xC0) + OAM2_PAL(2));
 
     // current option position on screen (cur index - top index)
-    y = (gConfigUiState->unk_2a - gConfigUiState->unk_2c) * 16 + 40;
+    y = (gConfigUiState->selectedOptionIdx - gConfigUiState->headOptionIdx) * 16 + 40;
 
     DisplayFrozenUiHand(16, y);
 
     DisplayUiHand(gGameOptions[optionIdx].selectors[GetGameOption(optionIdx)].xPos - 2, y);
 
-    if (((gConfigUiState->unk_37 & 1) == 0) || (PrepGetDeployedUnitAmt() != 0))
+    if (!(gConfigUiState->source & CONFIG_UI_SOURCE_FROMPREP) || (PrepGetDeployedUnitAmt() != 0))
     {
         if ((GetSelectedGameOption() == GAME_OPTION_ANIMATION) && (GetSelectedOptionValue() == 3))
         {
+            // Draw sprite for blinking "A Press" prompt
             CallARM_PushToSecondaryOAM(192, 40, gObject_16x16, (time != 0) ? OAM2_CHR(0xCE) + OAM2_PAL(2) : OAM2_CHR(0xCC) + OAM2_PAL(2));
         }
     }
 
-    UpdateMenuScrollBarConfig(10, gConfigUiState->unk_2e, gConfigUiState->unk_34, 6);
+    UpdateMenuScrollBarConfig(10, gConfigUiState->bg1YOffset, gConfigUiState->maxOption, 6);
 
     return;
 }
@@ -822,27 +824,26 @@ void Config_Init(struct ConfigProc * proc)
     SetupBackgrounds(bgConfig);
 
     gConfigUiState->unk_32 = 0;
-    gConfigUiState->unk_34 = 13;
-    gConfigUiState->unk_2a = 0;
-    gConfigUiState->unk_2c = 0;
-    gConfigUiState->unk_2e = 0;
+    gConfigUiState->maxOption = ARRAY_COUNT(gGameOptionsUiOrder);
+    gConfigUiState->selectedOptionIdx = 0;
+    gConfigUiState->headOptionIdx = 0;
+    gConfigUiState->bg1YOffset = 0;
 
-    proc->unk_30 = 0;
-    proc->unk_36 = 0;
+    proc->moving = CONFIG_MOVE_NONE;
+    proc->loadSoloAnimScreen = false;
 
-    gConfigUiState->unk_37 &= ~1;
-    gConfigUiState->unk_37 &= ~2;
+    gConfigUiState->source &= ~CONFIG_UI_SOURCE_FROMPREP;
+    gConfigUiState->source &= ~CONFIG_UI_SOURCE_FROMWM;
 
     ResetText();
 
-    sub_80156BC();
-
+    ApplySystemObjectsPalettes();
     LoadUiFrameGraphics();
 
     SetDispEnable(1, 1, 1, 1, 1);
 
     BG_SetPosition(BG_0, 0, 0);
-    BG_SetPosition(BG_1, 0, gConfigUiState->unk_2e);
+    BG_SetPosition(BG_1, 0, gConfigUiState->bg1YOffset);
     BG_SetPosition(BG_2, 0, 0);
     BG_SetPosition(BG_3, 0, 0);
 
@@ -861,25 +862,25 @@ void Config_Init(struct ConfigProc * proc)
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_Fill(gBG3TilemapBuffer, 0);
 
-    ApplyPalette(gUnknown_08A07A98, 4);
-    ApplyPalette(gUnknown_08A07A98, 18);
+    ApplyPalette(Pal_ConfigUiSprites, 4);
+    ApplyPalette(Pal_ConfigUiSprites, 18);
 
-    Decompress(gUnknown_08A0733C, OBJ_CHR_ADDR(0xC0));
-    Decompress(gUnknown_08A0754C, BG_CHR_ADDR(0x200));
+    Decompress(Img_ConfigUiSprites, OBJ_CHR_ADDR(0xC0));
+    Decompress(Img_ConfigUiIcons, BG_CHR_ADDR(0x200));
 
-    Decompress(gUnknown_08A079B4, gGenericBuffer + 0x80);
+    Decompress(Tsa_ConfigUiFrame, gGenericBuffer + 0x80);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer + 0x80, TILEREF(0x0, 1));
 
     ResetTextFont();
 
-    InitText(&gConfigUiState->unk_a8, 22);
+    InitText(&gConfigUiState->optionHelpText, 22);
 
     DrawGameOptionHelpText();
 
     StartMenuScrollBarExt(proc, 224, 47, 0x390 * CHR_SIZE, 1);
 
-    InitText(&gConfigUiState->unk_68, 9);
-    InitText(&gConfigUiState->unk_a0, 14);
+    InitText(&gConfigUiState->text_68, 9);
+    InitText(&gConfigUiState->text_a0, 14);
 
     for (; i < 6; i++)
     {
@@ -887,8 +888,8 @@ void Config_Init(struct ConfigProc * proc)
 
         DrawGameOptionIcon(i, 5);
 
-        InitText(&gConfigUiState->unk_38[i], 9);
-        InitText(&gConfigUiState->unk_70[i], 14);
+        InitText(&gConfigUiState->optionTexts[i], 9);
+        InitText(&gConfigUiState->valueTexts[i], 14);
 
         DrawGameOptionText(i, i, y);
         DrawOptionValueTexts(i, i, y);
@@ -904,7 +905,7 @@ void Config_Init(struct ConfigProc * proc)
 }
 
 //! FE8U = 0x080B1C90
-s8 WindowColorOptionChangeHandler(ProcPtr proc)
+bool WindowColorOptionChangeHandler(ProcPtr proc)
 {
     if (GenericOptionChangeHandler(proc) != 0)
         UnpackUiFrameBuffered(-1);
@@ -913,25 +914,25 @@ s8 WindowColorOptionChangeHandler(ProcPtr proc)
 }
 
 //! FE8U: 0x080B1CAC
-s8 MusicOptionChangeHandler(ProcPtr proc)
+bool MusicOptionChangeHandler(ProcPtr proc)
 {
     if (GenericOptionChangeHandler(proc) == 0)
         return false;
 
-    if (GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]) != 0)
+    if (GetGameOption(gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]) != 0)
     {
         sub_8002AC8();
         return false;
     }
 
-    if ((gConfigUiState->unk_37 & 1) != 0)
+    if (gConfigUiState->source & CONFIG_UI_SOURCE_FROMPREP)
     {
-        StartBgm(SONG_34, NULL);
+        StartBgm(SONG_BGM_SELECT, NULL);
         return false;
     }
 
-    if ((gConfigUiState->unk_37 & 2) != 0)
-        sub_80B9FC0();
+    if (gConfigUiState->source & CONFIG_UI_SOURCE_FROMWM)
+        UpdateWorldMapBgm();
     else
         StartMapSongBgm();
 
@@ -939,11 +940,11 @@ s8 MusicOptionChangeHandler(ProcPtr proc)
 }
 
 //! FE8U: 0x080B1D14
-s8 GenericOptionChangeHandler(ProcPtr proc)
+bool GenericOptionChangeHandler(ProcPtr proc)
 {
     int valueChanged = false;
 
-    int selectedIdx = gConfigUiState->unk_2a;
+    int selectedIdx = gConfigUiState->selectedOptionIdx;
     u8 optionIdx = gGameOptionsUiOrder[selectedIdx];
 
     u8 selectedValue = GetSelectedOptionValue();
@@ -979,7 +980,7 @@ s8 GenericOptionChangeHandler(ProcPtr proc)
             Proc_Start(gProcScr_RedrawConfigHelpText, proc);
             DrawOptionValueTexts(selectedIdx, selectedIdx % 7, selectedIdx * 2 + 5);
             BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
-            PlaySoundEffect(SONG_67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         }
     }
 
@@ -1194,7 +1195,7 @@ void SetGameOption(u8 index, u8 newValue)
 }
 
 //! FE8U: 0x080B2188
-void sub_80B2188(ProcPtr proc, int selectedIdx, int c)
+void PutGameOptionRow(ProcPtr proc, int selectedIdx, int c)
 {
     int i;
     int textIdx;
@@ -1228,11 +1229,11 @@ void sub_80B2188(ProcPtr proc, int selectedIdx, int c)
 //! FE8U: 0x080B220C
 void Config_Loop_KeyHandler(struct ConfigProc * proc)
 {
-    s8 valueChanged = 0;
+    bool valueChanged = false;
 
-    switch (proc->unk_30)
+    switch (proc->moving)
     {
-    case 0:
+    case CONFIG_MOVE_NONE:
         if (gKeyStatusPtr->newKeys & (B_BUTTON))
         {
             PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
@@ -1242,12 +1243,12 @@ void Config_Loop_KeyHandler(struct ConfigProc * proc)
         }
         else if (gKeyStatusPtr->newKeys & (A_BUTTON))
         {
-            if (((gConfigUiState->unk_37 & 1) != 0) && (PrepGetDeployedUnitAmt() == 0))
+            if ((gConfigUiState->source & CONFIG_UI_SOURCE_FROMPREP) && (PrepGetDeployedUnitAmt() == 0))
             {
                 break;
             }
 
-            if (gGameOptionsUiOrder[gConfigUiState->unk_2a] != 0)
+            if (gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx] != 0)
             {
                 break;
             }
@@ -1258,7 +1259,7 @@ void Config_Loop_KeyHandler(struct ConfigProc * proc)
             }
 
             PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
-            proc->unk_36 = 1;
+            proc->loadSoloAnimScreen = true;
             Proc_Break(proc);
 
             break;
@@ -1267,47 +1268,45 @@ void Config_Loop_KeyHandler(struct ConfigProc * proc)
         {
             if (gKeyStatusPtr->repeatedKeys & (DPAD_UP))
             {
-                if (gConfigUiState->unk_2a != 0)
+                if (gConfigUiState->selectedOptionIdx != 0)
                 {
-                    gConfigUiState->unk_2a--;
+                    gConfigUiState->selectedOptionIdx--;
 
-                    if ((gConfigUiState->unk_2a - gConfigUiState->unk_2c < 1) && (gConfigUiState->unk_2c != 0))
+                    if ((gConfigUiState->selectedOptionIdx - gConfigUiState->headOptionIdx < 1) && (gConfigUiState->headOptionIdx != 0))
                     {
-                        gConfigUiState->unk_2c--;
+                        gConfigUiState->headOptionIdx--;
 
-                        sub_80B2188(proc, gConfigUiState->unk_2a - 1, 0);
+                        PutGameOptionRow(proc, gConfigUiState->selectedOptionIdx - 1, 0);
 
-                        gConfigUiState->unk_2e -= 4;
-
-                        proc->unk_30 = 1;
+                        gConfigUiState->bg1YOffset -= 4;
+                        proc->moving = CONFIG_MOVE_UP;
                     }
 
-                    valueChanged = 1;
+                    valueChanged = true;
                 }
             }
             else // if (gKeyStatusPtr->repeatedKeys & (DPAD_DOWN))
             {
-                if (gConfigUiState->unk_2a < gConfigUiState->unk_34 - 1)
+                if (gConfigUiState->selectedOptionIdx < gConfigUiState->maxOption - 1)
                 {
-                    gConfigUiState->unk_2a++;
+                    gConfigUiState->selectedOptionIdx++;
 
-                    if ((gConfigUiState->unk_2a - gConfigUiState->unk_2c > 4) &&
-                        (gConfigUiState->unk_2a < gConfigUiState->unk_34 - 1))
+                    if ((gConfigUiState->selectedOptionIdx - gConfigUiState->headOptionIdx > 4) &&
+                        (gConfigUiState->selectedOptionIdx < gConfigUiState->maxOption - 1))
                     {
-                        gConfigUiState->unk_2c++;
+                        gConfigUiState->headOptionIdx++;
 
-                        sub_80B2188(proc, gConfigUiState->unk_2a + 1, 0x140);
+                        PutGameOptionRow(proc, gConfigUiState->selectedOptionIdx + 1, 320);
 
-                        gConfigUiState->unk_2e += 4;
-
-                        proc->unk_30 = 4;
+                        gConfigUiState->bg1YOffset += 4;
+                        proc->moving = CONFIG_MOVE_DOWN;
                     }
 
-                    valueChanged = 1;
+                    valueChanged = true;
                 }
             }
 
-            if (valueChanged != 0)
+            if (valueChanged)
             {
                 Proc_Start(gProcScr_RedrawConfigHelpText, proc);
                 BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
@@ -1319,54 +1318,58 @@ void Config_Loop_KeyHandler(struct ConfigProc * proc)
 
         if (gKeyStatusPtr->newKeys & (DPAD_LEFT | DPAD_RIGHT))
         {
-            if (gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].func != NULL)
+            if (gGameOptions[gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]].func != NULL)
             {
-                gGameOptions[gGameOptionsUiOrder[gConfigUiState->unk_2a]].func(proc);
+                gGameOptions[gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]].func(proc);
             }
         }
 
         break;
 
-    case 1:
-    case 2:
-    case 3:
-        gConfigUiState->unk_2e -= 4;
+    case CONFIG_MOVE_UP:
+    case CONFIG_MOVE_UP_FRAME_2:
+    case CONFIG_MOVE_UP_FRAME_3:
+        // Moving up (duration of 3 frames)
 
-        if (proc->unk_30 == 3)
+        gConfigUiState->bg1YOffset -= 4;
+
+        if (proc->moving == CONFIG_MOVE_UP_FRAME_3)
         {
-            proc->unk_30 = 0;
+            proc->moving = CONFIG_MOVE_NONE;
         }
         else
         {
-            proc->unk_30++;
+            proc->moving++;
         }
 
         break;
 
-    case 4:
-    case 5:
-    case 6:
-        gConfigUiState->unk_2e += 4;
+    case CONFIG_MOVE_DOWN:
+    case CONFIG_MOVE_DOWN_FRAME_2:
+    case CONFIG_MOVE_DOWN_FRAME_3:
+        // Moving down (duration of 3 frames)
 
-        if (proc->unk_30 == 6)
+        gConfigUiState->bg1YOffset += 4;
+
+        if (proc->moving == CONFIG_MOVE_DOWN_FRAME_3)
         {
-            proc->unk_30 = 0;
+            proc->moving = CONFIG_MOVE_NONE;
         }
         else
         {
-            proc->unk_30++;
+            proc->moving++;
         }
 
         break;
     }
 
-    BG_SetPosition(BG_1, 0, gConfigUiState->unk_2e);
+    BG_SetPosition(BG_1, 0, gConfigUiState->bg1YOffset);
 
     return;
 }
 
 //! FE8U: 0x080B2464
-s8 sub_80B2464(struct ConfigProc * proc)
+bool Config_HandleExit(struct ConfigProc * proc)
 {
     EndMenuScrollBar();
     EndMuralBackground();
@@ -1374,35 +1377,38 @@ s8 sub_80B2464(struct ConfigProc * proc)
     Proc_EndEach(gProcScr_DrawConfigUiSprites);
     Proc_EndEach(gProcScr_RedrawConfigHelpText);
 
-    if (proc->unk_36 != 0)
+    if (proc->loadSoloAnimScreen)
     {
+        // Load the Solo Anim unit list and reposition
+        // this proc to reload after it ends
         StartUnitListScreenForSoloAnim(proc);
         Proc_Goto(proc, 0);
 
         return false;
     }
 
+    // Exit the config UI
     return true;
 }
 
-static inline s8 * GetConfigUnk37()
+static inline s8 * GetConfigSource()
 {
-    return &gConfigUiState->unk_37;
+    return &gConfigUiState->source;
 }
 
 //! FE8U: 0x080B24AC
-void sub_80B24AC(void)
+void Config_SetSourceFromPrep(void)
 {
-    s8 * flag = GetConfigUnk37();
-    *flag |= 1;
+    s8 * source = GetConfigSource();
+    *source |= CONFIG_UI_SOURCE_FROMPREP;
     return;
 }
 
 //! FE8U: 0x080B24C0
-void sub_80B24C0(void)
+void Config_SetSourceFromWorldMap(void)
 {
-    s8 * flag = GetConfigUnk37();
-    *flag |= 2;
+    s8 * source = GetConfigSource();
+    *source |= CONFIG_UI_SOURCE_FROMWM;
     ResetUnitSprites();
 
     return;
@@ -1410,7 +1416,7 @@ void sub_80B24C0(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_Config1[] =
+struct ProcCmd CONST_DATA ProcScr_Config_Field[] =
 {
     PROC_NAME("E_config"),
 
@@ -1433,7 +1439,7 @@ PROC_LABEL(0),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndHelpBox),
-    PROC_CALL_2(sub_80B2464),
+    PROC_CALL_2(Config_HandleExit),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
@@ -1446,7 +1452,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_Config2[] =
+struct ProcCmd CONST_DATA ProcScr_Config_PrepMapMenu[] =
 {
     PROC_NAME("E_config"),
 
@@ -1456,7 +1462,7 @@ PROC_LABEL(0),
     PROC_YIELD,
 
     PROC_CALL(Config_Init),
-    PROC_CALL(sub_80B24AC),
+    PROC_CALL(Config_SetSourceFromPrep),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1467,14 +1473,14 @@ PROC_LABEL(0),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndHelpBox),
-    PROC_CALL_2(sub_80B2464),
+    PROC_CALL_2(Config_HandleExit),
 
     PROC_CALL(UnlockGame),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_Config3[] =
+struct ProcCmd CONST_DATA ProcScr_Config_WorldMap[] =
 {
     PROC_NAME("E_config"),
 
@@ -1485,7 +1491,7 @@ PROC_LABEL(0),
     PROC_YIELD,
 
     PROC_CALL(Config_Init),
-    PROC_CALL(sub_80B24C0),
+    PROC_CALL(Config_SetSourceFromWorldMap),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
@@ -1496,7 +1502,7 @@ PROC_LABEL(0),
     PROC_REPEAT(WaitForFade),
 
     PROC_CALL(EndHelpBox),
-    PROC_CALL_2(sub_80B2464),
+    PROC_CALL_2(Config_HandleExit),
 
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),

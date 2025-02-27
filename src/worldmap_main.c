@@ -23,6 +23,8 @@
 
 #include "worldmap.h"
 
+#include "constants/songs.h"
+
 // TODO: In "worldmap_scrollmanage.c", the signature returns a ProcPtr instead of s8/bool
 s8 GmScrollManageExist(void);
 
@@ -795,7 +797,7 @@ PROC_LABEL(2),
 
 PROC_LABEL(3),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B9F54),
+    PROC_CALL(WorldMap_UpdateBgm),
     PROC_CALL(sub_80B9A34),
     PROC_WHILE(FadeInExists),
     PROC_CALL(sub_80BF13C),
@@ -866,9 +868,9 @@ PROC_LABEL(11),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(sub_80B9810),
-    PROC_CALL_2(sub_80B98F8),
+    PROC_CALL_2(WorldMap_StartConfigScreen),
     PROC_CALL(WorldMap_Init),
-    PROC_CALL(sub_80B9918),
+    PROC_CALL(WorldMap_ResumeFromConfigScreen),
     PROC_SLEEP(1),
     PROC_CALL(sub_80B9924),
     PROC_CALL(StartFastFadeFromBlack),
@@ -1258,15 +1260,15 @@ void sub_80B98A8(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B98F8
-s8 sub_80B98F8(ProcPtr proc)
+bool WorldMap_StartConfigScreen(ProcPtr proc)
 {
     Proc_BlockEachMarked(PROC_MARK_WMSTUFF);
-    Proc_StartBlocking(ProcScr_Config3, proc);
-    return 0;
+    Proc_StartBlocking(ProcScr_Config_WorldMap, proc);
+    return false;
 }
 
 //! FE8U = 0x080B9918
-void sub_80B9918(void)
+void WorldMap_ResumeFromConfigScreen(void)
 {
     Proc_UnblockEachMarked(PROC_MARK_WMSTUFF);
     return;
@@ -1663,14 +1665,14 @@ void sub_80B9F44(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9F54
-void sub_80B9F54(ProcPtr unused)
+void WorldMap_UpdateBgm(ProcPtr unused)
 {
     int mapLocation;
     int songId;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
-        songId = 8;
+        songId = SONG_BGM_WMAP_05;
     }
     else
     {
@@ -1693,7 +1695,7 @@ void sub_80B9F54(ProcPtr unused)
         }
         else
         {
-            songId = 4;
+            songId = SONG_BGM_WMAP_01;
         }
     }
 
@@ -1706,9 +1708,9 @@ void sub_80B9F54(ProcPtr unused)
 }
 
 //! FE8U = 0x080B9FC0
-void sub_80B9FC0(void)
+void UpdateWorldMapBgm(void)
 {
-    sub_80B9F54(Proc_Find(ProcScr_WorldMapMain));
+    WorldMap_UpdateBgm(Proc_Find(ProcScr_WorldMapMain));
     return;
 }
 
@@ -2012,33 +2014,145 @@ void CallChapterWMIntroEvents(ProcPtr proc)
     }
 }
 
+// clang-format off
+
 struct WMSongTableEnt CONST_DATA gWMSongTable[] =
 {
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x04, 0x04, },
-    { 0x05, 0x05, },
-    { 0x05, 0x05, },
-    { 0x05, 0x05, },
-    { 0x05, 0x05, },
-    { 0x05, 0x05, },
-    { 0x06, 0x06, },
-    { 0x06, 0x06, },
-    { 0x06, 0x06, },
-    { 0x06, 0x06, },
-    { 0x06, 0x06, },
-    { 0x04, 0x06, },
-    { 0x05, 0x06, },
-    { 0x07, 0x07, },
-    { 0x07, 0x07, },
-    { 0x07, 0x07, },
-    { 0x07, 0x07, },
-    { 0x2F, 0x2F, },
-    { 0x04, 0x04, },
+    [NODE_BORDER_MULAN] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_CASTLE_FRELIA] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_IDE] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_BORGO_RIDGE] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_ZAHA_WOODS] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_SERAFEW] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_ADLAS_PLAINS] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_RENVALL_07] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_RENVALL_08] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
+    [NODE_PORT_KIRIS] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_02,
+    },
+    [NODE_TERAZ_PLATEAU] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_02,
+    },
+    [NODE_CAER_PELYN] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_02,
+    },
+    [NODE_HAMILL_CANYON] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_02,
+    },
+    [NODE_JEHANNA_HALL_0D] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_02,
+    },
+    [NODE_FORT_RIGWALD] =
+    {
+        .eirika = SONG_BGM_WMAP_03,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_BETHROEN] =
+    {
+        .eirika = SONG_BGM_WMAP_03,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_TAIZEL] =
+    {
+        .eirika = SONG_BGM_WMAP_03,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_ZAALBUL_MARSH] =
+    {
+        .eirika = SONG_BGM_WMAP_03,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_GRADO_KEEP] =
+    {
+        .eirika = SONG_BGM_WMAP_03,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_JEHANNA_HALL_13] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_RENAIS_CASTLE] =
+    {
+        .eirika = SONG_BGM_WMAP_02,
+        .ephraim = SONG_BGM_WMAP_03,
+    },
+    [NODE_NARUBE_RIVER] =
+    {
+        .eirika = SONG_BGM_WMAP_04,
+        .ephraim = SONG_BGM_WMAP_04,
+    },
+    [NODE_NELERAS_PEAK] =
+    {
+        .eirika = SONG_BGM_WMAP_04,
+        .ephraim = SONG_BGM_WMAP_04,
+    },
+    [NODE_RAUSTEN_COURT] =
+    {
+        .eirika = SONG_BGM_WMAP_04,
+        .ephraim = SONG_BGM_WMAP_04,
+    },
+    [NODE_DARKLING_WOODS] =
+    {
+        .eirika = SONG_BGM_WMAP_04,
+        .ephraim = SONG_BGM_WMAP_04,
+    },
+    [NODE_BLACK_TEMPLE] =
+    {
+        .eirika = SONG_BGM_EVT_05,
+        .ephraim = SONG_BGM_EVT_05,
+    },
+    [NODE_TOWER_OF_VALNI] =
+    {
+        .eirika = SONG_BGM_WMAP_01,
+        .ephraim = SONG_BGM_WMAP_01,
+    },
 };
+
+// clang-format on

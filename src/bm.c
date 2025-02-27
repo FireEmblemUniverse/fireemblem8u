@@ -577,7 +577,7 @@ void LoadObjUIGfx(void) {
 }
 
 //! FE8U = 0x080156BC
-void sub_80156BC(void) {
+void ApplySystemObjectsPalettes(void) {
     ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
     return;
 }

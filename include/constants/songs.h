@@ -4,9 +4,11 @@ enum song_idx {
     SONG_01 = 0x01,
     SONG_02 = 0x02,
     SONG_03 = 0x03,
-    SONG_04 = 0x04,
-    SONG_05 = 0x05,
-    SONG_06 = 0x06,
+    SONG_BGM_WMAP_01 = 0x004, // "The Beginning"
+    SONG_BGM_WMAP_02 = 0x005, // "Treasured Memories"
+    SONG_BGM_WMAP_03 = 0x006, // "Grim Journey"
+    SONG_BGM_WMAP_04 = 0x007, // "Ties of Friendship"
+    SONG_BGM_WMAP_05 = 0x008, // "Ray of Hope"
     SONG_09 = 0x09,
     SONG_0A = 0x0A,
     SONG_0C = 0x0C,
@@ -28,10 +30,11 @@ enum song_idx {
     SONG_2A = 0x2A,
     SONG_2B = 0x2B,
     SONG_2C = 0x2C,
+    SONG_BGM_EVT_05 = 0x02F, // "Lights in the Dark"
     SONG_31 = 0x31,
     SONG_32 = 0x32,
     SONG_33 = 0x33,
-    SONG_34 = 0x34,
+    SONG_BGM_SELECT = 0x034, // "Combat Preparation"
     SONG_37 = 0x37,
     SONG_3B = 0x3B,
     SONG_3C = 0x3C,
@@ -50,7 +53,7 @@ enum song_idx {
     SONG_61 = 0x61,
     SONG_65 = 0x65,
     SONG_SE_SYS_CURSOR_UD1 = 0x66,
-    SONG_67 = 0x67, // change selection in menu/help box
+    SONG_SE_SYS_CURSOR_LR1 = 0x067, // change selection in menu/help box
     SONG_68 = 0x68,
     SONG_69 = 0x69,
     SONG_SE_SYS_WINDOW_SELECT1 = 0x6A,
