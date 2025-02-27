@@ -679,26 +679,28 @@ u8 GetSelectedOptionValue(void)
     return GetGameOption(gGameOptionsUiOrder[gConfigUiState->unk_2a]);
 }
 
-//! FE8U: 0x080B1700
-void DrawGameOptionIcon(int a, int b)
+static inline int GetGameOptionIconChr(int icon)
 {
-    int tmpA;
-    int tmpB;
-    int tmpC;
-    int tmpE;
+    return 0x200
+        + (icon & 0x1f)
+        + ((icon << 1) & 0xFFC0);
+}
 
-    tmpC = (a * 2 + b) & 0x1f;
-    tmpE = 0x20 * tmpC;
+//! FE8U: 0x080B1700
+void DrawGameOptionIcon(int selectedIdx, int yBase)
+{
+    int y = 0x20 * ((selectedIdx * 2 + yBase) & 0x1f);
 
-    tmpA = gGameOptions[gGameOptionsUiOrder[a]].icon;
-    tmpB = (tmpA & 0x1f) + ({ (((tmpA) << 1) & 0xFFC0) + 0x200; });
+    int icon = gGameOptions[gGameOptionsUiOrder[selectedIdx]].icon;
+    int chr = GetGameOptionIconChr(icon);
 
-    tmpA = tmpB + 0x4000;
-    gBG1TilemapBuffer[tmpE + 0x02] = tmpA;
-    gBG1TilemapBuffer[tmpE + 0x03] = tmpB + 0x4001;
+    // Variable reuse seems to be required to match
+    icon = TILEREF(chr, 4);
 
-    gBG1TilemapBuffer[tmpE + 0x22] = tmpB + 0x4020;
-    gBG1TilemapBuffer[tmpE + 0x23] = tmpB + 0x4021;
+    gBG1TilemapBuffer[TILEMAP_INDEX(2, 0) + y] = icon + 0;
+    gBG1TilemapBuffer[TILEMAP_INDEX(3, 0) + y] = icon + 1;
+    gBG1TilemapBuffer[TILEMAP_INDEX(2, 1) + y] = icon + 0x20;
+    gBG1TilemapBuffer[TILEMAP_INDEX(3, 1) + y] = icon + 0x21;
 
     return;
 }
