@@ -860,10 +860,10 @@ extern u16 gUnknown_08A1763C[];
 extern u16 gUnknown_08A17650[];
 extern u16 gUnknown_08A17664[];
 extern u16 gUnknown_08A17678[];
-extern u16 gTSA_TerrainBox_Something[];
+extern u16 Tsa_TerrainMapUi_Labels[];
 extern u16 gTSA_TerrainBox_Ballistae[];
-extern u16 gTSA_TerrainBox_Destructable[];
-extern u16 gUnknown_08A176B4[];
+extern u16 Tsa_TerrainMapUi_ObstacleLabels[];
+extern u16 Tsa_TerrainMapUi_ObstacleFullHp[];
 extern u16 gTSA_GoalBox_TwoLines[];
 extern u16 gTSA_GoalBox_OneLine[];
 

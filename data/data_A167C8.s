@@ -76,20 +76,20 @@ gUnknown_08A17664:  @ 0x08A17664
 gUnknown_08A17678:  @ 0x08A17678
 	.incbin "baserom.gba", 0xA17678, 0x14
 
-	.global gTSA_TerrainBox_Something
-gTSA_TerrainBox_Something:  @ 0x08A1768C
+	.global Tsa_TerrainMapUi_Labels
+Tsa_TerrainMapUi_Labels:  @ 0x08A1768C
 	.incbin "baserom.gba", 0xA1768C, 0x10
 
 	.global gTSA_TerrainBox_Ballistae
 gTSA_TerrainBox_Ballistae:  @ 0x08A1769C
 	.incbin "baserom.gba", 0xA1769C, 0x8
 
-	.global gTSA_TerrainBox_Destructable
-gTSA_TerrainBox_Destructable:  @ 0x08A176A4
+	.global Tsa_TerrainMapUi_ObstacleLabels
+Tsa_TerrainMapUi_ObstacleLabels:  @ 0x08A176A4
 	.incbin "baserom.gba", 0xA176A4, 0x10
 
-	.global gUnknown_08A176B4
-gUnknown_08A176B4:  @ 0x08A176B4
+	.global Tsa_TerrainMapUi_ObstacleFullHp
+Tsa_TerrainMapUi_ObstacleFullHp:  @ 0x08A176B4
 	.incbin "baserom.gba", 0xA176B4, 0x8
 
 	.global gTSA_GoalBox_TwoLines

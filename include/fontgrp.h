@@ -141,7 +141,7 @@ struct TextPrintProc {
     /* 36 */ s8 char_per_tick;
 };
 
-extern char gUnknown_02028E44[9];
+extern char gNumberStr[9];
 
 // ??? SetupDebugFontForBG(???);
 void PrintDebugStringToBG(u16 *bg, const char *asciiStr);
