@@ -1062,7 +1062,7 @@ void DisplayMapChangeIfFog(void)
 //! FE8U = 0x08033EC0
 void PrepScreenProc_StartConfigMenu(ProcPtr proc)
 {
-    Proc_StartBlocking(ProcScr_Config2, proc);
+    Proc_StartBlocking(ProcScr_Config_PrepMapMenu, proc);
     return;
 }
 
@@ -1224,7 +1224,7 @@ void sub_8034194(void)
 
     if (gGMData.state.bits.state_0)
     {
-        sub_80B9FC0();
+        UpdateWorldMapBgm();
         return;
     }
 

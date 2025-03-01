@@ -48,7 +48,7 @@ void GotoChapterWithoutSave(u16 chapterId);
 void sub_80155C4(void);
 void InitBmBgLayers(void);
 void LoadObjUIGfx(void);
-void sub_80156BC(void);
+void ApplySystemObjectsPalettes(void);
 void sub_80156D4(void);
 void ReadGameSaveCoreGfx(void);
 void HandleMapCursorInput(u16 keys);
