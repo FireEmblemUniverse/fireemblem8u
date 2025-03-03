@@ -1,429 +1,429 @@
 	.section .rodata
-	.global unit_icon_wait_0_sheet
-unit_icon_wait_0_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_0_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_1_sheet
-unit_icon_wait_1_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_1_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_2_sheet
-unit_icon_wait_2_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_2_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_3_sheet
-unit_icon_wait_3_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_3_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_4_sheet
-unit_icon_wait_4_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_4_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_5_sheet
-unit_icon_wait_5_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_5_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_6_sheet
-unit_icon_wait_6_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_6_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_7_sheet
-unit_icon_wait_7_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_7_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_8_sheet
-unit_icon_wait_8_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_8_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_9_sheet
-unit_icon_wait_9_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_9_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_10_sheet
-unit_icon_wait_10_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_10_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_11_sheet
-unit_icon_wait_11_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_11_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_12_sheet
-unit_icon_wait_12_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_12_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_13_sheet
-unit_icon_wait_13_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_13_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_14_sheet
-unit_icon_wait_14_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_14_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_15_sheet
-unit_icon_wait_15_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_15_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_16_sheet
-unit_icon_wait_16_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_16_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_17_sheet
-unit_icon_wait_17_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_17_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_18_sheet
-unit_icon_wait_18_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_18_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_19_sheet
-unit_icon_wait_19_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_19_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_20_sheet
-unit_icon_wait_20_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_20_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_21_sheet
-unit_icon_wait_21_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_21_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_22_sheet
-unit_icon_wait_22_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_22_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_23_sheet
-unit_icon_wait_23_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_23_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_24_sheet
-unit_icon_wait_24_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_24_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_25_sheet
-unit_icon_wait_25_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_25_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_26_sheet
-unit_icon_wait_26_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_26_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_27_sheet
-unit_icon_wait_27_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_27_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_28_sheet
-unit_icon_wait_28_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_28_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_29_sheet
-unit_icon_wait_29_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_29_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_30_sheet
-unit_icon_wait_30_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_30_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_31_sheet
-unit_icon_wait_31_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_31_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_32_sheet
-unit_icon_wait_32_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_32_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_33_sheet
-unit_icon_wait_33_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_33_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_34_sheet
-unit_icon_wait_34_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_34_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_35_sheet
-unit_icon_wait_35_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_35_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_36_sheet
-unit_icon_wait_36_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_36_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_37_sheet
-unit_icon_wait_37_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_37_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_38_sheet
-unit_icon_wait_38_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_38_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_39_sheet
-unit_icon_wait_39_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_39_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_40_sheet
-unit_icon_wait_40_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_40_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_41_sheet
-unit_icon_wait_41_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_41_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_42_sheet
-unit_icon_wait_42_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_42_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_43_sheet
-unit_icon_wait_43_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_43_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_44_sheet
-unit_icon_wait_44_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_44_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_45_sheet
-unit_icon_wait_45_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_45_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_46_sheet
-unit_icon_wait_46_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_46_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_47_sheet
-unit_icon_wait_47_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_47_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_48_sheet
-unit_icon_wait_48_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_48_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_49_sheet
-unit_icon_wait_49_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_49_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_50_sheet
-unit_icon_wait_50_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_50_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_51_sheet
-unit_icon_wait_51_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_51_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_52_sheet
-unit_icon_wait_52_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_52_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_53_sheet
-unit_icon_wait_53_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_53_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_54_sheet
-unit_icon_wait_54_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_54_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_55_sheet
-unit_icon_wait_55_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_55_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_56_sheet
-unit_icon_wait_56_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_56_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_57_sheet
-unit_icon_wait_57_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_57_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_58_sheet
-unit_icon_wait_58_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_58_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_59_sheet
-unit_icon_wait_59_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_59_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_60_sheet
-unit_icon_wait_60_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_60_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_61_sheet
-unit_icon_wait_61_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_61_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_62_sheet
-unit_icon_wait_62_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_62_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_63_sheet
-unit_icon_wait_63_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_63_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_64_sheet
-unit_icon_wait_64_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_64_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_65_sheet
-unit_icon_wait_65_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_65_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_66_sheet
-unit_icon_wait_66_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_66_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_67_sheet
-unit_icon_wait_67_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_67_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_68_sheet
-unit_icon_wait_68_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_68_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_69_sheet
-unit_icon_wait_69_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_69_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_70_sheet
-unit_icon_wait_70_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_70_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_71_sheet
-unit_icon_wait_71_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_71_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_72_sheet
-unit_icon_wait_72_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_72_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_73_sheet
-unit_icon_wait_73_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_73_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_74_sheet
-unit_icon_wait_74_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_74_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_75_sheet
-unit_icon_wait_75_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_75_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_76_sheet
-unit_icon_wait_76_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_76_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_77_sheet
-unit_icon_wait_77_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_77_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_78_sheet
-unit_icon_wait_78_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_78_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_79_sheet
-unit_icon_wait_79_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_79_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_80_sheet
-unit_icon_wait_80_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_80_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_81_sheet
-unit_icon_wait_81_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_81_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_82_sheet
-unit_icon_wait_82_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_82_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_83_sheet
-unit_icon_wait_83_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_83_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_84_sheet
-unit_icon_wait_84_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_84_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_85_sheet
-unit_icon_wait_85_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_85_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_86_sheet
-unit_icon_wait_86_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_86_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_87_sheet
-unit_icon_wait_87_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_87_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_88_sheet
-unit_icon_wait_88_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_88_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_89_sheet
-unit_icon_wait_89_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_89_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_90_sheet
-unit_icon_wait_90_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_90_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_91_sheet
-unit_icon_wait_91_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_91_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_92_sheet
-unit_icon_wait_92_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_92_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_93_sheet
-unit_icon_wait_93_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_93_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_94_sheet
-unit_icon_wait_94_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_94_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_95_sheet
-unit_icon_wait_95_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_95_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_96_sheet
-unit_icon_wait_96_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_96_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_97_sheet
-unit_icon_wait_97_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_97_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_98_sheet
-unit_icon_wait_98_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_98_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_99_sheet
-unit_icon_wait_99_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_99_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_100_sheet
-unit_icon_wait_100_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_100_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_101_sheet
-unit_icon_wait_101_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_101_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_102_sheet
-unit_icon_wait_102_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_102_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_103_sheet
-unit_icon_wait_103_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_103_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_104_sheet
-unit_icon_wait_104_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_104_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_105_sheet
-unit_icon_wait_105_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_105_sheet.4bpp.lz"
-	.align 2, 0
-	.global unit_icon_wait_106_sheet
-unit_icon_wait_106_sheet:
-	.incbin "graphics/unit_icon/wait/unit_icon_wait_106_sheet.4bpp.lz"
+	.global unit_icon_wait_Ephraim_Lord_sheet
+unit_icon_wait_Ephraim_Lord_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Ephraim_Lord_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Eirika_Lord_sheet
+unit_icon_wait_Eirika_Lord_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Eirika_Lord_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Ephraim_Master_Lord_sheet
+unit_icon_wait_Ephraim_Master_Lord_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Ephraim_Master_Lord_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Eirika_Master_Lord_sheet
+unit_icon_wait_Eirika_Master_Lord_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Eirika_Master_Lord_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Cavalier_sheet
+unit_icon_wait_Cavalier_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Cavalier_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Paladin_sheet
+unit_icon_wait_Paladin_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Paladin_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Armor_Knight_sheet
+unit_icon_wait_Armor_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Armor_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_General_sheet
+unit_icon_wait_General_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_General_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Thief_sheet
+unit_icon_wait_Thief_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Thief_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blank_sheet
+unit_icon_wait_Blank_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blank_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mercenary_sheet
+unit_icon_wait_Mercenary_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mercenary_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mercenary_F_sheet
+unit_icon_wait_Mercenary_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mercenary_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Hero_sheet
+unit_icon_wait_Hero_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Hero_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Hero_F_sheet
+unit_icon_wait_Hero_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Hero_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Myrmidon_sheet
+unit_icon_wait_Myrmidon_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Myrmidon_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Myrmidon_F_sheet
+unit_icon_wait_Myrmidon_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Myrmidon_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Swordmaster_sheet
+unit_icon_wait_Swordmaster_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Swordmaster_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Swordmaster_F_sheet
+unit_icon_wait_Swordmaster_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Swordmaster_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Assassin_sheet
+unit_icon_wait_Assassin_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Assassin_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Assassin_F_sheet
+unit_icon_wait_Assassin_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Assassin_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Archer_sheet
+unit_icon_wait_Archer_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Archer_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Archer_F_sheet
+unit_icon_wait_Archer_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Archer_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Sniper_sheet
+unit_icon_wait_Sniper_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Sniper_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Sniper_F_sheet
+unit_icon_wait_Sniper_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Sniper_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Ranger_sheet
+unit_icon_wait_Ranger_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Ranger_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wyvern_Rider_sheet
+unit_icon_wait_Wyvern_Rider_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wyvern_Rider_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wyvern_Lord_sheet
+unit_icon_wait_Wyvern_Lord_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wyvern_Lord_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wyvern_Lord_F_sheet
+unit_icon_wait_Wyvern_Lord_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wyvern_Lord_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wyvern_Knight_sheet
+unit_icon_wait_Wyvern_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wyvern_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wyvern_Knight_F_sheet
+unit_icon_wait_Wyvern_Knight_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wyvern_Knight_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mage_sheet
+unit_icon_wait_Mage_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mage_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mage_F_sheet
+unit_icon_wait_Mage_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mage_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Sage_sheet
+unit_icon_wait_Sage_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Sage_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Sage_F_sheet
+unit_icon_wait_Sage_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Sage_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mage_Knight_sheet
+unit_icon_wait_Mage_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mage_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mage_Knight_F_sheet
+unit_icon_wait_Mage_Knight_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mage_Knight_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bishop_sheet
+unit_icon_wait_Bishop_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bishop_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bishop_F_sheet
+unit_icon_wait_Bishop_F_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bishop_F_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Shaman_sheet
+unit_icon_wait_Shaman_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Shaman_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Druid_sheet
+unit_icon_wait_Druid_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Druid_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Summoner_sheet
+unit_icon_wait_Summoner_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Summoner_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Rogue_sheet
+unit_icon_wait_Rogue_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Rogue_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Gorgonegg2_sheet
+unit_icon_wait_Gorgonegg2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Gorgonegg2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Great_Knight_sheet
+unit_icon_wait_Great_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Great_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Recruit_T1_sheet
+unit_icon_wait_Recruit_T1_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Recruit_T1_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Journeyman_T2_sheet
+unit_icon_wait_Journeyman_T2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Journeyman_T2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Pupil_T2_sheet
+unit_icon_wait_Pupil_T2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Pupil_T2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Manakete_2_sheet
+unit_icon_wait_Manakete_2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Manakete_2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Manakete_Myrrh_sheet
+unit_icon_wait_Manakete_Myrrh_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Manakete_Myrrh_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Fighter_sheet
+unit_icon_wait_Fighter_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Fighter_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Warrior_sheet
+unit_icon_wait_Warrior_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Warrior_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Brigand_sheet
+unit_icon_wait_Brigand_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Brigand_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Pirate_sheet
+unit_icon_wait_Pirate_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Pirate_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Berserker_sheet
+unit_icon_wait_Berserker_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Berserker_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Monk_sheet
+unit_icon_wait_Monk_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Monk_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Priest_sheet
+unit_icon_wait_Priest_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Priest_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bard_sheet
+unit_icon_wait_Bard_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bard_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Pegasus_Knight_sheet
+unit_icon_wait_Pegasus_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Pegasus_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Falcon_Knight_sheet
+unit_icon_wait_Falcon_Knight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Falcon_Knight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Cleric_sheet
+unit_icon_wait_Cleric_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Cleric_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Troubadour_sheet
+unit_icon_wait_Troubadour_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Troubadour_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Valkyrie_sheet
+unit_icon_wait_Valkyrie_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Valkyrie_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Dancer_sheet
+unit_icon_wait_Dancer_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Dancer_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Soldier_sheet
+unit_icon_wait_Soldier_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Soldier_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Necromancer_sheet
+unit_icon_wait_Necromancer_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Necromancer_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Fleet_sheet
+unit_icon_wait_Fleet_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Fleet_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Phantom_sheet
+unit_icon_wait_Phantom_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Phantom_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Revenant_sheet
+unit_icon_wait_Revenant_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Revenant_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Entoumbed_sheet
+unit_icon_wait_Entoumbed_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Entoumbed_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bonewalker_sheet
+unit_icon_wait_Bonewalker_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bonewalker_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bonewalker_Bow_sheet
+unit_icon_wait_Bonewalker_Bow_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bonewalker_Bow_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wight_sheet
+unit_icon_wait_Wight_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wight_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Wight_Bow_sheet
+unit_icon_wait_Wight_Bow_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Wight_Bow_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Bael_sheet
+unit_icon_wait_Bael_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Bael_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Elder_Bael_sheet
+unit_icon_wait_Elder_Bael_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Elder_Bael_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Cyclops_sheet
+unit_icon_wait_Cyclops_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Cyclops_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mauthedoog_sheet
+unit_icon_wait_Mauthedoog_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mauthedoog_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Gwyllgi_sheet
+unit_icon_wait_Gwyllgi_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Gwyllgi_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Tarvos_sheet
+unit_icon_wait_Tarvos_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Tarvos_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Maelduin_sheet
+unit_icon_wait_Maelduin_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Maelduin_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Mogall_sheet
+unit_icon_wait_Mogall_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Mogall_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Arch_Mogall_sheet
+unit_icon_wait_Arch_Mogall_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Arch_Mogall_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Gorgon_sheet
+unit_icon_wait_Gorgon_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Gorgon_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Gorgonegg_sheet
+unit_icon_wait_Gorgonegg_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Gorgonegg_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Gargoyle_sheet
+unit_icon_wait_Gargoyle_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Gargoyle_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Deathgoyle_sheet
+unit_icon_wait_Deathgoyle_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Deathgoyle_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Draco_Zombie_sheet
+unit_icon_wait_Draco_Zombie_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Draco_Zombie_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Demon_King_sheet
+unit_icon_wait_Demon_King_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Demon_King_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Regular_Used_sheet
+unit_icon_wait_Blst_Regular_Used_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Regular_Used_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Long_Used_sheet
+unit_icon_wait_Blst_Long_Used_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Long_Used_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Killer_Used_sheet
+unit_icon_wait_Blst_Killer_Used_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Killer_Used_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Long_Empty_sheet
+unit_icon_wait_Blst_Long_Empty_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Long_Empty_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Used_Empty_sheet
+unit_icon_wait_Blst_Used_Empty_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Used_Empty_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Blst_Killer_Empty_sheet
+unit_icon_wait_Blst_Killer_Empty_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Blst_Killer_Empty_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Civilian_M1_sheet
+unit_icon_wait_Civilian_M1_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Civilian_M1_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Civilian_F1_sheet
+unit_icon_wait_Civilian_F1_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Civilian_F1_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Civilian_M2_sheet
+unit_icon_wait_Civilian_M2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Civilian_M2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Civilian_F2_sheet
+unit_icon_wait_Civilian_F2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Civilian_F2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Peer_sheet
+unit_icon_wait_Peer_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Peer_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Queen_sheet
+unit_icon_wait_Queen_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Queen_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Prince_sheet
+unit_icon_wait_Prince_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Prince_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Queen_2_sheet
+unit_icon_wait_Queen_2_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Queen_2_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Unk77_sheet
+unit_icon_wait_Unk77_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Unk77_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Fallen_Prince_sheet
+unit_icon_wait_Fallen_Prince_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Fallen_Prince_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Tent_sheet
+unit_icon_wait_Tent_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Tent_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Pontifex_sheet
+unit_icon_wait_Pontifex_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Pontifex_sheet.4bpp.lz"
+	.align 2, 0
+	.global unit_icon_wait_Fallen_Peer_sheet
+unit_icon_wait_Fallen_Peer_sheet:
+	.incbin "graphics/unit_icon/wait/unit_icon_wait_Fallen_Peer_sheet.4bpp.lz"
 	.align 2, 0
