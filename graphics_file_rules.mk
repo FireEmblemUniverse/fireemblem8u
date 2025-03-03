@@ -2,64 +2,64 @@ MOVEUNITGFXDIR := graphics/unit_icon/move
 
 ### Move Unit Icon Animation Sheets ###
 
-$(MOVEUNITGFXDIR)/unit_icon_move_2_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Ephraim_Master_Lord_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_3_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Eirika_Master_Lord_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_10_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_General_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 242
 
-$(MOVEUNITGFXDIR)/unit_icon_move_16_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Hero_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_17_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Hero_F_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_20_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Swordmaster_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_21_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Swordmaster_F_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_30_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Wyvern_Rider_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_31_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Wyvern_Lord_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_32_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Wyvern_Lord_F_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 242
 
-$(MOVEUNITGFXDIR)/unit_icon_move_34_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Wyvern_Knight_F_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 242
 
-$(MOVEUNITGFXDIR)/unit_icon_move_42_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Bishop_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_43_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Bishop_F_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_55_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Journeyman_T2_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 241
 
-$(MOVEUNITGFXDIR)/unit_icon_move_76_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Dancer_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 256
 
-$(MOVEUNITGFXDIR)/unit_icon_move_79_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Fleet_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 252
 
-$(MOVEUNITGFXDIR)/unit_icon_move_89_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Cyclops_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 242
 
-$(MOVEUNITGFXDIR)/unit_icon_move_100_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Draco_Zombie_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 242
 
-$(MOVEUNITGFXDIR)/unit_icon_move_105_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Blst_Long_Empty_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 252
 
-$(MOVEUNITGFXDIR)/unit_icon_move_107_sheet.4bpp: %.4bpp: %.png
+$(MOVEUNITGFXDIR)/unit_icon_move_Blst_Killer_Empty_sheet.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 252
 
 ## Map Tileset OBJ
