@@ -438,7 +438,7 @@ LABEL(0xb)
 
 CONST_DATA EventListScr EventScr_089F731C[] = {
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
-    BACG(0x35)
+	BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FAWU(128)
@@ -492,7 +492,7 @@ CONST_DATA EventListScr EventScr_089F73F0[] = {
     PROM(CHARACTER_EIRIKA, 0x4, 0x98)
     EVBIT_MODIFY(0x4)
     REMOVEPORTRAITS
-    BACG(0x35)
+	BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)
@@ -516,7 +516,7 @@ CONST_DATA EventListScr EventScr_089F7470[] = {
     PROM(CHARACTER_EPHRAIM, 0x3, 0x99)
     EVBIT_MODIFY(0x4)
     REMOVEPORTRAITS
-    BACG(0x35)
+	BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)

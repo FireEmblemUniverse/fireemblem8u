@@ -234,7 +234,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CURE
     REMOVEPORTRAITS
     FAWI(16)
-    BACG(0x6)
+	BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc03)
     TEXTEND
@@ -250,7 +250,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CLEE
     CLEN
     REMOVEPORTRAITS
-    BACG(0x6)
+	BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
@@ -303,7 +303,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     REMA
     CALL(EventScr_Ch8_TowerFall)
     REMOVEPORTRAITS
-    BACG(0xe)
+	BACG(BG_THRONE_NORMAL)
     FADU(4)
     TEXTSHOW(0xc0d)
     TEXTEND

@@ -11,9 +11,9 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     MUSCSLOW(0x2c)
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
     REMOVEPORTRAITS
-    BACG(0x35)
+	BACG(BG_BLANK)
     FAWI(2)
-    BACG(0xf)
+	BACG(BG_THRONE_FLASHBACK)
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xb61)
@@ -21,7 +21,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
-    BACG(0x21)
+	BACG(BG_STREAM)
     MUSC(0x52)
     FAWU(2)
     TEXTSHOW(0xb62)

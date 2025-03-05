@@ -152,13 +152,13 @@ LABEL(0x0)
     MUSCSLOW(0x7fff)
     REMA
     REMOVEPORTRAITS
-    BACG(0x20)
+	BACG(BG_PLAIN_2_NIGHT)
     FADU(2)
     TEXTSHOW(0x964)
     TEXTEND
     FAWI(2)
     REMA
-    BACG(0x16)
+	BACG(BG_MANSE_FLASHBACK)
     FAWU(2)
     MUSC(0x52)
     BROWNBOXTEXT(0x211, 8, 8)
@@ -167,7 +167,7 @@ LABEL(0x0)
     FAWI(2)
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     REMA
-    BACG(0x20)
+	BACG(BG_PLAIN_2_NIGHT)
     FAWU(2)
     EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)

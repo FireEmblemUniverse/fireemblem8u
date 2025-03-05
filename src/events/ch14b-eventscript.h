@@ -18,7 +18,7 @@ CONST_DATA EventListScr EventScr_Ch14b_BeginingScene[] = {
     FAWI(2)
     REMA
     REMOVEPORTRAITS
-    BACG(0xf)
+	BACG(BG_THRONE_FLASHBACK)
     EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)

@@ -2,10 +2,10 @@
 
 CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     REMOVEPORTRAITS
-    BACG(0x35)
+	BACG(BG_BLANK)
     FADU(128)
     FAWI(2)
-    BACG(0x14)
+	BACG(BG_GARDEN_FLASHBACK)
     EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)

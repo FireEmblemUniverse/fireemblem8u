@@ -56,6 +56,8 @@ enum {
     BG_BLACK_TEMPLE_OUTSIDE    = 0x33,
     BG_BLACK_TEMPLE_INSIDE     = 0x34,
     BG_BLANK                   = 0x35,
+
+    BG_NONE                    = 0x37, //Unsure?
 };
 
 #endif // GUARD_CONSTANTS_BACKGROUNDS_H
