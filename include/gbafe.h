@@ -8,6 +8,7 @@
 #include "constants/banims.h"
 #include "constants/items.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 #include "constants/chapters.h"
 #include "constants/worldmap.h"
 #include "constants/classes.h"

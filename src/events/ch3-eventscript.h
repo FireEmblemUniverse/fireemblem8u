@@ -6,16 +6,15 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     MUSC(0x25)
-    SVAL(EVT_SLOT_2, 0x18)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_1)
     TEXTSHOW(0x98b)
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x98c)
     TEXTEND
     REMA
@@ -108,8 +107,7 @@ CONST_DATA EventListScr EventScr_Ch3_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_NEIMI)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0x28)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_FORT_SUNSET)
     TEXTSHOW(0x995)
     TEXTEND
     REMA
@@ -121,8 +119,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x9)
     CALL(EventScr_9EE5BC)
 LABEL(0x1)
-    SVAL(EVT_SLOT_2, 0x29)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_FORT)
     TEXTSHOW(0x996)
     TEXTEND
     REMA
@@ -130,8 +127,7 @@ LABEL(0x1)
     FADI(4)
     SVAL(EVT_SLOT_2, 0x2000f)
     CALL(EventScr_9EEA58)
-    SVAL(EVT_SLOT_2, 0xc)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_GRADO_CHAMBER)
     TEXTSHOW(0x997)
     TEXTEND
     REMA

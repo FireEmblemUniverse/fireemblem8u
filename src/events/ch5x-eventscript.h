@@ -8,6 +8,7 @@
 #include "EAstdlib.h"
 #include "constants/worldmap.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 void HandleCh5xUnits_Start(void)
 {
@@ -77,8 +78,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x22)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_TREES)
     MUSC(0x25)
     TEXTSHOW(0x9d8)
     TEXTEND
@@ -95,9 +95,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x21)
-    SVAL(EVT_SLOT_3, 0x9d9)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_STREAM, 0x9d9)
     MOVE(0x0, CHARACTER_EPHRAIM, 9, 4)
     STAL2(8)
     MOVE(0x0, CHARACTER_FORDE, 9, 5)
@@ -126,8 +124,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0x9db)
     TEXTEND
     REMA
@@ -166,8 +163,7 @@ void HandleCh5xUnits_End(void)
 CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     ASMC(HandleCh5xUnits_End)
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0x9e1)
     TEXTEND
     REMA
@@ -212,8 +208,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x21)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_STREAM)
     TEXTSHOW(0x9e3)
     TEXTEND
     REMA

@@ -53,8 +53,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x34)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_BLACK_TEMPLE_INSIDE)
     TEXTSHOW(0xbb9)
     TEXTEND
     FADI(16)

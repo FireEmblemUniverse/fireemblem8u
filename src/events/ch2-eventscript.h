@@ -7,12 +7,12 @@
 #include "EAstdlib.h"
 #include "playerphase.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     MUSC(0x24)
 
-    SVAL(EVT_SLOT_2, 0x18)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_1)
 
     TEXTSHOW(0x954)
     TEXTEND
@@ -48,7 +48,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     CURE
 
     MUSC(0x25)
-    Text_BG(0x2, 0x956)
+    Text_BG(BG_NORMAL_VILLAGE, 0x956)
 
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
@@ -77,7 +77,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x1D, 0x958)
+    Text_BG(BG_PLAIN_2, 0x958)
 
     SVAL(EVT_SLOT_2, EventScr_089F0790)
     CALL(EventScr_CallOnTutorialMode)
@@ -135,8 +135,7 @@ CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ROSS)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x962)
     TEXTEND
     REMA
@@ -146,8 +145,7 @@ CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     SVAL(EVT_SLOT_2, 0x7)
     CALL(EventScr_LoadUniqueAlly)
 LABEL(0x0)
-    SVAL(EVT_SLOT_2, 0x4)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_VILLAGE_SUNSET)
     TEXTSHOW(0x963)
     TEXTEND
     FADI(4)
@@ -230,15 +228,13 @@ CONST_DATA EventListScr EventScr_Ch2_Village1[] = {
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
     MUSI
 
-    Text_BG(0x2, 0x969)
+    Text_BG(BG_NORMAL_VILLAGE, 0x969)
 
     MUNO
     GOTO(0x1)
 LABEL(0x0)
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96a)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_NORMAL_VILLAGE, 0x96a)
     MUNO
 LABEL(0x1)
     CALL(EventScr_RemoveBGIfNeeded)
@@ -250,9 +246,7 @@ LABEL(0x1)
 
 CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96b)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_NORMAL_VILLAGE, 0x96b)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6d)
@@ -263,9 +257,7 @@ CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
 
 CONST_DATA EventListScr EventScr_Ch2_Village3[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96c)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_NORMAL_VILLAGE, 0x96c)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6e)

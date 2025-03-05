@@ -15,9 +15,7 @@ CONST_DATA EventListScr EventScr_089FD3A8[] = {
     STAL(60)
     CURE
     MUSC(0x11)
-    SVAL(EVT_SLOT_2, 0xb)
-    SVAL(EVT_SLOT_3, 0xb98)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_CASTLE_NIGHT, 0xb98)
     EVBIT_T(7)
     ENDA
 };

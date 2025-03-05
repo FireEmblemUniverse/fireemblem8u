@@ -162,8 +162,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x11)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CASTLE_DARK)
     TEXTSHOW(0xb06)
     TEXTEND
     MUSC(0x2d)
@@ -217,8 +216,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x17)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CELL)
     TEXTSHOW(0xb09)
     TEXTEND
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
@@ -240,17 +238,13 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     STAL(60)
     CURE
     MUSCSLOW(0x2d)
-    SVAL(EVT_SLOT_2, 0x2d)
-    SVAL(EVT_SLOT_3, 0xb0a)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_STONE_FLASHBACK, 0xb0a)
     LOAD2(0x1, UnitDef_088C6C40)
     ENUN
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2d)
-    SVAL(EVT_SLOT_3, 0xb0b)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_STONE_FLASHBACK, 0xb0b)
     LOAD2(0x1, UnitDef_088C6C7C)
     ENUN
     SVAL(EVT_SLOT_2, 0x40)
@@ -258,8 +252,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2d)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_STONE_FLASHBACK)
     TEXTSHOW(0xb0c)
     TEXTEND
     REMA
@@ -282,8 +275,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x17)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CELL)
     TEXTSHOW(0xb0d)
     TEXTEND
     FADI(16)
@@ -304,13 +296,11 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2c)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_STONE_CHAMBER)
     TEXTSHOW(0xb0e)
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0x2c)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_STONE_CHAMBER)
     TEXTSHOW(0xb0f)
     TEXTEND
     REMA

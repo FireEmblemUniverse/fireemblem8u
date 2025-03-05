@@ -12,8 +12,7 @@ CONST_DATA EventListScr EventScr_Ch18a_BeginingScene[] = {
 
 CONST_DATA EventListScr EventScr_089F7E6C[] = {
     MUSC(0x49)
-    SVAL(EVT_SLOT_2, 0x32)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_VOLCANO)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
@@ -47,9 +46,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACHER_FRELIAN)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x32)
-    SVAL(EVT_SLOT_3, 0xb7c)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_VOLCANO, 0xb7c)
     CAMERA2(12, 15)
     STAL(60)
     CAMERA(0, 27)
@@ -57,8 +54,7 @@ LABEL(0x1)
     STAL(60)
     CURE
     MUSC(0x25)
-    SVAL(EVT_SLOT_2, 0x32)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_VOLCANO)
     TEXTSHOW(0xb7d)
     TEXTEND
     REMA
@@ -179,8 +175,7 @@ CONST_DATA EventListScr EventScr_089F7F88[] = {
     TEXTEND
     REMA
     FADI(4)
-    SVAL(EVT_SLOT_2, 0x32)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_VOLCANO)
     TEXTSHOW(0xb8a)
     TEXTEND
     REMA

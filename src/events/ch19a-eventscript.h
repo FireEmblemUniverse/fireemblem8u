@@ -192,9 +192,7 @@ CONST_DATA EventListScr EventScr_089F8644[] = {
     STAL(60)
     CURE
     MUSC(0x11)
-    SVAL(EVT_SLOT_2, 0xb)
-    SVAL(EVT_SLOT_3, 0xb97)
-    CALL(Event_TextWithBG)
+	Text_BG(BG_CASTLE_NIGHT, 0xb97)
     EVBIT_T(7)
     ENDA
 };
@@ -209,8 +207,7 @@ CONST_DATA EventListScr EventScr_089F8688[] = {
     CHECK_OTHERS
     SADD(EVT_SLOT_7, EVT_SLOT_C, EVT_SLOT_0)
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_CASTLE_INTERIOR)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
@@ -254,8 +251,7 @@ LABEL(0x3)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2f)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_WHITE_CHAMBER)
     MUSC(0x2b)
     TEXTSHOW(0xba0)
     TEXTEND
@@ -283,8 +279,7 @@ LABEL(0xb)
     CUMO_CHAR(CHARACTER_MANSEL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x12)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_GATE)
     MUSC(0x31)
     TEXTSHOW(0xba1)
     TEXTEND
@@ -323,8 +318,7 @@ LABEL(0x1f)
     REMA
     SVAL(EVT_SLOT_8, 0x6)
     BLT(0x2a, EVT_SLOT_7, EVT_SLOT_8)
-    SVAL(EVT_SLOT_2, 0x12)
-    CALL(EventScr_SetBackground)
+	SetBackground(BG_GATE)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x28, EVT_SLOT_C, EVT_SLOT_1)

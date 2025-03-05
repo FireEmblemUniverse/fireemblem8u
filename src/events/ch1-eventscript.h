@@ -6,6 +6,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     MUSC(0x25)
@@ -18,7 +19,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x26, 0x929)
+    Text_BG(BG_INTERIOR_BLACK, 0x929)
 
     LOAD1(1, UnitDef_Event_Ch1NPC)
     ENUN
@@ -27,7 +28,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     DISA(CHAR_EVT_POSITION_AT_SLOTB)
 
     FlashCursor(CHARACTER_BREGUET, 60)
-    Text_BG(0x1C, 0x92A)
+    Text_BG(BG_GRASS_PLAINS, 0x92A)
 
     MOVE(0, CHARACTER_BREGUET, 2, 3)
     ENUN
@@ -83,7 +84,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x26, 0x92C)
+    Text_BG(BG_INTERIOR_BLACK, 0x92C)
     REMA
 
     LOAD2(1, UnitDef_Event_Ch1Ally)
@@ -150,7 +151,7 @@ CONST_DATA EventListScr EventScr_Ch1_Misc_DefeatBoss[] = {
 
 CONST_DATA EventListScr EventScr_Ch1_EndingScene[] = {
     MUSC(0x31)
-    SetBackground(0x26)
+    SetBackground(BG_INTERIOR_BLACK)
 
     CHECK_ALIVE(CHARACTER_GILLIAM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
