@@ -19,14 +19,14 @@ LABEL(0x8020)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088B593C)
     ENUN
-	Text_BG(BG_SERAFEW_VILLAGE, 0x9ba)
+    Text_BG(BG_SERAFEW_VILLAGE, 0x9ba)
     DISA(CHARACTER_JOSHUA)
     LOAD2(0x1, UnitDef_088B593C)
     ENUN
     CUMO_CHAR(CHARACTER_JOSHUA)
     STAL(60)
     CURE
-	SetBackground(BG_SERAFEW_VILLAGE)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0x9bb)
     TEXTEND
     REMA
@@ -42,7 +42,7 @@ LABEL(0x8020)
     CUMO_CHAR(CHARACTER_GLEN)
     STAL(60)
     CURE
-	Text_BG(BG_SERAFEW_VILLAGE, 0x9bc)
+    Text_BG(BG_SERAFEW_VILLAGE, 0x9bc)
     MOVE(0x0, CHARACTER_SAAR, 9, 4)
     ENUN
     MOVE_1STEP(0x10, CHARACTER_CORMAG, FACING_UP)
@@ -50,7 +50,7 @@ LABEL(0x8020)
     CUMO_CHAR(CHARACTER_GLEN)
     STAL(60)
     CURE
-	Text_BG(BG_SERAFEW_VILLAGE, 0x9bd)
+    Text_BG(BG_SERAFEW_VILLAGE, 0x9bd)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x1c9)
     SENQUEUE1
@@ -86,7 +86,7 @@ LABEL(0x8020)
     CLEA
     CLEE
     CLEN
-	SetBackground(BG_TOWN)
+    SetBackground(BG_TOWN)
     MUSC(0x24)
     TEXTSHOW(0x9be)
     TEXTEND
@@ -177,7 +177,7 @@ CONST_DATA EventListScr EventScr_Ch5_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, 0x20)
     CALL(EventScr_9EE5BC)
-	SetBackground(BG_SERAFEW_VILLAGE)
+    SetBackground(BG_SERAFEW_VILLAGE)
     CHECK_ALIVE(CHARACTER_NATASHA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     MUSC(0x31)
@@ -198,7 +198,7 @@ LABEL(0x1)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_EVENTID(11)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_SERAFEW_VILLAGE)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0x9cb)
     TEXTEND
     REMA
@@ -220,7 +220,7 @@ LABEL(0x2)
 
 CONST_DATA EventListScr EventScr_089F2170[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0x9cd)
+    Text_BG(BG_HOUSE, 0x9cd)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0xe)
@@ -233,7 +233,7 @@ CONST_DATA EventListScr EventScr_089F2170[] = {
 
 CONST_DATA EventListScr EventScr_089F21BC[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0x9ce)
+    Text_BG(BG_HOUSE, 0x9ce)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x60)
@@ -244,7 +244,7 @@ CONST_DATA EventListScr EventScr_089F21BC[] = {
 
 CONST_DATA EventListScr EventScr_089F21F8[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0x9cf)
+    Text_BG(BG_HOUSE, 0x9cf)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x5d)
@@ -255,7 +255,7 @@ CONST_DATA EventListScr EventScr_089F21F8[] = {
 
 CONST_DATA EventListScr EventScr_089F2234[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0x9d0)
+    Text_BG(BG_HOUSE, 0x9d0)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x70)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)

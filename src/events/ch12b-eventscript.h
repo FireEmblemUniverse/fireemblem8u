@@ -12,7 +12,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xadb)
     TEXTEND
     FADI(4)
@@ -26,7 +26,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSI
-	Text_BG(BG_PORT, 0xadc)
+    Text_BG(BG_PORT, 0xadc)
     MOVE(0x10, CHARACTER_SALEH, 8, 12)
     ENUN
     DISA(CHARACTER_SALEH)
@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-	Text_BG(BG_SHIP, 0xade)
+    Text_BG(BG_SHIP, 0xade)
     MUSCMID(0x7fff)
     LOAD2(0x1, UnitDef_088C4D0C)
     ENUN
@@ -61,7 +61,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSC(0x25)
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xadf)
     TEXTEND
     REMA
@@ -179,7 +179,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-	Text_BG(BG_PORT, 0xae4)
+    Text_BG(BG_PORT, 0xae4)
     IGNORE_KEYS(0x1)
     MOVE(0x10, CHARACTER_MYRRH, 20, 12)
     FADI(4)
@@ -191,7 +191,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_PORT)
+    SetBackground(BG_PORT)
     TEXTSHOW(0xae5)
     TEXTEND
     MUSC(0x32)
@@ -202,7 +202,7 @@ LABEL(0x1)
     REMA
     BEQ(0xa, EVT_SLOT_A, EVT_SLOT_0)
     MUSC(0x31)
-	SetBackground(BG_PORT)
+    SetBackground(BG_PORT)
     TEXTSHOW(0xae6)
     TEXTEND
     REMA
@@ -229,7 +229,7 @@ CONST_DATA EventListScr EventScr_089FB90C[] = {
 CONST_DATA EventListScr EventScr_089FB934[] = {
     MUSS(0x30)
     STAL(33)
-	Text_BG(BG_HOUSE, 0xae8)
+    Text_BG(BG_HOUSE, 0xae8)
     MURE(0x2)
     SVAL(EVT_SLOT_2, UnitDef_088C4AB4)
     CALL(EventScr_LoadReinforce)
@@ -239,7 +239,7 @@ CONST_DATA EventListScr EventScr_089FB934[] = {
 
 CONST_DATA EventListScr EventScr_089FB970[] = {
     MUSI
-	Text_BG(BG_FIREPLACE, 0xae9)
+    Text_BG(BG_FIREPLACE, 0xae9)
     MUNO
     EVBIT_T(7)
     ENDA

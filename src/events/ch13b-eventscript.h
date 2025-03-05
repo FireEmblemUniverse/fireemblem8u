@@ -9,7 +9,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSI
-	SetBackground(BG_NORMAL_VILLAGE)
+    SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaea)
     TEXTEND
     MUSC(0x2b)
@@ -17,7 +17,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     TEXTEND
     FADI(4)
     REMA
-	SetBackground(BG_NORMAL_VILLAGE)
+    SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaeb)
     TEXTEND
     MUSC(0x29)
@@ -63,7 +63,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_STREAM)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaed)
     TEXTEND
     REMA
@@ -79,7 +79,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_GERIK)
     STAL(60)
     CURE
-	SetBackground(BG_PLAIN_2)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xaee)
     TEXTEND
     REMA
@@ -96,7 +96,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-	SetBackground(BG_STREAM)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaef)
     TEXTEND
     REMA
@@ -122,7 +122,7 @@ CONST_DATA EventListScr EventScr_Ch13b_EndingScene[] = {
     STAL(60)
     CURE
     MUSC(0x32)
-	SetBackground(BG_STREAM)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaf2)
     TEXTEND
     REMA
@@ -207,7 +207,7 @@ CONST_DATA EventListScr EventScr_089FBD70[] = {
 
 CONST_DATA EventListScr EventScr_089FBD90[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0xaf8)
+    Text_BG(BG_NORMAL_VILLAGE, 0xaf8)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x59)
@@ -218,7 +218,7 @@ CONST_DATA EventListScr EventScr_089FBD90[] = {
 
 CONST_DATA EventListScr EventScr_089FBDCC[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0xaf9)
+    Text_BG(BG_NORMAL_VILLAGE, 0xaf9)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x61)

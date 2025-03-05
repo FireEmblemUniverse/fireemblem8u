@@ -19,7 +19,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MESSENGER)
     STAL(60)
     CURE
-	Text_BG(BG_GRASS_PLAINS, 0xab4)
+    Text_BG(BG_GRASS_PLAINS, 0xab4)
     MUSI
     EARTHQUAKE_START(0, 1)
     STAL(120)
@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_GRASS_PLAINS)
+    SetBackground(BG_GRASS_PLAINS)
     TEXTSHOW(0xab5)
     TEXTEND
     REMA
@@ -56,7 +56,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSC(0x2e)
-	SetBackground(BG_PORT)
+    SetBackground(BG_PORT)
     TEXTSHOW(0xab6)
     TEXTEND
     MUSCFAST(0x7fff)
@@ -117,7 +117,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-	SetBackground(BG_GRASS_PLAINS)
+    SetBackground(BG_GRASS_PLAINS)
     TEXTSHOW(0xab8)
     TEXTEND
     REMA
@@ -136,7 +136,7 @@ CONST_DATA EventListScr EventScr_089FAAC4[] = {
     STAL(60)
     CURE
     MUSI
-	SetBackground(BG_GATE)
+    SetBackground(BG_GATE)
     TEXTSHOW(0xab9)
     TEXTEND
     REMA
@@ -224,7 +224,7 @@ LABEL(0x0)
     CUMO_CHAR(CHARACTER_BERAN)
     STAL(60)
     CURE
-	SetBackground(BG_GATE)
+    SetBackground(BG_GATE)
     TEXTSHOW(0xac0)
     TEXTEND
     REMA
@@ -240,7 +240,7 @@ LABEL(0x0)
     STAL(60)
     CURE
     MUSC(0x31)
-	SetBackground(BG_GRASS_PLAINS)
+    SetBackground(BG_GRASS_PLAINS)
     TEXTSHOW(0xac1)
     TEXTEND
     REMA
@@ -262,7 +262,7 @@ LABEL(0x2)
     CUMO_AT(18, 13)
     STAL(60)
     CURE
-	SetBackground(BG_GATE)
+    SetBackground(BG_GATE)
     TEXTSHOW(0xac2)
     TEXTEND
     MUSCMID(0x7fff)
@@ -292,7 +292,7 @@ LABEL(0x3)
     STAL(60)
     CURE
     MUSC(0x24)
-	Text_BG(BG_PORT, 0xac4)
+    Text_BG(BG_PORT, 0xac4)
     CLEN
     LOAD2(0x1, UnitDef_088C33AC)
     ENUN
@@ -301,7 +301,7 @@ LABEL(0x3)
     CURE
     MUSS(0x2a)
     STAL(33)
-	Text_BG(BG_PORT, 0xac5)
+    Text_BG(BG_PORT, 0xac5)
     MURE(0x4)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x10387)
@@ -327,7 +327,7 @@ LABEL(0x3)
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-	SetBackground(BG_PORT)
+    SetBackground(BG_PORT)
     TEXTSHOW(0xac6)
     TEXTEND
     REMA
@@ -377,7 +377,7 @@ CONST_DATA EventListScr EventScr_089FAF2C[] = {
 
 CONST_DATA EventListScr EventScr_089FAF54[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0xaca)
+    Text_BG(BG_NORMAL_VILLAGE, 0xaca)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x56)
@@ -388,7 +388,7 @@ CONST_DATA EventListScr EventScr_089FAF54[] = {
 
 CONST_DATA EventListScr EventScr_089FAF90[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0xacb)
+    Text_BG(BG_NORMAL_VILLAGE, 0xacb)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x64)
@@ -399,7 +399,7 @@ CONST_DATA EventListScr EventScr_089FAF90[] = {
 
 CONST_DATA EventListScr EventScr_089FAFCC[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xacc)
+    Text_BG(BG_HOUSE, 0xacc)
     MUNO
     EVBIT_T(7)
     ENDA
@@ -407,7 +407,7 @@ CONST_DATA EventListScr EventScr_089FAFCC[] = {
 
 CONST_DATA EventListScr EventScr_089FAFF4[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xacd)
+    Text_BG(BG_HOUSE, 0xacd)
     MUNO
     EVBIT_T(7)
     ENDA

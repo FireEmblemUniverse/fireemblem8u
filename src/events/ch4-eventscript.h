@@ -15,7 +15,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_FOREST)
+    SetBackground(BG_FOREST)
     TEXTSHOW(0x9a3)
     TEXTEND
     REMA
@@ -39,7 +39,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     CUMO_AT(1, 11)
     STAL(60)
     CURE
-	SetBackground(BG_NORMAL_VILLAGE)
+    SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0x9a5)
     TEXTEND
     REMA
@@ -136,7 +136,7 @@ CONST_DATA EventListScr EventScr_089F19F8[] = {
     MUSC(0x31)
     CHECK_EXISTS(CHARACTER_LUTE)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_NORMAL_VILLAGE)
+    SetBackground(BG_NORMAL_VILLAGE)
     CHECK_ALIVE(CHARACTER_ARTUR)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_2, 0x9ad)
@@ -152,7 +152,7 @@ LABEL(0x1)
     ENUN
 LABEL(0xa)
     MUSC(0x32)
-	SetBackground(BG_PLAIN_1)
+    SetBackground(BG_PLAIN_1)
     CHECK_ALIVE(CHARACTER_ARTUR)
     BEQ(0xb, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_LUTE)
@@ -181,7 +181,7 @@ LABEL(0xc)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
-	SetBackground(BG_PLAIN_1)
+    SetBackground(BG_PLAIN_1)
     TEXTSHOW(0x9b1)
     TEXTEND
     REMA
@@ -203,13 +203,13 @@ CONST_DATA EventListScr EventScr_089F1B38[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
     SVAL(EVT_SLOT_7, 0x1)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_7)
-	Text_BG(BG_NORMAL_VILLAGE, 0x9b4)
+    Text_BG(BG_NORMAL_VILLAGE, 0x9b4)
     GOTO(0x2)
 LABEL(0x0)
-	Text_BG(BG_NORMAL_VILLAGE, 0x9b2)
+    Text_BG(BG_NORMAL_VILLAGE, 0x9b2)
     GOTO(0x2)
 LABEL(0x1)
-	Text_BG(BG_NORMAL_VILLAGE, 0x9b3)
+    Text_BG(BG_NORMAL_VILLAGE, 0x9b3)
 LABEL(0x2)
     MURE(0x4)
     LOAD1(0x1, UnitDef_088B4BFC)
@@ -220,7 +220,7 @@ LABEL(0x2)
 
 CONST_DATA EventListScr EventScr_089F1BD8[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0x9b5)
+    Text_BG(BG_NORMAL_VILLAGE, 0x9b5)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x1f)

@@ -24,7 +24,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_DESERT)
+    SetBackground(BG_DESERT)
     TEXTSHOW(0xb19)
     TEXTEND
     REMA
@@ -41,7 +41,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSC(0x2e)
-	Text_BG(BG_DESERT, 0xb1a)
+    Text_BG(BG_DESERT, 0xb1a)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
@@ -71,7 +71,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	Text_BG(BG_DESERT, 0xb1c)
+    Text_BG(BG_DESERT, 0xb1c)
     EVBIT_T(7)
     ENDA
 };
@@ -85,7 +85,7 @@ CONST_DATA EventListScr EventScr_Ch15b_EndingScene[] = {
 
 CONST_DATA EventListScr EventScr_089FC904[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xb36)
+    Text_BG(BG_HOUSE, 0xb36)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x88)
@@ -96,7 +96,7 @@ CONST_DATA EventListScr EventScr_089FC904[] = {
 
 CONST_DATA EventListScr EventScr_089FC940[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xb37)
+    Text_BG(BG_HOUSE, 0xb37)
     MUNO
     EVBIT_T(7)
     ENDA
@@ -104,7 +104,7 @@ CONST_DATA EventListScr EventScr_089FC940[] = {
 
 CONST_DATA EventListScr EventScr_089FC968[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xb38)
+    Text_BG(BG_HOUSE, 0xb38)
     MUNO
     EVBIT_T(7)
     ENDA

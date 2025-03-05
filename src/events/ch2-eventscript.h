@@ -12,7 +12,7 @@
 CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     MUSC(0x24)
 
-	SetBackground(BG_PLAIN_1)
+    SetBackground(BG_PLAIN_1)
 
     TEXTSHOW(0x954)
     TEXTEND
@@ -135,7 +135,7 @@ CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ROSS)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_PLAIN_2)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x962)
     TEXTEND
     REMA
@@ -145,20 +145,20 @@ CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     SVAL(EVT_SLOT_2, 0x7)
     CALL(EventScr_LoadUniqueAlly)
 LABEL(0x0)
-	SetBackground(BG_VILLAGE_SUNSET)
+    SetBackground(BG_VILLAGE_SUNSET)
     TEXTSHOW(0x963)
     TEXTEND
     FADI(4)
     MUSCSLOW(0x7fff)
     REMA
     REMOVEPORTRAITS
-	BACG(BG_PLAIN_2_NIGHT)
+    BACG(BG_PLAIN_2_NIGHT)
     FADU(2)
     TEXTSHOW(0x964)
     TEXTEND
     FAWI(2)
     REMA
-	BACG(BG_MANSE_FLASHBACK)
+    BACG(BG_MANSE_FLASHBACK)
     FAWU(2)
     MUSC(0x52)
     BROWNBOXTEXT(0x211, 8, 8)
@@ -167,7 +167,7 @@ LABEL(0x0)
     FAWI(2)
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     REMA
-	BACG(BG_PLAIN_2_NIGHT)
+    BACG(BG_PLAIN_2_NIGHT)
     FAWU(2)
     EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)
@@ -234,7 +234,7 @@ CONST_DATA EventListScr EventScr_Ch2_Village1[] = {
     GOTO(0x1)
 LABEL(0x0)
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0x96a)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96a)
     MUNO
 LABEL(0x1)
     CALL(EventScr_RemoveBGIfNeeded)
@@ -246,7 +246,7 @@ LABEL(0x1)
 
 CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0x96b)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96b)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6d)
@@ -257,7 +257,7 @@ CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
 
 CONST_DATA EventListScr EventScr_Ch2_Village3[] = {
     MUSI
-	Text_BG(BG_NORMAL_VILLAGE, 0x96c)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96c)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6e)

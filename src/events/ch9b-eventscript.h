@@ -13,7 +13,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_DUESSEL)
     STAL(60)
     CURE
-	SetBackground(BG_GRADO_CHAMBER)
+    SetBackground(BG_GRADO_CHAMBER)
     TEXTSHOW(0xaa1)
     TEXTEND
     REMA
@@ -37,7 +37,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSC(0x25)
-	SetBackground(BG_INTERIOR_BROWN)
+    SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaa2)
     TEXTEND
     REMA
@@ -45,7 +45,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     CLEA
     CLEE
     CLEN
-	SetBackground(BG_CASTLE_BACK)
+    SetBackground(BG_CASTLE_BACK)
     TEXTSHOW(0xaa3)
     TEXTEND
     REMA
@@ -79,13 +79,13 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSC(0x2e)
-	Text_BG(BG_INTERIOR_BROWN, 0xaa4)
+    Text_BG(BG_INTERIOR_BROWN, 0xaa4)
     MOVE_1STEP(0x10, CHARACTER_GHEB, FACING_DOWN)
     ENUN
     CUMO_CHAR(CHARACTER_GHEB)
     STAL(60)
     CURE
-	Text_BG(BG_INTERIOR_BROWN, 0xaa5)
+    Text_BG(BG_INTERIOR_BROWN, 0xaa5)
     MOVE_1STEP(0x10, CHARACTER_GHEB, FACING_UP)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x256)
@@ -101,7 +101,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_AMELIA)
     STAL(60)
     CURE
-	Text_BG(BG_INTERIOR_BROWN, 0xaa6)
+    Text_BG(BG_INTERIOR_BROWN, 0xaa6)
     MOVE_1STEP(0x8, CHARACTER_AMELIA, FACING_DOWN)
     ENUN
     SVAL(EVT_SLOT_D, 0x0)
@@ -122,7 +122,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_AMELIA)
     STAL(60)
     CURE
-	Text_BG(BG_INTERIOR_BROWN, 0xaa7)
+    Text_BG(BG_INTERIOR_BROWN, 0xaa7)
     MOVE(0x10, CHARACTER_SOLDIER_83, 23, 15)
     MOVE(0x10, CHARACTER_AMELIA, 23, 15)
     LOAD1(0x1, UnitDef_088C2610)
@@ -150,7 +150,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSI
-	Text_BG(BG_CELL, 0xaa8)
+    Text_BG(BG_CELL, 0xaa8)
     MUNO
     ENUT(18)
     ENUT(12)
@@ -162,7 +162,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
 
 CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     MUSC(0x31)
-	SetBackground(BG_INTERIOR_BROWN)
+    SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaac)
     TEXTEND
     REMA
@@ -185,7 +185,7 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_INTERIOR_BROWN)
+    SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaad)
     TEXTEND
     MUSCFAST(0x7fff)
@@ -196,11 +196,11 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     TEXTEND
     REMA
     FADI(4)
-	SetBackground(BG_CASTLE_BACK)
+    SetBackground(BG_CASTLE_BACK)
     TEXTSHOW(0xaae)
     TEXTEND
     REMA
-	SetBackground(BG_PLAIN_1)
+    SetBackground(BG_PLAIN_1)
     MUSI
     TEXTSHOW(0xaaf)
     TEXTEND

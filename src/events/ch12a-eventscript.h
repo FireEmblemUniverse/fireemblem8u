@@ -93,7 +93,7 @@ CONST_DATA EventListScr EventScr_Ch12a_BeginingScene[] = {
     CUMO_AT(5, 12)
     STAL(60)
     CURE
-	SetBackground(BG_CAER_PELYN)
+    SetBackground(BG_CAER_PELYN)
     MUSI
     TEXTSHOW(0xa5a)
     TEXTEND
@@ -120,14 +120,14 @@ CONST_DATA EventListScr EventScr_Ch12a_EndingScene[] = {
     BNE(0x2, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_SALEH)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_CAER_PELYN)
+    SetBackground(BG_CAER_PELYN)
     TEXTSHOW(0xa5b)
     TEXTEND
     GOTO(0x1)
 LABEL(0x0)
     CHECK_ALIVE(CHARACTER_TETHYS)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_CAER_PELYN)
+    SetBackground(BG_CAER_PELYN)
     TEXTSHOW(0xa5c)
     TEXTEND
 LABEL(0x1)
@@ -144,13 +144,13 @@ LABEL(0x2)
     CURE
     CHECK_ALIVE(CHARACTER_SALEH)
     BEQ(0xa, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_VILLAGE_SUNSET)
+    SetBackground(BG_VILLAGE_SUNSET)
     TEXTSHOW(0xa5d)
     TEXTEND
     REMA
     MUSCMID(0x7fff)
     FADI(16)
-	SetBackground(BG_CAER_PELYN)
+    SetBackground(BG_CAER_PELYN)
     MUSC(0x2b)
     TEXTSHOW(0xa5e)
     TEXTEND
@@ -161,20 +161,20 @@ LABEL(0x2)
     TEXTEND
     REMA
     FADI(4)
-	SetBackground(BG_VILLAGE_CLEAR)
+    SetBackground(BG_VILLAGE_CLEAR)
     TEXTSHOW(0xa5f)
     TEXTEND
     REMA
     GOTO(0xb)
 LABEL(0xa)
     MUSC(0x32)
-	SetBackground(BG_VILLAGE_CLEAR)
+    SetBackground(BG_VILLAGE_CLEAR)
     TEXTSHOW(0xa60)
     TEXTEND
     REMA
     MUSCMID(0x7fff)
     FADI(16)
-	SetBackground(BG_CAER_PELYN)
+    SetBackground(BG_CAER_PELYN)
     MUSC(0x2b)
     TEXTSHOW(0xa61)
     TEXTEND
@@ -185,7 +185,7 @@ LABEL(0xa)
     TEXTEND
     REMA
     FADI(4)
-	SetBackground(BG_VILLAGE_CLEAR)
+    SetBackground(BG_VILLAGE_CLEAR)
     TEXTSHOW(0xa62)
     TEXTEND
     REMA
@@ -197,7 +197,7 @@ LABEL(0xb)
 
 CONST_DATA EventListScr EventScr_089F536C[] = {
     MUSI
-	Text_BG(BG_CAER_PELYN, 0xa63)
+    Text_BG(BG_CAER_PELYN, 0xa63)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x59)
@@ -218,16 +218,16 @@ LABEL(0x0)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_7)
     SVAL(EVT_SLOT_7, 0x15)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_7)
-	Text_BG(BG_CAER_PELYN, 0xa67)
+    Text_BG(BG_CAER_PELYN, 0xa67)
     GOTO(0x9)
 LABEL(0x1)
-	Text_BG(BG_CAER_PELYN, 0xa64)
+    Text_BG(BG_CAER_PELYN, 0xa64)
     GOTO(0x9)
 LABEL(0x2)
-	Text_BG(BG_CAER_PELYN, 0xa65)
+    Text_BG(BG_CAER_PELYN, 0xa65)
     GOTO(0x9)
 LABEL(0x3)
-	Text_BG(BG_CAER_PELYN, 0xa66)
+    Text_BG(BG_CAER_PELYN, 0xa66)
 LABEL(0x9)
     LOAD1(0x1, UnitDef_088BA5D0)
     ENUN

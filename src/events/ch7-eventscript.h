@@ -24,7 +24,7 @@ CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_STREAM)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0x9f6)
     TEXTEND
     CHECK_ALIVE(CHARACTER_FRANZ)
@@ -124,7 +124,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     STAL(60)
     CURE
     MUSI
-	Text_BG(BG_CASTLE_BRIGHT, 0xa05)
+    Text_BG(BG_CASTLE_BRIGHT, 0xa05)
     MUNO
     MOVE_1STEP(0x0, CHARACTER_ORSON_CH5X, FACING_LEFT)
     ENUN
@@ -159,7 +159,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
 
 CONST_DATA EventListScr EventScr_089F2E6C[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xa06)
+    Text_BG(BG_HOUSE, 0xa06)
     MUNO
     EVBIT_T(7)
     ENDA
@@ -167,7 +167,7 @@ CONST_DATA EventListScr EventScr_089F2E6C[] = {
 
 CONST_DATA EventListScr EventScr_089F2E94[] = {
     MUSI
-	Text_BG(BG_HOUSE, 0xa07)
+    Text_BG(BG_HOUSE, 0xa07)
     MUNO
     EVBIT_T(7)
     ENDA

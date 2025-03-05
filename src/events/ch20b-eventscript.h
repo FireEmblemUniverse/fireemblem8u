@@ -32,7 +32,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     FAWI(2)
     EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     REMOVEPORTRAITS
-	BACG(BG_THRONE_FLASHBACK)
+    BACG(BG_THRONE_FLASHBACK)
     FAWU(2)
     BROWNBOXTEXT(0x20e, 8, 8)
     TEXTSHOW(0xbb7)
@@ -40,7 +40,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     REMA
     FAWI(16)
     REMOVEPORTRAITS
-	BACG(BG_GRADO_CHAMBER_FLASHBACK)
+    BACG(BG_GRADO_CHAMBER_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xbb8)
     TEXTEND
@@ -53,7 +53,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-	SetBackground(BG_BLACK_TEMPLE_INSIDE)
+    SetBackground(BG_BLACK_TEMPLE_INSIDE)
     TEXTSHOW(0xbb9)
     TEXTEND
     FADI(16)

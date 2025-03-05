@@ -21,7 +21,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_ORSON_CH5X)
     STAL(60)
     CURE
-	SetBackground(BG_CASTLE_BRIGHT)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa08)
     TEXTEND
     MUSCMID(0x7fff)
@@ -57,7 +57,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_TIRADO)
     STAL(60)
     CURE
-	Text_BG(BG_CASTLE_BRIGHT, 0xa0a)
+    Text_BG(BG_CASTLE_BRIGHT, 0xa0a)
     SVAL(EVT_SLOT_B, 0x100013)
     MOVE_1STEP(0x0, CHAR_EVT_POSITION_AT_SLOTB, FACING_LEFT)
     ENUN
@@ -93,7 +93,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_CASTLE_BRIGHT)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa0c)
     TEXTEND
     REMA
@@ -129,7 +129,7 @@ CONST_DATA EventListScr EventScr_089F3124[] = {
 
 CONST_DATA EventListScr EventScr_Ch8_EndingScene[] = {
     MUSC(0x31)
-	SetBackground(BG_CASTLE_BRIGHT)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa10)
     TEXTEND
     REMA
@@ -212,7 +212,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_SERAFEW_VILLAGE)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc02)
     TEXTEND
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
@@ -234,7 +234,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CURE
     REMOVEPORTRAITS
     FAWI(16)
-	BACG(BG_SERAFEW_FLASHBACK)
+    BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc03)
     TEXTEND
@@ -250,7 +250,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CLEE
     CLEN
     REMOVEPORTRAITS
-	BACG(BG_SERAFEW_FLASHBACK)
+    BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
@@ -267,7 +267,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_SERAFEW_VILLAGE)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc05)
     TEXTEND
     REMA
@@ -277,23 +277,23 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
 
 CONST_DATA EventListScr EventScr_SplitMenu[] = {
     MUSC(0x31)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc06)
     TEXTEND
     FADI(16)
     REMA
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc07)
     TEXTEND
     REMA
-	SetBackground(BG_THRONE_NORMAL)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc08)
     TEXTEND
     REMA
     MUSCMID(0x7fff)
     STAL(30)
     MUSC(0x2b)
-	SetBackground(BG_THRONE_NORMAL)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc09)
     TEXTEND
     MUSC(0x25)
@@ -303,12 +303,12 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     REMA
     CALL(EventScr_Ch8_TowerFall)
     REMOVEPORTRAITS
-	BACG(BG_THRONE_NORMAL)
+    BACG(BG_THRONE_NORMAL)
     FADU(4)
     TEXTSHOW(0xc0d)
     TEXTEND
     REMA
-	SetBackground(BG_THRONE_NORMAL)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc0e)
     TEXTEND
     REMA
@@ -316,7 +316,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x2710)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     MUSC(0x29)
     TEXTSHOW(0xc0f)
     TEXTEND
@@ -347,21 +347,21 @@ LABEL(0x0)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_KYLE)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc10)
     TEXTEND
     GOTO(0x3)
 LABEL(0x1)
     CHECK_ALIVE(CHARACTER_KYLE)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc11)
     TEXTEND
     GOTO(0x3)
 LABEL(0x2)
     CHECK_ALIVE(CHARACTER_FORDE)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc12)
     TEXTEND
 LABEL(0x3)
@@ -375,7 +375,7 @@ LABEL(0x3)
 
 CONST_DATA EventListScr EventScr_089F35FC[] = {
 LABEL(0x9)
-	SetBackground(BG_CASTLE_INTERIOR)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc13)
     TEXTEND
     REMA

@@ -36,13 +36,13 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-	Text_BG(BG_SHIP, 0xacf)
+    Text_BG(BG_SHIP, 0xacf)
     LOAD2(0x1, UnitDef_088C42EC)
     ENUN
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xad0)
     TEXTEND
     REMA
@@ -76,7 +76,7 @@ CONST_DATA EventListScr EventScr_089FB1E4[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xad2)
     TEXTEND
     REMA
@@ -121,7 +121,7 @@ CONST_DATA EventListScr EventScr_089FB294[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xad4)
     TEXTEND
     REMA
@@ -149,7 +149,7 @@ CONST_DATA EventListScr EventScr_089FB294[] = {
 
 CONST_DATA EventListScr EventScr_Ch11b_EndingScene[] = {
     MUSC(0x31)
-	SetBackground(BG_SHIP)
+    SetBackground(BG_SHIP)
     TEXTSHOW(0xad6)
     TEXTEND
     FADI(4)

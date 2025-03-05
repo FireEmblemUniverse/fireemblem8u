@@ -3,7 +3,7 @@
 CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_9EEA58)
-	SetBackground(BG_GRADO_CHAMBER)
+    SetBackground(BG_GRADO_CHAMBER)
     TEXTSHOW(0xa68)
     TEXTEND
     REMA
@@ -17,7 +17,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
     CUMO_AT(10, 4)
     STAL(60)
     CURE
-	SetBackground(BG_GRADO_CHAMBER)
+    SetBackground(BG_GRADO_CHAMBER)
     TEXTSHOW(0xa69)
     TEXTEND
     REMA
@@ -34,7 +34,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MESSENGER)
     STAL(60)
     CURE
-	SetBackground(BG_PLAIN_2)
+    SetBackground(BG_PLAIN_2)
     MUSC(0x25)
     TEXTSHOW(0xa6a)
     TEXTEND
@@ -43,7 +43,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
     CLEA
     CLEE
     CLEN
-	SetBackground(BG_PLAIN_2)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xa6b)
     TEXTEND
     REMA
@@ -71,7 +71,7 @@ LABEL(0x1)
     CURE
     MUSS(0x2e)
     STAL(33)
-	Text_BG(BG_INTERIOR_BLACK, 0xa6c)
+    Text_BG(BG_INTERIOR_BLACK, 0xa6c)
     LOAD1(0x1, UnitDef_088BAF38)
     ENUN
     LOAD1(0x1, UnitDef_088BAA4C)
@@ -101,7 +101,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_GRASS_PLAINS_2)
+    SetBackground(BG_GRASS_PLAINS_2)
     MURE(0x2)
     TEXTSHOW(0xa6d)
     TEXTEND
@@ -117,12 +117,12 @@ CONST_DATA EventListScr EventScr_Ch13a_EndingScene[] = {
     CUMO_CHAR(CHARACTER_AIAS)
     STAL(60)
     CURE
-	SetBackground(BG_GRASS_PLAINS_2)
+    SetBackground(BG_GRASS_PLAINS_2)
     TEXTSHOW(0xa75)
     TEXTEND
     GOTO(0x1)
 LABEL(0x0)
-	SetBackground(BG_GRASS_PLAINS_2)
+    SetBackground(BG_GRASS_PLAINS_2)
     TEXTSHOW(0xa76)
     TEXTEND
 LABEL(0x1)
@@ -146,12 +146,12 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-	SetBackground(BG_GRASS_PLAINS_2)
+    SetBackground(BG_GRASS_PLAINS_2)
     TEXTSHOW(0xa78)
     TEXTEND
     REMA
     FADI(16)
-	SetBackground(BG_GRASS_PLAINS_2)
+    SetBackground(BG_GRASS_PLAINS_2)
     MUSS(0x31)
     STAL(33)
     CHECK_ALIVE(CHARACTER_DOZLA)
@@ -206,7 +206,7 @@ LABEL(0xb)
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
     CURE
-	SetBackground(BG_DESERT)
+    SetBackground(BG_DESERT)
     MUSC(0x2e)
     TEXTSHOW(0xa7d)
     TEXTEND

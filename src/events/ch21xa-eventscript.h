@@ -577,7 +577,7 @@ CONST_DATA EventListScr EventScr_Ch21xa_EndingScene[] = {
 
 CONST_DATA EventListScr EventScr_Ch21xa_EndingSceneExt[] = {
     MUSC(0x41)
-	SetBackground(BG_BLACK_TEMPLE_INSIDE)
+    SetBackground(BG_BLACK_TEMPLE_INSIDE)
     TEXTSHOW(0xbf5)
     TEXTEND
     REMA
