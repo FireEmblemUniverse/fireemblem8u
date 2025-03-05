@@ -1,661 +1,661 @@
 	.section .data
 
 	.align 2, 0
-	.global bg_0_tiles
-bg_0_tiles:
-	.incbin "graphics/bg/bg_0.4bpp.lz"
+	.global bg_House_tiles
+bg_House_tiles:
+	.incbin "graphics/bg/bg_House.4bpp.lz"
 
 	.align 2, 0
-	.global bg_0_map
-bg_0_map:
-	.incbin "graphics/bg/bg_0.bin"
+	.global bg_House_map
+bg_House_map:
+	.incbin "graphics/bg/bg_House.bin"
 
 	.align 2, 0
-	.global bg_0_palette
-bg_0_palette:
-	.incbin "graphics/bg/bg_0.gbapal"
+	.global bg_House_palette
+bg_House_palette:
+	.incbin "graphics/bg/bg_House.gbapal"
 
 	.align 2, 0
-	.global bg_1_tiles
-bg_1_tiles:
-	.incbin "graphics/bg/bg_1.4bpp.lz"
+	.global bg_Caer_Pelyn_tiles
+bg_Caer_Pelyn_tiles:
+	.incbin "graphics/bg/bg_Caer_Pelyn.4bpp.lz"
 
 	.align 2, 0
-	.global bg_1_map
-bg_1_map:
-	.incbin "graphics/bg/bg_1.bin"
+	.global bg_Caer_Pelyn_map
+bg_Caer_Pelyn_map:
+	.incbin "graphics/bg/bg_Caer_Pelyn.bin"
 
 	.align 2, 0
-	.global bg_1_palette
-bg_1_palette:
-	.incbin "graphics/bg/bg_1.gbapal"
+	.global bg_Caer_Pelyn_palette
+bg_Caer_Pelyn_palette:
+	.incbin "graphics/bg/bg_Caer_Pelyn.gbapal"
 
 	.align 2, 0
-	.global bg_2_tiles
-bg_2_tiles:
-	.incbin "graphics/bg/bg_2.4bpp.lz"
+	.global bg_Normal_Village_tiles
+bg_Normal_Village_tiles:
+	.incbin "graphics/bg/bg_Normal_Village.4bpp.lz"
 
 	.align 2, 0
-	.global bg_2_map
-bg_2_map:
-	.incbin "graphics/bg/bg_2.bin"
+	.global bg_Normal_Village_map
+bg_Normal_Village_map:
+	.incbin "graphics/bg/bg_Normal_Village.bin"
 
 	.align 2, 0
-	.global bg_2_palette
-bg_2_palette:
-	.incbin "graphics/bg/bg_2.gbapal"
+	.global bg_Normal_Village_palette
+bg_Normal_Village_palette:
+	.incbin "graphics/bg/bg_Normal_Village.gbapal"
 
 	.align 2, 0
-	.global bg_3_tiles
-bg_3_tiles:
-	.incbin "graphics/bg/bg_3.4bpp.lz"
+	.global bg_Village_Clear_tiles
+bg_Village_Clear_tiles:
+	.incbin "graphics/bg/bg_Village_Clear.4bpp.lz"
 
 	.align 2, 0
-	.global bg_3_map
-bg_3_map:
-	.incbin "graphics/bg/bg_3.bin"
+	.global bg_Village_Clear_map
+bg_Village_Clear_map:
+	.incbin "graphics/bg/bg_Village_Clear.bin"
 
 	.align 2, 0
-	.global bg_3_palette
-bg_3_palette:
-	.incbin "graphics/bg/bg_3.gbapal"
+	.global bg_Village_Clear_palette
+bg_Village_Clear_palette:
+	.incbin "graphics/bg/bg_Village_Clear.gbapal"
 
 	.align 2, 0
-	.global bg_4_palette
-bg_4_palette:
-	.incbin "graphics/bg/bg_4.gbapal"
+	.global bg_Village_Sunset_palette
+bg_Village_Sunset_palette:
+	.incbin "graphics/bg/bg_Village_Sunset.gbapal"
 
 	.align 2, 0
-	.global bg_5_tiles
-bg_5_tiles:
-	.incbin "graphics/bg/bg_5.4bpp.lz"
+	.global bg_Serafew_Village_tiles
+bg_Serafew_Village_tiles:
+	.incbin "graphics/bg/bg_Serafew_Village.4bpp.lz"
 
 	.align 2, 0
-	.global bg_5_map
-bg_5_map:
-	.incbin "graphics/bg/bg_5.bin"
+	.global bg_Serafew_Village_map
+bg_Serafew_Village_map:
+	.incbin "graphics/bg/bg_Serafew_Village.bin"
 
 	.align 2, 0
-	.global bg_5_palette
-bg_5_palette:
-	.incbin "graphics/bg/bg_5.gbapal"
+	.global bg_Serafew_Village_palette
+bg_Serafew_Village_palette:
+	.incbin "graphics/bg/bg_Serafew_Village.gbapal"
 
 	.align 2, 0
-	.global bg_6_palette
-bg_6_palette:
-	.incbin "graphics/bg/bg_6.gbapal"
+	.global bg_Serafew_Flashback_palette
+bg_Serafew_Flashback_palette:
+	.incbin "graphics/bg/bg_Serafew_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_7_tiles
-bg_7_tiles:
-	.incbin "graphics/bg/bg_7.4bpp.lz"
+	.global bg_Port_tiles
+bg_Port_tiles:
+	.incbin "graphics/bg/bg_Port.4bpp.lz"
 
 	.align 2, 0
-	.global bg_7_map
-bg_7_map:
-	.incbin "graphics/bg/bg_7.bin"
+	.global bg_Port_map
+bg_Port_map:
+	.incbin "graphics/bg/bg_Port.bin"
 
 	.align 2, 0
-	.global bg_7_palette
-bg_7_palette:
-	.incbin "graphics/bg/bg_7.gbapal"
+	.global bg_Port_palette
+bg_Port_palette:
+	.incbin "graphics/bg/bg_Port.gbapal"
 
 	.align 2, 0
-	.global bg_8_tiles
-bg_8_tiles:
-	.incbin "graphics/bg/bg_8.4bpp.lz"
+	.global bg_Ship_tiles
+bg_Ship_tiles:
+	.incbin "graphics/bg/bg_Ship.4bpp.lz"
 
 	.align 2, 0
-	.global bg_8_map
-bg_8_map:
-	.incbin "graphics/bg/bg_8.bin"
+	.global bg_Ship_map
+bg_Ship_map:
+	.incbin "graphics/bg/bg_Ship.bin"
 
 	.align 2, 0
-	.global bg_8_palette
-bg_8_palette:
-	.incbin "graphics/bg/bg_8.gbapal"
+	.global bg_Ship_palette
+bg_Ship_palette:
+	.incbin "graphics/bg/bg_Ship.gbapal"
 
 	.align 2, 0
-	.global bg_9_tiles
-bg_9_tiles:
-	.incbin "graphics/bg/bg_9.4bpp.lz"
+	.global bg_Fireplace_tiles
+bg_Fireplace_tiles:
+	.incbin "graphics/bg/bg_Fireplace.4bpp.lz"
 
 	.align 2, 0
-	.global bg_9_map
-bg_9_map:
-	.incbin "graphics/bg/bg_9.bin"
+	.global bg_Fireplace_map
+bg_Fireplace_map:
+	.incbin "graphics/bg/bg_Fireplace.bin"
 
 	.align 2, 0
-	.global bg_9_palette
-bg_9_palette:
-	.incbin "graphics/bg/bg_9.gbapal"
+	.global bg_Fireplace_palette
+bg_Fireplace_palette:
+	.incbin "graphics/bg/bg_Fireplace.gbapal"
 
 	.align 2, 0
-	.global bg_10_tiles
-bg_10_tiles:
-	.incbin "graphics/bg/bg_10.4bpp.lz"
+	.global bg_Castle_Interior_tiles
+bg_Castle_Interior_tiles:
+	.incbin "graphics/bg/bg_Castle_Interior.4bpp.lz"
 
 	.align 2, 0
-	.global bg_10_map
-bg_10_map:
-	.incbin "graphics/bg/bg_10.bin"
+	.global bg_Castle_Interior_map
+bg_Castle_Interior_map:
+	.incbin "graphics/bg/bg_Castle_Interior.bin"
 
 	.align 2, 0
-	.global bg_10_palette
-bg_10_palette:
-	.incbin "graphics/bg/bg_10.gbapal"
+	.global bg_Castle_Interior_palette
+bg_Castle_Interior_palette:
+	.incbin "graphics/bg/bg_Castle_Interior.gbapal"
 
 	.align 2, 0
-	.global bg_11_palette
-bg_11_palette:
-	.incbin "graphics/bg/bg_11.gbapal"
+	.global bg_Castle_Night_palette
+bg_Castle_Night_palette:
+	.incbin "graphics/bg/bg_Castle_Night.gbapal"
 
 	.align 2, 0
-	.global bg_12_tiles
-bg_12_tiles:
-	.incbin "graphics/bg/bg_12.4bpp.lz"
+	.global bg_Grado_Chamber_tiles
+bg_Grado_Chamber_tiles:
+	.incbin "graphics/bg/bg_Grado_Chamber.4bpp.lz"
 
 	.align 2, 0
-	.global bg_12_map
-bg_12_map:
-	.incbin "graphics/bg/bg_12.bin"
+	.global bg_Grado_Chamber_map
+bg_Grado_Chamber_map:
+	.incbin "graphics/bg/bg_Grado_Chamber.bin"
 
 	.align 2, 0
-	.global bg_12_palette
-bg_12_palette:
-	.incbin "graphics/bg/bg_12.gbapal"
+	.global bg_Grado_Chamber_palette
+bg_Grado_Chamber_palette:
+	.incbin "graphics/bg/bg_Grado_Chamber.gbapal"
 
 	.align 2, 0
-	.global bg_13_palette
-bg_13_palette:
-	.incbin "graphics/bg/bg_13.gbapal"
+	.global bg_Grado_Chamber_Flashback_palette
+bg_Grado_Chamber_Flashback_palette:
+	.incbin "graphics/bg/bg_Grado_Chamber_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_14_tiles
-bg_14_tiles:
-	.incbin "graphics/bg/bg_14.4bpp.lz"
+	.global bg_Throne_Normal_tiles
+bg_Throne_Normal_tiles:
+	.incbin "graphics/bg/bg_Throne_Normal.4bpp.lz"
 
 	.align 2, 0
-	.global bg_14_map
-bg_14_map:
-	.incbin "graphics/bg/bg_14.bin"
+	.global bg_Throne_Normal_map
+bg_Throne_Normal_map:
+	.incbin "graphics/bg/bg_Throne_Normal.bin"
 
 	.align 2, 0
-	.global bg_14_palette
-bg_14_palette:
-	.incbin "graphics/bg/bg_14.gbapal"
+	.global bg_Throne_Normal_palette
+bg_Throne_Normal_palette:
+	.incbin "graphics/bg/bg_Throne_Normal.gbapal"
 
 	.align 2, 0
-	.global bg_15_palette
-bg_15_palette:
-	.incbin "graphics/bg/bg_15.gbapal"
+	.global bg_Throne_Flashback_palette
+bg_Throne_Flashback_palette:
+	.incbin "graphics/bg/bg_Throne_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_16_tiles
-bg_16_tiles:
-	.incbin "graphics/bg/bg_16.4bpp.lz"
+	.global bg_Castle_Bright_tiles
+bg_Castle_Bright_tiles:
+	.incbin "graphics/bg/bg_Castle_Bright.4bpp.lz"
 
 	.align 2, 0
-	.global bg_16_map
-bg_16_map:
-	.incbin "graphics/bg/bg_16.bin"
+	.global bg_Castle_Bright_map
+bg_Castle_Bright_map:
+	.incbin "graphics/bg/bg_Castle_Bright.bin"
 
 	.align 2, 0
-	.global bg_16_palette
-bg_16_palette:
-	.incbin "graphics/bg/bg_16.gbapal"
+	.global bg_Castle_Bright_palette
+bg_Castle_Bright_palette:
+	.incbin "graphics/bg/bg_Castle_Bright.gbapal"
 
 	.align 2, 0
-	.global bg_17_palette
-bg_17_palette:
-	.incbin "graphics/bg/bg_17.gbapal"
+	.global bg_Castle_Dark_palette
+bg_Castle_Dark_palette:
+	.incbin "graphics/bg/bg_Castle_Dark.gbapal"
 
 	.align 2, 0
-	.global bg_18_tiles
-bg_18_tiles:
-	.incbin "graphics/bg/bg_18.4bpp.lz"
+	.global bg_Gate_tiles
+bg_Gate_tiles:
+	.incbin "graphics/bg/bg_Gate.4bpp.lz"
 
 	.align 2, 0
-	.global bg_18_map
-bg_18_map:
-	.incbin "graphics/bg/bg_18.bin"
+	.global bg_Gate_map
+bg_Gate_map:
+	.incbin "graphics/bg/bg_Gate.bin"
 
 	.align 2, 0
-	.global bg_18_palette
-bg_18_palette:
-	.incbin "graphics/bg/bg_18.gbapal"
+	.global bg_Gate_palette
+bg_Gate_palette:
+	.incbin "graphics/bg/bg_Gate.gbapal"
 
 	.align 2, 0
-	.global bg_19_tiles
-bg_19_tiles:
-	.incbin "graphics/bg/bg_19.4bpp.lz"
+	.global bg_Garden_tiles
+bg_Garden_tiles:
+	.incbin "graphics/bg/bg_Garden.4bpp.lz"
 
 	.align 2, 0
-	.global bg_19_map
-bg_19_map:
-	.incbin "graphics/bg/bg_19.bin"
+	.global bg_Garden_map
+bg_Garden_map:
+	.incbin "graphics/bg/bg_Garden.bin"
 
 	.align 2, 0
-	.global bg_19_palette
-bg_19_palette:
-	.incbin "graphics/bg/bg_19.gbapal"
+	.global bg_Garden_palette
+bg_Garden_palette:
+	.incbin "graphics/bg/bg_Garden.gbapal"
 
 	.align 2, 0
-	.global bg_20_palette
-bg_20_palette:
-	.incbin "graphics/bg/bg_20.gbapal"
+	.global bg_Garden_Flashback_palette
+bg_Garden_Flashback_palette:
+	.incbin "graphics/bg/bg_Garden_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_21_tiles
-bg_21_tiles:
-	.incbin "graphics/bg/bg_21.4bpp.lz"
+	.global bg_Manse_Back_tiles
+bg_Manse_Back_tiles:
+	.incbin "graphics/bg/bg_Manse_Back.4bpp.lz"
 
 	.align 2, 0
-	.global bg_21_map
-bg_21_map:
-	.incbin "graphics/bg/bg_21.bin"
+	.global bg_Manse_Back_map
+bg_Manse_Back_map:
+	.incbin "graphics/bg/bg_Manse_Back.bin"
 
 	.align 2, 0
-	.global bg_21_palette
-bg_21_palette:
-	.incbin "graphics/bg/bg_21.gbapal"
+	.global bg_Manse_Back_palette
+bg_Manse_Back_palette:
+	.incbin "graphics/bg/bg_Manse_Back.gbapal"
 
 	.align 2, 0
-	.global bg_22_palette
-bg_22_palette:
-	.incbin "graphics/bg/bg_22.gbapal"
+	.global bg_Manse_Flashback_palette
+bg_Manse_Flashback_palette:
+	.incbin "graphics/bg/bg_Manse_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_23_tiles
-bg_23_tiles:
-	.incbin "graphics/bg/bg_23.4bpp.lz"
+	.global bg_Cell_tiles
+bg_Cell_tiles:
+	.incbin "graphics/bg/bg_Cell.4bpp.lz"
 
 	.align 2, 0
-	.global bg_23_map
-bg_23_map:
-	.incbin "graphics/bg/bg_23.bin"
+	.global bg_Cell_map
+bg_Cell_map:
+	.incbin "graphics/bg/bg_Cell.bin"
 
 	.align 2, 0
-	.global bg_23_palette
-bg_23_palette:
-	.incbin "graphics/bg/bg_23.gbapal"
+	.global bg_Cell_palette
+bg_Cell_palette:
+	.incbin "graphics/bg/bg_Cell.gbapal"
 
 	.align 2, 0
-	.global bg_24_tiles
-bg_24_tiles:
-	.incbin "graphics/bg/bg_24.4bpp.lz"
+	.global bg_Plain_1_tiles
+bg_Plain_1_tiles:
+	.incbin "graphics/bg/bg_Plain_1.4bpp.lz"
 
 	.align 2, 0
-	.global bg_24_map
-bg_24_map:
-	.incbin "graphics/bg/bg_24.bin"
+	.global bg_Plain_1_map
+bg_Plain_1_map:
+	.incbin "graphics/bg/bg_Plain_1.bin"
 
 	.align 2, 0
-	.global bg_24_palette
-bg_24_palette:
-	.incbin "graphics/bg/bg_24.gbapal"
+	.global bg_Plain_1_palette
+bg_Plain_1_palette:
+	.incbin "graphics/bg/bg_Plain_1.gbapal"
 
 	.align 2, 0
-	.global bg_25_palette
-bg_25_palette:
-	.incbin "graphics/bg/bg_25.gbapal"
+	.global bg_Plain_1_Sunset_palette
+bg_Plain_1_Sunset_palette:
+	.incbin "graphics/bg/bg_Plain_1_Sunset.gbapal"
 
 	.align 2, 0
-	.global bg_26_palette
-bg_26_palette:
-	.incbin "graphics/bg/bg_26.gbapal"
+	.global bg_Plain_1_Fog_palette
+bg_Plain_1_Fog_palette:
+	.incbin "graphics/bg/bg_Plain_1_Fog.gbapal"
 
 	.align 2, 0
-	.global bg_27_tiles
-bg_27_tiles:
-	.incbin "graphics/bg/bg_27.4bpp.lz"
+	.global bg_Grass_Plains_2_tiles
+bg_Grass_Plains_2_tiles:
+	.incbin "graphics/bg/bg_Grass_Plains_2.4bpp.lz"
 
 	.align 2, 0
-	.global bg_27_map
-bg_27_map:
-	.incbin "graphics/bg/bg_27.bin"
+	.global bg_Grass_Plains_2_map
+bg_Grass_Plains_2_map:
+	.incbin "graphics/bg/bg_Grass_Plains_2.bin"
 
 	.align 2, 0
-	.global bg_27_palette
-bg_27_palette:
-	.incbin "graphics/bg/bg_27.gbapal"
+	.global bg_Grass_Plains_2_palette
+bg_Grass_Plains_2_palette:
+	.incbin "graphics/bg/bg_Grass_Plains_2.gbapal"
 
 	.align 2, 0
-	.global bg_28_tiles
-bg_28_tiles:
-	.incbin "graphics/bg/bg_28.4bpp.lz"
+	.global bg_Grass_Plains_tiles
+bg_Grass_Plains_tiles:
+	.incbin "graphics/bg/bg_Grass_Plains.4bpp.lz"
 
 	.align 2, 0
-	.global bg_28_map
-bg_28_map:
-	.incbin "graphics/bg/bg_28.bin"
+	.global bg_Grass_Plains_map
+bg_Grass_Plains_map:
+	.incbin "graphics/bg/bg_Grass_Plains.bin"
 
 	.align 2, 0
-	.global bg_28_palette
-bg_28_palette:
-	.incbin "graphics/bg/bg_28.gbapal"
+	.global bg_Grass_Plains_palette
+bg_Grass_Plains_palette:
+	.incbin "graphics/bg/bg_Grass_Plains.gbapal"
 
 	.align 2, 0
-	.global bg_29_tiles
-bg_29_tiles:
-	.incbin "graphics/bg/bg_29.4bpp.lz"
+	.global bg_Plain_2_tiles
+bg_Plain_2_tiles:
+	.incbin "graphics/bg/bg_Plain_2.4bpp.lz"
 
 	.align 2, 0
-	.global bg_29_map
-bg_29_map:
-	.incbin "graphics/bg/bg_29.bin"
+	.global bg_Plain_2_map
+bg_Plain_2_map:
+	.incbin "graphics/bg/bg_Plain_2.bin"
 
 	.align 2, 0
-	.global bg_29_palette
-bg_29_palette:
-	.incbin "graphics/bg/bg_29.gbapal"
+	.global bg_Plain_2_palette
+bg_Plain_2_palette:
+	.incbin "graphics/bg/bg_Plain_2.gbapal"
 
 	.align 2, 0
-	.global bg_30_palette
-bg_30_palette:
-	.incbin "graphics/bg/bg_30.gbapal"
+	.global bg_Plain_2_Fog_palette
+bg_Plain_2_Fog_palette:
+	.incbin "graphics/bg/bg_Plain_2_Fog.gbapal"
 
 	.align 2, 0
-	.global bg_31_palette
-bg_31_palette:
-	.incbin "graphics/bg/bg_31.gbapal"
+	.global bg_Plain_2_Sunset_palette
+bg_Plain_2_Sunset_palette:
+	.incbin "graphics/bg/bg_Plain_2_Sunset.gbapal"
 
 	.align 2, 0
-	.global bg_32_palette
-bg_32_palette:
-	.incbin "graphics/bg/bg_32.gbapal"
+	.global bg_Plain_2_Night_palette
+bg_Plain_2_Night_palette:
+	.incbin "graphics/bg/bg_Plain_2_Night.gbapal"
 
 	.align 2, 0
-	.global bg_33_tiles
-bg_33_tiles:
-	.incbin "graphics/bg/bg_33.4bpp.lz"
+	.global bg_Stream_tiles
+bg_Stream_tiles:
+	.incbin "graphics/bg/bg_Stream.4bpp.lz"
 
 	.align 2, 0
-	.global bg_33_map
-bg_33_map:
-	.incbin "graphics/bg/bg_33.bin"
+	.global bg_Stream_map
+bg_Stream_map:
+	.incbin "graphics/bg/bg_Stream.bin"
 
 	.align 2, 0
-	.global bg_33_palette
-bg_33_palette:
-	.incbin "graphics/bg/bg_33.gbapal"
+	.global bg_Stream_palette
+bg_Stream_palette:
+	.incbin "graphics/bg/bg_Stream.gbapal"
 
 	.align 2, 0
-	.global bg_34_tiles
-bg_34_tiles:
-	.incbin "graphics/bg/bg_34.4bpp.lz"
+	.global bg_Trees_tiles
+bg_Trees_tiles:
+	.incbin "graphics/bg/bg_Trees.4bpp.lz"
 
 	.align 2, 0
-	.global bg_34_map
-bg_34_map:
-	.incbin "graphics/bg/bg_34.bin"
+	.global bg_Trees_map
+bg_Trees_map:
+	.incbin "graphics/bg/bg_Trees.bin"
 
 	.align 2, 0
-	.global bg_34_palette
-bg_34_palette:
-	.incbin "graphics/bg/bg_34.gbapal"
+	.global bg_Trees_palette
+bg_Trees_palette:
+	.incbin "graphics/bg/bg_Trees.gbapal"
 
 	.align 2, 0
-	.global bg_35_tiles
-bg_35_tiles:
-	.incbin "graphics/bg/bg_35.4bpp.lz"
+	.global bg_Forest_tiles
+bg_Forest_tiles:
+	.incbin "graphics/bg/bg_Forest.4bpp.lz"
 
 	.align 2, 0
-	.global bg_35_map
-bg_35_map:
-	.incbin "graphics/bg/bg_35.bin"
+	.global bg_Forest_map
+bg_Forest_map:
+	.incbin "graphics/bg/bg_Forest.bin"
 
 	.align 2, 0
-	.global bg_35_palette
-bg_35_palette:
-	.incbin "graphics/bg/bg_35.gbapal"
+	.global bg_Forest_palette
+bg_Forest_palette:
+	.incbin "graphics/bg/bg_Forest.gbapal"
 
 	.align 2, 0
-	.global bg_36_tiles
-bg_36_tiles:
-	.incbin "graphics/bg/bg_36.4bpp.lz"
+	.global bg_Town_tiles
+bg_Town_tiles:
+	.incbin "graphics/bg/bg_Town.4bpp.lz"
 
 	.align 2, 0
-	.global bg_36_map
-bg_36_map:
-	.incbin "graphics/bg/bg_36.bin"
+	.global bg_Town_map
+bg_Town_map:
+	.incbin "graphics/bg/bg_Town.bin"
 
 	.align 2, 0
-	.global bg_36_palette
-bg_36_palette:
-	.incbin "graphics/bg/bg_36.gbapal"
+	.global bg_Town_palette
+bg_Town_palette:
+	.incbin "graphics/bg/bg_Town.gbapal"
 
 	.align 2, 0
-	.global bg_37_tiles
-bg_37_tiles:
-	.incbin "graphics/bg/bg_37.4bpp.lz"
+	.global bg_Castle_Back_tiles
+bg_Castle_Back_tiles:
+	.incbin "graphics/bg/bg_Castle_Back.4bpp.lz"
 
 	.align 2, 0
-	.global bg_37_map
-bg_37_map:
-	.incbin "graphics/bg/bg_37.bin"
+	.global bg_Castle_Back_map
+bg_Castle_Back_map:
+	.incbin "graphics/bg/bg_Castle_Back.bin"
 
 	.align 2, 0
-	.global bg_37_palette
-bg_37_palette:
-	.incbin "graphics/bg/bg_37.gbapal"
+	.global bg_Castle_Back_palette
+bg_Castle_Back_palette:
+	.incbin "graphics/bg/bg_Castle_Back.gbapal"
 
 	.align 2, 0
-	.global bg_38_tiles
-bg_38_tiles:
-	.incbin "graphics/bg/bg_38.4bpp.lz"
+	.global bg_Interior_Black_tiles
+bg_Interior_Black_tiles:
+	.incbin "graphics/bg/bg_Interior_Black.4bpp.lz"
 
 	.align 2, 0
-	.global bg_38_map
-bg_38_map:
-	.incbin "graphics/bg/bg_38.bin"
+	.global bg_Interior_Black_map
+bg_Interior_Black_map:
+	.incbin "graphics/bg/bg_Interior_Black.bin"
 
 	.align 2, 0
-	.global bg_38_palette
-bg_38_palette:
-	.incbin "graphics/bg/bg_38.gbapal"
+	.global bg_Interior_Black_palette
+bg_Interior_Black_palette:
+	.incbin "graphics/bg/bg_Interior_Black.gbapal"
 
 	.align 2, 0
-	.global bg_39_palette
-bg_39_palette:
-	.incbin "graphics/bg/bg_39.gbapal"
+	.global bg_Interior_Brown_palette
+bg_Interior_Brown_palette:
+	.incbin "graphics/bg/bg_Interior_Brown.gbapal"
 
 	.align 2, 0
-	.global bg_40_tiles
-bg_40_tiles:
-	.incbin "graphics/bg/bg_40.4bpp.lz"
+	.global bg_Fort_Sunset_tiles
+bg_Fort_Sunset_tiles:
+	.incbin "graphics/bg/bg_Fort_Sunset.4bpp.lz"
 
 	.align 2, 0
-	.global bg_40_map
-bg_40_map:
-	.incbin "graphics/bg/bg_40.bin"
+	.global bg_Fort_Sunset_map
+bg_Fort_Sunset_map:
+	.incbin "graphics/bg/bg_Fort_Sunset.bin"
 
 	.align 2, 0
-	.global bg_40_palette
-bg_40_palette:
-	.incbin "graphics/bg/bg_40.gbapal"
+	.global bg_Fort_Sunset_palette
+bg_Fort_Sunset_palette:
+	.incbin "graphics/bg/bg_Fort_Sunset.gbapal"
 
 	.align 2, 0
-	.global bg_41_tiles
-bg_41_tiles:
-	.incbin "graphics/bg/bg_41.4bpp.lz"
+	.global bg_Fort_tiles
+bg_Fort_tiles:
+	.incbin "graphics/bg/bg_Fort.4bpp.lz"
 
 	.align 2, 0
-	.global bg_41_map
-bg_41_map:
-	.incbin "graphics/bg/bg_41.bin"
+	.global bg_Fort_map
+bg_Fort_map:
+	.incbin "graphics/bg/bg_Fort.bin"
 
 	.align 2, 0
-	.global bg_41_palette
-bg_41_palette:
-	.incbin "graphics/bg/bg_41.gbapal"
+	.global bg_Fort_palette
+bg_Fort_palette:
+	.incbin "graphics/bg/bg_Fort.gbapal"
 
 	.align 2, 0
-	.global bg_42_tiles
-bg_42_tiles:
-	.incbin "graphics/bg/bg_42.4bpp.lz"
+	.global bg_Passage_tiles
+bg_Passage_tiles:
+	.incbin "graphics/bg/bg_Passage.4bpp.lz"
 
 	.align 2, 0
-	.global bg_42_map
-bg_42_map:
-	.incbin "graphics/bg/bg_42.bin"
+	.global bg_Passage_map
+bg_Passage_map:
+	.incbin "graphics/bg/bg_Passage.bin"
 
 	.align 2, 0
-	.global bg_42_palette
-bg_42_palette:
-	.incbin "graphics/bg/bg_42.gbapal"
+	.global bg_Passage_palette
+bg_Passage_palette:
+	.incbin "graphics/bg/bg_Passage.gbapal"
 
 	.align 2, 0
-	.global bg_43_tiles
-bg_43_tiles:
-	.incbin "graphics/bg/bg_43.4bpp.lz"
+	.global bg_Burning_Castle_tiles
+bg_Burning_Castle_tiles:
+	.incbin "graphics/bg/bg_Burning_Castle.4bpp.lz"
 
 	.align 2, 0
-	.global bg_43_map
-bg_43_map:
-	.incbin "graphics/bg/bg_43.bin"
+	.global bg_Burning_Castle_map
+bg_Burning_Castle_map:
+	.incbin "graphics/bg/bg_Burning_Castle.bin"
 
 	.align 2, 0
-	.global bg_43_palette
-bg_43_palette:
-	.incbin "graphics/bg/bg_43.gbapal"
+	.global bg_Burning_Castle_palette
+bg_Burning_Castle_palette:
+	.incbin "graphics/bg/bg_Burning_Castle.gbapal"
 
 	.align 2, 0
-	.global bg_44_tiles
-bg_44_tiles:
-	.incbin "graphics/bg/bg_44.4bpp.lz"
+	.global bg_Stone_Chamber_tiles
+bg_Stone_Chamber_tiles:
+	.incbin "graphics/bg/bg_Stone_Chamber.4bpp.lz"
 
 	.align 2, 0
-	.global bg_44_map
-bg_44_map:
-	.incbin "graphics/bg/bg_44.bin"
+	.global bg_Stone_Chamber_map
+bg_Stone_Chamber_map:
+	.incbin "graphics/bg/bg_Stone_Chamber.bin"
 
 	.align 2, 0
-	.global bg_44_palette
-bg_44_palette:
-	.incbin "graphics/bg/bg_44.gbapal"
+	.global bg_Stone_Chamber_palette
+bg_Stone_Chamber_palette:
+	.incbin "graphics/bg/bg_Stone_Chamber.gbapal"
 
 	.align 2, 0
-	.global bg_45_palette
-bg_45_palette:
-	.incbin "graphics/bg/bg_45.gbapal"
+	.global bg_Stone_Flashback_palette
+bg_Stone_Flashback_palette:
+	.incbin "graphics/bg/bg_Stone_Flashback.gbapal"
 
 	.align 2, 0
-	.global bg_46_tiles
-bg_46_tiles:
-	.incbin "graphics/bg/bg_46.4bpp.lz"
+	.global bg_Renais_Chamber_tiles
+bg_Renais_Chamber_tiles:
+	.incbin "graphics/bg/bg_Renais_Chamber.4bpp.lz"
 
 	.align 2, 0
-	.global bg_46_map
-bg_46_map:
-	.incbin "graphics/bg/bg_46.bin"
+	.global bg_Renais_Chamber_map
+bg_Renais_Chamber_map:
+	.incbin "graphics/bg/bg_Renais_Chamber.bin"
 
 	.align 2, 0
-	.global bg_46_palette
-bg_46_palette:
-	.incbin "graphics/bg/bg_46.gbapal"
+	.global bg_Renais_Chamber_palette
+bg_Renais_Chamber_palette:
+	.incbin "graphics/bg/bg_Renais_Chamber.gbapal"
 
 	.align 2, 0
-	.global bg_47_tiles
-bg_47_tiles:
-	.incbin "graphics/bg/bg_47.4bpp.lz"
+	.global bg_White_Chamber_tiles
+bg_White_Chamber_tiles:
+	.incbin "graphics/bg/bg_White_Chamber.4bpp.lz"
 
 	.align 2, 0
-	.global bg_47_map
-bg_47_map:
-	.incbin "graphics/bg/bg_47.bin"
+	.global bg_White_Chamber_map
+bg_White_Chamber_map:
+	.incbin "graphics/bg/bg_White_Chamber.bin"
 
 	.align 2, 0
-	.global bg_47_palette
-bg_47_palette:
-	.incbin "graphics/bg/bg_47.gbapal"
+	.global bg_White_Chamber_palette
+bg_White_Chamber_palette:
+	.incbin "graphics/bg/bg_White_Chamber.gbapal"
 
 	.align 2, 0
-	.global bg_48_tiles
-bg_48_tiles:
-	.incbin "graphics/bg/bg_48.4bpp.lz"
+	.global bg_Desert_tiles
+bg_Desert_tiles:
+	.incbin "graphics/bg/bg_Desert.4bpp.lz"
 
 	.align 2, 0
-	.global bg_48_map
-bg_48_map:
-	.incbin "graphics/bg/bg_48.bin"
+	.global bg_Desert_map
+bg_Desert_map:
+	.incbin "graphics/bg/bg_Desert.bin"
 
 	.align 2, 0
-	.global bg_48_palette
-bg_48_palette:
-	.incbin "graphics/bg/bg_48.gbapal"
+	.global bg_Desert_palette
+bg_Desert_palette:
+	.incbin "graphics/bg/bg_Desert.gbapal"
 
 	.align 2, 0
-	.global bg_49_tiles
-bg_49_tiles:
-	.incbin "graphics/bg/bg_49.4bpp.lz"
+	.global bg_Darkling_Woods_tiles
+bg_Darkling_Woods_tiles:
+	.incbin "graphics/bg/bg_Darkling_Woods.4bpp.lz"
 
 	.align 2, 0
-	.global bg_49_map
-bg_49_map:
-	.incbin "graphics/bg/bg_49.bin"
+	.global bg_Darkling_Woods_map
+bg_Darkling_Woods_map:
+	.incbin "graphics/bg/bg_Darkling_Woods.bin"
 
 	.align 2, 0
-	.global bg_49_palette
-bg_49_palette:
-	.incbin "graphics/bg/bg_49.gbapal"
+	.global bg_Darkling_Woods_palette
+bg_Darkling_Woods_palette:
+	.incbin "graphics/bg/bg_Darkling_Woods.gbapal"
 
 	.align 2, 0
-	.global bg_50_tiles
-bg_50_tiles:
-	.incbin "graphics/bg/bg_50.4bpp.lz"
+	.global bg_Volcano_tiles
+bg_Volcano_tiles:
+	.incbin "graphics/bg/bg_Volcano.4bpp.lz"
 
 	.align 2, 0
-	.global bg_50_map
-bg_50_map:
-	.incbin "graphics/bg/bg_50.bin"
+	.global bg_Volcano_map
+bg_Volcano_map:
+	.incbin "graphics/bg/bg_Volcano.bin"
 
 	.align 2, 0
-	.global bg_50_palette
-bg_50_palette:
-	.incbin "graphics/bg/bg_50.gbapal"
+	.global bg_Volcano_palette
+bg_Volcano_palette:
+	.incbin "graphics/bg/bg_Volcano.gbapal"
 
 	.align 2, 0
-	.global bg_51_tiles
-bg_51_tiles:
-	.incbin "graphics/bg/bg_51.4bpp.lz"
+	.global bg_Black_Temple_Outside_tiles
+bg_Black_Temple_Outside_tiles:
+	.incbin "graphics/bg/bg_Black_Temple_Outside.4bpp.lz"
 
 	.align 2, 0
-	.global bg_51_map
-bg_51_map:
-	.incbin "graphics/bg/bg_51.bin"
+	.global bg_Black_Temple_Outside_map
+bg_Black_Temple_Outside_map:
+	.incbin "graphics/bg/bg_Black_Temple_Outside.bin"
 
 	.align 2, 0
-	.global bg_51_palette
-bg_51_palette:
-	.incbin "graphics/bg/bg_51.gbapal"
+	.global bg_Black_Temple_Outside_palette
+bg_Black_Temple_Outside_palette:
+	.incbin "graphics/bg/bg_Black_Temple_Outside.gbapal"
 
 	.align 2, 0
-	.global bg_52_tiles
-bg_52_tiles:
-	.incbin "graphics/bg/bg_52.4bpp.lz"
+	.global bg_Black_Temple_Inside_tiles
+bg_Black_Temple_Inside_tiles:
+	.incbin "graphics/bg/bg_Black_Temple_Inside.4bpp.lz"
 
 	.align 2, 0
-	.global bg_52_map
-bg_52_map:
-	.incbin "graphics/bg/bg_52.bin"
+	.global bg_Black_Temple_Inside_map
+bg_Black_Temple_Inside_map:
+	.incbin "graphics/bg/bg_Black_Temple_Inside.bin"
 
 	.align 2, 0
-	.global bg_52_palette
-bg_52_palette:
-	.incbin "graphics/bg/bg_52.gbapal"
+	.global bg_Black_Temple_Inside_palette
+bg_Black_Temple_Inside_palette:
+	.incbin "graphics/bg/bg_Black_Temple_Inside.gbapal"
 
 	.align 2, 0
-	.global bg_53_tiles
-bg_53_tiles:
-	.incbin "graphics/bg/bg_53.4bpp.lz"
+	.global bg_Blank_tiles
+bg_Blank_tiles:
+	.incbin "graphics/bg/bg_Blank.4bpp.lz"
 
 	.align 2, 0
-	.global bg_53_map
-bg_53_map:
-	.incbin "graphics/bg/bg_53.bin"
+	.global bg_Blank_map
+bg_Blank_map:
+	.incbin "graphics/bg/bg_Blank.bin"
 
 	.align 2, 0
-	.global bg_53_palette
-bg_53_palette:
-	.incbin "graphics/bg/bg_53.gbapal"
+	.global bg_Blank_palette
+bg_Blank_palette:
+	.incbin "graphics/bg/bg_Blank.gbapal"
