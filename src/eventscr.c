@@ -1336,7 +1336,7 @@ u8 EventShowTextBgDirect(u8 mode, u16 bgIndex)
 
         case EVSUBCMD_REMOVEPORTRAITS:
             // Randomize background (for support viewers)
-            if (bgIndex == BG_NONE)
+            if (bgIndex == BG_RANDOM)
                 bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
@@ -1585,7 +1585,7 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == BG_NONE)
+            if (proc->bgIndex == BG_RANDOM)
                 proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
@@ -1637,7 +1637,7 @@ void sub_800ED50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == BG_NONE)
+            if (proc->bgIndex == BG_RANDOM)
                 proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
@@ -4307,7 +4307,7 @@ LABEL(0x1)
 CONST_DATA EventListScr EventScr_SupportViewerConversation[] = {
     EVBIT_MODIFY(0x3)
     REMOVEPORTRAITS
-    BACG(BG_NONE)
+    BACG(BG_RANDOM)
     FADU(16)
     TEXTSHOW(0xffff)
     TEXTEND
