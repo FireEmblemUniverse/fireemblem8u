@@ -1585,7 +1585,7 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == BG_NONE) // TODO: use an enum for convo backgrounds
+            if (proc->bgIndex == BG_NONE)
                 proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
