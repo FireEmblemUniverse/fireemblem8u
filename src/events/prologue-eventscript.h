@@ -8,6 +8,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 #include "constants/items.h"
 
 CONST_DATA EventListScr EventScr_Prologue_BeginingScene[] = {
@@ -26,7 +27,7 @@ LABEL(0x0)
     SET_HP(CHARACTER_SETH)
     FlashCursor(CHARACTER_EIRIKA, 60)
     MUSI
-    Text_BG(0x1D, 0x90D)
+    Text_BG(BG_PLAIN_2, 0x90D)
     MUNO
     MOVE(0x18, CHARACTER_SETH, 4, 4)
     ENUN
@@ -124,7 +125,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     LOAD2(1, UnitDef_Event_PrologueEscapees)
     ENUN
     FlashCursor(CHARACTER_SETH, 60)
-    Text_BG(0x1D, 0x907)
+    Text_BG(BG_PLAIN_2, 0x907)
 
     /* Franz run */
     SVAL(EVT_SLOT_D, 0)
@@ -145,7 +146,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     DISA(CHARACTER_FRANZ)
 
     FlashCursor(CHARACTER_SETH, 60)
-    Text_BG(0x1D, 0x908) /* behind me */
+    Text_BG(BG_PLAIN_2, 0x908) /* behind me */
 
     LOAD1(1, UnitDef_Event_PrologueValterGroup)
     ENUN
@@ -155,7 +156,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     ENUN
 
     FlashCursor(CHARACTER_VALTER_PROLOGUE, 60)
-    Text_BG(0x1D, 0x909)
+    Text_BG(BG_PLAIN_2, 0x909)
     MOVE_1STEP(0, CHARACTER_VALTER_PROLOGUE, FACING_LEFT)
     ENUN
 
@@ -271,7 +272,7 @@ LABEL(0x0)
 
 CONST_DATA EventListScr EventScr_Prologue_EndingScene[] = {
     MUSC(0x31)
-    SetBackground(0x1D)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x918)
     TEXTEND
     FADI(16)

@@ -8,8 +8,7 @@ CONST_DATA EventListScr EventScr_Ch15a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x30)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DESERT)
     TEXTSHOW(0xb17)
     TEXTEND
     FADI(4)
@@ -26,8 +25,7 @@ CONST_DATA EventListScr EventScr_Ch15a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_RIEV)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x30)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DESERT)
     TEXTSHOW(0xb18)
     TEXTEND
     FADI(16)
@@ -55,9 +53,7 @@ CONST_DATA EventListScr EventScr_089F6404[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x30)
-    SVAL(EVT_SLOT_3, 0xb1b)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_DESERT, 0xb1b)
     EVBIT_T(7)
     ENDA
 };
@@ -71,8 +67,7 @@ CONST_DATA EventListScr EventScr_089F6470[] = {
 
 CONST_DATA EventListScr EventScr_089F6484[] = {
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0x30)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DESERT)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
@@ -107,8 +102,7 @@ LABEL(0x1)
     CUMO_AT(8, 8)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x27)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xb29)
     TEXTEND
     MUSS(0x2d)
@@ -125,8 +119,7 @@ LABEL(0x1)
     FADI(16)
     CHECK_ALIVE(CHARACTER_SALEH)
     BEQ(0x63, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0x27)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_INTERIOR_BROWN)
     MUSC(0x2b)
     TEXTSHOW(0xb2b)
     TEXTEND
@@ -138,9 +131,7 @@ LABEL(0x63)
 
 CONST_DATA EventListScr EventScr_089F65C8[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x0)
-    SVAL(EVT_SLOT_3, 0xb36)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_HOUSE, 0xb36)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x88)
@@ -151,9 +142,7 @@ CONST_DATA EventListScr EventScr_089F65C8[] = {
 
 CONST_DATA EventListScr EventScr_089F6604[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x0)
-    SVAL(EVT_SLOT_3, 0xb37)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_HOUSE, 0xb37)
     MUNO
     EVBIT_T(7)
     ENDA
@@ -161,9 +150,7 @@ CONST_DATA EventListScr EventScr_089F6604[] = {
 
 CONST_DATA EventListScr EventScr_089F662C[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x0)
-    SVAL(EVT_SLOT_3, 0xb38)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_HOUSE, 0xb38)
     MUNO
     EVBIT_T(7)
     ENDA

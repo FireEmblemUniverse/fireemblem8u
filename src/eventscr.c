@@ -34,6 +34,7 @@
 #include "event.h"
 #include "eventscript.h"
 #include "EAstdlib.h"
+#include "constants/backgrounds.h"
 #include "eventcall.h"
 #include "bmdifficulty.h"
 #include "bmfx.h"
@@ -1335,8 +1336,8 @@ u8 EventShowTextBgDirect(u8 mode, u16 bgIndex)
 
         case EVSUBCMD_REMOVEPORTRAITS:
             // Randomize background (for support viewers)
-            if (bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                bgIndex = NextRN_N(0x35);
+            if (bgIndex == BG_NONE)
+                bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -1584,8 +1585,8 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                proc->bgIndex = NextRN_N(0x35);
+            if (proc->bgIndex == BG_NONE)
+                proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -1636,8 +1637,8 @@ void sub_800ED50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                proc->bgIndex = NextRN_N(0x35);
+            if (proc->bgIndex == BG_NONE)
+                proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -4306,7 +4307,7 @@ LABEL(0x1)
 CONST_DATA EventListScr EventScr_SupportViewerConversation[] = {
     EVBIT_MODIFY(0x3)
     REMOVEPORTRAITS
-    BACG(0x37)
+    BACG(BG_NONE)
     FADU(16)
     TEXTSHOW(0xffff)
     TEXTEND

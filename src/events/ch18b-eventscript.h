@@ -111,8 +111,7 @@ CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
     TEXTCONT
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0x32)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_VOLCANO)
     TEXTSHOW(0xb8a)
     TEXTEND
     REMA

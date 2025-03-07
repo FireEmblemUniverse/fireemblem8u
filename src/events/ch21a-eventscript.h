@@ -25,9 +25,9 @@ CONST_DATA EventListScr EventScr_Ch21a_BeginingScene[] = {
 
 CONST_DATA EventListScr EventScr_089F9144[] = {
     REMOVEPORTRAITS
-    BACG(0x35)
+    BACG(BG_BLANK)
     FAWI(2)
-    BACG(0x14)
+    BACG(BG_GARDEN_FLASHBACK)
     FAWU(2)
     MUSCSLOW(0x2c)
     BROWNBOXTEXT(0x20f, 8, 8)

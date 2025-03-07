@@ -27,8 +27,7 @@ CONST_DATA EventListScr EventScr_089F8AC8[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x31)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DARKLING_WOODS)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
@@ -51,8 +50,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x31)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DARKLING_WOODS)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x2, EVT_SLOT_C, EVT_SLOT_1)
@@ -88,9 +86,7 @@ LABEL(0x3)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x31)
-    SVAL(EVT_SLOT_3, 0xbad)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_DARKLING_WOODS, 0xbad)
     MOVE(0x10, CHARACTER_LYON, 11, 11)
     ENUN
     DISA(CHARACTER_LYON)
@@ -121,8 +117,7 @@ CONST_DATA EventListScr EventScr_089F8C8C[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x34)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_BLACK_TEMPLE_INSIDE)
     TEXTSHOW(0xbb6)
     TEXTEND
     FADI(16)
@@ -133,8 +128,7 @@ CONST_DATA EventListScr EventScr_089F8C8C[] = {
 
 CONST_DATA EventListScr EventScr_089F8CCC[] = {
     MUSCFAST(0x7fff)
-    SVAL(EVT_SLOT_2, 0x33)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_BLACK_TEMPLE_OUTSIDE)
     TEXTSHOW(0xbb3)
     TEXTEND
     REMA
@@ -151,8 +145,7 @@ CONST_DATA EventListScr EventScr_089F8CCC[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x31)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DARKLING_WOODS)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)

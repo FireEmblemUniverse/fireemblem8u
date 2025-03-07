@@ -2,10 +2,10 @@
 
 CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     REMOVEPORTRAITS
-    BACG(0x35)
+    BACG(BG_BLANK)
     FADU(128)
     FAWI(2)
-    BACG(0x14)
+    BACG(BG_GARDEN_FLASHBACK)
     EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
@@ -23,8 +23,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x30)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DESERT)
     TEXTSHOW(0xa82)
     TEXTEND
     MUSC(0x25)
@@ -70,9 +69,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     STAL(60)
     CURE
     MUSI
-    SVAL(EVT_SLOT_2, 0x2a)
-    SVAL(EVT_SLOT_3, 0xa84)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_PASSAGE, 0xa84)
     ENUT(12)
     ENUT(14)
     EVBIT_T(7)
@@ -148,9 +145,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0xe)
-    SVAL(EVT_SLOT_3, 0xa8b)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_THRONE_NORMAL, 0xa8b)
     MOVE_1STEP(0x10, CHARACTER_CAELLACH, FACING_UP)
     ENUN
 
@@ -173,8 +168,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xa8d)
     TEXTEND
     REMA
@@ -230,8 +224,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     STAL2(30)
     FADI(16)
     ENUN
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     TEXTSHOW(0xa91)
@@ -276,8 +269,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_JOSHUA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2a)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PASSAGE)
     MUSC(0x32)
     TEXTSHOW(0xa92)
     TEXTEND
@@ -292,8 +284,7 @@ LABEL(0x2)
     CUMO_CHAR(0xcd)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2a)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PASSAGE)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0xa, EVT_SLOT_C, EVT_SLOT_0)
     MUSC(0x26)
@@ -322,8 +313,7 @@ LABEL(0xb)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x30)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_DESERT)
     TEXTSHOW(0xa96)
     TEXTEND
     FADI(16)

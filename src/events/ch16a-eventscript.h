@@ -27,8 +27,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xb39)
     TEXTEND
     MUSC(0x25)
@@ -40,8 +39,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     FADU(16)
     MOVE_1STEP(0x10, CHARACTER_MYRRH, FACING_UP)
     ENUN
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xb3a)
     TEXTEND
     REMA
@@ -72,8 +70,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x1, EVT_SLOT_C, EVT_SLOT_1)
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xb3b)
     TEXTEND
     REMA
@@ -101,9 +98,7 @@ LABEL(0x1)
     CUMO_CHAR(0x80)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    SVAL(EVT_SLOT_3, 0xb3c)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_CASTLE_BRIGHT, 0xb3c)
     MOVE_1STEP(0x10, 0x80, FACING_LEFT)
     MOVE_1STEP(0x10, 0x81, FACING_RIGHT)
     ENUN
@@ -136,8 +131,7 @@ LABEL(0x3)
     CUMO_CHAR(0x80)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_BRIGHT)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x4, EVT_SLOT_C, EVT_SLOT_1)
@@ -154,8 +148,7 @@ LABEL(0x5)
     CLEA
     CLEE
     CLEN
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x6, EVT_SLOT_C, EVT_SLOT_1)
@@ -181,9 +174,7 @@ LABEL(0x7)
     CUMO_CHAR(CHARACTER_RIEV)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0xe)
-    SVAL(EVT_SLOT_3, 0xb41)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_THRONE_NORMAL, 0xb41)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     SVAL(EVT_SLOT_2, 0x57)
@@ -209,8 +200,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEE
     CLEN
     MUSC(0x32)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xb49)
     TEXTEND
     REMA
@@ -228,8 +218,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     STAL(60)
     CURE
     MUSCMID(0x7fff)
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xb4a)
     TEXTEND
     FADI(4)
@@ -292,8 +281,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xb50)
     TEXTEND
     REMA
@@ -339,8 +327,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2e)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_RENAIS_CHAMBER)
     MUSCSLOW(0x2b)
     TEXTSHOW(0xb52)
     TEXTEND
@@ -352,8 +339,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2e)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_RENAIS_CHAMBER)
     TEXTSHOW(0xb53)
     TEXTEND
     SOUN(0x2eb)
@@ -382,8 +368,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x2e)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_RENAIS_CHAMBER)
     TEXTSHOW(0xb55)
     TEXTEND
     REMA
@@ -453,7 +438,7 @@ LABEL(0xb)
 
 CONST_DATA EventListScr EventScr_089F731C[] = {
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
-    BACG(0x35)
+    BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FAWU(128)
@@ -507,7 +492,7 @@ CONST_DATA EventListScr EventScr_089F73F0[] = {
     PROM(CHARACTER_EIRIKA, 0x4, 0x98)
     EVBIT_MODIFY(0x4)
     REMOVEPORTRAITS
-    BACG(0x35)
+    BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)
@@ -531,7 +516,7 @@ CONST_DATA EventListScr EventScr_089F7470[] = {
     PROM(CHARACTER_EPHRAIM, 0x3, 0x99)
     EVBIT_MODIFY(0x4)
     REMOVEPORTRAITS
-    BACG(0x35)
+    BACG(BG_BLANK)
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 512, 512, 512) // ENOSUPP in EAstdlib
     FADU(16)

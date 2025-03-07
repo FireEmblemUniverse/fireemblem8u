@@ -9,8 +9,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     STAL(60)
     CURE
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaea)
     TEXTEND
     MUSC(0x2b)
@@ -18,8 +17,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     TEXTEND
     FADI(4)
     REMA
-    SVAL(EVT_SLOT_2, 0x2)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaeb)
     TEXTEND
     MUSC(0x29)
@@ -65,8 +63,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x21)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaed)
     TEXTEND
     REMA
@@ -82,8 +79,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_GERIK)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xaee)
     TEXTEND
     REMA
@@ -100,8 +96,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x21)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaef)
     TEXTEND
     REMA
@@ -127,8 +122,7 @@ CONST_DATA EventListScr EventScr_Ch13b_EndingScene[] = {
     STAL(60)
     CURE
     MUSC(0x32)
-    SVAL(EVT_SLOT_2, 0x21)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_STREAM)
     TEXTSHOW(0xaf2)
     TEXTEND
     REMA
@@ -213,9 +207,7 @@ CONST_DATA EventListScr EventScr_089FBD70[] = {
 
 CONST_DATA EventListScr EventScr_089FBD90[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0xaf8)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_NORMAL_VILLAGE, 0xaf8)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x59)
@@ -226,9 +218,7 @@ CONST_DATA EventListScr EventScr_089FBD90[] = {
 
 CONST_DATA EventListScr EventScr_089FBDCC[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0xaf9)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_NORMAL_VILLAGE, 0xaf9)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x61)

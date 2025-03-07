@@ -7,8 +7,7 @@ CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EWAN)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1e)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2_FOG)
     TEXTSHOW(0xa46)
     TEXTEND
     MUSCMID(0x7fff)
@@ -24,9 +23,7 @@ CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_TETHYS)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1e)
-    SVAL(EVT_SLOT_3, 0xa47)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_PLAIN_2_FOG, 0xa47)
     GOTO(0x1)
 LABEL(0x0)
     MOVE_1STEP(0x0, CHARACTER_INNES, FACING_RIGHT)
@@ -34,9 +31,7 @@ LABEL(0x0)
     CUMO_CHAR(CHARACTER_INNES)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1e)
-    SVAL(EVT_SLOT_3, 0xa48)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_PLAIN_2_FOG, 0xa48)
 LABEL(0x1)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x86)
@@ -63,8 +58,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x27)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xa49)
     TEXTEND
     REMA
@@ -77,8 +71,7 @@ LABEL(0x1)
 
 CONST_DATA EventListScr EventScr_Ch11a_EndingScene[] = {
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0x27)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_INTERIOR_BROWN)
     CHECK_ALIVE(CHARACTER_LARACHEL)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     TEXTSHOW(0xa4a)
@@ -120,8 +113,7 @@ LABEL(0x2)
     CUMO_AT(2, 6)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x1)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CAER_PELYN)
     MUSI
     TEXTSHOW(0xa4e)
     TEXTEND
@@ -142,8 +134,7 @@ LABEL(0x2)
     STAL(60)
     CURE
     MUSC(0x2e)
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xa4f)
     TEXTEND
     MUSC(0x28)
@@ -168,8 +159,7 @@ LABEL(0x2)
     STAL(60)
     CURE
     MUSC(0x2e)
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xa50)
     TEXTEND
     MUSC(0x26)

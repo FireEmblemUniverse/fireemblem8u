@@ -6,6 +6,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
 	MUSC(0x2e)
@@ -44,17 +45,14 @@ CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
 	CUMO_CHAR(CHARACTER_GLEN)
 	STAL(60)
 	CURE
-	SVAL(EVT_SLOT_2, 0xc)
-	SVAL(EVT_SLOT_3, 0xa2c)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_GRADO_CHAMBER, 0xa2c)
 	LOAD2(0x1, UnitDef_088B9744)
 	ENUN
 	MUSI
 	CUMO_CHAR(CHARACTER_VALTER)
 	STAL(60)
 	CURE
-	SVAL(EVT_SLOT_2, 0xc)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_GRADO_CHAMBER)
 	TEXTSHOW(0xa2d)
 	TEXTEND
 	REMA
@@ -77,9 +75,7 @@ CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
 	STAL(60)
 	CURE
 	MUSC(0x26)
-	SVAL(EVT_SLOT_2, 0x26)
-	SVAL(EVT_SLOT_3, 0xa2e)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_INTERIOR_BLACK, 0xa2e)
 	CAMERA(0, 0)
 	LOAD2(0x1, UnitDef_088B8B44)
 	STAL2(32)
@@ -96,8 +92,7 @@ CONST_DATA EventListScr EventScr_Ch10a_BeginingScene[] = {
 	CUMO_CHAR(CHARACTER_EIRIKA)
 	STAL(60)
 	CURE
-	SVAL(EVT_SLOT_2, 0x1d)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_2)
 	TEXTSHOW(0xa2f)
 	TEXTEND
 	REMA
@@ -121,9 +116,7 @@ CONST_DATA EventListScr EventScr_089F43A0[] = {
 	STAL(60)
 	CURE
 	MUSI
-	SVAL(EVT_SLOT_2, 0xe)
-	SVAL(EVT_SLOT_3, 0xa31)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_THRONE_NORMAL, 0xa31)
 	MUNO
 	EVBIT_T(7)
 	ENDA
@@ -177,9 +170,7 @@ LABEL(0x2)
 	CUMO_CHAR(CHARACTER_VALTER)
 	STAL(60)
 	CURE
-	SVAL(EVT_SLOT_2, 0x1d)
-	SVAL(EVT_SLOT_3, 0xa36)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_PLAIN_2, 0xa36)
 	MOVE(0x10, CHARACTER_VALTER, 3, 30)
 	SVAL(EVT_SLOT_B, 0x1b0002)
 	STAL2(32)
@@ -197,29 +188,25 @@ LABEL(0x2)
 	CUMO_AT(15, 1)
 	STAL(60)
 	CURE
-	SVAL(EVT_SLOT_2, 0xe)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_THRONE_NORMAL)
 	MUSC(0x31)
 	TEXTSHOW(0xa37)
 	TEXTEND
 	REMA
 	BNE(0x3, EVT_SLOT_7, EVT_SLOT_0)
-	SVAL(EVT_SLOT_2, 0x10)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_CASTLE_BRIGHT)
 	TEXTSHOW(0xa38)
 	TEXTEND
 	REMA
 LABEL(0x3)
-	SVAL(EVT_SLOT_2, 0x2)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_NORMAL_VILLAGE)
 	CHECK_ALIVE(CHARACTER_TETHYS)
 	BEQ(0xa, EVT_SLOT_C, EVT_SLOT_0)
 	MUSI
 	TEXTSHOW(0xa39)
 	TEXTEND
 	REMA
-	SVAL(EVT_SLOT_2, 0x1d)
-	CALL(EventScr_SetBackground)
+	SetBackground(BG_PLAIN_2)
 	TEXTSHOW(0xa3a)
 	TEXTEND
 	REMA
@@ -347,9 +334,7 @@ LABEL(0x0)
 
 CONST_DATA EventListScr EventScr_089F47A8[] = {
 	MUSI
-	SVAL(EVT_SLOT_2, 0x0)
-	SVAL(EVT_SLOT_3, 0xa43)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_HOUSE, 0xa43)
 	MUNO
 	EVBIT_T(7)
 	ENDA
@@ -357,9 +342,7 @@ CONST_DATA EventListScr EventScr_089F47A8[] = {
 
 CONST_DATA EventListScr EventScr_089F47D0[] = {
 	MUSI
-	SVAL(EVT_SLOT_2, 0x0)
-	SVAL(EVT_SLOT_3, 0xa44)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_HOUSE, 0xa44)
 	MUNO
 	EVBIT_T(7)
 	ENDA
@@ -367,9 +350,7 @@ CONST_DATA EventListScr EventScr_089F47D0[] = {
 
 CONST_DATA EventListScr EventScr_089F47F8[] = {
 	MUSI
-	SVAL(EVT_SLOT_2, 0x0)
-	SVAL(EVT_SLOT_3, 0xa45)
-	CALL(Event_TextWithBG)
+	Text_BG(BG_HOUSE, 0xa45)
 	MUNO
 	EVBIT_T(7)
 	ENDA

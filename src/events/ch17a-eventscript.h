@@ -11,9 +11,9 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     MUSCSLOW(0x2c)
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
     REMOVEPORTRAITS
-    BACG(0x35)
+    BACG(BG_BLANK)
     FAWI(2)
-    BACG(0xf)
+    BACG(BG_THRONE_FLASHBACK)
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xb61)
@@ -21,7 +21,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
-    BACG(0x21)
+    BACG(BG_STREAM)
     MUSC(0x52)
     FAWU(2)
     TEXTSHOW(0xb62)
@@ -40,17 +40,14 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     CUMO_CHAR(0xf7)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x19)
-    SVAL(EVT_SLOT_3, 0xb64)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_PLAIN_1_SUNSET, 0xb64)
     CAMERA2(11, 15)
     LOAD2(0x1, UnitDef_088BE4C0)
     ENUN
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x19)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb65)
     TEXTEND
     EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
@@ -69,8 +66,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
-    SVAL(EVT_SLOT_2, 0x19)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb66)
     TEXTEND
     MUSC(0x2d)
@@ -85,8 +81,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     CALL(EventScr_TextShowWithFadeIn)
     GOTO(0x1)
 LABEL(0x0)
-    SVAL(EVT_SLOT_2, 0x19)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb67)
     TEXTEND
     MUSC(0x2d)
@@ -258,8 +253,7 @@ LABEL(0xb)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x19)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1_SUNSET)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x14, EVT_SLOT_C, EVT_SLOT_1)
@@ -287,8 +281,7 @@ LABEL(0x15)
     TEXTEND
     REMA
     FADI(4)
-    SVAL(EVT_SLOT_2, 0x1f)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2_SUNSET)
     MUSI
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
@@ -312,8 +305,7 @@ LABEL(0x1f)
     MUSC(0x26)
     STAL(50)
     MUSI
-    SVAL(EVT_SLOT_2, 0x1f)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2_SUNSET)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x32, EVT_SLOT_C, EVT_SLOT_1)
