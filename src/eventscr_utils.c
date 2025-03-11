@@ -252,17 +252,20 @@ struct Unit * GetUnitStructFromEventParameter(s16 pid)
         break;
 
     case CHAR_EVT_POSITION_AT_SLOTB:
+    {
+        struct Unit * ptr;
+
         if (gBmMapUnit[((u16 *)(gEventSlots + 0xB))[1]][((u16 *)(gEventSlots + 0xB))[0]] != 0)
         {
-            return GetUnit(gBmMapUnit[((u16 *)(gEventSlots + 0xB))[1]][((u16 *)(gEventSlots + 0xB))[0]]);
+            ptr = GetUnit(gBmMapUnit[((u16 *)(gEventSlots + 0xB))[1]][((u16 *)(gEventSlots + 0xB))[0]]);
         }
         else
         {
-            #ifndef NONMATCHING
-            asm(""); // :/
-            #endif
-            return NULL;
+            ptr = NULL;
         }
+
+        return ptr;
+    }
 
     case CHAR_EVT_ACTIVE_UNIT:
         return gActiveUnit;

@@ -93,6 +93,7 @@ src/m4a.o: CC1 := $(CC1_OLD)
 
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error
+src/menu_def.o: CC1FLAGS += -Wno-error
 
 #### Main Targets ####
 
