@@ -40,7 +40,7 @@ u8 FormatTime(u32 frameTotal, u16 * hours, u16 * minutes, u16 * seconds);
 void StoreRoutinesToIRAM();
 void DrawGlyphRam();
 void CallARM_DecompText(const char *, char *);
-void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d);
+void CallARM_PushToSecondaryOAM(int x, int y, const u16 *data, int oam2base);
 void CallARM_PushToPrimaryOAM(int x, int y, const u16* data, int oam2base);
 // ??? CallARM_Func5(???);
 void CallARM_FillMovementMap(void);
