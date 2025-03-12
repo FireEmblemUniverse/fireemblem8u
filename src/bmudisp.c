@@ -14,6 +14,7 @@
 #include "bmlib.h"
 #include "constants/terrains.h"
 #include "constants/event-flags.h"
+#include "constants/video-global.h"
 
 /**
 * Display standing map sprites and various tile/unit markers
@@ -21,7 +22,7 @@
 
 extern UnitIconWait unit_icon_wait_table[];
 
-u8 EWRAM_DATA gSMSGfxIndexLookup[0xD0] = {};
+u8 EWRAM_DATA gUnitSpriteSlots[0xD0] = {};
 
 u8 EWRAM_DATA gSMSGfxBuffer[3][8*0x20*0x20] = {};
 
@@ -29,13 +30,13 @@ int EWRAM_DATA gSMS16xGfxIndexCounter = 0;
 int EWRAM_DATA gSMS32xGfxIndexCounter = 0;
 
 struct SMSHandle EWRAM_DATA gSMSHandleArray[100] = {};
-struct SMSHandle* EWRAM_DATA gSMSHandleIt = NULL;
+struct SMSHandle * EWRAM_DATA gSMSHandleIt = NULL;
 
 int EWRAM_DATA gSMSSyncFlag = 0;
 
 int EWRAM_DATA gMapSpriteSwitchHoverTimer = 0;
 
-u8* CONST_DATA gpSMSGfxDecompBuffer = gGenericBuffer;
+u8* CONST_DATA UnitSpriteUnpackBuf = gGenericBuffer;
 
 int CONST_DATA gSomeSMSLookupTable_859B66C[] = {
     0,  8,
@@ -343,179 +344,150 @@ u16 CONST_DATA sSprite_32x32_Window[] = {
 
 #define GetInfo(id) (unit_icon_wait_table[(id) & ((1<<7)-1)])
 
-//! FE8U = 0x08026618
-void sub_8026618(void) {
+void sub_8026618(void)
+{
     gSMSSyncFlag++;
-    return;
 }
 
-//! FE8U = 0x08026628
-void SetupMapSpritesPalettes(void) {
-
+void ApplyUnitSpritePalettes(void)
+{
     ApplyPalettes(gPal_MapSprite, 0x1C, 4);
 
-    if (gBmSt.gameStateBits & 0x40) {
-        ApplyPalette(gPal_MapSpriteArena, 0x1B);
-    } else {
-        ApplyPalette(gPal_NotMapSprite, 0x1B);
-    }
-
-    return;
+    if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
+        ApplyPalette(gPal_MapSpriteArena, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
+    else
+        ApplyPalette(gPal_NotMapSprite, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
 }
 
-//! FE8U = 0x08026670
-void sub_8026670(void) {
+void sub_8026670(void)
+{
     ApplyPalette(gPal_MapSpriteSepia, 0x1E);
-
-    return;
 }
 
-//! FE8U = 0x08026688
-void ResetUnitSprites(void) {
-
+void ResetUnitSprites(void)
+{
     int i;
-
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gUnitSpriteSlots[i] |= 0xFF;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x40-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x40 - 1;
 }
 
-//! FE8U = 0x080266BC
-void ResetUnitSpritesB(void) {
-
+void ResetUnitSpritesB(void)
+{
     int i;
 
-    for (i = 0xD0-1; i >= 0; i--) {
-        gSMSGfxIndexLookup[i] |= 0xff;
-    }
+    for (i = UNITSPRITE_MAX - 1; i >= 0; i--)
+        gUnitSpriteSlots[i] |= 0xFF;
 
     gSMS32xGfxIndexCounter = 0;
-    gSMS16xGfxIndexCounter = 0x60-1;
-
-    return;
+    gSMS16xGfxIndexCounter = 0x60 - 1;
 }
 
-//! FE8U = 0x080266F0
-int SMS_80266F0(int smsId, int frameId) {
-
+int StartUiSMS(int smsId, int frameId)
+{
     int slot = gSomeSMSLookupTable_859B66C[frameId];
-
-    Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
-
-    switch (GetInfo(smsId).size) {
-        case UNIT_ICON_SIZE_16x16:
-            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
-
-            break;
-
-        case UNIT_ICON_SIZE_16x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
-
-            break;
-    }
-
-    return gSMSGfxIndexLookup[frameId] << 1;
-}
-
-//! FE8U = 0x0802677C
-int SMS_SomethingGmapUnit(int smsId, int frameId, int slot) {
-
-    Decompress(GetInfo(smsId).sheet, gpSMSGfxDecompBuffer);
+    Decompress(GetInfo(smsId).sheet, UnitSpriteUnpackBuf);
 
     switch (GetInfo(smsId).size) {
-        case UNIT_ICON_SIZE_16x16:
-            gSMSGfxIndexLookup[frameId] = SomethingSMS_16x16(slot, smsId) / 2;
+    case UNIT_ICON_SIZE_16x16:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteUiImage16x16(slot, smsId) / 2;
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            gSMSGfxIndexLookup[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
+        break;
     }
 
-    return gSMSGfxIndexLookup[frameId] << 1;
+    return gUnitSpriteSlots[frameId] << 1;
 }
 
-//! FE8U = 0x080267FC
-int UseUnitSprite(u32 id) {
+int StartWorldMapSMS(int smsId, int frameId, int slot)
+{
+    Decompress(GetInfo(smsId).sheet, UnitSpriteUnpackBuf);
 
-    if (gSMSGfxIndexLookup[id] == 0xFF) {
+    switch (GetInfo(smsId).size) {
+    case UNIT_ICON_SIZE_16x16:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteUiImage16x16(slot, smsId) / 2;
+        break;
 
-        Decompress(GetInfo(id).sheet, gpSMSGfxDecompBuffer);
+    case UNIT_ICON_SIZE_16x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage16x32(slot, smsId) / 2;
+        break;
+
+    case UNIT_ICON_SIZE_32x32:
+        gUnitSpriteSlots[frameId] = ApplyUnitSpriteImage32x32(slot, smsId) / 2;
+        break;
+    }
+
+    return gUnitSpriteSlots[frameId] << 1;
+}
+
+int UseUnitSprite(u32 id)
+{
+    if (gUnitSpriteSlots[id] == 0xFF)
+    {
+        Decompress(GetInfo(id).sheet, UnitSpriteUnpackBuf);
 
         switch (GetInfo(id).size) {
-            case UNIT_ICON_SIZE_16x16:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
-                gSMS16xGfxIndexCounter -= 1;
+        case UNIT_ICON_SIZE_16x16:
+            gUnitSpriteSlots[id] = ApplyUnitSpriteImage16x16(gSMS16xGfxIndexCounter, id) / 2;
+            gSMS16xGfxIndexCounter -= 1;
+            break;
 
-                break;
+        case UNIT_ICON_SIZE_16x32:
+            gUnitSpriteSlots[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+            gSMS32xGfxIndexCounter += 2;
+            break;
 
-            case UNIT_ICON_SIZE_16x32:
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage16x32(gSMS32xGfxIndexCounter, id) / 2;
+        case UNIT_ICON_SIZE_32x32:
+            if ((gSMS32xGfxIndexCounter & 0x1E) == 0x1E)
                 gSMS32xGfxIndexCounter += 2;
 
-                break;
-
-            case UNIT_ICON_SIZE_32x32:
-                if ((gSMS32xGfxIndexCounter & 0x1e) == 0x1e) {
-                    gSMS32xGfxIndexCounter += 2;
-                }
-
-                gSMSGfxIndexLookup[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
-                gSMS32xGfxIndexCounter += 4;
-
-                break;
+            gUnitSpriteSlots[id] = ApplyUnitSpriteImage32x32(gSMS32xGfxIndexCounter, id) / 2;
+            gSMS32xGfxIndexCounter += 4;
+            break;
         }
 
         gSMSSyncFlag++;
 
     }
-
-    return gSMSGfxIndexLookup[id] << 1;
+    return gUnitSpriteSlots[id] << 1;
 }
 
-//! FE8U = 0x080268C8
-int ApplyUnitSpriteImage16x16(int slot, u32 id) {
+int ApplyUnitSpriteImage16x16(int slot, u32 id)
+{
     int i;
-
     int outOff = sSlotToChrLut[slot] * CHR_SIZE;
-    id = ((id >> 7) ^ 1) & 1;
+    id = ((id >> UNITSPRITE_ID_BITS) ^ 1) & 1;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++)
+    {
         int imgOff = (i * id) * 4 * CHR_SIZE;
 
-        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(
+            UnitSpriteUnpackBuf + 0 * CHR_SIZE + imgOff,
+            gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(
+            UnitSpriteUnpackBuf + 2 * CHR_SIZE + imgOff,
+            gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
     }
-
     return sSlotToChrLut[slot];
 }
 
-//! FE8U = 0x0802695C
-int SomethingSMS_16x16(int slot, u32 id) {
+int ApplyUnitSpriteUiImage16x16(int slot, u32 id)
+{
     int i;
-
     int outOff = sSlotToChrLut[slot] * CHR_SIZE;
-    id = ((id >> 7) ^ 1) & 1;
+    id = ((id >> UNITSPRITE_ID_BITS) ^ 1) & 1;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++)
+    {
         int imgOff = (i * id) * 4 * CHR_SIZE;
 
         CpuFastFill(
@@ -530,72 +502,69 @@ int SomethingSMS_16x16(int slot, u32 id) {
         );
 
         CpuFastCopy(
-            gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff,
+            UnitSpriteUnpackBuf + 0 * CHR_SIZE + imgOff,
             gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
         CpuFastCopy(
-            gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff,
+            UnitSpriteUnpackBuf + 2 * CHR_SIZE + imgOff,
             gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff,
             2 * CHR_SIZE
         );
     }
-
     return sSlotToChrLut[slot];
 }
 
-//! FE8U = 0x08026A38
-int ApplyUnitSpriteImage16x32(int slot, u32 id) {
-
+int ApplyUnitSpriteImage16x32(int slot, u32 id)
+{
     int i;
 
     int outOff = sSlotToChrLut[slot] * CHR_SIZE;
-    id = ((id >> 7) ^ 1) & 1;
+    id = ((id >> UNITSPRITE_ID_BITS) ^ 1) & 1;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++)
+    {
         int imgOff = (i * id) * 8 * CHR_SIZE;
 
-        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 2 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 6 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 2 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 6 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 2 * CHR_SIZE);
     }
-
     return sSlotToChrLut[slot];
 }
 
-//! FE8U = 0x08026B28
-int ApplyUnitSpriteImage32x32(int slot, u32 id) {
+int ApplyUnitSpriteImage32x32(int slot, u32 id)
+{
     int i;
-
     int outOff = sSlotToChrLut[slot] * CHR_SIZE;
 
-    id = ((id >> 7) ^ 1) & 1;
+    id = ((id >> UNITSPRITE_ID_BITS) ^ 1) & 1;
 
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < 3; i++)
+    {
         int imgOff = (i * id) * 16 * CHR_SIZE;
 
-        CpuFastCopy(gpSMSGfxDecompBuffer + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 8 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
-        CpuFastCopy(gpSMSGfxDecompBuffer + 12 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 0 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 0 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 4 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 1 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 8 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 2 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
+        CpuFastCopy(UnitSpriteUnpackBuf + 12 * CHR_SIZE + imgOff, gSMSGfxBuffer[i] + 3 * CHR_SIZE * CHR_LINE + outOff, 4 * CHR_SIZE);
     }
-
     return sSlotToChrLut[slot];
 }
 
-//! FE8U = 0x08026C1C
-void sub_8026C1C(struct Unit* param_1, int param_2) {
+void TornOutUnitSprite(struct Unit * unit, int timer)
+{
     u8 r4;
     u16 r6;
     int r7;
     int i, j;
-    int sp04;
+    int slot;
 
-    sp04 = GetUnitSMSId(param_1);
-    r7 = UseUnitSprite(sp04) * 0x20;
-    r6 = gUnknown_0859B73C[param_2];
+    slot = GetUnitSMSId(unit);
+    r7 = UseUnitSprite(slot) * 0x20;
+    r6 = gUnknown_0859B73C[timer];
 
     r4 = 0;
     i = GetGameClock() % 0x48;
@@ -605,116 +574,111 @@ void sub_8026C1C(struct Unit* param_1, int param_2) {
     if (i >= 0x20) r4 = 1;
     if (i >= 0) r4 = 0;
 
-    switch (GetInfo(sp04).size) {
-        case 0:
-            for (i = 0; i < 3; i++) {
-                for (j = 0; j < 2; j++) {
-                    { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2); }
-                    { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2); }
-                }
+    switch (GetInfo(slot).size) {
+    case 0:
+        for (i = 0; i < 3; i++)
+        {
+            for (j = 0; j < 2; j++)
+            {
+                { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2); }
+                { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2); }
             }
+        }
 
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 2 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 2 * CHR_SIZE);
+        break;
 
-            break;
-
-        case 1:
-            for (i = 0; i < 3; i++) {
-                int var = 2; // for reordering the unrolled expressions
-                for (j = 0; j < 2; j++) {
-                    { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << var); }
-                    { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                    { int offset = 2 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                    { int offset = 3 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                }
+    case 1:
+        for (i = 0; i < 3; i++)
+        {
+            int var = 2; // for reordering the unrolled expressions
+            for (j = 0; j < 2; j++)
+            {
+                { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << var); }
+                { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
+                { int offset = 2 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
+                { int offset = 3 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
             }
+        }
 
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 2 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 2 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011800), 2 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011C00), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011800), 2 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011C00), 2 * CHR_SIZE);
+        break;
 
-            break;
-
-        case 2:
-            for (i = 0; i < 3; i++) {
-                int var = 2;
-                for (j = 0; j < 4; j++) {
-                    { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << var); }
-                    { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                    { int offset = 2 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                    { int offset = 3 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
-                }
+    case 2:
+        for (i = 0; i < 3; i++)
+        {
+            int var = 2;
+            for (j = 0; j < 4; j++)
+            {
+                { int offset = 0 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << var); }
+                { int offset = 1 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
+                { int offset = 2 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
+                { int offset = 3 * CHR_SIZE * CHR_LINE + j * CHR_SIZE; gSMSGfxBuffer[i][r7 + offset + (r6 >> 1)] &= 0xf << (!(r6 & 1) << 2);   }
             }
+        }
 
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 4 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 4 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011800), 4 * CHR_SIZE);
-            CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011C00), 4 * CHR_SIZE);
-
-            break;
-
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 0 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011000), 4 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 1 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011400), 4 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 2 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011800), 4 * CHR_SIZE);
+        CpuFastCopy(&gSMSGfxBuffer[r4][r7 + 3 * CHR_SIZE * CHR_LINE], (u8*)(r7 + 0x06011C00), 4 * CHR_SIZE);
+        break;
     }
 
-    if (param_2 == 0x3f) {
-        gSMSGfxIndexLookup[sp04] |= 0xff;
-    }
-    return;
+    if (timer == 0x3f)
+        gUnitSpriteSlots[slot] |= 0xff;
 }
 
-//! FE8U = 0x08026F2C
-void SyncUnitSpriteSheet(void) {
+void SyncUnitSpriteSheet(void)
+{
     int frame = GetGameClock() % 72;
 
-    if (frame == 0) {
+    if (frame == 0)
         CpuFastCopy(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
-    }
 
-    if (frame == 32) {
+    if (frame == 32)
         CpuFastCopy(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
-    }
 
-    if (frame == 36) {
+    if (frame == 36)
         CpuFastCopy(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
-    }
 
-    if (frame == 68) {
+    if (frame == 68)
         CpuFastCopy(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
-    }
-
-    return;
 }
 
-//! FE8U = 0x08026F94
-void ForceSyncUnitSpriteSheet(void) {
+void ForceSyncUnitSpriteSheet(void)
+{
     int frame;
-
     gSMSSyncFlag = 0;
 
     frame = GetGameClock() % 72;
 
-    if (frame >= 68) {
+    if (frame >= 68)
+    {
         RegisterDataMove(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
-    if (frame >= 36) {
+    if (frame >= 36)
+    {
         RegisterDataMove(gSMSGfxBuffer[2], (void*)0x06011000, sizeof(gSMSGfxBuffer[2]));
         return;
     }
 
-    if (frame >= 32) {
+    if (frame >= 32)
+    {
         RegisterDataMove(gSMSGfxBuffer[1], (void*)0x06011000, sizeof(gSMSGfxBuffer[1]));
         return;
     }
 
-    if (frame >= 0) {
+    if (frame >= 0)
+    {
         RegisterDataMove(gSMSGfxBuffer[0], (void*)0x06011000, sizeof(gSMSGfxBuffer[0]));
         return;
     }
-
-    return;
 }
 
 //! FE8U = 0x08026FF4
@@ -724,31 +688,27 @@ void sub_8026FF4(int frameId, u8* dst) {
 
     int frame = GetGameClock() % 72;
 
-    u8* src = NULL;
+    u8 * src = NULL;
 
-    if (frame == 0) {
+    if (frame == 0)
         src = gSMSGfxBuffer[0];
-    }
 
-    if (frame == 32) {
+    if (frame == 32)
         src = gSMSGfxBuffer[1];
-    }
 
-    if (frame == 36) {
+    if (frame == 36)
         src = gSMSGfxBuffer[2];
-    }
 
-    if (frame == 68) {
+    if (frame == 68)
         src = gSMSGfxBuffer[1];
-    }
 
-    if (src == NULL) {
+    if (src == NULL)
         return;
-    }
 
     off = gSomeSMSLookupTable_859B66C[frameId] * CHR_SIZE;
 
-    for (i = 0; i <= 3; i++) {
+    for (i = 0; i <= 3; i++)
+    {
         u32 a = off + 0 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
         u32 b = off + 1 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
         CpuFastCopy(
@@ -757,12 +717,10 @@ void sub_8026FF4(int frameId, u8* dst) {
             2 * CHR_SIZE
         );
     }
-
-    return;
 }
 
-//! FE8U = 0x08027068
-void sub_8027068(int frameId, u8* dst) {
+void SetStandingMuFacing(int frameId, u8 * dst)
+{
     int i;
     int off;
 
@@ -770,19 +728,17 @@ void sub_8027068(int frameId, u8* dst) {
 
     u8* src = NULL;
 
-    if (frame >= 68) {
+    if (frame >= 68)
         src = gSMSGfxBuffer[1];
-    } else if (frame >= 36) {
+    else if (frame >= 36)
         src = gSMSGfxBuffer[2];
-    } else if (frame >= 32) {
+    else if (frame >= 32)
         src = gSMSGfxBuffer[1];
-    } else if (frame >= 0) {
+    else if (frame >= 0)
         src = gSMSGfxBuffer[0];
-    }
 
-    if (src == NULL) {
+    if (src == NULL)
         return;
-    }
 
     off = gSomeSMSLookupTable_859B66C[frameId] * 0x20;
 
@@ -796,83 +752,74 @@ void sub_8027068(int frameId, u8* dst) {
             2 * CHR_SIZE
         );
     }
-
-    return;
 }
 
-//! FE8U = 0x080270DC
-void sub_80270DC(int frameId, u8* dst) {
+void SetStandingMuFacingWM(int frameId, u8 * dst)
+{
     int a;
     int i;
     int frame = GetGameClock() % 72;
     u8* src = NULL;
 
     do {
-        if (frame >= 68) {
+        if (frame >= 68)
             src = gSMSGfxBuffer[1];
-        } else if (frame >= 36) {
+        else if (frame >= 36)
             src = gSMSGfxBuffer[2];
-        } else if (frame >= 32) {
+        else if (frame >= 32)
             src = gSMSGfxBuffer[1];
-        } else if (frame >= 0) {
+        else if (frame >= 0)
             src = gSMSGfxBuffer[0];
-        }
     } while (0);
 
-    if (src == NULL) {
+    if (src == NULL)
         return;
-    }
 
-    for (a = frameId * CHR_SIZE, i = 0; i <= 3; a += CHR_SIZE * CHR_LINE, i++) {
+    for (a = frameId * CHR_SIZE, i = 0; i <= 3; a += CHR_SIZE * CHR_LINE, i++)
+    {
         RegisterDataMove(
             src + (a),
             dst + (a),
             4 * CHR_SIZE);
     }
-
-    return;
 }
 
-//! FE8U = 0x0802713C
-int GetUnitDisplayedSpritePalette(const struct Unit* unit) {
-
-    if (unit->state & US_BIT27) {
+int GetUnitDisplayedSpritePalette(const struct Unit * unit)
+{
+    if (unit->state & US_BIT27)
         return 0xB;
-    }
 
-    if (unit->state & US_UNSELECTABLE) {
+    if (unit->state & US_UNSELECTABLE)
         return 0xF;
-    }
 
     return GetUnitSpritePalette(unit);
 }
 
-//! FE8U = 0x08027168
-int GetUnitSpritePalette(const struct Unit* unit) {
-
+int GetUnitSpritePalette(const struct Unit * unit)
+{
     switch (UNIT_FACTION(unit)) {
-        case FACTION_BLUE:
-            return 0xC;
+    case FACTION_BLUE:
+        return 0xC;
 
-        case FACTION_RED:
-            return 0xD;
+    case FACTION_RED:
+        return 0xD;
 
-        case FACTION_GREEN:
-            return 0xE;
+    case FACTION_GREEN:
+        return 0xE;
 
-        case FACTION_PURPLE:
-            return 0xB;
+    case FACTION_PURPLE:
+        return 0xB;
     }
 }
 
-//! FE8U = 0x080271A0
-void RefreshUnitSprites(void) {
-    struct SMSHandle* smsHandle;
+void RefreshUnitSprites(void)
+{
+    struct SMSHandle * smsHandle;
 
-    struct Trap* trap;
+    struct Trap * trap;
     int i;
     u16 oam2 = 0;
-    struct SMSHandle* nullHandle = NULL;
+    struct SMSHandle * nullHandle = NULL;
 
     gSMSHandleIt = &gSMSHandleArray[0];
 
@@ -881,26 +828,23 @@ void RefreshUnitSprites(void) {
 
     gSMSHandleIt = &gSMSHandleArray[1];
 
-    for (i = 1; i < 0xC6; i++) {
-        struct Unit* unit = GetUnit(i);
+    for (i = 1; i < FACTION_PURPLE + 6; i++)
+    {
+        struct Unit * unit = GetUnit(i);
 
-        if (!UNIT_IS_VALID(unit)) {
+        if (!UNIT_IS_VALID(unit))
             continue;
-        }
 
         unit->pMapSpriteHandle = NULL;
 
-        if (unit->state & (US_HIDDEN | US_BIT9)) {
+        if (unit->state & (US_HIDDEN | US_BIT9))
             continue;
-        }
 
-        if (gBmMapUnit[unit->yPos][unit->xPos] == 0) {
+        if (gBmMapUnit[unit->yPos][unit->xPos] == 0)
             continue;
-        }
 
-        if (unit->statusIndex == UNIT_STATUS_PETRIFY || unit->statusIndex == UNIT_STATUS_13) {
+        if (unit->statusIndex == UNIT_STATUS_PETRIFY || unit->statusIndex == UNIT_STATUS_13)
             unit->state |= US_UNSELECTABLE;
-        }
 
         smsHandle = AddUnitSprite(unit->yPos * 16);
 
@@ -922,20 +866,22 @@ void RefreshUnitSprites(void) {
         unit->pMapSpriteHandle = smsHandle;
     }
 
-    for (trap = GetTrap(0); trap->type != 0; trap++) {
-        if (trap->type == 1 && trap->data[1] == 0) {
+    for (trap = GetTrap(0); trap->type != 0; trap++)
+    {
+        if (trap->type == 1 && trap->data[1] == 0)
+        {
             switch (trap->extra) {
-                case 0x35:
-                    oam2 = UseUnitSprite(0x5b) - 0x4000 + 0x80;
-                    break;
+            case 0x35:
+                oam2 = UseUnitSprite(0x5b) - 0x4000 + 0x80;
+                break;
 
-                case 0x36:
-                    oam2 = UseUnitSprite(0x5c) - 0x4000 + 0x80;
-                    break;
+            case 0x36:
+                oam2 = UseUnitSprite(0x5c) - 0x4000 + 0x80;
+                break;
 
-                case 0x37:
-                    oam2 = UseUnitSprite(0x5d) - 0x4000 + 0x80;
-                    break;
+            case 0x37:
+                oam2 = UseUnitSprite(0x5d) - 0x4000 + 0x80;
+                break;
             }
 
             smsHandle = AddUnitSprite(trap->yPos * 16);
@@ -948,7 +894,8 @@ void RefreshUnitSprites(void) {
             smsHandle->config = GetInfo(0x5b).size;
         }
 
-        if (trap->type == 0xd) {
+        if (trap->type == 0xd)
+        {
             smsHandle = AddUnitSprite(trap->yPos * 16);
             smsHandle->yDisplay = trap->yPos * 16;
             smsHandle->xDisplay = trap->xPos * 16;
@@ -959,20 +906,17 @@ void RefreshUnitSprites(void) {
         }
     }
 
-    if (gSMSSyncFlag != 0) {
+    if (gSMSSyncFlag != 0)
         ForceSyncUnitSpriteSheet();
-    }
-
-
-    return;
 }
 
-//! FE8U = 0x0802736C
-struct SMSHandle* AddUnitSprite(int y) {
-    struct SMSHandle* it = gSMSHandleArray;
+struct SMSHandle * AddUnitSprite(int y)
+{
+    struct SMSHandle * it = gSMSHandleArray;
 
     while (1) {
-        if (it->pNext == NULL || it->pNext->yDisplay < y) {
+        if (it->pNext == NULL || it->pNext->yDisplay < y)
+        {
             gSMSHandleIt->pNext = it->pNext;
             gSMSHandleIt = (it->pNext = gSMSHandleIt) + 1;
 
@@ -981,75 +925,66 @@ struct SMSHandle* AddUnitSprite(int y) {
 
         it = it->pNext;
     }
-
-    return;
 }
 
-//! FE8U = 0x080273A4
-void PutUnitSpritesOam(void) {
-
-    struct SMSHandle* it = gSMSHandleArray->pNext;
+void PutUnitSpritesOam(void)
+{
+    struct SMSHandle * it = gSMSHandleArray->pNext;
 
     PutUnitSpriteIconsOam();
 
-    if (it == NULL) {
+    if (it == NULL)
         return;
-    }
 
-    for (; it != NULL; it = it->pNext) {
+    for (; it != NULL; it = it->pNext)
+    {
         int r3 = 0;
 
         int x = it->xDisplay - gBmSt.camera.x;
         int y = it->yDisplay - gBmSt.camera.y;
 
-        if (x < -16 || x > DISPLAY_WIDTH) {
+        if (x < -16 || x > DISPLAY_WIDTH)
             continue;
-        }
 
-        if (y < -32 || y > DISPLAY_HEIGHT) {
+        if (y < -32 || y > DISPLAY_HEIGHT)
             continue;
-        }
 
-        if (it->config & 0x80) {
+        if (it->config & 0x80)
             continue;
-        }
 
-        if (it->config & 0x40) {
+        if (it->config & 0x40)
             r3 = GetGameClock() & 2;
-        }
 
         switch ((it->config & 0xf)) {
-            case 0:
-                CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y), gObject_16x16, it->oam2Base + OAM2_LAYER(2));
-                break;
+        case 0:
+            CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y), gObject_16x16, it->oam2Base + OAM2_LAYER(2));
+            break;
 
-            case 1:
-                CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y - 16), gObject_16x32, it->oam2Base + OAM2_LAYER(2));
-                break;
+        case 1:
+            CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y - 16), gObject_16x32, it->oam2Base + OAM2_LAYER(2));
+            break;
 
-            case 2:
-                CallARM_PushToSecondaryOAM(OAM1_X((x-8)+r3+0x200), OAM0_Y(0x100+y - 16), gObject_32x32, it->oam2Base + OAM2_LAYER(2));
-                break;
+        case 2:
+            CallARM_PushToSecondaryOAM(OAM1_X((x-8)+r3+0x200), OAM0_Y(0x100+y - 16), gObject_32x32, it->oam2Base + OAM2_LAYER(2));
+            break;
 
-            case 3:
-                CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y), gObject_16x16, it->oam2Base + OAM2_LAYER(3));;
-                break;
+        case 3:
+            CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y), gObject_16x16, it->oam2Base + OAM2_LAYER(3));;
+            break;
 
-            case 4:
-                CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y - 16), gObject_16x32, it->oam2Base + OAM2_LAYER(3));
-                break;
+        case 4:
+            CallARM_PushToSecondaryOAM(OAM1_X(x+r3+0x200), OAM0_Y(0x100+y - 16), gObject_16x32, it->oam2Base + OAM2_LAYER(3));
+            break;
 
-            case 5:
-                CallARM_PushToSecondaryOAM(OAM1_X((x-8)+r3+0x200), OAM0_Y(0x100+y - 16), gObject_32x32, it->oam2Base + OAM2_LAYER(3));
-                break;
+        case 5:
+            CallARM_PushToSecondaryOAM(OAM1_X((x-8)+r3+0x200), OAM0_Y(0x100+y - 16), gObject_32x32, it->oam2Base + OAM2_LAYER(3));
+            break;
         }
     }
-
-    return;
 }
 
-//! FE8U = 0x08027530
-void PutChapterMarkedTileIconOam(void) {
+void PutChapterMarkedTileIconOam(void)
+{
     int x;
     int y;
     int xTile;
@@ -1061,40 +996,32 @@ void PutChapterMarkedTileIconOam(void) {
 
     shouldDisplay = (GetGameClock() & 0x1f) < 0x14 ? 1 : 0;
 
-    if (xTile == 0xFF) {
+    if (xTile == 0xFF)
         return;
-    }
 
-    if (shouldDisplay == 0) {
+    if (shouldDisplay == 0)
         return;
-    }
 
-    if (gBmMapFog[yTile][xTile] == 0) {
+    if (gBmMapFog[yTile][xTile] == 0)
         return;
-    }
 
-    if (gBmMapTerrain[yTile][xTile] == TERRAIN_ROOF) {
+    if (gBmMapTerrain[yTile][xTile] == TERRAIN_ROOF)
         return;
-    }
 
     x = xTile * 16 - gBmSt.camera.x;
     y = yTile * 16 - gBmSt.camera.y;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -16 || y > DISPLAY_HEIGHT) {
+    if (y < -16 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 4), OAM0_Y(0x100+y + 7), gObject_8x8, 0xC51);
-
-    return;
 }
 
-//! FE8U = 0x080275E8
-void PutUnitSpriteIconsOam(void) {
+void PutUnitSpriteIconsOam(void)
+{
     u8 protectCharacterId;
     int i;
     int x;
@@ -1112,7 +1039,7 @@ void PutUnitSpriteIconsOam(void) {
         0xD,
     };
 
-    if (GetBattleMapKind() != 2) {
+    if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH) {
         protectCharacterId = GetROMChapterStruct(gPlaySt.chapterIndex)->protectCharacterIndex;
     } else {
         protectCharacterId = 0;
@@ -1130,506 +1057,416 @@ void PutUnitSpriteIconsOam(void) {
 
     PutChapterMarkedTileIconOam();
 
-    for (i = 1; i < 0xc0; i++) {
-        struct Unit* unit = GetUnit(i);
+    for (i = 1; i < 0xc0; i++)
+    {
+        struct Unit * unit = GetUnit(i);
 
-        if (!UNIT_IS_VALID(unit)) {
+        if (!UNIT_IS_VALID(unit))
             continue;
-        }
 
-        if (unit->state & US_HIDDEN) {
+        if (unit->state & US_HIDDEN)
             continue;
-        }
 
-        if (GetUnitSpriteHideFlag(unit) != 0) {
+        if (GetUnitSpriteHideFlag(unit) != 0)
             continue;
-        }
 
         switch (unit->statusIndex) {
-            case UNIT_STATUS_POISON:
-                x = unit->xPos * 16 - gBmSt.camera.x;
-                y = unit->yPos * 16 - gBmSt.camera.y;
-
-                if (x < -16 || x > DISPLAY_WIDTH) {
-                    break;
-                }
-
-                if (y < -16 || y > DISPLAY_HEIGHT) {
-                    break;
-                }
-
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sPoisonIconSprites[poisonIconFrame], 0);
-
-                break;
-
-            case UNIT_STATUS_SILENCED:
-                x = unit->xPos * 16 - gBmSt.camera.x;
-                y = unit->yPos * 16 - gBmSt.camera.y;
-
-                if (x < -16 || x > DISPLAY_WIDTH) {
-                    break;
-                }
-
-                if (y < -16 || y > DISPLAY_HEIGHT) {
-                    break;
-                }
-
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sSilenceIconSprites[silenceIconFrame], 0);
-
-                break;
-
-            case UNIT_STATUS_SLEEP:
-                x = unit->xPos * 16 - gBmSt.camera.x;
-                y = unit->yPos * 16 - gBmSt.camera.y;
-
-                if (x < -16 || x > DISPLAY_WIDTH) {
-                    break;
-                }
-
-                if (y < -16 || y > DISPLAY_HEIGHT) {
-                    break;
-                }
-
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), sSleepIconSprites[sleepIconFrame], 0);
-
-                break;
-
-            case UNIT_STATUS_BERSERK:
-                x = unit->xPos * 16 - gBmSt.camera.x;
-                y = unit->yPos * 16 - gBmSt.camera.y;
-
-                if (x < -16 || x > DISPLAY_WIDTH) {
-                    break;
-                }
-
-                if (y < -16 || y > DISPLAY_HEIGHT) {
-                    break;
-                }
-
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), sBerserkIconSprites[berserkIconFrame], 0);
-
-                break;
-
-            case UNIT_STATUS_ATTACK:
-            case UNIT_STATUS_DEFENSE:
-            case UNIT_STATUS_CRIT:
-            case UNIT_STATUS_AVOID:
-                if (!displayRescueIcon) {
-                    continue;
-                }
-
-                x = unit->xPos * 16 - gBmSt.camera.x;
-                y = unit->yPos * 16 - gBmSt.camera.y;
-
-                if (x < -16 || x > DISPLAY_WIDTH) {
-                    break;
-                }
-
-                if (y < -16 || y > DISPLAY_HEIGHT) {
-                    break;
-                }
-
-                CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), sSprite_0859B968, 0);
-                break;
-
-            case UNIT_STATUS_SICK:
-            case UNIT_STATUS_RECOVER:
-                break;
-        }
-
-        if (!displayRescueIcon) {
-            continue;
-        }
-
-        if (unit->state & US_RESCUING) {
+        case UNIT_STATUS_POISON:
             x = unit->xPos * 16 - gBmSt.camera.x;
             y = unit->yPos * 16 - gBmSt.camera.y;
 
-            if (x < -16 || x > DISPLAY_WIDTH) {
-                continue;
-            }
+            if (x < -16 || x > DISPLAY_WIDTH)
+                break;
 
-            if (y < -16 || y > DISPLAY_HEIGHT) {
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                break;
+
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sPoisonIconSprites[poisonIconFrame], 0);
+            break;
+
+        case UNIT_STATUS_SILENCED:
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
+
+            if (x < -16 || x > DISPLAY_WIDTH)
+                break;
+
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                break;
+
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sSilenceIconSprites[silenceIconFrame], 0);
+            break;
+
+        case UNIT_STATUS_SLEEP:
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
+
+            if (x < -16 || x > DISPLAY_WIDTH)
+                break;
+
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                break;
+
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), sSleepIconSprites[sleepIconFrame], 0);
+            break;
+
+        case UNIT_STATUS_BERSERK:
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
+
+            if (x < -16 || x > DISPLAY_WIDTH)
+                break;
+
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                break;
+
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), sBerserkIconSprites[berserkIconFrame], 0);
+            break;
+
+        case UNIT_STATUS_ATTACK:
+        case UNIT_STATUS_DEFENSE:
+        case UNIT_STATUS_CRIT:
+        case UNIT_STATUS_AVOID:
+            if (!displayRescueIcon)
                 continue;
-            }
+
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
+
+            if (x < -16 || x > DISPLAY_WIDTH)
+                break;
+
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                break;
+
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), sSprite_0859B968, 0);
+            break;
+
+        case UNIT_STATUS_SICK:
+        case UNIT_STATUS_RECOVER:
+            break;
+        }
+
+        if (!displayRescueIcon)
+            continue;
+
+        if (unit->state & US_RESCUING)
+        {
+            x = unit->xPos * 16 - gBmSt.camera.x;
+            y = unit->yPos * 16 - gBmSt.camera.y;
+
+            if (x < -16 || x > DISPLAY_WIDTH)
+                continue;
+
+            if (y < -16 || y > DISPLAY_HEIGHT)
+                continue;
 
             CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, (rescuePalLut[unit->rescue >> 6] & 0xf) * 0x1000 + 0x803);
-        } else if ((UNIT_FACTION(unit) != FACTION_BLUE) && (UNIT_CATTRIBUTES(unit) & CA_BOSS)) {
+        }
+        else if ((UNIT_FACTION(unit) != FACTION_BLUE) && (UNIT_CATTRIBUTES(unit) & CA_BOSS))
+        {
             x = unit->xPos * 16 - gBmSt.camera.x;
             y = unit->yPos * 16 - gBmSt.camera.y;
 
-            if (x < -16 || x > DISPLAY_WIDTH) {
+            if (x < -16 || x > DISPLAY_WIDTH)
                 continue;
-            }
 
-            if (y < -16 || y > DISPLAY_HEIGHT) {
+            if (y < -16 || y > DISPLAY_HEIGHT)
                 continue;
-            }
 
             CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, 0x810);
-        } else if (protectCharacterId == unit->pCharacterData->number) {
+        }
+        else if (protectCharacterId == unit->pCharacterData->number)
+        {
             x = unit->xPos * 16 - gBmSt.camera.x;
             y = unit->yPos * 16 - gBmSt.camera.y;
 
-            if (x < -16 || x > DISPLAY_WIDTH) {
+            if (x < -16 || x > DISPLAY_WIDTH)
                 continue;
-            }
 
-            if (y < -16 || y > DISPLAY_HEIGHT) {
+            if (y < -16 || y > DISPLAY_HEIGHT)
                 continue;
-            }
 
             CallARM_PushToSecondaryOAM(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), gObject_8x8, 0x811);
         }
     }
-
-    return;
 }
 
-//! FE8U = 0x08027A30
-void sub_8027A30(void) {
+void sub_8027A30(void)
+{
     gBmSt.cursorPrevious.x = -1;
     return;
 }
 
-//! FE8U = 0x08027A40
-void ResetUnitSpriteHover(void) {
+void ResetUnitSpriteHover(void)
+{
     gMapSpriteSwitchHoverTimer = 0;
     return;
 }
 
-//! FE8U = 0x08027A4C
-void UnitSpriteHoverUpdate(void) {
-    struct Unit* unit;
+void UnitSpriteHoverUpdate(void)
+{
+    struct Unit * unit;
 
     unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
-
-    if (unit) {
+    if (unit)
+    {
         if (!(unit->state & US_UNSELECTABLE)
             && (UNIT_FACTION(unit) == FACTION_BLUE)
             && unit->statusIndex != UNIT_STATUS_BERSERK
-            && unit->statusIndex != UNIT_STATUS_SLEEP) {
-
+            && unit->statusIndex != UNIT_STATUS_SLEEP)
+            {
             gMapSpriteSwitchHoverTimer++;
 
-            if (gMapSpriteSwitchHoverTimer == 5) {
-                MU_Create(unit);
+            if (gMapSpriteSwitchHoverTimer == 5)
+            {
+                StartMu(unit);
                 HideUnitSprite(unit);
-
                 return;
             }
         }
     }
 
-    if (gBmSt.cursorPrevious.x != gBmSt.playerCursor.x || gBmSt.cursorPrevious.y != gBmSt.playerCursor.y) {
+    if (gBmSt.cursorPrevious.x != gBmSt.playerCursor.x || gBmSt.cursorPrevious.y != gBmSt.playerCursor.y)
+    {
         gMapSpriteSwitchHoverTimer = 0;
-
         unit = GetUnit(gBmMapUnit[gBmSt.cursorPrevious.y][gBmSt.cursorPrevious.x]);
-
-        if (unit) {
-            MU_EndAll();
+        if (unit)
+        {
+            EndAllMus();
             ShowUnitSprite(unit);
         }
     }
-
-    return;
 }
 
-//! FE8U = 0x08027B0C
-s8 IsUnitSpriteHoverEnabledAt(int x, int y) {
+bool IsUnitSpriteHoverEnabledAt(int x, int y)
+{
+    struct Unit * unit = GetUnit(gBmMapUnit[y][x]);
 
-    struct Unit* unit = GetUnit(gBmMapUnit[y][x]);
+    if (!unit)
+        return false;
 
-    if (!unit) {
-        return 0;
-    }
+    if (unit->state & US_UNSELECTABLE)
+        return false;
 
-    if (unit->state & US_UNSELECTABLE) {
-        return 0;
-    }
+    if (UNIT_FACTION(unit) != FACTION_BLUE)
+        return false;
 
-    if (UNIT_FACTION(unit) != FACTION_BLUE) {
-        return 0;
-    }
+    if (unit->statusIndex != UNIT_STATUS_BERSERK && unit->statusIndex != UNIT_STATUS_SLEEP)
+        return true;
 
-    if (unit->statusIndex != UNIT_STATUS_BERSERK && unit->statusIndex != UNIT_STATUS_SLEEP) {
-        return 1;
-    }
-
-    return 0;
+    return false;
 }
 
-//! FE8U = 0x08027B60
-void PutUnitSprite(int layer, int x, int y, struct Unit* unit) {
+void PutUnitSprite(int layer, int x, int y, struct Unit * unit)
+{
     u32 id = GetUnitSMSId(unit);
     int chr = UseUnitSprite(id);
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gObject_16x16, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
+    case UNIT_ICON_SIZE_16x16:
+        PutSprite(layer, x, y, gObject_16x16, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        PutSprite(layer, x, y - 16, gObject_16x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSprite(layer, x - 8, y - 16, gObject_32x32, (GetUnitDisplayedSpritePalette(unit) & 0xf) * 0x1000 + 0x880 + chr);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08027C48
-void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class) {
+void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class)
+{
     u32 id = GetClassSMSId(class);
     int chr = UseUnitSprite(id) + 0x80;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gObject_16x16, oam2 + chr);
+    case UNIT_ICON_SIZE_16x16:
+        PutSprite(layer, x, y, gObject_16x16, oam2 + chr);
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        PutSprite(layer, x, y - 16, gObject_16x32, oam2 + chr);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, oam2 + chr);
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + chr);
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + chr);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08027CFC
-void sub_8027CFC(int layer, int x, int y, int class) {
+void sub_8027CFC(int layer, int x, int y, int class)
+{
     u32 id = GetClassSMSId(class);
     int chr = UseUnitSprite(id) + 0x80;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSpriteExt(layer, x, y + OAM0_WINDOW, gObject_16x16, chr);
+    case UNIT_ICON_SIZE_16x16:
+        PutSpriteExt(layer, x, y + OAM0_WINDOW, gObject_16x16, chr);
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        PutSpriteExt(layer, x, OAM0_Y(y - 16) + OAM0_WINDOW, gObject_16x32, chr);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSpriteExt(layer, x, OAM0_Y(y - 16) + OAM0_WINDOW, gObject_16x32, chr);
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSpriteExt(layer, OAM1_X(x - 8), OAM0_Y(y - 16) + OAM0_WINDOW, gObject_32x32, chr);
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSpriteExt(layer, OAM1_X(x - 8), OAM0_Y(y - 16) + OAM0_WINDOW, gObject_32x32, chr);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08027DB4
-void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx) {
+void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx)
+{
     u32 id = GetClassSMSId(class);
     int chr = gSomeSMSLookupTable_859B66C[idx] + 1;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-        case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, (oam2) + chr);
+    case UNIT_ICON_SIZE_16x16:
+    case UNIT_ICON_SIZE_16x32:
+        PutSprite(layer, x, y - 16, gObject_16x32, (oam2) + chr);
+        break;
 
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, (oam2) + chr);
-
-            break;
-
+    case UNIT_ICON_SIZE_32x32:
+        PutSprite(layer, x - 8, y - 16, gObject_32x32, (oam2) + chr);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08027E4C
-void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit* unit) {
+void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit * unit)
+{
     u32 id = GetUnitSMSId(unit);
     int chr = UseUnitSprite(id) + 0x80;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, gObject_16x16, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
+    case UNIT_ICON_SIZE_16x16:
+        PutSprite(layer, x, y, gObject_16x16, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        PutSprite(layer, x, y - 16, gObject_16x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, gObject_16x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSprite(layer, x - 8, y - 16, gObject_32x32, oam2 + (GetUnitSpritePalette(unit) & 0xf) * 0x1000 + chr);
+        break;
 
     }
-
-
-    return;
 }
 
-//! FE8U = 0x08027F28
 void SMS_DisplayOne(int class, int layer, int x, int y, int oam2, s8 isBlend)
 {
-
-    if (x < -16 || x > DISPLAY_WIDTH+16) {
+    if (x < -16 || x > DISPLAY_WIDTH+16)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT+32) {
+    if (y < -32 || y > DISPLAY_HEIGHT+32)
         return;
-    }
 
     switch (GetInfo(GetClassSMSId(class)).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSpriteExt(layer, OAM1_X(x - 8), isBlend ? OAM0_Y(y - 16) | OAM0_BLEND : OAM0_Y(y - 16), gObject_16x16, oam2 + 0x40);
-            break;
+    case UNIT_ICON_SIZE_16x16:
+        PutSpriteExt(layer, OAM1_X(x - 8), isBlend ? OAM0_Y(y - 16) | OAM0_BLEND : OAM0_Y(y - 16), gObject_16x16, oam2 + 0x40);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSpriteExt(layer, OAM1_X(x - 8), isBlend ? OAM0_Y(y - 32) | OAM0_BLEND : OAM0_Y(y - 32), gObject_16x32, oam2);
+    case UNIT_ICON_SIZE_16x32:
+        PutSpriteExt(layer, OAM1_X(x - 8), isBlend ? OAM0_Y(y - 32) | OAM0_BLEND : OAM0_Y(y - 32), gObject_16x32, oam2);
+        break;
 
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-
-            PutSpriteExt(layer, OAM1_X(x - 16), isBlend ? OAM0_Y(y - 32) | OAM0_BLEND : OAM0_Y(y - 32), gObject_32x32, oam2);
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSpriteExt(layer, OAM1_X(x - 16), isBlend ? OAM0_Y(y - 32) | OAM0_BLEND : OAM0_Y(y - 32), gObject_32x32, oam2);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08028014
-void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit) {
+void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit * unit)
+{
     u32 id = GetUnitSMSId(unit);
     int chr = UseUnitSprite(id) + 0x80;
 
-    if (x < -16 || x > DISPLAY_WIDTH) {
+    if (x < -16 || x > DISPLAY_WIDTH)
         return;
-    }
 
-    if (y < -32 || y > DISPLAY_HEIGHT) {
+    if (y < -32 || y > DISPLAY_HEIGHT)
         return;
-    }
-
 
     switch (GetInfo(id).size) {
-        case UNIT_ICON_SIZE_16x16:
-            PutSprite(layer, x, y, sSprite_16x16_Blend, oam2 + chr);
-            PutSprite(layer, x, y, sSprite_16x16_Window, oam2 + chr);
+    case UNIT_ICON_SIZE_16x16:
+        PutSprite(layer, x, y, sSprite_16x16_Blend, oam2 + chr);
+        PutSprite(layer, x, y, sSprite_16x16_Window, oam2 + chr);
+        break;
 
-            break;
+    case UNIT_ICON_SIZE_16x32:
+        PutSprite(layer, x, y - 16, sSprite_16x32_Blend, oam2 + chr);
+        PutSprite(layer, x, y - 16, sSprite_16x32_Window, oam2 + chr);
+        break;
 
-        case UNIT_ICON_SIZE_16x32:
-            PutSprite(layer, x, y - 16, sSprite_16x32_Blend, oam2 + chr);
-            PutSprite(layer, x, y - 16, sSprite_16x32_Window, oam2 + chr);
-
-            break;
-
-        case UNIT_ICON_SIZE_32x32:
-            PutSprite(layer, x - 8, y - 16, sSprite_32x32_Blend, oam2 + chr);
-            PutSprite(layer, x - 8, y - 16, sSprite_32x32_Window, oam2 + chr);
-
-            break;
+    case UNIT_ICON_SIZE_32x32:
+        PutSprite(layer, x - 8, y - 16, sSprite_32x32_Blend, oam2 + chr);
+        PutSprite(layer, x - 8, y - 16, sSprite_32x32_Window, oam2 + chr);
+        break;
     }
-
-    return;
 }
 
-//! FE8U = 0x08028100
-void sub_8028100(void) {
+void sub_8028100(void)
+{
     gSMSHandleArray[0].pNext = NULL;
-    return;
 }
 
-//! FE8U = 0x0802810C
-void HideUnitSprite(struct Unit* unit) {
-
-    if (!unit) {
+void HideUnitSprite(struct Unit * unit)
+{
+    if (!unit)
         RefreshUnitSprites();
-    }
 
-    if (!unit->pMapSpriteHandle) {
+    if (!unit->pMapSpriteHandle)
         return;
-    }
 
     unit->pMapSpriteHandle->config |= 0x80;
-
-    return;
 }
 
 //! FE8U = 0x08028130
-void ShowUnitSprite(struct Unit* unit) {
-
-    if (!unit->pMapSpriteHandle) {
+void ShowUnitSprite(struct Unit * unit)
+{
+    if (!unit->pMapSpriteHandle)
         return;
-    }
 
     unit->pMapSpriteHandle->config &= ~(0x80);
-
-    return;
 }
 
-//! FE8U = 0x08028144
-u8 GetUnitSpriteHideFlag(struct Unit* unit) {
-    if (!unit->pMapSpriteHandle) {
+u8 GetUnitSpriteHideFlag(struct Unit * unit)
+{
+    if (!unit->pMapSpriteHandle)
         return 0x80;
-    }
 
     return unit->pMapSpriteHandle->config & 0x80;
 }
@@ -1637,7 +1474,8 @@ u8 GetUnitSpriteHideFlag(struct Unit* unit) {
 //! FE8U = 0x08028160
 // attempt with 1D array gets very close
 // https://decomp.me/scratch/wkkkM
-void sub_8028160(u32 (*r8)[1][1], int r5, int r9, int d) {
+void sub_8028160(u32 (*r8)[1][1], int r5, int r9, int d)
+{
     int i, j;
     int r6 = gUnknown_0859B73C[d];
 

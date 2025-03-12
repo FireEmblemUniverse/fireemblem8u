@@ -4,12 +4,9 @@
 #include "bmunit.h"
 #include "event.h"
 #include "fontgrp.h"
-#include "functions.h"
 #include "mu.h"
 #include "proc.h"
-#include "types.h"
 #include "uiutils.h"
-#include "variables.h"
 #include "ap.h"
 #include "hardware.h"
 #include "bmio.h"
@@ -22,208 +19,230 @@
 #include "bmlib.h"
 #include "eventinfo.h"
 #include "popup.h"
+
 #include "constants/characters.h"
-#include "constants/items.h"
 #include "constants/classes.h"
+#include "constants/event-flags.h"
+#include "constants/items.h"
+#include "constants/songs.h"
 
 #include "mapanim.h"
 
 EWRAM_DATA struct MapAnimState gManimSt = { 0 };
 
-// unreferenced
-void MapAnimProc_DisplayItemStealingPopup(ProcPtr proc) {
-    if (gManimSt.u62 == 1) {
+void MapAnim_StoleItemPopup(ProcPtr proc)
+{
+    if (gManimSt.mapAnimKind == MANIM_KIND_STEAL)
         NewPopup_ItemStealing(gManimSt.actor[1].bu->weapon, proc);
-    }
 }
 
-void DisplayWpnBrokePopup(ProcPtr proc) {
-    struct BattleUnit *unit = 0;
-    if (BattleUnit_ShouldDisplayWpnBroke(&gBattleActor)) {
+void DisplayWpnBrokePopup(ProcPtr proc)
+{
+    struct BattleUnit * unit = NULL;
+
+    if (BattleUnit_ShouldDisplayWpnBroke(&gBattleActor))
         unit = &gBattleActor;
-    }
-    if (BattleUnit_ShouldDisplayWpnBroke(&gBattleTarget)) {
+
+    if (BattleUnit_ShouldDisplayWpnBroke(&gBattleTarget))
         unit = &gBattleTarget;
-    }
-    if (unit) {
+
+    if (unit != NULL)
         NewPopup_WeaponBroke(unit->weaponBefore, proc);
-    }
 }
 
-s8 BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit *u) {
-    u32 result;
-    if (u->unit.index & 0xc0)
-        result = 0;
-    else
-        result = DidBattleUnitBreakWeapon(u);
-    return result;
+bool BattleUnit_ShouldDisplayWpnBroke(struct BattleUnit * bu)
+{
+    if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
+        return DidBattleUnitBreakWeapon(bu);
+
+    return false;
 }
 
-void DisplayWRankUpPopup(ProcPtr proc) {
-    struct BattleUnit *unit = 0;
-    if (BattleUnit_ShouldDisplayWRankUp(&gBattleActor)) {
-        unit = &gBattleActor;
-    }
-    if (BattleUnit_ShouldDisplayWRankUp(&gBattleTarget)) {
-        unit = &gBattleTarget;
-    }
-    if (unit) {
-        NewPopup_WRankIncrease(unit->weaponType, proc);
-    }
+void DisplayWRankUpPopup(ProcPtr proc)
+{
+    struct BattleUnit * bu = NULL;
+
+    if (BattleUnit_ShouldDisplayWRankUp(&gBattleActor))
+        bu = &gBattleActor;
+
+    if (BattleUnit_ShouldDisplayWRankUp(&gBattleTarget))
+        bu = &gBattleTarget;
+
+    if (bu != NULL)
+        NewPopup_WRankIncrease(bu->weaponType, proc);
 }
 
-s8 BattleUnit_ShouldDisplayWRankUp(struct BattleUnit *u) {
-    u32 result;
-    if (u->unit.index & 0xc0)
-        return 0;
-    if (HasBattleUnitGainedWeaponLevel(u) == 0)
-        return 0;
-    return 1;
+bool BattleUnit_ShouldDisplayWRankUp(struct BattleUnit * bu)
+{
+    if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
+        if (HasBattleUnitGainedWeaponLevel(bu))
+            return true;
+
+    return false;
 }
 
-void _InitFontForUIDefault(void) {
+void MapAnim_PrepareBattleTalk(void)
+{
     ResetText();
 }
 
-void MapAnim_Cleanup(void) {
-    MU_AllRestartAnimations();
-	ResetTextFont();
-	DeleteBattleAnimInfoThing();
-	InitBmBgLayers();
-	LoadUiFrameGraphics();
-	LoadObjUIGfx();
-	if (EventEngineExists())
-        MU_EndAll();
+void MapAnim_Cleanup(void)
+{
+    ResetMuAnims();
+    ResetTextFont();
+    EndMapAnimInfoWindow();
+    InitBmBgLayers();
+    LoadUiFrameGraphics();
+    LoadObjUIGfx();
+
+    if (EventEngineExists())
+        EndAllMus();
 }
 
-void MapAnim_AdvanceBattleRound(void) {
-    struct MapAnimState *state = &gManimSt;
-    struct BattleHit *round = state->pCurrentRound;
-    u8 r = (round->info >> 3);
-    state->subjectActorId = r % 2;
-    state->targetActorId = 1 - state->subjectActorId;
-    state->hitAttributes = *(u32 *)round;
-    state->hitInfo = round->info;
-    state->hitDamage = round->hpChange;
-    if (state->actorCount_maybe == 1) {
-        state->subjectActorId = 0;
-        state->targetActorId = 0;
+void MapAnim_AdvanceBattleRound(void)
+{
+    gManimSt.subjectActorId = !!(gManimSt.pCurrentRound->info & BATTLE_HIT_INFO_RETALIATION);
+    gManimSt.targetActorId = 1 - gManimSt.subjectActorId;
+
+    gManimSt.hitAttributes = gManimSt.pCurrentRound->attributes;
+    gManimSt.hitInfo = gManimSt.pCurrentRound->info;
+    gManimSt.hitDamage = gManimSt.pCurrentRound->hpChange;
+
+    if (gManimSt.actorCount == 1)
+    {
+        gManimSt.subjectActorId = 0;
+        gManimSt.targetActorId = 0;
     }
-    state->pCurrentRound++;
+
+    gManimSt.pCurrentRound++;
 }
 
-void MapAnim_PrepareNextBattleRound(ProcPtr p) {
-    struct MapAnimState *state = &gManimSt;
-    u16 weapon;
-    struct BattleUnit *unit;
-    if (state->pCurrentRound->info & 0x10) {
-        Proc_Break(p);
-        Proc_GotoScript(p, gProc_MapAnimEnd);
+void MapAnim_PrepareNextBattleRound(ProcPtr proc)
+{
+    if (gManimSt.pCurrentRound->info & BATTLE_HIT_INFO_END)
+    {
+        Proc_Break(proc);
+        Proc_GotoScript(proc, ProcScr_MapAnimEnd);
         return;
     }
+
     MapAnim_AdvanceBattleRound();
-    unit = state->actor[state->subjectActorId].bu;
-    weapon = unit->weaponBefore;
-    state->specialProcScr = GetSpellAssocAlt6CPointer(weapon);
-    Proc_Break(p);
+    gManimSt.specialProcScr = GetSpellAssocMapAnimProcScript(gManimSt.actor[gManimSt.subjectActorId].bu->weaponBefore);
+
+    Proc_Break(proc);
 }
 
-void MapAnim_DisplayRoundAnim(ProcPtr p) {
-	Proc_StartBlocking(GetItemAnim6CCode(), p);
+void MapAnim_DisplayRoundAnim(ProcPtr proc)
+{
+    Proc_StartBlocking(MapAnim_GetRoundProcScript(), proc);
 }
 
-void MapAnim_ShowPoisonEffectIfAny(ProcPtr p) {
-    struct MapAnimState *state = &gManimSt;
-    if (state->hitAttributes & 0x40) {
-        NewMapPoisonEffect(state->actor[state->targetActorId].unit);
-        StartTemporaryLock(p, 100);
+void MapAnim_ShowPoisonEffectIfAny(ProcPtr proc)
+{
+    if (gManimSt.hitAttributes & BATTLE_HIT_ATTR_POISON)
+    {
+        NewMapPoisonEffect(gManimSt.actor[gManimSt.targetActorId].unit);
+        StartTemporaryLock(proc, 100);
     }
 }
 
-void MapAnim_MoveCameraOntoSubject(ProcPtr p) {
-    struct MapAnimState *state = &gManimSt;
-	int x = state->actor[0].unit->xPos;
-	int y = state->actor[0].unit->yPos;
-    EnsureCameraOntoPosition(p, x, y);
+void MapAnim_MoveCameraOntoSubject(ProcPtr proc)
+{
+    EnsureCameraOntoPosition(proc, gManimSt.actor[0].unit->xPos, gManimSt.actor[0].unit->yPos);
 }
 
-void MapAnim_MoveCameraOntoTarget(ProcPtr p) {
-    struct MapAnimState *state = &gManimSt;
-    if (state->actorCount_maybe != 1) {
-        int x = state->actor[1].unit->xPos;
-        int y = state->actor[1].unit->yPos;
-        EnsureCameraOntoPosition(p, x, y);
-    }
+void MapAnim_MoveCameraOntoTarget(ProcPtr proc)
+{
+    if (gManimSt.actorCount != 1)
+        EnsureCameraOntoPosition(proc, gManimSt.actor[1].unit->xPos, gManimSt.actor[1].unit->yPos);
 }
 
-void MapAnimProc_DisplayDeahQuote(void)
+void MapAnim_DisplayDeathQuote(void)
 {
     int actorNum = -1;
-    switch (gManimSt.actorCount_maybe) {
+
+    switch (gManimSt.actorCount)
+    {
     case 2:
         if (gManimSt.actor[1].hp_cur == 0)
             actorNum = 1;
+
         // fallthrough
 
     case 1:
         if (gManimSt.actor[0].hp_cur == 0)
             actorNum = 0;
+
         break;
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 
-    if (actorNum != -1) {
-        int charid = UNIT_CHAR_ID(gManimSt.actor[actorNum].unit);
+    if (actorNum != -1)
+    {
+        int pid = UNIT_CHAR_ID(gManimSt.actor[actorNum].unit);
 
-        switch (charid) {
+        switch (pid)
+        {
         case CHARACTER_EIRIKA:
         case CHARACTER_EPHRAIM:
-            if (CheckFlag(0x65)) // TODO: flag constants
-                ClearFlag(0x65); // TODO: flag constants
+            if (CheckFlag(EVFLAG_GAMEOVER))
+                ClearFlag(EVFLAG_GAMEOVER);
+
             break;
         }
 
-        if (ShouldDisplayDefeatTalkForPid(charid)) {
-            DeleteBattleAnimInfoThing();
-            DisplayDefeatTalkForPid(charid);
+        if (CheckBattleDefeatTalk(pid))
+        {
+            EndMapAnimInfoWindow();
+            DisplayDefeatTalkForPid(pid);
         }
     }
 }
 
-void MapAnmiProc_DisplayDeathFade(void)
+void MapAnim_DisplayDeathFade(void)
 {
     int actorNum = -1;
-    switch (gManimSt.actorCount_maybe) {
+
+    switch (gManimSt.actorCount)
+    {
     case 2:
         if (gManimSt.actor[1].hp_cur == 0)
             actorNum = 1;
+
         // fallthrough
 
     case 1:
         if (gManimSt.actor[0].hp_cur == 0)
             actorNum = 0;
+
         break;
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 
     if (actorNum != -1)
         MU_StartDeathFade(gManimSt.actor[actorNum].mu);
 }
 
-void MapAnimProc_DisplayExpBar(struct Proc* proc)
+void MapAnim_DisplayExpBar(ProcPtr proc)
 {
     int actorNum = -1;
-    switch (gManimSt.actorCount_maybe) {
+
+    switch (gManimSt.actorCount)
+    {
     case 2:
         if (gManimSt.actor[1].bu->expGain != 0)
             actorNum = 1;
 
+        // fallthrough
+
     case 1:
         if (gManimSt.actor[0].bu->expGain != 0)
             actorNum = 0;
+
         break;
     }
 
-    if (actorNum >= 0) {
-        struct MAExpBarProc* expProc = Proc_StartBlocking(gProc_MapAnimExpBar, proc);
+    if (actorNum >= 0)
+    {
+        struct MAExpBarProc * expProc = Proc_StartBlocking(ProcScr_MapAnimExpBar, proc);
 
         expProc->expFrom = gManimSt.actor[actorNum].bu->expPrevious;
         expProc->expTo   = gManimSt.actor[actorNum].bu->expPrevious + gManimSt.actor[actorNum].bu->expGain;
@@ -235,57 +254,61 @@ void MapAnim_InitInfoBox(ProcPtr proc)
 {
     SetDefaultColorEffects();
 
-    switch (gManimSt.u62) {
-    case 1:
-    case 2:
+    switch (gManimSt.mapAnimKind)
+    {
+    case MANIM_KIND_STEAL:
+    case MANIM_KIND_REFRESH:
         return;
 
     default:
         break;
     }
 
-    if (GetSpellAssocReturnBool(gManimSt.actor[0].bu->weaponBefore)) {
+    if (GetSpellAssocReturnBool(gManimSt.actor[0].bu->weaponBefore))
+    {
         int y;
-        if (gManimSt.actorCount_maybe == 1) {
-            y = gManimSt.actor[0].unit->yPos*16 - gBmSt.camera.y;
+        if (gManimSt.actorCount == 1)
+        {
+            y = gManimSt.actor[0].unit->yPos * 16 - gBmSt.camera.y;
 
             if (y >= 112)
                 y = y - 40;
             else
                 y = y + 24;
 
-        } else {
+        }
+        else
+        {
             int array[2];
-            int i, actorNum;
+            int i;
+            int actorNum;
 
-            for (i = 0; i < gManimSt.actorCount_maybe; ++i)
-                array[i] = gManimSt.actor[i].unit->yPos*16 - gBmSt.camera.y;
+            for (i = 0; i < gManimSt.actorCount; ++i)
+                array[i] = gManimSt.actor[i].unit->yPos * 16 - gBmSt.camera.y;
 
-            if (array[0] - array[1] >= 0) {
-                if (array[0] - array[1] >= 80)
-                    goto disp_center;
-            }
-            else if (array[1] - array[0] >= 80) {
-            disp_center:
+            if (ABS(array[0] - array[1]) >= 80)
+            {
                 y = 64;
-                goto disp;
             }
-
-            actorNum = array[0] > array[1] ? 0 : 1;
-            if (array[actorNum] >= 112)
-                y = array[1 - actorNum] - 40;
             else
-                y = array[actorNum] + 24;
+            {
+                actorNum = array[0] > array[1] ? 0 : 1;
+
+                if (array[actorNum] >= 112)
+                    y = array[1 - actorNum] - 40;
+                else
+                    y = array[actorNum] + 24;
+            }
         }
 
-    disp:
-        NewMapBattleInfoThing(15, y / 8, proc);
+        StartMapAnimInfoWindow(15, y / 8, proc);
     }
 }
 
 void MapAnim_CallBattleQuoteEvents(void)
 {
-    if (gManimSt.actorCount_maybe == 2) {
+    if (gManimSt.actorCount == 2)
+    {
         CallBattleQuoteEventsIfAny(
             UNIT_CHAR_ID(gManimSt.actor[0].unit), UNIT_CHAR_ID(gManimSt.actor[1].unit));
     }
@@ -302,7 +325,8 @@ void SetBattleMuPaletteByIndex(int actorNum)
         return;
 
     // Check actor status
-    switch (gManimSt.actor[actorNum].unit->statusIndex) {
+    switch (gManimSt.actor[actorNum].unit->statusIndex)
+    {
     case UNIT_STATUS_SLEEP:
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
@@ -311,111 +335,148 @@ void SetBattleMuPaletteByIndex(int actorNum)
     } // switch (gManimSt.actor[actorNum].unit->statusIndex)
 
     // Check other actor weapon
-    switch (GetItemIndex(gManimSt.actor[actorNum ^ 1 ].bu->weaponBefore)) {
+    switch (GetItemIndex(gManimSt.actor[actorNum ^ 1].bu->weaponBefore))
+    {
     case ITEM_STAFF_SILENCE:
     case ITEM_STAFF_SLEEP:
     case ITEM_STAFF_BERSERK:
     case ITEM_MONSTER_STONE:
         return;
 
-    } // switch (GetItemIndex(gManimSt.actor[actorNum ^ 1 ].bu->weaponBefore))
+    } // switch (GetItemIndex(gManimSt.actor[actorNum ^ 1].bu->weaponBefore))
 
     // Check actor weapon
     if (GetItemIndex(gManimSt.actor[actorNum].bu->weaponBefore) != ITEM_DIVINESTONE)
         return;
 
-    MU_SetPaletteId(gManimSt.actor[actorNum].mu, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
-    MU_SetSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, gUnknown_089A8F74);
+    SetMuPal(gManimSt.actor[actorNum].mu, BM_OBJPAL_BANIM_SPECIALMU + actorNum);
+    SetMuSpecialSprite(gManimSt.actor[actorNum].mu, CLASS_MANAKETE, Pal_MapAnimManaketeMu);
 }
 
 void SetBattleMuPalette(void)
 {
-    switch (gManimSt.actorCount_maybe) {
+    switch (gManimSt.actorCount)
+    {
     case 2:
         SetBattleMuPaletteByIndex(1);
+
         // fallthrough
+
     case 1:
         SetBattleMuPaletteByIndex(0);
+
         break;
 
-    } // switch (gManimSt.actorCount_maybe)
+    } // switch (gManimSt.actorCount)
 }
 
-void PlaySoundIdA0(void)
+void MapAnim_PlayStealSe(void)
 {
-    PlaySoundEffect(0xA0); // TODO: song ids!
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }
 
-void sub_807ACEC(void)
+void MapAnim_PlayStealSe_Unused(void)
 {
-    PlaySoundEffect(0xA0); // TODO: song ids!
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }
-
 
 /** 
  * section.data
 */
 
-CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] = {
+// clang-format off
+
+CONST_DATA struct ProcCmd ProcScr_MapAnimPoisonDmg[] =
+{
     PROC_CALL(LockGame),
+
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
-    PROC_SLEEP(0x2),
+    PROC_SLEEP(2),
+
     PROC_CALL(MapAnim_InitInfoBox),
-    PROC_SLEEP(0xF),
+    PROC_SLEEP(15),
+
     PROC_START_CHILD_BLOCKING(ProcScr_PoisonDmgMapEffect),
-    PROC_SLEEP(0x1),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_SLEEP(1),
+
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
-CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] = {
+CONST_DATA struct ProcCmd ProcScr_MapAnimEggDmg[] =
+{
     PROC_CALL(LockGame),
+
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
-    PROC_SLEEP(0x2),
+    PROC_SLEEP(2),
+
     PROC_CALL(MapAnim_InitInfoBox),
-    PROC_SLEEP(0xF),
+    PROC_SLEEP(15),
+
     PROC_START_CHILD_BLOCKING(ProcScr_EggDmgMapEffect1),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_START_CHILD_BLOCKING(ProcScr_EggDmgMapEffect2),
-    PROC_SLEEP(0x1),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_SLEEP(1),
+
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
-CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] = {
+CONST_DATA struct ProcCmd ProcScr_MapAnimCritAtk[] =
+{
     PROC_CALL(LockGame),
+
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
-    PROC_SLEEP(0x2),
+    PROC_SLEEP(2),
+
     PROC_CALL(MapAnim_InitInfoBox),
-    PROC_SLEEP(0xF),
+    PROC_SLEEP(15),
+
     PROC_START_CHILD_BLOCKING(ProcScr_CritAtkMapEffect),
-    PROC_SLEEP(0x1),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_SLEEP(1),
+
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
 
-CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] = {
+CONST_DATA struct ProcCmd ProcScr_MapAnimSteal[] =
+{
     PROC_CALL(LockGame),
+
     PROC_CALL(MapAnim_MoveCameraOntoTarget),
-    PROC_SLEEP(0x2),
+    PROC_SLEEP(2),
+
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
-    PROC_SLEEP(0x2),
-    PROC_SLEEP(0x14),
+    PROC_SLEEP(2),
+    PROC_SLEEP(20),
+
     PROC_CALL(MapAnim_BeginSubjectFastAnim),
     PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsTowardsTarget),
-    PROC_SLEEP(0x1),
-    PROC_CALL(PlaySoundIdA0),
-    PROC_SLEEP(0x14),
+    PROC_SLEEP(1),
+
+    PROC_CALL(MapAnim_PlayStealSe),
+    PROC_SLEEP(20),
+
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
-    PROC_SLEEP(0x1),
+    PROC_SLEEP(1),
+
     PROC_CALL(MapAnim_MoveSubjectsAwayFromTarget),
-    PROC_SLEEP(0x14),
-    PROC_JUMP(gProc_MapAnimEnd),
+    PROC_SLEEP(20),
+
+    PROC_JUMP(ProcScr_MapAnimEnd),
 };
+
+// clang-format on

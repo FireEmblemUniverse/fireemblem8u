@@ -36,7 +36,7 @@ static struct Font sTalkFont;
 
 struct ProcCmd CONST_DATA gProcScr_TalkSkipListener[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_REPEAT(TalkSkipListener_OnIdle),
 
     PROC_END,
@@ -44,7 +44,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkSkipListener[] =
 
 struct ProcCmd CONST_DATA gProcScr_Talk[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SET_END_CB(Talk_OnEnd),
 
     PROC_SLEEP(1),
@@ -99,7 +99,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkFaceMove[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkPause[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SLEEP(1),
 
     PROC_REPEAT(TalkPause_OnIdle),
@@ -109,7 +109,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkPause[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkWaitForInput[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SLEEP(8),
 
     PROC_REPEAT(TalkWaitForInput_OnIdle),
@@ -158,7 +158,7 @@ const u16* CONST_DATA gPressKeyArrowSpriteLut[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkShiftClearAll[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(TalkShiftClearAll_OnInit),
     PROC_REPEAT(TalkShiftClearAll_OnIdle),
@@ -174,8 +174,8 @@ struct ChoiceEntryInfo CONST_DATA gYesNoTalkChoice[2] =
 
 struct ChoiceEntryInfo CONST_DATA gBuySellTalkChoice[2] =
 {
-    { 0x845, sub_80B42E8 }, // Buy
-    { 0x846, sub_80B4308 }, // Sell
+    { 0x845, TalkChoice_OnBuy }, // Buy
+    { 0x846, TalkChoice_OnSell }, // Sell
 };
 
 struct ProcCmd CONST_DATA gProcScr_TalkChoice[] =
@@ -188,7 +188,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkChoice[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkShiftClear[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(TalkShiftClear_OnInit),
     PROC_REPEAT(TalkShiftClear_OnIdle),
@@ -200,7 +200,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkShiftClear[] =
 
 struct ProcCmd CONST_DATA ProcScr_TalkSpriteShiftClear[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
 
     PROC_CALL(sub_80080D0),
     PROC_SLEEP(0),
@@ -221,7 +221,7 @@ struct ProcCmd CONST_DATA gProcScr_TalkBubbleOpen[] =
 
 struct ProcCmd CONST_DATA gProcScr_TalkOpen[] =
 {
-    PROC_MARK(PROC_MARK_5),
+    PROC_MARK(PROC_MARK_TALK),
     PROC_SET_END_CB(TalkOpen_OnEnd),
 
     PROC_CALL(TalkOpen_InitBlend),
@@ -283,13 +283,13 @@ struct ProcCmd CONST_DATA ProcScr_08591624[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_0859163C[] =
+struct ProcCmd CONST_DATA ProcScr_ScreenFlashing[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_800903C),
-    PROC_REPEAT(sub_800904C),
-    PROC_REPEAT(sub_8009100),
+    PROC_CALL(ScreenFlash_Init),
+    PROC_REPEAT(ScreenFlash_FadeIn),
+    PROC_REPEAT(ScreenFlash_FadeOut),
 
     PROC_END,
 };
@@ -565,26 +565,21 @@ void Talk_OnIdle(ProcPtr proc) {
                 Proc_Break(proc);
                 return;
 
-            case 1:
-                goto _08006CD0;
-
             case 2:
                 if (sTalkState->instantScroll || sTalkState->printDelay <= 0) {
                     break;
-                    goto _08006CC2;
                 }
 
                 return;
 
             case 3:
-        _08006CC2:
                 sTalkState->printClock = sTalkState->printDelay;
                 sTalkState->instantScroll = 0;
 
                 return;
 
+            case 1:
             default:
-        _08006CD0:
                 if (!(CheckTalkFlag(TALK_FLAG_SPRITE))) {
                     if (TalkPrepNextChar(proc) == 1) {
                         return;
@@ -1490,7 +1485,7 @@ void TalkShiftClearAll_OnIdle(struct Proc* proc) {
 }
 
 //! FE8U = 0x08007DE8
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent) {
+void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16 * tm, int defaultChoice, int color, ProcPtr parent) {
     struct TalkChoiceProc* proc;
 
     int x = Text_GetCursor(text) + 16;
@@ -2124,7 +2119,7 @@ void SetTalkUnkStr(const char* str) {
     return;
 }
 
-void PrintStringToTexts(struct Text** texts, const char* str, u16* tm, int unk) {
+void PrintStringToTexts(struct Text** texts, const char* str, u16 * tm, int unk) {
     int uh;
 
     int line = 0;
@@ -2285,9 +2280,7 @@ int GetStrTalkLen(const char* str, s8 isBubbleOpen) {
                             continue;
 
                         case 0x10:
-                            str++;
-                            str++;
-                            str++;
+                            str += 3;
 
                             continue;
                     }
@@ -2550,96 +2543,78 @@ void sub_8008FB4(struct TalkDebugProc * proc)
 }
 
 // The functions below seem to be unrelated to the dialog system
-// Possibly from a leftover event script command from FE7?
 
 //! FE8U = 0x08009038
-void nullsub_15(void)
+void nullsub_15(ProcPtr proc, int label)
 {
+    // "EventGotoLabel" from FE6 (and possibly FE7)
     return;
 }
 
-//! FE8U = 0x0800903C
-void sub_800903C(struct Proc0859163C * proc)
+void ScreenFlash_Init(struct ProcScreenFlashing * proc)
 {
-    proc->unk_3c = 0;
+    proc->timer = 0;
     ArchiveCurrentPalettes();
-    return;
 }
 
-//! FE8U = 0x0800904C
-void sub_800904C(struct Proc0859163C * proc)
+void ScreenFlash_FadeIn(struct ProcScreenFlashing * proc)
 {
-    int r;
-    int g;
-    int b;
+    int r, b, g;
+    proc->timer += proc->speed_fadein;
 
-    proc->unk_3c += proc->unk_34;
-
-    if (proc->unk_3c < 0x100)
+    if (proc->timer < 0x100)
     {
-        r = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_40) / 0x100;
-        g = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_48) / 0x100;
-        b = (((0x100 - proc->unk_3c) * 0x100) + proc->unk_3c * proc->unk_44) / 0x100;
+        r = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->r) / 0x100;
+        g = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->g) / 0x100;
+        b = (((0x100 - proc->timer) * 0x100) + proc->timer * proc->b) / 0x100;
     }
     else
     {
-        r = (proc->unk_40 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
-        g = (proc->unk_48 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
-        b = (proc->unk_44 * (0x200 - proc->unk_3c) + ((proc->unk_3c - 0x100) * 0x100)) / 0x100;
+        r = (proc->r * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
+        g = (proc->g * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
+        b = (proc->b * (0x200 - proc->timer) + ((proc->timer - 0x100) * 0x100)) / 0x100;
     }
 
-    WriteFadedPaletteFromArchive(r, g, b, proc->unk_30);
+    WriteFadedPaletteFromArchive(r, g, b, proc->mask);
 
-    if (proc->unk_3c == 0x100)
+    if (proc->timer == 0x100)
     {
-        proc->unk_2c--;
+        proc->duration--;
 
-        if (proc->unk_2c < 1)
+        if (proc->duration < 1)
         {
-            proc->unk_3c = 0;
+            proc->timer = 0;
             Proc_Break(proc);
         }
     }
-    else if (proc->unk_3c == 0x200)
-    {
-        proc->unk_3c = 0;
-    }
-
-    return;
+    else if (proc->timer == 0x200)
+        proc->timer = 0;
 }
 
-//! FE8U = 0x08009100
-void sub_8009100(struct Proc0859163C * proc)
+void ScreenFlash_FadeOut(struct ProcScreenFlashing * proc)
 {
-    proc->unk_3c += proc->unk_38;
+    proc->timer += proc->speed_fadeout;
 
     WriteFadedPaletteFromArchive(
-        ((0x100 - proc->unk_3c) * proc->unk_40 + (proc->unk_3c * 0x100)) / 0x100,
-        ((0x100 - proc->unk_3c) * proc->unk_48 + (proc->unk_3c * 0x100)) / 0x100,
-        ((0x100 - proc->unk_3c) * proc->unk_44 + (proc->unk_3c * 0x100)) / 0x100,
-        proc->unk_30
+        ((0x100 - proc->timer) * proc->r + (proc->timer * 0x100)) / 0x100,
+        ((0x100 - proc->timer) * proc->g + (proc->timer * 0x100)) / 0x100,
+        ((0x100 - proc->timer) * proc->b + (proc->timer * 0x100)) / 0x100,
+        proc->mask
     );
 
-    if (proc->unk_3c == 0x100)
-    {
+    if (proc->timer == 0x100)
         Proc_Break(proc);
-    }
-
-    return;
 }
 
-//! FE8U = 0x0800915C
-void sub_800915C(int a, int b, int c, int d, int e, int f, int g, ProcPtr parent)
+void StartScreenFlashing(int mask, int duration, int speed_fadein, int speed_fadeout, int r, int g, int b, ProcPtr parent)
 {
-    struct Proc0859163C * proc = Proc_StartBlocking(ProcScr_0859163C, parent);
+    struct ProcScreenFlashing * proc = Proc_StartBlocking(ProcScr_ScreenFlashing, parent);
 
-    proc->unk_2c = b;
-    proc->unk_30 = a;
-    proc->unk_34 = c;
-    proc->unk_38 = d;
-    proc->unk_40 = e;
-    proc->unk_48 = f;
-    proc->unk_44 = g;
-
-    return;
+    proc->duration = duration;
+    proc->mask = mask;
+    proc->speed_fadein  = speed_fadein;
+    proc->speed_fadeout = speed_fadeout;
+    proc->r = r;
+    proc->g = g;
+    proc->b = b;
 }

@@ -35,7 +35,7 @@ enum
 #define FACE_DISP_BLEND (1 << 10)
 #define FACE_DISP_BIT_12 (1 << 12)
 #define FACE_DISP_BIT_13 (1 << 13)
-#define FACE_DISP_BIT_14 (1 << 14)
+#define FACE_DISP_HIDDEN (1 << 14)
 
 struct FaceBlinkProc;
 
@@ -107,15 +107,15 @@ int SetFaceDisplayBitsById(int slot, int disp);
 int GetFaceDisplayBits(struct FaceProc*);
 int GetFaceDisplayBitsById(int slot);
 void FaceRefreshSprite(struct FaceProc* proc);
-void PutFaceTm(u16* tm, u8* data, int tileref, s8 isFlipped);
+void PutFaceTm(u16 * tm, u8* data, int tileref, s8 isFlipped);
 void UnpackFaceChibiGraphics(int fid, int chr, int pal);
 void PutFaceChibi(int, u16*, int, int, s8);
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);
 void FaceChibiSpr_OnIdle(struct FaceProc* proc);
 void StartFaceChibiSpr(int x, int y, int fid, int chr, int pal, s8 isFlipped, ProcPtr parent);
 void EndFaceChibiSpr(void);
-void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info);
-void PutFace80x72_Raised(u16* tm, int tileref, const struct FaceData* info);
+void PutFace80x72_Standard(u16 * tm, int tileref, const struct FaceData* info);
+void PutFace80x72_Raised(u16 * tm, int tileref, const struct FaceData* info);
 s8 ShouldFaceBeRaised(int fid);
 void PutFace80x72_Core(u16*, int, int, int);
 void sub_8005D64(struct FaceBlinkProc*);
@@ -145,14 +145,14 @@ int FaceBlinkProc_GenBlinkInterval(struct FaceBlinkProc* proc);
 void sub_80064D4(struct FaceProc* proc, int unk);
 void sub_80064DC(int slot, int unk);
 struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp);
-void sub_8006618(int slot, int x, int y);
+void SetFacePosition(int slot, int x, int y);
 void sub_800662C(struct UnkFaceProc* proc);
 void sub_8006650(struct UnkFaceProc* proc);
 void sub_80066A8(struct UnkFaceProc* proc);
 void sub_80066E0(struct FaceProc* parent, int fid);
 void sub_80066FC(int offset, int fid);
 void sub_800671C(int pal, int fid);
-void sub_8006738(u16* a, u16 b, s8 c);
+void PutFaceOnBackGround(u16* a, u16 b, s8 c);
 
 extern const struct FaceData portrait_data[];
 extern struct FaceProc* gFaces[];

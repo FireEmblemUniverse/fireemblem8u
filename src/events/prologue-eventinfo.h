@@ -13,7 +13,7 @@ CONST_DATA EventListScr EventListScr_Prologue_Turn[] = {
     TURN(0x0, EventScr_Prologue_Turn1, 1, 0, FACTION_RED)
     TURN(0x0, EventScr_Prologue_Turn2, 2, 0, FACTION_BLUE)
     TURN(0x0, EventScr_Prologue_Turn3, 3, 0, FACTION_BLUE)
-    TURN(EVFLAG_TMP_8, EventScr_Prologue_ONeillAttack, 1, 255, FACTION_RED)
+    TURN(EVFLAG_TMP(8), EventScr_Prologue_ONeillAttack, 1, 255, FACTION_RED)
     END_MAIN
 };
 
@@ -27,7 +27,7 @@ CONST_DATA EventListScr EventListScr_Prologue_Location[] = {
 
 CONST_DATA EventListScr EventListScr_Prologue_Misc[] = {
     DefeatBoss(EventScr_Prologue_EndingScene)
-    AFEV(EVFLAG_TMP_7, EventScr_Prologue_OneEmimyLeft, 0)
+    AFEV(EVFLAG_TMP(7), EventScr_Prologue_OneEmimyLeft, 0)
     CauseGameOverIfLordDies
     END_MAIN
 };

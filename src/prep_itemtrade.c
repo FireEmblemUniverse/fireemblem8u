@@ -142,7 +142,7 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
 }
 
 //! FE8U = 0x0809B74C
-void DrawPrepScreenItems(u16* tm, struct Text* th, struct Unit* unit, u8 checkPrepUsability) {
+void DrawPrepScreenItems(u16 * tm, struct Text* th, struct Unit* unit, u8 checkPrepUsability) {
     s8 isUsable;
     int i;
     int itemCount;
@@ -180,7 +180,7 @@ void DrawPrepScreenItems(u16* tm, struct Text* th, struct Unit* unit, u8 checkPr
 }
 
 //! FE8U = 0x0809B830
-void DrawPrepScreenItemIcons(u16* tm, struct Unit* unit) {
+void DrawPrepScreenItemIcons(u16 * tm, struct Unit* unit) {
     int i;
 
     int itemCount = GetUnitItemCount(unit);
@@ -234,8 +234,8 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc * proc)
     RestartMuralBackground();
 
     for (i = 0; i < 5; i++) {
-        InitTextDb(gPrepItemScreenTexts + 0 + i, 7);
-        InitTextDb(gPrepItemScreenTexts + 5 + i, 7);
+        InitTextDb(gPrepItemTexts + 15 + i, 7);
+        InitTextDb(gPrepItemTexts + 20 + i, 7);
     }
 
     proc->selectedItemSlot = 0xff;
@@ -266,8 +266,8 @@ void PrepItemTrade_Init(struct PrepMenuTradeProc * proc)
     str = GetStringFromIndex(proc->units[1]->pCharacterData->nameTextId);
     PutDrawText(0, gBG0TilemapBuffer + 0x18, 0, ((48 - GetStringTextLen(str)) / 2), 6, str);
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gPrepItemScreenTexts + 5, proc->units[1], 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemTexts + 15, proc->units[0], 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x130, gPrepItemTexts + 20, proc->units[1], 0);
 
     StartUiCursorHand(proc);
 
@@ -332,8 +332,8 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                     proc->cursorItemSlot & 7
                 );
 
-                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemScreenTexts + 0, proc->units[0], 0);
-                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122 + 0xe, gPrepItemScreenTexts + 5, proc->units[1], 0);
+                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, gPrepItemTexts + 15, proc->units[0], 0);
+                DrawPrepScreenItems(gBG0TilemapBuffer + 0x122 + 0xe, gPrepItemTexts + 20, proc->units[1], 0);
 
                 BG_EnableSyncByMask(1);
 

@@ -2,20 +2,20 @@
 
 	.incbin "baserom.gba", 0xA3EFB4, 0x75C
 
-	.global gPal_CharacterEndingMenu
-gPal_CharacterEndingMenu:  @ 0x08A3F710
+	.global Pal_CharacterEndingMenu
+Pal_CharacterEndingMenu:  @ 0x08A3F710
 	.incbin "baserom.gba", 0xA3F710, 0x40
 
-	.global gGfx_CharacterEndingMenu
-gGfx_CharacterEndingMenu:  @ 0x08A3F750
+	.global Img_CharacterEndingMenu
+Img_CharacterEndingMenu:  @ 0x08A3F750
 	.incbin "baserom.gba", 0xA3F750, 0x89C
 
-	.global gUnknown_08A3FFEC
-gUnknown_08A3FFEC:  @ 0x08A3FFEC
+	.global Tsa_CharacterEnding_TopBorder
+Tsa_CharacterEnding_TopBorder:  @ 0x08A3FFEC
     .incbin "baserom.gba", 0xA3FFEC, 0x7C
 
-	.global gUnknown_08A40068
-gUnknown_08A40068:  @ 0x08A40068
+	.global Tsa_CharacterEnding_BottomBorder
+Tsa_CharacterEnding_BottomBorder:  @ 0x08A40068
 	.incbin "baserom.gba", 0xA40068, 0x7C
 
 	.global gTsa_SoloEndingNameplate
@@ -34,24 +34,24 @@ gTsa_PairedEndingNameplates:  @ 0x08A4034C
 gTsa_PairedEndingWindow:  @ 0x08A40470
 	.incbin "baserom.gba", 0xA40470, 0x144
 
-	.global gPal_FinScreen
-gPal_FinScreen:  @ 0x08A405B4
+	.global Pal_FinScreen
+Pal_FinScreen:  @ 0x08A405B4
 	.incbin "baserom.gba", 0xA405B4, 0x20
 
-	.global gGfx_FinScreen
-gGfx_FinScreen:  @ 0x08A405D4
+	.global Img_FinScreen
+Img_FinScreen:  @ 0x08A405D4
 	.incbin "baserom.gba", 0xA405D4, 0x3FC
 
-	.global gTsa_FinScreen
-gTsa_FinScreen:  @ 0x08A409D0
+	.global Tsa_FinScreen
+Tsa_FinScreen:  @ 0x08A409D0
 	.incbin "baserom.gba", 0xA409D0, 0x104
 
-	.global gUnknown_08A40AD4
-gUnknown_08A40AD4:  @ 0x08A40AD4
+	.global Pal_08A40AD4
+Pal_08A40AD4:  @ 0x08A40AD4
     .incbin "baserom.gba", 0xA40AD4, 0x40
 
-	.global gUnknown_08A40B14
-gUnknown_08A40B14:  @ 0x08A40B14
+	.global Tsa_08A40B14
+Tsa_08A40B14:  @ 0x08A40B14
 	.incbin "baserom.gba", 0xA40B14, 0x4B4
 
 	.global Pal_StaffReelEnt_08A40FC8

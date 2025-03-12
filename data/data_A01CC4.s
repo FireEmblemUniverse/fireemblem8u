@@ -140,20 +140,20 @@ gUnknown_08A071FC:  @ 0x08A071FC
 gUnknown_08A0731C:  @ 0x08A0731C
     .incbin "baserom.gba", 0xA0731C, 0x20
 
-	.global gUnknown_08A0733C
-gUnknown_08A0733C:  @ 0x08A0733C
+	.global Img_ConfigUiSprites
+Img_ConfigUiSprites:  @ 0x08A0733C
 	.incbin "baserom.gba", 0xA0733C, 0x210
 
-	.global gUnknown_08A0754C
-gUnknown_08A0754C:  @ 0x08A0754C
+	.global Img_ConfigUiIcons
+Img_ConfigUiIcons:  @ 0x08A0754C
 	.incbin "baserom.gba", 0xA0754C, 0x468
 
-	.global gUnknown_08A079B4
-gUnknown_08A079B4:  @ 0x08A079B4
+	.global Tsa_ConfigUiFrame
+Tsa_ConfigUiFrame:  @ 0x08A079B4
 	.incbin "baserom.gba", 0xA079B4, 0xE4
 
-	.global gUnknown_08A07A98
-gUnknown_08A07A98:  @ 0x08A07A98
+	.global Pal_ConfigUiSprites
+Pal_ConfigUiSprites:  @ 0x08A07A98
 	.incbin "baserom.gba", 0xA07A98, 0x40
 
 	.global gPal_08A07AD8
@@ -184,8 +184,8 @@ gPal_08A07C58:  @ 0x08A07C58
 Img_ChapterIntroFog:  @ 0x08A07DD8
 	.incbin "baserom.gba", 0xA07DD8, 0x1C84
 
-	.global gUnknown_08A09A5C
-gUnknown_08A09A5C:  @ 0x08A09A5C
+	.global Pal_PlayerRankFog
+Pal_PlayerRankFog:  @ 0x08A09A5C
 	.incbin "baserom.gba", 0xA09A5C, 0x3F0
 
 	.global gGfx_08A09E4C

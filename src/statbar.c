@@ -5,85 +5,92 @@
 
 /* These should related to status-bar gfx for stat-screen */
 
-void sub_8086934(u8 *buf, int a2, int a3)
+void UnusedDrawOutline(u8 *buf, int bufWidth, int col)
 {
-    buf[0 * a2 + a3] = 4;
-    buf[1 * a2 + a3] = 4;
-    buf[2 * a2 + a3] = 4;
-    buf[3 * a2 + a3] = 4;
-    buf[4 * a2 + a3] = 4;
+    buf[0 * bufWidth + col] = 4;
+    buf[1 * bufWidth + col] = 4;
+    buf[2 * bufWidth + col] = 4;
+    buf[3 * bufWidth + col] = 4;
+    buf[4 * bufWidth + col] = 4;
 }
 
-void sub_8086960(u8 *buf, int a2, int a3)
+void DrawStatBarLeftBorder(u8 *buf, int bufWidth, int col)
 {
-    buf[0 * a2 + a3] = 4;
-    buf[1 * a2 + a3] = 4;
-    buf[2 * a2 + a3] = 4;
-    buf[3 * a2 + a3] = 4;
+    buf[0 * bufWidth + col] = 4;
+    buf[1 * bufWidth + col] = 4;
+    buf[2 * bufWidth + col] = 4;
+    buf[3 * bufWidth + col] = 4;
 }
 
-void sub_8086984(u8 *buf, int a2, int a3)
+void DrawStatBarShadow(u8 *buf, int bufWidth, int col)
 {
-    buf[1 * a2 + a3] = 4;
-    buf[2 * a2 + a3] = 4;
-    buf[3 * a2 + a3] = 4;
-    buf[4 * a2 + a3] = 4;
+    buf[1 * bufWidth + col] = 4;
+    buf[2 * bufWidth + col] = 4;
+    buf[3 * bufWidth + col] = 4;
+    buf[4 * bufWidth + col] = 4;
 }
 
-void sub_80869AC(u8 *buf, int a2, int a3)
+void DrawStatBarRightBorder(u8 *buf, int bufWidth, int col)
 {
-    buf[0 * a2 + a3] = 4;
-    buf[1 * a2 + a3] = 4;
-    buf[2 * a2 + a3] = 4;
-    buf[3 * a2 + a3] = 4;
-    buf[4 * a2 + a3] = 4;
+    buf[0 * bufWidth + col] = 4;
+    buf[1 * bufWidth + col] = 4;
+    buf[2 * bufWidth + col] = 4;
+    buf[3 * bufWidth + col] = 4;
+    buf[4 * bufWidth + col] = 4;
 }
 
-void sub_80869D8(u8 *buf, int a2, int a3)
+void DrawStatBarUnfilledCol(u8 *buf, int bufWidth, int col)
 {
-    buf[0 * a2 + a3] = 4;
-    buf[1 * a2 + a3] = 14;
-    buf[2 * a2 + a3] = 3;
-    buf[3 * a2 + a3] = 4;
-    buf[4 * a2 + a3] = 4;
+    buf[0 * bufWidth + col] = 4;
+    buf[1 * bufWidth + col] = 14;
+    buf[2 * bufWidth + col] = 3;
+    buf[3 * bufWidth + col] = 4;
+    buf[4 * bufWidth + col] = 4;
 }
 
-void sub_8086A08(u8 *buf, int a2, int a3)
+void DrawStatBarFilledCol(u8 *buf, int bufWidth, int col)
 {
-    buf[1 * a2 + a3] = 1;
-    buf[2 * a2 + a3] = 5;
+    buf[1 * bufWidth + col] = 1;
+    buf[2 * bufWidth + col] = 5;
 }
 
-void sub_8086A24(u8 *buf, int a2, int a3)
+void DrawStatBarCappedCol(u8 *buf, int bufWidth, int col)
 {
-    buf[1 * a2 + a3] = 13;
-    buf[2 * a2 + a3] = 12;
+    buf[1 * bufWidth + col] = 13;
+    buf[2 * bufWidth + col] = 12;
 }
 
-void sub_8086A40(int a1, int a2, int a3, int a4, int a5, int a6)
+void DrawStatBar(
+    int tile, int padding, int bufWidth, int barWidth, int progressLength, int cappedLength)
 {
     int i, j, val, val1;
     u8 *buf = gGenericBuffer;
-    CpuFastFill(0, buf, 0x40 * a3);
+    CpuFastFill(0, buf, 0x40 * bufWidth);
 
-    for (i = 1; i < a4 + 1; i++)
-        sub_80869D8(buf, 8 * a3, i + ({a2 + 1;}));
+    for (i = 1; i < barWidth + 1; i++)
+        DrawStatBarUnfilledCol(buf, 8 * bufWidth, i + ({padding + 1;}));
 
-    sub_8086960(buf, 8 * a3, a2 + 1);
-    sub_80869AC(buf, 8 * a3, a2 + a4 + 2);
-    sub_8086984(buf, 8 * a3, a2 + a4 + 3);
+    DrawStatBarLeftBorder(buf, 8 * bufWidth, padding + 1);
+    DrawStatBarRightBorder(buf, 8 * bufWidth, padding + barWidth + 2);
+    DrawStatBarShadow(buf, 8 * bufWidth, padding + barWidth + 3);
 
-    for (i = 0; i < a5; i++)
-        sub_8086A08(buf, 8 * a3, i + ({a2 + 2;}));
+    for (i = 0; i < progressLength; i++)
+        DrawStatBarFilledCol(buf, 8 * bufWidth, i + ({padding + 2;}));
 
-    for (i = 0; i < a6; i++)
-        sub_8086A24(buf, 8 * a3, i + a5 + a2 + 2);
+    for (i = 0; i < cappedLength; i++)
+        DrawStatBarCappedCol(buf, 8 * bufWidth, i + progressLength + padding + 2);
 
-    ApplyBitmap(buf, (void*)(32 * a1 + 0x6000000), a3, 1);
+    ApplyBitmap(buf, (void*)(32 * tile + 0x6000000), bufWidth, 1);
 }
 
-void DrawStatBarGfx(int a1, int a2, u16* buf, int a4, int a5, int a6, int a7)
+// bufWidth: The width of the allocated buffer canvas
+// barWidth: The width of the bar itself (in tiles)
+// progressLength: The length of the "progress" of the bar (the yellow part)
+// cappedLength: Same as above, controls the part that flashes green when stat capped
+void DrawStatBarGfx(
+    int tile, int bufWidth, u16* buf, int tileBase,
+    int barWidth, int progressLength, int cappedLength)
 {
-    sub_8086A40(a1, 2, a2, a5, a6, a7);
-    PutAppliedBitmap(buf, a4 + (a1 & 0x3FF), a2, 1);
+    DrawStatBar(tile, 2, bufWidth, barWidth, progressLength, cappedLength);
+    PutAppliedBitmap(buf, tileBase + (tile & 0x3FF), bufWidth, 1);
 }

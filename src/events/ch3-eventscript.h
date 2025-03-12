@@ -6,16 +6,15 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     MUSC(0x25)
-    SVAL(EVT_SLOT_2, 0x18)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1)
     TEXTSHOW(0x98b)
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x98c)
     TEXTEND
     REMA
@@ -24,7 +23,7 @@ CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
     LOAD1(0x1, UnitDef_088B463C)
     ENUN
     FADU(16)
-    LOAD2(0x1, UnitDef_088B4574)
+    LOAD2(0x1, UnitDef_Event_Ch3Ally)
     ENUN
     SVAL(EVT_SLOT_2, EventScr_089F15A0)
     CALL(EventScr_CallOnTutorialMode)
@@ -43,7 +42,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x2)
     CALL(EventScr_MoveUnitS2ToLeader)
     FADI(16)
-    LOAD1(0x0, UnitDef_088B4574)
+    LOAD1(0x0, UnitDef_Event_Ch3Ally)
     ENUN
     CHECK_TUTORIAL
     BNE(0x1, EVT_SLOT_C, EVT_SLOT_0)
@@ -72,7 +71,7 @@ LABEL(0xa)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F134C[] = {
+CONST_DATA EventListScr EventScr_Ch3_Turn1Npc[] = {
     CAMERA(0, 0)
     STAL(15)
     LOAD1(0x1, UnitDef_088B4718)
@@ -95,21 +94,20 @@ CONST_DATA EventListScr EventScr_089F134C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F13B4[] = {
+CONST_DATA EventListScr EventScr_Ch3_Turn2Player[] = {
     SVAL(EVT_SLOT_2, EventScr_089F1784)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F13CC[] = {
+CONST_DATA EventListScr EventScr_Ch3_EndingScene[] = {
     MUSC(0x31)
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_NEIMI)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0x28)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_FORT_SUNSET)
     TEXTSHOW(0x995)
     TEXTEND
     REMA
@@ -121,8 +119,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_2, 0x9)
     CALL(EventScr_9EE5BC)
 LABEL(0x1)
-    SVAL(EVT_SLOT_2, 0x29)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_FORT)
     TEXTSHOW(0x996)
     TEXTEND
     REMA
@@ -130,8 +127,7 @@ LABEL(0x1)
     FADI(4)
     SVAL(EVT_SLOT_2, 0x2000f)
     CALL(EventScr_9EEA58)
-    SVAL(EVT_SLOT_2, 0xc)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_GRADO_CHAMBER)
     TEXTSHOW(0x997)
     TEXTEND
     REMA
@@ -184,7 +180,7 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F1568[] = {
+CONST_DATA EventListScr EventScr_Ch3_Talk_NeimiColm[] = {
     MUSS(0x30)
     STAL(33)
     TEXTSTART

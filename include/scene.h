@@ -35,6 +35,12 @@ enum fe_ch_idx {
     CHFE_L_DEnd = '\x1F',
 };
 
+enum talk_choice {
+    TALK_CHOICE_CANCEL = 0,
+    TALK_CHOICE_YES,
+    TALK_CHOICE_NO
+};
+
 enum
 {
     TALK_FLAG_INSTANTSHIFT   = (1 << 0),
@@ -91,17 +97,15 @@ struct TalkDebugProc {
     s16 unk_64;
 };
 
-struct Proc0859163C
+struct ProcScreenFlashing
 {
     PROC_HEADER;
-    int unk_2c;
-    int unk_30;
-    int unk_34;
-    int unk_38;
-    int unk_3c;
-    int unk_40;
-    int unk_44;
-    int unk_48;
+    int duration;
+    int mask;
+    int speed_fadein;
+    int speed_fadeout;
+    int timer;
+    int r, b, g;
 };
 
 struct ChoiceEntryInfo
@@ -168,7 +172,7 @@ void StartTalkWaitForInput(ProcPtr parent, int x, int y);
 void StartTalkWaitForInputUnk(ProcPtr parent, int x, int y, int unk);
 void TalkShiftClearAll_OnInit(struct Proc*);
 void TalkShiftClearAll_OnIdle(struct Proc*);
-void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16* tm, int defaultChoice, int color, ProcPtr parent);
+void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u16 * tm, int defaultChoice, int color, ProcPtr parent);
 void TalkChoice_OnIdle(struct TalkChoiceProc*);
 void TalkShiftClear_OnInit(struct Proc*);
 void TalkShiftClear_OnIdle(struct Proc*);
@@ -201,7 +205,7 @@ int GetTalkChoiceResult(void);
 int SetTalkChoiceResult(int);
 void SetTalkNumber(int);
 void SetTalkUnkStr(const char* str);
-void PrintStringToTexts(struct Text** texts, const char* str, u16* tm, int unk);
+void PrintStringToTexts(struct Text** texts, const char* str, u16 * tm, int unk);
 void TalkPutSpriteText_OnIdle(struct Proc*);
 void ClearPrimaryHBlank(void);
 void TalkPutSpriteText_OnEnd(void);
@@ -214,11 +218,11 @@ void sub_8008F54(void);
 void sub_8008F64(int chr, int b, int c, ProcPtr parent);
 void sub_8008FAC(struct TalkDebugProc *);
 void sub_8008FB4(struct TalkDebugProc *);
-void nullsub_15(void);
-void sub_800903C(struct Proc0859163C *);
-void sub_800904C(struct Proc0859163C *);
-void sub_8009100(struct Proc0859163C *);
-void sub_800915C(int, int, int, int, int, int, int, ProcPtr);
+void nullsub_15(ProcPtr, int);
+void ScreenFlash_Init(struct ProcScreenFlashing *);
+void ScreenFlash_FadeIn(struct ProcScreenFlashing *);
+void ScreenFlash_FadeOut(struct ProcScreenFlashing *);
+void StartScreenFlashing(int, int, int, int, int, int, int, ProcPtr);
 
 extern struct ProcCmd gProcScr_TalkOpen[];
 

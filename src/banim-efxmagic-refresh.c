@@ -275,7 +275,7 @@ void StartSubSpell_efxSongOBJ(struct Anim * anim, int kind)
     proc->anim = anim;
     proc->timer = 0;
     proc->terminator = 56;
-    scr = gUnknown_08758134;
+    scr = AnimScr_EfxSong;
     proc->anim2 = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
     SpellFx_RegisterObjPal(Pal_SongSprites + kind * 0x10, PLTT_SIZE_4BPP);

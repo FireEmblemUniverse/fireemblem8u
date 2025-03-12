@@ -1299,7 +1299,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkGradoOBJ01piece[] =
 // clang-format on
 
 //! FE8U = 0x08069878
-void sub_8069878(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
+void NewEfxDarkGradoOBJ01piece(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -1315,19 +1315,19 @@ void sub_8069878(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
     switch (b)
     {
         case 0:
-            scr = gUnknown_086A2724;
+            scr = AnimScr_EfxDarkGradoOBJ01piece1;
             break;
 
         case 1:
-            scr = gUnknown_086A2844;
+            scr = AnimScr_EfxDarkGradoOBJ01piece3;
             break;
 
         case 2:
-            scr = gUnknown_086A273C;
+            scr = AnimScr_EfxDarkGradoOBJ01piece2;
             break;
 
         default:
-            scr = gUnknown_086A285C;
+            scr = AnimScr_EfxDarkGradoOBJ01piece4;
             break;
     }
 
@@ -1384,16 +1384,16 @@ void efxDarkGradoOBJ01_Loop(struct ProcEfxOBJ * proc)
     {
         if ((proc->terminator & 1) == 0)
         {
-            sub_8069878(proc->anim, (proc->terminator >> 1) & 3, 0, 0x100, 98 - proc->timer);
-            sub_8069878(proc->anim, ((proc->terminator >> 1) + 2) & 3, 1, 0x100, 98 - proc->timer);
-            sub_8069878(proc->anim, ((proc->terminator >> 1) + 1) & 3, 2, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, (proc->terminator >> 1) & 3, 0, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, ((proc->terminator >> 1) + 2) & 3, 1, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, ((proc->terminator >> 1) + 1) & 3, 2, 0x100, 98 - proc->timer);
         }
         else
         {
-            sub_8069878(proc->anim, (proc->terminator >> 1) & 3, 3, 0x100, 98 - proc->timer);
-            sub_8069878(proc->anim, ((proc->terminator >> 1) + 2) & 3, 4, 0x100, 98 - proc->timer);
-            sub_8069878(proc->anim, ((proc->terminator >> 1) + 1) & 3, 5, 0x100, 98 - proc->timer);
-            sub_8069878(proc->anim, ((proc->terminator >> 1) + 3) & 3, 6, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, (proc->terminator >> 1) & 3, 3, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, ((proc->terminator >> 1) + 2) & 3, 4, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, ((proc->terminator >> 1) + 1) & 3, 5, 0x100, 98 - proc->timer);
+            NewEfxDarkGradoOBJ01piece(proc->anim, ((proc->terminator >> 1) + 3) & 3, 6, 0x100, 98 - proc->timer);
         }
 
         proc->terminator++;
@@ -1489,7 +1489,7 @@ void StartSubSpell_efxDarkGradoOBJ02piece_A(struct Anim * anim, int xOffset, int
     proc->unk44 = unk;
     proc->unk48 = 0;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_086A2E98, gUnknown_086A2DBC, gUnknown_086A2E98, gUnknown_086A2DBC);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxDarkGradoOBJ02piece1_L, AnimScr_EfxDarkGradoOBJ02piece1_R, AnimScr_EfxDarkGradoOBJ02piece1_L, AnimScr_EfxDarkGradoOBJ02piece1_R);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition = 104;
@@ -1538,7 +1538,7 @@ void StartSubSpell_efxDarkGradoOBJ02piece_B(struct Anim * anim, int xOffset, int
     proc->unk44 = unk;
     proc->unk48 = 0;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_086A2EAC, gUnknown_086A2DD0, gUnknown_086A2EAC, gUnknown_086A2DD0);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxDarkGradoOBJ02piece2_L, AnimScr_EfxDarkGradoOBJ02piece2_R, AnimScr_EfxDarkGradoOBJ02piece2_L, AnimScr_EfxDarkGradoOBJ02piece2_R);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition = 120;

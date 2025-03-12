@@ -290,7 +290,7 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
         unk_2 = (void*)BG_VRAM;
     }
 
-    ApplyPalettes(gUnknown_08B1754C, unk_3, 2);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, unk_3, 2);
     Decompress(Img_CommGameBgScreen, unk_2);
 
     ref1 = TILEREF(0, unk_3 & 0xF);
@@ -394,13 +394,13 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.bg2cnt.screenSize = 1;
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
 
-    Decompress(gUnknown_08B17B64, BG_CHAR_ADDR(2));
-    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
+    Decompress(Img_08B17B64, BG_CHAR_ADDR(2));
+    ApplyPalettes(Pal_08B18ED4, 0, 3);
 
-    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
-    Decompress(gUnknown_08B19874, OBJ_VRAM1);
-    ApplyPalette(gUnknown_08B19DEC, 0x12);
+    Decompress(Img_08B19874, OBJ_VRAM1);
+    ApplyPalette(Pal_08B19DEC, 0x12);
 
     ChapterIntro_8020010(proc, 0, 0xE);
 
@@ -577,8 +577,8 @@ void ChapterIntro_DrawChapterTitleMaybe() {
     BG_Fill(gBG0TilemapBuffer, 0x1280);
     sub_80895B4(8, 5);
 
-    var = sub_808979C(&gPlaySt);
-    sub_808966C(0x280, var);
+    var = GetChapterTitleWM(&gPlaySt);
+    _PutChapterTitleGfx(0x280, var);
     sub_80896FC(gBG0TilemapBuffer + 0x123, 5, var);
 
     BG_EnableSyncByMask(1);
@@ -611,9 +611,9 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     }
 
     if (proc->unk_4C <= 0xFF) {
-        sub_80ADDFC(2, 0, 0, 0, 0x180, 0x180);
-        sub_80ADE90(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
-        sub_80ADEE0(2, 0x70, 0x58, 0x4C, 0x4C);
+        BgAffinRotScaling(2, 0, 0, 0, 0x180, 0x180);
+        BgAffinScaling(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
+        BgAffinAnchoring(2, 0x70, 0x58, 0x4C, 0x4C);
         FlushLCDControl();
 
         if (proc->unk_66 != 0) {
@@ -669,10 +669,10 @@ void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
-    Decompress(gUnknown_08B18F34, BG_CHAR_ADDR(2));
-    ApplyPalette(gUnknown_08B19854, 4);
+    Decompress(Img_08B18F34, BG_CHAR_ADDR(2));
+    ApplyPalette(Pal_08B19854, 4);
 
-    Decompress(gUnknown_08B196D8, gGenericBuffer);
+    Decompress(Img_08B196D8, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
 
     BG_EnableSyncByMask(4);
@@ -782,7 +782,7 @@ void ChapterIntro_InitMapDisplay() {
 
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     LoadObjUIGfx();
 
     var = GetROMChapterStruct(gPlaySt.chapterIndex)->initialPosX;
@@ -829,7 +829,7 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
             WfxFlamesInitGradientPublic();
         }
 
-        if ((GetBattleMapKind() == 2) || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack) {
+        if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack) {
             if ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF) {
                 StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
             }
@@ -984,7 +984,7 @@ void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
         WfxFlamesInitGradientPublic();
     }
 
-    if ((GetBattleMapKind() == 2) || (GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)) {
+    if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) || (GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)) {
         proc->unk_4C = 0;
 
         gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -1061,7 +1061,7 @@ void ChapterIntro_80210C8() {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    if ((GetBattleMapKind() == 2) ||
+    if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) ||
     (GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)) {
         RefreshBMapGraphics();
         sub_80141B0();

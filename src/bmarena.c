@@ -12,17 +12,9 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 
-int GetUnitBestWRankType(struct Unit*);
-int GetClassBestWRankType(const struct ClassData*);
-int ArenaGenerateOpposingClassId(int);
-s8 IsWeaponMagic(int);
-int ArenaGetOpposingLevel(int);
-int ArenaGetPowerRanking(struct Unit*, s8);
-void ArenaGenerateOpponentUnit(void);
-void ArenaGenerateBaseWeapons(void);
-s8 ArenaAdjustOpponentDamage(void);
-s8 ArenaAdjustOpponentPowerRanking(void);
-void ArenaGenerateMatchupGoldValue(void);
+
+
+
 void ArenaSetResult(int);
 void ArenaSetFallbackWeaponsMaybe(void);
 
@@ -457,10 +449,13 @@ void ArenaGenerateBaseWeapons(void) {
     return;
 }
 
-u16 ArenaGetUpgradedWeapon(u16 item) {
-    u8* iter;
+u16 ArenaGetUpgradedWeapon(u16 item)
+{
+    u8 * iter;
 
-    u8 arenaWeaponUpgrades[] = {
+    // clang-format off
+    u8 arenaWeaponUpgrades[] =
+    {
         ITEM_SWORD_IRON, ITEM_SWORD_STEEL, ITEM_SWORD_SILVER, 0,
         ITEM_LANCE_IRON, ITEM_LANCE_STEEL, ITEM_LANCE_SILVER, 0,
         ITEM_AXE_IRON, ITEM_AXE_STEEL, ITEM_AXE_SILVER, 0,
@@ -471,18 +466,22 @@ u16 ArenaGetUpgradedWeapon(u16 item) {
 
         -1
     };
+    // clang-format on
 
-    for (iter = arenaWeaponUpgrades; *iter != (u8) -1; iter++) {
-        if (GetItemIndex(item) != *iter) {
+    for (iter = arenaWeaponUpgrades; *iter != (u8)-1; iter++)
+    {
+        if (GetItemIndex(item) != *iter)
             continue;
-        }
 
-        if (*++iter != 0) {
+        if (*++iter != 0)
             return MakeNewItem(*iter);
-        }
 
         return item;
     }
+
+#if BUGFIX
+    return item;
+#endif // BUGFIX
 }
 
 s8 ArenaAdjustOpponentDamage(void) {

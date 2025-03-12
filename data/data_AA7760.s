@@ -90,15 +90,7 @@ gTsa_08AB0A20:  @ 0x08AB0A20
 
 	.global gPal_08AB0B24
 gPal_08AB0B24:  @ 0x08AB0B24
-@ Replacing .incbin "baserom.gba", 0xAB0B24, 0x20
-    .4byte 0x4414290
-    .4byte 0x1f3e571d
-    .4byte 0x33bf277f
-    .4byte 0x6bff47bf
-    .4byte 0x45ee21ba
-    .4byte Pal_NaglfarSprites_B + 0x2c4
-    .4byte 0xcd2467b
-    .4byte 0x7fff044a
+	.incbin "baserom.gba", 0xAB0B24, 0x20
 
 	.global gGfx_TitleDemonKing
 gGfx_TitleDemonKing:  @ 0x08AB0B44

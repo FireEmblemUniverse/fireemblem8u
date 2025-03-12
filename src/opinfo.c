@@ -345,11 +345,11 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
     ApplyPalette(gUnknown_08A360C8, 5);
 
-    Decompress(gUnknown_08B17B64, (void *)0x06008000);
+    Decompress(Img_08B17B64, (void *)0x06008000);
 
-    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
-    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
+    ApplyPalettes(Pal_08B18ED4, 0, 3);
 
     BG_EnableSyncByMask(4);
 
@@ -751,11 +751,11 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
     unkC = Interpolate(0, 0, 0xD6, proc->unk_4c, 0x3C);
     unkD = Interpolate(0, 0x10, 0x80, proc->unk_4c, 0x3C);
 
-    sub_80ADDFC(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
+    BgAffinRotScaling(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
 
-    sub_80ADE90(2, 0x100, 0x100);
+    BgAffinScaling(2, 0x100, 0x100);
 
-    sub_80ADEE0(2, unkC, unkD, 0x50, 0x48);
+    BgAffinAnchoring(2, unkC, unkD, 0x50, 0x48);
 
     proc->unk_4e -= 0x40;
 
@@ -1144,13 +1144,13 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     NewEkrUnitMainMini(&gOpInfoData);
 
-    gUnk_Opinfo_0201DB00.unk00 = proc->classReelEnt->unk_0D;
-    gUnk_Opinfo_0201DB00.unk02 = 10;
-    gUnk_Opinfo_0201DB00.unk04 = 0x380;
-    gUnk_Opinfo_0201DB00.unk06 = proc->classReelEnt->unk_0E;
-    gUnk_Opinfo_0201DB00.unk08 = 11;
-    gUnk_Opinfo_0201DB00.unk0A = 0x3C0;
-    gUnk_Opinfo_0201DB00.unk0C = r5;
+    gUnk_Opinfo_0201DB00.terrain_l = proc->classReelEnt->unk_0D;
+    gUnk_Opinfo_0201DB00.pal_l = 10;
+    gUnk_Opinfo_0201DB00.chr_l = 0x380;
+    gUnk_Opinfo_0201DB00.terrain_r = proc->classReelEnt->unk_0E;
+    gUnk_Opinfo_0201DB00.pal_r = 11;
+    gUnk_Opinfo_0201DB00.chr_r = 0x3C0;
+    gUnk_Opinfo_0201DB00.distance = r5;
     gUnk_Opinfo_0201DB00.unk0E = -1;
 
     gUnk_Opinfo_0201DB00.unk1C = (void *)0x06010000;

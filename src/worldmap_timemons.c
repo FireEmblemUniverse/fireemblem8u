@@ -285,7 +285,7 @@ void GmapTimeMons_ExecMonsterMergeMu(struct ProcGmapTimeMons * proc)
             wm_uid = i + 4;
             SetGmClassUnit(wm_uid, proc->confs[i].jid, WM_FACTION_RED, proc->confs[i].node);
             gGMData.units[wm_uid].state |= GM_UNIT_STATE_B0;
-            GmMu_ShowUnit(GM_MU, wm_uid);
+            GmShowMuUnit(GM_MU, wm_uid);
         }
         Proc_Break(proc);
     }
@@ -299,7 +299,7 @@ void GmapTimeMons_WaitSpriteDone(struct ProcGmapTimeMons * proc)
 
 CONST_DATA struct ProcCmd ProcScr_GmapTimeMons[] = {
     PROC_NAME("Gmap Time Mons"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(nullsub_72),
     PROC_CALL(GmapTimeMons_Init),
     PROC_REPEAT(GmapTimeMons_ExecMonsterMergeMu),
@@ -375,7 +375,7 @@ void WmShowMonsters(void)
         *&y = gWMNodeData[gGMData.units[i].location].y;
 
         GmMu_SetPosition(GM_MU, i, x, y);
-        GmMu_ShowUnit(GM_MU, i);
+        GmShowMuUnit(GM_MU, i);
     }
 }
 

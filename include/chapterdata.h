@@ -181,7 +181,7 @@ const struct ROMChapterData* GetROMChapterStruct(unsigned chIndex);
 const void* GetChapterMapPointer(unsigned chIndex);
 const void* GetChapterMapChangesPointer(unsigned chIndex);
 const struct ChapterEventGroup* GetChapterEventDataPointer(unsigned chIndex);
-const char* GetChapterTitle(unsigned chIndex);
+const char * GetChapterTitleName(unsigned chIndex);
 u8 IsDifficultMode(void);
 
 #endif // GUARD_CHAPTERDATA_H

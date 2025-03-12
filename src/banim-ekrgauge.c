@@ -394,7 +394,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     anim->yPosition = iy;
     anim->state2 = 0;
 
-    if (EkrEfxIsUnitHittedNow(POS_L) != true)
+    if (CheckEkrHitNow(POS_L) != true)
     {
         anim->pSpriteData = gUnknown_085B940C;
         anim->oamBase = 0;
@@ -417,7 +417,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     anim->yPosition = iy;
     anim->state2 = 0;
 
-    if (EkrEfxIsUnitHittedNow(POS_L) != true)
+    if (CheckEkrHitNow(POS_L) != true)
     {
         anim->pSpriteData = gUnknown_085B940C;
         anim->oamBase = 0;

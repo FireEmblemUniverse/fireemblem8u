@@ -23,10 +23,19 @@
 #include "constants/characters.h"
 #include "constants/items.h"
 
+EWRAM_OVERLAY(0) struct BonusClaimEnt gBonusClaimData[50] = {};
+EWRAM_OVERLAY(0) u8 bonusclaim_maybe_not_pad1[0x18] = {};
+EWRAM_OVERLAY(0) struct BonusClaimEnt gBonusClaimDataUpdated[50] = {};
+EWRAM_OVERLAY(0) u8 bonusclaim_maybe_not_pad2[0x18] = {};
+EWRAM_OVERLAY(0) struct BonusClaimItemEnt gBonusClaimItemList[0x80] = {};
+EWRAM_OVERLAY(0) struct BonusClaimConfig gBonusClaimConfig[0x40] = {};
+EWRAM_OVERLAY(0) int gBonusClaimItemCounts[0x40] = {};
+EWRAM_OVERLAY(0) struct Text gBonusClaimText[0x121] = {}; // maybe lower
+
 struct BonusClaimEnt * CONST_DATA gpBonusClaimData = gBonusClaimData;
 struct BonusClaimEnt * CONST_DATA gpBonusClaimDataUpdated = gBonusClaimDataUpdated;
 struct BonusClaimItemEnt * CONST_DATA gpBonusClaimItemList = gBonusClaimItemList;
-int* CONST_DATA gpBonusClaimItemCount = &gBonusClaimItemCount;
+int* CONST_DATA gpBonusClaimItemCount = gBonusClaimItemCounts;
 struct Text * CONST_DATA gpBonusClaimText = gBonusClaimText;
 struct BonusClaimConfig * CONST_DATA gpBonusClaimConfig = gBonusClaimConfig;
 
@@ -40,28 +49,27 @@ void PutChapterBannerSprites(void) {
 }
 
 //! FE8U = 0x080B0674
-void sub_80B0674(void) {
-
+void sub_80B0674(void)
+{
     u32 flags = (-(gPlaySt.chapterStateBits & 0x40) >> 0x1f) & 4;
 
-    if (gPlaySt.config.controller == 0) {
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_COMMON) {
+    if (gPlaySt.config.controller == 0)
+    {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_COMMON)
             flags |= 0x10;
-        }
 
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EIRIKA) {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EIRIKA)
             flags |= 0x20;
-        }
 
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM) {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM)
             flags |= 0x40;
-        }
-    } else {
-        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM) {
+    }
+    else
+    {
+        if (gPlaySt.chapterModeIndex == CHAPTER_MODE_EPHRAIM)
             flags |= 0x40;
-        } else {
+        else
             flags |= 0x20;
-        }
     }
 
     sub_80895B4(flags | 1, 0x18);
@@ -69,8 +77,8 @@ void sub_80B0674(void) {
 
     EnablePaletteSync();
 
-    sub_8089678(0xac0);
-    sub_8089624(0xb40, sub_8089768(&gPlaySt));
+    PutChapterTitleBG(0xac0);
+    PutChapterTitleGfx(0xb40, GetChapterTitleExtra(&gPlaySt));
 
     return;
 }
@@ -303,7 +311,7 @@ void SetupBonusClaimTargets(struct BonusClaimProc * proc)
     }
 
     proc->targets = count + 1;
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
 }
 
@@ -321,11 +329,11 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
 
     SetupBackgrounds(0);
 
-    ApplyPalettes(gUnknown_08B1754C, 0xC, 2);
-    ApplyPalette(gUnknown_08A295B4, 0xE);
+    ApplyPalettes(Pal_CommGameBgScreenInShop, 0xC, 2);
+    ApplyPalette(Pal_08A295B4, 0xE);
     Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A295D4, 0xc000);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_CommGameBgScreenInShop, 0xc000);
 
     BG_EnableSyncByMask(8);
 
@@ -603,7 +611,7 @@ void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc * proc)
         int count;
         int color = 0;
         struct Unit * unit = gpBonusClaimConfig[i].unit;
-        u16* tm = gBG0TilemapBuffer + 14;
+        u16 * tm = gBG0TilemapBuffer + 14;
 
         ClearText(th);
         Text_SetCursor(th, 0);

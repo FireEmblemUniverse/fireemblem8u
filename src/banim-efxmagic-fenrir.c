@@ -209,7 +209,7 @@ void efxFenrirBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxFenrirBGCOL[] =
 {
     PROC_NAME("efxFenrirBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_SET_END_CB(efxFenrirBGCOL_OnEnd),
     PROC_REPEAT(efxFenrirBGCOL_Loop),
@@ -257,8 +257,8 @@ void StartSubSpell_efxFenrirBGCOL(struct Anim * anim, int terminator)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = gUnknown_08652554;
-    SpellFx_RegisterBgPal(gUnknown_08652554, PLTT_SIZE_4BPP);
+    proc->pal = Pal_EfxFenrirBGCOL;
+    SpellFx_RegisterBgPal(Pal_EfxFenrirBGCOL, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -314,7 +314,7 @@ void StartSubSpell_efxFenrirOBJ(struct Anim * anim, int terminator)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    proc->anim2 = EfxCreateFrontAnim(anim, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4, gUnknown_0865C7D4);
+    proc->anim2 = EfxCreateFrontAnim(anim, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3, AnimScr_EfxFenrir3);
 
     SpellFx_RegisterObjPal(Pal_FenrirSprites_A, PLTT_SIZE_4BPP);
     SpellFx_RegisterObjGfx(Img_FenrirSprites, 32 * 4 * CHR_SIZE);
@@ -580,14 +580,14 @@ void StartSubSpell_efxFenrirBG2_B(struct Anim * anim)
     proc->timer = 0;
 
     proc->frame = 0;
-    proc->frame_config = gUnknown_080DCD72;
+    proc->frame_config = FrameConfig_AnimaHitBG;
 
-    proc->tsal = gUnknown_085D55B4;
-    proc->tsar = gUnknown_085D55B4;
-    proc->img = gUnknown_085D5560;
+    proc->tsal = TsaLut_AnimaHitBG;
+    proc->tsar = TsaLut_AnimaHitBG;
+    proc->img = ImgLut_AnimaHitBG;
     proc->pal = NULL;
 
-    SpellFx_RegisterBgPal(gUnknown_08656914, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_EfxFenrirBG2_B, PLTT_SIZE_4BPP);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != EKR_DISTANCE_CLOSE)
@@ -743,13 +743,13 @@ void StartSubSpell_efxFenrirOBJ2Chiri(struct Anim * anim, int idx)
     switch (idx & 1)
     {
         case 0:
-            otherAnim = AnimCreate(gUnknown_0865C77C, 120);
+            otherAnim = AnimCreate(AnimScr_EfxFenrir1, 120);
             proc->anim2 = otherAnim;
 
             break;
 
         case 1:
-            otherAnim = AnimCreate(gUnknown_0865C7A8, 120);
+            otherAnim = AnimCreate(AnimScr_EfxFenrir2, 120);
             proc->anim2 = otherAnim;
 
             break;

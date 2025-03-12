@@ -37,7 +37,7 @@
 struct ProcCmd CONST_DATA gProcScr_PlayerPhase[] =
 {
     PROC_NAME("E_PLAYERPHASE"),
-    PROC_MARK(PROC_MARK_2),
+    PROC_MARK(PROC_MARK_MAIN),
     PROC_YIELD,
 
 PROC_LABEL(0),
@@ -89,7 +89,7 @@ PROC_LABEL(2),
     // fallthrough
 
 PROC_LABEL(7),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL_2(PlayerPhase_PrepareAction),
 
@@ -126,7 +126,7 @@ PROC_LABEL(6),
 PROC_LABEL(8),
     PROC_YIELD,
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_GOTO(0),
 
@@ -177,7 +177,7 @@ u8 * CONST_DATA gOpenLimitViewImgLut[] =
 struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
 {
     PROC_NAME("MLVCHC"),
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_CALL(MoveLimitViewChange_OnInit),
     PROC_REPEAT(MoveLimitViewChange_OnLoop),
@@ -188,7 +188,7 @@ struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
 struct ProcCmd CONST_DATA sProcScr_MoveLimitView[] =
 {
     PROC_NAME("E_MOVELIMITVIEW"),
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_SET_END_CB(MoveLimitView_OnEnd),
 
@@ -265,7 +265,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
             if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])))
             {
 
-                MU_EndAll();
+                EndAllMus();
 
                 EndPlayerPhaseSideWindows();
                 SetStatScreenConfig(
@@ -295,7 +295,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     if (unit)
                     {
-                        MU_EndAll();
+                        EndAllMus();
                         ShowUnitSprite(unit);
                     }
 
@@ -312,7 +312,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Break(proc);
 
-                    goto _0801CB38;
+                    break;
 
                 case PLAYER_SELECT_NOCONTROL:
                     UnitBeginAction(unit);
@@ -320,30 +320,35 @@ void PlayerPhase_MainIdle(ProcPtr proc)
 
                     Proc_Goto(proc, 11);
 
-                    goto _0801CB38;
+                    break;
+
+                default:
+                    goto else_stmt;
             }
         }
-
-        if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
+        else
         {
-            struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
-
-            if (unit)
+else_stmt:
+            if ((gKeyStatusPtr->newKeys & START_BUTTON) && !(gKeyStatusPtr->heldKeys & SELECT_BUTTON))
             {
-                MU_EndAll();
-                ShowUnitSprite(unit);
+                struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
+
+                if (unit)
+                {
+                    EndAllMus();
+                    ShowUnitSprite(unit);
+                }
+
+                EndPlayerPhaseSideWindows();
+                StartMinimapPlayerPhase();
+
+                Proc_Goto(proc, 9);
+
+                return;
             }
-
-            EndPlayerPhaseSideWindows();
-            StartMinimapPlayerPhase();
-
-            Proc_Goto(proc, 9);
-
-            return;
         }
     }
 
-_0801CB38:
     UnitSpriteHoverUpdate();
 
     PutMapCursor(
@@ -492,14 +497,10 @@ void PlayerPhase_RangeDisplayIdle(ProcPtr proc)
             {
                 action = ACT_CANCEL;
             }
-
-            goto _0801CDE2;
         }
-
-        if (StartDestSelectedEvent())
+        else if (StartDestSelectedEvent())
         {
             action = ACT_EVENT;
-            goto _0801CDE2;
         }
         else
         {
@@ -513,43 +514,42 @@ void PlayerPhase_RangeDisplayIdle(ProcPtr proc)
                 {
                     action = ACT_CANCEL;
                 }
-
-                goto _0801CDE2;
+            }
+            else if (!CanMoveActiveUnitTo(gBmSt.playerCursor.x, gBmSt.playerCursor.y))
+            {
+                action = ACT_FAIL;
             }
             else
             {
-                if (!CanMoveActiveUnitTo(gBmSt.playerCursor.x, gBmSt.playerCursor.y))
-                {
-                    action = ACT_FAIL;
-                    goto _0801CDE2;
-                }
-
                 action = ACT_MOVE;
+                goto else_stmt;
             }
         }
     }
-
-    if (gKeyStatusPtr->newKeys & B_BUTTON)
+    else
     {
-        if (gActiveUnit->state & US_HAS_MOVED)
+else_stmt:
+        if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
-            action = ACT_FAIL;
+            if (gActiveUnit->state & US_HAS_MOVED)
+            {
+                action = ACT_FAIL;
+            }
+            else
+            {
+                action = ACT_CANCEL;
+            }
         }
-        else
+        else if (gKeyStatusPtr->newKeys & R_BUTTON)
         {
-            action = ACT_CANCEL;
+            action = ACT_INFOSCREEN;
         }
-    }
-    else if (gKeyStatusPtr->newKeys & R_BUTTON)
-    {
-        action = ACT_INFOSCREEN;
-    }
-    else if (gKeyStatusPtr->newKeys & L_BUTTON)
-    {
-        action = ACT_RESET_CURSOR;
+        else if (gKeyStatusPtr->newKeys & L_BUTTON)
+        {
+            action = ACT_RESET_CURSOR;
+        }
     }
 
-_0801CDE2:
     switch (action)
     {
         case ACT_FAIL:
@@ -567,7 +567,7 @@ _0801CDE2:
         case ACT_CANCEL:
             if (gActiveUnit)
             {
-                MU_EndAll();
+                EndAllMus();
 
                 gActiveUnit->state &= ~US_HIDDEN;
 
@@ -614,7 +614,7 @@ _0801CDE2:
                 break;
             }
 
-            MU_EndAll();
+            EndAllMus();
             SetStatScreenConfig(
                 STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
                 STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
@@ -698,8 +698,8 @@ void PlayerPhase_BackToMove(ProcPtr proc)
     }
 
     HideUnitSprite(gActiveUnit);
-    MU_EndAll();
-    MU_Create(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
 
     Proc_Goto(proc, 1);
 
@@ -833,9 +833,9 @@ bool TryMakeCantoUnit(ProcPtr proc)
     gActiveUnit->state |= US_HAS_MOVED;
     gActiveUnit->state &= ~US_UNSELECTABLE;
 
-    MU_EndAll();
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    EndAllMus();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 
     if (gPlaySt.chapterVisionRange != 0)
     {
@@ -904,7 +904,7 @@ void PlayerPhase_FinishAction(ProcPtr proc)
 
     if (ShouldCallEndEvent())
     {
-        MU_EndAll();
+        EndAllMus();
 
         RefreshEntityBmMaps();
         RenderBmMap();
@@ -917,7 +917,7 @@ void PlayerPhase_FinishAction(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
 
     return;
 }
@@ -931,7 +931,7 @@ void sub_801D404(void)
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
     }
 
     return;
@@ -991,7 +991,7 @@ int GetPlayerSelectKind(struct Unit * unit)
         return PLAYER_SELECT_NOUNIT;
     }
 
-    if (gBmSt.gameStateBits & BM_FLAG_4)
+    if (gBmSt.gameStateBits & BM_FLAG_PREPSCREEN)
     {
         if (!CanCharacterBePrepMoved(unit->pCharacterData->number))
         {
@@ -1074,7 +1074,7 @@ void PlayerPhase_DisplayUnitMovement(void)
 {
     GetMovementScriptFromPath();
     UnitApplyWorkingMovementScript(gActiveUnit, gActiveUnit->xPos, gActiveUnit->yPos);
-    MU_StartMoveScript_Auto(gWorkingMovementScript);
+    SetAutoMuMoveScript(gWorkingMovementScript);
 
     return;
 }
@@ -1082,7 +1082,7 @@ void PlayerPhase_DisplayUnitMovement(void)
 //! FE8U = 0x0801D64C
 void PlayerPhase_WaitForUnitMovement(ProcPtr proc)
 {
-    if (!MU_IsAnyActive())
+    if (!MuExistsActive())
     {
         Proc_Break(proc);
     }
@@ -1134,19 +1134,19 @@ void PlayerPhase_ReReadGameSaveGfx(void)
 //! FE8U = 0x0801D70C
 void MakeMoveunitForActiveUnit(void)
 {
-    if (!MU_Exists())
+    if (!MuExists())
     {
         if (UNIT_FACTION(gActiveUnit) == gPlaySt.faction)
         {
             if ((gActiveUnit->statusIndex != UNIT_STATUS_SLEEP) && (gActiveUnit->statusIndex != UNIT_STATUS_BERSERK))
             {
-                MU_Create(gActiveUnit);
+                StartMu(gActiveUnit);
                 HideUnitSprite(gActiveUnit);
             }
         }
     }
 
-    MU_SetDefaultFacing_Auto();
+    SetAutoMuDefaultFacing();
 
     return;
 }
@@ -1165,7 +1165,7 @@ void ClearActiveUnit(struct Unit * unit)
 
     if (gActiveUnit != NULL)
     {
-        MU_EndAll();
+        EndAllMus();
         gActiveUnit->state &= ~US_HIDDEN;
     }
 

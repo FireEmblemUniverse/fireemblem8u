@@ -58,6 +58,7 @@ Temporary Items
 *.gba
 *.elf
 *.map
+objects.lst
 *.o
 src/*.s
 *.dump
@@ -72,6 +73,14 @@ tools/agbcc
 *.lz
 *.fk
 data/banim/*.bin
+
+*.feimg1.bin
+*.feimg2.bin
+*.feimg3.bin
+
+*.fetsa1.bin
+*.fetsa2.bin
+*.fetsa3.bin
 
 # =========================
 # Dump Scripts Output
@@ -950,3 +959,9 @@ sound/songs/midi/*.s
 # Generated source files
 src/msg_data.c
 include/msg_data.h
+
+# Source files written in ASM
+!src/rom_header.s
+!src/crt0.s
+!src/m4a_1.s
+!src/libagbsyscall.s

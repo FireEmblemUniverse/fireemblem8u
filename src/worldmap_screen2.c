@@ -219,7 +219,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         }
     }
 
-    if (proc->unk_32_1)
+    if (proc->merge_next_node)
     {
         node = &(proc->nodeId[gWMNodeData]);
 
@@ -254,15 +254,15 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
     return;
 }
 
-ProcPtr sub_80BB9A4(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreenProc)
+ProcPtr StartGmNodeIconDisplay(ProcPtr parent, int chr, int palId, int unk, ProcPtr pScreenProc)
 {
-    struct GmNodeIconDisplayProc * proc = Proc_Start(gProcScr_GmNodeIconDisplay, parent);
+    struct GmNodeIconDisplayProc * proc = Proc_Start(ProcScr_GmNodeIconDisplay, parent);
 
     proc->chr = chr;
     proc->pal = palId;
     proc->unk_31 = unk;
     proc->pScreenProc = pScreenProc;
-    proc->unk_32_1 = 0;
+    proc->merge_next_node = false;
     proc->nodeId = 0;
 
     proc->ap = AP_Create(Sprite_08A97AEC, 11);
@@ -320,10 +320,10 @@ int sub_80BBA4C(int nodeId)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmNodeIconDisplay[] =
+struct ProcCmd CONST_DATA ProcScr_GmNodeIconDisplay[] =
 {
     PROC_NAME("GmapScreen"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapScreen2_Destruct),
 

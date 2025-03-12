@@ -9,12 +9,15 @@ enum game_ctrl_proc_lable {
     LGAMECTRL_TITLE_DIRECT = 4,
     LGAMECTRL_EXEC_SAVEMENU = 5,
 
-    LGAMECTRL_EXEC_BM = 7,
+    LGAMECTRL_EXEC_BM_EXT = 6,  /* Directly goto bmmap */
+    LGAMECTRL_EXEC_BM = 7,      /* Judge on game-start or game end */
 
     LGAMECTRL_POST_NORMAL_CHAPTER = 9,
     LGAMECTRL_POST_EXTRA_MAP = 10,
 
     LGAMECTRL_EXEC_BM_ = 15,
+
+    LGAMECTRL_EXEC_ENDING_SCENE = 17,
 
     LGAMECTRL_ERASE_SAVE = 18,
     LGAMECTRL_POST_TITLE_IDLE = 26
@@ -53,8 +56,8 @@ void sub_8009C5C(struct GameCtrlProc * proc);
 void GameCtrlStartExtraMap(ProcPtr proc);
 void sub_8009CC0(ProcPtr proc);
 void GameControl_PostChapterSwitch(struct GameCtrlProc*);
-void sub_8009D1C(struct GameCtrlProc *);
-void sub_8009D44(struct GameCtrlProc *);
+void GameCtrl_CheckNewGameAndBranch(struct GameCtrlProc *);
+void GameCtrl_CheckGameCompleteAndBranch(struct GameCtrlProc *);
 void GameControlHandlePostNormalOrExtraChapter(struct GameCtrlProc *);
 void GameControl_ChapterSwitch(struct GameCtrlProc *);
 void GameControl_CallPostChapterSaveMenu(struct GameCtrlProc *);

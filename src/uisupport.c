@@ -25,7 +25,11 @@
 #include "prepscreen.h"
 #include "uisupport.h"
 
-struct SupportScreenUnit* CONST_DATA sSupportScreenUnits = (void*)gStringBufferAlt;
+struct SupportScreenUnit * CONST_DATA sSupportScreenUnits = (void*)gBufPrep;
+
+EWRAM_OVERLAY(0) int sSupportScreenUnitCount = 0;
+EWRAM_OVERLAY(0) u16 gUnknown_020136F4[0xC00] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_02014EF4[0x2706] = {};
 
 u16 CONST_DATA gSprite_SupportScreenSuccessBox[] = {
     6,
@@ -339,7 +343,7 @@ void DrawSupportScreenText(void) {
     int perc;
     const char* str;
 
-    th = gUnknown_02013590;
+    th = &gPrepItemTexts[31];
 
     perc = GetTotalSupportCollection();
 
@@ -509,7 +513,7 @@ void SupportScreen_SetupGraphics(struct SupportScreenProc* proc) {
 
     StartMuralBackgroundExt(proc, 0, 18, 2, 0);
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     sub_80A0EC0((void*)proc);
@@ -1309,7 +1313,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
     LoadUiFrameGraphics();
     LoadObjUIGfx();
 
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     sub_80A221C();
     LoadIconPalettes(0xd);
 

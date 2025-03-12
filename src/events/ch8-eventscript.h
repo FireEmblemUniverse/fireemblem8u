@@ -7,7 +7,12 @@
 #include "EAstdlib.h"
 #include "uimenu.h"
 #include "fontgrp.h"
+#include "hardware.h"
+#include "uiutils.h"
+#include "bmitem.h"
+#include "bmbattle.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     MUSC(0x25)
@@ -16,8 +21,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_ORSON_CH5X)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa08)
     TEXTEND
     MUSCMID(0x7fff)
@@ -53,9 +57,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_TIRADO)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    SVAL(EVT_SLOT_3, 0xa0a)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_CASTLE_BRIGHT, 0xa0a)
     SVAL(EVT_SLOT_B, 0x100013)
     MOVE_1STEP(0x0, CHAR_EVT_POSITION_AT_SLOTB, FACING_LEFT)
     ENUN
@@ -91,8 +93,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa0c)
     TEXTEND
     REMA
@@ -126,10 +127,9 @@ CONST_DATA EventListScr EventScr_089F3124[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F318C[] = {
+CONST_DATA EventListScr EventScr_Ch8_EndingScene[] = {
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0x10)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa10)
     TEXTEND
     REMA
@@ -212,8 +212,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x5)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc02)
     TEXTEND
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
@@ -235,7 +234,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CURE
     REMOVEPORTRAITS
     FAWI(16)
-    BACG(0x6)
+    BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc03)
     TEXTEND
@@ -251,7 +250,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CLEE
     CLEN
     REMOVEPORTRAITS
-    BACG(0x6)
+    BACG(BG_SERAFEW_FLASHBACK)
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
@@ -268,8 +267,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    SVAL(EVT_SLOT_2, 0x5)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc05)
     TEXTEND
     REMA
@@ -279,27 +277,23 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
 
 CONST_DATA EventListScr EventScr_SplitMenu[] = {
     MUSC(0x31)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc06)
     TEXTEND
     FADI(16)
     REMA
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc07)
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc08)
     TEXTEND
     REMA
     MUSCMID(0x7fff)
     STAL(30)
     MUSC(0x2b)
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc09)
     TEXTEND
     MUSC(0x25)
@@ -309,13 +303,12 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     REMA
     CALL(EventScr_Ch8_TowerFall)
     REMOVEPORTRAITS
-    BACG(0xe)
+    BACG(BG_THRONE_NORMAL)
     FADU(4)
     TEXTSHOW(0xc0d)
     TEXTEND
     REMA
-    SVAL(EVT_SLOT_2, 0xe)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc0e)
     TEXTEND
     REMA
@@ -323,8 +316,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x2710)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     MUSC(0x29)
     TEXTSHOW(0xc0f)
     TEXTEND
@@ -355,24 +347,21 @@ LABEL(0x0)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_KYLE)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc10)
     TEXTEND
     GOTO(0x3)
 LABEL(0x1)
     CHECK_ALIVE(CHARACTER_KYLE)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc11)
     TEXTEND
     GOTO(0x3)
 LABEL(0x2)
     CHECK_ALIVE(CHARACTER_FORDE)
     BEQ(0x3, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc12)
     TEXTEND
 LABEL(0x3)
@@ -386,8 +375,7 @@ LABEL(0x3)
 
 CONST_DATA EventListScr EventScr_089F35FC[] = {
 LABEL(0x9)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc13)
     TEXTEND
     REMA
@@ -397,6 +385,108 @@ LABEL(0x9)
     REMU(CHARACTER_EIRIKA)
     ENDB
 };
+
+void CallRouteSplitMenu(ProcPtr proc)
+{
+    ClearBg0Bg1();
+    SetDispEnable(1, 1, 1, 1, 1);
+    SetTextFont(0);
+    InitSystemTextFont();
+    LoadUiFrameGraphics();
+    StartMenu(&MenuDef_RouteSplit, proc);
+}
+
+int MenuCommand_DrawRouteSplit(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    const char *str = GetStringFromIndex(menu_item->def->nameMsgId);
+
+    Text_SetParams(&menu_item->text, 0, TEXT_COLOR_SYSTEM_WHITE);
+    Text_DrawString(&menu_item->text, str);
+    PutText(
+        &menu_item->text,
+        TILEMAP_LOCATED(gBG0TilemapBuffer, menu_item->xTile + 1, menu_item->yTile)
+    );
+    ResetText();
+    return 0;
+}
+
+u8 Command_EirikaMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EIRIKA;
+    SetEventSlotC(0xC17);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+u8 Command_EphraimMode(struct MenuProc* menu, struct MenuItemProc* menu_item)
+{
+    gPlaySt.chapterModeIndex = CHAPTER_MODE_EPHRAIM;
+    SetEventSlotC(0xC18);
+    return MENU_ACT_CLEAR | MENU_ACT_SND6A | MENU_ACT_END | MENU_ACT_SKIPCURSOR;
+}
+
+void AutolevelSecondaryLord()
+{
+    u8 i;
+    struct BattleUnit bunit;
+    struct Unit *unit;
+
+    switch (gPlaySt.chapterModeIndex) {
+    case CHAPTER_MODE_EIRIKA:
+        unit = GetUnitFromCharId(CHARACTER_EPHRAIM);
+        break;
+
+    case CHAPTER_MODE_EPHRAIM:
+        unit = GetUnitFromCharId(CHARACTER_EIRIKA);
+        break;
+    }
+
+    /** 
+     * This may cause bug if unit is not initialized!
+     *
+     * if (!UNIT_IS_VALID(unit))
+     *     return;
+     */
+
+    if (unit->level < 15) {
+        u8 old_level = unit->level;
+        u8 tar_level = unit->level + 6;
+
+        if (tar_level < 10)
+            tar_level = 10;
+        if (tar_level > 15)
+            tar_level = 15;
+
+        while (old_level < tar_level) {
+            InitBattleUnit(&bunit, unit);
+            bunit.unit.exp += 100;
+            CheckBattleUnitLevelUp(&bunit);
+            UpdateUnitFromBattle(unit, &bunit);
+            old_level++;
+        }
+        unit->exp = 0;
+    }
+
+    for (i = 0; i < 8; i++) {
+        u8 rank = unit->ranks[i] - 1;
+        if (rank <= 0x45)
+            unit->ranks[i] = 0x47;
+    }
+
+    for (i = 0; i < 5; i++) {
+        if (0 == unit->items[i]) {
+            switch (gPlaySt.chapterModeIndex) {
+            case CHAPTER_MODE_EIRIKA:
+                UnitAddItem(unit, MakeNewItem(ITEM_LANCE_STEEL));
+                break;
+            
+            case CHAPTER_MODE_EPHRAIM:
+                UnitAddItem(unit, MakeNewItem(ITEM_SWORD_STEEL));
+                break;
+            }
+            break;
+        }
+    }
+}
 
 CONST_DATA struct MenuItemDef MenuItemDef_RouteSplit[] = {
     {

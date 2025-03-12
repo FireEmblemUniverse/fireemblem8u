@@ -34,6 +34,7 @@
 #include "event.h"
 #include "eventscript.h"
 #include "EAstdlib.h"
+#include "constants/backgrounds.h"
 #include "eventcall.h"
 #include "bmdifficulty.h"
 #include "bmfx.h"
@@ -756,39 +757,38 @@ u8 Event18_ColorFade(struct EventEngineProc * proc)
     u16 g = proc->pEventCurrent[4];
     u16 b = proc->pEventCurrent[5];
 
-    switch (subcode)
+    switch (subcode) {
+    case EVSUBCMD_STARTFADE:
+        EventStartFade();
+        return EVC_ADVANCE_YIELD;
+
+    case EVSUBCMD_ENDFADE:
+        EventEndFade();
+        return EVC_ADVANCE_YIELD;
+
+    case EVSUBCMD_FADECOLORS:
     {
-        case 0:
-            sub_80127C4();
-            return EVC_ADVANCE_YIELD;
+        s8 i;
 
-        case 1:
-            sub_8012824();
-            return EVC_ADVANCE_YIELD;
+        if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
+            speed = 0;
 
-        case 2:
+        mask = 0;
+
+        for (i = size; i > 0; --i)
         {
-            s8 i;
-
-            if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-                speed = 0;
-
-            mask = 0;
-
-            for (i = size; i > 0; --i)
-            {
-                s8 tmp = start;
-                mask = mask | (1 << tmp);
-                start = tmp + 1;
-            }
-
-            NewEventFadefx(speed, mask, r, g, b, proc);
-
-            return EVC_ADVANCE_YIELD;
+            s8 tmp = start;
+            mask = mask | (1 << tmp);
+            start = tmp + 1;
         }
 
-        default:
-            return EVC_ERROR;
+        NewEventFadefx(speed, mask, r, g, b, proc);
+
+        return EVC_ADVANCE_YIELD;
+    }
+
+    default:
+        return EVC_ERROR;
 
     } // switch (subcode)
 }
@@ -961,7 +961,7 @@ void sub_800E31C(struct EventEngineProc * proc, u16 stringIndex, u32 flags)
         int boxWidth, boxHeight;
         GetStringFromIndex(stringIndex);
 
-        sub_808AADC(StringInsertSpecialPrefixByCtrl(), &boxWidth, &boxHeight);
+        GetBoxDialogueSize(StringInsertSpecialPrefixByCtrl(), &boxWidth, &boxHeight);
 
         if (x == (u8)(-1))
             x = (224 - boxWidth) / 2 - 8;
@@ -1106,7 +1106,7 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800E51C
-u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
+u8 Event1D_TalkContinue(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1128,7 +1128,7 @@ u8 Event1C_TEXTCONT(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800E560
-u8 Event1D_TEXTEND(struct EventEngineProc * proc)
+u8 Event1D_WaitForLockTalk(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
@@ -1336,8 +1336,8 @@ u8 EventShowTextBgDirect(u8 mode, u16 bgIndex)
 
         case EVSUBCMD_REMOVEPORTRAITS:
             // Randomize background (for support viewers)
-            if (bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                bgIndex = NextRN_N(0x35);
+            if (bgIndex == BG_RANDOM)
+                bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -1585,8 +1585,8 @@ void sub_800EC50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                proc->bgIndex = NextRN_N(0x35);
+            if (proc->bgIndex == BG_RANDOM)
+                proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -1637,8 +1637,8 @@ void sub_800ED50(struct ConvoBackgroundFadeProc * proc)
             } // oh
 
         case 1:
-            if (proc->bgIndex == 0x37) // TODO: use an enum for convo backgrounds
-                proc->bgIndex = NextRN_N(0x35);
+            if (proc->bgIndex == BG_RANDOM)
+                proc->bgIndex = NextRN_N(BG_BLANK);
 
             // Loading Background Tile Graphics
 
@@ -1871,7 +1871,7 @@ u8 Event23_DisaleMapDisp(struct EventEngineProc * proc)
     if (!(proc->evStateBits & EV_STATE_GFXLOCKED))
     {
         BMapDispSuspend();
-        MU_AllDisable();
+        LockMus();
     }
 
     proc->evStateBits |= EV_STATE_GFXLOCKED;
@@ -1884,7 +1884,7 @@ u8 Event24_EnableMapDisp(struct EventEngineProc * proc)
     if (proc->evStateBits & EV_STATE_GFXLOCKED)
     {
         BMapDispResume();
-        MU_AllEnable();
+        ReleaseMus();
     }
 
     proc->evStateBits &= ~EV_STATE_GFXLOCKED;
@@ -2851,14 +2851,14 @@ u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y)
 {
     if (proc->evStateBits & EV_STATE_UNITCAM)
     {
-        if (Proc_Find(gProcScr_CamMove))
+        if (Proc_Find(ProcScr_CamMove))
             return FALSE; // Camera proc already exists
 
         if (EnsureCameraOntoPosition(proc, x, y))
             return FALSE; // Failed to start camera movement
     }
 
-    if (!MU_CanStart())
+    if (!CanStartMu())
         return FALSE; // No room to make MU for the moving unit
 
     return TRUE; // Yay!
@@ -3064,7 +3064,7 @@ u8 Event30_ENUN(struct EventEngineProc * proc)
 {
     if (EVENT_IS_SKIPPING(proc))
     {
-        MU_AllForceSetMaxMoveSpeed_();
+        SetMuMaxWalkSpeed_();
     }
 
     if (MuCtrExists() == 1)
@@ -3173,10 +3173,10 @@ u8 Event32_SpawnSingleUnit(struct EventEngineProc * proc)
     unitDef.items[2] = 0;
     unitDef.items[3] = 0;
 
-    unitDef.ai[0] = 0;
-    unitDef.ai[1] = 0;
-    unitDef.ai[2] = 0;
-    unitDef.ai[3] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_A] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_B] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_CONF_L] = 0;
+    unitDef.ai[UDEF_AIIDX_AI_CONF_H] = 0;
 
     LoadUnit_800F704(&unitDef, 0, 0, subcmd == 0xf);
 
@@ -3389,7 +3389,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEA:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
         {
@@ -3405,7 +3405,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEN:
-        MU_EndAll();
+        EndAllMus();
 
         for (i = FACTION_GREEN + 1; i < FACTION_RED; i++)
         {
@@ -3418,7 +3418,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
         break;
 
     case EVSUBCMD_CLEE:
-        MU_EndAll();
+        EndAllMus();
         for (i = FACTION_RED + 1; i < FACTION_PURPLE; i++)
         {
             struct Unit * it = GetUnit(i);
@@ -3433,12 +3433,12 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
     case EVSUBCMD_KILL:
         if (!EVENT_IS_SKIPPING(proc))
         {
-            struct MUProc * muProc;
+            struct MuProc * muProc;
 
             HideUnitSprite(unit);
             unit->state |= US_HIDDEN;
-            muProc = MU_Create(unit);
-            MU_SetDefaultFacing_Auto();
+            muProc = StartMu(unit);
+            SetAutoMuDefaultFacing();
             MU_StartDeathFade(muProc);
 
             return EVC_ADVANCE_YIELD;
@@ -3448,7 +3448,7 @@ u8 Event34_MessWithUnitState(struct EventEngineProc * proc)
 
     case EVSUBCMD_DISA_IF:
     {
-        s8 a = Proc_Find(gProcScr_MUDeathFade) != 0;
+        s8 a = Proc_Find(ProcScr_MuDeathFade) != 0;
         if (-a | a)
             return EVC_STOP_YIELD;
     }
@@ -3929,7 +3929,7 @@ void ScriptBattleDeamon(struct ScriptedBattleProc * proc)
     if (proc->lock == GetGameLock())
     {
         EventBattleReloadBmStatus();
-        Proc_SetMark(proc->evtproc, PROC_MARK_6);
+        Proc_SetMark(proc->evtproc, PROC_MARK_EVENT);
         Proc_Break(proc);
     }
 }
@@ -3982,7 +3982,7 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
             childProc = Proc_StartBlocking(ProcScr_ScriptBattleDeamon, proc);
             childProc->evtproc = proc;
             childProc->lock = GetGameLock();
-            Proc_SetMark(proc, PROC_MARK_7);
+            Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
         }
 
         StartEventBattle(unitA, unitB, isBallista, scriptted, weaponId, hits, -subcmd || subcmd);
@@ -4016,7 +4016,7 @@ void WaitEventPromoteDone(struct ProcEventPromote * proc)
     if (proc->lock == GetGameLock())
     {
         sub_8012324();
-        Proc_SetMark(proc->event_engine, PROC_MARK_6);
+        Proc_SetMark(proc->event_engine, PROC_MARK_EVENT);
         Proc_Break(proc);
     }
 
@@ -4043,7 +4043,7 @@ u8 Event40_PromoteUnit(struct EventEngineProc * proc)
     childProc->event_engine = proc;
     childProc->lock = GetGameLock();
 
-    Proc_SetMark(proc, PROC_MARK_7);
+    Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
 
     unit = GetUnitStructFromEventParameter(pid);
     SetUnitStatus(unit, 0);
@@ -4307,7 +4307,7 @@ LABEL(0x1)
 CONST_DATA EventListScr EventScr_SupportViewerConversation[] = {
     EVBIT_MODIFY(0x3)
     REMOVEPORTRAITS
-    BACG(0x37)
+    BACG(BG_RANDOM)
     FADU(16)
     TEXTSHOW(0xffff)
     TEXTEND

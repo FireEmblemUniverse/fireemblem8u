@@ -49,15 +49,15 @@
 
 extern u16 gUnknown_085A0D4C[];
 
-extern s8 gUnknown_080D7C04[4][2];
-
 extern u8 gSummonConfig[4][2];
+
+EWRAM_OVERLAY(0) struct Font gItemSelectMenuFont = {};
 
 struct ProcCmd CONST_DATA gProcScr_BackToUnitMenu[] = {
     PROC_CALL(LockGame),
 
     PROC_CALL(BackToUnitMenu_CamWatch),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(BackToUnitMenu_RestartMenu),
 
@@ -72,7 +72,7 @@ struct ProcCmd CONST_DATA gProcScr_0859B630[] = {
     PROC_CALL(sub_8022E38),
 
     PROC_WHILE_EXISTS(gProcScr_BKSEL),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(sub_8022E54),
 
@@ -119,13 +119,13 @@ u8 MapMenu_UnitCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 }
 
 u8 MapMenu_OptionsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    Proc_Start(gProcScr_Config1, PROC_TREE_3);
+    Proc_Start(ProcScr_Config_Field, PROC_TREE_3);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 u8 sub_802263C(void) {
-    if (GetBattleMapKind() == 1) {
+    if (GetBattleMapKind() == BATTLEMAP_KIND_DUNGEON) {
         return MENU_NOTSHOWN;
     }
 
@@ -133,7 +133,7 @@ u8 sub_802263C(void) {
 }
 
 u8 MapMenu_StatusCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    NewChapterStatusScreen(NULL);
+    StartChapterStatusScreen(NULL);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -219,7 +219,7 @@ void BackToUnitMenu_CamWatch(ProcPtr proc) {
 
         int y = gActiveUnit->yPos;
 
-        Proc_EndEach(gProcScr_CamMove);
+        Proc_EndEach(ProcScr_CamMove);
 
         if (GetCameraAdjustedY(y << 4) > gBmSt.cameraMax.y) {
             y = (gBmSt.cameraMax.y >> 4) + 2;
@@ -988,7 +988,7 @@ int Menu_SwitchOut_DoNothing(struct MenuProc* menu, struct MenuItemProc* menuIte
 }
 
 void sub_80234AC(int x, int y) {
-    InitTextFont(&gUnknown_02002774, (void*)VRAM + 0x4000, 0x200, 0);
+    InitTextFont(&gItemSelectMenuFont, (void*)VRAM + 0x4000, 0x200, 0);
 
     TileMap_CopyRect(gBG0TilemapBuffer + 0x2B, gUiTmScratchA, 9, 19);
     TileMap_CopyRect(gBG1TilemapBuffer + 0x2B, gUiTmScratchB, 9, 19);
@@ -1554,72 +1554,94 @@ u8 PickSelection_OnSelect(ProcPtr proc, struct SelectTarget* target) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
-s8 sub_8023EF0(u8 unitId) {
+// clang-format off
+
+const s8 gSupplyAdjacentPosLut[4][2] =
+{
+    { -1,  0, },
+    {  0, -1, },
+    { +1,  0, },
+    {  0, +1, },
+};
+
+// clang-format on
+
+//! FE8U = 0x08023EF0
+bool IsAdjacentForSupply(u8 pid)
+{
     int i;
-    s8* iter;
+    const s8 * iter;
 
     int xUnit = gActiveUnit->xPos;
     int yUnit = gActiveUnit->yPos;
 
-    for (i = 0, iter = gUnknown_080D7C04[i]; i < 4; iter += 2, i++) {
-        int x, y;
-        struct Unit* unit;
-        u8 other;
+    for (i = 0, iter = gSupplyAdjacentPosLut[i]; i < 4; iter += 2, i++)
+    {
+        struct Unit * unit;
 
-        x = xUnit + iter[0];
-        y = yUnit + iter[1];
+        int x = xUnit + iter[0];
+        int y = yUnit + iter[1];
 
-        other = gBmMapUnit[y][x];
+        u8 other = gBmMapUnit[y][x];
 
-        if (other & 0x80) {
+        if (other & FACTION_RED)
+        {
             continue;
         }
 
         unit = GetUnit(other);
 
-        if (!unit) {
+        if (!unit)
+        {
             continue;
         }
 
-        if (unit->pCharacterData->number == unitId) {
-            return MENU_ENABLED;
+        if (unit->pCharacterData->number == pid)
+        {
+            return true;
         }
-
     }
 
-    return 0;
+    return false;
 }
 
-u8 SupplyUsability(const struct MenuItemDef* def, int number) {
-    int uId;
+//! FE8U = 0x08023F64
+u8 SupplyUsability(const struct MenuItemDef * def, int number)
+{
+    int pid;
 
-    if (!HasConvoyAccess()) {
+    if (!HasConvoyAccess())
+    {
         return MENU_NOTSHOWN;
     }
 
-    if (gActiveUnit->pClassData->number == CLASS_PHANTOM) {
+    if (gActiveUnit->pClassData->number == CLASS_PHANTOM)
+    {
         return MENU_NOTSHOWN;
     }
 
-    switch (gPlaySt.chapterModeIndex) {
-        case 2:
-            uId = CHARACTER_EIRIKA;
+    switch (gPlaySt.chapterModeIndex)
+    {
+        case CHAPTER_MODE_EIRIKA:
+            pid = CHARACTER_EIRIKA;
             break;
 
-        case 3:
-            uId = CHARACTER_EPHRAIM;
+        case CHAPTER_MODE_EPHRAIM:
+            pid = CHARACTER_EPHRAIM;
             break;
 
         default:
-            uId = CHARACTER_EIRIKA;
+            pid = CHARACTER_EIRIKA;
             break;
     }
 
-    if (gActiveUnit->pCharacterData->number == uId) {
+    if (gActiveUnit->pCharacterData->number == pid)
+    {
         return MENU_ENABLED;
     }
 
-    if (sub_8023EF0(uId)) {
+    if (IsAdjacentForSupply(pid))
+    {
         return MENU_ENABLED;
     }
 
@@ -2182,8 +2204,8 @@ u8 RideCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     gActionData.unitActionType = UNIT_ACTION_RIDE_BALLISTA;
     RideBallista(gActiveUnit);
 
-    MU_EndAll();
-    MU_Create(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -2205,8 +2227,8 @@ u8 ExitCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     gActionData.unitActionType = UNIT_ACTION_EXIT_BALLISTA;
     TryRemoveUnitFromBallista(gActiveUnit);
 
-    MU_EndAll();
-    MU_Create(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -2373,7 +2395,7 @@ u8 ItemMenuHelpBox(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 u8 MapMenu_IsRecordsCommandAvailable(const struct MenuItemDef* def, int number) {
     u8 chapterId;
 
-    if (GetBattleMapKind() != 1) {
+    if (GetBattleMapKind() != BATTLEMAP_KIND_DUNGEON) {
         return MENU_NOTSHOWN;
     }
 
@@ -2404,7 +2426,7 @@ u8 MapMenu_RecordsCommand(struct MenuProc* menu, struct MenuItemProc* menuItem) 
 }
 
 u8 MapMenu_IsRetreatCommandAvailable(const struct MenuItemDef* def, int number) {
-    if (GetBattleMapKind() == 0) {
+    if (GetBattleMapKind() == BATTLEMAP_KIND_STORY) {
         return MENU_NOTSHOWN;
     }
 

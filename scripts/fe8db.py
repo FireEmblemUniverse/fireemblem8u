@@ -940,3 +940,71 @@ WM_PATH_IDX = {
 	0x1E: "WM_PATH_1E",
 	0x1F: "WM_PATH_1F",
 }
+
+TRAP_TYPE_IDX = {
+    0 : "TRAP_NONE",
+    1 : "TRAP_BALLISTA",
+    2 : "TRAP_OBSTACLE",
+    3 : "TRAP_MAPCHANGE",
+    4 : "TRAP_FIRETILE",
+    5 : "TRAP_GAS",
+    6 : "TRAP_MAPCHANGE2",
+    7 : "TRAP_LIGHTARROW",
+    8 : "TRAP_8",
+    9 : "TRAP_9",
+    10 : "TRAP_TORCHLIGHT",
+    11 : "TRAP_MINE",
+    12 : "TRAP_GORGON_EGG",
+    13 : "TRAP_LIGHT_RUNE",
+}
+
+_TILE_COMMANDS = {
+	0x00: "TILE_COMMAND_NONE",
+
+	0x10: "TILE_COMMAND_VISIT",
+	0x11: "TILE_COMMAND_SEIZE",
+	0x12: "TILE_COMMAND_DOOR",
+	0x13: "TILE_COMMAND_BRIDGE",
+	0x14: "TILE_COMMAND_CHEST",
+	0x15: "TILE_COMMAND_15",
+	0x16: "TILE_COMMAND_ARMORY",
+	0x17: "TILE_COMMAND_VENDOR",
+	0x18: "TILE_COMMAND_SECRET",
+	0x19: "TILE_COMMAND_SHOP_UNK",
+
+    0x20: "TILE_COMMAND_20",
+}
+
+def TILE_COMMANDS(idx):
+    if idx in _TILE_COMMANDS:
+        return _TILE_COMMANDS[idx]
+
+    return f"0x{idx:02X}"
+
+_EVENT_FLAGS = {
+	# 0x00: "EVFLAG_ALWAYS_FALSE",
+
+    0x01: "EVFLAG_BATTLE_QUOTES",
+    0x02: "EVFLAG_DEFEAT_BOSS",
+    0x03: "EVFLAG_WIN",
+    0x04: "EVFLAG_BGM_CHANGE",
+    0x05: "EVFLAG_5",
+    0x06: "EVFLAG_DEFEAT_ALL",
+
+    101: "EVFLAG_GAMEOVER",
+    102: "EVFLAG_OBJWINDOW_DISABLE",
+
+    132: "EVFLAG_HIDE_BLINKING_ICON",
+}
+
+def EVENT_FLAGS(flag):
+    if flag in _EVENT_FLAGS:
+        return _EVENT_FLAGS[flag]
+
+    if flag >= 7 and flag <= 40:
+        return f"EVFLAG_TMP({flag})"
+
+    if flag >= 103 and flag <= 113:
+        return f"EVFLAG_EXTRA_UNIT({flag - 103})"
+
+    return flag

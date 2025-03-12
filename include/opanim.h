@@ -35,6 +35,7 @@ struct OpAnimSt {
 };
 
 extern struct OpAnimSt gOpAnimSt;
+// #define gOpAnimSt ((struct OpAnimSt *)gGenericBuffer);
 
 struct ProcOpAnim {
     PROC_HEADER;
@@ -46,12 +47,17 @@ struct ProcOpAnim {
     /* 32 */ s16 unk32;
     /* 34 */ u16 unk34;
     /* 36 */ u16 unk36;
-    /* 38 */ s16 unk38;
-    /* 3A */ s16 unk3A;
-    /* 3C */ s16 unk3C;
-    /* 3E */ s16 unk3E;
-    /* 40 */ STRUCT_PAD(0x40, 0x46);
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ s16 unk44;
     /* 46 */ u8 unk46;
+    /* 47 */ u8 unk47;
+    /* 48 */ u16 * unk48;
+    /* 4C */ u16 * unk4C;
 };
 
 struct ProcOpAnimHS {
@@ -83,6 +89,15 @@ struct Proc08AA7034 {
 
     /* 29 */ STRUCT_PAD(0x29, 0x4C);
     /* 4C */ s16 timer;
+};
+
+// TODO: Maybe the struct above and below can be combined?
+
+struct ProcOpAnimBlend
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ s16 unk4C;
 };
 
 extern CONST_DATA u16 Obj_OpAnimEphEirikaName[];
@@ -117,7 +132,7 @@ extern CONST_DATA struct ProcCmd ProcScr_OpAnimMergeBG[];
 // extern ??? gUnknown_08AA715C
 // extern ??? gUnknown_08AA7194
 
-extern CONST_DATA u16 * pal_08AF47F0[];
+extern CONST_DATA u16 * Pal_OpAnimShiningRing[];
 extern CONST_DATA u8 img_opanim1[];
 extern CONST_DATA u8 img_opanim2[];
 extern CONST_DATA u8 img_opanim3[];
@@ -320,17 +335,195 @@ extern CONST_DATA u16 tsa_opanim99[];
 extern CONST_DATA u16 tsa_opanim100[];
 extern u16 pal_08B103D8[];
 
+extern u8 Img_OpAnimGenericCharacterBG[];
+extern u8 Tsa_OpAnimGenericCharacterBG[];
+
+extern u8 Img_OpAnimJoshua[];
+extern u8 Img_OpAnimJoshua2[];
+extern u8 gUnknown_08ACC340[];
+extern u8 Tsa_OpAnimJoshua2[];
+
+extern u8 Img_OpAnimShiningRing[];
+extern u8 Tsa_OpAnimShiningRing[];
+
+extern struct ProcCmd gUnknown_08AA705C[];
+extern struct ProcCmd gUnknown_08AA707C[];
+
+extern u8 Img_OpAnimTethys[];
+extern u8 Tsa_OpAnimTethys[];
+
+extern u8 Img_OpAnimTethys2[];
+extern u8 gUnknown_08ADBC0C[];
+
+extern u16 pal_08B103D8[];
+
+extern u16 gUnknown_08ADBE78[];
+
+extern u8 Img_OpAnimFaceRennac[];
+extern u16 Pal_OpAnimFaceRennac[];
+extern u8 Img_OpAnimFaceRennacShadow[];
+
+extern u8 Img_OpAnimFaceLArachel[];
+extern u16 Pal_OpAnimFaceLArachel[];
+extern u8 Img_OpAnimFaceLArachelShadow[];
+
+extern u8 Img_OpAnimFaceDozla[];
+extern u16 Pal_OpAnimFaceDozla[];
+extern u8 Img_OpAnimFaceDozlaShadow[];
+
+extern u8 Img_OpAnimFaceEwan[];
+extern u16 Pal_OpAnimFaceEwan[];
+extern u8 Img_OpAnimFaceEwanShadow[];
+
+extern u8 Img_OpAnimFaceTethys[];
+extern u16 Pal_OpAnimFaceTethys[];
+extern u8 Img_OpAnimFaceTethysShadow[];
+
+extern u8 Img_OpAnimFaceGerik[];
+extern u16 Pal_OpAnimFaceGerik[];
+extern u8 Img_OpAnimFaceGerikShadow[];
+
+extern u8 Img_OpAnimFaceMarisa[];
+extern u16 Pal_OpAnimFaceMarisa[];
+extern u8 Img_OpAnimFaceMarisaShadow[];
+
+extern u8 Img_OpAnimFaceGarcia[];
+extern u16 Pal_OpAnimFaceGarcia[];
+extern u8 Img_OpAnimFaceGarciaShadow[];
+
+extern u8 Img_OpAnimFaceRoss[];
+extern u16 Pal_OpAnimFaceRoss[];
+extern u8 Img_OpAnimFaceRossShadow[];
+
+extern u8 Img_OpAnimFaceVanessa[];
+extern u16 Pal_OpAnimFaceVanessa[];
+extern u8 Img_OpAnimFaceVanessaShadow[];
+
+extern u8 Img_OpAnimFaceTana[];
+extern u16 Pal_OpAnimFaceTana[];
+extern u8 Img_OpAnimFaceTanaShadow[];
+
+extern u8 Img_OpAnimFaceSyrene[];
+extern u16 Pal_OpAnimFaceSyrene[];
+extern u8 Img_OpAnimFaceSyreneShadow[];
+
+extern u8 Img_OpAnimFaceGilliam[];
+extern u16 Pal_OpAnimFaceGilliam[];
+extern u8 Img_OpAnimFaceGilliamShadow[];
+
+extern u8 Img_OpAnimFaceInnes[];
+extern u16 Pal_OpAnimFaceInnes[];
+extern u8 Img_OpAnimFaceInnesShadow[];
+
+extern u8 Img_OpAnimFaceMoulder[];
+extern u16 Pal_OpAnimFaceMoulder[];
+extern u8 Img_OpAnimFaceMoulderShadow[];
+
+extern u8 Img_OpAnimFaceColm[];
+extern u16 Pal_OpAnimFaceColm[];
+extern u8 Img_OpAnimFaceColmShadow[];
+
+extern u8 Img_OpAnimFaceNeimi[];
+extern u16 Pal_OpAnimFaceNeimi[];
+extern u8 Img_OpAnimFaceNeimiShadow[];
+
+extern u8 Img_OpAnimFaceKnoll[];
+extern u16 Pal_OpAnimFaceKnoll[];
+extern u8 Img_OpAnimFaceKnollShadow[];
+
+extern u8 Img_OpAnimFaceNatasha[];
+extern u16 Pal_OpAnimFaceNatasha[];
+extern u8 Img_OpAnimFaceNatashaShadow[];
+
+extern u8 Img_OpAnimFaceCormag[];
+extern u16 Pal_OpAnimFaceCormag[];
+extern u8 Img_OpAnimFaceCormagShadow[];
+
+extern u8 Img_OpAnimFaceAmelia[];
+extern u16 Pal_OpAnimFaceAmelia[];
+extern u8 Img_OpAnimFaceAmeliaShadow[];
+
+extern u8 Img_OpAnimFaceLute[];
+extern u16 Pal_OpAnimFaceLute[];
+extern u8 Img_OpAnimFaceLuteShadow[];
+
+extern u8 Img_OpAnimFaceArtur[];
+extern u16 Pal_OpAnimFaceArtur[];
+extern u8 Img_OpAnimFaceArturShadow[];
+
+extern u8 Img_OpAnimFaceDuessel[];
+extern u16 Pal_OpAnimFaceDuessel[];
+extern u8 Img_OpAnimFaceDuesselShadow[];
+
+extern u8 Img_OpAnimFaceSelena[];
+extern u16 Pal_OpAnimFaceSelena[];
+extern u8 Img_OpAnimFaceSelenaShadow[];
+
+extern u8 Img_OpAnimFaceGlen[];
+extern u16 Pal_OpAnimFaceGlen[];
+extern u8 Img_OpAnimFaceGlenShadow[];
+
+extern u8 Img_OpAnimFaceKyle[];
+extern u16 Pal_OpAnimFaceKyle[];
+extern u8 Img_OpAnimFaceKyleShadow[];
+
+extern u8 Img_OpAnimFaceFranz[];
+extern u16 Pal_OpAnimFaceFranz[];
+extern u8 Img_OpAnimFaceFranzShadow[];
+
+extern u8 Img_OpAnimFaceForde[];
+extern u16 Pal_OpAnimFaceForde[];
+extern u8 Img_OpAnimFaceFordeShadow[];
+
+extern u8 Img_OpAnimFaceSeth[];
+extern u16 Pal_OpAnimFaceSeth[];
+extern u8 Img_OpAnimFaceSethShadow[];
+
+extern u8 Img_OpAnimFaceValter[];
+extern u16 Pal_OpAnimFaceValter[];
+extern u8 Img_OpAnimFaceValterShadow[];
+
+extern u8 Img_OpAnimFaceRiev[];
+extern u16 Pal_OpAnimFaceRiev[];
+extern u8 Img_OpAnimFaceRievShadow[];
+
+extern u8 Img_OpAnimFaceCaellach[];
+extern u16 Pal_OpAnimFaceCaellach[];
+extern u8 Img_OpAnimFaceCaellachShadow[];
+
+extern u8 Img_OpAnimFaceLyon[];
+extern u16 Pal_OpAnimFaceLyon[];
+extern u8 Img_OpAnimFaceLyonShadow[];
+
+extern u8 Img_OpAnimFaceVigarde[];
+extern u16 Pal_OpAnimFaceVigarde[];
+extern u8 Img_OpAnimFaceVigardeShadow[];
+
+extern u16 Pal_OpAnimTethys[];
+
+extern u8 Tsa_OpAnimShiningRingBlinking[];
+
+extern u16 gUnknown_08AA709C[];
+extern u16 gUnknown_08AA70BC[];
+extern u16 gUnknown_08AA70DC[];
+extern u16 gUnknown_08AA70EA[];
+extern u16 gUnknown_08AA7116[];
+extern u16 gUnknown_08AA712A[];
+extern u16 gUnknown_08AA715C[];
+
+extern u16 gUnknown_08AA7194[];
+
 void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
 void OpAnimfxTerminatorMain(struct Proc * proc);
 void NewOpAnimfxTerminator(ProcPtr parent);
-void EndOpAnimfxTerminator(ProcPtr parent);
+void EndOpAnimfxTerminator(void);
 void CopyToPalOpAnim(const void * src, int offset, int size);
 void CopyFirstPalDirectly(const u16 * src, u16 * dst);
 void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
 void ClearFirstPalDirectly(u16 * dst);
-void TsaModifyFirstPalMaybe(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C689C(s16 end, s16 start, u8 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C69B0(u16 *, int, u16);
+void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void sub_80C689C(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void sub_80C69B0(u16 *, u16, u16);
 void OpAnimInit(struct ProcOpAnim * proc);
 void OpAnimAllBlack(struct ProcOpAnimFadeIn * proc);
 void OpAnimFadeInMain(struct ProcOpAnimFadeIn * proc);

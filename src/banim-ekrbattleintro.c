@@ -21,7 +21,7 @@ EWRAM_DATA s16 gBanimBG = 0;
 EWRAM_DATA s16 gEkrInitialHitSide = 0;
 EWRAM_DATA s16 gEkrSnowWeather = 0;
 EWRAM_DATA s16 gBanimValid[2] = {0};
-EWRAM_DATA s16 gEkrInitialPosition[2] = {0};
+EWRAM_DATA s16 gBanimPositionIsEnemy[2] = {0};
 EWRAM_DATA u16 gBanimIdx_bak[2] = {0};
 EWRAM_DATA s16 gBanimUniquePal[2] = {0};
 EWRAM_DATA s16 gBanimFactionPal[2] = {0};
@@ -842,7 +842,7 @@ void EkrBaseAppearMain(struct ProcEkrIntroWindow * proc)
     BG_SetPosition(BG_2, 0, iy);
 }
 
-static inline s16 GetPosFunc(int faction1, int faction2)
+static inline s16 GetBanimAllyPosition(int faction1, int faction2)
 {
     int pos = EKR_POS_L;
     if (GetBanimLinkArenaFlag() != true)
@@ -899,7 +899,7 @@ bool PrepareBattleGraphicsMaybe(void)
         bu1 = gpEkrBattleUnitLeft = &gBattleActor;
         bu2 = gpEkrBattleUnitRight = &gBattleTarget;
 
-        gEkrInitialPosition[POS_L] = gEkrInitialPosition[POS_R] = 0;
+        gBanimPositionIsEnemy[POS_L] = gBanimPositionIsEnemy[POS_R] = 0;
         gBanimValid[EKR_POS_R] = gBanimValid[EKR_POS_L] = true;
     }
     else
@@ -919,13 +919,13 @@ bool PrepareBattleGraphicsMaybe(void)
 
         gBanimValid[EKR_POS_L] = gBanimValid[EKR_POS_R] = true;
 
-        if (EKR_POS_R == GetPosFunc(faction1, faction2))
+        if (EKR_POS_R == GetBanimAllyPosition(faction1, faction2))
         {
             bu1 = gpEkrBattleUnitLeft = &gBattleTarget;
             bu2 = gpEkrBattleUnitRight = &gBattleActor;
 
-            gEkrInitialPosition[POS_L] = true;
-            gEkrInitialPosition[POS_R] = false;
+            gBanimPositionIsEnemy[POS_L] = true;
+            gBanimPositionIsEnemy[POS_R] = false;
 
             if (char_cnt == 1)
                 gBanimValid[EKR_POS_L] = false;
@@ -935,8 +935,8 @@ bool PrepareBattleGraphicsMaybe(void)
             bu1 = gpEkrBattleUnitLeft = &gBattleActor;
             bu2 = gpEkrBattleUnitRight = &gBattleTarget;
 
-            gEkrInitialPosition[POS_L] = false;
-            gEkrInitialPosition[POS_R] = true;
+            gBanimPositionIsEnemy[POS_L] = false;
+            gBanimPositionIsEnemy[POS_R] = true;
 
             if (char_cnt == 1)
                 gBanimValid[EKR_POS_R] = false;

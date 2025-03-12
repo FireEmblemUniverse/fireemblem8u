@@ -31,8 +31,6 @@ struct ProcEkrUnitMainMini
     /* 5C */ void * unk_5C;
 };
 
-void sub_805AE58(void *);
-
 //! FE8U = 0x0805A3DC
 void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 {
@@ -246,7 +244,7 @@ void sub_805A5A8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805A60C
-void sub_805A60C(struct AnimBuffer * pAnimBuf)
+void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
 {
     u32 modeA;
     u32 configA;
@@ -358,8 +356,6 @@ void sub_805A60C(struct AnimBuffer * pAnimBuf)
     EnablePaletteSync();
 
     pAnimBuf->unk_2C = 0;
-
-    return;
 }
 
 //! FE8U = 0x0805A7B4
@@ -620,7 +616,7 @@ struct ProcCmd CONST_DATA ProcScr_ekrUnitMainMini[] =
 void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf)
 {
     struct ProcEkrUnitMainMini * proc = Proc_Start(ProcScr_ekrUnitMainMini, PROC_TREE_4);
-    sub_805A60C(pAnimBuf);
+    InitMainMiniAnim(pAnimBuf);
 
     proc->unk_5C = pAnimBuf;
 
@@ -667,38 +663,49 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
     s16 oam2Pal;
     u16 oam2;
 
-    a = &battle_terrain_table[buf->unk00];
-    b = &battle_terrain_table[buf->unk06];
+    a = &battle_terrain_table[buf->terrain_l];
+    b = &battle_terrain_table[buf->terrain_r];
 
-    if (buf->unk00 != -1)
+    if (buf->terrain_l != -1)
     {
         LZ77UnCompWram(a->tileset, buf->unk20);
     }
 
-    if (buf->unk06 != -1)
+    if (buf->terrain_r != -1)
     {
         LZ77UnCompWram(b->tileset, buf->unk20 + 0x1000);
     }
 
-    switch (buf->unk0C)
-    {
-        case 0:
-        case 4:
-            vramA = buf->unk20;
-            vramB = buf->unk20 + 0x1000;
-            break;
+    switch (buf->distance) {
+    case 0:
+    case 4:
+        vramA = buf->unk20;
+        vramB = buf->unk20 + 0x1000;
+        break;
 
-        case 1:
-        case 2:
-        case 3:
-        default:
-            vramA = buf->unk20 + 0x800;
-            vramB = buf->unk20 + 0x1800;
-            break;
+    case 1:
+    case 2:
+    case 3:
+    default:
+        vramA = buf->unk20 + 0x800;
+        vramB = buf->unk20 + 0x1800;
+        break;
     }
 
     palA = a->palette;
     palB = b->palette;
+
+    switch (buf->unk0E) {
+    case -1:
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+        break;
+
+    default:
+        break;
+    }
 
     if (buf->unk0E != -1)
     {
@@ -706,13 +713,13 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
         {
             if (buf->unk0E < 4)
             {
-                int vram = ((buf->unk04 + 0x40) * 0x20 + 0x6000000);
+                int vram = ((buf->chr_l + 0x40) * 0x20 + 0x6000000);
                 RegisterDataMove(vramA, (void *)(buf->unk1C + vram), 0x800);
-                vram = (buf->unk0A * 0x20 + 0x6000000);
+                vram = (buf->chr_r * 0x20 + 0x6000000);
                 RegisterDataMove(vramB, (void *)(buf->unk1C + vram), 0x800);
 
-                CpuFastCopy(palA, gPaletteBuffer + buf->unk02 * 0x10, 0x20);
-                CpuFastCopy(palB, gPaletteBuffer + buf->unk08 * 0x10, 0x20);
+                CpuFastCopy(palA, gPaletteBuffer + buf->pal_l * 0x10, 0x20);
+                CpuFastCopy(palB, gPaletteBuffer + buf->pal_r * 0x10, 0x20);
 
                 EnablePaletteSync();
                 sub_805AE58(buf);
@@ -721,125 +728,104 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
     }
     else
     {
-        if (buf->unk00 != -1)
+        if (buf->terrain_l != -1)
         {
-            RegisterDataMove(vramA, (void *)(buf->unk1C + buf->unk04 * 0x20), 0x800);
-            CpuFastCopy(palA, buf->unk02 * 0x10 + gPaletteBuffer + 0x100, 0x20);
+            RegisterDataMove(vramA, (void *)(buf->unk1C + buf->chr_l * 0x20), 0x800);
+            CpuFastCopy(palA, buf->pal_l * 0x10 + gPaletteBuffer + 0x100, 0x20);
         }
 
-        if (buf->unk06 != -1)
+        if (buf->terrain_r != -1)
         {
-            RegisterDataMove(vramB, (void *)(buf->unk1C + buf->unk0A * 0x20), 0x800);
-            CpuFastCopy(palB, buf->unk08 * 0x10 + gPaletteBuffer + 0x100, 0x20);
+            RegisterDataMove(vramB, (void *)(buf->unk1C + buf->chr_r * 0x20), 0x800);
+            CpuFastCopy(palB, buf->pal_r * 0x10 + gPaletteBuffer + 0x100, 0x20);
         }
 
         EnablePaletteSync();
     }
 
-    switch (buf->unk0E)
-    {
-        case 0:
-            BG_EnableSyncByMask(BG0_SYNC_BIT);
-            return;
+    switch (buf->unk0E) {
+    case 0:
+        BG_EnableSyncByMask(BG0_SYNC_BIT);
+        return;
 
-        case 1:
-            BG_EnableSyncByMask(BG1_SYNC_BIT);
-            return;
+    case 1:
+        BG_EnableSyncByMask(BG1_SYNC_BIT);
+        return;
 
-        case 2:
-            BG_EnableSyncByMask(BG2_SYNC_BIT);
-            return;
+    case 2:
+        BG_EnableSyncByMask(BG2_SYNC_BIT);
+        return;
 
-        case 3:
-            BG_EnableSyncByMask(BG3_SYNC_BIT);
-            return;
+    case 3:
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
+        return;
 
-        case -1:
-            buf->proc14 = NULL;
-            buf->proc18 = NULL;
+    case -1:
+        buf->proc14 = NULL;
+        buf->proc18 = NULL;
 
-            if (buf->unk06 != -1)
-            {
-                switch (buf->unk0C)
-                {
-                    case 0:
-                    case 4:
-                    {
-                        oam2Pal = buf->unk08;
-                        oam2 = (oam2Pal << 0xc) | buf->unk0A | OAM2_LAYER(3);
-                        buf->proc18 = NewEkrsubAnimeEmulator(0xa8, 0x68, gUnknown_085C73B8, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+        if (buf->terrain_r != -1)
+        {
+            switch (buf->distance) {
+            case 0:
+            case 4:
+                oam2Pal = buf->pal_r;
+                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
+                buf->proc18 = NewEkrsubAnimeEmulator(0xa8, 0x68, AnimScr_EkrMainMini_L_Close, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 1:
-                    {
-                        oam2Pal = buf->unk08;
-                        oam2 = (oam2Pal << 0xc) | buf->unk0A | OAM2_LAYER(3);
-                        buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, gUnknown_085C72AC, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+            case 1:
+                oam2Pal = buf->pal_r;
+                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
+                buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 2:
-                    {
-                        oam2Pal = buf->unk08;
-                        oam2 = (oam2Pal << 0xc) | buf->unk0A | OAM2_LAYER(3);
-                        buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, gUnknown_085C72AC, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+            case 2:
+                oam2Pal = buf->pal_r;
+                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
+                buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 3:
-                    {
-                        oam2Pal = buf->unk08;
-                        oam2 = (oam2Pal << 0xc) | buf->unk0A | OAM2_LAYER(3);
-                        buf->proc18 = NewEkrsubAnimeEmulator(0x80, 0x68, gUnknown_085C72AC, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
-                }
+            case 3:
+                oam2Pal = buf->pal_r;
+                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
+                buf->proc18 = NewEkrsubAnimeEmulator(0x80, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                break;
             }
+        }
 
-            if ((buf->unk00 != -1))
-            {
-                switch (buf->unk0C)
-                {
-                    case 0:
-                    case 4:
-                    {
-                        oam2Pal = buf->unk02;
-                        oam2 = (oam2Pal << 0xc) | buf->unk04 | OAM2_LAYER(3);
-                        buf->proc14 = NewEkrsubAnimeEmulator(0x48, 0x68, gUnknown_085C7438, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+        if ((buf->terrain_l != -1))
+        {
+            switch (buf->distance) {
+            case 0:
+            case 4:
+                oam2Pal = buf->pal_l;
+                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
+                buf->proc14 = NewEkrsubAnimeEmulator(0x48, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 1:
-                    {
-                        oam2Pal = buf->unk02;
-                        oam2 = (oam2Pal << 0xc) | buf->unk04 | OAM2_LAYER(3);
-                        buf->proc14 = NewEkrsubAnimeEmulator(0x20, 0x68, gUnknown_085C7338, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+            case 1:
+                oam2Pal = buf->pal_l;
+                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
+                buf->proc14 = NewEkrsubAnimeEmulator(0x20, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 2:
-                    {
-                        oam2Pal = buf->unk02;
-                        oam2 = (oam2Pal << 0xc) | buf->unk04 | OAM2_LAYER(3);
-                        buf->proc14 = NewEkrsubAnimeEmulator(0x40, 0x68, gUnknown_085C7338, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
+            case 2:
+                oam2Pal = buf->pal_l;
+                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
+                buf->proc14 = NewEkrsubAnimeEmulator(0x40, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
+                break;
 
-                    case 3:
-                    {
-                        oam2Pal = buf->unk02;
-                        oam2 = (oam2Pal << 0xc) | buf->unk04 | OAM2_LAYER(3);
-                        buf->proc14 = NewEkrsubAnimeEmulator(0x78, 0x68, gUnknown_085C7438, 2, oam2, 0, PROC_TREE_4);
-                        break;
-                    }
-                }
+            case 3:
+                oam2Pal = buf->pal_l;
+                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
+                buf->proc14 = NewEkrsubAnimeEmulator(0x78, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
+                break;
             }
+        }
 
-            break;
+        break;
     }
-
-    return;
 }
 
 //! FE8U = 0x0805AE14
@@ -867,4 +853,133 @@ void sub_805AE40(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
     priv = buf->proc18;
     priv->unk32 = c;
     priv->unk3A = d;
+}
+
+//! FE8U = 0x0805AE58
+void sub_805AE58(struct BanimUnkStructComm * buf)
+{
+    int tmp;
+    int offsetC;
+
+    int offsetA = 0;
+    int offsetB = 0;
+
+    u16 * tmA = TsaConfs_BanimTmA[buf->distance * 2 + 0];
+    u16 * tmB = TsaConfs_BanimTmA[buf->distance * 2 + 1];
+
+    sub_80559B0(0);
+
+    switch (buf->distance)
+    {
+        case 0:
+        case 4:
+            offsetA = 33;
+            offsetB = 48;
+
+            offsetC = 0;
+
+            break;
+
+        case 1:
+            offsetA = 29;
+            offsetB = 48;
+
+            if (gEkrInitPosReal == 1)
+            {
+                offsetC = 0;
+            }
+            else
+            {
+                offsetC = -4;
+            }
+
+            break;
+
+        case 2:
+            offsetA = 3;
+            offsetB = 48;
+
+            if (gEkrInitPosReal == 1)
+            {
+                offsetC = 0;
+            }
+            else
+            {
+                offsetC = -30;
+            }
+
+            break;
+
+        case 3:
+        default:
+            if (buf->terrain_l != -1)
+            {
+                offsetA = 39;
+                offsetB = 3;
+            }
+
+            if (buf->terrain_r != -1)
+            {
+                offsetA = 3;
+                offsetB = 42;
+            }
+
+            offsetC = 0;
+
+            break;
+    }
+
+    tmp = 0x35A;
+
+    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, buf->pal_l, buf->chr_l);
+    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, buf->pal_r, buf->chr_r);
+
+    EfxTmCpyExt((gTmA_Banim + tmp + offsetC) - 0x2B5, 0x42, gBG2TilemapBuffer, 0x20, 0x20, 0x14, -1, -1);
+
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+
+    return;
+}
+
+//! FE8U = 0x0805AFA0
+void sub_805AFA0(s16 distance, s16 position)
+{
+    int offset;
+
+    switch (distance)
+    {
+        case EKR_DISTANCE_CLOSE:
+        case EKR_DISTANCE_PROMOTION:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 33;
+            }
+
+            break;
+
+        case EKR_DISTANCE_FAR:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 29;
+            }
+
+            break;
+
+        case EKR_DISTANCE_FARFAR:
+        case EKR_DISTANCE_MONOCOMBAT:
+        default:
+            offset = 48;
+            if (position == 0)
+            {
+                offset = 3;
+            }
+
+            break;
+    }
+
+    EfxTmCpyExt(gUnknown_080DAF60, -1, gTmA_Banim + 0x35A + offset, 0x42, 0xf, 5, -1, -1);
+
+    return;
 }

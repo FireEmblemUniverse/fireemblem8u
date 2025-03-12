@@ -183,8 +183,8 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
 
-    Decompress(gUnknown_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    ApplyPalettes(gUnknown_08B18ED4, 0, 3);
+    Decompress(Img_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    ApplyPalettes(Pal_08B18ED4, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
 
@@ -203,7 +203,7 @@ void Subtitle_LightFlareFx_Init(struct OpSubtitleProc* proc) {
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
-    sub_800154C(gBG2TilemapBuffer, gUnknown_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -238,9 +238,9 @@ void Subtitle_LightFlareFx_Loop(struct OpSubtitleProc* proc) {
     c = Interpolate(0, 0, 214, proc->unk_4c, 60);
     d = Interpolate(0, 16, 128, proc->unk_4c, 60);
 
-    sub_80ADDFC(2, proc->unk_4e, 0, 0, a * 5 + 0x80, a * 5 + 0x80);
-    sub_80ADE90(2, 0x100, 0x100);
-    sub_80ADEE0(2, c, d, 80, 72);
+    BgAffinRotScaling(2, proc->unk_4e, 0, 0, a * 5 + 0x80, a * 5 + 0x80);
+    BgAffinScaling(2, 0x100, 0x100);
+    BgAffinAnchoring(2, c, d, 80, 72);
 
     proc->unk_4e -= 64;
 
@@ -369,7 +369,7 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -399,7 +399,7 @@ void sub_80C4E18(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -441,7 +441,7 @@ void sub_80C4EC4(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
         sub_80C4BB4(
             gPal_OpSubtitle,
@@ -480,7 +480,7 @@ void sub_80C4F60(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, coeff << 4);
 
         SetBlendConfig(1, 0x10 - var, var, 0);
@@ -512,7 +512,7 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
-        int coeff = sub_800B7E0(proc->timer_2c, 80, 0);
+        int coeff = _DivArm1(proc->timer_2c, 80, 0);
         s16 var = DivArm(0x1000, (0x1000 - coeff) << 4);
 
         SetBlendConfig(1, 0x10 - var, var, 0);
@@ -571,16 +571,16 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 46) {
-        int coeff = sub_800B7E0(proc->timer_2c, 46, 0);
+        int coeff = _DivArm1(proc->timer_2c, 46, 0);
 
         sub_80C4BB4(
-            gUnknown_08B1756C,
+            Pal_08B1756C,
             PAL_BG(0xF),
             16,
             coeff
         );
     } else {
-        ApplyPalette(gUnknown_08B1756C, 0xF);
+        ApplyPalette(Pal_08B1756C, 0xF);
 
         Proc_Break(proc);
 
@@ -720,7 +720,7 @@ void sub_80C538C(struct OpSubtitleProc* proc) {
     proc->timer_2c++;
 
     if (proc->timer_2c < 60) {
-        int coeff = 0x1000 - sub_800B7E0(proc->timer_2c, 60, 0);
+        int coeff = 0x1000 - _DivArm1(proc->timer_2c, 60, 0);
 
         sub_80C4BB4(
             gUnk_OpSubtitle_0201CDD4,

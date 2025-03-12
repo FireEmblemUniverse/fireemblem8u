@@ -231,7 +231,7 @@ CONST_DATA EventListScr EventScr_Prologue_Tutorial9[] = {
     KILL(-2)
     DISA_IF(-2)
 
-    ENUT(EVFLAG_TMP_7) /* trigger event: EventScr_Prologue_OneEmimyLeft */
+    ENUT(EVFLAG_TMP(7)) /* trigger event: EventScr_Prologue_OneEmimyLeft */
     CALL(EventScr_Prologue_OneEmimyLeft)
     SET_ENDTURN(CHARACTER_SETH)
 

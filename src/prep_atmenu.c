@@ -414,7 +414,7 @@ void AtMenu_StartSubmenu(struct ProcAtMenu * proc)
 
     switch (proc->state) {
     case 5:
-        sub_808E79C(proc);
+        StartChapterStatusScreen_FromPrep(proc);
         break;
 
     case 2: /* Items */
@@ -585,7 +585,7 @@ PROC_LABEL(0x6),
     PROC_YIELD,
     PROC_CALL(AtMenu_ResetBmUiEffect),
     PROC_YIELD,
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_CALL(AtMenu_UnlockGame),
     PROC_CALL(EndAllProcChildren),
     PROC_END

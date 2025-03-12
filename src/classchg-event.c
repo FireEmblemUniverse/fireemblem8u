@@ -20,8 +20,8 @@ void sub_80CD62C(void)
     BMapDispResume();
     RefreshBMapGraphics();
     RefreshEntityBmMaps();
-    MU_EndAll();
-    MU_Create(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
     RenderBmMap();
     RefreshUnitSprites();
 }
@@ -163,9 +163,9 @@ void PromoTrainee_Talk1(struct ProcPromoTraineeEvent *proc)
     b = gFaces[1];
     c = gFaces[2];
     d = gFaces[3];
-    d->displayBits = FACE_DISP_BIT_14;
-    c->displayBits = FACE_DISP_BIT_14;
-    b->displayBits = FACE_DISP_BIT_14;
+    d->displayBits = FACE_DISP_HIDDEN;
+    c->displayBits = FACE_DISP_HIDDEN;
+    b->displayBits = FACE_DISP_HIDDEN;
 
     gUnknown_03005398 = -1;
 }

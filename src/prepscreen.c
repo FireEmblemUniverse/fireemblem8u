@@ -13,14 +13,22 @@
 #include "worldmap.h"
 #include "helpbox.h"
 #include "bmlib.h"
+#include "sio.h"
 
 #include "prepscreen.h"
 
-s8 CheckInLinkArena();
-
 EWRAM_DATA struct SioPidPool gSioPidPool = { 0 };
-
-// clang-format off
+EWRAM_OVERLAY(0) char gBufPrep[0x2000] = {};
+EWRAM_OVERLAY(0) struct Text gPrepMainMenuTexts[10] = {};
+EWRAM_OVERLAY(0) u8 gPrepUnitPool[0x1000] = {};
+EWRAM_OVERLAY(0) struct PrepUnitList gPrepUnitList = {};
+EWRAM_OVERLAY(0) struct PrepScreenItemListEnt gPrepScreenItemList[400] = {};
+EWRAM_OVERLAY(0) struct PrepScreenItemListEnt gUnknown_02012914[400] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_02012F54 = 0;
+EWRAM_OVERLAY(0) u16 gUnknown_02012F56 = 0;
+EWRAM_OVERLAY(0) struct Win1H gUnknown_02012F58[2][160] = {};
+EWRAM_OVERLAY(0) struct Win1H * gUnknown_02013458[2] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_02013460[0x1C] = {}; // maybe there is 0xC*sizeof(u16) free space
 
 u16 CONST_DATA gBgConfig_ItemUseScreen[] =
 {
@@ -308,7 +316,7 @@ s8 IsCharacterForceDeployed(int char_id)
     if (0 != CheckInLinkArena())
         return 0;
 
-    if (0 != GetBattleMapKind())
+    if (GetBattleMapKind() != BATTLEMAP_KIND_STORY)
         return 0;
 
     return IsCharacterForceDeployed_(char_id);
@@ -722,7 +730,7 @@ void Prep_DrawChapterGoal(int VRAM_offset, int pal)
     SetTextFontGlyphs(0);
     SpriteText_DrawBackgroundExt(&th, 0);
 
-    if (2 != GetBattleMapKind())
+    if (GetBattleMapKind() != BATTLEMAP_KIND_SKIRMISH)
         msg = GetROMChapterStruct(gPlaySt.chapterIndex)->goalWindowTextId;
     else
         msg = 0x19E;

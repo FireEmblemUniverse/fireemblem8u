@@ -1026,8 +1026,15 @@ void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
                 parent->thIndex++;
 
                 StartYesNoChoice(
-                    (GetCgTextFlags() & CG_TEXT_FLAG_9) ? gTextIds_AskExit : gTextIds_YesNo, parent->pTexts[parent->thIndex],
-                    parent->x * 8, (parent->thIndex * 2 + parent->y) * 8, 0xb, 1, proc);
+                    (GetCgTextFlags() & CG_TEXT_FLAG_9)
+                        ? gTextIds_AskExit
+                        : gTextIds_YesNo,
+                    parent->pTexts[parent->thIndex],
+                    parent->x * 8,
+                    (parent->thIndex * 2 + parent->y) * 8,
+                    0xb,
+                    TALK_CHOICE_YES,
+                    proc);
 
                 parent->str++;
                 faceDisp &= ~FACE_DISP_TALK_1;
@@ -1038,8 +1045,15 @@ void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
                 parent->thIndex++;
 
                 StartYesNoChoice(
-                    (GetCgTextFlags() & CG_TEXT_FLAG_9) ? gTextIds_AskExit : gTextIds_YesNo, parent->pTexts[parent->thIndex],
-                    parent->x * 8, (parent->thIndex * 2 + parent->y) * 8, 0xb, 2, proc);
+                    (GetCgTextFlags() & CG_TEXT_FLAG_9)
+                        ? gTextIds_AskExit
+                        : gTextIds_YesNo,
+                    parent->pTexts[parent->thIndex],
+                    parent->x * 8,
+                    (parent->thIndex * 2 + parent->y) * 8,
+                    0xb,
+                    TALK_CHOICE_NO,
+                    proc);
 
                 parent->str++;
                 faceDisp &= ~FACE_DISP_TALK_1;
@@ -1367,7 +1381,7 @@ void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
         PlaySoundEffect(0x6b);
-        SetTalkChoiceResult(0);
+        SetTalkChoiceResult(TALK_CHOICE_CANCEL);
         Proc_Break(proc);
         return;
     }
@@ -1380,16 +1394,16 @@ void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
         return;
     }
 
-    if ((gKeyStatusPtr->newKeys & DPAD_LEFT) && (proc->currentChoice == 2))
+    if ((gKeyStatusPtr->newKeys & DPAD_LEFT) && (proc->currentChoice == TALK_CHOICE_NO))
     {
         PlaySoundEffect(0x67);
-        proc->currentChoice = 1;
+        proc->currentChoice = TALK_CHOICE_YES;
     }
 
-    if ((gKeyStatusPtr->newKeys & DPAD_RIGHT) && (proc->currentChoice == 1))
+    if ((gKeyStatusPtr->newKeys & DPAD_RIGHT) && (proc->currentChoice == TALK_CHOICE_YES))
     {
         PlaySoundEffect(0x67);
-        proc->currentChoice = 2;
+        proc->currentChoice = TALK_CHOICE_NO;
     }
 
     DisplayUiHand(proc->x + (proc->currentChoice - 1) * 40 - 4, proc->y);

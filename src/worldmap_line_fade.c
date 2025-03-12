@@ -41,7 +41,7 @@ void GmapLineFade_80C0358(struct GmapLineFadeProc * proc)
 
     u16 * buf = sub_80C1DA0(0, 1);
 
-    int coeff = sub_800B84C(proc->unk_2a, proc->unk_2c, 0);
+    int coeff = _DivArm2(proc->unk_2a, proc->unk_2c, 0);
     s16 a = DivArm(0x1000, (coeff * -0x80)) + 0x80;
     s16 b = DivArm(0x1000, (coeff * -0x80)) + 0x50;
 
@@ -56,7 +56,7 @@ void GmapLineFade_80C0358(struct GmapLineFadeProc * proc)
         if (i >= b)
         {
             s16 tmp = (i - b);
-            coeff = sub_800B84C(tmp, 0x30, 0);
+            coeff = _DivArm2(tmp, 0x30, 0);
             buf[i] = DivArm(0x1000, (coeff = (0x1000 - coeff)) * 0x10);
             continue;
         }
@@ -142,10 +142,10 @@ void GmapLineFade_Loop(struct GmapLineFadeProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_GmapLineFade[] =
+struct ProcCmd CONST_DATA ProcScr_GmapLineFade[] =
 {
     PROC_NAME("Gmap Line Fade"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_SET_END_CB(GmapLineFade_OnEnd),
 
@@ -166,11 +166,11 @@ ProcPtr StartGmapLineFade(int unk, ProcPtr parent)
 
     if (parent != NULL)
     {
-        proc = Proc_StartBlocking(gProcScr_GmapLineFade, parent);
+        proc = Proc_StartBlocking(ProcScr_GmapLineFade, parent);
     }
     else
     {
-        proc = Proc_Start(gProcScr_GmapLineFade, PROC_TREE_3);
+        proc = Proc_Start(ProcScr_GmapLineFade, PROC_TREE_3);
     }
 
     proc->unk_29 = unk;
@@ -181,12 +181,12 @@ ProcPtr StartGmapLineFade(int unk, ProcPtr parent)
 //! FE8U = 0x080C0520
 void EndGmapLineFade(void)
 {
-    Proc_EndEach(gProcScr_GmapLineFade);
+    Proc_EndEach(ProcScr_GmapLineFade);
     return;
 }
 
 //! FE8U = 0x080C0530
 bool IsGmapLineFadeActive(void)
 {
-    return Proc_Find(gProcScr_GmapLineFade) ? TRUE : FALSE;
+    return Proc_Find(ProcScr_GmapLineFade) ? TRUE : FALSE;
 }

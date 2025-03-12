@@ -18,7 +18,7 @@ struct AiState
     /* 80 */ u32 specialItemFlags;
     /* 84 */ u8 unk84;
     /* 85 */ u8 bestBlueMov;
-    /* 86 */ u8 unk86[8];
+    /* 86 */ u8 cmd_result[8];
 };
 
 struct AiDecision
@@ -40,16 +40,18 @@ struct AiDecision
 
 enum
 {
+    // gAiState.flags
     AI_FLAGS_NONE = 0,
 
     AI_FLAG_0 = (1 << 0),
-    AI_FLAG_1 = (1 << 1),
+    AI_FLAG_STAY = (1 << 1),
     AI_FLAG_BERSERKED = (1 << 2),
     AI_FLAG_3 = (1 << 3),
 };
 
 enum
 {
+    // Unit::aiFlags
     AI_UNIT_FLAG_0 = (1 << 0),
     AI_UNIT_FLAG_1 = (1 << 1),
     AI_UNIT_FLAG_2 = (1 << 2),
@@ -57,6 +59,80 @@ enum
     AI_UNIT_FLAG_4 = (1 << 4),
     AI_UNIT_FLAG_5 = (1 << 5),
     AI_UNIT_FLAG_6 = (1 << 6),
+};
+
+enum
+{
+    // "ai3"
+
+    // 0~2 healing ai theshold select
+    AI_UNIT_CONFIG_HEALTHRESHOLD_SHIFT = 0,
+    AI_UNIT_CONFIG_HEALTHRESHOLD_BITS = 3,
+    AI_UNIT_CONFIG_HEALTHRESHOLD_MASK = ((1 << AI_UNIT_CONFIG_HEALTHRESHOLD_BITS) - 1) << AI_UNIT_CONFIG_HEALTHRESHOLD_SHIFT,
+
+    // 3~7 combat target decide weight set select
+    AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT = 3,
+    AI_UNIT_CONFIG_COMBATWEIGHT_BITS = 5,
+    AI_UNIT_CONFIG_COMBATWEIGHT_MASK = ((1 << AI_UNIT_CONFIG_COMBATWEIGHT_BITS) - 1) << AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT,
+
+    // "ai4"
+
+    // 8+
+
+    // 13
+    AI_UNIT_CONFIG_FLAG_STAY = 1 << 13,
+};
+
+enum
+{
+    AI_A_00 = 0x00,
+    AI_A_01 = 0x01,
+    AI_A_02 = 0x02,
+    AI_A_03 = 0x03,
+    AI_A_04 = 0x04,
+    AI_A_05 = 0x05,
+    AI_A_06 = 0x06,
+    AI_A_07 = 0x07,
+    AI_A_08 = 0x08,
+    AI_A_09 = 0x09,
+    AI_A_0A = 0x0A,
+    AI_A_0B = 0x0B,
+    AI_A_0C = 0x0C,
+    AI_A_0D = 0x0D,
+    AI_A_0E = 0x0E,
+    AI_A_0F = 0x0F,
+    AI_A_10 = 0x10,
+    AI_A_11 = 0x11,
+    AI_A_12 = 0x12,
+    AI_A_13 = 0x13,
+    AI_A_14 = 0x14,
+
+    AI_A_INVALID
+};
+
+enum
+{
+    AI_B_00 = 0x00,
+    AI_B_01 = 0x01,
+    AI_B_02 = 0x02,
+    AI_B_03 = 0x03,
+    AI_B_04 = 0x04,
+    AI_B_05 = 0x05,
+    AI_B_06 = 0x06,
+    AI_B_07 = 0x07,
+    AI_B_08 = 0x08,
+    AI_B_09 = 0x09,
+    AI_B_0A = 0x0A,
+    AI_B_0B = 0x0B,
+    AI_B_0C = 0x0C,
+    AI_B_0D = 0x0D,
+    AI_B_0E = 0x0E,
+    AI_B_0F = 0x0F,
+    AI_B_10 = 0x10,
+    AI_B_11 = 0x11,
+    AI_B_12 = 0x12,
+
+    AI_B_INVALID
 };
 
 enum
@@ -146,13 +222,13 @@ s8 AiUpdateGetUnitIsHealing(struct Unit* unit);
 s8 AiTryHealSelf(void);
 s8 AiTryMoveTowardsEscape(void);
 // ??? GetEscapePointStructThingMaybe(???);
-s8 sub_803E900(void);
-s8 sub_803E93C(u16*);
-void sub_803EA58(int, int, u16*, u16*, u16*);
-// ??? sub_803EBA4(???);
-void sub_803EBF0(u16, u16, u16, u16*);
+s8 AiCanEquip(void);
+s8 AiEquipGetFlags(u16*);
+void AiEquipGetDanger(int, int, u16*, u16*, u16*);
+// ??? AiEquipBestMatch(???);
+void AiEquipBestConsideringDanger(u16, u16, u16, u16*);
 // ??? sub_803EC18(???);
-// ??? sub_803EC54(???);
+// ??? AiIsWithinFlyingDistance(???);
 // ??? StoreItemAndGetUnitAttack(???);
 void AiTryDanceOrStealAfterMove(void);
 void AiTryActionAfterMove(void);
@@ -160,13 +236,13 @@ void AiTryActionAfterMove(void);
 // ??? AiTryDoStealAdjacent(???);
 // ??? sub_803EEB0(???);
 // ??? AiIsUnitAtPositionDifferentAllegiance(???);
-s8 sub_803F018(const void*);
+s8 AiFunc_CountEnemiesInRange(const void*);
 // ??? sub_803F15C(???);
 s8 sub_803F330(const void*);
 s8 sub_803F34C(const void*);
 // ??? sub_803F37C(???);
-// ??? sub_803F3AC(???);
-s8 sub_803F434(const void*);
+// ??? AiTryMoveToSpecificPosition(???);
+s8 AiCountEnemyInRangeOrTryMoveToSpecificPosition(const void*);
 s8 sub_803F4A4(const void*);
 // ??? sub_803F4EC(???);
 s8 sub_803F51C(const void*);
@@ -211,7 +287,7 @@ void InitAiMoveMapForUnit(struct Unit*);
 // ??? sub_8040E98(???);
 // ??? sub_8040EC8(???);
 // ??? sub_8040EF8(???);
-void sub_8040F28(int x, int y, const s8* cost); // AiMapRangeFillMovementWithPassableWalls
+void GenerateExtendedMovementMapOnRangeNeglectWall(int x, int y, const s8* cost); // AiMapRangeFillMovementWithPassableWalls
 void sub_8040F54(int, int, struct Unit*);
 // ??? sub_8040F88(???);
 // ??? sub_8040FBC(???);

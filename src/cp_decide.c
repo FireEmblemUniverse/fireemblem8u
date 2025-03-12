@@ -96,7 +96,7 @@ next_unit:
 
             AiUpdateNoMoveFlag(gActiveUnit);
 
-            gAiState.combatWeightTableId = (gActiveUnit->ai3And4 & 0xF8) >> 3;
+            gAiState.combatWeightTableId = (gActiveUnit->ai_config & AI_UNIT_CONFIG_COMBATWEIGHT_MASK) >> AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT;
 
             gAiState.dangerMapFilled = FALSE;
             AiInitDangerMap();

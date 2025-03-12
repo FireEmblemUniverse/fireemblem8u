@@ -90,4 +90,11 @@ void PushSpriteLayerObjects(int layer);
 struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, const u16* object, int tileref);
 void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y);
 
+#define SetObjAffineAuto(id, angle, x_scale, y_scale) \
+    SetObjAffine((id), \
+        Div(+COS((angle)) << 4, (x_scale)), \
+        Div(-SIN((angle)) << 4, (y_scale)), \
+        Div(+SIN((angle)) << 4, (x_scale)), \
+        Div(+COS((angle)) << 4, (y_scale)))
+
 #endif  // GUARD_CTC_H

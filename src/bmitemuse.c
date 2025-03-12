@@ -43,10 +43,10 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectWarp[] =
 
     PROC_CALL(LockGame),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(WarpSelect_OnInit),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(WarpSelect_OnIdle),
 
@@ -72,7 +72,7 @@ struct ProcCmd CONST_DATA gProcScr_SquareSelectTorch[] =
     PROC_CALL(LockGame),
 
     PROC_CALL(TorchSelect_OnInit),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(TorchSelect_OnIdle),
 
@@ -678,7 +678,7 @@ void WarpSelect_OnInit(struct WarpSelectProc* proc)
 
 void WarpSelect_OnIdle(struct WarpSelectProc* proc)
 {
-    s8 warpAllowed = ((s8**) gBmMapMovement)[gBmSt.playerCursor.y][gBmSt.playerCursor.x] != -1;
+    s8 warpAllowed = gMapMovementSigned[gBmSt.playerCursor.y][gBmSt.playerCursor.x] != -1;
 
     HandlePlayerCursorMovement();
 
@@ -1034,7 +1034,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
     int xTorch = gBmSt.playerCursor.x;
     int yTorch = gBmSt.playerCursor.y;
 
-    s8 canTorch = ((s8**) gBmMapRange)[yTorch][xTorch];
+    s8 canTorch = gMapRangeSigned[yTorch][xTorch];
 
     HandlePlayerCursorMovement();
 

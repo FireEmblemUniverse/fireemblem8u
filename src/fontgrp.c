@@ -28,7 +28,7 @@ struct SpecialCharSt {
 };
 
 EWRAM_DATA struct Struct02026E30 gUnknown_02026E30 = {0};
-EWRAM_DATA char gUnknown_02028E44[9] = {0};
+EWRAM_DATA char gNumberStr[9] = {0};
 EWRAM_DATA int gUnknown_02028E50 = 0;
 EWRAM_DATA int gUnknown_02028E54 = 0;
 EWRAM_DATA struct Font gDefaultFont = {0};
@@ -121,12 +121,12 @@ void sub_80038B4(const char *fmt, ...)
 
 void ClearSmallStringBuffer(void)
 {
-    u32 *ptr = (u32 *)gUnknown_02028E44;
+    u32 *ptr = (u32 *)gNumberStr;
     const u32 fourSpaces = 0x20202020;
 
     *ptr++ = fourSpaces;
     *ptr++ = fourSpaces;
-    gUnknown_02028E44[8] = 0;
+    gNumberStr[8] = 0;
 }
 
 void StoreNumberStringToSmallBuffer(int n)
@@ -136,7 +136,7 @@ void StoreNumberStringToSmallBuffer(int n)
     ClearSmallStringBuffer();
     for (i = 7; i >= 0; i--)
     {
-        gUnknown_02028E44[i] = '0' + n % 10;
+        gNumberStr[i] = '0' + n % 10;
         n /= 10;
         if (n == 0)
             break;
@@ -148,8 +148,8 @@ void StoreNumberStringOrDashesToSmallBuffer(int n)
     ClearSmallStringBuffer();
     if (n == 255 || n == -1)
     {
-        gUnknown_02028E44[7] = ':';
-        gUnknown_02028E44[6] = ':';
+        gNumberStr[7] = ':';
+        gNumberStr[6] = ':';
     }
     else
     {
@@ -160,7 +160,7 @@ void StoreNumberStringOrDashesToSmallBuffer(int n)
 void sub_800394C(int n, int length)
 {
     StoreNumberStringToSmallBuffer(n);
-    PrintStringToDBG(gUnknown_02028E44 + 8 - length);
+    PrintStringToDBG(gNumberStr + 8 - length);
 }
 
 void StoreNumberHexStringToSmallBuffer(int n)
@@ -171,7 +171,7 @@ void StoreNumberHexStringToSmallBuffer(int n)
     ClearSmallStringBuffer();
     for (i = 7; i >= 0; i--)
     {
-        gUnknown_02028E44[i] = hexDigits[(n & 0xF)];
+        gNumberStr[i] = hexDigits[(n & 0xF)];
         n >>= 4;
         if (n == 0)
             break;
@@ -181,7 +181,7 @@ void StoreNumberHexStringToSmallBuffer(int n)
 void sub_80039B4(int n, int length)
 {
     StoreNumberHexStringToSmallBuffer(n);
-    PrintStringToDBG(gUnknown_02028E44 + 8 - length);
+    PrintStringToDBG(gNumberStr + 8 - length);
 }
 
 void PrintStringToDBG(const char *str)
@@ -305,13 +305,13 @@ void PrintDebugStringAsOBJ(int a, int b, const char *str)
 void sub_8003BFC(int a, int b, int c, int length)
 {
     StoreNumberStringToSmallBuffer(c);
-    PrintDebugStringAsOBJ(a, b, gUnknown_02028E44 + 8 - length);
+    PrintDebugStringAsOBJ(a, b, gNumberStr + 8 - length);
 }
 
 void sub_8003C20(int a, int b, int c, int length)
 {
     StoreNumberHexStringToSmallBuffer(c);
-    PrintDebugStringAsOBJ(a, b, gUnknown_02028E44 + 8 - length);
+    PrintDebugStringAsOBJ(a, b, gNumberStr + 8 - length);
 }
 
 void sub_8003C44(s16 a, s16 b, const char *fmt, ...)
@@ -784,7 +784,7 @@ void InitSystemTextFont(void)
 
 void InitTalkTextFont(void)
 {
-    ApplyPalette(Pal_Text + 0x20, gActiveFont->palid);
+    ApplyPalette(Pal_Text + 0x10, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
     gActiveFont->drawGlyph = DrawTextGlyph;

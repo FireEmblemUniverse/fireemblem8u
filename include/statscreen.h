@@ -101,7 +101,7 @@ struct StatScreenSt
     /* 06 */ short yDispOff;
     /* 08 */ s8 inTransition;
     /* 0C */ struct Unit* unit;
-    /* 10 */ struct MUProc* mu;
+    /* 10 */ struct MuProc* mu;
     /* 14 */ const struct HelpBoxInfo* help;
     /* 18 */ struct Text text[STATSCREEN_TEXT_MAX];
 };

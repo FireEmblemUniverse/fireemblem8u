@@ -141,7 +141,7 @@ struct TextPrintProc {
     /* 36 */ s8 char_per_tick;
 };
 
-extern char gUnknown_02028E44[9];
+extern char gNumberStr[9];
 
 // ??? SetupDebugFontForBG(???);
 void PrintDebugStringToBG(u16 *bg, const char *asciiStr);
@@ -228,11 +228,11 @@ void EndGreenText(void);
 // ??? GetSpecialCharChr(???);
 void PutSpecialChar(u16 * tm, int color, int id);
 // ??? PutNumberExt(???);
-void PutNumber(u16 *a, int b, int c);
-void PutNumberOrBlank(u16* a, int b, int c);
-void PutNumberTwoChr(u16 *a, int b, int c);
-void PutNumberSmall(u16* a, int b, int c);
-void PutNumberBonus(int a, u16 *b);
+void PutNumber(u16 * tm, int color, int number);
+void PutNumberOrBlank(u16 * tm, int color, int number);
+void PutNumberTwoChr(u16 * tm, int color, int number);
+void PutNumberSmall(u16 * tm, int color, int number);
+void PutNumberBonus(int number, u16 * tm);
 // ??? SpecialCharTest(???);
 void PutTime(u16 * tm, int color, int time, bool always_display_punctuation);
 void PutTwoSpecialChar(u16 * tm, int color, int id_a, int id_b);

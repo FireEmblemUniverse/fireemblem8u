@@ -16,7 +16,7 @@
 
 CONST_DATA struct ProcCmd ProcScr_efxStatusUnit[] = {
     PROC_NAME("efxStatusUnit"),
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_SET_END_CB(EfxStatusUnitEnd),
     PROC_REPEAT(EfxStatusUnitMain),
     PROC_END
@@ -209,14 +209,14 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
     case UNIT_STATUS_13:
         if (GetAnimPosition(proc->anim) == EKR_POS_L)
             EfxDecodeSplitedPalette(
-                PAL_OBJ(OBPAL_EFX_UNK_7),
+                PAL_OBJ(OBPAL_EFX_UNIT_L),
                 gFadeComponents,
                 &gFadeComponents[0x30],
                 (s16 *)&gFadeComponents[0x180],
                 16, proc->red, 16);
         else
             EfxDecodeSplitedPalette(
-                PAL_OBJ(OBPAL_EFX_UNK_9),
+                PAL_OBJ(OBPAL_EFX_UNIT_R),
                 &gFadeComponents[0x60],
                 &gFadeComponents[0x90],
                 (s16 *)&gFadeComponents[0x300],
@@ -224,7 +224,7 @@ void EfxStatusUnitMain(struct ProcEfxStatusUnit *proc)
 
         RefreshEntityBmMaps();
         RefreshUnitSprites();
-        MU_EndAll();
+        EndAllMus();
         break;
 
     case UNIT_STATUS_SILENCED:

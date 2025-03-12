@@ -383,7 +383,7 @@ void PrepItemUse_InitDisplay(struct ProcPrepItemUse *proc)
     ResetIconGraphics_();
     LoadUiFrameGraphics();
     LoadObjUIGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     BG_SetPosition(BG_0, 0,0);
     BG_SetPosition(BG_1, 0,0);
@@ -724,7 +724,7 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse * proc)
     
     if (gGMData.state.bits.state_0) {
         MakeBgmOverridePersist();
-        sub_80B9FC0();
+        UpdateWorldMapBgm();
         return;
     }
 

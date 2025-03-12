@@ -262,7 +262,7 @@ void StartSubSpell_efxStoneOBJ(struct Anim * anim, int terminator)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    scr = gUnknown_086BDA5C;
+    scr = AnimScr_EfxStone;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 

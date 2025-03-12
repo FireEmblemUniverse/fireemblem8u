@@ -21,10 +21,12 @@ static void RefreshUnitsOnBmMap(void);
 static void RefreshTorchlightsOnBmMap(void);
 static void RefreshMinesOnBmMap(void);
 
+EWRAM_OVERLAY(bmstart) u16 gBmMapBuffer[0x800 / 2] = {};
+
 enum { MAP_POOL_SIZE = 0x7B8 };
 
 // TODO: figure out what's up with this (overlaps with a lot of other objects?)
-extern u16 gBmMapBuffer[];
+
 
 EWRAM_DATA struct Vec2 gBmMapSize = {};
 
@@ -345,7 +347,7 @@ void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int 
     // TODO: tile macros?
     // TODO: are the movement and range maps s8[][]?
 
-    if (((s8**)(gBmMapMovement))[yBmMap][xBmMap] >= 0) {
+    if (gMapMovementSigned[yBmMap][xBmMap] >= 0) {
         bg[0x00 + 0] = 0x4280;
         bg[0x00 + 1] = 0x4281;
         bg[0x20 + 0] = 0x4282;
@@ -354,7 +356,7 @@ void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int 
         return;
     }
 
-    if (((s8**)(gBmMapRange))[yBmMap][xBmMap]) {
+    if (gMapRangeSigned[yBmMap][xBmMap]) {
         if (bg[0]) {
             bg[0x00 + 0] = 0x5284;
             bg[0x00 + 1] = 0x5285;

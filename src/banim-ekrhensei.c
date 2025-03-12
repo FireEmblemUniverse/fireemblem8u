@@ -141,7 +141,7 @@ void sub_8076514(struct ProcEkrHensei *proc)
 {
     EndEkrBattleDeamon();
     EndEkrGauge();
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
     Proc_Break(proc);
 }

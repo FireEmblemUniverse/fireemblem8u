@@ -1,6 +1,7 @@
 #include "global.h"
 
 #include "bm.h"
+#include "ap.h"
 #include "ctc.h"
 #include "bmlib.h"
 #include "hardware.h"
@@ -276,19 +277,8 @@ void DisplayExtendedSysHand(struct SysHandCursorProc * proc)
 {
     int i;
 
-#if !NONMATCHING
-    u32 clk;
-    u16 * src, * dst, * _dst;
-
-    clk = GetGameClock();
-    dst = gPaletteBuffer;
-    _dst = dst + (proc->pal_bank * 0x10  + 0x10E);
-    src = &PAL_BUF_COLOR(Pal_08A1D448, gPlaySt.config.windowColor, (clk / 4) % 0x10);
-    *_dst = *src;
-#else
     gPaletteBuffer[proc->pal_bank * 0x10  + 0x10E] =
-        Pal_08A1D448[gPlaySt.config.windowColor * 0x10 + ((GetGameClock() / 5) % 0x10)];
-#endif
+        ((gPlaySt.config.windowColor << 4) + ((GetGameClock() / 4) % 0x10))[Pal_08A1D448];
 
     EnablePaletteSync();
     PutSpriteExt(4, proc->x, proc->y + 8, gObject_8x8,
@@ -893,100 +883,119 @@ void nop_80ADDF8(void)
     return;
 }
 
-void sub_80ADDFC(u8 layer, s16 angle, s16 c, s16 d, s16 e, s16 f)
+void BgAffinRotScaling(u8 bg, s16 angle, s16 x_center, s16 y_center, s16 sx, s16 sy)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
 
-    if (e <= 4)
-        e = 4;
+    if (sx <= 4)
+        sx = 4;
 
-    if (f <= 4)
-        f = 4;
+    if (sy <= 4)
+        sy = 4;
 
-    data.texX = c * 0x100;
-    data.texY = d * 0x100;
+    data.texX = x_center * 0x100;
+    data.texY = y_center * 0x100;
     data.scrX = 0;
     data.scrY = 0;
-    data.sx = 0x10000 / e;
-    data.sy = 0x10000 / f;
+    data.sx = 0x10000 / sx;
+    data.sy = 0x10000 / sy;
     data.alpha = angle * 0x10;
 
-    dst = &gOpAnimBgAffineDstData[1];
-    if (layer == 2)
-        dst = &gOpAnimBgAffineDstData[0];
+    dst = &gLCDControlBuffer.bg3affin;
+    if (bg == BG_2)
+        dst = &gLCDControlBuffer.bg2affin;
 
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADE90(u8 layer, s16 a, s16 b)
+void BgAffinScaling(u8 bg, s16 sy, s16 sx)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
-    affin->pb = (affin->pb * a) >> 8;
-    affin->pd = (affin->pd * a) >> 8;
-    affin->pa = (affin->pa * b) >> 8;
-    affin->pc = (affin->pc * b) >> 8;
+    /**
+     * y = y * (1 / sy)
+     * x = x * (1 / sx)
+     *
+     * Both of which are 8.8 fixed point numbers:
+     * a halfword with 8 integer bits and 8 fractional bits.
+     * 
+     * See tonc 10.4.1: https://www.coranac.com/tonc/text/affine.htm
+     */
+
+    affin->pb = (affin->pb * sy) >> 8;
+    affin->pd = (affin->pd * sy) >> 8;
+    affin->pa = (affin->pa * sx) >> 8;
+    affin->pc = (affin->pc * sx) >> 8;
 }
 
-void sub_80ADEE0(u8 layer, s16 a, s16 b, s16 c, s16 d)
+void BgAffinAnchoring(u8 bg, s16 q0_x, s16 q0_y, s16 p0_x, s16 p0_y)
 {
+    /**
+     * vector q0: origin in screen space
+     * vector p0: origin in texture space
+     *
+     * See tonc 12.3: https://www.coranac.com/tonc/text/affbg.htm:
+     *
+     * bgaff->dx= asx->tex_x - (pa*asx->scr_x + pb*asx->scr_y);
+     * bgaff->dy= asx->tex_y - (pc*asx->scr_x + pd*asx->scr_y);
+     */
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
-    affin->dx = affin->pa * (-a) + affin->pb * (-b) + c * 0x100;
-    affin->dy = affin->pc * (-a) + affin->pd * (-b) + d * 0x100;
+    affin->dx = affin->pa * (-q0_x) + affin->pb * (-q0_y) + p0_x * 0x100;
+    affin->dy = affin->pc * (-q0_x) + affin->pd * (-q0_y) + p0_y * 0x100;
 }
 
-void sub_80ADF48(u8 layer, int angle, int a, int b, int c, int d)
+void BgAffinRotScalingHighPrecision(u8 bg, int angle, int texX, int texY, int sx, int sy)
 {
     struct BgAffineSrcData data;
     struct BgAffineDstData * dst;
 
-    if (c <= 0x400)
-        c = 0x400;
+    if (sx <= 0x400)
+        sx = 0x400;
 
-    if (d <= 0x400)
-        d = 0x400;
+    if (sy <= 0x400)
+        sy = 0x400;
 
-    data.texX = a;
-    data.texY = b;
+    data.texX = texX;
+    data.texY = texY;
     data.scrX = 0;
     data.scrY = 0;
-    data.sx = 0x1000000 / c;
-    data.sy = 0x1000000 / d;
+    data.sx = 0x1000000 / sx;
+    data.sy = 0x1000000 / sy;
     data.alpha = angle >> 4;
 
-    dst = &gOpAnimBgAffineDstData[1];
-    if (layer == 2)
-        dst = &gOpAnimBgAffineDstData[0];
+    dst = &gLCDControlBuffer.bg3affin;
+    if (bg == BG_2)
+        dst = &gLCDControlBuffer.bg2affin;
 
     BgAffineSet(&data, dst, 1);
 }
 
-void sub_80ADFBC(u8 layer, int a, int b)
+void BgAffinScalingHighPrecision(u8 bg, int sy, int sx)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
-    affin->pb = (affin->pb * a) >> 0x10;
-    affin->pd = (affin->pd * a) >> 0x10;
-    affin->pa = (affin->pa * b) >> 0x10;
-    affin->pc = (affin->pc * b) >> 0x10;
+    affin->pb = (affin->pb * sy) >> 0x10;
+    affin->pd = (affin->pd * sy) >> 0x10;
+    affin->pa = (affin->pa * sx) >> 0x10;
+    affin->pc = (affin->pc * sx) >> 0x10;
 }
 
-void sub_80ADFFC(u8 layer, int a, int b, int c, int d)
+void BgAffinAnchoringHighPrecision(u8 bg, int q0_x, int q0_y, int p0_x, int p0_y)
 {
     struct BgAffineDstData * affin = NULL;
-    if (layer == 2)
-        affin = gOpAnimBgAffineDstData;
+    if (bg == BG_2)
+        affin = &gLCDControlBuffer.bg2affin;
 
-    affin->dx = ((affin->pa * (-a) + affin->pb * (-b)) >> 8) + c;
-    affin->dy = ((affin->pc * (-a) + affin->pd * (-b)) >> 8) + d;
+    affin->dx = ((affin->pa * (-q0_x) + affin->pb * (-q0_y)) >> 8) + p0_x;
+    affin->dy = ((affin->pc * (-q0_x) + affin->pd * (-q0_y)) >> 8) + p0_y;
 }
 
 void sub_80AE044(int a, u16 * buf, int c, int d, int e, int f, int g, int h)
@@ -1276,4 +1285,363 @@ void EndFadeInOut(void)
 {
     Proc_End(Proc_Find(ProcScr_BmFadeIN));
     Proc_End(Proc_Find(ProcScr_BmFadeOUT));
+}
+
+void BmBgfx_Init(struct ProcBmBgfx * proc)
+{
+    proc->conf = 0;
+    proc->bg = 0;
+    proc->vram_base = 0;
+    proc->vram_free_space = 0;
+    proc->vram_base_offset = 0;
+    proc->size_per_fx = 0;
+    proc->flip = 0;
+    proc->timer = 0;
+    proc->total_duration = 0;
+    proc->counter_procloop = 0;
+    proc->callback = 0;
+    proc->func_call_type = 0;
+    proc->counter_functioncall = 0;
+    proc->x = 0;
+    proc->y = 0;
+    proc->loop_en = 1;
+    proc->counter = 0;
+}
+
+void BmBgfx_Loop(struct ProcBmBgfx * proc)
+{
+    struct BmBgxConf * conf = proc->conf;
+
+    if (proc->callback != NULL)
+    {
+        proc->func_call_type = 0;
+        if (proc->callback(proc) != 0)
+            return;
+    }
+    else
+    {
+        proc->callback = NULL;
+    }
+
+    while (1)
+    {
+        if (conf->type == BMFX_CONFT_LOOP_START)
+            conf++;
+
+        /* Loop identifier */
+        if (conf->type == BMFX_CONFT_LOOP)
+        {
+            if (proc->loop_en != false)
+            {
+                if (proc->counter == 0)
+                    proc->counter = conf->duration;
+                else if (proc->counter > 0)
+                    proc->counter = proc->counter - 1;
+
+                if (proc->counter != 0)
+                {
+                    int i;
+                    struct BmBgxConf * conf_ = conf - 1;
+                    for (i = conf_->type; i != BMFX_CONFT_LOOP_START; i = conf_->type)
+                    {
+                        conf = conf_;
+                        conf_--;
+                    }
+                }
+                else
+                {
+                    conf++;
+                }
+            }
+            else
+            {
+                proc->counter = 0;
+                conf++;
+            }
+        }
+
+        if (conf->type == BMFX_CONFT_CALL_IDLE)
+        {
+            if (proc->callback != NULL)
+            {
+                proc->counter_functioncall++;
+                proc->func_call_type = 1;
+                proc->callback(proc);
+            }
+            conf++;
+        }
+
+        if (conf->type == BMFX_CONFT_BLOCKING)
+            break;
+
+        if (conf->type < 11 && conf->type > 8)
+        {
+            Proc_Break(proc);
+            break;
+        }
+
+        if (proc->timer == 0)
+        {
+            switch (conf->type) {
+            case BMFX_CONFT_IMG:
+            case BMFX_CONFT_ZIMG:
+                if (proc->vram_free_space == 0)
+                    proc->flip = 1 - proc->flip;
+                break;
+            }
+
+            switch (conf->type) {
+            case BMFX_CONFT_IMG:
+                CpuFastCopy(
+                    conf->data,
+                    (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx),
+                    conf->size);
+
+                proc->vram_free_space = proc->vram_free_space + conf->size;
+                break;
+
+            case BMFX_CONFT_ZIMG:
+                Decompress(
+                    conf->data,
+                    (void *)(0x6000000 + proc->vram_base + proc->vram_base_offset + proc->vram_free_space + proc->flip * proc->size_per_fx));
+
+                proc->vram_free_space = proc->vram_free_space + conf->size;
+
+                break;
+
+            case BMFX_CONFT_TSA:
+                if (proc->size_per_fx == 0x8000)
+                    SetBackgroundTileDataOffset(proc->bg, (proc->vram_base + (proc->flip << 0xf)) & 0xFFFF);
+
+                CallARM_FillTileRect(
+                    BG_GetMapBuffer(proc->bg), conf->data,
+                    (u16)((proc->pal_bank << 0xc) +
+                            (((proc->vram_base_offset + proc->flip * proc->size_per_fx) << 0x11) >> 0x16)));
+
+                proc->vram_free_space = 0;
+                BG_EnableSyncByMask(1 << proc->bg);
+
+                break;
+
+            case BMFX_CONFT_PAL:
+                ApplyPalettes(conf->data, proc->pal_bank, conf->size);
+                break;
+            }
+        }
+
+        proc->timer++;
+        if (proc->timer <= conf->duration)
+            break;
+
+        conf++;
+        proc->timer = 0;
+    }
+
+    proc->conf = conf;
+    proc->counter_procloop++;
+}
+
+void BmBgfx_End(struct ProcBmBgfx * proc)
+{
+    if (proc->conf->type == 10)
+    {
+        SetBackgroundTileDataOffset(proc->bg, proc->vram_base);
+        BG_Fill(BG_GetMapBuffer(proc->bg), 0);
+        BG_EnableSyncByMask(1 << proc->bg);
+    }
+}
+
+struct ProcCmd CONST_DATA ProcScr_BmBgfx[] =
+{
+    PROC_CALL(BmBgfx_Init),
+    PROC_YIELD,
+    PROC_REPEAT(BmBgfx_Loop),
+    PROC_CALL(BmBgfx_End),
+    PROC_END,
+};
+
+bool CheckBmBgfxDone(void)
+{
+    if (Proc_Find(ProcScr_BmBgfx))
+        return true;
+
+    return false;
+}
+
+void BmBgfxAdvance(void)
+{
+    struct ProcBmBgfx * proc = Proc_Find(ProcScr_BmBgfx);
+    if ((proc != NULL) && (proc->conf->type == BMFX_CONFT_BLOCKING))
+        proc->conf++;
+}
+
+void EndBmBgfx(void)
+{
+    Proc_End(Proc_Find(ProcScr_BmBgfx));
+}
+
+void BmBgfxSetLoopEN(u8 loop_en)
+{
+    struct ProcBmBgfx * proc = Proc_Find(ProcScr_BmBgfx);
+    if (proc != NULL)
+        proc->loop_en = loop_en;
+}
+
+void StartBmBgfx(struct BmBgxConf * input, int bg, int x, int y, int vram_off, int size, int pal_bank, void * func, ProcPtr parent)
+{
+    struct ProcBmBgfx * proc;
+
+    if (parent == NULL)
+        proc = Proc_Start(ProcScr_BmBgfx, PROC_TREE_3);
+    else
+        proc = Proc_Start(ProcScr_BmBgfx, parent);
+
+    proc->conf = input;
+    proc->bg = bg;
+    proc->pal_bank = pal_bank;
+
+    if (size < 0)
+        size = 0x4000;
+
+    if (vram_off < 0)
+        vram_off = 0;
+
+    proc->vram_base = GetBackgroundTileDataOffset(bg);
+    proc->vram_base_offset = vram_off;
+    proc->size_per_fx = size;
+    proc->x = x;
+    proc->y = y;
+
+    proc->callback = func;
+
+    BG_SetPosition(bg, -x & 0xff, -y & 0xff);
+
+    for (; input->type < BMFX_CONFT_END; input++)
+        proc->total_duration += input->duration;
+}
+
+void MixPaletteCore(struct ProcMixPalette * proc, int val)
+{
+    int i, j;
+
+    u16 * dst = gPaletteBuffer + PAL_COLOR_OFFSET(proc->targetPalId, 0);
+    u16 * ptrA = proc->srcA;
+    u16 * ptrB = proc->srcB;
+
+    for (i = 0; i < proc->palCount; i++)
+    {
+        for (j = 0; j < 0x10; j++)
+        {
+            *dst = ((((*ptrA & RED_MASK)   * (0x80 - val) + val * (*ptrB & RED_MASK))   >> 7) & RED_MASK) +
+                   ((((*ptrA & GREEN_MASK) * (0x80 - val) + val * (*ptrB & GREEN_MASK)) >> 7) & GREEN_MASK) +
+                   ((((*ptrA & BLUE_MASK)  * (0x80 - val) + val * (*ptrB & BLUE_MASK))  >> 7) & BLUE_MASK);
+
+            dst++;
+            ptrA++;
+            ptrB++;
+        }
+    }
+    EnablePaletteSync();
+}
+
+void MixPalette_Init(struct ProcMixPalette * proc)
+{
+    proc->timer = 0;
+}
+
+void MixPalette_Loop(struct ProcMixPalette * proc)
+{
+    proc->timer += proc->speed;
+
+    if (proc->timer > 0x100)
+        proc->timer = 0;
+
+    MixPaletteCore(proc, proc->timer < 0x80 ? proc->timer : 0x100 - proc->timer);
+}
+
+struct ProcCmd CONST_DATA ProcScr_MixPalette[] =
+{
+    PROC_YIELD,
+    PROC_CALL(MixPalette_Init),
+    PROC_REPEAT(MixPalette_Loop),
+
+    PROC_END,
+};
+
+void StartMixPalette(u16 * palA, u16 * palB, int speed, int targetPalId, int palCount, ProcPtr parent)
+{
+    struct ProcMixPalette * proc = Proc_Start(ProcScr_MixPalette, parent);
+
+    proc->speed = speed;
+    proc->targetPalId = targetPalId;
+    proc->palCount = palCount;
+
+    proc->srcA = palA;
+    proc->srcB = palB;
+}
+
+void EndMixPalette(void)
+{
+    Proc_End(Proc_Find(ProcScr_MixPalette));
+}
+
+ProcPtr StartSpriteAnimfx(const u8 * gfx, const u16 * pal, const void * apDef, int x, int y, int animId, int palId, int palCount, u16 chr, int aObjNode)
+{
+    if (gfx != NULL)
+        Decompress(gfx, (void *)(0x06010000 + OAM2_CHR(chr) * CHR_SIZE));
+
+    if (pal != NULL)
+    {
+        ApplyPalettes(pal, (palId + 0x10), palCount);
+    }
+
+    return APProc_Create(apDef, x, y, OAM2_PAL(palId) + chr, animId, aObjNode);
+}
+
+int GetBgXOffset(int bg)
+{
+    switch (bg) {
+    case BG_0:
+        return gLCDControlBuffer.bgoffset[BG_0].x;
+
+    case BG_1:
+        return gLCDControlBuffer.bgoffset[BG_1].x;
+
+    case BG_2:
+        return gLCDControlBuffer.bgoffset[BG_2].x;
+
+    case BG_3:
+        return gLCDControlBuffer.bgoffset[BG_3].x;
+    }
+}
+
+int GetBgYOffset(int bg)
+{
+    switch (bg) {
+    case BG_0:
+        return gLCDControlBuffer.bgoffset[BG_0].y;
+
+    case BG_1:
+        return gLCDControlBuffer.bgoffset[BG_1].y;
+
+    case BG_2:
+        return gLCDControlBuffer.bgoffset[BG_2].y;
+
+    case BG_3:
+        return gLCDControlBuffer.bgoffset[BG_3].y;
+    }
+}
+
+char * AppendString(const char * src, char * dst)
+{
+    strcpy(dst, src);
+    return dst + strlen(src);
+}
+
+char * AppendCharacter(int character, char * str)
+{
+    *str = character;
+    str++;
+    *str = '\0';
+    return str;
 }

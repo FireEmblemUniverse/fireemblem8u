@@ -2,6 +2,8 @@
 #define GUARD_GLOBAL_H
 
 #include <stdlib.h>
+#include <stdint.h>
+#include <limits.h>
 
 #include "gba/gba.h"
 
@@ -25,7 +27,7 @@
 
 // helper macros
 
-#define EWRAM_ENTRY ((u8 *)__ewram_start)
+#define EWRAM_ENTRY ((void *)__ewram_start)
 
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 

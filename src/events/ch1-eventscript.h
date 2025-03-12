@@ -6,6 +6,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     MUSC(0x25)
@@ -18,7 +19,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x26, 0x929)
+    Text_BG(BG_INTERIOR_BLACK, 0x929)
 
     LOAD1(1, UnitDef_Event_Ch1NPC)
     ENUN
@@ -27,12 +28,13 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     DISA(CHAR_EVT_POSITION_AT_SLOTB)
 
     FlashCursor(CHARACTER_BREGUET, 60)
-    Text_BG(0x1C, 0x92A)
+    Text_BG(BG_GRASS_PLAINS, 0x92A)
 
     MOVE(0, CHARACTER_BREGUET, 2, 3)
     ENUN
 
-    ENUT(0x1) /* Battle Quotes flag */
+    /* Force set battle-quotes flag to make the following script-battle not to show battle quote */
+    ENUT(EVFLAG_BATTLE_QUOTES)
 
     StartBattle
     CriticalHit(0, 20)
@@ -40,7 +42,8 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     EndAttack
     FIGHT(CHARACTER_BREGUET, CHARACHER_FRELIAN, 0, 0)
 
-    ENUF(0x1) /* Battle Quotes flag */
+    /* Clear battle Quotes flag */
+    ENUF(EVFLAG_BATTLE_QUOTES)
 
     SVAL(EVT_SLOT_B, 0x00020002)
     KILL(CHAR_EVT_POSITION_AT_SLOTB)
@@ -81,7 +84,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x26, 0x92C)
+    Text_BG(BG_INTERIOR_BLACK, 0x92C)
     REMA
 
     LOAD2(1, UnitDef_Event_Ch1Ally)
@@ -97,7 +100,12 @@ CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
     SVAL(EVT_SLOT_2, EventScr_Ch1Tut_OnBeginning)
     CALL(EventScr_CallOnTutorialMode)
 
-    ENUT(0xB)
+    /**
+     * Temporary flag(11) is used for triggering event: EventScr_Ch1_Turn_EnemyReinforceArrive,
+     * this flag will be unset by event: EventScr_Ch1_Misc_Area
+     */
+    ENUT(EVFLAG_TMP(11))
+
     NoFade
     ENDA
 };
@@ -143,7 +151,7 @@ CONST_DATA EventListScr EventScr_Ch1_Misc_DefeatBoss[] = {
 
 CONST_DATA EventListScr EventScr_Ch1_EndingScene[] = {
     MUSC(0x31)
-    SetBackground(0x26)
+    SetBackground(BG_INTERIOR_BLACK)
 
     CHECK_ALIVE(CHARACTER_GILLIAM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -194,9 +202,9 @@ CONST_DATA EventListScr EventScr_Ch1_Loca_Visit2[] = {
 
 CONST_DATA EventListScr EventScr_Ch1_Misc_Area[] = {
     SVAL(EVT_SLOT_2, CHARACTER_EIRIKA)
-    CALL(EventScr_UnTriggerIfNotUnit)
+    CALL(EventScr_UnTriggerIfNotUnit)   /* This event may directly ENDB if the condition is not matched */
 
-    ENUF(0xB)
+    ENUF(EVFLAG_TMP(11))
     NoFade
     ENDA
 };

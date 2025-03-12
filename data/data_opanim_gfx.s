@@ -277,136 +277,112 @@ Pal_OpAnimTethys:  @ 0x08ADBD18
 gUnknown_08ADBE78:  @ 0x08ADBE78
 	.incbin "baserom.gba", 0xADBE78, 0x20
 
-	.global gUnknown_08ADBE98
-gUnknown_08ADBE98:  @ 0x08ADBE98
+	.global Img_OpAnimFaceRennac
+Img_OpAnimFaceRennac:  @ 0x08ADBE98
 	.incbin "baserom.gba", 0xADBE98, 0x528
 
-	.global gUnknown_08ADC3C0
-gUnknown_08ADC3C0:  @ 0x08ADC3C0
+	.global Img_OpAnimFaceRennacShadow
+Img_OpAnimFaceRennacShadow:  @ 0x08ADC3C0
 	.incbin "baserom.gba", 0xADC3C0, 0x348
 
-	.global gUnknown_08ADC708
-gUnknown_08ADC708:  @ 0x08ADC708
+	.global Pal_OpAnimFaceRennac
+Pal_OpAnimFaceRennac:  @ 0x08ADC708
 	.incbin "baserom.gba", 0xADC708, 0x20
 
-	.global gUnknown_08ADC728
-gUnknown_08ADC728:  @ 0x08ADC728
+	.global Img_OpAnimFaceLArachel
+Img_OpAnimFaceLArachel:  @ 0x08ADC728
 	.incbin "baserom.gba", 0xADC728, 0x590
 
-	.global gUnknown_08ADCCB8
-gUnknown_08ADCCB8:  @ 0x08ADCCB8
+	.global Img_OpAnimFaceLArachelShadow
+Img_OpAnimFaceLArachelShadow:  @ 0x08ADCCB8
 	.incbin "baserom.gba", 0xADCCB8, 0x398
 
-	.global gUnknown_08ADD050
-gUnknown_08ADD050:  @ 0x08ADD050
+	.global Pal_OpAnimFaceLArachel
+Pal_OpAnimFaceLArachel:  @ 0x08ADD050
 	.incbin "baserom.gba", 0xADD050, 0x20
 
-	.global gUnknown_08ADD070
-gUnknown_08ADD070:  @ 0x08ADD070
+	.global Img_OpAnimFaceDozla
+Img_OpAnimFaceDozla:  @ 0x08ADD070
 	.incbin "baserom.gba", 0xADD070, 0x67C
 
-	.global gUnknown_08ADD6EC
-gUnknown_08ADD6EC:  @ 0x08ADD6EC
+	.global Img_OpAnimFaceDozlaShadow
+Img_OpAnimFaceDozlaShadow:  @ 0x08ADD6EC
 	.incbin "baserom.gba", 0xADD6EC, 0x368
 
-	.global gUnknown_08ADDA54
-gUnknown_08ADDA54:  @ 0x08ADDA54
-@ Replacing .incbin "baserom.gba", 0xADDA54, 0x20
-    .4byte 0x63ff4f34
-    .4byte 0x2a7d3b5f
-    .4byte 0x2d6e25d3
-    .4byte 0x264b28c9
-    .4byte 0x15071586
-    .4byte gUnknown_08B1FE7C + 0x62342
-    .4byte 0x27ff10f1
-    .4byte 0x7ffe7353
+	.global Pal_OpAnimFaceDozla
+Pal_OpAnimFaceDozla:  @ 0x08ADDA54
+	.incbin "baserom.gba", 0xADDA54, 0x20
 
-	.global gUnknown_08ADDA74
-gUnknown_08ADDA74:  @ 0x08ADDA74
+	.global Img_OpAnimFaceEwan
+Img_OpAnimFaceEwan:  @ 0x08ADDA74
 	.incbin "baserom.gba", 0xADDA74, 0x60C
 
-	.global gUnknown_08ADE080
-gUnknown_08ADE080:  @ 0x08ADE080
+	.global Img_OpAnimFaceEwanShadow
+Img_OpAnimFaceEwanShadow:  @ 0x08ADE080
 	.incbin "baserom.gba", 0xADE080, 0x3FC
 
-	.global gUnknown_08ADE47C
-gUnknown_08ADE47C:  @ 0x08ADE47C
-@ Replacing .incbin "baserom.gba", 0xADE47C, 0x20
-    .4byte 0x63ff4f34
-    .4byte 0x2a7d3b5f
-    .4byte 0x2d6e25d3
-    .4byte 0x153d24a8
-    .4byte pal_08AF47F0 + 0xc4c9
-    .4byte 0x61627a08
-    .4byte 0x6e4e7b35
-    .4byte 0x7ffe3d8b
+	.global Pal_OpAnimFaceEwan
+Pal_OpAnimFaceEwan:  @ 0x08ADE47C
+	.incbin "baserom.gba", 0xADE47C, 0x20
 
-	.global gUnknown_08ADE49C
-gUnknown_08ADE49C:  @ 0x08ADE49C
+	.global Img_OpAnimFaceGerik
+Img_OpAnimFaceGerik:  @ 0x08ADE49C
 	.incbin "baserom.gba", 0xADE49C, 0x680
 
-	.global gUnknown_08ADEB1C
-gUnknown_08ADEB1C:  @ 0x08ADEB1C
+	.global Img_OpAnimFaceGerikShadow
+Img_OpAnimFaceGerikShadow:  @ 0x08ADEB1C
 	.incbin "baserom.gba", 0xADEB1C, 0x3B8
 
-	.global gUnknown_08ADEED4
-gUnknown_08ADEED4:  @ 0x08ADEED4
+	.global Pal_OpAnimFaceGerik
+Pal_OpAnimFaceGerik:  @ 0x08ADEED4
 	.incbin "baserom.gba", 0xADEED4, 0x20
 
-	.global gUnknown_08ADEEF4
-gUnknown_08ADEEF4:  @ 0x08ADEEF4
+	.global Img_OpAnimFaceTethys
+Img_OpAnimFaceTethys:  @ 0x08ADEEF4
 	.incbin "baserom.gba", 0xADEEF4, 0x698
 
-	.global gUnknown_08ADF58C
-gUnknown_08ADF58C:  @ 0x08ADF58C
+	.global Img_OpAnimFaceTethysShadow
+Img_OpAnimFaceTethysShadow:  @ 0x08ADF58C
 	.incbin "baserom.gba", 0xADF58C, 0x47C
 
-	.global gUnknown_08ADFA08
-gUnknown_08ADFA08:  @ 0x08ADFA08
-@ Replacing .incbin "baserom.gba", 0xADFA08, 0x20
-    .4byte 0x6fdf4f34
-    .4byte 0x2e7d473f
-    .4byte 0x2d6e25d3
-    .4byte 0x14fd24a8
-    .4byte 0x08900c79
-    .4byte 0x31ff52ff
-    .4byte 0x20ac27ff
-    .4byte 0x67354e73
+	.global Pal_OpAnimFaceTethys
+Pal_OpAnimFaceTethys:  @ 0x08ADFA08
+	.incbin "baserom.gba", 0xADFA08, 0x20
 
-	.global gUnknown_08ADFA28
-gUnknown_08ADFA28:  @ 0x08ADFA28
+	.global Img_OpAnimFaceMarisa
+Img_OpAnimFaceMarisa:  @ 0x08ADFA28
 	.incbin "baserom.gba", 0xADFA28, 0x6BC
 
-	.global gUnknown_08AE00E4
-gUnknown_08AE00E4:  @ 0x08AE00E4
+	.global Img_OpAnimFaceMarisaShadow
+Img_OpAnimFaceMarisaShadow:  @ 0x08AE00E4
 	.incbin "baserom.gba", 0xAE00E4, 0x3F0
 
-	.global gUnknown_08AE04D4
-gUnknown_08AE04D4:  @ 0x08AE04D4
+	.global Pal_OpAnimFaceMarisa
+Pal_OpAnimFaceMarisa:  @ 0x08AE04D4
 	.incbin "baserom.gba", 0xAE04D4, 0x20
 
-	.global gUnknown_08AE04F4
-gUnknown_08AE04F4:  @ 0x08AE04F4
+	.global Img_OpAnimFaceGarcia
+Img_OpAnimFaceGarcia:  @ 0x08AE04F4
 	.incbin "baserom.gba", 0xAE04F4, 0x554
 
-	.global gUnknown_08AE0A48
-gUnknown_08AE0A48:  @ 0x08AE0A48
+	.global Img_OpAnimFaceGarciaShadow
+Img_OpAnimFaceGarciaShadow:  @ 0x08AE0A48
 	.incbin "baserom.gba", 0xAE0A48, 0x32C
 
-	.global Pal_OpAnimFaceVanessaShadow
-Pal_OpAnimFaceVanessaShadow:  @ 0x08AE0D74
+	.global Pal_OpAnimFaceGarcia
+Pal_OpAnimFaceGarcia:  @ 0x08AE0D74
 	.incbin "baserom.gba", 0xAE0D74, 0x20
 
-	.global gUnknown_08AE0D94
-gUnknown_08AE0D94:  @ 0x08AE0D94
+	.global Img_OpAnimFaceRoss
+Img_OpAnimFaceRoss:  @ 0x08AE0D94
 	.incbin "baserom.gba", 0xAE0D94, 0x528
 
-	.global gUnknown_08AE12BC
-gUnknown_08AE12BC:  @ 0x08AE12BC
+	.global Img_OpAnimFaceRossShadow
+Img_OpAnimFaceRossShadow:  @ 0x08AE12BC
 	.incbin "baserom.gba", 0xAE12BC, 0x378
 
-	.global gUnknown_08AE1634
-gUnknown_08AE1634:  @ 0x08AE1634
+	.global Pal_OpAnimFaceRoss
+Pal_OpAnimFaceRoss:  @ 0x08AE1634
 	.incbin "baserom.gba", 0xAE1634, 0x20
 
 	.global Img_OpAnimFaceVanessa
@@ -421,244 +397,244 @@ Img_OpAnimFaceVanessaShadow:  @ 0x08AE1D00
 Pal_OpAnimFaceVanessa:  @ 0x08AE20C4
 	.incbin "baserom.gba", 0xAE20C4, 0x20
 
-	.global gUnknown_08AE20E4
-gUnknown_08AE20E4:  @ 0x08AE20E4
+	.global Img_OpAnimFaceTana
+Img_OpAnimFaceTana:  @ 0x08AE20E4
 	.incbin "baserom.gba", 0xAE20E4, 0x738
 
-	.global gUnknown_08AE281C
-gUnknown_08AE281C:  @ 0x08AE281C
+	.global Img_OpAnimFaceTanaShadow
+Img_OpAnimFaceTanaShadow:  @ 0x08AE281C
 	.incbin "baserom.gba", 0xAE281C, 0x3D8
 
-	.global gUnknown_08AE2BF4
-gUnknown_08AE2BF4:  @ 0x08AE2BF4
+	.global Pal_OpAnimFaceTana
+Pal_OpAnimFaceTana:  @ 0x08AE2BF4
     .incbin "baserom.gba", 0xAE2BF4, 0x20
 
-	.global gUnknown_08AE2C14
-gUnknown_08AE2C14:  @ 0x08AE2C14
+	.global Img_OpAnimFaceSyrene
+Img_OpAnimFaceSyrene:  @ 0x08AE2C14
 	.incbin "baserom.gba", 0xAE2C14, 0x7C0
 
-	.global gUnknown_08AE33D4
-gUnknown_08AE33D4:  @ 0x08AE33D4
+	.global Img_OpAnimFaceSyreneShadow
+Img_OpAnimFaceSyreneShadow:  @ 0x08AE33D4
 	.incbin "baserom.gba", 0xAE33D4, 0x360
 
-	.global gUnknown_08AE3734
-gUnknown_08AE3734:  @ 0x08AE3734
+	.global Pal_OpAnimFaceSyrene
+Pal_OpAnimFaceSyrene:  @ 0x08AE3734
 	.incbin "baserom.gba", 0xAE3734, 0x20
 
-	.global gUnknown_08AE3754
-gUnknown_08AE3754:  @ 0x08AE3754
+	.global Img_OpAnimFaceGilliam
+Img_OpAnimFaceGilliam:  @ 0x08AE3754
 	.incbin "baserom.gba", 0xAE3754, 0x700
 
-	.global gUnknown_08AE3E54
-gUnknown_08AE3E54:  @ 0x08AE3E54
+	.global Img_OpAnimFaceGilliamShadow
+Img_OpAnimFaceGilliamShadow:  @ 0x08AE3E54
 	.incbin "baserom.gba", 0xAE3E54, 0x390
 
-	.global gUnknown_08AE41E4
-gUnknown_08AE41E4:  @ 0x08AE41E4
+	.global Pal_OpAnimFaceGilliam
+Pal_OpAnimFaceGilliam:  @ 0x08AE41E4
 	.incbin "baserom.gba", 0xAE41E4, 0x20
 
-	.global gUnknown_08AE4204
-gUnknown_08AE4204:  @ 0x08AE4204
+	.global Img_OpAnimFaceInnes
+Img_OpAnimFaceInnes:  @ 0x08AE4204
 	.incbin "baserom.gba", 0xAE4204, 0x73C
 
-	.global gUnknown_08AE4940
-gUnknown_08AE4940:  @ 0x08AE4940
+	.global Img_OpAnimFaceInnesShadow
+Img_OpAnimFaceInnesShadow:  @ 0x08AE4940
 	.incbin "baserom.gba", 0xAE4940, 0x3A8
 
-	.global gUnknown_08AE4CE8
-gUnknown_08AE4CE8:  @ 0x08AE4CE8
+	.global Pal_OpAnimFaceInnes
+Pal_OpAnimFaceInnes:  @ 0x08AE4CE8
 	.incbin "baserom.gba", 0xAE4CE8, 0x20
 
-	.global gUnknown_08AE4D08
-gUnknown_08AE4D08:  @ 0x08AE4D08
+	.global Img_OpAnimFaceMoulder
+Img_OpAnimFaceMoulder:  @ 0x08AE4D08
 	.incbin "baserom.gba", 0xAE4D08, 0x6C0
 
-	.global gUnknown_08AE53C8
-gUnknown_08AE53C8:  @ 0x08AE53C8
+	.global Img_OpAnimFaceMoulderShadow
+Img_OpAnimFaceMoulderShadow:  @ 0x08AE53C8
 	.incbin "baserom.gba", 0xAE53C8, 0x368
 
-	.global gUnknown_08AE5730
-gUnknown_08AE5730:  @ 0x08AE5730
+	.global Pal_OpAnimFaceMoulder
+Pal_OpAnimFaceMoulder:  @ 0x08AE5730
 	.incbin "baserom.gba", 0xAE5730, 0x20
 
-	.global gUnknown_08AE5750
-gUnknown_08AE5750:  @ 0x08AE5750
+	.global Img_OpAnimFaceColm
+Img_OpAnimFaceColm:  @ 0x08AE5750
 	.incbin "baserom.gba", 0xAE5750, 0x604
 
-	.global gUnknown_08AE5D54
-gUnknown_08AE5D54:  @ 0x08AE5D54
+	.global Img_OpAnimFaceColmShadow
+Img_OpAnimFaceColmShadow:  @ 0x08AE5D54
 	.incbin "baserom.gba", 0xAE5D54, 0x35C
 
-	.global gUnknown_08AE60B0
-gUnknown_08AE60B0:  @ 0x08AE60B0
+	.global Pal_OpAnimFaceColm
+Pal_OpAnimFaceColm:  @ 0x08AE60B0
 	.incbin "baserom.gba", 0xAE60B0, 0x20
 
-	.global gUnknown_08AE60D0
-gUnknown_08AE60D0:  @ 0x08AE60D0
+	.global Img_OpAnimFaceNeimi
+Img_OpAnimFaceNeimi:  @ 0x08AE60D0
 	.incbin "baserom.gba", 0xAE60D0, 0x578
 
-	.global gUnknown_08AE6648
-gUnknown_08AE6648:  @ 0x08AE6648
+	.global Img_OpAnimFaceNeimiShadow
+Img_OpAnimFaceNeimiShadow:  @ 0x08AE6648
 	.incbin "baserom.gba", 0xAE6648, 0x3A4
 
-	.global gUnknown_08AE69EC
-gUnknown_08AE69EC:  @ 0x08AE69EC
+	.global Pal_OpAnimFaceNeimi
+Pal_OpAnimFaceNeimi:  @ 0x08AE69EC
 	.incbin "baserom.gba", 0xAE69EC, 0x20
 
-	.global gUnknown_08AE6A0C
-gUnknown_08AE6A0C:  @ 0x08AE6A0C
+	.global Img_OpAnimFaceKnoll
+Img_OpAnimFaceKnoll:  @ 0x08AE6A0C
 	.incbin "baserom.gba", 0xAE6A0C, 0x59C
 
-	.global gUnknown_08AE6FA8
-gUnknown_08AE6FA8:  @ 0x08AE6FA8
+	.global Img_OpAnimFaceKnollShadow
+Img_OpAnimFaceKnollShadow:  @ 0x08AE6FA8
 	.incbin "baserom.gba", 0xAE6FA8, 0x320
 
-	.global gUnknown_08AE72C8
-gUnknown_08AE72C8:  @ 0x08AE72C8
+	.global Pal_OpAnimFaceKnoll
+Pal_OpAnimFaceKnoll:  @ 0x08AE72C8
 	.incbin "baserom.gba", 0xAE72C8, 0x20
 
-	.global gUnknown_08AE72E8
-gUnknown_08AE72E8:  @ 0x08AE72E8
+	.global Img_OpAnimFaceCormag
+Img_OpAnimFaceCormag:  @ 0x08AE72E8
 	.incbin "baserom.gba", 0xAE72E8, 0x5C8
 
-	.global gUnknown_08AE78B0
-gUnknown_08AE78B0:  @ 0x08AE78B0
+	.global Img_OpAnimFaceCormagShadow
+Img_OpAnimFaceCormagShadow:  @ 0x08AE78B0
 	.incbin "baserom.gba", 0xAE78B0, 0x37C
 
-	.global gUnknown_08AE7C2C
-gUnknown_08AE7C2C:  @ 0x08AE7C2C
+	.global Pal_OpAnimFaceCormag
+Pal_OpAnimFaceCormag:  @ 0x08AE7C2C
 	.incbin "baserom.gba", 0xAE7C2C, 0x20
 
-	.global gUnknown_08AE7C4C
-gUnknown_08AE7C4C:  @ 0x08AE7C4C
+	.global Img_OpAnimFaceAmelia
+Img_OpAnimFaceAmelia:  @ 0x08AE7C4C
 	.incbin "baserom.gba", 0xAE7C4C, 0x550
 
-	.global gUnknown_08AE819C
-gUnknown_08AE819C:  @ 0x08AE819C
+	.global Img_OpAnimFaceAmeliaShadow
+Img_OpAnimFaceAmeliaShadow:  @ 0x08AE819C
 	.incbin "baserom.gba", 0xAE819C, 0x320
 
-	.global gUnknown_08AE84BC
-gUnknown_08AE84BC:  @ 0x08AE84BC
+	.global Pal_OpAnimFaceAmelia
+Pal_OpAnimFaceAmelia:  @ 0x08AE84BC
 	.incbin "baserom.gba", 0xAE84BC, 0x20
 
-	.global gUnknown_08AE84DC
-gUnknown_08AE84DC:  @ 0x08AE84DC
+	.global Img_OpAnimFaceNatasha
+Img_OpAnimFaceNatasha:  @ 0x08AE84DC
 	.incbin "baserom.gba", 0xAE84DC, 0x5DC
 
-	.global gUnknown_08AE8AB8
-gUnknown_08AE8AB8:  @ 0x08AE8AB8
+	.global Img_OpAnimFaceNatashaShadow
+Img_OpAnimFaceNatashaShadow:  @ 0x08AE8AB8
 	.incbin "baserom.gba", 0xAE8AB8, 0x2CC
 
-	.global gUnknown_08AE8D84
-gUnknown_08AE8D84:  @ 0x08AE8D84
+	.global Pal_OpAnimFaceNatasha
+Pal_OpAnimFaceNatasha:  @ 0x08AE8D84
 	.incbin "baserom.gba", 0xAE8D84, 0x20
 
-	.global gUnknown_08AE8DA4
-gUnknown_08AE8DA4:  @ 0x08AE8DA4
+	.global Img_OpAnimFaceLute
+Img_OpAnimFaceLute:  @ 0x08AE8DA4
 	.incbin "baserom.gba", 0xAE8DA4, 0x5C0
 
-	.global gUnknown_08AE9364
-gUnknown_08AE9364:  @ 0x08AE9364
+	.global Img_OpAnimFaceLuteShadow
+Img_OpAnimFaceLuteShadow:  @ 0x08AE9364
 	.incbin "baserom.gba", 0xAE9364, 0x3BC
 
-	.global gUnknown_08AE9720
-gUnknown_08AE9720:  @ 0x08AE9720
+	.global Pal_OpAnimFaceLute
+Pal_OpAnimFaceLute:  @ 0x08AE9720
 	.incbin "baserom.gba", 0xAE9720, 0x20
 
-	.global gUnknown_08AE9740
-gUnknown_08AE9740:  @ 0x08AE9740
+	.global Img_OpAnimFaceArtur
+Img_OpAnimFaceArtur:  @ 0x08AE9740
 	.incbin "baserom.gba", 0xAE9740, 0x564
 
-	.global gUnknown_08AE9CA4
-gUnknown_08AE9CA4:  @ 0x08AE9CA4
+	.global Img_OpAnimFaceArturShadow
+Img_OpAnimFaceArturShadow:  @ 0x08AE9CA4
 	.incbin "baserom.gba", 0xAE9CA4, 0x388
 
-	.global gUnknown_08AEA02C
-gUnknown_08AEA02C:  @ 0x08AEA02C
+	.global Pal_OpAnimFaceArtur
+Pal_OpAnimFaceArtur:  @ 0x08AEA02C
     .incbin "baserom.gba", 0xAEA02C, 0x20
 
-	.global gUnknown_08AEA04C
-gUnknown_08AEA04C:  @ 0x08AEA04C
+	.global Img_OpAnimFaceKyle
+Img_OpAnimFaceKyle:  @ 0x08AEA04C
 	.incbin "baserom.gba", 0xAEA04C, 0x75C
 
-	.global gUnknown_08AEA7A8
-gUnknown_08AEA7A8:  @ 0x08AEA7A8
+	.global Img_OpAnimFaceKyleShadow
+Img_OpAnimFaceKyleShadow:  @ 0x08AEA7A8
 	.incbin "baserom.gba", 0xAEA7A8, 0x3A8
 
-	.global gUnknown_08AEAB50
-gUnknown_08AEAB50:  @ 0x08AEAB50
+	.global Pal_OpAnimFaceKyle
+Pal_OpAnimFaceKyle:  @ 0x08AEAB50
 	.incbin "baserom.gba", 0xAEAB50, 0x20
 
-	.global gUnknown_08AEAB70
-gUnknown_08AEAB70:  @ 0x08AEAB70
+	.global Img_OpAnimFaceFranz
+Img_OpAnimFaceFranz:  @ 0x08AEAB70
 	.incbin "baserom.gba", 0xAEAB70, 0x648
 
-	.global gUnknown_08AEB1B8
-gUnknown_08AEB1B8:  @ 0x08AEB1B8
+	.global Img_OpAnimFaceFranzShadow
+Img_OpAnimFaceFranzShadow:  @ 0x08AEB1B8
 	.incbin "baserom.gba", 0xAEB1B8, 0x3B4
 
-	.global gUnknown_08AEB56C
-gUnknown_08AEB56C:  @ 0x08AEB56C
+	.global Pal_OpAnimFaceFranz
+Pal_OpAnimFaceFranz:  @ 0x08AEB56C
 	.incbin "baserom.gba", 0xAEB56C, 0x20
 
-	.global gUnknown_08AEB58C
-gUnknown_08AEB58C:  @ 0x08AEB58C
+	.global Img_OpAnimFaceForde
+Img_OpAnimFaceForde:  @ 0x08AEB58C
 	.incbin "baserom.gba", 0xAEB58C, 0x760
 
-	.global gUnknown_08AEBCEC
-gUnknown_08AEBCEC:  @ 0x08AEBCEC
+	.global Img_OpAnimFaceFordeShadow
+Img_OpAnimFaceFordeShadow:  @ 0x08AEBCEC
 	.incbin "baserom.gba", 0xAEBCEC, 0x35C
 
-	.global Pal_OpAnimFaceValterShadow
-Pal_OpAnimFaceValterShadow:  @ 0x08AEC048
+	.global Pal_OpAnimFaceForde
+Pal_OpAnimFaceForde:  @ 0x08AEC048
 	.incbin "graphics/op_anim/FaceValterShadow.gbapal", 0x0, 0x20
 
-	.global gUnknown_08AEC068
-gUnknown_08AEC068:  @ 0x08AEC068
+	.global Img_OpAnimFaceSeth
+Img_OpAnimFaceSeth:  @ 0x08AEC068
 	.incbin "baserom.gba", 0xAEC068, 0x6BC
 
-	.global gUnknown_08AEC724
-gUnknown_08AEC724:  @ 0x08AEC724
+	.global Img_OpAnimFaceSethShadow
+Img_OpAnimFaceSethShadow:  @ 0x08AEC724
 	.incbin "baserom.gba", 0xAEC724, 0x39C
 
-	.global gUnknown_08AECAC0
-gUnknown_08AECAC0:  @ 0x08AECAC0
+	.global Pal_OpAnimFaceSeth
+Pal_OpAnimFaceSeth:  @ 0x08AECAC0
 	.incbin "baserom.gba", 0xAECAC0, 0x20
 
-	.global gUnknown_08AECAE0
-gUnknown_08AECAE0:  @ 0x08AECAE0
+	.global Img_OpAnimFaceDuessel
+Img_OpAnimFaceDuessel:  @ 0x08AECAE0
 	.incbin "baserom.gba", 0xAECAE0, 0x5C4
 
-	.global gUnknown_08AED0A4
-gUnknown_08AED0A4:  @ 0x08AED0A4
+	.global Img_OpAnimFaceDuesselShadow
+Img_OpAnimFaceDuesselShadow:  @ 0x08AED0A4
 	.incbin "baserom.gba", 0xAED0A4, 0x344
 
-	.global gUnknown_08AED3E8
-gUnknown_08AED3E8:  @ 0x08AED3E8
+	.global Pal_OpAnimFaceDuessel
+Pal_OpAnimFaceDuessel:  @ 0x08AED3E8
 	.incbin "baserom.gba", 0xAED3E8, 0x20
 
-	.global gUnknown_08AED408
-gUnknown_08AED408:  @ 0x08AED408
+	.global Img_OpAnimFaceSelena
+Img_OpAnimFaceSelena:  @ 0x08AED408
 	.incbin "baserom.gba", 0xAED408, 0x554
 
-	.global gUnknown_08AED95C
-gUnknown_08AED95C:  @ 0x08AED95C
+	.global Img_OpAnimFaceSelenaShadow
+Img_OpAnimFaceSelenaShadow:  @ 0x08AED95C
 	.incbin "baserom.gba", 0xAED95C, 0x324
 
-	.global gUnknown_08AEDC80
-gUnknown_08AEDC80:  @ 0x08AEDC80
+	.global Pal_OpAnimFaceSelena
+Pal_OpAnimFaceSelena:  @ 0x08AEDC80
 	.incbin "baserom.gba", 0xAEDC80, 0x20
 
-	.global gUnknown_08AEDCA0
-gUnknown_08AEDCA0:  @ 0x08AEDCA0
+	.global Img_OpAnimFaceGlen
+Img_OpAnimFaceGlen:  @ 0x08AEDCA0
 	.incbin "baserom.gba", 0xAEDCA0, 0x578
 
-	.global gUnknown_08AEE218
-gUnknown_08AEE218:  @ 0x08AEE218
+	.global Img_OpAnimFaceGlenShadow
+Img_OpAnimFaceGlenShadow:  @ 0x08AEE218
 	.incbin "baserom.gba", 0xAEE218, 0x34C
 
-	.global gUnknown_08AEE564
-gUnknown_08AEE564:  @ 0x08AEE564
+	.global Pal_OpAnimFaceGlen
+Pal_OpAnimFaceGlen:  @ 0x08AEE564
 	.incbin "baserom.gba", 0xAEE564, 0x20
 
 	.global Img_OpAnimFaceValter
@@ -673,40 +649,40 @@ Img_OpAnimFaceValterShadow:  @ 0x08AEEBB0
 Pal_OpAnimFaceValter:  @ 0x08AEEECC
 	.incbin "baserom.gba", 0xAEEECC, 0x20
 
-	.global gUnknown_08AEEEEC
-gUnknown_08AEEEEC:  @ 0x08AEEEEC
+	.global Img_OpAnimFaceRiev
+Img_OpAnimFaceRiev:  @ 0x08AEEEEC
 	.incbin "baserom.gba", 0xAEEEEC, 0x694
 
-	.global gUnknown_08AEF580
-gUnknown_08AEF580:  @ 0x08AEF580
+	.global Img_OpAnimFaceRievShadow
+Img_OpAnimFaceRievShadow:  @ 0x08AEF580
 	.incbin "baserom.gba", 0xAEF580, 0x300
 
-	.global gUnknown_08AEF880
-gUnknown_08AEF880:  @ 0x08AEF880
+	.global Pal_OpAnimFaceRiev
+Pal_OpAnimFaceRiev:  @ 0x08AEF880
 	.incbin "baserom.gba", 0xAEF880, 0x20
 
-	.global gUnknown_08AEF8A0
-gUnknown_08AEF8A0:  @ 0x08AEF8A0
+	.global Img_OpAnimFaceCaellach
+Img_OpAnimFaceCaellach:  @ 0x08AEF8A0
 	.incbin "baserom.gba", 0xAEF8A0, 0x528
 
-	.global gUnknown_08AEFDC8
-gUnknown_08AEFDC8:  @ 0x08AEFDC8
+	.global Img_OpAnimFaceCaellachShadow
+Img_OpAnimFaceCaellachShadow:  @ 0x08AEFDC8
 	.incbin "baserom.gba", 0xAEFDC8, 0x368
 
-	.global Pal_OpAnimFaceVigardeShadow
-Pal_OpAnimFaceVigardeShadow:  @ 0x08AF0130
+	.global Pal_OpAnimFaceCaellach
+Pal_OpAnimFaceCaellach:  @ 0x08AF0130
 	.incbin "baserom.gba", 0xAF0130, 0x20
 
-	.global gUnknown_08AF0150
-gUnknown_08AF0150:  @ 0x08AF0150
+	.global Img_OpAnimFaceLyon
+Img_OpAnimFaceLyon:  @ 0x08AF0150
 	.incbin "baserom.gba", 0xAF0150, 0x894
 
-	.global gUnknown_08AF09E4
-gUnknown_08AF09E4:  @ 0x08AF09E4
+	.global Img_OpAnimFaceLyonShadow
+Img_OpAnimFaceLyonShadow:  @ 0x08AF09E4
 	.incbin "baserom.gba", 0xAF09E4, 0x404
 
-	.global gUnknown_08AF0DE8
-gUnknown_08AF0DE8:  @ 0x08AF0DE8
+	.global Pal_OpAnimFaceLyon
+Pal_OpAnimFaceLyon:  @ 0x08AF0DE8
 	.incbin "baserom.gba", 0xAF0DE8, 0x20
 
 	.global Img_OpAnimFaceVigarde
@@ -753,20 +729,20 @@ Img_OpAnimDivlEye:  @ 0x08AF2654
 Pal_OpAnimDivlEye:  @ 0x08AF310C
 	.incbin "graphics/op_anim/devil_eye.gbapal", 0x0, 0x20
 
-	.global Img_OpAnimShinningRing
-Img_OpAnimShinningRing:  @ 0x08AF312C
+	.global Img_OpAnimShiningRing
+Img_OpAnimShiningRing:  @ 0x08AF312C
 	.incbin "baserom.gba", 0xAF312C, 0xF20
 
-	.global Tsa_OpAnimShinningRing
-Tsa_OpAnimShinningRing:  @ 0x08AF404C
+	.global Tsa_OpAnimShiningRing
+Tsa_OpAnimShiningRing:  @ 0x08AF404C
 	.incbin "baserom.gba", 0xAF404C, 0x2E4
 
-	.global Tsa_OpAnimShinningRingBlinking
-Tsa_OpAnimShinningRingBlinking:  @ 0x08AF4330
+	.global Tsa_OpAnimShiningRingBlinking
+Tsa_OpAnimShiningRingBlinking:  @ 0x08AF4330
 	.incbin "baserom.gba", 0xAF4330, 0x4C0
 
-	.global pal_08AF47F0
-pal_08AF47F0:  @ 0x08AF47F0
+	.global Pal_OpAnimShiningRing
+Pal_OpAnimShiningRing:  @ 0x08AF47F0
 	.incbin "baserom.gba", 0xAF47F0, 0x80
 
 	.global img_opanim1

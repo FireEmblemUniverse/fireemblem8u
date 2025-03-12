@@ -49,7 +49,7 @@ static void AiPhaseInit(struct Proc* proc)
     gAiState.orderState = 0;
 
     for (i = 0; i < 8; ++i)
-        gAiState.unk86[i] = 0;
+        gAiState.cmd_result[i] = 0;
 
     gAiState.specialItemFlags = gAiItemConfigTable[gPlaySt.chapterIndex];
     gAiState.unk84 = 0;
@@ -68,7 +68,7 @@ static void AiPhaseBerserkInit(struct Proc* proc)
     gAiState.unk7E = -1;
 
     for (i = 0; i < 8; ++i)
-        gAiState.unk86[i] = 0;
+        gAiState.cmd_result[i] = 0;
 
     gAiState.specialItemFlags = gAiItemConfigTable[gPlaySt.chapterIndex];
 

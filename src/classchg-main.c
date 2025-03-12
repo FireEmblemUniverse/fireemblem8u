@@ -172,7 +172,7 @@ void PromoMain_HandlePrepEndEffect(struct ProcPromoMain *proc)
         case PROMO_HANDLER_TYPE_PREP:
             BMapDispResume();
             RefreshUnitSprites();
-            SetupMapSpritesPalettes();
+            ApplyUnitSpritePalettes();
             ForceSyncUnitSpriteSheet();
             InitSystemTextFont();
             break;

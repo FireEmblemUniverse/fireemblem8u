@@ -18,10 +18,11 @@
 #include "constants/video-global.h"
 #include "bmlib.h"
 #include "sysutil.h"
+#include "sio.h"
 #include "unitlistscreen.h"
 #include "prepscreen.h"
 
-s8 CheckInLinkArena();
+EWRAM_OVERLAY(0) struct Text gPrepUnitTexts[0x16] = {};
 
 void PrepUnit_DrawUnitListNames(struct ProcPrepUnit *proc, int line)
 {
@@ -155,7 +156,7 @@ void PrepUnit_InitGfx()
 
 void PrepUnit_InitSMS(struct ProcPrepUnit *proc)
 {
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     CpuFastFill(0, PAL_OBJ(0x0B), 0x20);
     MakePrepUnitList();
     PrepAutoCapDeployUnits(proc->proc_parent);

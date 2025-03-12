@@ -641,8 +641,8 @@ void WarpFlashy_Init(struct MAEffectProc * proc)
 {
     BG_SetPosition(BG_2, 0, 0);
 
-    Decompress(gUnknown_089AE224, ((void *) VRAM) + GetBackgroundTileDataOffset(2) + CHR_SIZE * BGCHR_MANIM_160);
-    ApplyPalette(gUnknown_089AE484, BGPAL_MANIM_4);
+    Decompress(Img_LinkArenaWarpFx, ((void *) VRAM) + GetBackgroundTileDataOffset(2) + CHR_SIZE * BGCHR_MANIM_160);
+    ApplyPalette(Pal_LinkArenaWarpFx, BGPAL_MANIM_4);
 
     LoadSparkGfx();
 

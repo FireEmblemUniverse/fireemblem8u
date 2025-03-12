@@ -37,7 +37,7 @@ void sub_805B034(int x)
 }
 
 //! FE8U = 0x0805B07C
-void PlaySound8FForArenaMaybe(void)
+void PlayDeathSoundForArena(void)
 {
     if (GetBattleAnimArenaFlag() != 0)
     {
@@ -242,7 +242,7 @@ void ekrTogiEnd_End(ProcPtr proc)
     EndEkrBattleDeamon();
     EndEkrGauge();
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     Proc_Break(proc);

@@ -41,8 +41,8 @@
 . = ALIGN(4); src/cp_script.o(.bss);
 . = ALIGN(4); src/cp_battle.o(.bss);
 . = ALIGN(4); src/sio_core.o(.bss);
-. = ALIGN(4); gUnknown_03001808 = .;
-. = 0x00180C; gUnknown_0300180C = .;
+. = ALIGN(4); gCurrentKeyInSeqIndex = .;
+. = 0x00180C; gTargetKeyInSeqIndex = .;
 . = 0x001810; gUnknown_03001810 = .;
 . = 0x001818; gUnknown_03001818 = .;
 . = 0x00182C; gUnknown_0300182C = .;
@@ -83,9 +83,9 @@
 
 . = 0x002A68;
 . = ALIGN(4); src/agb_sram.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libc.a:syscalls.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
-. = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
+. = ALIGN(4); *libc.a:syscalls.o(.bss);
+. = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
+. = ALIGN(4); *libgcc.a:fp-bit.o(.bss);
 
 /* COMMON */
 . = 0x002C60; SoundMainRAM_Buffer = .;
@@ -94,7 +94,6 @@
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003070; gOamLoPutIt = .;
 . = 0x003080; gLCDControlBuffer = .;
-. = 0x0030C8; gOpAnimBgAffineDstData = .;
 . = 0x0030D8; gUnknown_030030D8 = .;
 . = 0x0030F0; gIRQHandlers = .;
 . = 0x003128; gUnknown_03003128 = .;
@@ -113,7 +112,7 @@
 . = 0x004960; gUnknown_03004960 = .;
 . = 0x004970; gSpriteAllocIt = .;
 . = 0x004980; gFaces = .;
-. = 0x004990; gUnknown_03004990 = .;
+. = 0x004990; gpBgVerticalScrollSt = .;
 . = 0x0049A0; gWorkingBmMap = .;
 . = 0x0049B0; gMovMapFillStPool1 = .;
 . = 0x004BB0; gWorkingTerrainMoveCosts = .;
@@ -171,4 +170,4 @@
 . = 0x0067A4; VerifySramFast = .;
 
 . = 0x67A8;
-. = ALIGN(4); tools/agbcc/lib/libc.a:sbrkr.o(COMMON);
+. = ALIGN(4); *libc.a:sbrkr.o(COMMON);

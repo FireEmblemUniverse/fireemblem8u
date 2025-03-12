@@ -67,7 +67,7 @@ void LoadClassReelFontPalette(struct ProcPromoSel *proc, int class_id) {
 void LoadClassNameInClassReelFont(struct ProcPromoSel *proc) {
     s8 str[0x20];
     s32 index;
-    u8 idx = proc->menu_index;
+    u8 idx = proc->main_select;
     u16 classNum = proc->jid[idx];
     u32 xOffs = 0x74;
     const struct ClassData *class = GetClassData(classNum);
@@ -260,7 +260,7 @@ void Make6C_PromotionMenuSelect(struct ProcPromoSel* proc) {
     }
 
     proc->stat = 1;
-    proc->menu_index = 0;
+    proc->main_select = 0;
     LoadClassReelFontPalette(proc, pid);
     LoadClassNameInClassReelFont(proc);
     LoadObjUIGfx();
@@ -282,7 +282,7 @@ void sub_80CCF60(struct ProcPromoSel *proc) {
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     InitTalk(0x100, 2, 0);
-    ChangeClassDescription(proc->msg_desc[proc->menu_index]);
+    ChangeClassDescription(proc->msg_desc[proc->main_select]);
     SetTalkPrintDelay(-1);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
@@ -345,11 +345,11 @@ void LoadBattleSpritesForBranchScreen(struct ProcPromoSel *proc) {
             EndEfxAnimeDrvProc();
             sub_805AA28(&gUnknown_030053A0);
             _pid = proc->pid - 1;
-            _jid = proc->jid[proc->menu_index];
+            _jid = proc->jid[proc->main_select];
             chara_pal = -1;
             unit = GetUnitFromCharId(proc->pid);
             copied_unit = *unit;
-            copied_unit.pClassData = GetClassData(proc->jid[proc->menu_index]);
+            copied_unit.pClassData = GetClassData(proc->jid[proc->main_select]);
             battle_anim_ptr = copied_unit.pClassData->pBattleAnimDef;
             ret = GetBattleAnimationId(
                 &copied_unit,
@@ -434,8 +434,8 @@ void PrepClassChgOnCancel(struct ProcPromoSel *proc)
         RefreshEntityBmMaps();
         RenderBmMap();
         RefreshUnitSprites();
-        MU_EndAll();
-        MU_Create(gActiveUnit);
+        EndAllMus();
+        StartMu(gActiveUnit);
     }
 }
 
@@ -518,13 +518,13 @@ void sub_80CD34C(void)
 }
 
 void sub_80CD408(u32 a, s16 b, s16 c) {
-    gUnknown_0201FADC.unk00 = a;
-    gUnknown_0201FADC.unk02 = 0xe;
-    gUnknown_0201FADC.unk04 = 0x380;
-    gUnknown_0201FADC.unk06 = a;
-    gUnknown_0201FADC.unk08 = 0xf;
-    gUnknown_0201FADC.unk0A = 0xf0 << 2;
-    gUnknown_0201FADC.unk0C = 0;
+    gUnknown_0201FADC.terrain_l = a;
+    gUnknown_0201FADC.pal_l = 0xe;
+    gUnknown_0201FADC.chr_l = 0x380;
+    gUnknown_0201FADC.terrain_r = a;
+    gUnknown_0201FADC.pal_r = 0xf;
+    gUnknown_0201FADC.chr_r = 0xf0 << 2;
+    gUnknown_0201FADC.distance = 0;
     gUnknown_0201FADC.unk0E = -1;
     gUnknown_0201FADC.unk1C = (void *)0x06010000;
     gUnknown_0201FADC.unk20 = gUnk_Banim_020145C8;

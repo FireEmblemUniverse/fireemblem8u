@@ -113,7 +113,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
         val2 = GetEfxHp(val2 * 2 + GetAnimPosition(animr5));
 
         if (val1 != val2) {
-            NewEfxHPBar(animr5);
+            NewEfxHpBar(animr5);
 
             if (CheckRoundCrit(animr7) == 1)
                 NewEfxHitQuake(animr5, animr7, b);
@@ -123,7 +123,7 @@ void StartBattleAnimHitEffects(struct Anim *anim, int type, int a, int b)
             NewEfxFlashHPBar(animr5, 0, 5);
             NewEfxFlashUnit(animr5, 0, 8, 0);
         } else {
-            NewEfxNoDmage(animr5, animr8, 0);
+            NewEfxNoDamage(animr5, animr8, 0);
         }
         break;
 
@@ -160,7 +160,7 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
     switch (type) {
     case EKR_HITTED:
         if (val1 != val2) {
-            NewEfxHPBarResire(animR5);
+            NewEfxHpBarResire(animR5);
 
             if (CheckRoundCrit(animR7) == 1)
                 NewEfxHitQuake(animR5, animR7, 4);
@@ -170,8 +170,8 @@ void StartBattleAnimResireHitEffects(struct Anim * anim, int type)
             NewEfxFlashHPBar(animR5, 0, 5);
             NewEfxFlashUnit(animR5, 0, 8, 0);
         } else {
-            gUnknown_02017750 = 2;
-            NewEfxNoDmage(animR5, animR8, 1);
+            gEfxHpBarResireFlag = 2;
+            NewEfxNoDamage(animR5, animR8, 1);
         }
         break;
 
@@ -536,9 +536,9 @@ void NewEfxspdquake(struct Anim *anim)
 
 void sub_8055A64(struct ProcEfxSpdQuake *proc)
 {
-    struct Vec2 *vecs = proc->vecs;
-    s16 dx = vecs[proc->timer].x;
-    s16 dy = vecs[proc->timer].y;
+    const s16 * vecs = proc->vecs;
+    s16 dx = vecs[proc->timer * 2 + 0];
+    s16 dy = vecs[proc->timer * 2 + 1];
     struct Anim *anim;
 
     anim = gAnims[0];
@@ -570,7 +570,7 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
     }
 
     ++proc->timer;
-    if (vecs[proc->timer].x == 0x7FFF)
+    if (vecs[proc->timer * 2 + 0] == 0x7FFF)
         proc->timer = 0;
 }
 

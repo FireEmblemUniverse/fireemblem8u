@@ -122,18 +122,8 @@ struct LCDControlBuffer {
     /* 44 */ u8 blendCoeffA;
     /* 45 */ u8 blendCoeffB;
     /* 46 */ u8 blendY;
-    /* 48 */ u16 bg2pa;
-    /* 4A */ u16 bg2pb;
-    /* 4C */ u16 bg2pc;
-    /* 4E */ u16 bg2pd;
-    /* 50 */ u32 bg2x;
-    /* 54 */ u32 bg2y;
-    /* 58 */ u16 bg3pa;
-    /* 5A */ u16 bg3pb;
-    /* 5C */ u16 bg3pc;
-    /* 5E */ u16 bg3pd;
-    /* 60 */ u32 bg3x;
-    /* 64 */ u32 bg3y;
+    /* 48 */ struct BgAffineDstData bg2affin;
+    /* 58 */ struct BgAffineDstData bg3affin;
     /* 68 */ s8 colorAddition;
 };
 
@@ -202,7 +192,6 @@ extern void (*gMainCallback)(void);
 extern struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr;
 
 extern struct LCDControlBuffer gLCDControlBuffer;
-extern struct BgAffineDstData gOpAnimBgAffineDstData[2];
 
 extern struct Struct02024CD4 gFrameTmRegisterConfig;
 extern struct TileDataTransfer gFrameTmRegister[32];

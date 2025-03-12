@@ -50,7 +50,7 @@ void AiTargetCursor_Main(struct UnkProcA* proc);
 struct ProcCmd CONST_DATA gProcScr_AiTargetCursor[] = {
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_REPEAT(AiTargetCursor_Main),
 
     PROC_END,
@@ -62,8 +62,8 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc);
 void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc);
 void CpPerform_PerformAction(struct CpPerformProc* proc);
 void CpPerform_WaitAction(struct CpPerformProc* proc);
-void CpPerform_803A63C(struct CpPerformProc* proc);
-void CpPerform_803A6D0(struct CpPerformProc* proc);
+void CpPerform_Cleanup(struct CpPerformProc* proc);
+void CpPerform_EquipBest(struct CpPerformProc* proc);
 
 struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_NAME("E_CPPERFORM"),
@@ -73,7 +73,7 @@ struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_SLEEP(0),
 
     PROC_CALL(CpPerform_BeginUnitMovement),
-    PROC_WHILE(MU_IsAnyActive),
+    PROC_WHILE(MuExistsActive),
 
     PROC_CALL(CpPerform_MoveCameraOntoTarget),
     PROC_SLEEP(0),
@@ -84,8 +84,8 @@ struct ProcCmd CONST_DATA gProcScr_CpPerform[] = {
     PROC_CALL_2(HandlePostActionTraps),
     PROC_CALL_2(RunPotentialWaitEvents),
 
-    PROC_CALL(CpPerform_803A63C),
-    PROC_CALL(CpPerform_803A6D0),
+    PROC_CALL(CpPerform_Cleanup),
+    PROC_CALL(CpPerform_EquipBest),
 
 PROC_LABEL(1),
     PROC_END,
@@ -167,9 +167,9 @@ void CpPerform_BeginUnitMovement(struct CpPerformProc* proc) {
     gAiDecision.yMove = gActionData.yMove;
 
     if (proc->isUnitVisible) {
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
-        MU_StartMoveScript_Auto(gWorkingMovementScript);
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
+        SetAutoMuMoveScript(gWorkingMovementScript);
     }
 
     return;
@@ -188,7 +188,7 @@ void AiRefreshMap() {
 
     NewBMXFADE(1);
 
-    MU_EndAll();
+    EndAllMus();
     RefreshEntityBmMaps();
 
     ShowUnitSprite(gActiveUnit);
@@ -227,14 +227,14 @@ void AiStartCombatAction(struct CpPerformProc* proc) {
 
 void AiStartEscapeAction(struct CpPerformProc* proc) {
     u8 scripts[4][3] = {
-        { MU_COMMAND_MOVE_LEFT,  MU_COMMAND_MOVE_LEFT,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_RIGHT, MU_COMMAND_MOVE_RIGHT, MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_DOWN,  MU_COMMAND_MOVE_DOWN,  MU_COMMAND_HALT },
-        { MU_COMMAND_MOVE_UP,    MU_COMMAND_MOVE_UP,    MU_COMMAND_HALT },
+        { MOVE_CMD_MOVE_LEFT,  MOVE_CMD_MOVE_LEFT,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_RIGHT, MOVE_CMD_MOVE_RIGHT, MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_DOWN,  MOVE_CMD_MOVE_DOWN,  MOVE_CMD_HALT },
+        { MOVE_CMD_MOVE_UP,    MOVE_CMD_MOVE_UP,    MOVE_CMD_HALT },
     };
 
     if ((gAiDecision.xTarget != 5) && (proc->isUnitVisible)) {
-        MU_StartMoveScript_Auto(scripts[gAiDecision.xTarget]);
+        SetAutoMuMoveScript(scripts[gAiDecision.xTarget]);
     }
 
     return;
@@ -428,15 +428,15 @@ void CpPerform_MoveCameraOntoTarget(struct CpPerformProc* proc) {
             }
 
             if (((s8)gAiDecision.itemSlot == -1) && !(gActiveUnit->state & US_IN_BALLISTA)) {
-                MU_EndAll();
+                EndAllMus();
 
                 gActiveUnit->xPos = gAiDecision.xMove;
                 gActiveUnit->yPos = gAiDecision.yMove;
 
                 RideBallista(gActiveUnit);
 
-                MU_Create(gActiveUnit);
-                MU_SetDefaultFacing_Auto();
+                StartMu(gActiveUnit);
+                SetAutoMuDefaultFacing();
             }
 
             break;
@@ -586,7 +586,7 @@ void CpPerform_WaitAction(struct CpPerformProc* proc) {
     return;
 }
 
-void CpPerform_803A63C(struct CpPerformProc* proc) {
+void CpPerform_Cleanup(struct CpPerformProc* proc) {
     UpdateAllPhaseHealingAIStatus();
     AiRefreshMap();
 
@@ -602,7 +602,7 @@ s8 AiDummyAction(struct CpPerformProc* proc) {
 }
 
 s8 AiEscapeAction(struct CpPerformProc* proc) {
-    if (!MU_IsAnyActive()) {
+    if (!MuExistsActive()) {
         gActiveUnit->pCharacterData = NULL;
         return 1;
     }
@@ -624,15 +624,16 @@ s8 AiWaitAndClearScreenAction(struct CpPerformProc* proc) {
     return 0;
 }
 
-void CpPerform_803A6D0(struct CpPerformProc* proc) {
-    u16 a[6];
-    u16 b;
-    u16 c;
-    u16 d;
+void CpPerform_EquipBest(struct CpPerformProc* proc) {
+    u16 equip_flags[UNIT_ITEM_COUNT + 1];
 
-    if ((sub_803E900() != 0) && (sub_803E93C(a) != 0)) {
-        sub_803EA58(gAiDecision.xMove, gAiDecision.yMove, &b, &c, &d);
-        sub_803EBF0(b, c, d, a);
+    if (AiCanEquip() && AiEquipGetFlags(equip_flags))
+    {
+        u16 range_danger;
+        u16 melee_danger;
+        u16 combined_danger;
+
+        AiEquipGetDanger(gAiDecision.xMove, gAiDecision.yMove, &range_danger, &melee_danger, &combined_danger);
+        AiEquipBestConsideringDanger(range_danger, melee_danger, combined_danger, equip_flags);
     }
-    return;
 }

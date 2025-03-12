@@ -102,7 +102,7 @@ int sub_80C089C(int a, int b, int c, int d)
 //! FE8U = 0x080C0960
 int sub_80C0960(int chIndex)
 {
-    int nodeId = sub_80BCFDC(chIndex);
+    int nodeId = GetPlayChapterId(chIndex);
 
     if ((gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) || (GetNextUnclearedNode(&gGMData) != nodeId))
     {

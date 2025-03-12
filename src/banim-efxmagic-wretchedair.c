@@ -221,7 +221,7 @@ void efxDrzDrakbreathBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
 {
     PROC_NAME("efxDrzDrakbreathBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxDrzDrakbreathBGCOL_Loop),
 
@@ -230,7 +230,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
 
 // clang-format on
 
-extern u16 gUnknown_08725DAC[];
+extern u16 Pal_08725DAC[];
 
 //! FE8U = 0x08068A60
 void StartSubSpell_efxDrzDrakbreathBGCOL(struct Anim * anim)
@@ -306,7 +306,7 @@ void StartSubSpell_efxDrzDrakbreathBGCOL(struct Anim * anim)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = gUnknown_08725DAC;
+    proc->pal = Pal_08725DAC;
 
     return;
 }

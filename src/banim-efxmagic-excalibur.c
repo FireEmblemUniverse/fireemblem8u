@@ -241,7 +241,7 @@ void efxExcaliburBG_Loop_C(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxExcaliburBGCOL[] =
 {
     PROC_NAME("efxExcaliburBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_SET_END_CB(efxExcaliburBGCOL_OnEnd),
     PROC_REPEAT(efxExcaliburBGCOL_Loop),
@@ -524,7 +524,7 @@ void efxExcaliburBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxExcaliburBGCOL2[] =
 {
     PROC_NAME("efxExcaliburBGCOL2"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxExcaliburBGCOL2_Loop),
 
@@ -670,7 +670,7 @@ void efxExcaliburBG3_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxExcaliburBGCOL3[] =
 {
     PROC_NAME("efxExcaliburBGCOL3"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxExcaliburBGCOL3_Loop),
 
@@ -758,7 +758,7 @@ void StartSubSpell_efxExcaliburOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 40;
 
-    scr = gUnknown_087312BC;
+    scr = AnimScr_EfxExcalibur;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
 
     proc->anim2 = frontAnim;

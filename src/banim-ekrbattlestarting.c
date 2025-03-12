@@ -90,7 +90,7 @@ void MainUpdate_8055C68(void)
 
     PushSpriteLayerObjects(0xD);
 
-    gBmSt.sync_hardware = true;
+    gBmSt.main_loop_ended = true;
     gBmSt.prevVCount = REG_VCOUNT;
     VBlankIntrWait();
 }
@@ -154,7 +154,7 @@ void ekrBaStart_SreenFailIn(struct ProcEkrBattleStarting *proc)
         SetWin0Box(0, 0, 0xF0, 0xA0);
         EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x4);
         EnablePaletteSync();
-        MU_EndAll();
+        EndAllMus();
         Proc_Break(proc);
     }
 }

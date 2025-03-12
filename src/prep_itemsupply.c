@@ -24,12 +24,7 @@
 
 #include "prepscreen.h"
 
-struct Struct02013648 {
-    /* 00 */ struct Font font;
-    /* 18 */ struct Text th[16];
-};
-
-extern struct Struct02013648 gUnknown_02013648;
+EWRAM_OVERLAY(0) struct PrepItemSuppyText PrepItemSuppyTexts = {};
 
 //! FE8U = 0x0809D244
 void sub_809D244(void)
@@ -45,7 +40,7 @@ int CONST_DATA gSupplyTextIndexLookup[] = {
     0x5A7, // TODO: msgid "Here you go!"
 };
 
-char* CONST_DATA gpPrepItemSupplyStringBuffer = gStringBufferAlt;
+char* CONST_DATA gpPrepItemSupplyStringBuffer = gBufPrep;
 
 //! FE8U = 0x0809D278
 void sub_809D278(int idx, ProcPtr proc)
@@ -112,7 +107,7 @@ void sub_809D300(struct Text * textBase, u16 * tm, int yLines, struct Unit * uni
 }
 
 //! FE8U = 0x0809D418
-void sub_809D418(u16* tm, int yLines) {
+void sub_809D418(u16 * tm, int yLines) {
     int i;
 
     for (i = yLines; i < yLines + 7 && i < gUnknown_02012F56; i++) {
@@ -210,9 +205,9 @@ void PrepItemSupply_Init(struct PrepItemSupplyProc * proc)
 //! FE8U = 0x0809D608
 void sub_809D608(void)
 {
-    InitSpriteTextFont(&gUnknown_02013648.font, (void*)0x06011000, 0xb);
+    InitSpriteTextFont(&PrepItemSuppyTexts.font, (void*)0x06011000, 0xb);
     ApplyPalette(Pal_Text, 0x1B);
-    InitSpriteText(&gUnknown_02013648.th[0xf]);
+    InitSpriteText(&PrepItemSuppyTexts.th[0xf]);
     SetTextFont(NULL);
     return;
 }
@@ -226,11 +221,11 @@ void sub_809D644(struct PrepItemSupplyProc * proc)
     int convoyItemCount = GetConvoyItemCount_();
     int unitItemCount = GetUnitItemCount(proc->unit);
 
-    SetTextFont(&gUnknown_02013648.font);
+    SetTextFont(&PrepItemSuppyTexts.font);
     SetTextFontGlyphs(0);
 
-    SpriteText_DrawBackgroundExt(&gUnknown_02013648.th[0xf], 0);
-    th = &gUnknown_02013648.th[0xf];
+    SpriteText_DrawBackgroundExt(&PrepItemSuppyTexts.th[0xf], 0);
+    th = &PrepItemSuppyTexts.th[0xf];
 
     color = 0;
     if ((convoyItemCount == CONVOY_ITEM_COUNT) || (unitItemCount == 0))
@@ -244,7 +239,7 @@ void sub_809D644(struct PrepItemSupplyProc * proc)
     );
 
     Text_InsertDrawString(
-        &gUnknown_02013648.th[0xf],
+        &PrepItemSuppyTexts.th[0xf],
         0x40,
         unitItemCount == UNIT_ITEM_COUNT ? 1 : 0,
         GetStringFromIndex(0x59F) // TODO: msgid "Take"
@@ -259,9 +254,9 @@ void sub_809D6CC(void)
     SetTextFont(NULL);
     TileMap_FillRect(gBG0TilemapBuffer + 0x34, 12, 1, 0);
 
-    PutDrawText(&gUnknown_02013648.th[0], gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598));
+    PutDrawText(&PrepItemSuppyTexts.th[0], gBG0TilemapBuffer + 0x34 + 0x6d, 0, 2, 0, GetStringFromIndex(0x598));
     PutFaceChibi(FID_SUPPLY, gBG0TilemapBuffer + 0x34 - 0x13, 0x270, 2, 1);
-    PutDrawText(&gUnknown_02013648.th[0] + 1, gBG0TilemapBuffer + 0x34 - 1, 0, 4, 0, GetStringFromIndex(0x5a0));
+    PutDrawText(&PrepItemSuppyTexts.th[0] + 1, gBG0TilemapBuffer + 0x34 - 1, 0, 4, 0, GetStringFromIndex(0x5a0));
 
     PutNumber(
         gBG0TilemapBuffer + 0x34 + 5,
@@ -424,17 +419,17 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc * proc)
     StartGreenText(proc);
     StartHelpPromptSprite(195, 147, 9, proc);
 
-    InitText(&gUnknown_02013648.th[0], 4);
-    InitText(&gUnknown_02013648.th[1], 4);
+    InitText(&PrepItemSuppyTexts.th[0], 4);
+    InitText(&PrepItemSuppyTexts.th[1], 4);
 
     sub_809D608();
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
-        InitText(&gUnknown_02013648.th[2 + i], 7);
+        InitText(&PrepItemSuppyTexts.th[2 + i], 7);
     }
 
     for (i = 0; i < 8; i++) {
-        InitTextDb(&gUnknown_02013648.th[7 + i], 7);
+        InitTextDb(&PrepItemSuppyTexts.th[7 + i], 7);
     }
 
     SetPrimaryHBlankHandler(NULL);
@@ -444,21 +439,21 @@ void PrepItemSupply_InitGfx(struct PrepItemSupplyProc * proc)
     sub_809D8D4(gBG0TilemapBuffer + 0x6F, 0x4000, 6);
 
     Decompress(gUnknown_08A19CCC, (void*)0x06015000);
-    ApplyPalette(Pal_08A1A084, 0x14);
+    ApplyPalette(Pal_SpinningArrow, 0x14);
 
     StartMenuScrollBarExt(proc, 0xe1, 0x2f, 0x5800, 9);
     sub_8097668();
     SomethingPrepListRelated(proc->unit, proc->currentPage, 1);
 
     sub_809D300(
-        &gUnknown_02013648.th[7],
+        &PrepItemSuppyTexts.th[7],
         gBG2TilemapBuffer + 0xF,
         proc->yOffsetPerPage[proc->currentPage] >> 4,
         proc->unit
     );
     BG_EnableSyncByMask(4);
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, &gUnknown_02013648.th[2], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x6F + 0xb3, &PrepItemSuppyTexts.th[2], proc->unit, 0);
     sub_809D6CC();
     StartUiSpinningArrows(proc);
     LoadUiSpinningArrowGfx(0, 0x280, 2);
@@ -580,7 +575,7 @@ void sub_809DEFC(struct PrepItemSupplyProc * proc)
 {
     ResetIconGraphics_();
     SomethingPrepListRelated(proc->unit, proc->currentPage, 1);
-    sub_809D300(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
+    sub_809D300(&PrepItemSuppyTexts.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     DrawPrepScreenItemIcons(gBG0TilemapBuffer + 0x122, proc->unit);
     ShowSysHandCursor(0x80, proc->idxPerPage[proc->currentPage] * 16 + 0x28 - proc->yOffsetPerPage[proc->currentPage], 0xb, 0x800);
 
@@ -738,11 +733,11 @@ void PrepItemSupply_ScrollVertical(struct PrepItemSupplyProc * proc, int amount)
     BG_EnableSyncByMask(5);
 
     if (amount < 0) {
-        sub_809D47C(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) - 1,  proc->unit);
+        sub_809D47C(&PrepItemSuppyTexts.th[7], gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) - 1,  proc->unit);
     }
 
     if (amount > 0) {
-        sub_809D47C(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) + 7, proc->unit);
+        sub_809D47C(&PrepItemSuppyTexts.th[7], gBG2TilemapBuffer + 0xF, (proc->yOffsetPerPage[proc->currentPage] >> 4) + 7, proc->unit);
     }
 
     proc->yOffsetPerPage[proc->currentPage] += amount;
@@ -781,9 +776,9 @@ void sub_809E2C8(struct PrepItemSupplyProc * proc)
     sub_809E100(proc);
     ResetIconGraphics_();
 
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.th[2], proc->unit, 0);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &PrepItemSuppyTexts.th[2], proc->unit, 0);
     sub_809D300(
-        &gUnknown_02013648.th[7],
+        &PrepItemSuppyTexts.th[7],
         gBG2TilemapBuffer + 0xF,
         proc->yOffsetPerPage[proc->currentPage] >> 4,
         proc->unit
@@ -1014,8 +1009,8 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc * proc)
     sub_809E100(proc);
 
     ResetIconGraphics_();
-    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &gUnknown_02013648.th[2], proc->unit, 0);
-    sub_809D300(&gUnknown_02013648.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
+    DrawPrepScreenItems(gBG0TilemapBuffer + 0x122, &PrepItemSuppyTexts.th[2], proc->unit, 0);
+    sub_809D300(&PrepItemSuppyTexts.th[7], gBG2TilemapBuffer + 0xF, proc->yOffsetPerPage[proc->currentPage] >> 4, proc->unit);
     StartParallelFiniteLoop(sub_809E2BC, 1, proc);
 
     BG_EnableSyncByMask(4);
@@ -1183,7 +1178,7 @@ void StartPrepItemSupplyProc(struct Unit * unit, ProcPtr parent)
 void sub_809EAF4(void)
 {
     if (gActiveUnit) {
-        MU_EndAll();
+        EndAllMus();
         ShowUnitSprite(gActiveUnit);
     }
 
@@ -1195,8 +1190,8 @@ void sub_809EB14(void)
 {
     if (gActiveUnit) {
         HideUnitSprite(gActiveUnit);
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
     }
 
     return;

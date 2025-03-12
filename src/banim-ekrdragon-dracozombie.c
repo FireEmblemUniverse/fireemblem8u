@@ -136,7 +136,7 @@ void EkrDZ_IdleInBattle(struct ProcEkrDragon * proc)
     if (attr & EKRDRGON_ATTR_BANIMFINISH) {
         proc->timer = 0;
 
-        if (CheckEkrDragonRefrain(proc->anim) == false) {
+        if (CheckEkrDragonSkipTransfer(proc->anim) == false) {
             SetAnimStateHidden(GetAnimPosition(proc->anim));
             EfxDracoZombiePrepareTSA(0, 0, 1);
         }
@@ -149,7 +149,7 @@ void EkrDZ_ReloadCustomBg(struct ProcEkrDragon * proc)
 {
     int val;
 
-    if (CheckEkrDragonRefrain(proc->anim) == true) {
+    if (CheckEkrDragonSkipTransfer(proc->anim) == true) {
         BG_Fill(gBG3TilemapBuffer, 0x6000);
         BG_EnableSyncByMask(BG3_SYNC_BIT);
         EfxPalBlackInOut(PAL_BG(0), 6, 1, 0x10);
@@ -214,7 +214,7 @@ void EkrDZ_ReloadCustomBgAndFadeOut(struct ProcEkrDragon * proc)
     val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 4, proc->timer, 8);
     EfxChapterMapFadeOUT(val);
 
-    if (CheckEkrDragonRefrain(proc->anim) == false) {
+    if (CheckEkrDragonSkipTransfer(proc->anim) == false) {
         val = Interpolate(INTERPOLATE_RSQUARE, 0x10, 0, proc->timer, 8);
 
         switch (gEkrDistanceType) {

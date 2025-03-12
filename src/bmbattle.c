@@ -282,7 +282,7 @@ void InitBattleUnit(struct BattleUnit* bu, struct Unit* unit) {
     bu->expPrevious = bu->unit.exp;
 
     bu->hpInitial = bu->unit.curHP;
-    bu->statusOut = 0xFF;
+    bu->statusOut = -1;
 
     bu->changeHP = 0;
     bu->changePow = 0;
@@ -2033,7 +2033,7 @@ void BeginBattleAnimations(void) {
         SetBanimLinkArenaFlag(0);
         BeginAnimsOnBattleAnimations();
     } else {
-        MU_EndAll();
+        EndAllMus();
         RenderBmMap();
         BeginBattleMapAnims();
 

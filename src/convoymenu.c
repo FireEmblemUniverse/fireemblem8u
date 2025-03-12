@@ -19,6 +19,8 @@
 #include "menuitempanel.h"
 #include "prepscreen.h"
 
+EWRAM_OVERLAY(0) u8 gConvoyItemCount = 0;
+
 struct ProcCmd CONST_DATA gProcCmd_ConvoyMenu[] = {
     PROC_CALL_2(ConvoyMenuProc_StarMenu),
     PROC_CALL_2(ConvoyMenuProc_MenuEnd),
@@ -108,7 +110,7 @@ void HandleNewItemGetFromDrop(struct Unit* unit, int item, ProcPtr proc)
         /* Your inventory is full. Select an item to discard. */
         StartSubtitleHelp(proc, GetStringFromIndex(0x866));
 
-    SetTalkChoiceResult(2);
+    SetTalkChoiceResult(TALK_CHOICE_NO);
     Proc_StartBlocking(gProcCmd_ConvoyMenu, proc);
 }
 

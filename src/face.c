@@ -146,7 +146,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_SLEEP(0),
 
     PROC_CALL(Face_OnInit),
@@ -162,7 +162,7 @@ struct ProcCmd CONST_DATA gProcScr_E_FACE_ExtraFrame[] =
 {
     PROC_NAME("E_FACE"),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_SLEEP(1),
 
     PROC_CALL(Face_OnInit),
@@ -334,7 +334,7 @@ void Face_OnInit(struct FaceProc* proc) {
 void Face_OnIdle(struct FaceProc* proc) {
     int oam0;
 
-    if (GetFaceDisplayBits(proc) & FACE_DISP_BIT_14) {
+    if (GetFaceDisplayBits(proc) & FACE_DISP_HIDDEN) {
         return;
     }
 
@@ -522,7 +522,7 @@ void FaceRefreshSprite(struct FaceProc* proc) {
 }
 
 //! FE8U = 0x08005894
-void PutFaceTm(u16* tm, u8* data, int tileref, s8 isFlipped) {
+void PutFaceTm(u16 * tm, u8* data, int tileref, s8 isFlipped) {
     int ix;
     int iy;
 
@@ -576,7 +576,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal) {
 }
 
 //! FE8U = 0x08005988
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, s8 isFlipped) {
+void PutFaceChibi(int fid, u16 * tm, int chr, int pal, s8 isFlipped) {
     UnpackFaceChibiGraphics(fid, chr, pal);
 
     chr &= 0x3FF;
@@ -657,7 +657,7 @@ void EndFaceChibiSpr(void) {
 }
 
 //! FE8U = 0x08005B78
-void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info) {
+void PutFace80x72_Standard(u16 * tm, int tileref, const struct FaceData* info) {
     int x = info->xMouth - 1;
     int y = info->yMouth;
 
@@ -677,7 +677,7 @@ void PutFace80x72_Standard(u16* tm, int tileref, const struct FaceData* info) {
 }
 
 //! FE8U = 0x08005BCC
-void PutFace80x72_Raised(u16* tm, int tileref, const struct FaceData* info) {
+void PutFace80x72_Raised(u16 * tm, int tileref, const struct FaceData* info) {
     int x = info->xMouth - 1;
     int y = info->yMouth - 1;
 
@@ -713,7 +713,7 @@ s8 ShouldFaceBeRaised(int fid) {
 }
 
 //! FE8U = 0x08005CA4
-void PutFace80x72_Core(u16* tm, int fid, int chr, int pal) {
+void PutFace80x72_Core(u16 * tm, int fid, int chr, int pal) {
     const struct FaceData* info;
 
     if (fid == 0) {
@@ -1380,7 +1380,7 @@ struct FaceProc* StartFace2(int slot, int fid, int x, int y, int disp) {
 }
 
 //! FE8U = 0x08006618
-void sub_8006618(int slot, int x, int y) {
+void SetFacePosition(int slot, int x, int y) {
 
     gFaces[slot]->xPos = x;
     gFaces[slot]->yPos = y;
@@ -1474,7 +1474,7 @@ u16 const gUnknown_080D77FC[] =
 };
 
 //! FE8U = 0x08006738
-void sub_8006738(u16* a, u16 b, s8 c) {
+void PutFaceOnBackGround(u16* a, u16 b, s8 c) {
     int i;
     int j;
     const u16* src = gUnknown_080D77FC;

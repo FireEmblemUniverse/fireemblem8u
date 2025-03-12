@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "proc.h"
 #include "bm.h"
+#include "spline.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "fontgrp.h"
@@ -415,14 +416,9 @@ void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
 
 #undef _SWAP
 
-struct Unk
+struct Vec2 * sub_8013278(int arg_0)
 {
-    short a, b;
-};
-
-struct Unk *sub_8013278(int arg_0)
-{
-    #define BUF ((struct Unk *) gGenericBuffer)
+    #define BUF ((struct Vec2 *) gGenericBuffer)
 
     int r2;
     int sb;
@@ -442,34 +438,34 @@ struct Unk *sub_8013278(int arg_0)
         sp_18 = sp_00 + sb;
 
         if (sp_18 < DISPLAY_HEIGHT)
-            BUF[sp_00 + sb].b = r2;
+            BUF[sp_00 + sb].y = r2;
 
         r4 = sp_00 - sb;
 
         if (r4 < DISPLAY_HEIGHT)
-            BUF[sp_00 - sb].b = r2;
+            BUF[sp_00 - sb].y = r2;
 
         r3 = sp_00 + r2;
 
         if (r3 < DISPLAY_HEIGHT)
-            BUF[sp_00 + r2].b = sb;
+            BUF[sp_00 + r2].y = sb;
 
         r1 = sp_00 - r2;
 
         if (r1 < DISPLAY_HEIGHT)
-            BUF[sp_00 - r2].b = sb;
+            BUF[sp_00 - r2].y = sb;
 
         if (sp_18 < DISPLAY_HEIGHT)
-            BUF[sp_00 + sb].a = -r2;
+            BUF[sp_00 + sb].x = -r2;
 
         if (r4 < DISPLAY_HEIGHT)
-            BUF[sp_00 - sb].a = -r2;
+            BUF[sp_00 - sb].x = -r2;
 
         if (r3 < DISPLAY_HEIGHT)
-            BUF[sp_00 + r2].a = -sb;
+            BUF[sp_00 + r2].x = -sb;
 
         if (r1 < DISPLAY_HEIGHT)
-            BUF[sp_00 - r2].a = -sb;
+            BUF[sp_00 - r2].x = -sb;
 
         arg_0 = arg_0 - (sb*2 - 1);
 
@@ -806,7 +802,7 @@ void PalFade_OnLoop(struct PalFadeProc *proc);
 
 struct ProcCmd CONST_DATA ProcScr_PalFade[] =
 {
-    PROC_MARK(0xA),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(PalFade_OnLoop),
 
     PROC_END,
@@ -1292,7 +1288,7 @@ struct FadeKindEnt const gUnknown_080D7964[] =
 };
 
 struct ProcCmd CONST_DATA ProcScr_FadeCore[] = {
-    PROC_MARK(10),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_CALL(FadeCore_Init),
     PROC_YIELD,
     PROC_CALL(FadeCore_Tick),
@@ -2013,4 +2009,9 @@ void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int
     Text_DrawString(text, str);
 
     PutText(text, gBG0TilemapBuffer + TILEMAP_INDEX(x, y));
+}
+
+int sub_8014CA4(int timer, int speed, int a, int b)
+{
+    return sub_800A42C(DivArm(speed, timer * 0x1000), a, b);
 }

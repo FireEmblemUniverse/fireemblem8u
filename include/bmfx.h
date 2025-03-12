@@ -68,8 +68,8 @@ struct EventFadeSt {
 } BITPACKED;
 
 void EventFadefx_Loop(struct ProcEventFade * proc);
-void sub_80127C4(void);
-void sub_8012824(void);
+void EventStartFade(void);
+void EventEndFade(void);
 void NewEventFadefx(u16 speed, u32 mask, u16 r, u16 g, u16 b, ProcPtr parent);
 void StartEventWarpAnim_ret(ProcPtr parent, s16 x, s16 y, s8 kind, s8 flag);
 s8 EventWarpAnimExists_ret(void);
@@ -142,13 +142,13 @@ void ChapterIntro_8021188(struct ChapterIntroFXProc * proc);
 void ChapterIntro_80207C8(void);
 extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
 extern u8 Img_CommGameBgScreen[];
-extern u8 gUnknown_08B17B64[];
-extern u8 gUnknown_08B18D68[];
-extern u8 gUnknown_08B19874[];
-extern u8 gUnknown_08B19DEC[];
-extern u16 gUnknown_08B18F34[];
-extern u16 gUnknown_08B19854[];
-extern u16 gUnknown_08B196D8[];
+extern u8 Img_08B17B64[];
+extern u8 Tsa_08B18D68[];
+extern u8 Img_08B19874[];
+extern u8 Pal_08B19DEC[];
+extern u16 Img_08B18F34[];
+extern u16 Pal_08B19854[];
+extern u16 Img_08B196D8[];
 
 void ProcBmFx_CommonEnd(struct ProcBmFx *proc);
 

@@ -16,48 +16,19 @@
 #include "popup.h"
 #include "bmlib.h"
 #include "eventinfo.h"
+#include "eventcall.h"
 #include "savemenu.h"
 #include "spline.h"
 #include "sysutil.h"
 #include "bmdifficulty.h"
+#include "constants/event-flags.h"
 
-// TODO: move to some constant header and maybe merge with something if that makes sense
-#define BGPAL_BMDIFFICULTY_UNK_0 0
-#define OBPAL_BMDIFFICULTY_UNK_5 5
-
-/*
-* Difficulty mode stuff and also tower/ruins stuff
-* May have been separate files
-*/
-
-struct Struct020038C8 {
-    struct Text text[4][8];
-    u8 idk[0x40];
-};
-
-extern struct Struct020038C8 gUnknown_020038C8[2];
-extern struct Text gUnknown_02003B48[8];
-
-extern struct Struct030017A0 gDungeonState;
-
-extern int gUnknown_020038C4;
-
-struct Struct080D7FD0 {
-    s8 x;
-    s8 y;
-    u16 _pad;
-    u8 numDigits;
-};
-
-struct Outer080D7FD0 {
-    struct Struct080D7FD0 current[4];
-    s8 x;
-    s8 y;
-    struct Struct080D7FD0 record[4];
-    s8 x2;
-    s8 y2;
-};
-
+EWRAM_OVERLAY(0) u16 gUnknown_0200310C[0x3D0] = {};
+EWRAM_OVERLAY(0) struct Font gUnknown_020038AC = {};
+EWRAM_OVERLAY(0) int gUnknown_020038C4 = 0;
+EWRAM_OVERLAY(0) struct Struct020038C8 gUnknown_020038C8[2] = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_02003B48[8] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_02003B88[0x10] = {};
 
 const struct Outer080D7FD0 gUnknown_080D7FD0 = {
     {
@@ -161,11 +132,11 @@ void UnlockPostgameAllyByEnemyCount(void)
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         if ((gDungeonState.type == 0) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetFlag(0x6B); // Riev
+            SetFlag(EVFLAG_EXTRA_UNIT(4)); // Riev
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameEnemiesDefeated >= 200)) {
-            SetFlag(0x6C); // Hayden
+            SetFlag(EVFLAG_EXTRA_UNIT(5)); // Hayden
         }
     }
 
@@ -181,11 +152,11 @@ void UnlockPostgameAllyByClearCount(void)
         struct Dungeon* dungeon = &gDungeonState.dungeon[gDungeonState.type];
 
         if ((gDungeonState.type == 0) && (dungeon->postgameClearCount >= 3)) {
-            SetFlag(0x6F); // Selena
+            SetFlag(EVFLAG_EXTRA_UNIT(8)); // Selena
         }
 
         if ((gDungeonState.type == 1) && (dungeon->postgameClearCount >= 3)) {
-            SetFlag(0x70); // Lyon
+            SetFlag(EVFLAG_EXTRA_UNIT(9)); // Lyon
         }
     }
 
@@ -209,16 +180,16 @@ s8 PrepScreenProc_AddPostgameUnits(ProcPtr proc) {
     u8 i;
 
     struct PostgameUnitLutEntry unitDefLut[] = {
-        { 0x67, (void*)0x88D1DC4, }, // Caellach
-        { 0x68, (void*)0x88D1DEC, }, // Glen
-        { 0x69, (void*)0x88D1E14, }, // Orson
-        { 0x6A, (void*)0x88D1E3C, }, // Valter
-        { 0x6B, (void*)0x88D1E64, }, // Riev
-        { 0x6C, (void*)0x88D1E8C, }, // Hayden
-        { 0x6D, (void*)0x88D1EB4, }, // Fado
-        { 0x6E, (void*)0x88D1EDC, }, // Ismaire
-        { 0x6F, (void*)0x88D1F04, }, // Selena
-        { 0x70, (void*)0x88D1F2C, }, // Lyon
+        { EVFLAG_EXTRA_UNIT(0), UnitDef_088D1DC4, }, // Caellach
+        { EVFLAG_EXTRA_UNIT(1), UnitDef_088D1DEC, }, // Glen
+        { EVFLAG_EXTRA_UNIT(2), UnitDef_088D1E14, }, // Orson
+        { EVFLAG_EXTRA_UNIT(3), UnitDef_088D1E3C, }, // Valter
+        { EVFLAG_EXTRA_UNIT(4), UnitDef_088D1E64, }, // Riev
+        { EVFLAG_EXTRA_UNIT(5), UnitDef_088D1E8C, }, // Hayden
+        { EVFLAG_EXTRA_UNIT(6), UnitDef_088D1EB4, }, // Fado
+        { EVFLAG_EXTRA_UNIT(7), UnitDef_088D1EDC, }, // Ismaire
+        { EVFLAG_EXTRA_UNIT(8), UnitDef_088D1F04, }, // Selena
+        { EVFLAG_EXTRA_UNIT(9), UnitDef_088D1F2C, }, // Lyon
         { },
     };
 
@@ -464,15 +435,13 @@ void StartDungeonRecordProcFromMenu(ProcPtr proc) {
     return;
 }
 
-extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
-
 struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[] = {
     PROC_CALL(PushGlobalTimer),
     PROC_CALL(LockGame),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(BMapDispSuspend),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_SLEEP(0),
     PROC_CALL(sub_8038230),
     PROC_CALL(SetupDungeonRecordUi),
@@ -520,10 +489,6 @@ void sub_8038230() {
     return;
 }
 
-extern u16 gBgConfig_SaveMenu[]; // bg config
-
-extern u16 gUnknown_0200310C[];
-
 void SetupDungeonRecordUi(ProcPtr proc) {
     int i;
 
@@ -562,19 +527,19 @@ void SetupDungeonRecordUi(ProcPtr proc) {
 
     SetBlendConfig(1, 6, 16, 0);
 
-    Decompress(gUnknown_08A21658, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
+    Decompress(Img_SaveMenuBG, (void *)BG_VRAM + GetBackgroundTileDataOffset(3));
 
-    ApplyPalettes(gUnknown_08A25DCC, 8, 8);
+    ApplyPalettes(Pal_SaveMenuBG, 8, 8);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A25ECC, 0x8000);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_SaveMenuBG, 0x8000);
 
     // Load and display fog overlay
 
-    Decompress(gUnknown_08A26380, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
+    Decompress(Img_MainMenuBgFog, (void *)(BG_VRAM + 0x4C00) + GetBackgroundTileDataOffset(2));
 
-    Decompress(gUnknown_08A268F8, gGenericBuffer);
+    Decompress(Tsa_MainMenuBgFog, gGenericBuffer);
 
-    ApplyPalette(gUnknown_08A268D8, 7);
+    ApplyPalette(Pal_MainMenuBgFog, 7);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x7260);
 
@@ -878,9 +843,6 @@ struct Text* DrawTimeText_WithReset(struct Text* th, int time, s8 xBase, s8 yBas
     return th;
 }
 
-extern struct Font gUnknown_020038AC;
-extern struct Text gUnknown_02003B70;
-
 void DrawDungeonRecordUiText(ProcPtr proc) {
     int time;
     struct Dungeon currentDungeon;
@@ -909,7 +871,7 @@ void DrawDungeonRecordUiText(ProcPtr proc) {
     DrawDungeonRecordUiLabels(&text);
 
     DrawNumberText(
-        &gUnknown_02003B70,
+        &gUnknown_02003B48[5],
         recordDungeon.clearCount,
         3,
         0x1A,
@@ -1114,10 +1076,6 @@ void sub_8038F78(struct Text* th) {
     return;
 }
 
-extern struct Struct02003BE8 gUnknown_02003BE8;
-extern u16 gUnknown_02003B88[];
-extern struct Struct0859E7D4 gUnknown_02003BA8[];
-
 // obj data?
 const u16 CONST_DATA obj_859E79C[] = {
     0x0002, 0x4000, 0x8000, 0x0100,
@@ -1133,20 +1091,21 @@ u16 CONST_DATA gUnknown_0859E7C8[] = {
     0x0C00, 0x0DEB, 0x1000,
 };
 
-struct Struct0859E7D4 CONST_DATA gUnknown_0859E7D4[] = {
-    { -56,   0, },
-    { -70,  14, },
-    { -74,   6, },
-    {  38, -14, },
-    {  42,  -6, },
-    {  24,   0, },
+int CONST_DATA gUnknown_0859E7D4[] = {
+    -56,   0,
+    -70,  14,
+    -74,   6,
+     38, -14,
+     42,  -6,
+     24,   0,
 };
 
-void sub_803901C(struct BMDifficultyProc* proc) {
+void sub_803901C(struct BMDifficultyProc * proc)
+{
     int r7;
     int r8;
-    u16* iter1;
-    struct Struct0859E7D4* iter2;
+    u16 * iter1;
+    int * iter2;
 
     sub_8038F78(&gUnknown_020038C8[0].text[proc->labelIndex][0]);
 
@@ -1161,11 +1120,12 @@ void sub_803901C(struct BMDifficultyProc* proc) {
 
     gUnknown_02003BE8.unk_02 = r8 = 6;
 
-    for (r7 = 0; r7 < r8; r7++) {
+    for (r7 = 0; r7 < r8; r7++)
+    {
         gUnknown_02003B88[r7] = DivArm(4096, iter1[r7] * 45);
 
-        gUnknown_02003BA8[r7].x = iter2[r7].x << 4;
-        gUnknown_02003BA8[r7].y = iter2[r7].y << 4;
+        gUnknown_02003BA8[r7 * 2 + 0] = iter2[r7 * 2 + 0] << 4;
+        gUnknown_02003BA8[r7 * 2 + 1] = iter2[r7 * 2 + 1] << 4;
     }
 
     proc->unk_34 = 0;
@@ -1175,7 +1135,7 @@ void sub_803901C(struct BMDifficultyProc* proc) {
     return;
 }
 
-extern struct Text gUnknown_02003B08;
+
 
 void sub_80390D4(struct BMDifficultyProc* proc) {
     int pos[2];
@@ -1196,7 +1156,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
     } else {
         if (proc->labelIndex == 4) {
             DrawTimeText_WithReset(
-                &gUnknown_02003B08,
+                &gUnknown_020038C8[1].text[4][0],
                 proc->unk_30,
                 gUnknown_080D7FD0.record[4].x,
                 gUnknown_080D7FD0.record[4].y,
@@ -1360,12 +1320,13 @@ u16 CONST_DATA gUnknown_0859E82C[] = {
     0x16, 0x1E, 0x00,
 };
 
-struct Struct0859E7D4 CONST_DATA gUnknown_0859E838[] = {
-    { 0x980, 0x380, },
-    { 0x8D0, 0x430, },
-    { 0x960, 0x320, },
-    { 0xA30, 0x2D0, },
-    { 0x980, 0x380, },
+int CONST_DATA gUnknown_0859E838[] =
+{
+    0x980, 0x380,
+    0x8D0, 0x430,
+    0x960, 0x320,
+    0xA30, 0x2D0,
+    0x980, 0x380,
 };
 
 void sub_803943C(struct BMDifficultyProc* proc) {
@@ -1421,7 +1382,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
         }
 
         DrawNumberText_WithReset(
-            &gUnknown_02003B70,
+            &gUnknown_02003B48[5],
             val,
             3,
             0x1A,

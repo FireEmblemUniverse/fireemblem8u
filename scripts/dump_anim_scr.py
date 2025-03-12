@@ -56,10 +56,13 @@ def dump_one_part(rom_data, off):
                     break
 
                 case 1: # ANFMT_INS_TYPE_END
-                    print("[ERROR]: ANFMT_INS_TYPE_END")
+                    print("    ANIMSCR_DISABLED")
+                    break
+
 
                 case 2: # ANFMT_INS_TYPE_LOOP
                     print("    ANIMSCR_LOOP")
+                    break
 
                 case 3: # ANFMT_INS_TYPE_MOVE
                     print("[ERROR]: ANFMT_INS_TYPE_MOVE")
@@ -100,7 +103,8 @@ def main(args):
     off_end = end & 0x01FFFFFF
 
     index = 1
-    PreName = ""
+    PreName = None
+    # PreName = "EfxFireOBJ_L"
 
     with open(rom, 'rb') as f:
         rom_data = f.read()
@@ -108,7 +112,10 @@ def main(args):
         while True:
             name = try_get_ptr_symbol(off + 0x08000000)
             if name == None:
-                name = f"AnimScr_{PreName}_{index}"
+                if PreName != None:
+                    name = f"AnimScr_{PreName}_{index}"
+                else:
+                    name = f"AnimScr_{off + 0x08000000:08X}"
 
             print(f".global {name}")
             print(f"{name}: @ 0x{off:06X}")
@@ -119,7 +126,7 @@ def main(args):
             if off_end <= off:
                 break
 
-        print(f"// End at: {off + 0x08000000:08X}")
+        print(f"// End at: 0x{off + 0x08000000:08X}")
 
 if __name__ == '__main__':
     main(sys.argv)

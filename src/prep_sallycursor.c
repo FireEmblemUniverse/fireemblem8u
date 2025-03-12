@@ -146,14 +146,14 @@ PROC_LABEL(1),
 
 PROC_LABEL(53),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_DeploySupplyUnit),
 
     PROC_GOTO(52),
 
 PROC_LABEL(54),
     PROC_CALL(sub_803348C),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(SALLYCURSOR_RemoveSupplyUnit),
 
     PROC_GOTO(52),
@@ -181,13 +181,13 @@ PROC_LABEL(3),
     PROC_CALL(EndPlayerPhaseSideWindows),
     PROC_CALL(PrepScreen_StartUnitSwap),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_REPEAT(PrepScreen_UnitSwapIdle),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_CALL(PrepScreen_StartUnitSwapAnim),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_WHILE(PrepUnitSwapProcExits),
 
     PROC_CALL(InitMapChangeGraphicsIfFog),
@@ -200,7 +200,7 @@ PROC_LABEL(3),
 
 PROC_LABEL(4),
     PROC_CALL(HideMoveRangeGraphics),
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
     PROC_CALL(sub_8033DD8),
     PROC_YIELD,
 
@@ -229,7 +229,7 @@ PROC_LABEL(56),
     PROC_CALL(BMapDispSuspend),
     PROC_CALL(EndPrepScreenMenu_),
 
-    PROC_CALL(sub_808E79C),
+    PROC_CALL(StartChapterStatusScreen_FromPrep),
     PROC_YIELD,
 
     PROC_CALL(BMapDispResume),
@@ -337,7 +337,7 @@ int GetPlayerLeaderUnitId(void)
     do
     {
         struct Unit * unit;
-        if (GetBattleMapKind() == 0)
+        if (GetBattleMapKind() == BATTLEMAP_KIND_STORY)
         {
             return unitId;
         }
@@ -755,7 +755,7 @@ void InitPrepScreenUnitsAndCamera(void)
 
     gBmSt.camera.x = GetCameraCenteredX(0);
     gBmSt.camera.y = GetCameraCenteredY(0);
-    gBmSt.gameStateBits |= BM_FLAG_4;
+    gBmSt.gameStateBits |= BM_FLAG_PREPSCREEN;
 
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -818,105 +818,105 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
         {
             TrySwitchViewedUnit(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
             PlaySoundEffect(0x6B);
-            goto showcursor;
         }
-
-        if (gKeyStatusPtr->newKeys & R_BUTTON)
+        else
         {
-            if (gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])
+            if (gKeyStatusPtr->newKeys & R_BUTTON)
             {
-                if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])))
+                if (gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])
                 {
-                    MU_EndAll();
-                    EndPlayerPhaseSideWindows();
-                    SetStatScreenConfig(
-                        STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
-                        STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
-                    StartStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]), proc);
-                    Proc_Goto(proc, 5);
-                    return;
+                    if (CanShowUnitStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x])))
+                    {
+                        EndAllMus();
+                        EndPlayerPhaseSideWindows();
+                        SetStatScreenConfig(
+                            STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
+                            STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
+                        StartStatScreen(GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]), proc);
+                        Proc_Goto(proc, 5);
+                        return;
+                    }
                 }
             }
-        }
 
-        if (gKeyStatusPtr->newKeys & B_BUTTON)
-        {
-            EndPlayerPhaseSideWindows();
-            gPlaySt.xCursor = gBmSt.playerCursor.x;
-            gPlaySt.yCursor = gBmSt.playerCursor.y;
-            Proc_Goto(proc, 0);
-            PlaySoundEffect(0x69);
-            return;
-        }
-
-        if (gKeyStatusPtr->newKeys & A_BUTTON)
-        {
-            struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
-
-            switch (GetPlayerSelectKind(unit))
+            if (gKeyStatusPtr->newKeys & B_BUTTON)
             {
-                case PLAYER_SELECT_NOUNIT:
-                case PLAYER_SELECT_TURNENDED:
-                    EndPlayerPhaseSideWindows();
-                    gPlaySt.xCursor = gBmSt.playerCursor.x;
-                    gPlaySt.yCursor = gBmSt.playerCursor.y;
-
-                    switch (gBmMapTerrain[gBmSt.playerCursor.y][gBmSt.playerCursor.x])
-                    {
-                        case TERRAIN_VENDOR:
-                        case TERRAIN_ARMORY:
-                            PlaySoundEffect(0x6A);
-                            Proc_Goto(proc, 60);
-                            return;
-                        default:
-                            Proc_Goto(proc, 0);
-                            PlaySoundEffect(0x69);
-                            return;
-                    }
-
-                case PLAYER_SELECT_CONTROL:
-                    UnitBeginAction(unit);
-                    gActiveUnit->state &= ~(US_HIDDEN);
-
-                    if (proc->unk_58 == 2)
-                    {
-                        Proc_Goto(proc, 3);
-                        return;
-                    }
-
-                    Proc_Goto(proc, 1);
-
-                    return;
-
-                case PLAYER_SELECT_4:
-                    if (proc->unk_58 == 2)
-                    {
-                        PlaySoundEffect(0x6C);
-                        return;
-                    }
-
-                    // fallthrough
-
-                case PLAYER_SELECT_NOCONTROL:
-                    UnitBeginAction(unit);
-                    gActiveUnit->state &= ~(US_HIDDEN);
-
-                    Proc_Goto(proc, 1);
-
-                    return;
+                EndPlayerPhaseSideWindows();
+                gPlaySt.xCursor = gBmSt.playerCursor.x;
+                gPlaySt.yCursor = gBmSt.playerCursor.y;
+                Proc_Goto(proc, 0);
+                PlaySoundEffect(0x69);
+                return;
             }
-        }
 
-        if (gKeyStatusPtr->newKeys & START_BUTTON)
-        {
-            EndPlayerPhaseSideWindows();
-            StartMinimapPrepPhase(proc);
-            Proc_Goto(proc, 9);
-            return;
+            if (gKeyStatusPtr->newKeys & A_BUTTON)
+            {
+                struct Unit * unit = GetUnit(gBmMapUnit[gBmSt.playerCursor.y][gBmSt.playerCursor.x]);
+
+                switch (GetPlayerSelectKind(unit))
+                {
+                    case PLAYER_SELECT_NOUNIT:
+                    case PLAYER_SELECT_TURNENDED:
+                        EndPlayerPhaseSideWindows();
+                        gPlaySt.xCursor = gBmSt.playerCursor.x;
+                        gPlaySt.yCursor = gBmSt.playerCursor.y;
+
+                        switch (gBmMapTerrain[gBmSt.playerCursor.y][gBmSt.playerCursor.x])
+                        {
+                            case TERRAIN_VENDOR:
+                            case TERRAIN_ARMORY:
+                                PlaySoundEffect(0x6A);
+                                Proc_Goto(proc, 60);
+                                return;
+                            default:
+                                Proc_Goto(proc, 0);
+                                PlaySoundEffect(0x69);
+                                return;
+                        }
+
+                    case PLAYER_SELECT_CONTROL:
+                        UnitBeginAction(unit);
+                        gActiveUnit->state &= ~(US_HIDDEN);
+
+                        if (proc->unk_58 == 2)
+                        {
+                            Proc_Goto(proc, 3);
+                            return;
+                        }
+
+                        Proc_Goto(proc, 1);
+
+                        return;
+
+                    case PLAYER_SELECT_4:
+                        if (proc->unk_58 == 2)
+                        {
+                            PlaySoundEffect(0x6C);
+                            return;
+                        }
+
+                        // fallthrough
+
+                    case PLAYER_SELECT_NOCONTROL:
+                        UnitBeginAction(unit);
+                        gActiveUnit->state &= ~(US_HIDDEN);
+
+                        Proc_Goto(proc, 1);
+
+                        return;
+                }
+            }
+
+            if (gKeyStatusPtr->newKeys & START_BUTTON)
+            {
+                EndPlayerPhaseSideWindows();
+                StartMinimapPrepPhase(proc);
+                Proc_Goto(proc, 9);
+                return;
+            }
         }
     }
 
-showcursor:
     PutMapCursor(gBmSt.playerCursorDisplay.x, gBmSt.playerCursorDisplay.y, 0);
 
     return;
@@ -953,7 +953,7 @@ void PrepScreen_StartUnitSwap(struct ProcPrepSallyCursor * proc)
 //! FE8U = 0x08033C90
 void PrepScreen_UnitSwapIdle(struct ProcPrepSallyCursor * proc)
 {
-    s8 r7 = ((s8 **)gBmMapRange)[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
+    s8 r7 = gMapRangeSigned[gBmSt.playerCursor.y][gBmSt.playerCursor.x];
     u32 xLoc;
     u32 yLoc;
 
@@ -1062,7 +1062,7 @@ void DisplayMapChangeIfFog(void)
 //! FE8U = 0x08033EC0
 void PrepScreenProc_StartConfigMenu(ProcPtr proc)
 {
-    Proc_StartBlocking(gProcScr_Config2, proc);
+    Proc_StartBlocking(ProcScr_Config_PrepMapMenu, proc);
     return;
 }
 
@@ -1102,7 +1102,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
     {
-        MU_EndAll();
+        EndAllMus();
         gActiveUnit->state &= ~US_HIDDEN;
         gBmSt.gameStateBits &= ~BM_FLAG_3;
 
@@ -1129,7 +1129,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
             struct Unit * unit = GetUnit(uid);
             if (CanShowUnitStatScreen(unit))
             {
-                MU_EndAll();
+                EndAllMus();
                 SetStatScreenConfig(
                     STATSCREEN_CONFIG_NONDEAD | STATSCREEN_CONFIG_NONBENCHED | STATSCREEN_CONFIG_NONUNK9 |
                     STATSCREEN_CONFIG_NONROOFED | STATSCREEN_CONFIG_NONUNK16);
@@ -1192,7 +1192,8 @@ void StartPrepSaveScreen(ProcPtr proc)
 
     if (!(gPlaySt.chapterStateBits & PLAY_FLAG_COMPLETE))
     {
-        if ((GetBattleMapKind() - 1) <= 1)
+        u32 mapKind = GetBattleMapKind();
+        if (mapKind == BATTLEMAP_KIND_DUNGEON || mapKind == BATTLEMAP_KIND_SKIRMISH)
         {
             gPlaySt.save_menu_type = 4;
         }
@@ -1223,7 +1224,7 @@ void sub_8034194(void)
 
     if (gGMData.state.bits.state_0)
     {
-        sub_80B9FC0();
+        UpdateWorldMapBgm();
         return;
     }
 
@@ -1324,7 +1325,7 @@ void EndPrepScreen(void)
 
     ShrinkPlayerUnits();
     Proc_EndEach(gProcScr_SALLYCURSOR);
-    gBmSt.gameStateBits &= ~BM_FLAG_4;
+    gBmSt.gameStateBits &= ~BM_FLAG_PREPSCREEN;
     gPlaySt.chapterStateBits &= ~PLAY_FLAG_PREPSCREEN;
     gPlaySt.unk4A_1 = 1;
 

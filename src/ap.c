@@ -5,24 +5,7 @@
 #include "bmlib.h"
 #include "hardware.h"
 
-#define AP_MAX_COUNT 0x14 // 20
-
-struct APProc
-{
-    PROC_HEADER;
-
-    u8 _pad[0x50-0x29];
-    
-    struct APHandle* pHandle;
-
-    u32 xPosition;
-    u32 yPosition;
-};
-
-static void APProc_OnUpdate(struct APProc* proc);
-static void APProc_OnEnd(struct APProc* proc);
-
- struct ProcCmd CONST_DATA ProcScr_ApProc[] =
+struct ProcCmd CONST_DATA ProcScr_ApProc[] =
 {
     PROC_SET_END_CB(APProc_OnEnd),
     PROC_REPEAT(APProc_OnUpdate),
@@ -30,7 +13,7 @@ static void APProc_OnEnd(struct APProc* proc);
     PROC_END,
 };
 
-static u8 CONST_DATA sOamTileSizeLut[] =
+u8 CONST_DATA sOamTileSizeLut[] =
 {
     1, 1,
     2, 2,
@@ -337,7 +320,7 @@ struct APHandle* AP_Find(const u16* definition) {
     return NULL;
 }
 
-ProcPtr APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, u16 aObjNode) {
+ProcPtr APProc_Create(const void* apDefinition, int xPos, int yPos, int tileBase, int anim, int aObjNode) {
     struct APHandle* handle;
     struct APProc* proc;
 

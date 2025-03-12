@@ -1,6 +1,9 @@
 #ifndef GUARD_UNITLISTSCREEN_H
 #define GUARD_UNITLISTSCREEN_H
 
+#include "global.h"
+#include "prepscreen.h"
+
 enum
 {
     UNITLIST_PAGE_SOLOANIM = 0,
@@ -135,7 +138,8 @@ struct Unknown_02013460
     /* 10 */ u16 unk_10; // this is part of unk_00
 };
 
-extern struct Unknown_02013460 gUnknown_02013460;
+#define _gUnknown_02013460 ((struct Unknown_02013460 *)gUnknown_02013460)
+
 
 void sub_809014C(void);
 void sub_80901BC(u8 x, u8 y, u8 width);
@@ -177,5 +181,24 @@ void sub_8092298(u8 maxPages, u8 page, s8 flag);
 void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page, s8 putName);
 int SortUnitList_GetUnitSoloAnimation(struct Unit * unit);
 bool SortUnitList(u8 key, u8 order);
+
+extern EWRAM_OVERLAY(0) struct SortedUnitEnt gSortedUnitsBuf[0x40];
+extern EWRAM_OVERLAY(0) struct SortedUnitEnt * gSortedUnits[0x40];
+extern EWRAM_OVERLAY(0) u16 gUnknown_0200D7E0[0x20][0x20];
+extern EWRAM_OVERLAY(0) u16 gUnknown_0200DFE0[2][0x20];
+extern EWRAM_OVERLAY(0) struct Text gUnknown_0200E060[7];
+extern EWRAM_OVERLAY(0) struct Text gUnknown_0200E098[7][3];
+extern struct Text gUnknown_0200E140;
+extern struct Text gUnknown_0200E148;
+extern struct Text gUnknown_0200E150;
+extern u8 gUnknown_0200E158[0x1000];
+extern u8 gUnknown_0200F158;
+extern EWRAM_OVERLAY(0) u32 gUnknown_0200F15C[8];
+
+// extern ??? ProcScr_UnitListScreen_Field
+extern struct ProcCmd ProcScr_UnitListScreen_PrepMenu[];
+// extern ??? ProcScr_UnitListScreen_SoloAnim
+// extern ??? ProcScr_UnitListScreen_WorldMap
+// extern ??? ProcScr_bmview
 
 #endif // GUARD_UNITLISTSCREEN_H

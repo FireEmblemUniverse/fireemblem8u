@@ -29,6 +29,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     WM_WAITFORTEXT
     WM_TEXTSTART
     WM_TEXT(0x08DB, 0)
+
+    // wait for talk locked
     TEXTEND
     WM_MOVECAM2(0, 0, 0, 24, 60, 0)
     STAL(60)
@@ -37,6 +39,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Renais)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Renais)
@@ -50,6 +54,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Frelia)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Frelia)
@@ -63,6 +69,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Jehanna)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Jehanna)
@@ -76,6 +84,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Rausten)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Rausten)
@@ -89,6 +99,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Grado)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Grado)
@@ -96,6 +108,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     WM_CLEARPORTRAIT(0, 0x0100, 0)
     STAL(32)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_MOVECAM2(0, 48, 0, 0, 60, 0)
@@ -105,6 +119,8 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     STAL(26)
     WM_HIGHLIGHT(WM_NATION_Carcino)
     TEXTCONT
+
+    // wait for talk locked
     TEXTEND
     STAL(30)
     WM_HIGHLIGHTCLEAR1(WM_NATION_Carcino)

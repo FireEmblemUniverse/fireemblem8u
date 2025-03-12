@@ -23,104 +23,102 @@ gMaxLines = 0;
 SECTIONS
 {
     /* TODO: figure out what is COMMON and .bss */
-    __ewram_overlay_beg = 0x02000000;
-    __ewram_overlay_end = __ewram_overlay_beg;
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_0 (NOLOAD) : ALIGN(4)
+    ewram_overlay_0 __ewram_start (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; gUnk_02000000 = .;
-        . = 0x000280; gMinimapWinBuf = .;
-        . = 0x000500; gMinimapFrontWinBuf = .;
-        . = 0x000504; gMinimapBackWinBuf = .;
-        . = 0x000508; gMinimapDisplayedWinBuf = .;
-        . = 0x00050C; gMinimapObjectFlashPal = .;
-        . = 0x0007A0; gUnknown_020007A0 = .;
-        . = 0x0007E0; gUnknown_020007E0 = .;
-        . = 0x000920; gUnknown_02000920 = .;
-        . = 0x000938; gUnknown_02000938 = .;
-        . = 0x000940; gUnknown_02000940 = .;
-        . = 0x000944; gUnknown_02000944 = .;
-        . = 0x000948; gUnknown_02000948 = .;
-        . = 0x000968; gBonusClaimData = .;
-        . = 0x000D68; gBonusClaimDataUpdated = .;
-        . = 0x000FA0; gUnknown_02000FA0 = .;
-        . = 0x001000; gBmMapBuffer = .;
-        . = 0x001168; gBonusClaimItemList = .;
-        . = 0x001368; gBonusClaimConfig = .;
-        . = 0x001568; gBonusClaimItemCount = .;
-        . = 0x001668; gBonusClaimText = .;
-        . = 0x0017A0; gUnknown_020017A0 = .;
-        . = 0x001F70; gConvoyItemCount = .;
-        . = 0x001FA0; gUnknown_02001FA0 = .;
-        . = 0x002038; gUnknown_02002038 = .;
-        . = 0x002774; gUnknown_02002774 = .;
-        . = 0x00278C; gTradeMenuText = .;
-        . = 0x0027A0; gUnknown_020027A0 = .;
-        . = 0x0027DC; src/bmio.o(ewram_overlay_0);
-        . = 0x002FDC; gaBattleForecastTextStructs = .;
-        . = 0x00300C; gBkselPals = .;
-        . = 0x00310C; gUnknown_0200310C = .;
-        . = 0x0038AC; gUnknown_020038AC = .;
-        . = 0x0038C4; gUnknown_020038C4 = .;
-        . = 0x0038C8; gUnknown_020038C8 = .;
-        . = 0x003B08; gUnknown_02003B08 = .;
-        . = 0x003B48; gUnknown_02003B48 = .;
-        . = 0x003B70; gUnknown_02003B70 = .;
-        . = 0x003B88; gUnknown_02003B88 = .;
-        . = 0x003BA8; gUnknown_02003BA8 = .;
-        . = 0x003BE8; gUnknown_02003BE8 = .;
-        . = 0x003BFC;
+        . = ALIGN(4); src/minimap.o(ewram_overlay_0);
+
+        . = 0x0007E0;
+        . = ALIGN(4); src/savedraw.o(ewram_overlay_0);
+        . = ALIGN(4); src/difficultymenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bonusclaim.o(ewram_overlay_0);
+        . = ALIGN(4); src/convoymenu.o(ewram_overlay_0);
+
+        . = 0x002774;
+        . = ALIGN(4); src/bmmenu.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmtrade.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmio.o(ewram_overlay_0);
+
+        . = 0x002FDC;
+        . = ALIGN(4); src/bksel.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmdifficulty.o(ewram_overlay_0);
+        . = ALIGN(4); src/bmdifficulty-ewram.o(ewram_overlay_0);
         . = ALIGN(4); src/statscreen.o(ewram_overlay_0);
         . = ALIGN(4); src/uichapterstatus.o(ewram_overlay_0);
-        . = 0x004BE0; gMUGfxBuffer = .;
+        . = ALIGN(4); src/mu.o(ewram_overlay_0);
+        . = ALIGN(4); src/unitlistscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prepscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_itemscreen.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_unitselect.o(ewram_overlay_0);
+        . = ALIGN(4); src/prep_itemsupply.o(ewram_overlay_0);
+        . = ALIGN(4); src/uisupport.o(ewram_overlay_0);
+        . = 0x01F148; gUnk_SoundRoom_0201F148 = .;
+        . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
+    }
+
+    ewram_overlay_gameending __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = ALIGN(4); src/ending_details.o(ewram_overlay_gameending);
+    }
+
+    ewram_overlay_bmstart __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x001000;
+        . = ALIGN(4); src/bmmap.o(ewram_overlay_bmstart);
+    }
+
+    ewram_overlay_gamestartsave __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x008000;
+        . = ALIGN(4); src/bmsave-misc.o(ewram_overlay_gamestartsave);
+    }
+
+    ewram_overlay_gamestart __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000;
+        . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
+        . = 0x002038; gUnknown_02002038 = .;
         . = 0x007838; gUnknown_02007838 = .;
         . = 0x0078D8; gUnknown_020078D8 = .;
-        . = 0x008000; gUnknown_02008000 = .;
-        . = 0x0087A0; gUnknown_020087A0 = .;
         . = 0x00A2D8; gUnknown_0200A2D8 = .;
         . = 0x00A300; gUnknown_0200A300 = .;
-        . = 0x00AF00; gUnknown_0200AF00 = .;
         . = 0x00C300; gUnknown_0200C300 = .;
         . = 0x00CB00; gUnknown_0200CB00 = .;
-        . = 0x00D3E0; gSortedUnitsBuf = .;
-        . = 0x00D6E0; gSortedUnits = .;
-        . = 0x00D7E0; gUnknown_0200D7E0 = .;
-        . = 0x00DFE0; gUnknown_0200DFE0 = .;
-        . = 0x00E060; gUnknown_0200E060 = .;
-        . = 0x00E098; gUnknown_0200E098 = .;
-        . = 0x00E0A0; gUnknown_0200E0A0 = .;
-        . = 0x00E0A8; gUnknown_0200E0A8 = .;
-        . = 0x00E140; gUnknown_0200E140 = .;
-        . = 0x00E148; gUnknown_0200E148 = .;
-        . = 0x00E150; gUnknown_0200E150 = .;
-        . = 0x00E158; gUnknown_0200E158 = .;
-        . = 0x00F158; gUnknown_0200F158 = .;
-        . = 0x00F15C; gUnknown_0200F15C = .;
-        . = 0x00F17C; gStringBufferAlt = .;
-        . = 0x01117C; gPrepMainMenuTexts = .;
-        . = 0x0111CC; gPrepUnitPool = .;
-        . = 0x0121CC; gPrepUnitList = .;
-        . = 0x0122D4; gPrepScreenItemList = .;
-        . = 0x012914; gUnknown_02012914 = .;
-        . = 0x012F54; gUnknown_02012F54 = .;
-        . = 0x012F56; gUnknown_02012F56 = .;
-        . = 0x012F58; gUnknown_02012F58 = .;
-        . = 0x013458; gUnknown_02013458 = .;
-        . = 0x013460; gUnknown_02013460 = .;
-        . = 0x013498; gPrepItemTexts = .;
-        . = 0x013510; gPrepItemScreenTexts = .;
-        . = 0x013590; gUnknown_02013590 = .;
-        . = 0x013598; gPrepUnitTexts = .;
-        . = 0x013648; gUnknown_02013648 = .;
-        . = 0x013660; gUnknown_02013660 = .;
-        . = 0x013668; gUnknown_02013668 = .;
-        . = 0x013670; gUnknown_02013670 = .;
-        . = 0x013698; gUnknown_02013698 = .;
-        . = 0x0136D8; gUnknown_020136D8 = .;
-        . = 0x0136F0; sSupportScreenUnitCount = .;
-        . = 0x0136F4; gUnknown_020136F4 = .;
-        . = 0x014EF4; gUnknown_02014EF4 = .;
+        . = 0x01CDD4; gUnk_OpSubtitle_0201CDD4 = .;
+        . = 0x01DB00; gUnk_Opinfo_0201DB00 = .;
+        . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
+        . = 0x01FB28; gUnk_OpInfo_0201FB28 = .;
+    }
+
+    ewram_overlay_banim __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = ALIGN(4); src/banim-ekrbattle.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-efxlvup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-efxsound.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrclasschg.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrlvup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrtriangle.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrpopup.o(ewram_overlay_banim);
+        . = ALIGN(4); src/banim-ekrdragon-demonking.o(ewram_overlay_banim);
+    }
+
+    ewram_overlay_sio __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000; gUnk_Sio_02000000 = .;
+        . = 0x000C60; Font_Sio_02000C60 = .;
+        . = 0x000C78; gUnk_Sio_02000C78 = .;
+        . = 0x000F00; gUnk_Sio_02000F00 = .;
+        . = 0x001180; gUnk_Sio_02001180 = .;
+        . = 0x001184; gUnk_Sio_02001184 = .;
+        . = 0x001188; gUnk_Sio_02001188 = .;
+    }
+
+    ewram_overlay_worldmap __ewram_start (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000;
+        . = 0x0087A0; gUnknown_020087A0 = .;
+        . = 0x00AF00; gUnknown_0200AF00 = .;
         . = 0x019D00; gUnknown_02019D00 = .;
         . = 0x01AFC0; gFont_0201AFC0 = .;
         . = 0x01AFF0; gUnknown_0201AFF0 = .;
@@ -148,57 +146,13 @@ SECTIONS
         . = 0x01C5D0; gUnknown_0201C5D0 = .;
         . = 0x01C5D1; gUnknown_0201C5D1 = .;
         . = 0x01C5D4; gUnknown_0201C5D4 = .;
-        . = 0x01F148; gUnk_SoundRoom_0201F148 = .;
-        . = 0x01F19C; gSoundRoomVolumeGraphBuffer = .;
     }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
-    . = __ewram_overlay_beg;
-    ewram_overlay_gamestart (NOLOAD) : ALIGN(4)
+    ewram_data __ewram_start (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000;
-        . = ALIGN(4); src/opinfo.o(ewram_overlay_gamestart);
-        . = 0x01CDD4; gUnk_OpSubtitle_0201CDD4 = .;
-        . = 0x01DB00; gUnk_Opinfo_0201DB00 = .;
-        . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
-        . = 0x01FB28; gUnk_OpInfo_0201FB28 = .;
-    }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
-
-    . = __ewram_overlay_beg;
-    ewram_overlay_banim (NOLOAD) : ALIGN(4)
-    {
-        . = ALIGN(4); src/banim-ekrbattle.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-efxlvup.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrdragonstatus.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-efxsound.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrclasschg.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrlvup.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrtriangle.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrpopup.o(ewram_overlay_banim);
-        . = ALIGN(4); src/banim-ekrdragon-demonking.o(ewram_overlay_banim);
-    }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
-
-    . = __ewram_overlay_beg;
-    ewram_overlay_sio (NOLOAD) : ALIGN(4)
-    {
-        . = 0x000000; gUnk_Sio_02000000 = .;
-        . = 0x000C60; gUnk_Sio_02000C60 = .;
-        . = 0x000C78; gUnk_Sio_02000C78 = .;
-        . = 0x000F00; gUnk_Sio_02000F00 = .;
-        . = 0x001180; gUnk_Sio_02001180 = .;
-        . = 0x001184; gUnk_Sio_02001184 = .;
-        . = 0x001188; gUnk_Sio_02001188 = .;
-    }
-    __ewram_overlay_end = MAX(., __ewram_overlay_end);
-
-    . = __ewram_overlay_end;
-    ewram_data (NOLOAD) : ALIGN(4)
-    {
-        . = 0x02020188 - __ewram_overlay_end; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
-        . = 0x02022188 - __ewram_overlay_end; gOpAnimSt = .;
-        . = 0x02022288 - __ewram_overlay_end;
+        . = 0x20188; gGenericBuffer = .; /* TODO: is this part of hardware.o ? */
+        . = 0x22188; gOpAnimSt = .;
+        . = 0x22288;
         . = ALIGN(4); src/hardware.o(ewram_data);
         . = ALIGN(4); src/soundwrapper.o(ewram_data);
         . = ALIGN(4); src/proc.o(ewram_data);
@@ -226,35 +180,35 @@ SECTIONS
         . = ALIGN(4); src/cp_decide.o(ewram_data);
         . = ALIGN(4); src/cp_0803E2F4.o(ewram_data);
         . = ALIGN(4); src/sio_core.o(ewram_data);
-        . = 0x0203DA24 - __ewram_overlay_end; gLinkArenaSt = .;
-        . = 0x0203DA78 - __ewram_overlay_end; gUnk_Sio_0203DA78 = .;
-        . = 0x0203DA88 - __ewram_overlay_end; gUnk_Sio_0203DA88 = .;
-        . = 0x0203DAB0 - __ewram_overlay_end; Texts_0203DAB0 = .;
-        . = 0x0203DAC0 - __ewram_overlay_end; gUnk_Sio_0203DAC0 = .;
-        . = 0x0203DAC5 - __ewram_overlay_end; gUnk_Sio_0203DAC5 = .;
-        . = 0x0203DB10 - __ewram_overlay_end; gSioSaveConfig = .;
-        . = 0x0203DB14 - __ewram_overlay_end; Texts_0203DB14 = .;
-        . = 0x0203DB1C - __ewram_overlay_end; gUnk_Sio_0203DB1C = .;
-        . = 0x0203DB64 - __ewram_overlay_end; Font_0203DB64 = .;
-        . = 0x0203DB7C - __ewram_overlay_end; gUnk_Sio_0203DB7C = .;
-        . = 0x0203DC44 - __ewram_overlay_end; gUnk_Sio_0203DC44 = .;
-        . = 0x0203DC48 - __ewram_overlay_end; gUnk_Sio_0203DC48 = .;
-        . = 0x0203DD0C - __ewram_overlay_end; gSioTexts = .;
-        . = 0x0203DD1C - __ewram_overlay_end; Text_0203DB14 = .;
-        . = 0x0203DD24 - __ewram_overlay_end; gUnk_Sio_0203DD24 = .;
-        . = 0x0203DD28 - __ewram_overlay_end; gUnk_Sio_0203DD28 = .;
-        . = 0x0203DD2C - __ewram_overlay_end; gUnk_Sio_0203DD2C = .;
-        . = 0x0203DD4C - __ewram_overlay_end; gUnk_Sio_0203DD4C = .;
-        . = 0x0203DD50 - __ewram_overlay_end; gUnk_Sio_0203DD50 = .;
-        . = 0x0203DD8C - __ewram_overlay_end; gUnk_Sio_0203DD8C = .;
-        . = 0x0203DD90 - __ewram_overlay_end; gUnk_Sio_0203DD90 = .;
-        . = 0x0203DD94 - __ewram_overlay_end; gUnk_Sio_0203DD94 = .;
-        . = 0x0203DD95 - __ewram_overlay_end; gUnk_Sio_0203DD95 = .;
-        . = 0x0203DD9A - __ewram_overlay_end; gUnk_Sio_0203DD9A = .;
-        . = 0x0203DD9F - __ewram_overlay_end; gUnk_Sio_0203DD9F = .;
-        . = 0x0203DDB4 - __ewram_overlay_end; gUnk_Sio_0203DDB4 = .;
-        . = 0x0203DDDC - __ewram_overlay_end; gUnk_Sio_0203DDDC = .;
-        . = 0x0203DDE0 - __ewram_overlay_end;
+        . = 0x3DA24; gLinkArenaSt = .;
+        . = 0x3DA78; gUnk_Sio_0203DA78 = .;
+        . = 0x3DA88; gUnk_Sio_0203DA88 = .;
+        . = 0x3DAB0; Texts_0203DAB0 = .;
+        . = 0x3DAC0; gUnk_Sio_0203DAC0 = .;
+        . = 0x3DAC5; gUnk_Sio_0203DAC5 = .;
+        . = 0x3DB10; gSioSaveConfig = .;
+        . = 0x3DB14; Texts_0203DB14 = .;
+        . = 0x3DB1C; gUnk_Sio_0203DB1C = .;
+        . = 0x3DB64; Font_0203DB64 = .;
+        . = 0x3DB7C; gLinkArenaTeamList = .;
+        . = 0x3DC44; gSioResultRankings = .;
+        . = 0x3DC48; gUnk_Sio_0203DC48 = .;
+        . = 0x3DD0C; gSioTexts = .;
+        . = 0x3DD1C; Text_0203DB14 = .;
+        . = 0x3DD24; gUnk_Sio_0203DD24 = .;
+        . = 0x3DD28; gUnk_Sio_0203DD28 = .;
+        . = 0x3DD2C; gKeyInputSequenceBuffer = .;
+        . = 0x3DD4C; gKeyInputSequenceTimer = .;
+        . = 0x3DD50; gUnk_Sio_0203DD50 = .;
+        . = 0x3DD8C; gUnk_Sio_0203DD8C = .;
+        . = 0x3DD90; gUnk_Sio_0203DD90 = .;
+        . = 0x3DD94; gUnk_Sio_0203DD94 = .;
+        . = 0x3DD95; gUnk_Sio_0203DD95 = .;
+        . = 0x3DD9A; gUnk_Sio_0203DD9A = .;
+        . = 0x3DD9F; gUnk_Sio_0203DD9F = .;
+        . = 0x3DDB4; gUnk_Sio_0203DDB4 = .;
+        . = 0x3DDDC; gUnk_Sio_0203DDDC = .;
+        . = 0x3DDE0;
         . = ALIGN(4); src/uiutils.o(ewram_data);
         . = ALIGN(4); src/uiselecttarget.o(ewram_data);
         . = ALIGN(4); src/banim-ekrbattle.o(ewram_data);
@@ -276,23 +230,22 @@ SECTIONS
         . = ALIGN(4); src/bmsave-xmap.o(ewram_data);
         . = ALIGN(4); src/savemenu.o(ewram_data);
         . = ALIGN(4); src/bmshop.o(ewram_data);
-        . = 0x0203EFB8 - __ewram_overlay_end; gLoadUnitBuffer = .;
-        . = 0x0203EFB8 - __ewram_overlay_end; end = .;
+        . = 0x3EFB8; gLoadUnitBuffer = .;
+        . = 0x3EFB8; end = .;
     }
 
-    . = ORIGIN(iwram);
-    IWRAM (NOLOAD) :
+    IWRAM __iwram_start (NOLOAD) :
     ALIGN(4)
     {
         INCLUDE "sym_iwram.txt"
     }
 
-    . = ORIGIN(rom);
-    ROM :
+    ROM __text_start :
     ALIGN(4)
     {
         /* .text */
-        asm/crt0.o(.text);
+        src/rom_header.o(.text);
+        src/crt0.o(.text);
         asm/arm.o(.text);
         src/main.o(.text);
         src/fe3_dummy.o(.text);
@@ -313,7 +266,11 @@ SECTIONS
         src/ap.o(.text);
         src/gamecontrol.o(.text);
         src/msg.o(.text);
-        asm/spline.o(.text);
+        src/spline.o(.text);
+        asm/spline_800A950.o(.text);
+        src/spline_800AB58.o(.text);
+        asm/spline_800AF64.o(.text);
+        src/spline_800B16C.o(.text);
         src/eventscr_utils.o(.text);
         src/eventscr_gmap.o(.text);
         src/event.o(.text);
@@ -328,7 +285,7 @@ SECTIONS
         src/eventfx-earthquake.o(.text);
         src/eventfx-stoneshatter.o(.text);
         src/bmlib.o(.text);
-        asm/bmlib-hblank.o(.text);
+        src/bmlib-hblank.o(.text);
         src/bmlib-math.o(.text);
         src/bm.o(.text);
         src/bmitem.o(.text);
@@ -375,7 +332,7 @@ SECTIONS
         src/bmmind.o(.text);
         src/bmpatharrowdisp.o(.text);
         src/prep_sallycursor.o(.text);
-        asm/bmcommanddbg.o(.text);
+        src/bmcommanddbg.o(.text);
         src/chapterdata.o(.text);
         src/unitinfowindow.o(.text);
         src/bb.o(.text);
@@ -397,9 +354,22 @@ SECTIONS
         src/sio_core.o(.text);
         src/sio_main.o(.text);
         src/sio_main2.o(.text);
-        asm/code_sio_8042DC8.o(.text);
+        src/sio_teamlist.o(.text);
         src/sio_tactician.o(.text);
-        asm/code_sio.o(.text);
+        src/sio_postbattle.o(.text);
+        src/sio_bat.o(.text);
+        src/sio_term.o(.text);
+        src/sio_result.o(.text);
+        src/sio_rulesettings.o(.text);
+        src/sio_menu.o(.text);
+        src/sio_event.o(.text);
+        src/sio_points.o(.text);
+        src/sio_battlemap.o(.text);
+        src/sio_804B920.o(.text);
+        src/sio_mu.o(.text);
+        src/sio_uiutils.o(.text);
+        src/sio_menudef.o(.text);
+        src/sio_multiboot.o(.text);
         src/uiutils.o(.text);
         src/uimenu.o(.text);
         src/uiselecttarget.o(.text);
@@ -410,7 +380,7 @@ SECTIONS
         src/banim-ekrdispup.o(.text);
         src/banim-efxhpbar.o(.text);
         src/banim-efxdeath.o(.text);
-        asm/banim-efxbattle.o(.text);
+        src/banim-efxbattle.o(.text);
         src/banim-efxflashbg.o(.text);
         src/banim-efxflashunit.o(.text);
         src/banim-efxstatusunit.o(.text);
@@ -424,10 +394,8 @@ SECTIONS
         src/banim-main.o(.text);
         src/banim-ekrmain.o(.text);
         src/banim-ekrmainmini.o(.text);
-        asm/code_battleanim.o(.text);
         src/banim-ekrarena.o(.text);
         src/banim-efxmagic.o(.text);
-        asm/banim-efxmagic-util.o(.text);
         src/banim-efxmagic-phywpn.o(.text);
         src/banim-efxmagic-refresh.o(.text);
         src/banim-efxmagic-ballista.o(.text);
@@ -469,7 +437,6 @@ SECTIONS
         src/banim-ekrdragonstatus.o(.text);
         src/banim-ekrdragon-dracozombie.o(.text);
         src/banim-ekrdragon-utils.o(.text);
-        asm/banim-ekrdragon.o(.text);
         src/banim-ekrdragon-8070710.o(.text);
         src/banim-ekrdragon-myrrh.o(.text);
         src/banim-efxutils.o(.text);
@@ -499,14 +466,14 @@ SECTIONS
         src/mapanim_lvup.o(.text);
         src/mapanim_spellassocfx.o(.text);
         src/mapanim_eventcall.o(.text);
-        asm/mapanim_eventcall.o(.text);
         src/mapanim_spellassoc.o(.text);
         src/mapanim_scanline.o(.text);
-        asm/code_mapanim.o(.text);
         src/eventinfo.o(.text);
         src/uidebug.o(.text);
         src/eventcall.o(.text);
-        asm/code_8086934.o(.text);
+        src/events_script_utils.o(.text);
+        src/events_script.o(.text);
+        src/code_8086934.o(.text);
         src/statbar.o(.text);
         src/mural_background.o(.text);
         src/statscreen.o(.text);
@@ -544,12 +511,11 @@ SECTIONS
         src/savemenu.o(.text);
         src/savedraw.o(.text);
         src/difficultymenu.o(.text);
-        asm/code_80AC6AC.o(.text);
+        src/code_80AC6AC.o(.text);
         src/cursor_hand.o(.text);
         src/spinning_arrow.o(.text);
         src/sysutil.o(.text);
-        src/sysutil-bmbgfx.o(.text);
-        src/code_80AE86C.o(.text);
+        src/bonusclaim_helpbox.o(.text);
         src/soundroom.o(.text);
         src/extramenu_unk.o(.text);
         src/bonusclaim.o(.text);
@@ -592,9 +558,7 @@ SECTIONS
         src/opsubtitle.o(.text);
         src/titlescreen.o(.text);
         src/opanimfx.o(.text);
-        asm/opanimfx.o(.text);
         src/opanim-main.o(.text);
-        asm/opanim_80C6474.o(.text);
         src/opanim-healthsafetyscreen.o(.text);
         src/classchg-main.o(.text);
         src/classchg-handler.o(.text);
@@ -604,9 +568,9 @@ SECTIONS
         src/classchg-menuselect.o(.text);
         src/classchg-postconfirm.o(.text);
         src/bmguide.o(.text);
-        asm/m4a_1.o(.text);
+        src/m4a_1.o(.text);
         src/m4a.o(.text);
-        asm/libagbsyscall.o(.text);
+        src/libagbsyscall.o(.text);
         src/agb_sram.o(.text);
         *libgcc.a:_ashldi3.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
@@ -684,7 +648,7 @@ SECTIONS
         . = ALIGN(4); src/bmcamadjust.o(.rodata);
         . = ALIGN(4); src/lightrunefx.o(.rodata);
         . = ALIGN(4); src/danceringfx.o(.rodata);
-        . = ALIGN(4); data/const_data_D7B20.o(.rodata);
+        . = ALIGN(4); src/bmmenu.o(.rodata);
         . = ALIGN(4); src/bmudisp.o(.rodata);
         . = ALIGN(4); src/bmreliance.o(.rodata);
         . = ALIGN(4); src/bmbattle.o(.rodata);
@@ -711,9 +675,19 @@ SECTIONS
         . = ALIGN(4); src/cpextra_80407F0.o(.rodata);
         . = ALIGN(4); src/sio_core.o(.rodata);
         . = ALIGN(4); src/sio_main.o(.rodata);
-        . = ALIGN(4); data/const_data_sio.o(.rodata);
+        . = ALIGN(4); src/sio_tactician.o(.rodata);
         . = ALIGN(4); src/sio_main2.o(.rodata);
-        . = ALIGN(4); data/const_data_D8714.o(.rodata);
+        . = ALIGN(4); src/sio_postbattle.o(.rodata);
+        . = ALIGN(4); src/sio_result.o(.rodata);
+        . = ALIGN(4); src/sio_rulesettings.o(.rodata);
+        . = ALIGN(4); src/sio_menu.o(.rodata);
+        . = ALIGN(4); src/sio_event.o(.rodata);
+        . = ALIGN(4); src/sio_points.o(.rodata);
+        . = ALIGN(4); src/sio_battlemap.o(.rodata);
+        . = ALIGN(4); src/sio_bat.o(.rodata);
+        . = ALIGN(4); src/sio_mu.o(.rodata);
+        . = ALIGN(4); src/sio_uiutils.o(.rodata);
+        . = ALIGN(4); src/sio_menudef.o(.rodata);
         . = ALIGN(4); src/uiutils.o(.rodata);
         . = ALIGN(4); src/uimenu.o(.rodata);
         . = ALIGN(4); src/uiselecttarget.o(.rodata);
@@ -723,7 +697,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdispup.o(.rodata);
         . = ALIGN(4); src/banim-efxhpbar.o(.rodata);
         . = ALIGN(4); src/banim-efxdeath.o(.rodata);
-        . = ALIGN(4); data/const_data_DA3A4.o(.rodata);
+        . = ALIGN(4); src/banim-efxbattle.o(.rodata);
         . = ALIGN(4); src/banim-efxflashbg.o(.rodata);
         . = ALIGN(4); src/banim-efxflashunit.o(.rodata);
         . = ALIGN(4); src/banim-efxstatusunit.o(.rodata);
@@ -732,7 +706,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrbattlestarting.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleending.o(.rodata);
         . = ALIGN(4); src/banim-ekrbattleintro.o(.rodata);
-        . = ALIGN(4); data/const_data_DAD68.o(.rodata);
+        . = ALIGN(4); src/banim-battleparse.o(.rodata);
         . = ALIGN(4); src/banim-ekrmain.o(.rodata);
         . = ALIGN(4); src/banim-ekrmainmini.o(.rodata);
         . = ALIGN(4); data/const_data_DAEF0.o(.rodata);
@@ -744,7 +718,8 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-ballista.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-bindingblade.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-breath.o(.rodata);
-        . = ALIGN(4); data/const_data_efxmagic_DC944.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-thunder.o(.rodata);
+        . = ALIGN(4); src/banim-efxmagic-fire.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.rodata);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.rodata);
@@ -774,14 +749,12 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.rodata);
         . = ALIGN(4); src/banim-efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxmisc.o(.rodata);
-        . = ALIGN(4); data/const_data_efxhit.o(.rodata);
         . = ALIGN(4); src/banim-efxskill.o(.rodata);
         . = ALIGN(4); src/banim-efxop.o(.rodata);
         . = ALIGN(4); src/banim-ekrdragon-utils.o(.rodata);
         . = ALIGN(4); data/const_data_banimekrdk.o(.rodata);
         . = ALIGN(4); src/banim-efxutils.o(.rodata);
         . = ALIGN(4); src/banim-efxsound.o(.rodata);
-        . = ALIGN(4); data/const_data_efxutils.o(.rodata);
         . = ALIGN(4); src/banim-ekrclasschg.o(.rodata);
         . = ALIGN(4); src/banim-ekrlvup.o(.rodata);
         . = ALIGN(4); src/banim-efxlvup.o(.rodata);
@@ -804,7 +777,7 @@ SECTIONS
         . = ALIGN(4); src/mapanim_api.o(.rodata);
         . = ALIGN(4); src/mapanim_debug.o(.rodata);
         . = ALIGN(4); src/mapanim_staffeffect.o(.rodata);
-        . = ALIGN(4); data/const_data_205714.o(.rodata);
+        . = ALIGN(4); src/mapanim_eventcall.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/player_interface.o(.rodata);
         . = ALIGN(4); src/unitlistscreen.o(.rodata);
@@ -951,9 +924,21 @@ SECTIONS
         . = ALIGN(4); src/sio_core.o(.data);
         . = ALIGN(4); src/sio_main.o(.data);
         . = ALIGN(4); src/sio_main2.o(.data);
-        . = ALIGN(4); data/sio_main.o(.data);
-        . = ALIGN(4); data/sio_tactician.o(.data);
-        . = ALIGN(4); data/data_5A92E0.o(.data);
+        . = ALIGN(4); src/sio_teamlist.o(.data);
+        . = ALIGN(4); src/sio_tactician.o(.data);
+        . = ALIGN(4); src/sio_postbattle.o(.data);
+        . = ALIGN(4); src/sio_result.o(.data);
+        . = ALIGN(4); src/sio_rulesettings.o(.data);
+        . = ALIGN(4); src/sio_menu.o(.data);
+        . = ALIGN(4); src/sio_event.o(.data);
+        . = ALIGN(4); src/sio_points.o(.data);
+        . = ALIGN(4); src/sio_battlemap.o(.data);
+        . = ALIGN(4); src/sio_bat.o(.data);
+        . = ALIGN(4); src/sio_804B920.o(.data);
+        . = ALIGN(4); src/sio_mu.o(.data);
+        . = ALIGN(4); src/sio_uiutils.o(.data);
+        . = ALIGN(4); src/sio_menudef.o(.data);
+        . = ALIGN(4); data/data_5AA96C.o(.data);
         . = ALIGN(4); src/uiutils.o(.data);
         . = ALIGN(4); src/uimenu.o(.data);
         . = ALIGN(4); src/uiselecttarget.o(.data);
@@ -965,7 +950,7 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrdispup.o(.data);
         . = ALIGN(4); src/banim-efxhpbar.o(.data);
         . = ALIGN(4); src/banim-efxdeath.o(.data);
-        . = ALIGN(4); data/data_banim_5B93D0.o(.data);
+        . = ALIGN(4); src/banim-efxbattle.o(.data);
         . = ALIGN(4); src/banim-efxflashbg.o(.data);
         . = ALIGN(4); src/banim-efxflashunit.o(.data);
         . = ALIGN(4); src/banim-efxstatusunit.o(.data);
@@ -977,20 +962,22 @@ SECTIONS
         . = ALIGN(4); src/banim-ekrmain.o(.data);
         . = ALIGN(4); src/banim-ekrmainmini.o(.data);
         . = ALIGN(4); src/banim-ekrarena.o(.data);
-        . = ALIGN(4); data/data_banim_5B9D6C.o(.data);
+        . = ALIGN(4); data/banim-efxbattle.o(.data);
         . = ALIGN(4); data/banim-efxlvupfx.o(.data);
         . = ALIGN(4); data/banim-ekrmainminifx.o(.data);
         . = ALIGN(4); data/banim-efxhitfx.o(.data);
-        . = ALIGN(4); data/data_banim_5B9D5C.o(.data);
+        . = ALIGN(4); data/banim-efxlvupobj.o(.data);
+        . = ALIGN(4); data/banim-ekrskill.o(.data);
+        . = ALIGN(4); data/banim-efxhitobj.o(.data);
+        . = ALIGN(4); data/banim-ekrbattleintro.o(.data);
         . = ALIGN(4); src/banim-efxmagic.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-utils.o(.data);
         . = ALIGN(4); src/banim-efxmagic-phywpn.o(.data);
         . = ALIGN(4); src/banim-efxmagic-refresh.o(.data);
         . = ALIGN(4); src/banim-efxmagic-ballista.o(.data);
         . = ALIGN(4); src/banim-efxmagic-bindingblade.o(.data);
         . = ALIGN(4); src/banim-efxmagic-breath.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-thunder.o(.data);
-        . = ALIGN(4); data/banim-efxmagic-fire.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-thunder.o(.data);
+        . = ALIGN(4); src/banim-efxmagic-fire.o(.data);
         . = ALIGN(4); src/banim-efxmagic-fimbulvetr.o(.data);
         . = ALIGN(4); src/banim-efxmagic-bolting.o(.data);
         . = ALIGN(4); src/banim-efxmagic-aircalibur.o(.data);
@@ -1020,11 +1007,6 @@ SECTIONS
         . = ALIGN(4); src/banim-efxmagic-demonsurge.o(.data);
         . = ALIGN(4); src/banim-efxhit.o(.data);
         . = ALIGN(4); src/banim-efxmisc.o(.data);
-        . = ALIGN(4); data/banim-efxhit.o(.data);
-        . = ALIGN(4); data/banim-efxspecialleffect.o(.data);
-        . = ALIGN(4); data/banim-efxmagdhis.o(.data);
-        . = ALIGN(4); data/banim-efxmantbata.o(.data);
-        . = ALIGN(4); data/banim-efxchill.o(.data);
         . = ALIGN(4); src/banim-efxskill.o(.data);
         . = ALIGN(4); src/banim-efxop.o(.data);
         . = ALIGN(4); data/data_banim.o(.data);
@@ -1043,11 +1025,11 @@ SECTIONS
         . = ALIGN(4); data/data_btl_bg.o(.data);
         . = ALIGN(4); src/banim-ekrpopup.o(.data);
         . = ALIGN(4); src/banim-ekrhensei.o(.data);
-        . = ALIGN(4); data/data_banim_78D500.o(.data);
+        . = ALIGN(4); data/banim-ekrdragonfx.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonking.o(.data);
         . = ALIGN(4); data/data-ekrdk.o(.data);
         . = ALIGN(4); src/banim-ekrdragon-demonkingobj.o(.data);
-        . = ALIGN(4); data/data-ekrdk2.o(.data);
+        . = ALIGN(4); data/data-banimmisc.o(.data);
         . = ALIGN(4); src/data_characters.o(.data);
         . = ALIGN(4); src/data_classes.o(.data);
         . = ALIGN(4); src/data_items.o(.data);
@@ -1089,18 +1071,17 @@ SECTIONS
         . = ALIGN(4); src/mapanim_lvup.o(.data);
         . = ALIGN(4); src/mapanim_spellassocfx.o(.data);
         . = ALIGN(4); src/mapanim_eventcall.o(.data);
-        . = ALIGN(4); data/mapanim_eventcall.o(.data);
         . = ALIGN(4); src/mapanim_spellassoc.o(.data);
         . = ALIGN(4); data/data_9A31F8.o(.data);
         . = ALIGN(4); src/eventinfo.o(.data);
         . = ALIGN(4); src/events_info.o(.data);
-        . = ALIGN(4); data/data_events.o(.data);
         . = ALIGN(4); src/data_battlequotes.o(.data);
         . = ALIGN(4); src/data_event_trigger.o(.data);
-        . = ALIGN(4); data/data_uidebug.o(.data);
+        . = ALIGN(4); src/uidebug.o(.data);
+        . = ALIGN(4); src/events_shoplist.o(.data);
+        . = ALIGN(4); src/events_trapdata.o(.data);
         . = ALIGN(4); src/eventcall.o(.data);
         . = ALIGN(4); src/events_script_utils.o(.data);
-        . = ALIGN(4); data/data_eventscr_9EE0C0.o(.data);
         . = ALIGN(4); src/events_script.o(.data);
         . = ALIGN(4); src/mural_background.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);
@@ -1144,8 +1125,7 @@ SECTIONS
         . = ALIGN(4); src/cursor_hand.o(.data);
         . = ALIGN(4); src/spinning_arrow.o(.data);
         . = ALIGN(4); src/sysutil.o(.data);
-        . = ALIGN(4); src/sysutil-bmbgfx.o(.data);
-        . = ALIGN(4); src/code_80AE86C.o(.data);
+        . = ALIGN(4); src/bonusclaim_helpbox.o(.data);
         . = ALIGN(4); src/soundroom_data.o(.data);
         . = ALIGN(4); src/soundroom.o(.data);
         . = ALIGN(4); src/extramenu_unk.o(.data);
@@ -1206,6 +1186,8 @@ SECTIONS
         . = ALIGN(4); src/classchg-postconfirm.o(.data);
         . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); data/data_B12A60.o(.data);
+        . = ALIGN(4); src/bmguide_config.o(.data);
+        . = ALIGN(4); data/data_fe6sio.o(.data);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

@@ -86,7 +86,7 @@ void CreditsBlendCG_80C40B8(struct CreditsSubProc * proc)
 
     if (proc->unk_30 < 120)
     {
-        int tmp = sub_800B84C(119 - proc->unk_30, 120, 1);
+        int tmp = _DivArm2(119 - proc->unk_30, 120, 1);
         int bldAmt = DivArm(0x1000, (0x1000 - tmp) * 16);
         SetBlendAlpha(16 - bldAmt, bldAmt);
     }
@@ -150,7 +150,7 @@ void CreditsBlendCG_80C4184(struct CreditsSubProc * proc)
 
     if (proc->unk_30 < 120)
     {
-        int tmp = sub_800B84C(119 - proc->unk_30, 120, 1);
+        int tmp = _DivArm2(119 - proc->unk_30, 120, 1);
         int bldAmt = DivArm(0x1000, (0x1000 - tmp) * 16);
         SetBlendAlpha(bldAmt, 16 - bldAmt);
     }

@@ -90,7 +90,7 @@
 #define TEXTSHOW EvtTextShow
 #define REMA EvtTextRemoveAll
 #define TEXTCONT EvtContinueText
-#define TEXTEND EvtTextEnd
+#define TEXTEND EvtTextWaitLock
 #define BACG EvtDisplayTextBg
 #define FACE_SHOW EvtDisplayFace
 #define CLEAN EvtClearScreen
@@ -194,6 +194,9 @@
 #define CHAR EvtListTalk
 #define CHAR_ EvtListConditionalTalk
 #define LOCA EvtListTile
+#define CHES EvtListCHES
+#define DOOR EvtListDOOR
+#define VILL EvtListVillage
 #define AFEV EvtListFlag
 #define AREA EvtListArea
 

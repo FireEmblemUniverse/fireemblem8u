@@ -18,41 +18,29 @@
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "bmio.h"
+#include "sio.h"
 
 #include "unitlistscreen.h"
 
-bool CheckInLinkArena(void);
-
-extern u16 Sprite_08A17B64[];
-extern u16 Sprite_08A17B6C[];
-extern u16 * gSpriteArray_08A17C20[];
-
-extern u8 Img_08A1CD68[];
-extern u8 Img_UnitListBanners[];
-extern u8 Img_UnitListBanner_Animation[];
-
-extern u16 Pal_08A1A084[];
-
-extern u8 gUnknown_08A1C8B4[]; // tsa
-
-extern u16 gUnknown_0200D7E0[][0x20];
-extern u16 gUnknown_0200DFE0[][0x20];
-
-extern struct Text gUnknown_0200E060[];
-extern struct Text gUnknown_0200E098[][3];
-extern struct Text gUnknown_0200E140;
-extern struct Text gUnknown_0200E148;
-extern struct Text gUnknown_0200E150;
-extern struct Unit gUnknown_0200E158[];
-extern u8 gUnknown_0200F158;
-extern u32 gUnknown_0200F15C[]; // equipped item icons
+EWRAM_OVERLAY(0) struct SortedUnitEnt gSortedUnitsBuf[0x40] = {};
+EWRAM_OVERLAY(0) struct SortedUnitEnt * gSortedUnits[0x40] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_0200D7E0[0x20][0x20] = {};
+EWRAM_OVERLAY(0) u16 gUnknown_0200DFE0[2][0x20] = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_0200E060[7] = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_0200E098[7][3] = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_0200E140 = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_0200E148 = {};
+EWRAM_OVERLAY(0) struct Text gUnknown_0200E150 = {};
+EWRAM_OVERLAY(0) u8 gUnknown_0200E158[0x1000] = {};
+EWRAM_OVERLAY(0) u8 gUnknown_0200F158 = 0;
+EWRAM_OVERLAY(0) u32 gUnknown_0200F15C[8] = {}; // equipped item icons
 
 // clang-format off
 
 struct ProcCmd CONST_DATA ProcScr_UnitListScreen_Field[] =
 {
     PROC_NAME("bmenu"),
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_CALL(LockGame),
 
@@ -78,7 +66,7 @@ PROC_LABEL(1),
     PROC_CALL(BMapDispResume),
     PROC_CALL(RefreshBMapGraphics),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
@@ -293,7 +281,7 @@ void sub_809014C(void)
     return;
 }
 
-extern u16 * gSpriteArray_08A17B58[];
+
 
 //! FE8U = 0x080901BC
 void sub_80901BC(u8 x, u8 y, u8 width)
@@ -541,7 +529,7 @@ void sub_8090514(s8 flag)
 //! FE8U = 0x08090620
 void UnitList_StartStatScreen(struct UnitListScreenProc * proc)
 {
-    MU_EndAll();
+    EndAllMus();
     Proc_End(proc->pSpriteProc);
     Proc_End(proc->pMuralProc);
     EndGreenText();
@@ -642,7 +630,7 @@ void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
 
     if ((proc->unk_38 != proc->unk_2c->unk_3e) || ((proc->unk_2c->unk_3e % 0x10) != 0))
     {
-        gPaletteBuffer[0x19E] = gUnknown_02013460.unk_10;
+        gPaletteBuffer[0x19E] = _gUnknown_02013460->unk_10;
         EnablePaletteSync();
 
         proc->unk_3c = 32;
@@ -656,7 +644,7 @@ void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
     }
     else
     {
-        gPaletteBuffer[0x19E] = gUnknown_02013460.unk_00[(proc->unk_3c / 4) & 0xf];
+        gPaletteBuffer[0x19E] = _gUnknown_02013460->unk_00[(proc->unk_3c / 4) & 0xf];
         EnablePaletteSync();
 
         if (proc->unk_3a == 1)
@@ -907,7 +895,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     ResetText();
     ResetTextFont();
     ResetIconGraphics();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     CpuFastFill(0, gPaletteBuffer + 0x1B0, PLTT_SIZE_4BPP);
 
@@ -1033,7 +1021,7 @@ void sub_8090D80(struct UnitListScreenProc * proc)
     gLCDControlBuffer.bg3cnt.priority = 3;
 
     Decompress(gImg_UiSpinningArrow_Horizontal, gBG1TilemapBuffer + 0x280);
-    ApplyPalette(Pal_08A1A084, 0xf);
+    ApplyPalette(Pal_SpinningArrow, 0xf);
 
     proc->pSpriteProc = Proc_Start(ProcScr_bmview, proc);
     proc->pMuralProc = StartMuralBackground(0, 0, 10);
@@ -1694,7 +1682,7 @@ void sub_8091D54(struct UnitListScreenProc * proc)
     return;
 }
 
-extern u8 gUnknown_08A17B36[];
+
 
 #if NONMATCHING
 

@@ -95,7 +95,7 @@ void WmText_Loop_DrawText(struct GMapTextProc * proc)
 
 struct ProcCmd CONST_DATA ProcScr_WorldMapTextHandler[] =
 {
-    PROC_MARK(PROC_MARK_8),
+    PROC_MARK(PROC_MARK_WMSTUFF),
 
     PROC_CALL(WmText_Init),
     PROC_YIELD,

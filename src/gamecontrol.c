@@ -18,6 +18,7 @@
 #include "savemenu.h"
 #include "gamecontrol.h"
 #include "sio.h"
+#include "constants/event-flags.h"
 
 extern u16 EventScr_8A0035C[];
 extern u16 EventScr_8A00364[];
@@ -26,7 +27,7 @@ extern u16 EventScr_EphraimModeGameEnd[];
 
 extern struct ProcCmd CONST_DATA ProcScr_GameEarlyStartUI[]; // pre-intro cutscene
 extern struct ProcCmd CONST_DATA ProcScr_OpAnim[]; // intro cutscene
-extern struct ProcCmd CONST_DATA gProcScr_WorldMapWrapper[];
+extern struct ProcCmd CONST_DATA ProcScr_WorldMapWrapper[];
 
 struct ProcCmd CONST_DATA gUnused_085916BC[] =
 {
@@ -39,7 +40,7 @@ struct ProcCmd CONST_DATA gUnused_085916BC[] =
 struct ProcCmd CONST_DATA gProcScr_GameControl[] =
 {
     PROC_NAME("GAMECTRL"),
-    PROC_MARK(PROC_MARK_B),
+    PROC_MARK(PROC_MARK_GAMECTRL),
 
     PROC_15,
     PROC_CALL(GameControl_CallEraseSaveEventWithKeyCombo),
@@ -96,13 +97,13 @@ PROC_LABEL(LGAMECTRL_POST_TITLE_IDLE),
 
 PROC_LABEL(LGAMECTRL_EXEC_SAVEMENU),
     PROC_CALL(GameControl_EnableSoundEffects),
-    PROC_CALL(Make6C_SaveMenuNewGame),
+    PROC_CALL(StartSaveMenu),
     PROC_YIELD,
     PROC_CALL(GameControl_SwitchPostSaveMenu),
     PROC_YIELD,
     PROC_GOTO(LGAMECTRL_EXEC_BM),
 
-PROC_LABEL(6),
+PROC_LABEL(LGAMECTRL_EXEC_BM_EXT),
     PROC_CALL(GameControl_RememberChapterId),
     PROC_YIELD,
     PROC_CALL(StartBattleMap),
@@ -110,12 +111,12 @@ PROC_LABEL(6),
     PROC_GOTO(9),
 
 PROC_LABEL(LGAMECTRL_EXEC_BM),
-    PROC_CALL(sub_8009D1C),
-    PROC_CALL(sub_8009D44),
+    PROC_CALL(GameCtrl_CheckNewGameAndBranch),
+    PROC_CALL(GameCtrl_CheckGameCompleteAndBranch),
     PROC_CALL(GameControl_RememberChapterId),
     PROC_CALL(GameCtrlStartIntroMonologue),
     PROC_YIELD,
-    PROC_START_CHILD_BLOCKING(gProcScr_WorldMapWrapper),
+    PROC_START_CHILD_BLOCKING(ProcScr_WorldMapWrapper),
     PROC_CALL(EndWM),
     PROC_CALL(sub_8009E28),
     PROC_YIELD,
@@ -160,7 +161,7 @@ PROC_LABEL(LGAMECTRL_EXEC_BM_),
     PROC_GOTO(LGAMECTRL_EXEC_BM),
 
 PROC_LABEL(12),
-    PROC_CALL(sub_80481E0),
+    PROC_CALL(StartLinkArenaMainMenu),
     PROC_YIELD,
     PROC_CALL(sub_8009ABC),
     PROC_GOTO(LGAMECTRL_EXEC_SAVEMENU),
@@ -173,7 +174,7 @@ PROC_LABEL(16),
 
     // fallthrough
 
-PROC_LABEL(17),
+PROC_LABEL(LGAMECTRL_EXEC_ENDING_SCENE),
     PROC_CALL(GameCtrl_SavePlayThroughData),
 
     PROC_CALL(CallGameEndingEvent),
@@ -369,7 +370,7 @@ void GameControl_8009A60_Null(ProcPtr proc)
 
 void EndProcIfNotMarkedB(ProcPtr proc)
 {
-    if (((struct Proc*)proc)->proc_mark != PROC_MARK_B)
+    if (((struct Proc*)proc)->proc_mark != PROC_MARK_GAMECTRL)
         Proc_End(proc);
 }
 
@@ -378,7 +379,7 @@ void sub_8009A84(ProcPtr proc)
     CpuFastFill16(0, gPaletteBuffer, 0x400);
     EnablePaletteSync();
     Proc_ForAll(EndProcIfNotMarkedB);
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
 }
 
 void sub_8009ABC(ProcPtr proc)
@@ -539,7 +540,7 @@ void sub_8009CC0(ProcPtr proc)
 
 void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
 
-    MU_EndAll();
+    EndAllMus();
 
     switch (proc->nextAction) {
     case GAME_ACTION_EVENT_RETURN:
@@ -559,15 +560,15 @@ void GameControl_PostChapterSwitch(struct GameCtrlProc* proc) {
     return;
 }
 
-void sub_8009D1C(struct GameCtrlProc* proc) {
+void GameCtrl_CheckNewGameAndBranch(struct GameCtrlProc* proc) {
     if ((gPlaySt.save_menu_type == 2) || (gPlaySt.save_menu_type == 4)) {
-        Proc_Goto(proc, 6);
+        Proc_Goto(proc, LGAMECTRL_EXEC_BM_EXT);
     }
 
     return;
 }
 
-void sub_8009D44(struct GameCtrlProc* proc) {
+void GameCtrl_CheckGameCompleteAndBranch(struct GameCtrlProc* proc) {
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME) {
         return;
     }
@@ -576,7 +577,7 @@ void sub_8009D44(struct GameCtrlProc* proc) {
         return;
     }
 
-    Proc_Goto(proc, 17);
+    Proc_Goto(proc, LGAMECTRL_EXEC_ENDING_SCENE);
 
     return;
 }
@@ -650,7 +651,7 @@ void sub_8009E54(ProcPtr proc)
             break;
     }
 
-    SetFlag(0x84);
+    SetFlag(EVFLAG_HIDE_BLINKING_ICON);
 
     return;
 }
@@ -670,7 +671,7 @@ void CallGameEndingEvent(ProcPtr proc) {
             break;
     }
 
-    SetFlag(0x84);
+    SetFlag(EVFLAG_HIDE_BLINKING_ICON);
 
     return;
 }
@@ -694,7 +695,7 @@ void StartGame(void)
 {
     struct GameCtrlProc* proc;
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     proc = Proc_Start(gProcScr_GameControl, PROC_TREE_3);

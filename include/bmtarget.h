@@ -2,7 +2,7 @@
 #define GUARD_BMTARGET_H
 
 // ??? ForEachUnitInMovement(???);
-// ??? ForEachUnitInRange(???);
+void ForEachUnitInRange(void(* func)(struct Unit * unit));
 // ??? ForEachPosInRange(???);
 // ??? ForEachAdjacentUnit(???);
 // ??? ForEachAdjacentPosition(???);
@@ -10,7 +10,7 @@
 // ??? ForEachPosIn12Range(???);
 // ??? ForEachUnitInMagBy2Range(???);
 // ??? TryAddTrapsToTargetList(???);
-// ??? AddUnitToTargetListIfNotAllied(???);
+void AddUnitToTargetListIfNotAllied(struct Unit * unit);
 void MakeTargetListForWeapon(struct Unit* unit, int item);
 // ??? TryAddUnitToTradeTargetList(???);
 void MakeTradeTargetList(struct Unit* unit);

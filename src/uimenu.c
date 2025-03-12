@@ -30,7 +30,7 @@ struct ProcCmd sProc_Menu[] =
     PROC_NAME("E_Menu"),
     PROC_SLEEP(0),
 
-    PROC_WHILE_EXISTS(gProcScr_CamMove),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(StartGreenText),
     PROC_CALL(RedrawMenu),

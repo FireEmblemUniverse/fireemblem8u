@@ -1,27 +1,27 @@
     .section .data
 
-	.global gUnknown_08A21658
-gUnknown_08A21658:  @ 0x08A21658
+	.global Img_SaveMenuBG
+Img_SaveMenuBG:  @ 0x08A21658
 	.incbin "baserom.gba", 0xA21658, 0x4774
 
-	.global gUnknown_08A25DCC
-gUnknown_08A25DCC:  @ 0x08A25DCC
+	.global Pal_SaveMenuBG
+Pal_SaveMenuBG:  @ 0x08A25DCC
 	.incbin "baserom.gba", 0xA25DCC, 0x100
 
-	.global gUnknown_08A25ECC
-gUnknown_08A25ECC:  @ 0x08A25ECC
+	.global Tsa_SaveMenuBG
+Tsa_SaveMenuBG:  @ 0x08A25ECC
 	.incbin "baserom.gba", 0xA25ECC, 0x4B4
 
-	.global gUnknown_08A26380
-gUnknown_08A26380:  @ 0x08A26380
+	.global Img_MainMenuBgFog
+Img_MainMenuBgFog:  @ 0x08A26380
 	.incbin "baserom.gba", 0xA26380, 0x558
 
-	.global gUnknown_08A268D8
-gUnknown_08A268D8:  @ 0x08A268D8
+	.global Pal_MainMenuBgFog
+Pal_MainMenuBgFog:  @ 0x08A268D8
 	.incbin "baserom.gba", 0xA268D8, 0x20
 
-	.global gUnknown_08A268F8
-gUnknown_08A268F8:  @ 0x08A268F8
+	.global Tsa_MainMenuBgFog
+Tsa_MainMenuBgFog:  @ 0x08A268F8
 	.incbin "baserom.gba", 0xA268F8, 0x17C
 
 	.global Img_SaveScreenSprits
@@ -60,12 +60,12 @@ gUnknown_08A29498:  @ 0x08A29498
 gUnknown_08A29558:  @ 0x08A29558
 	.incbin "baserom.gba", 0xA29558, 0x5C
 
-	.global gUnknown_08A295B4
-gUnknown_08A295B4:  @ 0x08A295B4
+	.global Pal_08A295B4
+Pal_08A295B4:  @ 0x08A295B4
 	.incbin "baserom.gba", 0xA295B4, 0x20
 
-	.global gUnknown_08A295D4
-gUnknown_08A295D4:  @ 0x08A295D4
+	.global Tsa_CommGameBgScreenInShop
+Tsa_CommGameBgScreenInShop:  @ 0x08A295D4
 	.incbin "baserom.gba", 0xA295D4, 0x4B4
 
 	.global gUnknown_08A29A88
@@ -120,36 +120,36 @@ Img_SoundRoomUiElements:  @ 0x08A2CABC
 Pal_SoundRoomUiElements:  @ 0x08A2D2CC
 	.incbin "baserom.gba", 0xA2D2CC, 0x60
 
-	.global gUnknown_08A2D32C
-gUnknown_08A2D32C:  @ 0x08A2D32C
+	.global Img_PlayStatusSprites
+Img_PlayStatusSprites:  @ 0x08A2D32C
 	.incbin "baserom.gba", 0xA2D32C, 0xE8C
 
-	.global gUnknown_08A2E1B8
-gUnknown_08A2E1B8:  @ 0x08A2E1B8
+	.global Pal_PlayStatusSprites
+Pal_PlayStatusSprites:  @ 0x08A2E1B8
 	.incbin "baserom.gba", 0xA2E1B8, 0x40
 
-	.global gUnknown_08A2E1F8
-gUnknown_08A2E1F8:  @ 0x08A2E1F8
+	.global Img_ChapterStatusSelectorSprite
+Img_ChapterStatusSelectorSprite:  @ 0x08A2E1F8
 	.incbin "baserom.gba", 0xA2E1F8, 0x1C
 
-	.global gUnknown_08A2E214
-gUnknown_08A2E214:  @ 0x08A2E214
+	.global Img_StatusScreenLabelSprites
+Img_StatusScreenLabelSprites:  @ 0x08A2E214
 	.incbin "baserom.gba", 0xA2E214, 0x290
 
-	.global gUnknown_08A2E4A4
-gUnknown_08A2E4A4:  @ 0x08A2E4A4
+	.global Pal_StatusScreenLabelSprites
+Pal_StatusScreenLabelSprites:  @ 0x08A2E4A4
 	.incbin "baserom.gba", 0xA2E4A4, 0x20
 
-	.global gUnknown_08A2E4C4
-gUnknown_08A2E4C4:  @ 0x08A2E4C4
+	.global Tsa_ChapterStatusUi
+Tsa_ChapterStatusUi:  @ 0x08A2E4C4
 	.incbin "baserom.gba", 0xA2E4C4, 0x128
 
-	.global gUnknown_08A2E5EC
-gUnknown_08A2E5EC:  @ 0x08A2E5EC
+	.global Img_08A2E5EC
+Img_08A2E5EC:  @ 0x08A2E5EC
 	.incbin "baserom.gba", 0xA2E5EC, 0x304
 
-	.global gUnknown_08A2E8F0
-gUnknown_08A2E8F0:  @ 0x08A2E8F0
+	.global Pal_08A2E8F0
+Pal_08A2E8F0:  @ 0x08A2E8F0
 	.incbin "baserom.gba", 0xA2E8F0, 0x60
 
 	.global Img_SysBlackBox

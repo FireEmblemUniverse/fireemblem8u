@@ -132,7 +132,7 @@ CONST_DATA struct REDA REDA_088B42C4[] = {
 };
 
 // 0x88B42CC
-CONST_DATA struct UnitDefinition UnitDef_088B42CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -586,7 +586,7 @@ CONST_DATA struct REDA REDA_088B456C[] = {
 };
 
 // 0x88B4574
-CONST_DATA struct UnitDefinition UnitDef_088B4574[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -1200,7 +1200,7 @@ CONST_DATA struct REDA REDA_088B48FC[] = {
 };
 
 // 0x88B4904
-CONST_DATA struct UnitDefinition UnitDef_088B4904[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch4Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -3325,7 +3325,7 @@ CONST_DATA struct REDA REDA_088B5628[] = {
 };
 
 // 0x88B5630
-CONST_DATA struct UnitDefinition UnitDef_088B5630[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -3995,7 +3995,7 @@ CONST_DATA struct REDA REDA_088B5A5C[] = {
 };
 
 // 0x88B5A64
-CONST_DATA struct UnitDefinition UnitDef_088B5A64[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -5399,7 +5399,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
 };
 
 // 0x88B63D8
-CONST_DATA struct UnitDefinition UnitDef_088B63D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch6Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -7035,7 +7035,7 @@ CONST_DATA struct REDA REDA_088B6E70[] = {
 };
 
 // 0x88B6E78
-CONST_DATA struct UnitDefinition UnitDef_088B6E78[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -7870,7 +7870,7 @@ CONST_DATA struct REDA REDA_088B72F8[] = {
 };
 
 // 0x88B7300
-CONST_DATA struct UnitDefinition UnitDef_088B7300[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -9294,7 +9294,7 @@ CONST_DATA struct REDA REDA_088B7C04[] = {
 };
 
 // 0x88B7C0C
-CONST_DATA struct UnitDefinition UnitDef_088B7C0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch9aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -10649,7 +10649,7 @@ CONST_DATA struct REDA REDA_088B8538[] = {
 };
 
 // 0x88B8540
-CONST_DATA struct UnitDefinition UnitDef_088B8540[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch10aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -13720,7 +13720,7 @@ CONST_DATA struct REDA REDA_088B988C[] = {
 };
 
 // 0x88B9894
-CONST_DATA struct UnitDefinition UnitDef_088B9894[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch11aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -15191,7 +15191,7 @@ CONST_DATA struct REDA REDA_088BA168[] = {
 };
 
 // 0x88BA170
-CONST_DATA struct UnitDefinition UnitDef_088BA170[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch12aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -16534,7 +16534,7 @@ CONST_DATA struct REDA REDA_088BA940[] = {
 };
 
 // 0x88BA948
-CONST_DATA struct UnitDefinition UnitDef_088BA948[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch13aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -19409,7 +19409,7 @@ CONST_DATA struct REDA REDA_088BBBA0[] = {
 };
 
 // 0x88BBBA8
-CONST_DATA struct UnitDefinition UnitDef_088BBBA8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Event_Ch14aAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,

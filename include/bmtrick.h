@@ -22,6 +22,9 @@ enum
     TRAP_MINE       = 11,
     TRAP_GORGON_EGG = 12, // TODO: figure out
     TRAP_LIGHT_RUNE = 13,
+    TRAP_14         = 14,
+    TRAP_FIRE_THIEF = 15,
+    TRAP_MINE_ASSASSIN = 16,
 };
 
 enum
@@ -83,7 +86,7 @@ void CountDownTraps(void);
 void ResetCountedDownTraps(void);
 void sub_802EA00(void);
 void sub_802EA1C(void);
-void sub_802EA28(void);
+void PostTrapExecFlag(void);
 struct Trap* AddLightRune(int x, int y);
 struct Trap* RemoveLightRune(struct Trap* trap);
 void DecayTraps(void);

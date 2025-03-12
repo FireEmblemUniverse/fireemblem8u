@@ -16,8 +16,8 @@ Pal_MenuScrollBar:  @ 0x08A19CAC
 gUnknown_08A19CCC:  @ 0x08A19CCC
 	.incbin "baserom.gba", 0xA19CCC, 0x3B8
 
-	.global Pal_08A1A084
-Pal_08A1A084:  @ 0x08A1A084
+	.global Pal_SpinningArrow
+Pal_SpinningArrow:  @ 0x08A1A084
 	.incbin "baserom.gba", 0xA1A084, 0x20
 
 	.global gUnknown_08A1A0A4
@@ -30,15 +30,7 @@ gUnknown_08A1A23C:  @ 0x08A1A23C
 
 	.global gUnknown_08A1A3FC
 gUnknown_08A1A3FC:  @ 0x08A1A3FC
-@ Replacing .incbin "baserom.gba", 0xA1A3FC, 0x20
-    .4byte 0x5ab50000
-    .4byte 0x2508462f
-    .4byte 0x26b50000
-    .4byte 0x8A708A7 + 0xa5
-    .4byte 0x59400956
-    .4byte 0x394e520e
-    .4byte 0x32ca01a1
-    .4byte 0x30a5
+	.incbin "baserom.gba", 0xA1A3FC, 0x20
 
 	.global Tsa_08A1A41C
 Tsa_08A1A41C:  @ 0x08A1A41C
@@ -144,8 +136,8 @@ gUnknown_08A1BD40:  @ 0x08A1BD40
 gUnknown_08A1BD60:  @ 0x08A1BD60
 	.incbin "baserom.gba", 0xA1BD60, 0x9A4
 
-	.global gImg_UiSpinningArrow_Vertical
-gImg_UiSpinningArrow_Vertical:  @ 0x08A1C704
+	.global Img_SpinningArrow
+Img_SpinningArrow:  @ 0x08A1C704
 	.incbin "baserom.gba", 0xA1C704, 0xD4
 
 	.global gImg_UiSpinningArrow_Horizontal
@@ -226,12 +218,4 @@ gGfx_SupportMenu:  @ 0x08A1DD0C
 
 	.global gPal_SupportMenu
 gPal_SupportMenu:  @ 0x08A1E0D8
-@ Replacing .incbin "baserom.gba", 0xA1E0D8, 0x1A1C
-    .4byte 0x14c7520e
-    .4byte 0x2d2628e4
-    .4byte 0x3d8a3548
-    .4byte 0x4a0e41cc
-    .4byte 0x56925250
-    .4byte 0x7fff14c7
-    .4byte 0x52d7677d
-    .4byte 0x3e11
+	.incbin "baserom.gba", 0xA1E0D8, 0x20

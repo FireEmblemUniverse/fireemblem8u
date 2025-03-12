@@ -37,18 +37,18 @@ void ChangeUnitAi(struct Unit * unit, u8 ai1, u8 ai2, u8 unused)
         return;
     }
 
-    if (ai1 != 0x15)
+    if (ai1 != AI_A_INVALID)
     {
         unit->ai1 = ai1;
-        unit->ai1data = 0;
+        unit->ai_a_pc = 0;
     }
 
-    if (ai2 != 0x13)
+    if (ai2 != AI_B_INVALID)
     {
         unit->ai2 = ai2;
-        unit->ai2data = 0;
+        unit->ai_b_pc = 0;
 
-        if (ai2 == 0xc)
+        if (ai2 == AI_B_0C)
         {
             unit->aiFlags |= AI_UNIT_FLAG_3;
         }
@@ -193,7 +193,7 @@ void StartScriptBattleAnim(s8 useMapAnims)
     }
     else
     {
-        MU_EndAll();
+        EndAllMus();
         RenderBmMap();
         BeginBattleMapAnims();
         gBattleStats.config |= BATTLE_CONFIG_MAPANIMS;
@@ -328,8 +328,8 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
     {
         UnitBeginAction(unitA);
         HideUnitSprite(gActiveUnit);
-        MU_Create(gActiveUnit);
-        MU_SetDefaultFacing_Auto();
+        StartMu(gActiveUnit);
+        SetAutoMuDefaultFacing();
 
         if ((GetItemType(unitA->items[0]) == ITYPE_STAFF) || (item != 0))
         {

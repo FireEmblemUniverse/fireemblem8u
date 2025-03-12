@@ -137,8 +137,8 @@ int ClassChgMenuItem_OnChange(struct MenuProc *pmenu, struct MenuItemProc *pmite
     parent = pmenu->proc_parent;
     gparent = parent->proc_parent;
     gparent->stat = 1;
-    gparent->menu_index = pmitem->itemNumber;
-    ChangeClassDescription(gparent->msg_desc[gparent->menu_index]);
+    gparent->main_select = pmitem->itemNumber;
+    ChangeClassDescription(gparent->msg_desc[gparent->main_select]);
     SetTalkPrintDelay(-1);
 }
 

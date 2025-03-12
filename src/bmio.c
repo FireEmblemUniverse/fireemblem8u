@@ -119,7 +119,7 @@ EWRAM_OVERLAY(0) union WeatherEffectData sWeatherEffect = {};
 EWRAM_OVERLAY(0) union GradientEffectData sGradientEffect = {};
 
 static CONST_DATA struct ProcCmd sProc_BMVSync[] = { // gProc_VBlankHandler
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
     PROC_SET_END_CB(BMapVSync_OnEnd),
 
     PROC_SLEEP(0),
@@ -139,7 +139,7 @@ PROC_LABEL(0),
 CONST_DATA struct ProcCmd gProc_MapTask[] = { // gProc_MapTask
     PROC_NAME("MAPTASK"),
     PROC_END_DUPLICATES,
-    PROC_MARK(PROC_MARK_1),
+    PROC_MARK(PROC_MARK_DISP),
 
     PROC_SLEEP(0),
 
@@ -962,10 +962,10 @@ void InitPlayConfig(int isDifficult, s8 unk) {
 }
 
 void ClearBattleMapState(void) {
-    int logicLock = gBmSt.gameLogicSemaphore;
+    int logicLock = gBmSt.lock;
 
     CpuFill16(0, &gBmSt, sizeof(gBmSt));
-    gBmSt.gameLogicSemaphore = logicLock;
+    gBmSt.lock = logicLock;
 }
 
 void StartBattleMap(struct GameCtrlProc* gameCtrl) {
@@ -973,12 +973,12 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetChapterFlags();
     ResetUnitSprites();
     ResetMenuOverrides();
@@ -987,8 +987,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     gPlaySt.faction = FACTION_GREEN; // TODO: PHASE/ALLEGIANCE DEFINITIONS
     gPlaySt.chapterTurnNumber = 0;
 
-    // TODO: BATTLE MAP/CHAPTER/OBJECTIVE TYPE DEFINITION (STORY/TOWER/SKIRMISH)
-    if (GetBattleMapKind() == 2) {
+    if (GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) {
         if (!(gPlaySt.chapterStateBits & PLAY_FLAG_PREPSCREEN))
             gPlaySt.chapterVisionRange = 3 * (NextRN_100() & 1);
     } else {
@@ -1041,11 +1040,11 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
 void RestartBattleMap(void) {
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     ClearTraps();
@@ -1087,7 +1086,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 
     SetupBackgrounds(NULL);
 
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
@@ -1098,7 +1097,7 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
     );
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ResetUnitSprites();
 
     InitChapterMap(gPlaySt.chapterIndex);
@@ -1142,11 +1141,11 @@ void GameCtrl_StartResumedGame(struct GameCtrlProc* gameCtrl) {
 }
 
 void RefreshBMapDisplay_FromBattle(void) {
-    SetMainUpdateRoutine(OnGameLoopMain);
+    SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ReadGameSaveCoreGfx();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     ClearBg0Bg1();
 
@@ -1165,8 +1164,8 @@ void RefreshBMapDisplay_FromBattle(void) {
 void BMapDispResume_FromBattleDelayed(void) {
     LoadObjUIGfx();
 
-    MU_Create(&gBattleActor.unit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(&gBattleActor.unit);
+    SetAutoMuDefaultFacing();
 
     Proc_Start(sProc_DelayedBMapDispResume, PROC_TREE_3);
 }
@@ -1176,7 +1175,7 @@ void InitMoreBMapGraphics(void) {
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     RenderBmMap();
     RefreshUnitSprites();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
     ForceSyncUnitSpriteSheet();
     InitSystemTextFont();
 }
@@ -1203,7 +1202,7 @@ struct BMapMainProc* StartBMapMain(struct GameCtrlProc* gameCtrl) {
 void EndBMapMain(void) {
     struct BMapMainProc* mapMain;
 
-    Proc_EndEachMarked(PROC_MARK_1);
+    Proc_EndEachMarked(PROC_MARK_DISP);
 
     mapMain = Proc_Find(gProc_BMapMain);
     mapMain->gameCtrl->proc_lockCnt--;
@@ -1295,8 +1294,8 @@ void MapMain_ResumeFromAction(struct BMapMainProc* mapMain) {
 
     HideUnitSprite(GetUnit(gActionData.subjectIndex));
 
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 }
 
 void MapMain_ResumeFromBskPhase(struct BMapMainProc* mapMain) {

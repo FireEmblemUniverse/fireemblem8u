@@ -697,6 +697,13 @@ void MapFloodCore(void)
 
 			case 4:
 				goto break_internal_loop;
+
+			case 5:
+				MapFloodCoreStep(3, 0, -1);
+				MapFloodCoreStep(2, 0, 1);
+				MapFloodCoreStep(0, -1, 0);
+				MapFloodCoreStep(1, 1, 0);
+				break;
 			}
 
 			gMovMapFillState.dst->connexion = 4;

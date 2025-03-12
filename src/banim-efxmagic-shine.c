@@ -291,7 +291,7 @@ void efxShineBG2_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxShineBGCOL[] =
 {
     PROC_NAME("efxShineBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(efxShineBGCOL_Loop),
     PROC_END,
 };
@@ -454,7 +454,7 @@ void StartSubSpell_efxShineOBJ(struct Anim * anim, int x, int y)
     proc->timer = 0;
     proc->terminator = 70;
 
-    frontAnim = EfxCreateFrontAnim(anim, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04, gUnknown_08728C04);
+    frontAnim = EfxCreateFrontAnim(anim, AnimScr_EfxShine, AnimScr_EfxShine, AnimScr_EfxShine, AnimScr_EfxShine);
     proc->anim2 = frontAnim;
     frontAnim->xPosition = x;
     frontAnim->yPosition = y;

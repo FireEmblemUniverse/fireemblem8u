@@ -31,7 +31,7 @@ u16 GetSpellAssocEfxIndex(u16 item)
     return GetSpellAssocStructPtr(item)->efx;
 }
 
-struct ProcCmd *GetSpellAssocAlt6CPointer(u16 item)
+struct ProcCmd *GetSpellAssocMapAnimProcScript(u16 item)
 {
     return GetSpellAssocStructPtr(item)->pcmd_manim;
 }

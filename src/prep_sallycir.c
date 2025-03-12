@@ -10,13 +10,6 @@
 * a sub-menu in the prep screen. Unused in FE7/FE8.
 */
 
-struct Win1H {
-    /* 00 */ u8 left;
-    /* 01 */ u8 right;
-};
-
-extern struct Win1H gUnknown_02012F58[][160];
-extern struct Win1H* gUnknown_02013458[];
 
 //! FE8U = 0x080977AC
 void sub_80977AC(struct Text * th, u16 * tm, int color, int x, const char * str)

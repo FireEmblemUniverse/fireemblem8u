@@ -31,7 +31,7 @@ struct PopupInstruction {
 #define POPUP_ITEM_STR          {POPUP_OP_ITEM_STR, 0}
 #define POPUP_UNIT_NAME         {POPUP_OP_UNIT_NAME, 0}
 #define POPUP_MSG(msg)          {POPUP_OP_MSG, msg}
-#define POPUP_STR(ptr)          {POPUP_OP_STR, (ptr)}
+#define POPUP_STR(ptr)          {POPUP_OP_STR, ((uintptr_t)ptr)}
 #define POPUP_COLOR(color)      {POPUP_OP_COLOR, color}
 #define POPUP_ITEM_ICON         {POPUP_OP_ITEM_ICON, 0}
 #define POPUP_WTYPE_ICON        {POPUP_OP_WTYPE_ICON, 0}

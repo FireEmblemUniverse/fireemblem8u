@@ -19,6 +19,9 @@
 #include "bksel.h"
 #include "helpbox.h"
 
+EWRAM_OVERLAY(0) struct Text gaBattleForecastTextStructs[6] = {};
+EWRAM_OVERLAY(0) u16 gBkselPals[8][16] = {};
+
 int GetBattleForecastPanelSide(void)
 {
     int x;
@@ -635,7 +638,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-void NewBattleForecast() {
+void NewBattleForecast(ProcPtr unused) {
 
     struct BattleForecastProc* proc;
 

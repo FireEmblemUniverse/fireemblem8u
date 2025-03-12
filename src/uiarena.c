@@ -52,9 +52,9 @@ void StartArenaResultsScreen(void) {
 
 //! FE8U = 0x080B57A0
 void ArenaUi_Init(ProcPtr proc) {
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Hide);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) HideMu);
 
-    sub_80B52CC();
+    InitShopScreenConfig();
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -65,7 +65,7 @@ void ArenaUi_Init(ProcPtr proc) {
     ResetFaces();
     StartTalkFace(0x67, 0x20, 8, 3, 1);
 
-    Decompress(gUnknown_089AD934, gGenericBuffer);
+    Decompress(Tsa_ShopWindows, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
     TileMap_FillRect(gBG1TilemapBuffer + 0x100, 0x1e, 0xc, 0);
@@ -127,8 +127,8 @@ void ArenaUi_Init(ProcPtr proc) {
 //! FE8U = 0x080B5970
 void sub_80B5970(void) {
     UpdateUnitFromBattle(gArenaState.playerUnit, &gBattleActor);
-    MU_Create(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
     return;
 }
 
@@ -204,7 +204,7 @@ void ArenaUi_FadeOutBgm(void) {
 //! FE8U = 0x080B5AB4
 void ArenaUi_StartArenaBattle(ProcPtr proc) {
 
-    Proc_SetMark(proc, PROC_MARK_7);
+    Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
 
     ResetDialogueScreen();
 
@@ -214,7 +214,7 @@ void ArenaUi_StartArenaBattle(ProcPtr proc) {
     gActiveUnit->state |= US_HAS_MOVED;
 
     PidStatsAddBattleAmt(gActiveUnit);
-    MU_EndAll();
+    EndAllMus();
 
     gActionData.trapType = 0;
 
@@ -296,7 +296,7 @@ void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
 //! FE8U = 0x080B5BE4
 void ArenaUi_OnEnd(void) {
     Proc_EndEach(gProcScr_GoldBox);
-    Proc_ForEach(gProcScr_MoveUnit, (ProcFunc) MU_Show);
+    Proc_ForEach(ProcScr_Mu, (ProcFunc) ShowMu);
     return;
 }
 

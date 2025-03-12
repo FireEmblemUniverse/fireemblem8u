@@ -69,7 +69,7 @@ extern struct BonusClaimEnt gBonusClaimData[];
 extern struct BonusClaimEnt gBonusClaimDataUpdated[];
 extern struct BonusClaimItemEnt gBonusClaimItemList[];
 extern struct BonusClaimConfig gBonusClaimConfig[];
-extern int gBonusClaimItemCount;
+extern int gBonusClaimItemCounts[];
 extern struct Text gBonusClaimText[];
 
 extern struct BonusClaimEnt * gpBonusClaimData;

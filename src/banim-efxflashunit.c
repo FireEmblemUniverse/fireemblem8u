@@ -12,7 +12,7 @@
 // TODO: move elsewhere
 CONST_DATA struct ProcCmd ProcScr_efxFlashHPBar[] = {
     PROC_NAME("efxFlashHPBar"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashHPBarDelay),
     PROC_REPEAT(EfxFlashHPBarMain1),
     PROC_REPEAT(EfxFlashHPBarRestorePal),
@@ -90,7 +90,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxHPBarColorChange[] = {
     PROC_NAME("efxHPBarColorChange"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxHPBarColorChangeMain),
     PROC_END
 };
@@ -121,10 +121,10 @@ const u16 gFrameLut_EfxHPBarColorChange2[] = {
     -2
 };
 
-void NewEfxHPBarColorChange(struct Anim * anim)
+void NewEfxHpBarColorChange(struct Anim * anim)
 {
-    struct ProcEfxHPBarColorChange * proc;
-    gpProcEfxHPBarColorChange = proc = Proc_Start(ProcScr_efxHPBarColorChange, PROC_TREE_3);
+    struct ProcEfxHpBarColorChange * proc;
+    gpProcEfxHpBarColorChange = proc = Proc_Start(ProcScr_efxHPBarColorChange, PROC_TREE_3);
     proc->anim = anim;
     proc->timer1 = 0;
     proc->frame1 = 0;
@@ -134,7 +134,7 @@ void NewEfxHPBarColorChange(struct Anim * anim)
     proc->frame2 = 0;
     proc->frame_lut2 = gFrameLut_EfxHPBarColorChange2;
     proc->unk58 = 0;
-    proc->unk29 = 0;
+    proc->disabled = false;
 
     EfxSplitColor(
         gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10,
@@ -171,26 +171,26 @@ void NewEfxHPBarColorChange(struct Anim * anim)
 
 void EndEfxHPBarColorChange(void)
 {
-    Proc_End(gpProcEfxHPBarColorChange);
+    Proc_End(gpProcEfxHpBarColorChange);
 }
 
-void EfxHPBarColorChangeSet29(void)
+void DisableEfxHpBarColorChange(void)
 {
-    gpProcEfxHPBarColorChange->unk29 = true;
+    gpProcEfxHpBarColorChange->disabled = true;
 }
 
-void EfxHPBarColorChangeClear29(void)
+void EnableEfxHpBarColorChange(void)
 {
-    gpProcEfxHPBarColorChange->unk29 = false;
+    gpProcEfxHpBarColorChange->disabled = false;
 }
 
-void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
+void EfxHPBarColorChangeMain(struct ProcEfxHpBarColorChange * proc)
 {
     int ret;
     u8 *buf1, *buf2;
     u16 *buf3;
 
-    if (proc->unk29 == true)
+    if (proc->disabled == true)
         return;
 
     ret = EfxAdvanceFrameLut(&proc->timer1, (s16 *)&proc->frame1, proc->frame_lut1);
@@ -241,22 +241,19 @@ void EfxHPBarColorChangeMain(struct ProcEfxHPBarColorChange * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxFlashUnit[] = {
     PROC_NAME("efxFlashUnit"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashUnitMain),
     PROC_REPEAT(EfxFlashUnitRestorePal),
     PROC_END
 };
 
-void NewEfxFlashUnit(struct Anim * anim, int dura1, int dura2, int c)
+void NewEfxFlashUnit(struct Anim * anim, u16 dura1, u16 dura2, int c)
 {
-    struct ProcEfxFlashing * proc;
-    u16 duartion1 = dura1;
-    u16 duartion2 = dura2;
-    proc = Proc_Start(ProcScr_efxFlashUnit, PROC_TREE_4);
+    struct ProcEfxFlashing * proc = Proc_Start(ProcScr_efxFlashUnit, PROC_TREE_4);
     proc->anim = anim;
     proc->timer = 0;
-    proc->terminator = duartion1;
-    proc->terminator2 = duartion2;
+    proc->terminator = dura1;
+    proc->terminator2 = dura2;
     proc->unk29 = c;
 }
 
@@ -267,13 +264,13 @@ void EfxFlashUnitMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
-        sub_807027C(proc->anim);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
+        EfxBgFlashingForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
-        sub_807027C(proc->anim);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
+        EfxBgFlashingForDragon(proc->anim);
     }
 
     EnablePaletteSync();
@@ -286,12 +283,12 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
 
@@ -301,7 +298,7 @@ void EfxFlashUnitRestorePal(struct ProcEfxFlashing * proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxFlashUnitEffectEnd[] = {
     PROC_NAME("efxFlashUnitEffectEnd"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
     PROC_REPEAT(EfxFlashUnitEffectMain),
     PROC_REPEAT(EfxFlashUnitEffectRestorePal),
     PROC_END
@@ -331,13 +328,13 @@ void EfxFlashUnitEffectMain(struct ProcEfxFlashing * proc)
 
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
-        sub_807027C(proc->anim);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
+        EfxBgFlashingForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gUnknown_08802D24, PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
-        sub_807027C(proc->anim);
+        CpuFastCopy(Pal_BanimUnitFlashing, PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
+        EfxBgFlashingForDragon(proc->anim);
     }
 
     EnablePaletteSync();
@@ -356,12 +353,12 @@ void EfxFlashUnitEffectRestorePal(struct ProcEfxFlashing * proc)
 {
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNK_7), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_L], PAL_OBJ(OBPAL_EFX_UNIT_L), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
     else
     {
-        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNK_9), 0x20);
+        CpuFastCopy(gpEfxUnitPaletteBackup[EKR_POS_R], PAL_OBJ(OBPAL_EFX_UNIT_R), 0x20);
         BanimSetFrontPaletteForDragon(proc->anim);
     }
 

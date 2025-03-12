@@ -7,12 +7,12 @@
 #include "EAstdlib.h"
 #include "playerphase.h"
 #include "constants/characters.h"
+#include "constants/backgrounds.h"
 
 CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     MUSC(0x24)
 
-    SVAL(EVT_SLOT_2, 0x18)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_1)
 
     TEXTSHOW(0x954)
     TEXTEND
@@ -48,7 +48,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     CURE
 
     MUSC(0x25)
-    Text_BG(0x2, 0x956)
+    Text_BG(BG_NORMAL_VILLAGE, 0x956)
 
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
@@ -77,12 +77,12 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     STAL(60)
     CURE
 
-    Text_BG(0x1D, 0x958)
+    Text_BG(BG_PLAIN_2, 0x958)
 
     SVAL(EVT_SLOT_2, EventScr_089F0790)
     CALL(EventScr_CallOnTutorialMode)
 
-    LOAD1(0x0, UnitDef_088B42CC)
+    LOAD1(0x0, UnitDef_Event_Ch2Ally)
     ENUN
     CUMO_CHAR(CHARACTER_VANESSA)
     STAL(60)
@@ -115,28 +115,27 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0484[] = {
+CONST_DATA EventListScr EventScr_Ch2_Turn1Player[] = {
     SVAL(EVT_SLOT_2, EventScr_089F07D0)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F049C[] = {
+CONST_DATA EventListScr EventScr_Ch2_Turn2Player[] = {
     SVAL(EVT_SLOT_2, EventScr_089F0C98)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F04B4[] = {
+CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     MUSC(0x31)
     CHECK_ALIVE(CHARACTER_GARCIA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ROSS)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, 0x1d)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x962)
     TEXTEND
     REMA
@@ -146,21 +145,20 @@ CONST_DATA EventListScr EventScr_089F04B4[] = {
     SVAL(EVT_SLOT_2, 0x7)
     CALL(EventScr_LoadUniqueAlly)
 LABEL(0x0)
-    SVAL(EVT_SLOT_2, 0x4)
-    CALL(EventScr_SetBackground)
+    SetBackground(BG_VILLAGE_SUNSET)
     TEXTSHOW(0x963)
     TEXTEND
     FADI(4)
     MUSCSLOW(0x7fff)
     REMA
     REMOVEPORTRAITS
-    BACG(0x20)
+    BACG(BG_PLAIN_2_NIGHT)
     FADU(2)
     TEXTSHOW(0x964)
     TEXTEND
     FAWI(2)
     REMA
-    BACG(0x16)
+    BACG(BG_MANSE_FLASHBACK)
     FAWU(2)
     MUSC(0x52)
     BROWNBOXTEXT(0x211, 8, 8)
@@ -169,7 +167,7 @@ LABEL(0x0)
     FAWI(2)
     EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
     REMA
-    BACG(0x20)
+    BACG(BG_PLAIN_2_NIGHT)
     FAWU(2)
     EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)
@@ -196,7 +194,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F05FC[] = {
+CONST_DATA EventListScr EventScr_Ch2_Talk_EirikaRoss[] = {
     MUSS(0x30)
     STAL(33)
     IGNORE_KEYS(0x0)
@@ -210,7 +208,7 @@ CONST_DATA EventListScr EventScr_089F05FC[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0628[] = {
+CONST_DATA EventListScr EventScr_Ch2_Talk_RossGarcia[] = {
     MUSS(0x30)
     STAL(33)
     TEXTSTART
@@ -223,22 +221,20 @@ CONST_DATA EventListScr EventScr_089F0628[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0650[] = {
+CONST_DATA EventListScr EventScr_Ch2_Village1[] = {
     IGNORE_KEYS(0x0)
     CHECK_ACTIVE
     SVAL(EVT_SLOT_1, 0x1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_1)
     MUSI
 
-    Text_BG(0x2, 0x969)
+    Text_BG(BG_NORMAL_VILLAGE, 0x969)
 
     MUNO
     GOTO(0x1)
 LABEL(0x0)
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96a)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96a)
     MUNO
 LABEL(0x1)
     CALL(EventScr_RemoveBGIfNeeded)
@@ -248,11 +244,9 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F06D0[] = {
+CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96b)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96b)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6d)
@@ -261,11 +255,9 @@ CONST_DATA EventListScr EventScr_089F06D0[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F070C[] = {
+CONST_DATA EventListScr EventScr_Ch2_Village3[] = {
     MUSI
-    SVAL(EVT_SLOT_2, 0x2)
-    SVAL(EVT_SLOT_3, 0x96c)
-    CALL(Event_TextWithBG)
+    Text_BG(BG_NORMAL_VILLAGE, 0x96c)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6e)
@@ -274,7 +266,7 @@ CONST_DATA EventListScr EventScr_089F070C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0748[] = {
+CONST_DATA EventListScr EventScr_Ch2_Turn3Player[] = {
     SVAL(EVT_SLOT_2, UnitDef_088B4470)
     CALL(EventScr_LoadReinforce)
     SVAL(EVT_SLOT_2, EventScr_089F1154)
@@ -323,12 +315,12 @@ CONST_DATA EventListScr EventScr_089F07D0[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0808, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial1, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0808[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial1[] = {
     EVBIT_T(7)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x6)
@@ -343,15 +335,15 @@ CONST_DATA EventListScr EventScr_089F0808[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0880)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial2)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0808)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial1)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0880[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial2[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -361,9 +353,9 @@ CONST_DATA EventListScr EventScr_089F0880[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F08E0)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial3)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0880)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial2)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     DISABLEOPTIONS(0xfff7)
@@ -371,7 +363,7 @@ CONST_DATA EventListScr EventScr_089F0880[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F08E0[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial3[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     TUTORIALTEXTBOXSTART
@@ -380,11 +372,11 @@ CONST_DATA EventListScr EventScr_089F08E0[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0910, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial4, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0910[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial4[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     MUSI
@@ -404,11 +396,11 @@ CONST_DATA EventListScr EventScr_089F0910[] = {
     REMA
     CURE
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F096C, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial5, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F096C[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial5[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -418,22 +410,22 @@ CONST_DATA EventListScr EventScr_089F096C[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F09C8)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial6)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F096C)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial5)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     IGNORE_KEYS(0x10a)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F09C8[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F09D8, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+CONST_DATA EventListScr EventScr_Ch2Tutorial6[] = {
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial7, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F09D8[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial7[] = {
     IGNORE_KEYS(0x0)
     EvtEnqueueCallDirectly(EventScr_089F09F0) // ENOSUPP in EAstdlib
     ENUT(184)
@@ -450,13 +442,13 @@ CONST_DATA EventListScr EventScr_089F09F0[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0A28, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial8, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0A28[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial8[] = {
     EVBIT_T(7)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x5)
@@ -471,15 +463,15 @@ CONST_DATA EventListScr EventScr_089F0A28[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0AA0)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial9)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0A28)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial8)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0AA0[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial9[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -489,9 +481,9 @@ CONST_DATA EventListScr EventScr_089F0AA0[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0B00)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial10)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0AA0)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial9)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     DISABLEOPTIONS(0xfffb)
@@ -499,13 +491,13 @@ CONST_DATA EventListScr EventScr_089F0AA0[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0B00[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F0B10, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+CONST_DATA EventListScr EventScr_Ch2Tutorial10[] = {
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial22, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0B10[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial22[] = {
     IGNORE_KEYS(0x0)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
@@ -522,13 +514,13 @@ CONST_DATA EventListScr EventScr_089F0B10[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0B68, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial23, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0B68[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial23[] = {
     EVBIT_T(7)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x1)
@@ -543,15 +535,15 @@ CONST_DATA EventListScr EventScr_089F0B68[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0BE0)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial24)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0B68)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial23)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0BE0[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial24[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -561,9 +553,9 @@ CONST_DATA EventListScr EventScr_089F0BE0[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0C40)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial25)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0BE0)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial24)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     DISABLEOPTIONS(0xffdf)
@@ -571,7 +563,7 @@ CONST_DATA EventListScr EventScr_089F0BE0[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0C40[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial25[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     TUTORIALTEXTBOXSTART
@@ -580,11 +572,11 @@ CONST_DATA EventListScr EventScr_089F0C40[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0C70, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial26, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0C70[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial26[] = {
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_2, EventScr_089F0770)
     CALL(EventScr_CallOnTutorialMode)
@@ -603,12 +595,12 @@ CONST_DATA EventListScr EventScr_089F0C98[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_VANESSA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0CCC, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial11, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0CCC[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial11[] = {
     EVBIT_T(7)
     SVAL(EVT_SLOT_D, 0x0)
     SVAL(EVT_SLOT_1, 0x6)
@@ -623,16 +615,16 @@ CONST_DATA EventListScr EventScr_089F0CCC[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0D48)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial12)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0CCC)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial11)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     IGNORE_KEYS(0x3fe)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0D48[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial12[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -642,9 +634,9 @@ CONST_DATA EventListScr EventScr_089F0D48[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0DA8)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial13)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0D48)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial12)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     DISABLEOPTIONS(0xffef)
@@ -652,13 +644,13 @@ CONST_DATA EventListScr EventScr_089F0D48[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0DA8[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial13[] = {
     EVBIT_T(7)
-    EvtEnqueueConditionalTutCall(EventScr_089F0DB8, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial14, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0DB8[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial14[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     MUSC(0x9)
@@ -678,11 +670,11 @@ CONST_DATA EventListScr EventScr_089F0DB8[] = {
     REMA
     CURE
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0E14, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial15, TUTORIAL_EVT_TYPE_DESTSELECTED) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0E14[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial15[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -692,22 +684,22 @@ CONST_DATA EventListScr EventScr_089F0E14[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0E70)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial16)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0E14)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial15)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     IGNORE_KEYS(0x10a)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0E70[] = {
-    EvtEnqueueConditionalTutCall(EventScr_089F0E80, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+CONST_DATA EventListScr EventScr_Ch2Tutorial16[] = {
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial17, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0E80[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial17[] = {
     IGNORE_KEYS(0x0)
     EvtEnqueueCallDirectly(EventScr_089F0E98) // ENOSUPP in EAstdlib
     ENUT(184)
@@ -725,13 +717,13 @@ CONST_DATA EventListScr EventScr_089F0E98[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_MOULDER)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F0ED4, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial18, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0ED4[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial18[] = {
     EVBIT_T(7)
     CAMERA_CAHR(CHARACTER_MOULDER)
     SVAL(EVT_SLOT_D, 0x0)
@@ -747,25 +739,25 @@ CONST_DATA EventListScr EventScr_089F0ED4[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0F54)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial19)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F0ED4)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial18)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     IGNORE_KEYS(0x3fe)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0F54[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial19[] = {
     EVBIT_T(7)
     ASMC(PlayPhaseForcePressAButtonInRangeDisp)
     DISABLEOPTIONS(0xfffd)
     IGNORE_KEYS(0x0)
-    EvtEnqueueConditionalTutCall(EventScr_089F0F74, TUTORIAL_EVT_TYPE_AFTERMOVE) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial20, TUTORIAL_EVT_TYPE_AFTERMOVE) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0F74[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial20[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     TUTORIALTEXTBOXSTART
@@ -774,11 +766,11 @@ CONST_DATA EventListScr EventScr_089F0F74[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F0FA4, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial21, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F0FA4[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial21[] = {
     IGNORE_KEYS(0x0)
     TEXTSTART
     TEXTSHOW(0x95f)
@@ -807,13 +799,13 @@ CONST_DATA EventListScr EventScr_089F0FEC[] = {
     CURSOR_FLASHING_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
-    EvtEnqueueConditionalTutCall(EventScr_089F1028, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial27, TUTORIAL_EVT_TYPE_ONSELECT) // ENOSUPP in EAstdlib
     DISABLEOPTIONS(0x4000)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F1028[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial27[] = {
     EVBIT_T(7)
     CAMERA_CAHR(CHARACTER_EIRIKA)
     SVAL(EVT_SLOT_D, 0x0)
@@ -829,15 +821,15 @@ CONST_DATA EventListScr EventScr_089F1028[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x580020)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F10A4)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial28)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F1028)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial27)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F10A4[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial28[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_D, 0x0)
@@ -847,9 +839,9 @@ CONST_DATA EventListScr EventScr_089F10A4[] = {
     SENQUEUE1
     SVAL(EVT_SLOT_1, 0x0)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F1104)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial29)
     SENQUEUE1
-    SVAL(EVT_SLOT_1, EventScr_089F10A4)
+    SVAL(EVT_SLOT_1, EventScr_Ch2Tutorial28)
     SENQUEUE1
     CALL(EventScr_Tutorial_Exec1)
     DISABLEOPTIONS(0xffbf)
@@ -857,7 +849,7 @@ CONST_DATA EventListScr EventScr_089F10A4[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F1104[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial29[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
     TUTORIALTEXTBOXSTART
@@ -866,11 +858,11 @@ CONST_DATA EventListScr EventScr_089F1104[] = {
     TEXTEND
     REMA
     IGNORE_KEYS(0x10a)
-    EvtEnqueueConditionalTutCall(EventScr_089F1134, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
+    EvtEnqueueConditionalTutCall(EventScr_Ch2Tutorial30, TUTORIAL_EVT_TYPE_POSTACTION) // ENOSUPP in EAstdlib
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F1134[] = {
+CONST_DATA EventListScr EventScr_Ch2Tutorial30[] = {
     IGNORE_KEYS(0x0)
     SVAL(EVT_SLOT_2, EventScr_089F1194)
     CALL(EventScr_CallOnTutorialMode)

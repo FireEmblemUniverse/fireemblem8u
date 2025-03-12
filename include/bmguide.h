@@ -13,6 +13,7 @@ struct GuideEnt
     /* 04 */ u16 details;
     /* 06 */ u16 displayFlag;
     /* 08 */ u16 readFlag;
+    /* 0A */ u16 _pad_;
 };
 
 struct GuideSt

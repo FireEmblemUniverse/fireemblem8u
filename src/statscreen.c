@@ -302,7 +302,7 @@ PROC_LABEL(10),
     PROC_CALL(StatScreen_OnClose),
 
     PROC_CALL(BMapDispResume),
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
     PROC_CALL(EndGreenText),
 
     PROC_END,
@@ -1138,7 +1138,7 @@ void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
     SetBlendConfig(1, proc->timer, 0x10 - proc->timer, 0);
 
-    MU_SetDisplayPosition(gStatScreen.mu,
+    SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
     gStatScreen.yDispOff = Interpolate(2, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
@@ -1177,7 +1177,7 @@ void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
     SetBlendConfig(1, 0x10 - proc->timer, proc->timer, 0);
 
-    MU_SetDisplayPosition(gStatScreen.mu,
+    SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
 
     gStatScreen.yDispOff = Interpolate(5, proc->yDispInit, proc->yDispFinal, proc->timer, 0x10);
@@ -1199,7 +1199,7 @@ void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
 void ClearSlide(struct Proc* proc)
 {
     if (gStatScreen.mu)
-        MU_SetDisplayPosition(gStatScreen.mu,
+        SetMuScreenPosition(gStatScreen.mu,
             80, 138);
 
     gLCDControlBuffer.bg0cnt.priority = 1;
@@ -1513,7 +1513,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
     sub_80156D4();
-    SetupMapSpritesPalettes();
+    ApplyUnitSpritePalettes();
 
     // TODO: port the macros from mapanim wip
 
@@ -1624,8 +1624,8 @@ void StatScreen_Display(struct Proc* proc)
 
     // Display Map Sprite
 
-    MU_EndAll();
-    gStatScreen.mu = MU_CreateForUI(gStatScreen.unit, 80, 138);
+    EndAllMus();
+    gStatScreen.mu = StartUiMu(gStatScreen.unit, 80, 138);
 
     // Draw left panel labels and info
 

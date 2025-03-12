@@ -391,7 +391,7 @@ void StartCRSubSpell_efxopFireOBJ(struct Anim * anim, struct ProcEfx * parent)
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_085F843C, gUnknown_085F80B4);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_EfxFireOBJ_R_Front, AnimScr_EfxFireOBJ_L_Front);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)
@@ -478,8 +478,8 @@ struct ProcCmd CONST_DATA ProcScr_efxopThunderBG[] =
 
 u16 * CONST_DATA TsaArray_Thunder_ClassReel[] =
 {
-    Tsa_085F387C,
-    Tsa_085F3948,
+    Tsa_EfxThuderBg1,
+    Tsa_EfxThuderBg2,
 };
 
 // clang-format on
@@ -560,7 +560,7 @@ void efxopThunderBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxopThunderBGCOL[] =
 {
     PROC_NAME("efxopThunderBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxopThunderBGCOL_Loop),
 
@@ -653,7 +653,7 @@ void StartCRSubSpell_efxopThunderOBJ(struct Anim * anim, struct ProcEfx * unused
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_085F5550, gUnknown_085F4A24);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_EfxThunderOBJ_L, AnimScr_EfxThunderOBJ_R);
     proc->anim2 = frontAnim;
 
     if (GetAnimPosition(anim) == 0)
@@ -741,10 +741,10 @@ struct ProcCmd CONST_DATA ProcScr_efxopLiveBG[] =
     PROC_END,
 };
 
-// FIXME: Either this or gUnknown_0866F774 may need to change its type
+// FIXME: Either this or Tsa_HealSpellBg may need to change its type
 u16 * CONST_DATA gUnknown_085D959C[] =
 {
-    (u16 *)gUnknown_0866F774,
+    (u16 *)Tsa_HealSpellBg,
 };
 
 // clang-format on
@@ -810,7 +810,7 @@ void efxopLiveBG_Loop(struct ProcEfxBG * proc)
 struct ProcCmd CONST_DATA ProcScr_efxopLiveBGCOL[] =
 {
     PROC_NAME("efxopLiveBGCOL"),
-    PROC_MARK(PROC_MARK_A),
+    PROC_MARK(PROC_MARK_EFX_BGCOL),
 
     PROC_REPEAT(efxopLiveBGCOL_Loop),
 
@@ -971,7 +971,7 @@ void StartCRSubSpell_efxopLiveOBJ(struct Anim * anim, struct ProcEfx * unused)
     proc->timer = 0;
     proc->terminator = 51;
 
-    scr = gUnknown_08675114;
+    scr = AnimScr_EfxLiveOBJ1;
     frontAnim = CRSpellCreateFrontAnim(anim, 1, scr, scr);
     proc->anim2 = frontAnim;
 
@@ -1581,7 +1581,7 @@ void efxopMistyrainOBJ_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862D6A8;
+    u32 * scr = AnimScr_EfxMistyRainObj1;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1600,7 +1600,7 @@ void efxopMistyrainOBJ_Loop_B(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862D82C;
+    u32 * scr = AnimScr_EfxMistyRainObj2;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1619,7 +1619,7 @@ void efxopMistyrainOBJ_Loop_C(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862DCE0;
+    u32 * scr = AnimScr_EfxMistyRainObj3;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1638,7 +1638,7 @@ void efxopMistyrainOBJ2_Loop_A(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    u32 * scr = gUnknown_0862DC24;
+    u32 * scr = AnimScr_EfxMistyRainObj4;
 
     anim->pScrStart = scr;
     anim->pScrCurrent = scr;
@@ -1663,7 +1663,7 @@ void efxopMistyrainOBJ2_Loop_B(struct ProcEfxOBJ * proc)
 
     if (proc->timer == 40)
     {
-        u32 * scr = gUnknown_0862DC58;
+        u32 * scr = AnimScr_EfxMistyRainObj5;
 
         anim->pScrStart = scr;
         anim->pScrCurrent = scr;
@@ -2029,7 +2029,7 @@ void StartCRSubSpell_efxopEvilEyeOBJ(struct Anim * anim, struct ProcEfx * parent
     proc->anim = anim;
     proc->timer = 0;
 
-    frontAnim = CRSpellCreateFrontAnim(anim, 1, gUnknown_086C978C, gUnknown_086C95C0);
+    frontAnim = CRSpellCreateFrontAnim(anim, 1, AnimScr_086C978C, AnimScr_086C95C0);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition -= 56;
@@ -2263,7 +2263,7 @@ void StartCRSubSpell_efxopStoneOBJ(struct Anim * anim, struct ProcEfx * parent)
     proc->anim = anim;
     proc->timer = 0;
 
-    scr = gUnknown_086BDA5C;
+    scr = AnimScr_EfxStone;
     frontAnim = CRSpellCreateFrontAnim(anim, 1, scr, scr);
     proc->anim2 = frontAnim;
 
