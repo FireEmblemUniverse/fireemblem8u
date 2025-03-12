@@ -445,4 +445,12 @@ struct gfx_set {
     void * pal;
 };
 
+struct SpriteCfg
+{
+    u16 count;
+    // In a modern C compiler, we would declare this as `oam[]`, a so-called
+    // "flexible array member". This array should have size `count`.
+    struct OamData oam[0];
+} __attribute__((packed));
+
 #endif // GUARD_TYPES_H

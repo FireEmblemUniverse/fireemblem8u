@@ -136,7 +136,7 @@ extern struct Text gUnknown_02003B48[8];
 
 extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[];
 extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[];
-extern const u16 CONST_DATA obj_859E79C[];
+extern const struct SpriteCfg CONST_DATA obj_859E79C;
 extern u16 CONST_DATA gUnknown_0859E7C8[];
 extern int CONST_DATA gUnknown_0859E7D4[];
 extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];

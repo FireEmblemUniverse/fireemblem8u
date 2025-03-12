@@ -1,12 +1,14 @@
 #include "global.h"
+#include "types.h"
+#include "gba/types.h"
 
 extern u8 gUnknown_03003750[];  // buffer to copy the code to
 
 // pointers to the loaded functions
 extern void (*gUnknown_03003740)(int, int, int, int);
 extern void (*gUnknown_03004150)(const char *, char *);
-extern void (*gUnknown_03003130)(int, int, const u16 *, int);
-extern void (*gUnknown_03004154)(int, int, const u16 *, int);
+extern void (*PutOamHiRAMFunc)(int, int, const struct SpriteCfg *, int);
+extern void (*PutOamLoRAMFunc)(int, int, const struct SpriteCfg *, int);
 extern void (*gUnknown_03004960)(int, int, int);
 extern void (*gUnknown_03003128)(void);
 
@@ -30,8 +32,8 @@ void StoreRoutinesToIRAM(void)
     // Set pointers to each of the functions
     gUnknown_03003740 = (void *)(gUnknown_03003750 + (DrawGlyph    - ARMCodeToCopy_Start));
     gUnknown_03004150 = (void *)(gUnknown_03003750 + (DecodeString         - ARMCodeToCopy_Start));
-    gUnknown_03003130 = (void *)(gUnknown_03003750 + (PutOamHi - ARMCodeToCopy_Start));
-    gUnknown_03004154 = (void *)(gUnknown_03003750 + (PutOamLo   - ARMCodeToCopy_Start));
+    PutOamHiRAMFunc = (void *)(gUnknown_03003750 + (PutOamHi - ARMCodeToCopy_Start));
+    PutOamLoRAMFunc = (void *)(gUnknown_03003750 + (PutOamLo - ARMCodeToCopy_Start));
     gUnknown_03004960 = (void *)(gUnknown_03003750 + (MapFloodCoreStep              - ARMCodeToCopy_Start));
     gUnknown_03003128 = (void *)(gUnknown_03003750 + (MapFloodCore    - ARMCodeToCopy_Start));
 }
@@ -46,14 +48,14 @@ void CallARM_DecompText(const char *a, char *b)
     gUnknown_03004150(a, b);
 }
 
-void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
+void CallARM_PushToSecondaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
-    gUnknown_03003130(a, b, c, d);
+    PutOamHiRAMFunc(a, b, (struct SpriteCfg *)c, d);
 }
 
-void CallARM_PushToPrimaryOAM(int a, int b, const u16 *c, int d)
+void CallARM_PushToPrimaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
-    gUnknown_03004154(a, b, c, d);
+    PutOamLoRAMFunc(a, b, (struct SpriteCfg *)c, d);
 }
 
 void CallARM_Func5(int a, int b, int c)

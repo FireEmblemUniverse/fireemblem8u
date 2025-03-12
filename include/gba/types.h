@@ -52,8 +52,13 @@ struct OamData
     /*0x04*/ u16 tileNum:10;
              u16 priority:2;
              u16 paletteNum:4;
-    /*0x06*/ u16 affineParam;
+    // This is mentioned in GBATek but all actual instances of this struct seem
+    // to be six bytes only.
+    ///*0x06*/ u16 affineParam;
 };
+
+// We could use the enums from `gba_sprites.h` here, but I think using enums
+// in bitfields is compiler-dependent.
 
 #define ST_OAM_OBJ_NORMAL 0
 #define ST_OAM_OBJ_BLEND  1
@@ -73,6 +78,21 @@ struct OamData
 #define ST_OAM_SQUARE      0
 #define ST_OAM_H_RECTANGLE 1
 #define ST_OAM_V_RECTANGLE 2
+
+#define ST_OAM_SQ_8x8 0
+#define ST_OAM_SQ_16x16 1
+#define ST_OAM_SQ_32x32 2
+#define ST_OAM_SQ_64x64 3
+
+#define ST_OAM_H_16x8 0
+#define ST_OAM_H_32x8 1
+#define ST_OAM_H_32x16 2
+#define ST_OAM_H_64x32 3
+
+#define ST_OAM_V_8x16 0
+#define ST_OAM_V_8x32 1
+#define ST_OAM_V_16x32 2
+#define ST_OAM_V_32x64 3
 
 struct BgAffineSrcData
 {

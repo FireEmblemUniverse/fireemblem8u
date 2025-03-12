@@ -4,6 +4,7 @@
 
 #include "constants/classes.h"
 
+#include "types.h"
 #include "proc.h"
 #include "hardware.h"
 #include "fontgrp.h"
@@ -152,42 +153,307 @@ PROC_LABEL(0),
     PROC_GOTO(0)
 };
 
-// TODO: better repr?
-static CONST_DATA u16 sObj_RainParticle1[] = {
-    1, 0x0000, 0x0000, 0x102A
+static struct SpriteCfg CONST_DATA sObj_RainParticle1 = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x2a,
+      .priority = 0,
+      .paletteNum = 1,
+    },
+  }
 };
 
-// TODO: better repr?
-static CONST_DATA u16 sObj_RainParticle2[] = {
-    1, 0x8000, 0x0000, 0x100A
+static struct SpriteCfg CONST_DATA sObj_RainParticle2 = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0xa,
+      .priority = 0,
+      .paletteNum = 1,
+    },
+  }
 };
 
-static CONST_DATA u16* sRainParticleObjLookup[3] = { // Weather particle Obj Data Lookup
-    sObj_RainParticle1, sObj_RainParticle2, sObj_RainParticle2
+// Weather particle Obj Data Lookup
+static CONST_DATA struct SpriteCfg *sRainParticleObjLookup[3] = {
+    &sObj_RainParticle1, &sObj_RainParticle2, &sObj_RainParticle2
 };
 
-// TODO: better repr?
-static CONST_DATA u16 sObj_BackgroundClouds[] = { // Obj Data
-    18,
-
-    0x4000, 0xC000, 0,
-    0x4000, 0xC030, 6,
-    0x4000, 0xC070, 0,
-    0x4000, 0xC0A0, 6,
-    0x8000, 0x80E0, 0,
-    0x0020, 0x8000, 10,
-    0x4020, 0xC020, 0,
-    0x4020, 0xC050, 6,
-    0x4020, 0xC090, 0,
-    0x4020, 0xC0C0, 6,
-    0x4040, 0xC000, 0,
-    0x4040, 0xC0B0, 0,
-    0x4060, 0xC000, 4,
-    0x4060, 0xC0B0, 4,
-    0x4080, 0xC000, 0,
-    0x4080, 0xC0B0, 0,
-    0x40A0, 0xC000, 0,
-    0x40A0, 0xC0B0, 0,
+struct SpriteCfg CONST_DATA sObj_BackgroundClouds = {
+  .count = 18,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 48,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x6,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 112,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 160,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x6,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 224,
+      .matrixNum = 0,
+      .size = ST_OAM_V_16x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 32,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_32x32,
+      .tileNum = 0xa,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 32,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 32,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 80,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x6,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 32,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 144,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 32,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 192,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x6,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 64,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 64,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 176,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 96,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x4,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 96,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 176,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x4,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -128,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -128,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 176,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -96,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -96,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 176,
+      .matrixNum = 0,
+      .size = ST_OAM_H_64x32,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
 static CONST_DATA struct ProcCmd sProc_DelayedBMapDispResume[] = { // gProc_GameGfxUnblocker
@@ -402,7 +668,7 @@ void WfxSnow_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - origins[it->typeId].x) & 0xFF,
                 ((it->yPosition >> 8) - origins[it->typeId].y) & 0xFF,
-                gObject_8x8,
+                &gObject_8x8,
                 (BM_OBJPAL_1 << 12) + it->gfxIndex
             );
 
@@ -479,7 +745,7 @@ void WfxSandStorm_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition & 0xFF) - 0x10) & 0x1FF,
                 it->yPosition,
-                gObject_32x32,
+                &gObject_32x32,
                 (BM_OBJPAL_1 << 12) + 0x1C
             );
 
@@ -534,7 +800,7 @@ void WfxSnowStorm_VSync(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - gBmSt.camera.x) & 0xFF,
                 ((it->yPosition >> 8) - gBmSt.camera.y) & 0xFF,
-                gObject_32x32,
+                &gObject_32x32,
                 (BM_OBJPAL_1 << 12) + 0x18 + (it->gfxIndex * 4)
             );
 
@@ -726,7 +992,7 @@ void WfxFlamesUpdateParticles(void) {
             CallARM_PushToPrimaryOAM(
                 ((it->xPosition >> 8) - gBmSt.camera.x) & 0xFF,
                 yDisplay,
-                gObject_8x8,
+                &gObject_8x8,
                 (BM_OBJPAL_10 << 12) + objTile
             );
         }
@@ -813,7 +1079,7 @@ void WfxClouds_Update(void) {
     PutSprite(
         14,
         0, -(y / 5),
-        sObj_BackgroundClouds,
+        &sObj_BackgroundClouds,
         0xAC12
     );
 }

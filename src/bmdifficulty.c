@@ -1076,10 +1076,41 @@ void sub_8038F78(struct Text* th) {
     return;
 }
 
-// obj data?
-const u16 CONST_DATA obj_859E79C[] = {
-    0x0002, 0x4000, 0x8000, 0x0100,
-    0x4000, 0x8020, 0x0104, 0x0000,
+struct SpriteCfg CONST_DATA obj_859E79C = {
+  .count = 2,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x16,
+      .tileNum = 0x100,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x16,
+      .tileNum = 0x104,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
+};
+
+const u16 CONST_DATA gUnknown_0859E79AC[] = {
     0x0000, 0x0000, 0x0000, 0x0000,
     0x0000, 0x0000, 0x0000, 0x0000,
     0x1000, 0x0800, 0x1000, 0x0000,
@@ -1150,7 +1181,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
             4,
             (pos[0] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].x * 8),
             ((pos[1] >> 4) + ((u8)gUnknown_080D7FD0.current[proc->labelIndex].y * 8)) & 0x000001FF,
-            obj_859E79C,
+            &obj_859E79C,
             0x5000
         );
     } else {
@@ -1368,7 +1399,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
             4,
             pos[0] >> 4,
             ((u32)(pos[1]) << 0x13) >> 0x17,
-            obj_859E79C,
+            &obj_859E79C,
             0x5000
         );
     } else {

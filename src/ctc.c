@@ -26,100 +26,348 @@ struct SpriteProc
 
 static void SpriteRefresher_OnIdle(struct SpriteProc* proc);
 
-u16 CONST_DATA gObject_8x8[] =
-{
-    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8, 0,
+struct SpriteCfg CONST_DATA gObject_8x8 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_SQ_8x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_16x16[] =
-{
-    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16, 0,
+struct SpriteCfg CONST_DATA gObject_16x16 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_SQ_16x16,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_32x32[] =
-{
-    1, OAM0_SHAPE_32x32, OAM1_SIZE_32x32, 0,
+struct SpriteCfg CONST_DATA gObject_32x32 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_SQ_32x32,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_64x64[] =
-{
-    1, OAM0_SHAPE_64x64, OAM1_SIZE_64x64, 0,
+struct SpriteCfg CONST_DATA gObject_64x64 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_SQ_64x64,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x16[] =
-{
-    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16, 0,
+struct SpriteCfg CONST_DATA gObject_8x16 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_V_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_V_8x16,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_16x32[] =
-{
-    1, OAM0_SHAPE_16x32, OAM1_SIZE_16x32, 0,
+struct SpriteCfg CONST_DATA gObject_16x32 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_V_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_V_16x32,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_32x64[] =
-{
-    1, OAM0_SHAPE_32x64, OAM1_SIZE_32x64, 0,
+struct SpriteCfg CONST_DATA gObject_32x64 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_V_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_V_32x64,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_16x8[] =
-{
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, 0,
+struct SpriteCfg CONST_DATA gObject_16x8 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_H_16x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_16x8_VFlipped[] =
-{
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_16x8_VFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 16,
+    .size = ST_OAM_H_16x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_32x16[] =
-{
-    1, OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,
+struct SpriteCfg CONST_DATA gObject_32x16 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_H_32x16,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_64x32[] =
-{
-    1, OAM0_SHAPE_64x32, OAM1_SIZE_64x32, 0,
+struct SpriteCfg CONST_DATA gObject_64x32 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_H_64x32,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_32x8[] =
-{
-    1, OAM0_SHAPE_32x8, OAM1_SIZE_32x8, 0,
+struct SpriteCfg CONST_DATA gObject_32x8 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_H_32x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x32[] =
-{
-    1, OAM0_SHAPE_8x32, OAM1_SIZE_8x32, 0,
+struct SpriteCfg CONST_DATA gObject_8x32 = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_V_RECTANGLE,
+    .x = 0,
+    .matrixNum = 0,
+    .size = ST_OAM_V_8x32,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_32x8_VFlipped[] =
-{
-    1, OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_32x8_VFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_H_RECTANGLE,
+    .x = 0,
+    .matrixNum = 16,
+    .size = ST_OAM_H_32x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x16_HFlipped[] =
-{
-    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_HFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_8x16_HFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_V_RECTANGLE,
+    .x = 0,
+    .matrixNum = 8,
+    .size = ST_OAM_V_8x16,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x8_HFlipped[] =
-{
-    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_HFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_8x8_HFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 8,
+    .size = ST_OAM_SQ_8x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x8_VFlipped[] =
-{
-    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_8x8_VFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 16,
+    .size = ST_OAM_SQ_8x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_8x8_HFlipped_VFlipped[] =
-{
-    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_HFLIP + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_8x8_HFlipped_VFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 24,
+    .size = ST_OAM_SQ_8x8,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
 
-u16 CONST_DATA gObject_16x16_VFlipped[] =
-{
-    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA gObject_16x16_VFlipped = {
+  .count = 1,
+  {
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = 0,
+    .bpp = ST_OAM_4BPP,
+    .shape = ST_OAM_SQUARE,
+    .x = 0,
+    .matrixNum = 16,
+    .size = ST_OAM_SQ_16x16,
+    .tileNum = 0x0,
+    .priority = 0,
+    .paletteNum = 0,
+  },
 };
+
 
 static struct ProcCmd CONST_DATA sProcSrc_SpriteRefresher[] =
 {
