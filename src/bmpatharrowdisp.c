@@ -304,7 +304,7 @@ void DrawPathArrow(void) {
                 11,
                 xp - gBmSt.camera.x,
                 yp - gBmSt.camera.y,
-                gObject_16x16,
+                &gObject_16x16,
                 oam2);
         }
     }

@@ -18,28 +18,136 @@ struct GuideSt * CONST_DATA gGuideSt = (void *)gGenericBuffer;
 
 // clang-format off
 
-u16 CONST_DATA gSprite_GuideBannerText[] =
-{
-    4,
-    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0xC0),
-    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xC4),
-    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8, OAM2_CHR(0xC8),
-    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xCC),
+struct SpriteCfg CONST_DATA gSprite_GuideBannerText = {
+  .count = 4,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xc0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xc4,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xc8,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xcc,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA gSprite_SelectButtonSort[] =
-{
-    2,
-    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x92),
-    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x98),
+struct SpriteCfg CONST_DATA gSprite_SelectButtonSort = {
+  .count = 2,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x16,
+      .tileNum = 0x92,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x16,
+      .tileNum = 0x98,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA gSprite_BButtonBack[] =
-{
-    2,
-    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(16), OAM2_CHR(0x96),
-    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x9C),
+struct SpriteCfg CONST_DATA gSprite_BButtonBack = {
+  .count = 2,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 16,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_16x16,
+      .tileNum = 0x96,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x16,
+      .tileNum = 0x9c,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
+
 
 int CONST_DATA gTextIds_GuideCategoriesChapter[] =
 {
@@ -120,14 +228,14 @@ void GuideSpriteDraw_Loop(void)
 
     GetGameClock();
 
-    PutSprite(3, 16, 8, gSprite_GuideBannerText, OAM2_PAL(2));
+    PutSprite(3, 16, 8, &gSprite_GuideBannerText, OAM2_PAL(2));
 
     if (gGuideSt->state == GUIDE_STATE_0)
     {
-        PutSprite(3, 176, 3, gSprite_SelectButtonSort, OAM2_PAL(2));
+        PutSprite(3, 176, 3, &gSprite_SelectButtonSort, OAM2_PAL(2));
     }
 
-    PutSprite(3, 176, 15, gSprite_BButtonBack, OAM2_PAL(2));
+    PutSprite(3, 176, 15, &gSprite_BButtonBack, OAM2_PAL(2));
 
     y1 = (gGuideSt->categoryIdx - gGuideSt->unk_2a) * 2 + 5;
     y2 = (gGuideSt->unk_2b - gGuideSt->unk_2c) * 2 + 5;

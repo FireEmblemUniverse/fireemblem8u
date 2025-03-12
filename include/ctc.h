@@ -84,7 +84,6 @@ extern struct SpriteCfg CONST_DATA gObject_16x16_VFlipped;
 
 void PutObjectAffine(int id, int pa, int pb, int pc, int pd);
 void ClearSprites(void);
-// CR cam: TODO: fix these
 void PutSprite(int layer, int x, int y, const struct SpriteCfg *cfg, int oam2);
 void PutSpriteExt(int layer, int xOam1, int yOam0, const struct SpriteCfg *cfg, int oam2);
 void PushSpriteLayerObjects(int layer);

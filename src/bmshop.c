@@ -189,15 +189,96 @@ struct ProcCmd CONST_DATA ProcScr_ShopSellInit[] = {
     PROC_END,
 };
 
-u16 CONST_DATA Sprite_ShopGoldBox[] = {
-    6,
-    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_LAYER(1),
-    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x2) + OAM2_LAYER(1),
-    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8, OAM2_CHR(0x6) + OAM2_LAYER(1),
-    OAM0_SHAPE_32x8 + OAM0_Y(8), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x8) + OAM2_LAYER(1),
-    OAM0_SHAPE_32x8 + OAM0_Y(16), OAM1_SIZE_32x8, OAM2_CHR(0xC) + OAM2_LAYER(1),
-    OAM0_SHAPE_32x8 + OAM0_Y(16), OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0xE) + OAM2_LAYER(1),
+struct SpriteCfg CONST_DATA Sprite_ShopGoldBox = {
+  .count = 6,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0x0,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0x2,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0x6,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0x8,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+    {
+      .y = 16,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xc,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+    {
+      .y = 16,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_H_RECTANGLE,
+      .x = 32,
+      .matrixNum = 0,
+      .size = ST_OAM_H_32x8,
+      .tileNum = 0xe,
+      .priority = 1,
+      .paletteNum = 0,
+    },
+  }
 };
+
 
 struct ProcCmd CONST_DATA gProcScr_GoldBox[] = {
     PROC_REPEAT(GoldBox_OnLoop),
@@ -1202,7 +1283,7 @@ void GoldBox_OnLoop(struct ProcShop * proc)
     CallARM_PushToSecondaryOAM(
         proc->goldbox_x,
         proc->goldbox_y,
-        Sprite_ShopGoldBox,
+        &Sprite_ShopGoldBox,
         proc->goldbox_oam2);
 }
 
@@ -1269,7 +1350,7 @@ void DisplayUiVArrow(int x, int y, u16 oam2Base, int flip_en)
         2,
         x | vflip,
         y,
-        gObject_16x8,
+        &gObject_16x8,
         (oam2Base) + offset
     );
 }
