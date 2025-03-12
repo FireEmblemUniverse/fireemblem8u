@@ -445,4 +445,10 @@ struct gfx_set {
     void * pal;
 };
 
+struct SpriteCfg
+{
+    u16 count;
+    struct OamData oam;
+};
+
 #endif // GUARD_TYPES_H

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "types.h"
 #include "gba/types.h"
 
 extern u8 gUnknown_03003750[];  // buffer to copy the code to
@@ -6,8 +7,8 @@ extern u8 gUnknown_03003750[];  // buffer to copy the code to
 // pointers to the loaded functions
 extern void (*gUnknown_03003740)(int, int, int, int);
 extern void (*gUnknown_03004150)(const char *, char *);
-extern void (*ARMPutOamHi)(int, int, const struct OamData *, int);
-extern void (*ARMPutOamLo)(int, int, const struct OamData *, int);
+extern void (*ARMPutOamHi)(int, int, const struct SpriteCfg *, int);
+extern void (*ARMPutOamLo)(int, int, const struct SpriteCfg *, int);
 extern void (*gUnknown_03004960)(int, int, int);
 extern void (*gUnknown_03003128)(void);
 
@@ -49,12 +50,12 @@ void CallARM_DecompText(const char *a, char *b)
 
 void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
 {
-    ARMPutOamHi(a, b, (struct OamData *)c, d);
+    ARMPutOamHi(a, b, (struct SpriteCfg *)c, d);
 }
 
 void CallARM_PushToPrimaryOAM(int a, int b, const u16 *c, int d)
 {
-    ARMPutOamLo(a, b, (struct OamData *)c, d);
+    ARMPutOamLo(a, b, (struct SpriteCfg *)c, d);
 }
 
 void CallARM_Func5(int a, int b, int c)
