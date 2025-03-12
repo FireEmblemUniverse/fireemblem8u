@@ -7,8 +7,8 @@ extern u8 gUnknown_03003750[];  // buffer to copy the code to
 // pointers to the loaded functions
 extern void (*gUnknown_03003740)(int, int, int, int);
 extern void (*gUnknown_03004150)(const char *, char *);
-extern void (*ARMPutOamHi)(int, int, const struct SpriteCfg *, int);
-extern void (*ARMPutOamLo)(int, int, const struct SpriteCfg *, int);
+extern void (*PutOamHiRAMFunc)(int, int, const struct SpriteCfg *, int);
+extern void (*PutOamLoRAMFunc)(int, int, const struct SpriteCfg *, int);
 extern void (*gUnknown_03004960)(int, int, int);
 extern void (*gUnknown_03003128)(void);
 
@@ -32,8 +32,8 @@ void StoreRoutinesToIRAM(void)
     // Set pointers to each of the functions
     gUnknown_03003740 = (void *)(gUnknown_03003750 + (DrawGlyph    - ARMCodeToCopy_Start));
     gUnknown_03004150 = (void *)(gUnknown_03003750 + (DecodeString         - ARMCodeToCopy_Start));
-    ARMPutOamHi = (void *)(gUnknown_03003750 + (PutOamHi - ARMCodeToCopy_Start));
-    ARMPutOamLo = (void *)(gUnknown_03003750 + (PutOamLo - ARMCodeToCopy_Start));
+    PutOamHiRAMFunc = (void *)(gUnknown_03003750 + (PutOamHi - ARMCodeToCopy_Start));
+    PutOamLoRAMFunc = (void *)(gUnknown_03003750 + (PutOamLo - ARMCodeToCopy_Start));
     gUnknown_03004960 = (void *)(gUnknown_03003750 + (MapFloodCoreStep              - ARMCodeToCopy_Start));
     gUnknown_03003128 = (void *)(gUnknown_03003750 + (MapFloodCore    - ARMCodeToCopy_Start));
 }
@@ -50,12 +50,12 @@ void CallARM_DecompText(const char *a, char *b)
 
 void CallARM_PushToSecondaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
-    ARMPutOamHi(a, b, (struct SpriteCfg *)c, d);
+    PutOamHiRAMFunc(a, b, (struct SpriteCfg *)c, d);
 }
 
 void CallARM_PushToPrimaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
-    ARMPutOamLo(a, b, (struct SpriteCfg *)c, d);
+    PutOamLoRAMFunc(a, b, (struct SpriteCfg *)c, d);
 }
 
 void CallARM_Func5(int a, int b, int c)

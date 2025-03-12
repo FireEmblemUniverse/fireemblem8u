@@ -98,7 +98,7 @@
 . = 0x0030F0; gIRQHandlers = .;
 . = 0x003128; gUnknown_03003128 = .;
 . = 0x00312C; gOamAffinePutId = .;
-. = 0x003130; ARMPutOamHi = .;
+. = 0x003130; PutOamHiRAMFunc = .;
 . = 0x003134; sHBlankHandler1 = .;
 . = 0x003140; gOam = .;
 . = 0x003740; gUnknown_03003740 = .;
@@ -106,7 +106,7 @@
 . = 0x003748; sHBlankHandler2 = .;
 . = 0x003750; gUnknown_03003750 = .;
 . = 0x004150; gUnknown_03004150 = .;
-. = 0x004154; ARMPutOamLo = .;
+. = 0x004154; PutOamLoRAMFunc = .;
 . = 0x004158; gOamAffinePutIt = .;
 . = 0x004160; IntrMain_Buffer = .;
 . = 0x004960; gUnknown_03004960 = .;
