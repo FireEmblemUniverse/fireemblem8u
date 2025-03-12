@@ -57,6 +57,9 @@ struct OamData
     ///*0x06*/ u16 affineParam;
 };
 
+// We could use the enums from `gba_sprites.h` here, but I think using enums
+// in bitfields is compiler-dependent.
+
 #define ST_OAM_OBJ_NORMAL 0
 #define ST_OAM_OBJ_BLEND  1
 #define ST_OAM_OBJ_WINDOW 2

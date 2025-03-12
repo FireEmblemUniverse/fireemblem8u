@@ -180,100 +180,408 @@ s8 CONST_DATA sDirKeysToOffsetLut[][2] = {
     {  0,  0, }, // 1111 down + up + right + left
 };
 
-u16 CONST_DATA sSprite_MapCursorA[] = {
-    4,
-    OAM0_SHAPE_8x8 + OAM0_Y(252), OAM1_SIZE_8x8 + OAM1_X(510),                          0,
-    OAM0_SHAPE_8x8 + OAM0_Y(252), OAM1_SIZE_8x8 + OAM1_X(10) + OAM1_HFLIP,              0,
-    OAM0_SHAPE_8x8 + OAM0_Y(9),   OAM1_SIZE_8x8 + OAM1_X(510) + OAM1_VFLIP,             0,
-    OAM0_SHAPE_8x8 + OAM0_Y(9),   OAM1_SIZE_8x8 + OAM1_X(10) + OAM1_HFLIP + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA sSprite_MapCursorA = {
+  .count = 4,
+  .oam = {
+    {
+      .y = -4,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -2,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -4,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 10,
+      .matrixNum = 8,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 9,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -2,
+      .matrixNum = 16,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 9,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 10,
+      .matrixNum = 24,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_MapCursorB[] = {
-4,
-    OAM0_SHAPE_8x8 + OAM0_Y(253), OAM1_SIZE_8x8 + OAM1_X(511),                          0,
-    OAM0_SHAPE_8x8 + OAM0_Y(253), OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP,               0,
-    OAM0_SHAPE_8x8 + OAM0_Y(8),   OAM1_SIZE_8x8 + OAM1_X(511) + OAM1_VFLIP,             0,
-    OAM0_SHAPE_8x8 + OAM0_Y(8),   OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP + OAM1_VFLIP,  0,
+struct SpriteCfg CONST_DATA sSprite_MapCursorB = {
+  .count = 4,
+  .oam = {
+    {
+      .y = -3,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -1,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -3,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 9,
+      .matrixNum = 8,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -1,
+      .matrixNum = 16,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 9,
+      .matrixNum = 24,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_MapCursorC[] = {
-    4,
-    OAM0_SHAPE_8x8 + OAM0_Y(254), OAM1_SIZE_8x8,                                        0,
-    OAM0_SHAPE_8x8 + OAM0_Y(254), OAM1_SIZE_8x8 + OAM1_X(8) + OAM1_HFLIP,               0,
-    OAM0_SHAPE_8x8 + OAM0_Y(7),   OAM1_SIZE_8x8 + OAM1_VFLIP,                           0,
-    OAM0_SHAPE_8x8 + OAM0_Y(7),   OAM1_SIZE_8x8 + OAM1_X(8) + OAM1_HFLIP + OAM1_VFLIP,  0,
+struct SpriteCfg CONST_DATA sSprite_MapCursorC = {
+  .count = 4,
+  .oam = {
+    {
+      .y = -2,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -2,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 8,
+      .matrixNum = 8,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 7,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 0,
+      .matrixNum = 16,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 7,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 8,
+      .matrixNum = 24,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_MapCursorStretched[] = {
-    4,
-    OAM0_SHAPE_8x8 + OAM0_Y(248), OAM1_SIZE_8x8 + OAM1_X(508),                          0,
-    OAM0_SHAPE_8x8 + OAM0_Y(248), OAM1_SIZE_8x8 + OAM1_X(12) + OAM1_HFLIP,              0,
-    OAM0_SHAPE_8x8 + OAM0_Y(10),  OAM1_SIZE_8x8 + OAM1_X(508) + OAM1_VFLIP,             0,
-    OAM0_SHAPE_8x8 + OAM0_Y(10),  OAM1_SIZE_8x8 + OAM1_X(12) + OAM1_HFLIP + OAM1_VFLIP, 0,
+struct SpriteCfg CONST_DATA sSprite_MapCursorStretched = {
+  .count = 4,
+  .oam = {
+    {
+      .y = -8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -4,
+      .matrixNum = 0,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = -8,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 12,
+      .matrixNum = 8,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 10,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = -4,
+      .matrixNum = 16,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+    {
+      .y = 10,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_SQUARE,
+      .x = 12,
+      .matrixNum = 24,
+      .size = ST_OAM_SQ_8x8,
+      .tileNum = 0x0,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16* CONST_DATA sMapCursorSpriteLut[] = {
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
-    sSprite_MapCursorA,
 
-    sSprite_MapCursorB,
+struct SpriteCfg * CONST_DATA sMapCursorSpriteLut[] = {
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
+    &sSprite_MapCursorA,
 
-    sSprite_MapCursorC,
-    sSprite_MapCursorC,
-    sSprite_MapCursorC,
-    sSprite_MapCursorC,
+    &sSprite_MapCursorB,
 
-    sSprite_MapCursorB,
+    &sSprite_MapCursorC,
+    &sSprite_MapCursorC,
+    &sSprite_MapCursorC,
+    &sSprite_MapCursorC,
+
+    &sSprite_MapCursorB,
 };
 
-u16 CONST_DATA sSprite_SysUpArrowA[] = {
-    1,
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4C),
+struct SpriteCfg CONST_DATA sSprite_SysUpArrowA = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4c,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_SysUpArrowB[] = {
-    1,
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4D),
+struct SpriteCfg CONST_DATA sSprite_SysUpArrowB = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4d,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_SysUpArrowC[] = {
-    1,
-    OAM0_SHAPE_8x16 | OAM0_Y(-1), OAM1_SIZE_8x16, OAM2_CHR(0x4D),
+struct SpriteCfg CONST_DATA sSprite_SysUpArrowC = {
+  .count = 1,
+  .oam = {
+    {
+      .y = -1,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4d,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_SysDownArrowA[] = {
-    1,
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4E),
+struct SpriteCfg CONST_DATA sSprite_SysDownArrowA = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4e,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_SysDownArrowB[] = {
-    1,
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x4F),
+struct SpriteCfg CONST_DATA sSprite_SysDownArrowB = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 0,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4f,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16 CONST_DATA sSprite_SysDownArrowC[] = {
-    1,
-    OAM0_SHAPE_8x16 | OAM0_Y(+1), OAM1_SIZE_8x16, OAM2_CHR(0x4F),
+struct SpriteCfg CONST_DATA sSprite_SysDownArrowC = {
+  .count = 1,
+  .oam = {
+    {
+      .y = 1,
+      .affineMode = ST_OAM_AFFINE_OFF,
+      .objMode = ST_OAM_OBJ_NORMAL,
+      .mosaic = 0,
+      .bpp = ST_OAM_4BPP,
+      .shape = ST_OAM_V_RECTANGLE,
+      .x = 0,
+      .matrixNum = 0,
+      .size = ST_OAM_V_8x16,
+      .tileNum = 0x4f,
+      .priority = 0,
+      .paletteNum = 0,
+    },
+  }
 };
 
-u16* CONST_DATA gSysUpArrowSpriteLut[] = {
-    sSprite_SysUpArrowA,
-    sSprite_SysUpArrowB,
-    sSprite_SysUpArrowC,
+
+struct SpriteCfg * CONST_DATA gSysUpArrowSpriteLut[] = {
+    &sSprite_SysUpArrowA,
+    &sSprite_SysUpArrowB,
+    &sSprite_SysUpArrowC,
 };
 
-u16* CONST_DATA gSysDownArrowSpriteLut[] = {
-    sSprite_SysDownArrowA,
-    sSprite_SysDownArrowB,
-    sSprite_SysDownArrowC,
+struct SpriteCfg * CONST_DATA gSysDownArrowSpriteLut[] = {
+    &sSprite_SysDownArrowA,
+    &sSprite_SysDownArrowB,
+    &sSprite_SysDownArrowC,
 };
 
 struct ProcCmd CONST_DATA ProcScr_CamMove[] = {
@@ -826,7 +1134,7 @@ void PutMapCursor(int x, int y, int kind) {
 
     int oam2 = 0;
 
-    u16* sprite = NULL;
+    struct SpriteCfg *sprite = NULL;
 
     int frame = (GetGameClock() / 2) % 16;
 
@@ -857,7 +1165,7 @@ void PutMapCursor(int x, int y, int kind) {
 
         case 3:
             oam2 = 2;
-            sprite = sSprite_MapCursorStretched;
+            sprite = &sSprite_MapCursorStretched;
 
             break;
 

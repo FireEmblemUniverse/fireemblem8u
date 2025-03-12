@@ -457,11 +457,11 @@ void PutBattleForecastMultipliers(struct BattleForecastProc * proc)
     y += proc->y * 8;
 
     if (proc->hitCountA > 1) {
-        PutSprite(4, x + 72, y + 40, gObject_16x16, proc->hitCountA + 0x22E6);
+        PutSprite(4, x + 72, y + 40, &gObject_16x16, proc->hitCountA + 0x22E6);
     }
 
     if (proc->hitCountB > 1) {
-        PutSprite(4, x + 24, y + 40, gObject_16x16, proc->hitCountB + 0x22E6);
+        PutSprite(4, x + 24, y + 40, &gObject_16x16, proc->hitCountB + 0x22E6);
     }
 }
 

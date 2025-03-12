@@ -83,7 +83,9 @@ void AP_Display(struct APHandle* handle, int x, int y) {
     PutSpriteExt(
         handle->objLayer,
         x | rotScaleMask, y,
-        handle->pCurrentObjData,
+        // CR-someday cam: adjust these structs to hold `SpriteCfg`s instead of
+        // `u16 *`s
+        (struct SpriteCfg *)handle->pCurrentObjData,
         handle->tileBase
     );
 

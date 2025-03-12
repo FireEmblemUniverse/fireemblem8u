@@ -48,12 +48,12 @@ void CallARM_DecompText(const char *a, char *b)
     gUnknown_03004150(a, b);
 }
 
-void CallARM_PushToSecondaryOAM(int a, int b, const u16 *c, int d)
+void CallARM_PushToSecondaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
     ARMPutOamHi(a, b, (struct SpriteCfg *)c, d);
 }
 
-void CallARM_PushToPrimaryOAM(int a, int b, const u16 *c, int d)
+void CallARM_PushToPrimaryOAM(int a, int b, const struct SpriteCfg *c, int d)
 {
     ARMPutOamLo(a, b, (struct SpriteCfg *)c, d);
 }

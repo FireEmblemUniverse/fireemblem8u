@@ -4,6 +4,7 @@
 
 #include "constants/classes.h"
 
+#include "types.h"
 #include "proc.h"
 #include "hardware.h"
 #include "fontgrp.h"

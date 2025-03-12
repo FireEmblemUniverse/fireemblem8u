@@ -21,7 +21,7 @@ void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
         int x = (i * 32) - 32 + proc->textOffset;
         int index = (proc->textNum + i) % proc->textCount;
 
-        PutSprite(2, x, y, gObject_32x16, 0x4240 + lut[index]);
+        PutSprite(2, x, y, &gObject_32x16, 0x4240 + lut[index]);
     }
 
     return;
