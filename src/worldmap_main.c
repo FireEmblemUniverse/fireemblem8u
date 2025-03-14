@@ -1672,7 +1672,7 @@ void WorldMap_UpdateBgm(ProcPtr unused)
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME)
     {
-        songId = SONG_BGM_WMAP_05;
+        songId = SONG_RAY_OF_HOPE;
     }
     else
     {
@@ -1695,7 +1695,7 @@ void WorldMap_UpdateBgm(ProcPtr unused)
         }
         else
         {
-            songId = SONG_BGM_WMAP_01;
+            songId = SONG_THE_BEGINNING;
         }
     }
 
@@ -2020,138 +2020,138 @@ struct WMSongTableEnt CONST_DATA gWMSongTable[] =
 {
     [NODE_BORDER_MULAN] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_CASTLE_FRELIA] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_IDE] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_BORGO_RIDGE] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_ZAHA_WOODS] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_SERAFEW] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_ADLAS_PLAINS] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_RENVALL_07] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_RENVALL_08] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
     [NODE_PORT_KIRIS] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_02,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_TREASURED_MEMORIES,
     },
     [NODE_TERAZ_PLATEAU] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_02,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_TREASURED_MEMORIES,
     },
     [NODE_CAER_PELYN] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_02,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_TREASURED_MEMORIES,
     },
     [NODE_HAMILL_CANYON] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_02,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_TREASURED_MEMORIES,
     },
     [NODE_JEHANNA_HALL_0D] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_02,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_TREASURED_MEMORIES,
     },
     [NODE_FORT_RIGWALD] =
     {
-        .eirika = SONG_BGM_WMAP_03,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_GRIM_JOURNEY,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_BETHROEN] =
     {
-        .eirika = SONG_BGM_WMAP_03,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_GRIM_JOURNEY,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_TAIZEL] =
     {
-        .eirika = SONG_BGM_WMAP_03,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_GRIM_JOURNEY,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_ZAALBUL_MARSH] =
     {
-        .eirika = SONG_BGM_WMAP_03,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_GRIM_JOURNEY,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_GRADO_KEEP] =
     {
-        .eirika = SONG_BGM_WMAP_03,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_GRIM_JOURNEY,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_JEHANNA_HALL_13] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_RENAIS_CASTLE] =
     {
-        .eirika = SONG_BGM_WMAP_02,
-        .ephraim = SONG_BGM_WMAP_03,
+        .eirika = SONG_TREASURED_MEMORIES,
+        .ephraim = SONG_GRIM_JOURNEY,
     },
     [NODE_NARUBE_RIVER] =
     {
-        .eirika = SONG_BGM_WMAP_04,
-        .ephraim = SONG_BGM_WMAP_04,
+        .eirika = SONG_TIES_OF_FRIENDSHIP,
+        .ephraim = SONG_TIES_OF_FRIENDSHIP,
     },
     [NODE_NELERAS_PEAK] =
     {
-        .eirika = SONG_BGM_WMAP_04,
-        .ephraim = SONG_BGM_WMAP_04,
+        .eirika = SONG_TIES_OF_FRIENDSHIP,
+        .ephraim = SONG_TIES_OF_FRIENDSHIP,
     },
     [NODE_RAUSTEN_COURT] =
     {
-        .eirika = SONG_BGM_WMAP_04,
-        .ephraim = SONG_BGM_WMAP_04,
+        .eirika = SONG_TIES_OF_FRIENDSHIP,
+        .ephraim = SONG_TIES_OF_FRIENDSHIP,
     },
     [NODE_DARKLING_WOODS] =
     {
-        .eirika = SONG_BGM_WMAP_04,
-        .ephraim = SONG_BGM_WMAP_04,
+        .eirika = SONG_TIES_OF_FRIENDSHIP,
+        .ephraim = SONG_TIES_OF_FRIENDSHIP,
     },
     [NODE_BLACK_TEMPLE] =
     {
-        .eirika = SONG_BGM_EVT_05,
-        .ephraim = SONG_BGM_EVT_05,
+        .eirika = SONG_LIGHTS_IN_THE_DARK,
+        .ephraim = SONG_LIGHTS_IN_THE_DARK,
     },
     [NODE_TOWER_OF_VALNI] =
     {
-        .eirika = SONG_BGM_WMAP_01,
-        .ephraim = SONG_BGM_WMAP_01,
+        .eirika = SONG_THE_BEGINNING,
+        .ephraim = SONG_THE_BEGINNING,
     },
 };
 

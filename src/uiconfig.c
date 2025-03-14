@@ -927,7 +927,7 @@ bool MusicOptionChangeHandler(ProcPtr proc)
 
     if (gConfigUiState->source & CONFIG_UI_SOURCE_FROMPREP)
     {
-        StartBgm(SONG_BGM_SELECT, NULL);
+        StartBgm(SONG_COMBAT_PREPARATION, NULL);
         return false;
     }
 
