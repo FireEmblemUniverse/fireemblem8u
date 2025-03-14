@@ -10,6 +10,7 @@
 #include "bmio.h"
 #include "ending_details.h"
 #include "constants/characters.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_089FFC0C[] = {
     CHECK_CHAPTER_NUMBER
@@ -396,7 +397,7 @@ CONST_DATA EventListScr EventScr_08A0036C[] = {
 
 CONST_DATA EventListScr EventScr_EirikaModeGameEnd[] = {
     EVBIT_MODIFY(0x2)
-    MUSC(0x33)
+    MUSC(SONG_MAIN_THEME_REPRISE)
     SVAL(EVT_SLOT_2, UnitDef_088D17B8)
     SVAL(EVT_SLOT_3, 0xc19)
     CALL(EventScr_08A00544)
@@ -448,7 +449,7 @@ LABEL(0x1)
 
 CONST_DATA EventListScr EventScr_EphraimModeGameEnd[] = {
     EVBIT_MODIFY(0x2)
-    MUSC(0x33)
+    MUSC(SONG_MAIN_THEME_REPRISE)
     SVAL(EVT_SLOT_2, UnitDef_088D181C)
     SVAL(EVT_SLOT_3, 0xc1e)
     CALL(EventScr_08A00544)
@@ -560,7 +561,7 @@ CONST_DATA EventListScr EventScr_08A0062C[] = {
 CONST_DATA EventListScr EventScr_08A00680[] = {
     EVBIT_F(2)
     ASMC(BMapDispSuspend)
-    MUSC(0x42)
+    MUSC(SONG_FLY_WITH_THE_BREEZE)
     ASMC(StartEndingCredits)
     STAL(90)
     EvtTextStartType2 // ENOSUPP in EAstdlib

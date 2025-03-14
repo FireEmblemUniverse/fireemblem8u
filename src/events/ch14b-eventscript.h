@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch14b_BeginingScene[] = {
-    MUSC(0x4d)
+    MUSC(SONG_4D)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x3f)
     FADU(16)
@@ -73,7 +73,7 @@ LABEL(0x0)
     CUMO_CHAR(CHARACTER_SOLDIER_83)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     TEXTSTART
     TEXTSHOW(0xafe)
     TEXTEND
@@ -165,7 +165,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     SetBackground(BG_CASTLE_DARK)
     TEXTSHOW(0xb06)
     TEXTEND
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
     REMA
@@ -186,7 +186,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACHER_FRELIAN)
     STAL(60)
     CURE
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSTART
     TEXTSHOW(0xb08)
     TEXTEND
@@ -319,7 +319,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C66D8)
     ENUN
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     FADU(16)
     LOAD2(0x1, UnitDef_088C6778)
     ENUN

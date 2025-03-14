@@ -16,7 +16,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     REMA
     SVAL(EVT_SLOT_B, 0x4000e)
     LOMA(0xf)
-    MUSC(0x4e)
+    MUSC(SONG_4E)
     FAWU(2)
     LOAD2(0x1, UnitDef_088BC350)
     ENUN
@@ -26,7 +26,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     SetBackground(BG_DESERT)
     TEXTSHOW(0xa82)
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -54,7 +54,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_CARLYLE)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xa83)
     TEXTEND
@@ -62,7 +62,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     FADI(16)
     MOVE(0xffff, CHARACTER_CARLYLE, 8, 7)
     CALL(EventScr_08591FD8)
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA_CAHR(CHARACTER_RENNAC)
     FADU(16)
     CUMO_CHAR(CHARACTER_RENNAC)
@@ -83,7 +83,7 @@ CONST_DATA EventListScr EventScr_089F5CC4[] = {
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xa85)
     TEXTEND
@@ -133,7 +133,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, 0x1c)
     CALL(EventScr_9EE5BC)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     CLEA
     CLEE
     CLEN
@@ -202,7 +202,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    MUSC(0x2c)
+    MUSC(SONG_LYON)
     TEXTSTART
     TEXTSHOW(0xa8f)
     TEXTEND
@@ -270,7 +270,7 @@ LABEL(0x1)
     STAL(60)
     CURE
     SetBackground(BG_PASSAGE)
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSHOW(0xa92)
     TEXTEND
     REMA
@@ -287,12 +287,12 @@ LABEL(0x2)
     SetBackground(BG_PASSAGE)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0xa, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSHOW(0xa93)
     TEXTEND
     GOTO(0xb)
 LABEL(0xa)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSHOW(0xa95)
     TEXTEND
 LABEL(0xb)

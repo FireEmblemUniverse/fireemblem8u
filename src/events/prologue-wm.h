@@ -10,6 +10,7 @@
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/worldmap.h"
+#include "constants/songs.h"
 
 CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     EVBIT_MODIFY(0x1)
@@ -18,7 +19,7 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     WM_CENTERCAMONLORD(WM_MU_0)
     MUSCFAST(0x7fff)
     STAL(32)
-    MUSC(0x4)
+    MUSC(SONG_THE_BEGINNING)
     WM_SHOWDRAWNMAP(0, 0, 0x10)
     STAL(2)
     WM_FADEOUT(0)

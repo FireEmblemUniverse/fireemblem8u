@@ -16,7 +16,7 @@ enum song_idx {
     SONG_TRUTH_DESPAIR_AND_HOPE = 0x0D,
     SONG_LAND_OF_PROMISE = 0x0E,
     SONG_BINDING_VOW = 0x0F,
-    SONG_GRASP_AT_VICTORY = 0x010,
+    SONG_GRASP_AT_VICTORY = 0x10,
     SONG_SHADOWS_APPROACH = 0x11,
     SONG_CONFRONT_THE_PAST = 0x12,
     SONG_SHADOW_OF_THE_ENEMY = 0x13,
@@ -69,9 +69,18 @@ enum song_idx {
     SONG_FLY_WITH_THE_BREEZE = 0x42,
     SONG_43 = 0x43,
     SONG_LYON_ORGAN_ARRANGEMENT = 0x44,
-    SONG_THE_FINAL_BATTLE = 0x45,
-    
+    SONG_THE_FINAL_BATTLE = 0x45,    
     SONG_EPILOGUE = 0x46,
+    SONG_47 = 0x47, // unsure
+    SONG_49 = 0x49, // unsure
+    SONG_4A = 0x4A, // unsure
+    SONG_4B = 0x4B, // unsure
+    SONG_4C = 0x4C, // unsure
+    SONG_4D = 0x4D, // unsure
+    SONG_4E = 0x4E, // unsure
+    SONG_52 = 0x52, // unsure
+    SONG_53 = 0x53, // unsure
+    SONG_54 = 0x54, // unsure
     SONG_BGM_ED_STAFF_2 = 0x56,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
@@ -113,6 +122,7 @@ enum song_idx {
     SONG_8D = 0x8D, // manim (unlock?)
     SONG_90 = 0x90,
     SONG_91 = 0x91,
+    SONG_95 = 0x95, // unsure
     SONG_96 = 0x96,
     SONG_97 = 0x97,
     SONG_9A = 0x9A,

@@ -13,9 +13,10 @@
 #include "bmbattle.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     LOAD2(0x1, UnitDef_088B76FC)
     ENUN
     CUMO_CHAR(CHARACTER_ORSON_CH5X)
@@ -33,7 +34,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_TIRADO)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xa09)
     TEXTEND
@@ -118,7 +119,7 @@ CONST_DATA EventListScr EventScr_089F3124[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTSTART
     TEXTSHOW(0xa0d)
     TEXTEND
@@ -128,7 +129,7 @@ CONST_DATA EventListScr EventScr_089F3124[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch8_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa10)
     TEXTEND
@@ -139,7 +140,7 @@ CONST_DATA EventListScr EventScr_Ch8_EndingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F31B8[] = {
-    MUSC(0x27)
+    MUSC(SONG_REUNION)
     TEXTSTART
     TEXTSHOW(0xa11)
     TEXTEND
@@ -207,7 +208,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CAMERA(14, 20)
     LOAD2(0x1, UnitDef_088B783C)
     ENUN
-    MUSC(0x4c)
+    MUSC(SONG_4C)
     FADU(16)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
@@ -262,7 +263,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     UNIT_COLORS(0x0)
     LOAD2(0x1, UnitDef_088B783C)
     ENUN
-    MUSC(0x4c)
+    MUSC(SONG_4C)
     FAWU(2)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
@@ -276,7 +277,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
 };
 
 CONST_DATA EventListScr EventScr_SplitMenu[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xc06)
     TEXTEND
@@ -292,11 +293,11 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     REMA
     MUSCMID(0x7fff)
     STAL(30)
-    MUSC(0x2b)
+    MUSC(SONG_LEGACY)
     SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xc09)
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     FADI(16)
@@ -317,7 +318,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     SVAL(EVT_SLOT_3, 0x2710)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
     SetBackground(BG_CASTLE_INTERIOR)
-    MUSC(0x29)
+    MUSC(SONG_SORROW)
     TEXTSHOW(0xc0f)
     TEXTEND
     REMA
@@ -339,7 +340,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_7, 0x1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)
     EVBIT_MODIFY(0x0)
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0x9, EVT_SLOT_C, EVT_SLOT_1)

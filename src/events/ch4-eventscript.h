@@ -7,11 +7,12 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     LOAD2(0x1, UnitDef_088B49CC)
     ENUN
-    MUSC(0x52)
+    MUSC(SONG_52)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
@@ -24,7 +25,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     LOAD1(0x1, UnitDef_088B4A80)
     ENUN
     FADU(16)
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE
@@ -95,7 +96,7 @@ CONST_DATA EventListScr EventScr_Ch4_BeginingScene[] = {
     CALL(EventScr_08591FD8)
     CAMERA(0, 0)
     FADU(16)
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
     CUMO_CHAR(CHARACTER_ARTUR)
     STAL(60)
     CURE
@@ -115,7 +116,7 @@ CONST_DATA EventListScr EventScr_089F199C[] = {
     STAL(15)
     LOAD1(0x1, UnitDef_088B4CD8)
     ENUN
-    MUSC(0x2a)
+    MUSC(SONG_LAUGHTER)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
@@ -133,7 +134,7 @@ CONST_DATA EventListScr EventScr_089F199C[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F19F8[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_EXISTS(CHARACTER_LUTE)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_0)
     SetBackground(BG_NORMAL_VILLAGE)
@@ -151,7 +152,7 @@ LABEL(0x1)
     LOAD1(0x1, UnitDef_088B4BFC)
     ENUN
 LABEL(0xa)
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     SetBackground(BG_PLAIN_1)
     CHECK_ALIVE(CHARACTER_ARTUR)
     BEQ(0xb, EVT_SLOT_C, EVT_SLOT_0)
@@ -177,7 +178,7 @@ LABEL(0xc)
     FADU(16)
     LOAD1(0x1, UnitDef_088B4D64)
     ENUN
-    MUSC(0x2a)
+    MUSC(SONG_LAUGHTER)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE

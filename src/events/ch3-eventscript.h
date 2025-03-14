@@ -7,9 +7,10 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     SetBackground(BG_PLAIN_1)
     TEXTSHOW(0x98b)
     TEXTEND
@@ -54,7 +55,7 @@ LABEL(0x2)
     FADU(16)
     CHECK_TUTORIAL
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     CUMO_CHAR(CHARACTER_BAZBA)
     STAL(60)
     CURE
@@ -76,7 +77,7 @@ CONST_DATA EventListScr EventScr_Ch3_Turn1Npc[] = {
     STAL(15)
     LOAD1(0x1, UnitDef_088B4718)
     ENUN
-    MUSC(0xf)
+    MUSC(SONG_BINDING_VOW)
     CUMO_CHAR(CHARACTER_COLM)
     STAL(60)
     CURE
@@ -102,7 +103,7 @@ CONST_DATA EventListScr EventScr_Ch3_Turn2Player[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch3_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_ALIVE(CHARACTER_COLM)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_NEIMI)
@@ -136,7 +137,7 @@ LABEL(0x1)
     LOAD1(0x1, UnitDef_088B476C)
     ENUN
     FADU(16)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     CUMO_CHAR(CHARACTER_VIGARDE)
     STAL(60)
     CURE

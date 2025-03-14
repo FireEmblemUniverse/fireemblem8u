@@ -15,7 +15,7 @@ CONST_DATA EventListScr EventScr_Ch18b_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
-    MUSC(0x49)
+    MUSC(SONG_49)
     FADI(16)
     CLEA
     CLEE
@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
     MOVE(0x0, CHARACTER_EPHRAIM, 19, 4)
     FADU(16)
     ENUN
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
@@ -92,7 +92,7 @@ CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
     MUSCFAST(0x7fff)
     TEXTCONT
     TEXTEND
-    MUSC(0x2c)
+    MUSC(SONG_LYON)
     TEXTCONT
     TEXTEND
     REMA
@@ -107,7 +107,7 @@ CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
     TEXTSTART
     TEXTSHOW(0xb89)
     TEXTEND
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT
     TEXTEND
     REMA

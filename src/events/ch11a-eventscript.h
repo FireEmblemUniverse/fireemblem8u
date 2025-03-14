@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
-    MUSC(0x4d)
+    MUSC(SONG_4D)
     LOAD2(0x1, UnitDef_088B9E20)
     ENUN
     CUMO_CHAR(CHARACTER_EWAN)
@@ -13,7 +13,7 @@ CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
     MUSCMID(0x7fff)
     TEXTCONT
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -70,7 +70,7 @@ LABEL(0x1)
 };
 
 CONST_DATA EventListScr EventScr_Ch11a_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_INTERIOR_BROWN)
     CHECK_ALIVE(CHARACTER_LARACHEL)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -104,7 +104,7 @@ LABEL(0x2)
     SVAL(EVT_SLOT_B, 0xa0000)
     LOMA(0x41)
     VCWF(0)
-    MUSC(0x4a)
+    MUSC(SONG_4A)
     FADU(16)
     LOAD2(0x1, UnitDef_088BA018)
     ENUN
@@ -133,11 +133,11 @@ LABEL(0x2)
     CUMO_CHAR(CHARACTER_GLEN)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xa4f)
     TEXTEND
-    MUSC(0x28)
+    MUSC(SONG_INDIGNATION)
     TEXTCONT
     TEXTEND
     REMA
@@ -158,11 +158,11 @@ LABEL(0x2)
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xa50)
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     REMA

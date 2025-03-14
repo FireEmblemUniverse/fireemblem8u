@@ -8,9 +8,10 @@
 #include "playerphase.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
 
     SetBackground(BG_PLAIN_1)
 
@@ -32,7 +33,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     ENUN
     STAL2(60)
 
-    MUSC(0x1a)
+    MUSC(SONG_DEFENSE)
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
     CURE
@@ -47,7 +48,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     STAL(60)
     CURE
 
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     Text_BG(BG_NORMAL_VILLAGE, 0x956)
 
     CUMO_CHAR(CHARACTER_BONE)
@@ -130,7 +131,7 @@ CONST_DATA EventListScr EventScr_Ch2_Turn2Player[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_ALIVE(CHARACTER_GARCIA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ROSS)
@@ -160,7 +161,7 @@ LABEL(0x0)
     REMA
     BACG(BG_MANSE_FLASHBACK)
     FAWU(2)
-    MUSC(0x52)
+    MUSC(SONG_52)
     BROWNBOXTEXT(0x211, 8, 8)
     TEXTSHOW(0x965)
     TEXTEND
@@ -306,7 +307,7 @@ CONST_DATA EventListScr EventScr_089F07B0[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F07D0[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TUTORIALTEXTBOXSTART
     SVAL(EVT_SLOT_B, 0xffffffff)
     TEXTSHOW(0x970)
@@ -653,7 +654,7 @@ CONST_DATA EventListScr EventScr_Ch2Tutorial13[] = {
 CONST_DATA EventListScr EventScr_Ch2Tutorial14[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
     TEXTSTART
     TEXTSHOW(0x95e)
     TEXTEND

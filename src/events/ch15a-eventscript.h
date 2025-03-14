@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch15a_BeginingScene[] = {
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     LOAD2(0x1, UnitDef_088BC4D4)
     ENUN
     FADU(16)
@@ -38,7 +38,7 @@ CONST_DATA EventListScr EventScr_Ch15a_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F6404[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     EVBIT_T(9)
     LOAD1(0x1, UnitDef_088BCAD4)
     ENUN
@@ -66,7 +66,7 @@ CONST_DATA EventListScr EventScr_089F6470[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F6484[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_DESERT)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
@@ -120,7 +120,7 @@ LABEL(0x1)
     CHECK_ALIVE(CHARACTER_SALEH)
     BEQ(0x63, EVT_SLOT_C, EVT_SLOT_0)
     SetBackground(BG_INTERIOR_BROWN)
-    MUSC(0x2b)
+    MUSC(SONG_LEGACY)
     TEXTSHOW(0xb2b)
     TEXTEND
     REMA

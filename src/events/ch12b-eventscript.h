@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C4D0C)
     ENUN
@@ -60,7 +60,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     SetBackground(BG_SHIP)
     TEXTSHOW(0xadf)
     TEXTEND
@@ -72,7 +72,7 @@ CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FB64C[] = {
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA(20, 0)
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
@@ -134,7 +134,7 @@ CONST_DATA EventListScr EventScr_089FB678[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch12b_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     FADI(16)
     SVAL(EVT_SLOT_A, 0x0)
     CHECK_EXISTS(CHARACTER_MARISA)
@@ -172,7 +172,7 @@ LABEL(0x1)
     FADI(4)
     REMA
     CAMERA2(13, 13)
-    MUSC(0x4b)
+    MUSC(SONG_4B)
     FADU(16)
     LOAD2(0x1, UnitDef_088C4DFC)
     ENUN
@@ -194,14 +194,14 @@ LABEL(0x1)
     SetBackground(BG_PORT)
     TEXTSHOW(0xae5)
     TEXTEND
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT
     TEXTEND
     MUSCMID(0x7fff)
     FADI(4)
     REMA
     BEQ(0xa, EVT_SLOT_A, EVT_SLOT_0)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_PORT)
     TEXTSHOW(0xae6)
     TEXTEND

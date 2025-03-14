@@ -30,12 +30,12 @@ LABEL(0x1)
     LOAD1(0x1, UnitDef_088C2098)
     ENUN
     EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
-    MUSC(0x2f)
+    MUSC(SONG_LIGHTS_IN_THE_DARK)
     ASMC(sub_807FCC0)
     EVBIT_MODIFY(0x0)
     GOTO(0x3)
 LABEL(0x2)
-    MUSC(0x2f)
+    MUSC(SONG_LIGHTS_IN_THE_DARK)
     LOAD1(0x1, UnitDef_088C2098)
     ENUN
 LABEL(0x3)
@@ -96,7 +96,7 @@ LABEL(0xc)
     TEXTEND
     REMA
 LABEL(0xd)
-    MUSC(0x45)
+    MUSC(SONG_THE_FINAL_BATTLE)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0xe, EVT_SLOT_C, EVT_SLOT_1)
@@ -576,7 +576,7 @@ CONST_DATA EventListScr EventScr_Ch21xa_EndingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch21xa_EndingSceneExt[] = {
-    MUSC(0x41)
+    MUSC(SONG_VICTORY_AND_THE_FUTURE)
     SetBackground(BG_BLACK_TEMPLE_INSIDE)
     TEXTSHOW(0xbf5)
     TEXTEND

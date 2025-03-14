@@ -11,7 +11,7 @@ CONST_DATA EventListScr EventScr_Ch18a_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F7E6C[] = {
-    MUSC(0x49)
+    MUSC(SONG_49)
     SetBackground(BG_VOLCANO)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
@@ -21,7 +21,7 @@ CONST_DATA EventListScr EventScr_089F7E6C[] = {
     MUSCMID(0x7fff)
     TEXTCONT
     TEXTEND
-    MUSC(0x2c)
+    MUSC(SONG_LYON)
     TEXTCONT
     TEXTEND
     GOTO(0x1)
@@ -31,7 +31,7 @@ LABEL(0x0)
     MUSCMID(0x7fff)
     TEXTCONT
     TEXTEND
-    MUSC(0x2c)
+    MUSC(SONG_LYON)
     TEXTCONT
     TEXTEND
 LABEL(0x1)
@@ -42,7 +42,7 @@ LABEL(0x1)
     FADU(16)
     LOAD2(0x1, UnitDef_088BF330)
     ENUN
-    MUSC(0x49)
+    MUSC(SONG_49)
     CUMO_CHAR(CHARACHER_FRELIAN)
     STAL(60)
     CURE
@@ -53,7 +53,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     SetBackground(BG_VOLCANO)
     TEXTSHOW(0xb7d)
     TEXTEND
@@ -70,7 +70,7 @@ LABEL(0x1)
 };
 
 CONST_DATA EventListScr EventScr_089F7F88[] = {
-    MUSC(0x49)
+    MUSC(SONG_49)
     FADI(16)
     CAMERA2(14, 14)
     CLEA
@@ -143,7 +143,7 @@ CONST_DATA EventListScr EventScr_089F7F88[] = {
     MUSCFAST(0x7fff)
     TEXTCONT
     TEXTEND
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
     REMA
@@ -169,7 +169,7 @@ CONST_DATA EventListScr EventScr_089F7F88[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSTART
     TEXTSHOW(0xb84)
     TEXTEND

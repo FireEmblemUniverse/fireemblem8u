@@ -18,7 +18,7 @@ CONST_DATA EventListScr EventScr_Ch16a_BeginingScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F6A8C[] = {
-    MUSC(0x47)
+    MUSC(SONG_47)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x40)
     FADU(16)
@@ -30,7 +30,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xb39)
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -80,7 +80,7 @@ LABEL(0x1)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_1)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD8B0)
     ENUN
@@ -127,7 +127,7 @@ LABEL(0x3)
     ENUN
     MOVE_1STEP(0x10, 0x81, FACING_LEFT)
     ENUN
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     CUMO_CHAR(0x80)
     STAL(60)
     CURE
@@ -156,7 +156,7 @@ LABEL(0x5)
     TEXTEND
     GOTO(0x7)
 LABEL(0x6)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTSHOW(0xb40)
     TEXTEND
 LABEL(0x7)
@@ -167,7 +167,7 @@ LABEL(0x7)
     BNE(0x8, EVT_SLOT_C, EVT_SLOT_1)
     CLEAN
     CAMERA(0, 0)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     FADU(16)
     LOAD2(0x1, UnitDef_088BD98C)
     ENUN
@@ -199,7 +199,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEA
     CLEE
     CLEN
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xb49)
     TEXTEND
@@ -235,7 +235,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     TEXTSTART
     TEXTSHOW(0xb4b)
     TEXTEND
@@ -261,7 +261,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     LOMA(0x43)
     LOAD2(0x1, UnitDef_088BDB5C)
     ENUN
-    MUSC(0x95)
+    MUSC(SONG_95)
     FADU(16)
     LOAD2(0x1, UnitDef_088BDAF8)
     SOLOTEXTBOXSTART
@@ -414,7 +414,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_1)

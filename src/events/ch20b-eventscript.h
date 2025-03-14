@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     FAWI(2)
     CLEAN
     FAWU(2)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE

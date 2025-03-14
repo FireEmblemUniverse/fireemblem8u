@@ -9,13 +9,14 @@
 #include "constants/worldmap.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
     CHECK_EVENTID(136)
     BEQ(0x8020, EVT_SLOT_C, EVT_SLOT_0)
     CALL(EventScr_089F3280)
 LABEL(0x8020)
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088B593C)
     ENUN
@@ -35,7 +36,7 @@ LABEL(0x8020)
     CLEE
     CLEN
     CLEAN
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     LOAD1(0x1, UnitDef_088B5978)
     ENUN
     FADU(16)
@@ -87,7 +88,7 @@ LABEL(0x8020)
     CLEE
     CLEN
     SetBackground(BG_TOWN)
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
     TEXTSHOW(0x9be)
     TEXTEND
     MUSI
@@ -107,7 +108,7 @@ LABEL(0x8020)
     ENUN
     LOAD1(0x1, UnitDef_088B56F8)
     ENUN
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0x9c0)
     TEXTEND
@@ -141,7 +142,7 @@ LABEL(0x8020)
     CALL(EventScr_08591FD8)
     FADU(16)
     CAMERA(0, 0)
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     CUMO_AT(12, 6)
     STAL(60)
     CURE
@@ -159,7 +160,7 @@ LABEL(0x8020)
     SVAL(EVT_SLOT_2, EventScr_089F23B4)
     CALL(EventScr_CallOnTutorialMode)
     CAMERA(5, 18)
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
     CUMO_CHAR(CHARACTER_NATASHA)
     STAL(60)
     CURE
@@ -180,12 +181,12 @@ CONST_DATA EventListScr EventScr_Ch5_EndingScene[] = {
     SetBackground(BG_SERAFEW_VILLAGE)
     CHECK_ALIVE(CHARACTER_NATASHA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     TEXTSHOW(0x9c9)
     TEXTEND
     GOTO(0x1)
 LABEL(0x0)
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSHOW(0x9ca)
     TEXTEND
 LABEL(0x1)
@@ -283,7 +284,7 @@ CONST_DATA EventListScr EventScr_089F2270[] = {
 CONST_DATA EventListScr EventScr_089F22A4[] = {
     SVAL(EVT_SLOT_2, EventScr_089F2360)
     CALL(EventScr_CallOnTutorialMode)
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     SVAL(EVT_SLOT_2, UnitDef_088B5860)
     CALL(EventScr_LoadReinforce)
     CUMO_AT(14, 16)
