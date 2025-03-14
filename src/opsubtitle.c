@@ -8,6 +8,8 @@
 #include "spline.h"
 #include "sysutil.h"
 
+#include "constants/songs.h"
+
 /*
 The opening monologue that introduces the Sacred Stones / associated lore.
 */
@@ -190,7 +192,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    StartBgm(3, 0);
+    StartBgm(SONG_PROLOGUE, 0);
 
     proc->index = 0;
     proc->timer_2a = 60;

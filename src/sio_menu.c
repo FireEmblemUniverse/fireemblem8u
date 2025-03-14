@@ -13,6 +13,7 @@
 #include "sio.h"
 
 #include "constants/faces.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x08047A54
 int sub_8047A54(struct SioMenuProc * proc, int lineNum)
@@ -157,7 +158,7 @@ void SioMenu_LoadGraphics(struct SioMenuProc * proc)
 
     proc->unk_54 = 0;
 
-    StartBgm(0x38, 0);
+    StartBgm(SONG_COLOSSEUM_ENTRANCE, 0);
     sub_80497CC();
 
     return;
@@ -308,7 +309,7 @@ void SioMenu_RestartGraphicsMaybe(struct SioMenuProc * proc)
     sub_8043100(sub_8047A54(proc, 1), 1);
     sub_80497CC();
 
-    StartBgm(0x38, 0);
+    StartBgm(SONG_COLOSSEUM_ENTRANCE, 0);
 
     proc->unk_54 = 0;
 

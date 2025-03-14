@@ -27,6 +27,7 @@
 #include "gba_sprites.h"
 #include "constants/faces.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 u16 CONST_DATA gDefaultShopInventory[] = {
     ITEM_SWORD_IRON,
@@ -900,9 +901,9 @@ void Shop_Init(struct ProcShop * proc)
     int i;
 
     if (proc->shopType == SHOP_TYPE_ARMORY)
-        StartBgm(0x36, 0);
+        StartBgm(SONG_ARMORIES, 0);
     else
-        StartBgm(0x35, 0);
+        StartBgm(SONG_SHOPS, 0);
 
     Proc_ForEach(ProcScr_Mu, (ProcFunc) HideMu);
 

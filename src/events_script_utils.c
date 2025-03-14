@@ -19,6 +19,7 @@
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_CallOnTutorialMode[] = {
     CHECK_TUTORIAL
@@ -888,9 +889,9 @@ void sub_8085E08(int index, int mode)
 void sub_8085E48(struct ProcEventMapAnim * proc)
 {
     if (0 == proc->mode)
-        StartBgm(0x3D, 0);
+        StartBgm(SONG_VICTORY_SONG_B, 0);
     else
-        StartBgm(0x3C, 0);
+        StartBgm(SONG_VICTORY_SONG_A, 0);
 
     SetDispEnable(1, 1, 1, 1, 1);
     proc->timer = 0;

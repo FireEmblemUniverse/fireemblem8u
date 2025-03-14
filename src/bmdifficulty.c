@@ -22,6 +22,7 @@
 #include "sysutil.h"
 #include "bmdifficulty.h"
 #include "constants/event-flags.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) u16 gUnknown_0200310C[0x3D0] = {};
 EWRAM_OVERLAY(0) struct Font gUnknown_020038AC = {};
@@ -485,7 +486,7 @@ void PopGlobalTimer() {
 }
 
 void sub_8038230() {
-    StartBgm(0x40, 0);
+    StartBgm(SONG_RECORDS, 0);
     return;
 }
 
