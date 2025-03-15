@@ -10,6 +10,7 @@
 #include "ekrlevelup.h"
 #include "soundwrapper.h"
 #include "ctc.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(banim) struct ProcEkrPopup *gpProcEkrPopup = NULL;
 EWRAM_OVERLAY(banim) int gEkrPopupEnded = false;
@@ -63,12 +64,12 @@ void DeleteAnimsOnPopup(void)
 
 void EfxPlaySound5AVol100(void)
 {
-    EfxPlaySE(0x5A, 0x100);
+    EfxPlaySE(SONG_5A, 0x100);
 }
 
 void EfxPlaySound5CVol100(void)
 {
-    EfxPlaySE(0x5C, 0x100);
+    EfxPlaySE(SONG_5C, 0x100);
 }
 
 void MakeBattlePopupTileMapFromTSA(u16 *tm, u16 width)

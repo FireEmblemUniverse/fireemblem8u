@@ -825,7 +825,7 @@ void EfxPlayCriticalHittedSFX(struct Anim * anim)
     case EFX_HPT_DEFEATED:
         if (CheckRoundCrit(animr) == true)
         {
-            EfxPlaySE(0xD8, 0x100);
+            EfxPlaySE(SONG_D8, 0x100);
             M4aPlayWithPostionCtrl(0xD8, anim->xPosition, 1);
         }
         break;

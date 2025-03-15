@@ -242,7 +242,7 @@ LABEL(0x3)
     FADU(4)
     LOAD2(0x1, UnitDef_088C0B90)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C0BCC)
     ENUN

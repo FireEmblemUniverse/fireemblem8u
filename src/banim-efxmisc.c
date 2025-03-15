@@ -10,6 +10,7 @@
 #include "bmunit.h"
 #include "bmbattle.h"
 #include "bmlib.h"
+#include "constants/songs.h"
 
 /**
  * Misc banim effects
@@ -1135,7 +1136,7 @@ void EfxMagdhisEffectMain(struct ProcEfx * proc)
 {
     if (++proc->timer == 0x11) {
         NewEfxMagdhisEffectBG(proc->anim, 0x49);
-        EfxPlaySE(0x140, 0x100);
+        EfxPlaySE(SONG_140, 0x100);
         M4aPlayWithPostionCtrl(0x140, proc->anim->xPosition, 1);
     }
 

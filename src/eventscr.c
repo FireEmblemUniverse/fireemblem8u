@@ -4300,7 +4300,7 @@ LABEL(0x1)
     TEXTSHOW(0xffff)
     TEXTEND
     REMA
-    NOTIFY(0xc, 0x5a)
+    NOTIFY(0xc, SONG_5A)
     EVBIT_T(7)
     ENDA
 };

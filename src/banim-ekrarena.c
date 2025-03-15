@@ -6,6 +6,7 @@
 #include "bm.h"
 
 #include "ekrbattle.h"
+#include "constants/songs.h"
 
 EWRAM_DATA int gBaArenaFlag = 0;
 
@@ -41,7 +42,7 @@ void PlayDeathSoundForArena(void)
 {
     if (GetBattleAnimArenaFlag() != 0)
     {
-        EfxPlaySE(0x8f, 0x100);
+        EfxPlaySE(SONG_8F, 0x100);
     }
 
     return;
@@ -149,7 +150,7 @@ void ekrTogiInit_LoadGfx(struct ProcEkrTogi * proc)
     proc->unk_2c = 0;
     proc->unk_2e = 16;
 
-    EfxPlaySE(0x8e, 0x100);
+    EfxPlaySE(SONG_8E, 0x100);
 
     Proc_Break(proc);
 

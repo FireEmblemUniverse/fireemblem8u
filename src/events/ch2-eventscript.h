@@ -65,11 +65,11 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     SVAL(EVT_SLOT_B, 0x5000c)
     MOVE(0x0, CHAR_EVT_POSITION_AT_SLOTB, 12, 3)
     ENUN
-    SOUN(0xab)
+    SOUN(SONG_AB)
     SVAL(EVT_SLOT_B, 0x2000c)
     TILECHANGE(0xffff)
-    SOUN(0x5c)
-    NOTIFY(0x12, 0x0)
+    SOUN(SONG_5C)
+    NOTIFY(0x12, SONG_NONE)
     LOAD1(0x1, UnitDef_088B4434)
     ENUN
     SVAL(EVT_SLOT_1, 0x5)

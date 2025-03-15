@@ -66,7 +66,7 @@ LABEL(0x0)
     TEXTSHOW(0xafd)
     TEXTEND
     REMA
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD1(0x1, UnitDef_088C6660)
     ENUN
@@ -128,7 +128,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EAstdlib
     EvtColorFadeSetup(0x1d, 0x1, 2, 0, 0, 0) // ENOSUPP in EAstdlib
-    SOUN(0xd6)
+    SOUN(SONG_D6)
     SVAL(EVT_SLOT_2, 0x6b)
     CALL(EventScr_UnitFlushingOUT)
     DISA(CHARACTER_VIGARDE)
@@ -205,7 +205,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088C6AC4)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C6B28)
     ENUN

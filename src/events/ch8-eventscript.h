@@ -77,7 +77,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     TEXTEND
     REMA
     SVAL(EVT_SLOT_B, 0x150014)
-    SOUN(0xab)
+    SOUN(SONG_AB)
     TILECHANGE(0xffff)
     MOVE(0x0, CHARACTER_TIRADO, 19, 10)
     SVAL(EVT_SLOT_B, 0x100013)

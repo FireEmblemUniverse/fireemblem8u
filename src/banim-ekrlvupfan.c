@@ -4,6 +4,7 @@
 #include "ekrbattle.h"
 #include "ekrlevelup.h"
 #include "soundwrapper.h"
+#include "constants/songs.h"
 
 void NewEkrLvlupFan(void)
 {
@@ -16,7 +17,7 @@ void EkrLvupFanMain(struct ProcEkrLvupFan *proc)
 {
     int timer = ++proc->timer;
     if (timer == 0x10) {
-        EfxPlaySE(0x5B, 0x100);
+        EfxPlaySE(SONG_5B, 0x100);
         M4aPlayWithPostionCtrl(0x5B, 0x78, 0);
     } else if (timer == 0x74) {
         Sound_SetSEVolume(0x100);

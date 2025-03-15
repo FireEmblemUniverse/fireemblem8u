@@ -128,6 +128,8 @@ enum song_idx {
     SONG_8B = 0x8B, // manim
     SONG_8C = 0x8C,
     SONG_8D = 0x8D, // manim (unlock?)
+    SONG_8E = 0x8E,
+    SONG_8F = 0x8F,
     SONG_90 = 0x90,
     SONG_91 = 0x91,
     SONG_95 = 0x95, // unsure
@@ -166,7 +168,11 @@ enum song_idx {
     SONG_D2 = 0xD2,
     SONG_D5 = 0xD5,
     SONG_D6 = 0xD6,
+    SONG_D7 = 0xD7,
     SONG_D8 = 0xD8, // crit?
+    SONG_DC = 0xDC,
+    SONG_DD = 0xDD,
+    SONG_DE = 0xDE,
     SONG_EC = 0xEC, // no damage
     SONG_FD = 0xFD, // manim
     SONG_10F = 0x10F,
@@ -179,10 +185,12 @@ enum song_idx {
     SONG_SE_SHATTER_STONE = 0x2D6,
     SONG_2D7 = 0x2D7,
     SONG_2D8 = 0x2D8,
+    SONG_2D9 = 0x2D9,
     SONG_2E0 = 0x2E0,
     SONG_2E5 = 0x2E5,
     SONG_2E6 = 0x2E6,
     SONG_2E7 = 0x2E7,
+    SONG_2EB = 0x2EB,
     SONG_2F9 = 0x2F9,
     SONG_302 = 0x302,
     SONG_303 = 0x303,

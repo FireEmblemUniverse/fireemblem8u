@@ -49,12 +49,12 @@ void EkrMyr_WaitForTransform(struct ProcEkrDragon *proc)
     struct Anim *anim = proc->anim;
 
     if (++proc->timer == 0x1A) {
-        EfxPlaySE(0xDC, 0x100);
+        EfxPlaySE(SONG_DC, 0x100);
         M4aPlayWithPostionCtrl(0xDC, anim->xPosition, 1);
     }
 
     if (ANINS_GET_TYPE(*anim->pScrCurrent) == ANIM_INS_TYPE_STOP) {
-        EfxPlaySE(0xDE, 0x100);
+        EfxPlaySE(SONG_DE, 0x100);
         M4aPlayWithPostionCtrl(0xDE, anim->xPosition, 1);
         EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_MAIN - 1);
         Proc_Break(proc);
@@ -92,7 +92,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
         return;
     }
 
-    EfxPlaySE(0xDD, 0x100);
+    EfxPlaySE(SONG_DD, 0x100);
     M4aPlayWithPostionCtrl(0xDD, anim->xPosition, 1);
     EkrPrepareBanimfx(anim, BANIM_INDEX_MYRRH_EXIT - 1);
     SwitchAISFrameDataFromBARoundType(anim, 0);

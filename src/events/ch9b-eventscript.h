@@ -246,7 +246,7 @@ CONST_DATA EventListScr EventScr_089FA65C[] = {
     TEXTSTART
     TEXTSHOW(0xab1)
     TEXTEND
-    SOUN(0x2d9)
+    SOUN(SONG_2D9)
     TEXTCONT
     TEXTEND
     REMA

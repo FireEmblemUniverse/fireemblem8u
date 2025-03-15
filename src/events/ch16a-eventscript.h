@@ -56,7 +56,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088BD84C)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     MOVE(0x0, CHARACTER_ORSON, 7, 6)
     ENUN
@@ -114,7 +114,7 @@ LABEL(0x2)
 LABEL(0x3)
     LOAD2(0x1, UnitDef_088BD914)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     MOVE(0x10, CHARACTER_LYON, 7, 5)
     ENUN
@@ -210,7 +210,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088BDA08)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088BDA44)
     ENUN
@@ -342,7 +342,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     SetBackground(BG_RENAIS_CHAMBER)
     TEXTSHOW(0xb53)
     TEXTEND
-    SOUN(0x2eb)
+    SOUN(SONG_2EB)
     FAWI(4)
     REMA
     SVAL(EVT_SLOT_2, 0x2e)
@@ -357,11 +357,11 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     FADU(4)
     LOAD2(0x1, UnitDef_088BDC88)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088BDCB0)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x1)
     LOAD2(0x1, UnitDef_088BDCD8)
     ENUN

@@ -7,6 +7,7 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 #include "eventinfo.h"
+#include "constants/songs.h"
 
 CONST_DATA struct ProcCmd ProcScr_efxDeadEvent[] = {
     PROC_NAME("efxDeadEVTENT"),
@@ -159,14 +160,14 @@ void sub_8053080(struct ProcEfxDead *proc)
         
         if (CheckEkrDragonSkipTransfer(proc->anim1) != false) {
             NewEfxDeadDragonAlpha(proc->anim1, proc->anim2);
-            EfxPlaySE(0xD6, 0x100);
+            EfxPlaySE(SONG_D6, 0x100);
             M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);
             proc->terminator = 0x64;
             return;
         }
 
         NewEfxDeadAlpha(proc->anim1, proc->anim2);
-        EfxPlaySE(0xD6, 0x100);
+        EfxPlaySE(SONG_D6, 0x100);
         M4aPlayWithPostionCtrl(0xD6, anim->xPosition, 1);
         proc->terminator = 0x32;
         return;
