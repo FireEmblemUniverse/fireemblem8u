@@ -20,6 +20,7 @@
 #include "bmlib.h"
 #include "scene.h"
 #include "mapanim.h"
+#include "constants/songs.h"
 
 extern struct ProcCmd gProcScr_ArenaUiMain[];
 extern struct ProcCmd gProcScr_ArenaUiResults[];
@@ -339,14 +340,14 @@ void Arena_PlayResultSong(ProcPtr proc) {
     switch (ArenaGetResult()) {
         case 1:
             if (!gPlaySt.config.disableBgm) {
-                StartBgmCore(0x3a, 0);
+                StartBgmCore(SONG_COLOSSEUM_VICTORY, 0);
             }
 
             break;
 
         default:
             if (!gPlaySt.config.disableBgm) {
-                StartBgmCore(0x38, 0);
+                StartBgmCore(SONG_COLOSSEUM_ENTRANCE, 0);
             }
 
             Proc_End(proc);
@@ -359,7 +360,7 @@ void Arena_PlayResultSong(ProcPtr proc) {
 
 //! FE8U = 0x080B5D2C
 void Arena_PlayArenaSong(void) {
-    StartBgmExt(0x38, 0, 0);
+    StartBgmExt(SONG_COLOSSEUM_ENTRANCE, 0, 0);
     return;
 }
 

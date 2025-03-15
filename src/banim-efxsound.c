@@ -12,6 +12,7 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(banim) int gEkrMainBgmPlaying = false;
 EWRAM_OVERLAY(banim) int gEfxSoundSeExist = false;
@@ -901,19 +902,19 @@ void EkrPlayMainBGM(void)
     if (GetBattleAnimArenaFlag() == 1)
     {
         Sound_SetDefaultMaxNumChannels();
-        EfxOverrideBgm(0x39, 0x100);
+        EfxOverrideBgm(SONG_IN_THE_COLOSSEUM, 0x100);
         return;
     }
 
     if (GetBanimLinkArenaFlag() == 1)
     {
-        EfxOverrideBgm(0x39, 0x100);
+        EfxOverrideBgm(SONG_IN_THE_COLOSSEUM, 0x100);
         return;
     }
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        EfxOverrideBgm(0x23, 0x100);
+        EfxOverrideBgm(SONG_TO_A_HIGHER_PLACE, 0x100);
         return;
     }
 
@@ -939,7 +940,7 @@ void EkrPlayMainBGM(void)
 
     if (ret == true)
     {
-        EfxOverrideBgm(0x1F, 0x100);
+        EfxOverrideBgm(SONG_SACRED_STRENGTH, 0x100);
         return;
     }
 
@@ -947,7 +948,7 @@ void EkrPlayMainBGM(void)
     {
         if (CheckFlag82() == true)
         {
-            EfxOverrideBgm(0x55, 0x100);
+            EfxOverrideBgm(SONG_55, 0x100);
             return;
         }
         SetFlag82();
@@ -979,7 +980,7 @@ void EkrPlayMainBGM(void)
 
     if (ret == true)
     {
-        EfxOverrideBgm(0x20, 0x100);
+        EfxOverrideBgm(SONG_TETHYS, 0x100);
         return;
     }
 

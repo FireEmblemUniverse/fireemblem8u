@@ -1,6 +1,7 @@
 #pragma once
 
 enum song_idx {
+    SONG_NONE = 0x00,
     SONG_THE_VALIANT = 0x01,
     SONG_MAIN_THEME = 0x02,
     SONG_PROLOGUE = 0x03,
@@ -67,7 +68,7 @@ enum song_idx {
     SONG_RECORDS = 0x40,
     SONG_VICTORY_AND_THE_FUTURE = 0x41,
     SONG_FLY_WITH_THE_BREEZE = 0x42,
-    SONG_43 = 0x43,
+    SONG_43 = 0x43, //title ?
     SONG_LYON_ORGAN_ARRANGEMENT = 0x44,
     SONG_THE_FINAL_BATTLE = 0x45,    
     SONG_EPILOGUE = 0x46,
@@ -81,6 +82,7 @@ enum song_idx {
     SONG_52 = 0x52, // unsure
     SONG_53 = 0x53, // unsure
     SONG_54 = 0x54, // unsure
+    SONG_55 = 0x55, // unsure
     SONG_BGM_ED_STAFF_2 = 0x56,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
@@ -166,6 +168,7 @@ enum song_idx {
     SONG_141 = 0x141,
     SONG_269 = 0x269,
     SONG_26A = 0x26A,
+    SONG_2CD = 0x2CD,
     SONG_2E0 = 0x2E0,
     SONG_302 = 0x302,
     SONG_303 = 0x303,

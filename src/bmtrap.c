@@ -21,6 +21,7 @@
 #include "bmmind.h"
 #include "bmtrap.h"
 #include "popup.h"
+#include "constants/songs.h"
 
 struct ProcCmd CONST_DATA sProcScr_ExecTrap8[] = {
     PROC_SLEEP(1),
@@ -169,13 +170,13 @@ int ExecTrap(ProcPtr proc, struct Unit * unit, int exec_type)
 
         case TRAP_FIRE_THIEF:
             RemoveTrap(GetTrapAt(unit->xPos, unit->yPos));
-            PlaySoundEffect(0xB1);
+            PlaySoundEffect(SONG_B1);
             NewPopup2_PlanA(proc, -1, GetStringFromIndex(0x20));    /* Disabled trap. */
             break;
 
         case TRAP_MINE_ASSASSIN:
             RemoveTrap(GetTrapAt(unit->xPos, unit->yPos));
-            PlaySoundEffect(0xB1);
+            PlaySoundEffect(SONG_B1);
             NewPopup2_PlanA(proc, -1, GetStringFromIndex(0x21));    /* Recovered mine. */
             UnitAddItem(unit, MakeNewItem(ITEM_MINE));
             break;

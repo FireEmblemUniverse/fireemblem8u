@@ -12,6 +12,7 @@
 #include "bmsave.h"
 
 #include "soundroom.h"
+#include "constants/songs.h"
 
 // TODO: Implicit declarations
 void PutMenuScrollBarAt(int, int);
@@ -232,7 +233,7 @@ void sub_80AEEC0(void)
 void SoundRoomSongChange_FadeOutPrevious(struct Proc * proc)
 {
     struct SoundRoomProc * parent = proc->proc_parent;
-    CallSomeSoundMaybe(0, 0x100, 0, 0x78, proc);
+    CallSomeSoundMaybe(SONG_NONE, 0x100, 0, 0x78, proc);
     parent->unk_3f = 1;
     return;
 }
@@ -730,7 +731,7 @@ void StopSoundRoomSong(struct SoundRoomProc * proc)
     }
 
     proc->currentSongTime = 0;
-    CallSomeSoundMaybe(0, 0x100, 0, 0x18, 0);
+    CallSomeSoundMaybe(SONG_NONE, 0x100, 0, 0x18, 0);
     proc->unk_2f = 0;
     proc->isSongPlaying = 0;
 
@@ -869,7 +870,7 @@ void SoundRoomUi_Loop_MainKeyHandler(struct SoundRoomProc * proc)
             return;
         }
 
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
         return;
     }
 
@@ -899,7 +900,7 @@ void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc * proc)
 {
     if (!MusicProc4Exists())
     {
-        CallSomeSoundMaybe(0x43, 0, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(SONG_43, 0, 0xc0, 0x18, 0);
         Proc_Break(proc);
     }
 

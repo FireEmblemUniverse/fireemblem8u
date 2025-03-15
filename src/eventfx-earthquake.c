@@ -7,6 +7,7 @@
 #include "hardware.h"
 #include "soundwrapper.h"
 #include "bmfx.h"
+#include "constants/songs.h"
 
 CONST_DATA struct ProcCmd ProcScr_EventEarthQuake[] = {
     PROC_YIELD,
@@ -55,7 +56,7 @@ void StartEventEarthQuake(u8 type, u8 direction, s8 play_sound)
     proc = Proc_Find(ProcScr_EventEarthQuake);
     if (!proc) {
         if (1 == play_sound)
-            PlaySoundEffect(0x26A);
+            PlaySoundEffect(SONG_26A);
         
         proc = Proc_Start(ProcScr_EventEarthQuake, PROC_TREE_3);
     }

@@ -39,6 +39,7 @@
 #include "bmdifficulty.h"
 #include "bmfx.h"
 #include "colorfade.h"
+#include "constants/songs.h"
 
 void BgChangeChr(int, int);
 
@@ -3099,7 +3100,7 @@ u8 Event31_DisplayEffectRange(struct EventEngineProc * proc)
                 return EVC_ERROR;
             }
 
-            PlaySoundEffect(0x68);
+            PlaySoundEffect(SONG_68);
 
             gLoadedUnitBuffer = gActiveUnit;
             gActiveUnit = unit;

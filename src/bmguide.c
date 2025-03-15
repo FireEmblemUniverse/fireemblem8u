@@ -13,6 +13,7 @@
 #include "bm.h"
 
 #include "bmguide.h"
+#include "constants/songs.h"
 
 struct GuideSt * CONST_DATA gGuideSt = (void *)gGenericBuffer;
 
@@ -1102,7 +1103,7 @@ void Guide_MainLoop(struct GuideProc * proc)
     switch (GetGuideAction(proc))
     {
         case GUIDE_ACTION_A_PRESS:
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
             gGuideSt->state++;
 
@@ -1137,7 +1138,7 @@ void Guide_MainLoop(struct GuideProc * proc)
             break;
 
         case GUIDE_ACTION_CANCEL:
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
             if (gGuideSt->state != GUIDE_STATE_0)
             {
@@ -1168,7 +1169,7 @@ void Guide_MainLoop(struct GuideProc * proc)
             break;
 
         case GUIDE_ACTION_SORT:
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
             gGuideSt->sortMode = (gGuideSt->sortMode + 1) & 1;
             if (gGuideSt->sortMode != GUIDE_SORT_MODE_TOPIC)
@@ -1312,7 +1313,7 @@ void Guide_MainLoop(struct GuideProc * proc)
                 return;
             }
 
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
     return;

@@ -15,6 +15,7 @@
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "mapanim.h"
+#include "constants/songs.h"
 
 void New6C_SummonGfx_FromActionPos(ProcPtr proc)
 {
@@ -189,7 +190,7 @@ s8 CheckCanSummon(struct SumProc* proc)
 
 void sub_807B054(void)
 {
-    PlaySoundEffect(0xA0); // TODO: song ids!
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1); // TODO: song ids!
 }
 
 void ProcSummonDK_ResetCounter(struct SumProc* proc)

@@ -27,6 +27,7 @@
 
 #include "constants/items.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 EWRAM_DATA struct ActionData gActionData = { 0 };
 
@@ -500,7 +501,7 @@ void DropRescueOnDeath(ProcPtr proc, struct Unit* unit) {
     UseUnitSprite(GetUnitSMSId(child->unit));
     ForceSyncUnitSpriteSheet();
 
-    PlaySoundEffect(0xAC);
+    PlaySoundEffect(SONG_AC);
 
     return;
 }

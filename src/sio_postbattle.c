@@ -13,6 +13,8 @@
 #include "sio_core.h"
 #include "sio.h"
 
+#include "constants/songs.h"
+
 /**
  * Battle result screen for the Link Arena.
  * Not to be confused with "sio_result.c", which refers to the
@@ -367,11 +369,11 @@ void SioPostBattleMusic_PlayFanfare(struct SioPostBattleMusicProc * proc)
 {
     if (proc->isPlayerWinner != 0)
     {
-        StartBgmExt(0x3a, 0, 0);
+        StartBgmExt(SONG_COLOSSEUM_VICTORY, 0, 0);
     }
     else
     {
-        StartBgmExt(0x3b, 0, 0);
+        StartBgmExt(SONG_COLOSSEUM_DEFEAT, 0, 0);
     }
 
     PlaySoundEffect(0x81);
@@ -382,7 +384,7 @@ void SioPostBattleMusic_PlayFanfare(struct SioPostBattleMusicProc * proc)
 //! FE8U = 0x08045920
 void SioPostBattleMusic_PlayStandardBgm(void)
 {
-    StartBgmExt(0x3b, 0, 0);
+    StartBgmExt(SONG_COLOSSEUM_DEFEAT, 0, 0);
     return;
 }
 

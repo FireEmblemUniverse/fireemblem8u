@@ -24,6 +24,7 @@
 #include "cp_perform.h"
 
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 struct UnkProcA {
     /* 00 */ PROC_HEADER;
@@ -277,7 +278,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
         s8 y2 = y - 1;
         StartAvailableTileEvent((s8)x, y2);
 
-        PlaySoundEffect(0xAB);
+        PlaySoundEffect(SONG_AB);
 
         NewPopup_Simple(PopupScr_085A80A4, 0x60, 0, proc);
     }

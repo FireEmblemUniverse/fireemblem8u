@@ -16,6 +16,7 @@
 #include "efxbattle.h"
 #include "constants/items.h"
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 /*********************************************
  ******************* Latona ******************
@@ -708,7 +709,7 @@ void MapAnimTorchEffect(struct Unit * unit)
 
 void MapAnimTorch_Init(struct MAEffectProc * proc)
 {
-    PlaySoundEffect(0xB3);
+    PlaySoundEffect(SONG_B3);
 
     Decompress(Img_MapAnimTorchfx, ((void *) VRAM) + 0x10000 + OBCHR_MANIM_1C0 * CHR_SIZE);
     ApplyPalette(Pal_MapAnimTorchfx, 0x10 + OBJPAL_MANIM_4);

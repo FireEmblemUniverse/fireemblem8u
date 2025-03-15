@@ -1175,7 +1175,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
             );
         }
 
-        PlaySoundEffect(0x76); // Parameter Up SE
+        PlaySoundEffect(SONG_76); // Parameter Up SE
         BG_EnableSyncByMask(1);
 
         Proc_Break(proc);
@@ -1393,7 +1393,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
 
         BG_EnableSyncByMask(1);
 
-        PlaySoundEffect(0x76);
+        PlaySoundEffect(SONG_76);
 
         Proc_Break(proc);
     }
@@ -1407,7 +1407,7 @@ void sub_8039554(struct BMDifficultyProc* proc) {
     proc->unk_34 = GetCurrentDungeonValueByUiLabel(0) + proc->unk_30;
     proc->unk_3c = 2;
 
-    PlaySoundEffect(0x74);
+    PlaySoundEffect(SONG_74);
 
     return;
 }

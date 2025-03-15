@@ -23,6 +23,7 @@
 #include "eventinfo.h"
 #include "eventscript.h"
 #include "EAstdlib.h"
+#include "constants/songs.h"
 
 EWRAM_DATA struct TradeMenuProc * gpTradeMenuProc = NULL;
 EWRAM_OVERLAY(0) struct Text gTradeMenuText[2][UNIT_ITEM_COUNT] = {};
@@ -275,7 +276,7 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
         changedSelection = TRUE;
 
         // TODO: SONG IDS
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) && proc->hoverColumn == POS_L)
@@ -291,7 +292,7 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
         changedSelection = TRUE;
 
         // TODO: SONG IDS
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_UP))
@@ -309,7 +310,7 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
         changedSelection = TRUE;
 
         // TODO: SONG IDS
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
     if ((gKeyStatusPtr->repeatedKeys & DPAD_DOWN))
@@ -327,7 +328,7 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
         changedSelection = TRUE;
 
         // TODO: SONG IDS
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
 end:
@@ -401,12 +402,12 @@ void TradeMenu_OnLoopUnselected(struct TradeMenuProc * proc)
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
             Proc_Goto(proc, L_TRADEMENU_SELECTED);
-            PlaySoundEffect(0x6A); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: SONG ID DEFINITIONS
         }
         else if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
             Proc_Goto(proc, L_TRADEMENU_END);
-            PlaySoundEffect(0x6B); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: SONG ID DEFINITIONS
         }
         else if (gKeyStatusPtr->newKeys & R_BUTTON)
         {
@@ -466,12 +467,12 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc * proc)
         {
             TradeMenu_ApplyItemSwap(proc);
 
-            PlaySoundEffect(0x6A); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: SONG ID DEFINITIONS
             Proc_Break(proc);
         }
         else if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
-            PlaySoundEffect(0x6B); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: SONG ID DEFINITIONS
             Proc_Break(proc);
         }
         else if (gKeyStatusPtr->newKeys & R_BUTTON)
@@ -704,7 +705,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
 
         Proc_Goto(proc, L_TRADEMENU_LOADFORCED);
 
@@ -728,7 +729,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             }
         }
 
-        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
 
         CallTradeTutEventSlectItem(proc);
 
@@ -742,7 +743,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
 
         CallTradeTutEventPressAtoGetItem(proc);
 
@@ -762,7 +763,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(0x6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
 
         CallTradeTutEventDone(proc);
 

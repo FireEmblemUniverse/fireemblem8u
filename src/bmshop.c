@@ -529,7 +529,7 @@ void Shop_Loop_BuyKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SHOP_SELL_NOITEM);
         return;
     }
@@ -729,7 +729,7 @@ void Shop_Loop_SellKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SHOP_ANYTHING_ELSE);
         return;
     }
@@ -873,7 +873,7 @@ void Shop_Loop_UnkKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, 12);
         return;
     }
@@ -1327,7 +1327,7 @@ int ShopTryMoveHand(int pos, int pre, bool hscroll_en)
 
     if (previous != pos)
     {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
     return pos;
 }

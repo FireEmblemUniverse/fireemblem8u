@@ -46,6 +46,7 @@
 #include "constants/classes.h"
 #include "constants/terrains.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 extern u16 gUnknown_085A0D4C[];
 
@@ -1127,7 +1128,7 @@ u8 ItemSubMenu_UseItem(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     DoItemUse(gActiveUnit, gActiveUnit->items[gActionData.itemSlotIndex]);
 
-    PlaySoundEffect(0x6A);
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
     SetTextFont(NULL);
 

@@ -11,6 +11,7 @@
 #include "statscreen.h"
 #include "uiutils.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
@@ -185,7 +186,7 @@ void PromoMain_OnEnd(struct ProcPromoMain *proc)
     if (parent->bmtype == PROMO_HANDLER_TYPE_TRANINEE) {
         RestoreBgm();
         Sound_SetSEVolume(0x100);
-        OverrideBgm(0x34);
+        OverrideBgm(SONG_COMBAT_PREPARATION);
     }
     parent->stat = 2;
     EndAllProcChildren(proc);

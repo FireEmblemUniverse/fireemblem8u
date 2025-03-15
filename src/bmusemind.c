@@ -24,6 +24,7 @@
 #include "eventinfo.h"
 #include "bmmind.h"
 #include "bmusemind.h"
+#include "constants/songs.h"
 
 s8 CanUnitCrossTerrain(struct Unit* unit, int terrain);
 
@@ -554,7 +555,7 @@ void ExecKeyItem() {
 
     StartAvailableChestTileEvent(x, y);
 
-    PlaySoundEffect(0xB1);
+    PlaySoundEffect(SONG_B1);
 
     gBattleTarget.statusOut = -1;
 
@@ -740,7 +741,7 @@ void ExecStatBoostItem(ProcPtr proc) {
 
     messageId = ApplyStatBoostItem(unit, gActionData.itemSlotIndex);
 
-    PlaySoundEffect(0x5A);
+    PlaySoundEffect(SONG_5A);
 
     NewPopup2_PlanA(proc, GetItemIconId(item), GetStringFromIndex(messageId));
 
@@ -796,7 +797,7 @@ void ExecJunaFruitItem(ProcPtr proc) {
 
     levelCount = ApplyJunaFruitItem(unit, gActionData.itemSlotIndex);
 
-    PlaySoundEffect(0x5A);
+    PlaySoundEffect(SONG_5A);
 
     NewPopup2_PlanB(proc, GetItemIconId(itemId), 0, levelCount, GetStringFromIndex(0x1E));
 
@@ -1071,7 +1072,7 @@ void ActionPick(ProcPtr proc) {
 
     StartAvailableChestTileEvent(xPos, yPos);
 
-    PlaySoundEffect(0xB1);
+    PlaySoundEffect(SONG_B1);
 
     gBattleTarget.statusOut = -1;
 

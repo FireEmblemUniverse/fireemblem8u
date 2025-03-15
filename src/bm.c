@@ -646,7 +646,7 @@ void HandleMapCursorInput(u16 keys) {
             return;
         }
 
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
         gBmSt.gameStateBits |= (1 << 2);
     } else {
         gBmSt.gameStateBits &= ~(1 << 2);

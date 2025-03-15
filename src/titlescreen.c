@@ -9,6 +9,7 @@
 #include "bm.h"
 #include "opanim.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 u16 CONST_DATA gSprite_Title_FireEmblemLogo[] = {
     5,
@@ -450,7 +451,7 @@ void Title_Loop_DrawRedBlueOrbs(struct TitleScreenProc* proc) {
     );
 
     if (proc->timer == 20) {
-        StartBgmExt(2, 0, 0);
+        StartBgmExt(SONG_MAIN_THEME, 0, 0);
     }
 
     if (proc->timer < 20) {
@@ -902,7 +903,7 @@ void Title_RestartProc(struct TitleScreenProc* proc) {
     gLCDControlBuffer.dispcnt.bg3_on = 0;
     gLCDControlBuffer.dispcnt.obj_on = 0;
 
-    StartBgmExt(0x43, 0, 0);
+    StartBgmExt(SONG_43, 0, 0);
 
     return;
 }
@@ -987,7 +988,7 @@ void StartTitleScreen_WithMusic(ProcPtr parent) {
     proc = Proc_StartBlocking(gProcScr_TitleScreen, parent);
     proc->mode = 0;
 
-    StartBgmExt(0x43, 0, 0);
+    StartBgmExt(SONG_43, 0, 0);
 }
 
 //! FE8U = 0x080C6444

@@ -15,6 +15,7 @@
 #include "savemenu.h"
 #include "cgtext.h"
 #include "helpbox.h"
+#include "constants/songs.h"
 
 EWRAM_DATA u32 unuesed_0203E790 = 0;
 EWRAM_DATA struct HelpBoxSt gHelpBoxSt = { 0 };
@@ -613,7 +614,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     if (!proc) {
         proc = Proc_Start(ProcScr_Helpbox_bug_08A01678, PROC_TREE_3);
 
-        PlaySoundEffect(0x70);
+        PlaySoundEffect(SONG_70);
 
         sub_808A43C(proc, info->xDisplay, info->yDisplay);
 
@@ -651,7 +652,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
 //! FE8U = 0x0808A2D0
 void sub_808A2D0(void) {
 
-    PlaySoundEffect(0x71);
+    PlaySoundEffect(SONG_71);
 
     ClearHelpBoxText();
 
@@ -1816,7 +1817,7 @@ void BoxDialogueInterpreter_Main(struct ProcBoxDialogueDrawTextExt* proc) {
             if (GetDialogueBoxConfig() & 0x10) {
                 PlaySoundEffect(0x2E5);
             } else {
-                PlaySoundEffect(0x6e);
+                PlaySoundEffect(SONG_6E);
             }
         }
     }

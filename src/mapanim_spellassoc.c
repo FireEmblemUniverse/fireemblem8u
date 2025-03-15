@@ -13,6 +13,7 @@
 #include "soundwrapper.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 const struct ProcCmd * MapAnim_GetRoundProcScript(void)
 {
@@ -421,7 +422,7 @@ void SpellWarpStartFlashy(ProcPtr proc)
 {
     struct Unit * unit;
 
-    PlaySoundEffect(0xB4);
+    PlaySoundEffect(SONG_B4);
     gManimSt.xtarget = gBattleTarget.changeHP;
     gManimSt.ytarget = gBattleTarget.changePow;
 
@@ -503,7 +504,7 @@ void SpellWarpStartImplosion(ProcPtr proc)
 {
     struct Unit * unit;
 
-    PlaySoundEffect(0xB5);
+    PlaySoundEffect(SONG_B5);
     
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
     StartStarImplosionEffect(

@@ -13,6 +13,7 @@
 #include "event.h"
 #include "sysutil.h"
 #include "cgtext.h"
+#include "constants/songs.h"
 
 EWRAM_DATA struct CgTextSt gCgTextSt = { 0 };
 
@@ -1204,7 +1205,7 @@ void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
 
         if ((GetTextDisplaySpeed() != 1) && !(GetCgTextFlags() & CG_TEXT_FLAG_4))
         {
-            PlaySoundEffect(0x6e);
+            PlaySoundEffect(SONG_6E);
         }
     }
 
@@ -1380,7 +1381,7 @@ void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
 {
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         SetTalkChoiceResult(TALK_CHOICE_CANCEL);
         Proc_Break(proc);
         return;
@@ -1388,7 +1389,7 @@ void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
 
     if (gKeyStatusPtr->newKeys & A_BUTTON)
     {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         SetTalkChoiceResult(proc->currentChoice);
         Proc_Break(proc);
         return;
@@ -1396,13 +1397,13 @@ void YesNoChoice_Loop_KeyHandler(struct YesNoChoiceProc * proc)
 
     if ((gKeyStatusPtr->newKeys & DPAD_LEFT) && (proc->currentChoice == TALK_CHOICE_NO))
     {
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         proc->currentChoice = TALK_CHOICE_YES;
     }
 
     if ((gKeyStatusPtr->newKeys & DPAD_RIGHT) && (proc->currentChoice == TALK_CHOICE_YES))
     {
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         proc->currentChoice = TALK_CHOICE_NO;
     }
 

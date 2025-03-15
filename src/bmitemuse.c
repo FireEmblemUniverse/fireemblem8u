@@ -32,6 +32,7 @@
 #include "constants/terrains.h"
 
 #include "bmitemuse.h"
+#include "constants/songs.h"
 
 extern struct Unit gStatGainSimUnit;
 
@@ -696,13 +697,13 @@ void WarpSelect_OnIdle(struct WarpSelectProc* proc)
             BG_Fill(gBG2TilemapBuffer, 0);
             BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-            PlaySoundEffect(0x6A); // TODO: song ids
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 
             return;
         }
         else
         {
-            PlaySoundEffect(0x6C); // TODO: song ids
+            PlaySoundEffect(SONG_6C); // TODO: song ids
         }
     }
 
@@ -713,7 +714,7 @@ void WarpSelect_OnIdle(struct WarpSelectProc* proc)
         BG_Fill(gBG2TilemapBuffer, 0);
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        PlaySoundEffect(0x6B); // TODO: song ids
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids
     }
 
     if (warpAllowed != proc->prevWarpAllowed)
@@ -783,7 +784,7 @@ void DoUseWarpStaff(struct Unit* unit)
         NewTargetSelection_Specialized(&gSelectInfo_WarpUnit, WarpOnSelectTarget),
         GetStringFromIndex(0x875)); // TODO: msgid "Select character to warp."
 
-    PlaySoundEffect(0x6A); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 }
 
 u8 OnSelectPutTrap(ProcPtr proc, struct SelectTarget* target)
@@ -806,7 +807,7 @@ void DoUsePutTrap(struct Unit* unit, void(*func)(struct Unit*), int msgHelp)
         NewTargetSelection_Specialized(&gSelectInfo_PutTrap, OnSelectPutTrap),
         GetStringFromIndex(msgHelp));
 
-    PlaySoundEffect(0x6A); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 }
 
 u8 RepairSelectOnSelect(ProcPtr proc, struct SelectTarget* target)
@@ -840,7 +841,7 @@ void DoUseRepairStaff(struct Unit* unit)
         NewTargetSelection(&gSelectInfo_Repair),
         GetStringFromIndex(0x878)); // TODO: msgid "Select the character whose weapon needs repair."
 
-    PlaySoundEffect(0x6A); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 }
 
 u8 RepairSelectOnChange(ProcPtr proc, struct SelectTarget* target)
@@ -1042,7 +1043,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
     {
         if (canTorch)
         {
-            PlaySoundEffect(0x6A); // TODO: song ids
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 
             Proc_Break(proc);
 
@@ -1055,7 +1056,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
         }
         else
         {
-            PlaySoundEffect(0x6C); // TODO: song ids
+            PlaySoundEffect(SONG_6C); // TODO: song ids
         }
     }
 
@@ -1066,7 +1067,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
 
         Proc_Goto(proc, 99);
 
-        PlaySoundEffect(0x6B); // TODO: song ids
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids
     }
 
     PutMapCursor(
@@ -1078,7 +1079,7 @@ void TorchSelect_OnIdle(struct WarpSelectProc* proc)
 void DoUseTorchStaff(struct Unit* unit)
 {
     Proc_Start(gProcScr_SquareSelectTorch, PROC_TREE_3);
-    PlaySoundEffect(0x6A); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 }
 
 s8 CanUnitUseItemPrepScreen(struct Unit* unit, int item)
