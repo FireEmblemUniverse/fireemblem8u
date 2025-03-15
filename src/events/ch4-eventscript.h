@@ -167,7 +167,7 @@ LABEL(0xc)
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     CLEAN
     CAMERA2(7, 7)
     CLEA

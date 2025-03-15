@@ -6,12 +6,12 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
     FADU(128)
     FAWI(2)
     BACG(BG_GARDEN_FLASHBACK)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_LYON, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xa81)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x4000e)
@@ -172,7 +172,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     TEXTSHOW(0xa8d)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     SVAL(EVT_SLOT_B, 0x7000a)
     LOMA(0xe)
@@ -210,7 +210,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     LOAD2(0x1, UnitDef_088BC24C)
     ENUN
     CUMO_CHAR(CHARACTER_LARACHEL)
@@ -229,7 +229,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     TEXTSHOW(0xa91)
     TEXTEND
-    MUSCSLOW(0x29)
+    MUSCSLOW(SONG_SORROW)
     TEXTCONT
     TEXTEND
     REMA
@@ -243,7 +243,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
 LABEL(0x0)
     TEXTSHOW(0xa94)
     TEXTEND
-    MUSCSLOW(0x29)
+    MUSCSLOW(SONG_SORROW)
     TEXTCONT
     TEXTEND
     REMA
@@ -254,7 +254,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_3, 0x3e)
     GIVEITEMTO(CHARACTER_EIRIKA)
 LABEL(0x1)
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     FADI(16)
     TILECHANGE(0x2)
     CLEAN

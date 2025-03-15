@@ -26,7 +26,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
     LOAD1(0x1, UnitDef_088B440C)
     ENUN
 
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     LOAD1(0x1, UnitDef_088B4344)
     ENUN
     LOAD1(0x1, UnitDef_088B44AC)
@@ -150,7 +150,7 @@ LABEL(0x0)
     TEXTSHOW(0x963)
     TEXTEND
     FADI(4)
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     REMA
     REMOVEPORTRAITS
     BACG(BG_PLAIN_2_NIGHT)
@@ -166,11 +166,11 @@ LABEL(0x0)
     TEXTSHOW(0x965)
     TEXTEND
     FAWI(2)
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     REMA
     BACG(BG_PLAIN_2_NIGHT)
     FAWU(2)
-    EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_4A, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)
     TEXTEND
     REMA

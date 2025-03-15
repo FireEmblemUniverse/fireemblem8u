@@ -10,7 +10,7 @@ CONST_DATA EventListScr EventScr_Ch12a_BeginingScene[] = {
     TEXTSTART
     TEXTSHOW(0xa56)
     TEXTEND
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     TEXTCONT
     TEXTEND
     REMA
@@ -32,7 +32,7 @@ CONST_DATA EventListScr EventScr_Ch12a_BeginingScene[] = {
     LOAD1(0x0, UnitDef_Event_Ch12aAlly)
     ENUN
     CALL(EventScr_08591FD8)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     CAMERA2(7, 21)
     FADU(16)
     CUMO_CHAR(CHARACTER_SALEH)
@@ -148,13 +148,13 @@ LABEL(0x2)
     TEXTSHOW(0xa5d)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     SetBackground(BG_CAER_PELYN)
     MUSC(SONG_LEGACY)
     TEXTSHOW(0xa5e)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     STAL3(32)
     MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT
@@ -172,13 +172,13 @@ LABEL(0xa)
     TEXTSHOW(0xa60)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     SetBackground(BG_CAER_PELYN)
     MUSC(SONG_LEGACY)
     TEXTSHOW(0xa61)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     STAL3(32)
     MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT

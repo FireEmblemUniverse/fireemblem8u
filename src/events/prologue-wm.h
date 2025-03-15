@@ -17,7 +17,7 @@ CONST_DATA EventScr EventScrWM_Prologue_Beginning[] = {
     WmEvtNoFade // ENOSUPP in EAstdlib
     WM_SPAWNLORD(WM_MU_0, CHARACTER_EIRIKA, WM_NODE_BorderMulan)
     WM_CENTERCAMONLORD(WM_MU_0)
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     STAL(32)
     MUSC(SONG_THE_BEGINNING)
     WM_SHOWDRAWNMAP(0, 0, 0x10)

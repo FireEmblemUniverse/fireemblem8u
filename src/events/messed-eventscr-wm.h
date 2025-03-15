@@ -644,7 +644,7 @@ CONST_DATA EventScr EventScrWM_ValniTower1_Beginning[] = {
 };
 
 CONST_DATA EventScr EventScrWM_08A3B46C[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     FADI(16)
     ENDA
 };
@@ -726,7 +726,7 @@ CONST_DATA EventScr EventScrWM_LagdouRuins1_Beginning[] = {
 };
 
 CONST_DATA EventScr EventScrWM_08A3B4C4[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     FADI(16)
     ENDA
 };

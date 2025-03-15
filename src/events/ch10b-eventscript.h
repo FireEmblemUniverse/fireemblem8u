@@ -33,7 +33,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     TEXTSHOW(0xab5)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEA
     CLEE
@@ -59,7 +59,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginingScene[] = {
     SetBackground(BG_PORT)
     TEXTSHOW(0xab6)
     TEXTEND
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     TEXTCONT
     TEXTEND
     MUSC(SONG_RAID)
@@ -228,7 +228,7 @@ LABEL(0x0)
     TEXTSHOW(0xac0)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEAN
     SVAL(EVT_SLOT_2, 0xe)
@@ -265,7 +265,7 @@ LABEL(0x2)
     SetBackground(BG_GATE)
     TEXTSHOW(0xac2)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     TEXTCONT
     TEXTEND
     MUSC(SONG_INDIGNATION)
@@ -280,7 +280,7 @@ LABEL(0x2)
     GIVEITEMTO(CHARACTER_DUESSEL)
 LABEL(0x3)
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEAN
     CAMERA(0, 19)

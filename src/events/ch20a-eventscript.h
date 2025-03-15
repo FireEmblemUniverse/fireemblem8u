@@ -39,7 +39,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     FADI(4)
     CLEAN
     CAMERA(29, 20)
@@ -127,7 +127,7 @@ CONST_DATA EventListScr EventScr_089F8C8C[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F8CCC[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     SetBackground(BG_BLACK_TEMPLE_OUTSIDE)
     TEXTSHOW(0xbb3)
     TEXTEND
@@ -140,7 +140,7 @@ CONST_DATA EventListScr EventScr_089F8CCC[] = {
     LOAD2(0x1, UnitDef_088C16E8)
     ENUN
     CAMERA2_CAHR(CHARACTER_MYRRH)
-    EvtBgmFadeIn(0x29, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SORROW, 8) // ENOSUPP in EAstdlib
     FADU(4)
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
@@ -157,7 +157,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEA
     CLEE

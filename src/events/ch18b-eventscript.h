@@ -89,14 +89,14 @@ CONST_DATA EventListScr EventScr_Ch18b_EndingScene[] = {
     TEXTSTART
     TEXTSHOW(0xb88)
     TEXTEND
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     TEXTCONT
     TEXTEND
     MUSC(SONG_LYON)
     TEXTCONT
     TEXTEND
     REMA
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     LOAD2(0x1, UnitDef_088C8EAC)

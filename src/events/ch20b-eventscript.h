@@ -30,7 +30,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     STAL(60)
     CURE
     FAWI(2)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_LYON, 8) // ENOSUPP in EAstdlib
     REMOVEPORTRAITS
     BACG(BG_THRONE_FLASHBACK)
     FAWU(2)
@@ -45,7 +45,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     TEXTSHOW(0xbb8)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     FAWU(2)

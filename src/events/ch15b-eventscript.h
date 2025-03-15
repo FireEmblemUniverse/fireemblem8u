@@ -28,7 +28,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginingScene[] = {
     TEXTSHOW(0xb19)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEAN
     CAMERA(0, 0)

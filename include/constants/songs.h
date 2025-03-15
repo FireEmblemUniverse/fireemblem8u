@@ -183,4 +183,5 @@ enum song_idx {
     SONG_30F = 0x30F,
     SONG_3BB = 0x3BB,
     SONG_3BF = 0x3BF,
+    SONG_7FFF = 0x7fff, //unsure
 };

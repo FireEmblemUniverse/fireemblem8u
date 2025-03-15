@@ -10,7 +10,7 @@ CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
     SetBackground(BG_PLAIN_2_FOG)
     TEXTSHOW(0xa46)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     TEXTCONT
     TEXTEND
     MUSC(SONG_TENSION)
@@ -92,7 +92,7 @@ LABEL(0x1)
     TEXTEND
 LABEL(0x2)
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     SVAL(EVT_SLOT_2, 0x19)
     CALL(EventScr_LoadUniqueAlly)
@@ -118,7 +118,7 @@ LABEL(0x2)
     TEXTSHOW(0xa4e)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FADI(2)
     CLEAN
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib

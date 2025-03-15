@@ -549,7 +549,7 @@ CONST_DATA EventListScr EventScr_08A0062C[] = {
     SADD(EVT_SLOT_2, EVT_SLOT_3, EVT_SLOT_0)
     TEXTSHOW(0xffff)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FADI(2)
     REMA
     CLEA
@@ -568,7 +568,7 @@ CONST_DATA EventListScr EventScr_08A00680[] = {
     EvtBgFadeIn(0x0, 0, 2) // ENOSUPP in EAstdlib
     TEXTSHOW(0xc22)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FADI(2)
     REMA
     EVBIT_F(2)

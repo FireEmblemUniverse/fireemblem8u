@@ -43,7 +43,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     TEXTSHOW(0xb3a)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEA
     CLEE
@@ -141,7 +141,7 @@ LABEL(0x3)
 LABEL(0x4)
     TEXTSHOW(0xb3e)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
 LABEL(0x5)
     REMA
     FADI(16)
@@ -217,7 +217,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(0xfb)
     STAL(60)
     CURE
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xb4a)
     TEXTEND
@@ -253,7 +253,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     MOVE(0x0, CHARACTER_EPHRAIM, 14, 11)
     MOVE(0x0, CHARACTER_SETH, 13, 11)
     STAL2(20)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     ENUN
     CLEA
@@ -285,7 +285,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     TEXTSHOW(0xb50)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADI(16)
     CLEA
     CLEE
@@ -328,10 +328,10 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     STAL(60)
     CURE
     SetBackground(BG_RENAIS_CHAMBER)
-    MUSCSLOW(0x2b)
+    MUSCSLOW(SONG_LEGACY)
     TEXTSHOW(0xb52)
     TEXTEND
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     FADI(4)
     REMA
     CLEAN
@@ -347,7 +347,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     REMA
     SVAL(EVT_SLOT_2, 0x2e)
     CALL(EventScr_089F731C)
-    MUSCSLOW(0x2b)
+    MUSCSLOW(SONG_LEGACY)
     REMOVEPORTRAITS
     TEXTSHOW(0xb54)
     TEXTEND
@@ -445,7 +445,7 @@ CONST_DATA EventListScr EventScr_089F731C[] = {
     CALL(EventScr_RemoveBGIfNeeded)
     EVBIT_MODIFY(0x4)
     CALL(EventScr_089F7378)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     REMOVEPORTRAITS
     SADD(EVT_SLOT_2, EVT_SLOT_A, EVT_SLOT_0)
     BACG(0xffff)

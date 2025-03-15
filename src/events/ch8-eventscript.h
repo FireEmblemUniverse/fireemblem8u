@@ -25,7 +25,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginingScene[] = {
     SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa08)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     TEXTCONT
     TEXTEND
     CALL(EventScr_TextShowWithFadeIn)
@@ -216,7 +216,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc02)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -227,7 +227,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     UNIT_COLORS(0x4)
     LOAD2(0x1, UnitDef_088B788C)
     ENUN
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_LYON, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x20f, 8, 8)
     CUMO_CHAR(CHARACTER_EIRIKA)
@@ -255,7 +255,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x14000e)
@@ -291,7 +291,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     TEXTSHOW(0xc08)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     STAL(30)
     MUSC(SONG_LEGACY)
     SetBackground(BG_THRONE_NORMAL)
@@ -313,7 +313,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     TEXTSHOW(0xc0e)
     TEXTEND
     REMA
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_7FFF)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x2710)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)

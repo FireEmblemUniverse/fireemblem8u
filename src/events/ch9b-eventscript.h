@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginingScene[] = {
     ENUN
     SVAL(EVT_SLOT_B, 0x3000c)
     TILECHANGE(0xffff)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     FADU(16)
     LOAD2(0x1, UnitDef_088C282C)
     ENUN
@@ -188,7 +188,7 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaad)
     TEXTEND
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_7FFF)
     TEXTCONT
     TEXTEND
     MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
@@ -205,7 +205,7 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     TEXTSHOW(0xaaf)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_7FFF)
     SVAL(EVT_SLOT_2, 0x2000f)
     CALL(EventScr_9EEA58)
     LOAD1(0x1, UnitDef_088C2A00)
