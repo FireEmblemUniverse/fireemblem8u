@@ -294,7 +294,7 @@ void EfxHpBarResire_DeclineToDeath(struct ProcEfxHpBar * proc)
             proc->cur += proc->diff;
             gEkrGaugeHp[GetAnimPosition(proc->anim_main_other)] += proc->diff;
             EfxPlaySE(SONG_75, 0x100);
-            M4aPlayWithPostionCtrl(0x75, anim_main_other_f->xPosition, 1);
+            M4aPlayWithPostionCtrl(SONG_75, anim_main_other_f->xPosition, 1);
 
             if (proc->cur == proc->next)
                 proc->finished = true;
@@ -360,7 +360,7 @@ void NewEfxAvoid(struct Anim * anim)
     proc->anim_this = anim;
     proc->death = false;
     EfxPlaySE(SONG_D7, 0x100);
-    M4aPlayWithPostionCtrl(0xD7, anim->xPosition, 1);
+    M4aPlayWithPostionCtrl(SONG_D7, anim->xPosition, 1);
 }
 
 void EfxAvoidMain(struct ProcEfxHpBar * proc)
@@ -428,7 +428,7 @@ void EfxHPBarLiveMain(struct ProcEfxHpBar * proc)
             gEkrGaugeHp[GetAnimPosition(anim)] += proc->diff;
 
             EfxPlaySE(SONG_75, 0x100);
-            M4aPlayWithPostionCtrl(0x75, anim->xPosition, 1);
+            M4aPlayWithPostionCtrl(SONG_75, anim->xPosition, 1);
 
             if (proc->cur == proc->next)
                 proc->finished = true;

@@ -538,7 +538,7 @@ void EkrLvup_Promo_WindowScroll0(struct ProcEkrLevelup *proc)
     gpProcEfxPartsofScroll = NewEfxPartsofScroll2();
 
     EfxPlaySE(SONG_2CD, 0x100);
-    M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
+    M4aPlayWithPostionCtrl(SONG_2CD, 0x38, 0);
     
     proc->timer = 0;
     proc->index = 8;
@@ -588,7 +588,7 @@ void EkrLvup_DrawNewLevel(struct ProcEkrLevelup *proc)
         gEkrLvupPreLevel = gEkrLvupPostLevel;
         EkrLvup_DrawPreLevelValue(proc);
         EfxPlaySE(SONG_2CD, 0x100);
-        M4aPlayWithPostionCtrl(0x2CD, 0x38, 0);
+        M4aPlayWithPostionCtrl(SONG_2CD, 0x38, 0);
         Proc_Break(proc);
     } else {
         Proc_End(gpProcEfxPartsofScroll);
@@ -629,7 +629,7 @@ void EkrLvup_MainAnime(struct ProcEkrLevelup *proc)
                 gEkrLvupBaseStatus[proc->index] = gEkrLvupPostStatus[proc->index];
                 EkrLvup_DrawUpdatedStatus(proc, proc->index);
                 EfxPlaySE(SONG_76, 0x100);
-                M4aPlayWithPostionCtrl(0x76, 0x38, 0);
+                M4aPlayWithPostionCtrl(SONG_76, 0x38, 0);
 
                 BanimDrawStatupAp(0xA0, 1,
                     0x35 + (sEfxLvupPartsPos[proc->index] & 0x1F) * 8,

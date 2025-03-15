@@ -1137,7 +1137,7 @@ void EfxMagdhisEffectMain(struct ProcEfx * proc)
     if (++proc->timer == 0x11) {
         NewEfxMagdhisEffectBG(proc->anim, 0x49);
         EfxPlaySE(SONG_140, 0x100);
-        M4aPlayWithPostionCtrl(0x140, proc->anim->xPosition, 1);
+        M4aPlayWithPostionCtrl(SONG_140, proc->anim->xPosition, 1);
     }
 
     if (proc->timer == 0x64)

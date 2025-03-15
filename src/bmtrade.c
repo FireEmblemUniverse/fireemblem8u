@@ -275,7 +275,6 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
         PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
     }
 
@@ -291,7 +290,6 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
         PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
     }
 
@@ -309,7 +307,6 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
         PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
@@ -327,7 +324,6 @@ s8 TradeMenu_UpdateSelection(struct TradeMenuProc * proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
         PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
@@ -402,12 +398,12 @@ void TradeMenu_OnLoopUnselected(struct TradeMenuProc * proc)
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
             Proc_Goto(proc, L_TRADEMENU_SELECTED);
-            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         }
         else if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
             Proc_Goto(proc, L_TRADEMENU_END);
-            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
         else if (gKeyStatusPtr->newKeys & R_BUTTON)
         {
@@ -467,12 +463,12 @@ void TradeMenu_OnLoopSelected(struct TradeMenuProc * proc)
         {
             TradeMenu_ApplyItemSwap(proc);
 
-            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Break(proc);
         }
         else if (gKeyStatusPtr->newKeys & B_BUTTON)
         {
-            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: SONG ID DEFINITIONS
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             Proc_Break(proc);
         }
         else if (gKeyStatusPtr->newKeys & R_BUTTON)
@@ -705,7 +701,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C);
 
         Proc_Goto(proc, L_TRADEMENU_LOADFORCED);
 
@@ -729,7 +725,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             }
         }
 
-        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C);
 
         CallTradeTutEventSlectItem(proc);
 
@@ -743,7 +739,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C);
 
         CallTradeTutEventPressAtoGetItem(proc);
 
@@ -763,7 +759,7 @@ s8 TradeMenu_UpdateTutorial(struct TradeMenuProc * proc)
             return FALSE;
         }
 
-        PlaySoundEffect(SONG_6C); // TODO: SONG ID DEFINITIONS
+        PlaySoundEffect(SONG_6C);
 
         CallTradeTutEventDone(proc);
 

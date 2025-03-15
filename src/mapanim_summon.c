@@ -190,7 +190,7 @@ s8 CheckCanSummon(struct SumProc* proc)
 
 void sub_807B054(void)
 {
-    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1); // TODO: song ids!
+    PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }
 
 void ProcSummonDK_ResetCounter(struct SumProc* proc)

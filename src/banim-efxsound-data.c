@@ -1,6 +1,7 @@
 #include "global.h"
 #include "ekrbattle.h"
 #include "efxbattle.h"
+#include "constants/songs.h"
 
 CONST_DATA u16 gBanimSongIDs1[] = {
     0x14A, 0x14B, 0x14C, 0x14D, 0x14E, 0x14F, 0x150, 0x151,
@@ -43,43 +44,43 @@ CONST_DATA u16 gBanimSongIDs4[] = {
 };
 
 CONST_DATA u16 * gBanimSongTable1[] = {
-    &gBanimSongIDs1[0x00],
-    &gBanimSongIDs1[0x08],
-    &gBanimSongIDs1[0x10],
-    &gBanimSongIDs1[0x18],
-    &gBanimSongIDs1[0x20],
-    &gBanimSongIDs1[0x28],
-    &gBanimSongIDs1[0x30],
+    &gBanimSongIDs1[SONG_NONE],
+    &gBanimSongIDs1[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs1[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs1[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs1[SONG_TETHYS],
+    &gBanimSongIDs1[SONG_INDIGNATION],
+    &gBanimSongIDs1[SONG_COMRADES],
 };
 
 CONST_DATA u16 * gBanimSongTable2[] = {
-    &gBanimSongIDs2[0x00],
-    &gBanimSongIDs2[0x08],
-    &gBanimSongIDs2[0x10],
-    &gBanimSongIDs2[0x18],
-    &gBanimSongIDs2[0x20],
-    &gBanimSongIDs2[0x28],
-    &gBanimSongIDs2[0x30],
+    &gBanimSongIDs2[SONG_NONE],
+    &gBanimSongIDs2[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs2[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs2[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs2[SONG_TETHYS],
+    &gBanimSongIDs2[SONG_INDIGNATION],
+    &gBanimSongIDs2[SONG_COMRADES],
 };
 
 CONST_DATA u16 * gBanimSongTable3[] = {
-    &gBanimSongIDs3[0x00],
-    &gBanimSongIDs3[0x08],
-    &gBanimSongIDs3[0x10],
-    &gBanimSongIDs3[0x18],
-    &gBanimSongIDs3[0x20],
-    &gBanimSongIDs3[0x28],
-    &gBanimSongIDs3[0x30],
+    &gBanimSongIDs3[SONG_NONE],
+    &gBanimSongIDs3[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs3[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs3[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs3[SONG_TETHYS],
+    &gBanimSongIDs3[SONG_INDIGNATION],
+    &gBanimSongIDs3[SONG_COMRADES],
 };
 
 CONST_DATA u16 * gBanimSongTable4[] = {
-    &gBanimSongIDs4[0x00],
-    &gBanimSongIDs4[0x08],
-    &gBanimSongIDs4[0x10],
-    &gBanimSongIDs4[0x18],
-    &gBanimSongIDs4[0x20],
-    &gBanimSongIDs4[0x28],
-    &gBanimSongIDs4[0x30],
+    &gBanimSongIDs4[SONG_NONE],
+    &gBanimSongIDs4[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs4[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs4[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs4[SONG_TETHYS],
+    &gBanimSongIDs4[SONG_INDIGNATION],
+    &gBanimSongIDs4[SONG_COMRADES],
 };
 
 CONST_DATA u16 gBanimSongIDs5[] = {
@@ -93,13 +94,13 @@ CONST_DATA u16 gBanimSongIDs5[] = {
 };
 
 CONST_DATA u16 * gBanimSongTable5[] = {
-    &gBanimSongIDs5[0x00],
-    &gBanimSongIDs5[0x08],
-    &gBanimSongIDs5[0x10],
-    &gBanimSongIDs5[0x18],
-    &gBanimSongIDs5[0x20],
-    &gBanimSongIDs5[0x28],
-    &gBanimSongIDs5[0x30],
+    &gBanimSongIDs5[SONG_NONE],
+    &gBanimSongIDs5[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs5[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs5[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs5[SONG_TETHYS],
+    &gBanimSongIDs5[SONG_INDIGNATION],
+    &gBanimSongIDs5[SONG_COMRADES],
 };
 
 CONST_DATA u16 gBanimSongIDs6[] = {
@@ -113,13 +114,13 @@ CONST_DATA u16 gBanimSongIDs6[] = {
 };
 
 CONST_DATA u16 * gBanimSongTable6[] = {
-    &gBanimSongIDs6[0x00],
-    &gBanimSongIDs6[0x08],
-    &gBanimSongIDs6[0x10],
-    &gBanimSongIDs6[0x18],
-    &gBanimSongIDs6[0x20],
-    &gBanimSongIDs6[0x28],
-    &gBanimSongIDs6[0x30],
+    &gBanimSongIDs6[SONG_NONE],
+    &gBanimSongIDs6[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs6[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs6[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs6[SONG_TETHYS],
+    &gBanimSongIDs6[SONG_INDIGNATION],
+    &gBanimSongIDs6[SONG_COMRADES],
 };
 
 CONST_DATA u16 gBanimSongIDs7[] = {
@@ -133,13 +134,13 @@ CONST_DATA u16 gBanimSongIDs7[] = {
 };
 
 CONST_DATA u16 * gBanimSongTable7[] = {
-    &gBanimSongIDs7[0x00],
-    &gBanimSongIDs7[0x08],
-    &gBanimSongIDs7[0x10],
-    &gBanimSongIDs7[0x18],
-    &gBanimSongIDs7[0x20],
-    &gBanimSongIDs7[0x28],
-    &gBanimSongIDs7[0x30],
+    &gBanimSongIDs7[SONG_NONE],
+    &gBanimSongIDs7[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs7[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs7[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs7[SONG_TETHYS],
+    &gBanimSongIDs7[SONG_INDIGNATION],
+    &gBanimSongIDs7[SONG_COMRADES],
 };
 
 CONST_DATA u16 gBanimSongIDs8[] = {
@@ -153,11 +154,11 @@ CONST_DATA u16 gBanimSongIDs8[] = {
 };
 
 CONST_DATA u16 * gBanimSongTable8[] = {
-    &gBanimSongIDs8[0x00],
-    &gBanimSongIDs8[0x08],
-    &gBanimSongIDs8[0x10],
-    &gBanimSongIDs8[0x18],
-    &gBanimSongIDs8[0x20],
-    &gBanimSongIDs8[0x28],
-    &gBanimSongIDs8[0x30],
+    &gBanimSongIDs8[SONG_NONE],
+    &gBanimSongIDs8[SONG_RAY_OF_HOPE],
+    &gBanimSongIDs8[SONG_GRASP_AT_VICTORY],
+    &gBanimSongIDs8[SONG_ENVOY_FROM_THE_DARK],
+    &gBanimSongIDs8[SONG_TETHYS],
+    &gBanimSongIDs8[SONG_INDIGNATION],
+    &gBanimSongIDs8[SONG_COMRADES],
 };

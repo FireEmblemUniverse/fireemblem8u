@@ -773,7 +773,7 @@ void ekrBattle_8050940(struct ProcEkrBattle *proc)
 
         proc->proc_idleCb = (ProcFunc)ekrBattleWaitExpBarIdle;
         EfxPlaySE(SONG_74, 0x100);
-        M4aPlayWithPostionCtrl(0x74, 0x78, 0);
+        M4aPlayWithPostionCtrl(SONG_74, 0x78, 0);
     }
 }
 
@@ -813,7 +813,7 @@ void ekrBattleWaitExpBarIdle(struct ProcEkrBattle *proc)
 void ekrBattlePostExpBarIdle(struct ProcEkrBattle *proc)
 {
     if (proc->timer == 0)
-        DoM4aSongNumStop(0x74);
+        DoM4aSongNumStop(SONG_74);
 
     if (++proc->timer > 30) {
         proc->timer = 0;

@@ -10,6 +10,7 @@
 #include "soundwrapper.h"
 #include "fontgrp.h"
 #include "bmlib.h"
+#include "constants/songs.h"
 
 struct Struct8012F98 {
     u8* dst;
@@ -761,7 +762,7 @@ void SpacialSeTest_OnLoop(struct ProcSpacialSeTest * proc)
         if (gKeyStatusPtr->heldKeys & DPAD_RIGHT)
             location = +proc->unk66;
 
-        PlaySeSpacial(0x9A, location);
+        PlaySeSpacial(SONG_9A, location);
     }
 }
 

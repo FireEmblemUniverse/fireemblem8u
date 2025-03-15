@@ -1045,7 +1045,7 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
     if (Proc_Find(gProcScr_SSPageSlide))
         return;
 
-    PlaySoundEffect(SONG_6F); // TODO: song ids
+    PlaySoundEffect(SONG_6F);
 
     proc = (void*) Proc_StartBlocking(gProcScr_SSPageSlide, parent);
 
@@ -1220,7 +1220,7 @@ void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
     proc->newItem = unit->index;
     proc->direction = direction;
 
-    PlaySoundEffect(SONG_C8); // TODO: song ids
+    PlaySoundEffect(SONG_C8);
 }
 
 enum
@@ -1915,7 +1915,7 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
         found->proc_lockCnt = 1; // lock (disabled) proc
 
     if (proc->unk52 == 0)
-        PlaySoundEffect(SONG_70); // TODO: song ids
+        PlaySoundEffect(SONG_70);
 }
 
 void HelpBox_OnLoop(struct HelpBoxProc* proc)
@@ -1935,7 +1935,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
 
     if (proc->unk52 == 0)
     {
-        PlaySoundEffect(SONG_71); // TODO: song ids
+        PlaySoundEffect(SONG_71);
 
         ResetHelpBoxInitSize(proc);
         SetHelpBoxInitPosition(proc, proc->info->xDisplay, proc->info->yDisplay);

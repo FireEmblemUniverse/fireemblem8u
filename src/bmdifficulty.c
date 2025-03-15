@@ -1453,7 +1453,7 @@ void DungeonRecordUi_UpdateEnemiesDefeatedCount(struct BMDifficultyProc* proc) {
 
 void sub_803963C(struct BMDifficultyProc* proc) {
     if (proc->unk_3c < 1) {
-        m4aSongNumStop(0x74);
+        m4aSongNumStop(SONG_74);
         Proc_Break(proc);
     } else {
         proc->unk_3c--;

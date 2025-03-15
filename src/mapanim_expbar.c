@@ -62,7 +62,7 @@ void ProcMAExpBar_OnDraw(struct MAExpBarProc* proc)
 
 void ProcMAExpBar_PlaySound74(void)
 {
-    PlaySoundEffect(SONG_74); // TODO: song ids
+    PlaySoundEffect(SONG_74);
 }
 
 void ProcMAExpBar_OnIncrement(struct MAExpBarProc* proc)
@@ -76,7 +76,7 @@ void ProcMAExpBar_OnIncrement(struct MAExpBarProc* proc)
 
     if (proc->expFrom == proc->expTo % 100) {
         Proc_Break(proc);
-        m4aSongNumStop(0x74); // TODO: song ids
+        m4aSongNumStop(SONG_74);
     }
 }
 

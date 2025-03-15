@@ -53,7 +53,7 @@ void sub_805B094(void)
 {
     if (GetBattleAnimArenaFlag() != 0)
     {
-        DoM4aSongNumStop(0x8e);
+        DoM4aSongNumStop(SONG_8E);
     }
 
     return;

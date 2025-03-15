@@ -184,7 +184,7 @@ struct MenuProc* StartMenuCore(
     BG_SetPosition(frontBg, 0, 0);
     BG_SetPosition(backBg, 0, 0);
 
-    PlaySoundEffect(SONG_68); /* TODO: song ids! */
+    PlaySoundEffect(SONG_68);
 
     if (parent)
     {
@@ -401,10 +401,10 @@ void Menu_OnIdle(struct MenuProc* proc)
         EndMenu(proc);
 
     if (actions & MENU_ACT_SND6A)
-        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
     if (actions & MENU_ACT_SND6B)
-        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
     if (actions & MENU_ACT_CLEAR)
         ClearMenuBgs(proc);
@@ -468,7 +468,7 @@ void ProcessMenuDpadInput(struct MenuProc* proc)
         DrawMenuItemHover(proc, proc->itemPrevious, FALSE);
         DrawMenuItemHover(proc, proc->itemCurrent, TRUE);
 
-        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
     // Call def's switch in/out funcs

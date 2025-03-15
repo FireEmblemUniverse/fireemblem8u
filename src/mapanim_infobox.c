@@ -152,7 +152,7 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
             r4 = r4 + 4;
 
             if (r4 % 16 == 0)
-                PlaySoundEffect(SONG_75); // TODO: song ids
+                PlaySoundEffect(SONG_75);
         }
 
         if (r4 != gManimSt.actor[i].hp_displayed_q4) {
