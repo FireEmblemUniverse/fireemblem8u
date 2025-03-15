@@ -175,7 +175,7 @@ void ArenaUi_CheckConfirmation(ProcPtr proc) {
 //! FE8U = 0x080B5A38
 void ArenaUi_ConfirmWager(ProcPtr proc) {
     SetPartyGoldAmount(GetPartyGoldAmount() - ArenaGetMatchupGoldValue());
-    PlaySoundEffect(0xb9);
+    PlaySoundEffect(SONG_SE_MONEY);
     DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1B, 0x6));
     DrawArenaOpponentDetailsText(proc);
 
@@ -282,7 +282,7 @@ void ArenaUi_ShowGoldBoxOnVictoryOrDraw(ProcPtr proc) {
         case 1:
         case 3:
             DisplayGoldBoxText(TILEMAP_LOCATED(gBG0TilemapBuffer, 0x1B, 0x6));
-            PlaySoundEffect(0xb9);
+            PlaySoundEffect(SONG_SE_MONEY);
             StartTemporaryLock(proc, 60);
 
             break;

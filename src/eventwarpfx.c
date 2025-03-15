@@ -1,7 +1,6 @@
 #include "global.h"
 #include "functions.h"
 #include "variables.h"
-#include "constants/video-global.h"
 #include "proc.h"
 #include "hardware.h"
 #include "bmudisp.h"
@@ -9,6 +8,8 @@
 #include "bmlib.h"
 #include "soundwrapper.h"
 
+#include "constants/video-global.h"
+#include "constants/songs.h"
 /**
  * map effect for when using the warp event codes
  * NOT the effect used by the warp/rescue staves
@@ -94,7 +95,7 @@ void ProcEventWrapAnim_Init(struct ProcBmFx *proc)
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    PlaySoundEffect(0x0B4);
+    PlaySoundEffect(SONG_B4);
 
     SetBlendConfig(0x1, 0xA, 0xC, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
@@ -137,7 +138,7 @@ void ProcEventWrapAnim_Loop(struct ProcBmFx *proc)
 
 void ProcEventWrapAnim_End(struct ProcBmFx *proc)
 {
-    PlaySoundEffect(0x0B5);
+    PlaySoundEffect(SONG_B5);
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }

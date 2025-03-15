@@ -21,6 +21,7 @@
 #include "sio.h"
 #include "unitlistscreen.h"
 #include "prepscreen.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) struct Text gPrepUnitTexts[0x16] = {};
 
@@ -288,11 +289,11 @@ s8 PrepCheckCanSelectUnit(struct ProcPrepUnit *proc, struct Unit *unit)
         proc->cur_counter++;
         unit->state &= ~(US_UNSELECTABLE | US_NOT_DEPLOYED);
         RegisterSioPid(unit->pCharacterData->number);
-        PlaySoundEffect(0x6A);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         PrepUnit_DrawUnitListNames(proc, proc->list_num_cur / 2);
         return 1;
     } else {
-        PlaySoundEffect(0x6C);
+        PlaySoundEffect(SONG_6C);
         return 0;
     }
 }
@@ -303,11 +304,11 @@ s8 PrepCheckCanUnselectUnit(struct ProcPrepUnit *proc, struct Unit *unit)
         proc->cur_counter--;
         unit->state |= US_UNSELECTABLE | US_NOT_DEPLOYED;
         RemoveSioPid(unit->pCharacterData->number);
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         PrepUnit_DrawUnitListNames(proc, proc->list_num_cur / 2);
         return 1;
     } else {
-        PlaySoundEffect(0x6C);
+        PlaySoundEffect(SONG_6C);
         return 0;
     }
 }
@@ -505,16 +506,16 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
 
         if (START_BUTTON & gKeyStatusPtr->newKeys) {
             if (0 == proc->cur_counter) {
-                PlaySoundEffect(0x6C);
+                PlaySoundEffect(SONG_6C);
             } else {
-                PlaySoundEffect(0x6A);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 Proc_Goto(proc, PROC_LABEL_PREPUNIT_GAME_START);
             }
             return;
         }
 
         if (SELECT_BUTTON & gKeyStatusPtr->newKeys) {
-            PlaySoundEffect(0x6A);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PROC_LABEL_PREPUNIT_PRESS_SELECT);
             return;
         }
@@ -532,7 +533,7 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
         }
 
         if (B_BUTTON & gKeyStatusPtr->newKeys) {
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             Proc_Goto(proc, PROC_LABEL_PREPUNIT_PRESS_B);
             return;
         }
@@ -562,7 +563,7 @@ void ProcPrepUnit_Idle(struct ProcPrepUnit *proc)
 
         PrepUnit_DrawUnitItems(GetUnitFromPrepList(proc->list_num_cur));
         StartParallelFiniteLoop(PrepUnit_DrawLeftUnitNameCur, 1, proc);
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
     
         if (ShouldPrepUnitMenuScroll(proc)) {
             if (proc->list_num_cur < proc->list_num_pre)
@@ -651,10 +652,10 @@ void sub_809B388(struct ProcPrepUnit *proc)
 void sub_809B3B4(struct ProcPrepUnit *proc)
 {
     if (A_BUTTON & gKeyStatusPtr->newKeys)
-        PlaySoundEffect(0x6C);
+        PlaySoundEffect(SONG_6C);
 
     if (DPAD_UP & gKeyStatusPtr->repeatedKeys) {
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
         Proc_Break(proc);
     }
 }

@@ -17,6 +17,7 @@
 #include "bmlib.h"
 #include "bmshop.h"
 #include "scene.h"
+#include "constants/songs.h"
 
 // various bits of the box opening animation
 extern u8 CONST_DATA Img_TalkBubbleOpening_A[];
@@ -594,7 +595,7 @@ void Talk_OnIdle(ProcPtr proc) {
 
                 if (!CheckTalkFlag(TALK_FLAG_SILENT)) {
                     if (CheckTalkFlag(TALK_FLAG_7)) {
-                        PlaySoundEffect(0x7a);
+                        PlaySoundEffect(SONG_7A);
                     } else {
                         if ((GetTextDisplaySpeed() == 1) && !(GetGameClock() & 1)) {
                             break;
@@ -605,7 +606,7 @@ void Talk_OnIdle(ProcPtr proc) {
                         }
 
                         sTalkState->unk82 = 1;
-                        PlaySoundEffect(0x6e);
+                        PlaySoundEffect(SONG_6E);
                     }
                 }
         }
@@ -1518,7 +1519,7 @@ void StartTalkChoice(const struct ChoiceEntryInfo* choices, struct Text* text, u
 void TalkChoice_OnIdle(struct TalkChoiceProc* proc) {
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON)) {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         sTalkChoiceResult = 0;
 
@@ -1526,7 +1527,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc) {
 
         return;
     } else if (gKeyStatusPtr->newKeys & (A_BUTTON)) {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
         sTalkChoiceResult = proc->selectedChoice;
 
@@ -1536,7 +1537,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc) {
     }
 
     if ((gKeyStatusPtr->newKeys & (DPAD_LEFT)) && (proc->selectedChoice == 2)) {
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 
         proc->selectedChoice = 1;
 
@@ -1546,7 +1547,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc) {
     }
 
     if ((gKeyStatusPtr->newKeys & (DPAD_RIGHT)) && (proc->selectedChoice == 1)) {
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 
         proc->selectedChoice = 2;
 

@@ -24,6 +24,7 @@
 #include "constants/items.h"
 
 #include "prepscreen.h"
+#include "constants/songs.h"
 
 int CheckInLinkArena(void);
 
@@ -644,7 +645,7 @@ s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc* proc) {
             );
         }
 
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
         return 1;
     }
 
@@ -732,18 +733,18 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
 
                     case 2:
                         if (UnitHasItem(GetUnitFromPrepList(proc->hoverUnitIdx), ITEM_MEMBERCARD)) {
-                            PlaySoundEffect(0x6a);
+                            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                             Proc_Goto(proc, 13);
                             return;
                         }
 
-                        PlaySoundEffect(0x6c);
+                        PlaySoundEffect(SONG_6C);
 
                         return;
 
                     default:
                         Proc_Goto(proc, 0xd);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                         return;
                 }
             } else {
@@ -764,7 +765,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
             );
 
             Proc_Goto(proc, 2);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             return;
         }
 
@@ -774,7 +775,7 @@ void sub_8099120(struct PrepItemScreenProc* proc) {
             }
 
             Proc_Goto(proc, 13);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
 
@@ -951,30 +952,30 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
             switch (proc->popupPromptIdx) {
                 case 0:
                     if (PrepGetUnitAmount() < 2) {
-                        PlaySoundEffect(0x6c);
+                        PlaySoundEffect(SONG_6C);
                     } else {
                         Proc_Goto(proc, 4);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     }
 
                     break;
 
                 case 1:
                     if (PrepGetUnitAmount() < 2) {
-                        PlaySoundEffect(0x6c);
+                        PlaySoundEffect(SONG_6C);
                     } else {
                         Proc_Goto(proc, 8);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     }
 
                     break;
 
                 case 2:
                     if (!CanUnitPrepScreenUse(GetUnitFromPrepList(proc->selectedUnitIdx))) {
-                        PlaySoundEffect(0x6c);
+                        PlaySoundEffect(SONG_6C);
                     } else {
                         Proc_Goto(proc, 9);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     }
 
                     break;
@@ -992,20 +993,20 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
 
                             BG_EnableSyncByMask(1);
 
-                            PlaySoundEffect(0x6a);
+                            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                             return;
                         }
                     }
 
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     break;
 
                 case 4:
                     if (!proc->hasConvoyAccess) {
-                        PlaySoundEffect(0x6c);
+                        PlaySoundEffect(SONG_6C);
                     } else {
                         Proc_Goto(proc, 10);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     }
 
                     break;
@@ -1016,23 +1017,23 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
                             int itemCount = GetUnitItemCount(GetUnitFromPrepList(proc->selectedUnitIdx));
                             if ((itemCount > 0) && (!CheckInLinkArena())) {
                                 Proc_Goto(proc, 11);
-                                PlaySoundEffect(0x6a);
+                                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                                 return;
                             }
                         }
                     } else {
                         if (!CheckInLinkArena()) {
                             Proc_Goto(proc, 12);
-                            PlaySoundEffect(0x6a);
+                            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                             return;
                         }
                     }
 
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     break;
 
                 default:
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     break;
             }
 
@@ -1043,7 +1044,7 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
             proc->hoverUnitIdx = proc->selectedUnitIdx;
             proc->selectedUnitIdx = 0xff;
             sub_80ACA84(0);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             Proc_Goto(proc, 0);
             return;
         }
@@ -1088,7 +1089,7 @@ void sub_80996E8(struct PrepItemScreenProc* proc) {
         return;
     }
 
-    PlaySoundEffect(0x65);
+    PlaySoundEffect(SONG_65);
     ShowSysHandCursor(
         (proc->popupPromptIdx & 1) * 32 + 144,
         (proc->popupPromptIdx >> 1) * 16 + 84,
@@ -1200,17 +1201,17 @@ void PrepItemScreen_Loop_MainKeyHandler(struct PrepItemScreenProc* proc) {
             int itemCountB = GetUnitItemCount(GetUnitFromPrepList(proc->selectedUnitIdx));
             if ((proc->hoverUnitIdx != proc->selectedUnitIdx) && ((itemCountA > 0) || (itemCountB > 0))) {
                 Proc_Goto(proc, 6);
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
-            PlaySoundEffect(0x6c);
+            PlaySoundEffect(SONG_6C);
             return;
         }
 
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             EndPrepItemScreenFace(1);
             Proc_Goto(proc, 2);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
 

@@ -15,6 +15,7 @@
 #include "sysutil.h"
 #include "helpbox.h"
 #include "prepscreen.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x0809B538
 void PrepItemTrade_ApplyItemSwap(struct Unit * unitA, int itemSlotA, struct Unit * unitB, int itemSlotB)
@@ -58,7 +59,7 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
             proc->cursorItemSlot = itemCount - 1;
         }
 
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 
         return 1;
     } else if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
@@ -87,7 +88,7 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
             proc->cursorItemSlot = itemCount + 7;
         }
 
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 
         return 1;
     }
@@ -105,13 +106,13 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
 
         if ((proc->cursorItemSlot & 7) > 0) {
             proc->cursorItemSlot--;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
 
         if (gKeyStatusPtr->newKeys & DPAD_UP) {
             proc->cursorItemSlot = (proc->cursorItemSlot & 8) + itemCount - 1;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
     } else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN) {
@@ -126,13 +127,13 @@ s8 PrepItemTrade_DpadKeyHandler(struct PrepMenuTradeProc * proc)
 
         if ((proc->cursorItemSlot & 7) < itemCount - 1) {
             proc->cursorItemSlot++;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
 
         if (gKeyStatusPtr->newKeys & DPAD_DOWN) {
             proc->cursorItemSlot = proc->cursorItemSlot & 8;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
 
@@ -344,7 +345,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                     proc->selectedItemSlot = ((proc->selectedItemSlot & 8) + itemCount) - 1;
                 }
 
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 sub_80ACA84(0);
                 proc->cursorItemSlot = proc->selectedItemSlot;
                 proc->selectedItemSlot = 0xff;
@@ -357,7 +358,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                 proc->selectedItemSlot = 0xff;
                 ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
 
-                PlaySoundEffect(0x6b);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
                 sub_80ACA84(0);
 
@@ -375,13 +376,13 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                 }
 
                 ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
 
             if (gKeyStatusPtr->newKeys & B_BUTTON) {
                 Proc_Break(proc);
-                PlaySoundEffect(0x6b);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
                 return;
             }
         }

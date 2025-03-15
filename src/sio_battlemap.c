@@ -37,6 +37,7 @@
 #include "sio.h"
 
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x08049298
 void sub_8049298(struct Unit * unit)
@@ -925,7 +926,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
     {
         if (((gActiveUnitId >> 6) == gSioSt->selfId) && (sub_8049C94(gActiveUnit) == 1))
         {
-            PlaySoundEffect(0x69);
+            PlaySoundEffect(SONG_69);
             EndAllMus();
 
             gUnknown_03001838[0] = StartMu(gActiveUnit);
@@ -947,7 +948,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
             return;
         }
 
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
     }
 
     if ((gKeyStatusPtr->newKeys & R_BUTTON) != 0)
@@ -994,7 +995,7 @@ void sub_8049D24(struct SioBattleMapProc * proc)
 
     if (previous != gUnk_Sio_0203DD90.unk_02)
     {
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
     }
 
     return;
@@ -1040,7 +1041,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
 
     if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
-        PlaySoundEffect(0x69);
+        PlaySoundEffect(SONG_69);
 
         sub_80493D0(
             gUnknown_03001818[gUnk_Sio_0203DD90.unk_02], 1, &gUnk_Sio_0203DD90.unk_05, &proc->unk_34, &proc->unk_38);
@@ -1054,7 +1055,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
 
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         EndMu(gUnknown_03001838[0]);
         GetUnit(gUnknown_03001818[gUnk_Sio_0203DD90.unk_04])->state &= ~US_HIDDEN;
@@ -1083,7 +1084,7 @@ void sub_8049F44(struct SioBattleMapProc * proc)
 
     if (previous != gUnk_Sio_0203DD90.unk_02)
     {
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
     }
 
     return;
@@ -1228,7 +1229,7 @@ void sub_804A3A8(ProcPtr proc)
 
     if ((gKeyStatusPtr->newKeys & A_BUTTON) != 0)
     {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         CloseBattleForecast();
 
         Proc_Break(proc);
@@ -1238,7 +1239,7 @@ void sub_804A3A8(ProcPtr proc)
 
     if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         CloseBattleForecast();
 
         Proc_Goto(proc, 0);

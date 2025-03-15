@@ -27,6 +27,7 @@
 #include "constants/classes.h"
 
 #include "statscreen.h"
+#include "constants/songs.h"
 
 struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
 struct HelpBoxInfo EWRAM_DATA sMutableHbi = {};
@@ -1044,7 +1045,7 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
     if (Proc_Find(gProcScr_SSPageSlide))
         return;
 
-    PlaySoundEffect(0x6F); // TODO: song ids
+    PlaySoundEffect(SONG_6F); // TODO: song ids
 
     proc = (void*) Proc_StartBlocking(gProcScr_SSPageSlide, parent);
 
@@ -1219,7 +1220,7 @@ void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
     proc->newItem = unit->index;
     proc->direction = direction;
 
-    PlaySoundEffect(0xC8); // TODO: song ids
+    PlaySoundEffect(SONG_C8); // TODO: song ids
 }
 
 enum
@@ -1664,7 +1665,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 
         Proc_Break(proc);
 
-        PlaySoundEffect(0x6B); // TODO: song ids
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
@@ -1744,7 +1745,7 @@ void StartStatScreen(struct Unit* unit, ProcPtr parent)
 
     PidStatsAddStatViewAmt(unit->pCharacterData->number);
 
-    PlaySoundEffect(0x6A); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
 
     Proc_StartBlocking(gProcScr_StatScreen, parent);
 }
@@ -1914,7 +1915,7 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
         found->proc_lockCnt = 1; // lock (disabled) proc
 
     if (proc->unk52 == 0)
-        PlaySoundEffect(0x70); // TODO: song ids
+        PlaySoundEffect(SONG_70); // TODO: song ids
 }
 
 void HelpBox_OnLoop(struct HelpBoxProc* proc)
@@ -1934,7 +1935,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
 
     if (proc->unk52 == 0)
     {
-        PlaySoundEffect(0x71); // TODO: song ids
+        PlaySoundEffect(SONG_71); // TODO: song ids
 
         ResetHelpBoxInitSize(proc);
         SetHelpBoxInitPosition(proc, proc->info->xDisplay, proc->info->yDisplay);
@@ -2164,7 +2165,7 @@ void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
 
     if (boxMoved)
     {
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         Proc_Goto((void*) proc, 0); // TODO: label constants?
     }
 }

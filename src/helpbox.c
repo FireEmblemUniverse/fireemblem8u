@@ -961,7 +961,7 @@ void InitBoxDialogue(void * vram_dst, int pad_idx) {
         gBoxDialogueConf.unk_40 = ((((u32)vram_dst << 0x11) >> 0x16) + (pad_idx & 0xF) * 0x1000);
 
     if (GetDialogueBoxConfig() & 0x10) {
-        PlaySoundEffect(0x2E6);
+        PlaySoundEffect(SONG_2E6);
     }
 
     return;
@@ -1045,7 +1045,7 @@ void sub_808A87C(struct ProcBoxDialogue* proc) {
 void sub_808A8AC(void) {
 
     if (GetDialogueBoxConfig() & 0x10) {
-        PlaySoundEffect(0x2E7);
+        PlaySoundEffect(SONG_2E7);
     }
 
     SetTextFontGlyphs(0);
@@ -1815,7 +1815,7 @@ void BoxDialogueInterpreter_Main(struct ProcBoxDialogueDrawTextExt* proc) {
         if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
 
             if (GetDialogueBoxConfig() & 0x10) {
-                PlaySoundEffect(0x2E5);
+                PlaySoundEffect(SONG_2E5);
             } else {
                 PlaySoundEffect(SONG_6E);
             }

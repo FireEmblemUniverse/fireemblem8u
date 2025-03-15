@@ -1131,7 +1131,7 @@ void sub_803901C(struct BMDifficultyProc * proc)
 
     proc->unk_34 = 0;
 
-    PlaySoundEffect(0x80); // Point Up SE
+    PlaySoundEffect(SONG_SE_POINT_UP); // Point Up SE
 
     return;
 }
@@ -1342,7 +1342,7 @@ void sub_803943C(struct BMDifficultyProc* proc) {
 
     proc->unk_38 = 0;
 
-    PlaySoundEffect(0x80);
+    PlaySoundEffect(SONG_SE_POINT_UP);
 
     return;
 }

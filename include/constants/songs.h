@@ -97,6 +97,7 @@ enum song_idx {
     SONG_SE_SYS_WINDOW_SELECT1 = 0x6A,
     SONG_SE_SYS_WINDOW_CANSEL1 = 0x6B,
     SONG_6C = 0x6C,
+    SONG_6D = 0x6D,
     SONG_6E = 0x6E,
     SONG_6F = 0x6F, // stat screen page slide
     SONG_70 = 0x70, // help box open
@@ -110,6 +111,11 @@ enum song_idx {
     SONG_79 = 0x79, // close minimap
     SONG_7A = 0x7A,
     SONG_7B = 0x7B, // sioerror
+    SONG_7C = 0x7C,
+    SONG_7D = 0x7D,
+    SONG_7E = 0x7E,
+    SONG_SE_POINT_UP = 0x80,
+    SONG_81 = 0x81,
     SONG_82 = 0x82, // manim
     SONG_83 = 0x83, // manim
     SONG_84 = 0x84, // manim
@@ -147,6 +153,7 @@ enum song_idx {
     SONG_B5 = 0xB5, // manim
     SONG_B6 = 0xB6,
     SONG_B7 = 0xB7, // manim poison
+    SONG_SE_MONEY = 0xB9,
     SONG_BA = 0xBA,
     SONG_BB = 0xBB,
     SONG_BC = 0xBC,
@@ -169,7 +176,14 @@ enum song_idx {
     SONG_269 = 0x269,
     SONG_26A = 0x26A,
     SONG_2CD = 0x2CD,
+    SONG_SE_SHATTER_STONE = 0x2D6,
+    SONG_2D7 = 0x2D7,
+    SONG_2D8 = 0x2D8,
     SONG_2E0 = 0x2E0,
+    SONG_2E5 = 0x2E5,
+    SONG_2E6 = 0x2E6,
+    SONG_2E7 = 0x2E7,
+    SONG_2F9 = 0x2F9,
     SONG_302 = 0x302,
     SONG_303 = 0x303,
     SONG_304 = 0x304,
@@ -184,6 +198,13 @@ enum song_idx {
     SONG_30D = 0x30D,
     SONG_30E = 0x30E,
     SONG_30F = 0x30F,
+    SONG_310 = 0x310,
+    SONG_311 = 0x311,
+    SONG_312 = 0x312,
+    SONG_313 = 0x313,
+    SONG_314 = 0x314,
+    SONG_316 = 0x316,
+    SONG_317 = 0x317,
     SONG_3BB = 0x3BB,
     SONG_3BF = 0x3BF,
     SONG_7FFF = 0x7fff, //unsure

@@ -376,7 +376,7 @@ void SioPostBattleMusic_PlayFanfare(struct SioPostBattleMusicProc * proc)
         StartBgmExt(SONG_COLOSSEUM_DEFEAT, 0, 0);
     }
 
-    PlaySoundEffect(0x81);
+    PlaySoundEffect(SONG_81);
 
     return;
 }

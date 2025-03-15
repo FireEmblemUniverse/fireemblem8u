@@ -16,6 +16,7 @@
 
 #include "sio_core.h"
 #include "sio.h"
+#include "constants/songs.h"
 
 /**
  * Contains Link Arena functions that are called by events
@@ -223,7 +224,7 @@ void DrawXMapSendProgress(struct SioBigSendProc * proc)
 {
     if (proc->unk_3C < proc->completionPercent)
     {
-        PlaySoundEffect(0x7d);
+        PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
         PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
@@ -240,7 +241,7 @@ void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
 {
     if (proc->unk_3C < proc->completionPercent)
     {
-        PlaySoundEffect(0x7d);
+        PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
         PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
@@ -279,7 +280,7 @@ bool XMapTransfer_AwaitCompletion(void)
         return true;
     }
 
-    PlaySoundEffect(0x7e);
+    PlaySoundEffect(SONG_7E);
 
     InitTalkTextFont();
 

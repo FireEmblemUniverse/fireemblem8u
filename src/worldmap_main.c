@@ -754,7 +754,7 @@ void WmMain_MoveCursor(struct WorldMapMainProc * proc)
 
     if ((xCursorPrev != xCursorNew) || (yCursorPrev != yCursorNew))
     {
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
 
         pos.x = xCursorNew * 16 + 8;
         pos.y = yCursorNew * 16 + 8;
@@ -1147,7 +1147,7 @@ void WorldMap_LoopExt(struct WorldMapMainProc * proc)
         {
             if (sub_80B92D0(proc, nodeId) != 0)
             {
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
         }

@@ -805,7 +805,7 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc * proc)
             PlaySoundEffect(SONG_5A);
             break;
         case BONUSKIND_MONEY:
-            PlaySoundEffect(0xb9);
+            PlaySoundEffect(SONG_SE_MONEY);
             break;
     }
 

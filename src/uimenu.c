@@ -12,6 +12,7 @@
 #include "face.h"
 #include "helpbox.h"
 #include "uimenu.h"
+#include "constants/songs.h"
 
 // data
 
@@ -183,7 +184,7 @@ struct MenuProc* StartMenuCore(
     BG_SetPosition(frontBg, 0, 0);
     BG_SetPosition(backBg, 0, 0);
 
-    PlaySoundEffect(0x68); /* TODO: song ids! */
+    PlaySoundEffect(SONG_68); /* TODO: song ids! */
 
     if (parent)
     {
@@ -400,10 +401,10 @@ void Menu_OnIdle(struct MenuProc* proc)
         EndMenu(proc);
 
     if (actions & MENU_ACT_SND6A)
-        PlaySoundEffect(0x6A); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids!
 
     if (actions & MENU_ACT_SND6B)
-        PlaySoundEffect(0x6B); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids!
 
     if (actions & MENU_ACT_CLEAR)
         ClearMenuBgs(proc);
@@ -467,7 +468,7 @@ void ProcessMenuDpadInput(struct MenuProc* proc)
         DrawMenuItemHover(proc, proc->itemPrevious, FALSE);
         DrawMenuItemHover(proc, proc->itemCurrent, TRUE);
 
-        PlaySoundEffect(0x66); // TODO: song ids!
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1); // TODO: song ids!
     }
 
     // Call def's switch in/out funcs

@@ -17,6 +17,7 @@
 #include "bmio.h"
 #include "helpbox.h"
 #include "worldmap.h"
+#include "constants/songs.h"
 
 void WorldmapStatus_GetCharDescription(struct HelpBoxProc * proc);
 void WorldmapStatus_GetClassDescription(struct HelpBoxProc * proc);
@@ -442,7 +443,7 @@ void WorldmapStatus_Loop_KeyHandler(ProcPtr proc)
 
         Proc_Break(proc);
 
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
 
     return;

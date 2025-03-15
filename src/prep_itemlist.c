@@ -15,6 +15,7 @@
 #include "sysutil.h"
 #include "worldmap.h"
 #include "prepscreen.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x0809EB78
 void PrepItemList_Init(struct PrepItemListProc * proc)
@@ -421,7 +422,7 @@ void sub_809F498(struct PrepItemListProc * proc)
     int count = GetUnitItemCount(proc->unit);
 
     if ((count == UNIT_ITEM_COUNT) || (gUnknown_02012F56 == 0)) {
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
         return;
     }
 
@@ -460,9 +461,9 @@ void sub_809F498(struct PrepItemListProc * proc)
 
     if (GetUnitItemCount(proc->unit) == UNIT_ITEM_COUNT) {
         Proc_Goto(proc, 1);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     } else {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
     }
 
     return;
@@ -502,7 +503,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
         if ((proc->unk_36 == 0) || (proc->unk_36 == 0xff)) {
             if (gKeyStatusPtr->newKeys & R_BUTTON) {
                 if (gUnknown_02012F56 == 0) {
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     return;
                 } else {
                     int item = gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].item;
@@ -518,7 +519,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
 
             if (gKeyStatusPtr->newKeys & A_BUTTON) {
                 if (gUnknown_02012F56 == 0) {
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     return;
                 }
 
@@ -530,18 +531,18 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
                         2
                     );
                     Proc_Goto(proc, 7);
-                    PlaySoundEffect(0x6a);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     return;
                 } else {
                     Proc_Goto(proc, 6);
-                    PlaySoundEffect(0x6a);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     return;
                 }
             }
 
             if (gKeyStatusPtr->newKeys & B_BUTTON) {
                 Proc_Goto(proc, 8);
-                PlaySoundEffect(0x6b);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
                 proc->unk_36 = 0;
                 return;
             }
@@ -555,7 +556,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
             SetUiSpinningArrowFastMaybe(0);
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             Proc_Goto(proc, 3);
             proc->unk_32 = 0;
             PrepItemList_SwitchPageLeft(proc);
@@ -564,7 +565,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
             SetUiSpinningArrowFastMaybe(1);
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             Proc_Goto(proc, 4);
             proc->unk_32 = 0;
             PrepItemList_SwitchPageRight(proc);
@@ -604,7 +605,7 @@ void PrepItemList_Loop_MainKeyHandler(struct PrepItemListProc * proc)
 
     if (idx != proc->idxPerPage[proc->currentPage]) {
         u16 item = gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].item;
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
         if (gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].pid != gPrepScreenItemList[idx].pid) {
             PrepItemList_DrawCurrentOwnerText(proc);
@@ -690,7 +691,7 @@ s8 sub_809FA88(struct PrepItemListProc * proc)
         }
 
         if (unitInvSlot != proc->unitInvIdx) {
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
     }
@@ -732,7 +733,7 @@ void sub_809FB70(struct PrepItemListProc * proc)
     StartParallelFiniteLoop(PrepItemList_DrawCurrentOwnerText, 1, proc);
     BG_EnableSyncByMask(4);
 
-    PlaySoundEffect(0x6a);
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
     return;
 }
@@ -773,7 +774,7 @@ void PrepItemList_Loop_UnitInvKeyHandler(struct PrepItemListProc * proc)
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             sub_80ACA84(0);
             Proc_Break(proc);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
     }

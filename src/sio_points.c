@@ -11,6 +11,7 @@
 
 #include "sio_core.h"
 #include "sio.h"
+#include "constants/songs.h"
 
 // clang-format off
 
@@ -449,7 +450,7 @@ void PointsNumberMover_TickScore(struct PointsNumberMoverProc * proc)
 
     if ((proc->unk_44 != number) && (proc->playerId == gSioSt->selfId))
     {
-        PlaySoundEffect(0x80);
+        PlaySoundEffect(SONG_SE_POINT_UP);
     }
 
     proc->unk_44 = number;

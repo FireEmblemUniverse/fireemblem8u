@@ -6,6 +6,7 @@
 #include "mapanim.h"
 #include "soundwrapper.h"
 #include "worldmap.h"
+#include "constants/songs.h"
 
 bool GmapSugoAdvance(s16 x, s16 y, s16 * outx, s16 * outy)
 {
@@ -30,7 +31,7 @@ void GmapSogu_End(struct ProcGmapSogu * proc)
 
 void GmapSogu_Init(struct ProcGmapSogu * proc)
 {
-    PlaySoundEffect(0x77);
+    PlaySoundEffect(SONG_77);
     proc->ap = NULL;
     proc->timer = 0;
 

@@ -8,6 +8,7 @@
 #include "soundwrapper.h"
 #include "constants/worldmap.h"
 #include "constants/chapters.h"
+#include "constants/songs.h"
 
 /**
  * Generate random monsters on the worldmap
@@ -264,7 +265,7 @@ void GmapTimeMons_ExecMonsterMergeMu(struct ProcGmapTimeMons * proc)
     int i, wm_uid;
     if (proc->trigger != false)
     {
-        PlaySoundEffect(0x312);
+        PlaySoundEffect(SONG_312);
         for (i = 0; i < proc->monster_amt; i++)
         {
             s16 x, y;

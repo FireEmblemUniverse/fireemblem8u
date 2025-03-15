@@ -504,7 +504,7 @@ void Title_PrepareMainScreenWithExtendedBgm(void) {
     SetBlendTargetA(1, 0, 0, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
-    PlaySoundEffect(0x317);
+    PlaySoundEffect(SONG_317);
 
     return;
 }
@@ -863,7 +863,7 @@ void Title_IDLE(struct TitleScreenProc * proc)
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON))
     {
-        PlaySoundEffect(0x6D);
+        PlaySoundEffect(SONG_6D);
         SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
         Proc_Break(proc);
     }

@@ -14,6 +14,7 @@
 #include "constants/worldmap.h"
 
 #include "worldmap.h"
+#include "constants/songs.h"
 
 // clang-format off
 
@@ -720,7 +721,7 @@ int MapRoute_StartTransition(struct GmRouteProc * proc)
 {
     BG_Fill(BG_GetMapBuffer(proc->bgB), 0);
     BG_EnableSync(proc->bgB);
-    PlaySoundEffect(0x310);
+    PlaySoundEffect(SONG_310);
     return 0;
 }
 
