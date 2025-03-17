@@ -78,6 +78,6 @@ CONST_DATA struct ChapterEventGroup AnInterestingMapEvents = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_UnkCh3B_BeginingScene,
+    .beginningSceneEvents = EventScr_UnkCh3B_BeginningScene,
     .endingSceneEvents    = EventScr_UnkCh3B_EndingScene,
 };

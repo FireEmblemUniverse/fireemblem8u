@@ -8,7 +8,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 
-CONST_DATA EventListScr EventScr_Ch6_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
     MUSC(0x2e)
     SetBackground(BG_PLAIN_1_FOG)
     TEXTSHOW(0x9e4)

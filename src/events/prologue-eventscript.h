@@ -11,7 +11,7 @@
 #include "constants/backgrounds.h"
 #include "constants/items.h"
 
-CONST_DATA EventListScr EventScr_Prologue_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Prologue_BeginningScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
     SVAL(EVT_SLOT_2, EventScr_Prologue_EirikaAttacked)
     CALL(EventScr_CallOnTutorialMode)

@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch18b_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch18b_BeginningScene[] = {
     LOAD1(0x1, UnitDef_088C8BDC)
     ENUN
     SVAL(EVT_SLOT_2, UnitDef_088C8F24)

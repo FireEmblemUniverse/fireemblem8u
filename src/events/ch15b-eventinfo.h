@@ -89,6 +89,6 @@ CONST_DATA struct ChapterEventGroup Ch15EphraimEventData = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_Ch15b_BeginingScene,
+    .beginningSceneEvents = EventScr_Ch15b_BeginningScene,
     .endingSceneEvents    = EventScr_Ch15b_EndingScene,
 };

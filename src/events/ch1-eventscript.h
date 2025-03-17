@@ -8,7 +8,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 
-CONST_DATA EventListScr EventScr_Ch1_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch1_BeginningScene[] = {
     MUSC(0x25)
 
     LOAD1(1, UnitDef_Event_Ch1Enemy)

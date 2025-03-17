@@ -59,6 +59,6 @@ CONST_DATA struct ChapterEventGroup MelkaenCoastEvent = {
     .enemyUnitsChoice2InEncounter = UnitDef_088D0674,
     .enemyUnitsChoice3InEncounter = UnitDef_088D0B4C,
 
-    .beginningSceneEvents = EventScr_MelkaenCoast_BeginingScene,
+    .beginningSceneEvents = EventScr_MelkaenCoast_BeginningScene,
     .endingSceneEvents    = EventScr_MelkaenCoast_EndingScene,
 };

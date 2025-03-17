@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch11a_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch11a_BeginningScene[] = {
     MUSC(0x4d)
     LOAD2(0x1, UnitDef_088B9E20)
     ENUN

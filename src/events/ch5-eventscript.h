@@ -10,7 +10,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 
-CONST_DATA EventListScr EventScr_Ch5_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch5_BeginningScene[] = {
     CHECK_EVENTID(136)
     BEQ(0x8020, EVT_SLOT_C, EVT_SLOT_0)
     CALL(EventScr_089F3280)
