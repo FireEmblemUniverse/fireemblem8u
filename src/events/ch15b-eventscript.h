@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch15b_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch15b_BeginningScene[] = {
     LOAD1(0x1, UnitDef_088C6F18)
     ENUN
     REMU(CHARACTER_CAELLACH)

@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ruins1_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins1_BeginningScene[] = {
     ASMC(sub_8085C58)
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
@@ -54,7 +54,7 @@ CONST_DATA EventListScr EventScr_089FE318[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins2_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins2_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -95,7 +95,7 @@ CONST_DATA EventListScr EventScr_089FE3D8[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins3_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins3_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -158,7 +158,7 @@ CONST_DATA EventListScr EventScr_089FE504[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins4_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins4_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -200,7 +200,7 @@ CONST_DATA EventListScr EventScr_Ruin4_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins5_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins5_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -251,7 +251,7 @@ CONST_DATA EventListScr EventScr_089FE6AC[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins6_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins6_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -307,7 +307,7 @@ CONST_DATA EventListScr EventScr_089FE79C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins7_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins7_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -441,7 +441,7 @@ CONST_DATA EventListScr EventScr_089FE9BC[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins8_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins8_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -887,7 +887,7 @@ LABEL(0x1)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins9_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins9_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -947,7 +947,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Ruins10_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ruins10_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)

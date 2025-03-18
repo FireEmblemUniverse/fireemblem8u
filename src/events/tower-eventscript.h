@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Tower1_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower1_BeginningScene[] = {
     ASMC(sub_8085C4C)
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
@@ -32,7 +32,7 @@ CONST_DATA EventListScr EventScr_Tower1_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower2_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower2_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -83,7 +83,7 @@ CONST_DATA EventListScr EventScr_089FDCF8[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower3_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower3_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -116,7 +116,7 @@ CONST_DATA EventListScr EventScr_Tower3_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower4_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower4_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -147,7 +147,7 @@ CONST_DATA EventListScr EventScr_Tower4_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower5_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower5_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -185,7 +185,7 @@ CONST_DATA EventListScr EventScr_089FDF18[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower6_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower6_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -218,7 +218,7 @@ CONST_DATA EventListScr EventScr_Tower6_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower7_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower7_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)
@@ -331,7 +331,7 @@ CONST_DATA EventListScr EventScr_089FE1A0[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Tower8_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Tower8_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_ConfigHardModeLoadUnitHard)
     SVAL(EVT_SLOT_D, 0x0)

@@ -72,6 +72,6 @@ CONST_DATA struct ChapterEventGroup LagdouRuins7Event = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_Ruins7_BeginingScene,
+    .beginningSceneEvents = EventScr_Ruins7_BeginningScene,
     .endingSceneEvents    = EventScr_Ruin7_EndingScene,
 };

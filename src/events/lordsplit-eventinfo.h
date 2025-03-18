@@ -59,6 +59,6 @@ CONST_DATA struct ChapterEventGroup LordsSplitEvents = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_CastleFelia_BeginingScene,
+    .beginningSceneEvents = EventScr_CastleFelia_BeginningScene,
     .endingSceneEvents    = EventScr_CastleFelia_EndingScene,
 };

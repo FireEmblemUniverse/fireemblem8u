@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_MelkaenCoast_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_MelkaenCoast_BeginningScene[] = {
     LOAD1(0x1, UnitDef_088CFCC4)
     ENUN
     CALL(EventScr_08591FD8)
