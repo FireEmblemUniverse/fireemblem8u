@@ -11,7 +11,7 @@
 #include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
-    MUSC(SONG SONG_ADVANCE)
+    MUSC(SONG_ADVANCE)
 
     SetBackground(BG_PLAIN_1)
 
