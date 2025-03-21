@@ -314,28 +314,26 @@ const u16 gUnknown_080DAEE6[EKR_DISTANCE_MAX] = {
 
 #if NONMATCHING
 
+// https://decomp.me/scratch/kcZgC
 void ParseBattleHitToBanimCmd(void)
 {
-    u16 r0;
-    s16 * anim_round;
     u32 i;
     s16 r3;
     s16 new_hp;
     u16 distance;
-    u32 distance_r4;
-    s16 * anim_round_r4;
+    s16 distance_r4;
     u16 * r5;
-    s16 * anim_round_r5;
     struct Unit * unit_r6;
     struct BattleHit * hit = gBattleHitArray;
     u16 * r8, r9, r10;
     u16 sp00[2];
     struct BattleUnit * bul_sp04, * bur_sp08;
     int round_sp0C, is_enemy;
-    u32 distance_sp14, distance_sp18, distance_sp1C;
+    s32 distance_sp14, distance_sp18;
+    s16 distance_sp1C;
 
     for (i = 0; i < 0x14; i++)
-        gAnimRoundData[i] = gAnimRoundData[i] | 0xFFFF;
+        gAnimRoundData[i] = 0xFFFF;
 
     for (i = 0; i < 0x14; i++)
         gEfxHpLut[2 + i] = gEfxHpLut[2 + i] | 0xFFFF;
@@ -350,7 +348,7 @@ void ParseBattleHitToBanimCmd(void)
         return;
     }
 
-    if (gBattleStats.config & 0x40)
+    if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
     {
         gAnimRoundData[0] = 0x6;
         gAnimRoundData[1] = 0x0;
@@ -364,24 +362,24 @@ void ParseBattleHitToBanimCmd(void)
     bul_sp04 = gpEkrBattleUnitLeft;
     bur_sp08 = gpEkrBattleUnitRight;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == 0x11 && distance == 0)
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_SWORD_RUNESWORD && distance == 0)
         distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == 0x11 && distance_sp18 == 0)
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_SWORD_RUNESWORD && distance_sp18 == 0)
         distance_sp18 = 1;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == 0x28 && distance_sp14 == 0)
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp14 == 0)
         distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == 0x28 && distance_sp18 == 0)
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp18 == 0)
         distance_sp18 = 1;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == 0x29 && distance_sp14 == 0)
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp14 == 0)
         distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == 0x29 && distance_sp18 == 0)
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp18 == 0)
         distance_sp18 = 1;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == 0x2C && distance_sp14 == 0)
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HATCHET && distance_sp14 == 0)
         distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == 0x2C && distance_sp18 == 0)
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HATCHET && distance_sp18 == 0)
         distance_sp18 = 1;
 
     /* _08058332 */
@@ -436,37 +434,37 @@ void ParseBattleHitToBanimCmd(void)
         if (hit->attributes & BATTLE_HIT_ATTR_CRIT)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAEA0[(s16)distance_r4];
+                *r5 = gUnknown_080DAEA0[distance_r4];
             else
-                *r5 = gUnknown_080DAEC8[(s16)distance_r4];
+                *r5 = gUnknown_080DAEC8[distance_r4];
         }
         else if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAEA0[(s16)distance_r4];
+                *r5 = gUnknown_080DAEA0[distance_r4];
             else
-                *r5 = gUnknown_080DAEC8[(s16)distance_r4];
+                *r5 = gUnknown_080DAEC8[distance_r4];
         }
         else if (r3 >= 0)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAE8C[(s16)distance_r4];
+                *r5 = gUnknown_080DAE8C[distance_r4];
             else
-                *r5 = gUnknown_080DAEBE[(s16)distance_r4];
+                *r5 = gUnknown_080DAEBE[distance_r4];
         }
         else
         {
             switch (sub_80716B0(2)) {
             case 0:
-                *r5 = gUnknown_080DAED2[(s16)distance_r4];
+                *r5 = gUnknown_080DAED2[distance_r4];
                 break;
 
             case 1:
-                *r5 = gUnknown_080DAEDC[(s16)distance_r4];
+                *r5 = gUnknown_080DAEDC[distance_r4];
                 break;
 
             case 2:
-                *r5 = gUnknown_080DAEE6[(s16)distance_r4];
+                *r5 = gUnknown_080DAEE6[distance_r4];
                 break;
 
             default:
@@ -478,38 +476,20 @@ void ParseBattleHitToBanimCmd(void)
         if (hit->attributes & BATTLE_HIT_ATTR_MISS)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAE96[(s16)distance_r4];
+                *r5 = gUnknown_080DAE96[distance_r4];
             else
-                *r5 = gUnknown_080DAEBE[(s16)distance_r4];
+                *r5 = gUnknown_080DAEBE[distance_r4];
 
-            *r8 = gUnknown_080DAEAA[(s16)distance_sp1C];
+            *r8 = gUnknown_080DAEAA[distance_sp1C];
         }
         else
         {
-            *r8 = gUnknown_080DAEB4[(s16)distance_sp1C];
+            *r8 = gUnknown_080DAEB4[distance_sp1C];
         }
-        /* _080584EC */
-#ifndef NONMATCHING
-        {
-            register u16 * r3 asm("r3");
-            anim_round = gAnimRoundData;
-            anim_round_r5 = anim_round + round_sp0C * 2;
-            r0 = sp00[0];
 
-            asm(""::"r"(unit_r6 = 0));
-    
-            *anim_round_r5 = r0;
-            anim_round_r4 = anim_round + ({round_sp0C * 2 + 1;});
-            r3 = sp00;
-            *anim_round_r4 = r3[1];
-        }
-#else
-        anim_round = gAnimRoundData;
-        anim_round_r5 = anim_round + round_sp0C * 2;
-        *anim_round_r5 = sp00[0];
-        anim_round_r4 = anim_round + ({round_sp0C * 2 + 1;});
-        *anim_round_r4 = sp00[1];
-#endif
+        gAnimRoundData[round_sp0C * 2] = sp00[POS_L];
+        gAnimRoundData[round_sp0C * 2 + 1] = sp00[POS_R];
+
         if (0 == (hit->attributes & BATTLE_HIT_ATTR_MISS))
         {
             if (hit->attributes & BATTLE_HIT_ATTR_DEVIL)
@@ -522,7 +502,7 @@ void ParseBattleHitToBanimCmd(void)
 
                     r9 = r9 + 1;
                     gEfxHpLut[r9 * 2] = new_hp;
-                    *anim_round_r5 = (u32)*anim_round_r5 | ({0xFFFF8000 + 0;});
+                    gAnimRoundData[round_sp0C * 2] |= 0x8000;
                 }
                 else
                 {
@@ -532,7 +512,7 @@ void ParseBattleHitToBanimCmd(void)
 
                     r10 = r10 + 1;
                     gEfxHpLut[r10 * 2 + 1] = new_hp;
-                    *anim_round_r4 = (u32)*anim_round_r4 | ({0xFFFF8000 + 0;});
+                    gAnimRoundData[round_sp0C * 2 + 1] |= 0x8000;
                 }
             }
             /* _080585B4 */
@@ -583,20 +563,20 @@ void ParseBattleHitToBanimCmd(void)
                     r10 = r10 + 1;
                     gEfxHpLut[r10 * 2 + 1] = new_hp;
 
-                    if (hit->attributes & 0x40)
-                        *anim_round_r4 |= 0x2000;
+                    if (hit->attributes & BATTLE_HIT_ATTR_POISON)
+                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_POISON;
 
-                    if (hit->attributes & 0x800)
-                        *anim_round_r5 |= 0x1000;
+                    if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
+                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_SILENCER;
 
-                    if (hit->attributes & 0x4000)
-                        *anim_round_r5 |= 0x800;
+                    if (hit->attributes & BATTLE_HIT_ATTR_SURESHOT)
+                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_SURE_SHOT;
 
-                    if (hit->attributes & 0x10000)
-                        *anim_round_r5 |= 0x200;
+                    if (hit->attributes & BATTLE_HIT_ATTR_PIERCE)
+                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_PIERCE;
 
-                    if (hit->attributes & 0x8000)
-                        *anim_round_r5 |= 0x400;
+                    if (hit->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_GREAT_SHIELD;
                 }
                 /* _0805876C */
                 else
@@ -608,20 +588,20 @@ void ParseBattleHitToBanimCmd(void)
                     r9 = r9 + 1;
                     gEfxHpLut[r9 * 2] = new_hp;
 
-                    if (hit->attributes & 0x40)
-                        *anim_round_r5 |= 0x2000;
+                    if (hit->attributes & BATTLE_HIT_ATTR_POISON)
+                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_POISON;
 
-                    if (hit->attributes & 0x800)
-                        *anim_round_r4 |= 0x1000;
+                    if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
+                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_SILENCER;
 
-                    if (hit->attributes & 0x4000)
-                        *anim_round_r4 |= 0x800;
+                    if (hit->attributes & BATTLE_HIT_ATTR_SURESHOT)
+                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_SURE_SHOT;
 
-                    if (hit->attributes & 0x10000)
-                        *anim_round_r4 |= 0x200;
+                    if (hit->attributes & BATTLE_HIT_ATTR_PIERCE)
+                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_PIERCE;
 
-                    if (hit->attributes & 0x8000)
-                        *anim_round_r4 |= 0x400;
+                    if (hit->attributes & BATTLE_HIT_ATTR_GREATSHLD)
+                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_GREAT_SHIELD;
                 }
             }
         }
