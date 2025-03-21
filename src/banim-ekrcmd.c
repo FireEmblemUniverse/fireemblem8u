@@ -159,9 +159,7 @@ s16 GetBattleAnimRoundTypeFlags(int index)
 
 s16 GetEfxHp(int index)
 {
-    u16 * _buf = gEfxHpLut;
-    u8 * buf = (u8 *)&_buf[index];
-    return *buf;
+    return (u8)gEfxHpLut[index];
 }
 
 s16 GetEfxHpModMaybe(int index)
