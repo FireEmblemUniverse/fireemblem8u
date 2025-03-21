@@ -6,7 +6,7 @@
 #include "bmitem.h"
 #include "constants/items.h"
 
-EWRAM_DATA int gBattleScriptted = 0;
+EWRAM_DATA int gBattleScripted = 0;
 
 u16 GetBattleAnimationId(struct Unit * unit, const struct BattleAnimDef * anim_def, u16 wpn, u32 * out)
 {
@@ -245,19 +245,19 @@ bool EkrCheckAttackRound(u16 round)
     return false;
 }
 
-void SetBattleScriptted(void)
+void SetBattleScripted(void)
 {
-    gBattleScriptted = true;
+    gBattleScripted = true;
 }
 
-void SetBattleUnscriptted(void)
+void SetBattleUnscripted(void)
 {
-    gBattleScriptted = false;
+    gBattleScripted = false;
 }
 
-bool CheckBattleScriptted(void)
+bool CheckBattleScripted(void)
 {
-    if (gBattleScriptted == false)
+    if (gBattleScripted == false)
         return false;
     else
         return true;

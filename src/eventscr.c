@@ -3948,7 +3948,7 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
     struct ScriptedBattleProc * childProc;
     struct Unit * unitA;
     struct Unit * unitB;
-    s8 scriptted;
+    s8 scripted;
 
     u8 subcmd = EVT_SUB_CMD(proc->pEventCurrent);
 
@@ -3975,17 +3975,17 @@ u8 Event3F_ScriptBattle(struct EventEngineProc * proc)
         unitB = GetUnitStructFromEventParameter(charIdB);
 
         if (EVENT_IS_SKIPPING(proc) || (proc->evStateBits & EV_STATE_FADEDIN))
-            scriptted = 0;
+            scripted = 0;
         else
         {
-            scriptted = 1;
+            scripted = 1;
             childProc = Proc_StartBlocking(ProcScr_ScriptBattleDeamon, proc);
             childProc->evtproc = proc;
             childProc->lock = GetGameLock();
             Proc_SetMark(proc, PROC_MARK_EVENT_ANIM);
         }
 
-        StartEventBattle(unitA, unitB, isBallista, scriptted, weaponId, hits, -subcmd || subcmd);
+        StartEventBattle(unitA, unitB, isBallista, scripted, weaponId, hits, -subcmd || subcmd);
 
         return EVC_ADVANCE_YIELD;
 
