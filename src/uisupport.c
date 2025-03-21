@@ -769,7 +769,7 @@ void SupportScreen_StartUnitSubMenu(struct SupportScreenProc* proc) {
 //! FE8U = 0x080A1930
 void SupportScreen_RestartSourceScreenMusic(struct SupportScreenProc* proc) {
     if (!proc->fromPrepScreen) {
-        CallSomeSoundMaybe(SONG_43, 0x100, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(SONG_MAIN_THEME, 0x100, 0xc0, 0x18, 0);
     } else {
         CallSomeSoundMaybe(SONG_COMBAT_PREPARATION, 0x100, 0x100, 0x18, 0);
     }

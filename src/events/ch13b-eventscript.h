@@ -106,7 +106,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch13b_EndingScene[] = {
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE

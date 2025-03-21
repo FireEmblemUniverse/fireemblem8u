@@ -14,7 +14,7 @@ struct SoundRoomEnt CONST_DATA gSoundRoomTable[] =
         .nameTextId = MSG_78B,
     },
     {
-        .bgmId = SONG_MAIN_THEME,
+        .bgmId = SONG_MAIN_THEME_EXT,
         .songLength = 5880,
         .displayCondFunc = NULL,
         .nameTextId = MSG_78C,

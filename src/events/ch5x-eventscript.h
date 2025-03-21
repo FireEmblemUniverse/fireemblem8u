@@ -67,7 +67,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CLEA
     CLEE
     CLEN
@@ -129,7 +129,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     TEXTSHOW(0x9db)
     TEXTEND
     REMA
-    MUSCFAST(SONG_7FFF)
+    MUSCFAST(SONG_SILENT)
     ENDA
 };
 
@@ -169,7 +169,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CLEA
     CLEE
     CLEN
@@ -214,7 +214,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
 
     WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EAstdlib
 

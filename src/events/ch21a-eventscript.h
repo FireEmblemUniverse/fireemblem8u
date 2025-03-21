@@ -42,7 +42,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     LOAD1(0x1, UnitDef_088C172C)
@@ -71,7 +71,7 @@ LABEL(0xa)
     REMA
 LABEL(0xb)
     STARTFADE
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EAstdlib
     EvtColorFadeSetup(0x1d, 0x1, 4, 0, 0, 0) // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_2, 0x40)
@@ -88,7 +88,7 @@ LABEL(0xb)
 };
 
 CONST_DATA EventListScr EventScr_089F92A0[] = {
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     FADI(4)
     CLEA
     CLEE
@@ -110,7 +110,7 @@ CONST_DATA EventListScr EventScr_089F92A0[] = {
     TEXTCONT
     TEXTEND
     REMA
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CALL(EventScr_089F9314)
     MNC3(0x16)
     ENDA

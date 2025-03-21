@@ -16,7 +16,7 @@ CONST_DATA EventListScr EventScr_Ch21b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch21b_EndingScene[] = {
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     FADI(4)
     CLEA
     CLEE
@@ -38,7 +38,7 @@ CONST_DATA EventListScr EventScr_Ch21b_EndingScene[] = {
     TEXTCONT
     TEXTEND
     REMA
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CALL(EventScr_089F9314)
     MNC3(0x23)
     ENDA

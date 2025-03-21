@@ -15,7 +15,7 @@ CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
     TEXTSHOW(0x9e4)
     TEXTEND
     REMA
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     CALL(EventScr_TextShowWithFadeIn)
     EVBIT_T(9)
     LOAD2(0x1, UnitDef_088B64B4)
@@ -132,7 +132,7 @@ LABEL(0x63)
 };
 
 CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
-    MUSCFAST(SONG_7FFF)
+    MUSCFAST(SONG_SILENT)
     SetBackground(BG_PLAIN_1_FOG)
     CHECK_ALIVE(0xfa)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -144,7 +144,7 @@ CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
     TEXTSHOW(0x9f1)
     TEXTEND
     REMA
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x66)
     GIVEITEMTO(CHARACTER_EIRIKA)
@@ -153,7 +153,7 @@ LABEL(0x0)
     MUSC(SONG_LEGACY)
     TEXTSHOW(0x9f2)
     TEXTEND
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     STAL(60)
     MUSCSLOW(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT

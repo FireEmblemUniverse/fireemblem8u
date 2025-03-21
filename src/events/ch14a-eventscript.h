@@ -11,7 +11,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xa81)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x4000e)
@@ -172,7 +172,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     TEXTSHOW(0xa8d)
     TEXTEND
     REMA
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_B, 0x7000a)
     LOMA(0xe)
@@ -210,7 +210,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     LOAD2(0x1, UnitDef_088BC24C)
     ENUN
     CUMO_CHAR(CHARACTER_LARACHEL)
@@ -254,7 +254,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_3, 0x3e)
     GIVEITEMTO(CHARACTER_EIRIKA)
 LABEL(0x1)
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     FADI(16)
     TILECHANGE(0x2)
     CLEAN

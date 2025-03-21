@@ -3,7 +3,7 @@
 enum song_idx {
     SONG_NONE = 0x00,
     SONG_THE_VALIANT = 0x01,
-    SONG_MAIN_THEME = 0x02,
+    SONG_MAIN_THEME_EXT = 0x02,
     SONG_PROLOGUE = 0x03,
     SONG_THE_BEGINNING = 0x004,
     SONG_TREASURED_MEMORIES = 0x005,
@@ -68,21 +68,21 @@ enum song_idx {
     SONG_RECORDS = 0x40,
     SONG_VICTORY_AND_THE_FUTURE = 0x41,
     SONG_FLY_WITH_THE_BREEZE = 0x42,
-    SONG_43 = 0x43, //title ?
+    SONG_MAIN_THEME = 0x43,
     SONG_LYON_ORGAN_ARRANGEMENT = 0x44,
     SONG_THE_FINAL_BATTLE = 0x45,    
     SONG_EPILOGUE = 0x46,
-    SONG_47 = 0x47, // unsure
-    SONG_49 = 0x49, // unsure
-    SONG_4A = 0x4A, // unsure
-    SONG_4B = 0x4B, // unsure
-    SONG_4C = 0x4C, // unsure
-    SONG_4D = 0x4D, // unsure
-    SONG_4E = 0x4E, // unsure
-    SONG_52 = 0x52, // unsure
-    SONG_53 = 0x53, // unsure
-    SONG_54 = 0x54, // unsure
-    SONG_55 = 0x55, // unsure
+    SONG_47 = 0x47, 
+    SONG_49 = 0x49, 
+    SONG_4A = 0x4A, 
+    SONG_4B = 0x4B, 
+    SONG_4C = 0x4C, 
+    SONG_4D = 0x4D, 
+    SONG_4E = 0x4E, 
+    SONG_52 = 0x52, 
+    SONG_53 = 0x53, 
+    SONG_54 = 0x54, 
+    SONG_55 = 0x55, 
     SONG_BGM_ED_STAFF_2 = 0x56,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
@@ -132,7 +132,7 @@ enum song_idx {
     SONG_8F = 0x8F,
     SONG_90 = 0x90,
     SONG_91 = 0x91,
-    SONG_95 = 0x95, // unsure
+    SONG_95 = 0x95, 
     SONG_96 = 0x96,
     SONG_97 = 0x97,
     SONG_9A = 0x9A,
@@ -339,5 +339,5 @@ enum song_idx {
     SONG_3C4 = 0x3C4,
     SONG_3CA = 0x3CA,
     SONG_3CF = 0x3CF,
-    SONG_7FFF = 0x7fff, //unsure
+    SONG_SILENT = 0x7fff, 
 };

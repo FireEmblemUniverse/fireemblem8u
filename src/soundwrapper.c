@@ -352,9 +352,9 @@ void sub_80028FC(int songId)
     switch (songId)
     {
     case SONG_THE_VALIANT:
-    case SONG_MAIN_THEME:
+    case SONG_MAIN_THEME_EXT:
     case SONG_FLY_WITH_THE_BREEZE:
-    case SONG_43:
+    case SONG_MAIN_THEME:
     case SONG_RECORDS:
     case SONG_BGM_ED_STAFF_2:
     case SONG_74:

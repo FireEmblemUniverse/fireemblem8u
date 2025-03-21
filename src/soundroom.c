@@ -900,7 +900,7 @@ void SoundRoomUi_RestartTitleMusic(struct SoundRoomProc * proc)
 {
     if (!MusicProc4Exists())
     {
-        CallSomeSoundMaybe(SONG_43, 0, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(SONG_MAIN_THEME, 0, 0xc0, 0x18, 0);
         Proc_Break(proc);
     }
 

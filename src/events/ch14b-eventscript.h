@@ -25,7 +25,7 @@ CONST_DATA EventListScr EventScr_Ch14b_BeginningScene[] = {
     TEXTSHOW(0xafb)
     TEXTEND
     REMA
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     MUSCSLOW(SONG_4D)
@@ -48,7 +48,7 @@ LABEL(0x0)
     STAL2(16)
     MOVE(0x8, CHARACTER_SETH, 10, 4)
     MOVE(0x8, CHARACTER_MYRRH, 10, 4)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     ENUN
     CLEA
@@ -113,7 +113,7 @@ CONST_DATA EventListScr EventScr_089FC04C[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_2, 0x1c)
     CALL(EventScr_9EE5BC)
@@ -170,7 +170,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     TEXTEND
     REMA
     CALL(EventScr_TextShowWithFadeIn)
-    MUSCFAST(SONG_7FFF)
+    MUSCFAST(SONG_SILENT)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
@@ -219,7 +219,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     SetBackground(BG_CELL)
     TEXTSHOW(0xb09)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -256,7 +256,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     TEXTSHOW(0xb0c)
     TEXTEND
     REMA
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEA
     CLEE

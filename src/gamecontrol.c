@@ -385,7 +385,7 @@ void sub_8009A84(ProcPtr proc)
 
 void sub_8009ABC(ProcPtr proc)
 {
-    StartBgmCore(SONG_43, 0);
+    StartBgmCore(SONG_MAIN_THEME, 0);
     StartBgmVolumeChange(0, 0xC0, 0x3C, 0);
 }
 

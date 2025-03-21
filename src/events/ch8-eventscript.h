@@ -25,7 +25,7 @@ CONST_DATA EventListScr EventScr_Ch8_BeginningScene[] = {
     SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0xa08)
     TEXTEND
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     TEXTCONT
     TEXTEND
     CALL(EventScr_TextShowWithFadeIn)
@@ -216,7 +216,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     SetBackground(BG_SERAFEW_VILLAGE)
     TEXTSHOW(0xc02)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -255,7 +255,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     FAWU(16)
     TEXTSHOW(0xc04)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x14000e)
@@ -291,7 +291,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     TEXTSHOW(0xc08)
     TEXTEND
     REMA
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     STAL(30)
     MUSC(SONG_LEGACY)
     SetBackground(BG_THRONE_NORMAL)
@@ -313,7 +313,7 @@ CONST_DATA EventListScr EventScr_SplitMenu[] = {
     TEXTSHOW(0xc0e)
     TEXTEND
     REMA
-    MUSCSLOW(SONG_7FFF)
+    MUSCSLOW(SONG_SILENT)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x2710)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)

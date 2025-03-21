@@ -18,7 +18,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xb61)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     BACG(BG_STREAM)
@@ -50,7 +50,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb65)
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     REMA
@@ -72,7 +72,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     MUSC(SONG_RAID)
@@ -87,7 +87,7 @@ LABEL(0x0)
     MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(SONG_7FFF, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     MUSC(SONG_RAID)
@@ -205,7 +205,7 @@ CONST_DATA EventListScr EventScr_089F79D4[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_7, 0x1)
 LABEL(0x0)
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_2, 0x21)
     CALL(EventScr_LoadUniqueAlly)
@@ -271,7 +271,7 @@ LABEL(0x15)
     DISA(CHARACTER_LYON)
     MOVE_1STEP(0x0, CHARACTER_EPHRAIM, FACING_DOWN)
     ENUN
-    MUSCMID(SONG_7FFF)
+    MUSCMID(SONG_SILENT)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE

@@ -45,7 +45,7 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     TEXTSHOW(0xbb8)
     TEXTEND
     REMA
-    EvtBgmFadeIn(SONG_7FFF, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     FAWU(2)
