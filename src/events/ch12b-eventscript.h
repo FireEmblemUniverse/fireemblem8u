@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch12b_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch12b_BeginningScene[] = {
     MUSC(SONG_ADVANCE)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C4D0C)

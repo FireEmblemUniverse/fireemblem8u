@@ -85,6 +85,6 @@ CONST_DATA struct ChapterEventGroup Ch15EirikaEvents = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_Ch15a_BeginingScene,
+    .beginningSceneEvents = EventScr_Ch15a_BeginningScene,
     .endingSceneEvents    = EventScr_089F6470,
 };

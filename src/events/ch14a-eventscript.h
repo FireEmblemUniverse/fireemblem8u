@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch14a_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     REMOVEPORTRAITS
     BACG(BG_BLANK)
     FADU(128)

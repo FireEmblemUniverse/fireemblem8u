@@ -59,6 +59,6 @@ CONST_DATA struct ChapterEventGroup TowerOfValni4Events = {
     .enemyUnitsChoice2InEncounter = NULL,
     .enemyUnitsChoice3InEncounter = NULL,
 
-    .beginningSceneEvents = EventScr_Tower4_BeginingScene,
+    .beginningSceneEvents = EventScr_Tower4_BeginningScene,
     .endingSceneEvents    = EventScr_Tower4_EndingScene,
 };

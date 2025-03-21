@@ -34,7 +34,7 @@ void HandleCh5xUnits_Start(void)
     }
 }
 
-CONST_DATA EventListScr EventScr_Ch5x_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     ASMC(HandleCh5xUnits_Start)
     MUSC(SONG_SOLVE_THE_RIDDLE)
     SVAL(EVT_SLOT_B, 0x4000a)

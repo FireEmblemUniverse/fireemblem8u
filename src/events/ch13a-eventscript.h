@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch13a_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch13a_BeginningScene[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_9EEA58)
     SetBackground(BG_GRADO_CHAMBER)

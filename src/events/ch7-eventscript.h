@@ -9,7 +9,7 @@
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
 
-CONST_DATA EventListScr EventScr_Ch7_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch7_BeginningScene[] = {
     MUSC(SONG_TENSION)
     LOAD1(0x1, UnitDef_088B6F54)
     ENUN

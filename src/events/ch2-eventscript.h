@@ -10,8 +10,8 @@
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
 
-CONST_DATA EventListScr EventScr_Ch2_BeginingScene[] = {
-    MUSC(SONG_ADVANCE)
+CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
+    MUSC(SONG SONG_ADVANCE)
 
     SetBackground(BG_PLAIN_1)
 

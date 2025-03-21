@@ -9,7 +9,7 @@
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
 
-CONST_DATA EventListScr EventScr_Ch9a_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch9a_BeginningScene[] = {
 	MUSC(SONG_SOLVE_THE_RIDDLE)
 	SVAL(EVT_SLOT_2, 0xa16)
 	SVAL(EVT_SLOT_3, 0xa17)

@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch20b_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch20b_BeginningScene[] = {
     SVAL(EVT_SLOT_2, UnitDef_088CA7B8)
     CALL(EventScr_089F8AC8)
     LOAD1(0x1, UnitDef_088CA7B8)

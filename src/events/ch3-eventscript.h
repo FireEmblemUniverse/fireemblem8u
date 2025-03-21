@@ -9,7 +9,7 @@
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
 
-CONST_DATA EventListScr EventScr_Ch3_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch3_BeginningScene[] = {
     MUSC(SONG_TENSION)
     SetBackground(BG_PLAIN_1)
     TEXTSHOW(0x98b)

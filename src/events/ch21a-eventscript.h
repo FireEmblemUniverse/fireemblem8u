@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch21a_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch21a_BeginningScene[] = {
     CALL(EventScr_089F9144)
     CUMO_CHAR(CHARACTER_LYON_FINAL)
     STAL(60)

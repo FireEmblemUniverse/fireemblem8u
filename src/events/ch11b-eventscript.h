@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch11b_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
     MUSC(SONG_SOLVE_THE_RIDDLE)
     VCWF(0)
     SVAL(EVT_SLOT_2, 0x2000f)

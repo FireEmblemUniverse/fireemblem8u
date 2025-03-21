@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_CastleFelia_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_CastleFelia_BeginningScene[] = {
     CHECK_EVENTID(136)
     BEQ(0x801c, EVT_SLOT_C, EVT_SLOT_0)
     CALL(EventScr_SplitMenu)

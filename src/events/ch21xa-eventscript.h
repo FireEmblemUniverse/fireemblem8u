@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-CONST_DATA EventListScr EventScr_Ch21xa_BeginingScene[] = {
+CONST_DATA EventListScr EventScr_Ch21xa_BeginningScene[] = {
     CALL(EventScr_089F94AC)
     ENDA
 };

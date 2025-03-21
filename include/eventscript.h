@@ -656,7 +656,7 @@ enum event_sub_cmd_idx {
 #define EvtTextStartType3 _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_TUTORIALTEXTBOXSTART, 0),
 #define EvtTextStartType4 _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_SOLOTEXTBOXSTART, 0),
 #define EvtTextStartType5 _EvtArg0(EV_CMD_SETTEXTTYPE, 2, EVSUBCMD_0x1A25, 0),
-#define EvtTextTuorialStart EvtTextStartType3
+#define EvtTextTutorialStart EvtTextStartType3
 #define EvtTextShow(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW, (msg)),
 #define EvtTextShow2(msg) _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_TEXTSHOW2, (msg)),
 #define EvtTextRemoveAll _EvtArg0(EV_CMD_DISPLAYTEXT, 2, EVSUBCMD_REMA, 0),
@@ -690,7 +690,7 @@ enum event_sub_cmd_idx {
 #define EvtLoadUnit4(restriction, units) _EvtArg0(EV_CMD_LOADUNIT, 4, EVSUBCMD_LOAD4, (restriction)), (EventListScr)(units),
 #define EvtChangePalSMS(pal) _EvtArg0(EV_CMD_CHANGE_PAL, 2, 0, (pal)),
 #define EvtGetPidAt(x, y) _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_AT, _EvtSubParam16u8((x), (y))),
-#define EvrGetActiveUnitPid _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_ACTIVE, 0),
+#define EvtGetActiveUnitPid _EvtArg0(EV_CMD_GET_PID, 2, EVSUBCMD_CHECK_ACTIVE, 0),
 #define EvtMoveUnit(modify, speed, pid, x, y) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE | (modify) << 3), (speed)), _EvtParams2((pid), _EvtSubParam16u8((x), (y))),
 #define EvtMoveUnitToTarget(modify, speed, pid, pid_target) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVEONTO | (modify) << 3), (speed)), _EvtParams2((pid), (pid_target)),
 #define EvtMoveUnitOneStep(modify, speed, pid, direction) _EvtArg0(EV_CMD_MOVEUNIT, 4, (EVSUBCMD_MOVE_1STEP | (modify) << 3), (speed)), _EvtParams2((pid), (direction)),
