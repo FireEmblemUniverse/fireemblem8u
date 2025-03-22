@@ -1351,17 +1351,17 @@ bool PrepareBattleGraphicsMaybe(void)
          *
          * 1. promotion
          * 2. arena
-         * 3. scriptted battle
+         * 3. scripted battle
          */
         if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
             usrdefined_enable = true;
         if (GetBattleAnimArenaFlag() == true)
             usrdefined_enable = true;
-        if ((CheckBattleScriptted() == true))
+        if ((CheckBattleScripted() == true))
             usrdefined_enable = true;
     }
 
-    SetBattleUnscriptted();
+    SetBattleUnscripted();
 
     if (gEkrDistanceType != EKR_DISTANCE_PROMOTION)
     {

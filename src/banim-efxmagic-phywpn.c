@@ -419,7 +419,7 @@ void StartSpellAnimJavelinPaladin(struct Anim * anim)
     SpellFx_RegisterObjGfx(Img_SpellJavelinPaladin, 0x1000);
 }
 
-void StartSpellAnimJavelinPrgasusKnight(struct Anim * anim)
+void StartSpellAnimJavelinPegasusKnight(struct Anim * anim)
 {
     struct ProcEfx * proc;
 
@@ -432,8 +432,8 @@ void StartSpellAnimJavelinPrgasusKnight(struct Anim * anim)
     proc->hitted = CheckRoundMiss(GetAnimRoundTypeAnotherSide(anim));
 
     NewEfxTeyariOBJ(anim, 1);
-    SpellFx_RegisterObjPal(Pal_SpellJavelinPrgasusKnight, 0x20);
-    SpellFx_RegisterObjGfx(Img_SpellJavelinPrgasusKnight, 0x1000);
+    SpellFx_RegisterObjPal(Pal_SpellJavelinPegasusKnight, 0x20);
+    SpellFx_RegisterObjGfx(Img_SpellJavelinPegasusKnight, 0x1000);
 }
 
 void StartSpellAnimJavelinFalcon(struct Anim * anim)

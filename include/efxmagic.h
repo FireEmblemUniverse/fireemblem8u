@@ -333,7 +333,7 @@ void StartSpellAnimJavelin(struct Anim * anim);
 void StartSpellAnimJavelinCavalier(struct Anim * anim);
 void StartSpellAnimJavelinSoldier(struct Anim * anim);
 void StartSpellAnimJavelinPaladin(struct Anim * anim);
-void StartSpellAnimJavelinPrgasusKnight(struct Anim * anim);
+void StartSpellAnimJavelinPegasusKnight(struct Anim * anim);
 void StartSpellAnimJavelinFalcon(struct Anim * anim);
 void StartSpellAnimJavelinWyvernRider(struct Anim * anim);
 void StartSpellAnimJavelinWyvernLord(struct Anim * anim);

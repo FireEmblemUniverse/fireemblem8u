@@ -203,7 +203,7 @@ extern CONST_DATA EventListScr EventScr_Prologue_BeginningScene[];
 extern CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[];
 extern CONST_DATA EventListScr EventScr_Prologue_GiveRapier[];
 extern CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[];
-extern CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[];
+extern CONST_DATA EventListScr EventScr_Prologue_OneEnemyLeft[];
 extern CONST_DATA EventListScr EventScr_Prologue_ONeillAttack[];
 extern CONST_DATA EventListScr EventScr_Prologue_EndingScene[];
 extern CONST_DATA EventListScr EventScr_Prologue_EirikaAttacked[];

@@ -206,7 +206,7 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
     int sp04;
     int tmp;
 
-    SetBattleScriptted();
+    SetBattleScripted();
 
     sp04 = 0;
     if (hits == NULL)
@@ -315,7 +315,7 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
         unitA->curHP = gBattleActor.unit.curHP;
         unitB->curHP = gBattleTarget.unit.curHP;
 
-        SetBattleUnscriptted();
+        SetBattleUnscripted();
 
         gActionData.scriptedBattleHits = NULL;
 

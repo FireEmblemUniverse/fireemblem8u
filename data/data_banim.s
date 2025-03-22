@@ -489,13 +489,13 @@ Img_SpellJavelinPaladin:  @ 0x085DAFC4
 Pal_SpellJavelinPaladin:  @ 0x085DB1E0
 	.incbin "./graphics/efxmagic/Img_SpellJavelinPaladin.gbapal", 0x0, 0x20
 
-	.global Img_SpellJavelinPrgasusKnight
-Img_SpellJavelinPrgasusKnight:  @ 0x085DB200
-	.incbin "./graphics/efxmagic/Img_SpellJavelinPrgasusKnight.4bpp.lz"
+	.global Img_SpellJavelinPegasusKnight
+Img_SpellJavelinPegasusKnight:  @ 0x085DB200
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPegasusKnight.4bpp.lz"
 
-	.global Pal_SpellJavelinPrgasusKnight
-Pal_SpellJavelinPrgasusKnight:  @ 0x085DB42C
-	.incbin "./graphics/efxmagic/Img_SpellJavelinPrgasusKnight.gbapal", 0x0, 0x20
+	.global Pal_SpellJavelinPegasusKnight
+Pal_SpellJavelinPegasusKnight:  @ 0x085DB42C
+	.incbin "./graphics/efxmagic/Img_SpellJavelinPegasusKnight.gbapal", 0x0, 0x20
 
 	.global Img_SpellJavelinFalcon
 Img_SpellJavelinFalcon:  @ 0x085DB44C
