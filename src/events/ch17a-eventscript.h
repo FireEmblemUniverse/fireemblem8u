@@ -8,7 +8,7 @@ CONST_DATA EventListScr EventScr_Ch17a_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F7620[] = {
-    MUSCSLOW(0x2c)
+    MUSCSLOW(SONG_LYON)
     SADD(EVT_SLOT_A, EVT_SLOT_2, EVT_SLOT_0)
     REMOVEPORTRAITS
     BACG(BG_BLANK)
@@ -18,11 +18,11 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xb61)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     BACG(BG_STREAM)
-    MUSC(0x52)
+    MUSC(SONG_52)
     FAWU(2)
     TEXTSHOW(0xb62)
     TEXTEND
@@ -50,7 +50,7 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb65)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
     REMA
@@ -69,13 +69,13 @@ CONST_DATA EventListScr EventScr_089F7620[] = {
     SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb66)
     TEXTEND
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     CALL(EventScr_TextShowWithFadeIn)
@@ -84,13 +84,13 @@ LABEL(0x0)
     SetBackground(BG_PLAIN_1_SUNSET)
     TEXTSHOW(0xb67)
     TEXTEND
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 1) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 1) // ENOSUPP in EAstdlib
     TEXTCONT
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     CALL(EventScr_TextShowWithFadeIn)
@@ -117,7 +117,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x1e)
 LABEL(0x1)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     CAMERA2(7, 8)
     FADU(16)
     TEXTSTART
@@ -205,7 +205,7 @@ CONST_DATA EventListScr EventScr_089F79D4[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_7, 0x1)
 LABEL(0x0)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_2, 0x21)
     CALL(EventScr_LoadUniqueAlly)
@@ -224,7 +224,7 @@ LABEL(0x0)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_1)
@@ -271,11 +271,11 @@ LABEL(0x15)
     DISA(CHARACTER_LYON)
     MOVE_1STEP(0x0, CHARACTER_EPHRAIM, FACING_DOWN)
     ENUN
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xb72)
     TEXTEND
@@ -302,7 +302,7 @@ LABEL(0x1f)
     SVAL(EVT_SLOT_3, 0x8e)
     GIVEITEMTO(CHAR_EVT_PLAYER_LEADER)
     BEQ(0x34, EVT_SLOT_7, EVT_SLOT_0)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     STAL(50)
     MUSI
     SetBackground(BG_PLAIN_2_SUNSET)

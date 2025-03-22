@@ -8,9 +8,10 @@
 #include "playerphase.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
 
     SetBackground(BG_PLAIN_1)
 
@@ -25,14 +26,14 @@ CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
     LOAD1(0x1, UnitDef_088B440C)
     ENUN
 
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     LOAD1(0x1, UnitDef_088B4344)
     ENUN
     LOAD1(0x1, UnitDef_088B44AC)
     ENUN
     STAL2(60)
 
-    MUSC(0x1a)
+    MUSC(SONG_DEFENSE)
     CUMO_CHAR(CHARACTER_BONE)
     STAL(60)
     CURE
@@ -47,7 +48,7 @@ CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
     STAL(60)
     CURE
 
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     Text_BG(BG_NORMAL_VILLAGE, 0x956)
 
     CUMO_CHAR(CHARACTER_BONE)
@@ -64,11 +65,11 @@ CONST_DATA EventListScr EventScr_Ch2_BeginningScene[] = {
     SVAL(EVT_SLOT_B, 0x5000c)
     MOVE(0x0, CHAR_EVT_POSITION_AT_SLOTB, 12, 3)
     ENUN
-    SOUN(0xab)
+    SOUN(SONG_AB)
     SVAL(EVT_SLOT_B, 0x2000c)
     TILECHANGE(0xffff)
-    SOUN(0x5c)
-    NOTIFY(0x12, 0x0)
+    SOUN(SONG_5C)
+    NOTIFY(0x12, SONG_NONE)
     LOAD1(0x1, UnitDef_088B4434)
     ENUN
     SVAL(EVT_SLOT_1, 0x5)
@@ -130,7 +131,7 @@ CONST_DATA EventListScr EventScr_Ch2_Turn2Player[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_ALIVE(CHARACTER_GARCIA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(CHARACTER_ROSS)
@@ -149,7 +150,7 @@ LABEL(0x0)
     TEXTSHOW(0x963)
     TEXTEND
     FADI(4)
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     REMA
     REMOVEPORTRAITS
     BACG(BG_PLAIN_2_NIGHT)
@@ -160,16 +161,16 @@ LABEL(0x0)
     REMA
     BACG(BG_MANSE_FLASHBACK)
     FAWU(2)
-    MUSC(0x52)
+    MUSC(SONG_52)
     BROWNBOXTEXT(0x211, 8, 8)
     TEXTSHOW(0x965)
     TEXTEND
     FAWI(2)
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     REMA
     BACG(BG_PLAIN_2_NIGHT)
     FAWU(2)
-    EvtBgmFadeIn(0x4a, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_4A, 8) // ENOSUPP in EAstdlib
     TEXTSHOW(0x966)
     TEXTEND
     REMA
@@ -306,7 +307,7 @@ CONST_DATA EventListScr EventScr_089F07B0[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F07D0[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TUTORIALTEXTBOXSTART
     SVAL(EVT_SLOT_B, 0xffffffff)
     TEXTSHOW(0x970)
@@ -653,7 +654,7 @@ CONST_DATA EventListScr EventScr_Ch2Tutorial13[] = {
 CONST_DATA EventListScr EventScr_Ch2Tutorial14[] = {
     EVBIT_T(7)
     IGNORE_KEYS(0x0)
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
     TEXTSTART
     TEXTSHOW(0x95e)
     TEXTEND

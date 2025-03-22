@@ -832,7 +832,7 @@ void sub_8080138(struct MAEffectProc* proc)
         vsync->unk2A = gUnknown_082058B4[proc->frame].unk02;
 
         if (proc->frame == 0)
-            PlaySeSpacial(SONG_13F, proc->xDisplay); // TODO: song ids
+            PlaySeSpacial(SONG_13F, proc->xDisplay);
 
         proc->timer = gUnknown_082058B4[proc->frame].unk01;
 

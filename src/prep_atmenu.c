@@ -19,6 +19,7 @@
 #include "eventcall.h"
 #include "sysutil.h"
 #include "sio.h"
+#include "constants/songs.h"
 
 s8 CheckInLinkArena();
 
@@ -308,10 +309,10 @@ void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
         }
     } else {
         if (A_BUTTON & gKeyStatusPtr->newKeys) {
-            PlaySoundEffect(0x6A);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
             if (2 == sub_8095094(proc->hand_pos, proc->unk_2F))
-                CallSomeSoundMaybe(0x37, 0x100, 0x100, 0x20, NULL);
+                CallSomeSoundMaybe(SONG_BONDS, 0x100, 0x100, 0x20, NULL);
 
             proc->state = 4;
             Proc_Goto(proc, 8);
@@ -332,7 +333,7 @@ void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
             CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 1, 6), gGenericBuffer, 0x1000);
 
             SetPrepScreenMenuPosition(1, 6);
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             Proc_Break(proc);
             return;
         }
@@ -360,7 +361,7 @@ void AtMenu_CtrlLoop(struct ProcAtMenu * proc)
             StartHelpBox(xPos, yPos, msg_list[sub_8095094(proc->hand_pos, proc->unk_2F)]);
 
         ShowSysHandCursor(xPos, yPos, 7, 0x400);
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 }
 

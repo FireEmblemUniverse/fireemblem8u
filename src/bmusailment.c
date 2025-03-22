@@ -22,6 +22,7 @@
 #include "bmlib.h"
 #include "eventinfo.h"
 #include "bmusailment.h"
+#include "constants/songs.h"
 
 extern u16 gUnknown_08A032AC[];
 extern u16 gUnknown_08A03334[]; // palette
@@ -490,7 +491,7 @@ void StartStatusHealEffect(struct Unit* unit, ProcPtr proc) {
 
     if (proc) {
         Proc_StartBlocking(sProcScr_StatusHealEffect, proc);
-        PlaySoundEffect(0xAA);
+        PlaySoundEffect(SONG_AA);
         return;
     }
 

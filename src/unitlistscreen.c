@@ -21,6 +21,7 @@
 #include "sio.h"
 
 #include "unitlistscreen.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) struct SortedUnitEnt gSortedUnitsBuf[0x40] = {};
 EWRAM_OVERLAY(0) struct SortedUnitEnt * gSortedUnits[0x40] = {};
@@ -1079,11 +1080,11 @@ void UnitList_DeployUnit(struct Unit * unit, struct UnitListScreenProc * proc)
         }
 
         proc->deployedCount++;
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
     }
     else
     {
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
     }
 
     return;
@@ -1106,11 +1107,11 @@ void UnitList_UndeployUnit(struct Unit * unit, struct UnitListScreenProc * proc)
         }
 
         proc->deployedCount--;
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
     else
     {
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
     }
 
     return;
@@ -1158,7 +1159,7 @@ void UnitList_ToggleSoloAnimState(struct Unit * unit, int step)
 
     if ((UNIT_CATTRIBUTES(unit) & CA_SUPPLY) != 0)
     {
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
         return;
     }
 
@@ -1168,7 +1169,7 @@ void UnitList_ToggleSoloAnimState(struct Unit * unit, int step)
 
     unit->state = (unit->state & ~US_SOLOANIM) | animState;
 
-    PlaySoundEffect(0x6a);
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
     return;
 }
@@ -1208,7 +1209,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
 
             case UNITLIST_MODE_FIELD:
                 SetLastStatScreenUid(gSortedUnits[proc->unk_30]->unit->index);
-                PlaySoundEffect(0x6A);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 Proc_Break(proc);
 
                 break;
@@ -1239,7 +1240,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
         proc->pageTarget--;
         Proc_Goto(proc, 2);
         proc->unk_2d = 0;
-        PlaySoundEffect(0x6F);
+        PlaySoundEffect(SONG_6F);
 
         return;
     }
@@ -1261,7 +1262,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
         {
             proc->pageTarget++;
             proc->unk_2d = 0;
-            PlaySoundEffect(0x6F);
+            PlaySoundEffect(SONG_6F);
             Proc_Goto(proc, 2);
         }
 
@@ -1276,13 +1277,13 @@ void sub_809144C(struct UnitListScreenProc * proc)
             if ((gKeyStatusPtr->newKeys & DPAD_UP) == 0)
                 return;
 
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             proc->unk_29 = 3;
             return;
         }
 
         proc->unk_30--;
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
         if (proc->unk_2c < 2)
         {
@@ -1319,7 +1320,7 @@ void sub_809144C(struct UnitListScreenProc * proc)
         if (proc->unk_30 < gUnknown_0200F158 - 1)
         {
             proc->unk_30++;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
             if (proc->unk_2c == 4 && proc->unk_30 != gUnknown_0200F158 - 1)
             {
@@ -1355,7 +1356,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         unk_32 = proc->unk_32;
 
         proc->unk_2a = 1;
-        PlaySoundEffect(0x6A);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         proc->unk_32 = gUnitListScreenFields[proc->page][proc->unk_2d].sortKey;
         proc->unk_33 = (proc->unk_33 + 1) & 1;
 
@@ -1381,7 +1382,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
 
     if (((gKeyStatusPtr->repeatedKeys & DPAD_DOWN) != 0) && proc->helpActive == 0)
     {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         proc->unk_33 = 1;
         proc->unk_29 = 0;
         return;
@@ -1399,7 +1400,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
             if (proc->mode == UNITLIST_MODE_SOLOANIM)
                 return;
 
-            PlaySoundEffect(0x6F);
+            PlaySoundEffect(SONG_6F);
             proc->pageTarget--;
 
             for (i = 8; i > 0 && gUnitListScreenFields[proc->pageTarget][i].xColumn == 0; i--)
@@ -1412,7 +1413,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         }
 
         proc->unk_2d--;
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         return;
     }
 
@@ -1428,7 +1429,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
                     return;
 
                 proc->unk_2d = 0;
-                PlaySoundEffect(0x6F);
+                PlaySoundEffect(SONG_6F);
 
                 proc->pageTarget++;
                 Proc_Goto(proc, 2);
@@ -1438,7 +1439,7 @@ void sub_80917D8(struct UnitListScreenProc * proc)
         else
         {
             proc->unk_2d++;
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         }
 
         return;
@@ -1472,7 +1473,7 @@ void sub_8091AEC(struct UnitListScreenProc * proc)
 
     if (((gKeyStatusPtr->newKeys & B_BUTTON) != 0) && (proc->helpActive == 0))
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         SetLastStatScreenUid(0);
         Proc_Break(proc);
         return;

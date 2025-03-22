@@ -1185,7 +1185,7 @@ void StartBlinkMu(struct MuProc * mu)
     mu->sprite_anim->frameTimer = 0;
     mu->sprite_anim->frameInterval = 0;
 
-    PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
+    PlaySoundEffect(SONG_D6);
 }
 
 void MU_SetupPixelEffect(u32* data, int frame)
@@ -1252,7 +1252,7 @@ void MU_StartPixelEffect(struct MuProc * mu)
     mu->sprite_anim->frameTimer = 0;
     mu->sprite_anim->frameInterval = 0;
 
-    PlaySoundEffect(0xD6); // TODO: SOUND DEFINITIONS
+    PlaySoundEffect(SONG_D6);
 }
 
 void HideMu(struct MuProc * proc)

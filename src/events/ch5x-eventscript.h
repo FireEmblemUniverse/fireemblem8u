@@ -9,6 +9,7 @@
 #include "constants/worldmap.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 void HandleCh5xUnits_Start(void)
 {
@@ -35,7 +36,7 @@ void HandleCh5xUnits_Start(void)
 
 CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     ASMC(HandleCh5xUnits_Start)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SVAL(EVT_SLOT_B, 0x4000a)
     LOMA(0x8)
     FADU(16)
@@ -66,7 +67,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     CLEA
     CLEE
     CLEN
@@ -79,7 +80,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     STAL(60)
     CURE
     SetBackground(BG_TREES)
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTSHOW(0x9d8)
     TEXTEND
     REMA
@@ -128,7 +129,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     TEXTSHOW(0x9db)
     TEXTEND
     REMA
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     ENDA
 };
 
@@ -162,13 +163,13 @@ void HandleCh5xUnits_End(void)
 
 CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     ASMC(HandleCh5xUnits_End)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_CASTLE_BRIGHT)
     TEXTSHOW(0x9e1)
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     CLEA
     CLEE
     CLEN
@@ -200,7 +201,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     LOAD2(0x1, UnitDef_088B5F7C)
     ENUN
     EVBIT_F(9)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     LOAD1(0x1, UnitDef_088B60A8)
     ENUN
     LOAD1(0x1, UnitDef_088B6120)
@@ -213,7 +214,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
 
     WmEvtSetUnitOnNode(WM_MU_0, WM_NODE_Serafew) // ENOSUPP in EAstdlib
 

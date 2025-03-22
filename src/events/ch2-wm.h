@@ -10,6 +10,7 @@
 #include "constants/characters.h"
 #include "constants/classes.h"
 #include "constants/worldmap.h"
+#include "constants/songs.h"
 
 CONST_DATA EventScr EventScrWM_Ch2_BeginningTutorial[] = {
     EvtTextStartType5 // ENOSUPP in EAstdlib
@@ -34,7 +35,7 @@ CONST_DATA EventScr EventScrWM_Ch2_Beginning[] = {
     STAL(40)
     WM_DRAWPATH(WM_PATH_01)
     STAL(70)
-    MUSC(0x4)
+    MUSC(SONG_THE_BEGINNING)
     SVAL(EVT_SLOT_2, EventScrWM_Ch2_BeginningTutorial)
     CALL(EventScr_CallOnTutorialMode)
     WM_MAKELORDVISIBLE(WM_MU_0)

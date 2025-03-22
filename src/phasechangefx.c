@@ -13,6 +13,7 @@
 #include "bmlib.h"
 #include "phasechangefx.h"
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 /*
  * The nice phase changing animation thing and related procs/functions
@@ -137,7 +138,7 @@ void PhaseIntroInitText(struct PhaseIntroSubProc *proc)
     if (GetCurrentBgmSong() != GetCurrentMapMusicIndex())
         Sound_FadeOutBGM(4);
 
-    PlaySoundEffect(0x73);
+    PlaySoundEffect(SONG_73);
 
     proc->timer = 15;
 }

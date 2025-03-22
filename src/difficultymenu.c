@@ -12,6 +12,7 @@
 #include "spline.h"
 #include "sysutil.h"
 #include "savemenu.h"
+#include "constants/songs.h"
 
 struct Unknown_08A209FC gUnknown_08A209FC[] =
 {
@@ -474,7 +475,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
 
     if (hasChanged != 0)
     {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         proc->sprites_proc->current_selection = proc->current_selection;
         sub_80AC680(proc->sprites_proc, gUnknown_08A209FC[proc->current_selection].a, gUnknown_08A209FC[proc->current_selection].b);
         DrawDifficultyModeText(proc);
@@ -488,7 +489,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     if (gKeyStatusPtr->newKeys & (A_BUTTON | START_BUTTON))
     {
         proc->unk_2c = 0;
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         switch (proc->current_selection) {
         case 0:
             SaveMenu_SetDifficultyChoice(0, 0);
@@ -509,7 +510,7 @@ void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc)
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
         proc->unk_2c = 0;
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         SaveMenu_SetDifficultyChoice(3, 0);
         Proc_Goto(proc, 2);
     }

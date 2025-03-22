@@ -19,6 +19,7 @@
 #include "gamecontrol.h"
 #include "sio.h"
 #include "constants/event-flags.h"
+#include "constants/songs.h"
 
 extern u16 EventScr_8A0035C[];
 extern u16 EventScr_8A00364[];
@@ -384,7 +385,7 @@ void sub_8009A84(ProcPtr proc)
 
 void sub_8009ABC(ProcPtr proc)
 {
-    StartBgmCore(0x43, 0);
+    StartBgmCore(SONG_MAIN_THEME, 0);
     StartBgmVolumeChange(0, 0xC0, 0x3C, 0);
 }
 

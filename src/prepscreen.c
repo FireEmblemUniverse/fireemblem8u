@@ -8,14 +8,15 @@
 #include "bmitem.h"
 #include "hardware.h"
 #include "chapterdata.h"
-#include "constants/items.h"
 #include "bmudisp.h"
 #include "worldmap.h"
 #include "helpbox.h"
 #include "bmlib.h"
 #include "sio.h"
-
 #include "prepscreen.h"
+
+#include "constants/items.h"
+#include "constants/songs.h"
 
 EWRAM_DATA struct SioPidPool gSioPidPool = { 0 };
 EWRAM_OVERLAY(0) char gBufPrep[0x2000] = {};
@@ -182,12 +183,12 @@ void PrepScreenMenu_OnItems(struct ProcAtMenu* proc) {
 
 void PrepScreenMenu_OnSupport(struct ProcAtMenu* proc) {
     proc->state = 4;
-    CallSomeSoundMaybe(0x37, 0x100, 0x100, 0x20, 0);
+    CallSomeSoundMaybe(SONG_BONDS, 0x100, 0x100, 0x20, 0);
     Proc_Goto(proc, 0xA);
 }
 
 void PrepScreenMenu_OnSave(struct ProcAtMenu* proc) {
-    PlaySoundEffect(0x6A);
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
     proc->state = 3;
     Proc_Goto(proc, 0x8);
 }

@@ -9,6 +9,7 @@
 #include "bmsave.h"
 #include "ap.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 struct BonusClaimHelpBoxProc
 {
@@ -47,7 +48,7 @@ void sub_80AEB1C(void)
 //! FE8U = 0x080AEB28
 void sub_80AEB28(int unk)
 {
-    CallSomeSoundMaybe(0, 0x100, 0, unk, NULL);
+    CallSomeSoundMaybe(SONG_NONE, 0x100, 0, unk, NULL);
     return;
 }
 
@@ -61,7 +62,7 @@ void sub_80AEB44(int songId)
 //! FE8U = 0x080AEB60
 void BonusClaimHelp_Init(struct BonusClaimHelpBoxProc * proc)
 {
-    PlaySoundEffect(0x70);
+    PlaySoundEffect(SONG_70);
     StartHelpBox_Unk(proc->x, proc->y, proc->msgId);
     return;
 }
@@ -72,7 +73,7 @@ void BonusClaimHelp_Loop(struct BonusClaimHelpBoxProc * proc)
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON | L_BUTTON | R_BUTTON))
     {
         Proc_Break(proc);
-        PlaySoundEffect(0x71);
+        PlaySoundEffect(SONG_71);
         CloseHelpBox();
     }
 

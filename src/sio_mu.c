@@ -8,6 +8,7 @@
 #include "m4a.h"
 #include "bmunit.h"
 #include "ctc.h"
+#include "constants/songs.h"
 
 // clang-format off
 
@@ -78,7 +79,7 @@ void StartLinkArenaMUDeathFade(struct MuProc * muProc)
 
     muProc->sprite_anim->objLayer = 13;
 
-    PlaySoundEffect(0xd6);
+    PlaySoundEffect(SONG_D6);
 
     return;
 }

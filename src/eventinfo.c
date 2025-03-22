@@ -21,6 +21,7 @@
 #include "constants/characters.h"
 #include "constants/items.h"
 #include "constants/event-flags.h"
+#include "constants/songs.h"
 
 #define EVT_CMD_LO(cmd) (((cmd) & 0x0000FFFF))
 #define EVT_CMD_HI(cmd) (((cmd) & 0xFFFF0000) >> 16)
@@ -584,11 +585,11 @@ void DisplayDefeatTalkForPid(u8 pid) {
 
     if (ent) {
         if ((ent->route == 1) && (ent->flag == 0x65)) {
-            StartBgm(0x3e, NULL);
+            StartBgm(SONG_GAME_OVER, NULL);
             gPlaySt.config.disableBgm = 1;
         } else {
             if (UNIT_FACTION(GetUnitFromCharId(pid)) == FACTION_BLUE) {
-                StartBgm(0x3f, NULL);
+                StartBgm(SONG_IN_SORROWS_SHROUD, NULL);
             }
         }
         if (ent->msg != 0) {
@@ -691,7 +692,7 @@ u16 GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank) {
 //! FE8U = 0x080837B0
 void sub_80837B0(void) {
     SetFlag(EVFLAG_GAMEOVER);
-    StartBgm(0x3e, NULL);
+    StartBgm(SONG_GAME_OVER, NULL);
     gPlaySt.config.disableBgm = 1;
     CallGameOverEvent();
 

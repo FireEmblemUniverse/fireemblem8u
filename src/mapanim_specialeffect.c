@@ -18,6 +18,7 @@
 #include "rng.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
+#include "constants/songs.h"
 
 void MapAnim_BeginMISSAnim(struct Unit * unit)
 {
@@ -100,7 +101,7 @@ void NewMapPoisonEffect(struct Unit * unit)
 
 void MapAnim_BeginPoisonAnim(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0xB7, proc->xDisplay); // TODO: song ids
+    PlaySeSpacial(SONG_B7, proc->xDisplay);
 
     Decompress(
         Img_PoisonAnim,
@@ -137,7 +138,7 @@ void NewMapAnimPoisonAnim2(struct Unit * unit)
 
 void MapAnim_BeginPoisonAnim2(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0xB7, proc->xDisplay); // TODO: song ids
+    PlaySeSpacial(SONG_B7, proc->xDisplay);
 
     Decompress(
         Img_PoisonAnim,
@@ -228,7 +229,7 @@ void MapAnim_GorgonHatch_Loop(struct MAEffectProc * proc)
     if (proc->timer == 0)
     {
         if (proc->frame == 0)
-            PlaySeSpacial(0x3CA, proc->xDisplay); // TODO: song ids
+            PlaySeSpacial(SONG_3CA, proc->xDisplay);
 
         else if (proc->frame == 1)
             LoadGorgonFromEgg(proc);

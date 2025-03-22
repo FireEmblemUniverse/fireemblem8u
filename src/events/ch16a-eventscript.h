@@ -18,7 +18,7 @@ CONST_DATA EventListScr EventScr_Ch16a_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F6A8C[] = {
-    MUSC(0x47)
+    MUSC(SONG_47)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x40)
     FADU(16)
@@ -30,7 +30,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     SetBackground(BG_PLAIN_2)
     TEXTSHOW(0xb39)
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -43,7 +43,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     TEXTSHOW(0xb3a)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE
@@ -56,7 +56,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088BD84C)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     MOVE(0x0, CHARACTER_ORSON, 7, 6)
     ENUN
@@ -80,7 +80,7 @@ LABEL(0x1)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BEQ(0x2, EVT_SLOT_C, EVT_SLOT_1)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD8B0)
     ENUN
@@ -114,7 +114,7 @@ LABEL(0x2)
 LABEL(0x3)
     LOAD2(0x1, UnitDef_088BD914)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     MOVE(0x10, CHARACTER_LYON, 7, 5)
     ENUN
@@ -127,7 +127,7 @@ LABEL(0x3)
     ENUN
     MOVE_1STEP(0x10, 0x81, FACING_LEFT)
     ENUN
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     CUMO_CHAR(0x80)
     STAL(60)
     CURE
@@ -141,7 +141,7 @@ LABEL(0x3)
 LABEL(0x4)
     TEXTSHOW(0xb3e)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
 LABEL(0x5)
     REMA
     FADI(16)
@@ -156,7 +156,7 @@ LABEL(0x5)
     TEXTEND
     GOTO(0x7)
 LABEL(0x6)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTSHOW(0xb40)
     TEXTEND
 LABEL(0x7)
@@ -167,7 +167,7 @@ LABEL(0x7)
     BNE(0x8, EVT_SLOT_C, EVT_SLOT_1)
     CLEAN
     CAMERA(0, 0)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     FADU(16)
     LOAD2(0x1, UnitDef_088BD98C)
     ENUN
@@ -199,7 +199,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEA
     CLEE
     CLEN
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     SetBackground(BG_CASTLE_INTERIOR)
     TEXTSHOW(0xb49)
     TEXTEND
@@ -210,14 +210,14 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088BDA08)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088BDA44)
     ENUN
     CUMO_CHAR(0xfb)
     STAL(60)
     CURE
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     SetBackground(BG_THRONE_NORMAL)
     TEXTSHOW(0xb4a)
     TEXTEND
@@ -235,7 +235,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     TEXTSTART
     TEXTSHOW(0xb4b)
     TEXTEND
@@ -253,7 +253,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     MOVE(0x0, CHARACTER_EPHRAIM, 14, 11)
     MOVE(0x0, CHARACTER_SETH, 13, 11)
     STAL2(20)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     ENUN
     CLEA
@@ -261,7 +261,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     LOMA(0x43)
     LOAD2(0x1, UnitDef_088BDB5C)
     ENUN
-    MUSC(0x95)
+    MUSC(SONG_95)
     FADU(16)
     LOAD2(0x1, UnitDef_088BDAF8)
     SOLOTEXTBOXSTART
@@ -285,7 +285,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     TEXTSHOW(0xb50)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE
@@ -328,10 +328,10 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     STAL(60)
     CURE
     SetBackground(BG_RENAIS_CHAMBER)
-    MUSCSLOW(0x2b)
+    MUSCSLOW(SONG_LEGACY)
     TEXTSHOW(0xb52)
     TEXTEND
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     FADI(4)
     REMA
     CLEAN
@@ -342,12 +342,12 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     SetBackground(BG_RENAIS_CHAMBER)
     TEXTSHOW(0xb53)
     TEXTEND
-    SOUN(0x2eb)
+    SOUN(SONG_2EB)
     FAWI(4)
     REMA
     SVAL(EVT_SLOT_2, 0x2e)
     CALL(EventScr_089F731C)
-    MUSCSLOW(0x2b)
+    MUSCSLOW(SONG_LEGACY)
     REMOVEPORTRAITS
     TEXTSHOW(0xb54)
     TEXTEND
@@ -357,11 +357,11 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     FADU(4)
     LOAD2(0x1, UnitDef_088BDC88)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088BDCB0)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x1)
     LOAD2(0x1, UnitDef_088BDCD8)
     ENUN
@@ -414,7 +414,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_LARACHEL)
     STAL(60)
     CURE
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_1)
@@ -445,7 +445,7 @@ CONST_DATA EventListScr EventScr_089F731C[] = {
     CALL(EventScr_RemoveBGIfNeeded)
     EVBIT_MODIFY(0x4)
     CALL(EventScr_089F7378)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     REMOVEPORTRAITS
     SADD(EVT_SLOT_2, EVT_SLOT_A, EVT_SLOT_0)
     BACG(0xffff)

@@ -646,7 +646,7 @@ void HandleMapCursorInput(u16 keys) {
             return;
         }
 
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
         gBmSt.gameStateBits |= (1 << 2);
     } else {
         gBmSt.gameStateBits &= ~(1 << 2);
@@ -1191,7 +1191,7 @@ int GetCurrentMapMusicIndex(void) {
 
                 if ((mapKind != BATTLEMAP_KIND_SKIRMISH && aliveUnits <= GetROMChapterStruct(gPlaySt.chapterIndex)->victorySongEnemyThreshold)
                     || (mapKind == BATTLEMAP_KIND_SKIRMISH && aliveUnits <= 1))
-                    return SONG_BGM_MAP_PL10;
+                    return SONG_GRASP_AT_VICTORY;
             }
 
             return GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[blueBgmIdx];

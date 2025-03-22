@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch14b_BeginningScene[] = {
-    MUSC(0x4d)
+    MUSC(SONG_4D)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x3f)
     FADU(16)
@@ -19,16 +19,16 @@ CONST_DATA EventListScr EventScr_Ch14b_BeginningScene[] = {
     REMA
     REMOVEPORTRAITS
     BACG(BG_THRONE_FLASHBACK)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_LYON, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xafb)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
-    MUSCSLOW(0x4d)
+    MUSCSLOW(SONG_4D)
     FAWU(2)
     MOVE_1STEP(0x8, CHARACTER_MYRRH, FACING_UP)
     ENUN
@@ -48,7 +48,7 @@ LABEL(0x0)
     STAL2(16)
     MOVE(0x8, CHARACTER_SETH, 10, 4)
     MOVE(0x8, CHARACTER_MYRRH, 10, 4)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     ENUN
     CLEA
@@ -66,14 +66,14 @@ LABEL(0x0)
     TEXTSHOW(0xafd)
     TEXTEND
     REMA
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD1(0x1, UnitDef_088C6660)
     ENUN
     CUMO_CHAR(CHARACTER_SOLDIER_83)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     TEXTSTART
     TEXTSHOW(0xafe)
     TEXTEND
@@ -113,7 +113,7 @@ CONST_DATA EventListScr EventScr_089FC04C[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_2, 0x1c)
     CALL(EventScr_9EE5BC)
@@ -128,7 +128,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 4, 128, 128, 128) // ENOSUPP in EAstdlib
     EvtColorFadeSetup(0x1d, 0x1, 2, 0, 0, 0) // ENOSUPP in EAstdlib
-    SOUN(0xd6)
+    SOUN(SONG_D6)
     SVAL(EVT_SLOT_2, 0x6b)
     CALL(EventScr_UnitFlushingOUT)
     DISA(CHARACTER_VIGARDE)
@@ -165,12 +165,12 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     SetBackground(BG_CASTLE_DARK)
     TEXTSHOW(0xb06)
     TEXTEND
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTCONT
     TEXTEND
     REMA
     CALL(EventScr_TextShowWithFadeIn)
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
@@ -186,7 +186,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACHER_FRELIAN)
     STAL(60)
     CURE
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSTART
     TEXTSHOW(0xb08)
     TEXTEND
@@ -205,7 +205,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     FADU(16)
     LOAD2(0x1, UnitDef_088C6AC4)
     ENUN
-    SOUN(0xb1)
+    SOUN(SONG_B1)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C6B28)
     ENUN
@@ -219,7 +219,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     SetBackground(BG_CELL)
     TEXTSHOW(0xb09)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     CLEA
@@ -237,7 +237,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
     CURE
-    MUSCSLOW(0x2d)
+    MUSCSLOW(SONG_LOST_HEART)
     Text_BG(BG_STONE_FLASHBACK, 0xb0a)
     LOAD2(0x1, UnitDef_088C6C40)
     ENUN
@@ -256,7 +256,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     TEXTSHOW(0xb0c)
     TEXTEND
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEA
     CLEE
@@ -270,7 +270,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     LOAD2(0x1, UnitDef_088C6B28)
     ENUN
     MOVE_1STEP(0xffff, CHARACTER_KNOLL, FACING_DOWN)
-    MUSCSLOW(0x32)
+    MUSCSLOW(SONG_INTO_THE_SHADOW_OF_VICTORY)
     FAWU(2)
     CUMO_CHAR(CHARACTER_KNOLL)
     STAL(60)
@@ -319,7 +319,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C66D8)
     ENUN
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     FADU(16)
     LOAD2(0x1, UnitDef_088C6778)
     ENUN

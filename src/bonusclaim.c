@@ -22,6 +22,7 @@
 
 #include "constants/characters.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) struct BonusClaimEnt gBonusClaimData[50] = {};
 EWRAM_OVERLAY(0) u8 bonusclaim_maybe_not_pad1[0x18] = {};
@@ -452,7 +453,7 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc)
                     case BONUSKIND_ITEM0:
                     case BONUSKIND_ITEM1:
                         Proc_Goto(proc, 1);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
                     default:
                         return;
@@ -476,14 +477,14 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc)
                 }
             }
 
-            PlaySoundEffect(0x6c);
+            PlaySoundEffect(SONG_6C);
 
             return;
         }
 
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             Proc_Break(proc);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
 
@@ -502,7 +503,7 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc)
                     return;
                 }
 
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
                 proc->menuIndex = curIdx;
 
@@ -695,7 +696,7 @@ void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
         Proc_Break(proc);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         return;
     }
 
@@ -708,7 +709,7 @@ void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc * proc)
     }
 
     if (((tmp != proc->submenuIndex) && (-1 < tmp)) && (tmp < proc->targets)) {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         proc->submenuIndex = tmp;
         ShowSysHandCursor(92, proc->submenuIndex * 16 + 48, 12, 0x800);
     }
@@ -801,10 +802,10 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc * proc)
     switch (ent2->kind) {
         case BONUSKIND_ITEM0:
         case BONUSKIND_ITEM1:
-            PlaySoundEffect(0x5a);
+            PlaySoundEffect(SONG_5A);
             break;
         case BONUSKIND_MONEY:
-            PlaySoundEffect(0xb9);
+            PlaySoundEffect(SONG_SE_MONEY);
             break;
     }
 

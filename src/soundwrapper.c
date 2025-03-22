@@ -4,6 +4,7 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "soundwrapper.h"
+#include "constants/songs.h"
 
 EWRAM_DATA struct SoundSt gSoundSt = {0};
 
@@ -350,13 +351,13 @@ void sub_80028FC(int songId)
 {
     switch (songId)
     {
-    case 1:
-    case 2:
-    case 0x42:
-    case 0x43:
-    case 0x40:
-    case 0x56:
-    case 0x74:
+    case SONG_THE_VALIANT:
+    case SONG_MAIN_THEME_EXT:
+    case SONG_FLY_WITH_THE_BREEZE:
+    case SONG_MAIN_THEME:
+    case SONG_RECORDS:
+    case SONG_BGM_ED_STAFF_2:
+    case SONG_74:
         if (gSoundSt.maxChannels != 8)
             Sound_SetMaxNumChannels(8);
         break;

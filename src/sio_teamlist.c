@@ -14,6 +14,7 @@
 
 #include "sio_core.h"
 #include "sio.h"
+#include "constants/songs.h"
 
 extern struct ProcCmd ProcScr_SioTeamList[];
 
@@ -668,7 +669,7 @@ void SioTeamList_Loop_MainKeyHandler(struct SioTeamListProc * proc)
 
     if (((gKeyStatusPtr->newKeys & START_BUTTON) != 0) && (proc->unk_5c != 0))
     {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         gLinkArenaSt.unk_03 = 0;
         Proc_Goto(proc, 9);
     }
@@ -915,7 +916,7 @@ void SioTeamList_8043D8C(struct SioTeamListProc * proc)
 
     if (((gKeyStatusPtr->newKeys & START_BUTTON) != 0) && (proc->unk_5c != 0))
     {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         gLinkArenaSt.unk_03 = 0;
         Proc_Goto(proc, 9);
     }

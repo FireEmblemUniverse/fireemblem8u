@@ -6,6 +6,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch1Tut_GuideWTA[] = {
     /**
@@ -23,7 +24,7 @@ CONST_DATA EventListScr EventScr_Ch1Tut_GuideWTA[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1Tut_EirikaVisitHouseInit[] = {
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
 
     /**
      * Seth.

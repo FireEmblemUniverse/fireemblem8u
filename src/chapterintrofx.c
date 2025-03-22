@@ -15,6 +15,7 @@
 #include "bmlib.h"
 #include "sysutil.h"
 #include "worldmap.h"
+#include "constants/songs.h"
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
     PROC_REPEAT(ChapterIntro_Bg3Scroll_Loop),
@@ -418,7 +419,7 @@ void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc) {
     proc->unk_66 = 0;
     proc->unk_68 = 3;
 
-    PlaySoundEffect(0x316);
+    PlaySoundEffect(SONG_316);
 
     return;
 }

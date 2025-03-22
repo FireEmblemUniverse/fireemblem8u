@@ -1,8 +1,6 @@
 #include "global.h"
 #include "bmunit.h"
-#include "constants/classes.h"
 #include "bmitem.h"
-#include "constants/items.h"
 #include "bmusemind.h"
 #include "bmbattle.h"
 #include "bmudisp.h"
@@ -22,6 +20,10 @@
 #include "worldmap.h"
 #include "prepscreen.h"
 
+#include "constants/classes.h"
+#include "constants/items.h"
+#include "constants/songs.h"
+
 bool CheckInLinkArena(void);
 
 // TODO: Implicit declaration?
@@ -36,13 +38,13 @@ bool PrepItemUseTryMoveHand(struct ProcPrepItemUse *proc)
 
         if (proc->slot > 0) {
             proc->slot = proc->slot - 1;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return true;
         }
 
         if (gKeyStatusPtr->newKeys & DPAD_UP) {
             proc->slot = slot - 1;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return true;
         }
 
@@ -54,13 +56,13 @@ bool PrepItemUseTryMoveHand(struct ProcPrepItemUse *proc)
 
         if (proc->slot < (GetUnitItemCount(proc->unit) - 1)) {
             proc->slot = proc->slot + 1;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return true;
         }
 
         if (gKeyStatusPtr->newKeys & DPAD_DOWN) {
             proc->slot = 0;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return true;
         }
 
@@ -494,18 +496,18 @@ void PrepItemUse_CtrlLoop(struct ProcPrepItemUse *proc)
             proc->unk34 = proc->slot;
             SetUiCursorHandConfig(0, 0x10, 0x10 * proc->slot + 72, 0);
             proc->pos_subbox = 1;
-            PlaySoundEffect(0x6A);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_CONFIRM);
             return;
 
         } else {
-            PlaySoundEffect(0x6C);
+            PlaySoundEffect(SONG_6C);
             return;
         }
 
     } else if (gKeyStatusPtr->newKeys & B_BUTTON) {
         Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_EXIT_FADE);
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         return;
     }
 
@@ -588,7 +590,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
         ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
         sub_80ACA84(0);
         PrepItemUseClearSubBox();
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Break(proc);
         return;
     }
@@ -598,12 +600,12 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
         
         if (proc->pos_subbox == POS_L) {
             HideSysHandCursor();
-            PlaySoundEffect(0x6A);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_EXEC_ITEMEFFECT);
             return;
         } else {
             ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             sub_80ACA84(0);
             Proc_Break(proc);
             return;
@@ -618,7 +620,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
 
     if (old != proc->pos_subbox) {
         ShowSysHandCursor(proc->pos_subbox * 0x20 + 0x94, 0x78, 0, 0x800);
-        PlaySoundEffect(0x67);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
     }
 }
 
@@ -636,7 +638,7 @@ void PrepItemUse_HandleItemEffect(struct ProcPrepItemUse * proc)
     case ITEM_LUNARBRACE:
     case ITEM_SOLARBRACE:
     case ITEM_UNK_C1:
-        PlaySoundEffect(0x6A);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         Proc_Goto(proc, PROC_LABEL_PREPITEMUSE_EXEC_PROMO);
         break;
 
@@ -718,7 +720,7 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse * proc)
     Sound_SetSEVolume(0x100);
 
     if (CheckInLinkArena()) {
-        OverrideBgm(0x38);
+        OverrideBgm(SONG_COLOSSEUM_ENTRANCE);
         return;
     }
     
@@ -728,12 +730,12 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse * proc)
         return;
     }
 
-    OverrideBgm(0x34);
+    OverrideBgm(SONG_COMBAT_PREPARATION);
 }
 
 void sub_809CCE0(void)
 {
-    CallSomeSoundMaybe(0, 0x100, 0, 0x10, NULL);
+    CallSomeSoundMaybe(SONG_NONE, 0x100, 0, 0x10, NULL);
 }
 
 void StartPrepItemUseScreen(struct Unit *unit, ProcPtr parent)

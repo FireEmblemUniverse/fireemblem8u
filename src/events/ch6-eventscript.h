@@ -7,14 +7,15 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SetBackground(BG_PLAIN_1_FOG)
     TEXTSHOW(0x9e4)
     TEXTEND
     REMA
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     CALL(EventScr_TextShowWithFadeIn)
     EVBIT_T(9)
     LOAD2(0x1, UnitDef_088B64B4)
@@ -38,7 +39,7 @@ CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
     SetBackground(BG_PLAIN_1_FOG)
     TEXTSHOW(0x9e5)
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     REMA
@@ -100,7 +101,7 @@ CONST_DATA EventListScr EventScr_089F2940[] = {
     BEQ(0x4, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_2, 0xb0)
     CALL(EventScr_UnTriggerIfNotUnit)
-    MUSC(0x18)
+    MUSC(SONG_ENVOY_FROM_THE_DARK)
     CAMERA_CAHR(0xf9)
     CUMO_CHAR(0xf9)
     STAL(60)
@@ -131,7 +132,7 @@ LABEL(0x63)
 };
 
 CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     SetBackground(BG_PLAIN_1_FOG)
     CHECK_ALIVE(0xfa)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -139,22 +140,22 @@ CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_ALIVE(0xf9)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     TEXTSHOW(0x9f1)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x66)
     GIVEITEMTO(CHARACTER_EIRIKA)
 LABEL(0x0)
     REMA
-    MUSC(0x2b)
+    MUSC(SONG_LEGACY)
     TEXTSHOW(0x9f2)
     TEXTEND
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     STAL(60)
-    MUSCSLOW(0x32)
+    MUSCSLOW(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT
     TEXTEND
     REMA
@@ -181,7 +182,7 @@ CONST_DATA EventListScr EventScr_089F2AE4[] = {
     CLEAN
     CAMERA2(7, 8)
     FADU(16)
-    MUSC(0x11)
+    MUSC(SONG_SHADOWS_APPROACH)
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
     CURE

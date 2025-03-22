@@ -23,7 +23,7 @@ CONST_DATA EventListScr EventScr_089F8AC8[] = {
     LOAD1(0x1, UnitDef_088C1634)
     ENUN
     FADU(16)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
@@ -39,11 +39,11 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     FADI(4)
     CLEAN
     CAMERA(29, 20)
-    MUSC(0x4d)
+    MUSC(SONG_4D)
     FADU(4)
     LOAD2(0x1, UnitDef_088C165C)
     ENUN
@@ -56,14 +56,14 @@ LABEL(0x1)
     BNE(0x2, EVT_SLOT_C, EVT_SLOT_1)
     TEXTSHOW(0xbab)
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     GOTO(0x3)
 LABEL(0x2)
     TEXTSHOW(0xbac)
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
 LABEL(0x3)
@@ -99,7 +99,7 @@ LABEL(0x3)
 
 CONST_DATA EventListScr EventScr_089F8C60[] = {
     CAMERA2_CAHR(CHARACTER_RIEV)
-    MUSC(0x15)
+    MUSC(SONG_FROM_THE_DARKNESS)
     CUMO_CHAR(CHARACTER_RIEV)
     STAL(60)
     CURE
@@ -113,7 +113,7 @@ CONST_DATA EventListScr EventScr_089F8C60[] = {
 
 CONST_DATA EventListScr EventScr_089F8C8C[] = {
     CALL(EventScr_089F8CCC)
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
@@ -127,7 +127,7 @@ CONST_DATA EventListScr EventScr_089F8C8C[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F8CCC[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     SetBackground(BG_BLACK_TEMPLE_OUTSIDE)
     TEXTSHOW(0xbb3)
     TEXTEND
@@ -140,7 +140,7 @@ CONST_DATA EventListScr EventScr_089F8CCC[] = {
     LOAD2(0x1, UnitDef_088C16E8)
     ENUN
     CAMERA2_CAHR(CHARACTER_MYRRH)
-    EvtBgmFadeIn(0x29, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SORROW, 8) // ENOSUPP in EAstdlib
     FADU(4)
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
@@ -157,7 +157,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE

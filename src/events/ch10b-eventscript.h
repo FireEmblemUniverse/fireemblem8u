@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(0x4c)
     FADU(16)
@@ -33,7 +33,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
     TEXTSHOW(0xab5)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE
@@ -55,14 +55,14 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_DUESSEL)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SetBackground(BG_PORT)
     TEXTSHOW(0xab6)
     TEXTEND
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     TEXTCONT
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     CALL(EventScr_TextShowWithFadeIn)
@@ -126,7 +126,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FAAC4[] = {
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA2(15, 11)
     STAL(15)
     LOAD1(0x1, UnitDef_088C3334)
@@ -172,7 +172,7 @@ CONST_DATA EventListScr EventScr_089FAB7C[] = {
     CHECK_ALLEGIANCE(CHARACTER_CORMAG)
     SVAL(EVT_SLOT_1, 0x0)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_1)
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA_CAHR(CHARACTER_CORMAG)
     STAL(15)
     CUMO_CHAR(CHARACTER_CORMAG)
@@ -193,7 +193,7 @@ CONST_DATA EventListScr EventScr_089FABD0[] = {
     CHECK_ALLEGIANCE(CHARACTER_CORMAG)
     SVAL(EVT_SLOT_1, 0x0)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_1)
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA_CAHR(CHARACTER_CORMAG)
     STAL(15)
     CUMO_CHAR(CHARACTER_CORMAG)
@@ -219,7 +219,7 @@ CONST_DATA EventListScr EventScr_Ch10b_EndingScene[] = {
 LABEL(0x0)
     CHECK_EVENTID(2)
     BNE(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     CAMERA_CAHR(CHARACTER_BERAN)
     CUMO_CHAR(CHARACTER_BERAN)
     STAL(60)
@@ -228,7 +228,7 @@ LABEL(0x0)
     TEXTSHOW(0xac0)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEAN
     SVAL(EVT_SLOT_2, 0xe)
@@ -239,7 +239,7 @@ LABEL(0x0)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
     CURE
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_GRASS_PLAINS)
     TEXTSHOW(0xac1)
     TEXTEND
@@ -247,10 +247,10 @@ LABEL(0x0)
     FADI(16)
     GOTO(0x2)
 LABEL(0x1)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     FADI(16)
 LABEL(0x2)
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SVAL(EVT_SLOT_2, 0x1d)
     CALL(EventScr_LoadUniqueAlly)
     CLEA
@@ -265,10 +265,10 @@ LABEL(0x2)
     SetBackground(BG_GATE)
     TEXTSHOW(0xac2)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     TEXTCONT
     TEXTEND
-    MUSC(0x28)
+    MUSC(SONG_INDIGNATION)
     TEXTCONT
     TEXTEND
     BEQ(0x3, EVT_SLOT_7, EVT_SLOT_0)
@@ -280,7 +280,7 @@ LABEL(0x2)
     GIVEITEMTO(CHARACTER_DUESSEL)
 LABEL(0x3)
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEAN
     CAMERA(0, 19)
@@ -291,7 +291,7 @@ LABEL(0x3)
     CUMO_CHAR(CHARACTER_SETH)
     STAL(60)
     CURE
-    MUSC(0x24)
+    MUSC(SONG_ADVANCE)
     Text_BG(BG_PORT, 0xac4)
     CLEN
     LOAD2(0x1, UnitDef_088C33AC)

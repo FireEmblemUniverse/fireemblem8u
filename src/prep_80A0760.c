@@ -9,6 +9,7 @@
 #include "cgtext.h"
 #include "prepscreen.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 /**
 * This proc seems to be the "sub-menu" dialogue that pops up when selecting "Fortune" on the prep screen in FE7.
@@ -176,7 +177,7 @@ s8 FortuneSubMenu_Unused_KeyHandler(struct PrepProcA1962C* proc) {
     }
 
     if (previous != proc->unk_29) {
-        PlaySoundEffect(0x65);
+        PlaySoundEffect(SONG_65);
         return 1;
     }
 

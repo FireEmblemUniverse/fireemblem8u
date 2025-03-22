@@ -35,7 +35,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginningScene[] = {
     STAL(60)
     CURE
     SetBackground(BG_PLAIN_2)
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTSHOW(0xa6a)
     TEXTEND
     REMA
@@ -137,7 +137,7 @@ LABEL(0x1)
     CUMO_CHAR(CHARACTER_MANSEL)
     STAL(60)
     CURE
-    MUSC(0xf)
+    MUSC(SONG_BINDING_VOW)
     TEXTSTART
     TEXTSHOW(0xa77)
     TEXTEND
@@ -164,10 +164,10 @@ LABEL(0x1)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
     TEXTSHOW(0xa7a)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     TEXTCONT
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
     GOTO(0xb)
@@ -180,10 +180,10 @@ LABEL(0xa)
     GIVEITEMTOMAIN(CHAR_EVT_PLAYER_LEADER)
     TEXTSHOW(0xa7c)
     TEXTEND
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     TEXTCONT
     TEXTEND
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTCONT
     TEXTEND
 LABEL(0xb)
@@ -207,7 +207,7 @@ LABEL(0xb)
     STAL(60)
     CURE
     SetBackground(BG_DESERT)
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     TEXTSHOW(0xa7d)
     TEXTEND
     REMA
@@ -265,7 +265,7 @@ CONST_DATA EventListScr EventScr_089F5A20[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F5A48[] = {
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     SVAL(EVT_SLOT_2, UnitDef_088BACA4)
     CALL(EventScr_LoadReinforce)
     SVAL(EVT_SLOT_2, UnitDef_088BAD80)
@@ -310,7 +310,7 @@ CONST_DATA EventListScr EventScr_089F5AEC[] = {
 };
 
 CONST_DATA EventListScr EventScr_089F5B04[] = {
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     SVAL(EVT_SLOT_2, UnitDef_088BAEC0)
     CALL(EventScr_LoadReinforce)
     CUMO_CHAR(CHARACTER_CORMAG)

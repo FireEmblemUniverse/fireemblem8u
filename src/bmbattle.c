@@ -25,6 +25,7 @@
 #include "bmbattle.h"
 #include "mapanim.h"
 #include "worldmap.h"
+#include "constants/songs.h"
 
 struct WeaponTriangleRule {
     s8 attackerWeaponType;
@@ -1999,7 +2000,7 @@ void UpdateObstacleFromBattle(struct BattleUnit* bu) {
         int mapChangeId = GetMapChangeIdAt(bu->unit.xPos, bu->unit.yPos);
 
         if (gBmMapTerrain[bu->unit.yPos][bu->unit.xPos] == TERRAIN_SNAG)
-            PlaySoundEffect(0x2D7); // TODO: Sound id constants
+            PlaySoundEffect(SONG_2D7);
 
         RenderBmMapOnBg2();
 

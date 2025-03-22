@@ -7,9 +7,10 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch7_BeginningScene[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     LOAD1(0x1, UnitDef_088B6F54)
     ENUN
     FADU(16)
@@ -75,7 +76,7 @@ LABEL(0x6)
     EvtTextShow2(0x9fe) // ENOSUPP in EAstdlib
     TEXTEND
     CALL(EventScr_08591FD8)
-    MUSC(0x9)
+    MUSC(SONG_DISTANT_ROADS)
     FADU(16)
     SVAL(EVT_SLOT_2, EventScr_089F2EBC)
     CALL(EventScr_CallOnTutorialMode)
@@ -85,7 +86,7 @@ LABEL(0x6)
 
 CONST_DATA EventListScr EventScr_089F2CFC[] = {
     CAMERA2_CAHR(CHARACTER_MURRAY)
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     CUMO_CHAR(CHARACTER_MURRAY)
     STAL(60)
     CURE
@@ -105,7 +106,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     CLEE
     CLEN
     FADU(16)
-    MUSC(0x53)
+    MUSC(SONG_53)
     LOAD2(0x1, UnitDef_088B710C)
     ENUN
     CUMO_CHAR(CHARACTER_EIRIKA)

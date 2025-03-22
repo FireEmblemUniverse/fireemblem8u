@@ -23,6 +23,7 @@
 #include "constants/faces.h"
 
 #include "prepscreen.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) struct PrepItemSuppyText PrepItemSuppyTexts = {};
 
@@ -497,12 +498,12 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc)
                         Proc_End(GetParallelWorker(PutGiveTakeBoxSprites));
                         StartParallelWorker(PutGiveSprites, proc);
                         sub_809D278(1, proc);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                         Proc_Goto(proc, 3);
                         return;
                     }
 
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     break;
                 case 1:
                     if (GetUnitItemCount(proc->unit) < UNIT_ITEM_COUNT) {
@@ -510,12 +511,12 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc)
                         Proc_End(GetParallelWorker(PutGiveTakeBoxSprites));
                         StartParallelWorker(PutTakeSprites, proc);
                         sub_809D278(2, proc);
-                        PlaySoundEffect(0x6a);
+                        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                         Proc_Goto(proc, 4);
                         return;
                     }
 
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     break;
             }
             return;
@@ -523,7 +524,7 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc)
 
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             Proc_Goto(proc, 8);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
 
@@ -561,7 +562,7 @@ void PrepItemSupply_Loop_GiveTakeKeyHandler(struct PrepItemSupplyProc * proc)
     }
 
     if (idx != proc->unk_33) {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         ShowSysHandCursor(68, proc->unk_33 * 16 + 36, 4, 0x400);
         if (proc->unk_38 != 0) {
             StartHelpBox(68, proc->unk_33 * 16 + 36, gSupplyHelpTextIndexLookup[proc->unk_33]);
@@ -760,7 +761,7 @@ void sub_809E2C8(struct PrepItemSupplyProc * proc)
     int count = GetUnitItemCount(proc->unit);
 
     if ((count == UNIT_ITEM_COUNT) || (gUnknown_02012F56 == 0)) {
-        PlaySoundEffect(0x6c);
+        PlaySoundEffect(SONG_6C);
         return;
     }
 
@@ -799,9 +800,9 @@ void sub_809E2C8(struct PrepItemSupplyProc * proc)
 
     if (GetUnitItemCount(proc->unit) == UNIT_ITEM_COUNT) {
         Proc_Goto(proc, 1);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     } else {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
     }
 
     return;
@@ -825,7 +826,7 @@ void sub_809E420(struct PrepItemSupplyProc * proc)
                     proc->unk_38 = 1;
                     return;
                 } else {
-                    PlaySoundEffect(0x6c);
+                    PlaySoundEffect(SONG_6C);
                     return;
                 }
             }
@@ -837,7 +838,7 @@ void sub_809E420(struct PrepItemSupplyProc * proc)
 
             if (gKeyStatusPtr->newKeys & B_BUTTON) {
                 Proc_Goto(proc, 1);
-                PlaySoundEffect(0x6b);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
                 proc->unk_38 = 0;
                 return;
             }
@@ -851,7 +852,7 @@ void sub_809E420(struct PrepItemSupplyProc * proc)
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT) {
             SetUiSpinningArrowFastMaybe(0);
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             Proc_Goto(proc, 5);
             proc->unk_34 = 0;
             PrepItemSupply_SwitchPageLeft(proc);
@@ -860,7 +861,7 @@ void sub_809E420(struct PrepItemSupplyProc * proc)
 
         if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
             SetUiSpinningArrowFastMaybe(1);
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             Proc_Goto(proc, 6);
             proc->unk_34 = 0;
             PrepItemSupply_SwitchPageRight(proc);
@@ -900,7 +901,7 @@ void sub_809E420(struct PrepItemSupplyProc * proc)
 
     if (idx != proc->idxPerPage[proc->currentPage]) {
         u16 item = gPrepScreenItemList[proc->idxPerPage[proc->currentPage]].item;
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
         if ((proc->idxPerPage[proc->currentPage] * 16 + 40 - proc->yOffsetPerPage[proc->currentPage] < 0x38) && (proc->idxPerPage[proc->currentPage] != 0)) {
             if (proc->unk_38 != 0) {
@@ -954,12 +955,12 @@ s8 sub_809E7A8(struct PrepItemSupplyProc * proc)
         int count = GetUnitItemCount(proc->unit);
         if (proc->unitInvIdx != 0) {
             proc->unitInvIdx--;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         } else {
             if (gKeyStatusPtr->newKeys & DPAD_UP) {
                 proc->unitInvIdx = count - 1;
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
                 return 1;
             }
         }
@@ -971,12 +972,12 @@ s8 sub_809E7A8(struct PrepItemSupplyProc * proc)
         int count = GetUnitItemCount(proc->unit);
         if (proc->unitInvIdx < count - 1) {
             proc->unitInvIdx++;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         } else {
             if (gKeyStatusPtr->newKeys & DPAD_DOWN) {
                 proc->unitInvIdx = 0;
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
                 return 1;
             }
         }
@@ -1021,9 +1022,9 @@ void PrepItemSupply_GiveItemToSupply(struct PrepItemSupplyProc * proc)
 
     if ((unitItemCount == 0) || (GetConvoyItemCount_() == CONVOY_ITEM_COUNT)) {
         Proc_Goto(proc, 1);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     } else {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         if (unitItemCount <= proc->unitInvIdx) {
             proc->unitInvIdx = unitItemCount - 1;
             ShowSysHandCursor(16, proc->unitInvIdx * 16 + 72, 0xb, 0x800);
@@ -1066,7 +1067,7 @@ void PrepItemSupply_Loop_UnitInvKeyHandler(struct PrepItemSupplyProc * proc)
 
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             Proc_Goto(proc, 1);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
     }

@@ -22,6 +22,7 @@
 #include "sysutil.h"
 #include "bmdifficulty.h"
 #include "constants/event-flags.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(0) u16 gUnknown_0200310C[0x3D0] = {};
 EWRAM_OVERLAY(0) struct Font gUnknown_020038AC = {};
@@ -485,7 +486,7 @@ void PopGlobalTimer() {
 }
 
 void sub_8038230() {
-    StartBgm(0x40, 0);
+    StartBgm(SONG_RECORDS, 0);
     return;
 }
 
@@ -1130,7 +1131,7 @@ void sub_803901C(struct BMDifficultyProc * proc)
 
     proc->unk_34 = 0;
 
-    PlaySoundEffect(0x80); // Point Up SE
+    PlaySoundEffect(SONG_SE_POINT_UP); // Point Up SE
 
     return;
 }
@@ -1174,7 +1175,7 @@ void sub_80390D4(struct BMDifficultyProc* proc) {
             );
         }
 
-        PlaySoundEffect(0x76); // Parameter Up SE
+        PlaySoundEffect(SONG_76); // Parameter Up SE
         BG_EnableSyncByMask(1);
 
         Proc_Break(proc);
@@ -1341,7 +1342,7 @@ void sub_803943C(struct BMDifficultyProc* proc) {
 
     proc->unk_38 = 0;
 
-    PlaySoundEffect(0x80);
+    PlaySoundEffect(SONG_SE_POINT_UP);
 
     return;
 }
@@ -1392,7 +1393,7 @@ void sub_80394A8(struct BMDifficultyProc* proc) {
 
         BG_EnableSyncByMask(1);
 
-        PlaySoundEffect(0x76);
+        PlaySoundEffect(SONG_76);
 
         Proc_Break(proc);
     }
@@ -1406,7 +1407,7 @@ void sub_8039554(struct BMDifficultyProc* proc) {
     proc->unk_34 = GetCurrentDungeonValueByUiLabel(0) + proc->unk_30;
     proc->unk_3c = 2;
 
-    PlaySoundEffect(0x74);
+    PlaySoundEffect(SONG_74);
 
     return;
 }
@@ -1452,7 +1453,7 @@ void DungeonRecordUi_UpdateEnemiesDefeatedCount(struct BMDifficultyProc* proc) {
 
 void sub_803963C(struct BMDifficultyProc* proc) {
     if (proc->unk_3c < 1) {
-        m4aSongNumStop(0x74);
+        m4aSongNumStop(SONG_74);
         Proc_Break(proc);
     } else {
         proc->unk_3c--;

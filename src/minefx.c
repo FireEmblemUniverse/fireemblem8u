@@ -9,6 +9,7 @@
 #include "ap.h"
 #include "soundwrapper.h"
 #include "bmlib.h"
+#include "constants/songs.h"
 
 /**
  * Map effect happening when a mine is being set
@@ -33,7 +34,7 @@ struct ProcCmd CONST_DATA ProcScr_MineFx[] = {
 
 void ProcMineFxFunc(struct ProcMineFx *proc)
 {
-    PlaySoundEffect(0x2F9);
+    PlaySoundEffect(SONG_2F9);
 }
 
 void StartMineAnim(ProcPtr parent, int x, int y)

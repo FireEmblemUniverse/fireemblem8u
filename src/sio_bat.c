@@ -14,6 +14,7 @@
 #include "sio_core.h"
 
 #include "constants/faces.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x08045930
 int sub_8045930(u8 ranking, u32 playerCount, u32 mode, u32 points)
@@ -639,7 +640,7 @@ void sub_80463A8(struct SioBatProc * proc)
         proc->unk_39--;
         unk_2c->unk_38 = proc->unk_3a;
 
-        PlaySoundEffect(0x7d);
+        PlaySoundEffect(SONG_7D);
 
         if (proc->unk_39 == 0)
         {
@@ -665,7 +666,7 @@ void sub_80463A8(struct SioBatProc * proc)
 //! FE8U = 0x0804645C
 void sub_804645C(void)
 {
-    PlaySoundEffect(0x7e);
+    PlaySoundEffect(SONG_7E);
     return;
 }
 
@@ -740,7 +741,7 @@ void sub_8046580(struct SioBatProc * proc)
 
     if ((proc->unk_4c == 0))
     {
-        PlaySoundEffect(0x7c);
+        PlaySoundEffect(SONG_7C);
     }
 
     proc->unk_4c++;
@@ -810,7 +811,7 @@ void sub_8046704(struct SioBatProc * proc)
 {
     if (proc->unk_4c == 0)
     {
-        PlaySoundEffect(0x7c);
+        PlaySoundEffect(SONG_7C);
     }
 
     proc->unk_4c++;

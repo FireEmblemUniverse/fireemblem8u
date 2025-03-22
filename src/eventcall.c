@@ -41,6 +41,7 @@
 #include "sysutil.h"
 
 #include "eventcall.h"
+#include "constants/songs.h"
 
 CONST_DATA struct ProcCmd ProcScr_BmGameOver[] = {
     PROC_SLEEP(0x1E),
@@ -297,14 +298,14 @@ void StartEventVeriticalQuakefx(ProcPtr parent)
         proc = Proc_Start(ProcScr_EventVerticalQuakefx, parent);
 
     Proc_Goto(proc, 0);
-    PlaySoundEffect(0x26A);
+    PlaySoundEffect(SONG_26A);
 }
 
 void StartEventHorizontalQuakefxViolently(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc) {
-        PlaySoundEffect(0x26A);
+        PlaySoundEffect(SONG_26A);
         proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     }
     Proc_Goto(proc, 0);
@@ -314,7 +315,7 @@ void StartEventHorizontalQuakefxSlightly(ProcPtr parent)
 {
     ProcPtr proc = Proc_Find(ProcScr_EventHorizontalQuakefx);
     if (!proc) {
-        PlaySoundEffect(0x26A);
+        PlaySoundEffect(SONG_26A);
         proc = Proc_Start(ProcScr_EventHorizontalQuakefx, parent);
     }
     Proc_Goto(proc, 1);
@@ -390,7 +391,7 @@ void EventQuakefx_Loop(struct Proc * proc)
 void StartEventQuakefx(ProcPtr proc)
 {
     Proc_Start(ProcScr_EventQuakefx, proc);
-    PlaySoundEffect(0x26A);
+    PlaySoundEffect(SONG_26A);
 }
 
 void EndEventQuakefx(ProcPtr proc)
@@ -469,7 +470,7 @@ void WorldFlushInit(struct ProcWorldFlush * proc)
 
     SetBlendConfig(2, 0, 0, 0);
     SetPrimaryHBlankHandler(WorldFlushHBlank);
-    PlaySoundEffect(0x269);
+    PlaySoundEffect(SONG_269);
 }
 
 void WorldFlushOut(struct ProcWorldFlush * proc)

@@ -12,6 +12,7 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 EWRAM_OVERLAY(banim) int gEkrMainBgmPlaying = false;
 EWRAM_OVERLAY(banim) int gEfxSoundSeExist = false;
@@ -60,9 +61,9 @@ void Loop6C_efxSoundSE(struct ProcEfxSoundSE * proc)
     }
 }
 
-void DoM4aSongNumStop(int num)
+void DoM4aSongNumStop(int songid)
 {
-    m4aSongNumStop(num);
+    m4aSongNumStop(songid);
 }
 
 void EfxOverrideBgm(int songid, int volume)
@@ -161,7 +162,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
     switch (cmd) {
     case 25:
-        songid = 0xD1;
+        songid = SONG_D1;
         break;
 
     case 27:
@@ -191,7 +192,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         {
             if (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE)
             {
-                _songid = 0x3CF;
+                _songid = SONG_3CF;
                 EfxPlaySE(_songid, 0x100);
                 M4aPlayWithPostionCtrl(_songid, anim->xPosition, 1);
             }
@@ -199,15 +200,15 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
         switch (GetEfxHpChangeType(anim2)) {
         case EFX_HPT_CHANGED:
-            songid = 0xD2;
+            songid = SONG_D2;
             break;
 
         case EFX_HPT_DEFEATED:
-            songid = 0xD5;
+            songid = SONG_D5;
             break;
 
         case EFX_HPT_NOT_CHANGE:
-            songid = 0x2CE;
+            songid = SONG_2CE;
             break;
 
         default:
@@ -222,7 +223,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         {
             if (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE)
             {
-                _songid = 0x3CF;
+                _songid = SONG_3CF;
                 EfxPlaySE(_songid, 0x100);
                 M4aPlayWithPostionCtrl(_songid, anim->xPosition, 1);
             }
@@ -230,15 +231,15 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
         switch (GetEfxHpChangeType(anim2)) {
         case EFX_HPT_CHANGED:
-            songid = 0xD3;
+            songid = SONG_D3;
             break;
 
         case EFX_HPT_DEFEATED:
-            songid = 0xD5;
+            songid = SONG_D5;
             break;
 
         case EFX_HPT_NOT_CHANGE:
-            songid = 0x2CE;
+            songid = SONG_2CE;
             break;
 
         default:
@@ -254,7 +255,7 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         {
             if (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE)
             {
-                _songid = 0x3CF;
+                _songid = SONG_3CF;
                 EfxPlaySE(_songid, 0x100);
                 M4aPlayWithPostionCtrl(_songid, anim->xPosition, 1);
             }
@@ -262,15 +263,15 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
 
         switch (GetEfxHpChangeType(anim2)) {
         case EFX_HPT_CHANGED:
-            songid = 0xD4;
+            songid = SONG_D4;
             break;
 
         case EFX_HPT_DEFEATED:
-            songid = 0xD5;
+            songid = SONG_D5;
             break;
 
         case EFX_HPT_NOT_CHANGE:
-            songid = 0x2CE;
+            songid = SONG_2CE;
             break;
 
         default:
@@ -280,47 +281,47 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 34:
-        songid = 0xC9;
+        songid = SONG_C9;
         break;
 
     case 35:
-        songid = 0xC8;
+        songid = SONG_C8;
         break;
 
     case 36:
-        songid = 0xCA;
+        songid = SONG_CA;
         break;
 
     case 37:
-        songid = 0x263;
+        songid = SONG_263;
         if (pos == POS_L)
-            songid = songid - 1;
+            songid = songid - 1; //SONG_262
         break;
 
     case 40:
-        songid = 0xF6;
+        songid = SONG_F6;
         break;
 
     case 41:
-        songid = 0x141;
+        songid = SONG_141;
         break;
 
     case 42:
-        songid = 0x142;
+        songid = SONG_142;
         break;
 
     case 43:
-        songid = 0x267;
+        songid = SONG_267;
         if (pos == POS_L)
-            songid = songid - 1;
+            songid = songid - 1; //SONG_266
         break;
 
     case 47:
-        songid = 0x2F8;
+        songid = SONG_2F8;
         break;
 
     case 51:
-        songid = 0xE7;
+        songid = SONG_E7;
         break;
 
     case 52:
@@ -347,117 +348,117 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 53:
-        songid = 0x265;
+        songid = SONG_265;
         if (pos == POS_L)
-            songid = songid - 1;
+            songid = songid - 1; // SONG_264
         break;
 
     case 54:
-        songid = 0xCE;
+        songid = SONG_CE;
         break;
 
     case 55:
-        songid = 0xCF;
+        songid = SONG_CF;
         break;
 
     case 56:
-        songid = 0xCB;
+        songid = SONG_CB;
         break;
 
     case 58:
-        songid = 0x2D3;
+        songid = SONG_2D3;
         break;
 
     case 59:
-        songid = 0x2D4;
+        songid = SONG_2D4;
         break;
 
     case 60:
-        songid = 0x263;
+        songid = SONG_263;
         if (pos == POS_L)
-            songid = songid - 1;
+            songid = songid - 1; //SONG_262
 
         volume = 0x80;
         break;
 
     case 62:
-        songid = 0xF1;
+        songid = SONG_F1;
         break;
 
     case 63:
-        songid = 0x136;
+        songid = SONG_136;
         break;
 
     case 64:
-        songid = 0x117;
+        songid = SONG_117;
         break;
 
     case 65:
-        songid = 0xEB;
+        songid = SONG_EB;
         break;
 
     case 66:
-        songid = 0xEA;
+        songid = SONG_EA;
         break;
 
     case 67:
-        songid = 0x2CF;
+        songid = SONG_2CF;
         break;
 
     case 68:
-        songid = 0x2D0;
+        songid = SONG_2D0;
         break;
 
     case 69:
-        songid = 0x2D1;
+        songid = SONG_2D1;
         break;
 
     case 70:
-        songid = 0x2D2;
+        songid = SONG_2D2;
         break;
 
     case 72:
-        songid = 0xED;
+        songid = SONG_ED;
         break;
 
     case 73:
-        songid = 0x135;
+        songid = SONG_135;
         break;
 
     case 74:
-        songid = 0x134;
+        songid = SONG_134;
         break;
 
     case 75:
-        songid = 0x2DD;
+        songid = SONG_2DD;
         break;
 
     case 76:
-        songid = 0x2DE;
+        songid = SONG_2DE;
         break;
 
     case 77:
-        songid = 0x2DF;
+        songid = SONG_2DF;
         break;
 
     case 79:
-        songid = 0x2F7;
+        songid = SONG_2F7;
         break;
 
     case 80:
-        songid = 0x2E8;
+        songid = SONG_2E8;
         break;
 
     case 86:
-        songid = 0x325;
+        songid = SONG_325;
         break;
 
     case 87:
-        songid = 0x326;
+        songid = SONG_326;
         break;
 
     case 88:
-        songid = 0x327;
+        songid = SONG_327;
         break;
 
     case 89:
@@ -466,15 +467,15 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 90:
-        songid = 0x32A;
+        songid = SONG_32A;
         break;
 
     case 91:
-        songid = 0x32B;
+        songid = SONG_32B;
         break;
 
     case 92:
-        songid = 0x32C;
+        songid = SONG_32C;
         break;
 
     case 93:
@@ -483,35 +484,35 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 94:
-        songid = 0x32E;
+        songid = SONG_32E;
         break;
 
     case 95:
-        songid = 0x332;
+        songid = SONG_332;
         break;
 
     case 96:
-        songid = 0x3B7;
+        songid = SONG_3B7;
         break;
 
     case 97:
-        songid = 0x32F;
+        songid = SONG_32F;
         break;
 
     case 98:
-        songid = 0x330;
+        songid = SONG_330;
         break;
 
     case 99:
-        songid = 0x331;
+        songid = SONG_331;
         break;
 
     case 100:
-        songid = 0x320;
+        songid = SONG_320;
         break;
 
     case 101:
-        songid = 0x321;
+        songid = SONG_321;
         break;
 
     case 102:
@@ -525,19 +526,19 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 104:
-        songid = 0x3C0;
+        songid = SONG_3C0;
         break;
 
     case 106:
-        songid = 0x3C2;
+        songid = SONG_3C2;
         break;
 
     case 107:
-        songid = 0x3C3;
+        songid = SONG_3C3;
         break;
 
     case 108:
-        songid = 0x3C4;
+        songid = SONG_3C4;
         break;
 
     case 109:
@@ -561,43 +562,43 @@ void EfxPlaySEwithCmdCtrl(struct Anim * anim, int cmd)
         break;
 
     case 115:
-        songid = 0x322;
+        songid = SONG_322;
         break;
 
     case 116:
-        songid = 0x37D;
+        songid = SONG_37D;
         break;
 
     case 117:
-        songid = 0x329;
+        songid = SONG_329;
         break;
 
     case 118:
-        songid = 0x37A;
+        songid = SONG_37A;
         break;
 
     case 119:
-        songid = 0x37B;
+        songid = SONG_37B;
         break;
 
     case 120:
-        songid = 0x2E4;
+        songid = SONG_2E4;
         break;
 
     case 121:
-        songid = 0x37C;
+        songid = SONG_37C;
         break;
 
     case 122:
-        songid = 0x37F;
+        songid = SONG_37F;
         break;
 
     case 123:
-        songid = 0xDE;
+        songid = SONG_DE;
         break;
 
     default:
-        songid = 0x0;
+        songid = SONG_NONE;
         break;
     }
 
@@ -785,22 +786,22 @@ void EfxPlayHittedSFX(struct Anim * anim)
 
     if (GetEfxHpChangeType(animr) != EFX_HPT_NOT_CHANGE && (GetRoundFlagByAnim(anim) & ANIM_ROUND_PIERCE))
     {
-        _songid = 0x3CF;
+        _songid = SONG_3CF;
         EfxPlaySE(_songid, 0x100);
         M4aPlayWithPostionCtrl(_songid, anim->xPosition, 1);
     }
 
     switch (GetEfxHpChangeType(anim)) {
     case EFX_HPT_CHANGED:
-        songid = 0xD4;
+        songid = SONG_D4;
         break;
 
     case EFX_HPT_DEFEATED:
-        songid = 0xD5;
+        songid = SONG_D5;
         break;
 
     case EFX_HPT_NOT_CHANGE:
-        songid = 0x2CE;
+        songid = SONG_2CE;
         break;
 
     default:
@@ -824,8 +825,8 @@ void EfxPlayCriticalHittedSFX(struct Anim * anim)
     case EFX_HPT_DEFEATED:
         if (CheckRoundCrit(animr) == true)
         {
-            EfxPlaySE(0xD8, 0x100);
-            M4aPlayWithPostionCtrl(0xD8, anim->xPosition, 1);
+            EfxPlaySE(SONG_D8, 0x100);
+            M4aPlayWithPostionCtrl(SONG_D8, anim->xPosition, 1);
         }
         break;
     }
@@ -896,24 +897,24 @@ void EkrPlayMainBGM(void)
 
     gEkrMainBgmPlaying = 1;
 
-    songid = gBanimFactionPal[gEkrInitialHitSide] != 1 ? 0x19 : 0x1A;
+    songid = gBanimFactionPal[gEkrInitialHitSide] != 1 ? SONG_ATTACK : SONG_DEFENSE;
 
     if (GetBattleAnimArenaFlag() == 1)
     {
         Sound_SetDefaultMaxNumChannels();
-        EfxOverrideBgm(0x39, 0x100);
+        EfxOverrideBgm(SONG_IN_THE_COLOSSEUM, 0x100);
         return;
     }
 
     if (GetBanimLinkArenaFlag() == 1)
     {
-        EfxOverrideBgm(0x39, 0x100);
+        EfxOverrideBgm(SONG_IN_THE_COLOSSEUM, 0x100);
         return;
     }
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
-        EfxOverrideBgm(0x23, 0x100);
+        EfxOverrideBgm(SONG_TO_A_HIGHER_PLACE, 0x100);
         return;
     }
 
@@ -939,7 +940,7 @@ void EkrPlayMainBGM(void)
 
     if (ret == true)
     {
-        EfxOverrideBgm(0x1F, 0x100);
+        EfxOverrideBgm(SONG_SACRED_STRENGTH, 0x100);
         return;
     }
 
@@ -947,7 +948,7 @@ void EkrPlayMainBGM(void)
     {
         if (CheckFlag82() == true)
         {
-            EfxOverrideBgm(0x55, 0x100);
+            EfxOverrideBgm(SONG_55, 0x100);
             return;
         }
         SetFlag82();
@@ -979,7 +980,7 @@ void EkrPlayMainBGM(void)
 
     if (ret == true)
     {
-        EfxOverrideBgm(0x20, 0x100);
+        EfxOverrideBgm(SONG_TETHYS, 0x100);
         return;
     }
 
@@ -993,11 +994,11 @@ void EkrPlayMainBGM(void)
 
     switch (staff_type) {
     case 2:
-        songid = 0x22;
+        songid = SONG_CURING;
         break;
 
     case 1:
-        songid = 0x21;
+        songid = SONG_HEALING;
         break;
 
     default:
@@ -1024,37 +1025,37 @@ void EkrRestoreBGM(void)
 }
 
 CONST_DATA int gBanimBossBGMs[32 * 2] = {
-    CHARACTER_ONEILL, 0x1B,
-    CHARACTER_BREGUET, 0x1B,
-    CHARACTER_BONE, 0x1B,
-    CHARACTER_BAZBA, 0x1B,
-    CHARACTER_ENTOUMBED_CH4, 0x1B,
-    CHARACTER_SAAR, 0x1B,
-    CHARACTER_NOVALA, 0x1B,
-    CHARACTER_MURRAY, 0x1B,
-    CHARACTER_TIRADO, 0x1C,
-    CHARACTER_BINKS, 0x1B,
-    CHARACTER_PABLO, 0x1B,
-    CHARACTER_WIGHT_CHUnk, 0x1B,
-    CHARACTER_DEATHGOYLE_CHUnk, 0x1B,
-    CHARACTER_MAELDUIN_CHUnk, 0x1B,
-    CHARACTER_AIAS, 0x1B,
-    CHARACTER_CARLYLE, 0x1C,
-    CHARACTER_ZONTA, 0x1B,
-    CHARACTER_GHEB, 0x1B,
-    CHARACTER_BERAN, 0x1B,
-    CHARACTER_CYCLOPS_CHUnk, 0x1B,
-    CHARACTER_SELENA, 0x1C,
-    CHARACTER_VIGARDE, 0x1C,
-    CHARACTER_CAELLACH, 0x1C,
-    CHARACTER_VALTER, 0x1C,
-    CHARACTER_ORSON, 0x1C,
-    CHARACTER_LYON, 0x1D,
-    CHARACTER_GORGON_CHUnk, 0x1C,
-    CHARACTER_RIEV, 0x1C,
-    CHARACTER_MORVA, 0x1C,
-    CHARACTER_LYON_FINAL, 0x1D,
-    CHARACTER_FOMORTIIS, 0x1E,
+    CHARACTER_ONEILL,           SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_BREGUET,          SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_BONE,             SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_BAZBA,            SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_ENTOUMBED_CH4,    SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_SAAR,             SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_NOVALA,           SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_MURRAY,           SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_TIRADO,           SONG_POWERFUL_FOE,
+    CHARACTER_BINKS,            SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_PABLO,            SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_WIGHT_CHUnk,      SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_DEATHGOYLE_CHUnk, SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_MAELDUIN_CHUnk,   SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_AIAS,             SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_CARLYLE,          SONG_POWERFUL_FOE,
+    CHARACTER_ZONTA,            SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_GHEB,             SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_BERAN,            SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_CYCLOPS_CHUnk,    SONG_THE_BATTLE_MUST_BE_WON,
+    CHARACTER_SELENA,           SONG_POWERFUL_FOE,
+    CHARACTER_VIGARDE,          SONG_POWERFUL_FOE,
+    CHARACTER_CAELLACH,         SONG_POWERFUL_FOE,
+    CHARACTER_VALTER,           SONG_POWERFUL_FOE,
+    CHARACTER_ORSON,            SONG_POWERFUL_FOE,
+    CHARACTER_LYON,             SONG_THE_PRINCES_DESPAIR,
+    CHARACTER_GORGON_CHUnk,     SONG_POWERFUL_FOE,
+    CHARACTER_RIEV,             SONG_POWERFUL_FOE,
+    CHARACTER_MORVA,            SONG_POWERFUL_FOE,
+    CHARACTER_LYON_FINAL,       SONG_THE_PRINCES_DESPAIR,
+    CHARACTER_FOMORTIIS,        SONG_RETURN_OF_THE_DEMON_KING,
     -1, -1
 };
 

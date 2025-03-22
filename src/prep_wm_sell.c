@@ -18,6 +18,7 @@
 #include "helpbox.h"
 #include "sysutil.h"
 #include "constants/faces.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x0809FDA0
 void WmSell_DrawSupplyDialogueSpriteText(void) {
@@ -287,7 +288,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
         if (proc->unk_30 != 0) {
             proc->unk_30--;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         } else {
             if (!(gKeyStatusPtr->newKeys & DPAD_UP)) {
@@ -295,7 +296,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
             }
 
             proc->unk_30 = count - 1;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
     } else if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN) {
@@ -303,7 +304,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
 
         if (proc->unk_30 < count - 1) {
             proc->unk_30++;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         } else {
             if (!(gKeyStatusPtr->newKeys & DPAD_DOWN)) {
@@ -311,7 +312,7 @@ s8 WmSell_MainLoop_HandleDpadKeys(struct WmSellProc* proc) {
             }
 
             proc->unk_30 = 0;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             return 1;
         }
     }
@@ -367,14 +368,14 @@ void WmSell_OnLoop_MainKeyHandler(struct WmSellProc* proc) {
                 );
             } else {
                 Proc_Goto(proc, 2);
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             }
             return;
         }
 
         if (gKeyStatusPtr->newKeys & B_BUTTON) {
             Proc_Goto(proc, 3);
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             return;
         }
     }
@@ -416,7 +417,7 @@ void WmSell_ConfirmSellItem(struct WmSellProc* proc) {
 
     UnitRemoveInvalidItems(proc->unit);
 
-    PlaySoundEffect(0xb9);
+    PlaySoundEffect(SONG_SE_MONEY);
 
     WmSell_DrawPartyFunds();
 
@@ -447,7 +448,7 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
         } else {
             Proc_Goto(proc, 1);
 
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
             return;
         }
@@ -456,7 +457,7 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
         Proc_Goto(proc, 1);
 
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         return;
     }
@@ -473,7 +474,7 @@ void WmSell_OnLoop_ConfirmSellKeyHandler(struct WmSellProc* proc) {
         return;
     }
 
-    PlaySoundEffect(0x67);
+    PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 
     ShowSysHandCursor(proc->unk_31 * 32 + 164, 111, 0, 0x400);
 

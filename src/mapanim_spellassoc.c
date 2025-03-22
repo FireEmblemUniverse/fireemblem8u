@@ -13,6 +13,7 @@
 #include "soundwrapper.h"
 #include "constants/classes.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 const struct ProcCmd * MapAnim_GetRoundProcScript(void)
 {
@@ -46,13 +47,13 @@ void sub_80812C0(void)
 
 void sub_8081348(void)
 {
-    PlaySeSpacial(0x2D5,
+    PlaySeSpacial(SONG_2D5,
         gManimSt.actor[gManimSt.subjectActorId].unit->xPos * 0x10 - gBmSt.camera.x);
 }
 
 void sub_8081384(void)
 {
-    PlaySeSpacial(0x2D6,
+    PlaySeSpacial(SONG_SE_SHATTER_STONE,
         gManimSt.actor[gManimSt.subjectActorId].unit->xPos * 0x10 - gBmSt.camera.x);
 }
 
@@ -235,7 +236,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
 
     if (gManimSt.hitAttributes & BATTLE_HIT_ATTR_MISS)
     {
-        PlaySeSpacial(0xC8,
+        PlaySeSpacial(SONG_C8,
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x);
 
         MapAnim_BeginMISSAnim(gManimSt.actor[map_target].unit);
@@ -246,7 +247,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
     {
         if (0 == (gManimSt.hitAttributes & BATTLE_HIT_ATTR_PETRIFY))
         {
-            PlaySeSpacial(0x2CE,
+            PlaySeSpacial(SONG_2CE,
                 gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x);
 
             MapAnim_BeginNODAMAGEAnim(gManimSt.actor[map_target].unit);
@@ -298,7 +299,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
 
         NewBG0Shaker();
         PlaySeSpacial(
-            0xD8,
+            SONG_D8,
             gManimSt.actor[map_target].unit->xPos * 0x10 - gBmSt.camera.x
         );
 
@@ -421,7 +422,7 @@ void SpellWarpStartFlashy(ProcPtr proc)
 {
     struct Unit * unit;
 
-    PlaySoundEffect(0xB4);
+    PlaySoundEffect(SONG_B4);
     gManimSt.xtarget = gBattleTarget.changeHP;
     gManimSt.ytarget = gBattleTarget.changePow;
 
@@ -503,7 +504,7 @@ void SpellWarpStartImplosion(ProcPtr proc)
 {
     struct Unit * unit;
 
-    PlaySoundEffect(0xB5);
+    PlaySoundEffect(SONG_B5);
     
     unit = gManimSt.actor[gManimSt.targetActorId].unit;
     StartStarImplosionEffect(

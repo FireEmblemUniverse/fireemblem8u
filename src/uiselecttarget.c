@@ -10,6 +10,7 @@
 #include "bm.h"
 
 #include "uiselecttarget.h"
+#include "constants/songs.h"
 
 static struct Vec2 EWRAM_DATA sSelectTargetRoot = {};
 
@@ -116,11 +117,11 @@ void TargetSelection_Loop(struct SelectTargetProc* proc) {
     }
 
     if ((TARGETSELECTION_ACTION_SE_6A & r5) != 0) {
-        PlaySoundEffect(0x6A);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
     }
 
     if ((TARGETSELECTION_ACTION_SE_6B & r5) != 0) {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
 
     if ((TARGETSELECTION_ACTION_CLEARBGS & r5) != 0) {
@@ -220,7 +221,7 @@ void TargetSelection_HandleMoveInput(struct SelectTargetProc* proc) {
         proc->selectRoutines->onSwitchIn(proc, proc->currentTarget);
     }
 
-    PlaySoundEffect(0x67);
+    PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
 }
 
 int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {

@@ -5,7 +5,7 @@ CONST_DATA EventListScr EventScr_Ch21a_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_LYON_FINAL)
     STAL(60)
     CURE
-    MUSC(0x2d)
+    MUSC(SONG_LOST_HEART)
     TEXTSTART
     TEXTSHOW(0xbbd)
     TEXTEND
@@ -29,7 +29,7 @@ CONST_DATA EventListScr EventScr_089F9144[] = {
     FAWI(2)
     BACG(BG_GARDEN_FLASHBACK)
     FAWU(2)
-    MUSCSLOW(0x2c)
+    MUSCSLOW(SONG_LYON)
     BROWNBOXTEXT(0x20f, 8, 8)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
@@ -42,7 +42,7 @@ LABEL(0x0)
     TEXTEND
 LABEL(0x1)
     REMA
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     CLEAN
     LOAD1(0x1, UnitDef_088C172C)
@@ -58,7 +58,7 @@ LABEL(0x1)
     CHECK_MODE
     SVAL(EVT_SLOT_1, 0x2)
     BNE(0xa, EVT_SLOT_C, EVT_SLOT_1)
-    MUSC(0x44)
+    MUSC(SONG_LYON_ORGAN_ARRANGEMENT)
     TEXTSTART
     TEXTSHOW(0xbbc)
     TEXTEND
@@ -71,7 +71,7 @@ LABEL(0xa)
     REMA
 LABEL(0xb)
     STARTFADE
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     EvtColorFadeSetup(0x6, 0xa, 8, 128, 128, 128) // ENOSUPP in EAstdlib
     EvtColorFadeSetup(0x1d, 0x1, 4, 0, 0, 0) // ENOSUPP in EAstdlib
     SVAL(EVT_SLOT_2, 0x40)
@@ -88,7 +88,7 @@ LABEL(0xb)
 };
 
 CONST_DATA EventListScr EventScr_089F92A0[] = {
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     FADI(4)
     CLEA
     CLEE
@@ -106,11 +106,11 @@ CONST_DATA EventListScr EventScr_089F92A0[] = {
     TEXTSTART
     TEXTSHOW(0xbc5)
     TEXTEND
-    MUSCSLOW(0x44)
+    MUSCSLOW(SONG_LYON_ORGAN_ARRANGEMENT)
     TEXTCONT
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     CALL(EventScr_089F9314)
     MNC3(0x16)
     ENDA

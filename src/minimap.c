@@ -14,6 +14,7 @@
 #include "ctc.h"
 
 #include "minimap.h"
+#include "constants/songs.h"
 
 struct MinimapProc {
     /* 00 */ PROC_HEADER;
@@ -729,7 +730,7 @@ void DrawMinimapInternal(u16* vram, int palId) {
 
 //! FE8U = 0x080A7E84
 void Minimap_Init(ProcPtr proc) {
-    PlaySoundEffect(0x78);
+    PlaySoundEffect(SONG_78);
 
     Minimap_InitProcVars(proc);
     ApplyMinimapGraphics(-1);
@@ -849,7 +850,7 @@ void Minimap_OpenAnim(struct MinimapProc* proc) {
 
 //! FE8U = 0x080A81B8
 void Minimap_InitCloseAnim(struct MinimapProc* proc) {
-    PlaySoundEffect(0x79);
+    PlaySoundEffect(SONG_79);
 
     SetBlendTargetA(0, 0, 1, 1, 0);
     SetBlendTargetB(1, 1, 1, 1, 1);

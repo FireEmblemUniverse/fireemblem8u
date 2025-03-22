@@ -8,7 +8,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginningScene[] = {
     ENUN
     CAMERA(0, 21)
     CLEAN
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     FADU(16)
     LOAD2(0x1, UnitDef_088C74E0)
     SVAL(EVT_SLOT_1, 0x0)
@@ -28,7 +28,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginningScene[] = {
     TEXTSHOW(0xb19)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEAN
     CAMERA(0, 0)
@@ -40,7 +40,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     Text_BG(BG_DESERT, 0xb1a)
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
@@ -58,7 +58,7 @@ CONST_DATA EventListScr EventScr_Ch15b_BeginningScene[] = {
     CALL(EventScr_08591FD8)
     CAMERA2(12, 7)
     FADU(16)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     LOAD1(0x1, UnitDef_088C72C4)
     ENUN
     REVEAL(CHARACTER_EIRIKA)

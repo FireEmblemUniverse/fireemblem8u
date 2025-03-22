@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
-    MUSC(0x53)
+    MUSC(SONG_53)
     LOAD2(0x1, UnitDef_088C5378)
     ENUN
     DISA(CHARACTER_MYRRH)
@@ -12,7 +12,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
     SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaea)
     TEXTEND
-    MUSC(0x2b)
+    MUSC(SONG_LEGACY)
     TEXTCONT
     TEXTEND
     FADI(4)
@@ -20,10 +20,10 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
     SetBackground(BG_NORMAL_VILLAGE)
     TEXTSHOW(0xaeb)
     TEXTEND
-    MUSC(0x29)
+    MUSC(SONG_SORROW)
     TEXTCONT
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -72,7 +72,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
     ENUN
     CALL(EventScr_08591FD8)
     CAMERA(21, 0)
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     FADU(16)
     LOAD1(0x1, UnitDef_088C5288)
     ENUN
@@ -106,7 +106,7 @@ CONST_DATA EventListScr EventScr_Ch13b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch13b_EndingScene[] = {
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE
@@ -121,7 +121,7 @@ CONST_DATA EventListScr EventScr_Ch13b_EndingScene[] = {
     CUMO_CHAR(CHARACTER_MYRRH)
     STAL(60)
     CURE
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     SetBackground(BG_STREAM)
     TEXTSHOW(0xaf2)
     TEXTEND

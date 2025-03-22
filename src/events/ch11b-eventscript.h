@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     VCWF(0)
     SVAL(EVT_SLOT_2, 0x2000f)
     CALL(EventScr_9EEA58)
@@ -20,7 +20,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
     TEXTSHOW(0xace)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     CLEA
     CLEE
@@ -30,7 +30,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C42B0)
     ENUN
-    MUSC(0x4b)
+    MUSC(SONG_4B)
     FADU(4)
     STAL(15)
     CUMO_CHAR(CHARACTER_MYRRH)
@@ -58,7 +58,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_RIEV)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xad1)
     TEXTEND
@@ -71,7 +71,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FB1E4[] = {
-    MUSC(0x11)
+    MUSC(SONG_SHADOWS_APPROACH)
     CAMERA_CAHR(CHARACTER_EPHRAIM)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -96,7 +96,7 @@ CONST_DATA EventListScr EventScr_089FB1E4[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FB250[] = {
-    MUSC(0x11)
+    MUSC(SONG_SHADOWS_APPROACH)
     CAMERA2(9, 9)
     EARTHQUAKE_START(0, 1)
     STAL(30)
@@ -116,7 +116,7 @@ CONST_DATA EventListScr EventScr_089FB250[] = {
 };
 
 CONST_DATA EventListScr EventScr_089FB294[] = {
-    MUSC(0x11)
+    MUSC(SONG_SHADOWS_APPROACH)
     CAMERA_CAHR(CHARACTER_EPHRAIM)
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -148,7 +148,7 @@ CONST_DATA EventListScr EventScr_089FB294[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch11b_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_SHIP)
     TEXTSHOW(0xad6)
     TEXTEND

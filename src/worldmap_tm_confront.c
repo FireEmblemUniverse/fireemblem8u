@@ -7,6 +7,7 @@
 #include "ap.h"
 
 #include "worldmap.h"
+#include "constants/songs.h"
 
 struct GmapTmConfrontProc
 {
@@ -78,7 +79,7 @@ void GmTmConfront_InitUnitPositionB(struct GmapTmConfrontProc * proc)
 {
     GmTmConfront_LoadPositions(proc, gWmSkirmish_PositionsB);
     proc->unk_2c = 5;
-    PlaySoundEffect(0x313);
+    PlaySoundEffect(SONG_313);
     return;
 }
 
@@ -167,7 +168,7 @@ void GmTmConfront_StartAnim(struct GmapTmConfrontProc * proc)
         proc->unk_48 = APProc_Create(SpriteAnim_WorldmapSkirmish, x, y, 0x3980, 0, 7);
     }
 
-    PlaySoundEffect(0x314);
+    PlaySoundEffect(SONG_314);
 
     return;
 }

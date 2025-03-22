@@ -24,6 +24,7 @@
 #include "sysutil.h"
 #include "prepscreen.h"
 #include "uisupport.h"
+#include "constants/songs.h"
 
 struct SupportScreenUnit * CONST_DATA sSupportScreenUnits = (void*)gBufPrep;
 
@@ -660,13 +661,13 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
 
                 if (gKeyStatusPtr->newKeys & A_BUTTON) {
                     Proc_Goto(proc, 2);
-                    PlaySoundEffect(0x6a);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     return;
                 }
 
                 if (gKeyStatusPtr->newKeys & B_BUTTON) {
                     Proc_Goto(proc, 3);
-                    PlaySoundEffect(0x6b);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
                     return;
                 }
             }
@@ -699,7 +700,7 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
                 var = ((proc->curIndex / 3) - (proc->unk_34 / 16)) * 16;
 
                 proc->unk_40 = 0;
-                PlaySoundEffect(0x65);
+                PlaySoundEffect(SONG_65);
 
                 if ((var < 0x10) && (proc->unk_34 != 0)) {
                     sub_80A199C(proc, (proc->unk_34 / 16) - 1);
@@ -753,7 +754,7 @@ void SupportScreen_Loop_KeyHandler(struct SupportScreenProc* proc) {
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
         Proc_Goto(proc, 3);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
 
     return;
@@ -768,9 +769,9 @@ void SupportScreen_StartUnitSubMenu(struct SupportScreenProc* proc) {
 //! FE8U = 0x080A1930
 void SupportScreen_RestartSourceScreenMusic(struct SupportScreenProc* proc) {
     if (!proc->fromPrepScreen) {
-        CallSomeSoundMaybe(0x43, 0x100, 0xc0, 0x18, 0);
+        CallSomeSoundMaybe(SONG_MAIN_THEME, 0x100, 0xc0, 0x18, 0);
     } else {
-        CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x18, 0);
+        CallSomeSoundMaybe(SONG_COMBAT_PREPARATION, 0x100, 0x100, 0x18, 0);
     }
 
     return;
@@ -1380,7 +1381,7 @@ void SupportSubScreen_SetupGraphics(struct SubScreenProc* proc) {
 void SupportSubScreen_Loop_KeyHandler(struct SubScreenProc* proc) {
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, 3);
         return;
     }
@@ -1403,7 +1404,7 @@ void SupportSubScreen_Loop_KeyHandler(struct SubScreenProc* proc) {
         u32 previous = proc->unk_39;
 
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, 2);
             return;
         }
@@ -1437,12 +1438,12 @@ void SupportSubScreen_Loop_KeyHandler(struct SubScreenProc* proc) {
                 1,
                 0x800
             );
-            PlaySoundEffect(0x65);
+            PlaySoundEffect(SONG_65);
         }
 
     } else {
         if (gKeyStatusPtr->newKeys & A_BUTTON) {
-            PlaySoundEffect(0x6c);
+            PlaySoundEffect(SONG_6C);
         }
 
         return;
@@ -1499,7 +1500,7 @@ void SupportSubScreen_StartSwapPage(struct SubScreenProc* proc) {
 
     sub_80A1AE4();
 
-    PlaySoundEffect(0xC8);
+    PlaySoundEffect(SONG_C8);
 
     return;
 }
@@ -1725,7 +1726,7 @@ void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
     );
 
     if (proc->songId == 0) {
-        CallSomeSoundMaybe(9, 0x100, 0x80, 0x10, 0);
+        CallSomeSoundMaybe(SONG_DISTANT_ROADS, 0x100, 0x80, 0x10, 0);
     } else {
         CallSomeSoundMaybe(proc->songId, 0x100, 0x100, 0x10, 0);
     }
@@ -1737,9 +1738,9 @@ void SupportSubScreen_PrepareSupportConvo(struct SubScreenProc* proc) {
 void sub_80A2BD0(struct SubScreenProc* proc) {
 
     if (proc->songId == 0) {
-        CallSomeSoundMaybe(9, 0x80, 0x100, 0x10, 0);
+        CallSomeSoundMaybe(SONG_DISTANT_ROADS, 0x80, 0x100, 0x10, 0);
     } else {
-        CallSomeSoundMaybe(9, 0x100, 0x100, 0x10, 0);
+        CallSomeSoundMaybe(SONG_DISTANT_ROADS, 0x100, 0x100, 0x10, 0);
     }
 
     return;

@@ -6,17 +6,17 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     FADU(128)
     FAWI(2)
     BACG(BG_GARDEN_FLASHBACK)
-    EvtBgmFadeIn(0x2c, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_LYON, 8) // ENOSUPP in EAstdlib
     FAWU(2)
     BROWNBOXTEXT(0x210, 8, 8)
     TEXTSHOW(0xa81)
     TEXTEND
-    EvtBgmFadeIn(0x7fff, 8) // ENOSUPP in EAstdlib
+    EvtBgmFadeIn(SONG_SILENT, 8) // ENOSUPP in EAstdlib
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x4000e)
     LOMA(0xf)
-    MUSC(0x4e)
+    MUSC(SONG_4E)
     FAWU(2)
     LOAD2(0x1, UnitDef_088BC350)
     ENUN
@@ -26,7 +26,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     SetBackground(BG_DESERT)
     TEXTSHOW(0xa82)
     TEXTEND
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     TEXTCONT
     TEXTEND
     REMA
@@ -54,7 +54,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_CARLYLE)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xa83)
     TEXTEND
@@ -62,7 +62,7 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     FADI(16)
     MOVE(0xffff, CHARACTER_CARLYLE, 8, 7)
     CALL(EventScr_08591FD8)
-    MUSC(0x14)
+    MUSC(SONG_ASSAULT)
     CAMERA_CAHR(CHARACTER_RENNAC)
     FADU(16)
     CUMO_CHAR(CHARACTER_RENNAC)
@@ -83,7 +83,7 @@ CONST_DATA EventListScr EventScr_089F5CC4[] = {
     CUMO_CHAR(CHARACTER_CAELLACH)
     STAL(60)
     CURE
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSTART
     TEXTSHOW(0xa85)
     TEXTEND
@@ -133,7 +133,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_2, 0x1c)
     CALL(EventScr_9EE5BC)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     CLEA
     CLEE
     CLEN
@@ -172,7 +172,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     TEXTSHOW(0xa8d)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_B, 0x7000a)
     LOMA(0xe)
@@ -202,7 +202,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
     CURE
-    MUSC(0x2c)
+    MUSC(SONG_LYON)
     TEXTSTART
     TEXTSHOW(0xa8f)
     TEXTEND
@@ -210,7 +210,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     SVAL(EVT_SLOT_2, 0x40)
     CALL(EventScr_UnitWarpOUT)
     DISA(CHARACTER_LYON)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     LOAD2(0x1, UnitDef_088BC24C)
     ENUN
     CUMO_CHAR(CHARACTER_LARACHEL)
@@ -229,7 +229,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     TEXTSHOW(0xa91)
     TEXTEND
-    MUSCSLOW(0x29)
+    MUSCSLOW(SONG_SORROW)
     TEXTCONT
     TEXTEND
     REMA
@@ -243,7 +243,7 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
 LABEL(0x0)
     TEXTSHOW(0xa94)
     TEXTEND
-    MUSCSLOW(0x29)
+    MUSCSLOW(SONG_SORROW)
     TEXTCONT
     TEXTEND
     REMA
@@ -254,7 +254,7 @@ LABEL(0x0)
     SVAL(EVT_SLOT_3, 0x3e)
     GIVEITEMTO(CHARACTER_EIRIKA)
 LABEL(0x1)
-    MUSCSLOW(0x7fff)
+    MUSCSLOW(SONG_SILENT)
     FADI(16)
     TILECHANGE(0x2)
     CLEAN
@@ -270,7 +270,7 @@ LABEL(0x1)
     STAL(60)
     CURE
     SetBackground(BG_PASSAGE)
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTSHOW(0xa92)
     TEXTEND
     REMA
@@ -287,12 +287,12 @@ LABEL(0x2)
     SetBackground(BG_PASSAGE)
     CHECK_ALIVE(CHARACTER_JOSHUA)
     BEQ(0xa, EVT_SLOT_C, EVT_SLOT_0)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSHOW(0xa93)
     TEXTEND
     GOTO(0xb)
 LABEL(0xa)
-    MUSC(0x26)
+    MUSC(SONG_RAID)
     TEXTSHOW(0xa95)
     TEXTEND
 LABEL(0xb)

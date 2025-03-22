@@ -7,6 +7,7 @@
 #include "spline.h"
 
 #include "worldmap.h"
+#include "constants/songs.h"
 
 struct BlendStruct
 {
@@ -212,7 +213,7 @@ void GmapBaseEntry_80BFA1C(struct GmapBaseEntryProc * proc)
     otherProc->unk_2c = proc->unk_29[gWMNodeData].x + (nodeIcon->width / 2 - nodeIcon->xCenter);
     otherProc->unk_2e = proc->unk_29[gWMNodeData].y + (nodeIcon->height / 2 - nodeIcon->yCenter);
 
-    PlaySoundEffect(0x311);
+    PlaySoundEffect(SONG_311);
 
     return;
 }

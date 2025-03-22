@@ -8,6 +8,7 @@
 #include "bmudisp.h"
 #include "bmfx.h"
 #include "bmlib.h"
+#include "constants/songs.h"
 
 /**
  * The effect that plays when putting down a light rune
@@ -129,7 +130,7 @@ void ProcLightRuneAnim_Init(struct ProcBmFx *proc)
 
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
-    PlaySoundEffect(0x2D8);
+    PlaySoundEffect(SONG_2D8);
 
     SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
@@ -192,7 +193,7 @@ void ProcLightRuneAnim2_Init(struct ProcBmFx *proc)
 
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
-    PlaySoundEffect(0x2D8);
+    PlaySoundEffect(SONG_2D8);
 
     SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);
@@ -255,7 +256,7 @@ void ProcLightRuneAnim3_Init(struct ProcBmFx *proc)
 
     BG_Fill(gBG0TilemapBuffer, TILEREF(BGCHR_BMFX_IMG, 0));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
-    PlaySoundEffect(0x2D8);
+    PlaySoundEffect(SONG_2D8);
 
     SetBlendConfig(0x1, 0x10, 0x10, 0x0);
     SetBlendTargetA(1, 0, 0, 0, 0);

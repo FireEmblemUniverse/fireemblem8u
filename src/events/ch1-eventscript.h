@@ -7,9 +7,10 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch1_BeginningScene[] = {
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
 
     LOAD1(1, UnitDef_Event_Ch1Enemy)
     ENUN
@@ -119,7 +120,7 @@ CONST_DATA EventListScr EventScr_Ch1_Turn1Player[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1_Turn1Enemy[] = {
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     FlashCursor(CHARACTER_BREGUET, 60)
     Text(0x930)
 
@@ -128,7 +129,7 @@ CONST_DATA EventListScr EventScr_Ch1_Turn1Enemy[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1_Turn_AllyReinforceArrive[] = {
-    MUSC(0x54)
+    MUSC(SONG_54)
     LOAD1(1, UnitDef_Event_Ch1AllyReinforce)
     ENUN
     FlashCursor(CHARACTER_FRANZ, 60)
@@ -150,7 +151,7 @@ CONST_DATA EventListScr EventScr_Ch1_Misc_DefeatBoss[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch1_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_INTERIOR_BLACK)
 
     CHECK_ALIVE(CHARACTER_GILLIAM)

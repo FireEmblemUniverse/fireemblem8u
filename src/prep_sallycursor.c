@@ -4,8 +4,6 @@
 #include "ctc.h"
 #include "types.h"
 #include "functions.h"
-#include "constants/characters.h"
-#include "constants/terrains.h"
 #include "m4a.h"
 #include "soundwrapper.h"
 #include "mu.h"
@@ -39,6 +37,9 @@
 #include "bmsave.h"
 #include "bmlib.h"
 #include "eventcall.h"
+#include "constants/characters.h"
+#include "constants/terrains.h"
+#include "constants/songs.h"
 
 // TODO: Implicit declaration?
 int CanShowUnitStatScreen(struct Unit * unit);
@@ -817,7 +818,7 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
         if (gKeyStatusPtr->newKeys & L_BUTTON)
         {
             TrySwitchViewedUnit(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
         else
         {
@@ -845,7 +846,7 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
                 gPlaySt.xCursor = gBmSt.playerCursor.x;
                 gPlaySt.yCursor = gBmSt.playerCursor.y;
                 Proc_Goto(proc, 0);
-                PlaySoundEffect(0x69);
+                PlaySoundEffect(SONG_69);
                 return;
             }
 
@@ -865,12 +866,12 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
                         {
                             case TERRAIN_VENDOR:
                             case TERRAIN_ARMORY:
-                                PlaySoundEffect(0x6A);
+                                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                                 Proc_Goto(proc, 60);
                                 return;
                             default:
                                 Proc_Goto(proc, 0);
-                                PlaySoundEffect(0x69);
+                                PlaySoundEffect(SONG_69);
                                 return;
                         }
 
@@ -891,7 +892,7 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
                     case PLAYER_SELECT_4:
                         if (proc->unk_58 == 2)
                         {
-                            PlaySoundEffect(0x6C);
+                            PlaySoundEffect(SONG_6C);
                             return;
                         }
 
@@ -945,7 +946,7 @@ void PrepScreen_StartUnitSwap(struct ProcPrepSallyCursor * proc)
     StartSubtitleHelp(proc, GetStringFromIndex(0x872)); // TODO: msgid "Reorder your units.[.]"
 
     EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
-    PlaySoundEffect(0x69);
+    PlaySoundEffect(SONG_69);
 
     return;
 }
@@ -983,7 +984,7 @@ void PrepScreen_UnitSwapIdle(struct ProcPrepSallyCursor * proc)
             return;
         }
 
-        PlaySoundEffect(0x6C);
+        PlaySoundEffect(SONG_6C);
 
         return;
     }
@@ -992,7 +993,7 @@ void PrepScreen_UnitSwapIdle(struct ProcPrepSallyCursor * proc)
         AP_Delete(proc->ap);
         Proc_Goto(proc, 4);
         EndSubtitleHelp();
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         return;
     }
@@ -1032,7 +1033,7 @@ void PrepScreen_StartUnitSwapAnim(ProcPtr proc)
         StartPrepUnitSwap(proc, targetUnit, activeUnit->xPos, activeUnit->yPos);
     }
 
-    PlaySoundEffect(0x61);
+    PlaySoundEffect(SONG_61);
     return;
 }
 
@@ -1110,7 +1111,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
         RefreshEntityBmMaps();
         RefreshUnitSprites();
 
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, 9);
         return;
     }
@@ -1145,7 +1146,7 @@ void PrepScreenProc_MapMovementLoop(ProcPtr proc)
         {
             EnsureCameraOntoPosition(proc, gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
             SetCursorMapPosition(gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
     }
 
@@ -1228,7 +1229,7 @@ void sub_8034194(void)
         return;
     }
 
-    CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x18, NULL);
+    CallSomeSoundMaybe(SONG_COMBAT_PREPARATION, 0x100, 0x100, 0x18, NULL);
 
     return;
 }

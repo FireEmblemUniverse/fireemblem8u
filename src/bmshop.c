@@ -27,6 +27,7 @@
 #include "gba_sprites.h"
 #include "constants/faces.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 u16 CONST_DATA gDefaultShopInventory[] = {
     ITEM_SWORD_IRON,
@@ -528,7 +529,7 @@ void Shop_Loop_BuyKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SHOP_SELL_NOITEM);
         return;
     }
@@ -728,7 +729,7 @@ void Shop_Loop_SellKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SHOP_ANYTHING_ELSE);
         return;
     }
@@ -872,7 +873,7 @@ void Shop_Loop_UnkKeyHandler(struct ProcShop * proc)
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON))
     {
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, 12);
         return;
     }
@@ -900,9 +901,9 @@ void Shop_Init(struct ProcShop * proc)
     int i;
 
     if (proc->shopType == SHOP_TYPE_ARMORY)
-        StartBgm(0x36, 0);
+        StartBgm(SONG_ARMORIES, 0);
     else
-        StartBgm(0x35, 0);
+        StartBgm(SONG_SHOPS, 0);
 
     Proc_ForEach(ProcScr_Mu, (ProcFunc) HideMu);
 
@@ -1326,7 +1327,7 @@ int ShopTryMoveHand(int pos, int pre, bool hscroll_en)
 
     if (previous != pos)
     {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
     return pos;
 }

@@ -7,14 +7,15 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Ch9a_BeginningScene[] = {
-	MUSC(0x2e)
+	MUSC(SONG_SOLVE_THE_RIDDLE)
 	SVAL(EVT_SLOT_2, 0xa16)
 	SVAL(EVT_SLOT_3, 0xa17)
 	SVAL(EVT_SLOT_4, 0xa18)
 	CALL(EventScr_089F3C34)
-	MUSCMID(0x7fff)
+	MUSCMID(SONG_SILENT)
 	SVAL(EVT_SLOT_B, 0x0)
 	LOMA(0x45)
 	CHECK_EXISTS(CHARACTER_TANA)
@@ -34,7 +35,7 @@ LABEL(0x0)
 	CUMO_CHAR(CHARACTER_TANA)
 	STAL(60)
 	CURE
-	MUSC(0x24)
+	MUSC(SONG_ADVANCE)
 	SetBackground(BG_GRASS_PLAINS)
 	TEXTSHOW(0xa19)
 	TEXTEND
@@ -111,7 +112,7 @@ LABEL(0x0)
 	TEXTSHOW(0xa1c)
 	TEXTEND
 	REMA
-	MUSCMID(0x7fff)
+	MUSCMID(SONG_SILENT)
 	CAMERA2(14, 4)
 	LOAD1(0x1, UnitDef_088B8224)
 	ENUN
@@ -120,7 +121,7 @@ LABEL(0x0)
 	CUMO_CHAR(CHARACTER_FADO)
 	STAL(60)
 	CURE
-	MUSC(0x26)
+	MUSC(SONG_RAID)
 	Text_BG(BG_PORT, 0xa1d)
 	LOAD1(0x1, UnitDef_088B7CFC)
 	ENUN
@@ -216,7 +217,7 @@ CONST_DATA EventListScr EventScr_089F3C34[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch9a_EndingScene[] = {
-	MUSC(0x32)
+	MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
 	SetBackground(BG_PORT)
 	TEXTSHOW(0xa22)
 	TEXTEND
@@ -239,7 +240,7 @@ CONST_DATA EventListScr EventScr_Ch9a_EndingScene[] = {
 	STAL(60)
 	CURE
 	Text_BG(BG_PORT, 0xa23)
-	MUSCMID(0x7fff)
+	MUSCMID(SONG_SILENT)
 	MOVE_1STEP(0x10, CHARACTER_SETH, FACING_UP)
 	ENUN
 	SVAL(EVT_SLOT_D, 0x0)
@@ -256,7 +257,7 @@ CONST_DATA EventListScr EventScr_Ch9a_EndingScene[] = {
 	CUMO_CHAR(CHARACTER_SETH)
 	STAL(60)
 	CURE
-	MUSC(0x28)
+	MUSC(SONG_INDIGNATION)
 	Text_BG(BG_PORT, 0xa24)
 	LOAD2(0x1, UnitDef_088B829C)
 	ENUN
@@ -264,7 +265,7 @@ CONST_DATA EventListScr EventScr_Ch9a_EndingScene[] = {
 	STAL(60)
 	CURE
 	SetBackground(BG_PORT)
-	MUSC(0x26)
+	MUSC(SONG_RAID)
 	TEXTSHOW(0xa25)
 	TEXTEND
 	REMA

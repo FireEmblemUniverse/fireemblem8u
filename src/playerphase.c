@@ -31,6 +31,7 @@
 
 #include "constants/classes.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 // clang-format off
 
@@ -256,7 +257,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
     if (gKeyStatusPtr->newKeys & L_BUTTON)
     {
         TrySwitchViewedUnit(gBmSt.playerCursor.x, gBmSt.playerCursor.y);
-        PlaySoundEffect(0x6B);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
     else if (!DoesBMXFADEExist())
     {
@@ -422,7 +423,7 @@ void PlayerPhase_InitUnitMovementSelect(void)
     if ((gActiveUnit->xPos == gBmSt.playerCursor.x) && (gActiveUnit->yPos == gBmSt.playerCursor.y))
     {
         PathArrowDisp_Init(0);
-        PlaySoundEffect(0x69);
+        PlaySoundEffect(SONG_69);
         return;
     }
 
@@ -434,7 +435,7 @@ void PlayerPhase_InitUnitMovementSelect(void)
 //! FE8U = 0x0801CC7C
 void DisplayActiveUnitEffectRange(ProcPtr proc)
 {
-    PlaySoundEffect(0x68);
+    PlaySoundEffect(SONG_68);
 
     gBmSt.gameStateBits &= ~BM_FLAG_1;
     DisplayUnitEffectRange(gActiveUnit);
@@ -449,7 +450,7 @@ void PlayerPhase_DisplayDangerZone(void)
 
     BmMapFill(gBmMapMovement, -1);
 
-    PlaySoundEffect(0x68);
+    PlaySoundEffect(SONG_68);
 
     gBmSt.gameStateBits |= BM_FLAG_3;
     gBmSt.gameStateBits &= ~BM_FLAG_1;
@@ -553,7 +554,7 @@ else_stmt:
     switch (action)
     {
         case ACT_FAIL:
-            PlaySoundEffect(0x6C);
+            PlaySoundEffect(SONG_6C);
 
             break;
 
@@ -585,7 +586,7 @@ else_stmt:
             RefreshEntityBmMaps();
             RefreshUnitSprites();
 
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
             Proc_Goto(proc, 9);
 
@@ -632,7 +633,7 @@ else_stmt:
 
             EnsureCameraOntoPosition(proc, gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
             SetCursorMapPosition(gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
-            PlaySoundEffect(0x6B);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
             break;
 

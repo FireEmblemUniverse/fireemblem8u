@@ -15,6 +15,8 @@
 #include "sio_core.h"
 #include "sio.h"
 
+#include "constants/songs.h"
+
 /**
  * Contains various sprite/palette utility procs used in
  * the Link Arena menus.
@@ -1419,7 +1421,7 @@ void LAPhaseIntro_End(void)
 //! FE8U = 0x0804D3DC
 void LAPhaseIntro_StartBgm(void)
 {
-    StartBgm(0x34, &gMPlayInfo_BGM2);
+    StartBgm(SONG_COMBAT_PREPARATION, &gMPlayInfo_BGM2);
     return;
 }
 

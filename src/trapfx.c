@@ -11,6 +11,7 @@
 #include "bm.h"
 #include "bmlib.h"
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 
 /**
@@ -173,7 +174,7 @@ void GasTrapSpriteAnim_Init(struct TrapfxProc *proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(anim, x, y, oam2, animNum, 0);
-    PlaySeSpacial(0xBA, x + 8);
+    PlaySeSpacial(SONG_BA, x + 8);
 }
 
 void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
@@ -196,7 +197,7 @@ void FireTrapSpriteAnim_Init(struct TrapfxProc *proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_FireTrap, x, y, oam2, 0, 0);
-    PlaySeSpacial(0xBF, x + 8);
+    PlaySeSpacial(SONG_BF, x + 8);
 }
 
 void StartFireTrapAnim(ProcPtr parent, int x, int y)
@@ -279,7 +280,7 @@ void ArrowTrapSpriteAnim_Init(struct TrapfxProc *proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_ArrowTrap, x, DISPLAY_HEIGHT / 2, oam2, 0, 0);
-    PlaySeSpacial(0xBC, x + 8);
+    PlaySeSpacial(SONG_BC, x + 8);
 
     EnsureCameraOntoPosition(proc, proc->x, 31);
 }
@@ -351,7 +352,7 @@ void PikeTrapSpriteAnim_Init(struct TrapfxProc *proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     APProc_Create(SpriteAnim_PikeTrap, x, y, oam2, proc->direction, 0);
-    PlaySeSpacial(0xBB, x + 8);
+    PlaySeSpacial(SONG_BB, x + 8);
 }
 
 void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)

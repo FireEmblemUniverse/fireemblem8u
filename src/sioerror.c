@@ -6,6 +6,7 @@
 #include "fontgrp.h"
 
 #include "sioerror.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x0808DAE4
 void OnVBlank_SioError(void) {
@@ -128,7 +129,7 @@ void OnMain_SioError(void) {
 
     PutSioErrorMessage();
 
-    PlaySoundEffect(0x7b);
+    PlaySoundEffect(SONG_7B);
 
     SetMainUpdateRoutine(OnMain_SioErrorWait);
 

@@ -10,6 +10,7 @@
 #include "constants/worldmap.h"
 #include "constants/characters.h"
 #include "constants/classes.h"
+#include "constants/songs.h"
 
 CONST_DATA EventScr EventScrWM_08A3A70C[] = {
     EvtTextStartType5 // ENOSUPP in EAstdlib
@@ -48,7 +49,7 @@ CONST_DATA EventScr EventScrWM_Ch9a_Beginning[] = {
     WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_WAITFORCAM
-    MUSC(0x5)
+    MUSC(SONG_TREASURED_MEMORIES)
     CALL(EventScrWM_08A3A70C)
     WM_MAKELORDVISIBLE(WM_MU_0)
     EVBIT_MODIFY(0x1)
@@ -375,7 +376,7 @@ CONST_DATA EventScr EventScrWM_Ch9b_Beginning[] = {
     WmEvtMoveCamToUnit(-1, -1, WM_MU_0, 46, 0) // ENOSUPP in EAstdlib
     STAL(60)
     WM_WAITFORCAM
-    MUSC(0x6)
+    MUSC(SONG_GRIM_JOURNEY)
     CALL(EventScrWM_08A3A70C)
     WM_MAKELORDVISIBLE(WM_MU_0)
     EVBIT_MODIFY(0x1)
@@ -643,7 +644,7 @@ CONST_DATA EventScr EventScrWM_ValniTower1_Beginning[] = {
 };
 
 CONST_DATA EventScr EventScrWM_08A3B46C[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     FADI(16)
     ENDA
 };
@@ -725,7 +726,7 @@ CONST_DATA EventScr EventScrWM_LagdouRuins1_Beginning[] = {
 };
 
 CONST_DATA EventScr EventScrWM_08A3B4C4[] = {
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     FADI(16)
     ENDA
 };

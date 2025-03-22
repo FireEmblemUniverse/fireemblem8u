@@ -20,6 +20,7 @@
 #include "prepscreen.h"
 #include "classchg.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 s8 CheckInLinkArena();
 
@@ -77,7 +78,7 @@ void NullExpForChar100AndResetScreen()
 
     SetBlendConfig(3, 0, 0, 0x10);
     SetDispEnable(0, 0, 0, 0, 0);
-    CallSomeSoundMaybe(0x34, 0x100, 0x100, 0x20, NULL);
+    CallSomeSoundMaybe(SONG_COMBAT_PREPARATION, 0x100, 0x100, 0x20, NULL);
 }
 
 void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
@@ -99,7 +100,7 @@ void PrepPromoteDebugMaybe(struct Proc08A184B4 *proc)
 
 void sub_8096668()
 {
-    CallSomeSoundMaybe(0, 0x100, 0, 0x20, NULL);
+    CallSomeSoundMaybe(SONG_NONE, 0x100, 0, 0x20, NULL);
 }
 
 void NewPrepScreenTraineePromotionManager()
@@ -394,12 +395,12 @@ void PrepMenu_CtrlLoop(struct ProcPrepMenu *proc)
 
         if (A_BUTTON & gKeyStatusPtr->newKeys) {
             if ((1 & cmd->color) || (NULL == cmd->effect)) {
-                PlaySoundEffect(0x6C);
+                PlaySoundEffect(SONG_6C);
                 return;
             } else {
                 Proc_Goto(proc, 0x0);
                 cmd->effect(proc->proc_parent);
-                PlaySoundEffect(0x6A);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
         }
@@ -408,10 +409,10 @@ void PrepMenu_CtrlLoop(struct ProcPrepMenu *proc)
             if (proc->on_PressB) {
                 if (proc->on_PressB(proc->proc_parent)) {
                     Proc_Goto(proc, 0x0);
-                    PlaySoundEffect(0x6B);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
                     return;
                 } else {
-                    PlaySoundEffect(0x6C);
+                    PlaySoundEffect(SONG_6C);
                     return;
                 }
             }
@@ -421,11 +422,11 @@ void PrepMenu_CtrlLoop(struct ProcPrepMenu *proc)
         if (START_BUTTON & gKeyStatusPtr->newKeys) {
             if (proc->on_PressStart) {
                 if (proc->on_PressStart(proc->proc_parent)) {
-                    PlaySoundEffect(0x6A);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     Proc_Goto(proc, 0x0);
                     return;
                 } else {
-                    PlaySoundEffect(0x6C);
+                    PlaySoundEffect(SONG_6C);
                     return;
                 }
             }
@@ -448,7 +449,7 @@ void PrepMenu_CtrlLoop(struct ProcPrepMenu *proc)
     }
 
     if (index != proc->cur_index) {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
 
         if (proc->do_help) {
             StartHelpBox((proc->xPos + 1) * 8 + 4,

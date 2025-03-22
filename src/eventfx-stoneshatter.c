@@ -6,6 +6,7 @@
 #include "m4a.h"
 #include "bm.h"
 #include "sysutil.h"
+#include "constants/songs.h"
 
 //! FE8U = 0x08012CE4
 void StoneShatterEvent_OnEnd(void)
@@ -71,5 +72,5 @@ void StartStoneShatterAnim(struct Unit * unit, ProcPtr proc)
     y = (unit->yPos * 16 - gBmSt.camera.y - 24);
     StartBmBgfx(BmBgxConf_StoneShatter, BG_2, x, y, 0, 0x2000, 0xf, NULL, proc);
 
-    PlaySoundEffect(0x2D6);
+    PlaySoundEffect(SONG_SE_SHATTER_STONE);
 }

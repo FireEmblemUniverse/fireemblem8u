@@ -11,6 +11,7 @@
 #include "uiutils.h"
 #include "bmlib.h"
 
+#include "constants/songs.h"
 /**
  * Background effect for the game over screen
  * port from fe6@StanHash
@@ -142,7 +143,7 @@ void GameOverScreen_Init(struct ProcGameOverScreen *proc)
 
     BMapDispSuspend();
 
-    StartBgm(0x3E, 0);
+    StartBgm(SONG_GAME_OVER, 0);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;

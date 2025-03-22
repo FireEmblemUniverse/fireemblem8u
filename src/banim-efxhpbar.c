@@ -10,6 +10,7 @@
 #include "ekrdragon.h"
 #include "eventinfo.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 /* Banim hp-bar change effect */
 
@@ -292,8 +293,8 @@ void EfxHpBarResire_DeclineToDeath(struct ProcEfxHpBar * proc)
             proc->timer = 0;
             proc->cur += proc->diff;
             gEkrGaugeHp[GetAnimPosition(proc->anim_main_other)] += proc->diff;
-            EfxPlaySE(0x75, 0x100);
-            M4aPlayWithPostionCtrl(0x75, anim_main_other_f->xPosition, 1);
+            EfxPlaySE(SONG_75, 0x100);
+            M4aPlayWithPostionCtrl(SONG_75, anim_main_other_f->xPosition, 1);
 
             if (proc->cur == proc->next)
                 proc->finished = true;
@@ -358,8 +359,8 @@ void NewEfxAvoid(struct Anim * anim)
     NewEfxDamageMojiEffect(proc->anim_main_this, 1);
     proc->anim_this = anim;
     proc->death = false;
-    EfxPlaySE(0xD7, 0x100);
-    M4aPlayWithPostionCtrl(0xD7, anim->xPosition, 1);
+    EfxPlaySE(SONG_D7, 0x100);
+    M4aPlayWithPostionCtrl(SONG_D7, anim->xPosition, 1);
 }
 
 void EfxAvoidMain(struct ProcEfxHpBar * proc)
@@ -426,8 +427,8 @@ void EfxHPBarLiveMain(struct ProcEfxHpBar * proc)
             proc->cur += proc->diff;
             gEkrGaugeHp[GetAnimPosition(anim)] += proc->diff;
 
-            EfxPlaySE(0x75, 0x100);
-            M4aPlayWithPostionCtrl(0x75, anim->xPosition, 1);
+            EfxPlaySE(SONG_75, 0x100);
+            M4aPlayWithPostionCtrl(SONG_75, anim->xPosition, 1);
 
             if (proc->cur == proc->next)
                 proc->finished = true;

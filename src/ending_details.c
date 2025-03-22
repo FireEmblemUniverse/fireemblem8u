@@ -1863,7 +1863,7 @@ void TurnRecord_SetupGfx(void)
     BG_EnableSyncByMask(BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     sub_80AB760(gEndingDetailBuf);
-    StartBgm(SONG_BGM_ED_AFTER, 0);
+    StartBgm(SONG_EPILOGUE, 0);
 
     return;
 }

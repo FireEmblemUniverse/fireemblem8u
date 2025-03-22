@@ -10,6 +10,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 CONST_DATA EventListScr EventScr_Prologue_BeginningScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
@@ -51,7 +52,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     LOAD2(1, UnitDef_Event_PrologueThroneRoomUnits)
     ENUN
     FADU(16)
-    MUSC(0x26) /* todo: BGM index */
+    MUSC(SONG_RAID) /* todo: BGM index */
     BROWNBOXTEXT(0x664, 8, 8)
 
     /* WTF we load Ephraim as the messager... */
@@ -223,7 +224,7 @@ CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[] = {
     LOAD1(1, UnitDef_Event_PrologueEnemy)
     ENUN
     FlashCursor(CHARACTER_ONEILL, 60)
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     Text(0x910)
     ENUF(EVFLAG_BGM_CHANGE)
     ENDA
@@ -256,7 +257,7 @@ LABEL(0x1)
 };
 
 CONST_DATA EventListScr EventScr_Prologue_ONeillAttack[] = {
-    MUSC(0x13)
+    MUSC(SONG_SHADOW_OF_THE_ENEMY)
     Text(0x914)
     CHECK_TUTORIAL
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -271,7 +272,7 @@ LABEL(0x0)
 };
 
 CONST_DATA EventListScr EventScr_Prologue_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_PLAIN_2)
     TEXTSHOW(0x918)
     TEXTEND

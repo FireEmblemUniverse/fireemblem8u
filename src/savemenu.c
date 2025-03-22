@@ -25,6 +25,7 @@
 
 #include "constants/event-flags.h"
 #include "constants/characters.h"
+#include "constants/songs.h"
 
 extern u16 gEndingTmScratchA[];
 
@@ -186,7 +187,7 @@ bool SaveMenuWaitHelpBoxAnim(struct SaveMenuProc * proc)
     {
         switch (LoadSaveMenuInfo(proc->sus_slot)) {
         case 0:
-            PlaySoundEffect(0x6c);
+            PlaySoundEffect(SONG_6C);
             break;
 
         case 1:
@@ -439,14 +440,14 @@ void SameMenu_CtrlLoop(struct SaveMenuProc * proc)
         if (proc->main_select != 0)
         {
             proc->main_select--;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         }
         else
         {
             if (gKeyStatusPtr->newKeys & DPAD_UP)
             {
                 proc->main_select = proc->unk_31 - 1;
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             }
         }
     }
@@ -455,14 +456,14 @@ void SameMenu_CtrlLoop(struct SaveMenuProc * proc)
         if (proc->main_select < proc->unk_31 - 1)
         {
             proc->main_select++;
-            PlaySoundEffect(0x66);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         }
         else
         {
             if (gKeyStatusPtr->newKeys & DPAD_DOWN)
             {
                 proc->main_select = 0;
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             }
         }
     }
@@ -470,7 +471,7 @@ void SameMenu_CtrlLoop(struct SaveMenuProc * proc)
     if (gKeyStatusPtr->newKeys & A_BUTTON)
     {
         proc->main_sel_bitfile = SaveMenuGetBitfile(proc->main_options, proc->main_select);
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         proc->scroll_cnt = 0;
 
         switch (proc->main_sel_bitfile) {
@@ -505,7 +506,7 @@ void SameMenu_CtrlLoop(struct SaveMenuProc * proc)
     }
     else if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SAVEMENU_NEW_GAME);
         proc->main_sel_bitfile = MAIN_MENU_OPTION_EXIT;
     }
@@ -540,7 +541,7 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
 {
     if (proc->cursor_config == 0)
     {
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
         switch (proc->main_sel_bitfile) {
         case MAIN_MENU_OPTION_COPY:
@@ -584,7 +585,7 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
             proc->unk_44 = 0xf0;
 
             ReadGameSave(proc->sus_slot);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
             if (proc->extra_sel_bitfile != EXTRA_MENU_OPTION_MAP)
             {
@@ -597,7 +598,7 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
         }
         else
         {
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
 
         break;
@@ -606,12 +607,12 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
         if (proc->cursor_config == 1)
         {
             proc->unk_44 = 0xf0;
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             SaveMenu_NewGame(proc);
         }
         else
         {
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
         break;
 
@@ -620,11 +621,11 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
         {
             SaveMenuWriteNewGame(proc);
             Proc_Goto(proc, PL_SAVEMENU_SLOT_SELECTED);
-            PlaySoundEffect(0x60);
+            PlaySoundEffect(SONG_60);
         }
         else
         {
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
         break;
 
@@ -633,11 +634,11 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
         {
             InvalidateGameSave(proc->sus_slot);
             Proc_Goto(proc, PL_SAVEMENU_SLOT_SELECTED);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
         }
         else
         {
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
 
         break;
@@ -647,13 +648,13 @@ void ExecSaveMenuMiscOption(struct SaveMenuProc * proc)
         {
             WriteGameSave(proc->sus_slot);
             Proc_Goto(proc, PL_SAVEMENU_SLOT_SELECTED);
-            PlaySoundEffect(0x60);
+            PlaySoundEffect(SONG_60);
         }
         else
         {
             Proc_Goto(proc, PL_SAVEMENU_EXIT_FADE);
             proc->main_sel_bitfile |= MAIN_MENU_OPTION_EXIT;
-            PlaySoundEffect(0x6b);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         }
         break;
     }
@@ -676,14 +677,14 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
         {
             if (SaveMenuTryMoveSaveSlotCursor(proc, -1) != 0)
             {
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             }
         }
         else if (gKeyStatusPtr->newKeys & DPAD_DOWN)
         {
             if (SaveMenuTryMoveSaveSlotCursor(proc, 1) != 0)
             {
-                PlaySoundEffect(0x66);
+                PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
             }
         }
     }
@@ -692,7 +693,7 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
         if (proc->cursor_config != 1)
         {
             proc->cursor_config = 1;
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             SaveMenuHandleHelpBox(proc);
         }
     }
@@ -701,7 +702,7 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
         if (proc->cursor_config != 2)
         {
             proc->cursor_config = 2;
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
             SaveMenuHandleHelpBox(proc);
         }
     }
@@ -718,7 +719,7 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
                 return;
             }
 
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             SaveMenu_NewGame(proc);
             return;
 
@@ -726,12 +727,12 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
             if (proc->sus_slot_cur != (u8)-1)
                 proc->unk_44 = 0xf0;
 
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             SaveMenu_NewGame(proc);
             return;
 
         case MAIN_MENU_OPTION_RESUME:
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             SaveMenu_NewGame(proc);
             return;
 
@@ -739,7 +740,7 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
             if (proc->sus_slot_cur == (u8)-1)
                 break;
 
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             ExecSaveMenuMiscOption(proc);
             return;
 
@@ -755,14 +756,14 @@ void SaveMenu_SaveSlotSelectLoop(struct SaveMenuProc * proc)
 
         SaveMenuWriteNewGame(proc);
         Proc_Goto(proc, PL_SAVEMENU_SLOT_SELECTED);
-        PlaySoundEffect(0x60);
+        PlaySoundEffect(SONG_60);
         return;
 
     }
     else if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
         proc->scroll_cnt = 0;
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         if (proc->cursor_config != 0)
         {
@@ -851,7 +852,7 @@ void SaveMenuWaitSlotBoxScrolling(struct SaveMenuProc * proc)
         proc->main_select = 0;
         proc->main_sel_bitfile = SaveMenuGetBitfile(proc->main_options, 0);
 
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Goto(proc, PL_SAVEMENU_BACK_TO_MAIN);
 
         return;
@@ -1021,13 +1022,13 @@ void sub_80A9B90(struct SaveMenuProc * proc)
 
     if (previous != proc->extra_select)
     {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
     }
 
     if (gKeyStatusPtr->newKeys & A_BUTTON)
     {
         proc->extra_sel_bitfile = SaveMenuGetBitfile(proc->extra_options, proc->extra_select);
-        PlaySoundEffect(0x6a);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
         proc->scroll_cnt = 0;
 
@@ -1035,31 +1036,31 @@ void sub_80A9B90(struct SaveMenuProc * proc)
         case EXTRA_MENU_OPTION_6:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
             sub_80A9D20(proc, 0);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
 
         case EXTRA_MENU_OPTION_SOUND_ROOM:
-            CallSomeSoundMaybe(0, 0xc0, 0, 0x18, 0);
+            CallSomeSoundMaybe(SONG_NONE, 0xc0, 0, 0x18, 0);
             Proc_Goto(proc, PL_SAVEMENU_EXEC_EXTRA_MISC_OPTION);
             break;
 
         case EXTRA_MENU_OPTION_SUPPORT:
-            CallSomeSoundMaybe(9, 0xc0, 0x100, 0x18, 0);
+            CallSomeSoundMaybe(SONG_DISTANT_ROADS, 0xc0, 0x100, 0x18, 0);
             Proc_Goto(proc, PL_SAVEMENU_EXEC_EXTRA_MISC_OPTION);
             break;
 
         case EXTRA_MENU_OPTION_MAP:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
             sub_80A9D20(proc, 0);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
 
         case EXTRA_MENU_OPTION_BONUS_CLAIM:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
             sub_80A9D20(proc, 0);
-            PlaySoundEffect(0x6a);
+            PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
 
@@ -1073,7 +1074,7 @@ void sub_80A9B90(struct SaveMenuProc * proc)
     {
         proc->scroll_cnt = 0;
         Proc_Goto(proc, PL_SAVEMENU_9);
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
 }
 
@@ -1104,7 +1105,7 @@ s8 sub_80A9D20(struct SaveMenuProc * proc, int direction) {
     }
 
     if (unk != proc->sus_slot) {
-        PlaySoundEffect(0x66);
+        PlaySoundEffect(SONG_SE_SYS_CURSOR_UD1);
         return 1;
     }
 
@@ -1116,7 +1117,7 @@ void sub_80A9D84(struct SaveMenu8A20068Proc  * proc)
 {
     LoadHelpBoxGfx(OBJ_VRAM0 + OBJCHR_SAVEMENU_SLOTSEL_HELPBOX * TILE_SIZE_4BPP, OBJPAL_SAVEMENU_SLOTSEL_HELPBOX);
     StartHelpBoxExt_Unk(proc->x, proc->y, proc->msgId);
-    PlaySoundEffect(0x70);
+    PlaySoundEffect(SONG_70);
 }
 
 //! FE8U = 0x080A9DBC
@@ -1124,7 +1125,7 @@ void sub_80A9DBC(struct SaveMenu8A20068Proc  * proc)
 {
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | R_BUTTON)) {
-        PlaySoundEffect(0x71);
+        PlaySoundEffect(SONG_71);
         CloseHelpBox();
         Proc_Break(proc);
     }
@@ -1169,14 +1170,14 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
         if (proc->cursor_config != 1)
         {
             proc->cursor_config = 1;
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         }
     }
     else if (gKeyStatusPtr->newKeys & DPAD_RIGHT)
     {
         if (proc->cursor_config != 2) {
             proc->cursor_config = 2;
-            PlaySoundEffect(0x67);
+            PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
         }
     }
 
@@ -1194,7 +1195,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
 
                 ReadGameSave(proc->sus_slot);
                 Proc_Goto(proc, PL_SAVEMENU_EXEC_EXTRA_MISC_OPTION);
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
 
@@ -1213,7 +1214,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
 
                 ReadGameSave(proc->sus_slot);
                 Proc_Goto(proc, PL_SAVEMENU_EXEC_EXTRA_MISC_OPTION);
-                PlaySoundEffect(0x6a);
+                PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
             }
 
@@ -1227,7 +1228,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
                 if (proc->sus_slot_cur == (u8)-1) {
                     ReadGameSave(proc->sus_slot);
                     SaveMenu_NewGame(proc);
-                    PlaySoundEffect(0x6a);
+                    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                     return;
                 }
 
@@ -1245,7 +1246,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
     }
     else if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        PlaySoundEffect(0x6b);
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
         if (proc->cursor_config != 0)
         {
@@ -1313,7 +1314,7 @@ void PostSaveMenuHandler(struct SaveMenuProc * proc)
 //! FE8U = 0x080AA100
 void ExtraMapStartSomeBgm(struct SaveMenuProc * proc)
 {
-    CallSomeSoundMaybe(0, 0xc0, 0, 0x18, proc);
+    CallSomeSoundMaybe(SONG_NONE, 0xc0, 0, 0x18, proc);
 }
 
 //! FE8U = 0x080AA118
@@ -1809,7 +1810,7 @@ void sub_80AA614(struct ProcBonusClaimMenu * proc)
     {
         proc->unk_4c = 0;
         StartHelpBoxExt_Unk(0x40, 0x30, 0x893); // TODO: msgid "Sacred Dragon[.][NL]added to[NL]Sound Room"
-        PlaySoundEffect(0x5b);
+        PlaySoundEffect(SONG_5B);
         return;
     }
 
@@ -1823,7 +1824,7 @@ void sub_80AA658(struct ProcBonusClaimMenu * proc)
     {
         proc->unk_4c = 0;
         StartHelpBoxExt_Unk(0x40, 0x30, 0x894); // TODO: msgid "Palace Silezia[NL]added to[NL]Sound Room"
-        PlaySoundEffect(0x5b);
+        PlaySoundEffect(SONG_5B);
         return;
     }
 

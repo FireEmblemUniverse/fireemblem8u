@@ -15,6 +15,7 @@
 #include "savemenu.h"
 #include "cgtext.h"
 #include "helpbox.h"
+#include "constants/songs.h"
 
 EWRAM_DATA u32 unuesed_0203E790 = 0;
 EWRAM_DATA struct HelpBoxSt gHelpBoxSt = { 0 };
@@ -613,7 +614,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     if (!proc) {
         proc = Proc_Start(ProcScr_Helpbox_bug_08A01678, PROC_TREE_3);
 
-        PlaySoundEffect(0x70);
+        PlaySoundEffect(SONG_70);
 
         sub_808A43C(proc, info->xDisplay, info->yDisplay);
 
@@ -651,7 +652,7 @@ void sub_808A200(const struct HelpBoxInfo* info) {
 //! FE8U = 0x0808A2D0
 void sub_808A2D0(void) {
 
-    PlaySoundEffect(0x71);
+    PlaySoundEffect(SONG_71);
 
     ClearHelpBoxText();
 
@@ -960,7 +961,7 @@ void InitBoxDialogue(void * vram_dst, int pad_idx) {
         gBoxDialogueConf.unk_40 = ((((u32)vram_dst << 0x11) >> 0x16) + (pad_idx & 0xF) * 0x1000);
 
     if (GetDialogueBoxConfig() & 0x10) {
-        PlaySoundEffect(0x2E6);
+        PlaySoundEffect(SONG_2E6);
     }
 
     return;
@@ -1044,7 +1045,7 @@ void sub_808A87C(struct ProcBoxDialogue* proc) {
 void sub_808A8AC(void) {
 
     if (GetDialogueBoxConfig() & 0x10) {
-        PlaySoundEffect(0x2E7);
+        PlaySoundEffect(SONG_2E7);
     }
 
     SetTextFontGlyphs(0);
@@ -1814,9 +1815,9 @@ void BoxDialogueInterpreter_Main(struct ProcBoxDialogueDrawTextExt* proc) {
         if (GetTextDisplaySpeed() != 1 || (GetGameClock() & 1) != 0) {
 
             if (GetDialogueBoxConfig() & 0x10) {
-                PlaySoundEffect(0x2E5);
+                PlaySoundEffect(SONG_2E5);
             } else {
-                PlaySoundEffect(0x6e);
+                PlaySoundEffect(SONG_6E);
             }
         }
     }

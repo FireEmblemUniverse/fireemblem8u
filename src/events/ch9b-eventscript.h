@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     SVAL(EVT_SLOT_2, 0xa9e)
     SVAL(EVT_SLOT_3, 0xa9f)
     SVAL(EVT_SLOT_4, 0xaa0)
@@ -29,14 +29,14 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
     ENUN
     SVAL(EVT_SLOT_B, 0x3000c)
     TILECHANGE(0xffff)
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     FADU(16)
     LOAD2(0x1, UnitDef_088C282C)
     ENUN
     CUMO_CHAR(CHARACTER_GHEB)
     STAL(60)
     CURE
-    MUSC(0x25)
+    MUSC(SONG_TENSION)
     SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaa2)
     TEXTEND
@@ -78,7 +78,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
     CUMO_CHAR(CHARACTER_SOLDIER_83)
     STAL(60)
     CURE
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     Text_BG(BG_INTERIOR_BROWN, 0xaa4)
     MOVE_1STEP(0x10, CHARACTER_GHEB, FACING_DOWN)
     ENUN
@@ -139,7 +139,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
     LOAD1(0x1, UnitDef_088C269C)
     ENUN
     CALL(EventScr_08591FD8)
-    MUSC(0xc)
+    MUSC(SONG_DETERMINATION)
     CAMERA2(8, 4)
     FADU(16)
     LOAD1(0x1, UnitDef_088C26D8)
@@ -161,7 +161,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
 };
 
 CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
-    MUSC(0x31)
+    MUSC(SONG_VICTORY)
     SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaac)
     TEXTEND
@@ -188,10 +188,10 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     SetBackground(BG_INTERIOR_BROWN)
     TEXTSHOW(0xaad)
     TEXTEND
-    MUSCFAST(0x7fff)
+    MUSCFAST(SONG_SILENT)
     TEXTCONT
     TEXTEND
-    MUSC(0x32)
+    MUSC(SONG_INTO_THE_SHADOW_OF_VICTORY)
     TEXTCONT
     TEXTEND
     REMA
@@ -205,12 +205,12 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     TEXTSHOW(0xaaf)
     TEXTEND
     REMA
-    MUSCMID(0x7fff)
+    MUSCMID(SONG_SILENT)
     SVAL(EVT_SLOT_2, 0x2000f)
     CALL(EventScr_9EEA58)
     LOAD1(0x1, UnitDef_088C2A00)
     ENUN
-    MUSC(0x2e)
+    MUSC(SONG_SOLVE_THE_RIDDLE)
     FADU(16)
     TILECHANGE(0x0)
     LOAD1(0x1, UnitDef_088C2A3C)
@@ -246,7 +246,7 @@ CONST_DATA EventListScr EventScr_089FA65C[] = {
     TEXTSTART
     TEXTSHOW(0xab1)
     TEXTEND
-    SOUN(0x2d9)
+    SOUN(SONG_2D9)
     TEXTCONT
     TEXTEND
     REMA

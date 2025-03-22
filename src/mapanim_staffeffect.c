@@ -16,6 +16,7 @@
 #include "efxbattle.h"
 #include "constants/items.h"
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 /*********************************************
  ******************* Latona ******************
@@ -94,7 +95,7 @@ void MapLatonafx_InitGfx(struct MAEffectProc * proc)
 
         Proc_Break(proc);
 
-        PlaySeSpacial(0x8C, proc->xDisplay); // TODO: song ids
+        PlaySeSpacial(SONG_8C, proc->xDisplay); // TODO: song ids
     }
     else
     {
@@ -106,7 +107,7 @@ void MapLatonafx_InitGfx(struct MAEffectProc * proc)
             proc->yDisplay/8 + yOff - 3,
             6, 10, 8, proc);
 
-        PlaySeSpacial(0x89, proc->xDisplay); // TODO: song ids
+        PlaySeSpacial(SONG_89, proc->xDisplay); // TODO: song ids
 
         proc->timer++;
     }
@@ -360,7 +361,7 @@ void NightMarefx_Loop(struct MAEffectProc * proc)
     if (proc->timer == 0)
     {
         if (proc->frame == 0)
-            PlaySeSpacial(0x384, proc->xDisplay);
+            PlaySeSpacial(SONG_384, proc->xDisplay);
         else if (proc->frame > 0x21)
         {
             Proc_Break(proc);
@@ -427,7 +428,7 @@ void MapAnimCallSpellAssocAntitoxinPureWaterfx(struct Unit * unit, u8 * img, u16
 
 void AntitoxinPureWaterfx_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0xB6, proc->xDisplay);
+    PlaySeSpacial(SONG_B6, proc->xDisplay);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;
@@ -501,7 +502,7 @@ void sub_807D7D8(struct Unit * unit)
 
 void sub_807D818(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x10F, proc->xDisplay);
+    PlaySeSpacial(SONG_10F, proc->xDisplay);
 }
 
 struct ProcCmd CONST_DATA ProcScr_MapAnimEffectAnimator[] = {
@@ -708,7 +709,7 @@ void MapAnimTorchEffect(struct Unit * unit)
 
 void MapAnimTorch_Init(struct MAEffectProc * proc)
 {
-    PlaySoundEffect(0xB3);
+    PlaySoundEffect(SONG_B3);
 
     Decompress(Img_MapAnimTorchfx, ((void *) VRAM) + 0x10000 + OBCHR_MANIM_1C0 * CHR_SIZE);
     ApplyPalette(Pal_MapAnimTorchfx, 0x10 + OBJPAL_MANIM_4);
@@ -815,7 +816,7 @@ void MapAnimBerserkEffect(struct Unit * unit)
 
 void MapAnimBerserk_Loop(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x87, proc->xDisplay);
+    PlaySeSpacial(SONG_87, proc->xDisplay);
     BG_SetPosition(BG_2, 0, 0);
     SetDefaultMapAnimScreenConf();
     Decompress(Img_MapAnimBerserkfx, ((void *) VRAM) + 0x10000 + CHR_SIZE * OBCHR_MANIM_1C0);
@@ -853,7 +854,7 @@ void MapAnimRepairEffect(struct Unit * unit)
 
 void MapAnimRepair_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x86, proc->xDisplay);
+    PlaySeSpacial(SONG_86, proc->xDisplay);
 }
 
 void MapAnimRepair_Init0(struct MAEffectProc * proc)
@@ -942,7 +943,7 @@ void MapAnimRestoreEffect(struct Unit * unit)
 
 void MapAnimRestore_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x82, proc->xDisplay);
+    PlaySeSpacial(SONG_82, proc->xDisplay);
     ApplyPalette(Pal_MapAnimRestore, BGPAL_MANIM_4);
 }
 
@@ -992,7 +993,7 @@ void MapAnimSleepEffect(struct Unit * unit)
 
 void MapAnimSleep_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x85, proc->xDisplay);
+    PlaySeSpacial(SONG_85, proc->xDisplay);
 
     BG_SetPosition(BG_2, 0, 0);
     SetDefaultMapAnimScreenConf();
@@ -1009,7 +1010,7 @@ void MapAnimSleep_Init(struct MAEffectProc * proc)
 
 void MapAnimSleep_Anim1(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x85, proc->xDisplay);
+    PlaySeSpacial(SONG_85, proc->xDisplay);
     APProc_Create(
         ApConf_MapAnimSleep,
         proc->xDisplay,
@@ -1019,7 +1020,7 @@ void MapAnimSleep_Anim1(struct MAEffectProc * proc)
 
 void MapAnimSleep_Anim2(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x85, proc->xDisplay);
+    PlaySeSpacial(SONG_85, proc->xDisplay);
     APProc_Create(
         ApConf_MapAnimSleep,
         proc->xDisplay,
@@ -1087,7 +1088,7 @@ void MapAnimMonsterStone_Loop1(struct MAEffectProc * proc)
     if (proc->timer == 0)
     {
         if (proc->frame == 0)
-            PlaySeSpacial(0x3BA, proc->xDisplay);
+            PlaySeSpacial(SONG_3BA, proc->xDisplay);
         else if (proc->frame > 9)
         {
             Proc_Break(proc);
@@ -1140,7 +1141,7 @@ void StartMapAnimEffect_Unk_089A3DB4(struct Unit * unit)
 
 void MapAnim_Init_807E390(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0xFD, proc->xDisplay);
+    PlaySeSpacial(SONG_FD, proc->xDisplay);
 
     InitScanline();
     sub_8081EAC();
@@ -1209,7 +1210,7 @@ void MapAnimCallSpellAssocSilencefx(struct Unit * unit)
 
 void MapAnimSilence_InitGfx(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x83, proc->xDisplay);
+    PlaySeSpacial(SONG_83, proc->xDisplay);
 
     BG_SetPosition(BG_2, 0, 0);
     SetDefaultMapAnimScreenConf();
@@ -1233,7 +1234,7 @@ void MapAnimSilence_InitGfx(struct MAEffectProc * proc)
 
 void MapAnimSilence_InitScreenConf(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x84, proc->xDisplay);
+    PlaySeSpacial(SONG_84, proc->xDisplay);
 
     sub_8014560(
         gBG2TilemapBuffer,
@@ -1276,7 +1277,7 @@ void MapAnimCallSpellAssocBarrierfx(struct Unit * unit)
 
 void MapAnimBarrierfx_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x88, proc->xDisplay);
+    PlaySeSpacial(SONG_88, proc->xDisplay);
 
     BG_SetPosition(BG_2, 0, 0);
     SetDefaultMapAnimScreenConf();
@@ -1353,7 +1354,7 @@ void UnhideUnit(void)
 
 void MapAnimUnlock_Init(struct MAEffectProc * proc)
 {
-    PlaySeSpacial(0x8D, proc->xDisplay);
+    PlaySeSpacial(SONG_8D, proc->xDisplay);
 
     BG_SetPosition(BG_2, 0, 0);
     Decompress(Img_MapAnimUnlockBgfx, ((void *) VRAM) + GetBackgroundTileDataOffset(BG_2) + CHR_SIZE * BGCHR_MANIM_160);
