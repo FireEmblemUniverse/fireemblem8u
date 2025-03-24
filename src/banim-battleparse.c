@@ -336,7 +336,7 @@ void ParseBattleHitToBanimCmd(void)
         gAnimRoundData[i] = 0xFFFF;
 
     for (i = 0; i < 0x14; i++)
-        gEfxHpLut[2 + i] = gEfxHpLut[2 + i] | 0xFFFF;
+        gEfxHpLut[2 + i] = 0xFFFF;
 
     gpEkrTriangleUnits[1] = NULL;
     gpEkrTriangleUnits[0] = NULL;
@@ -502,7 +502,7 @@ void ParseBattleHitToBanimCmd(void)
 
                     r9 = r9 + 1;
                     gEfxHpLut[r9 * 2] = new_hp;
-                    gAnimRoundData[round_sp0C * 2] |= 0x8000;
+                    gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_DEVIL;
                 }
                 else
                 {
@@ -512,7 +512,7 @@ void ParseBattleHitToBanimCmd(void)
 
                     r10 = r10 + 1;
                     gEfxHpLut[r10 * 2 + 1] = new_hp;
-                    gAnimRoundData[round_sp0C * 2 + 1] |= 0x8000;
+                    gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_DEVIL;
                 }
             }
             /* _080585B4 */
