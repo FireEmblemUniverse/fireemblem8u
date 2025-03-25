@@ -73,6 +73,7 @@ tools/agbcc
 *.lz
 *.fk
 data/banim/*.bin
+graphics/map/layout/*.bin
 
 *.feimg1.bin
 *.feimg2.bin
