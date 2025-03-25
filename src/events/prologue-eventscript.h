@@ -230,7 +230,7 @@ CONST_DATA EventListScr EventScr_Prologue_ONeillSpawn[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_Prologue_OneEmimyLeft[] = {
+CONST_DATA EventListScr EventScr_Prologue_OneEnemyLeft[] = {
     CHECK_ENEMIES
     SVAL(EVT_SLOT_7, 1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_7)

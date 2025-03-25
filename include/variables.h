@@ -63,7 +63,7 @@ extern struct Unit* sUnitStackBase;
 extern struct Unit* sUnitStackTop;
 extern u8 sUnitStackSize;
 
-extern int gBattleScriptted;
+extern int gBattleScripted;
 extern int gBaArenaFlag;
 // extern ??? gpActiveClassReelSpellProc
 // extern ??? gpActiveCRSpellBgColorProc
