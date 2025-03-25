@@ -52,7 +52,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     LOAD2(1, UnitDef_Event_PrologueThroneRoomUnits)
     ENUN
     FADU(16)
-    MUSC(SONG_RAID) /* todo: BGM index */
+    MUSC(SONG_RAID)
     BROWNBOXTEXT(0x664, 8, 8)
 
     /* WTF we load Ephraim as the messager... */
