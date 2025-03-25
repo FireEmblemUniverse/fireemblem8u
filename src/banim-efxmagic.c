@@ -15,7 +15,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimJavelinCavalier,
     StartSpellAnimJavelinSoldier,
     StartSpellAnimJavelinPaladin,
-    StartSpellAnimJavelinPrgasusKnight,
+    StartSpellAnimJavelinPegasusKnight,
     StartSpellAnimJavelinFalcon,
     StartSpellAnimJavelinWyvernRider,
     StartSpellAnimJavelinWyvernLord,
