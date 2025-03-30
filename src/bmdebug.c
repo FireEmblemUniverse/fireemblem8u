@@ -21,6 +21,8 @@
 #include "sio.h"
 
 #include "constants/faces.h"
+#include "constants/msg.h"
+#include "constants/chapters.h"
 
 void PrintDebugBuildDateAndTime(u16 *bg);
 
@@ -247,8 +249,8 @@ u8 EndMenuAndClear(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc)
 }
 
 int CONST_DATA gTextIds_OnOff[] = {
-    0x0849, // TODO: msgid "ON"
-    0x084A, // TODO: msgid "OFF"
+    MSG_849, // TODO: msgid "ON"
+    MSG_84A, // TODO: msgid "OFF"
 };
 
 //! FE8U = 0x0801BCE4
@@ -283,13 +285,13 @@ u8 DebugMapMenu_DisplayInfoEffect(struct MenuProc* menuProc, struct MenuItemProc
 //! FE8U = 0x0801BDA4
 int DebugMenu_WeatherDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     u16 weatherTextIds[] = {
-        0x06B1, // TODO: msgid "Clear"
-        0x06B2, // TODO: msgid "Sand"
-        0x06B3, // TODO: msgid "Snow"
-        0x06B4, // TODO: msgid "Flurry"
-        0x06B5, // TODO: msgid "Rain"
-        0x06B6, // TODO: msgid "Night"
-        0x06B7, // TODO: msgid "Lave" [sic]
+        MSG_6B1, // TODO: msgid "Clear"
+        MSG_6B2, // TODO: msgid "Sand"
+        MSG_6B3, // TODO: msgid "Snow"
+        MSG_6B4, // TODO: msgid "Flurry"
+        MSG_6B5, // TODO: msgid "Rain"
+        MSG_6B6, // TODO: msgid "Night"
+        MSG_6B7, // TODO: msgid "Lave" [sic]
     };
 
     struct DebugPrintProc* debugPrintProc = Proc_Find(ProcScr_DebugMonitor);
@@ -368,7 +370,7 @@ u8 DebugMenu_WeatherEffect(struct MenuProc* menuProc, struct MenuItemProc* menuI
 int DebugMenu_ClearDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     ClearText(&menuItemProc->text);
     Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertDrawString(&menuItemProc->text, 72, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(0x6b8)); // TODO: msgid "Clears"
+    Text_InsertDrawString(&menuItemProc->text, 72, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(MSG_6B8)); // TODO: msgid "Clears"
     Text_InsertDrawNumberOrBlank(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetGlobalCompletionCount() + 1);
     PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
@@ -522,7 +524,7 @@ u8 StartupDebugMenu_WorldMapEffect(void) {
     InitRN(GetGameClock());
     InitUnits();
     WriteNewGameSave(0, 0, 0, -1);
-    SetTacticianName(GetStringFromIndex(0x26A)); // TODO: msgid "Mark"
+    SetTacticianName(GetStringFromIndex(MSG_26A)); // TODO: msgid "Mark"
 
     gPlaySt.chapterIndex = 1;
 
@@ -551,7 +553,7 @@ u8 StartupDebugMenu_ChapterSelectEffect(struct MenuProc* menuProc, struct MenuIt
         WriteNewGameSave(0, 0, 0, -1);
     }
 
-    SetTacticianName(GetStringFromIndex(0x26A)); // TODO: msgid "Mark"
+    SetTacticianName(GetStringFromIndex(MSG_26A)); // TODO: msgid "Mark"
 
     gPlaySt.chapterIndex = Debug_GetChapterId(menuItemProc->itemNumber);
     gPlaySt.chapterModeIndex = gDebugChapterModeIndex;
@@ -709,13 +711,13 @@ u8 DebugMenu_GNightEffect(struct MenuProc* menuProc, struct MenuItemProc* menuIt
 int DebugChargeMenu_Draw(struct MenuProc* param_1, struct MenuItemProc* menuItemProc) {
     int state;
     u16 factionTextIds[2] = {
-        0x6A5, // TODO: msgid "2nd"
-        0x6A6, // TODO: msgid "3rd"
+        MSG_6A5, // TODO: msgid "2nd"
+        MSG_6A6, // TODO: msgid "3rd"
     };
     u16 controlTypeTextIds[3] = {
-        0x6A7, // TODO: msgid "CPU"
-        0x6A8, // TODO: msgid "Human"
-        0x6A9, // TODO: msgid "Blocked"
+        MSG_6A7, // TODO: msgid "CPU"
+        MSG_6A8, // TODO: msgid "Human"
+        MSG_6A9, // TODO: msgid "Blocked"
     };
 
     if (menuItemProc->itemNumber != 0) {
@@ -788,19 +790,76 @@ u8 sub_801C63C(void) {
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 
-// TODO: Chapter IDs!
+
 u8 CONST_DATA gChapterIdOrderedList[] = {
     // CHAPTER_MODE_COMMON
-    0x00, 0x01, 0x02, 0x03, 0x04, 0x06, 0x05, 0x07, 0x08, 0x09,
+    CHAPTER_L_PROLOGUE, 
+    CHAPTER_L_1, 
+    CHAPTER_L_2, 
+    CHAPTER_L_3, 
+    CHAPTER_L_4, 
+    CHAPTER_L_5, 
+    CHAPTER_L_5X, 
+    CHAPTER_L_6, 
+    CHAPTER_L_7, 
+    CHAPTER_L_8,
 
     // CHAPTER_MODE_EIRIKA
-    0x0A, 0x0B, 0x3D, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16,
+    CHAPTER_E_9,
+    CHAPTER_E_10,
+    CHAPTER_E_11,
+    CHAPTER_E_12,
+    CHAPTER_E_13,
+    CHAPTER_E_14,
+    CHAPTER_E_15,
+    CHAPTER_E_16,
+    CHAPTER_E_17,
+    CHAPTER_E_18,
+    CHAPTER_E_19,
+    CHAPTER_E_20,
+    CHAPTER_E_21,
+    CHAPTER_E_21X,
 
     // CHAPTER_MODE_EPHRAIM
-    0x17, 0x18, 0x3E, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x22, 0x23,
+    CHAPTER_I_9,
+    CHAPTER_I_10,
+    CHAPTER_I_11,
+    CHAPTER_I_12,
+    CHAPTER_I_13,
+    CHAPTER_I_14,
+    CHAPTER_I_15,
+    CHAPTER_I_16,
+    CHAPTER_I_17,
+    CHAPTER_I_18,
+    CHAPTER_I_19,
+    CHAPTER_I_20,
+    CHAPTER_I_21,
+    CHAPTER_I_21X,
 
-    0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x33,
-    0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3B, 0x3C,
+    CHAPTER_T_01,
+    CHAPTER_T_02,
+    CHAPTER_T_03,
+    CHAPTER_T_04,
+    CHAPTER_T_05,
+    CHAPTER_T_06,
+    CHAPTER_T_07,
+    CHAPTER_T_08,
+
+    CHAPTER_R_01,
+    CHAPTER_R_02,
+    CHAPTER_R_03,
+    CHAPTER_R_04,
+    CHAPTER_R_05,
+    CHAPTER_R_06,
+    CHAPTER_R_07,
+    CHAPTER_R_08,
+    CHAPTER_R_09,
+    CHAPTER_R_10,
+
+    CHAPTER_CASTLE_FRELIA,
+    CHAPTER_MALKAEN_COAST,
+    CHAPTER_3B,
+    CHAPTER_3C,
 };
 
 //! FE8U = 0x0801C650
@@ -836,33 +895,33 @@ void DebugMenuMapIdleCore(struct MenuItemProc* menuItemProc, int x, int y) {
     chapterId = Debug_GetChapterId(menuItemProc->itemNumber);
 
     switch (chapterId) {
-        case 0x00:
-        case 0x01:
-        case 0x02:
-        case 0x03:
-        case 0x04:
-        case 0x06:
-        case 0x05:
-        case 0x07:
-        case 0x08:
-        case 0x09:
+        case CHAPTER_L_PROLOGUE:
+        case CHAPTER_L_1:
+        case CHAPTER_L_2:
+        case CHAPTER_L_3:
+        case CHAPTER_L_4:
+        case CHAPTER_L_5:
+        case CHAPTER_L_5X:
+        case CHAPTER_L_6:
+        case CHAPTER_L_7:
+        case CHAPTER_L_8:
             gDebugChapterModeIndex = CHAPTER_MODE_COMMON;
             break;
 
-        case 0x17:
-        case 0x18:
-        case 0x3E:
-        case 0x19:
-        case 0x1A:
-        case 0x1B:
-        case 0x1C:
-        case 0x1D:
-        case 0x1E:
-        case 0x1F:
-        case 0x20:
-        case 0x21:
-        case 0x22:
-        case 0x23:
+        case CHAPTER_I_9:
+        case CHAPTER_I_10:
+        case CHAPTER_I_11:
+        case CHAPTER_I_12:
+        case CHAPTER_I_13:
+        case CHAPTER_I_14:
+        case CHAPTER_I_15:
+        case CHAPTER_I_16:
+        case CHAPTER_I_17:
+        case CHAPTER_I_18:
+        case CHAPTER_I_19:
+        case CHAPTER_I_20:
+        case CHAPTER_I_21:
+        case CHAPTER_I_21X:
             gDebugChapterModeIndex = CHAPTER_MODE_EPHRAIM;
             break;
 
@@ -874,20 +933,20 @@ void DebugMenuMapIdleCore(struct MenuItemProc* menuItemProc, int x, int y) {
             }
             break;
 
-        case 0x0A:
-        case 0x0B:
-        case 0x3D:
-        case 0x0C:
-        case 0x0D:
-        case 0x0E:
-        case 0x0F:
-        case 0x10:
-        case 0x11:
-        case 0x12:
-        case 0x13:
-        case 0x14:
-        case 0x15:
-        case 0x16:
+        case CHAPTER_E_9:
+        case CHAPTER_E_10:
+        case CHAPTER_E_11:
+        case CHAPTER_E_12:
+        case CHAPTER_E_13:
+        case CHAPTER_E_14:
+        case CHAPTER_E_15:
+        case CHAPTER_E_16:
+        case CHAPTER_E_17:
+        case CHAPTER_E_18:
+        case CHAPTER_E_19:
+        case CHAPTER_E_20:
+        case CHAPTER_E_21:
+        case CHAPTER_E_21X:
             gDebugChapterModeIndex = CHAPTER_MODE_EIRIKA;
             break;
     }

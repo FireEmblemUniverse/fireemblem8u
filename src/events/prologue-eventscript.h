@@ -11,6 +11,7 @@
 #include "constants/backgrounds.h"
 #include "constants/items.h"
 #include "constants/songs.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Prologue_BeginningScene[] = {
     CALL(EventScr_Prologue_RenaisThroneCutscene)
@@ -48,7 +49,7 @@ LABEL(0x0)
 
 CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     SVAL(EVT_SLOT_B, 0x000A000E)
-    LOMA(0x10) /* todo: chapter index */
+    LOMA(CHAPTER_E_16) /* todo: chapter index */
     LOAD2(1, UnitDef_Event_PrologueThroneRoomUnits)
     ENUN
     FADU(16)
@@ -120,7 +121,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     EVBIT_F(0x2)
     CLEA CLEE CLEN
     SVAL(EVT_SLOT_B, 0x00000000)
-    LOMA(0x40)
+    LOMA(CHAPTER_40)
     FADU(16)
 
     LOAD2(1, UnitDef_Event_PrologueEscapees)
@@ -200,7 +201,7 @@ CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     EVBIT_F(0x2)
     CLEA CLEE CLEN
     SVAL(EVT_SLOT_B, 0x00000000)
-    LOMA(0x0)
+    LOMA(CHAPTER_L_PROLOGUE)
     FADU(16)
 
     ENDA

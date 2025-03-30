@@ -3,7 +3,7 @@
 CONST_DATA EventListScr EventScr_Ch16b_BeginningScene[] = {
     CALL(EventScr_089F6A8C)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x1d)
+    LOMA(CHAPTER_I_16)
     LOAD1(0x0, UnitDef_088BCE58)
     ENUN
     LOAD1(0x1, UnitDef_088C774C)

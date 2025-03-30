@@ -3,7 +3,7 @@
 CONST_DATA EventListScr EventScr_Ch14b_BeginningScene[] = {
     MUSC(SONG_4D)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x3f)
+    LOMA(CHAPTER_3F)
     FADU(16)
     LOAD2(0x1, UnitDef_088C68B8)
     ENUN
@@ -55,7 +55,7 @@ LABEL(0x0)
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x2000f)
-    LOMA(0x1b)
+    LOMA(CHAPTER_I_14)
     LOAD1(0x1, UnitDef_088C60C0)
     ENUN
     FADU(4)
@@ -153,7 +153,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x46)
+    LOMA(CHAPTER_46)
     LOAD1(0x1, UnitDef_088C6A24)
     ENUN
     FADU(16)
@@ -226,7 +226,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x4b)
+    LOMA(CHAPTER_4B)
     UNIT_COLORS(0x4)
     LOAD2(0x1, UnitDef_088C6C04)
     ENUN
@@ -263,7 +263,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CLEN
     UNIT_COLORS(0x0)
     SVAL(EVT_SLOT_B, 0x1a)
-    LOMA(0x46)
+    LOMA(CHAPTER_46)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C6AC4)
     ENUN
@@ -289,7 +289,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x4d)
+    LOMA(CHAPTER_4D)
     FADU(16)
     LOAD2(0x1, UnitDef_088C6CA4)
     ENUN
@@ -315,7 +315,7 @@ CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x4000e)
-    LOMA(0x1b)
+    LOMA(CHAPTER_I_14)
     TILECHANGE(0x0)
     LOAD2(0x1, UnitDef_088C66D8)
     ENUN
