@@ -7,6 +7,7 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Ch10a_BeginningScene[] = {
 	MUSC(0x2e)
@@ -62,7 +63,7 @@ CONST_DATA EventListScr EventScr_Ch10a_BeginningScene[] = {
 	CLEN
 	UNIT_COLORS(0x0)
 	SVAL(EVT_SLOT_B, 0x100007)
-	LOMA(0xb)
+	LOMA(CHAPTER_E_10)
 	LOAD1(0x1, UnitDef_088B898C)
 	ENUN
 	LOAD1(0x1, UnitDef_088B8644)

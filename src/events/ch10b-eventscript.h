@@ -3,7 +3,7 @@
 CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
     MUSC(0x25)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x4c)
+    LOMA(CHAPTER_4C)
     FADU(16)
     LOAD2(0x1, UnitDef_088C3D68)
     SVAL(EVT_SLOT_1, 0x0)
@@ -39,7 +39,7 @@ CONST_DATA EventListScr EventScr_Ch10b_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xe000c)
-    LOMA(0x18)
+    LOMA(CHAPTER_I_10)
     UNIT_COLORS(0x222)
     LOAD1(0x1, UnitDef_088C2E20)
     ENUN

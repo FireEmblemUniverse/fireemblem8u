@@ -25,6 +25,7 @@
 
 #include "constants/event-flags.h"
 #include "constants/characters.h"
+#include "constants/chapters.h"
 
 extern u16 gEndingTmScratchA[];
 
@@ -245,7 +246,7 @@ void SaveMenu_SetLcdChapterIdx(void)
 
         if ((gGMData.state.raw & 3) == 3)
         {
-            if (chapterId > 0x01 && chapterId != 0x38)
+            if (chapterId > 0x01 && chapterId != CHAPTER_CASTLE_FRELIA)
             {
                 node = GetNextUnclearedNode(&gGMData);
                 if (node < 0)
@@ -255,8 +256,8 @@ void SaveMenu_SetLcdChapterIdx(void)
             }
         }
         else if (gPlaySt.chapterIndex == 0x06 && CheckFlag(EVFLAG_136) != 0)
-            gPlaySt.chapterIndex = 0x38;
-        else if (chapterId != 0x01 && chapterId != 0x0A && chapterId != 0x17)
+            gPlaySt.chapterIndex = CHAPTER_CASTLE_FRELIA;
+        else if (chapterId != CHAPTER_L_1 && chapterId != CHAPTER_E_9 && chapterId != CHAPTER_I_9)
         {
             if (gPlaySt.save_menu_type != 2 && !(gBmSt.gameStateBits & BM_FLAG_PREPSCREEN))
                     gPlaySt.chapterIndex = GetChapterIndexOnWmNode(&gGMData);
@@ -1322,7 +1323,7 @@ void ExecExtraMap(struct SaveMenuProc * proc)
     SetNextGameActionId(GAME_ACTION_EXTRA_MAP);
     gPlaySt.chapterStateBits |= PLAY_FLAG_EXTRA_MAP;
     ReadExtraMapInfo();
-    gPlaySt.chapterIndex = 0x7f;
+    gPlaySt.chapterIndex = CHAPTER_7F;
     Proc_End(proc->proc_parent);
 }
 

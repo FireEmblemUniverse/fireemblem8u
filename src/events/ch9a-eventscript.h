@@ -7,6 +7,7 @@
 #include "EAstdlib.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Ch9a_BeginningScene[] = {
 	MUSC(0x2e)
@@ -16,7 +17,7 @@ CONST_DATA EventListScr EventScr_Ch9a_BeginningScene[] = {
 	CALL(EventScr_089F3C34)
 	MUSCMID(0x7fff)
 	SVAL(EVT_SLOT_B, 0x0)
-	LOMA(0x45)
+	LOMA(CHAPTER_45)
 	CHECK_EXISTS(CHARACTER_TANA)
 	BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
 	SVAL(EVT_SLOT_1, 0x0)
@@ -44,7 +45,7 @@ LABEL(0x0)
 	CLEE
 	CLEN
 	SVAL(EVT_SLOT_B, 0x40012)
-	LOMA(0xa)
+	LOMA(CHAPTER_E_9)
 	FADU(16)
 	LOAD2(0x1, UnitDef_088B815C)
 	ENUN

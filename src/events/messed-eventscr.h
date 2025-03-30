@@ -10,6 +10,7 @@
 #include "bmio.h"
 #include "ending_details.h"
 #include "constants/characters.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_089FFC0C[] = {
     CHECK_CHAPTER_NUMBER
@@ -405,7 +406,7 @@ CONST_DATA EventListScr EventScr_EirikaModeGameEnd[] = {
     LOAD2(0x1, UnitDef_088D1894)
     ENUN
     SVAL(EVT_SLOT_B, 0x17)
-    LOMA(0xf)
+    LOMA(CHAPTER_E_15)
     FADU(16)
     BROWNBOXTEXT(0x65d, 8, 8)
     MOVE_1STEP(0x8, CHARACTER_JOSHUA, FACING_DOWN)
@@ -420,7 +421,7 @@ LABEL(0x0)
     LOAD2(0x1, UnitDef_088D1984)
     ENUN
     SVAL(EVT_SLOT_B, 0x17)
-    LOMA(0xf)
+    LOMA(CHAPTER_E_15)
     FADU(16)
     BROWNBOXTEXT(0x65d, 8, 8)
     MOVE_1STEP(0x8, CHARACTER_MYRRH, FACING_DOWN)
@@ -455,7 +456,7 @@ CONST_DATA EventListScr EventScr_EphraimModeGameEnd[] = {
     LOAD2(0x1, UnitDef_088D1A60)
     ENUN
     SVAL(EVT_SLOT_B, 0x8000c)
-    LOMA(0xc)
+    LOMA(CHAPTER_E_12)
     FADU(16)
     BROWNBOXTEXT(0x65b, 8, 8)
     TEXTSTART
@@ -487,7 +488,7 @@ CONST_DATA EventListScr EventScr_08A00544[] = {
     LOAD2(0x1, 0xffffffff)
     ENUN
     SVAL(EVT_SLOT_B, 0xc0011)
-    LOMA(0x13)
+    LOMA(CHAPTER_E_19)
     FADU(16)
     BROWNBOXTEXT(0x667, 8, 8)
     MOVE_1STEP(0x8, CHARACTER_LARACHEL, FACING_DOWN)
@@ -514,7 +515,7 @@ CONST_DATA EventListScr EventScr_08A005B4[] = {
     LOAD2(0x1, 0xffffffff)
     ENUN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x40)
+    LOMA(CHAPTER_40)
     FADU(16)
     BROWNBOXTEXT(0x664, 8, 8)
     CUMO_CHAR(CHARACTER_INNES)
@@ -537,7 +538,7 @@ CONST_DATA EventListScr EventScr_08A005B4[] = {
 
 CONST_DATA EventListScr EventScr_08A0062C[] = {
     SVAL(EVT_SLOT_B, 0x5000e)
-    LOMA(0x10)
+    LOMA(CHAPTER_E_16)
     FADU(4)
     LOAD2(0x1, 0xffffffff)
     ENUN

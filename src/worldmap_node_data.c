@@ -4,6 +4,7 @@
 #include "worldmap.h"
 
 #include "constants/worldmap.h"
+#include "constants/chapters.h"
 
 const struct NodeIcon gWMNodeIconData[] =
 {

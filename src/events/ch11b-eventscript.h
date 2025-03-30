@@ -26,7 +26,7 @@ CONST_DATA EventListScr EventScr_Ch11b_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x3e)
+    LOMA(CHAPTER_I_11)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088C42B0)
     ENUN

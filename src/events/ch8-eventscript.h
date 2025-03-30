@@ -13,6 +13,7 @@
 #include "bmbattle.h"
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Ch8_BeginningScene[] = {
     MUSC(0x25)
@@ -222,7 +223,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x14000e)
-    LOMA(0x4e)
+    LOMA(CHAPTER_4E)
     UNIT_COLORS(0x4)
     LOAD2(0x1, UnitDef_088B788C)
     ENUN
@@ -258,7 +259,7 @@ CONST_DATA EventListScr EventScr_089F3280[] = {
     FAWI(2)
     REMA
     SVAL(EVT_SLOT_B, 0x14000e)
-    LOMA(0x6)
+    LOMA(CHAPTER_L_5)
     UNIT_COLORS(0x0)
     LOAD2(0x1, UnitDef_088B783C)
     ENUN
@@ -518,7 +519,7 @@ CONST_DATA struct MenuDef MenuDef_RouteSplit = {
 
 CONST_DATA EventListScr EventScr_Ch8_TowerFall[] = {
     SVAL(EVT_SLOT_B, 0x14000c)
-    LOMA(0x2b)
+    LOMA(CHAPTER_T_08)
     LOAD1(0x1, UnitDef_088B78EC)
     ENUN
     FADU(16)

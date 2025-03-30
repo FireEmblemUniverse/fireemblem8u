@@ -1864,9 +1864,9 @@ int GetPlayChapterId(u32 chapterId)
     int i;
 
     if (chapterId - 0x25 < 9)
-        chapterId = 0x24;
+        chapterId = CHAPTER_T_01;
     else if (chapterId - 0x2f < 9)
-        chapterId = 0x2e;
+        chapterId = CHAPTER_R_01;
 
     for (i = 0; i < NODE_MAX; i++)
         if (chapterId == WMLoc_GetChapterId(i))

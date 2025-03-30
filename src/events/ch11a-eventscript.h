@@ -102,7 +102,7 @@ LABEL(0x2)
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xa0000)
-    LOMA(0x41)
+    LOMA(CHAPTER_41)
     VCWF(0)
     MUSC(0x4a)
     FADU(16)

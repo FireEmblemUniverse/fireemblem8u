@@ -22,7 +22,7 @@ CONST_DATA EventListScr EventScr_Ch9b_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xa0012)
-    LOMA(0x17)
+    LOMA(CHAPTER_I_9)
     LOAD1(0x1, UnitDef_088C23B8)
     ENUN
     LOAD1(0x1, UnitDef_088C2890)
