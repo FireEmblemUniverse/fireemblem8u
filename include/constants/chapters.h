@@ -93,4 +93,6 @@ enum chapter_idx
 
     CHAPTER_75 = 0x75,
     CHAPTER_7F = 0x7f,
+
+    CHAPTER_FF = 0xFF,
 };
