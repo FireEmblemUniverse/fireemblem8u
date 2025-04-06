@@ -28,6 +28,12 @@
 #include "constants/terrains.h"
 #include "constants/chapters.h"
 
+#include "constants/items.h"
+#include "constants/classes.h"
+#include "constants/characters.h"
+#include "constants/terrains.h"
+#include "constants/chapters.h"
+
 struct WeaponTriangleRule {
     s8 attackerWeaponType;
     s8 defenderWeaponType;

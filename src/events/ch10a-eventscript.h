@@ -9,6 +9,7 @@
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
 #include "constants/chapters.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Ch10a_BeginningScene[] = {
 	MUSC(SONG_SOLVE_THE_RIDDLE)

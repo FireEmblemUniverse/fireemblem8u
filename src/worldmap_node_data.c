@@ -5,6 +5,8 @@
 
 #include "constants/worldmap.h"
 #include "constants/msg.h"
+#include "constants/chapters.h"
+#include "constants/msg.h"
 
 const struct NodeIcon gWMNodeIconData[] =
 {
