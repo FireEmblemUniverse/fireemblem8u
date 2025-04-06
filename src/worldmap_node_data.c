@@ -198,7 +198,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F16A,
         .x = 152,
         .y = 88,
-        .nameTextId = MSG_650, // TODO: msgid "Border Mulan"
+        .nameTextId = MSG_650, // "Border Mulan"
         .shipTravelFlag = 0,
     },
     [NODE_CASTLE_FRELIA] =
@@ -216,7 +216,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F16C,
         .x = 88,
         .y = 72,
-        .nameTextId = MSG_651, // TODO: msgid "Castle Frelia[.]"
+        .nameTextId = MSG_651, // "Castle Frelia[.]"
         .shipTravelFlag = 0,
     },
     [NODE_IDE] =
@@ -234,7 +234,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F16E,
         .x = 120,
         .y = 120,
-        .nameTextId = MSG_652, // TODO: msgid "Ide[.]"
+        .nameTextId = MSG_652, // "Ide[.]"
         .shipTravelFlag = 0,
     },
     [NODE_BORGO_RIDGE] =
@@ -252,7 +252,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F170,
         .x = 120,
         .y = 152,
-        .nameTextId = MSG_653, // TODO: msgid "Borgo Ridge[.]"
+        .nameTextId = MSG_653, // "Borgo Ridge[.]"
         .shipTravelFlag = 0,
     },
     [NODE_ZAHA_WOODS] =
@@ -270,7 +270,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F172,
         .x = 152,
         .y = 152,
-        .nameTextId = MSG_654, // TODO: msgid "Za'ha Woods[.]"
+        .nameTextId = MSG_654, // "Za'ha Woods[.]"
         .shipTravelFlag = 0,
     },
     [NODE_SERAFEW] =
@@ -288,7 +288,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F174,
         .x = 152,
         .y = 183,
-        .nameTextId = MSG_655, // TODO: msgid "Serafew[.]"
+        .nameTextId = MSG_655, // "Serafew[.]"
         .shipTravelFlag = 0,
     },
     [NODE_ADLAS_PLAINS] =
@@ -306,7 +306,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F176,
         .x = 184,
         .y = 200,
-        .nameTextId = MSG_656, // TODO: msgid "Adlas Plains"
+        .nameTextId = MSG_656, // "Adlas Plains"
         .shipTravelFlag = 0,
     },
     [NODE_RENVALL_07] =
@@ -324,7 +324,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F178,
         .x = 216,
         .y = 216,
-        .nameTextId = MSG_657, // TODO: msgid "Renvall[.]"
+        .nameTextId = MSG_657, // "Renvall[.]"
         .shipTravelFlag = 0,
     },
     [NODE_RENVALL_08] =
@@ -342,7 +342,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F17A,
         .x = 216,
         .y = 216,
-        .nameTextId = MSG_658, // TODO: msgid "Renvall[.]"
+        .nameTextId = MSG_658, // "Renvall[.]"
         .shipTravelFlag = 0,
     },
     [NODE_PORT_KIRIS] =
@@ -360,7 +360,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F17C,
         .x = 216,
         .y = 56,
-        .nameTextId = MSG_659, // TODO: msgid "Port Kiris"
+        .nameTextId = MSG_659, // "Port Kiris"
         .shipTravelFlag = 1,
     },
     [NODE_TERAZ_PLATEAU] =
@@ -378,7 +378,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F17E,
         .x = 216,
         .y = 104,
-        .nameTextId = MSG_65A, // TODO: msgid "Teraz Plateau[.]"
+        .nameTextId = MSG_65A, // "Teraz Plateau[.]"
         .shipTravelFlag = 0,
     },
     [NODE_CAER_PELYN] =
@@ -396,7 +396,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F180,
         .x = 264,
         .y = 104,
-        .nameTextId = MSG_65B, // TODO: msgid "Caer Pelyn"
+        .nameTextId = MSG_65B, // "Caer Pelyn"
         .shipTravelFlag = 0,
     },
     [NODE_HAMILL_CANYON] =
@@ -414,7 +414,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F182,
         .x = 312,
         .y = 136,
-        .nameTextId = MSG_65C, // TODO: msgid "Hamill Canyon[.]"
+        .nameTextId = MSG_65C, // "Hamill Canyon[.]"
         .shipTravelFlag = 0,
     },
     [NODE_JEHANNA_HALL_0D] =
@@ -432,7 +432,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F184,
         .x = 312,
         .y = 200,
-        .nameTextId = MSG_65D, // TODO: msgid "Jehanna Hall"
+        .nameTextId = MSG_65D, // "Jehanna Hall"
         .shipTravelFlag = 0,
     },
     [NODE_FORT_RIGWALD] =
@@ -450,7 +450,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F186,
         .x = 72,
         .y = 152,
-        .nameTextId = MSG_65E, // TODO: msgid "Fort Rigwald"
+        .nameTextId = MSG_65E, // "Fort Rigwald"
         .shipTravelFlag = 0,
     },
     [NODE_BETHROEN] =
@@ -468,7 +468,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F188,
         .x = 72,
         .y = 232,
-        .nameTextId = MSG_65F, // TODO: msgid "Bethroen"
+        .nameTextId = MSG_65F, // "Bethroen"
         .shipTravelFlag = 1,
     },
     [NODE_TAIZEL] =
@@ -486,7 +486,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F18A,
         .x = 152,
         .y = 248,
-        .nameTextId = MSG_660, // TODO: msgid "Taizel"
+        .nameTextId = MSG_660, // "Taizel"
         .shipTravelFlag = 1,
     },
     [NODE_ZAALBUL_MARSH] =
@@ -504,7 +504,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F18C,
         .x = 200,
         .y = 264,
-        .nameTextId = MSG_661, // TODO: msgid "Za'albul Marsh"
+        .nameTextId = MSG_661, // "Za'albul Marsh"
         .shipTravelFlag = 0,
     },
     [NODE_GRADO_KEEP] =
@@ -522,7 +522,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F18E,
         .x = 264,
         .y = 264,
-        .nameTextId = MSG_662, // TODO: msgid "Grado Keep"
+        .nameTextId = MSG_662, // "Grado Keep"
         .shipTravelFlag = 0,
     },
     [NODE_JEHANNA_HALL_13] =
@@ -540,7 +540,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F1B8,
         .x = 312,
         .y = 200,
-        .nameTextId = MSG_663, // TODO: msgid "Jehanna Hall"
+        .nameTextId = MSG_663, // "Jehanna Hall"
         .shipTravelFlag = 0,
     },
     [NODE_RENAIS_CASTLE] =
@@ -558,7 +558,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F1E2,
         .x = 216,
         .y = 152,
-        .nameTextId = MSG_664, // TODO: msgid "Renais Castle[.]"
+        .nameTextId = MSG_664, // "Renais Castle[.]"
         .shipTravelFlag = 0,
     },
     [NODE_NARUBE_RIVER] =
@@ -576,7 +576,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F1E4,
         .x = 360,
         .y = 168,
-        .nameTextId = MSG_665, // TODO: msgid "Narube River"
+        .nameTextId = MSG_665, // "Narube River"
         .shipTravelFlag = 0,
     },
     [NODE_NELERAS_PEAK] =
@@ -594,7 +594,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F1E6,
         .x = 360,
         .y = 120,
-        .nameTextId = MSG_666, // TODO: msgid "Neleras Peak"
+        .nameTextId = MSG_666, // "Neleras Peak"
         .shipTravelFlag = 0,
     },
     [NODE_RAUSTEN_COURT] =
@@ -612,7 +612,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F1E8,
         .x = 392,
         .y = 88,
-        .nameTextId = MSG_667, // TODO: msgid "Rausten Court[.]"
+        .nameTextId = MSG_667, // "Rausten Court[.]"
         .shipTravelFlag = 0,
     },
     [NODE_DARKLING_WOODS] =
@@ -630,7 +630,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F212,
         .x = 344,
         .y = 72,
-        .nameTextId = MSG_668, // TODO: msgid "Darkling Woods"
+        .nameTextId = MSG_668, // "Darkling Woods"
         .shipTravelFlag = 0,
     },
     [NODE_BLACK_TEMPLE] =
@@ -648,7 +648,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F214,
         .x = 312,
         .y = 88,
-        .nameTextId = MSG_669, // TODO: msgid "Black Temple"
+        .nameTextId = MSG_669, // "Black Temple"
         .shipTravelFlag = 0,
     },
     [NODE_TOWER_OF_VALNI] =
@@ -666,7 +666,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F216,
         .x = 152,
         .y = 56,
-        .nameTextId = MSG_66A, // TODO: msgid "Tower of Valni"
+        .nameTextId = MSG_66A, // "Tower of Valni"
         .shipTravelFlag = 0,
     },
     [NODE_LAGDOU_RUINS] =
@@ -684,7 +684,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F218,
         .x = 408,
         .y = 184,
-        .nameTextId = MSG_66B, // TODO: msgid "Lagdou Ruins"
+        .nameTextId = MSG_66B, // "Lagdou Ruins"
         .shipTravelFlag = 0,
     },
     [NODE_MELKAEN_COAST] =
@@ -702,7 +702,7 @@ const struct GMapNodeData gWMNodeData[] =
         .secretShop = (u16 *) 0x08A3F21A,
         .x = 344,
         .y = 40,
-        .nameTextId = MSG_66C, // TODO: msgid "Melkaen Coast[.]"
+        .nameTextId = MSG_66C, // "Melkaen Coast[.]"
         .shipTravelFlag = 1,
     },
 };

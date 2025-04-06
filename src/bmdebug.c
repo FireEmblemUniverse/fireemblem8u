@@ -249,8 +249,8 @@ u8 EndMenuAndClear(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc)
 }
 
 int CONST_DATA gTextIds_OnOff[] = {
-    MSG_849, // TODO: msgid "ON"
-    MSG_84A, // TODO: msgid "OFF"
+    MSG_849, // "ON"
+    MSG_84A, // "OFF"
 };
 
 //! FE8U = 0x0801BCE4
@@ -285,13 +285,13 @@ u8 DebugMapMenu_DisplayInfoEffect(struct MenuProc* menuProc, struct MenuItemProc
 //! FE8U = 0x0801BDA4
 int DebugMenu_WeatherDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     u16 weatherTextIds[] = {
-        MSG_6B1, // TODO: msgid "Clear"
-        MSG_6B2, // TODO: msgid "Sand"
-        MSG_6B3, // TODO: msgid "Snow"
-        MSG_6B4, // TODO: msgid "Flurry"
-        MSG_6B5, // TODO: msgid "Rain"
-        MSG_6B6, // TODO: msgid "Night"
-        MSG_6B7, // TODO: msgid "Lave" [sic]
+        MSG_6B1, // "Clear"
+        MSG_6B2, // "Sand"
+        MSG_6B3, // "Snow"
+        MSG_6B4, // "Flurry"
+        MSG_6B5, // "Rain"
+        MSG_6B6, // "Night"
+        MSG_6B7, // "Lave" [sic]
     };
 
     struct DebugPrintProc* debugPrintProc = Proc_Find(ProcScr_DebugMonitor);
@@ -370,7 +370,7 @@ u8 DebugMenu_WeatherEffect(struct MenuProc* menuProc, struct MenuItemProc* menuI
 int DebugMenu_ClearDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     ClearText(&menuItemProc->text);
     Text_InsertDrawString(&menuItemProc->text, 8, TEXT_COLOR_SYSTEM_WHITE, GetStringFromIndex(menuItemProc->def->nameMsgId));
-    Text_InsertDrawString(&menuItemProc->text, 72, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(MSG_6B8)); // TODO: msgid "Clears"
+    Text_InsertDrawString(&menuItemProc->text, 72, TEXT_COLOR_SYSTEM_BLUE, GetStringFromIndex(MSG_6B8)); // "Clears"
     Text_InsertDrawNumberOrBlank(&menuItemProc->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetGlobalCompletionCount() + 1);
     PutText(&menuItemProc->text, gBG0TilemapBuffer + TILEMAP_INDEX(menuItemProc->xTile, menuItemProc->yTile));
 
@@ -524,7 +524,7 @@ u8 StartupDebugMenu_WorldMapEffect(void) {
     InitRN(GetGameClock());
     InitUnits();
     WriteNewGameSave(0, 0, 0, -1);
-    SetTacticianName(GetStringFromIndex(MSG_26A)); // TODO: msgid "Mark"
+    SetTacticianName(GetStringFromIndex(MSG_26A)); // "Mark"
 
     gPlaySt.chapterIndex = 1;
 
@@ -553,7 +553,7 @@ u8 StartupDebugMenu_ChapterSelectEffect(struct MenuProc* menuProc, struct MenuIt
         WriteNewGameSave(0, 0, 0, -1);
     }
 
-    SetTacticianName(GetStringFromIndex(MSG_26A)); // TODO: msgid "Mark"
+    SetTacticianName(GetStringFromIndex(MSG_26A)); // "Mark"
 
     gPlaySt.chapterIndex = Debug_GetChapterId(menuItemProc->itemNumber);
     gPlaySt.chapterModeIndex = gDebugChapterModeIndex;
@@ -711,13 +711,13 @@ u8 DebugMenu_GNightEffect(struct MenuProc* menuProc, struct MenuItemProc* menuIt
 int DebugChargeMenu_Draw(struct MenuProc* param_1, struct MenuItemProc* menuItemProc) {
     int state;
     u16 factionTextIds[2] = {
-        MSG_6A5, // TODO: msgid "2nd"
-        MSG_6A6, // TODO: msgid "3rd"
+        MSG_6A5, // "2nd"
+        MSG_6A6, // "3rd"
     };
     u16 controlTypeTextIds[3] = {
-        MSG_6A7, // TODO: msgid "CPU"
-        MSG_6A8, // TODO: msgid "Human"
-        MSG_6A9, // TODO: msgid "Blocked"
+        MSG_6A7, // "CPU"
+        MSG_6A8, // "Human"
+        MSG_6A9, // "Blocked"
     };
 
     if (menuItemProc->itemNumber != 0) {
