@@ -256,7 +256,7 @@ void SaveMenu_SetLcdChapterIdx(void)
                 gPlaySt.chapterIndex = WMLoc_GetChapterId(node);
             }
         }
-        else if (gPlaySt.chapterIndex == 0x06 && CheckFlag(EVFLAG_136) != 0)
+        else if (gPlaySt.chapterIndex == CHAPTER_L_5 && CheckFlag(EVFLAG_136) != 0)
             gPlaySt.chapterIndex = CHAPTER_CASTLE_FRELIA;
         else if (chapterId != CHAPTER_L_1 && chapterId != CHAPTER_E_9 && chapterId != CHAPTER_I_9)
         {
