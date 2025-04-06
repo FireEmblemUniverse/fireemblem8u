@@ -49,11 +49,11 @@ LABEL(0x0)
 
 CONST_DATA EventListScr EventScr_Prologue_RenaisThroneCutscene[] = {
     SVAL(EVT_SLOT_B, 0x000A000E)
-    LOMA(CHAPTER_E_16) /* todo: chapter index */
+    LOMA(CHAPTER_E_16)
     LOAD2(1, UnitDef_Event_PrologueThroneRoomUnits)
     ENUN
     FADU(16)
-    MUSC(SONG_RAID) /* todo: BGM index */
+    MUSC(SONG_RAID)
     BROWNBOXTEXT(0x664, 8, 8)
 
     /* WTF we load Ephraim as the messager... */

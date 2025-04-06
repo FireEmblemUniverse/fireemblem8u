@@ -27,7 +27,6 @@
 #include "constants/characters.h"
 #include "constants/chapters.h"
 #include "constants/songs.h"
-#include "constants/chapters.h"
 
 extern u16 gEndingTmScratchA[];
 

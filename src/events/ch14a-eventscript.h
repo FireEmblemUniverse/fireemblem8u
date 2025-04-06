@@ -43,7 +43,6 @@ CONST_DATA EventListScr EventScr_Ch14a_BeginningScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x7000a)
     LOMA(CHAPTER_E_14)
-    LOMA(CHAPTER_E_14)
     LOAD1(0x1, UnitDef_088BBCAC)
     ENUN
     MOVE(0xffff, CHARACTER_CARLYLE, 9, 7)
@@ -140,7 +139,6 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(CHAPTER_4A)
-    LOMA(CHAPTER_4A)
     FADU(16)
     LOAD1(0x1, UnitDef_088BC45C)
     ENUN
@@ -177,7 +175,6 @@ CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     MUSCMID(SONG_SILENT)
     FADI(16)
     SVAL(EVT_SLOT_B, 0x7000a)
-    LOMA(CHAPTER_E_14)
     LOMA(CHAPTER_E_14)
     CLEA
     CLEE

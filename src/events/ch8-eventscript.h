@@ -14,8 +14,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
-#include "constants/chapters.h"
-#include "constants/chapters.h"
+#include "constants/chapters.h"     
 
 CONST_DATA EventListScr EventScr_Ch8_BeginningScene[] = {
     MUSC(SONG_TENSION)
