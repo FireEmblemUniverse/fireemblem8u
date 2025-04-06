@@ -247,7 +247,7 @@ void SaveMenu_SetLcdChapterIdx(void)
 
         if ((gGMData.state.raw & 3) == 3)
         {
-            if (chapterId > 0x01 && chapterId != CHAPTER_CASTLE_FRELIA)
+            if (chapterId > CHAPTER_L_1 && chapterId != CHAPTER_CASTLE_FRELIA)
             {
                 node = GetNextUnclearedNode(&gGMData);
                 if (node < 0)
