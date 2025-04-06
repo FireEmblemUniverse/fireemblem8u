@@ -20,8 +20,8 @@
 #include "bmbattle.h"
 #include "mapanim.h"
 #include "worldmap.h"
-#include "constants/songs.h"
 
+#include "constants/songs.h"
 #include "constants/items.h"
 #include "constants/classes.h"
 #include "constants/characters.h"
