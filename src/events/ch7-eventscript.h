@@ -8,6 +8,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_Ch7_BeginningScene[] = {
     MUSC(SONG_TENSION)
@@ -101,7 +102,7 @@ CONST_DATA EventListScr EventScr_089F2CFC[] = {
 CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x44)
+    LOMA(CHAPTER_44)
     CLEA
     CLEE
     CLEN

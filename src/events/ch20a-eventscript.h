@@ -163,7 +163,7 @@ LABEL(0x1)
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x12000c)
-    LOMA(0x15)
+    LOMA(CHAPTER_E_21)
     FADU(16)
     LOAD1(0x1, UnitDef_088C172C)
     ENUN

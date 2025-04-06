@@ -3,7 +3,7 @@
 CONST_DATA EventListScr EventScr_Ch16a_BeginningScene[] = {
     CALL(EventScr_089F6A8C)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x10)
+    LOMA(CHAPTER_E_16)
     LOAD1(0x0, UnitDef_088BCE58)
     ENUN
     LOAD1(0x1, UnitDef_088BCF5C)
@@ -20,7 +20,7 @@ CONST_DATA EventListScr EventScr_Ch16a_BeginningScene[] = {
 CONST_DATA EventListScr EventScr_089F6A8C[] = {
     MUSC(SONG_47)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x40)
+    LOMA(CHAPTER_40)
     FADU(16)
     LOAD2(0x1, UnitDef_088BD648)
     ENUN
@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_089F6A8C[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xc0000)
-    LOMA(0x42)
+    LOMA(CHAPTER_42)
     UNIT_COLORS(0x2)
     LOAD2(0x1, UnitDef_088BD810)
     ENUN
@@ -206,7 +206,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     REMA
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x42)
+    LOMA(CHAPTER_42)
     FADU(16)
     LOAD2(0x1, UnitDef_088BDA08)
     ENUN
@@ -227,7 +227,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x4000e)
-    LOMA(0x10)
+    LOMA(CHAPTER_E_16)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD3D0)
     ENUN
@@ -258,7 +258,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     ENUN
     CLEA
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x43)
+    LOMA(CHAPTER_43)
     LOAD2(0x1, UnitDef_088BDB5C)
     ENUN
     MUSC(SONG_95)
@@ -292,7 +292,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     CLEN
     STAL(60)
     SVAL(EVT_SLOT_B, 0x4000e)
-    LOMA(0x10)
+    LOMA(CHAPTER_E_16)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BD420)
     ENUN
@@ -320,7 +320,7 @@ CONST_DATA EventListScr EventScr_089F6E50[] = {
     EVBIT_F(6)
     CLEA
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x47)
+    LOMA(CHAPTER_47)
     FADU(16)
     LOAD2(0x1, UnitDef_088BDC24)
     ENUN
@@ -397,7 +397,7 @@ LABEL(0x1)
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x4000e)
-    LOMA(0x10)
+    LOMA(CHAPTER_E_16)
     SVAL(EVT_SLOT_B, 0x3000d)
     TILECHANGE(0xffff)
     SVAL(EVT_SLOT_B, 0x3000e)

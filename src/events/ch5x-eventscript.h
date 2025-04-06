@@ -10,6 +10,7 @@
 #include "constants/characters.h"
 #include "constants/backgrounds.h"
 #include "constants/songs.h"
+#include "constants/chapters.h"
 
 void HandleCh5xUnits_Start(void)
 {
@@ -38,7 +39,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     ASMC(HandleCh5xUnits_Start)
     MUSC(SONG_SOLVE_THE_RIDDLE)
     SVAL(EVT_SLOT_B, 0x4000a)
-    LOMA(0x8)
+    LOMA(CHAPTER_L_7)
     FADU(16)
     BROWNBOXTEXT(0x657, 8, 8)
     CUMO_AT(9, 4)
@@ -46,7 +47,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CURE
     FADI(16)
     SVAL(EVT_SLOT_B, 0x4000b)
-    LOMA(0x9)
+    LOMA(CHAPTER_L_8)
     LOAD1(0x1, UnitDef_088B5DAC)
     ENUN
     FADU(16)
@@ -72,7 +73,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0xc0014)
-    LOMA(0x7)
+    LOMA(CHAPTER_L_6)
     LOAD2(0x1, UnitDef_088B5DFC)
     ENUN
     FADU(16)
@@ -89,7 +90,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x70009)
-    LOMA(0x8)
+    LOMA(CHAPTER_L_7)
     FADU(16)
     LOAD2(0x1, UnitDef_088B5E94)
     ENUN
@@ -109,7 +110,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x7000e)
-    LOMA(0x5)
+    LOMA(CHAPTER_L_5X)
     LOAD1(0x1, UnitDef_088B5AC8)
     ENUN
     FADU(16)
@@ -193,7 +194,7 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x4000a)
-    LOMA(0x8)
+    LOMA(CHAPTER_L_7)
     LOAD1(0x1, UnitDef_088B5FCC)
     ENUN
     FADU(16)

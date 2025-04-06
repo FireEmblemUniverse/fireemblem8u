@@ -1,7 +1,5 @@
 #include "global.h"
 
-#include "constants/terrains.h"
-
 #include "hardware.h"
 #include "chapterdata.h"
 #include "proc.h"
@@ -12,6 +10,8 @@
 #include "bmtrick.h"
 #include "bmlib.h"
 
+#include "constants/terrains.h"
+#include "constants/chapters.h"
 static void BmMapInit(void* buffer, u8*** outHandle, int width, int height);
 
 static void RenderBmMapColumn(u16 xOffset);
@@ -75,9 +75,8 @@ void InitChapterMap(int chapterId) {
     InitBaseTilesBmMap();
     ApplyEnabledMapChanges();
     RefreshTerrainBmMap();
-
-    // TODO: chapter id definitions
-    if (gPlaySt.chapterIndex == 0x75)
+    
+    if (gPlaySt.chapterIndex == CHAPTER_75)
         sub_8019624();
 }
 

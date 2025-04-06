@@ -6,6 +6,7 @@
 #include "eventcall.h"
 #include "EAstdlib.h"
 #include "constants/characters.h"
+#include "constants/chapters.h"
 
 CONST_DATA EventListScr EventScr_9EEA58[] = {
     CHECK_EVBIT(8)
@@ -16,7 +17,7 @@ LABEL(0x801b)
     CLEE
     CLEN
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x3f)
+    LOMA(CHAPTER_3F)
     FADU(16)
     BROWNBOXTEXT(0x662, 8, 8)
     CUMO_AT(10, 4)
@@ -24,7 +25,7 @@ LABEL(0x801b)
     CURE
     FADI(16)
     SADD(EVT_SLOT_B, EVT_SLOT_2, EVT_SLOT_0)
-    LOMA(0x1b)
+    LOMA(CHAPTER_I_14)
     ENDA
 };
 

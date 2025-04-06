@@ -9,7 +9,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginningScene[] = {
     REMA
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x3f)
+    LOMA(CHAPTER_3F)
     FADU(16)
     LOAD1(0x1, UnitDef_088BB970)
     ENUN
@@ -23,7 +23,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginningScene[] = {
     REMA
     FADI(16)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0x49)
+    LOMA(CHAPTER_49)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
     LOAD2(0x1, UnitDef_088BB9C4)
     ENUN
@@ -49,7 +49,7 @@ CONST_DATA EventListScr EventScr_Ch13a_BeginningScene[] = {
     REMA
     FADI(16)
     SVAL(EVT_SLOT_B, 0x90012)
-    LOMA(0xd)
+    LOMA(CHAPTER_E_13)
     LOAD1(0x1, UnitDef_088BAA74)
     ENUN
     SVAL(EVT_SLOT_2, UnitDef_088BAC18)
@@ -195,7 +195,7 @@ LABEL(0xb)
     CHECK_EVENTID(2)
     BNE(0x63, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_B, 0x0)
-    LOMA(0xf)
+    LOMA(CHAPTER_E_15)
     LOAD1(0x1, UnitDef_088BBA58)
     ENUN
     FADU(4)
