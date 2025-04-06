@@ -1,10 +1,5 @@
 #include "global.h"
 
-#include "constants/items.h"
-#include "constants/classes.h"
-#include "constants/characters.h"
-#include "constants/terrains.h"
-
 #include "rng.h"
 #include "bmitem.h"
 #include "bmunit.h"
@@ -25,7 +20,13 @@
 #include "bmbattle.h"
 #include "mapanim.h"
 #include "worldmap.h"
+
 #include "constants/songs.h"
+#include "constants/items.h"
+#include "constants/classes.h"
+#include "constants/characters.h"
+#include "constants/terrains.h"
+#include "constants/chapters.h"
 
 struct WeaponTriangleRule {
     s8 attackerWeaponType;
@@ -977,10 +978,10 @@ s8 BattleCheckSilencer(struct BattleUnit* attacker, struct BattleUnit* defender)
         return FALSE;
 
     case CLASS_NECROMANCER:
-        if (gPlaySt.chapterIndex == 0x15) // TODO: CHAPTER ID CONSTANTS
+        if (gPlaySt.chapterIndex == CHAPTER_E_21)
             return FALSE;
 
-        if (gPlaySt.chapterIndex == 0x22) // TODO: CHAPTER ID CONSTANTS
+        if (gPlaySt.chapterIndex == CHAPTER_I_21)
             return FALSE;
 
     } // switch (defender->unit.pClassData->number)
