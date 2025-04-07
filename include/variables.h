@@ -816,9 +816,9 @@ extern u8 CONST_DATA gUnknown_08A0328C[];
 // extern ??? gUnknown_08A032AC
 // extern ??? gUnknown_08A03334
 // extern ??? gUnknown_08A03354
-extern u8  CONST_DATA gUnknown_08A03368[]; // stat screen background img
-extern u8  CONST_DATA gUnknown_08A05F10[]; // stat screen background tsa
-extern u16 CONST_DATA gUnknown_08A06460[]; // stat screen background pal
+extern u8  CONST_DATA statscreenBG[]; // stat screen background img
+extern u8  CONST_DATA statscreenBGTSA[]; // stat screen background tsa
+extern u16 CONST_DATA statscreenBGPal[]; // stat screen background pal
 extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
 extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
 extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal

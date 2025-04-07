@@ -1558,11 +1558,11 @@ void StatScreen_InitDisplay(struct Proc* proc)
     // Load and display Background
 
     Decompress(
-        gUnknown_08A03368, (void*)(VRAM + 0x580 * 0x20));
+        statscreenBG, (void*)(VRAM + 0x580 * 0x20));
 
-    ApplyPalettes(gUnknown_08A06460, STATSCREEN_BGPAL_BACKGROUND, 4);
+    ApplyPalettes(statscreenBGPal, STATSCREEN_BGPAL_BACKGROUND, 4);
 
-    Decompress(gUnknown_08A05F10, gGenericBuffer);
+    Decompress(statscreenBGTSA, gGenericBuffer);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gGenericBuffer,
         TILEREF(0x180, 12));
