@@ -116,16 +116,16 @@ gUnknown_08A03334:  @ 0x08A03334
 gUnknown_08A03354:  @ 0x08A03354
 	.incbin "baserom.gba", 0xA03354, 0x14
 
-	.global gUnknown_08A03368
-gUnknown_08A03368:  @ 0x08A03368
+	.global Img_StatscreenBG
+Img_StatscreenBG:  @ 0x08A03368
 	.incbin "baserom.gba", 0xA03368, 0x2BA8
 
-	.global gUnknown_08A05F10
-gUnknown_08A05F10:  @ 0x08A05F10
+	.global Tsa_StatscreenBG
+Tsa_StatscreenBG:  @ 0x08A05F10
 	.incbin "baserom.gba", 0xA05F10, 0x550
 
-	.global gUnknown_08A06460
-gUnknown_08A06460:  @ 0x08A06460
+	.global Pal_StatscreenBG
+Pal_StatscreenBG:  @ 0x08A06460
 	.incbin "baserom.gba", 0xA06460, 0x80
 
 	.global gUnknown_08A064E0
