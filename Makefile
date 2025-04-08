@@ -34,6 +34,7 @@ MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
+MARTOMAP   := scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -59,6 +60,7 @@ DATA_SUBDIR = data
 DATA_SRC_SUBDIR = src/data
 SAMPLE_SUBDIR = sound/direct_sound_samples
 MID_SUBDIR = sound/songs/midi
+MAP_LAYOUT_SUBDIR = graphics/map/layout
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
@@ -81,7 +83,8 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
 MID_FILES    := $(wildcard $(MID_SUBDIR)/*.mid)
 MID_OBJECTS  := $(MID_FILES:.mid=.o)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
+MAP_LAYOUT_OBJECTS := $(wildcard $(MAP_LAYOUT_SUBDIR)/*.bin)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS) $(MAP_LAYOUT_OBJECTS)
 OBJECTS_LST  := objects.lst
 DEPS_DIR     := .dep
 
@@ -163,6 +166,7 @@ include json_data_rules.mk
 %.8bpp: %.png  ; $(GBAGFX) $< $@
 %.gbapal: %.pal ; $(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
+%.bin: %.mar  ; $(MARTOMAP)  $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk

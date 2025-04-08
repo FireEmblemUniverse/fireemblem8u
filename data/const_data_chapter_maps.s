@@ -233,344 +233,344 @@ MapPalette1: @0x81aebf0
 	.align 2, 0
 	.global Ch5TownMapPast
 Ch5TownMapPast: @0x81aed30
-	.incbin "graphics/map/Ch5TownMapPast.bin.lz"
+	.incbin "graphics/map/layout/Ch5TownMapPast.bin.lz"
 
 	.align 2, 0
 	.global GradoShrineMapPresent
 GradoShrineMapPresent: @0x81aeeec
-	.incbin "graphics/map/GradoShrineMapPresent.bin.lz"
+	.incbin "graphics/map/layout/GradoShrineMapPresent.bin.lz"
 
 	.align 2, 0
 	.global AnotherPathMap
 AnotherPathMap: @0x81aefec
-	.incbin "graphics/map/AnotherPathMap.bin.lz"
+	.incbin "graphics/map/layout/AnotherPathMap.bin.lz"
 
 	.align 2, 0
 	.global AnotherShrineMap
 AnotherShrineMap: @0x81af120
-	.incbin "graphics/map/AnotherShrineMap.bin.lz"
+	.incbin "graphics/map/layout/AnotherShrineMap.bin.lz"
 
 	.align 2, 0
 	.global SomeBuildingMap
 SomeBuildingMap: @0x81af220
-	.incbin "graphics/map/SomeBuildingMap.bin.lz"
+	.incbin "graphics/map/layout/SomeBuildingMap.bin.lz"
 
 	.align 2, 0
 	.global SomePathMap
 SomePathMap: @0x81af320
-	.incbin "graphics/map/SomePathMap.bin.lz"
+	.incbin "graphics/map/layout/SomePathMap.bin.lz"
 
 	.align 2, 0
 	.global RenaisShrineMap
 RenaisShrineMap: @0x81af434
-	.incbin "graphics/map/RenaisShrineMap.bin.lz"
+	.incbin "graphics/map/layout/RenaisShrineMap.bin.lz"
 
 	.align 2, 0
 	.global GradoShrineMapPast
 GradoShrineMapPast: @0x81af51c
-	.incbin "graphics/map/GradoShrineMapPast.bin.lz"
+	.incbin "graphics/map/layout/GradoShrineMapPast.bin.lz"
 
 	.align 2, 0
 	.global GradoPrisonMap
 GradoPrisonMap: @0x81af604
-	.incbin "graphics/map/GradoPrisonMap.bin.lz"
+	.incbin "graphics/map/layout/GradoPrisonMap.bin.lz"
 
 	.align 2, 0
 	.global GradoBordersMap
 GradoBordersMap: @0x81af7b0
-	.incbin "graphics/map/GradoBordersMap.bin.lz"
+	.incbin "graphics/map/layout/GradoBordersMap.bin.lz"
 
 	.align 2, 0
 	.global RenvalGateMap
 RenvalGateMap: @0x81af8ac
-	.incbin "graphics/map/RenvalGateMap.bin.lz"
+	.incbin "graphics/map/layout/RenvalGateMap.bin.lz"
 
 	.align 2, 0
 	.global RenaisAudienceMap
 RenaisAudienceMap: @0x81af980
-	.incbin "graphics/map/RenaisAudienceMap.bin.lz"
+	.incbin "graphics/map/layout/RenaisAudienceMap.bin.lz"
 
 	.align 2, 0
 	.global RenaisThroneMap
 RenaisThroneMap: @0x81afa2c
-	.incbin "graphics/map/RenaisThroneMap.bin.lz"
+	.incbin "graphics/map/layout/RenaisThroneMap.bin.lz"
 
 	.align 2, 0
 	.global CaerPelynMap
 CaerPelynMap: @0x81afb48
-	.incbin "graphics/map/CaerPelynMap.bin.lz"
+	.incbin "graphics/map/layout/CaerPelynMap.bin.lz"
 
 	.align 2, 0
 	.global RenaisCastleMap
 RenaisCastleMap: @0x81afc74
-	.incbin "graphics/map/RenaisCastleMap.bin.lz"
+	.incbin "graphics/map/layout/RenaisCastleMap.bin.lz"
 
 	.align 2, 0
 	.global GradoCastleMap
 GradoCastleMap: @0x81afdb0
-	.incbin "graphics/map/GradoCastleMap.bin.lz"
+	.incbin "graphics/map/layout/GradoCastleMap.bin.lz"
 
 	.align 2, 0
 	.global Ch11EphraimMap
 Ch11EphraimMap: @0x81afef8
-	.incbin "graphics/map/Ch11EphraimMap.bin.lz"
+	.incbin "graphics/map/layout/Ch11EphraimMap.bin.lz"
 
 	.align 2, 0
 	.global Ch11EirikaMap
 Ch11EirikaMap: @0x81b000c
-	.incbin "graphics/map/Ch11EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch11EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global DebugMap
 DebugMap: @0x81b023c
-	.incbin "graphics/map/DebugMap.bin.lz"
+	.incbin "graphics/map/layout/DebugMap.bin.lz"
 
 	.align 2, 0
 	.global AnInterestingMap
 AnInterestingMap: @0x81b0270
-	.incbin "graphics/map/AnInterestingMap.bin.lz"
+	.incbin "graphics/map/layout/AnInterestingMap.bin.lz"
 
 	.align 2, 0
 	.global LinkArenaMap
 LinkArenaMap: @0x81b02c4
-	.incbin "graphics/map/LinkArenaMap.bin.lz"
+	.incbin "graphics/map/layout/LinkArenaMap.bin.lz"
 
 	.align 2, 0
 	.global MelkaenCoastMap
 MelkaenCoastMap: @0x81b03cc
-	.incbin "graphics/map/MelkaenCoastMap.bin.lz"
+	.incbin "graphics/map/layout/MelkaenCoastMap.bin.lz"
 
 	.align 2, 0
 	.global LordsSplitMap
 LordsSplitMap: @0x81b070c
-	.incbin "graphics/map/LordsSplitMap.bin.lz"
+	.incbin "graphics/map/layout/LordsSplitMap.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins10Map
 LagdouRuins10Map: @0x81b0718
-	.incbin "graphics/map/LagdouRuins10Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins10Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins9Map
 LagdouRuins9Map: @0x81b0940
-	.incbin "graphics/map/LagdouRuins9Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins9Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins8Map
 LagdouRuins8Map: @0x81b0b90
-	.incbin "graphics/map/LagdouRuins8Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins8Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins7Map
 LagdouRuins7Map: @0x81b0d40
-	.incbin "graphics/map/LagdouRuins7Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins7Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins6Map
 LagdouRuins6Map: @0x81b0f8c
-	.incbin "graphics/map/LagdouRuins6Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins6Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins5Map
 LagdouRuins5Map: @0x81b1198
-	.incbin "graphics/map/LagdouRuins5Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins5Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins4Map
 LagdouRuins4Map: @0x81b13c0
-	.incbin "graphics/map/LagdouRuins4Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins4Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins3Map
 LagdouRuins3Map: @0x81b15c0
-	.incbin "graphics/map/LagdouRuins3Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins3Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins2Map
 LagdouRuins2Map: @0x81b1820
-	.incbin "graphics/map/LagdouRuins2Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins2Map.bin.lz"
 
 	.align 2, 0
 	.global LagdouRuins1Map
 LagdouRuins1Map: @0x81b1a8c
-	.incbin "graphics/map/LagdouRuins1Map.bin.lz"
+	.incbin "graphics/map/layout/LagdouRuins1Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni8Map
 TowerOfValni8Map: @0x81b1cd0
-	.incbin "graphics/map/TowerOfValni8Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni8Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni7Map
 TowerOfValni7Map: @0x81b1f40
-	.incbin "graphics/map/TowerOfValni7Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni7Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni6Map
 TowerOfValni6Map: @0x81b216c
-	.incbin "graphics/map/TowerOfValni6Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni6Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni5Map
 TowerOfValni5Map: @0x81b2300
-	.incbin "graphics/map/TowerOfValni5Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni5Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni4Map
 TowerOfValni4Map: @0x81b24d8
-	.incbin "graphics/map/TowerOfValni4Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni4Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni3Map
 TowerOfValni3Map: @0x81b26ec
-	.incbin "graphics/map/TowerOfValni3Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni3Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni2Map
 TowerOfValni2Map: @0x81b28ec
-	.incbin "graphics/map/TowerOfValni2Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni2Map.bin.lz"
 
 	.align 2, 0
 	.global TowerOfValni1Map
 TowerOfValni1Map: @0x81b2a60
-	.incbin "graphics/map/TowerOfValni1Map.bin.lz"
+	.incbin "graphics/map/layout/TowerOfValni1Map.bin.lz"
 
 	.align 2, 0
 	.global Ch14EphraimMap
 Ch14EphraimMap: @0x81b2bc4
-	.incbin "graphics/map/Ch14EphraimMap.bin.lz"
+	.incbin "graphics/map/layout/Ch14EphraimMap.bin.lz"
 
 	.align 2, 0
 	.global Ch13EphraimMap
 Ch13EphraimMap: @0x81b2fb8
-	.incbin "graphics/map/Ch13EphraimMap.bin.lz"
+	.incbin "graphics/map/layout/Ch13EphraimMap.bin.lz"
 
 	.align 2, 0
 	.global Ch12EphraimMap
 Ch12EphraimMap: @0x81b3258
-	.incbin "graphics/map/Ch12EphraimMap.bin.lz"
+	.incbin "graphics/map/layout/Ch12EphraimMap.bin.lz"
 
 	.align 2, 0
 	.global Ch10EphraimMap
 Ch10EphraimMap: @0x81b35b4
-	.incbin "graphics/map/Ch10EphraimMap.bin.lz"
+	.incbin "graphics/map/layout/Ch10EphraimMap.bin.lz"
 
 	.align 2, 0
 	.global Ch9EphMap
 Ch9EphMap: @0x81b3870
-	.incbin "graphics/map/Ch9EphMap.bin.lz"
+	.incbin "graphics/map/layout/Ch9EphMap.bin.lz"
 
 	.align 2, 0
 	.global FinalChapterMap2
 FinalChapterMap2: @0x81b3b08
-	.incbin "graphics/map/FinalChapterMap2.bin.lz"
+	.incbin "graphics/map/layout/FinalChapterMap2.bin.lz"
 
 	.align 2, 0
 	.global FinalChapterMap1
 FinalChapterMap1: @0x81b3e7c
-	.incbin "graphics/map/FinalChapterMap1.bin.lz"
+	.incbin "graphics/map/layout/FinalChapterMap1.bin.lz"
 
 	.align 2, 0
 	.global Ch20Map
 Ch20Map: @0x81b4254
-	.incbin "graphics/map/Ch20Map.bin.lz"
+	.incbin "graphics/map/layout/Ch20Map.bin.lz"
 
 	.align 2, 0
 	.global Ch19Map
 Ch19Map: @0x81b464c
-	.incbin "graphics/map/Ch19Map.bin.lz"
+	.incbin "graphics/map/layout/Ch19Map.bin.lz"
 
 	.align 2, 0
 	.global Ch18Map
 Ch18Map: @0x81b4914
-	.incbin "graphics/map/Ch18Map.bin.lz"
+	.incbin "graphics/map/layout/Ch18Map.bin.lz"
 
 	.align 2, 0
 	.global Ch17Map
 Ch17Map: @0x81b4ccc
-	.incbin "graphics/map/Ch17Map.bin.lz"
+	.incbin "graphics/map/layout/Ch17Map.bin.lz"
 
 	.align 2, 0
 	.global Ch16Map
 Ch16Map: @0x81b4fe4
-	.incbin "graphics/map/Ch16Map.bin.lz"
+	.incbin "graphics/map/layout/Ch16Map.bin.lz"
 
 	.align 2, 0
 	.global Ch15Map
 Ch15Map: @0x81b52cc
-	.incbin "graphics/map/Ch15Map.bin.lz"
+	.incbin "graphics/map/layout/Ch15Map.bin.lz"
 
 	.align 2, 0
 	.global Ch14EirikaMap
 Ch14EirikaMap: @0x81b558c
-	.incbin "graphics/map/Ch14EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch14EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global Ch13EirikaMap
 Ch13EirikaMap: @0x81b584c
-	.incbin "graphics/map/Ch13EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch13EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global Ch12EirikaMap
 Ch12EirikaMap: @0x81b5a9c
-	.incbin "graphics/map/Ch12EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch12EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global Ch10EirikaMap
 Ch10EirikaMap: @0x81b5e2c
-	.incbin "graphics/map/Ch10EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch10EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global Ch9EirikaMap
 Ch9EirikaMap: @0x81b61bc
-	.incbin "graphics/map/Ch9EirikaMap.bin.lz"
+	.incbin "graphics/map/layout/Ch9EirikaMap.bin.lz"
 
 	.align 2, 0
 	.global Ch8Map
 Ch8Map: @0x81b6480
-	.incbin "graphics/map/Ch8Map.bin.lz"
+	.incbin "graphics/map/layout/Ch8Map.bin.lz"
 
 	.align 2, 0
 	.global Ch7Map
 Ch7Map: @0x81b6718
-	.incbin "graphics/map/Ch7Map.bin.lz"
+	.incbin "graphics/map/layout/Ch7Map.bin.lz"
 
 	.align 2, 0
 	.global Ch6Map
 Ch6Map: @0x81b6a0c
-	.incbin "graphics/map/Ch6Map.bin.lz"
+	.incbin "graphics/map/layout/Ch6Map.bin.lz"
 
 	.align 2, 0
 	.global Ch5Map
 Ch5Map: @0x81b6dbc
-	.incbin "graphics/map/Ch5Map.bin.lz"
+	.incbin "graphics/map/layout/Ch5Map.bin.lz"
 
 	.align 2, 0
 	.global Ch5XMap
 Ch5XMap: @0x81b6f78
-	.incbin "graphics/map/Ch5XMap.bin.lz"
+	.incbin "graphics/map/layout/Ch5XMap.bin.lz"
 
 	.align 2, 0
 	.global Ch4Map
 Ch4Map: @0x81b715c
-	.incbin "graphics/map/Ch4Map.bin.lz"
+	.incbin "graphics/map/layout/Ch4Map.bin.lz"
 
 	.align 2, 0
 	.global Ch3Map
 Ch3Map: @0x81b72d4
-	.incbin "graphics/map/Ch3Map.bin.lz"
+	.incbin "graphics/map/layout/Ch3Map.bin.lz"
 
 	.align 2, 0
 	.global Ch2Map
 Ch2Map: @0x81b743c
-	.incbin "graphics/map/Ch2Map.bin.lz"
+	.incbin "graphics/map/layout/Ch2Map.bin.lz"
 
 	.align 2, 0
 	.global Ch1Map
 Ch1Map: @0x81b75d0
-	.incbin "graphics/map/Ch1Map.bin.lz"
+	.incbin "graphics/map/layout/Ch1Map.bin.lz"
 
 	.align 2, 0
 	.global PrologueMap
 PrologueMap: @0x81b76f4
-	.incbin "graphics/map/PrologueMap.bin.lz"
+	.incbin "graphics/map/layout/PrologueMap.bin.lz"
