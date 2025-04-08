@@ -1165,6 +1165,7 @@ SECTIONS
         . = ALIGN(4); src/worldmap_text.o(.data);
         . = ALIGN(4); src/worldmap_radar.o(.data);
         . = ALIGN(4); src/worldmap_basemenu.o(.data);
+        . = ALIGN(4); src/worldmap_shop_data.o(.data);
         . = ALIGN(4); data/data_A3E4D4.o(.data);
         . = ALIGN(4); src/ending_credits.o(.data);
         . = ALIGN(4); src/opsubtitle.o(.data);

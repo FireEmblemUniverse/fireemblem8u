@@ -1,6 +1,6 @@
     .section .data
 
-	.incbin "baserom.gba", 0xA3EFB4, 0x75C
+	.incbin "baserom.gba", 0xA3F21C, 0x4F4
 
 	.global Pal_CharacterEndingMenu
 Pal_CharacterEndingMenu:  @ 0x08A3F710
