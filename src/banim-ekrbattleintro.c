@@ -500,7 +500,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     register int r0 asm("r0");
     u8 mode2;
 
-    mode2 = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+    mode2 = BanimDefaultStandingTypes[gEkrDistanceType];
     asm("":::"r0", "r1");
     cfg = BanimDefaultModeConfig;
     r0 = mode2 * 4;
@@ -509,7 +509,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     int mode;
     u8 mode2;
 
-    mode2 = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+    mode2 = BanimDefaultStandingTypes[gEkrDistanceType];
     front_mode = BanimDefaultModeConfig[mode2 * 4 + 0];
 #endif
 

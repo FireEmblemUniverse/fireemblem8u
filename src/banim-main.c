@@ -285,7 +285,7 @@ void BattleAIS_ExecCommands(void)
                             anim1->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
                             anim2->state3 |= ANIM_BIT3_C01_BLOCKING_IN_BATTLE;
 
-                            type = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+                            type = BanimDefaultStandingTypes[gEkrDistanceType];
                             frame_front = BanimDefaultModeConfig[type * 4 + 0];
 
                             if (GetAnimPosition(anim) == EKR_POS_L)
@@ -332,7 +332,7 @@ void BattleAIS_ExecCommands(void)
 
                     case ANIM_ROUND_TAKING_MISS_CLOSE:
                     case ANIM_ROUND_TAKING_MISS_FAR:
-                        type = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+                        type = BanimDefaultStandingTypes[gEkrDistanceType];
 
                     case ANIM_ROUND_TAKING_HIT_CLOSE:
                     case ANIM_ROUND_STANDING:

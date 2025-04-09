@@ -555,9 +555,9 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     struct Anim *anim2 = gAnims[2];
 
                     switch (anim1->currentRoundType) {
-                    case BANIM_MODE_CLOSE_DODGE:
-                    case BANIM_MODE_RANGED_DODGE:
-                    case BANIM_MODE_STANDING:
+                    case ANIM_ROUND_TAKING_HIT_CLOSE:
+                    case ANIM_ROUND_STANDING:
+                    case ANIM_ROUND_TAKING_HIT_FAR:
                         val = 1;
                         break;
 
@@ -566,9 +566,9 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     } /* switch */
 
                     switch (anim2->currentRoundType) {
-                    case BANIM_MODE_CLOSE_DODGE:
-                    case BANIM_MODE_RANGED_DODGE:
-                    case BANIM_MODE_STANDING:
+                    case ANIM_ROUND_TAKING_HIT_CLOSE:
+                    case ANIM_ROUND_STANDING:
+                    case ANIM_ROUND_TAKING_HIT_FAR:
                         val++;
                         break;
 
