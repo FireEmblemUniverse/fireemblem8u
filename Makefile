@@ -83,8 +83,7 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 BANIM_OBJECT := data/banim/data_banim.o
 MID_FILES    := $(wildcard $(MID_SUBDIR)/*.mid)
 MID_OBJECTS  := $(MID_FILES:.mid=.o)
-MAP_LAYOUT_OBJECTS := $(wildcard $(MAP_LAYOUT_SUBDIR)/*.bin)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS) $(MAP_LAYOUT_OBJECTS)
+ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS) $(BANIM_OBJECT) $(MID_OBJECTS)
 OBJECTS_LST  := objects.lst
 DEPS_DIR     := .dep
 
@@ -112,6 +111,7 @@ clean:
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 	# Remove converted sound samples
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
+	$(RM) -f $(MAP_LAYOUT_SUBDIR)/*.bin
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
@@ -166,10 +166,10 @@ include json_data_rules.mk
 %.8bpp: %.png  ; $(GBAGFX) $< $@
 %.gbapal: %.pal ; $(GBAGFX) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
-%.bin: %.mar  ; $(MARTOMAP)  $< $@
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
+%.bin: %.mar  ; $(MARTOMAP)  $< $@
 sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
@@ -259,6 +259,7 @@ endif
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s $$(data_dep)
 	$(AS) $(ASFLAGS) -g $< -o $@
+%.lz:$(MAP_LAYOUT_SUBDIR)/%.bin ; $(GBAGFX) $< $@
 
 # Don't delete intermediate files
 .SECONDARY:
