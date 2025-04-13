@@ -598,7 +598,7 @@ extern const u16 gUnknown_080DAEC8[];
 extern const u16 gUnknown_080DAED2[];
 extern const u16 gUnknown_080DAEDC[];
 extern const u16 gUnknown_080DAEE6[];
-extern const u8 BattleTypeToAnimModeEndOfDodge[5];
+extern const u8 BanimDefaultStandingTypes[5];
 extern const u8 BanimTypesPosLeft[5];
 extern const u8 BanimTypesPosRight[5];
 extern const u16 BanimLeftDefaultPos[5];

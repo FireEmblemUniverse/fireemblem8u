@@ -500,7 +500,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     register int r0 asm("r0");
     u8 mode2;
 
-    mode2 = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+    mode2 = BanimDefaultStandingTypes[gEkrDistanceType];
     asm("":::"r0", "r1");
     cfg = BanimDefaultModeConfig;
     r0 = mode2 * 4;
@@ -509,7 +509,7 @@ void UnitKakudaiPrepareAnimScript(struct ProcUnitKakudai * proc)
     int mode;
     u8 mode2;
 
-    mode2 = BattleTypeToAnimModeEndOfDodge[gEkrDistanceType];
+    mode2 = BanimDefaultStandingTypes[gEkrDistanceType];
     front_mode = BanimDefaultModeConfig[mode2 * 4 + 0];
 #endif
 
@@ -861,7 +861,7 @@ bool PrepareBattleGraphicsMaybe(void)
 {
     u16 i;
     u16 pid, jid;
-    int zero;
+    void * zero;
     struct Unit * unit_bu1;
     struct Unit * unit_bu2;
     struct BattleUnit * bu1;
@@ -873,7 +873,7 @@ bool PrepareBattleGraphicsMaybe(void)
     const void * animdef2;
     s16 valid_l;
     s16 valid_r;
-    int animid1, animid2;
+    u32 animid1, animid2;
 
     int char_cnt = 1;
 
@@ -904,7 +904,6 @@ bool PrepareBattleGraphicsMaybe(void)
     }
     else
     {
-        int pos;
         u8 i1 = -0x40 & gBattleActor.unit.index;
         u16 faction1 = GetBanimFactionPalette(i1);
         u8 i2 = -0x40 & gBattleTarget.unit.index;
@@ -1304,7 +1303,7 @@ bool PrepareBattleGraphicsMaybe(void)
             gBanimEffectiveness[POS_R] = IsItemEffectiveAgainst(bu2->weapon, unit_bu1);
     }
 
-    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = (void *)zero = 0;
+    gBanimForceUnitChgDebug[POS_L] = gBanimForceUnitChgDebug[POS_R] = zero = 0;
 
     if (valid_l)
         (void)GetItemIndex(bu1->weaponBefore);
@@ -1318,7 +1317,7 @@ bool PrepareBattleGraphicsMaybe(void)
     }
     else
     {
-        gBanimUniquePaletteDisabled[POS_L] = gBanimUniquePaletteDisabled[POS_R] = zero;
+        gBanimUniquePaletteDisabled[POS_L] = gBanimUniquePaletteDisabled[POS_R] = 0;
     }
 
     ++zero; --zero; // :/
