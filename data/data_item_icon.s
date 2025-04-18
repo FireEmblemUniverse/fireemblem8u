@@ -1,678 +1,678 @@
 	.section .data
 	.global item_icon_tiles
 item_icon_tiles:
-	.global item_icon_0
-item_icon_0:
-	.incbin "graphics/item_icon/item_icon_0.4bpp"
-	.global item_icon_1
-item_icon_1:
-	.incbin "graphics/item_icon/item_icon_1.4bpp"
-	.global item_icon_2
-item_icon_2:
-	.incbin "graphics/item_icon/item_icon_2.4bpp"
-	.global item_icon_3
-item_icon_3:
-	.incbin "graphics/item_icon/item_icon_3.4bpp"
-	.global item_icon_4
-item_icon_4:
-	.incbin "graphics/item_icon/item_icon_4.4bpp"
-	.global item_icon_5
-item_icon_5:
-	.incbin "graphics/item_icon/item_icon_5.4bpp"
-	.global item_icon_6
-item_icon_6:
-	.incbin "graphics/item_icon/item_icon_6.4bpp"
-	.global item_icon_7
-item_icon_7:
-	.incbin "graphics/item_icon/item_icon_7.4bpp"
-	.global item_icon_8
-item_icon_8:
-	.incbin "graphics/item_icon/item_icon_8.4bpp"
-	.global item_icon_9
-item_icon_9:
-	.incbin "graphics/item_icon/item_icon_9.4bpp"
-	.global item_icon_10
-item_icon_10:
-	.incbin "graphics/item_icon/item_icon_10.4bpp"
-	.global item_icon_11
-item_icon_11:
-	.incbin "graphics/item_icon/item_icon_11.4bpp"
-	.global item_icon_12
-item_icon_12:
-	.incbin "graphics/item_icon/item_icon_12.4bpp"
-	.global item_icon_13
-item_icon_13:
-	.incbin "graphics/item_icon/item_icon_13.4bpp"
-	.global item_icon_14
-item_icon_14:
-	.incbin "graphics/item_icon/item_icon_14.4bpp"
-	.global item_icon_15
-item_icon_15:
-	.incbin "graphics/item_icon/item_icon_15.4bpp"
-	.global item_icon_16
-item_icon_16:
-	.incbin "graphics/item_icon/item_icon_16.4bpp"
-	.global item_icon_17
-item_icon_17:
-	.incbin "graphics/item_icon/item_icon_17.4bpp"
-	.global item_icon_18
-item_icon_18:
-	.incbin "graphics/item_icon/item_icon_18.4bpp"
-	.global item_icon_19
-item_icon_19:
-	.incbin "graphics/item_icon/item_icon_19.4bpp"
-	.global item_icon_20
-item_icon_20:
-	.incbin "graphics/item_icon/item_icon_20.4bpp"
-	.global item_icon_21
-item_icon_21:
-	.incbin "graphics/item_icon/item_icon_21.4bpp"
-	.global item_icon_22
-item_icon_22:
-	.incbin "graphics/item_icon/item_icon_22.4bpp"
-	.global item_icon_23
-item_icon_23:
-	.incbin "graphics/item_icon/item_icon_23.4bpp"
-	.global item_icon_24
-item_icon_24:
-	.incbin "graphics/item_icon/item_icon_24.4bpp"
-	.global item_icon_25
-item_icon_25:
-	.incbin "graphics/item_icon/item_icon_25.4bpp"
-	.global item_icon_26
-item_icon_26:
-	.incbin "graphics/item_icon/item_icon_26.4bpp"
-	.global item_icon_27
-item_icon_27:
-	.incbin "graphics/item_icon/item_icon_27.4bpp"
-	.global item_icon_28
-item_icon_28:
-	.incbin "graphics/item_icon/item_icon_28.4bpp"
-	.global item_icon_29
-item_icon_29:
-	.incbin "graphics/item_icon/item_icon_29.4bpp"
-	.global item_icon_30
-item_icon_30:
-	.incbin "graphics/item_icon/item_icon_30.4bpp"
-	.global item_icon_31
-item_icon_31:
-	.incbin "graphics/item_icon/item_icon_31.4bpp"
-	.global item_icon_32
-item_icon_32:
-	.incbin "graphics/item_icon/item_icon_32.4bpp"
-	.global item_icon_33
-item_icon_33:
-	.incbin "graphics/item_icon/item_icon_33.4bpp"
-	.global item_icon_34
-item_icon_34:
-	.incbin "graphics/item_icon/item_icon_34.4bpp"
-	.global item_icon_35
-item_icon_35:
-	.incbin "graphics/item_icon/item_icon_35.4bpp"
-	.global item_icon_36
-item_icon_36:
-	.incbin "graphics/item_icon/item_icon_36.4bpp"
-	.global item_icon_37
-item_icon_37:
-	.incbin "graphics/item_icon/item_icon_37.4bpp"
-	.global item_icon_38
-item_icon_38:
-	.incbin "graphics/item_icon/item_icon_38.4bpp"
-	.global item_icon_39
-item_icon_39:
-	.incbin "graphics/item_icon/item_icon_39.4bpp"
-	.global item_icon_40
-item_icon_40:
-	.incbin "graphics/item_icon/item_icon_40.4bpp"
-	.global item_icon_41
-item_icon_41:
-	.incbin "graphics/item_icon/item_icon_41.4bpp"
-	.global item_icon_42
-item_icon_42:
-	.incbin "graphics/item_icon/item_icon_42.4bpp"
-	.global item_icon_43
-item_icon_43:
-	.incbin "graphics/item_icon/item_icon_43.4bpp"
-	.global item_icon_44
-item_icon_44:
-	.incbin "graphics/item_icon/item_icon_44.4bpp"
-	.global item_icon_45
-item_icon_45:
-	.incbin "graphics/item_icon/item_icon_45.4bpp"
-	.global item_icon_46
-item_icon_46:
-	.incbin "graphics/item_icon/item_icon_46.4bpp"
-	.global item_icon_47
-item_icon_47:
-	.incbin "graphics/item_icon/item_icon_47.4bpp"
-	.global item_icon_48
-item_icon_48:
-	.incbin "graphics/item_icon/item_icon_48.4bpp"
-	.global item_icon_49
-item_icon_49:
-	.incbin "graphics/item_icon/item_icon_49.4bpp"
-	.global item_icon_50
-item_icon_50:
-	.incbin "graphics/item_icon/item_icon_50.4bpp"
-	.global item_icon_51
-item_icon_51:
-	.incbin "graphics/item_icon/item_icon_51.4bpp"
-	.global item_icon_52
-item_icon_52:
-	.incbin "graphics/item_icon/item_icon_52.4bpp"
-	.global item_icon_53
-item_icon_53:
-	.incbin "graphics/item_icon/item_icon_53.4bpp"
-	.global item_icon_54
-item_icon_54:
-	.incbin "graphics/item_icon/item_icon_54.4bpp"
-	.global item_icon_55
-item_icon_55:
-	.incbin "graphics/item_icon/item_icon_55.4bpp"
-	.global item_icon_56
-item_icon_56:
-	.incbin "graphics/item_icon/item_icon_56.4bpp"
-	.global item_icon_57
-item_icon_57:
-	.incbin "graphics/item_icon/item_icon_57.4bpp"
-	.global item_icon_58
-item_icon_58:
-	.incbin "graphics/item_icon/item_icon_58.4bpp"
-	.global item_icon_59
-item_icon_59:
-	.incbin "graphics/item_icon/item_icon_59.4bpp"
-	.global item_icon_60
-item_icon_60:
-	.incbin "graphics/item_icon/item_icon_60.4bpp"
-	.global item_icon_61
-item_icon_61:
-	.incbin "graphics/item_icon/item_icon_61.4bpp"
-	.global item_icon_62
-item_icon_62:
-	.incbin "graphics/item_icon/item_icon_62.4bpp"
-	.global item_icon_63
-item_icon_63:
-	.incbin "graphics/item_icon/item_icon_63.4bpp"
-	.global item_icon_64
-item_icon_64:
-	.incbin "graphics/item_icon/item_icon_64.4bpp"
-	.global item_icon_65
-item_icon_65:
-	.incbin "graphics/item_icon/item_icon_65.4bpp"
-	.global item_icon_66
-item_icon_66:
-	.incbin "graphics/item_icon/item_icon_66.4bpp"
-	.global item_icon_67
-item_icon_67:
-	.incbin "graphics/item_icon/item_icon_67.4bpp"
-	.global item_icon_68
-item_icon_68:
-	.incbin "graphics/item_icon/item_icon_68.4bpp"
-	.global item_icon_69
-item_icon_69:
-	.incbin "graphics/item_icon/item_icon_69.4bpp"
-	.global item_icon_70
-item_icon_70:
-	.incbin "graphics/item_icon/item_icon_70.4bpp"
-	.global item_icon_71
-item_icon_71:
-	.incbin "graphics/item_icon/item_icon_71.4bpp"
-	.global item_icon_72
-item_icon_72:
-	.incbin "graphics/item_icon/item_icon_72.4bpp"
-	.global item_icon_73
-item_icon_73:
-	.incbin "graphics/item_icon/item_icon_73.4bpp"
-	.global item_icon_74
-item_icon_74:
-	.incbin "graphics/item_icon/item_icon_74.4bpp"
-	.global item_icon_75
-item_icon_75:
-	.incbin "graphics/item_icon/item_icon_75.4bpp"
-	.global item_icon_76
-item_icon_76:
-	.incbin "graphics/item_icon/item_icon_76.4bpp"
-	.global item_icon_77
-item_icon_77:
-	.incbin "graphics/item_icon/item_icon_77.4bpp"
-	.global item_icon_78
-item_icon_78:
-	.incbin "graphics/item_icon/item_icon_78.4bpp"
-	.global item_icon_79
-item_icon_79:
-	.incbin "graphics/item_icon/item_icon_79.4bpp"
-	.global item_icon_80
-item_icon_80:
-	.incbin "graphics/item_icon/item_icon_80.4bpp"
-	.global item_icon_81
-item_icon_81:
-	.incbin "graphics/item_icon/item_icon_81.4bpp"
-	.global item_icon_82
-item_icon_82:
-	.incbin "graphics/item_icon/item_icon_82.4bpp"
-	.global item_icon_83
-item_icon_83:
-	.incbin "graphics/item_icon/item_icon_83.4bpp"
-	.global item_icon_84
-item_icon_84:
-	.incbin "graphics/item_icon/item_icon_84.4bpp"
-	.global item_icon_85
-item_icon_85:
-	.incbin "graphics/item_icon/item_icon_85.4bpp"
-	.global item_icon_86
-item_icon_86:
-	.incbin "graphics/item_icon/item_icon_86.4bpp"
-	.global item_icon_87
-item_icon_87:
-	.incbin "graphics/item_icon/item_icon_87.4bpp"
-	.global item_icon_88
-item_icon_88:
-	.incbin "graphics/item_icon/item_icon_88.4bpp"
-	.global item_icon_89
-item_icon_89:
-	.incbin "graphics/item_icon/item_icon_89.4bpp"
-	.global item_icon_90
-item_icon_90:
-	.incbin "graphics/item_icon/item_icon_90.4bpp"
-	.global item_icon_91
-item_icon_91:
-	.incbin "graphics/item_icon/item_icon_91.4bpp"
-	.global item_icon_92
-item_icon_92:
-	.incbin "graphics/item_icon/item_icon_92.4bpp"
-	.global item_icon_93
-item_icon_93:
-	.incbin "graphics/item_icon/item_icon_93.4bpp"
-	.global item_icon_94
-item_icon_94:
-	.incbin "graphics/item_icon/item_icon_94.4bpp"
-	.global item_icon_95
-item_icon_95:
-	.incbin "graphics/item_icon/item_icon_95.4bpp"
-	.global item_icon_96
-item_icon_96:
-	.incbin "graphics/item_icon/item_icon_96.4bpp"
-	.global item_icon_97
-item_icon_97:
-	.incbin "graphics/item_icon/item_icon_97.4bpp"
-	.global item_icon_98
-item_icon_98:
-	.incbin "graphics/item_icon/item_icon_98.4bpp"
-	.global item_icon_99
-item_icon_99:
-	.incbin "graphics/item_icon/item_icon_99.4bpp"
-	.global item_icon_100
-item_icon_100:
-	.incbin "graphics/item_icon/item_icon_100.4bpp"
-	.global item_icon_101
-item_icon_101:
-	.incbin "graphics/item_icon/item_icon_101.4bpp"
-	.global item_icon_102
-item_icon_102:
-	.incbin "graphics/item_icon/item_icon_102.4bpp"
-	.global item_icon_103
-item_icon_103:
-	.incbin "graphics/item_icon/item_icon_103.4bpp"
-	.global item_icon_104
-item_icon_104:
-	.incbin "graphics/item_icon/item_icon_104.4bpp"
-	.global item_icon_105
-item_icon_105:
-	.incbin "graphics/item_icon/item_icon_105.4bpp"
-	.global item_icon_106
-item_icon_106:
-	.incbin "graphics/item_icon/item_icon_106.4bpp"
-	.global item_icon_107
-item_icon_107:
-	.incbin "graphics/item_icon/item_icon_107.4bpp"
-	.global item_icon_108
-item_icon_108:
-	.incbin "graphics/item_icon/item_icon_108.4bpp"
-	.global item_icon_109
-item_icon_109:
-	.incbin "graphics/item_icon/item_icon_109.4bpp"
-	.global item_icon_110
-item_icon_110:
-	.incbin "graphics/item_icon/item_icon_110.4bpp"
-	.global item_icon_111
-item_icon_111:
-	.incbin "graphics/item_icon/item_icon_111.4bpp"
-	.global item_icon_112
-item_icon_112:
-	.incbin "graphics/item_icon/item_icon_112.4bpp"
-	.global item_icon_113
-item_icon_113:
-	.incbin "graphics/item_icon/item_icon_113.4bpp"
-	.global item_icon_114
-item_icon_114:
-	.incbin "graphics/item_icon/item_icon_114.4bpp"
-	.global item_icon_115
-item_icon_115:
-	.incbin "graphics/item_icon/item_icon_115.4bpp"
-	.global item_icon_116
-item_icon_116:
-	.incbin "graphics/item_icon/item_icon_116.4bpp"
-	.global item_icon_117
-item_icon_117:
-	.incbin "graphics/item_icon/item_icon_117.4bpp"
-	.global item_icon_118
-item_icon_118:
-	.incbin "graphics/item_icon/item_icon_118.4bpp"
-	.global item_icon_119
-item_icon_119:
-	.incbin "graphics/item_icon/item_icon_119.4bpp"
-	.global item_icon_120
-item_icon_120:
-	.incbin "graphics/item_icon/item_icon_120.4bpp"
-	.global item_icon_121
-item_icon_121:
-	.incbin "graphics/item_icon/item_icon_121.4bpp"
-	.global item_icon_122
-item_icon_122:
-	.incbin "graphics/item_icon/item_icon_122.4bpp"
-	.global item_icon_123
-item_icon_123:
-	.incbin "graphics/item_icon/item_icon_123.4bpp"
-	.global item_icon_124
-item_icon_124:
-	.incbin "graphics/item_icon/item_icon_124.4bpp"
-	.global item_icon_125
-item_icon_125:
-	.incbin "graphics/item_icon/item_icon_125.4bpp"
-	.global item_icon_126
-item_icon_126:
-	.incbin "graphics/item_icon/item_icon_126.4bpp"
-	.global item_icon_127
-item_icon_127:
-	.incbin "graphics/item_icon/item_icon_127.4bpp"
-	.global item_icon_128
-item_icon_128:
-	.incbin "graphics/item_icon/item_icon_128.4bpp"
-	.global item_icon_129
-item_icon_129:
-	.incbin "graphics/item_icon/item_icon_129.4bpp"
-	.global item_icon_130
-item_icon_130:
-	.incbin "graphics/item_icon/item_icon_130.4bpp"
-	.global item_icon_131
-item_icon_131:
-	.incbin "graphics/item_icon/item_icon_131.4bpp"
-	.global item_icon_132
-item_icon_132:
-	.incbin "graphics/item_icon/item_icon_132.4bpp"
-	.global item_icon_133
-item_icon_133:
-	.incbin "graphics/item_icon/item_icon_133.4bpp"
-	.global item_icon_134
-item_icon_134:
-	.incbin "graphics/item_icon/item_icon_134.4bpp"
-	.global item_icon_135
-item_icon_135:
-	.incbin "graphics/item_icon/item_icon_135.4bpp"
-	.global item_icon_136
-item_icon_136:
-	.incbin "graphics/item_icon/item_icon_136.4bpp"
-	.global item_icon_137
-item_icon_137:
-	.incbin "graphics/item_icon/item_icon_137.4bpp"
-	.global item_icon_138
-item_icon_138:
-	.incbin "graphics/item_icon/item_icon_138.4bpp"
-	.global item_icon_139
-item_icon_139:
-	.incbin "graphics/item_icon/item_icon_139.4bpp"
-	.global item_icon_140
-item_icon_140:
-	.incbin "graphics/item_icon/item_icon_140.4bpp"
-	.global item_icon_141
-item_icon_141:
-	.incbin "graphics/item_icon/item_icon_141.4bpp"
-	.global item_icon_142
-item_icon_142:
-	.incbin "graphics/item_icon/item_icon_142.4bpp"
-	.global item_icon_143
-item_icon_143:
-	.incbin "graphics/item_icon/item_icon_143.4bpp"
-	.global item_icon_144
-item_icon_144:
-	.incbin "graphics/item_icon/item_icon_144.4bpp"
-	.global item_icon_145
-item_icon_145:
-	.incbin "graphics/item_icon/item_icon_145.4bpp"
-	.global item_icon_146
-item_icon_146:
-	.incbin "graphics/item_icon/item_icon_146.4bpp"
-	.global item_icon_147
-item_icon_147:
-	.incbin "graphics/item_icon/item_icon_147.4bpp"
-	.global item_icon_148
-item_icon_148:
-	.incbin "graphics/item_icon/item_icon_148.4bpp"
-	.global item_icon_149
-item_icon_149:
-	.incbin "graphics/item_icon/item_icon_149.4bpp"
-	.global item_icon_150
-item_icon_150:
-	.incbin "graphics/item_icon/item_icon_150.4bpp"
-	.global item_icon_151
-item_icon_151:
-	.incbin "graphics/item_icon/item_icon_151.4bpp"
-	.global item_icon_152
-item_icon_152:
-	.incbin "graphics/item_icon/item_icon_152.4bpp"
-	.global item_icon_153
-item_icon_153:
-	.incbin "graphics/item_icon/item_icon_153.4bpp"
-	.global item_icon_154
-item_icon_154:
-	.incbin "graphics/item_icon/item_icon_154.4bpp"
-	.global item_icon_155
-item_icon_155:
-	.incbin "graphics/item_icon/item_icon_155.4bpp"
-	.global item_icon_156
-item_icon_156:
-	.incbin "graphics/item_icon/item_icon_156.4bpp"
-	.global item_icon_157
-item_icon_157:
-	.incbin "graphics/item_icon/item_icon_157.4bpp"
-	.global item_icon_158
-item_icon_158:
-	.incbin "graphics/item_icon/item_icon_158.4bpp"
-	.global item_icon_159
-item_icon_159:
-	.incbin "graphics/item_icon/item_icon_159.4bpp"
-	.global item_icon_160
-item_icon_160:
-	.incbin "graphics/item_icon/item_icon_160.4bpp"
-	.global item_icon_161
-item_icon_161:
-	.incbin "graphics/item_icon/item_icon_161.4bpp"
-	.global item_icon_162
-item_icon_162:
-	.incbin "graphics/item_icon/item_icon_162.4bpp"
-	.global item_icon_163
-item_icon_163:
-	.incbin "graphics/item_icon/item_icon_163.4bpp"
-	.global item_icon_164
-item_icon_164:
-	.incbin "graphics/item_icon/item_icon_164.4bpp"
-	.global item_icon_165
-item_icon_165:
-	.incbin "graphics/item_icon/item_icon_165.4bpp"
-	.global item_icon_166
-item_icon_166:
-	.incbin "graphics/item_icon/item_icon_166.4bpp"
-	.global item_icon_167
-item_icon_167:
-	.incbin "graphics/item_icon/item_icon_167.4bpp"
-	.global item_icon_168
-item_icon_168:
-	.incbin "graphics/item_icon/item_icon_168.4bpp"
-	.global item_icon_169
-item_icon_169:
-	.incbin "graphics/item_icon/item_icon_169.4bpp"
-	.global item_icon_170
-item_icon_170:
-	.incbin "graphics/item_icon/item_icon_170.4bpp"
-	.global item_icon_171
-item_icon_171:
-	.incbin "graphics/item_icon/item_icon_171.4bpp"
-	.global item_icon_172
-item_icon_172:
-	.incbin "graphics/item_icon/item_icon_172.4bpp"
-	.global item_icon_173
-item_icon_173:
-	.incbin "graphics/item_icon/item_icon_173.4bpp"
-	.global item_icon_174
-item_icon_174:
-	.incbin "graphics/item_icon/item_icon_174.4bpp"
-	.global item_icon_175
-item_icon_175:
-	.incbin "graphics/item_icon/item_icon_175.4bpp"
-	.global item_icon_176
-item_icon_176:
-	.incbin "graphics/item_icon/item_icon_176.4bpp"
-	.global item_icon_177
-item_icon_177:
-	.incbin "graphics/item_icon/item_icon_177.4bpp"
-	.global item_icon_178
-item_icon_178:
-	.incbin "graphics/item_icon/item_icon_178.4bpp"
-	.global item_icon_179
-item_icon_179:
-	.incbin "graphics/item_icon/item_icon_179.4bpp"
-	.global item_icon_180
-item_icon_180:
-	.incbin "graphics/item_icon/item_icon_180.4bpp"
-	.global item_icon_181
-item_icon_181:
-	.incbin "graphics/item_icon/item_icon_181.4bpp"
-	.global item_icon_182
-item_icon_182:
-	.incbin "graphics/item_icon/item_icon_182.4bpp"
-	.global item_icon_183
-item_icon_183:
-	.incbin "graphics/item_icon/item_icon_183.4bpp"
-	.global item_icon_184
-item_icon_184:
-	.incbin "graphics/item_icon/item_icon_184.4bpp"
-	.global item_icon_185
-item_icon_185:
-	.incbin "graphics/item_icon/item_icon_185.4bpp"
-	.global item_icon_186
-item_icon_186:
-	.incbin "graphics/item_icon/item_icon_186.4bpp"
-	.global item_icon_187
-item_icon_187:
-	.incbin "graphics/item_icon/item_icon_187.4bpp"
-	.global item_icon_188
-item_icon_188:
-	.incbin "graphics/item_icon/item_icon_188.4bpp"
-	.global item_icon_189
-item_icon_189:
-	.incbin "graphics/item_icon/item_icon_189.4bpp"
-	.global item_icon_190
-item_icon_190:
-	.incbin "graphics/item_icon/item_icon_190.4bpp"
-	.global item_icon_191
-item_icon_191:
-	.incbin "graphics/item_icon/item_icon_191.4bpp"
-	.global item_icon_192
-item_icon_192:
-	.incbin "graphics/item_icon/item_icon_192.4bpp"
-	.global item_icon_193
-item_icon_193:
-	.incbin "graphics/item_icon/item_icon_193.4bpp"
-	.global item_icon_194
-item_icon_194:
-	.incbin "graphics/item_icon/item_icon_194.4bpp"
-	.global item_icon_195
-item_icon_195:
-	.incbin "graphics/item_icon/item_icon_195.4bpp"
-	.global item_icon_196
-item_icon_196:
-	.incbin "graphics/item_icon/item_icon_196.4bpp"
-	.global item_icon_197
-item_icon_197:
-	.incbin "graphics/item_icon/item_icon_197.4bpp"
-	.global item_icon_198
-item_icon_198:
-	.incbin "graphics/item_icon/item_icon_198.4bpp"
-	.global item_icon_199
-item_icon_199:
-	.incbin "graphics/item_icon/item_icon_199.4bpp"
-	.global item_icon_200
-item_icon_200:
-	.incbin "graphics/item_icon/item_icon_200.4bpp"
-	.global item_icon_201
-item_icon_201:
-	.incbin "graphics/item_icon/item_icon_201.4bpp"
-	.global item_icon_202
-item_icon_202:
-	.incbin "graphics/item_icon/item_icon_202.4bpp"
-	.global item_icon_203
-item_icon_203:
-	.incbin "graphics/item_icon/item_icon_203.4bpp"
-	.global item_icon_204
-item_icon_204:
-	.incbin "graphics/item_icon/item_icon_204.4bpp"
-	.global item_icon_205
-item_icon_205:
-	.incbin "graphics/item_icon/item_icon_205.4bpp"
-	.global item_icon_206
-item_icon_206:
-	.incbin "graphics/item_icon/item_icon_206.4bpp"
-	.global item_icon_207
-item_icon_207:
-	.incbin "graphics/item_icon/item_icon_207.4bpp"
-	.global item_icon_208
-item_icon_208:
-	.incbin "graphics/item_icon/item_icon_208.4bpp"
-	.global item_icon_209
-item_icon_209:
-	.incbin "graphics/item_icon/item_icon_209.4bpp"
-	.global item_icon_210
-item_icon_210:
-	.incbin "graphics/item_icon/item_icon_210.4bpp"
-	.global item_icon_211
-item_icon_211:
-	.incbin "graphics/item_icon/item_icon_211.4bpp"
-	.global item_icon_212
-item_icon_212:
-	.incbin "graphics/item_icon/item_icon_212.4bpp"
-	.global item_icon_213
-item_icon_213:
-	.incbin "graphics/item_icon/item_icon_213.4bpp"
-	.global item_icon_214
-item_icon_214:
-	.incbin "graphics/item_icon/item_icon_214.4bpp"
-	.global item_icon_215
-item_icon_215:
-	.incbin "graphics/item_icon/item_icon_215.4bpp"
-	.global item_icon_216
-item_icon_216:
-	.incbin "graphics/item_icon/item_icon_216.4bpp"
-	.global item_icon_217
-item_icon_217:
-	.incbin "graphics/item_icon/item_icon_217.4bpp"
-	.global item_icon_218
-item_icon_218:
-	.incbin "graphics/item_icon/item_icon_218.4bpp"
-	.global item_icon_219
-item_icon_219:
-	.incbin "graphics/item_icon/item_icon_219.4bpp"
-	.global item_icon_220
-item_icon_220:
-	.incbin "graphics/item_icon/item_icon_220.4bpp"
-	.global item_icon_221
-item_icon_221:
-	.incbin "graphics/item_icon/item_icon_221.4bpp"
-	.global item_icon_222
-item_icon_222:
-	.incbin "graphics/item_icon/item_icon_222.4bpp"
-	.global item_icon_223
-item_icon_223:
-	.incbin "graphics/item_icon/item_icon_223.4bpp"
+	.global item_icon_sword_slim
+item_icon_sword_slim:
+	.incbin "graphics/item_icon/item_icon_sword_slim.4bpp"
+	.global item_icon_sword_iron
+item_icon_sword_iron:
+	.incbin "graphics/item_icon/item_icon_sword_iron.4bpp"
+	.global item_icon_sword_steel
+item_icon_sword_steel:
+	.incbin "graphics/item_icon/item_icon_sword_steel.4bpp"
+	.global item_icon_sword_silver
+item_icon_sword_silver:
+	.incbin "graphics/item_icon/item_icon_sword_silver.4bpp"
+	.global item_icon_sword_blade_iron
+item_icon_sword_blade_iron:
+	.incbin "graphics/item_icon/item_icon_sword_blade_iron.4bpp"
+	.global item_icon_sword_blade_steel
+item_icon_sword_blade_steel:
+	.incbin "graphics/item_icon/item_icon_sword_blade_steel.4bpp"
+	.global item_icon_sword_silver_blade
+item_icon_sword_silver_blade:
+	.incbin "graphics/item_icon/item_icon_sword_silver_blade.4bpp"
+	.global item_icon_sword_venin
+item_icon_sword_venin:
+	.incbin "graphics/item_icon/item_icon_sword_venin.4bpp"
+	.global item_icon_sword_rapier
+item_icon_sword_rapier:
+	.incbin "graphics/item_icon/item_icon_sword_rapier.4bpp"
+	.global item_icon_sword_mani_katti
+item_icon_sword_mani_katti:
+	.incbin "graphics/item_icon/item_icon_sword_mani_katti.4bpp"
+	.global item_icon_sword_brave
+item_icon_sword_brave:
+	.incbin "graphics/item_icon/item_icon_sword_brave.4bpp"
+	.global item_icon_sword_wo_dao
+item_icon_sword_wo_dao:
+	.incbin "graphics/item_icon/item_icon_sword_wo_dao.4bpp"
+	.global item_icon_sword_killing_edge
+item_icon_sword_killing_edge:
+	.incbin "graphics/item_icon/item_icon_sword_killing_edge.4bpp"
+	.global item_icon_sword_armor_slayer
+item_icon_sword_armor_slayer:
+	.incbin "graphics/item_icon/item_icon_sword_armor_slayer.4bpp"
+	.global item_icon_sword_wrymslayer
+item_icon_sword_wrymslayer:
+	.incbin "graphics/item_icon/item_icon_sword_wrymslayer.4bpp"
+	.global item_icon_sword_light_brand
+item_icon_sword_light_brand:
+	.incbin "graphics/item_icon/item_icon_sword_light_brand.4bpp"
+	.global item_icon_sword_rune
+item_icon_sword_rune:
+	.incbin "graphics/item_icon/item_icon_sword_rune.4bpp"
+	.global item_icon_sword_lancereaver
+item_icon_sword_lancereaver:
+	.incbin "graphics/item_icon/item_icon_sword_lancereaver.4bpp"
+	.global item_icon_sword_zanbato
+item_icon_sword_zanbato:
+	.incbin "graphics/item_icon/item_icon_sword_zanbato.4bpp"
+	.global item_icon_lance_iron
+item_icon_lance_iron:
+	.incbin "graphics/item_icon/item_icon_lance_iron.4bpp"
+	.global item_icon_lance_slim
+item_icon_lance_slim:
+	.incbin "graphics/item_icon/item_icon_lance_slim.4bpp"
+	.global item_icon_lance_steel
+item_icon_lance_steel:
+	.incbin "graphics/item_icon/item_icon_lance_steel.4bpp"
+	.global item_icon_lance_silver
+item_icon_lance_silver:
+	.incbin "graphics/item_icon/item_icon_lance_silver.4bpp"
+	.global item_icon_lance_venin
+item_icon_lance_venin:
+	.incbin "graphics/item_icon/item_icon_lance_venin.4bpp"
+	.global item_icon_lance_brave
+item_icon_lance_brave:
+	.incbin "graphics/item_icon/item_icon_lance_brave.4bpp"
+	.global item_icon_lance_killer
+item_icon_lance_killer:
+	.incbin "graphics/item_icon/item_icon_lance_killer.4bpp"
+	.global item_icon_lance_horseslayer
+item_icon_lance_horseslayer:
+	.incbin "graphics/item_icon/item_icon_lance_horseslayer.4bpp"
+	.global item_icon_lance_javelin
+item_icon_lance_javelin:
+	.incbin "graphics/item_icon/item_icon_lance_javelin.4bpp"
+	.global item_icon_lance_spear
+item_icon_lance_spear:
+	.incbin "graphics/item_icon/item_icon_lance_spear.4bpp"
+	.global item_icon_lance_axereaver
+item_icon_lance_axereaver:
+	.incbin "graphics/item_icon/item_icon_lance_axereaver.4bpp"
+	.global item_icon_axe_iron
+item_icon_axe_iron:
+	.incbin "graphics/item_icon/item_icon_axe_iron.4bpp"
+	.global item_icon_axe_steel
+item_icon_axe_steel:
+	.incbin "graphics/item_icon/item_icon_axe_steel.4bpp"
+	.global item_icon_axe_silver
+item_icon_axe_silver:
+	.incbin "graphics/item_icon/item_icon_axe_silver.4bpp"
+	.global item_icon_axe_venin
+item_icon_axe_venin:
+	.incbin "graphics/item_icon/item_icon_axe_venin.4bpp"
+	.global item_icon_axe_brave
+item_icon_axe_brave:
+	.incbin "graphics/item_icon/item_icon_axe_brave.4bpp"
+	.global item_icon_axe_killer
+item_icon_axe_killer:
+	.incbin "graphics/item_icon/item_icon_axe_killer.4bpp"
+	.global item_icon_axe_halberd
+item_icon_axe_halberd:
+	.incbin "graphics/item_icon/item_icon_axe_halberd.4bpp"
+	.global item_icon_axe_hammer
+item_icon_axe_hammer:
+	.incbin "graphics/item_icon/item_icon_axe_hammer.4bpp"
+	.global item_icon_axe_devil
+item_icon_axe_devil:
+	.incbin "graphics/item_icon/item_icon_axe_devil.4bpp"
+	.global item_icon_axe_hand
+item_icon_axe_hand:
+	.incbin "graphics/item_icon/item_icon_axe_hand.4bpp"
+	.global item_icon_axe_tomahawk
+item_icon_axe_tomahawk:
+	.incbin "graphics/item_icon/item_icon_axe_tomahawk.4bpp"
+	.global item_icon_axe_swordreaver
+item_icon_axe_swordreaver:
+	.incbin "graphics/item_icon/item_icon_axe_swordreaver.4bpp"
+	.global item_icon_axe_swordslayer
+item_icon_axe_swordslayer:
+	.incbin "graphics/item_icon/item_icon_axe_swordslayer.4bpp"
+	.global item_icon_bow_iron
+item_icon_bow_iron:
+	.incbin "graphics/item_icon/item_icon_bow_iron.4bpp"
+	.global item_icon_bow_steel
+item_icon_bow_steel:
+	.incbin "graphics/item_icon/item_icon_bow_steel.4bpp"
+	.global item_icon_bow_silver
+item_icon_bow_silver:
+	.incbin "graphics/item_icon/item_icon_bow_silver.4bpp"
+	.global item_icon_bow_poison
+item_icon_bow_poison:
+	.incbin "graphics/item_icon/item_icon_bow_poison.4bpp"
+	.global item_icon_bow_killer
+item_icon_bow_killer:
+	.incbin "graphics/item_icon/item_icon_bow_killer.4bpp"
+	.global item_icon_bow_brave
+item_icon_bow_brave:
+	.incbin "graphics/item_icon/item_icon_bow_brave.4bpp"
+	.global item_icon_bow_short
+item_icon_bow_short:
+	.incbin "graphics/item_icon/item_icon_bow_short.4bpp"
+	.global item_icon_bow_long
+item_icon_bow_long:
+	.incbin "graphics/item_icon/item_icon_bow_long.4bpp"
+	.global item_icon_ballista_regular
+item_icon_ballista_regular:
+	.incbin "graphics/item_icon/item_icon_ballista_regular.4bpp"
+	.global item_icon_ballista_long
+item_icon_ballista_long:
+	.incbin "graphics/item_icon/item_icon_ballista_long.4bpp"
+	.global item_icon_ballista_killer
+item_icon_ballista_killer:
+	.incbin "graphics/item_icon/item_icon_ballista_killer.4bpp"
+	.global item_icon_anima_fire
+item_icon_anima_fire:
+	.incbin "graphics/item_icon/item_icon_anima_fire.4bpp"
+	.global item_icon_anima_thunder
+item_icon_anima_thunder:
+	.incbin "graphics/item_icon/item_icon_anima_thunder.4bpp"
+	.global item_icon_anima_elfire
+item_icon_anima_elfire:
+	.incbin "graphics/item_icon/item_icon_anima_elfire.4bpp"
+	.global item_icon_anima_bolting
+item_icon_anima_bolting:
+	.incbin "graphics/item_icon/item_icon_anima_bolting.4bpp"
+	.global item_icon_anima_fimbulvetr
+item_icon_anima_fimbulvetr:
+	.incbin "graphics/item_icon/item_icon_anima_fimbulvetr.4bpp"
+	.global item_icon_anima_forblaze
+item_icon_anima_forblaze:
+	.incbin "graphics/item_icon/item_icon_anima_forblaze.4bpp"
+	.global item_icon_anima_excalibur
+item_icon_anima_excalibur:
+	.incbin "graphics/item_icon/item_icon_anima_excalibur.4bpp"
+	.global item_icon_light_lightning
+item_icon_light_lightning:
+	.incbin "graphics/item_icon/item_icon_light_lightning.4bpp"
+	.global item_icon_light_shine
+item_icon_light_shine:
+	.incbin "graphics/item_icon/item_icon_light_shine.4bpp"
+	.global item_icon_light_divine
+item_icon_light_divine:
+	.incbin "graphics/item_icon/item_icon_light_divine.4bpp"
+	.global item_icon_light_purge
+item_icon_light_purge:
+	.incbin "graphics/item_icon/item_icon_light_purge.4bpp"
+	.global item_icon_light_aura
+item_icon_light_aura:
+	.incbin "graphics/item_icon/item_icon_light_aura.4bpp"
+	.global item_icon_light_luce
+item_icon_light_luce:
+	.incbin "graphics/item_icon/item_icon_light_luce.4bpp"
+	.global item_icon_dark_flux
+item_icon_dark_flux:
+	.incbin "graphics/item_icon/item_icon_dark_flux.4bpp"
+	.global item_icon_dark_luna
+item_icon_dark_luna:
+	.incbin "graphics/item_icon/item_icon_dark_luna.4bpp"
+	.global item_icon_dark_nosferatu
+item_icon_dark_nosferatu:
+	.incbin "graphics/item_icon/item_icon_dark_nosferatu.4bpp"
+	.global item_icon_dark_eclipse
+item_icon_dark_eclipse:
+	.incbin "graphics/item_icon/item_icon_dark_eclipse.4bpp"
+	.global item_icon_dark_fenrir
+item_icon_dark_fenrir:
+	.incbin "graphics/item_icon/item_icon_dark_fenrir.4bpp"
+	.global item_icon_dark_gespenst
+item_icon_dark_gespenst:
+	.incbin "graphics/item_icon/item_icon_dark_gespenst.4bpp"
+	.global item_icon_staff_heal
+item_icon_staff_heal:
+	.incbin "graphics/item_icon/item_icon_staff_heal.4bpp"
+	.global item_icon_staff_mend
+item_icon_staff_mend:
+	.incbin "graphics/item_icon/item_icon_staff_mend.4bpp"
+	.global item_icon_staff_recover
+item_icon_staff_recover:
+	.incbin "graphics/item_icon/item_icon_staff_recover.4bpp"
+	.global item_icon_staff_physic
+item_icon_staff_physic:
+	.incbin "graphics/item_icon/item_icon_staff_physic.4bpp"
+	.global item_icon_staff_fortify
+item_icon_staff_fortify:
+	.incbin "graphics/item_icon/item_icon_staff_fortify.4bpp"
+	.global item_icon_staff_restore
+item_icon_staff_restore:
+	.incbin "graphics/item_icon/item_icon_staff_restore.4bpp"
+	.global item_icon_staff_silence
+item_icon_staff_silence:
+	.incbin "graphics/item_icon/item_icon_staff_silence.4bpp"
+	.global item_icon_staff_sleep
+item_icon_staff_sleep:
+	.incbin "graphics/item_icon/item_icon_staff_sleep.4bpp"
+	.global item_icon_staff_berserk
+item_icon_staff_berserk:
+	.incbin "graphics/item_icon/item_icon_staff_berserk.4bpp"
+	.global item_icon_staff_warp
+item_icon_staff_warp:
+	.incbin "graphics/item_icon/item_icon_staff_warp.4bpp"
+	.global item_icon_staff_rescue
+item_icon_staff_rescue:
+	.incbin "graphics/item_icon/item_icon_staff_rescue.4bpp"
+	.global item_icon_staff_torch
+item_icon_staff_torch:
+	.incbin "graphics/item_icon/item_icon_staff_torch.4bpp"
+	.global item_icon_staff_hammerne
+item_icon_staff_hammerne:
+	.incbin "graphics/item_icon/item_icon_staff_hammerne.4bpp"
+	.global item_icon_staff_unlock
+item_icon_staff_unlock:
+	.incbin "graphics/item_icon/item_icon_staff_unlock.4bpp"
+	.global item_icon_staff_barrior
+item_icon_staff_barrior:
+	.incbin "graphics/item_icon/item_icon_staff_barrior.4bpp"
+	.global item_icon_axe_dragon
+item_icon_axe_dragon:
+	.incbin "graphics/item_icon/item_icon_axe_dragon.4bpp"
+	.global item_icon_angelic_robe
+item_icon_angelic_robe:
+	.incbin "graphics/item_icon/item_icon_angelic_robe.4bpp"
+	.global item_icon_energy_ring
+item_icon_energy_ring:
+	.incbin "graphics/item_icon/item_icon_energy_ring.4bpp"
+	.global item_icon_secret_book
+item_icon_secret_book:
+	.incbin "graphics/item_icon/item_icon_secret_book.4bpp"
+	.global item_icon_speedwings
+item_icon_speedwings:
+	.incbin "graphics/item_icon/item_icon_speedwings.4bpp"
+	.global item_icon_goddess_icon
+item_icon_goddess_icon:
+	.incbin "graphics/item_icon/item_icon_goddess_icon.4bpp"
+	.global item_icon_dragonshield
+item_icon_dragonshield:
+	.incbin "graphics/item_icon/item_icon_dragonshield.4bpp"
+	.global item_icon_talisman
+item_icon_talisman:
+	.incbin "graphics/item_icon/item_icon_talisman.4bpp"
+	.global item_icon_swiftsole
+item_icon_swiftsole:
+	.incbin "graphics/item_icon/item_icon_swiftsole.4bpp"
+	.global item_icon_body_ring
+item_icon_body_ring:
+	.incbin "graphics/item_icon/item_icon_body_ring.4bpp"
+	.global item_icon_hero_crest
+item_icon_hero_crest:
+	.incbin "graphics/item_icon/item_icon_hero_crest.4bpp"
+	.global item_icon_knights_crest
+item_icon_knights_crest:
+	.incbin "graphics/item_icon/item_icon_knights_crest.4bpp"
+	.global item_icon_orions_bolt
+item_icon_orions_bolt:
+	.incbin "graphics/item_icon/item_icon_orions_bolt.4bpp"
+	.global item_icon_elysian_whip
+item_icon_elysian_whip:
+	.incbin "graphics/item_icon/item_icon_elysian_whip.4bpp"
+	.global item_icon_guiding_ring
+item_icon_guiding_ring:
+	.incbin "graphics/item_icon/item_icon_guiding_ring.4bpp"
+	.global item_icon_chest_key
+item_icon_chest_key:
+	.incbin "graphics/item_icon/item_icon_chest_key.4bpp"
+	.global item_icon_door_key
+item_icon_door_key:
+	.incbin "graphics/item_icon/item_icon_door_key.4bpp"
+	.global item_icon_lockpick
+item_icon_lockpick:
+	.incbin "graphics/item_icon/item_icon_lockpick.4bpp"
+	.global item_icon_vulnerary
+item_icon_vulnerary:
+	.incbin "graphics/item_icon/item_icon_vulnerary.4bpp"
+	.global item_icon_elixir
+item_icon_elixir:
+	.incbin "graphics/item_icon/item_icon_elixir.4bpp"
+	.global item_icon_pure_water
+item_icon_pure_water:
+	.incbin "graphics/item_icon/item_icon_pure_water.4bpp"
+	.global item_icon_antitoxin
+item_icon_antitoxin:
+	.incbin "graphics/item_icon/item_icon_antitoxin.4bpp"
+	.global item_icon_torch
+item_icon_torch:
+	.incbin "graphics/item_icon/item_icon_torch.4bpp"
+	.global item_icon_delphi_shield
+item_icon_delphi_shield:
+	.incbin "graphics/item_icon/item_icon_delphi_shield.4bpp"
+	.global item_icon_inventory_category_sword
+item_icon_inventory_category_sword:
+	.incbin "graphics/item_icon/item_icon_inventory_category_sword.4bpp"
+	.global item_icon_inventory_category_lance
+item_icon_inventory_category_lance:
+	.incbin "graphics/item_icon/item_icon_inventory_category_lance.4bpp"
+	.global item_icon_inventory_category_axe
+item_icon_inventory_category_axe:
+	.incbin "graphics/item_icon/item_icon_inventory_category_axe.4bpp"
+	.global item_icon_inventory_category_bow
+item_icon_inventory_category_bow:
+	.incbin "graphics/item_icon/item_icon_inventory_category_bow.4bpp"
+	.global item_icon_inventory_category_staff
+item_icon_inventory_category_staff:
+	.incbin "graphics/item_icon/item_icon_inventory_category_staff.4bpp"
+	.global item_icon_inventory_category_magic_anima
+item_icon_inventory_category_magic_anima:
+	.incbin "graphics/item_icon/item_icon_inventory_category_magic_anima.4bpp"
+	.global item_icon_inventory_category_magic_light
+item_icon_inventory_category_magic_light:
+	.incbin "graphics/item_icon/item_icon_inventory_category_magic_light.4bpp"
+	.global item_icon_inventory_category_magic_dark
+item_icon_inventory_category_magic_dark:
+	.incbin "graphics/item_icon/item_icon_inventory_category_magic_dark.4bpp"
+	.global item_icon_sword_seiglinde
+item_icon_sword_seiglinde:
+	.incbin "graphics/item_icon/item_icon_sword_seiglinde.4bpp"
+	.global item_icon_wretched_air
+item_icon_wretched_air:
+	.incbin "graphics/item_icon/item_icon_wretched_air.4bpp"
+	.global item_icon_affinity_fire
+item_icon_affinity_fire:
+	.incbin "graphics/item_icon/item_icon_affinity_fire.4bpp"
+	.global item_icon_affinity_thunder
+item_icon_affinity_thunder:
+	.incbin "graphics/item_icon/item_icon_affinity_thunder.4bpp"
+	.global item_icon_affinity_wind
+item_icon_affinity_wind:
+	.incbin "graphics/item_icon/item_icon_affinity_wind.4bpp"
+	.global item_icon_affinity_ice
+item_icon_affinity_ice:
+	.incbin "graphics/item_icon/item_icon_affinity_ice.4bpp"
+	.global item_icon_affinity_dark
+item_icon_affinity_dark:
+	.incbin "graphics/item_icon/item_icon_affinity_dark.4bpp"
+	.global item_icon_affinity_light
+item_icon_affinity_light:
+	.incbin "graphics/item_icon/item_icon_affinity_light.4bpp"
+	.global item_icon_affinity_anima
+item_icon_affinity_anima:
+	.incbin "graphics/item_icon/item_icon_affinity_anima.4bpp"
+	.global item_icon_icon_horse
+item_icon_icon_horse:
+	.incbin "graphics/item_icon/item_icon_icon_horse.4bpp"
+	.global item_icon_icon_pegasus
+item_icon_icon_pegasus:
+	.incbin "graphics/item_icon/item_icon_icon_pegasus.4bpp"
+	.global item_icon_icon_wyvern
+item_icon_icon_wyvern:
+	.incbin "graphics/item_icon/item_icon_icon_wyvern.4bpp"
+	.global item_icon_member_card
+item_icon_member_card:
+	.incbin "graphics/item_icon/item_icon_member_card.4bpp"
+	.global item_icon_silver_card
+item_icon_silver_card:
+	.incbin "graphics/item_icon/item_icon_silver_card.4bpp"
+	.global item_icon_white_gem
+item_icon_white_gem:
+	.incbin "graphics/item_icon/item_icon_white_gem.4bpp"
+	.global item_icon_blue_gem
+item_icon_blue_gem:
+	.incbin "graphics/item_icon/item_icon_blue_gem.4bpp"
+	.global item_icon_red_gem
+item_icon_red_gem:
+	.incbin "graphics/item_icon/item_icon_red_gem.4bpp"
+	.global item_icon_gold
+item_icon_gold:
+	.incbin "graphics/item_icon/item_icon_gold.4bpp"
+	.global item_icon_lance_spear_2
+item_icon_lance_spear_2:
+	.incbin "graphics/item_icon/item_icon_lance_spear_2.4bpp"
+	.global item_icon_chest_key_2
+item_icon_chest_key_2:
+	.incbin "graphics/item_icon/item_icon_chest_key_2.4bpp"
+	.global item_icon_mine
+item_icon_mine:
+	.incbin "graphics/item_icon/item_icon_mine.4bpp"
+	.global item_icon_lightrune
+item_icon_lightrune:
+	.incbin "graphics/item_icon/item_icon_lightrune.4bpp"
+	.global item_icon_iron_rune
+item_icon_iron_rune:
+	.incbin "graphics/item_icon/item_icon_iron_rune.4bpp"
+	.global item_icon_fillas_might
+item_icon_fillas_might:
+	.incbin "graphics/item_icon/item_icon_fillas_might.4bpp"
+	.global item_icon_ninis_grace
+item_icon_ninis_grace:
+	.incbin "graphics/item_icon/item_icon_ninis_grace.4bpp"
+	.global item_icon_thors_ire
+item_icon_thors_ire:
+	.incbin "graphics/item_icon/item_icon_thors_ire.4bpp"
+	.global item_icon_sets_litany
+item_icon_sets_litany:
+	.incbin "graphics/item_icon/item_icon_sets_litany.4bpp"
+	.global item_icon_sword_shadowkiller
+item_icon_sword_shadowkiller:
+	.incbin "graphics/item_icon/item_icon_sword_shadowkiller.4bpp"
+	.global item_icon_lance_brightlance
+item_icon_lance_brightlance:
+	.incbin "graphics/item_icon/item_icon_lance_brightlance.4bpp"
+	.global item_icon_axe_fiendcleaver
+item_icon_axe_fiendcleaver:
+	.incbin "graphics/item_icon/item_icon_axe_fiendcleaver.4bpp"
+	.global item_icon_bow_beacon
+item_icon_bow_beacon:
+	.incbin "graphics/item_icon/item_icon_bow_beacon.4bpp"
+	.global item_icon_sword_durandal
+item_icon_sword_durandal:
+	.incbin "graphics/item_icon/item_icon_sword_durandal.4bpp"
+	.global item_icon_axe_armads
+item_icon_axe_armads:
+	.incbin "graphics/item_icon/item_icon_axe_armads.4bpp"
+	.global item_icon_light_aureola
+item_icon_light_aureola:
+	.incbin "graphics/item_icon/item_icon_light_aureola.4bpp"
+	.global item_icon_earth_seal
+item_icon_earth_seal:
+	.incbin "graphics/item_icon/item_icon_earth_seal.4bpp"
+	.global item_icon_afas_drop
+item_icon_afas_drop:
+	.incbin "graphics/item_icon/item_icon_afas_drop.4bpp"
+	.global item_icon_heaven_seal
+item_icon_heaven_seal:
+	.incbin "graphics/item_icon/item_icon_heaven_seal.4bpp"
+	.global item_icon_emblem_seal
+item_icon_emblem_seal:
+	.incbin "graphics/item_icon/item_icon_emblem_seal.4bpp"
+	.global item_icon_fell_contract
+item_icon_fell_contract:
+	.incbin "graphics/item_icon/item_icon_fell_contract.4bpp"
+	.global item_icon_sword_sol_katti
+item_icon_sword_sol_katti:
+	.incbin "graphics/item_icon/item_icon_sword_sol_katti.4bpp"
+	.global item_icon_axe_wolf_beil
+item_icon_axe_wolf_beil:
+	.incbin "graphics/item_icon/item_icon_axe_wolf_beil.4bpp"
+	.global item_icon_dark_ereshkigal
+item_icon_dark_ereshkigal:
+	.incbin "graphics/item_icon/item_icon_dark_ereshkigal.4bpp"
+	.global item_icon_firestone
+item_icon_firestone:
+	.incbin "graphics/item_icon/item_icon_firestone.4bpp"
+	.global item_icon_sword_regal_blade
+item_icon_sword_regal_blade:
+	.incbin "graphics/item_icon/item_icon_sword_regal_blade.4bpp"
+	.global item_icon_lance_rex_hasta
+item_icon_lance_rex_hasta:
+	.incbin "graphics/item_icon/item_icon_lance_rex_hasta.4bpp"
+	.global item_icon_axe_basilikos
+item_icon_axe_basilikos:
+	.incbin "graphics/item_icon/item_icon_axe_basilikos.4bpp"
+	.global item_icon_bow_rienfleche
+item_icon_bow_rienfleche:
+	.incbin "graphics/item_icon/item_icon_bow_rienfleche.4bpp"
+	.global item_icon_lance_heavy_spear
+item_icon_lance_heavy_spear:
+	.incbin "graphics/item_icon/item_icon_lance_heavy_spear.4bpp"
+	.global item_icon_lance_short_spear
+item_icon_lance_short_spear:
+	.incbin "graphics/item_icon/item_icon_lance_short_spear.4bpp"
+	.global item_icon_ocean_seal
+item_icon_ocean_seal:
+	.incbin "graphics/item_icon/item_icon_ocean_seal.4bpp"
+	.global item_icon_sword_wind_sword
+item_icon_sword_wind_sword:
+	.incbin "graphics/item_icon/item_icon_sword_wind_sword.4bpp"
+	.global item_icon_music_note_green
+item_icon_music_note_green:
+	.incbin "graphics/item_icon/item_icon_music_note_green.4bpp"
+	.global item_icon_music_note_red
+item_icon_music_note_red:
+	.incbin "graphics/item_icon/item_icon_music_note_red.4bpp"
+	.global item_icon_unused_0
+item_icon_unused_0:
+	.incbin "graphics/item_icon/item_icon_unused_0.4bpp"
+	.global item_icon_unused_1
+item_icon_unused_1:
+	.incbin "graphics/item_icon/item_icon_unused_1.4bpp"
+	.global item_icon_unused_2
+item_icon_unused_2:
+	.incbin "graphics/item_icon/item_icon_unused_2.4bpp"
+	.global item_icon_sword_sieglinde
+item_icon_sword_sieglinde:
+	.incbin "graphics/item_icon/item_icon_sword_sieglinde.4bpp"
+	.global item_icon_sword_audhulma
+item_icon_sword_audhulma:
+	.incbin "graphics/item_icon/item_icon_sword_audhulma.4bpp"
+	.global item_icon_sword_shamsir
+item_icon_sword_shamsir:
+	.incbin "graphics/item_icon/item_icon_sword_shamsir.4bpp"
+	.global item_icon_lance_reginleif
+item_icon_lance_reginleif:
+	.incbin "graphics/item_icon/item_icon_lance_reginleif.4bpp"
+	.global item_icon_lance_siegmund
+item_icon_lance_siegmund:
+	.incbin "graphics/item_icon/item_icon_lance_siegmund.4bpp"
+	.global item_icon_lance_vidofnir
+item_icon_lance_vidofnir:
+	.incbin "graphics/item_icon/item_icon_lance_vidofnir.4bpp"
+	.global item_icon_spear_dragon
+item_icon_spear_dragon:
+	.incbin "graphics/item_icon/item_icon_spear_dragon.4bpp"
+	.global item_icon_axe_garm
+item_icon_axe_garm:
+	.incbin "graphics/item_icon/item_icon_axe_garm.4bpp"
+	.global item_icon_axe_battleaxe
+item_icon_axe_battleaxe:
+	.incbin "graphics/item_icon/item_icon_axe_battleaxe.4bpp"
+	.global item_icon_axe_hatchet
+item_icon_axe_hatchet:
+	.incbin "graphics/item_icon/item_icon_axe_hatchet.4bpp"
+	.global item_icon_bow_nidhogg
+item_icon_bow_nidhogg:
+	.incbin "graphics/item_icon/item_icon_bow_nidhogg.4bpp"
+	.global item_icon_light_ivaldi
+item_icon_light_ivaldi:
+	.incbin "graphics/item_icon/item_icon_light_ivaldi.4bpp"
+	.global item_icon_dark_gleipnir
+item_icon_dark_gleipnir:
+	.incbin "graphics/item_icon/item_icon_dark_gleipnir.4bpp"
+	.global item_icon_dark_naglfar
+item_icon_dark_naglfar:
+	.incbin "graphics/item_icon/item_icon_dark_naglfar.4bpp"
+	.global item_icon_evil_eye
+item_icon_evil_eye:
+	.incbin "graphics/item_icon/item_icon_evil_eye.4bpp"
+	.global item_icon_crimson_eye
+item_icon_crimson_eye:
+	.incbin "graphics/item_icon/item_icon_crimson_eye.4bpp"
+	.global item_icon_stone
+item_icon_stone:
+	.incbin "graphics/item_icon/item_icon_stone.4bpp"
+	.global item_icon_demon_surge
+item_icon_demon_surge:
+	.incbin "graphics/item_icon/item_icon_demon_surge.4bpp"
+	.global item_icon_shadowshot
+item_icon_shadowshot:
+	.incbin "graphics/item_icon/item_icon_shadowshot.4bpp"
+	.global item_icon_staff_latona
+item_icon_staff_latona:
+	.incbin "graphics/item_icon/item_icon_staff_latona.4bpp"
+	.global item_icon_dragonstone
+item_icon_dragonstone:
+	.incbin "graphics/item_icon/item_icon_dragonstone.4bpp"
+	.global item_icon_demon_light
+item_icon_demon_light:
+	.incbin "graphics/item_icon/item_icon_demon_light.4bpp"
+	.global item_icon_ravager
+item_icon_ravager:
+	.incbin "graphics/item_icon/item_icon_ravager.4bpp"
+	.global item_icon_nightmare
+item_icon_nightmare:
+	.incbin "graphics/item_icon/item_icon_nightmare.4bpp"
+	.global item_icon_black_gem
+item_icon_black_gem:
+	.incbin "graphics/item_icon/item_icon_black_gem.4bpp"
+	.global item_icon_gold_gem
+item_icon_gold_gem:
+	.incbin "graphics/item_icon/item_icon_gold_gem.4bpp"
+	.global item_icon_unused_3
+item_icon_unused_3:
+	.incbin "graphics/item_icon/item_icon_unused_3.4bpp"
+	.global item_icon_unused_4
+item_icon_unused_4:
+	.incbin "graphics/item_icon/item_icon_unused_4.4bpp"
+	.global item_icon_unused_5
+item_icon_unused_5:
+	.incbin "graphics/item_icon/item_icon_unused_5.4bpp"
+	.global item_icon_unused_6
+item_icon_unused_6:
+	.incbin "graphics/item_icon/item_icon_unused_6.4bpp"
+	.global item_icon_unused_7
+item_icon_unused_7:
+	.incbin "graphics/item_icon/item_icon_unused_7.4bpp"
+	.global item_icon_unused_8
+item_icon_unused_8:
+	.incbin "graphics/item_icon/item_icon_unused_8.4bpp"
+	.global item_icon_sharp_claw
+item_icon_sharp_claw:
+	.incbin "graphics/item_icon/item_icon_sharp_claw.4bpp"
+	.global item_icon_rotten_claw
+item_icon_rotten_claw:
+	.incbin "graphics/item_icon/item_icon_rotten_claw.4bpp"
+	.global item_icon_fetid_claw
+item_icon_fetid_claw:
+	.incbin "graphics/item_icon/item_icon_fetid_claw.4bpp"
+	.global item_icon_poison_claw
+item_icon_poison_claw:
+	.incbin "graphics/item_icon/item_icon_poison_claw.4bpp"
+	.global item_icon_lethal_talon
+item_icon_lethal_talon:
+	.incbin "graphics/item_icon/item_icon_lethal_talon.4bpp"
+	.global item_icon_fiery_fang
+item_icon_fiery_fang:
+	.incbin "graphics/item_icon/item_icon_fiery_fang.4bpp"
+	.global item_icon_hellfang
+item_icon_hellfang:
+	.incbin "graphics/item_icon/item_icon_hellfang.4bpp"
+	.global item_icon_solar_brace
+item_icon_solar_brace:
+	.incbin "graphics/item_icon/item_icon_solar_brace.4bpp"
+	.global item_icon_lunar_brace
+item_icon_lunar_brace:
+	.incbin "graphics/item_icon/item_icon_lunar_brace.4bpp"
+	.global item_icon_master_seal
+item_icon_master_seal:
+	.incbin "graphics/item_icon/item_icon_master_seal.4bpp"
+	.global item_icon_fili_shield
+item_icon_fili_shield:
+	.incbin "graphics/item_icon/item_icon_fili_shield.4bpp"
+	.global item_icon_hoplon_guard
+item_icon_hoplon_guard:
+	.incbin "graphics/item_icon/item_icon_hoplon_guard.4bpp"
+	.global item_icon_metiss_tome
+item_icon_metiss_tome:
+	.incbin "graphics/item_icon/item_icon_metiss_tome.4bpp"
+	.global item_icon_unk
+item_icon_unk:
+	.incbin "graphics/item_icon/item_icon_unk.4bpp"
+	.global item_icon_unused_9
+item_icon_unused_9:
+	.incbin "graphics/item_icon/item_icon_unused_9.4bpp"
+	.global item_icon_unused_10
+item_icon_unused_10:
+	.incbin "graphics/item_icon/item_icon_unused_10.4bpp"
 	.global item_icon_palette
 item_icon_palette:
 	.incbin "graphics/item_icon/item_icon_palette.agbpal"
