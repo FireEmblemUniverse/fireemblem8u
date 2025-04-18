@@ -30,15 +30,19 @@ gPal_TitleDragonForeground:  @ 0x08AAC58C
 
 	.global gGfx_FireEmblemLogo
 gGfx_FireEmblemLogo:  @ 0x08AAC5AC
-	.incbin "baserom.gba", 0xAAC5AC, 0x930
-
+	.incbin "graphics/titlescreen/fire_emblem_logo.4bpp.lz"
+	.align 2, 0
+	
 	.global gGfx_SubtitlePressStart
 gGfx_SubtitlePressStart:  @ 0x08AACEDC
 	.incbin "baserom.gba", 0xAACEDC, 0xC8C
 
 	.global gPal_PressStart
 gPal_PressStart:  @ 0x08AADB68
-	.incbin "baserom.gba", 0xAADB68, 0x80
+	.incbin "graphics/titlescreen/press_start.gbapal"
+	.incbin "graphics/titlescreen/copyright.gbapal"
+	.incbin "graphics/titlescreen/fire_emblem_logo.gbapal"
+	.incbin "graphics/titlescreen/scared_strones_banner.gbapal"
 
 	.global gPal_08AADBE8
 gPal_08AADBE8:  @ 0x08AADBE8
