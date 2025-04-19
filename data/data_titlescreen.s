@@ -12,7 +12,7 @@ gGfx_TitleMainBackground_2:  @ 0x08AA9708
 
 	.global gTsa_TitleMainBackground
 gTsa_TitleMainBackground:  @ 0x08AAAE90
-	.incbin "baserom.gba", 0xAAAE90, 0x564
+	.incbin "graphics/titlescreen/title_main_background_tsa.bin"
 
 	.global gPal_TitleMainBackground
 gPal_TitleMainBackground:  @ 0x08AAB3F4
@@ -25,8 +25,7 @@ gGfx_TitleDragonForeground:  @ 0x08AAB414
 
 	.global gTsa_TitleDragonForeground
 gTsa_TitleDragonForeground:  @ 0x08AAC2A4
-	.incbin "baserom.gba", 0xAAC2A4, 0x2E8
-
+	.incbin "graphics/titlescreen/title_dragon_foreground_tsa.bin" 	
 	.global gPal_TitleDragonForeground
 gPal_TitleDragonForeground:  @ 0x08AAC58C
 	.incbin "graphics/titlescreen/title_dragon_foreground.gbapal" 	
@@ -108,7 +107,7 @@ gGfx_TitleDemonKing:  @ 0x08AB0B44
 
 	.global gTsa_TitleDemonKing
 gTsa_TitleDemonKing:  @ 0x08AB1890
-	.incbin "baserom.gba", 0xAB1890, 0x374
+	.incbin "graphics/titlescreen/title_demon_king_tsa.bin"
 
 	.global gPal_TitleDemonKing
 gPal_TitleDemonKing:  @ 0x08AB1C04
