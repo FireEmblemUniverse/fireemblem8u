@@ -50,55 +50,59 @@ gPal_PressStart:  @ 0x08AADB68
 
 	.global gPal_08AADBE8
 gPal_08AADBE8:  @ 0x08AADBE8
-	.incbin "baserom.gba", 0xAADBE8, 0x20
+	.incbin "graphics/titlescreen/title_unk_palette_1.gbapal"
 
 	.global gGfx_08AADC08
 gGfx_08AADC08:  @ 0x08AADC08
-	.incbin "baserom.gba", 0xAADC08, 0xA14
-
+	.incbin "graphics/titlescreen/title_unk_image_1.4bpp.lz"
+	.align 2, 0
+	
 	.global gTsa_08AAE61C
 gTsa_08AAE61C:  @ 0x08AAE61C
-	.incbin "baserom.gba", 0xAAE61C, 0x2B0
+	.incbin "graphics/titlescreen/title_unk_image_1_tsa.bin"
 
 	.global gPal_08AAE8CC
 gPal_08AAE8CC:  @ 0x08AAE8CC
-	.incbin "baserom.gba", 0xAAE8CC, 0x20
+	.incbin "graphics/titlescreen/title_unk_image_1.gbapal"
 
 	.global gGfx_08AAE8EC
 gGfx_08AAE8EC:  @ 0x08AAE8EC
-	.incbin "baserom.gba", 0xAAE8EC, 0x103C
+	.incbin "graphics/titlescreen/title_unk_image_2.4bpp.lz"
+	.align 2, 0
 
 	.global gTsa_08AAF928
 gTsa_08AAF928:  @ 0x08AAF928
-	.incbin "baserom.gba", 0xAAF928, 0x3CC
+	.incbin "graphics/titlescreen/title_unk_image_2_tsa.bin"
 
 	.global gPal_08AAFCF4
 gPal_08AAFCF4:  @ 0x08AAFCF4
-	.incbin "baserom.gba", 0xAAFCF4, 0x20
+	.incbin "graphics/titlescreen/title_unk_image_2.gbapal"
 
 	.global gGfx_08AAFD14
 gGfx_08AAFD14:  @ 0x08AAFD14
-	.incbin "baserom.gba", 0xAAFD14, 0x1FC
+	.incbin "graphics/titlescreen/title_unk_image_3.4bpp.lz"
+	.align 2, 0
 
 	.global gTsa_08AAFF10
 gTsa_08AAFF10:  @ 0x08AAFF10
-	.incbin "baserom.gba", 0xAAFF10, 0x204
+	.incbin "graphics/titlescreen/title_unk_image_3_tsa.bin"
 
 	.global gPal_08AB0114
 gPal_08AB0114:  @ 0x08AB0114
-	.incbin "baserom.gba", 0xAB0114, 0x20
+	.incbin "graphics/titlescreen/title_unk_image_3.gbapal"
 
 	.global gGfx_08AB0134
 gGfx_08AB0134:  @ 0x08AB0134
-	.incbin "baserom.gba", 0xAB0134, 0x8EC
+	.incbin "graphics/titlescreen/title_unk_image_4.4bpp.lz"
+	.align 2, 0
 
 	.global gTsa_08AB0A20
 gTsa_08AB0A20:  @ 0x08AB0A20
-	.incbin "baserom.gba", 0xAB0A20, 0x104
+	.incbin "graphics/titlescreen/title_unk_image_4_tsa.bin"
 
 	.global gPal_08AB0B24
 gPal_08AB0B24:  @ 0x08AB0B24
-	.incbin "baserom.gba", 0xAB0B24, 0x20
+	.incbin "graphics/titlescreen/title_unk_image_4.gbapal"
 
 	.global gGfx_TitleDemonKing
 gGfx_TitleDemonKing:  @ 0x08AB0B44
@@ -121,7 +125,8 @@ gGfx_TitleLargeGlowingOrb:  @ 0x08AB1C24
 	.global gPal_TitleLargeGlowingOrb
 gPal_TitleLargeGlowingOrb:  @ 0x08AB210C
 	.incbin "graphics/titlescreen/title_large_glowing_orb.gbapal"
-	.incbin "baserom.gba", 0xAB212C, 0x40
+	.incbin "graphics/titlescreen/title_unk_palette_2.gbapal"
+	.incbin "graphics/titlescreen/title_unk_palette_3.gbapal"
 
 	.global gGfx_TitleSmallLightBubbles
 gGfx_TitleSmallLightBubbles:  @ 0x08AB216C
