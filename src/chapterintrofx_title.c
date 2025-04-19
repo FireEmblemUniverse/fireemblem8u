@@ -18,7 +18,7 @@
  */
 
 //! FE8U = 0x0802237C
-void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc * proc)
+void ChapterIntroTitle_InitBgImg(struct ChapterIntroFxProc * proc)
 {
     switch (gPlaySt.chapterIndex)
     {
@@ -61,11 +61,11 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc * proc)
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     SetDispEnable(1, 0, 0, 0, 0);
-    proc->unk_52 = 0;
+    proc->isSkipping = 0;
 }
 
 //! FE8U = 0x080224EC
-void ChapterIntroTitle_ResetBg(struct ChapterIntroFXProc * proc)
+void ChapterIntroTitle_ResetBg(struct ChapterIntroFxProc * proc)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -74,7 +74,7 @@ void ChapterIntroTitle_ResetBg(struct ChapterIntroFXProc * proc)
 }
 
 //! FE8U = 0x08022528
-void ChapterIntroTitle_End(struct ChapterIntroFXProc * proc)
+void ChapterIntroTitle_End(struct ChapterIntroFxProc * proc)
 {
     u16 x, y;
     int _x, _y;
@@ -109,7 +109,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntroTitleOnly[] =
 
     PROC_CALL(ChapterIntroTitle_InitBgImg),
 
-    PROC_START_CHILD(sProcScr_ChapterIntro_KeyListen),
+    PROC_START_CHILD(ProcScr_ChapterIntro_KeyListen),
 
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
@@ -124,7 +124,7 @@ PROC_LABEL(99),
 
 PROC_LABEL(999),
     PROC_CALL(ChapterIntroTitle_ResetBg),
-    PROC_CALL(ChapterIntro_8020B20),
+    PROC_CALL(ChapterIntro_InitCameraYPos),
     PROC_CALL(BMapDispResume),
 
     PROC_CALL(ChapterIntroTitle_End),

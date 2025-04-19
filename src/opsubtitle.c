@@ -185,8 +185,8 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
 
-    Decompress(Img_08B17B64, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
-    ApplyPalettes(Pal_08B18ED4, 0, 3);
+    Decompress(Img_ChapterIntro_LensFlare, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
 

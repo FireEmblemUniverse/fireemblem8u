@@ -345,11 +345,11 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
     ApplyPalette(gUnknown_08A360C8, 5);
 
-    Decompress(Img_08B17B64, (void *)0x06008000);
+    Decompress(Img_ChapterIntro_LensFlare, (void *)0x06008000);
 
     sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
-    ApplyPalettes(Pal_08B18ED4, 0, 3);
+    ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
     BG_EnableSyncByMask(4);
 
