@@ -1,10 +1,7 @@
 #include "global.h"
-#include "functions.h"
-#include "variables.h"
+
 #include "hardware.h"
 #include "proc.h"
-#include "hardware.h"
-#include "constants/video-global.h"
 #include "bmio.h"
 #include "bmmap.h"
 #include "chapterdata.h"
@@ -13,6 +10,9 @@
 #include "bm.h"
 #include "bmlib.h"
 
+#include "constants/chapters.h"
+#include "constants/video-global.h"
+
 /**
  * Proc Displaying Chapter Title in the middle of the screen
  */
@@ -20,8 +20,8 @@
 void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
 {
     switch (gPlaySt.chapterIndex) {
-    case 22:
-    case 35:
+    case CHAPTER_E_21X:
+    case CHAPTER_I_21X:
         Proc_Goto(proc, 999);
         return;
         break;
@@ -49,7 +49,7 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    SetWin0Box(0, 0x40, 0xF0, 0x60);
+    SetWin0Box(0, 64, DISPLAY_WIDTH, 96);
 
     sub_80895B4(8, 1);
     PutChapterTitleGfx(0x100, GetChapterTitleWM(&gPlaySt));
@@ -74,9 +74,12 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
 {
     u16 x, y;
     int _x, _y;
-    SetupBackgrounds(0);
+
+    SetupBackgrounds(NULL);
+
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
+
     DisableMapPaletteAnimations();
     UnpackChapterMapGraphics(gPlaySt.chapterIndex);
     ApplyUnitSpritePalettes();
@@ -125,7 +128,7 @@ PROC_LABEL(999),
 
     PROC_CALL(ChapterIntroTitle_End),
 
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_END,
 };

@@ -15,6 +15,7 @@
 #include "bmlib.h"
 #include "sysutil.h"
 #include "worldmap.h"
+
 #include "constants/songs.h"
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_Bg3Scroll[] = {
@@ -37,27 +38,40 @@ struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B108[] = {
     PROC_END,
 };
 
-static u8 CONST_DATA gUnknown_0859B120[] = {
-    0xD0, 0xD0, 0xCC, 0xC0, 0xA0, 0x80,
-    0x60, 0x40, 0x24, 0x20, 0x30, 0x48,
-    0x60, 0x78, 0x88, 0x88, 0x78, 0x00,
+u8 CONST_DATA gUnknown_0859B120[] = {
+    208, 208,
+    204, 192,
+    160, 128,
+    96, 64,
+    36, 32,
+    48, 72,
+    96, 120,
+    136, 136,
+    120, 0,
 };
 
-static u8 CONST_DATA gUnknown_0859B132[] = {
-    0xA0, 0x80, 0x60, 0x40, 0x28, 0x20,
-    0x24, 0x2C, 0x48, 0x68, 0x88, 0x98,
-    0x9C, 0x90, 0x78, 0x60, 0x50, 0x00,
+u8 CONST_DATA gUnknown_0859B132[] = {
+    160, 128,
+    96, 64,
+    40, 32,
+    36, 44,
+    72, 104,
+    136, 152,
+    156, 144,
+    120, 96,
+    80, 0,
 };
 
-static u16 CONST_DATA gUnknown_0859B144[] = {
-    0x0004, 0x4000, 0xC000, 0x0400,
-    0x4000, 0xC040, 0x0408, 0x4000,
-    0xD070, 0x0408, 0x4000, 0xD0B0,
-    0x0400, 0x0000,
+u16 CONST_DATA gUnknown_0859B144[] = {
+    4,
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_LAYER(1),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(64), OAM2_CHR(0x8) + OAM2_LAYER(1),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(112) + OAM1_HFLIP, OAM2_CHR(0x8) + OAM2_LAYER(1),
+    OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(176) + OAM1_HFLIP, OAM2_LAYER(1),
 };
 
 struct ProcCmd CONST_DATA sProcScr_ChapterIntro_0859B160[] = {
-    PROC_SLEEP(0x1E),
+    PROC_SLEEP(30),
     PROC_START_CHILD(sProcScr_ChapterIntro_0859B198),
     PROC_REPEAT(ChapterIntro_80207C8),
 
@@ -83,7 +97,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] = {
 
     PROC_CALL(ChapterIntro_Init),
 
-    PROC_SLEEP(0x3C),
+    PROC_SLEEP(60),
 
     PROC_START_CHILD(sProcScr_ChapterIntro_KeyListen),
 
@@ -109,7 +123,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] = {
     PROC_CALL(ChapterIntro_8020944),
     PROC_REPEAT(ChapterIntro_80209D8),
 
-    PROC_CALL_ARG(ChapterIntro_SetTimerMaybe, 0xA0),
+    PROC_CALL_ARG(ChapterIntro_SetTimerMaybe, 160),
 
     PROC_REPEAT(ChapterIntro_TickTimerMaybe),
     PROC_CALL(ChapterIntro_8020A40),
@@ -129,15 +143,15 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] = {
     PROC_CALL(ChapterIntro_BeginFadeToMap),
     PROC_REPEAT(ChapterIntro_LoopFadeToMap),
 
-    PROC_SLEEP(0x1E),
+    PROC_SLEEP(30),
 
-    PROC_GOTO(0x63),
+    PROC_GOTO(99),
 
 PROC_LABEL(1),
     PROC_CALL(ChapterIntro_BeginFadeOut),
     PROC_REPEAT(ChapterIntro_LoopFadeOut),
 
-    PROC_SLEEP(0x3C),
+    PROC_SLEEP(60),
 
     PROC_CALL(ChapterIntro_8020B20),
 
@@ -147,7 +161,7 @@ PROC_LABEL(1),
     PROC_CALL(ChapterIntro_BeginFastFadeToMap),
     PROC_REPEAT(ChapterIntro_LoopFastFadeToMap),
 
-PROC_LABEL(0x63),
+PROC_LABEL(99),
     PROC_CALL(ChapterIntro_80210C8),
 
     PROC_END,
@@ -167,7 +181,7 @@ struct ProcCmd CONST_DATA sProcScr_0859B318[] = {
 
 void ChapterIntro_Bg3Scroll_Loop() {
     int offset = (GetGameClock() / 2) & 0xFF;
-    BG_SetPosition(2, offset, offset);
+    BG_SetPosition(BG_2, offset, offset);
 
     return;
 }
@@ -274,7 +288,7 @@ void ChapterIntro_801FFD0(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc* proc) {
     proc->unk_4C++;
 
-    BG_SetPosition(1, proc->unk_4C / 2, 0);
+    BG_SetPosition(BG_1, proc->unk_4C / 2, 0);
     REG_BG3HOFS = proc->unk_4C / 2;
 
     return;
@@ -288,26 +302,26 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
     u16* buffer = gBG1TilemapBuffer;
 
     if (unk_2 == 0) {
-        unk_2 = (void*)BG_VRAM;
+        unk_2 = BG_CHR_ADDR(0x0);
     }
 
     ApplyPalettes(Pal_CommGameBgScreenInShop, unk_3, 2);
     Decompress(Img_CommGameBgScreen, unk_2);
 
-    ref1 = TILEREF(0, unk_3 & 0xF);
-    ref2 = TILEREF(0, (unk_3 + 1) & 0xF);
+    ref1 = TILEREF(0, unk_3 & 15);
+    ref2 = TILEREF(0, (unk_3 + 1) & 15);
 
-    for (i = 0; i <= 0xDF; i++) {
+    for (i = 0; i < 224; i++) {
         *buffer = i + ref1;
         buffer++;
     }
 
-    for (; i <= 0x19F; i++) {
+    for (; i < 416; i++) {
         *buffer = i + ref2;
         buffer++;
     }
 
-    for (; i <= 0x27F; i++) {
+    for (; i < 640; i++) {
         *buffer = i + ref1;
         buffer++;
     }
@@ -318,9 +332,9 @@ int ChapterIntro_8020010(ProcPtr proc, void* unk_2, int unk_3) {
 }
 
 void ChapterIntro_SetBG_802009C() {
-    gLCDControlBuffer.dispcnt.mode = 0;
+    gLCDControlBuffer.dispcnt.mode = DISPCNT_MODE_0;
 
-    SetBackgroundTileDataOffset(2, 0x8000);
+    SetBackgroundTileDataOffset(BG_2, 0x8000);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
@@ -333,60 +347,41 @@ void ChapterIntro_SetBG_802009C() {
 }
 
 void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
-    SetupBackgrounds(0);
+    SetupBackgrounds(NULL);
 
-    gLCDControlBuffer.dispcnt.mode = 1;
+    gLCDControlBuffer.dispcnt.mode = DISPCNT_MODE_1;
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg2cnt.priority = 1;
     gLCDControlBuffer.bg3cnt.priority = 2;
 
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 0;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(0, 0, 0, 0, 1);
 
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
-    BG_SetPosition(2, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
-    SetBackgroundTileDataOffset(2, 0x8000);
+    SetBackgroundTileDataOffset(BG_2, 0x8000);
 
-    gLCDControlBuffer.dispcnt.win0_on = 1;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
-
-    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win0_enableObj = 1;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.wout_enableObj = 1;
+    SetWinEnable(1, 0, 0);
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
 
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 1;
 
-    gLCDControlBuffer.win0_left = 0;
-    gLCDControlBuffer.win0_top = 0;
-    gLCDControlBuffer.win0_right = 0;
-    gLCDControlBuffer.win0_bottom = 0;
+    SetWin0Box(0, 0, 0, 0);
 
-    SetBlendConfig(0, 0, 0, 0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 0, 0, 0);
 
     MaybeResetSomePal();
 
-    sub_80017B4(0, 2, 0x40, -1);
+    sub_80017B4(0, 2, 64, -1);
 
     CALLARM_ColorFadeTick();
 
@@ -395,17 +390,17 @@ void ChapterIntro_Init(struct ChapterIntroFXProc* proc) {
     gLCDControlBuffer.bg2cnt.screenSize = 1;
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 1;
 
-    Decompress(Img_08B17B64, BG_CHAR_ADDR(2));
+    Decompress(Img_08B17B64, BG_CHR_ADDR(0x400));
     ApplyPalettes(Pal_08B18ED4, 0, 3);
 
     sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
     Decompress(Img_08B19874, OBJ_VRAM1);
-    ApplyPalette(Pal_08B19DEC, 0x12);
+    ApplyPalette(Pal_08B19DEC, 18);
 
-    ChapterIntro_8020010(proc, 0, 0xE);
+    ChapterIntro_8020010(proc, 0, 14);
 
-    BG_EnableSyncByMask(6);
+    BG_EnableSyncByMask(BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     proc->unk_52 = 0;
 
@@ -425,12 +420,11 @@ void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
-    proc->unk_2C = Interpolate(0, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+    proc->unk_2C = Interpolate(INTERPOLATE_LINEAR, gUnknown_0859B120[proc->unk_4C], gUnknown_0859B120[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
+    proc->unk_30 = Interpolate(INTERPOLATE_LINEAR, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
 
-    proc->unk_30 = Interpolate(0, gUnknown_0859B132[proc->unk_4C], gUnknown_0859B132[proc->unk_4C + 1], proc->unk_4E, proc->unk_68);
-
-    if (proc->unk_64 < 0x65) {
-        int uVar8 = Interpolate(4, 0x140, 0x40, proc->unk_64, 100);
+    if (proc->unk_64 <= 100) {
+        int uVar8 = Interpolate(INTERPOLATE_RSQUARE, 320, 64, proc->unk_64, 100);
 
         SetObjAffine(
             0,
@@ -444,16 +438,16 @@ void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
     }
 
     CallARM_PushToSecondaryOAM(
-        (proc->unk_2C - 0x10) & 0x1FF,
-        ((proc->unk_30 - 0x10) & 0x1FF) | 0x100,
+        OAM1_X(proc->unk_2C - 16),
+        ((proc->unk_30 - 16) & 0x1FF) | OAM0_AFFINE_ENABLE,
         gObject_32x32,
-        0x2210
+        OAM2_CHR(0x210) + OAM2_PAL(2)
     );
     CallARM_PushToSecondaryOAM(
-        (0xE0 - proc->unk_2C) & 0x1FF,
-        ((0x90 - proc->unk_30) & 0x1FF) | 0x100,
+        OAM1_X(224 - proc->unk_2C),
+        ((144 - proc->unk_30) & 0x1FF) | OAM0_AFFINE_ENABLE,
         gObject_32x32,
-        0x2214
+        OAM2_CHR(0x214) + OAM2_PAL(2)
     );
 
     proc->unk_4E++;
@@ -463,7 +457,7 @@ void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
 
         proc->unk_4C++;
 
-        proc->unk_68 = Interpolate(0, 3, 8, proc->unk_66, 0x12);
+        proc->unk_68 = Interpolate(INTERPOLATE_LINEAR, 3, 8, proc->unk_66, 18);
 
         proc->unk_66++;
 
@@ -476,11 +470,7 @@ void ChapterIntro_DrawingLights(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc) {
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 0, 1);
 
     proc->unk_4C = 0;
     proc->unk_64 = 0;
@@ -491,22 +481,21 @@ void ChapterIntro_80204AC(struct ChapterIntroFXProc* proc) {
 }
 
 void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) {
-    int a = Interpolate(5, DISPLAY_WIDTH / 2, unk3, proc->unk_4C, 0x46);
-
-    int b = Interpolate(5, DISPLAY_HEIGHT / 2, unk4, proc->unk_4C, 0x46);
+    int a = Interpolate(INTERPOLATE_RCUBIC, DISPLAY_WIDTH / 2, unk3, proc->unk_4C, 70);
+    int b = Interpolate(INTERPOLATE_RCUBIC, DISPLAY_HEIGHT / 2, unk4, proc->unk_4C, 70);
 
     CallARM_PushToSecondaryOAM(
-        ((a - 8) & 0x1FF) | unk2 << 9,
-        ((b - 8) & 0x1FF) | 0x100,
+        OAM1_X(a - 8) | OAM1_AFFINE_ID(unk2),
+        ((b - 8) & 0x1FF) | OAM0_AFFINE_ENABLE,
         gObject_16x16,
-        0x2218
+        OAM2_CHR(0x218) + OAM2_PAL(2)
     );
 
     CallARM_PushToSecondaryOAM(
-        ((0xE8 - a) & 0x1FF) | unk2 << 9,
-        ((0x98 - b) & 0x1FF) | 0x100,
+        OAM1_X(232 - a) | OAM1_AFFINE_ID(unk2),
+        ((152 - b) & 0x1FF) | OAM0_AFFINE_ENABLE,
         gObject_16x16,
-        0x2218
+        OAM2_CHR(0x218) + OAM2_PAL(2)
     );
 
     return;
@@ -515,8 +504,8 @@ void sub_80204E4(struct ChapterIntroFXProc* proc, int unk2, int unk3, int unk4) 
 void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
     int var;
 
-    if (proc->unk_64 < 0x47) {
-        var = Interpolate(4, 0x140, 0x10, proc->unk_64, 0x46);
+    if (proc->unk_64 <= 70) {
+        var = Interpolate(INTERPOLATE_RSQUARE, 320, 16, proc->unk_64, 70);
 
         SetObjAffine(
             1,
@@ -529,10 +518,10 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
         proc->unk_64++;
     }
 
-    sub_80204E4(proc, 1, 0xD7, 0x11);
+    sub_80204E4(proc, 1, 215, 17);
 
-    if (proc->unk_66 < 0x47) {
-        var = Interpolate(4, 0x140, 0x10, proc->unk_66, 0x46);
+    if (proc->unk_66 <= 70) {
+        var = Interpolate(INTERPOLATE_RSQUARE, 320, 16, proc->unk_66, 70);
 
         SetObjAffine(
             2,
@@ -545,10 +534,10 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
         proc->unk_66++;
     }
 
-    sub_80204E4(proc, 2, 0xC0, 0x20);
+    sub_80204E4(proc, 2, 192, 32);
 
-    if (proc->unk_68 < 0x47) {
-        var = Interpolate(4, 0x140, 0x10, proc->unk_68, 0x46);
+    if (proc->unk_68 <= 70) {
+        var = Interpolate(INTERPOLATE_RSQUARE, 320, 16, proc->unk_68, 70);
 
         SetObjAffine(
             3,
@@ -561,11 +550,11 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
         proc->unk_68++;
     }
 
-    sub_80204E4(proc, 3, 0xA9, 0x2F);
+    sub_80204E4(proc, 3, 169, 47);
 
     proc->unk_4C++;
 
-    if (proc->unk_4C > 0x45) {
+    if (proc->unk_4C >= 70) {
         Proc_Break(proc);
     }
 
@@ -575,21 +564,21 @@ void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_DrawChapterTitleMaybe() {
     int var;
 
-    BG_Fill(gBG0TilemapBuffer, 0x1280);
+    BG_Fill(gBG0TilemapBuffer, TILEREF(0x280, 1));
     sub_80895B4(8, 5);
 
     var = GetChapterTitleWM(&gPlaySt);
     _PutChapterTitleGfx(0x280, var);
-    sub_80896FC(gBG0TilemapBuffer + 0x123, 5, var);
+    sub_80896FC(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 5, var);
 
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     return;
 }
 
 void ChapterIntro_80207C8() {
-    CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
-    CallARM_PushToSecondaryOAM(0, 0x40, gUnknown_0859B144, 0x2200);
+    CallARM_PushToSecondaryOAM(0, 64, gUnknown_0859B144, OAM2_CHR(0x200) + OAM2_PAL(2));
+    CallARM_PushToSecondaryOAM(0, 64, gUnknown_0859B144, OAM2_CHR(0x200) + OAM2_PAL(2));
 
     return;
 }
@@ -604,17 +593,17 @@ void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc* proc) {
 
 void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     if (proc->unk_66 == 0) {
-        SetBlendConfig(1, 0x10, proc->unk_4E, 0);
+        SetBlendAlpha(16, proc->unk_4E);
         proc->unk_4E++;
     } else {
-        SetBlendConfig(1, ((u16)proc->unk_4E << 0x10) >> 0x11 & 0xFF, 0x10, 0);
+        SetBlendAlpha(proc->unk_4E >> 1, 16);
         proc->unk_4E--;
     }
 
     if (proc->unk_4C <= 0xFF) {
-        BgAffinRotScaling(2, 0, 0, 0, 0x180, 0x180);
-        BgAffinScaling(2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
-        BgAffinAnchoring(2, 0x70, 0x58, 0x4C, 0x4C);
+        BgAffinRotScaling(BG_2, 0, 0, 0, 0x180, 0x180);
+        BgAffinScaling(BG_2, (u16)proc->unk_4C + 0xF0, (u16)proc->unk_4C + 0xF0);
+        BgAffinAnchoring(BG_2, 0x70, 0x58, 0x4C, 0x4C);
         FlushLCDControl();
 
         if (proc->unk_66 != 0) {
@@ -623,22 +612,22 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
     }
 
     if (proc->unk_66 == 0) {
-        if (proc->unk_4E <= 0xF) {
+        if (proc->unk_4E < 16) {
             return;
         }
 
-        proc->unk_4E = 0x20;
-        SetBlendConfig(1, 0x10, 0x10, 0);
+        proc->unk_4E = 32;
+        SetBlendAlpha(16, 16);
         proc->unk_66++;
 
         return;
     }
 
-    if (0 < proc->unk_4E) {
+    if (proc->unk_4E > 0) {
         return;
     }
 
-    SetBlendConfig(1, 0, 0x10, 0);
+    SetBlendAlpha(0, 16);
     Proc_EndEach(sProcScr_ChapterIntro_LightBurst);
     Proc_Break(proc);
 
@@ -646,12 +635,7 @@ void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_InitBLDCNT() {
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
-
+    SetDispEnable(0, 1, 1, 0, 1);
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
@@ -659,30 +643,26 @@ void ChapterIntro_InitBLDCNT() {
 }
 
 void ChapterIntro_8020944(struct ChapterIntroFXProc* proc) {
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 0, 1);
 
     proc->unk_4C = 0;
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 1, 0, 0, 0);
 
-    Decompress(Img_08B18F34, BG_CHAR_ADDR(2));
+    Decompress(Img_08B18F34, BG_CHR_ADDR(0x400));
     ApplyPalette(Pal_08B19854, 4);
 
     Decompress(Img_08B196D8, gGenericBuffer);
-    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, 0x4000);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, TILEREF(0x0, 4));
 
-    BG_EnableSyncByMask(4);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
 
     return;
 }
 
 void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
-    SetBlendConfig(1, proc->unk_4C, 0x10, 0);
+    SetBlendAlpha(proc->unk_4C, 16);
 
     if ((proc->unk_50 == 3) || ((GetGameClock() & 3) == 0)) {
         if (proc->unk_52 != 0) {
@@ -692,7 +672,7 @@ void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
         }
 
         if (proc->unk_4C > 5) {
-            SetBlendConfig(1, 6, 0x10, 0);
+            SetBlendAlpha(6, 16);
             Proc_Break(proc);
         }
     }
@@ -701,36 +681,31 @@ void ChapterIntro_80209D8(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_8020A40(struct ChapterIntroFXProc* proc) {
-    proc->unk_4C = 0x1E;
+    proc->unk_4C = 30;
 
     MaybeResetSomePal();
 
     MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -1);
-    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -1);
-    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -1);
+    MaybeSmoothChangeSomePal(PAL_BG(14), 14, 2, -1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 18, 1, -1);
 
     return;
 }
 
 void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
-    int clock = GetGameClock() & 3;
-
-    if ((clock) == 0) {
+    if ((GetGameClock() & 3) == 0) {
         CALLARM_ColorFadeTick();
         EnablePaletteSync();
 
         proc->unk_4C--;
 
         if (proc->unk_4C < 0) {
-            gLCDControlBuffer.dispcnt.bg0_on = 1;
-            gLCDControlBuffer.dispcnt.bg1_on = 0;
-            gLCDControlBuffer.dispcnt.bg2_on = 0;
-            gLCDControlBuffer.dispcnt.bg3_on = 0;
-            gLCDControlBuffer.dispcnt.obj_on = 1;
+            SetDispEnable(1, 0, 0, 0, 1);
+            SetBackgroundTileDataOffset(BG_2, 0);
 
-            SetBackgroundTileDataOffset(2, 0);
             gPaletteBuffer[PAL_BACKDROP_OFFSET] = 0;
             EnablePaletteSync();
+
             Proc_Break(proc);
         }
     }
@@ -739,7 +714,7 @@ void ChapterIntro_8020A8C(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_8020AF8() {
-    SetupBackgrounds(0);
+    SetupBackgrounds(NULL);
     sub_80156D4();
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
     RefreshUnitSprites();
@@ -750,7 +725,7 @@ void ChapterIntro_8020AF8() {
 }
 
 void ChapterIntro_8020B20() {
-    gBmSt.camera.y = 0xA0 * 4;
+    gBmSt.camera.y = DISPLAY_HEIGHT * 4;
 
     return;
 }
@@ -758,26 +733,21 @@ void ChapterIntro_8020B20() {
 void ChapterIntro_InitMapDisplay() {
     int var;
 
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 1;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(1, 1, 1, 1, 1);
 
-    SetBlendConfig(1, 0x10, 0, 0);
-
+    SetBlendAlpha(16, 0);
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 1);
 
     SetBlendBackdropB(1);
 
-    CpuFastFill(0, (void *)BG_VRAM, 32);
+    CpuFastFill(0, BG_CHR_ADDR(0x0), CHR_SIZE);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(7);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     DisableMapPaletteAnimations();
 
@@ -806,17 +776,17 @@ void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeResetSomePal();
 
     MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 1);
-    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 1);
-    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 1);
-    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(10), 26, 6, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 16, 2, 1);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 23, 1, 1);
 
     CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 
-    proc->unk_4C = 0x1E;
+    proc->unk_4C = 30;
 
-    if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == 5) {
+    if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == WEATHER_FLAMES) {
         WfxFlamesInitGradientPublic();
     }
 
@@ -826,44 +796,31 @@ void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
     if ((GetGameClock() & 1) == 0) {
         CALLARM_ColorFadeTick();
-        if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == 5) {
+        if (GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather == WEATHER_FLAMES) {
             WfxFlamesInitGradientPublic();
         }
 
         if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack) {
             if ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF) {
-                StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+                StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], NULL);
             }
 
             proc->unk_4C = 0;
 
-            gLCDControlBuffer.dispcnt.bg0_on = 1;
-            gLCDControlBuffer.dispcnt.bg1_on = 1;
-            gLCDControlBuffer.dispcnt.bg2_on = 1;
-            gLCDControlBuffer.dispcnt.bg3_on = 0;
-            gLCDControlBuffer.dispcnt.obj_on = 0;
+            SetDispEnable(1, 1, 1, 0, 0);
         } else {
-            int tmp;
+            int bldAmt;
             EnablePaletteSync();
 
-            tmp = proc->unk_4C + 7;
-            if (tmp < 0) {
-                tmp = proc->unk_4C + 0xE;
-            }
-
-            SetBlendConfig(
-                1,
-                ((tmp >> 3) + 0xC) & 0xFF,
-                (4 - (tmp >> 3)) & 0xFF,
-                0
-            );
+            bldAmt = (proc->unk_4C + 7) / 8;
+            SetBlendAlpha(bldAmt + 12, 4 - bldAmt);
         }
 
         proc->unk_4C--;
 
-        if ((proc->unk_4C == 0x18) &&
+        if ((proc->unk_4C == 24) &&
             ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF)) {
-            StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+            StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], NULL);
         }
 
         if (proc->unk_4C < 0) {
@@ -877,29 +834,18 @@ void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc* proc) {
 
 void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc* proc) {
     proc->unk_4C = 0;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.wout_enableObj = 0;
-
+    SetWOutLayers(1, 1, 1, 1, 0);
     return;
 }
 
 void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc* proc) {
-    int var;
+    int var = Interpolate(INTERPOLATE_RCUBIC, 0, DISPLAY_WIDTH / 2, proc->unk_4C, 40);
 
-    var = Interpolate(5, 0, DISPLAY_WIDTH / 2, proc->unk_4C, 0x28);
-
-    gLCDControlBuffer.win0_left = (DISPLAY_WIDTH / 2) - var;
-    gLCDControlBuffer.win0_top = 0;
-    gLCDControlBuffer.win0_right = var + (DISPLAY_WIDTH / 2);
-    gLCDControlBuffer.win0_bottom = DISPLAY_HEIGHT;
+    SetWin0Box((DISPLAY_WIDTH / 2) - var, 0, var + (DISPLAY_WIDTH / 2), DISPLAY_HEIGHT)
 
     proc->unk_4C++;
 
-    if (proc->unk_4C > 0x28) {
+    if (proc->unk_4C > 40) {
         Proc_Break(proc);
     }
 
@@ -913,10 +859,10 @@ void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc* proc) {
 
     MaybeSmoothChangeSomePal(PAL_BG(0), 0, 3, -2);
     MaybeSmoothChangeSomePal(PAL_BG(4), 4, 2, -2);
-    MaybeSmoothChangeSomePal(PAL_BG(0xE), 0xE, 2, -2);
-    MaybeSmoothChangeSomePal(PAL_OBJ(2), 0x12, 1, -2);
+    MaybeSmoothChangeSomePal(PAL_BG(14), 14, 2, -2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(2), 18, 1, -2);
 
-    proc->unk_4C = 0xF;
+    proc->unk_4C = 15;
 
     Sound_FadeOutSE(1);
 
@@ -930,13 +876,8 @@ void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc) {
     proc->unk_4C--;
 
     if (proc->unk_4C < 0) {
-        gLCDControlBuffer.dispcnt.bg0_on = 0;
-        gLCDControlBuffer.dispcnt.bg1_on = 0;
-        gLCDControlBuffer.dispcnt.bg2_on = 0;
-        gLCDControlBuffer.dispcnt.bg3_on = 0;
-        gLCDControlBuffer.dispcnt.obj_on = 0;
-
-        SetBackgroundTileDataOffset(2, 0);
+        SetDispEnable(0, 0, 0, 0, 0);
+        SetBackgroundTileDataOffset(BG_2, 0);
         Proc_Break(proc);
     }
 
@@ -944,15 +885,15 @@ void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
-    gLCDControlBuffer.dispcnt.mode = 0;
+    gLCDControlBuffer.dispcnt.mode = DISPCNT_MODE_0;
 
-    CpuFastFill(0, (void *)BG_VRAM, 32);
+    CpuFastFill(0, BG_CHR_ADDR(0x0), CHR_SIZE);
 
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
-    BG_EnableSyncByMask(7);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     Proc_EndEach(sProcScr_ChapterIntro_Bg3Scroll);
     Proc_EndEach(sProcScr_ChapterIntro_0859B108);
@@ -961,18 +902,18 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
     MaybeResetSomePal();
 
     MaybeSmoothChangeSomePal(PAL_BG(6), 6, 10, 2);
-    MaybeSmoothChangeSomePal(PAL_OBJ(0xA), 0x1A, 6, 2);
-    MaybeSmoothChangeSomePal(PAL_OBJ(0), 0x10, 2, 2);
-    MaybeSmoothChangeSomePal(PAL_OBJ(7), 0x17, 1, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(10), 26, 6, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(0), 16, 2, 2);
+    MaybeSmoothChangeSomePal(PAL_OBJ(7), 23, 1, 2);
 
     CALLARM_ColorFadeTick();
 
     EnablePaletteSync();
 
-    proc->unk_4C = 0xE;
+    proc->unk_4C = 14;
 
     if ((GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE]) != 0xFFFF) {
-        StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], 0);
+        StartBgm(GetROMChapterStruct(gPlaySt.chapterIndex)->mapBgmIds[MAP_BGM_PROLOGUE], NULL);
     }
 
     return;
@@ -981,18 +922,13 @@ void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc* proc) {
 void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc* proc) {
     CALLARM_ColorFadeTick();
 
-    if ((GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather) == 5) {
+    if ((GetROMChapterStruct(gPlaySt.chapterIndex)->initialWeather) == WEATHER_FLAMES) {
         WfxFlamesInitGradientPublic();
     }
 
     if ((GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH) || (GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)) {
         proc->unk_4C = 0;
-
-        gLCDControlBuffer.dispcnt.bg0_on = 1;
-        gLCDControlBuffer.dispcnt.bg1_on = 1;
-        gLCDControlBuffer.dispcnt.bg2_on = 1;
-        gLCDControlBuffer.dispcnt.bg3_on = 0;
-        gLCDControlBuffer.dispcnt.obj_on = 0;
+        SetDispEnable(1, 1, 1, 0, 0);
     } else {
         EnablePaletteSync();
     }
@@ -1021,17 +957,12 @@ void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc* proc) {
 }
 
 void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc* proc) {
-    s16 tmp;
-
     if (proc->unk_52 != 0) {
         Proc_Break(proc);
         return;
     }
 
-    tmp = proc->unk_4C;
-    proc->unk_4C--;
-
-    if (tmp < 0) {
+    if (proc->unk_4C-- < 0) {
         Proc_Break(proc);
     }
 
@@ -1050,12 +981,10 @@ void ChapterIntro_80210C8() {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    gLCDControlBuffer.dispcnt.win0_on = 0;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(0, 0, 0);
 
     BG_Fill(gBG0TilemapBuffer, 0);
-    BG_EnableSyncByMask(1);
+    BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 1;

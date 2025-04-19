@@ -35,7 +35,7 @@ struct OAM_Attr0 {
 #define OAM0_SHAPE_32x64   0x8000
 
 #define OAM1_X(ax)         ((ax) & 0x01FF)
-#define OAM1_AFFINE_ID(ai) (((ai) << 9) & 0x3E00)
+#define OAM1_AFFINE_ID(ai) ((ai) << 9)
 #define OAM1_HFLIP         0x1000
 #define OAM1_VFLIP         0x2000
 #define OAM1_SIZE_8x8      0x0000
