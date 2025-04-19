@@ -17,9 +17,11 @@
  * Proc Displaying Chapter Title in the middle of the screen
  */
 
-void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
+//! FE8U = 0x0802237C
+void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc * proc)
 {
-    switch (gPlaySt.chapterIndex) {
+    switch (gPlaySt.chapterIndex)
+    {
     case CHAPTER_E_21X:
     case CHAPTER_I_21X:
         Proc_Goto(proc, 999);
@@ -62,7 +64,8 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFXProc *proc)
     proc->unk_52 = 0;
 }
 
-void ChapterIntroTitle_ResetBg(struct ChapterIntroFXProc *proc)
+//! FE8U = 0x080224EC
+void ChapterIntroTitle_ResetBg(struct ChapterIntroFXProc * proc)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -70,7 +73,8 @@ void ChapterIntroTitle_ResetBg(struct ChapterIntroFXProc *proc)
     SetDispEnable(0, 0, 1, 1, 1);
 }
 
-void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
+//! FE8U = 0x08022528
+void ChapterIntroTitle_End(struct ChapterIntroFXProc * proc)
 {
     u16 x, y;
     int _x, _y;
@@ -97,10 +101,7 @@ void ChapterIntroTitle_End(struct ChapterIntroFXProc *proc)
     RenderBmMap();
 }
 
-// TODO: Move to common "bmfx.h"?
-extern struct ProcCmd sProcScr_ChapterIntro_KeyListen[];
-void ChapterIntro_SetSkipTarget(s16, struct ChapterIntroFXProc*);
-void ChapterIntro_8020B20(void);
+// clang-format off
 
 struct ProcCmd CONST_DATA gProcScr_ChapterIntroTitleOnly[] =
 {
@@ -132,3 +133,5 @@ PROC_LABEL(999),
 
     PROC_END,
 };
+
+// clang-format on

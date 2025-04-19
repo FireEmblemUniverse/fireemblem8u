@@ -26,20 +26,21 @@ struct ProcBmFx {
     /* 66 */ s16 yPos;
 };
 
-struct ChapterIntroFXProc {
+struct ChapterIntroFXProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int unk_2C;
     /* 30 */ int unk_30;
 
-    u8 _pad1[0x4C-0x34];
+    STRUCT_PAD(0x34, 0x4C);
 
     /* 4C */ s16 unk_4C;
     /* 4E */ s16 unk_4E;
     /* 50 */ s16 unk_50;
     /* 52 */ u16 unk_52;
 
-    u8 _pad2[0x64-0x54];
+    STRUCT_PAD(0x54, 0x64);
 
     /* 64 */ s16 unk_64;
     /* 66 */ s16 unk_66;
@@ -141,6 +142,7 @@ void ChapterIntro_8021188(struct ChapterIntroFXProc * proc);
 
 void ChapterIntro_80207C8(void);
 extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
+extern struct ProcCmd sProcScr_ChapterIntro_KeyListen[];
 extern u8 Img_CommGameBgScreen[];
 extern u8 Img_08B17B64[];
 extern u8 Tsa_08B18D68[];
