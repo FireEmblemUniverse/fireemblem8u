@@ -1176,7 +1176,7 @@ SECTIONS
         . = ALIGN(4); data/data_AA6BFA.o(.data);
         . = ALIGN(4); data/opanim.o(.data);
         . = ALIGN(4); src/opanim-healthsafetyscreen.o(.data);
-        . = ALIGN(4); data/data_AA7760.o(.data);
+        . = ALIGN(4); data/data_titlescreen.o(.data);
         . = ALIGN(4); data/data_opanim_gfx.o(.data);
         . = ALIGN(4); src/classchg-main.o(.data);
         . = ALIGN(4); src/classchg-handler.o(.data);
