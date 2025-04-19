@@ -26,6 +26,7 @@ gGfx_TitleDragonForeground:  @ 0x08AAB414
 	.global gTsa_TitleDragonForeground
 gTsa_TitleDragonForeground:  @ 0x08AAC2A4
 	.incbin "graphics/titlescreen/title_dragon_foreground_tsa.bin" 	
+	
 	.global gPal_TitleDragonForeground
 gPal_TitleDragonForeground:  @ 0x08AAC58C
 	.incbin "graphics/titlescreen/title_dragon_foreground.gbapal" 	
