@@ -2,11 +2,13 @@
 
 	.global gGfx_TitleMainBackground_1
 gGfx_TitleMainBackground_1:  @ 0x08AA7760
-	.incbin "baserom.gba", 0xAA7760, 0x1FA8
+	.incbin "graphics/titlescreen/title_main_background_1.4bpp.lz" 	
+	.align 2, 0
 
 	.global gGfx_TitleMainBackground_2
 gGfx_TitleMainBackground_2:  @ 0x08AA9708
-	.incbin "baserom.gba", 0xAA9708, 0x1788
+	.incbin "graphics/titlescreen/title_main_background_2.4bpp.lz" 	
+	.align 2, 0
 
 	.global gTsa_TitleMainBackground
 gTsa_TitleMainBackground:  @ 0x08AAAE90
@@ -14,11 +16,12 @@ gTsa_TitleMainBackground:  @ 0x08AAAE90
 
 	.global gPal_TitleMainBackground
 gPal_TitleMainBackground:  @ 0x08AAB3F4
-	.incbin "baserom.gba", 0xAAB3F4, 0x20
+	.incbin "graphics/titlescreen/title_main_background.gbapal"
 
 	.global gGfx_TitleDragonForeground
 gGfx_TitleDragonForeground:  @ 0x08AAB414
-	.incbin "baserom.gba", 0xAAB414, 0xE90
+	.incbin "graphics/titlescreen/title_dragon_foreground.4bpp.lz" 	
+	.align 2, 0
 
 	.global gTsa_TitleDragonForeground
 gTsa_TitleDragonForeground:  @ 0x08AAC2A4
@@ -26,23 +29,25 @@ gTsa_TitleDragonForeground:  @ 0x08AAC2A4
 
 	.global gPal_TitleDragonForeground
 gPal_TitleDragonForeground:  @ 0x08AAC58C
-	.incbin "baserom.gba", 0xAAC58C, 0x20
+	.incbin "graphics/titlescreen/title_dragon_foreground.gbapal" 	
+	.align 2, 0
 
 	.global gGfx_FireEmblemLogo
 gGfx_FireEmblemLogo:  @ 0x08AAC5AC
-	.incbin "graphics/titlescreen/fire_emblem_logo.4bpp.lz"
+	.incbin "graphics/titlescreen/title_fire_emblem_logo.4bpp.lz"
 	.align 2, 0
 	
 	.global gGfx_SubtitlePressStart
 gGfx_SubtitlePressStart:  @ 0x08AACEDC
-	.incbin "baserom.gba", 0xAACEDC, 0xC8C
+	.incbin "graphics/titlescreen/title_logos.4bpp.lz"
+	.align 2, 0
 
 	.global gPal_PressStart
 gPal_PressStart:  @ 0x08AADB68
-	.incbin "graphics/titlescreen/press_start.gbapal"
-	.incbin "graphics/titlescreen/copyright.gbapal"
-	.incbin "graphics/titlescreen/fire_emblem_logo.gbapal"
-	.incbin "graphics/titlescreen/scared_strones_banner.gbapal"
+	.incbin "graphics/titlescreen/title_press_start.gbapal"
+	.incbin "graphics/titlescreen/title_copyright.gbapal"
+	.incbin "graphics/titlescreen/title_fire_emblem_logo.gbapal"
+	.incbin "graphics/titlescreen/title_scared_strones_banner.gbapal"
 
 	.global gPal_08AADBE8
 gPal_08AADBE8:  @ 0x08AADBE8
@@ -98,7 +103,8 @@ gPal_08AB0B24:  @ 0x08AB0B24
 
 	.global gGfx_TitleDemonKing
 gGfx_TitleDemonKing:  @ 0x08AB0B44
-	.incbin "baserom.gba", 0xAB0B44, 0xD4C
+	.incbin "graphics/titlescreen/title_demon_king.4bpp.lz"
+	.align 2, 0
 
 	.global gTsa_TitleDemonKing
 gTsa_TitleDemonKing:  @ 0x08AB1890
@@ -106,20 +112,23 @@ gTsa_TitleDemonKing:  @ 0x08AB1890
 
 	.global gPal_TitleDemonKing
 gPal_TitleDemonKing:  @ 0x08AB1C04
-	.incbin "baserom.gba", 0xAB1C04, 0x20
+	.incbin "graphics/titlescreen/title_demon_king.gbapal"
 
 	.global gGfx_TitleLargeGlowingOrb
 gGfx_TitleLargeGlowingOrb:  @ 0x08AB1C24
-	.incbin "baserom.gba", 0xAB1C24, 0x4E8
+	.incbin "graphics/titlescreen/title_large_glowing_orb.4bpp.lz"
+	.align 2, 0
 
 	.global gPal_TitleLargeGlowingOrb
 gPal_TitleLargeGlowingOrb:  @ 0x08AB210C
-	.incbin "baserom.gba", 0xAB210C, 0x60
+	.incbin "graphics/titlescreen/title_large_glowing_orb.gbapal"
+	.incbin "baserom.gba", 0xAB212C, 0x40
 
 	.global gGfx_TitleSmallLightBubbles
 gGfx_TitleSmallLightBubbles:  @ 0x08AB216C
-	.incbin "baserom.gba", 0xAB216C, 0x4C
+	.incbin "graphics/titlescreen/title_small_light_bubbles.4bpp.lz"
+	.align 2, 0
 
 	.global gPal_TitleSmallLightBubbles
 gPal_TitleSmallLightBubbles:  @ 0x08AB21B8
-	.incbin "baserom.gba", 0xAB21B8, 0x20
+	.incbin "graphics/titlescreen/title_small_light_bubbles.gbapal"
