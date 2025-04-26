@@ -34,6 +34,7 @@ MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
+MARTOMAP   := scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -59,6 +60,7 @@ DATA_SUBDIR = data
 DATA_SRC_SUBDIR = src/data
 SAMPLE_SUBDIR = sound/direct_sound_samples
 MID_SUBDIR = sound/songs/midi
+MAP_LAYOUT_SUBDIR = graphics/map/layout
 
 ROM          := fireemblem8.gba
 ELF          := $(ROM:.gba=.elf)
@@ -109,6 +111,7 @@ clean:
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
 	# Remove converted sound samples
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
+	$(RM) -f $(MAP_LAYOUT_SUBDIR)/*.bin
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
@@ -166,6 +169,7 @@ include json_data_rules.mk
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
+%.bin: %.mar  ; $(MARTOMAP)  $< $@
 sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
@@ -255,6 +259,7 @@ endif
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s $$(data_dep)
 	$(AS) $(ASFLAGS) -g $< -o $@
+%.lz:$(MAP_LAYOUT_SUBDIR)/%.bin ; $(GBAGFX) $< $@
 
 # Don't delete intermediate files
 .SECONDARY:
