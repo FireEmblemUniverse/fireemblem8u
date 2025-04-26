@@ -32,7 +32,7 @@ def convert_from_mar(data):
     for i in range(0, len(data), 2):
         value = int.from_bytes([data[i+1],data[i] ], byteorder="big")
         value = value >> 3
-        value = value.to_bytes(2)
+        value = value.to_bytes(2, byteorder="big")
         out.append(value[1])
         out.append(value[0])
     return out
