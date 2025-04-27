@@ -26,20 +26,21 @@ struct ProcBmFx {
     /* 66 */ s16 yPos;
 };
 
-struct ChapterIntroFXProc {
+struct ChapterIntroFxProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int unk_2C;
-    /* 30 */ int unk_30;
+    /* 2C */ int xLight;
+    /* 30 */ int yLight;
 
-    u8 _pad1[0x4C-0x34];
+    STRUCT_PAD(0x34, 0x4C);
 
-    /* 4C */ s16 unk_4C;
+    /* 4C */ s16 timer;
     /* 4E */ s16 unk_4E;
-    /* 50 */ s16 unk_50;
-    /* 52 */ u16 unk_52;
+    /* 50 */ s16 skipTarget;
+    /* 52 */ u16 isSkipping;
 
-    u8 _pad2[0x64-0x54];
+    STRUCT_PAD(0x54, 0x64);
 
     /* 64 */ s16 unk_64;
     /* 66 */ s16 unk_66;
@@ -103,52 +104,53 @@ void EndEventEarthQuake(void);
 // ??? StoneShatterEvent_OnEnd(???);
 void StartStoneShatterAnim(struct Unit *, ProcPtr);
 
-void ChapterIntro_Bg3Scroll_Loop(void);
-void ChapterIntro_KeyListen_Init(struct ChapterIntroFXProc * proc);
-void ChapterIntro_KeyListen_Loop(struct ChapterIntroFXProc * proc);
-void ChapterIntro_801FFD0(struct ChapterIntroFXProc * proc);
-void ChapterIntro_801FFD8_Loop(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LightBurst_Init(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LightBurst_Loop(struct ChapterIntroFXProc * proc);
-void ChapterIntro_BeginCloseTextMaybe(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LoopCloseTextMaybe(struct ChapterIntroFXProc * proc);
-void ChapterIntro_Init(struct ChapterIntroFXProc * proc);
-void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFXProc * proc);
-void ChapterIntro_Init_PlaySound316(struct ChapterIntroFXProc * proc);
-void ChapterIntro_DrawingLights(struct ChapterIntroFXProc * proc);
+void ChapterIntro_Bg2Scroll_Loop(void);
+void ChapterIntro_KeyListen_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_KeyListen_Loop(struct ChapterIntroFxProc * proc);
+void ChapterIntro_Bg1And3Scroll_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_Bg1And3Scroll_Loop(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LightBurst_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LightBurst_Loop(struct ChapterIntroFxProc * proc);
+void ChapterIntro_RevealDecalSprite_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_RevealDecalSprite_Loop(struct ChapterIntroFxProc * proc);
+void ChapterIntro_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_SetSkipTarget(s16 arg, struct ChapterIntroFxProc * proc);
+void ChapterIntro_TwinLights_InitAndPlaySe(struct ChapterIntroFxProc * proc);
+void ChapterIntro_TwinLights_Loop(struct ChapterIntroFxProc * proc);
 void ChapterIntro_InitBLDCNT(void);
-void ChapterIntro_DrawChapterTitleMaybe(void);
-void ChapterIntro_80204AC(struct ChapterIntroFXProc * proc);
-void ChapterIntro_UnknownFX8020578(struct ChapterIntroFXProc * proc);
+void ChapterIntro_DrawChapterTitle(void);
+void ChapterIntro_LightExplosion_Init(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LightExplosion_Loop(struct ChapterIntroFxProc * proc);
 void ChapterIntro_SetBG_802009C(void);
-void ChapterIntro_8020944(struct ChapterIntroFXProc * proc);
-void ChapterIntro_80209D8(struct ChapterIntroFXProc * proc);
-void ChapterIntro_SetTimerMaybe(s16 arg, struct ChapterIntroFXProc * proc);
-void ChapterIntro_TickTimerMaybe(struct ChapterIntroFXProc * proc);
-void ChapterIntro_8020A40(struct ChapterIntroFXProc * proc);
-void ChapterIntro_8020A8C(struct ChapterIntroFXProc * proc);
-void ChapterIntro_8020B20(void);
+void ChapterIntro_InitFogGfx(struct ChapterIntroFxProc * proc);
+void ChapterIntro_BlendFogAlpha_Loop(struct ChapterIntroFxProc * proc);
+void ChapterIntro_SetTimer(s16 arg, struct ChapterIntroFxProc * proc);
+void ChapterIntro_TickTimerMaybe(struct ChapterIntroFxProc * proc);
+void ChapterIntro_8020A40(struct ChapterIntroFxProc * proc);
+void ChapterIntro_8020A8C(struct ChapterIntroFxProc * proc);
+void ChapterIntro_InitCameraYPos(void);
 void ChapterIntro_InitMapDisplay(void);
-void ChapterIntro_BeginFadeToMap(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LoopFadeToMap(struct ChapterIntroFXProc * proc);
-void ChapterIntro_BeginFadeOut(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LoopFadeOut(struct ChapterIntroFXProc * proc);
-void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFXProc * proc);
-void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFXProc * proc);
-void ChapterIntro_80210C8(void);
+void ChapterIntro_BeginFadeToMap(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LoopFadeToMap(struct ChapterIntroFxProc * proc);
+void ChapterIntro_BeginFadeOut(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LoopFadeOut(struct ChapterIntroFxProc * proc);
+void ChapterIntro_BeginFastFadeToMap(struct ChapterIntroFxProc * proc);
+void ChapterIntro_LoopFastFadeToMap(struct ChapterIntroFxProc * proc);
+void ChapterIntro_End(void);
 void ChapterIntro_8020AF8(void);
-void ChapterIntro_8021188(struct ChapterIntroFXProc * proc);
+void ChapterIntro_8021188(struct ChapterIntroFxProc * proc);
 
-void ChapterIntro_80207C8(void);
-extern struct ProcCmd sProcScr_ChapterIntro_0859B198[];
+void ChapterIntro_PutDecalSprite_Loop(void);
+extern struct ProcCmd ProcScr_ChapterIntro_RevealDecalSprite[];
+extern struct ProcCmd ProcScr_ChapterIntro_KeyListen[];
 extern u8 Img_CommGameBgScreen[];
-extern u8 Img_08B17B64[];
+extern u8 Img_ChapterIntro_LensFlare[];
 extern u8 Tsa_08B18D68[];
-extern u8 Img_08B19874[];
-extern u8 Pal_08B19DEC[];
-extern u16 Img_08B18F34[];
-extern u16 Pal_08B19854[];
-extern u16 Img_08B196D8[];
+extern u8 Img_ChapterIntro_Sprites[];
+extern u8 Pal_ChapterIntro_Sprites[];
+extern u16 Img_ChapterIntro_Fog[];
+extern u16 Pal_ChapterIntro_Fog[];
+extern u16 Tsa_ChapterIntro_Fog[];
 
 void ProcBmFx_CommonEnd(struct ProcBmFx *proc);
 

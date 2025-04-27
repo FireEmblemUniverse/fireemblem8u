@@ -28,34 +28,34 @@ Img_08B17864:  @ 0x08B17864
 Pal_08B17B44:  @ 0x08B17B44
 	.incbin "baserom.gba", 0xB17B44, 0x20
 
-	.global Img_08B17B64
-Img_08B17B64:  @ 0x08B17B64
+	.global Img_ChapterIntro_LensFlare
+Img_ChapterIntro_LensFlare:  @ 0x08B17B64
 	.incbin "baserom.gba", 0xB17B64, 0x1204
 
 	.global Tsa_08B18D68
 Tsa_08B18D68:  @ 0x08B18D68
 	.incbin "baserom.gba", 0xB18D68, 0x16C
 
-	.global Pal_08B18ED4
-Pal_08B18ED4:  @ 0x08B18ED4
+	.global Pal_ChapterIntro_LensFlare
+Pal_ChapterIntro_LensFlare:  @ 0x08B18ED4
 	.incbin "baserom.gba", 0xB18ED4, 0x60
 
-	.global Img_08B18F34
-Img_08B18F34:  @ 0x08B18F34
+	.global Img_ChapterIntro_Fog
+Img_ChapterIntro_Fog:  @ 0x08B18F34
 	.incbin "baserom.gba", 0xB18F34, 0x7A4
 
-	.global Img_08B196D8
-Img_08B196D8:  @ 0x08B196D8
+	.global Tsa_ChapterIntro_Fog
+Tsa_ChapterIntro_Fog:  @ 0x08B196D8
 	.incbin "baserom.gba", 0xB196D8, 0x17C
 
-	.global Pal_08B19854
-Pal_08B19854:  @ 0x08B19854
+	.global Pal_ChapterIntro_Fog
+Pal_ChapterIntro_Fog:  @ 0x08B19854
 	.incbin "baserom.gba", 0xB19854, 0x20
 
-	.global Img_08B19874
-Img_08B19874:  @ 0x08B19874
+	.global Img_ChapterIntro_Sprites
+Img_ChapterIntro_Sprites:  @ 0x08B19874
 	.incbin "baserom.gba", 0xB19874, 0x578
 
-	.global Pal_08B19DEC
-Pal_08B19DEC:  @ 0x08B19DEC
+	.global Pal_ChapterIntro_Sprites
+Pal_ChapterIntro_Sprites:  @ 0x08B19DEC
 	.incbin "baserom.gba", 0xB19DEC, 0x20

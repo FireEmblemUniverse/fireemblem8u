@@ -1374,14 +1374,14 @@ extern u16 Pal_08B1756C[]; // pal, used in opsubtitle
 // extern ??? Img_08B177C0
 // extern ??? Img_08B17864
 // extern ??? Pal_08B17B44
-extern u8 Img_08B17B64[]; // gfx?
+extern u8 Img_ChapterIntro_LensFlare[]; // gfx?
 extern u8 Tsa_08B18D68[];
-extern u16 Pal_08B18ED4[]; // pal
-// extern ??? Img_08B18F34
-// extern ??? Img_08B196D8
-// extern ??? Pal_08B19854
-// extern ??? Img_08B19874
-// extern ??? Pal_08B19DEC
+extern u16 Pal_ChapterIntro_LensFlare[]; // pal
+// extern ??? Img_ChapterIntro_Fog
+// extern ??? Tsa_ChapterIntro_Fog
+// extern ??? Pal_ChapterIntro_Fog
+// extern ??? Img_ChapterIntro_Sprites
+// extern ??? Pal_ChapterIntro_Sprites
 // extern ??? gGuideTable
 // extern ??? _impure_ptr
 // extern ??? gUnknown_08B1FA24

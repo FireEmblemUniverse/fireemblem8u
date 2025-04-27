@@ -278,7 +278,7 @@ enum song_idx {
     SONG_312 = 0x312,
     SONG_313 = 0x313,
     SONG_314 = 0x314,
-    SONG_316 = 0x316,
+    SONG_SYS_CHAPTER_START = 0x316,
     SONG_317 = 0x317,
     SONG_320 = 0x320,
     SONG_321 = 0x321,
