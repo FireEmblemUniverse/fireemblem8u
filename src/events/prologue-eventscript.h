@@ -214,7 +214,7 @@ CONST_DATA EventListScr EventScr_Prologue_GiveRapier[] = {
 
     /* Give item via slot3 */
     SVAL(EVT_SLOT_3, ITEM_SWORD_RAPIER)
-    GIVEITEMTO(CHARACTER_EIRIKA)
+    GIVE_ITEM(CHARACTER_EIRIKA)
 
     SVAL(EVT_SLOT_2, EventScr_Prologue_9EF828)
     CALL(EventScr_CallOnTutorialMode)

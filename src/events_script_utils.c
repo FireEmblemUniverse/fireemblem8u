@@ -509,7 +509,7 @@ CONST_DATA EventListScr EventScr_GiveTreasureToLuckyDog[] = {
 LABEL(0x0)
     CALL(EventScr_RemoveBGIfNeeded)
 
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GIVE_ITEM(CHAR_EVT_ACTIVE_UNIT)
     SVAL(EVT_SLOT_C, true)
     GOTO(0x2)
 

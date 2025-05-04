@@ -154,9 +154,9 @@
 #define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
 #define CHECK_INAREA EvtCheckInArea
-#define GIVEITEMTO EvtGiveItemAtSlot3
-#define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
-#define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
+#define GIVE_ITEM EvtGiveItemAtSlot3
+#define GIVE_MONEY EvtGiveMoneyAtSlot3
+#define TAKE_MONEY EvtTakeMoneyAtSlot3
 #define SET_ACTIVE EvtSetActiveUnit
 #define CHAI EvtChangeAI
 #define CHAI_AT EvtChangeAIat
