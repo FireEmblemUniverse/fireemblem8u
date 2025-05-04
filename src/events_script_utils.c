@@ -493,7 +493,7 @@ LABEL(0x2)
     ENDA
 };
 
-/* I think used in dessert */
+/* I think used in desert */
 CONST_DATA EventListScr EventScr_GiveTreasureToLuckyDog[] = {
     CHECK_CLASS(CHAR_EVT_ACTIVE_UNIT)
 

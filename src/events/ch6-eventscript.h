@@ -146,7 +146,7 @@ CONST_DATA EventListScr EventScr_Ch6_EndingScene[] = {
     REMA
     MUSCMID(SONG_SILENT)
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x66)
+    SVAL(EVT_SLOT_3, ITEM_ORIONSBOLT)
     GIVEITEMTO(CHARACTER_EIRIKA)
 LABEL(0x0)
     REMA
@@ -170,7 +170,7 @@ CONST_DATA EventListScr EventScr_089F2A98[] = {
     Text_BG(BG_HOUSE, 0x9f3)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x6f)
+    SVAL(EVT_SLOT_3, ITEM_ANTITOXIN)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
     SVAL(EVT_SLOT_2, EventScr_089F2B54)
     CALL(EventScr_CallOnTutorialMode)

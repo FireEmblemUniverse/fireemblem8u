@@ -239,7 +239,7 @@ LABEL(0x0)
     MUNO
 LABEL(0x1)
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x76)
+    SVAL(EVT_SLOT_3, ITEM_REDGEM)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
     EVBIT_T(7)
     ENDA
@@ -250,7 +250,7 @@ CONST_DATA EventListScr EventScr_Ch2_Village2[] = {
     Text_BG(BG_NORMAL_VILLAGE, 0x96b)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x6d)
+    SVAL(EVT_SLOT_3, ITEM_ELIXIR)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
     EVBIT_T(7)
     ENDA
@@ -261,7 +261,7 @@ CONST_DATA EventListScr EventScr_Ch2_Village3[] = {
     Text_BG(BG_NORMAL_VILLAGE, 0x96c)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x6e)
+    SVAL(EVT_SLOT_3, ITEM_PUREWATER)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
     EVBIT_T(7)
     ENDA

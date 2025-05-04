@@ -224,7 +224,7 @@ CONST_DATA EventListScr EventScr_089F1BD8[] = {
     Text_BG(BG_NORMAL_VILLAGE, 0x9b5)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x1f)
+    SVAL(EVT_SLOT_3, ITEM_AXE_IRON)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
     EVBIT_T(7)
     ENDA
