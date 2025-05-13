@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 # dump move-cast, terrain-avo table, etc
