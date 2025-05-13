@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 import struct
 
 bin_file_path = "baserom.gba"

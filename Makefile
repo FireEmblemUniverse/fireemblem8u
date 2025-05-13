@@ -141,7 +141,7 @@ $(VENV_ACTIVATE):
 
 #### Recipes ####
 
-# Comprssed Texts Recipes
+# Compressed Texts Recipes
 
 # =========
 # = Texts =

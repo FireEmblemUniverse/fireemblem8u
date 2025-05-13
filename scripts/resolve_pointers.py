@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # Resolve raw pointers in ddump format to symbols, changing the input file inline
 
