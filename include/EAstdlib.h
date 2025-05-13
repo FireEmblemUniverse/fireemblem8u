@@ -298,7 +298,7 @@
 #include "EA_Standard_Library/Main_Code_Helpers.h"
 #include "EA_Standard_Library/Unit_Helpers.h"
 #include "EA_Standard_Library/Convo_Helpers.h"
-#include "EA_Standard_Library/Code_Ailases.h"
+#include "EA_Standard_Library/Code_Aliases.h"
 #include "EA_Standard_Library/End_Of_Chapter_Helpers.h"
 #include "EA_Standard_Library/Conditional_Helpers.h"
 #include "EA_Standard_Library/AI_Helpers.h"
