@@ -47,7 +47,7 @@ gPal_PressStart:  @ 0x08AADB68
 	.incbin "graphics/titlescreen/title_press_start.gbapal"
 	.incbin "graphics/titlescreen/title_copyright.gbapal"
 	.incbin "graphics/titlescreen/title_fire_emblem_logo.gbapal"
-	.incbin "graphics/titlescreen/title_scared_strones_banner.gbapal"
+	.incbin "graphics/titlescreen/title_sacred_stones_banner.gbapal"
 
 	.global gPal_08AADBE8
 gPal_08AADBE8:  @ 0x08AADBE8
