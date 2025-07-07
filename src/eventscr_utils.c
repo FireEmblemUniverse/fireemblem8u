@@ -14,8 +14,8 @@
 void CopyBgImage(u8 bg1, u8 bg2, u8 c)
 {
     CpuFastCopy(
-        (void *)(0x6000000 + GetBackgroundTileDataOffset(bg1)),
-        (void *)(0x6000000 + GetBackgroundTileDataOffset(bg2)), c * 0x800);
+        (void *)(VRAM + GetBackgroundTileDataOffset(bg1)),
+        (void *)(VRAM + GetBackgroundTileDataOffset(bg2)), c * 0x800);
 }
 
 //! FE8U = 0x0800B954

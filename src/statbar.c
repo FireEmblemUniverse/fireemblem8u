@@ -80,7 +80,7 @@ void DrawStatBar(
     for (i = 0; i < cappedLength; i++)
         DrawStatBarCappedCol(buf, 8 * bufWidth, i + progressLength + padding + 2);
 
-    ApplyBitmap(buf, (void*)(32 * tile + 0x6000000), bufWidth, 1);
+    ApplyBitmap(buf, (void*)(32 * tile + VRAM), bufWidth, 1);
 }
 
 // bufWidth: The width of the allocated buffer canvas

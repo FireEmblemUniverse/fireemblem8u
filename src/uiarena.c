@@ -116,7 +116,7 @@ void ArenaUi_Init(ProcPtr proc) {
     SetBlendTargetA(0, 0, 0, 1, 0);
     SetBlendTargetB(0, 0, 0, 0, 0);
 
-    Decompress(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gGfx_ArenaBuildingFront, (void*)(GetBackgroundTileDataOffset(3) + VRAM));
     CallARM_FillTileRect(gBG3TilemapBuffer, gTsa_ArenaBuildingFront, 0xc000);
     ApplyPalettes(gPal_ArenaBuildingFront, 0xC, 4);
 

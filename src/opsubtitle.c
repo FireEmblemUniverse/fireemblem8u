@@ -108,7 +108,7 @@ const struct OpSubtitleEnt gOpSubtitleGfxLut[] = {
 void sub_80C488C(int bg) {
     int offset = GetBackgroundTileDataOffset(bg);
 
-    Decompress(Img_CommGameBgScreen, (void*)(offset + 0x6000000));
+    Decompress(Img_CommGameBgScreen, (void*)(offset + VRAM));
 
     CpuFastFill(0, (void*)(offset + 0x06005000), 0x20);
 
@@ -185,7 +185,7 @@ void OpSubtitle_Init(struct OpSubtitleProc* proc) {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
 
-    Decompress(Img_ChapterIntro_LensFlare, (void*)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    Decompress(Img_ChapterIntro_LensFlare, (void*)(GetBackgroundTileDataOffset(2) + VRAM));
     ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -695,7 +695,7 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
 
 //! FE8U = 0x080C5328
 void sub_80C5328(void) {
-    CpuFastFill(0, (void*)0x6000000, 0x20);
+    CpuFastFill(0, (void*)VRAM, 0x20);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 

@@ -713,9 +713,9 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
         {
             if (buf->unk0E < 4)
             {
-                int vram = ((buf->chr_l + 0x40) * 0x20 + 0x6000000);
+                int vram = ((buf->chr_l + 0x40) * 0x20 + VRAM);
                 RegisterDataMove(vramA, (void *)(buf->unk1C + vram), 0x800);
-                vram = (buf->chr_r * 0x20 + 0x6000000);
+                vram = (buf->chr_r * 0x20 + VRAM);
                 RegisterDataMove(vramB, (void *)(buf->unk1C + vram), 0x800);
 
                 CpuFastCopy(palA, gPaletteBuffer + buf->pal_l * 0x10, 0x20);
