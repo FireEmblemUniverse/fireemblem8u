@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 from fe8db import JID_IDX, UNIT_AFFIN, WPN_EXP
 import symbols
