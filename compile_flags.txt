@@ -1,0 +1,7 @@
+-Wimplicit
+-WParentheses
+-Werror
+-I
+tools/agbcc/include
+-I
+include

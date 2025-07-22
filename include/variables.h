@@ -3,7 +3,7 @@
 
 #include "gba/types.h"
 #include "types.h"
-#include "global.h"
+#include "prelude.h"
 #include "proc.h"
 
 extern u8 __ewram_start[];
@@ -666,7 +666,7 @@ extern CONST_DATA u8 Unk_088ADFAB[];
 // extern ??? Events_WM_Beginning
 // extern ??? Events_WM_ChapterIntro
 // extern ??? gUnknown_088D2058
-extern struct CONST_DATA gfx_set gConvoBackgroundData[];
+extern struct gfx_set CONST_DATA gConvoBackgroundData[];
 extern u8 CONST_DATA gPromoJidLut[][2];
 extern u8 gAnimCharaPalConfig[0x100][7];
 extern u8 gAnimCharaPalIt[0x100][7];

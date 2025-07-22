@@ -1,6 +1,7 @@
 #ifndef GUARD_TYPES_H
 #define GUARD_TYPES_H
 
+#include "prelude.h"
 #include "gba/types.h"
 #include <limits.h>
 
