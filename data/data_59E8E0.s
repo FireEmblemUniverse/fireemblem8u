@@ -36,8 +36,8 @@ unit_icon_pal_after_action:
 gPal_MapSpriteArena:
 	.incbin "graphics/unit_icon/palette/unit_icon_pal_p4.agbpal"
 
-	.global gPal_NotMapSprite
-gPal_NotMapSprite:  @ 0x0859EEC0
+	.global gPal_LightRune
+gPal_LightRune:  @ 0x0859EEC0
 	.incbin "baserom.gba", 0x59EEC0, 0x20
 
 	.global gPal_MapSpriteSepia

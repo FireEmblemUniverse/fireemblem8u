@@ -410,7 +410,7 @@ extern u8 gImg_UiCursorHandBottom[];
 // extern ??? gUnknown_0859EE60
 // extern ??? gUnknown_0859EEA0
 extern u16 gPal_MapSprite[];
-extern u16 gPal_NotMapSprite[];
+extern u16 gPal_LightRune[];
 extern u16 gPal_MapSpriteArena[];
 extern u16 gPal_MapSpriteSepia[];
 extern u16 Pal_Text[];
