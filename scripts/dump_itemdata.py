@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
 from fe8db import ITEM_IDX, ITYPE_IDX, WPN_EXP, WPN_EFFECT
