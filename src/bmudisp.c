@@ -356,7 +356,7 @@ void ApplyUnitSpritePalettes(void)
     if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
         ApplyPalette(gPal_MapSpriteArena, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
     else
-        ApplyPalette(gPal_NotMapSprite, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
+        ApplyPalette(gPal_LightRune, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
 }
 
 void sub_8026670(void)
