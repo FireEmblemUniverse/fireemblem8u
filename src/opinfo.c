@@ -334,7 +334,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     *proc->letterProcsPtr = StartClassNameIntroLetter(proc, 0);
 
-    Decompress(gUnknown_08A360E8, (void *)0x6000000);
+    Decompress(gUnknown_08A360E8, (void *)VRAM);
 
     Decompress(gUnknown_08A36284, gGenericBuffer);
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0x7), gGenericBuffer, 0x4000);
@@ -1047,12 +1047,12 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
-    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + VRAM));
     ApplyPalettes(gUnknown_08A3593C, 7, 8);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, 0x7000);
 
-    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + 0x6000000));
+    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + VRAM));
     ApplyPalette(gUiFramePaletteA, 6);
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, 0x6000);

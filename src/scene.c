@@ -310,7 +310,7 @@ void ClearTalkFaceRefs(void) {
 void InitTalk(int chr, int lines, s8 unpackBubble) {
     int i;
 
-    InitTextFont(&sTalkFont, (void*)(0x6000000 + GetBackgroundTileDataOffset(0) + (0x3FF & chr) * 0x20), chr, 2);
+    InitTextFont(&sTalkFont, (void*)(VRAM + GetBackgroundTileDataOffset(0) + (0x3FF & chr) * 0x20), chr, 2);
     SetInitTalkTextFont();
 
     sTalkState->lines = lines;

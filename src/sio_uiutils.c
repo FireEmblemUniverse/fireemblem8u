@@ -90,7 +90,7 @@ void LATitleBanner_Init(struct LinkArenaTitleBannerProc * proc)
     int a = (proc->unk_58 % 3) * 0x140;
     int b = (proc->unk_58 / 3) * 0x800;
 
-    Decompress(gUnknown_085B0DE8, (void *)(0x6000000 + proc->chr));
+    Decompress(gUnknown_085B0DE8, (void *)(VRAM + proc->chr));
     Decompress(gUnknown_085AAE0C, gGenericBuffer);
 
     sub_804C3AC(gGenericBuffer + (a + b), (void *)(0x06014000), 10, 2);

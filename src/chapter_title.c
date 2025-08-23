@@ -49,7 +49,7 @@ void PutChapterTitleGfx(int chr, u32 titleId)
         titleId = 0x54;
 
     gChapterTitleFxSt.chr_str = chr & 0x3FF;
-    Decompress(chap_title_data[titleId].save, (void*)((chr * TILE_SIZE_4BPP) + 0x6000000));
+    Decompress(chap_title_data[titleId].save, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
 void _PutChapterTitleGfx(int chr, int titleId)
@@ -60,7 +60,7 @@ void _PutChapterTitleGfx(int chr, int titleId)
 void PutChapterTitleBG(int chr)
 {
     gChapterTitleFxSt.chr_bg = chr & 0x3FF;
-    Decompress(gGfx_08A09E4C, (void*)((chr * TILE_SIZE_4BPP) + 0x6000000));
+    Decompress(gGfx_08A09E4C, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
 extern u8 gUnknown_08A0A4E8[];
@@ -68,7 +68,7 @@ extern u8 gUnknown_08A0A4E8[];
 void sub_80896A8(int chr)
 {
     gChapterTitleFxSt.chr_bg = chr & 0x3FF;
-    Decompress(gUnknown_08A0A4E8, (void*)((chr * TILE_SIZE_4BPP) + 0x6000000));
+    Decompress(gUnknown_08A0A4E8, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
 void sub_80896D8(u16 * tm, int pal)

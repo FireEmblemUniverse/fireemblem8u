@@ -1470,7 +1470,7 @@ void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc)
 
     ApplyPalettes(Pal_SaveMenuBG, 8, 8);
 
-    Decompress(Img_SaveMenuBG, (void*)(GetBackgroundTileDataOffset(3) + 0x6000000));
+    Decompress(Img_SaveMenuBG, (void*)(GetBackgroundTileDataOffset(3) + VRAM));
     CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_SaveMenuBG, 0x8000);
     ApplyPalette(Pal_MainMenuBgFog, 7);
 

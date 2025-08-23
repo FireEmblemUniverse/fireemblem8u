@@ -200,7 +200,7 @@ void Title_SetupMainGraphics(struct TitleScreenProc * proc)
 
     switch (proc->timer) {
     case 0:
-        Decompress(gGfx_TitleMainBackground_1, (void*)0x6000000);
+        Decompress(gGfx_TitleMainBackground_1, (void*)VRAM);
 
         break;
 
