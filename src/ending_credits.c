@@ -257,14 +257,14 @@ void sub_80C4238(struct CreditsMainProc * proc)
         something = (proc->unk_35 + 1) & 1;
         if (ptr->entry != NULL)
         {
-            Decompress(ptr->entry->img, (void *)(0x6000000 + gUnknown_08206FDC[something]));
+            Decompress(ptr->entry->img, (void *)(VRAM + gUnknown_08206FDC[something]));
             Decompress(ptr->entry->tsa, gGenericBuffer);
             CallARM_FillTileRect(
                 gUnknown_0201C5D4, gGenericBuffer, (u16)((gUnknown_08206FDC[something] / CHR_SIZE) + 0x7000));
         }
         else
         {
-            CpuFastFill(-1, (void *)(0x6000000 + gUnknown_08206FDC[something]), 0x20);
+            CpuFastFill(-1, (void *)(VRAM + gUnknown_08206FDC[something]), 0x20);
             for (i = 0; i < 0x400; i++)
             {
                 gUnknown_0201C5D4[i] = (gUnknown_08206FDC[something] / CHR_SIZE) + 0x7000;
@@ -334,7 +334,7 @@ void EndingCredits_Init(struct CreditsMainProc * proc)
 
     ApplyPalette(Pal_StaffReelEnt_08A40FC8, 7);
 
-    CpuFastFill(-1, (void *)(0x6000000 + (chr = gUnknown_08206FDC[0])), 0x20);
+    CpuFastFill(-1, (void *)(VRAM + (chr = gUnknown_08206FDC[0])), 0x20);
 
     chr = chr >> 5;
 
@@ -456,7 +456,7 @@ void EndingCredits_ShowCopyright(struct CreditsMainProc * proc)
     u32 chr;
     const struct StaffReelEnt * ptr = (&gUnknown_08206E24[20])->entry;
 
-    Decompress(ptr->img, (void *)(0x6000000 + (chr = gUnknown_08206FDC[0])));
+    Decompress(ptr->img, (void *)(VRAM + (chr = gUnknown_08206FDC[0])));
     Decompress(ptr->tsa, gGenericBuffer);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, (u16)((chr >> 5) + 0x7000));
@@ -496,7 +496,7 @@ void EndingCredits_OnEnd(void)
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
-    CpuFastFill(0, (void *)0x6000000, VRAM_SIZE);
+    CpuFastFill(0, (void *)VRAM, VRAM_SIZE);
     SetDispEnable(0, 0, 0, 0, 0);
     SetBlendAlpha(0, 0);
 

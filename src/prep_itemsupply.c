@@ -64,7 +64,7 @@ void sub_809D278(int idx, ProcPtr proc)
 //! FE8U = 0x0809D2C4
 void StoreConvoyWeaponIconGraphics(int vramOffset, int pal) {
     ApplyPalette(gUnknown_08A1A3FC, pal);
-    Decompress(gUnknown_08A1A0A4, (void*)(0x6000000 + vramOffset));
+    Decompress(gUnknown_08A1A0A4, (void*)(VRAM + vramOffset));
     Decompress(gUnknown_08A1A23C, (void*)(0x6000200 + vramOffset));
     return;
 }

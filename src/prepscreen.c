@@ -146,7 +146,7 @@ void sub_80950E8(int vram, int palId)
         Pal_08A1D8B0,
     };
 
-    Decompress(Img_PrepWindow, (void *)(vram + 0x6000000));
+    Decompress(Img_PrepWindow, (void *)(vram + VRAM));
     ApplyPalette(palettes[gPlaySt.config.windowColor], palId);
 
     return;

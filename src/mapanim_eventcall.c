@@ -1199,7 +1199,7 @@ const u8 gUnknown_082058DC[] =
 //! FE8U = 0x08080498
 void sub_8080498(int frame, int unk44)
 {
-    Decompress(gUnknown_089A44A4[frame].img, (void *)(0x6000000 + gUnknown_082058D4[unk44] * 0x20));
+    Decompress(gUnknown_089A44A4[frame].img, (void *)(VRAM + gUnknown_082058D4[unk44] * 0x20));
     Decompress(gUnknown_089A44A4[frame].tsa, gGenericBuffer);
     AddAttr2dBitMap(
         gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gUnknown_082058D4[unk44] | gUnknown_082058DC[unk44] << 12);
@@ -1215,7 +1215,7 @@ void sub_8080498(int frame, int unk44)
 //! FE8U = 0x08080530
 void sub_8080530(int frame, int unk44)
 {
-    Decompress(gUnknown_089A44A4[frame].img, (void *)(0x6000000 + gUnknown_082058D4[unk44] * 0x20));
+    Decompress(gUnknown_089A44A4[frame].img, (void *)(VRAM + gUnknown_082058D4[unk44] * 0x20));
     Decompress(gUnknown_089A44A4[frame].tsa, gGenericBuffer);
     AddAttr2dBitMap(
         gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gUnknown_082058D4[unk44] | gUnknown_082058DC[unk44] << 12);

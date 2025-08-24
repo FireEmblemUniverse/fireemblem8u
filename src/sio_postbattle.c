@@ -247,7 +247,7 @@ void SioPostBattle_Init(struct SioPostBattleProc * proc)
     Decompress(Img_LinkArenaActiveBannerFx, (void *)(0x06000F00));
     ApplyPalette(Pal_LinkArenaActiveBannerFx, 2);
 
-    Decompress(Img_LinkArenaPostBattleBg, (void *)(0x6000000 + GetBackgroundTileDataOffset(3)));
+    Decompress(Img_LinkArenaPostBattleBg, (void *)(VRAM + GetBackgroundTileDataOffset(3)));
     ApplyPalettes(Pal_LinkArenaPostBattleBg, 10, 4);
     Decompress(Tsa_LinkArenaPostBattleBg, gGenericBuffer);
     CallARM_FillTileRect(gBG3TilemapBuffer, gGenericBuffer, 0xa000);
