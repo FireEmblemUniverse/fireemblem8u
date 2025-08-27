@@ -34,6 +34,7 @@ MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
+FETSA2TOOL  := scripts/gfxtools/tsa2.py
 MARTOMAP   := scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
@@ -115,7 +116,7 @@ clean:
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
-	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg1.bin' -o -iname '*.fetsa1.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
+	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg1.bin'  -o -iname '*.feimg2.bin'  -o -iname '*.fetsa1.bin' -o -iname '*.fetsa2.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 
 .PHONY: clean
 
@@ -178,6 +179,9 @@ sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 %.feimg1.bin %.fetsa1.bin: %.png
 	$(FETSATOOL) $< $*.feimg1.bin $*.fetsa1.bin
 
+%.feimg2.bin %.fetsa2.bin: %.png
+	$(FETSA2TOOL) $< $*.feimg2.bin $*.fetsa2.bin
+	
 # Battle Animation Recipes
 
 $(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_banim.txt -m)
