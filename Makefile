@@ -34,7 +34,6 @@ MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
-FETSA2TOOL  := scripts/gfxtools/tsa2.py
 MARTOMAP   := scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
@@ -180,7 +179,7 @@ sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 	$(FETSATOOL) $< $*.feimg1.bin $*.fetsa1.bin
 
 %.feimg2.bin %.fetsa2.bin: %.png
-	$(FETSA2TOOL) $< $*.feimg2.bin $*.fetsa2.bin
+	$(FETSATOOL) $< $*.feimg2.bin $*.fetsa2.bin
 	
 # Battle Animation Recipes
 

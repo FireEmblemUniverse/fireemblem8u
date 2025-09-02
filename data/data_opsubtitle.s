@@ -26,7 +26,7 @@ gGfx_OpSubtitle_04:
 
 	.global gGfx_OpSubtitle_05
 gGfx_OpSubtitle_05:  @ 0x08AA5344
-	.incbin "graphics/op_subtitle/OpSubtitle_05.4bpp.lz"
+	.incbin "graphics/op_subtitle/OpSubtitle_05.feimg2.bin.lz"
 
 	.global gGfx_OpSubtitle_06
 gGfx_OpSubtitle_06:  
@@ -54,7 +54,7 @@ gTsa_OpSubtitle_04:
 
 	.global gTsa_OpSubtitle_05
 gTsa_OpSubtitle_05:  
-	.incbin "graphics/op_subtitle/OpSubtitle_05.bin.lz"
+	.incbin "graphics/op_subtitle/OpSubtitle_05.fetsa2.bin.lz"
 
 	.global gTsa_OpSubtitle_06
 gTsa_OpSubtitle_06:
