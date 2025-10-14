@@ -35,7 +35,7 @@ class Tile():
         self.y_flip = y_flip
         self.pal_id = pal_id
     def from_bytes(bytes):
-        bytes  = pretty_binary(int.from_bytes(bytes), 16)       
+        bytes  = pretty_binary(int.from_bytes(bytes, "big"), 16)       
         #tttttttt pppp x y tt
         tileId = int(bytes[14:16]+bytes[:8], 2) 
         xFlip = bool(int(bytes[12], 2))
@@ -67,7 +67,8 @@ class Tile():
 
 class CheckTile():
     def __init__(self, tile):
-        self.original = tile.reshape((8, 8))
+        self.pal_id = tile[0]//16
+        self.original = (tile-self.pal_id*16).reshape((8, 8))
         self.x = np.flip(self.original, axis=0)
         self.y = np.flip(self.original, axis=1)
         self.xy = np.flip(self.original)
@@ -80,9 +81,9 @@ class CheckTile():
 def pretty_binary(num, places = 0):
     return bin(num)[2:].rjust(places, "0")  
 
-def create_TSA_2(tiles, ntile_x, ntile_y) -> TSA:
+def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
     unique_tiles = [CheckTile(tiles[0])]
-    tsa = [Tile(0)]
+    tsa = [Tile(0, pal_id=unique_tiles[0].pal_id)]
     for t in tiles[1:]: 
         t = CheckTile(t)
         found = False
@@ -91,14 +92,14 @@ def create_TSA_2(tiles, ntile_x, ntile_y) -> TSA:
             u = unique_tiles[i]
             orientation = u.get_orientation(t.original)
             if orientation != None:
-                tsa_tile = Tile(i, pal_id=u.original[0,0]//16)
+                tsa_tile = Tile(i, pal_id=t.pal_id)
                 tsa_tile.set_orientation(orientation)
                 tsa.append(tsa_tile)
                 found = True
                 break
         if not found:
             unique_tiles.append(t)
-            tsa_tile = Tile(len(unique_tiles)-1, pal_id=t.original[0,0]//16)
+            tsa_tile = Tile(len(unique_tiles)-1, pal_id=t.pal_id)
             tsa.append(tsa_tile)       
     out = []
     tsa.reverse()
@@ -108,37 +109,26 @@ def create_TSA_2(tiles, ntile_x, ntile_y) -> TSA:
         out += chunk
     return TSA(ntile_x,ntile_y,out ), unique_tiles
 def get_tiles(image: Image):
-    img_width, img_height = im.size
+    img_width, img_height = image.size
     ntile_x = img_width //8
     ntile_y = img_height //8
-    return extract_tiles(im, ntile_x, ntile_y).flatten()
+    return extract_tiles(image, ntile_x, ntile_y).flatten()
 def read_file(path):
     with open(path, "rb") as f: 
         tsa = TSA.from_bytes(f.read())
-        print("Width: " +str(tsa.width ))
-        print("Height: " +str(tsa.height ))
+        out = ""
         for t in tsa.tiles:
-            print(t)
-if __name__ == '__main__':
-    from tsa_generator import convert_to_4bpp, extract_tiles
-    args = sys.argv
-    try:
-        png_file = args[1]
-        out_img  = args[2]
-        out_tsa  = args[3]
-    except IndexError:
-        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg1.bin] [*.fetsa2.bin]")
+            out += repr(t)+"\n"
+        return out
+def main(png_file, out_img, out_tsa ):
     im = Image.open(png_file)
-    if im.mode != 'P':
-        im = im.convert("P",palette=Image.ADAPTIVE)  
-        #raise ValueError("IMAGE ERROR (P mode)")
+    if im.mode != 'P': 
+        raise ValueError("IMAGE ERROR (P mode)")
     tiles = get_tiles(im)
     img_width, img_height = im.size
     ntile_x = img_width //8
     ntile_y = img_height //8
-    tsa, outTiles = create_TSA_2(tiles, ntile_x, ntile_y)
-    for t in tsa.tiles:
-        print(t)
+    tsa, outTiles = create_TSA(tiles, ntile_x, ntile_y)
     tsa_bytes = tsa.to_bytes()    
     with open(out_tsa, "wb") as f:
         f.write(tsa_bytes)
@@ -147,9 +137,16 @@ if __name__ == '__main__':
         img_bytes.extend(convert_to_4bpp(t.original.flatten()))
     with open(out_img, "wb") as f:
         f.write(img_bytes)
-    #if self.palId >= 16:
-    #    raise ValueError("Too many colors!")
-    #if self.tileId >= 0x400:
-    #    raise ValueError("Too many unique tiles!")
 
+if __name__ == '__main__':
+    from tsa_generator import convert_to_4bpp, extract_tiles
+    args = sys.argv
+    try:
+        png_file = args[1]
+        out_img  = args[2]
+        out_tsa  = args[3]
+
+    except IndexError:
+        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg2.bin] [*.fetsa2.bin]")
+    main(png_file, out_img, out_tsa )
                 

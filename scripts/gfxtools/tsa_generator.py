@@ -3,7 +3,7 @@
 import sys, re, os
 import numpy as np
 from PIL import Image
-from tsa2 import create_TSA_2
+from tsa2 import create_TSA
 
 '''
 方案1:
@@ -93,7 +93,7 @@ def extract_tiles(image, ntile_x, ntile_y):
             y = tile_y * 8
 
             tile = image.crop((x, y, x + 8, y + 8))
-            tile_data = np.array(tile).flatten()
+            tile_data = np.asarray(tile).flatten()
 
             tiles[tile_y,tile_x] = tile_data
 
@@ -138,7 +138,7 @@ def main(args):
     if method == 1:
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
     elif method == 2:
-        tsa_data, unique_tiles = create_TSA_2(np.array(tiles).flatten(),ntile_x, ntile_y )
+        tsa_data, unique_tiles = create_TSA(np.array(tiles).flatten(),ntile_x, ntile_y )
         for i in range(len(unique_tiles)):
             unique_tiles[i] = convert_to_4bpp(unique_tiles[i].original.flatten())
 
