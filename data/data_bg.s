@@ -18,12 +18,12 @@ bg_House_palette:
 	.align 2, 0
 	.global bg_Caer_Pelyn_tiles
 bg_Caer_Pelyn_tiles:
-	.incbin "graphics/bg/bg_Caer_Pelyn.4bpp.lz"
+	.incbin "graphics/bg/bg_Caer_Pelyn.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Caer_Pelyn_map
 bg_Caer_Pelyn_map:
-	.incbin "graphics/bg/bg_Caer_Pelyn.bin"
+	.incbin "graphics/bg/bg_Caer_Pelyn.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Caer_Pelyn_palette
@@ -153,12 +153,12 @@ bg_Castle_Night_palette:
 	.align 2, 0
 	.global bg_Grado_Chamber_tiles
 bg_Grado_Chamber_tiles:
-	.incbin "graphics/bg/bg_Grado_Chamber.4bpp.lz"
+	.incbin "graphics/bg/bg_Grado_Chamber.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Grado_Chamber_map
 bg_Grado_Chamber_map:
-	.incbin "graphics/bg/bg_Grado_Chamber.bin"
+	.incbin "graphics/bg/bg_Grado_Chamber.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Grado_Chamber_palette
@@ -508,12 +508,12 @@ bg_Passage_palette:
 	.align 2, 0
 	.global bg_Burning_Castle_tiles
 bg_Burning_Castle_tiles:
-	.incbin "graphics/bg/bg_Burning_Castle.4bpp.lz"
+	.incbin "graphics/bg/bg_Burning_Castle.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Burning_Castle_map
 bg_Burning_Castle_map:
-	.incbin "graphics/bg/bg_Burning_Castle.bin"
+	.incbin "graphics/bg/bg_Burning_Castle.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Burning_Castle_palette
@@ -588,12 +588,12 @@ bg_Desert_palette:
 	.align 2, 0
 	.global bg_Darkling_Woods_tiles
 bg_Darkling_Woods_tiles:
-	.incbin "graphics/bg/bg_Darkling_Woods.4bpp.lz"
+	.incbin "graphics/bg/bg_Darkling_Woods.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Darkling_Woods_map
 bg_Darkling_Woods_map:
-	.incbin "graphics/bg/bg_Darkling_Woods.bin"
+	.incbin "graphics/bg/bg_Darkling_Woods.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Darkling_Woods_palette
@@ -618,12 +618,12 @@ bg_Volcano_palette:
 	.align 2, 0
 	.global bg_Black_Temple_Outside_tiles
 bg_Black_Temple_Outside_tiles:
-	.incbin "graphics/bg/bg_Black_Temple_Outside.4bpp.lz"
+	.incbin "graphics/bg/bg_Black_Temple_Outside.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Black_Temple_Outside_map
 bg_Black_Temple_Outside_map:
-	.incbin "graphics/bg/bg_Black_Temple_Outside.bin"
+	.incbin "graphics/bg/bg_Black_Temple_Outside.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Black_Temple_Outside_palette
@@ -633,12 +633,12 @@ bg_Black_Temple_Outside_palette:
 	.align 2, 0
 	.global bg_Black_Temple_Inside_tiles
 bg_Black_Temple_Inside_tiles:
-	.incbin "graphics/bg/bg_Black_Temple_Inside.4bpp.lz"
+	.incbin "graphics/bg/bg_Black_Temple_Inside.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Black_Temple_Inside_map
 bg_Black_Temple_Inside_map:
-	.incbin "graphics/bg/bg_Black_Temple_Inside.bin"
+	.incbin "graphics/bg/bg_Black_Temple_Inside.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Black_Temple_Inside_palette

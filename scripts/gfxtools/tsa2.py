@@ -27,6 +27,14 @@ class TSA():
         for t in self.tiles:
             out.extend(t.to_bytes())
         return out
+    def order_chunks(self):
+        out = []
+        tiles = list(reversed(self.tiles))
+        for i in range(0, len(tiles), self.width):
+            chunk = tiles[i:i+self.width]
+            chunk.reverse()
+            out += chunk
+        return out
         
 class Tile():
     def __init__(self, tile_id, x_flip = False, y_flip = False, pal_id = 0):
@@ -37,11 +45,11 @@ class Tile():
     def from_bytes(bytes):
         bytes  = pretty_binary(int.from_bytes(bytes, "big"), 16)       
         #tttttttt pppp x y tt
-        tileId = int(bytes[14:16]+bytes[:8], 2) 
-        xFlip = bool(int(bytes[12], 2))
-        yFlip = bool(int(bytes[13], 2))
-        palId = int(bytes[8:12], 2)
-        return Tile(tileId, xFlip, yFlip ,palId)
+        tile_id = int(bytes[14:16]+bytes[:8], 2) 
+        x_flip = bool(int(bytes[12], 2))
+        y_flip = bool(int(bytes[13], 2))
+        pal_id = int(bytes[8:12], 2)
+        return Tile(tile_id, x_flip, y_flip ,pal_id)
     def to_bytes(self) -> bytearray:
         
         byte_1 = pretty_binary(self.tile_id, 10)
@@ -64,6 +72,9 @@ class Tile():
         return "Id: {0} x: {1} y: {2} pal: {3}".format(self.tile_id, self.x_flip, self.y_flip, self.pal_id)
     def __str__(self):
         return self.__repr__()
+    def __eq__(self, value):
+        if not isinstance(value, Tile): return False
+        return self.tile_id == value.tile_id and self.x_flip == value.x_flip and self.y_flip == value.y_flip# and self.pal_id == value.pal_id
 
 class CheckTile():
     def __init__(self, tile):
@@ -101,25 +112,20 @@ def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
             unique_tiles.append(t)
             tsa_tile = Tile(len(unique_tiles)-1, pal_id=t.pal_id)
             tsa.append(tsa_tile)       
-    out = []
-    tsa.reverse()
-    for i in range(0, len(tsa), ntile_x):
-        chunk = tsa[i:i+ntile_x]
-        chunk.reverse()
-        out += chunk
-    return TSA(ntile_x,ntile_y,out ), unique_tiles
+    outTsa = TSA(ntile_x,ntile_y,tsa )
+    outTsa.tiles = outTsa.order_chunks()
+    return outTsa, unique_tiles
 def get_tiles(image: Image):
     img_width, img_height = image.size
     ntile_x = img_width //8
     ntile_y = img_height //8
     return extract_tiles(image, ntile_x, ntile_y).flatten()
-def read_file(path):
+def read_file(path, in_tile_order=False) -> TSA:
     with open(path, "rb") as f: 
         tsa = TSA.from_bytes(f.read())
-        out = ""
-        for t in tsa.tiles:
-            out += repr(t)+"\n"
-        return out
+    if in_tile_order:
+        tsa.tiles = tsa.order_chunks()
+    return tsa
 def main(png_file, out_img, out_tsa ):
     im = Image.open(png_file)
     if im.mode != 'P': 

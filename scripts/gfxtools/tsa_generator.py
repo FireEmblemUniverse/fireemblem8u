@@ -3,7 +3,7 @@
 import sys, re, os
 import numpy as np
 from PIL import Image
-from tsa2 import create_TSA
+from tsa2 import create_TSA, TSA
 
 '''
 方案1:
@@ -125,8 +125,8 @@ def main(args):
         method = 0 # default
 
     image = Image.open(png_file)
-    if image.mode != 'P':
-        raise ValueError("IMAGE ERRIR (P mode)")
+    if image.mode != 'P':    
+        raise ValueError("IMAGE ERROR (P mode)")
 
     width, height = image.size
 
@@ -138,7 +138,37 @@ def main(args):
     if method == 1:
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
     elif method == 2:
+        # todo
+        # 1. Allow different starting index (different from starting at an arbitrary index and then going to 0) see bg_Stream starts at 1
+        # 2. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
+        # 3. Combine each image exception into one metadata(?) type file, instead of having .ind & .pad 
         tsa_data, unique_tiles = create_TSA(np.array(tiles).flatten(),ntile_x, ntile_y )
+        #if arbitrary index shift all the indexes by one
+        starting_index_path = png_file.replace(".png", ".ind")
+        starting_index =None
+        if os.path.exists(starting_index_path):
+            with open(starting_index_path, "r") as f:
+                starting_index = int(f.read())
+        if starting_index != None:
+            tiles = tsa_data.order_chunks()
+            hits = 0
+            for i in range(len(tiles)):
+                tile = tiles[i].tile_id
+                
+                if tile == 0:
+                    tiles[i].tile_id = starting_index
+                    continue
+                else:
+                    new_id = tile-1
+                    new_id += hits
+                if new_id == starting_index:
+                    new_id += 1
+                    hits += 1
+                tiles[i].tile_id = new_id
+
+            tsa_data.tiles = tiles
+            tsa_data.tiles = tsa_data.order_chunks()
+            unique_tiles.insert(starting_index, unique_tiles.pop(0))
         for i in range(len(unique_tiles)):
             unique_tiles[i] = convert_to_4bpp(unique_tiles[i].original.flatten())
 
