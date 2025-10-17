@@ -1,5 +1,5 @@
 #!/bin/python3
-import sys, enum
+import sys, enum, os, json
 from PIL import Image
 
 import numpy as np
@@ -76,6 +76,7 @@ class Tile():
         if not isinstance(value, Tile): return False
         return self.tile_id == value.tile_id and self.x_flip == value.x_flip and self.y_flip == value.y_flip# and self.pal_id == value.pal_id
 
+
 class CheckTile():
     def __init__(self, tile):
         self.pal_id = tile[0]//16
@@ -115,6 +116,56 @@ def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
     outTsa = TSA(ntile_x,ntile_y,tsa )
     outTsa.tiles = outTsa.order_chunks()
     return outTsa, unique_tiles
+PADDING = "padding"
+STARTING_INDEX = "starting_index"
+def handle_image_json(image_path :str, unique_tiles : list[CheckTile], tsa:TSA):
+    json_path = image_path.replace(".png", ".json")
+    if not os.path.exists(json_path): return
+    with open(json_path, "r") as f:
+        image_json = json.load(f)
+    if PADDING in image_json:
+        handle_padding(int(image_json[PADDING]),unique_tiles, tsa)
+    elif STARTING_INDEX in image_json:
+        handle_starting_index(int(image_json[STARTING_INDEX]), unique_tiles, tsa)
+def handle_padding(padding: int, unique_tiles : list[CheckTile], tsa : TSA):
+    if padding == 0: return
+    #padding at start
+    if padding < 0:
+        padding = abs(padding)
+        for i in range(padding):
+            unique_tiles.insert(0, CheckTile(np.zeros((8,8), dtype=int)))
+        for i in range(len(tsa.tiles)):
+            tsa.tiles[i].tile_id += padding
+        return
+    #padding at end
+    for i in range(padding):
+        unique_tiles.append(CheckTile(np.zeros((8,8), dtype=int)))
+    
+def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA):
+    if index == 0: return
+    #move tile at index to the start
+    unique_tiles.insert(index, unique_tiles.pop(0))
+    #shift tiles forward
+    tiles = tsa.order_chunks()
+    hit_index = False
+    for i in range(len(tiles)):
+        tile = tiles[i].tile_id
+        if tile == 0:
+            tiles[i].tile_id = index
+            continue
+        else:
+            #shift tile forward
+            new_id = tile - 1 + hit_index
+        # if current tile is the starting tile everything after is shifted by another 1
+        if new_id == index:
+            new_id += 1
+            hit_index = True
+        tiles[i].tile_id = new_id
+    tsa.tiles = tiles
+    tsa.tiles = tsa.order_chunks()
+def handle_index_sequence(sequence : list[int], unique_tiles : list[CheckTile], tsa : TSA):
+   pass
+
 def get_tiles(image: Image):
     img_width, img_height = image.size
     ntile_x = img_width //8
@@ -134,12 +185,13 @@ def main(png_file, out_img, out_tsa ):
     img_width, img_height = im.size
     ntile_x = img_width //8
     ntile_y = img_height //8
-    tsa, outTiles = create_TSA(tiles, ntile_x, ntile_y)
+    tsa, out_tiles = create_TSA(tiles, ntile_x, ntile_y)
+    handle_image_json(png_file, out_tiles, tsa)
     tsa_bytes = tsa.to_bytes()    
     with open(out_tsa, "wb") as f:
         f.write(tsa_bytes)
     img_bytes = bytearray()
-    for t in outTiles:
+    for t in out_tiles:
         img_bytes.extend(convert_to_4bpp(t.original.flatten()))
     with open(out_img, "wb") as f:
         f.write(img_bytes)
