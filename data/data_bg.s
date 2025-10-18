@@ -543,12 +543,12 @@ bg_Stone_Flashback_palette:
 	.align 2, 0
 	.global bg_Renais_Chamber_tiles
 bg_Renais_Chamber_tiles:
-	.incbin "graphics/bg/bg_Renais_Chamber.4bpp.lz"
+	.incbin "graphics/bg/bg_Renais_Chamber.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Renais_Chamber_map
 bg_Renais_Chamber_map:
-	.incbin "graphics/bg/bg_Renais_Chamber.bin"
+	.incbin "graphics/bg/bg_Renais_Chamber.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Renais_Chamber_palette
