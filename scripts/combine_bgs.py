@@ -10,3 +10,7 @@ def convertBGS():
 
         basePath = os.path.join(paths[0][0], p).replace(".4bpp", "")    
         tool.save_image(basePath+".4bpp", basePath + ".png", 32, basePath + ".gbapal", basePath + ".bin")
+        nomap = basePath +".png.nomap.png"
+        if os.path.exists(nomap):
+            os.remove(nomap)
+convertBGS()

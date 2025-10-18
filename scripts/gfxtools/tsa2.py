@@ -95,7 +95,9 @@ def pretty_binary(num, places = 0):
 
 def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
     unique_tiles = [CheckTile(tiles[0])]
-    tsa = [Tile(0, pal_id=unique_tiles[0].pal_id)]
+    tsa = [None]*ntile_x*ntile_y
+    tsa[0] = Tile(0, pal_id=unique_tiles[0].pal_id)
+    index = 1
     for t in tiles[1:]: 
         t = CheckTile(t)
         found = False
@@ -106,13 +108,15 @@ def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
             if orientation != None:
                 tsa_tile = Tile(i, pal_id=t.pal_id)
                 tsa_tile.set_orientation(orientation)
-                tsa.append(tsa_tile)
+                tsa[index] = tsa_tile
+                index+= 1
                 found = True
                 break
         if not found:
             unique_tiles.append(t)
             tsa_tile = Tile(len(unique_tiles)-1, pal_id=t.pal_id)
-            tsa.append(tsa_tile)       
+            tsa[index] = tsa_tile
+            index += 1
     outTsa = TSA(ntile_x,ntile_y,tsa )
     outTsa.tiles = outTsa.order_chunks()
     return outTsa, unique_tiles
@@ -123,10 +127,11 @@ def handle_image_json(image_path :str, unique_tiles : list[CheckTile], tsa:TSA):
     if not os.path.exists(json_path): return
     with open(json_path, "r") as f:
         image_json = json.load(f)
+    if STARTING_INDEX in image_json:
+        handle_starting_index(int(image_json[STARTING_INDEX]), unique_tiles, tsa)
     if PADDING in image_json:
         handle_padding(int(image_json[PADDING]),unique_tiles, tsa)
-    elif STARTING_INDEX in image_json:
-        handle_starting_index(int(image_json[STARTING_INDEX]), unique_tiles, tsa)
+
 def handle_padding(padding: int, unique_tiles : list[CheckTile], tsa : TSA):
     if padding == 0: return
     #padding at start
@@ -164,7 +169,8 @@ def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA
     tsa.tiles = tiles
     tsa.tiles = tsa.order_chunks()
 def handle_index_sequence(sequence : list[int], unique_tiles : list[CheckTile], tsa : TSA):
-   pass
+   #TODO
+   raise NotImplementedError()
 
 def get_tiles(image: Image):
     img_width, img_height = image.size

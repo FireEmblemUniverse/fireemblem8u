@@ -138,9 +138,8 @@ def main(args):
     if method == 1:
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
     elif method == 2:
-        # todo
-        # 1. Add padding from the start support
-        # 2. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
+        # TODO
+        # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
         tsa_data, unique_tiles = create_TSA(np.array(tiles).flatten(),ntile_x, ntile_y )
         handle_image_json(png_file, unique_tiles, tsa_data)
         for i in range(len(unique_tiles)):

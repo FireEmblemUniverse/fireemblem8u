@@ -368,12 +368,12 @@ bg_Plain_2_Night_palette:
 	.align 2, 0
 	.global bg_Stream_tiles
 bg_Stream_tiles:
-	.incbin "graphics/bg/bg_Stream.4bpp.lz"
+	.incbin "graphics/bg/bg_Stream.feimg2.bin.lz"
 
 	.align 2, 0
 	.global bg_Stream_map
 bg_Stream_map:
-	.incbin "graphics/bg/bg_Stream.bin"
+	.incbin "graphics/bg/bg_Stream.fetsa2.bin"
 
 	.align 2, 0
 	.global bg_Stream_palette
