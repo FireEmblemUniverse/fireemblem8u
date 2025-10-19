@@ -172,7 +172,7 @@ def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palba
         raise FileExtNameError(infile, '*.1bpp, *.4bpp, *.8bpp')
     if outfile is not None:
         ext = os.path.splitext(outfile)[1]
-        if exit != '.png':
+        if ext != '.png':
             raise FileExtNameError(outfile, '*.png')
     else:
         outfile = base + '.png'
@@ -215,9 +215,9 @@ def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palba
                     x = tile % (im_nomap.width / 8)
                     im_tile = im_nomap.crop((8 * x, 8 * y, 8 * x + 8, 8 * y + 8))
                     if flipH:
-                        im_tile = im_tile.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+                        im_tile = im_tile.transpose(Image.FLIP_LEFT_RIGHT)
                     if flipV:
-                        im_tile = im_tile.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
+                        im_tile = im_tile.transpose(Image.FLIP_TOP_BOTTOM)
                     im_withmap.paste(im_tile, (8 * col, 8 * row))
                     if pal > 0:
                         for r in range(0, 8):

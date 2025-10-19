@@ -1,8 +1,9 @@
 #!/bin/python3
 
-import sys, re
+import sys, re, os
 import numpy as np
 from PIL import Image
+from tsa2 import create_TSA, TSA, handle_image_json
 
 '''
 方案1:
@@ -77,7 +78,6 @@ def process_tiles_method1(tiles, ntile_x, ntile_y):
     unique_tiles.append(first_tile_4bpp)
 
     return unique_tiles, tsa_data
-
 '''
 方案2: (todo)
 1. 以 8 个 tile 为一行，将图片分割为多个列
@@ -85,7 +85,7 @@ def process_tiles_method1(tiles, ntile_x, ntile_y):
 '''
 
 def extract_tiles(image, ntile_x, ntile_y):
-    tiles = [[None for _ in range(ntile_x)] for _ in range(ntile_y)]
+    tiles = np.empty((ntile_y, ntile_x), dtype=object)
 
     for tile_y in range(0, ntile_y):
         for tile_x in range(0, ntile_x):
@@ -93,9 +93,9 @@ def extract_tiles(image, ntile_x, ntile_y):
             y = tile_y * 8
 
             tile = image.crop((x, y, x + 8, y + 8))
-            tile_data = np.array(tile).flatten()
+            tile_data = np.asarray(tile).flatten()
 
-            tiles[tile_y][tile_x] = tile_data
+            tiles[tile_y,tile_x] = tile_data
 
     return tiles
 
@@ -107,9 +107,9 @@ def convert_to_4bpp(tile):
     return result
 
 def extract_suffix_from_filename(file_name):
-    match = re.search(r'\.(fetsa(\d+)\.bin)$', file_name)
+    match = re.search(r'\.(feimg(\d+)\.bin)$', file_name)
     if match:
-        return match.group(2)
+        return int(match.group(2))
     return None
 
 def main(args):
@@ -118,15 +118,15 @@ def main(args):
         out_img  = args[2]
         out_tsa  = args[3]
     except IndexError:
-        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg1.bin] [*.fetsa<x>.bin]")
+        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg<x>.bin] [*.fetsa.bin]")
 
-    method = extract_suffix_from_filename(out_tsa)
+    method = extract_suffix_from_filename(out_img)
     if method is None:
         method = 0 # default
 
     image = Image.open(png_file)
-    if image.mode != 'P':
-        raise ValueError("IMAGE ERRIR (P mode)")
+    if image.mode != 'P':    
+        raise ValueError("IMAGE ERROR (P mode)")
 
     width, height = image.size
 
@@ -137,6 +137,14 @@ def main(args):
 
     if method == 1:
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
+    elif method == 2:
+        # TODO
+        # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
+        tsa_data, unique_tiles = create_TSA(np.array(tiles).flatten(),ntile_x, ntile_y )
+        handle_image_json(png_file, unique_tiles, tsa_data)
+        for i in range(len(unique_tiles)):
+            unique_tiles[i] = convert_to_4bpp(unique_tiles[i].original.flatten())
+
     else:
         # todo
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
@@ -146,16 +154,21 @@ def main(args):
         for tile in unique_tiles:
             cnt += 1
             f.write(bytearray(tile))
-
-        if cnt > 0x100:
-            raise ValueError("Compressed image overflowed!")
-
-        for i in range(cnt, 0x100):
-             f.write(b'\x00' * 32)
+        if method == 1:
+            if cnt > 0x100:
+                raise ValueError("Compressed image overflowed!")
+        
+            for i in range(cnt, 0x100):
+                f.write(b'\x00' * 32)
+        elif method == 2:
+            if len(unique_tiles) >= 0x400:
+                raise ValueError("Too many unique tiles!")
 
     with open(out_tsa, 'wb') as f:
-        for entry in tsa_data:
-            f.write(entry.to_bytes(2, byteorder='little'))
-
+        if method == 2:
+            f.write(tsa_data.to_bytes())            
+        else:        
+            for entry in tsa_data:
+                f.write(entry.to_bytes(2, byteorder='little'))
 if __name__ == '__main__':
     main(sys.argv)
