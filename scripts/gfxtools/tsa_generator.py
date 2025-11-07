@@ -1,9 +1,9 @@
 #!/bin/python3
 
-import sys, re, os
+import argparse, sys, re, os
 import numpy as np
 from PIL import Image
-from tsa2 import create_TSA, TSA, handle_image_json
+from tsa2 import main as tsa2_main
 
 '''
 方案1:
@@ -112,20 +112,31 @@ def extract_suffix_from_filename(file_name):
         return int(match.group(2))
     return None
 
-def main(args):
+def main():
+    usage = "Usage: [*.png] [*.feimg<x>.bin] [*.fetsa.bin]"
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument("png_file", help="png file to convert")
+    parser.add_argument("out_img", help="out *.feimg<x>.bin file", action='store')
+    parser.add_argument("out_tsa", help="out *.fetsa<x>.bin file", action='store')
+    parser.add_argument("--padding", help="Add padding to end or start (with minus numbers) of image", default=0, type=int, action='store')
+    parser.add_argument("--starting_index", help="Change starting index",default=0, type=int, action='store')
+    parser.add_argument("--battle_background", help="Handle tsa differences with battle backgrounds", action='store_true')
+    args = parser.parse_args()    
+        
     try:
-        png_file = args[1]
-        out_img  = args[2]
-        out_tsa  = args[3]
+        args = parser.parse_args()   
     except IndexError:
-        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg<x>.bin] [*.fetsa.bin]")
+        sys.exit(parser.usage)
+
+    png_file = args.png_file
+    out_img  = args.out_img
+    out_tsa  = args.out_tsa
 
     method = extract_suffix_from_filename(out_img)
     if method is None:
         method = 0 # default
-
     image = Image.open(png_file)
-    if image.mode != 'P':    
+    if image.mode != 'P':
         raise ValueError("IMAGE ERROR (P mode)")
 
     width, height = image.size
@@ -140,11 +151,9 @@ def main(args):
     elif method == 2:
         # TODO
         # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
-        tsa_data, unique_tiles = create_TSA(np.array(tiles).flatten(),ntile_x, ntile_y )
-        handle_image_json(png_file, unique_tiles, tsa_data)
+        tsa_data, unique_tiles = tsa2_main(args, np.array(tiles).flatten(),ntile_x, ntile_y )
         for i in range(len(unique_tiles)):
             unique_tiles[i] = convert_to_4bpp(unique_tiles[i].original.flatten())
-
     else:
         # todo
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
@@ -170,5 +179,5 @@ def main(args):
         else:        
             for entry in tsa_data:
                 f.write(entry.to_bytes(2, byteorder='little'))
-if __name__ == '__main__':
-    main(sys.argv)
+if __name__ == '__main__':    
+    main()

@@ -98,3 +98,34 @@ $(MAPDIR)/ObjectType10.4bpp: %.4bpp: %.png
 
 $(MAPDIR)/TowerOfValniObjectType.4bpp: %.4bpp: %.png
 	$(GBAGFX) $< $@ -num_tiles 976
+
+## Backgrounds
+
+graphics/bg/bg_Black_Temple_Inside.feimg2.bin graphics/bg/bg_Black_Temple_Inside.fetsa2.bin: graphics/bg/bg_Black_Temple_Inside.png
+	$(FETSATOOL) $< graphics/bg/bg_Black_Temple_Inside.feimg2.bin graphics/bg/bg_Black_Temple_Inside.fetsa2.bin --starting_index 29
+
+graphics/bg/bg_Black_Temple_Outside.feimg2.bin graphics/bg/bg_Black_Temple_Outside.fetsa2.bin: graphics/bg/bg_Black_Temple_Outside.png
+	$(FETSATOOL) $< graphics/bg/bg_Black_Temple_Outside.feimg2.bin graphics/bg/bg_Black_Temple_Outside.fetsa2.bin --starting_index 29
+
+graphics/bg/bg_Burning_Castle.feimg2.bin graphics/bg/bg_Burning_Castle.fetsa2.bin: graphics/bg/bg_Burning_Castle.png
+	$(FETSATOOL) $< graphics/bg/bg_Burning_Castle.feimg2.bin graphics/bg/bg_Burning_Castle.fetsa2.bin --starting_index 29
+
+graphics/bg/bg_Caer_Pelyn.feimg2.bin graphics/bg/bg_Caer_Pelyn.fetsa2.bin: graphics/bg/bg_Caer_Pelyn.png
+	$(FETSATOOL) $< graphics/bg/bg_Caer_Pelyn.feimg2.bin graphics/bg/bg_Caer_Pelyn.fetsa2.bin --starting_index 597
+
+graphics/bg/bg_Darkling_Woods.feimg2.bin graphics/bg/bg_Darkling_Woods.fetsa2.bin: graphics/bg/bg_Darkling_Woods.png
+	$(FETSATOOL) $< graphics/bg/bg_Darkling_Woods.feimg2.bin graphics/bg/bg_Darkling_Woods.fetsa2.bin --starting_index 29
+
+graphics/bg/bg_Grado_Chamber.feimg2.bin graphics/bg/bg_Grado_Chamber.fetsa2.bin: graphics/bg/bg_Grado_Chamber.png
+	$(FETSATOOL) $< graphics/bg/bg_Grado_Chamber.feimg2.bin graphics/bg/bg_Grado_Chamber.fetsa2.bin --starting_index 594
+
+graphics/bg/bg_Renais_Chamber.feimg2.bin graphics/bg/bg_Renais_Chamber.fetsa2.bin: graphics/bg/bg_Renais_Chamber.png
+	$(FETSATOOL) $< graphics/bg/bg_Renais_Chamber.feimg2.bin graphics/bg/bg_Renais_Chamber.fetsa2.bin --starting_index 20 --padding 1
+
+graphics/bg/bg_Stream.feimg2.bin graphics/bg/bg_Stream.fetsa2.bin: graphics/bg/bg_Stream.png
+	$(FETSATOOL) $< graphics/bg/bg_Stream.feimg2.bin graphics/bg/bg_Stream.fetsa2.bin --starting_index 480 --padding -1
+
+#Opening subtitles
+
+graphics/op_subtitle/OpSubtitle_05.feimg2.bin graphics/op_subtitle/OpSubtitle_05.fetsa2.bin:  graphics/op_subtitle/OpSubtitle_05.png
+	$(FETSATOOL) $< graphics/op_subtitle/OpSubtitle_05.feimg2.bin graphics/op_subtitle/OpSubtitle_05.fetsa2.bin --padding 6

@@ -1,5 +1,5 @@
 #!/bin/python3
-import sys, enum, os, json
+import sys, enum, os, json, argparse
 from PIL import Image
 
 import numpy as np
@@ -118,19 +118,7 @@ def create_TSA(tiles, ntile_x, ntile_y) -> TSA:
             tsa[index] = tsa_tile
             index += 1
     outTsa = TSA(ntile_x,ntile_y,tsa )
-    outTsa.tiles = outTsa.order_chunks()
     return outTsa, unique_tiles
-PADDING = "padding"
-STARTING_INDEX = "starting_index"
-def handle_image_json(image_path :str, unique_tiles : list[CheckTile], tsa:TSA):
-    json_path = image_path.replace(".png", ".json")
-    if not os.path.exists(json_path): return
-    with open(json_path, "r") as f:
-        image_json = json.load(f)
-    if STARTING_INDEX in image_json:
-        handle_starting_index(int(image_json[STARTING_INDEX]), unique_tiles, tsa)
-    if PADDING in image_json:
-        handle_padding(int(image_json[PADDING]),unique_tiles, tsa)
 
 def handle_padding(padding: int, unique_tiles : list[CheckTile], tsa : TSA):
     if padding == 0: return
@@ -145,13 +133,22 @@ def handle_padding(padding: int, unique_tiles : list[CheckTile], tsa : TSA):
     #padding at end
     for i in range(padding):
         unique_tiles.append(CheckTile(np.zeros((8,8), dtype=int)))
+def handle_args(args, unique_tiles, tsa):
     
+    if (args.starting_index != 0):        
+        handle_starting_index(args.starting_index, unique_tiles, tsa)
+    if (args.padding != 0):
+        handle_padding(args.padding, unique_tiles, tsa)     
+    if (args.battle_background):
+        handle_battle_background(unique_tiles, tsa) 
+    if (not args.battle_background):#battle background doesn't chunk the data
+        tsa.tiles = tsa.order_chunks()   
 def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA):
     if index == 0: return
     #move tile at index to the start
     unique_tiles.insert(index, unique_tiles.pop(0))
     #shift tiles forward
-    tiles = tsa.order_chunks()
+    tiles = tsa.tiles
     hit_index = False
     for i in range(len(tiles)):
         tile = tiles[i].tile_id
@@ -167,7 +164,24 @@ def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA
             hit_index = True
         tiles[i].tile_id = new_id
     tsa.tiles = tiles
-    tsa.tiles = tsa.order_chunks()
+   
+def handle_battle_background(unique_tiles : list[CheckTile],  tsa : TSA):
+
+    #in the battle background the blank tiles are set as tile_id 1023 (max id)    
+    shift = True
+    for i in range(len(tsa.tiles)):   
+        tile = tsa.tiles[i]            
+        if tile.tile_id == 0:
+            if tile.pal_id != 0:
+                shift = False
+                continue
+            tsa.tiles[i].tile_id = 1023        
+        elif shift:
+            tsa.tiles[i].tile_id -= 1
+    if shift:
+        unique_tiles.pop(0)
+   
+     
 def handle_index_sequence(sequence : list[int], unique_tiles : list[CheckTile], tsa : TSA):
    #TODO
    raise NotImplementedError()
@@ -183,34 +197,46 @@ def read_file(path, in_tile_order=False) -> TSA:
     if in_tile_order:
         tsa.tiles = tsa.order_chunks()
     return tsa
-def main(png_file, out_img, out_tsa ):
+
+def main(args, tiles , ntile_x, ntile_y ):
+
+    tsa, out_tiles = create_TSA(tiles, ntile_x, ntile_y)
+    handle_args(args,out_tiles, tsa )
+    return tsa, out_tiles
+
+
+if __name__ == '__main__':
+    from tsa_generator import convert_to_4bpp, extract_tiles
+    usage = f"Usage: [*.png] [*.feimg<x>.bin] [*.fetsa.bin]"
+    parser = argparse.ArgumentParser(usage=usage)
+    parser.add_argument("png_file", help="png file to convert")
+    parser.add_argument("out_img", help="out *.feimg<x>.bin file", action='store')
+    parser.add_argument("out_tsa", help="out *.fetsa<x>.bin file", action='store')
+    parser.add_argument("--padding", help="For feimg2 files with padding", default=0, type=int, action='store')
+    parser.add_argument("--starting_index", help="For feimg2 files with different starting index",default=0, type=int, action='store')
+    parser.add_argument("--battle_background", help="Handle tsa differences with battle backgrounds", action='store_true')
+
+    try:
+        args = parser.parse_args()       
+    except IndexError:
+        sys.exit(parser.usage)
+    
+    png_file = args.png_file    
+        
     im = Image.open(png_file)
-    if im.mode != 'P': 
+    if im.mode != 'P':         
         raise ValueError("IMAGE ERROR (P mode)")
     tiles = get_tiles(im)
     img_width, img_height = im.size
     ntile_x = img_width //8
     ntile_y = img_height //8
-    tsa, out_tiles = create_TSA(tiles, ntile_x, ntile_y)
-    handle_image_json(png_file, out_tiles, tsa)
+    tsa, out_tiles = main(args, tiles, ntile_x,  ntile_y )
     tsa_bytes = tsa.to_bytes()    
-    with open(out_tsa, "wb") as f:
+    with open(args.out_tsa, "wb") as f:
         f.write(tsa_bytes)
     img_bytes = bytearray()
     for t in out_tiles:
         img_bytes.extend(convert_to_4bpp(t.original.flatten()))
-    with open(out_img, "wb") as f:
+    with open(args.out_img, "wb") as f:
         f.write(img_bytes)
-
-if __name__ == '__main__':
-    from tsa_generator import convert_to_4bpp, extract_tiles
-    args = sys.argv
-    try:
-        png_file = args[1]
-        out_img  = args[2]
-        out_tsa  = args[3]
-
-    except IndexError:
-        sys.exit(f"Usage: {args[0]} [*.png] [*.feimg2.bin] [*.fetsa2.bin]")
-    main(png_file, out_img, out_tsa )
                 
