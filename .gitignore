@@ -55,6 +55,7 @@ Temporary Items
 # Build Outputs
 # =========================
 
+.venv/
 *.gba
 *.elf
 *.map

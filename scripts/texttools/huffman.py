@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 class HuffNode:
     def __init__(self, data=None, freq=None, left=None, right=None):
