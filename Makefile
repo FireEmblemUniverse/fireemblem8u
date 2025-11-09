@@ -115,7 +115,7 @@ clean:
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
-	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg1.bin'  -o -iname '*.feimg2.bin'  -o -iname '*.fetsa1.bin' -o -iname '*.fetsa2.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
+	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg1.bin'  -o -iname '*.feimg2.bin'  -o -iname  '*.feimg3.bin'  -o -iname '*.fetsa1.bin' -o -iname '*.fetsa2.bin' -o -iname '*.fetsa3.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 
 .PHONY: clean
 
@@ -180,7 +180,10 @@ sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.feimg2.bin %.fetsa2.bin: %.png
 	$(FETSATOOL) $< $*.feimg2.bin $*.fetsa2.bin
-	
+
+%.feimg3.bin %.fetsa3.bin: %.png
+	$(FETSATOOL) $< $*.feimg3.bin $*.fetsa3.bin
+
 # Battle Animation Recipes
 
 $(BANIM_OBJECT): $(shell ./scripts/arm_compressing_linker.py -t linker_script_banim.txt -m)

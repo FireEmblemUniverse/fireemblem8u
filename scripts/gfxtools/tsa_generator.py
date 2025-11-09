@@ -119,12 +119,13 @@ def main():
     parser.add_argument("out_img", help="out *.feimg<x>.bin file", action='store')
     parser.add_argument("out_tsa", help="out *.fetsa<x>.bin file", action='store')
     parser.add_argument("--padding", help="Add padding to end or start (with minus numbers) of image", default=0, type=int, action='store')
+    parser.add_argument("--num_tiles", help="Set final image to have <x> number of tiles", default=0, type=int, action='store')
     parser.add_argument("--starting_index", help="Change starting index",default=0, type=int, action='store')
+    parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
+    parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
     parser.add_argument("--battle_background", help="Handle tsa differences with battle backgrounds", action='store_true')
-    args = parser.parse_args()    
-        
     try:
-        args = parser.parse_args()   
+        args = parser.parse_args()
     except IndexError:
         sys.exit(parser.usage)
 
@@ -148,10 +149,15 @@ def main():
 
     if method == 1:
         unique_tiles, tsa_data = process_tiles_method1(tiles, ntile_x, ntile_y)
-    elif method == 2:
+    elif method == 2 or method == 3:
+        tsa_args = args.__dict__
+        #battle backgrounds
+        if method == 3:
+            tsa_args["battle_background"] = True
+            tsa_args["num_tiles"] = 416
         # TODO
-        # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc 
-        tsa_data, unique_tiles = tsa2_main(args, np.array(tiles).flatten(),ntile_x, ntile_y )
+        # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc
+        tsa_data, unique_tiles = tsa2_main(tsa_args, np.array(tiles).flatten(),ntile_x, ntile_y )
         for i in range(len(unique_tiles)):
             unique_tiles[i] = convert_to_4bpp(unique_tiles[i].original.flatten())
     else:
@@ -166,18 +172,20 @@ def main():
         if method == 1:
             if cnt > 0x100:
                 raise ValueError("Compressed image overflowed!")
-        
+
             for i in range(cnt, 0x100):
                 f.write(b'\x00' * 32)
-        elif method == 2:
+        elif method == 2 or method == 3:
             if len(unique_tiles) >= 0x400:
                 raise ValueError("Too many unique tiles!")
 
     with open(out_tsa, 'wb') as f:
         if method == 2:
-            f.write(tsa_data.to_bytes())            
-        else:        
+            f.write(tsa_data.to_bytes())
+        elif method == 3:
+            f.write(tsa_data.to_bytes(with_dimensions = False))
+        else:
             for entry in tsa_data:
                 f.write(entry.to_bytes(2, byteorder='little'))
-if __name__ == '__main__':    
+if __name__ == '__main__':
     main()
