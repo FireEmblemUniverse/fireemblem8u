@@ -115,8 +115,8 @@ CONST_DATA EventListScr EventScr_089FC04C[] = {
 CONST_DATA EventListScr EventScr_Ch14b_EndingScene[] = {
     MUSCMID(SONG_SILENT)
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x1c)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_RENNAC)
+    CALL(EventScr_StrictLoadUniqueAlly)
     CLEA
     CLEE
     CLEN

@@ -131,8 +131,8 @@ CONST_DATA EventListScr EventScr_089F5CC4[] = {
 
 CONST_DATA EventListScr EventScr_Ch14a_EndingScene[] = {
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x1c)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_RENNAC)
+    CALL(EventScr_StrictLoadUniqueAlly)
     MUSC(SONG_RAID)
     CLEA
     CLEE

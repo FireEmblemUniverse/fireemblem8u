@@ -462,7 +462,7 @@ CONST_DATA EventListScr EventScr_UnitFlushingOUT[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_9EE5BC[] = {
+CONST_DATA EventListScr EventScr_StrictLoadUniqueAlly[] = {
     CHECK_EXISTS(CHAR_EVT_SLOT2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
 

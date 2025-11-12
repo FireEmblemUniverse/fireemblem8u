@@ -188,10 +188,10 @@ LABEL(0x0)
     ENUT(218)
     ENUT(203)
     MNCH(0x3)
-    SVAL(EVT_SLOT_2, 0x7)
-    CALL(EventScr_9EE5BC)
-    SVAL(EVT_SLOT_2, 0xa)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_ROSS)
+    CALL(EventScr_StrictLoadUniqueAlly)
+    SVAL(EVT_SLOT_2, CHARACTER_GARCIA)
+    CALL(EventScr_StrictLoadUniqueAlly)
     ENDA
 };
 
