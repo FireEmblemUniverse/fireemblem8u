@@ -167,8 +167,8 @@ CONST_DATA EventListScr EventScr_Ch9b_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x12)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_AMELIA)
+    CALL(EventScr_StrictLoadUniqueAlly)
     CLEAN
     CAMERA2(17, 9)
     CLEA

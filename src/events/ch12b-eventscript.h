@@ -149,8 +149,8 @@ CONST_DATA EventListScr EventScr_Ch12b_EndingScene[] = {
     CALL(EventScr_LoadUniqueAlly)
     GOTO(0x1)
 LABEL(0x0)
-    SVAL(EVT_SLOT_2, 0x16)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_MARISA)
+    CALL(EventScr_StrictLoadUniqueAlly)
 LABEL(0x1)
     CLEA
     CLEE

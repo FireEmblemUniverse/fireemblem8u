@@ -176,8 +176,8 @@ LABEL(0x8020)
 
 CONST_DATA EventListScr EventScr_Ch5_EndingScene[] = {
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x20)
-    CALL(EventScr_9EE5BC)
+    SVAL(EVT_SLOT_2, CHARACTER_JOSHUA)
+    CALL(EventScr_StrictLoadUniqueAlly)
     SetBackground(BG_SERAFEW_VILLAGE)
     CHECK_ALIVE(CHARACTER_NATASHA)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)

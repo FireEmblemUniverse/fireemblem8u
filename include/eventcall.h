@@ -186,7 +186,7 @@ extern CONST_DATA EventListScr EventScr_UnitWarpIN[];
 extern CONST_DATA EventListScr EventScr_UnitWarpOUT[];
 extern CONST_DATA EventListScr EventScr_UnitFlushingIN[];
 extern CONST_DATA EventListScr EventScr_UnitFlushingOUT[];
-extern CONST_DATA EventListScr EventScr_9EE5BC[];
+extern CONST_DATA EventListScr EventScr_StrictLoadUniqueAlly[];
 extern CONST_DATA EventListScr EventScr_GiveTreasureToLuckyDog[];
 extern CONST_DATA EventListScr EventScr_ChangeAIinQueue[];
 extern CONST_DATA EventListScr EventScr_9EE6A0[];
