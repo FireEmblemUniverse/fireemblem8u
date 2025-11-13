@@ -514,9 +514,9 @@ enum event_sub_cmd_idx {
     /* EV_CMD_CHECKINAREA */
 
     /* EV_CMD_GIVEITEM */
-    EVSUBCMD_GIVEITEMTO = 0,
-    EVSUBCMD_GIVEITEMTOMAIN = 1,
-    EVSUBCMD_GIVETOSLOT3 = 2,
+    EVSUBCMD_GIVE_ITEM = 0,
+    EVSUBCMD_GIVE_MONEY = 1,
+    EVSUBCMD_TAKE_MONEY = 2,
 
     /* EV_CMD_CHANGEAI */
     EVTSUBCMD_CHAI = 0,
@@ -722,9 +722,9 @@ enum event_sub_cmd_idx {
 #define EvtLoadSingleUnit(faction, pid, x, y) _EvtArg0(EV_CMD_LOADSINGLEUNIT, 4, (faction), (pid)), _EvtParams4((x), (y), 0, 0),
 #define EvtRemoveUnit(pid) _EvtArg0(EV_CMD_CHANGESTATE, 2, EVSUBCMD_DISA, (pid)),
 #define EvtCheckInArea(pid, x, y, w, h) _EvtArg0(EV_CMD_CHECKINAREA, 4, 0, (pid)), _EvtParams4(x, y, w, h),
-#define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTO, (pid)),
-#define EvtGiveMoneymAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVEITEMTOMAIN, (pid)),
-#define EvtGiveMoneymAtSlot3NoPopup(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVETOSLOT3, (pid)),
+#define EvtGiveItemAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVE_ITEM, (pid)),
+#define EvtGiveMoneyAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_GIVE_MONEY, (pid)),
+#define EvtTakeMoneyAtSlot3(pid) _EvtArg0(EV_CMD_GIVEITEM, 2, EVSUBCMD_TAKE_MONEY, (pid)),
 #define EvtSetActiveUnit(pid) _EvtArg0(EV_CMD_CHANGEACTIVEUNIT, 2, 0, (pid)),
 #define EvtChangeAI(pid) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI, (pid)),
 #define EvtChangeAIat(x, y) _EvtArg0(EV_CMD_CHANGEAI, 2, EVTSUBCMD_CHAI_AT, _EvtSubParam16u8((x), (y))),
