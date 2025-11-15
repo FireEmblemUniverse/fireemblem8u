@@ -94,9 +94,9 @@ LABEL(0x2)
     REMA
     MUSCMID(SONG_SILENT)
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x19)
+    SVAL(EVT_SLOT_2, CHARACTER_LARACHEL)
     CALL(EventScr_LoadUniqueAlly)
-    SVAL(EVT_SLOT_2, 0x1a)
+    SVAL(EVT_SLOT_2, CHARACTER_DOZLA)
     CALL(EventScr_LoadUniqueAlly)
     CLEA
     CLEE
