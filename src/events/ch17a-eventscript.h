@@ -207,7 +207,7 @@ CONST_DATA EventListScr EventScr_089F79D4[] = {
 LABEL(0x0)
     MUSCMID(SONG_SILENT)
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x21)
+    SVAL(EVT_SLOT_2, CHARACTER_SYRENE)
     CALL(EventScr_LoadUniqueAlly)
     CLEA
     CLEE

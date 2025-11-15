@@ -251,7 +251,7 @@ LABEL(0x1)
     FADI(16)
 LABEL(0x2)
     MUSC(SONG_VICTORY)
-    SVAL(EVT_SLOT_2, 0x1d)
+    SVAL(EVT_SLOT_2, CHARACTER_DUESSEL)
     CALL(EventScr_LoadUniqueAlly)
     CLEA
     CLEE

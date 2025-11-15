@@ -141,9 +141,9 @@ CONST_DATA EventListScr EventScr_Ch2_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    SVAL(EVT_SLOT_2, 0xa)
+    SVAL(EVT_SLOT_2, CHARACTER_GARCIA)
     CALL(EventScr_LoadUniqueAlly)
-    SVAL(EVT_SLOT_2, 0x7)
+    SVAL(EVT_SLOT_2, CHARACTER_ROSS)
     CALL(EventScr_LoadUniqueAlly)
 LABEL(0x0)
     SetBackground(BG_VILLAGE_SUNSET)

@@ -113,7 +113,7 @@ CONST_DATA EventListScr EventScr_Ch3_EndingScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x9)
+    SVAL(EVT_SLOT_2, CHARACTER_COLM)
     CALL(EventScr_LoadUniqueAlly)
     GOTO(0x1)
 LABEL(0x0)

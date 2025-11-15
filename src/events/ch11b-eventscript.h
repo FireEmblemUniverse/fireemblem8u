@@ -164,9 +164,9 @@ CONST_DATA EventListScr EventScr_Ch11b_EndingScene[] = {
 LABEL(0x0)
     REMA
     FADI(16)
-    SVAL(EVT_SLOT_2, 0x19)
+    SVAL(EVT_SLOT_2, CHARACTER_LARACHEL)
     CALL(EventScr_LoadUniqueAlly)
-    SVAL(EVT_SLOT_2, 0x1a)
+    SVAL(EVT_SLOT_2, CHARACTER_DOZLA)
     CALL(EventScr_LoadUniqueAlly)
     ENUT(115)
     MNC2(0x19)

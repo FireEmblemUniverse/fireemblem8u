@@ -145,7 +145,7 @@ CONST_DATA EventListScr EventScr_Ch12b_EndingScene[] = {
     CHECK_ALIVE(CHARACTER_EWAN)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
     SVAL(EVT_SLOT_A, 0x1)
-    SVAL(EVT_SLOT_2, 0x16)
+    SVAL(EVT_SLOT_2, CHARACTER_MARISA)
     CALL(EventScr_LoadUniqueAlly)
     GOTO(0x1)
 LABEL(0x0)
