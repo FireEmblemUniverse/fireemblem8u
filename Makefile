@@ -11,6 +11,11 @@ UNAME := $(shell uname)
 TOOLCHAIN ?= $(DEVKITARM)
 PREFIX ?= arm-none-eabi-
 
+VENV ?= .venv
+VENV_ACTIVATE := $(VENV)/bin/activate
+VENV_PYTHON := $(VENV)/bin/python
+VENV_PIP := $(VENV)/bin/pip
+
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
 
 ifeq ($(UNAME),Darwin)
@@ -22,6 +27,7 @@ AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
 STRIP := $(PREFIX)strip$(EXE)
+PYTHON := python3
 
 CC1     := tools/agbcc/bin/agbcc$(EXE)
 CC1_OLD := tools/agbcc/bin/old_agbcc$(EXE)
@@ -33,8 +39,8 @@ AIF2PCM    := tools/aif2pcm/aif2pcm$(EXE)
 MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
-FETSATOOL  := scripts/gfxtools/tsa_generator.py
-MARTOMAP   := scripts/mar_to_map.py
+FETSATOOL  := $(VENV_PYTHON) scripts/gfxtools/tsa_generator.py
+MARTOMAP   := $(VENV_PYTHON) scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
 	SED := sed -i ''
@@ -126,9 +132,16 @@ tag:
 
 .PHONY: tag
 
+venv: $(VENV_ACTIVATE)
+
+$(VENV_ACTIVATE):
+	$(PYTHON) -m venv $(VENV)
+	. $(VENV_ACTIVATE)
+	$(VENV_PIP) install -r requirements.txt
+
 #### Recipes ####
 
-# Comprssed Texts Recipes
+# Compressed Texts Recipes
 
 # =========
 # = Texts =
@@ -136,9 +149,9 @@ tag:
 TEXT_DIR := texts
 TEXT_TOOLS := scripts/texttools
 
-TEXT_DECODER := $(PYTHON)  $(TEXT_TOOLS)/textdecoder.py
-TEXT_DPARSER := $(PYTHON) $(TEXT_TOOLS)/textdeparser.py
-TEXT_PROCESS := $(PYTHON) $(TEXT_TOOLS)/textprocess.py
+TEXT_DECODER := $(VENV_PYTHON) $(TEXT_TOOLS)/textdecoder.py
+TEXT_DPARSER := $(VENV_PYTHON) $(TEXT_TOOLS)/textdeparser.py
+TEXT_PROCESS := $(VENV_PYTHON) $(TEXT_TOOLS)/textprocess.py
 
 TEXT_MAIN := $(TEXT_DIR)/texts.txt
 TEXT_DEFS := $(TEXT_DIR)/textdefs.txt
@@ -147,7 +160,7 @@ TEXT_SRC  := $(TEXT_MAIN) $(shell find $(TEXT_DIR) -type f -name "*.txt")
 TEXT_HEADER := include/constants/msg.h
 MSG_LIST    := src/msg_data.c
 
-src/msg_data.c: $(TEXT_SRC) $(TEXT_DEFS)
+src/msg_data.c: $(TEXT_SRC) $(TEXT_DEFS) $(VENV_ACTIVATE)
 	@$(TEXT_PROCESS) $(TEXT_MAIN) $(TEXT_DEFS) $@ $(TEXT_HEADER) utf8
 
 # Graphics Recipes
@@ -169,13 +182,14 @@ include json_data_rules.mk
 %.lz: % ; $(GBAGFX) $< $@
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
-%.bin: %.mar  ; $(MARTOMAP)  $< $@
+%.bin: %.mar $(VENV_ACTIVATE)
+	$(MARTOMAP)  $< $@
 sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
 	$(BIN2C) $< $(subst .,_,$(notdir $<)) | sed 's/^const //' > $@
 
-%.feimg1.bin %.fetsa1.bin: %.png
+%.feimg1.bin %.fetsa1.bin: %.png $(VENV_ACTIVATE)
 	$(FETSATOOL) $< $*.feimg1.bin $*.fetsa1.bin
 
 %.feimg2.bin %.fetsa2.bin: %.png
