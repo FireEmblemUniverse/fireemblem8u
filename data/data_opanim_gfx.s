@@ -2,7 +2,6 @@
 
 	.global Img_OpAnimWorldMap
 Img_OpAnimWorldMap:  @ 0x08AB21D8
-	#.incbin "graphics/op_anim/world_map.4bpp.lz"
 	.incbin "baserom.gba", 0xAB21D8, 0x3BB8
 
 	.global Tsa_OpAnimWorldMap
@@ -25,8 +24,6 @@ Tsa_OpAnimWorldMapFog:  @ 0x08AB7AC0
 Pal_OpAnimWorldMapFog:  @ 0x08AB7DB0
 	.incbin "baserom.gba", 0xAB7DB0, 0x20
 
-# graphics/op_anim/eph_eirika_bg.png
-
 	.global Img_OpAnimCharacterBG
 Img_OpAnimCharacterBG:  @ 0x08AB7DD0
 	.incbin "baserom.gba", 0xAB7DD0, 0xA10
@@ -38,8 +35,6 @@ Tsa_OpAnimCharacterBG:  @ 0x08AB87E0
 	.global Pal_OpAnimCharacterBG
 Pal_OpAnimCharacterBG:  @ 0x08AB8CAC
 	.incbin "baserom.gba", 0xAB8CAC, 0x20
-
-# graphics/op_anim/generic_character_bg.png
 
 	.global Img_OpAnimGenericCharacterBG
 Img_OpAnimGenericCharacterBG:  @ 0x08AB8CCC
@@ -89,8 +84,8 @@ Img_OpAnimEphraimClose1:  @ 0x08ABF168
 Img_OpAnimEphraimClose2:  @ 0x08AC0BD8
 	.incbin "baserom.gba", 0xAC0BD8, 0xCA0
 
-	.global Tsa_OpAnimEphraimClose
-Tsa_OpAnimEphraimClose:  @ 0x08AC1878
+	.global Tsa_OpAnimEphraimClose1
+Tsa_OpAnimEphraimClose1:  @ 0x08AC1878
 	.incbin "baserom.gba", 0xAC1878, 0x320
 
 	.global Tsa_OpAnimEphraimClose2
@@ -141,8 +136,8 @@ Img_OpAnimEirikaClose1:  @ 0x08AC5614
 Img_OpAnimEirikaClose2:  @ 0x08AC7374
 	.incbin "baserom.gba", 0xAC7374, 0x1A68
 
-	.global Tsa_OpAnimEirikaClose
-Tsa_OpAnimEirikaClose:  @ 0x08AC8DDC
+	.global Tsa_OpAnimEirikaClose1
+Tsa_OpAnimEirikaClose1:  @ 0x08AC8DDC
 	.incbin "baserom.gba", 0xAC8DDC, 0x41C
 
 	.global Tsa_OpAnimEirikaClose2
@@ -185,8 +180,8 @@ Img_OpAnimLArachel2:  @ 0x08ACE0B8
 Tsa_OpAnimLArachel:  @ 0x08ACEED0
 	.incbin "baserom.gba", 0xACEED0, 0x330
 
-	.global Tsa_OpAnimLArachelLeft
-Tsa_OpAnimLArachelLeft:  @ 0x08ACF200
+	.global Tsa_OpAnimLArachel2
+Tsa_OpAnimLArachel2:  @ 0x08ACF200
 	.incbin "baserom.gba", 0xACF200, 0x114
 
 	.global Pal_OpAnimLArachel
@@ -205,8 +200,8 @@ Img_OpAnimCharacterSeth2:  @ 0x08AD1048
 Tsa_OpAnimCharacterSeth:  @ 0x08AD206C
 	.incbin "baserom.gba", 0xAD206C, 0x300
 
-	.global gUnknown_08AD236C
-gUnknown_08AD236C:  @ 0x08AD236C
+	.global Tsa_OpAnimCharacterSeth2
+Tsa_OpAnimCharacterSeth2:  @ 0x08AD236C
 	.incbin "baserom.gba", 0xAD236C, 0x148
 
 	.global Pal_OpAnimCharacterSeth
@@ -225,8 +220,8 @@ Img_OpAnimMyrrh2:  @ 0x08AD423C
 Tsa_OpAnimMyrrh2:  @ 0x08AD5094
 	.incbin "baserom.gba", 0xAD5094, 0x3A8
 
-	.global gUnknown_08AD543C
-gUnknown_08AD543C:  @ 0x08AD543C
+	.global Tsa_OpAnimMyrrh
+Tsa_OpAnimMyrrh:  @ 0x08AD543C
 	.incbin "baserom.gba", 0xAD543C, 0xA0
 
 	.global Pal_OpAnimMyrrh2
@@ -245,8 +240,8 @@ Img_OpAnimSaleh2:  @ 0x08AD72FC
 Tsa_OpAnimSaleh2:  @ 0x08AD8518
 	.incbin "baserom.gba", 0xAD8518, 0x3BC
 
-	.global gUnknown_08AD88D4
-gUnknown_08AD88D4:  @ 0x08AD88D4
+	.global Tsa_OpAnimSaleh
+Tsa_OpAnimSaleh:  @ 0x08AD88D4
 	.incbin "baserom.gba", 0xAD88D4, 0xD4
 
 	.global Pal_OpAnimSaleh2
@@ -265,8 +260,8 @@ Img_OpAnimTethys2:  @ 0x08ADA31C
 Tsa_OpAnimTethys:  @ 0x08ADB804
 	.incbin "baserom.gba", 0xADB804, 0x408
 
-	.global gUnknown_08ADBC0C
-gUnknown_08ADBC0C:  @ 0x08ADBC0C
+	.global Tsa_OpAnimTethys2
+Tsa_OpAnimTethys2:  @ 0x08ADBC0C
 	.incbin "baserom.gba", 0xADBC0C, 0x10C
 
 	.global Pal_OpAnimTethys

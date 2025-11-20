@@ -353,7 +353,7 @@ extern u8 Img_OpAnimTethys[];
 extern u8 Tsa_OpAnimTethys[];
 
 extern u8 Img_OpAnimTethys2[];
-extern u8 gUnknown_08ADBC0C[];
+extern u8 Tsa_OpAnimTethys2[];
 
 extern u16 pal_08B103D8[];
 

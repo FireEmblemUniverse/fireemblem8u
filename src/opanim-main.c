@@ -645,7 +645,7 @@ void OpAnimPreparefxEphraim(struct ProcOpAnim * proc)
 
     case 1:
         Decompress(Img_OpAnimEphraimClose1, (void *)BG_VRAM + GetBackgroundTileDataOffset(BG_0));
-        Decompress(Tsa_OpAnimEphraimClose, gGenericBuffer);
+        Decompress(Tsa_OpAnimEphraimClose1, gGenericBuffer);
         break;
 
     case 2:
@@ -1025,7 +1025,7 @@ void OpAnimPreparefxEirika(struct ProcOpAnim * proc)
 
         case 1:
             Decompress(Img_OpAnimEirikaClose1, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimEirikaClose, gGenericBuffer);
+            Decompress(Tsa_OpAnimEirikaClose1, gGenericBuffer);
 
             break;
 
@@ -1589,7 +1589,7 @@ void sub_80C883C(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimLArachel2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimLArachelLeft, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimLArachel2, gGenericBuffer + 0x800);
 
             break;
 
@@ -1635,7 +1635,7 @@ void sub_80C8934(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimCharacterSeth2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(gUnknown_08AD236C, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimCharacterSeth2, gGenericBuffer + 0x800);
 
             break;
 
@@ -1680,7 +1680,7 @@ void sub_80C8A20(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimMyrrh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(gUnknown_08AD543C, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimMyrrh, gGenericBuffer + 0x800);
 
             break;
 
@@ -1725,7 +1725,7 @@ void sub_80C8B0C(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimSaleh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(gUnknown_08AD88D4, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimSaleh, gGenericBuffer + 0x800);
 
             break;
 
@@ -1770,7 +1770,7 @@ void sub_80C8BF8(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimTethys2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(gUnknown_08ADBC0C, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimTethys2, gGenericBuffer + 0x800);
 
             break;
 
