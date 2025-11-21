@@ -1159,7 +1159,7 @@ extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
 extern u8 Img_OpAnimWorldMap[];
 extern u8 Tsa_OpAnimWorldMap[];
-extern u16 pal_08AB630C[];
+extern u16 Pal_08AB630C[];
 extern u8 Img_OpAnimWorldMapFog[];
 extern u8 Tsa_OpAnimWorldMapFog[];
 extern u16 Pal_OpAnimWorldMapFog[];
@@ -1196,8 +1196,8 @@ extern u8 Tsa_OpAnimEirikaClose2[];
 extern u16 Pal_OpAnimEirikaBlur[];
 extern u8 Img_OpAnimJoshua[];
 extern u8 Img_OpAnimJoshua2[];
-extern u8 Tsa_OpAnimJoshua2[];
-// extern ??? gUnknown_08ACC340
+extern u8 Tsa_OpAnimJoshua[];
+// extern ??? Tsa_OpAnimJoshua2
 extern u16 Pal_OpAnimJoshua[];
 extern u8 Img_OpAnimLArachel[];
 extern u8 Img_OpAnimLArachel2[];
@@ -1224,7 +1224,7 @@ extern u16 Pal_OpAnimSaleh2[];
 // extern ??? Tsa_OpAnimTethys
 // extern ??? Tsa_OpAnimTethys2
 // extern ??? Pal_OpAnimTethys
-// extern ??? gUnknown_08ADBE78
+// extern ??? Pal_08ADBE78
 // extern ??? Img_OpAnimFaceRennac
 // extern ??? Img_OpAnimFaceRennacShadow
 // extern ??? Pal_OpAnimFaceRennac
@@ -1348,10 +1348,10 @@ extern u16 Pal_GameIntroNintendo[];
 extern u8 Tsa_IntelligentSystems[];
 extern u8 Img_IntelligentSystems[];
 extern u16 Pal_IntelligentSystems[];
-extern u8 Tsa_OpAnimHleathSafetyScreenBG1[];
-extern u8 Tsa_OpAnimHleathSafetyScreenBG0[];
-extern u8 Img_OpAnimHleathSafetyScreen[];
-extern u16 Pal_OpAnimHleathSafetyScreen[];
+extern u8 Tsa_OpAnimHealthSafetyScreenBG1[];
+extern u8 Tsa_OpAnimHealthSafetyScreenBG0[];
+extern u8 Img_OpAnimHealthSafetyScreen[];
+extern u16 Pal_OpAnimHealthSafetyScreen[];
 /* #include classchg.h */
 // extern ??? gGuideSt
 // extern ??? gSprite_GuideBannerText

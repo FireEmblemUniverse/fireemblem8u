@@ -249,7 +249,7 @@ void sub_80C6F70(struct ProcOpAnim * proc)
     if (proc->timer <= 0x60)
     {
         int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x60);
-        ApplyPaletteOpAnim(pal_08AB630C, 0);
+        ApplyPaletteOpAnim(Pal_08AB630C, 0);
         sub_80C69B0(PAL_BG(0), 0x7FFF, ret);
     }
 
@@ -1520,13 +1520,13 @@ void sub_80C8690(struct ProcOpAnim * proc)
 
         case 2:
             Decompress(Img_OpAnimJoshua, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimJoshua2, gGenericBuffer);
+            Decompress(Tsa_OpAnimJoshua, gGenericBuffer);
 
             break;
 
         case 3:
             Decompress(Img_OpAnimJoshua2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(gUnknown_08ACC340, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimJoshua2, gGenericBuffer + 0x800);
 
             break;
 
@@ -1853,10 +1853,10 @@ void sub_80C8D30(struct ProcOpAnim * proc)
             break;
 
         case 2:
-            CopyToPalOpAnim(gUnknown_08ADBE78, 0x220, 0x20);
-            CopyToPalOpAnim(gUnknown_08ADBE78, 0x260, 0x20);
-            CopyToPalOpAnim(gUnknown_08ADBE78, 0x2a0, 0x20);
-            CopyToPalOpAnim(gUnknown_08ADBE78, 0x2e0, 0x20);
+            CopyToPalOpAnim(Pal_08ADBE78, 0x220, 0x20);
+            CopyToPalOpAnim(Pal_08ADBE78, 0x260, 0x20);
+            CopyToPalOpAnim(Pal_08ADBE78, 0x2a0, 0x20);
+            CopyToPalOpAnim(Pal_08ADBE78, 0x2e0, 0x20);
 
             break;
 

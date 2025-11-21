@@ -8,8 +8,8 @@ Img_OpAnimWorldMap:
 Tsa_OpAnimWorldMap:
 	.incbin "graphics/op_anim/OpAnimWorldMap.bin.lz"
 
-	.global pal_08AB630C
-pal_08AB630C:
+	.global Pal_08AB630C
+Pal_08AB630C:
 	.incbin "graphics/op_anim/08AB630C.gbapal"
 
 	.global Img_OpAnimWorldMapFog
@@ -44,8 +44,8 @@ Img_OpAnimGenericCharacterBG:
 Tsa_OpAnimGenericCharacterBG:
 	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.bin.lz"
 
-	.global unk_8AB986C
-unk_8AB986C:
+	.global gUnknown_08AB986C
+gUnknown_08AB986C:
 	.incbin "graphics/op_anim/8AB986C.bin"
 
 	.global Img_OpAnimEphraim
@@ -160,13 +160,13 @@ Img_OpAnimJoshua:
 Img_OpAnimJoshua2:
 	.incbin "graphics/op_anim/OpAnimJoshua2.4bpp.lz"
 
+	.global Tsa_OpAnimJoshua
+Tsa_OpAnimJoshua:
+	.incbin "graphics/op_anim/OpAnimJoshua.bin.lz"
+
 	.global Tsa_OpAnimJoshua2
 Tsa_OpAnimJoshua2:
 	.incbin "graphics/op_anim/OpAnimJoshua2.bin.lz"
-
-	.global gUnknown_08ACC340
-gUnknown_08ACC340:  @ 0x08ACC340
-	.incbin "baserom.gba", 0xACC340, 0xA0
 
 	.global Pal_OpAnimJoshua
 Pal_OpAnimJoshua:
@@ -272,9 +272,9 @@ Tsa_OpAnimTethys2:
 Pal_OpAnimTethys:
 	.incbin "graphics/op_anim/OpAnimTethys.gbapal"
 
-	.global gUnknown_08ADBE78
-gUnknown_08ADBE78:  @ 0x08ADBE78
-	.incbin "baserom.gba", 0xADBE78, 0x20
+	.global Pal_08ADBE78
+Pal_08ADBE78:
+	.incbin "graphics/op_anim/08ADBE78.gbapal"
 
 	.global Img_OpAnimFaceRennac
 Img_OpAnimFaceRennac:
@@ -1572,18 +1572,18 @@ Img_IntelligentSystems:
 Pal_IntelligentSystems:
 	.incbin "graphics/op_anim/IntelligentSystems.gbapal"
 
-	.global Tsa_OpAnimHleathSafetyScreenBG1
-Tsa_OpAnimHleathSafetyScreenBG1:
-	.incbin "graphics/op_anim/OpAnimHleathSafetyScreenBG1.bin.lz"
+	.global Tsa_OpAnimHealthSafetyScreenBG1
+Tsa_OpAnimHealthSafetyScreenBG1:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreenBG1.bin.lz"
 
-	.global Tsa_OpAnimHleathSafetyScreenBG0
-Tsa_OpAnimHleathSafetyScreenBG0:
-	.incbin "graphics/op_anim/OpAnimHleathSafetyScreenBG0.bin.lz"
+	.global Tsa_OpAnimHealthSafetyScreenBG0
+Tsa_OpAnimHealthSafetyScreenBG0:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreenBG0.bin.lz"
 
-	.global Img_OpAnimHleathSafetyScreen
-Img_OpAnimHleathSafetyScreen:
-	.incbin "graphics/op_anim/OpAnimHleathSafetyScreen.4bpp.lz"
+	.global Img_OpAnimHealthSafetyScreen
+Img_OpAnimHealthSafetyScreen:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreen.4bpp.lz"
 
-	.global Pal_OpAnimHleathSafetyScreen
-Pal_OpAnimHleathSafetyScreen:
-	.incbin "graphics/op_anim/OpAnimHleathSafetyScreen.gbapal"
+	.global Pal_OpAnimHealthSafetyScreen
+Pal_OpAnimHealthSafetyScreen:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreen.gbapal"

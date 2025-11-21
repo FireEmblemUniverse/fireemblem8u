@@ -196,10 +196,10 @@ void PrepareHealthAndSafetyScreen(struct ProcOpAnimHS * proc)
     SetPrimaryHBlankHandler(NULL);
     SetDispEnable(0, 0, 0, 0, 0);
 
-    Decompress(Img_OpAnimHleathSafetyScreen, (void *)VRAM);
-    Decompress(Tsa_OpAnimHleathSafetyScreenBG1, gGenericBuffer);
+    Decompress(Img_OpAnimHealthSafetyScreen, (void *)VRAM);
+    Decompress(Tsa_OpAnimHealthSafetyScreenBG1, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0);
-    Decompress(Tsa_OpAnimHleathSafetyScreenBG0, gGenericBuffer);
+    Decompress(Tsa_OpAnimHealthSafetyScreenBG0, gGenericBuffer);
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, 0);
 
     CpuFastFill16(0, gPaletteBuffer, 0x400);
@@ -213,7 +213,7 @@ void PrepareHealthAndSafetyScreen(struct ProcOpAnimHS * proc)
 void GameIntroHealthSafetyFadeIN(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(Pal_OpAnimHleathSafetyScreen, 0, 1, proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_OpAnimHealthSafetyScreen, 0, 1, proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {
@@ -255,7 +255,7 @@ void GameIntroHealthSafetyWaitButton(struct ProcOpAnimHS * proc)
 void GameIntroHealthSafetyFadeOUT(struct ProcOpAnimHS * proc)
 {
     proc->palette_timer++;
-    OpAnimHS_BrightenPalette(Pal_OpAnimHleathSafetyScreen, 0, 1, 0x1E - proc->palette_timer, 0x1E);
+    OpAnimHS_BrightenPalette(Pal_OpAnimHealthSafetyScreen, 0, 1, 0x1E - proc->palette_timer, 0x1E);
 
     if (proc->palette_timer > 0x1D)
     {

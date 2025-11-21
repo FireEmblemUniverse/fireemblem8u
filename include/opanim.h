@@ -340,8 +340,8 @@ extern u8 Tsa_OpAnimGenericCharacterBG[];
 
 extern u8 Img_OpAnimJoshua[];
 extern u8 Img_OpAnimJoshua2[];
-extern u8 gUnknown_08ACC340[];
 extern u8 Tsa_OpAnimJoshua2[];
+extern u8 Tsa_OpAnimJoshua[];
 
 extern u8 Img_OpAnimShiningRing[];
 extern u8 Tsa_OpAnimShiningRing[];
@@ -357,7 +357,7 @@ extern u8 Tsa_OpAnimTethys2[];
 
 extern u16 pal_08B103D8[];
 
-extern u16 gUnknown_08ADBE78[];
+extern u16 Pal_08ADBE78[];
 
 extern u8 Img_OpAnimFaceRennac[];
 extern u16 Pal_OpAnimFaceRennac[];
