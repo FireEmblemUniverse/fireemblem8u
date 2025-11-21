@@ -43,6 +43,7 @@ class GBAImage():
         self.tsa = tsa
         self.tsaLength = None
         self.pal = pal
+        self.palColours = 16
         self.width = width
         self.height = height
         self.tsaCompressed = True
@@ -58,7 +59,7 @@ class GBAImage():
         self.dumpImage(rom, dir)
     def dumpPal(self, rom, dir):
         if self.pal == None: return
-        tool.dump_palette(rom,self.pal, name=self.getOut(dir))
+        tool.dump_palette(rom,self.pal, name=self.getOut(dir), color_number=self.palColours)
     def dumpTSA(self, rom, dir):
         if(self.tsa == None):return
         path = self.getOut(dir)
@@ -89,9 +90,11 @@ class GBAImage():
 
         tool.save_image(
             outName + '.4bpp',
-            palfile=None if self.pal == None else outName+'.gbapal',
+            #palfile=None if self.pal == None else outName+'.gbapal',
             width=width
         )
+        #if self.pal == None: return
+        #tool.dump_palette(rom,self.pal, name=self.getOut(dir), color_number=self.palColours)
     def getOut(self, dir):
         return os.path.join(dir, self.name)
 def getAddress(line):
@@ -147,7 +150,7 @@ def tidyOutput(outDir, imgs: list[GBAImage]):
                 if i.pal ==  None: continue
                 if i.image == None: continue
                 if i.name +".pal" == f:
-                    os.remove(os.path.join(files[0], f))
+                    #os.remove(os.path.join(files[0], f))
                     break
 def autoMatchGraphics(data : list[Data]) -> list[GBAImage]:
     images = []
@@ -162,6 +165,8 @@ def autoMatchGraphics(data : list[Data]) -> list[GBAImage]:
         out.updateFromType(obj.address, type)
         if(type == DataType.Tsa):
              out.tsaLength = obj.length
+        if(type == DataType.Pal):
+            out.palColours = obj.length // 2
         i = 0
         while  i < len(data):
             check = data[i]
@@ -171,7 +176,8 @@ def autoMatchGraphics(data : list[Data]) -> list[GBAImage]:
                 out.updateFromType(check.address, t)
                 if(t == DataType.Tsa):
                     out.tsaLength = check.length
-
+                if(t == DataType.Pal):
+                    out.palColours = check.length // 2
                 data.pop(i)
                 i -= 1
             i += 1
