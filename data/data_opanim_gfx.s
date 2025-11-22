@@ -248,9 +248,9 @@ Tsa_OpAnimSaleh2:
 Tsa_OpAnimSaleh:
 	.incbin "graphics/op_anim/OpAnimSaleh.bin.lz"
 
-	.global Pal_OpAnimSaleh2
-Pal_OpAnimSaleh2:
-	.incbin "graphics/op_anim/OpAnimSaleh2.gbapal"
+	.global Pal_OpAnimSaleh
+Pal_OpAnimSaleh:
+	.incbin "graphics/op_anim/OpAnimSaleh.gbapal"
 
 	.global Img_OpAnimTethys
 Img_OpAnimTethys:

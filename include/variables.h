@@ -1218,7 +1218,7 @@ extern u8 Img_OpAnimSaleh[];
 extern u8 Img_OpAnimSaleh2[];
 extern u8 Tsa_OpAnimSaleh2[];
 extern u8 Tsa_OpAnimSaleh[];
-extern u16 Pal_OpAnimSaleh2[];
+extern u16 Pal_OpAnimSaleh[];
 // extern ??? Img_OpAnimTethys
 // extern ??? Img_OpAnimTethys2
 // extern ??? Tsa_OpAnimTethys

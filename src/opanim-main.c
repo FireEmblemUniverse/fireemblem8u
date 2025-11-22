@@ -2648,7 +2648,7 @@ void sub_80C9CFC(struct ProcOpAnim * proc)
 void sub_80C9D4C(struct ProcOpAnim * proc)
 {
     sub_80C9B6C();
-    CopyToPalOpAnim(Pal_OpAnimSaleh2, 0, 0x160);
+    CopyToPalOpAnim(Pal_OpAnimSaleh, 0, 0x160);
     proc->unk47 = 1;
     proc->unk48 = (u16 *)gGenericBuffer;
     proc->unk4C = (u16 *)(gGenericBuffer + 0x800);

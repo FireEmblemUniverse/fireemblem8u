@@ -14,12 +14,13 @@ class TSA():
         self.width = width
         self.height = height
         self.tiles = tiles
-    def from_bytes(bin):
+    def from_bytes(bin, with_dimensions=True):
         out = TSA()
-        out.width = bin[0] + 1
-        out.height = bin[1] + 1
+        if with_dimensions:
+            out.width = bin[0] + 1
+            out.height = bin[1] + 1
         out.tiles = []
-        for i in range(2, len(bin), 2):
+        for i in range(2 if with_dimensions else 0, len(bin), 2):
             out.tiles.append(Tile.from_bytes(bin[i:i+2]))
         return out
     def to_bytes(self, with_dimensions = True):
@@ -225,9 +226,9 @@ def get_tiles(image: Image):
     ntile_x = img_width //8
     ntile_y = img_height //8
     return extract_tiles(image, ntile_x, ntile_y).flatten()
-def read_file(path, in_tile_order=False) -> TSA:
+def read_file(path, in_tile_order=False, with_dimensions=True) -> TSA:
     with open(path, "rb") as f:
-        tsa = TSA.from_bytes(f.read())
+        tsa = TSA.from_bytes(f.read(), with_dimensions)
     if in_tile_order:
         tsa.tiles = tsa.order_chunks()
     return tsa
