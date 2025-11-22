@@ -1,8 +1,8 @@
 import tool, os
 import gfxtools.tsa2 as tsa
 
-graphics_dir = "../graphics/btl_bg"
-data_file = "../data/data_btl_bg.s"
+graphics_dir = "../graphics/op_anim"
+data_file = "../data/data_opanim_gfx.s"
 paths = list(os.walk(graphics_dir))
 paths = list(filter(lambda x : x.endswith(".4bpp"), paths[0][2]))
 def convert_images():
@@ -39,6 +39,16 @@ def reformat_battle_bg_tsa():
         with open(p, "wb") as f:
             f.write(read_tsa.to_bytes())
         p = 1
-reformat_battle_bg_tsa()
-convert_images()
-update_data()
+
+def check_tsas():
+    for p in paths:
+        bin_path = os.path.join(graphics_dir, p.replace(".4bpp", ".bin"))
+
+        if not os.path.exists(bin_path):continue
+        print(bin_path)
+        out = tsa.read_file(bin_path)
+        test = 1
+check_tsas()
+#reformat_battle_bg_tsa()
+#convert_images()
+#update_data()
