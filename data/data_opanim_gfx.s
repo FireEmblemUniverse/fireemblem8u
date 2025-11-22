@@ -240,12 +240,12 @@ Img_OpAnimSaleh:
 Img_OpAnimSaleh2:
 	.incbin "graphics/op_anim/OpAnimSaleh2.4bpp.lz"
 
-	.global Tsa_OpAnimSaleh2
-Tsa_OpAnimSaleh2:
-	.incbin "graphics/op_anim/OpAnimSaleh2.bin.lz"
-
 	.global Tsa_OpAnimSaleh
 Tsa_OpAnimSaleh:
+	.incbin "graphics/op_anim/OpAnimSaleh2.bin.lz"
+
+	.global Tsa_OpAnimSaleh2
+Tsa_OpAnimSaleh2:
 	.incbin "graphics/op_anim/OpAnimSaleh.bin.lz"
 
 	.global Pal_OpAnimSaleh

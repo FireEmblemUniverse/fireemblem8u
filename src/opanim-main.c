@@ -1719,13 +1719,13 @@ void sub_80C8B0C(struct ProcOpAnim * proc)
     {
         case 1:
             Decompress(Img_OpAnimSaleh, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimSaleh2, gGenericBuffer);
+            Decompress(Tsa_OpAnimSaleh, gGenericBuffer);
 
             break;
 
         case 2:
             Decompress(Img_OpAnimSaleh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimSaleh, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimSaleh2, gGenericBuffer + 0x800);
 
             break;
 
