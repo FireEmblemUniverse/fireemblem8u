@@ -505,12 +505,12 @@ extern struct ProcCmd gProc_ekrBattleDeamon[];
 extern struct ProcCmd gProc_ekrBattle[];
 extern struct ProcCmd ProcScr_ekrLvupFan[];
 extern struct ProcCmd ProcScr_ekrGauge[];
-// extern ??? gUnknown_085B93D0
+extern u8 gUnknown_085B93D0[];
 extern u8 gUnknown_085B940C[];
-// extern ??? gUnknown_085B9424
-// extern ??? gUnknown_085B949C
-// extern ??? gUnknown_085B94F0
-// extern ??? gUnknown_085B9544
+extern u8 gUnknown_085B9424[];
+extern u8 gUnknown_085B949C[];
+extern u8 gUnknown_085B94F0[];
+extern u8 gUnknown_085B9544[];
 extern u16 gUnknown_085B955C[];
 extern u16 gUnknown_085B9574[];
 extern u16 gUnknown_085B958C[];
@@ -1084,3 +1084,5 @@ void NewEkrHenseiEnd(void);
 // ??? sub_80764B0(???);
 // ??? sub_8076514(???);
 void NewEkrDragonDemonKing(struct Anim * anim);
+
+#define gBG0TilemapBuffer2D ((u16 (*)[1])gBG0TilemapBuffer)

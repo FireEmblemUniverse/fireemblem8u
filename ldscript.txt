@@ -376,7 +376,6 @@ SECTIONS
         src/banim-ekrbattle.o(.text);
         src/banim-ekrlvupfan.o(.text);
         src/banim-ekrgauge.o(.text);
-        asm/banim-ekrgauge.o(.text);
         src/banim-ekrdispup.o(.text);
         src/banim-efxhpbar.o(.text);
         src/banim-efxdeath.o(.text);
