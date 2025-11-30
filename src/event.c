@@ -20,8 +20,6 @@
 #include "event.h"
 #include "eventscript.h"
 
-int gUnknown_08591AB4[3] = { 0, 0, 0 };
-
 CONST_DATA struct ProcCmd ProcScr_StdEventEngine[] = {
     PROC_MARK(PROC_MARK_EVENT),
     PROC_SET_END_CB(EventEngine_OnEnd),

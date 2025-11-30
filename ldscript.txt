@@ -267,10 +267,6 @@ SECTIONS
         src/gamecontrol.o(.text);
         src/msg.o(.text);
         src/spline.o(.text);
-        asm/spline_800A950.o(.text);
-        src/spline_800AB58.o(.text);
-        asm/spline_800AF64.o(.text);
-        src/spline_800B16C.o(.text);
         src/eventscr_utils.o(.text);
         src/eventscr_gmap.o(.text);
         src/event.o(.text);
@@ -853,6 +849,7 @@ SECTIONS
         . = ALIGN(4); src/ap.o(.data);
         . = ALIGN(4); src/gamecontrol.o(.data);
         . = ALIGN(4); src/msg.o(.data);
+        . = ALIGN(4); src/spline.o(.data);
         . = ALIGN(4); src/event.o(.data);
         . = ALIGN(4); src/eventscr.o(.data);
         . = ALIGN(4); src/popup.o(.data);

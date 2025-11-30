@@ -160,8 +160,8 @@ void GmMuPrim_80BD444(struct GMapMuPrimProc * proc)
     unkSplineStruct->unk_00 = 2;
     unkSplineStruct->unk_04 = gUnknown_0201B104 + proc->unk_2a * 0x10;
     unkSplineStruct->unk_08 = gUnknown_0201B1E4 + proc->unk_2a * 0x10;
-    unkSplineStruct->unk_0C = gUnknown_08A3E22C;
-    unkSplineStruct->unk_10 = gUnknown_08A3E23C;
+    unkSplineStruct->unk_0C = (void *)gUnknown_08A3E22C;
+    unkSplineStruct->unk_10 = (void *)gUnknown_08A3E23C;
     unkSplineStruct->unk_02 = sub_80BCE34(proc->unk_2d, proc->unk_2e, proc->unk_50, unkSplineStruct->unk_04, unkSplineStruct->unk_08, 4);
 
     MapUnitC_SetPosition(
