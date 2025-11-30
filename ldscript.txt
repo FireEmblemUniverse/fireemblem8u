@@ -268,7 +268,6 @@ SECTIONS
         src/msg.o(.text);
         src/spline.o(.text);
         src/spline_800AB58.o(.text);
-        asm/spline_800AF64.o(.text);
         src/spline_800B16C.o(.text);
         src/eventscr_utils.o(.text);
         src/eventscr_gmap.o(.text);
