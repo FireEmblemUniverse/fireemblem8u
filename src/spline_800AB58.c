@@ -198,7 +198,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_14;
         local.unk_10 = arg_0->unk_18;
 
-        ret = sub_800A950(&local, arg_1, arg_2);
+        ret = sub_800A950((void *)&local, arg_1, arg_2);
 
         if (ret < 0)
         {
@@ -217,7 +217,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_28;
         local.unk_10 = arg_0->unk_2c;
 
-        ret = sub_800A950(&local, arg_1, arg_3);
+        ret = sub_800A950((void *)&local, arg_1, arg_3);
 
         if (ret < 0)
         {
@@ -237,7 +237,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_3c;
         local.unk_10 = arg_0->unk_40;
 
-        ret = sub_800A950(&local, arg_1, arg_4);
+        ret = sub_800A950((void *)&local, arg_1, arg_4);
 
         if (ret < 0)
         {

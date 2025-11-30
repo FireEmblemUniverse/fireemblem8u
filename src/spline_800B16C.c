@@ -129,7 +129,7 @@ int sub_800B198(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950(&local, arg_3, arg_2) < 0)
+        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;
@@ -197,7 +197,7 @@ int sub_800B388(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950(&local, arg_3, arg_2) < 0)
+        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;
@@ -266,7 +266,7 @@ int sub_800B574(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950(&local, arg_3, arg_2) < 0)
+        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;

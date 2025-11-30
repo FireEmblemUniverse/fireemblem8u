@@ -267,7 +267,6 @@ SECTIONS
         src/gamecontrol.o(.text);
         src/msg.o(.text);
         src/spline.o(.text);
-        asm/spline_800A950.o(.text);
         src/spline_800AB58.o(.text);
         asm/spline_800AF64.o(.text);
         src/spline_800B16C.o(.text);

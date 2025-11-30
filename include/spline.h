@@ -3,12 +3,12 @@
 
 struct Struct02003BE8
 {
-    /* 00 */ u16 unk_00;
-    /* 02 */ u16 unk_02;
-    /* 04 */ u16 * unk_04;
-    /* 08 */ int * unk_08;
-    /* 0C */ int * unk_0C;
-    /* 10 */ int * unk_10;
+    /* 00 */ s16 unk_00;
+    /* 02 */ s16 unk_02;
+    /* 04 */ s16 * unk_04;
+    /* 08 */ u32 * unk_08;
+    /* 0C */ s16 * unk_0C;
+    /* 10 */ u32 ** unk_10;
 };
 
 struct UnkSplineStruct1
@@ -48,7 +48,7 @@ int sub_800A42C(int a, int b, int c);
 // ??? sub_800A680(???);
 // ??? sub_800A7D8(???);
 // ??? sub_800A8D8(???);
-int sub_800A950(void *, int, int *);
+int sub_800A950(struct Struct02003BE8 *, int, int *);
 // ??? sub_800AB58(???);
 // ??? sub_800ACEC(???);
 // ??? sub_800AE7C(???);
