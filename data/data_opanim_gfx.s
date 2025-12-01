@@ -192,25 +192,25 @@ Tsa_OpAnimLArachel2:
 Pal_OpAnimLArachel:
 	.incbin "graphics/op_anim/OpAnimLArachel.gbapal"
 
-	.global Img_OpAnimCharacterSeth
-Img_OpAnimCharacterSeth:
-	.incbin "graphics/op_anim/OpAnimCharacterSeth.4bpp.lz"
+	.global Img_OpAnimSeth
+Img_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.4bpp.lz"
 
-	.global Img_OpAnimCharacterSeth2
-Img_OpAnimCharacterSeth2:
-	.incbin "graphics/op_anim/OpAnimCharacterSeth2.4bpp.lz"
+	.global Img_OpAnimSeth2
+Img_OpAnimSeth2:
+	.incbin "graphics/op_anim/OpAnimSeth2.4bpp.lz"
 
-	.global Tsa_OpAnimCharacterSeth
-Tsa_OpAnimCharacterSeth:
-	.incbin "graphics/op_anim/OpAnimCharacterSeth.bin.lz"
+	.global Tsa_OpAnimSeth
+Tsa_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.bin.lz"
 
-	.global Tsa_OpAnimCharacterSeth2
-Tsa_OpAnimCharacterSeth2:
-	.incbin "graphics/op_anim/OpAnimCharacterSeth2.bin.lz"
+	.global Tsa_OpAnimSeth2
+Tsa_OpAnimSeth2:
+	.incbin "graphics/op_anim/OpAnimSeth2.bin.lz"
 
-	.global Pal_OpAnimCharacterSeth
-Pal_OpAnimCharacterSeth:
-	.incbin "graphics/op_anim/OpAnimCharacterSeth.gbapal"
+	.global Pal_OpAnimSeth
+Pal_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.gbapal"
 
 	.global Img_OpAnimMyrrh
 Img_OpAnimMyrrh:

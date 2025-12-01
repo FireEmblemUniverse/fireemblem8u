@@ -1628,14 +1628,14 @@ void sub_80C8934(struct ProcOpAnim * proc)
     switch (proc->timer)
     {
         case 1:
-            Decompress(Img_OpAnimCharacterSeth, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimCharacterSeth, gGenericBuffer);
+            Decompress(Img_OpAnimSeth, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimSeth, gGenericBuffer);
 
             break;
 
         case 2:
-            Decompress(Img_OpAnimCharacterSeth2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimCharacterSeth2, gGenericBuffer + 0x800);
+            Decompress(Img_OpAnimSeth2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
+            Decompress(Tsa_OpAnimSeth2, gGenericBuffer + 0x800);
 
             break;
 
@@ -2612,7 +2612,7 @@ void sub_80C9C5C(struct ProcOpAnim * proc)
 void sub_80C9CAC(struct ProcOpAnim * proc)
 {
     sub_80C9B6C();
-    CopyToPalOpAnim(Pal_OpAnimCharacterSeth, 0, 0x160);
+    CopyToPalOpAnim(Pal_OpAnimSeth, 0, 0x160);
 
     proc->unk47 = 1;
     proc->unk48 = (u16 *)gGenericBuffer;
