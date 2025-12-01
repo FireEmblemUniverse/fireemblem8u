@@ -220,17 +220,17 @@ Img_OpAnimMyrrh:
 Img_OpAnimMyrrh2:
 	.incbin "graphics/op_anim/OpAnimMyrrh2.4bpp.lz"
 
-	.global Tsa_OpAnimMyrrh2
-Tsa_OpAnimMyrrh2:
-	.incbin "graphics/op_anim/OpAnimMyrrh2.bin.lz"
-
 	.global Tsa_OpAnimMyrrh
 Tsa_OpAnimMyrrh:
 	.incbin "graphics/op_anim/OpAnimMyrrh.bin.lz"
 
-	.global Pal_OpAnimMyrrh2
-Pal_OpAnimMyrrh2:
-	.incbin "graphics/op_anim/OpAnimMyrrh2.gbapal"
+	.global Tsa_OpAnimMyrrh2
+Tsa_OpAnimMyrrh2:
+	.incbin "graphics/op_anim/OpAnimMyrrh2.bin.lz"
+
+	.global Pal_OpAnimMyrrh
+Pal_OpAnimMyrrh:
+	.incbin "graphics/op_anim/OpAnimMyrrh.gbapal"
 
 	.global Img_OpAnimSaleh
 Img_OpAnimSaleh:

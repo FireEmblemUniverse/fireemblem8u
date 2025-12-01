@@ -1674,13 +1674,13 @@ void sub_80C8A20(struct ProcOpAnim * proc)
     {
         case 1:
             Decompress(Img_OpAnimMyrrh, (void *)(VRAM + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimMyrrh2, gGenericBuffer);
+            Decompress(Tsa_OpAnimMyrrh, gGenericBuffer);
 
             break;
 
         case 2:
             Decompress(Img_OpAnimMyrrh2, (void *)(0x06002000 + GetBackgroundTileDataOffset(0)));
-            Decompress(Tsa_OpAnimMyrrh, gGenericBuffer + 0x800);
+            Decompress(Tsa_OpAnimMyrrh2, gGenericBuffer + 0x800);
 
             break;
 
@@ -2630,7 +2630,7 @@ void sub_80C9CAC(struct ProcOpAnim * proc)
 void sub_80C9CFC(struct ProcOpAnim * proc)
 {
     sub_80C9B6C();
-    CopyToPalOpAnim(Pal_OpAnimMyrrh2, 0, 0x160);
+    CopyToPalOpAnim(Pal_OpAnimMyrrh, 0, 0x160);
 
     proc->unk47 = 0;
     proc->unk48 = (u16 *)gGenericBuffer;
