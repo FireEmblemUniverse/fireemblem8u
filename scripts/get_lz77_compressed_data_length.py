@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 # get the length of lz77 compressed data
 # python3 get_lz77_compressed_data_length.py baserom.gba <offset>
