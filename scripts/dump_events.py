@@ -694,11 +694,11 @@ def parse_event(rom_data, off):
 
             match sub_cmd:
                 case 0:
-                    print(f"\tGIVEITEMTO({pid_idx})")
+                    print(f"\tGIVE_ITEM({pid_idx})")
                 case 1:
-                    print(f"\tGIVEITEMTOMAIN({pid_idx})")
+                    print(f"\tGIVE_MONEY({pid_idx})")
                 case 2:
-                    print(f"\tGIVETOSLOT3({pid_idx})")
+                    print(f"\tTAKE_MONEY({pid_idx})")
                 case _:
                     parse_event_err(rom_data, off)
 
