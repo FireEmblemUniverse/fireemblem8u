@@ -80,8 +80,6 @@ void UnAsyncEkrDispUP(void)
     gpProcEkrDispUP->asnyc = false;
 }
 
-#define gBG0TilemapBuffer2D ((u16 (*)[1])gBG0TilemapBuffer)
-
 void ekrDispUPMain(struct ProcEkrDispUP *proc)
 {
     int val0, iy, height, map_idx, ix1;
