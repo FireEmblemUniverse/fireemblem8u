@@ -12,7 +12,9 @@ def convert_images():
         nomap = basePath +".png.nomap.png"
         if os.path.exists(nomap):
             os.remove(nomap)
-
+def convert_image(dir, basename, width):
+    basePath = os.path.join(dir, basename)
+    tool.save_image(basePath+".4bpp", basePath + ".png", width, basePath + ".gbapal", basePath + ".bin")
 def update_data():
     with open(data_file, "r") as f:
         text = f.read()
@@ -23,12 +25,14 @@ def update_data():
         text = text.replace(p+".4bpp.lz", p+".feimg2.bin.lz")
     with open(data_file, "w") as f:
         f.write(text)
-def insert_image_dimensions(p, width = 30, height = 20):
+def insert_image_dimensions(p, width = 32):
         width  -= 1
-        height -= 1
+
         with open(p, "rb") as f:
             data = f.read()
         if data[0] == width: return
+        height = len(data)//2//WIDTH
+        height -= 1
         data = bytearray([width, height]) + data
         with open(p, "wb") as f:
             f.write(data)
@@ -60,7 +64,7 @@ def check_tsas():
         print(out.tiles[0].tile_id, out.tiles[1].tile_id)
         test = 1
 
-op_anim_images = [
+split_op_anim_images = [
     ["OpAnimSaleh", "OpAnimSaleh2"],
     ["OpAnimJoshua", "OpAnimJoshua2"],
     ["OpAnimTethys", "OpAnimTethys2"],
@@ -70,12 +74,16 @@ op_anim_images = [
     #["OpAnimEphraimClose1", "OpAnimEphraimClose2"],
     #["OpAnimEirikaClose1", "OpAnimEirikaClose2"]
 ]
+op_anim_files = [
+    "OpAnimWorldMap",
+    "OpAnimWorldMapFog"
+]
 
 TEMP_TSA = "temp_tsa.bin"
 TEMP_IMG  = "temp_image.4bpp"
 WIDTH = 32
-def convert_op_anim():
-    for image in op_anim_images:
+def convert_split_op_anim():
+    for image in split_op_anim_images:
         image = [os.path.join(graphics_dir, p)for p in image]
         temp_tsa = bytearray()
         temp_image = bytearray()
@@ -96,13 +104,25 @@ def convert_op_anim():
             f.write(read_tsa.to_bytes())
         pal = (image[0] + ".gbapal").replace("2","")
         tool.save_image(TEMP_IMG, image[0] + ".png", WIDTH, pal, TEMP_TSA)
+def convert_op_anim():
+    for f in op_anim_files:
+        #try:
+            convert_image(graphics_dir, f, 32)
+        #except:
+         #   print("Exception "+f)
 def clear_no_maps():
     map_paths =list(os.walk(graphics_dir))[0][2]
     for m in map_paths:
         if m.endswith(".nomap.png"):
             os.remove(os.path.join(graphics_dir, m))
+for image in op_anim_files:
+    p = os.path.join(graphics_dir, image+".bin")
+    insert_image_dimensions(p)
+    #test =tsa.read_file(p, with_dimensions=False)
+    #test = 2
 #check_tsas()
 convert_op_anim()
+#convert_split_op_anim()
 #check_tsas()
 #convert_images()
 #update_data()

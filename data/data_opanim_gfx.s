@@ -8,9 +8,9 @@ Img_OpAnimWorldMap:
 Tsa_OpAnimWorldMap:
 	.incbin "graphics/op_anim/OpAnimWorldMap.bin.lz"
 
-	.global Pal_08AB630C
-Pal_08AB630C:
-	.incbin "graphics/op_anim/08AB630C.gbapal"
+	.global Pal_OpAnimWorldMap
+Pal_OpAnimWorldMap:
+	.incbin "graphics/op_anim/OpAnimWorldMap.gbapal"
 
 	.global Img_OpAnimWorldMapFog
 Img_OpAnimWorldMapFog:

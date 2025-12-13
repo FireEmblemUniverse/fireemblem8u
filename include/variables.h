@@ -1159,7 +1159,7 @@ extern u8 gGfx_TitleSmallLightBubbles[];
 extern u16 gPal_TitleSmallLightBubbles[];
 extern u8 Img_OpAnimWorldMap[];
 extern u8 Tsa_OpAnimWorldMap[];
-extern u16 Pal_08AB630C[];
+extern u16 Pal_OpAnimWorldMap[];
 extern u8 Img_OpAnimWorldMapFog[];
 extern u8 Tsa_OpAnimWorldMapFog[];
 extern u16 Pal_OpAnimWorldMapFog[];

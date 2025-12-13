@@ -249,7 +249,7 @@ void sub_80C6F70(struct ProcOpAnim * proc)
     if (proc->timer <= 0x60)
     {
         int ret = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, 0x60);
-        ApplyPaletteOpAnim(Pal_08AB630C, 0);
+        ApplyPaletteOpAnim(Pal_OpAnimWorldMap, 0);
         sub_80C69B0(PAL_BG(0), 0x7FFF, ret);
     }
 
