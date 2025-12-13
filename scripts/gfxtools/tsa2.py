@@ -142,8 +142,8 @@ def handle_number_of_tiles(num_tiles: int, unique_tiles : list[CheckTile]):
     while len(unique_tiles) < num_tiles:
         unique_tiles.append(CheckTile(np.zeros((8,8), dtype=int)))
 def handle_args(args : dict, unique_tiles, tsa):
-    if (args["battle_background"]):
-        handle_battle_background(unique_tiles, tsa)
+    if (args["max_empty_index"]):
+        max_empty_tile(unique_tiles, tsa)
     if (args["starting_index"] != 0):
         handle_starting_index(args["starting_index"], unique_tiles, tsa)
     if (args["padding"] != 0):
@@ -154,7 +154,7 @@ def handle_args(args : dict, unique_tiles, tsa):
         handle_blank_tile_index(args["blank_tile_index"], unique_tiles, tsa)
     if len(args["flip_y_indexes"]) > 0:
         handle_flip_indexes(args["flip_y_indexes"], tsa)
-    if(args["battle_background"] != True): #battle background doesn't chunk the data
+    if(args["no_chunked"] != True): #battle background doesn't chunk the data
         tsa.tiles = tsa.order_chunks()
 def handle_flip_indexes(indexes : list[int], tsa: TSA):
     for i in indexes:
@@ -187,7 +187,7 @@ def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA
         tiles[i].tile_id = new_id
     tsa.tiles = tiles
 
-def handle_battle_background(unique_tiles : list[CheckTile],  tsa : TSA):
+def max_empty_tile(unique_tiles : list[CheckTile],  tsa : TSA):
 
     #in the battle background the blank tiles are set as tile_id 1023 (max id)
     shift = True
@@ -252,7 +252,8 @@ if __name__ == '__main__':
     parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
     parser.add_argument("--starting_index", help="For feimg2 files with different starting index",default=0, type=int, action='store')
     parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
-    parser.add_argument("--battle_background", help="Handle tsa differences with battle backgrounds", action='store_true')
+    parser.add_argument("--max_empty_index", help="Set empty tile to tile id 1023", action='store_true')
+    parser.add_argument("--no_chunked", help="Don't chunk each row", action='store_true')
 
     try:
         args = parser.parse_args()
