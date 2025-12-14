@@ -12,25 +12,25 @@ gUnknown_08A01F04:  @ 0x08A01F04
 gUnknown_08A01F24:  @ 0x08A01F24
 	.incbin "baserom.gba", 0xA01F24, 0x1CC
 
-	.global gUnknown_08A020F0
-gUnknown_08A020F0:  @ 0x08A020F0
-	.incbin "baserom.gba", 0xA020F0, 0xF4
+	.global Img_StatscreenEquipmentText
+Img_StatscreenEquipmentText:  @ 0x08A020F0
+	.incbin "graphics/statscreen/StatscreenEquipmentText.4bpp.lz"
 
-	.global gUnknown_08A021E4
-gUnknown_08A021E4:  @ 0x08A021E4
-	.incbin "baserom.gba", 0xA021E4, 0x20
+	.global Pal_StatscreenEquipmentText
+Pal_StatscreenEquipmentText:  @ 0x08A021E4
+	.incbin "graphics/statscreen/StatscreenEquipmentText.gbapal"
 
-	.global gUnknown_08A02204
-gUnknown_08A02204:  @ 0x08A02204
-	.incbin "baserom.gba", 0xA02204, 0x4C
+	.global Tsa_StatscreenEquipmentBG
+Tsa_StatscreenEquipmentBG:  @ 0x08A02204
+	.incbin "graphics/statscreen/StatscreenEquipmentBG.bin.lz"
 
 	.global gUnknown_08A02250
 gUnknown_08A02250:  @ 0x08A02250
 	.incbin "baserom.gba", 0xA02250, 0x24
 
-	.global gUnknown_08A02274
-gUnknown_08A02274:  @ 0x08A02274
-	.incbin "baserom.gba", 0xA02274, 0x588
+	.global Img_StatscreenObjs
+Img_StatscreenObjs:  @ 0x08A02274
+	.incbin "graphics/statscreen/StatscreenObjs.4bpp.lz"
 
 	.global gUnknown_08A027FC
 gUnknown_08A027FC:  @ 0x08A027FC
@@ -118,27 +118,27 @@ gUnknown_08A03354:  @ 0x08A03354
 
 	.global Img_StatscreenBG
 Img_StatscreenBG:  @ 0x08A03368
-	.incbin "baserom.gba", 0xA03368, 0x2BA8
+	.incbin "graphics/statscreen/StatscreenBG.4bpp.lz"
 
 	.global Tsa_StatscreenBG
 Tsa_StatscreenBG:  @ 0x08A05F10
-	.incbin "baserom.gba", 0xA05F10, 0x550
+	.incbin "graphics/statscreen/StatscreenBG.bin.lz"
 
 	.global Pal_StatscreenBG
 Pal_StatscreenBG:  @ 0x08A06460
-	.incbin "baserom.gba", 0xA06460, 0x80
+	.incbin "graphics/statscreen/StatscreenBG.gbapal"
 
-	.global gUnknown_08A064E0
-gUnknown_08A064E0:  @ 0x08A064E0
-	.incbin "baserom.gba", 0xA064E0, 0xD1C
+	.global Img_StatscreenHalo
+Img_StatscreenHalo:  @ 0x08A064E0
+	.incbin "graphics/statscreen/StatscreenHalo.4bpp.lz"
 
-	.global gUnknown_08A071FC
-gUnknown_08A071FC:  @ 0x08A071FC
-	.incbin "baserom.gba", 0xA071FC, 0x120
+	.global Tsa_StatscreenHalo
+Tsa_StatscreenHalo:  @ 0x08A071FC
+	.incbin "graphics/statscreen/StatscreenHalo.bin.lz"
 
-	.global gUnknown_08A0731C
-gUnknown_08A0731C:  @ 0x08A0731C
-    .incbin "baserom.gba", 0xA0731C, 0x20
+	.global Pal_StatscreenHalo
+Pal_StatscreenHalo:  @ 0x08A0731C
+	.incbin "graphics/statscreen/StatscreenHalo.gbapal"
 
 	.global Img_ConfigUiSprites
 Img_ConfigUiSprites:  @ 0x08A0733C

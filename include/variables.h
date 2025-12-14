@@ -790,11 +790,11 @@ extern struct ProcCmd gProcScr_BoxDialogue[];
 extern u16 CONST_DATA gUnknown_08A01EE4[]; // some face-related palette (if portrait)
 extern u16 CONST_DATA gUnknown_08A01F04[]; // some face-related palette (if card)
 extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
-extern u8  CONST_DATA gUnknown_08A020F0[]; // img?
-extern u16 CONST_DATA gUnknown_08A021E4[]; // pal
-extern u8  CONST_DATA gUnknown_08A02204[]; // tsa
+extern u8  CONST_DATA Img_StatscreenEquipmentText[]; // img?
+extern u16 CONST_DATA Pal_StatscreenEquipmentText[]; // pal
+extern u8  CONST_DATA Tsa_StatscreenEquipmentBG[]; // tsa
 extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
-extern u8  CONST_DATA gUnknown_08A02274[]; // img objects
+extern u8  CONST_DATA Img_StatscreenObjs[]; // img objects
 extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
 extern u8 gGfx_HelpTextBox[];
 extern u8 gGfx_HelpTextBox2[];
@@ -819,9 +819,9 @@ extern u8 CONST_DATA gUnknown_08A0328C[];
 extern u8  CONST_DATA Img_StatscreenBG[]; // stat screen background img
 extern u8  CONST_DATA Tsa_StatscreenBG[]; // stat screen background tsa
 extern u16 CONST_DATA Pal_StatscreenBG[]; // stat screen background pal
-extern u8  CONST_DATA gUnknown_08A064E0[]; // halo img
-extern u8  CONST_DATA gUnknown_08A071FC[]; // halo tsa
-extern u16 CONST_DATA gUnknown_08A0731C[]; // halo pal
+extern u8  CONST_DATA Img_StatscreenHalo[]; // halo img
+extern u8  CONST_DATA Tsa_StatscreenHalo[]; // halo tsa
+extern u16 CONST_DATA Pal_StatscreenHalo[]; // halo pal
 extern u8 Img_ConfigUiSprites[]; // gfx
 extern u8 Img_ConfigUiIcons[]; // gfx
 extern u8 Tsa_ConfigUiFrame[]; // tsa
