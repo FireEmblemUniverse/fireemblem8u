@@ -585,8 +585,8 @@ Img_OpAnimFaceFordeShadow:
 	.incbin "graphics/op_anim/OpAnimFaceFordeShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceForde
-Pal_OpAnimFaceForde:  @ 0x08AEC048
-	.incbin "graphics/op_anim/FaceValterShadow.gbapal", 0x0, 0x20
+Pal_OpAnimFaceForde:
+	.incbin "graphics/op_anim/OpAnimFaceForde.gbapal"
 
 	.global Img_OpAnimFaceSeth
 Img_OpAnimFaceSeth:
@@ -641,8 +641,8 @@ Img_OpAnimFaceValter:
 	.incbin "graphics/op_anim/OpAnimFaceValter.4bpp.lz"
 
 	.global Img_OpAnimFaceValterShadow
-Img_OpAnimFaceValterShadow:  @ 0x08AEEBB0
-	.incbin "graphics/op_anim/FaceValterShadow.4bpp.lz"
+Img_OpAnimFaceValterShadow:
+	.incbin "graphics/op_anim/OpAnimFaceValterShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceValter
 Pal_OpAnimFaceValter:
