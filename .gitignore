@@ -75,13 +75,9 @@ tools/agbcc
 data/banim/*.bin
 graphics/map/layout/*.bin
 
-*.feimg1.bin
-*.feimg2.bin
-*.feimg3.bin
+*.feimg*.bin
+*.fetsa*.bin
 
-*.fetsa1.bin
-*.fetsa2.bin
-*.fetsa3.bin
 
 # =========================
 # Dump Scripts Output

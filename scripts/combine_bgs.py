@@ -25,17 +25,20 @@ def update_data():
         text = text.replace(p+".4bpp.lz", p+".feimg2.bin.lz")
     with open(data_file, "w") as f:
         f.write(text)
-def insert_image_dimensions(p, width = 32):
+def insert_image_dimensions(p, width = 30, height = 20):
         width  -= 1
-
+        height -= 1
         with open(p, "rb") as f:
             data = f.read()
         if data[0] == width: return
-        height = len(data)//2//WIDTH
-        height -= 1
         data = bytearray([width, height]) + data
         with open(p, "wb") as f:
             f.write(data)
+def chunk_image(p):
+    read_tsa = tsa.read_file(p)
+    read_tsa.tiles = read_tsa.order_chunks()
+    with open(p, "wb") as f:
+        f.write(read_tsa.to_bytes())
 def reformat_battle_bg_tsa():
     for p in paths:
         p = os.path.join(graphics_dir, p.replace(".4bpp", ".bin"))
@@ -75,8 +78,8 @@ split_op_anim_images = [
     #["OpAnimEirikaClose1", "OpAnimEirikaClose2"]
 ]
 op_anim_files = [
-    "OpAnimWorldMap",
-    "OpAnimWorldMapFog"
+    ["OpAnimWorldMap", 32, 32],
+    ["OpAnimWorldMapFog", 32, 32]
 ]
 
 TEMP_TSA = "temp_tsa.bin"
@@ -107,7 +110,7 @@ def convert_split_op_anim():
 def convert_op_anim():
     for f in op_anim_files:
         #try:
-            convert_image(graphics_dir, f, 32)
+        convert_image(graphics_dir, f[0], f[1])
         #except:
          #   print("Exception "+f)
 def clear_no_maps():
@@ -115,13 +118,14 @@ def clear_no_maps():
     for m in map_paths:
         if m.endswith(".nomap.png"):
             os.remove(os.path.join(graphics_dir, m))
-for image in op_anim_files:
-    p = os.path.join(graphics_dir, image+".bin")
-    insert_image_dimensions(p)
-    #test =tsa.read_file(p, with_dimensions=False)
-    #test = 2
+#for image in op_anim_files:
+#    p = os.path.join(graphics_dir, image[0]+".bin")
+#    insert_image_dimensions(p, image[1], image[2])
+#    chunk_image(p)
+#    test =tsa.read_file(p)
+#    test = 2
 #check_tsas()
-convert_op_anim()
+#convert_op_anim()
 #convert_split_op_anim()
 #check_tsas()
 #convert_images()

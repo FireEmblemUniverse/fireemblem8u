@@ -142,19 +142,21 @@ def handle_number_of_tiles(num_tiles: int, unique_tiles : list[CheckTile]):
     while len(unique_tiles) < num_tiles:
         unique_tiles.append(CheckTile(np.zeros((8,8), dtype=int)))
 def handle_args(args : dict, unique_tiles, tsa):
-    if (args["max_empty_index"]):
+    if args["max_empty_index"]:
         max_empty_tile(unique_tiles, tsa)
-    if (args["starting_index"] != 0):
+    if args["starting_index"] != 0:
         handle_starting_index(args["starting_index"], unique_tiles, tsa)
-    if (args["padding"] != 0):
+    if args["padding"] != 0:
         handle_padding(args["padding"], unique_tiles, tsa)
-    if (args["num_tiles"] != 0):
+    if args["num_tiles"] != 0:
         handle_number_of_tiles(args["num_tiles"], unique_tiles)
-    if (args["blank_tile_index"] != 0):
+    if args["blank_tile_index"] != 0:
         handle_blank_tile_index(args["blank_tile_index"], unique_tiles, tsa)
     if len(args["flip_y_indexes"]) > 0:
         handle_flip_indexes(args["flip_y_indexes"], tsa)
-    if(args["no_chunked"] != True): #battle background doesn't chunk the data
+    if args["pop_last_tile"]:
+        unique_tiles.pop(len(unique_tiles)-1)
+    if args["no_chunked"] != True: #battle background doesn't chunk the data
         tsa.tiles = tsa.order_chunks()
 def handle_flip_indexes(indexes : list[int], tsa: TSA):
     for i in indexes:
@@ -164,7 +166,9 @@ def handle_blank_tile_index(index : int, unique_tiles : list[CheckTile], tsa : T
         if tsa.tiles[i].tile_id == 0:
             tsa.tiles[i].tile_id = index
     unique_tiles.insert(0, CheckTile(np.zeros((8,8), dtype=int)))
-    unique_tiles.pop(len(unique_tiles)-1)
+
+    unique_tiles.insert(index, unique_tiles.pop(1))
+
 def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA):
     if index == 0: return
     #move tile at index to the start
@@ -250,6 +254,7 @@ if __name__ == '__main__':
     parser.add_argument("--padding", help="For feimg2 files with padding", default=0, type=int, action='store')
     parser.add_argument("--num_tiles", help="Set final image to have <x> number of tiles", default=0, type=int, action='store')
     parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
+    parser.add_argument("--pop_last_tile", help="Remove the end tile.", action='store_true')
     parser.add_argument("--starting_index", help="For feimg2 files with different starting index",default=0, type=int, action='store')
     parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
     parser.add_argument("--max_empty_index", help="Set empty tile to tile id 1023", action='store_true')

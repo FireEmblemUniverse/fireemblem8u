@@ -14,11 +14,11 @@ Pal_OpAnimWorldMap:
 
 	.global Img_OpAnimWorldMapFog
 Img_OpAnimWorldMapFog:
-	.incbin "graphics/op_anim/OpAnimWorldMapFog.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimWorldMapFog.feimg4.bin.lz"
 
 	.global Tsa_OpAnimWorldMapFog
 Tsa_OpAnimWorldMapFog:
-	.incbin "graphics/op_anim/OpAnimWorldMapFog.bin.lz"
+	.incbin "graphics/op_anim/OpAnimWorldMapFog.fetsa4.bin.lz"
 
 	.global Pal_OpAnimWorldMapFog
 Pal_OpAnimWorldMapFog:

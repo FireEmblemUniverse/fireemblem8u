@@ -122,6 +122,7 @@ def main():
     parser.add_argument("--num_tiles", help="Set final image to have <x> number of tiles", default=0, type=int, action='store')
     parser.add_argument("--starting_index", help="Change starting index",default=0, type=int, action='store')
     parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
+    parser.add_argument("--pop_last_tile", help="Remove the end tile.", action='store_true')
     parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
     parser.add_argument("--max_empty_index", help="Set empty tile to tile id 1023", action='store_true')
     parser.add_argument("--no_chunked", help="Don't chunk each row", action='store_true')
@@ -159,7 +160,6 @@ def main():
             tsa_args["num_tiles"] = 416
         if method == 4:
             tsa_args["no_chunked"] = True
-            tsa_args["num_tiles"] = 512
         # TODO
         # 1. Allow arbitrary index sequence order. For example bg_Volcano which goes 0,1,2,3,4,6,8,7,15 etc
         tsa_data, unique_tiles = tsa2_main(tsa_args, np.array(tiles).flatten(),ntile_x, ntile_y )
