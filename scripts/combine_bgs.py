@@ -1,6 +1,5 @@
 import tool, os
 import gfxtools.tsa2 as tsa
-
 graphics_dir = "../graphics/op_anim"
 data_file = "../data/data_opanim_gfx.s"
 paths = list(os.walk(graphics_dir))
@@ -78,8 +77,10 @@ split_op_anim_images = [
     #["OpAnimEirikaClose1", "OpAnimEirikaClose2"]
 ]
 op_anim_files = [
-    ["OpAnimWorldMap", 32, 32],
-    ["OpAnimWorldMapFog", 32, 32]
+    #["OpAnimWorldMap", 32, 32],
+    #["OpAnimCharacterBG", 32, 20]
+    #["IntelligentSystems", 30, 20],
+    #["GameIntroNintendo", 30, 20]
 ]
 
 TEMP_TSA = "temp_tsa.bin"
@@ -118,12 +119,42 @@ def clear_no_maps():
     for m in map_paths:
         if m.endswith(".nomap.png"):
             os.remove(os.path.join(graphics_dir, m))
-#for image in op_anim_files:
-#    p = os.path.join(graphics_dir, image[0]+".bin")
-#    insert_image_dimensions(p, image[1], image[2])
-#    chunk_image(p)
-#    test =tsa.read_file(p)
-#    test = 2
+for image in op_anim_files:
+    p = os.path.join(graphics_dir, image[0]+".bin")
+    insert_image_dimensions(p, image[1], image[2])
+    chunk_image(p)
+    test =tsa.read_file(p)
+    test = 2
+def get_sprites(data_file):
+    with open(data_file,"r") as f:
+        text = f.read()
+        lines  = f.readlines()
+    lines = text.split("\n")
+    sprites = []
+    for l in lines:
+        l = l.strip()
+        if not l.startswith("Img_") :continue
+        name = l.split(".global ")[-1].strip().replace("Img_", "")
+        tsa_name =  "Tsa_" +name
+        if tsa_name in text:continue
+        sprites.append(name.replace(":", ""))
+    return sprites
+
+
+sprites = get_sprites(data_file)
+for s in sprites:
+    try:
+        basename = os.path.join(graphics_dir, s)
+        with_pal =  os.path.exists(basename+".gbapal")
+
+        tool.save_image(
+            basename + '.4bpp',
+            palfile=None if not with_pal else basename+'.gbapal',
+            width=8
+        )
+    except:
+        print(s)
+test = 1
 #check_tsas()
 #convert_op_anim()
 #convert_split_op_anim()

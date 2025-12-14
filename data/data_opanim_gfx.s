@@ -1550,11 +1550,11 @@ pal_08B103D8:
 
 	.global Tsa_GameIntroNintendo
 Tsa_GameIntroNintendo:
-	.incbin "graphics/op_anim/GameIntroNintendo.bin.lz"
+	.incbin "graphics/op_anim/GameIntroNintendo.fetsa2.bin.lz"
 
 	.global Img_GameIntroNintendo
 Img_GameIntroNintendo:
-	.incbin "graphics/op_anim/GameIntroNintendo.4bpp.lz"
+	.incbin "graphics/op_anim/GameIntroNintendo.feimg2.bin.lz"
 
 	.global Pal_GameIntroNintendo
 Pal_GameIntroNintendo:
@@ -1562,11 +1562,11 @@ Pal_GameIntroNintendo:
 
 	.global Tsa_IntelligentSystems
 Tsa_IntelligentSystems:
-	.incbin "graphics/op_anim/IntelligentSystems.bin.lz"
+	.incbin "graphics/op_anim/IntelligentSystems.fetsa2.bin.lz"
 
 	.global Img_IntelligentSystems
 Img_IntelligentSystems:
-	.incbin "graphics/op_anim/IntelligentSystems.4bpp.lz"
+	.incbin "graphics/op_anim/IntelligentSystems.feimg2.bin.lz"
 
 	.global Pal_IntelligentSystems
 Pal_IntelligentSystems:
