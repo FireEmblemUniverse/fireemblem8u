@@ -6,9 +6,10 @@ import json
 from tmap2tsa import tsa2tmap
 
 class GBAImage():
-    def __init__(self, name, image=None, tsa=None, pal=None, width=None, height=None, palsCount=1, dumpTilemap=False):
+    def __init__(self, name, image=None, tsa=None, pal=None, width=None, height=None, palsCount=1, dumpTilemap=False, keepNomapDimensions=False):
         self.name = name
         self.image = image
+        self.keepNomapDimensions = keepNomapDimensions
         self.tsa = tsa
         self.dumpTilemap = dumpTilemap
         self.pal = pal
@@ -55,9 +56,10 @@ class GBAImage():
             data.write_uncomp_data(f)
         tool.save_image(
             outName + '.4bpp',
-            palfile=None if self.pal == None or self.palsCount > 1 else outName+'.gbapal',
-            # mapfile=None if self.palsCount == 1 else outName+'.bin',
-            width=width
+            palfile=None if self.pal == None else outName+'.gbapal',
+            mapfile=None if self.palsCount == 1 else outName+'.bin',
+            width=width,
+            keepNomapDimensions=self.keepNomapDimensions
         )
 
     def getOut(self, dir):
@@ -65,10 +67,10 @@ class GBAImage():
 
     def cleanupTmpFiles(self, dir):
         pass
-        # if self.palsCount > 1:
-        #     name = self.getOut(dir)
-        #     os.unlink(name + ".png.nomap.png")
-        #     os.unlink(name + ".gbapal.entry0.gbapal")
+        if self.palsCount > 1:
+            name = self.getOut(dir)
+            os.unlink(name + ".png.nomap.png")
+            os.unlink(name + ".gbapal.entry0.gbapal")
 
 if __name__ == '__main__':
     rom = "baserom.gba"
@@ -85,7 +87,7 @@ if __name__ == '__main__':
 
     images = [
         GBAImage("StatscreenHalo", img_StatscreenHalo, tsa_StatscreenHalo, pal_StatscreenHalo, width=1, dumpTilemap=True),
-        GBAImage("StatscreenBG", img_StatscreenBG, tsa_StatscreenBG, pal_StatscreenBG, palsCount=4, dumpTilemap=True),
+        GBAImage("StatscreenBG", img_StatscreenBG, tsa_StatscreenBG, pal_StatscreenBG, palsCount=4, dumpTilemap=True, keepNomapDimensions=True),
         GBAImage("StatscreenObjs", image=0xA02274,pal=0x5996F4+32, width=32),
         GBAImage("StatscreenEquipmentBG", image=0xA01F24,pal=0x5B6BB4, tsa=0xA02204, width=32, dumpTilemap=True),
         GBAImage("StatscreenEquipmentText", image=0xA020F0, pal=0xA021E4, width=8),
@@ -93,4 +95,4 @@ if __name__ == '__main__':
     with open(rom, "rb") as rom_f:
         for image in images:
             image.dump(rom_f, outDir)
-    os.system(f"cp {outDir}/Statscreen*.png {outDir}/Statscreen*.tmap {outDir}/StatscreenBG.pal {graphDir}")
+    os.system(f"cp {outDir}/Statscreen*.png {outDir}/Statscreen*.tmap {graphDir}")
