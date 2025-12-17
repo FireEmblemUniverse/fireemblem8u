@@ -50,19 +50,19 @@ gUnknown_08AB986C:
 
 	.global Img_OpAnimEphraim
 Img_OpAnimEphraim:
-	.incbin "graphics/op_anim/OpAnimEphraim.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEphraim.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEphraim
 Tsa_OpAnimEphraim:
-	.incbin "graphics/op_anim/OpAnimEphraim.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEphraim.fetsa4.bin.lz"
 
 	.global Img_OpAnimEphraimBlur1
 Img_OpAnimEphraimBlur1:
-	.incbin "graphics/op_anim/OpAnimEphraimBlur1.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEphraimBlur1.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEphraimBlur1
 Tsa_OpAnimEphraimBlur1:
-	.incbin "graphics/op_anim/OpAnimEphraimBlur1.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEphraimBlur1.fetsa4.bin.lz"
 
 	.global Img_OpAnimEphraimBlur2
 Img_OpAnimEphraimBlur2:
@@ -102,35 +102,35 @@ Pal_OpAnimEphraimBlur:
 
 	.global Img_OpAnimEirika
 Img_OpAnimEirika:
-	.incbin "graphics/op_anim/OpAnimEirika.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEirika.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirika
 Tsa_OpAnimEirika:
-	.incbin "graphics/op_anim/OpAnimEirika.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEirika.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur1
 Img_OpAnimEirikaBlur1:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur1.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur1.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur1
 Tsa_OpAnimEirikaBlur1:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur1.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur1.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur2
 Img_OpAnimEirikaBlur2:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur2.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur2.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur2
 Tsa_OpAnimEirikaBlur2:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur2.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur2.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur3
 Img_OpAnimEirikaBlur3:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur3.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur3.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur3
 Tsa_OpAnimEirikaBlur3:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur3.bin.lz"
+	.incbin "graphics/op_anim/OpAnimEirikaBlur3.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaClose1
 Img_OpAnimEirikaClose1:

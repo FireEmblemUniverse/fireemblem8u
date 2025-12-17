@@ -111,8 +111,7 @@ def extract_suffix_from_filename(file_name):
     if match:
         return int(match.group(2))
     return None
-
-def main():
+def get_args():
     usage = "Usage: [*.png] [*.feimg<x>.bin] [*.fetsa.bin]"
     parser = argparse.ArgumentParser(usage=usage)
     parser.add_argument("png_file", help="png file to convert")
@@ -126,6 +125,10 @@ def main():
     parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
     parser.add_argument("--max_empty_index", help="Set empty tile to tile id 1023", action='store_true')
     parser.add_argument("--no_chunked", help="Don't chunk each row", action='store_true')
+    parser.add_argument("--insert_indexes", help= "Insert tiles(s) at position(s) <x>:<y>,<x>:<y>", default=[], type=lambda x:list(map(lambda y: map(int, y.split(":")), x.split(","))))
+    return parser
+def main():
+    parser = get_args()
     try:
         args = parser.parse_args()
     except IndexError:

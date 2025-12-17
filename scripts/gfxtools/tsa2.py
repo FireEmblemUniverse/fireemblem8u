@@ -144,7 +144,7 @@ def handle_number_of_tiles(num_tiles: int, unique_tiles : list[CheckTile]):
 def handle_args(args : dict, unique_tiles, tsa):
     if args["max_empty_index"]:
         max_empty_tile(unique_tiles, tsa)
-    if args["starting_index"] != 0:
+    if args["starting_index"] != 0: #TODO probably redundant with insert index now
         handle_starting_index(args["starting_index"], unique_tiles, tsa)
     if args["padding"] != 0:
         handle_padding(args["padding"], unique_tiles, tsa)
@@ -154,10 +154,40 @@ def handle_args(args : dict, unique_tiles, tsa):
         handle_blank_tile_index(args["blank_tile_index"], unique_tiles, tsa)
     if len(args["flip_y_indexes"]) > 0:
         handle_flip_indexes(args["flip_y_indexes"], tsa)
+    if len(args["insert_indexes"]) > 0:
+        unique_tiles = handle_insert_indexes(args["insert_indexes"], unique_tiles, tsa)
     if args["pop_last_tile"]:
         unique_tiles.pop(len(unique_tiles)-1)
-    if args["no_chunked"] != True: #battle background doesn't chunk the data
+    if args["no_chunked"] != True:
         tsa.tiles = tsa.order_chunks()
+def handle_insert_indexes(indexes : list[list[int, int]], unique_tiles : list[CheckTile], tsa : TSA):
+
+    for new, old in indexes:
+        #move tile at index to the start
+        unique_tiles.insert(new, unique_tiles.pop(old))
+        #unique_tiles[old], unique_tiles[new] = unique_tiles[new], unique_tiles[old]
+        #shift tiles forward
+        tiles = tsa.tiles
+        hit_index = False
+        for i in range(len(tiles)):
+
+            tile = tiles[i].tile_id
+            if tile < old: continue
+            if tile == old:
+                tiles[i].tile_id = new
+                continue
+
+            else:
+                #shift tile forward
+                new_id = tile - 1 + hit_index
+            # if current tile is the starting tile everything after is shifted by another 1
+            if new_id == new:
+                new_id += 1
+                hit_index = True
+            tiles[i].tile_id = new_id
+        tsa.tiles = tiles
+    return unique_tiles
+
 def handle_flip_indexes(indexes : list[int], tsa: TSA):
     for i in indexes:
         tsa.tiles[i].y_flip = True
@@ -245,21 +275,8 @@ def main(args, tiles , ntile_x, ntile_y ):
 
 
 if __name__ == '__main__':
-    from tsa_generator import convert_to_4bpp, extract_tiles
-    usage = f"Usage: [*.png] [*.feimg<x>.bin] [*.fetsa.bin]"
-    parser = argparse.ArgumentParser(usage=usage)
-    parser.add_argument("png_file", help="png file to convert")
-    parser.add_argument("out_img", help="out *.feimg<x>.bin file", action='store')
-    parser.add_argument("out_tsa", help="out *.fetsa<x>.bin file", action='store')
-    parser.add_argument("--padding", help="For feimg2 files with padding", default=0, type=int, action='store')
-    parser.add_argument("--num_tiles", help="Set final image to have <x> number of tiles", default=0, type=int, action='store')
-    parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
-    parser.add_argument("--pop_last_tile", help="Remove the end tile.", action='store_true')
-    parser.add_argument("--starting_index", help="For feimg2 files with different starting index",default=0, type=int, action='store')
-    parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
-    parser.add_argument("--max_empty_index", help="Set empty tile to tile id 1023", action='store_true')
-    parser.add_argument("--no_chunked", help="Don't chunk each row", action='store_true')
-
+    from tsa_generator import convert_to_4bpp, extract_tiles, get_args
+    parser = get_args()
     try:
         args = parser.parse_args()
     except IndexError:

@@ -155,3 +155,24 @@ graphics/btl_bg/btl_bg_57.feimg3.bin graphics/btl_bg/btl_bg_57.fetsa3.bin: graph
 #op anim
 graphics/op_anim/OpAnimWorldMapFog.feimg4.bin graphics/op_anim/OpAnimWorldMapFog.fetsa4.bin: graphics/op_anim/OpAnimWorldMapFog.png
 	$(FETSATOOL) $< graphics/op_anim/OpAnimWorldMapFog.feimg4.bin  graphics/op_anim/OpAnimWorldMapFog.fetsa4.bin --blank_tile_index=255
+
+graphics/op_anim/OpAnimEirika.feimg4.bin graphics/op_anim/OpAnimEirika.fetsa4.bin: graphics/op_anim/OpAnimEirika.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEirika.feimg4.bin  graphics/op_anim/OpAnimEirika.fetsa4.bin --num_tiles=256 --insert_indexes=114:1
+
+graphics/op_anim/OpAnimEirikaBlur1.feimg4.bin graphics/op_anim/OpAnimEirikaBlur1.fetsa4.bin: graphics/op_anim/OpAnimEirikaBlur1.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEirikaBlur1.feimg4.bin  graphics/op_anim/OpAnimEirikaBlur1.fetsa4.bin --num_tiles=256 --insert_indexes=119:1
+
+graphics/op_anim/OpAnimEirikaBlur2.feimg4.bin graphics/op_anim/OpAnimEirikaBlur2.fetsa4.bin: graphics/op_anim/OpAnimEirikaBlur2.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEirikaBlur2.feimg4.bin  graphics/op_anim/OpAnimEirikaBlur2.fetsa4.bin --num_tiles=256 --insert_indexes=136:1
+
+graphics/op_anim/OpAnimEirikaBlur3.feimg4.bin graphics/op_anim/OpAnimEirikaBlur3.fetsa4.bin: graphics/op_anim/OpAnimEirikaBlur3.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEirikaBlur3.feimg4.bin  graphics/op_anim/OpAnimEirikaBlur3.fetsa4.bin --num_tiles=256 --insert_indexes=161:1
+
+graphics/op_anim/OpAnimEphraim.feimg4.bin graphics/op_anim/OpAnimEphraim.fetsa4.bin: graphics/op_anim/OpAnimEphraim.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEphraim.feimg4.bin  graphics/op_anim/OpAnimEphraim.fetsa4.bin --num_tiles=256 --insert_indexes=133:1
+
+graphics/op_anim/OpAnimEphraimBlur1.feimg4.bin graphics/op_anim/OpAnimEphraimBlur1.fetsa4.bin: graphics/op_anim/OpAnimEphraimBlur1.png
+	$(FETSATOOL) $< graphics/op_anim/OpAnimEphraimBlur1.feimg4.bin  graphics/op_anim/OpAnimEphraimBlur1.fetsa4.bin --num_tiles=256 --insert_indexes=149:1
+
+#graphics/op_anim/OpAnimEphraimBlur3.feimg4.bin graphics/op_anim/OpAnimEphraimBlur3.fetsa4.bin: graphics/op_anim/OpAnimEphraimBlur3.png
+#	$(FETSATOOL) $< graphics/op_anim/OpAnimEphraimBlur3.feimg4.bin  graphics/op_anim/OpAnimEphraimBlur3.fetsa4.bin --num_tiles=256 --insert_indexes=167:1

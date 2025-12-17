@@ -81,6 +81,7 @@ op_anim_files = [
     #["OpAnimCharacterBG", 32, 20]
     #["IntelligentSystems", 30, 20],
     #["GameIntroNintendo", 30, 20]
+    ["OpAnimEirika", 30, 20]
 ]
 
 TEMP_TSA = "temp_tsa.bin"
@@ -119,12 +120,7 @@ def clear_no_maps():
     for m in map_paths:
         if m.endswith(".nomap.png"):
             os.remove(os.path.join(graphics_dir, m))
-for image in op_anim_files:
-    p = os.path.join(graphics_dir, image[0]+".bin")
-    insert_image_dimensions(p, image[1], image[2])
-    chunk_image(p)
-    test =tsa.read_file(p)
-    test = 2
+
 def get_sprites(data_file):
     with open(data_file,"r") as f:
         text = f.read()
@@ -140,21 +136,26 @@ def get_sprites(data_file):
         sprites.append(name.replace(":", ""))
     return sprites
 
+pal = os.path.join(graphics_dir,"OpAnimEirikaBlur.gbapal")
+files = ["OpAnimEirika", "OpAnimEirikaBlur1", "OpAnimEirikaBlur2", "OpAnimEirikaBlur3"]
 
-sprites = get_sprites(data_file)
-for s in sprites:
-    try:
-        basename = os.path.join(graphics_dir, s)
-        with_pal =  os.path.exists(basename+".gbapal")
-
-        tool.save_image(
-            basename + '.4bpp',
-            palfile=None if not with_pal else basename+'.gbapal',
-            width=8
-        )
-    except:
-        print(s)
-test = 1
+for f in files:
+    basePath = os.path.join(graphics_dir, f)
+    tsaa=tsa.read_file(basePath+".bin", with_dimensions=False)
+    TEST = 1
+    tsaa.width = 32
+    tsaa.height = 20
+    with open(basePath +".bin", "wb") as f:
+        f.write(tsaa.to_bytes())
+    chunk_image(basePath+".bin")
+    test = 1
+    tool.save_image(basePath+".4bpp", basePath + ".png", 32, pal, basePath + ".bin")
+#for image in op_anim_files:
+#    p = os.path.join(graphics_dir, image[0]+".bin")
+#    insert_image_dimensions(p, image[1], image[2])
+#    chunk_image(p)
+#    test =tsa.read_file(p)
+#    test = 2
 #check_tsas()
 #convert_op_anim()
 #convert_split_op_anim()
