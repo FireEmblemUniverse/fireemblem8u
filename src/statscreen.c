@@ -713,7 +713,7 @@ void DisplayPage1(void)
 
     CallARM_FillTileRect(
         gUiTmScratchC + TILEMAP_INDEX(1, 11),
-        gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME));
+        gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT));
 
     DisplayTexts(sPage1TextInfo);
 
@@ -750,7 +750,7 @@ void DisplayPage1(void)
 
             CallARM_FillTileRect(
                 gUiTmScratchC + TILEMAP_INDEX(1, 2 + i*2),
-                gUnknown_08A02250, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME));
+                Tsa_StatscreenEquipedWeaponHighlight, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT));
 
             item = gStatScreen.unit->items[i];
         }
@@ -805,8 +805,8 @@ void DisplayPage1(void)
 
     for (i = 0; i < 8; ++i)
     {
-        gUiTmScratchA[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_EQUIPMENT_TEXT);
-        gUiTmScratchA[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_EQUIPMENT_TEXT);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
     }
 }
 
@@ -1507,7 +1507,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     SetupBackgrounds(bgConfig);
 
-    UnpackUiFramePalette(STATSCREEN_BGPAL_EQUIPMENT_FRAME);
+    UnpackUiFramePalette(STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT);
     RegisterBlankTile(0x400);
 
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -1582,7 +1582,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
     Decompress(
         gUnknown_08A01F24, (void*)(VRAM + 0x440 * 0x20));
 
-    ApplyPalette(Pal_StatscreenEquipmentText, STATSCREEN_BGPAL_EQUIPMENT_TEXT);
+    ApplyPalette(Pal_StatscreenEquipmentText, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
 
     LoadIconPalette(1, 0x14);
 

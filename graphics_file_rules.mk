@@ -165,3 +165,6 @@ graphics/statscreen/StatscreenHalo.bin: %.bin: %.tmap
 
 graphics/statscreen/StatscreenEquipmentBG.bin: %.bin: %.tmap
 	$(TMAP2TSA) $< $@ --width 15 --height 5
+
+graphics/statscreen/StatscreenEquipedWeaponHighlight.bin: %.bin: %.tmap
+	$(TMAP2TSA) $< $@ --width 15 --height 0

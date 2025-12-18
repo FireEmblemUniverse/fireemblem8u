@@ -793,7 +793,7 @@ extern u8  CONST_DATA gUnknown_08A01F24[]; // img?
 extern u8  CONST_DATA Img_StatscreenEquipmentText[]; // img?
 extern u16 CONST_DATA Pal_StatscreenEquipmentText[]; // pal
 extern u8  CONST_DATA Tsa_StatscreenEquipmentBG[]; // tsa
-extern u8  CONST_DATA gUnknown_08A02250[]; // tsa
+extern u8  CONST_DATA Tsa_StatscreenEquipedWeaponHighlight[]; // tsa
 extern u8  CONST_DATA Img_StatscreenObjs[]; // img objects
 extern u16 CONST_DATA gUnknown_08A027FC[][0x10]; // color animation for each page
 extern u8 gGfx_HelpTextBox[];

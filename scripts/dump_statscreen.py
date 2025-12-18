@@ -72,6 +72,19 @@ class GBAImage():
             os.unlink(name + ".png.nomap.png")
             os.unlink(name + ".gbapal.entry0.gbapal")
 
+def dumpEquipedWeaponHighlightTSA(rom, dir):
+    offset = 0xA02250
+    length = 0x24
+    name = os.path.realpath(os.path.join(dir, "StatscreenEquipedWeaponHighlight"))
+    rom.seek(offset)
+    with open(name + ".bin", "wb") as tsa_f:
+        tsa_f.write(rom.read(length))
+    with open(name + ".bin", 'rb') as tsa_f, \
+            open(name + ".tmap", 'wb') as tm_f, \
+                open(name + ".json", "w") as json_f:
+
+        tsa2tmap(tm_f=tm_f,tsa_f=tsa_f,json_f=json_f, tm_file_name=name + ".tmap")
+
 if __name__ == '__main__':
     rom = "baserom.gba"
     outDir = "./scripts/out"
@@ -95,4 +108,5 @@ if __name__ == '__main__':
     with open(rom, "rb") as rom_f:
         for image in images:
             image.dump(rom_f, outDir)
+        dumpEquipedWeaponHighlightTSA(rom_f, outDir)
     os.system(f"cp {outDir}/Statscreen*.png {outDir}/Statscreen*.tmap {graphDir}")

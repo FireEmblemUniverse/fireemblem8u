@@ -24,9 +24,10 @@ Pal_StatscreenEquipmentText:  @ 0x08A021E4
 Tsa_StatscreenEquipmentBG:  @ 0x08A02204
 	.incbin "graphics/statscreen/StatscreenEquipmentBG.bin.lz"
 
-	.global gUnknown_08A02250
-gUnknown_08A02250:  @ 0x08A02250
-	.incbin "baserom.gba", 0xA02250, 0x24
+	.global Tsa_StatscreenEquipedWeaponHighlight
+Tsa_StatscreenEquipedWeaponHighlight:  @ 0x08A02250
+	.incbin "graphics/statscreen/StatscreenEquipedWeaponHighlight.bin"
+	.align 2, 0
 
 	.global Img_StatscreenObjs
 Img_StatscreenObjs:  @ 0x08A02274
