@@ -38,11 +38,11 @@ Pal_OpAnimCharacterBG:
 
 	.global Img_OpAnimGenericCharacterBG
 Img_OpAnimGenericCharacterBG:
-	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.feimg4.bin.lz"
 
 	.global Tsa_OpAnimGenericCharacterBG
 Tsa_OpAnimGenericCharacterBG:
-	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.bin.lz"
+	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.fetsa4.bin.lz"
 
 	.global gUnknown_08AB986C
 gUnknown_08AB986C:

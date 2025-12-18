@@ -136,8 +136,8 @@ def get_sprites(data_file):
         sprites.append(name.replace(":", ""))
     return sprites
 
-pal = os.path.join(graphics_dir,"OpAnimEirikaBlur.gbapal")
-files = ["OpAnimEirika", "OpAnimEirikaBlur1", "OpAnimEirikaBlur2", "OpAnimEirikaBlur3"]
+pal = os.path.join(graphics_dir,"OpAnimCharacterBG.gbapal")
+files = ["OpAnimCharacterBG", "OpAnimGenericCharacterBG"]
 
 for f in files:
     basePath = os.path.join(graphics_dir, f)
