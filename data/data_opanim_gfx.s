@@ -2,11 +2,11 @@
 
 	.global Img_OpAnimWorldMap
 Img_OpAnimWorldMap:
-	.incbin "graphics/op_anim/OpAnimWorldMap.4bpp.lz"
+	.incbin "graphics/op_anim/OpAnimWorldMap.feimg4.bin.lz"
 
 	.global Tsa_OpAnimWorldMap
 Tsa_OpAnimWorldMap:
-	.incbin "graphics/op_anim/OpAnimWorldMap.bin.lz"
+	.incbin "graphics/op_anim/OpAnimWorldMap.fetsa4.bin.lz"
 
 	.global Pal_OpAnimWorldMap
 Pal_OpAnimWorldMap:

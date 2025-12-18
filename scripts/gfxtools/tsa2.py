@@ -160,32 +160,49 @@ def handle_args(args : dict, unique_tiles, tsa):
         unique_tiles.pop(len(unique_tiles)-1)
     if args["no_chunked"] != True:
         tsa.tiles = tsa.order_chunks()
+
+def shift_tiles_forward(old, new, tsa):
+    tiles = tsa.tiles
+    hit_index = False
+    for i in range(len(tiles)):
+        tile = tiles[i].tile_id
+        if tile < old or tile == 1023: continue
+        if tile == old:
+            tiles[i].tile_id = new
+            continue
+
+        else:
+            #shift tile forward
+            new_id = tile - 1 + hit_index
+        # if current tile is the starting tile everything after is shifted by another 1
+        if new_id == new:
+            new_id += 1
+            hit_index = True
+        tiles[i].tile_id = new_id
+    tsa.tiles = tiles
+    return tsa
+def shift_tiles_back(old, new, tsa):
+    tiles = tsa.tiles
+    for i in range(len(tiles)):
+        tile = tiles[i].tile_id
+        if tile == 1023: continue
+        if tile == old:
+            tiles[i].tile_id = new
+            continue
+        if tile <= old:
+            tiles[i].tile_id = tile + 1
+
+        test = 1
+    return tsa
 def handle_insert_indexes(indexes : list[list[int, int]], unique_tiles : list[CheckTile], tsa : TSA):
 
     for new, old in indexes:
-        #move tile at index to the start
+        #insert tile at new position
         unique_tiles.insert(new, unique_tiles.pop(old))
-        #unique_tiles[old], unique_tiles[new] = unique_tiles[new], unique_tiles[old]
-        #shift tiles forward
-        tiles = tsa.tiles
-        hit_index = False
-        for i in range(len(tiles)):
-
-            tile = tiles[i].tile_id
-            if tile < old: continue
-            if tile == old:
-                tiles[i].tile_id = new
-                continue
-
-            else:
-                #shift tile forward
-                new_id = tile - 1 + hit_index
-            # if current tile is the starting tile everything after is shifted by another 1
-            if new_id == new:
-                new_id += 1
-                hit_index = True
-            tiles[i].tile_id = new_id
-        tsa.tiles = tiles
+        if old < new:
+            tsa = shift_tiles_forward(old, new, tsa)
+        else:
+            tsa = shift_tiles_back(old, new,tsa)
     return unique_tiles
 
 def handle_flip_indexes(indexes : list[int], tsa: TSA):
