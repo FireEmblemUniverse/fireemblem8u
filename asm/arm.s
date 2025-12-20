@@ -258,10 +258,14 @@ void TmApplyTsa(u16 * tilemap, const void * _tsa, int tileref)
 	u16 * dst  = TILEMAP_LOCATED(tilemap, height, 0); // dest is set from the bottom to top
 
 	int w, h;
-	for (h = 0; h < height; h++)
+	for (h = height; h >= 0 ; h--)
 	{
-		for (w = 0; w < width; w++)
-			*dst++ = *src++;
+		for (w = width; w >= 0 ; w--)
+		{
+			*dst = *src + tileref;
+			dst++;
+			src++;
+		}
 
 		dst = dst - width - 1 - 0x20;
 	}

@@ -34,6 +34,7 @@ MID2AGB    := tools/mid2agb/mid2agb$(EXE)
 TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
+TMAP2TSA   := scripts/tmap2tsa.py
 MARTOMAP   := scripts/mar_to_map.py
 
 ifeq ($(UNAME),Darwin)
@@ -109,6 +110,8 @@ clean:
 	$(RM) -rf $(DEPS_DIR)
 	# Remove battle animation binaries
 	$(RM) -f data/banim/*.bin data/banim/*.o data/banim/*.lz data/banim/*.bak
+	# Remove TSA files generated from tilemaps
+	$(RM) -f graphics/statscreen/*.bin
 	# Remove converted sound samples
 	$(RM) -f $(SAMPLE_SUBDIR)/*.bin
 	$(RM) -f $(MAP_LAYOUT_SUBDIR)/*.bin

@@ -163,7 +163,7 @@ def read_palette(infile):
             hword = fp.read(2)
         return pal
 
-def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palbase=0):
+def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palbase=0, keepNomapDimensions=False):
     """
     Save image with gbagfx.
     """
@@ -202,7 +202,12 @@ def save_image(infile, outfile=None, width=32, palfile=None, mapfile=None, palba
         with open(mapfile, 'rb') as fp_map, Image.open(outfile) as im_nomap:
             w = struct.unpack('b', fp_map.read(1))[0] + 1
             h = struct.unpack('b', fp_map.read(1))[0] + 1
-            im_withmap = Image.new('P', (8 * w, 8 * h))
+            iw = 8 * w
+            ih = 8 * h
+            if keepNomapDimensions:
+                iw = im_nomap.width
+                ih = im_nomap.height
+            im_withmap = Image.new('P', (iw, ih))
             im_withmap.putpalette(read_palette(palfile_full))
             for row in range(h - 1, -1, -1):
                 for col in range(0, w):
