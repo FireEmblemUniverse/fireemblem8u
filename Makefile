@@ -118,7 +118,7 @@ clean:
 	# Remove converted songs
 	$(RM) -f $(MID_SUBDIR)/*.s
 	$(RM) -f $(AUTO_GEN_TARGETS)
-	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg1.bin'  -o -iname '*.feimg2.bin'  -o -iname  '*.feimg3.bin'  -o -iname '*.fetsa1.bin' -o -iname '*.fetsa2.bin' -o -iname '*.fetsa3.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
+	@find . \( -iname '*.o' -o -iname '*.obj' -o -iname '*.feimg*.bin'  -o -iname '*.fetsa*.bin' -o -iname '*.1bpp' -o -iname '*.4bpp' -o -iname '*.8bpp' -o -iname '*.gbapal' -o -iname '*.lz' -o -iname '*.fk' -o -iname '*.latfont' -o -iname '*.hwjpnfont' -o -iname '*.fwjpnfont' \) -exec rm {} +
 
 .PHONY: clean
 
@@ -186,6 +186,9 @@ sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.feimg3.bin %.fetsa3.bin: %.png
 	$(FETSATOOL) $< $*.feimg3.bin $*.fetsa3.bin
+
+%.feimg4.bin %.fetsa4.bin: %.png
+	$(FETSATOOL) $< $*.feimg4.bin $*.fetsa4.bin
 
 # Battle Animation Recipes
 

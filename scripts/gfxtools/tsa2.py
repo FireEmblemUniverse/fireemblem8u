@@ -14,12 +14,13 @@ class TSA():
         self.width = width
         self.height = height
         self.tiles = tiles
-    def from_bytes(bin):
+    def from_bytes(bin, with_dimensions=True):
         out = TSA()
-        out.width = bin[0] + 1
-        out.height = bin[1] + 1
+        if with_dimensions:
+            out.width = bin[0] + 1
+            out.height = bin[1] + 1
         out.tiles = []
-        for i in range(2, len(bin), 2):
+        for i in range(2 if with_dimensions else 0, len(bin), 2):
             out.tiles.append(Tile.from_bytes(bin[i:i+2]))
         return out
     def to_bytes(self, with_dimensions = True):
@@ -141,20 +142,69 @@ def handle_number_of_tiles(num_tiles: int, unique_tiles : list[CheckTile]):
     while len(unique_tiles) < num_tiles:
         unique_tiles.append(CheckTile(np.zeros((8,8), dtype=int)))
 def handle_args(args : dict, unique_tiles, tsa):
-    if (args["battle_background"]):
-        handle_battle_background(unique_tiles, tsa)
-    if (args["starting_index"] != 0):
+    if args["max_empty_index"]:
+        max_empty_tile(unique_tiles, tsa)
+    if args["starting_index"] != 0: #TODO probably redundant with insert index now
         handle_starting_index(args["starting_index"], unique_tiles, tsa)
-    if (args["padding"] != 0):
+    if args["padding"] != 0:
         handle_padding(args["padding"], unique_tiles, tsa)
-    if (args["num_tiles"] != 0):
+    if args["num_tiles"] != 0:
         handle_number_of_tiles(args["num_tiles"], unique_tiles)
-    if (args["blank_tile_index"] != 0):
+    if args["blank_tile_index"] != 0:
         handle_blank_tile_index(args["blank_tile_index"], unique_tiles, tsa)
     if len(args["flip_y_indexes"]) > 0:
         handle_flip_indexes(args["flip_y_indexes"], tsa)
-    if(args["battle_background"] != True): #battle background doesn't chunk the data
+    if len(args["insert_indexes"]) > 0:
+        unique_tiles = handle_insert_indexes(args["insert_indexes"], unique_tiles, tsa)
+    if args["pop_last_tile"]:
+        unique_tiles.pop(len(unique_tiles)-1)
+    if args["no_chunked"] != True:
         tsa.tiles = tsa.order_chunks()
+
+def shift_tiles_forward(old, new, tsa):
+    tiles = tsa.tiles
+    hit_index = False
+    for i in range(len(tiles)):
+        tile = tiles[i].tile_id
+        if tile < old or tile == 1023: continue
+        if tile == old:
+            tiles[i].tile_id = new
+            continue
+
+        else:
+            #shift tile forward
+            new_id = tile - 1 + hit_index
+        # if current tile is the starting tile everything after is shifted by another 1
+        if new_id == new:
+            new_id += 1
+            hit_index = True
+        tiles[i].tile_id = new_id
+    tsa.tiles = tiles
+    return tsa
+def shift_tiles_back(old, new, tsa):
+    tiles = tsa.tiles
+    for i in range(len(tiles)):
+        tile = tiles[i].tile_id
+        if tile == 1023: continue
+        if tile == old:
+            tiles[i].tile_id = new
+            continue
+        if tile <= old:
+            tiles[i].tile_id = tile + 1
+
+        test = 1
+    return tsa
+def handle_insert_indexes(indexes : list[list[int, int]], unique_tiles : list[CheckTile], tsa : TSA):
+
+    for new, old in indexes:
+        #insert tile at new position
+        unique_tiles.insert(new, unique_tiles.pop(old))
+        if old < new:
+            tsa = shift_tiles_forward(old, new, tsa)
+        else:
+            tsa = shift_tiles_back(old, new,tsa)
+    return unique_tiles
+
 def handle_flip_indexes(indexes : list[int], tsa: TSA):
     for i in indexes:
         tsa.tiles[i].y_flip = True
@@ -163,7 +213,9 @@ def handle_blank_tile_index(index : int, unique_tiles : list[CheckTile], tsa : T
         if tsa.tiles[i].tile_id == 0:
             tsa.tiles[i].tile_id = index
     unique_tiles.insert(0, CheckTile(np.zeros((8,8), dtype=int)))
-    unique_tiles.pop(len(unique_tiles)-1)
+
+    unique_tiles.insert(index, unique_tiles.pop(1))
+
 def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA):
     if index == 0: return
     #move tile at index to the start
@@ -186,7 +238,7 @@ def handle_starting_index(index : int, unique_tiles : list[CheckTile], tsa : TSA
         tiles[i].tile_id = new_id
     tsa.tiles = tiles
 
-def handle_battle_background(unique_tiles : list[CheckTile],  tsa : TSA):
+def max_empty_tile(unique_tiles : list[CheckTile],  tsa : TSA):
 
     #in the battle background the blank tiles are set as tile_id 1023 (max id)
     shift = True
@@ -225,9 +277,9 @@ def get_tiles(image: Image):
     ntile_x = img_width //8
     ntile_y = img_height //8
     return extract_tiles(image, ntile_x, ntile_y).flatten()
-def read_file(path, in_tile_order=False) -> TSA:
+def read_file(path, in_tile_order=False, with_dimensions=True) -> TSA:
     with open(path, "rb") as f:
-        tsa = TSA.from_bytes(f.read())
+        tsa = TSA.from_bytes(f.read(), with_dimensions)
     if in_tile_order:
         tsa.tiles = tsa.order_chunks()
     return tsa
@@ -240,19 +292,8 @@ def main(args, tiles , ntile_x, ntile_y ):
 
 
 if __name__ == '__main__':
-    from tsa_generator import convert_to_4bpp, extract_tiles
-    usage = f"Usage: [*.png] [*.feimg<x>.bin] [*.fetsa.bin]"
-    parser = argparse.ArgumentParser(usage=usage)
-    parser.add_argument("png_file", help="png file to convert")
-    parser.add_argument("out_img", help="out *.feimg<x>.bin file", action='store')
-    parser.add_argument("out_tsa", help="out *.fetsa<x>.bin file", action='store')
-    parser.add_argument("--padding", help="For feimg2 files with padding", default=0, type=int, action='store')
-    parser.add_argument("--num_tiles", help="Set final image to have <x> number of tiles", default=0, type=int, action='store')
-    parser.add_argument("--blank_tile_index", help="Sets any tile id 0 to tile <x>",default=0, type=int, action='store')
-    parser.add_argument("--starting_index", help="For feimg2 files with different starting index",default=0, type=int, action='store')
-    parser.add_argument("--flip_y_indexes", help="Flips the specified tile(s) y axis",default=[], type=lambda x :list(map(int, x.split(','))), action='store')
-    parser.add_argument("--battle_background", help="Handle tsa differences with battle backgrounds", action='store_true')
-
+    from tsa_generator import convert_to_4bpp, extract_tiles, get_args
+    parser = get_args()
     try:
         args = parser.parse_args()
     except IndexError:

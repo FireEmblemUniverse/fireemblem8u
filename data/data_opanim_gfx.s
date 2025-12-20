@@ -1,701 +1,700 @@
 	.section .data
 
 	.global Img_OpAnimWorldMap
-Img_OpAnimWorldMap:  @ 0x08AB21D8
-	#.incbin "graphics/op_anim/world_map.4bpp.lz"
-	.incbin "baserom.gba", 0xAB21D8, 0x3BB8
+Img_OpAnimWorldMap:
+	.incbin "graphics/op_anim/OpAnimWorldMap.feimg4.bin.lz"
 
 	.global Tsa_OpAnimWorldMap
-Tsa_OpAnimWorldMap:  @ 0x08AB5D90
-	.incbin "baserom.gba", 0xAB5D90, 0x57C
+Tsa_OpAnimWorldMap:
+	.incbin "graphics/op_anim/OpAnimWorldMap.fetsa4.bin.lz"
 
-	.global pal_08AB630C
-pal_08AB630C:  @ 0x08AB630C
-    .incbin "baserom.gba", 0xAB630C, 0x20
+	.global Pal_OpAnimWorldMap
+Pal_OpAnimWorldMap:
+	.incbin "graphics/op_anim/OpAnimWorldMap.gbapal"
 
 	.global Img_OpAnimWorldMapFog
-Img_OpAnimWorldMapFog:  @ 0x08AB632C
-	.incbin "baserom.gba", 0xAB632C, 0x1794
+Img_OpAnimWorldMapFog:
+	.incbin "graphics/op_anim/OpAnimWorldMapFog.feimg4.bin.lz"
 
 	.global Tsa_OpAnimWorldMapFog
-Tsa_OpAnimWorldMapFog:  @ 0x08AB7AC0
-	.incbin "baserom.gba", 0xAB7AC0, 0x2F0
+Tsa_OpAnimWorldMapFog:
+	.incbin "graphics/op_anim/OpAnimWorldMapFog.fetsa4.bin.lz"
 
 	.global Pal_OpAnimWorldMapFog
-Pal_OpAnimWorldMapFog:  @ 0x08AB7DB0
-	.incbin "baserom.gba", 0xAB7DB0, 0x20
-
-# graphics/op_anim/eph_eirika_bg.png
+Pal_OpAnimWorldMapFog:
+	.incbin "graphics/op_anim/OpAnimWorldMapFog.gbapal"
 
 	.global Img_OpAnimCharacterBG
-Img_OpAnimCharacterBG:  @ 0x08AB7DD0
-	.incbin "baserom.gba", 0xAB7DD0, 0xA10
+Img_OpAnimCharacterBG:
+	.incbin "graphics/op_anim/OpAnimCharacterBG.4bpp.lz"
 
 	.global Tsa_OpAnimCharacterBG
-Tsa_OpAnimCharacterBG:  @ 0x08AB87E0
-	.incbin "baserom.gba", 0xAB87E0, 0x4CC
+Tsa_OpAnimCharacterBG:
+	.incbin "graphics/op_anim/OpAnimCharacterBG.bin.lz"
 
 	.global Pal_OpAnimCharacterBG
-Pal_OpAnimCharacterBG:  @ 0x08AB8CAC
-	.incbin "baserom.gba", 0xAB8CAC, 0x20
-
-# graphics/op_anim/generic_character_bg.png
+Pal_OpAnimCharacterBG:
+	.incbin "graphics/op_anim/OpAnimCharacterBG.gbapal"
 
 	.global Img_OpAnimGenericCharacterBG
-Img_OpAnimGenericCharacterBG:  @ 0x08AB8CCC
-	.incbin "baserom.gba", 0xAB8CCC, 0x760
+Img_OpAnimGenericCharacterBG:
+	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.feimg4.bin.lz"
 
 	.global Tsa_OpAnimGenericCharacterBG
-Tsa_OpAnimGenericCharacterBG:  @ 0x08AB942C
-	.incbin "baserom.gba", 0xAB942C, 0x1D20
+Tsa_OpAnimGenericCharacterBG:
+	.incbin "graphics/op_anim/OpAnimGenericCharacterBG.fetsa4.bin.lz"
+
+	.global gUnknown_08AB986C
+gUnknown_08AB986C:
+	.incbin "graphics/op_anim/8AB986C.bin"
 
 	.global Img_OpAnimEphraim
-Img_OpAnimEphraim:  @ 0x08ABB14C
-	.incbin "baserom.gba", 0xABB14C, 0xF28
+Img_OpAnimEphraim:
+	.incbin "graphics/op_anim/OpAnimEphraim.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEphraim
-Tsa_OpAnimEphraim:  @ 0x08ABC074
-	.incbin "baserom.gba", 0xABC074, 0x1B8
+Tsa_OpAnimEphraim:
+	.incbin "graphics/op_anim/OpAnimEphraim.fetsa4.bin.lz"
 
 	.global Img_OpAnimEphraimBlur1
-Img_OpAnimEphraimBlur1:  @ 0x08ABC22C
-	.incbin "baserom.gba", 0xABC22C, 0xF48
+Img_OpAnimEphraimBlur1:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur1.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEphraimBlur1
-Tsa_OpAnimEphraimBlur1:  @ 0x08ABD174
-	.incbin "baserom.gba", 0xABD174, 0x1D4
+Tsa_OpAnimEphraimBlur1:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur1.fetsa4.bin.lz"
 
 	.global Img_OpAnimEphraimBlur2
-Img_OpAnimEphraimBlur2:  @ 0x08ABD348
-	.incbin "baserom.gba", 0xABD348, 0xDD8
+Img_OpAnimEphraimBlur2:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur2.4bpp.lz"
 
 	.global Tsa_OpAnimEphraimBlur2
-Tsa_OpAnimEphraimBlur2:  @ 0x0Tsa_OpAnimEphraimBlur2
-	.incbin "baserom.gba", 0xABE120, 0x1E4
+Tsa_OpAnimEphraimBlur2:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur2.bin.lz"
 
 	.global Img_OpAnimEphraimBlur3
-Img_OpAnimEphraimBlur3:  @ 0x08ABE304
-	.incbin "baserom.gba", 0xABE304, 0xC6C
+Img_OpAnimEphraimBlur3:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur3.4bpp.lz"
 
 	.global Tsa_OpAnimEphraimBlur3
-Tsa_OpAnimEphraimBlur3:  @ 0x08ABEF70
-	.incbin "baserom.gba", 0xABEF70, 0x1F8
+Tsa_OpAnimEphraimBlur3:
+	.incbin "graphics/op_anim/OpAnimEphraimBlur3.bin.lz"
 
 	.global Img_OpAnimEphraimClose1
-Img_OpAnimEphraimClose1:  @ 0x08ABF168
-	.incbin "baserom.gba", 0xABF168, 0x1A70
+Img_OpAnimEphraimClose1:
+	.incbin "graphics/op_anim/OpAnimEphraimClose1.4bpp.lz"
 
 	.global Img_OpAnimEphraimClose2
-Img_OpAnimEphraimClose2:  @ 0x08AC0BD8
-	.incbin "baserom.gba", 0xAC0BD8, 0xCA0
+Img_OpAnimEphraimClose2:
+	.incbin "graphics/op_anim/OpAnimEphraimClose2.4bpp.lz"
 
-	.global Tsa_OpAnimEphraimClose
-Tsa_OpAnimEphraimClose:  @ 0x08AC1878
-	.incbin "baserom.gba", 0xAC1878, 0x320
+	.global Tsa_OpAnimEphraimClose1
+Tsa_OpAnimEphraimClose1:
+	.incbin "graphics/op_anim/OpAnimEphraimClose1.bin.lz"
 
 	.global Tsa_OpAnimEphraimClose2
-Tsa_OpAnimEphraimClose2:  @ 0x08AC1B98
-	.incbin "baserom.gba", 0xAC1B98, 0xF4
+Tsa_OpAnimEphraimClose2:
+	.incbin "graphics/op_anim/OpAnimEphraimClose2.bin.lz"
 
 	.global Pal_OpAnimEphraimBlur
-Pal_OpAnimEphraimBlur:  @ 0x08AC1C8C
-	.incbin "baserom.gba", 0xAC1C8C, 0x160
+Pal_OpAnimEphraimBlur:
+	.incbin "graphics/op_anim/OpAnimEphraim.gbapal"
 
 	.global Img_OpAnimEirika
-Img_OpAnimEirika:  @ 0x08AC1DEC
-	.incbin "baserom.gba", 0xAC1DEC, 0xD38
+Img_OpAnimEirika:
+	.incbin "graphics/op_anim/OpAnimEirika.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirika
-Tsa_OpAnimEirika:  @ 0x08AC2B24
-	.incbin "baserom.gba", 0xAC2B24, 0x190
+Tsa_OpAnimEirika:
+	.incbin "graphics/op_anim/OpAnimEirika.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur1
-Img_OpAnimEirikaBlur1:  @ 0x08AC2CB4
-	.incbin "baserom.gba", 0xAC2CB4, 0xD78
+Img_OpAnimEirikaBlur1:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur1.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur1
-Tsa_OpAnimEirikaBlur1:  @ 0x08AC3A2C
-	.incbin "baserom.gba", 0xAC3A2C, 0x19C
+Tsa_OpAnimEirikaBlur1:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur1.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur2
-Img_OpAnimEirikaBlur2:  @ 0x08AC3BC8
-	.incbin "baserom.gba", 0xAC3BC8, 0xB98
+Img_OpAnimEirikaBlur2:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur2.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur2
-Tsa_OpAnimEirikaBlur2:  @ 0x08AC4760
-	.incbin "baserom.gba", 0xAC4760, 0x1C8
+Tsa_OpAnimEirikaBlur2:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur2.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaBlur3
-Img_OpAnimEirikaBlur3:  @ 0x08AC4928
-	.incbin "baserom.gba", 0xAC4928, 0xAF8
+Img_OpAnimEirikaBlur3:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur3.feimg4.bin.lz"
 
 	.global Tsa_OpAnimEirikaBlur3
-Tsa_OpAnimEirikaBlur3:  @ 0x08AC5420
-	.incbin "baserom.gba", 0xAC5420, 0x1F4
+Tsa_OpAnimEirikaBlur3:
+	.incbin "graphics/op_anim/OpAnimEirikaBlur3.fetsa4.bin.lz"
 
 	.global Img_OpAnimEirikaClose1
-Img_OpAnimEirikaClose1:  @ 0x08AC5614
-	.incbin "baserom.gba", 0xAC5614, 0x1D60
+Img_OpAnimEirikaClose1:
+	.incbin "graphics/op_anim/OpAnimEirikaClose1.4bpp.lz"
 
 	.global Img_OpAnimEirikaClose2
-Img_OpAnimEirikaClose2:  @ 0x08AC7374
-	.incbin "baserom.gba", 0xAC7374, 0x1A68
+Img_OpAnimEirikaClose2:
+	.incbin "graphics/op_anim/OpAnimEirikaClose2.4bpp.lz"
 
-	.global Tsa_OpAnimEirikaClose
-Tsa_OpAnimEirikaClose:  @ 0x08AC8DDC
-	.incbin "baserom.gba", 0xAC8DDC, 0x41C
+	.global Tsa_OpAnimEirikaClose1
+Tsa_OpAnimEirikaClose1:
+	.incbin "graphics/op_anim/OpAnimEirikaClose1.bin.lz"
 
 	.global Tsa_OpAnimEirikaClose2
-Tsa_OpAnimEirikaClose2:  @ 0x08AC91F8
-	.incbin "baserom.gba", 0xAC91F8, 0x144
+Tsa_OpAnimEirikaClose2:
+	.incbin "graphics/op_anim/OpAnimEirikaClose2.bin.lz"
 
 	.global Pal_OpAnimEirikaBlur
-Pal_OpAnimEirikaBlur:  @ 0x08AC933C
-	.incbin "baserom.gba", 0xAC933C, 0x160
+Pal_OpAnimEirikaBlur:
+	.incbin "graphics/op_anim/OpAnimEirika.gbapal"
 
 	.global Img_OpAnimJoshua
-Img_OpAnimJoshua:  @ 0x08AC949C
-	.incbin "baserom.gba", 0xAC949C, 0x1AD4
+Img_OpAnimJoshua:
+	.incbin "graphics/op_anim/OpAnimJoshua.4bpp.lz"
 
 	.global Img_OpAnimJoshua2
-Img_OpAnimJoshua2:  @ 0x08ACAF70
-	.incbin "baserom.gba", 0xACAF70, 0xFE8
+Img_OpAnimJoshua2:
+	.incbin "graphics/op_anim/OpAnimJoshua2.4bpp.lz"
+
+	.global Tsa_OpAnimJoshua
+Tsa_OpAnimJoshua:
+	.incbin "graphics/op_anim/OpAnimJoshua.bin.lz"
 
 	.global Tsa_OpAnimJoshua2
-Tsa_OpAnimJoshua2:  @ 0x08ACBF58
-	.incbin "baserom.gba", 0xACBF58, 0x3E8
-
-	.global gUnknown_08ACC340
-gUnknown_08ACC340:  @ 0x08ACC340
-	.incbin "baserom.gba", 0xACC340, 0xA0
+Tsa_OpAnimJoshua2:
+	.incbin "graphics/op_anim/OpAnimJoshua2.bin.lz"
 
 	.global Pal_OpAnimJoshua
-Pal_OpAnimJoshua:  @ 0x08ACC3E0
-    .incbin "baserom.gba", 0xACC3E0, 0x160
+Pal_OpAnimJoshua:
+	.incbin "graphics/op_anim/OpAnimJoshua.gbapal"
 
 	.global Img_OpAnimLArachel
-Img_OpAnimLArachel:  @ 0x08ACC540
-	.incbin "baserom.gba", 0xACC540, 0x1B78
+Img_OpAnimLArachel:
+	.incbin "graphics/op_anim/OpAnimLArachel.4bpp.lz"
 
 	.global Img_OpAnimLArachel2
-Img_OpAnimLArachel2:  @ 0x08ACE0B8
-	.incbin "baserom.gba", 0xACE0B8, 0xE18
+Img_OpAnimLArachel2:
+	.incbin "graphics/op_anim/OpAnimLArachel2.4bpp.lz"
 
 	.global Tsa_OpAnimLArachel
-Tsa_OpAnimLArachel:  @ 0x08ACEED0
-	.incbin "baserom.gba", 0xACEED0, 0x330
+Tsa_OpAnimLArachel:
+	.incbin "graphics/op_anim/OpAnimLArachel.bin.lz"
 
-	.global Tsa_OpAnimLArachelLeft
-Tsa_OpAnimLArachelLeft:  @ 0x08ACF200
-	.incbin "baserom.gba", 0xACF200, 0x114
+	.global Tsa_OpAnimLArachel2
+Tsa_OpAnimLArachel2:
+	.incbin "graphics/op_anim/OpAnimLArachel2.bin.lz"
 
 	.global Pal_OpAnimLArachel
-Pal_OpAnimLArachel:  @ 0x08ACF314
-	.incbin "baserom.gba", 0xACF314, 0x160
+Pal_OpAnimLArachel:
+	.incbin "graphics/op_anim/OpAnimLArachel.gbapal"
 
-	.global Img_OpAnimCharacterSeth
-Img_OpAnimCharacterSeth:  @ 0x08ACF474
-	.incbin "baserom.gba", 0xACF474, 0x1BD4
+	.global Img_OpAnimSeth
+Img_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.4bpp.lz"
 
-	.global Img_OpAnimCharacterSeth2
-Img_OpAnimCharacterSeth2:  @ 0x08AD1048
-	.incbin "baserom.gba", 0xAD1048, 0x1024
+	.global Img_OpAnimSeth2
+Img_OpAnimSeth2:
+	.incbin "graphics/op_anim/OpAnimSeth2.4bpp.lz"
 
-	.global Tsa_OpAnimCharacterSeth
-Tsa_OpAnimCharacterSeth:  @ 0x08AD206C
-	.incbin "baserom.gba", 0xAD206C, 0x300
+	.global Tsa_OpAnimSeth
+Tsa_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.bin.lz"
 
-	.global gUnknown_08AD236C
-gUnknown_08AD236C:  @ 0x08AD236C
-	.incbin "baserom.gba", 0xAD236C, 0x148
+	.global Tsa_OpAnimSeth2
+Tsa_OpAnimSeth2:
+	.incbin "graphics/op_anim/OpAnimSeth2.bin.lz"
 
-	.global Pal_OpAnimCharacterSeth
-Pal_OpAnimCharacterSeth:  @ 0x08AD24B4
-	.incbin "baserom.gba", 0xAD24B4, 0x160
+	.global Pal_OpAnimSeth
+Pal_OpAnimSeth:
+	.incbin "graphics/op_anim/OpAnimSeth.gbapal"
 
 	.global Img_OpAnimMyrrh
-Img_OpAnimMyrrh:  @ 0x08AD2614
-	.incbin "baserom.gba", 0xAD2614, 0x1C28
+Img_OpAnimMyrrh:
+	.incbin "graphics/op_anim/OpAnimMyrrh.4bpp.lz"
 
 	.global Img_OpAnimMyrrh2
-Img_OpAnimMyrrh2:  @ 0x08AD423C
-	.incbin "baserom.gba", 0xAD423C, 0xE58
+Img_OpAnimMyrrh2:
+	.incbin "graphics/op_anim/OpAnimMyrrh2.4bpp.lz"
+
+	.global Tsa_OpAnimMyrrh
+Tsa_OpAnimMyrrh:
+	.incbin "graphics/op_anim/OpAnimMyrrh.bin.lz"
 
 	.global Tsa_OpAnimMyrrh2
-Tsa_OpAnimMyrrh2:  @ 0x08AD5094
-	.incbin "baserom.gba", 0xAD5094, 0x3A8
+Tsa_OpAnimMyrrh2:
+	.incbin "graphics/op_anim/OpAnimMyrrh2.bin.lz"
 
-	.global gUnknown_08AD543C
-gUnknown_08AD543C:  @ 0x08AD543C
-	.incbin "baserom.gba", 0xAD543C, 0xA0
-
-	.global Pal_OpAnimMyrrh2
-Pal_OpAnimMyrrh2:  @ 0x08AD54DC
-	.incbin "baserom.gba", 0xAD54DC, 0x160
+	.global Pal_OpAnimMyrrh
+Pal_OpAnimMyrrh:
+	.incbin "graphics/op_anim/OpAnimMyrrh.gbapal"
 
 	.global Img_OpAnimSaleh
-Img_OpAnimSaleh:  @ 0x08AD563C
-	.incbin "baserom.gba", 0xAD563C, 0x1CC0
+Img_OpAnimSaleh:
+	.incbin "graphics/op_anim/OpAnimSaleh.4bpp.lz"
 
 	.global Img_OpAnimSaleh2
-Img_OpAnimSaleh2:  @ 0x08AD72FC
-	.incbin "baserom.gba", 0xAD72FC, 0x121C
+Img_OpAnimSaleh2:
+	.incbin "graphics/op_anim/OpAnimSaleh2.4bpp.lz"
+
+	.global Tsa_OpAnimSaleh
+Tsa_OpAnimSaleh:
+	.incbin "graphics/op_anim/OpAnimSaleh.bin.lz"
 
 	.global Tsa_OpAnimSaleh2
-Tsa_OpAnimSaleh2:  @ 0x08AD8518
-	.incbin "baserom.gba", 0xAD8518, 0x3BC
+Tsa_OpAnimSaleh2:
+	.incbin "graphics/op_anim/OpAnimSaleh2.bin.lz"
 
-	.global gUnknown_08AD88D4
-gUnknown_08AD88D4:  @ 0x08AD88D4
-	.incbin "baserom.gba", 0xAD88D4, 0xD4
-
-	.global Pal_OpAnimSaleh2
-Pal_OpAnimSaleh2:  @ 0x08AD89A8
-	.incbin "baserom.gba", 0xAD89A8, 0x160
+	.global Pal_OpAnimSaleh
+Pal_OpAnimSaleh:
+	.incbin "graphics/op_anim/OpAnimSaleh.gbapal"
 
 	.global Img_OpAnimTethys
-Img_OpAnimTethys:  @ 0x08AD8B08
-	.incbin "baserom.gba", 0xAD8B08, 0x1814
+Img_OpAnimTethys:
+	.incbin "graphics/op_anim/OpAnimTethys.4bpp.lz"
 
 	.global Img_OpAnimTethys2
-Img_OpAnimTethys2:  @ 0x08ADA31C
-	.incbin "baserom.gba", 0xADA31C, 0x14E8
+Img_OpAnimTethys2:
+	.incbin "graphics/op_anim/OpAnimTethys2.4bpp.lz"
 
 	.global Tsa_OpAnimTethys
-Tsa_OpAnimTethys:  @ 0x08ADB804
-	.incbin "baserom.gba", 0xADB804, 0x408
+Tsa_OpAnimTethys:
+	.incbin "graphics/op_anim/OpAnimTethys.bin.lz"
 
-	.global gUnknown_08ADBC0C
-gUnknown_08ADBC0C:  @ 0x08ADBC0C
-	.incbin "baserom.gba", 0xADBC0C, 0x10C
+	.global Tsa_OpAnimTethys2
+Tsa_OpAnimTethys2:
+	.incbin "graphics/op_anim/OpAnimTethys2.bin.lz"
 
 	.global Pal_OpAnimTethys
-Pal_OpAnimTethys:  @ 0x08ADBD18
-	.incbin "baserom.gba", 0xADBD18, 0x160
+Pal_OpAnimTethys:
+	.incbin "graphics/op_anim/OpAnimTethys.gbapal"
 
-	.global gUnknown_08ADBE78
-gUnknown_08ADBE78:  @ 0x08ADBE78
-	.incbin "baserom.gba", 0xADBE78, 0x20
+	.global Pal_08ADBE78
+Pal_08ADBE78:
+	.incbin "graphics/op_anim/08ADBE78.gbapal"
 
 	.global Img_OpAnimFaceRennac
-Img_OpAnimFaceRennac:  @ 0x08ADBE98
-	.incbin "baserom.gba", 0xADBE98, 0x528
+Img_OpAnimFaceRennac:
+	.incbin "graphics/op_anim/OpAnimFaceRennac.4bpp.lz"
 
 	.global Img_OpAnimFaceRennacShadow
-Img_OpAnimFaceRennacShadow:  @ 0x08ADC3C0
-	.incbin "baserom.gba", 0xADC3C0, 0x348
+Img_OpAnimFaceRennacShadow:
+	.incbin "graphics/op_anim/OpAnimFaceRennacShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceRennac
-Pal_OpAnimFaceRennac:  @ 0x08ADC708
-	.incbin "baserom.gba", 0xADC708, 0x20
+Pal_OpAnimFaceRennac:
+	.incbin "graphics/op_anim/OpAnimFaceRennac.gbapal"
 
 	.global Img_OpAnimFaceLArachel
-Img_OpAnimFaceLArachel:  @ 0x08ADC728
-	.incbin "baserom.gba", 0xADC728, 0x590
+Img_OpAnimFaceLArachel:
+	.incbin "graphics/op_anim/OpAnimFaceLArachel.4bpp.lz"
 
 	.global Img_OpAnimFaceLArachelShadow
-Img_OpAnimFaceLArachelShadow:  @ 0x08ADCCB8
-	.incbin "baserom.gba", 0xADCCB8, 0x398
+Img_OpAnimFaceLArachelShadow:
+	.incbin "graphics/op_anim/OpAnimFaceLArachelShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceLArachel
-Pal_OpAnimFaceLArachel:  @ 0x08ADD050
-	.incbin "baserom.gba", 0xADD050, 0x20
+Pal_OpAnimFaceLArachel:
+	.incbin "graphics/op_anim/OpAnimFaceLArachel.gbapal"
 
 	.global Img_OpAnimFaceDozla
-Img_OpAnimFaceDozla:  @ 0x08ADD070
-	.incbin "baserom.gba", 0xADD070, 0x67C
+Img_OpAnimFaceDozla:
+	.incbin "graphics/op_anim/OpAnimFaceDozla.4bpp.lz"
 
 	.global Img_OpAnimFaceDozlaShadow
-Img_OpAnimFaceDozlaShadow:  @ 0x08ADD6EC
-	.incbin "baserom.gba", 0xADD6EC, 0x368
+Img_OpAnimFaceDozlaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceDozlaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceDozla
-Pal_OpAnimFaceDozla:  @ 0x08ADDA54
-	.incbin "baserom.gba", 0xADDA54, 0x20
+Pal_OpAnimFaceDozla:
+	.incbin "graphics/op_anim/OpAnimFaceDozla.gbapal"
 
 	.global Img_OpAnimFaceEwan
-Img_OpAnimFaceEwan:  @ 0x08ADDA74
-	.incbin "baserom.gba", 0xADDA74, 0x60C
+Img_OpAnimFaceEwan:
+	.incbin "graphics/op_anim/OpAnimFaceEwan.4bpp.lz"
 
 	.global Img_OpAnimFaceEwanShadow
-Img_OpAnimFaceEwanShadow:  @ 0x08ADE080
-	.incbin "baserom.gba", 0xADE080, 0x3FC
+Img_OpAnimFaceEwanShadow:
+	.incbin "graphics/op_anim/OpAnimFaceEwanShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceEwan
-Pal_OpAnimFaceEwan:  @ 0x08ADE47C
-	.incbin "baserom.gba", 0xADE47C, 0x20
+Pal_OpAnimFaceEwan:
+	.incbin "graphics/op_anim/OpAnimFaceEwan.gbapal"
 
 	.global Img_OpAnimFaceGerik
-Img_OpAnimFaceGerik:  @ 0x08ADE49C
-	.incbin "baserom.gba", 0xADE49C, 0x680
+Img_OpAnimFaceGerik:
+	.incbin "graphics/op_anim/OpAnimFaceGerik.4bpp.lz"
 
 	.global Img_OpAnimFaceGerikShadow
-Img_OpAnimFaceGerikShadow:  @ 0x08ADEB1C
-	.incbin "baserom.gba", 0xADEB1C, 0x3B8
+Img_OpAnimFaceGerikShadow:
+	.incbin "graphics/op_anim/OpAnimFaceGerikShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceGerik
-Pal_OpAnimFaceGerik:  @ 0x08ADEED4
-	.incbin "baserom.gba", 0xADEED4, 0x20
+Pal_OpAnimFaceGerik:
+	.incbin "graphics/op_anim/OpAnimFaceGerik.gbapal"
 
 	.global Img_OpAnimFaceTethys
-Img_OpAnimFaceTethys:  @ 0x08ADEEF4
-	.incbin "baserom.gba", 0xADEEF4, 0x698
+Img_OpAnimFaceTethys:
+	.incbin "graphics/op_anim/OpAnimFaceTethys.4bpp.lz"
 
 	.global Img_OpAnimFaceTethysShadow
-Img_OpAnimFaceTethysShadow:  @ 0x08ADF58C
-	.incbin "baserom.gba", 0xADF58C, 0x47C
+Img_OpAnimFaceTethysShadow:
+	.incbin "graphics/op_anim/OpAnimFaceTethysShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceTethys
-Pal_OpAnimFaceTethys:  @ 0x08ADFA08
-	.incbin "baserom.gba", 0xADFA08, 0x20
+Pal_OpAnimFaceTethys:
+	.incbin "graphics/op_anim/OpAnimFaceTethys.gbapal"
 
 	.global Img_OpAnimFaceMarisa
-Img_OpAnimFaceMarisa:  @ 0x08ADFA28
-	.incbin "baserom.gba", 0xADFA28, 0x6BC
+Img_OpAnimFaceMarisa:
+	.incbin "graphics/op_anim/OpAnimFaceMarisa.4bpp.lz"
 
 	.global Img_OpAnimFaceMarisaShadow
-Img_OpAnimFaceMarisaShadow:  @ 0x08AE00E4
-	.incbin "baserom.gba", 0xAE00E4, 0x3F0
+Img_OpAnimFaceMarisaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceMarisaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceMarisa
-Pal_OpAnimFaceMarisa:  @ 0x08AE04D4
-	.incbin "baserom.gba", 0xAE04D4, 0x20
+Pal_OpAnimFaceMarisa:
+	.incbin "graphics/op_anim/OpAnimFaceMarisa.gbapal"
 
 	.global Img_OpAnimFaceGarcia
-Img_OpAnimFaceGarcia:  @ 0x08AE04F4
-	.incbin "baserom.gba", 0xAE04F4, 0x554
+Img_OpAnimFaceGarcia:
+	.incbin "graphics/op_anim/OpAnimFaceGarcia.4bpp.lz"
 
 	.global Img_OpAnimFaceGarciaShadow
-Img_OpAnimFaceGarciaShadow:  @ 0x08AE0A48
-	.incbin "baserom.gba", 0xAE0A48, 0x32C
+Img_OpAnimFaceGarciaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceGarciaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceGarcia
-Pal_OpAnimFaceGarcia:  @ 0x08AE0D74
-	.incbin "baserom.gba", 0xAE0D74, 0x20
+Pal_OpAnimFaceGarcia:
+	.incbin "graphics/op_anim/OpAnimFaceGarcia.gbapal"
 
 	.global Img_OpAnimFaceRoss
-Img_OpAnimFaceRoss:  @ 0x08AE0D94
-	.incbin "baserom.gba", 0xAE0D94, 0x528
+Img_OpAnimFaceRoss:
+	.incbin "graphics/op_anim/OpAnimFaceRoss.4bpp.lz"
 
 	.global Img_OpAnimFaceRossShadow
-Img_OpAnimFaceRossShadow:  @ 0x08AE12BC
-	.incbin "baserom.gba", 0xAE12BC, 0x378
+Img_OpAnimFaceRossShadow:
+	.incbin "graphics/op_anim/OpAnimFaceRossShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceRoss
-Pal_OpAnimFaceRoss:  @ 0x08AE1634
-	.incbin "baserom.gba", 0xAE1634, 0x20
+Pal_OpAnimFaceRoss:
+	.incbin "graphics/op_anim/OpAnimFaceRoss.gbapal"
 
 	.global Img_OpAnimFaceVanessa
-Img_OpAnimFaceVanessa:  @ 0x08AE1654
-	.incbin "baserom.gba", 0xAE1654, 0x6AC
+Img_OpAnimFaceVanessa:
+	.incbin "graphics/op_anim/OpAnimFaceVanessa.4bpp.lz"
 
 	.global Img_OpAnimFaceVanessaShadow
-Img_OpAnimFaceVanessaShadow:  @ 0x08AE1D00
-	.incbin "baserom.gba", 0xAE1D00, 0x3C4
+Img_OpAnimFaceVanessaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceVanessaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceVanessa
-Pal_OpAnimFaceVanessa:  @ 0x08AE20C4
-	.incbin "baserom.gba", 0xAE20C4, 0x20
+Pal_OpAnimFaceVanessa:
+	.incbin "graphics/op_anim/OpAnimFaceVanessa.gbapal"
 
 	.global Img_OpAnimFaceTana
-Img_OpAnimFaceTana:  @ 0x08AE20E4
-	.incbin "baserom.gba", 0xAE20E4, 0x738
+Img_OpAnimFaceTana:
+	.incbin "graphics/op_anim/OpAnimFaceTana.4bpp.lz"
 
 	.global Img_OpAnimFaceTanaShadow
-Img_OpAnimFaceTanaShadow:  @ 0x08AE281C
-	.incbin "baserom.gba", 0xAE281C, 0x3D8
+Img_OpAnimFaceTanaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceTanaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceTana
-Pal_OpAnimFaceTana:  @ 0x08AE2BF4
-    .incbin "baserom.gba", 0xAE2BF4, 0x20
+Pal_OpAnimFaceTana:
+	.incbin "graphics/op_anim/OpAnimFaceTana.gbapal"
 
 	.global Img_OpAnimFaceSyrene
-Img_OpAnimFaceSyrene:  @ 0x08AE2C14
-	.incbin "baserom.gba", 0xAE2C14, 0x7C0
+Img_OpAnimFaceSyrene:
+	.incbin "graphics/op_anim/OpAnimFaceSyrene.4bpp.lz"
 
 	.global Img_OpAnimFaceSyreneShadow
-Img_OpAnimFaceSyreneShadow:  @ 0x08AE33D4
-	.incbin "baserom.gba", 0xAE33D4, 0x360
+Img_OpAnimFaceSyreneShadow:
+	.incbin "graphics/op_anim/OpAnimFaceSyreneShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceSyrene
-Pal_OpAnimFaceSyrene:  @ 0x08AE3734
-	.incbin "baserom.gba", 0xAE3734, 0x20
+Pal_OpAnimFaceSyrene:
+	.incbin "graphics/op_anim/OpAnimFaceSyrene.gbapal"
 
 	.global Img_OpAnimFaceGilliam
-Img_OpAnimFaceGilliam:  @ 0x08AE3754
-	.incbin "baserom.gba", 0xAE3754, 0x700
+Img_OpAnimFaceGilliam:
+	.incbin "graphics/op_anim/OpAnimFaceGilliam.4bpp.lz"
 
 	.global Img_OpAnimFaceGilliamShadow
-Img_OpAnimFaceGilliamShadow:  @ 0x08AE3E54
-	.incbin "baserom.gba", 0xAE3E54, 0x390
+Img_OpAnimFaceGilliamShadow:
+	.incbin "graphics/op_anim/OpAnimFaceGilliamShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceGilliam
-Pal_OpAnimFaceGilliam:  @ 0x08AE41E4
-	.incbin "baserom.gba", 0xAE41E4, 0x20
+Pal_OpAnimFaceGilliam:
+	.incbin "graphics/op_anim/OpAnimFaceGilliam.gbapal"
 
 	.global Img_OpAnimFaceInnes
-Img_OpAnimFaceInnes:  @ 0x08AE4204
-	.incbin "baserom.gba", 0xAE4204, 0x73C
+Img_OpAnimFaceInnes:
+	.incbin "graphics/op_anim/OpAnimFaceInnes.4bpp.lz"
 
 	.global Img_OpAnimFaceInnesShadow
-Img_OpAnimFaceInnesShadow:  @ 0x08AE4940
-	.incbin "baserom.gba", 0xAE4940, 0x3A8
+Img_OpAnimFaceInnesShadow:
+	.incbin "graphics/op_anim/OpAnimFaceInnesShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceInnes
-Pal_OpAnimFaceInnes:  @ 0x08AE4CE8
-	.incbin "baserom.gba", 0xAE4CE8, 0x20
+Pal_OpAnimFaceInnes:
+	.incbin "graphics/op_anim/OpAnimFaceInnes.gbapal"
 
 	.global Img_OpAnimFaceMoulder
-Img_OpAnimFaceMoulder:  @ 0x08AE4D08
-	.incbin "baserom.gba", 0xAE4D08, 0x6C0
+Img_OpAnimFaceMoulder:
+	.incbin "graphics/op_anim/OpAnimFaceMoulder.4bpp.lz"
 
 	.global Img_OpAnimFaceMoulderShadow
-Img_OpAnimFaceMoulderShadow:  @ 0x08AE53C8
-	.incbin "baserom.gba", 0xAE53C8, 0x368
+Img_OpAnimFaceMoulderShadow:
+	.incbin "graphics/op_anim/OpAnimFaceMoulderShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceMoulder
-Pal_OpAnimFaceMoulder:  @ 0x08AE5730
-	.incbin "baserom.gba", 0xAE5730, 0x20
+Pal_OpAnimFaceMoulder:
+	.incbin "graphics/op_anim/OpAnimFaceMoulder.gbapal"
 
 	.global Img_OpAnimFaceColm
-Img_OpAnimFaceColm:  @ 0x08AE5750
-	.incbin "baserom.gba", 0xAE5750, 0x604
+Img_OpAnimFaceColm:
+	.incbin "graphics/op_anim/OpAnimFaceColm.4bpp.lz"
 
 	.global Img_OpAnimFaceColmShadow
-Img_OpAnimFaceColmShadow:  @ 0x08AE5D54
-	.incbin "baserom.gba", 0xAE5D54, 0x35C
+Img_OpAnimFaceColmShadow:
+	.incbin "graphics/op_anim/OpAnimFaceColmShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceColm
-Pal_OpAnimFaceColm:  @ 0x08AE60B0
-	.incbin "baserom.gba", 0xAE60B0, 0x20
+Pal_OpAnimFaceColm:
+	.incbin "graphics/op_anim/OpAnimFaceColm.gbapal"
 
 	.global Img_OpAnimFaceNeimi
-Img_OpAnimFaceNeimi:  @ 0x08AE60D0
-	.incbin "baserom.gba", 0xAE60D0, 0x578
+Img_OpAnimFaceNeimi:
+	.incbin "graphics/op_anim/OpAnimFaceNeimi.4bpp.lz"
 
 	.global Img_OpAnimFaceNeimiShadow
-Img_OpAnimFaceNeimiShadow:  @ 0x08AE6648
-	.incbin "baserom.gba", 0xAE6648, 0x3A4
+Img_OpAnimFaceNeimiShadow:
+	.incbin "graphics/op_anim/OpAnimFaceNeimiShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceNeimi
-Pal_OpAnimFaceNeimi:  @ 0x08AE69EC
-	.incbin "baserom.gba", 0xAE69EC, 0x20
+Pal_OpAnimFaceNeimi:
+	.incbin "graphics/op_anim/OpAnimFaceNeimi.gbapal"
 
 	.global Img_OpAnimFaceKnoll
-Img_OpAnimFaceKnoll:  @ 0x08AE6A0C
-	.incbin "baserom.gba", 0xAE6A0C, 0x59C
+Img_OpAnimFaceKnoll:
+	.incbin "graphics/op_anim/OpAnimFaceKnoll.4bpp.lz"
 
 	.global Img_OpAnimFaceKnollShadow
-Img_OpAnimFaceKnollShadow:  @ 0x08AE6FA8
-	.incbin "baserom.gba", 0xAE6FA8, 0x320
+Img_OpAnimFaceKnollShadow:
+	.incbin "graphics/op_anim/OpAnimFaceKnollShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceKnoll
-Pal_OpAnimFaceKnoll:  @ 0x08AE72C8
-	.incbin "baserom.gba", 0xAE72C8, 0x20
+Pal_OpAnimFaceKnoll:
+	.incbin "graphics/op_anim/OpAnimFaceKnoll.gbapal"
 
 	.global Img_OpAnimFaceCormag
-Img_OpAnimFaceCormag:  @ 0x08AE72E8
-	.incbin "baserom.gba", 0xAE72E8, 0x5C8
+Img_OpAnimFaceCormag:
+	.incbin "graphics/op_anim/OpAnimFaceCormag.4bpp.lz"
 
 	.global Img_OpAnimFaceCormagShadow
-Img_OpAnimFaceCormagShadow:  @ 0x08AE78B0
-	.incbin "baserom.gba", 0xAE78B0, 0x37C
+Img_OpAnimFaceCormagShadow:
+	.incbin "graphics/op_anim/OpAnimFaceCormagShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceCormag
-Pal_OpAnimFaceCormag:  @ 0x08AE7C2C
-	.incbin "baserom.gba", 0xAE7C2C, 0x20
+Pal_OpAnimFaceCormag:
+	.incbin "graphics/op_anim/OpAnimFaceCormag.gbapal"
 
 	.global Img_OpAnimFaceAmelia
-Img_OpAnimFaceAmelia:  @ 0x08AE7C4C
-	.incbin "baserom.gba", 0xAE7C4C, 0x550
+Img_OpAnimFaceAmelia:
+	.incbin "graphics/op_anim/OpAnimFaceAmelia.4bpp.lz"
 
 	.global Img_OpAnimFaceAmeliaShadow
-Img_OpAnimFaceAmeliaShadow:  @ 0x08AE819C
-	.incbin "baserom.gba", 0xAE819C, 0x320
+Img_OpAnimFaceAmeliaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceAmeliaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceAmelia
-Pal_OpAnimFaceAmelia:  @ 0x08AE84BC
-	.incbin "baserom.gba", 0xAE84BC, 0x20
+Pal_OpAnimFaceAmelia:
+	.incbin "graphics/op_anim/OpAnimFaceAmelia.gbapal"
 
 	.global Img_OpAnimFaceNatasha
-Img_OpAnimFaceNatasha:  @ 0x08AE84DC
-	.incbin "baserom.gba", 0xAE84DC, 0x5DC
+Img_OpAnimFaceNatasha:
+	.incbin "graphics/op_anim/OpAnimFaceNatasha.4bpp.lz"
 
 	.global Img_OpAnimFaceNatashaShadow
-Img_OpAnimFaceNatashaShadow:  @ 0x08AE8AB8
-	.incbin "baserom.gba", 0xAE8AB8, 0x2CC
+Img_OpAnimFaceNatashaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceNatashaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceNatasha
-Pal_OpAnimFaceNatasha:  @ 0x08AE8D84
-	.incbin "baserom.gba", 0xAE8D84, 0x20
+Pal_OpAnimFaceNatasha:
+	.incbin "graphics/op_anim/OpAnimFaceNatasha.gbapal"
 
 	.global Img_OpAnimFaceLute
-Img_OpAnimFaceLute:  @ 0x08AE8DA4
-	.incbin "baserom.gba", 0xAE8DA4, 0x5C0
+Img_OpAnimFaceLute:
+	.incbin "graphics/op_anim/OpAnimFaceLute.4bpp.lz"
 
 	.global Img_OpAnimFaceLuteShadow
-Img_OpAnimFaceLuteShadow:  @ 0x08AE9364
-	.incbin "baserom.gba", 0xAE9364, 0x3BC
+Img_OpAnimFaceLuteShadow:
+	.incbin "graphics/op_anim/OpAnimFaceLuteShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceLute
-Pal_OpAnimFaceLute:  @ 0x08AE9720
-	.incbin "baserom.gba", 0xAE9720, 0x20
+Pal_OpAnimFaceLute:
+	.incbin "graphics/op_anim/OpAnimFaceLute.gbapal"
 
 	.global Img_OpAnimFaceArtur
-Img_OpAnimFaceArtur:  @ 0x08AE9740
-	.incbin "baserom.gba", 0xAE9740, 0x564
+Img_OpAnimFaceArtur:
+	.incbin "graphics/op_anim/OpAnimFaceArtur.4bpp.lz"
 
 	.global Img_OpAnimFaceArturShadow
-Img_OpAnimFaceArturShadow:  @ 0x08AE9CA4
-	.incbin "baserom.gba", 0xAE9CA4, 0x388
+Img_OpAnimFaceArturShadow:
+	.incbin "graphics/op_anim/OpAnimFaceArturShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceArtur
-Pal_OpAnimFaceArtur:  @ 0x08AEA02C
-    .incbin "baserom.gba", 0xAEA02C, 0x20
+Pal_OpAnimFaceArtur:
+	.incbin "graphics/op_anim/OpAnimFaceArtur.gbapal"
 
 	.global Img_OpAnimFaceKyle
-Img_OpAnimFaceKyle:  @ 0x08AEA04C
-	.incbin "baserom.gba", 0xAEA04C, 0x75C
+Img_OpAnimFaceKyle:
+	.incbin "graphics/op_anim/OpAnimFaceKyle.4bpp.lz"
 
 	.global Img_OpAnimFaceKyleShadow
-Img_OpAnimFaceKyleShadow:  @ 0x08AEA7A8
-	.incbin "baserom.gba", 0xAEA7A8, 0x3A8
+Img_OpAnimFaceKyleShadow:
+	.incbin "graphics/op_anim/OpAnimFaceKyleShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceKyle
-Pal_OpAnimFaceKyle:  @ 0x08AEAB50
-	.incbin "baserom.gba", 0xAEAB50, 0x20
+Pal_OpAnimFaceKyle:
+	.incbin "graphics/op_anim/OpAnimFaceKyle.gbapal"
 
 	.global Img_OpAnimFaceFranz
-Img_OpAnimFaceFranz:  @ 0x08AEAB70
-	.incbin "baserom.gba", 0xAEAB70, 0x648
+Img_OpAnimFaceFranz:
+	.incbin "graphics/op_anim/OpAnimFaceFranz.4bpp.lz"
 
 	.global Img_OpAnimFaceFranzShadow
-Img_OpAnimFaceFranzShadow:  @ 0x08AEB1B8
-	.incbin "baserom.gba", 0xAEB1B8, 0x3B4
+Img_OpAnimFaceFranzShadow:
+	.incbin "graphics/op_anim/OpAnimFaceFranzShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceFranz
-Pal_OpAnimFaceFranz:  @ 0x08AEB56C
-	.incbin "baserom.gba", 0xAEB56C, 0x20
+Pal_OpAnimFaceFranz:
+	.incbin "graphics/op_anim/OpAnimFaceFranz.gbapal"
 
 	.global Img_OpAnimFaceForde
-Img_OpAnimFaceForde:  @ 0x08AEB58C
-	.incbin "baserom.gba", 0xAEB58C, 0x760
+Img_OpAnimFaceForde:
+	.incbin "graphics/op_anim/OpAnimFaceForde.4bpp.lz"
 
 	.global Img_OpAnimFaceFordeShadow
-Img_OpAnimFaceFordeShadow:  @ 0x08AEBCEC
-	.incbin "baserom.gba", 0xAEBCEC, 0x35C
+Img_OpAnimFaceFordeShadow:
+	.incbin "graphics/op_anim/OpAnimFaceFordeShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceForde
-Pal_OpAnimFaceForde:  @ 0x08AEC048
-	.incbin "graphics/op_anim/FaceValterShadow.gbapal", 0x0, 0x20
+Pal_OpAnimFaceForde:
+	.incbin "graphics/op_anim/OpAnimFaceForde.gbapal"
 
 	.global Img_OpAnimFaceSeth
-Img_OpAnimFaceSeth:  @ 0x08AEC068
-	.incbin "baserom.gba", 0xAEC068, 0x6BC
+Img_OpAnimFaceSeth:
+	.incbin "graphics/op_anim/OpAnimFaceSeth.4bpp.lz"
 
 	.global Img_OpAnimFaceSethShadow
-Img_OpAnimFaceSethShadow:  @ 0x08AEC724
-	.incbin "baserom.gba", 0xAEC724, 0x39C
+Img_OpAnimFaceSethShadow:
+	.incbin "graphics/op_anim/OpAnimFaceSethShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceSeth
-Pal_OpAnimFaceSeth:  @ 0x08AECAC0
-	.incbin "baserom.gba", 0xAECAC0, 0x20
+Pal_OpAnimFaceSeth:
+	.incbin "graphics/op_anim/OpAnimFaceSeth.gbapal"
 
 	.global Img_OpAnimFaceDuessel
-Img_OpAnimFaceDuessel:  @ 0x08AECAE0
-	.incbin "baserom.gba", 0xAECAE0, 0x5C4
+Img_OpAnimFaceDuessel:
+	.incbin "graphics/op_anim/OpAnimFaceDuessel.4bpp.lz"
 
 	.global Img_OpAnimFaceDuesselShadow
-Img_OpAnimFaceDuesselShadow:  @ 0x08AED0A4
-	.incbin "baserom.gba", 0xAED0A4, 0x344
+Img_OpAnimFaceDuesselShadow:
+	.incbin "graphics/op_anim/OpAnimFaceDuesselShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceDuessel
-Pal_OpAnimFaceDuessel:  @ 0x08AED3E8
-	.incbin "baserom.gba", 0xAED3E8, 0x20
+Pal_OpAnimFaceDuessel:
+	.incbin "graphics/op_anim/OpAnimFaceDuessel.gbapal"
 
 	.global Img_OpAnimFaceSelena
-Img_OpAnimFaceSelena:  @ 0x08AED408
-	.incbin "baserom.gba", 0xAED408, 0x554
+Img_OpAnimFaceSelena:
+	.incbin "graphics/op_anim/OpAnimFaceSelena.4bpp.lz"
 
 	.global Img_OpAnimFaceSelenaShadow
-Img_OpAnimFaceSelenaShadow:  @ 0x08AED95C
-	.incbin "baserom.gba", 0xAED95C, 0x324
+Img_OpAnimFaceSelenaShadow:
+	.incbin "graphics/op_anim/OpAnimFaceSelenaShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceSelena
-Pal_OpAnimFaceSelena:  @ 0x08AEDC80
-	.incbin "baserom.gba", 0xAEDC80, 0x20
+Pal_OpAnimFaceSelena:
+	.incbin "graphics/op_anim/OpAnimFaceSelena.gbapal"
 
 	.global Img_OpAnimFaceGlen
-Img_OpAnimFaceGlen:  @ 0x08AEDCA0
-	.incbin "baserom.gba", 0xAEDCA0, 0x578
+Img_OpAnimFaceGlen:
+	.incbin "graphics/op_anim/OpAnimFaceGlen.4bpp.lz"
 
 	.global Img_OpAnimFaceGlenShadow
-Img_OpAnimFaceGlenShadow:  @ 0x08AEE218
-	.incbin "baserom.gba", 0xAEE218, 0x34C
+Img_OpAnimFaceGlenShadow:
+	.incbin "graphics/op_anim/OpAnimFaceGlenShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceGlen
-Pal_OpAnimFaceGlen:  @ 0x08AEE564
-	.incbin "baserom.gba", 0xAEE564, 0x20
+Pal_OpAnimFaceGlen:
+	.incbin "graphics/op_anim/OpAnimFaceGlen.gbapal"
 
 	.global Img_OpAnimFaceValter
-Img_OpAnimFaceValter:  @ 0x08AEE584
-	.incbin "baserom.gba", 0xAEE584, 0x62C
+Img_OpAnimFaceValter:
+	.incbin "graphics/op_anim/OpAnimFaceValter.4bpp.lz"
 
 	.global Img_OpAnimFaceValterShadow
-Img_OpAnimFaceValterShadow:  @ 0x08AEEBB0
-	.incbin "graphics/op_anim/FaceValterShadow.4bpp.lz"
+Img_OpAnimFaceValterShadow:
+	.incbin "graphics/op_anim/OpAnimFaceValterShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceValter
-Pal_OpAnimFaceValter:  @ 0x08AEEECC
-	.incbin "baserom.gba", 0xAEEECC, 0x20
+Pal_OpAnimFaceValter:
+	.incbin "graphics/op_anim/OpAnimFaceValter.gbapal"
 
 	.global Img_OpAnimFaceRiev
-Img_OpAnimFaceRiev:  @ 0x08AEEEEC
-	.incbin "baserom.gba", 0xAEEEEC, 0x694
+Img_OpAnimFaceRiev:
+	.incbin "graphics/op_anim/OpAnimFaceRiev.4bpp.lz"
 
 	.global Img_OpAnimFaceRievShadow
-Img_OpAnimFaceRievShadow:  @ 0x08AEF580
-	.incbin "baserom.gba", 0xAEF580, 0x300
+Img_OpAnimFaceRievShadow:
+	.incbin "graphics/op_anim/OpAnimFaceRievShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceRiev
-Pal_OpAnimFaceRiev:  @ 0x08AEF880
-	.incbin "baserom.gba", 0xAEF880, 0x20
+Pal_OpAnimFaceRiev:
+	.incbin "graphics/op_anim/OpAnimFaceRiev.gbapal"
 
 	.global Img_OpAnimFaceCaellach
-Img_OpAnimFaceCaellach:  @ 0x08AEF8A0
-	.incbin "baserom.gba", 0xAEF8A0, 0x528
+Img_OpAnimFaceCaellach:
+	.incbin "graphics/op_anim/OpAnimFaceCaellach.4bpp.lz"
 
 	.global Img_OpAnimFaceCaellachShadow
-Img_OpAnimFaceCaellachShadow:  @ 0x08AEFDC8
-	.incbin "baserom.gba", 0xAEFDC8, 0x368
+Img_OpAnimFaceCaellachShadow:
+	.incbin "graphics/op_anim/OpAnimFaceCaellachShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceCaellach
-Pal_OpAnimFaceCaellach:  @ 0x08AF0130
-	.incbin "baserom.gba", 0xAF0130, 0x20
+Pal_OpAnimFaceCaellach:
+	.incbin "graphics/op_anim/OpAnimFaceCaellach.gbapal"
 
 	.global Img_OpAnimFaceLyon
-Img_OpAnimFaceLyon:  @ 0x08AF0150
-	.incbin "baserom.gba", 0xAF0150, 0x894
+Img_OpAnimFaceLyon:
+	.incbin "graphics/op_anim/OpAnimFaceLyon.4bpp.lz"
 
 	.global Img_OpAnimFaceLyonShadow
-Img_OpAnimFaceLyonShadow:  @ 0x08AF09E4
-	.incbin "baserom.gba", 0xAF09E4, 0x404
+Img_OpAnimFaceLyonShadow:
+	.incbin "graphics/op_anim/OpAnimFaceLyonShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceLyon
-Pal_OpAnimFaceLyon:  @ 0x08AF0DE8
-	.incbin "baserom.gba", 0xAF0DE8, 0x20
+Pal_OpAnimFaceLyon:
+	.incbin "graphics/op_anim/OpAnimFaceLyon.gbapal"
 
 	.global Img_OpAnimFaceVigarde
-Img_OpAnimFaceVigarde:  @ 0x08AF0E08
-	.incbin "baserom.gba", 0xAF0E08, 0x8C4
+Img_OpAnimFaceVigarde:
+	.incbin "graphics/op_anim/OpAnimFaceVigarde.4bpp.lz"
 
 	.global Img_OpAnimFaceVigardeShadow
-Img_OpAnimFaceVigardeShadow:  @ 0x08AF16CC
-	.incbin "baserom.gba", 0xAF16CC, 0x3FC
+Img_OpAnimFaceVigardeShadow:
+	.incbin "graphics/op_anim/OpAnimFaceVigardeShadow.4bpp.lz"
 
 	.global Pal_OpAnimFaceVigarde
-Pal_OpAnimFaceVigarde:  @ 0x08AF1AC8
-	.incbin "baserom.gba", 0xAF1AC8, 0x20
+Pal_OpAnimFaceVigarde:
+	.incbin "graphics/op_anim/OpAnimFaceVigarde.gbapal"
 
 	.global Img_OpAnimSplitLine
 Img_OpAnimSplitLine:  @ 0x08AF1AE8
@@ -730,861 +729,861 @@ Pal_OpAnimDivlEye:  @ 0x08AF310C
 	.incbin "graphics/op_anim/devil_eye.gbapal", 0x0, 0x20
 
 	.global Img_OpAnimShiningRing
-Img_OpAnimShiningRing:  @ 0x08AF312C
-	.incbin "baserom.gba", 0xAF312C, 0xF20
+Img_OpAnimShiningRing:
+	.incbin "graphics/op_anim/OpAnimShiningRing.4bpp.lz"
 
 	.global Tsa_OpAnimShiningRing
-Tsa_OpAnimShiningRing:  @ 0x08AF404C
-	.incbin "baserom.gba", 0xAF404C, 0x2E4
+Tsa_OpAnimShiningRing:
+	.incbin "graphics/op_anim/OpAnimShiningRing.bin.lz"
 
 	.global Tsa_OpAnimShiningRingBlinking
-Tsa_OpAnimShiningRingBlinking:  @ 0x08AF4330
-	.incbin "baserom.gba", 0xAF4330, 0x4C0
+Tsa_OpAnimShiningRingBlinking:
+	.incbin "graphics/op_anim/OpAnimShiningRingBlinking.bin.lz"
 
 	.global Pal_OpAnimShiningRing
-Pal_OpAnimShiningRing:  @ 0x08AF47F0
-	.incbin "baserom.gba", 0xAF47F0, 0x80
+Pal_OpAnimShiningRing:
+	.incbin "graphics/op_anim/OpAnimShiningRing.gbapal"
 
 	.global img_opanim1
 img_opanim1:
-	.incbin "baserom.gba", 0xAF4870, 0xAF4C9C - 0xAF4870
+	.incbin "graphics/op_anim/scrolling_background/opanim1.4bpp.lz"
 
 	.global tsa_opanim1
 tsa_opanim1:
-	.incbin "baserom.gba", 0xAF4C9C, 0xAF4CD8 - 0xAF4C9C
+	.incbin "graphics/op_anim/scrolling_background/opanim1.bin"
 
 	.global img_opanim2
 img_opanim2:
-	.incbin "baserom.gba", 0xAF4CD8, 0xAF5100 - 0xAF4CD8
+	.incbin "graphics/op_anim/scrolling_background/opanim2.4bpp.lz"
 
 	.global tsa_opanim2
 tsa_opanim2:
-	.incbin "baserom.gba", 0xAF5100, 0xAF513C - 0xAF5100
+	.incbin "graphics/op_anim/scrolling_background/opanim2.bin"
 
 	.global img_opanim3
 img_opanim3:
-	.incbin "baserom.gba", 0xAF513C, 0xAF5578 - 0xAF513C
+	.incbin "graphics/op_anim/scrolling_background/opanim3.4bpp.lz"
 
 	.global tsa_opanim3
 tsa_opanim3:
-	.incbin "baserom.gba", 0xAF5578, 0xAF55B4 - 0xAF5578
+	.incbin "graphics/op_anim/scrolling_background/opanim3.bin"
 
 	.global img_opanim4
 img_opanim4:
-	.incbin "baserom.gba", 0xAF55B4, 0xAF59EC - 0xAF55B4
+	.incbin "graphics/op_anim/scrolling_background/opanim4.4bpp.lz"
 
 	.global tsa_opanim4
 tsa_opanim4:
-	.incbin "baserom.gba", 0xAF59EC, 0xAF5A28 - 0xAF59EC
+	.incbin "graphics/op_anim/scrolling_background/opanim4.bin"
 
 	.global img_opanim5
 img_opanim5:
-	.incbin "baserom.gba", 0xAF5A28, 0xAF5E5C - 0xAF5A28
+	.incbin "graphics/op_anim/scrolling_background/opanim5.4bpp.lz"
 
 	.global tsa_opanim5
 tsa_opanim5:
-	.incbin "baserom.gba", 0xAF5E5C, 0xAF5E98 - 0xAF5E5C
+	.incbin "graphics/op_anim/scrolling_background/opanim5.bin"
 
 	.global img_opanim6
 img_opanim6:
-	.incbin "baserom.gba", 0xAF5E98, 0xAF62CC - 0xAF5E98
+	.incbin "graphics/op_anim/scrolling_background/opanim6.4bpp.lz"
 
 	.global tsa_opanim6
 tsa_opanim6:
-	.incbin "baserom.gba", 0xAF62CC, 0xAF6308 - 0xAF62CC
+	.incbin "graphics/op_anim/scrolling_background/opanim6.bin"
 
 	.global img_opanim7
 img_opanim7:
-	.incbin "baserom.gba", 0xAF6308, 0xAF6744 - 0xAF6308
+	.incbin "graphics/op_anim/scrolling_background/opanim7.4bpp.lz"
 
 	.global tsa_opanim7
 tsa_opanim7:
-	.incbin "baserom.gba", 0xAF6744, 0xAF6780 - 0xAF6744
+	.incbin "graphics/op_anim/scrolling_background/opanim7.bin"
 
 	.global img_opanim8
 img_opanim8:
-	.incbin "baserom.gba", 0xAF6780, 0xAF6BBC - 0xAF6780
+	.incbin "graphics/op_anim/scrolling_background/opanim8.4bpp.lz"
 
 	.global tsa_opanim8
 tsa_opanim8:
-	.incbin "baserom.gba", 0xAF6BBC, 0xAF6BF8 - 0xAF6BBC
+	.incbin "graphics/op_anim/scrolling_background/opanim8.bin"
 
 	.global img_opanim9
 img_opanim9:
-	.incbin "baserom.gba", 0xAF6BF8, 0xAF7034 - 0xAF6BF8
+	.incbin "graphics/op_anim/scrolling_background/opanim9.4bpp.lz"
 
 	.global tsa_opanim9
 tsa_opanim9:
-	.incbin "baserom.gba", 0xAF7034, 0xAF7070 - 0xAF7034
+	.incbin "graphics/op_anim/scrolling_background/opanim9.bin"
 
 	.global img_opanim10
 img_opanim10:
-	.incbin "baserom.gba", 0xAF7070, 0xAF74AC - 0xAF7070
+	.incbin "graphics/op_anim/scrolling_background/opanim10.4bpp.lz"
 
 	.global tsa_opanim10
 tsa_opanim10:
-	.incbin "baserom.gba", 0xAF74AC, 0xAF74E8 - 0xAF74AC
+	.incbin "graphics/op_anim/scrolling_background/opanim10.bin"
 
 	.global img_opanim11
 img_opanim11:
-	.incbin "baserom.gba", 0xAF74E8, 0xAF7924 - 0xAF74E8
+	.incbin "graphics/op_anim/scrolling_background/opanim11.4bpp.lz"
 
 	.global tsa_opanim11
 tsa_opanim11:
-	.incbin "baserom.gba", 0xAF7924, 0xAF7960 - 0xAF7924
+	.incbin "graphics/op_anim/scrolling_background/opanim11.bin"
 
 	.global img_opanim12
 img_opanim12:
-	.incbin "baserom.gba", 0xAF7960, 0xAF7D98 - 0xAF7960
+	.incbin "graphics/op_anim/scrolling_background/opanim12.4bpp.lz"
 
 	.global tsa_opanim12
 tsa_opanim12:
-	.incbin "baserom.gba", 0xAF7D98, 0xAF7DD4 - 0xAF7D98
+	.incbin "graphics/op_anim/scrolling_background/opanim12.bin"
 
 	.global img_opanim13
 img_opanim13:
-	.incbin "baserom.gba", 0xAF7DD4, 0xAF8210 - 0xAF7DD4
+	.incbin "graphics/op_anim/scrolling_background/opanim13.4bpp.lz"
 
 	.global tsa_opanim13
 tsa_opanim13:
-	.incbin "baserom.gba", 0xAF8210, 0xAF824C - 0xAF8210
+	.incbin "graphics/op_anim/scrolling_background/opanim13.bin"
 
 	.global img_opanim14
 img_opanim14:
-	.incbin "baserom.gba", 0xAF824C, 0xAF8688 - 0xAF824C
+	.incbin "graphics/op_anim/scrolling_background/opanim14.4bpp.lz"
 
 	.global tsa_opanim14
 tsa_opanim14:
-	.incbin "baserom.gba", 0xAF8688, 0xAF86C4 - 0xAF8688
+	.incbin "graphics/op_anim/scrolling_background/opanim14.bin"
 
 	.global img_opanim15
 img_opanim15:
-	.incbin "baserom.gba", 0xAF86C4, 0xAF8AFC - 0xAF86C4
+	.incbin "graphics/op_anim/scrolling_background/opanim15.4bpp.lz"
 
 	.global tsa_opanim15
 tsa_opanim15:
-	.incbin "baserom.gba", 0xAF8AFC, 0xAF8B38 - 0xAF8AFC
+	.incbin "graphics/op_anim/scrolling_background/opanim15.bin"
 
 	.global img_opanim16
 img_opanim16:
-	.incbin "baserom.gba", 0xAF8B38, 0xAF8F74 - 0xAF8B38
+	.incbin "graphics/op_anim/scrolling_background/opanim16.4bpp.lz"
 
 	.global tsa_opanim16
 tsa_opanim16:
-	.incbin "baserom.gba", 0xAF8F74, 0xAF8FB0 - 0xAF8F74
+	.incbin "graphics/op_anim/scrolling_background/opanim16.bin"
 
 	.global img_opanim17
 img_opanim17:
-	.incbin "baserom.gba", 0xAF8FB0, 0xAF93EC - 0xAF8FB0
+	.incbin "graphics/op_anim/scrolling_background/opanim17.4bpp.lz"
 
 	.global tsa_opanim17
 tsa_opanim17:
-	.incbin "baserom.gba", 0xAF93EC, 0xAF9428 - 0xAF93EC
+	.incbin "graphics/op_anim/scrolling_background/opanim17.bin"
 
 	.global img_opanim18
 img_opanim18:
-	.incbin "baserom.gba", 0xAF9428, 0xAF9864 - 0xAF9428
+	.incbin "graphics/op_anim/scrolling_background/opanim18.4bpp.lz"
 
 	.global tsa_opanim18
 tsa_opanim18:
-	.incbin "baserom.gba", 0xAF9864, 0xAF98A0 - 0xAF9864
+	.incbin "graphics/op_anim/scrolling_background/opanim18.bin"
 
 	.global img_opanim19
 img_opanim19:
-	.incbin "baserom.gba", 0xAF98A0, 0xAF9CDC - 0xAF98A0
+	.incbin "graphics/op_anim/scrolling_background/opanim19.4bpp.lz"
 
 	.global tsa_opanim19
 tsa_opanim19:
-	.incbin "baserom.gba", 0xAF9CDC, 0xAF9D18 - 0xAF9CDC
+	.incbin "graphics/op_anim/scrolling_background/opanim19.bin"
 
 	.global img_opanim20
 img_opanim20:
-	.incbin "baserom.gba", 0xAF9D18, 0xAFA154 - 0xAF9D18
+	.incbin "graphics/op_anim/scrolling_background/opanim20.4bpp.lz"
 
 	.global tsa_opanim20
 tsa_opanim20:
-	.incbin "baserom.gba", 0xAFA154, 0xAFA190 - 0xAFA154
+	.incbin "graphics/op_anim/scrolling_background/opanim20.bin"
 
 	.global img_opanim21
 img_opanim21:
-	.incbin "baserom.gba", 0xAFA190, 0xAFA5CC - 0xAFA190
+	.incbin "graphics/op_anim/scrolling_background/opanim21.4bpp.lz"
 
 	.global tsa_opanim21
 tsa_opanim21:
-	.incbin "baserom.gba", 0xAFA5CC, 0xAFA608 - 0xAFA5CC
+	.incbin "graphics/op_anim/scrolling_background/opanim21.bin"
 
 	.global img_opanim22
 img_opanim22:
-	.incbin "baserom.gba", 0xAFA608, 0xAFAA44 - 0xAFA608
+	.incbin "graphics/op_anim/scrolling_background/opanim22.4bpp.lz"
 
 	.global tsa_opanim22
 tsa_opanim22:
-	.incbin "baserom.gba", 0xAFAA44, 0xAFAA80 - 0xAFAA44
+	.incbin "graphics/op_anim/scrolling_background/opanim22.bin"
 
 	.global img_opanim23
 img_opanim23:
-	.incbin "baserom.gba", 0xAFAA80, 0xAFAEBC - 0xAFAA80
+	.incbin "graphics/op_anim/scrolling_background/opanim23.4bpp.lz"
 
 	.global tsa_opanim23
 tsa_opanim23:
-	.incbin "baserom.gba", 0xAFAEBC, 0xAFAEF8 - 0xAFAEBC
+	.incbin "graphics/op_anim/scrolling_background/opanim23.bin"
 
 	.global img_opanim24
 img_opanim24:
-	.incbin "baserom.gba", 0xAFAEF8, 0xAFB334 - 0xAFAEF8
+	.incbin "graphics/op_anim/scrolling_background/opanim24.4bpp.lz"
 
 	.global tsa_opanim24
 tsa_opanim24:
-	.incbin "baserom.gba", 0xAFB334, 0xAFB370 - 0xAFB334
+	.incbin "graphics/op_anim/scrolling_background/opanim24.bin"
 
 	.global img_opanim25
 img_opanim25:
-	.incbin "baserom.gba", 0xAFB370, 0xAFB7AC - 0xAFB370
+	.incbin "graphics/op_anim/scrolling_background/opanim25.4bpp.lz"
 
 	.global tsa_opanim25
 tsa_opanim25:
-	.incbin "baserom.gba", 0xAFB7AC, 0xAFB7E8 - 0xAFB7AC
+	.incbin "graphics/op_anim/scrolling_background/opanim25.bin"
 
 	.global img_opanim26
 img_opanim26:
-	.incbin "baserom.gba", 0xAFB7E8, 0xAFBC24 - 0xAFB7E8
+	.incbin "graphics/op_anim/scrolling_background/opanim26.4bpp.lz"
 
 	.global tsa_opanim26
 tsa_opanim26:
-	.incbin "baserom.gba", 0xAFBC24, 0xAFBC60 - 0xAFBC24
+	.incbin "graphics/op_anim/scrolling_background/opanim26.bin"
 
 	.global img_opanim27
 img_opanim27:
-	.incbin "baserom.gba", 0xAFBC60, 0xAFC098 - 0xAFBC60
+	.incbin "graphics/op_anim/scrolling_background/opanim27.4bpp.lz"
 
 	.global tsa_opanim27
 tsa_opanim27:
-	.incbin "baserom.gba", 0xAFC098, 0xAFC0D4 - 0xAFC098
+	.incbin "graphics/op_anim/scrolling_background/opanim27.bin"
 
 	.global img_opanim28
 img_opanim28:
-	.incbin "baserom.gba", 0xAFC0D4, 0xAFC50C - 0xAFC0D4
+	.incbin "graphics/op_anim/scrolling_background/opanim28.4bpp.lz"
 
 	.global tsa_opanim28
 tsa_opanim28:
-	.incbin "baserom.gba", 0xAFC50C, 0xAFC548 - 0xAFC50C
+	.incbin "graphics/op_anim/scrolling_background/opanim28.bin"
 
 	.global img_opanim29
 img_opanim29:
-	.incbin "baserom.gba", 0xAFC548, 0xAFC978 - 0xAFC548
+	.incbin "graphics/op_anim/scrolling_background/opanim29.4bpp.lz"
 
 	.global tsa_opanim29
 tsa_opanim29:
-	.incbin "baserom.gba", 0xAFC978, 0xAFC9B4 - 0xAFC978
+	.incbin "graphics/op_anim/scrolling_background/opanim29.bin"
 
 	.global img_opanim30
 img_opanim30:
-	.incbin "baserom.gba", 0xAFC9B4, 0xAFCDEC - 0xAFC9B4
+	.incbin "graphics/op_anim/scrolling_background/opanim30.4bpp.lz"
 
 	.global tsa_opanim30
 tsa_opanim30:
-	.incbin "baserom.gba", 0xAFCDEC, 0xAFCE28 - 0xAFCDEC
+	.incbin "graphics/op_anim/scrolling_background/opanim30.bin"
 
 	.global img_opanim31
 img_opanim31:
-	.incbin "baserom.gba", 0xAFCE28, 0xAFD260 - 0xAFCE28
+	.incbin "graphics/op_anim/scrolling_background/opanim31.4bpp.lz"
 
 	.global tsa_opanim31
 tsa_opanim31:
-	.incbin "baserom.gba", 0xAFD260, 0xAFD29C - 0xAFD260
+	.incbin "graphics/op_anim/scrolling_background/opanim31.bin"
 
 	.global img_opanim32
 img_opanim32:
-	.incbin "baserom.gba", 0xAFD29C, 0xAFD6C4 - 0xAFD29C
+	.incbin "graphics/op_anim/scrolling_background/opanim32.4bpp.lz"
 
 	.global tsa_opanim32
 tsa_opanim32:
-	.incbin "baserom.gba", 0xAFD6C4, 0xAFD700 - 0xAFD6C4
+	.incbin "graphics/op_anim/scrolling_background/opanim32.bin"
 
 	.global img_opanim33
 img_opanim33:
-	.incbin "baserom.gba", 0xAFD700, 0xAFDB28 - 0xAFD700
+	.incbin "graphics/op_anim/scrolling_background/opanim33.4bpp.lz"
 
 	.global tsa_opanim33
 tsa_opanim33:
-	.incbin "baserom.gba", 0xAFDB28, 0xAFDB64 - 0xAFDB28
+	.incbin "graphics/op_anim/scrolling_background/opanim33.bin"
 
 	.global img_opanim34
 img_opanim34:
-	.incbin "baserom.gba", 0xAFDB64, 0xAFDF98 - 0xAFDB64
+	.incbin "graphics/op_anim/scrolling_background/opanim34.4bpp.lz"
 
 	.global tsa_opanim34
 tsa_opanim34:
-	.incbin "baserom.gba", 0xAFDF98, 0xAFDFD4 - 0xAFDF98
+	.incbin "graphics/op_anim/scrolling_background/opanim34.bin"
 
 	.global img_opanim35
 img_opanim35:
-	.incbin "baserom.gba", 0xAFDFD4, 0xAFE40C - 0xAFDFD4
+	.incbin "graphics/op_anim/scrolling_background/opanim35.4bpp.lz"
 
 	.global tsa_opanim35
 tsa_opanim35:
-	.incbin "baserom.gba", 0xAFE40C, 0xAFE448 - 0xAFE40C
+	.incbin "graphics/op_anim/scrolling_background/opanim35.bin"
 
 	.global img_opanim36
 img_opanim36:
-	.incbin "baserom.gba", 0xAFE448, 0xAFE880 - 0xAFE448
+	.incbin "graphics/op_anim/scrolling_background/opanim36.4bpp.lz"
 
 	.global tsa_opanim36
 tsa_opanim36:
-	.incbin "baserom.gba", 0xAFE880, 0xAFE8BC - 0xAFE880
+	.incbin "graphics/op_anim/scrolling_background/opanim36.bin"
 
 	.global img_opanim37
 img_opanim37:
-	.incbin "baserom.gba", 0xAFE8BC, 0xAFECF4 - 0xAFE8BC
+	.incbin "graphics/op_anim/scrolling_background/opanim37.4bpp.lz"
 
 	.global tsa_opanim37
 tsa_opanim37:
-	.incbin "baserom.gba", 0xAFECF4, 0xAFED30 - 0xAFECF4
+	.incbin "graphics/op_anim/scrolling_background/opanim37.bin"
 
 	.global img_opanim38
 img_opanim38:
-	.incbin "baserom.gba", 0xAFED30, 0xAFF16C - 0xAFED30
+	.incbin "graphics/op_anim/scrolling_background/opanim38.4bpp.lz"
 
 	.global tsa_opanim38
 tsa_opanim38:
-	.incbin "baserom.gba", 0xAFF16C, 0xAFF1A8 - 0xAFF16C
+	.incbin "graphics/op_anim/scrolling_background/opanim38.bin"
 
 	.global img_opanim39
 img_opanim39:
-	.incbin "baserom.gba", 0xAFF1A8, 0xAFF5DC - 0xAFF1A8
+	.incbin "graphics/op_anim/scrolling_background/opanim39.4bpp.lz"
 
 	.global tsa_opanim39
 tsa_opanim39:
-	.incbin "baserom.gba", 0xAFF5DC, 0xAFF618 - 0xAFF5DC
+	.incbin "graphics/op_anim/scrolling_background/opanim39.bin"
 
 	.global img_opanim40
 img_opanim40:
-	.incbin "baserom.gba", 0xAFF618, 0xAFFA44 - 0xAFF618
+	.incbin "graphics/op_anim/scrolling_background/opanim40.4bpp.lz"
 
 	.global tsa_opanim40
 tsa_opanim40:
-	.incbin "baserom.gba", 0xAFFA44, 0xAFFA80 - 0xAFFA44
+	.incbin "graphics/op_anim/scrolling_background/opanim40.bin"
 
 	.global img_opanim41
 img_opanim41:
-	.incbin "baserom.gba", 0xAFFA80, 0xAFFEAC - 0xAFFA80
+	.incbin "graphics/op_anim/scrolling_background/opanim41.4bpp.lz"
 
 	.global tsa_opanim41
 tsa_opanim41:
-	.incbin "baserom.gba", 0xAFFEAC, 0xAFFEE8 - 0xAFFEAC
+	.incbin "graphics/op_anim/scrolling_background/opanim41.bin"
 
 	.global img_opanim42
 img_opanim42:
-	.incbin "baserom.gba", 0xAFFEE8, 0xB0031C - 0xAFFEE8
+	.incbin "graphics/op_anim/scrolling_background/opanim42.4bpp.lz"
 
 	.global tsa_opanim42
 tsa_opanim42:
-	.incbin "baserom.gba", 0xB0031C, 0xB00358 - 0xB0031C
+	.incbin "graphics/op_anim/scrolling_background/opanim42.bin"
 
 	.global img_opanim43
 img_opanim43:
-	.incbin "baserom.gba", 0xB00358, 0xB00794 - 0xB00358
+	.incbin "graphics/op_anim/scrolling_background/opanim43.4bpp.lz"
 
 	.global tsa_opanim43
 tsa_opanim43:
-	.incbin "baserom.gba", 0xB00794, 0xB007D0 - 0xB00794
+	.incbin "graphics/op_anim/scrolling_background/opanim43.bin"
 
 	.global img_opanim44
 img_opanim44:
-	.incbin "baserom.gba", 0xB007D0, 0xB00C0C - 0xB007D0
+	.incbin "graphics/op_anim/scrolling_background/opanim44.4bpp.lz"
 
 	.global tsa_opanim44
 tsa_opanim44:
-	.incbin "baserom.gba", 0xB00C0C, 0xB00C48 - 0xB00C0C
+	.incbin "graphics/op_anim/scrolling_background/opanim44.bin"
 
 	.global img_opanim45
 img_opanim45:
-	.incbin "baserom.gba", 0xB00C48, 0xB0107C - 0xB00C48
+	.incbin "graphics/op_anim/scrolling_background/opanim45.4bpp.lz"
 
 	.global tsa_opanim45
 tsa_opanim45:
-	.incbin "baserom.gba", 0xB0107C, 0xB010B8 - 0xB0107C
+	.incbin "graphics/op_anim/scrolling_background/opanim45.bin"
 
 	.global img_opanim46
 img_opanim46:
-	.incbin "baserom.gba", 0xB010B8, 0xB014F0 - 0xB010B8
+	.incbin "graphics/op_anim/scrolling_background/opanim46.4bpp.lz"
 
 	.global tsa_opanim46
 tsa_opanim46:
-	.incbin "baserom.gba", 0xB014F0, 0xB0152C - 0xB014F0
+	.incbin "graphics/op_anim/scrolling_background/opanim46.bin"
 
 	.global img_opanim47
 img_opanim47:
-	.incbin "baserom.gba", 0xB0152C, 0xB01968 - 0xB0152C
+	.incbin "graphics/op_anim/scrolling_background/opanim47.4bpp.lz"
 
 	.global tsa_opanim47
 tsa_opanim47:
-	.incbin "baserom.gba", 0xB01968, 0xB019A4 - 0xB01968
+	.incbin "graphics/op_anim/scrolling_background/opanim47.bin"
 
 	.global img_opanim48
 img_opanim48:
-	.incbin "baserom.gba", 0xB019A4, 0xB01DDC - 0xB019A4
+	.incbin "graphics/op_anim/scrolling_background/opanim48.4bpp.lz"
 
 	.global tsa_opanim48
 tsa_opanim48:
-	.incbin "baserom.gba", 0xB01DDC, 0xB01E18 - 0xB01DDC
+	.incbin "graphics/op_anim/scrolling_background/opanim48.bin"
 
 	.global img_opanim49
 img_opanim49:
-	.incbin "baserom.gba", 0xB01E18, 0xB02244 - 0xB01E18
+	.incbin "graphics/op_anim/scrolling_background/opanim49.4bpp.lz"
 
 	.global tsa_opanim49
 tsa_opanim49:
-	.incbin "baserom.gba", 0xB02244, 0xB02280 - 0xB02244
+	.incbin "graphics/op_anim/scrolling_background/opanim49.bin"
 
 	.global img_opanim50
 img_opanim50:
-	.incbin "baserom.gba", 0xB02280, 0xB026B8 - 0xB02280
+	.incbin "graphics/op_anim/scrolling_background/opanim50.4bpp.lz"
 
 	.global tsa_opanim50
 tsa_opanim50:
-	.incbin "baserom.gba", 0xB026B8, 0xB026F4 - 0xB026B8
+	.incbin "graphics/op_anim/scrolling_background/opanim50.bin"
 
 	.global img_opanim51
 img_opanim51:
-	.incbin "baserom.gba", 0xB026F4, 0xB02B20 - 0xB026F4
+	.incbin "graphics/op_anim/scrolling_background/opanim51.4bpp.lz"
 
 	.global tsa_opanim51
 tsa_opanim51:
-	.incbin "baserom.gba", 0xB02B20, 0xB02B5C - 0xB02B20
+	.incbin "graphics/op_anim/scrolling_background/opanim51.bin"
 
 	.global img_opanim52
 img_opanim52:
-	.incbin "baserom.gba", 0xB02B5C, 0xB02F90 - 0xB02B5C
+	.incbin "graphics/op_anim/scrolling_background/opanim52.4bpp.lz"
 
 	.global tsa_opanim52
 tsa_opanim52:
-	.incbin "baserom.gba", 0xB02F90, 0xB02FCC - 0xB02F90
+	.incbin "graphics/op_anim/scrolling_background/opanim52.bin"
 
 	.global img_opanim53
 img_opanim53:
-	.incbin "baserom.gba", 0xB02FCC, 0xB033FC - 0xB02FCC
+	.incbin "graphics/op_anim/scrolling_background/opanim53.4bpp.lz"
 
 	.global tsa_opanim53
 tsa_opanim53:
-	.incbin "baserom.gba", 0xB033FC, 0xB03438 - 0xB033FC
+	.incbin "graphics/op_anim/scrolling_background/opanim53.bin"
 
 	.global img_opanim54
 img_opanim54:
-	.incbin "baserom.gba", 0xB03438, 0xB03870 - 0xB03438
+	.incbin "graphics/op_anim/scrolling_background/opanim54.4bpp.lz"
 
 	.global tsa_opanim54
 tsa_opanim54:
-	.incbin "baserom.gba", 0xB03870, 0xB038AC - 0xB03870
+	.incbin "graphics/op_anim/scrolling_background/opanim54.bin"
 
 	.global img_opanim55
 img_opanim55:
-	.incbin "baserom.gba", 0xB038AC, 0xB03CE0 - 0xB038AC
+	.incbin "graphics/op_anim/scrolling_background/opanim55.4bpp.lz"
 
 	.global tsa_opanim55
 tsa_opanim55:
-	.incbin "baserom.gba", 0xB03CE0, 0xB03D1C - 0xB03CE0
+	.incbin "graphics/op_anim/scrolling_background/opanim55.bin"
 
 	.global img_opanim56
 img_opanim56:
-	.incbin "baserom.gba", 0xB03D1C, 0xB04158 - 0xB03D1C
+	.incbin "graphics/op_anim/scrolling_background/opanim56.4bpp.lz"
 
 	.global tsa_opanim56
 tsa_opanim56:
-	.incbin "baserom.gba", 0xB04158, 0xB04194 - 0xB04158
+	.incbin "graphics/op_anim/scrolling_background/opanim56.bin"
 
 	.global img_opanim57
 img_opanim57:
-	.incbin "baserom.gba", 0xB04194, 0xB045D0 - 0xB04194
+	.incbin "graphics/op_anim/scrolling_background/opanim57.4bpp.lz"
 
 	.global tsa_opanim57
 tsa_opanim57:
-	.incbin "baserom.gba", 0xB045D0, 0xB0460C - 0xB045D0
+	.incbin "graphics/op_anim/scrolling_background/opanim57.bin"
 
 	.global img_opanim58
 img_opanim58:
-	.incbin "baserom.gba", 0xB0460C, 0xB04A48 - 0xB0460C
+	.incbin "graphics/op_anim/scrolling_background/opanim58.4bpp.lz"
 
 	.global tsa_opanim58
 tsa_opanim58:
-	.incbin "baserom.gba", 0xB04A48, 0xB04A84 - 0xB04A48
+	.incbin "graphics/op_anim/scrolling_background/opanim58.bin"
 
 	.global img_opanim59
 img_opanim59:
-	.incbin "baserom.gba", 0xB04A84, 0xB04EB4 - 0xB04A84
+	.incbin "graphics/op_anim/scrolling_background/opanim59.4bpp.lz"
 
 	.global tsa_opanim59
 tsa_opanim59:
-	.incbin "baserom.gba", 0xB04EB4, 0xB04EF0 - 0xB04EB4
+	.incbin "graphics/op_anim/scrolling_background/opanim59.bin"
 
 	.global img_opanim60
 img_opanim60:
-	.incbin "baserom.gba", 0xB04EF0, 0xB05328 - 0xB04EF0
+	.incbin "graphics/op_anim/scrolling_background/opanim60.4bpp.lz"
 
 	.global tsa_opanim60
 tsa_opanim60:
-	.incbin "baserom.gba", 0xB05328, 0xB05364 - 0xB05328
+	.incbin "graphics/op_anim/scrolling_background/opanim60.bin"
 
 	.global img_opanim61
 img_opanim61:
-	.incbin "baserom.gba", 0xB05364, 0xB05794 - 0xB05364
+	.incbin "graphics/op_anim/scrolling_background/opanim61.4bpp.lz"
 
 	.global tsa_opanim61
 tsa_opanim61:
-	.incbin "baserom.gba", 0xB05794, 0xB057D0 - 0xB05794
+	.incbin "graphics/op_anim/scrolling_background/opanim61.bin"
 
 	.global img_opanim62
 img_opanim62:
-	.incbin "baserom.gba", 0xB057D0, 0xB05BFC - 0xB057D0
+	.incbin "graphics/op_anim/scrolling_background/opanim62.4bpp.lz"
 
 	.global tsa_opanim62
 tsa_opanim62:
-	.incbin "baserom.gba", 0xB05BFC, 0xB05C38 - 0xB05BFC
+	.incbin "graphics/op_anim/scrolling_background/opanim62.bin"
 
 	.global img_opanim63
 img_opanim63:
-	.incbin "baserom.gba", 0xB05C38, 0xB06070 - 0xB05C38
+	.incbin "graphics/op_anim/scrolling_background/opanim63.4bpp.lz"
 
 	.global tsa_opanim63
 tsa_opanim63:
-	.incbin "baserom.gba", 0xB06070, 0xB060AC - 0xB06070
+	.incbin "graphics/op_anim/scrolling_background/opanim63.bin"
 
 	.global img_opanim64
 img_opanim64:
-	.incbin "baserom.gba", 0xB060AC, 0xB064E8 - 0xB060AC
+	.incbin "graphics/op_anim/scrolling_background/opanim64.4bpp.lz"
 
 	.global tsa_opanim64
 tsa_opanim64:
-	.incbin "baserom.gba", 0xB064E8, 0xB06524 - 0xB064E8
+	.incbin "graphics/op_anim/scrolling_background/opanim64.bin"
 
 	.global img_opanim65
 img_opanim65:
-	.incbin "baserom.gba", 0xB06524, 0xB06960 - 0xB06524
+	.incbin "graphics/op_anim/scrolling_background/opanim65.4bpp.lz"
 
 	.global tsa_opanim65
 tsa_opanim65:
-	.incbin "baserom.gba", 0xB06960, 0xB0699C - 0xB06960
+	.incbin "graphics/op_anim/scrolling_background/opanim65.bin"
 
 	.global img_opanim66
 img_opanim66:
-	.incbin "baserom.gba", 0xB0699C, 0xB06DD4 - 0xB0699C
+	.incbin "graphics/op_anim/scrolling_background/opanim66.4bpp.lz"
 
 	.global tsa_opanim66
 tsa_opanim66:
-	.incbin "baserom.gba", 0xB06DD4, 0xB06E10 - 0xB06DD4
+	.incbin "graphics/op_anim/scrolling_background/opanim66.bin"
 
 	.global img_opanim67
 img_opanim67:
-	.incbin "baserom.gba", 0xB06E10, 0xB07244 - 0xB06E10
+	.incbin "graphics/op_anim/scrolling_background/opanim67.4bpp.lz"
 
 	.global tsa_opanim67
 tsa_opanim67:
-	.incbin "baserom.gba", 0xB07244, 0xB07280 - 0xB07244
+	.incbin "graphics/op_anim/scrolling_background/opanim67.bin"
 
 	.global img_opanim68
 img_opanim68:
-	.incbin "baserom.gba", 0xB07280, 0xB076B4 - 0xB07280
+	.incbin "graphics/op_anim/scrolling_background/opanim68.4bpp.lz"
 
 	.global tsa_opanim68
 tsa_opanim68:
-	.incbin "baserom.gba", 0xB076B4, 0xB076F0 - 0xB076B4
+	.incbin "graphics/op_anim/scrolling_background/opanim68.bin"
 
 	.global img_opanim69
 img_opanim69:
-	.incbin "baserom.gba", 0xB076F0, 0xB07B2C - 0xB076F0
+	.incbin "graphics/op_anim/scrolling_background/opanim69.4bpp.lz"
 
 	.global tsa_opanim69
 tsa_opanim69:
-	.incbin "baserom.gba", 0xB07B2C, 0xB07B68 - 0xB07B2C
+	.incbin "graphics/op_anim/scrolling_background/opanim69.bin"
 
 	.global img_opanim70
 img_opanim70:
-	.incbin "baserom.gba", 0xB07B68, 0xB07F94 - 0xB07B68
+	.incbin "graphics/op_anim/scrolling_background/opanim70.4bpp.lz"
 
 	.global tsa_opanim70
 tsa_opanim70:
-	.incbin "baserom.gba", 0xB07F94, 0xB07FD0 - 0xB07F94
+	.incbin "graphics/op_anim/scrolling_background/opanim70.bin"
 
 	.global img_opanim71
 img_opanim71:
-	.incbin "baserom.gba", 0xB07FD0, 0xB08404 - 0xB07FD0
+	.incbin "graphics/op_anim/scrolling_background/opanim71.4bpp.lz"
 
 	.global tsa_opanim71
 tsa_opanim71:
-	.incbin "baserom.gba", 0xB08404, 0xB08440 - 0xB08404
+	.incbin "graphics/op_anim/scrolling_background/opanim71.bin"
 
 	.global img_opanim72
 img_opanim72:
-	.incbin "baserom.gba", 0xB08440, 0xB0887C - 0xB08440
+	.incbin "graphics/op_anim/scrolling_background/opanim72.4bpp.lz"
 
 	.global tsa_opanim72
 tsa_opanim72:
-	.incbin "baserom.gba", 0xB0887C, 0xB088B8 - 0xB0887C
+	.incbin "graphics/op_anim/scrolling_background/opanim72.bin"
 
 	.global img_opanim73
 img_opanim73:
-	.incbin "baserom.gba", 0xB088B8, 0xB08CF4 - 0xB088B8
+	.incbin "graphics/op_anim/scrolling_background/opanim73.4bpp.lz"
 
 	.global tsa_opanim73
 tsa_opanim73:
-	.incbin "baserom.gba", 0xB08CF4, 0xB08D30 - 0xB08CF4
+	.incbin "graphics/op_anim/scrolling_background/opanim73.bin"
 
 	.global img_opanim74
 img_opanim74:
-	.incbin "baserom.gba", 0xB08D30, 0xB09160 - 0xB08D30
+	.incbin "graphics/op_anim/scrolling_background/opanim74.4bpp.lz"
 
 	.global tsa_opanim74
 tsa_opanim74:
-	.incbin "baserom.gba", 0xB09160, 0xB0919C - 0xB09160
+	.incbin "graphics/op_anim/scrolling_background/opanim74.bin"
 
 	.global img_opanim75
 img_opanim75:
-	.incbin "baserom.gba", 0xB0919C, 0xB095D0 - 0xB0919C
+	.incbin "graphics/op_anim/scrolling_background/opanim75.4bpp.lz"
 
 	.global tsa_opanim75
 tsa_opanim75:
-	.incbin "baserom.gba", 0xB095D0, 0xB0960C - 0xB095D0
+	.incbin "graphics/op_anim/scrolling_background/opanim75.bin"
 
 	.global img_opanim76
 img_opanim76:
-	.incbin "baserom.gba", 0xB0960C, 0xB09A48 - 0xB0960C
+	.incbin "graphics/op_anim/scrolling_background/opanim76.4bpp.lz"
 
 	.global tsa_opanim76
 tsa_opanim76:
-	.incbin "baserom.gba", 0xB09A48, 0xB09A84 - 0xB09A48
+	.incbin "graphics/op_anim/scrolling_background/opanim76.bin"
 
 	.global img_opanim77
 img_opanim77:
-	.incbin "baserom.gba", 0xB09A84, 0xB09EBC - 0xB09A84
+	.incbin "graphics/op_anim/scrolling_background/opanim77.4bpp.lz"
 
 	.global tsa_opanim77
 tsa_opanim77:
-	.incbin "baserom.gba", 0xB09EBC, 0xB09EF8 - 0xB09EBC
+	.incbin "graphics/op_anim/scrolling_background/opanim77.bin"
 
 	.global img_opanim78
 img_opanim78:
-	.incbin "baserom.gba", 0xB09EF8, 0xB0A334 - 0xB09EF8
+	.incbin "graphics/op_anim/scrolling_background/opanim78.4bpp.lz"
 
 	.global tsa_opanim78
 tsa_opanim78:
-	.incbin "baserom.gba", 0xB0A334, 0xB0A370 - 0xB0A334
+	.incbin "graphics/op_anim/scrolling_background/opanim78.bin"
 
 	.global img_opanim79
 img_opanim79:
-	.incbin "baserom.gba", 0xB0A370, 0xB0A7A8 - 0xB0A370
+	.incbin "graphics/op_anim/scrolling_background/opanim79.4bpp.lz"
 
 	.global tsa_opanim79
 tsa_opanim79:
-	.incbin "baserom.gba", 0xB0A7A8, 0xB0A7E4 - 0xB0A7A8
+	.incbin "graphics/op_anim/scrolling_background/opanim79.bin"
 
 	.global img_opanim80
 img_opanim80:
-	.incbin "baserom.gba", 0xB0A7E4, 0xB0AC20 - 0xB0A7E4
+	.incbin "graphics/op_anim/scrolling_background/opanim80.4bpp.lz"
 
 	.global tsa_opanim80
 tsa_opanim80:
-	.incbin "baserom.gba", 0xB0AC20, 0xB0AC5C - 0xB0AC20
+	.incbin "graphics/op_anim/scrolling_background/opanim80.bin"
 
 	.global img_opanim81
 img_opanim81:
-	.incbin "baserom.gba", 0xB0AC5C, 0xB0B098 - 0xB0AC5C
+	.incbin "graphics/op_anim/scrolling_background/opanim81.4bpp.lz"
 
 	.global tsa_opanim81
 tsa_opanim81:
-	.incbin "baserom.gba", 0xB0B098, 0xB0B0D4 - 0xB0B098
+	.incbin "graphics/op_anim/scrolling_background/opanim81.bin"
 
 	.global img_opanim82
 img_opanim82:
-	.incbin "baserom.gba", 0xB0B0D4, 0xB0B508 - 0xB0B0D4
+	.incbin "graphics/op_anim/scrolling_background/opanim82.4bpp.lz"
 
 	.global tsa_opanim82
 tsa_opanim82:
-	.incbin "baserom.gba", 0xB0B508, 0xB0B544 - 0xB0B508
+	.incbin "graphics/op_anim/scrolling_background/opanim82.bin"
 
 	.global img_opanim83
 img_opanim83:
-	.incbin "baserom.gba", 0xB0B544, 0xB0B97C - 0xB0B544
+	.incbin "graphics/op_anim/scrolling_background/opanim83.4bpp.lz"
 
 	.global tsa_opanim83
 tsa_opanim83:
-	.incbin "baserom.gba", 0xB0B97C, 0xB0B9B8 - 0xB0B97C
+	.incbin "graphics/op_anim/scrolling_background/opanim83.bin"
 
 	.global img_opanim84
 img_opanim84:
-	.incbin "baserom.gba", 0xB0B9B8, 0xB0BDF4 - 0xB0B9B8
+	.incbin "graphics/op_anim/scrolling_background/opanim84.4bpp.lz"
 
 	.global tsa_opanim84
 tsa_opanim84:
-	.incbin "baserom.gba", 0xB0BDF4, 0xB0BE30 - 0xB0BDF4
+	.incbin "graphics/op_anim/scrolling_background/opanim84.bin"
 
 	.global img_opanim85
 img_opanim85:
-	.incbin "baserom.gba", 0xB0BE30, 0xB0C268 - 0xB0BE30
+	.incbin "graphics/op_anim/scrolling_background/opanim85.4bpp.lz"
 
 	.global tsa_opanim85
 tsa_opanim85:
-	.incbin "baserom.gba", 0xB0C268, 0xB0C2A4 - 0xB0C268
+	.incbin "graphics/op_anim/scrolling_background/opanim85.bin"
 
 	.global img_opanim86
 img_opanim86:
-	.incbin "baserom.gba", 0xB0C2A4, 0xB0C6DC - 0xB0C2A4
+	.incbin "graphics/op_anim/scrolling_background/opanim86.4bpp.lz"
 
 	.global tsa_opanim86
 tsa_opanim86:
-	.incbin "baserom.gba", 0xB0C6DC, 0xB0C718 - 0xB0C6DC
+	.incbin "graphics/op_anim/scrolling_background/opanim86.bin"
 
 	.global img_opanim87
 img_opanim87:
-	.incbin "baserom.gba", 0xB0C718, 0xB0CB4C - 0xB0C718
+	.incbin "graphics/op_anim/scrolling_background/opanim87.4bpp.lz"
 
 	.global tsa_opanim87
 tsa_opanim87:
-	.incbin "baserom.gba", 0xB0CB4C, 0xB0CB88 - 0xB0CB4C
+	.incbin "graphics/op_anim/scrolling_background/opanim87.bin"
 
 	.global img_opanim88
 img_opanim88:
-	.incbin "baserom.gba", 0xB0CB88, 0xB0CFC0 - 0xB0CB88
+	.incbin "graphics/op_anim/scrolling_background/opanim88.4bpp.lz"
 
 	.global tsa_opanim88
 tsa_opanim88:
-	.incbin "baserom.gba", 0xB0CFC0, 0xB0CFFC - 0xB0CFC0
+	.incbin "graphics/op_anim/scrolling_background/opanim88.bin"
 
 	.global img_opanim89
 img_opanim89:
-	.incbin "baserom.gba", 0xB0CFFC, 0xB0D3F8 - 0xB0CFFC
+	.incbin "graphics/op_anim/scrolling_background/opanim89.4bpp.lz"
 
 	.global tsa_opanim89
 tsa_opanim89:
-	.incbin "baserom.gba", 0xB0D3F8, 0xB0D434 - 0xB0D3F8
+	.incbin "graphics/op_anim/scrolling_background/opanim89.bin"
 
 	.global img_opanim90
 img_opanim90:
-	.incbin "baserom.gba", 0xB0D434, 0xB0D860 - 0xB0D434
+	.incbin "graphics/op_anim/scrolling_background/opanim90.4bpp.lz"
 
 	.global tsa_opanim90
 tsa_opanim90:
-	.incbin "baserom.gba", 0xB0D860, 0xB0D89C - 0xB0D860
+	.incbin "graphics/op_anim/scrolling_background/opanim90.bin"
 
 	.global img_opanim91
 img_opanim91:
-	.incbin "baserom.gba", 0xB0D89C, 0xB0DCA8 - 0xB0D89C
+	.incbin "graphics/op_anim/scrolling_background/opanim91.4bpp.lz"
 
 	.global tsa_opanim91
 tsa_opanim91:
-	.incbin "baserom.gba", 0xB0DCA8, 0xB0DCE4 - 0xB0DCA8
+	.incbin "graphics/op_anim/scrolling_background/opanim91.bin"
 
 	.global img_opanim92
 img_opanim92:
-	.incbin "baserom.gba", 0xB0DCE4, 0xB0E0D4 - 0xB0DCE4
+	.incbin "graphics/op_anim/scrolling_background/opanim92.4bpp.lz"
 
 	.global tsa_opanim92
 tsa_opanim92:
-	.incbin "baserom.gba", 0xB0E0D4, 0xB0E110 - 0xB0E0D4
+	.incbin "graphics/op_anim/scrolling_background/opanim92.bin"
 
 	.global img_opanim93
 img_opanim93:
-	.incbin "baserom.gba", 0xB0E110, 0xB0E548 - 0xB0E110
+	.incbin "graphics/op_anim/scrolling_background/opanim93.4bpp.lz"
 
 	.global tsa_opanim93
 tsa_opanim93:
-	.incbin "baserom.gba", 0xB0E548, 0xB0E584 - 0xB0E548
+	.incbin "graphics/op_anim/scrolling_background/opanim93.bin"
 
 	.global img_opanim94
 img_opanim94:
-	.incbin "baserom.gba", 0xB0E584, 0xB0E9A4 - 0xB0E584
+	.incbin "graphics/op_anim/scrolling_background/opanim94.4bpp.lz"
 
 	.global tsa_opanim94
 tsa_opanim94:
-	.incbin "baserom.gba", 0xB0E9A4, 0xB0E9E0 - 0xB0E9A4
+	.incbin "graphics/op_anim/scrolling_background/opanim94.bin"
 
 	.global img_opanim95
 img_opanim95:
-	.incbin "baserom.gba", 0xB0E9E0, 0xB0EE18 - 0xB0E9E0
+	.incbin "graphics/op_anim/scrolling_background/opanim95.4bpp.lz"
 
 	.global tsa_opanim95
 tsa_opanim95:
-	.incbin "baserom.gba", 0xB0EE18, 0xB0EE54 - 0xB0EE18
+	.incbin "graphics/op_anim/scrolling_background/opanim95.bin"
 
 	.global img_opanim96
 img_opanim96:
-	.incbin "baserom.gba", 0xB0EE54, 0xB0F264 - 0xB0EE54
+	.incbin "graphics/op_anim/scrolling_background/opanim96.4bpp.lz"
 
 	.global tsa_opanim96
 tsa_opanim96:
-	.incbin "baserom.gba", 0xB0F264, 0xB0F2A0 - 0xB0F264
+	.incbin "graphics/op_anim/scrolling_background/opanim96.bin"
 
 	.global img_opanim97
 img_opanim97:
-	.incbin "baserom.gba", 0xB0F2A0, 0xB0F6DC - 0xB0F2A0
+	.incbin "graphics/op_anim/scrolling_background/opanim97.4bpp.lz"
 
 	.global tsa_opanim97
 tsa_opanim97:
-	.incbin "baserom.gba", 0xB0F6DC, 0xB0F718 - 0xB0F6DC
+	.incbin "graphics/op_anim/scrolling_background/opanim97.bin"
 
 	.global img_opanim98
 img_opanim98:
-	.incbin "baserom.gba", 0xB0F718, 0xB0FAE0 - 0xB0F718
+	.incbin "graphics/op_anim/scrolling_background/opanim98.4bpp.lz"
 
 	.global tsa_opanim98
 tsa_opanim98:
-	.incbin "baserom.gba", 0xB0FAE0, 0xB0FB1C - 0xB0FAE0
+	.incbin "graphics/op_anim/scrolling_background/opanim98.bin"
 
 	.global img_opanim99
 img_opanim99:
-	.incbin "baserom.gba", 0xB0FB1C, 0xB0FF30 - 0xB0FB1C
+	.incbin "graphics/op_anim/scrolling_background/opanim99.4bpp.lz"
 
 	.global tsa_opanim99
 tsa_opanim99:
-	.incbin "baserom.gba", 0xB0FF30, 0xB0FF6C - 0xB0FF30
+	.incbin "graphics/op_anim/scrolling_background/opanim99.bin"
 
 	.global img_opanim100
 img_opanim100:
-	.incbin "baserom.gba", 0xB0FF6C, 0xB1039C - 0xB0FF6C
+	.incbin "graphics/op_anim/scrolling_background/opanim100.4bpp.lz"
 
 	.global tsa_opanim100
 tsa_opanim100:
-	.incbin "baserom.gba", 0xB1039C, 0xB103D8 - 0xB1039C
+	.incbin "graphics/op_anim/scrolling_background/opanim100.bin"
 
 	.global pal_08B103D8
-pal_08B103D8:  @ 0x08B103D8
-	.incbin "baserom.gba", 0xB103D8, 0x100
+pal_08B103D8:
+	.incbin "graphics/op_anim/08B103D8.gbapal"
 
 	.global Tsa_GameIntroNintendo
-Tsa_GameIntroNintendo:  @ 0x08B104D8
-	.incbin "baserom.gba", 0xB104D8, 0x158
+Tsa_GameIntroNintendo:
+	.incbin "graphics/op_anim/GameIntroNintendo.fetsa2.bin.lz"
 
 	.global Img_GameIntroNintendo
-Img_GameIntroNintendo:  @ 0x08B10630
-	.incbin "baserom.gba", 0xB10630, 0x48C
+Img_GameIntroNintendo:
+	.incbin "graphics/op_anim/GameIntroNintendo.feimg2.bin.lz"
 
 	.global Pal_GameIntroNintendo
-Pal_GameIntroNintendo:  @ 0x08B10ABC
-	.incbin "baserom.gba", 0xB10ABC, 0x20
+Pal_GameIntroNintendo:
+	.incbin "graphics/op_anim/GameIntroNintendo.gbapal"
 
 	.global Tsa_IntelligentSystems
-Tsa_IntelligentSystems:  @ 0x08B10ADC
-	.incbin "baserom.gba", 0xB10ADC, 0x1C8
+Tsa_IntelligentSystems:
+	.incbin "graphics/op_anim/IntelligentSystems.fetsa2.bin.lz"
 
 	.global Img_IntelligentSystems
-Img_IntelligentSystems:  @ 0x08B10CA4
-	.incbin "baserom.gba", 0xB10CA4, 0xBC0
+Img_IntelligentSystems:
+	.incbin "graphics/op_anim/IntelligentSystems.feimg2.bin.lz"
 
 	.global Pal_IntelligentSystems
-Pal_IntelligentSystems:  @ 0x08B11864
-	.incbin "baserom.gba", 0xB11864, 0x60
+Pal_IntelligentSystems:
+	.incbin "graphics/op_anim/IntelligentSystems.gbapal"
 
-	.global Tsa_OpAnimHleathSafetyScreenBG1
-Tsa_OpAnimHleathSafetyScreenBG1:  @ 0x08B118C4
-	.incbin "baserom.gba", 0xB118C4, 0x348
+	.global Tsa_OpAnimHealthSafetyScreenBG1
+Tsa_OpAnimHealthSafetyScreenBG1:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreenBG1.bin.lz"
 
-	.global Tsa_OpAnimHleathSafetyScreenBG0
-Tsa_OpAnimHleathSafetyScreenBG0:  @ 0x08B11C0C
-	.incbin "baserom.gba", 0xB11C0C, 0x100
+	.global Tsa_OpAnimHealthSafetyScreenBG0
+Tsa_OpAnimHealthSafetyScreenBG0:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreenBG0.bin.lz"
 
-	.global Img_OpAnimHleathSafetyScreen
-Img_OpAnimHleathSafetyScreen:  @ 0x08B11D0C
-	.incbin "baserom.gba", 0xB11D0C, 0x8E8
+	.global Img_OpAnimHealthSafetyScreen
+Img_OpAnimHealthSafetyScreen:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreen.4bpp.lz"
 
-	.global Pal_OpAnimHleathSafetyScreen
-Pal_OpAnimHleathSafetyScreen:  @ 0x08B125F4
-	.incbin "baserom.gba", 0xB125F4, 0x20
+	.global Pal_OpAnimHealthSafetyScreen
+Pal_OpAnimHealthSafetyScreen:
+	.incbin "graphics/op_anim/OpAnimHealthSafetyScreen.gbapal"

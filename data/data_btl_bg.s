@@ -591,7 +591,7 @@ btl_bg_55_map: @8781ea4
 	.align 2, 0
 	.global btl_bg_56_tiles
 btl_bg_56_tiles: @8782224
-	.incbin "graphics/btl_bg/btl_bg_56.4bpp.lz"
+	.incbin "graphics/btl_bg/btl_bg_56.feimg3.bin.lz"
 
 	.align 2, 0
 	.global btl_bg_56_palette
@@ -601,12 +601,12 @@ btl_bg_56_palette: @878484c
 	.align 2, 0
 	.global btl_bg_56_map
 btl_bg_56_map: @878490c
-	.incbin "graphics/btl_bg/btl_bg_56.bin.lz"
+	.incbin "graphics/btl_bg/btl_bg_56.fetsa3.bin.lz"
 
 	.align 2, 0
 	.global btl_bg_57_tiles
 btl_bg_57_tiles: @8784c18
-	.incbin "graphics/btl_bg/btl_bg_57.4bpp.lz"
+	.incbin "graphics/btl_bg/btl_bg_57.feimg3.bin.lz"
 
 	.align 2, 0
 	.global btl_bg_57_palette
@@ -616,7 +616,7 @@ btl_bg_57_palette: @8787258
 	.align 2, 0
 	.global btl_bg_57_map
 btl_bg_57_map: @8787360
-	.incbin "graphics/btl_bg/btl_bg_57.bin.lz"
+	.incbin "graphics/btl_bg/btl_bg_57.fetsa3.bin.lz"
 
 	.align 2, 0
 	.global btl_bg_58_tiles
