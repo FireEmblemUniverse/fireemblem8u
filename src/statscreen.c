@@ -708,12 +708,12 @@ void DisplayPage1(void)
     const char* str;
 
     Decompress(
-        gUnknown_08A02204,
+        Tsa_StatscreenEquipmentBG,
         gGenericBuffer);
 
     CallARM_FillTileRect(
         gUiTmScratchC + TILEMAP_INDEX(1, 11),
-        gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_3));
+        gGenericBuffer, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT));
 
     DisplayTexts(sPage1TextInfo);
 
@@ -750,7 +750,7 @@ void DisplayPage1(void)
 
             CallARM_FillTileRect(
                 gUiTmScratchC + TILEMAP_INDEX(1, 2 + i*2),
-                gUnknown_08A02250, TILEREF(0x40, STATSCREEN_BGPAL_3));
+                Tsa_StatscreenEquipedWeaponHighlight, TILEREF(0x40, STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT));
 
             item = gStatScreen.unit->items[i];
         }
@@ -805,8 +805,8 @@ void DisplayPage1(void)
 
     for (i = 0; i < 8; ++i)
     {
-        gUiTmScratchA[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_7);
-        gUiTmScratchA[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_7);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 11)] = TILEREF(0x60 + i, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
+        gUiTmScratchA[TILEMAP_INDEX(1 + i, 12)] = TILEREF(0x68 + i, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
     }
 }
 
@@ -1507,7 +1507,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
 
     SetupBackgrounds(bgConfig);
 
-    UnpackUiFramePalette(STATSCREEN_BGPAL_3);
+    UnpackUiFramePalette(STATSCREEN_BGPAL_EQUIPMENT_FRAME_AND_HIGHLIGHT);
     RegisterBlankTile(0x400);
 
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -1546,12 +1546,12 @@ void StatScreen_InitDisplay(struct Proc* proc)
     // Load and display Halo
 
     Decompress(
-        gUnknown_08A064E0, (void*)(VRAM + 0x220 * 0x20));
+        Img_StatscreenHalo, (void*)(VRAM + 0x220 * 0x20));
 
-    ApplyPalette(gUnknown_08A0731C, STATSCREEN_BGPAL_HALO);
+    ApplyPalette(Pal_StatscreenHalo, STATSCREEN_BGPAL_HALO);
 
     Decompress(
-        gUnknown_08A071FC, gGenericBuffer);
+        Tsa_StatscreenHalo, gGenericBuffer);
 
     CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(12, 0),
         gGenericBuffer, TILEREF(0x220, STATSCREEN_BGPAL_HALO));
@@ -1571,7 +1571,7 @@ void StatScreen_InitDisplay(struct Proc* proc)
     // Load object graphics
 
     Decompress(
-        gUnknown_08A02274, (void*)(VRAM + 0x10000 + 0x240 * 0x20));
+        Img_StatscreenObjs, (void*)(VRAM + 0x10000 + 0x240 * 0x20));
 
     LoadIconPalettes(STATSCREEN_BGPAL_ITEMICONS);
 
@@ -1582,12 +1582,12 @@ void StatScreen_InitDisplay(struct Proc* proc)
     Decompress(
         gUnknown_08A01F24, (void*)(VRAM + 0x440 * 0x20));
 
-    ApplyPalette(gUnknown_08A021E4, STATSCREEN_BGPAL_7);
+    ApplyPalette(Pal_StatscreenEquipmentText, STATSCREEN_BGPAL_EQUIPMENT_LABEL);
 
     LoadIconPalette(1, 0x14);
 
     Decompress(
-        gUnknown_08A020F0, (void*)(VRAM + 0x60 * 0x20));
+        Img_StatscreenEquipmentText, (void*)(VRAM + 0x60 * 0x20));
 
     gStatScreen.mu = NULL;
 
