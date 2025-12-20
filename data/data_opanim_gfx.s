@@ -98,7 +98,7 @@ Tsa_OpAnimEphraimClose2:
 
 	.global Pal_OpAnimEphraimBlur
 Pal_OpAnimEphraimBlur:
-	.incbin "graphics/op_anim/OpAnimEphraimBlur.gbapal"
+	.incbin "graphics/op_anim/OpAnimEphraim.gbapal"
 
 	.global Img_OpAnimEirika
 Img_OpAnimEirika:
@@ -150,7 +150,7 @@ Tsa_OpAnimEirikaClose2:
 
 	.global Pal_OpAnimEirikaBlur
 Pal_OpAnimEirikaBlur:
-	.incbin "graphics/op_anim/OpAnimEirikaBlur.gbapal"
+	.incbin "graphics/op_anim/OpAnimEirika.gbapal"
 
 	.global Img_OpAnimJoshua
 Img_OpAnimJoshua:
