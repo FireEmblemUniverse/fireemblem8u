@@ -312,34 +312,33 @@ const u16 gUnknown_080DAEE6[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_INVALID
 };
 
-#if NONMATCHING
+#define ANIM_REF_OFFSET(off_ref_round, off_ref_pos) ((off_ref_round) * 2 + off_ref_pos)
 
-// https://decomp.me/scratch/kcZgC
 void ParseBattleHitToBanimCmd(void)
 {
     u32 i;
-    s16 r3;
-    s16 new_hp;
-    u16 distance;
-    s16 distance_r4;
-    u16 * r5;
-    struct Unit * unit_r6;
-    struct BattleHit * hit = gBattleHitArray;
-    u16 * r8, r9, r10;
+    struct BattleHit * hit; // r7
+    u16 r9;
+    u16 r10;
     u16 sp00[2];
-    struct BattleUnit * bul_sp04, * bur_sp08;
-    int round_sp0C, is_enemy;
-    s32 distance_sp14, distance_sp18;
+    struct BattleUnit * bul_sp04;
+    struct BattleUnit * bur_sp08;
+    s32 round_sp0C;
+    s32 is_enemy;
+    s32 distance_sp14;
+    s32 distance_sp18;
     s16 distance_sp1C;
+    s32 is_dark_breath;
 
-    for (i = 0; i < 0x14; i++)
+    hit = gBattleHitArray;
+
+    for (i = 0; i < 20; i++)
         gAnimRoundData[i] = 0xFFFF;
 
-    for (i = 0; i < 0x14; i++)
+    for (i = 0; i < 20; i++)
         gEfxHpLut[2 + i] = 0xFFFF;
 
-    gpEkrTriangleUnits[1] = NULL;
-    gpEkrTriangleUnits[0] = NULL;
+    gpEkrTriangleUnits[0] = gpEkrTriangleUnits[1] = NULL;
 
     if (gEkrDistanceType == EKR_DISTANCE_PROMOTION)
     {
@@ -350,37 +349,39 @@ void ParseBattleHitToBanimCmd(void)
 
     if (gBattleStats.config & BATTLE_CONFIG_REFRESH)
     {
-        gAnimRoundData[0] = 0x6;
-        gAnimRoundData[1] = 0x0;
+        gAnimRoundData[0] = 6;
+        gAnimRoundData[1] = 0;
         return;
     }
 
     /* _08058274 */
-    distance = gEkrDistanceType;
-    distance_sp14 = distance;
-    distance_sp18 = distance;
+    distance_sp14 = (u16)gEkrDistanceType;
+    distance_sp18 = distance_sp14;
+
+    is_dark_breath = false;
+
     bul_sp04 = gpEkrBattleUnitLeft;
     bur_sp08 = gpEkrBattleUnitRight;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_SWORD_RUNESWORD && distance == 0)
-        distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_SWORD_RUNESWORD && distance_sp18 == 0)
-        distance_sp18 = 1;
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_SWORD_RUNESWORD && distance_sp14 == EKR_DISTANCE_CLOSE)
+        distance_sp14 = EKR_DISTANCE_FAR;
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_SWORD_RUNESWORD && distance_sp18 == EKR_DISTANCE_CLOSE)
+        distance_sp18 = EKR_DISTANCE_FAR;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp14 == 0)
-        distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp18 == 0)
-        distance_sp18 = 1;
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp14 == EKR_DISTANCE_CLOSE)
+        distance_sp14 = EKR_DISTANCE_FAR;
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HANDAXE && distance_sp18 == EKR_DISTANCE_CLOSE)
+        distance_sp18 = EKR_DISTANCE_FAR;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp14 == 0)
-        distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp18 == 0)
-        distance_sp18 = 1;
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp14 == EKR_DISTANCE_CLOSE)
+        distance_sp14 = EKR_DISTANCE_FAR;
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_TOMAHAWK && distance_sp18 == EKR_DISTANCE_CLOSE)
+        distance_sp18 = EKR_DISTANCE_FAR;
 
-    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HATCHET && distance_sp14 == 0)
-        distance_sp14 = 1;
-    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HATCHET && distance_sp18 == 0)
-        distance_sp18 = 1;
+    if (GetItemIndex(bul_sp04->weaponBefore) == ITEM_AXE_HATCHET && distance_sp14 == EKR_DISTANCE_CLOSE)
+        distance_sp14 = EKR_DISTANCE_FAR;
+    if (GetItemIndex(bur_sp08->weaponBefore) == ITEM_AXE_HATCHET && distance_sp18 == EKR_DISTANCE_CLOSE)
+        distance_sp18 = EKR_DISTANCE_FAR;
 
     /* _08058332 */
     gEfxHpLut[0] = gEkrGaugeHp[0];
@@ -389,9 +390,15 @@ void ParseBattleHitToBanimCmd(void)
     round_sp0C = 0;
     r10 = 0;
     r9 = 0;
-
-    for (; 0 == (hit->info & BATTLE_HIT_INFO_END); hit++, round_sp0C++)
+    for (; !(hit->info & BATTLE_HIT_INFO_END); hit++, round_sp0C++)
     {
+        s16 r3;
+        s16 distance_r4;
+        u16 * r5;
+        struct Unit * unit_r6;
+        u16 * r8;
+        u16 * tmp;
+
         if (hit->info & BATTLE_HIT_INFO_RETALIATION)
             is_enemy = true;
         else
@@ -404,7 +411,7 @@ void ParseBattleHitToBanimCmd(void)
             distance_r4 = distance_sp14;
             distance_sp1C = distance_sp18;
             unit_r6 = &bul_sp04->unit;
-            r3 = 0;
+            r3 = is_dark_breath;
 
             if (round_sp0C == 0)
                 gEkrInitialHitSide = POS_L;
@@ -471,7 +478,7 @@ void ParseBattleHitToBanimCmd(void)
                 break;
             }
         }
-        r8++; r8--;
+
         /* _0805848C */
         if (hit->attributes & BATTLE_HIT_ATTR_MISS)
         {
@@ -487,32 +494,35 @@ void ParseBattleHitToBanimCmd(void)
             *r8 = gUnknown_080DAEB4[distance_sp1C];
         }
 
-        gAnimRoundData[round_sp0C * 2] = sp00[POS_L];
-        gAnimRoundData[round_sp0C * 2 + 1] = sp00[POS_R];
+        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = r8[sp00 - r8 + POS_L];
+        tmp = sp00 + POS_R;
+        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = *tmp;
 
-        if (0 == (hit->attributes & BATTLE_HIT_ATTR_MISS))
+        if (!(hit->attributes & BATTLE_HIT_ATTR_MISS))
         {
+            s16 new_hp;
+
             if (hit->attributes & BATTLE_HIT_ATTR_DEVIL)
             {
                 if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
-                    new_hp = GetEfxHp(r9 * 2) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r9, POS_L)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r9 = r9 + 1;
-                    gEfxHpLut[r9 * 2] = new_hp;
-                    gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_DEVIL;
+                    r9++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r9, POS_L)] = new_hp;
+                    gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_DEVIL; /* r5 */
                 }
                 else
                 {
-                    new_hp = GetEfxHp(r10 * 2 + 1) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r10, POS_R)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r10 = r10 + 1;
-                    gEfxHpLut[r10 * 2 + 1] = new_hp;
-                    gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_DEVIL;
+                    r10++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r10, POS_R)] = new_hp;
+                    gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_DEVIL; /* r4 */
                 }
             }
             /* _080585B4 */
@@ -520,35 +530,35 @@ void ParseBattleHitToBanimCmd(void)
             {
                 if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
-                    new_hp = GetEfxHp(r10 * 2 + 1) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r10, POS_R)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r10 = r10 + 1;
-                    gEfxHpLut[r10 * 2 + 1] = new_hp;
+                    r10++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r10, POS_R)] = new_hp;
 
-                    new_hp = GetEfxHp(r9 * 2) + hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r9, POS_L)) + hit->hpChange;
                     if (new_hp > gBanimMaxHP[POS_L])
                         new_hp = gBanimMaxHP[POS_L];
 
-                    r9 = r9 + 1;
-                    gEfxHpLut[r9 * 2] = new_hp;
+                    r9++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r9, POS_L)] = new_hp;
                 }
                 else
                 {
-                    new_hp = GetEfxHp(r9 * 2) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r9, POS_L)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r9 = r9 + 1;
-                    gEfxHpLut[r9 * 2] = new_hp;
+                    r9++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r9, POS_L)] = new_hp;
 
-                    new_hp = GetEfxHp(r10 * 2 + 1) + hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r10, POS_R)) + hit->hpChange;
                     if (new_hp > gBanimMaxHP[POS_R])
                         new_hp = gBanimMaxHP[POS_R];
 
-                    r10 = r10 + 1;
-                    gEfxHpLut[r10 * 2 + 1] = new_hp;
+                    r10++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r10, POS_R)] = new_hp;
                 }
             }
             /* _080586A0 */
@@ -556,888 +566,74 @@ void ParseBattleHitToBanimCmd(void)
             {
                 if (gBanimPositionIsEnemy[POS_L] == is_enemy)
                 {
-                    new_hp = GetEfxHp(r10 * 2 + 1) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r10, POS_R)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r10 = r10 + 1;
-                    gEfxHpLut[r10 * 2 + 1] = new_hp;
+                    r10++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r10, POS_R)] = new_hp;
 
                     if (hit->attributes & BATTLE_HIT_ATTR_POISON)
-                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_POISON;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_POISON;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
-                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_SILENCER;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_SILENCER;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_SURESHOT)
-                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_SURE_SHOT;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_SURE_SHOT;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_PIERCE)
-                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_PIERCE;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_PIERCE;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_GREATSHLD)
-                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_GREAT_SHIELD;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_GREAT_SHIELD;
+                    }
                 }
                 /* _0805876C */
                 else
                 {
-                    new_hp = GetEfxHp(r9 * 2) - hit->hpChange;
+                    new_hp = GetEfxHp(ANIM_REF_OFFSET(r9, POS_L)) - hit->hpChange;
                     if (new_hp < 0)
                         new_hp = 0;
 
-                    r9 = r9 + 1;
-                    gEfxHpLut[r9 * 2] = new_hp;
+                    r9++;
+                    gEfxHpLut[ANIM_REF_OFFSET(r9, POS_L)] = new_hp;
 
                     if (hit->attributes & BATTLE_HIT_ATTR_POISON)
-                        gAnimRoundData[round_sp0C * 2] |= ANIM_ROUND_POISON;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] | ANIM_ROUND_POISON;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
-                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_SILENCER;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_SILENCER;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_SURESHOT)
-                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_SURE_SHOT;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_SURE_SHOT;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_PIERCE)
-                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_PIERCE;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_PIERCE;
+                    }
 
                     if (hit->attributes & BATTLE_HIT_ATTR_GREATSHLD)
-                        gAnimRoundData[round_sp0C * 2 + 1] |= ANIM_ROUND_GREAT_SHIELD;
+                    {
+                        gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] = (s16)gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_R)] | ANIM_ROUND_GREAT_SHIELD;
+                    }
                 }
             }
         }
     }
 }
-
-#else
-
-NAKEDFUNC
-void ParseBattleHitToBanimCmd(void)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, r9\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x20\n\
-        ldr r7, _08058244  @ gBattleHitArray\n\
-        movs r2, #0\n\
-        ldr r4, _08058248  @ gAnimRoundData\n\
-        ldr r5, _0805824C  @ gpEkrTriangleUnits\n\
-        ldr r6, _08058250  @ gEkrDistanceType\n\
-        ldr r0, _08058254  @ 0x0000FFFF\n\
-        adds r3, r0, #0\n\
-        adds r1, r4, #0\n\
-    _08058208:\n\
-        ldrh r0, [r1]\n\
-        orrs r0, r3\n\
-        strh r0, [r1]\n\
-        adds r1, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x13\n\
-        bls _08058208\n\
-        movs r2, #0\n\
-        ldr r0, _08058258  @ gEfxHpLut\n\
-        ldr r1, _08058254  @ 0x0000FFFF\n\
-        adds r3, r1, #0\n\
-        adds r1, r0, #4\n\
-    _08058220:\n\
-        ldrh r0, [r1]\n\
-        orrs r0, r3\n\
-        strh r0, [r1]\n\
-        adds r1, #2\n\
-        adds r2, #1\n\
-        cmp r2, #0x13\n\
-        bls _08058220\n\
-        movs r2, #0\n\
-        str r2, [r5, #4]\n\
-        str r2, [r5]\n\
-        movs r3, #0\n\
-        ldrsh r0, [r6, r3]\n\
-        cmp r0, #4\n\
-        bne _0805825C\n\
-        strh r0, [r4]\n\
-        strh r0, [r4, #2]\n\
-        b _08058834\n\
-        .align 2, 0\n\
-    _08058244: .4byte gBattleHitArray\n\
-    _08058248: .4byte gAnimRoundData\n\
-    _0805824C: .4byte gpEkrTriangleUnits\n\
-    _08058250: .4byte gEkrDistanceType\n\
-    _08058254: .4byte 0x0000FFFF\n\
-    _08058258: .4byte gEfxHpLut\n\
-    _0805825C:\n\
-        ldr r0, _08058270  @ gBattleStats\n\
-        ldrh r1, [r0]\n\
-        movs r0, #0x40\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _08058274\n\
-        movs r0, #6\n\
-        strh r0, [r4]\n\
-        strh r2, [r4, #2]\n\
-        b _08058834\n\
-        .align 2, 0\n\
-    _08058270: .4byte gBattleStats\n\
-    _08058274:\n\
-        ldrh r6, [r6]\n\
-        str r6, [sp, #0x14]\n\
-        str r6, [sp, #0x18]\n\
-        ldr r0, _08058348  @ gpEkrBattleUnitLeft\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #4]\n\
-        ldr r0, _0805834C  @ gpEkrBattleUnitRight\n\
-        ldr r0, [r0]\n\
-        str r0, [sp, #8]\n\
-        ldr r0, [sp, #4]\n\
-        adds r0, #0x4a\n\
-        ldrh r0, [r0]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x11\n\
-        bne _0805829C\n\
-        cmp r6, #0\n\
-        bne _0805829C\n\
-        movs r5, #1\n\
-        str r5, [sp, #0x14]\n\
-    _0805829C:\n\
-        ldr r4, [sp, #8]\n\
-        adds r4, #0x4a\n\
-        ldrh r0, [r4]\n\
-        bl GetItemIndex\n\
-        adds r5, r4, #0\n\
-        cmp r0, #0x11\n\
-        bne _080582B6\n\
-        ldr r0, [sp, #0x18]\n\
-        cmp r0, #0\n\
-        bne _080582B6\n\
-        movs r1, #1\n\
-        str r1, [sp, #0x18]\n\
-    _080582B6:\n\
-        ldr r4, [sp, #4]\n\
-        adds r4, #0x4a\n\
-        ldrh r0, [r4]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x28\n\
-        bne _080582CE\n\
-        ldr r2, [sp, #0x14]\n\
-        cmp r2, #0\n\
-        bne _080582CE\n\
-        movs r3, #1\n\
-        str r3, [sp, #0x14]\n\
-    _080582CE:\n\
-        ldrh r0, [r5]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x28\n\
-        bne _080582E2\n\
-        ldr r0, [sp, #0x18]\n\
-        cmp r0, #0\n\
-        bne _080582E2\n\
-        movs r1, #1\n\
-        str r1, [sp, #0x18]\n\
-    _080582E2:\n\
-        ldrh r0, [r4]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x29\n\
-        bne _080582F6\n\
-        ldr r2, [sp, #0x14]\n\
-        cmp r2, #0\n\
-        bne _080582F6\n\
-        movs r3, #1\n\
-        str r3, [sp, #0x14]\n\
-    _080582F6:\n\
-        ldrh r0, [r5]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x29\n\
-        bne _0805830A\n\
-        ldr r0, [sp, #0x18]\n\
-        cmp r0, #0\n\
-        bne _0805830A\n\
-        movs r1, #1\n\
-        str r1, [sp, #0x18]\n\
-    _0805830A:\n\
-        ldrh r0, [r4]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x2c\n\
-        bne _0805831E\n\
-        ldr r2, [sp, #0x14]\n\
-        cmp r2, #0\n\
-        bne _0805831E\n\
-        movs r3, #1\n\
-        str r3, [sp, #0x14]\n\
-    _0805831E:\n\
-        ldrh r0, [r5]\n\
-        bl GetItemIndex\n\
-        cmp r0, #0x2c\n\
-        bne _08058332\n\
-        ldr r5, [sp, #0x18]\n\
-        cmp r5, #0\n\
-        bne _08058332\n\
-        movs r0, #1\n\
-        str r0, [sp, #0x18]\n\
-    _08058332:\n\
-        ldr r3, _08058350  @ gEfxHpLut\n\
-        ldr r1, _08058354  @ gEkrGaugeHp\n\
-        ldrh r0, [r1]\n\
-        strh r0, [r3]\n\
-        ldrh r0, [r1, #2]\n\
-        strh r0, [r3, #2]\n\
-        movs r1, #0\n\
-        str r1, [sp, #0xc]\n\
-        mov sl, r1\n\
-        mov r9, r1\n\
-        b _08058824\n\
-        .align 2, 0\n\
-    _08058348: .4byte gpEkrBattleUnitLeft\n\
-    _0805834C: .4byte gpEkrBattleUnitRight\n\
-    _08058350: .4byte gEfxHpLut\n\
-    _08058354: .4byte gEkrGaugeHp\n\
-    _08058358:\n\
-        lsls r0, r2, #8\n\
-        lsrs r0, r0, #0x1b\n\
-        movs r1, #8\n\
-        ands r0, r1\n\
-        negs r0, r0\n\
-        lsrs r0, r0, #0x1f\n\
-        str r0, [sp, #0x10]\n\
-        ldr r0, _08058390  @ gBanimPositionIsEnemy\n\
-        movs r2, #0\n\
-        ldrsh r0, [r0, r2]\n\
-        ldr r3, [sp, #0x10]\n\
-        cmp r0, r3\n\
-        bne _08058398\n\
-        mov r5, sp\n\
-        movs r0, #2\n\
-        add r0, sp\n\
-        mov r8, r0\n\
-        ldr r4, [sp, #0x14]\n\
-        ldr r1, [sp, #0x18]\n\
-        str r1, [sp, #0x1c]\n\
-        ldr r6, [sp, #4]\n\
-        movs r3, #0\n\
-        ldr r2, [sp, #0xc]\n\
-        cmp r2, #0\n\
-        bne _080583B4\n\
-        ldr r0, _08058394  @ gEkrInitialHitSide\n\
-        strh r2, [r0]\n\
-        b _080583B4\n\
-        .align 2, 0\n\
-    _08058390: .4byte gBanimPositionIsEnemy\n\
-    _08058394: .4byte gEkrInitialHitSide\n\
-    _08058398:\n\
-        mov r5, sp\n\
-        adds r5, #2\n\
-        mov r8, sp\n\
-        ldr r4, [sp, #0x18]\n\
-        ldr r3, [sp, #0x14]\n\
-        str r3, [sp, #0x1c]\n\
-        ldr r6, [sp, #8]\n\
-        movs r3, #0\n\
-        ldr r0, [sp, #0xc]\n\
-        cmp r0, #0\n\
-        bne _080583B4\n\
-        ldr r1, _080583F0  @ gEkrInitialHitSide\n\
-        movs r0, #1\n\
-        strh r0, [r1]\n\
-    _080583B4:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080583D0\n\
-        ldr r2, _080583F4  @ gpEkrTriangleUnits\n\
-        ldr r1, _080583F8  @ gBattleStats\n\
-        ldr r0, [r1, #0x10]\n\
-        str r0, [r2]\n\
-        ldr r0, [r1, #0x14]\n\
-        str r0, [r2, #4]\n\
-    _080583D0:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r1, r0, #0xd\n\
-        movs r0, #1\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _08058408\n\
-        adds r0, r6, #0\n\
-        bl UnitHasMagicRank\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _08058400\n\
-        ldr r0, _080583FC  @ gUnknown_080DAEA0\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _080583F0: .4byte gEkrInitialHitSide\n\
-    _080583F4: .4byte gpEkrTriangleUnits\n\
-    _080583F8: .4byte gBattleStats\n\
-    _080583FC: .4byte gUnknown_080DAEA0\n\
-    _08058400:\n\
-        ldr r0, _08058404  @ gUnknown_080DAEC8\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _08058404: .4byte gUnknown_080DAEC8\n\
-    _08058408:\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #4\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _08058430\n\
-        adds r0, r6, #0\n\
-        bl UnitHasMagicRank\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _08058428\n\
-        ldr r0, _08058424  @ gUnknown_080DAEA0\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _08058424: .4byte gUnknown_080DAEA0\n\
-    _08058428:\n\
-        ldr r0, _0805842C  @ gUnknown_080DAEC8\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _0805842C: .4byte gUnknown_080DAEC8\n\
-    _08058430:\n\
-        lsls r0, r3, #0x10\n\
-        cmp r0, #0\n\
-        blt _08058454\n\
-        adds r0, r6, #0\n\
-        bl UnitHasMagicRank\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _0805844C\n\
-        ldr r0, _08058448  @ gUnknown_080DAE8C\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _08058448: .4byte gUnknown_080DAE8C\n\
-    _0805844C:\n\
-        ldr r0, _08058450  @ gUnknown_080DAEBE\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _08058450: .4byte gUnknown_080DAEBE\n\
-    _08058454:\n\
-        movs r0, #2\n\
-        bl sub_80716B0\n\
-        cmp r0, #1\n\
-        beq _08058478\n\
-        cmp r0, #1\n\
-        bgt _08058468\n\
-        cmp r0, #0\n\
-        beq _0805846E\n\
-        b _0805848C\n\
-    _08058468:\n\
-        cmp r0, #2\n\
-        beq _08058480\n\
-        b _0805848C\n\
-    _0805846E:\n\
-        ldr r0, _08058474  @ gUnknown_080DAED2\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _08058474: .4byte gUnknown_080DAED2\n\
-    _08058478:\n\
-        ldr r0, _0805847C  @ gUnknown_080DAEDC\n\
-        b _08058482\n\
-        .align 2, 0\n\
-    _0805847C: .4byte gUnknown_080DAEDC\n\
-    _08058480:\n\
-        ldr r0, _080584AC  @ gUnknown_080DAEE6\n\
-    _08058482:\n\
-        lsls r1, r4, #0x10\n\
-        asrs r1, r1, #0xf\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        strh r0, [r5]\n\
-    _0805848C:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #2\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080584DC\n\
-        adds r0, r6, #0\n\
-        bl UnitHasMagicRank\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne _080584B4\n\
-        ldr r0, _080584B0  @ gUnknown_080DAE96\n\
-        b _080584B6\n\
-        .align 2, 0\n\
-    _080584AC: .4byte gUnknown_080DAEE6\n\
-    _080584B0: .4byte gUnknown_080DAE96\n\
-    _080584B4:\n\
-        ldr r0, _080584D4  @ gUnknown_080DAEBE\n\
-    _080584B6:\n\
-        lsls r1, r4, #0x10\n\
-        asrs r1, r1, #0xf\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        strh r0, [r5]\n\
-        ldr r0, _080584D8  @ gUnknown_080DAEAA\n\
-        ldr r2, [sp, #0x1c]\n\
-        lsls r1, r2, #0x10\n\
-        asrs r1, r1, #0xf\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        mov r3, r8\n\
-        strh r0, [r3]\n\
-        b _080584EC\n\
-        .align 2, 0\n\
-    _080584D4: .4byte gUnknown_080DAEBE\n\
-    _080584D8: .4byte gUnknown_080DAEAA\n\
-    _080584DC:\n\
-        ldr r0, _08058560  @ gUnknown_080DAEB4\n\
-        ldr r5, [sp, #0x1c]\n\
-        lsls r1, r5, #0x10\n\
-        asrs r1, r1, #0xf\n\
-        adds r1, r1, r0\n\
-        ldrh r0, [r1]\n\
-        mov r1, r8\n\
-        strh r0, [r1]\n\
-    _080584EC:\n\
-        ldr r1, _08058564  @ gAnimRoundData\n\
-        ldr r2, [sp, #0xc]\n\
-        lsls r0, r2, #2\n\
-        adds r5, r0, r1\n\
-        mov r0, sp\n\
-        ldrh r0, [r0]\n\
-        movs r6, #0\n\
-        strh r0, [r5]\n\
-        lsls r0, r2, #1\n\
-        adds r0, #1\n\
-        lsls r0, r0, #1\n\
-        adds r4, r0, r1\n\
-        mov r3, sp\n\
-        ldrh r0, [r3, #2]\n\
-        strh r0, [r4]\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r1, r0, #0xd\n\
-        movs r0, #2\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0805851A\n\
-        b _0805881C\n\
-    _0805851A:\n\
-        movs r0, #0x80\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080585B4\n\
-        ldr r0, _08058568  @ gBanimPositionIsEnemy\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        ldr r2, [sp, #0x10]\n\
-        cmp r0, r2\n\
-        bne _08058574\n\
-        mov r3, r9\n\
-        lsls r0, r3, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _08058546\n\
-        movs r2, #0\n\
-    _08058546:\n\
-        mov r0, r9\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r9, r0\n\
-        lsls r0, r0, #2\n\
-        ldr r1, _0805856C  @ gEfxHpLut\n\
-        adds r0, r0, r1\n\
-        strh r2, [r0]\n\
-        ldrh r0, [r5]\n\
-        ldr r2, _08058570  @ 0xFFFF8000\n\
-        adds r1, r2, #0\n\
-        b _0805875E\n\
-        .align 2, 0\n\
-    _08058560: .4byte gUnknown_080DAEB4\n\
-    _08058564: .4byte gAnimRoundData\n\
-    _08058568: .4byte gBanimPositionIsEnemy\n\
-    _0805856C: .4byte gEfxHpLut\n\
-    _08058570: .4byte 0xFFFF8000\n\
-    _08058574:\n\
-        mov r3, sl\n\
-        lsls r0, r3, #1\n\
-        adds r0, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _0805858E\n\
-        movs r2, #0\n\
-    _0805858E:\n\
-        mov r0, sl\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov sl, r0\n\
-        lsls r0, r0, #1\n\
-        adds r0, #1\n\
-        lsls r0, r0, #1\n\
-        ldr r5, _080585AC  @ gEfxHpLut\n\
-        adds r0, r0, r5\n\
-        strh r2, [r0]\n\
-        ldrh r0, [r4]\n\
-        ldr r2, _080585B0  @ 0xFFFF8000\n\
-        b _08058816\n\
-        .align 2, 0\n\
-    _080585AC: .4byte gEfxHpLut\n\
-    _080585B0: .4byte 0xFFFF8000\n\
-    _080585B4:\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq _080586A0\n\
-        ldr r0, _08058628  @ gBanimPositionIsEnemy\n\
-        movs r3, #0\n\
-        ldrsh r0, [r0, r3]\n\
-        ldr r5, [sp, #0x10]\n\
-        cmp r0, r5\n\
-        bne _08058634\n\
-        mov r1, sl\n\
-        lsls r0, r1, #1\n\
-        adds r0, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _080585E4\n\
-        movs r2, #0\n\
-    _080585E4:\n\
-        mov r0, sl\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov sl, r0\n\
-        ldr r4, _0805862C  @ gEfxHpLut\n\
-        lsls r0, r0, #1\n\
-        adds r0, #1\n\
-        lsls r0, r0, #1\n\
-        adds r0, r0, r4\n\
-        strh r2, [r0]\n\
-        mov r2, r9\n\
-        lsls r0, r2, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        ldr r3, _08058630  @ gBanimMaxHP\n\
-        lsrs r2, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        movs r5, #0\n\
-        ldrsh r1, [r3, r5]\n\
-        cmp r0, r1\n\
-        ble _0805861A\n\
-        ldrh r2, [r3]\n\
-    _0805861A:\n\
-        mov r0, r9\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r9, r0\n\
-        lsls r0, r0, #2\n\
-        b _08058690\n\
-        .align 2, 0\n\
-    _08058628: .4byte gBanimPositionIsEnemy\n\
-    _0805862C: .4byte gEfxHpLut\n\
-    _08058630: .4byte gBanimMaxHP\n\
-    _08058634:\n\
-        mov r1, r9\n\
-        lsls r0, r1, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _0805864C\n\
-        movs r2, #0\n\
-    _0805864C:\n\
-        mov r0, r9\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r9, r0\n\
-        ldr r4, _08058698  @ gEfxHpLut\n\
-        lsls r0, r0, #2\n\
-        adds r0, r0, r4\n\
-        strh r2, [r0]\n\
-        mov r2, sl\n\
-        lsls r0, r2, #1\n\
-        adds r0, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        adds r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        ldr r3, _0805869C  @ gBanimMaxHP\n\
-        lsrs r2, r0, #0x10\n\
-        asrs r0, r0, #0x10\n\
-        movs r5, #2\n\
-        ldrsh r1, [r3, r5]\n\
-        cmp r0, r1\n\
-        ble _08058680\n\
-        ldrh r2, [r3, #2]\n\
-    _08058680:\n\
-        mov r0, sl\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov sl, r0\n\
-        lsls r0, r0, #1\n\
-        adds r0, #1\n\
-        lsls r0, r0, #1\n\
-    _08058690:\n\
-        adds r0, r0, r4\n\
-        strh r2, [r0]\n\
-        b _0805881C\n\
-        .align 2, 0\n\
-    _08058698: .4byte gEfxHpLut\n\
-    _0805869C: .4byte gBanimMaxHP\n\
-    _080586A0:\n\
-        ldr r0, _08058764  @ gBanimPositionIsEnemy\n\
-        movs r1, #0\n\
-        ldrsh r0, [r0, r1]\n\
-        ldr r2, [sp, #0x10]\n\
-        cmp r0, r2\n\
-        bne _0805876C\n\
-        mov r3, sl\n\
-        lsls r0, r3, #1\n\
-        adds r0, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _080586C6\n\
-        movs r2, #0\n\
-    _080586C6:\n\
-        mov r0, sl\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov sl, r0\n\
-        lsls r0, r0, #1\n\
-        adds r0, #1\n\
-        lsls r0, r0, #1\n\
-        ldr r1, _08058768  @ gEfxHpLut\n\
-        adds r0, r0, r1\n\
-        strh r2, [r0]\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x40\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080586F6\n\
-        ldrh r0, [r4]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #6\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4]\n\
-    _080586F6:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #4\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _08058712\n\
-        ldrh r0, [r5]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #5\n\
-        adds r1, r3, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r5]\n\
-    _08058712:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #7\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0805872A\n\
-        ldrh r1, [r5]\n\
-        adds r0, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r5]\n\
-    _0805872A:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #9\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _08058746\n\
-        ldrh r0, [r5]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #2\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r5]\n\
-    _08058746:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #8\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0805881C\n\
-        ldrh r0, [r5]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #3\n\
-        adds r1, r3, #0\n\
-    _0805875E:\n\
-        orrs r0, r1\n\
-        strh r0, [r5]\n\
-        b _0805881C\n\
-        .align 2, 0\n\
-    _08058764: .4byte gBanimPositionIsEnemy\n\
-    _08058768: .4byte gEfxHpLut\n\
-    _0805876C:\n\
-        mov r1, r9\n\
-        lsls r0, r1, #1\n\
-        bl GetEfxHp\n\
-        movs r1, #3\n\
-        ldrsb r1, [r7, r1]\n\
-        subs r0, r0, r1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r2, r0, #0x10\n\
-        cmp r0, #0\n\
-        bge _08058784\n\
-        movs r2, #0\n\
-    _08058784:\n\
-        mov r0, r9\n\
-        adds r0, #1\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r0, r0, #0x10\n\
-        mov r9, r0\n\
-        lsls r0, r0, #2\n\
-        ldr r3, _08058844  @ gEfxHpLut\n\
-        adds r0, r0, r3\n\
-        strh r2, [r0]\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x40\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080587B0\n\
-        ldrh r0, [r5]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #6\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r5]\n\
-    _080587B0:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #4\n\
-        ands r0, r2\n\
-        cmp r0, #0\n\
-        beq _080587CC\n\
-        ldrh r0, [r4]\n\
-        movs r3, #0x80\n\
-        lsls r3, r3, #5\n\
-        adds r1, r3, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4]\n\
-    _080587CC:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #7\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _080587E4\n\
-        ldrh r1, [r4]\n\
-        adds r0, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4]\n\
-    _080587E4:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #9\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _08058800\n\
-        ldrh r0, [r4]\n\
-        movs r5, #0x80\n\
-        lsls r5, r5, #2\n\
-        adds r1, r5, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4]\n\
-    _08058800:\n\
-        ldr r0, [r7]\n\
-        lsls r0, r0, #0xd\n\
-        lsrs r0, r0, #0xd\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #8\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        beq _0805881C\n\
-        ldrh r0, [r4]\n\
-        movs r2, #0x80\n\
-        lsls r2, r2, #3\n\
-    _08058816:\n\
-        adds r1, r2, #0\n\
-        orrs r0, r1\n\
-        strh r0, [r4]\n\
-    _0805881C:\n\
-        adds r7, #4\n\
-        ldr r3, [sp, #0xc]\n\
-        adds r3, #1\n\
-        str r3, [sp, #0xc]\n\
-    _08058824:\n\
-        ldr r2, [r7]\n\
-        lsls r0, r2, #8\n\
-        lsrs r0, r0, #0x1b\n\
-        movs r1, #0x10\n\
-        ands r0, r1\n\
-        cmp r0, #0\n\
-        bne _08058834\n\
-        b _08058358\n\
-    _08058834:\n\
-        add sp, #0x20\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov r9, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    _08058844: .4byte gEfxHpLut\n\
-        .syntax divided\n\
-    ");
-
-}
-#endif
