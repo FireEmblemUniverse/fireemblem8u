@@ -42,10 +42,10 @@ u8 StartUnitBallistaSelect(struct MenuProc * menu, struct MenuItemProc * menuIte
 u8 StartUnitWeaponSelect(struct MenuProc * menu, struct MenuItemProc * menuItem);
 int DisplayUnitStandingAttackRange(struct MenuProc * menu, struct MenuItemProc * menuItem);
 int HideMoveRangeGraphicsWrapper(struct MenuProc * menu, struct MenuItemProc * menuItem);
-u8 UnknownMenu_IsAvailable(const struct MenuItemDef * def, int number);
-u8 UnknownMenu_Selected(struct MenuProc * menu, struct MenuItemProc * menuItem);
-int UnknownMenu_Draw(struct MenuProc * menu, struct MenuItemProc * menuItem);
-int UnknownMenu_SwitchIn(struct MenuProc * menu, struct MenuItemProc * menuItem);
+u8 WeaponSelectMenu_IsAvailable(const struct MenuItemDef * def, int number);
+u8 WeaponSelectMenu_Selected(struct MenuProc * menu, struct MenuItemProc * menuItem);
+int WeaponSelectMenu_Draw(struct MenuProc * menu, struct MenuItemProc * menuItem);
+int WeaponSelectMenu_SwitchIn(struct MenuProc * menu, struct MenuItemProc * menuItem);
 int BallistaRangeMenu_SwitchOut(struct MenuProc * menu, struct MenuItemProc * menuItem);
 u8 AttackMapSelect_Select(ProcPtr proc, struct SelectTarget * target);
 void sub_8022E38(void);

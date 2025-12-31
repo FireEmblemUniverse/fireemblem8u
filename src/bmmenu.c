@@ -469,7 +469,7 @@ u8 StartUnitBallistaSelect(struct MenuProc* menu, struct MenuItemProc* menuItem)
 }
 
 u8 StartUnitWeaponSelect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
-    ProcPtr proc = StartOrphanMenu(&gUnknownMenuDef);
+    ProcPtr proc = StartOrphanMenu(&gWeaponSelectMenuDef);
 
     if (gActiveUnit->pClassData->number != CLASS_PHANTOM) {
         StartFace(0, GetUnitPortraitId(gActiveUnit), 0xB0, 0xC, 2);
@@ -505,7 +505,7 @@ int HideMoveRangeGraphicsWrapper(struct MenuProc* menu, struct MenuItemProc* men
     return 0;
 }
 
-u8 UnknownMenu_IsAvailable(const struct MenuItemDef* def, int number) {
+u8 WeaponSelectMenu_IsAvailable(const struct MenuItemDef* def, int number) {
     int item = gActiveUnit->items[number];
 
     if (!(GetItemAttributes(item) & IA_WEAPON)) {
@@ -525,7 +525,7 @@ u8 UnknownMenu_IsAvailable(const struct MenuItemDef* def, int number) {
     return MENU_ENABLED;
 }
 
-u8 UnknownMenu_Selected(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+u8 WeaponSelectMenu_Selected(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     EquipUnitItemSlot(gActiveUnit, menuItem->itemNumber);
     gActionData.itemSlotIndex = 0;
@@ -541,7 +541,7 @@ u8 UnknownMenu_Selected(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_ENDFACE;
 }
 
-int UnknownMenu_Draw(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+int WeaponSelectMenu_Draw(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     int item = gActiveUnit->items[menuItem->itemNumber];
 
     s8 isUsable = CanUnitUseWeapon(gActiveUnit, item);
@@ -556,7 +556,7 @@ int UnknownMenu_Draw(struct MenuProc* menu, struct MenuItemProc* menuItem) {
     return 0;
 }
 
-int UnknownMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
+int WeaponSelectMenu_SwitchIn(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     int reach;
 
@@ -923,7 +923,7 @@ int ItemSelectMenu_TextDraw(struct MenuProc* menu, struct MenuItemProc* menuItem
     int item = gActiveUnit->items[menuItem->itemNumber];
 
     if (GetItemAttributes(item) & IA_WEAPON) {
-        UnknownMenu_Draw(menu, menuItem);
+        WeaponSelectMenu_Draw(menu, menuItem);
         return 0;
     }
 
@@ -953,7 +953,7 @@ u8 ItemSelectMenu_Usability(const struct MenuItemDef* def, int number) {
     }
 
     if (GetItemAttributes(item) & IA_WEAPON) {
-        UnknownMenu_IsAvailable(def, number);
+        WeaponSelectMenu_IsAvailable(def, number);
     }
 
     return CanUnitUseItem(gActiveUnit, item)

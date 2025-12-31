@@ -137,12 +137,12 @@ CONST_DATA struct MenuItemDef gBallistaRangeMenuItems[] = {
     MenuItemsEnd
 };
 
-CONST_DATA struct MenuItemDef gUnknownMenuItems[] = {
-    {"", 0, 0, 0, 0x49, UnknownMenu_IsAvailable, UnknownMenu_Draw, UnknownMenu_Selected, 0, UnknownMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
-    {"", 0, 0, 0, 0x4A, UnknownMenu_IsAvailable, UnknownMenu_Draw, UnknownMenu_Selected, 0, UnknownMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
-    {"", 0, 0, 0, 0x4B, UnknownMenu_IsAvailable, UnknownMenu_Draw, UnknownMenu_Selected, 0, UnknownMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
-    {"", 0, 0, 0, 0x4C, UnknownMenu_IsAvailable, UnknownMenu_Draw, UnknownMenu_Selected, 0, UnknownMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
-    {"", 0, 0, 0, 0x4D, UnknownMenu_IsAvailable, UnknownMenu_Draw, UnknownMenu_Selected, 0, UnknownMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
+CONST_DATA struct MenuItemDef gWeaponSelectMenuItems[] = {
+    {"", 0, 0, 0, 0x49, WeaponSelectMenu_IsAvailable, WeaponSelectMenu_Draw, WeaponSelectMenu_Selected, 0, WeaponSelectMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
+    {"", 0, 0, 0, 0x4A, WeaponSelectMenu_IsAvailable, WeaponSelectMenu_Draw, WeaponSelectMenu_Selected, 0, WeaponSelectMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
+    {"", 0, 0, 0, 0x4B, WeaponSelectMenu_IsAvailable, WeaponSelectMenu_Draw, WeaponSelectMenu_Selected, 0, WeaponSelectMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
+    {"", 0, 0, 0, 0x4C, WeaponSelectMenu_IsAvailable, WeaponSelectMenu_Draw, WeaponSelectMenu_Selected, 0, WeaponSelectMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
+    {"", 0, 0, 0, 0x4D, WeaponSelectMenu_IsAvailable, WeaponSelectMenu_Draw, WeaponSelectMenu_Selected, 0, WeaponSelectMenu_SwitchIn, BallistaRangeMenu_SwitchOut},
     MenuItemsEnd
 };
 
@@ -338,10 +338,10 @@ CONST_DATA struct MenuDef gBallistaRangeMenuDef = {
     BallistaRangeMenuHelpBox
 };
 
-CONST_DATA struct MenuDef gUnknownMenuDef = {
+CONST_DATA struct MenuDef gWeaponSelectMenuDef = {
     {1, 1, 14, 0},
     0,
-    gUnknownMenuItems,
+    gWeaponSelectMenuItems,
     0, 0, 0,
     ItemMenu_ButtonBPressed,
     MenuAutoHelpBoxSelect,
