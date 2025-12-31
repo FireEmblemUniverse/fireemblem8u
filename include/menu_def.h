@@ -17,7 +17,7 @@ extern const struct MenuDef gItemMenuDef;
 extern const struct MenuDef gStaffItemSelectMenuDef;
 extern const struct MenuDef gItemSelectMenuDef;
 extern const struct MenuDef gBallistaRangeMenuDef;
-extern const struct MenuDef gUnknownMenuDef;
+extern const struct MenuDef gWeaponSelectMenuDef;
 extern const struct MenuDef gUnitActionMenuDef;
 
 extern struct SelectInfo CONST_DATA gSelectInfo_OffensiveStaff;
