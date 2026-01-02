@@ -3562,17 +3562,17 @@ u8 Event37_GiveItem(struct EventEngineProc * proc)
         return EVC_ERROR;
 
     switch (subcmd) {
-    case EVSUBCMD_GIVEITEMTO:
+    case EVSUBCMD_GIVE_ITEM:
         NewPopup_ItemGot(proc, target, gEventSlots[3]);
 
         break;
 
-    case EVSUBCMD_GIVEITEMTOMAIN:
+    case EVSUBCMD_GIVE_MONEY:
         NewPopup_GoldGot(proc, target, gEventSlots[3]);
 
         break;
 
-    case EVSUBCMD_GIVETOSLOT3:
+    case EVSUBCMD_TAKE_MONEY:
         gold = GetPartyGoldAmount() - gEventSlots[3];
         if (gold < 0)
             gold = 0;
@@ -4272,10 +4272,10 @@ CONST_DATA EventListScr EventScr_OpenChest[] = {
     TILECHANGE(0xfffd)
     SVAL(EVT_SLOT_7, 0xff)
     BGT(0x0, EVT_SLOT_3, EVT_SLOT_7)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GIVE_ITEM(CHAR_EVT_ACTIVE_UNIT)
     GOTO(0x1)
 LABEL(0x0)
-    GIVEITEMTOMAIN(CHAR_EVT_ACTIVE_UNIT)
+    GIVE_MONEY(CHAR_EVT_ACTIVE_UNIT)
 LABEL(0x1)
     ENDA
 };
