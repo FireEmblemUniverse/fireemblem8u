@@ -331,7 +331,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_PrologueThroneRoomUnits[] = {
         .yPosition = 14,
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_ARMOR_KNIGHT,
         .allegiance = FACTION_ID_BLUE,
         .level = 1,

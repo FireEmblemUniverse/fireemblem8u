@@ -108,37 +108,37 @@ void sub_8019624(void) {
             connexion = 0;
 
             if (ix > 0) {
-                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_FLOOR_17)
+                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_FLOOR_REGULAR)
                     connexion = 1;
 
                 if (gBmMapTerrain[iy][ix - 1] == TERRAIN_STAIRS)
                     connexion = 1;
 
-                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_20)
+                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_EMPTY)
                     connexion = 1;
 
-                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_21)
+                if (gBmMapTerrain[iy][ix - 1] == TERRAIN_CHEST_FULL)
                     connexion = 1;
             }
 
             if (iy > 0) {
-                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_FLOOR_17)
+                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_FLOOR_REGULAR)
                     connexion += 2;
 
                 if (gBmMapTerrain[iy - 1][ix] == TERRAIN_STAIRS)
                     connexion += 2;
 
-                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_20)
+                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_EMPTY)
                     connexion += 2;
 
-                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_21)
+                if (gBmMapTerrain[iy - 1][ix] == TERRAIN_CHEST_FULL)
                     connexion += 2;
             }
 
             if (ix > 0 && iy > 0)
-                if ((gBmMapTerrain[iy]    [ix - 1] == TERRAIN_FLOOR_17) &&
+                if ((gBmMapTerrain[iy]    [ix - 1] == TERRAIN_FLOOR_REGULAR) &&
                     (gBmMapTerrain[iy + 1][ix - 1] == TERRAIN_WATER) &&
-                    (gBmMapTerrain[iy - 1][ix]     != TERRAIN_FLOOR_17))
+                    (gBmMapTerrain[iy - 1][ix]     != TERRAIN_FLOOR_REGULAR))
                     connexion = 4;
 
             switch (connexion) {
@@ -663,11 +663,11 @@ char* GetTerrainName(int terrainId) {
 }
 
 int GetTerrainHealAmount(int terrainId) {
-    return Unk_TerrainTable_0880C744[terrainId];
+    return TerrainTable_HealAmount[terrainId];
 }
 
 s8 GetTerrainHealsStatus(int terrainId) {
-    return Unk_TerrainTable_0880C785[terrainId];
+    return TerrainTable_HealsStatus[terrainId];
 }
 
 void sub_801A278(void) {

@@ -200,7 +200,7 @@ u8 sub_8040AE0(int x, int y) {
 }
 
 const u8 CONST_DATA gUnknown_085A92DC[] = {
-    TERRAIN_DOOR, TERRAIN_TILE_00,
+    TERRAIN_DOOR, TERRAIN_NONE,
 };
 
 s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
@@ -221,7 +221,7 @@ s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
 }
 
 const u8 CONST_DATA gUnknown_085A92DE[] = {
-    TERRAIN_CHEST_21, TERRAIN_TILE_00,
+    TERRAIN_CHEST_FULL, TERRAIN_NONE,
 };
 
 s8 sub_8040B8C(struct Unit* unit, struct Vec2* pos) {
@@ -419,7 +419,7 @@ void sub_8040FBC(struct Unit* unit) {
 }
 
 void sub_8040FEC(struct Unit* unit) {
-    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_1B, TERRAIN_SNAG);
+    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, unit->index);
@@ -428,7 +428,7 @@ void sub_8040FEC(struct Unit* unit) {
 }
 
 void sub_8041020(struct Unit* unit) {
-    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_1B, TERRAIN_SNAG);
+    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, 0);

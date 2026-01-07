@@ -1047,7 +1047,7 @@ void DrawTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
     switch (terrainId)
     {
     case TERRAIN_SNAG:
-    case TERRAIN_WALL_1B:
+    case TERRAIN_WALL_DAMAGED:
         CallARM_FillTileRect(gUiTmScratchA + TILEMAP_INDEX(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(0x100, 2));
 
         num = GetObstacleHpAt(gBmSt.playerCursor.x, gBmSt.playerCursor.y);

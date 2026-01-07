@@ -34,8 +34,8 @@ bool CanUnitUseVisit(void)
             if (gBmMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (gBmMapTerrain[iy][ix] != TERRAIN_VILLAGE_03 && gBmMapTerrain[iy][ix] != TERRIAN_HOUSE &&
-                gBmMapTerrain[iy][ix] != TERRAIN_INN && gBmMapTerrain[iy][ix] != TERRAIN_RUINS_37)
+            if (gBmMapTerrain[iy][ix] != TERRAIN_VILLAGE_REGULAR && gBmMapTerrain[iy][ix] != TERRAIN_HOUSE &&
+                gBmMapTerrain[iy][ix] != TERRAIN_INN && gBmMapTerrain[iy][ix] != TERRAIN_RUINS_VILLAGE)
                 continue;
 
             if (GetAvailableTileEventCommand(ix, iy) == TILE_COMMAND_VISIT)

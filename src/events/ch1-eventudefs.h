@@ -402,7 +402,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1NPC[] = {
         },
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_MERCENARY,
         .allegiance = FACTION_ID_GREEN,
         .level = 1,

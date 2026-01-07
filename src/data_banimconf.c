@@ -1421,7 +1421,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF548[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF560[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00A0,
     },
     {
@@ -1433,7 +1433,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF560[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF56C[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00A1,
     },
     {
@@ -1501,7 +1501,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5A4[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF5B0[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AC,
     },
     {
@@ -1513,7 +1513,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5B0[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF5BC[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AD,
     },
     {
@@ -1549,7 +1549,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5C8[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF5E0[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00B1,
     },
     {
@@ -1561,7 +1561,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5E0[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF5EC[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00B2,
     },
     {
@@ -1721,7 +1721,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF680[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF68C[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00C2,
     },
     {
@@ -1769,7 +1769,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF6A4[] = {
 
 CONST_DATA struct BattleAnimDef AnimConf_088AF6BC[] = {
     {
-        .wtype = 0x0100 | ITYPE_11,
+        .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AD,
     },
     {

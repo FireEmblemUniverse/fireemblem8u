@@ -18,7 +18,7 @@ struct AiScr CONST_DATA gAiScript_FallbackAi2[] = {
 };
 
 u8 CONST_DATA gUnknown_085A814C[] = {
-    TERRAIN_WALL_1B, TERRAIN_SNAG, 0,
+    TERRAIN_WALL_DAMAGED, TERRAIN_SNAG, 0,
 };
 
 const u8 gClassList_Empty1[] = { 0 };
@@ -604,7 +604,7 @@ u16 CONST_DATA gUnknown_085A817E[] = { 0 };
 u16 CONST_DATA gUnknown_085A8180[] = { TERRAIN_ARMORY };
 
 // AI2 0D=Target terrain (Throne, Gate) Length:2
-u8 CONST_DATA gUnknown_085A8182[] = { TERRAIN_GATE_0B, TERRAIN_THRONE, };
+u8 CONST_DATA gUnknown_085A8182[] = { TERRAIN_GATE_CASTLE, TERRAIN_THRONE, };
 
 // TODO: unused? padding? file boundary?
 u8 CONST_DATA gUnknown_085A8184[] = { 0, 0, 0, 0 };

@@ -265,7 +265,7 @@ s8 AiPillageAction(struct CpPerformProc* proc) {
     int x = gAiDecision.xMove;
     int y = gAiDecision.yMove;
 
-    if (gBmMapTerrain[y][x] == TERRAIN_CHEST_21) {
+    if (gBmMapTerrain[y][x] == TERRAIN_CHEST_FULL) {
         gActiveUnit->xPos = gAiDecision.xMove;
         gActiveUnit->yPos = gAiDecision.yMove;
 

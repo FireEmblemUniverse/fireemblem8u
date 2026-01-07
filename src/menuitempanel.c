@@ -119,8 +119,8 @@ void UpdateMenuItemPanel(int slot_or_item)
 	switch (GetItemType(item)) {
 	case ITYPE_STAFF:
 	case ITYPE_ITEM:
-	case ITYPE_11:
-	case ITYPE_12:
+	case ITYPE_MONSTER:
+	case ITYPE_DANCE:
 		str = GetStringFromIndex(GetItemUseDescId(item));
 		i = 0;
 

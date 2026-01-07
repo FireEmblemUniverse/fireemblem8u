@@ -26,7 +26,7 @@ CONST_DATA u8 ItemEffectiveness_Armor[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADEC2[] = {
+CONST_DATA u8 ItemEffectiveness_ArmorAndHorse[] = {
     CLASS_CAVALIER,
     CLASS_CAVALIER_F,
     CLASS_PALADIN,
@@ -50,7 +50,7 @@ CONST_DATA u8 ItemEffectiveness_088ADEC2[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADED7[] = {
+CONST_DATA u8 ItemEffectiveness_Swordsman[] = {
     CLASS_MYRMIDON,
     CLASS_MYRMIDON_F,
     CLASS_SWORDMASTER,
@@ -62,7 +62,7 @@ CONST_DATA u8 ItemEffectiveness_088ADED7[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADEE0[] = {
+CONST_DATA u8 ItemEffectiveness_Horse[] = {
     CLASS_TROUBADOUR,
     CLASS_VALKYRIE,
     CLASS_CAVALIER,
@@ -82,7 +82,7 @@ CONST_DATA u8 ItemEffectiveness_088ADEE0[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADEF1[] = {
+CONST_DATA u8 ItemEffectiveness_FlierAndMonsters[] = {
     CLASS_REVENANT,
     CLASS_ENTOUMBED,
     CLASS_BONEWALKER,
@@ -148,7 +148,7 @@ CONST_DATA u8 ItemEffectiveness_088ADF1F[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADF2A[] = {
+CONST_DATA u8 ItemEffectiveness_Flier[] = {
     CLASS_PEGASUS_KNIGHT,
     CLASS_FALCON_KNIGHT,
     CLASS_WYVERN_RIDER,

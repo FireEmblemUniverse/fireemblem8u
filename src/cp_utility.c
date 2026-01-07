@@ -527,7 +527,7 @@ s8 AiFindClosestUnlockPosition(int flags, struct Vec2* outA, struct Vec2* outB) 
 
                     break;
 
-                case TERRAIN_CHEST_21:
+                case TERRAIN_CHEST_FULL:
                     count++;
 
                     if (flags & AI_FLAG_BERSERKED) {
@@ -982,9 +982,9 @@ s8 AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out) {
     return 0;
 }
 
-u8 CONST_DATA gTerrainList_LootableVillages[] = { TERRAIN_VILLAGE_03, TERRAIN_CHURCH, TERRAIN_RUINS_37, 0, };
+u8 CONST_DATA gTerrainList_LootableVillages[] = { TERRAIN_VILLAGE_REGULAR, TERRAIN_CHURCH, TERRAIN_RUINS_VILLAGE, 0, };
 
-u8 CONST_DATA gTerrainList_LootableVillagesAndChests[] = { TERRAIN_VILLAGE_03, TERRAIN_CHURCH, TERRAIN_RUINS_37, TERRAIN_CHEST_21, 0, };
+u8 CONST_DATA gTerrainList_LootableVillagesAndChests[] = { TERRAIN_VILLAGE_REGULAR, TERRAIN_CHURCH, TERRAIN_RUINS_VILLAGE, TERRAIN_CHEST_FULL, 0, };
 
 //! FE8U = 0x0803B8FC
 s8 AiFindPillageLocation(struct Vec2* out, u8* outItemSlot) {
@@ -1287,16 +1287,16 @@ s8 AiLocationIsPillageTarget(u8 x, u8 y) {
     u8 tmp;
 
     switch (gBmMapTerrain[y][x]) {
-        case TERRAIN_VILLAGE_03:
+        case TERRAIN_VILLAGE_REGULAR:
             return 1;
 
         case TERRAIN_CHURCH:
             return 1;
 
-        case TERRAIN_RUINS_37:
+        case TERRAIN_RUINS_VILLAGE:
             return 1;
 
-        case TERRAIN_CHEST_21:
+        case TERRAIN_CHEST_FULL:
             if (AiGetChestUnlockItemSlot(&tmp) == 1) {
                 return 1;
             }

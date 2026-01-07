@@ -735,10 +735,10 @@ u8 VisitCommandUsability(const struct MenuItemDef* def, int number) {
     switch (gBmMapTerrain[gActiveUnit->yPos][gActiveUnit->xPos]) {
         default:
             return MENU_NOTSHOWN;
-        case TERRIAN_HOUSE:
+        case TERRAIN_HOUSE:
         case TERRAIN_INN:
-        case TERRAIN_RUINS_37:
-        case TERRAIN_VILLAGE_03:
+        case TERRAIN_RUINS_VILLAGE:
+        case TERRAIN_VILLAGE_REGULAR:
             break;
     }
 
@@ -785,7 +785,7 @@ u8 sub_80230F0(const struct MenuItemDef* def) {
             break;
         }
 
-        if (GetItemType(item) != ITYPE_12) {
+        if (GetItemType(item) != ITYPE_DANCE) {
             continue;
         }
 
@@ -841,7 +841,7 @@ u8 PlayCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
             break;
         }
 
-        if (GetItemType(item) != ITYPE_12) {
+        if (GetItemType(item) != ITYPE_DANCE) {
             continue;
         }
 
@@ -927,7 +927,7 @@ int ItemSelectMenu_TextDraw(struct MenuProc* menu, struct MenuItemProc* menuItem
         return 0;
     }
 
-    if (GetItemType(item) == ITYPE_12) {
+    if (GetItemType(item) == ITYPE_DANCE) {
         isUsable = 0;
     } else {
         isUsable = CanUnitUseItem(gActiveUnit, item);
@@ -1085,7 +1085,7 @@ u8 ItemSubMenu_IsUseAvailable(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (GetItemType(item) == ITYPE_12) {
+    if (GetItemType(item) == ITYPE_DANCE) {
         return MENU_NOTSHOWN;
     }
 
@@ -1503,7 +1503,7 @@ u8 ChestCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_21) < 0) {
+    if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_FULL) < 0) {
         return MENU_NOTSHOWN;
     }
 
@@ -1514,7 +1514,7 @@ u8 ChestCommandUsability(const struct MenuItemDef* def, int number) {
 u8 ChestCommandEffect(struct MenuProc* menu, struct MenuItemProc* menuItem) {
 
     gActionData.unitActionType = UNIT_ACTION_CHEST;
-    gActionData.itemSlotIndex = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_21);
+    gActionData.itemSlotIndex = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_FULL);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
@@ -1728,7 +1728,7 @@ u8 ArenaCommandUsability(const struct MenuItemDef* def, int number) {
         return MENU_NOTSHOWN;
     }
 
-    if (gBmMapTerrain[gActiveUnit->yPos][gActiveUnit->xPos] != TERRAIN_ARENA_08) {
+    if (gBmMapTerrain[gActiveUnit->yPos][gActiveUnit->xPos] != TERRAIN_ARENA_REGULAR) {
         return MENU_NOTSHOWN;
     }
 
@@ -2333,7 +2333,7 @@ u8 ItemMenu_Select1stCommand(struct MenuProc* menu, struct MenuItemProc* menuIte
 u8 ItemMenu_AreOtherCommandsAvailable(const struct MenuItemDef* def, int number) {
     int item = gActiveUnit->items[number - 1];
 
-    if (GetItemType(item) != ITYPE_12) {
+    if (GetItemType(item) != ITYPE_DANCE) {
         return MENU_NOTSHOWN;
     }
 

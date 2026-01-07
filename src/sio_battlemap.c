@@ -1189,7 +1189,7 @@ void sub_804A298(struct SioProc85AA1AC * proc)
     {
         int y = unitB->yPos + 1;
 
-        if (gBmMapTerrain[y][unitB->xPos] != TERRAIN_FLOOR_17)
+        if (gBmMapTerrain[y][unitB->xPos] != TERRAIN_FLOOR_REGULAR)
         {
             local_24 = -1;
         }

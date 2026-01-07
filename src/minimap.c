@@ -123,7 +123,7 @@ int NormalizeSeaMinimapTerrain(int terrainId) {
     switch (terrainId) {
         case TERRAIN_DEEPS:
         case TERRAIN_GUNNELS:
-        case TERRAIN_TILE_00:
+        case TERRAIN_NONE:
             return TERRAIN_SEA;
         default:
             return terrainId;
@@ -174,10 +174,10 @@ int GetMinimapSeaKindAt(int x, int y) {
 //! FE8U = 0x080A767C
 int NormalizeWaterMinimapTerrain(int terrainId) {
     switch (terrainId) {
-        case TERRAIN_FLOOR_17:
-        case TERRAIN_WALL_1A:
+        case TERRAIN_FLOOR_REGULAR:
+        case TERRAIN_WALL_REGULAR:
         case TERRAIN_BRACE:
-        case TERRAIN_TILE_00:
+        case TERRAIN_NONE:
             return TERRAIN_WATER;
         default:
             return terrainId;
@@ -237,7 +237,7 @@ int GetMinimapRiverKindAt(int x, int y) {
         (terrainId == TERRAIN_SEA) ||
         (terrainId == TERRAIN_DEEPS) ||
         (terrainId == TERRAIN_LAKE) ||
-        (terrainId == TERRAIN_BRIDGE_13)) {
+        (terrainId == TERRAIN_BRIDGE_REGULAR)) {
         index += 1;
     }
 
@@ -249,7 +249,7 @@ int GetMinimapRiverKindAt(int x, int y) {
         (terrainId == TERRAIN_SEA) ||
         (terrainId == TERRAIN_DEEPS) ||
         (terrainId == TERRAIN_LAKE) ||
-        (terrainId == TERRAIN_BRIDGE_13)) {
+        (terrainId == TERRAIN_BRIDGE_REGULAR)) {
         index += 1;
     }
 
@@ -261,7 +261,7 @@ int GetMinimapRiverKindAt(int x, int y) {
         (terrainId == TERRAIN_SEA) ||
         (terrainId == TERRAIN_DEEPS) ||
         (terrainId == TERRAIN_LAKE) ||
-        (terrainId == TERRAIN_BRIDGE_13)) {
+        (terrainId == TERRAIN_BRIDGE_REGULAR)) {
         index += 1;
     }
 
@@ -273,7 +273,7 @@ int GetMinimapRiverKindAt(int x, int y) {
         (terrainId == TERRAIN_SEA) ||
         (terrainId == TERRAIN_DEEPS) ||
         (terrainId == TERRAIN_LAKE) ||
-        (terrainId == TERRAIN_BRIDGE_13)) {
+        (terrainId == TERRAIN_BRIDGE_REGULAR)) {
         index += 1;
     }
 
@@ -414,13 +414,13 @@ int GetMinimapDoorTileAt(int x, int y) {
 
 //! FE8U = 0x080A7970
 int GetMinimapBridgeKindAt(int x, int y) {
-    if ((gBmMapTerrain[y][x + 1] == TERRAIN_BRIDGE_13) ||
-        (gBmMapTerrain[y][x - 1] == TERRAIN_BRIDGE_13)) {
+    if ((gBmMapTerrain[y][x + 1] == TERRAIN_BRIDGE_REGULAR) ||
+        (gBmMapTerrain[y][x - 1] == TERRAIN_BRIDGE_REGULAR)) {
         return 0x10;
     }
 
-    if ((gBmMapTerrain[y + 1][x] == TERRAIN_BRIDGE_13) ||
-        (gBmMapTerrain[y - 1][x] == TERRAIN_BRIDGE_13)) {
+    if ((gBmMapTerrain[y + 1][x] == TERRAIN_BRIDGE_REGULAR) ||
+        (gBmMapTerrain[y - 1][x] == TERRAIN_BRIDGE_REGULAR)) {
         return 0x18;
     }
 
@@ -466,10 +466,10 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_ROAD:
             return GetMinimapConnectKindAt(x, y) + 0x40;
 
-        case TERRAIN_VILLAGE_03:
-        case TERRAIN_VILLAGE_04:
-        case TERRIAN_HOUSE:
-        case TERRAIN_GATE_23:
+        case TERRAIN_VILLAGE_REGULAR:
+        case TERRAIN_VILLAGE_CLOSED:
+        case TERRAIN_HOUSE:
+        case TERRAIN_GATE_REGULAR:
         case TERRAIN_INN:
             return 2;
 
@@ -477,14 +477,14 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_VENDOR:
             return 3;
 
-        case TERRAIN_ARENA_08:
+        case TERRAIN_ARENA_REGULAR:
             return 4;
 
         case TERRAIN_FORT:
             return 5;
 
-        case TERRAIN_GATE_0B:
-        case TERRAIN_RUINS_37:
+        case TERRAIN_GATE_CASTLE:
+        case TERRAIN_RUINS_VILLAGE:
             return 6;
 
         case TERRAIN_FOREST:
@@ -507,8 +507,8 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_PEAK:
             return 0x14;
 
-        case TERRAIN_BRIDGE_13:
-        case TERRAIN_BRIDGE_34:
+        case TERRAIN_BRIDGE_REGULAR:
+        case TERRAIN_BRIDGE_SNAG:
             return GetMinimapBridgeKindAt(x, y);
 
         case TERRAIN_WATER:
@@ -521,8 +521,8 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_DEEPS:
             return GetMinimapSeaKindAt(x, y) + 0x30;
 
-        case TERRAIN_FLOOR_17:
-        case TERRAIN_FLOOR_18:
+        case TERRAIN_FLOOR_REGULAR:
+        case TERRAIN_FLOOR_MAGIC:
         case TERRAIN_DECK:
             return 0xC;
 
@@ -535,11 +535,11 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_THRONE:
             return 0xE;
 
-        case TERRAIN_CHEST_20:
-        case TERRAIN_CHEST_21:
+        case TERRAIN_CHEST_EMPTY:
+        case TERRAIN_CHEST_FULL:
             return 0xF;
 
-        case TERRAIN_RUINS_25:
+        case TERRAIN_RUINS_REGULAR:
             return 0x1A;
 
         case TERRAIN_DARK:
@@ -560,9 +560,9 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_STAIRS:
             return GetMinimapStairTileAt(x, y);
 
-        case TERRAIN_FENCE_19:
-        case TERRAIN_WALL_1A:
-        case TERRAIN_WALL_1B:
+        case TERRAIN_FENCE_REGULAR:
+        case TERRAIN_WALL_REGULAR:
+        case TERRAIN_WALL_DAMAGED:
         case TERRAIN_RUBBLE:
         case TERRAIN_ROOF:
         case TERRAIN_SHIP_WRECK:
@@ -577,7 +577,7 @@ int GetMinimapTileAt(int x, int y) {
         case TERRAIN_VALLEY:
             return 0x19;
 
-        case TERRAIN_TILE_00:
+        case TERRAIN_NONE:
         case TERRAIN_C_ROOM_09:
         case TERRAIN_BRIDGE_14:
         case TERRAIN_CHURCH:

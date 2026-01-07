@@ -256,7 +256,7 @@ void MapAnim_BeginRoundSpecificAnims(ProcPtr proc)
     }
 
     vall_broken = false;
-    if (gManimSt.actor[map_target].bu->terrainId == TERRAIN_WALL_1B || gManimSt.actor[map_target].bu->terrainId == TERRAIN_SNAG)
+    if (gManimSt.actor[map_target].bu->terrainId == TERRAIN_WALL_DAMAGED || gManimSt.actor[map_target].bu->terrainId == TERRAIN_SNAG)
         vall_broken = true;
 
     if (vall_broken)

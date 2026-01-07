@@ -247,7 +247,7 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
             case ITYPE_ANIMA:
             case ITYPE_LIGHT:
             case ITYPE_DARK:
-            case ITYPE_11:
+            case ITYPE_MONSTER:
                 ItemBackupEvtBattle = unitA->items[0];
                 unitA->items[0] = MakeNewItem(item);
 
@@ -269,7 +269,7 @@ void StartEventBattle(struct Unit * unitA, struct Unit * unitB, u8 isBallista, s
             case ITYPE_STAFF:
             case ITYPE_ITEM:
             case ITYPE_DRAGN:
-            case ITYPE_12:
+            case ITYPE_DANCE:
             case 0xFF:
                 gBattleActor.weaponBefore = gBattleActor.weapon = item + 0x100;
 
