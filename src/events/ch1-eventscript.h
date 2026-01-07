@@ -41,7 +41,7 @@ CONST_DATA EventListScr EventScr_Ch1_BeginningScene[] = {
     CriticalHit(0, 20)
     NormalDamage(1, 0)
     EndAttack
-    FIGHT(CHARACTER_BREGUET, CHARACHER_FRELIAN, 0, 0)
+    FIGHT(CHARACTER_BREGUET, CHARACTER_FRELIAN, 0, 0)
 
     /* Clear battle Quotes flag */
     ENUF(EVFLAG_BATTLE_QUOTES)

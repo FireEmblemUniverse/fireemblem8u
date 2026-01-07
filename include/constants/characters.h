@@ -96,7 +96,7 @@ enum {
     CHARACTER_MONSTER_BA   = 0xBA,
     CHARACTER_FOMORTIIS    = 0xBE,
 
-    CHARACHER_FRELIAN      = 0xC0,
+    CHARACTER_FRELIAN      = 0xC0,
     CHARACTER_FADO         = 0xC5,
 
     CHARACTER_HAYDEN       = 0xC7,

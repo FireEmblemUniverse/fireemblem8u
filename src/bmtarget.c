@@ -156,11 +156,11 @@ void TryAddTrapsToTargetList() {
             continue;
         }
 
-        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_WALL_1B) && (gMapRangeSigned[trap->yPos][trap->xPos] != 0)) {
+        if ((gBmMapTerrain[trap->yPos][trap->xPos] == TERRAIN_WALL_DAMAGED) && (gMapRangeSigned[trap->yPos][trap->xPos] != 0)) {
             AddTarget(trap->xPos, trap->yPos, 0, trap->extra);
         }
 
-        if ((gBmMapTerrain[trap->yPos + 1][trap->xPos] == TERRAIN_WALL_1B) && (gMapRangeSigned[trap->yPos + 1][trap->xPos] != 0)) {
+        if ((gBmMapTerrain[trap->yPos + 1][trap->xPos] == TERRAIN_WALL_DAMAGED) && (gMapRangeSigned[trap->yPos + 1][trap->xPos] != 0)) {
             AddTarget(trap->xPos, trap->yPos + 1, 0, trap->extra);
         }
 
@@ -577,8 +577,8 @@ void MakeTargetListForPick(struct Unit* unit) {
 
     ForEachAdjacentPosition(x, y, sub_8025864);
 
-    if (gBmMapTerrain[unit->yPos][unit->xPos] == TERRAIN_CHEST_21) {
-        AddTarget(x, y, TERRAIN_CHEST_21, 0);
+    if (gBmMapTerrain[unit->yPos][unit->xPos] == TERRAIN_CHEST_FULL) {
+        AddTarget(x, y, TERRAIN_CHEST_FULL, 0);
     }
 
     return;

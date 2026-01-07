@@ -8812,7 +8812,7 @@ CONST_DATA struct REDA REDA_088B78E4[] = {
 // 0x88B78EC
 CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -8824,7 +8824,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
         },
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -8836,7 +8836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
         },
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -8848,7 +8848,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
         },
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -8860,7 +8860,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
         },
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -9082,7 +9082,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7A54[] = {
         .yPosition = 4,
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_ARMOR_KNIGHT,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -25778,7 +25778,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .ai = {DefaultAI, 0xa, 0x0},
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_PALADIN,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -25866,7 +25866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
 // 0x88BE3D0
 CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_FALCON_KNIGHT,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -25963,7 +25963,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .ai = {DefaultAI, 0x9, 0x0},
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_GENERAL,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -28338,7 +28338,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
 // 0x88BF330
 CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -31870,7 +31870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C09C0[] = {
 // 0x88C0A24
 CONST_DATA struct UnitDefinition UnitDef_088C0A24[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_CAVALIER,
         .autolevel = 1,
         .allegiance = FACTION_ID_GREEN,
@@ -38866,7 +38866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C33AC[] = {
 // 0x88C3424
 CONST_DATA struct UnitDefinition UnitDef_088C3424[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_FLEET,
         .allegiance = FACTION_ID_BLUE,
         .level = 10,
@@ -47278,7 +47278,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A24[] = {
 // 0x88C6A4C
 CONST_DATA struct UnitDefinition UnitDef_088C6A4C[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .allegiance = FACTION_ID_BLUE,
         .level = 1,
@@ -47293,7 +47293,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A4C[] = {
 // 0x88C6A74
 CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .allegiance = FACTION_ID_BLUE,
         .level = 1,
@@ -47328,7 +47328,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
 // 0x88C6AC4
 CONST_DATA struct UnitDefinition UnitDef_088C6AC4[] = {
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .allegiance = FACTION_ID_BLUE,
         .level = 1,
@@ -47379,7 +47379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6B28[] = {
         .yPosition = 2,
     },
     {
-        .charIndex = CHARACHER_FRELIAN,
+        .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
         .allegiance = FACTION_ID_BLUE,
         .level = 1,

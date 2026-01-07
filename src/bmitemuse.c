@@ -420,7 +420,7 @@ s8 CanUnitUseAntitoxinItem(struct Unit* unit)
 
 s8 CanUnitUseChestKeyItem(struct Unit* unit)
 {
-    if (gBmMapTerrain[unit->yPos][unit->xPos] != TERRAIN_CHEST_21)
+    if (gBmMapTerrain[unit->yPos][unit->xPos] != TERRAIN_CHEST_FULL)
         return FALSE;
 
     if (!IsThereClosedChestAt(unit->xPos, unit->yPos))

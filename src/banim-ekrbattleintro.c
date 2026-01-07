@@ -1416,7 +1416,7 @@ bool PrepareBattleGraphicsMaybe(void)
         if (gBanimFloorfx[POS_L] == -1)
             return false;
 
-        if (gBanimTerrain[POS_L] == TERRAIN_WALL_1B)
+        if (gBanimTerrain[POS_L] == TERRAIN_WALL_DAMAGED)
             return false;
 
         if (gBanimTerrain[POS_L] == TERRAIN_SNAG)
@@ -1437,7 +1437,7 @@ bool PrepareBattleGraphicsMaybe(void)
         if (gBanimFloorfx[POS_R] == -1)
             return false;
 
-        if (gBanimTerrain[POS_R] == TERRAIN_WALL_1B)
+        if (gBanimTerrain[POS_R] == TERRAIN_WALL_DAMAGED)
             return false;
 
         if (gBanimTerrain[POS_R] == TERRAIN_SNAG)

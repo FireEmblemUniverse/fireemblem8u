@@ -5240,10 +5240,10 @@ CONST_DATA struct CharacterData gCharacterData[] = {
         .growthRes = 0,
         .growthLck = 0,
     },
-    [CHARACHER_FRELIAN - 1] = {
+    [CHARACTER_FRELIAN - 1] = {
         .nameTextId = 0x262,
         .descTextId = 0x2ba,
-        .number = CHARACHER_FRELIAN,
+        .number = CHARACTER_FRELIAN,
         .defaultClass = CLASS_MYRMIDON,
         .miniPortrait = 0x2,
         .baseLevel = 1,

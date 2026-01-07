@@ -305,7 +305,7 @@ struct PrepItemTypePageEnt CONST_DATA gPrepItemTypePageLut[] = {
     [5] = { ITYPE_ANIMA,  ITYPE_ANIMA },
     [6] = { ITYPE_LIGHT,  ITYPE_LIGHT },
     [7] = { ITYPE_DARK,   ITYPE_DARK  },
-    [8] = { ITYPE_ITEM,   ITYPE_12    },
+    [8] = { ITYPE_ITEM,   ITYPE_DANCE    },
 };
 
 //! FE8U = 0x08098014

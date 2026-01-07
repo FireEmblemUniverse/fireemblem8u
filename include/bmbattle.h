@@ -284,6 +284,6 @@ void BattlePrintDebugHitInfo(void);
 void BattleGenerateHitScriptedDamage(struct BattleUnit* bu);
 void BattleUnwindScripted(void);
 
-#define BUNIT_IS_OBSTACLE(aBu) (((aBu)->terrainId == TERRAIN_WALL_1B) || ((aBu)->terrainId == TERRAIN_SNAG))
+#define BUNIT_IS_OBSTACLE(aBu) (((aBu)->terrainId == TERRAIN_WALL_DAMAGED) || ((aBu)->terrainId == TERRAIN_SNAG))
 
 #endif // GUARD_BMBATTLE_H

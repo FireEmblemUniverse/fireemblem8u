@@ -534,8 +534,8 @@ s8 IsItemEffectiveAgainst(u16 item, struct Unit* unit) {
             u32 attributes;
             int i;
 
-            if (GetItemEffectiveness(item) != ItemEffectiveness_088ADF2A)
-                if (GetItemEffectiveness(item) != ItemEffectiveness_088ADEF1)
+            if (GetItemEffectiveness(item) != ItemEffectiveness_Flier)
+                if (GetItemEffectiveness(item) != ItemEffectiveness_FlierAndMonsters)
                     return TRUE;
 
             attributes = 0;

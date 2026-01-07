@@ -69,9 +69,9 @@ lop:
 
         // Check if we on a wall, and there is a wall above
         // In which case the trap would be on the topmost wall tile
-        if (gBmMapTerrain[y][x] == TERRAIN_WALL_1B)
+        if (gBmMapTerrain[y][x] == TERRAIN_WALL_DAMAGED)
         {
-            if ((y > 0) && gBmMapTerrain[y-1][x] == TERRAIN_WALL_1B)
+            if ((y > 0) && gBmMapTerrain[y-1][x] == TERRAIN_WALL_DAMAGED)
             {
                 y = y-1;
                 goto lop;
@@ -93,13 +93,13 @@ struct Trap* GetTypedTrapAt(int x, int y, int trapType)
             return it;
 
         // Check if we want a wall
-        if (trapType == TERRAIN_WALL_1B)
+        if (trapType == TERRAIN_WALL_DAMAGED)
         {
             // Check if we on a wall, and there is a wall above
             // In which case the trap would be on the topmost wall tile
-            if (gBmMapTerrain[y][x] == TERRAIN_WALL_1B)
+            if (gBmMapTerrain[y][x] == TERRAIN_WALL_DAMAGED)
             {
-                if ((y > 0) && gBmMapTerrain[y-1][x] == TERRAIN_WALL_1B)
+                if ((y > 0) && gBmMapTerrain[y-1][x] == TERRAIN_WALL_DAMAGED)
                 {
                     return GetTrapAt(x, y-1);
                 }
@@ -188,8 +188,8 @@ void InitMapObstacles(void)
             switch (gBmMapTerrain[iy][ix])
             {
 
-            case TERRAIN_WALL_1B:
-                if (gBmMapTerrain[iy-1][ix] == TERRAIN_WALL_1B)
+            case TERRAIN_WALL_DAMAGED:
+                if (gBmMapTerrain[iy-1][ix] == TERRAIN_WALL_DAMAGED)
                     continue; // walls are stacked, only the topmost tile gets a trap
 
                 AddTrap(
@@ -239,7 +239,7 @@ void RefreshAllLightRunes(void)
         {
 
         case TRAP_LIGHT_RUNE:
-            gBmMapTerrain[trap->yPos][trap->xPos] = TERRAIN_TILE_00;
+            gBmMapTerrain[trap->yPos][trap->xPos] = TERRAIN_NONE;
             break;
 
         }
@@ -255,7 +255,7 @@ int GetObstacleHpAt(int x, int y)
         return trap->extra;
     }
 
-    if ((gBmMapTerrain[y][x] == TERRAIN_WALL_1B) && (gBmMapTerrain[y-1][x] == TERRAIN_WALL_1B))
+    if ((gBmMapTerrain[y][x] == TERRAIN_WALL_DAMAGED) && (gBmMapTerrain[y-1][x] == TERRAIN_WALL_DAMAGED))
     {
         if ((trap = GetTrapAt(x, y-1)) != NULL)
         {
@@ -678,7 +678,7 @@ struct Trap* AddLightRune(int x, int y)
     struct Trap* trap = AddTrap(x, y, TRAP_LIGHT_RUNE, gBmMapTerrain[y][x]);
 
     trap->data[TRAP_EXTDATA_RUNE_TURNSLEFT] = 3;
-    gBmMapTerrain[y][x] = TERRAIN_TILE_00;
+    gBmMapTerrain[y][x] = TERRAIN_NONE;
 
     // return trap; // BUG
 }
@@ -751,7 +751,7 @@ void EnableAllLightRunes(void)
         {
 
         case TRAP_LIGHT_RUNE:
-            gBmMapTerrain[trap->yPos][trap->xPos] = TERRAIN_TILE_00;
+            gBmMapTerrain[trap->yPos][trap->xPos] = TERRAIN_NONE;
             break;
 
         } // switch (trap->type)

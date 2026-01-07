@@ -93,8 +93,8 @@ enum {
     ITYPE_ITEM  = 9,
     ITYPE_DRAGN = 10,
 
-    ITYPE_11    = 11,
-    ITYPE_12    = 12,
+    ITYPE_MONSTER    = 11,
+    ITYPE_DANCE    = 12,
 };
 
 enum {

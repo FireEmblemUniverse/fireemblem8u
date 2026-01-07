@@ -1248,7 +1248,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain) {
 
     switch (terrain) {
 
-    case TERRAIN_CHEST_21:
+    case TERRAIN_CHEST_FULL:
         slot = GetUnitItemSlot(unit, ITEM_CHESTKEY);
 
         if (slot < 0)
