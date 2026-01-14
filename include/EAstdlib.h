@@ -154,9 +154,9 @@
 #define SPAWN_CUTSCENE_ALLY(pid, x, y) EvtLoadSingleUnit(EVSUBCMD_SPAWN_CUTSCENE_ALLY, pid, x, y)
 #define DISA EvtRemoveUnit
 #define CHECK_INAREA EvtCheckInArea
-#define GIVEITEMTO EvtGiveItemAtSlot3
-#define GIVEITEMTOMAIN EvtGiveMoneymAtSlot3         /* what */
-#define GIVETOSLOT3 EvtGiveMoneymAtSlot3NoPopup     /* tf */
+#define GIVE_ITEM EvtGiveItemAtSlot3
+#define GIVE_MONEY EvtGiveMoneyAtSlot3
+#define TAKE_MONEY EvtTakeMoneyAtSlot3
 #define SET_ACTIVE EvtSetActiveUnit
 #define CHAI EvtChangeAI
 #define CHAI_AT EvtChangeAIat
@@ -298,7 +298,7 @@
 #include "EA_Standard_Library/Main_Code_Helpers.h"
 #include "EA_Standard_Library/Unit_Helpers.h"
 #include "EA_Standard_Library/Convo_Helpers.h"
-#include "EA_Standard_Library/Code_Ailases.h"
+#include "EA_Standard_Library/Code_Aliases.h"
 #include "EA_Standard_Library/End_Of_Chapter_Helpers.h"
 #include "EA_Standard_Library/Conditional_Helpers.h"
 #include "EA_Standard_Library/AI_Helpers.h"
