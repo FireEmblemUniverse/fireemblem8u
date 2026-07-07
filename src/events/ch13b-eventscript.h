@@ -210,8 +210,7 @@ CONST_DATA EventListScr EventScr_089FBD90[] = {
     Text_BG(BG_NORMAL_VILLAGE, 0xaf8)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x59)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_STAFF_BARRIER)
     EVBIT_T(7)
     ENDA
 };
@@ -221,8 +220,7 @@ CONST_DATA EventListScr EventScr_089FBDCC[] = {
     Text_BG(BG_NORMAL_VILLAGE, 0xaf9)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x61)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_BOOSTER_RES)
     EVBIT_T(7)
     ENDA
 };
