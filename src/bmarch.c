@@ -21,7 +21,7 @@ inline s8 IsBallista(struct Trap* trap) {
     return 1;
 }
 
-inline int sub_8037AC0(struct Trap* trap) {
+inline int GetBallistaItem(struct Trap* trap) {
     if (!IsBallista(trap)) {
         return 0;
     }
@@ -29,7 +29,7 @@ inline int sub_8037AC0(struct Trap* trap) {
     return trap->extra + trap->data[TRAP_EXTDATA_BLST_ITEMUSES] * 0x100;
 }
 
-inline int sub_8037AEC(struct Trap* trap) {
+inline int GetBallistaItemIndex(struct Trap* trap) {
     if (!IsBallista(trap)) {
         return 0;
     }
@@ -72,13 +72,13 @@ int GetBallistaItemAt(int xPos, int yPos) {
         return 0;
     }
 
-    return sub_8037AC0(trap);
+    return GetBallistaItem(trap);
 }
 
 int GetSomeBallistaItemAt(int xPos, int yPos) {
     struct Trap* trap = GetTrapAt(xPos, yPos);
 
-    int unk = sub_8037AEC(trap);
+    int unk = GetBallistaItemIndex(trap);
 
     if (unk == 0) {
         return 0;

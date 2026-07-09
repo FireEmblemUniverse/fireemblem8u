@@ -29,10 +29,10 @@ void SubtitleHelp_Loop(struct SubtitleHelpProc * proc);
 void StartSubtitleHelp(ProcPtr parent, const char * string);
 void EndSubtitleHelp(void);
 s8 IsSubtitleHelpActive(void);
-void sub_8035770(ProcPtr parent, const char * string);
+void ChangeSubtitleHelp(ProcPtr parent, const char * string);
 
 extern struct ProcCmd gProcScr_SubtitleHelpDarkener[];
 extern struct ProcCmd gProcScr_SubtitleHelp[];
-extern u8 gUnknown_0859EF20[]; // pal
+extern u8 Pal_TalkText[]; // talk/sprite text palette
 
 #endif  // GUARD_BB_H

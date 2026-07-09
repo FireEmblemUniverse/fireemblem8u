@@ -325,9 +325,9 @@ void SaveMenu_InitScreen(struct SaveMenuProc * proc)
     Decompress(Img_SaveScreenSprits, OBJ_VRAM0 + OBJCHR_SAVEMENU_SPRITES * TILE_SIZE_4BPP);
     ApplyPalettes(Pal_SaveScreenSprits, OBJPAL_SAVEMENU_SPRITES + 0x10, 8);
 
-    ApplyPalette(Pal_08A295B4, 2);
+    ApplyPalette(Pal_MenuMainObjs_0, 2);
     SaveMenuCopyPalette(PAL_OBJ(0x2), PAL_OBJ(0x1), 1);
-    SaveMenuCopyPalette(gUnknown_08A2C23C, gEndingTmScratchA, 2);
+    SaveMenuCopyPalette(gMenuMainObjs_5, gEndingTmScratchA, 2);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
@@ -911,9 +911,9 @@ void SaveMenuScrollSlot(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9A08
-void sub_80A9A08(struct SaveMenuProc * proc)
+void SaveMenuLoadExtraOptionGfx(struct SaveMenuProc * proc)
 {
-    sub_80ABF74(proc->extra_sel_bitfile);
+    SaveMenu_LoadExtraSelectGfx(proc->extra_sel_bitfile);
 }
 
 //! FE8U = 0x080A9A18
@@ -935,7 +935,7 @@ void SaveMenuScrollBackToMain(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9A68
-void sub_80A9A68(struct SaveMenuProc * proc)
+void SaveMenuScrollExtrasIn(struct SaveMenuProc * proc)
 {
     int unk;
 
@@ -951,7 +951,7 @@ void sub_80A9A68(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9AB0
-void sub_80A9AB0(struct SaveMenuProc * proc)
+void SaveMenuScrollExtrasOut(struct SaveMenuProc * proc)
 {
     int unk;
 
@@ -966,7 +966,7 @@ void sub_80A9AB0(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9AF4
-void sub_80A9AF4(struct SaveMenuProc * proc)
+void SaveMenuScrollExtraSlotIn(struct SaveMenuProc * proc)
 {
     int unk;
 
@@ -983,7 +983,7 @@ void sub_80A9AF4(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9B44
-void sub_80A9B44(struct SaveMenuProc * proc)
+void SaveMenuScrollExtraSlotOut(struct SaveMenuProc * proc)
 {
     int unk;
 
@@ -1000,7 +1000,7 @@ void sub_80A9B44(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9B90
-void sub_80A9B90(struct SaveMenuProc * proc)
+void SaveMenuExtrasMenuLoop(struct SaveMenuProc * proc)
 {
     int previous = proc->extra_select;
 
@@ -1036,7 +1036,7 @@ void sub_80A9B90(struct SaveMenuProc * proc)
         switch (proc->extra_sel_bitfile) {
         case EXTRA_MENU_OPTION_6:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
-            sub_80A9D20(proc, 0);
+            SaveMenuTryMoveExtraSlotCursor(proc, 0);
             PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
@@ -1053,14 +1053,14 @@ void sub_80A9B90(struct SaveMenuProc * proc)
 
         case EXTRA_MENU_OPTION_MAP:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
-            sub_80A9D20(proc, 0);
+            SaveMenuTryMoveExtraSlotCursor(proc, 0);
             PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
 
         case EXTRA_MENU_OPTION_BONUS_CLAIM:
             proc->sus_slot = SaveMenuModifySaveSlot(ReadLastGameSaveId(), 1, 1);
-            sub_80A9D20(proc, 0);
+            SaveMenuTryMoveExtraSlotCursor(proc, 0);
             PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
             Proc_Goto(proc, PL_SAVEMENU_12);
             break;
@@ -1080,7 +1080,7 @@ void sub_80A9B90(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080A9D20
-s8 sub_80A9D20(struct SaveMenuProc * proc, int direction) {
+s8 SaveMenuTryMoveExtraSlotCursor(struct SaveMenuProc * proc, int direction) {
     u8 unk = proc->sus_slot;
 
     if (unk > 2) {
@@ -1114,7 +1114,7 @@ s8 sub_80A9D20(struct SaveMenuProc * proc, int direction) {
 }
 
 //! FE8U = 0x080A9D84
-void sub_80A9D84(struct SaveMenu8A20068Proc  * proc)
+void SaveMenuPopupHelpBox_Init(struct SaveMenu8A20068Proc  * proc)
 {
     LoadHelpBoxGfx(OBJ_VRAM0 + OBJCHR_SAVEMENU_SLOTSEL_HELPBOX * TILE_SIZE_4BPP, OBJPAL_SAVEMENU_SLOTSEL_HELPBOX);
     StartHelpBoxExt_Unk(proc->x, proc->y, proc->msgId);
@@ -1122,7 +1122,7 @@ void sub_80A9D84(struct SaveMenu8A20068Proc  * proc)
 }
 
 //! FE8U = 0x080A9DBC
-void sub_80A9DBC(struct SaveMenu8A20068Proc  * proc)
+void SaveMenuPopupHelpBox_WaitInput(struct SaveMenu8A20068Proc  * proc)
 {
 
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | R_BUTTON)) {
@@ -1132,29 +1132,29 @@ void sub_80A9DBC(struct SaveMenu8A20068Proc  * proc)
     }
 }
 
-struct ProcCmd CONST_DATA gProcScr_08A20068[] = {
+struct ProcCmd CONST_DATA gProcScr_Savemenu_0[] = {
     PROC_YIELD,
 
-    PROC_CALL(sub_80A9D84),
+    PROC_CALL(SaveMenuPopupHelpBox_Init),
     PROC_SLEEP(8),
 
-    PROC_REPEAT(sub_80A9DBC),
+    PROC_REPEAT(SaveMenuPopupHelpBox_WaitInput),
     PROC_SLEEP(8),
 
     PROC_END,
 };
 
 //! FE8U = 0x080A9DFC
-void sub_80A9DFC(int x, int y, int msgId, ProcPtr parent)
+void StartSaveMenuPopupHelpBox(int x, int y, int msgId, ProcPtr parent)
 {
-    struct SaveMenu8A20068Proc  * proc = Proc_StartBlocking(gProcScr_08A20068, parent);
+    struct SaveMenu8A20068Proc  * proc = Proc_StartBlocking(gProcScr_Savemenu_0, parent);
     proc->msgId = msgId;
     proc->x = x;
     proc->y = y;
 }
 
 //! FE8U = 0x080A9E1C
-void sub_80A9E1C(struct SaveMenuProc * proc)
+void SaveMenuExtraSlotSelectLoop(struct SaveMenuProc * proc)
 {
 
     proc->jump_label = PL_SAVEMENU_SAVE_SLOT_SEL;
@@ -1162,9 +1162,9 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
     if (proc->cursor_config == 0)
     {
         if (gKeyStatusPtr->newKeys & DPAD_UP)
-            sub_80A9D20(proc, -1);
+            SaveMenuTryMoveExtraSlotCursor(proc, -1);
         else if (gKeyStatusPtr->newKeys & DPAD_DOWN)
-            sub_80A9D20(proc, 1);
+            SaveMenuTryMoveExtraSlotCursor(proc, 1);
     }
     else if (gKeyStatusPtr->newKeys & DPAD_LEFT)
     {
@@ -1200,7 +1200,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
                 return;
             }
 
-            sub_80A9DFC(0x40, 0x30, 0x892, proc); // TODO: msgid "This data[.][NL]can't be used[.][NL]on a trial map.[.]"
+            StartSaveMenuPopupHelpBox(0x40, 0x30, 0x892, proc); // TODO: msgid "This data[.][NL]can't be used[.][NL]on a trial map.[.]"
 
             return;
 
@@ -1219,7 +1219,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
                 return;
             }
 
-            sub_80A9DFC(0x2e, 0x38, 0x891, proc); // TODO: msgid "Send data from[NL]Chapter 2+"
+            StartSaveMenuPopupHelpBox(0x2e, 0x38, 0x891, proc); // TODO: msgid "Send data from[NL]Chapter 2+"
 
             return;
 
@@ -1237,7 +1237,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
                 return;
             }
 
-            sub_80A9DFC(0x2e, 0x38, 0x895, proc); // TODO: msgid "Select cleared save data.[.]"
+            StartSaveMenuPopupHelpBox(0x2e, 0x38, 0x895, proc); // TODO: msgid "Select cleared save data.[.]"
             return;
 
         default:
@@ -1264,7 +1264,7 @@ void sub_80A9E1C(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080AA018
-void sub_80AA018(struct SaveMenuProc * proc)
+void SaveMenuStartSqMask(struct SaveMenuProc * proc)
 {
 
     StartSqMask(proc, 1, 2);
@@ -1414,7 +1414,7 @@ void SaveMenu_ResetLcdFormDifficulty(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080AA248
-void sub_80AA248(struct SaveMenuProc * proc)
+void SaveMenuOpenWindowBox(struct SaveMenuProc * proc)
 {
     int unkA;
     int unkB;
@@ -1436,7 +1436,7 @@ void sub_80AA248(struct SaveMenuProc * proc)
 }
 
 //! FE8U = 0x080AA2A8
-void sub_80AA2A8(struct SaveMenuProc * proc)
+void SaveMenuCloseWindowBox(struct SaveMenuProc * proc)
 {
     int unkA;
     int unkB;
@@ -1481,7 +1481,7 @@ void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc)
 
     Decompress(Img_SaveScreenSprits, (void*)0x06010800);
     ApplyPalettes(Pal_SaveScreenSprits, 0x12, 8);
-    ApplyPalette(Pal_08A295B4, 2);
+    ApplyPalette(Pal_MenuMainObjs_0, 2);
 
     SaveMenuCopyPalette(PAL_OBJ(0x2), PAL_OBJ(0x2) - 0x10, 1);
     Decompress(Img_GameMainMenuObjs, OBJ_VRAM0 + OBJCHR_SAVEMENU_MAINCHOICE_STR * TILE_SIZE_4BPP);
@@ -1597,35 +1597,35 @@ PROC_LABEL(PL_SAVEMENU_BACK_TO_MAIN),
     PROC_GOTO(PL_SAVEMENU_MAIN_LOOP),
 
 PROC_LABEL(PL_SAVEMENU_8),
-    PROC_REPEAT(sub_80A9A68),
+    PROC_REPEAT(SaveMenuScrollExtrasIn),
 
     // fallthrough
 
 PROC_LABEL(PL_SAVEMENU_9),
-    PROC_REPEAT(sub_80A9AB0),
+    PROC_REPEAT(SaveMenuScrollExtrasOut),
 
     // fallthrough
 
 PROC_LABEL(PL_SAVEMENU_12),
-    PROC_CALL(sub_80A9A08),
-    PROC_REPEAT(sub_80A9AF4),
+    PROC_CALL(SaveMenuLoadExtraOptionGfx),
+    PROC_REPEAT(SaveMenuScrollExtraSlotIn),
 
     // fallthrough
 
 PROC_LABEL(PL_SAVEMENU_13),
-    PROC_REPEAT(sub_80A9B44),
+    PROC_REPEAT(SaveMenuScrollExtraSlotOut),
 
     // fallthrough
 
 PROC_LABEL(PL_SAVEMENU_10),
-    PROC_REPEAT(sub_80A9B90),
+    PROC_REPEAT(SaveMenuExtrasMenuLoop),
 
     // fallthrough
 
 PROC_LABEL(PL_SAVEMENU_POST_BONUS_CLAIM),
     PROC_CALL(SaveMenuStartBonusClaim),
     PROC_YIELD,
-    PROC_REPEAT(sub_80A9E1C),
+    PROC_REPEAT(SaveMenuExtraSlotSelectLoop),
 
     // fallthrough
 
@@ -1754,7 +1754,7 @@ void SaveMenu_SetDifficultyChoice(int difficulty, int b)
 struct BonusClaimEnt * CONST_DATA _gpBonusClaimData = gBonusClaimData;
 
 //! FE8U = 0x080AA550
-void sub_80AA550(struct ProcBonusClaimMenu * proc)
+void BonusClaimMenu_Init(struct ProcBonusClaimMenu * proc)
 {
     int i;
 
@@ -1805,7 +1805,7 @@ void sub_80AA550(struct ProcBonusClaimMenu * proc)
 }
 
 //! FE8U = 0x080AA614
-void sub_80AA614(struct ProcBonusClaimMenu * proc)
+void BonusClaimMenu_PromptSong3(struct ProcBonusClaimMenu * proc)
 {
     if (proc->unk_58 != 0)
     {
@@ -1819,7 +1819,7 @@ void sub_80AA614(struct ProcBonusClaimMenu * proc)
 }
 
 //! FE8U = 0x080AA658
-void sub_80AA658(struct ProcBonusClaimMenu * proc)
+void BonusClaimMenu_PromptSong4(struct ProcBonusClaimMenu * proc)
 {
     if (proc->unk_5c != 0)
     {
@@ -1833,7 +1833,7 @@ void sub_80AA658(struct ProcBonusClaimMenu * proc)
 }
 
 //! FE8U = 0x080AA69C
-void sub_80AA69C(struct ProcBonusClaimMenu * proc)
+void BonusClaimMenu_WaitInput(struct ProcBonusClaimMenu * proc)
 {
     if (proc->unk_4c > 30)
     {
@@ -1850,7 +1850,7 @@ void sub_80AA69C(struct ProcBonusClaimMenu * proc)
 }
 
 //! FE8U = 0x080AA6D8
-void sub_80AA6D8(void)
+void BonusClaimMenu_SaveData(void)
 {
     SaveBonusContentData(_gpBonusClaimData);
 }
@@ -1859,23 +1859,23 @@ void sub_80AA6D8(void)
 
 struct ProcCmd CONST_DATA ProcScr_BonusClaimMenu[] =
 {
-    PROC_CALL(sub_80AA550),
+    PROC_CALL(BonusClaimMenu_Init),
 
-    PROC_CALL(sub_80AA614),
-    PROC_REPEAT(sub_80AA69C),
+    PROC_CALL(BonusClaimMenu_PromptSong3),
+    PROC_REPEAT(BonusClaimMenu_WaitInput),
 
     PROC_SLEEP(16),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_80AA658),
-    PROC_REPEAT(sub_80AA69C),
+    PROC_CALL(BonusClaimMenu_PromptSong4),
+    PROC_REPEAT(BonusClaimMenu_WaitInput),
 
     PROC_SLEEP(16),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(sub_80AA6D8),
+    PROC_CALL(BonusClaimMenu_SaveData),
 
     // fallthrough
 
@@ -1945,11 +1945,11 @@ void SaveMenuCopyPalette(u16 * src, u16 * dst, int count)
         *dst++ = *src_++;
 }
 
-void sub_80AA7AC(int a, int b)
+void SaveMenuUpdateCursorPalette(int a, int b)
 {
     int offset = (a & 0x3F) >> 2;
     u16 * _src, * src = gPaletteBuffer;
-    u16 * dst = Pal_08A28088 + offset;
+    u16 * dst = Pal_MenuSaveMainBg_0 + offset;
     int val;
 
     val = *dst;

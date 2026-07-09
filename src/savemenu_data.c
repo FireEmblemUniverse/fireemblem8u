@@ -4,7 +4,7 @@
 
 // clang-format off
 
-u16 CONST_DATA gSprite_08A2077C[] =
+u16 CONST_DATA gSprite_SavemenuData_0[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0xC0) + OAM2_LAYER(2),
@@ -13,7 +13,7 @@ u16 CONST_DATA gSprite_08A2077C[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0xCC) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20796[] =
+u16 CONST_DATA gSprite_SavemenuData_1[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x100) + OAM2_LAYER(2),
@@ -22,7 +22,7 @@ u16 CONST_DATA gSprite_08A20796[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x10C) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A207B0[] =
+u16 CONST_DATA gSprite_SavemenuData_2[] =
 {
     3,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(16), OAM2_CHR(0x18A) + OAM2_LAYER(2),
@@ -30,7 +30,7 @@ u16 CONST_DATA gSprite_08A207B0[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(80), OAM2_CHR(0x192) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A207C4[] =
+u16 CONST_DATA gSprite_SavemenuData_3[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0xCE) + OAM2_LAYER(2),
@@ -39,7 +39,7 @@ u16 CONST_DATA gSprite_08A207C4[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0xDA) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A207DE[] =
+u16 CONST_DATA gSprite_SavemenuData_4[] =
 {
     3,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(24), OAM2_CHR(0x180) + OAM2_LAYER(2),
@@ -47,21 +47,21 @@ u16 CONST_DATA gSprite_08A207DE[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(88), OAM2_CHR(0x188) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A207F2[] =
+u16 CONST_DATA gSprite_SavemenuData_5[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x94) + OAM2_LAYER(2),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x98) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20800[] =
+u16 CONST_DATA gSprite_SavemenuData_6[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x54) + OAM2_LAYER(2),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x58) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A2080E[] =
+u16 CONST_DATA gSprite_SavemenuData_7[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x10E) + OAM2_LAYER(2),
@@ -70,7 +70,7 @@ u16 CONST_DATA gSprite_08A2080E[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x11A) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20828[] =
+u16 CONST_DATA gSprite_SavemenuData_8[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x10E) + OAM2_LAYER(2),
@@ -79,13 +79,13 @@ u16 CONST_DATA gSprite_08A20828[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x11A) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20842[] =
+u16 CONST_DATA gSprite_SavemenuData_9[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x18E) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A2084A[] =
+u16 CONST_DATA gSprite_SavemenuData_10[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x28E) + OAM2_LAYER(2),
@@ -94,7 +94,7 @@ u16 CONST_DATA gSprite_08A2084A[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(96), OAM2_CHR(0x29A) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20864[] =
+u16 CONST_DATA gSprite_SavemenuData_11[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x280) + OAM2_LAYER(2),
@@ -103,7 +103,7 @@ u16 CONST_DATA gSprite_08A20864[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x28C) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A2087E[] =
+u16 CONST_DATA gSprite_SavemenuData_12[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x24E) + OAM2_LAYER(2),
@@ -112,7 +112,7 @@ u16 CONST_DATA gSprite_08A2087E[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(96), OAM2_CHR(0x25A) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20898[] =
+u16 CONST_DATA gSprite_SavemenuData_13[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x20E) + OAM2_LAYER(2),
@@ -121,7 +121,7 @@ u16 CONST_DATA gSprite_08A20898[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(96), OAM2_CHR(0x21A) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A208B2[] =
+u16 CONST_DATA gSprite_SavemenuData_14[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x240) + OAM2_LAYER(2),
@@ -130,7 +130,7 @@ u16 CONST_DATA gSprite_08A208B2[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x24C) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A208CC[] =
+u16 CONST_DATA gSprite_SavemenuData_15[] =
 {
     4,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x200) + OAM2_LAYER(2),
@@ -139,13 +139,13 @@ u16 CONST_DATA gSprite_08A208CC[] =
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(104), OAM2_CHR(0x20C) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A208E6[] =
+u16 CONST_DATA gSprite_SavemenuData_16[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(8), OAM2_CHR(0x200) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A208EE[] =
+u16 CONST_DATA gSprite_SavemenuData_17[] =
 {
     3,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x2C0) + OAM2_LAYER(2),
@@ -153,7 +153,7 @@ u16 CONST_DATA gSprite_08A208EE[] =
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(128), OAM2_CHR(0x2D0) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20902[] =
+u16 CONST_DATA gSprite_SavemenuData_18[] =
 {
     3,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_AFFINE_ID(1), OAM2_CHR(0x2C0) + OAM2_LAYER(2),
@@ -161,7 +161,7 @@ u16 CONST_DATA gSprite_08A20902[] =
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_AFFINE_ID(1) + OAM1_X(128), OAM2_CHR(0x2D0) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20916[] =
+u16 CONST_DATA gSprite_SavemenuData_19[] =
 {
     3,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_AFFINE_ID(2), OAM2_CHR(0x2C0) + OAM2_LAYER(2),
@@ -169,7 +169,7 @@ u16 CONST_DATA gSprite_08A20916[] =
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_AFFINE_ID(2) + OAM1_X(128), OAM2_CHR(0x2D0) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A2092A[] =
+u16 CONST_DATA gSprite_SavemenuData_20[] =
 {
     6,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x340) + OAM2_LAYER(2),
@@ -180,7 +180,7 @@ u16 CONST_DATA gSprite_08A2092A[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(160), OAM2_CHR(0x354) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20950[] =
+u16 CONST_DATA gSprite_SavemenuData_21[] =
 {
     6,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(1), OAM2_CHR(0x380) + OAM2_LAYER(2),
@@ -191,7 +191,7 @@ u16 CONST_DATA gSprite_08A20950[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(1) + OAM1_X(160), OAM2_CHR(0x394) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA gSprite_08A20976[] =
+u16 CONST_DATA gSprite_SavemenuData_22[] =
 {
     6,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2), OAM2_CHR(0x3C0) + OAM2_LAYER(2),
@@ -202,44 +202,44 @@ u16 CONST_DATA gSprite_08A20976[] =
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(2) + OAM1_X(160), OAM2_CHR(0x3D4) + OAM2_LAYER(2),
 };
 
-u16 * CONST_DATA SpriteArray_08A2099C[] =
+u16 * CONST_DATA SpriteArray_SavemenuData_0[] =
 {
-    gSprite_08A2084A,
-    gSprite_08A20864,
-    gSprite_08A2087E,
-    gSprite_08A20898,
-    gSprite_08A208B2,
-    gSprite_08A208CC,
-    gSprite_08A208E6,
+    gSprite_SavemenuData_10,
+    gSprite_SavemenuData_11,
+    gSprite_SavemenuData_12,
+    gSprite_SavemenuData_13,
+    gSprite_SavemenuData_14,
+    gSprite_SavemenuData_15,
+    gSprite_SavemenuData_16,
 };
 
-u16 * CONST_DATA SpriteArray_08A209B8[] =
+u16 * CONST_DATA SpriteArray_SavemenuData_1[] =
 {
-    gSprite_08A2077C,
-    gSprite_08A20796,
-    gSprite_08A207B0,
-    gSprite_08A207C4,
-    gSprite_08A207DE,
-    gSprite_08A207F2,
-    gSprite_08A20800,
-    gSprite_08A20796,
-    gSprite_08A20828,
-    gSprite_08A20842,
-    gSprite_08A2080E,
+    gSprite_SavemenuData_0,
+    gSprite_SavemenuData_1,
+    gSprite_SavemenuData_2,
+    gSprite_SavemenuData_3,
+    gSprite_SavemenuData_4,
+    gSprite_SavemenuData_5,
+    gSprite_SavemenuData_6,
+    gSprite_SavemenuData_1,
+    gSprite_SavemenuData_8,
+    gSprite_SavemenuData_9,
+    gSprite_SavemenuData_7,
 };
 
-u16 * CONST_DATA SpriteArray_08A209E4[] =
+u16 * CONST_DATA SpriteArray_SavemenuData_2[] =
 {
-    gSprite_08A2092A,
-    gSprite_08A20950,
-    gSprite_08A20976,
+    gSprite_SavemenuData_20,
+    gSprite_SavemenuData_21,
+    gSprite_SavemenuData_22,
 };
 
-u16 * CONST_DATA SpriteArray_08A209F0[] =
+u16 * CONST_DATA SpriteArray_SavemenuData_3[] =
 {
-    gSprite_08A208EE,
-    gSprite_08A20902,
-    gSprite_08A20916,
+    gSprite_SavemenuData_17,
+    gSprite_SavemenuData_18,
+    gSprite_SavemenuData_19,
 };
 
 // clang-format on

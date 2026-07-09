@@ -1,13 +1,13 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ruin6_Turn[] = {
-    TurnEventPlayer(0, EventScr_089FE754, 4)
-    TurnEventPlayer(0, EventScr_089FE76C, 5)
-    TurnEventPlayer(0, EventScr_089FE754, 6)
-    TurnEventPlayer(0, EventScr_089FE784, 7)
-    TurnEventPlayer(0, EventScr_089FE754, 8)
-    TurnEventPlayer(0, EventScr_089FE79C, 9)
-    TurnEventPlayer(0, EventScr_089FE754, 10)
+    TurnEventPlayer(0, EventScr_Ruin_14, 4)
+    TurnEventPlayer(0, EventScr_Ruin_15, 5)
+    TurnEventPlayer(0, EventScr_Ruin_14, 6)
+    TurnEventPlayer(0, EventScr_Ruin_16, 7)
+    TurnEventPlayer(0, EventScr_Ruin_14, 8)
+    TurnEventPlayer(0, EventScr_Ruin_17, 9)
+    TurnEventPlayer(0, EventScr_Ruin_14, 10)
     END_MAIN
 };
 
@@ -53,11 +53,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins6Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin6_UnitMove,
     .tutorialEvents                = EventListScr_Ruin6_Tutorial,
 
-    .traps            = TrapData_Event_089EDD7B,
-    .extraTrapsInHard = TrapData_Event_089EDEEE,
+    .traps            = TrapData_Event_Ruin6_0,
+    .extraTrapsInHard = TrapData_Event_Ruin6_1,
 
-    .playerUnitsInNormal = UnitDef_088CE740,
-    .playerUnitsInHard   = UnitDef_088CE740,
+    .playerUnitsInNormal = UnitDef_Ruin6Ally,
+    .playerUnitsInHard   = UnitDef_Ruin6Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

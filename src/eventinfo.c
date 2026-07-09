@@ -329,27 +329,27 @@ void CallEndEvent(void) {
 }
 
 //! FE8U = 0x080832C4
-s8 sub_80832C4(void) {
+s8 Eventinfo_CondFalse_0(void) {
     return 0;
 }
 
 //! FE8U = 0x080832C8
-s8 sub_80832C8(void) {
+s8 Eventinfo_CondFalse_1(void) {
     return 0;
 }
 
 //! FE8U = 0x080832CC
-s8 sub_80832CC(void) {
+s8 Eventinfo_CondFalse_2(void) {
     return 0;
 }
 
 //! FE8U = 0x080832D0
-s8 sub_80832D0(void) {
+s8 Eventinfo_CondFalse_3(void) {
     return 0;
 }
 
 //! FE8U = 0x080832D4
-s8 sub_80832D4(void) {
+s8 Eventinfo_CondFalse_4(void) {
     return 0;
 }
 
@@ -450,7 +450,7 @@ void GetChapterSkirmishLeaderClasses(u8 chapterId, u8 * list)
 }
 
 //! FE8U = 0x08083424
-bool sub_8083424(void)
+bool AreSkirmishUnitsAvailable(void)
 {
     const struct ChapterEventGroup* evGroup = GetChapterEventDataPointer(gPlaySt.chapterIndex);
 
@@ -607,7 +607,7 @@ void DisplayDefeatTalkForPid(u8 pid) {
 }
 
 //! FE8U = 0x08083654
-void sub_8083654(u16 pid) {
+void KillPlayerUnitByPid(u16 pid) {
     struct Unit* unit;
     int i;
     int x;
@@ -690,7 +690,7 @@ u16 GetSupportTalkSong_(u8 unused, u8 pidA, u8 pidB, int rank) {
 }
 
 //! FE8U = 0x080837B0
-void sub_80837B0(void) {
+void ForceGameOver(void) {
     SetFlag(EVFLAG_GAMEOVER);
     StartBgm(SONG_GAME_OVER, NULL);
     gPlaySt.config.disableBgm = 1;
@@ -700,7 +700,7 @@ void sub_80837B0(void) {
 }
 
 //! FE8U = 0x080837D8
-s8 sub_80837D8(void) {
+s8 IsHardMode(void) {
     if (gPlaySt.chapterStateBits & PLAY_FLAG_HARD) {
         return 1;
     }
@@ -1397,7 +1397,7 @@ void StartCharacterEvent(u8 pidA, u8 pidB) {
 }
 
 //! FE8U = 0x08083FFC
-u16 sub_8083FFC(u16 itemId) {
+u16 GetChestItemSubstitute(u16 itemId) {
     if (itemId == ITEM_MEMBERCARD) {
         if (GetConvoyItemSlot(ITEM_MEMBERCARD) != -1) {
             return ITEM_WHITEGEM;
@@ -1532,11 +1532,11 @@ void StartAvailableTileEvent(s8 x, s8 y) {
                     info.givenItem = r0;
                 }
             _08084274:
-                info.givenItem = sub_8083FFC(info.givenItem);
+                info.givenItem = GetChestItemSubstitute(info.givenItem);
                 CallChestOpeningEvent(GetMapChangeIdAt(info.xPos, info.yPos), info.givenItem);
             } else {
                 if (info.givenItem != ITEM_GOLD) {
-                    info.givenItem = sub_8083FFC(info.givenItem);
+                    info.givenItem = GetChestItemSubstitute(info.givenItem);
                     CallChestOpeningEvent(GetMapChangeIdAt(info.xPos, info.yPos), info.givenItem);
                 } else {
                     CallChestOpeningEvent(GetMapChangeIdAt(info.xPos, info.yPos), info.givenMoney);
@@ -1637,7 +1637,7 @@ void RunWaitEvents(void) {
     }
 
     if (CheckFlag(0x65) || (CountAvailableBlueUnits() == 0)) {
-        sub_80837B0();
+        ForceGameOver();
         return;
     }
 

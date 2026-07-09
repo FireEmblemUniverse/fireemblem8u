@@ -39,3 +39,16 @@ Instead of forcing the files through the complex Python linker script, we opted 
 - Executing `sha1sum -c checksum.sha1` confirmed a 100% byte-for-byte match with the original ROM.
 
 **Conclusion:** The Python `arm_compressing_linker.py` tool is strictly for handling assets that require LZ compression or isolated symbol-wrapping. For standard, uncompressed sequential data, combining related blocks into unified `.s` files and using `.include` natively resolves complex label arithmetic and produces a cleaner, identical build.
+
+## 6. C-side FORCE_SPRITE scripts (`gEkrdragonfx`, `efxmagic`) — 2026-06-03
+
+The same FORCE_SPRITE pattern also appears in the **C** data files (`src/data/banim-*.c`), where animation scripts are written as `u32[]`/`AnimScr[]` and use the C macros in `include/anime.h` (`ANIMSCR_FORCE_SPRITE`, `ANIMSCR_DISABLED`, `ANIM_SPRITE_END`) rather than the `.inc` assembler macros. Three scripts still carried raw/obfuscated FORCE_SPRITE pointers and were decompiled to macro form, byte-identically:
+
+- **`gEkrdragonfx_0` / `gEkrdragonfx_1`** (final-boss `efxMaohFlashEyeOBJ1`, the left/right-facing variants). Each is a force-sprite list — `ANIMSCR_FORCE_SPRITE(sprite, dur) ×8 + ANIMSCR_DISABLED`. Exactly as in §3.1, the referenced `struct AnimSpriteData` lived **inside other blobs**: `gEkr0`'s sprites were embedded in the `Pal_DemonLightSprites_EyeFlash` "palette", and `gEkr1`'s sprites inside `gEkr0`'s own body. Carved into 16 named `AnimSprite_Ekrdragonfx{0,1}_*[]` arrays; `gEkr1` mirrors `gEkr0` (`ATTR1_FLIP_X` + negated x), which independently confirms the decode.
+- **`efxmagic`** (`FramScr_Unk5D4F90[0]`): a lone raw FORCE_SPRITE word → `ANIMSCR_FORCE_SPRITE(FramScr_Unk5D4F84, 1)`.
+
+The C-macro arithmetic matches the assembler's: `ANIMSCR_FORCE_SPRITE(s, d) = (u32)s + ((d & 3) + ((d & 0x3C) << 26))`, and `(u32)&array` decays to a relocatable label, so the compiler emits the same `R_ARM_ABS32` relocation the assembler would.
+
+**Shiftability note:** the original raw forms (`0x187A5138`, …) were absolute addresses carrying no relocation — they survived the byte-identical build but would break under a ROM layout shift; the macro/label forms relocate correctly.
+
+The discovery that `Pal_DemonLightSprites_EyeFlash` was a palette with `AnimSpriteData` baked onto its end generalized into a broader audit — see `docs/banim_asset_extraction.md` § "Oversized `.agbpal` with hidden trailing assets" (5 more `.agbpal` in this PR carried hidden assets). `gEfxlvupfx_0` is a related case still awaiting full C-side AnimScr decomp.

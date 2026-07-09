@@ -309,7 +309,7 @@ void ProcShowMapChange_UpdateGame(struct ShowMapChangeProc * proc)
 
     RenderBmMapOnBg2();
 
-    sub_8019778();
+    RefreshChapterMap();
     RenderBmMap();
 
     NewBMXFADE(FALSE);

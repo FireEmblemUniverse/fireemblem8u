@@ -15,9 +15,9 @@ struct ProcCmd CONST_DATA gProc_efxFarAttack[] =
 {
     PROC_NAME("efxFarAttack"),
 
-    PROC_REPEAT(sub_80534E4),
-    PROC_REPEAT(sub_8053514),
-    PROC_REPEAT(sub_8053584),
+    PROC_REPEAT(efxFarAttack_Init),
+    PROC_REPEAT(efxFarAttack_ScrollIn),
+    PROC_REPEAT(efxFarAttack_ScrollOut),
 
     PROC_END,
 };
@@ -96,7 +96,7 @@ void NewEfxFarAttackWithDistance(struct Anim * anim, s16 arg)
 }
 
 //! FE8U = 0x080534AC
-void sub_80534AC(struct ProcEfxFarAttack * unused, int x)
+void EfxFarAttack_SetAnimXPositions(struct ProcEfxFarAttack * unused, int x)
 {
     struct Anim * anim = gAnims[0];
     x = -x;
@@ -116,11 +116,11 @@ void sub_80534AC(struct ProcEfxFarAttack * unused, int x)
 }
 
 //! FE8U = 0x080534E4
-void sub_80534E4(struct ProcEfxFarAttack * proc)
+void efxFarAttack_Init(struct ProcEfxFarAttack * proc)
 {
-    sub_80534AC(proc, proc->unk_32);
+    EfxFarAttack_SetAnimXPositions(proc, proc->unk_32);
     EkrDragonTmCpyExt(proc->unk_32, 0);
-    sub_8053618(proc->unk_32);
+    EfxUpdateBg2Scroll(proc->unk_32);
 
     proc->timer = 0;
 
@@ -130,18 +130,18 @@ void sub_80534E4(struct ProcEfxFarAttack * proc)
 }
 
 //! FE8U = 0x08053514
-void sub_8053514(struct ProcEfxFarAttack * proc)
+void efxFarAttack_ScrollIn(struct ProcEfxFarAttack * proc)
 {
     u32 ret = Interpolate(INTERPOLATE_SQUARE, proc->unk_32, proc->unk_34, proc->timer, proc->unk_2e);
     gEkrBgPosition = ret;
 
-    sub_80534AC(proc, ret);
+    EfxFarAttack_SetAnimXPositions(proc, ret);
     EkrDragonTmCpyExt(gEkrBgPosition, 0);
-    sub_8053618(gEkrBgPosition);
+    EfxUpdateBg2Scroll(gEkrBgPosition);
 
     if (GetBattleAnimArenaFlag() != 0)
     {
-        sub_805B034(gEkrBgPosition);
+        EkrArenaBgScroll(gEkrBgPosition);
     }
 
     proc->timer++;
@@ -156,18 +156,18 @@ void sub_8053514(struct ProcEfxFarAttack * proc)
 }
 
 //! FE8U = 0x08053584
-void sub_8053584(struct ProcEfxFarAttack * proc)
+void efxFarAttack_ScrollOut(struct ProcEfxFarAttack * proc)
 {
     u32 ret = Interpolate(INTERPOLATE_RSQUARE, proc->unk_36, proc->unk_38, proc->timer, proc->terminator);
     gEkrBgPosition = ret;
 
-    sub_80534AC(proc, ret);
+    EfxFarAttack_SetAnimXPositions(proc, ret);
     EkrDragonTmCpyExt(gEkrBgPosition, 0);
-    sub_8053618(gEkrBgPosition);
+    EfxUpdateBg2Scroll(gEkrBgPosition);
 
     if (GetBattleAnimArenaFlag() != 0)
     {
-        sub_805B034(gEkrBgPosition);
+        EkrArenaBgScroll(gEkrBgPosition);
     }
 
     proc->timer++;
@@ -188,7 +188,7 @@ void sub_8053584(struct ProcEfxFarAttack * proc)
 }
 
 //! FE8U = 0x08053618
-void sub_8053618(int xPos)
+void EfxUpdateBg2Scroll(int xPos)
 {
     u16 * p;
     int a;
@@ -213,7 +213,7 @@ void sub_8053618(int xPos)
 
 // clang-format off
 
-const s16 gUnknown_080DA4BA[] =
+const s16 gEfxbattle_0[] =
 {
     +0, -1,
     +0, +0, 
@@ -249,7 +249,7 @@ const s16 gEfxQuakeVecs[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DA526[] =
+const s16 gEfxbattle_1[] =
 {
     +2, +2,
     +0, +0,
@@ -295,7 +295,7 @@ const s16 gEfxQuakeVecs2[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DA5BA[] =
+const s16 gEfxbattle_2[] =
 {
     +6, +6,
     +0, +0,
@@ -318,7 +318,7 @@ const s16 gUnknown_080DA5BA[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DA604[] =
+const s16 gEfxbattle_3[] =
 {
     +9, +9,
     +0, +0,
@@ -349,7 +349,7 @@ const s16 gUnknown_080DA604[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DA66E[] =
+const s16 gEfxbattle_4[] =
 {
     +9, +9,
     +0, +0,
@@ -398,7 +398,7 @@ const s16 gUnknown_080DA66E[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA720[] =
+const s16 gQuakeVecs_Efxbattle_0[] =
 {
     +3, +3,
     +0, +0,
@@ -407,7 +407,7 @@ const s16 gQuakeVecs_080DA720[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA732[] =
+const s16 gQuakeVecs_Efxbattle_1[] =
 {
     +8, +8,
     +0, +0,
@@ -420,7 +420,7 @@ const s16 gQuakeVecs_080DA732[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA754[] =
+const s16 gQuakeVecs_Efxbattle_2[] =
 {
     +1, +1,
     +0, +0,
@@ -429,7 +429,7 @@ const s16 gQuakeVecs_080DA754[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA766[] =
+const s16 gQuakeVecs_Efxbattle_3[] =
 {
     +2, +2,
     +0, +0,
@@ -438,7 +438,7 @@ const s16 gQuakeVecs_080DA766[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA778[] =
+const s16 gQuakeVecs_Efxbattle_4[] =
 {
     +3, +3,
     +0, +0,
@@ -447,7 +447,7 @@ const s16 gQuakeVecs_080DA778[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA78A[] =
+const s16 gQuakeVecs_Efxbattle_5[] =
 {
     +0, +3,
     +0, +0,
@@ -497,7 +497,7 @@ const s16 gQuakeVecs_080DA78A[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA840[] =
+const s16 gQuakeVecs_Efxbattle_6[] =
 {
     -1, -1,
     +0, +0,
@@ -506,7 +506,7 @@ const s16 gQuakeVecs_080DA840[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA852[] =
+const s16 gQuakeVecs_Efxbattle_7[] =
 {
     +2, +2,
     -1, -1,
@@ -515,7 +515,7 @@ const s16 gQuakeVecs_080DA852[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA864[] =
+const s16 gQuakeVecs_Efxbattle_8[] =
 {
     +2, +2,
     -1, -1,
@@ -524,7 +524,7 @@ const s16 gQuakeVecs_080DA864[] =
     INT16_MAX,
 };
 
-const s16 gQuakeVecs_080DA876[] =
+const s16 gQuakeVecs_Efxbattle_9[] =
 {
     +0, +4,
     +0, +4,
@@ -625,7 +625,7 @@ const s16 gQuakeVecs_080DA876[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DA9F8[] =
+const s16 gEfxbattle_5[] =
 {
     +6, +6,
     +0, +0,
@@ -667,7 +667,7 @@ const s16 gUnknown_080DA9F8[] =
     INT16_MAX,
 };
 
-const s16 gUnknown_080DAA8E[] =
+const s16 gEfxbattle_6[] =
 {
     +10, +10,
     +0, +0,
@@ -757,22 +757,22 @@ struct ProcCmd CONST_DATA ProcScr_efxQuakePure[] =
 
 const void * CONST_DATA EfxQuakePureVecs[] =
 {
-    gUnknown_080DA4BA, 0,
+    gEfxbattle_0, 0,
     gEfxQuakeVecs, 0,
-    gUnknown_080DA526, 0,
+    gEfxbattle_1, 0,
     gEfxQuakeVecs2, 0,
-    gUnknown_080DA5BA, 0,
-    gUnknown_080DA604, 0,
-    gQuakeVecs_080DA720, 0,
-    gQuakeVecs_080DA732, 0,
-    gQuakeVecs_080DA754, 0,
-    gQuakeVecs_080DA766, 0,
-    gQuakeVecs_080DA778, 0,
-    gQuakeVecs_080DA78A, 0,
-    gQuakeVecs_080DA840, 0,
-    gQuakeVecs_080DA852, 0,
-    gQuakeVecs_080DA864, 0,
-    gQuakeVecs_080DA876, 0,
+    gEfxbattle_2, 0,
+    gEfxbattle_3, 0,
+    gQuakeVecs_Efxbattle_0, 0,
+    gQuakeVecs_Efxbattle_1, 0,
+    gQuakeVecs_Efxbattle_2, 0,
+    gQuakeVecs_Efxbattle_3, 0,
+    gQuakeVecs_Efxbattle_4, 0,
+    gQuakeVecs_Efxbattle_5, 0,
+    gQuakeVecs_Efxbattle_6, 0,
+    gQuakeVecs_Efxbattle_7, 0,
+    gQuakeVecs_Efxbattle_8, 0,
+    gQuakeVecs_Efxbattle_9, 0,
 };
 
 ProcPtr NewEfxQuakePure(int index, int kind)
@@ -855,7 +855,7 @@ ProcPtr NewEfxQuake(int kind)
 
     switch (kind) {
     case 0:
-        proc->vec = gUnknown_080DA4BA;
+        proc->vec = gEfxbattle_0;
         proc->quake_ui = 0;
 
         break;
@@ -867,7 +867,7 @@ ProcPtr NewEfxQuake(int kind)
         break;
 
     case 2:
-        proc->vec = gUnknown_080DA526;
+        proc->vec = gEfxbattle_1;
         proc->quake_ui = 0;
 
         break;
@@ -879,25 +879,25 @@ ProcPtr NewEfxQuake(int kind)
         break;
 
     case 4:
-        proc->vec = gUnknown_080DA5BA;
+        proc->vec = gEfxbattle_2;
         proc->quake_ui = 0;
 
         break;
 
     case 5:
-        proc->vec = gUnknown_080DA604;
+        proc->vec = gEfxbattle_3;
         proc->quake_ui = 1;
 
         break;
 
     case 6:
-        proc->vec = gUnknown_080DA66E;
+        proc->vec = gEfxbattle_4;
         proc->quake_ui = 1;
 
         break;
 
     default:
-        proc->vec = gUnknown_080DA4BA;
+        proc->vec = gEfxbattle_0;
         proc->quake_ui = 0;
 
         break;
@@ -1020,7 +1020,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 
     if (kind == 0)
     {
-        proc->vec = gUnknown_080DA4BA;
+        proc->vec = gEfxbattle_0;
     }
     else if (kind == 1)
     {
@@ -1028,7 +1028,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     }
     else if (kind == 2)
     {
-        proc->vec = gUnknown_080DA526;
+        proc->vec = gEfxbattle_1;
     }
     else if (kind == 3)
     {
@@ -1036,15 +1036,15 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     }
     else if (kind == 4)
     {
-        proc->vec = gUnknown_080DA9F8;
+        proc->vec = gEfxbattle_5;
     }
     else if (kind == 5)
     {
-        proc->vec = gUnknown_080DAA8E;
+        proc->vec = gEfxbattle_6;
     }
     else
     {
-        proc->vec = gUnknown_080DA4BA;
+        proc->vec = gEfxbattle_0;
     }
 
     proc->unk_48 = 1;
@@ -1085,7 +1085,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     anim->xPosition = proc->unk_36 - x;
     anim->yPosition = proc->unk_3e;
 
-    if (gUnknown_0201775C == 1)
+    if (gEkrbattle_5 == 1)
     {
         anim->oam2Base = OAM2_CHR(0xC0) + OAM2_LAYER(1) + OAM2_PAL(3);
     }
@@ -1096,7 +1096,7 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
 
     proc->unk_64 = anim;
 
-    RegisterDataMove(gUnknown_0200003C[GetAnimPosition(anim1)], (void *)0x06011800, 0x800);
+    RegisterDataMove(gEkrbattle_1[GetAnimPosition(anim1)], (void *)0x06011800, 0x800);
 
     if (gEkrSpellAnimIndex[GetAnimPosition(anim2)] == 0x39)
     {
@@ -1106,8 +1106,8 @@ void NewEfxHitQuake(struct Anim * anim1, struct Anim * anim2, int kind)
     CpuFastCopy(gBanimTerrainPaletteMaybe[GetAnimPosition(anim1)], gPaletteBuffer + 0x130, PLTT_SIZE_4BPP);
     EnablePaletteSync();
 
-    sub_805AFA0(gEkrDistanceType, GetAnimPosition(anim1));
-    sub_8053618(gEkrBgPosition);
+    RegisterBanimTerrainTmByPos(gEkrDistanceType, GetAnimPosition(anim1));
+    EfxUpdateBg2Scroll(gEkrBgPosition);
 
     return;
 }
@@ -1144,7 +1144,7 @@ void efxHitQuake_Loop(struct ProcEfxQuake * proc)
                     BG_SetPosition(BG_3, 0, 0);
                 }
 
-                sub_8053618(gEkrBgPosition);
+                EfxUpdateBg2Scroll(gEkrBgPosition);
 
                 break;
         }
@@ -1152,7 +1152,7 @@ void efxHitQuake_Loop(struct ProcEfxQuake * proc)
         if (proc->unk_64 != NULL)
         {
             AnimDelete(proc->unk_64);
-            sub_805AE58(&gUnknown_0201FADC);
+            RegisterBanimTerrainTm(&gEkrbattle_9);
         }
 
         x1 = gEkrXPosReal[0] - gEkrBgPosition;

@@ -23,7 +23,7 @@ struct ColFadeProc
 void NewColFadeOut(int, int, int, ProcPtr);
 void NewColFadeIn(int, int, int, ProcPtr);
 
-extern u16 gUnknown_02014EF4[];
+extern u16 gUisupport_1[];
 
 // extern ??? ProcScr_ColFadeOut
 // extern ??? ProcScr_ColFadeIn

@@ -15,7 +15,7 @@
 #include "constants/characters.h"
 #include "classchg.h"
 
-void sub_80CD62C(void)
+void RefreshBMapDisplay_FromPromotion(void)
 {
     BMapDispResume();
     RefreshBMapGraphics();
@@ -167,7 +167,7 @@ void PromoTrainee_Talk1(struct ProcPromoTraineeEvent *proc)
     c->displayBits = FACE_DISP_HIDDEN;
     b->displayBits = FACE_DISP_HIDDEN;
 
-    gUnknown_03005398 = -1;
+    gUnk_80 = -1;
 }
 
 void PromoTrainee_Talk2(struct ProcPromoTraineeEvent *proc)

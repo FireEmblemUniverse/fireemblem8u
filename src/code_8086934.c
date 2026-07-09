@@ -4,7 +4,7 @@
 #include "savemenu.h"
 
 //! FE8U = 0x0808683C
-void sub_808683C(void)
+void ApplySepiaToPaletteBuffer(void)
 {
     u8 i;
     u16 * pal = gPaletteBuffer + 0x60;
@@ -71,7 +71,7 @@ void sub_808683C(void)
 }
 
 //! FE8U = 0x08086928
-void sub_8086928(ProcPtr proc)
+void StartSaveMenuPostChapter(ProcPtr proc)
 {
     Make6C_SaveMenuPostChapter(proc);
     return;

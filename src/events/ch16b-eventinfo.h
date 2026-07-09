@@ -1,10 +1,10 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch16b_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_089FCE80, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089FCE04, 1, 255)
-    TurnEventPlayer(0, EventScr_089FCDC0, 16)
-    TurnEventPlayer(0, EventScr_089FCDA8, 6)
+    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_Ch16B_5, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch16B_3, 1, 255)
+    TurnEventPlayer(0, EventScr_Ch16B_1, 16)
+    TurnEventPlayer(0, EventScr_Ch16B_0, 6)
     END_MAIN
 };
 
@@ -25,10 +25,10 @@ CONST_DATA EventListScr EventListScr_Ch16b_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch16b_Misc[] = {
-    AREA(EVFLAG_TMP(11), EventScr_089FCDD8, 0, 0, 8, 3)
-    AREA(EVFLAG_TMP(12), EventScr_089FCE48, 5, 4, 21, 11)
-    AREA(EVFLAG_TMP(12), EventScr_089FCE48, 1, 18, 13, 22)
-    AREA(EVFLAG_TMP(11), EventScr_089FCDD8, 14, 14, 21, 21)
+    AREA(EVFLAG_TMP(11), EventScr_Ch16B_2, 0, 0, 8, 3)
+    AREA(EVFLAG_TMP(12), EventScr_Ch16B_4, 5, 4, 21, 11)
+    AREA(EVFLAG_TMP(12), EventScr_Ch16B_4, 1, 18, 13, 22)
+    AREA(EVFLAG_TMP(11), EventScr_Ch16B_2, 14, 14, 21, 21)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -60,11 +60,11 @@ CONST_DATA struct ChapterEventGroup Ch16EphraimEventData = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch16b_UnitMove,
     .tutorialEvents                = EventListScr_Ch16b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB7B,
-    .extraTrapsInHard = TrapData_Event_089EDEDA,
+    .traps            = TrapData_Event_Ch16B_0,
+    .extraTrapsInHard = TrapData_Event_Ch16B_1,
 
-    .playerUnitsInNormal = UnitDef_088C7648,
-    .playerUnitsInHard   = UnitDef_088C7648,
+    .playerUnitsInNormal = UnitDef_Ch16BAlly,
+    .playerUnitsInHard   = UnitDef_Ch16BAlly,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

@@ -101,36 +101,36 @@ struct ProcOpAnimBlend
 };
 
 extern CONST_DATA u16 Obj_OpAnimEphEirikaName[];
-extern CONST_DATA u16 Obj_08AA6C0E[];
-extern CONST_DATA u16 Obj_08AA6C22[];
-extern CONST_DATA u16 Obj_08AA6C36[];
-extern CONST_DATA u16 Obj_08AA6C4A[];
-extern CONST_DATA u16 Obj_08AA6C58[];
-extern CONST_DATA u16 Obj_08AA6C58[];
-extern CONST_DATA u16 Obj_08AA6C58[];
-extern CONST_DATA u16 Obj_08AA6C66[];
-extern CONST_DATA u16 Obj_08AA6C74[];
-extern CONST_DATA u16 Obj_08AA6C82[];
-extern CONST_DATA u16 Obj_08AA6C8A[];
-extern CONST_DATA u16 Obj_08AA6C92[];
-extern CONST_DATA u16 Obj_08AA6C9A[];
+extern CONST_DATA u16 Obj_Opanimfx_0[];
+extern CONST_DATA u16 Obj_Opanimfx_1[];
+extern CONST_DATA u16 Obj_Opanimfx_2[];
+extern CONST_DATA u16 Obj_Opanimfx_3[];
+extern CONST_DATA u16 Obj_Opanimfx_4[];
+extern CONST_DATA u16 Obj_Opanimfx_4[];
+extern CONST_DATA u16 Obj_Opanimfx_4[];
+extern CONST_DATA u16 Obj_Opanimfx_5[];
+extern CONST_DATA u16 Obj_Opanimfx_6[];
+extern CONST_DATA u16 Obj_Opanimfx_7[];
+extern CONST_DATA u16 Obj_Opanimfx_8[];
+extern CONST_DATA u16 Obj_Opanimfx_9[];
+extern CONST_DATA u16 Obj_Opanimfx_10[];
 extern CONST_DATA struct ProcCmd ProcScr_OpAnimfxTerminator[];
 extern CONST_DATA struct ProcCmd ProcScr_OpAnimFadeIn[];
 extern CONST_DATA struct ProcCmd ProcScr_OpAnimBLDALPHA[];
-extern CONST_DATA struct ProcCmd ProcScr_08AA6D04[];
-extern CONST_DATA u8 * imgs_08AA6D14[100];
-extern CONST_DATA u16 * tsas_08AA6EA4[100];
+extern CONST_DATA struct ProcCmd ProcScr_Opanim_0[];
+extern CONST_DATA u8 * imgs_Opanim_0[100];
+extern CONST_DATA u16 * tsas_Opanim_0[100];
 extern CONST_DATA struct ProcCmd ProcScr_OpAnimMergeBG[];
-// extern ??? gUnknown_08AA705C
-// extern ??? gUnknown_08AA707C
-// extern ??? gUnknown_08AA709C
-// extern ??? gUnknown_08AA70BC
-// extern ??? gUnknown_08AA70DC
-// extern ??? gUnknown_08AA70EA
-// extern ??? gUnknown_08AA7116
-// extern ??? gUnknown_08AA712A
-// extern ??? gUnknown_08AA715C
-// extern ??? gUnknown_08AA7194
+// extern ??? ProcScr_OpAnimDarkenBg2In
+// extern ??? ProcScr_OpAnimDarkenBg2Out
+// extern ??? Obj_OpanimClassReelUnitSprite
+// extern ??? Obj_OpanimTitleFlyInSeg1ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg2ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg3ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg4ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg10ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg9ObjWindow
+// extern ??? Obj_OpanimTitleFlyInSeg12ObjWindow
 
 extern CONST_DATA u16 * Pal_OpAnimShiningRing[];
 extern CONST_DATA u8 img_opanim1[];
@@ -333,7 +333,7 @@ extern CONST_DATA u16 tsa_opanim97[];
 extern CONST_DATA u16 tsa_opanim98[];
 extern CONST_DATA u16 tsa_opanim99[];
 extern CONST_DATA u16 tsa_opanim100[];
-extern u16 pal_08B103D8[];
+extern u16 pal_OpanimGfx_0[];
 
 extern u8 Img_OpAnimGenericCharacterBG[];
 extern u8 Tsa_OpAnimGenericCharacterBG[];
@@ -346,8 +346,8 @@ extern u8 Tsa_OpAnimJoshua[];
 extern u8 Img_OpAnimShiningRing[];
 extern u8 Tsa_OpAnimShiningRing[];
 
-extern struct ProcCmd gUnknown_08AA705C[];
-extern struct ProcCmd gUnknown_08AA707C[];
+extern struct ProcCmd ProcScr_OpAnimDarkenBg2In[];
+extern struct ProcCmd ProcScr_OpAnimDarkenBg2Out[];
 
 extern u8 Img_OpAnimTethys[];
 extern u8 Tsa_OpAnimTethys[];
@@ -355,9 +355,9 @@ extern u8 Tsa_OpAnimTethys[];
 extern u8 Img_OpAnimTethys2[];
 extern u8 Tsa_OpAnimTethys2[];
 
-extern u16 pal_08B103D8[];
+extern u16 pal_OpanimGfx_0[];
 
-extern u16 Pal_08ADBE78[];
+extern u16 Pal_OpanimGfx_0[];
 
 extern u8 Img_OpAnimFaceRennac[];
 extern u16 Pal_OpAnimFaceRennac[];
@@ -503,15 +503,15 @@ extern u16 Pal_OpAnimTethys[];
 
 extern u8 Tsa_OpAnimShiningRingBlinking[];
 
-extern u16 gUnknown_08AA709C[];
-extern u16 gUnknown_08AA70BC[];
-extern u16 gUnknown_08AA70DC[];
-extern u16 gUnknown_08AA70EA[];
-extern u16 gUnknown_08AA7116[];
-extern u16 gUnknown_08AA712A[];
-extern u16 gUnknown_08AA715C[];
+extern u16 Obj_OpanimClassReelUnitSprite[];
+extern u16 Obj_OpanimTitleFlyInSeg1ObjWindow[];
+extern u16 Obj_OpanimTitleFlyInSeg2ObjWindow[];
+extern u16 Obj_OpanimTitleFlyInSeg3ObjWindow[];
+extern u16 Obj_OpanimTitleFlyInSeg4ObjWindow[];
+extern u16 Obj_OpanimTitleFlyInSeg10ObjWindow[];
+extern u16 Obj_OpanimTitleFlyInSeg9ObjWindow[];
 
-extern u16 gUnknown_08AA7194[];
+extern u16 Obj_OpanimTitleFlyInSeg12ObjWindow[];
 
 void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b);
 void OpAnimfxTerminatorMain(struct Proc * proc);
@@ -522,8 +522,8 @@ void CopyFirstPalDirectly(const u16 * src, u16 * dst);
 void SetFirstPalDirectly(u16 * src, u16 * dst, u8 pal);
 void ClearFirstPalDirectly(u16 * dst);
 void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C689C(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
-void sub_80C69B0(u16 *, u16, u16);
+void TsaModifyFirstPalReverse(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, u16 * src2, s8 flag);
+void BlendPaletteToColor(u16 *, u16, u16);
 void OpAnimInit(struct ProcOpAnim * proc);
 void OpAnimAllBlack(struct ProcOpAnimFadeIn * proc);
 void OpAnimFadeInMain(struct ProcOpAnimFadeIn * proc);
@@ -536,14 +536,14 @@ void OpAnimBldAlphaDelay(struct ProcOpAnimBLDALPHA * proc);
 void OpAnimBldAlphaMain(struct ProcOpAnimBLDALPHA * proc);
 bool OpAnimBldAlphaExists(void);
 void OpAnimUpdateScreen1(struct ProcOpAnim * proc);
-void sub_80C6F70(struct ProcOpAnim * proc);
-void sub_80C7050(struct ProcOpAnim * proc);
+void OpAnimWorldMapfxMain(struct ProcOpAnim * proc);
+void OpAnimSetupCharacterScene(struct ProcOpAnim * proc);
 void Proc08AA6D04Main(void);
 void NewProc08AA6D04(void);
 void EndProc08AA6D04(void);
 void OpAnim1_UpdateScrollOneLine(s16 index);
 void OpAnim1_UpdateScroll(int new, int old);
-void sub_80C72A4(u8 type);
+void OpAnimApplyScrollPalettes(u8 type);
 void OpAnimPreparefxEphraim(struct ProcOpAnim * proc);
 void OpAnimMergeBGProcInit(struct Proc08AA7034 * proc);
 void OpAnimMergeBGProcUpdateBgPalette(struct Proc08AA7034 * proc);
@@ -551,87 +551,87 @@ void OpAnimDrawSplitLine(int xOam1, int yOam0);
 void OpAnimEphraimfxFlyIn(struct ProcOpAnim * proc);
 void OpAnimHBlank1(void);
 void OpAnimHBlank2(void);
-void sub_80C7900(struct ProcOpAnim * proc);
+void OpAnimEphraimSetupSplitWindow(struct ProcOpAnim * proc);
 void OpAnim1AdvanceSplitLine(struct ProcOpAnim * proc);
 void OpAnimEphraimMergeShadow(struct ProcOpAnim * proc);
 void OpAnimEphraimDisplayName(struct ProcOpAnim * proc);
 void OpAnimEphraimExit(struct ProcOpAnim * proc);
 // ??? OpAnimPreparefxEirika(???);
-// ??? sub_80C7F90(???);
-// ??? sub_80C8100(???);
-// ??? sub_80C8184(???);
-// ??? sub_80C8214(???);
-// ??? sub_80C8278(???);
-// ??? sub_80C835C(???);
-// ??? sub_80C84D8(???);
-// ??? sub_80C8554(???);
-// ??? sub_80C8564(???);
-// ??? sub_80C8580(???);
-// ??? sub_80C85B0(???);
-// ??? sub_80C85FC(???);
-// ??? sub_80C8608(???);
-// ??? sub_80C8638(???);
-// ??? sub_80C8684(???);
-// ??? sub_80C8690(???);
-// ??? sub_80C883C(???);
-// ??? sub_80C8934(???);
-// ??? sub_80C8A20(???);
-// ??? sub_80C8B0C(???);
-// ??? sub_80C8BF8(???);
-// ??? sub_80C8CE4(???);
-// ??? sub_80C8D30(???);
-// ??? sub_80C8ED4(???);
-// ??? sub_80C9024(???);
-// ??? sub_80C9100(???);
-// ??? sub_80C9218(???);
-// ??? sub_80C9330(???);
-// ??? sub_80C940C(???);
-// ??? sub_80C955C(???);
-// ??? sub_80C9638(???);
-// ??? sub_80C9750(???);
-// ??? sub_80C98A0(???);
-// ??? sub_80C99B8(???);
-// ??? sub_80C9A94(???);
-// ??? sub_80C9AFC(???);
-// ??? sub_80C9B6C(???);
-// ??? sub_80C9C08(???);
-// ??? sub_80C9C5C(???);
-// ??? sub_80C9CAC(???);
-// ??? sub_80C9CFC(???);
-// ??? sub_80C9D4C(???);
-// ??? sub_80C9DA0(???);
-// ??? sub_80C9DF0(???);
-// ??? sub_80C9E6C(???);
-// ??? sub_80C9EE8(???);
-// ??? sub_80C9F7C(???);
-// ??? sub_80C9FF8(???);
-// ??? sub_80CA10C(???);
-// ??? sub_80CA26C(???);
-// ??? sub_80CA3B8(???);
-// ??? sub_80CA4A4(???);
-// ??? sub_80CA4DC(???);
-// ??? sub_80CA92C(???);
-// ??? sub_80CA940(???);
-// ??? sub_80CA9F8(???);
-// ??? sub_80CAA38(???);
-// ??? sub_80CABB0(???);
-// ??? sub_80CAE20(???);
-// ??? sub_80CAF2C(???);
-// ??? sub_80CB0A0(???);
-// ??? sub_80CB20C(???);
-// ??? sub_80CB320(???);
-// ??? sub_80CB594(???);
-// ??? sub_80CB6A0(???);
-// ??? sub_80CB878(???);
-// ??? sub_80CBA64(???);
-// ??? sub_80CBC40(???);
-// ??? sub_80CBD7C(???);
+// ??? OpAnimEirikafxFlyIn(???);
+// ??? OpAnimEirikaSetupSplitWindow(???);
+// ??? OpAnimEirikaAdvanceSplitLine(???);
+// ??? OpAnimEirikaMergeShadow(???);
+// ??? OpAnimEirikaDisplayName(???);
+// ??? OpAnimEirikaExit(???);
+// ??? OpAnimFadeToBlack(???);
+// ??? OpAnimScrollBg3Loop(???);
+// ??? OpAnimApplyScrollAndPalettes(???);
+// ??? OpAnimDarkenBg2Init(???);
+// ??? OpAnimDarkenBg2In(???);
+// ??? OpAnimRestoreColorEffectsOnEnd(???);
+// ??? OpAnimDarkenBg2OutInit(???);
+// ??? OpAnimDarkenBg2Out(???);
+// ??? OpAnimRestoreColorEffectsOnEnd2(???);
+// ??? OpAnimJoshuaScrollIn(???);
+// ??? OpAnimScrollInLArachel(???);
+// ??? OpAnimScrollInSeth(???);
+// ??? OpAnimScrollInMyrrh(???);
+// ??? OpAnimScrollInSaleh(???);
+// ??? OpAnimScrollInTethys(???);
+// ??? OpAnimScrollInBlank(???);
+// ??? OpAnimFaceMontageBegin(???);
+// ??? OpAnimFaceMontageEwanGroup(???);
+// ??? OpAnimFaceMontageGarciaGroup(???);
+// ??? OpAnimFaceMontageVanessaGroup(???);
+// ??? OpAnimFaceMontageGilliamGroup(???);
+// ??? OpAnimFaceMontageColmGroup(???);
+// ??? OpAnimFaceMontageKnollGroup(???);
+// ??? OpAnimFaceMontageLuteGroup(???);
+// ??? OpAnimFaceMontageDuesselGroup(???);
+// ??? OpAnimFaceMontageKyleGroup(???);
+// ??? OpAnimFaceMontageValterGroup(???);
+// ??? OpAnimFaceMontageLyonGroup(???);
+// ??? OpAnimFaceMontageBlendOut(???);
+// ??? OpAnimFadeToWhite(???);
+// ??? OpAnimConfigCharacterScrollBg(???);
+// ??? OpAnimSetupJoshuaScroll(???);
+// ??? OpAnimSetupLArachelScroll(???);
+// ??? OpAnimSetupSethScroll(???);
+// ??? OpAnimSetupMyrrhScroll(???);
+// ??? OpAnimSetupSalehScroll(???);
+// ??? OpAnimSetupTethysScroll(???);
+// ??? OpAnimCharacterScrollInBegin(???);
+// ??? OpAnimCharacterScrollInMain(???);
+// ??? OpAnimCharacterScrollOutBegin(???);
+// ??? OpAnimCharacterScrollOutMain(???);
+// ??? OpAnimCharacterFlyIn1(???);
+// ??? OpAnimCharacterFlyIn2(???);
+// ??? OpAnimCharacterFlyOutBg1(???);
+// ??? OpAnimCharacterFlyOut(???);
+// ??? OpAnimGatherUnitsBegin(???);
+// ??? OpAnimGatherUnitsMain(???);
+// ??? OpAnimGatherUnitsEnd(???);
+// ??? OpAnimSetupWalkingObjWindow(???);
+// ??? OpAnimCalcObjSlideIn(???);
+// ??? OpAnimTitleFlyInSeg1(???);
+// ??? OpAnimTitleFlyInSeg2(???);
+// ??? OpAnimTitleFlyInSeg3(???);
+// ??? OpAnimTitleFlyInSeg4(???);
+// ??? OpAnimTitleFlyInSeg5(???);
+// ??? OpAnimTitleFlyInSeg6(???);
+// ??? OpAnimTitleFlyInSeg7(???);
+// ??? OpAnimTitleFlyInSeg8(???);
+// ??? OpAnimTitleFlyInSeg9(???);
+// ??? OpAnimTitleFlyInSeg10(???);
+// ??? OpAnimTitleFlyInSeg11(???);
+// ??? OpAnimTitleFlyInSeg12(???);
+// ??? OpAnimEnd(???);
 
 void TryTickHSScreenExit(struct ProcOpAnimHS * proc);
 void GameIntroPrepareNintendofx(struct ProcOpAnimHS * proc);
 void OpAnimHS_BrightenPalette(u16 * src, int palid, int line, int cur, int max);
-void sub_80CBF9C(struct ProcOpAnimHS * proc);
-void sub_80CBFC0(struct ProcOpAnimHS * proc);
+void OpAnimHS_InitFadeToBlack(struct ProcOpAnimHS * proc);
+void OpAnimHS_FadeToBlackLoop(struct ProcOpAnimHS * proc);
 void GameEarlyStartDelay(struct ProcOpAnimHS * proc);
 void GameIntroNintendoFadeIN(struct ProcOpAnimHS * proc);
 void GameIntroNintendoFadeOUT(struct ProcOpAnimHS * proc);

@@ -65,11 +65,11 @@ void NewEfxStatusUnit(struct Anim *anim)
     if (GetAnimPosition(anim) == EKR_POS_L) {
         EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_L], &gFadeComponents[0], 0x10);
         EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_L], &gFadeComponents[0x30], 0x10);
-        sub_8071574(&gFadeComponents[0], &gFadeComponents[0x30], (void *)&gFadeComponents[0x180], 0x10, 0x10);
+        EfxCalcSplitedColorStep(&gFadeComponents[0], &gFadeComponents[0x30], (void *)&gFadeComponents[0x180], 0x10, 0x10);
     } else {
         EfxSplitColor(gpEfxUnitPaletteBackup[EKR_POS_R], &gFadeComponents[0x60], 0x10);
         EfxSplitColorPetrify(gpEfxUnitPaletteBackup[EKR_POS_R], &gFadeComponents[0x90], 0x10);
-        sub_8071574(&gFadeComponents[0x60], &gFadeComponents[0x90], (void *)&gFadeComponents[0x300], 0x10, 0x10);
+        EfxCalcSplitedColorStep(&gFadeComponents[0x60], &gFadeComponents[0x90], (void *)&gFadeComponents[0x300], 0x10, 0x10);
     }
 }
 

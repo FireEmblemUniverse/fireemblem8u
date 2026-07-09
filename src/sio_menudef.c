@@ -8,7 +8,7 @@
 #include "sio.h"
 
 //! FE8U = 0x0804D858
-u8 sub_804D858(const struct MenuItemDef * def, int number)
+u8 SioWeaponSelectMenu_Usability(const struct MenuItemDef * def, int number)
 {
     int item = gActiveUnit->items[number];
 
@@ -31,27 +31,27 @@ u8 sub_804D858(const struct MenuItemDef * def, int number)
 }
 
 //! FE8U = 0x0804D8A4
-u8 sub_804D8A4(struct MenuProc * menu, struct MenuItemProc * menuItem)
+u8 SioWeaponSelectMenu_OnSelect(struct MenuProc * menu, struct MenuItemProc * menuItem)
 {
     if (menuItem->availability == MENU_DISABLED)
     {
         return MENU_ACT_SND6B;
     }
 
-    gUnk_Sio_0203DD90.unk_07 = menuItem->itemNumber;
+    gUnk_Sio_16.unk_07 = menuItem->itemNumber;
 
     return MENU_ACT_SND6A | MENU_ACT_DOOM;
 }
 
 //! FE8U = 0x0804D8C8
-u8 sub_804D8C8(struct MenuProc * menu, struct MenuItemProc * menuItem)
+u8 SioAttackTypeMenu_OnSelect(struct MenuProc * menu, struct MenuItemProc * menuItem)
 {
-    gUnk_Sio_0203DD90.unk_06 = menuItem->itemNumber + 1;
+    gUnk_Sio_16.unk_06 = menuItem->itemNumber + 1;
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x0804D8DC
-int sub_804D8DC(struct MenuProc * menu, struct MenuItemProc * menuItem)
+int SioWeaponSelectMenu_Draw(struct MenuProc * menu, struct MenuItemProc * menuItem)
 {
     int item = gActiveUnit->items[menuItem->itemNumber];
 
@@ -70,16 +70,16 @@ int sub_804D8DC(struct MenuProc * menu, struct MenuItemProc * menuItem)
 }
 
 //! FE8U = 0x0804D940
-u8 sub_804D940(struct MenuProc * menu, struct MenuItemProc * menuItem)
+u8 SioMenu_OnBPress(struct MenuProc * menu, struct MenuItemProc * menuItem)
 {
-    gUnk_Sio_0203DD90.unk_06 = 0;
+    gUnk_Sio_16.unk_06 = 0;
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6B | MENU_ACT_CLEAR;
 }
 
 //! FE8U = 0x0804D950
-u8 sub_804D950(struct MenuProc * menu)
+u8 SioMenu_OnRPress(struct MenuProc * menu)
 {
-    gUnk_Sio_0203DD90.unk_06 = 0;
+    gUnk_Sio_16.unk_06 = 0;
 
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, menu->rect.x, menu->rect.y), menu->rect.w, menu->rect.h, 0);
     TileMap_FillRect(TILEMAP_LOCATED(gBG1TilemapBuffer, menu->rect.x, menu->rect.y), menu->rect.w, menu->rect.h, 0);
@@ -91,105 +91,105 @@ u8 sub_804D950(struct MenuProc * menu)
 
 // clang-format off
 
-struct MenuItemDef CONST_DATA MenuItems_085AABF0[] =
+struct MenuItemDef CONST_DATA MenuItems_SioMenudef_0[] =
 {
     {
         .name = "　直接攻撃",
         .overrideId = 1,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_804D8C8,
+        .onSelected = SioAttackTypeMenu_OnSelect,
     },
 
     {
         .name = "　間接攻撃",
         .overrideId = 2,
         .isAvailable = MenuAlwaysEnabled,
-        .onSelected = sub_804D8C8,
+        .onSelected = SioAttackTypeMenu_OnSelect,
     },
 
     { 0 }, // end
 };
 
-struct MenuItemDef CONST_DATA MenuItems_085AAC5C[] =
+struct MenuItemDef CONST_DATA MenuItems_SioMenudef_1[] =
 {
     {
         .name = "",
         .overrideId = 3,
-        .isAvailable = sub_804D858,
-        .onDraw = sub_804D8DC,
-        .onSelected = sub_804D8A4,
+        .isAvailable = SioWeaponSelectMenu_Usability,
+        .onDraw = SioWeaponSelectMenu_Draw,
+        .onSelected = SioWeaponSelectMenu_OnSelect,
     },
 
     {
         .name = "",
         .overrideId = 4,
-        .isAvailable = sub_804D858,
-        .onDraw = sub_804D8DC,
-        .onSelected = sub_804D8A4,
+        .isAvailable = SioWeaponSelectMenu_Usability,
+        .onDraw = SioWeaponSelectMenu_Draw,
+        .onSelected = SioWeaponSelectMenu_OnSelect,
     },
 
     {
         .name = "",
         .overrideId = 5,
-        .isAvailable = sub_804D858,
-        .onDraw = sub_804D8DC,
-        .onSelected = sub_804D8A4,
+        .isAvailable = SioWeaponSelectMenu_Usability,
+        .onDraw = SioWeaponSelectMenu_Draw,
+        .onSelected = SioWeaponSelectMenu_OnSelect,
     },
 
     {
         .name = "",
         .overrideId = 6,
-        .isAvailable = sub_804D858,
-        .onDraw = sub_804D8DC,
-        .onSelected = sub_804D8A4,
+        .isAvailable = SioWeaponSelectMenu_Usability,
+        .onDraw = SioWeaponSelectMenu_Draw,
+        .onSelected = SioWeaponSelectMenu_OnSelect,
     },
 
     {
         .name = "",
         .overrideId = 7,
-        .isAvailable = sub_804D858,
-        .onDraw = sub_804D8DC,
-        .onSelected = sub_804D8A4,
+        .isAvailable = SioWeaponSelectMenu_Usability,
+        .onDraw = SioWeaponSelectMenu_Draw,
+        .onSelected = SioWeaponSelectMenu_OnSelect,
     },
 
     { 0 }, // end
 };
 
-struct MenuItemDef CONST_DATA MenuItems_085AAD34[] =
+struct MenuItemDef CONST_DATA MenuItems_SioMenudef_2[] =
 {
     { 0 }, // end
 };
 
-struct MenuItemDef CONST_DATA MenuItems_085AAD58[] =
+struct MenuItemDef CONST_DATA MenuItems_SioMenudef_3[] =
 {
     { 0 }, // end
 };
 
-struct MenuDef CONST_DATA gUnknown_085AAD7C =
+struct MenuDef CONST_DATA gSioMenudef_0 =
 {
     .rect = { 16, 2, 8, 0 },
-    .menuItems = MenuItems_085AABF0,
-    .onBPress = sub_804D940,
+    .menuItems = MenuItems_SioMenudef_0,
+    .onBPress = SioMenu_OnBPress,
 };
 
-struct MenuDef CONST_DATA gUnknown_085AADA0 =
+struct MenuDef CONST_DATA gSioMenudef_1 =
 {
     .rect = { 1, 1, 14, 0 },
-    .menuItems = MenuItems_085AAC5C,
-    .onBPress = sub_804D940,
+    .menuItems = MenuItems_SioMenudef_1,
+    .onBPress = SioMenu_OnBPress,
 };
 
-struct MenuDef CONST_DATA gUnknown_085AADC4 =
+struct MenuDef CONST_DATA gSioMenudef_2 =
 {
     .rect = { 1, 2, 12, 0 },
-    .menuItems = MenuItems_085AAD34,
+    .menuItems = MenuItems_SioMenudef_2,
     .onBPress = MenuCancelSelect,
 };
 
-struct MenuDef CONST_DATA gUnknown_085AADE8 =
+struct MenuDef CONST_DATA gSioMenudef_3 =
 {
     .rect = { 1, 2, 22, 0 },
-    .menuItems = MenuItems_085AAD58,
+    .menuItems = MenuItems_SioMenudef_3,
     .onBPress = MenuCancelSelect,
 };
 

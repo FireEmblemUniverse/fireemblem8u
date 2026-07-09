@@ -45,11 +45,11 @@ CONST_DATA struct ChapterEventGroup FinalEirikaEvents2 = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch21xa_UnitMove,
     .tutorialEvents                = EventListScr_Ch21xa_Tutorial,
 
-    .traps            = TrapData_Event_089EDB6C,
-    .extraTrapsInHard = TrapData_Event_089EDECB,
+    .traps            = TrapData_Event_Ch21XA_0,
+    .extraTrapsInHard = TrapData_Event_Ch21XA_1,
 
-    .playerUnitsInNormal = UnitDef_088C1F44,
-    .playerUnitsInHard   = UnitDef_088C1F44,
+    .playerUnitsInNormal = UnitDef_Ch21XAAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch21XAAlly_0,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

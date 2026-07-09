@@ -24,30 +24,30 @@ struct ProcCmd CONST_DATA ProcScr_efxSuperdruidBG3[] =
 
 u16 * CONST_DATA ImgArray_EreshkigalBg3[] =
 {
-    Img_08746760,
-    Img_08746F70,
-    Img_08747C7C,
-    Img_08748E9C,
-    Img_08749DA8,
-    Img_0874AE90,
-    Img_0874BFA8,
-    Img_0874CE98,
-    Img_0874E110,
-    Img_0874F474,
+    Img_Banim_17,
+    Img_EreshkigalBg3_0,
+    Img_EreshkigalBg3_1,
+    Img_EreshkigalBg3_2,
+    Img_EreshkigalBg3_3,
+    Img_EreshkigalBg3_4,
+    Img_EreshkigalBg3_5,
+    Img_EreshkigalBg3_6,
+    Img_EreshkigalBg3_7,
+    Img_EreshkigalBg3_8,
 };
 
 u16 * CONST_DATA TsaArray_EreshkigalBg3[] =
 {
-    Tsa_08750288,
-    Tsa_087503E4,
-    Tsa_087505C4,
-    Tsa_08750810,
-    Tsa_08750A38,
-    Tsa_08750C88,
-    Tsa_08750EFC,
-    Tsa_08751128,
-    Tsa_0875136C,
-    Tsa_087515C4,
+    Tsa_EreshkigalBg3_0,
+    Tsa_EreshkigalBg3_1,
+    Tsa_EreshkigalBg3_2,
+    Tsa_EreshkigalBg3_3,
+    Tsa_EreshkigalBg3_4,
+    Tsa_EreshkigalBg3_5,
+    Tsa_EreshkigalBg3_6,
+    Tsa_EreshkigalBg3_7,
+    Tsa_EreshkigalBg3_8,
+    Tsa_EreshkigalBg3_9,
 };
 
 // clang-format on
@@ -171,15 +171,15 @@ void StartSubSpell_efxSuperdruidOBJ2(struct Anim * anim)
     proc = Proc_Start(ProcScr_efxSuperdruidOBJ2, PROC_TREE_3);
     proc->anim = anim;
 
-    scr = AnimScr_08752020;
+    scr = AnimScr_efxSuperdruidOBJ;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
     frontAnim->xPosition = anim->xPosition;
     frontAnim->yPosition = anim->yPosition;
 
-    SpellFx_RegisterObjGfx(Img_08751808, 32 * 4 * CHR_SIZE);
-    SpellFx_RegisterObjPal(Pal_08751DB4, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_Banim_18, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_efxSuperdruidOBJ, PLTT_SIZE_4BPP);
 
     return;
 }

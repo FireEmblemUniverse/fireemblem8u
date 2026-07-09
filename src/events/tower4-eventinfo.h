@@ -45,11 +45,11 @@ CONST_DATA struct ChapterEventGroup TowerOfValni4Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Tower4_UnitMove,
     .tutorialEvents                = EventListScr_Tower4_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE7,
-    .extraTrapsInHard = TrapData_Event_089EDEE4,
+    .traps            = TrapData_Event_Tower4_0,
+    .extraTrapsInHard = TrapData_Event_Tower4_1,
 
-    .playerUnitsInNormal = UnitDef_088CBF24,
-    .playerUnitsInHard   = UnitDef_088CBF24,
+    .playerUnitsInNormal = UnitDef_Tower4Ally,
+    .playerUnitsInHard   = UnitDef_Tower4Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

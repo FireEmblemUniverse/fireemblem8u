@@ -796,12 +796,12 @@ struct ProcCmd CONST_DATA ProcScr_efxExcaliburBG0[] =
 
 u16 * CONST_DATA ImgArray_efxExcaliburBG0[] =
 {
-    Img_08723274,
+    Img_efxExcaliburBG0,
 };
 
 u16 * CONST_DATA TsaArray_efxExcaliburBG0[] =
 {
-    Tsa_08724444,
+    Tsa_efxExcaliburBG0,
 };
 
 // clang-format on

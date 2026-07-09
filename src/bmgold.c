@@ -18,7 +18,7 @@ void SetPartyGoldAmount(s32 amt) {
 }
 
 // addToPartyGold
-void sub_8024E20(u32 amt) {
+void AddPartyGoldAmount(u32 amt) {
     s32 new_amt = gPlaySt.partyGoldAmount + amt;
     gPlaySt.partyGoldAmount = new_amt;
     if (new_amt > 999999) {

@@ -164,7 +164,7 @@ void EfxTeonoObjMain(struct ProcEfxMagicOBJ * proc)
 
 void EfxTeonoObjEnd(struct ProcEfxMagicOBJ * proc)
 {
-    gUnknown_02017754 = 0;
+    gEkrbattle_4 = 0;
     Proc_End(proc->seproc);
     NewEfxTeonoOBJ2(proc->anim);
     Proc_Break(proc);

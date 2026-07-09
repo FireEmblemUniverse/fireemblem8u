@@ -32,7 +32,7 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimDarkBreath,
     StartSpellAnimFire,
     StartSpellAnimElfire,
-    StartSpellAnim_805FE80_Null,
+    StartSpellAnim_Null_0,
     StartSpellAnimThunder,
     StartSpellAnimBolting,
     StartSpellAnimFimbulvetr,
@@ -41,9 +41,9 @@ CONST_DATA SpellAnimFunc gEkrSpellAnimLut[] = {
     StartSpellAnimNosferatu,
     StartSpellAnimLightning,
     StartSpellAnimPurge,
-    StartSpellAnim_8060284_Null,
+    StartSpellAnim_Null_1,
     StartSpellAnimDivine,
-    StartSpellAnim_8060288_Null,
+    StartSpellAnim_Null_2,
     StartSpellAnimEclipse,
     StartSpellAnimFenrir,
     StartSpellAnimHeal,
@@ -88,7 +88,7 @@ u32 FramScr_Unk5D4F84[] = {
 };
 
 u32 FramScr_Unk5D4F90[] = {
-    0x85D4F85, /* (uintptr_t)FramScr_Unk5D4F84 + 1 */
+    ANIMSCR_FORCE_SPRITE(FramScr_Unk5D4F84, 1),
     0x80000000
 };
 
@@ -104,14 +104,14 @@ void StartSpellAnimation(struct Anim *anim)
     gEkrSpellAnimLut[index](anim);
 }
 
-void sub_805B3FC(void)
+void EfxMagicNop(void)
 {
     return;
 }
 
 CONST_DATA struct ProcCmd ProcScr_efxRestRST[] = {
     PROC_NAME("efxRestRST"),
-    PROC_SET_END_CB(sub_805B444),
+    PROC_SET_END_CB(efxRestRST_OnEnd),
     PROC_REPEAT(efxRestRSTMain),
     PROC_END
 };
@@ -134,7 +134,7 @@ ProcPtr NewefxRestRST(struct Anim *anim, int unk44, int unk48, int frame, int sp
     return proc;
 }
 
-void sub_805B444(struct ProcEfx *proc)
+void efxRestRST_OnEnd(struct ProcEfx *proc)
 {
     gEfxBgSemaphore--;
 }
@@ -156,7 +156,7 @@ void efxRestRSTMain(struct ProcEfx *proc)
 
     for (i = 0; i < 0x78; buf++, i++) {
         val1 += proc->unk48;
-        *buf = (((gUnknown_0875879C[val1] * proc->frame) << 8) >> 0x10) + gLCDControlBuffer.bgoffset[1].x;
+        *buf = (((gEfxutils_0[val1] * proc->frame) << 8) >> 0x10) + gLCDControlBuffer.bgoffset[1].x;
     }
 
     if (++proc->timer == proc->unk44)
@@ -197,7 +197,7 @@ void EfxTwobaiRSTMain(struct ProcEfx *proc)
 
 CONST_DATA struct ProcCmd ProcScr_DummvRST[] = {
     PROC_NAME("efxDummyRST"),
-    PROC_SET_END_CB(sub_805B584),
+    PROC_SET_END_CB(DummvRST_OnEnd),
     PROC_REPEAT(DummvRSTMain),
     PROC_END
 };
@@ -215,7 +215,7 @@ void NewDummvRST(struct Anim *anim, int unk44)
     proc->unk44 = unk44;
 }
 
-void sub_805B584(void)
+void DummvRST_OnEnd(void)
 {
     gEfxBgSemaphore--;
 }
@@ -309,19 +309,19 @@ void EfxRestWINMain(struct ProcEfx *proc)
     }
 }
 
-void EfxMagicHBlank_805B724(void)
+void EfxMagicHBlank_0(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
         REG_BG1HOFS = *gpBg1ScrollOffset++;
 }
 
-void EfxMagicHBlank_805B750(void)
+void EfxMagicHBlank_1(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK))
         REG_BG1VOFS = *gpBg1ScrollOffset++;
 }
 
-void EfxMagicHBlank_805B77C(void)
+void EfxMagicHBlank_2(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
         REG_BG2VOFS = *gpBg2ScrollOffset++;
@@ -329,7 +329,7 @@ void EfxMagicHBlank_805B77C(void)
     }
 }
 
-void EfxMagicHBlank_805B7BC(void)
+void EfxMagicHBlank_3(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
         REG_BG2VOFS = *gpBg2ScrollOffset++;
@@ -337,7 +337,7 @@ void EfxMagicHBlank_805B7BC(void)
     }
 }
 
-void EfxMagicHBlank_805B7FC(void)
+void EfxMagicHBlank_4(void)
 {
     if (!(REG_DISPSTAT & DISPSTAT_VBLANK)) {
         REG_BG2VOFS = *gpBg2ScrollOffset++;
@@ -346,8 +346,8 @@ void EfxMagicHBlank_805B7FC(void)
 
 CONST_DATA struct ProcCmd ProcScr_EfxRestWINH[] = {
     PROC_NAME("efxRestWINH"),
-    PROC_REPEAT(sub_805B94C),
-    PROC_REPEAT(sub_805B958),
+    PROC_REPEAT(EfxRestWINH_Wait),
+    PROC_REPEAT(EfxRestWINHMain),
     PROC_END
 };
 
@@ -386,15 +386,15 @@ void NewEfxRestWINH(struct Anim *anim, int a, s16 b, u32 c)
 
     switch (c) {
     case 0:
-        SetPrimaryHBlankHandler(EfxMagicHBlank_805B724);
+        SetPrimaryHBlankHandler(EfxMagicHBlank_0);
         break;
 
     case 1:
-        SetPrimaryHBlankHandler(EfxMagicHBlank_805B750);
+        SetPrimaryHBlankHandler(EfxMagicHBlank_1);
         break;
 
     case 2:
-        SetPrimaryHBlankHandler(EfxMagicHBlank_805B750);
+        SetPrimaryHBlankHandler(EfxMagicHBlank_1);
         break;
     }
 
@@ -410,12 +410,12 @@ void NewEfxRestWINH_(struct Anim *anim, int a, int b)
     NewEfxRestWINH(anim, a, 0, b);
 }
 
-void sub_805B94C(ProcPtr proc)
+void EfxRestWINH_Wait(ProcPtr proc)
 {
     Proc_Break(proc);
 }
 
-void sub_805B958(struct ProcEfx *proc)
+void EfxRestWINHMain(struct ProcEfx *proc)
 {
     if (gBmSt.main_loop_ended != false) {
         if (proc->unk48 == 0x2) {
@@ -527,7 +527,7 @@ struct ProcCmd CONST_DATA ProcScr_efxCircleWIN[] =
 // clang-format on
 
 //! FE8U = 0x0805BB24
-void sub_805BB24(struct Anim * anim, int terminator, u16 * c, u16 d, u16 e)
+void NewEfxCircleWIN(struct Anim * anim, int terminator, u16 * c, u16 d, u16 e)
 {
     struct ProcEfxCircleWIN * proc;
 
@@ -568,7 +568,7 @@ void EfxCircleWINMain(struct ProcEfxCircleWIN * proc)
     unk_54 = proc->unk_54;
     var = unk_54[proc->unk_2e];
 
-    vec = sub_8013278(var);
+    vec = MakeCircleWindowBounds(var);
 
     if (unk_54[proc->unk_2e + 1] != 0xFFFF)
     {

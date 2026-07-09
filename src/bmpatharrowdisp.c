@@ -175,8 +175,8 @@ bool8 PathContainsNoCycle(void) {
 }
 
 void PathArrowDisp_Init(u8 a) {
-    Decompress(gUnknown_08A03054, (void *) OBJ_VRAM0 + 0x5E00);
-    ApplyPalette(gUnknown_08A0328C, 0x13);
+    Decompress(gImg_PathArrow, (void *) OBJ_VRAM0 + 0x5E00);
+    ApplyPalette(gPal_PathArrow, 0x13);
     if (a == 0) {
         gpPathArrowProc->maxMov =
             gActiveUnit->movBonus + gActiveUnit->pClassData->baseMov - gActionData.moveCount;

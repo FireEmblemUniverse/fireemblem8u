@@ -32,13 +32,13 @@ void ExecEkrHenseiEnd(void)
 {
     AnimClearAll();
     NewEkrHenseiEnd();
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(MainUpdate_0);
 }
 
-void sub_8076380(struct ProcEkrHensei *proc);
-void sub_80763E0(struct ProcEkrHensei *proc);
-void sub_8076400(struct ProcEkrHensei *proc);
-void sub_8076464(struct ProcEkrHensei *proc);
+void EkrHenseiInit_Init(struct ProcEkrHensei *proc);
+void EkrHenseiInit_SetupFade(struct ProcEkrHensei *proc);
+void EkrHenseiInit_FadeInLoop(struct ProcEkrHensei *proc);
+void EkrHenseiInit_End(struct ProcEkrHensei *proc);
 
 void NewEkrHenseiInitPROC(void)
 {
@@ -47,14 +47,14 @@ void NewEkrHenseiInitPROC(void)
 
 CONST_DATA struct ProcCmd ProcScr_ekrHenseiInit[] = {
     PROC_NAME("ekrHenseiInitPROC"),
-    PROC_REPEAT(sub_8076380),
-    PROC_REPEAT(sub_80763E0),
-    PROC_REPEAT(sub_8076400),
-    PROC_REPEAT(sub_8076464),
+    PROC_REPEAT(EkrHenseiInit_Init),
+    PROC_REPEAT(EkrHenseiInit_SetupFade),
+    PROC_REPEAT(EkrHenseiInit_FadeInLoop),
+    PROC_REPEAT(EkrHenseiInit_End),
     PROC_END
 };
 
-void sub_8076380(struct ProcEkrHensei *proc)
+void EkrHenseiInit_Init(struct ProcEkrHensei *proc)
 {
     InitOam(0);
     EfxClearScreenFx();
@@ -71,7 +71,7 @@ void sub_8076380(struct ProcEkrHensei *proc)
     Proc_Break(proc);
 }
 
-void sub_80763E0(struct ProcEkrHensei *proc)
+void EkrHenseiInit_SetupFade(struct ProcEkrHensei *proc)
 {
     EkrGauge_Set4C();
     EkrDispUpSet4C();
@@ -81,7 +81,7 @@ void sub_80763E0(struct ProcEkrHensei *proc)
     Proc_Break(proc);
 }
 
-void sub_8076400(struct ProcEkrHensei *proc)
+void EkrHenseiInit_FadeInLoop(struct ProcEkrHensei *proc)
 {
     int color = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->timer, proc->terminator);
 
@@ -93,20 +93,20 @@ void sub_8076400(struct ProcEkrHensei *proc)
         Proc_Break(proc);
 }
 
-void sub_8076464(struct ProcEkrHensei *proc)
+void EkrHenseiInit_End(struct ProcEkrHensei *proc)
 {
     Proc_Break(proc);
 }
 
-void sub_8076484(struct ProcEkrHensei *proc);
-void sub_80764B0(struct ProcEkrHensei *proc);
-void sub_8076514(struct ProcEkrHensei *proc);
+void EkrHenseiEnd_Init(struct ProcEkrHensei *proc);
+void EkrHenseiEnd_FadeOutLoop(struct ProcEkrHensei *proc);
+void EkrHenseiEnd_End(struct ProcEkrHensei *proc);
 
 CONST_DATA struct ProcCmd ProcScr_ekrHenseiEnd[] = {
     PROC_NAME("ekrHenseiEndPROC"),
-    PROC_REPEAT(sub_8076484),
-    PROC_REPEAT(sub_80764B0),
-    PROC_REPEAT(sub_8076514),
+    PROC_REPEAT(EkrHenseiEnd_Init),
+    PROC_REPEAT(EkrHenseiEnd_FadeOutLoop),
+    PROC_REPEAT(EkrHenseiEnd_End),
     PROC_END
 };
 
@@ -115,7 +115,7 @@ void NewEkrHenseiEnd(void)
     Proc_Start(ProcScr_ekrHenseiEnd, PROC_TREE_3);
 }
 
-void sub_8076484(struct ProcEkrHensei *proc)
+void EkrHenseiEnd_Init(struct ProcEkrHensei *proc)
 {
     CpuFastCopy(PAL_BG(0), gEfxPal, 0x400);
 
@@ -125,7 +125,7 @@ void sub_8076484(struct ProcEkrHensei *proc)
     Proc_Break(proc);
 }
 
-void sub_80764B0(struct ProcEkrHensei *proc)
+void EkrHenseiEnd_FadeOutLoop(struct ProcEkrHensei *proc)
 {
     int color = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->timer, proc->terminator);
 
@@ -137,7 +137,7 @@ void sub_80764B0(struct ProcEkrHensei *proc)
         Proc_Break(proc);
 }
 
-void sub_8076514(struct ProcEkrHensei *proc)
+void EkrHenseiEnd_End(struct ProcEkrHensei *proc)
 {
     EndEkrBattleDeamon();
     EndEkrGauge();

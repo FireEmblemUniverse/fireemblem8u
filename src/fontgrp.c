@@ -27,10 +27,10 @@ struct SpecialCharSt {
     s16 chr_position;
 };
 
-EWRAM_DATA struct Struct02026E30 gUnknown_02026E30 = {0};
+EWRAM_DATA struct Struct02026E30 gFontgrp_0 = {0};
 EWRAM_DATA char gNumberStr[9] = {0};
-EWRAM_DATA int gUnknown_02028E50 = 0;
-EWRAM_DATA int gUnknown_02028E54 = 0;
+EWRAM_DATA int gFontgrp_1 = 0;
+EWRAM_DATA int gFontgrp_2 = 0;
 EWRAM_DATA struct Font gDefaultFont = {0};
 EWRAM_DATA struct Font *gActiveFont = 0;
 EWRAM_DATA u8 gLanguageMode = 0;
@@ -53,9 +53,9 @@ void SetupDebugFontForBG(int bg, int tileDataOffset)
 
     BG_Fill(BG_GetMapBuffer(bg), 0);
 
-    gUnknown_02026E30.bg = bg;
-    gUnknown_02026E30.tileDataOffset = tileDataOffset;
-    gUnknown_02026E30.tileIndex = GetTileIndex(bg, tileDataOffset);
+    gFontgrp_0.bg = bg;
+    gFontgrp_0.tileDataOffset = tileDataOffset;
+    gFontgrp_0.tileIndex = GetTileIndex(bg, tileDataOffset);
 }
 
 void PrintDebugStringToBG(u16 *dest, const char *str)
@@ -72,9 +72,9 @@ void PrintDebugStringToBG(u16 *dest, const char *str)
 #endif
 
         if (*str > 0x60)
-            tileIndex = gUnknown_02026E30.tileIndex + (u16)-0x40;
+            tileIndex = gFontgrp_0.tileIndex + (u16)-0x40;
         else
-            tileIndex = gUnknown_02026E30.tileIndex - 0x20;
+            tileIndex = gFontgrp_0.tileIndex - 0x20;
 
         r6 = *str;
         tileIndex += r6;
@@ -82,10 +82,10 @@ void PrintDebugStringToBG(u16 *dest, const char *str)
         str++;
     }
 
-    BG_EnableSync(gUnknown_02026E30.bg);
+    BG_EnableSync(gFontgrp_0.bg);
 }
 
-void sub_800384C(u16 *dest, const char *fmt, ...)
+void PrintDebugStringFmtToBG(u16 *dest, const char *fmt, ...)
 {
     va_list args;
     char buffer[256];
@@ -97,21 +97,21 @@ void sub_800384C(u16 *dest, const char *fmt, ...)
     PrintDebugStringToBG(dest, buffer);
 }
 
-void sub_8003870(void)
+void ClearDBG(void)
 {
     int i;
 
     for (i = 0; i < 256; i++)
-        gUnknown_02026E30.unk14[i & 0xFF][0] = 0;
+        gFontgrp_0.unk14[i & 0xFF][0] = 0;
 
-    gUnknown_02026E30.unk8 = 0;
-    gUnknown_02026E30.unkC = 0;
+    gFontgrp_0.unk8 = 0;
+    gFontgrp_0.unkC = 0;
 
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(1 << 2);
 }
 
-void sub_80038B4(const char *fmt, ...)
+void PrintEmptyStringToDBG(const char *fmt, ...)
 {
     char buffer[256];
 
@@ -157,7 +157,7 @@ void StoreNumberStringOrDashesToSmallBuffer(int n)
     }
 }
 
-void sub_800394C(int n, int length)
+void PrintNumberToDBG(int n, int length)
 {
     StoreNumberStringToSmallBuffer(n);
     PrintStringToDBG(gNumberStr + 8 - length);
@@ -178,7 +178,7 @@ void StoreNumberHexStringToSmallBuffer(int n)
     }
 }
 
-void sub_80039B4(int n, int length)
+void PrintHexNumberToDBG(int n, int length)
 {
     StoreNumberHexStringToSmallBuffer(n);
     PrintStringToDBG(gNumberStr + 8 - length);
@@ -190,23 +190,23 @@ void PrintStringToDBG(const char *str)
     {
         int c = *str;
 
-        if (gUnknown_02026E30.unk8 == 0x30)
+        if (gFontgrp_0.unk8 == 0x30)
             c = 0;
         else
             str++;
         if (c == '\n')
             c = 0;
 
-        gUnknown_02026E30.unk14[gUnknown_02026E30.unkC & 0xFF][gUnknown_02026E30.unk8] = c;
-        gUnknown_02026E30.unk8++;
+        gFontgrp_0.unk14[gFontgrp_0.unkC & 0xFF][gFontgrp_0.unk8] = c;
+        gFontgrp_0.unk8++;
         if (c == 0)
         {
-            gUnknown_02026E30.unk8 = 0;
-            gUnknown_02026E30.unkC++;
+            gFontgrp_0.unk8 = 0;
+            gFontgrp_0.unkC++;
         }
     }
-    if (gUnknown_02026E30.unkC > gUnknown_02026E30.unk10 + 20)
-        gUnknown_02026E30.unk10 = gUnknown_02026E30.unkC - 20;
+    if (gFontgrp_0.unkC > gFontgrp_0.unk10 + 20)
+        gFontgrp_0.unk10 = gFontgrp_0.unkC - 20;
 }
 
 void FlushDBGToBG2(void)
@@ -218,19 +218,19 @@ void FlushDBGToBG2(void)
     {
         u16* r3 = gBG2TilemapBuffer + i * 0x20;
 
-        if (gUnknown_02026E30.unk14[(i + gUnknown_02026E30.unk10) & 0xFF][0] != 0)
+        if (gFontgrp_0.unk14[(i + gFontgrp_0.unk10) & 0xFF][0] != 0)
         {
             int j = 0;
 
-            while (gUnknown_02026E30.unk14[(i + gUnknown_02026E30.unk10) & 0xFF][j] != 0)
+            while (gFontgrp_0.unk14[(i + gFontgrp_0.unk10) & 0xFF][j] != 0)
             {
-                u16 r2 = gUnknown_02026E30.unk14[(i + gUnknown_02026E30.unk10) & 0xFF][j];
+                u16 r2 = gFontgrp_0.unk14[(i + gFontgrp_0.unk10) & 0xFF][j];
 
                 if (r2 > 0x60)
                     r2 -= 0x40;
                 else
                     r2 -= 0x20;
-                *r3++ = gUnknown_02026E30.tileIndex + r2;
+                *r3++ = gFontgrp_0.tileIndex + r2;
 
                 j++;
             }
@@ -240,7 +240,7 @@ void FlushDBGToBG2(void)
     BG_EnableSyncByMask(1 << 2);
 }
 
-int sub_8003ABC(u16 a, u16 b)
+int UpdateDBGScroll(u16 a, u16 b)
 {
     int r1;
     int r2;
@@ -249,17 +249,17 @@ int sub_8003ABC(u16 a, u16 b)
         return 0;
 
     FlushDBGToBG2();
-    r1 = gUnknown_02026E30.unkC - 256;
+    r1 = gFontgrp_0.unkC - 256;
     if (r1 < 0)
         r1 = 0;
-    r2 = gUnknown_02026E30.unkC - 20;
+    r2 = gFontgrp_0.unkC - 20;
     if (r2 < 0)
         r2 = 0;
 
-    if ((a & 0x40) && r1 < gUnknown_02026E30.unk10)
-        gUnknown_02026E30.unk10--;
-    if ((a & 0x80) && r2 > gUnknown_02026E30.unk10)
-        gUnknown_02026E30.unk10++;
+    if ((a & 0x40) && r1 < gFontgrp_0.unk10)
+        gFontgrp_0.unk10--;
+    if ((a & 0x80) && r2 > gFontgrp_0.unk10)
+        gFontgrp_0.unk10++;
 
     return 1;
 }
@@ -272,8 +272,8 @@ void SetupDebugFontForOBJ(int a, int objPalNum)
         a = 0x3000;
     a &= 0xFFFF;
 
-    gUnknown_02028E50 = a / 32;
-    gUnknown_02028E54 = (objPalNum & 0xF) << 12;
+    gFontgrp_1 = a / 32;
+    gFontgrp_2 = (objPalNum & 0xF) << 12;
 
     RegisterDataMove(debug_font_4bpp, (void *)(VRAM + ((a + 0x10000) & 0x1FFFF)), 0x800);
 
@@ -295,26 +295,26 @@ void PrintDebugStringAsOBJ(int a, int b, const char *str)
         else
             c = *str - 0x20;
 
-        CallARM_PushToSecondaryOAM(a, b, gObject_8x8, c + gUnknown_02028E50 + gUnknown_02028E54);
+        CallARM_PushToSecondaryOAM(a, b, gObject_8x8, c + gFontgrp_1 + gFontgrp_2);
 
         a += 8;
         str++;
     }
 }
 
-void sub_8003BFC(int a, int b, int c, int length)
+void PrintNumberAsOBJ(int a, int b, int c, int length)
 {
     StoreNumberStringToSmallBuffer(c);
     PrintDebugStringAsOBJ(a, b, gNumberStr + 8 - length);
 }
 
-void sub_8003C20(int a, int b, int c, int length)
+void PrintHexNumberAsOBJ(int a, int b, int c, int length)
 {
     StoreNumberHexStringToSmallBuffer(c);
     PrintDebugStringAsOBJ(a, b, gNumberStr + 8 - length);
 }
 
-void sub_8003C44(s16 a, s16 b, const char *fmt, ...)
+void PrintDebugStringFmtAsOBJ(s16 a, s16 b, const char *fmt, ...)
 {
     va_list args;
     char buffer[256];
@@ -709,19 +709,19 @@ void *GetTextDrawDest(struct Text *th)
 
 u16 *s2bppTo4bppLutTable[] =
 {
-    gUnknown_0858829C,
-    gUnknown_0858849C,
-    gUnknown_0858869C,
-    gUnknown_0858889C,
-    gUnknown_08588A9C,
-    gUnknown_08588C9C,
-    gUnknown_08588E9C,
-    gUnknown_0858909C,
-    gUnknown_0858929C,
-    gUnknown_0858949C,
-    gUnknown_0858969C,
-    gUnknown_0858989C,
-    gUnknown_08589A9C,
+    gFontgrp_3,
+    gFontgrp_4,
+    gFontgrp_5,
+    gFontgrp_6,
+    gFontgrp_7,
+    gFontgrp_8,
+    gFontgrp_9,
+    gFontgrp_10,
+    gFontgrp_11,
+    gFontgrp_12,
+    gFontgrp_13,
+    gFontgrp_14,
+    gFontgrp_15,
 };
 
 u16 *GetColorLut(int color)
@@ -784,7 +784,7 @@ void InitSystemTextFont(void)
 
 void InitTalkTextFont(void)
 {
-    ApplyPalette(Pal_Text + 0x10, gActiveFont->palid);
+    ApplyPalette(Pal_TalkText, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
     gActiveFont->drawGlyph = DrawTextGlyph;
@@ -873,7 +873,7 @@ int GetStringTextLenASCII(const char *str)
     return width;
 }
 
-void nop_8004598(void)
+void nop_0(void)
 {
     return;
 }

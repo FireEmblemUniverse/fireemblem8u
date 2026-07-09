@@ -38,7 +38,7 @@ void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
     InitSpriteTextFont(&proc->font, OBJ_VRAM0 + 0x4800, 0x14);
     SetTextFontGlyphs(1);
 
-    ApplyPalette(gUnknown_0859EF20, 0x14);
+    ApplyPalette(Pal_TalkText, 0x14);
 
     for (line = 0; line < 2; line++) {
         InitSpriteText(proc->text + line);
@@ -162,7 +162,7 @@ void SubtitleHelp_OnEnd(void)
 {
     gBmSt.cameraMax.y -= 16;
 
-    CameraMove_8015EDC(0);
+    CameraMove_0(0);
 
     Proc_BreakEach(gProcScr_SubtitleHelpDarkener);
 
@@ -215,7 +215,7 @@ void StartSubtitleHelp(ProcPtr parent, const char * string) {
 
         InitSubtitleHelpText(proc);
 
-        sub_801A278();
+        BlankTilesetConfigTiles();
 
         gBmSt.cameraMax.y += 16;
     }
@@ -232,7 +232,7 @@ s8 IsSubtitleHelpActive() {
     return Proc_Find(gProcScr_SubtitleHelp) != 0;
 }
 
-void sub_8035770(ProcPtr parent, const char * string)
+void ChangeSubtitleHelp(ProcPtr parent, const char * string)
 {
     struct SubtitleHelpProc* proc;
 

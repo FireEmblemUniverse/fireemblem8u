@@ -15,13 +15,13 @@
 #include "constants/terrains.h"
 
 
-s8 sub_8040B38(struct Unit*, struct Vec2*);
-s8 sub_8040BB4(struct Unit*, u32, struct Vec2*, struct Vec2*);
-s8 sub_8040C5C(void);
+s8 AiFindReachableDoorPosition(struct Unit*, struct Vec2*);
+s8 AiFindReachableUnlockPosition(struct Unit*, u32, struct Vec2*, struct Vec2*);
+s8 AiTryDoRogueSpecialItems(void);
 void InitAiMoveMapForUnit(struct Unit*);
-void sub_8040E98(struct Unit*);
-void sub_8040F88(struct Unit*);
-void sub_8040FBC(struct Unit*);
+void GenerateUnitExtendedMovementMapOnRange(struct Unit*);
+void GenerateUnitExtendedMovementMapOnRangeNeglectDoor(struct Unit*);
+void GenerateExtendedMovementMapOnRangeNeglectDoor(struct Unit*);
 
 
 struct AiSpecialItemLutEntry {
@@ -65,7 +65,7 @@ s8 AiTryDoSpecialItems() {
         return 0;
     }
 
-    if (sub_8040C5C() != 0) {
+    if (AiTryDoRogueSpecialItems() != 0) {
         return 1;
     }
 
@@ -104,7 +104,7 @@ void AiSpecialItemDoorKey(int item) {
         return;
     }
     
-    if (sub_8040B38(gActiveUnit, &pos) == 0) {
+    if (AiFindReachableDoorPosition(gActiveUnit, &pos) == 0) {
         return;
     }
 
@@ -151,7 +151,7 @@ void AiSpecialItemLockpick(int item) {
         flags |= 8;
     }
 
-    if (sub_8040BB4(gActiveUnit, flags, &pos, 0) == 1) {
+    if (AiFindReachableUnlockPosition(gActiveUnit, flags, &pos, 0) == 1) {
 
         AiTryMoveTowards(pos.x, pos.y, 0, gAiState.unk7E, 0);
 
@@ -186,7 +186,7 @@ void AiSpecialItemAntitoxin(int item) {
     return;
 }
 
-u8 sub_8040AE0(int x, int y) {
+u8 AiGetRangeValueAt(int x, int y) {
 
     if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX) {
         return -1;
@@ -199,19 +199,19 @@ u8 sub_8040AE0(int x, int y) {
     return gBmMapRange[y][x];
 }
 
-const u8 CONST_DATA gUnknown_085A92DC[] = {
+const u8 CONST_DATA gAiDoorTerrainList[] = {
     TERRAIN_DOOR, TERRAIN_NONE,
 };
 
-s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
+s8 AiFindReachableDoorPosition(struct Unit* unit, struct Vec2* pos) {
 
-    sub_8040FBC(unit);
+    GenerateExtendedMovementMapOnRangeNeglectDoor(unit);
 
-    if (!AiFindClosestTerrainAdjacentPosition(gUnknown_085A92DC, 0, pos)) {
+    if (!AiFindClosestTerrainAdjacentPosition(gAiDoorTerrainList, 0, pos)) {
         return 0;
     }
 
-    sub_8040E98(unit);
+    GenerateUnitExtendedMovementMapOnRange(unit);
 
     if (gMapRangeSigned[pos->y][pos->x] >= MAP_MOVEMENT_MAX) {
         return 0;
@@ -220,30 +220,30 @@ s8 sub_8040B38(struct Unit* unit, struct Vec2* pos) {
     return 1;
 }
 
-const u8 CONST_DATA gUnknown_085A92DE[] = {
+const u8 CONST_DATA gAiChestTerrainList[] = {
     TERRAIN_CHEST_FULL, TERRAIN_NONE,
 };
 
-s8 sub_8040B8C(struct Unit* unit, struct Vec2* pos) {
-    sub_8040E98(unit);
+s8 AiFindClosestChestPosition(struct Unit* unit, struct Vec2* pos) {
+    GenerateUnitExtendedMovementMapOnRange(unit);
 
-    if (AiFindClosestTerrainPosition(gUnknown_085A92DE, 0, pos) == 0) {
+    if (AiFindClosestTerrainPosition(gAiChestTerrainList, 0, pos) == 0) {
         return 0;
     }
 
     return 1;
 }
 
-s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* posB) {
+s8 AiFindReachableUnlockPosition(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* posB) {
 
     InitAiMoveMapForUnit(unit);
-    sub_8040F88(unit);
+    GenerateUnitExtendedMovementMapOnRangeNeglectDoor(unit);
 
     if ((AiFindClosestUnlockPosition(flags | 1, posA, posB) == 1) && (gMapMovementSigned[posA->y][posA->x] < MAP_MOVEMENT_MAX)) {
         return 1;
     } else {
 
-        sub_8040FBC(unit);
+        GenerateExtendedMovementMapOnRangeNeglectDoor(unit);
 
         if (AiFindClosestUnlockPosition(flags, posA, posB) == 1) {
 
@@ -258,7 +258,7 @@ s8 sub_8040BB4(struct Unit* unit, u32 flags, struct Vec2* posA, struct Vec2* pos
     return 0;
 }
 
-s8 sub_8040C5C() {
+s8 AiTryDoRogueSpecialItems() {
     int flags;
     struct Vec2 posA;
     struct Vec2 posB;
@@ -280,7 +280,7 @@ s8 sub_8040C5C() {
                     flags |= 0xC;
                 }
 
-                if (sub_8040BB4(gActiveUnit, flags, &posA, &posB) == 1) {
+                if (AiFindReachableUnlockPosition(gActiveUnit, flags, &posA, &posB) == 1) {
                     AiTryMoveTowards(posA.x, posA.y, 0, gAiState.unk7E, 0);
 
                     if (gAiDecision.actionPerformed == 1) {
@@ -291,7 +291,7 @@ s8 sub_8040C5C() {
                     }
                 }
             } else {
-                if ((GetUnitItemCount(gActiveUnit) < UNIT_ITEM_COUNT) && (sub_8040B8C(gActiveUnit, &posA) == 1)) {
+                if ((GetUnitItemCount(gActiveUnit) < UNIT_ITEM_COUNT) && (AiFindClosestChestPosition(gActiveUnit, &posA) == 1)) {
                     AiTryMoveTowards(posA.x, posA.y, 0, gAiState.unk7E, 0);
 
                     if (gAiDecision.actionPerformed == 1) {
@@ -321,7 +321,7 @@ void AiSetMovCostTableWithPassableWalls(const s8* cost) {
     return;
 }
 
-void sub_8040E04(const s8* cost, int terrainId) {
+void AiSetMovCostTableWithPassableTerrain(const s8* cost, int terrainId) {
     u16 i;
 
     for (i = 1; i < TERRAIN_COUNT; i++) {
@@ -333,7 +333,7 @@ void sub_8040E04(const s8* cost, int terrainId) {
     return;
 }
 
-void sub_8040E34(const s8* cost, int terrainIdA, int terraidIdB) {
+void AiSetMovCostTableWithTwoPassableTerrains(const s8* cost, int terrainIdA, int terraidIdB) {
     u16 i;
 
     for (i = 1; i < TERRAIN_COUNT; i++) {
@@ -355,7 +355,7 @@ void InitAiMoveMapForUnit(struct Unit* unit) {
     return;
 }
 
-void sub_8040E98(struct Unit* unit) {
+void GenerateUnitExtendedMovementMapOnRange(struct Unit* unit) {
     SetWorkingMoveCosts(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapRange);
@@ -364,7 +364,7 @@ void sub_8040E98(struct Unit* unit) {
     return;
 }
 
-void sub_8040EC8(struct Unit* unit) {
+void GenerateUnitExtendedMovementMapNeglectWall(struct Unit* unit) {
     AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapMovement);
@@ -373,7 +373,7 @@ void sub_8040EC8(struct Unit* unit) {
     return;
 }
 
-void sub_8040EF8(struct Unit* unit) {
+void GenerateExtendedMovementMapNeglectWall(struct Unit* unit) {
     AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapMovement);
@@ -391,7 +391,7 @@ void GenerateExtendedMovementMapOnRangeNeglectWall(int x, int y, const s8* cost)
     return;
 }
 
-void sub_8040F54(int x, int y, struct Unit* unit) {
+void GenerateUnitExtendedMovementMapOnRangeNeglectWall(int x, int y, struct Unit* unit) {
     AiSetMovCostTableWithPassableWalls(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapRange);
@@ -400,8 +400,8 @@ void sub_8040F54(int x, int y, struct Unit* unit) {
     return;
 }
 
-void sub_8040F88(struct Unit* unit) {
-    sub_8040E04(GetUnitMovementCost(unit), TERRAIN_DOOR);
+void GenerateUnitExtendedMovementMapOnRangeNeglectDoor(struct Unit* unit) {
+    AiSetMovCostTableWithPassableTerrain(GetUnitMovementCost(unit), TERRAIN_DOOR);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, unit->index);
@@ -409,8 +409,8 @@ void sub_8040F88(struct Unit* unit) {
     return;
 }
 
-void sub_8040FBC(struct Unit* unit) {
-    sub_8040E04(GetUnitMovementCost(unit), TERRAIN_DOOR);
+void GenerateExtendedMovementMapOnRangeNeglectDoor(struct Unit* unit) {
+    AiSetMovCostTableWithPassableTerrain(GetUnitMovementCost(unit), TERRAIN_DOOR);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, 0);
@@ -418,8 +418,8 @@ void sub_8040FBC(struct Unit* unit) {
     return;
 }
 
-void sub_8040FEC(struct Unit* unit) {
-    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
+void GenerateUnitExtendedMovementMapOnRangeNeglectWallSnag(struct Unit* unit) {
+    AiSetMovCostTableWithTwoPassableTerrains(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, unit->index);
@@ -427,8 +427,8 @@ void sub_8040FEC(struct Unit* unit) {
     return;
 }
 
-void sub_8041020(struct Unit* unit) {
-    sub_8040E34(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
+void GenerateExtendedMovementMapOnRangeNeglectWallSnag(struct Unit* unit) {
+    AiSetMovCostTableWithTwoPassableTerrains(GetUnitMovementCost(unit), TERRAIN_WALL_DAMAGED, TERRAIN_SNAG);
 
     SetWorkingBmMap(gBmMapRange);
     GenerateMovementMap(unit->xPos, unit->yPos, MAP_MOVEMENT_EXTENDED, 0);
@@ -436,7 +436,7 @@ void sub_8041020(struct Unit* unit) {
     return;
 }
 
-void sub_8041054(struct Unit* unit) {
+void GenerateUnitMovementMapOnRange(struct Unit* unit) {
     SetWorkingMoveCosts(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapRange);
@@ -456,7 +456,7 @@ void AiUpdateNoMoveFlag(struct Unit* unit) {
     return;
 }
 
-void sub_80410C4(int x, int y, struct Unit* unit) {
+void GenerateUnitExtendedMovementMapOnRangeAt(int x, int y, struct Unit* unit) {
     SetWorkingMoveCosts(GetUnitMovementCost(unit));
 
     SetWorkingBmMap(gBmMapRange);
@@ -568,7 +568,7 @@ s8 AiTryUseNightmareStaff(struct UnknownAiInputA* input) {
         }
 
         if (foundItem) {
-            sub_803C490(gActiveUnit);
+            AiGenerateUnitMovementMapRespectStay(gActiveUnit);
             GenerateMagicSealMap(-1);
 
             for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {

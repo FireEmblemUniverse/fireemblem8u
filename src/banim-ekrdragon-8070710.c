@@ -5,7 +5,7 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-struct ProcEkrDragon_08758720 {
+struct ProcEkrDragonPalFade {
     PROC_HEADER;
 
     STRUCT_PAD(0x29, 0x2C);
@@ -18,7 +18,7 @@ struct ProcEkrDragon_08758720 {
     /* 3D */ u8 unk3D;
 };
 
-void sub_8070710(u16 * a, u16 * paldst, u16 c, u8 d, u8 e)
+void EkrDragon_BlendPalette(u16 * a, u16 * paldst, u16 c, u8 d, u8 e)
 {
     int i;
 
@@ -62,7 +62,7 @@ void sub_8070710(u16 * a, u16 * paldst, u16 c, u8 d, u8 e)
     return;
 }
 
-void sub_80707C0(struct ProcEkrDragon_08758720 * proc)
+void EkrDragonPalFade_Init(struct ProcEkrDragonPalFade * proc)
 {
     proc->unk2C = 0;
     proc->unk30 = 0;
@@ -77,15 +77,15 @@ void sub_80707C0(struct ProcEkrDragon_08758720 * proc)
     return;
 }
 
-void sub_80707FC(struct ProcEkrDragon_08758720 * proc)
+void EkrDragonPalFade_Loop(struct ProcEkrDragonPalFade * proc)
 {
-    sub_8070710(proc->unk34,
+    EkrDragon_BlendPalette(proc->unk34,
                 gPaletteBuffer + 0x60,
                 proc->unk38[proc->unk30],
                 proc->unk3C,
                 proc->unk3D);
 
-    sub_8070710(proc->unk34,
+    EkrDragon_BlendPalette(proc->unk34,
                 gPaletteBuffer + 0x170,
                 proc->unk38[proc->unk30],
                 proc->unk3C,
@@ -100,22 +100,22 @@ void sub_80707FC(struct ProcEkrDragon_08758720 * proc)
         proc->unk30 = 0;
 }
 
-void sub_8070874(void)
+void EkrDragonPalFade_End(void)
 {
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL && GetBanimDragonStatusType() != EKRDRGON_TYPE_MYRRH)
     {
-        Proc_EndEach(ProcScr_EkrDragon_08758720);
+        Proc_EndEach(ProcScr_EkrDragon_0);
         SetEkrDragonPaletteFront(POS_L);
         SetEkrDragonPaletteBack(POS_L);
     }
 }
 
-void sub_80708A0(void)
+void NewEkrDragonPalFade(void)
 {
     if (GetBanimDragonStatusType() != EKRDRGON_TYPE_NORMAL && GetBanimDragonStatusType() != EKRDRGON_TYPE_MYRRH)
     {
-        struct ProcEkrDragon_08758720 * proc;
-        proc = Proc_Start(ProcScr_EkrDragon_08758720, PROC_TREE_3);
-        proc->unk38 = gUnknown_08758740;
+        struct ProcEkrDragonPalFade * proc;
+        proc = Proc_Start(ProcScr_EkrDragon_0, PROC_TREE_3);
+        proc->unk38 = gEkrdragon_0;
     }
 }

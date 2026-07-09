@@ -9,7 +9,7 @@ PROC_LABEL(0),
     PROC_REPEAT(EkrMyr_TrigerForPrepared),
     PROC_REPEAT(EkrMyr_InBattleIdle),
     PROC_REPEAT(EkrMyr_ReturnToLoli),
-    PROC_REPEAT(sub_8070AE4),
+    PROC_REPEAT(EkrMyr_WaitForReturnEnd),
     PROC_END
 };
 
@@ -107,7 +107,7 @@ void EkrMyr_ReturnToLoli(struct ProcEkrDragon * proc)
     EnablePaletteSync();
 }
 
-void sub_8070AE4(struct ProcEkrDragon *proc)
+void EkrMyr_WaitForReturnEnd(struct ProcEkrDragon *proc)
 {
     struct Anim *anim = proc->anim;
     if (ANINS_GET_TYPE(*anim->pScrCurrent) == ANIM_INS_TYPE_STOP) {

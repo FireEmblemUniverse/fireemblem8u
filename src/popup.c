@@ -654,7 +654,7 @@ void BrownTextBox_Loop(struct BrownTextBoxProc * proc)
 }
 
 //! FE8U = 0x08011A18
-void nullsub_44(void)
+void Nop_Popup_0(void)
 {
     return;
 }
@@ -662,14 +662,14 @@ void nullsub_44(void)
 struct ProcCmd CONST_DATA ProcScr_BrownTextBox[] =
 {
     PROC_YIELD,
-    PROC_SET_END_CB(nullsub_44),
+    PROC_SET_END_CB(Nop_Popup_0),
 
     PROC_REPEAT(BrownTextBox_Loop),
 
     PROC_END,
 };
 
-void sub_8011A1C(struct BrownTextBoxProc * proc, s8 doBlend)
+void BrownTextBox_SetBlendFlag(struct BrownTextBoxProc * proc, s8 doBlend)
 {
     if (!proc)
     {
@@ -686,7 +686,7 @@ void sub_8011A1C(struct BrownTextBoxProc * proc, s8 doBlend)
     }
 }
 
-void sub_8011A48(struct BrownTextBoxProc * proc)
+void BrownTextBox_FadeInInit(struct BrownTextBoxProc * proc)
 {
     proc->blendVal = 0;
 
@@ -698,10 +698,10 @@ void sub_8011A48(struct BrownTextBoxProc * proc)
     SetBlendBackdropA(1);
     SetBlendBackdropB(1);
 
-    sub_8011A1C(Proc_Find(ProcScr_BrownTextBox), 1);
+    BrownTextBox_SetBlendFlag(Proc_Find(ProcScr_BrownTextBox), 1);
 }
 
-void sub_8011AA0(struct BrownTextBoxProc * proc)
+void BrownTextBox_FadeInLoop(struct BrownTextBoxProc * proc)
 {
     int blendVal;
 
@@ -715,19 +715,19 @@ void sub_8011AA0(struct BrownTextBoxProc * proc)
         Proc_Break(proc);
         SetBlendNone();
 
-        sub_8011A1C(Proc_Find(ProcScr_BrownTextBox), 0);
+        BrownTextBox_SetBlendFlag(Proc_Find(ProcScr_BrownTextBox), 0);
     }
 }
 
-struct ProcCmd CONST_DATA gProcScr_085924F8[] =
+struct ProcCmd CONST_DATA gProcScr_Popup_0[] =
 {
-    PROC_CALL(sub_8011A48),
-    PROC_REPEAT(sub_8011AA0),
+    PROC_CALL(BrownTextBox_FadeInInit),
+    PROC_REPEAT(BrownTextBox_FadeInLoop),
 
     PROC_END,
 };
 
-void sub_8011AF4(struct BrownTextBoxProc * proc)
+void BrownTextBox_FadeOutInit(struct BrownTextBoxProc * proc)
 {
     proc->blendVal = 0;
 
@@ -739,10 +739,10 @@ void sub_8011AF4(struct BrownTextBoxProc * proc)
     SetBlendBackdropA(1);
     SetBlendBackdropB(1);
 
-    sub_8011A1C(Proc_Find(ProcScr_BrownTextBox), 1);
+    BrownTextBox_SetBlendFlag(Proc_Find(ProcScr_BrownTextBox), 1);
 }
 
-void sub_8011B4C(struct BrownTextBoxProc * proc)
+void BrownTextBox_FadeOutLoop(struct BrownTextBoxProc * proc)
 {
     int blendVal;
 
@@ -758,17 +758,17 @@ void sub_8011B4C(struct BrownTextBoxProc * proc)
     }
 }
 
-void sub_8011B90(void)
+void BrownTextBox_FadeOutEnd(void)
 {
     SetBlendNone();
 }
 
-struct ProcCmd CONST_DATA gProcScr_08592510[] =
+struct ProcCmd CONST_DATA gProcScr_Popup_1[] =
 {
-    PROC_CALL(sub_8011AF4),
-    PROC_REPEAT(sub_8011B4C),
+    PROC_CALL(BrownTextBox_FadeOutInit),
+    PROC_REPEAT(BrownTextBox_FadeOutLoop),
 
-    PROC_CALL(sub_8011B90),
+    PROC_CALL(BrownTextBox_FadeOutEnd),
 
     PROC_END,
 };
@@ -813,16 +813,16 @@ void StartBrownTextBoxCore(int x, int y, int textId, int chr, int pal, ProcPtr p
     SetTextFont(NULL);
 }
 
-struct ProcCmd CONST_DATA ProcScr_08592530[] = {
-    PROC_CALL(sub_8011A48),
-    PROC_REPEAT(sub_8011AA0),
+struct ProcCmd CONST_DATA ProcScr_Popup_0[] = {
+    PROC_CALL(BrownTextBox_FadeInInit),
+    PROC_REPEAT(BrownTextBox_FadeInLoop),
 
     PROC_SLEEP(100),
 
-    PROC_CALL(sub_8011AF4),
-    PROC_REPEAT(sub_8011B4C),
+    PROC_CALL(BrownTextBox_FadeOutInit),
+    PROC_REPEAT(BrownTextBox_FadeOutLoop),
 
-    PROC_CALL(sub_8011B90),
+    PROC_CALL(BrownTextBox_FadeOutEnd),
 
     PROC_END,
 };
@@ -830,5 +830,5 @@ struct ProcCmd CONST_DATA ProcScr_08592530[] = {
 void StartBrownTextBox(int textId, s16 x, s16 y, ProcPtr parent)
 {
     StartBrownTextBoxCore(x, y, textId, 0x5000, 9, parent);
-    Proc_StartBlocking(ProcScr_08592530, parent);
+    Proc_StartBlocking(ProcScr_Popup_0, parent);
 }

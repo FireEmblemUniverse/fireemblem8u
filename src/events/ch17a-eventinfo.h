@@ -1,41 +1,41 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch17a_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089F7DA4, 1, 255)
-    TurnEventPlayer(0, EventScr_089F7D24, 4)
-    TurnEventPlayer(0, EventScr_089F7D24, 6)
-    TurnEventPlayer(0, EventScr_089F7D24, 8)
-    TurnEventPlayer(0, EventScr_089F7D54, 4)
-    TurnEventPlayer(0, EventScr_089F7D54, 6)
-    TurnEventPlayer(0, EventScr_089F7D54, 8)
-    TurnEventPlayer(0, EventScr_089F7D6C, 10)
-    TurnEventPlayer(0, EventScr_089F7D6C, 12)
-    TurnEventPlayer(0, EventScr_089F7D3C, 3)
-    TurnEventPlayer(0, EventScr_089F7D3C, 5)
-    TurnEventPlayer(0, EventScr_089F7D3C, 7)
-    TurnEventPlayer(0, EventScr_089F7D3C, 9)
-    TurnEventPlayer(0, EventScr_089F7D3C, 11)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch17A_7, 1, 255)
+    TurnEventPlayer(0, EventScr_Ch17A_2, 4)
+    TurnEventPlayer(0, EventScr_Ch17A_2, 6)
+    TurnEventPlayer(0, EventScr_Ch17A_2, 8)
+    TurnEventPlayer(0, EventScr_Ch17A_4, 4)
+    TurnEventPlayer(0, EventScr_Ch17A_4, 6)
+    TurnEventPlayer(0, EventScr_Ch17A_4, 8)
+    TurnEventPlayer(0, EventScr_Ch17A_5, 10)
+    TurnEventPlayer(0, EventScr_Ch17A_5, 12)
+    TurnEventPlayer(0, EventScr_Ch17A_3, 3)
+    TurnEventPlayer(0, EventScr_Ch17A_3, 5)
+    TurnEventPlayer(0, EventScr_Ch17A_3, 7)
+    TurnEventPlayer(0, EventScr_Ch17A_3, 9)
+    TurnEventPlayer(0, EventScr_Ch17A_3, 11)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17a_Character[] = {
-    CHAR(EVFLAG_TMP(9), EventScr_089F7CD4, CHARACTER_TANA, CHARACTER_SYRENE)
-    CHAR(EVFLAG_TMP(9), EventScr_089F7CAC, CHARACTER_INNES, CHARACTER_SYRENE)
-    CHAR(EVFLAG_TMP(9), EventScr_089F7CFC, CHARACTER_VANESSA, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17A_12, CHARACTER_TANA, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17A_11, CHARACTER_INNES, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17A_13, CHARACTER_VANESSA, CHARACTER_SYRENE)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17a_Location[] = {
-    Vendor(ShopList_Event_089ED87A, 1, 20)
-    Armory(ShopList_Event_089ED894, 12, 2)
+    Vendor(ShopList_Ch17A_0, 1, 20)
+    Armory(ShopList_Ch17A_1, 12, 2)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17a_Misc[] = {
-    DefeatBoss(EventScr_089F79C4)
-    AREA(EVFLAG_TMP(13), EventScr_089F7D84, 17, 0, 22, 9)
-    AREA(EVFLAG_TMP(15), EventScr_089F7DD8, 9, 0, 16, 8)
-    AREA(EVFLAG_TMP(15), EventScr_089F7DD8, 15, 10, 19, 16)
+    DefeatBoss(EventScr_Ch17A_1)
+    AREA(EVFLAG_TMP(13), EventScr_Ch17A_6, 17, 0, 22, 9)
+    AREA(EVFLAG_TMP(15), EventScr_Ch17A_8, 9, 0, 16, 8)
+    AREA(EVFLAG_TMP(15), EventScr_Ch17A_8, 15, 10, 19, 16)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -66,20 +66,20 @@ CONST_DATA struct ChapterEventGroup Ch17EirikaEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch17a_UnitMove,
     .tutorialEvents                = EventListScr_Ch17a_Tutorial,
 
-    .traps            = TrapData_Event_089EDA03,
-    .extraTrapsInHard = TrapData_Event_089EDEC4,
+    .traps            = TrapData_Event_Ch17A_0,
+    .extraTrapsInHard = TrapData_Event_Ch17A_1,
 
-    .playerUnitsInNormal = UnitDef_088BDE58,
-    .playerUnitsInHard   = UnitDef_088BDE58,
+    .playerUnitsInNormal = UnitDef_Ch17AAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch17AAlly_0,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088BE5B0,
-    .playerUnitsChoice2InEncounter = UnitDef_088BE8D0,
-    .playerUnitsChoice3InEncounter = UnitDef_088BEBF0,
+    .playerUnitsChoice1InEncounter = UnitDef_Ch17AAlly_3,
+    .playerUnitsChoice2InEncounter = UnitDef_Ch17AAlly_4,
+    .playerUnitsChoice3InEncounter = UnitDef_Ch17AAlly_5,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088BE678,
-    .enemyUnitsChoice2InEncounter = UnitDef_088BE998,
-    .enemyUnitsChoice3InEncounter = UnitDef_088BECB8,
+    .enemyUnitsChoice1InEncounter = UnitDef_Ch17AEnemy_6,
+    .enemyUnitsChoice2InEncounter = UnitDef_Ch17AEnemy_7,
+    .enemyUnitsChoice3InEncounter = UnitDef_Ch17AEnemy_8,
 
     .beginningSceneEvents = EventScr_Ch17a_BeginningScene,
-    .endingSceneEvents    = EventScr_089F79C4,
+    .endingSceneEvents    = EventScr_Ch17A_1,
 };

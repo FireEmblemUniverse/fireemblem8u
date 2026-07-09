@@ -29,7 +29,7 @@ const void * MMS_GetROMTCS2(u16 idx)
 //! FE8U = 0x080BAC44
 u8 * GetMapUnitMMSGfxBuffer(int idx)
 {
-    return gUnknown_0200AF00 + idx * 0x2200;
+    return gUnk_6 + idx * 0x2200;
 }
 
 //! FE8U = 0x080BAC58
@@ -49,7 +49,7 @@ void GmapUnit_Init(struct GMapUnitProc * proc)
     return;
 }
 
-const u8 gUnknown_08205F7C[] = {
+const u8 gWorldmapGmapunit_0[] = {
     0x00, 0x04, 0x08, 0x0C, 0x10, 0x14, 0x18,
 };
 
@@ -87,9 +87,9 @@ void GmapUnit_Loop(struct GMapUnitProc * proc)
         if (proc->animId == 4)
         {
             int oam2;
-            SetStandingMuFacingWM(gUnknown_08205F7C[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
+            SetStandingMuFacingWM(gWorldmapGmapunit_0[proc->index], (void *)(0x06010000 + proc->unk_30 * 0x20));
 
-            oam2 = proc->unk_30 + OAM2_PAL(proc->pal) + gUnknown_08205F7C[proc->index] + proc->unk_2e;
+            oam2 = proc->unk_30 + OAM2_PAL(proc->pal) + gWorldmapGmapunit_0[proc->index] + proc->unk_2e;
             SMS_DisplayOne(proc->unk_38, proc->unk_2c, xOam1, yOam0, oam2, proc->flags & GMAPUNIT_FLAG_BLEND);
         }
         else
@@ -179,7 +179,7 @@ int NewMapUnit(struct GMapUnitContainerProc * container, u16 classId, int factio
     mapUnitProc->unk_38 = classId;
     mapUnitProc->unk_3a = classId;
 
-    StartWorldMapSMS(GetClassSMSId(classId), mapUnitProc->index, gUnknown_08205F7C[mapUnitProc->index]);
+    StartWorldMapSMS(GetClassSMSId(classId), mapUnitProc->index, gWorldmapGmapunit_0[mapUnitProc->index]);
     mapUnitProc->unk_2c = 8;
 
     ap = AP_Create(MMS_GetROMTCS2(classId), 8);
@@ -244,7 +244,7 @@ void MapUnitC_GetPosition(struct GMapUnitContainerProc * container, int index, u
 }
 
 //! FE8U = 0x080BAF58
-void sub_80BAF58(struct GMapUnitContainerProc * container, int index, int x, int y)
+void MapUnitC_AddToPosition(struct GMapUnitContainerProc * container, int index, int x, int y)
 {
     struct GMapUnitProc * mapUnitProc = container->pMapUnitProcs[index];
 
@@ -386,7 +386,7 @@ void MapUnitC_SetGfxNeedsUpdate(struct GMapUnitContainerProc * container, int in
 }
 
 //! FE8U = 0x080BB0E0
-s8 sub_80BB0E0(struct GMapUnitContainerProc * container, int index, int classId)
+s8 MapUnitC_SetDisplayedClass(struct GMapUnitContainerProc * container, int index, int classId)
 {
     struct APHandle * ap;
     struct GMapUnitProc * mapUnitProc;
@@ -426,13 +426,13 @@ s8 sub_80BB0E0(struct GMapUnitContainerProc * container, int index, int classId)
 }
 
 //! FE8U = 0x080BB188
-u16 sub_80BB188(struct GMapUnitContainerProc * container, int index)
+u16 MapUnitC_GetInitialClass(struct GMapUnitContainerProc * container, int index)
 {
     return container->pMapUnitProcs[index]->unk_38;
 }
 
 //! FE8U = 0x080BB194
-int sub_80BB194(struct GMapUnitContainerProc * container, int index)
+int MapUnitC_GetDisplayedClass(struct GMapUnitContainerProc * container, int index)
 {
     return container->pMapUnitProcs[index]->unk_3a;
 }
@@ -519,7 +519,7 @@ void GmapUnitFade_Init(struct GMapUnitFadeProc * proc)
 }
 
 //! FE8U = 0x080BB26C
-u16 sub_80BB26C(int arg0, int arg1, int arg2, int arg3, int arg4)
+u16 GmapUnitFade_InterpolateColor(int arg0, int arg1, int arg2, int arg3, int arg4)
 {
     int red;
     int green;
@@ -592,7 +592,7 @@ void GmapUnitFade_Loop(struct GMapUnitFadeProc * proc)
 
         for (i = 0; i < 0x10; i++)
         {
-            *palIt++ = sub_80BB26C(proc->unk_29, i, proc->unk_2a, i, var);
+            *palIt++ = GmapUnitFade_InterpolateColor(proc->unk_29, i, proc->unk_2a, i, var);
         }
     }
     else
@@ -681,7 +681,7 @@ ProcPtr GetGmapUnitFade(void)
 }
 
 //! FE8U = 0x080BB49C
-void sub_80BB49C(int index)
+void GmapUnitFade_AddUnit(int index)
 {
     struct GMapUnitFadeProc * proc = GetGmapUnitFade();
 
@@ -695,7 +695,7 @@ void sub_80BB49C(int index)
 }
 
 //! FE8U = 0x080BB4C0
-void sub_80BB4C0(int index, int arg1, ProcPtr parent)
+void StartGmapUnitFadeIn(int index, int arg1, ProcPtr parent)
 {
     struct GMapUnitContainerProc * containerProc = GM_UNITC;
     struct GMapUnitProc * mapUnitProc = containerProc->pMapUnitProcs[index];
@@ -706,7 +706,7 @@ void sub_80BB4C0(int index, int arg1, ProcPtr parent)
     }
     else
     {
-        sub_80BB49C(index);
+        GmapUnitFade_AddUnit(index);
     }
 
     MapUnitC_SetPalette(containerProc, index, 10);
@@ -716,7 +716,7 @@ void sub_80BB4C0(int index, int arg1, ProcPtr parent)
 }
 
 //! FE8U = 0x080BB538
-void sub_80BB538(int index, int arg1, ProcPtr parent)
+void StartGmapUnitFadeOut(int index, int arg1, ProcPtr parent)
 {
     struct GMapUnitContainerProc * containerProc = GM_UNITC;
     struct GMapUnitProc * mapUnitProc = containerProc->pMapUnitProcs[index];
@@ -727,7 +727,7 @@ void sub_80BB538(int index, int arg1, ProcPtr parent)
     }
     else
     {
-        sub_80BB49C(index);
+        GmapUnitFade_AddUnit(index);
     }
 
     MapUnitC_SetPalette(containerProc, index, 10);

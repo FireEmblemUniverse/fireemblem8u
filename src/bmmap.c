@@ -77,7 +77,7 @@ void InitChapterMap(int chapterId) {
     RefreshTerrainBmMap();
     
     if (gPlaySt.chapterIndex == CHAPTER_75)
-        sub_8019624();
+        ApplyWaterShadowsBmMap();
 }
 
 void InitMapForMinimap(int chapterId) {
@@ -93,7 +93,7 @@ void InitMapForMinimap(int chapterId) {
     RefreshTerrainBmMap();
 }
 
-void sub_8019624(void) {
+void ApplyWaterShadowsBmMap(void) {
     int ix, iy;
 
     // Automatic water shadows?
@@ -164,13 +164,13 @@ void sub_8019624(void) {
     }
 }
 
-void sub_8019778(void) {
+void RefreshChapterMap(void) {
     UnpackChapterMap(gBmMapBuffer, gPlaySt.chapterIndex);
 
     InitBaseTilesBmMap();
     ApplyEnabledMapChanges();
     RefreshTerrainBmMap();
-    sub_8019624();
+    ApplyWaterShadowsBmMap();
 }
 
 void BmMapInit(void* buffer, u8*** outHandle, int x, int y) {
@@ -335,13 +335,13 @@ void DisplayBmTile(u16* bg, int xTileMap, int yTileMap, int xBmMap, int yBmMap) 
     out[0x20 + 1] = base + *tile++;
 }
 
-void nullsub_8(void) {}
+void Nop_Bmmap_0(void) {}
 
 void DisplayMovementViewTile(u16* bg, int xBmMap, int yBmMap, int xTileMap, int yTileMap) {
     bg = bg + 2*(yTileMap * 0x20 + xTileMap);
 
     if (!bg)
-        nullsub_8();
+        Nop_Bmmap_0();
 
     // TODO: tile macros?
     // TODO: are the movement and range maps s8[][]?
@@ -659,7 +659,7 @@ void RefreshEntityBmMaps(void) {
 }
 
 char* GetTerrainName(int terrainId) {
-    return GetStringFromIndex(gUnknown_0880D374[terrainId]);
+    return GetStringFromIndex(gTerrains_0[terrainId]);
 }
 
 int GetTerrainHealAmount(int terrainId) {
@@ -670,11 +670,11 @@ s8 GetTerrainHealsStatus(int terrainId) {
     return TerrainTable_HealsStatus[terrainId];
 }
 
-void sub_801A278(void) {
+void BlankTilesetConfigTiles(void) {
     const u16* tile = sTilesetConfig;
 
     // TODO: game state bits constants
-    if (!sub_800D208() || (gBmSt.gameStateBits & 0x10)) {
+    if (!IsActiveEventTextTypeOnMap() || (gBmSt.gameStateBits & 0x10)) {
         // TODO: macros?
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));

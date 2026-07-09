@@ -82,7 +82,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
     ResetUnitSprites();
     SetBlendConfig(3, 0, 0, 0x10);
 
-    sub_80BF15C();
+    EndGMapPlayerInterface();
     EndWorldmapMinimap();
 
     gGMData.state.bits.skip_wm = 0;
@@ -93,7 +93,7 @@ void WorldMap_Destruct(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B8A7C
-void sub_80B8A7C(struct WorldMapMainProc * proc)
+void WorldMap_StartMuWalkScroll(struct WorldMapMainProc * proc)
 {
     int unk;
     s16 x1;
@@ -108,10 +108,10 @@ void sub_80B8A7C(struct WorldMapMainProc * proc)
 
     gGMData.sprite_disp = 0;
 
-    sub_80BE0A4(proc->gm_mu, 0, &x1, &y1);
+    GmMu_GetRawPosition(proc->gm_mu, 0, &x1, &y1);
     GetWMCenteredCameraPosition(x1, y1 - 14, &x2, &y2);
 
-    unk = sub_80C0834(gGMData.xCamera, gGMData.yCamera, x2, y2, 2);
+    unk = GetWMPointDistance(gGMData.xCamera, gGMData.yCamera, x2, y2, 2);
 
     unk = unk >> 2;
 
@@ -138,7 +138,7 @@ void sub_80B8A7C(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B8B3C
-void sub_80B8B3C(struct WorldMapMainProc * proc)
+void WorldMap_WaitMuWalkScroll(struct WorldMapMainProc * proc)
 {
     if (CheckGmScrolling() == 0)
     {
@@ -150,7 +150,7 @@ void sub_80B8B3C(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B8B60
-s8 sub_80B8B60(int location)
+s8 WorldMap_IsMonsterAtUnclearedNode(int location)
 {
     int i;
 
@@ -176,35 +176,35 @@ s8 sub_80B8B60(int location)
 }
 
 //! FE8U = 0x080B8BA4
-void sub_80B8BA4(struct WorldMapMainProc * proc)
+void WorldMap_MuWalkLoop(struct WorldMapMainProc * proc)
 {
     struct UnknownSub80BDEB4 a;
 
-    if (sub_80BE12C(proc->gm_mu, 0) != 0)
+    if (GmMu_IsMoving(proc->gm_mu, 0) != 0)
     {
         return;
     }
 
-    if (proc->unk_40 < sub_80BD29C() - 1)
+    if (proc->unk_40 < GetGmPathLength() - 1)
     {
 #ifdef NONMATCHING
-        int var = sub_80BD29C() - proc->unk_40;
+        int var = GetGmPathLength() - proc->unk_40;
 #else
-        register int var asm("r0") = sub_80BD29C() - proc->unk_40;
+        register int var asm("r0") = GetGmPathLength() - proc->unk_40;
 #endif
         if (var == 2)
         {
-            int location = sub_80BD28C(proc->unk_40 + 1);
+            int location = GetGmPathNode(proc->unk_40 + 1);
             if (gGMData.nodes[location].state & 2 &&
-                sub_80BD28C(proc->unk_40 + 1)[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
+                GetGmPathNode(proc->unk_40 + 1)[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
             {
-                proc->unk_3e = sub_80BD28C(proc->unk_40 + 1);
+                proc->unk_3e = GetGmPathNode(proc->unk_40 + 1);
                 Proc_Goto(proc, 14);
             }
         }
         else
         {
-            if (sub_80BCA1C(sub_80BD28C(proc->unk_40 + 1)) >= 0)
+            if (GetGmSkirmishUnitAtNode(GetGmPathNode(proc->unk_40 + 1)) >= 0)
             {
                 Proc_Goto(proc, 17);
                 return;
@@ -213,9 +213,9 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
 
         if (proc->unk_41 < 1)
         {
-            int b = sub_80BD28C(proc->unk_40);
-            int c = sub_80BD28C(proc->unk_40 + 1);
-            GmMu_80BE108(proc->gm_mu, 0, 1);
+            int b = GetGmPathNode(proc->unk_40);
+            int c = GetGmPathNode(proc->unk_40 + 1);
+            GmMu_0(proc->gm_mu, 0, 1);
 
             a.unk_00 = 0;
             a.unk_06 = b;
@@ -227,7 +227,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
             a.unk_03 = 0xff;
             a.unk_04 = 4;
 
-            sub_80BDEB4(proc->gm_mu, &a);
+            GmMu_StartMoveBetweenNodes(proc->gm_mu, &a);
             proc->unk_41 = 8;
             proc->unk_40++;
         }
@@ -248,8 +248,8 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         int location;
 
         proc->flags_1 = 0;
-        gGMData.units[0].location = sub_80BD28C(proc->unk_40);
-        GmMu_80BE108(proc->gm_mu, 0, 0);
+        gGMData.units[0].location = GetGmPathNode(proc->unk_40);
+        GmMu_0(proc->gm_mu, 0, 0);
 
         location = gGMData.units[0].location;
         if (location[gWMNodeData].placementFlag == GMAP_NODE_PLACEMENT_DUNGEON)
@@ -258,7 +258,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
         }
         else
         {
-            if (sub_80B8B60(location) != 0)
+            if (WorldMap_IsMonsterAtUnclearedNode(location) != 0)
             {
                 Proc_Goto(proc, 16);
             }
@@ -272,7 +272,7 @@ void sub_80B8BA4(struct WorldMapMainProc * proc)
     return;
 }
 
-struct FaceVramEntry CONST_DATA gUnknown_08A3D728[] =
+struct FaceVramEntry CONST_DATA gWorldmapMain_0[] =
 {
     [0] =
     {
@@ -318,7 +318,7 @@ void SetupGraphicSystemsForWorldMap(void)
     LoadLegacyUiFrameGraphics();
     ResetText();
     ResetFaces();
-    SetupFaceGfxData(gUnknown_08A3D728);
+    SetupFaceGfxData(gWorldmapMain_0);
     ResetUnitSprites();
     InitMus();
     ApplyUnitSpritePalettes();
@@ -332,7 +332,7 @@ void SetupGraphicSystemsForWorldMap(void)
 //! FE8U = 0x080B8E14
 void SetupGmapNodeGfx(void)
 {
-    ApplyPalettes(gUnknown_08A97A40, 0x13, 2);
+    ApplyPalettes(gWorldmapGmap_4, 0x13, 2);
     Decompress(Img_GmapNodes, (void *)0x06011000);
     Decompress(Img_GmapCastleNodes, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06010280, 0xc, 4);
@@ -341,7 +341,7 @@ void SetupGmapNodeGfx(void)
 }
 
 //! FE8U = 0x080B8E60
-void sub_80B8E60(struct WorldMapMainProc * proc)
+void WorldMap_SetupBgGfx(struct WorldMapMainProc * proc)
 {
     proc->unk_3a = 0;
 
@@ -356,12 +356,12 @@ void sub_80B8E60(struct WorldMapMainProc * proc)
 
     ApplyPalettes(gPal_MiscUiGraphics, 0x10, 2);
     ApplyPalette(gPal_MiscUiGraphics, 0x1B);
-    Decompress(gUnknown_08AA11D0, gGenericBuffer);
+    Decompress(gWorldmapSkirmish_0, gGenericBuffer);
     Copy2dChr(gGenericBuffer, (void *)0x06015300, 8, 2);
 
     SetupGmapNodeGfx();
 
-    ApplyPalette(gUnknown_08A97FA4, 0xE);
+    ApplyPalette(gWorldmapSprite_1, 0xE);
     Decompress(Img_GmapPath, (void *)0x06005000);
 
     LoadUiFrameGraphics();
@@ -407,20 +407,20 @@ void DeployEveryUnit(struct WorldMapMainProc * unused)
 }
 
 //! FE8U = 0x080B8FD0
-void nullsub_22(void)
+void Nop_WorldmapMain_0(void)
 {
     return;
 }
 
 //! FE8U = 0x080B8FD4
-void sub_80B8FD4(void)
+void WorldMap_SetInitialState(void)
 {
     gGMData.state.bits.state_0 = 1;
     gGMData.state.bits.state_3 = 0;
 }
 
 //! FE8U = 0x080B8FEC
-void sub_80B8FEC(struct WorldMapMainProc * proc)
+void WorldMap_SetNextNodeIcon(struct WorldMapMainProc * proc)
 {
     int id = GetNextUnclearedNode(&gGMData);
 
@@ -438,7 +438,7 @@ void sub_80B8FEC(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B9028
-void sub_80B9028(struct WorldMapMainProc * proc)
+void WorldMap_ShowMapUnits(struct WorldMapMainProc * proc)
 {
     s16 unk[2];
     int i;
@@ -476,7 +476,7 @@ void sub_80B9028(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B90CC
-void sub_80B90CC(struct WorldMapMainProc * proc)
+void WorldMap_ResetMapUnits(struct WorldMapMainProc * proc)
 {
     int i;
 
@@ -492,13 +492,13 @@ void sub_80B90CC(struct WorldMapMainProc * proc)
         }
     }
 
-    sub_80B9028(proc);
+    WorldMap_ShowMapUnits(proc);
 
     return;
 }
 
 //! FE8U = 0x080B9114
-void sub_80B9114(struct WorldMapMainProc * proc)
+void WorldMap_SetMergedNodeIcon(struct WorldMapMainProc * proc)
 {
     int i;
 
@@ -521,7 +521,7 @@ void WorldMap_Init(struct WorldMapMainProc * proc)
 {
     SetupGraphicSystemsForWorldMap();
 
-    sub_80B8E60(proc);
+    WorldMap_SetupBgGfx(proc);
     DeployEveryUnit(proc);
 
     proc->gm_screen = NewMapScreen(PROC_TREE_5);
@@ -532,12 +532,12 @@ void WorldMap_Init(struct WorldMapMainProc * proc)
 
     RefreshGmNodeLinks(&gGMData);
     StartWmTextHandler(proc);
-    sub_80B8FEC(proc);
-    sub_80B90CC(proc);
+    WorldMap_SetNextNodeIcon(proc);
+    WorldMap_ResetMapUnits(proc);
 
     if (gGMData.state.bits.monster_merged)
     {
-        sub_80B9114(proc);
+        WorldMap_SetMergedNodeIcon(proc);
     }
 
     proc->gm_screen->gmroute->flags |= 3;
@@ -599,7 +599,7 @@ void WmMain_MoveCamera(ProcPtr proc)
 }
 
 //! FE8U = 0x080B92D0
-s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
+s8 WorldMap_HandleNodeConfirm(struct WorldMapMainProc * param_1, int param_2)
 {
     int iVar4;
     int i;
@@ -608,7 +608,7 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
     {
         if (((gGMData.nodes[param_2].state & 2) == 0) && (param_2[gWMNodeData].placementFlag != 3))
         {
-            if (sub_80BCA1C(param_2) >= 0)
+            if (GetGmSkirmishUnitAtNode(param_2) >= 0)
                 Proc_Goto(param_1, 16);
             else
             {
@@ -629,9 +629,9 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
         return 1;
     }
 
-    if (sub_80BCCFC(gGMData.units[0].location, param_2, 0) != 0)
+    if (GmFindPath(gGMData.units[0].location, param_2, 0) != 0)
     {
-        if ((sub_80BD29C() == 2) && (gGMData.nodes[param_2].state & 2) != 0)
+        if ((GetGmPathLength() == 2) && (gGMData.nodes[param_2].state & 2) != 0)
         {
             param_1->unk_3e = param_2;
             Proc_Goto(param_1, 14);
@@ -646,9 +646,9 @@ s8 sub_80B92D0(struct WorldMapMainProc * param_1, int param_2)
     else
     {
         i = gGMData.units[0].location;
-        if (sub_80BCCFC(i, param_2, 1) != 0)
+        if (GmFindPath(i, param_2, 1) != 0)
         {
-            if (sub_80BD29C() == 2)
+            if (GetGmPathLength() == 2)
             {
                 if (param_2[gWMNodeData].placementFlag != 3)
                 {
@@ -769,7 +769,7 @@ struct ProcCmd CONST_DATA ProcScr_WorldMapMain[] =
 {
     PROC_SET_END_CB(WorldMap_Destruct),
 
-    PROC_CALL(sub_80B8FD4),
+    PROC_CALL(WorldMap_SetInitialState),
     PROC_CALL(WorldMap_Init),
 
     PROC_CALL_ARG(_FadeBgmOut, 1),
@@ -787,7 +787,7 @@ PROC_LABEL(1),
     PROC_GOTO(3),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80B9A34),
+    PROC_CALL(WorldMap_FadeInOnTimerFlag),
     PROC_WHILE(FadeInExists),
     PROC_CALL(_WmMergeMonsters),
     PROC_REPEAT(WorldMap_WaitMonsterMerging),
@@ -798,22 +798,22 @@ PROC_LABEL(2),
 PROC_LABEL(3),
     PROC_SLEEP(1),
     PROC_CALL(WorldMap_UpdateBgm),
-    PROC_CALL(sub_80B9A34),
+    PROC_CALL(WorldMap_FadeInOnTimerFlag),
     PROC_WHILE(FadeInExists),
-    PROC_CALL(sub_80BF13C),
+    PROC_CALL(StartGMapPlayerInterface),
     PROC_CALL(StartWorldmapMinimap),
     PROC_SLEEP(1),
 
     // fallthrough
 
 PROC_LABEL(4),
-    PROC_CALL(sub_80B97F8),
+    PROC_CALL(WorldMap_EnableUnitSprites),
     PROC_REPEAT(WorldMap_Loop),
 
     PROC_BLOCK,
 
 PROC_LABEL(5),
-    PROC_CALL(sub_80BF15C),
+    PROC_CALL(EndGMapPlayerInterface),
     PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
     PROC_CALL(StartWMGeneralMenu),
@@ -821,30 +821,30 @@ PROC_LABEL(5),
     PROC_GOTO(3),
 
 PROC_LABEL(6),
-    PROC_CALL(sub_80BF15C),
+    PROC_CALL(EndGMapPlayerInterface),
     PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B8A7C),
-    PROC_REPEAT(sub_80B8B3C),
+    PROC_CALL(WorldMap_StartMuWalkScroll),
+    PROC_REPEAT(WorldMap_WaitMuWalkScroll),
 
     // fallthrough
 
 PROC_LABEL(7),
-    PROC_REPEAT(sub_80B8BA4),
+    PROC_REPEAT(WorldMap_MuWalkLoop),
     PROC_SLEEP(1),
 
     PROC_GOTO(3),
 
 PROC_LABEL(8),
-    PROC_REPEAT(sub_80B96DC),
+    PROC_REPEAT(WorldMap_WaitCursorJump),
 
     PROC_GOTO(4),
 
 PROC_LABEL(9),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80B9810),
-    PROC_CALL(sub_80B9820),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
+    PROC_CALL(WorldMap_StartUnitList),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
 
@@ -853,12 +853,12 @@ PROC_LABEL(9),
 PROC_LABEL(10),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL_2(WorldMap_CallGuide),
     PROC_CALL(WorldMap_Init),
-    PROC_CALL(sub_80B989C),
+    PROC_CALL(WorldMap_ResumeFromGuide),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B98A8),
+    PROC_CALL(WorldMap_RestoreDisplayAfterGuide),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
@@ -867,12 +867,12 @@ PROC_LABEL(10),
 PROC_LABEL(11),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL_2(WorldMap_StartConfigScreen),
     PROC_CALL(WorldMap_Init),
     PROC_CALL(WorldMap_ResumeFromConfigScreen),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B9924),
+    PROC_CALL(WorldMap_RestoreDisplayAfterConfig),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
@@ -881,12 +881,12 @@ PROC_LABEL(11),
 PROC_LABEL(12),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL_2(StartWorldmapStatusScreen),
     PROC_CALL(WorldMap_Init),
-    PROC_CALL(sub_80B9994),
+    PROC_CALL(WorldMap_ResumeFromStatusScreen),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B99A0),
+    PROC_CALL(WorldMap_RestoreDisplayAfterStatus),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
@@ -895,8 +895,8 @@ PROC_LABEL(12),
 PROC_LABEL(13),
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
-    PROC_CALL(sub_80B9FD4),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_PrepareSaveMenu),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL(Make6C_SaveMenuPostChapter),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
@@ -904,7 +904,7 @@ PROC_LABEL(13),
     PROC_GOTO(23),
 
 PROC_LABEL(14),
-    PROC_CALL(sub_80BF15C),
+    PROC_CALL(EndGMapPlayerInterface),
     PROC_CALL(EndWorldmapMinimap),
 
     // fallthrough
@@ -917,16 +917,16 @@ PROC_LABEL(15),
     PROC_GOTO(25),
 
 PROC_LABEL(16),
-    PROC_CALL(sub_80BF15C),
+    PROC_CALL(EndGMapPlayerInterface),
     PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(30),
-    PROC_CALL(sub_80B9A58),
+    PROC_CALL(WorldMap_StartSkirmishAnim),
     PROC_REPEAT(Worldmap_WaitForSkirmishAnim),
     PROC_SLEEP(20),
-    PROC_CALL(sub_80B9AB0),
+    PROC_CALL(WorldMap_EndSkirmishDisplay),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(sub_80B9AEC),
+    PROC_CALL(WorldMap_RemoveMergedSkirmishUnits),
 
     PROC_GOTO(25),
 
@@ -938,7 +938,7 @@ PROC_LABEL(17),
     PROC_GOTO(3),
 
 PROC_LABEL(18),
-    PROC_CALL(sub_80BF15C),
+    PROC_CALL(EndGMapPlayerInterface),
     PROC_CALL(EndWorldmapMinimap),
     PROC_SLEEP(1),
     PROC_CALL(StartWMNodeMenu),
@@ -949,7 +949,7 @@ PROC_LABEL(18),
 PROC_LABEL(19),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL(WorldMap_StartArmory),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
@@ -959,7 +959,7 @@ PROC_LABEL(19),
 PROC_LABEL(20),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL(WorldMap_StartVendor),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
@@ -969,7 +969,7 @@ PROC_LABEL(20),
 PROC_LABEL(21),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL(WorldMap_StartSecretShop),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
@@ -979,7 +979,7 @@ PROC_LABEL(21),
 PROC_LABEL(22),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
-    PROC_CALL(sub_80B9810),
+    PROC_CALL(WorldMap_TeardownForSubscreen),
     PROC_CALL(WorldMap_StartManageItems),
     PROC_YIELD,
     PROC_CALL(WorldMap_Init),
@@ -988,7 +988,7 @@ PROC_LABEL(22),
 
 PROC_LABEL(24),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B982C),
+    PROC_CALL(WorldMap_RestoreDisplay),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
@@ -996,7 +996,7 @@ PROC_LABEL(24),
 
 PROC_LABEL(23),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80B982C),
+    PROC_CALL(WorldMap_RestoreDisplay),
     PROC_CALL(StartFastFadeFromBlack),
     PROC_REPEAT(WaitForFade),
 
@@ -1005,14 +1005,14 @@ PROC_LABEL(23),
 PROC_LABEL(25),
     PROC_SLEEP(16),
     PROC_CALL(ResetWorldMapScreen),
-    PROC_CALL(NULL_080B9F08),
+    PROC_CALL(NULL_WorldmapMain_0),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x080B955C
-int sub_80B955C(ProcPtr proc, int unk)
+int WorldMap_FindNextSelectableNode(ProcPtr proc, int unk)
 {
     int idx;
     int i;
@@ -1020,7 +1020,7 @@ int sub_80B955C(ProcPtr proc, int unk)
 
     for (i = 0; i < 0x1d; i++)
     {
-        if (sub_80BBA4C(i) == unk)
+        if (GetWorldMapNodeIdByOrder(i) == unk)
         {
             break;
         }
@@ -1028,7 +1028,7 @@ int sub_80B955C(ProcPtr proc, int unk)
 
     for (j = 1; j < 0x1d; j++)
     {
-        idx = sub_80BBA4C((i + j) < 0x1d ? i + j : i + j - 0x1d);
+        idx = GetWorldMapNodeIdByOrder((i + j) < 0x1d ? i + j : i + j - 0x1d);
 
         if (gGMData.nodes[idx].state & 1)
         {
@@ -1040,7 +1040,7 @@ int sub_80B955C(ProcPtr proc, int unk)
 }
 
 //! FE8U = 0x080B95B0
-int sub_80B95B0(void)
+int WorldMap_FindNearestNode(void)
 {
     int i;
 
@@ -1054,7 +1054,7 @@ int sub_80B95B0(void)
     {
         if (gGMData.nodes[i].state & 1)
         {
-            int unk = sub_80C0834(x, y, i[gWMNodeData].x, i[gWMNodeData].y, 5);
+            int unk = GetWMPointDistance(x, y, i[gWMNodeData].x, i[gWMNodeData].y, 5);
 
             if (unk < best)
             {
@@ -1067,7 +1067,7 @@ int sub_80B95B0(void)
     return idx;
 }
 
-void sub_80B961C(ProcPtr proc, int nodeId)
+void WorldMap_JumpCursorToNode(ProcPtr proc, int nodeId)
 {
     s16 x;
     s16 y;
@@ -1088,7 +1088,7 @@ void sub_80B961C(ProcPtr proc, int nodeId)
     *&xCamera = gGMData.xCamera;
     *&yCamera = gGMData.yCamera;
 
-    unk = sub_80C0834(xCamera, yCamera, xOut, yOut, 4);
+    unk = GetWMPointDistance(xCamera, yCamera, xOut, yOut, 4);
     if (unk < 0)
     {
         unk = unk + 0x1FF;
@@ -1110,7 +1110,7 @@ void sub_80B961C(ProcPtr proc, int nodeId)
 }
 
 //! FE8U = 0x080B96DC
-void sub_80B96DC(ProcPtr proc)
+void WorldMap_WaitCursorJump(ProcPtr proc)
 {
     if (!GmScrollManageExist())
     {
@@ -1145,7 +1145,7 @@ void WorldMap_LoopExt(struct WorldMapMainProc * proc)
     {
         if (gKeyStatusPtr->newKeys & A_BUTTON)
         {
-            if (sub_80B92D0(proc, nodeId) != 0)
+            if (WorldMap_HandleNodeConfirm(proc, nodeId) != 0)
             {
                 PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
                 return;
@@ -1153,10 +1153,10 @@ void WorldMap_LoopExt(struct WorldMapMainProc * proc)
         }
         else if (gKeyStatusPtr->newKeys & L_BUTTON)
         {
-            nodeId = sub_80B955C(proc, nodeId);
+            nodeId = WorldMap_FindNextSelectableNode(proc, nodeId);
             if (nodeId >= 0)
             {
-                sub_80B961C(proc, nodeId);
+                WorldMap_JumpCursorToNode(proc, nodeId);
                 return;
             }
         }
@@ -1165,7 +1165,7 @@ void WorldMap_LoopExt(struct WorldMapMainProc * proc)
     {
         if (gKeyStatusPtr->newKeys & L_BUTTON)
         {
-            sub_80B961C(proc, sub_80B95B0());
+            WorldMap_JumpCursorToNode(proc, WorldMap_FindNearestNode());
             return;
         }
     }
@@ -1185,7 +1185,7 @@ void WorldMap_LoopExt(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B97F8
-void sub_80B97F8(void)
+void WorldMap_EnableUnitSprites(void)
 {
     gGMData.sprite_disp = 1;
 }
@@ -1197,7 +1197,7 @@ void WorldMap_Loop(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9810
-void sub_80B9810(ProcPtr unused)
+void WorldMap_TeardownForSubscreen(ProcPtr unused)
 {
     ClearWmHblank();
     Proc_EndEachMarked(PROC_MARK_WMSTUFF);
@@ -1205,14 +1205,14 @@ void sub_80B9810(ProcPtr unused)
 }
 
 //! FE8U = 0x080B9820
-void sub_80B9820(ProcPtr proc)
+void WorldMap_StartUnitList(ProcPtr proc)
 {
     StartUnitListScreenWorldMap(proc);
     return;
 }
 
 //! FE8U = 0x080B982C
-void sub_80B982C(struct WorldMapMainProc * proc)
+void WorldMap_RestoreDisplay(struct WorldMapMainProc * proc)
 {
     struct GmScreenProc * pScreenProc = proc->gm_screen;
 
@@ -1237,13 +1237,13 @@ s8 WorldMap_CallGuide(ProcPtr proc)
 }
 
 //! FE8U = 0x080B989C
-void sub_80B989C(void)
+void WorldMap_ResumeFromGuide(void)
 {
     Proc_UnblockEachMarked(PROC_MARK_WMSTUFF);
 }
 
 //! FE8U = 0x080B98A8
-void sub_80B98A8(struct WorldMapMainProc * proc)
+void WorldMap_RestoreDisplayAfterGuide(struct WorldMapMainProc * proc)
 {
     struct GmScreenProc * pScreenProc = proc->gm_screen;
 
@@ -1275,7 +1275,7 @@ void WorldMap_ResumeFromConfigScreen(void)
 }
 
 //! FE8U = 0x080B9924
-void sub_80B9924(struct WorldMapMainProc * proc)
+void WorldMap_RestoreDisplayAfterConfig(struct WorldMapMainProc * proc)
 {
     struct GmScreenProc * pScreenProc = proc->gm_screen;
 
@@ -1300,14 +1300,14 @@ s8 StartWorldmapStatusScreen(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9994
-void sub_80B9994(void)
+void WorldMap_ResumeFromStatusScreen(void)
 {
     Proc_UnblockEachMarked(PROC_MARK_WMSTUFF);
     return;
 }
 
 //! FE8U = 0x080B99A0
-void sub_80B99A0(struct WorldMapMainProc * proc)
+void WorldMap_RestoreDisplayAfterStatus(struct WorldMapMainProc * proc)
 {
     struct GmScreenProc * pScreenProc = proc->gm_screen;
 
@@ -1324,7 +1324,7 @@ void sub_80B99A0(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B99F0
-void sub_80B99F0(void)
+void WorldMap_ShowEverything(void)
 {
     SetDispEnable(1, 1, 1, 1, 1);
     return;
@@ -1338,7 +1338,7 @@ void WorldMap_HideEverything(void)
 }
 
 //! FE8U = 0x080B9A34
-void sub_80B9A34(struct WorldMapMainProc * proc)
+void WorldMap_FadeInOnTimerFlag(struct WorldMapMainProc * proc)
 {
 
     if (proc->timer & 4)
@@ -1351,12 +1351,12 @@ void sub_80B9A34(struct WorldMapMainProc * proc)
 }
 
 //! FE8U = 0x080B9A58
-void sub_80B9A58(struct WorldMapMainProc * proc)
+void WorldMap_StartSkirmishAnim(struct WorldMapMainProc * proc)
 {
-    GmMu_80BE108(proc->gm_mu, 0, 0);
+    GmMu_0(proc->gm_mu, 0, 0);
     gPlaySt.chapterIndex = WMLoc_GetChapterId(gGMData.units[0].location);
     gGMData.sprite_disp = 0;
-    StartWorldmapSkirmishAnim(0, sub_80BCA1C(gGMData.units[0].location), proc);
+    StartWorldmapSkirmishAnim(0, GetGmSkirmishUnitAtNode(gGMData.units[0].location), proc);
     return;
 }
 
@@ -1372,7 +1372,7 @@ void Worldmap_WaitForSkirmishAnim(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9AB0
-void sub_80B9AB0(void)
+void WorldMap_EndSkirmishDisplay(void)
 {
     Sound_FadeOutBGM(4);
     SetDispEnable(0, 0, 0, 0, 0);
@@ -1383,7 +1383,7 @@ void sub_80B9AB0(void)
 }
 
 //! FE8U = 0x080B9AEC
-void sub_80B9AEC(struct WorldMapMainProc * proc)
+void WorldMap_RemoveMergedSkirmishUnits(struct WorldMapMainProc * proc)
 {
     int i;
 
@@ -1409,7 +1409,7 @@ void sub_80B9AEC(struct WorldMapMainProc * proc)
 //! FE8U = 0x080B9B38
 void WorldMap_CallIntroEvent(struct WorldMapMainProc * proc)
 {
-    GmMu_80BE108(proc->gm_mu, 0, 0);
+    GmMu_0(proc->gm_mu, 0, 0);
 
     if (gGMData.units[0].location[gWMNodeData].placementFlag != GMAP_NODE_PLACEMENT_DUNGEON)
     {
@@ -1436,7 +1436,7 @@ void WorldMap_PostBeginningEvent(struct WorldMapMainProc * proc)
         return;
     }
 
-    MapRoute_80BC2DC(proc->gm_screen->gmroute);
+    MapRoute_0(proc->gm_screen->gmroute);
     if (!(gGMData.state.raw & GM_STATE_NOFADE))
     {
         SetBlendConfig(0, 0, 0, 0);
@@ -1600,7 +1600,7 @@ void Worlmap_WaitGmapSogu(ProcPtr proc)
 }
 
 //! FE8U = 0x080B9E64
-void sub_80B9E64(void)
+void WorldMap_HideFaceAndCenterCamera(void)
 {
     s16 x;
     s16 y;
@@ -1634,9 +1634,9 @@ void ResetWorldMapScreen(void)
 }
 
 //! FE8U = 0x080B9F08
-void NULL_080B9F08(void)
+void NULL_WorldmapMain_0(void)
 {
-    nullsub_22();
+    Nop_WorldmapMain_0();
     return;
 }
 
@@ -1715,7 +1715,7 @@ void UpdateWorldMapBgm(void)
 }
 
 //! FE8U = 0x080B9FD4
-void sub_80B9FD4(ProcPtr unused)
+void WorldMap_PrepareSaveMenu(ProcPtr unused)
 {
     int mapLocation = GetNextUnclearedNode(&gGMData);
 
@@ -1731,7 +1731,7 @@ void sub_80B9FD4(ProcPtr unused)
 }
 
 //! FE8U = 0x080BA008
-void sub_80BA008(int unk)
+void WorldMap_RestartWithTimer(int unk)
 {
     struct WorldMapMainProc * proc = Proc_Find(ProcScr_WorldMapMain);
     proc->timer = unk;
@@ -1758,7 +1758,7 @@ s8 WM_Exists(void)
 }
 
 //! FE8U = 0x080BA06C
-void sub_80BA06C(struct Proc8A3DD08 * proc)
+void WorldMap_MergeFace_Loop(struct Proc8A3DD08 * proc)
 {
     if (proc->unk_2c > 0)
     {
@@ -1784,10 +1784,10 @@ void sub_80BA06C(struct Proc8A3DD08 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_08A3DD08[] =
+struct ProcCmd CONST_DATA ProcScr_WorldmapMain_0[] =
 {
     PROC_YIELD,
-    PROC_REPEAT(sub_80BA06C),
+    PROC_REPEAT(WorldMap_MergeFace_Loop),
 
     PROC_END,
 };
@@ -1799,7 +1799,7 @@ void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int 
 {
     struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
 
-    struct Proc8A3DD08 * proc = Proc_Start(ProcScr_08A3DD08, parent);
+    struct Proc8A3DD08 * proc = Proc_Start(ProcScr_WorldmapMain_0, parent);
     proc->unk_2c = timerMaybe; // timer?
     proc->unk_30 = b;
     proc->unk_34 = faceSlot; // face slot
@@ -1812,7 +1812,7 @@ void WmMergeFace(int timerMaybe, u8 b, int faceSlot, int fid, int e, int f, int 
 }
 
 //! FE8U = 0x080BA100
-void sub_80BA100(struct Proc8A3DD30 * proc)
+void WorldMap_FadeMapSpritePalOut_Loop(struct Proc8A3DD30 * proc)
 {
     int i;
 
@@ -1842,10 +1842,10 @@ void sub_80BA100(struct Proc8A3DD30 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_08A3DD20[] =
+struct ProcCmd CONST_DATA ProcScr_WorldmapMain_1[] =
 {
     PROC_YIELD,
-    PROC_REPEAT(sub_80BA100),
+    PROC_REPEAT(WorldMap_FadeMapSpritePalOut_Loop),
 
     PROC_END,
 };
@@ -1853,12 +1853,12 @@ struct ProcCmd CONST_DATA ProcScr_08A3DD20[] =
 // clang-format on
 
 //! FE8U = 0x080BA198
-void sub_80BA198(int color)
+void WorldMap_StartFadeMapSpritePalOut(int color)
 {
     int i;
 
     struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
-    struct Proc8A3DD30 * proc = Proc_Start(ProcScr_08A3DD20, parent);
+    struct Proc8A3DD30 * proc = Proc_Start(ProcScr_WorldmapMain_1, parent);
 
     proc->unk_30 = color & 0x1f;
     proc->unk_2c = 0;
@@ -1874,7 +1874,7 @@ void sub_80BA198(int color)
 }
 
 //! FE8U = 0x080BA1F4
-void sub_80BA1F4(struct Proc8A3DD38 * proc)
+void WorldMap_FadeMapSpritePalIn_Loop(struct Proc8A3DD38 * proc)
 {
     int i;
 
@@ -1903,10 +1903,10 @@ void sub_80BA1F4(struct Proc8A3DD38 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_08A3DD38[] =
+struct ProcCmd CONST_DATA ProcScr_WorldmapMain_2[] =
 {
     PROC_YIELD,
-    PROC_REPEAT(sub_80BA1F4),
+    PROC_REPEAT(WorldMap_FadeMapSpritePalIn_Loop),
 
     PROC_END,
 };
@@ -1914,12 +1914,12 @@ struct ProcCmd CONST_DATA ProcScr_08A3DD38[] =
 // clang-format on
 
 //! FE8U = 0x080BA288
-void sub_80BA288(int color)
+void WorldMap_StartFadeMapSpritePalIn(int color)
 {
     int i;
 
     struct WorldMapMainProc * parent = Proc_Find(ProcScr_WorldMapMain);
-    struct Proc8A3DD38 * proc = Proc_Start(ProcScr_08A3DD38, parent);
+    struct Proc8A3DD38 * proc = Proc_Start(ProcScr_WorldmapMain_2, parent);
 
     proc->unk_30 = color & 0x1f;
     proc->unk_2c = 0;
@@ -1975,7 +1975,7 @@ void WorldMap_CallBeginningEvent(struct WorldMapMainProc * proc)
 
     if ((gGMData.state.bits.monster_merged) || (gPlaySt.chapterStateBits & PLAY_FLAG_POSTGAME))
     {
-        sub_80BA008(proc->timer);
+        WorldMap_RestartWithTimer(proc->timer);
     }
     else
     {

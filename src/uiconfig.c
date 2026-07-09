@@ -658,7 +658,7 @@ PROC_LABEL(0),
 
 //! FE8U: 0x080B169C
 // Unused in FE8; appears to be leftover from FE7
-s16 sub_80B169C(void)
+s16 GetConfigUnk32DifficultyAdjusted(void)
 {
     int unk = gConfigUiState->unk_32;
 
@@ -921,7 +921,7 @@ bool MusicOptionChangeHandler(ProcPtr proc)
 
     if (GetGameOption(gGameOptionsUiOrder[gConfigUiState->selectedOptionIdx]) != 0)
     {
-        sub_8002AC8();
+        Sound_StopBgmImmediate();
         return false;
     }
 

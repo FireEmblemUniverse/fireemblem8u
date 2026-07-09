@@ -1,0 +1,9 @@
+# Shiftability scan allowlist (Layer 1).
+# Format:  0xLO 0xHI   comment
+# Any ROM-pointer-looking word whose VALUE falls in [LO, HI) is suppressed as a
+# known-legitimate constant (not a relocatable pointer). Keep this tight: prefer
+# fixing real pointers over allowlisting. Add entries only after Layer 2 (the
+# two-shift differential) proves a flagged word is coincidental data, not a pointer.
+#
+# (Hardware IO 0x04xxxxxx, palette/VRAM/OAM 0x05-0x07, EWRAM/IWRAM 0x02-0x03 are
+#  never flagged: the scan only considers ROM-range 0x08000000-0x09000000 values.)

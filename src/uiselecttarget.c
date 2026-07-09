@@ -30,12 +30,12 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-struct Unk_085B658C
+struct NearTargetLinkOrderEnt
 {
     s8 x, y;
 };
 
-struct Unk_085B658C CONST_DATA gNearTargetLinkOrder[] =
+struct NearTargetLinkOrderEnt CONST_DATA gNearTargetLinkOrder[] =
 {
     {  0,  0 },
     {  0, -2 },
@@ -248,14 +248,14 @@ int TargetSelection_HandleSelectInput(struct SelectTargetProc* proc) {
     return ret;
 }
 
-void sub_804FBBC(void) {
+void TargetSelection_Freeze(void) {
     struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
         proc->flags |= TARGETSELECTION_FLAG_FROZEN;
     }
 }
 
-void sub_804FBDC(void) {
+void TargetSelection_Unfreeze(void) {
     struct SelectTargetProc * proc = Proc_Find(gProcScr_TargetSelection);
     if (proc) {
         proc->flags &= ~TARGETSELECTION_FLAG_FROZEN;

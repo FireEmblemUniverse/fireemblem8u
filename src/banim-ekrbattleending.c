@@ -13,14 +13,14 @@
 
 CONST_DATA struct ProcCmd ProcScr_ekrBattleEnding[] = {
     PROC_NAME("ekrBattleEnding"),
-    PROC_REPEAT(ekrBattleEnding_80560F0),
-    PROC_REPEAT(ekrBattleEnding_8056170),
-    PROC_REPEAT(ekrBattleEnding_80561C8),
-    PROC_REPEAT(ekrBattleEnding_8056228),
-    PROC_REPEAT(ekrBattleEnding_8056288),
-    PROC_REPEAT(ekrBattleEnding_8056310),
-    PROC_REPEAT(ekrBattleEnding_8056390),
-    PROC_REPEAT(ekrBattleEnding_8056484),
+    PROC_REPEAT(ekrBattleEnding_0),
+    PROC_REPEAT(ekrBattleEnding_1),
+    PROC_REPEAT(ekrBattleEnding_2),
+    PROC_REPEAT(ekrBattleEnding_3),
+    PROC_REPEAT(ekrBattleEnding_4),
+    PROC_REPEAT(ekrBattleEnding_5),
+    PROC_REPEAT(ekrBattleEnding_6),
+    PROC_REPEAT(ekrBattleEnding_7),
     PROC_END
 };
 
@@ -31,7 +31,7 @@ void NewEkrbattleending(void)
     proc->timer = 0;
 }
 
-void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_0(struct ProcEkrBattleEnding * proc)
 {
     int ret;
 
@@ -61,7 +61,7 @@ void ekrBattleEnding_80560F0(struct ProcEkrBattleEnding * proc)
     }
 }
 
-void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_1(struct ProcEkrBattleEnding * proc)
 {
     if (gBanimBG == 0) {
         Proc_Break(proc);
@@ -85,7 +85,7 @@ void ekrBattleEnding_8056170(struct ProcEkrBattleEnding * proc)
     Proc_Break(proc);
 }
 
-void ekrBattleEnding_80561C8(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_2(struct ProcEkrBattleEnding * proc)
 {
     if (gBanimBG == 0) {
         Proc_Break(proc);
@@ -110,7 +110,7 @@ void ekrBattleEnding_80561C8(struct ProcEkrBattleEnding * proc)
     }
 }
 
-void ekrBattleEnding_8056228(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_3(struct ProcEkrBattleEnding * proc)
 {
     int val;
 
@@ -132,7 +132,7 @@ void ekrBattleEnding_8056228(struct ProcEkrBattleEnding * proc)
     Proc_Break(proc);
 }
 
-void ekrBattleEnding_8056288(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_4(struct ProcEkrBattleEnding * proc)
 {
     if (++proc->timer > 0xC)
     {
@@ -147,7 +147,7 @@ void ekrBattleEnding_8056288(struct ProcEkrBattleEnding * proc)
     }
 }
 
-void ekrBattleEnding_8056310(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_5(struct ProcEkrBattleEnding * proc)
 {
     proc->timer = 0;
     proc->terminator = 0xF;
@@ -172,7 +172,7 @@ void ekrBattleEnding_8056310(struct ProcEkrBattleEnding * proc)
     Proc_Break(proc);
 }
 
-void ekrBattleEnding_8056390(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_6(struct ProcEkrBattleEnding * proc)
 {
     int left, top, right, bottom;
 
@@ -197,7 +197,7 @@ void ekrBattleEnding_8056390(struct ProcEkrBattleEnding * proc)
     }
 }
 
-void ekrBattleEnding_8056484(struct ProcEkrBattleEnding * proc)
+void ekrBattleEnding_7(struct ProcEkrBattleEnding * proc)
 {
     EndEkrBattleDeamon();
     RefreshBMapDisplay_FromBattle();

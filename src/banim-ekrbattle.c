@@ -19,7 +19,7 @@
 
 /* ekr */
 EWRAM_OVERLAY(banim) struct Anim * gAnims[4] = {NULL};
-EWRAM_OVERLAY(banim) void * gUnknown_02000010[2] = {NULL};
+EWRAM_OVERLAY(banim) void * gEkrbattle_0[2] = {NULL};
 EWRAM_OVERLAY(banim) int gEkrDebugTimer = 0;
 EWRAM_OVERLAY(banim) int gEkrDebugUnk1 = 0;
 EWRAM_OVERLAY(banim) int gEkrDebugUnk2 = 0;
@@ -29,8 +29,8 @@ EWRAM_OVERLAY(banim) s16 gEkrYPosReal[2] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrXPosBase[2] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrYPosBase[2] = {0};
 EWRAM_OVERLAY(banim) struct Vec2 gEkrBg0QuakeVec = {0};
-EWRAM_OVERLAY(banim) void * gUnknown_0200003C[2] = {0};
-EWRAM_OVERLAY(banim) void * gUnknown_02000044[2] = {0};
+EWRAM_OVERLAY(banim) void * gEkrbattle_1[2] = {0};
+EWRAM_OVERLAY(banim) void * gEkrbattle_2[2] = {0};
 EWRAM_OVERLAY(banim) void * gBanimTerrainPaletteMaybe[2] = {0};
 EWRAM_OVERLAY(banim) u16 * gpEfxUnitPaletteBackup[2] = {0};
 EWRAM_OVERLAY(banim) int * gpBanimModesLeft = NULL;
@@ -38,7 +38,7 @@ EWRAM_OVERLAY(banim) int * gpBanimModesRight = NULL;
 EWRAM_OVERLAY(banim) struct ProcEkrBattle * gpProcEkrBattle = NULL;
 EWRAM_OVERLAY(banim) struct ProcEkrGauge * gpProcEkrGauge = NULL;
 EWRAM_OVERLAY(banim) struct ProcEkrDispUP * gpProcEkrDispUP = NULL;
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_20000700[0x18] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_0[0x18] = {0};
 EWRAM_OVERLAY(banim) u8 gBanimLeftImgSheetBuf[0x1000] = {0};
 EWRAM_OVERLAY(banim) u8 gEkrKakudaiSomeBufLeft[0x1000] = {0};
 EWRAM_OVERLAY(banim) u8 gBanimRightImgSheetBuf[0x1000] = {0};
@@ -49,15 +49,15 @@ EWRAM_OVERLAY(banim) u32 gBanimOaml[0x1600] = {0};
 EWRAM_OVERLAY(banim) u32 gBanimOamr2[0x1600] = {0};
 EWRAM_OVERLAY(banim) u8 gBanimScrLeft[0x2A00] = {0};
 EWRAM_OVERLAY(banim) u8 gBanimScrRight[0x2A00] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_020145C8[0x2000] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_0[0x2000] = {0};
 EWRAM_OVERLAY(banim) u16 gEfxPal[0x130] = {0};
 EWRAM_OVERLAY(banim) u16 gEfxTerrainPalette[0xD0] = {0};
 EWRAM_OVERLAY(banim) u16 gObjBuf_EkrSideHitDmgCrit[0x200] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_02016DC8[0x80] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_02016E48[0x200] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017048[0x200] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017248[0x200] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_02017448[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_1[0x80] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_2[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_3[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_4[0x200] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_5[0x200] = {0};
 EWRAM_OVERLAY(banim) struct Font gBanimFont = {0};
 EWRAM_OVERLAY(banim) struct Text gBanimText[20] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrGaugeDecoder[18] = {0};
@@ -66,7 +66,7 @@ EWRAM_OVERLAY(banim) u32 gEkrBattleEndFlag = 0;
 /* efx */
 EWRAM_OVERLAY(banim) u32 gEkrHpBarCount = 0;
 EWRAM_OVERLAY(banim) u32 gEfxSpellAnimExists = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017730 = 0;
+EWRAM_OVERLAY(banim) u32 gEkrbattle_3 = 0;
 EWRAM_OVERLAY(banim) u32 gEkrDeadExist = 0;
 EWRAM_OVERLAY(banim) u32 gEkrDeadEventExist = 0;
 EWRAM_OVERLAY(banim) u32 gEfxQuakeExist = 0;
@@ -75,18 +75,18 @@ EWRAM_OVERLAY(banim) u32 gEkrInitPosReal = 0;
 EWRAM_OVERLAY(banim) u32 gEfxFarAttackExist = 0;
 EWRAM_OVERLAY(banim) u32 gEfxBgSemaphore = 0;
 EWRAM_OVERLAY(banim) u32 gEfxHpBarResireFlag = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_02017754 = 0;
+EWRAM_OVERLAY(banim) u32 gEkrbattle_4 = 0;
 EWRAM_OVERLAY(banim) u32 gEfxTeonoState = 0;
-EWRAM_OVERLAY(banim) u32 gUnknown_0201775C = 0;
+EWRAM_OVERLAY(banim) u32 gEkrbattle_5 = 0;
 EWRAM_OVERLAY(banim) struct Vec2 gEkrBg2QuakeVec = {0};
-EWRAM_OVERLAY(banim) s16 gUnknown_02017764[2] = {0};
+EWRAM_OVERLAY(banim) s16 gEkrbattle_6[2] = {0};
 EWRAM_OVERLAY(banim) s16 gEfxSpecalEffectExist[2] = {0};
 EWRAM_OVERLAY(banim) struct ProcEfxStatusUnit *gpProcEfxStatusUnits[2] = {NULL};
 EWRAM_OVERLAY(banim) struct ProcEfxWeaponIcon *gpProcEfxWeaponIcon = NULL;
 EWRAM_OVERLAY(banim) struct ProcEfxSpellCast * gpProcEfxSpellCast = NULL;
 EWRAM_OVERLAY(banim) struct ProcEfxHpBarColorChange * gpProcEfxHpBarColorChange =NULL;
 EWRAM_OVERLAY(banim) s16 gEkrHitNow[2] = {0};
-EWRAM_OVERLAY(banim) s16 gUnk_Banim_02017784[6] = {0};
+EWRAM_OVERLAY(banim) s16 gUnk_Banim_Ekrbattle_6[6] = {0};
 EWRAM_OVERLAY(banim) u8 gSpellAnimBgfx[0x1D00] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrBarfxBuf[0x180] = {0};
 EWRAM_OVERLAY(banim) u16 gEkrTsaBuffer[0x1000 / sizeof(u16)] = {0};
@@ -97,26 +97,26 @@ EWRAM_OVERLAY(banim) u16 gTmB_Banim[0x2520 / sizeof(u16)] = {0};
 EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufA[0x30] = {0};
 EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufB[0x30] = {0};
 EWRAM_OVERLAY(banim) s16 gEfxSplitedColorBufC[0x30 / 2] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_0201F9D8[0x30] = {0};
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_7[0x30] = {0};
 EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufD[0x30] = {0};
 EWRAM_OVERLAY(banim) u8 gEfxSplitedColorBufE[0x30] = {0};
 EWRAM_OVERLAY(banim) s16 gEfxSplitedColorBufF[0x30 / 2] = {0};
-EWRAM_OVERLAY(banim) u8 gUnk_Banim_0201FA98[0x30] = {0};
-EWRAM_OVERLAY(banim) int gUnknown_0201FAC8 = 0;
+EWRAM_OVERLAY(banim) u8 gUnk_Banim_Ekrbattle_8[0x30] = {0};
+EWRAM_OVERLAY(banim) int gEkrbattle_7 = 0;
 
 /* ekrmain */
 EWRAM_OVERLAY(banim) int gEkrWindowAppearExist = false;
 EWRAM_OVERLAY(banim) int gEkrNamewinAppearExist = false;
 EWRAM_OVERLAY(banim) int gProcEkrBaseAppearExist = false;
-EWRAM_OVERLAY(banim) u32 gUnknown_0201FAD8 = 0;
-EWRAM_OVERLAY(banim) struct BanimUnkStructComm gUnknown_0201FADC = {0};
+EWRAM_OVERLAY(banim) u32 gEkrbattle_8 = 0;
+EWRAM_OVERLAY(banim) struct BanimUnkStructComm gEkrbattle_9 = {0};
 EWRAM_OVERLAY(banim) u32 gBanimDoneFlag[2] = {0};
 EWRAM_OVERLAY(banim) u32 gEkrBgPosition = 0;
-EWRAM_OVERLAY(banim) u32 gUnk_Banim_0201FB10[2] = {0};
+EWRAM_OVERLAY(banim) u32 gUnk_Banim_Ekrbattle_9[2] = {0};
 EWRAM_OVERLAY(banim) ProcPtr gpProcEfxAnimeDrv = NULL;
 EWRAM_OVERLAY(banim) const void * gpImgSheet[2] = {0};
 EWRAM_OVERLAY(banim) struct ProcEfxBGCOL * gpProcEkrTogiColor = NULL;
-EWRAM_OVERLAY(banim) int gUnk_Banim_0201FB28 = 0;
+EWRAM_OVERLAY(banim) int gUnk_Banim_Ekrbattle_10 = 0;
 
 /* EWRAM data */
 EWRAM_DATA int gBanimLinkArenaFlag = 0;
@@ -159,7 +159,7 @@ void ekrBattleDeamon_Destructor(void)
     UnlockGame();
 }
 
-void nullsub_35(void)
+void Nop_BanimEkrbattle_0(void)
 {
     return;
 }
@@ -248,7 +248,7 @@ void MainUpdateEkrBattle(void)
     PushSpriteLayerObjects(0xD);
 }
 
-void nullsub_36(void)
+void Nop_BanimEkrbattle_1(void)
 {
     return;
 }
@@ -335,10 +335,10 @@ void ekrBattleWaitPreEvent(struct ProcEkrBattle *proc)
     DisableEkrGauge();
     UnAsyncEkrDispUP();
     EkrGauge_Clr4C50();
-    proc->proc_idleCb = (ProcFunc)ekrBattle_8050134;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_0;
 }
 
-void ekrBattle_8050134(struct ProcEkrBattle *proc)
+void ekrBattle_0(struct ProcEkrBattle *proc)
 {
     if (CheckEkrWindowAppearUnexist() == true) {
         proc->proc_idleCb = (ProcFunc)ekrBattlePrepareDragonIntro;
@@ -420,12 +420,12 @@ void ekrBattlePostEkrDragonIntro(struct ProcEkrBattle *proc)
     if (gEkrInitialHitSide != gEkrInitPosReal) {
         NewEfxFarAttackWithDistance(gAnims[gEkrInitPosReal * 2], -1);
         proc->timer = 0;
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050290;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_1;
     } else
         proc->proc_idleCb = (ProcFunc)ekrBattleSetFlashingEffect;
 }
 
-void ekrBattle_8050290(struct ProcEkrBattle *proc)
+void ekrBattle_1(struct ProcEkrBattle *proc)
 {
     if (++proc->timer == 8)
         proc->proc_idleCb = (ProcFunc)ekrBattleSetFlashingEffect;
@@ -456,7 +456,7 @@ void ekrBattleExecTriangleAtk(struct ProcEkrBattle *proc)
 void ekrBattleWaitTriangleIdle(struct ProcEkrBattle *proc)
 {
     if (CheckEkrTriangleInvalid() == true) {
-        nullsub_18();
+        Nop_BanimEkrtriangle_0();
         proc->timer = 0x1E;
         proc->proc_idleCb = (ProcFunc)ekrBattleTriggerNewRoundStart;
     }
@@ -491,10 +491,10 @@ void ekrBattleTriggerNewRoundStart(struct ProcEkrBattle *proc)
 
     gBanimDoneFlag[0] = false;
     gBanimDoneFlag[1] = false;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_80503EC;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_2;
 }
 
-void ekrBattle_80503EC(struct ProcEkrBattle *proc)
+void ekrBattle_2(struct ProcEkrBattle *proc)
 {
     gCtrlC01Blocking = 0;
     proc->proc_idleCb = (ProcFunc)ekrBattle_StartPromotion;
@@ -545,7 +545,7 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
                     gBanimExpGain[1] = 0;
                     ret = 1;
                 } else if (proc->speedup == true) {
-                    sub_805B094();
+                    StopArenaBattleMusic();
                     ArenaSetResult(4);
                     gBanimExpGain[1] = 0;
                     ret = 1;
@@ -633,10 +633,10 @@ void ekrBattleInRoundIdle(struct ProcEkrBattle *proc)
 void ekrBattleOnBattleEnd(struct ProcEkrBattle *proc)
 {
     proc->speedup = false;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_8050600;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_3;
 }
 
-void ekrBattle_8050600(struct ProcEkrBattle *proc)
+void ekrBattle_3(struct ProcEkrBattle *proc)
 {
     int pos, ret;
 
@@ -748,19 +748,19 @@ void ekrBattleExecExpGain(struct ProcEkrBattle * proc)
     RegisterDataMove(buf0, (void *)0x60021A0, 0x1E0);
 
     proc->timer = 0;
-    proc->proc_idleCb = (ProcFunc)ekrBattle_80508F0;
+    proc->proc_idleCb = (ProcFunc)ekrBattle_4;
 }
 
-void ekrBattle_80508F0(struct ProcEkrBattle *proc)
+void ekrBattle_4(struct ProcEkrBattle *proc)
 {
     if (++proc->timer > 12) {
         proc->timer = 0;
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050940;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_5;
     } else
         SetWin0Box(0, -108 - proc->timer, 240, proc->timer - 108);
 }
 
-void ekrBattle_8050940(struct ProcEkrBattle *proc)
+void ekrBattle_5(struct ProcEkrBattle *proc)
 {
     if (++proc->timer > 10) {
         if (gBanimExpGain[0] != 0) {
@@ -817,11 +817,11 @@ void ekrBattlePostExpBarIdle(struct ProcEkrBattle *proc)
 
     if (++proc->timer > 30) {
         proc->timer = 0;
-        proc->proc_idleCb = (ProcFunc)ekrBattle_8050AB8;
+        proc->proc_idleCb = (ProcFunc)ekrBattle_6;
     }
 }
 
-void ekrBattle_8050AB8(struct ProcEkrBattle *proc)
+void ekrBattle_6(struct ProcEkrBattle *proc)
 {
     if (++proc->timer > 12) {
         proc->timer = 0;
@@ -999,10 +999,10 @@ void ekrBattle_PostDragonStatusEffect(struct ProcEkrBattle *proc)
         EkrRestoreBGM();
     }
 
-    proc->proc_idleCb = (ProcFunc)nullsub_69;
+    proc->proc_idleCb = (ProcFunc)Nop_BanimEkrbattle_2;
 }
 
-void nullsub_69(struct ProcEkrBattle *proc)
+void Nop_BanimEkrbattle_2(struct ProcEkrBattle *proc)
 {
     return;
 }
@@ -1016,13 +1016,13 @@ CONST_DATA char gNopStr[] = "\0";
 CONST_DATA struct ProcCmd gProc_ekrBattleDeamon[] = {
     PROC_NAME("ekrBattleDaemon"),
     PROC_SET_END_CB(ekrBattleDeamon_Destructor),
-    PROC_REPEAT(nullsub_35),
+    PROC_REPEAT(Nop_BanimEkrbattle_0),
     PROC_END
 };
 
 CONST_DATA struct ProcCmd gProc_ekrBattle[] = {
     PROC_NAME("ekrBattle"),
-    PROC_SET_END_CB(nullsub_36),
+    PROC_SET_END_CB(Nop_BanimEkrbattle_1),
     PROC_REPEAT(ekrBattle_Init),
     PROC_REPEAT(ekrBattleMain),
     PROC_END

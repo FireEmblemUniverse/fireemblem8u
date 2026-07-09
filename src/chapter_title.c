@@ -9,12 +9,12 @@
 
 EWRAM_DATA struct ChapterTitleFxSt gChapterTitleFxSt = { 0 };
 
-void sub_80895B4(int config, int palId)
+void ApplyChapterTitlePal(int config, int palId)
 {
     u16 * pal;
     pal = (config & 1)
-        ? gPal_08A07AD8
-        : gPal_08A07C58;
+        ? Pal_ChapterTitleAlt
+        : Pal_ChapterTitleMain;
 
     if ((config & 0x80) == 0)
     {
@@ -60,18 +60,18 @@ void _PutChapterTitleGfx(int chr, int titleId)
 void PutChapterTitleBG(int chr)
 {
     gChapterTitleFxSt.chr_bg = chr & 0x3FF;
-    Decompress(gGfx_08A09E4C, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
+    Decompress(Img_ChapterTitleBg, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
-extern u8 gUnknown_08A0A4E8[];
+extern u8 Img_ChapterTitleBgAlt[];
 
-void sub_80896A8(int chr)
+void PutChapterTitleBGAlt(int chr)
 {
     gChapterTitleFxSt.chr_bg = chr & 0x3FF;
-    Decompress(gUnknown_08A0A4E8, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
+    Decompress(Img_ChapterTitleBgAlt, (void*)((chr * TILE_SIZE_4BPP) + VRAM));
 }
 
-void sub_80896D8(u16 * tm, int pal)
+void DrawChapterTitleStr(u16 * tm, int pal)
 {
     int i;
     int tile = TILEREF(gChapterTitleFxSt.chr_str, pal);
@@ -79,7 +79,7 @@ void sub_80896D8(u16 * tm, int pal)
         *tm++ = tile++;
 }
 
-void sub_80896FC(u16 * tm, int pal, int c)
+void DrawChapterTitleStrEx(u16 * tm, int pal, int c)
 {
     int i;
     int tile = TILEREF(gChapterTitleFxSt.chr_str, pal);
@@ -87,7 +87,7 @@ void sub_80896FC(u16 * tm, int pal, int c)
         *tm++ = tile++;
 }
 
-void sub_8089720(u16 * tm, int pal)
+void DrawChapterTitleBG(u16 * tm, int pal)
 {
     int i;
     int tile = TILEREF(gChapterTitleFxSt.chr_bg, pal);
@@ -95,9 +95,9 @@ void sub_8089720(u16 * tm, int pal)
         *tm++ = tile++;
 }
 
-void sub_8089744(u16 * tm, int pal)
+void DrawChapterTitleBGTsa(u16 * tm, int pal)
 {
-    CallARM_FillTileRect(tm, gTsa_08A0A9F8, (u16)TILEREF(gChapterTitleFxSt.chr_bg, pal));
+    CallARM_FillTileRect(tm, Tsa_ChapterTitleBg, (u16)TILEREF(gChapterTitleFxSt.chr_bg, pal));
 }
 
 int GetChapterTitleExtra(struct PlaySt * chapterData)

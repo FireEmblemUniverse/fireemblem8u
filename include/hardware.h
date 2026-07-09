@@ -168,8 +168,8 @@ extern u8 sModifiedBGs;  // BGs that need copying
 extern s8 sModifiedPalette;
 extern u16 gKeyStatusIgnoredSt;
 // extern ??? gUnknown_03000014
-extern u8 gUnknown_03000018;
-extern u8 gUnknown_03000019;
+extern u8 gUnk_34;
+extern u8 gUnk_35;
 extern bool gSoftwareResetFlag;
 
 extern s8 gFadeComponentStep[];
@@ -343,7 +343,7 @@ enum {
 // Functions
 
 void CopyToPaletteBuffer(const void* src, int b, int size);
-void sub_8000E14(u16 *a, int b, int size, int d);
+void CopyToPaletteBufferDimmed(u16 *a, int b, int size, int d);
 void FlushLCDControl(void);
 struct BgCnt *BG_GetControlBuffer(u16 bg);
 int GetBackgroundTileDataOffset(int bg);
@@ -373,27 +373,27 @@ int GetKeyStatus_IgnoreMask(void);
 // ??? AsnycKeyStatusExt(???);
 void AsnycKeyStatus(int key);
 void BG_SetPosition(u16 bg, u16 x, u16 y);
-void sub_800151C(u8 a, u8 b);
-void sub_800151C(u8 a, u8 b);
-void sub_8001530(u16 *a, u16 *b);
-void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits);
+void Hardware_StoreUnk3435(u8 a, u8 b);
+void Hardware_StoreUnk3435(u8 a, u8 b);
+void CopyTilemapScreen(u16 *a, u16 *b);
+void BlitU8TileMapData(void* outTm, void const* inData, u8 base, u8 linebits);
 void AddAttr2dBitMap(u16 * _dst, u16 * _src, s16 ix, s16 iy, u16 chr);
-// ??? sub_80016C4(???);
+// ??? Hardware_CopyViaDmaStruct(???);
 void MaybeResetSomePal(void);
 void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d);
-void sub_80017B4(int a, int b, int c, int d);
-void sub_800183C(int a, int b, int c);
+void ColorFadeSetupRange(int a, int b, int c, int d);
+void ColorFadeSetStepRange(int a, int b, int c);
 void ColorFadeSetupFromColorToBlack(u8);
 void ColorFadeSetupFromBlack(u8);
 void ColorFadeSetupFromColorToWhite(u8);
 void ColorFadeSetupFromWhite(u8);
-void sub_8001A6C(void);
+void ColorFadeTickThumb(void);
 void SetupBackgrounds(u16 *bgConfig);
 u16* BG_GetMapBuffer(int bg);
 void SetSoftwareResetFlag(u8);
 int IsSoftwareReset(void);
 void SoftResetIfKeyComboPressed();
-void sub_8001CB0(int a);
+void EnterSleepMode(int a);
 void ExecBothHBlankHandlers(void);
 void UpdateHBlankHandlerState(void);
 void SetPrimaryHBlankHandler(void (*hblankHandler)(void));
@@ -411,7 +411,7 @@ void EnablePaletteSync(void);
 void DisablePaletteSync(void);
 void BG_EnableSyncByMask(int bg);
 void BG_EnableSync(int bg);
-void sub_8001FD0(int a);
+void ClearBgsModified(int a);
 void ClearTileRigistry(void);
 void RegisterDataMove(const void *a, void *b, int c);
 void RegisterFillTile(const void *a, void *b, int c);
@@ -420,7 +420,7 @@ void InitOam(int a);
 void SyncHiOam(void);
 void SyncLoOam(void);
 void SetObjAffine(int index, s16 pa, s16 pb, s16 pc, s16 pd);
-// ??? sub_80021E4(???);
+// ??? PutSpriteListToHiOam(???);
 int GetPrimaryOAMSize(void);
 
 #endif  // GUARD_HARDWARE_H

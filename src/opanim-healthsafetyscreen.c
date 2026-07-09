@@ -66,13 +66,13 @@ void OpAnimHS_BrightenPalette(u16 * src, int palid, int line, int cur, int max)
     EnablePaletteSync();
 }
 
-void sub_80CBF9C(struct ProcOpAnimHS * proc)
+void OpAnimHS_InitFadeToBlack(struct ProcOpAnimHS * proc)
 {
     CpuFastCopy(gPaletteBuffer, gPaletteOpAnimHsBackup, 0x400);
     proc->unk38 = 4;
 }
 
-void sub_80CBFC0(struct ProcOpAnimHS * proc)
+void OpAnimHS_FadeToBlackLoop(struct ProcOpAnimHS * proc)
 {
     int i;
 
@@ -297,8 +297,8 @@ PROC_LABEL(0x3E7),
 
 PROC_LABEL(0x0),
     PROC_CALL(EnableKeyComboResetEN),
-    PROC_CALL(sub_80CBF9C),
-    PROC_REPEAT(sub_80CBFC0),
+    PROC_CALL(OpAnimHS_InitFadeToBlack),
+    PROC_REPEAT(OpAnimHS_FadeToBlackLoop),
 
 PROC_LABEL(0x1),
     PROC_END

@@ -1,11 +1,11 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch21xa_BeginningScene[] = {
-    CALL(EventScr_089F94AC)
+    CALL(EventScr_Ch21A_10)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F94AC[] = {
+CONST_DATA EventListScr EventScr_Ch21A_10[] = {
     STARTFADE
     EvtColorFadeSetup(0x6, 0xa, 0, 0, 0, 0) // ENOSUPP in EAstdlib
     FADU(128)
@@ -26,21 +26,21 @@ LABEL(0x1)
     CHECK_EVBIT(2)
     BNE(0x2, EVT_SLOT_C, EVT_SLOT_0)
     EVBIT_MODIFY(0x1)
-    ASMC(sub_807F878)
-    LOAD1(0x1, UnitDef_088C2098)
+    ASMC(StartMapEventcallFx0)
+    LOAD1(0x1, UnitDef_Ch21XAEnemy)
     ENUN
     EvtColorFadeSetup(0x6, 0xa, 8, 256, 256, 256) // ENOSUPP in EAstdlib
     MUSC(SONG_LIGHTS_IN_THE_DARK)
-    ASMC(sub_807FCC0)
+    ASMC(StartMapEventcallFx1)
     EVBIT_MODIFY(0x0)
     GOTO(0x3)
 LABEL(0x2)
     MUSC(SONG_LIGHTS_IN_THE_DARK)
-    LOAD1(0x1, UnitDef_088C2098)
+    LOAD1(0x1, UnitDef_Ch21XAEnemy)
     ENUN
 LABEL(0x3)
     CAMERA2(11, 10)
-    LOAD1(0x0, UnitDef_088C1F44)
+    LOAD1(0x0, UnitDef_Ch21XAAlly_0)
     ENUN
     CUMO_CHAR(CHAR_EVT_PLAYER_LEADER)
     STAL(60)
@@ -60,7 +60,7 @@ LABEL(0xa)
     REMA
 LABEL(0xb)
     CAMERA2(11, 15)
-    LOAD2(0x1, UnitDef_088C1F80)
+    LOAD2(0x1, UnitDef_Ch21XAAlly_1)
     SVAL(EVT_SLOT_1, 0x0)
     SET_STATE(CHARACTER_EIRIKA)
     SVAL(EVT_SLOT_1, 0x0)
@@ -69,7 +69,7 @@ LABEL(0xb)
     SET_STATE(CHARACTER_LARACHEL)
     SVAL(EVT_SLOT_1, 0x0)
     SET_STATE(CHARACTER_SETH)
-    LOAD3(0x0, UnitDef_088C1FBC)
+    LOAD3(0x0, UnitDef_Ch21XAAlly_2)
     ENUN
     SVAL(EVT_SLOT_1, 0xffffffff)
     SET_STATE(CHARACTER_EIRIKA)
@@ -535,7 +535,7 @@ LABEL(0x11)
     TEXTSHOW(0xbf0)
     TEXTEND
     CAMERA2(11, 10)
-    ASMC2(sub_8080474)
+    ASMC2(StartDemonKingSummonAnim)
     CUMO_CHAR(CHAR_EVT_PLAYER_LEADER)
     STAL(60)
     CURE

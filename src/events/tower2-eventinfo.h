@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Tower2_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(8), EventScr_089FDCF8, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(8), EventScr_Tower_1, 1, 255)
     END_MAIN
 };
 
@@ -15,7 +15,7 @@ CONST_DATA EventListScr EventListScr_Tower2_Location[] = {
 
 CONST_DATA EventListScr EventListScr_Tower2_Misc[] = {
     AFEV(0, EventScr_Tower2_EndingScene, EVFLAG_DEFEAT_ALL)
-    AREA(EVFLAG_TMP(7), EventScr_089FDCC4, 17, 1, 19, 17)
+    AREA(EVFLAG_TMP(7), EventScr_Tower_0, 17, 1, 19, 17)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -47,11 +47,11 @@ CONST_DATA struct ChapterEventGroup TowerOfValni2Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Tower2_UnitMove,
     .tutorialEvents                = EventListScr_Tower2_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE5,
-    .extraTrapsInHard = TrapData_Event_089EDEE2,
+    .traps            = TrapData_Event_Tower2_0,
+    .extraTrapsInHard = TrapData_Event_Tower2_1,
 
-    .playerUnitsInNormal = UnitDef_088CB918,
-    .playerUnitsInHard   = UnitDef_088CB918,
+    .playerUnitsInNormal = UnitDef_Tower2Ally,
+    .playerUnitsInHard   = UnitDef_Tower2Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

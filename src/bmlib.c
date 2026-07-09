@@ -73,7 +73,7 @@ int Interpolate(int method, int lo, int hi, int x, int x_max)
     return ret;
 }
 
-void sub_8012E94() {}
+void Nop_Bmlib_0() {}
 
 bool StringCompare(const char *str1, const char *str2)
 {
@@ -145,7 +145,7 @@ int GetDataSize(const void* data)
     return tsa->size;
 }
 
-void sub_8012F98(struct Struct8012F98 *buf, int arg_1, int arg_2)
+void GfxLoadCursor_Init(struct Struct8012F98 *buf, int arg_1, int arg_2)
 {
     buf->dst = (u8 *) arg_2;
 
@@ -155,7 +155,7 @@ void sub_8012F98(struct Struct8012F98 *buf, int arg_1, int arg_2)
     buf->unk_04 = arg_2 - arg_1;
 }
 
-int sub_8012FB0(struct Struct8012F98 *unk, u8 *src)
+int GfxLoadCursor_Decompress(struct Struct8012F98 *unk, u8 *src)
 {
     int size, old;
 
@@ -171,7 +171,7 @@ int sub_8012FB0(struct Struct8012F98 *unk, u8 *src)
     return old;
 }
 
-int sub_8012FE0(struct Struct8012F98 *buf, int arg_1)
+int GfxLoadCursor_Skip(struct Struct8012F98 *buf, int arg_1)
 {
     int old;
 
@@ -303,7 +303,7 @@ void PutDigits(u16 *tm, const u8 *src, int tileref, int len)
     }
 }
 
-void sub_8013168(u16 *dst, u8* src, int a3, int a4, int a5)
+void PutNumberTilesRightAligned(u16 *dst, u8* src, int a3, int a4, int a5)
 {
 #ifndef NONMATCHING
     register u16 *_dst asm("r4") = dst;
@@ -335,23 +335,23 @@ struct Unk_80131A8
     /* 4C */ u16 unk_4C;
 };
 
-void sub_80131A8(struct Unk_80131A8 *unk, int value)
+void Bmlib_SetCounter(struct Unk_80131A8 *unk, int value)
 {
     unk->unk_4C = value;
 }
 
-void sub_80131B0(struct Unk_80131A8 *unk)
+void Bmlib_IncrementCounter(struct Unk_80131A8 *unk)
 {
     unk->unk_4C++;
     unk->unk_4C &= 0x7FFF;
 }
 
-void sub_80131C4(struct Unk_80131A8 *unk)
+void Bmlib_DecrementCounter(struct Unk_80131A8 *unk)
 {
     unk->unk_4C--;
 }
 
-void sub_80131D0(s16 *array)
+void InitWindowScanlineBounds(s16 *array)
 {
     int i;
 
@@ -368,7 +368,7 @@ do {                \
     b = tmp;        \
 } while (0)
 
-void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
+void RasterizeWindowEdge(s16 *buf, int x1, int y1, int x2, int y2)
 {
     int val1, val2;
     int tmp;
@@ -417,7 +417,7 @@ void sub_80131F0(s16 *buf, int x1, int y1, int x2, int y2)
 
 #undef _SWAP
 
-struct Vec2 * sub_8013278(int arg_0)
+struct Vec2 * MakeCircleWindowBounds(int arg_0)
 {
     #define BUF ((struct Vec2 *) gGenericBuffer)
 
@@ -514,15 +514,15 @@ void DarkenPals(int reduction)
     RegisterDataMove(buf, (void*)PLTT, 0x400);
 }
 
-void sub_8013428()
+void Nop_Bmlib_1()
 {
     return;
 }
 
-void sub_801342C(const char *_str)
+void Bmlib_DeadRecursiveStub(const char *_str)
 {
     char str[] = "@@LWFOVDBK@@";
-    sub_801342C(str);
+    Bmlib_DeadRecursiveStub(str);
 }
 
 struct PalFadeSt *GetPalFadeSt()
@@ -682,12 +682,12 @@ struct Proc8599FD4 {
     int unk2C, unk30, unk34, unk38, unk3C, unk40, unk44, unk48, unk4C;
 };
 
-void sub_801378C(struct Proc8599FD4 *proc)
+void MapPaletteBrightnessFade_Init(struct Proc8599FD4 *proc)
 {
     proc->unk44 = 0;
 }
 
-void sub_8013794(struct Proc8599FD4 *proc)
+void MapPaletteBrightnessFade_Loop(struct Proc8599FD4 *proc)
 {
     int val = proc->unk44 + proc->unk48;
 
@@ -704,16 +704,16 @@ void sub_8013794(struct Proc8599FD4 *proc)
         Proc_Break(proc);
 }
 
-CONST_DATA struct ProcCmd gUnknown_08599FD4[] = {
+CONST_DATA struct ProcCmd gBmlib_1[] = {
     PROC_YIELD,
-    PROC_CALL(sub_801378C),
-    PROC_REPEAT(sub_8013794),
+    PROC_CALL(MapPaletteBrightnessFade_Init),
+    PROC_REPEAT(MapPaletteBrightnessFade_Loop),
     PROC_END
 };
 
-void sub_8013800(int a, int b, int c, int d, int e, int f, int g, int h, ProcPtr parent)
+void StartMapPaletteBrightnessFade(int a, int b, int c, int d, int e, int f, int g, int h, ProcPtr parent)
 {
-    struct Proc8599FD4 *proc = Proc_Start(gUnknown_08599FD4, parent);
+    struct Proc8599FD4 *proc = Proc_Start(gBmlib_1, parent);
 
     proc->unk2C = a;
     proc->unk30 = b;
@@ -725,9 +725,9 @@ void sub_8013800(int a, int b, int c, int d, int e, int f, int g, int h, ProcPtr
     proc->unk4C = g;
 }
 
-bool sub_8013844(void)
+bool MapPaletteBrightnessFadeExists(void)
 {
-    if (Proc_Find(gUnknown_08599FD4) != NULL)
+    if (Proc_Find(gBmlib_1) != NULL)
         return true;
 
     return false;
@@ -778,7 +778,7 @@ void StartSpacialSeTest(void)
     Proc_Start(ProcScr_SpacialSeTest, PROC_TREE_3);
 }
 
-void sub_80138EC(void)
+void Nop_Bmlib_2(void)
 {
     return;
 }
@@ -1128,74 +1128,74 @@ void StartSlowLockingFadeFromWhite(ProcPtr parent)
     StartLockingFadeFromWhite(0x04, parent);
 }
 
-void sub_8013E30(ProcPtr parent)
+void FadeOutBlackSpeed04(ProcPtr parent)
 {
-    StartFadeCore(1, 0x04, parent, sub_80141B0);
+    StartFadeCore(1, 0x04, parent, ForceScreenToBlack);
 }
 
-void sub_8013E48(ProcPtr parent)
+void FadeOutBlackSpeed08(ProcPtr parent)
 {
-    StartFadeCore(1, 0x08, parent, sub_80141B0);
+    StartFadeCore(1, 0x08, parent, ForceScreenToBlack);
 }
 
-void sub_8013E60(ProcPtr parent)
+void FadeOutBlackSpeed10(ProcPtr parent)
 {
-    StartFadeCore(1, 0x10, parent, sub_80141B0);
+    StartFadeCore(1, 0x10, parent, ForceScreenToBlack);
 }
 
-void sub_8013E78(ProcPtr parent)
+void FadeOutBlackSpeed20(ProcPtr parent)
 {
-    StartFadeCore(1, 0x20, parent, sub_80141B0);
+    StartFadeCore(1, 0x20, parent, ForceScreenToBlack);
 }
 
-void sub_8013E90(ProcPtr parent)
+void FadeOutBlackSpeed40(ProcPtr parent)
 {
-    StartFadeCore(1, 0x40, parent, sub_80141B0);
+    StartFadeCore(1, 0x40, parent, ForceScreenToBlack);
 }
 
-void sub_8013EA8(ProcPtr parent)
+void FadeInBlackSpeed08NonLocking(ProcPtr parent)
 {
     StartFadeCore(0, 0x08, parent, NULL);
 }
 
-void sub_8013EBC(ProcPtr parent)
+void FadeInBlackSpeed10NonLocking(ProcPtr parent)
 {
     StartFadeCore(0, 0x10, parent, NULL);
 }
 
-void sub_8013ED0(ProcPtr parent)
+void FadeInBlackSpeed20NonLocking(ProcPtr parent)
 {
     StartFadeCore(0, 0x20, parent, NULL);
 }
 
-void sub_8013EE4(ProcPtr parent)
+void FadeInBlackSpeed40NonLocking(ProcPtr parent)
 {
     StartFadeCore(0, 0x40, parent, NULL);
 }
 
-void sub_8013EF8(ProcPtr parent)
+void FadeOutBlackSpeed04Locking(ProcPtr parent)
 {
-    StartFadeCore(3, 0x04, parent, sub_80141B0);
+    StartFadeCore(3, 0x04, parent, ForceScreenToBlack);
 }
 
-void sub_8013F10(ProcPtr parent)
+void FadeOutBlackSpeed08Locking(ProcPtr parent)
 {
-    StartFadeCore(3, 0x08, parent, sub_80141B0);
+    StartFadeCore(3, 0x08, parent, ForceScreenToBlack);
 }
 
-void sub_8013F28(ProcPtr parent)
+void FadeOutBlackSpeed10Locking(ProcPtr parent)
 {
-    StartFadeCore(3, 0x10, parent, sub_80141B0);
+    StartFadeCore(3, 0x10, parent, ForceScreenToBlack);
 }
 
-void sub_8013F40(ProcPtr parent)
+void FadeOutBlackSpeed20Locking(ProcPtr parent)
 {
-    StartFadeCore(3, 0x20, parent, sub_80141B0);
+    StartFadeCore(3, 0x20, parent, ForceScreenToBlack);
 }
 
-void sub_8013F58(ProcPtr parent)
+void FadeOutBlackSpeed40Locking(ProcPtr parent)
 {
-    StartFadeCore(3, 0x40, parent, sub_80141B0);
+    StartFadeCore(3, 0x40, parent, ForceScreenToBlack);
 }
 
 void FadeInBlackSpeed04(ProcPtr parent)
@@ -1211,7 +1211,7 @@ void FadeInBlackSpeed08(ProcPtr parent)
 void FadeInBlackSpeed08Unk(ProcPtr parent)
 {
     StartFadeCore(2, 0x08, parent, NULL);
-    sub_8014170();
+    FadeCore_StopObjPalFade();
 }
 
 void FadeInBlackSpeed10(ProcPtr parent)
@@ -1229,34 +1229,34 @@ void FadeInBlackSpeed40(ProcPtr parent)
     StartFadeCore(2, 0x40, parent, NULL);
 }
 
-void sub_8013FEC(ProcPtr parent)
+void FadeInWhiteSpeed10Locking(ProcPtr parent)
 {
     StartFadeCore(6, 0x10, parent, NULL);
 }
 
-void sub_8014000(ProcPtr parent)
+void FadeOutWhiteSpeed10Locking(ProcPtr parent)
 {
     StartFadeCore(7, 0x10, parent, NULL);
 }
 
-void sub_8014014(ProcPtr parent)
+void FadeInWhiteSpeed08Locking(ProcPtr parent)
 {
     StartFadeCore(6, 0x08, parent, NULL);
 }
 
-void sub_8014028(ProcPtr parent)
+void FadeInWhiteSpeed04(ProcPtr parent)
 {
     StartFadeCore(4, 0x04, parent, NULL);
 }
 
-void sub_801403C(ProcPtr parent)
+void FadeInWhiteSpeed08(ProcPtr parent)
 {
     StartFadeCore(4, 0x08, parent, NULL);
 }
 
-void sub_8014050(ProcPtr parent)
+void FadeOutWhiteSpeed08Locking(ProcPtr parent)
 {
-    StartFadeCore(7, 0x08, parent, sub_801420C);
+    StartFadeCore(7, 0x08, parent, ForceScreenToWhite);
 }
 
 void WaitForFade(ProcPtr proc)
@@ -1265,7 +1265,7 @@ void WaitForFade(ProcPtr proc)
         Proc_Break(proc);
 }
 
-void sub_8014084(ProcPtr parent, void * func)
+void FadeOutBlackSpeed40LockingWithCallback(ProcPtr parent, void * func)
 {
     StartFadeCore(3, 0x40, parent, func);
 }
@@ -1276,7 +1276,7 @@ struct FadeKindEnt {
     int unit;
 };
 
-struct FadeKindEnt const gUnknown_080D7964[] =
+struct FadeKindEnt const gBmlib_0[] =
 {
     { Proc_Start,         ColorFadeSetupFromBlack,        +1 }, // from black
     { Proc_Start,         ColorFadeSetupFromColorToBlack, -1 }, // to black
@@ -1305,7 +1305,7 @@ void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
     struct FadeCoreProc * proc;
     int component_step;
 
-    spawn_proc = gUnknown_080D7964[kind].spawn_proc;
+    spawn_proc = gBmlib_0[kind].spawn_proc;
     proc = spawn_proc(ProcScr_FadeCore, parent);
 
     proc->speed = speed;
@@ -1317,8 +1317,8 @@ void StartFadeCore(int kind, int speed, ProcPtr parent, void * end_callback)
         component_step = 1;
 
     // need to cast because parameter types don't match (int vs. i8)
-    setup_color_fade = (void *) gUnknown_080D7964[kind].setup_color_fade;
-    setup_color_fade(component_step * gUnknown_080D7964[kind].unit);
+    setup_color_fade = (void *) gBmlib_0[kind].setup_color_fade;
+    setup_color_fade(component_step * gBmlib_0[kind].unit);
 }
 
 void FadeCoreEndEach(void)
@@ -1367,19 +1367,19 @@ bool FadeCore_Tick(struct FadeCoreProc * proc)
     return TRUE;
 }
 
-void sub_8014170(void)
+void FadeCore_StopObjPalFade(void)
 {
-    sub_800183C(0x10, 0x10, 0);
-    sub_8014194();
+    ColorFadeSetStepRange(0x10, 0x10, 0);
+    ClearFadeCoreCallback();
 }
 
-void sub_8014184(int a, int b)
+void StopFadeComponents(int a, int b)
 {
-    sub_800183C(a, b, 0);
-    sub_8014194();
+    ColorFadeSetStepRange(a, b, 0);
+    ClearFadeCoreCallback();
 }
 
-void sub_8014194(void)
+void ClearFadeCoreCallback(void)
 {
     struct FadeCoreProc * proc = Proc_Find(ProcScr_FadeCore);
 
@@ -1387,7 +1387,7 @@ void sub_8014194(void)
         proc->on_end = NULL;
 }
 
-void sub_80141B0(void)
+void ForceScreenToBlack(void)
 {
     SetBlendDarken(0x10);
     SetBlendTargetA(1, 1, 1, 1, 1);
@@ -1396,7 +1396,7 @@ void sub_80141B0(void)
     SetDispEnable(0, 0, 0, 0, 0);
 }
 
-void sub_801420C(void)
+void ForceScreenToWhite(void)
 {
     SetBlendBrighten(0x10);
 
@@ -1630,7 +1630,7 @@ void PaletteAnimator_Loop(struct ProcPaletteAnimator * proc)
     proc->counter++;
 }
 
-void sub_8014560(u16 * tm, int x, int y, u16 tileref, int width, int height)
+void PutTmRectSequential(u16 * tm, int x, int y, u16 tileref, int width, int height)
 {
     int ix, iy;
 
@@ -1644,7 +1644,7 @@ void sub_8014560(u16 * tm, int x, int y, u16 tileref, int width, int height)
     }
 }
 
-void sub_80145C8(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
+void PutTmRectFlippable(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
 {
     int ix, iy;
 
@@ -1678,7 +1678,7 @@ void sub_80145C8(u16 * tm, int x, int y, u16 tileref, int width, int height, u16
     }
 }
 
-void sub_80146A0(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
+void PutTmAnimFrame(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     int ix, iy;
 
@@ -1702,7 +1702,7 @@ void sub_80146A0(u16 * tm, int x, int y, u16 tileref, int width, int height, u16
     }
 }
 
-void sub_801474C(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 const * src, int arg_7)
+void PutTmAnimFrameFromTsa(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 const * src, int arg_7)
 {
     int ix, iy;
     int r0, r5;
@@ -1730,7 +1730,7 @@ void sub_801474C(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 
     }
 }
 
-void sub_8014804(u16 * tm, int x, int y, u32 const * arg_3, u16 tileref)
+void PutTmSized(u16 * tm, int x, int y, u32 const * arg_3, u16 tileref)
 {
     s16 iy, ix;
 
@@ -1807,7 +1807,7 @@ void CallDelayedArg(void (* func)(int), int arg, int delay)
     proc->clock = delay;
 }
 
-void sub_8014904(u8 * out, int size)
+void Bzero(u8 * out, int size)
 {
     while (size > 0)
     {
@@ -1816,7 +1816,7 @@ void sub_8014904(u8 * out, int size)
     }
 }
 
-void sub_801491C(u8 * out, int size, int value)
+void Memset8(u8 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -1825,7 +1825,7 @@ void sub_801491C(u8 * out, int size, int value)
     }
 }
 
-void sub_8014930(u16 * out, int size, int value)
+void Memset16(u16 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -1910,19 +1910,19 @@ u16 * GetTmOffsetById(int bgid, int x, int y)
     }
 }
 
-void sub_8014A78(void)
+void ClearBlankBgTiles(void)
 {
     if (gLCDControlBuffer.bg0cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(0)), 0x10, 0);
+        Memset16((u16 *) (VRAM + GetBackgroundTileDataOffset(0)), 0x10, 0);
 
     if (gLCDControlBuffer.bg1cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(1)), 0x10, 0);
+        Memset16((u16 *) (VRAM + GetBackgroundTileDataOffset(1)), 0x10, 0);
 
     if (gLCDControlBuffer.bg2cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(2)), 0x10, 0);
+        Memset16((u16 *) (VRAM + GetBackgroundTileDataOffset(2)), 0x10, 0);
 
     if (gLCDControlBuffer.bg3cnt.colorMode == 0)
-        sub_8014930((u16 *) (VRAM + GetBackgroundTileDataOffset(3)), 0x10, 0);
+        Memset16((u16 *) (VRAM + GetBackgroundTileDataOffset(3)), 0x10, 0);
 }
 
 int Screen2Pan(int x)
@@ -1968,7 +1968,7 @@ void _FadeBgmOut(short speed)
     Sound_FadeOutBGM(speed);
 }
 
-void sub_8014BE0(int palid)
+void DarkenPalette(int palid)
 {
     int i;
 
@@ -2012,7 +2012,7 @@ void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int
     PutText(text, gBG0TilemapBuffer + TILEMAP_INDEX(x, y));
 }
 
-int sub_8014CA4(int timer, int speed, int a, int b)
+int GetEasedProgress(int timer, int speed, int a, int b)
 {
-    return sub_800A42C(DivArm(speed, timer * 0x1000), a, b);
+    return Spline_Ease(DivArm(speed, timer * 0x1000), a, b);
 }

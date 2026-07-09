@@ -1090,7 +1090,7 @@ CONST_DATA s8 TerrainTable_MovCost_DemonKing[] = {
     [TERRAIN_MAST] = -1,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880BC18[] = {
+CONST_DATA s8 TerrainMoveCost_Ballista[] = {
     [TERRAIN_NONE] = -1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 1,
@@ -2178,7 +2178,7 @@ CONST_DATA s8 TerrainTable_MovCost_FlyRain[] = {
     [TERRAIN_MAST] = -1,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C028[] = {
+CONST_DATA s8 Unk_TerrainTable_1[] = {
     [TERRAIN_NONE] = -1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 1,
@@ -3266,7 +3266,7 @@ CONST_DATA s8 TerrainTable_MovCost_FlySnow[] = {
     [TERRAIN_MAST] = -1,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C438[] = {
+CONST_DATA s8 Unk_TerrainTable_2[] = {
     [TERRAIN_NONE] = -1,
     [TERRAIN_PLAINS] = 1,
     [TERRAIN_ROAD] = 1,
@@ -3742,7 +3742,7 @@ CONST_DATA s8 TerrainTable_Res_Fly[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C5FF[] = {
+CONST_DATA s8 Unk_TerrainTable_3[] = {
     [TERRAIN_NONE] = 0,
     [TERRAIN_PLAINS] = 0,
     [TERRAIN_ROAD] = 0,
@@ -3810,7 +3810,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C5FF[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C640[] = {
+CONST_DATA s8 Unk_TerrainTable_4[] = {
     [TERRAIN_NONE] = 0,
     [TERRAIN_PLAINS] = 0,
     [TERRAIN_ROAD] = 0,
@@ -3878,7 +3878,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C640[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C681[] = {
+CONST_DATA s8 Unk_TerrainTable_5[] = {
     [TERRAIN_NONE] = 0,
     [TERRAIN_PLAINS] = 0,
     [TERRAIN_ROAD] = 0,
@@ -3946,7 +3946,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C681[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C6C2[] = {
+CONST_DATA s8 Unk_TerrainTable_6[] = {
     [TERRAIN_NONE] = 0,
     [TERRAIN_PLAINS] = 0,
     [TERRAIN_ROAD] = 0,
@@ -4014,7 +4014,7 @@ CONST_DATA s8 Unk_TerrainTable_0880C6C2[] = {
     [TERRAIN_MAST] = 0,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880C703[] = {
+CONST_DATA s8 Unk_TerrainTable_7[] = {
     [TERRAIN_NONE] = 0,
     [TERRAIN_PLAINS] = 0,
     [TERRAIN_ROAD] = 0,
@@ -7074,7 +7074,7 @@ CONST_DATA s8 gBanimBGLut14[] = {
     [TERRAIN_MAST] = 2,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880D270[] = {
+CONST_DATA s8 Unk_TerrainTable_8[] = {
     [TERRAIN_NONE] = 184,
     [TERRAIN_PLAINS] = 30,
     [TERRAIN_ROAD] = 28,
@@ -7142,7 +7142,7 @@ CONST_DATA s8 Unk_TerrainTable_0880D270[] = {
     [TERRAIN_MAST] = 76,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880D2B1[] = {
+CONST_DATA s8 Unk_TerrainTable_9[] = {
     [TERRAIN_NONE] = 30,
     [TERRAIN_PLAINS] = 28,
     [TERRAIN_ROAD] = 8,
@@ -7210,7 +7210,7 @@ CONST_DATA s8 Unk_TerrainTable_0880D2B1[] = {
     [TERRAIN_MAST] = 29,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880D2F2[] = {
+CONST_DATA s8 Unk_TerrainTable_10[] = {
     [TERRAIN_NONE] = 28,
     [TERRAIN_PLAINS] = 8,
     [TERRAIN_ROAD] = 244,
@@ -7278,7 +7278,7 @@ CONST_DATA s8 Unk_TerrainTable_0880D2F2[] = {
     [TERRAIN_MAST] = 28,
 };
 
-CONST_DATA s8 Unk_TerrainTable_0880D333[] = {
+CONST_DATA s8 Unk_TerrainTable_11[] = {
     [TERRAIN_NONE] = 8,
     [TERRAIN_PLAINS] = 132,
     [TERRAIN_ROAD] = 29,
@@ -7346,7 +7346,7 @@ CONST_DATA s8 Unk_TerrainTable_0880D333[] = {
     [TERRAIN_MAST] = 8,
 };
 
-CONST_DATA u16 gUnknown_0880D374[] = {
+CONST_DATA u16 gTerrains_0[] = {
     [TERRAIN_NONE] = 0x1c4,
     [TERRAIN_PLAINS] = 0x1c5,
     [TERRAIN_ROAD] = 0x1c6,

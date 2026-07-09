@@ -19,7 +19,7 @@ CONST_DATA struct REDA REDA_Ch1Ally_Seth[] = {
         .y = 8,
     },
 };
-CONST_DATA struct REDA REDA_088B4018[] = {
+CONST_DATA struct REDA REDA_Ch1_0[] = {
     {
         .x = 2,
         .y = 5,
@@ -27,7 +27,7 @@ CONST_DATA struct REDA REDA_088B4018[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4020[] = {
+CONST_DATA struct REDA REDA_Ch1_1[] = {
     {
         .x = 1,
         .y = 6,
@@ -36,7 +36,7 @@ CONST_DATA struct REDA REDA_088B4020[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088B4028[] = {
+CONST_DATA struct REDA REDA_Ch1_2[] = {
     {
         .x = 3,
         .y = 8,
@@ -51,7 +51,7 @@ CONST_DATA struct REDA REDA_088B4028[] = {
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088B4038[] = {
+CONST_DATA struct REDA REDA_Ch1_3[] = {
     {
         .x = 2,
         .y = 7,
@@ -60,7 +60,7 @@ CONST_DATA struct REDA REDA_088B4038[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088B4040[] = {
+CONST_DATA struct REDA REDA_Ch1_4[] = {
     {
         .x = 1,
         .y = 8,
@@ -69,7 +69,7 @@ CONST_DATA struct REDA REDA_088B4040[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4048[] = {
+CONST_DATA struct REDA REDA_Ch1_5[] = {
     {
         .x = 3,
         .y = 8,
@@ -78,7 +78,7 @@ CONST_DATA struct REDA REDA_088B4048[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4050[] = {
+CONST_DATA struct REDA REDA_Ch1_6[] = {
     {
         .x = 2,
         .y = 9,
@@ -100,21 +100,21 @@ CONST_DATA struct REDA REDA_Ch1_Gilliam[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4068[] = {
+CONST_DATA struct REDA REDA_Ch1_7[] = {
     {
         .x = 13,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4070[] = {
+CONST_DATA struct REDA REDA_Ch1_8[] = {
     {
         .x = 13,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4078[] = {
+CONST_DATA struct REDA REDA_Ch1_9[] = {
     {
         .x = 12,
         .y = 9,
@@ -193,7 +193,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4018,
+        .redas = REDA_Ch1_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -209,7 +209,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 1,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4020,
+        .redas = REDA_Ch1_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -225,7 +225,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088B4028,
+        .redas = REDA_Ch1_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -241,7 +241,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4038,
+        .redas = REDA_Ch1_3,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -257,7 +257,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 1,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4040,
+        .redas = REDA_Ch1_4,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -273,7 +273,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4048,
+        .redas = REDA_Ch1_5,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -289,7 +289,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1Enemy[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4050,
+        .redas = REDA_Ch1_6,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -345,7 +345,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1EnemyReinforce[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4068,
+        .redas = REDA_Ch1_7,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -361,7 +361,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1EnemyReinforce[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4070,
+        .redas = REDA_Ch1_8,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -377,7 +377,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch1EnemyReinforce[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B4078,
+        .redas = REDA_Ch1_9,
         .items = {
             ITEM_AXE_IRON,
         },

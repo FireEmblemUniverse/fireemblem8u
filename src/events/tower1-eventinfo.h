@@ -9,8 +9,8 @@ CONST_DATA EventListScr EventListScr_Tower1_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Tower1_Location[] = {
-    Armory(ShopList_Event_089ED99E, 0, 17) // ?
-    Vendor(ShopList_Event_089ED9A2, 1, 17) // ?
+    Armory(ShopList_Tower1_0, 0, 17) // ?
+    Vendor(ShopList_Tower1_1, 1, 17) // ?
     END_MAIN
 };
 
@@ -47,11 +47,11 @@ CONST_DATA struct ChapterEventGroup TowerOfValni1Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Tower1_UnitMove,
     .tutorialEvents                = EventListScr_Tower1_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE4,
-    .extraTrapsInHard = TrapData_Event_089EDEE1,
+    .traps            = TrapData_Event_Tower1_0,
+    .extraTrapsInHard = TrapData_Event_Tower1_1,
 
-    .playerUnitsInNormal = UnitDef_088CB6C8,
-    .playerUnitsInHard   = UnitDef_088CB6C8,
+    .playerUnitsInNormal = UnitDef_Tower1Ally,
+    .playerUnitsInHard   = UnitDef_Tower1Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

@@ -11,119 +11,119 @@
 #include "events/prologue-eventudefs.h"
 #include "events/ch1-eventudefs.h"
 
-CONST_DATA struct REDA REDA_088B4244[] = {
+CONST_DATA struct REDA REDA_Event_Ch2Ally_EIRIKA[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B424C[] = {
+CONST_DATA struct REDA REDA_Event_Ch2Ally_SETH[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4254[] = {
+CONST_DATA struct REDA REDA_Event_Ch2Ally_FRANZ[] = {
     {
         .x = 1,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B425C[] = {
+CONST_DATA struct REDA REDA_Event_Ch2Ally_GILLIAM[] = {
     {
         .x = 0,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4264[] = {
+CONST_DATA struct REDA REDA_Event_Ch2Ally_MOULDER[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B426C[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_0[] = {
     {
         .x = 10,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4274[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_1[] = {
     {
         .x = 14,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B427C[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_2[] = {
     {
         .x = 13,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4284[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_3[] = {
     {
         .x = 6,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B428C[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_4[] = {
     {
         .x = 7,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4294[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_0_5[] = {
     {
         .x = 12,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B429C[] = {
+CONST_DATA struct REDA REDA_Ch2Ally_VANESSA[] = {
     {
         .x = 7,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B42A4[] = {
+CONST_DATA struct REDA REDA_Ch2NPC_ROSS[] = {
     {
         .x = 10,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B42AC[] = {
+CONST_DATA struct REDA REDA_Ch2NPC_GARCIA[] = {
     {
         .x = 10,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B42B4[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_1_0[] = {
     {
         .x = 1,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B42BC[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_1_1[] = {
     {
         .x = 0,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B42C4[] = {
+CONST_DATA struct REDA REDA_Ch2Enemy_2_BAZBA[] = {
     {
         .x = 11,
         .y = 7,
@@ -141,7 +141,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4244,
+        .redas = REDA_Event_Ch2Ally_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -155,7 +155,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B424C,
+        .redas = REDA_Event_Ch2Ally_SETH,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -170,7 +170,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4254,
+        .redas = REDA_Event_Ch2Ally_FRANZ,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_VULNERARY,
@@ -184,7 +184,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B425C,
+        .redas = REDA_Event_Ch2Ally_GILLIAM,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -198,7 +198,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4264,
+        .redas = REDA_Event_Ch2Ally_MOULDER,
         .items = {
             ITEM_STAFF_HEAL,
             ITEM_VULNERARY,
@@ -208,7 +208,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch2Ally[] = {
 };
 
 // 0x88B4344
-CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch2Enemy_0[] = {
     {
         .charIndex = 0x8e,
         .classIndex = CLASS_BRIGAND,
@@ -218,7 +218,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .xPosition = 9,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088B426C,
+        .redas = REDA_Ch2Enemy_0_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -233,7 +233,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B4274,
+        .redas = REDA_Ch2Enemy_0_1,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -247,7 +247,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B427C,
+        .redas = REDA_Ch2Enemy_0_2,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -263,7 +263,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .yPosition = 10,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088B4284,
+        .redas = REDA_Ch2Enemy_0_3,
         .items = {
             ITEM_AXE_IRON,
             ITEM_VULNERARY,
@@ -279,7 +279,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .xPosition = 7,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088B428C,
+        .redas = REDA_Ch2Enemy_0_4,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -294,7 +294,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B4294,
+        .redas = REDA_Ch2Enemy_0_5,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -304,7 +304,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4344[] = {
 };
 
 // 0x88B43D0
-CONST_DATA struct UnitDefinition UnitDef_088B43D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_LordSplitAlly[] = {
     {
         .charIndex = CHARACTER_VANESSA,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -334,7 +334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B43D0[] = {
 };
 
 // 0x88B440C
-CONST_DATA struct UnitDefinition UnitDef_088B440C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch2Ally[] = {
     {
         .charIndex = CHARACTER_VANESSA,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -343,7 +343,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B440C[] = {
         .xPosition = 0,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088B429C,
+        .redas = REDA_Ch2Ally_VANESSA,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_LANCE_JAVELIN,
@@ -354,7 +354,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B440C[] = {
 };
 
 // 0x88B4434
-CONST_DATA struct UnitDefinition UnitDef_088B4434[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch2NPC[] = {
     {
         .charIndex = CHARACTER_ROSS,
         .classIndex = CLASS_JOURNEYMAN,
@@ -363,7 +363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4434[] = {
         .xPosition = 11,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B42A4,
+        .redas = REDA_Ch2NPC_ROSS,
         .items = {
             ITEM_AXE_HATCHET,
             ITEM_VULNERARY,
@@ -378,7 +378,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4434[] = {
         .xPosition = 11,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B42AC,
+        .redas = REDA_Ch2NPC_GARCIA,
         .items = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
@@ -390,7 +390,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4434[] = {
 };
 
 // 0x88B4470
-CONST_DATA struct UnitDefinition UnitDef_088B4470[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch2Enemy_1[] = {
     {
         .charIndex = 0x8e,
         .classIndex = CLASS_BRIGAND,
@@ -400,7 +400,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4470[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B42B4,
+        .redas = REDA_Ch2Enemy_1_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -415,7 +415,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4470[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B42BC,
+        .redas = REDA_Ch2Enemy_1_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -425,7 +425,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4470[] = {
 };
 
 // 0x88B44AC
-CONST_DATA struct UnitDefinition UnitDef_088B44AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch2Enemy_2[] = {
     {
         .charIndex = CHARACTER_BAZBA,
         .classIndex = CLASS_BRIGAND,
@@ -435,7 +435,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B44AC[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B42C4,
+        .redas = REDA_Ch2Enemy_2_BAZBA,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -444,140 +444,140 @@ CONST_DATA struct UnitDefinition UnitDef_088B44AC[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B44D4[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_EIRIKA[] = {
     {
         .x = 2,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B44DC[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_MOULDER[] = {
     {
         .x = 3,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B44E4[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_ROSS[] = {
     {
         .x = 3,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B44EC[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_VANESSA[] = {
     {
         .x = 2,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B44F4[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_GILLIAM[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B44FC[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_FRANZ[] = {
     {
         .x = 0,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4504[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_NEIMI[] = {
     {
         .x = 1,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B450C[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_SETH[] = {
     {
         .x = 1,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4514[] = {
+CONST_DATA struct REDA REDA_Event_Ch3Ally_GARCIA[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B451C[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_0[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4524[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_1[] = {
     {
         .x = 7,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B452C[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_2[] = {
     {
         .x = 9,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4534[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_3[] = {
     {
         .x = 15,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B453C[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_4[] = {
     {
         .x = 12,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4544[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_5[] = {
     {
         .x = 14,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B454C[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_6[] = {
     {
         .x = 9,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4554[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_7[] = {
     {
         .x = 14,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B455C[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_8[] = {
     {
         .x = 5,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4564[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_0_9[] = {
     {
         .x = 7,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B456C[] = {
+CONST_DATA struct REDA REDA_Ch3NPC_COLM[] = {
     {
         .x = 0,
         .y = 5,
@@ -595,7 +595,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B44D4,
+        .redas = REDA_Event_Ch3Ally_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -610,7 +610,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088B44DC,
+        .redas = REDA_Event_Ch3Ally_MOULDER,
         .items = {
             ITEM_STAFF_HEAL,
         },
@@ -623,7 +623,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B44E4,
+        .redas = REDA_Event_Ch3Ally_ROSS,
         .items = {
             ITEM_AXE_HATCHET,
             ITEM_VULNERARY,
@@ -637,7 +637,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088B44EC,
+        .redas = REDA_Event_Ch3Ally_VANESSA,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -651,7 +651,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B44F4,
+        .redas = REDA_Event_Ch3Ally_GILLIAM,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -664,7 +664,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B44FC,
+        .redas = REDA_Event_Ch3Ally_FRANZ,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_IRON,
@@ -678,7 +678,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B4504,
+        .redas = REDA_Event_Ch3Ally_NEIMI,
         .items = {
             ITEM_BOW_IRON,
             ITEM_VULNERARY,
@@ -692,7 +692,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088B450C,
+        .redas = REDA_Event_Ch3Ally_SETH,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -707,7 +707,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B4514,
+        .redas = REDA_Event_Ch3Ally_GARCIA,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -716,7 +716,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch3Ally[] = {
 };
 
 // 0x88B463C
-CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch3Enemy_0[] = {
     {
         .charIndex = CHARACTER_BAZBA,
         .classIndex = CLASS_BRIGAND,
@@ -725,7 +725,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 14,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088B451C,
+        .redas = REDA_Ch3Enemy_0_0,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
@@ -741,7 +741,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 7,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B4524,
+        .redas = REDA_Ch3Enemy_0_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -756,7 +756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 9,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B452C,
+        .redas = REDA_Ch3Enemy_0_2,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -771,7 +771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 15,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B4534,
+        .redas = REDA_Ch3Enemy_0_3,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_ANTITOXIN,
@@ -787,7 +787,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 12,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B453C,
+        .redas = REDA_Ch3Enemy_0_4,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -802,7 +802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 14,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B4544,
+        .redas = REDA_Ch3Enemy_0_5,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_PUREWATER,
@@ -818,7 +818,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 9,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B454C,
+        .redas = REDA_Ch3Enemy_0_6,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -833,7 +833,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .xPosition = 14,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B4554,
+        .redas = REDA_Ch3Enemy_0_7,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -849,7 +849,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .yPosition = 9,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088B455C,
+        .redas = REDA_Ch3Enemy_0_8,
         .items = {
             ITEM_AXE_IRON,
             ITEM_DOORKEY,
@@ -866,7 +866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
         .yPosition = 11,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088B4564,
+        .redas = REDA_Ch3Enemy_0_9,
         .items = {
             ITEM_AXE_IRON,
             ITEM_CHESTKEY,
@@ -877,7 +877,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B463C[] = {
 };
 
 // 0x88B4718
-CONST_DATA struct UnitDefinition UnitDef_088B4718[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch3NPC[] = {
     {
         .charIndex = CHARACTER_COLM,
         .classIndex = CLASS_THIEF,
@@ -886,7 +886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4718[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B456C,
+        .redas = REDA_Ch3NPC_COLM,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -897,7 +897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4718[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B4740[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_2_RIEV[] = {
     {
         .x = 14,
         .y = 5,
@@ -905,7 +905,7 @@ CONST_DATA struct REDA REDA_088B4740[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4748[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_2_CAELLACH[] = {
     {
         .x = 15,
         .y = 5,
@@ -913,7 +913,7 @@ CONST_DATA struct REDA REDA_088B4748[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4750[] = {
+CONST_DATA struct REDA REDA_Ch3Enemy_2_VALTER[] = {
     {
         .x = 13,
         .y = 5,
@@ -923,12 +923,12 @@ CONST_DATA struct REDA REDA_088B4750[] = {
 };
 
 // 0x88B4758
-CONST_DATA struct UnitDefinition UnitDef_088B4758[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch3Units[] = {
     { 0 },
 };
 
 // 0x88B476C
-CONST_DATA struct UnitDefinition UnitDef_088B476C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch3Enemy_1[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -981,7 +981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B476C[] = {
 };
 
 // 0x88B47E4
-CONST_DATA struct UnitDefinition UnitDef_088B47E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch3Enemy_2[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -991,7 +991,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B47E4[] = {
         .xPosition = 14,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B4740,
+        .redas = REDA_Ch3Enemy_2_RIEV,
     },
     {
         .charIndex = CHARACTER_CAELLACH,
@@ -1002,7 +1002,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B47E4[] = {
         .xPosition = 15,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B4748,
+        .redas = REDA_Ch3Enemy_2_CAELLACH,
     },
     {
         .charIndex = CHARACTER_VALTER,
@@ -1013,68 +1013,68 @@ CONST_DATA struct UnitDefinition UnitDef_088B47E4[] = {
         .xPosition = 13,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B4750,
+        .redas = REDA_Ch3Enemy_2_VALTER,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B4834[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_EIRIKA[] = {
     {
         .x = 5,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B483C[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_MOULDER[] = {
     {
         .x = 5,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4844[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_COLM[] = {
     {
         .x = 4,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B484C[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_VANESSA[] = {
     {
         .x = 4,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4854[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_GILLIAM[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B485C[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_NEIMI[] = {
     {
         .x = 3,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4864[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_SETH[] = {
     {
         .x = 6,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B486C[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_0_ROSS[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4874[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_1_ARTUR[] = {
     {
         .x = 8,
         .y = 6,
@@ -1091,98 +1091,98 @@ CONST_DATA struct REDA REDA_088B4874[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B488C[] = {
+CONST_DATA struct REDA REDA_Ch4Ally_2_LUTE[] = {
     {
         .x = 1,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B4894[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_1_0[] = {
     {
         .x = 0,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B489C[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_1_1[] = {
     {
         .x = 2,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48A4[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_1_2[] = {
     {
         .x = 0,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48AC[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_1_3[] = {
     {
         .x = 2,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48B4[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_2_0[] = {
     {
         .x = 13,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48BC[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_2_1[] = {
     {
         .x = 14,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48C4[] = {
+CONST_DATA struct REDA REDA_Ch4Enemy_2_2[] = {
     {
         .x = 14,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48CC[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_0_LARACHEL[] = {
     {
         .x = 13,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48D4[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_0_RENNAC[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48DC[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_0_DOZLA[] = {
     {
         .x = 12,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48E4[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_1_LARACHEL[] = {
     {
         .x = 13,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48EC[] = {
+CONST_DATA struct REDA REDA_Ch4_0[] = {
     {
         .x = 10,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B48F4[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_1_DOZLA[] = {
     {
         .x = 11,
         .y = 4,
@@ -1190,7 +1190,7 @@ CONST_DATA struct REDA REDA_088B48F4[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088B48FC[] = {
+CONST_DATA struct REDA REDA_Ch4NPC_1_RENNAC[] = {
     {
         .x = 11,
         .y = 6,
@@ -1313,7 +1313,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch4Ally[] = {
 };
 
 // 0x88B49CC
-CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -1322,7 +1322,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4834,
+        .redas = REDA_Ch4Ally_0_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -1336,7 +1336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B483C,
+        .redas = REDA_Ch4Ally_0_MOULDER,
         .items = {
             ITEM_STAFF_HEAL,
         },
@@ -1349,7 +1349,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4844,
+        .redas = REDA_Ch4Ally_0_COLM,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -1363,7 +1363,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B484C,
+        .redas = REDA_Ch4Ally_0_VANESSA,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -1377,7 +1377,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4854,
+        .redas = REDA_Ch4Ally_0_GILLIAM,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -1391,7 +1391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B485C,
+        .redas = REDA_Ch4Ally_0_NEIMI,
         .items = {
             ITEM_BOW_IRON,
             ITEM_VULNERARY,
@@ -1405,7 +1405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 6,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4864,
+        .redas = REDA_Ch4Ally_0_SETH,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -1420,7 +1420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B486C,
+        .redas = REDA_Ch4Ally_0_ROSS,
         .items = {
             ITEM_AXE_HATCHET,
             ITEM_VULNERARY,
@@ -1430,7 +1430,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B49CC[] = {
 };
 
 // 0x88B4A80
-CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_0[] = {
     {
         .charIndex = 0xb7,
         .classIndex = CLASS_MOGALL,
@@ -1642,7 +1642,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4A80[] = {
 };
 
 // 0x88B4BD4
-CONST_DATA struct UnitDefinition UnitDef_088B4BD4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_1[] = {
     {
         .charIndex = CHARACTER_ARTUR,
         .classIndex = CLASS_MONK,
@@ -1651,7 +1651,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4BD4[] = {
         .xPosition = 9,
         .yPosition = 10,
         .redaCount = 3,
-        .redas = REDA_088B4874,
+        .redas = REDA_Ch4Ally_1_ARTUR,
         .items = {
             ITEM_LIGHT_LIGHTNING,
             ITEM_VULNERARY,
@@ -1661,7 +1661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4BD4[] = {
 };
 
 // 0x88B4BFC
-CONST_DATA struct UnitDefinition UnitDef_088B4BFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_2[] = {
     {
         .charIndex = CHARACTER_LUTE,
         .classIndex = CLASS_MAGE_F,
@@ -1670,7 +1670,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4BFC[] = {
         .xPosition = 1,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B488C,
+        .redas = REDA_Ch4Ally_2_LUTE,
         .items = {
             ITEM_ANIMA_FIRE,
             ITEM_VULNERARY,
@@ -1680,7 +1680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4BFC[] = {
 };
 
 // 0x88B4C24
-CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_1[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -1690,7 +1690,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B4894,
+        .redas = REDA_Ch4Enemy_1_0,
         .items = {
             ITEM_MONSTER_FETIDCLW,
             ITEM_VULNERARY,
@@ -1706,7 +1706,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B489C,
+        .redas = REDA_Ch4Enemy_1_1,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -1721,7 +1721,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B48A4,
+        .redas = REDA_Ch4Enemy_1_2,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -1736,7 +1736,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B48AC,
+        .redas = REDA_Ch4Enemy_1_3,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -1746,7 +1746,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C24[] = {
 };
 
 // 0x88B4C88
-CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_2[] = {
     {
         .charIndex = 0xac,
         .classIndex = CLASS_BONEWALKER,
@@ -1756,7 +1756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B48B4,
+        .redas = REDA_Ch4Enemy_2_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -1771,7 +1771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B48BC,
+        .redas = REDA_Ch4Enemy_2_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -1786,7 +1786,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
         .xPosition = 14,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B48C4,
+        .redas = REDA_Ch4Enemy_2_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -1796,7 +1796,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4C88[] = {
 };
 
 // 0x88B4CD8
-CONST_DATA struct UnitDefinition UnitDef_088B4CD8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4NPC_0[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -1807,7 +1807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4CD8[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B48CC,
+        .redas = REDA_Ch4NPC_0_LARACHEL,
         .items = {
             ITEM_STAFF_MEND,
         },
@@ -1822,7 +1822,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4CD8[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B48D4,
+        .redas = REDA_Ch4NPC_0_RENNAC,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -1837,7 +1837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4CD8[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B48DC,
+        .redas = REDA_Ch4NPC_0_DOZLA,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -1846,7 +1846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4CD8[] = {
 };
 
 // 0x88B4D28
-CONST_DATA struct UnitDefinition UnitDef_088B4D28[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_3[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -1867,7 +1867,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4D28[] = {
 };
 
 // 0x88B4D64
-CONST_DATA struct UnitDefinition UnitDef_088B4D64[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4NPC_1[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -1878,7 +1878,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4D64[] = {
         .xPosition = 14,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088B48E4,
+        .redas = REDA_Ch4NPC_1_LARACHEL,
         .items = {
             ITEM_STAFF_MEND,
         },
@@ -1893,7 +1893,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4D64[] = {
         .xPosition = 14,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B48F4,
+        .redas = REDA_Ch4NPC_1_DOZLA,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -1908,7 +1908,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4D64[] = {
         .xPosition = 14,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B48FC,
+        .redas = REDA_Ch4NPC_1_RENNAC,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -1917,7 +1917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4D64[] = {
 };
 
 // 0x88B4DB4
-CONST_DATA struct UnitDefinition UnitDef_088B4DB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -2034,7 +2034,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B4DB4[] = {
 };
 
 // 0x88B4E68
-CONST_DATA struct UnitDefinition UnitDef_088B4E68[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_3[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_BONEWALKER,
@@ -2411,7 +2411,7 @@ CONST_DATA struct UnitDefinition UnitDef_Ch4SkirmishAlly2[] = {
 };
 
 // 0x88B50D4
-CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_4[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ENTOUMBED,
@@ -2671,7 +2671,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B50D4[] = {
 };
 
 // 0x88B528C
-CONST_DATA struct UnitDefinition UnitDef_088B528C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Ally_5[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -2788,7 +2788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B528C[] = {
 };
 
 // 0x88B5340
-CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch4Enemy_5[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_BAEL,
@@ -3047,238 +3047,238 @@ CONST_DATA struct UnitDefinition UnitDef_088B5340[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B54F8[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_EIRIKA[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5500[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_NATASHA[] = {
     {
         .x = 5,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5508[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_COLM[] = {
     {
         .x = 5,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5510[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_VANESSA[] = {
     {
         .x = 4,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5518[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_GILLIAM[] = {
     {
         .x = 3,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5520[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_FRANZ[] = {
     {
         .x = 6,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5528[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_NEIMI[] = {
     {
         .x = 7,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5530[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_SETH[] = {
     {
         .x = 6,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5538[] = {
+CONST_DATA struct REDA REDA_Event_Ch5Ally_ARTUR[] = {
     {
         .x = 3,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5540[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_0[] = {
     {
         .x = 13,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5548[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_1[] = {
     {
         .x = 11,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5550[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_2[] = {
     {
         .x = 10,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5558[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_3[] = {
     {
         .x = 8,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5560[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_4[] = {
     {
         .x = 13,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5568[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_5[] = {
     {
         .x = 9,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5570[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_0_6[] = {
     {
         .x = 9,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5578[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_0[] = {
     {
         .x = 7,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5580[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_1[] = {
     {
         .x = 10,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5588[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_2[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5590[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_3[] = {
     {
         .x = 0,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5598[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_4[] = {
     {
         .x = 1,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55A0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_5[] = {
     {
         .x = 0,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55A8[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_6[] = {
     {
         .x = 3,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55B0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_7[] = {
     {
         .x = 4,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55B8[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_1_8[] = {
     {
         .x = 5,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55C0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_2_0[] = {
     {
         .x = 14,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55C8[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_2_1[] = {
     {
         .x = 14,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55D0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_3_0[] = {
     {
         .x = 14,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55D8[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_3_1[] = {
     {
         .x = 14,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55E0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_4_0[] = {
     {
         .x = 13,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55E8[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_4_1[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55F0[] = {
+CONST_DATA struct REDA REDA_Ch5Enemy_5_JOSHUA[] = {
     {
         .x = 12,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B55F8[] = {
+CONST_DATA struct REDA REDA_Ch5Mixed_JOSHUA[] = {
     {
         .x = 9,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5600[] = {
+CONST_DATA struct REDA REDA_Ch5_0[] = {
     {
         .x = 9,
         .y = 7,
@@ -3286,7 +3286,7 @@ CONST_DATA struct REDA REDA_088B5600[] = {
         .a = 0xd,
     },
 };
-CONST_DATA struct REDA REDA_088B5608[] = {
+CONST_DATA struct REDA REDA_Ch5Mixed_NATASHA[] = {
     {
         .x = 9,
         .y = 10,
@@ -3294,7 +3294,7 @@ CONST_DATA struct REDA REDA_088B5608[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5610[] = {
+CONST_DATA struct REDA REDA_Ch5_1[] = {
     {
         .x = 9,
         .y = 8,
@@ -3302,21 +3302,21 @@ CONST_DATA struct REDA REDA_088B5610[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5618[] = {
+CONST_DATA struct REDA REDA_Ch5Ally_0_NATASHA[] = {
     {
         .x = 9,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5620[] = {
+CONST_DATA struct REDA REDA_Ch5Ally_1_EIRIKA[] = {
     {
         .x = 6,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5628[] = {
+CONST_DATA struct REDA REDA_Ch5Ally_1_SETH[] = {
     {
         .x = 5,
         .y = 15,
@@ -3334,7 +3334,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 6,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B54F8,
+        .redas = REDA_Event_Ch5Ally_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -3348,7 +3348,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 5,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5500,
+        .redas = REDA_Event_Ch5Ally_NATASHA,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_VULNERARY,
@@ -3362,7 +3362,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 5,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B5508,
+        .redas = REDA_Event_Ch5Ally_COLM,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -3376,7 +3376,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 4,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088B5510,
+        .redas = REDA_Event_Ch5Ally_VANESSA,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -3390,7 +3390,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 3,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B5518,
+        .redas = REDA_Event_Ch5Ally_GILLIAM,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -3404,7 +3404,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 6,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088B5520,
+        .redas = REDA_Event_Ch5Ally_FRANZ,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_IRON,
@@ -3418,7 +3418,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 7,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5528,
+        .redas = REDA_Event_Ch5Ally_NEIMI,
         .items = {
             ITEM_BOW_IRON,
             ITEM_VULNERARY,
@@ -3432,7 +3432,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 4,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B5530,
+        .redas = REDA_Event_Ch5Ally_SETH,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -3446,7 +3446,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
         .xPosition = 3,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5538,
+        .redas = REDA_Event_Ch5Ally_ARTUR,
         .items = {
             ITEM_LIGHT_LIGHTNING,
         },
@@ -3455,7 +3455,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5Ally[] = {
 };
 
 // 0x88B56F8
-CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_0[] = {
     {
         .charIndex = CHARACTER_SAAR,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -3464,7 +3464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5540,
+        .redas = REDA_Ch5Enemy_0_0,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -3479,7 +3479,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5548,
+        .redas = REDA_Ch5Enemy_0_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3494,7 +3494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5550,
+        .redas = REDA_Ch5Enemy_0_2,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3509,7 +3509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5558,
+        .redas = REDA_Ch5Enemy_0_3,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3524,7 +3524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5560,
+        .redas = REDA_Ch5Enemy_0_4,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3539,7 +3539,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5568,
+        .redas = REDA_Ch5Enemy_0_5,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3554,7 +3554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5570,
+        .redas = REDA_Ch5Enemy_0_6,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3564,7 +3564,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B56F8[] = {
 };
 
 // 0x88B5798
-CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -3574,7 +3574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5578,
+        .redas = REDA_Ch5Enemy_1_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3589,7 +3589,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5580,
+        .redas = REDA_Ch5Enemy_1_1,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -3604,7 +3604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5588,
+        .redas = REDA_Ch5Enemy_1_2,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -3619,7 +3619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5590,
+        .redas = REDA_Ch5Enemy_1_3,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3634,7 +3634,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5598,
+        .redas = REDA_Ch5Enemy_1_4,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -3649,7 +3649,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B55A0,
+        .redas = REDA_Ch5Enemy_1_5,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3664,7 +3664,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B55A8,
+        .redas = REDA_Ch5Enemy_1_6,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -3679,7 +3679,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B55B0,
+        .redas = REDA_Ch5Enemy_1_7,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3694,7 +3694,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B55B8,
+        .redas = REDA_Ch5Enemy_1_8,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -3704,7 +3704,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5798[] = {
 };
 
 // 0x88B5860
-CONST_DATA struct UnitDefinition UnitDef_088B5860[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_2[] = {
     {
         .charIndex = CHARACTER_BANDIT_CH5,
         .classIndex = CLASS_BRIGAND,
@@ -3714,7 +3714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5860[] = {
         .xPosition = 14,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B55C0,
+        .redas = REDA_Ch5Enemy_2_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3729,7 +3729,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5860[] = {
         .xPosition = 14,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088B55C8,
+        .redas = REDA_Ch5Enemy_2_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3739,7 +3739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5860[] = {
 };
 
 // 0x88B589C
-CONST_DATA struct UnitDefinition UnitDef_088B589C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_3[] = {
     {
         .charIndex = 0x65,
         .classIndex = CLASS_BRIGAND,
@@ -3749,7 +3749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B589C[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B55D0,
+        .redas = REDA_Ch5Enemy_3_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3764,7 +3764,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B589C[] = {
         .xPosition = 14,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B55D8,
+        .redas = REDA_Ch5Enemy_3_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3774,7 +3774,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B589C[] = {
 };
 
 // 0x88B58D8
-CONST_DATA struct UnitDefinition UnitDef_088B58D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_4[] = {
     {
         .charIndex = 0x65,
         .classIndex = CLASS_BRIGAND,
@@ -3784,7 +3784,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B58D8[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B55E0,
+        .redas = REDA_Ch5Enemy_4_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3799,7 +3799,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B58D8[] = {
         .xPosition = 14,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088B55E8,
+        .redas = REDA_Ch5Enemy_4_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -3809,7 +3809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B58D8[] = {
 };
 
 // 0x88B5914
-CONST_DATA struct UnitDefinition UnitDef_088B5914[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_5[] = {
     {
         .charIndex = CHARACTER_JOSHUA,
         .classIndex = CLASS_MYRMIDON,
@@ -3818,7 +3818,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5914[] = {
         .xPosition = 12,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B55F0,
+        .redas = REDA_Ch5Enemy_5_JOSHUA,
         .items = {
             ITEM_SWORD_KILLER,
         },
@@ -3828,7 +3828,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5914[] = {
 };
 
 // 0x88B593C
-CONST_DATA struct UnitDefinition UnitDef_088B593C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Mixed[] = {
     {
         .charIndex = CHARACTER_JOSHUA,
         .classIndex = CLASS_MYRMIDON,
@@ -3838,7 +3838,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B593C[] = {
         .xPosition = 9,
         .yPosition = 6,
         .redaCount = 2,
-        .redas = REDA_088B55F8,
+        .redas = REDA_Ch5Mixed_JOSHUA,
     },
     {
         .charIndex = CHARACTER_NATASHA,
@@ -3848,7 +3848,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B593C[] = {
         .xPosition = 9,
         .yPosition = 15,
         .redaCount = 2,
-        .redas = REDA_088B5608,
+        .redas = REDA_Ch5Mixed_NATASHA,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_VULNERARY,
@@ -3858,7 +3858,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B593C[] = {
 };
 
 // 0x88B5978
-CONST_DATA struct UnitDefinition UnitDef_088B5978[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Enemy_6[] = {
     {
         .charIndex = CHARACTER_SAAR,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -3890,7 +3890,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5978[] = {
 };
 
 // 0x88B59C8
-CONST_DATA struct UnitDefinition UnitDef_088B59C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Ally_0[] = {
     {
         .charIndex = CHARACTER_NATASHA,
         .classIndex = CLASS_CLERIC,
@@ -3899,7 +3899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B59C8[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B5618,
+        .redas = REDA_Ch5Ally_0_NATASHA,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_VULNERARY,
@@ -3909,7 +3909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B59C8[] = {
 };
 
 // 0x88B59F0
-CONST_DATA struct UnitDefinition UnitDef_088B59F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5Ally_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -3918,7 +3918,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B59F0[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B5620,
+        .redas = REDA_Ch5Ally_1_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -3932,7 +3932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B59F0[] = {
         .xPosition = 0,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088B5628,
+        .redas = REDA_Ch5Ally_1_SETH,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -3941,14 +3941,14 @@ CONST_DATA struct UnitDefinition UnitDef_088B59F0[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B5A2C[] = {
+CONST_DATA struct REDA REDA_Event_Ch5xAlly_EPHRAIM[] = {
     {
         .x = 1,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A34[] = {
+CONST_DATA struct REDA REDA_Event_Ch5xAlly_FORDE[] = {
     {
         .x = 3,
         .y = 17,
@@ -3956,7 +3956,7 @@ CONST_DATA struct REDA REDA_088B5A34[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A3C[] = {
+CONST_DATA struct REDA REDA_Event_Ch5xAlly_KYLE[] = {
     {
         .x = 0,
         .y = 16,
@@ -3964,7 +3964,7 @@ CONST_DATA struct REDA REDA_088B5A3C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A44[] = {
+CONST_DATA struct REDA REDA_Event_Ch5xAlly_ORSON_CH5X[] = {
     {
         .x = 0,
         .y = 18,
@@ -3972,21 +3972,21 @@ CONST_DATA struct REDA REDA_088B5A44[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A4C[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_0_0[] = {
     {
         .x = 15,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A54[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_0_FORDE[] = {
     {
         .x = 12,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5A5C[] = {
+CONST_DATA struct REDA REDA_Ch5x_0[] = {
     {
         .x = 12,
         .y = 10,
@@ -4004,7 +4004,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
         .xPosition = 1,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5A2C,
+        .redas = REDA_Event_Ch5xAlly_EPHRAIM,
         .items = {
             ITEM_LANCE_REGINLEIF,
             ITEM_LANCE_STEEL,
@@ -4019,7 +4019,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
         .xPosition = 3,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5A34,
+        .redas = REDA_Event_Ch5xAlly_FORDE,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -4034,7 +4034,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5A3C,
+        .redas = REDA_Event_Ch5xAlly_KYLE,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_STEEL,
@@ -4049,7 +4049,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B5A44,
+        .redas = REDA_Event_Ch5xAlly_ORSON_CH5X,
         .items = {
             ITEM_SWORD_SILVER,
             ITEM_LANCE_STEEL,
@@ -4060,7 +4060,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch5xAlly[] = {
 };
 
 // 0x88B5AC8
-CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xEnemy_0[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -4372,7 +4372,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
         .xPosition = 15,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088B5A4C,
+        .redas = REDA_Ch5xEnemy_0_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -4477,7 +4477,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5AC8[] = {
 };
 
 // 0x88B5D48
-CONST_DATA struct UnitDefinition UnitDef_088B5D48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -4502,18 +4502,18 @@ CONST_DATA struct UnitDefinition UnitDef_088B5D48[] = {
         .xPosition = 8,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088B5A54,
+        .redas = REDA_Ch5xAlly_0_FORDE,
     },
     { 0 },
 };
 
 // 0x88B5D98
-CONST_DATA struct UnitDefinition UnitDef_088B5D98[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xUnits[] = {
     { 0 },
 };
 
 // 0x88B5DAC
-CONST_DATA struct UnitDefinition UnitDef_088B5DAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xEnemy_1[] = {
     {
         .charIndex = CHARACTER_TIRADO,
         .classIndex = CLASS_GENERAL,
@@ -4545,7 +4545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5DAC[] = {
 };
 
 // 0x88B5DFC
-CONST_DATA struct UnitDefinition UnitDef_088B5DFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xAlly_1[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -4574,23 +4574,23 @@ CONST_DATA struct UnitDefinition UnitDef_088B5DFC[] = {
 };
 
 // 0x88B5E4C
-CONST_DATA struct UnitDefinition UnitDef_088B5E4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xUnits_1[] = {
     { 0 },
 };
 
 // 0x88B5E60
-CONST_DATA struct UnitDefinition UnitDef_088B5E60[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xUnits_2[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B5E74[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_2_EPHRAIM[] = {
     {
         .x = 9,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5E7C[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_2_FORDE[] = {
     {
         .x = 9,
         .y = 9,
@@ -4598,7 +4598,7 @@ CONST_DATA struct REDA REDA_088B5E7C[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088B5E84[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_2_KYLE[] = {
     {
         .x = 8,
         .y = 9,
@@ -4606,7 +4606,7 @@ CONST_DATA struct REDA REDA_088B5E84[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088B5E8C[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_2_ORSON_CH5X[] = {
     {
         .x = 8,
         .y = 10,
@@ -4616,7 +4616,7 @@ CONST_DATA struct REDA REDA_088B5E8C[] = {
 };
 
 // 0x88B5E94
-CONST_DATA struct UnitDefinition UnitDef_088B5E94[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xAlly_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -4625,7 +4625,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5E94[] = {
         .xPosition = 9,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088B5E74,
+        .redas = REDA_Ch5xAlly_2_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_FORDE,
@@ -4635,7 +4635,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5E94[] = {
         .xPosition = 9,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088B5E7C,
+        .redas = REDA_Ch5xAlly_2_FORDE,
     },
     {
         .charIndex = CHARACTER_KYLE,
@@ -4645,7 +4645,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5E94[] = {
         .xPosition = 8,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088B5E84,
+        .redas = REDA_Ch5xAlly_2_KYLE,
     },
     {
         .charIndex = CHARACTER_ORSON_CH5X,
@@ -4655,17 +4655,17 @@ CONST_DATA struct UnitDefinition UnitDef_088B5E94[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088B5E8C,
+        .redas = REDA_Ch5xAlly_2_ORSON_CH5X,
     },
     { 0 },
 };
 
 // 0x88B5EF8
-CONST_DATA struct UnitDefinition UnitDef_088B5EF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xUnits_3[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B5F0C[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_3_EPHRAIM[] = {
     {
         .x = 9,
         .y = 5,
@@ -4682,7 +4682,7 @@ CONST_DATA struct REDA REDA_088B5F0C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F24[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_3_FORDE[] = {
     {
         .x = 9,
         .y = 12,
@@ -4699,7 +4699,7 @@ CONST_DATA struct REDA REDA_088B5F24[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F3C[] = {
+CONST_DATA struct REDA REDA_Ch5xAlly_3_KYLE[] = {
     {
         .x = 9,
         .y = 12,
@@ -4712,42 +4712,42 @@ CONST_DATA struct REDA REDA_088B5F3C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F4C[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_3_0[] = {
     {
         .x = 8,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F54[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_3_1[] = {
     {
         .x = 5,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F5C[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_3_2[] = {
     {
         .x = 6,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F64[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_3_3[] = {
     {
         .x = 9,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F6C[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_3_4[] = {
     {
         .x = 8,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B5F74[] = {
+CONST_DATA struct REDA REDA_Ch5xEnemy_4_VALTER[] = {
     {
         .x = 7,
         .y = 13,
@@ -4757,7 +4757,7 @@ CONST_DATA struct REDA REDA_088B5F74[] = {
 };
 
 // 0x88B5F7C
-CONST_DATA struct UnitDefinition UnitDef_088B5F7C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xAlly_3[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -4766,7 +4766,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5F7C[] = {
         .xPosition = 9,
         .yPosition = 4,
         .redaCount = 3,
-        .redas = REDA_088B5F0C,
+        .redas = REDA_Ch5xAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_FORDE,
@@ -4776,7 +4776,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5F7C[] = {
         .xPosition = 9,
         .yPosition = 4,
         .redaCount = 3,
-        .redas = REDA_088B5F24,
+        .redas = REDA_Ch5xAlly_3_FORDE,
     },
     {
         .charIndex = CHARACTER_KYLE,
@@ -4786,13 +4786,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B5F7C[] = {
         .xPosition = 9,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088B5F3C,
+        .redas = REDA_Ch5xAlly_3_KYLE,
     },
     { 0 },
 };
 
 // 0x88B5FCC
-CONST_DATA struct UnitDefinition UnitDef_088B5FCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xEnemy_2[] = {
     {
         .charIndex = 0x89,
         .classIndex = CLASS_DRUID,
@@ -4887,7 +4887,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B5FCC[] = {
 };
 
 // 0x88B60A8
-CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -4897,7 +4897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
         .xPosition = 1,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B5F4C,
+        .redas = REDA_Ch5xEnemy_3_0,
     },
     {
         .charIndex = 0x80,
@@ -4908,7 +4908,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
         .xPosition = 1,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088B5F54,
+        .redas = REDA_Ch5xEnemy_3_1,
     },
     {
         .charIndex = 0x80,
@@ -4919,7 +4919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
         .xPosition = 1,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B5F5C,
+        .redas = REDA_Ch5xEnemy_3_2,
     },
     {
         .charIndex = 0x80,
@@ -4930,7 +4930,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
         .xPosition = 1,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B5F64,
+        .redas = REDA_Ch5xEnemy_3_3,
     },
     {
         .charIndex = 0x80,
@@ -4941,13 +4941,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B60A8[] = {
         .xPosition = 8,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B5F6C,
+        .redas = REDA_Ch5xEnemy_3_4,
     },
     { 0 },
 };
 
 // 0x88B6120
-CONST_DATA struct UnitDefinition UnitDef_088B6120[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch5xEnemy_4[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -4957,89 +4957,89 @@ CONST_DATA struct UnitDefinition UnitDef_088B6120[] = {
         .xPosition = 1,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088B5F74,
+        .redas = REDA_Ch5xEnemy_4_VALTER,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B6148[] = {
+CONST_DATA struct REDA REDA_Ch6Ally_0_SETH[] = {
     {
         .x = 3,
         .y = 0,
         .a = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088B6150[] = {
+CONST_DATA struct REDA REDA_Ch6A_0[] = {
     {
         .x = 3,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6158[] = {
+CONST_DATA struct REDA REDA_Ch6A_1[] = {
     {
         .x = 4,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6160[] = {
+CONST_DATA struct REDA REDA_Ch6A_2[] = {
     {
         .x = 4,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6168[] = {
+CONST_DATA struct REDA REDA_Ch6A_3[] = {
     {
         .x = 5,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6170[] = {
+CONST_DATA struct REDA REDA_Ch6Ally_0_EIRIKA[] = {
     {
         .x = 3,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6178[] = {
+CONST_DATA struct REDA REDA_Ch6A_4[] = {
     {
         .x = 3,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6180[] = {
+CONST_DATA struct REDA REDA_Ch6A_5[] = {
     {
         .x = 4,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6188[] = {
+CONST_DATA struct REDA REDA_Ch6_0[] = {
     {
         .x = 4,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6190[] = {
+CONST_DATA struct REDA REDA_Ch6Enemy_0_0[] = {
     {
         .x = 3,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6198[] = {
+CONST_DATA struct REDA REDA_Ch6Enemy_0_1[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B61A0[] = {
+CONST_DATA struct REDA REDA_Ch6Enemy_0_2[] = {
     {
         .x = 2,
         .y = 13,
@@ -5048,7 +5048,7 @@ CONST_DATA struct REDA REDA_088B61A0[] = {
 };
 
 // 0x88B61A8
-CONST_DATA struct UnitDefinition UnitDef_088B61A8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Mixed[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SOLDIER,
@@ -5524,7 +5524,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch6Ally[] = {
 };
 
 // 0x88B64B4
-CONST_DATA struct UnitDefinition UnitDef_088B64B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Ally_0[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -5533,7 +5533,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64B4[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 5,
-        .redas = REDA_088B6148,
+        .redas = REDA_Ch6Ally_0_SETH,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -5543,13 +5543,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B64B4[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 4,
-        .redas = REDA_088B6170,
+        .redas = REDA_Ch6Ally_0_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88B64F0
-CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Enemy_0[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -5559,7 +5559,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
         .xPosition = 0,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B6190,
+        .redas = REDA_Ch6Enemy_0_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -5574,7 +5574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B6198,
+        .redas = REDA_Ch6Enemy_0_1,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
@@ -5590,7 +5590,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
         .xPosition = 0,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088B61A0,
+        .redas = REDA_Ch6Enemy_0_2,
         .items = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_IRON,
@@ -5601,7 +5601,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B64F0[] = {
 };
 
 // 0x88B6540
-CONST_DATA struct UnitDefinition UnitDef_088B6540[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Ally_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -5723,7 +5723,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6540[] = {
 };
 
 // 0x88B6608
-CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Enemy_1[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MOGALL,
@@ -6055,7 +6055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6608[] = {
 };
 
 // 0x88B6838
-CONST_DATA struct UnitDefinition UnitDef_088B6838[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Ally_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -6177,7 +6177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6838[] = {
 };
 
 // 0x88B6900
-CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Enemy_2[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ENTOUMBED,
@@ -6509,7 +6509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6900[] = {
 };
 
 // 0x88B6B30
-CONST_DATA struct UnitDefinition UnitDef_088B6B30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Ally_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -6631,7 +6631,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6B30[] = {
 };
 
 // 0x88B6BF8
-CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch6Enemy_3[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_BONEWALKER,
@@ -6963,70 +6963,70 @@ CONST_DATA struct UnitDefinition UnitDef_088B6BF8[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B6E28[] = {
+CONST_DATA struct REDA REDA_Ch6_1[] = {
     {
         .x = 2,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E30[] = {
+CONST_DATA struct REDA REDA_Ch6_2[] = {
     {
         .x = 5,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E38[] = {
+CONST_DATA struct REDA REDA_Ch6_3[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E40[] = {
+CONST_DATA struct REDA REDA_Ch6_4[] = {
     {
         .x = 3,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E48[] = {
+CONST_DATA struct REDA REDA_Ch7_0[] = {
     {
         .x = 3,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E50[] = {
+CONST_DATA struct REDA REDA_Ch7_1[] = {
     {
         .x = 2,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E58[] = {
+CONST_DATA struct REDA REDA_Ch7_2[] = {
     {
         .x = 2,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E60[] = {
+CONST_DATA struct REDA REDA_Ch7_3[] = {
     {
         .x = 1,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E68[] = {
+CONST_DATA struct REDA REDA_Ch7Enemy_0[] = {
     {
         .x = 8,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B6E70[] = {
+CONST_DATA struct REDA REDA_Ch7Enemy_1[] = {
     {
         .x = 10,
         .y = 5,
@@ -7044,7 +7044,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = (void *)0x88b6e28,
+        .redas = REDA_Ch6_1,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -7058,7 +7058,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e30,
+        .redas = REDA_Ch6_2,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -7072,7 +7072,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = (void *)0x88b6e38,
+        .redas = REDA_Ch6_3,
         .items = {
             ITEM_BOW_IRON,
             ITEM_VULNERARY,
@@ -7086,7 +7086,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e40,
+        .redas = REDA_Ch6_4,
         .items = {
             ITEM_STAFF_HEAL,
         },
@@ -7099,7 +7099,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = (void *)0x88b6e48,
+        .redas = REDA_Ch7_0,
         .items = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
@@ -7113,7 +7113,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = (void *)0x88b6e50,
+        .redas = REDA_Ch7_1,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_SILVER,
@@ -7128,7 +7128,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = (void *)0x88b6e58,
+        .redas = REDA_Ch7_2,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -7142,7 +7142,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = (void *)0x88b6e60,
+        .redas = REDA_Ch7_3,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -7176,7 +7176,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch7Ally[] = {
 };
 
 // 0x88B6F54
-CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch7Enemy[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -7412,7 +7412,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .xPosition = 9,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088B6E68,
+        .redas = REDA_Ch7Enemy_0,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -7427,7 +7427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
         .xPosition = 9,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088B6E70,
+        .redas = REDA_Ch7Enemy_1,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -7436,21 +7436,21 @@ CONST_DATA struct UnitDefinition UnitDef_088B6F54[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B70E4[] = {
+CONST_DATA struct REDA REDA_Ch7Ally_0_EIRIKA[] = {
     {
         .x = 3,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B70EC[] = {
+CONST_DATA struct REDA REDA_Ch7A_0[] = {
     {
         .x = 8,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B70F4[] = {
+CONST_DATA struct REDA REDA_Ch7Ally_0_SETH[] = {
     {
         .x = 3,
         .y = 4,
@@ -7458,14 +7458,14 @@ CONST_DATA struct REDA REDA_088B70F4[] = {
         .delayFrames = 20,
     },
 };
-CONST_DATA struct REDA REDA_088B70FC[] = {
+CONST_DATA struct REDA REDA_Ch7A_1[] = {
     {
         .x = 7,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7104[] = {
+CONST_DATA struct REDA REDA_Ch7Ally_1_ORSON_CH5X[] = {
     {
         .x = 10,
         .y = 4,
@@ -7475,7 +7475,7 @@ CONST_DATA struct REDA REDA_088B7104[] = {
 };
 
 // 0x88B710C
-CONST_DATA struct UnitDefinition UnitDef_088B710C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch7Ally_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -7484,7 +7484,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B710C[] = {
         .xPosition = 3,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088B70E4,
+        .redas = REDA_Ch7Ally_0_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -7494,13 +7494,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B710C[] = {
         .xPosition = 3,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088B70F4,
+        .redas = REDA_Ch7Ally_0_SETH,
     },
     { 0 },
 };
 
 // 0x88B7148
-CONST_DATA struct UnitDefinition UnitDef_088B7148[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch7Ally_1[] = {
     {
         .charIndex = CHARACTER_ORSON_CH5X,
         .classIndex = CLASS_PALADIN,
@@ -7509,320 +7509,320 @@ CONST_DATA struct UnitDefinition UnitDef_088B7148[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7104,
+        .redas = REDA_Ch7Ally_1_ORSON_CH5X,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B7170[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_EIRIKA[] = {
     {
         .x = 19,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7178[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_MOULDER[] = {
     {
         .x = 20,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7180[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_COLM[] = {
     {
         .x = 20,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7188[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_VANESSA[] = {
     {
         .x = 19,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7190[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_GILLIAM[] = {
     {
         .x = 20,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7198[] = {
+CONST_DATA struct REDA REDA_Event_Ch8Ally_FRANZ[] = {
     {
         .x = 20,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71A0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_0[] = {
     {
         .x = 10,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71A8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_1[] = {
     {
         .x = 19,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71B0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_2[] = {
     {
         .x = 20,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71B8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_3[] = {
     {
         .x = 18,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71C0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_4[] = {
     {
         .x = 21,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71C8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_5[] = {
     {
         .x = 17,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71D0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_6[] = {
     {
         .x = 1,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71D8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_7[] = {
     {
         .x = 9,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71E0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_8[] = {
     {
         .x = 10,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71E8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_9[] = {
     {
         .x = 20,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71F0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_10[] = {
     {
         .x = 13,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B71F8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_11[] = {
     {
         .x = 10,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7200[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_12[] = {
     {
         .x = 0,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7208[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_13[] = {
     {
         .x = 0,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7210[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_14[] = {
     {
         .x = 9,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7218[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_15[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7220[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_16[] = {
     {
         .x = 13,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7228[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_17[] = {
     {
         .x = 14,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7230[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_18[] = {
     {
         .x = 8,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7238[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_19[] = {
     {
         .x = 3,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7240[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_20[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7248[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_21[] = {
     {
         .x = 5,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7250[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_22[] = {
     {
         .x = 15,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7258[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_23[] = {
     {
         .x = 16,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7260[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_24[] = {
     {
         .x = 11,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7268[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_25[] = {
     {
         .x = 20,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7270[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_0_26[] = {
     {
         .x = 19,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7278[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_0_EPHRAIM[] = {
     {
         .x = 3,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7280[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_0_FORDE[] = {
     {
         .x = 5,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7288[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_0_KYLE[] = {
     {
         .x = 2,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7290[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_1_0[] = {
     {
         .x = 5,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7298[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_1_1[] = {
     {
         .x = 15,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72A0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_2_0[] = {
     {
         .x = 0,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72A8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_2_1[] = {
     {
         .x = 1,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72B0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_2_2[] = {
     {
         .x = 2,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72B8[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_1_ORSON_CH5X[] = {
     {
         .x = 19,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72C0[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_1_EIRIKA[] = {
     {
         .x = 19,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72C8[] = {
+CONST_DATA struct REDA REDA_Ch8Ally_1_SETH[] = {
     {
         .x = 20,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72D0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_3_0[] = {
     {
         .x = 19,
         .y = 17,
@@ -7830,7 +7830,7 @@ CONST_DATA struct REDA REDA_088B72D0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72D8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_3_1[] = {
     {
         .x = 19,
         .y = 16,
@@ -7838,7 +7838,7 @@ CONST_DATA struct REDA REDA_088B72D8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72E0[] = {
+CONST_DATA struct REDA REDA_Ch8_0[] = {
     {
         .x = 20,
         .y = 16,
@@ -7846,7 +7846,7 @@ CONST_DATA struct REDA REDA_088B72E0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72E8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_3_2[] = {
     {
         .x = 19,
         .y = 16,
@@ -7854,14 +7854,14 @@ CONST_DATA struct REDA REDA_088B72E8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72F0[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_4_0[] = {
     {
         .x = 14,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B72F8[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_4_1[] = {
     {
         .x = 14,
         .y = 13,
@@ -7879,7 +7879,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 19,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088B7170,
+        .redas = REDA_Event_Ch8Ally_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -7893,7 +7893,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 20,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B7178,
+        .redas = REDA_Event_Ch8Ally_MOULDER,
         .items = {
             ITEM_STAFF_HEAL,
         },
@@ -7906,7 +7906,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 19,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B7180,
+        .redas = REDA_Event_Ch8Ally_COLM,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -7920,7 +7920,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 19,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B7188,
+        .redas = REDA_Event_Ch8Ally_VANESSA,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_VULNERARY,
@@ -7934,7 +7934,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 20,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088B7190,
+        .redas = REDA_Event_Ch8Ally_GILLIAM,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -7948,7 +7948,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
         .xPosition = 20,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088B7198,
+        .redas = REDA_Event_Ch8Ally_FRANZ,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_IRON,
@@ -7992,7 +7992,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch8Ally[] = {
 };
 
 // 0x88B73C8
-CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_0[] = {
     {
         .charIndex = CHARACTER_TIRADO,
         .classIndex = CLASS_GENERAL,
@@ -8001,7 +8001,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 10,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B71A0,
+        .redas = REDA_Ch8Enemy_0_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_LANCE_JAVELIN,
@@ -8017,7 +8017,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 19,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088B71A8,
+        .redas = REDA_Ch8Enemy_0_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8032,7 +8032,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 20,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B71B0,
+        .redas = REDA_Ch8Enemy_0_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8047,7 +8047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 18,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B71B8,
+        .redas = REDA_Ch8Enemy_0_3,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -8062,7 +8062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 20,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B71C0,
+        .redas = REDA_Ch8Enemy_0_4,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8077,7 +8077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 18,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B71C8,
+        .redas = REDA_Ch8Enemy_0_5,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8092,7 +8092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 1,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B71D0,
+        .redas = REDA_Ch8Enemy_0_6,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -8107,7 +8107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 9,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B71D8,
+        .redas = REDA_Ch8Enemy_0_7,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8122,7 +8122,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 10,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B71E0,
+        .redas = REDA_Ch8Enemy_0_8,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8138,7 +8138,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .yPosition = 10,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088B71E8,
+        .redas = REDA_Ch8Enemy_0_9,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
@@ -8154,7 +8154,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B71F0,
+        .redas = REDA_Ch8Enemy_0_10,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -8169,7 +8169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 7,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B71F8,
+        .redas = REDA_Ch8Enemy_0_11,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8184,7 +8184,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B7200,
+        .redas = REDA_Ch8Enemy_0_12,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -8199,7 +8199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B7208,
+        .redas = REDA_Ch8Enemy_0_13,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -8214,7 +8214,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 7,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B7210,
+        .redas = REDA_Ch8Enemy_0_14,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8229,7 +8229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 2,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B7218,
+        .redas = REDA_Ch8Enemy_0_15,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -8244,7 +8244,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 7,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B7220,
+        .redas = REDA_Ch8Enemy_0_16,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8259,7 +8259,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B7228,
+        .redas = REDA_Ch8Enemy_0_17,
         .items = {
             ITEM_BOW_STEEL,
         },
@@ -8274,7 +8274,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 8,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B7230,
+        .redas = REDA_Ch8Enemy_0_18,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -8289,7 +8289,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 3,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B7238,
+        .redas = REDA_Ch8Enemy_0_19,
         .items = {
             ITEM_BOW_LONGBOW,
         },
@@ -8304,7 +8304,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 1,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088B7240,
+        .redas = REDA_Ch8Enemy_0_20,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -8319,7 +8319,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 5,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B7248,
+        .redas = REDA_Ch8Enemy_0_21,
         .items = {
             ITEM_BOW_LONGBOW,
         },
@@ -8334,7 +8334,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 15,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B7250,
+        .redas = REDA_Ch8Enemy_0_22,
         .items = {
             ITEM_BOW_LONGBOW,
         },
@@ -8349,7 +8349,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 16,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B7258,
+        .redas = REDA_Ch8Enemy_0_23,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -8364,7 +8364,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 11,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B7260,
+        .redas = REDA_Ch8Enemy_0_24,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8379,7 +8379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 20,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B7268,
+        .redas = REDA_Ch8Enemy_0_25,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -8394,7 +8394,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
         .xPosition = 19,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B7270,
+        .redas = REDA_Ch8Enemy_0_26,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -8404,7 +8404,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B73C8[] = {
 };
 
 // 0x88B75F8
-CONST_DATA struct UnitDefinition UnitDef_088B75F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Ally_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -8413,7 +8413,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B75F8[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088B7278,
+        .redas = REDA_Ch8Ally_0_EPHRAIM,
         .items = {
             ITEM_LANCE_REGINLEIF,
             ITEM_LANCE_STEEL,
@@ -8428,7 +8428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B75F8[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B7280,
+        .redas = REDA_Ch8Ally_0_FORDE,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -8443,7 +8443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B75F8[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B7288,
+        .redas = REDA_Ch8Ally_0_KYLE,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_STEEL,
@@ -8454,7 +8454,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B75F8[] = {
 };
 
 // 0x88B7648
-CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MAGE,
@@ -8464,7 +8464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7290,
+        .redas = REDA_Ch8Enemy_1_0,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -8479,7 +8479,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
         .xPosition = 15,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7298,
+        .redas = REDA_Ch8Enemy_1_1,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -8503,7 +8503,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7648[] = {
 };
 
 // 0x88B7698
-CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -8513,7 +8513,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088B72A0,
+        .redas = REDA_Ch8Enemy_2_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -8528,7 +8528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B72A8,
+        .redas = REDA_Ch8Enemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -8544,7 +8544,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
         .xPosition = 0,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B72B0,
+        .redas = REDA_Ch8Enemy_2_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -8554,12 +8554,12 @@ CONST_DATA struct UnitDefinition UnitDef_088B7698[] = {
 };
 
 // 0x88B76E8
-CONST_DATA struct UnitDefinition UnitDef_088B76E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units[] = {
     { 0 },
 };
 
 // 0x88B76FC
-CONST_DATA struct UnitDefinition UnitDef_088B76FC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Ally_1[] = {
     {
         .charIndex = CHARACTER_ORSON_CH5X,
         .classIndex = CLASS_PALADIN,
@@ -8568,7 +8568,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B76FC[] = {
         .xPosition = 19,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088B72B8,
+        .redas = REDA_Ch8Ally_1_ORSON_CH5X,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -8578,7 +8578,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B76FC[] = {
         .xPosition = 19,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B72C0,
+        .redas = REDA_Ch8Ally_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -8588,13 +8588,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B76FC[] = {
         .xPosition = 20,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B72C8,
+        .redas = REDA_Ch8Ally_1_SETH,
     },
     { 0 },
 };
 
 // 0x88B774C
-CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_3[] = {
     {
         .charIndex = CHARACTER_TIRADO,
         .classIndex = CLASS_GENERAL,
@@ -8604,7 +8604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
         .xPosition = 19,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088B72D0,
+        .redas = REDA_Ch8Enemy_3_0,
     },
     {
         .charIndex = 0x80,
@@ -8615,7 +8615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088B72D8,
+        .redas = REDA_Ch8Enemy_3_1,
         .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     {
@@ -8627,24 +8627,24 @@ CONST_DATA struct UnitDefinition UnitDef_088B774C[] = {
         .xPosition = 19,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088B72E8,
+        .redas = REDA_Ch8Enemy_3_2,
         .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88B779C
-CONST_DATA struct UnitDefinition UnitDef_088B779C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units_1[] = {
     { 0 },
 };
 
 // 0x88B77B0
-CONST_DATA struct UnitDefinition UnitDef_088B77B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units_2[] = {
     { 0 },
 };
 
 // 0x88B77C4
-CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -8654,7 +8654,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .xPosition = 7,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B72F0,
+        .redas = REDA_Ch8Enemy_4_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -8708,7 +8708,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B72F8,
+        .redas = REDA_Ch8Enemy_4_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -8718,7 +8718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B77C4[] = {
 };
 
 // 0x88B783C
-CONST_DATA struct UnitDefinition UnitDef_088B783C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Ally_2[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -8739,12 +8739,12 @@ CONST_DATA struct UnitDefinition UnitDef_088B783C[] = {
 };
 
 // 0x88B7878
-CONST_DATA struct UnitDefinition UnitDef_088B7878[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units_3[] = {
     { 0 },
 };
 
 // 0x88B788C
-CONST_DATA struct UnitDefinition UnitDef_088B788C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Ally_3[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -8756,7 +8756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B788C[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B78B4[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_5_CAELLACH[] = {
     {
         .x = 11,
         .y = 22,
@@ -8764,28 +8764,28 @@ CONST_DATA struct REDA REDA_088B78B4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B78BC[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_6_0[] = {
     {
         .x = 9,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B78C4[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_6_1[] = {
     {
         .x = 13,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B78CC[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_8_0[] = {
     {
         .x = 16,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B78D4[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_8_1[] = {
     {
         .x = 17,
         .y = 13,
@@ -8793,7 +8793,7 @@ CONST_DATA struct REDA REDA_088B78D4[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088B78DC[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_8_2[] = {
     {
         .x = 19,
         .y = 17,
@@ -8801,7 +8801,7 @@ CONST_DATA struct REDA REDA_088B78DC[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088B78E4[] = {
+CONST_DATA struct REDA REDA_Ch8Enemy_8_3[] = {
     {
         .x = 17,
         .y = 18,
@@ -8810,7 +8810,7 @@ CONST_DATA struct REDA REDA_088B78E4[] = {
 };
 
 // 0x88B78EC
-CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8NPC[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
@@ -8875,7 +8875,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B78EC[] = {
 };
 
 // 0x88B7964
-CONST_DATA struct UnitDefinition UnitDef_088B7964[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_5[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -8885,7 +8885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7964[] = {
         .xPosition = 11,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78B4,
+        .redas = REDA_Ch8Enemy_5_CAELLACH,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -8894,7 +8894,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7964[] = {
 };
 
 // 0x88B798C
-CONST_DATA struct UnitDefinition UnitDef_088B798C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -8904,7 +8904,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B798C[] = {
         .xPosition = 9,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78BC,
+        .redas = REDA_Ch8Enemy_6_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -8918,7 +8918,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B798C[] = {
         .xPosition = 13,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78C4,
+        .redas = REDA_Ch8Enemy_6_1,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -8927,7 +8927,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B798C[] = {
 };
 
 // 0x88B79C8
-CONST_DATA struct UnitDefinition UnitDef_088B79C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_7[] = {
     {
         .charIndex = 0x82,
         .classIndex = CLASS_MYRMIDON,
@@ -8944,7 +8944,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79C8[] = {
 };
 
 // 0x88B79F0
-CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Enemy_8[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_MERCENARY,
@@ -8954,7 +8954,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78CC,
+        .redas = REDA_Ch8Enemy_8_0,
         .items = {
             ITEM_BLADE_STEEL,
         },
@@ -8968,7 +8968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78D4,
+        .redas = REDA_Ch8Enemy_8_1,
         .items = {
             ITEM_BLADE_STEEL,
         },
@@ -8982,7 +8982,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78DC,
+        .redas = REDA_Ch8Enemy_8_2,
         .items = {
             ITEM_BLADE_STEEL,
         },
@@ -8996,7 +8996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088B78E4,
+        .redas = REDA_Ch8Enemy_8_3,
         .items = {
             ITEM_BLADE_STEEL,
         },
@@ -9005,7 +9005,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B79F0[] = {
 };
 
 // 0x88B7A54
-CONST_DATA struct UnitDefinition UnitDef_088B7A54[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Mixed[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -9097,86 +9097,86 @@ CONST_DATA struct UnitDefinition UnitDef_088B7A54[] = {
 };
 
 // 0x88B7B1C
-CONST_DATA struct UnitDefinition UnitDef_088B7B1C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units_4[] = {
     { 0 },
 };
 
 // 0x88B7B30
-CONST_DATA struct UnitDefinition UnitDef_088B7B30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch8Units_5[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B7B44[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_0[] = {
     {
         .x = 13,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B4C[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_1[] = {
     {
         .x = 11,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B54[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_2[] = {
     {
         .x = 9,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B5C[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_3[] = {
     {
         .x = 7,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B64[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_4[] = {
     {
         .x = 9,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B6C[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_0_5[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B74[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_8_0[] = {
     {
         .x = 2,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B7C[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_8_1[] = {
     {
         .x = 1,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B84[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_8_2[] = {
     {
         .x = 3,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B8C[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_8_3[] = {
     {
         .x = 2,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B94[] = {
+CONST_DATA struct REDA REDA_Ch9AAlly_0_EIRIKA[] = {
     {
         .x = 15,
         .y = 3,
@@ -9184,7 +9184,7 @@ CONST_DATA struct REDA REDA_088B7B94[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7B9C[] = {
+CONST_DATA struct REDA REDA_Ch9AAlly_0_TANA[] = {
     {
         .x = 16,
         .y = 4,
@@ -9192,7 +9192,7 @@ CONST_DATA struct REDA REDA_088B7B9C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BA4[] = {
+CONST_DATA struct REDA REDA_Ch9AAlly_0_SETH[] = {
     {
         .x = 16,
         .y = 3,
@@ -9200,28 +9200,28 @@ CONST_DATA struct REDA REDA_088B7BA4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BAC[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_0_LARACHEL[] = {
     {
         .x = 18,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BB4[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_0_DOZLA[] = {
     {
         .x = 17,
         .y = 1,
         .a = 0x19,
     },
 };
-CONST_DATA struct REDA REDA_088B7BBC[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_0_RENNAC[] = {
     {
         .x = 19,
         .y = 1,
         .a = 0x19,
     },
 };
-CONST_DATA struct REDA REDA_088B7BC4[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_0_EIRIKA[] = {
     {
         .x = 15,
         .y = 3,
@@ -9229,7 +9229,7 @@ CONST_DATA struct REDA REDA_088B7BC4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BCC[] = {
+CONST_DATA struct REDA REDA_Ch9A_0[] = {
     {
         .x = 18,
         .y = 3,
@@ -9238,14 +9238,14 @@ CONST_DATA struct REDA REDA_088B7BCC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BD4[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_0_SETH[] = {
     {
         .x = 16,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BDC[] = {
+CONST_DATA struct REDA REDA_Ch9A_1[] = {
     {
         .x = 16,
         .y = 2,
@@ -9254,7 +9254,7 @@ CONST_DATA struct REDA REDA_088B7BDC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BE4[] = {
+CONST_DATA struct REDA REDA_Ch9A_2[] = {
     {
         .x = 16,
         .y = 3,
@@ -9263,14 +9263,14 @@ CONST_DATA struct REDA REDA_088B7BE4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BEC[] = {
+CONST_DATA struct REDA REDA_Ch9AEnemy_10_FADO[] = {
     {
         .x = 13,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BF4[] = {
+CONST_DATA struct REDA REDA_Ch9AMixed_1_SETH[] = {
     {
         .x = 22,
         .y = 7,
@@ -9278,14 +9278,14 @@ CONST_DATA struct REDA REDA_088B7BF4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7BFC[] = {
+CONST_DATA struct REDA REDA_Ch9AAlly_1_MESSENGER[] = {
     {
         .x = 21,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B7C04[] = {
+CONST_DATA struct REDA REDA_Ch9A_3[] = {
     {
         .x = 21,
         .y = 5,
@@ -9442,7 +9442,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch9aAlly[] = {
 };
 
 // 0x88B7CFC
-CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_0[] = {
     {
         .charIndex = CHARACTER_BINKS,
         .classIndex = CLASS_WARRIOR,
@@ -9517,7 +9517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 6,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B7B44,
+        .redas = REDA_Ch9AEnemy_0_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -9532,7 +9532,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 6,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B7B4C,
+        .redas = REDA_Ch9AEnemy_0_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -9574,7 +9574,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 6,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B7B54,
+        .redas = REDA_Ch9AEnemy_0_2,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -9615,7 +9615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 6,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B7B5C,
+        .redas = REDA_Ch9AEnemy_0_3,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -9683,7 +9683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 6,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B7B64,
+        .redas = REDA_Ch9AEnemy_0_4,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -9752,7 +9752,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
         .xPosition = 12,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B7B6C,
+        .redas = REDA_Ch9AEnemy_0_5,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -9762,7 +9762,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7CFC[] = {
 };
 
 // 0x88B7EDC
-CONST_DATA struct UnitDefinition UnitDef_088B7EDC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_1[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_ARCHER,
@@ -9848,7 +9848,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7EDC[] = {
 };
 
 // 0x88B7F68
-CONST_DATA struct UnitDefinition UnitDef_088B7F68[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_2[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_PIRATE,
@@ -9866,7 +9866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7F68[] = {
 };
 
 // 0x88B7F90
-CONST_DATA struct UnitDefinition UnitDef_088B7F90[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_3[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_MERCENARY,
@@ -9897,7 +9897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7F90[] = {
 };
 
 // 0x88B7FCC
-CONST_DATA struct UnitDefinition UnitDef_088B7FCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_4[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_SOLDIER,
@@ -9928,7 +9928,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B7FCC[] = {
 };
 
 // 0x88B8008
-CONST_DATA struct UnitDefinition UnitDef_088B8008[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_5[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_FIGHTER,
@@ -9959,7 +9959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8008[] = {
 };
 
 // 0x88B8044
-CONST_DATA struct UnitDefinition UnitDef_088B8044[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_6[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_ARCHER,
@@ -9990,7 +9990,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8044[] = {
 };
 
 // 0x88B8080
-CONST_DATA struct UnitDefinition UnitDef_088B8080[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_7[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_MAGE,
@@ -10022,7 +10022,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8080[] = {
 };
 
 // 0x88B80BC
-CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_8[] = {
     {
         .charIndex = CHARACTER_SOLDIER_83,
         .classIndex = CLASS_SOLDIER,
@@ -10032,7 +10032,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .xPosition = 2,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B7B74,
+        .redas = REDA_Ch9AEnemy_8_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -10047,7 +10047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .xPosition = 1,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B7B7C,
+        .redas = REDA_Ch9AEnemy_8_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -10062,7 +10062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .xPosition = 3,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B7B84,
+        .redas = REDA_Ch9AEnemy_8_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -10076,7 +10076,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
         .xPosition = 2,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088B7B8C,
+        .redas = REDA_Ch9AEnemy_8_3,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_BOOSTER_SPD,
@@ -10087,7 +10087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B80BC[] = {
 };
 
 // 0x88B8120
-CONST_DATA struct UnitDefinition UnitDef_088B8120[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_9[] = {
     {
         .charIndex = 0xa7,
         .classIndex = CLASS_FIGHTER,
@@ -10119,7 +10119,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8120[] = {
 };
 
 // 0x88B815C
-CONST_DATA struct UnitDefinition UnitDef_088B815C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -10128,7 +10128,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B815C[] = {
         .xPosition = 8,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B7B94,
+        .redas = REDA_Ch9AAlly_0_EIRIKA,
     },
     {
         .charIndex = CHARACTER_TANA,
@@ -10138,7 +10138,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B815C[] = {
         .xPosition = 8,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088B7B9C,
+        .redas = REDA_Ch9AAlly_0_TANA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -10148,13 +10148,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B815C[] = {
         .xPosition = 9,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B7BA4,
+        .redas = REDA_Ch9AAlly_0_SETH,
     },
     { 0 },
 };
 
 // 0x88B81AC
-CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AMixed_0[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -10164,7 +10164,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7BAC,
+        .redas = REDA_Ch9AMixed_0_LARACHEL,
     },
     {
         .charIndex = CHARACTER_DOZLA,
@@ -10175,7 +10175,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7BB4,
+        .redas = REDA_Ch9AMixed_0_DOZLA,
     },
     {
         .charIndex = CHARACTER_RENNAC,
@@ -10186,7 +10186,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B7BBC,
+        .redas = REDA_Ch9AMixed_0_RENNAC,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -10196,7 +10196,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
         .xPosition = 15,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088B7BC4,
+        .redas = REDA_Ch9AMixed_0_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -10206,13 +10206,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B81AC[] = {
         .xPosition = 16,
         .yPosition = 3,
         .redaCount = 3,
-        .redas = REDA_088B7BD4,
+        .redas = REDA_Ch9AMixed_0_SETH,
     },
     { 0 },
 };
 
 // 0x88B8224
-CONST_DATA struct UnitDefinition UnitDef_088B8224[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_10[] = {
     {
         .charIndex = CHARACTER_FADO,
         .classIndex = CLASS_WARRIOR,
@@ -10222,13 +10222,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B8224[] = {
         .xPosition = 6,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088B7BEC,
+        .redas = REDA_Ch9AEnemy_10_FADO,
     },
     { 0 },
 };
 
 // 0x88B824C
-CONST_DATA struct UnitDefinition UnitDef_088B824C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AMixed_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -10237,7 +10237,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B824C[] = {
         .xPosition = 22,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B7BF4,
+        .redas = REDA_Ch9AMixed_1_SETH,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -10260,7 +10260,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B824C[] = {
 };
 
 // 0x88B829C
-CONST_DATA struct UnitDefinition UnitDef_088B829C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AAlly_1[] = {
     {
         .charIndex = CHARACTER_MESSENGER,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -10270,18 +10270,18 @@ CONST_DATA struct UnitDefinition UnitDef_088B829C[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088B7BFC,
+        .redas = REDA_Ch9AAlly_1_MESSENGER,
     },
     { 0 },
 };
 
 // 0x88B82C4
-CONST_DATA struct UnitDefinition UnitDef_088B82C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AUnits[] = {
     { 0 },
 };
 
 // 0x88B82D8
-CONST_DATA struct UnitDefinition UnitDef_088B82D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AEnemy_11[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -10360,7 +10360,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B82D8[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B838C[] = {
+CONST_DATA struct REDA REDA_Ch9AAlly_3_TANA[] = {
     {
         .x = 6,
         .y = 2,
@@ -10369,7 +10369,7 @@ CONST_DATA struct REDA REDA_088B838C[] = {
 };
 
 // 0x88B8394
-CONST_DATA struct UnitDefinition UnitDef_088B8394[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AAlly_2[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -10429,12 +10429,12 @@ CONST_DATA struct UnitDefinition UnitDef_088B8394[] = {
     { 0 },
 };
 
-CONST_DATA struct UnitDefinition UnitDef_088B8434[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AUnits_1[] = {
     { 0 },
 };
 
 // 0x88B8448
-CONST_DATA struct UnitDefinition UnitDef_088B8448[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9AAlly_3[] = {
     {
         .charIndex = CHARACTER_TANA,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -10443,89 +10443,89 @@ CONST_DATA struct UnitDefinition UnitDef_088B8448[] = {
         .xPosition = 0,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088B838C,
+        .redas = REDA_Ch9AAlly_3_TANA,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B8470[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_3_0[] = {
     {
         .x = 0,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8478[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_3_1[] = {
     {
         .x = 1,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8480[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_3_2[] = {
     {
         .x = 1,
         .y = 28,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8488[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_3_3[] = {
     {
         .x = 2,
         .y = 28,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8490[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_3_4[] = {
     {
         .x = 2,
         .y = 29,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8498[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_4_0[] = {
     {
         .x = 16,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84A0[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_4_1[] = {
     {
         .x = 15,
         .y = 25,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84A8[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_4_2[] = {
     {
         .x = 17,
         .y = 25,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84B0[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_4_3[] = {
     {
         .x = 16,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84B8[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_5_0[] = {
     {
         .x = 1,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84C0[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_5_1[] = {
     {
         .x = 2,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84C8[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_0_EIRIKA[] = {
     {
         .x = 3,
         .y = 5,
@@ -10533,7 +10533,7 @@ CONST_DATA struct REDA REDA_088B84C8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84D0[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_0_SETH[] = {
     {
         .x = 4,
         .y = 5,
@@ -10542,7 +10542,7 @@ CONST_DATA struct REDA REDA_088B84D0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088B84D8[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_0[] = {
     {
         .x = 6,
         .y = 4,
@@ -10550,7 +10550,7 @@ CONST_DATA struct REDA REDA_088B84D8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84E0[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_1[] = {
     {
         .x = 4,
         .y = 4,
@@ -10558,7 +10558,7 @@ CONST_DATA struct REDA REDA_088B84E0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84E8[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_2[] = {
     {
         .x = 3,
         .y = 4,
@@ -10566,7 +10566,7 @@ CONST_DATA struct REDA REDA_088B84E8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84F0[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_3[] = {
     {
         .x = 5,
         .y = 3,
@@ -10574,7 +10574,7 @@ CONST_DATA struct REDA REDA_088B84F0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B84F8[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_4[] = {
     {
         .x = 4,
         .y = 3,
@@ -10582,14 +10582,14 @@ CONST_DATA struct REDA REDA_088B84F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8500[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_5[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8508[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_6[] = {
     {
         .x = 4,
         .y = 2,
@@ -10597,7 +10597,7 @@ CONST_DATA struct REDA REDA_088B8508[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8510[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_7[] = {
     {
         .x = 2,
         .y = 2,
@@ -10605,7 +10605,7 @@ CONST_DATA struct REDA REDA_088B8510[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8518[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_8[] = {
     {
         .x = 3,
         .y = 1,
@@ -10613,7 +10613,7 @@ CONST_DATA struct REDA REDA_088B8518[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8520[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_1_9[] = {
     {
         .x = 1,
         .y = 1,
@@ -10621,7 +10621,7 @@ CONST_DATA struct REDA REDA_088B8520[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8528[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_6_0[] = {
     {
         .x = 3,
         .y = 26,
@@ -10629,7 +10629,7 @@ CONST_DATA struct REDA REDA_088B8528[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B8530[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_6_1[] = {
     {
         .x = 4,
         .y = 27,
@@ -10638,7 +10638,7 @@ CONST_DATA struct REDA REDA_088B8530[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088B8538[] = {
+CONST_DATA struct REDA REDA_Ch10AEnemy_6_2[] = {
     {
         .x = 2,
         .y = 27,
@@ -10810,7 +10810,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch10aAlly[] = {
 };
 
 // 0x88B8644
-CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_0[] = {
     {
         .charIndex = CHARACTER_PABLO,
         .classIndex = CLASS_SAGE,
@@ -11271,7 +11271,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8644[] = {
 };
 
 // 0x88B8900
-CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_1[] = {
     {
         .charIndex = 0xa8,
         .classIndex = CLASS_ARCHER,
@@ -11355,7 +11355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8900[] = {
 };
 
 // 0x88B898C
-CONST_DATA struct UnitDefinition UnitDef_088B898C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10ANPC[] = {
     {
         .charIndex = CHARACTER_INNES,
         .classIndex = CLASS_SNIPER,
@@ -11402,7 +11402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B898C[] = {
 };
 
 // 0x88B89DC
-CONST_DATA struct UnitDefinition UnitDef_088B89DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_2[] = {
     {
         .charIndex = 0x65,
         .classIndex = CLASS_BRIGAND,
@@ -11433,7 +11433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B89DC[] = {
 };
 
 // 0x88B8A18
-CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_3[] = {
     {
         .charIndex = 0xa8,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -11443,7 +11443,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .xPosition = 0,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8470,
+        .redas = REDA_Ch10AEnemy_3_0,
         .items = {
             ITEM_LANCE_SLIM,
         },
@@ -11458,7 +11458,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .xPosition = 0,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8478,
+        .redas = REDA_Ch10AEnemy_3_1,
         .items = {
             ITEM_LANCE_SLIM,
         },
@@ -11473,7 +11473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .xPosition = 0,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8480,
+        .redas = REDA_Ch10AEnemy_3_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -11488,7 +11488,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .xPosition = 0,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8488,
+        .redas = REDA_Ch10AEnemy_3_3,
         .items = {
             ITEM_LANCE_SLIM,
         },
@@ -11503,7 +11503,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
         .xPosition = 0,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8490,
+        .redas = REDA_Ch10AEnemy_3_4,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_BOOSTER_RES,
@@ -11514,7 +11514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A18[] = {
 };
 
 // 0x88B8A90
-CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_4[] = {
     {
         .charIndex = 0xa8,
         .classIndex = CLASS_CAVALIER,
@@ -11524,7 +11524,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .xPosition = 19,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088B8498,
+        .redas = REDA_Ch10AEnemy_4_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -11539,7 +11539,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .xPosition = 19,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088B84A0,
+        .redas = REDA_Ch10AEnemy_4_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -11554,7 +11554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .xPosition = 19,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088B84A8,
+        .redas = REDA_Ch10AEnemy_4_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -11569,7 +11569,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
         .xPosition = 19,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088B84B0,
+        .redas = REDA_Ch10AEnemy_4_3,
         .items = {
             ITEM_BOW_STEEL,
         },
@@ -11579,7 +11579,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8A90[] = {
 };
 
 // 0x88B8AF4
-CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_5[] = {
     {
         .charIndex = 0xa8,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -11589,7 +11589,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
         .xPosition = 0,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088B84B8,
+        .redas = REDA_Ch10AEnemy_5_0,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -11619,7 +11619,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
         .xPosition = 0,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B84C0,
+        .redas = REDA_Ch10AEnemy_5_1,
         .items = {
             ITEM_LANCE_SLIM,
             ITEM_LANCE_JAVELIN,
@@ -11630,7 +11630,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8AF4[] = {
 };
 
 // 0x88B8B44
-CONST_DATA struct UnitDefinition UnitDef_088B8B44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -11639,7 +11639,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B44[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84C8,
+        .redas = REDA_Ch10AAlly_0_EIRIKA,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11654,7 +11654,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B44[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84D0,
+        .redas = REDA_Ch10AAlly_0_SETH,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11665,7 +11665,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B44[] = {
 };
 
 // 0x88B8B80
-CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -11674,7 +11674,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84D8,
+        .redas = REDA_Ch10AAlly_1_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11689,7 +11689,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84E0,
+        .redas = REDA_Ch10AAlly_1_1,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11704,7 +11704,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84E8,
+        .redas = REDA_Ch10AAlly_1_2,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11719,7 +11719,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84F0,
+        .redas = REDA_Ch10AAlly_1_3,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11734,7 +11734,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B84F8,
+        .redas = REDA_Ch10AAlly_1_4,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11749,7 +11749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B8500,
+        .redas = REDA_Ch10AAlly_1_5,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_VULNERARY,
@@ -11764,7 +11764,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B8508,
+        .redas = REDA_Ch10AAlly_1_6,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11779,7 +11779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B8510,
+        .redas = REDA_Ch10AAlly_1_7,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11794,7 +11794,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B8518,
+        .redas = REDA_Ch10AAlly_1_8,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_VULNERARY,
@@ -11809,7 +11809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B8520,
+        .redas = REDA_Ch10AAlly_1_9,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -11820,7 +11820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8B80[] = {
 };
 
 // 0x88B8C5C
-CONST_DATA struct UnitDefinition UnitDef_088B8C5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_6[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -11830,7 +11830,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8C5C[] = {
         .xPosition = 3,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8528,
+        .redas = REDA_Ch10AEnemy_6_0,
     },
     {
         .charIndex = 0x80,
@@ -11841,7 +11841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8C5C[] = {
         .xPosition = 4,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8530,
+        .redas = REDA_Ch10AEnemy_6_1,
     },
     {
         .charIndex = 0x80,
@@ -11852,13 +11852,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B8C5C[] = {
         .xPosition = 2,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088B8538,
+        .redas = REDA_Ch10AEnemy_6_2,
     },
     { 0 },
 };
 
 // 0x88B8CAC
-CONST_DATA struct UnitDefinition UnitDef_088B8CAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -11980,7 +11980,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8CAC[] = {
 };
 
 // 0x88B8D74
-CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_7[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GARGOYLE,
@@ -12337,7 +12337,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8D74[] = {
 };
 
 // 0x88B8FCC
-CONST_DATA struct UnitDefinition UnitDef_088B8FCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -12459,7 +12459,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B8FCC[] = {
 };
 
 // 0x88B9094
-CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MOGALL,
@@ -12816,7 +12816,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9094[] = {
 };
 
 // 0x88B92EC
-CONST_DATA struct UnitDefinition UnitDef_088B92EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -12938,7 +12938,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B92EC[] = {
 };
 
 // 0x88B93B4
-CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_9[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAUTHEDOOG,
@@ -13293,7 +13293,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B93B4[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B960C[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_5_GLEN[] = {
     {
         .x = 14,
         .y = 9,
@@ -13301,7 +13301,7 @@ CONST_DATA struct REDA REDA_088B960C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9614[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_6_GLEN[] = {
     {
         .x = 14,
         .y = 10,
@@ -13309,7 +13309,7 @@ CONST_DATA struct REDA REDA_088B9614[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B961C[] = {
+CONST_DATA struct REDA REDA_Ch10A_0[] = {
     {
         .x = 7,
         .y = 10,
@@ -13317,7 +13317,7 @@ CONST_DATA struct REDA REDA_088B961C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9624[] = {
+CONST_DATA struct REDA REDA_Ch10AAlly_7_VALTER[] = {
     {
         .x = 7,
         .y = 12,
@@ -13327,12 +13327,12 @@ CONST_DATA struct REDA REDA_088B9624[] = {
 };
 
 // 0x88B962C
-CONST_DATA struct UnitDefinition UnitDef_088B962C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AUnits[] = {
     { 0 },
 };
 
 // 0x88B9640
-CONST_DATA struct UnitDefinition UnitDef_088B9640[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AEnemy_10[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -13407,7 +13407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9640[] = {
 };
 
 // 0x88B96E0
-CONST_DATA struct UnitDefinition UnitDef_088B96E0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_5[] = {
     {
         .charIndex = CHARACTER_CORMAG,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -13424,13 +13424,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B96E0[] = {
         .xPosition = 14,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B960C,
+        .redas = REDA_Ch10AAlly_5_GLEN,
     },
     { 0 },
 };
 
 // 0x88B971C
-CONST_DATA struct UnitDefinition UnitDef_088B971C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_6[] = {
     {
         .charIndex = CHARACTER_GLEN,
         .classIndex = CLASS_WYVERN_LORD,
@@ -13439,13 +13439,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B971C[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088B9614,
+        .redas = REDA_Ch10AAlly_6_GLEN,
     },
     { 0 },
 };
 
 // 0x88B9744
-CONST_DATA struct UnitDefinition UnitDef_088B9744[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10AAlly_7[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -13454,264 +13454,264 @@ CONST_DATA struct UnitDefinition UnitDef_088B9744[] = {
         .xPosition = 7,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088B9624,
+        .redas = REDA_Ch10AAlly_7_VALTER,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B976C[] = {
+CONST_DATA struct REDA REDA_Ch11ANPC_LARACHEL[] = {
     {
         .x = 12,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9774[] = {
+CONST_DATA struct REDA REDA_Ch11A_0[] = {
     {
         .x = 12,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B977C[] = {
+CONST_DATA struct REDA REDA_Ch11A_1[] = {
     {
         .x = 11,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9784[] = {
+CONST_DATA struct REDA REDA_Ch11ANPC_DOZLA[] = {
     {
         .x = 12,
         .y = 12,
         .a = 0x19,
     },
 };
-CONST_DATA struct REDA REDA_088B978C[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_2_0[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9794[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_2_1[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B979C[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_2_2[] = {
     {
         .x = 0,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97A4[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_3_0[] = {
     {
         .x = 20,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97AC[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_3_1[] = {
     {
         .x = 20,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97B4[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_3_2[] = {
     {
         .x = 21,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97BC[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_4_0[] = {
     {
         .x = 3,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97C4[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_4_1[] = {
     {
         .x = 1,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97CC[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_4_2[] = {
     {
         .x = 1,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97D4[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_EWAN[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97DC[] = {
+CONST_DATA struct REDA REDA_Ch11A_2[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97E4[] = {
+CONST_DATA struct REDA REDA_Ch11A_3[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97EC[] = {
+CONST_DATA struct REDA REDA_Ch11A_4[] = {
     {
         .x = 2,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97F4[] = {
+CONST_DATA struct REDA REDA_Ch11A_5[] = {
     {
         .x = 6,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B97FC[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_TETHYS[] = {
     {
         .x = 1,
         .y = 0,
         .a = 0x18,
     },
 };
-CONST_DATA struct REDA REDA_088B9804[] = {
+CONST_DATA struct REDA REDA_Ch11A_6[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B980C[] = {
+CONST_DATA struct REDA REDA_Ch11A_7[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9814[] = {
+CONST_DATA struct REDA REDA_Ch11A_8[] = {
     {
         .x = 2,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B981C[] = {
+CONST_DATA struct REDA REDA_Ch11A_9[] = {
     {
         .x = 5,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9824[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_EIRIKA[] = {
     {
         .x = 1,
         .y = 0,
         .a = 0x18,
     },
 };
-CONST_DATA struct REDA REDA_088B982C[] = {
+CONST_DATA struct REDA REDA_Ch11A_10[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9834[] = {
+CONST_DATA struct REDA REDA_Ch11A_11[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B983C[] = {
+CONST_DATA struct REDA REDA_Ch11A_12[] = {
     {
         .x = 2,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9844[] = {
+CONST_DATA struct REDA REDA_Ch11A_13[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B984C[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_INNES[] = {
     {
         .x = 1,
         .y = 0,
         .a = 0x18,
     },
 };
-CONST_DATA struct REDA REDA_088B9854[] = {
+CONST_DATA struct REDA REDA_Ch11A_14[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B985C[] = {
+CONST_DATA struct REDA REDA_Ch11A_15[] = {
     {
         .x = 4,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9864[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_SETH[] = {
     {
         .x = 1,
         .y = 0,
         .a = 0x18,
     },
 };
-CONST_DATA struct REDA REDA_088B986C[] = {
+CONST_DATA struct REDA REDA_Ch11A_16[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9874[] = {
+CONST_DATA struct REDA REDA_Ch11A_17[] = {
     {
         .x = 2,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B987C[] = {
+CONST_DATA struct REDA REDA_Ch11A_18[] = {
     {
         .x = 2,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9884[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_0_GERIK[] = {
     {
         .x = 3,
         .y = 0,
         .a = 0x18,
     },
 };
-CONST_DATA struct REDA REDA_088B988C[] = {
+CONST_DATA struct REDA REDA_Ch11A_19[] = {
     {
         .x = 3,
         .y = 1,
@@ -13859,7 +13859,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch11aAlly[] = {
 };
 
 // 0x88B9984
-CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_0[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -14401,7 +14401,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9984[] = {
 };
 
 // 0x88B9CCC
-CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11ANPC[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -14410,7 +14410,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
         .xPosition = 12,
         .yPosition = 17,
         .redaCount = 3,
-        .redas = REDA_088B976C,
+        .redas = REDA_Ch11ANPC_LARACHEL,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_ELIXIR,
@@ -14427,7 +14427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
         .xPosition = 12,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B9784,
+        .redas = REDA_Ch11ANPC_DOZLA,
         .items = {
             ITEM_AXE_BATTLEAXE,
             ITEM_ELIXIR,
@@ -14438,7 +14438,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9CCC[] = {
 };
 
 // 0x88B9D08
-CONST_DATA struct UnitDefinition UnitDef_088B9D08[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_1[] = {
     {
         .charIndex = 0xac,
         .classIndex = CLASS_BONEWALKER,
@@ -14459,7 +14459,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D08[] = {
 };
 
 // 0x88B9D30
-CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_2[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -14469,7 +14469,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B978C,
+        .redas = REDA_Ch11AEnemy_2_0,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -14484,7 +14484,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B9794,
+        .redas = REDA_Ch11AEnemy_2_1,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -14499,7 +14499,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B979C,
+        .redas = REDA_Ch11AEnemy_2_2,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -14509,7 +14509,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D30[] = {
 };
 
 // 0x88B9D80
-CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_3[] = {
     {
         .charIndex = 0xad,
         .classIndex = CLASS_BONEWALKER_BOW,
@@ -14519,7 +14519,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
         .xPosition = 21,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B97A4,
+        .redas = REDA_Ch11AEnemy_3_0,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -14534,7 +14534,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
         .xPosition = 21,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B97AC,
+        .redas = REDA_Ch11AEnemy_3_1,
         .items = {
             ITEM_LANCE_VENIN,
         },
@@ -14549,7 +14549,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
         .xPosition = 21,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088B97B4,
+        .redas = REDA_Ch11AEnemy_3_2,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
@@ -14560,7 +14560,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9D80[] = {
 };
 
 // 0x88B9DD0
-CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_4[] = {
     {
         .charIndex = 0xac,
         .classIndex = CLASS_BONEWALKER,
@@ -14570,7 +14570,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B97BC,
+        .redas = REDA_Ch11AEnemy_4_0,
         .items = {
             ITEM_LANCE_VENIN,
         },
@@ -14585,7 +14585,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B97C4,
+        .redas = REDA_Ch11AEnemy_4_1,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
@@ -14601,7 +14601,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088B97CC,
+        .redas = REDA_Ch11AEnemy_4_2,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -14611,7 +14611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9DD0[] = {
 };
 
 // 0x88B9E20
-CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AAlly_0[] = {
     {
         .charIndex = CHARACTER_EWAN,
         .classIndex = CLASS_PUPIL,
@@ -14620,7 +14620,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 5,
-        .redas = REDA_088B97D4,
+        .redas = REDA_Ch11AAlly_0_EWAN,
     },
     {
         .charIndex = CHARACTER_TETHYS,
@@ -14630,7 +14630,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 5,
-        .redas = REDA_088B97FC,
+        .redas = REDA_Ch11AAlly_0_TETHYS,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -14640,7 +14640,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 5,
-        .redas = REDA_088B9824,
+        .redas = REDA_Ch11AAlly_0_EIRIKA,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -14650,7 +14650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 3,
-        .redas = REDA_088B984C,
+        .redas = REDA_Ch11AAlly_0_INNES,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -14660,7 +14660,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 4,
-        .redas = REDA_088B9864,
+        .redas = REDA_Ch11AAlly_0_SETH,
     },
     {
         .charIndex = CHARACTER_GERIK,
@@ -14670,12 +14670,12 @@ CONST_DATA struct UnitDefinition UnitDef_088B9E20[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088B9884,
+        .redas = REDA_Ch11AAlly_0_GERIK,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088B9EAC[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_0[] = {
     {
         .x = 11,
         .y = 5,
@@ -14683,7 +14683,7 @@ CONST_DATA struct REDA REDA_088B9EAC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EB4[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_1[] = {
     {
         .x = 9,
         .y = 4,
@@ -14691,7 +14691,7 @@ CONST_DATA struct REDA REDA_088B9EB4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EBC[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_2[] = {
     {
         .x = 8,
         .y = 4,
@@ -14699,7 +14699,7 @@ CONST_DATA struct REDA REDA_088B9EBC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EC4[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_3[] = {
     {
         .x = 8,
         .y = 5,
@@ -14707,49 +14707,49 @@ CONST_DATA struct REDA REDA_088B9EC4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9ECC[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_4[] = {
     {
         .x = 8,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9ED4[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_5[] = {
     {
         .x = 6,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EDC[] = {
+CONST_DATA struct REDA REDA_Ch11AMixed_6[] = {
     {
         .x = 10,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EE4[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_5_0[] = {
     {
         .x = 8,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EEC[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_5_1[] = {
     {
         .x = 6,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EF4[] = {
+CONST_DATA struct REDA REDA_Ch11AEnemy_5_2[] = {
     {
         .x = 10,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088B9EFC[] = {
+CONST_DATA struct REDA REDA_Ch11AAlly_1_EWAN[] = {
     {
         .x = 1,
         .y = 9,
@@ -14771,7 +14771,7 @@ CONST_DATA struct REDA REDA_088B9EFC[] = {
 };
 
 // 0x88B9F14
-CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AMixed[] = {
     {
         .charIndex = CHARACTER_SALEH,
         .classIndex = CLASS_SAGE,
@@ -14788,7 +14788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 8,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B9EAC,
+        .redas = REDA_Ch11AMixed_0,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -14798,7 +14798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 6,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088B9EB4,
+        .redas = REDA_Ch11AMixed_1,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -14808,7 +14808,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 7,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088B9EBC,
+        .redas = REDA_Ch11AMixed_2,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -14818,7 +14818,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 6,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088B9EC4,
+        .redas = REDA_Ch11AMixed_3,
     },
     {
         .charIndex = CHARACTER_GLEN,
@@ -14829,7 +14829,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 8,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9ECC,
+        .redas = REDA_Ch11AMixed_4,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -14843,7 +14843,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 6,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9ED4,
+        .redas = REDA_Ch11AMixed_5,
     },
     {
         .charIndex = 0x81,
@@ -14854,13 +14854,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B9F14[] = {
         .xPosition = 10,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9EDC,
+        .redas = REDA_Ch11AMixed_6,
     },
     { 0 },
 };
 
 // 0x88B9FC8
-CONST_DATA struct UnitDefinition UnitDef_088B9FC8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AEnemy_5[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -14870,7 +14870,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9FC8[] = {
         .xPosition = 8,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9EE4,
+        .redas = REDA_Ch11AEnemy_5_0,
         .items = {
             ITEM_LANCE_KILLER,
         },
@@ -14884,7 +14884,7 @@ CONST_DATA struct UnitDefinition UnitDef_088B9FC8[] = {
         .xPosition = 7,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9EEC,
+        .redas = REDA_Ch11AEnemy_5_1,
     },
     {
         .charIndex = 0x67,
@@ -14895,13 +14895,13 @@ CONST_DATA struct UnitDefinition UnitDef_088B9FC8[] = {
         .xPosition = 9,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088B9EF4,
+        .redas = REDA_Ch11AEnemy_5_2,
     },
     { 0 },
 };
 
 // 0x88BA018
-CONST_DATA struct UnitDefinition UnitDef_088BA018[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11AAlly_1[] = {
     {
         .charIndex = CHARACTER_EWAN,
         .classIndex = CLASS_PUPIL,
@@ -14910,138 +14910,138 @@ CONST_DATA struct UnitDefinition UnitDef_088BA018[] = {
         .xPosition = 1,
         .yPosition = 10,
         .redaCount = 3,
-        .redas = REDA_088B9EFC,
+        .redas = REDA_Ch11AAlly_1_EWAN,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BA040[] = {
+CONST_DATA struct REDA REDA_Event_Ch12aAlly_SETH[] = {
     {
         .x = 4,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA048[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_0[] = {
     {
         .x = 15,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA050[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_1[] = {
     {
         .x = 14,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA058[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_2[] = {
     {
         .x = 7,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA060[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_3[] = {
     {
         .x = 17,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA068[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_4[] = {
     {
         .x = 17,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA070[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_5[] = {
     {
         .x = 7,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA078[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_6[] = {
     {
         .x = 9,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA080[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_0_7[] = {
     {
         .x = 13,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA088[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_2_0[] = {
     {
         .x = 2,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA090[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_2_1[] = {
     {
         .x = 1,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA098[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_2_2[] = {
     {
         .x = 0,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0A0[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_2_3[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0A8[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_3_0[] = {
     {
         .x = 18,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0B0[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_3_1[] = {
     {
         .x = 17,
         .y = 28,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0B8[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_3_2[] = {
     {
         .x = 16,
         .y = 29,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0C0[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_0_EWAN[] = {
     {
         .x = 5,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0C8[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_1_SALEH[] = {
     {
         .x = 5,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0D0[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_1_INNES[] = {
     {
         .x = 4,
         .y = 23,
@@ -15050,7 +15050,7 @@ CONST_DATA struct REDA REDA_088BA0D0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA0D8[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_1_LARACHEL[] = {
     {
         .x = 4,
         .y = 21,
@@ -15059,7 +15059,7 @@ CONST_DATA struct REDA REDA_088BA0D8[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA0E0[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_1_SETH[] = {
     {
         .x = 3,
         .y = 22,
@@ -15068,7 +15068,7 @@ CONST_DATA struct REDA REDA_088BA0E0[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BA0E8[] = {
+CONST_DATA struct REDA REDA_Ch12AAlly_1_EIRIKA[] = {
     {
         .x = 3,
         .y = 21,
@@ -15077,112 +15077,112 @@ CONST_DATA struct REDA REDA_088BA0E8[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BA0F0[] = {
+CONST_DATA struct REDA REDA_Ch12AMixed_EWAN[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA0F8[] = {
+CONST_DATA struct REDA REDA_Ch12A_0[] = {
     {
         .x = 11,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA100[] = {
+CONST_DATA struct REDA REDA_Ch12A_1[] = {
     {
         .x = 11,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA108[] = {
+CONST_DATA struct REDA REDA_Ch12AMixed_FADO[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA110[] = {
+CONST_DATA struct REDA REDA_Ch12A_2[] = {
     {
         .x = 11,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA118[] = {
+CONST_DATA struct REDA REDA_Ch12A_3[] = {
     {
         .x = 11,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA120[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_4_0[] = {
     {
         .x = 8,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA128[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_4_1[] = {
     {
         .x = 9,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA130[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_5_0[] = {
     {
         .x = 2,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA138[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_5_1[] = {
     {
         .x = 1,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA140[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_5_2[] = {
     {
         .x = 2,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA148[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_6_0[] = {
     {
         .x = 0,
         .y = 28,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA150[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_6_1[] = {
     {
         .x = 1,
         .y = 29,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA158[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_7_0[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA160[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_8_0[] = {
     {
         .x = 0,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA168[] = {
+CONST_DATA struct REDA REDA_Ch12AEnemy_8_1[] = {
     {
         .x = 1,
         .y = 27,
@@ -15238,7 +15238,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch12aAlly[] = {
         .xPosition = 4,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088BA040,
+        .redas = REDA_Event_Ch12aAlly_SETH,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -15351,7 +15351,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch12aAlly[] = {
 };
 
 // 0x88BA274
-CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_0[] = {
     {
         .charIndex = CHARACTER_MAELDUIN_CHUnk,
         .classIndex = CLASS_MAELDUIN,
@@ -15402,7 +15402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 15,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA048,
+        .redas = REDA_Ch12AEnemy_0_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -15417,7 +15417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 14,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA050,
+        .redas = REDA_Ch12AEnemy_0_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -15510,7 +15510,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 7,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA058,
+        .redas = REDA_Ch12AEnemy_0_2,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -15538,7 +15538,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 18,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088BA060,
+        .redas = REDA_Ch12AEnemy_0_3,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -15553,7 +15553,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 18,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BA068,
+        .redas = REDA_Ch12AEnemy_0_4,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -15568,7 +15568,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA070,
+        .redas = REDA_Ch12AEnemy_0_5,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -15661,7 +15661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 9,
         .yPosition = 25,
         .redaCount = 1,
-        .redas = REDA_088BA078,
+        .redas = REDA_Ch12AEnemy_0_6,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -15676,7 +15676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
         .xPosition = 10,
         .yPosition = 25,
         .redaCount = 1,
-        .redas = REDA_088BA080,
+        .redas = REDA_Ch12AEnemy_0_7,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -15777,7 +15777,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA274[] = {
 };
 
 // 0x88BA4F4
-CONST_DATA struct UnitDefinition UnitDef_088BA4F4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_1[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -15795,7 +15795,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA4F4[] = {
 };
 
 // 0x88BA51C
-CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_2[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -15805,7 +15805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA088,
+        .redas = REDA_Ch12AEnemy_2_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -15820,7 +15820,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA090,
+        .redas = REDA_Ch12AEnemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -15835,7 +15835,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA098,
+        .redas = REDA_Ch12AEnemy_2_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -15850,7 +15850,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA0A0,
+        .redas = REDA_Ch12AEnemy_2_3,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -15861,7 +15861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA51C[] = {
 };
 
 // 0x88BA580
-CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_3[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -15871,7 +15871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
         .xPosition = 19,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA0A8,
+        .redas = REDA_Ch12AEnemy_3_0,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -15887,7 +15887,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
         .xPosition = 19,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA0B0,
+        .redas = REDA_Ch12AEnemy_3_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -15903,7 +15903,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
         .yPosition = 29,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BA0B8,
+        .redas = REDA_Ch12AEnemy_3_2,
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
@@ -15913,7 +15913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA580[] = {
 };
 
 // 0x88BA5D0
-CONST_DATA struct UnitDefinition UnitDef_088BA5D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AAlly_0[] = {
     {
         .charIndex = CHARACTER_EWAN,
         .classIndex = CLASS_PUPIL,
@@ -15923,7 +15923,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5D0[] = {
         .xPosition = 5,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088BA0C0,
+        .redas = REDA_Ch12AAlly_0_EWAN,
         .items = {
             ITEM_ANIMA_FIRE,
             ITEM_BOOSTER_POW,
@@ -15934,7 +15934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5D0[] = {
 };
 
 // 0x88BA5F8
-CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AAlly_1[] = {
     {
         .charIndex = CHARACTER_SALEH,
         .classIndex = CLASS_SAGE,
@@ -15943,7 +15943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088BA0C8,
+        .redas = REDA_Ch12AAlly_1_SALEH,
         .items = {
             ITEM_ANIMA_ELFIRE,
             ITEM_ANIMA_THUNDER,
@@ -15957,7 +15957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BA0D0,
+        .redas = REDA_Ch12AAlly_1_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -15967,7 +15967,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088BA0D8,
+        .redas = REDA_Ch12AAlly_1_LARACHEL,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -15977,7 +15977,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BA0E0,
+        .redas = REDA_Ch12AAlly_1_SETH,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -15987,13 +15987,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BA5F8[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BA0E8,
+        .redas = REDA_Ch12AAlly_1_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88BA670
-CONST_DATA struct UnitDefinition UnitDef_088BA670[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AMixed[] = {
     {
         .charIndex = CHARACTER_EWAN,
         .classIndex = CLASS_PUPIL,
@@ -16003,7 +16003,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA670[] = {
         .xPosition = 12,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088BA0F0,
+        .redas = REDA_Ch12AMixed_EWAN,
     },
     {
         .charIndex = CHARACTER_FADO,
@@ -16014,14 +16014,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BA670[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 3,
-        .redas = REDA_088BA108,
+        .redas = REDA_Ch12AMixed_FADO,
         .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
 
 // 0x88BA6AC
-CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_4[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -16070,7 +16070,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA120,
+        .redas = REDA_Ch12AEnemy_4_0,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -16085,7 +16085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088BA128,
+        .redas = REDA_Ch12AEnemy_4_1,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -16108,7 +16108,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA6AC[] = {
 };
 
 // 0x88BA738
-CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_5[] = {
     {
         .charIndex = 0xb3,
         .classIndex = CLASS_MAUTHEDOOG,
@@ -16118,7 +16118,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088BA130,
+        .redas = REDA_Ch12AEnemy_5_0,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -16133,7 +16133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BA138,
+        .redas = REDA_Ch12AEnemy_5_1,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -16148,7 +16148,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
         .xPosition = 0,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088BA140,
+        .redas = REDA_Ch12AEnemy_5_2,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -16158,7 +16158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA738[] = {
 };
 
 // 0x88BA788
-CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_6[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -16168,7 +16168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
         .xPosition = 0,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA148,
+        .redas = REDA_Ch12AEnemy_6_0,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -16183,7 +16183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
         .xPosition = 0,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA150,
+        .redas = REDA_Ch12AEnemy_6_1,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -16194,7 +16194,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA788[] = {
 };
 
 // 0x88BA7C4
-CONST_DATA struct UnitDefinition UnitDef_088BA7C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_7[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -16204,7 +16204,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7C4[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA158,
+        .redas = REDA_Ch12AEnemy_7_0,
         .items = {
             ITEM_LANCE_SHORTSPEAR,
         },
@@ -16214,7 +16214,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7C4[] = {
 };
 
 // 0x88BA7EC
-CONST_DATA struct UnitDefinition UnitDef_088BA7EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12AEnemy_8[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -16224,7 +16224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7EC[] = {
         .xPosition = 0,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA160,
+        .redas = REDA_Ch12AEnemy_8_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -16239,7 +16239,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7EC[] = {
         .xPosition = 0,
         .yPosition = 29,
         .redaCount = 1,
-        .redas = REDA_088BA168,
+        .redas = REDA_Ch12AEnemy_8_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -16249,119 +16249,119 @@ CONST_DATA struct UnitDefinition UnitDef_088BA7EC[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BA828[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_0_AIAS[] = {
     {
         .x = 23,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA830[] = {
+CONST_DATA struct REDA REDA_Ch13A_0[] = {
     {
         .x = 21,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA838[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_2_0[] = {
     {
         .x = 11,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA840[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_0[] = {
     {
         .x = 1,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA848[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_1[] = {
     {
         .x = 3,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA850[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_2[] = {
     {
         .x = 2,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA858[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_3[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA860[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_4[] = {
     {
         .x = 3,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA868[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_5[] = {
     {
         .x = 1,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA870[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_6[] = {
     {
         .x = 1,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA878[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_7[] = {
     {
         .x = 2,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA880[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_8[] = {
     {
         .x = 1,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA888[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_3_9[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA890[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_9_0[] = {
     {
         .x = 1,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA898[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_9_1[] = {
     {
         .x = 2,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8A0[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_9_2[] = {
     {
         .x = 3,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8A8[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_11_CAELLACH[] = {
     {
         .x = 23,
         .y = 14,
@@ -16369,7 +16369,7 @@ CONST_DATA struct REDA REDA_088BA8A8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8B0[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_0_EIRIKA[] = {
     {
         .x = 10,
         .y = 8,
@@ -16377,7 +16377,7 @@ CONST_DATA struct REDA REDA_088BA8B0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8B8[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_0_LARACHEL[] = {
     {
         .x = 10,
         .y = 9,
@@ -16385,7 +16385,7 @@ CONST_DATA struct REDA REDA_088BA8B8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8C0[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_0_INNES[] = {
     {
         .x = 9,
         .y = 7,
@@ -16393,7 +16393,7 @@ CONST_DATA struct REDA REDA_088BA8C0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8C8[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_0_SETH[] = {
     {
         .x = 9,
         .y = 9,
@@ -16402,7 +16402,7 @@ CONST_DATA struct REDA REDA_088BA8C8[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA8D0[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_0[] = {
     {
         .x = 9,
         .y = 6,
@@ -16410,7 +16410,7 @@ CONST_DATA struct REDA REDA_088BA8D0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8D8[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_1[] = {
     {
         .x = 8,
         .y = 10,
@@ -16418,7 +16418,7 @@ CONST_DATA struct REDA REDA_088BA8D8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8E0[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_2[] = {
     {
         .x = 8,
         .y = 6,
@@ -16426,7 +16426,7 @@ CONST_DATA struct REDA REDA_088BA8E0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8E8[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_3[] = {
     {
         .x = 8,
         .y = 8,
@@ -16434,7 +16434,7 @@ CONST_DATA struct REDA REDA_088BA8E8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8F0[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_4[] = {
     {
         .x = 8,
         .y = 9,
@@ -16442,7 +16442,7 @@ CONST_DATA struct REDA REDA_088BA8F0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA8F8[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_5[] = {
     {
         .x = 7,
         .y = 10,
@@ -16450,7 +16450,7 @@ CONST_DATA struct REDA REDA_088BA8F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA900[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_6[] = {
     {
         .x = 7,
         .y = 7,
@@ -16458,7 +16458,7 @@ CONST_DATA struct REDA REDA_088BA900[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA908[] = {
+CONST_DATA struct REDA REDA_Ch13AAlly_1_7[] = {
     {
         .x = 6,
         .y = 9,
@@ -16466,7 +16466,7 @@ CONST_DATA struct REDA REDA_088BA908[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA910[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_0[] = {
     {
         .x = 20,
         .y = 2,
@@ -16474,7 +16474,7 @@ CONST_DATA struct REDA REDA_088BA910[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA918[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_1[] = {
     {
         .x = 18,
         .y = 1,
@@ -16483,7 +16483,7 @@ CONST_DATA struct REDA REDA_088BA918[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA920[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_2[] = {
     {
         .x = 19,
         .y = 1,
@@ -16493,7 +16493,7 @@ CONST_DATA struct REDA REDA_088BA920[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA928[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_3[] = {
     {
         .x = 21,
         .y = 1,
@@ -16503,7 +16503,7 @@ CONST_DATA struct REDA REDA_088BA928[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA930[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_4[] = {
     {
         .x = 22,
         .y = 1,
@@ -16512,7 +16512,7 @@ CONST_DATA struct REDA REDA_088BA930[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BA938[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_5[] = {
     {
         .x = 19,
         .y = 0,
@@ -16522,7 +16522,7 @@ CONST_DATA struct REDA REDA_088BA938[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BA940[] = {
+CONST_DATA struct REDA REDA_Ch13ANPC_6[] = {
     {
         .x = 21,
         .y = 0,
@@ -16695,7 +16695,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch13aAlly[] = {
 };
 
 // 0x88BAA4C
-CONST_DATA struct UnitDefinition UnitDef_088BAA4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_0[] = {
     {
         .charIndex = CHARACTER_AIAS,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -16705,7 +16705,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA4C[] = {
         .yPosition = 11,
         .itemDrop = 1,
         .redaCount = 2,
-        .redas = REDA_088BA828,
+        .redas = REDA_Ch13AEnemy_0_AIAS,
         .items = {
             ITEM_LANCE_SHORTSPEAR,
             ITEM_BLADE_SILVER,
@@ -16718,7 +16718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA4C[] = {
 };
 
 // 0x88BAA74
-CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARCHER,
@@ -16988,7 +16988,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAA74[] = {
 };
 
 // 0x88BAC18
-CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARCHER,
@@ -17050,7 +17050,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA838,
+        .redas = REDA_Ch13AEnemy_2_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -17073,7 +17073,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAC18[] = {
 };
 
 // 0x88BACA4
-CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_3[] = {
     {
         .charIndex = CHARACTER_PABLO,
         .classIndex = CLASS_SAGE,
@@ -17083,7 +17083,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BA840,
+        .redas = REDA_Ch13AEnemy_3_0,
         .items = {
             ITEM_ANIMA_ELFIRE,
             ITEM_LIGHT_PURGE,
@@ -17100,7 +17100,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BA848,
+        .redas = REDA_Ch13AEnemy_3_1,
         .items = {
             ITEM_AXE_IRON,
             ITEM_AXE_HANDAXE,
@@ -17116,7 +17116,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BA850,
+        .redas = REDA_Ch13AEnemy_3_2,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -17131,7 +17131,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA858,
+        .redas = REDA_Ch13AEnemy_3_3,
         .items = {
             ITEM_AXE_VENIN,
             ITEM_BOOSTER_CON,
@@ -17147,7 +17147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BA860,
+        .redas = REDA_Ch13AEnemy_3_4,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -17162,7 +17162,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BA868,
+        .redas = REDA_Ch13AEnemy_3_5,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -17177,7 +17177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA870,
+        .redas = REDA_Ch13AEnemy_3_6,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -17193,7 +17193,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .yPosition = 7,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BA878,
+        .redas = REDA_Ch13AEnemy_3_7,
         .items = {
             ITEM_AXE_SWORDSLAYER,
             ITEM_AXE_HANDAXE,
@@ -17209,7 +17209,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BA880,
+        .redas = REDA_Ch13AEnemy_3_8,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -17224,7 +17224,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
         .xPosition = 0,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BA888,
+        .redas = REDA_Ch13AEnemy_3_9,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -17234,7 +17234,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BACA4[] = {
 };
 
 // 0x88BAD80
-CONST_DATA struct UnitDefinition UnitDef_088BAD80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_4[] = {
     {
         .charIndex = 0xa9,
         .classIndex = CLASS_CAVALIER,
@@ -17265,7 +17265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAD80[] = {
 };
 
 // 0x88BADBC
-CONST_DATA struct UnitDefinition UnitDef_088BADBC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -17297,7 +17297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADBC[] = {
 };
 
 // 0x88BADF8
-CONST_DATA struct UnitDefinition UnitDef_088BADF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -17342,7 +17342,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BADF8[] = {
 };
 
 // 0x88BAE48
-CONST_DATA struct UnitDefinition UnitDef_088BAE48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_7[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -17375,7 +17375,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE48[] = {
 };
 
 // 0x88BAE84
-CONST_DATA struct UnitDefinition UnitDef_088BAE84[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_8[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -17406,7 +17406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAE84[] = {
 };
 
 // 0x88BAEC0
-CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_9[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -17416,7 +17416,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
         .xPosition = 0,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088BA890,
+        .redas = REDA_Ch13AEnemy_9_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -17432,7 +17432,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
         .yPosition = 15,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BA898,
+        .redas = REDA_Ch13AEnemy_9_1,
         .items = {
             ITEM_LANCE_KILLER,
             ITEM_LANCE_STEEL,
@@ -17449,7 +17449,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
         .xPosition = 2,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088BA8A0,
+        .redas = REDA_Ch13AEnemy_9_2,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -17460,7 +17460,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAEC0[] = {
 };
 
 // 0x88BAF10
-CONST_DATA struct UnitDefinition UnitDef_088BAF10[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_10[] = {
     {
         .charIndex = CHARACTER_AMELIA,
         .classIndex = CLASS_RECRUIT,
@@ -17480,7 +17480,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF10[] = {
 };
 
 // 0x88BAF38
-CONST_DATA struct UnitDefinition UnitDef_088BAF38[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_11[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -17491,14 +17491,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF38[] = {
         .yPosition = 11,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BA8A8,
+        .redas = REDA_Ch13AEnemy_11_CAELLACH,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88BAF60
-CONST_DATA struct UnitDefinition UnitDef_088BAF60[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -17507,7 +17507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF60[] = {
         .xPosition = 5,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BA8B0,
+        .redas = REDA_Ch13AAlly_0_EIRIKA,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -17517,7 +17517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF60[] = {
         .xPosition = 5,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA8B8,
+        .redas = REDA_Ch13AAlly_0_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -17527,7 +17527,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF60[] = {
         .xPosition = 5,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BA8C0,
+        .redas = REDA_Ch13AAlly_0_INNES,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17537,13 +17537,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BAF60[] = {
         .xPosition = 5,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA8C8,
+        .redas = REDA_Ch13AAlly_0_SETH,
     },
     { 0 },
 };
 
 // 0x88BAFC4
-CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AAlly_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -17552,7 +17552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BA8D0,
+        .redas = REDA_Ch13AAlly_1_0,
     },
     {
         .charIndex = CHARACTER_TANA,
@@ -17562,7 +17562,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BA8D8,
+        .redas = REDA_Ch13AAlly_1_1,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17572,7 +17572,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BA8E0,
+        .redas = REDA_Ch13AAlly_1_2,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17582,7 +17582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BA8E8,
+        .redas = REDA_Ch13AAlly_1_3,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17592,7 +17592,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA8F0,
+        .redas = REDA_Ch13AAlly_1_4,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17602,7 +17602,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BA8F8,
+        .redas = REDA_Ch13AAlly_1_5,
     },
     {
         .charIndex = CHARACTER_FRANZ,
@@ -17612,7 +17612,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BA900,
+        .redas = REDA_Ch13AAlly_1_6,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -17622,13 +17622,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BAFC4[] = {
         .xPosition = 5,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BA908,
+        .redas = REDA_Ch13AAlly_1_7,
     },
     { 0 },
 };
 
 // 0x88BB078
-CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13ANPC[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PALADIN,
@@ -17638,7 +17638,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 20,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA910,
+        .redas = REDA_Ch13ANPC_0,
         .items = {
             ITEM_LANCE_SILVER,
         },
@@ -17653,7 +17653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA918,
+        .redas = REDA_Ch13ANPC_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -17668,7 +17668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA920,
+        .redas = REDA_Ch13ANPC_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -17683,7 +17683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 21,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA928,
+        .redas = REDA_Ch13ANPC_3,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -17698,7 +17698,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 22,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA930,
+        .redas = REDA_Ch13ANPC_4,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -17713,7 +17713,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA938,
+        .redas = REDA_Ch13ANPC_5,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -17728,7 +17728,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
         .xPosition = 21,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BA940,
+        .redas = REDA_Ch13ANPC_6,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -17738,7 +17738,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB078[] = {
 };
 
 // 0x88BB118
-CONST_DATA struct UnitDefinition UnitDef_088BB118[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -17869,7 +17869,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB118[] = {
 };
 
 // 0x88BB1E0
-CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_12[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAELDUIN,
@@ -18166,7 +18166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB1E0[] = {
 };
 
 // 0x88BB3D4
-CONST_DATA struct UnitDefinition UnitDef_088BB3D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -18297,7 +18297,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB3D4[] = {
 };
 
 // 0x88BB49C
-CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_13[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_WIGHT,
@@ -18594,7 +18594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB49C[] = {
 };
 
 // 0x88BB690
-CONST_DATA struct UnitDefinition UnitDef_088BB690[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -18725,7 +18725,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB690[] = {
 };
 
 // 0x88BB758
-CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_14[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GWYLLGI,
@@ -19020,7 +19020,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB758[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BB94C[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_15_CORMAG[] = {
     {
         .x = 10,
         .y = 7,
@@ -19034,12 +19034,12 @@ CONST_DATA struct REDA REDA_088BB94C[] = {
 };
 
 // 0x88BB95C
-CONST_DATA struct UnitDefinition UnitDef_088BB95C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AUnits[] = {
     { 0 },
 };
 
 // 0x88BB970
-CONST_DATA struct UnitDefinition UnitDef_088BB970[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_15[] = {
     {
         .charIndex = CHARACTER_CORMAG,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -19049,12 +19049,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BB970[] = {
         .xPosition = 10,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088BB94C,
+        .redas = REDA_Ch13AEnemy_15_CORMAG,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BB998[] = {
+CONST_DATA struct REDA REDA_Ch13AMixed_INNES[] = {
     {
         .x = 8,
         .y = 4,
@@ -19068,7 +19068,7 @@ CONST_DATA struct REDA REDA_088BB998[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BB9A8[] = {
+CONST_DATA struct REDA REDA_Ch13AMixed_MESSENGER[] = {
     {
         .x = 6,
         .y = 4,
@@ -19078,12 +19078,12 @@ CONST_DATA struct REDA REDA_088BB9A8[] = {
 };
 
 // 0x88BB9B0
-CONST_DATA struct UnitDefinition UnitDef_088BB9B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AUnits_1[] = {
     { 0 },
 };
 
 // 0x88BB9C4
-CONST_DATA struct UnitDefinition UnitDef_088BB9C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AMixed[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -19108,7 +19108,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BB9C4[] = {
         .xPosition = 8,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088BB998,
+        .redas = REDA_Ch13AMixed_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -19127,12 +19127,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BB9C4[] = {
         .xPosition = 0,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BB9A8,
+        .redas = REDA_Ch13AMixed_MESSENGER,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BBA3C[] = {
+CONST_DATA struct REDA REDA_Ch13AEnemy_17_AIAS[] = {
     {
         .x = 5,
         .y = 3,
@@ -19142,12 +19142,12 @@ CONST_DATA struct REDA REDA_088BBA3C[] = {
 };
 
 // 0x88BBA44
-CONST_DATA struct UnitDefinition UnitDef_088BBA44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AUnits_2[] = {
     { 0 },
 };
 
 // 0x88BBA58
-CONST_DATA struct UnitDefinition UnitDef_088BBA58[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_16[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -19163,7 +19163,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBA58[] = {
 };
 
 // 0x88BBA80
-CONST_DATA struct UnitDefinition UnitDef_088BBA80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13AEnemy_17[] = {
     {
         .charIndex = CHARACTER_AIAS,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -19172,103 +19172,103 @@ CONST_DATA struct UnitDefinition UnitDef_088BBA80[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BBA3C,
+        .redas = REDA_Ch13AEnemy_17_AIAS,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BBAA8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_2_0[] = {
     {
         .x = 3,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAB0[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_2_1[] = {
     {
         .x = 2,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAB8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_2_2[] = {
     {
         .x = 1,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAC0[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_4_0[] = {
     {
         .x = 22,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAC8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_4_1[] = {
     {
         .x = 23,
         .y = 25,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAD0[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_4_2[] = {
     {
         .x = 24,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAD8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_5_CAELLACH[] = {
     {
         .x = 10,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAE0[] = {
+CONST_DATA struct REDA REDA_Ch14A_0[] = {
     {
         .x = 10,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAE8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_5_LYON[] = {
     {
         .x = 10,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAF0[] = {
+CONST_DATA struct REDA REDA_Ch14A_1[] = {
     {
         .x = 10,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBAF8[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_6_0[] = {
     {
         .x = 8,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB00[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_6_1[] = {
     {
         .x = 9,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB08[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_6_2[] = {
     {
         .x = 10,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB10[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_6_3[] = {
     {
         .x = 8,
         .y = 8,
@@ -19276,7 +19276,7 @@ CONST_DATA struct REDA REDA_088BBB10[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB18[] = {
+CONST_DATA struct REDA REDA_Ch14AEnemy_6_4[] = {
     {
         .x = 10,
         .y = 8,
@@ -19284,49 +19284,49 @@ CONST_DATA struct REDA REDA_088BBB18[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB20[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_0_LARACHEL[] = {
     {
         .x = 9,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB28[] = {
+CONST_DATA struct REDA REDA_Ch14A_2[] = {
     {
         .x = 9,
         .y = 11,
         .a = 0xb,
     },
 };
-CONST_DATA struct REDA REDA_088BBB30[] = {
+CONST_DATA struct REDA REDA_Ch14A_3[] = {
     {
         .x = 17,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB38[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_0_INNES[] = {
     {
         .x = 10,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB40[] = {
+CONST_DATA struct REDA REDA_Ch14A_4[] = {
     {
         .x = 10,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB48[] = {
+CONST_DATA struct REDA REDA_Ch14A_5[] = {
     {
         .x = 17,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB50[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_0_EIRIKA[] = {
     {
         .x = 8,
         .y = 6,
@@ -19334,7 +19334,7 @@ CONST_DATA struct REDA REDA_088BBB50[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB58[] = {
+CONST_DATA struct REDA REDA_Ch14A_6[] = {
     {
         .x = 9,
         .y = 6,
@@ -19343,7 +19343,7 @@ CONST_DATA struct REDA REDA_088BBB58[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088BBB60[] = {
+CONST_DATA struct REDA REDA_Ch14A_7[] = {
     {
         .x = 9,
         .y = 7,
@@ -19351,56 +19351,56 @@ CONST_DATA struct REDA REDA_088BBB60[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB68[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_1_LARACHEL[] = {
     {
         .x = 9,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB70[] = {
+CONST_DATA struct REDA REDA_Ch14A_8[] = {
     {
         .x = 9,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB78[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_2_LARACHEL[] = {
     {
         .x = 9,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB80[] = {
+CONST_DATA struct REDA REDA_Ch14A_9[] = {
     {
         .x = 17,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB88[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_2_EIRIKA[] = {
     {
         .x = 9,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB90[] = {
+CONST_DATA struct REDA REDA_Ch14A_10[] = {
     {
         .x = 17,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBB98[] = {
+CONST_DATA struct REDA REDA_Ch14AMixed_0_0[] = {
     {
         .x = 18,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BBBA0[] = {
+CONST_DATA struct REDA REDA_Ch14A_11[] = {
     {
         .x = 18,
         .y = 3,
@@ -19570,7 +19570,7 @@ CONST_DATA struct UnitDefinition UnitDef_Event_Ch14aAlly[] = {
 };
 
 // 0x88BBCAC
-CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_0[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MONK,
@@ -20139,7 +20139,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BBCAC[] = {
 };
 
 // 0x88BC008
-CONST_DATA struct UnitDefinition UnitDef_088BC008[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARCHER,
@@ -20157,7 +20157,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC008[] = {
 };
 
 // 0x88BC030
-CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -20168,7 +20168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
         .yPosition = 22,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BBAA8,
+        .redas = REDA_Ch14AEnemy_2_0,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_DOORKEY,
@@ -20184,7 +20184,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088BBAB0,
+        .redas = REDA_Ch14AEnemy_2_1,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -20199,7 +20199,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BBAB8,
+        .redas = REDA_Ch14AEnemy_2_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -20209,7 +20209,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC030[] = {
 };
 
 // 0x88BC080
-CONST_DATA struct UnitDefinition UnitDef_088BC080[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -20240,7 +20240,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC080[] = {
 };
 
 // 0x88BC0BC
-CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -20250,7 +20250,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .xPosition = 24,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088BBAC0,
+        .redas = REDA_Ch14AEnemy_4_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -20265,7 +20265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .xPosition = 24,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088BBAC8,
+        .redas = REDA_Ch14AEnemy_4_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -20280,7 +20280,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
         .xPosition = 24,
         .yPosition = 26,
         .redaCount = 1,
-        .redas = REDA_088BBAD0,
+        .redas = REDA_Ch14AEnemy_4_2,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -20290,7 +20290,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC0BC[] = {
 };
 
 // 0x88BC10C
-CONST_DATA struct UnitDefinition UnitDef_088BC10C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14ANPC[] = {
     {
         .charIndex = CHARACTER_ISMAIRE,
         .classIndex = CLASS_QUEEN,
@@ -20304,7 +20304,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC10C[] = {
 };
 
 // 0x88BC134
-CONST_DATA struct UnitDefinition UnitDef_088BC134[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_5[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -20314,7 +20314,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC134[] = {
         .xPosition = 17,
         .yPosition = 11,
         .redaCount = 2,
-        .redas = REDA_088BBAD8,
+        .redas = REDA_Ch14AEnemy_5_CAELLACH,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     {
@@ -20326,14 +20326,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BC134[] = {
         .xPosition = 18,
         .yPosition = 11,
         .redaCount = 2,
-        .redas = REDA_088BBAE8,
+        .redas = REDA_Ch14AEnemy_5_LYON,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88BC170
-CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -20343,7 +20343,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BBAF8,
+        .redas = REDA_Ch14AEnemy_6_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -20359,7 +20359,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .yPosition = 11,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BBB00,
+        .redas = REDA_Ch14AEnemy_6_1,
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
@@ -20374,7 +20374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .xPosition = 10,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BBB08,
+        .redas = REDA_Ch14AEnemy_6_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -20402,7 +20402,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BBB10,
+        .redas = REDA_Ch14AEnemy_6_3,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -20417,7 +20417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
         .xPosition = 10,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BBB18,
+        .redas = REDA_Ch14AEnemy_6_4,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -20427,7 +20427,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC170[] = {
 };
 
 // 0x88BC1FC
-CONST_DATA struct UnitDefinition UnitDef_088BC1FC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AAlly_0[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -20436,7 +20436,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC1FC[] = {
         .xPosition = 9,
         .yPosition = 7,
         .redaCount = 3,
-        .redas = REDA_088BBB20,
+        .redas = REDA_Ch14AAlly_0_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -20446,7 +20446,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC1FC[] = {
         .xPosition = 10,
         .yPosition = 6,
         .redaCount = 3,
-        .redas = REDA_088BBB38,
+        .redas = REDA_Ch14AAlly_0_INNES,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -20456,13 +20456,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BC1FC[] = {
         .xPosition = 8,
         .yPosition = 6,
         .redaCount = 3,
-        .redas = REDA_088BBB50,
+        .redas = REDA_Ch14AAlly_0_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88BC24C
-CONST_DATA struct UnitDefinition UnitDef_088BC24C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AAlly_1[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -20471,13 +20471,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BC24C[] = {
         .xPosition = 17,
         .yPosition = 11,
         .redaCount = 2,
-        .redas = REDA_088BBB68,
+        .redas = REDA_Ch14AAlly_1_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88BC274
-CONST_DATA struct UnitDefinition UnitDef_088BC274[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AAlly_2[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -20486,7 +20486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC274[] = {
         .xPosition = 9,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088BBB78,
+        .redas = REDA_Ch14AAlly_2_LARACHEL,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -20496,13 +20496,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BC274[] = {
         .xPosition = 9,
         .yPosition = 8,
         .redaCount = 2,
-        .redas = REDA_088BBB88,
+        .redas = REDA_Ch14AAlly_2_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88BC2B0
-CONST_DATA struct UnitDefinition UnitDef_088BC2B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AMixed_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -20544,12 +20544,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BC2B0[] = {
         .xPosition = 9,
         .yPosition = 1,
         .redaCount = 2,
-        .redas = REDA_088BBB98,
+        .redas = REDA_Ch14AMixed_0_0,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BC328[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_3_EIRIKA[] = {
     {
         .x = 15,
         .y = 4,
@@ -20557,7 +20557,7 @@ CONST_DATA struct REDA REDA_088BC328[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC330[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_3_SETH[] = {
     {
         .x = 16,
         .y = 3,
@@ -20565,7 +20565,7 @@ CONST_DATA struct REDA REDA_088BC330[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC338[] = {
+CONST_DATA struct REDA REDA_Ch14A_12[] = {
     {
         .x = 16,
         .y = 4,
@@ -20574,7 +20574,7 @@ CONST_DATA struct REDA REDA_088BC338[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088BC340[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_3_LARACHEL[] = {
     {
         .x = 14,
         .y = 2,
@@ -20583,7 +20583,7 @@ CONST_DATA struct REDA REDA_088BC340[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BC348[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_3_INNES[] = {
     {
         .x = 16,
         .y = 2,
@@ -20594,7 +20594,7 @@ CONST_DATA struct REDA REDA_088BC348[] = {
 };
 
 // 0x88BC350
-CONST_DATA struct UnitDefinition UnitDef_088BC350[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AAlly_3[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -20603,7 +20603,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC350[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC328,
+        .redas = REDA_Ch14AAlly_3_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -20613,7 +20613,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC350[] = {
         .xPosition = 16,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088BC330,
+        .redas = REDA_Ch14AAlly_3_SETH,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -20623,7 +20623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC350[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC340,
+        .redas = REDA_Ch14AAlly_3_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -20633,17 +20633,17 @@ CONST_DATA struct UnitDefinition UnitDef_088BC350[] = {
         .xPosition = 16,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC348,
+        .redas = REDA_Ch14AAlly_3_INNES,
     },
     { 0 },
 };
 
 // 0x88BC3B4
-CONST_DATA struct UnitDefinition UnitDef_088BC3B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AUnits[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BC3C8[] = {
+CONST_DATA struct REDA REDA_Ch14AMixed_1_CAELLACH[] = {
     {
         .x = 13,
         .y = 7,
@@ -20694,7 +20694,7 @@ CONST_DATA struct REDA REDA_088BC3C8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC408[] = {
+CONST_DATA struct REDA REDA_Ch14AMixed_1_ISMAIRE[] = {
     {
         .x = 10,
         .y = 7,
@@ -20720,7 +20720,7 @@ CONST_DATA struct REDA REDA_088BC408[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC428[] = {
+CONST_DATA struct REDA REDA_Ch14AMixed_1_LYON[] = {
     {
         .x = 10,
         .y = 7,
@@ -20750,12 +20750,12 @@ CONST_DATA struct REDA REDA_088BC428[] = {
 };
 
 // 0x88BC448
-CONST_DATA struct UnitDefinition UnitDef_088BC448[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AUnits_1[] = {
     { 0 },
 };
 
 // 0x88BC45C
-CONST_DATA struct UnitDefinition UnitDef_088BC45C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AMixed_1[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -20765,7 +20765,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC45C[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 8,
-        .redas = REDA_088BC3C8,
+        .redas = REDA_Ch14AMixed_1_CAELLACH,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -20779,7 +20779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC45C[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 4,
-        .redas = REDA_088BC408,
+        .redas = REDA_Ch14AMixed_1_ISMAIRE,
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -20790,40 +20790,40 @@ CONST_DATA struct UnitDefinition UnitDef_088BC45C[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 4,
-        .redas = REDA_088BC428,
+        .redas = REDA_Ch14AMixed_1_LYON,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BC4AC[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_EIRIKA[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC4B4[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_SETH[] = {
     {
         .x = 12,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC4BC[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_LARACHEL[] = {
     {
         .x = 14,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC4C4[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_INNES[] = {
     {
         .x = 10,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC4CC[] = {
+CONST_DATA struct REDA REDA_Ch14AAlly_JOSHUA[] = {
     {
         .x = 11,
         .y = 5,
@@ -20832,7 +20832,7 @@ CONST_DATA struct REDA REDA_088BC4CC[] = {
 };
 
 // 0x88BC4D4
-CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14AAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -20841,7 +20841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BC4AC,
+        .redas = REDA_Ch14AAlly_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -20851,7 +20851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BC4B4,
+        .redas = REDA_Ch14AAlly_SETH,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -20861,7 +20861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BC4BC,
+        .redas = REDA_Ch14AAlly_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -20871,7 +20871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BC4C4,
+        .redas = REDA_Ch14AAlly_INNES,
     },
     {
         .charIndex = CHARACTER_JOSHUA,
@@ -20881,136 +20881,136 @@ CONST_DATA struct UnitDefinition UnitDef_088BC4D4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088BC4CC,
+        .redas = REDA_Ch14AAlly_JOSHUA,
     },
     { 0 },
 };
 
 // 0x88BC54C
-CONST_DATA struct UnitDefinition UnitDef_088BC54C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AUnits[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BC560[] = {
+CONST_DATA struct REDA REDA_Ch15AAlly_1_KNOLL[] = {
     {
         .x = 1,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC568[] = {
+CONST_DATA struct REDA REDA_Ch15AAlly_1_EPHRAIM[] = {
     {
         .x = 2,
         .y = 20,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088BC570[] = {
+CONST_DATA struct REDA REDA_Ch15AAlly_1_DUESSEL[] = {
     {
         .x = 3,
         .y = 21,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088BC578[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_2_0[] = {
     {
         .x = 22,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC580[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_2_1[] = {
     {
         .x = 21,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC588[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_3_0[] = {
     {
         .x = 13,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC590[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_3_1[] = {
     {
         .x = 9,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC598[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_4_0[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5A0[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_4_1[] = {
     {
         .x = 16,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5A8[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_5_0[] = {
     {
         .x = 5,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5B0[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_0[] = {
     {
         .x = 1,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5B8[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_1[] = {
     {
         .x = 2,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5C0[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_2[] = {
     {
         .x = 2,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5C8[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_3[] = {
     {
         .x = 3,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5D0[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_4[] = {
     {
         .x = 3,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5D8[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_5[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5E0[] = {
+CONST_DATA struct REDA REDA_Ch15AEnemy_6_6[] = {
     {
         .x = 1,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5E8[] = {
+CONST_DATA struct REDA REDA_Ch15AAlly_EIRIKA[] = {
     {
         .x = 13,
         .y = 10,
@@ -21018,7 +21018,7 @@ CONST_DATA struct REDA REDA_088BC5E8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BC5F0[] = {
+CONST_DATA struct REDA REDA_Ch15A_0[] = {
     {
         .x = 13,
         .y = 9,
@@ -21027,7 +21027,7 @@ CONST_DATA struct REDA REDA_088BC5F0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BC5F8[] = {
+CONST_DATA struct REDA REDA_Ch15A_1[] = {
     {
         .x = 13,
         .y = 8,
@@ -21036,7 +21036,7 @@ CONST_DATA struct REDA REDA_088BC5F8[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BC600[] = {
+CONST_DATA struct REDA REDA_Ch15A_2[] = {
     {
         .x = 13,
         .y = 7,
@@ -21045,7 +21045,7 @@ CONST_DATA struct REDA REDA_088BC600[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BC608[] = {
+CONST_DATA struct REDA REDA_Ch15AAlly_SETH[] = {
     {
         .x = 14,
         .y = 7,
@@ -21056,7 +21056,7 @@ CONST_DATA struct REDA REDA_088BC608[] = {
 };
 
 // 0x88BC610
-CONST_DATA struct UnitDefinition UnitDef_088BC610[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -21217,7 +21217,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC610[] = {
 };
 
 // 0x88BC714
-CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_0[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -21759,7 +21759,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BC714[] = {
 };
 
 // 0x88BCA48
-CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_1[] = {
     {
         .charIndex = 0x81,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -21844,7 +21844,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCA48[] = {
 };
 
 // 0x88BCAD4
-CONST_DATA struct UnitDefinition UnitDef_088BCAD4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AAlly_1[] = {
     {
         .charIndex = CHARACTER_KNOLL,
         .classIndex = CLASS_SHAMAN,
@@ -21854,7 +21854,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCAD4[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088BC560,
+        .redas = REDA_Ch15AAlly_1_KNOLL,
         .items = {
             ITEM_DARK_FLUX,
             ITEM_DARK_NOSFERATU,
@@ -21869,7 +21869,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCAD4[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BC568,
+        .redas = REDA_Ch15AAlly_1_EPHRAIM,
         .items = {
             ITEM_LANCE_REGINLEIF,
             ITEM_LANCE_STEEL,
@@ -21885,7 +21885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCAD4[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088BC570,
+        .redas = REDA_Ch15AAlly_1_DUESSEL,
         .items = {
             ITEM_AXE_SILVER,
             ITEM_LANCE_SILVER,
@@ -21896,7 +21896,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCAD4[] = {
 };
 
 // 0x88BCB24
-CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -21906,7 +21906,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
         .xPosition = 23,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC578,
+        .redas = REDA_Ch15AEnemy_2_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -21921,7 +21921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
         .xPosition = 23,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC580,
+        .redas = REDA_Ch15AEnemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -21932,7 +21932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB24[] = {
 };
 
 // 0x88BCB60
-CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -21942,7 +21942,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC588,
+        .redas = REDA_Ch15AEnemy_3_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -21957,7 +21957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC590,
+        .redas = REDA_Ch15AEnemy_3_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -21967,7 +21967,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB60[] = {
 };
 
 // 0x88BCB9C
-CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -21977,7 +21977,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC598,
+        .redas = REDA_Ch15AEnemy_4_0,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -21992,7 +21992,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
         .xPosition = 16,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC5A0,
+        .redas = REDA_Ch15AEnemy_4_1,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -22002,7 +22002,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCB9C[] = {
 };
 
 // 0x88BCBD8
-CONST_DATA struct UnitDefinition UnitDef_088BCBD8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -22012,7 +22012,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCBD8[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BC5A8,
+        .redas = REDA_Ch15AEnemy_5_0,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -22022,7 +22022,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCBD8[] = {
 };
 
 // 0x88BCC00
-CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PALADIN,
@@ -22032,7 +22032,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088BC5B0,
+        .redas = REDA_Ch15AEnemy_6_0,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -22048,7 +22048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088BC5B8,
+        .redas = REDA_Ch15AEnemy_6_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -22063,7 +22063,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088BC5C0,
+        .redas = REDA_Ch15AEnemy_6_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -22078,7 +22078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088BC5C8,
+        .redas = REDA_Ch15AEnemy_6_3,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -22093,7 +22093,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088BC5D0,
+        .redas = REDA_Ch15AEnemy_6_4,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
@@ -22109,7 +22109,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BC5D8,
+        .redas = REDA_Ch15AEnemy_6_5,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -22151,7 +22151,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088BC5E0,
+        .redas = REDA_Ch15AEnemy_6_6,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -22161,7 +22161,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCC00[] = {
 };
 
 // 0x88BCCC8
-CONST_DATA struct UnitDefinition UnitDef_088BCCC8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -22171,7 +22171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCCC8[] = {
         .xPosition = 13,
         .yPosition = 11,
         .redaCount = 4,
-        .redas = REDA_088BC5E8,
+        .redas = REDA_Ch15AAlly_EIRIKA,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_SWORD_IRON,
@@ -22188,7 +22188,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCCC8[] = {
         .xPosition = 14,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088BC608,
+        .redas = REDA_Ch15AAlly_SETH,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_SWORD_IRON,
@@ -22200,7 +22200,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCCC8[] = {
 };
 
 // 0x88BCD04
-CONST_DATA struct UnitDefinition UnitDef_088BCD04[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AEnemy_7[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -22231,7 +22231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCD04[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BCD40[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_2_0[] = {
     {
         .x = 0,
         .y = 22,
@@ -22239,7 +22239,7 @@ CONST_DATA struct REDA REDA_088BCD40[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD48[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_2_1[] = {
     {
         .x = 1,
         .y = 25,
@@ -22247,14 +22247,14 @@ CONST_DATA struct REDA REDA_088BCD48[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD50[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_2_2[] = {
     {
         .x = 0,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD58[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_3_0[] = {
     {
         .x = 3,
         .y = 27,
@@ -22262,7 +22262,7 @@ CONST_DATA struct REDA REDA_088BCD58[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD60[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_3_1[] = {
     {
         .x = 5,
         .y = 26,
@@ -22270,7 +22270,7 @@ CONST_DATA struct REDA REDA_088BCD60[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD68[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_3_2[] = {
     {
         .x = 7,
         .y = 27,
@@ -22278,28 +22278,28 @@ CONST_DATA struct REDA REDA_088BCD68[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD70[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_4_0[] = {
     {
         .x = 14,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD78[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_4_1[] = {
     {
         .x = 14,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD80[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_4_2[] = {
     {
         .x = 16,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCD88[] = {
+CONST_DATA struct REDA REDA_Ch16AEnemy_5_0[] = {
     {
         .x = 1,
         .y = 8,
@@ -22307,7 +22307,7 @@ CONST_DATA struct REDA REDA_088BCD88[] = {
         .delayFrames = 20,
     },
 };
-CONST_DATA struct REDA REDA_088BCD90[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_0_SETH[] = {
     {
         .x = 13,
         .y = 7,
@@ -22315,7 +22315,7 @@ CONST_DATA struct REDA REDA_088BCD90[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088BCD98[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_1_EPHRAIM[] = {
     {
         .x = 13,
         .y = 5,
@@ -22323,7 +22323,7 @@ CONST_DATA struct REDA REDA_088BCD98[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDA0[] = {
+CONST_DATA struct REDA REDA_Ch16A_0[] = {
     {
         .x = 13,
         .y = 3,
@@ -22331,14 +22331,14 @@ CONST_DATA struct REDA REDA_088BCDA0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDA8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_1_EIRIKA[] = {
     {
         .x = 12,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDB0[] = {
+CONST_DATA struct REDA REDA_Ch16A_1[] = {
     {
         .x = 13,
         .y = 5,
@@ -22346,7 +22346,7 @@ CONST_DATA struct REDA REDA_088BCDB0[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088BCDB8[] = {
+CONST_DATA struct REDA REDA_Ch16A_2[] = {
     {
         .x = 13,
         .y = 3,
@@ -22354,14 +22354,14 @@ CONST_DATA struct REDA REDA_088BCDB8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDC0[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_1_SETH[] = {
     {
         .x = 13,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDC8[] = {
+CONST_DATA struct REDA REDA_Ch16A_3[] = {
     {
         .x = 13,
         .y = 3,
@@ -22370,7 +22370,7 @@ CONST_DATA struct REDA REDA_088BCDC8[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088BCDD0[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_3_EPHRAIM[] = {
     {
         .x = 13,
         .y = 5,
@@ -22378,7 +22378,7 @@ CONST_DATA struct REDA REDA_088BCDD0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDD8[] = {
+CONST_DATA struct REDA REDA_Ch16A_4[] = {
     {
         .x = 12,
         .y = 5,
@@ -22386,7 +22386,7 @@ CONST_DATA struct REDA REDA_088BCDD8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDE0[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_3_EIRIKA[] = {
     {
         .x = 13,
         .y = 5,
@@ -22394,7 +22394,7 @@ CONST_DATA struct REDA REDA_088BCDE0[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088BCDE8[] = {
+CONST_DATA struct REDA REDA_Ch16A_5[] = {
     {
         .x = 14,
         .y = 5,
@@ -22402,7 +22402,7 @@ CONST_DATA struct REDA REDA_088BCDE8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDF0[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_3_SETH[] = {
     {
         .x = 13,
         .y = 4,
@@ -22411,7 +22411,7 @@ CONST_DATA struct REDA REDA_088BCDF0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCDF8[] = {
+CONST_DATA struct REDA REDA_Ch16A_6[] = {
     {
         .x = 11,
         .y = 4,
@@ -22419,7 +22419,7 @@ CONST_DATA struct REDA REDA_088BCDF8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE00[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_LARACHEL[] = {
     {
         .x = 12,
         .y = 11,
@@ -22427,7 +22427,7 @@ CONST_DATA struct REDA REDA_088BCE00[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE08[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_INNES[] = {
     {
         .x = 14,
         .y = 11,
@@ -22435,7 +22435,7 @@ CONST_DATA struct REDA REDA_088BCE08[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE10[] = {
+CONST_DATA struct REDA REDA_Ch16A_7[] = {
     {
         .x = 15,
         .y = 11,
@@ -22443,7 +22443,7 @@ CONST_DATA struct REDA REDA_088BCE10[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE18[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_MYRRH[] = {
     {
         .x = 16,
         .y = 11,
@@ -22451,14 +22451,14 @@ CONST_DATA struct REDA REDA_088BCE18[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE20[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_EPHRAIM[] = {
     {
         .x = 12,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE28[] = {
+CONST_DATA struct REDA REDA_Ch16A_8[] = {
     {
         .x = 13,
         .y = 5,
@@ -22466,7 +22466,7 @@ CONST_DATA struct REDA REDA_088BCE28[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE30[] = {
+CONST_DATA struct REDA REDA_Ch16A_9[] = {
     {
         .x = 13,
         .y = 11,
@@ -22476,14 +22476,14 @@ CONST_DATA struct REDA REDA_088BCE30[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088BCE38[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_EIRIKA[] = {
     {
         .x = 14,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE40[] = {
+CONST_DATA struct REDA REDA_Ch16A_10[] = {
     {
         .x = 14,
         .y = 11,
@@ -22493,14 +22493,14 @@ CONST_DATA struct REDA REDA_088BCE40[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088BCE48[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_4_SETH[] = {
     {
         .x = 11,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BCE50[] = {
+CONST_DATA struct REDA REDA_Ch16A_11[] = {
     {
         .x = 11,
         .y = 11,
@@ -22512,7 +22512,7 @@ CONST_DATA struct REDA REDA_088BCE50[] = {
 };
 
 // 0x88BCE58
-CONST_DATA struct UnitDefinition UnitDef_088BCE58[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15AAlly_2[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -22673,7 +22673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCE58[] = {
 };
 
 // 0x88BCF5C
-CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_0[] = {
     {
         .charIndex = CHARACTER_ORSON,
         .classIndex = CLASS_PALADIN,
@@ -23069,7 +23069,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BCF5C[] = {
 };
 
 // 0x88BD1B4
-CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -23152,7 +23152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD1B4[] = {
 };
 
 // 0x88BD240
-CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -23176,7 +23176,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD40,
+        .redas = REDA_Ch16AEnemy_2_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -23191,7 +23191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD48,
+        .redas = REDA_Ch16AEnemy_2_1,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -23206,7 +23206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD50,
+        .redas = REDA_Ch16AEnemy_2_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -23216,12 +23216,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BD240[] = {
 };
 
 // 0x88BD2A4
-CONST_DATA struct UnitDefinition UnitDef_088BD2A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits[] = {
     { 0 },
 };
 
 // 0x88BD2B8
-CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_3[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -23231,7 +23231,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD58,
+        .redas = REDA_Ch16AEnemy_3_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -23246,7 +23246,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD60,
+        .redas = REDA_Ch16AEnemy_3_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -23261,7 +23261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD68,
+        .redas = REDA_Ch16AEnemy_3_2,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -23271,7 +23271,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD2B8[] = {
 };
 
 // 0x88BD308
-CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_CAVALIER,
@@ -23281,7 +23281,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .xPosition = 14,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD70,
+        .redas = REDA_Ch16AEnemy_4_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -23296,7 +23296,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .xPosition = 14,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD78,
+        .redas = REDA_Ch16AEnemy_4_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -23311,7 +23311,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
         .xPosition = 16,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BCD80,
+        .redas = REDA_Ch16AEnemy_4_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -23321,7 +23321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD308[] = {
 };
 
 // 0x88BD358
-CONST_DATA struct UnitDefinition UnitDef_088BD358[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_5[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -23331,7 +23331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD358[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BCD88,
+        .redas = REDA_Ch16AEnemy_5_0,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LOCKPICK,
@@ -23342,7 +23342,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD358[] = {
 };
 
 // 0x88BD380
-CONST_DATA struct UnitDefinition UnitDef_088BD380[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_6[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -23361,7 +23361,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD380[] = {
 };
 
 // 0x88BD3A8
-CONST_DATA struct UnitDefinition UnitDef_088BD3A8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AEnemy_7[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_DRUID,
@@ -23379,7 +23379,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD3A8[] = {
 };
 
 // 0x88BD3D0
-CONST_DATA struct UnitDefinition UnitDef_088BD3D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -23404,13 +23404,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD3D0[] = {
         .xPosition = 13,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BCD90,
+        .redas = REDA_Ch16AAlly_0_SETH,
     },
     { 0 },
 };
 
 // 0x88BD420
-CONST_DATA struct UnitDefinition UnitDef_088BD420[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_1[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -23419,7 +23419,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD420[] = {
         .xPosition = 14,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088BCD98,
+        .redas = REDA_Ch16AAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -23429,7 +23429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD420[] = {
         .xPosition = 12,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088BCDA8,
+        .redas = REDA_Ch16AAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -23439,7 +23439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD420[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 2,
-        .redas = REDA_088BCDC0,
+        .redas = REDA_Ch16AAlly_1_SETH,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -23469,7 +23469,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD420[] = {
 };
 
 // 0x88BD4AC
-CONST_DATA struct UnitDefinition UnitDef_088BD4AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_2[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -23498,7 +23498,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD4AC[] = {
 };
 
 // 0x88BD4FC
-CONST_DATA struct UnitDefinition UnitDef_088BD4FC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_3[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -23507,7 +23507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD4FC[] = {
         .xPosition = 13,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088BCDD0,
+        .redas = REDA_Ch16AAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -23517,7 +23517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD4FC[] = {
         .xPosition = 13,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088BCDE0,
+        .redas = REDA_Ch16AAlly_3_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -23527,13 +23527,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD4FC[] = {
         .xPosition = 13,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088BCDF0,
+        .redas = REDA_Ch16AAlly_3_SETH,
     },
     { 0 },
 };
 
 // 0x88BD54C
-CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_4[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -23542,7 +23542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 12,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BCE00,
+        .redas = REDA_Ch16AAlly_4_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -23552,7 +23552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 2,
-        .redas = REDA_088BCE08,
+        .redas = REDA_Ch16AAlly_4_INNES,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -23562,7 +23562,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 16,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BCE18,
+        .redas = REDA_Ch16AAlly_4_MYRRH,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -23572,7 +23572,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 12,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088BCE20,
+        .redas = REDA_Ch16AAlly_4_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -23582,7 +23582,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 14,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088BCE38,
+        .redas = REDA_Ch16AAlly_4_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -23592,12 +23592,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BD54C[] = {
         .xPosition = 11,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088BCE48,
+        .redas = REDA_Ch16AAlly_4_SETH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BD5D8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_EPHRAIM[] = {
     {
         .x = 13,
         .y = 7,
@@ -23623,7 +23623,7 @@ CONST_DATA struct REDA REDA_088BD5D8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD5F8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_EIRIKA[] = {
     {
         .x = 10,
         .y = 7,
@@ -23637,7 +23637,7 @@ CONST_DATA struct REDA REDA_088BD5F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD608[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_SETH[] = {
     {
         .x = 8,
         .y = 7,
@@ -23652,7 +23652,7 @@ CONST_DATA struct REDA REDA_088BD608[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD618[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_MYRRH[] = {
     {
         .x = 9,
         .y = 7,
@@ -23661,7 +23661,7 @@ CONST_DATA struct REDA REDA_088BD618[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD620[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_LARACHEL[] = {
     {
         .x = 10,
         .y = 7,
@@ -23671,7 +23671,7 @@ CONST_DATA struct REDA REDA_088BD620[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BD628[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_INNES[] = {
     {
         .x = 11,
         .y = 7,
@@ -23681,7 +23681,7 @@ CONST_DATA struct REDA REDA_088BD628[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BD630[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_FORDE[] = {
     {
         .x = 13,
         .y = 7,
@@ -23690,7 +23690,7 @@ CONST_DATA struct REDA REDA_088BD630[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD638[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_KYLE[] = {
     {
         .x = 12,
         .y = 8,
@@ -23699,7 +23699,7 @@ CONST_DATA struct REDA REDA_088BD638[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD640[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_5_FRANZ[] = {
     {
         .x = 13,
         .y = 8,
@@ -23710,7 +23710,7 @@ CONST_DATA struct REDA REDA_088BD640[] = {
 };
 
 // 0x88BD648
-CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_5[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -23719,7 +23719,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 4,
-        .redas = REDA_088BD5D8,
+        .redas = REDA_Ch16AAlly_5_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -23729,7 +23729,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 2,
-        .redas = REDA_088BD5F8,
+        .redas = REDA_Ch16AAlly_5_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -23739,7 +23739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 2,
-        .redas = REDA_088BD608,
+        .redas = REDA_Ch16AAlly_5_SETH,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -23749,7 +23749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BD618,
+        .redas = REDA_Ch16AAlly_5_MYRRH,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -23759,7 +23759,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BD620,
+        .redas = REDA_Ch16AAlly_5_LARACHEL,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -23769,7 +23769,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BD628,
+        .redas = REDA_Ch16AAlly_5_INNES,
     },
     {
         .charIndex = CHARACTER_FORDE,
@@ -23779,7 +23779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BD630,
+        .redas = REDA_Ch16AAlly_5_FORDE,
     },
     {
         .charIndex = CHARACTER_KYLE,
@@ -23789,7 +23789,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BD638,
+        .redas = REDA_Ch16AAlly_5_KYLE,
     },
     {
         .charIndex = CHARACTER_FRANZ,
@@ -23799,31 +23799,31 @@ CONST_DATA struct UnitDefinition UnitDef_088BD648[] = {
         .xPosition = 14,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BD640,
+        .redas = REDA_Ch16AAlly_5_FRANZ,
     },
     { 0 },
 };
 
 // 0x88BD710
-CONST_DATA struct UnitDefinition UnitDef_088BD710[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits_1[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BD724[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_7_ORSON[] = {
     {
         .x = 7,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD72C[] = {
+CONST_DATA struct REDA REDA_Ch16A_12[] = {
     {
         .x = 7,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD734[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_0_0[] = {
     {
         .x = 7,
         .y = 4,
@@ -23831,7 +23831,7 @@ CONST_DATA struct REDA REDA_088BD734[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD73C[] = {
+CONST_DATA struct REDA REDA_Ch16A_13[] = {
     {
         .x = 5,
         .y = 4,
@@ -23839,7 +23839,7 @@ CONST_DATA struct REDA REDA_088BD73C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD744[] = {
+CONST_DATA struct REDA REDA_Ch16A_14[] = {
     {
         .x = 5,
         .y = 3,
@@ -23848,7 +23848,7 @@ CONST_DATA struct REDA REDA_088BD744[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088BD74C[] = {
+CONST_DATA struct REDA REDA_Ch16A_15[] = {
     {
         .x = 4,
         .y = 3,
@@ -23856,7 +23856,7 @@ CONST_DATA struct REDA REDA_088BD74C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD754[] = {
+CONST_DATA struct REDA REDA_Ch16A_16[] = {
     {
         .x = 4,
         .y = 0,
@@ -23864,14 +23864,14 @@ CONST_DATA struct REDA REDA_088BD754[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD75C[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_0_1[] = {
     {
         .x = 4,
         .y = 4,
         .a = 0x6d,
     },
 };
-CONST_DATA struct REDA REDA_088BD764[] = {
+CONST_DATA struct REDA REDA_Ch16A_17[] = {
     {
         .x = 4,
         .y = 1,
@@ -23880,7 +23880,7 @@ CONST_DATA struct REDA REDA_088BD764[] = {
         .b = 0x3,
     },
 };
-CONST_DATA struct REDA REDA_088BD76C[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_8_0[] = {
     {
         .x = 7,
         .y = 10,
@@ -23888,14 +23888,14 @@ CONST_DATA struct REDA REDA_088BD76C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD774[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_8_1[] = {
     {
         .x = 6,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD77C[] = {
+CONST_DATA struct REDA REDA_Ch16A_18[] = {
     {
         .x = 7,
         .y = 9,
@@ -23904,14 +23904,14 @@ CONST_DATA struct REDA REDA_088BD77C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD784[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_8_2[] = {
     {
         .x = 9,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD78C[] = {
+CONST_DATA struct REDA REDA_Ch16A_19[] = {
     {
         .x = 8,
         .y = 9,
@@ -23920,7 +23920,7 @@ CONST_DATA struct REDA REDA_088BD78C[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088BD794[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_9_RIEV[] = {
     {
         .x = 8,
         .y = 8,
@@ -23928,14 +23928,14 @@ CONST_DATA struct REDA REDA_088BD794[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD79C[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_9_LYON[] = {
     {
         .x = 7,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7A4[] = {
+CONST_DATA struct REDA REDA_Ch16A_20[] = {
     {
         .x = 7,
         .y = 9,
@@ -23944,7 +23944,7 @@ CONST_DATA struct REDA REDA_088BD7A4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7AC[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_10_LYON[] = {
     {
         .x = 7,
         .y = 3,
@@ -23952,7 +23952,7 @@ CONST_DATA struct REDA REDA_088BD7AC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7B4[] = {
+CONST_DATA struct REDA REDA_Ch16A_21[] = {
     {
         .x = 4,
         .y = 3,
@@ -23960,7 +23960,7 @@ CONST_DATA struct REDA REDA_088BD7B4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7BC[] = {
+CONST_DATA struct REDA REDA_Ch16A_22[] = {
     {
         .x = 4,
         .y = 0,
@@ -23968,7 +23968,7 @@ CONST_DATA struct REDA REDA_088BD7BC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7C4[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_10_RIEV[] = {
     {
         .x = 8,
         .y = 3,
@@ -23976,7 +23976,7 @@ CONST_DATA struct REDA REDA_088BD7C4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7CC[] = {
+CONST_DATA struct REDA REDA_Ch16A_23[] = {
     {
         .x = 4,
         .y = 3,
@@ -23984,7 +23984,7 @@ CONST_DATA struct REDA REDA_088BD7CC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7D4[] = {
+CONST_DATA struct REDA REDA_Ch16A_24[] = {
     {
         .x = 4,
         .y = 1,
@@ -23992,7 +23992,7 @@ CONST_DATA struct REDA REDA_088BD7D4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7DC[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_11_LYON[] = {
     {
         .x = 4,
         .y = 4,
@@ -24000,7 +24000,7 @@ CONST_DATA struct REDA REDA_088BD7DC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7E4[] = {
+CONST_DATA struct REDA REDA_Ch16A_25[] = {
     {
         .x = 8,
         .y = 4,
@@ -24008,7 +24008,7 @@ CONST_DATA struct REDA REDA_088BD7E4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD7EC[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_11_RIEV[] = {
     {
         .x = 4,
         .y = 4,
@@ -24017,7 +24017,7 @@ CONST_DATA struct REDA REDA_088BD7EC[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BD7F4[] = {
+CONST_DATA struct REDA REDA_Ch16A_26[] = {
     {
         .x = 7,
         .y = 4,
@@ -24027,12 +24027,12 @@ CONST_DATA struct REDA REDA_088BD7F4[] = {
 };
 
 // 0x88BD7FC
-CONST_DATA struct UnitDefinition UnitDef_088BD7FC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits_2[] = {
     { 0 },
 };
 
 // 0x88BD810
-CONST_DATA struct UnitDefinition UnitDef_088BD810[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -24053,7 +24053,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD810[] = {
 };
 
 // 0x88BD84C
-CONST_DATA struct UnitDefinition UnitDef_088BD84C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_7[] = {
     {
         .charIndex = CHARACTER_ORSON,
         .classIndex = CLASS_PALADIN,
@@ -24062,13 +24062,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD84C[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088BD724,
+        .redas = REDA_Ch16AAlly_7_ORSON,
     },
     { 0 },
 };
 
 // 0x88BD874
-CONST_DATA struct UnitDefinition UnitDef_088BD874[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AMixed_0[] = {
     {
         .charIndex = CHARACTER_ORSON,
         .classIndex = CLASS_PALADIN,
@@ -24077,7 +24077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD874[] = {
         .xPosition = 7,
         .yPosition = 6,
         .redaCount = 5,
-        .redas = REDA_088BD734,
+        .redas = REDA_Ch16AMixed_0_0,
     },
     {
         .charIndex = 0xfb,
@@ -24088,13 +24088,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD874[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088BD75C,
+        .redas = REDA_Ch16AMixed_0_1,
     },
     { 0 },
 };
 
 // 0x88BD8B0
-CONST_DATA struct UnitDefinition UnitDef_088BD8B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_8[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -24103,7 +24103,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD8B0[] = {
         .xPosition = 7,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BD76C,
+        .redas = REDA_Ch16AAlly_8_0,
     },
     {
         .charIndex = CHARACTER_RIEV,
@@ -24121,7 +24121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD8B0[] = {
         .xPosition = 6,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088BD774,
+        .redas = REDA_Ch16AAlly_8_1,
     },
     {
         .charIndex = 0x81,
@@ -24131,13 +24131,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD8B0[] = {
         .xPosition = 9,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088BD784,
+        .redas = REDA_Ch16AAlly_8_2,
     },
     { 0 },
 };
 
 // 0x88BD914
-CONST_DATA struct UnitDefinition UnitDef_088BD914[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_9[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -24146,7 +24146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD914[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BD794,
+        .redas = REDA_Ch16AAlly_9_RIEV,
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -24156,13 +24156,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD914[] = {
         .xPosition = 7,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088BD79C,
+        .redas = REDA_Ch16AAlly_9_LYON,
     },
     { 0 },
 };
 
 // 0x88BD950
-CONST_DATA struct UnitDefinition UnitDef_088BD950[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_10[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -24171,7 +24171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD950[] = {
         .xPosition = 7,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088BD7AC,
+        .redas = REDA_Ch16AAlly_10_LYON,
     },
     {
         .charIndex = CHARACTER_RIEV,
@@ -24181,13 +24181,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BD950[] = {
         .xPosition = 8,
         .yPosition = 6,
         .redaCount = 3,
-        .redas = REDA_088BD7C4,
+        .redas = REDA_Ch16AAlly_10_RIEV,
     },
     { 0 },
 };
 
 // 0x88BD98C
-CONST_DATA struct UnitDefinition UnitDef_088BD98C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_11[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -24196,7 +24196,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BD98C[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088BD7DC,
+        .redas = REDA_Ch16AAlly_11_LYON,
     },
     {
         .charIndex = CHARACTER_RIEV,
@@ -24206,12 +24206,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BD98C[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088BD7EC,
+        .redas = REDA_Ch16AAlly_11_RIEV,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BD9C8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_12_SETH[] = {
     {
         .x = 7,
         .y = 8,
@@ -24219,7 +24219,7 @@ CONST_DATA struct REDA REDA_088BD9C8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD9D0[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_1_0[] = {
     {
         .x = 6,
         .y = 6,
@@ -24227,7 +24227,7 @@ CONST_DATA struct REDA REDA_088BD9D0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD9D8[] = {
+CONST_DATA struct REDA REDA_Ch16A_27[] = {
     {
         .x = 7,
         .y = 6,
@@ -24236,7 +24236,7 @@ CONST_DATA struct REDA REDA_088BD9D8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD9E0[] = {
+CONST_DATA struct REDA REDA_Ch16A_28[] = {
     {
         .x = 7,
         .y = 4,
@@ -24244,7 +24244,7 @@ CONST_DATA struct REDA REDA_088BD9E0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BD9E8[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_1_1[] = {
     {
         .x = 7,
         .y = 3,
@@ -24252,7 +24252,7 @@ CONST_DATA struct REDA REDA_088BD9E8[] = {
         .a = 0x2,
     },
 };
-CONST_DATA struct REDA REDA_088BD9F0[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_1_2[] = {
     {
         .x = 8,
         .y = 3,
@@ -24260,7 +24260,7 @@ CONST_DATA struct REDA REDA_088BD9F0[] = {
         .a = 0x2,
     },
 };
-CONST_DATA struct REDA REDA_088BD9F8[] = {
+CONST_DATA struct REDA REDA_Ch16AMixed_1_3[] = {
     {
         .x = 4,
         .y = 3,
@@ -24268,7 +24268,7 @@ CONST_DATA struct REDA REDA_088BD9F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDA00[] = {
+CONST_DATA struct REDA REDA_Ch16A_29[] = {
     {
         .x = 6,
         .y = 3,
@@ -24277,7 +24277,7 @@ CONST_DATA struct REDA REDA_088BDA00[] = {
 };
 
 // 0x88BDA08
-CONST_DATA struct UnitDefinition UnitDef_088BDA08[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_12[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -24286,18 +24286,18 @@ CONST_DATA struct UnitDefinition UnitDef_088BDA08[] = {
         .xPosition = 7,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BD9C8,
+        .redas = REDA_Ch16AAlly_12_SETH,
     },
     { 0 },
 };
 
 // 0x88BDA30
-CONST_DATA struct UnitDefinition UnitDef_088BDA30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits_3[] = {
     { 0 },
 };
 
 // 0x88BDA44
-CONST_DATA struct UnitDefinition UnitDef_088BDA44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AMixed_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -24306,7 +24306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDA44[] = {
         .xPosition = 7,
         .yPosition = 8,
         .redaCount = 3,
-        .redas = REDA_088BD9D0,
+        .redas = REDA_Ch16AMixed_1_0,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -24316,7 +24316,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDA44[] = {
         .xPosition = 7,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BD9E8,
+        .redas = REDA_Ch16AMixed_1_1,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -24326,7 +24326,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDA44[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BD9F0,
+        .redas = REDA_Ch16AMixed_1_2,
     },
     {
         .charIndex = 0xfb,
@@ -24337,12 +24337,12 @@ CONST_DATA struct UnitDefinition UnitDef_088BDA44[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088BD9F8,
+        .redas = REDA_Ch16AMixed_1_3,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BDAA8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_13_EPHRAIM[] = {
     {
         .x = 11,
         .y = 5,
@@ -24350,7 +24350,7 @@ CONST_DATA struct REDA REDA_088BDAA8[] = {
         .a = 0x2,
     },
 };
-CONST_DATA struct REDA REDA_088BDAB0[] = {
+CONST_DATA struct REDA REDA_Ch16A_30[] = {
     {
         .x = 4,
         .y = 5,
@@ -24358,7 +24358,7 @@ CONST_DATA struct REDA REDA_088BDAB0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAB8[] = {
+CONST_DATA struct REDA REDA_Ch16A_31[] = {
     {
         .x = 4,
         .y = 6,
@@ -24366,7 +24366,7 @@ CONST_DATA struct REDA REDA_088BDAB8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAC0[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_13_EIRIKA[] = {
     {
         .x = 11,
         .y = 5,
@@ -24375,7 +24375,7 @@ CONST_DATA struct REDA REDA_088BDAC0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BDAC8[] = {
+CONST_DATA struct REDA REDA_Ch16A_32[] = {
     {
         .x = 6,
         .y = 5,
@@ -24383,7 +24383,7 @@ CONST_DATA struct REDA REDA_088BDAC8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAD0[] = {
+CONST_DATA struct REDA REDA_Ch16A_33[] = {
     {
         .x = 6,
         .y = 6,
@@ -24391,7 +24391,7 @@ CONST_DATA struct REDA REDA_088BDAD0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAD8[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_13_SETH[] = {
     {
         .x = 11,
         .y = 2,
@@ -24399,7 +24399,7 @@ CONST_DATA struct REDA REDA_088BDAD8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAE0[] = {
+CONST_DATA struct REDA REDA_Ch16A_34[] = {
     {
         .x = 11,
         .y = 5,
@@ -24407,7 +24407,7 @@ CONST_DATA struct REDA REDA_088BDAE0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAE8[] = {
+CONST_DATA struct REDA REDA_Ch16A_35[] = {
     {
         .x = 12,
         .y = 5,
@@ -24415,7 +24415,7 @@ CONST_DATA struct REDA REDA_088BDAE8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDAF0[] = {
+CONST_DATA struct REDA REDA_Ch16A_36[] = {
     {
         .x = 8,
         .y = 5,
@@ -24426,7 +24426,7 @@ CONST_DATA struct REDA REDA_088BDAF0[] = {
 };
 
 // 0x88BDAF8
-CONST_DATA struct UnitDefinition UnitDef_088BDAF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_13[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -24435,7 +24435,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDAF8[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 3,
-        .redas = REDA_088BDAA8,
+        .redas = REDA_Ch16AAlly_13_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -24445,7 +24445,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDAF8[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 3,
-        .redas = REDA_088BDAC0,
+        .redas = REDA_Ch16AAlly_13_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -24455,18 +24455,18 @@ CONST_DATA struct UnitDefinition UnitDef_088BDAF8[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 4,
-        .redas = REDA_088BDAD8,
+        .redas = REDA_Ch16AAlly_13_SETH,
     },
     { 0 },
 };
 
 // 0x88BDB48
-CONST_DATA struct UnitDefinition UnitDef_088BDB48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits_4[] = {
     { 0 },
 };
 
 // 0x88BDB5C
-CONST_DATA struct UnitDefinition UnitDef_088BDB5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_14[] = {
     {
         .charIndex = CHARACTER_FORDE,
         .classIndex = CLASS_CAVALIER,
@@ -24494,7 +24494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDB5C[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BDBAC[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_15_EPHRAIM[] = {
     {
         .x = 7,
         .y = 5,
@@ -24502,7 +24502,7 @@ CONST_DATA struct REDA REDA_088BDBAC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBB4[] = {
+CONST_DATA struct REDA REDA_Ch16A_37[] = {
     {
         .x = 7,
         .y = 3,
@@ -24511,7 +24511,7 @@ CONST_DATA struct REDA REDA_088BDBB4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBBC[] = {
+CONST_DATA struct REDA REDA_Ch16A_38[] = {
     {
         .x = 7,
         .y = 5,
@@ -24520,7 +24520,7 @@ CONST_DATA struct REDA REDA_088BDBBC[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088BDBC4[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_15_EIRIKA[] = {
     {
         .x = 7,
         .y = 6,
@@ -24529,7 +24529,7 @@ CONST_DATA struct REDA REDA_088BDBC4[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BDBCC[] = {
+CONST_DATA struct REDA REDA_Ch16A_39[] = {
     {
         .x = 8,
         .y = 6,
@@ -24537,7 +24537,7 @@ CONST_DATA struct REDA REDA_088BDBCC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBD4[] = {
+CONST_DATA struct REDA REDA_Ch16A_40[] = {
     {
         .x = 8,
         .y = 5,
@@ -24545,7 +24545,7 @@ CONST_DATA struct REDA REDA_088BDBD4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBDC[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_15_SETH[] = {
     {
         .x = 7,
         .y = 7,
@@ -24554,7 +24554,7 @@ CONST_DATA struct REDA REDA_088BDBDC[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BDBE4[] = {
+CONST_DATA struct REDA REDA_Ch16A_41[] = {
     {
         .x = 6,
         .y = 7,
@@ -24562,7 +24562,7 @@ CONST_DATA struct REDA REDA_088BDBE4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBEC[] = {
+CONST_DATA struct REDA REDA_Ch16A_42[] = {
     {
         .x = 6,
         .y = 6,
@@ -24570,7 +24570,7 @@ CONST_DATA struct REDA REDA_088BDBEC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBF4[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_16_SETH[] = {
     {
         .x = 6,
         .y = 4,
@@ -24578,7 +24578,7 @@ CONST_DATA struct REDA REDA_088BDBF4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDBFC[] = {
+CONST_DATA struct REDA REDA_Ch16A_43[] = {
     {
         .x = 5,
         .y = 4,
@@ -24586,7 +24586,7 @@ CONST_DATA struct REDA REDA_088BDBFC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDC04[] = {
+CONST_DATA struct REDA REDA_Ch16A_44[] = {
     {
         .x = 5,
         .y = 3,
@@ -24594,7 +24594,7 @@ CONST_DATA struct REDA REDA_088BDC04[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDC0C[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_17_SETH[] = {
     {
         .x = 9,
         .y = 3,
@@ -24602,7 +24602,7 @@ CONST_DATA struct REDA REDA_088BDC0C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDC14[] = {
+CONST_DATA struct REDA REDA_Ch16AAlly_18_SETH[] = {
     {
         .x = 9,
         .y = 4,
@@ -24610,7 +24610,7 @@ CONST_DATA struct REDA REDA_088BDC14[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDC1C[] = {
+CONST_DATA struct REDA REDA_Ch16A_45[] = {
     {
         .x = 7,
         .y = 4,
@@ -24620,7 +24620,7 @@ CONST_DATA struct REDA REDA_088BDC1C[] = {
 };
 
 // 0x88BDC24
-CONST_DATA struct UnitDefinition UnitDef_088BDC24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_15[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -24629,7 +24629,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDC24[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 3,
-        .redas = REDA_088BDBAC,
+        .redas = REDA_Ch16AAlly_15_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -24639,7 +24639,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDC24[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 3,
-        .redas = REDA_088BDBC4,
+        .redas = REDA_Ch16AAlly_15_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -24649,18 +24649,18 @@ CONST_DATA struct UnitDefinition UnitDef_088BDC24[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 3,
-        .redas = REDA_088BDBDC,
+        .redas = REDA_Ch16AAlly_15_SETH,
     },
     { 0 },
 };
 
 // 0x88BDC74
-CONST_DATA struct UnitDefinition UnitDef_088BDC74[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AUnits_5[] = {
     { 0 },
 };
 
 // 0x88BDC88
-CONST_DATA struct UnitDefinition UnitDef_088BDC88[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_16[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -24669,13 +24669,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BDC88[] = {
         .xPosition = 6,
         .yPosition = 6,
         .redaCount = 3,
-        .redas = REDA_088BDBF4,
+        .redas = REDA_Ch16AAlly_16_SETH,
     },
     { 0 },
 };
 
 // 0x88BDCB0
-CONST_DATA struct UnitDefinition UnitDef_088BDCB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_17[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -24684,13 +24684,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BDCB0[] = {
         .xPosition = 5,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088BDC0C,
+        .redas = REDA_Ch16AAlly_17_SETH,
     },
     { 0 },
 };
 
 // 0x88BDCD8
-CONST_DATA struct UnitDefinition UnitDef_088BDCD8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16AAlly_18[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -24699,26 +24699,26 @@ CONST_DATA struct UnitDefinition UnitDef_088BDCD8[] = {
         .xPosition = 9,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088BDC14,
+        .redas = REDA_Ch16AAlly_18_SETH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BDD00[] = {
+CONST_DATA struct REDA REDA_Ch17ANPC_0[] = {
     {
         .x = 13,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD08[] = {
+CONST_DATA struct REDA REDA_Ch17A_0[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD10[] = {
+CONST_DATA struct REDA REDA_Ch17A_1[] = {
     {
         .x = 13,
         .y = 7,
@@ -24727,7 +24727,7 @@ CONST_DATA struct REDA REDA_088BDD10[] = {
         .delayFrames = 60,
     },
 };
-CONST_DATA struct REDA REDA_088BDD18[] = {
+CONST_DATA struct REDA REDA_Ch17ANPC_1[] = {
     {
         .x = 16,
         .y = 8,
@@ -24735,7 +24735,7 @@ CONST_DATA struct REDA REDA_088BDD18[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088BDD20[] = {
+CONST_DATA struct REDA REDA_Ch17A_2[] = {
     {
         .x = 14,
         .y = 8,
@@ -24744,21 +24744,21 @@ CONST_DATA struct REDA REDA_088BDD20[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BDD28[] = {
+CONST_DATA struct REDA REDA_Ch17ANPC_2[] = {
     {
         .x = 12,
         .y = 9,
         .a = 0x21,
     },
 };
-CONST_DATA struct REDA REDA_088BDD30[] = {
+CONST_DATA struct REDA REDA_Ch17ANPC_3[] = {
     {
         .x = 11,
         .y = 10,
         .a = 0x21,
     },
 };
-CONST_DATA struct REDA REDA_088BDD38[] = {
+CONST_DATA struct REDA REDA_Ch17ANPC_4[] = {
     {
         .x = 12,
         .y = 12,
@@ -24766,161 +24766,161 @@ CONST_DATA struct REDA REDA_088BDD38[] = {
         .a = 0x21,
     },
 };
-CONST_DATA struct REDA REDA_088BDD40[] = {
+CONST_DATA struct REDA REDA_Ch17AEnemy_1_0[] = {
     {
         .x = 19,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD48[] = {
+CONST_DATA struct REDA REDA_Ch17AEnemy_1_1[] = {
     {
         .x = 21,
         .y = 7,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088BDD50[] = {
+CONST_DATA struct REDA REDA_Ch17AEnemy_1_2[] = {
     {
         .x = 20,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD58[] = {
+CONST_DATA struct REDA REDA_Ch17AEnemy_3_0[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD60[] = {
+CONST_DATA struct REDA REDA_Ch17AEnemy_3_1[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD68[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_0[] = {
     {
         .x = 3,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD70[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_1[] = {
     {
         .x = 4,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD78[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_2[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDD80[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_3[] = {
     {
         .x = 6,
         .y = 8,
         .a = 0x86,
     },
 };
-CONST_DATA struct REDA REDA_088BDD88[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_4[] = {
     {
         .x = 6,
         .y = 9,
         .a = 0xc0,
     },
 };
-CONST_DATA struct REDA REDA_088BDD90[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_5[] = {
     {
         .x = 1,
         .y = 9,
         .a = 0x86,
     },
 };
-CONST_DATA struct REDA REDA_088BDD98[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_6[] = {
     {
         .x = 3,
         .y = 10,
         .a = 0xc0,
     },
 };
-CONST_DATA struct REDA REDA_088BDDA0[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_0_7[] = {
     {
         .x = 2,
         .y = 10,
         .a = 0x86,
     },
 };
-CONST_DATA struct REDA REDA_088BDDA8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_1_0[] = {
     {
         .x = 12,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDB0[] = {
+CONST_DATA struct REDA REDA_Ch17A_3[] = {
     {
         .x = 12,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDB8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_1_1[] = {
     {
         .x = 13,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDC0[] = {
+CONST_DATA struct REDA REDA_Ch17A_4[] = {
     {
         .x = 12,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDC8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_1_2[] = {
     {
         .x = 10,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDD0[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_1_3[] = {
     {
         .x = 11,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDD8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_0[] = {
     {
         .x = 20,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDE0[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_1[] = {
     {
         .x = 19,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDE8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_2[] = {
     {
         .x = 21,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDF0[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_3[] = {
     {
         .x = 20,
         .y = 8,
@@ -24928,7 +24928,7 @@ CONST_DATA struct REDA REDA_088BDDF0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDDF8[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_4[] = {
     {
         .x = 22,
         .y = 7,
@@ -24936,7 +24936,7 @@ CONST_DATA struct REDA REDA_088BDDF8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE00[] = {
+CONST_DATA struct REDA REDA_Ch17AMixed_2_5[] = {
     {
         .x = 18,
         .y = 8,
@@ -24944,14 +24944,14 @@ CONST_DATA struct REDA REDA_088BDE00[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE08[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_1_INNES[] = {
     {
         .x = 6,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE10[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_1_EIRIKA[] = {
     {
         .x = 7,
         .y = 16,
@@ -24959,35 +24959,35 @@ CONST_DATA struct REDA REDA_088BDE10[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE18[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_1_EPHRAIM[] = {
     {
         .x = 8,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE20[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_1_LARACHEL[] = {
     {
         .x = 7,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE28[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_1_MYRRH[] = {
     {
         .x = 9,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE30[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_2_EPHRAIM[] = {
     {
         .x = 12,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE38[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_2_EIRIKA[] = {
     {
         .x = 13,
         .y = 8,
@@ -24995,7 +24995,7 @@ CONST_DATA struct REDA REDA_088BDE38[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BDE40[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_2_INNES[] = {
     {
         .x = 14,
         .y = 7,
@@ -25003,7 +25003,7 @@ CONST_DATA struct REDA REDA_088BDE40[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BDE48[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_2_LARACHEL[] = {
     {
         .x = 12,
         .y = 7,
@@ -25011,7 +25011,7 @@ CONST_DATA struct REDA REDA_088BDE48[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BDE50[] = {
+CONST_DATA struct REDA REDA_Ch17AAlly_2_MYRRH[] = {
     {
         .x = 15,
         .y = 7,
@@ -25021,7 +25021,7 @@ CONST_DATA struct REDA REDA_088BDE50[] = {
 };
 
 // 0x88BDE58
-CONST_DATA struct UnitDefinition UnitDef_088BDE58[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -25182,7 +25182,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDE58[] = {
 };
 
 // 0x88BDF5C
-CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_0[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_FIGHTER,
@@ -25519,7 +25519,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BDF5C[] = {
 };
 
 // 0x88BE164
-CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17ANPC[] = {
     {
         .charIndex = CHARACTER_SYRENE,
         .classIndex = CLASS_FALCON_KNIGHT,
@@ -25528,7 +25528,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088BDD00,
+        .redas = REDA_Ch17ANPC_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_LANCE_JAVELIN,
@@ -25543,7 +25543,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088BDD18,
+        .redas = REDA_Ch17ANPC_1,
         .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
@@ -25554,7 +25554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BDD28,
+        .redas = REDA_Ch17ANPC_2,
         .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
@@ -25565,7 +25565,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BDD30,
+        .redas = REDA_Ch17ANPC_3,
         .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     {
@@ -25576,14 +25576,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BE164[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BDD38,
+        .redas = REDA_Ch17ANPC_4,
         .ai = {AttackInRangeAI, 0x0, 0x0},
     },
     { 0 },
 };
 
 // 0x88BE1DC
-CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_DRUID,
@@ -25593,7 +25593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDD40,
+        .redas = REDA_Ch17AEnemy_1_0,
         .items = {
             ITEM_DARK_NOSFERATU,
         },
@@ -25608,7 +25608,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDD48,
+        .redas = REDA_Ch17AEnemy_1_1,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -25623,7 +25623,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDD50,
+        .redas = REDA_Ch17AEnemy_1_2,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -25633,7 +25633,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE1DC[] = {
 };
 
 // 0x88BE22C
-CONST_DATA struct UnitDefinition UnitDef_088BE22C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -25664,7 +25664,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE22C[] = {
 };
 
 // 0x88BE268
-CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_3[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -25674,7 +25674,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BDD58,
+        .redas = REDA_Ch17AEnemy_3_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -25689,7 +25689,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BDD60,
+        .redas = REDA_Ch17AEnemy_3_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -25699,7 +25699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE268[] = {
 };
 
 // 0x88BE2A4
-CONST_DATA struct UnitDefinition UnitDef_088BE2A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_CAVALIER,
@@ -25730,7 +25730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2A4[] = {
 };
 
 // 0x88BE2E0
-CONST_DATA struct UnitDefinition UnitDef_088BE2E0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_5[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_PALADIN,
@@ -25761,7 +25761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE2E0[] = {
 };
 
 // 0x88BE31C
-CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AMixed_0[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -25771,7 +25771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 0,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088BDD68,
+        .redas = REDA_Ch17AMixed_0_0,
         .items = {
             ITEM_LANCE_SILVER,
         },
@@ -25786,7 +25786,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 4,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088BDD70,
+        .redas = REDA_Ch17AMixed_0_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -25800,7 +25800,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 3,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088BDD78,
+        .redas = REDA_Ch17AMixed_0_2,
     },
     {
         .charIndex = 0x8f,
@@ -25811,7 +25811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 0,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088BDD80,
+        .redas = REDA_Ch17AMixed_0_3,
         .ai = {0x0, 0x12, 0xa, 0x0},
     },
     {
@@ -25823,7 +25823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 4,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088BDD88,
+        .redas = REDA_Ch17AMixed_0_4,
     },
     {
         .charIndex = 0x8f,
@@ -25834,7 +25834,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088BDD90,
+        .redas = REDA_Ch17AMixed_0_5,
         .ai = {0x0, 0x12, 0xa, 0x0},
     },
     {
@@ -25846,7 +25846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 3,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088BDD98,
+        .redas = REDA_Ch17AMixed_0_6,
     },
     {
         .charIndex = 0x8f,
@@ -25857,14 +25857,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BE31C[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BDDA0,
+        .redas = REDA_Ch17AMixed_0_7,
         .ai = {0x0, 0x12, 0xa, 0x0},
     },
     { 0 },
 };
 
 // 0x88BE3D0
-CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AMixed_1[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_FALCON_KNIGHT,
@@ -25874,7 +25874,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .xPosition = 10,
         .yPosition = 16,
         .redaCount = 2,
-        .redas = REDA_088BDDA8,
+        .redas = REDA_Ch17AMixed_1_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -25889,7 +25889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 2,
-        .redas = REDA_088BDDB8,
+        .redas = REDA_Ch17AMixed_1_1,
         .items = {
             ITEM_ANIMA_FIMBULVETR,
         },
@@ -25904,7 +25904,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .xPosition = 5,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088BDDC8,
+        .redas = REDA_Ch17AMixed_1_2,
     },
     {
         .charIndex = 0x8f,
@@ -25915,14 +25915,14 @@ CONST_DATA struct UnitDefinition UnitDef_088BE3D0[] = {
         .xPosition = 13,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088BDDD0,
+        .redas = REDA_Ch17AMixed_1_3,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88BE434
-CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AMixed_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_DRUID,
@@ -25932,7 +25932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDDD8,
+        .redas = REDA_Ch17AMixed_2_0,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -25947,7 +25947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDDE0,
+        .redas = REDA_Ch17AMixed_2_1,
         .ai = {DefaultAI, 0x9, 0x0},
     },
     {
@@ -25959,7 +25959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088BDDE8,
+        .redas = REDA_Ch17AMixed_2_2,
         .ai = {DefaultAI, 0x9, 0x0},
     },
     {
@@ -25971,7 +25971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 21,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088BDDF0,
+        .redas = REDA_Ch17AMixed_2_3,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -25985,7 +25985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 22,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088BDDF8,
+        .redas = REDA_Ch17AMixed_2_4,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -25999,7 +25999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
         .xPosition = 18,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088BDE00,
+        .redas = REDA_Ch17AMixed_2_5,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -26008,7 +26008,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE434[] = {
 };
 
 // 0x88BE4C0
-CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_1[] = {
     {
         .charIndex = CHARACTER_INNES,
         .classIndex = CLASS_SNIPER,
@@ -26017,7 +26017,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
         .xPosition = 6,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BDE08,
+        .redas = REDA_Ch17AAlly_1_INNES,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -26027,7 +26027,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
         .xPosition = 7,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BDE10,
+        .redas = REDA_Ch17AAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -26037,7 +26037,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
         .xPosition = 8,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BDE18,
+        .redas = REDA_Ch17AAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -26047,7 +26047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
         .xPosition = 7,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088BDE20,
+        .redas = REDA_Ch17AAlly_1_LARACHEL,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -26058,13 +26058,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BE4C0[] = {
         .yPosition = 20,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE28,
+        .redas = REDA_Ch17AAlly_1_MYRRH,
     },
     { 0 },
 };
 
 // 0x88BE538
-CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -26074,7 +26074,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE30,
+        .redas = REDA_Ch17AAlly_2_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -26085,7 +26085,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE38,
+        .redas = REDA_Ch17AAlly_2_EIRIKA,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -26096,7 +26096,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE40,
+        .redas = REDA_Ch17AAlly_2_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -26107,7 +26107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE48,
+        .redas = REDA_Ch17AAlly_2_LARACHEL,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -26118,13 +26118,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BE538[] = {
         .yPosition = 5,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088BDE50,
+        .redas = REDA_Ch17AAlly_2_MYRRH,
     },
     { 0 },
 };
 
 // 0x88BE5B0
-CONST_DATA struct UnitDefinition UnitDef_088BE5B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -26246,7 +26246,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE5B0[] = {
 };
 
 // 0x88BE678
-CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_6[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -26604,7 +26604,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE678[] = {
 };
 
 // 0x88BE8D0
-CONST_DATA struct UnitDefinition UnitDef_088BE8D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -26726,7 +26726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE8D0[] = {
 };
 
 // 0x88BE998
-CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_7[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -27082,7 +27082,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BE998[] = {
 };
 
 // 0x88BEBF0
-CONST_DATA struct UnitDefinition UnitDef_088BEBF0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AAlly_5[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -27204,7 +27204,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BEBF0[] = {
 };
 
 // 0x88BECB8
-CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17AEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ELDER_BAEL,
@@ -27559,7 +27559,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BECB8[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088BEF10[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_FRELIAN[] = {
     {
         .x = 5,
         .y = 22,
@@ -27567,7 +27567,7 @@ CONST_DATA struct REDA REDA_088BEF10[] = {
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088BEF18[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_EPHRAIM[] = {
     {
         .x = 4,
         .y = 22,
@@ -27576,7 +27576,7 @@ CONST_DATA struct REDA REDA_088BEF18[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BEF20[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_EIRIKA[] = {
     {
         .x = 4,
         .y = 23,
@@ -27585,7 +27585,7 @@ CONST_DATA struct REDA REDA_088BEF20[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BEF28[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_MYRRH[] = {
     {
         .x = 3,
         .y = 22,
@@ -27594,7 +27594,7 @@ CONST_DATA struct REDA REDA_088BEF28[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BEF30[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_INNES[] = {
     {
         .x = 2,
         .y = 23,
@@ -27602,7 +27602,7 @@ CONST_DATA struct REDA REDA_088BEF30[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF38[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_LARACHEL[] = {
     {
         .x = 2,
         .y = 24,
@@ -27610,7 +27610,7 @@ CONST_DATA struct REDA REDA_088BEF38[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF40[] = {
+CONST_DATA struct REDA REDA_Ch18AMixed_SETH[] = {
     {
         .x = 1,
         .y = 22,
@@ -27619,56 +27619,56 @@ CONST_DATA struct REDA REDA_088BEF40[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088BEF48[] = {
+CONST_DATA struct REDA REDA_Ch18AAlly_2_EPHRAIM[] = {
     {
         .x = 18,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF50[] = {
+CONST_DATA struct REDA REDA_Ch18A_0[] = {
     {
         .x = 17,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF58[] = {
+CONST_DATA struct REDA REDA_Ch18A_1[] = {
     {
         .x = 17,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF60[] = {
+CONST_DATA struct REDA REDA_Ch18AAlly_2_SETH[] = {
     {
         .x = 18,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF68[] = {
+CONST_DATA struct REDA REDA_Ch18A_2[] = {
     {
         .x = 16,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF70[] = {
+CONST_DATA struct REDA REDA_Ch18A_3[] = {
     {
         .x = 16,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF78[] = {
+CONST_DATA struct REDA REDA_Ch18A_4[] = {
     {
         .x = 15,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF80[] = {
+CONST_DATA struct REDA REDA_Ch18AAlly_2_INNES[] = {
     {
         .x = 16,
         .y = 6,
@@ -27677,7 +27677,7 @@ CONST_DATA struct REDA REDA_088BEF80[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088BEF88[] = {
+CONST_DATA struct REDA REDA_Ch18AAlly_2_LARACHEL[] = {
     {
         .x = 18,
         .y = 7,
@@ -27685,7 +27685,7 @@ CONST_DATA struct REDA REDA_088BEF88[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088BEF90[] = {
+CONST_DATA struct REDA REDA_Ch18AAlly_2_MYRRH[] = {
     {
         .x = 19,
         .y = 8,
@@ -27693,70 +27693,70 @@ CONST_DATA struct REDA REDA_088BEF90[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEF98[] = {
+CONST_DATA struct REDA REDA_Ch18A_5[] = {
     {
         .x = 21,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFA0[] = {
+CONST_DATA struct REDA REDA_Ch18A_6[] = {
     {
         .x = 21,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFA8[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_2_0[] = {
     {
         .x = 18,
         .y = 25,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFB0[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_2_1[] = {
     {
         .x = 19,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFB8[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_4_0[] = {
     {
         .x = 14,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFC0[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_4_1[] = {
     {
         .x = 15,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFC8[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_4_2[] = {
     {
         .x = 16,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFD0[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_6_0[] = {
     {
         .x = 11,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFD8[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_6_1[] = {
     {
         .x = 12,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088BEFE0[] = {
+CONST_DATA struct REDA REDA_Ch18AEnemy_7_0[] = {
     {
         .x = 4,
         .y = 2,
@@ -27765,7 +27765,7 @@ CONST_DATA struct REDA REDA_088BEFE0[] = {
 };
 
 // 0x88BEFE8
-CONST_DATA struct UnitDefinition UnitDef_088BEFE8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -27926,7 +27926,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BEFE8[] = {
 };
 
 // 0x88BF0EC
-CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_0[] = {
     {
         .charIndex = CHARACTER_GORGON_CHUnk,
         .classIndex = CLASS_GORGON,
@@ -28336,7 +28336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF0EC[] = {
 };
 
 // 0x88BF330
-CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AMixed[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
@@ -28346,7 +28346,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BEF10,
+        .redas = REDA_Ch18AMixed_FRELIAN,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -28356,7 +28356,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BEF18,
+        .redas = REDA_Ch18AMixed_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -28366,7 +28366,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088BEF20,
+        .redas = REDA_Ch18AMixed_EIRIKA,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -28376,7 +28376,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BEF28,
+        .redas = REDA_Ch18AMixed_MYRRH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -28386,7 +28386,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088BEF30,
+        .redas = REDA_Ch18AMixed_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -28396,7 +28396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088BEF38,
+        .redas = REDA_Ch18AMixed_LARACHEL,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -28406,13 +28406,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BF330[] = {
         .xPosition = 0,
         .yPosition = 22,
         .redaCount = 1,
-        .redas = REDA_088BEF40,
+        .redas = REDA_Ch18AMixed_SETH,
     },
     { 0 },
 };
 
 // 0x88BF3D0
-CONST_DATA struct UnitDefinition UnitDef_088BF3D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -28471,7 +28471,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF3D0[] = {
 };
 
 // 0x88BF45C
-CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -28480,7 +28480,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 3,
-        .redas = REDA_088BEF48,
+        .redas = REDA_Ch18AAlly_2_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -28491,7 +28491,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
         .xPosition = 18,
         .yPosition = 11,
         .redaCount = 4,
-        .redas = REDA_088BEF60,
+        .redas = REDA_Ch18AAlly_2_SETH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -28502,7 +28502,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BEF80,
+        .redas = REDA_Ch18AAlly_2_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -28513,7 +28513,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
         .xPosition = 17,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088BEF88,
+        .redas = REDA_Ch18AAlly_2_LARACHEL,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -28523,13 +28523,13 @@ CONST_DATA struct UnitDefinition UnitDef_088BF45C[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 3,
-        .redas = REDA_088BEF90,
+        .redas = REDA_Ch18AAlly_2_MYRRH,
     },
     { 0 },
 };
 
 // 0x88BF4D4
-CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_1[] = {
     {
         .charIndex = CHARACTER_MONSTER_BA,
         .classIndex = CLASS_GORGONEGG,
@@ -28626,7 +28626,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF4D4[] = {
 };
 
 // 0x88BF560
-CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_2[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -28637,7 +28637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
         .xPosition = 21,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BEFA8,
+        .redas = REDA_Ch18AEnemy_2_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28653,7 +28653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
         .xPosition = 21,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088BEFB0,
+        .redas = REDA_Ch18AEnemy_2_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28663,7 +28663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF560[] = {
 };
 
 // 0x88BF59C
-CONST_DATA struct UnitDefinition UnitDef_088BF59C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_3[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -28696,7 +28696,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF59C[] = {
 };
 
 // 0x88BF5D8
-CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_4[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -28707,7 +28707,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFB8,
+        .redas = REDA_Ch18AEnemy_4_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28723,7 +28723,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFC0,
+        .redas = REDA_Ch18AEnemy_4_1,
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
@@ -28739,7 +28739,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFC8,
+        .redas = REDA_Ch18AEnemy_4_2,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28749,7 +28749,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF5D8[] = {
 };
 
 // 0x88BF628
-CONST_DATA struct UnitDefinition UnitDef_088BF628[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_5[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -28768,7 +28768,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF628[] = {
 };
 
 // 0x88BF650
-CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_6[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -28779,7 +28779,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFD0,
+        .redas = REDA_Ch18AEnemy_6_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28795,7 +28795,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFD8,
+        .redas = REDA_Ch18AEnemy_6_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -28805,7 +28805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF650[] = {
 };
 
 // 0x88BF68C
-CONST_DATA struct UnitDefinition UnitDef_088BF68C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_7[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -28816,7 +28816,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF68C[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088BEFE0,
+        .redas = REDA_Ch18AEnemy_7_0,
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
@@ -28826,7 +28826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF68C[] = {
 };
 
 // 0x88BF6B4
-CONST_DATA struct UnitDefinition UnitDef_088BF6B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -28935,7 +28935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF6B4[] = {
 };
 
 // 0x88BF768
-CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GORGON,
@@ -29376,7 +29376,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BF768[] = {
 };
 
 // 0x88BFA60
-CONST_DATA struct UnitDefinition UnitDef_088BFA60[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -29485,7 +29485,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFA60[] = {
 };
 
 // 0x88BFB14
-CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_9[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -29953,7 +29953,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFB14[] = {
 };
 
 // 0x88BFE0C
-CONST_DATA struct UnitDefinition UnitDef_088BFE0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AAlly_5[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -30062,7 +30062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088BFE0C[] = {
 };
 
 // 0x88BFEC0
-CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18AEnemy_10[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -30529,63 +30529,63 @@ CONST_DATA struct UnitDefinition UnitDef_088BFEC0[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C01B8[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_3_0[] = {
     {
         .x = 27,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01C0[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_3_1[] = {
     {
         .x = 28,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01C8[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_4_0[] = {
     {
         .x = 26,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01D0[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_4_1[] = {
     {
         .x = 27,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01D8[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_8_0[] = {
     {
         .x = 14,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01E0[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_8_1[] = {
     {
         .x = 15,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01E8[] = {
+CONST_DATA struct REDA REDA_Ch19AEnemy_8_2[] = {
     {
         .x = 16,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01F0[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_1_LARACHEL[] = {
     {
         .x = 16,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C01F8[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_1_EIRIKA[] = {
     {
         .x = 15,
         .y = 16,
@@ -30594,7 +30594,7 @@ CONST_DATA struct REDA REDA_088C01F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0200[] = {
+CONST_DATA struct REDA REDA_Ch19A_0[] = {
     {
         .x = 15,
         .y = 13,
@@ -30602,7 +30602,7 @@ CONST_DATA struct REDA REDA_088C0200[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0208[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_1_EPHRAIM[] = {
     {
         .x = 17,
         .y = 16,
@@ -30611,7 +30611,7 @@ CONST_DATA struct REDA REDA_088C0208[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0210[] = {
+CONST_DATA struct REDA REDA_Ch19A_1[] = {
     {
         .x = 17,
         .y = 13,
@@ -30619,7 +30619,7 @@ CONST_DATA struct REDA REDA_088C0210[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0218[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_1_MYRRH[] = {
     {
         .x = 17,
         .y = 14,
@@ -30627,7 +30627,7 @@ CONST_DATA struct REDA REDA_088C0218[] = {
         .a = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088C0220[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_1_INNES[] = {
     {
         .x = 15,
         .y = 14,
@@ -30635,7 +30635,7 @@ CONST_DATA struct REDA REDA_088C0220[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088C0228[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_2_0[] = {
     {
         .x = 6,
         .y = 22,
@@ -30643,35 +30643,35 @@ CONST_DATA struct REDA REDA_088C0228[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0230[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_3_EIRIKA[] = {
     {
         .x = 18,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0238[] = {
+CONST_DATA struct REDA REDA_Ch19A_2[] = {
     {
         .x = 17,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0240[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_3_EPHRAIM[] = {
     {
         .x = 16,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0248[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_3_SETH[] = {
     {
         .x = 16,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0250[] = {
+CONST_DATA struct REDA REDA_Ch19A_3[] = {
     {
         .x = 16,
         .y = 13,
@@ -30679,14 +30679,14 @@ CONST_DATA struct REDA REDA_088C0250[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0258[] = {
+CONST_DATA struct REDA REDA_Ch19ANPC_2_FRELIAN[] = {
     {
         .x = 16,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0260[] = {
+CONST_DATA struct REDA REDA_Ch19ANPC_3_0[] = {
     {
         .x = 8,
         .y = 19,
@@ -30694,7 +30694,7 @@ CONST_DATA struct REDA REDA_088C0260[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0268[] = {
+CONST_DATA struct REDA REDA_Ch19ANPC_3_1[] = {
     {
         .x = 9,
         .y = 17,
@@ -30702,7 +30702,7 @@ CONST_DATA struct REDA REDA_088C0268[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0270[] = {
+CONST_DATA struct REDA REDA_Ch19A_4[] = {
     {
         .x = 10,
         .y = 17,
@@ -30710,7 +30710,7 @@ CONST_DATA struct REDA REDA_088C0270[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0278[] = {
+CONST_DATA struct REDA REDA_Ch19ANPC_3_2[] = {
     {
         .x = 8,
         .y = 17,
@@ -30718,7 +30718,7 @@ CONST_DATA struct REDA REDA_088C0278[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0280[] = {
+CONST_DATA struct REDA REDA_Ch19A_5[] = {
     {
         .x = 7,
         .y = 17,
@@ -30726,7 +30726,7 @@ CONST_DATA struct REDA REDA_088C0280[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0288[] = {
+CONST_DATA struct REDA REDA_Ch19ANPC_3_3[] = {
     {
         .x = 9,
         .y = 18,
@@ -30736,7 +30736,7 @@ CONST_DATA struct REDA REDA_088C0288[] = {
 };
 
 // 0x88C0290
-CONST_DATA struct UnitDefinition UnitDef_088C0290[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -30962,7 +30962,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0290[] = {
 };
 
 // 0x88C03F8
-CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_0[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -31299,7 +31299,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C03F8[] = {
 };
 
 // 0x88C0600
-CONST_DATA struct UnitDefinition UnitDef_088C0600[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19ANPC_0[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PONTIFEX,
@@ -31329,7 +31329,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0600[] = {
 };
 
 // 0x88C063C
-CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19ANPC_1[] = {
     {
         .charIndex = 0xcd,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -31444,7 +31444,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C063C[] = {
 };
 
 // 0x88C06F0
-CONST_DATA struct UnitDefinition UnitDef_088C06F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_THIEF,
@@ -31463,7 +31463,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C06F0[] = {
 };
 
 // 0x88C0718
-CONST_DATA struct UnitDefinition UnitDef_088C0718[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_THIEF,
@@ -31482,7 +31482,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0718[] = {
 };
 
 // 0x88C0740
-CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_3[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -31492,7 +31492,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C01B8,
+        .redas = REDA_Ch19AEnemy_3_0,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -31507,7 +31507,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C01C0,
+        .redas = REDA_Ch19AEnemy_3_1,
         .items = {
             ITEM_BOW_SILVER,
         },
@@ -31517,7 +31517,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0740[] = {
 };
 
 // 0x88C077C
-CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_HERO,
@@ -31527,7 +31527,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C01C8,
+        .redas = REDA_Ch19AEnemy_4_0,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -31542,7 +31542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C01D0,
+        .redas = REDA_Ch19AEnemy_4_1,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -31552,7 +31552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C077C[] = {
 };
 
 // 0x88C07B8
-CONST_DATA struct UnitDefinition UnitDef_088C07B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_5[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_GENERAL,
@@ -31583,7 +31583,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07B8[] = {
 };
 
 // 0x88C07F4
-CONST_DATA struct UnitDefinition UnitDef_088C07F4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_6[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -31615,7 +31615,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C07F4[] = {
 };
 
 // 0x88C0830
-CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_7[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_MAGE_KNIGHT,
@@ -31673,7 +31673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0830[] = {
 };
 
 // 0x88C0894
-CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_8[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_SWORDMASTER,
@@ -31683,7 +31683,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
         .xPosition = 14,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C01D8,
+        .redas = REDA_Ch19AEnemy_8_0,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -31698,7 +31698,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
         .xPosition = 15,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C01E0,
+        .redas = REDA_Ch19AEnemy_8_1,
         .items = {
             ITEM_AXE_SILVER,
             ITEM_LANCE_SILVER,
@@ -31714,7 +31714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C01E8,
+        .redas = REDA_Ch19AEnemy_8_2,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -31724,7 +31724,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0894[] = {
 };
 
 // 0x88C08E4
-CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_1[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -31733,7 +31733,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
         .xPosition = 16,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C01F0,
+        .redas = REDA_Ch19AAlly_1_LARACHEL,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -31743,7 +31743,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
         .xPosition = 15,
         .yPosition = 17,
         .redaCount = 2,
-        .redas = REDA_088C01F8,
+        .redas = REDA_Ch19AAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -31753,7 +31753,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
         .xPosition = 17,
         .yPosition = 17,
         .redaCount = 2,
-        .redas = REDA_088C0208,
+        .redas = REDA_Ch19AAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -31763,7 +31763,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
         .xPosition = 17,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C0218,
+        .redas = REDA_Ch19AAlly_1_MYRRH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -31773,13 +31773,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C08E4[] = {
         .xPosition = 15,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C0220,
+        .redas = REDA_Ch19AAlly_1_INNES,
     },
     { 0 },
 };
 
 // 0x88C095C
-CONST_DATA struct UnitDefinition UnitDef_088C095C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_2[] = {
     {
         .charIndex = 0xce,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -31788,7 +31788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C095C[] = {
         .xPosition = 6,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0228,
+        .redas = REDA_Ch19AAlly_2_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -31797,7 +31797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C095C[] = {
 };
 
 // 0x88C0984
-CONST_DATA struct UnitDefinition UnitDef_088C0984[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AEnemy_9[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -31825,7 +31825,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0984[] = {
 };
 
 // 0x88C09C0
-CONST_DATA struct UnitDefinition UnitDef_088C09C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_3[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -31842,7 +31842,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C09C0[] = {
         .xPosition = 18,
         .yPosition = 13,
         .redaCount = 2,
-        .redas = REDA_088C0230,
+        .redas = REDA_Ch19AAlly_3_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -31852,7 +31852,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C09C0[] = {
         .xPosition = 18,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088C0240,
+        .redas = REDA_Ch19AAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -31862,13 +31862,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C09C0[] = {
         .xPosition = 15,
         .yPosition = 15,
         .redaCount = 2,
-        .redas = REDA_088C0248,
+        .redas = REDA_Ch19AAlly_3_SETH,
     },
     { 0 },
 };
 
 // 0x88C0A24
-CONST_DATA struct UnitDefinition UnitDef_088C0A24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19ANPC_2[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_CAVALIER,
@@ -31878,13 +31878,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C0A24[] = {
         .xPosition = 16,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C0258,
+        .redas = REDA_Ch19ANPC_2_FRELIAN,
     },
     { 0 },
 };
 
 // 0x88C0A4C
-CONST_DATA struct UnitDefinition UnitDef_088C0A4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AMixed[] = {
     {
         .charIndex = 0xcd,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -31947,7 +31947,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0A4C[] = {
 };
 
 // 0x88C0AEC
-CONST_DATA struct UnitDefinition UnitDef_088C0AEC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19ANPC_3[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PONTIFEX,
@@ -31957,7 +31957,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0AEC[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088C0260,
+        .redas = REDA_Ch19ANPC_3_0,
     },
     {
         .charIndex = 0xcd,
@@ -31968,7 +31968,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0AEC[] = {
         .xPosition = 9,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C0268,
+        .redas = REDA_Ch19ANPC_3_1,
     },
     {
         .charIndex = 0xcd,
@@ -31979,7 +31979,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0AEC[] = {
         .xPosition = 8,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C0278,
+        .redas = REDA_Ch19ANPC_3_2,
     },
     {
         .charIndex = 0xcd,
@@ -31990,12 +31990,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C0AEC[] = {
         .xPosition = 9,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088C0288,
+        .redas = REDA_Ch19ANPC_3_3,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C0B50[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_4_LARACHEL[] = {
     {
         .x = 7,
         .y = 8,
@@ -32003,7 +32003,7 @@ CONST_DATA struct REDA REDA_088C0B50[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0B58[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_5_LARACHEL[] = {
     {
         .x = 7,
         .y = 4,
@@ -32011,7 +32011,7 @@ CONST_DATA struct REDA REDA_088C0B58[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0B60[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_5_EPHRAIM[] = {
     {
         .x = 6,
         .y = 5,
@@ -32019,7 +32019,7 @@ CONST_DATA struct REDA REDA_088C0B60[] = {
         .a = 0x19,
     },
 };
-CONST_DATA struct REDA REDA_088C0B68[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_5_EIRIKA[] = {
     {
         .x = 8,
         .y = 5,
@@ -32027,7 +32027,7 @@ CONST_DATA struct REDA REDA_088C0B68[] = {
         .a = 0x19,
     },
 };
-CONST_DATA struct REDA REDA_088C0B70[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_5_MYRRH[] = {
     {
         .x = 6,
         .y = 6,
@@ -32036,7 +32036,7 @@ CONST_DATA struct REDA REDA_088C0B70[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C0B78[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_5_INNES[] = {
     {
         .x = 8,
         .y = 6,
@@ -32045,7 +32045,7 @@ CONST_DATA struct REDA REDA_088C0B78[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C0B80[] = {
+CONST_DATA struct REDA REDA_Ch19AAlly_6_LARACHEL[] = {
     {
         .x = 7,
         .y = 3,
@@ -32053,7 +32053,7 @@ CONST_DATA struct REDA REDA_088C0B80[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0B88[] = {
+CONST_DATA struct REDA REDA_Ch19A_6[] = {
     {
         .x = 7,
         .y = 4,
@@ -32064,7 +32064,7 @@ CONST_DATA struct REDA REDA_088C0B88[] = {
 };
 
 // 0x88C0B90
-CONST_DATA struct UnitDefinition UnitDef_088C0B90[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_4[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -32073,18 +32073,18 @@ CONST_DATA struct UnitDefinition UnitDef_088C0B90[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0B50,
+        .redas = REDA_Ch19AAlly_4_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88C0BB8
-CONST_DATA struct UnitDefinition UnitDef_088C0BB8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AUnits[] = {
     { 0 },
 };
 
 // 0x88C0BCC
-CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_5[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -32093,7 +32093,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
         .xPosition = 7,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088C0B58,
+        .redas = REDA_Ch19AAlly_5_LARACHEL,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -32103,7 +32103,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
         .xPosition = 6,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0B60,
+        .redas = REDA_Ch19AAlly_5_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -32113,7 +32113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
         .xPosition = 8,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0B68,
+        .redas = REDA_Ch19AAlly_5_EIRIKA,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -32123,7 +32123,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
         .xPosition = 6,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0B70,
+        .redas = REDA_Ch19AAlly_5_MYRRH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -32133,13 +32133,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C0BCC[] = {
         .xPosition = 8,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0B78,
+        .redas = REDA_Ch19AAlly_5_INNES,
     },
     { 0 },
 };
 
 // 0x88C0C44
-CONST_DATA struct UnitDefinition UnitDef_088C0C44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19AAlly_6[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -32148,124 +32148,124 @@ CONST_DATA struct UnitDefinition UnitDef_088C0C44[] = {
         .xPosition = 7,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088C0B80,
+        .redas = REDA_Ch19AAlly_6_LARACHEL,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C0C6C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_3_0[] = {
     {
         .x = 6,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C74[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_3_1[] = {
     {
         .x = 7,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C7C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_4_0[] = {
     {
         .x = 6,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C84[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_5_0[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C8C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_5_1[] = {
     {
         .x = 13,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C94[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_6_0[] = {
     {
         .x = 14,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0C9C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_7_0[] = {
     {
         .x = 11,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0CA4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_7_1[] = {
     {
         .x = 11,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0CAC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_8_0[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CB4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_8_1[] = {
     {
         .x = 2,
         .y = 1,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CBC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_8_2[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CC4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_9_0[] = {
     {
         .x = 4,
         .y = 15,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CCC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_9_1[] = {
     {
         .x = 5,
         .y = 16,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CD4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_9_2[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CDC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_10_0[] = {
     {
         .x = 9,
         .y = 12,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CE4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_10_1[] = {
     {
         .x = 13,
         .y = 12,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0CEC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_10_2[] = {
     {
         .x = 11,
         .y = 9,
@@ -32273,91 +32273,91 @@ CONST_DATA struct REDA REDA_088C0CEC[] = {
         .delayFrames = 10,
     },
 };
-CONST_DATA struct REDA REDA_088C0CF4[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_11_0[] = {
     {
         .x = 4,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0CFC[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_11_1[] = {
     {
         .x = 3,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D04[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_11_2[] = {
     {
         .x = 3,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D0C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_12_0[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0D14[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_12_1[] = {
     {
         .x = 4,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D1C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_13_0[] = {
     {
         .x = 7,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D24[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_14_0[] = {
     {
         .x = 6,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D2C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_15_0[] = {
     {
         .x = 25,
         .y = 2,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0D34[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_15_1[] = {
     {
         .x = 26,
         .y = 3,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0D3C[] = {
+CONST_DATA struct REDA REDA_Ch20AEnemy_15_2[] = {
     {
         .x = 27,
         .y = 4,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C0D44[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_EIRIKA[] = {
     {
         .x = 27,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D4C[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_EPHRAIM[] = {
     {
         .x = 26,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D54[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_SETH[] = {
     {
         .x = 27,
         .y = 17,
@@ -32365,7 +32365,7 @@ CONST_DATA struct REDA REDA_088C0D54[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C0D5C[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_MYRRH[] = {
     {
         .x = 26,
         .y = 17,
@@ -32373,14 +32373,14 @@ CONST_DATA struct REDA REDA_088C0D5C[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C0D64[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_INNES[] = {
     {
         .x = 25,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C0D6C[] = {
+CONST_DATA struct REDA REDA_Ch20AAlly_1_LARACHEL[] = {
     {
         .x = 28,
         .y = 18,
@@ -32389,7 +32389,7 @@ CONST_DATA struct REDA REDA_088C0D6C[] = {
 };
 
 // 0x88C0D74
-CONST_DATA struct UnitDefinition UnitDef_088C0D74[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -32628,7 +32628,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0D74[] = {
 };
 
 // 0x88C0EF0
-CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_0[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -33253,7 +33253,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C0EF0[] = {
 };
 
 // 0x88C129C
-CONST_DATA struct UnitDefinition UnitDef_088C129C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_1[] = {
     {
         .charIndex = CHARACTER_MORVA,
         .classIndex = CLASS_MANAKETE_2,
@@ -33270,7 +33270,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C129C[] = {
 };
 
 // 0x88C12C4
-CONST_DATA struct UnitDefinition UnitDef_088C12C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_2[] = {
     {
         .charIndex = 0xb8,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -33317,7 +33317,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C12C4[] = {
 };
 
 // 0x88C1314
-CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_3[] = {
     {
         .charIndex = 0xb6,
         .classIndex = CLASS_MAELDUIN,
@@ -33327,7 +33327,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0C6C,
+        .redas = REDA_Ch20AEnemy_3_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -33342,7 +33342,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0C74,
+        .redas = REDA_Ch20AEnemy_3_1,
         .items = {
             ITEM_BOW_STEEL,
         },
@@ -33352,7 +33352,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1314[] = {
 };
 
 // 0x88C1350
-CONST_DATA struct UnitDefinition UnitDef_088C1350[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_4[] = {
     {
         .charIndex = 0xb6,
         .classIndex = CLASS_MAELDUIN,
@@ -33362,7 +33362,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1350[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0C7C,
+        .redas = REDA_Ch20AEnemy_4_0,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
@@ -33373,7 +33373,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1350[] = {
 };
 
 // 0x88C1378
-CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_5[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -33383,7 +33383,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C0C84,
+        .redas = REDA_Ch20AEnemy_5_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33398,7 +33398,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C0C8C,
+        .redas = REDA_Ch20AEnemy_5_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33408,7 +33408,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1378[] = {
 };
 
 // 0x88C13B4
-CONST_DATA struct UnitDefinition UnitDef_088C13B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_6[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -33418,7 +33418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13B4[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C0C94,
+        .redas = REDA_Ch20AEnemy_6_0,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -33429,7 +33429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13B4[] = {
 };
 
 // 0x88C13DC
-CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_7[] = {
     {
         .charIndex = 0xb2,
         .classIndex = CLASS_CYCLOPS,
@@ -33439,7 +33439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
         .xPosition = 11,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088C0C9C,
+        .redas = REDA_Ch20AEnemy_7_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -33454,7 +33454,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
         .xPosition = 11,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088C0CA4,
+        .redas = REDA_Ch20AEnemy_7_1,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -33464,7 +33464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C13DC[] = {
 };
 
 // 0x88C1418
-CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_8[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -33474,7 +33474,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088C0CAC,
+        .redas = REDA_Ch20AEnemy_8_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33489,7 +33489,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088C0CB4,
+        .redas = REDA_Ch20AEnemy_8_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -33505,7 +33505,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088C0CBC,
+        .redas = REDA_Ch20AEnemy_8_2,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -33515,7 +33515,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1418[] = {
 };
 
 // 0x88C1468
-CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_9[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -33525,7 +33525,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0CC4,
+        .redas = REDA_Ch20AEnemy_9_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33540,7 +33540,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0CCC,
+        .redas = REDA_Ch20AEnemy_9_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -33556,7 +33556,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C0CD4,
+        .redas = REDA_Ch20AEnemy_9_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33566,7 +33566,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1468[] = {
 };
 
 // 0x88C14B8
-CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_10[] = {
     {
         .charIndex = 0xb7,
         .classIndex = CLASS_MOGALL,
@@ -33576,7 +33576,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .xPosition = 11,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C0CDC,
+        .redas = REDA_Ch20AEnemy_10_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -33591,7 +33591,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .xPosition = 11,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C0CE4,
+        .redas = REDA_Ch20AEnemy_10_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -33606,7 +33606,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
         .xPosition = 11,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C0CEC,
+        .redas = REDA_Ch20AEnemy_10_2,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -33616,7 +33616,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C14B8[] = {
 };
 
 // 0x88C1508
-CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_11[] = {
     {
         .charIndex = 0xb1,
         .classIndex = CLASS_ELDER_BAEL,
@@ -33626,7 +33626,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0CF4,
+        .redas = REDA_Ch20AEnemy_11_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -33641,7 +33641,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0CFC,
+        .redas = REDA_Ch20AEnemy_11_1,
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
@@ -33656,7 +33656,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0D04,
+        .redas = REDA_Ch20AEnemy_11_2,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -33666,7 +33666,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1508[] = {
 };
 
 // 0x88C1558
-CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_12[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -33676,7 +33676,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0D0C,
+        .redas = REDA_Ch20AEnemy_12_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -33691,7 +33691,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C0D14,
+        .redas = REDA_Ch20AEnemy_12_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -33701,7 +33701,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1558[] = {
 };
 
 // 0x88C1594
-CONST_DATA struct UnitDefinition UnitDef_088C1594[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_13[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -33711,7 +33711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1594[] = {
         .xPosition = 7,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C0D1C,
+        .redas = REDA_Ch20AEnemy_13_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -33721,7 +33721,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1594[] = {
 };
 
 // 0x88C15BC
-CONST_DATA struct UnitDefinition UnitDef_088C15BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_14[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -33731,7 +33731,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15BC[] = {
         .xPosition = 6,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D24,
+        .redas = REDA_Ch20AEnemy_14_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -33741,7 +33741,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15BC[] = {
 };
 
 // 0x88C15E4
-CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_15[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -33751,7 +33751,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088C0D2C,
+        .redas = REDA_Ch20AEnemy_15_0,
         .items = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
@@ -33767,7 +33767,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088C0D34,
+        .redas = REDA_Ch20AEnemy_15_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -33783,7 +33783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088C0D3C,
+        .redas = REDA_Ch20AEnemy_15_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -33793,7 +33793,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C15E4[] = {
 };
 
 // 0x88C1634
-CONST_DATA struct UnitDefinition UnitDef_088C1634[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AEnemy_16[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -33807,7 +33807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1634[] = {
 };
 
 // 0x88C165C
-CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -33816,7 +33816,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 27,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D44,
+        .redas = REDA_Ch20AAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -33826,7 +33826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 26,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D4C,
+        .redas = REDA_Ch20AAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -33836,7 +33836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 27,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D54,
+        .redas = REDA_Ch20AAlly_1_SETH,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -33846,7 +33846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 26,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D5C,
+        .redas = REDA_Ch20AAlly_1_MYRRH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -33856,7 +33856,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 25,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D64,
+        .redas = REDA_Ch20AAlly_1_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -33866,13 +33866,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C165C[] = {
         .xPosition = 28,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C0D6C,
+        .redas = REDA_Ch20AAlly_1_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88C16E8
-CONST_DATA struct UnitDefinition UnitDef_088C16E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AAlly_2[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -33884,7 +33884,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C16E8[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C1710[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_LYON[] = {
     {
         .x = 11,
         .y = 18,
@@ -33894,12 +33894,12 @@ CONST_DATA struct REDA REDA_088C1710[] = {
 };
 
 // 0x88C1718
-CONST_DATA struct UnitDefinition UnitDef_088C1718[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20AUnits[] = {
     { 0 },
 };
 
 // 0x88C172C
-CONST_DATA struct UnitDefinition UnitDef_088C172C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -33909,125 +33909,125 @@ CONST_DATA struct UnitDefinition UnitDef_088C172C[] = {
         .xPosition = 11,
         .yPosition = 23,
         .redaCount = 1,
-        .redas = REDA_088C1710,
+        .redas = REDA_Ch21AEnemy_LYON,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C1754[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_1_0[] = {
     {
         .x = 18,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C175C[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_1_1[] = {
     {
         .x = 20,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1764[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_1_2[] = {
     {
         .x = 21,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C176C[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_1_3[] = {
     {
         .x = 21,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1774[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_1_4[] = {
     {
         .x = 17,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C177C[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_2_0[] = {
     {
         .x = 2,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1784[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_2_1[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C178C[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_2_2[] = {
     {
         .x = 1,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1794[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_2_3[] = {
     {
         .x = 4,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C179C[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_0[] = {
     {
         .x = 10,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17A4[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_1[] = {
     {
         .x = 9,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17AC[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_2[] = {
     {
         .x = 10,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17B4[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_3[] = {
     {
         .x = 11,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17BC[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_4[] = {
     {
         .x = 12,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17C4[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_5[] = {
     {
         .x = 13,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17CC[] = {
+CONST_DATA struct REDA REDA_Ch21AEnemy_4_6[] = {
     {
         .x = 13,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17D4[] = {
+CONST_DATA struct REDA REDA_Ch21AAlly_1_EIRIKA[] = {
     {
         .x = 12,
         .y = 21,
@@ -34035,7 +34035,7 @@ CONST_DATA struct REDA REDA_088C17D4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17DC[] = {
+CONST_DATA struct REDA REDA_Ch21AAlly_1_EPHRAIM[] = {
     {
         .x = 10,
         .y = 23,
@@ -34043,7 +34043,7 @@ CONST_DATA struct REDA REDA_088C17DC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17E4[] = {
+CONST_DATA struct REDA REDA_Ch21A_0[] = {
     {
         .x = 10,
         .y = 21,
@@ -34051,7 +34051,7 @@ CONST_DATA struct REDA REDA_088C17E4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C17EC[] = {
+CONST_DATA struct REDA REDA_Ch21AAlly_1_INNES[] = {
     {
         .x = 12,
         .y = 22,
@@ -34059,7 +34059,7 @@ CONST_DATA struct REDA REDA_088C17EC[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088C17F4[] = {
+CONST_DATA struct REDA REDA_Ch21AAlly_1_LARACHEL[] = {
     {
         .x = 9,
         .y = 22,
@@ -34067,7 +34067,7 @@ CONST_DATA struct REDA REDA_088C17F4[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088C17FC[] = {
+CONST_DATA struct REDA REDA_Ch21AAlly_1_MYRRH[] = {
     {
         .x = 11,
         .y = 23,
@@ -34076,7 +34076,7 @@ CONST_DATA struct REDA REDA_088C17FC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1804[] = {
+CONST_DATA struct REDA REDA_Ch21AMixed_EIRIKA[] = {
     {
         .x = 11,
         .y = 3,
@@ -34084,14 +34084,14 @@ CONST_DATA struct REDA REDA_088C1804[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C180C[] = {
+CONST_DATA struct REDA REDA_Ch21AMixed_EPHRAIM[] = {
     {
         .x = 11,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1814[] = {
+CONST_DATA struct REDA REDA_Ch21A_1[] = {
     {
         .x = 11,
         .y = 4,
@@ -34101,7 +34101,7 @@ CONST_DATA struct REDA REDA_088C1814[] = {
 };
 
 // 0x88C181C
-CONST_DATA struct UnitDefinition UnitDef_088C181C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AAlly_0[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_MASTER_LORD,
@@ -34262,7 +34262,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C181C[] = {
 };
 
 // 0x88C1920
-CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy_0[] = {
     {
         .charIndex = CHARACTER_LYON_FINAL,
         .classIndex = CLASS_NECROMANCER,
@@ -34746,7 +34746,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1920[] = {
 };
 
 // 0x88C1C04
-CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy_1[] = {
     {
         .charIndex = 0xb8,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -34756,7 +34756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C1754,
+        .redas = REDA_Ch21AEnemy_1_0,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -34771,7 +34771,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C175C,
+        .redas = REDA_Ch21AEnemy_1_1,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -34786,7 +34786,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C1764,
+        .redas = REDA_Ch21AEnemy_1_2,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -34801,7 +34801,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C176C,
+        .redas = REDA_Ch21AEnemy_1_3,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -34816,7 +34816,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C1774,
+        .redas = REDA_Ch21AEnemy_1_4,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -34826,7 +34826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C04[] = {
 };
 
 // 0x88C1C7C
-CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy_2[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -34836,7 +34836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C177C,
+        .redas = REDA_Ch21AEnemy_2_0,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -34851,7 +34851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C1784,
+        .redas = REDA_Ch21AEnemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -34866,7 +34866,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C178C,
+        .redas = REDA_Ch21AEnemy_2_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -34881,7 +34881,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C1794,
+        .redas = REDA_Ch21AEnemy_2_3,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -34891,7 +34891,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1C7C[] = {
 };
 
 // 0x88C1CE0
-CONST_DATA struct UnitDefinition UnitDef_088C1CE0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy_3[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -34938,7 +34938,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1CE0[] = {
 };
 
 // 0x88C1D30
-CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AEnemy_4[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -34948,7 +34948,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 10,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C179C,
+        .redas = REDA_Ch21AEnemy_4_0,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -34963,7 +34963,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 9,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17A4,
+        .redas = REDA_Ch21AEnemy_4_1,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -34978,7 +34978,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 10,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17AC,
+        .redas = REDA_Ch21AEnemy_4_2,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -34993,7 +34993,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 11,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17B4,
+        .redas = REDA_Ch21AEnemy_4_3,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -35008,7 +35008,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 12,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17BC,
+        .redas = REDA_Ch21AEnemy_4_4,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -35023,7 +35023,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 13,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17C4,
+        .redas = REDA_Ch21AEnemy_4_5,
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
@@ -35038,7 +35038,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
         .xPosition = 13,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17CC,
+        .redas = REDA_Ch21AEnemy_4_6,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -35048,7 +35048,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1D30[] = {
 };
 
 // 0x88C1DD0
-CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -35057,7 +35057,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
         .xPosition = 12,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17D4,
+        .redas = REDA_Ch21AAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -35067,7 +35067,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
         .xPosition = 10,
         .yPosition = 24,
         .redaCount = 2,
-        .redas = REDA_088C17DC,
+        .redas = REDA_Ch21AAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -35077,7 +35077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
         .xPosition = 12,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17EC,
+        .redas = REDA_Ch21AAlly_1_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -35087,7 +35087,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
         .xPosition = 9,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17F4,
+        .redas = REDA_Ch21AAlly_1_LARACHEL,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -35097,13 +35097,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C1DD0[] = {
         .xPosition = 11,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C17FC,
+        .redas = REDA_Ch21AAlly_1_MYRRH,
     },
     { 0 },
 };
 
 // 0x88C1E48
-CONST_DATA struct UnitDefinition UnitDef_088C1E48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21AMixed[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_FALLEN_PEER,
@@ -35121,7 +35121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1E48[] = {
         .xPosition = 11,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C1804,
+        .redas = REDA_Ch21AMixed_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -35131,7 +35131,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1E48[] = {
         .xPosition = 11,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088C180C,
+        .redas = REDA_Ch21AMixed_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -35160,98 +35160,98 @@ CONST_DATA struct UnitDefinition UnitDef_088C1E48[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C1ED4[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_0_EPHRAIM[] = {
     {
         .x = 10,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1EDC[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_0_EIRIKA[] = {
     {
         .x = 12,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1EE4[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_1_LARACHEL[] = {
     {
         .x = 10,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1EEC[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_1_SETH[] = {
     {
         .x = 12,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1EF4[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_0[] = {
     {
         .x = 11,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1EFC[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_1[] = {
     {
         .x = 9,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F04[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_2[] = {
     {
         .x = 13,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F0C[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_3[] = {
     {
         .x = 10,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F14[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_4[] = {
     {
         .x = 12,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F1C[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_5[] = {
     {
         .x = 11,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F24[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_6[] = {
     {
         .x = 9,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F2C[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_7[] = {
     {
         .x = 13,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F34[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_8[] = {
     {
         .x = 10,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C1F3C[] = {
+CONST_DATA struct REDA REDA_Ch21XAAlly_2_9[] = {
     {
         .x = 12,
         .y = 18,
@@ -35260,7 +35260,7 @@ CONST_DATA struct REDA REDA_088C1F3C[] = {
 };
 
 // 0x88C1F44
-CONST_DATA struct UnitDefinition UnitDef_088C1F44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XAAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -35269,7 +35269,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1F44[] = {
         .xPosition = 10,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C1ED4,
+        .redas = REDA_Ch21XAAlly_0_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -35279,13 +35279,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C1F44[] = {
         .xPosition = 12,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C1EDC,
+        .redas = REDA_Ch21XAAlly_0_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88C1F80
-CONST_DATA struct UnitDefinition UnitDef_088C1F80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XAAlly_1[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -35294,7 +35294,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1F80[] = {
         .xPosition = 10,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1EE4,
+        .redas = REDA_Ch21XAAlly_1_LARACHEL,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_VULNERARY,
@@ -35309,7 +35309,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1F80[] = {
         .xPosition = 12,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1EEC,
+        .redas = REDA_Ch21XAAlly_1_SETH,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35320,7 +35320,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1F80[] = {
 };
 
 // 0x88C1FBC
-CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XAAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -35329,7 +35329,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 11,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1EF4,
+        .redas = REDA_Ch21XAAlly_2_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35344,7 +35344,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 9,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1EFC,
+        .redas = REDA_Ch21XAAlly_2_1,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35359,7 +35359,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 13,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F04,
+        .redas = REDA_Ch21XAAlly_2_2,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35374,7 +35374,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 10,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F0C,
+        .redas = REDA_Ch21XAAlly_2_3,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35389,7 +35389,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 12,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F14,
+        .redas = REDA_Ch21XAAlly_2_4,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35404,7 +35404,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 11,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F1C,
+        .redas = REDA_Ch21XAAlly_2_5,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35419,7 +35419,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 9,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F24,
+        .redas = REDA_Ch21XAAlly_2_6,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35434,7 +35434,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 13,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F2C,
+        .redas = REDA_Ch21XAAlly_2_7,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35449,7 +35449,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 10,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F34,
+        .redas = REDA_Ch21XAAlly_2_8,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35464,7 +35464,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
         .xPosition = 12,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C1F3C,
+        .redas = REDA_Ch21XAAlly_2_9,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -35475,7 +35475,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C1FBC[] = {
 };
 
 // 0x88C2098
-CONST_DATA struct UnitDefinition UnitDef_088C2098[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XAEnemy[] = {
     {
         .charIndex = CHARACTER_FOMORTIIS,
         .classIndex = CLASS_DEMON_KING,
@@ -35494,7 +35494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2098[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C20C0[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_0[] = {
     {
         .x = 2,
         .y = 3,
@@ -35502,7 +35502,7 @@ CONST_DATA struct REDA REDA_088C20C0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C20C8[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_1[] = {
     {
         .x = 1,
         .y = 6,
@@ -35511,7 +35511,7 @@ CONST_DATA struct REDA REDA_088C20C8[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C20D0[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_2[] = {
     {
         .x = 0,
         .y = 5,
@@ -35520,7 +35520,7 @@ CONST_DATA struct REDA REDA_088C20D0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C20D8[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_3[] = {
     {
         .x = 2,
         .y = 5,
@@ -35529,7 +35529,7 @@ CONST_DATA struct REDA REDA_088C20D8[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C20E0[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_4[] = {
     {
         .x = 1,
         .y = 4,
@@ -35537,7 +35537,7 @@ CONST_DATA struct REDA REDA_088C20E0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C20E8[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_5[] = {
     {
         .x = 3,
         .y = 4,
@@ -35545,7 +35545,7 @@ CONST_DATA struct REDA REDA_088C20E8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C20F0[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_6[] = {
     {
         .x = 0,
         .y = 3,
@@ -35553,7 +35553,7 @@ CONST_DATA struct REDA REDA_088C20F0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C20F8[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_7[] = {
     {
         .x = 1,
         .y = 2,
@@ -35561,7 +35561,7 @@ CONST_DATA struct REDA REDA_088C20F8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2100[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_8[] = {
     {
         .x = 3,
         .y = 2,
@@ -35569,7 +35569,7 @@ CONST_DATA struct REDA REDA_088C2100[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2108[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_9[] = {
     {
         .x = 0,
         .y = 1,
@@ -35577,7 +35577,7 @@ CONST_DATA struct REDA REDA_088C2108[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2110[] = {
+CONST_DATA struct REDA REDA_Ch9BAlly_10[] = {
     {
         .x = 2,
         .y = 1,
@@ -35585,14 +35585,14 @@ CONST_DATA struct REDA REDA_088C2110[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2118[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_0_0[] = {
     {
         .x = 17,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2120[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_0[] = {
     {
         .x = 24,
         .y = 9,
@@ -35600,7 +35600,7 @@ CONST_DATA struct REDA REDA_088C2120[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2128[] = {
+CONST_DATA struct REDA REDA_Ch9B_0[] = {
     {
         .x = 21,
         .y = 9,
@@ -35608,7 +35608,7 @@ CONST_DATA struct REDA REDA_088C2128[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2130[] = {
+CONST_DATA struct REDA REDA_Ch9B_1[] = {
     {
         .x = 21,
         .y = 10,
@@ -35616,7 +35616,7 @@ CONST_DATA struct REDA REDA_088C2130[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2138[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_1[] = {
     {
         .x = 21,
         .y = 8,
@@ -35625,7 +35625,7 @@ CONST_DATA struct REDA REDA_088C2138[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C2140[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_2[] = {
     {
         .x = 23,
         .y = 8,
@@ -35634,7 +35634,7 @@ CONST_DATA struct REDA REDA_088C2140[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088C2148[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_3[] = {
     {
         .x = 23,
         .y = 12,
@@ -35642,7 +35642,7 @@ CONST_DATA struct REDA REDA_088C2148[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2150[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_4[] = {
     {
         .x = 23,
         .y = 14,
@@ -35650,7 +35650,7 @@ CONST_DATA struct REDA REDA_088C2150[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2158[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_1_5[] = {
     {
         .x = 23,
         .y = 16,
@@ -35658,7 +35658,7 @@ CONST_DATA struct REDA REDA_088C2158[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2160[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_0_0[] = {
     {
         .x = 15,
         .y = 4,
@@ -35667,7 +35667,7 @@ CONST_DATA struct REDA REDA_088C2160[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2168[] = {
+CONST_DATA struct REDA REDA_Ch9B_2[] = {
     {
         .x = 14,
         .y = 4,
@@ -35676,7 +35676,7 @@ CONST_DATA struct REDA REDA_088C2168[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2170[] = {
+CONST_DATA struct REDA REDA_Ch9B_3[] = {
     {
         .x = 13,
         .y = 4,
@@ -35685,7 +35685,7 @@ CONST_DATA struct REDA REDA_088C2170[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2178[] = {
+CONST_DATA struct REDA REDA_Ch9B_4[] = {
     {
         .x = 12,
         .y = 4,
@@ -35694,7 +35694,7 @@ CONST_DATA struct REDA REDA_088C2178[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2180[] = {
+CONST_DATA struct REDA REDA_Ch9B_5[] = {
     {
         .x = 12,
         .y = 3,
@@ -35703,7 +35703,7 @@ CONST_DATA struct REDA REDA_088C2180[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2188[] = {
+CONST_DATA struct REDA REDA_Ch9B_6[] = {
     {
         .x = 12,
         .y = 2,
@@ -35712,7 +35712,7 @@ CONST_DATA struct REDA REDA_088C2188[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2190[] = {
+CONST_DATA struct REDA REDA_Ch9B_7[] = {
     {
         .x = 12,
         .y = 1,
@@ -35721,7 +35721,7 @@ CONST_DATA struct REDA REDA_088C2190[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2198[] = {
+CONST_DATA struct REDA REDA_Ch9B_8[] = {
     {
         .x = 11,
         .y = 1,
@@ -35730,7 +35730,7 @@ CONST_DATA struct REDA REDA_088C2198[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088C21A0[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_0_1[] = {
     {
         .x = 16,
         .y = 4,
@@ -35738,7 +35738,7 @@ CONST_DATA struct REDA REDA_088C21A0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C21A8[] = {
+CONST_DATA struct REDA REDA_Ch9B_9[] = {
     {
         .x = 15,
         .y = 4,
@@ -35747,7 +35747,7 @@ CONST_DATA struct REDA REDA_088C21A8[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21B0[] = {
+CONST_DATA struct REDA REDA_Ch9B_10[] = {
     {
         .x = 14,
         .y = 4,
@@ -35756,7 +35756,7 @@ CONST_DATA struct REDA REDA_088C21B0[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21B8[] = {
+CONST_DATA struct REDA REDA_Ch9B_11[] = {
     {
         .x = 13,
         .y = 4,
@@ -35765,7 +35765,7 @@ CONST_DATA struct REDA REDA_088C21B8[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21C0[] = {
+CONST_DATA struct REDA REDA_Ch9B_12[] = {
     {
         .x = 12,
         .y = 4,
@@ -35774,7 +35774,7 @@ CONST_DATA struct REDA REDA_088C21C0[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21C8[] = {
+CONST_DATA struct REDA REDA_Ch9B_13[] = {
     {
         .x = 12,
         .y = 3,
@@ -35783,7 +35783,7 @@ CONST_DATA struct REDA REDA_088C21C8[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21D0[] = {
+CONST_DATA struct REDA REDA_Ch9B_14[] = {
     {
         .x = 12,
         .y = 2,
@@ -35792,7 +35792,7 @@ CONST_DATA struct REDA REDA_088C21D0[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C21D8[] = {
+CONST_DATA struct REDA REDA_Ch9B_15[] = {
     {
         .x = 12,
         .y = 4,
@@ -35801,28 +35801,28 @@ CONST_DATA struct REDA REDA_088C21D8[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088C21E0[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_3_0[] = {
     {
         .x = 19,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C21E8[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_3_1[] = {
     {
         .x = 20,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C21F0[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_3_2[] = {
     {
         .x = 22,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C21F8[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_1_0[] = {
     {
         .x = 23,
         .y = 14,
@@ -35831,7 +35831,7 @@ CONST_DATA struct REDA REDA_088C21F8[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2200[] = {
+CONST_DATA struct REDA REDA_Ch9B_16[] = {
     {
         .x = 23,
         .y = 13,
@@ -35840,7 +35840,7 @@ CONST_DATA struct REDA REDA_088C2200[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2208[] = {
+CONST_DATA struct REDA REDA_Ch9B_17[] = {
     {
         .x = 23,
         .y = 12,
@@ -35849,7 +35849,7 @@ CONST_DATA struct REDA REDA_088C2208[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2210[] = {
+CONST_DATA struct REDA REDA_Ch9B_18[] = {
     {
         .x = 22,
         .y = 12,
@@ -35858,7 +35858,7 @@ CONST_DATA struct REDA REDA_088C2210[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2218[] = {
+CONST_DATA struct REDA REDA_Ch9B_19[] = {
     {
         .x = 22,
         .y = 11,
@@ -35867,7 +35867,7 @@ CONST_DATA struct REDA REDA_088C2218[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2220[] = {
+CONST_DATA struct REDA REDA_Ch9B_20[] = {
     {
         .x = 22,
         .y = 10,
@@ -35876,7 +35876,7 @@ CONST_DATA struct REDA REDA_088C2220[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2228[] = {
+CONST_DATA struct REDA REDA_Ch9B_21[] = {
     {
         .x = 22,
         .y = 9,
@@ -35885,7 +35885,7 @@ CONST_DATA struct REDA REDA_088C2228[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2230[] = {
+CONST_DATA struct REDA REDA_Ch9B_22[] = {
     {
         .x = 21,
         .y = 9,
@@ -35893,7 +35893,7 @@ CONST_DATA struct REDA REDA_088C2230[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2238[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_1_1[] = {
     {
         .x = 23,
         .y = 15,
@@ -35901,7 +35901,7 @@ CONST_DATA struct REDA REDA_088C2238[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2240[] = {
+CONST_DATA struct REDA REDA_Ch9B_23[] = {
     {
         .x = 23,
         .y = 14,
@@ -35910,7 +35910,7 @@ CONST_DATA struct REDA REDA_088C2240[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2248[] = {
+CONST_DATA struct REDA REDA_Ch9B_24[] = {
     {
         .x = 23,
         .y = 13,
@@ -35919,7 +35919,7 @@ CONST_DATA struct REDA REDA_088C2248[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2250[] = {
+CONST_DATA struct REDA REDA_Ch9B_25[] = {
     {
         .x = 23,
         .y = 12,
@@ -35928,7 +35928,7 @@ CONST_DATA struct REDA REDA_088C2250[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2258[] = {
+CONST_DATA struct REDA REDA_Ch9B_26[] = {
     {
         .x = 22,
         .y = 12,
@@ -35937,7 +35937,7 @@ CONST_DATA struct REDA REDA_088C2258[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2260[] = {
+CONST_DATA struct REDA REDA_Ch9B_27[] = {
     {
         .x = 22,
         .y = 11,
@@ -35946,7 +35946,7 @@ CONST_DATA struct REDA REDA_088C2260[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2268[] = {
+CONST_DATA struct REDA REDA_Ch9B_28[] = {
     {
         .x = 22,
         .y = 10,
@@ -35955,7 +35955,7 @@ CONST_DATA struct REDA REDA_088C2268[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2270[] = {
+CONST_DATA struct REDA REDA_Ch9B_29[] = {
     {
         .x = 22,
         .y = 9,
@@ -35965,7 +35965,7 @@ CONST_DATA struct REDA REDA_088C2270[] = {
         .delayFrames = 8,
     },
 };
-CONST_DATA struct REDA REDA_088C2278[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_7_SOLDIER_83[] = {
     {
         .x = 2,
         .y = 9,
@@ -35973,7 +35973,7 @@ CONST_DATA struct REDA REDA_088C2278[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2280[] = {
+CONST_DATA struct REDA REDA_Ch9B_30[] = {
     {
         .x = 7,
         .y = 9,
@@ -35981,7 +35981,7 @@ CONST_DATA struct REDA REDA_088C2280[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2288[] = {
+CONST_DATA struct REDA REDA_Ch9B_31[] = {
     {
         .x = 7,
         .y = 10,
@@ -35989,7 +35989,7 @@ CONST_DATA struct REDA REDA_088C2288[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2290[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_2_SETH[] = {
     {
         .x = 23,
         .y = 12,
@@ -35997,7 +35997,7 @@ CONST_DATA struct REDA REDA_088C2290[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2298[] = {
+CONST_DATA struct REDA REDA_Ch9B_32[] = {
     {
         .x = 22,
         .y = 12,
@@ -36005,7 +36005,7 @@ CONST_DATA struct REDA REDA_088C2298[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C22A0[] = {
+CONST_DATA struct REDA REDA_Ch9B_33[] = {
     {
         .x = 22,
         .y = 10,
@@ -36013,7 +36013,7 @@ CONST_DATA struct REDA REDA_088C22A0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C22A8[] = {
+CONST_DATA struct REDA REDA_Ch9B_34[] = {
     {
         .x = 21,
         .y = 10,
@@ -36021,7 +36021,7 @@ CONST_DATA struct REDA REDA_088C22A8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C22B0[] = {
+CONST_DATA struct REDA REDA_Ch9BMixed_2_SOLDIER_83[] = {
     {
         .x = 23,
         .y = 12,
@@ -36029,7 +36029,7 @@ CONST_DATA struct REDA REDA_088C22B0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C22B8[] = {
+CONST_DATA struct REDA REDA_Ch9B_35[] = {
     {
         .x = 22,
         .y = 12,
@@ -36037,7 +36037,7 @@ CONST_DATA struct REDA REDA_088C22B8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C22C0[] = {
+CONST_DATA struct REDA REDA_Ch9B_36[] = {
     {
         .x = 22,
         .y = 10,
@@ -36047,7 +36047,7 @@ CONST_DATA struct REDA REDA_088C22C0[] = {
 };
 
 // 0x88C22C8
-CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BAlly[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -36056,7 +36056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20C0,
+        .redas = REDA_Ch9BAlly_0,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_VULNERARY,
@@ -36071,7 +36071,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20C8,
+        .redas = REDA_Ch9BAlly_1,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36086,7 +36086,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20D0,
+        .redas = REDA_Ch9BAlly_2,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36101,7 +36101,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20D8,
+        .redas = REDA_Ch9BAlly_3,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36116,7 +36116,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20E0,
+        .redas = REDA_Ch9BAlly_4,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36131,7 +36131,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20E8,
+        .redas = REDA_Ch9BAlly_5,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_STEEL,
@@ -36146,7 +36146,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20F0,
+        .redas = REDA_Ch9BAlly_6,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36161,7 +36161,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 1,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C20F8,
+        .redas = REDA_Ch9BAlly_7,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36176,7 +36176,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2100,
+        .redas = REDA_Ch9BAlly_8,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36191,7 +36191,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2108,
+        .redas = REDA_Ch9BAlly_9,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36206,7 +36206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
         .xPosition = 2,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2110,
+        .redas = REDA_Ch9BAlly_10,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_SILVER,
@@ -36217,7 +36217,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C22C8[] = {
 };
 
 // 0x88C23B8
-CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_0[] = {
     {
         .charIndex = CHARACTER_GHEB,
         .classIndex = CLASS_WARRIOR,
@@ -36429,7 +36429,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
         .xPosition = 17,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C2118,
+        .redas = REDA_Ch9BEnemy_0_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -36611,7 +36611,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C23B8[] = {
 };
 
 // 0x88C2610
-CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -36621,7 +36621,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .xPosition = 24,
         .yPosition = 8,
         .redaCount = 3,
-        .redas = REDA_088C2120,
+        .redas = REDA_Ch9BEnemy_1_0,
         .items = {
             ITEM_SWORD_ARMORSLAYER,
         },
@@ -36636,7 +36636,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .xPosition = 24,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088C2138,
+        .redas = REDA_Ch9BEnemy_1_1,
         .items = {
             ITEM_STAFF_SLEEP,
             ITEM_STAFF_PHYSIC,
@@ -36653,7 +36653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .xPosition = 24,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088C2140,
+        .redas = REDA_Ch9BEnemy_1_2,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -36668,7 +36668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .xPosition = 24,
         .yPosition = 12,
         .redaCount = 1,
-        .redas = REDA_088C2148,
+        .redas = REDA_Ch9BEnemy_1_3,
         .items = {
             ITEM_BOW_SHORTBOW,
         },
@@ -36684,7 +36684,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .yPosition = 15,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088C2150,
+        .redas = REDA_Ch9BEnemy_1_4,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -36699,7 +36699,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
         .xPosition = 24,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C2158,
+        .redas = REDA_Ch9BEnemy_1_5,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -36709,7 +36709,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2610[] = {
 };
 
 // 0x88C269C
-CONST_DATA struct UnitDefinition UnitDef_088C269C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SOLDIER,
@@ -36741,7 +36741,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C269C[] = {
 };
 
 // 0x88C26D8
-CONST_DATA struct UnitDefinition UnitDef_088C26D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BMixed_0[] = {
     {
         .charIndex = CHARACTER_TANA,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -36750,7 +36750,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C26D8[] = {
         .xPosition = 16,
         .yPosition = 4,
         .redaCount = 8,
-        .redas = REDA_088C2160,
+        .redas = REDA_Ch9BMixed_0_0,
     },
     {
         .charIndex = 0x80,
@@ -36762,7 +36762,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C26D8[] = {
         .yPosition = 4,
         .itemDrop = 1,
         .redaCount = 8,
-        .redas = REDA_088C21A0,
+        .redas = REDA_Ch9BMixed_0_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_DOORKEY,
@@ -36773,7 +36773,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C26D8[] = {
 };
 
 // 0x88C2714
-CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -36783,7 +36783,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
         .xPosition = 24,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C21E0,
+        .redas = REDA_Ch9BEnemy_3_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -36798,7 +36798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
         .xPosition = 24,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C21E8,
+        .redas = REDA_Ch9BEnemy_3_1,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_LANCE_JAVELIN,
@@ -36814,7 +36814,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
         .xPosition = 24,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C21F0,
+        .redas = REDA_Ch9BEnemy_3_2,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -36824,7 +36824,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2714[] = {
 };
 
 // 0x88C2764
-CONST_DATA struct UnitDefinition UnitDef_088C2764[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -36842,7 +36842,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2764[] = {
 };
 
 // 0x88C278C
-CONST_DATA struct UnitDefinition UnitDef_088C278C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -36873,7 +36873,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C278C[] = {
 };
 
 // 0x88C27C8
-CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -36930,7 +36930,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C27C8[] = {
 };
 
 // 0x88C282C
-CONST_DATA struct UnitDefinition UnitDef_088C282C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BMixed_1[] = {
     {
         .charIndex = CHARACTER_TANA,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -36940,7 +36940,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C282C[] = {
         .yPosition = 15,
         .itemDrop = 1,
         .redaCount = 8,
-        .redas = REDA_088C21F8,
+        .redas = REDA_Ch9BMixed_1_0,
     },
     {
         .charIndex = 0x84,
@@ -36952,13 +36952,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C282C[] = {
         .yPosition = 16,
         .itemDrop = 1,
         .redaCount = 8,
-        .redas = REDA_088C2238,
+        .redas = REDA_Ch9BMixed_1_1,
     },
     { 0 },
 };
 
 // 0x88C2868
-CONST_DATA struct UnitDefinition UnitDef_088C2868[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_7[] = {
     {
         .charIndex = CHARACTER_SOLDIER_83,
         .classIndex = CLASS_SOLDIER,
@@ -36969,14 +36969,14 @@ CONST_DATA struct UnitDefinition UnitDef_088C2868[] = {
         .yPosition = 8,
         .itemDrop = 1,
         .redaCount = 3,
-        .redas = REDA_088C2278,
+        .redas = REDA_Ch9BEnemy_7_SOLDIER_83,
         .ai = {DefaultAI, 0x0, 0x20},
     },
     { 0 },
 };
 
 // 0x88C2890
-CONST_DATA struct UnitDefinition UnitDef_088C2890[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_8[] = {
     {
         .charIndex = CHARACTER_AMELIA,
         .classIndex = CLASS_RECRUIT,
@@ -37005,7 +37005,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2890[] = {
 };
 
 // 0x88C28CC
-CONST_DATA struct UnitDefinition UnitDef_088C28CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BMixed_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -37024,7 +37024,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C28CC[] = {
         .yPosition = 15,
         .itemDrop = 1,
         .redaCount = 4,
-        .redas = REDA_088C2290,
+        .redas = REDA_Ch9BMixed_2_SETH,
     },
     {
         .charIndex = CHARACTER_SOLDIER_83,
@@ -37036,12 +37036,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C28CC[] = {
         .yPosition = 16,
         .itemDrop = 1,
         .redaCount = 3,
-        .redas = REDA_088C22B0,
+        .redas = REDA_Ch9BMixed_2_SOLDIER_83,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C291C[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_9_VIGARDE[] = {
     {
         .x = 14,
         .y = 4,
@@ -37050,7 +37050,7 @@ CONST_DATA struct REDA REDA_088C291C[] = {
         .delayFrames = 60,
     },
 };
-CONST_DATA struct REDA REDA_088C2924[] = {
+CONST_DATA struct REDA REDA_Ch9B_37[] = {
     {
         .x = 14,
         .y = 10,
@@ -37058,7 +37058,7 @@ CONST_DATA struct REDA REDA_088C2924[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C292C[] = {
+CONST_DATA struct REDA REDA_Ch9B_38[] = {
     {
         .x = 17,
         .y = 10,
@@ -37066,7 +37066,7 @@ CONST_DATA struct REDA REDA_088C292C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2934[] = {
+CONST_DATA struct REDA REDA_Ch9B_39[] = {
     {
         .x = 20,
         .y = 10,
@@ -37074,7 +37074,7 @@ CONST_DATA struct REDA REDA_088C2934[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C293C[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_9_LYON[] = {
     {
         .x = 14,
         .y = 3,
@@ -37082,7 +37082,7 @@ CONST_DATA struct REDA REDA_088C293C[] = {
         .a = 0x6b,
     },
 };
-CONST_DATA struct REDA REDA_088C2944[] = {
+CONST_DATA struct REDA REDA_Ch9B_40[] = {
     {
         .x = 14,
         .y = 10,
@@ -37090,7 +37090,7 @@ CONST_DATA struct REDA REDA_088C2944[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C294C[] = {
+CONST_DATA struct REDA REDA_Ch9B_41[] = {
     {
         .x = 19,
         .y = 10,
@@ -37098,7 +37098,7 @@ CONST_DATA struct REDA REDA_088C294C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2954[] = {
+CONST_DATA struct REDA REDA_Ch9B_42[] = {
     {
         .x = 19,
         .y = 9,
@@ -37107,7 +37107,7 @@ CONST_DATA struct REDA REDA_088C2954[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C295C[] = {
+CONST_DATA struct REDA REDA_Ch9B_43[] = {
     {
         .x = 21,
         .y = 9,
@@ -37115,7 +37115,7 @@ CONST_DATA struct REDA REDA_088C295C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2964[] = {
+CONST_DATA struct REDA REDA_Ch9B_44[] = {
     {
         .x = 17,
         .y = 10,
@@ -37126,12 +37126,12 @@ CONST_DATA struct REDA REDA_088C2964[] = {
 };
 
 // 0x88C296C
-CONST_DATA struct UnitDefinition UnitDef_088C296C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BUnits[] = {
     { 0 },
 };
 
 // 0x88C2980
-CONST_DATA struct UnitDefinition UnitDef_088C2980[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_9[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -37141,7 +37141,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2980[] = {
         .xPosition = 14,
         .yPosition = 2,
         .redaCount = 4,
-        .redas = REDA_088C291C,
+        .redas = REDA_Ch9BEnemy_9_VIGARDE,
     },
     {
         .charIndex = CHARACTER_LYON,
@@ -37152,7 +37152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2980[] = {
         .xPosition = 15,
         .yPosition = 3,
         .redaCount = 5,
-        .redas = REDA_088C293C,
+        .redas = REDA_Ch9BEnemy_9_LYON,
     },
     {
         .charIndex = CHARACTER_DUESSEL,
@@ -37163,17 +37163,17 @@ CONST_DATA struct UnitDefinition UnitDef_088C2980[] = {
         .xPosition = 9,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = (void *)0x88c2964,
+        .redas = REDA_Ch9B_44,
     },
     { 0 },
 };
 
 // 0x88C29D0
-CONST_DATA struct UnitDefinition UnitDef_088C29D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BUnits_1[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C29E4[] = {
+CONST_DATA struct REDA REDA_Ch9BEnemy_11_SELENA[] = {
     {
         .x = 14,
         .y = 5,
@@ -37183,12 +37183,12 @@ CONST_DATA struct REDA REDA_088C29E4[] = {
 };
 
 // 0x88C29EC
-CONST_DATA struct UnitDefinition UnitDef_088C29EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BUnits_2[] = {
     { 0 },
 };
 
 // 0x88C2A00
-CONST_DATA struct UnitDefinition UnitDef_088C2A00[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_10[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -37211,7 +37211,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2A00[] = {
 };
 
 // 0x88C2A3C
-CONST_DATA struct UnitDefinition UnitDef_088C2A3C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch9BEnemy_11[] = {
     {
         .charIndex = CHARACTER_SELENA,
         .classIndex = CLASS_MAGE_KNIGHT_F,
@@ -37221,68 +37221,68 @@ CONST_DATA struct UnitDefinition UnitDef_088C2A3C[] = {
         .xPosition = 14,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C29E4,
+        .redas = REDA_Ch9BEnemy_11_SELENA,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C2A64[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_0[] = {
     {
         .x = 17,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A6C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_1[] = {
     {
         .x = 14,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A74[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_2[] = {
     {
         .x = 15,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A7C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_3[] = {
     {
         .x = 9,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A84[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_4[] = {
     {
         .x = 8,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A8C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_1_5[] = {
     {
         .x = 7,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A94[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_4_0[] = {
     {
         .x = 8,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2A9C[] = {
+CONST_DATA struct REDA REDA_Ch10BNPC_0_0[] = {
     {
         .x = 11,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AA4[] = {
+CONST_DATA struct REDA REDA_Ch10B_0[] = {
     {
         .x = 10,
         .y = 13,
@@ -37291,7 +37291,7 @@ CONST_DATA struct REDA REDA_088C2AA4[] = {
         .delayFrames = 5,
     },
 };
-CONST_DATA struct REDA REDA_088C2AAC[] = {
+CONST_DATA struct REDA REDA_Ch10B_1[] = {
     {
         .x = 9,
         .y = 13,
@@ -37299,7 +37299,7 @@ CONST_DATA struct REDA REDA_088C2AAC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AB4[] = {
+CONST_DATA struct REDA REDA_Ch10B_2[] = {
     {
         .x = 7,
         .y = 13,
@@ -37307,7 +37307,7 @@ CONST_DATA struct REDA REDA_088C2AB4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2ABC[] = {
+CONST_DATA struct REDA REDA_Ch10B_3[] = {
     {
         .x = 4,
         .y = 13,
@@ -37315,7 +37315,7 @@ CONST_DATA struct REDA REDA_088C2ABC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AC4[] = {
+CONST_DATA struct REDA REDA_Ch10B_4[] = {
     {
         .x = 4,
         .y = 14,
@@ -37323,14 +37323,14 @@ CONST_DATA struct REDA REDA_088C2AC4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2ACC[] = {
+CONST_DATA struct REDA REDA_Ch10BNPC_0_1[] = {
     {
         .x = 9,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AD4[] = {
+CONST_DATA struct REDA REDA_Ch10B_5[] = {
     {
         .x = 9,
         .y = 13,
@@ -37338,21 +37338,21 @@ CONST_DATA struct REDA REDA_088C2AD4[] = {
         .b = 0x3,
     },
 };
-CONST_DATA struct REDA REDA_088C2ADC[] = {
+CONST_DATA struct REDA REDA_Ch10B_6[] = {
     {
         .x = 5,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AE4[] = {
+CONST_DATA struct REDA REDA_Ch10BNPC_0_2[] = {
     {
         .x = 10,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AEC[] = {
+CONST_DATA struct REDA REDA_Ch10B_7[] = {
     {
         .x = 10,
         .y = 13,
@@ -37360,14 +37360,14 @@ CONST_DATA struct REDA REDA_088C2AEC[] = {
         .b = 0x2,
     },
 };
-CONST_DATA struct REDA REDA_088C2AF4[] = {
+CONST_DATA struct REDA REDA_Ch10B_8[] = {
     {
         .x = 6,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2AFC[] = {
+CONST_DATA struct REDA REDA_Ch10B_9[] = {
     {
         .x = 6,
         .y = 14,
@@ -37375,14 +37375,14 @@ CONST_DATA struct REDA REDA_088C2AFC[] = {
         .delayFrames = 5,
     },
 };
-CONST_DATA struct REDA REDA_088C2B04[] = {
+CONST_DATA struct REDA REDA_Ch10BNPC_0_3[] = {
     {
         .x = 10,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B0C[] = {
+CONST_DATA struct REDA REDA_Ch10B_10[] = {
     {
         .x = 10,
         .y = 13,
@@ -37390,119 +37390,119 @@ CONST_DATA struct REDA REDA_088C2B0C[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088C2B14[] = {
+CONST_DATA struct REDA REDA_Ch10B_11[] = {
     {
         .x = 5,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B1C[] = {
+CONST_DATA struct REDA REDA_Ch10B_12[] = {
     {
         .x = 5,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B24[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_6_0[] = {
     {
         .x = 20,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B2C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_6_1[] = {
     {
         .x = 22,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B34[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_0[] = {
     {
         .x = 17,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B3C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_1[] = {
     {
         .x = 19,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B44[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_2[] = {
     {
         .x = 18,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B4C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_3[] = {
     {
         .x = 18,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B54[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_4[] = {
     {
         .x = 17,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B5C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_7_5[] = {
     {
         .x = 19,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B64[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_8_0[] = {
     {
         .x = 20,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B6C[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_8_1[] = {
     {
         .x = 16,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B74[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_1_SELENA[] = {
     {
         .x = 18,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B7C[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_2_0[] = {
     {
         .x = 20,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B84[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_2_1[] = {
     {
         .x = 20,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B8C[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_2_2[] = {
     {
         .x = 21,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B94[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_3_EPHRAIM[] = {
     {
         .x = 17,
         .y = 3,
@@ -37510,7 +37510,7 @@ CONST_DATA struct REDA REDA_088C2B94[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2B9C[] = {
+CONST_DATA struct REDA REDA_Ch10B_13[] = {
     {
         .x = 15,
         .y = 3,
@@ -37518,7 +37518,7 @@ CONST_DATA struct REDA REDA_088C2B9C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BA4[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_3_SETH[] = {
     {
         .x = 17,
         .y = 4,
@@ -37527,7 +37527,7 @@ CONST_DATA struct REDA REDA_088C2BA4[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C2BAC[] = {
+CONST_DATA struct REDA REDA_Ch10B_14[] = {
     {
         .x = 16,
         .y = 4,
@@ -37535,7 +37535,7 @@ CONST_DATA struct REDA REDA_088C2BAC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BB4[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_0[] = {
     {
         .x = 18,
         .y = 4,
@@ -37543,7 +37543,7 @@ CONST_DATA struct REDA REDA_088C2BB4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BBC[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_1[] = {
     {
         .x = 20,
         .y = 4,
@@ -37551,7 +37551,7 @@ CONST_DATA struct REDA REDA_088C2BBC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BC4[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_2[] = {
     {
         .x = 19,
         .y = 3,
@@ -37559,7 +37559,7 @@ CONST_DATA struct REDA REDA_088C2BC4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BCC[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_3[] = {
     {
         .x = 17,
         .y = 2,
@@ -37567,7 +37567,7 @@ CONST_DATA struct REDA REDA_088C2BCC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BD4[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_4[] = {
     {
         .x = 19,
         .y = 2,
@@ -37575,7 +37575,7 @@ CONST_DATA struct REDA REDA_088C2BD4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BDC[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_5[] = {
     {
         .x = 18,
         .y = 1,
@@ -37583,7 +37583,7 @@ CONST_DATA struct REDA REDA_088C2BDC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BE4[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_6[] = {
     {
         .x = 17,
         .y = 1,
@@ -37591,7 +37591,7 @@ CONST_DATA struct REDA REDA_088C2BE4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BEC[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_4_7[] = {
     {
         .x = 19,
         .y = 1,
@@ -37599,7 +37599,7 @@ CONST_DATA struct REDA REDA_088C2BEC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BF4[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_9_VALTER[] = {
     {
         .x = 19,
         .y = 11,
@@ -37607,7 +37607,7 @@ CONST_DATA struct REDA REDA_088C2BF4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2BFC[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_10_SELENA[] = {
     {
         .x = 23,
         .y = 11,
@@ -37615,7 +37615,7 @@ CONST_DATA struct REDA REDA_088C2BFC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C04[] = {
+CONST_DATA struct REDA REDA_Ch10BEnemy_11_VALTER[] = {
     {
         .x = 18,
         .y = 14,
@@ -37623,7 +37623,7 @@ CONST_DATA struct REDA REDA_088C2C04[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C0C[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_0_LARACHEL[] = {
     {
         .x = 9,
         .y = 13,
@@ -37631,7 +37631,7 @@ CONST_DATA struct REDA REDA_088C2C0C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C14[] = {
+CONST_DATA struct REDA REDA_Ch10B_15[] = {
     {
         .x = 5,
         .y = 13,
@@ -37639,7 +37639,7 @@ CONST_DATA struct REDA REDA_088C2C14[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C1C[] = {
+CONST_DATA struct REDA REDA_Ch10B_16[] = {
     {
         .x = 5,
         .y = 14,
@@ -37647,7 +37647,7 @@ CONST_DATA struct REDA REDA_088C2C1C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C24[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_0_DOZLA[] = {
     {
         .x = 9,
         .y = 13,
@@ -37655,7 +37655,7 @@ CONST_DATA struct REDA REDA_088C2C24[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C2C[] = {
+CONST_DATA struct REDA REDA_Ch10B_17[] = {
     {
         .x = 6,
         .y = 13,
@@ -37663,7 +37663,7 @@ CONST_DATA struct REDA REDA_088C2C2C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C34[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_0_RENNAC[] = {
     {
         .x = 9,
         .y = 13,
@@ -37671,7 +37671,7 @@ CONST_DATA struct REDA REDA_088C2C34[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C3C[] = {
+CONST_DATA struct REDA REDA_Ch10B_18[] = {
     {
         .x = 4,
         .y = 13,
@@ -37679,7 +37679,7 @@ CONST_DATA struct REDA REDA_088C2C3C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C44[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_5_FRELIAN[] = {
     {
         .x = 5,
         .y = 18,
@@ -37687,7 +37687,7 @@ CONST_DATA struct REDA REDA_088C2C44[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C2C4C[] = {
+CONST_DATA struct REDA REDA_Ch10B_19[] = {
     {
         .x = 5,
         .y = 17,
@@ -37697,7 +37697,7 @@ CONST_DATA struct REDA REDA_088C2C4C[] = {
 };
 
 // 0x88C2C54
-CONST_DATA struct UnitDefinition UnitDef_088C2C54[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -37845,7 +37845,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2C54[] = {
 };
 
 // 0x88C2D44
-CONST_DATA struct UnitDefinition UnitDef_088C2D44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_0[] = {
     {
         .charIndex = CHARACTER_SELENA,
         .classIndex = CLASS_MAGE_KNIGHT_F,
@@ -37863,7 +37863,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D44[] = {
 };
 
 // 0x88C2D6C
-CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -37873,7 +37873,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .xPosition = 14,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088C2A64,
+        .redas = REDA_Ch10BEnemy_1_0,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -37889,7 +37889,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .yPosition = 15,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088C2A6C,
+        .redas = REDA_Ch10BEnemy_1_1,
         .items = {
             ITEM_SWORD_LANCEREAVER,
         },
@@ -37904,7 +37904,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .xPosition = 17,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088C2A74,
+        .redas = REDA_Ch10BEnemy_1_2,
         .items = {
             ITEM_BOW_KILLER,
         },
@@ -37919,7 +37919,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .xPosition = 9,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C2A7C,
+        .redas = REDA_Ch10BEnemy_1_3,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -37934,7 +37934,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .xPosition = 8,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C2A84,
+        .redas = REDA_Ch10BEnemy_1_4,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -37949,7 +37949,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
         .xPosition = 7,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C2A8C,
+        .redas = REDA_Ch10BEnemy_1_5,
         .items = {
             ITEM_AXE_HANDAXE,
         },
@@ -37959,7 +37959,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2D6C[] = {
 };
 
 // 0x88C2DF8
-CONST_DATA struct UnitDefinition UnitDef_088C2DF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_2[] = {
     {
         .charIndex = CHARACTER_BERAN,
         .classIndex = CLASS_RANGER,
@@ -37978,7 +37978,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2DF8[] = {
 };
 
 // 0x88C2E20
-CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SOLDIER,
@@ -38171,7 +38171,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2E20[] = {
 };
 
 // 0x88C2F4C
-CONST_DATA struct UnitDefinition UnitDef_088C2F4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PIRATE,
@@ -38207,7 +38207,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2F4C[] = {
         .xPosition = 8,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C2A94,
+        .redas = REDA_Ch10BEnemy_4_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -38230,7 +38230,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2F4C[] = {
 };
 
 // 0x88C2FB0
-CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BNPC_0[] = {
     {
         .charIndex = CHARACTER_DUESSEL,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -38239,7 +38239,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
         .xPosition = 11,
         .yPosition = 13,
         .redaCount = 6,
-        .redas = REDA_088C2A9C,
+        .redas = REDA_Ch10BNPC_0_0,
         .items = {
             ITEM_AXE_SILVER,
             ITEM_LANCE_STEEL,
@@ -38256,7 +38256,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
         .xPosition = 9,
         .yPosition = 12,
         .redaCount = 3,
-        .redas = REDA_088C2ACC,
+        .redas = REDA_Ch10BNPC_0_1,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -38272,7 +38272,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
         .xPosition = 10,
         .yPosition = 12,
         .redaCount = 4,
-        .redas = REDA_088C2AE4,
+        .redas = REDA_Ch10BNPC_0_2,
         .items = {
             ITEM_SWORD_IRON,
             ITEM_VULNERARY,
@@ -38288,7 +38288,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
         .xPosition = 10,
         .yPosition = 14,
         .redaCount = 4,
-        .redas = REDA_088C2B04,
+        .redas = REDA_Ch10BNPC_0_3,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_VULNERARY,
@@ -38299,7 +38299,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C2FB0[] = {
 };
 
 // 0x88C3014
-CONST_DATA struct UnitDefinition UnitDef_088C3014[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -38330,7 +38330,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3014[] = {
 };
 
 // 0x88C3050
-CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_6[] = {
     {
         .charIndex = CHARACTER_CORMAG,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -38355,7 +38355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
         .xPosition = 21,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C2B24,
+        .redas = REDA_Ch10BEnemy_6_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -38370,7 +38370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
         .xPosition = 21,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C2B2C,
+        .redas = REDA_Ch10BEnemy_6_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -38380,7 +38380,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3050[] = {
 };
 
 // 0x88C30A0
-CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_7[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -38390,7 +38390,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B34,
+        .redas = REDA_Ch10BEnemy_7_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -38405,7 +38405,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B3C,
+        .redas = REDA_Ch10BEnemy_7_1,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -38420,7 +38420,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B44,
+        .redas = REDA_Ch10BEnemy_7_2,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -38435,7 +38435,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B4C,
+        .redas = REDA_Ch10BEnemy_7_3,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -38451,7 +38451,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B54,
+        .redas = REDA_Ch10BEnemy_7_4,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -38466,7 +38466,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B5C,
+        .redas = REDA_Ch10BEnemy_7_5,
         .items = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_MEND,
@@ -38477,7 +38477,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C30A0[] = {
 };
 
 // 0x88C312C
-CONST_DATA struct UnitDefinition UnitDef_088C312C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_8[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -38487,7 +38487,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C312C[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B64,
+        .redas = REDA_Ch10BEnemy_8_0,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -38503,7 +38503,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C312C[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2B6C,
+        .redas = REDA_Ch10BEnemy_8_1,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -38514,7 +38514,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C312C[] = {
 };
 
 // 0x88C3168
-CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BNPC_1[] = {
     {
         .charIndex = CHARACTER_DUESSEL,
         .classIndex = CLASS_GREAT_KNIGHT,
@@ -38559,7 +38559,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3168[] = {
 };
 
 // 0x88C31CC
-CONST_DATA struct UnitDefinition UnitDef_088C31CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_1[] = {
     {
         .charIndex = CHARACTER_SELENA,
         .classIndex = CLASS_MAGE_KNIGHT_F,
@@ -38568,13 +38568,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C31CC[] = {
         .xPosition = 13,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088C2B74,
+        .redas = REDA_Ch10BAlly_1_SELENA,
     },
     { 0 },
 };
 
 // 0x88C31F4
-CONST_DATA struct UnitDefinition UnitDef_088C31F4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_2[] = {
     {
         .charIndex = CHARACTER_CORMAG,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -38583,7 +38583,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C31F4[] = {
         .xPosition = 12,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088C2B7C,
+        .redas = REDA_Ch10BAlly_2_0,
     },
     {
         .charIndex = CHARACTER_BANDIT_CH5,
@@ -38593,7 +38593,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C31F4[] = {
         .xPosition = 11,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C2B84,
+        .redas = REDA_Ch10BAlly_2_1,
     },
     {
         .charIndex = 0x67,
@@ -38603,13 +38603,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C31F4[] = {
         .xPosition = 13,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C2B8C,
+        .redas = REDA_Ch10BAlly_2_2,
     },
     { 0 },
 };
 
 // 0x88C3244
-CONST_DATA struct UnitDefinition UnitDef_088C3244[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_3[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -38618,7 +38618,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3244[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088C2B94,
+        .redas = REDA_Ch10BAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -38628,13 +38628,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C3244[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088C2BA4,
+        .redas = REDA_Ch10BAlly_3_SETH,
     },
     { 0 },
 };
 
 // 0x88C3280
-CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -38643,7 +38643,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BB4,
+        .redas = REDA_Ch10BAlly_4_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38658,7 +38658,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BBC,
+        .redas = REDA_Ch10BAlly_4_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -38673,7 +38673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BC4,
+        .redas = REDA_Ch10BAlly_4_2,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38688,7 +38688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BCC,
+        .redas = REDA_Ch10BAlly_4_3,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38703,7 +38703,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BD4,
+        .redas = REDA_Ch10BAlly_4_4,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38718,7 +38718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BDC,
+        .redas = REDA_Ch10BAlly_4_5,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38733,7 +38733,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 17,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BE4,
+        .redas = REDA_Ch10BAlly_4_6,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38748,7 +38748,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
         .xPosition = 19,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C2BEC,
+        .redas = REDA_Ch10BAlly_4_7,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -38759,7 +38759,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3280[] = {
 };
 
 // 0x88C3334
-CONST_DATA struct UnitDefinition UnitDef_088C3334[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_9[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -38769,14 +38769,14 @@ CONST_DATA struct UnitDefinition UnitDef_088C3334[] = {
         .xPosition = 22,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C2BF4,
+        .redas = REDA_Ch10BEnemy_9_VALTER,
         .ai = {AttackInRangeAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88C335C
-CONST_DATA struct UnitDefinition UnitDef_088C335C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_10[] = {
     {
         .charIndex = CHARACTER_SELENA,
         .classIndex = CLASS_FLEET,
@@ -38786,14 +38786,14 @@ CONST_DATA struct UnitDefinition UnitDef_088C335C[] = {
         .xPosition = 20,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C2BFC,
+        .redas = REDA_Ch10BEnemy_10_SELENA,
         .ai = {DefaultAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88C3384
-CONST_DATA struct UnitDefinition UnitDef_088C3384[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_11[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -38803,14 +38803,14 @@ CONST_DATA struct UnitDefinition UnitDef_088C3384[] = {
         .xPosition = 18,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088C2C04,
+        .redas = REDA_Ch10BEnemy_11_VALTER,
         .ai = {GuardTileAI, 0x9, 0x0},
     },
     { 0 },
 };
 
 // 0x88C33AC
-CONST_DATA struct UnitDefinition UnitDef_088C33AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BMixed_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -38836,7 +38836,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C33AC[] = {
         .xPosition = 9,
         .yPosition = 9,
         .redaCount = 3,
-        .redas = REDA_088C2C0C,
+        .redas = REDA_Ch10BMixed_0_LARACHEL,
     },
     {
         .charIndex = CHARACTER_DOZLA,
@@ -38847,7 +38847,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C33AC[] = {
         .xPosition = 9,
         .yPosition = 8,
         .redaCount = 2,
-        .redas = REDA_088C2C24,
+        .redas = REDA_Ch10BMixed_0_DOZLA,
     },
     {
         .charIndex = CHARACTER_RENNAC,
@@ -38858,13 +38858,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C33AC[] = {
         .xPosition = 9,
         .yPosition = 7,
         .redaCount = 2,
-        .redas = REDA_088C2C34,
+        .redas = REDA_Ch10BMixed_0_RENNAC,
     },
     { 0 },
 };
 
 // 0x88C3424
-CONST_DATA struct UnitDefinition UnitDef_088C3424[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_5[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_FLEET,
@@ -38873,13 +38873,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C3424[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 2,
-        .redas = REDA_088C2C44,
+        .redas = REDA_Ch10BAlly_5_FRELIAN,
     },
     { 0 },
 };
 
 // 0x88C344C
-CONST_DATA struct UnitDefinition UnitDef_088C344C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_6[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -39001,7 +39001,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C344C[] = {
 };
 
 // 0x88C3514
-CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_12[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAUTHEDOOG,
@@ -39285,7 +39285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3514[] = {
 };
 
 // 0x88C36F4
-CONST_DATA struct UnitDefinition UnitDef_088C36F4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_7[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -39407,7 +39407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C36F4[] = {
 };
 
 // 0x88C37BC
-CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_13[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_TARVOS,
@@ -39693,7 +39693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C37BC[] = {
 };
 
 // 0x88C399C
-CONST_DATA struct UnitDefinition UnitDef_088C399C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_8[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -39815,7 +39815,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C399C[] = {
 };
 
 // 0x88C3A64
-CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BEnemy_14[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_BAEL,
@@ -40098,7 +40098,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3A64[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C3C44[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_0[] = {
     {
         .x = 11,
         .y = 3,
@@ -40106,7 +40106,7 @@ CONST_DATA struct REDA REDA_088C3C44[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C4C[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_1[] = {
     {
         .x = 10,
         .y = 3,
@@ -40114,7 +40114,7 @@ CONST_DATA struct REDA REDA_088C3C4C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C54[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_2[] = {
     {
         .x = 9,
         .y = 2,
@@ -40122,7 +40122,7 @@ CONST_DATA struct REDA REDA_088C3C54[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C5C[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_3[] = {
     {
         .x = 12,
         .y = 2,
@@ -40130,7 +40130,7 @@ CONST_DATA struct REDA REDA_088C3C5C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C64[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_4[] = {
     {
         .x = 8,
         .y = 1,
@@ -40138,7 +40138,7 @@ CONST_DATA struct REDA REDA_088C3C64[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C6C[] = {
+CONST_DATA struct REDA REDA_Ch10BAlly_9_5[] = {
     {
         .x = 11,
         .y = 1,
@@ -40146,21 +40146,21 @@ CONST_DATA struct REDA REDA_088C3C6C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C74[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_1_MESSENGER[] = {
     {
         .x = 5,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C7C[] = {
+CONST_DATA struct REDA REDA_Ch10B_20[] = {
     {
         .x = 8,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C84[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_1_EPHRAIM[] = {
     {
         .x = 9,
         .y = 3,
@@ -40168,7 +40168,7 @@ CONST_DATA struct REDA REDA_088C3C84[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C8C[] = {
+CONST_DATA struct REDA REDA_Ch10B_21[] = {
     {
         .x = 8,
         .y = 3,
@@ -40176,7 +40176,7 @@ CONST_DATA struct REDA REDA_088C3C8C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C94[] = {
+CONST_DATA struct REDA REDA_Ch10B_22[] = {
     {
         .x = 8,
         .y = 4,
@@ -40184,7 +40184,7 @@ CONST_DATA struct REDA REDA_088C3C94[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3C9C[] = {
+CONST_DATA struct REDA REDA_Ch10BMixed_1_SETH[] = {
     {
         .x = 8,
         .y = 2,
@@ -40192,7 +40192,7 @@ CONST_DATA struct REDA REDA_088C3C9C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3CA4[] = {
+CONST_DATA struct REDA REDA_Ch10B_23[] = {
     {
         .x = 7,
         .y = 2,
@@ -40200,7 +40200,7 @@ CONST_DATA struct REDA REDA_088C3CA4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3CAC[] = {
+CONST_DATA struct REDA REDA_Ch11B_0[] = {
     {
         .x = 7,
         .y = 3,
@@ -40210,7 +40210,7 @@ CONST_DATA struct REDA REDA_088C3CAC[] = {
 };
 
 // 0x88C3CB4
-CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BAlly_9[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -40219,7 +40219,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C44,
+        .redas = REDA_Ch10BAlly_9_0,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40229,7 +40229,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 10,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C4C,
+        .redas = REDA_Ch10BAlly_9_1,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40239,7 +40239,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C54,
+        .redas = REDA_Ch10BAlly_9_2,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40249,7 +40249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C5C,
+        .redas = REDA_Ch10BAlly_9_3,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40259,7 +40259,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 8,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C64,
+        .redas = REDA_Ch10BAlly_9_4,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40269,7 +40269,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
         .xPosition = 11,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3C6C,
+        .redas = REDA_Ch10BAlly_9_5,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40283,12 +40283,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C3CB4[] = {
 };
 
 // 0x88C3D54
-CONST_DATA struct UnitDefinition UnitDef_088C3D54[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BUnits[] = {
     { 0 },
 };
 
 // 0x88C3D68
-CONST_DATA struct UnitDefinition UnitDef_088C3D68[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch10BMixed_1[] = {
     {
         .charIndex = CHARACTER_MESSENGER,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -40298,7 +40298,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3D68[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088C3C74,
+        .redas = REDA_Ch10BMixed_1_MESSENGER,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -40308,7 +40308,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3D68[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 3,
-        .redas = REDA_088C3C84,
+        .redas = REDA_Ch10BMixed_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -40318,12 +40318,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C3D68[] = {
         .xPosition = 8,
         .yPosition = 0,
         .redaCount = 3,
-        .redas = REDA_088C3C9C,
+        .redas = REDA_Ch10BMixed_1_SETH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C3DB8[] = {
+CONST_DATA struct REDA REDA_Ch11BNPC_DOZLA[] = {
     {
         .x = 19,
         .y = 8,
@@ -40331,28 +40331,28 @@ CONST_DATA struct REDA REDA_088C3DB8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DC0[] = {
+CONST_DATA struct REDA REDA_Ch11BNPC_LARACHEL[] = {
     {
         .x = 19,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DC8[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_4_0[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DD0[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_4_1[] = {
     {
         .x = 1,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DD8[] = {
+CONST_DATA struct REDA REDA_Ch11BAlly_2_MYRRH[] = {
     {
         .x = 5,
         .y = 6,
@@ -40360,7 +40360,7 @@ CONST_DATA struct REDA REDA_088C3DD8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DE0[] = {
+CONST_DATA struct REDA REDA_Ch11B_1[] = {
     {
         .x = 6,
         .y = 6,
@@ -40368,91 +40368,91 @@ CONST_DATA struct REDA REDA_088C3DE0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DE8[] = {
+CONST_DATA struct REDA REDA_Ch11BAlly_2_SETH[] = {
     {
         .x = 4,
         .y = 5,
         .a = 0x1e,
     },
 };
-CONST_DATA struct REDA REDA_088C3DF0[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_6_0[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3DF8[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_6_1[] = {
     {
         .x = 12,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E00[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_7_0[] = {
     {
         .x = 11,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E08[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_7_1[] = {
     {
         .x = 13,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E10[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_8_0[] = {
     {
         .x = 19,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E18[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_8_1[] = {
     {
         .x = 20,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E20[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_9_0[] = {
     {
         .x = 20,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E28[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_9_1[] = {
     {
         .x = 19,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E30[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_10_0[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E38[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_10_1[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E40[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_11_0[] = {
     {
         .x = 0,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C3E48[] = {
+CONST_DATA struct REDA REDA_Ch11BEnemy_11_1[] = {
     {
         .x = 1,
         .y = 18,
@@ -40461,7 +40461,7 @@ CONST_DATA struct REDA REDA_088C3E48[] = {
 };
 
 // 0x88C3E50
-CONST_DATA struct UnitDefinition UnitDef_088C3E50[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -40610,7 +40610,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3E50[] = {
 };
 
 // 0x88C3F40
-CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_0[] = {
     {
         .charIndex = CHARACTER_MONSTER_BA,
         .classIndex = CLASS_MOGALL,
@@ -40745,7 +40745,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C3F40[] = {
 };
 
 // 0x88C401C
-CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BNPC[] = {
     {
         .charIndex = CHARACTER_DOZLA,
         .classIndex = CLASS_BERSERKER,
@@ -40755,7 +40755,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
         .xPosition = 20,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C3DB8,
+        .redas = REDA_Ch11BNPC_DOZLA,
         .items = {
             ITEM_AXE_BATTLEAXE,
             ITEM_ELIXIR,
@@ -40770,7 +40770,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
         .xPosition = 20,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C3DC0,
+        .redas = REDA_Ch11BNPC_LARACHEL,
         .items = {
             ITEM_STAFF_MEND,
             ITEM_WHITEGEM,
@@ -40782,7 +40782,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C401C[] = {
 };
 
 // 0x88C4058
-CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_1[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -40943,7 +40943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4058[] = {
 };
 
 // 0x88C415C
-CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_2[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_WIGHT,
@@ -41066,7 +41066,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C415C[] = {
 };
 
 // 0x88C4224
-CONST_DATA struct UnitDefinition UnitDef_088C4224[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_3[] = {
     {
         .charIndex = 0xac,
         .classIndex = CLASS_BONEWALKER,
@@ -41097,7 +41097,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4224[] = {
 };
 
 // 0x88C4260
-CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_4[] = {
     {
         .charIndex = CHARACTER_DEATHGOYLE_CHUnk,
         .classIndex = CLASS_DEATHGOYLE,
@@ -41120,7 +41120,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
         .xPosition = 0,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088C3DC8,
+        .redas = REDA_Ch11BEnemy_4_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -41135,7 +41135,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C3DD0,
+        .redas = REDA_Ch11BEnemy_4_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -41145,7 +41145,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4260[] = {
 };
 
 // 0x88C42B0
-CONST_DATA struct UnitDefinition UnitDef_088C42B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BAlly_1[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -41166,7 +41166,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C42B0[] = {
 };
 
 // 0x88C42EC
-CONST_DATA struct UnitDefinition UnitDef_088C42EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BAlly_2[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -41175,7 +41175,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C42EC[] = {
         .xPosition = 5,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088C3DD8,
+        .redas = REDA_Ch11BAlly_2_MYRRH,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -41185,13 +41185,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C42EC[] = {
         .xPosition = 4,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C3DE8,
+        .redas = REDA_Ch11BAlly_2_SETH,
     },
     { 0 },
 };
 
 // 0x88C4328
-CONST_DATA struct UnitDefinition UnitDef_088C4328[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_5[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -41222,7 +41222,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4328[] = {
 };
 
 // 0x88C4364
-CONST_DATA struct UnitDefinition UnitDef_088C4364[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_6[] = {
     {
         .charIndex = 0xb7,
         .classIndex = CLASS_MOGALL,
@@ -41232,7 +41232,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4364[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3DF0,
+        .redas = REDA_Ch11BEnemy_6_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41247,7 +41247,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4364[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3DF8,
+        .redas = REDA_Ch11BEnemy_6_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41257,7 +41257,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4364[] = {
 };
 
 // 0x88C43A0
-CONST_DATA struct UnitDefinition UnitDef_088C43A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_7[] = {
     {
         .charIndex = 0xb7,
         .classIndex = CLASS_MOGALL,
@@ -41267,7 +41267,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43A0[] = {
         .xPosition = 11,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E00,
+        .redas = REDA_Ch11BEnemy_7_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41282,7 +41282,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43A0[] = {
         .xPosition = 13,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E08,
+        .redas = REDA_Ch11BEnemy_7_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41292,12 +41292,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C43A0[] = {
 };
 
 // 0x88C43DC
-CONST_DATA struct UnitDefinition UnitDef_088C43DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BUnits[] = {
     { 0 },
 };
 
 // 0x88C43F0
-CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_8[] = {
     {
         .charIndex = 0xb9,
         .classIndex = CLASS_GARGOYLE,
@@ -41306,7 +41306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
         .xPosition = 20,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3E10,
+        .redas = REDA_Ch11BEnemy_8_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -41320,7 +41320,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
         .xPosition = 20,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3E18,
+        .redas = REDA_Ch11BEnemy_8_1,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -41330,7 +41330,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C43F0[] = {
 };
 
 // 0x88C442C
-CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_9[] = {
     {
         .charIndex = 0xb9,
         .classIndex = CLASS_MOGALL,
@@ -41339,7 +41339,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
         .xPosition = 20,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E20,
+        .redas = REDA_Ch11BEnemy_9_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41353,7 +41353,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
         .xPosition = 20,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E28,
+        .redas = REDA_Ch11BEnemy_9_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41363,17 +41363,17 @@ CONST_DATA struct UnitDefinition UnitDef_088C442C[] = {
 };
 
 // 0x88C4468
-CONST_DATA struct UnitDefinition UnitDef_088C4468[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BUnits_1[] = {
     { 0 },
 };
 
 // 0x88C447C
-CONST_DATA struct UnitDefinition UnitDef_088C447C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BUnits_2[] = {
     { 0 },
 };
 
 // 0x88C4490
-CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_10[] = {
     {
         .charIndex = 0xb9,
         .classIndex = CLASS_MOGALL,
@@ -41383,7 +41383,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3E30,
+        .redas = REDA_Ch11BEnemy_10_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41398,7 +41398,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C3E38,
+        .redas = REDA_Ch11BEnemy_10_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41408,7 +41408,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4490[] = {
 };
 
 // 0x88C44CC
-CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_11[] = {
     {
         .charIndex = 0xb9,
         .classIndex = CLASS_MOGALL,
@@ -41418,7 +41418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E40,
+        .redas = REDA_Ch11BEnemy_11_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41433,7 +41433,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C3E48,
+        .redas = REDA_Ch11BEnemy_11_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -41443,12 +41443,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C44CC[] = {
 };
 
 // 0x88C4508
-CONST_DATA struct UnitDefinition UnitDef_088C4508[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BUnits_3[] = {
     { 0 },
 };
 
 // 0x88C451C
-CONST_DATA struct UnitDefinition UnitDef_088C451C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch11BEnemy_12[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -41512,189 +41512,189 @@ CONST_DATA struct UnitDefinition UnitDef_088C451C[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C45A8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_0[] = {
     {
         .x = 1,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45B0[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_1[] = {
     {
         .x = 1,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45B8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_2[] = {
     {
         .x = 1,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45C0[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_3[] = {
     {
         .x = 6,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45C8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_4[] = {
     {
         .x = 8,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45D0[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_5[] = {
     {
         .x = 12,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45D8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_6[] = {
     {
         .x = 14,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45E0[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_7[] = {
     {
         .x = 12,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45E8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_8[] = {
     {
         .x = 14,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45F0[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_9[] = {
     {
         .x = 12,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C45F8[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_0_10[] = {
     {
         .x = 14,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4600[] = {
+CONST_DATA struct REDA REDA_Ch12BAlly_1_EWAN[] = {
     {
         .x = 5,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4608[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_0[] = {
     {
         .x = 17,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4610[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_1[] = {
     {
         .x = 18,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4618[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_2[] = {
     {
         .x = 12,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4620[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_3[] = {
     {
         .x = 15,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4628[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_4[] = {
     {
         .x = 19,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4630[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_1_5[] = {
     {
         .x = 20,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4638[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_2_0[] = {
     {
         .x = 9,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4640[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_2_1[] = {
     {
         .x = 3,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4648[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_2_2[] = {
     {
         .x = 6,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4650[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_3_0[] = {
     {
         .x = 19,
         .y = 9,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4658[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_3_1[] = {
     {
         .x = 18,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4660[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_4_0[] = {
     {
         .x = 1,
         .y = 28,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4668[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_4_1[] = {
     {
         .x = 3,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4670[] = {
+CONST_DATA struct REDA REDA_Ch12BEnemy_4_2[] = {
     {
         .x = 4,
         .y = 29,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4678[] = {
+CONST_DATA struct REDA REDA_Ch12BAlly_2_MYRRH[] = {
     {
         .x = 5,
         .y = 23,
@@ -41702,7 +41702,7 @@ CONST_DATA struct REDA REDA_088C4678[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4680[] = {
+CONST_DATA struct REDA REDA_Ch12BAlly_3_LYON[] = {
     {
         .x = 13,
         .y = 19,
@@ -41710,7 +41710,7 @@ CONST_DATA struct REDA REDA_088C4680[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4688[] = {
+CONST_DATA struct REDA REDA_Ch12B_0[] = {
     {
         .x = 13,
         .y = 20,
@@ -41718,7 +41718,7 @@ CONST_DATA struct REDA REDA_088C4688[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4690[] = {
+CONST_DATA struct REDA REDA_Ch12B_1[] = {
     {
         .x = 6,
         .y = 20,
@@ -41726,7 +41726,7 @@ CONST_DATA struct REDA REDA_088C4690[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4698[] = {
+CONST_DATA struct REDA REDA_Ch12BNPC_SALEH[] = {
     {
         .x = 5,
         .y = 10,
@@ -41734,7 +41734,7 @@ CONST_DATA struct REDA REDA_088C4698[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C46A0[] = {
+CONST_DATA struct REDA REDA_Ch12BNPC_EWAN[] = {
     {
         .x = 4,
         .y = 10,
@@ -41743,7 +41743,7 @@ CONST_DATA struct REDA REDA_088C46A0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C46A8[] = {
+CONST_DATA struct REDA REDA_Ch12BAlly_4_SETH[] = {
     {
         .x = 16,
         .y = 4,
@@ -41751,7 +41751,7 @@ CONST_DATA struct REDA REDA_088C46A8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C46B0[] = {
+CONST_DATA struct REDA REDA_Ch12BAlly_5_MYRRH[] = {
     {
         .x = 13,
         .y = 12,
@@ -41761,7 +41761,7 @@ CONST_DATA struct REDA REDA_088C46B0[] = {
 };
 
 // 0x88C46B8
-CONST_DATA struct UnitDefinition UnitDef_088C46B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -41922,7 +41922,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C46B8[] = {
 };
 
 // 0x88C47BC
-CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_0[] = {
     {
         .charIndex = CHARACTER_CAELLACH,
         .classIndex = CLASS_HERO,
@@ -42261,7 +42261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 1,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45A8,
+        .redas = REDA_Ch12BEnemy_0_0,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -42276,7 +42276,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 1,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45B0,
+        .redas = REDA_Ch12BEnemy_0_1,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -42291,7 +42291,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 1,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45B8,
+        .redas = REDA_Ch12BEnemy_0_2,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -42306,7 +42306,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45C0,
+        .redas = REDA_Ch12BEnemy_0_3,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -42321,7 +42321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 8,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45C8,
+        .redas = REDA_Ch12BEnemy_0_4,
         .items = {
             ITEM_BOW_IRON,
         },
@@ -42336,7 +42336,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 12,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45D0,
+        .redas = REDA_Ch12BEnemy_0_5,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -42351,7 +42351,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 14,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45D8,
+        .redas = REDA_Ch12BEnemy_0_6,
         .items = {
             ITEM_LANCE_IRON,
             ITEM_LANCE_JAVELIN,
@@ -42367,7 +42367,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 12,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45E0,
+        .redas = REDA_Ch12BEnemy_0_7,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -42382,7 +42382,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 14,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45E8,
+        .redas = REDA_Ch12BEnemy_0_8,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -42397,7 +42397,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 12,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45F0,
+        .redas = REDA_Ch12BEnemy_0_9,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -42412,7 +42412,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
         .xPosition = 14,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C45F8,
+        .redas = REDA_Ch12BEnemy_0_10,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -42436,7 +42436,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C47BC[] = {
 };
 
 // 0x88C4AB4
-CONST_DATA struct UnitDefinition UnitDef_088C4AB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_1[] = {
     {
         .charIndex = CHARACTER_EWAN,
         .classIndex = CLASS_PUPIL,
@@ -42445,7 +42445,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4AB4[] = {
         .xPosition = 5,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C4600,
+        .redas = REDA_Ch12BAlly_1_EWAN,
         .items = {
             ITEM_ANIMA_FIRE,
             ITEM_BOOSTER_DEF,
@@ -42456,7 +42456,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4AB4[] = {
 };
 
 // 0x88C4ADC
-CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_1[] = {
     {
         .charIndex = CHARACTER_CYCLOPS_CHUnk,
         .classIndex = CLASS_CYCLOPS,
@@ -42466,7 +42466,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .yPosition = 0,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088C4608,
+        .redas = REDA_Ch12BEnemy_1_0,
         .items = {
             ITEM_AXE_HANDAXE,
             ITEM_AXE_SWORDSLAYER,
@@ -42482,7 +42482,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .xPosition = 18,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4610,
+        .redas = REDA_Ch12BEnemy_1_1,
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
@@ -42497,7 +42497,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .xPosition = 12,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4618,
+        .redas = REDA_Ch12BEnemy_1_2,
         .items = {
             ITEM_BOW_STEEL,
         },
@@ -42512,7 +42512,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .xPosition = 15,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4620,
+        .redas = REDA_Ch12BEnemy_1_3,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -42527,7 +42527,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .xPosition = 20,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088C4628,
+        .redas = REDA_Ch12BEnemy_1_4,
         .items = {
             ITEM_SWORD_IRON,
         },
@@ -42542,7 +42542,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
         .xPosition = 20,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C4630,
+        .redas = REDA_Ch12BEnemy_1_5,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -42552,7 +42552,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4ADC[] = {
 };
 
 // 0x88C4B68
-CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_2[] = {
     {
         .charIndex = 0xb3,
         .classIndex = CLASS_MAUTHEDOOG,
@@ -42562,7 +42562,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4638,
+        .redas = REDA_Ch12BEnemy_2_0,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -42577,7 +42577,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4640,
+        .redas = REDA_Ch12BEnemy_2_1,
         .items = {
             ITEM_MONSTER_FIREFANG,
         },
@@ -42592,7 +42592,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4648,
+        .redas = REDA_Ch12BEnemy_2_2,
         .items = {
             ITEM_LANCE_VENIN,
         },
@@ -42602,7 +42602,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4B68[] = {
 };
 
 // 0x88C4BB8
-CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_3[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -42612,7 +42612,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
         .xPosition = 20,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C4650,
+        .redas = REDA_Ch12BEnemy_3_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -42627,7 +42627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
         .xPosition = 20,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C4658,
+        .redas = REDA_Ch12BEnemy_3_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -42637,7 +42637,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BB8[] = {
 };
 
 // 0x88C4BF4
-CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_4[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -42647,7 +42647,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
         .xPosition = 1,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088C4660,
+        .redas = REDA_Ch12BEnemy_4_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -42662,7 +42662,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
         .xPosition = 3,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088C4668,
+        .redas = REDA_Ch12BEnemy_4_1,
         .items = {
             ITEM_LANCE_HORSESLAYER,
         },
@@ -42677,7 +42677,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
         .xPosition = 4,
         .yPosition = 30,
         .redaCount = 1,
-        .redas = REDA_088C4670,
+        .redas = REDA_Ch12BEnemy_4_2,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -42687,7 +42687,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4BF4[] = {
 };
 
 // 0x88C4C44
-CONST_DATA struct UnitDefinition UnitDef_088C4C44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARCHER,
@@ -42718,7 +42718,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4C44[] = {
 };
 
 // 0x88C4C80
-CONST_DATA struct UnitDefinition UnitDef_088C4C80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_6[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -42736,7 +42736,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4C80[] = {
 };
 
 // 0x88C4CA8
-CONST_DATA struct UnitDefinition UnitDef_088C4CA8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_7[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -42754,7 +42754,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4CA8[] = {
 };
 
 // 0x88C4CD0
-CONST_DATA struct UnitDefinition UnitDef_088C4CD0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BEnemy_8[] = {
     {
         .charIndex = 0xac,
         .classIndex = CLASS_BONEWALKER,
@@ -42785,7 +42785,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4CD0[] = {
 };
 
 // 0x88C4D0C
-CONST_DATA struct UnitDefinition UnitDef_088C4D0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -42810,13 +42810,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C4D0C[] = {
         .xPosition = 5,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C4678,
+        .redas = REDA_Ch12BAlly_2_MYRRH,
     },
     { 0 },
 };
 
 // 0x88C4D5C
-CONST_DATA struct UnitDefinition UnitDef_088C4D5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_3[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_SOLDIER,
@@ -42825,13 +42825,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C4D5C[] = {
         .xPosition = 13,
         .yPosition = 18,
         .redaCount = 3,
-        .redas = REDA_088C4680,
+        .redas = REDA_Ch12BAlly_3_LYON,
     },
     { 0 },
 };
 
 // 0x88C4D84
-CONST_DATA struct UnitDefinition UnitDef_088C4D84[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BNPC[] = {
     {
         .charIndex = CHARACTER_SALEH,
         .classIndex = CLASS_SAGE,
@@ -42840,7 +42840,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4D84[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C4698,
+        .redas = REDA_Ch12BNPC_SALEH,
     },
     {
         .charIndex = CHARACTER_EWAN,
@@ -42850,13 +42850,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C4D84[] = {
         .xPosition = 0,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C46A0,
+        .redas = REDA_Ch12BNPC_EWAN,
     },
     { 0 },
 };
 
 // 0x88C4DC0
-CONST_DATA struct UnitDefinition UnitDef_088C4DC0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_4[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -42873,13 +42873,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C4DC0[] = {
         .xPosition = 16,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088C46A8,
+        .redas = REDA_Ch12BAlly_4_SETH,
     },
     { 0 },
 };
 
 // 0x88C4DFC
-CONST_DATA struct UnitDefinition UnitDef_088C4DFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch12BAlly_5[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -42888,26 +42888,26 @@ CONST_DATA struct UnitDefinition UnitDef_088C4DFC[] = {
         .xPosition = 13,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C46B0,
+        .redas = REDA_Ch12BAlly_5_MYRRH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C4E24[] = {
+CONST_DATA struct REDA REDA_Ch13BEnemy_0_SELENA[] = {
     {
         .x = 10,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E2C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_1_TETHYS[] = {
     {
         .x = 19,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E34[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_1_GERIK[] = {
     {
         .x = 19,
         .y = 5,
@@ -42915,14 +42915,14 @@ CONST_DATA struct REDA REDA_088C4E34[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C4E3C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_2_MYRRH[] = {
     {
         .x = 17,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E44[] = {
+CONST_DATA struct REDA REDA_Ch13B_0[] = {
     {
         .x = 17,
         .y = 13,
@@ -42931,7 +42931,7 @@ CONST_DATA struct REDA REDA_088C4E44[] = {
         .delayFrames = 30,
     },
 };
-CONST_DATA struct REDA REDA_088C4E4C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_3_EPHRAIM[] = {
     {
         .x = 9,
         .y = 2,
@@ -42939,7 +42939,7 @@ CONST_DATA struct REDA REDA_088C4E4C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E54[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_3_SETH[] = {
     {
         .x = 9,
         .y = 1,
@@ -42948,7 +42948,7 @@ CONST_DATA struct REDA REDA_088C4E54[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C4E5C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_3_LARACHEL[] = {
     {
         .x = 8,
         .y = 1,
@@ -42956,7 +42956,7 @@ CONST_DATA struct REDA REDA_088C4E5C[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C4E64[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_4_0[] = {
     {
         .x = 6,
         .y = 2,
@@ -42964,7 +42964,7 @@ CONST_DATA struct REDA REDA_088C4E64[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E6C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_4_1[] = {
     {
         .x = 4,
         .y = 2,
@@ -42972,7 +42972,7 @@ CONST_DATA struct REDA REDA_088C4E6C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E74[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_4_2[] = {
     {
         .x = 5,
         .y = 1,
@@ -42980,35 +42980,35 @@ CONST_DATA struct REDA REDA_088C4E74[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E7C[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_4_3[] = {
     {
         .x = 7,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E84[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_5_MYRRH[] = {
     {
         .x = 18,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E8C[] = {
+CONST_DATA struct REDA REDA_Ch13B_1[] = {
     {
         .x = 7,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E94[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_6_EPHRAIM[] = {
     {
         .x = 16,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4E9C[] = {
+CONST_DATA struct REDA REDA_Ch13B_2[] = {
     {
         .x = 16,
         .y = 14,
@@ -43018,14 +43018,14 @@ CONST_DATA struct REDA REDA_088C4E9C[] = {
         .delayFrames = 15,
     },
 };
-CONST_DATA struct REDA REDA_088C4EA4[] = {
+CONST_DATA struct REDA REDA_Ch13BAlly_6_MYRRH[] = {
     {
         .x = 17,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C4EAC[] = {
+CONST_DATA struct REDA REDA_Ch13B_3[] = {
     {
         .x = 17,
         .y = 14,
@@ -43036,7 +43036,7 @@ CONST_DATA struct REDA REDA_088C4EAC[] = {
 };
 
 // 0x88C4EB4
-CONST_DATA struct UnitDefinition UnitDef_088C4EB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -43174,7 +43174,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4EB4[] = {
 };
 
 // 0x88C4FA4
-CONST_DATA struct UnitDefinition UnitDef_088C4FA4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_0[] = {
     {
         .charIndex = CHARACTER_SELENA,
         .classIndex = CLASS_MAGE_KNIGHT_F,
@@ -43183,7 +43183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FA4[] = {
         .xPosition = 17,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088C4E24,
+        .redas = REDA_Ch13BEnemy_0_SELENA,
         .items = {
             ITEM_ANIMA_BOLTING,
             ITEM_ANIMA_ELFIRE,
@@ -43194,7 +43194,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FA4[] = {
 };
 
 // 0x88C4FCC
-CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -43650,7 +43650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C4FCC[] = {
 };
 
 // 0x88C5288
-CONST_DATA struct UnitDefinition UnitDef_088C5288[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_1[] = {
     {
         .charIndex = CHARACTER_TETHYS,
         .classIndex = CLASS_DANCER,
@@ -43659,7 +43659,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5288[] = {
         .xPosition = 21,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C4E2C,
+        .redas = REDA_Ch13BAlly_1_TETHYS,
         .items = {
             ITEM_BOOSTER_LCK,
             ITEM_ELIXIR,
@@ -43673,7 +43673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5288[] = {
         .xPosition = 21,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C4E34,
+        .redas = REDA_Ch13BAlly_1_GERIK,
         .items = {
             ITEM_BLADE_STEEL,
             ITEM_HEROCREST,
@@ -43684,7 +43684,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5288[] = {
 };
 
 // 0x88C52C4
-CONST_DATA struct UnitDefinition UnitDef_088C52C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PIRATE,
@@ -43703,7 +43703,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C52C4[] = {
 };
 
 // 0x88C52EC
-CONST_DATA struct UnitDefinition UnitDef_088C52EC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_BRIGAND,
@@ -43722,7 +43722,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C52EC[] = {
 };
 
 // 0x88C5314
-CONST_DATA struct UnitDefinition UnitDef_088C5314[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -43754,7 +43754,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5314[] = {
 };
 
 // 0x88C5350
-CONST_DATA struct UnitDefinition UnitDef_088C5350[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -43773,7 +43773,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5350[] = {
 };
 
 // 0x88C5378
-CONST_DATA struct UnitDefinition UnitDef_088C5378[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_2[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -43782,13 +43782,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C5378[] = {
         .xPosition = 6,
         .yPosition = 15,
         .redaCount = 2,
-        .redas = REDA_088C4E3C,
+        .redas = REDA_Ch13BAlly_2_MYRRH,
     },
     { 0 },
 };
 
 // 0x88C53A0
-CONST_DATA struct UnitDefinition UnitDef_088C53A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_3[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -43797,7 +43797,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53A0[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E4C,
+        .redas = REDA_Ch13BAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -43807,7 +43807,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53A0[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E54,
+        .redas = REDA_Ch13BAlly_3_SETH,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -43817,13 +43817,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C53A0[] = {
         .xPosition = 8,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E5C,
+        .redas = REDA_Ch13BAlly_3_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88C53F0
-CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -43832,7 +43832,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
         .xPosition = 6,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E64,
+        .redas = REDA_Ch13BAlly_4_0,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -43842,7 +43842,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E6C,
+        .redas = REDA_Ch13BAlly_4_1,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -43868,7 +43868,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E74,
+        .redas = REDA_Ch13BAlly_4_2,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -43886,7 +43886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
         .xPosition = 7,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C4E7C,
+        .redas = REDA_Ch13BAlly_4_3,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -43900,7 +43900,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C53F0[] = {
 };
 
 // 0x88C54A4
-CONST_DATA struct UnitDefinition UnitDef_088C54A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_5[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -43909,13 +43909,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C54A4[] = {
         .xPosition = 18,
         .yPosition = 4,
         .redaCount = 2,
-        .redas = REDA_088C4E84,
+        .redas = REDA_Ch13BAlly_5_MYRRH,
     },
     { 0 },
 };
 
 // 0x88C54CC
-CONST_DATA struct UnitDefinition UnitDef_088C54CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_6[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -43924,7 +43924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C54CC[] = {
         .xPosition = 16,
         .yPosition = 15,
         .redaCount = 2,
-        .redas = REDA_088C4E94,
+        .redas = REDA_Ch13BAlly_6_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -43934,13 +43934,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C54CC[] = {
         .xPosition = 17,
         .yPosition = 15,
         .redaCount = 2,
-        .redas = REDA_088C4EA4,
+        .redas = REDA_Ch13BAlly_6_MYRRH,
     },
     { 0 },
 };
 
 // 0x88C5508
-CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -44063,7 +44063,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5508[] = {
 };
 
 // 0x88C55D0
-CONST_DATA struct UnitDefinition UnitDef_088C55D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_7[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -44185,7 +44185,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C55D0[] = {
 };
 
 // 0x88C5698
-CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_7[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_CYCLOPS,
@@ -44532,7 +44532,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5698[] = {
 };
 
 // 0x88C58DC
-CONST_DATA struct UnitDefinition UnitDef_088C58DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_8[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -44654,7 +44654,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C58DC[] = {
 };
 
 // 0x88C59A4
-CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -44999,7 +44999,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C59A4[] = {
 };
 
 // 0x88C5BE8
-CONST_DATA struct UnitDefinition UnitDef_088C5BE8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BAlly_9[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -45121,7 +45121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5BE8[] = {
 };
 
 // 0x88C5CB0
-CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch13BEnemy_9[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_WIGHT,
@@ -45464,175 +45464,175 @@ CONST_DATA struct UnitDefinition UnitDef_088C5CB0[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C5EF4[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_2_RENNAC[] = {
     {
         .x = 27,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5EFC[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_3_0[] = {
     {
         .x = 1,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F04[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_3_1[] = {
     {
         .x = 1,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F0C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_4_0[] = {
     {
         .x = 1,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F14[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_4_1[] = {
     {
         .x = 1,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F1C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_5_0[] = {
     {
         .x = 2,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F24[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_5_1[] = {
     {
         .x = 2,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F2C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_6_0[] = {
     {
         .x = 1,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F34[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_6_1[] = {
     {
         .x = 1,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F3C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_8_0[] = {
     {
         .x = 10,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F44[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_8_1[] = {
     {
         .x = 10,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F4C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_8_2[] = {
     {
         .x = 11,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F54[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_9_0[] = {
     {
         .x = 18,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F5C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_9_1[] = {
     {
         .x = 17,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F64[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_9_2[] = {
     {
         .x = 18,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F6C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_10_SOLDIER_83[] = {
     {
         .x = 14,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F74[] = {
+CONST_DATA struct REDA REDA_Ch14BNPC_MESSENGER[] = {
     {
         .x = 14,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F7C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_11_0[] = {
     {
         .x = 27,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F84[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_11_1[] = {
     {
         .x = 27,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F8C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_12_0[] = {
     {
         .x = 27,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F94[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_12_1[] = {
     {
         .x = 27,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5F9C[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_13_0[] = {
     {
         .x = 27,
         .y = 19,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5FA4[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_13_1[] = {
     {
         .x = 27,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5FAC[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_14_0[] = {
     {
         .x = 27,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C5FB4[] = {
+CONST_DATA struct REDA REDA_Ch14BEnemy_14_1[] = {
     {
         .x = 27,
         .y = 7,
@@ -45641,7 +45641,7 @@ CONST_DATA struct REDA REDA_088C5FB4[] = {
 };
 
 // 0x88C5FBC
-CONST_DATA struct UnitDefinition UnitDef_088C5FBC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -45802,7 +45802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C5FBC[] = {
 };
 
 // 0x88C60C0
-CONST_DATA struct UnitDefinition UnitDef_088C60C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_0[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -45831,7 +45831,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60C0[] = {
 };
 
 // 0x88C60FC
-CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_BISHOP,
@@ -46400,7 +46400,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C60FC[] = {
 };
 
 // 0x88C6444
-CONST_DATA struct UnitDefinition UnitDef_088C6444[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_1[] = {
     {
         .charIndex = CHARACTER_KNOLL,
         .classIndex = CLASS_SHAMAN,
@@ -46418,7 +46418,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6444[] = {
 };
 
 // 0x88C646C
-CONST_DATA struct UnitDefinition UnitDef_088C646C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_2[] = {
     {
         .charIndex = CHARACTER_RENNAC,
         .classIndex = CLASS_ROGUE,
@@ -46428,7 +46428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C646C[] = {
         .yPosition = 14,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088C5EF4,
+        .redas = REDA_Ch14BEnemy_2_RENNAC,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_ELIXIR,
@@ -46440,7 +46440,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C646C[] = {
 };
 
 // 0x88C6494
-CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -46451,7 +46451,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
         .yPosition = 19,
         .itemDrop = 1,
         .redaCount = 1,
-        .redas = REDA_088C5EFC,
+        .redas = REDA_Ch14BEnemy_3_0,
         .items = {
             ITEM_AXE_HAMMER,
         },
@@ -46466,7 +46466,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5F04,
+        .redas = REDA_Ch14BEnemy_3_1,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -46476,7 +46476,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6494[] = {
 };
 
 // 0x88C64D0
-CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SOLDIER,
@@ -46486,7 +46486,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C5F0C,
+        .redas = REDA_Ch14BEnemy_4_0,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -46501,7 +46501,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5F14,
+        .redas = REDA_Ch14BEnemy_4_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -46511,7 +46511,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C64D0[] = {
 };
 
 // 0x88C650C
-CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -46521,7 +46521,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C5F1C,
+        .redas = REDA_Ch14BEnemy_5_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -46536,7 +46536,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5F24,
+        .redas = REDA_Ch14BEnemy_5_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -46546,7 +46546,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C650C[] = {
 };
 
 // 0x88C6548
-CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MAGE,
@@ -46556,7 +46556,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
         .xPosition = 0,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088C5F2C,
+        .redas = REDA_Ch14BEnemy_6_0,
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
@@ -46571,7 +46571,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
         .xPosition = 0,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C5F34,
+        .redas = REDA_Ch14BEnemy_6_1,
         .items = {
             ITEM_ANIMA_ELFIRE,
         },
@@ -46581,7 +46581,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6548[] = {
 };
 
 // 0x88C6584
-CONST_DATA struct UnitDefinition UnitDef_088C6584[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_7[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -46612,7 +46612,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6584[] = {
 };
 
 // 0x88C65C0
-CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_8[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PRIEST,
@@ -46622,7 +46622,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
         .xPosition = 7,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F3C,
+        .redas = REDA_Ch14BEnemy_8_0,
         .items = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_MEND,
@@ -46638,7 +46638,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
         .xPosition = 7,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F44,
+        .redas = REDA_Ch14BEnemy_8_1,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -46653,7 +46653,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
         .xPosition = 7,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F4C,
+        .redas = REDA_Ch14BEnemy_8_2,
         .items = {
             ITEM_DARK_NOSFERATU,
         },
@@ -46663,7 +46663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C65C0[] = {
 };
 
 // 0x88C6610
-CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_9[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PRIEST,
@@ -46673,7 +46673,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
         .xPosition = 21,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F54,
+        .redas = REDA_Ch14BEnemy_9_0,
         .items = {
             ITEM_STAFF_PHYSIC,
             ITEM_STAFF_MEND,
@@ -46689,7 +46689,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
         .xPosition = 21,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F5C,
+        .redas = REDA_Ch14BEnemy_9_1,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -46704,7 +46704,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
         .xPosition = 21,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C5F64,
+        .redas = REDA_Ch14BEnemy_9_2,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -46714,7 +46714,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6610[] = {
 };
 
 // 0x88C6660
-CONST_DATA struct UnitDefinition UnitDef_088C6660[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_10[] = {
     {
         .charIndex = CHARACTER_SOLDIER_83,
         .classIndex = CLASS_SOLDIER,
@@ -46724,13 +46724,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6660[] = {
         .xPosition = 14,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C5F6C,
+        .redas = REDA_Ch14BEnemy_10_SOLDIER_83,
     },
     { 0 },
 };
 
 // 0x88C6688
-CONST_DATA struct UnitDefinition UnitDef_088C6688[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BMixed[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -46760,7 +46760,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6688[] = {
 };
 
 // 0x88C66D8
-CONST_DATA struct UnitDefinition UnitDef_088C66D8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -46821,7 +46821,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C66D8[] = {
 };
 
 // 0x88C6778
-CONST_DATA struct UnitDefinition UnitDef_088C6778[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BNPC[] = {
     {
         .charIndex = CHARACTER_MESSENGER,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -46831,13 +46831,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6778[] = {
         .xPosition = 14,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C5F74,
+        .redas = REDA_Ch14BNPC_MESSENGER,
     },
     { 0 },
 };
 
 // 0x88C67A0
-CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_11[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SOLDIER,
@@ -46847,7 +46847,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
         .xPosition = 28,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C5F7C,
+        .redas = REDA_Ch14BEnemy_11_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -46862,7 +46862,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
         .xPosition = 28,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5F84,
+        .redas = REDA_Ch14BEnemy_11_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -46872,7 +46872,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67A0[] = {
 };
 
 // 0x88C67DC
-CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_12[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MERCENARY,
@@ -46882,7 +46882,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
         .xPosition = 28,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C5F8C,
+        .redas = REDA_Ch14BEnemy_12_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -46897,7 +46897,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
         .xPosition = 28,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5F94,
+        .redas = REDA_Ch14BEnemy_12_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -46907,7 +46907,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C67DC[] = {
 };
 
 // 0x88C6818
-CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_13[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MYRMIDON,
@@ -46917,7 +46917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
         .xPosition = 28,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C5F9C,
+        .redas = REDA_Ch14BEnemy_13_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -46932,7 +46932,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
         .xPosition = 28,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C5FA4,
+        .redas = REDA_Ch14BEnemy_13_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -46942,7 +46942,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6818[] = {
 };
 
 // 0x88C6854
-CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_14[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_SHAMAN,
@@ -46952,7 +46952,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
         .xPosition = 28,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088C5FAC,
+        .redas = REDA_Ch14BEnemy_14_0,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -46967,7 +46967,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
         .xPosition = 28,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C5FB4,
+        .redas = REDA_Ch14BEnemy_14_1,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -46976,7 +46976,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6854[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C6890[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_3_EPHRAIM[] = {
     {
         .x = 10,
         .y = 7,
@@ -46984,7 +46984,7 @@ CONST_DATA struct REDA REDA_088C6890[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6898[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_3_SETH[] = {
     {
         .x = 11,
         .y = 8,
@@ -46993,7 +46993,7 @@ CONST_DATA struct REDA REDA_088C6898[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C68A0[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_3_MYRRH[] = {
     {
         .x = 9,
         .y = 7,
@@ -47002,7 +47002,7 @@ CONST_DATA struct REDA REDA_088C68A0[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088C68A8[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_3_DUESSEL[] = {
     {
         .x = 8,
         .y = 8,
@@ -47011,7 +47011,7 @@ CONST_DATA struct REDA REDA_088C68A8[] = {
         .delayFrames = 32,
     },
 };
-CONST_DATA struct REDA REDA_088C68B0[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_3_CORMAG[] = {
     {
         .x = 6,
         .y = 7,
@@ -47021,7 +47021,7 @@ CONST_DATA struct REDA REDA_088C68B0[] = {
 };
 
 // 0x88C68B8
-CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_3[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -47030,7 +47030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
         .xPosition = 10,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C6890,
+        .redas = REDA_Ch14BAlly_3_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47040,7 +47040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
         .xPosition = 11,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C6898,
+        .redas = REDA_Ch14BAlly_3_SETH,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -47050,7 +47050,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
         .xPosition = 9,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C68A0,
+        .redas = REDA_Ch14BAlly_3_MYRRH,
     },
     {
         .charIndex = CHARACTER_DUESSEL,
@@ -47060,7 +47060,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
         .xPosition = 8,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C68A8,
+        .redas = REDA_Ch14BAlly_3_DUESSEL,
     },
     {
         .charIndex = CHARACTER_NATASHA,
@@ -47078,7 +47078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
         .xPosition = 6,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C68B0,
+        .redas = REDA_Ch14BAlly_3_CORMAG,
     },
     {
         .charIndex = CHARACTER_AMELIA,
@@ -47091,7 +47091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C68B8[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C6958[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_4_EPHRAIM[] = {
     {
         .x = 6,
         .y = 1,
@@ -47099,7 +47099,7 @@ CONST_DATA struct REDA REDA_088C6958[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6960[] = {
+CONST_DATA struct REDA REDA_Ch14B_0[] = {
     {
         .x = 6,
         .y = 5,
@@ -47107,7 +47107,7 @@ CONST_DATA struct REDA REDA_088C6960[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6968[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_4_SETH[] = {
     {
         .x = 5,
         .y = 4,
@@ -47115,7 +47115,7 @@ CONST_DATA struct REDA REDA_088C6968[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088C6970[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_5_FRELIAN[] = {
     {
         .x = 6,
         .y = 7,
@@ -47123,7 +47123,7 @@ CONST_DATA struct REDA REDA_088C6970[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6978[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_6_FRELIAN[] = {
     {
         .x = 6,
         .y = 13,
@@ -47131,7 +47131,7 @@ CONST_DATA struct REDA REDA_088C6978[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6980[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_6_EPHRAIM[] = {
     {
         .x = 6,
         .y = 11,
@@ -47139,7 +47139,7 @@ CONST_DATA struct REDA REDA_088C6980[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6988[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_6_SETH[] = {
     {
         .x = 5,
         .y = 10,
@@ -47147,7 +47147,7 @@ CONST_DATA struct REDA REDA_088C6988[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6990[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_7_FRELIAN[] = {
     {
         .x = 18,
         .y = 12,
@@ -47155,7 +47155,7 @@ CONST_DATA struct REDA REDA_088C6990[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6998[] = {
+CONST_DATA struct REDA REDA_Ch14B_1[] = {
     {
         .x = 18,
         .y = 8,
@@ -47163,7 +47163,7 @@ CONST_DATA struct REDA REDA_088C6998[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69A0[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_7_EPHRAIM[] = {
     {
         .x = 18,
         .y = 12,
@@ -47171,7 +47171,7 @@ CONST_DATA struct REDA REDA_088C69A0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69A8[] = {
+CONST_DATA struct REDA REDA_Ch14B_2[] = {
     {
         .x = 18,
         .y = 10,
@@ -47179,7 +47179,7 @@ CONST_DATA struct REDA REDA_088C69A8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69B0[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_7_SETH[] = {
     {
         .x = 19,
         .y = 12,
@@ -47187,7 +47187,7 @@ CONST_DATA struct REDA REDA_088C69B0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69B8[] = {
+CONST_DATA struct REDA REDA_Ch14B_3[] = {
     {
         .x = 19,
         .y = 11,
@@ -47195,7 +47195,7 @@ CONST_DATA struct REDA REDA_088C69B8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69C0[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_8_FRELIAN[] = {
     {
         .x = 17,
         .y = 9,
@@ -47203,14 +47203,14 @@ CONST_DATA struct REDA REDA_088C69C0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69C8[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_8_EPHRAIM[] = {
     {
         .x = 18,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69D0[] = {
+CONST_DATA struct REDA REDA_Ch14B_4[] = {
     {
         .x = 18,
         .y = 5,
@@ -47219,14 +47219,14 @@ CONST_DATA struct REDA REDA_088C69D0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69D8[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_8_SETH[] = {
     {
         .x = 19,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C69E0[] = {
+CONST_DATA struct REDA REDA_Ch14B_5[] = {
     {
         .x = 19,
         .y = 5,
@@ -47237,7 +47237,7 @@ CONST_DATA struct REDA REDA_088C69E0[] = {
 };
 
 // 0x88C69E8
-CONST_DATA struct UnitDefinition UnitDef_088C69E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_4[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -47246,7 +47246,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C69E8[] = {
         .xPosition = 6,
         .yPosition = 0,
         .redaCount = 2,
-        .redas = REDA_088C6958,
+        .redas = REDA_Ch14BAlly_4_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47256,13 +47256,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C69E8[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6968,
+        .redas = REDA_Ch14BAlly_4_SETH,
     },
     { 0 },
 };
 
 // 0x88C6A24
-CONST_DATA struct UnitDefinition UnitDef_088C6A24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BEnemy_15[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -47276,7 +47276,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A24[] = {
 };
 
 // 0x88C6A4C
-CONST_DATA struct UnitDefinition UnitDef_088C6A4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_5[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
@@ -47285,13 +47285,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A4C[] = {
         .xPosition = 6,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C6970,
+        .redas = REDA_Ch14BAlly_5_FRELIAN,
     },
     { 0 },
 };
 
 // 0x88C6A74
-CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_6[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
@@ -47300,7 +47300,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
         .xPosition = 6,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C6978,
+        .redas = REDA_Ch14BAlly_6_FRELIAN,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -47310,7 +47310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
         .xPosition = 6,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C6980,
+        .redas = REDA_Ch14BAlly_6_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47320,13 +47320,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6A74[] = {
         .xPosition = 5,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C6988,
+        .redas = REDA_Ch14BAlly_6_SETH,
     },
     { 0 },
 };
 
 // 0x88C6AC4
-CONST_DATA struct UnitDefinition UnitDef_088C6AC4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_7[] = {
     {
         .charIndex = CHARACTER_FRELIAN,
         .classIndex = CLASS_SOLDIER,
@@ -47335,7 +47335,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6AC4[] = {
         .xPosition = 11,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C6990,
+        .redas = REDA_Ch14BAlly_7_FRELIAN,
     },
     {
         .charIndex = 0xc1,
@@ -47353,7 +47353,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6AC4[] = {
         .xPosition = 9,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C69A0,
+        .redas = REDA_Ch14BAlly_7_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47363,13 +47363,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6AC4[] = {
         .xPosition = 8,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C69B0,
+        .redas = REDA_Ch14BAlly_7_SETH,
     },
     { 0 },
 };
 
 // 0x88C6B28
-CONST_DATA struct UnitDefinition UnitDef_088C6B28[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_8[] = {
     {
         .charIndex = CHARACTER_KNOLL,
         .classIndex = CLASS_SHAMAN,
@@ -47386,7 +47386,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6B28[] = {
         .xPosition = 18,
         .yPosition = 8,
         .redaCount = 1,
-        .redas = REDA_088C69C0,
+        .redas = REDA_Ch14BAlly_8_FRELIAN,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -47396,7 +47396,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6B28[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088C69C8,
+        .redas = REDA_Ch14BAlly_8_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47406,12 +47406,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C6B28[] = {
         .xPosition = 19,
         .yPosition = 11,
         .redaCount = 2,
-        .redas = REDA_088C69D8,
+        .redas = REDA_Ch14BAlly_8_SETH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C6B8C[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_9_KNOLL[] = {
     {
         .x = 7,
         .y = 7,
@@ -47419,7 +47419,7 @@ CONST_DATA struct REDA REDA_088C6B8C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6B94[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_11_LYON[] = {
     {
         .x = 7,
         .y = 4,
@@ -47427,7 +47427,7 @@ CONST_DATA struct REDA REDA_088C6B94[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6B9C[] = {
+CONST_DATA struct REDA REDA_Ch14B_6[] = {
     {
         .x = 6,
         .y = 4,
@@ -47435,7 +47435,7 @@ CONST_DATA struct REDA REDA_088C6B9C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BA4[] = {
+CONST_DATA struct REDA REDA_Ch14B_7[] = {
     {
         .x = 6,
         .y = 3,
@@ -47443,7 +47443,7 @@ CONST_DATA struct REDA REDA_088C6BA4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BAC[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_11_KNOLL[] = {
     {
         .x = 7,
         .y = 4,
@@ -47451,7 +47451,7 @@ CONST_DATA struct REDA REDA_088C6BAC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BB4[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_12_LYON[] = {
     {
         .x = 6,
         .y = 4,
@@ -47459,7 +47459,7 @@ CONST_DATA struct REDA REDA_088C6BB4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BBC[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_13_KNOLL[] = {
     {
         .x = 7,
         .y = 8,
@@ -47467,7 +47467,7 @@ CONST_DATA struct REDA REDA_088C6BBC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BC4[] = {
+CONST_DATA struct REDA REDA_Ch14B_8[] = {
     {
         .x = 7,
         .y = 6,
@@ -47475,7 +47475,7 @@ CONST_DATA struct REDA REDA_088C6BC4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6BCC[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_13_EPHRAIM[] = {
     {
         .x = 7,
         .y = 7,
@@ -47483,7 +47483,7 @@ CONST_DATA struct REDA REDA_088C6BCC[] = {
         .a = 0x1f,
     },
 };
-CONST_DATA struct REDA REDA_088C6BD4[] = {
+CONST_DATA struct REDA REDA_Ch14BAlly_13_SETH[] = {
     {
         .x = 8,
         .y = 8,
@@ -47494,7 +47494,7 @@ CONST_DATA struct REDA REDA_088C6BD4[] = {
 };
 
 // 0x88C6BDC
-CONST_DATA struct UnitDefinition UnitDef_088C6BDC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_9[] = {
     {
         .charIndex = CHARACTER_KNOLL,
         .classIndex = CLASS_SHAMAN,
@@ -47503,13 +47503,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6BDC[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C6B8C,
+        .redas = REDA_Ch14BAlly_9_KNOLL,
     },
     { 0 },
 };
 
 // 0x88C6C04
-CONST_DATA struct UnitDefinition UnitDef_088C6C04[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_10[] = {
     {
         .charIndex = CHARACTER_VIGARDE,
         .classIndex = CLASS_GENERAL,
@@ -47530,7 +47530,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6C04[] = {
 };
 
 // 0x88C6C40
-CONST_DATA struct UnitDefinition UnitDef_088C6C40[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_11[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -47539,7 +47539,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6C40[] = {
         .xPosition = 7,
         .yPosition = 6,
         .redaCount = 3,
-        .redas = REDA_088C6B94,
+        .redas = REDA_Ch14BAlly_11_LYON,
     },
     {
         .charIndex = CHARACTER_KNOLL,
@@ -47549,13 +47549,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6C40[] = {
         .xPosition = 7,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088C6BAC,
+        .redas = REDA_Ch14BAlly_11_KNOLL,
     },
     { 0 },
 };
 
 // 0x88C6C7C
-CONST_DATA struct UnitDefinition UnitDef_088C6C7C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_12[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -47564,13 +47564,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C6C7C[] = {
         .xPosition = 6,
         .yPosition = 3,
         .redaCount = 1,
-        .redas = REDA_088C6BB4,
+        .redas = REDA_Ch14BAlly_12_LYON,
     },
     { 0 },
 };
 
 // 0x88C6CA4
-CONST_DATA struct UnitDefinition UnitDef_088C6CA4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch14BAlly_13[] = {
     {
         .charIndex = CHARACTER_KNOLL,
         .classIndex = CLASS_SHAMAN,
@@ -47579,7 +47579,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6CA4[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 2,
-        .redas = REDA_088C6BBC,
+        .redas = REDA_Ch14BAlly_13_KNOLL,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -47589,7 +47589,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6CA4[] = {
         .xPosition = 7,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C6BCC,
+        .redas = REDA_Ch14BAlly_13_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -47599,12 +47599,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C6CA4[] = {
         .xPosition = 8,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088C6BD4,
+        .redas = REDA_Ch14BAlly_13_SETH,
     },
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C6CF4[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_0[] = {
     {
         .x = 2,
         .y = 19,
@@ -47612,7 +47612,7 @@ CONST_DATA struct REDA REDA_088C6CF4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6CFC[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_1[] = {
     {
         .x = 1,
         .y = 18,
@@ -47620,7 +47620,7 @@ CONST_DATA struct REDA REDA_088C6CFC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D04[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_2[] = {
     {
         .x = 0,
         .y = 17,
@@ -47628,7 +47628,7 @@ CONST_DATA struct REDA REDA_088C6D04[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D0C[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_3[] = {
     {
         .x = 0,
         .y = 19,
@@ -47636,7 +47636,7 @@ CONST_DATA struct REDA REDA_088C6D0C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D14[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_4[] = {
     {
         .x = 4,
         .y = 19,
@@ -47644,7 +47644,7 @@ CONST_DATA struct REDA REDA_088C6D14[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D1C[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_5[] = {
     {
         .x = 1,
         .y = 20,
@@ -47652,7 +47652,7 @@ CONST_DATA struct REDA REDA_088C6D1C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D24[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_6[] = {
     {
         .x = 2,
         .y = 20,
@@ -47660,7 +47660,7 @@ CONST_DATA struct REDA REDA_088C6D24[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D2C[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_7[] = {
     {
         .x = 3,
         .y = 20,
@@ -47668,7 +47668,7 @@ CONST_DATA struct REDA REDA_088C6D2C[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D34[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_0_8[] = {
     {
         .x = 3,
         .y = 18,
@@ -47676,161 +47676,161 @@ CONST_DATA struct REDA REDA_088C6D34[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D3C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_1_0[] = {
     {
         .x = 5,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D44[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_1_1[] = {
     {
         .x = 4,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D4C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_1_2[] = {
     {
         .x = 3,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D54[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_1_EIRIKA[] = {
     {
         .x = 12,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D5C[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_1_INNES[] = {
     {
         .x = 13,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D64[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_1_SALEH[] = {
     {
         .x = 11,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D6C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_2_0[] = {
     {
         .x = 22,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D74[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_2_1[] = {
     {
         .x = 21,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D7C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_3_0[] = {
     {
         .x = 13,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D84[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_3_1[] = {
     {
         .x = 9,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D8C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_4_0[] = {
     {
         .x = 14,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D94[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_4_1[] = {
     {
         .x = 16,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6D9C[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_4_2[] = {
     {
         .x = 5,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DA4[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_0[] = {
     {
         .x = 1,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DAC[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_1[] = {
     {
         .x = 2,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DB4[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_2[] = {
     {
         .x = 2,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DBC[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_3[] = {
     {
         .x = 3,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DC4[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_4[] = {
     {
         .x = 3,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DCC[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_5[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DD4[] = {
+CONST_DATA struct REDA REDA_Ch15BEnemy_5_6[] = {
     {
         .x = 1,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DDC[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_2_SETH[] = {
     {
         .x = 2,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DE4[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_2_EPHRAIM[] = {
     {
         .x = 3,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DEC[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_3_0[] = {
     {
         .x = 0,
         .y = 19,
@@ -47838,7 +47838,7 @@ CONST_DATA struct REDA REDA_088C6DEC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DF4[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_3_1[] = {
     {
         .x = 4,
         .y = 19,
@@ -47846,7 +47846,7 @@ CONST_DATA struct REDA REDA_088C6DF4[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6DFC[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_3_2[] = {
     {
         .x = 1,
         .y = 20,
@@ -47854,7 +47854,7 @@ CONST_DATA struct REDA REDA_088C6DFC[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6E04[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_3_3[] = {
     {
         .x = 2,
         .y = 20,
@@ -47862,7 +47862,7 @@ CONST_DATA struct REDA REDA_088C6E04[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C6E0C[] = {
+CONST_DATA struct REDA REDA_Ch15BAlly_3_4[] = {
     {
         .x = 3,
         .y = 20,
@@ -47872,7 +47872,7 @@ CONST_DATA struct REDA REDA_088C6E0C[] = {
 };
 
 // 0x88C6E14
-CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -47881,7 +47881,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 2,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C6CF4,
+        .redas = REDA_Ch15BAlly_0_0,
         .items = {
             ITEM_LANCE_REGINLEIF,
             ITEM_LANCE_STEEL,
@@ -47896,7 +47896,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 1,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C6CFC,
+        .redas = REDA_Ch15BAlly_0_1,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47911,7 +47911,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 3,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C6D04,
+        .redas = REDA_Ch15BAlly_0_2,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47926,7 +47926,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C6D0C,
+        .redas = REDA_Ch15BAlly_0_3,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47941,7 +47941,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 4,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C6D14,
+        .redas = REDA_Ch15BAlly_0_4,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47956,7 +47956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 1,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C6D1C,
+        .redas = REDA_Ch15BAlly_0_5,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47971,7 +47971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 2,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C6D24,
+        .redas = REDA_Ch15BAlly_0_6,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -47986,7 +47986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 3,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C6D2C,
+        .redas = REDA_Ch15BAlly_0_7,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -48040,7 +48040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
         .xPosition = 2,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C6D34,
+        .redas = REDA_Ch15BAlly_0_8,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -48051,7 +48051,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6E14[] = {
 };
 
 // 0x88C6F18
-CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_0[] = {
     {
         .charIndex = CHARACTER_VALTER,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -48621,7 +48621,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C6F18[] = {
 };
 
 // 0x88C7274
-CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_1[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_FIGHTER,
@@ -48631,7 +48631,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
         .xPosition = 0,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C6D3C,
+        .redas = REDA_Ch15BEnemy_1_0,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -48646,7 +48646,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088C6D44,
+        .redas = REDA_Ch15BEnemy_1_1,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -48661,7 +48661,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
         .xPosition = 3,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D4C,
+        .redas = REDA_Ch15BEnemy_1_2,
         .items = {
             ITEM_AXE_IRON,
         },
@@ -48671,7 +48671,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7274[] = {
 };
 
 // 0x88C72C4
-CONST_DATA struct UnitDefinition UnitDef_088C72C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -48680,7 +48680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C72C4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C6D54,
+        .redas = REDA_Ch15BAlly_1_EIRIKA,
         .items = {
             ITEM_SWORD_RAPIER,
             ITEM_SWORD_SLIM,
@@ -48696,7 +48696,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C72C4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C6D5C,
+        .redas = REDA_Ch15BAlly_1_INNES,
         .items = {
             ITEM_BOW_SILVER,
             ITEM_ELIXIR,
@@ -48711,7 +48711,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C72C4[] = {
         .xPosition = 12,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088C6D64,
+        .redas = REDA_Ch15BAlly_1_SALEH,
         .items = {
             ITEM_ANIMA_ELFIRE,
             ITEM_ANIMA_THUNDER,
@@ -48721,7 +48721,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C72C4[] = {
 };
 
 // 0x88C7314
-CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_2[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -48731,7 +48731,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
         .xPosition = 23,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D6C,
+        .redas = REDA_Ch15BEnemy_2_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -48746,7 +48746,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
         .xPosition = 23,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D74,
+        .redas = REDA_Ch15BEnemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -48756,7 +48756,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7314[] = {
 };
 
 // 0x88C7350
-CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_3[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PEGASUS_KNIGHT,
@@ -48766,7 +48766,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
         .xPosition = 13,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D7C,
+        .redas = REDA_Ch15BEnemy_3_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -48781,7 +48781,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
         .xPosition = 9,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D84,
+        .redas = REDA_Ch15BEnemy_3_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -48792,7 +48792,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7350[] = {
 };
 
 // 0x88C738C
-CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_4[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_MAGE,
@@ -48802,7 +48802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D8C,
+        .redas = REDA_Ch15BEnemy_4_0,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -48817,7 +48817,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .xPosition = 16,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D94,
+        .redas = REDA_Ch15BEnemy_4_1,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -48832,7 +48832,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
         .xPosition = 5,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C6D9C,
+        .redas = REDA_Ch15BEnemy_4_2,
         .items = {
             ITEM_ANIMA_THUNDER,
         },
@@ -48842,7 +48842,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C738C[] = {
 };
 
 // 0x88C73DC
-CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_5[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_PALADIN,
@@ -48852,7 +48852,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C6DA4,
+        .redas = REDA_Ch15BEnemy_5_0,
         .items = {
             ITEM_SWORD_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -48868,7 +48868,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 19,
         .redaCount = 1,
-        .redas = REDA_088C6DAC,
+        .redas = REDA_Ch15BEnemy_5_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -48883,7 +48883,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C6DB4,
+        .redas = REDA_Ch15BEnemy_5_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -48898,7 +48898,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C6DBC,
+        .redas = REDA_Ch15BEnemy_5_3,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -48913,7 +48913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 18,
         .redaCount = 1,
-        .redas = REDA_088C6DC4,
+        .redas = REDA_Ch15BEnemy_5_4,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
@@ -48929,7 +48929,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088C6DCC,
+        .redas = REDA_Ch15BEnemy_5_5,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -48971,7 +48971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
         .xPosition = 0,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088C6DD4,
+        .redas = REDA_Ch15BEnemy_5_6,
         .items = {
             ITEM_ANIMA_FIRE,
         },
@@ -48981,7 +48981,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C73DC[] = {
 };
 
 // 0x88C74A4
-CONST_DATA struct UnitDefinition UnitDef_088C74A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_6[] = {
     {
         .charIndex = 0x80,
         .classIndex = CLASS_CAVALIER,
@@ -49013,7 +49013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C74A4[] = {
 };
 
 // 0x88C74E0
-CONST_DATA struct UnitDefinition UnitDef_088C74E0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -49022,7 +49022,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C74E0[] = {
         .xPosition = 2,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6DDC,
+        .redas = REDA_Ch15BAlly_2_SETH,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -49032,13 +49032,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C74E0[] = {
         .xPosition = 3,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6DE4,
+        .redas = REDA_Ch15BAlly_2_EPHRAIM,
     },
     { 0 },
 };
 
 // 0x88C751C
-CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -49047,7 +49047,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
         .xPosition = 0,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6DEC,
+        .redas = REDA_Ch15BAlly_3_0,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -49062,7 +49062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
         .xPosition = 4,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6DF4,
+        .redas = REDA_Ch15BAlly_3_1,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -49077,7 +49077,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
         .xPosition = 1,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6DFC,
+        .redas = REDA_Ch15BAlly_3_2,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -49092,7 +49092,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
         .xPosition = 2,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6E04,
+        .redas = REDA_Ch15BAlly_3_3,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -49107,7 +49107,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
         .xPosition = 3,
         .yPosition = 21,
         .redaCount = 1,
-        .redas = REDA_088C6E0C,
+        .redas = REDA_Ch15BAlly_3_4,
         .items = {
             ITEM_LANCE_SILVER,
             ITEM_VULNERARY,
@@ -49157,7 +49157,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C751C[] = {
 };
 
 // 0x88C75D0
-CONST_DATA struct UnitDefinition UnitDef_088C75D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch15BEnemy_7[] = {
     {
         .charIndex = CHARACTER_BANDIT_CH5,
         .classIndex = CLASS_HERO,
@@ -49171,70 +49171,70 @@ CONST_DATA struct UnitDefinition UnitDef_088C75D0[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C75F8[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_1_0[] = {
     {
         .x = 0,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7600[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_1_1[] = {
     {
         .x = 0,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7608[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_2_0[] = {
     {
         .x = 3,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7610[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_2_1[] = {
     {
         .x = 3,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7618[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_2_2[] = {
     {
         .x = 5,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7620[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_2_3[] = {
     {
         .x = 5,
         .y = 27,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7628[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_4_0[] = {
     {
         .x = 14,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7630[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_4_1[] = {
     {
         .x = 16,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7638[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_4_2[] = {
     {
         .x = 14,
         .y = 26,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7640[] = {
+CONST_DATA struct REDA REDA_Ch16BEnemy_4_3[] = {
     {
         .x = 16,
         .y = 26,
@@ -49243,7 +49243,7 @@ CONST_DATA struct REDA REDA_088C7640[] = {
 };
 
 // 0x88C7648
-CONST_DATA struct UnitDefinition UnitDef_088C7648[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BAlly[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -49404,7 +49404,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7648[] = {
 };
 
 // 0x88C774C
-CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_0[] = {
     {
         .charIndex = CHARACTER_ORSON,
         .classIndex = CLASS_PALADIN,
@@ -49905,7 +49905,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C774C[] = {
 };
 
 // 0x88C7A44
-CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_CAVALIER,
@@ -49915,7 +49915,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C75F8,
+        .redas = REDA_Ch16BEnemy_1_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -49930,7 +49930,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7600,
+        .redas = REDA_Ch16BEnemy_1_1,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -49940,12 +49940,12 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A44[] = {
 };
 
 // 0x88C7A80
-CONST_DATA struct UnitDefinition UnitDef_088C7A80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BUnits[] = {
     { 0 },
 };
 
 // 0x88C7A94
-CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_CAVALIER,
@@ -49955,7 +49955,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7608,
+        .redas = REDA_Ch16BEnemy_2_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -49970,7 +49970,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7610,
+        .redas = REDA_Ch16BEnemy_2_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -49985,7 +49985,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7618,
+        .redas = REDA_Ch16BEnemy_2_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -50000,7 +50000,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
         .xPosition = 0,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7620,
+        .redas = REDA_Ch16BEnemy_2_3,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -50024,7 +50024,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7A94[] = {
 };
 
 // 0x88C7B0C
-CONST_DATA struct UnitDefinition UnitDef_088C7B0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_3[] = {
     {
         .charIndex = 0x8f,
         .classIndex = CLASS_SAGE,
@@ -50058,7 +50058,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B0C[] = {
 };
 
 // 0x88C7B48
-CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_RANGER,
@@ -50068,7 +50068,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .xPosition = 14,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7628,
+        .redas = REDA_Ch16BEnemy_4_0,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -50083,7 +50083,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .xPosition = 16,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7630,
+        .redas = REDA_Ch16BEnemy_4_1,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -50098,7 +50098,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .xPosition = 14,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7638,
+        .redas = REDA_Ch16BEnemy_4_2,
         .items = {
             ITEM_LIGHT_DIVINE,
         },
@@ -50113,7 +50113,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
         .xPosition = 16,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C7640,
+        .redas = REDA_Ch16BEnemy_4_3,
         .items = {
             ITEM_SWORD_STEEL,
         },
@@ -50123,7 +50123,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7B48[] = {
 };
 
 // 0x88C7BAC
-CONST_DATA struct UnitDefinition UnitDef_088C7BAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_5[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -50142,7 +50142,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BAC[] = {
 };
 
 // 0x88C7BD4
-CONST_DATA struct UnitDefinition UnitDef_088C7BD4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_6[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -50161,7 +50161,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BD4[] = {
 };
 
 // 0x88C7BFC
-CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch16BEnemy_7[] = {
     {
         .charIndex = 0x8f,
         .classIndex = CLASS_SWORDMASTER,
@@ -50230,35 +50230,35 @@ CONST_DATA struct UnitDefinition UnitDef_088C7BFC[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C7C74[] = {
+CONST_DATA struct REDA REDA_Ch17BEnemy_1_0[] = {
     {
         .x = 19,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7C7C[] = {
+CONST_DATA struct REDA REDA_Ch17BEnemy_1_1[] = {
     {
         .x = 21,
         .y = 7,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088C7C84[] = {
+CONST_DATA struct REDA REDA_Ch17BEnemy_1_2[] = {
     {
         .x = 20,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7C8C[] = {
+CONST_DATA struct REDA REDA_Ch17BEnemy_3_0[] = {
     {
         .x = 0,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C7C94[] = {
+CONST_DATA struct REDA REDA_Ch17BEnemy_3_1[] = {
     {
         .x = 1,
         .y = 0,
@@ -50267,7 +50267,7 @@ CONST_DATA struct REDA REDA_088C7C94[] = {
 };
 
 // 0x88C7C9C
-CONST_DATA struct UnitDefinition UnitDef_088C7C9C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -50428,7 +50428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7C9C[] = {
 };
 
 // 0x88C7DA0
-CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_0[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_FIGHTER,
@@ -50765,7 +50765,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7DA0[] = {
 };
 
 // 0x88C7FA8
-CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_DRUID,
@@ -50775,7 +50775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088C7C74,
+        .redas = REDA_Ch17BEnemy_1_0,
         .items = {
             ITEM_DARK_NOSFERATU,
         },
@@ -50790,7 +50790,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088C7C7C,
+        .redas = REDA_Ch17BEnemy_1_1,
         .items = {
             ITEM_DARK_LUNA,
         },
@@ -50805,7 +50805,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
         .xPosition = 20,
         .yPosition = 6,
         .redaCount = 1,
-        .redas = REDA_088C7C84,
+        .redas = REDA_Ch17BEnemy_1_2,
         .items = {
             ITEM_DARK_FLUX,
         },
@@ -50815,7 +50815,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FA8[] = {
 };
 
 // 0x88C7FF8
-CONST_DATA struct UnitDefinition UnitDef_088C7FF8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -50846,7 +50846,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C7FF8[] = {
 };
 
 // 0x88C8034
-CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_3[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WYVERN_RIDER,
@@ -50856,7 +50856,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C7C8C,
+        .redas = REDA_Ch17BEnemy_3_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -50871,7 +50871,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
         .xPosition = 0,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C7C94,
+        .redas = REDA_Ch17BEnemy_3_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -50881,7 +50881,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8034[] = {
 };
 
 // 0x88C8070
-CONST_DATA struct UnitDefinition UnitDef_088C8070[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_CAVALIER,
@@ -50912,7 +50912,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8070[] = {
 };
 
 // 0x88C80AC
-CONST_DATA struct UnitDefinition UnitDef_088C80AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_5[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_PALADIN,
@@ -50943,7 +50943,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C80AC[] = {
 };
 
 // 0x88C80E8
-CONST_DATA struct UnitDefinition UnitDef_088C80E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BAlly_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -51065,7 +51065,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C80E8[] = {
 };
 
 // 0x88C81B0
-CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_6[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -51423,7 +51423,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C81B0[] = {
 };
 
 // 0x88C8408
-CONST_DATA struct UnitDefinition UnitDef_088C8408[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -51545,7 +51545,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8408[] = {
 };
 
 // 0x88C84D0
-CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_7[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -51901,7 +51901,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C84D0[] = {
 };
 
 // 0x88C8728
-CONST_DATA struct UnitDefinition UnitDef_088C8728[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -52023,7 +52023,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8728[] = {
 };
 
 // 0x88C87F0
-CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch17BEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ELDER_BAEL,
@@ -52378,70 +52378,70 @@ CONST_DATA struct UnitDefinition UnitDef_088C87F0[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C8A48[] = {
+CONST_DATA struct REDA REDA_Ch18BAlly_2_EIRIKA[] = {
     {
         .x = 18,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A50[] = {
+CONST_DATA struct REDA REDA_Ch18B_0[] = {
     {
         .x = 19,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A58[] = {
+CONST_DATA struct REDA REDA_Ch18BAlly_2_SETH[] = {
     {
         .x = 18,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A60[] = {
+CONST_DATA struct REDA REDA_Ch18B_1[] = {
     {
         .x = 17,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A68[] = {
+CONST_DATA struct REDA REDA_Ch18B_2[] = {
     {
         .x = 17,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A70[] = {
+CONST_DATA struct REDA REDA_Ch18BAlly_2_INNES[] = {
     {
         .x = 16,
         .y = 6,
         .a = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088C8A78[] = {
+CONST_DATA struct REDA REDA_Ch18BAlly_2_MYRRH[] = {
     {
         .x = 19,
         .y = 8,
         .a = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088C8A80[] = {
+CONST_DATA struct REDA REDA_Ch18B_3[] = {
     {
         .x = 21,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A88[] = {
+CONST_DATA struct REDA REDA_Ch18B_4[] = {
     {
         .x = 21,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A90[] = {
+CONST_DATA struct REDA REDA_Ch18BAlly_2_LARACHEL[] = {
     {
         .x = 18,
         .y = 7,
@@ -52449,56 +52449,56 @@ CONST_DATA struct REDA REDA_088C8A90[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8A98[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_2_0[] = {
     {
         .x = 18,
         .y = 25,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AA0[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_2_1[] = {
     {
         .x = 19,
         .y = 24,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AA8[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_4_0[] = {
     {
         .x = 14,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AB0[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_4_1[] = {
     {
         .x = 15,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AB8[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_4_2[] = {
     {
         .x = 16,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AC0[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_6_0[] = {
     {
         .x = 11,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AC8[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_6_1[] = {
     {
         .x = 12,
         .y = 4,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C8AD0[] = {
+CONST_DATA struct REDA REDA_Ch18BEnemy_7_0[] = {
     {
         .x = 4,
         .y = 2,
@@ -52507,7 +52507,7 @@ CONST_DATA struct REDA REDA_088C8AD0[] = {
 };
 
 // 0x88C8AD8
-CONST_DATA struct UnitDefinition UnitDef_088C8AD8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_0[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -52668,7 +52668,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8AD8[] = {
 };
 
 // 0x88C8BDC
-CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_0[] = {
     {
         .charIndex = CHARACTER_GORGON_CHUnk,
         .classIndex = CLASS_GORGON,
@@ -53078,7 +53078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8BDC[] = {
 };
 
 // 0x88C8E20
-CONST_DATA struct UnitDefinition UnitDef_088C8E20[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -53137,7 +53137,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8E20[] = {
 };
 
 // 0x88C8EAC
-CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_2[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -53147,7 +53147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088C8A48,
+        .redas = REDA_Ch18BAlly_2_EIRIKA,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -53158,7 +53158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
         .xPosition = 18,
         .yPosition = 11,
         .redaCount = 3,
-        .redas = REDA_088C8A58,
+        .redas = REDA_Ch18BAlly_2_SETH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -53169,7 +53169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C8A70,
+        .redas = REDA_Ch18BAlly_2_INNES,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -53180,7 +53180,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
         .xPosition = 19,
         .yPosition = 10,
         .redaCount = 3,
-        .redas = REDA_088C8A78,
+        .redas = REDA_Ch18BAlly_2_MYRRH,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -53191,13 +53191,13 @@ CONST_DATA struct UnitDefinition UnitDef_088C8EAC[] = {
         .xPosition = 18,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088C8A90,
+        .redas = REDA_Ch18BAlly_2_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88C8F24
-CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_1[] = {
     {
         .charIndex = CHARACTER_MONSTER_BA,
         .classIndex = CLASS_GORGONEGG,
@@ -53294,7 +53294,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8F24[] = {
 };
 
 // 0x88C8FB0
-CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_2[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -53305,7 +53305,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
         .xPosition = 21,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C8A98,
+        .redas = REDA_Ch18BEnemy_2_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53321,7 +53321,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
         .xPosition = 21,
         .yPosition = 27,
         .redaCount = 1,
-        .redas = REDA_088C8AA0,
+        .redas = REDA_Ch18BEnemy_2_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53331,7 +53331,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FB0[] = {
 };
 
 // 0x88C8FEC
-CONST_DATA struct UnitDefinition UnitDef_088C8FEC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_3[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -53364,7 +53364,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C8FEC[] = {
 };
 
 // 0x88C9028
-CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_4[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -53375,7 +53375,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AA8,
+        .redas = REDA_Ch18BEnemy_4_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53391,7 +53391,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AB0,
+        .redas = REDA_Ch18BEnemy_4_1,
         .items = {
             ITEM_MONSTER_VENINCLW,
         },
@@ -53407,7 +53407,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AB8,
+        .redas = REDA_Ch18BEnemy_4_2,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53417,7 +53417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9028[] = {
 };
 
 // 0x88C9078
-CONST_DATA struct UnitDefinition UnitDef_088C9078[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_5[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -53436,7 +53436,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9078[] = {
 };
 
 // 0x88C90A0
-CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_6[] = {
     {
         .charIndex = 0xb0,
         .classIndex = CLASS_BAEL,
@@ -53447,7 +53447,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AC0,
+        .redas = REDA_Ch18BEnemy_6_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53463,7 +53463,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
         .xPosition = 14,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AC8,
+        .redas = REDA_Ch18BEnemy_6_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -53473,7 +53473,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90A0[] = {
 };
 
 // 0x88C90DC
-CONST_DATA struct UnitDefinition UnitDef_088C90DC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_7[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -53484,7 +53484,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90DC[] = {
         .xPosition = 4,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C8AD0,
+        .redas = REDA_Ch18BEnemy_7_0,
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
@@ -53494,7 +53494,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C90DC[] = {
 };
 
 // 0x88C9104
-CONST_DATA struct UnitDefinition UnitDef_088C9104[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -53603,7 +53603,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9104[] = {
 };
 
 // 0x88C91B8
-CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GORGON,
@@ -54044,7 +54044,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C91B8[] = {
 };
 
 // 0x88C94B0
-CONST_DATA struct UnitDefinition UnitDef_088C94B0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_4[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -54153,7 +54153,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C94B0[] = {
 };
 
 // 0x88C9564
-CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_9[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -54621,7 +54621,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9564[] = {
 };
 
 // 0x88C985C
-CONST_DATA struct UnitDefinition UnitDef_088C985C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BAlly_5[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -54730,7 +54730,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C985C[] = {
 };
 
 // 0x88C9910
-CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch18BEnemy_10[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -55197,63 +55197,63 @@ CONST_DATA struct UnitDefinition UnitDef_088C9910[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088C9C08[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_3_0[] = {
     {
         .x = 27,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C10[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_3_1[] = {
     {
         .x = 28,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C18[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_4_0[] = {
     {
         .x = 26,
         .y = 0,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C20[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_4_1[] = {
     {
         .x = 27,
         .y = 1,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C28[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_8_0[] = {
     {
         .x = 14,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C30[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_8_1[] = {
     {
         .x = 15,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C38[] = {
+CONST_DATA struct REDA REDA_Ch19BEnemy_8_2[] = {
     {
         .x = 16,
         .y = 23,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C40[] = {
+CONST_DATA struct REDA REDA_Ch19BAlly_1_LARACHEL[] = {
     {
         .x = 16,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C48[] = {
+CONST_DATA struct REDA REDA_Ch19BAlly_1_EIRIKA[] = {
     {
         .x = 15,
         .y = 16,
@@ -55262,7 +55262,7 @@ CONST_DATA struct REDA REDA_088C9C48[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C50[] = {
+CONST_DATA struct REDA REDA_Ch19B_0[] = {
     {
         .x = 15,
         .y = 13,
@@ -55270,7 +55270,7 @@ CONST_DATA struct REDA REDA_088C9C50[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C58[] = {
+CONST_DATA struct REDA REDA_Ch19BAlly_1_EPHRAIM[] = {
     {
         .x = 17,
         .y = 16,
@@ -55279,7 +55279,7 @@ CONST_DATA struct REDA REDA_088C9C58[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C60[] = {
+CONST_DATA struct REDA REDA_Ch19B_1[] = {
     {
         .x = 17,
         .y = 13,
@@ -55287,7 +55287,7 @@ CONST_DATA struct REDA REDA_088C9C60[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C68[] = {
+CONST_DATA struct REDA REDA_Ch19BAlly_1_JOSHUA[] = {
     {
         .x = 15,
         .y = 14,
@@ -55295,7 +55295,7 @@ CONST_DATA struct REDA REDA_088C9C68[] = {
         .a = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088C9C70[] = {
+CONST_DATA struct REDA REDA_Ch19BAlly_1_INNES[] = {
     {
         .x = 17,
         .y = 14,
@@ -55303,14 +55303,14 @@ CONST_DATA struct REDA REDA_088C9C70[] = {
         .a = 0xf,
     },
 };
-CONST_DATA struct REDA REDA_088C9C78[] = {
+CONST_DATA struct REDA REDA_Ch19BNPC_LYON[] = {
     {
         .x = 16,
         .y = 12,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C80[] = {
+CONST_DATA struct REDA REDA_Ch19BNPC_2_0[] = {
     {
         .x = 8,
         .y = 19,
@@ -55318,7 +55318,7 @@ CONST_DATA struct REDA REDA_088C9C80[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C88[] = {
+CONST_DATA struct REDA REDA_Ch19BNPC_2_1[] = {
     {
         .x = 9,
         .y = 17,
@@ -55326,7 +55326,7 @@ CONST_DATA struct REDA REDA_088C9C88[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C90[] = {
+CONST_DATA struct REDA REDA_Ch19B_2[] = {
     {
         .x = 10,
         .y = 17,
@@ -55334,7 +55334,7 @@ CONST_DATA struct REDA REDA_088C9C90[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9C98[] = {
+CONST_DATA struct REDA REDA_Ch19BNPC_2_2[] = {
     {
         .x = 8,
         .y = 17,
@@ -55342,7 +55342,7 @@ CONST_DATA struct REDA REDA_088C9C98[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9CA0[] = {
+CONST_DATA struct REDA REDA_Ch19B_3[] = {
     {
         .x = 7,
         .y = 17,
@@ -55350,7 +55350,7 @@ CONST_DATA struct REDA REDA_088C9CA0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088C9CA8[] = {
+CONST_DATA struct REDA REDA_Ch19BNPC_2_3[] = {
     {
         .x = 9,
         .y = 18,
@@ -55360,7 +55360,7 @@ CONST_DATA struct REDA REDA_088C9CA8[] = {
 };
 
 // 0x88C9CB0
-CONST_DATA struct UnitDefinition UnitDef_088C9CB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BAlly[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -55586,7 +55586,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9CB0[] = {
 };
 
 // 0x88C9E18
-CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_0[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -55923,7 +55923,7 @@ CONST_DATA struct UnitDefinition UnitDef_088C9E18[] = {
 };
 
 // 0x88CA020
-CONST_DATA struct UnitDefinition UnitDef_088CA020[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_1[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_THIEF,
@@ -55942,7 +55942,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA020[] = {
 };
 
 // 0x88CA048
-CONST_DATA struct UnitDefinition UnitDef_088CA048[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_2[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_THIEF,
@@ -55961,7 +55961,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA048[] = {
 };
 
 // 0x88CA070
-CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_3[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -55971,7 +55971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C9C08,
+        .redas = REDA_Ch19BEnemy_3_0,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -55986,7 +55986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C9C10,
+        .redas = REDA_Ch19BEnemy_3_1,
         .items = {
             ITEM_BOW_SILVER,
         },
@@ -55996,7 +55996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA070[] = {
 };
 
 // 0x88CA0AC
-CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_4[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_HERO,
@@ -56006,7 +56006,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C9C18,
+        .redas = REDA_Ch19BEnemy_4_0,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -56021,7 +56021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
         .xPosition = 28,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088C9C20,
+        .redas = REDA_Ch19BEnemy_4_1,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -56031,7 +56031,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0AC[] = {
 };
 
 // 0x88CA0E8
-CONST_DATA struct UnitDefinition UnitDef_088CA0E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_5[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_GENERAL,
@@ -56062,7 +56062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA0E8[] = {
 };
 
 // 0x88CA124
-CONST_DATA struct UnitDefinition UnitDef_088CA124[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_6[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_WARRIOR,
@@ -56094,7 +56094,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA124[] = {
 };
 
 // 0x88CA160
-CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_7[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_MAGE_KNIGHT,
@@ -56152,7 +56152,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA160[] = {
 };
 
 // 0x88CA1C4
-CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BEnemy_8[] = {
     {
         .charIndex = 0x8d,
         .classIndex = CLASS_SWORDMASTER,
@@ -56162,7 +56162,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
         .xPosition = 14,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C9C28,
+        .redas = REDA_Ch19BEnemy_8_0,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -56177,7 +56177,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
         .xPosition = 15,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C9C30,
+        .redas = REDA_Ch19BEnemy_8_1,
         .items = {
             ITEM_AXE_SILVER,
         },
@@ -56192,7 +56192,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
         .xPosition = 16,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088C9C38,
+        .redas = REDA_Ch19BEnemy_8_2,
         .items = {
             ITEM_SWORD_SILVER,
         },
@@ -56202,7 +56202,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA1C4[] = {
 };
 
 // 0x88CA214
-CONST_DATA struct UnitDefinition UnitDef_088CA214[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BNPC_0[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PONTIFEX,
@@ -56232,7 +56232,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA214[] = {
 };
 
 // 0x88CA250
-CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BAlly_1[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -56241,7 +56241,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
         .xPosition = 16,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C9C40,
+        .redas = REDA_Ch19BAlly_1_LARACHEL,
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -56251,7 +56251,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
         .xPosition = 15,
         .yPosition = 17,
         .redaCount = 2,
-        .redas = REDA_088C9C48,
+        .redas = REDA_Ch19BAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -56261,7 +56261,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
         .xPosition = 17,
         .yPosition = 17,
         .redaCount = 2,
-        .redas = REDA_088C9C58,
+        .redas = REDA_Ch19BAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_JOSHUA,
@@ -56271,7 +56271,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
         .xPosition = 15,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C9C68,
+        .redas = REDA_Ch19BAlly_1_JOSHUA,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -56281,13 +56281,13 @@ CONST_DATA struct UnitDefinition UnitDef_088CA250[] = {
         .xPosition = 17,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C9C70,
+        .redas = REDA_Ch19BAlly_1_INNES,
     },
     { 0 },
 };
 
 // 0x88CA2C8
-CONST_DATA struct UnitDefinition UnitDef_088CA2C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BAlly_2[] = {
     {
         .charIndex = CHARACTER_LARACHEL,
         .classIndex = CLASS_TROUBADOUR,
@@ -56340,7 +56340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA2C8[] = {
 };
 
 // 0x88CA354
-CONST_DATA struct UnitDefinition UnitDef_088CA354[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BNPC[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_CAVALIER,
@@ -56350,13 +56350,13 @@ CONST_DATA struct UnitDefinition UnitDef_088CA354[] = {
         .xPosition = 16,
         .yPosition = 17,
         .redaCount = 1,
-        .redas = REDA_088C9C78,
+        .redas = REDA_Ch19BNPC_LYON,
     },
     { 0 },
 };
 
 // 0x88CA37C
-CONST_DATA struct UnitDefinition UnitDef_088CA37C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BMixed[] = {
     {
         .charIndex = 0xcd,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -56419,7 +56419,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA37C[] = {
 };
 
 // 0x88CA41C
-CONST_DATA struct UnitDefinition UnitDef_088CA41C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BNPC_2[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PONTIFEX,
@@ -56428,7 +56428,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA41C[] = {
         .xPosition = 8,
         .yPosition = 14,
         .redaCount = 1,
-        .redas = REDA_088C9C80,
+        .redas = REDA_Ch19BNPC_2_0,
     },
     {
         .charIndex = 0xcd,
@@ -56439,7 +56439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA41C[] = {
         .xPosition = 9,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C9C88,
+        .redas = REDA_Ch19BNPC_2_1,
     },
     {
         .charIndex = 0xcd,
@@ -56450,7 +56450,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA41C[] = {
         .xPosition = 8,
         .yPosition = 12,
         .redaCount = 2,
-        .redas = REDA_088C9C98,
+        .redas = REDA_Ch19BNPC_2_2,
     },
     {
         .charIndex = 0xcd,
@@ -56461,13 +56461,13 @@ CONST_DATA struct UnitDefinition UnitDef_088CA41C[] = {
         .xPosition = 9,
         .yPosition = 13,
         .redaCount = 1,
-        .redas = REDA_088C9CA8,
+        .redas = REDA_Ch19BNPC_2_3,
     },
     { 0 },
 };
 
 // 0x88CA480
-CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch19BNPC_1[] = {
     {
         .charIndex = 0xcd,
         .classIndex = CLASS_ARMOR_KNIGHT,
@@ -56580,119 +56580,119 @@ CONST_DATA struct UnitDefinition UnitDef_088CA480[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CA534[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_2_0[] = {
     {
         .x = 6,
         .y = 15,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA53C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_2_1[] = {
     {
         .x = 7,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA544[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_3_0[] = {
     {
         .x = 6,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA54C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_4_0[] = {
     {
         .x = 12,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA554[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_4_1[] = {
     {
         .x = 13,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA55C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_5_0[] = {
     {
         .x = 14,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA564[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_6_0[] = {
     {
         .x = 11,
         .y = 2,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA56C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_6_1[] = {
     {
         .x = 11,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA574[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_7_0[] = {
     {
         .x = 1,
         .y = 2,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA57C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_7_1[] = {
     {
         .x = 2,
         .y = 1,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA584[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_7_2[] = {
     {
         .x = 1,
         .y = 0,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA58C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_8_0[] = {
     {
         .x = 4,
         .y = 15,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA594[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_8_1[] = {
     {
         .x = 5,
         .y = 16,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA59C[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_8_2[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA5A4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_9_0[] = {
     {
         .x = 9,
         .y = 12,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA5AC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_9_1[] = {
     {
         .x = 13,
         .y = 12,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA5B4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_9_2[] = {
     {
         .x = 11,
         .y = 9,
@@ -56700,91 +56700,91 @@ CONST_DATA struct REDA REDA_088CA5B4[] = {
         .delayFrames = 10,
     },
 };
-CONST_DATA struct REDA REDA_088CA5BC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_10_0[] = {
     {
         .x = 4,
         .y = 11,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5C4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_10_1[] = {
     {
         .x = 3,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5CC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_10_2[] = {
     {
         .x = 3,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5D4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_11_0[] = {
     {
         .x = 2,
         .y = 9,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA5DC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_11_1[] = {
     {
         .x = 4,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5E4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_12_0[] = {
     {
         .x = 7,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5EC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_13_0[] = {
     {
         .x = 6,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA5F4[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_14_0[] = {
     {
         .x = 25,
         .y = 2,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA5FC[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_14_1[] = {
     {
         .x = 26,
         .y = 3,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA604[] = {
+CONST_DATA struct REDA REDA_Ch20BEnemy_14_2[] = {
     {
         .x = 27,
         .y = 4,
         .b = 0xfffe,
     },
 };
-CONST_DATA struct REDA REDA_088CA60C[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_EIRIKA[] = {
     {
         .x = 27,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA614[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_EPHRAIM[] = {
     {
         .x = 26,
         .y = 16,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA61C[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_SETH[] = {
     {
         .x = 27,
         .y = 17,
@@ -56792,7 +56792,7 @@ CONST_DATA struct REDA REDA_088CA61C[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088CA624[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_MYRRH[] = {
     {
         .x = 26,
         .y = 17,
@@ -56800,14 +56800,14 @@ CONST_DATA struct REDA REDA_088CA624[] = {
         .delayFrames = 16,
     },
 };
-CONST_DATA struct REDA REDA_088CA62C[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_INNES[] = {
     {
         .x = 25,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CA634[] = {
+CONST_DATA struct REDA REDA_Ch20BAlly_1_LARACHEL[] = {
     {
         .x = 28,
         .y = 18,
@@ -56816,7 +56816,7 @@ CONST_DATA struct REDA REDA_088CA634[] = {
 };
 
 // 0x88CA63C
-CONST_DATA struct UnitDefinition UnitDef_088CA63C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -57055,7 +57055,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA63C[] = {
 };
 
 // 0x88CA7B8
-CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_0[] = {
     {
         .charIndex = CHARACTER_RIEV,
         .classIndex = CLASS_BISHOP,
@@ -57680,7 +57680,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CA7B8[] = {
 };
 
 // 0x88CAB64
-CONST_DATA struct UnitDefinition UnitDef_088CAB64[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_1[] = {
     {
         .charIndex = CHARACTER_MORVA,
         .classIndex = CLASS_MANAKETE_2,
@@ -57697,7 +57697,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB64[] = {
 };
 
 // 0x88CAB8C
-CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_2[] = {
     {
         .charIndex = 0xb6,
         .classIndex = CLASS_MAELDUIN,
@@ -57707,7 +57707,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA534,
+        .redas = REDA_Ch20BEnemy_2_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -57722,7 +57722,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA53C,
+        .redas = REDA_Ch20BEnemy_2_1,
         .items = {
             ITEM_BOW_STEEL,
         },
@@ -57732,7 +57732,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAB8C[] = {
 };
 
 // 0x88CABC8
-CONST_DATA struct UnitDefinition UnitDef_088CABC8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_3[] = {
     {
         .charIndex = 0xb6,
         .classIndex = CLASS_MAELDUIN,
@@ -57742,7 +57742,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABC8[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA544,
+        .redas = REDA_Ch20BEnemy_3_0,
         .items = {
             ITEM_AXE_STEEL,
             ITEM_AXE_HANDAXE,
@@ -57753,7 +57753,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABC8[] = {
 };
 
 // 0x88CABF0
-CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_4[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -57763,7 +57763,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088CA54C,
+        .redas = REDA_Ch20BEnemy_4_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -57778,7 +57778,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088CA554,
+        .redas = REDA_Ch20BEnemy_4_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -57788,7 +57788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CABF0[] = {
 };
 
 // 0x88CAC2C
-CONST_DATA struct UnitDefinition UnitDef_088CAC2C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_5[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -57798,7 +57798,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC2C[] = {
         .xPosition = 13,
         .yPosition = 7,
         .redaCount = 1,
-        .redas = REDA_088CA55C,
+        .redas = REDA_Ch20BEnemy_5_0,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -57809,7 +57809,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC2C[] = {
 };
 
 // 0x88CAC54
-CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_6[] = {
     {
         .charIndex = 0xb2,
         .classIndex = CLASS_CYCLOPS,
@@ -57819,7 +57819,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
         .xPosition = 11,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088CA564,
+        .redas = REDA_Ch20BEnemy_6_0,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -57834,7 +57834,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
         .xPosition = 11,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088CA56C,
+        .redas = REDA_Ch20BEnemy_6_1,
         .items = {
             ITEM_AXE_STEEL,
         },
@@ -57844,7 +57844,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC54[] = {
 };
 
 // 0x88CAC90
-CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_7[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -57854,7 +57854,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088CA574,
+        .redas = REDA_Ch20BEnemy_7_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -57869,7 +57869,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088CA57C,
+        .redas = REDA_Ch20BEnemy_7_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -57885,7 +57885,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
         .xPosition = 1,
         .yPosition = 1,
         .redaCount = 1,
-        .redas = REDA_088CA584,
+        .redas = REDA_Ch20BEnemy_7_2,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -57895,7 +57895,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAC90[] = {
 };
 
 // 0x88CACE0
-CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_8[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -57905,7 +57905,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA58C,
+        .redas = REDA_Ch20BEnemy_8_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -57920,7 +57920,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA594,
+        .redas = REDA_Ch20BEnemy_8_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -57936,7 +57936,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
         .xPosition = 4,
         .yPosition = 16,
         .redaCount = 1,
-        .redas = REDA_088CA59C,
+        .redas = REDA_Ch20BEnemy_8_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -57946,7 +57946,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CACE0[] = {
 };
 
 // 0x88CAD30
-CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_9[] = {
     {
         .charIndex = 0xb7,
         .classIndex = CLASS_MOGALL,
@@ -57956,7 +57956,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .xPosition = 11,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088CA5A4,
+        .redas = REDA_Ch20BEnemy_9_0,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -57971,7 +57971,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .xPosition = 11,
         .yPosition = 11,
         .redaCount = 1,
-        .redas = REDA_088CA5AC,
+        .redas = REDA_Ch20BEnemy_9_1,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -57986,7 +57986,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
         .xPosition = 11,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088CA5B4,
+        .redas = REDA_Ch20BEnemy_9_2,
         .items = {
             ITEM_MONSTER_EVILEYE,
         },
@@ -57996,7 +57996,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD30[] = {
 };
 
 // 0x88CAD80
-CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_10[] = {
     {
         .charIndex = 0xb1,
         .classIndex = CLASS_ELDER_BAEL,
@@ -58006,7 +58006,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088CA5BC,
+        .redas = REDA_Ch20BEnemy_10_0,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -58021,7 +58021,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088CA5C4,
+        .redas = REDA_Ch20BEnemy_10_1,
         .items = {
             ITEM_MONSTER_LTHLTALON,
         },
@@ -58036,7 +58036,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088CA5CC,
+        .redas = REDA_Ch20BEnemy_10_2,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -58046,7 +58046,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAD80[] = {
 };
 
 // 0x88CADD0
-CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_11[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -58056,7 +58056,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088CA5D4,
+        .redas = REDA_Ch20BEnemy_11_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -58071,7 +58071,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
         .xPosition = 0,
         .yPosition = 9,
         .redaCount = 1,
-        .redas = REDA_088CA5DC,
+        .redas = REDA_Ch20BEnemy_11_1,
         .items = {
             ITEM_MONSTER_SHARPCLAW,
         },
@@ -58081,7 +58081,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CADD0[] = {
 };
 
 // 0x88CAE0C
-CONST_DATA struct UnitDefinition UnitDef_088CAE0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_12[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -58091,7 +58091,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE0C[] = {
         .xPosition = 7,
         .yPosition = 0,
         .redaCount = 1,
-        .redas = REDA_088CA5E4,
+        .redas = REDA_Ch20BEnemy_12_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -58101,7 +58101,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE0C[] = {
 };
 
 // 0x88CAE34
-CONST_DATA struct UnitDefinition UnitDef_088CAE34[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_13[] = {
     {
         .charIndex = 0xb4,
         .classIndex = CLASS_GWYLLGI,
@@ -58111,7 +58111,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE34[] = {
         .xPosition = 6,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA5EC,
+        .redas = REDA_Ch20BEnemy_13_0,
         .items = {
             ITEM_MONSTER_HELLFANG,
         },
@@ -58121,7 +58121,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE34[] = {
 };
 
 // 0x88CAE5C
-CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_14[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -58131,7 +58131,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088CA5F4,
+        .redas = REDA_Ch20BEnemy_14_0,
         .items = {
             ITEM_LANCE_JAVELIN,
             ITEM_LANCE_STEEL,
@@ -58147,7 +58147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088CA5FC,
+        .redas = REDA_Ch20BEnemy_14_1,
         .items = {
             ITEM_LANCE_STEEL,
             ITEM_LANCE_JAVELIN,
@@ -58163,7 +58163,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
         .xPosition = 27,
         .yPosition = 2,
         .redaCount = 1,
-        .redas = REDA_088CA604,
+        .redas = REDA_Ch20BEnemy_14_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -58173,7 +58173,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAE5C[] = {
 };
 
 // 0x88CAEAC
-CONST_DATA struct UnitDefinition UnitDef_088CAEAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -58187,7 +58187,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAEAC[] = {
 };
 
 // 0x88CAED4
-CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -58196,7 +58196,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 27,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA60C,
+        .redas = REDA_Ch20BAlly_1_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -58206,7 +58206,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 26,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA614,
+        .redas = REDA_Ch20BAlly_1_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_SETH,
@@ -58216,7 +58216,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 27,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA61C,
+        .redas = REDA_Ch20BAlly_1_SETH,
     },
     {
         .charIndex = CHARACTER_MYRRH,
@@ -58226,7 +58226,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 26,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA624,
+        .redas = REDA_Ch20BAlly_1_MYRRH,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -58236,7 +58236,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 25,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA62C,
+        .redas = REDA_Ch20BAlly_1_INNES,
     },
     {
         .charIndex = CHARACTER_LARACHEL,
@@ -58246,13 +58246,13 @@ CONST_DATA struct UnitDefinition UnitDef_088CAED4[] = {
         .xPosition = 28,
         .yPosition = 20,
         .redaCount = 1,
-        .redas = REDA_088CA634,
+        .redas = REDA_Ch20BAlly_1_LARACHEL,
     },
     { 0 },
 };
 
 // 0x88CAF60
-CONST_DATA struct UnitDefinition UnitDef_088CAF60[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BAlly_2[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -58265,7 +58265,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CAF60[] = {
 };
 
 // 0x88CAF88
-CONST_DATA struct UnitDefinition UnitDef_088CAF88[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch20BEnemy_15[] = {
     {
         .charIndex = 0xb8,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -58311,119 +58311,119 @@ CONST_DATA struct UnitDefinition UnitDef_088CAF88[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CAFD8[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1_0[] = {
     {
         .x = 4,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CAFE0[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1_1[] = {
     {
         .x = 2,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CAFE8[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1_2[] = {
     {
         .x = 1,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CAFF0[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1_3[] = {
     {
         .x = 1,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CAFF8[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1_4[] = {
     {
         .x = 5,
         .y = 7,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB000[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_2_0[] = {
     {
         .x = 20,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB008[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_2_1[] = {
     {
         .x = 21,
         .y = 8,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB010[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_2_2[] = {
     {
         .x = 21,
         .y = 10,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB018[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_2_3[] = {
     {
         .x = 18,
         .y = 6,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB020[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_0[] = {
     {
         .x = 10,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB028[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_1[] = {
     {
         .x = 9,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB030[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_2[] = {
     {
         .x = 10,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB038[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_3[] = {
     {
         .x = 11,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB040[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_4[] = {
     {
         .x = 12,
         .y = 21,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB048[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_5[] = {
     {
         .x = 13,
         .y = 22,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB050[] = {
+CONST_DATA struct REDA REDA_Ch21BEnemy_6[] = {
     {
         .x = 13,
         .y = 20,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB058[] = {
+CONST_DATA struct REDA REDA_Ch21BMixed_EPHRAIM[] = {
     {
         .x = 11,
         .y = 3,
@@ -58433,7 +58433,7 @@ CONST_DATA struct REDA REDA_088CB058[] = {
 };
 
 // 0x88CB060
-CONST_DATA struct UnitDefinition UnitDef_088CB060[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BAlly[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_MASTER_LORD,
@@ -58594,7 +58594,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB060[] = {
 };
 
 // 0x88CB164
-CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BEnemy_0[] = {
     {
         .charIndex = CHARACTER_LYON_FINAL,
         .classIndex = CLASS_NECROMANCER,
@@ -59078,7 +59078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB164[] = {
 };
 
 // 0x88CB448
-CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BEnemy_1[] = {
     {
         .charIndex = 0xb8,
         .classIndex = CLASS_ARCH_MOGALL,
@@ -59088,7 +59088,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CAFD8,
+        .redas = REDA_Ch21BEnemy_1_0,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -59103,7 +59103,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CAFE0,
+        .redas = REDA_Ch21BEnemy_1_1,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -59118,7 +59118,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CAFE8,
+        .redas = REDA_Ch21BEnemy_1_2,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -59133,7 +59133,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CAFF0,
+        .redas = REDA_Ch21BEnemy_1_3,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -59148,7 +59148,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
         .xPosition = 0,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CAFF8,
+        .redas = REDA_Ch21BEnemy_1_4,
         .items = {
             ITEM_MONSTER_CRIMSNEYE,
         },
@@ -59158,7 +59158,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB448[] = {
 };
 
 // 0x88CB4C0
-CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BEnemy_2[] = {
     {
         .charIndex = 0xbc,
         .classIndex = CLASS_DEATHGOYLE,
@@ -59168,7 +59168,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CB000,
+        .redas = REDA_Ch21BEnemy_2_0,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -59183,7 +59183,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CB008,
+        .redas = REDA_Ch21BEnemy_2_1,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -59198,7 +59198,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CB010,
+        .redas = REDA_Ch21BEnemy_2_2,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -59213,7 +59213,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
         .xPosition = 22,
         .yPosition = 5,
         .redaCount = 1,
-        .redas = REDA_088CB018,
+        .redas = REDA_Ch21BEnemy_2_3,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -59223,7 +59223,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB4C0[] = {
 };
 
 // 0x88CB524
-CONST_DATA struct UnitDefinition UnitDef_088CB524[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BEnemy_3[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -59270,7 +59270,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB524[] = {
 };
 
 // 0x88CB574
-CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BEnemy[] = {
     {
         .charIndex = 0xaa,
         .classIndex = CLASS_REVENANT,
@@ -59280,7 +59280,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 10,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB020,
+        .redas = REDA_Ch21BEnemy_0,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59295,7 +59295,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 9,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB028,
+        .redas = REDA_Ch21BEnemy_1,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59310,7 +59310,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 10,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB030,
+        .redas = REDA_Ch21BEnemy_2,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59325,7 +59325,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 11,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB038,
+        .redas = REDA_Ch21BEnemy_3,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59340,7 +59340,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 12,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB040,
+        .redas = REDA_Ch21BEnemy_4,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59355,7 +59355,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 13,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB048,
+        .redas = REDA_Ch21BEnemy_5,
         .items = {
             ITEM_MONSTER_FETIDCLW,
         },
@@ -59370,7 +59370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
         .xPosition = 13,
         .yPosition = 24,
         .redaCount = 1,
-        .redas = REDA_088CB050,
+        .redas = REDA_Ch21BEnemy_6,
         .items = {
             ITEM_MONSTER_ROTTENCLW,
         },
@@ -59380,7 +59380,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB574[] = {
 };
 
 // 0x88CB614
-CONST_DATA struct UnitDefinition UnitDef_088CB614[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21BMixed[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_FALLEN_PEER,
@@ -59406,7 +59406,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB614[] = {
         .xPosition = 11,
         .yPosition = 4,
         .redaCount = 1,
-        .redas = REDA_088CB058,
+        .redas = REDA_Ch21BMixed_EPHRAIM,
     },
     {
         .charIndex = CHARACTER_INNES,
@@ -59436,17 +59436,17 @@ CONST_DATA struct UnitDefinition UnitDef_088CB614[] = {
 };
 
 // 0x88CB6A0
-CONST_DATA struct UnitDefinition UnitDef_088CB6A0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XBUnits[] = {
     { 0 },
 };
 
 // 0x88CB6B4
-CONST_DATA struct UnitDefinition UnitDef_088CB6B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ch21XBUnits_1[] = {
     { 0 },
 };
 
 // 0x88CB6C8
-CONST_DATA struct UnitDefinition UnitDef_088CB6C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower1Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -59555,7 +59555,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB6C8[] = {
 };
 
 // 0x88CB77C
-CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_0[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ENTOUMBED,
@@ -59766,32 +59766,32 @@ CONST_DATA struct UnitDefinition UnitDef_088CB77C[] = {
 };
 
 // 0x88CB8E4
-CONST_DATA struct UnitDefinition UnitDef_088CB8E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CB8F8[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_2_0[] = {
     {
         .x = 5,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB900[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_2_1[] = {
     {
         .x = 3,
         .y = 14,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB908[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_2_2[] = {
     {
         .x = 4,
         .y = 17,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CB910[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_2_3[] = {
     {
         .x = 5,
         .y = 16,
@@ -59800,7 +59800,7 @@ CONST_DATA struct REDA REDA_088CB910[] = {
 };
 
 // 0x88CB918
-CONST_DATA struct UnitDefinition UnitDef_088CB918[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower2Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -59909,7 +59909,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB918[] = {
 };
 
 // 0x88CB9CC
-CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_1[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAELDUIN,
@@ -60212,7 +60212,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CB9CC[] = {
 };
 
 // 0x88CBBD4
-CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_2[] = {
     {
         .charIndex = 0xb5,
         .classIndex = 0xb, // Group idx for gMonsterClassWeights
@@ -60223,7 +60223,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .redaCount = 1,
-        .redas = REDA_088CB8F8,
+        .redas = REDA_TowerEnemy_2_0,
         .ai = {DefaultAI, 0xc, 0x0},
     },
     {
@@ -60236,7 +60236,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .redaCount = 1,
-        .redas = REDA_088CB900,
+        .redas = REDA_TowerEnemy_2_1,
         .ai = {DefaultAI, 0xc, 0x0},
     },
     {
@@ -60249,7 +60249,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .redaCount = 1,
-        .redas = REDA_088CB908,
+        .redas = REDA_TowerEnemy_2_2,
         .ai = {0x0, 0x12, 0xc, 0x0},
     },
     {
@@ -60262,14 +60262,14 @@ CONST_DATA struct UnitDefinition UnitDef_088CBBD4[] = {
         .yPosition = 20,
         .genMonster = 1,
         .redaCount = 1,
-        .redas = REDA_088CB910,
+        .redas = REDA_TowerEnemy_2_3,
         .ai = {0x0, 0x12, 0xc, 0x0},
     },
     { 0 },
 };
 
 // 0x88CBC38
-CONST_DATA struct UnitDefinition UnitDef_088CBC38[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower3Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -60378,7 +60378,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBC38[] = {
 };
 
 // 0x88CBCEC
-CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_3[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ELDER_BAEL,
@@ -60689,11 +60689,11 @@ CONST_DATA struct UnitDefinition UnitDef_088CBCEC[] = {
 };
 
 // 0x88CBF08
-CONST_DATA struct UnitDefinition UnitDef_088CBF08[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_1[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CBF1C[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_4_0[] = {
     {
         .x = 9,
         .y = 6,
@@ -60702,7 +60702,7 @@ CONST_DATA struct REDA REDA_088CBF1C[] = {
 };
 
 // 0x88CBF24
-CONST_DATA struct UnitDefinition UnitDef_088CBF24[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower4Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -60811,7 +60811,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBF24[] = {
 };
 
 // 0x88CBFD8
-CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_4[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GWYLLGI,
@@ -60884,7 +60884,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
         .genMonster = 1,
         .sumFlag = 1,
         .redaCount = 1,
-        .redas = REDA_088CBF1C,
+        .redas = REDA_TowerEnemy_4_0,
         .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     {
@@ -61055,12 +61055,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CBFD8[] = {
 };
 
 // 0x88CC17C
-CONST_DATA struct UnitDefinition UnitDef_088CC17C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_2[] = {
     { 0 },
 };
 
 // 0x88CC190
-CONST_DATA struct UnitDefinition UnitDef_088CC190[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower5Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -61169,7 +61169,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC190[] = {
 };
 
 // 0x88CC244
-CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_5[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ENTOUMBED,
@@ -61660,12 +61660,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CC244[] = {
 };
 
 // 0x88CC578
-CONST_DATA struct UnitDefinition UnitDef_088CC578[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_3[] = {
     { 0 },
 };
 
 // 0x88CC58C
-CONST_DATA struct UnitDefinition UnitDef_088CC58C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_6[] = {
     {
         .charIndex = 0xaa,
         .classIndex = 0x0, // Group idx for gMonsterClassWeights
@@ -61693,7 +61693,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC58C[] = {
 };
 
 // 0x88CC5C8
-CONST_DATA struct UnitDefinition UnitDef_088CC5C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower6Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -61802,7 +61802,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC5C8[] = {
 };
 
 // 0x88CC67C
-CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_7[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_WIGHT,
@@ -62269,46 +62269,46 @@ CONST_DATA struct UnitDefinition UnitDef_088CC67C[] = {
 };
 
 // 0x88CC974
-CONST_DATA struct UnitDefinition UnitDef_088CC974[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_4[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CC988[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_9_0[] = {
     {
         .x = 5,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CC990[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_9_1[] = {
     {
         .x = 3,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CC998[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_10_0[] = {
     {
         .x = 14,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CC9A0[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_10_1[] = {
     {
         .x = 12,
         .y = 18,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CC9A8[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_11_0[] = {
     {
         .x = 21,
         .y = 13,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088CC9B0[] = {
+CONST_DATA struct REDA REDA_TowerEnemy_11_1[] = {
     {
         .x = 19,
         .y = 13,
@@ -62317,7 +62317,7 @@ CONST_DATA struct REDA REDA_088CC9B0[] = {
 };
 
 // 0x88CC9B8
-CONST_DATA struct UnitDefinition UnitDef_088CC9B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower7Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -62426,7 +62426,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CC9B8[] = {
 };
 
 // 0x88CCA6C
-CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_8[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -62811,12 +62811,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CCA6C[] = {
 };
 
 // 0x88CCCEC
-CONST_DATA struct UnitDefinition UnitDef_088CCCEC[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_5[] = {
     { 0 },
 };
 
 // 0x88CCD00
-CONST_DATA struct UnitDefinition UnitDef_088CCD00[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_9[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -62826,7 +62826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD00[] = {
         .xPosition = 4,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088CC988,
+        .redas = REDA_TowerEnemy_9_0,
         .items = {
             ITEM_LANCE_IRON,
         },
@@ -62841,7 +62841,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD00[] = {
         .xPosition = 4,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088CC990,
+        .redas = REDA_TowerEnemy_9_1,
         .items = {
             ITEM_LANCE_JAVELIN,
         },
@@ -62851,7 +62851,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD00[] = {
 };
 
 // 0x88CCD3C
-CONST_DATA struct UnitDefinition UnitDef_088CCD3C[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_10[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -62861,7 +62861,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD3C[] = {
         .xPosition = 13,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088CC998,
+        .redas = REDA_TowerEnemy_10_0,
         .items = {
             ITEM_LANCE_STEEL,
         },
@@ -62876,7 +62876,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD3C[] = {
         .xPosition = 13,
         .yPosition = 15,
         .redaCount = 1,
-        .redas = REDA_088CC9A0,
+        .redas = REDA_TowerEnemy_10_1,
         .items = {
             ITEM_LANCE_HEAVYSPEAR,
         },
@@ -62886,7 +62886,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD3C[] = {
 };
 
 // 0x88CCD78
-CONST_DATA struct UnitDefinition UnitDef_088CCD78[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_11[] = {
     {
         .charIndex = 0xbb,
         .classIndex = CLASS_GARGOYLE,
@@ -62896,7 +62896,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD78[] = {
         .xPosition = 20,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088CC9A8,
+        .redas = REDA_TowerEnemy_11_0,
         .items = {
             ITEM_LANCE_AXEREAVER,
         },
@@ -62911,7 +62911,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD78[] = {
         .xPosition = 20,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088CC9B0,
+        .redas = REDA_TowerEnemy_11_1,
         .items = {
             ITEM_LANCE_VENIN,
         },
@@ -62921,7 +62921,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCD78[] = {
 };
 
 // 0x88CCDB4
-CONST_DATA struct UnitDefinition UnitDef_088CCDB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_Tower8Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -63030,7 +63030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CCDB4[] = {
 };
 
 // 0x88CCE68
-CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerEnemy_12[] = {
     {
         .charIndex = 0x5f,
         .classIndex = 0x1b, // Group idx for gMonsterClassWeights
@@ -63378,12 +63378,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CCE68[] = {
 };
 
 // 0x88CD0AC
-CONST_DATA struct UnitDefinition UnitDef_088CD0AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_TowerUnits_6[] = {
     { 0 },
 };
 
 // 0x88CD0C0
-CONST_DATA struct UnitDefinition UnitDef_088CD0C0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin1Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -63492,7 +63492,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD0C0[] = {
 };
 
 // 0x88CD174
-CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_0[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_WIGHT,
@@ -63980,12 +63980,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CD174[] = {
 };
 
 // 0x88CD4A8
-CONST_DATA struct UnitDefinition UnitDef_088CD4A8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits[] = {
     { 0 },
 };
 
 // 0x88CD4BC
-CONST_DATA struct UnitDefinition UnitDef_088CD4BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_1[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -64013,7 +64013,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4BC[] = {
 };
 
 // 0x88CD4F8
-CONST_DATA struct UnitDefinition UnitDef_088CD4F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_2[] = {
     {
         .charIndex = 0xb1,
         .classIndex = 0x7, // Group idx for gMonsterClassWeights
@@ -64040,7 +64040,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD4F8[] = {
 };
 
 // 0x88CD534
-CONST_DATA struct UnitDefinition UnitDef_088CD534[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin2Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -64149,7 +64149,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD534[] = {
 };
 
 // 0x88CD5E8
-CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_3[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_CYCLOPS,
@@ -64754,12 +64754,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CD5E8[] = {
 };
 
 // 0x88CD9E4
-CONST_DATA struct UnitDefinition UnitDef_088CD9E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_1[] = {
     { 0 },
 };
 
 // 0x88CD9F8
-CONST_DATA struct UnitDefinition UnitDef_088CD9F8[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin3Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -64868,7 +64868,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CD9F8[] = {
 };
 
 // 0x88CDAAC
-CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_4[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_WIGHT,
@@ -65418,12 +65418,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CDAAC[] = {
 };
 
 // 0x88CDE44
-CONST_DATA struct UnitDefinition UnitDef_088CDE44[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_2[] = {
     { 0 },
 };
 
 // 0x88CDE58
-CONST_DATA struct UnitDefinition UnitDef_088CDE58[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_5[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -65439,7 +65439,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDE58[] = {
 };
 
 // 0x88CDE80
-CONST_DATA struct UnitDefinition UnitDef_088CDE80[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_6[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -65466,7 +65466,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDE80[] = {
 };
 
 // 0x88CDEBC
-CONST_DATA struct UnitDefinition UnitDef_088CDEBC[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_7[] = {
     {
         .charIndex = 0xae,
         .classIndex = CLASS_WIGHT,
@@ -65485,7 +65485,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDEBC[] = {
 };
 
 // 0x88CDEE4
-CONST_DATA struct UnitDefinition UnitDef_088CDEE4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_8[] = {
     {
         .charIndex = 0xae,
         .classIndex = CLASS_WIGHT,
@@ -65504,7 +65504,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDEE4[] = {
 };
 
 // 0x88CDF0C
-CONST_DATA struct UnitDefinition UnitDef_088CDF0C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_9[] = {
     {
         .charIndex = 0xae,
         .classIndex = CLASS_WIGHT,
@@ -65523,12 +65523,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CDF0C[] = {
 };
 
 // 0x88CDF34
-CONST_DATA struct UnitDefinition UnitDef_088CDF34[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_3[] = {
     { 0 },
 };
 
 // 0x88CDF48
-CONST_DATA struct UnitDefinition UnitDef_088CDF48[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin4Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -65663,7 +65663,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CDF48[] = {
 };
 
 // 0x88CE024
-CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_10[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GWYLLGI,
@@ -66104,12 +66104,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CE024[] = {
 };
 
 // 0x88CE308
-CONST_DATA struct UnitDefinition UnitDef_088CE308[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_4[] = {
     { 0 },
 };
 
 // 0x88CE31C
-CONST_DATA struct UnitDefinition UnitDef_088CE31C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_11[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -66128,7 +66128,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE31C[] = {
 };
 
 // 0x88CE344
-CONST_DATA struct UnitDefinition UnitDef_088CE344[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_12[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -66147,7 +66147,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE344[] = {
 };
 
 // 0x88CE36C
-CONST_DATA struct UnitDefinition UnitDef_088CE36C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin5Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -66269,7 +66269,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE36C[] = {
 };
 
 // 0x88CE434
-CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_13[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAELDUIN,
@@ -66625,12 +66625,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CE434[] = {
 };
 
 // 0x88CE6B4
-CONST_DATA struct UnitDefinition UnitDef_088CE6B4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_5[] = {
     { 0 },
 };
 
 // 0x88CE6C8
-CONST_DATA struct UnitDefinition UnitDef_088CE6C8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_14[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -66650,7 +66650,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE6C8[] = {
 };
 
 // 0x88CE6F0
-CONST_DATA struct UnitDefinition UnitDef_088CE6F0[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_15[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -66669,7 +66669,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE6F0[] = {
 };
 
 // 0x88CE718
-CONST_DATA struct UnitDefinition UnitDef_088CE718[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_16[] = {
     {
         .charIndex = 0x64,
         .classIndex = CLASS_THIEF,
@@ -66688,7 +66688,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE718[] = {
 };
 
 // 0x88CE740
-CONST_DATA struct UnitDefinition UnitDef_088CE740[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin6Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -66823,7 +66823,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CE740[] = {
 };
 
 // 0x88CE81C
-CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_17[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_ELDER_BAEL,
@@ -67356,12 +67356,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CE81C[] = {
 };
 
 // 0x88CEB78
-CONST_DATA struct UnitDefinition UnitDef_088CEB78[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_6[] = {
     { 0 },
 };
 
 // 0x88CEB8C
-CONST_DATA struct UnitDefinition UnitDef_088CEB8C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_18[] = {
     {
         .charIndex = 0xae,
         .classIndex = 0x3, // Group idx for gMonsterClassWeights
@@ -67390,7 +67390,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEB8C[] = {
 };
 
 // 0x88CEBC8
-CONST_DATA struct UnitDefinition UnitDef_088CEBC8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_19[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x11, // Group idx for gMonsterClassWeights
@@ -67417,7 +67417,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEBC8[] = {
 };
 
 // 0x88CEC04
-CONST_DATA struct UnitDefinition UnitDef_088CEC04[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_20[] = {
     {
         .charIndex = 0xb1,
         .classIndex = 0x7, // Group idx for gMonsterClassWeights
@@ -67444,7 +67444,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC04[] = {
 };
 
 // 0x88CEC40
-CONST_DATA struct UnitDefinition UnitDef_088CEC40[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_21[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x11, // Group idx for gMonsterClassWeights
@@ -67470,7 +67470,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC40[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088CEC7C[] = {
+CONST_DATA struct REDA REDA_RuinEnemy_29_0[] = {
     {
         .x = 22,
         .y = 23,
@@ -67479,7 +67479,7 @@ CONST_DATA struct REDA REDA_088CEC7C[] = {
 };
 
 // 0x88CEC84
-CONST_DATA struct UnitDefinition UnitDef_088CEC84[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin7Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -67627,7 +67627,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEC84[] = {
 };
 
 // 0x88CED74
-CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_22[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GORGON,
@@ -67966,12 +67966,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CED74[] = {
 };
 
 // 0x88CEFA4
-CONST_DATA struct UnitDefinition UnitDef_088CEFA4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_7[] = {
     { 0 },
 };
 
 // 0x88CEFB8
-CONST_DATA struct UnitDefinition UnitDef_088CEFB8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_23[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -67987,7 +67987,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEFB8[] = {
 };
 
 // 0x88CEFE0
-CONST_DATA struct UnitDefinition UnitDef_088CEFE0[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_24[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68014,7 +68014,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CEFE0[] = {
 };
 
 // 0x88CF01C
-CONST_DATA struct UnitDefinition UnitDef_088CF01C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_25[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68030,7 +68030,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF01C[] = {
 };
 
 // 0x88CF044
-CONST_DATA struct UnitDefinition UnitDef_088CF044[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_26[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68046,7 +68046,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF044[] = {
 };
 
 // 0x88CF06C
-CONST_DATA struct UnitDefinition UnitDef_088CF06C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_27[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68062,7 +68062,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF06C[] = {
 };
 
 // 0x88CF094
-CONST_DATA struct UnitDefinition UnitDef_088CF094[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_28[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68078,7 +68078,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF094[] = {
 };
 
 // 0x88CF0BC
-CONST_DATA struct UnitDefinition UnitDef_088CF0BC[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_29[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68089,14 +68089,14 @@ CONST_DATA struct UnitDefinition UnitDef_088CF0BC[] = {
         .yPosition = 25,
         .genMonster = 1,
         .redaCount = 1,
-        .redas = REDA_088CEC7C,
+        .redas = REDA_RuinEnemy_29_0,
         .ai = {AttackInRangeAI, 0xc, 0x0},
     },
     { 0 },
 };
 
 // 0x88CF0E4
-CONST_DATA struct UnitDefinition UnitDef_088CF0E4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_30[] = {
     {
         .charIndex = 0xb8,
         .classIndex = 0x10, // Group idx for gMonsterClassWeights
@@ -68112,7 +68112,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF0E4[] = {
 };
 
 // 0x88CF10C
-CONST_DATA struct UnitDefinition UnitDef_088CF10C[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin8Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -68234,7 +68234,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF10C[] = {
 };
 
 // 0x88CF1D4
-CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_31[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DEATHGOYLE,
@@ -68724,12 +68724,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CF1D4[] = {
 };
 
 // 0x88CF508
-CONST_DATA struct UnitDefinition UnitDef_088CF508[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_8[] = {
     { 0 },
 };
 
 // 0x88CF51C
-CONST_DATA struct UnitDefinition UnitDef_088CF51C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_32[] = {
     {
         .charIndex = 0xb2,
         .classIndex = 0x8, // Group idx for gMonsterClassWeights
@@ -68745,7 +68745,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF51C[] = {
 };
 
 // 0x88CF544
-CONST_DATA struct UnitDefinition UnitDef_088CF544[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_33[] = {
     {
         .charIndex = 0xb6,
         .classIndex = 0xc, // Group idx for gMonsterClassWeights
@@ -68761,7 +68761,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF544[] = {
 };
 
 // 0x88CF56C
-CONST_DATA struct UnitDefinition UnitDef_088CF56C[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_34[] = {
     {
         .charIndex = 0xb2,
         .classIndex = 0x8, // Group idx for gMonsterClassWeights
@@ -68788,7 +68788,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF56C[] = {
 };
 
 // 0x88CF5A8
-CONST_DATA struct UnitDefinition UnitDef_088CF5A8[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_35[] = {
     {
         .charIndex = 0xb6,
         .classIndex = 0xc, // Group idx for gMonsterClassWeights
@@ -68804,7 +68804,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF5A8[] = {
 };
 
 // 0x88CF5D0
-CONST_DATA struct UnitDefinition UnitDef_088CF5D0[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin9Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -68913,7 +68913,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CF5D0[] = {
 };
 
 // 0x88CF684
-CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_36[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_CYCLOPS,
@@ -69424,12 +69424,12 @@ CONST_DATA struct UnitDefinition UnitDef_088CF684[] = {
 };
 
 // 0x88CF9F4
-CONST_DATA struct UnitDefinition UnitDef_088CF9F4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_9[] = {
     { 0 },
 };
 
 // 0x88CFA08
-CONST_DATA struct UnitDefinition UnitDef_088CFA08[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_37[] = {
     {
         .charIndex = 0xb2,
         .classIndex = 0x8, // Group idx for gMonsterClassWeights
@@ -69445,7 +69445,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFA08[] = {
 };
 
 // 0x88CFA30
-CONST_DATA struct UnitDefinition UnitDef_088CFA30[] = {
+CONST_DATA struct UnitDefinition UnitDef_Ruin10Ally[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -69554,7 +69554,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFA30[] = {
 };
 
 // 0x88CFAE4
-CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinEnemy_38[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_DRACO_ZOMBIE,
@@ -69700,22 +69700,22 @@ CONST_DATA struct UnitDefinition UnitDef_088CFAE4[] = {
 };
 
 // 0x88CFBC0
-CONST_DATA struct UnitDefinition UnitDef_088CFBC0[] = {
+CONST_DATA struct UnitDefinition UnitDef_RuinUnits_10[] = {
     { 0 },
 };
 
 // 0x88CFBD4
-CONST_DATA struct UnitDefinition UnitDef_088CFBD4[] = {
+CONST_DATA struct UnitDefinition UnitDef_LordSplitUnits[] = {
     { 0 },
 };
 
 // 0x88CFBE8
-CONST_DATA struct UnitDefinition UnitDef_088CFBE8[] = {
+CONST_DATA struct UnitDefinition UnitDef_LordSplitUnits_1[] = {
     { 0 },
 };
 
 // 0x88CFBFC
-CONST_DATA struct UnitDefinition UnitDef_088CFBFC[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastAlly_0[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -69837,7 +69837,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFBFC[] = {
 };
 
 // 0x88CFCC4
-CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastEnemy_0[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_CYCLOPS,
@@ -70480,7 +70480,7 @@ CONST_DATA struct UnitDefinition UnitDef_088CFCC4[] = {
 };
 
 // 0x88D00D4
-CONST_DATA struct UnitDefinition UnitDef_088D00D4[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastAlly_1[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -70602,7 +70602,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D00D4[] = {
 };
 
 // 0x88D019C
-CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastEnemy_1[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_CYCLOPS,
@@ -71245,7 +71245,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D019C[] = {
 };
 
 // 0x88D05AC
-CONST_DATA struct UnitDefinition UnitDef_088D05AC[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastAlly_2[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -71367,7 +71367,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D05AC[] = {
 };
 
 // 0x88D0674
-CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastEnemy_2[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_GORGON,
@@ -72010,7 +72010,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0674[] = {
 };
 
 // 0x88D0A84
-CONST_DATA struct UnitDefinition UnitDef_088D0A84[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastAlly_3[] = {
     {
         .charIndex = CHARACTER_SETH,
         .classIndex = CLASS_PALADIN,
@@ -72132,7 +72132,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0A84[] = {
 };
 
 // 0x88D0B4C
-CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastEnemy_3[] = {
     {
         .charIndex = 0x5f,
         .classIndex = CLASS_MAELDUIN,
@@ -72775,7 +72775,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0B4C[] = {
 };
 
 // 0x88D0F5C
-CONST_DATA struct UnitDefinition UnitDef_088D0F5C[] = {
+CONST_DATA struct UnitDefinition UnitDef_MelkaenCoastMixed[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -72937,7 +72937,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D0F5C[] = {
 };
 
 // 0x88D1038
-CONST_DATA struct UnitDefinition UnitDef_088D1038[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedMixed_0[] = {
     {
         .charIndex = CHARACTER_ORSON_CH5X,
         .classIndex = CLASS_GENERAL,
@@ -73185,7 +73185,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1038[] = {
 };
 
 // 0x88D118C
-CONST_DATA struct UnitDefinition UnitDef_088D118C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -73674,7 +73674,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D118C[] = {
 };
 
 // 0x88D1448
-CONST_DATA struct UnitDefinition UnitDef_088D1448[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedEnemy[] = {
     {
         .charIndex = CHARACTER_LYON,
         .classIndex = CLASS_NECROMANCER,
@@ -73799,7 +73799,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1448[] = {
 };
 
 // 0x88D154C
-CONST_DATA struct UnitDefinition UnitDef_088D154C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedEnemy_1[] = {
     {
         .charIndex = CHARACTER_BINKS,
         .classIndex = CLASS_WARRIOR,
@@ -73924,7 +73924,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D154C[] = {
 };
 
 // 0x88D1650
-CONST_DATA struct UnitDefinition UnitDef_088D1650[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedMixed_1[] = {
     {
         .charIndex = CHARACTER_MORVA,
         .classIndex = CLASS_MANAKETE_2,
@@ -74070,7 +74070,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1650[] = {
 };
 
 // 0x88D1740
-CONST_DATA struct UnitDefinition UnitDef_088D1740[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedMixed[] = {
     {
         .charIndex = CHARACTER_MANSEL,
         .classIndex = CLASS_PONTIFEX,
@@ -74108,12 +74108,12 @@ CONST_DATA struct UnitDefinition UnitDef_088D1740[] = {
 };
 
 // 0x88D17A4
-CONST_DATA struct UnitDefinition UnitDef_088D17A4[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits[] = {
     { 0 },
 };
 
 // 0x88D17B8
-CONST_DATA struct UnitDefinition UnitDef_088D17B8[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_1[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -74150,7 +74150,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D17B8[] = {
 };
 
 // 0x88D181C
-CONST_DATA struct UnitDefinition UnitDef_088D181C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_2[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -74187,12 +74187,12 @@ CONST_DATA struct UnitDefinition UnitDef_088D181C[] = {
 };
 
 // 0x88D1880
-CONST_DATA struct UnitDefinition UnitDef_088D1880[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_1[] = {
     { 0 },
 };
 
 // 0x88D1894
-CONST_DATA struct UnitDefinition UnitDef_088D1894[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_3[] = {
     {
         .charIndex = CHARACTER_JOSHUA,
         .classIndex = CLASS_MYRMIDON,
@@ -74285,7 +74285,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1894[] = {
 };
 
 // 0x88D1984
-CONST_DATA struct UnitDefinition UnitDef_088D1984[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_4[] = {
     {
         .charIndex = CHARACTER_GERIK,
         .classIndex = CLASS_MERCENARY,
@@ -74370,7 +74370,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1984[] = {
 };
 
 // 0x88D1A60
-CONST_DATA struct UnitDefinition UnitDef_088D1A60[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_5[] = {
     {
         .charIndex = CHARACTER_MYRRH,
         .classIndex = CLASS_MANAKETE_MYRRH,
@@ -74455,11 +74455,11 @@ CONST_DATA struct UnitDefinition UnitDef_088D1A60[] = {
 };
 
 // 0x88D1B3C
-CONST_DATA struct UnitDefinition UnitDef_088D1B3C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_2[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088D1B50[] = {
+CONST_DATA struct REDA REDA_Ruin_0[] = {
     {
         .x = 5,
         .y = 4,
@@ -74467,7 +74467,7 @@ CONST_DATA struct REDA REDA_088D1B50[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B58[] = {
+CONST_DATA struct REDA REDA_Ruin_1[] = {
     {
         .x = 3,
         .y = 4,
@@ -74475,7 +74475,7 @@ CONST_DATA struct REDA REDA_088D1B58[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B60[] = {
+CONST_DATA struct REDA REDA_Ruin_2[] = {
     {
         .x = 0,
         .y = 4,
@@ -74483,14 +74483,14 @@ CONST_DATA struct REDA REDA_088D1B60[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B68[] = {
+CONST_DATA struct REDA REDA_Ruin_3[] = {
     {
         .x = 6,
         .y = 5,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B70[] = {
+CONST_DATA struct REDA REDA_Ruin_4[] = {
     {
         .x = 6,
         .y = 4,
@@ -74498,7 +74498,7 @@ CONST_DATA struct REDA REDA_088D1B70[] = {
         .a = 0xb,
     },
 };
-CONST_DATA struct REDA REDA_088D1B78[] = {
+CONST_DATA struct REDA REDA_Unused_0[] = {
     {
         .x = 0,
         .y = 4,
@@ -74506,14 +74506,14 @@ CONST_DATA struct REDA REDA_088D1B78[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B80[] = {
+CONST_DATA struct REDA REDA_Unused_1[] = {
     {
         .x = 5,
         .y = 3,
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1B88[] = {
+CONST_DATA struct REDA REDA_Unused_2[] = {
     {
         .x = 0,
         .y = 3,
@@ -74522,7 +74522,7 @@ CONST_DATA struct REDA REDA_088D1B88[] = {
         .b = 0x1,
     },
 };
-CONST_DATA struct REDA REDA_088D1B90[] = {
+CONST_DATA struct REDA REDA_Unused_3[] = {
     {
         .x = 5,
         .y = 5,
@@ -74538,7 +74538,7 @@ CONST_DATA struct REDA REDA_088D1B90[] = {
 };
 
 // 0x88D1BA0
-CONST_DATA struct UnitDefinition REDA_088D1BA0[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_18[] = {
     {
         .charIndex = CHARACTER_MOULDER,
         .classIndex = CLASS_PRIEST,
@@ -74563,7 +74563,7 @@ CONST_DATA struct UnitDefinition REDA_088D1BA0[] = {
         .xPosition = 7,
         .yPosition = 4,
         .redaCount = 3,
-        .redas = REDA_088D1B50,
+        .redas = REDA_Ruin_0,
     },
     {
         .charIndex = CHARACTER_TANA,
@@ -74573,7 +74573,7 @@ CONST_DATA struct UnitDefinition REDA_088D1BA0[] = {
         .xPosition = 6,
         .yPosition = 5,
         .redaCount = 3,
-        .redas = REDA_088D1B68,
+        .redas = REDA_Ruin_3,
     },
     {
         .charIndex = CHARACTER_SYRENE,
@@ -74583,7 +74583,7 @@ CONST_DATA struct UnitDefinition REDA_088D1BA0[] = {
         .xPosition = 5,
         .yPosition = 3,
         .redaCount = 2,
-        .redas = REDA_088D1B80,
+        .redas = REDA_Unused_1,
     },
     {
         .charIndex = CHARACTER_VANESSA,
@@ -74593,18 +74593,18 @@ CONST_DATA struct UnitDefinition REDA_088D1BA0[] = {
         .xPosition = 5,
         .yPosition = 5,
         .redaCount = 2,
-        .redas = REDA_088D1B90,
+        .redas = REDA_Unused_3,
     },
     { 0 },
 };
 
 // 0x88D1C2C
-CONST_DATA struct UnitDefinition UnitDef_088D1C2C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_3[] = {
     { 0 },
 };
 
 // 0x88D1C40
-CONST_DATA struct UnitDefinition REDA_088D1C40[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_19[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -74633,7 +74633,7 @@ CONST_DATA struct UnitDefinition REDA_088D1C40[] = {
 };
 
 // 0x88D1C90
-CONST_DATA struct UnitDefinition REDA_088D1C90[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_20[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -74661,7 +74661,7 @@ CONST_DATA struct UnitDefinition REDA_088D1C90[] = {
     { 0 },
 };
 
-CONST_DATA struct REDA REDA_088D1CE0[] = {
+CONST_DATA struct REDA REDA_UnusedAlly_6_EIRIKA[] = {
     {
         .x = 12,
         .y = 9,
@@ -74675,7 +74675,7 @@ CONST_DATA struct REDA REDA_088D1CE0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1CF0[] = {
+CONST_DATA struct REDA REDA_UnusedAlly_6_EPHRAIM[] = {
     {
         .x = 14,
         .y = 5,
@@ -74683,7 +74683,7 @@ CONST_DATA struct REDA REDA_088D1CF0[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1CF8[] = {
+CONST_DATA struct REDA REDA_UnusedAlly_7_EPHRAIM[] = {
     {
         .x = 12,
         .y = 9,
@@ -74697,7 +74697,7 @@ CONST_DATA struct REDA REDA_088D1CF8[] = {
         .b = 0xffff,
     },
 };
-CONST_DATA struct REDA REDA_088D1D08[] = {
+CONST_DATA struct REDA REDA_UnusedAlly_7_EIRIKA[] = {
     {
         .x = 14,
         .y = 5,
@@ -74707,17 +74707,17 @@ CONST_DATA struct REDA REDA_088D1D08[] = {
 };
 
 // 0x88D1D10
-CONST_DATA struct UnitDefinition UnitDef_088D1D10[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_4[] = {
     { 0 },
 };
 
 // 0x88D1D24
-CONST_DATA struct UnitDefinition UnitDef_088D1D24[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_5[] = {
     { 0 },
 };
 
 // 0x88D1D38
-CONST_DATA struct UnitDefinition UnitDef_088D1D38[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_6[] = {
     {
         .charIndex = CHARACTER_EIRIKA,
         .classIndex = CLASS_EIRIKA_LORD,
@@ -74726,7 +74726,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1D38[] = {
         .xPosition = 12,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088D1CE0,
+        .redas = REDA_UnusedAlly_6_EIRIKA,
     },
     {
         .charIndex = CHARACTER_EPHRAIM,
@@ -74736,13 +74736,13 @@ CONST_DATA struct UnitDefinition UnitDef_088D1D38[] = {
         .xPosition = 14,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088D1CF0,
+        .redas = REDA_UnusedAlly_6_EPHRAIM,
     },
     { 0 },
 };
 
 // 0x88D1D74
-CONST_DATA struct UnitDefinition UnitDef_088D1D74[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_7[] = {
     {
         .charIndex = CHARACTER_EPHRAIM,
         .classIndex = CLASS_EPHRAIM_LORD,
@@ -74751,7 +74751,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1D74[] = {
         .xPosition = 12,
         .yPosition = 10,
         .redaCount = 2,
-        .redas = REDA_088D1CF8
+        .redas = REDA_UnusedAlly_7_EPHRAIM
     },
     {
         .charIndex = CHARACTER_EIRIKA,
@@ -74761,18 +74761,18 @@ CONST_DATA struct UnitDefinition UnitDef_088D1D74[] = {
         .xPosition = 14,
         .yPosition = 10,
         .redaCount = 1,
-        .redas = REDA_088D1D08,
+        .redas = REDA_UnusedAlly_7_EIRIKA,
     },
     { 0 },
 };
 
 // 0x88D1DB0
-CONST_DATA struct UnitDefinition UnitDef_088D1DB0[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedUnits_6[] = {
     { 0 },
 };
 
 // 0x88D1DC4
-CONST_DATA struct UnitDefinition UnitDef_088D1DC4[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_8[] = {
     {
         .charIndex = CHARACTER_CAELLACH_CC,
         .classIndex = CLASS_HERO,
@@ -74790,7 +74790,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1DC4[] = {
 };
 
 // 0x88D1DEC
-CONST_DATA struct UnitDefinition UnitDef_088D1DEC[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_9[] = {
     {
         .charIndex = CHARACTER_GLEN_CC,
         .classIndex = CLASS_WYVERN_LORD,
@@ -74808,7 +74808,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1DEC[] = {
 };
 
 // 0x88D1E14
-CONST_DATA struct UnitDefinition UnitDef_088D1E14[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_10[] = {
     {
         .charIndex = CHARACTER_ORSON_CC,
         .classIndex = CLASS_PALADIN,
@@ -74826,7 +74826,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1E14[] = {
 };
 
 // 0x88D1E3C
-CONST_DATA struct UnitDefinition UnitDef_088D1E3C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_11[] = {
     {
         .charIndex = CHARACTER_VALTER_CC,
         .classIndex = CLASS_WYVERN_KNIGHT,
@@ -74844,7 +74844,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1E3C[] = {
 };
 
 // 0x88D1E64
-CONST_DATA struct UnitDefinition UnitDef_088D1E64[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_12[] = {
     {
         .charIndex = CHARACTER_RIEV_CC,
         .classIndex = CLASS_BISHOP,
@@ -74862,7 +74862,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1E64[] = {
 };
 
 // 0x88D1E8C
-CONST_DATA struct UnitDefinition UnitDef_088D1E8C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_13[] = {
     {
         .charIndex = CHARACTER_HAYDEN_CC,
         .classIndex = CLASS_RANGER,
@@ -74880,7 +74880,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1E8C[] = {
 };
 
 // 0x88D1EB4
-CONST_DATA struct UnitDefinition UnitDef_088D1EB4[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_14[] = {
     {
         .charIndex = CHARACTER_FADO_CC,
         .classIndex = CLASS_GENERAL,
@@ -74899,7 +74899,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1EB4[] = {
 };
 
 // 0x88D1EDC
-CONST_DATA struct UnitDefinition UnitDef_088D1EDC[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_15[] = {
     {
         .charIndex = CHARACTER_ISMAIRE_CC,
         .classIndex = CLASS_SWORDMASTER_F,
@@ -74917,7 +74917,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1EDC[] = {
 };
 
 // 0x88D1F04
-CONST_DATA struct UnitDefinition UnitDef_088D1F04[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_16[] = {
     {
         .charIndex = CHARACTER_SELENA_CC,
         .classIndex = CLASS_MAGE_KNIGHT_F,
@@ -74935,7 +74935,7 @@ CONST_DATA struct UnitDefinition UnitDef_088D1F04[] = {
 };
 
 // 0x88D1F2C
-CONST_DATA struct UnitDefinition UnitDef_088D1F2C[] = {
+CONST_DATA struct UnitDefinition UnitDef_UnusedAlly_17[] = {
     {
         .charIndex = CHARACTER_LYON_CC,
         .classIndex = CLASS_NECROMANCER,

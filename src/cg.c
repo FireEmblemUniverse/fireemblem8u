@@ -186,7 +186,7 @@ struct CGDataEnt * GetCG(int unused)
 }
 
 //! FE8U = 0x080B65F4
-void sub_80B65F4(void) {
+void CG_Null(void) {
     return;
 }
 

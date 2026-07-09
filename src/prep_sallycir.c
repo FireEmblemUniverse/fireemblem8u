@@ -12,7 +12,7 @@
 
 
 //! FE8U = 0x080977AC
-void sub_80977AC(struct Text * th, u16 * tm, int color, int x, const char * str)
+void PrepSallycir_PutColoredText(struct Text * th, u16 * tm, int color, int x, const char * str)
 {
     ClearText(th);
     Text_SetColor(th, color);
@@ -24,24 +24,24 @@ void sub_80977AC(struct Text * th, u16 * tm, int color, int x, const char * str)
 }
 
 //! FE8U = 0x080977EC
-void sub_80977EC(u8 * a, u16 * b)
+void PrepSallycir_ClampCursorScroll(u8 * a, u16 * b)
 {
-    if (gUnknown_02012F56 == 0) {
+    if (gPrepscreen_2 == 0) {
         *a = 0;
         *b = 0;
         return;
     }
 
-    if (gUnknown_02012F56 < 8) {
-        if (*a >= gUnknown_02012F56) {
-            *a = gUnknown_02012F56 - 1;
+    if (gPrepscreen_2 < 8) {
+        if (*a >= gPrepscreen_2) {
+            *a = gPrepscreen_2 - 1;
         }
 
         *b = 0;
     } else {
         int unk = (*b >> 4) + 7;
 
-        if (unk < gUnknown_02012F56) {
+        if (unk < gPrepscreen_2) {
             if (*a != 6) {
                 return;
             }
@@ -50,11 +50,11 @@ void sub_80977EC(u8 * a, u16 * b)
             return;
         }
 
-        if (unk <= gUnknown_02012F56) {
+        if (unk <= gPrepscreen_2) {
             return;
         }
 
-        *b = (gUnknown_02012F56 - 7) * 16;
+        *b = (gPrepscreen_2 - 7) * 16;
     }
 
     return;
@@ -70,16 +70,16 @@ void SallyCir_OnHBlank(void)
 
         vcount = 0;
 
-        swap = gUnknown_02013458[0];
-        gUnknown_02013458[0] = gUnknown_02013458[1];
-        gUnknown_02013458[1] = swap;
+        swap = gPrepscreen_4[0];
+        gPrepscreen_4[0] = gPrepscreen_4[1];
+        gPrepscreen_4[1] = swap;
     } else {
         if (vcount > 160) {
             vcount = 0;
         }
     }
 
-    REG_WIN1H = ((*gUnknown_02013458 + vcount)->left << 8) | (*gUnknown_02013458 + vcount)->right;
+    REG_WIN1H = ((*gPrepscreen_4 + vcount)->left << 8) | (*gPrepscreen_4 + vcount)->right;
     return;
 }
 
@@ -96,11 +96,11 @@ void SallyCir_Init(struct SallyCirProc * proc)
         proc->unk_2c = 150;
 
         for (i = 0; i < 160; i++) {
-            gUnknown_02012F58[0][i].left = 0;
-            gUnknown_02012F58[0][i].right = 240;
+            gPrepscreen_3[0][i].left = 0;
+            gPrepscreen_3[0][i].right = 240;
 
-            gUnknown_02012F58[1][i].left = 0;
-            gUnknown_02012F58[1][i].right = 240;
+            gPrepscreen_3[1][i].left = 0;
+            gPrepscreen_3[1][i].right = 240;
         }
 
         gLCDControlBuffer.win1_left = 0;
@@ -111,11 +111,11 @@ void SallyCir_Init(struct SallyCirProc * proc)
         proc->unk_2c = 0;
 
         for (i = 0; i < 160; i++) {
-            gUnknown_02012F58[0][i].left = 120;
-            gUnknown_02012F58[0][i].right = 120;
+            gPrepscreen_3[0][i].left = 120;
+            gPrepscreen_3[0][i].right = 120;
 
-            gUnknown_02012F58[1][i].left = 120;
-            gUnknown_02012F58[1][i].right = 120;
+            gPrepscreen_3[1][i].left = 120;
+            gPrepscreen_3[1][i].right = 120;
         }
 
         gLCDControlBuffer.win1_left = 120;
@@ -138,8 +138,8 @@ void SallyCir_Init(struct SallyCirProc * proc)
 
     proc->unk_29 = 0;
 
-    gUnknown_02013458[0] = gUnknown_02012F58[0];
-    gUnknown_02013458[1] = gUnknown_02012F58[1];
+    gPrepscreen_4[0] = gPrepscreen_3[0];
+    gPrepscreen_4[1] = gPrepscreen_3[1];
 
     SetPrimaryHBlankHandler(SallyCir_OnHBlank);
 
@@ -166,8 +166,8 @@ void SallyCir_Loop(struct SallyCirProc * proc)
         int var;
         if (proc->unk_2c < 1
             || (var = (proc->unk_2c * proc->unk_2c) - ((i - 80) * (i - 80))) < 0) {
-            gUnknown_02013458[1][i].left = 120;
-            gUnknown_02013458[1][i].right = 120;
+            gPrepscreen_4[1][i].left = 120;
+            gPrepscreen_4[1][i].right = 120;
             continue;
         }
 
@@ -176,8 +176,8 @@ void SallyCir_Loop(struct SallyCirProc * proc)
             distance = 120;
         }
 
-        gUnknown_02013458[1][i].left = 120 - distance;
-        gUnknown_02013458[1][i].right = distance + 120;
+        gPrepscreen_4[1][i].left = 120 - distance;
+        gPrepscreen_4[1][i].right = distance + 120;
     }
 
     proc->unk_29++;
@@ -218,7 +218,7 @@ struct SallyCirProc* StartSallyCirProc(ProcPtr parent, u8 unk)
 }
 
 //! FE8U = 0x08097ACC
-void sub_8097ACC(struct SallyCirProc * proc)
+void SallyCir_RectInit(struct SallyCirProc * proc)
 {
     proc->unk_29 = 0;
 
@@ -260,7 +260,7 @@ void sub_8097ACC(struct SallyCirProc * proc)
 }
 
 //! FE8U = 0x08097B98
-void sub_8097B98(struct SallyCirProc * proc)
+void SallyCir_RectLoop(struct SallyCirProc * proc)
 {
     int a;
     int t;
@@ -315,7 +315,7 @@ void sub_8097B98(struct SallyCirProc * proc)
     return;
 }
 
-struct ProcCmd CONST_DATA gUnused_08A18870[] = {
+struct ProcCmd CONST_DATA gUnused_PrepSallycir_0[] = {
     PROC_SLEEP(0),
     PROC_SLEEP(0),
 

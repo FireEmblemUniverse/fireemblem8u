@@ -3,7 +3,7 @@
 
 *.bin binary
 
-# Palettes must always check out with CRLF endings (Feishu directive 2026-02-28).
+# .pal palette files must keep CRLF line endings on checkout to stay byte-identical.
 *.pal text eol=crlf
 
 # Declare files that will always have LF line endings on checkout.

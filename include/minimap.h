@@ -39,6 +39,6 @@ void StartMinimapPrepPhase(ProcPtr proc);
 extern struct ProcCmd gProcScr_Minimap[];
 extern u8 gGfx_MinimapTiles[];
 extern u16 gPal_MinimapTiles[];
-extern u16 gPal_08A1FFD0[];
+extern u16 gPal_Minimap_0[];
 
 #endif // GUARD_MINIMAP_H

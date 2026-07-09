@@ -22,7 +22,7 @@ struct BonusClaimHelpBoxProc
 };
 
 //! FE8U = 0x080AEAE8
-const char * sub_80AEAE8(char ** src, char ** dst)
+const char * CopyTextChar(char ** src, char ** dst)
 {
     const char * result;
     int len;
@@ -39,21 +39,21 @@ const char * sub_80AEAE8(char ** src, char ** dst)
 }
 
 //! FE8U = 0x080AEB1C
-void sub_80AEB1C(void)
+void ClearPrimaryHBlankHandler(void)
 {
     SetPrimaryHBlankHandler(NULL);
     return;
 }
 
 //! FE8U = 0x080AEB28
-void sub_80AEB28(int unk)
+void FadeOutBgm(int unk)
 {
     ChangeBgm(SONG_NONE, 0x100, 0, unk, NULL);
     return;
 }
 
 //! FE8U = 0x080AEB44
-void sub_80AEB44(int songId)
+void StartBgm_2(int songId)
 {
     ChangeBgm(songId, 0x100, 0x100, 0x20, NULL);
     return;
@@ -124,7 +124,7 @@ int CountDigits(int number)
 }
 
 //! FE8U = 0x080AEC04
-bool sub_80AEC04(int a, int b, int c, int d, int e, int f, int g, int h)
+bool IsPointInTriangle(int a, int b, int c, int d, int e, int f, int g, int h)
 {
 
     if (((c - a) * (f - b) - (d - b) * (e - a)) < 0)
@@ -146,7 +146,7 @@ bool sub_80AEC04(int a, int b, int c, int d, int e, int f, int g, int h)
 }
 
 //! FE8U = 0x080AEC54
-bool sub_80AEC54(void)
+bool BonusClaim_ReadSaveInfoRetFalse(void)
 {
     struct GlobalSaveInfo saveInfo;
     ReadGlobalSaveInfo(&saveInfo);
@@ -154,7 +154,7 @@ bool sub_80AEC54(void)
 }
 
 //! FE8U = 0x080AEC68
-bool sub_80AEC68(void)
+bool BonusClaim_ReadSaveInfoRetFalse2(void)
 {
     struct GlobalSaveInfo saveInfo;
     ReadGlobalSaveInfo(&saveInfo);

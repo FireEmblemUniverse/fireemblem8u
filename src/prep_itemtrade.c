@@ -346,7 +346,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
                 }
 
                 PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
-                sub_80ACA84(0);
+                ClearUiCursorHandConfig(0);
                 proc->cursorItemSlot = proc->selectedItemSlot;
                 proc->selectedItemSlot = 0xff;
                 ShowSysHandCursor((proc->cursorItemSlot >> 3) * 0x70 + 0x10, (proc->cursorItemSlot & 7) * 0x10 + 0x48, 0xb, 0x800);
@@ -360,7 +360,7 @@ void PrepItemTrade_Loop_MainKeyHandler(struct PrepMenuTradeProc* proc) {
 
                 PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
 
-                sub_80ACA84(0);
+                ClearUiCursorHandConfig(0);
 
                 return;
             }
@@ -449,7 +449,7 @@ void StartPrepItemTradeScreenProc(struct Unit* unitA, struct Unit* unitB, ProcPt
 }
 
 //! FE8U = 0x0809BE60
-void sub_809BE60(struct Unit* unitA, struct Unit* unitB, int rightItemIdx, ProcPtr parent) {
+void StartPrepItemTradeScreenProcAtSlot(struct Unit* unitA, struct Unit* unitB, int rightItemIdx, ProcPtr parent) {
     struct PrepMenuTradeProc* proc = Proc_StartBlocking(ProcScr_PrepItemTradeScreen, parent);
 
     proc->units[0] = unitA;

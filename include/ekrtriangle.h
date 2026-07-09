@@ -94,7 +94,7 @@ extern CONST_DATA struct ProcCmd ProcScr_EkrTriArmorKnightOBJ2[];
 extern CONST_DATA struct ProcCmd ProcScr_EfxTriangleQUAKE[];
 
 bool CheckEkrTriangleInvalid(void);
-void nullsub_18(void);
+void Nop_BanimEkrtriangle_0(void);
 void NewEkrTriangle(struct Anim * anim);
 void EkrTriangleMain(struct ProcEkrTriangle * proc);
 ProcPtr NewEkrTriPegasusKnight(struct Anim * anim, u32 etype1, u32 etype2, u32 ewtype1, u32 ewtype2);

@@ -5,8 +5,8 @@
 
 void InitChapterMap(int chapterId);
 void InitMapForMinimap(int chapterId);
-void sub_8019624(void);
-void sub_8019778(void);
+void ApplyWaterShadowsBmMap(void);
+void RefreshChapterMap(void);
 void BmMapFill(u8** map, int value);
 void BmMapFillEdges(u8** map, u8 value);
 void UnpackChapterMap(void* into, int chapterId);
@@ -16,7 +16,7 @@ void InitBaseTilesBmMap(void);
 void RefreshTerrainBmMap(void);
 int GetTrueTerrainAt(int x, int y);
 void DisplayBmTile(u16* bg, int xOut, int yOut, int xMap, int yMap);
-void nullsub_8(void);
+void Nop_Bmmap_0(void);
 void DisplayMovementViewTile(u16* out, int xMap, int yMap, int xOut, int yOut);
 void RenderBmMap(void);
 void RenderBmMapOnBg2(void);
@@ -25,7 +25,7 @@ void RefreshEntityBmMaps(void);
 char* GetTerrainName(int terrainId);
 int GetTerrainHealAmount(int terrainId);
 s8 GetTerrainHealsStatus(int terrainId);
-void sub_801A278(void);
+void BlankTilesetConfigTiles(void);
 void RevertMapChange(int id);
 
 extern struct Vec2 gBmMapSize;

@@ -37,7 +37,7 @@ struct ProcCmd CONST_DATA sProcScr_AfterDropAction[] = {
     PROC_WHILE(MuExistsActive),
 
     PROC_CALL_2(AfterDrop_CheckTrapAfterDropMaybe),
-    PROC_CALL(sub_80321C8),
+    PROC_CALL(AfterDrop_RefreshMapAndSprites),
 
     PROC_END,
 };
@@ -76,7 +76,7 @@ PROC_LABEL(1),
 
 struct ProcCmd CONST_DATA sProcScr_ArenaAction[] = {
     PROC_SLEEP(0),
-    PROC_CALL(sub_8032974),
+    PROC_CALL(Arena_KeepTargetAlive),
 
     PROC_CALL(BATTLE_PostCombatDeathFades),
 
@@ -200,7 +200,7 @@ int AfterDrop_CheckTrapAfterDropMaybe(struct AfterDropActionProc* proc) {
 }
 
 //! FE8U = 0x080321C8
-int sub_80321C8(void) {
+int AfterDrop_RefreshMapAndSprites(void) {
     RefreshEntityBmMaps();
     RenderBmMap();
     RefreshUnitSprites();
@@ -614,7 +614,7 @@ void BATTLE_HandleCombatDeaths(struct CombatActionProc* proc) {
 }
 
 //! FE8U = 0x080328B0
-void sub_80328B0(void) {
+void RestoreMapSongBgm(void) {
     int bgmIdx = GetCurrentMapMusicIndex();
 
     if (GetCurrentBgmSong() != bgmIdx) {
@@ -668,7 +668,7 @@ bool BATTLE_HandleItemDrop(struct CombatActionProc* proc) {
 }
 
 //! FE8U = 0x08032974
-void sub_8032974(ProcPtr proc) {
+void Arena_KeepTargetAlive(ProcPtr proc) {
     gBattleTarget.unit.maxHP = 1;
     gBattleTarget.unit.curHP = 1;
 
@@ -687,7 +687,7 @@ void BATTLE_HandleArenaDeathsMaybe(ProcPtr proc) {
     return;
 }
 
-struct BattleHit * sub_80329C0(struct BattleHit * r0)
+struct BattleHit * StoreScriptBattleHits(struct BattleHit * r0)
 {
     CpuFastCopy(r0, gActionData.script_hits, 0x1C);
     return gActionData.script_hits;

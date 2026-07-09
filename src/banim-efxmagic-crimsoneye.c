@@ -68,7 +68,7 @@ void efxCrimsonEye_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 257)
     {
-        sub_806C608();
+        StartEfxmagicDemonsurgeFlashBlack();
     }
     else if (proc->timer == duration + 265)
     {
@@ -125,22 +125,22 @@ void efxCrimsonEyeBGFinish1_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxCrimsonEyeBGFinish1[] =
 {
-    Tsa_086BC884,
-    Tsa_086BCAF8,
-    Tsa_086BCD70,
-    Tsa_086BCFE8,
+    Tsa_efxCrimsonEyeBGFinish1_0,
+    Tsa_efxCrimsonEyeBGFinish1_1,
+    Tsa_efxCrimsonEyeBGFinish1_2,
+    Tsa_efxCrimsonEyeBGFinish1_3,
 };
 
 u16 * CONST_DATA ImgArray_efxCrimsonEyeBGFinish1[] =
 {
-    Img_086B64BC,
-    Img_086B7DA8,
-    Img_086B9620,
-    Img_086BAF14,
-    Img_086B64BC,
-    Img_086B7DA8,
-    Img_086B9620,
-    Img_086BAF14,
+    Img_efxCrimsonEyeBGFinish1_0,
+    Img_efxCrimsonEyeBGFinish1_1,
+    Img_efxCrimsonEyeBGFinish1_2,
+    Img_efxCrimsonEyeBGFinish1_3,
+    Img_efxCrimsonEyeBGFinish1_0,
+    Img_efxCrimsonEyeBGFinish1_1,
+    Img_efxCrimsonEyeBGFinish1_2,
+    Img_efxCrimsonEyeBGFinish1_3,
 };
 
 const u16 gFrameConfig_efxCrimsonEyeBGFinish1[] =
@@ -183,7 +183,7 @@ void StartSubSpell_efxCrimsonEyeBGFinish1(struct Anim * anim)
 
     BG_SetPosition(BG_1, 0, 0);
 
-    SetPrimaryHBlankHandler(OnHBlank_806B088);
+    SetPrimaryHBlankHandler(OnHBlank_0);
 
     return;
 }
@@ -215,7 +215,7 @@ struct ProcCmd CONST_DATA ProcScr_efxCrimsonEyeOBJFinishPiece[] =
     PROC_END,
 };
 
-s16 CONST_DATA gUnknown_085D87DC[] =
+s16 CONST_DATA gEfxmagicCrimsoneye_0[] =
 {
     0, 0,
     15, -22,
@@ -279,8 +279,8 @@ void StartSubSpell_efxCrimsonEyeOBJFinishPiece(struct Anim * anim, int terminato
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
-    proc->unk32 = gUnknown_085D87DC[(c & 0xff) * 2];
-    proc->unk3A = gUnknown_085D87DC[((c & 0xff) * 2 + 1)];
+    proc->unk32 = gEfxmagicCrimsoneye_0[(c & 0xff) * 2];
+    proc->unk3A = gEfxmagicCrimsoneye_0[((c & 0xff) * 2 + 1)];
 
     frontAnim->xPosition = Interpolate(INTERPOLATE_LINEAR, 120, (s16)proc->unk32, proc->timer, proc->terminator);
     frontAnim->yPosition = Interpolate(INTERPOLATE_LINEAR, 64, (s16)proc->unk3A, proc->timer, proc->terminator);
@@ -526,14 +526,14 @@ void efxCrimsonEyeBG_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxCrimsonEyeBG[] =
 {
-    Tsa_086B5ECC,
-    Tsa_086B5F78,
-    Tsa_086B603C,
-    Tsa_086B6100,
-    Tsa_086B61C4,
-    Tsa_086B6288,
-    Tsa_086B634C,
-    Tsa_086B6410,
+    Tsa_efxCrimsonEyeBG_0,
+    Tsa_efxCrimsonEyeBG_1,
+    Tsa_efxCrimsonEyeBG_2,
+    Tsa_efxCrimsonEyeBG_3,
+    Tsa_efxCrimsonEyeBG_4,
+    Tsa_efxCrimsonEyeBG_5,
+    Tsa_efxCrimsonEyeBG_6,
+    Tsa_efxCrimsonEyeBG_7,
 };
 
 const u16 gFrameConfig_efxCrimsonEyeBG[] =
@@ -599,7 +599,7 @@ void StartSubSpell_efxCrimsonEyeBG(struct Anim * anim)
 }
 
 //! FE8U = 0x0806A560
-int sub_806A560(int a)
+int efxCrimsonEyeOBJ_WrapAngle(int a)
 {
     while (a < 0)
     {
@@ -615,7 +615,7 @@ int sub_806A560(int a)
 }
 
 //! FE8U = 0x0806A578
-void sub_806A578(struct Anim * anim, u32 b)
+void efxCrimsonEyeOBJ_SetDrawPriority(struct Anim * anim, u32 b)
 {
     if (b - 22 > 44)
     {
@@ -630,7 +630,7 @@ void sub_806A578(struct Anim * anim, u32 b)
 }
 
 //! FE8U = 0x0806A590
-void sub_806A590(int index, int denom, int c)
+void efxCrimsonEyeOBJ_SetAffineScale(int index, int denom, int c)
 {
     if (c > 45)
     {
@@ -659,7 +659,7 @@ void sub_806A590(int index, int denom, int c)
 
 // clang-format off
 
-s8 CONST_DATA gUnknown_085D88AC[] =
+s8 CONST_DATA gEfxmagicCrimsoneye_1[] =
 {
     0, 30,
     -2, 30,
@@ -756,23 +756,23 @@ s8 CONST_DATA gUnknown_085D88AC[] =
 // clang-format on
 
 //! FE8U = 0x0806A634
-int sub_806A634(int index, int b)
+int efxCrimsonEyeOBJ_GetOffsetX(int index, int b)
 {
-    return (gUnknown_085D88AC[index * 2] * b) >> 8;
+    return (gEfxmagicCrimsoneye_1[index * 2] * b) >> 8;
 }
 
 //! FE8U = 0x0806A64C
-int sub_806A64C(int index, int b)
+int efxCrimsonEyeOBJ_GetOffsetY(int index, int b)
 {
-    return (gUnknown_085D88AC[index * 2 + 1] * b) >> 10;
+    return (gEfxmagicCrimsoneye_1[index * 2 + 1] * b) >> 10;
 }
 
 //! FE8U = 0x0806A664
-int sub_806A664(int a, int b)
+int efxCrimsonEyeOBJ_GetAdjustedOffsetX(int a, int b)
 {
     int var;
 
-    int r6 = sub_806A634(b, 0x100);
+    int r6 = efxCrimsonEyeOBJ_GetOffsetX(b, 0x100);
 
     if (b == 0 || b == 45)
     {
@@ -810,9 +810,9 @@ int sub_806A664(int a, int b)
 }
 
 //! FE8U = 0x0806A6C4
-int sub_806A6C4(int a, int b)
+int efxCrimsonEyeOBJ_GetAdjustedOffsetY(int a, int b)
 {
-    int var = sub_806A64C(b, 0x100);
+    int var = efxCrimsonEyeOBJ_GetOffsetY(b, 0x100);
 
     if (b > 45)
     {
@@ -825,7 +825,7 @@ int sub_806A6C4(int a, int b)
 }
 
 //! FE8U = 0x0806A6FC
-void sub_806A6FC(int index, int b, int c)
+void efxCrimsonEyeOBJ_SetAffineScaleEx(int index, int b, int c)
 {
     int hi;
     int lo;
@@ -897,13 +897,13 @@ void efxCrimsonEyeOBJ_Loop_A(struct ProcEfxOBJ * proc)
                 break;
         }
 
-        var = sub_806A560(i * 18);
-        sub_806A578(anim, var);
+        var = efxCrimsonEyeOBJ_WrapAngle(i * 18);
+        efxCrimsonEyeOBJ_SetDrawPriority(anim, var);
 
-        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_RSQUARE, sub_806A634(var, 0), sub_806A634(var, 0x100), proc->timer, 0x10);
-        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_RSQUARE, sub_806A64C(var, 0), sub_806A64C(var, 0x100), proc->timer, 0x10);
+        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_RSQUARE, efxCrimsonEyeOBJ_GetOffsetX(var, 0), efxCrimsonEyeOBJ_GetOffsetX(var, 0x100), proc->timer, 0x10);
+        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_RSQUARE, efxCrimsonEyeOBJ_GetOffsetY(var, 0), efxCrimsonEyeOBJ_GetOffsetY(var, 0x100), proc->timer, 0x10);
 
-        sub_806A590(index, Interpolate(INTERPOLATE_RSQUARE, 2, 0x100, proc->timer, 0x10), var);
+        efxCrimsonEyeOBJ_SetAffineScale(index, Interpolate(INTERPOLATE_RSQUARE, 2, 0x100, proc->timer, 0x10), var);
     }
 
     AnimSort();
@@ -958,14 +958,14 @@ void efxCrimsonEyeOBJ_Loop_B(struct ProcEfxOBJ * proc)
         }
 
         var = i * 18 + proc->terminator;
-        var = sub_806A560(var);
+        var = efxCrimsonEyeOBJ_WrapAngle(var);
 
-        sub_806A578(anim, var);
+        efxCrimsonEyeOBJ_SetDrawPriority(anim, var);
 
-        anim->xPosition = proc->unk32 + sub_806A634(var, 0x100);
-        anim->yPosition = proc->unk3A + sub_806A64C(var, 0x100);
+        anim->xPosition = proc->unk32 + efxCrimsonEyeOBJ_GetOffsetX(var, 0x100);
+        anim->yPosition = proc->unk3A + efxCrimsonEyeOBJ_GetOffsetY(var, 0x100);
 
-        sub_806A590(index, 0x100, var);
+        efxCrimsonEyeOBJ_SetAffineScale(index, 0x100, var);
     }
 
     AnimSort();
@@ -1024,13 +1024,13 @@ void efxCrimsonEyeOBJ_Loop_C(struct ProcEfxOBJ * proc)
         }
 
         var = i * 18 + proc->terminator;
-        var = sub_806A560(var);
-        sub_806A578(anim, var);
+        var = efxCrimsonEyeOBJ_WrapAngle(var);
+        efxCrimsonEyeOBJ_SetDrawPriority(anim, var);
 
-        anim->xPosition = proc->unk32 + sub_806A664(ret, var);
-        anim->yPosition = proc->unk3A + sub_806A6C4(ret, var);
+        anim->xPosition = proc->unk32 + efxCrimsonEyeOBJ_GetAdjustedOffsetX(ret, var);
+        anim->yPosition = proc->unk3A + efxCrimsonEyeOBJ_GetAdjustedOffsetY(ret, var);
 
-        sub_806A6FC(index, ret, var);
+        efxCrimsonEyeOBJ_SetAffineScaleEx(index, ret, var);
     }
 
     AnimSort();
@@ -1085,14 +1085,14 @@ void efxCrimsonEyeOBJ_Loop_D(struct ProcEfxOBJ * proc)
         }
 
         var = i * 18 + proc->terminator;
-        var = sub_806A560(var);
+        var = efxCrimsonEyeOBJ_WrapAngle(var);
 
-        sub_806A578(anim, var);
+        efxCrimsonEyeOBJ_SetDrawPriority(anim, var);
 
-        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_SQUARE, sub_806A664(24, var), 0, proc->timer, 8);
-        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_SQUARE, sub_806A6C4(24, var), 0, proc->timer, 8);
+        anim->xPosition = proc->unk32 + Interpolate(INTERPOLATE_SQUARE, efxCrimsonEyeOBJ_GetAdjustedOffsetX(24, var), 0, proc->timer, 8);
+        anim->yPosition = proc->unk3A + Interpolate(INTERPOLATE_SQUARE, efxCrimsonEyeOBJ_GetAdjustedOffsetY(24, var), 0, proc->timer, 8);
 
-        sub_806A6FC(index, Interpolate(INTERPOLATE_SQUARE, 24, 0, proc->timer, 8), var);
+        efxCrimsonEyeOBJ_SetAffineScaleEx(index, Interpolate(INTERPOLATE_SQUARE, 24, 0, proc->timer, 8), var);
     }
 
     AnimSort();

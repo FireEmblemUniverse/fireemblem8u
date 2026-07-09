@@ -33,13 +33,13 @@ void GmapLineFade_OnEnd(void)
 }
 
 //! FE8U = 0x080C0358
-void GmapLineFade_80C0358(struct GmapLineFadeProc * proc)
+void GmapLineFade_0(struct GmapLineFadeProc * proc)
 {
     u16 * bufA;
     u16 * bufB;
     int i;
 
-    u16 * buf = sub_80C1DA0(0, 1);
+    u16 * buf = GetWorldMapHblankBuffer(0, 1);
 
     int coeff = _DivArm2(proc->unk_2a, proc->unk_2c, 0);
     s16 a = DivArm(0x1000, (coeff * -0x80)) + 0x80;
@@ -71,7 +71,7 @@ void GmapLineFade_80C0358(struct GmapLineFadeProc * proc)
         *bufB-- = *bufA++;
     }
 
-    sub_80C1DC8();
+    FlipWorldMapHblankBuffer();
 
     return;
 }
@@ -97,16 +97,16 @@ void GmapLineFade_Init(struct GmapLineFadeProc * proc)
     proc->unk_2a = 0;
 
 #ifdef NONMATCHING
-    CpuFill16(0x10, sub_80C1DA0(0, 0), 0x140);
+    CpuFill16(0x10, GetWorldMapHblankBuffer(0, 0), 0x140);
 #else
     {
         vu16 tmp = (vu16)0x10;
-        CpuSet((void *)(&tmp), sub_80C1DA0(0, 0), size);
+        CpuSet((void *)(&tmp), GetWorldMapHblankBuffer(0, 0), size);
     }
 #endif
 
-    sub_80C1DD8(0, 0x04000054);
-    sub_80C1DE8(0);
+    SetWorldMapHblankDest(0, 0x04000054);
+    ClearWorldMapHblankChannelFlags(0);
 
     SetBlendConfig(BLEND_EFFECT_DARKEN, 16, 16, 16);
 
@@ -130,7 +130,7 @@ void GmapLineFade_Loop(struct GmapLineFadeProc * proc)
 
     if (proc->unk_2a < proc->unk_2c)
     {
-        GmapLineFade_80C0358(proc);
+        GmapLineFade_0(proc);
     }
     else
     {

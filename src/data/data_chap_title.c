@@ -1,0 +1,71 @@
+#include "global.h"
+
+/* Arrays expanded from binary files at build time by tools/preproc (run
+ * before cpp). Migrated in-place from data/data_chap_title.s into .data.
+ */
+
+u8 chap_title_0[] = INCBIN_U8("graphics/chap_title/chap_title_0.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_1[] = INCBIN_U8("graphics/chap_title/chap_title_1.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_2[] = INCBIN_U8("graphics/chap_title/chap_title_2.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_3[] = INCBIN_U8("graphics/chap_title/chap_title_3.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_4[] = INCBIN_U8("graphics/chap_title/chap_title_4.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_5[] = INCBIN_U8("graphics/chap_title/chap_title_5.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_6[] = INCBIN_U8("graphics/chap_title/chap_title_6.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_7[] = INCBIN_U8("graphics/chap_title/chap_title_7.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_8[] = INCBIN_U8("graphics/chap_title/chap_title_8.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_9[] = INCBIN_U8("graphics/chap_title/chap_title_9.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_10[] = INCBIN_U8("graphics/chap_title/chap_title_10.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_11[] = INCBIN_U8("graphics/chap_title/chap_title_11.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_61[] = INCBIN_U8("graphics/chap_title/chap_title_61.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_12[] = INCBIN_U8("graphics/chap_title/chap_title_12.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_13[] = INCBIN_U8("graphics/chap_title/chap_title_13.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_14[] = INCBIN_U8("graphics/chap_title/chap_title_14.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_23[] = INCBIN_U8("graphics/chap_title/chap_title_23.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_24[] = INCBIN_U8("graphics/chap_title/chap_title_24.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_62[] = INCBIN_U8("graphics/chap_title/chap_title_62.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_25[] = INCBIN_U8("graphics/chap_title/chap_title_25.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_26[] = INCBIN_U8("graphics/chap_title/chap_title_26.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_27[] = INCBIN_U8("graphics/chap_title/chap_title_27.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_15[] = INCBIN_U8("graphics/chap_title/chap_title_15.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_16[] = INCBIN_U8("graphics/chap_title/chap_title_16.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_17[] = INCBIN_U8("graphics/chap_title/chap_title_17.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_18[] = INCBIN_U8("graphics/chap_title/chap_title_18.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_19[] = INCBIN_U8("graphics/chap_title/chap_title_19.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_20[] = INCBIN_U8("graphics/chap_title/chap_title_20.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_21[] = INCBIN_U8("graphics/chap_title/chap_title_21.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_blank[] = INCBIN_U8("graphics/chap_title/chap_title_blank.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_36[] = INCBIN_U8("graphics/chap_title/chap_title_36.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_37[] = INCBIN_U8("graphics/chap_title/chap_title_37.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_38[] = INCBIN_U8("graphics/chap_title/chap_title_38.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_39[] = INCBIN_U8("graphics/chap_title/chap_title_39.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_40[] = INCBIN_U8("graphics/chap_title/chap_title_40.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_41[] = INCBIN_U8("graphics/chap_title/chap_title_41.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_42[] = INCBIN_U8("graphics/chap_title/chap_title_42.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_43[] = INCBIN_U8("graphics/chap_title/chap_title_43.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_44[] = INCBIN_U8("graphics/chap_title/chap_title_44.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_45[] = INCBIN_U8("graphics/chap_title/chap_title_45.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_46[] = INCBIN_U8("graphics/chap_title/chap_title_46.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_47[] = INCBIN_U8("graphics/chap_title/chap_title_47.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_48[] = INCBIN_U8("graphics/chap_title/chap_title_48.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_49[] = INCBIN_U8("graphics/chap_title/chap_title_49.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_50[] = INCBIN_U8("graphics/chap_title/chap_title_50.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_51[] = INCBIN_U8("graphics/chap_title/chap_title_51.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_52[] = INCBIN_U8("graphics/chap_title/chap_title_52.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_53[] = INCBIN_U8("graphics/chap_title/chap_title_53.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_54[] = INCBIN_U8("graphics/chap_title/chap_title_54.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_55[] = INCBIN_U8("graphics/chap_title/chap_title_55.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_70[] = INCBIN_U8("graphics/chap_title/chap_title_70.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_71[] = INCBIN_U8("graphics/chap_title/chap_title_71.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_72[] = INCBIN_U8("graphics/chap_title/chap_title_72.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_73[] = INCBIN_U8("graphics/chap_title/chap_title_73.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_74[] = INCBIN_U8("graphics/chap_title/chap_title_74.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_75[] = INCBIN_U8("graphics/chap_title/chap_title_75.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_76[] = INCBIN_U8("graphics/chap_title/chap_title_76.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_77[] = INCBIN_U8("graphics/chap_title/chap_title_77.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_78[] = INCBIN_U8("graphics/chap_title/chap_title_78.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_84[] = INCBIN_U8("graphics/chap_title/chap_title_84.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_85[] = INCBIN_U8("graphics/chap_title/chap_title_85.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_86[] = INCBIN_U8("graphics/chap_title/chap_title_86.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_57[] = INCBIN_U8("graphics/chap_title/chap_title_57.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_56[] = INCBIN_U8("graphics/chap_title/chap_title_56.4bpp.lz");
+u8 __attribute__((aligned(4))) chap_title_87[] = INCBIN_U8("graphics/chap_title/chap_title_87.4bpp.lz");

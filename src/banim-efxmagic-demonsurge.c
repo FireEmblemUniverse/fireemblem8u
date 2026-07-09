@@ -50,7 +50,7 @@ void efxGorgon_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 11)
     {
-        StartSubSpell_efxGorgon_806B680(anim);
+        StartSubSpell_efxGorgon_0(anim);
         PlaySFX(0x3B6, 0x100, 192, 1);
     }
     else if (proc->timer == duration + 37)
@@ -59,7 +59,7 @@ void efxGorgon_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 84)
     {
-        sub_806BBDC();
+        StartEfxmagicDemonsurgeFadeBlack();
     }
     else if (proc->timer == duration + 96)
     {
@@ -76,7 +76,7 @@ void efxGorgon_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 122)
     {
-        sub_806C464();
+        StartEfxmagicDemonsurgeFlashWhite();
     }
     else if (proc->timer == duration + 123)
     {
@@ -105,7 +105,7 @@ void efxGorgon_Loop_Main(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x0806B64C
-void sub_806B64C(struct ProcEfxOBJ * proc)
+void efxGorgonOBJ_OnEnd(struct ProcEfxOBJ * proc)
 {
     AnimDelete(proc->anim2);
     gEfxBgSemaphore--;
@@ -113,12 +113,12 @@ void sub_806B64C(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0806B664
-void sub_806B664(struct ProcEfxOBJ * proc)
+void efxGorgonOBJ_Loop(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 
-    anim->pScrStart = AnimScr_086EAE14;
-    anim->pScrCurrent = AnimScr_086EAE14;
+    anim->pScrStart = AnimScr_Banim_6;
+    anim->pScrCurrent = AnimScr_Banim_6;
 
     anim->timer = 0;
 
@@ -129,12 +129,12 @@ void sub_806B664(struct ProcEfxOBJ * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D8B24[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicDemonsurge_0[] =
 {
-    PROC_SET_END_CB(sub_806B64C),
+    PROC_SET_END_CB(efxGorgonOBJ_OnEnd),
     PROC_SLEEP(25),
 
-    PROC_REPEAT(sub_806B664),
+    PROC_REPEAT(efxGorgonOBJ_Loop),
     PROC_SLEEP(54),
 
     PROC_END,
@@ -143,7 +143,7 @@ struct ProcCmd CONST_DATA ProcScr_085D8B24[] =
 // clang-format on
 
 //! FE8U = 0x0806B680
-void StartSubSpell_efxGorgon_806B680(struct Anim * anim)
+void StartSubSpell_efxGorgon_0(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;
@@ -151,10 +151,10 @@ void StartSubSpell_efxGorgon_806B680(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    proc = Proc_Start(ProcScr_085D8B24, PROC_TREE_3);
+    proc = Proc_Start(ProcScr_EfxmagicDemonsurge_0, PROC_TREE_3);
     proc->anim = anim;
 
-    scr = AnimScr_086EAE24;
+    scr = AnimScr_efxGorgon;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
@@ -190,8 +190,8 @@ void StartSubSpell_efxGorgon_806B680(struct Anim * anim)
 
     AnimSort();
 
-    SpellFx_RegisterObjGfx(Img_086E9D40, 32 * 4 * CHR_SIZE);
-    SpellFx_RegisterObjPal(Pal_086EA3EC, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_efxGorgon, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_efxGorgon, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -229,47 +229,47 @@ void efxGorgonBGDirt_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxGorgonBGDirt[] =
 {
-    Tsa_086F0344,
-    Tsa_086F03EC,
-    Tsa_086F04B8,
-    Tsa_086F05A0,
-    Tsa_086F069C,
-    Tsa_086F079C,
-    Tsa_086F08B8,
-    Tsa_086F09E0,
-    Tsa_086F0B2C,
-    Tsa_086F0C88,
-    Tsa_086F0DF8,
+    Tsa_efxGorgonBGDirt_0,
+    Tsa_efxGorgonBGDirt_1,
+    Tsa_efxGorgonBGDirt_2,
+    Tsa_efxGorgonBGDirt_3,
+    Tsa_efxGorgonBGDirt_4,
+    Tsa_efxGorgonBGDirt_5,
+    Tsa_efxGorgonBGDirt_6,
+    Tsa_efxGorgonBGDirt_7,
+    Tsa_efxGorgonBGDirt_8,
+    Tsa_efxGorgonBGDirt_9,
+    Tsa_efxGorgonBGDirt_10,
 };
 
 u16 * CONST_DATA ImgArray_efxGorgonBGDirt[] =
 {
-    Img_086EB8B4,
-    Img_086EBD44,
-    Img_086EC264,
-    Img_086EC7D4,
-    Img_086ECDD8,
-    Img_086ED424,
-    Img_086EDAF8,
-    Img_086EE25C,
-    Img_086EE9F8,
-    Img_086EF1DC,
-    Img_086EF9C8,
+    Img_efxGorgonBGDirt_0,
+    Img_efxGorgonBGDirt_1,
+    Img_efxGorgonBGDirt_2,
+    Img_efxGorgonBGDirt_3,
+    Img_efxGorgonBGDirt_4,
+    Img_efxGorgonBGDirt_5,
+    Img_efxGorgonBGDirt_6,
+    Img_efxGorgonBGDirt_7,
+    Img_efxGorgonBGDirt_8,
+    Img_efxGorgonBGDirt_9,
+    Img_efxGorgonBGDirt_10,
 };
 
 u16 * CONST_DATA PalArray_efxGorgonBGDirt[] =
 {
-    Pal_086F01E4,
-    Pal_086F0204,
-    Pal_086F0224,
-    Pal_086F0244,
-    Pal_086F0264,
-    Pal_086F0284,
-    Pal_086F02A4,
-    Pal_086F02C4,
-    Pal_086F02E4,
-    Pal_086F0304,
-    Pal_086F0324,
+    Pal_efxGorgonBGDirt_0,
+    Pal_efxGorgonBGDirt_1,
+    Pal_efxGorgonBGDirt_2,
+    Pal_efxGorgonBGDirt_3,
+    Pal_efxGorgonBGDirt_4,
+    Pal_efxGorgonBGDirt_5,
+    Pal_efxGorgonBGDirt_6,
+    Pal_efxGorgonBGDirt_7,
+    Pal_efxGorgonBGDirt_8,
+    Pal_efxGorgonBGDirt_9,
+    Pal_efxGorgonBGDirt_10,
 };
 
 const u16 gFrameConfig_efxGorgonBGDirt[] =
@@ -369,23 +369,23 @@ void efxGorgonBGTwister_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxGorgonBGTwister[] =
 {
-    Tsa_086F4A98,
-    Tsa_086F4CCC,
-    Tsa_086F4ED8,
+    Tsa_efxGorgonBGTwister_0,
+    Tsa_efxGorgonBGTwister_1,
+    Tsa_efxGorgonBGTwister_2,
 };
 
 u16 * CONST_DATA ImgArray_efxGorgonBGTwister[] =
 {
-    Img_086F0F6C,
-    Img_086F24C8,
-    Img_086F3830,
+    Img_efxGorgonBGTwister_0,
+    Img_efxGorgonBGTwister_1,
+    Img_efxGorgonBGTwister_2,
 };
 
 u16 * CONST_DATA PalArray_efxGorgonBGTwister[] =
 {
-    Pal_086F4A38,
-    Pal_086F4A58,
-    Pal_086F4A78,
+    Pal_efxGorgonBGTwister_0,
+    Pal_efxGorgonBGTwister_1,
+    Pal_efxGorgonBGTwister_2,
 };
 
 const u16 gFrameConfig_efxGorgonBGTwister[] =
@@ -462,7 +462,7 @@ struct Proc085D8C24
 };
 
 //! FE8U = 0x0806B938
-void sub_806B938(struct Proc085D8C24 * proc)
+void EfxmagicDemonsurgeFadeBlack_Init(struct Proc085D8C24 * proc)
 {
     proc->unk4C = 0;
     return;
@@ -471,7 +471,7 @@ void sub_806B938(struct Proc085D8C24 * proc)
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x0806B940
-void sub_806B940(struct Proc085D8C24 * proc)
+void EfxmagicDemonsurgeFadeBlack_Loop_FadeOut(struct Proc085D8C24 * proc)
 {
     int sl;
     u16 * r6;
@@ -540,7 +540,7 @@ void sub_806B940(struct Proc085D8C24 * proc)
 }
 
 //! FE8U = 0x0806BACC
-void sub_806BACC(struct Proc085D8C24 * proc)
+void EfxmagicDemonsurgeFadeBlack_Loop_HoldBlack(struct Proc085D8C24 * proc)
 {
     int sl;
     u16 * r6;
@@ -605,12 +605,12 @@ void sub_806BACC(struct Proc085D8C24 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D8C24[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicDemonsurge_1[] =
 {
-    PROC_CALL(sub_806B938),
+    PROC_CALL(EfxmagicDemonsurgeFadeBlack_Init),
 
-    PROC_REPEAT(sub_806B940),
-    PROC_REPEAT(sub_806BACC),
+    PROC_REPEAT(EfxmagicDemonsurgeFadeBlack_Loop_FadeOut),
+    PROC_REPEAT(EfxmagicDemonsurgeFadeBlack_Loop_HoldBlack),
 
     PROC_CALL(EnablePaletteSync),
 
@@ -620,9 +620,9 @@ struct ProcCmd CONST_DATA ProcScr_085D8C24[] =
 // clang-format on
 
 //! FE8U = 0x0806BBDC
-void sub_806BBDC(void)
+void StartEfxmagicDemonsurgeFadeBlack(void)
 {
-    Proc_Start(ProcScr_085D8C24, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_EfxmagicDemonsurge_1, PROC_TREE_VSYNC);
     return;
 }
 
@@ -892,7 +892,7 @@ void efxGorgonBGFinish_Loop(struct ProcEfxBG * proc)
         u16 ** img = proc->img;
 
         SpellFx_RegisterBgGfx(*(img + ret), 32 * 8 * CHR_SIZE);
-        sub_8068AFC(GetAnimAnotherSide(proc->anim), *(tsa + ret), *(tsa + ret), 1);
+        SpellFx_WriteBgMapFillEdges(GetAnimAnotherSide(proc->anim), *(tsa + ret), *(tsa + ret), 1);
     }
     else
     {
@@ -912,28 +912,28 @@ void efxGorgonBGFinish_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxGorgonBGFinish[] =
 {
-    Tsa_086FDA64,
-    Tsa_086FDB08,
-    Tsa_086FDCE0,
-    Tsa_086FDEC4,
-    Tsa_086FE0D4,
-    Tsa_086FE320,
-    Tsa_086FE4E0,
-    Tsa_086FE680,
-    Tsa_086FE81C,
+    Tsa_efxGorgonBGFinish_0,
+    Tsa_efxGorgonBGFinish_1,
+    Tsa_efxGorgonBGFinish_2,
+    Tsa_efxGorgonBGFinish_3,
+    Tsa_efxGorgonBGFinish_4,
+    Tsa_efxGorgonBGFinish_5,
+    Tsa_efxGorgonBGFinish_6,
+    Tsa_efxGorgonBGFinish_7,
+    Tsa_efxGorgonBGFinish_8,
 };
 
 u16 * CONST_DATA ImgArray_efxGorgonBGFinish[] =
 {
-    Img_086F50D4,
-    Img_086F6264,
-    Img_086F7150,
-    Img_086F80B8,
-    Img_086F915C,
-    Img_086FA350,
-    Img_086FB07C,
-    Img_086FBCE8,
-    Img_086FCD58,
+    Img_efxGorgonBGFinish_0,
+    Img_efxGorgonBGFinish_1,
+    Img_efxGorgonBGFinish_2,
+    Img_efxGorgonBGFinish_3,
+    Img_efxGorgonBGFinish_4,
+    Img_efxGorgonBGFinish_5,
+    Img_efxGorgonBGFinish_6,
+    Img_efxGorgonBGFinish_7,
+    Img_efxGorgonBGFinish_8,
 };
 
 const u16 gFrameConfig_efxGorgonBGFinish[] =
@@ -993,9 +993,9 @@ void StartSubSpell_efxGorgonBGFinish(struct Anim * anim)
         BG_SetPosition(BG_1, 0, 0);
     }
 
-    SpellFx_RegisterBgPal(Pal_086FDA44, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_efxGorgonBGFinish_1, PLTT_SIZE_4BPP);
 
-    SetPrimaryHBlankHandler(OnHBlank_806B088);
+    SetPrimaryHBlankHandler(OnHBlank_0);
 
     return;
 }
@@ -1008,14 +1008,14 @@ struct Proc085D8CE4
 };
 
 //! FE8U = 0x0806C14C
-void sub_806C14C(struct Proc085D8CE4 * proc)
+void EfxmagicDemonsurgeFlash_Init(struct Proc085D8CE4 * proc)
 {
     proc->unk4C = 0;
     return;
 }
 
 //! FE8U = 0x0806C154
-void sub_806C154(struct Proc085D8CE4 * proc)
+void EfxmagicDemonsurgeFlash_Loop_White(struct Proc085D8CE4 * proc)
 {
     u16 * src;
     int i;
@@ -1052,7 +1052,7 @@ void sub_806C154(struct Proc085D8CE4 * proc)
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x0806C1B8
-void sub_806C1B8(struct Proc085D8CE4 * proc)
+void EfxmagicDemonsurgeFlash_Loop_HoldBlack(struct Proc085D8CE4 * proc)
 {
     int sl;
     u16 * r6;
@@ -1116,7 +1116,7 @@ void sub_806C1B8(struct Proc085D8CE4 * proc)
 }
 
 //! FE8U = 0x0806C2D4
-void sub_806C2D4(struct Proc085D8CE4 * proc)
+void EfxmagicDemonsurgeFlash_Loop_FadeIn(struct Proc085D8CE4 * proc)
 {
     int sl;
     u16 * r6;
@@ -1189,13 +1189,13 @@ void sub_806C2D4(struct Proc085D8CE4 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D8CE4[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicDemonsurge_2[] =
 {
-    PROC_CALL(sub_806C14C),
+    PROC_CALL(EfxmagicDemonsurgeFlash_Init),
 
-    PROC_REPEAT(sub_806C154),
-    PROC_REPEAT(sub_806C1B8),
-    PROC_REPEAT(sub_806C2D4),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_White),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_HoldBlack),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_FadeIn),
 
     PROC_CALL(EnablePaletteSync),
 
@@ -1205,9 +1205,9 @@ struct ProcCmd CONST_DATA ProcScr_085D8CE4[] =
 // clang-format on
 
 //! FE8U = 0x0806C464
-void sub_806C464(void)
+void StartEfxmagicDemonsurgeFlashWhite(void)
 {
-    Proc_Start(ProcScr_085D8CE4, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_EfxmagicDemonsurge_2, PROC_TREE_VSYNC);
     return;
 }
 
@@ -1221,7 +1221,7 @@ struct Proc085D8D14
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x0806C478
-void sub_806C478(struct Proc085D8D14 * proc)
+void EfxmagicDemonsurgeFlash_Loop_FadeOut(struct Proc085D8D14 * proc)
 {
     int sl;
     u16 * r6;
@@ -1294,13 +1294,13 @@ void sub_806C478(struct Proc085D8D14 * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D8D14[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicDemonsurge_3[] =
 {
-    PROC_CALL(sub_806C14C),
+    PROC_CALL(EfxmagicDemonsurgeFlash_Init),
 
-    PROC_REPEAT(sub_806C478),
-    PROC_REPEAT(sub_806C1B8),
-    PROC_REPEAT(sub_806C2D4),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_FadeOut),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_HoldBlack),
+    PROC_REPEAT(EfxmagicDemonsurgeFlash_Loop_FadeIn),
 
     PROC_CALL(EnablePaletteSync),
 
@@ -1310,8 +1310,8 @@ struct ProcCmd CONST_DATA ProcScr_085D8D14[] =
 // clang-format on
 
 //! FE8U = 0x0806C608
-void sub_806C608(void)
+void StartEfxmagicDemonsurgeFlashBlack(void)
 {
-    Proc_Start(ProcScr_085D8D14, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_EfxmagicDemonsurge_3, PROC_TREE_VSYNC);
     return;
 }

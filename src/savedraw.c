@@ -17,11 +17,11 @@
 
 // clang-format off
 
-EWRAM_OVERLAY(0) struct Unknown020007E0 gUnknown_020007E0[0x14] = {};
+EWRAM_OVERLAY(0) struct Unknown020007E0 gSavedraw_0[0x14] = {};
 EWRAM_OVERLAY(0) struct Font gSaveMenuSubBoxFont = {};
 EWRAM_OVERLAY(0) struct Text gSaveMenuSubBoxText = {};
 
-u16 CONST_DATA Sprite_08A2051C[] =
+u16 CONST_DATA Sprite_Savedraw_0[] =
 {
     4,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x40) + OAM2_LAYER(2),
@@ -30,7 +30,7 @@ u16 CONST_DATA Sprite_08A2051C[] =
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32 + OAM1_X(80) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA Sprite_08A20536[] =
+u16 CONST_DATA Sprite_Savedraw_1[] =
 {
     3,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x49) + OAM2_LAYER(2),
@@ -38,7 +38,7 @@ u16 CONST_DATA Sprite_08A20536[] =
     OAM0_SHAPE_8x32, OAM1_SIZE_8x32 + OAM1_X(80), OAM2_CHR(0x53) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA Sprite_08A2054A[] =
+u16 CONST_DATA Sprite_Savedraw_2[] =
 {
     6,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x40) + OAM2_LAYER(1),
@@ -49,203 +49,203 @@ u16 CONST_DATA Sprite_08A2054A[] =
     OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x82) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20570[] =
+u16 CONST_DATA Sprite_Savedraw_3[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x5C) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20578[] =
+u16 CONST_DATA Sprite_Savedraw_4[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1D1) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA Sprite_08A20580[] =
+u16 CONST_DATA Sprite_Savedraw_5[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1F1) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA Sprite_08A20588[] =
+u16 CONST_DATA Sprite_Savedraw_6[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x32 + OAM1_AFFINE_ID(3), OAM2_CHR(0xDC) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20590[] =
+u16 CONST_DATA Sprite_Savedraw_7[] =
 {
     2,
     OAM0_SHAPE_64x32, OAM1_SIZE_64x32, OAM2_CHR(0x196) + OAM2_LAYER(2),
     OAM0_SHAPE_16x32, OAM1_SIZE_16x32 + OAM1_X(64), OAM2_CHR(0x19E) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA Sprite_08A2059E[] =
+u16 CONST_DATA Sprite_Savedraw_8[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C0) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205A6[] =
+u16 CONST_DATA Sprite_Savedraw_9[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C1) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205AE[] =
+u16 CONST_DATA Sprite_Savedraw_10[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C2) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205B6[] =
+u16 CONST_DATA Sprite_Savedraw_11[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C3) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205BE[] =
+u16 CONST_DATA Sprite_Savedraw_12[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C4) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205C6[] =
+u16 CONST_DATA Sprite_Savedraw_13[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1C5) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205CE[] =
+u16 CONST_DATA Sprite_Savedraw_14[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E0) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205D6[] =
+u16 CONST_DATA Sprite_Savedraw_15[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E1) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205DE[] =
+u16 CONST_DATA Sprite_Savedraw_16[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E2) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205E6[] =
+u16 CONST_DATA Sprite_Savedraw_17[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E3) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205EE[] =
+u16 CONST_DATA Sprite_Savedraw_18[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x1E4) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205F6[] =
+u16 CONST_DATA Sprite_Savedraw_19[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C6) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A205FE[] =
+u16 CONST_DATA Sprite_Savedraw_20[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C7) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20606[] =
+u16 CONST_DATA Sprite_Savedraw_21[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C8) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A2060E[] =
+u16 CONST_DATA Sprite_Savedraw_22[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1C9) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20616[] =
+u16 CONST_DATA Sprite_Savedraw_23[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CA) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A2061E[] =
+u16 CONST_DATA Sprite_Savedraw_24[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CB) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20626[] =
+u16 CONST_DATA Sprite_Savedraw_25[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CC) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A2062E[] =
+u16 CONST_DATA Sprite_Savedraw_26[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CD) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20636[] =
+u16 CONST_DATA Sprite_Savedraw_27[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CE) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A2063E[] =
+u16 CONST_DATA Sprite_Savedraw_28[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1CF) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA Sprite_08A20646[] =
+u16 CONST_DATA Sprite_Savedraw_29[] =
 {
     1,
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x1D0) + OAM2_LAYER(1),
 };
 
-u16 * CONST_DATA SpriteArray_08A20650[] =
+u16 * CONST_DATA SpriteArray_Savedraw_0[] =
 {
-    Sprite_08A2059E,
-    Sprite_08A205A6,
-    Sprite_08A205AE,
-    Sprite_08A205B6,
-    Sprite_08A205BE,
-    Sprite_08A205C6,
-    Sprite_08A205CE,
-    Sprite_08A205D6,
-    Sprite_08A205DE,
-    Sprite_08A205E6,
-    Sprite_08A205EE,
+    Sprite_Savedraw_8,
+    Sprite_Savedraw_9,
+    Sprite_Savedraw_10,
+    Sprite_Savedraw_11,
+    Sprite_Savedraw_12,
+    Sprite_Savedraw_13,
+    Sprite_Savedraw_14,
+    Sprite_Savedraw_15,
+    Sprite_Savedraw_16,
+    Sprite_Savedraw_17,
+    Sprite_Savedraw_18,
 };
 
-u16 * CONST_DATA SpriteArray_08A2067C[] =
+u16 * CONST_DATA SpriteArray_Savedraw_1[] =
 {
-    Sprite_08A205F6,
-    Sprite_08A205FE,
-    Sprite_08A20606,
-    Sprite_08A2060E,
-    Sprite_08A20616,
-    Sprite_08A2061E,
-    Sprite_08A20626,
-    Sprite_08A2062E,
-    Sprite_08A20636,
-    Sprite_08A2063E,
-    Sprite_08A20646,
+    Sprite_Savedraw_19,
+    Sprite_Savedraw_20,
+    Sprite_Savedraw_21,
+    Sprite_Savedraw_22,
+    Sprite_Savedraw_23,
+    Sprite_Savedraw_24,
+    Sprite_Savedraw_25,
+    Sprite_Savedraw_26,
+    Sprite_Savedraw_27,
+    Sprite_Savedraw_28,
+    Sprite_Savedraw_29,
 };
 
 // clang-format on
 
 //! FE8U = 0x080AA7EC
-void sub_80AA7EC(struct SaveDrawProc * proc)
+void SaveDraw_DrawPlayTime(struct SaveDrawProc * proc)
 {
     int x;
     int y;
@@ -269,26 +269,26 @@ void sub_80AA7EC(struct SaveDrawProc * proc)
         FormatTime(saveMenuProc->played_time[saveMenuProc->sus_slot], &hours, &minutes, &seconds);
     }
 
-    PutSpriteExt(13, x + 6, y - 14, Sprite_08A20590, OAM2_PAL(2));
+    PutSpriteExt(13, x + 6, y - 14, Sprite_Savedraw_7, OAM2_PAL(2));
 
     if (hours > 99)
     {
-        PutSpriteExt(13, x + 10, y - 8, SpriteArray_08A2067C[(hours / 100)], OAM2_PAL(7));
+        PutSpriteExt(13, x + 10, y - 8, SpriteArray_Savedraw_1[(hours / 100)], OAM2_PAL(7));
         hours = hours - ((hours / 100) * 100);
     }
 
     if (hours > 9)
     {
-        PutSpriteExt(13, x + 18, y - 8, SpriteArray_08A2067C[(hours / 10)], OAM2_PAL(7));
+        PutSpriteExt(13, x + 18, y - 8, SpriteArray_Savedraw_1[(hours / 10)], OAM2_PAL(7));
     }
 
-    PutSpriteExt(13, x + 26, y - 8, SpriteArray_08A2067C[(hours % 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 34, y - 7, SpriteArray_08A2067C[10], OAM2_PAL(7));
-    PutSpriteExt(13, x + 42, y - 8, SpriteArray_08A2067C[(minutes / 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 50, y - 8, SpriteArray_08A2067C[(minutes % 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 58, y + 1, SpriteArray_08A20650[10], OAM2_PAL(7));
-    PutSpriteExt(13, x + 66, y, SpriteArray_08A20650[(seconds / 10)], OAM2_PAL(7));
-    PutSpriteExt(13, x + 74, y, SpriteArray_08A20650[(seconds % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 26, y - 8, SpriteArray_Savedraw_1[(hours % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 34, y - 7, SpriteArray_Savedraw_1[10], OAM2_PAL(7));
+    PutSpriteExt(13, x + 42, y - 8, SpriteArray_Savedraw_1[(minutes / 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 50, y - 8, SpriteArray_Savedraw_1[(minutes % 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 58, y + 1, SpriteArray_Savedraw_0[10], OAM2_PAL(7));
+    PutSpriteExt(13, x + 66, y, SpriteArray_Savedraw_0[(seconds / 10)], OAM2_PAL(7));
+    PutSpriteExt(13, x + 74, y, SpriteArray_Savedraw_0[(seconds % 10)], OAM2_PAL(7));
 
     return;
 }
@@ -357,7 +357,7 @@ void SaveDraw_Init(struct SaveDrawProc * proc)
     else
     {
         SAVE_MENU_PARENT(proc)->approc =
-            APProc_Create(gUnknown_08A280A8, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140, 0, 4);
+            APProc_Create(gSaveScreen_0, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140, 0, 4);
     }
 
     proc->unk_3c = SAVE_MENU_PARENT(proc)->sus_slot;
@@ -366,18 +366,18 @@ void SaveDraw_Init(struct SaveDrawProc * proc)
 
     StartBgVerticalScroll(EWRAM_ENTRY);
     SetBgVerticalScrollPosition(0, (void *)REG_ADDR_BG2HOFS);
-    sub_8014EF4(0);
+    ClearBgVerticalScrollChannelFlags(0);
 
     SaveDraw_ScrollFogBG(proc);
     gpBgVerticalScrollSt->scroll_en = true;
 
-    sub_80AB548();
+    SaveDraw_InitParticles();
 
     return;
 }
 
 //! FE8U = 0x080AAB78
-void sub_80AAB78(s8 flag, u16 color)
+void SaveDraw_SetObjPalColor(s8 flag, u16 color)
 {
     if (flag != 0)
     {
@@ -394,23 +394,23 @@ void sub_80AAB78(s8 flag, u16 color)
 }
 
 //! FE8U = 0x080AABC4
-void sub_80AABC4(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
+void SaveDraw_DrawMainMenuOption(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
 {
-    PutSpriteExt(4, OAM1_X(x), y, Sprite_08A2051C, OAM2_PAL(palIdA));
-    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_08A209B8[spriteIdx], OAM2_PAL(palIdB));
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_Savedraw_0, OAM2_PAL(palIdA));
+    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_SavemenuData_1[spriteIdx], OAM2_PAL(palIdB));
     return;
 }
 
 //! FE8U = 0x080AAC40
-void sub_80AAC40(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
+void SaveDraw_DrawExtraMenuOption(ProcPtr unused, int x, int y, u8 spriteIdx, u8 palIdA, u8 palIdB)
 {
-    PutSpriteExt(4, OAM1_X(x), y, Sprite_08A2051C, OAM2_PAL(palIdA));
-    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_08A2099C[spriteIdx], OAM2_PAL(palIdB));
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_Savedraw_0, OAM2_PAL(palIdA));
+    PutSpriteExt(4, OAM1_X(x + 8), y + 8, SpriteArray_SavemenuData_0[spriteIdx], OAM2_PAL(palIdB));
     return;
 }
 
 //! FE8U = 0x080AACBC
-void sub_80AACBC(struct SaveDrawProc * proc)
+void SaveDraw_UpdateSlotPalette(struct SaveDrawProc * proc)
 {
     if (proc->unk_3c != SAVE_MENU_PARENT(proc)->sus_slot)
     {
@@ -447,42 +447,42 @@ void sub_80AACBC(struct SaveDrawProc * proc)
         }
     }
 
-    sub_80AA7AC(proc->unk_2a, proc->unk_3c);
+    SaveMenuUpdateCursorPalette(proc->unk_2a, proc->unk_3c);
     proc->unk_2a++;
 
     return;
 }
 
-extern u16 * SpriteArray_08A209B8[];
+extern u16 * SpriteArray_SavemenuData_1[];
 
 //! FE8U = 0x080AADE0
-void sub_80AADE0(struct SaveDrawProc * proc)
+void SaveDraw_DrawSelectedOption(struct SaveDrawProc * proc)
 {
     struct SaveMenuProc * saveMenuProc;
     u8 spriteIdx;
 
     int y = OAM0_Y(((SAVE_MENU_PARENT(proc)->unk_2f * 48) / 0xdc) + 0x1d0);
 
-    PutSpriteExt(4, 48, y, Sprite_08A2051C, OAM2_PAL(2));
+    PutSpriteExt(4, 48, y, Sprite_Savedraw_0, OAM2_PAL(2));
 
     saveMenuProc = SAVE_MENU_PARENT(proc);
 
     if (saveMenuProc->unk_46 != 0)
     {
         if (saveMenuProc->extra_sel_bitfile & EXTRA_MENU_OPTION_MAP)
-            PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[10], OAM2_PAL(4));
+            PutSpriteExt(4, 56, y + 8, SpriteArray_SavemenuData_1[10], OAM2_PAL(4));
         else
-            PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[8], OAM2_PAL(4));
+            PutSpriteExt(4, 56, y + 8, SpriteArray_SavemenuData_1[8], OAM2_PAL(4));
     }
     else
     {
         spriteIdx = BitfileToIndex(saveMenuProc->main_sel_bitfile);
-        PutSpriteExt(4, 56, y + 8, SpriteArray_08A209B8[spriteIdx], OAM2_PAL(4));
+        PutSpriteExt(4, 56, y + 8, SpriteArray_SavemenuData_1[spriteIdx], OAM2_PAL(4));
     }
 }
 
 //! FE8U = 0x080AAE90
-void sub_80AAE90(struct SaveDrawProc * proc)
+void SaveDraw_DrawMainMenuOptions(struct SaveDrawProc * proc)
 {
     int i;
     u64 tmp; // found by permuter
@@ -502,18 +502,18 @@ void sub_80AAE90(struct SaveDrawProc * proc)
 
             if (i == SAVE_MENU_PARENT(proc)->main_select)
             {
-                sub_80AABC4(proc, 48 - xOffset, y + i * 25, spriteIdx, 1, 4);
+                SaveDraw_DrawMainMenuOption(proc, 48 - xOffset, y + i * 25, spriteIdx, 1, 4);
             }
             else
             {
-                sub_80AABC4(proc, 48 - xOffset, y + i * 25, spriteIdx, 6, 4);
+                SaveDraw_DrawMainMenuOption(proc, 48 - xOffset, y + i * 25, spriteIdx, 6, 4);
             }
         }
 
         if (SAVE_MENU_PARENT(proc)->jump_label == PL_SAVEMENU_MAIN_LOOP)
         {
             tmp = y + (SAVE_MENU_PARENT(proc)->main_select * 25);
-            sub_80AB4F4(0, 28, tmp, proc);
+            SaveDraw_SetCursorBox(0, 28, tmp, proc);
         }
     }
 
@@ -521,7 +521,7 @@ void sub_80AAE90(struct SaveDrawProc * proc)
 }
 
 //! FE8U = 0x080AAF6C
-void sub_80AAF6C(struct SaveDrawProc * proc)
+void SaveDraw_DrawExtraMenuOptions(struct SaveDrawProc * proc)
 {
     int i;
     int yBase;
@@ -556,27 +556,27 @@ void sub_80AAF6C(struct SaveDrawProc * proc)
 
         if (i == SAVE_MENU_PARENT(proc)->extra_select)
         {
-            sub_80AAC40(proc, 268 - SAVE_MENU_PARENT(proc)->unk_46, yBase + i * yMult, spriteIdx, 1, 4);
+            SaveDraw_DrawExtraMenuOption(proc, 268 - SAVE_MENU_PARENT(proc)->unk_46, yBase + i * yMult, spriteIdx, 1, 4);
         }
         else
         {
-            sub_80AAC40(proc, 268 - SAVE_MENU_PARENT(proc)->unk_46, yBase + i * yMult, spriteIdx, 6, 4);
+            SaveDraw_DrawExtraMenuOption(proc, 268 - SAVE_MENU_PARENT(proc)->unk_46, yBase + i * yMult, spriteIdx, 6, 4);
         }
     }
 
     if (SAVE_MENU_PARENT(proc)->jump_label == PL_SAVEMENU_10)
-        sub_80AB4F4(0, 28, yBase + SAVE_MENU_PARENT(proc)->extra_select * yMult, proc);
+        SaveDraw_SetCursorBox(0, 28, yBase + SAVE_MENU_PARENT(proc)->extra_select * yMult, proc);
 }
 
 //! FE8U = 0x080AB05C
-void sub_80AB05C(struct SaveDrawProc * proc)
+void SaveDraw_DrawSlots(struct SaveDrawProc * proc)
 {
     int i;
 
     if (SAVE_MENU_PARENT(proc)->unk_2f != 0)
     {
-        sub_80AA7EC(proc);
-        sub_80AADE0(proc);
+        SaveDraw_DrawPlayTime(proc);
+        SaveDraw_DrawSelectedOption(proc);
 
         for (i = 0; i < 3; i++)
         {
@@ -591,10 +591,10 @@ void sub_80AB05C(struct SaveDrawProc * proc)
             }
 
             PutSpriteExt(
-                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), y + 32 + (i * 32), SpriteArray_08A209F0[i],
+                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), y + 32 + (i * 32), SpriteArray_SavemenuData_3[i],
                 OAM2_PAL(i * 2 + 10));
             PutSpriteExt(
-                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), (y + 32 + (i * 32)) + 8, SpriteArray_08A209E4[i],
+                4, OAM1_X(248 - SAVE_MENU_PARENT(proc)->unk_2f), (y + 32 + (i * 32)) + 8, SpriteArray_SavemenuData_2[i],
                 OAM2_PAL(i * 2 + 11));
         }
 
@@ -611,9 +611,9 @@ void sub_80AB05C(struct SaveDrawProc * proc)
 
                 // redundant
                 if (SAVE_MENU_PARENT(proc)->main_sel_bitfile & 1)
-                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
+                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_Savedraw_6, 0x3000);
                 else
-                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_08A20588, 0x3000);
+                    PutSpriteExt(4, 202, SAVE_MENU_PARENT(proc)->sus_slot_cur * 0x20 + 0x1e, Sprite_Savedraw_6, 0x3000);
             }
             else
             {
@@ -629,7 +629,7 @@ void sub_80AB05C(struct SaveDrawProc * proc)
                         SAVE_MENU_PARENT(proc)->approc, 320, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 48, 0x3140);
                     PutSpriteExt(
                         4, 422 - SAVE_MENU_PARENT(proc)->unk_2f, SAVE_MENU_PARENT(proc)->sus_slot_cur * 32 + 30,
-                        Sprite_08A20588, 0x3000);
+                        Sprite_Savedraw_6, 0x3000);
                 }
             }
         }
@@ -639,15 +639,15 @@ void sub_80AB05C(struct SaveDrawProc * proc)
     {
         if (SAVE_MENU_PARENT(proc)->cursor_config != 0)
         {
-            PutSpriteExt(4, 44, 128, Sprite_08A20536, OAM2_PAL(2));
+            PutSpriteExt(4, 44, 128, Sprite_Savedraw_1, OAM2_PAL(2));
             DisplayUiHand(((SAVE_MENU_PARENT(proc)->cursor_config - 1) % 2) * 44 + 52, 136);
-            sub_80AB4F4(1, 12, SAVE_MENU_PARENT(proc)->sus_slot * 32 + 32, proc);
+            SaveDraw_SetCursorBox(1, 12, SAVE_MENU_PARENT(proc)->sus_slot * 32 + 32, proc);
         }
         else if (SAVE_MENU_PARENT(proc)->sus_slot != 0xff)
-            sub_80AB4F4(1, 12, SAVE_MENU_PARENT(proc)->sus_slot * 32 + 32, proc);
+            SaveDraw_SetCursorBox(1, 12, SAVE_MENU_PARENT(proc)->sus_slot * 32 + 32, proc);
 
         if (SAVE_MENU_PARENT(proc)->cursor_slot != (u8)-1)
-            sub_80AB514(1, SAVE_MENU_PARENT(proc)->cursor_slot * 32 + 32, proc);
+            SaveDraw_SetCursorSlotMark(1, SAVE_MENU_PARENT(proc)->cursor_slot * 32 + 32, proc);
     }
 }
 
@@ -664,14 +664,14 @@ void SaveDraw_Loop_Main(struct SaveDrawProc * proc)
                 proc->unk_33 = SAVE_MENU_PARENT(proc)->main_sel_bitfile;
         }
 
-        sub_80AAE90(proc);
-        sub_80AAF6C(proc);
-        sub_80AB05C(proc);
-        sub_80AACBC(proc);
+        SaveDraw_DrawMainMenuOptions(proc);
+        SaveDraw_DrawExtraMenuOptions(proc);
+        SaveDraw_DrawSlots(proc);
+        SaveDraw_UpdateSlotPalette(proc);
     }
 
     SaveDraw_ScrollFogBG(proc);
-    sub_80AB56C(proc->unk_2a);
+    SaveDraw_UpdateParticles(proc->unk_2a);
 }
 
 // clang-format off
@@ -758,7 +758,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 xOam1 & 0x1FF,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                Sprite_08A20570,
+                Sprite_Savedraw_3,
                 0x3000
             );
 
@@ -768,7 +768,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 (xOam1 & 0x1FF) | 0x1000,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                Sprite_08A20570,
+                Sprite_Savedraw_3,
                 0x3000
             );
         } else {
@@ -776,7 +776,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
                 4,
                 4,
                 (yOam0 + yOffsetLut[proc->unk_2a >> 3 & 7]) & 0xff,
-                Sprite_08A20570,
+                Sprite_Savedraw_3,
                 0x3000
             );
         }
@@ -789,7 +789,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
     }
 
     if (proc->unk_38 != 0) {
-        PutSpriteExt(4, 6, proc->unk_37, Sprite_08A20570, 0x3000);
+        PutSpriteExt(4, 6, proc->unk_37, Sprite_Savedraw_3, 0x3000);
     }
 
     if (proc->unk_39 != 0) {
@@ -803,7 +803,7 @@ void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc)
 }
 
 //! FE8U = 0x080AB4F4
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc)
+void SaveDraw_SetCursorBox(int a, s16 b, s16 c, struct SaveDrawProc * proc)
 {
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
@@ -815,7 +815,7 @@ void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc)
 }
 
 //! FE8U = 0x080AB514
-void sub_80AB514(int a, u8 b, struct SaveDrawProc * proc)
+void SaveDraw_SetCursorSlotMark(int a, u8 b, struct SaveDrawProc * proc)
 {
     struct SaveDrawCursorProc* drawCursorProc = proc->unk_34;
 
@@ -842,28 +842,28 @@ struct SaveMenuCursorProc* StartSaveDrawCursor(ProcPtr parent)
 }
 
 //! FE8U = 0x080AB548
-void sub_80AB548(void) {
+void SaveDraw_InitParticles(void) {
     int i;
 
     for (i = 0; i <= 0x13; i++) {
-        gUnknown_020007E0[i].unk_0e = 0;
-        gUnknown_020007E0[i].unk_04 = 0xa0;
-        gUnknown_020007E0[i].unk_00 = 0xa0;
-        gUnknown_020007E0[i].unk_0a = 0;
-        gUnknown_020007E0[i].unk_08 = 0;
+        gSavedraw_0[i].unk_0e = 0;
+        gSavedraw_0[i].unk_04 = 0xa0;
+        gSavedraw_0[i].unk_00 = 0xa0;
+        gSavedraw_0[i].unk_0a = 0;
+        gSavedraw_0[i].unk_08 = 0;
     }
 
     return;
 }
 
 //! FE8U = 0x080AB56C
-void sub_80AB56C(u32 a) {
+void SaveDraw_UpdateParticles(u32 a) {
     int i;
     struct Unknown020007E0* ptr;
 
     int count = 0;
 
-    for (i = 0, ptr = gUnknown_020007E0; i <= 0x13; i++, ptr++) {
+    for (i = 0, ptr = gSavedraw_0; i <= 0x13; i++, ptr++) {
         if (ptr->unk_0e != 0) {
 
             if (ptr->unk_00 + 0xC0 <= 0xC5F) {
@@ -873,7 +873,7 @@ void sub_80AB56C(u32 a) {
                         0xe,
                         ((int)ptr->unk_00 / 12) & 0x1FF,
                         (ptr->unk_04 / 12) & 0xff,
-                        Sprite_08A20580,
+                        Sprite_Savedraw_5,
                         0x3000
                     );
                 } else {
@@ -881,7 +881,7 @@ void sub_80AB56C(u32 a) {
                         0xe,
                         ((int)ptr->unk_00 / 12) & 0x1FF,
                         (ptr->unk_04 / 12) & 0xff,
-                        Sprite_08A20578,
+                        Sprite_Savedraw_4,
                         0x3000
                     );
                 }
@@ -907,7 +907,7 @@ void sub_80AB56C(u32 a) {
     }
 
     if (count < 0x13) {
-        for (ptr = gUnknown_020007E0, i = 0; i <= 0x13; i++, ptr++) {
+        for (ptr = gSavedraw_0, i = 0; i <= 0x13; i++, ptr++) {
             if (ptr->unk_0e == 0) {
 
                 if (DivRem(AdvanceGetLCGRNValue(), 0xb) == 0) {
@@ -929,13 +929,13 @@ void sub_80AB56C(u32 a) {
 }
 
 //! FE8U = 0x080AB720
-void sub_80AB720(struct SaveDrawProc * proc)
+void SaveBgFog_Init(struct SaveDrawProc * proc)
 {
     proc->bg_y = 0;
     proc->bg_x = 0;
 
     SetBgVerticalScrollPosition(0, (void *)REG_ADDR_BG2HOFS);
-    sub_8014EF4(0);
+    ClearBgVerticalScrollChannelFlags(0);
     SaveDraw_ScrollFogBG(proc);
 
     gpBgVerticalScrollSt->scroll_en = true;
@@ -943,26 +943,26 @@ void sub_80AB720(struct SaveDrawProc * proc)
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_08A206F8[] = {
+struct ProcCmd CONST_DATA gProcScr_Savedraw_0[] = {
     PROC_SET_END_CB(EndBgVerticalScroll),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80AB720),
+    PROC_CALL(SaveBgFog_Init),
     PROC_REPEAT(SaveDraw_ScrollFogBG),
 
     PROC_END,
 };
 
 //! FE8U = 0x080AB760
-void sub_80AB760(void* unused) {
-    Proc_Start(gProcScr_08A206F8, PROC_TREE_3);
+void StartSaveBgFog(void* unused) {
+    Proc_Start(gProcScr_Savedraw_0, PROC_TREE_3);
     StartBgVerticalScroll(EWRAM_ENTRY);
     return;
 }
 
 //! FE8U = 0x080AB77C
-void sub_80AB77C(void) {
-    Proc_EndEach(gProcScr_08A206F8);
+void EndSaveBgFog(void) {
+    Proc_EndEach(gProcScr_Savedraw_0);
     SetPrimaryHBlankHandler(NULL);
     return;
 }

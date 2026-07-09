@@ -1,41 +1,41 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch17b_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089FCF90, 1, 255)
-    TurnEventPlayer(0, EventScr_089FCF10, 4)
-    TurnEventPlayer(0, EventScr_089FCF10, 6)
-    TurnEventPlayer(0, EventScr_089FCF10, 8)
-    TurnEventPlayer(0, EventScr_089FCF40, 4)
-    TurnEventPlayer(0, EventScr_089FCF40, 6)
-    TurnEventPlayer(0, EventScr_089FCF40, 8)
-    TurnEventPlayer(0, EventScr_089FCF58, 10)
-    TurnEventPlayer(0, EventScr_089FCF58, 12)
-    TurnEventPlayer(0, EventScr_089FCF28, 3)
-    TurnEventPlayer(0, EventScr_089FCF28, 5)
-    TurnEventPlayer(0, EventScr_089FCF28, 7)
-    TurnEventPlayer(0, EventScr_089FCF28, 9)
-    TurnEventPlayer(0, EventScr_089FCF28, 11)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch17B_8, 1, 255)
+    TurnEventPlayer(0, EventScr_Ch17B_3, 4)
+    TurnEventPlayer(0, EventScr_Ch17B_3, 6)
+    TurnEventPlayer(0, EventScr_Ch17B_3, 8)
+    TurnEventPlayer(0, EventScr_Ch17B_5, 4)
+    TurnEventPlayer(0, EventScr_Ch17B_5, 6)
+    TurnEventPlayer(0, EventScr_Ch17B_5, 8)
+    TurnEventPlayer(0, EventScr_Ch17B_6, 10)
+    TurnEventPlayer(0, EventScr_Ch17B_6, 12)
+    TurnEventPlayer(0, EventScr_Ch17B_4, 3)
+    TurnEventPlayer(0, EventScr_Ch17B_4, 5)
+    TurnEventPlayer(0, EventScr_Ch17B_4, 7)
+    TurnEventPlayer(0, EventScr_Ch17B_4, 9)
+    TurnEventPlayer(0, EventScr_Ch17B_4, 11)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17b_Character[] = {
-    CHAR(EVFLAG_TMP(9), EventScr_089FCEF8, CHARACTER_TANA, CHARACTER_SYRENE)
-    CHAR(EVFLAG_TMP(9), EventScr_089FCEEC, CHARACTER_INNES, CHARACTER_SYRENE)
-    CHAR(EVFLAG_TMP(9), EventScr_089FCF04, CHARACTER_VANESSA, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17B_1, CHARACTER_TANA, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17B_0, CHARACTER_INNES, CHARACTER_SYRENE)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch17B_2, CHARACTER_VANESSA, CHARACTER_SYRENE)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17b_Location[] = {
-    Vendor(ShopList_Event_089ED94E, 1, 20)
-    Armory(ShopList_Event_089ED968, 12, 2)
+    Vendor(ShopList_Ch17B_0, 1, 20)
+    Armory(ShopList_Ch17B_1, 12, 2)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch17b_Misc[] = {
     DefeatBoss(EventScr_Ch17b_EndingScene)
-    AREA(EVFLAG_TMP(13), EventScr_089FCF70, 17, 0, 22, 9)
-    AREA(EVFLAG_TMP(15), EventScr_089FCFC4, 9, 0, 16, 8)
-    AREA(EVFLAG_TMP(15), EventScr_089FCFC4, 15, 10, 19, 16)
+    AREA(EVFLAG_TMP(13), EventScr_Ch17B_7, 17, 0, 22, 9)
+    AREA(EVFLAG_TMP(15), EventScr_Ch17B_9, 9, 0, 16, 8)
+    AREA(EVFLAG_TMP(15), EventScr_Ch17B_9, 15, 10, 19, 16)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -67,19 +67,19 @@ CONST_DATA struct ChapterEventGroup Ch17EphraimEventData = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch17b_UnitMove,
     .tutorialEvents                = EventListScr_Ch17b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB7C,
-    .extraTrapsInHard = TrapData_Event_089EDEDB,
+    .traps            = TrapData_Event_Ch17B_0,
+    .extraTrapsInHard = TrapData_Event_Ch17B_1,
 
-    .playerUnitsInNormal = UnitDef_088C7C9C,
-    .playerUnitsInHard   = UnitDef_088C7C9C,
+    .playerUnitsInNormal = UnitDef_Ch17BAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch17BAlly_0,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088C80E8,
-    .playerUnitsChoice2InEncounter = UnitDef_088C8408,
-    .playerUnitsChoice3InEncounter = UnitDef_088C8728,
+    .playerUnitsChoice1InEncounter = UnitDef_Ch17BAlly_1,
+    .playerUnitsChoice2InEncounter = UnitDef_Ch17BAlly_2,
+    .playerUnitsChoice3InEncounter = UnitDef_Ch17BAlly_3,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088C81B0,
-    .enemyUnitsChoice2InEncounter = UnitDef_088C84D0,
-    .enemyUnitsChoice3InEncounter = UnitDef_088C87F0,
+    .enemyUnitsChoice1InEncounter = UnitDef_Ch17BEnemy_6,
+    .enemyUnitsChoice2InEncounter = UnitDef_Ch17BEnemy_7,
+    .enemyUnitsChoice3InEncounter = UnitDef_Ch17BEnemy_8,
 
     .beginningSceneEvents = EventScr_Ch17b_BeginningScene,
     .endingSceneEvents    = EventScr_Ch17b_EndingScene,

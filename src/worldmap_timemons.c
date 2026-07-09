@@ -247,7 +247,7 @@ int GenerateRandomonsterMergeConf(int chapter, struct GmapTimeMonsConf * out)
     return cnt;
 }
 
-void nullsub_72(void) {}
+void Nop_WorldmapTimemons_0(void) {}
 
 void GmapTimeMons_Init(struct ProcGmapTimeMons * proc)
 {
@@ -281,7 +281,7 @@ void GmapTimeMons_ExecMonsterMergeMu(struct ProcGmapTimeMons * proc)
             y = y1 - y2 + 8;
 
             if ((y >= 0 && y < 0xB0) && (x >= 0 && x < 0xF0))
-                proc->ap_procs[i] = APProc_Create(Sprite_08A97AEC, (s16)x, (s16)y, 0x3880, 0, 7);
+                proc->ap_procs[i] = APProc_Create(Sprite_0, (s16)x, (s16)y, 0x3880, 0, 7);
 
             wm_uid = i + 4;
             SetGmClassUnit(wm_uid, proc->confs[i].jid, WM_FACTION_RED, proc->confs[i].node);
@@ -301,7 +301,7 @@ void GmapTimeMons_WaitSpriteDone(struct ProcGmapTimeMons * proc)
 CONST_DATA struct ProcCmd ProcScr_GmapTimeMons[] = {
     PROC_NAME("Gmap Time Mons"),
     PROC_MARK(PROC_MARK_WMSTUFF),
-    PROC_SET_END_CB(nullsub_72),
+    PROC_SET_END_CB(Nop_WorldmapTimemons_0),
     PROC_CALL(GmapTimeMons_Init),
     PROC_REPEAT(GmapTimeMons_ExecMonsterMergeMu),
     PROC_SLEEP(60),

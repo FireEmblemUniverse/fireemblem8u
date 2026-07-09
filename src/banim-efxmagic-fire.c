@@ -114,33 +114,33 @@ void NewEfxFireBG(struct Anim * anim)
     };
 
     static CONST_DATA u16 * tsal[] = {
-        Tsa_085F6250,
-        Tsa_085F62F8,
-        Tsa_085F63A0,
-        Tsa_085F6458,
-        Tsa_085F6520,
-        Tsa_085F65F0,
-        Tsa_085F66F0,
-        Tsa_085F67F8,
-        Tsa_085F690C,
-        Tsa_085F6A44,
-        Tsa_085F6B48,
-        Tsa_085F6C1C,
+        Tsa_Banim_0,
+        Tsa_Banim_1,
+        Tsa_Banim_2,
+        Tsa_Banim_3,
+        Tsa_Banim_4,
+        Tsa_Banim_5,
+        Tsa_Banim_6,
+        Tsa_Banim_7,
+        Tsa_Banim_8,
+        Tsa_Banim_9,
+        Tsa_Banim_10,
+        Tsa_Banim_11,
     };
 
     static CONST_DATA u16 * tsar[] = {
-        Tsa_085F6CDC,
-        Tsa_085F6D84,
-        Tsa_085F6E2C,
-        Tsa_085F6EE4,
-        Tsa_085F6FAC,
-        Tsa_085F707C,
-        Tsa_085F717C,
-        Tsa_085F7284,
-        Tsa_085F7398,
-        Tsa_085F74D0,
-        Tsa_085F75D4,
-        Tsa_085F76A8
+        Tsa_efxFireBG_0,
+        Tsa_efxFireBG_1,
+        Tsa_efxFireBG_2,
+        Tsa_efxFireBG_3,
+        Tsa_efxFireBG_4,
+        Tsa_efxFireBG_5,
+        Tsa_efxFireBG_6,
+        Tsa_efxFireBG_7,
+        Tsa_efxFireBG_8,
+        Tsa_efxFireBG_9,
+        Tsa_efxFireBG_10,
+        Tsa_efxFireBG_11
     };
 
     struct ProcEfxBG * proc;
@@ -223,7 +223,7 @@ void EfxFireOBJ_Loop(struct ProcEfxOBJ * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxFireHITBG[] = {
     PROC_NAME("efxFireHITBG"),
-    PROC_REPEAT(sub_805DE74),
+    PROC_REPEAT(EfxFireHitBG_Loop),
     PROC_END,
 };
 
@@ -237,51 +237,51 @@ const u16 FrameConfig_AnimaHitBG[] = {
 };
 
 CONST_DATA u16 * ImgLut_AnimaHitBG[] = {
-    Img_085F8494,
-    Img_085F8494,
-    Img_085F8494,
-    Img_085F8494,
-    Img_085F8494,
-    Img_085F8494,
-    Img_085F91D0,
-    Img_085F91D0,
-    Img_085F91D0,
-    Img_085F9EAC,
-    Img_085F9EAC,
-    Img_085FACD4,
-    Img_085FACD4,
-    Img_085FBCC8,
-    Img_085FBCC8,
-    Img_085FCF64,
-    Img_085FDB30,
-    Img_085FE728,
-    Img_085FF280,
-    Img_085FFD7C,
-    Img_08600784
+    Img_Banim_0,
+    Img_Banim_0,
+    Img_Banim_0,
+    Img_Banim_0,
+    Img_Banim_0,
+    Img_Banim_0,
+    Img_AnimaHitBG_0,
+    Img_AnimaHitBG_0,
+    Img_AnimaHitBG_0,
+    Img_AnimaHitBG_1,
+    Img_AnimaHitBG_1,
+    Img_AnimaHitBG_2,
+    Img_AnimaHitBG_2,
+    Img_AnimaHitBG_3,
+    Img_AnimaHitBG_3,
+    Img_AnimaHitBG_4,
+    Img_AnimaHitBG_5,
+    Img_AnimaHitBG_6,
+    Img_AnimaHitBG_7,
+    Img_AnimaHitBG_8,
+    Img_AnimaHitBG_9
 };
 
 CONST_DATA u16 * TsaLut_AnimaHitBG[] = {
-    Tsa_086010AC,
-    Tsa_08601158,
-    Tsa_08601210,
-    Tsa_086012DC,
-    Tsa_086013BC,
-    Tsa_086014B0,
-    Tsa_086015C8,
-    Tsa_086016F4,
-    Tsa_0860182C,
-    Tsa_08601970,
-    Tsa_08601AC4,
-    Tsa_08601C1C,
-    Tsa_08601D84,
-    Tsa_08601EF0,
-    Tsa_0860206C,
-    Tsa_08602200,
-    Tsa_086023A0,
-    Tsa_08602540,
-    Tsa_086026E0,
-    Tsa_08602880,
-    Tsa_08602A10
+    Tsa_Banim_12,
+    Tsa_AnimaHitBG_0,
+    Tsa_AnimaHitBG_1,
+    Tsa_AnimaHitBG_2,
+    Tsa_AnimaHitBG_3,
+    Tsa_AnimaHitBG_4,
+    Tsa_AnimaHitBG_5,
+    Tsa_AnimaHitBG_6,
+    Tsa_AnimaHitBG_7,
+    Tsa_AnimaHitBG_8,
+    Tsa_AnimaHitBG_9,
+    Tsa_AnimaHitBG_10,
+    Tsa_AnimaHitBG_11,
+    Tsa_AnimaHitBG_12,
+    Tsa_AnimaHitBG_13,
+    Tsa_AnimaHitBG_14,
+    Tsa_AnimaHitBG_15,
+    Tsa_AnimaHitBG_16,
+    Tsa_AnimaHitBG_17,
+    Tsa_AnimaHitBG_18,
+    Tsa_AnimaHitBG_19
 };
 
 void StartSubSpell_efxFireHITBG(struct Anim * anim)
@@ -309,7 +309,7 @@ void StartSubSpell_efxFireHITBG(struct Anim * anim)
         BG_SetPosition(BG_1, 0xE8, 0x0);
 }
 
-void sub_805DE74(struct ProcEfxBG * proc)
+void EfxFireHitBG_Loop(struct ProcEfxBG * proc)
 {
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
@@ -356,7 +356,7 @@ void StartSubSpell_efxElfireBG(struct Anim * anim)
     else
         BG_SetPosition(BG_1, 0xE8, 0x0);
     
-    sub_8070DBC(TILEMAP_LOCATED(gBG1TilemapBuffer, 0x1E, 0x0), 2, 0x14, 0x1, 0x100);
+    EfxTmAddPal(TILEMAP_LOCATED(gBG1TilemapBuffer, 0x1E, 0x0), 2, 0x14, 0x1, 0x100);
 }
 
 void EfxElfireBG_Loop(struct ProcEfxBG * proc)

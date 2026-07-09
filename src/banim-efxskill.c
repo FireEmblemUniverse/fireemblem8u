@@ -192,12 +192,12 @@ void EfxSkillType01BGMain(struct ProcEfxSkill *proc)
 
 CONST_DATA struct ProcCmd ProcScr_efxSkillCommonBG[] = {
     PROC_NAME("efxSkillCommonBG"),
-    PROC_REPEAT(sub_806E6E0),
-    PROC_REPEAT(sub_806E868),
-    PROC_REPEAT(sub_806E610),
-    PROC_REPEAT(sub_806E638),
-    PROC_REPEAT(sub_806E8A4),
-    PROC_REPEAT(sub_806E79C),
+    PROC_REPEAT(EfxSkillCommonBG_FreezeAnims),
+    PROC_REPEAT(EfxSkillCommonBG_MoveCamToSelf),
+    PROC_REPEAT(EfxSkillCommonBG_PlaySfx),
+    PROC_REPEAT(EfxSkillCommonBGMain),
+    PROC_REPEAT(EfxSkillCommonBG_MoveCamToOther),
+    PROC_REPEAT(EfxSkillCommonBG_UnfreezeAnims),
     PROC_END
 };
 
@@ -228,13 +228,13 @@ void NewEfxSkillCommonBG(struct Anim *anim, u8 debuff)
     }
 }
 
-void sub_806E610(struct ProcEfxSkill *proc)
+void EfxSkillCommonBG_PlaySfx(struct ProcEfxSkill *proc)
 {
     PlaySFX(0x3D1, 0x100, proc->anim->xPosition, 1);
     Proc_Break(proc);
 }
 
-void sub_806E638(struct ProcEfxSkill *proc)
+void EfxSkillCommonBGMain(struct ProcEfxSkill *proc)
 {
     u8 i;
     int ret;
@@ -270,21 +270,21 @@ void sub_806E638(struct ProcEfxSkill *proc)
     Proc_Break(proc);
 }
 
-void sub_806E6E0(struct ProcEfxSkill *proc)
+void EfxSkillCommonBG_FreezeAnims(struct ProcEfxSkill *proc)
 {
     EfxSkillSetAnimState(proc->anim);
     EfxSkillSetAnimState(GetAnimAnotherSide(proc->anim));
     Proc_Break(proc);
 }
 
-void sub_806E79C(struct ProcEfxSkill *proc)
+void EfxSkillCommonBG_UnfreezeAnims(struct ProcEfxSkill *proc)
 {
     EfxSkillResetAnimState(proc->anim);
     EfxSkillResetAnimState(GetAnimAnotherSide(proc->anim));
     Proc_Break(proc);
 }
 
-void sub_806E868(struct ProcEfxSkill *proc)
+void EfxSkillCommonBG_MoveCamToSelf(struct ProcEfxSkill *proc)
 {
     int val = EfxGetCamMovDuration();
 
@@ -297,7 +297,7 @@ void sub_806E868(struct ProcEfxSkill *proc)
         Proc_Break(proc);
 }
 
-void sub_806E8A4(struct ProcEfxSkill *proc)
+void EfxSkillCommonBG_MoveCamToOther(struct ProcEfxSkill *proc)
 {
     struct Anim *anim = GetAnimAnotherSide(proc->anim);
     int val = EfxGetCamMovDuration();

@@ -117,34 +117,34 @@ struct ProcCmd CONST_DATA ProcScr_efxOuraBG[] =
 
 u16 * CONST_DATA TsaArray_AuraBg1[] =
 {
-    Tsa_0873315C,
-    Tsa_087331FC,
-    Tsa_087332A4,
-    Tsa_0873334C,
-    Tsa_087333F8,
-    Tsa_087334B0,
-    Tsa_08733568,
-    Tsa_08733618,
-    Tsa_087336C4,
-    Tsa_0873376C,
-    Tsa_0873380C,
-    Tsa_087338A8,
-    Tsa_08733940,
-    Tsa_08733A58,
-    Tsa_08733B94,
-    Tsa_08733CE4,
-    Tsa_08733E20,
-    Tsa_08733F24,
-    Tsa_08733FC8,
-    Tsa_08734064,
-    Tsa_08734100,
-    Tsa_0873419C,
-    Tsa_08734238,
-    Tsa_087342D4,
-    Tsa_08734390,
-    Tsa_08734480,
-    Tsa_08734584,
-    Tsa_08734688,
+    Tsa_AuraBg1_0,
+    Tsa_AuraBg1_1,
+    Tsa_AuraBg1_2,
+    Tsa_AuraBg1_3,
+    Tsa_AuraBg1_4,
+    Tsa_AuraBg1_5,
+    Tsa_AuraBg1_6,
+    Tsa_AuraBg1_7,
+    Tsa_AuraBg1_8,
+    Tsa_AuraBg1_9,
+    Tsa_AuraBg1_10,
+    Tsa_AuraBg1_11,
+    Tsa_AuraBg1_12,
+    Tsa_AuraBg1_13,
+    Tsa_AuraBg1_14,
+    Tsa_AuraBg1_15,
+    Tsa_AuraBg1_16,
+    Tsa_AuraBg1_17,
+    Tsa_AuraBg1_18,
+    Tsa_AuraBg1_19,
+    Tsa_AuraBg1_20,
+    Tsa_AuraBg1_21,
+    Tsa_AuraBg1_22,
+    Tsa_AuraBg1_23,
+    Tsa_AuraBg1_24,
+    Tsa_AuraBg1_25,
+    Tsa_AuraBg1_26,
+    Tsa_AuraBg1_27,
 };
 
 // clang-format on
@@ -454,8 +454,8 @@ void StartSubSpell_efxOuraBGCOL(struct Anim * anim)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = Pal_ShineBg_08726FF4;
-    SpellFx_RegisterBgPal(Pal_ShineBg_08726FF4 + 0x30, PLTT_SIZE_4BPP);
+    proc->pal = Pal_ShineBg_0;
+    SpellFx_RegisterBgPal(Pal_ShineBg_0 + 0x30, PLTT_SIZE_4BPP);
 
     return;
 }
@@ -493,34 +493,34 @@ struct ProcCmd CONST_DATA ProcScr_efxOuraBG3[] =
 
 u16 * CONST_DATA TsaArray_AuraBg3[] =
 {
-    Tsa_0874396C,
-    Tsa_08743BE4,
-    Tsa_08743E5C,
-    Tsa_087440D4,
-    Tsa_0874434C,
-    Tsa_087445BC,
-    Tsa_08744818,
-    Tsa_08744A90,
-    Tsa_08744D08,
-    Tsa_08744F80,
-    Tsa_087451F8,
-    Tsa_08745470,
+    Tsa_AuraBg3_0,
+    Tsa_AuraBg3_1,
+    Tsa_AuraBg3_2,
+    Tsa_AuraBg3_3,
+    Tsa_AuraBg3_4,
+    Tsa_AuraBg3_5,
+    Tsa_AuraBg3_6,
+    Tsa_AuraBg3_7,
+    Tsa_AuraBg3_8,
+    Tsa_AuraBg3_9,
+    Tsa_AuraBg3_10,
+    Tsa_AuraBg3_11,
 };
 
 u16 * CONST_DATA ImgArray_AuraBg3[] =
 {
-    Img_0873478C,
-    Img_08735BA0,
-    Img_087370CC,
-    Img_08738648,
-    Img_08739BD0,
-    Img_0873AFC0,
-    Img_0873C2CC,
-    Img_0873D640,
-    Img_0873EB2C,
-    Img_0873FED8,
-    Img_08741288,
-    Img_087425A4,
+    Img_AuraBg3_0,
+    Img_AuraBg3_1,
+    Img_AuraBg3_2,
+    Img_AuraBg3_3,
+    Img_AuraBg3_4,
+    Img_AuraBg3_5,
+    Img_AuraBg3_6,
+    Img_AuraBg3_7,
+    Img_AuraBg3_8,
+    Img_AuraBg3_9,
+    Img_AuraBg3_10,
+    Img_AuraBg3_11,
 };
 
 // clang-format on

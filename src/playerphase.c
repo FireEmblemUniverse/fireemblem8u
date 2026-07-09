@@ -73,7 +73,7 @@ PROC_LABEL(1),
     PROC_CALL(SetAllUnitNotBackSprite),
     PROC_CALL(RefreshUnitSprites),
 
-    PROC_START_CHILD_BLOCKING(gProcScr_0859ACE8),
+    PROC_START_CHILD_BLOCKING(gProcScr_Playerphase_0),
 
     PROC_CALL(PlayerPhase_InitUnitMovementSelect),
     PROC_SLEEP(1),
@@ -153,7 +153,7 @@ PROC_LABEL(3),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
+struct ProcCmd CONST_DATA gProcScr_Playerphase_0[] =
 {
     PROC_CALL(MakeMoveunitForActiveUnit),
     PROC_CALL(TryCallSelectEvents),
@@ -163,16 +163,19 @@ struct ProcCmd CONST_DATA gProcScr_0859ACE8[] =
     PROC_END,
 };
 
+/* The move-limit-view open animation is 6 uniform frames of 4 tiles (32x8 px) each. */
+#define LIMIT_VIEW_FRAME_SIZE (4 * CHR_SIZE)
+
 u8 * CONST_DATA gOpenLimitViewImgLut[] =
 {
     NULL,
     NULL,
-    Img_LimitViewSquares + (0 * 4 * CHR_SIZE),
-    Img_LimitViewSquares + (1 * 4 * CHR_SIZE),
-    Img_LimitViewSquares + (2 * 4 * CHR_SIZE),
-    Img_LimitViewSquares + (3 * 4 * CHR_SIZE),
-    Img_LimitViewSquares + (4 * 4 * CHR_SIZE),
-    Img_LimitViewSquares + (5 * 4 * CHR_SIZE),
+    Img_LimitViewSquares + (0 * LIMIT_VIEW_FRAME_SIZE),
+    Img_LimitViewSquares + (1 * LIMIT_VIEW_FRAME_SIZE),
+    Img_LimitViewSquares + (2 * LIMIT_VIEW_FRAME_SIZE),
+    Img_LimitViewSquares + (3 * LIMIT_VIEW_FRAME_SIZE),
+    Img_LimitViewSquares + (4 * LIMIT_VIEW_FRAME_SIZE),
+    Img_LimitViewSquares + (5 * LIMIT_VIEW_FRAME_SIZE),
 };
 
 struct ProcCmd CONST_DATA sProcScr_MoveLimitViewChange[] =
@@ -301,7 +304,7 @@ void PlayerPhase_MainIdle(ProcPtr proc)
                     }
 
                     StartOrphanMenuAdjusted(&gMapMenuDef, gBmSt.cursorTarget.x - gBmSt.camera.x, 1, 0x17);
-                    sub_80832CC();
+                    Eventinfo_CondFalse_2();
 
                     Proc_Goto(proc, 9);
 
@@ -924,7 +927,7 @@ void PlayerPhase_FinishAction(ProcPtr proc)
 }
 
 //! FE8U = 0x0801D404
-void sub_801D404(void)
+void PlayerPhase_CommitActiveUnitMove(void)
 {
     if (gPlaySt.faction == FACTION_BLUE)
     {
@@ -939,7 +942,7 @@ void sub_801D404(void)
 }
 
 //! FE8U = 0x0801D434
-void sub_801D434(ProcPtr proc)
+void PlayerPhase_OpenUnitActionMenu(ProcPtr proc)
 {
     if (gActionData.unitActionType != UNIT_ACTION_TRAPPED)
     {
@@ -968,7 +971,7 @@ void PlayerPhase_ApplyUnitMovement(ProcPtr proc)
 
     if (StartAfterUnitMovedEvent() == 1)
     {
-        sub_801D434(proc);
+        PlayerPhase_OpenUnitActionMenu(proc);
         return;
     }
 
@@ -1235,7 +1238,7 @@ void PlayPhaseForceActiveUnitCanto(void)
 //! FE8U = 0x0801D89C
 void MoveLimitViewChange_OnInit(struct MoveLimitViewProc * proc)
 {
-    RegisterDataMove(gUnknown_08A02EB4, (u8 *)VRAM + 0x5080, 0x80);
+    RegisterDataMove(Img_LimitViewSquares + (5 * LIMIT_VIEW_FRAME_SIZE), (u8 *)VRAM + 0x5080, 0x80);
 
     if (!(gBmSt.gameStateBits & BM_FLAG_0))
     {
@@ -1243,7 +1246,7 @@ void MoveLimitViewChange_OnInit(struct MoveLimitViewProc * proc)
     }
     else
     {
-        RegisterDataMove(gUnknown_08A02EB4, (u8 *)VRAM + 0x5000, 0x80);
+        RegisterDataMove(Img_LimitViewSquares + (5 * LIMIT_VIEW_FRAME_SIZE), (u8 *)VRAM + 0x5000, 0x80);
         Proc_End(proc);
     }
 
@@ -1310,22 +1313,22 @@ void MoveLimitView_OnLoop(struct MoveLimitViewProc * proc)
 
     if (proc->flags & LIMITVIEW_BLUE)
     {
-        CopyToPaletteBuffer(gUnknown_08A02F34 + frame, 0x82, 0x20);
+        CopyToPaletteBuffer(Pal_LimitViewBlue + frame, 0x82, 0x20);
     }
 
     if (proc->flags & LIMITVIEW_RED)
     {
-        CopyToPaletteBuffer(gUnknown_08A02F94 + frame, 0xA2, 0x20);
+        CopyToPaletteBuffer(Pal_LimitViewRed + frame, 0xA2, 0x20);
     }
 
     if (proc->flags & LIMITVIEW_GREEN)
     {
-        CopyToPaletteBuffer(gUnknown_08A02FF4 + frame, 0xA2, 0x20);
+        CopyToPaletteBuffer(Pal_LimitViewGreen + frame, 0xA2, 0x20);
     }
 
     if (proc->flags & LIMITVIEW_UNK)
     {
-        CopyToPaletteBuffer(gUnknown_08A02F34 + frame, 0xA2, 0x20);
+        CopyToPaletteBuffer(Pal_LimitViewBlue + frame, 0xA2, 0x20);
     }
 
     return;

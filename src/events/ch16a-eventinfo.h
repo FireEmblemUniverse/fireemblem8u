@@ -1,9 +1,9 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch16a_Turn[] = {
-    TurnEventPlayer(0, EventScr_089F7558, 12)
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089F75A4, 1, 255)
-    TurnEventPlayer_(0, EventScr_089F75F0, 13, 3)
+    TurnEventPlayer(0, EventScr_Ch16A_7, 12)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ch16A_9, 1, 255)
+    TurnEventPlayer_(0, EventScr_Ch16A_10, 13, 3)
     END_MAIN
 };
 
@@ -24,8 +24,8 @@ CONST_DATA EventListScr EventListScr_Ch16a_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch16a_Misc[] = {
-    AREA(EVFLAG_TMP(11), EventScr_089F7570, 2, 0, 21, 11)
-    AREA(EVFLAG_TMP(11), EventScr_089F7570, 1, 18, 13, 22)
+    AREA(EVFLAG_TMP(11), EventScr_Ch16A_8, 2, 0, 21, 11)
+    AREA(EVFLAG_TMP(11), EventScr_Ch16A_8, 1, 18, 13, 22)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -56,11 +56,11 @@ CONST_DATA struct ChapterEventGroup Ch16EirEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch16a_UnitMove,
     .tutorialEvents                = EventListScr_Ch16a_Tutorial,
 
-    .traps            = TrapData_Event_089ED9FD,
-    .extraTrapsInHard = TrapData_Event_089EDEBE,
+    .traps            = TrapData_Event_Ch16A_0,
+    .extraTrapsInHard = TrapData_Event_Ch16A_1,
 
-    .playerUnitsInNormal = UnitDef_088BCE58,
-    .playerUnitsInHard   = UnitDef_088BCE58,
+    .playerUnitsInNormal = UnitDef_Ch15AAlly_2,
+    .playerUnitsInHard   = UnitDef_Ch15AAlly_2,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,
@@ -71,5 +71,5 @@ CONST_DATA struct ChapterEventGroup Ch16EirEvents = {
     .enemyUnitsChoice3InEncounter = NULL,
 
     .beginningSceneEvents = EventScr_Ch16a_BeginningScene,
-    .endingSceneEvents    = EventScr_089F6E40,
+    .endingSceneEvents    = EventScr_Ch16A_0,
 };

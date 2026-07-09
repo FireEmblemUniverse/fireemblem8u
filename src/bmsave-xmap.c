@@ -135,7 +135,7 @@ void ReadExtraMapInfo(void)
     gExtraMapInfo->chapter_frags = GetChapterFlagBits();
 }
 
-bool sub_80A6D1C(u8 *buf)
+bool GetExtraMapEmptyString(u8 *buf)
 {
     *buf = 0;
     return true;
@@ -162,7 +162,7 @@ void NullBmMapHidden_(void)
     gBmMapHidden = NULL;
 }
 
-struct ChapterStats *sub_80A6D4C(void)
+struct ChapterStats *GetCurrentChapterStats(void)
 {
     int time;
 

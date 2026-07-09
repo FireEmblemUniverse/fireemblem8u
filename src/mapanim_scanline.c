@@ -7,7 +7,7 @@
 EWRAM_DATA u16 gManimScanlineBufA[DISPLAY_HEIGHT * 2 * 2] = { 0 };
 EWRAM_DATA u16 * gManimScanlineBufs[2] = { NULL };
 EWRAM_DATA u16 * gManimActiveScanlineBuf = NULL;
-EWRAM_DATA u32 unused_0203e760 = 0;
+EWRAM_DATA u32 unused_MapanimScanline_0 = 0;
 
 //! FE8U = 0x08081E78
 void InitScanline(void)
@@ -24,14 +24,14 @@ void InitScanline(void)
 }
 
 //! FE8U = 0x08081EAC
-void sub_8081EAC(void)
+void SetupMapAnimScanlineWindow(void)
 {
     SetWinEnable(1, 0, 0);
     SetWin0Box(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
     SetWin0Layers(0, 0, 0, 0, 0);
     SetWOutLayers(1, 1, 1, 1, 1);
 
-    SetPrimaryHBlankHandler(sub_8081F64);
+    SetPrimaryHBlankHandler(HBlank_MapAnimWin0H);
 
     return;
 }
@@ -51,7 +51,7 @@ void MapAnimResetHBlank(void)
 }
 
 //! FE8U = 0x08081F64
-void sub_8081F64(void)
+void HBlank_MapAnimWin0H(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -71,7 +71,7 @@ void sub_8081F64(void)
 }
 
 //! FE8U = 0x08081FA8
-void HBlank_MapAnimEffect_Unk_8081FA8(void)
+void HBlank_MapAnimEffect_SineWaveWindow(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -92,7 +92,7 @@ void HBlank_MapAnimEffect_Unk_8081FA8(void)
 }
 
 //! FE8U = 0x08081FFC
-void sub_8081FFC(void)
+void HBlank_MapAnimGradientColor(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -113,7 +113,7 @@ void sub_8081FFC(void)
 }
 
 //! FE8U = 0x08082050
-void sub_8082050(void)
+void HBlank_MapAnimBldAlpha(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -133,7 +133,7 @@ void sub_8082050(void)
 }
 
 //! FE8U = 0x08082094
-void sub_8082094(void)
+void HBlank_MapAnimBldY(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -168,7 +168,7 @@ void StartManimFrameGradientScanlineEffect(u16 yTop, u16 yBottom, u16 colorArg3,
         RGB_HALVED(colorArg4, 0x1F) | RGB_HALVED(colorArg4, 0x1F << 5) | RGB_HALVED(colorArg4, 0x1F << 10));
     SwapScanlineBufs();
 
-    SetPrimaryHBlankHandler(sub_8081FFC);
+    SetPrimaryHBlankHandler(HBlank_MapAnimGradientColor);
 
     return;
 
@@ -178,7 +178,7 @@ void StartManimFrameGradientScanlineEffect(u16 yTop, u16 yBottom, u16 colorArg3,
 }
 
 //! FE8U = 0x0808218C
-void sub_808218C(int x, int y, int a, int b, const u8 * unk)
+void PrepareProfileScanlineWindow(int x, int y, int a, int b, const u8 * unk)
 {
     int var;
 
@@ -223,7 +223,7 @@ void PrepareSineWaveScanlineBuf(u16 * buf, s16 phase, s16 amplitude, s16 frequen
 }
 
 //! FE8U = 0x08082268
-void sub_8082268(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
+void PrepareSineWaveScanlineBufOffset(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
 {
     int i;
 
@@ -236,7 +236,7 @@ void sub_8082268(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
 }
 
 //! FE8U = 0x080822AC
-void sub_80822AC(u16 * buf, s16 phase, s16 amplitude, s16 frequency)
+void PrepareSineWaveScanlineBufInterleaved(u16 * buf, s16 phase, s16 amplitude, s16 frequency)
 {
     int i;
 
@@ -252,7 +252,7 @@ void sub_80822AC(u16 * buf, s16 phase, s16 amplitude, s16 frequency)
 }
 
 //! FE8U = 0x080822F0
-void sub_80822F0(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
+void PrepareSineWaveScanlineBufInterleavedOffset(u16 * buf, s16 phase, s16 amplitude, s16 frequency, int arg5)
 {
     int i;
 
@@ -430,14 +430,14 @@ struct ManimShiftingSineWaveScanlineBufProc
 };
 
 //! FE8U = 0x080825B0
-void sub_80825B0(struct ManimShiftingSineWaveScanlineBufProc * proc)
+void ManimShiftingSineWaveScanlineBuf_Init(struct ManimShiftingSineWaveScanlineBufProc * proc)
 {
     proc->phase = 0;
     return;
 }
 
 //! FE8U = 0x080825B8
-void sub_80825B8(struct ManimShiftingSineWaveScanlineBufProc * proc)
+void ManimShiftingSineWaveScanlineBuf_Loop(struct ManimShiftingSineWaveScanlineBufProc * proc)
 {
     PrepareSineWaveScanlineBuf(gManimScanlineBufs[1] + DISPLAY_HEIGHT, proc->phase++, 0x10, 8);
     SwapScanlineBufs();
@@ -445,7 +445,7 @@ void sub_80825B8(struct ManimShiftingSineWaveScanlineBufProc * proc)
 }
 
 //! FE8U = 0x080825E8
-void sub_80825E8(void)
+void PrepareHorizontalBandScanlineBuf(void)
 {
     int i;
     volatile u16 * buf;
@@ -470,13 +470,13 @@ void sub_80825E8(void)
 }
 
 //! FE8U = 0x08082644
-u16 * sub_8082644(int bufId, int scanline)
+u16 * GetScanlineBufEntry(int bufId, int scanline)
 {
     return &gManimScanlineBufs[bufId][scanline];
 }
 
 //! FE8U = 0x08082658
-void sub_8082658(u16 * buf, int x, int y, int unk)
+void MapAnimDitheredCircleScanlineCore(u16 * buf, int x, int y, int unk)
 {
     int r1;
     int r9;
@@ -515,16 +515,16 @@ void sub_8082658(u16 * buf, int x, int y, int unk)
 }
 
 //! FE8U = 0x08082730
-void sub_8082730(int x, int y, int unk)
+void UpdateMapAnimDitheredCircleScanline(int x, int y, int unk)
 {
     InitScanlineBuf(gManimScanlineBufs[1]);
-    sub_8082658(gManimScanlineBufs[1], x, y, unk);
+    MapAnimDitheredCircleScanlineCore(gManimScanlineBufs[1], x, y, unk);
     SwapScanlineBufs();
     return;
 }
 
 //! FE8U = 0x08082764
-void sub_8082764(int arg_1) {
+void PrepareFeatheredBandScanlineBuf(int arg_1) {
     int i;
     int r4;
     int ip;
@@ -583,7 +583,7 @@ void WorldFlushHBlank(void)
 }
 
 //! FE8U = 0x080828A8
-void sub_80828A8(void)
+void HBlank_MapAnimBldAlphaWorld(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -603,7 +603,7 @@ void sub_80828A8(void)
 }
 
 //! FE8U = 0x080828EC
-void sub_80828EC(void)
+void HBlank_MapAnimBg2VOfs(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -618,7 +618,7 @@ void sub_80828EC(void)
 }
 
 //! FE8U = 0x0808291C
-void sub_808291C(void)
+void PrepareInterlaceDitherScanlineBuf(void)
 {
     int i;
 
@@ -633,7 +633,7 @@ void sub_808291C(void)
 }
 
 //! FE8U = 0x0808294C
-void sub_808294C(void)
+void HBlank_MapAnimBg1OfsInterlaced(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -657,7 +657,7 @@ void sub_808294C(void)
 }
 
 //! FE8U = 0x080829A4
-void sub_80829A4(s16 * r6, s16 r1, s16 r8, s16 r3, s16 sl, s16 r4, s16 ip)
+void PrepareDistanceScaledSineWaveScanlineBuf(s16 * r6, s16 r1, s16 r8, s16 r3, s16 sl, s16 r4, s16 ip)
 {
     int r7;
 
@@ -680,7 +680,7 @@ void sub_80829A4(s16 * r6, s16 r1, s16 r8, s16 r3, s16 sl, s16 r4, s16 ip)
 }
 
 //! FE8U = 0x08082A24
-void sub_8082A24(void)
+void HBlank_ScrollBG0(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -704,7 +704,7 @@ void sub_8082A24(void)
 }
 
 //! FE8U = 0x08082A7C
-void sub_8082A7C(void)
+void HBlank_ScrollBG1(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -728,7 +728,7 @@ void sub_8082A7C(void)
 }
 
 //! FE8U = 0x08082AD4
-void sub_8082AD4(void)
+void HBlank_ScrollBG2(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -752,7 +752,7 @@ void sub_8082AD4(void)
 }
 
 //! FE8U = 0x08082B2C
-void sub_8082B2C(void)
+void HBlank_ScrollBG3(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -776,7 +776,7 @@ void sub_8082B2C(void)
 }
 
 //! FE8U = 0x08082B84
-void sub_8082B84(void)
+void HBlank_ScrollBG2WithBaseOffset(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -800,7 +800,7 @@ void sub_8082B84(void)
 }
 
 //! FE8U = 0x08082BEC
-void sub_8082BEC(void)
+void HBlank_ScrollBG1AndBG2(void)
 {
     u16 vcount = REG_VCOUNT;
 
@@ -826,7 +826,7 @@ void sub_8082BEC(void)
 }
 
 //! FE8U = 0x08082C50
-void sub_8082C50(u16 * buf, int x, int y, int arg_4, int arg_5)
+void MapAnimEllipseScanlineCore(u16 * buf, int x, int y, int arg_4, int arg_5)
 {
     int sl;
     int r8;
@@ -919,10 +919,10 @@ void sub_8082C50(u16 * buf, int x, int y, int arg_4, int arg_5)
 }
 
 //! FE8U = 0x08082E40
-void sub_8082E40(int x, int y, int c, int d)
+void UpdateMapAnimEllipseScanline(int x, int y, int c, int d)
 {
     InitScanlineBuf(gManimScanlineBufs[1]);
-    sub_8082C50(gManimScanlineBufs[1], x, y, c, d);
+    MapAnimEllipseScanlineCore(gManimScanlineBufs[1], x, y, c, d);
     SwapScanlineBufs();
     return;
 }

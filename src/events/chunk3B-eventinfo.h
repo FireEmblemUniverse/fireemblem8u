@@ -1,26 +1,26 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Unk3B_Turn[] = {
-    TurnEventPlayer(0, EventScr_089FF474, 0)
-    OpeningTurnEvent(EventScr_089FF474)
-    TurnEventPlayer(0, EventScr_089FF474, 2)
-    TurnEventPlayer(0, EventScr_089FF474, 3)
-    TurnEventPlayer(0, EventScr_089FF474, 4)
-    TurnEventPlayer(0, EventScr_089FF474, 5)
-    TurnEventPlayer(0, EventScr_089FF474, 6)
-    TurnEventPlayer(0, EventScr_089FF474, 7)
-    TurnEventPlayer(0, EventScr_089FF474, 8)
-    TurnEventPlayer(0, EventScr_089FF474, 9)
-    TurnEventPlayer(0, EventScr_089FF474, 10)
-    TurnEventPlayer(0, EventScr_089FF474, 11)
-    TurnEventPlayer(0, EventScr_089FF474, 12)
-    TurnEventPlayer(0, EventScr_089FF474, 13)
-    TurnEventPlayer(0, EventScr_089FF474, 14)
-    TurnEventPlayer(0, EventScr_089FF474, 15)
-    TurnEventPlayer(0, EventScr_089FF474, 16)
-    TurnEventPlayer(0, EventScr_089FF474, 17)
-    TurnEventPlayer(0, EventScr_089FF474, 18)
-    TurnEventPlayer(0, EventScr_089FF474, 19)
+    TurnEventPlayer(0, EventScr_Ruin_52, 0)
+    OpeningTurnEvent(EventScr_Ruin_52)
+    TurnEventPlayer(0, EventScr_Ruin_52, 2)
+    TurnEventPlayer(0, EventScr_Ruin_52, 3)
+    TurnEventPlayer(0, EventScr_Ruin_52, 4)
+    TurnEventPlayer(0, EventScr_Ruin_52, 5)
+    TurnEventPlayer(0, EventScr_Ruin_52, 6)
+    TurnEventPlayer(0, EventScr_Ruin_52, 7)
+    TurnEventPlayer(0, EventScr_Ruin_52, 8)
+    TurnEventPlayer(0, EventScr_Ruin_52, 9)
+    TurnEventPlayer(0, EventScr_Ruin_52, 10)
+    TurnEventPlayer(0, EventScr_Ruin_52, 11)
+    TurnEventPlayer(0, EventScr_Ruin_52, 12)
+    TurnEventPlayer(0, EventScr_Ruin_52, 13)
+    TurnEventPlayer(0, EventScr_Ruin_52, 14)
+    TurnEventPlayer(0, EventScr_Ruin_52, 15)
+    TurnEventPlayer(0, EventScr_Ruin_52, 16)
+    TurnEventPlayer(0, EventScr_Ruin_52, 17)
+    TurnEventPlayer(0, EventScr_Ruin_52, 18)
+    TurnEventPlayer(0, EventScr_Ruin_52, 19)
     END_MAIN
 };
 
@@ -64,11 +64,11 @@ CONST_DATA struct ChapterEventGroup AnInterestingMapEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Unk3B_UnitMove,
     .tutorialEvents                = EventListScr_Unk3B_Tutorial,
 
-    .traps            = TrapData_Event_089EDE78,
-    .extraTrapsInHard = TrapData_Event_089EDF6D,
+    .traps            = TrapData_Event_Chunk3B_0,
+    .extraTrapsInHard = TrapData_Event_Chunk3B_1,
 
-    .playerUnitsInNormal = UnitDef_088D0F5C,
-    .playerUnitsInHard   = UnitDef_088D0F5C,
+    .playerUnitsInNormal = UnitDef_MelkaenCoastMixed,
+    .playerUnitsInHard   = UnitDef_MelkaenCoastMixed,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

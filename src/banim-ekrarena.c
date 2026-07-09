@@ -24,7 +24,7 @@ int GetBattleAnimArenaFlag(void)
 }
 
 //! FE8U = 0x0805B034
-void sub_805B034(int x)
+void EkrArenaBgScroll(int x)
 {
     int x1 = x >> 3;
     int x2 = x & 7;
@@ -49,7 +49,7 @@ void PlayDeathSoundForArena(void)
 }
 
 //! FE8U = 0x0805B094
-void sub_805B094(void)
+void StopArenaBattleMusic(void)
 {
     if (GetBattleAnimArenaFlag() != 0)
     {
@@ -82,7 +82,7 @@ void ExecBattleAnimArenaExit(void)
     AnimClearAll();
     NewEkrTogiEndPROC();
 
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(MainUpdate_0);
     Proc_EndEach(ProcScr_efxStatusUnit);
 
     return;
@@ -143,7 +143,7 @@ void ekrTogiInit_LoadGfx(struct ProcEkrTogi * proc)
     LZ77UnCompVram(Img_ArenaBattleBg, (void *)0x06008000);
     LZ77UnCompWram(Tsa_ArenaBattleBg, gEkrTsaBuffer);
     EfxTmCpyExt(gEkrTsaBuffer, -1, gTmB_Banim, 66, 46, 20, 6, 0);
-    sub_805B034(0);
+    EkrArenaBgScroll(0);
 
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 

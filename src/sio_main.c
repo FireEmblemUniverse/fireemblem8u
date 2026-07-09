@@ -35,7 +35,7 @@ struct ProcCmd CONST_DATA ProcScr_SIOCON[] = {
 void SioInit(void)
 {
     SioRegisterIrq();
-    sub_8041898();
+    Sio_ResetState();
 
     gSioSt->unk_001 = 1;
     gSioSt->unk_004 = 0;
@@ -86,18 +86,18 @@ bool CheckInLinkArena(void)
     return !!(gBmSt.gameStateBits & BM_FLAG_LINKARENA);
 }
 
-void sub_8042EA8(void)
+void LinkArena_ResetUnk04(void)
 {
     gLinkArenaSt.unk_04 = -1;
 }
 
-struct ProcCmd CONST_DATA gUnknown_085A93A0[] = {
-    PROC_CALL(sub_8042EB4),
-    PROC_REPEAT(sub_8042EF0),
+struct ProcCmd CONST_DATA gSioMain_0[] = {
+    PROC_CALL(Sio_LoadingBlendPulse_Init),
+    PROC_REPEAT(Sio_LoadingBlendPulse_Loop),
     PROC_END,
 };
 
-void sub_8042EB4(struct Proc_Sio_085A93A0 * proc)
+void Sio_LoadingBlendPulse_Init(struct ProcSioLoadingBlendPulse * proc)
 {
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 1, 1);
@@ -106,7 +106,7 @@ void sub_8042EB4(struct Proc_Sio_085A93A0 * proc)
     proc->timer = 0;
 }
 
-void sub_8042EF0(struct Proc_Sio_085A93A0 * proc)
+void Sio_LoadingBlendPulse_Loop(struct ProcSioLoadingBlendPulse * proc)
 {
     int time = (++proc->timer) % 0x40;
 
@@ -121,25 +121,25 @@ void sub_8042EF0(struct Proc_Sio_085A93A0 * proc)
     SetBlendAlpha(time, 0x10 - time);
 }
 
-void sub_8042F44(void)
+void Sio_ScrollBgsParallax_Loop(void)
 {
     gLCDControlBuffer.bgoffset[BG_1].x++;
     gLCDControlBuffer.bgoffset[BG_2].x--;
 }
 
-void sub_8042F58(ProcPtr proc)
+void Sio_SyncBarrier_Loop(ProcPtr proc)
 {
     gSioSt->unk_030 = 0x1288;
     if (gSioSt->unk_1B7E != 0)
         Proc_Break(proc);
 }
 
-void sub_8042F84(void)
+void Sio_Msg89Barrier_Init(void)
 {
     gSioSt->unk_00A = 1 << gSioSt->selfId;
 }
 
-void sub_8042F98(ProcPtr proc)
+void Sio_Msg89Barrier_Loop(ProcPtr proc)
 {
     gSioMsgBuf.kind = 0x89;
     gSioMsgBuf.sender = gSioSt->selfId;

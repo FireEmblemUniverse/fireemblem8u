@@ -118,7 +118,7 @@ void ReadWorldMapPaths(struct GMapData* pGMapData, u8* pathFlags) {
     return;
 }
 
-union Unk_80A6FBC {
+union PackedWorldMapUnit {
     struct __attribute__((packed, aligned(2))) Unk_80A6FBC_pat1 {
         u8 unk0_0 : 1;
         u8 unk0_1 : 6;
@@ -131,7 +131,7 @@ union Unk_80A6FBC {
 //! FE8U = 0x080A6F50
 void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
     int i;
-    union Unk_80A6FBC unaff_r5;
+    union PackedWorldMapUnit unaff_r5;
 
     for (i = 0; i < 7; i++) {
         unaff_r5.pat1.unk0_0 = pGMapData->units[i].state & 1;
@@ -139,7 +139,7 @@ void WriteWorldMapUnits(struct GMapData* pGMapData, u16* param_2) {
         unaff_r5.pat1.unk0_7 = (pGMapData->units[i].state >> 1) & 1;
         unaff_r5.pat1.unk1 = pGMapData->units[i].id;
         {
-            union Unk_80A6FBC *ptr = &unaff_r5;
+            union PackedWorldMapUnit *ptr = &unaff_r5;
             param_2[i] = ptr->pat2;
         }
     }
@@ -152,8 +152,8 @@ void ReadWorldMapUnits(struct GMapData* param_1, u16* param_2) {
     int i;
 
     for (i = 0; i < 7; i++) {
-        union Unk_80A6FBC sp;
-        union Unk_80A6FBC *ptr = &sp;
+        union PackedWorldMapUnit sp;
+        union PackedWorldMapUnit *ptr = &sp;
 
         ptr->pat2 = param_2[i];
 
@@ -274,13 +274,13 @@ void ReadWorldMapStuff(const void* sram_src, void* dst) {
 }
 
 //! FE8U = 0x080A71E4
-void sub_80A71E4(void* rngState) {
-    sub_80BD260(&gGMData, rngState);
+void StoreGMMonsterRnState(void* rngState) {
+    GetGmRNState(&gGMData, rngState);
     return;
 }
 
 //! FE8U = 0x080A71F8
-void sub_80A71F8(void* rngState) {
-    sub_80BD270(&gGMData, rngState);
+void LoadGMMonsterRnState(void* rngState) {
+    SetGmRNState(&gGMData, rngState);
     return;
 }

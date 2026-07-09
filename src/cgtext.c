@@ -19,7 +19,7 @@ EWRAM_DATA struct CgTextSt gCgTextSt = { 0 };
 
 // clang-format off
 
-u16 CONST_DATA gSprite_08A01D88[] =
+u16 CONST_DATA gSprite_Cgtext_0[] =
 {
     6,
     OAM0_SHAPE_32x8 + OAM0_BLEND, OAM1_SIZE_32x8, OAM2_CHR(0),
@@ -30,7 +30,7 @@ u16 CONST_DATA gSprite_08A01D88[] =
     OAM0_SHAPE_32x8 + OAM0_Y(16) + OAM0_BLEND, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x14),
 };
 
-u16 CONST_DATA gSprite_08A01DAE[] =
+u16 CONST_DATA gSprite_Cgtext_1[] =
 {
     2,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0),
@@ -119,7 +119,7 @@ void CgText_OnHBlank(void)
 }
 
 //! FE8U = 0x0808EB0C
-void sub_808EB0C(struct CgTextMainProc * proc)
+void CgText_DrawNameBox(struct CgTextMainProc * proc)
 {
     struct Font font;
     struct Text th;
@@ -156,8 +156,8 @@ void sub_808EB0C(struct CgTextMainProc * proc)
         SetTextFont(NULL);
 
         ApplyPalette(Pal_Text, 0x12);
-        ApplyPalette(gUnknown_085A643C, 0x11);
-        Decompress(gUnknown_085A638C, (void *)0x06017900);
+        ApplyPalette(gParticlesFx_7, 0x11);
+        Decompress(gParticlesFx_6, (void *)0x06017900);
     }
 
     return;
@@ -190,7 +190,7 @@ void CgText_Init(struct CgTextMainProc * proc)
     proc->thIndex = 0;
     proc->unk_5e = 0;
 
-    sub_808EB0C(proc);
+    CgText_DrawNameBox(proc);
 
     if ((proc->boxWidth < 0) || (proc->boxHeight < 0))
     {
@@ -244,8 +244,8 @@ void CgText_Init(struct CgTextMainProc * proc)
         BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
     }
 
-    sub_808F3D8(proc);
-    StartParallelWorker(sub_808F5C8, proc);
+    CgText_AdjustBoxPosition(proc);
+    StartParallelWorker(CgText_Display, proc);
 
     SetTextFont(proc->pFont);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
@@ -392,7 +392,7 @@ void CgText_LoopFadeOut(struct CgTextMainProc * proc)
 }
 
 //! FE8U = 0x0808F04C
-void CgText_808F04C(struct CgTextMainProc * proc)
+void CgText_0(struct CgTextMainProc * proc)
 {
     if (!(gKeyStatusPtr->newKeys & (B_BUTTON | START_BUTTON)))
     {
@@ -413,7 +413,7 @@ void CgText_808F04C(struct CgTextMainProc * proc)
 }
 
 //! FE8U = 0x0808F084
-void CgText_808F084(struct CgTextMainProc * proc)
+void CgText_1(struct CgTextMainProc * proc)
 {
     u16 * bg = BG_GetMapBuffer(GetCgTextBg(GetCgTextFlags()));
     TileMap_FillRect(bg + (proc->y - 1) * 32, 31, proc->boxHeight + 1, 0);
@@ -425,13 +425,13 @@ void CgText_808F084(struct CgTextMainProc * proc)
 void CgText_OnEnd(struct CgTextMainProc * proc)
 {
     SetFaceDisplayBitsById(0, GetFaceDisplayBitsById(0) & ~FACE_DISP_TALK_1);
-    CgText_808F084(proc);
+    CgText_1(proc);
     SetSecondaryHBlankHandler(NULL);
     return;
 }
 
 //! FE8U = 0x0808F0EC
-void CgText_808F0EC(struct CgTextMainProc * proc)
+void CgText_2(struct CgTextMainProc * proc)
 {
     CgText_ClearSpriteText(proc);
 
@@ -470,8 +470,8 @@ PROC_LABEL(2),
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_CALL(CgText_808F0EC),
-    PROC_REPEAT(CgText_808F04C),
+    PROC_CALL(CgText_2),
+    PROC_REPEAT(CgText_0),
 
     // fallthrough
 
@@ -484,7 +484,7 @@ PROC_LABEL(0),
     PROC_CALL(CgText_InitFadeOut),
     PROC_REPEAT(CgText_LoopFadeOut),
 
-    PROC_CALL(CgText_808F084),
+    PROC_CALL(CgText_1),
     PROC_YIELD,
 
     // fallthrough
@@ -597,7 +597,7 @@ s8 CgTextExists(void)
 }
 
 //! FE8U = 0x0808F2A0
-void sub_808F2A0(void)
+void FadeOutCgText(void)
 {
     struct CgTextMainProc * proc = Proc_Find(gProcScr_CgTextMain);
 
@@ -627,7 +627,7 @@ void CgText_ClearSpriteText(struct CgTextMainProc * proc)
 }
 
 //! FE8U = 0x0808F30C
-void sub_808F30C(struct CgTextMainProc * proc)
+void CgText_ResetSpriteTextCursors(struct CgTextMainProc * proc)
 {
     int i;
 
@@ -699,7 +699,7 @@ void GetCgTextDimensions(const char * str, u8 * wOut, u8 * hOut)
 }
 
 //! FE8U = 0x0808F3D8
-void sub_808F3D8(struct CgTextMainProc * proc)
+void CgText_AdjustBoxPosition(struct CgTextMainProc * proc)
 {
     if (GetCgTextFlags() & CG_TEXT_FLAG_0)
     {
@@ -836,7 +836,7 @@ s8 DoesStringContainTact(const char * str)
 }
 
 //! FE8U = 0x0808F5C8
-void sub_808F5C8(struct CgTextMainProc * proc)
+void CgText_Display(struct CgTextMainProc * proc)
 {
     int iy;
 
@@ -872,8 +872,8 @@ void sub_808F5C8(struct CgTextMainProc * proc)
 
     if (GetCgTextFlags() & CG_TEXT_FLAG_16)
     {
-        PutSpriteExt(0, OAM1_X(x - 16), OAM0_Y(y - 24), gSprite_08A01D88, OAM2_CHR(0x3C8) + OAM2_PAL(1));
-        PutSpriteExt(0, OAM1_X(x - 8), OAM0_Y(y - 20), gSprite_08A01DAE, OAM2_CHR(0x3C0) + OAM2_PAL(2));
+        PutSpriteExt(0, OAM1_X(x - 16), OAM0_Y(y - 24), gSprite_Cgtext_0, OAM2_CHR(0x3C8) + OAM2_PAL(1));
+        PutSpriteExt(0, OAM1_X(x - 8), OAM0_Y(y - 20), gSprite_Cgtext_1, OAM2_CHR(0x3C0) + OAM2_PAL(2));
     }
 
     for (iy = 0; iy < proc->boxHeight / 2; iy++)
@@ -910,7 +910,7 @@ void sub_808F5C8(struct CgTextMainProc * proc)
 }
 
 //! FE8U = 0x0808F824
-s8 sub_808F824(int textCode)
+s8 CgText_HandleFaceBlinkCode(int textCode)
 {
     switch (textCode)
     {
@@ -939,19 +939,19 @@ s8 sub_808F824(int textCode)
             return 1;
 
         case 0x1c: // [OpenEyes]
-            sub_80064DC(0, 0);
+            SetFaceEyeControlById(0, 0);
             return 1;
 
         case 0x1d: // [CloseEyes]
-            sub_80064DC(0, 2);
+            SetFaceEyeControlById(0, 2);
             return 1;
 
         case 0x1e: // [HalfCloseEyes]
-            sub_80064DC(0, 3);
+            SetFaceEyeControlById(0, 3);
             return 1;
 
         case 0x1f: // [Wink]
-            sub_80064DC(0, 4);
+            SetFaceEyeControlById(0, 4);
             return 1;
     }
 
@@ -998,7 +998,7 @@ void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
 
     SetTextFont(parent->pFont);
 
-    switch ((u8)gUnknown_03005398)
+    switch ((u8)gUnk_80)
     {
         case 0:
             faceDisp = GetFaceDisplayBitsById(0) | FACE_DISP_TALK_1;
@@ -1212,7 +1212,7 @@ void CgTextInterpreter_Loop_Main(struct CgTextInterpreterProc * proc)
 _0808FE68:
     SetTextFont(NULL);
 
-    switch ((u8)gUnknown_03005398)
+    switch ((u8)gUnk_80)
     {
         case 0:
             SetFaceDisplayBitsById(0, faceDisp);
@@ -1231,7 +1231,7 @@ _0808FE68:
 }
 
 //! FE8U = 0x0808FEA4
-void sub_808FEA4(int * src, int x, int y)
+void CgText_ScrollVramUp(int * src, int x, int y)
 {
     int i;
     int ix;
@@ -1271,26 +1271,26 @@ void sub_808FEA4(int * src, int x, int y)
 }
 
 //! FE8U = 0x0808FF10
-void CgTextInterpreter_808FF10(struct CgTextInterpreterProc * proc)
+void CgTextInterpreter_0(struct CgTextInterpreterProc * proc)
 {
     proc->unk_4c = 0;
     return;
 }
 
 //! FE8U = 0x0808FF18
-void CgTextInterpreter_808FF18(struct CgTextInterpreterProc * proc)
+void CgTextInterpreter_1(struct CgTextInterpreterProc * proc)
 {
     struct CgTextMainProc * parent = proc->proc_parent;
 
     int a = (parent->thIndex + 1) * 2;
 
-    sub_808FEA4(parent->vram, parent->boxWidth, a);
+    CgText_ScrollVramUp(parent->vram, parent->boxWidth, a);
 
     proc->unk_4c++;
 
     if (proc->unk_4c == parent->unk_5f * 16)
     {
-        sub_808F30C(parent);
+        CgText_ResetSpriteTextCursors(parent);
 
         parent->thIndex -= parent->unk_5f - 1;
 
@@ -1307,7 +1307,7 @@ void CgTextInterpreter_808FF18(struct CgTextInterpreterProc * proc)
 }
 
 //! FE8U = 0x0808FF9C
-void CgTextInterpreter_808FF9C(struct CgTextInterpreterProc * proc)
+void CgTextInterpreter_2(struct CgTextInterpreterProc * proc)
 {
     struct CgTextMainProc * parent = proc->proc_parent;
 
@@ -1334,13 +1334,13 @@ PROC_LABEL(0),
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(CgTextInterpreter_808FF10),
-    PROC_REPEAT(CgTextInterpreter_808FF18),
+    PROC_CALL(CgTextInterpreter_0),
+    PROC_REPEAT(CgTextInterpreter_1),
 
     PROC_GOTO(0),
 
 PROC_LABEL(2),
-    PROC_CALL(CgTextInterpreter_808FF9C),
+    PROC_CALL(CgTextInterpreter_2),
 
     PROC_GOTO(0),
 
@@ -1366,7 +1366,7 @@ void EndCgTextInterpreter(void)
 }
 
 //! FE8U = 0x0808FFFC
-s8 sub_808FFFC(void)
+s8 IsCgTextBlocking(void)
 {
     if (GetCgTextFlags() & CG_TEXT_FLAG_2)
     {

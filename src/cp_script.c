@@ -635,12 +635,12 @@ void AiScriptCmd_17_DoEscape(u8* pc) {
 }
 
 //! FE8U = 0x0803CF60
-int sub_803CF60(int x, int y) {
+int AiGetAttackPositionScore(int x, int y) {
     return ((AiGetTerrainCombatPositionScoreComponent(x, y) + AiGetFriendZoneCombatPositionScoreComponent(x, y)) - gMapMovementSigned[y][x] - gBmMapOther[y][x] / 8) + 0x7FFFFFFF;
 }
 
 //! FE8U = 0x0803CFB4
-s8 sub_803CFB4(int x, int y, struct Vec2* out, u8* itemSlotOut) {
+s8 AiFindBestAttackPositionAgainstTarget(int x, int y, struct Vec2* out, u8* itemSlotOut) {
     int slot;
 
     int xOut = -1;
@@ -683,7 +683,7 @@ s8 sub_803CFB4(int x, int y, struct Vec2* out, u8* itemSlotOut) {
                     continue;
                 }
 
-                current = GetItemMight(item) + sub_803CF60(ix, iy);
+                current = GetItemMight(item) + AiGetAttackPositionScore(ix, iy);
 
                 if (current > best) {
                     xOut = ix;
@@ -707,7 +707,7 @@ s8 sub_803CFB4(int x, int y, struct Vec2* out, u8* itemSlotOut) {
 }
 
 //! FE8U = 0x0803D124
-s8 sub_803D124(const u8* terrainList, u32 flags, struct Vec2* out) {
+s8 AiFindClosestReachableTerrainPosition(const u8* terrainList, u32 flags, struct Vec2* out) {
     int ix;
     int iy;
 
@@ -759,10 +759,10 @@ void AiScriptCmd_18_TryAttackSnagWall(u8* pc) {
     struct Vec2 posB;
     u8 slot;
 
-    sub_8041020(gActiveUnit);
+    GenerateExtendedMovementMapOnRangeNeglectWallSnag(gActiveUnit);
 
-    if (sub_803D124(gUnknown_085A814C, 0, &posA) == 1) {
-        if (sub_803CFB4(posA.x, posA.y, &posB, &slot) == 1) {
+    if (AiFindClosestReachableTerrainPosition(gCpData_24, 0, &posA) == 1) {
+        if (AiFindBestAttackPositionAgainstTarget(posA.x, posA.y, &posB, &slot) == 1) {
 
             struct Trap* trap = GetTrapAt(posA.x, posA.y);
 
@@ -849,12 +849,12 @@ void AiDoBerserkMove(void) {
 }
 
 //! FE8U = 0x0803D43C
-s8 sub_803D43C(void) {
+s8 CpScript_CondTrue_0(void) {
     return 1;
 }
 
 //! FE8U = 0x0803D440
-s8 sub_803D440(u8* arg) {
+s8 CpScript_CondTrueReadClass(u8* arg) {
     AiGetClassRank(*arg);
 
     return 1;

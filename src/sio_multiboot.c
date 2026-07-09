@@ -151,7 +151,7 @@ output_burst:
                 j = REG_SIOMULTI(i);
                 if ((j >> 8) == MULTIBOOT_CLIENT_INFO)
                 {
-                    gUnknown_03001864[i - 1] = j;
+                    gUnk_50[i - 1] = j;
                     j &= 0xff;
                     if (j == (1 << i))
                     {
@@ -174,7 +174,7 @@ output_burst:
                 if (mp->probe_target_bit & (1 << i))
                 {
                     j = REG_SIOMULTI(i);
-                    if (j != gUnknown_03001864[i - 1])
+                    if (j != gUnk_50[i - 1])
                     {
                         mp->probe_target_bit ^= 1 << i;
                     }
@@ -195,7 +195,7 @@ output_burst:
                         MultiBootInit(mp);
                         return MULTIBOOT_ERROR_NO_DLREADY;
                     }
-                    if (j == gUnknown_03001864[i - 1])
+                    if (j == gUnk_50[i - 1])
                     {
                         k = 0;
                     }

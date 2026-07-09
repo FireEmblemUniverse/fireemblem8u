@@ -69,9 +69,10 @@ fail:
 	FATAL_ERROR("Fatal error while decompressing LZ file.\n");
 }
 
-unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize)
+unsigned char *LZCompress(unsigned char *src, int srcSize, int *compressedSize, int minDistance)
 {
-	const int minDistance = 2; // for compatibility with LZ77UnCompVram()
+	// minDistance defaults to 2 for compatibility with LZ77UnCompVram(); some
+	// original FE8 assets were compressed with a larger minimum match distance.
 
 	if (srcSize <= 0)
 		goto fail;

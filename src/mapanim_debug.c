@@ -191,7 +191,7 @@ void MADebug_InitScreen(struct MADebugProc* proc)
 
     for (i = 0; i < 10; ++i) {
         for (j = 0; j < 2; ++j) {
-            InitTextDb(&pMADebugInfoData->infos[j].text[i], gUnknown_089A3798[i].a);
+            InitTextDb(&pMADebugInfoData->infos[j].text[i], gMapanimDebug_0[i].a);
 
             if (j == proc->unk64 && i == proc->unk66)
                 MADebug_FormatPrint(j, i, TEXT_COLOR_SYSTEM_WHITE);
@@ -221,23 +221,23 @@ void MADebug_MainLoop(struct MADebugProc* proc)
     if (gKeyStatusPtr->repeatedKeys & A_BUTTON) {
         pMADebugInfoData->infos[proc->unk64].data[proc->unk66] += inc;
 
-        if (pMADebugInfoData->infos[proc->unk64].data[proc->unk66] >= gUnknown_089A3798[proc->unk66].g)
+        if (pMADebugInfoData->infos[proc->unk64].data[proc->unk66] >= gMapanimDebug_0[proc->unk66].g)
         {
             if (inc == 1)
-                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].f;
+                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gMapanimDebug_0[proc->unk66].f;
             else
-                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].g - 1;
+                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gMapanimDebug_0[proc->unk66].g - 1;
         }
     }
 
     if (gKeyStatusPtr->repeatedKeys & B_BUTTON) {
         pMADebugInfoData->infos[proc->unk64].data[proc->unk66] -= inc;
 
-        if (pMADebugInfoData->infos[proc->unk64].data[proc->unk66] < gUnknown_089A3798[proc->unk66].f) {
+        if (pMADebugInfoData->infos[proc->unk64].data[proc->unk66] < gMapanimDebug_0[proc->unk66].f) {
             if (inc == 1)
-                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].g - 1;
+                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gMapanimDebug_0[proc->unk66].g - 1;
             else
-                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gUnknown_089A3798[proc->unk66].f;
+                pMADebugInfoData->infos[proc->unk64].data[proc->unk66] = gMapanimDebug_0[proc->unk66].f;
         }
     }
 
@@ -245,21 +245,21 @@ void MADebug_MainLoop(struct MADebugProc* proc)
         if (proc->unk66 != 2)
             proc->unk64 = 1 - proc->unk64;
 
-        proc->unk66 = gUnknown_089A3798[proc->unk66].d;
+        proc->unk66 = gMapanimDebug_0[proc->unk66].d;
     }
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
         if (proc->unk66 != 1)
             proc->unk64 = 1 - proc->unk64;
 
-        proc->unk66 = gUnknown_089A3798[proc->unk66].e;
+        proc->unk66 = gMapanimDebug_0[proc->unk66].e;
     }
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_UP)
-        proc->unk66 = gUnknown_089A3798[proc->unk66].b;
+        proc->unk66 = gMapanimDebug_0[proc->unk66].b;
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_DOWN)
-        proc->unk66 = gUnknown_089A3798[proc->unk66].c;
+        proc->unk66 = gMapanimDebug_0[proc->unk66].c;
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_ANY)
         MADebug_FormatPrint(oldActor, oldField, TEXT_COLOR_SYSTEM_GRAY);
@@ -383,7 +383,7 @@ CONST_DATA char *MADebugStrings1[] = {
     "空ぶり"
 };
 
-CONST_DATA struct Unk089A3798 gUnknown_089A3798[] = {
+CONST_DATA struct Unk089A3798 gMapanimDebug_0[] = {
     {9,  9, 1, 0, 0, 1, 1},
     {2,  0, 3, 2, 2, 0, 0x20},
     {2,  0, 3, 1, 1, 0, 0x20},

@@ -105,7 +105,7 @@ const struct OpSubtitleEnt gOpSubtitleGfxLut[] = {
 };
 
 //! FE8U = 0x080C488C
-void sub_80C488C(int bg) {
+void OpSubtitle_InitBgFromCommGfx(int bg) {
     int offset = GetBackgroundTileDataOffset(bg);
 
     Decompress(Img_CommGameBgScreen, (void*)(offset + VRAM));
@@ -122,7 +122,7 @@ void sub_80C488C(int bg) {
 }
 
 //! FE8U = 0x080C48F0
-void sub_80C48F0(int bg) {
+void OpSubtitle_FillBgIncrementalTiles(int bg) {
     u16* mapBuf;
     int tmp;
     int i;
@@ -205,7 +205,7 @@ void Subtitle_LightFlareFx_Init(struct OpSubtitleProc* proc) {
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
-    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
+    BlitU8TileMapData(gBG2TilemapBuffer, Tsa_ChapterIntroLensFlare, 0, 5);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -277,7 +277,7 @@ struct ProcCmd CONST_DATA gProcScr_OpSubtitle_LightFlareFx[] = {
     PROC_END,
 };
 
-void sub_80C4BB4(u16* src, u16* dst, int count, int coeff) {
+void OpSubtitle_FadePalette(u16* src, u16* dst, int count, int coeff) {
     u16* srcIt;
     u16* dstIt;
     int i;
@@ -315,7 +315,7 @@ void OpSubtitle_AwaitTimer2a(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4C60
-void sub_80C4C60(struct OpSubtitleProc* proc) {
+void OpSubtitle_LoadSlideToBg0(struct OpSubtitleProc* proc) {
 
     Decompress(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
 
@@ -333,7 +333,7 @@ void sub_80C4C60(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4CD0
-void sub_80C4CD0(struct OpSubtitleProc* proc) {
+void OpSubtitle_LoadSlideToBg0AndBg1(struct OpSubtitleProc* proc) {
 
     Decompress(gOpSubtitleGfxLut[proc->index].gfx, (void*)0x06001000);
 
@@ -352,7 +352,7 @@ void sub_80C4CD0(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4D54
-void sub_80C4D54(int index) {
+void OpSubtitle_LoadTitleSlide(int index) {
 
     Decompress(gOpSubtitleGfxLut[index].gfx, (void*)0x06005000);
 
@@ -366,14 +366,14 @@ void sub_80C4D54(int index) {
 }
 
 //! FE8U = 0x080C4DA0
-void sub_80C4DA0(struct OpSubtitleProc* proc) {
+void OpSubtitle_FadeInSlide_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
         int coeff = _DivArm1(proc->timer_2c, 80, 0);
 
-        sub_80C4BB4(
+        OpSubtitle_FadePalette(
             gPal_OpSubtitle,
             PAL_BG(3),
             16,
@@ -396,14 +396,14 @@ void sub_80C4DA0(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4E18
-void sub_80C4E18(struct OpSubtitleProc* proc) {
+void OpSubtitle_FadeOutSlideAndAdvance_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
         int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
-        sub_80C4BB4(
+        OpSubtitle_FadePalette(
             gPal_OpSubtitle,
             PAL_BG(3),
             16,
@@ -438,14 +438,14 @@ void sub_80C4E18(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4EC4
-void sub_80C4EC4(struct OpSubtitleProc* proc) {
+void OpSubtitle_FadeOutSlideToTitle_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
     if (proc->timer_2c < 80) {
         int coeff = 0x1000 - _DivArm1(proc->timer_2c, 80, 0);
 
-        sub_80C4BB4(
+        OpSubtitle_FadePalette(
             gPal_OpSubtitle,
             PAL_BG(3),
             16,
@@ -477,7 +477,7 @@ void sub_80C4EC4(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C4F60
-void sub_80C4F60(struct OpSubtitleProc* proc) {
+void OpSubtitle_BlendFadeInSlide_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
@@ -509,7 +509,7 @@ void sub_80C4F60(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C501C
-void sub_80C501C(struct OpSubtitleProc* proc) {
+void OpSubtitle_BlendFadeOutSlide_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
@@ -538,12 +538,12 @@ void sub_80C501C(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C50A0
-void sub_80C50A0(struct OpSubtitleProc* proc) {
-    sub_80C488C(1);
+void OpSubtitle_SetupScrollTextBgs(struct OpSubtitleProc* proc) {
+    OpSubtitle_InitBgFromCommGfx(1);
 
     CpuFastFill(0, PAL_BG(0xF), 0x20);
 
-    sub_80C48F0(1);
+    OpSubtitle_FillBgIncrementalTiles(1);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
@@ -560,7 +560,7 @@ void sub_80C50A0(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C5104
-void sub_80C5104(struct OpSubtitleProc* proc) {
+void OpSubtitle_FadeInScrollTextPal_Loop(struct OpSubtitleProc* proc) {
 
     if (proc->timer_2c == 0) {
         gLCDControlBuffer.dispcnt.bg0_on = 1;
@@ -575,14 +575,14 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
     if (proc->timer_2c < 46) {
         int coeff = _DivArm1(proc->timer_2c, 46, 0);
 
-        sub_80C4BB4(
-            Pal_08B1756C,
+        OpSubtitle_FadePalette(
+            Pal_OpSubtitleScrollText,
             PAL_BG(0xF),
             16,
             coeff
         );
     } else {
-        ApplyPalette(Pal_08B1756C, 0xF);
+        ApplyPalette(Pal_OpSubtitleScrollText, 0xF);
 
         Proc_Break(proc);
 
@@ -598,8 +598,8 @@ void sub_80C5104(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C51A8
-void sub_80C51A8(void) {
-    sub_80C4D54(2);
+void OpSubtitle_ReloadTitleSlide(void) {
+    OpSubtitle_LoadTitleSlide(2);
 
     ApplyPalette(gPal_OpSubtitle, 3);
     EnablePaletteSync();
@@ -607,17 +607,17 @@ void sub_80C51A8(void) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_08AA2184[] = {
+struct ProcCmd CONST_DATA gProcScr_Opsubtitle_0[] = {
     PROC_SLEEP(0),
 
     PROC_SLEEP(36),
 
-    PROC_CALL(sub_80C51A8),
+    PROC_CALL(OpSubtitle_ReloadTitleSlide),
 
     PROC_END,
 };
 
-u16 CONST_DATA gUnknown_08AA21A4[] = {
+u16 CONST_DATA gOpsubtitle_0[] = {
     0x0000, 0x6000, 0,
     0x0000, 0x6800, 0,
     0x0000, 0x7000, 0,
@@ -634,7 +634,7 @@ void OpSubtitle_SetupBackgrounds(void) {
     memset(&gLCDControlBuffer.bg2cnt, 0, 2);
     memset(&gLCDControlBuffer.bg3cnt, 0, 2);
 
-    bgConfig = gUnknown_08AA21A4;
+    bgConfig = gOpsubtitle_0;
 
     for (bg = 0; bg < 4; bg++) {
         SetBackgroundTileDataOffset(bg, *bgConfig++);
@@ -648,7 +648,7 @@ void OpSubtitle_SetupBackgrounds(void) {
 }
 
 //! FE8U = 0x080C5218
-void sub_80C5218(struct OpSubtitleProc* proc) {
+void OpSubtitle_SetupTitleBgs(struct OpSubtitleProc* proc) {
     OpSubtitle_SetupBackgrounds();
 
     gLCDControlBuffer.dispcnt.mode = 0;
@@ -671,15 +671,15 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
     BG_SetPosition(2, 0, 0);
     BG_SetPosition(3, 0, 0);
 
-    sub_80C488C(3);
-    sub_80C48F0(3);
+    OpSubtitle_InitBgFromCommGfx(3);
+    OpSubtitle_FillBgIncrementalTiles(3);
 
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
-    sub_80C4D54(2);
+    OpSubtitle_LoadTitleSlide(2);
 
     gLCDControlBuffer.dispcnt.bg0_on = 1;
     gLCDControlBuffer.dispcnt.bg1_on = 0;
@@ -694,7 +694,7 @@ void sub_80C5218(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C5328
-void sub_80C5328(void) {
+void OpSubtitle_ClearTileAndDisableTitleBg2(void) {
     CpuFastFill(0, (void*)VRAM, 0x20);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
@@ -709,23 +709,23 @@ void sub_80C5328(void) {
 }
 
 //! FE8U = 0x080C5370
-void sub_80C5370(struct OpSubtitleProc* proc) {
+void OpSubtitle_BackupPalette(struct OpSubtitleProc* proc) {
     proc->timer_2c = 0;
-    CpuFastCopy(gPaletteBuffer, gUnk_OpSubtitle_0201CDD4, 0x200);
+    CpuFastCopy(gPaletteBuffer, gUnk_OpSubtitle_0, 0x200);
 
     return;
 }
 
 //! FE8U = 0x080C538C
-void sub_80C538C(struct OpSubtitleProc* proc) {
+void OpSubtitle_FadeOutWholePalette_Loop(struct OpSubtitleProc* proc) {
 
     proc->timer_2c++;
 
     if (proc->timer_2c < 60) {
         int coeff = 0x1000 - _DivArm1(proc->timer_2c, 60, 0);
 
-        sub_80C4BB4(
-            gUnk_OpSubtitle_0201CDD4,
+        OpSubtitle_FadePalette(
+            gUnk_OpSubtitle_0,
             gPaletteBuffer,
             0x200,
             coeff
@@ -747,14 +747,14 @@ void sub_80C538C(struct OpSubtitleProc* proc) {
 }
 
 //! FE8U = 0x080C5400
-void sub_80C5400(void) {
+void OpSubtitle_FadeOutBgm(void) {
     Sound_FadeOutBGM(4);
 
     return;
 }
 
 //! FE8U = 0x080C540C
-void sub_80C540C(void) {
+void OpSubtitle_ResetBg1Position(void) {
     BG_SetPosition(1, 0, 0);
 
     return;
@@ -773,39 +773,39 @@ struct ProcCmd CONST_DATA gProcScr_OpSubtitle[] = {
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
 PROC_LABEL(0), // loop used for the first two "slides"
-    PROC_CALL(sub_80C4C60),
-    PROC_REPEAT(sub_80C4DA0),
+    PROC_CALL(OpSubtitle_LoadSlideToBg0),
+    PROC_REPEAT(OpSubtitle_FadeInSlide_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_REPEAT(sub_80C4E18),
+    PROC_REPEAT(OpSubtitle_FadeOutSlideAndAdvance_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
     PROC_GOTO(0),
 
 PROC_LABEL(1),
     PROC_START_CHILD(gProcScr_OpSubtitle_LightFlareFx),
-    PROC_START_CHILD(gProcScr_08AA2184),
+    PROC_START_CHILD(gProcScr_Opsubtitle_0),
 
-    PROC_CALL(sub_80C50A0),
+    PROC_CALL(OpSubtitle_SetupScrollTextBgs),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_REPEAT(sub_80C5104),
-    PROC_CALL(sub_80C5218),
+    PROC_REPEAT(OpSubtitle_FadeInScrollTextPal_Loop),
+    PROC_CALL(OpSubtitle_SetupTitleBgs),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_REPEAT(sub_80C501C),
+    PROC_REPEAT(OpSubtitle_BlendFadeOutSlide_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_CALL(sub_80C5328),
+    PROC_CALL(OpSubtitle_ClearTileAndDisableTitleBg2),
 
     // fallthrough
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80C4CD0),
-    PROC_REPEAT(sub_80C4F60),
+    PROC_CALL(OpSubtitle_LoadSlideToBg0AndBg1),
+    PROC_REPEAT(OpSubtitle_BlendFadeInSlide_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_REPEAT(sub_80C501C),
+    PROC_REPEAT(OpSubtitle_BlendFadeOutSlide_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
     PROC_GOTO(2),
@@ -813,24 +813,24 @@ PROC_LABEL(2),
 PROC_LABEL(4),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_CALL(sub_80C5370),
-    PROC_REPEAT(sub_80C538C),
+    PROC_CALL(OpSubtitle_BackupPalette),
+    PROC_REPEAT(OpSubtitle_FadeOutWholePalette_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_CALL(sub_80C4C60),
-    PROC_REPEAT(sub_80C4DA0),
+    PROC_CALL(OpSubtitle_LoadSlideToBg0),
+    PROC_REPEAT(OpSubtitle_FadeInSlide_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
-    PROC_REPEAT(sub_80C4EC4),
+    PROC_REPEAT(OpSubtitle_FadeOutSlideToTitle_Loop),
     PROC_REPEAT(OpSubtitle_AwaitTimer2a),
 
     // fallthrough
 
 PROC_LABEL(5),
     PROC_END_EACH(gProcScr_OpSubtitle_LightFlareFx),
-    PROC_END_EACH(gProcScr_08AA2184),
+    PROC_END_EACH(gProcScr_Opsubtitle_0),
 
-    PROC_CALL(sub_80C5400),
+    PROC_CALL(OpSubtitle_FadeOutBgm),
 
     PROC_CALL(StartSlowFadeToBlack),
     PROC_REPEAT(WaitForFade),
@@ -840,7 +840,7 @@ PROC_LABEL(5),
 
 PROC_LABEL(6), // ended due to Start Button press
     PROC_END_EACH(gProcScr_OpSubtitle_LightFlareFx),
-    PROC_END_EACH(gProcScr_08AA2184),
+    PROC_END_EACH(gProcScr_Opsubtitle_0),
 
     PROC_CALL(StartFastFadeToBlack),
     PROC_REPEAT(WaitForFade),
@@ -850,7 +850,7 @@ PROC_LABEL(6), // ended due to Start Button press
     PROC_GOTO(7),
 
 PROC_LABEL(7),
-    PROC_CALL(sub_80C540C),
+    PROC_CALL(OpSubtitle_ResetBg1Position),
 
     PROC_SLEEP(1),
 

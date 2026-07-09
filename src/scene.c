@@ -203,10 +203,10 @@ struct ProcCmd CONST_DATA ProcScr_TalkSpriteShiftClear[] =
 {
     PROC_MARK(PROC_MARK_TALK),
 
-    PROC_CALL(sub_80080D0),
+    PROC_CALL(TalkSpriteShiftClear_OnInit),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8008108),
+    PROC_CALL(TalkSpriteShiftClear_ClearLine),
     PROC_SLEEP(1),
 
     PROC_END,
@@ -268,18 +268,18 @@ struct ProcCmd CONST_DATA gProcScr_TalkPutSpriteText_Unused[] =
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_0859160C[] =
+struct ProcCmd CONST_DATA ProcScr_Scene_0[] =
 {
-    PROC_SET_END_CB(sub_8008F54),
-    PROC_WHILE(sub_8008F3C),
+    PROC_SET_END_CB(SpriteTextScroll_OnEnd),
+    PROC_WHILE(SpriteTextScroll_BlockWhileActive),
 
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA ProcScr_08591624[] =
+struct ProcCmd CONST_DATA ProcScr_Scene_1[] =
 {
-    PROC_CALL(sub_8008FAC),
-    PROC_REPEAT(sub_8008FB4),
+    PROC_CALL(SpriteTextScroll_OnInit),
+    PROC_REPEAT(SpriteTextScroll_OnIdle),
 
     PROC_END,
 };
@@ -339,7 +339,7 @@ void InitSpriteTalk(int chr, int lines, int palId) {
     SetTextFont(&sTalkFont);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    ApplyPalette(gUnknown_0859EF20, palId + 0x10);
+    ApplyPalette(Pal_TalkText, palId + 0x10);
 
     PAL_OBJ_COLOR(palId, 4) = RGB(7, 18, 28);
     PAL_OBJ_COLOR(palId, 14) = RGB(14, 13, 12);
@@ -359,7 +359,7 @@ void InitSpriteTalk(int chr, int lines, int palId) {
 }
 
 //! FE8U = 0x08006964
-void sub_8006964(void) {
+void ApplyTalkTextPalette(void) {
     ApplyPalette(Pal_Text, 2);
     return;
 }
@@ -449,7 +449,7 @@ void SetTalkFlag(int flag) {
 }
 
 //! FE8U = 0x08006ABC
-void sub_8006ABC(void(*func)(ProcPtr)) {
+void SetTalkCallback(void(*func)(ProcPtr)) {
     sTalkState->unk38 = func;
     return;
 }
@@ -697,7 +697,7 @@ void ResumeTalk(void) {
 }
 
 //! FE8U = 0x08006F00
-void sub_8006F00(void) {
+void ToggleTalkTextRed(void) {
     int i;
 
     if (sTalkState->printColor == 1) {
@@ -1007,7 +1007,7 @@ int TalkInterpret(ProcPtr proc) {
 
                 case 0x21: // [ToggleRed]
                     // _08007658
-                    sub_8006F00();
+                    ToggleTalkTextRed();
                     sTalkState->str++;
                     return TalkInterpret(proc);
 
@@ -1125,25 +1125,25 @@ int TalkInterpret(ProcPtr proc) {
                 case 0x1C: // [OpenEyes]
                     // _080077CC
                     sTalkState->str++;
-                    sub_80064D4(sTalkState->faces[sTalkState->activeFaceSlot], 0);
+                    SetFaceEyeControl(sTalkState->faces[sTalkState->activeFaceSlot], 0);
                     return 3;
 
                 case 0x1D: // [CloseEyes]
                     // _080077E2
                     sTalkState->str++;
-                    sub_80064D4(sTalkState->faces[sTalkState->activeFaceSlot], 2);
+                    SetFaceEyeControl(sTalkState->faces[sTalkState->activeFaceSlot], 2);
                     return 3;
 
                 case 0x1E: // [HalfCloseEyes]
                     // _080077F8
                     sTalkState->str++;
-                    sub_80064D4(sTalkState->faces[sTalkState->activeFaceSlot], 3);
+                    SetFaceEyeControl(sTalkState->faces[sTalkState->activeFaceSlot], 3);
                     return 3;
 
                 case 0x1F: // [Wink]
                     // _0800780E
                     sTalkState->str++;
-                    sub_80064D4(sTalkState->faces[sTalkState->activeFaceSlot], 4);
+                    SetFaceEyeControl(sTalkState->faces[sTalkState->activeFaceSlot], 4);
                     return 3;
 
                 default:
@@ -1195,7 +1195,7 @@ void TalkLoadFace(ProcPtr proc) {
     }
 
     if (sTalkState->faces[sTalkState->activeFaceSlot] != NULL) {
-        sub_80066E0(sTalkState->faces[sTalkState->activeFaceSlot], faceId);
+        StartFaceChange(sTalkState->faces[sTalkState->activeFaceSlot], faceId);
         return;
     }
 
@@ -1418,7 +1418,7 @@ void TalkWaitForInput_OnIdle(struct Proc* proc) {
 }
 
 //! FE8U = 0x08007CD4
-void sub_8007CD4(void) {
+void Talk_Nop(void) {
     return;
 }
 
@@ -1621,18 +1621,18 @@ void TalkShiftClear_OnIdle(struct Proc* proc) {
 }
 
 //! FE8U = 0x080080D0
-void sub_80080D0(ProcPtr proc) {
+void TalkSpriteShiftClear_OnInit(ProcPtr proc) {
     if (CheckTalkFlag(TALK_FLAG_7)) {
-        sub_8008F64(0x200, 0x1c, 0, proc);
+        StartSpriteTextScroll(0x200, 0x1c, 0, proc);
     } else {
-        sub_8008F64(0x200, 0x19, 0x44444444, proc);
+        StartSpriteTextScroll(0x200, 0x19, 0x44444444, proc);
     }
 
     return;
 }
 
 //! FE8U = 0x08008108
-void sub_8008108(void) {
+void TalkSpriteShiftClear_ClearLine(void) {
     sTalkState->lineActive--;
 
     if (CheckTalkFlag(TALK_FLAG_7)) {
@@ -2451,7 +2451,7 @@ bool GetZero(void) {
 }
 
 //! FE8U = 0x08008F1C
-void sub_8008F1C(void) {
+void TalkDebugNop(void) {
     // Maybe "StartTalkDebug" in FE6
     return;
 }
@@ -2466,8 +2466,8 @@ void TalkBgSync(int bg) {
 }
 
 //! FE8U = 0x08008F3C
-bool sub_8008F3C(void) {
-    if (Proc_Find(ProcScr_08591624))
+bool SpriteTextScroll_BlockWhileActive(void) {
+    if (Proc_Find(ProcScr_Scene_1))
         return true;
 
 #if BUGFIX
@@ -2476,34 +2476,34 @@ bool sub_8008F3C(void) {
 }
 
 //! FE8U = 0x08008F54
-void sub_8008F54(void)
+void SpriteTextScroll_OnEnd(void)
 {
-    Proc_EndEach(ProcScr_08591624);
+    Proc_EndEach(ProcScr_Scene_1);
     return;
 }
 
 //! FE8U = 0x08008F64
-void sub_8008F64(int chr, int b, int c, ProcPtr parent)
+void StartSpriteTextScroll(int chr, int b, int c, ProcPtr parent)
 {
-    struct TalkDebugProc * proc = Proc_Start(ProcScr_08591624, PROC_TREE_VSYNC);
+    struct TalkDebugProc * proc = Proc_Start(ProcScr_Scene_1, PROC_TREE_VSYNC);
 
     proc->unk_4c = (0x3FF & chr) * CHR_SIZE + 0x06010000;
     proc->unk_54 = b;
     proc->unk_58 = c;
-    Proc_StartBlocking(ProcScr_0859160C, parent);
+    Proc_StartBlocking(ProcScr_Scene_0, parent);
 
     return;
 }
 
 //! FE8U = 0x08008FAC
-void sub_8008FAC(struct TalkDebugProc * proc)
+void SpriteTextScroll_OnInit(struct TalkDebugProc * proc)
 {
     proc->unk_64 = 0;
     return;
 }
 
 //! FE8U = 0x08008FB4
-void sub_8008FB4(struct TalkDebugProc * proc)
+void SpriteTextScroll_OnIdle(struct TalkDebugProc * proc)
 {
     int i;
     int j;
@@ -2546,7 +2546,7 @@ void sub_8008FB4(struct TalkDebugProc * proc)
 // The functions below seem to be unrelated to the dialog system
 
 //! FE8U = 0x08009038
-void nullsub_15(ProcPtr proc, int label)
+void Nop_Scene_0(ProcPtr proc, int label)
 {
     // "EventGotoLabel" from FE6 (and possibly FE7)
     return;

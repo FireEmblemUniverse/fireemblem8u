@@ -29,67 +29,67 @@ CONST_DATA u16 Obj_OpAnimEphEirikaName[] = {
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(0x40), OAM2_CHR(0x200 / 0x20)
 };
 
-CONST_DATA u16 Obj_08AA6C0E[] = {
+CONST_DATA u16 Obj_Opanimfx_0[] = {
     3,
     0x4000, 0x8000, 0x0000,
     0x0000, 0x4020, 0x0008,
     0x8000, 0x0030, 0x000C
 };
 
-CONST_DATA u16 Obj_08AA6C22[] = {
+CONST_DATA u16 Obj_Opanimfx_1[] = {
     3,
     0x4000, 0xC000, 0x0000,
     0x4020, 0x4000, 0x0020,
     0x4020, 0x4020, 0x0024
 };
 
-CONST_DATA u16 Obj_08AA6C36[] = {
+CONST_DATA u16 Obj_Opanimfx_2[] = {
     3,
     0x4000, 0xD000, 0x0000,
     0x4020, 0x5000, 0x0024,
     0x4020, 0x5020, 0x0020
 };
 
-CONST_DATA u16 Obj_08AA6C4A[] = {
+CONST_DATA u16 Obj_Opanimfx_3[] = {
     2,
     0x0000, 0x8000, 0x0000,
     0x8000, 0x8020, 0x0010
 };
 
-CONST_DATA u16 Obj_08AA6C58[] = {
+CONST_DATA u16 Obj_Opanimfx_4[] = {
     2,
     0x8000, 0x9000, 0x0010,
     0x0000, 0x9010, 0x0000
 };
 
-CONST_DATA u16 Obj_08AA6C66[] = {
+CONST_DATA u16 Obj_Opanimfx_5[] = {
     2,
     0x4000, 0x8000, 0x0000,
     0x4010, 0x4000, 0x0008
 };
 
-CONST_DATA u16 Obj_08AA6C74[] = {
+CONST_DATA u16 Obj_Opanimfx_6[] = {
     2,
     0x4000, 0x9000, 0x0000,
     0x4010, 0x5000, 0x0008
 };
 
-CONST_DATA u16 Obj_08AA6C82[] = {
+CONST_DATA u16 Obj_Opanimfx_7[] = {
     1,
     0x0000, 0x4000, 0x0000,
 };
 
-CONST_DATA u16 Obj_08AA6C8A[] = {
+CONST_DATA u16 Obj_Opanimfx_8[] = {
     1,
     0x0000, 0x5000, 0x0000,
 };
 
-CONST_DATA u16 Obj_08AA6C92[] = {
+CONST_DATA u16 Obj_Opanimfx_9[] = {
     1,
     0x4000, 0x0000, 0x0000,
 };
 
-CONST_DATA u16 Obj_08AA6C9A[] = {
+CONST_DATA u16 Obj_Opanimfx_10[] = {
     1,
     0x4000, 0x1000, 0x0000,
 };
@@ -105,22 +105,22 @@ void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
         switch (b) {
         case 0:
             oam2_chr = 0x8A;
-            obj = Obj_08AA6C22;
+            obj = Obj_Opanimfx_1;
             break;
 
         case 1:
             oam2_chr = 0x8A;
-            obj = Obj_08AA6C36;
+            obj = Obj_Opanimfx_2;
             break;
 
         case 2:
             oam2_chr = 0xB2;
-            obj = Obj_08AA6C22;
+            obj = Obj_Opanimfx_1;
             break;
 
         case 3:
             oam2_chr = 0xB2;
-            obj = Obj_08AA6C36;
+            obj = Obj_Opanimfx_2;
             break;
 
         default:
@@ -132,22 +132,22 @@ void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
         switch (b) {
         case 0:
             oam2_chr = 0xDA;
-            obj = Obj_08AA6C4A;
+            obj = Obj_Opanimfx_3;
             break;
 
         case 1:
             oam2_chr = 0xDA;
-            obj = Obj_08AA6C58;
+            obj = Obj_Opanimfx_4;
             break;
 
         case 2:
             oam2_chr = 0xF2;
-            obj = Obj_08AA6C4A;
+            obj = Obj_Opanimfx_3;
             break;
 
         case 3:
             oam2_chr = 0xF2;
-            obj = Obj_08AA6C58;
+            obj = Obj_Opanimfx_4;
             break;
 
         default:
@@ -159,32 +159,32 @@ void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
         switch (b) {
         case 0:
             oam2_chr = 0x10A;
-            obj = Obj_08AA6C66;
+            obj = Obj_Opanimfx_5;
             break;
 
         case 1:
             oam2_chr = 0x10A;
-            obj = Obj_08AA6C74;
+            obj = Obj_Opanimfx_6;
             break;
 
         case 2:
             oam2_chr = 0x116;
-            obj = Obj_08AA6C66;
+            obj = Obj_Opanimfx_5;
             break;
 
         case 3:
             oam2_chr = 0x116;
-            obj = Obj_08AA6C74;
+            obj = Obj_Opanimfx_6;
             break;
 
         case 4:
             oam2_chr = 0x13A;
-            obj = Obj_08AA6C66;
+            obj = Obj_Opanimfx_5;
             break;
 
         case 5:
             oam2_chr = 0x13A;
-            obj = Obj_08AA6C74;
+            obj = Obj_Opanimfx_6;
             break;
         }
         break;
@@ -193,32 +193,32 @@ void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
         switch (b) {
         case 0:
             oam2_chr = 0x122;
-            obj = Obj_08AA6C82;
+            obj = Obj_Opanimfx_7;
             break;
 
         case 1:
             oam2_chr = 0x122;
-            obj = Obj_08AA6C8A;
+            obj = Obj_Opanimfx_8;
             break;
 
         case 2:
             oam2_chr = 0x126;
-            obj = Obj_08AA6C82;
+            obj = Obj_Opanimfx_7;
             break;
 
         case 3:
             oam2_chr = 0x126;
-            obj = Obj_08AA6C8A;
+            obj = Obj_Opanimfx_8;
             break;
 
         case 4:
             oam2_chr = 0x12E;
-            obj = Obj_08AA6C82;
+            obj = Obj_Opanimfx_7;
             break;
 
         case 5:
             oam2_chr = 0x12E;
-            obj = Obj_08AA6C8A;
+            obj = Obj_Opanimfx_8;
             break;
         }
         break;
@@ -227,62 +227,62 @@ void OpAnimPutObjCommon(int ix, int iy, u8 a, u8 b)
         switch (b) {
         case 0:
             oam2_chr = 0x12A;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 1:
             oam2_chr = 0x12A;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
 
         case 2:
             oam2_chr = 0x12C;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 3:
             oam2_chr = 0x12C;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
 
         case 4:
             oam2_chr = 0x132;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 5:
             oam2_chr = 0x132;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
 
         case 6:
             oam2_chr = 0x134;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 7:
             oam2_chr = 0x134;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
 
         case 8:
             oam2_chr = 0x136;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 9:
             oam2_chr = 0x136;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
 
         case 10:
             oam2_chr = 0x138;
-            obj = Obj_08AA6C92;
+            obj = Obj_Opanimfx_9;
             break;
 
         case 11:
             oam2_chr = 0x138;
-            obj = Obj_08AA6C9A;
+            obj = Obj_Opanimfx_10;
             break;
         }
         break;
@@ -384,7 +384,7 @@ void TsaModifyFirstPalMaybe(s16 end, s16 start, s16 unused, u16 bg, u16 * src1, 
 }
 
 //! FE8U = 0x080C689C
-void sub_80C689C(s16 end, s16 start, s16 offset, u16 bg, u16 * src1, u16 * src2, s8 flag)
+void TsaModifyFirstPalReverse(s16 end, s16 start, s16 offset, u16 bg, u16 * src1, u16 * src2, s8 flag)
 {
     u16 * src;
     u16 * dst;
@@ -449,7 +449,7 @@ void sub_80C689C(s16 end, s16 start, s16 offset, u16 bg, u16 * src1, u16 * src2,
 }
 
 //! FE8U = 0x080C69B0
-void sub_80C69B0(u16 * pal, u16 color, u16 blend)
+void BlendPaletteToColor(u16 * pal, u16 color, u16 blend)
 {
     int i;
 

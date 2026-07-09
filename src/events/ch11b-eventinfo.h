@@ -1,21 +1,21 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch11b_Turn[] = {
-    TurnEventPlayer(0, EventScr_089FB250, 3)
-    TurnEventPlayer(0, EventScr_089FB294, 5)
-    TurnEventPlayer_(0, EventScr_089FB3E4, 4, 3)
-    TurnEventPlayer(0, EventScr_089FB3FC, 5)
-    TurnEventPlayer(0, EventScr_089FB444, 4)
-    TurnEventPlayer(0, EventScr_089FB1E4, 2)
-    TurnEventPlayer(0, EventScr_089FB458, 4)
-    TurnEventPlayer(0, EventScr_089FB4A8, 5)
-    TurnEventPlayer(0, EventScr_089FB480, 3)
+    TurnEventPlayer(0, EventScr_Ch11B_1, 3)
+    TurnEventPlayer(0, EventScr_Ch11B_2, 5)
+    TurnEventPlayer_(0, EventScr_Ch11B_5, 4, 3)
+    TurnEventPlayer(0, EventScr_Ch11B_6, 5)
+    TurnEventPlayer(0, EventScr_Ch11B_7, 4)
+    TurnEventPlayer(0, EventScr_Ch11B_0, 2)
+    TurnEventPlayer(0, EventScr_Ch11B_8, 4)
+    TurnEventPlayer(0, EventScr_Ch11B_10, 5)
+    TurnEventPlayer(0, EventScr_Ch11B_9, 3)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch11b_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089FB394, CHARACTER_EPHRAIM, CHARACTER_LARACHEL)
-    CHAR(EVFLAG_TMP(8), EventScr_089FB3BC, CHARACTER_LARACHEL, CHARACTER_DOZLA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch11B_3, CHARACTER_EPHRAIM, CHARACTER_LARACHEL)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch11B_4, CHARACTER_LARACHEL, CHARACTER_DOZLA)
     END_MAIN
 };
 
@@ -56,11 +56,11 @@ CONST_DATA struct ChapterEventGroup Ch11EphraimEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch11b_UnitMove,
     .tutorialEvents                = EventListScr_Ch11b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB72,
-    .extraTrapsInHard = TrapData_Event_089EDED1,
+    .traps            = TrapData_Event_Ch11B_0,
+    .extraTrapsInHard = TrapData_Event_Ch11B_1,
 
-    .playerUnitsInNormal = UnitDef_088C3E50,
-    .playerUnitsInHard   = UnitDef_088C3E50,
+    .playerUnitsInNormal = UnitDef_Ch11BAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch11BAlly_0,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

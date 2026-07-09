@@ -146,7 +146,7 @@ void GmapScreen2_Init(struct GmNodeIconDisplayProc * proc)
 }
 
 //! FE8U = 0x080BB744
-s8 sub_80BB744(struct GmScreenProc * proc, s16 xIn, s16 yIn, s16 * xOut, s16 * yOut)
+s8 GmapScreen2_GetNodeScreenPos(struct GmScreenProc * proc, s16 xIn, s16 yIn, s16 * xOut, s16 * yOut)
 {
     s16 x;
     s16 y;
@@ -199,7 +199,7 @@ void GmapScreen2_Loop(struct GmNodeIconDisplayProc * proc)
         x1 = node->x - icon->xCenter;
         y1 = node->y - icon->yCenter;
 
-        if (sub_80BB744(proc->pScreenProc, x1, y1, &local_2c, &local_2a))
+        if (GmapScreen2_GetNodeScreenPos(proc->pScreenProc, x1, y1, &local_2c, &local_2a))
         {
             local_2c = OAM1_X(local_2c);
             local_2a = OAM0_Y(local_2a);
@@ -265,7 +265,7 @@ ProcPtr StartGmNodeIconDisplay(ProcPtr parent, int chr, int palId, int unk, Proc
     proc->merge_next_node = false;
     proc->nodeId = 0;
 
-    proc->ap = AP_Create(Sprite_08A97AEC, 11);
+    proc->ap = AP_Create(Sprite_0, 11);
     AP_SwitchAnimation(proc->ap, 1);
     proc->ap->tileBase = ((proc->chr + 0x1000) / CHR_SIZE) + OAM2_PAL(proc->pal) + OAM2_LAYER(2);
     return proc;
@@ -282,7 +282,7 @@ const char * GetWorldMapNodeName(u32 nodeId)
     return GetStringFromIndex(0x066D); // TODO: msgid "[DashedLine][DashedLine][DashedLine][DashedLine][DashedLine]"
 }
 
-const u8 gUnknown_08206450[2][0x1d] =
+const u8 gWorldmapScreen2_0[2][0x1d] =
 {
     {
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
@@ -299,7 +299,7 @@ const u8 gUnknown_08206450[2][0x1d] =
 };
 
 //! FE8U = 0x080BBA4C
-int sub_80BBA4C(int nodeId)
+int GetWorldMapNodeIdByOrder(int nodeId)
 {
     int set;
 
@@ -315,7 +315,7 @@ int sub_80BBA4C(int nodeId)
             break;
     }
 
-    return gUnknown_08206450[set][nodeId];
+    return gWorldmapScreen2_0[set][nodeId];
 }
 
 // clang-format off

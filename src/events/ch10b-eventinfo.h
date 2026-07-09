@@ -2,28 +2,28 @@
 
 CONST_DATA EventListScr EventListScr_Ch10b_Turn[] = {
     TurnEventPlayer(EVFLAG_WIN, EventScr_Ch10b_EndingScene, 11)
-    TurnEventPlayer_(0, EventScr_089FB01C, 3, 6)
-    TurnEventPlayer(0, EventScr_089FB034, 4)
-    TurnEventPlayer(0, EventScr_089FB05C, 6)
-    TurnEventEnemy(0, EventScr_089FAAC4, 1)
-    TurnEventEnemy(0, EventScr_089FAB7C, 2)
+    TurnEventPlayer_(0, EventScr_Ch10B_10, 3, 6)
+    TurnEventPlayer(0, EventScr_Ch10B_11, 4)
+    TurnEventPlayer(0, EventScr_Ch10B_12, 6)
+    TurnEventEnemy(0, EventScr_Ch10B_0, 1)
+    TurnEventEnemy(0, EventScr_Ch10B_1, 2)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch10b_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089FAEDC, CHARACTER_EPHRAIM, CHARACTER_DUESSEL)
-    CHAR(EVFLAG_TMP(8), EventScr_089FAF04, CHARACTER_DUESSEL, CHARACTER_CORMAG)
-    CHAR(EVFLAG_TMP(8), EventScr_089FAF2C, CHARACTER_TANA, CHARACTER_CORMAG)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch10B_3, CHARACTER_EPHRAIM, CHARACTER_DUESSEL)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch10B_4, CHARACTER_DUESSEL, CHARACTER_CORMAG)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch10B_5, CHARACTER_TANA, CHARACTER_CORMAG)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch10b_Location[] = {
-    Village(EVFLAG_TMP(10), EventScr_089FAF54, 9, 2)
-    Armory(ShopList_Event_089ED8CA, 9, 14)
-    Vendor(ShopList_Event_089ED8E2, 8, 14)
-    House(0, EventScr_089FAFF4, 5, 1)
-    House(0, EventScr_089FAFCC, 6, 0)
-    Village(EVFLAG_TMP(11), EventScr_089FAF90, 4, 12)
+    Village(EVFLAG_TMP(10), EventScr_Ch10B_6, 9, 2)
+    Armory(ShopList_Ch10B_0, 9, 14)
+    Vendor(ShopList_Ch10B_1, 8, 14)
+    House(0, EventScr_Ch10B_9, 5, 1)
+    House(0, EventScr_Ch10B_8, 6, 0)
+    Village(EVFLAG_TMP(11), EventScr_Ch10B_7, 4, 12)
     END_MAIN
 };
 
@@ -60,19 +60,19 @@ CONST_DATA struct ChapterEventGroup Ch10EphraimEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch10b_UnitMove,
     .tutorialEvents                = EventListScr_Ch10b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB70,
-    .extraTrapsInHard = TrapData_Event_089EDECF,
+    .traps            = TrapData_Event_Ch10B_0,
+    .extraTrapsInHard = TrapData_Event_Ch10B_1,
 
-    .playerUnitsInNormal = UnitDef_088C2C54,
-    .playerUnitsInHard   = UnitDef_088C2C54,
+    .playerUnitsInNormal = UnitDef_Ch10BAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch10BAlly_0,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088C344C,
-    .playerUnitsChoice2InEncounter = UnitDef_088C36F4,
-    .playerUnitsChoice3InEncounter = UnitDef_088C399C,
+    .playerUnitsChoice1InEncounter = UnitDef_Ch10BAlly_6,
+    .playerUnitsChoice2InEncounter = UnitDef_Ch10BAlly_7,
+    .playerUnitsChoice3InEncounter = UnitDef_Ch10BAlly_8,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088C3514,
-    .enemyUnitsChoice2InEncounter = UnitDef_088C37BC,
-    .enemyUnitsChoice3InEncounter = UnitDef_088C3A64,
+    .enemyUnitsChoice1InEncounter = UnitDef_Ch10BEnemy_12,
+    .enemyUnitsChoice2InEncounter = UnitDef_Ch10BEnemy_13,
+    .enemyUnitsChoice3InEncounter = UnitDef_Ch10BEnemy_14,
 
     .beginningSceneEvents = EventScr_Ch10b_BeginningScene,
     .endingSceneEvents    = EventScr_Ch10b_EndingScene,

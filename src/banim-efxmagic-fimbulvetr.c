@@ -484,32 +484,32 @@ void StartSubSpell_efxFimbulvetrOBJ2Fall(struct Anim * anim, int unk)
     anim2->xPosition = 256;
     anim2->yPosition = 256;
 
-    proc->unk32 = sub_80716B0(UINT16_MAX);
-    proc->unk3A = sub_80716B0(UINT16_MAX);
+    proc->unk32 = LCGRand_N(UINT16_MAX);
+    proc->unk3A = LCGRand_N(UINT16_MAX);
 
     if (array[unk & 7] == 0)
     {
-        proc->unk34 = (sub_80716B0(UINT16_MAX) & 0x1FF) + 0x700;
+        proc->unk34 = (LCGRand_N(UINT16_MAX) & 0x1FF) + 0x700;
     }
     else
     {
-        proc->unk34 = (sub_80716B0(UINT16_MAX) & 0x1FF) + 0xa00;
+        proc->unk34 = (LCGRand_N(UINT16_MAX) & 0x1FF) + 0xa00;
     }
 
-    proc->unk3C = (sub_80716B0(UINT16_MAX - 240) & 0x3FF) - 0x100;
-    proc->unk36 = sub_80716B0(UINT16_MAX - 240);
-    proc->unk3E = sub_80716B0(UINT16_MAX - 240);
+    proc->unk3C = (LCGRand_N(UINT16_MAX - 240) & 0x3FF) - 0x100;
+    proc->unk36 = LCGRand_N(UINT16_MAX - 240);
+    proc->unk3E = LCGRand_N(UINT16_MAX - 240);
 
     if (array[unk & 7] == 0)
     {
-        proc->unk38 = (sub_80716B0(UINT16_MAX - 240) & 0x1FF) + 0x700;
+        proc->unk38 = (LCGRand_N(UINT16_MAX - 240) & 0x1FF) + 0x700;
     }
     else
     {
-        proc->unk38 = (sub_80716B0(UINT16_MAX - 240) & 0x1FF) + 0xa00;
+        proc->unk38 = (LCGRand_N(UINT16_MAX - 240) & 0x1FF) + 0xa00;
     }
 
-    proc->unk40 = (sub_80716B0(UINT16_MAX - 240) & 0x3FF) - 0x100;
+    proc->unk40 = (LCGRand_N(UINT16_MAX - 240) & 0x3FF) - 0x100;
 
     return;
 }

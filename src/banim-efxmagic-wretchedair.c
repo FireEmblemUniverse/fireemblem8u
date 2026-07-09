@@ -230,7 +230,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDrzDrakbreathBGCOL[] =
 
 // clang-format on
 
-extern u16 Pal_08725DAC[];
+extern u16 Pal_Banim_7[];
 
 //! FE8U = 0x08068A60
 void StartSubSpell_efxDrzDrakbreathBGCOL(struct Anim * anim)
@@ -306,7 +306,7 @@ void StartSubSpell_efxDrzDrakbreathBGCOL(struct Anim * anim)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = Pal_08725DAC;
+    proc->pal = Pal_Banim_7;
 
     return;
 }
@@ -335,7 +335,7 @@ void efxDrzDrakbreathBGCOL_Loop(struct ProcEfxBGCOL * proc)
 }
 
 //! FE8U = 0x08068AFC
-void sub_8068AFC(struct Anim * anim, u16 * tsaL, u16 * tsaR, u8 unk)
+void SpellFx_WriteBgMapFillEdges(struct Anim * anim, u16 * tsaL, u16 * tsaR, u8 unk)
 {
     SpellFx_WriteBgMap(anim, tsaL, tsaR);
 

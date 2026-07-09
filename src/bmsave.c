@@ -457,7 +457,7 @@ void LoadSavedUnit(const void *sram_src, struct Unit *unit)
 void WriteGMMonsterRnState(void *sram_dest)
 {
     u32 buf[2];
-    sub_80A71E4(buf);
+    StoreGMMonsterRnState(buf);
     WriteAndVerifySramFast(buf, sram_dest, sizeof(buf));
 }
 
@@ -465,7 +465,7 @@ void ReadGMMonsterRnState(const void *sram_src)
 {
     u32 buf[2];
     ReadSramFast(sram_src, buf, sizeof(buf));
-    sub_80A71F8(buf);
+    LoadGMMonsterRnState(buf);
 }
 
 void InvalidateSuspendSave(int slot)
@@ -851,7 +851,7 @@ u16 GetGameStateChecksum_Unused()
     return ret;
 }
 
-void sub_80A6544()
+void SaveStub_Empty()
 {
     u8 buf[8];
 }

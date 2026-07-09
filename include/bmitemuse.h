@@ -24,7 +24,7 @@ int GetItemCantUseMsgid(struct Unit * unit, int item);
 void DoItemUse(struct Unit * unit, int item);
 s8 HasSelectTarget(struct Unit * unit, void (*func)(struct Unit *));
 s8 CanUnitUseHealItem(struct Unit * unit);
-s8 sub_802909C(struct Unit * unit);
+s8 CanUnitUseUnusedItem(struct Unit * unit);
 s8 CanUnitUsePureWaterItem(struct Unit * unit);
 s8 CanUnitUseTorchItem(struct Unit * unit);
 s8 CanUnitUseAntitoxinItem(struct Unit * unit);
@@ -78,14 +78,14 @@ int AttackStaffMapSelect_Init(ProcPtr proc);
 u8 AttackStaffMapSelect_SwitchIn(ProcPtr proc, struct SelectTarget * target);
 
 void SubtitleMapSelect_End(ProcPtr proc);
-int sub_8029D38(struct Unit * unit);
-void sub_8029D6C(void);
+int CanAssassinPlaceTrapHere(struct Unit * unit);
+void StartRescueStaffSelection(void);
 
 void TorchSelect_OnInit(struct WarpSelectProc * proc);
 void TorchSelect_OnIdle(struct WarpSelectProc * proc);
 void DoUseTorchStaff(struct Unit * unit);
 
 s8 CanUnitUseItemPrepScreen(struct Unit * unit, int item);
-s8 sub_802A108(struct Unit * unit);
+s8 DoesUnitHoldItemCC(struct Unit * unit);
 
 #endif // GUARD_ITEMUSE_H

@@ -258,6 +258,17 @@ void CFile::CheckIncbin()
             break;
 
         m_pos++;
+        SkipWhitespace();
+
+        // A path may be followed by numeric (offset[, size]) slice arguments,
+        // mirroring GNU as `.incbin "file", offset, size`. These are not paths,
+        // so skip them until the next path or the closing parenthesis.
+        if (m_buffer[m_pos] != '"' && m_buffer[m_pos] != '<')
+        {
+            while (m_buffer[m_pos] != ')' && m_buffer[m_pos] != 0)
+                m_pos++;
+            break;
+        }
     }
 
     if (m_buffer[m_pos] != ')')

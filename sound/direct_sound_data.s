@@ -1841,8 +1841,8 @@ DirectSoundData_k_pflute_c5_13k_ss:
 	.incbin "sound/direct_sound_samples/k_pflute_c5_13k_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084DA07C
-DirectSoundData_084DA07C:
+	.global DirectSoundData_0
+DirectSoundData_0:
 	.incbin "sound/direct_sound_samples/084DA07C.bin"
 
 	.align 2
@@ -1856,33 +1856,33 @@ DirectSoundData_k_roomsd_c4_13k_ss:
 	.incbin "sound/direct_sound_samples/k_roomsd_c4_13k_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084DAF40
-DirectSoundData_084DAF40:
+	.global DirectSoundData_1
+DirectSoundData_1:
 	.incbin "sound/direct_sound_samples/084DAF40.bin"
 
 	.align 2
-	.global DirectSoundData_084DB690
-DirectSoundData_084DB690:
+	.global DirectSoundData_2
+DirectSoundData_2:
 	.incbin "sound/direct_sound_samples/084DB690.bin"
 
 	.align 2
-	.global DirectSoundData_084DC330
-DirectSoundData_084DC330:
+	.global DirectSoundData_3
+DirectSoundData_3:
 	.incbin "sound/direct_sound_samples/084DC330.bin"
 
 	.align 2
-	.global DirectSoundData_084DCA24
-DirectSoundData_084DCA24:
+	.global DirectSoundData_4
+DirectSoundData_4:
 	.incbin "sound/direct_sound_samples/084DCA24.bin"
 
 	.align 2
-	.global DirectSoundData_084DD66C
-DirectSoundData_084DD66C:
+	.global DirectSoundData_5
+DirectSoundData_5:
 	.incbin "sound/direct_sound_samples/084DD66C.bin"
 
 	.align 2
-	.global DirectSoundData_084DE884
-DirectSoundData_084DE884:
+	.global DirectSoundData_6
+DirectSoundData_6:
 	.incbin "sound/direct_sound_samples/084DE884.bin"
 
 	.align 2
@@ -1891,38 +1891,38 @@ DirectSoundData_k_roomcc_c4_13k_ss:
 	.incbin "sound/direct_sound_samples/k_roomcc_c4_13k_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084E20A0
-DirectSoundData_084E20A0:
+	.global DirectSoundData_7
+DirectSoundData_7:
 	.incbin "sound/direct_sound_samples/084E20A0.bin"
 
 	.align 2
-	.global DirectSoundData_084E7244
-DirectSoundData_084E7244:
+	.global DirectSoundData_8
+DirectSoundData_8:
 	.incbin "sound/direct_sound_samples/084E7244.bin"
 
 	.align 2
-	.global DirectSoundData_084F27CC
-DirectSoundData_084F27CC:
+	.global DirectSoundData_9
+DirectSoundData_9:
 	.incbin "sound/direct_sound_samples/084F27CC.bin"
 
 	.align 2
-	.global DirectSoundData_084F7390
-DirectSoundData_084F7390:
+	.global DirectSoundData_10
+DirectSoundData_10:
 	.incbin "sound/direct_sound_samples/084F7390.bin"
 
 	.align 2
-	.global DirectSoundData_084F7C7C
-DirectSoundData_084F7C7C:
+	.global DirectSoundData_11
+DirectSoundData_11:
 	.incbin "sound/direct_sound_samples/084F7C7C.bin"
 
 	.align 2
-	.global DirectSoundData_084F9EE8
-DirectSoundData_084F9EE8:
+	.global DirectSoundData_12
+DirectSoundData_12:
 	.incbin "sound/direct_sound_samples/084F9EE8.bin"
 
 	.align 2
-	.global DirectSoundData_084FA19C
-DirectSoundData_084FA19C:
+	.global DirectSoundData_13
+DirectSoundData_13:
 	.incbin "sound/direct_sound_samples/084FA19C.bin"
 
 	.align 2
@@ -1936,18 +1936,18 @@ DirectSoundData_h_dr_bongo_l_13k8b_ss:
 	.incbin "sound/direct_sound_samples/h_dr_bongo_l_13k8b_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084FC718
-DirectSoundData_084FC718:
+	.global DirectSoundData_14
+DirectSoundData_14:
 	.incbin "sound/direct_sound_samples/084FC718.bin"
 
 	.align 2
-	.global DirectSoundData_084FCAA8
-DirectSoundData_084FCAA8:
+	.global DirectSoundData_15
+DirectSoundData_15:
 	.incbin "sound/direct_sound_samples/084FCAA8.bin"
 
 	.align 2
-	.global DirectSoundData_084FCFB4
-DirectSoundData_084FCFB4:
+	.global DirectSoundData_16
+DirectSoundData_16:
 	.incbin "sound/direct_sound_samples/084FCFB4.bin"
 
 	.align 2
@@ -1956,28 +1956,28 @@ DirectSoundData_h_agogo_h_13k8b_ss:
 	.incbin "sound/direct_sound_samples/h_agogo_h_13k8b_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084FDB48
-DirectSoundData_084FDB48:
+	.global DirectSoundData_17
+DirectSoundData_17:
 	.incbin "sound/direct_sound_samples/084FDB48.bin"
 
 	.align 2
-	.global DirectSoundData_084FE008
-DirectSoundData_084FE008:
+	.global DirectSoundData_18
+DirectSoundData_18:
 	.incbin "sound/direct_sound_samples/084FE008.bin"
 
 	.align 2
-	.global DirectSoundData_084FE1F0
-DirectSoundData_084FE1F0:
+	.global DirectSoundData_19
+DirectSoundData_19:
 	.incbin "sound/direct_sound_samples/084FE1F0.bin"
 
 	.align 2
-	.global DirectSoundData_084FEC3C
-DirectSoundData_084FEC3C:
+	.global DirectSoundData_20
+DirectSoundData_20:
 	.incbin "sound/direct_sound_samples/084FEC3C.bin"
 
 	.align 2
-	.global DirectSoundData_084FEE4C
-DirectSoundData_084FEE4C:
+	.global DirectSoundData_21
+DirectSoundData_21:
 	.incbin "sound/direct_sound_samples/084FEE4C.bin"
 
 	.align 2
@@ -1986,48 +1986,48 @@ DirectSoundData_h_wblock_l_13k8b_ss:
 	.incbin "sound/direct_sound_samples/h_wblock_l_13k8b_ss.bin"
 
 	.align 2
-	.global DirectSoundData_084FF26C
-DirectSoundData_084FF26C:
+	.global DirectSoundData_22
+DirectSoundData_22:
 	.incbin "sound/direct_sound_samples/084FF26C.bin"
 
 	.align 2
-	.global DirectSoundData_084FF5C4
-DirectSoundData_084FF5C4:
+	.global DirectSoundData_23
+DirectSoundData_23:
 	.incbin "sound/direct_sound_samples/084FF5C4.bin"
 
 	.align 2
-	.global DirectSoundData_085006D0
-DirectSoundData_085006D0:
+	.global DirectSoundData_24
+DirectSoundData_24:
 	.incbin "sound/direct_sound_samples/085006D0.bin"
 
 	.align 2
-	.global DirectSoundData_085016D8
-DirectSoundData_085016D8:
+	.global DirectSoundData_25
+DirectSoundData_25:
 	.incbin "sound/direct_sound_samples/085016D8.bin"
 
 	.align 2
-	.global DirectSoundData_08502CB4
-DirectSoundData_08502CB4:
+	.global DirectSoundData_26
+DirectSoundData_26:
 	.incbin "sound/direct_sound_samples/08502CB4.bin"
 
 	.align 2
-	.global DirectSoundData_08503E8C
-DirectSoundData_08503E8C:
+	.global DirectSoundData_27
+DirectSoundData_27:
 	.incbin "sound/direct_sound_samples/08503E8C.bin"
 
 	.align 2
-	.global DirectSoundData_085045A8
-DirectSoundData_085045A8:
+	.global DirectSoundData_28
+DirectSoundData_28:
 	.incbin "sound/direct_sound_samples/085045A8.bin"
 
 	.align 2
-	.global DirectSoundData_08504F40
-DirectSoundData_08504F40:
+	.global DirectSoundData_29
+DirectSoundData_29:
 	.incbin "sound/direct_sound_samples/08504F40.bin"
 
 	.align 2
-	.global DirectSoundData_08505B2C
-DirectSoundData_08505B2C:
+	.global DirectSoundData_30
+DirectSoundData_30:
 	.incbin "sound/direct_sound_samples/08505B2C.bin"
 
 	.align 2
@@ -2036,23 +2036,23 @@ DirectSoundData_h_dr_midtom_13k8b_ss:
 	.incbin "sound/direct_sound_samples/h_dr_midtom_13k8b_ss.bin"
 
 	.align 2
-	.global DirectSoundData_08506B50
-DirectSoundData_08506B50:
+	.global DirectSoundData_31
+DirectSoundData_31:
 	.incbin "sound/direct_sound_samples/08506B50.bin"
 
 	.align 2
-	.global DirectSoundData_08507D60
-DirectSoundData_08507D60:
+	.global DirectSoundData_32
+DirectSoundData_32:
 	.incbin "sound/direct_sound_samples/08507D60.bin"
 
 	.align 2
-	.global DirectSoundData_08508870
-DirectSoundData_08508870:
+	.global DirectSoundData_33
+DirectSoundData_33:
 	.incbin "sound/direct_sound_samples/08508870.bin"
 
 	.align 2
-	.global DirectSoundData_0850A7D0
-DirectSoundData_0850A7D0:
+	.global DirectSoundData_34
+DirectSoundData_34:
 	.incbin "sound/direct_sound_samples/0850A7D0.bin"
 
 	.align 2
@@ -2066,13 +2066,13 @@ DirectSoundData_h_dr_bd_13k8b_ss:
 	.incbin "sound/direct_sound_samples/h_dr_bd_13k8b_ss.bin"
 
 	.align 2
-	.global DirectSoundData_0850E8E8
-DirectSoundData_0850E8E8:
+	.global DirectSoundData_35
+DirectSoundData_35:
 	.incbin "sound/direct_sound_samples/0850E8E8.bin"
 
 	.align 2
-	.global DirectSoundData_0850F1CC
-DirectSoundData_0850F1CC:
+	.global DirectSoundData_36
+DirectSoundData_36:
 	.incbin "sound/direct_sound_samples/0850F1CC.bin"
 
 	.align 2
@@ -2106,38 +2106,38 @@ DirectSoundData_k_harp_c4_13k_ss:
 	.incbin "sound/direct_sound_samples/k_harp_c4_13k_ss.bin"
 
 	.align 2
-	.global DirectSoundData_0851EC74
-DirectSoundData_0851EC74:
+	.global DirectSoundData_37
+DirectSoundData_37:
 	.incbin "sound/direct_sound_samples/0851EC74.bin"
 
 	.align 2
-	.global DirectSoundData_0851FF4C
-DirectSoundData_0851FF4C:
+	.global DirectSoundData_38
+DirectSoundData_38:
 	.incbin "sound/direct_sound_samples/0851FF4C.bin"
 
 	.align 2
-	.global DirectSoundData_08524984
-DirectSoundData_08524984:
+	.global DirectSoundData_39
+DirectSoundData_39:
 	.incbin "sound/direct_sound_samples/08524984.bin"
 
 	.align 2
-	.global DirectSoundData_08524DBC
-DirectSoundData_08524DBC:
+	.global DirectSoundData_40
+DirectSoundData_40:
 	.incbin "sound/direct_sound_samples/08524DBC.bin"
 
 	.align 2
-	.global DirectSoundData_08525FB8
-DirectSoundData_08525FB8:
+	.global DirectSoundData_41
+DirectSoundData_41:
 	.incbin "sound/direct_sound_samples/08525FB8.bin"
 
 	.align 2
-	.global DirectSoundData_0852674C
-DirectSoundData_0852674C:
+	.global DirectSoundData_42
+DirectSoundData_42:
 	.incbin "sound/direct_sound_samples/0852674C.bin"
 
 	.align 2
-	.global DirectSoundData_08528258
-DirectSoundData_08528258:
+	.global DirectSoundData_43
+DirectSoundData_43:
 	.incbin "sound/direct_sound_samples/08528258.bin"
 
 	.align 2
@@ -2191,8 +2191,8 @@ DirectSoundData_h_river1_13k:
 	.incbin "sound/direct_sound_samples/h_river1_13k.bin"
 
 	.align 2
-	.global DirectSoundData_08543C90
-DirectSoundData_08543C90:
+	.global DirectSoundData_44
+DirectSoundData_44:
 	.incbin "sound/direct_sound_samples/08543C90.bin"
 
 	.align 2

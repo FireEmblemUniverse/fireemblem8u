@@ -12,19 +12,19 @@
 #include "ekrlevelup.h"
 #include "constants/songs.h"
 
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
+void InitBanimTerrain(void *);
+void EndBanimTerrain(void *);
+void SetBanimTerrainPos(void *, s16, s16, s16, s16);
 
 /**
  * section.ewramdata
  */
 
 EWRAM_OVERLAY(banim) struct ProcEkrLevelup * gpProcEkrLevelup = NULL;
-EWRAM_OVERLAY(banim) u32 gUnknown_020200B8[8] = {0};
+EWRAM_OVERLAY(banim) u32 gEkrlvup_0[8] = {0};
 EWRAM_OVERLAY(banim) ProcPtr gpProcEfxPartsofScroll = NULL;
 EWRAM_OVERLAY(banim) ProcPtr gpProcEfxleveluphb = NULL;
-EWRAM_OVERLAY(banim) struct BanimUnkStructComm gUnknown_020200E0 = {0};
+EWRAM_OVERLAY(banim) struct BanimUnkStructComm gEkrlvup_1 = {0};
 EWRAM_OVERLAY(banim) struct Unit * gpEkrLvupUnit = NULL;
 EWRAM_OVERLAY(banim) struct BattleUnit * gpEkrLvupBattleUnit = NULL;
 EWRAM_OVERLAY(banim) u16 gEkrLvupPreLevel = 0;
@@ -51,7 +51,7 @@ const u16 sEfxLvupPartsPos[] = {
     TILEMAP_INDEX(10, 17),
 };
 
-CONST_DATA struct FaceVramEntry gUnknown_087592CC[4] = {
+CONST_DATA struct FaceVramEntry gEkrlvup_2[4] = {
     [0] = {
         .tileOffset = 0,
         .paletteId  = 15,
@@ -322,7 +322,7 @@ void EkrLvup_OnPrepare(struct ProcEkrLevelup *proc)
 
 void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 {
-    struct BanimUnkStructComm * buf = &gUnknown_020200E0;
+    struct BanimUnkStructComm * buf = &gEkrlvup_1;
 
     CpuFastFill(0, gBG1TilemapBuffer, 0x800);
     CpuFastFill(0, gBG2TilemapBuffer, 0x800);
@@ -341,7 +341,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
     buf->distance = gEkrDistanceType;
     buf->unk0E = -1;
     buf->unk1C = OBJ_VRAM0;
-    buf->unk20 = gUnk_Banim_020145C8;
+    buf->unk20 = gUnk_Banim_Ekrbattle_0;
     buf->unk10 = (u16)gEkrSnowWeather;
 
     if (gEkrDistanceType == 2) {
@@ -353,7 +353,7 @@ void EkrLvup_InitScreen(struct ProcEkrLevelup *proc)
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
         struct ProcEkrSubAnimeEmulator * _buf;
-        sub_805AA68(buf);
+        InitBanimTerrain(buf);
 
         _buf = buf->proc14;
         _buf->oam2Base &= (u16)~OAM2_LAYER(0x3);
@@ -437,7 +437,7 @@ void EkrLvup_InitLevelUpBox(struct ProcEkrLevelup *proc)
     else
         portrait = bu2->unit.pCharacterData->portraitId;
 
-    SetupFaceGfxData(&gUnknown_087592CC[0]);
+    SetupFaceGfxData(&gEkrlvup_2[0]);
     StartFace(0, portrait, 0xBC, EKR_LVUP_UI_BASE, 0x1042);
     gFaces[0]->yPos = 0xA0;
 
@@ -520,7 +520,7 @@ void EkrLvup_PrepareApGfx(struct ProcEkrLevelup *proc)
     NewEkrLvupApfx(0xA0, 1);
 
     for (i = 0; i < 8; i++)
-        gUnknown_020200B8[i] = 0;
+        gEkrlvup_0[i] = 0;
     
     Proc_Break(proc);
 }
@@ -697,10 +697,10 @@ void EkrLvup_PutWindowOffScreen(struct ProcEkrLevelup *proc)
 void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
 {
     struct BanimUnkStructComm *buf, _buf;
-    buf = &gUnknown_020200E0;
+    buf = &gEkrlvup_1;
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING)
-        sub_805AE14(buf);
+        EndBanimTerrain(buf);
 
     SetBackgroundMapDataOffset(0, 0x6000);
     SetBackgroundMapDataOffset(1, 0x6800);
@@ -719,12 +719,12 @@ void EkrLvup_ResetScreen(struct ProcEkrLevelup *proc)
     buf->distance = gEkrDistanceType;
     buf->unk0E = 0x2;
     buf->unk1C = NULL;
-    buf->unk20 = gUnk_Banim_020145C8;
+    buf->unk20 = gUnk_Banim_Ekrbattle_0;
     buf->unk10 = gEkrSnowWeather;
 
     if (GetBattleAnimArenaFlag() == false && GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING) {
         BG_SetPosition(2, 0, 0);
-        sub_805AA68(&_buf);
+        InitBanimTerrain(&_buf);
     }
 
     proc->ais_main->oam2Base &= ~OAM2_LAYER(0x3);

@@ -231,27 +231,27 @@ void _ExecSaveMenuMiscOption(struct SaveMenuProc * proc);
 void SaveMenuRegisterSlotSelected(struct SaveMenuProc * proc);
 void SaveMenuWaitSlotBoxScrolling(struct SaveMenuProc * proc);
 void SaveMenuScrollSlot(struct SaveMenuProc * proc);
-void sub_80A9A08(struct SaveMenuProc * proc);
+void SaveMenuLoadExtraOptionGfx(struct SaveMenuProc * proc);
 void SaveMenuScrollBackToMain(struct SaveMenuProc * proc);
-void sub_80A9A68(struct SaveMenuProc * proc);
-void sub_80A9AB0(struct SaveMenuProc * proc);
-void sub_80A9AF4(struct SaveMenuProc * proc);
-void sub_80A9B44(struct SaveMenuProc * proc);
-void sub_80A9B90(struct SaveMenuProc * proc);
-s8 sub_80A9D20(struct SaveMenuProc *, int);
-void sub_80A9D84(struct SaveMenu8A20068Proc * proc);
-void sub_80A9DBC(struct SaveMenu8A20068Proc * proc);
-void sub_80A9DFC(int x, int y, int msgId, ProcPtr parent);
-void sub_80A9E1C(struct SaveMenuProc * proc);
-void sub_80AA018(struct SaveMenuProc * proc);
+void SaveMenuScrollExtrasIn(struct SaveMenuProc * proc);
+void SaveMenuScrollExtrasOut(struct SaveMenuProc * proc);
+void SaveMenuScrollExtraSlotIn(struct SaveMenuProc * proc);
+void SaveMenuScrollExtraSlotOut(struct SaveMenuProc * proc);
+void SaveMenuExtrasMenuLoop(struct SaveMenuProc * proc);
+s8 SaveMenuTryMoveExtraSlotCursor(struct SaveMenuProc *, int);
+void SaveMenuPopupHelpBox_Init(struct SaveMenu8A20068Proc * proc);
+void SaveMenuPopupHelpBox_WaitInput(struct SaveMenu8A20068Proc * proc);
+void StartSaveMenuPopupHelpBox(int x, int y, int msgId, ProcPtr parent);
+void SaveMenuExtraSlotSelectLoop(struct SaveMenuProc * proc);
+void SaveMenuStartSqMask(struct SaveMenuProc * proc);
 void PostSaveMenuHandler(struct SaveMenuProc * proc);
 void ExtraMapStartSomeBgm(struct SaveMenuProc * proc);
 void ExecExtraMap(struct SaveMenuProc * proc);
 void SaveMenuStartExtraMiscScreen(struct SaveMenuProc * proc);
 void SaveMenuPostExtraMiscScreen(struct SaveMenuProc * proc);
 void SaveMenu_ResetLcdFormDifficulty(struct SaveMenuProc * proc);
-void sub_80AA248(struct SaveMenuProc * proc);
-void sub_80AA2A8(struct SaveMenuProc * proc);
+void SaveMenuOpenWindowBox(struct SaveMenuProc * proc);
+void SaveMenuCloseWindowBox(struct SaveMenuProc * proc);
 void SaveMenu_ReloadScreenFormDifficulty(struct SaveMenuProc * proc);
 void SaveMenu_PostDifficultHandler(struct SaveMenuProc * proc);
 void SaveMenuSlotSelDrawSprite(struct SaveMenuProc * proc);
@@ -261,30 +261,30 @@ void StartSaveMenu(ProcPtr);
 void SaveMenuDirectlySelectSlotOnPrepScreen(ProcPtr proc);
 void Make6C_SaveMenuPostChapter(ProcPtr);
 void SaveMenu_SetDifficultyChoice(int, int);
-void sub_80AA550(struct ProcBonusClaimMenu * proc);
-void sub_80AA614(struct ProcBonusClaimMenu * proc);
-void sub_80AA658(struct ProcBonusClaimMenu * proc);
-void sub_80AA69C(struct ProcBonusClaimMenu * proc);
-void sub_80AA6D8(void);
+void BonusClaimMenu_Init(struct ProcBonusClaimMenu * proc);
+void BonusClaimMenu_PromptSong3(struct ProcBonusClaimMenu * proc);
+void BonusClaimMenu_PromptSong4(struct ProcBonusClaimMenu * proc);
+void BonusClaimMenu_WaitInput(struct ProcBonusClaimMenu * proc);
+void BonusClaimMenu_SaveData(void);
 void StartBonusClaimMenu(ProcPtr);
 void InitSaveMenuHelpTextSt(void);
 const char * GetLeaderNameForSaveMenu(void);
 int GetLeaderLevelForSaveMenu(void);
 const char * GetWMNodeNameForSaveMenu(void);
 void SaveMenuCopyPalette(u16 *, u16 *, int);
-void sub_80AA7AC(int a, int b);
-// ??? sub_80AA7EC(???);
+void SaveMenuUpdateCursorPalette(int a, int b);
+// ??? SaveDraw_DrawPlayTime(???);
 void SaveDraw_ScrollFogBG(struct SaveDrawProc *);
 // ??? SaveDraw_OnEnd(???);
 // ??? SaveDraw_Init(???);
-// ??? sub_80AAB78(???);
-// ??? sub_80AABC4(???);
-// ??? sub_80AAC40(???);
-// ??? sub_80AACBC(???);
-// ??? sub_80AADE0(???);
-// ??? sub_80AAE90(???);
-// ??? sub_80AAF6C(???);
-// ??? sub_80AB05C(???);
+// ??? SaveDraw_SetObjPalColor(???);
+// ??? SaveDraw_DrawMainMenuOption(???);
+// ??? SaveDraw_DrawExtraMenuOption(???);
+// ??? SaveDraw_UpdateSlotPalette(???);
+// ??? SaveDraw_DrawSelectedOption(???);
+// ??? SaveDraw_DrawMainMenuOptions(???);
+// ??? SaveDraw_DrawExtraMenuOptions(???);
+// ??? SaveDraw_DrawSlots(???);
 // ??? SaveDraw_Loop_Main(???);
 struct SaveDrawProc * StartSaveDraw(ProcPtr);
 
@@ -323,25 +323,25 @@ struct Unknown020007E0 {
 };
 // sizeof = 0x10
 
-extern struct Unknown020007E0 gUnknown_020007E0[];
+extern struct Unknown020007E0 gSavedraw_0[];
 
 extern struct Font gSaveMenuSubBoxFont;
 extern struct Text gSaveMenuSubBoxText;
 
-extern u16 Sprite_08A20570[];
-extern u16 Sprite_08A20578[];
-extern u16 Sprite_08A20580[];
+extern u16 Sprite_Savedraw_3[];
+extern u16 Sprite_Savedraw_4[];
+extern u16 Sprite_Savedraw_5[];
 
 void SaveDrawCursor_Init(struct SaveDrawCursorProc * proc);
 void SaveDrawCursor_Loop(struct SaveDrawCursorProc * proc);
-void sub_80AB4F4(int a, s16 b, s16 c, struct SaveDrawProc * proc);
-void sub_80AB514(int a, u8 b, struct SaveDrawProc * proc);
+void SaveDraw_SetCursorBox(int a, s16 b, s16 c, struct SaveDrawProc * proc);
+void SaveDraw_SetCursorSlotMark(int a, u8 b, struct SaveDrawProc * proc);
 struct SaveMenuCursorProc * StartSaveDrawCursor(ProcPtr parent);
-void sub_80AB548(void);
-void sub_80AB56C(u32 a);
-// ??? sub_80AB720(???);
-void sub_80AB760(void*);
-void sub_80AB77C(void);
+void SaveDraw_InitParticles(void);
+void SaveDraw_UpdateParticles(u32 a);
+// ??? SaveBgFog_Init(???);
+void StartSaveBgFog(void*);
+void EndSaveBgFog(void);
 void SaveMenuInitSubBoxText(void);
 // ??? SaveMenuDrawSubSelBoxExt(???);
 void SaveMenuDrawSubSelBox(struct SaveMenuProc *, s8);
@@ -359,49 +359,49 @@ void SaveMenuInitSaveSlotData(u8, struct SaveMenuProc *);
 void SaveMenuInitSlotPalette(u8);
 void SaveDrawSetDifficultSlotPalette(int param_1, int param_2);
 u8 SaveMenuGetValidMenuAmt(u8 endMask, struct SaveMenuProc * proc);
-void sub_80ABF74(u8);
+void SaveMenu_LoadExtraSelectGfx(u8);
 void DrawDifficultyModeText(struct DifficultyMenuProc *);
-void sub_80AC034(struct DifficultyMenuProc *);
+void DifficultySelect_PutModeText(struct DifficultyMenuProc *);
 void DifficultySelect_OnEnd(struct DifficultyMenuProc * proc);
 void InitDifficultySelectScreen(struct DifficultyMenuProc * proc);
 void DifficultySelect_Init(struct DifficultyMenuProc * proc);
-void sub_80AC1BC(struct DifficultyMenuProc * proc);
-void sub_80AC22C(struct DifficultyMenuProc * proc);
+void DifficultySelect_WinBoxOpen(struct DifficultyMenuProc * proc);
+void DifficultySelect_WinBoxClose(struct DifficultyMenuProc * proc);
 void DifficultySelect_Loop_KeyHandler(struct DifficultyMenuProc * proc);
-void nullsub_64(void);
+void Nop_Difficultymenu_0(void);
 void NewNewGameDifficultySelect(ProcPtr);
 void DrawDifficultySprite_Init(struct DifficultyMenuSpritesProc * proc);
 void DrawDifficultyMenuCursorMaybe(struct DifficultyMenuSpritesProc * proc);
-void sub_80AC4F8(u8 frameMaybe, u8 selectedIdx);
+void DifficultyMenu_UpdateModePalettes(u8 frameMaybe, u8 selectedIdx);
 void DrawDifficultySprites_Loop(struct DifficultyMenuSpritesProc * proc);
-void sub_80AC680(struct DifficultyMenuSpritesProc *, int, int);
+void DifficultyMenu_StartCursorMove(struct DifficultyMenuSpritesProc *, int, int);
 ProcPtr StartDrawDifficultyMenuSprites(ProcPtr);
 
 extern u16 gBgConfig_SaveMenu[]; // bg config
-// extern ??? gProcScr_08A20068
+// extern ??? gProcScr_Savemenu_0
 // extern ??? ProcScr_CallExtraMap
 // extern ??? ProcScr_SaveMenu
 // extern ??? gProcScr_SaveMenuPostChapter
 extern CONST_DATA struct BonusClaimEnt * gpBonusClaimData;
 // extern ??? ProcScr_BonusClaimMenu;
-extern u16 Sprite_08A2051C[];
-extern u16 Sprite_08A20536[];
-extern u16 Sprite_08A20570[];
-extern u16 Sprite_08A20578[];
-extern u16 Sprite_08A20580[];
-extern u16 Sprite_08A20588[];
-extern u16 Sprite_08A20590[];
-extern u16 * SpriteArray_08A20650[];
-extern u16 * SpriteArray_08A2067C[];
+extern u16 Sprite_Savedraw_0[];
+extern u16 Sprite_Savedraw_1[];
+extern u16 Sprite_Savedraw_3[];
+extern u16 Sprite_Savedraw_4[];
+extern u16 Sprite_Savedraw_5[];
+extern u16 Sprite_Savedraw_6[];
+extern u16 Sprite_Savedraw_7[];
+extern u16 * SpriteArray_Savedraw_0[];
+extern u16 * SpriteArray_Savedraw_1[];
 // extern ??? ProcScr_savedraw
 // extern ??? gProcScr_SaveDrawCursor
-// extern ??? gProcScr_08A206F8
+// extern ??? gProcScr_Savedraw_0
 // extern ??? SaveMenuSubSelBoxTexts
 // extern ??? gProcScr_SqMask
 // extern ??? gProcScr_SaveBgUp
-extern u16 * SpriteArray_08A2099C[];
-extern u16 * SpriteArray_08A209B8[];
-extern u16 * SpriteArray_08A209E4[];
-extern u16 * SpriteArray_08A209F0[];
+extern u16 * SpriteArray_SavemenuData_0[];
+extern u16 * SpriteArray_SavemenuData_1[];
+extern u16 * SpriteArray_SavemenuData_2[];
+extern u16 * SpriteArray_SavemenuData_3[];
 
 #endif // GUARD_SAVEMENU_H

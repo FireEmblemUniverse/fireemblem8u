@@ -38,7 +38,7 @@ int EWRAM_DATA gMapSpriteSwitchHoverTimer = 0;
 
 u8* CONST_DATA UnitSpriteUnpackBuf = gGenericBuffer;
 
-int CONST_DATA gSomeSMSLookupTable_859B66C[] = {
+int CONST_DATA gSomeSMSLookupTable_0[] = {
     0,  8,
     4, 16,
 };
@@ -94,7 +94,7 @@ u16 CONST_DATA sSlotToChrLut[] = {
     8*CHR_LINE+0x1E, 10*CHR_LINE+0x1E,
 };
 
-u16 CONST_DATA gUnknown_0859B73C[] = {
+u16 CONST_DATA gBmudisp_0[] = {
     0x15, 0x29, 0x39, 0x2C, 0x19, 0x1D, 0x00, 0x07, 0x08,
     0x09, 0x17, 0x1A, 0x31, 0x0C, 0x21, 0x1C, 0x18, 0x2B,
     0x1B, 0x13, 0x04, 0x0B, 0x35, 0x2A, 0x26, 0x36, 0x2D,
@@ -306,7 +306,7 @@ u16* CONST_DATA sPoisonIconSprites[] = {
     sSprite_None,
 };
 
-u16 CONST_DATA sSprite_0859B968[] = {
+u16 CONST_DATA sSprite_Bmudisp_0[] = {
     2,
     0x4000, 0x0000, 0x1830,
     0x0008, 0x0000, 0x1850,
@@ -344,7 +344,7 @@ u16 CONST_DATA sSprite_32x32_Window[] = {
 
 #define GetInfo(id) (unit_icon_wait_table[(id) & ((1<<7)-1)])
 
-void sub_8026618(void)
+void RequestUnitSpriteSheetSync(void)
 {
     gSMSSyncFlag++;
 }
@@ -359,7 +359,7 @@ void ApplyUnitSpritePalettes(void)
         ApplyPalette(gPal_LightRune, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
 }
 
-void sub_8026670(void)
+void ApplyUnitSpriteSepiaPalette(void)
 {
     ApplyPalette(gPal_MapSpriteSepia, 0x1E);
 }
@@ -387,7 +387,7 @@ void ResetUnitSpritesB(void)
 
 int StartUiSMS(int smsId, int frameId)
 {
-    int slot = gSomeSMSLookupTable_859B66C[frameId];
+    int slot = gSomeSMSLookupTable_0[frameId];
     Decompress(GetInfo(smsId).sheet, UnitSpriteUnpackBuf);
 
     switch (GetInfo(smsId).size) {
@@ -564,7 +564,7 @@ void TornOutUnitSprite(struct Unit * unit, int timer)
 
     slot = GetUnitSMSId(unit);
     r7 = UseUnitSprite(slot) * 0x20;
-    r6 = gUnknown_0859B73C[timer];
+    r6 = gBmudisp_0[timer];
 
     r4 = 0;
     i = GetGameClock() % 0x48;
@@ -682,7 +682,7 @@ void ForceSyncUnitSpriteSheet(void)
 }
 
 //! FE8U = 0x08026FF4
-void sub_8026FF4(int frameId, u8* dst) {
+void SetStandingMuFacingFast(int frameId, u8* dst) {
     int i;
     int off;
 
@@ -705,7 +705,7 @@ void sub_8026FF4(int frameId, u8* dst) {
     if (src == NULL)
         return;
 
-    off = gSomeSMSLookupTable_859B66C[frameId] * CHR_SIZE;
+    off = gSomeSMSLookupTable_0[frameId] * CHR_SIZE;
 
     for (i = 0; i <= 3; i++)
     {
@@ -740,7 +740,7 @@ void SetStandingMuFacing(int frameId, u8 * dst)
     if (src == NULL)
         return;
 
-    off = gSomeSMSLookupTable_859B66C[frameId] * 0x20;
+    off = gSomeSMSLookupTable_0[frameId] * 0x20;
 
     for (i = 0; i <= 3; i++) {
         u32 a = off + 0 * CHR_SIZE + i * CHR_SIZE * CHR_LINE;
@@ -1139,7 +1139,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 break;
 
-            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), sSprite_0859B968, 0);
+            CallARM_PushToSecondaryOAM(OAM1_X(0x200+x - 1), OAM0_Y(0x100+y - 5), sSprite_Bmudisp_0, 0);
             break;
 
         case UNIT_STATUS_SICK:
@@ -1192,7 +1192,7 @@ void PutUnitSpriteIconsOam(void)
     }
 }
 
-void sub_8027A30(void)
+void ResetUnitSpriteHoverCursor(void)
 {
     gBmSt.cursorPrevious.x = -1;
     return;
@@ -1310,7 +1310,7 @@ void PutUnitSpriteForClassId(int layer, int x, int y, u16 oam2, int class)
     }
 }
 
-void sub_8027CFC(int layer, int x, int y, int class)
+void PutWindowUnitSpriteForClassId(int layer, int x, int y, int class)
 {
     u32 id = GetClassSMSId(class);
     int chr = UseUnitSprite(id) + 0x80;
@@ -1336,10 +1336,10 @@ void sub_8027CFC(int layer, int x, int y, int class)
     }
 }
 
-void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx)
+void PutStandingMuSprite(int layer, int x, int y, u16 oam2, int class, int idx)
 {
     u32 id = GetClassSMSId(class);
-    int chr = gSomeSMSLookupTable_859B66C[idx] + 1;
+    int chr = gSomeSMSLookupTable_0[idx] + 1;
 
     if (x < -16 || x > DISPLAY_WIDTH)
         return;
@@ -1359,7 +1359,7 @@ void sub_8027DB4(int layer, int x, int y, u16 oam2, int class, int idx)
     }
 }
 
-void sub_8027E4C(int layer, int x, int y, int oam2, struct Unit * unit)
+void PutUiUnitSprite(int layer, int x, int y, int oam2, struct Unit * unit)
 {
     u32 id = GetUnitSMSId(unit);
     int chr = UseUnitSprite(id) + 0x80;
@@ -1438,7 +1438,7 @@ void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit * u
     }
 }
 
-void sub_8028100(void)
+void ClearUnitSpriteList(void)
 {
     gSMSHandleArray[0].pNext = NULL;
 }
@@ -1474,10 +1474,10 @@ u8 GetUnitSpriteHideFlag(struct Unit * unit)
 //! FE8U = 0x08028160
 // attempt with 1D array gets very close
 // https://decomp.me/scratch/wkkkM
-void sub_8028160(u32 (*r8)[1][1], int r5, int r9, int d)
+void TornOutChr(u32 (*r8)[1][1], int r5, int r9, int d)
 {
     int i, j;
-    int r6 = gUnknown_0859B73C[d];
+    int r6 = gBmudisp_0[d];
 
     for (i = 0; i < r9; i++) {
         for (j = 0; j < r5; j++) {

@@ -8,7 +8,7 @@
 #include "ctc.h"
 #include "constants/video-banim.h"
 
-void sub_805515C(void)
+void SpellFx_Nop(void)
 {
     return;
 }
@@ -59,7 +59,7 @@ void StartBattleAnimHitEffectsDefault(struct Anim *anim, int type)
     StartBattleAnimHitEffects(anim, type, 3, 4);
 }
 
-void sub_8055288(struct Anim *anim, int type)
+void StartBattleAnimHitEffectsStrong(struct Anim *anim, int type)
 {
     StartBattleAnimHitEffects(anim, type, 5, 5);
 }
@@ -275,7 +275,7 @@ struct Anim * EfxCreateBackAnim(struct Anim * anim, const u32 * scr1, const u32 
     }
 }
 
-void sub_805560C(struct Anim * anim, const u16 * src1, const u16 * src2)
+void SpellFx_WriteBgMapRaw(struct Anim * anim, const u16 * src1, const u16 * src2)
 {
     const u16 * buf;
 
@@ -366,7 +366,7 @@ void SpellFx_RegisterBgPal(const u16 * pal, u32 size)
     EnablePaletteSync();
 }
 
-void sub_8055860(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
+void EfxCyclePaletteRaw(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
 {
     u32 i;
     for (i = 0; i < len_dst; i++, cur++) {
@@ -377,7 +377,7 @@ void sub_8055860(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
     }
 }
 
-void sub_805588C(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
+void EfxCyclePalette(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
 {
     u32 i;
     for (i = 0; i < len_dst; i++, cur++) {
@@ -390,7 +390,7 @@ void sub_805588C(const u16 * src, u16 * dst, u32 cur, u32 len_src, u32 len_dst)
     EnablePaletteSync();
 }
 
-void sub_80558BC(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
+void EfxCyclePaletteHi(const u16 *src, u16 *dst, u32 a, u32 b, u32 c)
 {
     u32 i;
     for (i = 0; i < c; i++, a++) {
@@ -456,9 +456,9 @@ s16 EfxAdvanceFrameLut(s16 *ptime, s16 *pcount, const s16 lut[])
     }
 }
 
-void sub_8055980(void)
+void SetEkrMiniAnimLayerFlag(void)
 {
-    gUnknown_0201775C = true;
+    gEkrbattle_5 = true;
 }
 
 int EfxGetCamMovDuration(void)
@@ -471,7 +471,7 @@ int EfxGetCamMovDuration(void)
         return 0x0;
 }
 
-void sub_80559B0(u32 val)
+void EfxTmFillA(u32 val)
 {
     u16 * dst = gTmA_Banim;
     CpuFill32(val, dst, sizeof(gTmA_Banim));
@@ -510,18 +510,18 @@ void SetEkrFrontAnimPostion(int pos, s16 x, s16 y)
 
 int Get0201FAC8(void)
 {
-    return gUnknown_0201FAC8;
+    return gEkrbattle_7;
 }
 
 void Set0201FAC8(int a)
 {
-    gUnknown_0201FAC8 = a;
+    gEkrbattle_7 = a;
 }
 
 CONST_DATA struct ProcCmd ProcScr_efxSPDQuake[] = {
     PROC_NAME("efxSPDQuake"),
-    PROC_REPEAT(sub_8055A64),
-    PROC_REPEAT(sub_8055B38),
+    PROC_REPEAT(efxSPDQuake_Loop),
+    PROC_REPEAT(efxSPDQuake_Loop2),
     PROC_END
 };
 
@@ -534,7 +534,7 @@ void NewEfxspdquake(struct Anim *anim)
     proc->vecs = gEfxQuakeVecs;
 }
 
-void sub_8055A64(struct ProcEfxSpdQuake *proc)
+void efxSPDQuake_Loop(struct ProcEfxSpdQuake *proc)
 {
     const s16 * vecs = proc->vecs;
     s16 dx = vecs[proc->timer * 2 + 0];
@@ -574,7 +574,7 @@ void sub_8055A64(struct ProcEfxSpdQuake *proc)
         proc->timer = 0;
 }
 
-void sub_8055B38(struct ProcEfxSpdQuake *proc)
+void efxSPDQuake_Loop2(struct ProcEfxSpdQuake *proc)
 {
     int x1 = gEkrXPosReal[0] - gEkrBgPosition;
     int x2 = gEkrYPosReal[0];
@@ -591,7 +591,7 @@ void sub_8055B38(struct ProcEfxSpdQuake *proc)
     
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
-        sub_8053618(gEkrBgPosition);
+        EfxUpdateBg2Scroll(gEkrBgPosition);
         break;
     }
 

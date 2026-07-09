@@ -100,24 +100,24 @@ struct ProcCmd CONST_DATA ProcScr_efxSilenceBG[] =
 
 u16 * CONST_DATA TsaArray_SilenceBg[] =
 {
-    Tsa_0867F97C,
-    Tsa_0867FA78,
-    Tsa_0867FB60,
-    Tsa_0867FC48,
-    Tsa_0867FD30,
-    Tsa_0867FE2C,
-    Tsa_0867FF14,
-    Tsa_0867FFAC,
-    Tsa_08680094,
-    Tsa_0868012C,
-    Tsa_08680214,
-    Tsa_08680310,
-    Tsa_086803A8,
-    Tsa_08680490,
-    Tsa_08680528,
-    Tsa_08680624,
-    Tsa_086806BC,
-    Tsa_086807CC,
+    Tsa_SilenceBg_0,
+    Tsa_SilenceBg_1,
+    Tsa_SilenceBg_2,
+    Tsa_SilenceBg_3,
+    Tsa_SilenceBg_4,
+    Tsa_SilenceBg_5,
+    Tsa_SilenceBg_6,
+    Tsa_SilenceBg_7,
+    Tsa_SilenceBg_8,
+    Tsa_SilenceBg_9,
+    Tsa_SilenceBg_10,
+    Tsa_SilenceBg_11,
+    Tsa_SilenceBg_12,
+    Tsa_SilenceBg_13,
+    Tsa_SilenceBg_14,
+    Tsa_SilenceBg_15,
+    Tsa_SilenceBg_16,
+    Tsa_SilenceBg_17,
 };
 
 // clang-format on
@@ -287,7 +287,7 @@ void efxSleep_Loop_Main(struct ProcEfx * proc)
 
     if (proc->timer == 1)
     {
-        sub_8062898(proc->anim);
+        StartSubSpell_efxSleepOBJ(proc->anim);
         PlaySFX(0x11B, 0x100, proc->anim->xPosition, 1);
     }
 
@@ -341,22 +341,22 @@ struct ProcCmd CONST_DATA ProcScr_efxSleepBG[] =
 
 u16 * CONST_DATA TsaArray_SleepBg[] =
 {
-    Tsa_086861C4,
-    Tsa_086862A0,
-    Tsa_0868637C,
-    Tsa_08686458,
-    Tsa_08686534,
-    Tsa_08686610,
-    Tsa_086866EC,
-    Tsa_086867C8,
-    Tsa_086868A4,
-    Tsa_08686980,
-    Tsa_08686A5C,
-    Tsa_08686B38,
-    Tsa_08686C14,
-    Tsa_08686CF0,
-    Tsa_08686DCC,
-    Tsa_08686EA8,
+    Tsa_SleepBg_0,
+    Tsa_SleepBg_1,
+    Tsa_SleepBg_2,
+    Tsa_SleepBg_3,
+    Tsa_SleepBg_4,
+    Tsa_SleepBg_5,
+    Tsa_SleepBg_6,
+    Tsa_SleepBg_7,
+    Tsa_SleepBg_8,
+    Tsa_SleepBg_9,
+    Tsa_SleepBg_10,
+    Tsa_SleepBg_11,
+    Tsa_SleepBg_12,
+    Tsa_SleepBg_13,
+    Tsa_SleepBg_14,
+    Tsa_SleepBg_15,
 };
 
 // clang-format on
@@ -508,7 +508,7 @@ struct ProcCmd CONST_DATA ProcScr_efxSleepOBJ[] =
 // clang-format on
 
 //! FE8U = 0x08062898
-void sub_8062898(struct Anim * anim)
+void StartSubSpell_efxSleepOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
 
@@ -700,36 +700,36 @@ struct ProcCmd CONST_DATA ProcScr_efxHammarneBG[] =
 
 u16 * CONST_DATA TsaArray_HammerneBg[] =
 {
-    Tsa_086810D8,
-    Tsa_08681184,
-    Tsa_08681234,
-    Tsa_086812F4,
-    Tsa_086813BC,
-    Tsa_08681494,
-    Tsa_08681570,
-    Tsa_08681658,
-    Tsa_08681748,
-    Tsa_08681848,
-    Tsa_08681954,
-    Tsa_08681A74,
-    Tsa_08681BA4,
+    Tsa_HammerneBg_0,
+    Tsa_HammerneBg_1,
+    Tsa_HammerneBg_2,
+    Tsa_HammerneBg_3,
+    Tsa_HammerneBg_4,
+    Tsa_HammerneBg_5,
+    Tsa_HammerneBg_6,
+    Tsa_HammerneBg_7,
+    Tsa_HammerneBg_8,
+    Tsa_HammerneBg_9,
+    Tsa_HammerneBg_10,
+    Tsa_HammerneBg_11,
+    Tsa_HammerneBg_12,
 };
 
 u16 * CONST_DATA ImgArray_HammerneBg[] =
 {
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_0867A130,
-    Img_0867A130,
-    Img_0867A130,
-    Img_0867A828,
-    Img_0867A828,
-    Img_0867AE48,
-    Img_0867AE48,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_9,
+    Img_Banim_9,
+    Img_Banim_9,
+    Img_Banim_10,
+    Img_Banim_10,
+    Img_Banim_11,
+    Img_Banim_11,
 };
 
 // clang-format on
@@ -943,16 +943,16 @@ void StartSubSpell_efxBerserkBG(struct Anim * anim, int terminator)
     proc->terminator = terminator;
 
     SpellFx_RegisterBgPal(Pal_BerserkBg, PLTT_SIZE_4BPP);
-    SpellFx_RegisterBgGfx(Img_086849B8, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgGfx(Img_Banim_12, 32 * 8 * CHR_SIZE);
 
-    EfxTmCpyBG(Tsa_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
+    EfxTmCpyBG(Tsa_Banim_16, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 
     SpellFx_SetSomeColorEffect();
     SetBlendAlpha(14, 8);
 
-    sub_80708A0();
+    NewEkrDragonPalFade();
 
     gLCDControlBuffer.wincnt.wobj_enableBlend = 1;
     SetWinEnable(0, 0, 1);
@@ -984,7 +984,7 @@ void efxBerserkBG_Loop(struct ProcEfxBG * proc)
     {
         SpellFx_ClearBG1();
         SetDefaultColorEffects_();
-        sub_8070874();
+        EkrDragonPalFade_End();
 
         anim->oamBase &= ~OAM0_WINDOW;
 
@@ -1397,11 +1397,11 @@ struct ProcCmd CONST_DATA ProcScr_efxMshieldBG[] =
 
 u16 * CONST_DATA TsaArray_BarrierBg[] =
 {
-    Tsa_0868DF9C,
-    Tsa_0868E054,
-    Tsa_0868E118,
-    Tsa_0868E208,
-    Tsa_0868E338,
+    Tsa_BarrierBg_0,
+    Tsa_BarrierBg_1,
+    Tsa_BarrierBg_2,
+    Tsa_BarrierBg_3,
+    Tsa_BarrierBg_4,
 };
 
 // clang-format on

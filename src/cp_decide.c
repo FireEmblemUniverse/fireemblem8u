@@ -36,7 +36,7 @@ static DecideFunc CONST_DATA sDecideFuncList[] =
     NULL, NULL,
 };
 
-static DecideFunc CONST_DATA sUnused_085A7FB4[] =
+static DecideFunc CONST_DATA sUnused_CpDecide_0[] =
 {
     DecideSpecialItems,
     DecideScriptA,

@@ -228,62 +228,62 @@ struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG2[] =
 
 u16 * CONST_DATA ImgArray_NaglfarBg2[] =
 {
-    Img_08701660,
-    Img_087020CC,
-    Img_08702D98,
-    Img_08703BCC,
-    Img_08704E90,
-    Img_08706388,
-    Img_087079EC,
-    Img_08708DA0,
-    Img_08709FA8,
-    Img_0870B060,
-    Img_0870C014,
-    Img_0870CDF0,
-    Img_0870DBCC,
-    Img_0870E894,
-    Img_0870F524,
-    Img_08710218,
+    Img_NaglfarBg,
+    Img_NaglfarBg2_0,
+    Img_NaglfarBg2_1,
+    Img_NaglfarBg2_2,
+    Img_NaglfarBg2_3,
+    Img_NaglfarBg2_4,
+    Img_NaglfarBg2_5,
+    Img_NaglfarBg2_6,
+    Img_NaglfarBg2_7,
+    Img_NaglfarBg2_8,
+    Img_NaglfarBg2_9,
+    Img_NaglfarBg2_10,
+    Img_NaglfarBg2_11,
+    Img_NaglfarBg2_12,
+    Img_NaglfarBg2_13,
+    Img_NaglfarBg2_14,
 };
 
 u16 * CONST_DATA TsaArray_NaglfarBg2[] =
 {
-    Tsa_08710FB8,
-    Tsa_087111E0,
-    Tsa_08711438,
-    Tsa_087116A4,
-    Tsa_087118FC,
-    Tsa_08711B6C,
-    Tsa_08711DD8,
-    Tsa_0871203C,
-    Tsa_087122A4,
-    Tsa_0871250C,
-    Tsa_0871276C,
-    Tsa_087129C0,
-    Tsa_08712C14,
-    Tsa_08712E6C,
-    Tsa_087130B4,
-    Tsa_08713310,
+    Tsa_NaglfarBg2_0,
+    Tsa_NaglfarBg2_1,
+    Tsa_NaglfarBg2_2,
+    Tsa_NaglfarBg2_3,
+    Tsa_NaglfarBg2_4,
+    Tsa_NaglfarBg2_5,
+    Tsa_NaglfarBg2_6,
+    Tsa_NaglfarBg2_7,
+    Tsa_NaglfarBg2_8,
+    Tsa_NaglfarBg2_9,
+    Tsa_NaglfarBg2_10,
+    Tsa_NaglfarBg2_11,
+    Tsa_NaglfarBg2_12,
+    Tsa_NaglfarBg2_13,
+    Tsa_NaglfarBg2_14,
+    Tsa_NaglfarBg2_15,
 };
 
 u16 * CONST_DATA PalArray_NaglfarBg2[] =
 {
-    Pal_08710DB8,
-    Pal_08710DD8,
-    Pal_08710DF8,
-    Pal_08710E18,
-    Pal_08710E38,
-    Pal_08710E58,
-    Pal_08710E78,
-    Pal_08710E98,
-    Pal_08710EB8,
-    Pal_08710ED8,
-    Pal_08710EF8,
-    Pal_08710F18,
-    Pal_08710F38,
-    Pal_08710F58,
-    Pal_08710F78,
-    Pal_08710F98,
+    Pal_NaglfarBg2_0,
+    Pal_NaglfarBg2_1,
+    Pal_NaglfarBg2_2,
+    Pal_NaglfarBg2_3,
+    Pal_NaglfarBg2_4,
+    Pal_NaglfarBg2_5,
+    Pal_NaglfarBg2_6,
+    Pal_NaglfarBg2_7,
+    Pal_NaglfarBg2_8,
+    Pal_NaglfarBg2_9,
+    Pal_NaglfarBg2_10,
+    Pal_NaglfarBg2_11,
+    Pal_NaglfarBg2_12,
+    Pal_NaglfarBg2_13,
+    Pal_NaglfarBg2_14,
+    Pal_NaglfarBg2_15,
 };
 
 // clang-format on
@@ -378,18 +378,18 @@ struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG3[] =
 
 u16 * CONST_DATA ImgArray_NaglfarBg3[] =
 {
-    Img_08713558,
-    Img_08714E64,
-    Img_08716710,
-    Img_08717E78,
+    Img_NaglfarBg3_0,
+    Img_NaglfarBg3_1,
+    Img_NaglfarBg3_2,
+    Img_NaglfarBg3_3,
 };
 
 u16 * CONST_DATA TsaArray_NaglfarBg3[] =
 {
-    Tsa_08719804,
-    Tsa_08719CA4,
-    Tsa_0871A134,
-    Tsa_0871A5D0,
+    Tsa_NaglfarBg3_0,
+    Tsa_NaglfarBg3_1,
+    Tsa_NaglfarBg3_2,
+    Tsa_NaglfarBg3_3,
 };
 
 // clang-format on
@@ -491,20 +491,20 @@ struct ProcCmd CONST_DATA ProcScr_efxNaglfarBG4[] =
 
 u16 * CONST_DATA ImgArray_NaglfarBg4[] =
 {
-    Img_0871AA78,
-    Img_0871BF64,
-    Img_0871D310,
-    Img_0871E6C0,
-    Img_0871F9DC,
+    Img_NaglfarBg4_0,
+    Img_NaglfarBg4_1,
+    Img_NaglfarBg4_2,
+    Img_NaglfarBg4_3,
+    Img_NaglfarBg4_4,
 };
 
 u16 * CONST_DATA TsaArray_NaglfarBg4[] =
 {
-    Tsa_08720DA4,
-    Tsa_0872101C,
-    Tsa_08721294,
-    Tsa_0872150C,
-    Tsa_08721784,
+    Tsa_NaglfarBg4_0,
+    Tsa_NaglfarBg4_1,
+    Tsa_NaglfarBg4_2,
+    Tsa_NaglfarBg4_3,
+    Tsa_NaglfarBg4_4,
 };
 
 // clang-format on
@@ -611,15 +611,15 @@ void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 
     // clang-format off
     u32 * scrs[] =
     {
-        AnimScr_086FF4A8, AnimScr_086FF5BC,
-        AnimScr_086FF4B0, AnimScr_086FF5C4,
-        AnimScr_086FF4B8, AnimScr_086FF5CC,
-        AnimScr_086FF4C0, AnimScr_086FF5D4,
-        AnimScr_086FF4C8, AnimScr_086FF5DC,
-        AnimScr_086FF4D0, AnimScr_086FF5E4,
+        AnimScr_efxNaglfarOBJ_0, AnimScr_efxNaglfarOBJ_6,
+        AnimScr_efxNaglfarOBJ_1, AnimScr_efxNaglfarOBJ_7,
+        AnimScr_efxNaglfarOBJ_2, AnimScr_efxNaglfarOBJ_8,
+        AnimScr_efxNaglfarOBJ_3, AnimScr_efxNaglfarOBJ_9,
+        AnimScr_efxNaglfarOBJ_4, AnimScr_efxNaglfarOBJ_10,
+        AnimScr_efxNaglfarOBJ_5, AnimScr_efxNaglfarOBJ_11,
     };
 
-    s16 gUnknown_080DEBF8[] =
+    s16 sNaglfarObjSide0PositionOffsets[] =
     {
         64, 128,
         32, 72,
@@ -628,7 +628,7 @@ void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 
         144, 32,
     };
 
-    s16 gUnknown_080DEC0C[] =
+    s16 sNaglfarObjSide1PositionOffsets[] =
     {
         176, 16,
         216, 64,
@@ -655,13 +655,13 @@ void StartSubSpell_efxNaglfarOBJ(struct Anim * anim, int terminator, s16 x, s16 
     switch (pos)
     {
         case 0:
-            frontAnim->xPosition = x + gUnknown_080DEBF8[index * 2];
-            frontAnim->yPosition = y + (gUnknown_080DEBF8 + 1)[index * 2];
+            frontAnim->xPosition = x + sNaglfarObjSide0PositionOffsets[index * 2];
+            frontAnim->yPosition = y + (sNaglfarObjSide0PositionOffsets + 1)[index * 2];
             break;
 
         case 1:
-            frontAnim->xPosition = x + gUnknown_080DEC0C[index * 2];
-            frontAnim->yPosition = y + (gUnknown_080DEC0C + 1)[index * 2];
+            frontAnim->xPosition = x + sNaglfarObjSide1PositionOffsets[index * 2];
+            frontAnim->yPosition = y + (sNaglfarObjSide1PositionOffsets + 1)[index * 2];
             break;
     }
 
@@ -706,10 +706,10 @@ void StartSubSpell_efxNaglfarOBJ2(struct Anim * anim, int terminator, u8 c)
     struct Anim * frontAnim;
 
     // clang-format off
-    u32 * gUnknown_080DEC30[4] =
+    u32 * sNaglfarObj2AnimScrLut[4] =
     {
-        AnimScr_08700098, AnimScr_087003EC,
-        AnimScr_087000A4, AnimScr_087003F8,
+        AnimScr_efxNaglfarOBJ2_0, AnimScr_efxNaglfarOBJ2_2,
+        AnimScr_efxNaglfarOBJ2_1, AnimScr_efxNaglfarOBJ2_3,
     };
     // clang-format on
 
@@ -721,7 +721,7 @@ void StartSubSpell_efxNaglfarOBJ2(struct Anim * anim, int terminator, u8 c)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    scr = gUnknown_080DEC30[((pos * 4) + (c * 8)) >> 2];
+    scr = sNaglfarObj2AnimScrLut[((pos * 4) + (c * 8)) >> 2];
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
     frontAnim->yPosition += 24;

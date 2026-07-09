@@ -1,0 +1,2173 @@
+.section .data
+
+	.global Obj_PoisonAnim
+Obj_PoisonAnim:  @ 0x089A6F40
+Obj_PoisonAnim_motion:
+	.2byte (Obj_PoisonAnim_frame_list - Obj_PoisonAnim_motion), (Obj_PoisonAnim_anim_list - Obj_PoisonAnim_motion) @ header
+
+Obj_PoisonAnim_frame_list: @ +$4
+	.2byte (Obj_PoisonAnim_frame_0 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_1 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_2 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_3 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_4 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_5 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_6 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_7 - Obj_PoisonAnim_frame_list)
+	.2byte (Obj_PoisonAnim_frame_8 - Obj_PoisonAnim_frame_list)
+
+Obj_PoisonAnim_anim_list: @ +$16
+	.2byte (Obj_PoisonAnim_anim_0 - Obj_PoisonAnim_anim_list)
+
+Obj_PoisonAnim_frame_0: @ +$18
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x0 @ OAM Data #0
+
+Obj_PoisonAnim_frame_1: @ +$20
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x2 @ OAM Data #0
+
+Obj_PoisonAnim_frame_2: @ +$28
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x4 @ OAM Data #0
+
+Obj_PoisonAnim_frame_3: @ +$30
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x6 @ OAM Data #0
+
+Obj_PoisonAnim_frame_4: @ +$38
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x8 @ OAM Data #0
+
+Obj_PoisonAnim_frame_5: @ +$40
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0xA @ OAM Data #0
+
+Obj_PoisonAnim_frame_6: @ +$48
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0xC @ OAM Data #0
+
+Obj_PoisonAnim_frame_7: @ +$50
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0xE @ OAM Data #0
+
+Obj_PoisonAnim_frame_8: @ +$58
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x4000, 0x10 @ OAM Data #0
+
+Obj_PoisonAnim_anim_0: @ +$60
+	.2byte  7,  0
+	.2byte  7,  1
+	.2byte  7,  2
+	.2byte  7,  0
+	.2byte  7,  1
+	.2byte  7,  2
+	.2byte  6,  3
+	.2byte  6,  4
+	.2byte  5,  5
+	.2byte  5,  6
+	.2byte  5,  7
+	.2byte  4,  8
+
+	.2byte 0, 1 @ kill animated object
+
+	.byte 0x00, 0x00, 0xFF, 0xFF  @ trailing anim data not decoded by apdump
+.L_end_Obj_PoisonAnim:
+	.if (.L_end_Obj_PoisonAnim - Obj_PoisonAnim) != 152
+	.error "Obj_PoisonAnim size mismatch"
+	.endif
+
+	.global Obj_WallBreakAnim
+@ AP object-animation definition. Two packed sub-definitions (def0 is
+@ APProc_Create'd from trapfx.c / mapanim_specialeffect.c with anim 0/1;
+@ Obj_WallBreakAnim_2 is unreferenced spare data kept for byte-identity).
+@ Offset tables computed via assembler label arithmetic; fully decoded
+@ (the flat-table fallback in scripts/dump_ap_def.py cannot reach this).
+Obj_WallBreakAnim:  @ 0x089A6FD8
+Obj_WallBreakAnim_motion:
+	.2byte (Obj_WallBreakAnim_frame_list - Obj_WallBreakAnim_motion), (Obj_WallBreakAnim_anim_list - Obj_WallBreakAnim_motion) @ header
+
+Obj_WallBreakAnim_frame_list: @ +$4
+	.2byte (Obj_WallBreakAnim_frame_0 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_1 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_2 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_3 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_4 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_5 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_6 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_7 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_8 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_9 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_10 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_11 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_12 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_13 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_14 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_15 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_16 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_17 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_18 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_19 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_20 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_21 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_22 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_23 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_24 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_25 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_26 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_27 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_28 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_29 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_30 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_31 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_32 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_33 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_34 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_35 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_36 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_37 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_38 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_39 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_40 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_41 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_42 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_43 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_44 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_45 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_46 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_47 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_48 - Obj_WallBreakAnim_frame_list)
+	.2byte (Obj_WallBreakAnim_frame_49 - Obj_WallBreakAnim_frame_list)
+
+Obj_WallBreakAnim_anim_list: @ +$68
+	.2byte (Obj_WallBreakAnim_anim_0 - Obj_WallBreakAnim_anim_list)
+	.2byte (Obj_WallBreakAnim_anim_1 - Obj_WallBreakAnim_anim_list)
+
+Obj_WallBreakAnim_frame_0: @ +$6C
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x41F8, 0x0 @ OAM Data #0
+
+Obj_WallBreakAnim_frame_1: @ +$74
+	.2byte 5 @ oam entries
+	.2byte 0xED, 0x1FC, 0x25 @ OAM Data #0
+	.2byte 0xEF, 0x2, 0x5 @ OAM Data #1
+	.2byte 0xEF, 0x1F6, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1FE, 0x4 @ OAM Data #3
+	.2byte 0xF3, 0x11F9, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_2: @ +$94
+	.2byte 20 @ oam entries
+	.2byte 0xEB, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0xF2, 0x1FE, 0x2 @ OAM Data #1
+	.2byte 0xED, 0x2, 0x3 @ OAM Data #2
+	.2byte 0xEC, 0x1F5, 0x22 @ OAM Data #3
+	.2byte 0xF1, 0x11F9, 0x3 @ OAM Data #4
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #5
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #6
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #7
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #8
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #9
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #10
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #11
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #12
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #14
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #15
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #16
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #17
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #18
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_3: @ +$10E
+	.2byte 13 @ oam entries
+	.2byte 0xEB, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0xF2, 0x1FE, 0x2 @ OAM Data #1
+	.2byte 0xED, 0x2, 0x3 @ OAM Data #2
+	.2byte 0xEC, 0x1F5, 0x22 @ OAM Data #3
+	.2byte 0xF1, 0x11F9, 0x3 @ OAM Data #4
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #5
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #6
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #7
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #8
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #9
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #10
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #11
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #12
+
+Obj_WallBreakAnim_frame_4: @ +$15E
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 20 @ oam entries
+	.2byte 0xEA, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0x1F1, 0x1FF, 0x2 @ OAM Data #1
+	.2byte 0xEC, 0x4, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F4, 0x22 @ OAM Data #3
+	.2byte 0xEF, 0x11F8, 0x3 @ OAM Data #4
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #5
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #6
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #7
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #8
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #9
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #10
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #11
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #12
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #14
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #15
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #16
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #17
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #18
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_5: @ +$1E0
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 13 @ oam entries
+	.2byte 0xEA, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0x1F1, 0x1FF, 0x2 @ OAM Data #1
+	.2byte 0xEC, 0x4, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F4, 0x22 @ OAM Data #3
+	.2byte 0xEF, 0x11F8, 0x3 @ OAM Data #4
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #5
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #6
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #7
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #8
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #9
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #10
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #11
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #12
+
+Obj_WallBreakAnim_frame_6: @ +$238
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 20 @ oam entries
+	.2byte 0xEA, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0x1F1, 0x1FF, 0x2 @ OAM Data #1
+	.2byte 0xEC, 0x4, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F4, 0x22 @ OAM Data #3
+	.2byte 0xEF, 0x11F8, 0x3 @ OAM Data #4
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #5
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #6
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #7
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #8
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #9
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #10
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #11
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #12
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #14
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #15
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #16
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #17
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #18
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_7: @ +$2BA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 12 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #5
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #6
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #7
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #8
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #9
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #10
+	.2byte 0xFB, 0x1FC, 0x6 @ OAM Data #11
+
+Obj_WallBreakAnim_frame_8: @ +$30C
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 19 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #5
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #7
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #8
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #9
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #11
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #12
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #13
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #14
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #15
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #16
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #17
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #18
+
+Obj_WallBreakAnim_frame_9: @ +$388
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 12 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #5
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #7
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #8
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #9
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #11
+
+Obj_WallBreakAnim_frame_10: @ +$3DA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 19 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #5
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #7
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #8
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #9
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #11
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #12
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #13
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #14
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #15
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #16
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #17
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #18
+
+Obj_WallBreakAnim_frame_11: @ +$456
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0xAC
+	.2byte 12 @ oam entries
+	.2byte 0xE8, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEC, 0x7, 0x5 @ OAM Data #1
+	.2byte 0xEB, 0x1F2, 0x24 @ OAM Data #2
+	.2byte 0xEF, 0x11F6, 0x3 @ OAM Data #3
+	.2byte 0x1F1, 0x2, 0x2 @ OAM Data #4
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #5
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #7
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #8
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #9
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #11
+
+Obj_WallBreakAnim_frame_12: @ +$4A8
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0xAC
+	.2byte 21 @ oam entries
+	.2byte 0xE8, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEC, 0x7, 0x5 @ OAM Data #1
+	.2byte 0xEB, 0x1F2, 0x24 @ OAM Data #2
+	.2byte 0xEF, 0x11F6, 0x3 @ OAM Data #3
+	.2byte 0x1F1, 0x2, 0x2 @ OAM Data #4
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #5
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #6
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #7
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #8
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #9
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #10
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #11
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #14
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #15
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #16
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #17
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #19
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #20
+
+Obj_WallBreakAnim_frame_13: @ +$530
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0xAC
+	.2byte 14 @ oam entries
+	.2byte 0xE8, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEC, 0x7, 0x5 @ OAM Data #1
+	.2byte 0xEB, 0x1F2, 0x24 @ OAM Data #2
+	.2byte 0xEF, 0x11F6, 0x3 @ OAM Data #3
+	.2byte 0x1F1, 0x2, 0x2 @ OAM Data #4
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #5
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #6
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #7
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #8
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #9
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #10
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #11
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #13
+
+Obj_WallBreakAnim_frame_14: @ +$58E
+	.2byte 21 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEE, 0x8, 0x5 @ OAM Data #1
+	.2byte 0xEC, 0x1F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF1, 0x11F4, 0x5 @ OAM Data #4
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #5
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #6
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #7
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #8
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #9
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #10
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #11
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #14
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #15
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #16
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #17
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #19
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #20
+
+Obj_WallBreakAnim_frame_15: @ +$60E
+	.2byte 14 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEE, 0x8, 0x5 @ OAM Data #1
+	.2byte 0xEC, 0x1F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF1, 0x11F4, 0x5 @ OAM Data #4
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #5
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #6
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #7
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #8
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #9
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #10
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #11
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #13
+
+Obj_WallBreakAnim_frame_16: @ +$664
+	.2byte 21 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEE, 0x8, 0x5 @ OAM Data #1
+	.2byte 0xEC, 0x1F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF1, 0x11F4, 0x5 @ OAM Data #4
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #5
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #6
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #7
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #8
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #9
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #10
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #11
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #13
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #14
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #15
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #16
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #17
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #19
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #20
+
+Obj_WallBreakAnim_frame_17: @ +$6E4
+	.2byte 13 @ oam entries
+	.2byte 0xEB, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF0, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xEE, 0x11F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x11F3, 0x5 @ OAM Data #3
+	.2byte 0xF5, 0x4, 0x4 @ OAM Data #4
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #7
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #8
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #9
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #10
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #11
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #12
+
+Obj_WallBreakAnim_frame_18: @ +$734
+	.2byte 24 @ oam entries
+	.2byte 0xEB, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF0, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xEE, 0x11F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x11F3, 0x5 @ OAM Data #3
+	.2byte 0xF5, 0x4, 0x4 @ OAM Data #4
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #6
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #7
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #8
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #9
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #10
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #11
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #13
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #14
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #15
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #16
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #17
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #18
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #19
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #20
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #21
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #22
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #23
+
+Obj_WallBreakAnim_frame_19: @ +$7C6
+	.2byte 11 @ oam entries
+	.2byte 0xED, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF3, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xF0, 0x11F0, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #4
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #5
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #6
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #7
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #8
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #9
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #10
+
+Obj_WallBreakAnim_frame_20: @ +$80A
+	.2byte 22 @ oam entries
+	.2byte 0xED, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF3, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xF0, 0x11F0, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #4
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #5
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #6
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #7
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #8
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #9
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #10
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #11
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #12
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #13
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #14
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #15
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #16
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #17
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #18
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #19
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #20
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #21
+
+Obj_WallBreakAnim_frame_21: @ +$890
+	.2byte 11 @ oam entries
+	.2byte 0xF4, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF2, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xEE, 0x1FC, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #4
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #5
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #6
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #7
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #8
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #9
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #10
+
+Obj_WallBreakAnim_frame_22: @ +$8D4
+	.2byte 23 @ oam entries
+	.2byte 0xF4, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF2, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xEE, 0x1FC, 0x24 @ OAM Data #2
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #3
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #4
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #5
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #6
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #7
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #8
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #9
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #10
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #11
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #12
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #13
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #14
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #15
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #16
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #17
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #18
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #19
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #20
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #21
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #22
+
+Obj_WallBreakAnim_frame_23: @ +$960
+	.2byte 12 @ oam entries
+	.2byte 0xF6, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF4, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xF1, 0x1FC, 0x24 @ OAM Data #2
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #3
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #4
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #5
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #6
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #7
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #8
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #9
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #10
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #11
+
+Obj_WallBreakAnim_frame_24: @ +$9AA
+	.2byte 23 @ oam entries
+	.2byte 0xF6, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF4, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xF1, 0x1FC, 0x24 @ OAM Data #2
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #3
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #4
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #5
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #6
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #7
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #8
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #9
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #10
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #11
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #12
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #13
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #14
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #15
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #16
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #17
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #18
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #19
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #20
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #21
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #22
+
+Obj_WallBreakAnim_frame_25: @ +$A36
+	.2byte 9 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+
+Obj_WallBreakAnim_frame_26: @ +$A6E
+	.2byte 20 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_27: @ +$AE8
+	.2byte 9 @ oam entries
+	.2byte 0xF8, 0x1F7, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1FD, 0x6 @ OAM Data #1
+	.2byte 0xF9, 0x41FC, 0x9 @ OAM Data #2
+	.2byte 0xF2, 0x1F6, 0x27 @ OAM Data #3
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xF5, 0x1F1, 0x7 @ OAM Data #6
+	.2byte 0x0, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF8, 0x6, 0x27 @ OAM Data #8
+
+Obj_WallBreakAnim_frame_28: @ +$B20
+	.2byte 21 @ oam entries
+	.2byte 0xF8, 0x1F7, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1FD, 0x6 @ OAM Data #1
+	.2byte 0xF9, 0x41FC, 0x9 @ OAM Data #2
+	.2byte 0xF2, 0x1F6, 0x27 @ OAM Data #3
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xF5, 0x1F1, 0x7 @ OAM Data #6
+	.2byte 0x0, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF8, 0x6, 0x27 @ OAM Data #8
+	.2byte 0xF9, 0x1F7, 0x27 @ OAM Data #9
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #10
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #11
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #12
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #13
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #14
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #15
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #16
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #17
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #18
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #19
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #20
+
+Obj_WallBreakAnim_frame_29: @ +$BA0
+	.2byte 10 @ oam entries
+	.2byte 0xF5, 0x1FD, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1F6, 0x27 @ OAM Data #1
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #2
+	.2byte 0xFF, 0x1F4, 0x26 @ OAM Data #3
+	.2byte 0xF5, 0x1F0, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x11FE, 0x6 @ OAM Data #5
+	.2byte 0xFB, 0x1, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #7
+	.2byte 0xFA, 0x7, 0x27 @ OAM Data #8
+	.2byte 0xFF, 0x5, 0x28 @ OAM Data #9
+
+Obj_WallBreakAnim_frame_30: @ +$BDE
+	.2byte 21 @ oam entries
+	.2byte 0xF5, 0x1FD, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1F6, 0x27 @ OAM Data #1
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #2
+	.2byte 0xFF, 0x1F4, 0x26 @ OAM Data #3
+	.2byte 0xF5, 0x1F0, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x11FE, 0x6 @ OAM Data #5
+	.2byte 0xFB, 0x1, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #7
+	.2byte 0xFA, 0x7, 0x27 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+	.2byte 0xFF, 0x5, 0x28 @ OAM Data #20
+
+Obj_WallBreakAnim_frame_31: @ +$C5E
+	.2byte 9 @ oam entries
+	.2byte 0xFF, 0x1FA, 0x26 @ OAM Data #0
+	.2byte 0xFB, 0x5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x1F3, 0x26 @ OAM Data #2
+	.2byte 0xF2, 0x1F4, 0x7 @ OAM Data #3
+	.2byte 0xF7, 0x5, 0x7 @ OAM Data #4
+	.2byte 0xF1, 0x4, 0x28 @ OAM Data #5
+	.2byte 0xFB, 0x1FE, 0x7 @ OAM Data #6
+	.2byte 0x1, 0x3, 0x28 @ OAM Data #7
+	.2byte 0xF4, 0x1FC, 0x26 @ OAM Data #8
+
+Obj_WallBreakAnim_frame_32: @ +$C96
+	.2byte 20 @ oam entries
+	.2byte 0xFF, 0x1FA, 0x26 @ OAM Data #0
+	.2byte 0xFB, 0x5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x1F3, 0x26 @ OAM Data #2
+	.2byte 0xF2, 0x1F4, 0x7 @ OAM Data #3
+	.2byte 0xF7, 0x5, 0x7 @ OAM Data #4
+	.2byte 0xF1, 0x4, 0x28 @ OAM Data #5
+	.2byte 0xFB, 0x1FE, 0x7 @ OAM Data #6
+	.2byte 0x1, 0x3, 0x28 @ OAM Data #7
+	.2byte 0xF4, 0x1FC, 0x26 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF2, 0x4002, 0x9 @ OAM Data #10
+	.2byte 0xFB, 0x41F8, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x0, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F2, 0x26 @ OAM Data #14
+	.2byte 0xF9, 0x4000, 0xB @ OAM Data #15
+	.2byte 0xFD, 0x1F3, 0x6 @ OAM Data #16
+	.2byte 0xF1, 0x41F4, 0x9 @ OAM Data #17
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_33: @ +$D10
+	.2byte 9 @ oam entries
+	.2byte 0xFA, 0x1F5, 0x27 @ OAM Data #0
+	.2byte 0xFC, 0x1F3, 0x7 @ OAM Data #1
+	.2byte 0x0, 0x1FA, 0x27 @ OAM Data #2
+	.2byte 0xFC, 0x1FF, 0x28 @ OAM Data #3
+	.2byte 0x2, 0x4, 0x8 @ OAM Data #4
+	.2byte 0xF4, 0x1F4, 0x28 @ OAM Data #5
+	.2byte 0xF5, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF4, 0x5, 0x8 @ OAM Data #8
+
+Obj_WallBreakAnim_frame_34: @ +$D48
+	.2byte 20 @ oam entries
+	.2byte 0xFA, 0x1F5, 0x27 @ OAM Data #0
+	.2byte 0xFC, 0x1F3, 0x7 @ OAM Data #1
+	.2byte 0x0, 0x1FA, 0x27 @ OAM Data #2
+	.2byte 0xFC, 0x1FF, 0x28 @ OAM Data #3
+	.2byte 0x2, 0x4, 0x8 @ OAM Data #4
+	.2byte 0xF4, 0x1F4, 0x28 @ OAM Data #5
+	.2byte 0xF5, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF4, 0x5, 0x8 @ OAM Data #8
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF3, 0x4002, 0x9 @ OAM Data #10
+	.2byte 0xFC, 0x41F8, 0x9 @ OAM Data #11
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x1, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF9, 0x1F2, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4000, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F3, 0x6 @ OAM Data #16
+	.2byte 0xF2, 0x41F4, 0x9 @ OAM Data #17
+	.2byte 0xF2, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_frame_35: @ +$DC2
+	.2byte 11 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF3, 0x4002, 0x9 @ OAM Data #1
+	.2byte 0xFC, 0x41F8, 0x9 @ OAM Data #2
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #3
+	.2byte 0x1, 0x2, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x1F2, 0x26 @ OAM Data #5
+	.2byte 0xFA, 0x4000, 0xB @ OAM Data #6
+	.2byte 0xFE, 0x1F3, 0x6 @ OAM Data #7
+	.2byte 0xF2, 0x41F4, 0x9 @ OAM Data #8
+	.2byte 0xF2, 0x1FD, 0x6 @ OAM Data #9
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #10
+
+Obj_WallBreakAnim_frame_36: @ +$E06
+	.2byte 12 @ oam entries
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #0
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #1
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #2
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #3
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #4
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #6
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #7
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #8
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #9
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #11
+
+Obj_WallBreakAnim_frame_37: @ +$E50
+	.2byte 7 @ oam entries
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #0
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #1
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #2
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #3
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #4
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #6
+
+Obj_WallBreakAnim_frame_38: @ +$E7C
+	.2byte 8 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+
+Obj_WallBreakAnim_frame_39: @ +$EAE
+	.2byte 5 @ oam entries
+	.2byte 0xED, 0x1FC, 0x25 @ OAM Data #0
+	.2byte 0xEF, 0x2, 0x5 @ OAM Data #1
+	.2byte 0xEF, 0x1F6, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1FE, 0x4 @ OAM Data #3
+	.2byte 0xF3, 0x11F9, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_40: @ +$ECE
+	.2byte 5 @ oam entries
+	.2byte 0xEB, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0xF2, 0x1FE, 0x2 @ OAM Data #1
+	.2byte 0xED, 0x2, 0x3 @ OAM Data #2
+	.2byte 0xEC, 0x1F5, 0x22 @ OAM Data #3
+	.2byte 0xF1, 0x11F9, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_41: @ +$EEE
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 5 @ oam entries
+	.2byte 0xEA, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0x1F1, 0x1FF, 0x2 @ OAM Data #1
+	.2byte 0xEC, 0x4, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F4, 0x22 @ OAM Data #3
+	.2byte 0xEF, 0x11F8, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_42: @ +$F16
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 5 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_43: @ +$F3E
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0xAC
+	.2byte 5 @ oam entries
+	.2byte 0xE8, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEC, 0x7, 0x5 @ OAM Data #1
+	.2byte 0xEB, 0x1F2, 0x24 @ OAM Data #2
+	.2byte 0xEF, 0x11F6, 0x3 @ OAM Data #3
+	.2byte 0x1F1, 0x2, 0x2 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_44: @ +$F66
+	.2byte 5 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEE, 0x8, 0x5 @ OAM Data #1
+	.2byte 0xEC, 0x1F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF1, 0x11F4, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_45: @ +$F86
+	.2byte 5 @ oam entries
+	.2byte 0xEB, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF0, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xEE, 0x11F1, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF3, 0x11F3, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_frame_46: @ +$FA6
+	.2byte 3 @ oam entries
+	.2byte 0xED, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF3, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xF0, 0x11F0, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_frame_47: @ +$FBA
+	.2byte 3 @ oam entries
+	.2byte 0xF4, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF2, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xEE, 0x1FC, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_frame_48: @ +$FCE
+	.2byte 3 @ oam entries
+	.2byte 0xF6, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF4, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xF1, 0x1FC, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_frame_49: @ +$FE2
+	.2byte 0 @ oam entries
+
+Obj_WallBreakAnim_anim_0: @ +$FE4
+	.2byte   6,   0
+	.2byte   2,   1
+	.2byte   1,   2
+	.2byte   1,   3
+	.2byte   1,   4
+	.2byte   1,   5
+	.2byte   1,   6
+	.2byte   1,   7
+	.2byte   1,   8
+	.2byte   1,   9
+	.2byte   1,  10
+	.2byte   1,  11
+	.2byte   1,  12
+	.2byte   1,  13
+	.2byte   1,  14
+	.2byte   1,  15
+	.2byte   1,  16
+	.2byte   1,  17
+	.2byte   1,  18
+	.2byte   1,  19
+	.2byte   1,  20
+	.2byte   1,  21
+	.2byte   1,  22
+	.2byte   1,  23
+	.2byte   1,  24
+	.2byte   1,  25
+	.2byte   1,  26
+	.2byte   1,  25
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  48
+	.2byte   1,  33
+	.2byte   1,  48
+	.2byte   1,  33
+	.2byte 0, 1 @ kill animated object
+	.2byte 0, 65535 @ loop to start
+
+Obj_WallBreakAnim_anim_1: @ +$10CC
+	.2byte   6,   0
+	.2byte   2,  39
+	.2byte   2,  40
+	.2byte   2,  41
+	.2byte   2,  42
+	.2byte   2,  43
+	.2byte   2,  44
+	.2byte   2,  45
+	.2byte   2,  46
+	.2byte   2,  47
+	.2byte 0, 1 @ kill animated object
+	.2byte 0, 65535 @ loop to start
+
+@ --- unreferenced packed sub-definition #1 ---
+Obj_WallBreakAnim_2:
+Obj_WallBreakAnim_2_motion:
+	.2byte (Obj_WallBreakAnim_2_frame_list - Obj_WallBreakAnim_2_motion), (Obj_WallBreakAnim_2_anim_list - Obj_WallBreakAnim_2_motion) @ header
+
+Obj_WallBreakAnim_2_frame_list: @ +$4
+	.2byte (Obj_WallBreakAnim_2_frame_0 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_1 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_2 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_3 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_4 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_5 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_6 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_7 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_8 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_9 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_10 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_11 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_12 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_13 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_14 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_15 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_16 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_17 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_18 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_19 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_20 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_21 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_22 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_23 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_24 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_25 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_26 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_27 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_28 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_29 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_30 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_31 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_32 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_33 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_34 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_35 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_36 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_37 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_38 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_39 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_40 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_41 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_42 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_43 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_44 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_45 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_46 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_47 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_48 - Obj_WallBreakAnim_2_frame_list)
+	.2byte (Obj_WallBreakAnim_2_frame_49 - Obj_WallBreakAnim_2_frame_list)
+
+Obj_WallBreakAnim_2_anim_list: @ +$68
+	.2byte (Obj_WallBreakAnim_2_anim_0 - Obj_WallBreakAnim_2_anim_list)
+	.2byte (Obj_WallBreakAnim_2_anim_1 - Obj_WallBreakAnim_2_anim_list)
+
+Obj_WallBreakAnim_2_frame_0: @ +$6C
+	.2byte 1 @ oam entries
+	.2byte 0xF0, 0x41F8, 0x0 @ OAM Data #0
+
+Obj_WallBreakAnim_2_frame_1: @ +$74
+	.2byte 0 @ oam entries
+
+Obj_WallBreakAnim_2_frame_2: @ +$76
+	.2byte 15 @ oam entries
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #0
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #3
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #4
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #5
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #6
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #7
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #9
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #10
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #11
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #12
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #13
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #14
+
+Obj_WallBreakAnim_2_frame_3: @ +$D2
+	.2byte 8 @ oam entries
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #0
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #3
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #4
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #5
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #6
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_4: @ +$104
+	.2byte 15 @ oam entries
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #0
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #3
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #4
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #5
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #6
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #7
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #9
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #10
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #11
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #12
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #13
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #14
+
+Obj_WallBreakAnim_2_frame_5: @ +$160
+	.2byte 8 @ oam entries
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #0
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #3
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #4
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #5
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #6
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_6: @ +$192
+	.2byte 15 @ oam entries
+	.2byte 0xFC, 0x41FB, 0x9 @ OAM Data #0
+	.2byte 0xFE, 0x1F5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x3, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x1F8, 0x27 @ OAM Data #3
+	.2byte 0x5, 0x1002, 0x26 @ OAM Data #4
+	.2byte 0x5, 0x1F6, 0x7 @ OAM Data #5
+	.2byte 0xF7, 0x1FD, 0x7 @ OAM Data #6
+	.2byte 0xFF, 0x0, 0x26 @ OAM Data #7
+	.2byte 0x0, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xF8, 0x41FA, 0xB @ OAM Data #9
+	.2byte 0xFD, 0x41F2, 0xB @ OAM Data #10
+	.2byte 0xF8, 0x1F6, 0x6 @ OAM Data #11
+	.2byte 0x2, 0x4, 0x6 @ OAM Data #12
+	.2byte 0xF7, 0x3, 0x26 @ OAM Data #13
+	.2byte 0xFD, 0x5, 0x27 @ OAM Data #14
+
+Obj_WallBreakAnim_2_frame_7: @ +$1EE
+	.2byte 7 @ oam entries
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #1
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #2
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #3
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #4
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #5
+	.2byte 0xFB, 0x1FC, 0x6 @ OAM Data #6
+
+Obj_WallBreakAnim_2_frame_8: @ +$21A
+	.2byte 14 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #2
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #6
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #7
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #8
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #9
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #10
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #11
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #12
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #13
+
+Obj_WallBreakAnim_2_frame_9: @ +$270
+	.2byte 7 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #2
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #6
+
+Obj_WallBreakAnim_2_frame_10: @ +$29C
+	.2byte 14 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #2
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #6
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #7
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #8
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #9
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #10
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #11
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #12
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #13
+
+Obj_WallBreakAnim_2_frame_11: @ +$2F2
+	.2byte 7 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF6, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0x1, 0x2, 0x26 @ OAM Data #2
+	.2byte 0xFC, 0x1F5, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1F8, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF5, 0x0, 0x27 @ OAM Data #6
+
+Obj_WallBreakAnim_2_frame_12: @ +$31E
+	.2byte 16 @ oam entries
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #0
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #1
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #2
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #3
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #4
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #5
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #6
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #9
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #10
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #11
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #12
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #13
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #14
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #15
+
+Obj_WallBreakAnim_2_frame_13: @ +$380
+	.2byte 9 @ oam entries
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #0
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #1
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #2
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #3
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #4
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #5
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #6
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_14: @ +$3B8
+	.2byte 16 @ oam entries
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #0
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #1
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #2
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #3
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #4
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #5
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #6
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #9
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #10
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #11
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #12
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #13
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #14
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #15
+
+Obj_WallBreakAnim_2_frame_15: @ +$41A
+	.2byte 9 @ oam entries
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #0
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #1
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #2
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #3
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #4
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #5
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #6
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_16: @ +$452
+	.2byte 16 @ oam entries
+	.2byte 0xF5, 0x4, 0x26 @ OAM Data #0
+	.2byte 0x3, 0x3, 0x27 @ OAM Data #1
+	.2byte 0xF4, 0x1FD, 0x27 @ OAM Data #2
+	.2byte 0xFE, 0x5, 0x27 @ OAM Data #3
+	.2byte 0xF2, 0x1F9, 0x26 @ OAM Data #4
+	.2byte 0xFA, 0x1F5, 0x6 @ OAM Data #5
+	.2byte 0x2, 0x1F6, 0x27 @ OAM Data #6
+	.2byte 0xF9, 0x1FD, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41FB, 0x9 @ OAM Data #8
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #9
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #10
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #11
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #12
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #13
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #14
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #15
+
+Obj_WallBreakAnim_2_frame_17: @ +$4B4
+	.2byte 8 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_18: @ +$4E6
+	.2byte 19 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #8
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #9
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #10
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #11
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #13
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #14
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #15
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #16
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #17
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #18
+
+Obj_WallBreakAnim_2_frame_19: @ +$55A
+	.2byte 8 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_20: @ +$58C
+	.2byte 19 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #8
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #9
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #10
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #11
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #12
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #13
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #14
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #15
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #16
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #17
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #18
+
+Obj_WallBreakAnim_2_frame_21: @ +$600
+	.2byte 8 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_22: @ +$632
+	.2byte 20 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_2_frame_23: @ +$6AC
+	.2byte 9 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_24: @ +$6E4
+	.2byte 20 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_2_frame_25: @ +$75E
+	.2byte 9 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_26: @ +$796
+	.2byte 20 @ oam entries
+	.2byte 0xFE, 0x1F6, 0x6 @ OAM Data #0
+	.2byte 0xF7, 0x1F4, 0x6 @ OAM Data #1
+	.2byte 0xFF, 0x1, 0x6 @ OAM Data #2
+	.2byte 0xF7, 0x6, 0x26 @ OAM Data #3
+	.2byte 0x2, 0x1FC, 0x27 @ OAM Data #4
+	.2byte 0xF4, 0x1FD, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xF1, 0x3, 0x7 @ OAM Data #7
+	.2byte 0xF1, 0x1F7, 0x27 @ OAM Data #8
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_2_frame_27: @ +$810
+	.2byte 9 @ oam entries
+	.2byte 0xF8, 0x1F7, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1FD, 0x6 @ OAM Data #1
+	.2byte 0xF9, 0x41FC, 0x9 @ OAM Data #2
+	.2byte 0xF2, 0x1F6, 0x27 @ OAM Data #3
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xF5, 0x1F1, 0x7 @ OAM Data #6
+	.2byte 0x0, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF8, 0x6, 0x27 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_28: @ +$848
+	.2byte 21 @ oam entries
+	.2byte 0xF8, 0x1F7, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1FD, 0x6 @ OAM Data #1
+	.2byte 0xF9, 0x41FC, 0x9 @ OAM Data #2
+	.2byte 0xF2, 0x1F6, 0x27 @ OAM Data #3
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x1F5, 0x26 @ OAM Data #5
+	.2byte 0xF5, 0x1F1, 0x7 @ OAM Data #6
+	.2byte 0x0, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF8, 0x6, 0x27 @ OAM Data #8
+	.2byte 0xF9, 0x1F7, 0x27 @ OAM Data #9
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #10
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #11
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #12
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #13
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #14
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #15
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #16
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #17
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #18
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #19
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #20
+
+Obj_WallBreakAnim_2_frame_29: @ +$8C8
+	.2byte 10 @ oam entries
+	.2byte 0xF5, 0x1FD, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1F6, 0x27 @ OAM Data #1
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #2
+	.2byte 0xFF, 0x1F4, 0x26 @ OAM Data #3
+	.2byte 0xF5, 0x1F0, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x11FE, 0x6 @ OAM Data #5
+	.2byte 0xFB, 0x1, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #7
+	.2byte 0xFA, 0x7, 0x27 @ OAM Data #8
+	.2byte 0xFF, 0x5, 0x28 @ OAM Data #9
+
+Obj_WallBreakAnim_2_frame_30: @ +$906
+	.2byte 21 @ oam entries
+	.2byte 0xF5, 0x1FD, 0x6 @ OAM Data #0
+	.2byte 0xF3, 0x1F6, 0x27 @ OAM Data #1
+	.2byte 0xF1, 0x4, 0x7 @ OAM Data #2
+	.2byte 0xFF, 0x1F4, 0x26 @ OAM Data #3
+	.2byte 0xF5, 0x1F0, 0x7 @ OAM Data #4
+	.2byte 0xFF, 0x11FE, 0x6 @ OAM Data #5
+	.2byte 0xFB, 0x1, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #7
+	.2byte 0xFA, 0x7, 0x27 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF1, 0x4003, 0x9 @ OAM Data #10
+	.2byte 0xFD, 0x41F7, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x3, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F1, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4001, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F1, 0x6 @ OAM Data #16
+	.2byte 0xF0, 0x41F3, 0x9 @ OAM Data #17
+	.2byte 0xF0, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+	.2byte 0xFF, 0x5, 0x28 @ OAM Data #20
+
+Obj_WallBreakAnim_2_frame_31: @ +$986
+	.2byte 9 @ oam entries
+	.2byte 0xFF, 0x1FA, 0x26 @ OAM Data #0
+	.2byte 0xFB, 0x5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x1F3, 0x26 @ OAM Data #2
+	.2byte 0xF2, 0x1F4, 0x7 @ OAM Data #3
+	.2byte 0xF7, 0x5, 0x7 @ OAM Data #4
+	.2byte 0xF1, 0x4, 0x28 @ OAM Data #5
+	.2byte 0xFB, 0x1FE, 0x7 @ OAM Data #6
+	.2byte 0x1, 0x3, 0x28 @ OAM Data #7
+	.2byte 0xF4, 0x1FC, 0x26 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_32: @ +$9BE
+	.2byte 20 @ oam entries
+	.2byte 0xFF, 0x1FA, 0x26 @ OAM Data #0
+	.2byte 0xFB, 0x5, 0x26 @ OAM Data #1
+	.2byte 0xF9, 0x1F3, 0x26 @ OAM Data #2
+	.2byte 0xF2, 0x1F4, 0x7 @ OAM Data #3
+	.2byte 0xF7, 0x5, 0x7 @ OAM Data #4
+	.2byte 0xF1, 0x4, 0x28 @ OAM Data #5
+	.2byte 0xFB, 0x1FE, 0x7 @ OAM Data #6
+	.2byte 0x1, 0x3, 0x28 @ OAM Data #7
+	.2byte 0xF4, 0x1FC, 0x26 @ OAM Data #8
+	.2byte 0xF8, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF2, 0x4002, 0x9 @ OAM Data #10
+	.2byte 0xFB, 0x41F8, 0x9 @ OAM Data #11
+	.2byte 0xF4, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x0, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF8, 0x1F2, 0x26 @ OAM Data #14
+	.2byte 0xF9, 0x4000, 0xB @ OAM Data #15
+	.2byte 0xFD, 0x1F3, 0x6 @ OAM Data #16
+	.2byte 0xF1, 0x41F4, 0x9 @ OAM Data #17
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF4, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_2_frame_33: @ +$A38
+	.2byte 9 @ oam entries
+	.2byte 0xFA, 0x1F5, 0x27 @ OAM Data #0
+	.2byte 0xFC, 0x1F3, 0x7 @ OAM Data #1
+	.2byte 0x0, 0x1FA, 0x27 @ OAM Data #2
+	.2byte 0xFC, 0x1FF, 0x28 @ OAM Data #3
+	.2byte 0x2, 0x4, 0x8 @ OAM Data #4
+	.2byte 0xF4, 0x1F4, 0x28 @ OAM Data #5
+	.2byte 0xF5, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF4, 0x5, 0x8 @ OAM Data #8
+
+Obj_WallBreakAnim_2_frame_34: @ +$A70
+	.2byte 20 @ oam entries
+	.2byte 0xFA, 0x1F5, 0x27 @ OAM Data #0
+	.2byte 0xFC, 0x1F3, 0x7 @ OAM Data #1
+	.2byte 0x0, 0x1FA, 0x27 @ OAM Data #2
+	.2byte 0xFC, 0x1FF, 0x28 @ OAM Data #3
+	.2byte 0x2, 0x4, 0x8 @ OAM Data #4
+	.2byte 0xF4, 0x1F4, 0x28 @ OAM Data #5
+	.2byte 0xF5, 0x1FD, 0x27 @ OAM Data #6
+	.2byte 0xFA, 0x5, 0x7 @ OAM Data #7
+	.2byte 0xF4, 0x5, 0x8 @ OAM Data #8
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #9
+	.2byte 0xF3, 0x4002, 0x9 @ OAM Data #10
+	.2byte 0xFC, 0x41F8, 0x9 @ OAM Data #11
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #12
+	.2byte 0x1, 0x2, 0x6 @ OAM Data #13
+	.2byte 0xF9, 0x1F2, 0x26 @ OAM Data #14
+	.2byte 0xFA, 0x4000, 0xB @ OAM Data #15
+	.2byte 0xFE, 0x1F3, 0x6 @ OAM Data #16
+	.2byte 0xF2, 0x41F4, 0x9 @ OAM Data #17
+	.2byte 0xF2, 0x1FD, 0x6 @ OAM Data #18
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #19
+
+Obj_WallBreakAnim_2_frame_35: @ +$AEA
+	.2byte 11 @ oam entries
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #0
+	.2byte 0xF3, 0x4002, 0x9 @ OAM Data #1
+	.2byte 0xFC, 0x41F8, 0x9 @ OAM Data #2
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #3
+	.2byte 0x1, 0x2, 0x6 @ OAM Data #4
+	.2byte 0xF9, 0x1F2, 0x26 @ OAM Data #5
+	.2byte 0xFA, 0x4000, 0xB @ OAM Data #6
+	.2byte 0xFE, 0x1F3, 0x6 @ OAM Data #7
+	.2byte 0xF2, 0x41F4, 0x9 @ OAM Data #8
+	.2byte 0xF2, 0x1FD, 0x6 @ OAM Data #9
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #10
+
+Obj_WallBreakAnim_2_frame_36: @ +$B2E
+	.2byte 12 @ oam entries
+	.2byte 0xFA, 0x1F7, 0x27 @ OAM Data #0
+	.2byte 0xF9, 0x41F8, 0xB @ OAM Data #1
+	.2byte 0xF2, 0x4003, 0x9 @ OAM Data #2
+	.2byte 0xFE, 0x41F7, 0x9 @ OAM Data #3
+	.2byte 0xF5, 0x1F7, 0x6 @ OAM Data #4
+	.2byte 0x4, 0x2, 0x6 @ OAM Data #5
+	.2byte 0xF9, 0x1F1, 0x26 @ OAM Data #6
+	.2byte 0xFB, 0x4001, 0xB @ OAM Data #7
+	.2byte 0xFF, 0x1F1, 0x6 @ OAM Data #8
+	.2byte 0xF1, 0x41F3, 0x9 @ OAM Data #9
+	.2byte 0xF1, 0x1FD, 0x6 @ OAM Data #10
+	.2byte 0xF5, 0x1FF, 0x26 @ OAM Data #11
+
+Obj_WallBreakAnim_2_frame_37: @ +$B78
+	.2byte 7 @ oam entries
+	.2byte 0xFE, 0x51F5, 0x9 @ OAM Data #0
+	.2byte 0xF6, 0x51F6, 0xB @ OAM Data #1
+	.2byte 0xFB, 0x51FE, 0xB @ OAM Data #2
+	.2byte 0xF6, 0x1002, 0x6 @ OAM Data #3
+	.2byte 0x0, 0x11F4, 0x6 @ OAM Data #4
+	.2byte 0xF5, 0x11F5, 0x26 @ OAM Data #5
+	.2byte 0xFB, 0x11F3, 0x27 @ OAM Data #6
+
+Obj_WallBreakAnim_2_frame_38: @ +$BA4
+	.2byte 8 @ oam entries
+	.2byte 0xF5, 0x1F5, 0x26 @ OAM Data #0
+	.2byte 0xFD, 0x1F6, 0x6 @ OAM Data #1
+	.2byte 0xF2, 0x1, 0x27 @ OAM Data #2
+	.2byte 0xF8, 0x4001, 0x9 @ OAM Data #3
+	.2byte 0xF4, 0x4, 0x7 @ OAM Data #4
+	.2byte 0x1, 0x1FC, 0x26 @ OAM Data #5
+	.2byte 0xF2, 0x1FA, 0x27 @ OAM Data #6
+	.2byte 0xF7, 0x1FB, 0x6 @ OAM Data #7
+
+Obj_WallBreakAnim_2_frame_39: @ +$BD6
+	.2byte 5 @ oam entries
+	.2byte 0xED, 0x1FC, 0x25 @ OAM Data #0
+	.2byte 0xEF, 0x2, 0x5 @ OAM Data #1
+	.2byte 0xEF, 0x1F6, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x1FE, 0x4 @ OAM Data #3
+	.2byte 0xF3, 0x11F9, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_40: @ +$BF6
+	.2byte 5 @ oam entries
+	.2byte 0xEB, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0xF2, 0x1FE, 0x2 @ OAM Data #1
+	.2byte 0xED, 0x2, 0x3 @ OAM Data #2
+	.2byte 0xEC, 0x1F5, 0x22 @ OAM Data #3
+	.2byte 0xF1, 0x11F9, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_41: @ +$C16
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 5 @ oam entries
+	.2byte 0xEA, 0x1FC, 0x23 @ OAM Data #0
+	.2byte 0x1F1, 0x1FF, 0x2 @ OAM Data #1
+	.2byte 0xEC, 0x4, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F4, 0x22 @ OAM Data #3
+	.2byte 0xEF, 0x11F8, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_42: @ +$C3E
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0x100
+	.2byte 5 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x23 @ OAM Data #0
+	.2byte 0x1F0, 0x0, 0x2 @ OAM Data #1
+	.2byte 0xEB, 0x5, 0x3 @ OAM Data #2
+	.2byte 0xEA, 0x1F3, 0x22 @ OAM Data #3
+	.2byte 0x1EE, 0x1F7, 0x3 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_43: @ +$C66
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0xC0, 0x100, 0xAC
+	.2byte 5 @ oam entries
+	.2byte 0xE8, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEC, 0x7, 0x5 @ OAM Data #1
+	.2byte 0xEB, 0x1F2, 0x24 @ OAM Data #2
+	.2byte 0xEF, 0x11F6, 0x3 @ OAM Data #3
+	.2byte 0x1F1, 0x2, 0x2 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_44: @ +$C8E
+	.2byte 5 @ oam entries
+	.2byte 0xE9, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xEE, 0x8, 0x5 @ OAM Data #1
+	.2byte 0xEC, 0x1F1, 0x24 @ OAM Data #2
+	.2byte 0xF3, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF1, 0x11F4, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_45: @ +$CAE
+	.2byte 5 @ oam entries
+	.2byte 0xEB, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF0, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xEE, 0x11F1, 0x24 @ OAM Data #2
+	.2byte 0xF5, 0x4, 0x4 @ OAM Data #3
+	.2byte 0xF3, 0x11F3, 0x5 @ OAM Data #4
+
+Obj_WallBreakAnim_2_frame_46: @ +$CCE
+	.2byte 3 @ oam entries
+	.2byte 0xED, 0x11FC, 0x25 @ OAM Data #0
+	.2byte 0xF3, 0x9, 0x5 @ OAM Data #1
+	.2byte 0xF0, 0x11F0, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_2_frame_47: @ +$CE2
+	.2byte 3 @ oam entries
+	.2byte 0xF4, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF2, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xEE, 0x1FC, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_2_frame_48: @ +$CF6
+	.2byte 3 @ oam entries
+	.2byte 0xF6, 0x9, 0x5 @ OAM Data #0
+	.2byte 0xF4, 0x11EF, 0x24 @ OAM Data #1
+	.2byte 0xF1, 0x1FC, 0x24 @ OAM Data #2
+
+Obj_WallBreakAnim_2_frame_49: @ +$D0A
+	.2byte 0 @ oam entries
+
+Obj_WallBreakAnim_2_anim_0: @ +$D0C
+	.2byte   6,   0
+	.2byte   2,   1
+	.2byte   1,   2
+	.2byte   1,   3
+	.2byte   1,   4
+	.2byte   1,   5
+	.2byte   1,   6
+	.2byte   1,   7
+	.2byte   1,   8
+	.2byte   1,   9
+	.2byte   1,  10
+	.2byte   1,  11
+	.2byte   1,  12
+	.2byte   1,  13
+	.2byte   1,  14
+	.2byte   1,  15
+	.2byte   1,  16
+	.2byte   1,  17
+	.2byte   1,  18
+	.2byte   1,  19
+	.2byte   1,  20
+	.2byte   1,  21
+	.2byte   1,  22
+	.2byte   1,  23
+	.2byte   1,  24
+	.2byte   1,  25
+	.2byte   1,  26
+	.2byte   1,  25
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  28
+	.2byte   1,  27
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  30
+	.2byte   1,  29
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  32
+	.2byte   1,  31
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  34
+	.2byte   1,  33
+	.2byte   1,  48
+	.2byte   1,  33
+	.2byte   1,  48
+	.2byte   1,  33
+	.2byte 0, 1 @ kill animated object
+	.2byte 0, 65535 @ loop to start
+
+Obj_WallBreakAnim_2_anim_1: @ +$DF4
+	.2byte   6,   0
+	.2byte   2,  39
+	.2byte   2,  40
+	.2byte   2,  41
+	.2byte   2,  42
+	.2byte   2,  43
+	.2byte   2,  44
+	.2byte   2,  45
+	.2byte   2,  46
+	.2byte   2,  47
+	.2byte 0, 1 @ kill animated object
+	.2byte 0, 65535 @ loop to start
+.L_end_Obj_WallBreakAnim:
+	.if (.L_end_Obj_WallBreakAnim - Obj_WallBreakAnim) != 7968
+	.error "Obj_WallBreakAnim size mismatch"
+	.endif
+
+	.global ApHandle_GmapSoguSprites
+ApHandle_GmapSoguSprites:  @ 0x089A8EF8
+ApHandle_GmapSoguSprites_motion:
+	.2byte (ApHandle_GmapSoguSprites_frame_list - ApHandle_GmapSoguSprites_motion), (ApHandle_GmapSoguSprites_anim_list - ApHandle_GmapSoguSprites_motion) @ header
+
+ApHandle_GmapSoguSprites_frame_list: @ +$4
+	.2byte (ApHandle_GmapSoguSprites_frame_0 - ApHandle_GmapSoguSprites_frame_list)
+	.2byte (ApHandle_GmapSoguSprites_frame_1 - ApHandle_GmapSoguSprites_frame_list)
+	.2byte (ApHandle_GmapSoguSprites_frame_2 - ApHandle_GmapSoguSprites_frame_list)
+	.2byte (ApHandle_GmapSoguSprites_frame_3 - ApHandle_GmapSoguSprites_frame_list)
+	.2byte (ApHandle_GmapSoguSprites_frame_4 - ApHandle_GmapSoguSprites_frame_list)
+
+ApHandle_GmapSoguSprites_anim_list: @ +$E
+	.2byte (ApHandle_GmapSoguSprites_anim_0 - ApHandle_GmapSoguSprites_anim_list)
+
+ApHandle_GmapSoguSprites_frame_0: @ +$10
+	.2byte 1 @ oam entries
+	.2byte 0xF8, 0x41F8, 0x0 @ OAM Data #0
+
+ApHandle_GmapSoguSprites_frame_1: @ +$18
+	.2byte 1 @ oam entries
+	.2byte 0xFB, 0x41F8, 0x0 @ OAM Data #0
+
+ApHandle_GmapSoguSprites_frame_2: @ +$20
+	.2byte 1 @ oam entries
+	.2byte 0xFA, 0x41F8, 0x0 @ OAM Data #0
+
+ApHandle_GmapSoguSprites_frame_3: @ +$28
+	.2byte 1 @ oam entries
+	.2byte 0xF9, 0x41F8, 0x0 @ OAM Data #0
+
+ApHandle_GmapSoguSprites_frame_4: @ +$30
+	.2byte 1 @ oam entries
+	.2byte 0xF8, 0x41F8, 0x0 @ OAM Data #0
+
+ApHandle_GmapSoguSprites_anim_0: @ +$38
+	.2byte  4,  0
+	.2byte  2,  1
+	.2byte  2,  0
+	.2byte  2,  2
+	.2byte  2,  0
+	.2byte  2,  3
+	.2byte 30,  0
+
+	.2byte 0, 1 @ kill animated object
+
+	.byte 0x00, 0x00, 0xFF, 0xFF, 0x13, 0x4F, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3C, 0x0D, 0x9E, 0x1A, 0xDF, 0x1B, 0x0B, 0x04, 0x12, 0x00, 0x97, 0x10, 0x3C, 0x0D, 0x9E, 0x1A, 0xDF, 0x1B, 0x30, 0x3A, 0xFF, 0x7F, 0x00, 0x00  @ trailing anim data not decoded by apdump
+.L_end_ApHandle_GmapSoguSprites:
+	.if (.L_end_ApHandle_GmapSoguSprites - ApHandle_GmapSoguSprites) != 124
+	.error "ApHandle_GmapSoguSprites size mismatch"
+	.endif
+
+	.global Pal_MapAnimManaketeMu
+Pal_MapAnimManaketeMu:  @ 0x089A8F74
+	.incbin "graphics/misc/Pal_MapAnimManaketeMu.gbapal"
+
+	.global gGfx_ArenaBuildingFront
+gGfx_ArenaBuildingFront:  @ 0x089A8F94
+	.incbin "graphics/misc/gGfx_ArenaBuildingFront.4bpp.lz"
+
+	.global gTsa_ArenaBuildingFront
+gTsa_ArenaBuildingFront:  @ 0x089ABB70
+	.incbin "graphics/misc/gTsa_ArenaBuildingFront.tsa.bin"
+
+	.global gPal_ArenaBuildingFront
+gPal_ArenaBuildingFront:  @ 0x089AC024
+	.incbin "graphics/misc/gPal_ArenaBuildingFront.gbapal"
+
+	.global Img_MapAnimMISS
+Img_MapAnimMISS:  @ 0x089AC0A4
+	.incbin "graphics/misc/Img_MapAnimMISS.4bpp.lz"
+
+	.global Obj_MapAnimMISS
+Obj_MapAnimMISS:  @ 0x089AC194
+Obj_MapAnimMISS_motion:
+	.2byte (Obj_MapAnimMISS_frame_list - Obj_MapAnimMISS_motion), (Obj_MapAnimMISS_anim_list - Obj_MapAnimMISS_motion) @ header
+
+Obj_MapAnimMISS_frame_list: @ +$4
+	.2byte (Obj_MapAnimMISS_frame_0 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_1 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_2 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_3 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_4 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_5 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_6 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_7 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_8 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_9 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_10 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_11 - Obj_MapAnimMISS_frame_list)
+	.2byte (Obj_MapAnimMISS_frame_12 - Obj_MapAnimMISS_frame_list)
+
+Obj_MapAnimMISS_anim_list: @ +$1E
+	.2byte (Obj_MapAnimMISS_anim_0 - Obj_MapAnimMISS_anim_list)
+
+Obj_MapAnimMISS_frame_0: @ +$20
+	.2byte 1 @ oam entries
+	.2byte 0x40F0, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_1: @ +$28
+	.2byte 2 @ oam entries
+	.2byte 0x40F0, 0x41EE, 0x4 @ OAM Data #0
+	.2byte 0xF0, 0xE, 0x8 @ OAM Data #1
+
+Obj_MapAnimMISS_frame_2: @ +$36
+	.2byte 12 @ oam entries
+	.2byte 0xF0, 0x1F1, 0x9 @ OAM Data #0
+	.2byte 0xF0, 0x1F1, 0x9 @ OAM Data #1
+	.2byte 0xF0, 0x1F1, 0x9 @ OAM Data #2
+	.2byte 0xF0, 0x1F9, 0x9 @ OAM Data #3
+	.2byte 0xF0, 0x1, 0x9 @ OAM Data #4
+	.2byte 0xF0, 0x1, 0x9 @ OAM Data #5
+	.2byte 0xF0, 0x1, 0x9 @ OAM Data #6
+	.2byte 0xF0, 0x9, 0x9 @ OAM Data #7
+	.2byte 0xF0, 0x11, 0x9 @ OAM Data #8
+	.2byte 0xF0, 0x1E9, 0x9 @ OAM Data #9
+	.2byte 0xF0, 0x1E9, 0x9 @ OAM Data #10
+	.2byte 0xF0, 0x1E9, 0x9 @ OAM Data #11
+
+Obj_MapAnimMISS_frame_3: @ +$80
+	.2byte 4 @ oam entries
+	.2byte 0x40F0, 0x1E1, 0xA @ OAM Data #0
+	.2byte 0x40F0, 0x1F1, 0xA @ OAM Data #1
+	.2byte 0x40F0, 0x1, 0xA @ OAM Data #2
+	.2byte 0x40F0, 0x11, 0xA @ OAM Data #3
+
+Obj_MapAnimMISS_frame_4: @ +$9A
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x19, 0x19
+	.2byte 1 @ oam entries
+	.2byte 0x41F9, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_5: @ +$AA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x33, 0x33
+	.2byte 1 @ oam entries
+	.2byte 0x41F8, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_6: @ +$BA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x4C, 0x4C
+	.2byte 1 @ oam entries
+	.2byte 0x41F7, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_7: @ +$CA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x66, 0x66
+	.2byte 1 @ oam entries
+	.2byte 0x41F6, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_8: @ +$DA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x80, 0x80
+	.2byte 1 @ oam entries
+	.2byte 0x41F5, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_9: @ +$EA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x99, 0x99
+	.2byte 1 @ oam entries
+	.2byte 0x41F4, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_10: @ +$FA
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xB3, 0xB3
+	.2byte 1 @ oam entries
+	.2byte 0x41F3, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_11: @ +$10A
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xCC, 0xCC
+	.2byte 1 @ oam entries
+	.2byte 0x41F2, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_frame_12: @ +$11A
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xE6, 0xE6
+	.2byte 1 @ oam entries
+	.2byte 0x41F1, 0x41F1, 0x0 @ OAM Data #0
+
+Obj_MapAnimMISS_anim_0: @ +$12A
+	.2byte  1,  4
+	.2byte  1,  5
+	.2byte  1,  6
+	.2byte  1,  7
+	.2byte  1,  8
+	.2byte  1,  9
+	.2byte  1, 10
+	.2byte  1, 11
+	.2byte  1, 12
+	.2byte 10,  0
+	.2byte  3,  1
+	.2byte  3,  2
+	.2byte  3,  3
+
+	.2byte 0, 1 @ kill animated object
+
+	.byte 0x00, 0x00, 0xFF, 0xFF, 0x00, 0x00  @ trailing anim data not decoded by apdump
+.L_end_Obj_MapAnimMISS:
+	.if (.L_end_Obj_MapAnimMISS - Obj_MapAnimMISS) != 360
+	.error "Obj_MapAnimMISS size mismatch"
+	.endif
+
+	.global Img_MapAnimNODAMAGE
+Img_MapAnimNODAMAGE:  @ 0x089AC2FC
+	.incbin "graphics/misc/Img_MapAnimNODAMAGE.4bpp.lz"
+
+	.global obj_MapAnimNODAMAGE
+obj_MapAnimNODAMAGE:  @ 0x089AC440
+obj_MapAnimNODAMAGE_motion:
+	.2byte (obj_MapAnimNODAMAGE_frame_list - obj_MapAnimNODAMAGE_motion), (obj_MapAnimNODAMAGE_anim_list - obj_MapAnimNODAMAGE_motion) @ header
+
+obj_MapAnimNODAMAGE_frame_list: @ +$4
+	.2byte (obj_MapAnimNODAMAGE_frame_0 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_1 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_2 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_3 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_4 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_5 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_6 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_7 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_8 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_9 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_10 - obj_MapAnimNODAMAGE_frame_list)
+	.2byte (obj_MapAnimNODAMAGE_frame_11 - obj_MapAnimNODAMAGE_frame_list)
+
+obj_MapAnimNODAMAGE_anim_list: @ +$1C
+	.2byte (obj_MapAnimNODAMAGE_anim_0 - obj_MapAnimNODAMAGE_anim_list)
+
+obj_MapAnimNODAMAGE_frame_0: @ +$1E
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x33, 0x33
+	.2byte 2 @ oam entries
+	.2byte 0x41F8, 0x41ED, 0x0 @ OAM Data #0
+	.2byte 0x41F8, 0x1FA, 0x4 @ OAM Data #1
+
+obj_MapAnimNODAMAGE_frame_1: @ +$34
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x4C, 0x4C
+	.2byte 3 @ oam entries
+	.2byte 0x41F7, 0x41EA, 0x0 @ OAM Data #0
+	.2byte 0x41F7, 0x1F9, 0x4 @ OAM Data #1
+	.2byte 0x1F7, 0x1, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_2: @ +$50
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x66, 0x66
+	.2byte 3 @ oam entries
+	.2byte 0x41F6, 0x41E9, 0x0 @ OAM Data #0
+	.2byte 0x41F6, 0x1FB, 0x4 @ OAM Data #1
+	.2byte 0x1F6, 0x4, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_3: @ +$6C
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x80, 0x80
+	.2byte 3 @ oam entries
+	.2byte 0x41F5, 0x41E7, 0x0 @ OAM Data #0
+	.2byte 0x41F5, 0x1FB, 0x4 @ OAM Data #1
+	.2byte 0x1F5, 0x5, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_4: @ +$88
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0x99, 0x99
+	.2byte 3 @ oam entries
+	.2byte 0x41F4, 0x41E6, 0x0 @ OAM Data #0
+	.2byte 0x41F4, 0x1FD, 0x4 @ OAM Data #1
+	.2byte 0x1F4, 0x8, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_5: @ +$A4
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xB3, 0xB3
+	.2byte 3 @ oam entries
+	.2byte 0x41F3, 0x41E5, 0x0 @ OAM Data #0
+	.2byte 0x41F3, 0x1FF, 0x4 @ OAM Data #1
+	.2byte 0x1F3, 0xC, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_6: @ +$C0
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xCC, 0xCC
+	.2byte 3 @ oam entries
+	.2byte 0x41F2, 0x41E6, 0x0 @ OAM Data #0
+	.2byte 0x41F2, 0x2, 0x4 @ OAM Data #1
+	.2byte 0x1F2, 0x10, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_7: @ +$DC
+	.2byte (1 | 0x8000) @ rotscale entries
+	.2byte 0x100, 0xE6, 0xE6
+	.2byte 3 @ oam entries
+	.2byte 0x41F1, 0x41E5, 0x0 @ OAM Data #0
+	.2byte 0x41F1, 0x4, 0x4 @ OAM Data #1
+	.2byte 0x1F1, 0x13, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_8: @ +$F8
+	.2byte 3 @ oam entries
+	.2byte 0x40F0, 0x41E4, 0x0 @ OAM Data #0
+	.2byte 0x40F0, 0x4, 0x4 @ OAM Data #1
+	.2byte 0xF0, 0x14, 0x6 @ OAM Data #2
+
+obj_MapAnimNODAMAGE_frame_9: @ +$10C
+	.2byte 2 @ oam entries
+	.2byte 0x40F0, 0x41DE, 0x7 @ OAM Data #0
+	.2byte 0x40F0, 0x41FE, 0xB @ OAM Data #1
+
+obj_MapAnimNODAMAGE_frame_10: @ +$11A
+	.2byte 4 @ oam entries
+	.2byte 0x40F0, 0x1DE, 0xF @ OAM Data #0
+	.2byte 0x40F0, 0x1EE, 0xF @ OAM Data #1
+	.2byte 0x40F0, 0x1FE, 0xF @ OAM Data #2
+	.2byte 0x40F0, 0xE, 0xF @ OAM Data #3
+
+obj_MapAnimNODAMAGE_frame_11: @ +$134
+	.2byte 5 @ oam entries
+	.2byte 0x40F0, 0x1D6, 0x11 @ OAM Data #0
+	.2byte 0x40F0, 0x1E6, 0x11 @ OAM Data #1
+	.2byte 0x40F0, 0x1F6, 0x11 @ OAM Data #2
+	.2byte 0x40F0, 0x6, 0x11 @ OAM Data #3
+	.2byte 0x40F0, 0x16, 0x11 @ OAM Data #4
+
+obj_MapAnimNODAMAGE_anim_0: @ +$154
+	.2byte  1,  0
+	.2byte  1,  1
+	.2byte  1,  2
+	.2byte  1,  3
+	.2byte  1,  4
+	.2byte  1,  5
+	.2byte  1,  6
+	.2byte  1,  7
+	.2byte 10,  8
+	.2byte  3,  9
+	.2byte  3, 10
+	.2byte  3, 11
+
+	.2byte 0, 1 @ kill animated object
+
+	.byte 0x00, 0x00, 0xFF, 0xFF  @ trailing anim data not decoded by apdump
+.L_end_obj_MapAnimNODAMAGE:
+	.if (.L_end_obj_MapAnimNODAMAGE - obj_MapAnimNODAMAGE) != 396
+	.error "obj_MapAnimNODAMAGE size mismatch"
+	.endif

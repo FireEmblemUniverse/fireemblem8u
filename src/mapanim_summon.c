@@ -188,7 +188,7 @@ s8 CheckCanSummon(struct SumProc* proc)
     return TRUE;
 }
 
-void sub_807B054(void)
+void MapAnimSummon_PlaySound(void)
 {
     PlaySoundEffect(SONG_SE_BMP_MOVE_BIRD1A_T1);
 }

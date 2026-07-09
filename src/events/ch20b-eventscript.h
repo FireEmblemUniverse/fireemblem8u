@@ -1,16 +1,16 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch20b_BeginningScene[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088CA7B8)
-    CALL(EventScr_089F8AC8)
-    LOAD1(0x1, UnitDef_088CA7B8)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_0)
+    CALL(EventScr_Ch19A_12)
+    LOAD1(0x1, UnitDef_Ch20BEnemy_0)
     ENUN
-    LOAD1(0x1, UnitDef_088CAB64)
+    LOAD1(0x1, UnitDef_Ch20BEnemy_1)
     ENUN
-    SVAL(EVT_SLOT_2, UnitDef_088CAF88)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_15)
     SVAL(EVT_SLOT_3, 0x1)
     CALL(EventScr_LoadUnitForTutorial)
-    CALL(EventScr_08591FD8)
+    CALL(EventScr_CommonPrep)
     ENUT(10)
     ENUT(12)
     ENUT(14)
@@ -18,13 +18,13 @@ CONST_DATA EventListScr EventScr_Ch20b_BeginningScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD578[] = {
-    CALL(EventScr_089F8C60)
+CONST_DATA EventListScr EventScr_Ch20B_0[] = {
+    CALL(EventScr_Ch20A_13)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
-    CALL(EventScr_089F8CCC)
+    CALL(EventScr_Ch20A_14)
     STAL(30)
     CUMO_CHAR(CHARACTER_LYON)
     STAL(60)
@@ -62,35 +62,35 @@ CONST_DATA EventListScr EventScr_Ch20b_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD630[] = {
+CONST_DATA EventListScr EventScr_Ch20B_1[] = {
     CHECK_TURNS
     SVAL(EVT_SLOT_1, 0x1)
     SAND(EVT_SLOT_C, EVT_SLOT_C, EVT_SLOT_1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, UnitDef_088CAB8C)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_2)
     CALL(EventScr_LoadReinforce)
-    SVAL(EVT_SLOT_2, UnitDef_088CABC8)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_3)
     CALL(EventScr_LoadReinforceHardMode)
 LABEL(0x0)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD674[] = {
+CONST_DATA EventListScr EventScr_Ch20B_2[] = {
     CHECK_TURNS
     SVAL(EVT_SLOT_1, 0x1)
     SAND(EVT_SLOT_C, EVT_SLOT_C, EVT_SLOT_1)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, UnitDef_088CABF0)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_4)
     CALL(EventScr_LoadReinforce)
-    SVAL(EVT_SLOT_2, UnitDef_088CAC2C)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_5)
     CALL(EventScr_LoadReinforceHardMode)
 LABEL(0x0)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD6B8[] = {
+CONST_DATA EventListScr EventScr_Ch20B_3[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     COUNTER_SET(0x0, 3)
@@ -99,8 +99,8 @@ CONST_DATA EventListScr EventScr_089FD6B8[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD6D8[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088CAC54)
+CONST_DATA EventListScr EventScr_Ch20B_4[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_6)
     CALL(EventScr_LoadReinforce)
     COUNTER_DEC(0x0)
     ENUF(10)
@@ -112,7 +112,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD70C[] = {
+CONST_DATA EventListScr EventScr_Ch20B_5[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     ENUF(12)
@@ -121,7 +121,7 @@ CONST_DATA EventListScr EventScr_089FD70C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD72C[] = {
+CONST_DATA EventListScr EventScr_Ch20B_6[] = {
     ENUF(12)
     COUNTER_CHECK(0x1)
     SVAL(EVT_SLOT_7, 0x5)
@@ -130,7 +130,7 @@ CONST_DATA EventListScr EventScr_089FD72C[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
     SVAL(EVT_SLOT_7, 0x1)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
-    SVAL(EVT_SLOT_2, UnitDef_088CAC90)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_7)
     CALL(EventScr_LoadReinforce)
     COUNTER_CHECK(0x1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -141,7 +141,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD794[] = {
+CONST_DATA EventListScr EventScr_Ch20B_7[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     ENUF(14)
@@ -150,7 +150,7 @@ CONST_DATA EventListScr EventScr_089FD794[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD7B4[] = {
+CONST_DATA EventListScr EventScr_Ch20B_8[] = {
     ENUF(14)
     COUNTER_CHECK(0x2)
     SVAL(EVT_SLOT_7, 0x5)
@@ -159,7 +159,7 @@ CONST_DATA EventListScr EventScr_089FD7B4[] = {
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
     SVAL(EVT_SLOT_7, 0x1)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
-    SVAL(EVT_SLOT_2, UnitDef_088CACE0)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_8)
     CALL(EventScr_LoadReinforce)
     COUNTER_CHECK(0x2)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -170,7 +170,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD81C[] = {
+CONST_DATA EventListScr EventScr_Ch20B_9[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     ENUF(16)
@@ -179,7 +179,7 @@ CONST_DATA EventListScr EventScr_089FD81C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD83C[] = {
+CONST_DATA EventListScr EventScr_Ch20B_10[] = {
     ENUF(16)
     COUNTER_CHECK(0x3)
     SVAL(EVT_SLOT_7, 0xb)
@@ -199,7 +199,7 @@ CONST_DATA EventListScr EventScr_089FD83C[] = {
     SVAL(EVT_SLOT_7, 0x1)
     BEQ(0x0, EVT_SLOT_C, EVT_SLOT_7)
     CAMERA2(11, 11)
-    SVAL(EVT_SLOT_2, UnitDef_088CAD30)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_9)
     CALL(EventScr_LoadReinforce)
     COUNTER_CHECK(0x3)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
@@ -210,26 +210,26 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD8F8[] = {
+CONST_DATA EventListScr EventScr_Ch20B_11[] = {
     CHECK_TURNS
     SVAL(EVT_SLOT_1, 0x1)
     SAND(EVT_SLOT_C, EVT_SLOT_C, EVT_SLOT_1)
     BNE(0x0, EVT_SLOT_C, EVT_SLOT_0)
-    SVAL(EVT_SLOT_2, UnitDef_088CAD80)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_10)
     CALL(EventScr_LoadReinforce)
-    SVAL(EVT_SLOT_2, UnitDef_088CADD0)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_11)
     CALL(EventScr_LoadReinforceHardMode)
-    SVAL(EVT_SLOT_2, UnitDef_088CAE0C)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_12)
     CALL(EventScr_LoadReinforceHardMode)
-    SVAL(EVT_SLOT_2, UnitDef_088CAE34)
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_13)
     CALL(EventScr_LoadReinforceHardMode)
 LABEL(0x0)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FD95C[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088CAE5C)
+CONST_DATA EventListScr EventScr_Ch20B_12[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch20BEnemy_14)
     CALL(EventScr_LoadReinforceHardMode)
     EVBIT_T(7)
     ENDA

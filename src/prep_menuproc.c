@@ -59,7 +59,7 @@ void DoPromoteAnimForChar100(struct Proc08A184B4 * proc)
     proc->game_lock = GetGameLock();
     SetWinEnable(0, 0, 0);
 
-    sub_802F598(unit, -1, 0);
+    ExecUnitDefaultPromotion(unit, -1, 0);
     gBattleStats.config = BATTLE_CONFIG_PROMOTION | BATTLE_CONFIG_PROMOTION_PREP;
     gBattleActor.weaponBefore = 0;
     gBattleTarget.weaponBefore = 0;
@@ -100,7 +100,7 @@ void PrepPromoteDebugMaybe(struct Proc08A184B4 * proc)
     Proc_StartBlocking(ProcScr_PrepPromoteDebug, proc);
 }
 
-void sub_8096668()
+void FadeOutPrepBgm()
 {
     ChangeBgm(SONG_NONE, 0x100, 0, 0x20, NULL);
 }
@@ -248,7 +248,7 @@ void DrawPrepScreenSprites(struct PrepSpriteDrawProc * proc)
     else
     {
         if (Prep_HasUnitDeployed())
-            PutSpriteExt(4, 20, 140, obj_08A18E62, OAM2_CHR(0x300));
+            PutSpriteExt(4, 20, 140, obj_PrepUnitselect_1, OAM2_CHR(0x300));
 
         PutPrepInformationSprite(116, 32, OAM2_CHR(0x380) + OAM2_PAL(9));
     }
@@ -331,7 +331,7 @@ void EndPrepScreenSpriteDraw(void)
     Proc_End(Proc_Find(ProcScr_PrepScreenSpriteDraw));
 }
 
-void sub_8096C34(int a1, int a2)
+void PrepDebugDrawWindowPosition(int a1, int a2)
 {
     int val1, val2, val4, r5, r6, _r8;
     int r7;
@@ -799,40 +799,40 @@ PROC_LABEL(200),
     PROC_END
 };
 
-CONST_DATA u16 gUnknown_08A1852C[] =
+CONST_DATA u16 gPrepMenuproc_0[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x380) + OAM2_LAYER(1) + OAM2_PAL(7),
 };
 
-CONST_DATA u16 gUnknown_08A18534[] =
+CONST_DATA u16 gPrepMenuproc_1[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x3C0) + OAM2_LAYER(1) + OAM2_PAL(7),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(+32), OAM2_CHR(0x3C4) + OAM2_LAYER(1) + OAM2_PAL(7),
 };
 
-CONST_DATA u16 gUnknown_08A18542[] =
+CONST_DATA u16 gPrepMenuproc_2[] =
 {
     2,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_VFLIP, OAM2_CHR(0x398) + OAM2_LAYER(1) + OAM2_PAL(6),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(+32) + OAM1_VFLIP, OAM2_CHR(0x39C) + OAM2_LAYER(1) + OAM2_PAL(6),
 };
 
-CONST_DATA u16 gUnknown_08A18550[] =
+CONST_DATA u16 gPrepMenuproc_3[] =
 {
     2,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(+32) + OAM1_HFLIP, OAM2_CHR(0x398) + OAM2_LAYER(1) + OAM2_PAL(6),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_HFLIP, OAM2_CHR(0x39C) + OAM2_LAYER(1) + OAM2_PAL(6),
 };
 
-CONST_DATA u16 gUnknown_08A1855E[] =
+CONST_DATA u16 gPrepMenuproc_4[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x398) + OAM2_LAYER(1) + OAM2_PAL(6),
 };
 
-CONST_DATA u16 gUnknown_08A18566[] =
+CONST_DATA u16 gPrepMenuproc_5[] =
 {
     1,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x39C) + OAM2_LAYER(1) + OAM2_PAL(6),
@@ -955,13 +955,13 @@ CONST_DATA u16 * SpriteArray_PrepChapterNumbers[] =
     Sprite_PrepChapterNum_0
 };
 
-CONST_DATA u16 Sprite_Unused_08A18644[] =
+CONST_DATA u16 Sprite_Unused_0[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_BLEND, OAM1_SIZE_32x32, OAM2_CHR(0x80) + OAM2_LAYER(3),
 };
 
-CONST_DATA u16 objs_8A1864C_1[] =
+CONST_DATA u16 objs_PrepMenuproc_1[] =
 {
     3,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(+32), OAM2_CHR(0x94) + OAM2_LAYER(3),
@@ -969,7 +969,7 @@ CONST_DATA u16 objs_8A1864C_1[] =
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16 + OAM1_X(+104), OAM2_CHR(0x9C) + OAM2_LAYER(3),
 };
 
-CONST_DATA u16 objs_8A1864C_2[] =
+CONST_DATA u16 objs_PrepMenuproc_2[] =
 {
     4,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(+8), OAM2_CHR(0x94) + OAM2_LAYER(3),
@@ -978,7 +978,7 @@ CONST_DATA u16 objs_8A1864C_2[] =
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16 + OAM1_X(+112), OAM2_CHR(0xCC) + OAM2_LAYER(3),
 };
 
-CONST_DATA u16 objs_8A1864C_3[] =
+CONST_DATA u16 objs_PrepMenuproc_3[] =
 {
     4,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16, OAM2_CHR(0x84) + OAM2_LAYER(3),
@@ -987,19 +987,19 @@ CONST_DATA u16 objs_8A1864C_3[] =
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(+96), OAM2_CHR(0x90) + OAM2_LAYER(3),
 };
 
-CONST_DATA u16 objs_8A1864C_4[] =
+CONST_DATA u16 objs_PrepMenuproc_4[] =
 {
     2,
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(+48), OAM2_CHR(0x94) + OAM2_LAYER(3),
     OAM0_SHAPE_32x16 + OAM0_BLEND, OAM1_SIZE_32x16 + OAM1_X(+88), OAM2_CHR(0xCE) + OAM2_LAYER(3),
 };
 
-CONST_DATA u16 * objs_8A1864C[] =
+CONST_DATA u16 * objs_0[] =
 {
-    objs_8A1864C_1,
-    objs_8A1864C_2,
-    objs_8A1864C_3,
-    objs_8A1864C_4
+    objs_PrepMenuproc_1,
+    objs_PrepMenuproc_2,
+    objs_PrepMenuproc_3,
+    objs_PrepMenuproc_4
 };
 
 CONST_DATA struct ProcCmd ProcScr_PrepScreenSpriteDraw[] =

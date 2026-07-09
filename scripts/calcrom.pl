@@ -13,16 +13,18 @@ my $srcdata = 0;
 my $data = 0;
 
 my $dataBanim = 0;
+my $dataSound = 0;
 
 while (my $line = <$file>)
 {
-    if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) (\w+)\/.+\.o/)
+    if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) (\S+\.o)/)
     {
         my $section = $1;
         my $size = hex($2);
-        my $dir = $3;
+        my $path = $3;
+        my ($dir) = $path =~ m{^(\w+)/};
 
-        if ($section =~ /text/)
+        if ($section eq 'text')
         {
             if ($dir eq 'src')
             {
@@ -33,29 +35,34 @@ while (my $line = <$file>)
                 $asm += $size;
             }
         }
-        elsif ($section =~ /rodata/)
+        # Data progress tracks both .rodata and .data. Earlier versions only
+        # counted .rodata, which ignored CONST_DATA / SECTION(".data") that is
+        # decompiled into src (credited below) and the large raw blobs still
+        # incbin'd from data/ (counted as remaining) -- understating how much
+        # data is left, so the reported percentage did not reflect reality.
+        elsif ($section eq 'rodata' or $section eq 'data')
         {
-            if ($dir eq 'src')
+            # banim and sound are self-contained extracted subsystems,
+            # each reported on its own line; keep them out of the src-vs-data
+            # split so the headline percentage reflects general data
+            # decompilation progress. sound/ (linked via linker_script_sound.txt)
+            # is ~3.6 MB of .rodata that was previously dropped entirely because
+            # its dir is neither 'src' nor 'data', leaving the data total wrong.
+            if ($path =~ m{^banim/})
+            {
+                $dataBanim += $size;
+            }
+            elsif ($dir eq 'sound')
+            {
+                $dataSound += $size;
+            }
+            elsif ($dir eq 'src')
             {
                 $srcdata += $size;
             }
             elsif ($dir eq 'data')
             {
                 $data += $size;
-            }
-        }
-    }
-    if ($line =~ /^ \.(\w+)\s+0x[0-9a-f]+\s+(0x[0-9a-f]+) data\/(\w+)\/.+\.o/)
-    {
-        my $section = $1;
-        my $size = hex($2);
-        my $dir = $3;
-
-        if ($section =~ /data/)
-        {
-            if ($dir eq 'banim')
-            {
-                $dataBanim += $size;
             }
         }
     }
@@ -112,19 +119,19 @@ my $partial_documented_as_string;
 ))
     or die "ERROR: Error while filtering for partial symbols: $?";
 
-# Performing addition on a string converts it to a number. Any string that fails
-# to convert to a number becomes 0. So if our converted number is 0, but our string
-# is nonzero, then the conversion was an error.
+# These come from `wc -l`, so a valid result is any string of digits -- including
+# "0" once everything is documented. Treat a non-numeric string (e.g. a failed
+# subcommand) as the error, but accept a legitimate count of zero.
 my $undocumented = $undocumented_as_string + 0;
-(($undocumented != 0) and ($undocumented_as_string ne "0"))
+($undocumented_as_string =~ /^\s*\d+\s*$/)
     or die "ERROR: Cannot convert string to num: '$undocumented_as_string'";
 
 my $partial_documented = $partial_documented_as_string + 0;
-(($partial_documented != 0) and ($partial_documented_as_string ne "0"))
+($partial_documented_as_string =~ /^\s*\d+\s*$/)
 	or die "ERROR: Cannot convert string to num: '$partial_documented_as_string'";
 
 my $total_syms = $total_syms_as_string + 0;
-(($total_syms != 0) and ($total_syms_as_string ne "0"))
+($total_syms_as_string =~ /^\s*\d+\s*$/)
     or die "ERROR: Cannot convert string to num: '$total_syms_as_string'";
 
 ($total_syms != 0)
@@ -152,10 +159,25 @@ print "$partial_documented symbols partially documented ($partialPct%)\n";
 print "$undocumented symbols undocumented ($undocPct%)\n";
 
 print "\n";
-my $dataTotal = $srcdata + $data;
+# Every data percentage is computed against the complete data total (all ROM
+# .rodata + .data: decompiled src, raw data/ blobs, and the extracted banim and
+# sound subsystems) so the shares sum to 100% and the ratio is honest -- just
+# like code is reported as a fraction of total code. Counting only src+data in
+# the denominator hid ~6 MB of already-organized banim/sound data.
+my $dataTotal = $srcdata + $data + $dataBanim + $dataSound;
+($dataTotal != 0) or die "ERROR: No data sections found.\n";
 my $srcDataPct = sprintf("%.4f", 100 * $srcdata / $dataTotal);
 my $dataPct = sprintf("%.4f", 100 * $data / $dataTotal);
+my $dataBanimPct = sprintf("%.4f", 100 * $dataBanim / $dataTotal);
+my $dataSoundPct = sprintf("%.4f", 100 * $dataSound / $dataTotal);
 print "$dataTotal total bytes of data\n";
 print "$srcdata bytes of data in src ($srcDataPct%)\n";
 print "$data bytes of data in data ($dataPct%)\n";
-print "$dataBanim bytes of data is in data/banim\n";
+print "$dataBanim bytes of data in banim ($dataBanimPct%)\n";
+print "$dataSound bytes of data in sound ($dataSoundPct%)\n";
+# Data "extraction" = everything pulled out of the raw data/ blobs into organized
+# forms (decompiled src + the banim/sound subsystems). What is left to extract is
+# whatever still sits in data/; when that hits 0, extraction is 100%.
+my $dataExtracted = $dataTotal - $data;
+my $dataExtractPct = sprintf("%.4f", 100 * $dataExtracted / $dataTotal);
+print "$dataExtracted of $dataTotal bytes of data extracted ($dataExtractPct%)\n";

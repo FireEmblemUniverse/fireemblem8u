@@ -13,7 +13,7 @@
 // TODO: Should be in "bmsave.h", but doing so causes a non-match (implicit declaration?) in "bonusclaim.c"
 bool LoadBonusContentData(void *buf);
 
-EWRAM_DATA u8 gUnused_0203E884[10] = { 0 };
+EWRAM_DATA u8 gUnused_BmsaveLib_0[10] = { 0 };
 EWRAM_DATA bool gBoolSramWorking = false;
 
 static const char sSaveMarker[] = "AGB-FE9";
@@ -47,13 +47,13 @@ CONST_DATA int sSupportUnkLut[][2] = {
 };
 
 //! FE8U = 0x080A2C2C
-u8 * sub_80A2C2C(void)
+u8 * BmSave_GetUnusedBuffer(void)
 {
-    gUnused_0203E884[0] = 0;
-    return gUnused_0203E884;
+    gUnused_BmsaveLib_0[0] = 0;
+    return gUnused_BmsaveLib_0;
 }
 
-void sub_80A2C38(void)
+void BmSave_NopStub(void)
 {
     return;
 }
@@ -825,7 +825,7 @@ int GGM_IsAnyCharacterKnown(struct GlobalSaveInfo *buf)
     return 0;
 }
 
-void sub_80A3868() {}
+void BmSave_NopStub2() {}
 
 void __malloc_unlock_3() {}
 
@@ -919,7 +919,7 @@ int GetNextChapterMode()
     return gPlaySt.chapterModeIndex - 1;
 }
 
-int sub_80A39E4(void *buf, int chapter_mode, int difficulty)
+int GetSavedRankData(void *buf, int chapter_mode, int difficulty)
 {
     struct GameRankSaveDataPacks _buf;
     struct GameRankSaveData *src;
@@ -1060,7 +1060,7 @@ void SaveEndgameRankings()
     int difficult = 1 & gPlaySt.chapterStateBits >> 6;
 
     GenerateGameRankSaveData(&new, chapter_mode, difficult);
-    sub_80A39E4(&old, chapter_mode, difficult);
+    GetSavedRankData(&old, chapter_mode, difficult);
 
     if (0 != JudgeGameRankSaveData(&old, &new))
         SaveNewRankData(&new, chapter_mode, difficult);

@@ -88,7 +88,7 @@ PROC_LABEL(9),
 
     PROC_START_CHILD_BLOCKING(gProcScr_ResetCursorPosition),
 
-    PROC_CALL_2(sub_8015434),
+    PROC_CALL_2(BmMain_CheckBeginPhaseEvent),
 
     // fallthrough
 
@@ -101,7 +101,7 @@ PROC_LABEL(5),
     PROC_GOTO(3),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80155C4),
+    PROC_CALL(BmMain_BeginNextChapter),
     PROC_SLEEP(0),
     PROC_START_CHILD_BLOCKING(gProcScr_ChapterIntroTitleOnly),
     PROC_SLEEP(0),
@@ -293,9 +293,9 @@ struct ProcCmd CONST_DATA ProcScr_UnkMapCursor[] = {
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA gProcScr_0859A580[] = {
-    PROC_SET_END_CB(sub_801613C),
-    PROC_REPEAT(sub_80160E0),
+struct ProcCmd CONST_DATA gProcScr_Bm_0[] = {
+    PROC_SET_END_CB(CamMoveLinear_OnEnd),
+    PROC_REPEAT(CamMoveLinear_OnLoop),
     PROC_END,
 };
 
@@ -423,11 +423,11 @@ int BmMain_ChangePhase(void)
 }
 
 //! FE8U = 0x08015434
-bool sub_8015434(void)
+bool BmMain_CheckBeginPhaseEvent(void)
 {
-    if (sub_80832D4() == 1)
+    if (Eventinfo_CondFalse_4() == 1)
     {
-        sub_80832D0();
+        Eventinfo_CondFalse_3();
         return false;
     }
 
@@ -527,7 +527,7 @@ void GotoChapterWithoutSave(u16 chapterId)
 }
 
 //! FE8U = 0x080155C4
-void sub_80155C4(void) {
+void BmMain_BeginNextChapter(void) {
     u8 flag;
 
     if (CheckFlag(3)) {
@@ -583,7 +583,7 @@ void ApplySystemObjectsPalettes(void) {
 }
 
 //! FE8U = 0x080156D4
-void sub_80156D4(void) {
+void LoadGameCoreGfxLegacyFrame(void) {
 
     ResetText();
     LoadLegacyUiFrameGraphics();
@@ -1002,7 +1002,7 @@ void StoreAdjustedCameraPositions(int xIn, int yIn, int* xOut, int* yOut) {
 }
 
 //! FE8U = 0x08015D84
-s8 sub_8015D84(ProcPtr parent, int x, int y) {
+s8 EnsureCameraCenteredOnPosition(ProcPtr parent, int x, int y) {
     struct CamMoveProc* proc;
 
     int xTarget;
@@ -1086,7 +1086,7 @@ s8 IsCameraNotWatchingPosition(int x, int y) {
 }
 
 //! FE8U = 0x08015EDC
-s8 CameraMove_8015EDC(ProcPtr parent) {
+s8 CameraMove_0(ProcPtr parent) {
     struct CamMoveProc* proc;
 
     if (gBmSt.camera.y <= gBmSt.cameraMax.y) {
@@ -1131,7 +1131,7 @@ void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc) {
 }
 
 //! FE8U = 0x08015F90
-void sub_8015F90(int x, int y, int duration) {
+void StartMapCursorSlide(int x, int y, int duration) {
     struct UnkMapCursorProc* proc;
 
     proc = Proc_Start(ProcScr_UnkMapCursor, PROC_TREE_3);
@@ -1205,7 +1205,7 @@ void StartMapSongBgm(void) {
 }
 
 //! FE8U = 0x080160E0
-void sub_80160E0(struct CamMoveProc* proc) {
+void CamMoveLinear_OnLoop(struct CamMoveProc* proc) {
     int x = Interpolate(0, proc->from.x, proc->to.x, proc->frame, proc->distance);
     int y = Interpolate(0, proc->from.y, proc->to.y, proc->frame, proc->distance);
 
@@ -1222,18 +1222,18 @@ void sub_80160E0(struct CamMoveProc* proc) {
 }
 
 //! FE8U = 0x0801613C
-void sub_801613C(void) {
+void CamMoveLinear_OnEnd(void) {
     return;
 }
 
 //! FE8U = 0x08016140
-void sub_8016140(ProcPtr parent, int x, int y, int distance) {
+void StartCamMoveLinear(ProcPtr parent, int x, int y, int distance) {
     struct CamMoveProc* proc;
 
     if (parent != 0) {
-        proc = Proc_StartBlocking(gProcScr_0859A580, parent);
+        proc = Proc_StartBlocking(gProcScr_Bm_0, parent);
     } else {
-        proc = Proc_Start(gProcScr_0859A580, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_Bm_0, PROC_TREE_3);
     }
 
     proc->from.x = gBmSt.camera.x;

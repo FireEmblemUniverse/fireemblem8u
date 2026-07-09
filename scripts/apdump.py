@@ -146,6 +146,14 @@ if __name__ == '__main__':
         animTableSize  = 0
         frameTableSize = 0
 
+        # In the canonical AP layout the frame list immediately precedes the anim
+        # list, so the frame count is exactly (animTableOffset - frameTableOffset)/2.
+        # Deriving it structurally (instead of max-referenced-index + 1) reproduces
+        # frame tables that contain unreferenced trailing entries, which the old
+        # heuristic silently dropped.
+        if frameTableOffset < animTableOffset:
+            frameTableSize = (animTableOffset - frameTableOffset) // 2
+
         # This will be used to predict the anim table size
         # As well as to predict whether to load sheet indices in frame data
         def next_smallest_offset(offset):

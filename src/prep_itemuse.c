@@ -588,7 +588,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON) {
         ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
-        sub_80ACA84(0);
+        ClearUiCursorHandConfig(0);
         PrepItemUseClearSubBox();
         PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
         Proc_Break(proc);
@@ -606,7 +606,7 @@ void PrepItemUse_ConfirmWindowCtrlLoop(struct ProcPrepItemUse * proc)
         } else {
             ShowSysHandCursor(0x10, proc->slot * 0x10 + 0x48, 0xB, 0x800);
             PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
-            sub_80ACA84(0);
+            ClearUiCursorHandConfig(0);
             Proc_Break(proc);
             return;
         }
@@ -686,7 +686,7 @@ void PrepItemUse_ExecPromotionItemUnused(struct ProcPrepItemUse * proc)
     EndAllParallelWorkers();
     EndFaceById(0);
 
-    sub_80ACA84(0);
+    ClearUiCursorHandConfig(0);
     ExecUnitPromotion(proc->unit, CLASS_EPHRAIM_LORD, proc->slot, false);
     gBattleStats.config = 0x110;
     BeginBattleAnimations();
@@ -733,7 +733,7 @@ void PrepItemUse_ResetBgmAfterPromo(struct ProcPrepItemUse * proc)
     OverrideBgm(SONG_COMBAT_PREPARATION);
 }
 
-void sub_809CCE0(void)
+void PrepItemUse_FadeOutBgm(void)
 {
     ChangeBgm(SONG_NONE, 0x100, 0, 0x10, NULL);
 }

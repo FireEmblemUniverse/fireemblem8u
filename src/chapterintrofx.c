@@ -125,7 +125,7 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] =
 
     PROC_CALL(ChapterIntro_LightExplosion_Init),
     PROC_REPEAT(ChapterIntro_LightExplosion_Loop),
-    PROC_CALL(ChapterIntro_SetBG_802009C),
+    PROC_CALL(ChapterIntro_SetBG_0),
 
     PROC_START_CHILD(ProcScr_ChapterIntro_Bg2Scroll),
     PROC_START_CHILD(ProcScr_ChapterIntro_PutDecalSprite),
@@ -136,8 +136,8 @@ struct ProcCmd CONST_DATA gProcScr_ChapterIntro[] =
     PROC_CALL_ARG(ChapterIntro_SetTimer, 160),
     PROC_REPEAT(ChapterIntro_TickTimerMaybe),
 
-    PROC_CALL(ChapterIntro_8020A40),
-    PROC_REPEAT(ChapterIntro_8020A8C),
+    PROC_CALL(ChapterIntro_1),
+    PROC_REPEAT(ChapterIntro_2),
 
     PROC_END_EACH(ProcScr_ChapterIntro_Bg2Scroll),
     PROC_END_EACH(ProcScr_ChapterIntro_Bg1And3Scroll),
@@ -177,12 +177,12 @@ PROC_LABEL(99),
     PROC_END,
 };
 
-struct ProcCmd CONST_DATA sProcScr_0859B318[] =
+struct ProcCmd CONST_DATA sProcScr_Chapterintrofx_0[] =
 {
-    PROC_CALL(ChapterIntro_8020AF8),
+    PROC_CALL(ChapterIntro_3),
     PROC_CALL(ChapterIntro_InitMapDisplay),
     PROC_CALL(ChapterIntro_BeginFadeToMap),
-    PROC_REPEAT(ChapterIntro_8021188),
+    PROC_REPEAT(ChapterIntro_4),
 
     PROC_END,
 };
@@ -326,7 +326,7 @@ void ChapterIntro_Bg1And3Scroll_Loop(struct ChapterIntroFxProc * proc)
 }
 
 //! FE8U = 0x08020010
-int ChapterIntro_8020010(ProcPtr proc, void * vramDst, int palId)
+int ChapterIntro_0(ProcPtr proc, void * vramDst, int palId)
 {
     int refPal0;
     int refPal1;
@@ -366,7 +366,7 @@ int ChapterIntro_8020010(ProcPtr proc, void * vramDst, int palId)
 }
 
 //! FE8U = 0x0802009C
-void ChapterIntro_SetBG_802009C(void)
+void ChapterIntro_SetBG_0(void)
 {
     gLCDControlBuffer.dispcnt.mode = DISPCNT_MODE_0;
 
@@ -419,7 +419,7 @@ void ChapterIntro_Init(struct ChapterIntroFxProc * proc)
 
     MaybeResetSomePal();
 
-    sub_80017B4(0, 2, 64, -1);
+    ColorFadeSetupRange(0, 2, 64, -1);
 
     CALLARM_ColorFadeTick();
 
@@ -431,12 +431,12 @@ void ChapterIntro_Init(struct ChapterIntroFxProc * proc)
     Decompress(Img_ChapterIntro_LensFlare, BG_CHR_ADDR(0x400));
     ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
-    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
+    BlitU8TileMapData(gBG2TilemapBuffer, Tsa_ChapterIntroLensFlare, 0, 5);
 
     Decompress(Img_ChapterIntro_Sprites, OBJ_CHR_ADDR(0x200));
     ApplyPalette(Pal_ChapterIntro_Sprites, 18);
 
-    ChapterIntro_8020010(proc, 0, 14);
+    ChapterIntro_0(proc, 0, 14);
 
     BG_EnableSyncByMask(BG1_SYNC_BIT | BG2_SYNC_BIT);
 
@@ -627,10 +627,10 @@ void ChapterIntro_DrawChapterTitle(void)
 
     BG_Fill(gBG0TilemapBuffer, TILEREF(0x280, 1));
 
-    sub_80895B4(8, 5);
+    ApplyChapterTitlePal(8, 5);
     titleId = GetChapterTitleWM(&gPlaySt);
     _PutChapterTitleGfx(0x280, titleId);
-    sub_80896FC(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 5, titleId);
+    DrawChapterTitleStrEx(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 5, titleId);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -772,7 +772,7 @@ void ChapterIntro_BlendFogAlpha_Loop(struct ChapterIntroFxProc * proc)
 }
 
 //! FE8U = 0x08020A40
-void ChapterIntro_8020A40(struct ChapterIntroFxProc * proc)
+void ChapterIntro_1(struct ChapterIntroFxProc * proc)
 {
     proc->timer = 30;
 
@@ -786,7 +786,7 @@ void ChapterIntro_8020A40(struct ChapterIntroFxProc * proc)
 }
 
 //! FE8U = 0x08020A8C
-void ChapterIntro_8020A8C(struct ChapterIntroFxProc * proc)
+void ChapterIntro_2(struct ChapterIntroFxProc * proc)
 {
     if ((GetGameClock() & 3) == 0)
     {
@@ -811,11 +811,11 @@ void ChapterIntro_8020A8C(struct ChapterIntroFxProc * proc)
 }
 
 //! FE8U = 0x08020AF8
-void ChapterIntro_8020AF8(void)
+void ChapterIntro_3(void)
 {
     SetupBackgrounds(NULL);
 
-    sub_80156D4();
+    LoadGameCoreGfxLegacyFrame();
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
     RefreshUnitSprites();
@@ -1113,7 +1113,7 @@ void ChapterIntro_TickTimerMaybe(struct ChapterIntroFxProc * proc)
 }
 
 //! FE8U = 0x080210C0
-void sub_80210C0(struct ChapterIntroFxProc * proc)
+void ChapterIntro_SetSkipping(struct ChapterIntroFxProc * proc)
 {
     proc->isSkipping = 2;
     return;
@@ -1140,14 +1140,14 @@ void ChapterIntro_End(void)
     if (GetBattleMapKind() == BATTLEMAP_KIND_SKIRMISH || GetROMChapterStruct(gPlaySt.chapterIndex)->fadeToBlack)
     {
         RefreshBMapGraphics();
-        sub_80141B0();
+        ForceScreenToBlack();
     }
 
     return;
 }
 
 //! FE8U = 0x08021188
-void ChapterIntro_8021188(struct ChapterIntroFxProc * proc)
+void ChapterIntro_4(struct ChapterIntroFxProc * proc)
 {
     if ((GetGameClock() & 1) == 0)
     {

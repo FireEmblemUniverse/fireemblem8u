@@ -1,0 +1,40 @@
+name: Build Verification
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi libpng-dev && python -m pip install ttp numpy pillow
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # The build does not need the original ROM: `make compare` verifies the
+      # built ROM byte-for-byte against checksum.sha1. So verification runs on
+      # every push/PR with no baserom download and no secret required.
+      - name: Install agbcc
+        run: git clone https://github.com/pret/agbcc.git && cd agbcc/ && ./build.sh && ./install.sh .. && cd ..
+
+      # Cache the mgfembp submodule's agbcc (the FE6 SIO payload sub-build installs
+      # it on a cache miss; `make compare` is the backstop against a stale cache).
+      - name: Cache mgfembp agbcc
+        uses: actions/cache@v4
+        with:
+          path: mgfembp/tools/agbcc
+          key: mgfembp-agbcc-${{ hashFiles('mgfembp/tools/install_agbcc.sh') }}
+
+      - name: Build tools
+        run: ./build_tools.sh
+
+      - name: Build and verify ROM
+        run: make clean && make fireemblem8.gba compare -j$(nproc)

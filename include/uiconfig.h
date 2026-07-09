@@ -88,7 +88,7 @@ enum
     CONFIG_MOVE_DOWN_FRAME_3 = CONFIG_MOVE_DOWN + 2,
 };
 
-s16 sub_80B169C(void);
+s16 GetConfigUnk32DifficultyAdjusted(void);
 u8 GetSelectedGameOption(void);
 u8 GetSelectedOptionValue(void);
 void DrawGameOptionIcon(int selectedIdx, int yBase);

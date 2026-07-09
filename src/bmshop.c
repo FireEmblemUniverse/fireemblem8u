@@ -170,7 +170,7 @@ PROC_LABEL(PL_SHOP_EXIT),
     PROC_CALL(Shop_ExitShopDialogue),
     PROC_SLEEP(1),
     PROC_CALL_ARG(_FadeBgmOut, 2),
-    PROC_CALL(sub_8013F40),
+    PROC_CALL(FadeOutBlackSpeed20Locking),
     PROC_SLEEP(1),
     PROC_CALL(Shop_OnExit),
     PROC_END_EACH(ProcScr_ShopDrawHand),
@@ -327,7 +327,7 @@ void TalkChoice_OnSell(void)
         ShopInitTexts_OnSell(proc);
 }
 
-void Shop_null_80B4328(void)
+void Shop_null_0(void)
 {}
 
 void Shop_EntryDialogue(struct ProcShop * proc)

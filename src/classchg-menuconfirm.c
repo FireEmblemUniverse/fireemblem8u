@@ -5,7 +5,7 @@
 #include "hardware.h"
 #include "sysutil.h"
 
-void sub_80CDA4C(struct MenuProc *proc)
+void ResetMenuTextCursors(struct MenuProc *proc)
 {
     int i;
     for (i = 0; i < proc->itemCount; i++)
@@ -24,7 +24,7 @@ int PromoSubConfirm_OnEnd(struct MenuProc *proc)
     TileMap_FillRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 8, 4), 0xA, 6, 0);
     TileMap_FillRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 8, 4), 0xA, 6, 0);
     SetTextFont(&gFontClassChg);
-    sub_80CDA4C(proc->proc_parent);
+    ResetMenuTextCursors(proc->proc_parent);
     RedrawMenu(proc->proc_parent);
     SyncMenuBgs(proc);
     return 0;
