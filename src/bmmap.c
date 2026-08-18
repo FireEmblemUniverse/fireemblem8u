@@ -279,7 +279,9 @@ void InitBaseTilesBmMap(void) {
     rows  = gBmMapBaseTiles;
     tiles = gBmMapBuffer;
 
-    gBmMapSize.y++; // ?
+    // Temporarily increment the size to account for an extra row of tiles
+    // for the "subtitle help" when against the edge of the map
+    gBmMapSize.y++;
 
     // Ignore first short (x, y byte pair)
     tiles++;
@@ -297,15 +299,15 @@ void InitBaseTilesBmMap(void) {
             gBmMapBaseTiles[iy][ix] = *tiles++;
     }
 
-    // Fill "bottom" row with empty tiles?
-    // "bottom" as the y had been increased too this is just weird
+    // Fill "bottom" row with empty tiles (for the subtitle help scenario above)
 
     tiles = gBmMapBaseTiles[iy - 1];
 
     for (ix = 0; ix < gBmMapSize.x; ++ix)
         *tiles++ = 0;
 
-    gBmMapSize.y--; // ?
+    // Restore the original height of the map
+    gBmMapSize.y--;
 }
 
 void RefreshTerrainBmMap(void) {
