@@ -201,9 +201,9 @@ int TryRelocateHbRight(struct HelpBoxProc* proc);
 
 int StartLockingHelpBox_Unused(int mid, ProcPtr parent);
 
-struct Proc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
-struct Proc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
-struct Proc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent);
 void EndHelpPromptSprite(void);
 void MoveHelpPromptSprite(int x, int y);
 
@@ -213,7 +213,7 @@ extern struct HelpBoxInfo gHelpInfo_Ss0Pow; // page 0 root help
 extern struct HelpBoxInfo gHelpInfo_Ss1CharName; // hardcoded thing bad
 extern struct HelpBoxInfo gHelpInfo_Ss1Item0; // page 1 root help
 extern struct HelpBoxInfo gHelpInfo_Ss2Rank0; // page 2 root help
-                                                         //
+
 struct StatScreenEffectProc
 {
     /* 00 */ PROC_HEADER;
