@@ -32,8 +32,8 @@ Pal_08B17B44:  @ 0x08B17B44
 Img_ChapterIntro_LensFlare:  @ 0x08B17B64
 	.incbin "baserom.gba", 0xB17B64, 0x1204
 
-	.global Tsa_08B18D68
-Tsa_08B18D68:  @ 0x08B18D68
+	.global Tsa_ClassReel_LensFlare
+Tsa_ClassReel_LensFlare:  @ 0x08B18D68
 	.incbin "baserom.gba", 0xB18D68, 0x16C
 
 	.global Pal_ChapterIntro_LensFlare

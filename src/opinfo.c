@@ -345,27 +345,23 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
     ApplyPalette(gUnknown_08A30780, 0x1E);
     ApplyPalette(gUnknown_08A30780, 0x1F);
 
-    Decompress(gUnknown_08A301B0, OBJ_CHR_ADDR(0x300));
+    Decompress(Img_ClassReel_BigWeaponSprites, OBJ_CHR_ADDR(0x300));
 
     proc->unk_2c = ((240 - (((proc->classNameLength << 1) + proc->classNameLength) << 2)) >> 1) - 8;
 
     *proc->letterProcsPtr = StartClassNameIntroLetter(proc, 0);
 
-    Decompress(gUnknown_08A360E8, BG_CHR_ADDR(0x0));
-
-    Decompress(gUnknown_08A36284, gGenericBuffer);
+    Decompress(Img_ClassReelFiligree, BG_CHR_ADDR(0x0));
+    Decompress(Tsa_ClassReelFiligree, gGenericBuffer);
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 7), gGenericBuffer, TILEREF(0x0, 4));
 
-    Decompress(gUnknown_08A35A3C, BG_CHR_ADDR(0x40));
-
-    Decompress(gUnknown_08A35FD0, gGenericBuffer);
+    Decompress(Img_ClassReel_NameBg, BG_CHR_ADDR(0x40));
+    Decompress(Tsa_ClassReel_NameBg, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, TILEREF(0x40, 5));
-    ApplyPalette(gUnknown_08A360C8, 5);
+    ApplyPalette(Pal_ClassReel_NameBg, 5);
 
     Decompress(Img_ChapterIntro_LensFlare, BG_CHR_ADDR(0x400));
-
-    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
-
+    sub_800154C(gBG2TilemapBuffer, Tsa_ClassReel_LensFlare, 0, 5);
     ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -689,7 +685,7 @@ void sub_80B30FC(u8 a, u8 b, u8 c)
     {
         if (((c >> i) & 1) != 0)
         {
-            PutSpriteExt(4, (tmp2) & 0x1FF, 0x50, *object, 0xF000);
+            PutSpriteExt(4, (tmp2) & 0x1FF, 0x50, *object, OAM2_PAL(15));
             tmp2 += 0x20;
         }
     }
@@ -794,13 +790,13 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc * proc)
 
     if (proc->unk_4c < 30)
     {
-        unkA = Interpolate(INTERPOLATE_RCUBIC, 4, 0x32, proc->unk_4c, 0x1E);
-        unkB = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->unk_4c, 0x1E);
+        unkA = Interpolate(INTERPOLATE_RCUBIC, 4, 50, proc->unk_4c, 30);
+        unkB = Interpolate(INTERPOLATE_RSQUARE, 0, 16, proc->unk_4c, 30);
     }
     else
     {
-        unkA = Interpolate(INTERPOLATE_LINEAR, 0x32, 100, proc->unk_4c - 0x1E, 0x1E);
-        unkB = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_4c - 0x1E, 0x1E);
+        unkA = Interpolate(INTERPOLATE_LINEAR, 50, 100, proc->unk_4c - 30, 30);
+        unkB = Interpolate(INTERPOLATE_LINEAR, 16, 0, proc->unk_4c - 30, 30);
     }
 
     if (49 < unkA)
@@ -808,8 +804,8 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc * proc)
         unkA = 100 - unkA;
     }
 
-    unkC = Interpolate(INTERPOLATE_LINEAR, 0, 0xD6, proc->unk_4c, 0x3C);
-    unkD = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x80, proc->unk_4c, 0x3C);
+    unkC = Interpolate(INTERPOLATE_LINEAR, 0, 214, proc->unk_4c, 60);
+    unkD = Interpolate(INTERPOLATE_LINEAR, 16, 128, proc->unk_4c, 60);
 
     BgAffinRotScaling(BG_2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
     BgAffinScaling(BG_2, 0x100, 0x100);
@@ -861,17 +857,20 @@ void ClassIntroBurst_Init(struct OpInfoBurstProc * proc)
     return;
 }
 
-extern u16 CONST_DATA sSprite_08A2F1F0[];
+extern u16 CONST_DATA Sprite_ClassIntroBurstBubble[];
 
 //! FE8U = 0x080B33FC
-void PutClassIntroBurstSprites(struct OpInfoBurstProc * proc, int b, int c, int d)
+void PutClassIntroBurstSprites(struct OpInfoBurstProc * proc, int affineId, int c, int d)
 {
-    int x = Interpolate(INTERPOLATE_RCUBIC, 0x78, c, proc->unk_4c, 0x46);
-    int y = Interpolate(INTERPOLATE_RCUBIC, 0x50, d, proc->unk_4c, 0x46);
+    int x = Interpolate(INTERPOLATE_RCUBIC, DISPLAY_WIDTH / 2, c, proc->unk_4c, 70);
+    int y = Interpolate(INTERPOLATE_RCUBIC, DISPLAY_HEIGHT / 2, d, proc->unk_4c, 70);
 
-    PutSpriteExt(4, ((x - 8) & 0x1FF) | (b << 9), ((y - 8) & 0x1FF) | 0x100, sSprite_08A2F1F0, 0xF000);
-
-    PutSpriteExt(4, ((0xE8 - x) & 0x1FF) | (b << 9), ((0x98 - y) & 0x1FF) | 0x100, sSprite_08A2F1F0, 0xF000);
+    PutSpriteExt(
+        4, (OAM1_X(x - 8)) | OAM1_AFFINE_ID(affineId), ((y - 8) & 0x1FF) | OAM0_AFFINE_ENABLE,
+        Sprite_ClassIntroBurstBubble, OAM2_PAL(15));
+    PutSpriteExt(
+        4, (OAM1_X(DISPLAY_WIDTH - 8 - x)) | OAM1_AFFINE_ID(affineId),
+        ((DISPLAY_HEIGHT - 8 - y) & 0x1FF) | OAM0_AFFINE_ENABLE, Sprite_ClassIntroBurstBubble, OAM2_PAL(15));
 
     return;
 }
@@ -883,11 +882,8 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc * proc)
 
     if (proc->unk_64 < 71)
     {
-        scale = Interpolate(INTERPOLATE_RSQUARE, 0x120, 0x10, proc->unk_64, 70);
-
-        SetObjAffine(
-            21, Div(+COS(0) << 4, scale), Div(-SIN(0) << 4, scale), Div(+SIN(0) << 4, scale), Div(+COS(0) << 4, scale));
-
+        scale = Interpolate(INTERPOLATE_RSQUARE, 288, 16, proc->unk_64, 70);
+        SetObjAffineAuto(21, 0, scale, scale);
         proc->unk_64++;
     }
 
@@ -895,11 +891,8 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc * proc)
 
     if (proc->unk_66 < 71)
     {
-        scale = Interpolate(INTERPOLATE_LINEAR, 0x120, 0x10, proc->unk_66, 70);
-
-        SetObjAffine(
-            22, Div(+COS(0) << 4, scale), Div(-SIN(0) << 4, scale), Div(+SIN(0) << 4, scale), Div(+COS(0) << 4, scale));
-
+        scale = Interpolate(INTERPOLATE_LINEAR, 288, 16, proc->unk_66, 70);
+        SetObjAffineAuto(22, 0, scale, scale);
         proc->unk_66++;
     }
 
@@ -907,7 +900,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc * proc)
 
     if (proc->unk_68 < 71)
     {
-        scale = Interpolate(INTERPOLATE_SQUARE, 0x120, 0x10, proc->unk_68, 70);
+        scale = Interpolate(INTERPOLATE_SQUARE, 288, 16, proc->unk_68, 70);
         SetObjAffineAuto(23, 0, scale, scale);
         proc->unk_68++;
     }
@@ -1014,7 +1007,7 @@ extern u8 gUnknown_0200A300[];
 extern u8 gUnknown_0200C300[];
 extern u8 gUnknown_0200CB00[];
 
-extern struct Text gUnk_OpInfo_0201FB28[6];
+extern struct Text gClassReelTexts[6];
 
 extern u8 gUnk_OpInfo_0201DB28[];
 
@@ -1048,10 +1041,9 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     } hack;
     int i;
     int hasMagicRank;
-    int r5;
     u16 * buffer;
 
-    hasMagicRank = 0;
+    hasMagicRank = FALSE;
 
     memcpy(hack.hack_2d, gUnknown_08205EDC, sizeof(hack.hack_2d));
 
@@ -1061,12 +1053,12 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     {
         if ((GetClassData(proc->classReelEnt->classId)->baseRanks[i]) != 0)
         {
-            hasMagicRank = 1;
+            hasMagicRank = TRUE;
             break;
         }
     }
 
-    SetupBackgrounds(0);
+    SetupBackgrounds(NULL);
 
     proc->unk_2a = 0;
     proc->unk_2c = 0;
@@ -1095,51 +1087,46 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     BG_SetPosition(BG_2, 0, 0);
     BG_SetPosition(BG_3, 0, 0);
 
-    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(BG_3) + VRAM));
-    ApplyPalettes(gUnknown_08A3593C, 7, 8);
+    Decompress(Img_ClassReel_InfoBg, (void *)(GetBackgroundTileDataOffset(BG_3) + VRAM));
+    ApplyPalettes(Pal_ClassReel_InfoBg, 7, 8);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_ClassReel_InfoBg, TILEREF(0x0, 7));
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, TILEREF(0x0, 7));
-
-    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(BG_2) + VRAM));
+    Decompress(Img_ClassReel_UiBox, (void *)(GetBackgroundTileDataOffset(BG_2) + VRAM));
     ApplyPalette(gUiFramePaletteA, 6);
-
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, TILEREF(0x0, 6));
+    CallARM_FillTileRect(gBG2TilemapBuffer, Tsa_ClassReel_UiBox, TILEREF(0x0, 6));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     BG_Fill(buffer, 0);
 
-    proc->unk_40[0] = GetClassData(proc->classReelEnt->classId)->baseHP;
-    proc->unk_40[1] = GetClassData(proc->classReelEnt->classId)->basePow;
-    proc->unk_40[2] = GetClassData(proc->classReelEnt->classId)->baseSkl;
-    proc->unk_40[3] = GetClassData(proc->classReelEnt->classId)->baseSpd;
-    proc->unk_40[4] = GetClassData(proc->classReelEnt->classId)->baseDef;
-    proc->unk_40[5] = GetClassData(proc->classReelEnt->classId)->baseRes;
+    proc->stats[0] = GetClassData(proc->classReelEnt->classId)->baseHP;
+    proc->stats[1] = GetClassData(proc->classReelEnt->classId)->basePow;
+    proc->stats[2] = GetClassData(proc->classReelEnt->classId)->baseSkl;
+    proc->stats[3] = GetClassData(proc->classReelEnt->classId)->baseSpd;
+    proc->stats[4] = GetClassData(proc->classReelEnt->classId)->baseDef;
+    proc->stats[5] = GetClassData(proc->classReelEnt->classId)->baseRes;
 
     for (i = 0; i <= 5; i++)
     {
-        InitText(&gUnk_OpInfo_0201FB28[i], 3);
+        InitText(&gClassReelTexts[i], 3);
 
-        ClearText(&gUnk_OpInfo_0201FB28[i]);
+        ClearText(&gClassReelTexts[i]);
 
-        Text_SetColor(&gUnk_OpInfo_0201FB28[i], TEXT_COLOR_SYSTEM_GOLD);
-        Text_SetCursor(&gUnk_OpInfo_0201FB28[i], 0);
+        Text_SetColor(&gClassReelTexts[i], TEXT_COLOR_SYSTEM_GOLD);
+        Text_SetCursor(&gClassReelTexts[i], 0);
 
         if (hasMagicRank != 0)
         {
-            Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
+            Text_DrawString(&gClassReelTexts[i], GetStringFromIndex(hack.hack_2d[1][i]));
         }
         else
         {
-            Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
+            Text_DrawString(&gClassReelTexts[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
         }
 
-        PutText(&gUnk_OpInfo_0201FB28[i], buffer + 0x21 + (i * 0x40));
-
-        PutNumber(buffer + 0x25 + (i * 0x40), TEXT_COLOR_SYSTEM_WHITE, proc->unk_40[i]);
+        PutText(&gClassReelTexts[i], TILEMAP_LOCATED(buffer, 1, i * 2 + 1));
+        PutNumber(TILEMAP_LOCATED(buffer, 5, i * 2 + 1), TEXT_COLOR_SYSTEM_WHITE, proc->stats[i]);
     }
-
-    r5 = 0;
 
     proc->unk_3c = StartClassStatsDisplay(proc);
 
@@ -1175,23 +1162,23 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     gOpInfoData.unk_20 = gUnknown_02007838;
     gOpInfoData.unk_28 = gUnknown_020078D8;
 
-    gOpInfoData.unk_30 = &gUnknown_0200A2D8;
+    gOpInfoData.unk_30 = &gClassReelMagicAnim;
 
-    gUnknown_0200A2D8.magicFuncIdx = proc->classReelEnt->magicFx;
-    gUnknown_0200A2D8.xOffsetBg = proc->classReelEnt->unk_09;
-    gUnknown_0200A2D8.yOffsetBg = proc->classReelEnt->unk_0A;
-    gUnknown_0200A2D8.xOffsetObj = proc->classReelEnt->unk_0B;
-    gUnknown_0200A2D8.yOffsetObj = proc->classReelEnt->unk_0C;
-    gUnknown_0200A2D8.objChr = 0x280;
-    gUnknown_0200A2D8.objPalId = 0xF;
-    gUnknown_0200A2D8.bgChr = 0x200;
-    gUnknown_0200A2D8.bgPalId = 0xF;
-    gUnknown_0200A2D8.bg = 1;
-    gUnknown_0200A2D8.bgTmBuf = gBG1TilemapBuffer;
-    gUnknown_0200A2D8.bgImgBuf = gUnknown_0200A300;
-    gUnknown_0200A2D8.bgTsaBuf = gUnknown_0200C300;
-    gUnknown_0200A2D8.objImgBuf = gUnknown_0200CB00;
-    gUnknown_0200A2D8.resetCallback = sub_80B3740;
+    gClassReelMagicAnim.magicFuncIdx = proc->classReelEnt->magicFx;
+    gClassReelMagicAnim.xOffsetBg = proc->classReelEnt->unk_09;
+    gClassReelMagicAnim.yOffsetBg = proc->classReelEnt->unk_0A;
+    gClassReelMagicAnim.xOffsetObj = proc->classReelEnt->unk_0B;
+    gClassReelMagicAnim.yOffsetObj = proc->classReelEnt->unk_0C;
+    gClassReelMagicAnim.objChr = 0x280;
+    gClassReelMagicAnim.objPalId = 0xF;
+    gClassReelMagicAnim.bgChr = 0x200;
+    gClassReelMagicAnim.bgPalId = 0xF;
+    gClassReelMagicAnim.bg = 1;
+    gClassReelMagicAnim.bgTmBuf = gBG1TilemapBuffer;
+    gClassReelMagicAnim.bgImgBuf = gUnknown_0200A300;
+    gClassReelMagicAnim.bgTsaBuf = gUnknown_0200C300;
+    gClassReelMagicAnim.objImgBuf = gUnknown_0200CB00;
+    gClassReelMagicAnim.resetCallback = sub_80B3740;
 
     NewEkrUnitMainMini(&gOpInfoData);
 
@@ -1201,7 +1188,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     gUnk_Opinfo_0201DB00.terrain_r = proc->classReelEnt->unk_0E;
     gUnk_Opinfo_0201DB00.pal_r = 11;
     gUnk_Opinfo_0201DB00.chr_r = 0x3C0;
-    gUnk_Opinfo_0201DB00.distance = r5;
+    gUnk_Opinfo_0201DB00.distance = 0;
     gUnk_Opinfo_0201DB00.unk0E = -1;
 
     gUnk_Opinfo_0201DB00.unk1C = OBJ_CHR_ADDR(0x0);
@@ -1482,9 +1469,8 @@ void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc * proc)
         }
     }
 
-    Decompress(gUnknown_08A36338, OBJ_CHR_ADDR(0x0));
-
-    ApplyPalettes(gUnknown_08A372C0, 0x14, 2);
+    Decompress(Img_ClassReel_ClassNameLetters, OBJ_CHR_ADDR(0x0));
+    ApplyPalettes(Pal_ClassReel_ClassNameLetters, 0x14, 2);
 
     return;
 }
@@ -1502,7 +1488,7 @@ void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc * proc)
 
     for (i = 0; i < 6; i++)
     {
-        value = proc->unk_30->unk_40[i];
+        value = proc->unk_30->stats[i];
 
         if (value >= 30)
         {
@@ -1681,7 +1667,7 @@ u16* CONST_DATA sSpriteLut_08A2F1D0[] =
     sSprite_08A2F1C8,
 };
 
-u16 CONST_DATA sSprite_08A2F1F0[] =
+u16 CONST_DATA Sprite_ClassIntroBurstBubble[] =
 {
     1,
     OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x380) + OAM2_LAYER(1),

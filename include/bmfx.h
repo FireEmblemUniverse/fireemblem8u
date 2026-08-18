@@ -145,7 +145,7 @@ extern struct ProcCmd ProcScr_ChapterIntro_RevealDecalSprite[];
 extern struct ProcCmd ProcScr_ChapterIntro_KeyListen[];
 extern u8 Img_CommGameBgScreen[];
 extern u8 Img_ChapterIntro_LensFlare[];
-extern u8 Tsa_08B18D68[];
+extern u8 Tsa_ClassReel_LensFlare[];
 extern u8 Img_ChapterIntro_Sprites[];
 extern u8 Pal_ChapterIntro_Sprites[];
 extern u16 Img_ChapterIntro_Fog[];

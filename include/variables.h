@@ -37,7 +37,7 @@ extern u16 gUiTmScratchC[];
 // extern ??? gUnknown_020078D8
 // extern ??? sGameStartSaveBuf
 // extern ??? gUnknown_020087A0
-// extern ??? gUnknown_0200A2D8
+// extern ??? gClassReelMagicAnim
 // extern ??? gUnknown_0200A300
 extern u8 gUnknown_0200AF00[];
 // extern ??? gUnknown_0200C300
@@ -974,20 +974,20 @@ extern u8 Img_08A2E5EC[]; // Gfx
 extern u16 Pal_08A2E8F0[]; // Pal
 extern u8 Img_SysBlackBox[]; // Gfx
 
-extern u8 gUnknown_08A301B0[]; // gfx?
+extern u8 Img_ClassReel_BigWeaponSprites[]; // gfx?
 extern u16 gUnknown_08A30780[]; // pal
-extern u8 gUnknown_08A30800[]; // gfx
-extern u16 gUnknown_08A30978[]; // tsa
-extern u8 gUnknown_08A30E2C[]; // gfx
-extern u8 gUnknown_08A35488[]; // tsa
-extern u16 gUnknown_08A3593C[]; // pal
-extern u8 gUnknown_08A35A3C[]; // gfx?
-extern u8 gUnknown_08A35FD0[]; // tsa?
-extern u16 gUnknown_08A360C8[]; // pal
-extern u8 gUnknown_08A360E8[]; // gfx?
-extern u8 gUnknown_08A36284[]; // tsa?
-extern u8 gUnknown_08A36338[]; // gfx
-extern u8 gUnknown_08A372C0[]; // pal
+extern u8 Img_ClassReel_UiBox[]; // gfx
+extern u16 Tsa_ClassReel_UiBox[]; // tsa
+extern u8 Img_ClassReel_InfoBg[]; // gfx
+extern u8 Tsa_ClassReel_InfoBg[]; // tsa
+extern u16 Pal_ClassReel_InfoBg[]; // pal
+extern u8 Img_ClassReel_NameBg[]; // gfx?
+extern u8 Tsa_ClassReel_NameBg[]; // tsa?
+extern u16 Pal_ClassReel_NameBg[]; // pal
+extern u8 Img_ClassReelFiligree[]; // gfx?
+extern u8 Tsa_ClassReelFiligree[]; // tsa?
+extern u8 Img_ClassReel_ClassNameLetters[]; // gfx
+extern u8 Pal_ClassReel_ClassNameLetters[]; // pal
 extern u16 gUnknown_08A37300[]; // pal
 // extern ??? gOverallRankWeightLookup
 // extern ??? gOverallRankLookup
@@ -1375,7 +1375,7 @@ extern u16 Pal_08B1756C[]; // pal, used in opsubtitle
 // extern ??? Img_08B17864
 // extern ??? Pal_08B17B44
 extern u8 Img_ChapterIntro_LensFlare[]; // gfx?
-extern u8 Tsa_08B18D68[];
+extern u8 Tsa_ClassReel_LensFlare[];
 extern u16 Pal_ChapterIntro_LensFlare[]; // pal
 // extern ??? Img_ChapterIntro_Fog
 // extern ??? Tsa_ChapterIntro_Fog

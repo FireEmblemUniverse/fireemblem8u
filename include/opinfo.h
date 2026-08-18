@@ -152,7 +152,7 @@ struct OpInfoClassDisplayProc
     /* 34 */ struct ClassReelEnt * classReelEnt;
     /* 38 */ struct ClassReelAnimScr * script;
     /* 3C */ ProcPtr unk_3c;
-    /* 40 */ u8 unk_40[6];
+    /* 40 */ u8 stats[6];
     /* 46 */ u8 unk_46;
 };
 
@@ -168,7 +168,7 @@ struct OpInfoGaugeDrawProc
 };
 
 extern struct AnimBuffer gOpInfoData;
-extern struct AnimMagicFxBuffer gUnknown_0200A2D8;
+extern struct AnimMagicFxBuffer gClassReelMagicAnim;
 extern struct BanimUnkStructComm gUnk_Opinfo_0201DB00;
 
 // ??? ClassReel_Init(???);

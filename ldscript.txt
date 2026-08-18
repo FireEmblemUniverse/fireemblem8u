@@ -80,14 +80,14 @@ SECTIONS
         . = 0x002038; gUnknown_02002038 = .;
         . = 0x007838; gUnknown_02007838 = .;
         . = 0x0078D8; gUnknown_020078D8 = .;
-        . = 0x00A2D8; gUnknown_0200A2D8 = .;
+        . = 0x00A2D8; gClassReelMagicAnim = .;
         . = 0x00A300; gUnknown_0200A300 = .;
         . = 0x00C300; gUnknown_0200C300 = .;
         . = 0x00CB00; gUnknown_0200CB00 = .;
         . = 0x01CDD4; gUnk_OpSubtitle_0201CDD4 = .;
         . = 0x01DB00; gUnk_Opinfo_0201DB00 = .;
         . = 0x01DB28; gUnk_OpInfo_0201DB28 = .;
-        . = 0x01FB28; gUnk_OpInfo_0201FB28 = .;
+        . = 0x01FB28; gClassReelTexts = .;
     }
 
     ewram_overlay_banim __ewram_start (NOLOAD) : ALIGN(4)
