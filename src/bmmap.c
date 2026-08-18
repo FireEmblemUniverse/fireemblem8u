@@ -241,8 +241,8 @@ void UnpackChapterMap(void* into, int chapterId) {
         gChapterDataAssetTable[GetROMChapterStruct(chapterId)->map.tileConfigId], sTilesetConfig);
 
     // Setting max camera offsets (?) TODO: figure out
-    gBmSt.cameraMax.x = gBmMapSize.x*16 - 240;
-    gBmSt.cameraMax.y = gBmMapSize.y*16 - 160;
+    gBmSt.cameraMax.x = gBmMapSize.x*16 - DISPLAY_WIDTH;
+    gBmSt.cameraMax.y = gBmMapSize.y*16 - DISPLAY_HEIGHT;
 }
 
 void UnpackChapterMapGraphics(int chapterId) {
@@ -392,20 +392,16 @@ void RenderBmMap(void) {
             DisplayBmTile(gBG3TilemapBuffer, ix, iy,
                 (short) gBmSt.mapRenderOrigin.x + ix, (short) gBmSt.mapRenderOrigin.y + iy);
 
-    BG_EnableSyncByMask(1 << 3);
-    BG_SetPosition(3, 0, 0);
+    BG_EnableSyncByMask(BG3_SYNC_BIT);
+    BG_SetPosition(BG_3, 0, 0);
 
-    gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg1_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(TRUE, TRUE, TRUE, TRUE, TRUE);
 }
 
 void RenderBmMapOnBg2(void) {
     int ix, iy;
 
-    SetBackgroundTileDataOffset(2, 0x8000);
+    SetBackgroundTileDataOffset(BG_2, 0x8000);
 
     gBmSt.mapRenderOrigin.x = gBmSt.camera.x >> 4;
     gBmSt.mapRenderOrigin.y = gBmSt.camera.y >> 4;
@@ -415,8 +411,8 @@ void RenderBmMapOnBg2(void) {
             DisplayBmTile(gBG2TilemapBuffer, ix, iy,
                 (short) gBmSt.mapRenderOrigin.x + ix, (short) gBmSt.mapRenderOrigin.y + iy);
 
-    BG_EnableSyncByMask(1 << 2);
-    BG_SetPosition(2, 0, 0);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
+    BG_SetPosition(BG_2, 0, 0);
 }
 
 void UpdateBmMapDisplay(void) {
@@ -444,14 +440,13 @@ void UpdateBmMapDisplay(void) {
 
     gBmSt.cameraPrevious = gBmSt.camera;
 
-    BG_SetPosition(3,
+    BG_SetPosition(BG_3,
         gBmSt.camera.x - gBmSt.mapRenderOrigin.x * 16,
         gBmSt.camera.y - gBmSt.mapRenderOrigin.y * 16
     );
 
-    // TODO: GAME STATE BITS CONSTANTS
-    if (gBmSt.gameStateBits & 1) {
-        BG_SetPosition(2,
+    if (gBmSt.gameStateBits & BM_FLAG_0) {
+        BG_SetPosition(BG_2,
             gBmSt.camera.x - gBmSt.mapRenderOrigin.x * 16,
             gBmSt.camera.y - gBmSt.mapRenderOrigin.y * 16
         );
@@ -474,7 +469,7 @@ void RenderBmMapColumn(u16 xOffset) {
                 xBmMap, (yBmMap + iy));
         }
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
     } else {
         for (iy = 10; iy >= 0; --iy) {
             DisplayBmTile(gBG3TilemapBuffer,
@@ -486,7 +481,7 @@ void RenderBmMapColumn(u16 xOffset) {
                 xTileMap, (yTileMap + iy) & 0xF);
         }
 
-        BG_EnableSyncByMask((1 << 3) | (1 << 2));
+        BG_EnableSyncByMask(BG2_SYNC_BIT | BG3_SYNC_BIT);
     }
 }
 
@@ -506,7 +501,7 @@ void RenderBmMapLine(u16 yOffset) {
                 (xBmMap + ix), yBmMap);
         }
 
-        BG_EnableSyncByMask(1 << 3);
+        BG_EnableSyncByMask(BG3_SYNC_BIT);
     } else {
         for (ix = 15; ix >= 0; --ix) {
             DisplayBmTile(gBG3TilemapBuffer,
@@ -518,7 +513,7 @@ void RenderBmMapLine(u16 yOffset) {
                 (xTileMap + ix) & 0xF, yTileMap);
         }
 
-        BG_EnableSyncByMask((1 << 3) | (1 << 2));
+        BG_EnableSyncByMask(BG2_SYNC_BIT | BG3_SYNC_BIT);
     }
 }
 
@@ -675,8 +670,7 @@ s8 GetTerrainHealsStatus(int terrainId) {
 void sub_801A278(void) {
     const u16* tile = sTilesetConfig;
 
-    // TODO: game state bits constants
-    if (!sub_800D208() || (gBmSt.gameStateBits & 0x10)) {
+    if (!sub_800D208() || (gBmSt.gameStateBits & BM_FLAG_PREPSCREEN)) {
         // TODO: macros?
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
         RegisterBlankTile(0x400 + (*tile++ & 0x3FF));
