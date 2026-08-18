@@ -3,26 +3,26 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "hardware.h"
-#include "m4a.h"
-#include "soundwrapper.h"
-#include "gamecontrol.h"
-#include "ctc.h"
-#include "fontgrp.h"
-#include "bmunit.h"
-#include "scene.h"
-#include "classdisplayfont.h"
-#include "opinfo.h"
 #include "anime.h"
+#include "bmlib.h"
+#include "bmunit.h"
+#include "classdisplayfont.h"
+#include "ctc.h"
 #include "efxbattle.h"
 #include "ekrbattle.h"
-#include "bmlib.h"
+#include "fontgrp.h"
+#include "gamecontrol.h"
+#include "hardware.h"
+#include "m4a.h"
+#include "opinfo.h"
+#include "scene.h"
+#include "soundwrapper.h"
 #include "sysutil.h"
 
 #include "constants/classes.h"
 #include "constants/msg.h"
 
-EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = {0};
+EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = { 0 };
 
 // TODO: Move elsewhere
 void sub_805AA68(void *);
@@ -32,29 +32,30 @@ void sub_805AE40(void *, s16, s16, s16, s16);
 // TODO: Forward declarations
 
 void sub_80B40E4(ProcPtr, int);
-struct ClassReelEnt* GetClassReelEntry(int, int);
-ProcPtr StartClassNameIntro(ProcPtr, struct ClassReelEnt*);
-ProcPtr StartClassAnimDisplay(ProcPtr, struct ClassReelEnt*);
-signed char* sub_80B369C(u8, signed char*);
+struct ClassReelEnt * GetClassReelEntry(int, int);
+ProcPtr StartClassNameIntro(ProcPtr, struct ClassReelEnt *);
+ProcPtr StartClassAnimDisplay(ProcPtr, struct ClassReelEnt *);
+signed char * sub_80B369C(u8, signed char *);
 ProcPtr StartClassNameIntroLetter(ProcPtr, u8);
 ProcPtr StartClassNameIntroIcon(ProcPtr, u8);
 
 extern struct ProcCmd CONST_DATA gProcScr_opinfo[];
 
-extern ProcPtr* gUnknown_03001D50;
+extern ProcPtr * gUnknown_03001D50;
 
-static inline int DarknessCoeff(int darkness, u8 lsr) {
+static inline int DarknessCoeff(int darkness, u8 lsr)
+{
     return 0x10 - (darkness >> (lsr));
 }
 
-void ClassReel_Init(struct OpInfoProc* proc) {
-
+//! FE8U = 0x080B2818
+void ClassReel_Init(struct OpInfoProc * proc)
+{
     gLCDControlBuffer.dispcnt.mode = 0;
 
     SetupBackgrounds(NULL);
 
     NewEfxAnimeDrvProc();
-
     ResetClassReelSpell();
 
     proc->unk_38 = 0;
@@ -74,11 +75,11 @@ void ClassReel_Init(struct OpInfoProc* proc) {
     return;
 }
 
-void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc* proc) {
-
+//! FE8U = 0x080B28A0
+void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc * proc)
+{
     Proc_End(Proc_Find(ProcScr_BmFadeIN));
     Proc_End(Proc_Find(ProcScr_BmFadeOUT));
-
     EndAllProcChildren(proc);
 
     Sound_FadeOutBGM(1);
@@ -92,16 +93,21 @@ void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc* proc) {
     return;
 }
 
-void sub_80B2904(struct OpInfoProc* proc) {
-
-    switch (proc->mode) {
+//! FE8U = 0x080B2904
+void sub_80B2904(struct OpInfoProc * proc)
+{
+    switch (proc->mode)
+    {
         case 2:
             proc->classReelEnt = GetClassReelEntry(proc->classSet, proc->index);
 
-            if (proc->classReelEnt == 0) {
+            if (proc->classReelEnt == 0)
+            {
                 SetNextGameActionId(GAME_ACTION_CLASS_REEL);
                 Proc_Goto(proc, 4);
-            } else {
+            }
+            else
+            {
                 proc->index++;
                 proc->mode = 1;
                 StartClassNameIntro(proc, proc->classReelEnt);
@@ -115,7 +121,8 @@ void sub_80B2904(struct OpInfoProc* proc) {
             break;
 
         case 1:
-            if (gKeyStatusPtr->heldKeys & (A_BUTTON | B_BUTTON | START_BUTTON)) {
+            if (gKeyStatusPtr->heldKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
+            {
                 ClassReel_ButtonPress_GoToTitle(proc);
             }
 
@@ -125,34 +132,43 @@ void sub_80B2904(struct OpInfoProc* proc) {
     return;
 }
 
-s8 sub_80B2988(void) {
-    struct OpInfoProc* proc = Proc_Find(gProcScr_opinfo);
+//! FE8U = 0x080B2988
+s8 sub_80B2988(void)
+{
+    struct OpInfoProc * proc = Proc_Find(gProcScr_opinfo);
 
-    if (proc && !GetClassReelEntry(proc->classSet, proc->index)) {
+    if (proc && !GetClassReelEntry(proc->classSet, proc->index))
+    {
         return 1;
     }
 
     return 0;
 }
 
-void SetClassReelMode(int mode) {
-    struct OpInfoProc* proc = Proc_Find(gProcScr_opinfo);
+//! FE8U = 0x080B29B8
+void SetClassReelMode(int mode)
+{
+    struct OpInfoProc * proc = Proc_Find(gProcScr_opinfo);
 
-    if (proc != 0) {
+    if (proc != 0)
+    {
         proc->mode = mode;
     }
 
     return;
 }
 
-void ClassReel_FadeOutBGM(void) {
+//! FE8U = 0x080B29D4
+void ClassReel_FadeOutBGM(void)
+{
     Sound_FadeOutBGM(3);
 
     return;
 }
 
-void ClassReel_OnEnd(ProcPtr proc) {
-
+//! FE8U = 0x080B29E0
+void ClassReel_OnEnd(ProcPtr proc)
+{
     EndAllProcChildren(proc);
 
     EndEfxAnimeDrvProc();
@@ -189,8 +205,10 @@ PROC_LABEL(5),
 
 // clang-format on
 
-void StartClassReel(u8 classSet, ProcPtr parent) {
-    struct OpInfoProc* proc = Proc_StartBlocking(gProcScr_opinfo, parent);
+//! FE8U = 0x080099E4
+void StartClassReel(u8 classSet, ProcPtr parent)
+{
+    struct OpInfoProc * proc = Proc_StartBlocking(gProcScr_opinfo, parent);
     proc->classSet = classSet;
 
     return;
@@ -206,15 +224,21 @@ u16 CONST_DATA sSprite_08A2EF48[] =
 
 // clang-format on
 
-void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
+//! FE8U = 0x080B2A14
+void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset)
+{
     int i;
     int k;
 
-    for (i = 1; i < 0x10; i++) {
-        if (i + offset >= 0x10) {
+    for (i = 1; i < 0x10; i++)
+    {
+        if (i + offset >= 0x10)
+        {
             int j = 0xF;
             gPaletteBuffer[0x110 + charId * 0x10 + i] = gPaletteBuffer[0x100 + j];
-        } else {
+        }
+        else
+        {
             gPaletteBuffer[0x110 + charId * 0x10 + i] = gPaletteBuffer[0x100 + i + offset];
         }
 
@@ -223,57 +247,50 @@ void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
 
     EnablePaletteSync();
 
-    if (yScale <= 8) {
+    if (yScale <= 8)
+    {
         return;
     }
 
-    if (xScale < 8) {
+    if (xScale < 8)
+    {
         xScale = 8;
     }
 
-    SetObjAffine(
-        charId,
-        Div(+COS(0) << 4, xScale),
-        Div(-SIN(0) << 4, yScale),
-        Div(+SIN(0) << 4, xScale),
-        Div(+COS(0) << 4, yScale)
-    );
+    SetObjAffineAuto(charId, 0, xScale, yScale);
 
-    if (offset != 0) {
+    if (offset != 0)
+    {
         PutSpriteExt(
-            4,
-            (x & 0x1FF) + (charId << 9),
-            y & 0x1FF,
-            sSprite_08A2EF48,
-            charId * 2 + OAM2_PAL(k) + 0x800
-        );
-    } else {
+            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_08A2EF48, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(2));
+    }
+    else
+    {
         PutSpriteExt(
-            4,
-            (x & 0x1FF) + (charId << 9),
-            y & 0x1FF,
-            sSprite_08A2EF48,
-            charId * 2 + (k & 0xF) * 0x1000 + 0x400
-        );
+            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_08A2EF48, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(1));
     }
 
     return;
 }
 
-extern u8* CONST_DATA gUnknown_08A2F2C0[];
+extern u8 * CONST_DATA gUnknown_08A2F2C0[];
 
-void ClassIntro_Init(struct OpInfoEnterProc* proc) {
-
+//! FE8U = 0x080B2B8C
+void ClassIntro_Init(struct OpInfoEnterProc * proc)
+{
     int i;
     u16 ptr;
-    signed char* str;
+    signed char * str;
 
-    u16 bgConfig[12] = {
+    // clang-format off
+    u16 bgConfig[12] =
+    {
         0x0000, 0x6000, 0,
         0x0000, 0x6800, 0,
         0x8000, 0x7000, 0,
         0x8000, 0x7800, 0,
     };
+    // clang-format on
 
     SetupBackgrounds(bgConfig);
 
@@ -299,7 +316,8 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     proc->timer = 0;
     proc->letterProcsPtr = &gUnknown_03001D50;
 
-    for (i = 0; i < 0x14; i++) {
+    for (i = 0; i < 20; i++)
+    {
         *(proc->letterProcsPtr + i) = 0;
     }
 
@@ -315,9 +333,10 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     proc->classNameLength = strlen(str);
 
-    while (*str != 0) {
-        Decompress((gUnknown_08A2F2C0[*str] != 0) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0[0x58], gGenericBuffer);
-        Copy2dChr(gGenericBuffer, (void*)(ptr + 0x06010000), 2, 4);
+    while (*str != '\0')
+    {
+        Decompress((gUnknown_08A2F2C0[*str] != NULL) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0['X'], gGenericBuffer);
+        Copy2dChr(gGenericBuffer, OBJ_CHR_ADDR(0x0) + ptr, 2, 4);
 
         str++;
         ptr += 0x40;
@@ -326,24 +345,24 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     ApplyPalette(gUnknown_08A30780, 0x1E);
     ApplyPalette(gUnknown_08A30780, 0x1F);
 
-    Decompress(gUnknown_08A301B0, (void *)0x06016000);
+    Decompress(gUnknown_08A301B0, OBJ_CHR_ADDR(0x300));
 
     proc->unk_2c = ((240 - (((proc->classNameLength << 1) + proc->classNameLength) << 2)) >> 1) - 8;
 
     *proc->letterProcsPtr = StartClassNameIntroLetter(proc, 0);
 
-    Decompress(gUnknown_08A360E8, (void *)VRAM);
+    Decompress(gUnknown_08A360E8, BG_CHR_ADDR(0x0));
 
     Decompress(gUnknown_08A36284, gGenericBuffer);
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 0x7), gGenericBuffer, 0x4000);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 0, 7), gGenericBuffer, TILEREF(0x0, 4));
 
-    Decompress(gUnknown_08A35A3C, (void *)0x06000800);
+    Decompress(gUnknown_08A35A3C, BG_CHR_ADDR(0x40));
 
     Decompress(gUnknown_08A35FD0, gGenericBuffer);
-    CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x5040);
+    CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, TILEREF(0x40, 5));
     ApplyPalette(gUnknown_08A360C8, 5);
 
-    Decompress(Img_ChapterIntro_LensFlare, (void *)0x06008000);
+    Decompress(Img_ChapterIntro_LensFlare, BG_CHR_ADDR(0x400));
 
     sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
 
@@ -355,15 +374,16 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 }
 
 // unused??
-void sub_80B2DF0(struct OpInfoEnterProc* proc) {
-
-    SetBlendConfig(2, 0, 0, DarknessCoeff(proc->timer, 1));
-
+//! FE8U = 0x080B2DF0
+void sub_80B2DF0(struct OpInfoEnterProc * proc)
+{
+    SetBlendBrighten(DarknessCoeff(proc->timer, 1));
     SetBlendBackdropA(1);
 
     proc->timer++;
 
-    if (proc->timer == 32) {
+    if (proc->timer == 32)
+    {
         proc->timer = 0;
         Proc_Break(proc);
     }
@@ -373,31 +393,38 @@ void sub_80B2DF0(struct OpInfoEnterProc* proc) {
 
 extern struct ProcCmd CONST_DATA gProcScr_ClassIntro_FlareFX[];
 
-void ClassIntro_LoopIn(struct OpInfoEnterProc* proc) {
+//! FE8U = 0x080B2E30
+void ClassIntro_LoopIn(struct OpInfoEnterProc * proc)
+{
     int unkA;
     int unkB;
 
-    if (proc->timer == 60) {
+    if (proc->timer == 60)
+    {
         proc->iconProc = StartClassNameIntroIcon(proc, proc->classReelEnt->classId);
         Proc_Start(gProcScr_ClassIntro_FlareFX, proc);
     }
 
-    if (proc->timer >= 96) {
+    if (proc->timer >= 96)
+    {
         Proc_Break(proc);
         proc->timer = 0;
 
         return;
     }
 
-    if (proc->timer > 15) {
+    if (proc->timer > 15)
+    {
         unkA = (proc->timer - 0x10);
 
-        if ((unkA & 1) == 0) {
+        if ((unkA & 1) == 0)
+        {
             unkB = (unkA / 2);
             unkA = unkB + 1;
-            if (unkA < proc->classNameLength) {
 
-                proc->letterProcsPtr[unkB+1] = StartClassNameIntroLetter(proc, unkA);
+            if (unkA < proc->classNameLength)
+            {
+                proc->letterProcsPtr[unkB + 1] = StartClassNameIntroLetter(proc, unkA);
             }
         }
     }
@@ -407,25 +434,29 @@ void ClassIntro_LoopIn(struct OpInfoEnterProc* proc) {
     return;
 }
 
-void ClassIntro_LoopOut(struct OpInfoEnterProc* proc) {
-
-    if (proc->timer == 20) {
+//! FE8U = 0x080B2EA8
+void ClassIntro_LoopOut(struct OpInfoEnterProc * proc)
+{
+    if (proc->timer == 20)
+    {
         Proc_Goto(proc->iconProc, 4);
     }
 
-    if (proc->timer >= 80) {
+    if (proc->timer >= 80)
+    {
         Proc_Break(proc);
         proc->timer = 0;
 
         return;
     }
 
-    if ((proc->timer % 3) == 0) {
+    if ((proc->timer % 3) == 0)
+    {
 
-        if ((proc->timer / 3) < proc->classNameLength) {
+        if ((proc->timer / 3) < proc->classNameLength)
+        {
             Proc_Break(proc->letterProcsPtr[proc->timer / 3]);
         }
-
     }
 
     proc->timer++;
@@ -433,13 +464,16 @@ void ClassIntro_LoopOut(struct OpInfoEnterProc* proc) {
     return;
 }
 
-void ClassIntro_DisableAllExceptBg1(ProcPtr proc) {
+//! FE8U = 0x080B2F08
+void ClassIntro_DisableAllExceptBg1(ProcPtr proc)
+{
     SetDispEnable(FALSE, TRUE, FALSE, FALSE, FALSE);
     return;
 }
 
-void ClassIntro_OnEnd(ProcPtr proc) {
-
+//! FE8U = 0x080B2F2C
+void ClassIntro_OnEnd(ProcPtr proc)
+{
     EndAllProcChildren(proc);
     SetClassReelMode(3);
 
@@ -476,8 +510,10 @@ PROC_LABEL(4),
 
 // clang-format on
 
-ProcPtr StartClassNameIntro(ProcPtr parent, struct ClassReelEnt* entry) {
-    struct OpInfoEnterProc* proc = Proc_Start(gProcScr_opinfoenter, parent);
+//! FE8U = 0x080B2F3C
+ProcPtr StartClassNameIntro(ProcPtr parent, struct ClassReelEnt * entry)
+{
+    struct OpInfoEnterProc * proc = Proc_Start(gProcScr_opinfoenter, parent);
 
     proc->parentProc = parent;
     proc->classReelEnt = entry;
@@ -485,13 +521,17 @@ ProcPtr StartClassNameIntro(ProcPtr parent, struct ClassReelEnt* entry) {
     return proc;
 }
 
-void ClassIntroLetter_Init(struct OpInfoViewProc* proc) {
+//! FE8U = 0x080B2F58
+void ClassIntroLetter_Init(struct OpInfoViewProc * proc)
+{
     proc->timer = 0;
-    proc->unk_2e = ((struct OpInfoEnterProc*)(proc->proc_parent))->unk_2c + (proc->charIndex * 12);
+    proc->unk_2e = ((struct OpInfoEnterProc *)(proc->proc_parent))->unk_2c + (proc->charIndex * 12);
     return;
 }
 
-void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
+//! FE8U = 0x080B2F74
+void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc * proc)
+{
     int timer = proc->timer, a;
 #ifndef NONMATCHING
     register int timer2 asm("r1") = timer;
@@ -499,20 +539,18 @@ void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
     int timer2 = timer;
 #endif
 
-    if (timer2) { ++timer2; --timer2; }
+    if (timer2)
+    {
+        ++timer2;
+        --timer2;
+    }
     timer2 >>= 4;
     a = (0x10 - timer2) * 2;
 
-    sub_80B2A14(
-        proc->charIndex,
-        proc->unk_2e - a,
-        0x18,
-        timer,
-        0x100,
-        0x10 - ({proc->timer + 0;}) / 16
-    );
+    sub_80B2A14(proc->charIndex, proc->unk_2e - a, 0x18, timer, 0x100, 0x10 - ({ proc->timer + 0; }) / 16);
 
-    if ((proc->timer += 0x10) == 0x100) {
+    if ((proc->timer += 0x10) == 0x100)
+    {
         proc->timer = 0;
         Proc_Break(proc);
     }
@@ -520,30 +558,25 @@ void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc* proc) {
     return;
 }
 
-void ClassIntroLetter_LoopDisplay(struct OpInfoViewProc* proc) {
-
+//! FE8U = 0x080B2FD0
+void ClassIntroLetter_LoopDisplay(struct OpInfoViewProc * proc)
+{
     sub_80B2A14(proc->charIndex, proc->unk_2e, 0x18, 0x100, 0x100, 0);
-
     proc->timer = 0;
-
     return;
 }
 
-void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc* proc) {
+//! FE8U = 0x080B2FF8
+void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc * proc)
+{
     u32 a4 = 0x100 + proc->timer;
     u32 a5 = 0x100 - proc->timer;
 
-    sub_80B2A14(
-        proc->charIndex,
-        proc->unk_2e,
-        0x18,
-        a4,
-        a5,
-        ({proc->timer + 0;}) / 16
-    );
+    sub_80B2A14(proc->charIndex, proc->unk_2e, 0x18, a4, a5, ({ proc->timer + 0; }) / 16);
 
-    if (proc->timer == 0x100) {
-        ((struct OpInfoEnterProc*)(proc->proc_parent))->letterProcsPtr[proc->charIndex] = NULL;
+    if (proc->timer == 0x100)
+    {
+        ((struct OpInfoEnterProc *)(proc->proc_parent))->letterProcsPtr[proc->charIndex] = NULL;
 
         Proc_Break(proc);
     }
@@ -571,39 +604,44 @@ struct ProcCmd CONST_DATA gProcScr_opinfoview[] =
 
 // clang-format on
 
-ProcPtr StartClassNameIntroLetter(ProcPtr parent, u8 index) {
-    struct OpInfoViewProc* proc = Proc_Start(gProcScr_opinfoview, parent);
-
+//! FE8U = 0x080B305C
+ProcPtr StartClassNameIntroLetter(ProcPtr parent, u8 index)
+{
+    struct OpInfoViewProc * proc = Proc_Start(gProcScr_opinfoview, parent);
     proc->charIndex = index;
-
     return proc;
 }
 
 // unused?
-void sub_80B307C(void) {
+//! FE8U = 0x080B307C
+void sub_80B307C(void)
+{
     EnablePaletteSync();
-
     return;
 }
 
-void ClassIntroIcon_Init(struct OpInfoIconProc* proc) {
-
+//! FE8U = 0x080B3088
+void ClassIntroIcon_Init(struct OpInfoIconProc * proc)
+{
     int i;
 
     proc->timer = 0;
 
-    for (i = 0; i < 0x10; i++) {
+    for (i = 0; i < 0x10; i++)
+    {
         gPaletteBuffer[0x1F0 + i] = 0;
-        gPaletteBuffer[0x40  + i] = 0;
+        gPaletteBuffer[0x40 + i] = 0;
     }
 
     proc->unk_2e = 0;
     proc->numIcons = 0;
 
-    for (i = 0; i < 8; i++) {
-        const struct ClassData* class = GetClassData(proc->classId);
+    for (i = 0; i < 8; i++)
+    {
+        const struct ClassData * class = GetClassData(proc->classId);
 
-        if (class->baseRanks[i] == 0) {
+        if (class->baseRanks[i] == 0)
+        {
             continue;
         }
 
@@ -616,20 +654,26 @@ void ClassIntroIcon_Init(struct OpInfoIconProc* proc) {
     return;
 }
 
-extern u16* CONST_DATA sSpriteLut_08A2F1D0[];
+extern u16 * CONST_DATA sSpriteLut_08A2F1D0[];
 
-void sub_80B30FC(u8 a, u8 b, u8 c) {
+//! FE8U = 0x080B30FC
+void sub_80B30FC(u8 a, u8 b, u8 c)
+{
     int i;
     int tmp;
     int tmp2;
-    u16** object;
+    u16 ** object;
 
-    for (i = 0; i < 0x10; i++) {
+    for (i = 0; i < 0x10; i++)
+    {
         u16 color;
 
-        if ((a + i) < 0x10) {
+        if ((a + i) < 0x10)
+        {
             color = a + i;
-        } else {
+        }
+        else
+        {
             color = 0xF;
         }
 
@@ -641,26 +685,32 @@ void sub_80B30FC(u8 a, u8 b, u8 c) {
 
     tmp = ((8 - (b)) << 4);
 
-    for (i = 0, object = sSpriteLut_08A2F1D0, tmp2 = tmp - 8; i < 8; object++, i++) {
-        if (((c >> i) & 1) != 0) {
+    for (i = 0, object = sSpriteLut_08A2F1D0, tmp2 = tmp - 8; i < 8; object++, i++)
+    {
+        if (((c >> i) & 1) != 0)
+        {
             PutSpriteExt(4, (tmp2) & 0x1FF, 0x50, *object, 0xF000);
             tmp2 += 0x20;
         }
-
     }
 
     return;
 }
 
-void ClassIntroIcon_LoopFadeIn(struct OpInfoIconProc* proc) {
+//! FE8U = 0x080B31B0
+void ClassIntroIcon_LoopFadeIn(struct OpInfoIconProc * proc)
+{
     u8 unk;
 
     proc->timer++;
 
-    if (proc->timer >= 33) {
+    if (proc->timer >= 33)
+    {
         unk = 0;
         Proc_Break(proc);
-    } else {
+    }
+    else
+    {
         unk = 0x10 - (proc->timer >> 1);
     }
 
@@ -669,22 +719,26 @@ void ClassIntroIcon_LoopFadeIn(struct OpInfoIconProc* proc) {
     return;
 }
 
-void ClassIntroIcon_LoopDisplay(struct OpInfoIconProc* proc) {
-
+//! FE8U = 0x080B31EC
+void ClassIntroIcon_LoopDisplay(struct OpInfoIconProc * proc)
+{
     sub_80B30FC(0, proc->numIcons, proc->unk_2e);
-
     proc->timer = 0;
-
     return;
 }
 
-void ClassIntroIcon_LoopFadeOut(struct OpInfoIconProc* proc) {
+//! FE8U = 0x080B3208
+void ClassIntroIcon_LoopFadeOut(struct OpInfoIconProc * proc)
+{
     proc->timer++;
 
-    if ((proc->timer >> 1) >= 17) {
+    if ((proc->timer >> 1) >= 17)
+    {
         SetDispEnable(FALSE, TRUE, FALSE, FALSE, TRUE);
         Proc_Break(proc);
-    } else {
+    }
+    else
+    {
         sub_80B30FC((proc->timer >> 1), proc->numIcons, proc->unk_2e);
     }
 
@@ -711,16 +765,17 @@ PROC_LABEL(4),
 
 // clang-format on
 
-ProcPtr StartClassNameIntroIcon(ProcPtr parent, u8 classId) {
-    struct OpInfoIconProc* proc;
-
-    proc = Proc_Start(gProcScr_opinfoicon, parent);
+//! FE8U = 0x080B325C
+ProcPtr StartClassNameIntroIcon(ProcPtr parent, u8 classId)
+{
+    struct OpInfoIconProc * proc = Proc_Start(gProcScr_opinfoicon, parent);
     proc->classId = classId;
-
     return proc;
 }
 
-void ClassIntroFlare_Init(struct OpInfoFlareProc* proc) {
+//! FE8U = 0x080B327C
+void ClassIntroFlare_Init(struct OpInfoFlareProc * proc)
+{
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
@@ -729,28 +784,34 @@ void ClassIntroFlare_Init(struct OpInfoFlareProc* proc) {
     return;
 }
 
-void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
+//! FE8U = 0x080B32AC
+void ClassIntroFlare_Loop(struct OpInfoFlareProc * proc)
+{
     int unkA;
     int unkB;
     int unkC;
     int unkD;
 
-    if (proc->unk_4c < 30) {
+    if (proc->unk_4c < 30)
+    {
         unkA = Interpolate(INTERPOLATE_RCUBIC, 4, 0x32, proc->unk_4c, 0x1E);
         unkB = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->unk_4c, 0x1E);
-    } else {
+    }
+    else
+    {
         unkA = Interpolate(INTERPOLATE_LINEAR, 0x32, 100, proc->unk_4c - 0x1E, 0x1E);
         unkB = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_4c - 0x1E, 0x1E);
     }
 
-    if (49 < unkA) {
+    if (49 < unkA)
+    {
         unkA = 100 - unkA;
     }
 
     unkC = Interpolate(INTERPOLATE_LINEAR, 0, 0xD6, proc->unk_4c, 0x3C);
     unkD = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x80, proc->unk_4c, 0x3C);
 
-    BgAffinRotScaling( BG_2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
+    BgAffinRotScaling(BG_2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
     BgAffinScaling(BG_2, 0x100, 0x100);
     BgAffinAnchoring(BG_2, unkC, unkD, 0x50, 0x48);
 
@@ -760,7 +821,8 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
 
     proc->unk_4c++;
 
-    if (59 < proc->unk_4c) {
+    if (59 < proc->unk_4c)
+    {
         Proc_Break(proc);
         SetDispEnable(TRUE, TRUE, FALSE, FALSE, TRUE);
     }
@@ -788,7 +850,9 @@ struct ProcCmd CONST_DATA gProcScr_ClassIntro_FlareFX[] =
 
 // clang-format on
 
-void ClassIntroBurst_Init(struct OpInfoBurstProc* proc) {
+//! FE8U = 0x080B33E4
+void ClassIntroBurst_Init(struct OpInfoBurstProc * proc)
+{
     proc->unk_4c = 0;
     proc->unk_64 = 0;
     proc->unk_66 = 0;
@@ -799,10 +863,11 @@ void ClassIntroBurst_Init(struct OpInfoBurstProc* proc) {
 
 extern u16 CONST_DATA sSprite_08A2F1F0[];
 
-void PutClassIntroBurstSprites(struct OpInfoBurstProc* proc, int b, int c, int d) {
-
-    int x = Interpolate(5, 0x78, c, proc->unk_4c, 0x46);
-    int y = Interpolate(5, 0x50, d, proc->unk_4c, 0x46);
+//! FE8U = 0x080B33FC
+void PutClassIntroBurstSprites(struct OpInfoBurstProc * proc, int b, int c, int d)
+{
+    int x = Interpolate(INTERPOLATE_RCUBIC, 0x78, c, proc->unk_4c, 0x46);
+    int y = Interpolate(INTERPOLATE_RCUBIC, 0x50, d, proc->unk_4c, 0x46);
 
     PutSpriteExt(4, ((x - 8) & 0x1FF) | (b << 9), ((y - 8) & 0x1FF) | 0x100, sSprite_08A2F1F0, 0xF000);
 
@@ -811,52 +876,39 @@ void PutClassIntroBurstSprites(struct OpInfoBurstProc* proc, int b, int c, int d
     return;
 }
 
-void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
+//! FE8U = 0x080B3498
+void ClassIntroBurst_Loop(struct OpInfoBurstProc * proc)
+{
     int scale;
 
-    if (proc->unk_64 < 71) {
+    if (proc->unk_64 < 71)
+    {
         scale = Interpolate(INTERPOLATE_RSQUARE, 0x120, 0x10, proc->unk_64, 70);
 
         SetObjAffine(
-            21,
-            Div(+COS(0) << 4, scale),
-            Div(-SIN(0) << 4, scale),
-            Div(+SIN(0) << 4, scale),
-            Div(+COS(0) << 4, scale)
-        );
+            21, Div(+COS(0) << 4, scale), Div(-SIN(0) << 4, scale), Div(+SIN(0) << 4, scale), Div(+COS(0) << 4, scale));
 
         proc->unk_64++;
     }
 
     PutClassIntroBurstSprites(proc, 21, 215, 17);
 
-    if (proc->unk_66 < 71) {
+    if (proc->unk_66 < 71)
+    {
         scale = Interpolate(INTERPOLATE_LINEAR, 0x120, 0x10, proc->unk_66, 70);
 
         SetObjAffine(
-            22,
-            Div(+COS(0) << 4, scale),
-            Div(-SIN(0) << 4, scale),
-            Div(+SIN(0) << 4, scale),
-            Div(+COS(0) << 4, scale)
-        );
+            22, Div(+COS(0) << 4, scale), Div(-SIN(0) << 4, scale), Div(+SIN(0) << 4, scale), Div(+COS(0) << 4, scale));
 
         proc->unk_66++;
     }
 
     PutClassIntroBurstSprites(proc, 22, 192, 32);
 
-    if (proc->unk_68 < 71) {
+    if (proc->unk_68 < 71)
+    {
         scale = Interpolate(INTERPOLATE_SQUARE, 0x120, 0x10, proc->unk_68, 70);
-
-        SetObjAffine(
-            23,
-            Div(+COS(0) << 4, scale),
-            Div(-SIN(0) << 4, scale),
-            Div(+SIN(0) << 4, scale),
-            Div(+COS(0) << 4, scale)
-        );
-
+        SetObjAffineAuto(23, 0, scale, scale);
         proc->unk_68++;
     }
 
@@ -864,7 +916,8 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
 
     proc->unk_4c++;
 
-    if (proc->unk_68 > 70) {
+    if (proc->unk_68 > 70)
+    {
         Proc_Break(proc);
     }
 
@@ -885,43 +938,53 @@ struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[] =
 
 // clang-format on
 
-signed char* sub_80B369C(u8 classId, signed char* buffer) {
-    char* str;
+//! FE8U = 0x080B369C
+signed char * sub_80B369C(u8 classId, signed char * buffer)
+{
+    char * str;
 
-    const struct ClassData* class = GetClassData(classId);
-    if (buffer == NULL) {
+    const struct ClassData * class = GetClassData(classId);
+
+    if (buffer == NULL)
+    {
         buffer = GetStringFromIndex(class->nameTextId);
-    } else {
+    }
+    else
+    {
         GetStringFromIndexInBuffer(class->nameTextId, buffer);
     }
 
     str = strstr(buffer, "Kn.");
-    if (str != NULL) {
+    if (str != NULL)
+    {
         sprintf(str, "Knight");
     }
 
     return buffer;
 }
 
-void sub_80B36E0(void) {
+//! FE8U = 0x080B36E0
+void sub_80B36E0(void)
+{
     u16 vcount = (REG_VCOUNT + 1);
 
-    if (vcount < 110) {
-
+    if (vcount < 110)
+    {
         REG_BG0CNT = (0xFFFC & REG_BG0CNT) + 2;
         REG_BG2CNT = (0xFFFC & REG_BG2CNT) + 2;
-
-        return;
     }
-
-
-    REG_BG0CNT = (0xFFFC & REG_BG0CNT) + 1;
-    REG_BG2CNT = (0xFFFC & REG_BG2CNT) + 1;
+    else
+    {
+        REG_BG0CNT = (0xFFFC & REG_BG0CNT) + 1;
+        REG_BG2CNT = (0xFFFC & REG_BG2CNT) + 1;
+    }
 
     return;
 }
 
-void sub_80B3740(void) {
+//! FE8U = 0x080B3740
+void sub_80B3740(void)
+{
     SetBlendAlpha(0x10, 0x10);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
@@ -955,7 +1018,8 @@ extern struct Text gUnk_OpInfo_0201FB28[6];
 
 extern u8 gUnk_OpInfo_0201DB28[];
 
-const int gUnknown_08205EDC[2][6] = {
+const int gUnknown_08205EDC[2][6] =
+{
     {
         MSG_4E9, // "HP"
         MSG_4FE, // "Str"
@@ -974,15 +1038,18 @@ const int gUnknown_08205EDC[2][6] = {
     },
 };
 
-void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
-    union {
+//! FE8U = 0x080B37FC
+void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
+{
+    union
+    {
         int hack_4d[2][6][1][1];
         int hack_2d[2][6];
     } hack;
     int i;
     int hasMagicRank;
     int r5;
-    u16 *buffer;
+    u16 * buffer;
 
     hasMagicRank = 0;
 
@@ -990,9 +1057,10 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     proc->script = proc->classReelEnt->script;
 
-    for (i = 4; i <= 7; i++) {
-
-        if ((GetClassData(proc->classReelEnt->classId)->baseRanks[i]) != 0) {
+    for (i = 4; i <= 7; i++)
+    {
+        if ((GetClassData(proc->classReelEnt->classId)->baseRanks[i]) != 0)
+        {
             hasMagicRank = 1;
             break;
         }
@@ -1027,15 +1095,15 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     BG_SetPosition(BG_2, 0, 0);
     BG_SetPosition(BG_3, 0, 0);
 
-    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + VRAM));
+    Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(BG_3) + VRAM));
     ApplyPalettes(gUnknown_08A3593C, 7, 8);
 
-    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, 0x7000);
+    CallARM_FillTileRect(gBG3TilemapBuffer, gUnknown_08A35488, TILEREF(0x0, 7));
 
-    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(2) + VRAM));
+    Decompress(gUnknown_08A30800, (void *)(GetBackgroundTileDataOffset(BG_2) + VRAM));
     ApplyPalette(gUiFramePaletteA, 6);
 
-    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, 0x6000);
+    CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, TILEREF(0x0, 6));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
@@ -1048,24 +1116,27 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     proc->unk_40[4] = GetClassData(proc->classReelEnt->classId)->baseDef;
     proc->unk_40[5] = GetClassData(proc->classReelEnt->classId)->baseRes;
 
-    for (i = 0; i <= 5; i++) {
-
+    for (i = 0; i <= 5; i++)
+    {
         InitText(&gUnk_OpInfo_0201FB28[i], 3);
 
         ClearText(&gUnk_OpInfo_0201FB28[i]);
 
-        Text_SetColor(&gUnk_OpInfo_0201FB28[i], 3);
+        Text_SetColor(&gUnk_OpInfo_0201FB28[i], TEXT_COLOR_SYSTEM_GOLD);
         Text_SetCursor(&gUnk_OpInfo_0201FB28[i], 0);
 
-        if (hasMagicRank != 0) {
+        if (hasMagicRank != 0)
+        {
             Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_2d[1][i]));
-        } else {
+        }
+        else
+        {
             Text_DrawString(&gUnk_OpInfo_0201FB28[i], GetStringFromIndex(hack.hack_4d[0][i][1][-1]));
         }
 
         PutText(&gUnk_OpInfo_0201FB28[i], buffer + 0x21 + (i * 0x40));
 
-        PutNumber(buffer + 0x25 + (i * 0x40), 0, proc->unk_40[i]);
+        PutNumber(buffer + 0x25 + (i * 0x40), TEXT_COLOR_SYSTEM_WHITE, proc->unk_40[i]);
     }
 
     r5 = 0;
@@ -1091,8 +1162,8 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     SetTalkPrintDelay(4);
 
     gOpInfoData.charPalId = proc->classReelEnt->paletteId;
-    gOpInfoData.xPos = 0x104;
-    gOpInfoData.yPos = 0x58;
+    gOpInfoData.xPos = 260;
+    gOpInfoData.yPos = 88;
     gOpInfoData.animId = proc->classReelEnt->banimId;
     gOpInfoData.roundType = 6;
     gOpInfoData.genericPalId = proc->classReelEnt->unk_06;
@@ -1133,7 +1204,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gUnk_Opinfo_0201DB00.distance = r5;
     gUnk_Opinfo_0201DB00.unk0E = -1;
 
-    gUnk_Opinfo_0201DB00.unk1C = (void *)0x06010000;
+    gUnk_Opinfo_0201DB00.unk1C = OBJ_CHR_ADDR(0x0);
     gUnk_Opinfo_0201DB00.unk20 = &gUnk_OpInfo_0201DB28;
 
     sub_805AA68(&gUnk_Opinfo_0201DB00);
@@ -1144,14 +1215,18 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-void sub_80B3C14(struct OpInfoClassDisplayProc* proc) {
-
-    if (proc->unk_2c == 400) {
-
-        if (sub_80B2988() != 0) {
+//! FE8U = 0x080B3C14
+void sub_80B3C14(struct OpInfoClassDisplayProc * proc)
+{
+    if (proc->unk_2c == 400)
+    {
+        if (sub_80B2988() != 0)
+        {
             Sound_FadeOutBGM(60);
             Proc_Goto(proc, 7);
-        } else {
+        }
+        else
+        {
             Proc_Goto(proc, 4);
         }
     }
@@ -1161,17 +1236,19 @@ void sub_80B3C14(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
-
+//! FE8U = 0x080B3C50
+void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc * proc)
+{
     int unk;
 
-    u8* ptr = &proc->unk_46;
+    u8 * ptr = &proc->unk_46;
 
     unk = ~((80 - proc->unk_2a) / 14);
 
     proc->unk_46 = unk + *ptr;
 
-    if (proc->unk_46 < 180) {
+    if (proc->unk_46 < 180)
+    {
         proc->unk_46 = 180;
     }
 
@@ -1183,14 +1260,17 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
     SetWin0Layers(1, 1, 1, 1, 1);
     SetWOutLayers(0, 0, 0, 0, 0);
 
-    if (proc->unk_2a == 80) {
+    if (proc->unk_2a == 80)
+    {
         proc->unk_46 = 180;
         proc->unk_2a = 0;
 
         Proc_Break(proc);
 
         StartParallelWorker(sub_80B3C14, proc);
-    } else {
+    }
+    else
+    {
         proc->unk_2a += 4;
     }
 
@@ -1202,8 +1282,11 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
-    switch (proc->script->opCode) {
+//! FE8U = 0x080B3D84
+void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc * proc)
+{
+    switch (proc->script->opCode)
+    {
         case CLASS_REEL_OP_END:
             Proc_Goto(proc, 10);
 
@@ -1249,9 +1332,11 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
-
-    switch (proc->script->opCode) {
+//! FE8U = 0x080B3E18
+void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc * proc)
+{
+    switch (proc->script->opCode)
+    {
         case CLASS_REEL_OP_HIT_CLOSE:
         case CLASS_REEL_OP_CRIT_CLOSE:
         case CLASS_REEL_OP_RETURN_TO_STANDING:
@@ -1266,7 +1351,8 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
         case CLASS_REEL_OP_WAIT_FRAMES:
             proc->unk_2a++;
 
-            if (proc->unk_2a < proc->script->extra) {
+            if (proc->unk_2a < proc->script->extra)
+            {
                 return;
             }
 
@@ -1276,7 +1362,8 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
             break;
 
         case CLASS_REEL_OP_ROUND_END:
-            if (sub_805A96C(&gOpInfoData) != 0) {
+            if (sub_805A96C(&gOpInfoData) != 0)
+            {
                 proc->script++;
                 Proc_Break(proc);
             }
@@ -1285,8 +1372,9 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
-
+//! FE8U = 0x080B3E9C
+void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc * proc)
+{
     SetPrimaryHBlankHandler(NULL);
 
     EndTalk();
@@ -1295,7 +1383,8 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     EndActiveClassReelSpell();
     sub_805AA28(&gOpInfoData);
 
-    if (proc->unk_3c != 0) {
+    if (proc->unk_3c != 0)
+    {
         Proc_End(proc->unk_3c);
     }
 
@@ -1304,8 +1393,11 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_ClassInfoDisplay[] = {
-    PROC_SLEEP(0),
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_ClassInfoDisplay[] =
+{
+    PROC_YIELD,
 
     PROC_CALL_ARG(NewFadeOut, 8),
     PROC_WHILE(FadeOutExists),
@@ -1337,12 +1429,15 @@ PROC_LABEL(7),
     PROC_WHILE(FadeOutExists),
 
 PROC_LABEL(8),
-
     PROC_END,
 };
 
-ProcPtr StartClassAnimDisplay(ProcPtr parent, struct ClassReelEnt* entry) {
-    struct OpInfoClassDisplayProc* proc = Proc_Start(gProcScr_ClassInfoDisplay, parent);
+// clang-format on
+
+//! FE8U = 0x080B3EDC
+ProcPtr StartClassAnimDisplay(ProcPtr parent, struct ClassReelEnt * entry)
+{
+    struct OpInfoClassDisplayProc * proc = Proc_Start(gProcScr_ClassInfoDisplay, parent);
 
     proc->unk_30 = parent;
     proc->classReelEnt = entry;
@@ -1351,8 +1446,10 @@ ProcPtr StartClassAnimDisplay(ProcPtr parent, struct ClassReelEnt* entry) {
     return proc;
 }
 
-void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc* proc) {
-    struct ClassDisplayFont* res;
+//! FE8U = 0x080B3EFC
+void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc * proc)
+{
+    struct ClassDisplayFont * res;
     int i;
 
     signed char buffer[32];
@@ -1364,64 +1461,62 @@ void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc* proc) {
 
     sub_80B369C(proc->unk_30->classReelEnt->classId, buffer);
 
-    for (i = 0; buffer[i] != 0; ) {
-
+    for (i = 0; buffer[i] != 0;)
+    {
         res = GetClassDisplayFontInfo(buffer[i]);
 
-        if (res != 0) {
+        if (res != 0)
+        {
             proc->unk_34 += res->width - res->xBase;
-        } else {
+        }
+        else
+        {
             proc->unk_34 += 4;
         }
 
         i++;
 
-        if ((int)(buffer + i) > (int)(buffer + 13)) {
+        if ((int)(buffer + i) > (int)(buffer + 13))
+        {
             break;
         }
     }
 
-    Decompress(gUnknown_08A36338, (void *)0x06010000);
+    Decompress(gUnknown_08A36338, OBJ_CHR_ADDR(0x0));
 
     ApplyPalettes(gUnknown_08A372C0, 0x14, 2);
 
     return;
 }
 
-extern u16* CONST_DATA sSpriteLut_GaugePips[];
+extern u16 * CONST_DATA sSpriteLut_GaugePips[];
 
-void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc* proc) {
+//! FE8U = 0x080B3F90
+void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc * proc)
+{
     signed char buffer[32];
 
     u8 value;
     int i;
     int x;
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < 6; i++)
+    {
         value = proc->unk_30->unk_40[i];
 
-        if (value >= 30) {
+        if (value >= 30)
+        {
             value = 30;
         }
 
-        for (x = 0; (x < (value >> 2)); x++) {
-            PutSpriteExt(
-                13,
-                (x * 8) + 48,
-                (i * 16) + 16,
-                sSpriteLut_GaugePips[3],
-                0x4000
-            );
+        for (x = 0; (x < (value >> 2)); x++)
+        {
+            PutSpriteExt(13, (x * 8) + 48, (i * 16) + 16, sSpriteLut_GaugePips[3], 0x4000);
         }
 
-        if ((value & 3) != 0) {
-            PutSpriteExt(
-                13,
-                (x * 8) + 48,
-                (i * 16) + 16,
-                sSpriteLut_GaugePips[(value & 3) - 1],
-                0x4000
-            );
+        if ((value & 3) != 0)
+        {
+            PutSpriteExt(13, (x * 8) + 48, (i * 16) + 16, sSpriteLut_GaugePips[(value & 3) - 1], 0x4000);
         }
     }
 
@@ -1429,35 +1524,35 @@ void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc* proc) {
 
     sub_80B369C(proc->unk_30->classReelEnt->classId, buffer);
 
-    for (i = 0; (buffer[i] != 0); ) {
-        struct ClassDisplayFont* res = GetClassDisplayFontInfo(buffer[i]);
+    for (i = 0; (buffer[i] != 0);)
+    {
+        struct ClassDisplayFont * res = GetClassDisplayFontInfo(buffer[i]);
 
-        if (res != 0) {
+        if (res != 0)
+        {
 
-            if (res->a != 0) {
-                PutSpriteExt(
-                    4,
-                    x - res->xBase - 2,
-                    5 - res->yBase,
-                    res->a,
-                    0x4000
-                );
+            if (res->a != 0)
+            {
+                PutSpriteExt(4, x - res->xBase - 2, 5 - res->yBase, res->a, 0x4000);
 
                 x += (res->width - res->xBase);
             }
-
-        } else {
+        }
+        else
+        {
             x += 4;
         }
 
         i++;
 
-        if (i > 13) {
+        if (i > 13)
+        {
             break;
         }
     }
 
-    if (proc->unk_2a < 255) {
+    if (proc->unk_2a < 255)
+    {
         proc->unk_2a++;
     }
 
@@ -1480,12 +1575,16 @@ struct ProcCmd CONST_DATA gProcScr_opinfogaugedraw[] =
 
 // clang-format on
 
-ProcPtr StartClassStatsDisplay(ProcPtr proc) {
+//! FE8U = 0x080B40D0
+ProcPtr StartClassStatsDisplay(ProcPtr proc)
+{
     return Proc_Start(gProcScr_opinfogaugedraw, proc);
 }
 
-void sub_80B40E4(ProcPtr proc, int unk) {
-    ((struct OpInfoGaugeDrawProc*)(proc))->unk_35 = unk;
+//! FE8U = 0x080B40E4
+void sub_80B40E4(ProcPtr proc, int unk)
+{
+    ((struct OpInfoGaugeDrawProc *)(proc))->unk_35 = unk;
     return;
 }
 // clang-format off
@@ -2179,6 +2278,8 @@ struct ClassReelEnt * CONST_DATA gClassReelOrderedLut[] =
 
 // clang-format on
 
-struct ClassReelEnt* GetClassReelEntry(int classSet, int index) {
+//! FE8U = 0x080B40EC
+struct ClassReelEnt * GetClassReelEntry(int classSet, int index)
+{
     return gClassReelOrderedLut[sClassReelClassSetLut[classSet] + index];
 }
