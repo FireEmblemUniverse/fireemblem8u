@@ -382,14 +382,14 @@ void DisplayTexts(const struct SSTextDispInfo* infos)
 {
     while (infos->text)
     {
-        if (infos->mid)
+        if (infos->msgId)
         {
             PutDrawText(
                 infos->text,
                 infos->tilemap,
                 infos->color,
                 infos->xoff, 0,
-                GetStringFromIndex(*infos->mid));
+                GetStringFromIndex(*infos->msgId));
         }
         else
         {
@@ -1741,10 +1741,10 @@ void StartStatScreenHelp(int pageid, struct Proc* proc)
 
 void HbPopulate_SSItem(struct HelpBoxProc* proc)
 {
-    int item = gStatScreen.unit->items[proc->info->mid];
+    int item = gStatScreen.unit->items[proc->info->msgId];
 
     proc->item = item;
-    proc->mid  = GetItemDescId(item);
+    proc->msgId = GetItemDescId(item);
 }
 
 void HbPopulate_SSStatus(struct HelpBoxProc* proc)
@@ -1753,44 +1753,44 @@ void HbPopulate_SSStatus(struct HelpBoxProc* proc)
     {
 
     case UNIT_STATUS_NONE:
-        proc->mid = MSG_552; // "Normal.[NL]Feeling healthy."
+        proc->msgId = MSG_552; // "Normal.[NL]Feeling healthy."
         break;
 
     case UNIT_STATUS_POISON:
-        proc->mid = MSG_553; // "Ooooog...[NL]Poison slowly steals HP."
+        proc->msgId = MSG_553; // "Ooooog...[NL]Poison slowly steals HP."
         break;
 
     case UNIT_STATUS_SLEEP:
-        proc->mid = MSG_554; // "Zzzz... Zzzzz...[NL]Sleeping now... Can't move..."
+        proc->msgId = MSG_554; // "Zzzz... Zzzzz...[NL]Sleeping now... Can't move..."
         break;
 
     case UNIT_STATUS_SILENCED:
-        proc->mid = MSG_556; // "......[NL]Magic and staves are unusable."
+        proc->msgId = MSG_556; // "......[NL]Magic and staves are unusable."
         break;
 
     case UNIT_STATUS_BERSERK:
-        proc->mid = MSG_555; // "Rarrrrr! Attack the nearest[NL]unit, be it friend or foe!"
+        proc->msgId = MSG_555; // "Rarrrrr! Attack the nearest[NL]unit, be it friend or foe!"
         break;
 
     case UNIT_STATUS_ATTACK:
-        proc->mid = MSG_558; // "Attack power is increased,[NL]thanks to Filla's Might."
+        proc->msgId = MSG_558; // "Attack power is increased,[NL]thanks to Filla's Might."
         break;
 
     case UNIT_STATUS_DEFENSE:
-        proc->mid = MSG_559; // "Defense & resistance increased,[.][NL]thanks to Ninis's Grace."
+        proc->msgId = MSG_559; // "Defense & resistance increased,[.][NL]thanks to Ninis's Grace."
         break;
 
     case UNIT_STATUS_CRIT:
-        proc->mid = MSG_55A; // "Critical hit  0s increased,[.][NL]thanks to Thor's Ire.[.]"
+        proc->msgId = MSG_55A; // "Critical hit  0s increased,[.][NL]thanks to Thor's Ire.[.]"
         break;
 
     case UNIT_STATUS_AVOID:
-        proc->mid = MSG_55B; // "Dodge is increased, thanks[NL]to Set's Litany."
+        proc->msgId = MSG_55B; // "Dodge is increased, thanks[NL]to Set's Litany."
         break;
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        proc->mid = MSG_557; // "Craaack! Turned...to...[.][NL]stone. Can't...move!"
+        proc->msgId = MSG_557; // "Craaack! Turned...to...[.][NL]stone. Can't...move!"
         break;
 
     } // switch (gStatScreen.unit->statusIndex)
@@ -1799,9 +1799,9 @@ void HbPopulate_SSStatus(struct HelpBoxProc* proc)
 void HbPopulate_SSPower(struct HelpBoxProc* proc)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
-        proc->mid = MSG_547; // "Magical power. Magical[NL]power is akin to strength."
+        proc->msgId = MSG_547; // "Magical power. Magical[NL]power is akin to strength."
     else
-        proc->mid = MSG_546; // "Strength. The higher the number,[NL]the more damage you inflict."
+        proc->msgId = MSG_546; // "Strength. The higher the number,[NL]the more damage you inflict."
 }
 
 void HbRedirect_SSItem(struct HelpBoxProc* proc)
@@ -1809,7 +1809,7 @@ void HbRedirect_SSItem(struct HelpBoxProc* proc)
     if (!gStatScreen.unit->items[0])
         TryRelocateHbLeft(proc);
 
-    if (!gStatScreen.unit->items[proc->info->mid])
+    if (!gStatScreen.unit->items[proc->info->msgId])
     {
         if (proc->moveKey == 0 || proc->moveKey == DPAD_RIGHT || proc->moveKey == DPAD_UP)
             TryRelocateHbUp(proc);
@@ -1832,27 +1832,27 @@ void HbPopulate_SSWExp(struct HelpBoxProc* proc)
         MSG_568, // "Staff mastery level."
     };
 
-    int itemKind = proc->info->mid;
+    int itemKind = proc->info->msgId;
 
     if (UnitHasMagicRank(gStatScreen.unit))
         itemKind += 4;
 
-    proc->mid = rankMsgLut[itemKind];
+    proc->msgId = rankMsgLut[itemKind];
 }
 
 void HbPopulate_SSCharacter(struct HelpBoxProc* proc)
 {
-    int midDesc = gStatScreen.unit->pCharacterData->descTextId;
+    int msgIdDesc = gStatScreen.unit->pCharacterData->descTextId;
 
-    if (midDesc)
-        proc->mid = midDesc;
+    if (msgIdDesc)
+        proc->msgId = msgIdDesc;
     else
-        proc->mid = MSG_6BE; // "There are no messages for[.][NL]this menu item.[.]"
+        proc->msgId = MSG_6BE; // "There are no messages for[.][NL]this menu item.[.]"
 }
 
 void HbPopulate_SSClass(struct HelpBoxProc* proc)
 {
-    proc->mid = gStatScreen.unit->pClassData->descTextId;
+    proc->msgId = gStatScreen.unit->pClassData->descTextId;
 }
 
 void HbRedirect_SSSupports(struct HelpBoxProc* proc)
@@ -1921,7 +1921,7 @@ void HelpBox_WaitClose(struct HelpBoxProc* proc)
         Proc_Break(proc);
 }
 
-void StartHelpBox(int x, int y, int mid)
+void StartHelpBox(int x, int y, int msgId)
 {
     sMutableHbi.adjUp    = NULL;
     sMutableHbi.adjDown  = NULL;
@@ -1930,7 +1930,7 @@ void StartHelpBox(int x, int y, int mid)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = mid;
+    sMutableHbi.msgId    = msgId;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = NULL;
@@ -1941,7 +1941,7 @@ void StartHelpBox(int x, int y, int mid)
     StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void StartHelpBox_NoHelpSprite(int x, int y, int mid)
+void StartHelpBox_NoHelpSprite(int x, int y, int msgId)
 {
     if (x < 0 && y < 0)
     {
@@ -1956,7 +1956,7 @@ void StartHelpBox_NoHelpSprite(int x, int y, int mid)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = mid;
+    sMutableHbi.msgId    = msgId;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = NULL;
@@ -1976,7 +1976,7 @@ void StartItemHelpBox(int x, int y, int item)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = item;
+    sMutableHbi.msgId    = item;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = HbPopulate_AutoItem;
@@ -2018,25 +2018,25 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite)
     proc->timerMax = 12;
 
     proc->item = 0;
-    proc->mid = info->mid;
+    proc->msgId = info->msgId;
 
     if (proc->info->populate)
         proc->info->populate(proc);
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wContent, &hContent);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wContent, &hContent);
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     ApplyHelpBoxContentSize(proc, wContent, hContent);
     ApplyHelpBoxPosition(proc, info->xDisplay, info->yDisplay);
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 
     sLastHbi = info;
 }
 
-void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid)
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int msgId)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
@@ -2055,10 +2055,10 @@ void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid)
     proc->timerMax = 12;
 
     proc->item = 0;
-    proc->mid = mid;
+    proc->msgId = msgId;
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wContent, &hContent);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wContent, &hContent);
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     ResetHelpBoxInitSize(proc);
@@ -2071,7 +2071,7 @@ void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid)
     proc->yBoxFinal = y + 8;
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 }
 
 void CloseHelpBox(void)
@@ -2176,7 +2176,7 @@ void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height)
         if (width < 0x90)
             width = 0x90;
 
-        if (GetStringTextLen(GetStringFromIndex(proc->mid)) > 8)
+        if (GetStringTextLen(GetStringFromIndex(proc->msgId)) > 8)
             height += 0x20;
         else
             height += 0x10;
@@ -2262,14 +2262,14 @@ int GetHelpBoxItemInfoKind(int item)
 
 void HbPopulate_AutoItem(struct HelpBoxProc* proc)
 {
-    int item = proc->info->mid;
+    int item = proc->info->msgId;
 
     proc->item = item;
 
     if (GetHelpBoxItemInfoKind(proc->item) == HB_EXTINFO_SAVEINFO)
-        proc->mid = 0;
+        proc->msgId = 0;
     else
-        proc->mid = GetItemDescId(item);
+        proc->msgId = GetItemDescId(item);
 }
 
 int TryRelocateHbUp(struct HelpBoxProc* proc)
@@ -2335,11 +2335,11 @@ void HbLock_OnIdle(struct Proc* proc)
         Proc_Break(proc);
 }
 
-int StartLockingHelpBox_Unused(int mid, ProcPtr parent)
+int StartLockingHelpBox_Unused(int msgId, ProcPtr parent)
 {
     LoadHelpBoxGfx(NULL, -1);
 
-    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
+    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgId);
     Proc_StartBlocking(gProcScr_HelpBoxLock, parent);
 
     return TRUE;

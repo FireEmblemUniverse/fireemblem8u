@@ -135,7 +135,7 @@ struct HelpBoxProc
     /* 48 */ short timer;
     /* 4A */ short timerMax;
 
-    /* 4C */ u16 mid;
+    /* 4C */ u16 msgId;
     /* 4E */ u16 item;
 
     /* 50 */ u16 moveKey; // move ctrl proc only
@@ -153,7 +153,7 @@ struct HelpBoxInfo
     /* 0C */ const struct HelpBoxInfo* adjRight;
     /* 10 */ u8 xDisplay;
     /* 11 */ u8 yDisplay;
-    /* 12 */ u16 mid;
+    /* 12 */ u16 msgId;
     /* 14 */ void(*redirect)(struct HelpBoxProc* proc);
     /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
@@ -180,11 +180,11 @@ void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
 void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int interpolateMethod);
 
-void StartHelpBox(int x, int y, int mid);
-void StartHelpBox_NoHelpSprite(int x, int y, int mid);
+void StartHelpBox(int x, int y, int msgId);
+void StartHelpBox_NoHelpSprite(int x, int y, int msgId);
 void StartItemHelpBox(int x, int y, int item);
 void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite);
-void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid);
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int msgId);
 void CloseHelpBox(void);
 void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
@@ -199,7 +199,7 @@ int TryRelocateHbDown(struct HelpBoxProc* proc);
 int TryRelocateHbLeft(struct HelpBoxProc* proc);
 int TryRelocateHbRight(struct HelpBoxProc* proc);
 
-int StartLockingHelpBox_Unused(int mid, ProcPtr parent);
+int StartLockingHelpBox_Unused(int msgId, ProcPtr parent);
 
 struct HelpPromptSprProc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
 struct HelpPromptSprProc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
@@ -265,7 +265,7 @@ struct SSTextDispInfo
     /* 04 */ u16* tilemap;
     /* 08 */ u8 color;
     /* 09 */ u8 xoff;
-    /* 0C */ const unsigned* mid;
+    /* 0C */ const u32 * msgId;
 };
 
 struct HelpPromptSprProc

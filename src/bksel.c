@@ -744,11 +744,11 @@ u16 GetBkselHelpBoxMsg(int wt, s8 isEffective)
 void HbPopulate_BkselWTriEffA(struct HelpBoxProc * proc)
 {
     struct BattleForecastProc * proc2 = Proc_Find(gProcScr_BKSEL);
-    proc->mid = GetBkselHelpBoxMsg(gBattleActor.wTriangleHitBonus, proc2->isEffectiveA);
+    proc->msgId = GetBkselHelpBoxMsg(gBattleActor.wTriangleHitBonus, proc2->isEffectiveA);
 }
 
 void HbPopulate_BkselWTriEffB(struct HelpBoxProc * proc)
 {
     struct BattleForecastProc * proc2 = Proc_Find(gProcScr_BKSEL);
-    proc->mid = GetBkselHelpBoxMsg(gBattleTarget.wTriangleHitBonus, proc2->isEffectiveB);
+    proc->msgId = GetBkselHelpBoxMsg(gBattleTarget.wTriangleHitBonus, proc2->isEffectiveB);
 }

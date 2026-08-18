@@ -120,7 +120,7 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int noHelpSprite);
 // ??? HelpBoxSetupPrefixLines(???);
 // ??? HelpBoxDrawPrefix(???);
 // ??? HelpBoxIntroDrawTexts(???);
-void StartHelpBoxTextInit(int item, int mid);
+void StartHelpBoxTextInit(int item, int msgId);
 void ClearHelpBoxText(void);
 // ??? HelpBoxIntro_bug_808A160(???);
 // ??? sub_808A188(???);

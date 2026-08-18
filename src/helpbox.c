@@ -593,7 +593,7 @@ void sub_808A1E0(int x, int y, int msgId) {
 
     gTmpHelpBoxInfo.xDisplay = x;
     gTmpHelpBoxInfo.yDisplay = y;
-    gTmpHelpBoxInfo.mid = msgId;
+    gTmpHelpBoxInfo.msgId = msgId;
     gTmpHelpBoxInfo.redirect = 0;
     gTmpHelpBoxInfo.populate = 0;
 
@@ -628,17 +628,17 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     proc->timer = 0;
     proc->timerMax = 12;
 
-    proc->mid = info->mid;
+    proc->msgId = info->msgId;
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wTextBox, &hTextBox);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wTextBox, &hTextBox);
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     sub_808A384(proc, wTextBox, hTextBox);
     sub_808A3C4(proc, info->xDisplay, info->yDisplay);
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 
     gpHelpBoxCurrentInfo = info;
 
@@ -1395,12 +1395,12 @@ void DrawBoxDialogueText(int x, int y, int msg) {
 
     proc->item = 0;
 
-    proc->mid = msg;
+    proc->msgId = msg;
 
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
     // Result seems to be unused; oversight?
-    GetStringFromIndex(proc->mid);
+    GetStringFromIndex(proc->msgId);
 
     GetBoxDialogueSize(StringInsertSpecialPrefixByCtrl(), &wInner, &hInner);
 
@@ -1417,7 +1417,7 @@ void DrawBoxDialogueText(int x, int y, int msg) {
 
     sub_808BAA4();
 
-    sub_808BA60(proc->mid, wInner, hInner);
+    sub_808BA60(proc->msgId, wInner, hInner);
 
     return;
 }
