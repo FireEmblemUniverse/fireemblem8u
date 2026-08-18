@@ -1225,43 +1225,43 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
 
 void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
     switch (proc->script->opCode) {
-        case CLASS_REEL_OP_0:
+        case CLASS_REEL_OP_END:
             Proc_Goto(proc, 10);
 
             break;
 
-        case CLASS_REEL_OP_1:
+        case CLASS_REEL_OP_HIT_CLOSE:
             gOpInfoData.roundType = ANIM_ROUND_HIT_CLOSE;
             sub_805A7B4(&gOpInfoData);
 
             break;
 
-        case CLASS_REEL_OP_2:
+        case CLASS_REEL_OP_CRIT_CLOSE:
             gOpInfoData.roundType = ANIM_ROUND_CRIT_CLOSE;
             sub_805A7B4(&gOpInfoData);
 
             break;
 
-        case CLASS_REEL_OP_3:
-        case CLASS_REEL_OP_7:
+        case CLASS_REEL_OP_RETURN_TO_STANDING:
+        case CLASS_REEL_OP_RETURN_TO_STANDING_ALT:
             sub_805A990(&gOpInfoData);
 
             break;
 
-        case CLASS_REEL_OP_4:
+        case CLASS_REEL_OP_HIT_FAR:
             gOpInfoData.roundType = ANIM_ROUND_NONCRIT_FAR;
             sub_805A7B4(&gOpInfoData);
 
             break;
 
-        case CLASS_REEL_OP_6:
+        case CLASS_REEL_OP_DODGE:
             gOpInfoData.roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
             sub_805A7B4(&gOpInfoData);
 
             break;
 
-        case CLASS_REEL_OP_5:
-        case CLASS_REEL_OP_8:
+        case CLASS_REEL_OP_WAIT_FRAMES:
+        case CLASS_REEL_OP_ROUND_END:
             break;
     }
 
@@ -1273,18 +1273,18 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc* proc) {
 void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
 
     switch (proc->script->opCode) {
-        case CLASS_REEL_OP_1:
-        case CLASS_REEL_OP_2:
-        case CLASS_REEL_OP_3:
-        case CLASS_REEL_OP_4:
-        case CLASS_REEL_OP_6:
-        case CLASS_REEL_OP_7:
+        case CLASS_REEL_OP_HIT_CLOSE:
+        case CLASS_REEL_OP_CRIT_CLOSE:
+        case CLASS_REEL_OP_RETURN_TO_STANDING:
+        case CLASS_REEL_OP_HIT_FAR:
+        case CLASS_REEL_OP_DODGE:
+        case CLASS_REEL_OP_RETURN_TO_STANDING_ALT:
             proc->script++;
             Proc_Break(proc);
 
             break;
 
-        case CLASS_REEL_OP_5:
+        case CLASS_REEL_OP_WAIT_FRAMES:
             proc->unk_2a++;
 
             if (proc->unk_2a < proc->script->extra) {
@@ -1296,7 +1296,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
 
             break;
 
-        case CLASS_REEL_OP_8:
+        case CLASS_REEL_OP_ROUND_END:
             if (sub_805A96C(&gOpInfoData) != 0) {
                 proc->script++;
                 Proc_Break(proc);
@@ -1588,146 +1588,159 @@ u16 CONST_DATA sSprite_08A2F1F0[] = {
     0x0000, 0x4000, 0x0780,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F1F8[] = {
-    { 5, 0x1E, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 5, 0x50, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F1F8[] =
+{
+    CR_WAIT(30),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_WAIT(80),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F20E[] = {
-    { 5, 0x28, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 5, 0x64, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F20E[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_WAIT(100),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F224[] = {
-    { 5, 0x28, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x5A, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F224[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(90),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F230[] = {
-    { 5, 0x3C, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x46, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F230[] =
+{
+    CR_WAIT(60),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(70),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F23C[] = {
-    { 5, 0x3C, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F23C[] =
+{
+    CR_WAIT(60),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F248[] = {
-    { 5, 0x28, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 5, 0x48, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F248[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_WAIT(72),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F25E[] = {
-    { 5, 0x28, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F25E[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F26A[] = {
-    { 5, 0x50, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x5A, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F26A[] =
+{
+    CR_WAIT(80),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(90),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F276[] = {
-    { 5, 0x50, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x5A, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F276[] =
+{
+    CR_WAIT(80),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(90),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F282[] = {
-    { 5, 0x50, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x64, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F282[] =
+{
+    CR_WAIT(80),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(100),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F28E[] = {
-    { 5, 0x78, },
-    { 1,    0, },
-    { 8,    0, },
-    { 5, 0x28, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F28E[] =
+{
+    CR_WAIT(120),
+    CR_ANIM_ROUND_HIT_CLOSE,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(40),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F29A[] = {
-    { 5, 0x28, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0xAA, },
-    { 3,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F29A[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(170),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
 struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2A6[] = {
-    { 5, 0x3C, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0x60, },
-    { 3,    0, },
-    { 0,    0, },
+    CR_WAIT(60),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(96),
+    CR_RETURN_TO_STANDING,
+    CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2B2[] = {
-    { 5, 0x28, },
-    { 4,    0, },
-    { 8,    0, },
-    { 5, 0xC8, },
-    { 3,    0, },
-    { 0,    0, },
-    { 0,    0, },
+struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2B2[] =
+{
+    CR_WAIT(40),
+    CR_ANIM_ROUND_NONCRIT_FAR,
+    CR_WAIT_ROUND_END,
+    CR_WAIT(200),
+    CR_RETURN_TO_STANDING,
+    CR_END,
+    CR_END,
 };
 
 u8* CONST_DATA gUnknown_08A2F2C0[] = {
