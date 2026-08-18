@@ -140,7 +140,7 @@ struct HelpBoxProc
 
     /* 50 */ u16 moveKey; // move ctrl proc only
 
-    /* 52 */ u8 unk52;
+    /* 52 */ u8 noHelpSprite;
 
     // NOTE: there's likely more, need to decompile more files
 };
@@ -178,13 +178,13 @@ void HbPopulate_SSCharacter(struct HelpBoxProc* proc);
 void HbPopulate_SSClass(struct HelpBoxProc* proc);
 void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
-void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1);
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int interpolateMethod);
 
 void StartHelpBox(int x, int y, int mid);
-void StartHelpBox_Unk(int x, int y, int mid);
+void StartHelpBox_NoHelpSprite(int x, int y, int mid);
 void StartItemHelpBox(int x, int y, int item);
-void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
-void StartHelpBoxExt_Unk(int x, int y, int mid);
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite);
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid);
 void CloseHelpBox(void);
 void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
@@ -218,19 +218,19 @@ struct StatScreenEffectProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x38 - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x38);
 
     /* 38 */ int direction;
     /* 3C */ int yDispInit;
     /* 40 */ int yDispFinal;
 
-    /* 44 */ u8 pad44[0x4A - 0x44];
+    /* 44 */ STRUCT_PAD(0x44, 0x4A);
 
     /* 4A */ short newItem; // page or unit depending on slide
     /* 4C */ short timer;
     /* 4E */ short blendDirection;
 
-    /* 50 */ u8 pad50[0x52 - 0x50];
+    /* 50 */ STRUCT_PAD(0x50, 0x52);
 
     /* 52 */ u16   key;
 };

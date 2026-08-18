@@ -24,7 +24,7 @@ struct HelpBoxScrollProc {
 struct ProcHelpBoxIntro {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x58-0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x58);
 
     /* 58 */ int item;
     /* 5C */ int msg;
@@ -73,7 +73,7 @@ struct HelpBox8A01800Proc {
     /* 2C */ int unk_2c;
     /* 30 */ int unk_30;
 
-    /* 34 */ u8 _pad[0x5c-0x34];
+    /* 34 */ STRUCT_PAD(0x34, 0x5C);
 
     /* 5C */ int unk_5c;
 };
@@ -109,7 +109,7 @@ extern struct ProcCmd ProcScr_TalkBoxIdle[];
 
 void LoadHelpBoxGfx(void* dest, int pal);
 // ??? sub_80898C4(???);
-void DisplayHelpBoxObj(int x, int y, int w, int h, int unk);
+void DisplayHelpBoxObj(int x, int y, int w, int h, int noHelpSprite);
 // ??? DrawHelpBoxWeaponLabels(???);
 // ??? DrawHelpBoxWeaponStats(???);
 // ??? DrawHelpBoxStaffLabels(???);

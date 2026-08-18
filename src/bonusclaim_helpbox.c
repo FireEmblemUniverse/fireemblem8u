@@ -63,7 +63,7 @@ void sub_80AEB44(int songId)
 void BonusClaimHelp_Init(struct BonusClaimHelpBoxProc * proc)
 {
     PlaySoundEffect(SONG_70);
-    StartHelpBox_Unk(proc->x, proc->y, proc->msgId);
+    StartHelpBox_NoHelpSprite(proc->x, proc->y, proc->msgId);
     return;
 }
 

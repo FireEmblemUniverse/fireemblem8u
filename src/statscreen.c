@@ -1866,14 +1866,14 @@ void HbRedirect_SSSupports(struct HelpBoxProc* proc)
     }
 }
 
-void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int interpolateMethod)
 {
-    proc->xBox = Interpolate(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
-    proc->yBox = Interpolate(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
-    proc->wBox = Interpolate(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
-    proc->hBox = Interpolate(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
+    proc->xBox = Interpolate(interpolateMethod, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
+    proc->yBox = Interpolate(interpolateMethod, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
+    proc->wBox = Interpolate(interpolateMethod, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
+    proc->hBox = Interpolate(interpolateMethod, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
 
-    DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
+    DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->noHelpSprite);
 }
 
 void HelpBox_OnOpen(struct HelpBoxProc* proc)
@@ -1883,13 +1883,13 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
     if (found)
         found->proc_lockCnt = 1; // lock (disabled) proc
 
-    if (proc->unk52 == 0)
+    if (!proc->noHelpSprite)
         PlaySoundEffect(SONG_70);
 }
 
 void HelpBox_OnLoop(struct HelpBoxProc* proc)
 {
-    UpdateHelpBoxDisplay(proc, 5);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_RCUBIC);
 
     if (proc->timer < proc->timerMax)
         proc->timer++;
@@ -1902,7 +1902,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
     if (found)
         found->proc_lockCnt = 0; // unlock (enable) proc
 
-    if (proc->unk52 == 0)
+    if (!proc->noHelpSprite)
     {
         PlaySoundEffect(SONG_71);
 
@@ -1913,7 +1913,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
 
 void HelpBox_WaitClose(struct HelpBoxProc* proc)
 {
-    UpdateHelpBoxDisplay(proc, 0);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_LINEAR);
 
     proc->timer -= 3;
 
@@ -1941,7 +1941,7 @@ void StartHelpBox(int x, int y, int mid)
     StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void StartHelpBox_Unk(int x, int y, int mid)
+void StartHelpBox_NoHelpSprite(int x, int y, int mid)
 {
     if (x < 0 && y < 0)
     {
@@ -1987,7 +1987,7 @@ void StartItemHelpBox(int x, int y, int item)
     StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
@@ -1998,7 +1998,7 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
     {
         proc = Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
-        proc->unk52 = unk;
+        proc->noHelpSprite = noHelpSprite;
 
         SetHelpBoxInitPosition(proc, info->xDisplay, info->yDisplay);
         ResetHelpBoxInitSize(proc);
@@ -2036,14 +2036,14 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
     sLastHbi = info;
 }
 
-void StartHelpBoxExt_Unk(int x, int y, int mid)
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int mid)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
 
     proc = Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
-    proc->unk52 = TRUE;
+    proc->noHelpSprite = TRUE;
 
     if (x < 0 && y < 0)
     {
