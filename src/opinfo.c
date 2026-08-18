@@ -18,7 +18,9 @@
 #include "ekrbattle.h"
 #include "bmlib.h"
 #include "sysutil.h"
+
 #include "constants/classes.h"
+#include "constants/msg.h"
 
 EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = {0};
 
@@ -49,7 +51,7 @@ void ClassReel_Init(struct OpInfoProc* proc) {
 
     gLCDControlBuffer.dispcnt.mode = 0;
 
-    SetupBackgrounds(0);
+    SetupBackgrounds(NULL);
 
     NewEfxAnimeDrvProc();
 
@@ -58,16 +60,12 @@ void ClassReel_Init(struct OpInfoProc* proc) {
     proc->unk_38 = 0;
     proc->unk_3c = 0;
 
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 0;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 0;
+    SetDispEnable(FALSE, FALSE, FALSE, FALSE, FALSE);
 
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
-    BG_SetPosition(2, 0, 0);
-    BG_SetPosition(3, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
+    BG_SetPosition(BG_3, 0, 0);
 
     proc->index = 0;
     proc->mode = 2;
@@ -85,11 +83,7 @@ void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc* proc) {
 
     Sound_FadeOutBGM(1);
 
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 0;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 0;
+    SetDispEnable(FALSE, FALSE, FALSE, FALSE, FALSE);
 
     SetNextGameActionId(GAME_ACTION_EVENT_RETURN);
 
@@ -168,7 +162,10 @@ void ClassReel_OnEnd(ProcPtr proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_opinfo[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_opinfo[] =
+{
     PROC_NAME("opinfo"),
     PROC_SLEEP(0),
 
@@ -190,6 +187,8 @@ PROC_LABEL(5),
     PROC_END,
 };
 
+// clang-format on
+
 void StartClassReel(u8 classSet, ProcPtr parent) {
     struct OpInfoProc* proc = Proc_StartBlocking(gProcScr_opinfo, parent);
     proc->classSet = classSet;
@@ -197,10 +196,15 @@ void StartClassReel(u8 classSet, ProcPtr parent) {
     return;
 }
 
-u16 CONST_DATA sSprite_08A2EF48[] = {
+// clang-format off
+
+u16 CONST_DATA sSprite_08A2EF48[] =
+{
     1,
-    0x8300, 0x8000, 0x0400
+    OAM0_SHAPE_16x32 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_16x32, OAM2_LAYER(1),
 };
+
+// clang-format on
 
 void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
     int i;
@@ -241,7 +245,7 @@ void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset) {
             (x & 0x1FF) + (charId << 9),
             y & 0x1FF,
             sSprite_08A2EF48,
-            charId * 2 + (k & 0xF) * 0x1000 + 0x800
+            charId * 2 + OAM2_PAL(k) + 0x800
         );
     } else {
         PutSpriteExt(
@@ -280,20 +284,14 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 0;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(FALSE, TRUE, TRUE, FALSE, TRUE);
 
     gLCDControlBuffer.bg2cnt.screenSize = 1;
     gLCDControlBuffer.bg2cnt.areaOverflowMode = 0;
 
-    gLCDControlBuffer.dispcnt.win0_on = 0;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(FALSE, FALSE, FALSE);
 
-    SetBlendConfig(1, 0, 0x10, 0);
+    SetBlendAlpha(0, 0x10);
 
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(1, 1, 0, 0, 1);
@@ -351,7 +349,7 @@ void ClassIntro_Init(struct OpInfoEnterProc* proc) {
 
     ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
-    BG_EnableSyncByMask(4);
+    BG_EnableSyncByMask(BG2_SYNC_BIT);
 
     return;
 }
@@ -436,12 +434,7 @@ void ClassIntro_LoopOut(struct OpInfoEnterProc* proc) {
 }
 
 void ClassIntro_DisableAllExceptBg1(ProcPtr proc) {
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 0;
-
+    SetDispEnable(FALSE, TRUE, FALSE, FALSE, FALSE);
     return;
 }
 
@@ -453,7 +446,10 @@ void ClassIntro_OnEnd(ProcPtr proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_opinfoenter[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_opinfoenter[] =
+{
     PROC_NAME("opinfoenter"),
 
     PROC_CALL_ARG(NewFadeIn, 16),
@@ -477,6 +473,8 @@ PROC_LABEL(4),
 
     PROC_END,
 };
+
+// clang-format on
 
 ProcPtr StartClassNameIntro(ProcPtr parent, struct ClassReelEnt* entry) {
     struct OpInfoEnterProc* proc = Proc_Start(gProcScr_opinfoenter, parent);
@@ -555,7 +553,10 @@ void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_opinfoview[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_opinfoview[] =
+{
     PROC_NAME("opinfoview"),
     PROC_SLEEP(1),
 
@@ -567,6 +568,8 @@ struct ProcCmd CONST_DATA gProcScr_opinfoview[] = {
 
     PROC_END,
 };
+
+// clang-format on
 
 ProcPtr StartClassNameIntroLetter(ProcPtr parent, u8 index) {
     struct OpInfoViewProc* proc = Proc_Start(gProcScr_opinfoview, parent);
@@ -679,12 +682,7 @@ void ClassIntroIcon_LoopFadeOut(struct OpInfoIconProc* proc) {
     proc->timer++;
 
     if ((proc->timer >> 1) >= 17) {
-        gLCDControlBuffer.dispcnt.bg0_on = 0;
-        gLCDControlBuffer.dispcnt.bg1_on = 1;
-        gLCDControlBuffer.dispcnt.bg2_on = 0;
-        gLCDControlBuffer.dispcnt.bg3_on = 0;
-        gLCDControlBuffer.dispcnt.obj_on = 1;
-
+        SetDispEnable(FALSE, TRUE, FALSE, FALSE, TRUE);
         Proc_Break(proc);
     } else {
         sub_80B30FC((proc->timer >> 1), proc->numIcons, proc->unk_2e);
@@ -693,7 +691,10 @@ void ClassIntroIcon_LoopFadeOut(struct OpInfoIconProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_opinfoicon[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_opinfoicon[] =
+{
     PROC_NAME("opinfoicon"),
     PROC_SLEEP(1),
 
@@ -708,6 +709,8 @@ PROC_LABEL(4),
     PROC_END,
 };
 
+// clang-format on
+
 ProcPtr StartClassNameIntroIcon(ProcPtr parent, u8 classId) {
     struct OpInfoIconProc* proc;
 
@@ -721,11 +724,7 @@ void ClassIntroFlare_Init(struct OpInfoFlareProc* proc) {
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
-    gLCDControlBuffer.dispcnt.bg0_on = 1;
-    gLCDControlBuffer.dispcnt.bg1_on = 1;
-    gLCDControlBuffer.dispcnt.bg2_on = 1;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 1;
+    SetDispEnable(TRUE, TRUE, TRUE, FALSE, TRUE);
 
     return;
 }
@@ -737,40 +736,33 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
     int unkD;
 
     if (proc->unk_4c < 30) {
-        unkA = Interpolate(5, 4, 0x32, proc->unk_4c, 0x1E);
-        unkB = Interpolate(4, 0, 0x10, proc->unk_4c, 0x1E);
+        unkA = Interpolate(INTERPOLATE_RCUBIC, 4, 0x32, proc->unk_4c, 0x1E);
+        unkB = Interpolate(INTERPOLATE_RSQUARE, 0, 0x10, proc->unk_4c, 0x1E);
     } else {
-        unkA = Interpolate(0, 0x32, 100, proc->unk_4c - 0x1E, 0x1E);
-        unkB = Interpolate(0, 0x10, 0, proc->unk_4c - 0x1E, 0x1E);
+        unkA = Interpolate(INTERPOLATE_LINEAR, 0x32, 100, proc->unk_4c - 0x1E, 0x1E);
+        unkB = Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_4c - 0x1E, 0x1E);
     }
 
     if (49 < unkA) {
         unkA = 100 - unkA;
     }
 
-    unkC = Interpolate(0, 0, 0xD6, proc->unk_4c, 0x3C);
-    unkD = Interpolate(0, 0x10, 0x80, proc->unk_4c, 0x3C);
+    unkC = Interpolate(INTERPOLATE_LINEAR, 0, 0xD6, proc->unk_4c, 0x3C);
+    unkD = Interpolate(INTERPOLATE_LINEAR, 0x10, 0x80, proc->unk_4c, 0x3C);
 
-    BgAffinRotScaling(2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
-
-    BgAffinScaling(2, 0x100, 0x100);
-
-    BgAffinAnchoring(2, unkC, unkD, 0x50, 0x48);
+    BgAffinRotScaling( BG_2, (s16)proc->unk_4e, 0, 0, (s16)(unkA * 5 + 0x80), (s16)(unkA * 5 + 0x80));
+    BgAffinScaling(BG_2, 0x100, 0x100);
+    BgAffinAnchoring(BG_2, unkC, unkD, 0x50, 0x48);
 
     proc->unk_4e -= 0x40;
 
-    SetBlendConfig(1, unkB, 0x10, 0);
+    SetBlendAlpha(unkB, 0x10);
 
     proc->unk_4c++;
 
     if (59 < proc->unk_4c) {
         Proc_Break(proc);
-
-        gLCDControlBuffer.dispcnt.bg0_on = 1;
-        gLCDControlBuffer.dispcnt.bg1_on = 1;
-        gLCDControlBuffer.dispcnt.bg2_on = 0;
-        gLCDControlBuffer.dispcnt.bg3_on = 0;
-        gLCDControlBuffer.dispcnt.obj_on = 1;
+        SetDispEnable(TRUE, TRUE, FALSE, FALSE, TRUE);
     }
 
     return;
@@ -778,7 +770,10 @@ void ClassIntroFlare_Loop(struct OpInfoFlareProc* proc) {
 
 extern struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[];
 
-struct ProcCmd CONST_DATA gProcScr_ClassIntro_FlareFX[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_ClassIntro_FlareFX[] =
+{
     PROC_SLEEP(1),
 
     PROC_CALL(ClassIntroFlare_Init),
@@ -790,6 +785,8 @@ struct ProcCmd CONST_DATA gProcScr_ClassIntro_FlareFX[] = {
 
     PROC_END,
 };
+
+// clang-format on
 
 void ClassIntroBurst_Init(struct OpInfoBurstProc* proc) {
     proc->unk_4c = 0;
@@ -818,7 +815,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     int scale;
 
     if (proc->unk_64 < 71) {
-        scale = Interpolate(4, 0x120, 0x10, proc->unk_64, 70);
+        scale = Interpolate(INTERPOLATE_RSQUARE, 0x120, 0x10, proc->unk_64, 70);
 
         SetObjAffine(
             21,
@@ -834,7 +831,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     PutClassIntroBurstSprites(proc, 21, 215, 17);
 
     if (proc->unk_66 < 71) {
-        scale = Interpolate(0, 0x120, 0x10, proc->unk_66, 70);
+        scale = Interpolate(INTERPOLATE_LINEAR, 0x120, 0x10, proc->unk_66, 70);
 
         SetObjAffine(
             22,
@@ -850,7 +847,7 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     PutClassIntroBurstSprites(proc, 22, 192, 32);
 
     if (proc->unk_68 < 71) {
-        scale = Interpolate(1, 0x120, 0x10, proc->unk_68, 70);
+        scale = Interpolate(INTERPOLATE_SQUARE, 0x120, 0x10, proc->unk_68, 70);
 
         SetObjAffine(
             23,
@@ -874,7 +871,10 @@ void ClassIntroBurst_Loop(struct OpInfoBurstProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[] = {
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[] =
+{
     PROC_SLEEP(30),
 
     PROC_CALL(ClassIntroBurst_Init),
@@ -882,6 +882,8 @@ struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[] = {
 
     PROC_END,
 };
+
+// clang-format on
 
 signed char* sub_80B369C(u8 classId, signed char* buffer) {
     char* str;
@@ -920,32 +922,16 @@ void sub_80B36E0(void) {
 }
 
 void sub_80B3740(void) {
-
-    SetBlendConfig(1, 0x10, 0x10, 0);
+    SetBlendAlpha(0x10, 0x10);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
 
-    gLCDControlBuffer.dispcnt.win0_on = 1;
-    gLCDControlBuffer.dispcnt.win1_on = 0;
-    gLCDControlBuffer.dispcnt.objWin_on = 0;
+    SetWinEnable(TRUE, FALSE, FALSE);
+    SetWin0Box(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
-    gLCDControlBuffer.win0_left = 0;
-    gLCDControlBuffer.win0_top = 0;
-    gLCDControlBuffer.win0_right = 240;
-    gLCDControlBuffer.win0_bottom = 160;
-
-    gLCDControlBuffer.wincnt.win0_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.win0_enableObj = 1;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = 0;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = 1;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = 1;
-    gLCDControlBuffer.wincnt.wout_enableObj = 1;
+    SetWin0Layers(TRUE, TRUE, TRUE, TRUE, TRUE);
+    SetWOutLayers(TRUE, FALSE, TRUE, TRUE, TRUE);
 
     gLCDControlBuffer.wincnt.win0_enableBlend = 1;
     gLCDControlBuffer.wincnt.wout_enableBlend = 0;
@@ -971,20 +957,20 @@ extern u8 gUnk_OpInfo_0201DB28[];
 
 const int gUnknown_08205EDC[2][6] = {
     {
-        0x4E9, // "HP"
-        0x4FE, // "Str"
-        0x4EC, // "Skill"
-        0x4ED, // "Spd"
-        0x4EF, // "Def"
-        0x4F0, // "Res"
+        MSG_4E9, // "HP"
+        MSG_4FE, // "Str"
+        MSG_4EC, // "Skill"
+        MSG_4ED, // "Spd"
+        MSG_4EF, // "Def"
+        MSG_4F0, // "Res"
     },
     {
-        0x4E9, // "HP"
-        0x4FF, // "Mag"
-        0x4EC, // "Skill"
-        0x4ED, // "Spd"
-        0x4EF, // "Def"
-        0x4F0, // "Res"
+        MSG_4E9, // "HP"
+        MSG_4FF, // "Mag"
+        MSG_4EC, // "Skill"
+        MSG_4ED, // "Spd"
+        MSG_4EF, // "Def"
+        MSG_4F0, // "Res"
     },
 };
 
@@ -1023,18 +1009,12 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
 
-    gLCDControlBuffer.dispcnt.bg0_on = 0;
-    gLCDControlBuffer.dispcnt.bg1_on = 0;
-    gLCDControlBuffer.dispcnt.bg2_on = 0;
-    gLCDControlBuffer.dispcnt.bg3_on = 0;
-    gLCDControlBuffer.dispcnt.obj_on = 0;
+    SetDispEnable(FALSE, FALSE, FALSE, FALSE, FALSE);
 
     gLCDControlBuffer.dispcnt.mode = 0;
 
     SetDefaultColorEffects();
-
     ResetTextFont();
-
     ResetText();
 
     gLCDControlBuffer.bg0cnt.priority = 2;
@@ -1042,10 +1022,10 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
     gLCDControlBuffer.bg2cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    BG_SetPosition(0, 0, 0);
-    BG_SetPosition(1, 0, 0);
-    BG_SetPosition(2, 0, 0);
-    BG_SetPosition(3, 0, 0);
+    BG_SetPosition(BG_0, 0, 0);
+    BG_SetPosition(BG_1, 0, 0);
+    BG_SetPosition(BG_2, 0, 0);
+    BG_SetPosition(BG_3, 0, 0);
 
     Decompress(gUnknown_08A30E2C, (void *)(GetBackgroundTileDataOffset(3) + VRAM));
     ApplyPalettes(gUnknown_08A3593C, 7, 8);
@@ -1057,7 +1037,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc* proc) {
 
     CallARM_FillTileRect(gBG2TilemapBuffer, gUnknown_08A30978, 0x6000);
 
-    BG_EnableSyncByMask(0xF);
+    BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
     BG_Fill(buffer, 0);
 
@@ -1196,7 +1176,6 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc* proc) {
     }
 
     SetDispEnable(1, 1, 1, 1, 1);
-
     SetWinEnable(1, 0, 0);
 
     SetWin0Box(0, 80 - proc->unk_2a, 240, proc->unk_2a + 80);
@@ -1308,7 +1287,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc* proc) {
 
 void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc* proc) {
 
-    SetPrimaryHBlankHandler(0);
+    SetPrimaryHBlankHandler(NULL);
 
     EndTalk();
     EndActiveClassReelBgColorProc();
@@ -1485,7 +1464,10 @@ void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc* proc) {
     return;
 }
 
-struct ProcCmd CONST_DATA gProcScr_opinfogaugedraw[] ={
+// clang-format off
+
+struct ProcCmd CONST_DATA gProcScr_opinfogaugedraw[] =
+{
     PROC_NAME("opinfogaugedraw"),
 
     PROC_SLEEP(3),
@@ -1496,6 +1478,8 @@ struct ProcCmd CONST_DATA gProcScr_opinfogaugedraw[] ={
     PROC_END,
 };
 
+// clang-format on
+
 ProcPtr StartClassStatsDisplay(ProcPtr proc) {
     return Proc_Start(gProcScr_opinfogaugedraw, proc);
 }
@@ -1504,25 +1488,31 @@ void sub_80B40E4(ProcPtr proc, int unk) {
     ((struct OpInfoGaugeDrawProc*)(proc))->unk_35 = unk;
     return;
 }
+// clang-format off
 
-u16 CONST_DATA sSprite_08A2F160[] = {
+
+u16 CONST_DATA sSprite_08A2F160[] =
+{
     1,
-    0x0000, 0x0000, 0x093F,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13F) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F168[] = {
+u16 CONST_DATA sSprite_08A2F168[] =
+{
     1,
-    0x0000, 0x0000, 0x093E,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13E) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F170[] = {
+u16 CONST_DATA sSprite_08A2F170[] =
+{
     1,
-    0x0000, 0x0000, 0x093D,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13D) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F178[] = {
+u16 CONST_DATA sSprite_08A2F178[] =
+{
     1,
-    0x0000, 0x0000, 0x093C,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13C) + OAM2_LAYER(2),
 };
 
 u16* CONST_DATA sSpriteLut_GaugePips[] = {
@@ -1532,47 +1522,56 @@ u16* CONST_DATA sSpriteLut_GaugePips[] = {
     sSprite_08A2F178,
 };
 
-u16 CONST_DATA sSprite_08A2F190[] = {
+u16 CONST_DATA sSprite_08A2F190[] =
+{
     1,
-    0x0000, 0x8000, 0x0700,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x300) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F198[] = {
+u16 CONST_DATA sSprite_08A2F198[] =
+{
     1,
-    0x0000, 0x8000, 0x0704,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x304) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1A0[] = {
+u16 CONST_DATA sSprite_08A2F1A0[] =
+{
     1,
-    0x0000, 0x8000, 0x0708,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x308) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1A8[] = {
+u16 CONST_DATA sSprite_08A2F1A8[] =
+{
     1,
-    0x0000, 0x8000, 0x070C,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x30C) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1B0[] = {
+u16 CONST_DATA sSprite_08A2F1B0[] =
+{
     1,
-    0x0000, 0x8000, 0x0710,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x310) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1B8[] = {
+u16 CONST_DATA sSprite_08A2F1B8[] =
+{
     1,
-    0x0000, 0x8000, 0x0714,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x314) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1C0[] = {
+u16 CONST_DATA sSprite_08A2F1C0[] =
+{
     1,
-    0x0000, 0x8000, 0x0718,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x318) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1C8[] = {
+u16 CONST_DATA sSprite_08A2F1C8[] =
+{
     1,
-    0x0000, 0x8000, 0x071C,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x31C) + OAM2_LAYER(1),
 };
 
-u16* CONST_DATA sSpriteLut_08A2F1D0[] = {
+u16* CONST_DATA sSpriteLut_08A2F1D0[] =
+{
     sSprite_08A2F190,
     sSprite_08A2F198,
     sSprite_08A2F1A0,
@@ -1583,12 +1582,13 @@ u16* CONST_DATA sSpriteLut_08A2F1D0[] = {
     sSprite_08A2F1C8,
 };
 
-u16 CONST_DATA sSprite_08A2F1F0[] = {
+u16 CONST_DATA sSprite_08A2F1F0[] =
+{
     1,
-    0x0000, 0x4000, 0x0780,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x380) + OAM2_LAYER(1),
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F1F8[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_CloseDoubleHit[] =
 {
     CR_WAIT(30),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1603,7 +1603,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F1F8[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F20E[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Sniper[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1618,7 +1618,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F20E[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F224[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_CloseSingleHit[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1628,7 +1628,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F224[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F230[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Ranger[] =
 {
     CR_WAIT(60),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1638,7 +1638,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F230[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F23C[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Assassin[] =
 {
     CR_WAIT(60),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1648,7 +1648,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F23C[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F248[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_AnimaDoubleCast[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1663,7 +1663,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F248[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F25E[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Pupil[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1673,7 +1673,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F25E[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F26A[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_MagicSingleCast[] =
 {
     CR_WAIT(80),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1683,7 +1683,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F26A[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F276[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_StaffSingleCast[] =
 {
     CR_WAIT(80),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1693,7 +1693,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F276[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F282[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Dancer[] =
 {
     CR_WAIT(80),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1703,7 +1703,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F282[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F28E[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Manakete[] =
 {
     CR_WAIT(120),
     CR_ANIM_ROUND_HIT_CLOSE,
@@ -1713,7 +1713,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F28E[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F29A[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_DarkMagicSingleCast[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1723,7 +1723,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F29A[] =
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2A6[] = {
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Mogall[] = {
     CR_WAIT(60),
     CR_ANIM_ROUND_NONCRIT_FAR,
     CR_WAIT_ROUND_END,
@@ -1732,7 +1732,7 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2A6[] = {
     CR_END,
 };
 
-struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2B2[] =
+struct ClassReelAnimScr CONST_DATA ClassReelScr_Gorgon[] =
 {
     CR_WAIT(40),
     CR_ANIM_ROUND_NONCRIT_FAR,
@@ -1743,7 +1743,8 @@ struct ClassReelAnimScr CONST_DATA sClassReelScr_08A2F2B2[] =
     CR_END,
 };
 
-u8* CONST_DATA gUnknown_08A2F2C0[] = {
+u8 * CONST_DATA gUnknown_08A2F2C0[] =
+{
     NULL,
     NULL,
     NULL,
@@ -2002,75 +2003,77 @@ u8* CONST_DATA gUnknown_08A2F2C0[] = {
     NULL,
 };
 
-struct ClassReelEnt CONST_DATA gClassReelData[65] = {
-    [0x00] = { 0x6F6, 0xFF, CLASS_EIRIKA_LORD, 0, 0x02, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F1F8 },
-    [0x01] = { 0x6FA, 0x3B, CLASS_PALADIN, 0, 0x3A, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, sClassReelScr_08A2F224 },
-    [0x02] = { 0x6FB, 0x02, CLASS_ARMOR_KNIGHT, 0, 0x3F, 0, 0, 0, 0, 0, 0x02, 0x02, 0, sClassReelScr_08A2F224 },
-    [0x03] = { 0x6F9, 0xFF, CLASS_CAVALIER, 0, 0x33, 0, 0, 0, 0, 0, 0x11, 0, 0, sClassReelScr_08A2F1F8 },
-    [0x04] = { 0x71C, 0x3F, CLASS_PEGASUS_KNIGHT, 0, 0x65, 0, 0, 0, 0, 0, 0x19, 0x19, 0, sClassReelScr_08A2F1F8 },
-    [0x05] = { 0x71A, 0x44, CLASS_PRIEST, 0, 0x7E, 0x03, 0, 0, 0, 0, 0x0B, 0x12, 0, sClassReelScr_08A2F276 },
-    [0x06] = { 0x70E, 0xFF, CLASS_JOURNEYMAN, 0, 0x91, 0, 0, 0, 0, 0, 0x11, 0, 0, sClassReelScr_08A2F1F8 },
-    [0x07] = { 0x711, 0x1D, CLASS_FIGHTER, 0, 0x18, 0, 0, 0, 0, 0, 0, 0, 0, sClassReelScr_08A2F1F8 },
-    [0x08] = { 0x6FD, 0x5D, CLASS_THIEF, 0, 0x88, 0, 0, 0, 0, 0, 0x1C, 0x1C, 0, sClassReelScr_08A2F1F8 },
-    [0x09] = { 0x703, 0, CLASS_ARCHER, 0, 0x27, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F1F8 },
-    [0x0A] = { 0x709, 0x2E, CLASS_MAGE_F, 0, 0x6B, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, sClassReelScr_08A2F248 },
-    [0x0B] = { 0x719, 0x36, CLASS_MONK, 0, 0x7C, 0x04, 0, 0, 0, 0, 0, 0, 0, sClassReelScr_08A2F26A },
-    [0x0C] = { 0x725, 0xFF, CLASS_REVENANT, 0x01, 0x9F, 0, 0, 0, 0, 0, 0, 0, 0, sClassReelScr_08A2F224 },
-    [0x0D] = { 0x726, 0xFF, CLASS_ENTOUMBED, 0x01, 0xA0, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F224 },
-    [0x0E] = { 0x727, 0xFF, CLASS_BONEWALKER, 0x01, 0xA1, 0, 0, 0, 0, 0, 0x0E, 0x0F, 0, sClassReelScr_08A2F224 },
-    [0x0F] = { 0x730, 0xFF, CLASS_MOGALL, 0x01, 0xB9, 0x07, 0, 0, 0, 0, 0x19, 0x19, 0, sClassReelScr_08A2F2A6 },
-    [0x10] = { 0x729, 0xFF, CLASS_BAEL, 0x01, 0xAB, 0, 0, 0, 0, 0, 0x04, 0x04, 0, sClassReelScr_08A2F224 },
-    [0x11] = { 0x700, 0x37, CLASS_MYRMIDON, 0, 0x10, 0, 0, 0, 0, 0, 0x0B, 0x18, 0, sClassReelScr_08A2F1F8 },
-    [0x12] = { 0x71E, 0x42, CLASS_CLERIC, 0, 0x7F, 0x03, 0, 0, 0, 0, 0x0B, 0x12, 0, sClassReelScr_08A2F276 },
-    [0x13] = { 0x6F5, 0xFF, CLASS_EPHRAIM_LORD, 0, 0, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F1F8 },
-    [0x14] = { 0x723, 0xFF, CLASS_PIRATE, 0x01, 0x99, 0, 0, 0, 0, 0, 0x0C, 0x0C, 0, sClassReelScr_08A2F1F8 },
-    [0x15] = { 0x713, 0xFF, CLASS_BRIGAND, 0x01, 0x1F, 0, 0, 0, 0, 0, 0x16, 0x16, 0, sClassReelScr_08A2F1F8 },
-    [0x16] = { 0x716, 0xFF, CLASS_SHAMAN, 0x01, 0x74, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, sClassReelScr_08A2F29A },
-    [0x17] = { 0x704, 0x51, CLASS_SNIPER, 0, 0x29, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F20E },
-    [0x18] = { 0x6FE, 0x30, CLASS_MERCENARY, 0, 0x0A, 0, 0, 0, 0, 0, 0x01, 0x01, 0, sClassReelScr_08A2F1F8 },
-    [0x19] = { 0x721, 0x14, CLASS_DANCER, 0, 0x90, 0, 0, 0, 0, 0, 0x0E, 0x0E, 0, sClassReelScr_08A2F282 },
-    [0x1A] = { 0x70F, 0xFF, CLASS_PUPIL, 0, 0x94, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, sClassReelScr_08A2F25E },
-    [0x1B] = { 0x700, 0xFF, CLASS_MYRMIDON_F, 0, 0x12, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, sClassReelScr_08A2F1F8 },
-    [0x1C] = { 0x71B, 0xFF, CLASS_RECRUIT, 0, 0x95, 0, 0, 0, 0, 0, 0, 0, 0, sClassReelScr_08A2F1F8 },
-    [0x1D] = { 0x733, 0xFF, CLASS_GARGOYLE, 0x01, 0xBC, 0, 0, 0, 0, 0, 0x16, 0x16, 0, sClassReelScr_08A2F224 },
-    [0x1E] = { 0x72F, 0xFF, CLASS_MAELDUIN, 0x01, 0xB5, 0, 0, 0, 0, 0, 0x01, 0x01, 0, sClassReelScr_08A2F1F8 },
-    [0x1F] = { 0x72B, 0xFF, CLASS_CYCLOPS, 0x01, 0xAD, 0, 0, 0, 0, 0, 0x04, 0x04, 0, sClassReelScr_08A2F1F8 },
-    [0x20] = { 0x72C, 0xFF, CLASS_MAUTHEDOOG, 0x01, 0xB0, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F1F8 },
-    [0x21] = { 0x728, 0xFF, CLASS_WIGHT, 0x01, 0xA6, 0, 0, 0, 0, 0, 0x0E, 0x0F, 0, sClassReelScr_08A2F224 },
-    [0x22] = { 0x71F, 0x61, CLASS_TROUBADOUR, 0, 0x85, 0x03, 0, 0, 0, 0, 0, 0x11, 0, sClassReelScr_08A2F276 },
-    [0x23] = { 0x714, 0x12, CLASS_BERSERKER, 0, 0x22, 0, 0, 0, 0, 0, 0x10, 0x10, 0, sClassReelScr_08A2F1F8 },
-    [0x24] = { 0x710, 0x45, CLASS_ROGUE, 0, 0x8E, 0, 0, 0, 0, 0, 0x1C, 0x1C, 0, sClassReelScr_08A2F224 },
-    [0x25] = { 0x70A, 0x4B, CLASS_SAGE, 0, 0x6C, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, sClassReelScr_08A2F248 },
-    [0x26] = { 0x715, 0x2C, CLASS_GREAT_KNIGHT, 0, 0x4F, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, sClassReelScr_08A2F224 },
-    [0x27] = { 0x6F8, 0xFF, CLASS_EIRIKA_MASTER_LORD, 0, 0x07, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F224 },
-    [0x28] = { 0x705, 0xFF, CLASS_RANGER, 0x01, 0x2E, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F230 },
-    [0x29] = { 0x712, 0xFF, CLASS_WARRIOR, 0x01, 0x1B, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F1F8 },
-    [0x2A] = { 0x702, 0xFF, CLASS_ASSASSIN, 0x01, 0x8A, 0, 0, 0, 0, 0, 0x1D, 0x1D, 0, sClassReelScr_08A2F23C },
-    [0x2B] = { 0x70B, 0x35, CLASS_MAGE_KNIGHT_F, 0, 0x70, 0x02, 0, 0, 0, 0, 0x11, 0, 0, sClassReelScr_08A2F26A },
-    [0x2C] = { 0x6F7, 0xFF, CLASS_EPHRAIM_MASTER_LORD, 0, 0x04, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F224 },
-    [0x2D] = { 0x720, 0xFF, CLASS_VALKYRIE, 0, 0x86, 0x04, 0, 0, 0, 0, 0x11, 0, 0, sClassReelScr_08A2F26A },
-    [0x2E] = { 0x717, 0xFF, CLASS_DRUID, 0x01, 0x76, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, sClassReelScr_08A2F29A },
-    [0x2F] = { 0x6FC, 0xFF, CLASS_GENERAL, 0x01, 0x44, 0, 0, 0, 0, 0, 0x02, 0x02, 0, sClassReelScr_08A2F224 },
-    [0x30] = { 0x701, 0xFF, CLASS_SWORDMASTER, 0, 0x14, 0, 0, 0, 0, 0, 0x09, 0x09, 0, sClassReelScr_08A2F224 },
-    [0x31] = { 0x708, 0x68, CLASS_WYVERN_KNIGHT, 0, 0x61, 0, 0, 0, 0, 0, 0x16, 0x16, 0, sClassReelScr_08A2F224 },
-    [0x32] = { 0x70C, 0x0D, CLASS_BISHOP, 0, 0x81, 0x04, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F26A },
-    [0x33] = { 0x707, 0x17, CLASS_WYVERN_LORD, 0, 0x5C, 0, 0, 0, 0, 0, 0x16, 0x16, 0, sClassReelScr_08A2F224 },
-    [0x34] = { 0x6FF, 0x6B, CLASS_HERO, 0, 0x0D, 0, 0, 0, 0, 0, 0x17, 0x17, 0, sClassReelScr_08A2F1F8 },
-    [0x35] = { 0x71D, 0x1C, CLASS_FALCON_KNIGHT, 0, 0x67, 0, 0, 0, 0, 0, 0x0D, 0x0D, 0, sClassReelScr_08A2F224 },
-    [0x36] = { 0x72A, 0xFF, CLASS_ELDER_BAEL, 0x01, 0xAC, 0, 0, 0, 0, 0, 0x04, 0x04, 0, sClassReelScr_08A2F224 },
-    [0x37] = { 0x72E, 0xFF, CLASS_TARVOS, 0x01, 0xB2, 0, 0, 0, 0, 0, 0x01, 0x01, 0, sClassReelScr_08A2F1F8 },
-    [0x38] = { 0x734, 0xFF, CLASS_DEATHGOYLE, 0x01, 0xBE, 0, 0, 0, 0, 0, 0x16, 0x16, 0, sClassReelScr_08A2F224 },
-    [0x39] = { 0x72D, 0xFF, CLASS_GWYLLGI, 0x01, 0xB1, 0, 0, 0, 0, 0, 0x13, 0x13, 0, sClassReelScr_08A2F1F8 },
-    [0x3A] = { 0x732, 0xFF, CLASS_GORGON, 0x01, 0xBB, 0x08, 0, 0, 0, 0, 0x01, 0x01, 0, sClassReelScr_08A2F2B2 },
-    [0x3B] = { 0x724, 0xFF, CLASS_NECROMANCER, 0x01, 0x9C, 0x02, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F26A },
-    [0x3C] = { 0x718, 0x4F, CLASS_SUMMONER, 0x01, 0x7A, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, sClassReelScr_08A2F29A },
-    [0x3D] = { 0x70D, 0xFF, CLASS_MANAKETE_MYRRH, 0, 0xC4, 0x06, 0, 0, 0, 0, 0x10, 0x10, 0, sClassReelScr_08A2F28E },
-    [0x3E] = { 0x731, 0xFF, CLASS_ARCH_MOGALL, 0x01, 0xBA, 0x07, 0, 0, 0, 0, 0x06, 0x06, 0, sClassReelScr_08A2F2A6 },
-    [0x3F] = { 0x706, 0x15, CLASS_WYVERN_RIDER, 0, 0x57, 0, 0, 0, 0, 0, 0x04, 0x04, 0, sClassReelScr_08A2F1F8 },
-    [0x40] = { 0x722, 0xFF, CLASS_SOLDIER, 0x01, 0x97, 0, 0, 0, 0, 0, 0x14, 0x14, 0, sClassReelScr_08A2F1F8 }
+struct ClassReelEnt CONST_DATA gClassReelData[65] =
+{
+    [0x00] = { MSG_6F6, 0xFF, CLASS_EIRIKA_LORD, 0, 0x02, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_CloseDoubleHit },
+    [0x01] = { MSG_6FA, 0x3B, CLASS_PALADIN, 0, 0x3A, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, ClassReelScr_CloseSingleHit },
+    [0x02] = { MSG_6FB, 0x02, CLASS_ARMOR_KNIGHT, 0, 0x3F, 0, 0, 0, 0, 0, 0x02, 0x02, 0, ClassReelScr_CloseSingleHit },
+    [0x03] = { MSG_6F9, 0xFF, CLASS_CAVALIER, 0, 0x33, 0, 0, 0, 0, 0, 0x11, 0, 0, ClassReelScr_CloseDoubleHit },
+    [0x04] = { MSG_71C, 0x3F, CLASS_PEGASUS_KNIGHT, 0, 0x65, 0, 0, 0, 0, 0, 0x19, 0x19, 0, ClassReelScr_CloseDoubleHit },
+    [0x05] = { MSG_71A, 0x44, CLASS_PRIEST, 0, 0x7E, 0x03, 0, 0, 0, 0, 0x0B, 0x12, 0, ClassReelScr_StaffSingleCast },
+    [0x06] = { MSG_70E, 0xFF, CLASS_JOURNEYMAN, 0, 0x91, 0, 0, 0, 0, 0, 0x11, 0, 0, ClassReelScr_CloseDoubleHit },
+    [0x07] = { MSG_711, 0x1D, CLASS_FIGHTER, 0, 0x18, 0, 0, 0, 0, 0, 0, 0, 0, ClassReelScr_CloseDoubleHit },
+    [0x08] = { MSG_6FD, 0x5D, CLASS_THIEF, 0, 0x88, 0, 0, 0, 0, 0, 0x1C, 0x1C, 0, ClassReelScr_CloseDoubleHit },
+    [0x09] = { MSG_703, 0, CLASS_ARCHER, 0, 0x27, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_CloseDoubleHit },
+    [0x0A] = { MSG_709, 0x2E, CLASS_MAGE_F, 0, 0x6B, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, ClassReelScr_AnimaDoubleCast },
+    [0x0B] = { MSG_719, 0x36, CLASS_MONK, 0, 0x7C, 0x04, 0, 0, 0, 0, 0, 0, 0, ClassReelScr_MagicSingleCast },
+    [0x0C] = { MSG_725, 0xFF, CLASS_REVENANT, 0x01, 0x9F, 0, 0, 0, 0, 0, 0, 0, 0, ClassReelScr_CloseSingleHit },
+    [0x0D] = { MSG_726, 0xFF, CLASS_ENTOUMBED, 0x01, 0xA0, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_CloseSingleHit },
+    [0x0E] = { MSG_727, 0xFF, CLASS_BONEWALKER, 0x01, 0xA1, 0, 0, 0, 0, 0, 0x0E, 0x0F, 0, ClassReelScr_CloseSingleHit },
+    [0x0F] = { MSG_730, 0xFF, CLASS_MOGALL, 0x01, 0xB9, 0x07, 0, 0, 0, 0, 0x19, 0x19, 0, ClassReelScr_Mogall },
+    [0x10] = { MSG_729, 0xFF, CLASS_BAEL, 0x01, 0xAB, 0, 0, 0, 0, 0, 0x04, 0x04, 0, ClassReelScr_CloseSingleHit },
+    [0x11] = { MSG_700, 0x37, CLASS_MYRMIDON, 0, 0x10, 0, 0, 0, 0, 0, 0x0B, 0x18, 0, ClassReelScr_CloseDoubleHit },
+    [0x12] = { MSG_71E, 0x42, CLASS_CLERIC, 0, 0x7F, 0x03, 0, 0, 0, 0, 0x0B, 0x12, 0, ClassReelScr_StaffSingleCast },
+    [0x13] = { MSG_6F5, 0xFF, CLASS_EPHRAIM_LORD, 0, 0, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_CloseDoubleHit },
+    [0x14] = { MSG_723, 0xFF, CLASS_PIRATE, 0x01, 0x99, 0, 0, 0, 0, 0, 0x0C, 0x0C, 0, ClassReelScr_CloseDoubleHit },
+    [0x15] = { MSG_713, 0xFF, CLASS_BRIGAND, 0x01, 0x1F, 0, 0, 0, 0, 0, 0x16, 0x16, 0, ClassReelScr_CloseDoubleHit },
+    [0x16] = { MSG_716, 0xFF, CLASS_SHAMAN, 0x01, 0x74, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, ClassReelScr_DarkMagicSingleCast },
+    [0x17] = { MSG_704, 0x51, CLASS_SNIPER, 0, 0x29, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_Sniper },
+    [0x18] = { MSG_6FE, 0x30, CLASS_MERCENARY, 0, 0x0A, 0, 0, 0, 0, 0, 0x01, 0x01, 0, ClassReelScr_CloseDoubleHit },
+    [0x19] = { MSG_721, 0x14, CLASS_DANCER, 0, 0x90, 0, 0, 0, 0, 0, 0x0E, 0x0E, 0, ClassReelScr_Dancer },
+    [0x1A] = { MSG_70F, 0xFF, CLASS_PUPIL, 0, 0x94, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, ClassReelScr_Pupil },
+    [0x1B] = { MSG_700, 0xFF, CLASS_MYRMIDON_F, 0, 0x12, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, ClassReelScr_CloseDoubleHit },
+    [0x1C] = { MSG_71B, 0xFF, CLASS_RECRUIT, 0, 0x95, 0, 0, 0, 0, 0, 0, 0, 0, ClassReelScr_CloseDoubleHit },
+    [0x1D] = { MSG_733, 0xFF, CLASS_GARGOYLE, 0x01, 0xBC, 0, 0, 0, 0, 0, 0x16, 0x16, 0, ClassReelScr_CloseSingleHit },
+    [0x1E] = { MSG_72F, 0xFF, CLASS_MAELDUIN, 0x01, 0xB5, 0, 0, 0, 0, 0, 0x01, 0x01, 0, ClassReelScr_CloseDoubleHit },
+    [0x1F] = { MSG_72B, 0xFF, CLASS_CYCLOPS, 0x01, 0xAD, 0, 0, 0, 0, 0, 0x04, 0x04, 0, ClassReelScr_CloseDoubleHit },
+    [0x20] = { MSG_72C, 0xFF, CLASS_MAUTHEDOOG, 0x01, 0xB0, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_CloseDoubleHit },
+    [0x21] = { MSG_728, 0xFF, CLASS_WIGHT, 0x01, 0xA6, 0, 0, 0, 0, 0, 0x0E, 0x0F, 0, ClassReelScr_CloseSingleHit },
+    [0x22] = { MSG_71F, 0x61, CLASS_TROUBADOUR, 0, 0x85, 0x03, 0, 0, 0, 0, 0, 0x11, 0, ClassReelScr_StaffSingleCast },
+    [0x23] = { MSG_714, 0x12, CLASS_BERSERKER, 0, 0x22, 0, 0, 0, 0, 0, 0x10, 0x10, 0, ClassReelScr_CloseDoubleHit },
+    [0x24] = { MSG_710, 0x45, CLASS_ROGUE, 0, 0x8E, 0, 0, 0, 0, 0, 0x1C, 0x1C, 0, ClassReelScr_CloseSingleHit },
+    [0x25] = { MSG_70A, 0x4B, CLASS_SAGE, 0, 0x6C, 0x01, 0, 0, 0, 0, 0x19, 0x19, 0, ClassReelScr_AnimaDoubleCast },
+    [0x26] = { MSG_715, 0x2C, CLASS_GREAT_KNIGHT, 0, 0x4F, 0, 0, 0, 0, 0, 0x0B, 0x12, 0, ClassReelScr_CloseSingleHit },
+    [0x27] = { MSG_6F8, 0xFF, CLASS_EIRIKA_MASTER_LORD, 0, 0x07, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_CloseSingleHit },
+    [0x28] = { MSG_705, 0xFF, CLASS_RANGER, 0x01, 0x2E, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_Ranger },
+    [0x29] = { MSG_712, 0xFF, CLASS_WARRIOR, 0x01, 0x1B, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_CloseDoubleHit },
+    [0x2A] = { MSG_702, 0xFF, CLASS_ASSASSIN, 0x01, 0x8A, 0, 0, 0, 0, 0, 0x1D, 0x1D, 0, ClassReelScr_Assassin },
+    [0x2B] = { MSG_70B, 0x35, CLASS_MAGE_KNIGHT_F, 0, 0x70, 0x02, 0, 0, 0, 0, 0x11, 0, 0, ClassReelScr_MagicSingleCast },
+    [0x2C] = { MSG_6F7, 0xFF, CLASS_EPHRAIM_MASTER_LORD, 0, 0x04, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_CloseSingleHit },
+    [0x2D] = { MSG_720, 0xFF, CLASS_VALKYRIE, 0, 0x86, 0x04, 0, 0, 0, 0, 0x11, 0, 0, ClassReelScr_MagicSingleCast },
+    [0x2E] = { MSG_717, 0xFF, CLASS_DRUID, 0x01, 0x76, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, ClassReelScr_DarkMagicSingleCast },
+    [0x2F] = { MSG_6FC, 0xFF, CLASS_GENERAL, 0x01, 0x44, 0, 0, 0, 0, 0, 0x02, 0x02, 0, ClassReelScr_CloseSingleHit },
+    [0x30] = { MSG_701, 0xFF, CLASS_SWORDMASTER, 0, 0x14, 0, 0, 0, 0, 0, 0x09, 0x09, 0, ClassReelScr_CloseSingleHit },
+    [0x31] = { MSG_708, 0x68, CLASS_WYVERN_KNIGHT, 0, 0x61, 0, 0, 0, 0, 0, 0x16, 0x16, 0, ClassReelScr_CloseSingleHit },
+    [0x32] = { MSG_70C, 0x0D, CLASS_BISHOP, 0, 0x81, 0x04, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_MagicSingleCast },
+    [0x33] = { MSG_707, 0x17, CLASS_WYVERN_LORD, 0, 0x5C, 0, 0, 0, 0, 0, 0x16, 0x16, 0, ClassReelScr_CloseSingleHit },
+    [0x34] = { MSG_6FF, 0x6B, CLASS_HERO, 0, 0x0D, 0, 0, 0, 0, 0, 0x17, 0x17, 0, ClassReelScr_CloseDoubleHit },
+    [0x35] = { MSG_71D, 0x1C, CLASS_FALCON_KNIGHT, 0, 0x67, 0, 0, 0, 0, 0, 0x0D, 0x0D, 0, ClassReelScr_CloseSingleHit },
+    [0x36] = { MSG_72A, 0xFF, CLASS_ELDER_BAEL, 0x01, 0xAC, 0, 0, 0, 0, 0, 0x04, 0x04, 0, ClassReelScr_CloseSingleHit },
+    [0x37] = { MSG_72E, 0xFF, CLASS_TARVOS, 0x01, 0xB2, 0, 0, 0, 0, 0, 0x01, 0x01, 0, ClassReelScr_CloseDoubleHit },
+    [0x38] = { MSG_734, 0xFF, CLASS_DEATHGOYLE, 0x01, 0xBE, 0, 0, 0, 0, 0, 0x16, 0x16, 0, ClassReelScr_CloseSingleHit },
+    [0x39] = { MSG_72D, 0xFF, CLASS_GWYLLGI, 0x01, 0xB1, 0, 0, 0, 0, 0, 0x13, 0x13, 0, ClassReelScr_CloseDoubleHit },
+    [0x3A] = { MSG_732, 0xFF, CLASS_GORGON, 0x01, 0xBB, 0x08, 0, 0, 0, 0, 0x01, 0x01, 0, ClassReelScr_Gorgon },
+    [0x3B] = { MSG_724, 0xFF, CLASS_NECROMANCER, 0x01, 0x9C, 0x02, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_MagicSingleCast },
+    [0x3C] = { MSG_718, 0x4F, CLASS_SUMMONER, 0x01, 0x7A, 0x05, 0, 0, 0, 0, 0x15, 0x15, 0, ClassReelScr_DarkMagicSingleCast },
+    [0x3D] = { MSG_70D, 0xFF, CLASS_MANAKETE_MYRRH, 0, 0xC4, 0x06, 0, 0, 0, 0, 0x10, 0x10, 0, ClassReelScr_Manakete },
+    [0x3E] = { MSG_731, 0xFF, CLASS_ARCH_MOGALL, 0x01, 0xBA, 0x07, 0, 0, 0, 0, 0x06, 0x06, 0, ClassReelScr_Mogall },
+    [0x3F] = { MSG_706, 0x15, CLASS_WYVERN_RIDER, 0, 0x57, 0, 0, 0, 0, 0, 0x04, 0x04, 0, ClassReelScr_CloseDoubleHit },
+    [0x40] = { MSG_722, 0xFF, CLASS_SOLDIER, 0x01, 0x97, 0, 0, 0, 0, 0, 0x14, 0x14, 0, ClassReelScr_CloseDoubleHit }
 };
 
-u8 CONST_DATA sClassReelClassSetLut[] = {
+u8 CONST_DATA sClassReelClassSetLut[] =
+{
     [0x0] = 0x35,
     [0x1] = 0x2F,
     [0x2] = 0x29,
@@ -2085,7 +2088,8 @@ u8 CONST_DATA sClassReelClassSetLut[] = {
     [0xB] = 0
 };
 
-struct ClassReelEnt* CONST_DATA gClassReelOrderedLut[] = {
+struct ClassReelEnt * CONST_DATA gClassReelOrderedLut[] =
+{
     // Class Set 9
     [0x00] = &gClassReelData[0x27],
     [0x01] = &gClassReelData[0x3B],
@@ -2172,6 +2176,8 @@ struct ClassReelEnt* CONST_DATA gClassReelOrderedLut[] = {
 
     NULL,
 };
+
+// clang-format on
 
 struct ClassReelEnt* GetClassReelEntry(int classSet, int index) {
     return gClassReelOrderedLut[sClassReelClassSetLut[classSet] + index];
