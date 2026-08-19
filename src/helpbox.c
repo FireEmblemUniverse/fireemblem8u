@@ -91,7 +91,7 @@ void sub_80898C4(void* vram, int palId) {
 }
 
 //! FE8U = 0x08089980
-void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
+void DisplayHelpBoxObj(int x, int y, int w, int h, int noHelpSprite) {
     s8 flag;
     s8 flag_;
     s8 anotherFlag;
@@ -185,9 +185,7 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
 
             PutSprite(0, x + xPx, y - 8, gObject_32x8, gHelpBoxSt.oam2_base + 0x1b);
             PutSprite(0, x + xPx, y + h, gObject_32x8, gHelpBoxSt.oam2_base + 0x3b);
-
         }
-
     }
 
     for (iy = yCount; iy >= 0; iy--) {
@@ -215,7 +213,7 @@ void DisplayHelpBoxObj(int x, int y, int w, int h, int unk) {
         PutSprite(0, x + w - 8, y + h, gObject_8x8, gHelpBoxSt.oam2_base + 0x3b);
     }
 
-    if (unk == 0) {
+    if (!noHelpSprite) {
         PutSprite(0, x, y - 0xb, gObject_32x16, (0x3FF & gHelpBoxSt.oam2_base) + 0x7b);
     }
 
@@ -393,7 +391,7 @@ void HelpBoxSetupstringLines(struct ProcHelpBoxIntro* proc) {
     int item = proc->item;
 
     SetTextFont(&gHelpBoxSt.font);
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     switch (GetHelpBoxItemInfoKind(item)) {
         case HB_EXTINFO_NONE:
@@ -450,13 +448,13 @@ void HelpBoxIntroDrawTexts(struct ProcHelpBoxIntro * proc)
 
     SetTextFont(&gHelpBoxSt.font);
 
-    SetTextFontGlyphs(1);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
     Text_SetColor(&gHelpBoxSt.text[0], 6);
     Text_SetColor(&gHelpBoxSt.text[1], 6);
     Text_SetColor(&gHelpBoxSt.text[2], 6);
 
-    SetTextFont(0);
+    SetTextFont(NULL);
 
     Proc_EndEach(gProcScr_HelpBoxTextScroll);
 
@@ -538,7 +536,7 @@ void ClearHelpBoxText(void) {
 //! FE8U = 0x0808A160
 void HelpBoxIntro_bug_808A160(struct HelpBoxProc * proc)
 {
-    UpdateHelpBoxDisplay(proc, 5);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_RCUBIC);
 
     /* This function cannot be used */
     if (proc->timer < proc->timerMax)
@@ -571,7 +569,7 @@ void sub_808A188(struct HelpBoxProc * proc) {
 //! FE8U = 0x0808A1B8
 void sub_808A1B8(struct HelpBoxProc * proc) {
 
-    UpdateHelpBoxDisplay(proc, 0);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_LINEAR);
 
     proc->timer--;
 
@@ -595,7 +593,7 @@ void sub_808A1E0(int x, int y, int msgId) {
 
     gTmpHelpBoxInfo.xDisplay = x;
     gTmpHelpBoxInfo.yDisplay = y;
-    gTmpHelpBoxInfo.mid = msgId;
+    gTmpHelpBoxInfo.msgId = msgId;
     gTmpHelpBoxInfo.redirect = 0;
     gTmpHelpBoxInfo.populate = 0;
 
@@ -630,19 +628,17 @@ void sub_808A200(const struct HelpBoxInfo* info) {
     proc->timer = 0;
     proc->timerMax = 12;
 
-    proc->mid = info->mid;
+    proc->msgId = info->msgId;
 
-    SetTextFontGlyphs(1);
-
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wTextBox, &hTextBox);
-
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wTextBox, &hTextBox);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     sub_808A384(proc, wTextBox, hTextBox);
     sub_808A3C4(proc, info->xDisplay, info->yDisplay);
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 
     gpHelpBoxCurrentInfo = info;
 
@@ -1048,7 +1044,7 @@ void sub_808A8AC(void) {
         PlaySoundEffect(SONG_2E7);
     }
 
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
     sub_808A9F0();
 
     return;
@@ -1328,25 +1324,25 @@ void DialogBoxGetGlyphLen(const char* str, u8* xOut) {
 
     *xOut = x;
 
-    SetTextFontGlyphs(1);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    while (1) {
+    while (TRUE) {
         switch (*it) {
-            case 0x02: // [NL2]
-            case 0x04: // [....]
-            case 0x05: // [.....]
-            case 0x06: // [......]
-            case 0x07: // [.......]
-            case 0x12: // [NormalPrint] // FE6 only?
-            case 0x13: // [FastPrint] // FE6 only?
-            case 0x14: // [CloseSpeechFast]
+            case CHFE_L_2NL: // [NL2]
+            case CHFE_L_Pause8: // [....]
+            case CHFE_L_Pause16: // [.....]
+            case CHFE_L_Pause32: // [......]
+            case CHFE_L_Pause64: // [.......]
+            case CHFE_L_NormalPrint: // [NormalPrint] // FE6 only?
+            case CHFE_L_FastPrint: // [FastPrint] // FE6 only?
+            case CHFE_L_CloseSpeechFast: // [CloseSpeechFast]
                 it++;
 
                 continue;
 
-            case 0x01: // [NL]
-            case 0x18: // [Yes]
-            case 0x19: // [No]
+            case CHFE_L_NL: // [NL]
+            case CHFE_L_Yes: // [Yes]
+            case CHFE_L_No: // [No]
                 it++;
                 x = 0;
 
@@ -1364,8 +1360,8 @@ void DialogBoxGetGlyphLen(const char* str, u8* xOut) {
 
                 continue;
 
-            case 0x00: // [X]
-            case 0x03: // [A]
+            case CHFE_L_X: // [X]
+            case CHFE_L_A: // [A]
                 a = x + 2;
                 *xOut = a;
 
@@ -1394,21 +1390,21 @@ void DrawBoxDialogueText(int x, int y, int msg) {
     if (GetDialogueBoxConfig() & 1) {
         proc->timerMax = 0;
     } else {
-        proc->timerMax = 0xc;
+        proc->timerMax = 12;
     }
 
     proc->item = 0;
 
-    proc->mid = msg;
+    proc->msgId = msg;
 
-    SetTextFontGlyphs(1);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    // ??
-    GetStringFromIndex(proc->mid);
+    // Result seems to be unused; oversight?
+    GetStringFromIndex(proc->msgId);
 
     GetBoxDialogueSize(StringInsertSpecialPrefixByCtrl(), &wInner, &hInner);
 
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     SetBoxDialogueSize(proc, wInner, hInner);
 
@@ -1421,7 +1417,7 @@ void DrawBoxDialogueText(int x, int y, int msg) {
 
     sub_808BAA4();
 
-    sub_808BA60(proc->mid, wInner, hInner);
+    sub_808BA60(proc->msgId, wInner, hInner);
 
     return;
 }
@@ -1874,7 +1870,7 @@ void sub_808B844(ProcPtr proc) {
     Proc_Break(proc);
 
     SetTextFont(NULL);
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     return;
 }
@@ -1962,8 +1958,10 @@ void sub_808B928(struct HelpBox8A01800Proc * proc) {
     struct ProcBoxDialogueDrawTextExt * otherProc;
 
     SetTextFont(&gBoxDialogueConf.font);
-    SetTextFontGlyphs(0);
-    SetTextFontGlyphs(1);
+
+    // Seems there is something missing here -- why toggle the glyphs?
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
     if ((GetDialogueBoxConfig() & 1) == 0) {
         Text_SetColor(&gBoxDialogueConf.texts[0], 6);

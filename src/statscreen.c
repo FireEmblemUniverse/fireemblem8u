@@ -24,9 +24,11 @@
 #include "prepscreen.h"
 #include "helpbox.h"
 #include "bmlib.h"
-#include "constants/classes.h"
 
 #include "statscreen.h"
+
+#include "constants/classes.h"
+#include "constants/msg.h"
 #include "constants/songs.h"
 
 struct StatScreenInfo EWRAM_DATA sStatScreenInfo = {};
@@ -151,7 +153,7 @@ struct ProcCmd CONST_DATA gProcScr_SSPageSlide[] =
 
 struct ProcCmd CONST_DATA gProcScr_SSGlowyBlendCtrl[] =
 {
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(GlowBlendCtrl_OnInit),
     PROC_REPEAT(GlowBlendCtrl_OnLoop),
@@ -161,7 +163,7 @@ struct ProcCmd CONST_DATA gProcScr_SSGlowyBlendCtrl[] =
 
 struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
 {
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(EndGlowBlendCtrl),
     PROC_CALL(UnitSlide_InitFadeOut),
@@ -172,7 +174,7 @@ struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
     PROC_CALL(UnitSlide_InitFadeIn),
 
     PROC_REPEAT(UnitSlide_FadeInLoop),
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(StartGlowBlendCtrl),
     PROC_CALL(ClearSlide),
@@ -183,37 +185,37 @@ struct ProcCmd CONST_DATA gProcScr_SSUnitSlide[] =
 u16 CONST_DATA sSprite_Page0Name[] =
 {
     3,
-    0x4104, 0x9008, TILEREF(0, 0),
-    0x4104, 0x9028, TILEREF(4, 0),
-    0x4104, 0x9048, TILEREF(8, 0),
+    OAM0_SHAPE_32x16 + OAM0_Y(+4) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+8) + OAM1_AFFINE_ID(8), 0,
+    OAM0_SHAPE_32x16 + OAM0_Y(+4) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+40) + OAM1_AFFINE_ID(8), OAM2_CHR(0x4),
+    OAM0_SHAPE_32x16 + OAM0_Y(+4) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+72) + OAM1_AFFINE_ID(8), OAM2_CHR(0x8),
 };
 
 u16 CONST_DATA sSprite_Page1Name[] =
 {
     2,
-    0x4104, 0x901E, TILEREF(0, 0),
-    0x4104, 0x903E, TILEREF(4, 0),
+    OAM0_SHAPE_32x16 + OAM0_Y(+4) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+30) + OAM1_AFFINE_ID(8), 0,
+    OAM0_SHAPE_32x16 + OAM0_Y(+4) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+62) + OAM1_AFFINE_ID(8), OAM2_CHR(0x4),
 };
 
 u16 CONST_DATA sSprite_Page2Name[] =
 {
     5,
-    0x4108, 0x9004, TILEREF(6,  0),
-    0x4108, 0x9024, TILEREF(10, 0),
-    0x4108, 0x9044, TILEREF(14, 0),
-    0x4100, 0x9000, TILEREF(0,  0),
-    0x0100, 0x5020, TILEREF(4,  0),
+    OAM0_SHAPE_32x16 + OAM0_Y(+8) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+4) + OAM1_AFFINE_ID(8), OAM2_CHR(0x6),
+    OAM0_SHAPE_32x16 + OAM0_Y(+8) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+36) + OAM1_AFFINE_ID(8), OAM2_CHR(0xA),
+    OAM0_SHAPE_32x16 + OAM0_Y(+8) + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_X(+68) + OAM1_AFFINE_ID(8), OAM2_CHR(0xE),
+    OAM0_SHAPE_32x16 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x16 + OAM1_AFFINE_ID(8), 0,
+    OAM0_SHAPE_16x16 + OAM0_AFFINE_ENABLE, OAM1_SIZE_16x16 + OAM1_X(+32) + OAM1_AFFINE_ID(8), OAM2_CHR(0x4),
 };
 
 u16 CONST_DATA sSprite_PageNameBack[] =
 {
     6,
-    0x4002, 0x8000, TILEREF(0, 0),
-    0x0002, 0x4020, TILEREF(4, 0),
-    0x8002, 0x0030, TILEREF(6, 0),
-    0x8002, 0x1032, TILEREF(6, 0),
-    0x0002, 0x503A, TILEREF(4, 0),
-    0x4002, 0x904A, TILEREF(0, 0),
+    OAM0_SHAPE_32x16 + OAM0_Y(+2), OAM1_SIZE_32x16, 0,
+    OAM0_SHAPE_16x16 + OAM0_Y(+2), OAM1_SIZE_16x16 + OAM1_X(+32), OAM2_CHR(0x4),
+    OAM0_SHAPE_8x16 + OAM0_Y(+2), OAM1_SIZE_8x16 + OAM1_X(+48), OAM2_CHR(0x6),
+    OAM0_SHAPE_8x16 + OAM0_Y(+2), OAM1_SIZE_8x16 + OAM1_X(+50) + OAM1_HFLIP, OAM2_CHR(0x6),
+    OAM0_SHAPE_16x16 + OAM0_Y(+2), OAM1_SIZE_16x16 + OAM1_X(+58) + OAM1_HFLIP, OAM2_CHR(0x4),
+    OAM0_SHAPE_32x16 + OAM0_Y(+2), OAM1_SIZE_32x16 + OAM1_X(+74) + OAM1_HFLIP, 0,
 };
 
 u16 const* CONST_DATA sPageNameSpriteLut[] =
@@ -247,7 +249,7 @@ struct ProcCmd CONST_DATA gProcScr_SSPageNumCtrl[] =
     PROC_CALL(PageNumCtrl_OnInit),
 
 PROC_LABEL(0),
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(PageNumCtrl_CheckSlide),
     PROC_CALL(PageNumCtrl_UpdateArrows),
@@ -311,12 +313,12 @@ PROC_LABEL(10),
 
 struct ProcCmd CONST_DATA gProcScr_HelpBox[] =
 {
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_CALL(HelpBox_OnOpen),
     PROC_REPEAT(HelpBox_OnLoop),
 
-PROC_LABEL(0x63),
+PROC_LABEL(99),
     PROC_CALL(HelpBox_OnClose),
     PROC_REPEAT(HelpBox_WaitClose),
 
@@ -344,13 +346,13 @@ struct ProcCmd CONST_DATA gProcScr_HelpBoxLock[] =
 u16 CONST_DATA sSprite_MetaHelp[] = // 'R is info'
 {
     2,
-    0x4000, 0x8000, TILEREF(11, 0),
-    0x8000, 0x0020, TILEREF(15, 0),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0xB),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(+32), OAM2_CHR(0xF),
 };
 
 struct ProcCmd CONST_DATA gProcScr_HelpPromptSpr[] = // proc displaying 'R is Info'
 {
-    PROC_SLEEP(0),
+    PROC_YIELD,
 
     PROC_REPEAT(HelpPrompt_OnIdle),
     PROC_END,
@@ -380,14 +382,14 @@ void DisplayTexts(const struct SSTextDispInfo* infos)
 {
     while (infos->text)
     {
-        if (infos->mid)
+        if (infos->msgId)
         {
             PutDrawText(
                 infos->text,
                 infos->tilemap,
                 infos->color,
                 infos->xoff, 0,
-                GetStringFromIndex(*infos->mid));
+                GetStringFromIndex(*infos->msgId));
         }
         else
         {
@@ -477,7 +479,7 @@ void DisplayBwl(void)
     if (!stats)
         return;
 
-    if (gBmSt.gameStateBits & 0x40)
+    if (gBmSt.gameStateBits & BM_FLAG_LINKARENA)
         return;
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_TUTORIAL)
@@ -496,15 +498,15 @@ void DisplayBwl(void)
 
     // Draw B label
     Text_InsertDrawString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
-        0, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(0x51F));
+        0, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(MSG_51F));
 
     // Draw W label
     Text_InsertDrawString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
-        32, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(0x520));
+        32, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(MSG_520));
 
     // Draw L label
     Text_InsertDrawString(&gStatScreen.text[STATSCREEN_TEXT_BWL],
-        64, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(0x521));
+        64, TEXT_COLOR_SYSTEM_GOLD, GetStringFromIndex(MSG_521));
 
     // Display labels
     PutText(&gStatScreen.text[STATSCREEN_TEXT_BWL],
@@ -555,7 +557,7 @@ void DisplayPage0(void)
             &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
             gUiTmScratchA + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
-            GetStringFromIndex(0x4FF)); // Mag
+            GetStringFromIndex(MSG_4FF)); // Mag
     }
     else
     {
@@ -564,7 +566,7 @@ void DisplayPage0(void)
             &gStatScreen.text[STATSCREEN_TEXT_POWLABEL],
             gUiTmScratchA + TILEMAP_INDEX(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
-            GetStringFromIndex(0x4FE)); // Str
+            GetStringFromIndex(MSG_4FE)); // Str
     }
 
     // displaying str/mag stat value
@@ -630,7 +632,7 @@ void DisplayPage0(void)
     // displaying unit aid icon
     DrawIcon(gUiTmScratchA + TILEMAP_INDEX(14, 5),
         GetUnitAidIconId(UNIT_CATTRIBUTES(gStatScreen.unit)),
-        TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
+        OAM2_PAL(STATSCREEN_BGPAL_EXTICONS));
 
     // displaying unit rescue name
     Text_InsertDrawString(
@@ -692,12 +694,12 @@ void DisplayPage0(void)
         }
     }
 
-    // display affininity icon
+    // display affinity icon
 
     DrawIcon(
         gUiTmScratchA + TILEMAP_INDEX(12, 9),
         GetUnitAffinityIcon(gStatScreen.unit),
-        TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
+        OAM2_PAL(STATSCREEN_BGPAL_EXTICONS));
 
     DisplayBwl();
 }
@@ -834,7 +836,7 @@ void DisplaySupportList(void)
             DrawIcon(
                 gUiTmScratchA + TILEMAP_INDEX(4, yTile),
                 GetCharacterAffinityIcon(pid),
-                TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
+                OAM2_PAL(STATSCREEN_BGPAL_EXTICONS));
 
             PutDrawText(&gStatScreen.text[STATSCREEN_TEXT_SUPPORT0 + lineNum],
                 gUiTmScratchA + TILEMAP_INDEX(7, yTile),
@@ -869,7 +871,7 @@ void DisplayWeaponExp(int num, int x, int y, int wtype)
     // Display weapon type icon
     DrawIcon(gUiTmScratchA + TILEMAP_INDEX(x, y),
         0x70 + wtype, // TODO: icon id definitions
-        TILEREF(0, STATSCREEN_BGPAL_EXTICONS));
+        OAM2_PAL(STATSCREEN_BGPAL_EXTICONS));
 
     color = wexp >= WPN_EXP_S
         ? TEXT_COLOR_SYSTEM_GREEN
@@ -1047,7 +1049,7 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
 
     PlaySoundEffect(SONG_6F);
 
-    proc = (void*) Proc_StartBlocking(gProcScr_SSPageSlide, parent);
+    proc = Proc_StartBlocking(gProcScr_SSPageSlide, parent);
 
     proc->timer = 0;
     proc->newItem = newPage;
@@ -1060,16 +1062,12 @@ void StartPageSlide(u16 key, int newPage, struct Proc* parent)
 
 void GlowBlendCtrl_OnInit(struct StatScreenEffectProc* proc)
 {
-    gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg1_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(TRUE, TRUE, TRUE, TRUE, TRUE);
 
     proc->timer = 0;
     proc->blendDirection = 0;
 
-    SetBlendConfig(1, proc->timer, 0x10, 0);
+    SetBlendAlpha(proc->timer, 0x10);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
@@ -1088,7 +1086,7 @@ void GlowBlendCtrl_OnLoop(struct StatScreenEffectProc* proc)
             proc->blendDirection = 0;
     }
 
-    SetBlendConfig(1, proc->timer >> 3, 0x10, 0);
+    SetBlendAlpha(proc->timer >> 3, 0x10);
 }
 
 void StartGlowBlendCtrl(void)
@@ -1099,12 +1097,7 @@ void StartGlowBlendCtrl(void)
 void EndGlowBlendCtrl(struct StatScreenEffectProc* proc)
 {
     Proc_EndEach(gProcScr_SSGlowyBlendCtrl);
-
-    gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-    gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-    gLCDControlBuffer.dispcnt.obj_on = TRUE;
+    SetDispEnable(TRUE, FALSE, TRUE, TRUE, TRUE);
 }
 
 void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
@@ -1137,7 +1130,7 @@ void UnitSlide_InitFadeOut(struct StatScreenEffectProc* proc)
 
 void UnitSlide_FadeOutLoop(struct StatScreenEffectProc* proc)
 {
-    SetBlendConfig(1, proc->timer, 0x10 - proc->timer, 0);
+    SetBlendAlpha(proc->timer, 0x10 - proc->timer);
 
     SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
@@ -1176,7 +1169,7 @@ void UnitSlide_InitFadeIn(struct StatScreenEffectProc* proc)
 
 void UnitSlide_FadeInLoop(struct StatScreenEffectProc* proc)
 {
-    SetBlendConfig(1, 0x10 - proc->timer, proc->timer, 0);
+    SetBlendAlpha(0x10 - proc->timer, proc->timer);
 
     SetMuScreenPosition(gStatScreen.mu,
         80, 138 + gStatScreen.yDispOff);
@@ -1200,8 +1193,7 @@ void UnitSlide_SetNewUnit(struct StatScreenEffectProc* proc)
 void ClearSlide(struct Proc* proc)
 {
     if (gStatScreen.mu)
-        SetMuScreenPosition(gStatScreen.mu,
-            80, 138);
+        SetMuScreenPosition(gStatScreen.mu, 80, 138);
 
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -1215,7 +1207,7 @@ void ClearSlide(struct Proc* proc)
 
 void StartUnitSlide(struct Unit* unit, int direction, struct Proc* parent)
 {
-    struct StatScreenEffectProc* proc = (void*) Proc_StartBlocking(gProcScr_SSUnitSlide, parent);
+    struct StatScreenEffectProc* proc = Proc_StartBlocking(gProcScr_SSUnitSlide, parent);
 
     proc->newItem = unit->index;
     proc->direction = direction;
@@ -1255,11 +1247,11 @@ void DisplayPageNameSprite(int pageid)
 
     PutSprite(4,
         111 + gStatScreen.xDispOff, 1 + gStatScreen.yDispOff,
-        sSprite_PageNameBack, TILEREF(0x293, 4) + 0xC00);
+        sSprite_PageNameBack, 0x4293 + 0xC00);
 
     PutSprite(4,
         114 + gStatScreen.xDispOff, 0 + gStatScreen.yDispOff,
-        sPageNameSpriteLut[pageid], TILEREF(0x240 + sPageNameChrOffsetLut[pageid], 3) + 0xC00);
+        sPageNameSpriteLut[pageid], 0x3240 + sPageNameChrOffsetLut[pageid] + 0xC00);
 
     colorid = (GetGameClock()/4) % 16;
 
@@ -1381,7 +1373,7 @@ void PageNumCtrl_CheckSlide(struct StatScreenPageNameProc* proc)
 
 void PageNumCtrl_UpdateArrows(struct StatScreenPageNameProc* proc)
 {
-    int baseref = TILEREF(0x240, STATSCREEN_OBJPAL_4) + OAM2_LAYER(1);
+    int baseref = OAM2_CHR(0x240) + OAM2_PAL(STATSCREEN_OBJPAL_4) + OAM2_LAYER(1);
 
     proc->animTimerLeft  += proc->animSpeedLeft;
     proc->animTimerRight += proc->animSpeedRight;
@@ -1420,19 +1412,19 @@ void PageNumCtrl_UpdatePageNum(struct StatScreenPageNameProc* proc)
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 13,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.pageAmt);
+        gObject_8x8, OAM2_CHR(chr) + OAM2_PAL(STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.pageAmt);
 
     // '/'
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X + 7,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
+        gObject_8x8, OAM2_CHR(chr) + OAM2_PAL(STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
 
     // page num
     PutSprite(2,
         gStatScreen.xDispOff + PAGENUM_DISPLAY_X,
         gStatScreen.yDispOff + PAGENUM_DISPLAY_Y,
-        gObject_8x8, TILEREF(chr, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.page + 1);
+        gObject_8x8, OAM2_CHR(chr) + OAM2_PAL(STATSCREEN_OBJPAL_4) + OAM2_LAYER(3) + gStatScreen.page + 1);
 }
 
 void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
@@ -1440,7 +1432,7 @@ void PageNumCtrl_DisplayMuPlatform(struct StatScreenPageNameProc* proc)
     PutSprite(11,
         gStatScreen.xDispOff + 64,
         gStatScreen.yDispOff + 131,
-        gObject_32x16, TILEREF(0x28F, STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
+        gObject_32x16, OAM2_CHR(0x28F) + OAM2_PAL(STATSCREEN_OBJPAL_4) + OAM2_LAYER(3));
 }
 
 void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
@@ -1460,7 +1452,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     184, 78, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue >> 6]) + OAM2_LAYER(2));
+                    OAM2_CHR(3) + OAM2_PAL(0xF & palidLut[gStatScreen.unit->rescue >> 6]) + OAM2_LAYER(2));
             }
         }
 
@@ -1470,7 +1462,7 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
             {
                 PutSprite(4,
                     10, 86, gObject_8x8,
-                    TILEREF(3, 0xF & palidLut[gStatScreen.unit->rescue>>6]) + OAM2_LAYER(2));
+                    OAM2_CHR(3) + OAM2_PAL(0xF & palidLut[gStatScreen.unit->rescue>>6]) + OAM2_LAYER(2));
             }
         }
     }
@@ -1478,13 +1470,8 @@ void PageNumCtrl_DisplayBlinkIcons(struct StatScreenPageNameProc* proc)
 
 void StatScreen_BlackenScreen(void)
 {
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg3_on = FALSE;
-    gLCDControlBuffer.dispcnt.obj_on = FALSE;
-
-    SetBlendConfig(3, 0, 0, 0x10);
+    SetDispEnable(FALSE, FALSE, FALSE, FALSE, FALSE);
+    SetBlendDarken(0x10);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendBackdropA(1);
@@ -1516,28 +1503,11 @@ void StatScreen_InitDisplay(struct Proc* proc)
     sub_80156D4();
     ApplyUnitSpritePalettes();
 
-    // TODO: port the macros from mapanim wip
+    SetWinEnable(TRUE, FALSE, FALSE);
+    SetWin0Box(96, 0, 98, 160);
 
-    gLCDControlBuffer.dispcnt.win0_on   = TRUE;
-    gLCDControlBuffer.dispcnt.win1_on   = FALSE;
-    gLCDControlBuffer.dispcnt.objWin_on = FALSE;
-
-    gLCDControlBuffer.win0_left   = 96;
-    gLCDControlBuffer.win0_top    = 0;
-    gLCDControlBuffer.win0_right  = 98;
-    gLCDControlBuffer.win0_bottom = 160;
-
-    gLCDControlBuffer.wincnt.win0_enableBg0 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg1 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg2 = FALSE;
-    gLCDControlBuffer.wincnt.win0_enableBg3 = TRUE;
-    gLCDControlBuffer.wincnt.win0_enableObj = TRUE;
-
-    gLCDControlBuffer.wincnt.wout_enableBg0 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg1 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg2 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableBg3 = TRUE;
-    gLCDControlBuffer.wincnt.wout_enableObj = TRUE;
+    SetWin0Layers(FALSE, FALSE, FALSE, TRUE, TRUE);
+    SetWOutLayers(TRUE, TRUE, TRUE, TRUE, TRUE);
 
     gLCDControlBuffer.wincnt.win0_enableBlend = TRUE;
     gLCDControlBuffer.wincnt.win1_enableBlend = TRUE;
@@ -1648,13 +1618,9 @@ void StatScreen_OnIdle(struct Proc* proc)
 
     if (gKeyStatusPtr->newKeys & B_BUTTON)
     {
-        gLCDControlBuffer.dispcnt.bg0_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-        gLCDControlBuffer.dispcnt.bg2_on = TRUE;
-        gLCDControlBuffer.dispcnt.bg3_on = TRUE;
-        gLCDControlBuffer.dispcnt.obj_on = TRUE;
+        SetDispEnable(TRUE, FALSE, TRUE, TRUE, TRUE);
 
-        SetBlendConfig(3, 0, 0, 0x10);
+        SetBlendDarken(0x10);
 
         SetBlendTargetA(0, 0, 0, 0, 0);
         SetBlendBackdropA(1);
@@ -1665,7 +1631,7 @@ void StatScreen_OnIdle(struct Proc* proc)
 
         Proc_Break(proc);
 
-        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1); // TODO: song ids
+        PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
     }
 
     else if (gKeyStatusPtr->repeatedKeys & DPAD_LEFT)
@@ -1713,11 +1679,7 @@ void StatScreen_OnClose(void)
 
     SetInterrupt_LCDVCountMatch(NULL);
 
-    gLCDControlBuffer.dispcnt.bg0_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg1_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg2_on = FALSE;
-    gLCDControlBuffer.dispcnt.bg3_on = FALSE;
-    gLCDControlBuffer.dispcnt.obj_on = FALSE;
+    SetDispEnable(FALSE, FALSE, FALSE, FALSE, FALSE);
 }
 
 void StatScreen_ResumeFromHelp(void)
@@ -1729,8 +1691,8 @@ void BgOffCtrl_OnLoop(void)
 {
     int yBg = 0xFF & -gStatScreen.yDispOff;
 
-    BG_SetPosition(0, 0, yBg);
-    BG_SetPosition(2, 0, yBg);
+    BG_SetPosition(BG_0, 0, yBg);
+    BG_SetPosition(BG_2, 0, yBg);
 }
 
 void StartStatScreen(struct Unit* unit, ProcPtr parent)
@@ -1745,7 +1707,7 @@ void StartStatScreen(struct Unit* unit, ProcPtr parent)
 
     PidStatsAddStatViewAmt(unit->pCharacterData->number);
 
-    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1); // TODO: song ids
+    PlaySoundEffect(SONG_SE_SYS_WINDOW_SELECT1);
 
     Proc_StartBlocking(gProcScr_StatScreen, parent);
 }
@@ -1779,10 +1741,10 @@ void StartStatScreenHelp(int pageid, struct Proc* proc)
 
 void HbPopulate_SSItem(struct HelpBoxProc* proc)
 {
-    int item = gStatScreen.unit->items[proc->info->mid];
+    int item = gStatScreen.unit->items[proc->info->msgId];
 
     proc->item = item;
-    proc->mid  = GetItemDescId(item);
+    proc->msgId = GetItemDescId(item);
 }
 
 void HbPopulate_SSStatus(struct HelpBoxProc* proc)
@@ -1791,44 +1753,44 @@ void HbPopulate_SSStatus(struct HelpBoxProc* proc)
     {
 
     case UNIT_STATUS_NONE:
-        proc->mid = 0x552; // TODO: mid constants
+        proc->msgId = MSG_552; // "Normal.[NL]Feeling healthy."
         break;
 
     case UNIT_STATUS_POISON:
-        proc->mid = 0x553; // TODO: mid constants
+        proc->msgId = MSG_553; // "Ooooog...[NL]Poison slowly steals HP."
         break;
 
     case UNIT_STATUS_SLEEP:
-        proc->mid = 0x554; // TODO: mid constants
+        proc->msgId = MSG_554; // "Zzzz... Zzzzz...[NL]Sleeping now... Can't move..."
         break;
 
     case UNIT_STATUS_SILENCED:
-        proc->mid = 0x556; // TODO: mid constants
+        proc->msgId = MSG_556; // "......[NL]Magic and staves are unusable."
         break;
 
     case UNIT_STATUS_BERSERK:
-        proc->mid = 0x555; // TODO: mid constants
+        proc->msgId = MSG_555; // "Rarrrrr! Attack the nearest[NL]unit, be it friend or foe!"
         break;
 
     case UNIT_STATUS_ATTACK:
-        proc->mid = 0x558; // TODO: mid constants
+        proc->msgId = MSG_558; // "Attack power is increased,[NL]thanks to Filla's Might."
         break;
 
     case UNIT_STATUS_DEFENSE:
-        proc->mid = 0x559; // TODO: mid constants
+        proc->msgId = MSG_559; // "Defense & resistance increased,[.][NL]thanks to Ninis's Grace."
         break;
 
     case UNIT_STATUS_CRIT:
-        proc->mid = 0x55A; // TODO: mid constants
+        proc->msgId = MSG_55A; // "Critical hit  0s increased,[.][NL]thanks to Thor's Ire.[.]"
         break;
 
     case UNIT_STATUS_AVOID:
-        proc->mid = 0x55B; // TODO: mid constants
+        proc->msgId = MSG_55B; // "Dodge is increased, thanks[NL]to Set's Litany."
         break;
 
     case UNIT_STATUS_PETRIFY:
     case UNIT_STATUS_13:
-        proc->mid = 0x557; // TODO: mid constants
+        proc->msgId = MSG_557; // "Craaack! Turned...to...[.][NL]stone. Can't...move!"
         break;
 
     } // switch (gStatScreen.unit->statusIndex)
@@ -1837,9 +1799,9 @@ void HbPopulate_SSStatus(struct HelpBoxProc* proc)
 void HbPopulate_SSPower(struct HelpBoxProc* proc)
 {
     if (UnitHasMagicRank(gStatScreen.unit))
-        proc->mid = 0x547; // TODO: mid constants
+        proc->msgId = MSG_547; // "Magical power. Magical[NL]power is akin to strength."
     else
-        proc->mid = 0x546; // TODO: mid constants
+        proc->msgId = MSG_546; // "Strength. The higher the number,[NL]the more damage you inflict."
 }
 
 void HbRedirect_SSItem(struct HelpBoxProc* proc)
@@ -1847,7 +1809,7 @@ void HbRedirect_SSItem(struct HelpBoxProc* proc)
     if (!gStatScreen.unit->items[0])
         TryRelocateHbLeft(proc);
 
-    if (!gStatScreen.unit->items[proc->info->mid])
+    if (!gStatScreen.unit->items[proc->info->msgId])
     {
         if (proc->moveKey == 0 || proc->moveKey == DPAD_RIGHT || proc->moveKey == DPAD_UP)
             TryRelocateHbUp(proc);
@@ -1860,30 +1822,37 @@ void HbPopulate_SSWExp(struct HelpBoxProc* proc)
 {
     u16 rankMsgLut[8] =
     {
-        0x561, 0x562, 0x563, 0x564, 0x565, 0x566, 0x567, 0x568
+        MSG_561, // "Sword mastery level."
+        MSG_562, // "Lance mastery level."
+        MSG_563, // "Axe mastery level."
+        MSG_564, // "Bow mastery level."
+        MSG_565, // "Anima magic mastery level."
+        MSG_566, // "Light magic mastery level."
+        MSG_567, // "Dark magic mastery level.[.]"
+        MSG_568, // "Staff mastery level."
     };
 
-    int itemKind = proc->info->mid;
+    int itemKind = proc->info->msgId;
 
     if (UnitHasMagicRank(gStatScreen.unit))
         itemKind += 4;
 
-    proc->mid = rankMsgLut[itemKind];
+    proc->msgId = rankMsgLut[itemKind];
 }
 
 void HbPopulate_SSCharacter(struct HelpBoxProc* proc)
 {
-    int midDesc = gStatScreen.unit->pCharacterData->descTextId;
+    int msgIdDesc = gStatScreen.unit->pCharacterData->descTextId;
 
-    if (midDesc)
-        proc->mid = midDesc;
+    if (msgIdDesc)
+        proc->msgId = msgIdDesc;
     else
-        proc->mid = 0x6BE; // TODO: mid constants
+        proc->msgId = MSG_6BE; // "There are no messages for[.][NL]this menu item.[.]"
 }
 
 void HbPopulate_SSClass(struct HelpBoxProc* proc)
 {
-    proc->mid = gStatScreen.unit->pClassData->descTextId;
+    proc->msgId = gStatScreen.unit->pClassData->descTextId;
 }
 
 void HbRedirect_SSSupports(struct HelpBoxProc* proc)
@@ -1897,14 +1866,14 @@ void HbRedirect_SSSupports(struct HelpBoxProc* proc)
     }
 }
 
-void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1)
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int interpolateMethod)
 {
-    proc->xBox = Interpolate(arg1, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
-    proc->yBox = Interpolate(arg1, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
-    proc->wBox = Interpolate(arg1, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
-    proc->hBox = Interpolate(arg1, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
+    proc->xBox = Interpolate(interpolateMethod, proc->xBoxInit, proc->xBoxFinal, proc->timer, proc->timerMax);
+    proc->yBox = Interpolate(interpolateMethod, proc->yBoxInit, proc->yBoxFinal, proc->timer, proc->timerMax);
+    proc->wBox = Interpolate(interpolateMethod, proc->wBoxInit, proc->wBoxFinal, proc->timer, proc->timerMax);
+    proc->hBox = Interpolate(interpolateMethod, proc->hBoxInit, proc->hBoxFinal, proc->timer, proc->timerMax);
 
-    DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->unk52);
+    DisplayHelpBoxObj(proc->xBox, proc->yBox, proc->wBox, proc->hBox, proc->noHelpSprite);
 }
 
 void HelpBox_OnOpen(struct HelpBoxProc* proc)
@@ -1914,13 +1883,13 @@ void HelpBox_OnOpen(struct HelpBoxProc* proc)
     if (found)
         found->proc_lockCnt = 1; // lock (disabled) proc
 
-    if (proc->unk52 == 0)
+    if (!proc->noHelpSprite)
         PlaySoundEffect(SONG_70);
 }
 
 void HelpBox_OnLoop(struct HelpBoxProc* proc)
 {
-    UpdateHelpBoxDisplay(proc, 5);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_RCUBIC);
 
     if (proc->timer < proc->timerMax)
         proc->timer++;
@@ -1933,7 +1902,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
     if (found)
         found->proc_lockCnt = 0; // unlock (enable) proc
 
-    if (proc->unk52 == 0)
+    if (!proc->noHelpSprite)
     {
         PlaySoundEffect(SONG_71);
 
@@ -1944,7 +1913,7 @@ void HelpBox_OnClose(struct HelpBoxProc* proc)
 
 void HelpBox_WaitClose(struct HelpBoxProc* proc)
 {
-    UpdateHelpBoxDisplay(proc, 0);
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_LINEAR);
 
     proc->timer -= 3;
 
@@ -1952,7 +1921,7 @@ void HelpBox_WaitClose(struct HelpBoxProc* proc)
         Proc_Break(proc);
 }
 
-void StartHelpBox(int x, int y, int mid)
+void StartHelpBox(int x, int y, int msgId)
 {
     sMutableHbi.adjUp    = NULL;
     sMutableHbi.adjDown  = NULL;
@@ -1961,7 +1930,7 @@ void StartHelpBox(int x, int y, int mid)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = mid;
+    sMutableHbi.msgId    = msgId;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = NULL;
@@ -1972,7 +1941,7 @@ void StartHelpBox(int x, int y, int mid)
     StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void StartHelpBox_Unk(int x, int y, int mid)
+void StartHelpBox_NoHelpSprite(int x, int y, int msgId)
 {
     if (x < 0 && y < 0)
     {
@@ -1987,7 +1956,7 @@ void StartHelpBox_Unk(int x, int y, int mid)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = mid;
+    sMutableHbi.msgId    = msgId;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = NULL;
@@ -2007,7 +1976,7 @@ void StartItemHelpBox(int x, int y, int item)
 
     sMutableHbi.xDisplay = x;
     sMutableHbi.yDisplay = y;
-    sMutableHbi.mid      = item;
+    sMutableHbi.msgId    = item;
 
     sMutableHbi.redirect = NULL;
     sMutableHbi.populate = HbPopulate_AutoItem;
@@ -2018,18 +1987,18 @@ void StartItemHelpBox(int x, int y, int item)
     StartHelpBoxExt(&sMutableHbi, FALSE);
 }
 
-void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
 
-    proc = (void*) Proc_Find(gProcScr_HelpBox);
+    proc = Proc_Find(gProcScr_HelpBox);
 
     if (!proc)
     {
-        proc = (void*) Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
+        proc = Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
-        proc->unk52 = unk;
+        proc->noHelpSprite = noHelpSprite;
 
         SetHelpBoxInitPosition(proc, info->xDisplay, info->yDisplay);
         ResetHelpBoxInitSize(proc);
@@ -2049,32 +2018,32 @@ void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk)
     proc->timerMax = 12;
 
     proc->item = 0;
-    proc->mid = info->mid;
+    proc->msgId = info->msgId;
 
     if (proc->info->populate)
         proc->info->populate(proc);
 
-    SetTextFontGlyphs(1);
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wContent, &hContent);
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wContent, &hContent);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     ApplyHelpBoxContentSize(proc, wContent, hContent);
     ApplyHelpBoxPosition(proc, info->xDisplay, info->yDisplay);
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 
     sLastHbi = info;
 }
 
-void StartHelpBoxExt_Unk(int x, int y, int mid)
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int msgId)
 {
     struct HelpBoxProc* proc;
     int wContent, hContent;
 
-    proc = (void*) Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
+    proc = Proc_Start(gProcScr_HelpBox, PROC_TREE_3);
 
-    proc->unk52 = TRUE;
+    proc->noHelpSprite = TRUE;
 
     if (x < 0 && y < 0)
     {
@@ -2086,11 +2055,11 @@ void StartHelpBoxExt_Unk(int x, int y, int mid)
     proc->timerMax = 12;
 
     proc->item = 0;
-    proc->mid = mid;
+    proc->msgId = msgId;
 
-    SetTextFontGlyphs(1);
-    GetStringTextBox(GetStringFromIndex(proc->mid), &wContent, &hContent);
-    SetTextFontGlyphs(0);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
+    GetStringTextBox(GetStringFromIndex(proc->msgId), &wContent, &hContent);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 
     ResetHelpBoxInitSize(proc);
     ApplyHelpBoxContentSize(proc, wContent, hContent);
@@ -2102,23 +2071,23 @@ void StartHelpBoxExt_Unk(int x, int y, int mid)
     proc->yBoxFinal = y + 8;
 
     ClearHelpBoxText();
-    StartHelpBoxTextInit(proc->item, proc->mid);
+    StartHelpBoxTextInit(proc->item, proc->msgId);
 }
 
 void CloseHelpBox(void)
 {
-    struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
+    struct HelpBoxProc* proc = Proc_Find(gProcScr_HelpBox);
 
     if (proc)
     {
         ClearHelpBoxText();
-        Proc_Goto(proc, 0x63);
+        Proc_Goto(proc, 99);
     }
 }
 
 void EndHelpBox(void)
 {
-    struct HelpBoxProc* proc = (void*) Proc_Find(gProcScr_HelpBox);
+    struct HelpBoxProc* proc = Proc_Find(gProcScr_HelpBox);
 
     if (proc)
     {
@@ -2159,26 +2128,26 @@ void HbMoveCtrl_OnIdle(struct HelpBoxProc* proc)
 
     if (gKeyStatusPtr->newKeys & (B_BUTTON | R_BUTTON))
     {
-        Proc_Break((void*) proc);
+        Proc_Break(proc);
         return;
     }
 
     if (boxMoved)
     {
         PlaySoundEffect(SONG_SE_SYS_CURSOR_LR1);
-        Proc_Goto((void*) proc, 0); // TODO: label constants?
+        Proc_Goto(proc, 0); // TODO: label constants?
     }
 }
 
 void HbMoveCtrl_OnEnd(struct HelpBoxProc* proc)
 {
     CloseHelpBox();
-    Proc_End((void*) proc);
+    Proc_End(proc);
 }
 
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent)
 {
-    struct HelpBoxProc* proc = (void*) Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
+    struct HelpBoxProc* proc = Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
 
     sHbOrigin.x = 0;
     sHbOrigin.y = 0;
@@ -2188,7 +2157,7 @@ void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent)
 
 void StartMovingHelpBoxExt(const struct HelpBoxInfo* info, struct Proc* parent, int x, int y)
 {
-    struct HelpBoxProc* proc = (void*) Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
+    struct HelpBoxProc* proc = Proc_StartBlocking(gProcScr_HelpBoxMoveCtrl, parent);
 
     sHbOrigin.x = x;
     sHbOrigin.y = y;
@@ -2207,7 +2176,7 @@ void ApplyHelpBoxContentSize(struct HelpBoxProc* proc, int width, int height)
         if (width < 0x90)
             width = 0x90;
 
-        if (GetStringTextLen(GetStringFromIndex(proc->mid)) > 8)
+        if (GetStringTextLen(GetStringFromIndex(proc->msgId)) > 8)
             height += 0x20;
         else
             height += 0x10;
@@ -2293,14 +2262,14 @@ int GetHelpBoxItemInfoKind(int item)
 
 void HbPopulate_AutoItem(struct HelpBoxProc* proc)
 {
-    int item = proc->info->mid;
+    int item = proc->info->msgId;
 
     proc->item = item;
 
     if (GetHelpBoxItemInfoKind(proc->item) == HB_EXTINFO_SAVEINFO)
-        proc->mid = 0;
+        proc->msgId = 0;
     else
-        proc->mid = GetItemDescId(item);
+        proc->msgId = GetItemDescId(item);
 }
 
 int TryRelocateHbUp(struct HelpBoxProc* proc)
@@ -2366,11 +2335,11 @@ void HbLock_OnIdle(struct Proc* proc)
         Proc_Break(proc);
 }
 
-int StartLockingHelpBox_Unused(int mid, ProcPtr parent)
+int StartLockingHelpBox_Unused(int msgId, ProcPtr parent)
 {
     LoadHelpBoxGfx(NULL, -1);
 
-    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), mid);
+    StartHelpBox(GetUiHandPrevDisplayX(), GetUiHandPrevDisplayY(), msgId);
     Proc_StartBlocking(gProcScr_HelpBoxLock, parent);
 
     return TRUE;
@@ -2383,53 +2352,53 @@ void HelpPrompt_OnIdle(struct HelpPromptSprProc* proc)
         sSprite_MetaHelp, proc->tileref);
 }
 
-struct Proc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent)
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent)
 {
-    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
+    struct HelpPromptSprProc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_Start(gProcScr_HelpPromptSpr, parent);
+        proc = Proc_Start(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
     proc->tileref  = TILEREF(0, 0);
 
-    return (void*) proc;
+    return proc;
 }
 
-struct Proc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent)
+struct HelpPromptSprProc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent)
 {
-    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
+    struct HelpPromptSprProc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     ApplyPalette(Pal_MapBattleInfoNum, palid + 0x10);
 
     if (!proc)
-        proc = (void*) Proc_Start(gProcScr_HelpPromptSpr, parent);
+        proc = Proc_Start(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
     proc->tileref  = TILEREF(0, 0xF & palid);
 
-    return (void*) proc;
+    return proc;
 }
 
-struct Proc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent)
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent)
 {
-    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
+    struct HelpPromptSprProc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (!proc)
-        proc = (void*) Proc_StartBlocking(gProcScr_HelpPromptSpr, parent);
+        proc = Proc_StartBlocking(gProcScr_HelpPromptSpr, parent);
 
     proc->xDisplay = x;
     proc->yDisplay = y;
     proc->tileref  = TILEREF(0, 0);
 
-    return (void*) proc;
+    return proc;
 }
 
 void EndHelpPromptSprite(void)
 {
-    struct Proc* proc = Proc_Find(gProcScr_HelpPromptSpr);
+    struct HelpPromptSprProc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (proc)
         Proc_End(proc);
@@ -2437,7 +2406,7 @@ void EndHelpPromptSprite(void)
 
 void MoveHelpPromptSprite(int x, int y)
 {
-    struct HelpPromptSprProc* proc = (void*) Proc_Find(gProcScr_HelpPromptSpr);
+    struct HelpPromptSprProc* proc = Proc_Find(gProcScr_HelpPromptSpr);
 
     if (proc)
     {
@@ -2468,91 +2437,91 @@ DECL_INFO sHelpInfo_Char =
 DECL_INFO sHelpInfo_Class =
 {
     &sHelpInfo_Char, &sHelpInfo_Level, NULL, &sHelpInfo_Ss0Res,
-    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
+    6, 104, MSG_6E8, NULL, HbPopulate_SSClass,
 };
 
 DECL_INFO sHelpInfo_Level =
 {
     &sHelpInfo_Class, &sHelpInfo_HP, NULL, &sHelpInfo_Exp,
-    6, 120, 0x542,
+    6, 120, MSG_542,
 };
 
 DECL_INFO sHelpInfo_Exp =
 {
     &sHelpInfo_Class, &sHelpInfo_HP, &sHelpInfo_Level, &sHelpInfo_Ss0Res,
-    38, 120, 0x543,
+    38, 120, MSG_543,
 };
 
 DECL_INFO sHelpInfo_HP =
 {
     &sHelpInfo_Level, NULL, NULL, &sHelpInfo_Ss0Res,
-    6, 136, 0x544,
+    6, 136, MSG_544,
 };
 
 DECL_INFO gHelpInfo_Ss0Pow =
 {
     NULL, &sHelpInfo_Ss0Skl, &sHelpInfo_Char, &sHelpInfo_Ss0Mov,
-    102, 24, 0x546, NULL, HbPopulate_SSPower,
+    102, 24, MSG_546, NULL, HbPopulate_SSPower,
 };
 
 DECL_INFO sHelpInfo_Ss0Skl =
 {
     &gHelpInfo_Ss0Pow, &sHelpInfo_Ss0Spd, &sHelpInfo_Char, &sHelpInfo_Ss0Con,
-    105, 40, 0x548,
+    105, 40, MSG_548,
 };
 
 DECL_INFO sHelpInfo_Ss0Spd =
 {
     &sHelpInfo_Ss0Skl, &sHelpInfo_Ss0Lck, &sHelpInfo_Char, &sHelpInfo_Ss0Aid,
-    102, 56, 0x549,
+    102, 56, MSG_549,
 };
 
 DECL_INFO sHelpInfo_Ss0Lck =
 {
     &sHelpInfo_Ss0Spd, &sHelpInfo_Ss0Def, &sHelpInfo_Char, &sHelpInfo_Ss0Traveler,
-    102, 72, 0x54A,
+    102, 72, MSG_54A,
 };
 
 DECL_INFO sHelpInfo_Ss0Def =
 {
     &sHelpInfo_Ss0Lck, &sHelpInfo_Ss0Res, &sHelpInfo_Char, &sHelpInfo_Ss0Affinity,
-    102, 88, 0x54B,
+    102, 88, MSG_54B,
 };
 
 DECL_INFO sHelpInfo_Ss0Res =
 {
     &sHelpInfo_Ss0Def, NULL, &sHelpInfo_Class, &sHelpInfo_Ss0Status,
-    102, 104, 0x54C,
+    102, 104, MSG_54C,
 };
 
 DECL_INFO sHelpInfo_Ss0Mov =
 {
     NULL, &sHelpInfo_Ss0Con, &gHelpInfo_Ss0Pow, NULL,
-    166, 24, 0x54D,
+    166, 24, MSG_54D,
 };
 
 DECL_INFO sHelpInfo_Ss0Con =
 {
     &sHelpInfo_Ss0Mov, &sHelpInfo_Ss0Aid, &sHelpInfo_Ss0Skl, NULL,
-    166, 40, 0x54E,
+    166, 40, MSG_54E,
 };
 
 DECL_INFO sHelpInfo_Ss0Aid =
 {
     &sHelpInfo_Ss0Con, &sHelpInfo_Ss0Traveler, &sHelpInfo_Ss0Spd, NULL,
-    166, 56, 0x54F,
+    166, 56, MSG_54F,
 };
 
 DECL_INFO sHelpInfo_Ss0Traveler =
 {
     &sHelpInfo_Ss0Aid, &sHelpInfo_Ss0Affinity, &sHelpInfo_Ss0Lck, NULL,
-    166, 72, 0x550,
+    166, 72, MSG_550,
 };
 
 DECL_INFO sHelpInfo_Ss0Affinity =
 {
     &sHelpInfo_Ss0Traveler, &sHelpInfo_Ss0Status, &sHelpInfo_Ss0Def, NULL,
-    166, 88, 0x551,
+    166, 88, MSG_551,
 };
 
 DECL_INFO sHelpInfo_Ss0Status =
@@ -2588,25 +2557,25 @@ DECL_INFO gHelpInfo_Ss1CharName =
 static DECL_INFO sHelpInfo_08A00D30 =
 {
     &gHelpInfo_Ss1CharName, &sHelpInfo_08A00D4C, NULL, &sHelpInfo_08A00E2C,
-    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
+    6, 104, MSG_6E8, NULL, HbPopulate_SSClass,
 };
 
 static DECL_INFO sHelpInfo_08A00D4C =
 {
     &sHelpInfo_08A00D30, &sHelpInfo_08A00D84, NULL, &sHelpInfo_08A00D68,
-    6, 120, 0x542,
+    6, 120, MSG_542,
 };
 
 static DECL_INFO sHelpInfo_08A00D68 =
 {
     &sHelpInfo_08A00D30, &sHelpInfo_08A00D84, &sHelpInfo_08A00D4C, &sHelpInfo_08A00E2C,
-    38, 120, 0x543,
+    38, 120, MSG_543,
 };
 
 static DECL_INFO sHelpInfo_08A00D84 =
 {
     &sHelpInfo_08A00D4C, NULL, NULL, &sHelpInfo_08A00E48,
-    6, 136, 0x544,
+    6, 136, MSG_544,
 };
 
 DECL_INFO gHelpInfo_Ss1Item0 =
@@ -2642,31 +2611,31 @@ static DECL_INFO sHelpInfo_08A00E10 =
 static DECL_INFO sHelpInfo_08A00E2C =
 {
     &sHelpInfo_08A00E10, &sHelpInfo_08A00E48, &sHelpInfo_08A00D68, &sHelpInfo_08A00E80,
-    118, 120, 0x55C,
+    118, 120, MSG_55C,
 };
 
 static DECL_INFO sHelpInfo_08A00E48 =
 {
     &sHelpInfo_08A00E2C, NULL, &sHelpInfo_08A00D84, &sHelpInfo_08A00E9C,
-    118, 136, 0x55D,
+    118, 136, MSG_55D,
 };
 
 static DECL_INFO sHelpInfo_08A00E64 =
 {
     &sHelpInfo_08A00E10, &sHelpInfo_08A00E80, &sHelpInfo_08A00E2C, NULL,
-    174, 104, 0x55E,
+    174, 104, MSG_55E,
 };
 
 static DECL_INFO sHelpInfo_08A00E80 =
 {
     &sHelpInfo_08A00E64, &sHelpInfo_08A00E9C, &sHelpInfo_08A00E2C, NULL,
-    174, 120, 0x55F,
+    174, 120, MSG_55F,
 };
 
 static DECL_INFO sHelpInfo_08A00E9C =
 {
     &sHelpInfo_08A00E80, NULL, &sHelpInfo_08A00E48, NULL,
-    174, 136, 0x560,
+    174, 136, MSG_560,
 };
 
 // Stat Screen Page 2 (Weapon ranks & supports) (Ss2)
@@ -2691,25 +2660,25 @@ static DECL_INFO sHelpInfo_08A00EB8 =
 static DECL_INFO sHelpInfo_08A00ED4 =
 {
     &sHelpInfo_08A00EB8, &sHelpInfo_08A00EF0, NULL, &sHelpInfo_08A00FB4,
-    6, 104, 0x6E8, NULL, HbPopulate_SSClass,
+    6, 104, MSG_6E8, NULL, HbPopulate_SSClass,
 };
 
 static DECL_INFO sHelpInfo_08A00EF0 =
 {
     &sHelpInfo_08A00ED4, &sHelpInfo_08A00F28, NULL, &sHelpInfo_08A00F0C,
-    6, 120, 0x542,
+    6, 120, MSG_542,
 };
 
 static DECL_INFO sHelpInfo_08A00F0C =
 {
     &sHelpInfo_08A00ED4, &sHelpInfo_08A00F28, &sHelpInfo_08A00EF0, &sHelpInfo_08A00FB4,
-    38, 120, 0x543,
+    38, 120, MSG_543,
 };
 
 static DECL_INFO sHelpInfo_08A00F28 =
 {
     &sHelpInfo_08A00EF0, NULL, NULL, &sHelpInfo_08A00FB4,
-    6, 136, 0x544,
+    6, 136, MSG_544,
 };
 
 DECL_INFO gHelpInfo_Ss2Rank0 =
@@ -2739,7 +2708,7 @@ static DECL_INFO sHelpInfo_08A00F98 =
 static DECL_INFO sHelpInfo_08A00FB4 =
 {
     &sHelpInfo_08A00F60, &sHelpInfo_08A00EB8, &sHelpInfo_08A00EB8, NULL,
-    128, 64, 0x569, HbRedirect_SSSupports, NULL,
+    128, 64, MSG_569, HbRedirect_SSSupports, NULL,
 };
 
 // BKSEL (Select Battle Target Window) HELP INFOS
@@ -2764,25 +2733,25 @@ static DECL_INFO sHelpInfo_08A00FD0 =
 DECL_INFO gHelpInfo_MbpHp =
 {
     &sHelpInfo_08A00FD0, &sHelpInfo_08A01008, NULL, NULL,
-    28, 24, 0x544,
+    28, 24, MSG_544,
 };
 
 static DECL_INFO sHelpInfo_08A01008 =
 {
     &gHelpInfo_MbpHp, &sHelpInfo_08A01024, NULL, NULL,
-    28, 40, 0x571,
+    28, 40, MSG_571,
 };
 
 static DECL_INFO sHelpInfo_08A01024 =
 {
     &sHelpInfo_08A01008, &sHelpInfo_08A01040, NULL, NULL,
-    28, 56, 0x55D,
+    28, 56, MSG_55D,
 };
 
 static DECL_INFO sHelpInfo_08A01040 =
 {
     &sHelpInfo_08A01024, &sHelpInfo_08A0105C, NULL, NULL,
-    28, 72, 0x55F,
+    28, 72, MSG_55F,
 };
 
 static DECL_INFO sHelpInfo_08A0105C =
@@ -2810,37 +2779,37 @@ static DECL_INFO sHelpInfo_08A01078 =
 DECL_INFO gHelpInfo_CbpHp =
 {
     &sHelpInfo_08A01078, &sHelpInfo_08A010B0, NULL, NULL,
-    28, 24, 0x544,
+    28, 24, MSG_544,
 };
 
 static DECL_INFO sHelpInfo_08A010B0 =
 {
     &gHelpInfo_CbpHp, &sHelpInfo_08A010CC, NULL, NULL,
-    28, 40, 0x55C,
+    28, 40, MSG_55C,
 };
 
 static DECL_INFO sHelpInfo_08A010CC =
 {
     &sHelpInfo_08A010B0, &sHelpInfo_08A010E8, NULL, NULL,
-    28, 56, 0x573,
+    28, 56, MSG_573,
 };
 
 static DECL_INFO sHelpInfo_08A010E8 =
 {
     &sHelpInfo_08A010CC, &sHelpInfo_08A01104, NULL, NULL,
-    28, 72, 0x55D,
+    28, 72, MSG_55D,
 };
 
 static DECL_INFO sHelpInfo_08A01104 =
 {
     &sHelpInfo_08A010E8, &sHelpInfo_08A01120, NULL, NULL,
-    28, 88, 0x55F,
+    28, 88, MSG_55F,
 };
 
 static DECL_INFO sHelpInfo_08A01120 =
 {
     &sHelpInfo_08A01104, &sHelpInfo_08A0113C, NULL, NULL,
-    28, 104, 0x572,
+    28, 104, MSG_572,
 };
 
 static DECL_INFO sHelpInfo_08A0113C =
@@ -2855,48 +2824,47 @@ static DECL_INFO sHelpInfo_08A0113C =
 // = SOME TEXT ID CONSTANTS =
 // ==========================
 
-// TODO: msg constants
-unsigned CONST_DATA gMid_Lv = 0x4E7; // Lv
-unsigned CONST_DATA gMid_Exp = 0x4E8; // Exp
-unsigned CONST_DATA gMid_Hp = 0x4E9; // HP
-unsigned CONST_DATA gMid_Str = 0x4FE; // Str
-unsigned CONST_DATA gMid_Mag = 0x4FF; // Mag
-unsigned CONST_DATA gMid_Skl = 0x4EC; // Skill
-unsigned CONST_DATA gMid_Spd = 0x4ED; // Spd
-unsigned CONST_DATA gMid_Def = 0x4EF; // Def
-unsigned CONST_DATA gMid_Res = 0x4F0; // Res
-unsigned CONST_DATA gMid_Lck = 0x4EE; // Luck
-unsigned CONST_DATA gMid_Con = 0x4F7; // Con
-unsigned CONST_DATA gMid_Aid = 0x4F8; // Aid
-unsigned CONST_DATA gMid_Mov = 0x4F6; // Move
-unsigned CONST_DATA gMid_Trv = 0x4F9; // Trv
-unsigned CONST_DATA gMid_Affin = 0x4F1; // Affin
-unsigned CONST_DATA gMid_Rng = 0x500; // Rng
-unsigned CONST_DATA gMid_Atk = 0x4F3; // Atk
-unsigned CONST_DATA gMid_Hit = 0x4F4; // Hit
-unsigned CONST_DATA gMid_Crt = 0x501; // Crit
-unsigned CONST_DATA gMid_Avo = 0x4F5; // Avoid
-unsigned CONST_DATA gMid_Cnd = 0x4FA; // Cond
-unsigned CONST_DATA gMid_Mt = 0x503; // Mt
-unsigned CONST_DATA gMid_Wt = 0x502; // Wt
-unsigned CONST_DATA gMid_RangeMpOn2 = 0x522; // MP/2
-unsigned CONST_DATA gMid_Range1To1 = 0x523; //    1
-unsigned CONST_DATA gMid_Range1To2 = 0x524; //  1-2
-unsigned CONST_DATA gMid_Range1To3 = 0x525; //  1-3
-unsigned CONST_DATA gMid_Range2To2 = 0x526; //    2
-unsigned CONST_DATA gMid_Range2To3 = 0x527; //  2-3
-unsigned CONST_DATA gMid_Range3To10 = 0x528; // 3-10
-unsigned CONST_DATA gMid_Range3To15 = 0x529; // 3-15
-unsigned CONST_DATA gMid_Unk08A011D4 = 0x536; // ????
-unsigned CONST_DATA gMid_Poison = 0x514; // Poison
-unsigned CONST_DATA gMid_Sleep = 0x515; // Sleep
-unsigned CONST_DATA gMid_Silence = 0x516; // Silence
-unsigned CONST_DATA gMid_Berserk = 0x517; // Berserk
-unsigned CONST_DATA gMid_Sword = 0x505; // Sword
-unsigned CONST_DATA gMid_Lance = 0x506; // Lance
-unsigned CONST_DATA gMid_Axe = 0x507; // Axe
-unsigned CONST_DATA gMid_Bow = 0x508; // Bow
-unsigned CONST_DATA gMid_Staff = 0x509; // Staff
-unsigned CONST_DATA gMid_Anima = 0x50A; // Anima
-unsigned CONST_DATA gMid_Light = 0x50B; // Light
-unsigned CONST_DATA gMid_Dark = 0x50C; // Dark
+unsigned CONST_DATA gMid_Lv = MSG_4E7; // Lv
+unsigned CONST_DATA gMid_Exp = MSG_4E8; // Exp
+unsigned CONST_DATA gMid_Hp = MSG_4E9; // HP
+unsigned CONST_DATA gMid_Str = MSG_4FE; // Str
+unsigned CONST_DATA gMid_Mag = MSG_4FF; // Mag
+unsigned CONST_DATA gMid_Skl = MSG_4EC; // Skill
+unsigned CONST_DATA gMid_Spd = MSG_4ED; // Spd
+unsigned CONST_DATA gMid_Def = MSG_4EF; // Def
+unsigned CONST_DATA gMid_Res = MSG_4F0; // Res
+unsigned CONST_DATA gMid_Lck = MSG_4EE; // Luck
+unsigned CONST_DATA gMid_Con = MSG_4F7; // Con
+unsigned CONST_DATA gMid_Aid = MSG_4F8; // Aid
+unsigned CONST_DATA gMid_Mov = MSG_4F6; // Move
+unsigned CONST_DATA gMid_Trv = MSG_4F9; // Trv
+unsigned CONST_DATA gMid_Affin = MSG_4F1; // Affin
+unsigned CONST_DATA gMid_Rng = MSG_500; // Rng
+unsigned CONST_DATA gMid_Atk = MSG_4F3; // Atk
+unsigned CONST_DATA gMid_Hit = MSG_4F4; // Hit
+unsigned CONST_DATA gMid_Crt = MSG_501; // Crit
+unsigned CONST_DATA gMid_Avo = MSG_4F5; // Avoid
+unsigned CONST_DATA gMid_Cnd = MSG_4FA; // Cond
+unsigned CONST_DATA gMid_Mt = MSG_503; // Mt
+unsigned CONST_DATA gMid_Wt = MSG_502; // Wt
+unsigned CONST_DATA gMid_RangeMpOn2 = MSG_522; // MP/2
+unsigned CONST_DATA gMid_Range1To1 = MSG_523; //    1
+unsigned CONST_DATA gMid_Range1To2 = MSG_524; //  1-2
+unsigned CONST_DATA gMid_Range1To3 = MSG_525; //  1-3
+unsigned CONST_DATA gMid_Range2To2 = MSG_526; //    2
+unsigned CONST_DATA gMid_Range2To3 = MSG_527; //  2-3
+unsigned CONST_DATA gMid_Range3To10 = MSG_528; // 3-10
+unsigned CONST_DATA gMid_Range3To15 = MSG_529; // 3-15
+unsigned CONST_DATA gMid_Unk08A011D4 = MSG_536; // ????
+unsigned CONST_DATA gMid_Poison = MSG_514; // Poison
+unsigned CONST_DATA gMid_Sleep = MSG_515; // Sleep
+unsigned CONST_DATA gMid_Silence = MSG_516; // Silence
+unsigned CONST_DATA gMid_Berserk = MSG_517; // Berserk
+unsigned CONST_DATA gMid_Sword = MSG_505; // Sword
+unsigned CONST_DATA gMid_Lance = MSG_506; // Lance
+unsigned CONST_DATA gMid_Axe = MSG_507; // Axe
+unsigned CONST_DATA gMid_Bow = MSG_508; // Bow
+unsigned CONST_DATA gMid_Staff = MSG_509; // Staff
+unsigned CONST_DATA gMid_Anima = MSG_50A; // Anima
+unsigned CONST_DATA gMid_Light = MSG_50B; // Light
+unsigned CONST_DATA gMid_Dark = MSG_50C; // Dark

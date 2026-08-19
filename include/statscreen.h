@@ -135,12 +135,12 @@ struct HelpBoxProc
     /* 48 */ short timer;
     /* 4A */ short timerMax;
 
-    /* 4C */ u16 mid;
+    /* 4C */ u16 msgId;
     /* 4E */ u16 item;
 
     /* 50 */ u16 moveKey; // move ctrl proc only
 
-    /* 52 */ u8 unk52;
+    /* 52 */ u8 noHelpSprite;
 
     // NOTE: there's likely more, need to decompile more files
 };
@@ -153,7 +153,7 @@ struct HelpBoxInfo
     /* 0C */ const struct HelpBoxInfo* adjRight;
     /* 10 */ u8 xDisplay;
     /* 11 */ u8 yDisplay;
-    /* 12 */ u16 mid;
+    /* 12 */ u16 msgId;
     /* 14 */ void(*redirect)(struct HelpBoxProc* proc);
     /* 18 */ void(*populate)(struct HelpBoxProc* proc);
 };
@@ -178,13 +178,13 @@ void HbPopulate_SSCharacter(struct HelpBoxProc* proc);
 void HbPopulate_SSClass(struct HelpBoxProc* proc);
 void HbRedirect_SSSupports(struct HelpBoxProc* proc);
 
-void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int arg1);
+void UpdateHelpBoxDisplay(struct HelpBoxProc* proc, int interpolateMethod);
 
-void StartHelpBox(int x, int y, int mid);
-void StartHelpBox_Unk(int x, int y, int mid);
+void StartHelpBox(int x, int y, int msgId);
+void StartHelpBox_NoHelpSprite(int x, int y, int msgId);
 void StartItemHelpBox(int x, int y, int item);
-void StartHelpBoxExt(const struct HelpBoxInfo* info, int unk);
-void StartHelpBoxExt_Unk(int x, int y, int mid);
+void StartHelpBoxExt(const struct HelpBoxInfo* info, int noHelpSprite);
+void StartHelpBoxExt_NoHelpSprite(int x, int y, int msgId);
 void CloseHelpBox(void);
 void EndHelpBox(void);
 void StartMovingHelpBox(const struct HelpBoxInfo* info, struct Proc* parent);
@@ -199,11 +199,11 @@ int TryRelocateHbDown(struct HelpBoxProc* proc);
 int TryRelocateHbLeft(struct HelpBoxProc* proc);
 int TryRelocateHbRight(struct HelpBoxProc* proc);
 
-int StartLockingHelpBox_Unused(int mid, ProcPtr parent);
+int StartLockingHelpBox_Unused(int msgId, ProcPtr parent);
 
-struct Proc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
-struct Proc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
-struct Proc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused(int x, int y, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite(int x, int y, int palid, ProcPtr parent);
+struct HelpPromptSprProc* StartHelpPromptSprite_Unused2(int x, int y, ProcPtr parent);
 void EndHelpPromptSprite(void);
 void MoveHelpPromptSprite(int x, int y);
 
@@ -213,24 +213,24 @@ extern struct HelpBoxInfo gHelpInfo_Ss0Pow; // page 0 root help
 extern struct HelpBoxInfo gHelpInfo_Ss1CharName; // hardcoded thing bad
 extern struct HelpBoxInfo gHelpInfo_Ss1Item0; // page 1 root help
 extern struct HelpBoxInfo gHelpInfo_Ss2Rank0; // page 2 root help
-                                                         //
+
 struct StatScreenEffectProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x38 - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x38);
 
     /* 38 */ int direction;
     /* 3C */ int yDispInit;
     /* 40 */ int yDispFinal;
 
-    /* 44 */ u8 pad44[0x4A - 0x44];
+    /* 44 */ STRUCT_PAD(0x44, 0x4A);
 
     /* 4A */ short newItem; // page or unit depending on slide
     /* 4C */ short timer;
     /* 4E */ short blendDirection;
 
-    /* 50 */ u8 pad50[0x52 - 0x50];
+    /* 50 */ STRUCT_PAD(0x50, 0x52);
 
     /* 52 */ u16   key;
 };
@@ -265,7 +265,7 @@ struct SSTextDispInfo
     /* 04 */ u16* tilemap;
     /* 08 */ u8 color;
     /* 09 */ u8 xoff;
-    /* 0C */ const unsigned* mid;
+    /* 0C */ const u32 * msgId;
 };
 
 struct HelpPromptSprProc

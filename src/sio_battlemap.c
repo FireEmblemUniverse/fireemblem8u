@@ -2692,7 +2692,7 @@ void sub_804B71C(struct SioBattleMapProc * proc)
     int i;
 
     LoadHelpBoxGfx(OBJ_CHR_ADDR(0x280), 6);
-    StartHelpBoxExt_Unk(64, 56, MSG_756); // "Each unit receives 30 extra pts."
+    StartHelpBoxExt_NoHelpSprite(64, 56, MSG_756); // "Each unit receives 30 extra pts."
 
     for (i = 0; i < 4; i++)
     {
