@@ -205,7 +205,7 @@ void Subtitle_LightFlareFx_Init(struct OpSubtitleProc* proc) {
     proc->unk_4c = 0;
     proc->unk_4e = 0;
 
-    sub_800154C(gBG2TilemapBuffer, Tsa_08B18D68, 0, 5);
+    sub_800154C(gBG2TilemapBuffer, Tsa_ClassReel_LensFlare, 0, 5);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 

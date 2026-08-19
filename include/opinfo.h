@@ -1,24 +1,37 @@
 #ifndef GUARD_OP_INFO_H
 #define GUARD_OP_INFO_H
 
-enum ClassReelScrOpCode {
-    CLASS_REEL_OP_0,
-    CLASS_REEL_OP_1,
-    CLASS_REEL_OP_2,
-    CLASS_REEL_OP_3,
-    CLASS_REEL_OP_4,
-    CLASS_REEL_OP_5,
-    CLASS_REEL_OP_6,
-    CLASS_REEL_OP_7,
-    CLASS_REEL_OP_8,
+enum ClassReelScrOpCode
+{
+    CLASS_REEL_OP_END = 0,
+    CLASS_REEL_OP_HIT_CLOSE = 1,
+    CLASS_REEL_OP_CRIT_CLOSE = 2,
+    CLASS_REEL_OP_RETURN_TO_STANDING = 3,
+    CLASS_REEL_OP_HIT_FAR = 4,
+    CLASS_REEL_OP_WAIT_FRAMES = 5,
+    CLASS_REEL_OP_DODGE = 6,
+    CLASS_REEL_OP_RETURN_TO_STANDING_ALT = 7,
+    CLASS_REEL_OP_ROUND_END = 8,
 };
 
-struct ClassReelAnimScr {
+#define CR_END                            { CLASS_REEL_OP_END, 0 }
+#define CR_ANIM_ROUND_HIT_CLOSE           { CLASS_REEL_OP_HIT_CLOSE, 0 }
+#define CR_ANIM_ROUND_CRIT_CLOSE          { CLASS_REEL_OP_CRIT_CLOSE, 0 }
+#define CR_RETURN_TO_STANDING             { CLASS_REEL_OP_RETURN_TO_STANDING, 0 }
+#define CR_ANIM_ROUND_NONCRIT_FAR         { CLASS_REEL_OP_HIT_FAR, 0 }
+#define CR_WAIT(frames)                   { CLASS_REEL_OP_WAIT_FRAMES, (frames) }
+#define CR_ANIM_ROUND_TAKING_MISS_CLOSE   { CLASS_REEL_OP_DODGE, 0 }
+#define CR_RETURN_TO_STANDING_ALT         { CLASS_REEL_OP_RETURN_TO_STANDING_ALT, 0 }
+#define CR_WAIT_ROUND_END                 { CLASS_REEL_OP_ROUND_END, 0 }
+
+struct ClassReelAnimScr
+{
     u16 opCode : 8;
     u16 extra  : 8;
 } __attribute__((packed));
 
-struct ClassReelEnt {
+struct ClassReelEnt
+{
     /* 00 */ u32 descTextId;
 
     /* 04 */ s8 paletteId;
@@ -34,10 +47,11 @@ struct ClassReelEnt {
     /* 0E */ u8 unk_0E; // terrain R
     /* 0F */ u8 unk_0F;
 
-    /* 10 */ struct ClassReelAnimScr* script;
+    /* 10 */ struct ClassReelAnimScr * script;
 };
 
-struct OpInfoProc {
+struct OpInfoProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 unk_29;
@@ -56,27 +70,29 @@ struct OpInfoProc {
     /* 38 */ int unk_38;
     /* 3C */ int unk_3c;
 
-    /* 40 */ u8 _pad[0x4C-0x40];
+    /* 40 */ STRUCT_PAD(0x40, 0x4C);
 
-    /* 4C */ struct ClassReelEnt* classReelEnt;
+    /* 4C */ struct ClassReelEnt * classReelEnt;
 };
 
-struct OpInfoEnterProc {
+struct OpInfoEnterProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2A */ u16 timer;
     /* 2C */ u16 unk_2c;
     /* 2E */ u8 classNameLength;
 
-    /* 2F */ u8 _pad1[0x34-0x2F];
+    /* 2F */ STRUCT_PAD(0x2F, 0x34);
 
-    /* 34 */ ProcPtr** letterProcsPtr;
+    /* 34 */ ProcPtr ** letterProcsPtr;
     /* 38 */ ProcPtr iconProc;
     /* 3C */ ProcPtr parentProc;
-    /* 40 */ struct ClassReelEnt* classReelEnt;
+    /* 40 */ struct ClassReelEnt * classReelEnt;
 };
 
-struct OpInfoViewProc {
+struct OpInfoViewProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 unk_29;
@@ -89,7 +105,8 @@ struct OpInfoViewProc {
     /* 30 */ s16 unk_30;
 };
 
-struct OpInfoIconProc {
+struct OpInfoIconProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2A */ u16 timer;
@@ -99,55 +116,59 @@ struct OpInfoIconProc {
     /* 2E */ u8 unk_2e;
 };
 
-struct OpInfoFlareProc {
+struct OpInfoFlareProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x4C-0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
 
     /* 4C */ s16 unk_4c;
     /* 4E */ s16 unk_4e;
 };
 
-struct OpInfoBurstProc {
+struct OpInfoBurstProc
+{
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 _pad[0x4C-0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
 
     /* 4C */ s16 unk_4c;
 
-    /* 4E */ u8 _pad2[0x64-0x4E];
+    /* 4E */ STRUCT_PAD(0x4E, 0x64);
 
     /* 64 */ s16 unk_64;
     /* 66 */ s16 unk_66;
     /* 68 */ s16 unk_68;
 };
 
-struct OpInfoClassDisplayProc {
+struct OpInfoClassDisplayProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2A */ u16 unk_2a;
     /* 2C */ u16 unk_2c;
 
     /* 30 */ ProcPtr unk_30;
-    /* 34 */ struct ClassReelEnt* classReelEnt;
-    /* 38 */ struct ClassReelAnimScr* script;
+    /* 34 */ struct ClassReelEnt * classReelEnt;
+    /* 38 */ struct ClassReelAnimScr * script;
     /* 3C */ ProcPtr unk_3c;
-    /* 40 */ u8 unk_40[6];
+    /* 40 */ u8 stats[6];
     /* 46 */ u8 unk_46;
 };
 
-struct OpInfoGaugeDrawProc {
+struct OpInfoGaugeDrawProc
+{
     /* 00 */ PROC_HEADER;
 
     /* 2A */ u16 unk_2a;
     /* 2C */ u16 unk_2c;
-    /* 30 */ struct OpInfoClassDisplayProc* unk_30;
+    /* 30 */ struct OpInfoClassDisplayProc * unk_30;
     /* 34 */ u8 unk_34;
     /* 35 */ u8 unk_35;
 };
 
 extern struct AnimBuffer gOpInfoData;
-extern struct AnimMagicFxBuffer gUnknown_0200A2D8;
+extern struct AnimMagicFxBuffer gClassReelMagicAnim;
 extern struct BanimUnkStructComm gUnk_Opinfo_0201DB00;
 
 // ??? ClassReel_Init(???);
