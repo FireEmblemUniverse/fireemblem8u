@@ -107,8 +107,59 @@ compare: $(ROM)
 
 .PHONY: compare
 
-CLEAN_FILES := $(ROM) $(ELF) $(MAP) $(OBJECTS_LST) $(SFILES_COMPILED) graphics/*.h $(CFILES_GENERATED)
-CLEAN_DIRS := $(DEPS_DIR)
+#### Shiftability harness (scripts/shiftcheck/) ####
+# Detects hardcoded pointers (raw absolute addresses that bypass the symbol system)
+# which would break if the ROM layout shifted. Entirely separate from the matching
+# build: never touches $(ROM)/$(ELF)/compare. See scripts/shiftcheck/README.md.
+RELOCS_ELF  := fireemblem8_relocs.elf
+SHIFTDIR    := build/shiftcheck
+SHIFT       ?= 0x40000
+SHIFT2      ?= 0x80000
+SHIFTCHECK  := scripts/shiftcheck
+
+# Layer 0: audit hardcoded addresses in the build system (Makefile/ldscripts).
+shiftcheck-build:
+	$(PYTHON) $(SHIFTCHECK)/scan_build_addrs.py --makefile Makefile \
+	    --ldscript $(LDSCRIPT) --banim-ldscript linker_script_banim.txt
+
+# Layer 1: relink with --emit-relocs, then flag ROM-pointer words with no relocation.
+$(RELOCS_ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT)
+	LD='$(LD)' OBJECTS_LST='$(OBJECTS_LST)' BANIM_OBJECT='$(BANIM_OBJECT)' \
+	    $(SHIFTCHECK)/emit_relocs_link.sh $@ $(LDSCRIPT) -q
+
+shiftcheck-static: $(RELOCS_ELF) $(ROM) $(MAP)
+	$(PYTHON) $(SHIFTCHECK)/scan_relocs.py --elf $(RELOCS_ELF) --gba $(ROM) \
+	    --map $(MAP) --ref-elf $(ELF) --prefix $(PREFIX) \
+	    --allowlist $(SHIFTCHECK)/allowlist.txt
+
+# Layer 1b: flag relocations against the WRONG base symbol -- a stored pointer written
+# "ResourceA + hardcoded offset" that lands in a different resource B (breaks if A is resized).
+shiftcheck-offsets: $(RELOCS_ELF) $(ROM) $(MAP)
+	$(PYTHON) $(SHIFTCHECK)/scan_offsets.py --elf $(RELOCS_ELF) --gba $(ROM) \
+	    --map $(MAP) --ref-elf $(ELF) --prefix $(PREFIX)
+
+# Layer 2: differential two-shift build; an independent (reloc-table-free) confirm.
+shiftcheck-diff: $(ROM) $(MAP) $(OBJECTS_LST)
+	LD='$(LD)' OBJCOPY='$(OBJCOPY)' OBJECTS_LST='$(OBJECTS_LST)' \
+	    BANIM_OBJECT='$(BANIM_OBJECT)' \
+	    $(PYTHON) $(SHIFTCHECK)/diff_shift.py --base-gba $(ROM) --ldscript $(LDSCRIPT) \
+	    --map $(MAP) --ref-elf $(ELF) --prefix $(PREFIX) --shifts $(SHIFT),$(SHIFT2) \
+	    --outdir $(SHIFTDIR) --allowlist $(SHIFTCHECK)/allowlist.txt
+
+# Layer 3: runtime smoke test (needs mGBA python bindings; non-blocking if absent).
+shiftcheck-run: $(ROM) $(MAP) $(OBJECTS_LST)
+	LD='$(LD)' OBJCOPY='$(OBJCOPY)' OBJECTS_LST='$(OBJECTS_LST)' \
+	    BANIM_OBJECT='$(BANIM_OBJECT)' \
+	    $(PYTHON) $(SHIFTCHECK)/run_dynamic.py --base-gba $(ROM) --shift $(SHIFT) \
+	    --ldscript $(LDSCRIPT) --map $(MAP) --outdir $(SHIFTDIR) --prefix $(PREFIX)
+
+# Static layers (the CI gate): build-system audit + reloc scan + cross-resource offsets + differential.
+shiftcheck: shiftcheck-build shiftcheck-static shiftcheck-offsets shiftcheck-diff
+
+.PHONY: shiftcheck shiftcheck-build shiftcheck-static shiftcheck-offsets shiftcheck-diff shiftcheck-run
+
+CLEAN_FILES := $(ROM) $(ELF) $(MAP) $(OBJECTS_LST) $(SFILES_COMPILED) graphics/*.h $(CFILES_GENERATED) $(RELOCS_ELF) $(RELOCS_ELF:.elf=.map)
+CLEAN_DIRS := $(DEPS_DIR) $(SHIFTDIR)
 CLEAN_BINS := graphics/statscreen/*.bin $(SAMPLE_SUBDIR)/*.bin $(MAP_LAYOUT_SUBDIR)/*.bin $(AUTO_GEN_TARGETS)
 CLEAN_SONGS := $(MID_SUBDIR)/*.s
 
