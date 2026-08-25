@@ -50,3 +50,11 @@
     MUNO \
     NoFade \
     ENDA
+
+#define GiveItemTo(pid, itemId) \
+    SVAL(EVT_SLOT_3, itemId) \
+    GIVE_ITEM(pid)
+
+#define GiveMoney(amt) \
+    SVAL(EVT_SLOT_3, amt) \
+    GIVE_MONEY(CHAR_EVT_PLAYER_LEADER)

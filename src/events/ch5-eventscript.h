@@ -204,8 +204,7 @@ LABEL(0x1)
     TEXTEND
     REMA
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x68)
-    GIVEITEMTO(CHAR_EVT_PLAYER_LEADER)
+    GiveItemTo(CHAR_EVT_PLAYER_LEADER, ITEM_GUIDINGRING)
 LABEL(0x2)
     ENUT(219)
     ENUT(189)
@@ -224,8 +223,7 @@ CONST_DATA EventListScr EventScr_089F2170[] = {
     Text_BG(BG_HOUSE, 0x9cd)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0xe)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_SWORD_ARMORSLAYER)
     SVAL(EVT_SLOT_2, EventScr_089F2340)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
@@ -237,8 +235,7 @@ CONST_DATA EventListScr EventScr_089F21BC[] = {
     Text_BG(BG_HOUSE, 0x9ce)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x60)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_BOOSTER_DEF)
     EVBIT_T(7)
     ENDA
 };
@@ -248,8 +245,7 @@ CONST_DATA EventListScr EventScr_089F21F8[] = {
     Text_BG(BG_HOUSE, 0x9cf)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x5d)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_BOOSTER_SKL)
     EVBIT_T(7)
     ENDA
 };
@@ -258,8 +254,7 @@ CONST_DATA EventListScr EventScr_089F2234[] = {
     MUSI
     Text_BG(BG_HOUSE, 0x9d0)
     CALL(EventScr_RemoveBGIfNeeded)
-    SVAL(EVT_SLOT_3, 0x70)
-    GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
+    GiveItemTo(CHAR_EVT_ACTIVE_UNIT, ITEM_TORCH)
     MUNO
     EVBIT_T(7)
     ENDA
