@@ -73,7 +73,7 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt
 CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
-CFILES       += src/arm/clear_oam.c src/arm/checksum.c
+CFILES       += src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
 ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
@@ -112,9 +112,10 @@ src/arm/clear_oam.o: CC1 := tools/agbcc/bin/agbcc_arm$(EXE)
 src/arm/clear_oam.o: CC1FLAGS := -quiet -mthumb-interwork -Wimplicit -Wparentheses -O2 -fomit-frame-pointer -fno-schedule-insns2 -g
 
 # Legacy ARM agbcc always saves lr along with any callee-saved registers.
-# GNU ARM GCC can reproduce this routine's original leaf prologue without lr.
-src/arm/checksum.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
-src/arm/checksum.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g
+# GNU ARM GCC can reproduce these routines' original leaf prologues without lr.
+MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
+$(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+$(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g
 
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error

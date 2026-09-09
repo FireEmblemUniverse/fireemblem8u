@@ -250,6 +250,8 @@ SECTIONS
         src/arm/clear_oam.o(.text);
         src/arm/checksum.o(.text);
         asm/arm.o(.text.after_checksum32);
+        src/arm/tm_apply_tsa.o(.text);
+        asm/arm.o(.text.after_tm_apply_tsa);
         src/main.o(.text);
         src/fe3_dummy.o(.text);
         src/irq.o(.text);

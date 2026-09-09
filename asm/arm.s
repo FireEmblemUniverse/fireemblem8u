@@ -188,62 +188,8 @@ TmCopyRect: @ 0x080003E0
 
 	ARM_FUNC_END TmCopyRect
 
-/*
-struct TillMapArrangement {
-	u8 width, height;
-	u16 data[];
-};
-
-void TmApplyTsa(u16 * tilemap, const void * _tsa, int tileref)
-{
-	const struct TillMapArrangement * tsa = _tsa;
-	int width  = tsa->width;
-	int height = tsa->height;
-	u16 * src  = tsa->data;
-	u16 * dst  = TILEMAP_LOCATED(tilemap, height, 0); // dest is set from the bottom to top
-
-	int w, h;
-	for (h = height; h >= 0 ; h--)
-	{
-		for (w = width; w >= 0 ; w--)
-		{
-			*dst = *src + tileref;
-			dst++;
-			src++;
-		}
-
-		dst = dst - width - 1 - 0x20;
-	}
-}
-*/
-	ARM_FUNC_START TmApplyTsa
-TmApplyTsa: @ 0x0800043C
-	push {r4, r5, r6, r7}
-	ldrb r3, [r1]		@ r3 = width  = tsa->width
-	ldrb r4, [r1, #1]	@ r4 = height = tsa->height
-	add r1, r1, #2		@ r1 = src    = tsa->data
-	lsl r7, r4, #6
-	add r0, r0, r7		@ dst  = TILEMAP_LOCATED(tilemap, height, 0);
-	mov r6, r4
-1:
-	mov r5, r3
-2:
-	ldrh r7, [r1]
-	add r7, r7, r2
-	strh r7, [r0]
-	add r0, r0, #2
-	add r1, r1, #2
-	subs r5, r5, #1
-	bpl 2b
-	sub r0, r0, r3, lsl #1
-	sub r0, r0, #0x42
-	subs r6, r6, #1
-	bpl 1b
-	pop {r4, r5, r6, r7}
-	bx lr
-
-	.align 2, 0
-	ARM_FUNC_END TmApplyTsa
+@ TmApplyTsa is linked here from src/arm/tm_apply_tsa.c.
+	.section .text.after_tm_apply_tsa, "ax", %progbits
 
 @ void PutOamHi(int x, int y, u16 const * oam_list, int oam2)
 .LOamHiPutIt: .4byte gOamHiPutIt @ pool

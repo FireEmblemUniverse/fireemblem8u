@@ -25,6 +25,8 @@ the inventory. The whole-ROM executable classification is not yet complete.
 complete ROM comparison passing after integration.
 `Checksum32` is also matching ARM-mode C (72 bytes), with the same full-ROM gate
 passing. These replacements retain the copied ARM block's original boundaries.
+`TmApplyTsa` is now matching ARM-mode C as well (84 bytes), bringing these three
+replacements to 248 bytes. The complete ROM still matches.
 
 ## Completion evidence
 
@@ -307,3 +309,25 @@ files and 71 assembly entry macros. Inline-site counts include the new register
 annotations and empty constraints; they are not counts of assembly instructions
 or unmatched functions. The two naked routines, other ARM routines, startup,
 BIOS/audio code and embedded assembly remain in scope.
+
+## Matching ARM C: TmApplyTsa
+
+`src/arm/tm_apply_tsa.c` replaces the 84 bytes at `0x0800043C..0x08000490`.
+The first two TSA bytes contain width-minus-one and height-minus-one. The
+routine reads the following halfwords sequentially, adds `tileref`, stores the
+low halfword, and writes destination rows from bottom to top with a 32-tile row
+stride. A zero header dimension still represents one tile or one row.
+
+GNU ARM GCC 16.2.0 reproduces the routine with the same flags used for
+`Checksum32`. Fixed registers and empty constraints prevent unwanted pointer
+and loop transformations and preserve the original register lifetimes. Every
+instruction is compiler-generated. The remaining assembly moves into
+`.text.after_tm_apply_tsa`; the existing literal pool immediately after the C
+routine still precedes `PutOamHi` at its original address.
+
+Verification includes the entire ROM byte comparison, the function's address and
+84-byte size, the adjacent entries, and the unchanged copied ARM block
+`0x08000228..0x08000A20`. The main inventory now has 437 tracked C files, 70
+assembly entry macros, and 100 inline sites (including register annotations and
+empty constraints). The two naked functions and 45 NONMATCHING conditionals
+remain. These counts are inventory markers, not a completion percentage.

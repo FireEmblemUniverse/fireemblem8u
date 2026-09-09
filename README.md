@@ -87,7 +87,7 @@ agbcc variant required by that program. Later builds use the installed compiler.
 The main ROM comparison also verifies the compressed payload.
 
 The ARM C routines use two compiler paths: `ClearOam` uses the installed
-`agbcc_arm`, and `Checksum32` uses `arm-none-eabi-gcc` (verified with GNU ARM GCC
+`agbcc_arm`, and `Checksum32` and `TmApplyTsa` use `arm-none-eabi-gcc` (verified with GNU ARM GCC
 16.2.0). Their per-file flags are in the Makefile. Run `make compare` to verify
 the entire ROM when changing compilers.
 6. You will see this for success.
