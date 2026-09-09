@@ -969,3 +969,33 @@ A sixth regression check covers a RAM-loaded image with a non-dot section.
 All six linked-audit checks pass. Re-running the main ROM audit preserves its
 previous totals exactly, and direct comparison confirms the production ROM
 is still byte-identical. No embedded submodule sources or pin were changed.
+
+## Embedded ClearOam matching C
+
+The payload submodule is now pinned to local commit
+`bde751de0a5fed16c05bae2bfe6eaa2a3bea1331`. Its `src/clear_oam.c` replaces
+all 92 bytes of the embedded ARM ClearOam routine, using the same recovered
+loop as the main game with the payload's existing `void *, int` interface.
+Casting count to unsigned before shifting preserves the original logical shift.
+The routine retains the original at-least-one-block behavior and writes only
+attributes 0/1 in each eight-byte OAM entry.
+
+The payload uses its installed `agbcc_arm` with the verified matching ARM flags.
+The linker places the new C object between split sections of `armfunc.o`.
+All three payload versions (`mgfembp`, `mgfembp_20030206`, `mgfembp_20030219`)
+pass their existing reference checksums. The full 16,777,216-byte Sacred Stones
+ROM also passes checksum and direct comparison, preserving the compressed data.
+
+The embedded source inventory is now 16 C files and 22 assembly function
+declarations. Linked instruction attribution moves exactly 92 ARM bytes from
+`armfunc.o` to `clear_oam.o`, leaving 680 ARM bytes in `armfunc.o`. No remaining
+startup, BIOS, veneer, runtime-library or inline instructions are excluded.
+
+The local submodule commit is not published upstream. A 1.4 KiB source-only
+incremental Git bundle in `tools/mgfembp-source/` preserves the exact commit
+and its objects against the previous upstream base. `restore.py` initializes
+upstream sources, fetches the bundle when needed, and restores the parent's
+indexed pin without overwriting local modifications. The build invokes it when
+the payload Makefile is missing; README setup commands also use it. A fresh
+upstream-only test clone was verified not to contain the new commit, then
+successfully restored its exact hash and C source through this helper.

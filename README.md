@@ -70,7 +70,7 @@ cd /path/to/agbcc
    the first `make` also fetches/builds its own agbcc variant for it.
 ```
 cd /path/to/fireemblem8u
-git submodule update --init --recursive
+python3 tools/mgfembp-source/restore.py
 ```
 4. Build tools.
 ```
@@ -78,13 +78,15 @@ git submodule update --init --recursive
 ```
 5. Build the project.
 ```
-git submodule update --init mgfembp
+python3 tools/mgfembp-source/restore.py
 make
 ```
 The embedded FE6 save-report program is built from the pinned `mgfembp`
 submodule. On its first build, its installer downloads and builds the separate
 agbcc variant required by that program. Later builds use the installed compiler.
-The main ROM comparison also verifies the compressed payload.
+The main ROM comparison also verifies the compressed payload. Local payload
+decompilation commits are included in a small source-only Git bundle; the
+restore helper retrieves the exact pin without requiring upstream publication.
 
 The ARM C routines use two compiler paths: `ClearOam` uses the installed
 `agbcc_arm`, and `Checksum32` and `TmApplyTsa` use `arm-none-eabi-gcc` (verified with GNU ARM GCC

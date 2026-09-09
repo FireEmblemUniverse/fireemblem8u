@@ -300,8 +300,7 @@ graphics/misc/Img_PlayerRankFog.4bpp.lz: LZ_FLAGS := -mindist 2
 # The FE6 save-report program embedded in FE8 is built separately: it uses
 # agbcc 010110-ThumbPatch, not the main game's compiler configuration.
 mgfembp/Makefile:
-	@echo 'Initialize the payload source with: git submodule update --init mgfembp'
-	@exit 1
+	$(PYTHON) tools/mgfembp-source/restore.py
 
 mgfembp/tools/agbcc/bin/agbcc: mgfembp/Makefile
 	cd mgfembp && env -u C_INCLUDE_PATH bash tools/install_agbcc.sh
