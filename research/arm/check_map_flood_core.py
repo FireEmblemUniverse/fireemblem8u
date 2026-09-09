@@ -25,6 +25,21 @@ def main():
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'candidate.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
     code=(OUT/'candidate.bin').read_bytes()
+    def call_setups(body, address):
+        words=struct.unpack('<'+'I'*(len(body)//4),body[:len(body)//4*4])
+        setups=[]
+        for i,word in enumerate(words):
+            if word>>24 != 0xeb:continue
+            displacement=(word&0xffffff)
+            if displacement&0x800000:displacement-=0x1000000
+            target=address+i*4+8+displacement*4
+            if target==0x08000784:
+                setups.append(words[i-3:i])
+        return setups
+    original_setups=call_setups(rom[0x874:0xa20],0x08000874)
+    candidate_setups=call_setups(code,0x08010000)
+    assert len(original_setups)==16
+    assert candidate_setups==original_setups, (candidate_setups,original_setups)
     directions={0:[3,2,0],1:[3,2,1],2:[2,0,1],3:[3,0,1],5:[3,2,0,1]}
     offsets={0:(-1,0),1:(1,0),2:(0,1),3:(0,-1)}
     count=0
@@ -99,7 +114,7 @@ def main():
                 flag_differences+=returns[0]!=returns[1]
                 count+=1
     assert flag_differences == 0, flag_differences
-    report={'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
+    report={'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     print(f'{count} original/candidate dispatcher cases pass; candidate section {len(code)} bytes; instruction matching unfinished.')
 if __name__=='__main__':main()

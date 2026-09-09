@@ -1767,3 +1767,21 @@ and now fail the checker if introduced. This remains dispatcher validation under
 controlled helper behavior, not execution of the terrain/movement helper itself.
 The 438-byte candidate and production ROM source are unchanged; instruction
 selection and original jump-table layout remain the next matching work.
+
+
+## Dispatcher argument setup recovered exactly
+
+An always-inlined C helper binds connection/dx/dy to r0/r1/r2 and applies empty
+read/write constraints in the original order. All sixteen calls now have the
+original three argument instructions, including MOV-immediate instead of a
+register copy when arguments happen to be equal. The checker locates BL targets
+in both raw binaries and requires exact equality of all 48 preceding instruction
+words, independent of their relocated addresses. Queue selection uses r0 and
+node loads/updates use r6, matching the original register choices.
+
+All 640 finite-enqueue execution cases continue to pass. The candidate remains
+438 bytes including its different jump table and literals. Removing the phase
+constraint was tested but produced an additional copy and a comparison of the
+old phase, so the original candidate constraint is retained. Phase-test fusion,
+unchecked instruction dispatch and shared/prefix literals remain unresolved;
+this is still research and no production assembly has been removed.
