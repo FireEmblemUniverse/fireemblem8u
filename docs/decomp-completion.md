@@ -1141,3 +1141,24 @@ python3 research/arm/build_color_fade.py
 
 Without `--rom`, the checker remains available without Unicorn for the native
 C/scalar-reference checks. No production game source or ROM bytes changed.
+
+## Palette zero-test and alternate compiler experiments
+
+Two additional source-constraint trials did not improve the current ten-word
+mismatch. Giving two output variables the same r5 binding was rejected by GNU
+ARM GCC as invalid hard-register usage. A legal empty output/input constraint
+using the same register was accepted, but the compiler simplified the self-AND
+back to CMP-zero. Neither experiment is retained in the candidate.
+
+The installed legacy `agbcc_arm` was also tested on preprocessed current source
+with `-O2 -mthumb-interwork -fomit-frame-pointer -fno-schedule-insns2`.
+It emits a 228-byte symbol, saves/restores LR in addition to r4-r7, moves the
+palette decrement into r3, and splits the exit path around the literal pool.
+It still emits CMP-zero and the CMP-31/BLS upper clamps. This alternate compiler
+therefore does not resolve the missing encodings or backward literal references.
+
+The modern candidate was restored and rebuilt through `build_color_fade.py`;
+it remains 220 section bytes and ten differing original instruction words.
+These results narrow the next work to compiler lowering/pool layout rather
+than repeating either rejected overlapping-register constraints or this legacy
+compiler configuration. The production source and matching ROM are unchanged.
