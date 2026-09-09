@@ -986,3 +986,6 @@ scripts/shiftcheck/mgba_oracle
 # Matching ARM-mode C sources; override the generic IDE ARM/ build-directory rule.
 !src/arm/
 src/arm/*.s
+
+# Preserve isolated ARM decompilation research sources.
+!research/arm/

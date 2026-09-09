@@ -331,3 +331,37 @@ Verification includes the entire ROM byte comparison, the function's address and
 assembly entry macros, and 100 inline sites (including register annotations and
 empty constraints). The two naked functions and 45 NONMATCHING conditionals
 remain. These counts are inventory markers, not a completion percentage.
+
+
+## TmFillRect: isolated C candidate, still nonmatching
+
+`research/arm/tm_fill_rect.c` recovers the inclusive rectangle-fill loop in C
+and is deliberately excluded from the production build. GNU ARM GCC 16.2.0
+with the modern ARM flags in the Makefile produces the correct 56-byte size
+and 12 of the 14 original instruction words. The remaining differences are:
+
+| ROM address | Original word and instruction | Candidate word and instruction |
+| --- | --- | --- |
+| `0x080003B0` | `e2426000`: `sub r6, r2, #0` | `e1a06002`: `mov r6, r2` |
+| `0x080003B4` | `e2415000`: `sub r5, r1, #0` | `e1a05001`: `mov r5, r1` |
+
+Neither instruction form sets flags, and both copy the same source register to
+the same destination. Thus these differences concern instruction encoding;
+the candidate is not a byte match and the original assembly remains active.
+The comparison checked every four-byte word against ROM offsets
+`0x3A8..0x3E0`; the production ROM also remains byte-identical to the baseline.
+
+To reproduce the candidate without changing production objects:
+
+```sh
+arm-none-eabi-gcc -S -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu \
+  -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns \
+  -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts \
+  research/arm/tm_fill_rect.c -o .deps/arm-match/fill.s
+arm-none-eabi-as -mcpu=arm7tdmi .deps/arm-match/fill.s -o .deps/arm-match/fill.o
+arm-none-eabi-objcopy -O binary -j .text .deps/arm-match/fill.o .deps/arm-match/fill.bin
+```
+
+Further matching work must resolve compiler instruction selection for these
+copies. Substituting hand-written instructions or rewriting emitted opcodes
+would not establish that the routine is compiler-generated matching C.
