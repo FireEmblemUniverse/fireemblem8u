@@ -7,7 +7,7 @@
 static int  AnimInterpret(struct Anim* anim);
 static void AnimInsert(struct Anim* anim);
 static void AnimDisplayPrivate(struct Anim* anim);
-static void Anim_8005334(struct Anim* anim, u32 instruction);
+static void Anim_0(struct Anim* anim, u32 instruction);
 
 typedef void (*AnimCallback_t) (struct Anim* anim);
 
@@ -408,7 +408,7 @@ void AnimDisplayPrivate(struct Anim* anim)
     }
 }
 
-void Anim_8005334(struct Anim* anim, u32 instruction)
+void Anim_0(struct Anim* anim, u32 instruction)
 {
     switch (ANINS_COMMAND_GET_ID(instruction))
     {

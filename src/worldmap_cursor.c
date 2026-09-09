@@ -6,7 +6,7 @@
 #include "worldmap.h"
 
 //! FE8U = 0x080BBA80
-void nullsub_59(void)
+void Nop_WorldmapCursor_0(void)
 {
     return;
 }
@@ -27,14 +27,14 @@ void GmapCursor_Init(struct GmapCursorProc * proc)
     proc->unk_34 = 0;
     proc->unk_35 = 4;
 
-    PAL_OBJ_COLOR(4, 14) = *(gPal_08A97ACC + 0);
+    PAL_OBJ_COLOR(4, 14) = *(gPal_WorldmapGmap_0 + 0);
 
     EnablePaletteSync();
 
     return;
 }
 
-const struct Unknown08206498 gUnknown_08206498[] =
+const struct Unknown08206498 gWorldmapCursor_0[] =
 {
     {
         .unk_00 = 0,
@@ -61,7 +61,7 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
     if (proc->unk_32 > 0)
     {
         u32 chr = proc->chr;
-        const struct Unknown08206498 * ptr = &gUnknown_08206498[proc->frameIdx];
+        const struct Unknown08206498 * ptr = &gWorldmapCursor_0[proc->frameIdx];
 
         s16 x;
         s16 y;
@@ -87,7 +87,7 @@ void GmapCursor_Loop(struct GmapCursorProc * proc)
                 proc->unk_34 = 0;
             }
 
-            PAL_OBJ_COLOR(4, 14) = *(gPal_08A97ACC + proc->unk_34);
+            PAL_OBJ_COLOR(4, 14) = *(gPal_WorldmapGmap_0 + proc->unk_34);
 
             EnablePaletteSync();
 
@@ -108,7 +108,7 @@ struct ProcCmd CONST_DATA gProcScr_GmapCursor[] =
     PROC_NAME("GmapCursor"),
     PROC_MARK(PROC_MARK_WMSTUFF),
 
-    PROC_SET_END_CB(nullsub_59),
+    PROC_SET_END_CB(Nop_WorldmapCursor_0),
 
     PROC_CALL(GmapCursor_Init),
     PROC_REPEAT(GmapCursor_Loop),

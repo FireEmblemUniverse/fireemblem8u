@@ -1,10 +1,10 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ruin1_Turn[] = {
-    TurnEventPlayer_(0, EventScr_089FE2E8, 6, 2)
-    TurnEventPlayer(0, EventScr_089FE300, 8)
-    TurnEventPlayer(0, EventScr_089FE2E8, 9)
-    TurnEventPlayer(0, EventScr_089FE300, 10)
+    TurnEventPlayer_(0, EventScr_Ruin_0, 6, 2)
+    TurnEventPlayer(0, EventScr_Ruin_1, 8)
+    TurnEventPlayer(0, EventScr_Ruin_0, 9)
+    TurnEventPlayer(0, EventScr_Ruin_1, 10)
     END_MAIN
 };
 
@@ -18,8 +18,8 @@ CONST_DATA EventListScr EventListScr_Ruin1_Location[] = {
 
 CONST_DATA EventListScr EventListScr_Ruin1_Misc[] = {
     AFEV(0, EventScr_Ruin1_EndingScene, EVFLAG_DEFEAT_ALL)
-    AREA(EVFLAG_TMP(7), EventScr_089FE318, 2, 3, 14, 17)
-    AREA(EVFLAG_TMP(7), EventScr_089FE318, 0, 5, 1, 17)
+    AREA(EVFLAG_TMP(7), EventScr_Ruin_2, 2, 3, 14, 17)
+    AREA(EVFLAG_TMP(7), EventScr_Ruin_2, 0, 5, 1, 17)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -51,11 +51,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins1Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin1_UnitMove,
     .tutorialEvents                = EventListScr_Ruin1_Tutorial,
 
-    .traps            = TrapData_Event_089EDCF8,
-    .extraTrapsInHard = TrapData_Event_089EDEE9,
+    .traps            = TrapData_Event_Ruin1_0,
+    .extraTrapsInHard = TrapData_Event_Ruin1_1,
 
-    .playerUnitsInNormal = UnitDef_088CD0C0,
-    .playerUnitsInHard   = UnitDef_088CD0C0,
+    .playerUnitsInNormal = UnitDef_Ruin1Ally,
+    .playerUnitsInHard   = UnitDef_Ruin1Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

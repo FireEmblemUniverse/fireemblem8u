@@ -186,7 +186,7 @@ void ManimLevelUp_StartLevelUpText(struct ManimLevelUpProc * proc)
     if (SCREEN_TILE_X(gManimSt.actor[proc->actor_id].unit->xPos) * 2 > 25)
         x = 208;
 
-    APProc_Create(gUnknown_089A5A6C, x, y, OAM2_CHR(0x1C0) + OAM2_PAL(0x3), 0, 2);
+    APProc_Create(gMapanimTorchfx_0, x, y, OAM2_CHR(0x1C0) + OAM2_PAL(0x3), 0, 2);
     PlaySoundEffect(SONG_5B);
 }
 

@@ -14,17 +14,17 @@ void WorldMapHblank(void)
 
     if (vcount < 0xA0)
     {
-        s8 val = gUnknown_0201C5D1;
+        s8 val = gUnk_32;
         if (val)
         {
-            int page = gUnknown_0201C5D0 * 480;
-            u16 * src = gUnknown_0201BE32 + page;
+            int page = gUnk_31 * 480;
+            u16 * src = gUnk_26 + page;
             u16 * _src = src + vcount;
 
             for (i = 0; i < 3; i++)
             {
-                if (gUnknown_0201C5C0[i] != NULL)
-                    *gUnknown_0201C5C0[i] = _src[i * 160];
+                if (gUnk_28[i] != NULL)
+                    *gUnk_28[i] = _src[i * 160];
             }
         }
     }
@@ -32,15 +32,15 @@ void WorldMapHblank(void)
     {
         if (gWmHblankStatus & 4)
         {
-            gUnknown_0201C5D1 = true;
-            gUnknown_0201C5D0 = gUnknown_0201C5CF;
+            gUnk_32 = true;
+            gUnk_31 = gUnk_30;
 
             for (i = 0; i < 3; i++)
-                gUnknown_0201C5C0[i] = gUnknown_0201C5B4[i];
+                gUnk_28[i] = gUnk_27[i];
         }
         else
         {
-            gUnknown_0201C5D1 = false;
+            gUnk_32 = false;
         }
     }
 
@@ -62,11 +62,11 @@ void SetWorldMapHblank(void)
     int i;
     for (i = 0; i < 3; i++)
     {
-        gUnknown_0201C5CC[i] = 0;
-        gUnknown_0201C5C0[i] = gUnknown_0201C5B4[i] = NULL;
+        gUnk_29[i] = 0;
+        gUnk_28[i] = gUnk_27[i] = NULL;
     }
-    gUnknown_0201C5D0 = gUnknown_0201C5CF = 0;
-    gUnknown_0201C5D1 = 0;
+    gUnk_31 = gUnk_30 = 0;
+    gUnk_32 = 0;
     gWmHblankStatus = 0;
 
     SetPrimaryHBlankHandler(NULL);
@@ -77,41 +77,41 @@ void SetWorldMapHblank(void)
 void ClearWmHblank(void)
 {
     SetPrimaryHBlankHandler(NULL);
-    CpuFill16(0, gUnknown_0201BE32, sizeof(gUnknown_0201BE32));
+    CpuFill16(0, gUnk_26, sizeof(gUnk_26));
     gWmHblankStatus = 0;
 }
 
-u16 * sub_80C1DA0(int line, int page)
+u16 * GetWorldMapHblankBuffer(int line, int page)
 {
-    int _page = ((gUnknown_0201C5CF + page) & 1);
+    int _page = ((gUnk_30 + page) & 1);
     int __page = _page * 480;
 
-    return gUnknown_0201BE32 + __page + line * 160;
+    return gUnk_26 + __page + line * 160;
 }
 
-void sub_80C1DC8(void)
+void FlipWorldMapHblankBuffer(void)
 {
-    gUnknown_0201C5CF ^= 1;
+    gUnk_30 ^= 1;
 }
 
-void sub_80C1DD8(int idx, uintptr_t reg)
+void SetWorldMapHblankDest(int idx, uintptr_t reg)
 {
-    gUnknown_0201C5B4[idx] = (void *)reg;
+    gUnk_27[idx] = (void *)reg;
 }
 
-void sub_80C1DE8(int idx)
+void ClearWorldMapHblankChannelFlags(int idx)
 {
-    gUnknown_0201C5CC[idx] &= 3;
+    gUnk_29[idx] &= 3;
 }
 
-void sub_80C1DFC(int idx)
+void SetWorldMapHblankChannelFlag0(int idx)
 {
-    gUnknown_0201C5CC[idx] &= 3;
-    gUnknown_0201C5CC[idx] |= 1;
+    gUnk_29[idx] &= 3;
+    gUnk_29[idx] |= 1;
 }
 
-void sub_80C1E14(int idx)
+void SetWorldMapHblankChannelFlag1(int idx)
 {
-    gUnknown_0201C5CC[idx] &= 3;
-    gUnknown_0201C5CC[idx] |= 2;
+    gUnk_29[idx] &= 3;
+    gUnk_29[idx] |= 2;
 }

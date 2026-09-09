@@ -43,10 +43,10 @@ void EfxYushaSpinShieldMain(struct ProcEfx * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxYushaSpinShieldOBJ[] = {
     PROC_NAME("efxYushaSpinShieldOBJ"),
-    PROC_REPEAT(efxYushaSpinShieldOBJ_806CD14),
-    PROC_REPEAT(efxYushaSpinShieldOBJ_806CD7C),
-    PROC_REPEAT(efxYushaSpinShieldOBJ_806CDA4),
-    PROC_REPEAT(efxYushaSpinShieldOBJ_806CE08),
+    PROC_REPEAT(efxYushaSpinShieldOBJ_0),
+    PROC_REPEAT(efxYushaSpinShieldOBJ_1),
+    PROC_REPEAT(efxYushaSpinShieldOBJ_2),
+    PROC_REPEAT(efxYushaSpinShieldOBJ_3),
     PROC_END,
 };
 
@@ -84,7 +84,7 @@ void NewEfxYushaSpinShieldOBJ(struct Anim *anim, int r1)
         anim2->oam2Base |= 0x9300; /* oam2_data::chr = 0x9300; */
 }
 
-void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ * proc)
+void efxYushaSpinShieldOBJ_0(struct ProcEfxOBJ * proc)
 {
     u32 *scr;
     struct Anim *anim2 = proc->anim2;
@@ -114,7 +114,7 @@ void efxYushaSpinShieldOBJ_806CD14(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxYushaSpinShieldOBJ_806CD7C(struct ProcEfxOBJ * proc)
+void efxYushaSpinShieldOBJ_1(struct ProcEfxOBJ * proc)
 {
     if (!(proc->anim->state3 & ANIM_BIT3_C01_BLOCKING_IN_BATTLE))
         return;
@@ -126,7 +126,7 @@ void efxYushaSpinShieldOBJ_806CD7C(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxYushaSpinShieldOBJ_806CDA4(struct ProcEfxOBJ * proc)
+void efxYushaSpinShieldOBJ_2(struct ProcEfxOBJ * proc)
 {
     struct Anim *anim2 = proc->anim2;
 
@@ -156,7 +156,7 @@ void efxYushaSpinShieldOBJ_806CDA4(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxYushaSpinShieldOBJ_806CE08(struct ProcEfxOBJ * proc)
+void efxYushaSpinShieldOBJ_3(struct ProcEfxOBJ * proc)
 {
     if (++proc->timer == 0x14) {
         proc->timer = 0;
@@ -198,11 +198,11 @@ void EfxHurtmutEff00Main(struct ProcEfx * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxHurtmutEff00OBJ[] = {
     PROC_NAME("efxHurtmutEff00OBJ"),
-    PROC_REPEAT(efxHurtmutEff00OBJ_806CEC4),
+    PROC_REPEAT(efxHurtmutEff00OBJ_0),
     PROC_SLEEP(26),
-    PROC_REPEAT(efxHurtmutEff00OBJ_806CF10),
+    PROC_REPEAT(efxHurtmutEff00OBJ_1),
     PROC_SLEEP(8),
-    PROC_REPEAT(efxHurtmutEff00OBJ_806CF5C),
+    PROC_REPEAT(efxHurtmutEff00OBJ_2),
     PROC_END,
 };
 
@@ -216,7 +216,7 @@ void NewEfxHurtmutEff00OBJ(struct Anim *anim)
     proc->anim2 = EfxCreateFrontAnim(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
-void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ * proc)
+void efxHurtmutEff00OBJ_0(struct ProcEfxOBJ * proc)
 {
     struct Anim *anim2 = proc->anim2;
     if (GetAnimPosition(proc->anim) == EKR_POS_R) {
@@ -234,7 +234,7 @@ void efxHurtmutEff00OBJ_806CEC4(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxHurtmutEff00OBJ_806CF10(struct ProcEfxOBJ * proc)
+void efxHurtmutEff00OBJ_1(struct ProcEfxOBJ * proc)
 {
     struct Anim *anim2 = proc->anim2;
     if (GetAnimPosition(proc->anim) == EKR_POS_R) {
@@ -252,7 +252,7 @@ void efxHurtmutEff00OBJ_806CF10(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxHurtmutEff00OBJ_806CF5C(struct ProcEfxOBJ * proc)
+void efxHurtmutEff00OBJ_2(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);
@@ -261,11 +261,11 @@ void efxHurtmutEff00OBJ_806CF5C(struct ProcEfxOBJ * proc)
 
 struct ProcCmd CONST_DATA ProcScr_efxHurtmutEff01OBJ[] = {
     PROC_NAME("efxHurtmutEff01OBJ"),
-    PROC_REPEAT(efxHurtmutEff01OBJ_806CFC4),
+    PROC_REPEAT(efxHurtmutEff01OBJ_0),
     PROC_SLEEP(58),
-    PROC_REPEAT(efxHurtmutEff01OBJ_806D010),
+    PROC_REPEAT(efxHurtmutEff01OBJ_1),
     PROC_SLEEP(21),
-    PROC_REPEAT(efxHurtmutEff01OBJ_806D05C),
+    PROC_REPEAT(efxHurtmutEff01OBJ_2),
     PROC_END,
 };
 
@@ -279,7 +279,7 @@ void NewEfxHurtmutEff01OBJ(struct Anim *anim)
     proc->anim2 = EfxCreateFrontAnim(anim, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90, FramScr_Unk5D4F90);
 }
 
-void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ * proc)
+void efxHurtmutEff01OBJ_0(struct ProcEfxOBJ * proc)
 {
     struct Anim *anim2 = proc->anim2;
     if (GetAnimPosition(proc->anim) == EKR_POS_R) {
@@ -297,7 +297,7 @@ void efxHurtmutEff01OBJ_806CFC4(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxHurtmutEff01OBJ_806D010(struct ProcEfxOBJ * proc)
+void efxHurtmutEff01OBJ_1(struct ProcEfxOBJ * proc)
 {
     struct Anim *anim2 = proc->anim2;
     if (GetAnimPosition(proc->anim) == EKR_POS_R) {
@@ -315,7 +315,7 @@ void efxHurtmutEff01OBJ_806D010(struct ProcEfxOBJ * proc)
     Proc_Break(proc);
 }
 
-void efxHurtmutEff01OBJ_806D05C(struct ProcEfxOBJ * proc)
+void efxHurtmutEff01OBJ_2(struct ProcEfxOBJ * proc)
 {
     gEfxBgSemaphore--;
     AnimDelete(proc->anim2);
@@ -1051,7 +1051,7 @@ struct ProcCmd CONST_DATA efxSRankWeaponEffectSCR2[] = {
     PROC_END,
 };
 
-CONST_DATA s16 gUnknown_085D9154[] = {
+CONST_DATA s16 gEfxmisc_0[] = {
     0xFF00, 0xFF05, 0xFF09, 0xFF0E, 0xFF12, 0xFF16, 0xFF1B, 0xFF1F,
     0xFF23, 0xFF28, 0xFF2C, 0xFF30, 0xFF35, 0xFF39, 0xFF3D, 0xFF42,
     0xFF46, 0xFF4A, 0xFF4F, 0xFF53, 0xFF57, 0xFF5C, 0xFF60, 0xFF64,
@@ -1078,7 +1078,7 @@ CONST_DATA s16 gUnknown_085D9154[] = {
 
     for (i = 0; i < 160; dst++, i++) {
         if (i < 120) {
-            s16 ref = gUnknown_085D9154[i] * proc->unk44 >> 0xC;
+            s16 ref = gEfxmisc_0[i] * proc->unk44 >> 0xC;
 
             if (ref) {
                 if (i < 60) {
@@ -1288,7 +1288,7 @@ void NewEfxMantBatabata(struct Anim *anim)
     proc->timer = 0;
     anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
-    gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
+    gEkrbattle_0[GetAnimPosition(proc->anim)] = proc->anim2;
 
     anim2->oam2Base &= 0xC00;
 
@@ -1323,7 +1323,7 @@ void EfxMantBatabata_Loop2(struct ProcEfxOBJ * proc)
     if (CheckEkrHitDone() == 0x1) {
         SetAnimStateUnHidden(GetAnimPosition(proc->anim));
         AnimDelete(proc->anim2);
-        gUnknown_02000010[GetAnimPosition(proc->anim)] = NULL;
+        gEkrbattle_0[GetAnimPosition(proc->anim)] = NULL;
         Proc_Break(proc);
     }
 }
@@ -1528,7 +1528,7 @@ void NewEfxChillAnime(struct Anim *anim, int arg1)
     proc->timer = 0;
     anim2 = EfxCreateFrontAnim(anim, scr2, scr1, scr2, scr1);
     proc->anim2 = anim2;
-    gUnknown_02000010[GetAnimPosition(proc->anim)] = proc->anim2;
+    gEkrbattle_0[GetAnimPosition(proc->anim)] = proc->anim2;
 
     anim2->oam2Base &= 0xC00;
 
@@ -1551,7 +1551,7 @@ void EfxChillAnime_Loop(struct ProcEfxOBJ * proc)
     if (++proc->timer == 0x14) {
         SetAnimStateUnHidden(GetAnimPosition(proc->anim));
         AnimDelete(proc->anim2);
-        gUnknown_02000010[GetAnimPosition(proc->anim)] = NULL;
+        gEkrbattle_0[GetAnimPosition(proc->anim)] = NULL;
         
         _anim1 = gAnims[GetAnimPosition(proc->anim) * 2];
         _anim2 = gAnims[GetAnimPosition(proc->anim) * 2 + 1];
@@ -1562,7 +1562,7 @@ void EfxChillAnime_Loop(struct ProcEfxOBJ * proc)
     }
 }
 
-void nullsub_17(struct Anim *anim)
+void Nop_BanimEfxmisc_0(struct Anim *anim)
 {
     return;
 }

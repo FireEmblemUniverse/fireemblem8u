@@ -1,24 +1,24 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch5_Turn[] = {
-    TurnEventPlayer(0, EventScr_089F22A4, 2)
-    TurnEventPlayer(0, EventScr_089F22EC, 6)
-    TurnEventPlayer(0, EventScr_089F2304, 8)
+    TurnEventPlayer(0, EventScr_Ch5_5, 2)
+    TurnEventPlayer(0, EventScr_Ch5_6, 6)
+    TurnEventPlayer(0, EventScr_Ch5_7, 8)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch5_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089F2270, CHARACTER_NATASHA, CHARACTER_JOSHUA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch5_4, CHARACTER_NATASHA, CHARACTER_JOSHUA)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch5_Location[] = {
     Armory(ShopList_Event_Ch5Armory, 2, 1)
     Vendor(ShopList_Event_Ch5Vendor, 6, 10)
-    Village(EVFLAG_TMP(8),  EventScr_089F2170, 12, 10)
-    Village(EVFLAG_TMP(9),  EventScr_089F21BC, 12, 19)
-    Village(EVFLAG_TMP(10), EventScr_089F21F8, 5, 6)
-    Village(EVFLAG_TMP(11), EventScr_089F2234, 5, 1)
+    Village(EVFLAG_TMP(8),  EventScr_Ch5_0, 12, 10)
+    Village(EVFLAG_TMP(9),  EventScr_Ch5_1, 12, 19)
+    Village(EVFLAG_TMP(10), EventScr_Ch5_2, 5, 6)
+    Village(EVFLAG_TMP(11), EventScr_Ch5_3, 5, 1)
     END_MAIN
 };
 

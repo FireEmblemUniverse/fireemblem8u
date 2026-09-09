@@ -139,7 +139,7 @@ void StartSubSpell_efxGespenstBGCOL2(struct Anim * anim)
     proc->frame_config = frames;
 
     proc->pal = Pal_GespenstBg4;
-    SpellFx_RegisterBgPal(Pal_08731348, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgPal(Pal_Banim_8, PLTT_SIZE_4BPP);
 
     return;
 }

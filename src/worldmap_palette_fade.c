@@ -25,8 +25,8 @@ struct GmPalFadeInput
     /* 0C */ int unk_0c;
 };
 
-extern u16 gUnknown_08A95FE4[];
-extern u16 gUnknown_08A95F64[];
+extern u16 gWorldmapGmap_2[];
+extern u16 gWorldmapGmap_1[];
 
 //! FE8U = 0x080BF5C0
 void GmPalFade_OnEnd_Null(void)
@@ -156,8 +156,8 @@ ProcPtr StartGmPalFade_(ProcPtr parent, int unk)
 {
     struct GmPalFadeInput input;
 
-    input.unk_00 = gUnknown_08A95FE4;
-    input.unk_04 = gUnknown_08A95F64;
+    input.unk_00 = gWorldmapGmap_2;
+    input.unk_04 = gWorldmapGmap_1;
     input.unk_09 = 144;
     input.unk_08 = 64;
     input.unk_0c = unk;

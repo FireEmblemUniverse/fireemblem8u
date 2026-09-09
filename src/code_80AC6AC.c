@@ -6,7 +6,7 @@
  */
 
 //! FE8U = 0x080AC6AC
-int sub_80AC6AC(int a, int b, int c, int d, int e)
+int InterpolateCubicSpline(int a, int b, int c, int d, int e)
 {
     u64 accum;
 
@@ -26,7 +26,7 @@ int sub_80AC6AC(int a, int b, int c, int d, int e)
 }
 
 //! FE8U = 0x080AC784
-int sub_80AC784(int a, int b, int c, int d, int e)
+int InterpolateCubicSplineDerivative(int a, int b, int c, int d, int e)
 {
     u64 accum;
 

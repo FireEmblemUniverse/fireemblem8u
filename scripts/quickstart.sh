@@ -7,6 +7,9 @@ Usage: ./scripts/quickstart.sh [--rom /path/to/baserom.gba] [--refresh-agbcc]
 
 Options:
   --rom PATH        Copy the ROM from PATH to baserom.gba if it is missing.
+                    Optional: the build is byte-verified against checksum.sha1,
+                    so baserom.gba is NOT required to build. It is only used by
+                    asmdiff.sh for disassembly comparison.
   --refresh-agbcc   Force re-clone/rebuild of agbcc even if one exists in tools/agbcc.
 
 You can also set FIREEMBLEM8U_ROM to point to the ROM.
@@ -48,6 +51,9 @@ AGBCC_INSTALL_DIR="${PROJECT_DIR}/tools/agbcc"
 AGBCC_BIN="${AGBCC_INSTALL_DIR}/bin/agbcc"
 BASEROM_PATH="${PROJECT_DIR}/baserom.gba"
 
+# baserom.gba is OPTIONAL: the build is verified against checksum.sha1, not the
+# original ROM. It is only used by asmdiff.sh for disassembly comparison, so a
+# missing ROM is a note, not a failure.
 ensure_baserom() {
   if [[ -f "${BASEROM_PATH}" ]]; then
     return
@@ -56,16 +62,14 @@ ensure_baserom() {
   if [[ -n "${ROM_SOURCE}" ]]; then
     echo "[+] Copying ROM from ${ROM_SOURCE}"
     cp "${ROM_SOURCE}" "${BASEROM_PATH}"
+    return
   fi
 
-  if [[ ! -f "${BASEROM_PATH}" ]]; then
-    cat <<'EOF' >&2
-[!] Missing baserom.gba.
-    Copy your legally obtained Fire Emblem: The Sacred Stones (USA) ROM to the repository root
-    (or provide --rom /path/to/rom.gba or FIREEMBLEM8U_ROM=/path/to/rom.gba).
+  cat <<'EOF'
+[=] No baserom.gba found -- continuing (it is optional and not needed to build).
+    Provide one with --rom /path/to/rom.gba (or FIREEMBLEM8U_ROM=...) only if you
+    want to use asmdiff.sh for disassembly comparison.
 EOF
-    exit 1
-  fi
 }
 
 have_cmd() {
@@ -179,9 +183,12 @@ prepare_agbcc() {
 
 build_project() {
   pushd "${PROJECT_DIR}" >/dev/null
+    echo "[+] Fetching submodules (mgfembp FE6 SIO payload sub-build)"
+    git submodule update --init --recursive
     echo "[+] Building project-specific tools"
     ./build_tools.sh
     echo "[+] Building fireemblem8u (this can take several minutes)"
+    echo "    (first build also fetches/builds the mgfembp agbcc variant for the FE6 SIO payload)"
     make -j"$(nproc)"
     echo "[+] Verifying ROM checksum"
     sha1sum -c checksum.sha1

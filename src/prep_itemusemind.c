@@ -123,7 +123,7 @@ void PrepItemUseBooster_OnEnd(struct ProcPrepItemUseBooster * proc)
 
     DrawPrepScreenItemUseDesc(parent->unit, parent->slot);
 
-    sub_80ACA84(0);
+    ClearUiCursorHandConfig(0);
     EndManimLevelUpStatGainLabels();
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG2_SYNC_BIT);
     LoadHelpBoxGfx(OBJ_VRAM1, -1);
@@ -223,7 +223,7 @@ void PrepItemUseJuna_OnEnd(struct ProcPrepItemUseJunaFruit *proc)
 
     DrawPrepScreenItemUseDesc(parent->unit, parent->slot);
 
-    sub_80ACA84(0);
+    ClearUiCursorHandConfig(0);
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG2_SYNC_BIT);
     LoadHelpBoxGfx(OBJ_VRAM1, -1);
 }

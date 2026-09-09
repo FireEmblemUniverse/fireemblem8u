@@ -22,7 +22,7 @@ bool CheckEkrTriangleInvalid(void)
     return false;
 }
 
-void nullsub_18(void)
+void Nop_BanimEkrtriangle_0(void)
 {
     return;
 }

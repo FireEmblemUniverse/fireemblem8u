@@ -98,10 +98,10 @@ void BG0Shaker_Loop(struct MAFrameShakeProc * proc)
 void LoadSparkGfx(void)
 {
     Decompress(
-        Img_089AE7A4,
+        Img_MapAnimBerserkfx_1,
         OBJ_VRAM0 + BM_OBJCHR_BANIM_EFFECT2 * 0x20);
 
-    ApplyPalette(Pal_089AE7C4, 0x10 + BM_OBJPAL_BANIM_EFFECT2);
+    ApplyPalette(Pal_MapAnimBerserkfx_0, 0x10 + BM_OBJPAL_BANIM_EFFECT2);
 }
 
 void PutSparkGfx(int x, int y)

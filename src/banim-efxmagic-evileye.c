@@ -58,7 +58,7 @@ void efxEvilEye_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 88)
     {
-        sub_8067984(anim);
+        StartSubSpell_efxEvilEyeBG2(anim);
     }
     else if (proc->timer == duration + 90)
     {
@@ -92,74 +92,74 @@ struct ProcCmd CONST_DATA ProcScr_efxEvilEyeBG[] =
 
 u16 * CONST_DATA ImgArray_EvilEyeBg1[] =
 {
-    Img_086C97B4,
-    Img_086C9DAC,
-    Img_086CA3C4,
-    Img_086CAA94,
-    Img_086CB1C4,
-    Img_086CB8F0,
-    Img_086CC0E4,
-    Img_086CC8A0,
-    Img_086CD098,
-    Img_086CD988,
-    Img_086CE15C,
-    Img_086CE9FC,
-    Img_086CF244,
-    Img_086CF9D8,
-    Img_086D0268,
-    Img_086D0B24,
-    Img_086D134C,
-    Img_086D1B6C,
-    Img_086D2400,
-    Img_086D2BE4,
+    Img_EvilEye_0,
+    Img_EvilEye_1,
+    Img_EvilEye_2,
+    Img_EvilEye_3,
+    Img_EvilEye_4,
+    Img_EvilEye_5,
+    Img_EvilEye_6,
+    Img_EvilEye_7,
+    Img_EvilEye_8,
+    Img_EvilEye_9,
+    Img_EvilEye_10,
+    Img_EvilEye_11,
+    Img_EvilEye_12,
+    Img_EvilEye_13,
+    Img_EvilEye_14,
+    Img_EvilEye_15,
+    Img_EvilEye_16,
+    Img_EvilEye_17,
+    Img_EvilEye_18,
+    Img_EvilEye_19,
 };
 
 u16 * CONST_DATA TsaArray_EvilEyeBg1[] =
 {
-    Tsa_086D36D4,
-    Tsa_086D37B4,
-    Tsa_086D3890,
-    Tsa_086D3978,
-    Tsa_086D3A7C,
-    Tsa_086D3B78,
-    Tsa_086D3C84,
-    Tsa_086D3D8C,
-    Tsa_086D3E94,
-    Tsa_086D3FBC,
-    Tsa_086D40CC,
-    Tsa_086D41F4,
-    Tsa_086D4318,
-    Tsa_086D4428,
-    Tsa_086D454C,
-    Tsa_086D466C,
-    Tsa_086D4788,
-    Tsa_086D489C,
-    Tsa_086D49D0,
-    Tsa_086D4ADC,
+    Tsa_EvilEye_0,
+    Tsa_EvilEye_1,
+    Tsa_EvilEye_2,
+    Tsa_EvilEye_3,
+    Tsa_EvilEye_4,
+    Tsa_EvilEye_5,
+    Tsa_EvilEye_6,
+    Tsa_EvilEye_7,
+    Tsa_EvilEye_8,
+    Tsa_EvilEye_9,
+    Tsa_EvilEye_10,
+    Tsa_EvilEye_11,
+    Tsa_EvilEye_12,
+    Tsa_EvilEye_13,
+    Tsa_EvilEye_14,
+    Tsa_EvilEye_15,
+    Tsa_EvilEye_16,
+    Tsa_EvilEye_17,
+    Tsa_EvilEye_18,
+    Tsa_EvilEye_19,
 };
 
 u16 * CONST_DATA PalArray_EvilEyeBg1[] =
 {
-    Pal_086D3454,
-    Pal_086D3474,
-    Pal_086D3494,
-    Pal_086D34B4,
-    Pal_086D34D4,
-    Pal_086D34F4,
-    Pal_086D3514,
-    Pal_086D3534,
-    Pal_086D3554,
-    Pal_086D3574,
-    Pal_086D3594,
-    Pal_086D35B4,
-    Pal_086D35D4,
-    Pal_086D35F4,
-    Pal_086D3614,
-    Pal_086D3634,
-    Pal_086D3654,
-    Pal_086D3674,
-    Pal_086D3694,
-    Pal_086D36B4,
+    Pal_EvilEye_0,
+    Pal_EvilEye_1,
+    Pal_EvilEye_2,
+    Pal_EvilEye_3,
+    Pal_EvilEye_4,
+    Pal_EvilEye_5,
+    Pal_EvilEye_6,
+    Pal_EvilEye_7,
+    Pal_EvilEye_8,
+    Pal_EvilEye_9,
+    Pal_EvilEye_10,
+    Pal_EvilEye_11,
+    Pal_EvilEye_12,
+    Pal_EvilEye_13,
+    Pal_EvilEye_14,
+    Pal_EvilEye_15,
+    Pal_EvilEye_16,
+    Pal_EvilEye_17,
+    Pal_EvilEye_18,
+    Pal_EvilEye_19,
 };
 
 // clang-format on
@@ -267,48 +267,48 @@ struct ProcCmd CONST_DATA ProcScr_efxEvilEyeBG2[] =
 
 u16 * CONST_DATA ImgArray_EvilEyeBg2[] =
 {
-    Img_086D4C08,
-    Img_086D5418,
-    Img_086D5E44,
-    Img_086D68AC,
-    Img_086D73A4,
-    Img_086D7F20,
+    Img_EvilEye_20,
+    Img_EvilEye_21,
+    Img_EvilEye_22,
+    Img_EvilEye_23,
+    Img_EvilEye_24,
+    Img_EvilEye_25,
 };
 
 u16 * CONST_DATA TsaArray_EvilEyeBg2_Close[] =
 {
-    Tsa_086D8B54,
-    Tsa_086D8C64,
-    Tsa_086D8DEC,
-    Tsa_086D8FA4,
-    Tsa_086D9170,
-    Tsa_086D9354,
+    Tsa_EvilEye_20,
+    Tsa_EvilEye_21,
+    Tsa_EvilEye_22,
+    Tsa_EvilEye_23,
+    Tsa_EvilEye_24,
+    Tsa_EvilEye_25,
 };
 
 u16 * CONST_DATA TsaArray_EvilEyeBg2_Far[] =
 {
-    Tsa_086D8B54,
-    Tsa_086D8C64,
-    Tsa_086D953C,
-    Tsa_086D96F0,
-    Tsa_086D98A8,
-    Tsa_086D9A74,
+    Tsa_EvilEye_20,
+    Tsa_EvilEye_21,
+    Tsa_EvilEyeBg2_Far_0,
+    Tsa_EvilEyeBg2_Far_1,
+    Tsa_EvilEyeBg2_Far_2,
+    Tsa_EvilEyeBg2_Far_3,
 };
 
 u16 * CONST_DATA PalArray_EvilEyeBg2[] =
 {
     Pal_EvilEyeBg2_A,
-    Pal_086D8AB4,
-    Pal_086D8AD4,
-    Pal_086D8AF4,
-    Pal_086D8B14,
-    Pal_086D8B34,
+    Pal_EvilEye_20,
+    Pal_EvilEye_21,
+    Pal_EvilEye_22,
+    Pal_EvilEye_23,
+    Pal_EvilEye_24,
 };
 
 // clang-format on
 
 //! FE8U = 0x08067984
-void sub_8067984(struct Anim * anim)
+void StartSubSpell_efxEvilEyeBG2(struct Anim * anim)
 {
     // clang-format off
     static const u16 frames[] =
@@ -415,10 +415,10 @@ void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
     u32 * scr;
 
     // clang-format off
-    u32 * gUnknown_080DEA74[2] =
+    u32 * sEvilEyeObjAnimScrLut[2] =
     {
-        AnimScr_086C95C0,
-        AnimScr_086C978C,
+        AnimScr_Banim_0,
+        AnimScr_Banim_1,
     };
     // clang-format on
 
@@ -431,7 +431,7 @@ void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
     proc->timer = 0;
     proc->terminator = terminator;
 
-    scr = gUnknown_080DEA74[pos];
+    scr = sEvilEyeObjAnimScrLut[pos];
 
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
@@ -441,8 +441,8 @@ void StartSubSpell_efxEvilEyeOBJ(struct Anim * anim, int terminator)
 
     AnimSort();
 
-    SpellFx_RegisterObjPal(Pal_086C93FC, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(Img_086C90A4, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_Banim_6, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_Banim_15, 32 * 4 * CHR_SIZE);
 
     return;
 }

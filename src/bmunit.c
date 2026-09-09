@@ -503,7 +503,7 @@ int LoadUnits(const struct UnitDefinition* uDef) {
     return count;
 }
 
-void sub_8017A54(struct Unit* unit) { // unused
+void HalveUnitCombatStats(struct Unit* unit) { // unused
     if (unit->pow >= 4)
         unit->pow /= 2;
 
@@ -1068,7 +1068,7 @@ void UnitBeginAction(struct Unit* unit) {
     gBmSt.taken_action = 0;
     gBmSt.unk3F = 0xFF;
 
-    sub_802C334();
+    ClearBmbattleStruct0();
 
     gActiveUnit->state |= US_HIDDEN;
     gBmMapUnit[unit->yPos][unit->xPos] = 0;
@@ -1085,7 +1085,7 @@ void UnitBeginCantoAction(struct Unit* unit) {
 
     gBmSt.taken_action = 0;
 
-    sub_802C334();
+    ClearBmbattleStruct0();
 
     gActiveUnit->state |= US_HIDDEN;
     gBmMapUnit[unit->yPos][unit->xPos] = 0;
@@ -1227,7 +1227,7 @@ s8 UnitHasMagicRank(struct Unit* unit) {
     return combinedRanks ? TRUE : FALSE;
 }
 
-void sub_8018A7C(struct Unit* unit, int x, int y) {
+void DeployUnitAtPosition(struct Unit* unit, int x, int y) {
     if (!(unit->state & US_UNDER_A_ROOF)) {
         unit->state = unit->state &~ (US_HIDDEN | US_NOT_DEPLOYED);
 
@@ -1377,7 +1377,7 @@ int GetUnitLastItem(struct Unit* unit) {
 
 const s8* GetUnitMovementCost(struct Unit* unit) {
     if (unit->state & US_IN_BALLISTA)
-        return Unk_TerrainTable_0880BC18;
+        return TerrainMoveCost_Ballista;
 
     switch (gPlaySt.chapterWeatherId) {
 
@@ -1499,7 +1499,7 @@ s8 IsUnitSlotAvailable(int faction) {
     return FALSE;
 }
 
-void sub_8018F80(void) {
+void HidePlayerUnits(void) {
     int i;
 
     for (i = 1; i < 0x40; ++i) {
@@ -1515,7 +1515,7 @@ void sub_8018F80(void) {
     }
 }
 
-void sub_8018FC0(void) {
+void ClearNonPlayerUnits(void) {
     int i;
 
     for (i = 0x41; i < 0xC0; ++i) {

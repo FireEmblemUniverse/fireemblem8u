@@ -45,11 +45,11 @@ CONST_DATA struct ChapterEventGroup FinalEphraimEvents2 = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch21xb_UnitMove,
     .tutorialEvents                = EventListScr_Ch21xb_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE3,
-    .extraTrapsInHard = TrapData_Event_089EDEE0,
+    .traps            = TrapData_Event_Ch21XB_0,
+    .extraTrapsInHard = TrapData_Event_Ch21XB_1,
 
-    .playerUnitsInNormal = UnitDef_088CB6A0,
-    .playerUnitsInHard   = UnitDef_088CB6A0,
+    .playerUnitsInNormal = UnitDef_Ch21XBUnits,
+    .playerUnitsInHard   = UnitDef_Ch21XBUnits,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

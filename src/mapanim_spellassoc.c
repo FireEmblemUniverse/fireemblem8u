@@ -33,31 +33,31 @@ void MapAnim_SubjectResetAnim(ProcPtr proc)
     StartMuDelayedFaceDefender(gManimSt.actor[gManimSt.subjectActorId].mu);
 }
 
-void sub_80812C0(void)
+void MapAnim_StartSubjectDanceAnim(void)
 {
     if (gManimSt.actor[gManimSt.subjectActorId].unit->pClassData->number == CLASS_DANCER)
-        CallDelayed(sub_8081348, 0x9);
+        CallDelayed(MapAnim_PlayDancerSe, 0x9);
     else
-        CallDelayed(sub_8081384, 0xC);
+        CallDelayed(MapAnim_PlayNonDancerSe, 0xC);
 
     gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
     gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0x100;
     AP_SwitchAnimation(gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim, 0x5);
 }
 
-void sub_8081348(void)
+void MapAnim_PlayDancerSe(void)
 {
     PlaySeSpacial(SONG_2D5,
         gManimSt.actor[gManimSt.subjectActorId].unit->xPos * 0x10 - gBmSt.camera.x);
 }
 
-void sub_8081384(void)
+void MapAnim_PlayNonDancerSe(void)
 {
     PlaySeSpacial(SONG_SE_SHATTER_STONE,
         gManimSt.actor[gManimSt.subjectActorId].unit->xPos * 0x10 - gBmSt.camera.x);
 }
 
-void sub_80813C0(void)
+void MapAnim_FreezeSubjectAnim(void)
 {
     gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameTimer = 0;
     gManimSt.actor[gManimSt.subjectActorId].mu->sprite_anim->frameInterval = 0;
@@ -343,7 +343,7 @@ void MapAnim_PoisonEffectOnTarget(ProcPtr proc)
     NewMapPoisonEffect(gManimSt.actor[gManimSt.targetActorId].unit);
 }
 
-void sub_8081950(ProcPtr proc)
+void MapAnim_PoisonEffectOnTarget2(ProcPtr proc)
 {
     NewMapAnimPoisonAnim2(gManimSt.actor[gManimSt.targetActorId].unit);
 }
@@ -391,31 +391,31 @@ void MapAnimCallSpellAssocPureWater(ProcPtr proc)
 void MapAnimCallSpellAssocElixir(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFCBC, Pal_089AFF78, 0x8B);
+        gMapanimBattleinfo_4, Pal_MapAnimBerserkfx_1, 0x8B);
 }
 
 void MapAnimCallSpellAssocHeal(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AF950, Pal_089AFF78, 0x89);
+        gMapanimBattleinfo_2, Pal_MapAnimBerserkfx_1, 0x89);
 }
 
 void MapAnimCallSpellAssocMend(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFAC4, Pal_089AFF78, 0x8A);
+        gMapanimBattleinfo_3, Pal_MapAnimBerserkfx_1, 0x8A);
 }
 
 void MapAnimCallSpellAssocRecover(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AFCBC, Pal_089AFF78, 0x8B);
+        gMapanimBattleinfo_4, Pal_MapAnimBerserkfx_1, 0x8B);
 }
 
 void MapAnimCallSpellAssocVulenrary(ProcPtr proc)
 {
     NewMapAnimEffectAnimator(gManimSt.actor[gManimSt.targetActorId].unit,
-        gUnknown_089AF950, Pal_089AFF78, 0x89);
+        gMapanimBattleinfo_2, Pal_MapAnimBerserkfx_1, 0x89);
 }
 
 void SpellWarpStartFlashy(ProcPtr proc)
@@ -481,7 +481,7 @@ void SpellWarpStartFlashFade(ProcPtr proc)
     StartMuFadeIntoFlash(gManimSt.actor[gManimSt.targetActorId].mu, 0);
 }
 
-void sub_8081CF8(ProcPtr proc)
+void SpellWarpEndFlashFade(ProcPtr proc)
 {
     StartMuFadeFromFlash(gManimSt.actor[gManimSt.targetActorId].mu);
 }
@@ -542,7 +542,7 @@ void MapAnimSpellAssocResetPal(ProcPtr proc)
     MapAnimSpellAssocResetPalExt(proc);
 }
 
-void sub_8081E60(ProcPtr proc)
+void MapAnim_RefreshMapAndEndMus(ProcPtr proc)
 {
     RefreshEntityBmMaps();
     RenderBmMap();
@@ -928,7 +928,7 @@ CONST_DATA struct ProcCmd ProcScr_EggDmgMapEffect1[] =
     PROC_REPEAT(MapAnim_WaitForHPToEndChangingMaybe),
     PROC_SLEEP(5),
 
-    PROC_CALL(sub_8081E60),
+    PROC_CALL(MapAnim_RefreshMapAndEndMus),
 
     PROC_END
 };
@@ -998,7 +998,7 @@ CONST_DATA struct ProcCmd ProcScr_SpellAssocWarp[] = {
     PROC_CALL(SpellWarpStartFlashyAtNewPos),
     PROC_SLEEP(0xA),
     PROC_CALL(SpellWarpMuShow),
-    PROC_CALL(sub_8081CF8),
+    PROC_CALL(SpellWarpEndFlashFade),
     PROC_SLEEP(0x10),
     PROC_SLEEP(0xA),
     PROC_CALL(MapAnim_MoveCameraOnSubject),

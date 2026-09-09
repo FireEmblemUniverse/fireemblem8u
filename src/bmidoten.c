@@ -110,7 +110,7 @@ void GenerateMovementMap(int x, int y, int movement, int unitId)
     CallARM_FillMovementMap();
 }
 
-void sub_801A570(int connexion, int x, int y)
+void MapFloodCoreStepThumb(int connexion, int x, int y)
 {
     // This is a C implementation of the ARM (asm) function MapFloodCoreStep
     // Probably used during testing before switching to the a more "optimal" version.

@@ -61,7 +61,7 @@ void BgChangeChr(u8 bg, u8 chr_chg)
 }
 
 //! FE8U = 0x0800BA04
-void sub_800BA04(u8 a, u8 b)
+void BackupPalette(u8 a, u8 b)
 {
     u16 * palPtr = gPaletteBuffer + a * 0x10;
 
@@ -73,7 +73,7 @@ void sub_800BA04(u8 a, u8 b)
 }
 
 //! FE8U = 0x0800BA34
-void sub_800BA34(void)
+void RestorePalette(void)
 {
     u16 * ptr = (void *)gLoadUnitBuffer;
 

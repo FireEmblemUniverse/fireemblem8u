@@ -77,7 +77,7 @@ void efxDarkGrado_Loop_Main(struct ProcEfx * proc)
         if ((GetBanimDragonStatusType() != EKRDRGON_TYPE_DRACO_ZOMBIE) &&
             (GetBanimDragonStatusType() != EKRDRGON_TYPE_DEMON_KING))
         {
-            sub_8068D9C();
+            efxDarkGradoRestoreMapBg();
         }
 
         NewEfxSpellCast();
@@ -166,7 +166,7 @@ void StartSubSpell_efxDarkGradoMapFadeOut(void)
 }
 
 //! FE8U = 0x08068D9C
-void sub_8068D9C(void)
+void efxDarkGradoRestoreMapBg(void)
 {
     if (gBanimBG == 0)
     {
@@ -183,231 +183,231 @@ void sub_8068D9C(void)
 }
 
 //! FE8U = 0x08068DD8
-void sub_8068DD8(void)
+void efxDarkGradoBG01_OnHBlank_13(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xd);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 0xd);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068E14
-void sub_8068E14(void)
+void efxDarkGradoBG01_OnHBlank_12(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xc);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 0xc);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068E50
-void sub_8068E50(void)
+void efxDarkGradoBG01_OnHBlank_11(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xb);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 0xb);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068E8C
-void sub_8068E8C(void)
+void efxDarkGradoBG01_OnHBlank_10(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 0xa);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 0xa);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068EC8
-void sub_8068EC8(void)
+void efxDarkGradoBG01_OnHBlank_9(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 9);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 9);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068F04
-void sub_8068F04(void)
+void efxDarkGradoBG01_OnHBlank_8(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 8);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 8);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068F40
-void sub_8068F40(void)
+void efxDarkGradoBG01_OnHBlank_7(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 7);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 7);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068F7C
-void sub_8068F7C(void)
+void efxDarkGradoBG01_OnHBlank_6(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 6);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 6);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068FB8
-void sub_8068FB8(void)
+void efxDarkGradoBG01_OnHBlank_5(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 5);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 5);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08068FF4
-void sub_8068FF4(void)
+void efxDarkGradoBG01_OnHBlank_4(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 4);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 4);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x08069030
-void sub_8069030(void)
+void efxDarkGradoBG01_OnHBlank_3(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 3);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 3);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x0806906C
-void sub_806906C(void)
+void efxDarkGradoBG01_OnHBlank_2(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 2);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 2);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x080690A8
-void sub_80690A8(void)
+void efxDarkGradoBG01_OnHBlank_1(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
     if (vcount < DISPLAY_HEIGHT)
     {
-        int tmp = gUnk_Banim_0201FB28;
+        int tmp = gUnk_Banim_Ekrbattle_10;
         int tmp2 = (vcount - 0x3f);
-        int result = Div((gUnk_Banim_0201FB28 - tmp2), 1);
+        int result = Div((gUnk_Banim_Ekrbattle_10 - tmp2), 1);
 
-        REG_BG1VOFS = -gUnk_Banim_0201FB28 - result;
+        REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10 - result;
     }
 
     return;
 }
 
 //! FE8U = 0x080690E4
-void sub_80690E4(void)
+void efxDarkGradoBG01_OnHBlank_0(void)
 {
     u16 vcount = REG_VCOUNT + 1;
-    REG_BG1VOFS = -gUnk_Banim_0201FB28;
+    REG_BG1VOFS = -gUnk_Banim_Ekrbattle_10;
     return;
 }
 
@@ -422,11 +422,11 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
             switch (proc->timer)
             {
                 case 0:
-                    SetPrimaryHBlankHandler(sub_8068E8C);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_10);
                     break;
 
                 case 1:
-                    SetPrimaryHBlankHandler(sub_8068DD8);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_13);
                     break;
             }
 
@@ -436,19 +436,19 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
             switch (proc->timer)
             {
                 case 2:
-                    SetPrimaryHBlankHandler(sub_80690E4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_0);
                     break;
 
                 case 3:
-                    SetPrimaryHBlankHandler(sub_8068F40);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_7);
                     break;
 
                 case 0:
-                    SetPrimaryHBlankHandler(sub_8068F04);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_8);
                     break;
 
                 case 1:
-                    SetPrimaryHBlankHandler(sub_8068E8C);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_10);
                     break;
             }
 
@@ -458,19 +458,19 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
             switch (proc->timer)
             {
                 case 2:
-                    SetPrimaryHBlankHandler(sub_80690E4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_0);
                     break;
 
                 case 3:
-                    SetPrimaryHBlankHandler(sub_8068F7C);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_6);
                     break;
 
                 case 1:
-                    SetPrimaryHBlankHandler(sub_8068F04);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_8);
                     break;
 
                 case 0:
-                    SetPrimaryHBlankHandler(sub_8068F7C);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_6);
                     break;
             }
 
@@ -480,19 +480,19 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
             switch (proc->timer)
             {
                 case 3:
-                    SetPrimaryHBlankHandler(sub_8068FF4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_4);
                     break;
 
                 case 2:
-                    SetPrimaryHBlankHandler(sub_80690E4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_0);
                     break;
 
                 case 1:
-                    SetPrimaryHBlankHandler(sub_8068FB8);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_5);
                     break;
 
                 case 0:
-                    SetPrimaryHBlankHandler(sub_8068FF4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_4);
                     break;
             }
 
@@ -502,26 +502,26 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
             switch (proc->timer)
             {
                 case 3:
-                    SetPrimaryHBlankHandler(sub_8069030);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_3);
                     break;
 
                 case 2:
-                    SetPrimaryHBlankHandler(sub_80690E4);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_0);
                     break;
 
                 case 1:
-                    SetPrimaryHBlankHandler(sub_8069030);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_3);
                     break;
 
                 case 0:
-                    SetPrimaryHBlankHandler(sub_806906C);
+                    SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_2);
                     break;
             }
 
             break;
 
         default:
-            SetPrimaryHBlankHandler(sub_80690E4);
+            SetPrimaryHBlankHandler(efxDarkGradoBG01_OnHBlank_0);
             break;
     }
 
@@ -554,32 +554,32 @@ void efxDarkGradoBG01_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_GleipnirBg_Sigil[] =
 {
-    Tsa_086A66F8,
-    Tsa_086A68A0,
-    Tsa_086A6A14,
-    Tsa_086A6B88,
-    Tsa_086A6CD0,
-    Tsa_086A6DDC,
-    Tsa_086A6EBC,
-    Tsa_086A6F94,
-    Tsa_086A7058,
-    Tsa_086A7114,
-    Tsa_086A71B8,
+    Tsa_GleipnirBg_Sigil_0,
+    Tsa_GleipnirBg_Sigil_1,
+    Tsa_GleipnirBg_Sigil_2,
+    Tsa_GleipnirBg_Sigil_3,
+    Tsa_GleipnirBg_Sigil_4,
+    Tsa_GleipnirBg_Sigil_5,
+    Tsa_GleipnirBg_Sigil_6,
+    Tsa_GleipnirBg_Sigil_7,
+    Tsa_GleipnirBg_Sigil_8,
+    Tsa_GleipnirBg_Sigil_9,
+    Tsa_GleipnirBg_Sigil_10,
 };
 
 u16 * CONST_DATA ImgArray_GleipnirBg_Sigil[] =
 {
-    Img_086A2EC0,
-    Img_086A34D0,
-    Img_086A3BA0,
-    Img_086A4270,
-    Img_086A48D8,
-    Img_086A4E9C,
-    Img_086A538C,
-    Img_086A576C,
-    Img_086A5B4C,
-    Img_086A5F2C,
-    Img_086A6304,
+    Img_Banim_13,
+    Img_GleipnirBg_Sigil_0,
+    Img_GleipnirBg_Sigil_1,
+    Img_GleipnirBg_Sigil_2,
+    Img_GleipnirBg_Sigil_3,
+    Img_GleipnirBg_Sigil_4,
+    Img_GleipnirBg_Sigil_5,
+    Img_GleipnirBg_Sigil_6,
+    Img_GleipnirBg_Sigil_7,
+    Img_GleipnirBg_Sigil_8,
+    Img_GleipnirBg_Sigil_9,
 };
 
 const u16 gFrameConfig_GleipnirBg_Sigil[] =
@@ -613,7 +613,7 @@ void StartSubSpell_efxDarkGradoBG01(struct Anim * anim)
 
     gEfxBgSemaphore++;
 
-    gUnk_Banim_0201FB28 = 0x10;
+    gUnk_Banim_Ekrbattle_10 = 0x10;
 
     proc = Proc_Start(ProcScr_efxDarkGradoBG01, PROC_TREE_3);
     proc->anim = anim;
@@ -667,7 +667,7 @@ void efxDarkGradoBG02_Loop_A(struct ProcEfxBG * proc)
     {
         if (ret == -6)
         {
-            sub_80696F0();
+            StartSubSpell_efxDarkGradoPalFlash();
             proc->frame++;
         }
         else if (ret == -1)
@@ -683,62 +683,62 @@ void efxDarkGradoBG02_Loop_A(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_GleipnirBg_Nebula[] =
 {
-    Tsa_086B2A78,
-    Tsa_086B2B30,
-    Tsa_086B2BF4,
-    Tsa_086B2CCC,
-    Tsa_086B2DB8,
-    Tsa_086B2EBC,
-    Tsa_086B2FD8,
-    Tsa_086B3114,
-    Tsa_086B326C,
-    Tsa_086B33E0,
-    Tsa_086B3578,
-    Tsa_086B3734,
-    Tsa_086B38FC,
-    Tsa_086B3AEC,
-    Tsa_086B3CE8,
-    Tsa_086B3F00,
+    Tsa_GleipnirBg_Nebula_0,
+    Tsa_GleipnirBg_Nebula_1,
+    Tsa_GleipnirBg_Nebula_2,
+    Tsa_GleipnirBg_Nebula_3,
+    Tsa_GleipnirBg_Nebula_4,
+    Tsa_GleipnirBg_Nebula_5,
+    Tsa_GleipnirBg_Nebula_6,
+    Tsa_GleipnirBg_Nebula_7,
+    Tsa_GleipnirBg_Nebula_8,
+    Tsa_GleipnirBg_Nebula_9,
+    Tsa_GleipnirBg_Nebula_10,
+    Tsa_GleipnirBg_Nebula_11,
+    Tsa_GleipnirBg_Nebula_12,
+    Tsa_GleipnirBg_Nebula_13,
+    Tsa_GleipnirBg_Nebula_14,
+    Tsa_GleipnirBg_Nebula_15,
 };
 
 u16 * CONST_DATA ImgArray_GleipnirBg_Nebula[] =
 {
-    Img_086A7258,
-    Img_086A76C0,
-    Img_086A7BC4,
-    Img_086A817C,
-    Img_086A87EC,
-    Img_086A8F48,
-    Img_086A97A8,
-    Img_086AA13C,
-    Img_086AABE0,
-    Img_086AB790,
-    Img_086AC4B0,
-    Img_086AD2B8,
-    Img_086AE220,
-    Img_086AF26C,
-    Img_086B0398,
-    Img_086B15C4,
+    Img_GleipnirBg_Nebula_0,
+    Img_GleipnirBg_Nebula_1,
+    Img_GleipnirBg_Nebula_2,
+    Img_GleipnirBg_Nebula_3,
+    Img_GleipnirBg_Nebula_4,
+    Img_GleipnirBg_Nebula_5,
+    Img_GleipnirBg_Nebula_6,
+    Img_GleipnirBg_Nebula_7,
+    Img_GleipnirBg_Nebula_8,
+    Img_GleipnirBg_Nebula_9,
+    Img_GleipnirBg_Nebula_10,
+    Img_GleipnirBg_Nebula_11,
+    Img_GleipnirBg_Nebula_12,
+    Img_GleipnirBg_Nebula_13,
+    Img_GleipnirBg_Nebula_14,
+    Img_GleipnirBg_Nebula_15,
 };
 
 u16 * CONST_DATA PalArray_GleipnirBg_Nebula[] =
 {
-    Pal_086B2878,
-    Pal_086B2898,
-    Pal_086B28B8,
-    Pal_086B28D8,
-    Pal_086B28F8,
-    Pal_086B2918,
-    Pal_086B2938,
-    Pal_086B2958,
-    Pal_086B2978,
-    Pal_086B2998,
-    Pal_086B29B8,
-    Pal_086B29D8,
-    Pal_086B29F8,
-    Pal_086B2A18,
-    Pal_086B2A38,
-    Pal_086B2A58,
+    Pal_GleipnirBg_Nebula_0,
+    Pal_GleipnirBg_Nebula_1,
+    Pal_GleipnirBg_Nebula_2,
+    Pal_GleipnirBg_Nebula_3,
+    Pal_GleipnirBg_Nebula_4,
+    Pal_GleipnirBg_Nebula_5,
+    Pal_GleipnirBg_Nebula_6,
+    Pal_GleipnirBg_Nebula_7,
+    Pal_GleipnirBg_Nebula_8,
+    Pal_GleipnirBg_Nebula_9,
+    Pal_GleipnirBg_Nebula_10,
+    Pal_GleipnirBg_Nebula_11,
+    Pal_GleipnirBg_Nebula_12,
+    Pal_GleipnirBg_Nebula_13,
+    Pal_GleipnirBg_Nebula_14,
+    Pal_GleipnirBg_Nebula_15,
 };
 
 u16 * CONST_DATA TsaArray_GleipnirBg_Fog[] =
@@ -787,7 +787,7 @@ const u16 gFrameConfig_GleipnirBg_Fog[] =
 // clang-format on
 
 //! FE8U = 0x080693CC
-void efxDarkGradoBG02_80693CC(struct ProcEfxBG * proc)
+void efxDarkGradoBG02_0(struct ProcEfxBG * proc)
 {
     proc->timer = 0;
     proc->terminator = 0;
@@ -850,7 +850,7 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkGradoBG02[] =
     PROC_REPEAT(efxDarkGradoBG02_Loop_A),
     PROC_SLEEP(14),
 
-    PROC_CALL(efxDarkGradoBG02_80693CC),
+    PROC_CALL(efxDarkGradoBG02_0),
     PROC_REPEAT(efxDarkGradoBG02_Loop_B),
 
     PROC_END,
@@ -912,7 +912,7 @@ struct Proc085D84B4
 };
 
 //! FE8U = 0x08069528
-void sub_8069528(struct Proc085D84B4 * proc)
+void efxDarkGradoPalFlash_Init(struct Proc085D84B4 * proc)
 {
     proc->unk4C = 0;
     return;
@@ -921,7 +921,7 @@ void sub_8069528(struct Proc085D84B4 * proc)
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x08069530
-void sub_8069530(struct Proc085D84B4 * param_1)
+void efxDarkGradoPalFlash_Loop(struct Proc085D84B4 * param_1)
 {
     u16 r1;
     int r6;
@@ -992,10 +992,10 @@ void sub_8069530(struct Proc085D84B4 * param_1)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D84B4[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicGleipnir_0[] =
 {
-    PROC_CALL(sub_8069528),
-    PROC_REPEAT(sub_8069530),
+    PROC_CALL(efxDarkGradoPalFlash_Init),
+    PROC_REPEAT(efxDarkGradoPalFlash_Loop),
 
     PROC_CALL(EnablePaletteSync),
 
@@ -1005,15 +1005,15 @@ struct ProcCmd CONST_DATA ProcScr_085D84B4[] =
 // clang-format on
 
 //! FE8U = 0x080696F0
-void sub_80696F0(void)
+void StartSubSpell_efxDarkGradoPalFlash(void)
 {
-    Proc_Start(ProcScr_085D84B4, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_EfxmagicGleipnir_0, PROC_TREE_VSYNC);
     return;
 }
 
 // clang-format off
 
-s16 CONST_DATA gUnknown_085D84D4[] =
+s16 CONST_DATA gEfxmagicGleipnir_0[] =
 {
     -65, -93,
     -50, -92,
@@ -1037,7 +1037,7 @@ s16 CONST_DATA gUnknown_085D84D4[] =
     15, 14,
 };
 
-s16 CONST_DATA gUnknown_085D8524[] =
+s16 CONST_DATA gEfxmagicGleipnir_1[] =
 {
     28, 53,
     13, 51,
@@ -1061,7 +1061,7 @@ s16 CONST_DATA gUnknown_085D8524[] =
     13, 1,
 };
 
-s16 CONST_DATA gUnknown_085D8574[] =
+s16 CONST_DATA gEfxmagicGleipnir_2[] =
 {
     150, 18,
     133, 29,
@@ -1085,7 +1085,7 @@ s16 CONST_DATA gUnknown_085D8574[] =
     -15, -16,
 };
 
-s16 CONST_DATA gUnknown_085D85C4[] =
+s16 CONST_DATA gEfxmagicGleipnir_3[] =
 {
     -91, -5,
     -86, -17,
@@ -1109,7 +1109,7 @@ s16 CONST_DATA gUnknown_085D85C4[] =
     14, 3,
 };
 
-s16 CONST_DATA gUnknown_085D8614[] =
+s16 CONST_DATA gEfxmagicGleipnir_4[] =
 {
     25, 55,
     15, 53,
@@ -1133,7 +1133,7 @@ s16 CONST_DATA gUnknown_085D8614[] =
     1, -18,
 };
 
-s16 CONST_DATA gUnknown_085D8664[] =
+s16 CONST_DATA gEfxmagicGleipnir_5[] =
 {
     145, -73,
     146, -46,
@@ -1157,7 +1157,7 @@ s16 CONST_DATA gUnknown_085D8664[] =
     -18, -11,
 };
 
-s16 CONST_DATA gUnknown_085D86B4[] =
+s16 CONST_DATA gEfxmagicGleipnir_6[] =
 {
     14, -82,
     28, -78,
@@ -1184,38 +1184,38 @@ s16 CONST_DATA gUnknown_085D86B4[] =
 // clang-format on
 
 //! FE8U = 0x08069704
-int sub_8069704(int a, int b, int c)
+int efxDarkGradoGetPieceX(int a, int b, int c)
 {
     s16 * ptr;
 
     switch (b)
     {
         case 0:
-            ptr = gUnknown_085D84D4;
+            ptr = gEfxmagicGleipnir_0;
             break;
 
         case 1:
-            ptr = gUnknown_085D8524;
+            ptr = gEfxmagicGleipnir_1;
             break;
 
         case 2:
-            ptr = gUnknown_085D8574;
+            ptr = gEfxmagicGleipnir_2;
             break;
 
         case 3:
-            ptr = gUnknown_085D85C4;
+            ptr = gEfxmagicGleipnir_3;
             break;
 
         case 4:
-            ptr = gUnknown_085D8614;
+            ptr = gEfxmagicGleipnir_4;
             break;
 
         case 5:
-            ptr = gUnknown_085D8664;
+            ptr = gEfxmagicGleipnir_5;
             break;
 
         default:
-            ptr = gUnknown_085D86B4;
+            ptr = gEfxmagicGleipnir_6;
             break;
     }
 
@@ -1223,38 +1223,38 @@ int sub_8069704(int a, int b, int c)
 }
 
 //! FE8U = 0x0806977C
-int sub_806977C(int a, int b, int c)
+int efxDarkGradoGetPieceY(int a, int b, int c)
 {
     s16 * ptr;
 
     switch (b)
     {
         case 0:
-            ptr = gUnknown_085D84D4;
+            ptr = gEfxmagicGleipnir_0;
             break;
 
         case 1:
-            ptr = gUnknown_085D8524;
+            ptr = gEfxmagicGleipnir_1;
             break;
 
         case 2:
-            ptr = gUnknown_085D8574;
+            ptr = gEfxmagicGleipnir_2;
             break;
 
         case 3:
-            ptr = gUnknown_085D85C4;
+            ptr = gEfxmagicGleipnir_3;
             break;
 
         case 4:
-            ptr = gUnknown_085D8614;
+            ptr = gEfxmagicGleipnir_4;
             break;
 
         case 5:
-            ptr = gUnknown_085D8664;
+            ptr = gEfxmagicGleipnir_5;
             break;
 
         default:
-            ptr = gUnknown_085D86B4;
+            ptr = gEfxmagicGleipnir_6;
             break;
     }
 
@@ -1266,14 +1266,14 @@ void efxDarkGradoOBJ01piece_Loop(struct ProcEfxOBJ * proc)
 {
     if (GetAnimPosition(proc->anim) == 0)
     {
-        proc->anim2->xPosition = proc->unk32 + sub_8069704(proc->timer, proc->unk44, proc->unk48);
+        proc->anim2->xPosition = proc->unk32 + efxDarkGradoGetPieceX(proc->timer, proc->unk44, proc->unk48);
     }
     else
     {
-        proc->anim2->xPosition = proc->unk32 - sub_8069704(proc->timer, proc->unk44, proc->unk48);
+        proc->anim2->xPosition = proc->unk32 - efxDarkGradoGetPieceX(proc->timer, proc->unk44, proc->unk48);
     }
 
-    proc->anim2->yPosition = proc->unk3A + sub_806977C(proc->timer, proc->unk44, proc->unk48);
+    proc->anim2->yPosition = proc->unk3A + efxDarkGradoGetPieceY(proc->timer, proc->unk44, proc->unk48);
 
     proc->timer++;
 
@@ -1363,14 +1363,14 @@ void NewEfxDarkGradoOBJ01piece(struct Anim * anim, s16 b, s16 c, s16 d, u16 e)
 
     if (GetAnimPosition(proc->anim) == 0)
     {
-        frontAnim->xPosition = proc->unk32 + sub_8069704(proc->timer, proc->unk44, proc->unk48);
+        frontAnim->xPosition = proc->unk32 + efxDarkGradoGetPieceX(proc->timer, proc->unk44, proc->unk48);
     }
     else
     {
-        frontAnim->xPosition = proc->unk32 - sub_8069704(proc->timer, proc->unk44, proc->unk48);
+        frontAnim->xPosition = proc->unk32 - efxDarkGradoGetPieceX(proc->timer, proc->unk44, proc->unk48);
     }
 
-    frontAnim->yPosition = proc->unk3A + sub_806977C(proc->timer, proc->unk44, proc->unk48);
+    frontAnim->yPosition = proc->unk3A + efxDarkGradoGetPieceY(proc->timer, proc->unk44, proc->unk48);
 
     return;
 }

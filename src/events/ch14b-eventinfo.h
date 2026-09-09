@@ -1,19 +1,19 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch14b_Turn[] = {
-    TurnEventPlayer(0, EventScr_089FC5A0, 2)
-    TurnEventPlayer(0, EventScr_089FC5C0, 2)
-    TurnEventPlayer(0, EventScr_089FC5E8, 3)
-    TurnEventPlayer(0, EventScr_089FC610, 4)
-    TurnEventPlayer_(0, EventScr_089FC638, 7, 3)
-    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_089FC690, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_089FC6FC, 1, 255)
+    TurnEventPlayer(0, EventScr_Ch14B_3, 2)
+    TurnEventPlayer(0, EventScr_Ch14B_4, 2)
+    TurnEventPlayer(0, EventScr_Ch14B_5, 3)
+    TurnEventPlayer(0, EventScr_Ch14B_6, 4)
+    TurnEventPlayer_(0, EventScr_Ch14B_7, 7, 3)
+    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_Ch14B_9, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_Ch14B_12, 1, 255)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch14b_Character[] = {
-    CHAR(EVFLAG_TMP(9), EventScr_089FC520, CHARACTER_LARACHEL, CHARACTER_RENNAC)
-    CHAR(EVFLAG_TMP(9), EventScr_089FC52C, CHARACTER_EPHRAIM, CHARACTER_RENNAC)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch14B_1, CHARACTER_LARACHEL, CHARACTER_RENNAC)
+    CHAR(EVFLAG_TMP(9), EventScr_Ch14B_2, CHARACTER_EPHRAIM, CHARACTER_RENNAC)
     END_MAIN
 };
 
@@ -35,7 +35,7 @@ CONST_DATA EventListScr EventListScr_Ch14b_Location[] = {
     Door_(21, 13)
     Door_(20, 13)
     Chest(ITEM_STAFF_REPAIR, 15, 18)
-    SecretShop(ShopList_Event_089ED912, 4, 15)
+    SecretShop(ShopList_Ch14B_0, 4, 15)
     Chest(ITEM_LANCE_SPEAR, 27, 1)
     Chest(ITEM_BOOSTER_HP, 3, 1)
     ChestMoney(10000, 14, 18)
@@ -53,8 +53,8 @@ CONST_DATA EventListScr EventListScr_Ch14b_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch14b_Misc[] = {
-    AFEV(EVFLAG_TMP(12), EventScr_089FC660, 11)
-    AFEV(EVFLAG_TMP(15), EventScr_089FC6EC, 14)
+    AFEV(EVFLAG_TMP(12), EventScr_Ch14B_8, 11)
+    AFEV(EVFLAG_TMP(15), EventScr_Ch14B_11, 14)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -86,11 +86,11 @@ CONST_DATA struct ChapterEventGroup Ch14EphraimEventData = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch14b_UnitMove,
     .tutorialEvents                = EventListScr_Ch14b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB76,
-    .extraTrapsInHard = TrapData_Event_089EDED5,
+    .traps            = TrapData_Event_Ch14B_0,
+    .extraTrapsInHard = TrapData_Event_Ch14B_1,
 
-    .playerUnitsInNormal = UnitDef_088C5FBC,
-    .playerUnitsInHard   = UnitDef_088C5FBC,
+    .playerUnitsInNormal = UnitDef_Ch14BAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch14BAlly_0,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

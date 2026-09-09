@@ -8,73 +8,73 @@
 
 // clang-format off
 
-u16 CONST_DATA gSprite_08A3E940[] =
+u16 CONST_DATA gSprite_WorldmapEffect_0[] =
 {
     1,
     OAM0_SHAPE_8x8 + OAM0_BLEND, OAM1_SIZE_8x8, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E948[] =
+u16 CONST_DATA gSprite_WorldmapEffect_1[] =
 {
     1,
     OAM0_SHAPE_8x8 + OAM0_BLEND, OAM1_SIZE_8x8 + OAM1_HFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E950[] =
+u16 CONST_DATA gSprite_WorldmapEffect_2[] =
 {
     1,
     OAM0_SHAPE_8x8 + OAM0_BLEND, OAM1_SIZE_8x8 + OAM1_VFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E958[] =
+u16 CONST_DATA gSprite_WorldmapEffect_3[] =
 {
     1,
     OAM0_SHAPE_8x8 + OAM0_BLEND, OAM1_SIZE_8x8 + OAM1_HFLIP + OAM1_VFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E960[] =
+u16 CONST_DATA gSprite_WorldmapEffect_4[] =
 {
     1,
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E968[] =
+u16 CONST_DATA gSprite_WorldmapEffect_5[] =
 {
     1,
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16 + OAM1_HFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E970[] =
+u16 CONST_DATA gSprite_WorldmapEffect_6[] =
 {
     1,
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16 + OAM1_VFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E978[] =
+u16 CONST_DATA gSprite_WorldmapEffect_7[] =
 {
     1,
     OAM0_SHAPE_16x16 + OAM0_BLEND, OAM1_SIZE_16x16 + OAM1_HFLIP + OAM1_VFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E980[] =
+u16 CONST_DATA gSprite_WorldmapEffect_8[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_BLEND, OAM1_SIZE_32x32, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E988[] =
+u16 CONST_DATA gSprite_WorldmapEffect_9[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_BLEND, OAM1_SIZE_32x32 + OAM1_HFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E990[] =
+u16 CONST_DATA gSprite_WorldmapEffect_10[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_BLEND, OAM1_SIZE_32x32 + OAM1_VFLIP, 0,
 };
 
-u16 CONST_DATA gSprite_08A3E998[] =
+u16 CONST_DATA gSprite_WorldmapEffect_11[] =
 {
     1,
     OAM0_SHAPE_32x32 + OAM0_BLEND, OAM1_SIZE_32x32 + OAM1_HFLIP + OAM1_VFLIP, 0,
@@ -160,7 +160,7 @@ void GmapEffectPal_Loop(struct GmapEffectProc * proc)
             idx = (tmp - proc->unk_30) & 0x1f;
         }
 
-        pal[i] = idx[gUnknown_08A97E48];
+        pal[i] = idx[gWorldmapSprite_0];
         SetBlendConfig(BLEND_EFFECT_NONE, 15 - proc->unk_30, 16, 0);
     }
 
@@ -209,76 +209,76 @@ struct Unknown8A3E9A0
 
 // clang-format off
 
-struct Unknown8A3E9A0 CONST_DATA gUnknown_08A3E9A0[] =
+struct Unknown8A3E9A0 CONST_DATA gWorldmapEffect_0[] =
 {
     {
-        .sprite = gSprite_08A3E940,
+        .sprite = gSprite_WorldmapEffect_0,
         .oam2 = 68,
         .xOam1 = -8,
         .yOam0 = -8,
     },
     {
-        .sprite = gSprite_08A3E948,
+        .sprite = gSprite_WorldmapEffect_1,
         .oam2 = 68,
         .xOam1 = 0,
         .yOam0 = -8,
     },
     {
-        .sprite = gSprite_08A3E950,
+        .sprite = gSprite_WorldmapEffect_2,
         .oam2 = 68,
         .xOam1 = -8,
         .yOam0 = 0,
     },
     {
-        .sprite = gSprite_08A3E958,
+        .sprite = gSprite_WorldmapEffect_3,
         .oam2 = 68,
         .xOam1 = 0,
         .yOam0 = 0,
     },
     {
-        .sprite = gSprite_08A3E960,
+        .sprite = gSprite_WorldmapEffect_4,
         .oam2 = 4,
         .xOam1 = -16,
         .yOam0 = -16,
     },
     {
-        .sprite = gSprite_08A3E968,
+        .sprite = gSprite_WorldmapEffect_5,
         .oam2 = 4,
         .xOam1 = 0,
         .yOam0 = -16,
     },
     {
-        .sprite = gSprite_08A3E970,
+        .sprite = gSprite_WorldmapEffect_6,
         .oam2 = 4,
         .xOam1 = -16,
         .yOam0 = 0,
     },
     {
-        .sprite = gSprite_08A3E978,
+        .sprite = gSprite_WorldmapEffect_7,
         .oam2 = 4,
         .xOam1 = 0,
         .yOam0 = 0,
     },
     {
-        .sprite = gSprite_08A3E980,
+        .sprite = gSprite_WorldmapEffect_8,
         .oam2 = 0,
         .xOam1 = -32,
         .yOam0 = -32,
     },
     {
-        .sprite = gSprite_08A3E988,
+        .sprite = gSprite_WorldmapEffect_9,
         .oam2 = 0,
         .xOam1 = 0,
         .yOam0 = -32,
     },
     {
-        .sprite = gSprite_08A3E990,
+        .sprite = gSprite_WorldmapEffect_10,
         .oam2 = 0,
         .xOam1 = -32,
         .yOam0 = 0,
     },
     {
-        .sprite = gSprite_08A3E998,
+        .sprite = gSprite_WorldmapEffect_11,
         .oam2 = 0,
         .xOam1 = 0,
         .yOam0 = 0,
@@ -288,7 +288,7 @@ struct Unknown8A3E9A0 CONST_DATA gUnknown_08A3E9A0[] =
 // clang-format on
 
 //! FE8U = 0x080C119C
-void GmapEffect_80C119C(struct GmapEffectProc * proc)
+void GmapEffect_0(struct GmapEffectProc * proc)
 {
     s16 xOam1;
     s16 yOam0;
@@ -310,7 +310,7 @@ void GmapEffect_80C119C(struct GmapEffectProc * proc)
 
     for (i = 0; i < 4; i++)
     {
-        ptr = gUnknown_08A3E9A0 + (u8)proc->unk_2a * 4 + i;
+        ptr = gWorldmapEffect_0 + (u8)proc->unk_2a * 4 + i;
 
         xOam1 = proc->unk_2c + ptr->xOam1 - x;
         yOam0 = proc->unk_2e + ptr->yOam0 - y;
@@ -408,7 +408,7 @@ void GmapEffect_Loop(struct GmapEffectProc * proc)
 
     if (proc->flags_0)
     {
-        GmapEffect_80C119C(proc);
+        GmapEffect_0(proc);
     }
 
     return;
@@ -468,7 +468,7 @@ struct GmapEffectProc * StartGmapEffect(ProcPtr parent, int unk)
 }
 
 //! FE8U = 0x080C13CC
-void sub_80C13CC(ProcPtr proc)
+void EndGmapEffectProc(ProcPtr proc)
 {
     Proc_End(proc);
     return;

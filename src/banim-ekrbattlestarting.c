@@ -11,12 +11,12 @@
 #include "efxbattle.h"
 #include "ekrdragon.h"
 
-bool sub_8055BB4(void)
+bool EkrBattleStarting_IsBattleAnimEnabled(void)
 {
     return PrepareBattleGraphicsMaybe();
 }
 
-bool sub_8055BC4(void)
+bool EkrBattleStarting_CheckBattleAnimEnabled(void)
 {
     return PrepareBattleGraphicsMaybe();
 }
@@ -46,10 +46,10 @@ void BeginAnimsOnBattleAnimations(void)
     gAnims[2] = NULL;
     gAnims[3] = NULL;
 
-    gUnknown_02000010[0] = NULL;
-    gUnknown_02000010[1] = NULL;
+    gEkrbattle_0[0] = NULL;
+    gEkrbattle_0[1] = NULL;
 
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(MainUpdate_0);
     SetPrimaryHBlankHandler(NULL);
 }
 
@@ -66,10 +66,10 @@ void EkrMainEndExec(void)
     }
 
     NewEkrbattleending();
-    SetMainUpdateRoutine(MainUpdate_8055C68);
+    SetMainUpdateRoutine(MainUpdate_0);
 }
 
-void MainUpdate_8055C68(void)
+void MainUpdate_0(void)
 {
     UpdateKeyStatus(gKeyStatusPtr);
     ClearSprites();
@@ -220,7 +220,7 @@ void ekrBaStart_ExecEkrBattle6C(struct ProcEkrBattleStarting *proc)
     }
 }
 
-void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
+void ekrBaStart_0(struct ProcEkrBattleStarting *proc)
 {
     EfxChapterMapFadeOUT(Interpolate(0, 4, 0x10, proc->timer, 8));
 
@@ -230,19 +230,19 @@ void ekrBaStart_8055FE8(struct ProcEkrBattleStarting *proc)
     }
 }
 
-void ekrBaStart_8056024(struct ProcEkrBattleStarting *proc)
+void ekrBaStart_1(struct ProcEkrBattleStarting *proc)
 {
     if (gEkrSnowWeather == 0)
-        gUnknown_0201FAD8 = 0x6;
+        gEkrbattle_8 = 0x6;
     else
-        gUnknown_0201FAD8 = 0xA;
+        gEkrbattle_8 = 0xA;
 
     PutBanimBG(gBanimBG - 1);
     EfxPalBlackInOut(gPaletteBuffer, 0x6, 0xA, 0x10);
     Proc_Break(proc);
 }
 
-void ekrBaStart_8056078(struct ProcEkrBattleStarting *proc)
+void ekrBaStart_2(struct ProcEkrBattleStarting *proc)
 {
     int val = Interpolate(0, 0x10, 0, proc->timer, 8);
 
@@ -262,8 +262,8 @@ CONST_DATA struct ProcCmd ProcScr_ekrBattleStarting[] = {
     PROC_REPEAT(ekrBaStart_SreenFailIn),
     PROC_REPEAT(ekrBaStart_InitBattleScreen),
     PROC_REPEAT(ekrBaStart_ExecEkrBattle6C),
-    PROC_REPEAT(ekrBaStart_8055FE8),
-    PROC_REPEAT(ekrBaStart_8056024),
-    PROC_REPEAT(ekrBaStart_8056078),
+    PROC_REPEAT(ekrBaStart_0),
+    PROC_REPEAT(ekrBaStart_1),
+    PROC_REPEAT(ekrBaStart_2),
     PROC_END
 };

@@ -17,10 +17,10 @@
 struct ProcCmd CONST_DATA gProcScr_UpdateTraps[] =
 {
     PROC_CALL(CountDownTraps),
-    PROC_CALL(sub_802EA00),
+    PROC_CALL(RefreshEntityBmMapsAsRed),
 
     PROC_CALL(GenerateTrapDamageTargets),
-    PROC_CALL(sub_802EA1C),
+    PROC_CALL(RecordTrapDamageDefeats),
 
     PROC_CALL(GenerateDisplayedTrapDamageTargets),
     PROC_START_CHILD_BLOCKING(gProcScr_TrapDamageDisplay),
@@ -162,7 +162,7 @@ void AddArrowTrap(int x, int turnCountdown, int turnInterval)
     AddDamagingTrap(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
 }
 
-void sub_802E36C(int x, int y, int turnCountdown, int turnInterval)
+void AddMapChangeTrap(int x, int y, int turnCountdown, int turnInterval)
 {
     AddDamagingTrap(x, y, TRAP_MAPCHANGE2, 0, turnCountdown, turnInterval, 0);
 }
@@ -645,7 +645,7 @@ void ResetCountedDownTraps(void)
     }
 }
 
-void sub_802EA00(void)
+void RefreshEntityBmMapsAsRed(void)
 {
     int truePhase = gPlaySt.faction;
     gPlaySt.faction = FACTION_RED;
@@ -655,9 +655,9 @@ void sub_802EA00(void)
     gPlaySt.faction = truePhase;
 }
 
-void sub_802EA1C(void)
+void RecordTrapDamageDefeats(void)
 {
-    sub_8026414(3);
+    PidStatsRecordTargetListDeaths(3);
 }
 
 void PostTrapExecFlag(void)

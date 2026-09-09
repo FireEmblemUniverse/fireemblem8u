@@ -230,7 +230,7 @@ int GetOverallRank(int tacticsRank, int survivalRank, int fundsRank, int combatR
     return i;
 }
 
-u8 CONST_DATA gUnknown_08A3CB2A[3][5] = {
+u8 CONST_DATA gGamerankings_0[3][5] = {
     {
         [0] = 40,
         [1] = 80,
@@ -254,7 +254,7 @@ u8 CONST_DATA gUnknown_08A3CB2A[3][5] = {
     },
 };
 
-u16 CONST_DATA gUnknown_08A3CB3A[] = {
+u16 CONST_DATA gGamerankings_1[] = {
     [0] = 65,
     [1] = 125,
     [2] = 225,
@@ -264,15 +264,15 @@ u16 CONST_DATA gUnknown_08A3CB3A[] = {
 };
 
 //! FE8U = 0x080B60C8
-int sub_80B60C8(int param_1, int param_2, int param_3) {
+int GetOverallRankFrom3(int param_1, int param_2, int param_3) {
     int i;
 
-    u16 tmp = gUnknown_08A3CB2A[0][param_1];
-    tmp += gUnknown_08A3CB2A[1][param_2];
-    tmp += gUnknown_08A3CB2A[2][param_3];
+    u16 tmp = gGamerankings_0[0][param_1];
+    tmp += gGamerankings_0[1][param_2];
+    tmp += gGamerankings_0[2][param_3];
 
     for (i = 0; i < 5; i++) {
-        if (tmp < gUnknown_08A3CB3A[i]) {
+        if (tmp < gGamerankings_1[i]) {
             return i;
         }
     }
@@ -281,7 +281,7 @@ int sub_80B60C8(int param_1, int param_2, int param_3) {
 }
 
 //! FE8U = 0x080B6104
-int sub_80B6104(void) {
+int GetGameOverallRank(void) {
     return GetOverallRank(
         GetGameTacticsRank(),
         GetGameSurvivalRank(),
@@ -321,7 +321,7 @@ int GetChapterSurvivalRank(void) {
     int deathCount;
     u8 i;
 
-    u8 gUnknown_08205F24[4] = {
+    u8 sChapterSurvivalRankDeathCountThresholds[4] = {
         4,
         3,
         2,
@@ -331,7 +331,7 @@ int GetChapterSurvivalRank(void) {
     deathCount = GetChapterDeathCount();
 
     for (i = 0; i < 4; i++) {
-        if (deathCount >= gUnknown_08205F24[i]) {
+        if (deathCount >= sChapterSurvivalRankDeathCountThresholds[i]) {
             return i;
         }
     }
@@ -339,7 +339,7 @@ int GetChapterSurvivalRank(void) {
     return i;
 }
 
-u8 CONST_DATA gUnknown_08A3CB46[2][5] = {
+u8 CONST_DATA gGamerankings_2[2][5] = {
     {
         [0] = 10,
         [1] = 20,
@@ -356,7 +356,7 @@ u8 CONST_DATA gUnknown_08A3CB46[2][5] = {
     },
 };
 
-u16 CONST_DATA gUnknown_08A3CB50[] = {
+u16 CONST_DATA gGamerankings_3[] = {
     [0] = 60,
     [1] = 80,
     [2] = 120,
@@ -366,14 +366,14 @@ u16 CONST_DATA gUnknown_08A3CB50[] = {
 };
 
 //! FE8U = 0x080B61FC
-int sub_80B61FC(int param_1, int param_2) {
+int GetOverallRankFrom2(int param_1, int param_2) {
     int i;
 
-    u16 tmp = gUnknown_08A3CB46[0][param_1];
-    tmp += gUnknown_08A3CB46[1][param_2];
+    u16 tmp = gGamerankings_2[0][param_1];
+    tmp += gGamerankings_2[1][param_2];
 
     for (i = 0; i < 5; i++) {
-        if (tmp < gUnknown_08A3CB50[i]) {
+        if (tmp < gGamerankings_3[i]) {
             return i;
         }
     }
@@ -442,7 +442,7 @@ u16 GetChapterDeathCount(void) {
 }
 
 //! FE8U = 0x080B62D8
-void sub_80B62D8(void) {
+void ChapterRankings_Nop(void) {
     return;
 }
 

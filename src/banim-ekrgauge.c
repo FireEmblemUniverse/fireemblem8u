@@ -1,6 +1,6 @@
 #include "gbafe.h"
 
-void sub_8050E40(void *_src, void *_dst)
+void EkrGauge_BuildHpBarGfx(void *_src, void *_dst)
 {
     u16 *src = _src;
     u16 *dst = _dst;
@@ -8,7 +8,7 @@ void sub_8050E40(void *_src, void *_dst)
 
     for (i = 0; i < 11; i++) {
         u32 val = *src == 0xFF ? 0xF : *src;
-        CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802904, val, 0), &PAL_BUF_COLOR(dst, i, 0), 0x10 * sizeof(u16));
+        CpuFastCopy(&PAL_BUF_COLOR(gBanimmisc_9, val, 0), &PAL_BUF_COLOR(dst, i, 0), 0x10 * sizeof(u16));
         src++;
     }
 
@@ -70,12 +70,12 @@ void NewEkrGauge(void)
     if (gEkrGaugeHp[0] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xB), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
+        CpuCopy16(gBanimmisc_10 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0xB), 0x10 * sizeof(u16));
 
     if (gEkrGaugeHp[1] > 0x50)
         CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(0xC), 0x10 * sizeof(u16));
     else
-        CpuCopy16(gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
+        CpuCopy16(gBanimmisc_10 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0xC), 0x10 * sizeof(u16));
 
     gEkrGaugeHpBak[0] = -1;
     gEkrGaugeHpBak[1] = -1;
@@ -84,8 +84,8 @@ void NewEkrGauge(void)
     LZ77UnCompVram(Img_EfxWTAArrow1, (void *)0x6013940);
     LZ77UnCompVram(Img_EfxWTAArrow2, (void *)0x6013D40);
 
-    CpuFastCopy(gUnknown_08802884 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
-    CpuFastCopy(gUnknown_08802884 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
+    CpuFastCopy(gBanimmisc_8 + gBanimFactionPal[POS_L] * 0x10, PAL_OBJ(0x5), 0x10 * sizeof(u16));
+    CpuFastCopy(gBanimmisc_8 + gBanimFactionPal[POS_R] * 0x10, PAL_OBJ(0x6), 0x10 * sizeof(u16));
 
     EnablePaletteSync();
 
@@ -106,7 +106,7 @@ void NewEkrGauge(void)
             int r4 = i * 0x40 + j * 0x10;
 
             CpuCopy16(
-                gUnknown_088026E4 + gEkrGaugeDecoder[i * 3 + j] * 0x10,
+                gBanimmisc_7 + gEkrGaugeDecoder[i * 3 + j] * 0x10,
                 gObjBuf_EkrSideHitDmgCrit + r4,
                 0x10 * sizeof(u16));
         }
@@ -192,34 +192,34 @@ void DisableEkrGauge(void)
     gpProcEkrGauge->valid = false;
 }
 
-void sub_8051238(struct EkrGaugeStruct1 *buf, int a, int b)
+void EkrGauge_SetWtaArrowSprite(struct EkrGaugeStruct1 *buf, int a, int b)
 {
     if (a > 0) {
         if (b != 1) {
             unsigned int temp = 1;
             if (b < temp) {
-                buf->unk3C = gUnknown_085B955C;
+                buf->unk3C = gEkrgauge_6;
                 return;
             }
         } else {
-            buf->unk3C = gUnknown_085B9574;
+            buf->unk3C = gEkrgauge_7;
             return;
         }
 
-        buf->unk3C = gUnknown_085B958C;
+        buf->unk3C = gEkrgauge_8;
     } else {
         if (b != 1) {
             unsigned int temp = 1;
             if (b < temp) {
-                buf->unk3C = gUnknown_085B95A4;
+                buf->unk3C = gEkrgauge_9;
                 return;
             }
         } else {
-            buf->unk3C = gUnknown_085B95BC;
+            buf->unk3C = gEkrgauge_10;
             return;
         }
 
-        buf->unk3C = gUnknown_085B95D4;
+        buf->unk3C = gEkrgauge_11;
     }
 }
 
@@ -289,20 +289,20 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         FillBGRect(gBG0TilemapBuffer + 0x1A0, 30, 8, 0, 0x80);
 
         if (0 == proc->unk4C) {
-            EfxTmCpyBG(gUnknown_08802274 + r8, &gBG0TilemapBuffer2D[r7][r9], 15, r6, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[r7][r9], 15, r6, 2, 0x80);
+            EfxTmCpyBG(gBanimmisc_2 + r8, &gBG0TilemapBuffer2D[r7][r9], 15, r6, -1, -1);
+            EfxTmReplacePal(&gBG0TilemapBuffer2D[r7][r9], 15, r6, 2, 0x80);
         }
 
         if (0 == proc->unk50) {
             void *ptr;
 
             if (0 == proc->unk4C)
-                ptr = gUnknown_08802348 + r8;
+                ptr = gBanimmisc_3 + r8;
             else
-                ptr = gUnknown_08802428 + r8;
+                ptr = gBanimmisc_4 + r8;
 
             EfxTmCpyBG(ptr, &gBG0TilemapBuffer2D[r7][spDC], 16, r6, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[r7][spDC], 16, r6, 3, 128);
+            EfxTmReplacePal(&gBG0TilemapBuffer2D[r7][spDC], 16, r6, 3, 128);
         }
 
         BG_EnableSyncByMask(1);
@@ -378,20 +378,20 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         s32 i;
         s32 j;
 
-        CpuFastFill(0, gUnk_Banim_02016DC8, 0x80);
+        CpuFastFill(0, gUnk_Banim_Ekrbattle_1, 0x80);
 
         for (i = 0; i < 2; i++) {
             for (j = 0; j < 2; j++) {
                 CpuCopy16(
-                    gUnknown_088026E4 + local_d0[i * 2 + j] * 0x10,
-                    (u16 *)gUnk_Banim_02016DC8 + ((i * 0x20) + (j * 0x10)),
+                    gBanimmisc_7 + local_d0[i * 2 + j] * 0x10,
+                    (u16 *)gUnk_Banim_Ekrbattle_1 + ((i * 0x20) + (j * 0x10)),
                     0x20
                 );
             }
         }
 
-        RegisterDataMove(gUnk_Banim_02016DC8 + 0x00, (void *)0x060139C0, 0x40);
-        RegisterDataMove((u16 *)gUnk_Banim_02016DC8 + 0x20, (void *)0x06013DC0, 0x40);
+        RegisterDataMove(gUnk_Banim_Ekrbattle_1 + 0x00, (void *)0x060139C0, 0x40);
+        RegisterDataMove((u16 *)gUnk_Banim_Ekrbattle_1 + 0x20, (void *)0x06013DC0, 0x40);
     }
 
     AStack_130.oam2Base = 0x0000B1CE;
@@ -402,14 +402,14 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     AStack_130.state2 = 0;
 
     if (CheckEkrHitNow(POS_L) != 1) {
-        AStack_130.pSpriteData = gUnknown_085B940C;
+        AStack_130.pSpriteData = gEkrgauge_1;
         AStack_130.oamBase = 0;
     } else {
         AStack_130.pSpriteData = auStack_c8;
         AStack_130.oamBase = 0x200;
         AStack_130.xPosition = AStack_130.xPosition - 8;
         AStack_130.yPosition = AStack_130.yPosition - 8;
-        BanimUpdateSpriteRotScale(gUnknown_085B940C, auStack_c8, 0x100, 0x80, 1);
+        BanimUpdateSpriteRotScale(gEkrgauge_1, auStack_c8, 0x100, 0x80, 1);
     }
 
     if (proc->unk4C == 0) {
@@ -426,14 +426,14 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     AStack_130.state2 = 0;
 
     if (CheckEkrHitNow(POS_R) != 1) {
-        AStack_130.pSpriteData = gUnknown_085B940C;
+        AStack_130.pSpriteData = gEkrgauge_1;
         AStack_130.oamBase = 0;
     } else {
         AStack_130.pSpriteData = auStack_c8;
         AStack_130.oamBase = 0x200;
         AStack_130.xPosition = AStack_130.xPosition - 8;
         AStack_130.yPosition = AStack_130.yPosition - 8;
-        BanimUpdateSpriteRotScale(gUnknown_085B940C, auStack_c8, 0x100, 0x80, 1);
+        BanimUpdateSpriteRotScale(gEkrgauge_1, auStack_c8, 0x100, 0x80, 1);
     }
 
     if (proc->unk50 == 0) {
@@ -474,13 +474,13 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
 
     AStack_130.oamBase = 0;
     AStack_130.xPosition = x + 0x1d;
-    AStack_130.pSpriteData = gUnknown_085B93D0;
+    AStack_130.pSpriteData = gEkrgauge_0;
 
     if (proc->unk4C == 0) {
         if (uVar8 != 0) {
-            sub_8071068(auStack_e8, uVar15, uVar8);
+            EkrBuildGaugeBarTiles(auStack_e8, uVar15, uVar8);
             if (hp_changed == 1) {
-                sub_8050E40(auStack_e8, gUnk_Banim_02016E48);
+                EkrGauge_BuildHpBarGfx(auStack_e8, gUnk_Banim_Ekrbattle_2);
             }
 
             AStack_130.yPosition = y + 0x8e;
@@ -491,10 +491,10 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
             AnimDisplay(&AStack_130);
         }
 
-        sub_8071068(auStack_e8, sVar16, sVar5);
+        EkrBuildGaugeBarTiles(auStack_e8, sVar16, sVar5);
 
         if (hp_changed == 1) {
-            sub_8050E40(auStack_e8, gUnk_Banim_02017248);
+            EkrGauge_BuildHpBarGfx(auStack_e8, gUnk_Banim_Ekrbattle_4);
         }
 
         if (uVar8 != 0) {
@@ -544,13 +544,13 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
 
     AStack_130.oamBase = 0;
     AStack_130.xPosition = x + 0x95;
-    AStack_130.pSpriteData = gUnknown_085B93D0;
+    AStack_130.pSpriteData = gEkrgauge_0;
 
     if (proc->unk50 == 0) {
         if (uVar8 != 0) {
-            sub_8071068(auStack_e8, uVar15, uVar8);
+            EkrBuildGaugeBarTiles(auStack_e8, uVar15, uVar8);
             if (hp_changed == 1) {
-                sub_8050E40(auStack_e8, gUnk_Banim_02017048);
+                EkrGauge_BuildHpBarGfx(auStack_e8, gUnk_Banim_Ekrbattle_3);
             }
 
             AStack_130.yPosition = y + 0x8e;
@@ -561,10 +561,10 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
             AnimDisplay(&AStack_130);
         }
 
-        sub_8071068(auStack_e8, sVar16, sVar5);
+        EkrBuildGaugeBarTiles(auStack_e8, sVar16, sVar5);
 
         if (hp_changed == 1) {
-            sub_8050E40(auStack_e8, gUnk_Banim_02017448);
+            EkrGauge_BuildHpBarGfx(auStack_e8, gUnk_Banim_Ekrbattle_5);
         }
 
         if (uVar8 != 0) {
@@ -581,12 +581,12 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     }
 
     if (hp_changed == 1) {
-        RegisterDataMove((void *)gUnk_Banim_02016E48, (void *)0x06013000, 0x800);
+        RegisterDataMove((void *)gUnk_Banim_Ekrbattle_2, (void *)0x06013000, 0x800);
     }
 
     if (proc->unk4C == 0) {
         AStack_130.oamBase = 0;
-        AStack_130.pSpriteData = gUnknown_085B9424;
+        AStack_130.pSpriteData = gEkrgauge_2;
         AStack_130.oam2Base = 0x0000B1D0;
         AStack_130.oam2Base |= proc->unk44;
 
@@ -596,7 +596,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         AnimDisplay(&AStack_130);
         AStack_130.oamBase = 0;
 
-        AStack_130.pSpriteData = gUnknown_085B949C;
+        AStack_130.pSpriteData = gEkrgauge_3;
         AStack_130.oam2Base = 0x0000B1C0;
         AStack_130.oam2Base |= proc->unk44;
 
@@ -608,7 +608,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
 
     if (proc->unk50 == 0) {
         AStack_130.oamBase = 0;
-        AStack_130.pSpriteData = gUnknown_085B9424;
+        AStack_130.pSpriteData = gEkrgauge_2;
         AStack_130.oam2Base = 0x0000C1F0;
         AStack_130.oam2Base |= proc->unk44;
 
@@ -618,7 +618,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         AnimDisplay(&AStack_130);
 
         AStack_130.oamBase = 0;
-        AStack_130.pSpriteData = gUnknown_085B94F0;
+        AStack_130.pSpriteData = gEkrgauge_4;
         AStack_130.oam2Base = 0x0000C1C0;
         AStack_130.oam2Base |= proc->unk44;
 
@@ -631,7 +631,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
     if (proc->unk4C == 0) {
         AStack_130.oamBase = 0;
         if (gBanimWtaBonus[0] != 0) {
-            sub_8051238((void*)&AStack_130, gBanimWtaBonus[0], clk);
+            EkrGauge_SetWtaArrowSprite((void*)&AStack_130, gBanimWtaBonus[0], clk);
             AStack_130.oam2Base = 0x1ca;
             AStack_130.oam2Base |= proc->unk44;
 
@@ -641,7 +641,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
             AnimDisplay(&AStack_130);
         }
 
-        AStack_130.pSpriteData = gUnknown_085B9544;
+        AStack_130.pSpriteData = gEkrgauge_5;
         AStack_130.oam2Base = 0x0000D1DC;
         AStack_130.oam2Base |= proc->unk44;
 
@@ -655,7 +655,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
         AStack_130.oamBase = 0;
         if (gBanimWtaBonus[1] != 0) {
 
-            sub_8051238((void*)&AStack_130, gBanimWtaBonus[1], clk);
+            EkrGauge_SetWtaArrowSprite((void*)&AStack_130, gBanimWtaBonus[1], clk);
             AStack_130.oam2Base = 0x1ca;
             AStack_130.oam2Base |= proc->unk44;
 
@@ -665,7 +665,7 @@ void ekrGaugeMain(struct ProcEkrGauge * proc)
             AnimDisplay(&AStack_130);
         }
 
-        AStack_130.pSpriteData = gUnknown_085B9544;
+        AStack_130.pSpriteData = gEkrgauge_5;
         AStack_130.oam2Base = 0x0000E1DE;
         AStack_130.oam2Base |= proc->unk44;
 

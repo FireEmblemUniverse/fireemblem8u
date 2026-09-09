@@ -32,7 +32,7 @@ struct ProcEkrUnitMainMini
 };
 
 //! FE8U = 0x0805A3DC
-void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
+void EkrUnitMainMini_UpdateAnim(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 {
     int _tmp;
     int r0;
@@ -73,7 +73,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
             case 1:
             case 2:
                 // _0805A4F0
-                sub_805A580(anim);
+                EkrMainMini_AnimMarkRoundEnd(anim);
                 break;
 
             case 5:
@@ -93,7 +93,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
             case 13:
                 // _0805A510
-                sub_805A5A8(anim);
+                EkrMainMini_AnimUpdateFrameGfx(anim);
                 break;
 
             case 14:
@@ -103,7 +103,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
             case 24:
                 // _0805A520
-                sub_805A580(anim);
+                EkrMainMini_AnimMarkRoundEnd(anim);
                 break;
 
             case 0:
@@ -184,7 +184,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 }
 
 //! FE8U = 0x0805A580
-void sub_805A580(struct Anim * anim)
+void EkrMainMini_AnimMarkRoundEnd(struct Anim * anim)
 {
     anim->nextRoundId = -2;
 
@@ -199,7 +199,7 @@ void sub_805A580(struct Anim * anim)
 }
 
 //! FE8U = 0x0805A5A8
-void sub_805A5A8(struct Anim * anim)
+void EkrMainMini_AnimUpdateFrameGfx(struct Anim * anim)
 {
     struct AnimBuffer * pAnimBuffer = anim->pUnk44;
     struct BattleAnim * banim = banim_data;
@@ -359,7 +359,7 @@ void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A7B4
-void sub_805A7B4(struct AnimBuffer * pAnimBuf)
+void RestartMainMiniAnim(struct AnimBuffer * pAnimBuf)
 {
     struct BattleAnimCharaPal * cbapt = character_battle_animation_palette_table;
     u32 modeA;
@@ -474,18 +474,18 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A930
-void sub_805A930(struct AnimBuffer * pAnimBuf, int animId, int charPalId)
+void SetMainMiniAnimId(struct AnimBuffer * pAnimBuf, int animId, int charPalId)
 {
     pAnimBuf->animId = animId;
     pAnimBuf->charPalId = charPalId;
 
-    sub_805A7B4(pAnimBuf);
+    RestartMainMiniAnim(pAnimBuf);
 
     return;
 }
 
 //! FE8U = 0x0805A940
-void sub_805A940(struct AnimBuffer * pAnimBuf, u16 x, u16 y)
+void SetMainMiniAnimPos(struct AnimBuffer * pAnimBuf, u16 x, u16 y)
 {
     struct Anim * anim;
 
@@ -504,7 +504,7 @@ void sub_805A940(struct AnimBuffer * pAnimBuf, u16 x, u16 y)
 }
 
 //! FE8U = 0x0805A95C
-void sub_805A95C(struct AnimBuffer * pAnimBuf, u16 layer)
+void SetMainMiniAnimLayer(struct AnimBuffer * pAnimBuf, u16 layer)
 {
     struct Anim * anim;
 
@@ -518,7 +518,7 @@ void sub_805A95C(struct AnimBuffer * pAnimBuf, u16 layer)
 }
 
 //! FE8U = 0x0805A96C
-bool sub_805A96C(struct AnimBuffer * pAnimBuf)
+bool IsMainMiniAnimRoundEnd(struct AnimBuffer * pAnimBuf)
 {
     struct Anim * anim1 = pAnimBuf->anim1;
     struct Anim * anim2 = pAnimBuf->anim2;
@@ -537,7 +537,7 @@ bool sub_805A96C(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A990
-void sub_805A990(struct AnimBuffer * pAnimBuf)
+void ApplyMainMiniAnimHitEffect(struct AnimBuffer * pAnimBuf)
 {
     struct Anim * anim;
 
@@ -551,7 +551,7 @@ void sub_805A990(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A9A4
-bool sub_805A9A4(struct AnimBuffer * pAnimBuf)
+bool IsMainMiniAnimEnd(struct AnimBuffer * pAnimBuf)
 {
     struct Anim * anim = pAnimBuf->anim1;
 
@@ -627,7 +627,7 @@ void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805AA28
-void sub_805AA28(struct AnimBuffer * pAnimBuf)
+void EndEkrUnitMainMini(struct AnimBuffer * pAnimBuf)
 {
     AnimDelete(pAnimBuf->anim1);
     AnimDelete(pAnimBuf->anim2);
@@ -645,14 +645,14 @@ void EkrUnitMainMiniMain(struct ProcEkrUnitMainMini * proc)
 {
     struct AnimBuffer * pAnimBuf = proc->unk_5C;
 
-    sub_805A3DC(pAnimBuf, pAnimBuf->anim1);
-    sub_805A3DC(pAnimBuf, pAnimBuf->anim2);
+    EkrUnitMainMini_UpdateAnim(pAnimBuf, pAnimBuf->anim1);
+    EkrUnitMainMini_UpdateAnim(pAnimBuf, pAnimBuf->anim2);
 
     return;
 }
 
 //! FE8U = 0x0805AA68
-void sub_805AA68(struct BanimUnkStructComm * buf)
+void InitBanimTerrain(struct BanimUnkStructComm * buf)
 {
     struct BattleAnimTerrain * a;
     struct BattleAnimTerrain * b;
@@ -722,7 +722,7 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
                 CpuFastCopy(palB, gPaletteBuffer + buf->pal_r * 0x10, 0x20);
 
                 EnablePaletteSync();
-                sub_805AE58(buf);
+                RegisterBanimTerrainTm(buf);
             }
         }
     }
@@ -829,7 +829,7 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
 }
 
 //! FE8U = 0x0805AE14
-void sub_805AE14(struct BanimUnkStructComm * buf)
+void EndBanimTerrain(struct BanimUnkStructComm * buf)
 {
     if (buf->unk0E == -1)
     {
@@ -842,7 +842,7 @@ void sub_805AE14(struct BanimUnkStructComm * buf)
 }
 
 //! FE8U = 0x0805AE40
-void sub_805AE40(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
+void SetBanimTerrainPos(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
 {
     struct BanimUnkStructCommPriv * priv;
 
@@ -856,7 +856,7 @@ void sub_805AE40(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
 }
 
 //! FE8U = 0x0805AE58
-void sub_805AE58(struct BanimUnkStructComm * buf)
+void RegisterBanimTerrainTm(struct BanimUnkStructComm * buf)
 {
     int tmp;
     int offsetC;
@@ -867,7 +867,7 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
     u16 * tmA = TsaConfs_BanimTmA[buf->distance * 2 + 0];
     u16 * tmB = TsaConfs_BanimTmA[buf->distance * 2 + 1];
 
-    sub_80559B0(0);
+    EfxTmFillA(0);
 
     switch (buf->distance)
     {
@@ -942,7 +942,7 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 }
 
 //! FE8U = 0x0805AFA0
-void sub_805AFA0(s16 distance, s16 position)
+void RegisterBanimTerrainTmByPos(s16 distance, s16 position)
 {
     int offset;
 

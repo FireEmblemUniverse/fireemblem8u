@@ -337,7 +337,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc * proc)
     proc->hoverUnitIdx = UnitGetIndexInPrepList(PrepGetLatestCharId());
 
     ResetSysHandCursor(proc);
-    StartParallelWorker(sub_809A274, proc);
+    StartParallelWorker(PrepItem_PutUnitGridSprites, proc);
     StartUiCursorHand(proc);
 
     SetPrimaryHBlankHandler(NULL);
@@ -392,7 +392,7 @@ void PrepItemScreen_SetupGfx(struct PrepItemScreenProc * proc)
     ForceSyncUnitSpriteSheet();
 
     Decompress(Img_PrepTextShadow, OBJ_CHR_ADDR(0x1F0));
-    UiCursorHand_80ACA4C(0, 0, 0, 208, 60);
+    UiCursorHand_0(0, 0, 0, 208, 60);
     DisplaySysHandCursorTextShadow(0x30 * CHR_SIZE, 1);
 
     RestartMuralBackground();
@@ -514,14 +514,14 @@ void PutWmItemScreenPromptText(u16 * tilemap)
 }
 
 //! FE8U = 0x08098B48
-void sub_8098B48(void)
+void PrepItem_DrawPromptBox(void)
 {
     PrepItemDrawPopupBox(136, 89, 9, 4, OAM2_CHR(0x40) + OAM2_LAYER(1) + OAM2_PAL(10));
     return;
 }
 
 //! FE8U = 0x08098B68
-void sub_8098B68(void)
+void PrepItem_DrawPromptBoxGMap(void)
 {
     switch (GetGMapBaseMenuKind())
     {
@@ -538,33 +538,33 @@ void sub_8098B68(void)
 }
 
 //! FE8U = 0x08098BA8
-void sub_8098BA8(void)
+void PrepItem_DrawItemListBox(void)
 {
     PrepItemDrawPopupBox(8, 92, 10, 5, OAM2_CHR(0x40) + OAM2_LAYER(1) + OAM2_PAL(10));
     return;
 }
 
 //! FE8U = 0x08098BC8
-void sub_8098BC8(void)
+void PrepItem_DrawCommandMenuBox(void)
 {
     PrepItemDrawPopupBox(136, 81, 9, 6, OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(10));
     return;
 }
 
 //! FE8U = 0x08098BE8
-void sub_8098BE8(void)
+void PrepItem_EndPopupBoxWorkers(void)
 {
     if (gGMData.state.bits.state_0)
     {
-        Proc_End(GetParallelWorker(sub_8098B68));
+        Proc_End(GetParallelWorker(PrepItem_DrawPromptBoxGMap));
     }
     else
     {
-        Proc_End(GetParallelWorker(sub_8098B48));
+        Proc_End(GetParallelWorker(PrepItem_DrawPromptBox));
     }
 
-    Proc_End(GetParallelWorker(sub_8098BA8));
-    Proc_End(GetParallelWorker(sub_8098BC8));
+    Proc_End(GetParallelWorker(PrepItem_DrawItemListBox));
+    Proc_End(GetParallelWorker(PrepItem_DrawCommandMenuBox));
 
     return;
 }
@@ -594,13 +594,13 @@ void PutImg_PrepPopupWindow(int vram, int pal)
 }
 
 //! FE8U = 0x08098CC0
-void sub_8098CC0(struct PrepItemScreenProc * proc)
+void PrepItem_DrawUnitGridScreen(struct PrepItemScreenProc * proc)
 {
     LoadUiFrameGraphics();
 
     BG_SetPosition(BG_1, 0, 4);
 
-    sub_809A08C(proc);
+    PrepItem_SnapGridScroll(proc);
 
     BG_Fill(BG_GetMapBuffer(BG_0), 0);
     BG_Fill(BG_GetMapBuffer(BG_1), 0);
@@ -634,20 +634,20 @@ void sub_8098CC0(struct PrepItemScreenProc * proc)
     ShowSysHandCursor(
         (proc->hoverUnitIdx % 3) * 64 + 24, ((proc->hoverUnitIdx / 3) * 16) + 4 - proc->scrollOffset, 7, 0x40 * CHR_SIZE);
 
-    sub_809A504(proc, 0);
+    PrepItemScreen_DrawVisibleUnitNames(proc, 0);
     UnblockUiCursorHand();
-    sub_80ACAA4();
+    ClearAllUiCursorHandConfig();
     StartHelpPromptSprite(120, 140, 9, proc);
 
-    sub_8098BE8();
+    PrepItem_EndPopupBoxWorkers();
 
     if (gGMData.state.bits.state_0)
     {
-        StartParallelWorker(sub_8098B68, proc);
+        StartParallelWorker(PrepItem_DrawPromptBoxGMap, proc);
     }
     else
     {
-        StartParallelWorker(sub_8098B48, proc);
+        StartParallelWorker(PrepItem_DrawPromptBox, proc);
     }
 
     PrepItemScreen_DrawFunds();
@@ -712,12 +712,12 @@ s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc * proc)
 
         if (hoverYPos - proc->scrollOffset > 32 && proc->scrollOffset + 48 < yMax)
         {
-            sub_809A114(proc, (proc->scrollOffset >> 4) + 4, 0);
+            PrepItem_DrawUnitNameRow(proc, (proc->scrollOffset >> 4) + 4, 0);
             SetSysHandCursorXPos((proc->hoverUnitIdx % 3) * 64 + 24);
         }
         else if (hoverYPos - proc->scrollOffset < 0x10 && ({ proc->scrollOffset + 0; }) != 0)
         {
-            sub_809A114(proc, (proc->scrollOffset >> 4) - 1, 0);
+            PrepItem_DrawUnitNameRow(proc, (proc->scrollOffset >> 4) - 1, 0);
             SetSysHandCursorXPos((proc->hoverUnitIdx % 3) * 64 + 24);
         }
         else
@@ -735,7 +735,7 @@ s8 PrepItemScreen_DpadKeyHandler(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08098FAC
-void sub_8098FAC(struct PrepItemScreenProc * proc)
+void PrepItem_UpdateGridScroll(struct PrepItemScreenProc * proc)
 {
     int hoverYPos = (proc->hoverUnitIdx / 3) * 16;
     int yMax = ((PrepGetUnitAmount() - 1) / 3) * 16;
@@ -788,12 +788,12 @@ void PrepItemScreen_ResumeFromStatScreen(struct PrepItemScreenProc * proc)
 {
     PrepItemScreen_SetupGfx(proc);
     proc->hoverUnitIdx = GetLatestUnitIndexInPrepListByUId();
-    sub_809A08C(proc);
+    PrepItem_SnapGridScroll(proc);
     return;
 }
 
 //! FE8U = 0x08099120
-void sub_8099120(struct PrepItemScreenProc * proc)
+void PrepItem_GridSelectLoop(struct PrepItemScreenProc * proc)
 {
     int tmp = proc->scrollOffset;
 
@@ -889,13 +889,13 @@ void sub_8099120(struct PrepItemScreenProc * proc)
         }
     }
 
-    sub_8098FAC(proc);
+    PrepItem_UpdateGridScroll(proc);
 
     return;
 }
 
 //! FE8U = 0x08099328
-void sub_8099328(struct PrepItemScreenProc * proc, u16 * tilemap, struct Unit * unit)
+void PrepItem_DrawCommandMenuText(struct PrepItemScreenProc * proc, u16 * tilemap, struct Unit * unit)
 {
     TileMap_FillRect(tilemap, 10, 6, 0);
 
@@ -992,7 +992,7 @@ void PrepItemScreen_DrawSelectedUnitDetails(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x080995D4
-void sub_80995D4(struct PrepItemScreenProc * proc)
+void PrepItem_DrawSelectedUnitScreen(struct PrepItemScreenProc * proc)
 {
     bool isCoordHidden;
 
@@ -1013,7 +1013,7 @@ void sub_80995D4(struct PrepItemScreenProc * proc)
         UnblockUiCursorHand();
     }
 
-    sub_8098BE8();
+    PrepItem_EndPopupBoxWorkers();
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
@@ -1021,10 +1021,10 @@ void sub_80995D4(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08099654
-void sub_8099654(struct PrepItemScreenProc * proc)
+void PrepItem_InitCommandMenu(struct PrepItemScreenProc * proc)
 {
-    sub_8099328(proc, TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 9), GetUnitFromPrepList(proc->selectedUnitIdx));
-    StartParallelWorker(sub_8098BC8, proc);
+    PrepItem_DrawCommandMenuText(proc, TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 9), GetUnitFromPrepList(proc->selectedUnitIdx));
+    StartParallelWorker(PrepItem_DrawCommandMenuBox, proc);
     StartHelpPromptSprite(120, 140, 9, proc);
 
     ShowSysHandCursor((proc->popupPromptIdx & 1) * 32 + 144, (proc->popupPromptIdx >> 1) * 16 + 84, 3, 0x20 * CHR_SIZE);
@@ -1035,11 +1035,11 @@ void sub_8099654(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x080996B0
-void sub_80996B0(struct PrepItemScreenProc * proc)
+void PrepItem_RefreshSelectedUnitItems(struct PrepItemScreenProc * proc)
 {
     struct Unit * unit = GetUnitFromPrepList(proc->selectedUnitIdx);
 
-    sub_809A504(proc, 0);
+    PrepItemScreen_DrawVisibleUnitNames(proc, 0);
     PrepItemScreen_DrawUnitItems(&gPrepItemTexts[15], TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9), unit, 0);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -1048,7 +1048,7 @@ void sub_80996B0(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x080996E8
-void sub_80996E8(struct PrepItemScreenProc * proc)
+void PrepItem_CommandMenuLoop(struct PrepItemScreenProc * proc)
 {
     int previous = proc->popupPromptIdx;
 
@@ -1129,7 +1129,7 @@ void sub_80996E8(struct PrepItemScreenProc * proc)
                 {
                     if (PrepItemScreen_GiveAll(GetUnitFromPrepList(proc->selectedUnitIdx)) != 0)
                     {
-                        sub_8099328(
+                        PrepItem_DrawCommandMenuText(
                             proc, TILEMAP_LOCATED(gBG0TilemapBuffer, 19, 9),
                             GetUnitFromPrepList(proc->selectedUnitIdx));
                         PrepItemScreen_DrawUnitItems(
@@ -1198,7 +1198,7 @@ void sub_80996E8(struct PrepItemScreenProc * proc)
         {
             proc->hoverUnitIdx = proc->selectedUnitIdx;
             proc->selectedUnitIdx = 0xff;
-            sub_80ACA84(0);
+            ClearUiCursorHandConfig(0);
             PlaySoundEffect(SONG_SE_SYS_WINDOW_CANSEL1);
             Proc_Goto(proc, 0);
             return;
@@ -1289,7 +1289,7 @@ void sub_80996E8(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08099AA0
-void sub_8099AA0(struct PrepItemScreenProc * proc)
+void PrepItem_TradeRedrawItems(struct PrepItemScreenProc * proc)
 {
     BG_Fill(BG_GetMapBuffer(BG_0), 0);
 
@@ -1304,7 +1304,7 @@ void sub_8099AA0(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08099AF8
-void sub_8099AF8(struct PrepItemScreenProc * proc)
+void PrepItem_InitTradeScreen(struct PrepItemScreenProc * proc)
 {
     BG_SetPosition(BG_1, 0, 4);
 
@@ -1318,14 +1318,14 @@ void sub_8099AF8(struct PrepItemScreenProc * proc)
     Decompress(Tsa_PrepItemScreen, gGenericBuffer);
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 0, 0), gGenericBuffer, TILEREF(0x0, 1));
 
-    Decompress(Tsa_08A1B990, gGenericBuffer);
+    Decompress(Tsa_PrepItemTradeUnitPanel, gGenericBuffer);
     CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 15, 9), gGenericBuffer, TILEREF(0x0, 1));
 
     proc->unitSelected = false;
 
     ShowSysHandCursor(
         ((proc->hoverUnitIdx % 3) * 64) + 24, ((proc->hoverUnitIdx / 3) * 16) + 4 - proc->scrollOffset, 7, 0x40 * CHR_SIZE);
-    sub_809A504(proc, 0);
+    PrepItemScreen_DrawVisibleUnitNames(proc, 0);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
@@ -1339,7 +1339,7 @@ void sub_8099AF8(struct PrepItemScreenProc * proc)
     SetUiCursorHandConfig(
         0, ((proc->selectedUnitIdx % 3) * 64) + 24, ((proc->selectedUnitIdx / 3) * 16) + 4 - proc->scrollOffset, 2);
 
-    StartParallelFiniteLoop(sub_8099AA0, 1, proc);
+    StartParallelFiniteLoop(PrepItem_TradeRedrawItems, 1, proc);
 
     UnblockUiCursorHand();
     HideUnitInfoBgSprites();
@@ -1349,9 +1349,9 @@ void sub_8099AF8(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08099C60
-void sub_8099C60(void)
+void PrepItem_EndPopupBoxesAndSync(void)
 {
-    sub_8098BE8();
+    PrepItem_EndPopupBoxWorkers();
     BG_EnableSyncByMask(BG0_SYNC_BIT);
     return;
 }
@@ -1407,7 +1407,7 @@ void PrepItemScreen_Loop_MainKeyHandler(struct PrepItemScreenProc * proc)
         }
     }
 
-    sub_8098FAC(proc);
+    PrepItem_UpdateGridScroll(proc);
 
     return;
 }
@@ -1459,7 +1459,7 @@ void StartPrepArmory(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x08099E68
-void sub_8099E68(struct PrepItemScreenProc * proc)
+void PrepItem_ClearGMapMenuOnCancel(struct PrepItemScreenProc * proc)
 {
     if (!gGMData.state.bits.state_0)
     {
@@ -1484,7 +1484,7 @@ struct ProcCmd CONST_DATA ProcScr_PrepItemScreen[] =
 
     PROC_CALL(PrepItemScreen_Init),
     PROC_CALL(PrepItemScreen_SetupGfx),
-    PROC_CALL(sub_8098CC0),
+    PROC_CALL(PrepItem_DrawUnitGridScreen),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1494,12 +1494,12 @@ struct ProcCmd CONST_DATA ProcScr_PrepItemScreen[] =
     PROC_GOTO(1),
 
 PROC_LABEL(0),
-    PROC_CALL(sub_8098CC0),
+    PROC_CALL(PrepItem_DrawUnitGridScreen),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_REPEAT(sub_8099120),
+    PROC_REPEAT(PrepItem_GridSelectLoop),
     PROC_CALL(DisableAllGfx),
     PROC_YIELD,
 
@@ -1507,7 +1507,7 @@ PROC_LABEL(1),
     PROC_YIELD,
 
     PROC_CALL(PrepItemScreen_ResumeFromStatScreen),
-    PROC_CALL(sub_8098CC0),
+    PROC_CALL(PrepItem_DrawUnitGridScreen),
     PROC_YIELD,
 
     PROC_CALL(EnableAllGfx),
@@ -1515,25 +1515,25 @@ PROC_LABEL(1),
     PROC_GOTO(1),
 
 PROC_LABEL(2),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
     PROC_YIELD,
 
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_REPEAT(sub_80996E8),
+    PROC_REPEAT(PrepItem_CommandMenuLoop),
 
     // fallthrough
 
 PROC_LABEL(4),
     PROC_CALL(PrepItemScreen_HideFunds),
-    PROC_CALL(sub_8099AF8),
+    PROC_CALL(PrepItem_InitTradeScreen),
     PROC_YIELD,
 
-    PROC_CALL(sub_8099C60),
+    PROC_CALL(PrepItem_EndPopupBoxesAndSync),
 
     // fallthrough
 
@@ -1546,8 +1546,8 @@ PROC_LABEL(5),
     PROC_YIELD,
 
     PROC_CALL(PrepItemScreen_ResumeFromStatScreen),
-    PROC_CALL(sub_8099AF8),
-    PROC_CALL(sub_8099C60),
+    PROC_CALL(PrepItem_InitTradeScreen),
+    PROC_CALL(PrepItem_EndPopupBoxesAndSync),
     PROC_YIELD,
 
     PROC_CALL(EnableAllGfx),
@@ -1564,8 +1564,8 @@ PROC_LABEL(6),
     PROC_CALL(PrepItemScreen_SetupGfx),
     PROC_YIELD,
 
-    PROC_CALL(sub_8099AF8),
-    PROC_CALL(sub_8099C60),
+    PROC_CALL(PrepItem_InitTradeScreen),
+    PROC_CALL(PrepItem_EndPopupBoxesAndSync),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1584,10 +1584,10 @@ PROC_LABEL(8),
     PROC_YIELD,
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_80996B0),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_RefreshSelectedUnitItems),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1606,10 +1606,10 @@ PROC_LABEL(9),
     PROC_YIELD,
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_80996B0),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_RefreshSelectedUnitItems),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1628,10 +1628,10 @@ PROC_LABEL(10),
     PROC_YIELD,
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_80996B0),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_RefreshSelectedUnitItems),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1650,10 +1650,10 @@ PROC_LABEL(11),
     PROC_YIELD,
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_80996B0),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_RefreshSelectedUnitItems),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1672,10 +1672,10 @@ PROC_LABEL(12),
     PROC_YIELD,
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_80996B0),
-    PROC_CALL(sub_80995D4),
+    PROC_CALL(PrepItem_RefreshSelectedUnitItems),
+    PROC_CALL(PrepItem_DrawSelectedUnitScreen),
     PROC_CALL(PrepItemScreen_DrawFunds),
-    PROC_CALL(sub_8099654),
+    PROC_CALL(PrepItem_InitCommandMenu),
 
     PROC_CALL_ARG(NewFadeIn, 16),
     PROC_WHILE(FadeInExists),
@@ -1688,7 +1688,7 @@ PROC_LABEL(13),
 
     PROC_CALL(PrepItemScreen_OnEnd),
 
-    PROC_CALL(sub_8099E68),
+    PROC_CALL(PrepItem_ClearGMapMenuOnCancel),
 
     PROC_END,
 };
@@ -1789,7 +1789,7 @@ void PrepItemScreen_DrawUnitItems(struct Text * text, u16 * tilemap, struct Unit
 }
 
 //! FE8U = 0x0809A08C
-void sub_809A08C(struct PrepItemScreenProc * proc)
+void PrepItem_SnapGridScroll(struct PrepItemScreenProc * proc)
 {
     int hoverRow = proc->hoverUnitIdx / 3;
     int hoverYPos = hoverRow * 16;
@@ -1826,7 +1826,7 @@ void sub_809A08C(struct PrepItemScreenProc * proc)
 }
 
 //! FE8U = 0x0809A114
-void sub_809A114(struct PrepItemScreenProc * proc, u8 row, s8 flag)
+void PrepItem_DrawUnitNameRow(struct PrepItemScreenProc * proc, u8 row, s8 flag)
 {
     int i;
     int idx;
@@ -1934,7 +1934,7 @@ void PutClassSpriteForSecretShop(struct Unit * unit, u16 x, u16 y)
 }
 
 //! FE8U = 0x0809A274
-void sub_809A274(struct PrepItemScreenProc * proc)
+void PrepItem_PutUnitGridSprites(struct PrepItemScreenProc * proc)
 {
     int i;
 
@@ -2024,12 +2024,12 @@ void PrepItemDrawPopupBox(int x, int y, int w, int h, int oam2)
 }
 
 //! FE8U = 0x0809A504
-void sub_809A504(struct PrepItemScreenProc * proc, u8 flag)
+void PrepItemScreen_DrawVisibleUnitNames(struct PrepItemScreenProc * proc, u8 flag)
 {
     int i;
 
     for (i = (proc->scrollOffset >> 4); i < (proc->scrollOffset >> 4) + 4; i++)
-        sub_809A114(proc, i, flag);
+        PrepItem_DrawUnitNameRow(proc, i, flag);
 }
 
 //! FE8U = 0x0809A538
@@ -2055,7 +2055,7 @@ bool PrepItemScreen_GiveAll(struct Unit * unit)
 // clang-format off
 
 // Unused?
-u16 CONST_DATA gSprite_08A18E1C[] =
+u16 CONST_DATA gSprite_PrepItemscreen_0[] =
 {
     3,
     OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_LAYER(2),
@@ -2064,7 +2064,7 @@ u16 CONST_DATA gSprite_08A18E1C[] =
 };
 
 // Unused?
-u16 CONST_DATA gUnknown_08A18E30[] =
+u16 CONST_DATA gPrepItemscreen_0[] =
 {
     0x0200, 0x0204,
 };

@@ -12,7 +12,7 @@
 
 CONST_DATA EventListScr EventScr_Ch7_BeginningScene[] = {
     MUSC(SONG_TENSION)
-    LOAD1(0x1, UnitDef_088B6F54)
+    LOAD1(0x1, UnitDef_Ch7Enemy)
     ENUN
     FADU(16)
     LOAD3(0x0, UnitDef_Event_Ch7Ally)
@@ -76,16 +76,16 @@ LABEL(0x5)
 LABEL(0x6)
     EvtTextShow2(0x9fe) // ENOSUPP in EAstdlib
     TEXTEND
-    CALL(EventScr_08591FD8)
+    CALL(EventScr_CommonPrep)
     MUSC(SONG_DISTANT_ROADS)
     FADU(16)
-    SVAL(EVT_SLOT_2, EventScr_089F2EBC)
+    SVAL(EVT_SLOT_2, EventScr_Ch7_3)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2CFC[] = {
+CONST_DATA EventListScr EventScr_Ch7_0[] = {
     CAMERA2_CAHR(CHARACTER_MURRAY)
     MUSC(SONG_SHADOW_OF_THE_ENEMY)
     CUMO_CHAR(CHARACTER_MURRAY)
@@ -108,7 +108,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     CLEN
     FADU(16)
     MUSC(SONG_53)
-    LOAD2(0x1, UnitDef_088B710C)
+    LOAD2(0x1, UnitDef_Ch7Ally_0)
     ENUN
     CUMO_CHAR(CHARACTER_EIRIKA)
     STAL(60)
@@ -119,7 +119,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     REMA
     MOVE_1STEP(0x0, CHARACTER_SETH, FACING_RIGHT)
     MOVE_1STEP(0x0, CHARACTER_EIRIKA, FACING_LEFT)
-    LOAD2(0x1, UnitDef_088B7148)
+    LOAD2(0x1, UnitDef_Ch7Ally_1)
     ENUN
     ENUN
     CUMO_CHAR(CHARACTER_ORSON_CH5X)
@@ -159,7 +159,7 @@ CONST_DATA EventListScr EventScr_Ch7_EndingScene[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2E6C[] = {
+CONST_DATA EventListScr EventScr_Ch7_1[] = {
     MUSI
     Text_BG(BG_HOUSE, 0xa06)
     MUNO
@@ -167,7 +167,7 @@ CONST_DATA EventListScr EventScr_089F2E6C[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2E94[] = {
+CONST_DATA EventListScr EventScr_Ch7_2[] = {
     MUSI
     Text_BG(BG_HOUSE, 0xa07)
     MUNO
@@ -175,7 +175,7 @@ CONST_DATA EventListScr EventScr_089F2E94[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2EBC[] = {
+CONST_DATA EventListScr EventScr_Ch7_3[] = {
     CAMERA(2, 10)
     CURSOR_FLASHING(2, 10)
     STAL(60)

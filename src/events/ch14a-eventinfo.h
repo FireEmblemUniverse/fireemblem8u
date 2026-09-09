@@ -1,17 +1,17 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch14a_Turn[] = {
-    TurnEventPlayer_(0, EventScr_089F6238, 5, 4)
-    TurnEventPlayer_(0, EventScr_089F6250, 6, 3)
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089F62BC, 1, 255)
-    TurnEventEnemy(0, EventScr_089F5CC4, 1)
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089F6284, 1, 255)
+    TurnEventPlayer_(0, EventScr_Ch14A_2, 5, 4)
+    TurnEventPlayer_(0, EventScr_Ch14A_3, 6, 3)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch14A_7, 1, 255)
+    TurnEventEnemy(0, EventScr_Ch14A_0, 1)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ch14A_5, 1, 255)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch14a_Character[] = {
-    CHAR(EVFLAG_TMP(8), EventScr_089F619C, CHARACTER_LARACHEL, CHARACTER_RENNAC)
-    CHAR(EVFLAG_TMP(8), EventScr_089F61C4, CHARACTER_EIRIKA, CHARACTER_RENNAC)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch14A_9, CHARACTER_LARACHEL, CHARACTER_RENNAC)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch14A_1, CHARACTER_EIRIKA, CHARACTER_RENNAC)
     END_MAIN
 };
 
@@ -28,7 +28,7 @@ CONST_DATA EventListScr EventListScr_Ch14a_Location[] = {
     Chest(ITEM_STAFF_REPAIR, 22, 3)
     Chest(ITEM_LANCE_DRAGON, 8, 20)
     Chest(ITEM_LANCE_SPEAR, 22, 5)
-    SecretShop(ShopList_Event_089ED83E, 4, 4)
+    SecretShop(ShopList_Ch14A_0, 4, 4)
     Chest(ITEM_BOOSTER_POW, 10, 20)
     Chest(ITEM_GUIDINGRING, 18, 16)
     ChestMoney(10000, 2, 16)
@@ -37,9 +37,9 @@ CONST_DATA EventListScr EventListScr_Ch14a_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch14a_Misc[] = {
-    AREA(EVFLAG_TMP(10), EventScr_089F62F0, 3, 9, 19, 11)
-    AREA(EVFLAG_TMP(13), EventScr_089F629C, 0, 0, 5, 7)
-    AREA(EVFLAG_TMP(11), EventScr_089F6268, 0, 19, 13, 24)
+    AREA(EVFLAG_TMP(10), EventScr_Ch14A_8, 3, 9, 19, 11)
+    AREA(EVFLAG_TMP(13), EventScr_Ch14A_6, 0, 0, 5, 7)
+    AREA(EVFLAG_TMP(11), EventScr_Ch14A_4, 0, 19, 13, 24)
     CauseGameOverIfLordDies
     END_MAIN
 };

@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Tower5_Turn[] = {
-    TurnEventPlayer_(0, EventScr_089FDF18, 2, 5)
+    TurnEventPlayer_(0, EventScr_Tower_2, 2, 5)
     END_MAIN
 };
 
@@ -10,8 +10,8 @@ CONST_DATA EventListScr EventListScr_Tower5_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Tower5_Location[] = {
-    LOCA(0, ChestItemList_Event_089ED70C, 6, 9, TILE_COMMAND_CHEST)
-    LOCA(0, ChestItemList_Event_089ED71A, 14, 14, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Tower5_0, 6, 9, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Tower5_1, 14, 14, TILE_COMMAND_CHEST)
     END_MAIN
 };
 
@@ -48,11 +48,11 @@ CONST_DATA struct ChapterEventGroup TowerOfValni5Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Tower5_UnitMove,
     .tutorialEvents                = EventListScr_Tower5_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE8,
-    .extraTrapsInHard = TrapData_Event_089EDEE5,
+    .traps            = TrapData_Event_Tower5_0,
+    .extraTrapsInHard = TrapData_Event_Tower5_1,
 
-    .playerUnitsInNormal = UnitDef_088CC190,
-    .playerUnitsInHard   = UnitDef_088CC190,
+    .playerUnitsInNormal = UnitDef_Tower5Ally,
+    .playerUnitsInHard   = UnitDef_Tower5Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

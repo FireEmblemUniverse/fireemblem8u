@@ -3,7 +3,7 @@
 #include "eventinfo.h"
 
 // 0x89ED70C
-CONST_DATA u8 ChestItemList_Event_089ED70C[] = {
+CONST_DATA u8 ShopList_Tower5_0[] = {
     ITEM_SWORD_KILLER, 22,
     ITEM_LANCE_KILLER, 22,
     ITEM_AXE_KILLER, 22,
@@ -14,7 +14,7 @@ CONST_DATA u8 ChestItemList_Event_089ED70C[] = {
 };
 
 // 0x89ED71A
-CONST_DATA u8 ChestItemList_Event_089ED71A[] = {
+CONST_DATA u8 ShopList_Tower5_1[] = {
     ITEM_ANIMA_THUNDER, 22,
     ITEM_LIGHT_SHINE, 22,
     ITEM_DARK_LUNA, 22,
@@ -25,7 +25,7 @@ CONST_DATA u8 ChestItemList_Event_089ED71A[] = {
 };
 
 // 0x89ED728
-CONST_DATA u8 ChestItemList_Event_089ED728[] = {
+CONST_DATA u8 ShopList_Tower6_0[] = {
     ITEM_STAFF_PHYSIC, 40,
     ITEM_STAFF_FORTIFY, 20,
     ITEM_STAFF_SILENCE, 20,
@@ -34,7 +34,7 @@ CONST_DATA u8 ChestItemList_Event_089ED728[] = {
 };
 
 // 0x89ED732
-CONST_DATA u8 ChestItemList_Event_089ED732[] = {
+CONST_DATA u8 ShopList_Tower6_1[] = {
     ITEM_SWORD_STEEL, 10,
     ITEM_BLADE_STEEL, 10,
     ITEM_SWORD_BRAVE, 5,
@@ -48,7 +48,7 @@ CONST_DATA u8 ChestItemList_Event_089ED732[] = {
 };
 
 // 0x89ED746
-CONST_DATA u8 ChestItemList_Event_089ED746[] = {
+CONST_DATA u8 ShopList_Tower6_2[] = {
     ITEM_ANIMA_ELFIRE, 25,
     ITEM_ANIMA_BOLTING, 9,
     ITEM_LIGHT_DIVINE, 25,
@@ -59,7 +59,7 @@ CONST_DATA u8 ChestItemList_Event_089ED746[] = {
 };
 
 // 0x89ED754
-CONST_DATA u8 ChestItemList_Event_089ED754[] = {
+CONST_DATA u8 ShopList_Ruin3_0[] = {
     ITEM_ANIMA_ELFIRE, 27,
     ITEM_LIGHT_DIVINE, 28,
     ITEM_DARK_NOSFERATU, 28,
@@ -70,7 +70,7 @@ CONST_DATA u8 ChestItemList_Event_089ED754[] = {
 };
 
 // 0x89ED762
-CONST_DATA u8 ChestItemList_Event_089ED762[] = {
+CONST_DATA u8 ShopList_Ruin3_1[] = {
     ITEM_BLADE_STEEL, 23,
     ITEM_LANCE_STEEL, 20,
     ITEM_AXE_STEEL, 20,
@@ -82,7 +82,7 @@ CONST_DATA u8 ChestItemList_Event_089ED762[] = {
 };
 
 // 0x89ED772
-CONST_DATA u8 ChestItemList_Event_089ED772[] = {
+CONST_DATA u8 ShopList_Ruin4_0[] = {
     ITEM_SWORD_KILLER, 25,
     ITEM_LANCE_KILLER, 25,
     ITEM_AXE_KILLER, 25,
@@ -91,7 +91,7 @@ CONST_DATA u8 ChestItemList_Event_089ED772[] = {
 };
 
 // 0x89ED77C
-CONST_DATA u8 ChestItemList_Event_089ED77C[] = {
+CONST_DATA u8 ShopList_Ruin4_1[] = {
     ITEM_SWORD_ARMORSLAYER, 10,
     ITEM_SWORD_WYRMSLAYER, 10,
     ITEM_SWORD_ZANBATO, 10,
@@ -106,7 +106,7 @@ CONST_DATA u8 ChestItemList_Event_089ED77C[] = {
 };
 
 // 0x89ED792
-CONST_DATA u8 ChestItemList_Event_089ED792[] = {
+CONST_DATA u8 ShopList_Ruin5_0[] = {
     ITEM_SWORD_SILVER, 25,
     ITEM_LANCE_SILVER, 25,
     ITEM_AXE_SILVER, 25,
@@ -115,7 +115,7 @@ CONST_DATA u8 ChestItemList_Event_089ED792[] = {
 };
 
 // 0x89ED79C
-CONST_DATA u8 ChestItemList_Event_089ED79C[] = {
+CONST_DATA u8 ShopList_Ruin5_1[] = {
     ITEM_STAFF_RESTORE, 20,
     ITEM_STAFF_SILENCE, 20,
     ITEM_STAFF_PHYSIC, 20,
@@ -125,7 +125,7 @@ CONST_DATA u8 ChestItemList_Event_089ED79C[] = {
 };
 
 // 0x89ED7A8
-CONST_DATA u8 ChestItemList_Event_089ED7A8[] = {
+CONST_DATA u8 ShopList_Ruin5_2[] = {
     ITEM_ANIMA_ELFIRE, 25,
     ITEM_ANIMA_FIMBULVETR, 9,
     ITEM_LIGHT_DIVINE, 25,
@@ -136,7 +136,7 @@ CONST_DATA u8 ChestItemList_Event_089ED7A8[] = {
 };
 
 // 0x89ED7B6
-CONST_DATA u8 ChestItemList_Event_089ED7B6[] = {
+CONST_DATA u8 ShopList_Ruin7_0[] = {
     ITEM_WHITEGEM, 20,
     ITEM_BLUEGEM, 50,
     ITEM_REDGEM, 30,
@@ -144,7 +144,7 @@ CONST_DATA u8 ChestItemList_Event_089ED7B6[] = {
 };
 
 // 0x89ED7BE
-CONST_DATA u8 ChestItemList_Event_089ED7BE[] = {
+CONST_DATA u8 ShopList_Ruin8_0[] = {
     ITEM_SWORD_WYRMSLAYER, 30,
     ITEM_LANCE_DRAGON, 30,
     ITEM_AXE_DRAGON, 40,
@@ -152,7 +152,7 @@ CONST_DATA u8 ChestItemList_Event_089ED7BE[] = {
 };
 
 // 0x89ED7C6
-CONST_DATA u8 ChestItemList_Event_089ED7C6[] = {
+CONST_DATA u8 ShopList_Ruin10_0[] = {
     ITEM_WHITEGEM, 90,
     ITEM_MEMBERCARD, 10,
     ITEM_NONE, 0,
@@ -229,7 +229,7 @@ CONST_DATA u16 ShopList_Event_Ch9aArmory[] = {
 };
 
 // 0x89ED826
-CONST_DATA u16 ShopList_Event_089ED826[] = {
+CONST_DATA u16 ShopList_Ch12A_0[] = {
     ITEM_ANIMA_FIRE,
     ITEM_ANIMA_THUNDER,
     ITEM_LIGHT_LIGHTNING,
@@ -246,7 +246,7 @@ CONST_DATA u16 ShopList_Event_089ED826[] = {
 };
 
 // 0x89ED83E
-CONST_DATA u16 ShopList_Event_089ED83E[] = {
+CONST_DATA u16 ShopList_Ch14A_0[] = {
     ITEM_BLADE_STEEL,
     ITEM_BLADE_SILVER,
     ITEM_SWORD_KILLER,
@@ -268,7 +268,7 @@ CONST_DATA u16 ShopList_Event_089ED83E[] = {
 };
 
 // 0x89ED860
-CONST_DATA u16 ShopList_Event_089ED860[] = {
+CONST_DATA u16 ShopList_Ch15A_0[] = {
     ITEM_ANIMA_THUNDER,
     ITEM_ANIMA_ELFIRE,
     ITEM_LIGHT_SHINE,
@@ -286,7 +286,7 @@ CONST_DATA u16 ShopList_Event_089ED860[] = {
 };
 
 // 0x89ED87A
-CONST_DATA u16 ShopList_Event_089ED87A[] = {
+CONST_DATA u16 ShopList_Ch17A_0[] = {
     ITEM_ANIMA_THUNDER,
     ITEM_ANIMA_ELFIRE,
     ITEM_LIGHT_SHINE,
@@ -304,7 +304,7 @@ CONST_DATA u16 ShopList_Event_089ED87A[] = {
 };
 
 // 0x89ED894
-CONST_DATA u16 ShopList_Event_089ED894[] = {
+CONST_DATA u16 ShopList_Ch17A_1[] = {
     ITEM_SWORD_IRON,
     ITEM_SWORD_STEEL,
     ITEM_SWORD_LANCEREAVER,
@@ -327,7 +327,7 @@ CONST_DATA u16 ShopList_Event_089ED894[] = {
 };
 
 // 0x89ED8B8
-CONST_DATA u16 ShopList_Event_089ED8B8[] = {
+CONST_DATA u16 ShopList_Ch19A_0[] = {
     ITEM_STAFF_BARRIER,
     ITEM_STAFF_PHYSIC,
     ITEM_HEROCREST,
@@ -341,7 +341,7 @@ CONST_DATA u16 ShopList_Event_089ED8B8[] = {
 };
 
 // 0x89ED8CA
-CONST_DATA u16 ShopList_Event_089ED8CA[] = {
+CONST_DATA u16 ShopList_Ch10B_0[] = {
     ITEM_SWORD_IRON,
     ITEM_SWORD_STEEL,
     ITEM_BLADE_IRON,
@@ -358,7 +358,7 @@ CONST_DATA u16 ShopList_Event_089ED8CA[] = {
 };
 
 // 0x89ED8E2
-CONST_DATA u16 ShopList_Event_089ED8E2[] = {
+CONST_DATA u16 ShopList_Ch10B_1[] = {
     ITEM_ANIMA_FIRE,
     ITEM_ANIMA_THUNDER,
     ITEM_LIGHT_LIGHTNING,
@@ -375,7 +375,7 @@ CONST_DATA u16 ShopList_Event_089ED8E2[] = {
 };
 
 // 0x89ED8FA
-CONST_DATA u16 ShopList_Event_089ED8FA[] = {
+CONST_DATA u16 ShopList_Ch12B_0[] = {
     ITEM_ANIMA_FIRE,
     ITEM_ANIMA_THUNDER,
     ITEM_LIGHT_LIGHTNING,
@@ -392,7 +392,7 @@ CONST_DATA u16 ShopList_Event_089ED8FA[] = {
 };
 
 // 0x89ED912
-CONST_DATA u16 ShopList_Event_089ED912[] = {
+CONST_DATA u16 ShopList_Ch14B_0[] = {
     ITEM_BLADE_STEEL,
     ITEM_BLADE_SILVER,
     ITEM_SWORD_KILLER,
@@ -414,7 +414,7 @@ CONST_DATA u16 ShopList_Event_089ED912[] = {
 };
 
 // 0x89ED934
-CONST_DATA u16 ShopList_Event_089ED934[] = {
+CONST_DATA u16 ShopList_Ch15B_0[] = {
     ITEM_ANIMA_THUNDER,
     ITEM_ANIMA_ELFIRE,
     ITEM_LIGHT_SHINE,
@@ -432,7 +432,7 @@ CONST_DATA u16 ShopList_Event_089ED934[] = {
 };
 
 // 0x89ED94E
-CONST_DATA u16 ShopList_Event_089ED94E[] = {
+CONST_DATA u16 ShopList_Ch17B_0[] = {
     ITEM_ANIMA_THUNDER,
     ITEM_ANIMA_ELFIRE,
     ITEM_LIGHT_SHINE,
@@ -450,7 +450,7 @@ CONST_DATA u16 ShopList_Event_089ED94E[] = {
 };
 
 // 0x89ED968
-CONST_DATA u16 ShopList_Event_089ED968[] = {
+CONST_DATA u16 ShopList_Ch17B_1[] = {
     ITEM_SWORD_IRON,
     ITEM_SWORD_STEEL,
     ITEM_SWORD_LANCEREAVER,
@@ -473,7 +473,7 @@ CONST_DATA u16 ShopList_Event_089ED968[] = {
 };
 
 // 0x89ED98C
-CONST_DATA u16 ShopList_Event_089ED98C[] = {
+CONST_DATA u16 ShopList_Ch19B_0[] = {
     ITEM_STAFF_BARRIER,
     ITEM_STAFF_PHYSIC,
     ITEM_HEROCREST,
@@ -487,14 +487,14 @@ CONST_DATA u16 ShopList_Event_089ED98C[] = {
 };
 
 // 0x89ED99E
-CONST_DATA u16 ShopList_Event_089ED99E[] = {
+CONST_DATA u16 ShopList_Tower1_0[] = {
     ITEM_SWORD_WINDSWORD,
 
     ITEM_NONE,
 };
 
 // 0x89ED9A2
-CONST_DATA u16 ShopList_Event_089ED9A2[] = {
+CONST_DATA u16 ShopList_Tower1_1[] = {
     ITEM_OCEANSEAL,
 
     ITEM_NONE,

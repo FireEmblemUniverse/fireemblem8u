@@ -513,7 +513,7 @@ void BattleAIS_ExecCommands(void)
                         if (GetAISLayerId(anim) == 0)
                             Set0201FAC8(1);
                         
-                        nullsub_17(anim);
+                        Nop_BanimEfxmisc_0(anim);
                         NewEfxspdquake(anim);
                     }
 

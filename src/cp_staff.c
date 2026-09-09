@@ -173,7 +173,7 @@ void AiStaffHealMendRecover(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
     int yDecision = -1;
     int targetId = 0;
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
 
     GenerateMagicSealMap(-1);
 
@@ -236,7 +236,7 @@ void AiStaffPhysicRescue(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
 
     GenerateMagicSealMap(-1);
 
@@ -271,7 +271,7 @@ void AiStaffPhysicRescue(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
 
                 MapAddInRange(unit->xPos, unit->yPos, GetUnitMagBy2Range(gActiveUnit), 1);
 
-                if (sub_803C284(&pos) == 0) {
+                if (GetAiBestSafeStaffTargetPosition(&pos) == 0) {
                     continue;
                 }
 
@@ -308,11 +308,11 @@ void AiStaffFortify(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    if (sub_803C364() <= 2) {
+    if (AiCountCurrentPhaseFlaggedUnits() <= 2) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
 
     GenerateMagicSealMap(-1);
 
@@ -328,7 +328,7 @@ void AiStaffFortify(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
 
                 MapAddInRange(ix, iy, GetUnitMagBy2Range(gActiveUnit), 1);
 
-                tempUnk = sub_803C3B0();
+                tempUnk = AiCountAlliedFlaggedUnitsInRange();
 
                 if (tempUnk > bestUnk) {
                     bestUnk = tempUnk;
@@ -361,7 +361,7 @@ void AiStaffWarp(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
 
     GenerateMagicSealMap(-1);
     MarkMovementMapEdges();
@@ -399,7 +399,7 @@ void AiStaffWarp(int itemIdx,  s8 (*isEnemy)(struct Unit* unit)) {
         }
     }
 
-    if ((level != 0) && (sub_8040668(&out) != 0)) {
+    if ((level != 0) && (GetAiWarpDestinationNearThreatenedAlly(&out) != 0)) {
         AiSetDecision(xDecision, yDecision, AI_ACTION_STAFF, targetId, itemIdx, out.x, out.y);
     }
 
@@ -421,7 +421,7 @@ void AiStaffRestore(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
 
     GenerateMagicSealMap(-1);
     MarkMovementMapEdges();
@@ -467,7 +467,7 @@ void AiStaffRestore(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
 }
 
 //! FE8U = 0x080402A8
-s8 sub_80402A8(struct Unit* unit) {
+s8 AiUnitHasUsableWeaponOrStaff(struct Unit* unit) {
     int i;
 
     for (i = 0; i < UNIT_ITEM_COUNT; i++) {
@@ -525,7 +525,7 @@ void AiStaffSilence(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
     GenerateMagicSealMap(-1);
 
     for (i = 1; i < 0xC0; i++) {
@@ -545,7 +545,7 @@ void AiStaffSilence(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
                 continue;
             }
 
-            if (!sub_803C44C(unit)) {
+            if (!AiCanUnitUseAnyStaff(unit)) {
                 continue;
             }
 
@@ -553,7 +553,7 @@ void AiStaffSilence(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
                 continue;
             }
 
-            if (sub_80402A8(unit) == 0) {
+            if (AiUnitHasUsableWeaponOrStaff(unit) == 0) {
                 continue;
             }
 
@@ -568,7 +568,7 @@ void AiStaffSilence(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
 
                 MapAddInRange(unit->xPos, unit->yPos, GetUnitMagBy2Range(gActiveUnit), 1);
 
-                if (sub_803C284(&pos) != 0) {
+                if (GetAiBestSafeStaffTargetPosition(&pos) != 0) {
                     bestUnk = tmp;
                     xDecision = pos.x;
                     yDecision = pos.y;
@@ -600,7 +600,7 @@ void AiStaffSleepBerserk(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
         return;
     }
 
-    sub_803C490(gActiveUnit);
+    AiGenerateUnitMovementMapRespectStay(gActiveUnit);
     GenerateMagicSealMap(-1);
 
     for (i = 1; i < 0xC0; i++) {
@@ -623,7 +623,7 @@ void AiStaffSleepBerserk(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
                 continue;
             }
 
-            if (!sub_80402A8(unit)) {
+            if (!AiUnitHasUsableWeaponOrStaff(unit)) {
                 continue;
             }
 
@@ -641,7 +641,7 @@ void AiStaffSleepBerserk(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
 
             MapAddInRange(unit->xPos, unit->yPos, GetUnitMagBy2Range(gActiveUnit), 1);
 
-            if (sub_803C284(&pos) != 0) {
+            if (GetAiBestSafeStaffTargetPosition(&pos) != 0) {
                 best = unit->level;
                 xDecision = pos.x;
                 yDecision = pos.y;
@@ -663,7 +663,7 @@ void AiStaffBarrier(int itemIdx, s8 (*isEnemy)(struct Unit* unit)) {
 }
 
 //! FE8U = 0x08040668
-s8 sub_8040668(struct Vec2* out) {
+s8 GetAiWarpDestinationNearThreatenedAlly(struct Vec2* out) {
     int ix;
     int iy;
 
@@ -690,7 +690,7 @@ s8 sub_8040668(struct Vec2* out) {
             continue;
         }
 
-        sub_8041054(unit);
+        GenerateUnitMovementMapOnRange(unit);
 
         for (iy = gBmMapSize.y - 1; iy >= 0; iy--) {
             for (ix = gBmMapSize.x - 1; ix >= 0; ix--) {

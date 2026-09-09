@@ -51,7 +51,7 @@ void efxAlacalibur_Loop_Main(struct ProcEfx * proc)
 
     if (proc->timer == 1)
     {
-        sub_805EE24(proc->anim);
+        StartSubSpell_efxAlacaliburOBJ(proc->anim);
         PlaySFX(0x108, 0x100, proc->anim->xPosition, 1);
         NewEfxFarAttackWithDistance(proc->anim, -1);
     }
@@ -63,8 +63,8 @@ void efxAlacalibur_Loop_Main(struct ProcEfx * proc)
         }
         else if (proc->timer == time + 6 + duration)
         {
-            sub_805ECD4(anim);
-            sub_805ED98(anim);
+            StartSubSpell_efxAlacaliburBG(anim);
+            StartSubSpell_efxAlacaliburBGCOL(anim);
             NewEfxALPHA(anim, 6, 5, 16, 0, 0);
             PlaySFX(0x109, 0x100, anim->xPosition, 1);
         }
@@ -107,7 +107,7 @@ u16 * CONST_DATA TsaArray_AircaliburBg[] =
     Tsa_AircaliburBg_B,
 };
 
-void sub_805ECD4(struct Anim * anim)
+void StartSubSpell_efxAlacaliburBG(struct Anim * anim)
 {
     // clang-format off
     static const u16 frames[] =
@@ -183,7 +183,7 @@ struct ProcCmd CONST_DATA gProcScr_efxAlacaliburBGCOL[] =
 // clang-format on
 
 //! FE8U = 0x0805ED98
-void sub_805ED98(struct Anim * anim)
+void StartSubSpell_efxAlacaliburBGCOL(struct Anim * anim)
 {
     // clang-format off
     static const u16 frames[] =
@@ -250,7 +250,7 @@ struct ProcCmd CONST_DATA gProcScr_efxAlacaliburOBJ[] =
 // clang-format on
 
 //! FE8U = 0x0805EE24
-void sub_805EE24(struct Anim * anim)
+void StartSubSpell_efxAlacaliburOBJ(struct Anim * anim)
 {
     struct ProcEfxOBJ * proc;
     struct Anim * frontAnim;

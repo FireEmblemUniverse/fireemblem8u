@@ -53,9 +53,9 @@ void ChapterIntroTitle_InitBgImg(struct ChapterIntroFxProc * proc)
 
     SetWin0Box(0, 64, DISPLAY_WIDTH, 96);
 
-    sub_80895B4(8, 1);
+    ApplyChapterTitlePal(8, 1);
     PutChapterTitleGfx(0x100, GetChapterTitleWM(&gPlaySt));
-    sub_80896D8(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 1);
+    DrawChapterTitleStr(TILEMAP_LOCATED(gBG0TilemapBuffer, 3, 9), 1);
 
     EnablePaletteSync();
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);

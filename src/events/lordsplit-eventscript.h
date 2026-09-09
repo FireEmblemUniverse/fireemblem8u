@@ -41,7 +41,7 @@ LABEL(0x1)
     TEXTEND
     REMA
     FADI(16)
-    LOAD1(0x1, UnitDef_088B43D0)
+    LOAD1(0x1, UnitDef_LordSplitAlly)
     ENUN
     ENUT(138)
     MNCH(0x2)

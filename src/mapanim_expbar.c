@@ -12,17 +12,17 @@
 
 void DrawMAExpBar(int arg0, int arg1, int arg2)
 {
-    sub_807BA28(
+    MapAnim_DrawNumber(
         TILEMAP_LOCATED(gBG0TilemapBuffer,
             arg0 + 2,
             arg1 + 1),
         arg2, 0x5225, 2, 0x522F, FALSE);
 
-    sub_807BB40(
+    MapAnim_DrawBar(
         TILEMAP_LOCATED(gBG0TilemapBuffer,
             arg0 + 3,
             arg1 + 1),
-        99, arg2, 0, gUnknown_089A36C0);
+        99, arg2, 0, gMapanimExpbar_0);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
@@ -54,7 +54,7 @@ void ProcMAExpBar_OnDraw(struct MAExpBarProc* proc)
 
     CallARM_FillTileRect(
         TILEMAP_LOCATED(gBG0TilemapBuffer, 6, 8),
-        gUnknown_089AD498,
+        gMapanimLevelup_0,
         TILEREF(512, BM_BGPAL_BANIM_UNK5));
 
     DrawMAExpBar(6, 8, proc->expFrom);
@@ -116,7 +116,7 @@ void ProcMAExpBar_LevelUpIfPossible(struct MAExpBarProc* proc)
         StartManimLevelUp(proc->actorId, (struct Proc*) proc);
 }
 
-CONST_DATA u16 gUnknown_089A36C0[] = {
+CONST_DATA u16 gMapanimExpbar_0[] = {
     0x006, 0x20D, 0x009, 0x214,
     0x009, 0x214, 0x009, 0x214,
     0x009, 0x214, 0x009, 0x214,

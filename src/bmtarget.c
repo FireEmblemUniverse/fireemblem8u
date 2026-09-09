@@ -104,7 +104,7 @@ void ForEachAdjacentPosition(int x, int y, void(*func)(int x, int y)) {
     return;
 }
 
-void sub_8024FD8(int x, int y, void(*func)(int x, int y)) {
+void ForEachPosAtSinglePosition(int x, int y, void(*func)(int x, int y)) {
     s8 ix;
     s8 iy;
 
@@ -554,7 +554,7 @@ void MakeTargetListForDoorAndBridges(struct Unit* unit, int terrainId) {
     return;
 }
 
-void sub_8025864(int x, int y) {
+void TryAddDoorOrBridgeToTargetList(int x, int y) {
     switch (gBmMapTerrain[y][x]) {
         case TERRAIN_DOOR:
             AddTarget(x, y, TERRAIN_DOOR, 0);
@@ -575,7 +575,7 @@ void MakeTargetListForPick(struct Unit* unit) {
 
     BmMapFill(gBmMapRange, 0);
 
-    ForEachAdjacentPosition(x, y, sub_8025864);
+    ForEachAdjacentPosition(x, y, TryAddDoorOrBridgeToTargetList);
 
     if (gBmMapTerrain[unit->yPos][unit->xPos] == TERRAIN_CHEST_FULL) {
         AddTarget(x, y, TERRAIN_CHEST_FULL, 0);
@@ -831,7 +831,7 @@ void MakeTargetListForSummon(struct Unit* unit) {
     return;
 }
 
-void sub_8025CD8(int x, int y) {
+void AddPosToTargetListIfCleanForSummon(int x, int y) {
 
     if (gBmMapUnit[y][x] != 0) {
         return;
@@ -850,7 +850,7 @@ void sub_8025CD8(int x, int y) {
     return;
 }
 
-void sub_8025D48(struct Unit* unit) {
+void MakeSummonTargetListSouth(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
@@ -858,12 +858,12 @@ void sub_8025D48(struct Unit* unit) {
 
     BmMapFill(gBmMapRange, 0);
 
-    sub_8024FD8(x, y + 4, sub_8025CD8);
+    ForEachPosAtSinglePosition(x, y + 4, AddPosToTargetListIfCleanForSummon);
 
     return;
 }
 
-void sub_8025D80(struct Unit* unit) {
+void MakeSummonTargetListWest(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
@@ -871,12 +871,12 @@ void sub_8025D80(struct Unit* unit) {
 
     BmMapFill(gBmMapRange, 0);
 
-    sub_8024FD8(x - 4, y, sub_8025CD8);
+    ForEachPosAtSinglePosition(x - 4, y, AddPosToTargetListIfCleanForSummon);
 
     return;
 }
 
-void sub_8025DB8(struct Unit* unit) {
+void MakeSummonTargetListEast(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
@@ -884,12 +884,12 @@ void sub_8025DB8(struct Unit* unit) {
 
     BmMapFill(gBmMapRange, 0);
 
-    sub_8024FD8(x + 4, y, sub_8025CD8);
+    ForEachPosAtSinglePosition(x + 4, y, AddPosToTargetListIfCleanForSummon);
 
     return;
 }
 
-void sub_8025DF0(struct Unit* unit) {
+void MakeSummonTargetListNorth(struct Unit* unit) {
     int x = unit->xPos;
     int y = unit->yPos;
 
@@ -897,7 +897,7 @@ void sub_8025DF0(struct Unit* unit) {
 
     BmMapFill(gBmMapRange, 0);
 
-    sub_8024FD8(x, y - 4, sub_8025CD8);
+    ForEachPosAtSinglePosition(x, y - 4, AddPosToTargetListIfCleanForSummon);
 
     return;
 }
@@ -1243,7 +1243,7 @@ void MakeTargetListForLatona(struct Unit* unit) {
     return;
 }
 
-void sub_8026414(int unk) {
+void PidStatsRecordTargetListDeaths(int unk) {
     int i;
     int count = GetSelectTargetCount();
 

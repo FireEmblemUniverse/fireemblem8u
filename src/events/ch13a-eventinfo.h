@@ -2,18 +2,18 @@
 
 CONST_DATA EventListScr EventListScr_Ch13a_Turn[] = {
     TurnEventPlayer(EVFLAG_WIN, EventScr_Ch13a_EndingScene, 12) /* I think this can also set as "Survive" */
-    TurnEventPlayer(0, EventScr_089F5A48, 9)
-    TurnEventPlayer_(0, EventScr_089F5A90, 5, 5)
-    TurnEventPlayer(0, EventScr_089F5AD4, 2)
-    TurnEventPlayer_(0, EventScr_089F5AEC, 3, 3)
-    TurnEventPlayer(0, EventScr_089F5B04, 5)
+    TurnEventPlayer(0, EventScr_Ch13A_3, 9)
+    TurnEventPlayer_(0, EventScr_Ch13A_4, 5, 5)
+    TurnEventPlayer(0, EventScr_Ch13A_5, 2)
+    TurnEventPlayer_(0, EventScr_Ch13A_6, 3, 3)
+    TurnEventPlayer(0, EventScr_Ch13A_7, 5)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch13a_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089F59CC, CHARACTER_EIRIKA, CHARACTER_AMELIA)
-    CHAR(EVFLAG_TMP(7), EventScr_089F59F8, CHARACTER_FRANZ, CHARACTER_AMELIA)
-    CHAR(EVFLAG_TMP(8), EventScr_089F5A20, CHARACTER_EIRIKA, CHARACTER_CORMAG)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch13A_0, CHARACTER_EIRIKA, CHARACTER_AMELIA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch13A_1, CHARACTER_FRANZ, CHARACTER_AMELIA)
+    CHAR(EVFLAG_TMP(8), EventScr_Ch13A_2, CHARACTER_EIRIKA, CHARACTER_CORMAG)
     END_MAIN
 };
 
@@ -59,13 +59,13 @@ CONST_DATA struct ChapterEventGroup Ch13EirikaEvents = {
     .playerUnitsInNormal = UnitDef_Event_Ch13aAlly,
     .playerUnitsInHard   = UnitDef_Event_Ch13aAlly,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088BB118,
-    .playerUnitsChoice2InEncounter = UnitDef_088BB3D4,
-    .playerUnitsChoice3InEncounter = UnitDef_088BB690,
+    .playerUnitsChoice1InEncounter = UnitDef_Ch13AAlly_2,
+    .playerUnitsChoice2InEncounter = UnitDef_Ch13AAlly_3,
+    .playerUnitsChoice3InEncounter = UnitDef_Ch13AAlly_4,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088BB1E0,
-    .enemyUnitsChoice2InEncounter = UnitDef_088BB49C,
-    .enemyUnitsChoice3InEncounter = UnitDef_088BB758,
+    .enemyUnitsChoice1InEncounter = UnitDef_Ch13AEnemy_12,
+    .enemyUnitsChoice2InEncounter = UnitDef_Ch13AEnemy_13,
+    .enemyUnitsChoice3InEncounter = UnitDef_Ch13AEnemy_14,
 
     .beginningSceneEvents = EventScr_Ch13a_BeginningScene,
     .endingSceneEvents    = EventScr_Ch13a_EndingScene,

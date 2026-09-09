@@ -91,48 +91,48 @@ struct ProcCmd CONST_DATA ProcScr_efxStoneBG[] =
 
 u16 * CONST_DATA ImgArray_StoneBg[] =
 {
-    Img_086BDB7C,
-    Img_086BE0CC,
-    Img_086BE668,
-    Img_086BEC5C,
-    Img_086BF2F4,
-    Img_086BF9B0,
-    Img_086C0110,
-    Img_086C0924,
-    Img_086C119C,
-    Img_086C1AD0,
-    Img_086C2438,
-    Img_086C2DA8,
-    Img_086C375C,
-    Img_086C40F4,
-    Img_086C4AB4,
-    Img_086C53CC,
-    Img_086C5D20,
-    Img_086C669C,
-    Img_086C7010,
+    Img_Banim_14,
+    Img_Stone_0,
+    Img_Stone_1,
+    Img_Stone_2,
+    Img_Stone_3,
+    Img_Stone_4,
+    Img_Stone_5,
+    Img_Stone_6,
+    Img_Stone_7,
+    Img_Stone_8,
+    Img_Stone_9,
+    Img_Stone_10,
+    Img_Stone_11,
+    Img_Stone_12,
+    Img_Stone_13,
+    Img_Stone_14,
+    Img_Stone_15,
+    Img_Stone_16,
+    Img_Stone_17,
 };
 
 u16 * CONST_DATA TsaArray_StoneBg[] =
 {
-    Tsa_086C796C,
-    Tsa_086C7A2C,
-    Tsa_086C7AF8,
-    Tsa_086C7BD0,
-    Tsa_086C7CBC,
-    Tsa_086C7DC0,
-    Tsa_086C7ED4,
-    Tsa_086C7FFC,
-    Tsa_086C8138,
-    Tsa_086C828C,
-    Tsa_086C8404,
-    Tsa_086C8570,
-    Tsa_086C86E4,
-    Tsa_086C8860,
-    Tsa_086C89EC,
-    Tsa_086C8B30,
-    Tsa_086C8C84,
-    Tsa_086C8DE8,
-    Tsa_086C8F4C,
+    Tsa_Stone_0,
+    Tsa_Stone_1,
+    Tsa_Stone_2,
+    Tsa_Stone_3,
+    Tsa_Stone_4,
+    Tsa_Stone_5,
+    Tsa_Stone_6,
+    Tsa_Stone_7,
+    Tsa_Stone_8,
+    Tsa_Stone_9,
+    Tsa_Stone_10,
+    Tsa_Stone_11,
+    Tsa_Stone_12,
+    Tsa_Stone_13,
+    Tsa_Stone_14,
+    Tsa_Stone_15,
+    Tsa_Stone_16,
+    Tsa_Stone_17,
+    Tsa_Stone_18,
 };
 
 // clang-format on
@@ -215,12 +215,12 @@ void efxStoneBG_Loop(struct ProcEfxBG * proc)
 
         if (ret == 17)
         {
-            SpellFx_RegisterBgPal(Pal_StoneBg_086C792C, PLTT_SIZE_4BPP);
+            SpellFx_RegisterBgPal(Pal_StoneBg_0, PLTT_SIZE_4BPP);
         }
 
         if (ret == 18)
         {
-            SpellFx_RegisterBgPal(Pal_StoneBg_086C794C, PLTT_SIZE_4BPP);
+            SpellFx_RegisterBgPal(Pal_StoneBg_1, PLTT_SIZE_4BPP);
         }
     }
     else

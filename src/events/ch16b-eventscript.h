@@ -1,43 +1,43 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventScr_Ch16b_BeginningScene[] = {
-    CALL(EventScr_089F6A8C)
+    CALL(EventScr_Ch16A_11)
     SVAL(EVT_SLOT_B, 0x0)
     LOMA(CHAPTER_I_16)
-    LOAD1(0x0, UnitDef_088BCE58)
+    LOAD1(0x0, UnitDef_Ch15AAlly_2)
     ENUN
-    LOAD1(0x1, UnitDef_088C774C)
+    LOAD1(0x1, UnitDef_Ch16BEnemy_0)
     ENUN
-    SVAL(EVT_SLOT_2, UnitDef_088C7BFC)
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_7)
     SVAL(EVT_SLOT_3, 0x1)
     CALL(EventScr_LoadUnitForTutorial)
-    CALL(EventScr_08591FD8)
+    CALL(EventScr_CommonPrep)
     ENUT(14)
     ENUT(13)
     ENDA
 };
 
 CONST_DATA EventListScr EventScr_Ch16b_EndingScene[] = {
-    CALL(EventScr_089F6E50)
+    CALL(EventScr_Ch16A_12)
     MNCH(0x1e)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCDA8[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088C7BAC)
+CONST_DATA EventListScr EventScr_Ch16B_0[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_5)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCDC0[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088C7BD4)
+CONST_DATA EventListScr EventScr_Ch16B_1[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_6)
     CALL(EventScr_LoadReinforce)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCDD8[] = {
+CONST_DATA EventListScr EventScr_Ch16B_2[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     SVAL(EVT_SLOT_1, 0x10000)
@@ -48,10 +48,10 @@ CONST_DATA EventListScr EventScr_089FCDD8[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCE04[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088C7A94)
+CONST_DATA EventListScr EventScr_Ch16B_3[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_2)
     CALL(EventScr_LoadReinforce)
-    SVAL(EVT_SLOT_2, UnitDef_088C7A44)
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_1)
     CALL(EventScr_LoadReinforce)
     COUNTER_DEC(0x0)
     ENUF(14)
@@ -63,7 +63,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCE48[] = {
+CONST_DATA EventListScr EventScr_Ch16B_4[] = {
     SVAL(EVT_SLOT_2, 0x0)
     CALL(EventScr_UnTriggerIfNotFaction)
     SVAL(EVT_SLOT_1, 0x10000)
@@ -76,10 +76,10 @@ CONST_DATA EventListScr EventScr_089FCE48[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089FCE80[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088C7B0C)
+CONST_DATA EventListScr EventScr_Ch16B_5[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_3)
     CALL(EventScr_LoadReinforce)
-    SVAL(EVT_SLOT_2, UnitDef_088C7B48)
+    SVAL(EVT_SLOT_2, UnitDef_Ch16BEnemy_4)
     CALL(EventScr_LoadReinforce)
     COUNTER_DEC(0x1)
     ENUF(13)

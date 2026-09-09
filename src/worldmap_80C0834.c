@@ -3,7 +3,7 @@
 #include "worldmap.h"
 
 //! FE8U = 0x080C0834
-int sub_80C0834(int arg0, int arg1, int arg2, int arg3, int arg4)
+int GetWMPointDistance(int arg0, int arg1, int arg2, int arg3, int arg4)
 {
     int a = (arg2 - arg0);
     int b = (arg3 - arg1);
@@ -40,7 +40,7 @@ void GetWMCenteredCameraPosition(s16 xIn, s16 yIn, s16 * xOut, s16 * yOut)
 }
 
 //! FE8U = 0x080C089C
-int sub_80C089C(int a, int b, int c, int d)
+int GetWMCursorScreenQuadrant(int a, int b, int c, int d)
 {
     s16 x1;
     s16 y1;
@@ -120,13 +120,13 @@ int IsChapterMonsterSpawnActive(int chIndex)
     return 0;
 }
 
-extern u8 gUnknown_0201B430[];
-extern u8 gUnknown_0201B930[];
+extern u8 gUnk_16[];
+extern u8 gUnk_23[];
 
 //! FE8U = 0x080C09B8
-void sub_80C09B8(void)
+void ClearWMPlayerInterfaceTilemapBuffers(void)
 {
-    CpuFastFill(0, gUnknown_0201B430, 0x500);
-    CpuFastFill(0, gUnknown_0201B930, 0x500);
+    CpuFastFill(0, gUnk_16, 0x500);
+    CpuFastFill(0, gUnk_23, 0x500);
     return;
 }

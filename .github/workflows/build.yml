@@ -29,24 +29,46 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y build-essential binutils-arm-none-eabi libpng-dev && python -m pip install ttp numpy pillow
 
     - uses: actions/checkout@v4
+      with:
+        submodules: recursive
 
     - name: Install agbcc
       run: git clone https://github.com/pret/agbcc.git && cd agbcc/ && ./build.sh && ./install.sh .. && cd ..
 
+    # Cache the mgfembp submodule's agbcc variant (010110-ThumbPatch); the FE6 SIO
+    # payload sub-build installs it on a cache miss. `make compare` is the backstop
+    # if a stale cache ever produced a different payload.
+    - name: Cache mgfembp agbcc
+      uses: actions/cache@v4
+      with:
+        path: mgfembp/tools/agbcc
+        key: mgfembp-agbcc-${{ hashFiles('mgfembp/tools/install_agbcc.sh') }}
+
     - name: Build tools
       run: ./build_tools.sh
 
-    - name: Mock base ROM
-      run: head -c 16M /dev/urandom > baserom.gba
-
     - name: Build target ROM
       run: make fireemblem8.gba
+
+    - name: Verify ROM matches
+      run: make compare
 
     - name: Calculate decomp progress
       run: scripts/calcrom.sh | tee _site/progress.txt
 
     - name: Upload decomp progress
       run: python scripts/upload-progress.py -b "https://progress.deco.mp" -a ${{secrets.PROGRESS_API_KEY}} -p fireemblem8 -v us -t scripts/progress-template.txt _site/progress.txt
+
+    # decomp.dev (https://decomp.dev) ingests an objdiff report uploaded as a
+    # workflow artifact named `<version>_report` whose zip contains report.json.
+    - name: Generate decomp.dev report
+      run: python3 scripts/gen-report.py _site/progress.txt report.json
+
+    - name: Upload decomp.dev report artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: us_report
+        path: report.json
 
     - name: Extract symbol table
       run: arm-none-eabi-nm -l -n fireemblem8.elf | grep -v '^00' | uniq > _site/symbols.txt

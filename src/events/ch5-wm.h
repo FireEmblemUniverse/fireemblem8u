@@ -14,7 +14,7 @@
 CONST_DATA EventScr EventScrWM_Ch5_Beginning[] = {
     CHECK_EVENTID(136)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    CALL(EventScrWM_08A3A268)
+    CALL(EventScrWM_Ch5_0)
     GOTO(0x2)
 LABEL(0x1)
     EVBIT_MODIFY(0x1)
@@ -36,7 +36,7 @@ LABEL(0x2)
     ENDA
 };
 
-CONST_DATA EventScr EventScrWM_08A3A268[] = {
+CONST_DATA EventScr EventScrWM_Ch5_0[] = {
     EVBIT_MODIFY(0x1)
     WM_SPAWNLORD(WM_MU_0, CHARACTER_EIRIKA, WM_NODE_Renvall2)
     WmEvtSetCamToNode(WM_NODE_AdlasPlains) // ENOSUPP in EAstdlib
@@ -56,7 +56,7 @@ CONST_DATA EventScr EventScrWM_08A3A268[] = {
 CONST_DATA EventScr EventScrWM_Ch5_ChapterIntro[] = {
     CHECK_EVENTID(136)
     BEQ(0x1, EVT_SLOT_C, EVT_SLOT_0)
-    CALL(EventScrWM_08A3A4D0)
+    CALL(EventScrWM_Ch5_1)
     GOTO(0x2)
 LABEL(0x1)
     STAL(6)
@@ -126,7 +126,7 @@ LABEL(0x2)
     ENDA
 };
 
-CONST_DATA EventScr EventScrWM_08A3A4D0[] = {
+CONST_DATA EventScr EventScrWM_Ch5_1[] = {
     FADI(16)
     ENDA
 };

@@ -24,7 +24,7 @@ PROC_LABEL(7),
     PROC_END,
 };
 
-CONST_DATA u32 gUnknown_08B12704[] = {
+CONST_DATA u32 gClasschgHandler_0[] = {
     0x00011e05,
     0x28050008,
     0x50050003,

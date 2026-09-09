@@ -115,7 +115,7 @@ void StartShopScreen(struct Unit * unit, const u16 * inventory, u8 shopType, Pro
 void UpdateShopItemCounts(struct ProcShop*);
 void TalkChoice_OnBuy(void);
 void TalkChoice_OnSell(void);
-// ??? Shop_null_80B4328(???);
+// ??? Shop_null_0(???);
 void Shop_EntryDialogue(struct ProcShop * proc);
 void Shop_HandleEntryDialoguePrompt(struct ProcShop * proc);
 void Shop_BuyDialogue(struct ProcShop * proc);

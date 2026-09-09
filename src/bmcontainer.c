@@ -119,7 +119,7 @@ bool8 HasConvoyAccess(void)
     return false;
 }
 
-bool8 sub_8031660(void)
+bool8 ChapterHasMerchant(void)
 {
     const struct ROMChapterData * chapterData =
         GetROMChapterStruct(gPlaySt.chapterIndex);

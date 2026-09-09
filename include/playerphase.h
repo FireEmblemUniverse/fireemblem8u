@@ -44,8 +44,8 @@ bool TryMakeCantoUnit(ProcPtr proc);
 bool RunPotentialWaitEvents(void);
 bool EnsureCameraOntoActiveUnitPosition(ProcPtr proc);
 void PlayerPhase_FinishAction(ProcPtr proc);
-void sub_801D404(void);
-void sub_801D434(ProcPtr proc);
+void PlayerPhase_CommitActiveUnitMove(void);
+void PlayerPhase_OpenUnitActionMenu(ProcPtr proc);
 void PlayerPhase_ApplyUnitMovement(ProcPtr proc);
 int GetPlayerSelectKind(struct Unit * unit);
 bool CanMoveActiveUnitTo(int x, int y);
@@ -72,13 +72,11 @@ void PlayerPhase_HandleAutoEnd(ProcPtr proc);
 extern const struct MenuDef gMapMenuDef;
 extern const struct MenuDef gUnitActionMenuDef;
 
-extern u16 gUnknown_08A02F34[];
-extern u16 gUnknown_08A02F94[];
-extern u16 gUnknown_08A02FF4[];
+extern u16 Pal_LimitViewBlue[];
+extern u16 Pal_LimitViewRed[];
+extern u16 Pal_LimitViewGreen[];
 
-extern u8 gUnknown_08A02EB4[];
-
-extern struct ProcCmd gProcScr_0859ACE8[];
+extern struct ProcCmd gProcScr_Playerphase_0[];
 extern struct ProcCmd gProcScr_PlayerPhase[];
 
 #endif  // GUARD_PLAYERPHASE_H

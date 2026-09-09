@@ -3,7 +3,7 @@
 #include "spline.h"
 
 //! FE8U = 0x0800A42C
-int sub_800A42C(int val, int start, int end)
+int Spline_Ease(int val, int start, int end)
 {
 #if NONMATCHING
     int num1 = start + end;
@@ -43,7 +43,7 @@ int sub_800A42C(int val, int start, int end)
 }
 
 //! FE8U = 0x0800A4E8
-void sub_800A4E8(struct UnkSplineStruct1 * src, struct UnkSplineStruct2 * dest)
+void Spline_PrepareSegmentControls(struct UnkSplineStruct1 * src, struct UnkSplineStruct2 * dest)
 {
     dest->unk_00 = src->unk_00;
 
@@ -67,7 +67,7 @@ void sub_800A4E8(struct UnkSplineStruct1 * src, struct UnkSplineStruct2 * dest)
 }
 
 //! FE8U = 0x0800A518
-void sub_800A518(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
+void Spline_ComputeRightTangents(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
 {
     int i;
     int sp_08;
@@ -121,7 +121,7 @@ void sub_800A518(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
 }
 
 //! FE8U = 0x0800A680
-void sub_800A680(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
+void Spline_ComputeLeftTangents(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
 {
     int i;
     int sp_04;
@@ -176,7 +176,7 @@ void sub_800A680(struct UnkSplineStruct2 * arg_0, int * arg_1, int arg_2)
 }
 
 //! FE8U = 0x0800A7D8
-void sub_800A7D8(struct UnkSplineStruct1 * arg_0, struct UnkSplineStruct3 * arg_1, int arg_2)
+void Spline_BuildCubicCoeffs(struct UnkSplineStruct1 * arg_0, struct UnkSplineStruct3 * arg_1, int arg_2)
 {
     int * r8;
     int * r9;
@@ -195,11 +195,11 @@ void sub_800A7D8(struct UnkSplineStruct1 * arg_0, struct UnkSplineStruct3 * arg_
     r8 = arg_0[1].unk_04;
     r9 = arg_0[2].unk_04;
 
-    sub_800A4E8(arg_0 + 0, &unk);
-    sub_800A680(&unk, arrayB, arg_2);
+    Spline_PrepareSegmentControls(arg_0 + 0, &unk);
+    Spline_ComputeLeftTangents(&unk, arrayB, arg_2);
 
-    sub_800A4E8(arg_0 + 1, &unk);
-    sub_800A518(&unk, arrayA, arg_2);
+    Spline_PrepareSegmentControls(arg_0 + 1, &unk);
+    Spline_ComputeRightTangents(&unk, arrayA, arg_2);
 
     sl = r8;
     r9_ = r9;
@@ -225,7 +225,7 @@ void sub_800A7D8(struct UnkSplineStruct1 * arg_0, struct UnkSplineStruct3 * arg_
 }
 
 //! FE8U = 0x0800A8D8
-int sub_800A8D8(s16 * arg_0, s16 arg_1, int * arg_2, int * arg_3)
+int Spline_FindSegment(s16 * arg_0, s16 arg_1, int * arg_2, int * arg_3)
 {
     int r2;
     int r3;
@@ -265,10 +265,10 @@ int sub_800A8D8(s16 * arg_0, s16 arg_1, int * arg_2, int * arg_3)
     return 0;
 }
 
-u32 CONST_DATA gUnknown_08591AB4[3] = { 0, 0, 0 };
+u32 CONST_DATA gSpline_0[3] = { 0, 0, 0 };
 
 //! FE8U = 0x0800A950
-int sub_800A950(struct Struct02003BE8 * params, int mode, int * results)
+int Spline_Eval(struct Struct02003BE8 * params, int mode, int * results)
 {
     int i;
     struct UnkSplineStruct1 * sp_00[4];
@@ -314,7 +314,7 @@ int sub_800A950(struct Struct02003BE8 * params, int mode, int * results)
         return -1;
     }
 
-    sub_800A8D8(r9, params->unk_02, &sp_80, &sp_84);
+    Spline_FindSegment(r9, params->unk_02, &sp_80, &sp_84);
 
     if (sp_84 == 0)
     {
@@ -331,7 +331,7 @@ int sub_800A950(struct Struct02003BE8 * params, int mode, int * results)
 
     if (params->unk_10 == NULL)
     {
-        r4_ = gUnknown_08591AB4;
+        r4_ = gSpline_0;
     }
     else
     {
@@ -378,7 +378,7 @@ int sub_800A950(struct Struct02003BE8 * params, int mode, int * results)
         }
     }
 
-    sub_800A7D8(*sp_00, sp_a0, sp_98);
+    Spline_BuildCubicCoeffs(*sp_00, sp_a0, sp_98);
 
     if (params->unk_02 > sp_84 + 1)
     {
@@ -402,7 +402,7 @@ int sub_800A950(struct Struct02003BE8 * params, int mode, int * results)
 }
 
 //! FE8U = 0x0800AB58
-void sub_800AB58(struct UnkSplineStruct3 * arg_0, int * arg_1)
+void Spline_QuaternionToMatrix4x4(struct UnkSplineStruct3 * arg_0, int * arg_1)
 {
     int r4;
     int r5;
@@ -480,7 +480,7 @@ void sub_800AB58(struct UnkSplineStruct3 * arg_0, int * arg_1)
 }
 
 //! FE8U = 0x0800ACEC
-void sub_800ACEC(struct UnkSplineStruct3 * arg_0, int * arg_1)
+void Spline_QuaternionToMatrix3x3(struct UnkSplineStruct3 * arg_0, int * arg_1)
 {
     int r4;
     int r5;
@@ -581,7 +581,7 @@ struct Struct02003BE8_B
 };
 
 //! FE8U = 0x0800AE7C
-int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int * arg_3, int * arg_4)
+int Spline_EvalTransformChannels(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int * arg_3, int * arg_4)
 {
     int ret;
     struct Struct02003BE8_B local;
@@ -597,7 +597,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_14;
         local.unk_10 = arg_0->unk_18;
 
-        ret = sub_800A950((void *)&local, arg_1, arg_2);
+        ret = Spline_Eval((void *)&local, arg_1, arg_2);
 
         if (ret < 0)
         {
@@ -616,7 +616,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_28;
         local.unk_10 = arg_0->unk_2c;
 
-        ret = sub_800A950((void *)&local, arg_1, arg_3);
+        ret = Spline_Eval((void *)&local, arg_1, arg_3);
 
         if (ret < 0)
         {
@@ -636,7 +636,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
         local.unk_0c = arg_0->unk_3c;
         local.unk_10 = arg_0->unk_40;
 
-        ret = sub_800A950((void *)&local, arg_1, arg_4);
+        ret = Spline_Eval((void *)&local, arg_1, arg_4);
 
         if (ret < 0)
         {
@@ -650,7 +650,7 @@ int sub_800AE7C(struct UnkSplineSub800AE7C * arg_0, int arg_1, int * arg_2, int 
 }
 
 //! FE8U = 0x0800AF64
-int sub_800AF64(struct Struct02003BE8 * params, int mode, int * results)
+int Spline_EvalIndirect(struct Struct02003BE8 * params, int mode, int * results)
 {
     int i;
     struct UnkSplineStruct1 * sp_00[4];
@@ -695,7 +695,7 @@ int sub_800AF64(struct Struct02003BE8 * params, int mode, int * results)
         return -1;
     }
 
-    sub_800A8D8(r9, params->unk_02, &sp_80, &sp_84);
+    Spline_FindSegment(r9, params->unk_02, &sp_80, &sp_84);
 
     if (sp_84 == 0)
     {
@@ -725,7 +725,7 @@ int sub_800AF64(struct Struct02003BE8 * params, int mode, int * results)
             }
             else
             {
-                sp_10[i].unk_08 = (s16 *)gUnknown_08591AB4;
+                sp_10[i].unk_08 = (s16 *)gSpline_0;
             }
         }
         else if (sp_84 + i - 1 >= sp_94)
@@ -739,7 +739,7 @@ int sub_800AF64(struct Struct02003BE8 * params, int mode, int * results)
             }
             else
             {
-                sp_10[i].unk_08 = (s16 *)gUnknown_08591AB4;
+                sp_10[i].unk_08 = (s16 *)gSpline_0;
             }
         }
         else
@@ -753,12 +753,12 @@ int sub_800AF64(struct Struct02003BE8 * params, int mode, int * results)
             }
             else
             {
-                sp_10[i].unk_08 = (s16 *)gUnknown_08591AB4;
+                sp_10[i].unk_08 = (s16 *)gSpline_0;
             }
         }
     }
 
-    sub_800A7D8(*sp_00, sp_a0, sp_98);
+    Spline_BuildCubicCoeffs(*sp_00, sp_a0, sp_98);
 
     if (params->unk_02 > sp_84 + 1)
     {
@@ -817,7 +817,7 @@ struct astruct_12
     /* 1C */ struct InputStructA unk_1c;
 };
 
-int sub_800A8D8(s16 *, s16, int *, int *);
+int Spline_FindSegment(s16 *, s16, int *, int *);
 
 struct astruct_16
 {
@@ -830,32 +830,32 @@ struct astruct_16
 };
 
 //! FE8U = 0x0800B16C
-int sub_800B16C(struct astruct_16 * arg_0)
+int Spline_EvalTwoChannels(struct astruct_16 * arg_0)
 {
     int ret;
 
     if (arg_0->unk_04 != 0)
     {
-        ret = sub_800AF64(arg_0->unk_04, arg_0->unk_00, arg_0->unk_10);
+        ret = Spline_EvalIndirect(arg_0->unk_04, arg_0->unk_00, arg_0->unk_10);
     }
 
     if (arg_0->unk_08 != 0)
     {
-        ret = sub_800AF64(arg_0->unk_08, arg_0->unk_00, arg_0->unk_14);
+        ret = Spline_EvalIndirect(arg_0->unk_08, arg_0->unk_00, arg_0->unk_14);
     }
 
     return ret;
 }
 
 //! FE8U = 0x0800B198
-int sub_800B198(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
+int Spline_SetupSegment3(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
 {
     s16 * r8;
     struct Struct02003BE8_B local;
     int r9;
     int sp_18;
 
-    sub_800A8D8(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
+    Spline_FindSegment(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
 
     arg_1->unk_04[1] = arg_4;
 
@@ -886,7 +886,7 @@ int sub_800B198(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
+        if (Spline_Eval((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;
@@ -916,14 +916,14 @@ int sub_800B198(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
 }
 
 //! FE8U = 0x0800B388
-int sub_800B388(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
+int Spline_SetupSegment4(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
 {
     s16 * r8;
     struct Struct02003BE8_B local;
     int r9;
     int sp_18;
 
-    sub_800A8D8(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
+    Spline_FindSegment(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
 
     arg_1->unk_04[1] = arg_4;
 
@@ -954,7 +954,7 @@ int sub_800B388(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
+        if (Spline_Eval((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;
@@ -985,14 +985,14 @@ int sub_800B388(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
 }
 
 //! FE8U = 0x0800B574
-int sub_800B574(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
+int Spline_SetupSegment3B(struct InputStructA * arg_0, struct InputStructB * arg_1, int * arg_2, int arg_3, s16 arg_4)
 {
     s16 * r8;
     struct Struct02003BE8_B local;
     int r9;
     int sp_18;
 
-    sub_800A8D8(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
+    Spline_FindSegment(r8 = arg_0->unk_04, r9 = arg_0->unk_00, &arg_3, &sp_18);
 
     arg_1->unk_04[1] = arg_4;
 
@@ -1023,7 +1023,7 @@ int sub_800B574(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
         local.unk_0c = (void *)arg_0->unk_0c;
         local.unk_10 = (void *)arg_0->unk_10;
 
-        if (sub_800A950((void *)&local, arg_3, arg_2) < 0)
+        if (Spline_Eval((void *)&local, arg_3, arg_2) < 0)
         {
             arg_2[2] = 0;
             arg_2[1] = 0;
@@ -1053,7 +1053,7 @@ int sub_800B574(struct InputStructA * arg_0, struct InputStructB * arg_1, int * 
 }
 
 //! FE8U = 0x0800B764
-int sub_800B764(struct astruct_12 * arg_0, struct astruct_13 * arg_1, s16 arg_2)
+int Spline_SetupChannels(struct astruct_12 * arg_0, struct astruct_13 * arg_1, s16 arg_2)
 {
     int ret;
     int flags = arg_0->unk_00;
@@ -1064,13 +1064,13 @@ int sub_800B764(struct astruct_12 * arg_0, struct astruct_13 * arg_1, s16 arg_2)
     if ((flags & 4) != 0)
     {
         ip->unk_04[0] = 0;
-        ret = sub_800B198(&arg_0->unk_08, ip, arg_1->unk_10, arg_1->unk_00, arg_2);
+        ret = Spline_SetupSegment3(&arg_0->unk_08, ip, arg_1->unk_10, arg_1->unk_00, arg_2);
     }
 
     if ((flags & 8) != 0)
     {
         r8->unk_04[0] = 0;
-        ret = sub_800B388(&arg_0->unk_1c, r8, arg_1->unk_14, arg_1->unk_00, arg_2);
+        ret = Spline_SetupSegment4(&arg_0->unk_1c, r8, arg_1->unk_14, arg_1->unk_00, arg_2);
     }
 
     return ret;

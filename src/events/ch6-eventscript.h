@@ -18,11 +18,11 @@ CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
     MUSCSLOW(SONG_SILENT)
     CALL(EventScr_TextShowWithFadeIn)
     EVBIT_T(9)
-    LOAD2(0x1, UnitDef_088B64B4)
+    LOAD2(0x1, UnitDef_Ch6Ally_0)
     ENUN
     EVBIT_F(9)
     CAMERA2(7, 7)
-    LOAD1(0x1, UnitDef_088B61A8)
+    LOAD1(0x1, UnitDef_Ch6Mixed)
     ENUN
     SVAL(EVT_SLOT_2, 0x4b)
     MOVE_CLOSEST(0xffff, CHAR_EVT_SLOT2, 5, 8)
@@ -88,13 +88,13 @@ CONST_DATA EventListScr EventScr_Ch6_BeginningScene[] = {
     TEXTEND
     REMA
     FADI(16)
-    SVAL(EVT_SLOT_2, EventScr_089F2AE4)
+    SVAL(EVT_SLOT_2, EventScr_Ch6_2)
     CALL(EventScr_CallOnTutorialMode)
-    CALL(EventScr_08591FD8)
+    CALL(EventScr_CommonPrep)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2940[] = {
+CONST_DATA EventListScr EventScr_Ch6_0[] = {
     CHECK_ALIVE(0xf9)
     BEQ(0x63, EVT_SLOT_C, EVT_SLOT_0)
     CHECK_INAREA(0xf9, 24, 9, 4, 6)
@@ -165,20 +165,20 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2A98[] = {
+CONST_DATA EventListScr EventScr_Ch6_1[] = {
     MUSI
     Text_BG(BG_HOUSE, 0x9f3)
     MUNO
     CALL(EventScr_RemoveBGIfNeeded)
     SVAL(EVT_SLOT_3, 0x6f)
     GIVEITEMTO(CHAR_EVT_ACTIVE_UNIT)
-    SVAL(EVT_SLOT_2, EventScr_089F2B54)
+    SVAL(EVT_SLOT_2, EventScr_Ch6_3)
     CALL(EventScr_CallOnTutorialMode)
     EVBIT_T(7)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2AE4[] = {
+CONST_DATA EventListScr EventScr_Ch6_2[] = {
     CLEAN
     CAMERA2(7, 8)
     FADU(16)
@@ -204,7 +204,7 @@ LABEL(0x0)
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2B54[] = {
+CONST_DATA EventListScr EventScr_Ch6_3[] = {
     TUTORIALTEXTBOXSTART
     SVAL(EVT_SLOT_B, 0xffffffff)
     TEXTSHOW(0x9f5)
@@ -214,8 +214,8 @@ CONST_DATA EventListScr EventScr_089F2B54[] = {
     ENDA
 };
 
-CONST_DATA EventListScr EventScr_089F2B74[] = {
-    SVAL(EVT_SLOT_2, UnitDef_088B64F0)
+CONST_DATA EventListScr EventScr_Ch6_4[] = {
+    SVAL(EVT_SLOT_2, UnitDef_Ch6Enemy_0)
     CALL(EventScr_LoadReinforceHardMode)
     EVBIT_T(7)
     ENDA

@@ -553,18 +553,18 @@ struct ProcCmd CONST_DATA ProcScr_efxDarkbreathBG[] =
 
 u16 * CONST_DATA TsaArray_DarkBreathBg[] =
 {
-    Tsa_085E64D8,
-    Tsa_085E65C0,
-    Tsa_085E667C,
-    Tsa_085E6778,
-    Tsa_085E6860,
-    Tsa_085E6948,
-    Tsa_085E6A44,
-    Tsa_085E6B70,
-    Tsa_085E6CA4,
-    Tsa_085E6D68,
-    Tsa_085E6E94,
-    Tsa_085E6F90,
+    Tsa_DarkBreathBg_0,
+    Tsa_DarkBreathBg_1,
+    Tsa_DarkBreathBg_2,
+    Tsa_DarkBreathBg_3,
+    Tsa_DarkBreathBg_4,
+    Tsa_DarkBreathBg_5,
+    Tsa_DarkBreathBg_6,
+    Tsa_DarkBreathBg_7,
+    Tsa_DarkBreathBg_8,
+    Tsa_DarkBreathBg_9,
+    Tsa_DarkBreathBg_10,
+    Tsa_DarkBreathBg_11,
 };
 
 // clang-format on

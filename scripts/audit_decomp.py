@@ -68,6 +68,9 @@ def audit(root):
         "assembly_function_declarations": re.compile(
             r"^\s*\.type\s+\w+\s*,\s*[%@]?function\b", re.I
         ),
+        "inline_assembly_sites": re.compile(
+            r"\b(?:asm|__asm__?)\s*(?:(?:volatile|__volatile__?)\s*)?\("
+        ),
         "naked_function_markers": re.compile(r"^\s*NAKEDFUNC\b"),
         "nonmatching_conditionals": re.compile(r"^\s*#\s*if\w*\b.*\bNONMATCHING\b"),
         "baserom_includes": re.compile(r'^(?!\s*(?:@|//)).*\b(?:incbin|INCBIN\w*)\b.*["\']baserom\.gba["\']', re.I),
@@ -78,9 +81,9 @@ def audit(root):
     c_files = []
     for name in sorted(filter(None, paths)):
         path = Path(name)
-        if path.parts[0] not in ("asm", "src", "data", "sound"):
+        if path.parts[0] not in ("asm", "src", "data", "sound", "banim"):
             continue
-        if path.suffix not in (".c", ".h", ".s", ".inc"):
+        if path.suffix.lower() not in (".c", ".h", ".s", ".inc"):
             continue
         if path.suffix == ".c":
             c_files.append(name)

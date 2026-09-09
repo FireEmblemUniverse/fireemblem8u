@@ -3,7 +3,7 @@
 #include "hardware.h"
 #include "colorfade.h"
 
-extern u16 gUnknown_02014EF4[];
+extern u16 gUisupport_1[];
 
 //! FE8U = 0x080B24DC
 void ColFadeOut_Init(struct ColFadeProc * proc)
@@ -12,7 +12,7 @@ void ColFadeOut_Init(struct ColFadeProc * proc)
 
     for (i = proc->start; i < proc->start + proc->amount; i++)
     {
-        gUnknown_02014EF4[i] = gPaletteBuffer[i];
+        gUisupport_1[i] = gPaletteBuffer[i];
     }
 
     return;
@@ -37,17 +37,17 @@ void ColFadeOut_Loop(struct ColFadeProc * proc)
         int g, g1, g2;
         int b, b1, b2;
 
-        b1 = (gUnknown_02014EF4[i] & BLUE_MASK);
+        b1 = (gUisupport_1[i] & BLUE_MASK);
         b2 = (proc->color & BLUE_MASK);
         b2 = b1 - b2;
         b = ((b2 * val / 0x100) + proc->color) & BLUE_MASK;
 
-        g1 = (gUnknown_02014EF4[i] & GREEN_MASK);
+        g1 = (gUisupport_1[i] & GREEN_MASK);
         g2 = (proc->color & GREEN_MASK);
         g2 = (g1 - g2);
         g = ((g2 * val / 0x100) + proc->color) & GREEN_MASK;
 
-        r1 = (gUnknown_02014EF4[i] & RED_MASK);
+        r1 = (gUisupport_1[i] & RED_MASK);
         r2 = (proc->color & RED_MASK);
         r2 = r1 - r2;
         r = ((r2 * val / 0x100) + proc->color) & RED_MASK;
@@ -83,19 +83,19 @@ void ColFadeIn_Loop(struct ColFadeProc * proc)
             int b, b1, b2;
 
             b1 = (proc->color & BLUE_MASK);
-            b2 = (gUnknown_02014EF4[i] & BLUE_MASK);
+            b2 = (gUisupport_1[i] & BLUE_MASK);
             b2 = b1 - b2;
-            b = ((b2 * val / 0x100) + gUnknown_02014EF4[i]) & BLUE_MASK;
+            b = ((b2 * val / 0x100) + gUisupport_1[i]) & BLUE_MASK;
 
             g1 = (proc->color & GREEN_MASK);
-            g2 = (gUnknown_02014EF4[i] & GREEN_MASK);
+            g2 = (gUisupport_1[i] & GREEN_MASK);
             g2 = (g1 - g2);
-            g = ((g2 * val / 0x100) + gUnknown_02014EF4[i]) & GREEN_MASK;
+            g = ((g2 * val / 0x100) + gUisupport_1[i]) & GREEN_MASK;
 
             r1 = (proc->color & RED_MASK);
-            r2 = (gUnknown_02014EF4[i] & RED_MASK);
+            r2 = (gUisupport_1[i] & RED_MASK);
             r2 = r1 - r2;
-            r = ((r2 * val / 0x100) + gUnknown_02014EF4[i]) & RED_MASK;
+            r = ((r2 * val / 0x100) + gUisupport_1[i]) & RED_MASK;
 
             gPaletteBuffer[i] = b | g | r;
         }
@@ -109,9 +109,9 @@ void ColFadeIn_Loop(struct ColFadeProc * proc)
     {
         for (i = proc->start; i < proc->start + proc->amount; i++)
         {
-            gPaletteBuffer[i] = gUnknown_02014EF4[i];
-            gPaletteBuffer[i] = gUnknown_02014EF4[i];
-            gPaletteBuffer[i] = gUnknown_02014EF4[i];
+            gPaletteBuffer[i] = gUisupport_1[i];
+            gPaletteBuffer[i] = gUisupport_1[i];
+            gPaletteBuffer[i] = gUisupport_1[i];
         }
 
         Proc_Break(proc);
@@ -222,7 +222,7 @@ void NewColFadeIn(int speed, int kind, int color, ProcPtr parent)
 
     for (i = proc->start; i < proc->start + proc->amount; i++)
     {
-        gUnknown_02014EF4[i] = gPaletteBuffer[i];
+        gUisupport_1[i] = gPaletteBuffer[i];
         gPaletteBuffer[i] = 0;
     }
 

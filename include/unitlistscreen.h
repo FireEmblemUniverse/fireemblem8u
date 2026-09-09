@@ -132,68 +132,68 @@ struct SortedUnitEnt
 extern struct SortedUnitEnt gSortedUnitsBuf[];
 extern struct SortedUnitEnt * gSortedUnits[];
 
-struct Unknown_02013460
+struct UnitListMuralPaletteCycle
 {
     /* 00 */ u16 unk_00[8]; // 0x10
     /* 10 */ u16 unk_10; // this is part of unk_00
 };
 
-#define _gUnknown_02013460 ((struct Unknown_02013460 *)gUnknown_02013460)
+#define _gUnknown_02013460 ((struct UnitListMuralPaletteCycle *)gPrepscreen_5)
 
 
-void sub_809014C(void);
-void sub_80901BC(u8 x, u8 y, u8 width);
-void sub_8090238(u8 key);
-void sub_8090324(int unk);
-void sub_8090358(u16 arg_0);
-void sub_8090418(struct UnitListScreenProc * proc, s8 unk);
-void sub_8090514(s8 flag);
+void UnitList_ReorderPlayerUnits(void);
+void UnitList_PutHBarSprite(u8 x, u8 y, u8 width);
+void UnitList_DrawSortLabel(u8 key);
+void UnitList_RegisterEquippedIcon(int unk);
+void UnitList_ClearUnusedEquipIcons(u16 arg_0);
+void UnitList_SetCursorToUnit(struct UnitListScreenProc * proc, s8 unk);
+void UnitList_SetMuralWindow(s8 flag);
 void UnitList_StartStatScreen(struct UnitListScreenProc * proc);
 void UnitList_ResetFromStatScreen(struct UnitListScreenProc * proc);
 void UnitList_ResetDispFromStatScreen(void);
 void UnitListScreenSprites_Init(struct UnitListScreenSpritesProc * proc);
 void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc);
 void UnitListScreenSprites_Dummy(void);
-void sub_8090B48(struct Unit * unit, struct UnitListScreenProc * proc);
-void sub_8090C58(struct UnitListScreenProc * proc);
-void sub_8090D00(struct UnitListScreenProc * proc);
-void sub_8090D80(struct UnitListScreenProc * proc);
+void UnitList_AddUnit(struct Unit * unit, struct UnitListScreenProc * proc);
+void UnitList_BuildUnitListFromFaction(struct UnitListScreenProc * proc);
+void UnitList_BuildUnitList(struct UnitListScreenProc * proc);
+void UnitList_SetupDisplay(struct UnitListScreenProc * proc);
 void UnitList_Init(struct UnitListScreenProc * proc);
 void UnitList_DeployUnit(struct Unit * unit, struct UnitListScreenProc * proc);
 void UnitList_UndeployUnit(struct Unit * unit, struct UnitListScreenProc * proc);
 void UnitList_TogglePrepDeployState(struct UnitListScreenProc * proc);
 void UnitList_ToggleSoloAnimState(struct Unit * unit, int step);
-void sub_809144C(struct UnitListScreenProc * proc);
-void sub_80917D8(struct UnitListScreenProc * proc);
+void UnitList_HandleListInput(struct UnitListScreenProc * proc);
+void UnitList_HandleSortInput(struct UnitListScreenProc * proc);
 void UnitList_SetBlendEffects(void);
-void sub_8091AEC(struct UnitListScreenProc * proc);
+void UnitList_Loop(struct UnitListScreenProc * proc);
 void UnitList_OnEnd(struct UnitListScreenProc * proc);
 void UnitList_StartPageChange(struct UnitListScreenProc * proc);
-void sub_8091D54(struct UnitListScreenProc * proc);
-void sub_8091F10(struct UnitListScreenProc * proc);
+void UnitList_PageChangeOut_Loop(struct UnitListScreenProc * proc);
+void UnitList_PageChangeIn_Loop(struct UnitListScreenProc * proc);
 void StartUnitListScreenField(void);
 void StartUnitListScreenPrepMenu(ProcPtr parent);
 void StartUnitListScreenForSoloAnim(ProcPtr parent);
 void StartUnitListScreenUnk(ProcPtr parent);
 void StartUnitListScreenWorldMap(ProcPtr parent);
 void UnitList_DrawColumnNames(u16 * tm, u8 page);
-void sub_8092298(u8 maxPages, u8 page, s8 flag);
+void UnitList_DrawPageHeader(u8 maxPages, u8 page, s8 flag);
 void UnitList_PutRow(struct UnitListScreenProc * proc, u8 unitNum, u16 * tm, u8 page, s8 putName);
 int SortUnitList_GetUnitSoloAnimation(struct Unit * unit);
 bool SortUnitList(u8 key, u8 order);
 
 extern EWRAM_OVERLAY(0) struct SortedUnitEnt gSortedUnitsBuf[0x40];
 extern EWRAM_OVERLAY(0) struct SortedUnitEnt * gSortedUnits[0x40];
-extern EWRAM_OVERLAY(0) u16 gUnknown_0200D7E0[0x20][0x20];
-extern EWRAM_OVERLAY(0) u16 gUnknown_0200DFE0[2][0x20];
-extern EWRAM_OVERLAY(0) struct Text gUnknown_0200E060[7];
-extern EWRAM_OVERLAY(0) struct Text gUnknown_0200E098[7][3];
-extern struct Text gUnknown_0200E140;
-extern struct Text gUnknown_0200E148;
-extern struct Text gUnknown_0200E150;
-extern u8 gUnknown_0200E158[0x1000];
-extern u8 gUnknown_0200F158;
-extern EWRAM_OVERLAY(0) u32 gUnknown_0200F15C[8];
+extern EWRAM_OVERLAY(0) u16 gUnitlistscreen_0[0x20][0x20];
+extern EWRAM_OVERLAY(0) u16 gUnitlistscreen_1[2][0x20];
+extern EWRAM_OVERLAY(0) struct Text gUnitlistscreen_2[7];
+extern EWRAM_OVERLAY(0) struct Text gUnitlistscreen_3[7][3];
+extern struct Text gUnitlistscreen_4;
+extern struct Text gUnitlistscreen_5;
+extern struct Text gUnitlistscreen_6;
+extern u8 gUnitlistscreen_7[0x1000];
+extern u8 gUnitlistscreen_8;
+extern EWRAM_OVERLAY(0) u32 gUnitlistscreen_9[8];
 
 // extern ??? ProcScr_UnitListScreen_Field
 extern struct ProcCmd ProcScr_UnitListScreen_PrepMenu[];

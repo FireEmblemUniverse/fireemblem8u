@@ -46,7 +46,7 @@ enum ekr_lvup_status_index {
     EKRLVUP_STAT_LVPRE_VAL
 };
 
-extern struct BanimUnkStructComm gUnknown_020200E0;
+extern struct BanimUnkStructComm gEkrlvup_1;
 
 struct ProcEkrLvupApfx {
     /* 00 */ PROC_HEADER;
@@ -87,10 +87,10 @@ extern CONST_DATA unsigned * EkrLvupMsgsMag[];
 extern const u16 sEfxLvupPartsPos[];
 
 extern struct ProcEkrLevelup * gpProcEkrLevelup;
-extern u32 gUnknown_020200B8[8];
+extern u32 gEkrlvup_0[8];
 extern ProcPtr gpProcEfxPartsofScroll;
 extern ProcPtr gpProcEfxleveluphb;
-// extern ??? gUnknown_020200E0
+// extern ??? gEkrlvup_1
 extern struct Unit * gpEkrLvupUnit;
 extern struct BattleUnit * gpEkrLvupBattleUnit;
 extern u16 gEkrLvupPreLevel;
@@ -156,6 +156,6 @@ void EkrLvupApfxEndEach(void);
 void PutEkrLvupStatGainLabelGfx1(int stat_num, int stat_gain);
 void PutEkrLvupStatGainLabelGfx2(int chr, int stat_gain);
 void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain);
-void sub_8074E6C(struct ProcEobjLvup * proc);
-void sub_8074EDC(struct ProcEobjLvup * proc);
-void sub_8074F14(struct ProcEobjLvup * proc);
+void EobjLvup_SpawnArrowAndLabel(struct ProcEobjLvup * proc);
+void EobjLvup_RedrawGainLabel(struct ProcEobjLvup * proc);
+void EobjLvup_WaitEndAndClear(struct ProcEobjLvup * proc);

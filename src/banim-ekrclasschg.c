@@ -171,127 +171,127 @@ CONST_DATA struct ProcCmd ProcScr_efxClasschgBG[] = {
     PROC_END
 };
 
-CONST_DATA u16 * TsaLut_08759000[] = {
-    Tsa_87932EC,
-    Tsa_8793384,
-    Tsa_8793494,
-    Tsa_87935B0,
-    Tsa_87936C0,
-    Tsa_87937D0,
-    Tsa_87938EC,
-    Tsa_8799818,
-    Tsa_8799ABC,
-    Tsa_8799D64,
-    Tsa_879A008,
-    Tsa_879A2A8,
-    Tsa_879A444,
-    Tsa_879A6A0,
-    Tsa_879A87C,
-    Tsa_879A9E8,
-    Tsa_879AB10,
-    Tsa_87A18F0,
-    Tsa_87A19EC,
-    Tsa_87A1B68,
-    Tsa_87A1D74,
-    Tsa_87A1F9C,
-    Tsa_87A2134,
-    Tsa_87A2384,
-    Tsa_87A2584,
-    Tsa_87A2748,
-    Tsa_87A28A8,
-    Tsa_87A29DC,
-    Tsa_87A2AE8,
-    Tsa_87A2BE4,
-    Tsa_87A2CCC,
-    Tsa_87A2DB8,
-    Tsa_87A4A88,
-    Tsa_87A4B68,
-    Tsa_87A4C44,
-    Tsa_87A4D2C,
-    Tsa_87A4E0C
+CONST_DATA u16 * TsaLut_Ekrclasschg_0[] = {
+    Tsa_Ekrdragonfx_0,
+    Tsa_Ekrdragonfx_1,
+    Tsa_Ekrdragonfx_2,
+    Tsa_Ekrdragonfx_3,
+    Tsa_Ekrdragonfx_4,
+    Tsa_Ekrdragonfx_5,
+    Tsa_Ekrdragonfx_6,
+    Tsa_Ekrdragonfx_7,
+    Tsa_Ekrdragonfx_8,
+    Tsa_Ekrdragonfx_9,
+    Tsa_Ekrdragonfx_10,
+    Tsa_Ekrdragonfx_11,
+    Tsa_Ekrdragonfx_12,
+    Tsa_Ekrdragonfx_13,
+    Tsa_Ekrdragonfx_14,
+    Tsa_Ekrdragonfx_15,
+    Tsa_Ekrdragonfx_16,
+    Tsa_Ekrdragonfx_17,
+    Tsa_Ekrdragonfx_18,
+    Tsa_Ekrdragonfx_19,
+    Tsa_Ekrdragonfx_20,
+    Tsa_Ekrdragonfx_21,
+    Tsa_Ekrdragonfx_22,
+    Tsa_Ekrdragonfx_23,
+    Tsa_Ekrdragonfx_24,
+    Tsa_Ekrdragonfx_25,
+    Tsa_Ekrdragonfx_26,
+    Tsa_Ekrdragonfx_27,
+    Tsa_Ekrdragonfx_28,
+    Tsa_Ekrdragonfx_29,
+    Tsa_Ekrdragonfx_30,
+    Tsa_Ekrdragonfx_31,
+    Tsa_Ekrdragonfx_32,
+    Tsa_Ekrdragonfx_33,
+    Tsa_Ekrdragonfx_34,
+    Tsa_Ekrdragonfx_35,
+    Tsa_Ekrdragonfx_36
 };
 
-CONST_DATA u16 * ImgLut_08759094[] = {
-    Img_87929B8,
-    Img_87929B8,
-    Img_87929B8,
-    Img_87929B8,
-    Img_87929B8,
-    Img_87929B8,
-    Img_87929B8,
-    Img_87939FC,
-    Img_8794628,
-    Img_87951D8,
-    Img_8795DF4,
-    Img_87969F4,
-    Img_87970DC,
-    Img_8797AC4,
-    Img_8798394,
-    Img_8798B6C,
-    Img_8799228,
-    Img_879AC08,
-    Img_879B168,
-    Img_879B8F4,
-    Img_879C1E4,
-    Img_879CAB4,
-    Img_879D1F8,
-    Img_879DC10,
-    Img_879E5DC,
-    Img_879EED0,
-    Img_879F698,
-    Img_879FD3C,
-    Img_87A0338,
-    Img_87A090C,
-    Img_87A0E78,
-    Img_87A13C0,
-    Img_87A2EA0,
-    Img_87A3400,
-    Img_87A39A0,
-    Img_87A3F38,
-    Img_87A44D8
+CONST_DATA u16 * ImgLut_Ekrclasschg_0[] = {
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_0,
+    Img_Ekrdragonfx_1,
+    Img_Ekrdragonfx_2,
+    Img_Ekrdragonfx_3,
+    Img_Ekrdragonfx_4,
+    Img_Ekrdragonfx_5,
+    Img_Ekrdragonfx_6,
+    Img_Ekrdragonfx_7,
+    Img_Ekrdragonfx_8,
+    Img_Ekrdragonfx_9,
+    Img_Ekrdragonfx_10,
+    Img_Ekrdragonfx_11,
+    Img_Ekrdragonfx_12,
+    Img_Ekrdragonfx_13,
+    Img_Ekrdragonfx_14,
+    Img_Ekrdragonfx_15,
+    Img_Ekrdragonfx_16,
+    Img_Ekrdragonfx_17,
+    Img_Ekrdragonfx_18,
+    Img_Ekrdragonfx_19,
+    Img_Ekrdragonfx_20,
+    Img_Ekrdragonfx_21,
+    Img_Ekrdragonfx_22,
+    Img_Ekrdragonfx_23,
+    Img_Ekrdragonfx_24,
+    Img_Ekrdragonfx_25,
+    Img_Ekrdragonfx_26,
+    Img_Ekrdragonfx_27,
+    Img_Ekrdragonfx_28,
+    Img_Ekrdragonfx_29,
+    Img_Ekrdragonfx_30
 };
 
-CONST_DATA u16 * PalLut_08759128[] = {
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87932CC,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87997F8,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A18D0,
-    Pal_87A4A68,
-    Pal_87A4A68,
-    Pal_87A4A68,
-    Pal_87A4A68,
-    Pal_87A4A68
+CONST_DATA u16 * PalLut_Ekrclasschg_0[] = {
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_3,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_4,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_5,
+    Pal_Ekrdragonfx_6,
+    Pal_Ekrdragonfx_6,
+    Pal_Ekrdragonfx_6,
+    Pal_Ekrdragonfx_6,
+    Pal_Ekrdragonfx_6
 };
 
-const u16 FrameLut_080E143A[] = {
+const u16 FrameLut_Ekrclasschg_0[] = {
     0x01, 0x02,
     0x00, 0x28,
     0x02, 0x02,
@@ -314,7 +314,7 @@ const u16 FrameLut_080E143A[] = {
     -1
 };
 
-const u16 FrameLut_080E1488[] = {
+const u16 FrameLut_Ekrclasschg_1[] = {
     0x11, 0x02,
     0x12, 0x02,
     0x13, 0x02,
@@ -356,11 +356,11 @@ void NewEkrClasschgBG1(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = FrameLut_080E143A;
-    proc->tsal = TsaLut_08759000;
-    proc->tsar = TsaLut_08759000;
-    proc->img = ImgLut_08759094;
-    proc->pal = PalLut_08759128;
+    proc->frame_config = FrameLut_Ekrclasschg_0;
+    proc->tsal = TsaLut_Ekrclasschg_0;
+    proc->tsar = TsaLut_Ekrclasschg_0;
+    proc->img = ImgLut_Ekrclasschg_0;
+    proc->pal = PalLut_Ekrclasschg_0;
 
     SpellFx_SetSomeColorEffect();
 }
@@ -372,11 +372,11 @@ void NewEkrClasschgBG2(struct Anim * anim)
     proc->anim = anim;
     proc->timer = 0;
     proc->frame = 0;
-    proc->frame_config = FrameLut_080E1488;
-    proc->tsal = TsaLut_08759000;
-    proc->tsar = TsaLut_08759000;
-    proc->img = ImgLut_08759094;
-    proc->pal = PalLut_08759128;
+    proc->frame_config = FrameLut_Ekrclasschg_1;
+    proc->tsal = TsaLut_Ekrclasschg_0;
+    proc->tsar = TsaLut_Ekrclasschg_0;
+    proc->img = ImgLut_Ekrclasschg_0;
+    proc->pal = PalLut_Ekrclasschg_0;
 
     SpellFx_SetSomeColorEffect();
 }
@@ -476,10 +476,10 @@ void NewEfxClasschgOBJGain(struct Anim * anim)
     struct ProcEfxOBJ * proc;
     proc = Proc_Start(ProcScr_efxClasschgOBJGain, PROC_TREE_3);
     proc->anim = anim;
-    proc->anim2 = EfxCreateFrontAnim(anim, BanimScr_08792928, BanimScr_08792928, BanimScr_08792928, BanimScr_08792928);
+    proc->anim2 = EfxCreateFrontAnim(anim, BanimScr_Ekrdragonfx_0, BanimScr_Ekrdragonfx_0, BanimScr_Ekrdragonfx_0, BanimScr_Ekrdragonfx_0);
 
-    SpellFx_RegisterObjPal(Pal_08792194, 0x20);
-    SpellFx_RegisterObjGfx(Img_08791D9C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_Ekrdragonfx_1, 0x20);
+    SpellFx_RegisterObjGfx(Img_Ekrdragonfx, 0x1000);
 }
 
 void EfxClasschgOBJGainMain(struct ProcEfxOBJ * proc)
@@ -500,10 +500,10 @@ void NewEfxClasschgOBJDrop(struct Anim * anim)
     struct ProcEfxOBJ * proc;
     proc = Proc_Start(ProcScr_efxClasschgOBJDrop, PROC_TREE_3);
     proc->anim = anim;
-    proc->anim2 = EfxCreateFrontAnim(anim, BanimScr_08792958, BanimScr_08792958, BanimScr_08792958, BanimScr_08792958);
+    proc->anim2 = EfxCreateFrontAnim(anim, BanimScr_Ekrdragonfx_1, BanimScr_Ekrdragonfx_1, BanimScr_Ekrdragonfx_1, BanimScr_Ekrdragonfx_1);
 
-    SpellFx_RegisterObjPal(Pal_08792194, 0x20);
-    SpellFx_RegisterObjGfx(Img_08791D9C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_Ekrdragonfx_1, 0x20);
+    SpellFx_RegisterObjGfx(Img_Ekrdragonfx, 0x1000);
 }
 
 void EfxClasschgOBJDropMain(struct ProcEfxOBJ * proc)
@@ -530,12 +530,12 @@ void NewEfxClasschgOBJDiffusion(struct Anim * anim, u8 pos)
         proc->anim = GetAnimAnotherSide(anim);
 
 {
-    u32 * scr = BanimScr_08792988;
+    u32 * scr = BanimScr_Ekrdragonfx_2;
     proc->anim2 = EfxCreateFrontAnim(proc->anim, scr, scr, scr, scr);
 }
 
-    SpellFx_RegisterObjPal(Pal_08792194, 0x20);
-    SpellFx_RegisterObjGfx(Img_08791D9C, 0x1000);
+    SpellFx_RegisterObjPal(Pal_Ekrdragonfx_1, 0x20);
+    SpellFx_RegisterObjGfx(Img_Ekrdragonfx, 0x1000);
 }
 
 void EfxClasschgOBJDiffusionMain(struct ProcEfxOBJ * proc)
@@ -558,10 +558,10 @@ void NewEfxClasschgFIN(struct Anim * anim, int duration)
     proc->timer = 0;
     proc->terminator = duration;
 
-    SpellFx_RegisterBgPal(Pal_08791D7C, 0x20);
-    SpellFx_RegisterBgGfx(Img_086849B8, 0x2000);
+    SpellFx_RegisterBgPal(Pal_Ekrdragonfx_0, 0x20);
+    SpellFx_RegisterBgGfx(Img_Banim_12, 0x2000);
 
-    EfxTmCpyBG(Tsa_08684AB8, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
+    EfxTmCpyBG(Tsa_Banim_16, gBG1TilemapBuffer, 0x20, 0x20, 1, 0x100);
     BG_EnableSyncByMask(BG1_SYNC_BIT);
     SpellFx_SetSomeColorEffect();
     SetBlendConfig(0x1, 0xE, 0x8, 0x0);

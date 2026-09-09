@@ -88,17 +88,17 @@ void ResetBgVerticalScrollPosition(int index)
     gpBgVerticalScrollSt->src[index] = NULL;
 }
 
-void sub_8014EF4(int index)
+void ClearBgVerticalScrollChannelFlags(int index)
 {
     gpBgVerticalScrollSt->unk_798[index] &= 3;
 }
 
-void sub_8014F10(int index)
+void SetBgVerticalScrollChannelFlag1(int index)
 {
     gpBgVerticalScrollSt->unk_798[index] = (gpBgVerticalScrollSt->unk_798[index] & 3) | 1;
 }
 
-void sub_8014F30(int index)
+void SetBgVerticalScrollChannelFlag2(int index)
 {
     gpBgVerticalScrollSt->unk_798[index] = (gpBgVerticalScrollSt->unk_798[index] & 3) | 2;
 }

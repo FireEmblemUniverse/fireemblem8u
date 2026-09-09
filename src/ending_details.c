@@ -394,7 +394,7 @@ void SetupCharacterEndingGfx(void)
 }
 
 //! FE8U = 0x080B6810
-void sub_80B6810(void)
+void SetupCharacterEndingBg(void)
 {
     int offset;
     int i;
@@ -419,13 +419,13 @@ void sub_80B6810(void)
 }
 
 //! FE8U = 0x080B689C
-void sub_80B689C(int a, int b)
+void PutEndingBattleDisplayBg(int a, int b)
 {
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    sub_80AC844(gSoloEndingBattleDispConf[2], 0, 1, BG_2, a, b + 2, 30, 16);
-    sub_80AC844(gSoloEndingBattleDispConf[1], 0, 1, BG_1, a, b + 2, 30, 18);
-    sub_80AC844(gSoloEndingBattleDispConf[0], 0, 0, BG_0, a, b, 30, 20);
+    BlitClippedTileMapToBg(gSoloEndingBattleDispConf[2], 0, 1, BG_2, a, b + 2, 30, 16);
+    BlitClippedTileMapToBg(gSoloEndingBattleDispConf[1], 0, 1, BG_1, a, b + 2, 30, 18);
+    BlitClippedTileMapToBg(gSoloEndingBattleDispConf[0], 0, 0, BG_0, a, b, 30, 20);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
@@ -483,7 +483,7 @@ void CharacterEnding_Init(struct CharacterEndingProc * proc)
 }
 
 //! FE8U = 0x080B69D4
-void CharacterEnding_80B69D4(void)
+void CharacterEnding_0(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -492,7 +492,7 @@ void CharacterEnding_80B69D4(void)
     ResetDialogueScreen();
 
     EndEndingBattleText();
-    sub_80B6810();
+    SetupCharacterEndingBg();
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
@@ -711,7 +711,7 @@ void CharacterEnding_End(void)
 }
 
 //! FE8U = 0x080B6C74
-void CharacterEnding_Unused_80B6C74(struct CharacterEndingProc * proc)
+void CharacterEnding_Unused_0(struct CharacterEndingProc * proc)
 {
     proc->pCharacterEnding++;
 
@@ -733,7 +733,7 @@ struct ProcCmd CONST_DATA gProcScr_CharacterEndings[] =
     PROC_CALL(LoadNextCharacterEnding),
 
 PROC_LABEL(0),
-    PROC_CALL(CharacterEnding_80B69D4),
+    PROC_CALL(CharacterEnding_0),
     PROC_CALL_ARG(NewFadeIn, 4),
     PROC_WHILE(FadeInExists),
 
@@ -866,7 +866,7 @@ void SoloEndingBattleDisp_Loop(struct EndingBattleDisplayProc * proc)
 
     SetFacePosition(0, (xBase * 8 + 176) & 0x1FF, 56);
 
-    sub_80B689C(xBase, 0);
+    PutEndingBattleDisplayBg(xBase, 0);
 
     if (xOffset == 30)
     {
@@ -967,7 +967,7 @@ void PairedEndingBattleDisp_Loop_SlideIn(struct EndingBattleDisplayProc * proc)
     SetFacePosition(0, (xBase * 8 + 64) & 0x1FF, 48);
     SetFacePosition(1, (xBase * 8 + 176) & 0x1FF, 48);
 
-    sub_80B689C(xBase, 0);
+    PutEndingBattleDisplayBg(xBase, 0);
 
     if (xOffset == 30)
     {
@@ -1222,7 +1222,7 @@ void Fin_Loop_KeyListener(struct FinScreenProc * proc)
 }
 
 //! FE8U = 0x080B7500
-void sub_80B7500(struct FinScreenProc * proc)
+void Fin_InitBlend(struct FinScreenProc * proc)
 {
     SetBlendAlpha(0, 0x10);
     SetBlendTargetA(0, 0, 1, 0, 0);
@@ -1236,7 +1236,7 @@ void sub_80B7500(struct FinScreenProc * proc)
 }
 
 //! FE8U = 0x080B7540
-void sub_80B7540(struct FinScreenProc * proc)
+void Fin_Loop_Blend(struct FinScreenProc * proc)
 {
     int blendAmt;
 
@@ -1290,8 +1290,8 @@ PROC_LABEL(1),
 
     PROC_SLEEP(60),
 
-    PROC_CALL(sub_80B7500),
-    PROC_REPEAT(sub_80B7540),
+    PROC_CALL(Fin_InitBlend),
+    PROC_REPEAT(Fin_Loop_Blend),
 
     PROC_GOTO(0),
 
@@ -1315,7 +1315,7 @@ void StartFinScreen(ProcPtr parent)
 // clang-format off
 
 // Sprites
-u16 CONST_DATA Sprite_08A3D540[] =
+u16 CONST_DATA Sprite_EndingDetails_0[] =
 {
     5,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, 0,
@@ -1325,151 +1325,151 @@ u16 CONST_DATA Sprite_08A3D540[] =
     OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(128), OAM2_CHR(0x10),
 };
 
-u16 CONST_DATA Sprite_08A3D560[] =
+u16 CONST_DATA Sprite_EndingDetails_1[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x40),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x44),
 };
 
-u16 CONST_DATA Sprite_08A3D56E[] =
+u16 CONST_DATA Sprite_EndingDetails_2[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x48),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x4C),
 };
 
-u16 CONST_DATA Sprite_08A3D57C[] =
+u16 CONST_DATA Sprite_EndingDetails_3[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x50),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x54),
 };
 
-u16 CONST_DATA Sprite_08A3D58A[] =
+u16 CONST_DATA Sprite_EndingDetails_4[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x58),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x5C),
 };
 
-u16 CONST_DATA Sprite_08A3D598[] =
+u16 CONST_DATA Sprite_EndingDetails_5[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x88),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x8C),
 };
 
-u16 CONST_DATA Sprite_08A3D5A6[] =
+u16 CONST_DATA Sprite_EndingDetails_6[] =
 {
     2,
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x80),
     OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x84),
 };
 
-u16 CONST_DATA Sprite_08A3D5B4[] =
+u16 CONST_DATA Sprite_EndingDetails_7[] =
 {
     2,
     OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x1B),
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8 + OAM1_X(32), OAM2_CHR(0x1F),
 };
 
-u16 CONST_DATA gSprite_08A3D5C2[] =
+u16 CONST_DATA gSprite_EndingDetails_0[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC0),
 };
 
-u16 CONST_DATA gSprite_08A3D5CA[] =
+u16 CONST_DATA gSprite_EndingDetails_1[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC4),
 };
 
-u16 CONST_DATA gSprite_08A3D5D2[] =
+u16 CONST_DATA gSprite_EndingDetails_2[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xC8),
 };
 
-u16 CONST_DATA gSprite_08A3D5DA[] =
+u16 CONST_DATA gSprite_EndingDetails_3[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xCC),
 };
 
-u16 CONST_DATA gSprite_08A3D5E2[] =
+u16 CONST_DATA gSprite_EndingDetails_4[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xD0),
 };
 
-u16 CONST_DATA gSprite_08A3D5EA[] =
+u16 CONST_DATA gSprite_EndingDetails_5[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0xD4),
 };
 
-u16 CONST_DATA gSprite_08A3D5F2[] =
+u16 CONST_DATA gSprite_EndingDetails_6[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x140),
 };
 
-u16 CONST_DATA gSprite_08A3D5FA[] =
+u16 CONST_DATA gSprite_EndingDetails_7[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x144),
 };
 
-u16 CONST_DATA gSprite_08A3D602[] =
+u16 CONST_DATA gSprite_EndingDetails_8[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x148),
 };
 
-u16 CONST_DATA gSprite_08A3D60A[] =
+u16 CONST_DATA gSprite_EndingDetails_9[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x14C),
 };
 
-u16 CONST_DATA gSprite_08A3D612[] =
+u16 CONST_DATA gSprite_EndingDetails_10[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x150),
 };
 
-u16 CONST_DATA gSprite_08A3D61A[] =
+u16 CONST_DATA gSprite_EndingDetails_11[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x154),
 };
 
-u16 * CONST_DATA SpriteArray_08A3D624[] =
+u16 * CONST_DATA SpriteArray_EndingDetails_0[] =
 {
-    gSprite_08A3D5EA,
-    gSprite_08A3D5E2,
-    gSprite_08A3D5DA,
-    gSprite_08A3D5D2,
-    gSprite_08A3D5CA,
-    gSprite_08A3D5C2,
+    gSprite_EndingDetails_5,
+    gSprite_EndingDetails_4,
+    gSprite_EndingDetails_3,
+    gSprite_EndingDetails_2,
+    gSprite_EndingDetails_1,
+    gSprite_EndingDetails_0,
 };
 
-u16 * CONST_DATA SpriteArray_08A3D63C[] =
+u16 * CONST_DATA SpriteArray_EndingDetails_1[] =
 {
-    gSprite_08A3D61A,
-    gSprite_08A3D612,
-    gSprite_08A3D60A,
-    gSprite_08A3D602,
-    gSprite_08A3D5FA,
-    gSprite_08A3D5F2,
+    gSprite_EndingDetails_11,
+    gSprite_EndingDetails_10,
+    gSprite_EndingDetails_9,
+    gSprite_EndingDetails_8,
+    gSprite_EndingDetails_7,
+    gSprite_EndingDetails_6,
 };
 
 // clang-format on
 
 //! FE8U = 0x080B75AC
-void sub_80B75AC(struct EndingTurnRecordProc * proc)
+void EndingDetails_InitFog(struct EndingTurnRecordProc * proc)
 {
     SetDispEnable(1, 1, 0, 1, 1);
 
@@ -1486,7 +1486,7 @@ void sub_80B75AC(struct EndingTurnRecordProc * proc)
 }
 
 //! FE8U = 0x080B7614
-void sub_80B7614(struct EndingTurnRecordProc * proc)
+void EndingDetails_LoopFog(struct EndingTurnRecordProc * proc)
 {
     int x;
     int y;
@@ -1503,12 +1503,12 @@ void sub_80B7614(struct EndingTurnRecordProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProcScr_08A3D654[] =
+struct ProcCmd CONST_DATA gProcScr_EndingDetails_0[] =
 {
     PROC_YIELD,
 
-    PROC_CALL(sub_80B75AC),
-    PROC_REPEAT(sub_80B7614),
+    PROC_CALL(EndingDetails_InitFog),
+    PROC_REPEAT(EndingDetails_LoopFog),
 
     PROC_END,
 };
@@ -1537,8 +1537,8 @@ void TurnRecord_Init(struct EndingTurnRecordProc * proc)
 
     SetWinEnable(0, 0, 0);
 
-    ApplyPalettes(Pal_08A40AD4, 14, 2);
-    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_08A40B14, TILEREF(0, 14));
+    ApplyPalettes(Pal_FinScreen_1, 14, 2);
+    CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_EndingFin, TILEREF(0, 14));
 
     BG_EnableSyncByMask(BG3_SYNC_BIT);
 
@@ -1719,19 +1719,19 @@ void TurnRecord_Loop_Main(struct EndingTurnRecordProc * proc)
  * sprites in FE6.
  */
 //! FE8U = 0x080B7BD8
-void sub_80B7BD8(struct UnkProc * proc)
+void EndingDetails_PutSprites(struct UnkProc * proc)
 {
     int i;
 
-    PutSpriteExt(2, 24, 20, Sprite_08A3D540, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(9));
-    PutSpriteExt(2, 16, 128, Sprite_08A3D5B4, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(6));
+    PutSpriteExt(2, 24, 20, Sprite_EndingDetails_0, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(9));
+    PutSpriteExt(2, 16, 128, Sprite_EndingDetails_7, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(6));
 
     if (gPlaySt.chapterStateBits & PLAY_FLAG_EXTRA_MAP)
     {
-        PutSpriteExt(2, 16, 56, Sprite_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 56, Sprite_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 88, Sprite_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 88, Sprite_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
+        PutSpriteExt(2, 16, 56, Sprite_EndingDetails_1, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 56, Sprite_EndingDetails_2, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 88, Sprite_EndingDetails_4, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 88, Sprite_EndingDetails_6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
 
         for (i = 0; i < 3; i++)
         {
@@ -1749,7 +1749,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                     2,
                     (i & 1) * 112 + 80 + i * 512,
                     (i >> 1) * 32 + 304,
-                    SpriteArray_08A3D624[proc->unk_40[i]],
+                    SpriteArray_EndingDetails_0[proc->unk_40[i]],
                     OAM2_PAL(i + 10) + OAM2_CHR(0x80) + OAM2_LAYER(1)
                 );
             }
@@ -1769,19 +1769,19 @@ void sub_80B7BD8(struct UnkProc * proc)
                 2,
                 (i & 1) * 112 + 80 + i * 512,
                 (i >> 1) * 32 + 304,
-                SpriteArray_08A3D63C[proc->unk_40[i]],
+                SpriteArray_EndingDetails_1[proc->unk_40[i]],
                 OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(15)
             );
         }
     }
     else
     {
-        PutSpriteExt(2, 16, 48, Sprite_08A3D560, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 48, Sprite_08A3D56E, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 72, Sprite_08A3D598, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 72, Sprite_08A3D57C, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 16, 96, Sprite_08A3D58A, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
-        PutSpriteExt(2, 128, 96, Sprite_08A3D5A6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
+        PutSpriteExt(2, 16, 48, Sprite_EndingDetails_1, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 48, Sprite_EndingDetails_2, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 72, Sprite_EndingDetails_5, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 72, Sprite_EndingDetails_3, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 16, 96, Sprite_EndingDetails_4, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(8));
+        PutSpriteExt(2, 128, 96, Sprite_EndingDetails_6, OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(7));
 
         for (i = 0; i < 5; i++)
         {
@@ -1799,7 +1799,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                     2,
                     (i & 1) * 112 + 80 + i * 512,
                     (i >> 1) * 24 + 296,
-                    SpriteArray_08A3D624[proc->unk_40[i]],
+                    SpriteArray_EndingDetails_0[proc->unk_40[i]],
                     OAM2_PAL(i + 10) + OAM2_CHR(0x80) + OAM2_LAYER(1)
                 );
             }
@@ -1819,7 +1819,7 @@ void sub_80B7BD8(struct UnkProc * proc)
                 2,
                 (i & 1) * 112 + 80 + (i * 512),
                 (i >> 1) * 24 + 296,
-                SpriteArray_08A3D63C[proc->unk_40[i]],
+                SpriteArray_EndingDetails_1[proc->unk_40[i]],
                 OAM2_CHR(0x80) + OAM2_LAYER(1) + OAM2_PAL(15)
             );
         }
@@ -1862,7 +1862,7 @@ void TurnRecord_SetupGfx(void)
 
     BG_EnableSyncByMask(BG2_SYNC_BIT | BG3_SYNC_BIT);
 
-    sub_80AB760(gEndingDetailBuf);
+    StartSaveBgFog(gEndingDetailBuf);
     StartBgm(SONG_EPILOGUE, 0);
 
     return;
@@ -1871,7 +1871,7 @@ void TurnRecord_SetupGfx(void)
 //! FE8U = 0x080B8168
 int TurnRecord_End(void)
 {
-    sub_80AB77C();
+    EndSaveBgFog();
     // return; // BUG
 }
 
@@ -1910,19 +1910,19 @@ void StartEndingTurnRecordScreen(ProcPtr parent)
 }
 
 //! FE8U = 0x080B8188
-void sub_80B8188(int unusedA, int unusedB, int unusedC)
+void Nop_EndingDetails_2(int unusedA, int unusedB, int unusedC)
 {
     return;
 }
 
 //! FE8U = 0x080B818C
-void nullsub_7(void)
+void Nop_EndingDetails_1(void)
 {
     return;
 }
 
 //! FE8U = 0x080B8190
-void sub_80B8190(u16 * dst, u16 * src, u8 coeff)
+void EndingDetails_DimPalette(u16 * dst, u16 * src, u8 coeff)
 {
     int i;
 
@@ -1941,13 +1941,13 @@ void sub_80B8190(u16 * dst, u16 * src, u8 coeff)
 }
 
 //! FE8U = 0x080B81FC
-void nullsub_5(int unused)
+void Nop_EndingDetails_0(int unused)
 {
     return;
 }
 
 //! FE8U = 0x080B8200
-void sub_80B8200(void)
+void EndingDetails_FadeOutBgm(void)
 {
     Sound_FadeOutBGM(4);
     return;

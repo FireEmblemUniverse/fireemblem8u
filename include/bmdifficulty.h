@@ -37,7 +37,7 @@ struct Struct020038C8 {
     struct Text text[5][8];
 };
 
-extern struct Struct020038C8 gUnknown_020038C8[2];
+extern struct Struct020038C8 gBmdifficulty_3[2];
 
 enum {
     DUNGEONRECORD_LABEL_MONSTERS,
@@ -57,7 +57,7 @@ struct BMDifficultyProc {
     /* 3C */ int unk_3c;
 };
 
-extern int gUnknown_020038C4;
+extern int gBmdifficulty_2;
 
 struct Struct080D7FD0 {
     s8 x;
@@ -74,7 +74,7 @@ struct Outer080D7FD0 {
     s8 x2;
     s8 y2;
 };
-extern const struct Outer080D7FD0 gUnknown_080D7FD0;
+extern const struct Outer080D7FD0 gBmdifficulty_6;
 
 int GetCurrentPromotedLevelBonus(void);
 s8 CanUnitSeize(struct Unit * unit);
@@ -97,12 +97,12 @@ void StartDungeonRecordProcFromMenu(ProcPtr proc);
 void RecordDisplayAfterTowerCleared(ProcPtr proc);
 void PushGlobalTimer(void);
 void PopGlobalTimer(void);
-void sub_8038230(void);
+void DungeonRecordUi_StartBgm(void);
 void SetupDungeonRecordUi(ProcPtr proc);
 void DrawDungeonRecordUiLabels(struct Text * th);
 struct Text * DrawNumberText(struct Text * th, u16 number, u8 places, s8 x, s8 y, u8 colorId);
 struct Text * DrawNumberText_WithReset(struct Text * th, u16 number, u8 numTiles, s8 x, s8 y, u8 colorId);
-void sub_8038668(struct Text * th, u8 count);
+void DungeonRecordUi_ClearTexts(struct Text * th, u8 count);
 struct Text * DrawTimeText(struct Text* th, int time, s8 xBase, s8 yBase, u8 colorId);
 struct Text * DrawTimeText_WithReset(struct Text* th, int time, s8 xBase, s8 yBase, u8 colorId, s8 drawPunctuation);
 void DrawDungeonRecordUiText(ProcPtr proc);
@@ -110,35 +110,35 @@ void DungeonRecordUi_UpdateRunningTime(void);
 void DungeonRecordUi_KeyListenerUpdatesTime(ProcPtr proc);
 void DungeonRecordUi_KeyListener(ProcPtr proc);
 void EndDungeonRecordUi(void);
-void sub_8038F78(struct Text * th);
-void sub_803901C(struct BMDifficultyProc* proc);
-void sub_80390D4(struct BMDifficultyProc* proc);
+void DungeonRecordUi_CopyDigitsToObjVram(struct Text * th);
+void DungeonRecordUi_UpdateValueAnim_Init(struct BMDifficultyProc* proc);
+void DungeonRecordUi_UpdateValueAnim_Loop(struct BMDifficultyProc* proc);
 struct BMDifficultyProc * DungeonRecordUi_SpawnUpdateValueProc(int label, int value, ProcPtr parent);
 u32 GetCurrentDungeonValueByUiLabel(u32 label);
 u32 GetRecordDungeonValueByUiLabel(u32 label);
 s8 DungeonRecordUi_IsNewRecordForLabel(u32 label);
-void sub_803943C(struct BMDifficultyProc* proc);
-void sub_803948C(ProcPtr proc);
-void sub_80394A8(struct BMDifficultyProc* proc);
-void sub_8039554(struct BMDifficultyProc* proc);
+void DungeonRecordUi_ClearCountAnim_Init(struct BMDifficultyProc* proc);
+void DungeonRecordUi_ClearCountClearText(ProcPtr proc);
+void DungeonRecordUi_ClearCountAnim_Loop(struct BMDifficultyProc* proc);
+void DungeonRecordUi_EnemiesDefeatedTally_Init(struct BMDifficultyProc* proc);
 void DungeonRecordUi_UpdateEnemiesDefeatedCount(struct BMDifficultyProc* proc);
-void sub_803963C(struct BMDifficultyProc* proc);
-void sub_8039660(struct BMDifficultyProc* proc);
-void sub_8039668(struct BMDifficultyProc* proc);
+void DungeonRecordUi_StopTallySound(struct BMDifficultyProc* proc);
+void DungeonRecordUi_SetLabelToExp(struct BMDifficultyProc* proc);
+void DungeonRecordUi_UpdateLabelIfNewRecord(struct BMDifficultyProc* proc);
 void DungeonRecordUi_GotoNextLabel(struct BMDifficultyProc* proc);
 
-extern struct Struct02003BE8 gUnknown_02003BE8;
-extern u16 gUnknown_02003B88[];
-extern int gUnknown_02003BA8[];
-extern u16 gUnknown_0200310C[];
-extern struct Font gUnknown_020038AC;
-extern struct Text gUnknown_02003B48[8];
+extern struct Struct02003BE8 gBmdifficultyEwram_1;
+extern u16 gBmdifficulty_5[];
+extern int gBmdifficultyEwram_0[];
+extern u16 gBmdifficulty_0[];
+extern struct Font gBmdifficulty_1;
+extern struct Text gBmdifficulty_4[8];
 
 extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_FromMenu[];
 extern struct ProcCmd CONST_DATA sProcScr_DisplayDungeonRecord_AfterDungeonClear[];
-extern const u16 CONST_DATA obj_859E79C[];
-extern u16 CONST_DATA gUnknown_0859E7C8[];
-extern int CONST_DATA gUnknown_0859E7D4[];
+extern const u16 CONST_DATA obj_0[];
+extern u16 CONST_DATA gBmdifficulty_7[];
+extern int CONST_DATA gBmdifficulty_8[];
 extern struct ProcCmd CONST_DATA sProcScr_DungeonRecord_UpdateNewRecordValues[];
 
 #endif  // GUARD_BMDIFFICULTY_H

@@ -25,23 +25,23 @@
 EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = { 0 };
 
 // TODO: Move elsewhere
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
+void InitBanimTerrain(void *);
+void EndBanimTerrain(void *);
+void SetBanimTerrainPos(void *, s16, s16, s16, s16);
 
 // TODO: Forward declarations
 
-void sub_80B40E4(ProcPtr, int);
+void SetClassStatsDisplayNameX(ProcPtr, int);
 struct ClassReelEnt * GetClassReelEntry(int, int);
 ProcPtr StartClassNameIntro(ProcPtr, struct ClassReelEnt *);
 ProcPtr StartClassAnimDisplay(ProcPtr, struct ClassReelEnt *);
-signed char * sub_80B369C(u8, signed char *);
+signed char * GetClassReelName(u8, signed char *);
 ProcPtr StartClassNameIntroLetter(ProcPtr, u8);
 ProcPtr StartClassNameIntroIcon(ProcPtr, u8);
 
 extern struct ProcCmd CONST_DATA gProcScr_opinfo[];
 
-extern ProcPtr * gUnknown_03001D50;
+extern ProcPtr * gUnk_58;
 
 static inline int DarknessCoeff(int darkness, u8 lsr)
 {
@@ -94,7 +94,7 @@ void ClassReel_ButtonPress_GoToTitle(struct OpInfoProc * proc)
 }
 
 //! FE8U = 0x080B2904
-void sub_80B2904(struct OpInfoProc * proc)
+void ClassReel_Loop(struct OpInfoProc * proc)
 {
     switch (proc->mode)
     {
@@ -133,7 +133,7 @@ void sub_80B2904(struct OpInfoProc * proc)
 }
 
 //! FE8U = 0x080B2988
-s8 sub_80B2988(void)
+s8 IsClassReelFinished(void)
 {
     struct OpInfoProc * proc = Proc_Find(gProcScr_opinfo);
 
@@ -172,7 +172,7 @@ void ClassReel_OnEnd(ProcPtr proc)
     EndAllProcChildren(proc);
 
     EndEfxAnimeDrvProc();
-    sub_8009A84(0);
+    GameControl_ClearPaletteAndReset(0);
     EndActiveClassReelBgColorProc();
 
     return;
@@ -186,7 +186,7 @@ struct ProcCmd CONST_DATA gProcScr_opinfo[] =
     PROC_SLEEP(0),
 
     PROC_CALL(ClassReel_Init),
-    PROC_REPEAT(sub_80B2904),
+    PROC_REPEAT(ClassReel_Loop),
 
 PROC_LABEL(4),
     PROC_CALL(ClassReel_FadeOutBGM),
@@ -216,7 +216,7 @@ void StartClassReel(u8 classSet, ProcPtr parent)
 
 // clang-format off
 
-u16 CONST_DATA sSprite_08A2EF48[] =
+u16 CONST_DATA sSprite_Opinfo_0[] =
 {
     1,
     OAM0_SHAPE_16x32 + OAM0_AFFINE_ENABLE + OAM0_DOUBLESIZE, OAM1_SIZE_16x32, OAM2_LAYER(1),
@@ -225,7 +225,7 @@ u16 CONST_DATA sSprite_08A2EF48[] =
 // clang-format on
 
 //! FE8U = 0x080B2A14
-void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset)
+void PutClassNameIntroLetter(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset)
 {
     int i;
     int k;
@@ -262,18 +262,18 @@ void sub_80B2A14(u8 charId, int x, int y, u16 xScale, u16 yScale, u8 offset)
     if (offset != 0)
     {
         PutSpriteExt(
-            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_08A2EF48, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(2));
+            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_Opinfo_0, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(2));
     }
     else
     {
         PutSpriteExt(
-            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_08A2EF48, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(1));
+            4, (x & 0x1FF) + (charId << 9), y & 0x1FF, sSprite_Opinfo_0, charId * 2 + OAM2_PAL(k) + OAM2_LAYER(1));
     }
 
     return;
 }
 
-extern u8 * CONST_DATA gUnknown_08A2F2C0[];
+extern u8 * CONST_DATA gOpinfo_1[];
 
 //! FE8U = 0x080B2B8C
 void ClassIntro_Init(struct OpInfoEnterProc * proc)
@@ -314,7 +314,7 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
     SetBlendTargetB(1, 1, 0, 0, 1);
 
     proc->timer = 0;
-    proc->letterProcsPtr = &gUnknown_03001D50;
+    proc->letterProcsPtr = &gUnk_58;
 
     for (i = 0; i < 20; i++)
     {
@@ -325,9 +325,9 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
 
     BG_Fill(gBG0TilemapBuffer, 0);
 
-    ApplyPalette(gUnknown_08A37300, 0x10);
+    ApplyPalette(gPal_ClassIntroLetterFont, 0x10);
 
-    str = sub_80B369C(proc->classReelEnt->classId, NULL);
+    str = GetClassReelName(proc->classReelEnt->classId, NULL);
 
     ptr = 0;
 
@@ -335,15 +335,15 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
 
     while (*str != '\0')
     {
-        Decompress((gUnknown_08A2F2C0[*str] != NULL) ? gUnknown_08A2F2C0[*str] : gUnknown_08A2F2C0['X'], gGenericBuffer);
+        Decompress((gOpinfo_1[*str] != NULL) ? gOpinfo_1[*str] : gOpinfo_1['X'], gGenericBuffer);
         Copy2dChr(gGenericBuffer, OBJ_CHR_ADDR(0x0) + ptr, 2, 4);
 
         str++;
         ptr += 0x40;
     }
 
-    ApplyPalette(gUnknown_08A30780, 0x1E);
-    ApplyPalette(gUnknown_08A30780, 0x1F);
+    ApplyPalette(gPal_ClassIntroNameSprites, 0x1E);
+    ApplyPalette(gPal_ClassIntroNameSprites, 0x1F);
 
     Decompress(Img_ClassReel_BigWeaponSprites, OBJ_CHR_ADDR(0x300));
 
@@ -361,7 +361,7 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
     ApplyPalette(Pal_ClassReel_NameBg, 5);
 
     Decompress(Img_ChapterIntro_LensFlare, BG_CHR_ADDR(0x400));
-    sub_800154C(gBG2TilemapBuffer, Tsa_ClassReel_LensFlare, 0, 5);
+    BlitU8TileMapData(gBG2TilemapBuffer, Tsa_ClassReel_LensFlare, 0, 5);
     ApplyPalettes(Pal_ChapterIntro_LensFlare, 0, 3);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -371,7 +371,7 @@ void ClassIntro_Init(struct OpInfoEnterProc * proc)
 
 // unused??
 //! FE8U = 0x080B2DF0
-void sub_80B2DF0(struct OpInfoEnterProc * proc)
+void ClassIntro_LoopBackdropFadeIn(struct OpInfoEnterProc * proc)
 {
     SetBlendBrighten(DarknessCoeff(proc->timer, 1));
     SetBlendBackdropA(1);
@@ -543,7 +543,7 @@ void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc * proc)
     timer2 >>= 4;
     a = (0x10 - timer2) * 2;
 
-    sub_80B2A14(proc->charIndex, proc->unk_2e - a, 0x18, timer, 0x100, 0x10 - ({ proc->timer + 0; }) / 16);
+    PutClassNameIntroLetter(proc->charIndex, proc->unk_2e - a, 0x18, timer, 0x100, 0x10 - ({ proc->timer + 0; }) / 16);
 
     if ((proc->timer += 0x10) == 0x100)
     {
@@ -557,7 +557,7 @@ void ClassIntroLetter_LoopFadeIn(struct OpInfoViewProc * proc)
 //! FE8U = 0x080B2FD0
 void ClassIntroLetter_LoopDisplay(struct OpInfoViewProc * proc)
 {
-    sub_80B2A14(proc->charIndex, proc->unk_2e, 0x18, 0x100, 0x100, 0);
+    PutClassNameIntroLetter(proc->charIndex, proc->unk_2e, 0x18, 0x100, 0x100, 0);
     proc->timer = 0;
     return;
 }
@@ -568,7 +568,7 @@ void ClassIntroLetter_LoopFadeOut(struct OpInfoViewProc * proc)
     u32 a4 = 0x100 + proc->timer;
     u32 a5 = 0x100 - proc->timer;
 
-    sub_80B2A14(proc->charIndex, proc->unk_2e, 0x18, a4, a5, ({ proc->timer + 0; }) / 16);
+    PutClassNameIntroLetter(proc->charIndex, proc->unk_2e, 0x18, a4, a5, ({ proc->timer + 0; }) / 16);
 
     if (proc->timer == 0x100)
     {
@@ -610,7 +610,7 @@ ProcPtr StartClassNameIntroLetter(ProcPtr parent, u8 index)
 
 // unused?
 //! FE8U = 0x080B307C
-void sub_80B307C(void)
+void ClassIntro_EnablePalSync(void)
 {
     EnablePaletteSync();
     return;
@@ -650,10 +650,10 @@ void ClassIntroIcon_Init(struct OpInfoIconProc * proc)
     return;
 }
 
-extern u16 * CONST_DATA sSpriteLut_08A2F1D0[];
+extern u16 * CONST_DATA sSpriteLut_Opinfo_0[];
 
 //! FE8U = 0x080B30FC
-void sub_80B30FC(u8 a, u8 b, u8 c)
+void PutClassWeaponRankIcons(u8 a, u8 b, u8 c)
 {
     int i;
     int tmp;
@@ -681,7 +681,7 @@ void sub_80B30FC(u8 a, u8 b, u8 c)
 
     tmp = ((8 - (b)) << 4);
 
-    for (i = 0, object = sSpriteLut_08A2F1D0, tmp2 = tmp - 8; i < 8; object++, i++)
+    for (i = 0, object = sSpriteLut_Opinfo_0, tmp2 = tmp - 8; i < 8; object++, i++)
     {
         if (((c >> i) & 1) != 0)
         {
@@ -710,7 +710,7 @@ void ClassIntroIcon_LoopFadeIn(struct OpInfoIconProc * proc)
         unk = 0x10 - (proc->timer >> 1);
     }
 
-    sub_80B30FC(unk, proc->numIcons, proc->unk_2e);
+    PutClassWeaponRankIcons(unk, proc->numIcons, proc->unk_2e);
 
     return;
 }
@@ -718,7 +718,7 @@ void ClassIntroIcon_LoopFadeIn(struct OpInfoIconProc * proc)
 //! FE8U = 0x080B31EC
 void ClassIntroIcon_LoopDisplay(struct OpInfoIconProc * proc)
 {
-    sub_80B30FC(0, proc->numIcons, proc->unk_2e);
+    PutClassWeaponRankIcons(0, proc->numIcons, proc->unk_2e);
     proc->timer = 0;
     return;
 }
@@ -735,7 +735,7 @@ void ClassIntroIcon_LoopFadeOut(struct OpInfoIconProc * proc)
     }
     else
     {
-        sub_80B30FC((proc->timer >> 1), proc->numIcons, proc->unk_2e);
+        PutClassWeaponRankIcons((proc->timer >> 1), proc->numIcons, proc->unk_2e);
     }
 
     return;
@@ -932,7 +932,7 @@ struct ProcCmd CONST_DATA gProcScr_ClassIntro_BurstFX[] =
 // clang-format on
 
 //! FE8U = 0x080B369C
-signed char * sub_80B369C(u8 classId, signed char * buffer)
+signed char * GetClassReelName(u8 classId, signed char * buffer)
 {
     char * str;
 
@@ -957,7 +957,7 @@ signed char * sub_80B369C(u8 classId, signed char * buffer)
 }
 
 //! FE8U = 0x080B36E0
-void sub_80B36E0(void)
+void ClassInfoDisplay_HBlankHandler(void)
 {
     u16 vcount = (REG_VCOUNT + 1);
 
@@ -976,7 +976,7 @@ void sub_80B36E0(void)
 }
 
 //! FE8U = 0x080B3740
-void sub_80B3740(void)
+void ClassInfoDisplay_ResetWindowBlend(void)
 {
     SetBlendAlpha(0x10, 0x10);
 
@@ -999,19 +999,19 @@ void sub_80B3740(void)
 
 ProcPtr StartClassStatsDisplay(ProcPtr);
 
-extern u8 gUnknown_02002038[];
-extern u8 gUnknown_02007838[];
-extern u8 gUnknown_020078D8[];
+extern u8 gUnk_0[];
+extern u8 gUnk_1[];
+extern u8 gUnk_2[];
 
-extern u8 gUnknown_0200A300[];
-extern u8 gUnknown_0200C300[];
-extern u8 gUnknown_0200CB00[];
+extern u8 gUnk_5[];
+extern u8 gUnk_7[];
+extern u8 gUnk_8[];
 
 extern struct Text gClassReelTexts[6];
 
-extern u8 gUnk_OpInfo_0201DB28[];
+extern u8 gUnk_OpInfo_0[];
 
-const int gUnknown_08205EDC[2][6] =
+const int gOpinfo_0[2][6] =
 {
     {
         MSG_4E9, // "HP"
@@ -1045,7 +1045,7 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
 
     hasMagicRank = FALSE;
 
-    memcpy(hack.hack_2d, gUnknown_08205EDC, sizeof(hack.hack_2d));
+    memcpy(hack.hack_2d, gOpinfo_0, sizeof(hack.hack_2d));
 
     proc->script = proc->classReelEnt->script;
 
@@ -1158,9 +1158,9 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     gOpInfoData.oam2Tile = 0x180;
     gOpInfoData.oam2Pal = 2;
     gOpInfoData.pImgSheetBuf = &gEkrBg0QuakeVec;
-    gOpInfoData.unk_24 = gUnknown_02002038;
-    gOpInfoData.unk_20 = gUnknown_02007838;
-    gOpInfoData.unk_28 = gUnknown_020078D8;
+    gOpInfoData.unk_24 = gUnk_0;
+    gOpInfoData.unk_20 = gUnk_1;
+    gOpInfoData.unk_28 = gUnk_2;
 
     gOpInfoData.unk_30 = &gClassReelMagicAnim;
 
@@ -1175,39 +1175,39 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     gClassReelMagicAnim.bgPalId = 0xF;
     gClassReelMagicAnim.bg = 1;
     gClassReelMagicAnim.bgTmBuf = gBG1TilemapBuffer;
-    gClassReelMagicAnim.bgImgBuf = gUnknown_0200A300;
-    gClassReelMagicAnim.bgTsaBuf = gUnknown_0200C300;
-    gClassReelMagicAnim.objImgBuf = gUnknown_0200CB00;
-    gClassReelMagicAnim.resetCallback = sub_80B3740;
+    gClassReelMagicAnim.bgImgBuf = gUnk_5;
+    gClassReelMagicAnim.bgTsaBuf = gUnk_7;
+    gClassReelMagicAnim.objImgBuf = gUnk_8;
+    gClassReelMagicAnim.resetCallback = ClassInfoDisplay_ResetWindowBlend;
 
     NewEkrUnitMainMini(&gOpInfoData);
 
-    gUnk_Opinfo_0201DB00.terrain_l = proc->classReelEnt->unk_0D;
-    gUnk_Opinfo_0201DB00.pal_l = 10;
-    gUnk_Opinfo_0201DB00.chr_l = 0x380;
-    gUnk_Opinfo_0201DB00.terrain_r = proc->classReelEnt->unk_0E;
-    gUnk_Opinfo_0201DB00.pal_r = 11;
-    gUnk_Opinfo_0201DB00.chr_r = 0x3C0;
-    gUnk_Opinfo_0201DB00.distance = 0;
-    gUnk_Opinfo_0201DB00.unk0E = -1;
+    gUnk_Opinfo_0.terrain_l = proc->classReelEnt->unk_0D;
+    gUnk_Opinfo_0.pal_l = 10;
+    gUnk_Opinfo_0.chr_l = 0x380;
+    gUnk_Opinfo_0.terrain_r = proc->classReelEnt->unk_0E;
+    gUnk_Opinfo_0.pal_r = 11;
+    gUnk_Opinfo_0.chr_r = 0x3C0;
+    gUnk_Opinfo_0.distance = 0;
+    gUnk_Opinfo_0.unk0E = -1;
 
-    gUnk_Opinfo_0201DB00.unk1C = OBJ_CHR_ADDR(0x0);
-    gUnk_Opinfo_0201DB00.unk20 = &gUnk_OpInfo_0201DB28;
+    gUnk_Opinfo_0.unk1C = OBJ_CHR_ADDR(0x0);
+    gUnk_Opinfo_0.unk20 = &gUnk_OpInfo_0;
 
-    sub_805AA68(&gUnk_Opinfo_0201DB00);
-    sub_805AE40(&gUnk_Opinfo_0201DB00, 0xD0, 0x68, 0x130, 0x68);
+    InitBanimTerrain(&gUnk_Opinfo_0);
+    SetBanimTerrainPos(&gUnk_Opinfo_0, 0xD0, 0x68, 0x130, 0x68);
 
-    SetPrimaryHBlankHandler(sub_80B36E0);
+    SetPrimaryHBlankHandler(ClassInfoDisplay_HBlankHandler);
 
     return;
 }
 
 //! FE8U = 0x080B3C14
-void sub_80B3C14(struct OpInfoClassDisplayProc * proc)
+void ClassInfoDisplay_AutoAdvanceWorker(struct OpInfoClassDisplayProc * proc)
 {
     if (proc->unk_2c == 400)
     {
-        if (sub_80B2988() != 0)
+        if (IsClassReelFinished() != 0)
         {
             Sound_FadeOutBGM(60);
             Proc_Goto(proc, 7);
@@ -1254,17 +1254,17 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc * proc)
 
         Proc_Break(proc);
 
-        StartParallelWorker(sub_80B3C14, proc);
+        StartParallelWorker(ClassInfoDisplay_AutoAdvanceWorker, proc);
     }
     else
     {
         proc->unk_2a += 4;
     }
 
-    sub_805A940(&gOpInfoData, proc->unk_46, 88);
-    sub_805AE40(&gUnk_Opinfo_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
+    SetMainMiniAnimPos(&gOpInfoData, proc->unk_46, 88);
+    SetBanimTerrainPos(&gUnk_Opinfo_0, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
 
-    sub_80B40E4(proc->unk_3c, 100);
+    SetClassStatsDisplayNameX(proc->unk_3c, 100);
 
     return;
 }
@@ -1281,31 +1281,31 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc * proc)
 
         case CLASS_REEL_OP_HIT_CLOSE:
             gOpInfoData.roundType = ANIM_ROUND_HIT_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            RestartMainMiniAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_CRIT_CLOSE:
             gOpInfoData.roundType = ANIM_ROUND_CRIT_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            RestartMainMiniAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_RETURN_TO_STANDING:
         case CLASS_REEL_OP_RETURN_TO_STANDING_ALT:
-            sub_805A990(&gOpInfoData);
+            ApplyMainMiniAnimHitEffect(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_HIT_FAR:
             gOpInfoData.roundType = ANIM_ROUND_NONCRIT_FAR;
-            sub_805A7B4(&gOpInfoData);
+            RestartMainMiniAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_DODGE:
             gOpInfoData.roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            RestartMainMiniAnim(&gOpInfoData);
 
             break;
 
@@ -1349,7 +1349,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc * proc)
             break;
 
         case CLASS_REEL_OP_ROUND_END:
-            if (sub_805A96C(&gOpInfoData) != 0)
+            if (IsMainMiniAnimRoundEnd(&gOpInfoData) != 0)
             {
                 proc->script++;
                 Proc_Break(proc);
@@ -1366,9 +1366,9 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc * proc)
 
     EndTalk();
     EndActiveClassReelBgColorProc();
-    sub_805AE14(&gUnk_Opinfo_0201DB00);
+    EndBanimTerrain(&gUnk_Opinfo_0);
     EndActiveClassReelSpell();
-    sub_805AA28(&gOpInfoData);
+    EndEkrUnitMainMini(&gOpInfoData);
 
     if (proc->unk_3c != 0)
     {
@@ -1446,7 +1446,7 @@ void ClassStatsDisplay_Init(struct OpInfoGaugeDrawProc * proc)
     proc->unk_34 = 0;
     proc->unk_35 = 100;
 
-    sub_80B369C(proc->unk_30->classReelEnt->classId, buffer);
+    GetClassReelName(proc->unk_30->classReelEnt->classId, buffer);
 
     for (i = 0; buffer[i] != 0;)
     {
@@ -1508,7 +1508,7 @@ void ClassStatsDisplay_Loop(struct OpInfoGaugeDrawProc * proc)
 
     x = ((120 - proc->unk_34) / 2) + proc->unk_35;
 
-    sub_80B369C(proc->unk_30->classReelEnt->classId, buffer);
+    GetClassReelName(proc->unk_30->classReelEnt->classId, buffer);
 
     for (i = 0; (buffer[i] != 0);)
     {
@@ -1568,7 +1568,7 @@ ProcPtr StartClassStatsDisplay(ProcPtr proc)
 }
 
 //! FE8U = 0x080B40E4
-void sub_80B40E4(ProcPtr proc, int unk)
+void SetClassStatsDisplayNameX(ProcPtr proc, int unk)
 {
     ((struct OpInfoGaugeDrawProc *)(proc))->unk_35 = unk;
     return;
@@ -1576,95 +1576,95 @@ void sub_80B40E4(ProcPtr proc, int unk)
 // clang-format off
 
 
-u16 CONST_DATA sSprite_08A2F160[] =
+u16 CONST_DATA sSprite_Opinfo_1[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13F) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F168[] =
+u16 CONST_DATA sSprite_Opinfo_2[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13E) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F170[] =
+u16 CONST_DATA sSprite_Opinfo_3[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13D) + OAM2_LAYER(2),
 };
 
-u16 CONST_DATA sSprite_08A2F178[] =
+u16 CONST_DATA sSprite_Opinfo_4[] =
 {
     1,
     OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x13C) + OAM2_LAYER(2),
 };
 
 u16* CONST_DATA sSpriteLut_GaugePips[] = {
-    sSprite_08A2F160,
-    sSprite_08A2F168,
-    sSprite_08A2F170,
-    sSprite_08A2F178,
+    sSprite_Opinfo_1,
+    sSprite_Opinfo_2,
+    sSprite_Opinfo_3,
+    sSprite_Opinfo_4,
 };
 
-u16 CONST_DATA sSprite_08A2F190[] =
+u16 CONST_DATA sSprite_Opinfo_5[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x300) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F198[] =
+u16 CONST_DATA sSprite_Opinfo_6[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x304) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1A0[] =
+u16 CONST_DATA sSprite_Opinfo_7[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x308) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1A8[] =
+u16 CONST_DATA sSprite_Opinfo_8[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x30C) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1B0[] =
+u16 CONST_DATA sSprite_Opinfo_9[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x310) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1B8[] =
+u16 CONST_DATA sSprite_Opinfo_10[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x314) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1C0[] =
+u16 CONST_DATA sSprite_Opinfo_11[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x318) + OAM2_LAYER(1),
 };
 
-u16 CONST_DATA sSprite_08A2F1C8[] =
+u16 CONST_DATA sSprite_Opinfo_12[] =
 {
     1,
     OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x31C) + OAM2_LAYER(1),
 };
 
-u16* CONST_DATA sSpriteLut_08A2F1D0[] =
+u16* CONST_DATA sSpriteLut_Opinfo_0[] =
 {
-    sSprite_08A2F190,
-    sSprite_08A2F198,
-    sSprite_08A2F1A0,
-    sSprite_08A2F1A8,
-    sSprite_08A2F1B0,
-    sSprite_08A2F1B8,
-    sSprite_08A2F1C0,
-    sSprite_08A2F1C8,
+    sSprite_Opinfo_5,
+    sSprite_Opinfo_6,
+    sSprite_Opinfo_7,
+    sSprite_Opinfo_8,
+    sSprite_Opinfo_9,
+    sSprite_Opinfo_10,
+    sSprite_Opinfo_11,
+    sSprite_Opinfo_12,
 };
 
 u16 CONST_DATA Sprite_ClassIntroBurstBubble[] =
@@ -1828,7 +1828,7 @@ struct ClassReelAnimScr CONST_DATA ClassReelScr_Gorgon[] =
     CR_END,
 };
 
-u8 * CONST_DATA gUnknown_08A2F2C0[] =
+u8 * CONST_DATA gOpinfo_1[] =
 {
     NULL,
     NULL,
@@ -1862,7 +1862,7 @@ u8 * CONST_DATA gUnknown_08A2F2C0[] =
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A39148,
+    gOpinfoLetter_63,
     NULL,
     NULL,
     NULL,
@@ -1875,8 +1875,8 @@ u8 * CONST_DATA gUnknown_08A2F2C0[] =
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A38C68,
-    (u8*) 0x08A38CA0,
+    gOpinfoLetter_52,
+    gOpinfoLetter_53,
     NULL,
     NULL,
     NULL,
@@ -1895,64 +1895,64 @@ u8 * CONST_DATA gUnknown_08A2F2C0[] =
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A37320,
-    (u8*) 0x08A373A0,
-    (u8*) 0x08A37430,
-    (u8*) 0x08A374A4,
-    (u8*) 0x08A37524,
-    (u8*) 0x08A375B0,
-    (u8*) 0x08A37634,
-    (u8*) 0x08A376C4,
-    (u8*) 0x08A3773C,
-    (u8*) 0x08A377AC,
-    (u8*) 0x08A3782C,
-    (u8*) 0x08A378BC,
-    (u8*) 0x08A3792C,
-    (u8*) 0x08A379CC,
-    (u8*) 0x08A37A68,
-    (u8*) 0x08A37AE8,
-    (u8*) 0x08A37B5C,
-    (u8*) 0x08A37BEC,
-    (u8*) 0x08A37C70,
-    (u8*) 0x08A37CF4,
-    (u8*) 0x08A37D74,
-    (u8*) 0x08A37E08,
-    (u8*) 0x08A37E80,
-    (u8*) 0x08A37F1C,
-    (u8*) 0x08A37FAC,
-    (u8*) 0x08A3802C,
+    gOpinfoLetter_00,
+    gOpinfoLetter_01,
+    gOpinfoLetter_02,
+    gOpinfoLetter_03,
+    gOpinfoLetter_04,
+    gOpinfoLetter_05,
+    gOpinfoLetter_06,
+    gOpinfoLetter_07,
+    gOpinfoLetter_08,
+    gOpinfoLetter_09,
+    gOpinfoLetter_10,
+    gOpinfoLetter_11,
+    gOpinfoLetter_12,
+    gOpinfoLetter_13,
+    gOpinfoLetter_14,
+    gOpinfoLetter_15,
+    gOpinfoLetter_16,
+    gOpinfoLetter_17,
+    gOpinfoLetter_18,
+    gOpinfoLetter_19,
+    gOpinfoLetter_20,
+    gOpinfoLetter_21,
+    gOpinfoLetter_22,
+    gOpinfoLetter_23,
+    gOpinfoLetter_24,
+    gOpinfoLetter_25,
     NULL,
     NULL,
     NULL,
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A380B0,
-    (u8*) 0x08A38128,
-    (u8*) 0x08A381A8,
-    (u8*) 0x08A3820C,
-    (u8*) 0x08A38288,
-    (u8*) 0x08A382F4,
-    (u8*) 0x08A38368,
-    (u8*) 0x08A383F0,
-    (u8*) 0x08A38468,
-    (u8*) 0x08A384D0,
-    (u8*) 0x08A38548,
-    (u8*) 0x08A385CC,
-    (u8*) 0x08A38644,
-    (u8*) 0x08A386C8,
-    (u8*) 0x08A3872C,
-    (u8*) 0x08A38794,
-    (u8*) 0x08A38814,
-    (u8*) 0x08A38890,
-    (u8*) 0x08A388F4,
-    (u8*) 0x08A38964,
-    (u8*) 0x08A389CC,
-    (u8*) 0x08A38A40,
-    (u8*) 0x08A38AA8,
-    (u8*) 0x08A38B20,
-    (u8*) 0x08A38B90,
-    (u8*) 0x08A38C04,
+    gOpinfoLetter_26,
+    gOpinfoLetter_27,
+    gOpinfoLetter_28,
+    gOpinfoLetter_29,
+    gOpinfoLetter_30,
+    gOpinfoLetter_31,
+    gOpinfoLetter_32,
+    gOpinfoLetter_33,
+    gOpinfoLetter_34,
+    gOpinfoLetter_35,
+    gOpinfoLetter_36,
+    gOpinfoLetter_37,
+    gOpinfoLetter_38,
+    gOpinfoLetter_39,
+    gOpinfoLetter_40,
+    gOpinfoLetter_41,
+    gOpinfoLetter_42,
+    gOpinfoLetter_43,
+    gOpinfoLetter_44,
+    gOpinfoLetter_45,
+    gOpinfoLetter_46,
+    gOpinfoLetter_47,
+    gOpinfoLetter_48,
+    gOpinfoLetter_49,
+    gOpinfoLetter_50,
+    gOpinfoLetter_51,
     NULL,
     NULL,
     NULL,
@@ -2055,34 +2055,34 @@ u8 * CONST_DATA gUnknown_08A2F2C0[] =
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A38CD0,
+    gOpinfoLetter_54,
     NULL,
     NULL,
-    (u8*) 0x08A38D58,
+    gOpinfoLetter_55,
     NULL,
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A38DE0,
-    (u8*) 0x08A38E60,
+    gOpinfoLetter_56,
+    gOpinfoLetter_57,
     NULL,
     NULL,
-    (u8*) 0x08A38EE8,
-    (u8*) 0x08A38F54,
+    gOpinfoLetter_58,
+    gOpinfoLetter_59,
     NULL,
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A38FCC,
+    gOpinfoLetter_60,
     NULL,
     NULL,
-    (u8*) 0x08A39048,
+    gOpinfoLetter_61,
     NULL,
     NULL,
     NULL,
     NULL,
     NULL,
-    (u8*) 0x08A390C4,
+    gOpinfoLetter_62,
     NULL,
     NULL,
     NULL,

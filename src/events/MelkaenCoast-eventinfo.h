@@ -45,19 +45,19 @@ CONST_DATA struct ChapterEventGroup MelkaenCoastEvent = {
     .specialEventsAfterUnitMoved   = EventListScr_MelkaenCoast_UnitMove,
     .tutorialEvents                = EventListScr_MelkaenCoast_Tutorial,
 
-    .traps            = TrapData_Event_089EDE77,
-    .extraTrapsInHard = TrapData_Event_089EDF6C,
+    .traps            = TrapData_Event_MelkaenCoast_0,
+    .extraTrapsInHard = TrapData_Event_MelkaenCoast_1,
 
-    .playerUnitsInNormal = UnitDef_088CFBFC,
-    .playerUnitsInHard   = UnitDef_088CFBFC,
+    .playerUnitsInNormal = UnitDef_MelkaenCoastAlly_0,
+    .playerUnitsInHard   = UnitDef_MelkaenCoastAlly_0,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088D00D4,
-    .playerUnitsChoice2InEncounter = UnitDef_088D05AC,
-    .playerUnitsChoice3InEncounter = UnitDef_088D0A84,
+    .playerUnitsChoice1InEncounter = UnitDef_MelkaenCoastAlly_1,
+    .playerUnitsChoice2InEncounter = UnitDef_MelkaenCoastAlly_2,
+    .playerUnitsChoice3InEncounter = UnitDef_MelkaenCoastAlly_3,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088D019C,
-    .enemyUnitsChoice2InEncounter = UnitDef_088D0674,
-    .enemyUnitsChoice3InEncounter = UnitDef_088D0B4C,
+    .enemyUnitsChoice1InEncounter = UnitDef_MelkaenCoastEnemy_1,
+    .enemyUnitsChoice2InEncounter = UnitDef_MelkaenCoastEnemy_2,
+    .enemyUnitsChoice3InEncounter = UnitDef_MelkaenCoastEnemy_3,
 
     .beginningSceneEvents = EventScr_MelkaenCoast_BeginningScene,
     .endingSceneEvents    = EventScr_MelkaenCoast_EndingScene,

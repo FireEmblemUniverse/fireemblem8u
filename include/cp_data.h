@@ -38,12 +38,12 @@ enum {
 extern const struct AiCombatScoreCoefficients gAiCombatScoreCoefficientTable[];
 extern const u32 gAiItemConfigTable[];
 
-extern u8 CONST_DATA gUnknown_085A814C[];
+extern u8 CONST_DATA gCpData_24[];
 extern const u8* CONST_DATA gAiClassRankLists[];
 extern const struct AiEscapePt* CONST_DATA gRedAiEscapePoints[];
 extern const struct AiEscapePt* CONST_DATA gGreenAiEscapePoints[];
 extern struct AiHealThreshold CONST_DATA gAI3HealingThresholdTable[];
-extern const struct Vec2** CONST_DATA gUnknown_085A8400;
+extern const struct Vec2** CONST_DATA gCpData_31;
 extern u16 CONST_DATA gAiStealPriorityItemList[];
 extern struct AiScr** CONST_DATA gpAi2Table[];
 extern struct AiScr** CONST_DATA gpAi1Table[];

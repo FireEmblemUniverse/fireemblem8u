@@ -26,7 +26,7 @@
 
 void PrintDebugBuildDateAndTime(u16 *bg);
 
-u16 CONST_DATA gUnknown_0859A9D8[] = {
+u16 CONST_DATA gBmdebug_0[] = {
     0x0000, 0x0008, 0x000A, 0x0040, 0x0014,
     0x0000, 0x0015, 0x0030, 0x0000, 0x0080,
 };
@@ -97,7 +97,7 @@ void SetNewKeyStatusWith16(void)
     AsnycKeyStatus(DPAD_RIGHT);
 }
 
-struct ProcCmd CONST_DATA gProcScr_0859A9EC[] = {
+struct ProcCmd CONST_DATA gProcScr_Bmdebug_0[] = {
     PROC_REPEAT(Loop6C_WaitForSelectPress),
 
 PROC_LABEL(1),
@@ -178,13 +178,13 @@ u8 DebugMenu_MapEffect(struct MenuProc *menuProc, struct MenuItemProc *menuItemP
     gPlaySt.chapterIndex = Debug_GetChapterId(menuItemProc->itemNumber);
     gPlaySt.chapterModeIndex = gDebugChapterModeIndex;
     ChapterChangeUnitCleanup();
-    nullsub_9();
+    Nop_Gamecontrol_0();
     gPlaySt.save_menu_type = 2;
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 
 //! FE8U = 0x0801BB98
-int sub_801BB98(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
+int DebugMenu_BgmDraw(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
     int songId;
     int i;
 
@@ -210,7 +210,7 @@ int sub_801BB98(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
 }
 
 //! FE8U = 0x0801BC1C
-int sub_801BC1C(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
+int DebugMenu_BgmIdle(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
 
     if (gKeyStatusPtr->repeatedKeys & DPAD_RIGHT) {
         menuItemProc->itemNumber++;
@@ -531,7 +531,7 @@ u8 StartupDebugMenu_WorldMapEffect(void) {
     WriteGameSave(SAVE_ID_GAME0);
     ChapterChangeUnitCleanup();
 
-    nullsub_RestartGameAndGoto7();
+    RestartGameAndGoto7();
 
     return 2;
 }
@@ -561,25 +561,25 @@ u8 StartupDebugMenu_ChapterSelectEffect(struct MenuProc* menuProc, struct MenuIt
     WriteGameSave(SAVE_ID_GAME0);
 
     ChapterChangeUnitCleanup();
-    nullsub_9();
+    Nop_Gamecontrol_0();
 
     return 2;
 }
 
 //! FE8U = 0x0801C2D0
-u8 sub_801C2D0(void) {
+u8 DebugMenu_OpenChuudanMenuEffect(void) {
     StartOrphanMenu(&gDebugChuudanMenuDef);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 
 //! FE8U = 0x0801C2E4
-u8 sub_801C2E4(void) {
+u8 DebugMenu_OpenChargeMenuEffect(void) {
     StartOrphanMenu(&gDebugChargeMenuDef);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 
 //! FE8U = 0x0801C2F8
-u8 sub_801C2F8(void) {
+u8 DebugMenu_SaveMenuEffect(void) {
     Make6C_SaveMenuPostChapter(PROC_TREE_3);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
@@ -703,7 +703,7 @@ u8 DebugContinueMenu_ReleaseEntry(struct MenuProc* menuProc, struct MenuItemProc
 
 //! FE8U = 0x0801C4C0
 u8 DebugMenu_GNightEffect(struct MenuProc* menuProc, struct MenuItemProc* menuItemProc) {
-    sub_8001CB0(0x300);
+    EnterSleepMode(0x300);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }
 
@@ -778,14 +778,14 @@ u8 DebugChargeMenu_Idle(struct MenuProc* menuProc, struct MenuItemProc* menuItem
 }
 
 struct ProcCmd CONST_DATA gProcScr_DebugStartNameEntry[] = {
-    PROC_CALL(sub_8048260),
+    PROC_CALL(StartTacticianNameEntry),
     PROC_SLEEP(0),
 
     PROC_END,
 };
 
 //! FE8U = 0x0801C63C
-u8 sub_801C63C(void) {
+u8 DebugMenu_StartNameEntryEffect(void) {
     Proc_Start(gProcScr_DebugStartNameEntry, PROC_TREE_3);
     return (MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SND6A | MENU_ACT_CLEAR);
 }

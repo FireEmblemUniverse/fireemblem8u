@@ -170,8 +170,8 @@ void WmMinimap_PutSkirmishIcons(struct GMapRadarProc * proc)
     return;
 }
 
-extern u16 gUnknown_08AA1930[];
-extern u16 gUnknown_08AA1950[];
+extern u16 gWorldmapSkirmish_2[];
+extern u16 gWorldmapSkirmish_3[];
 
 //! FE8U = 0x080C3A28
 void WmMinimap_BlinkPalette(struct GMapRadarProc * proc)
@@ -180,8 +180,8 @@ void WmMinimap_BlinkPalette(struct GMapRadarProc * proc)
 
     u16 * pal = PAL_OBJ(9);
 
-    pal[9] = *(gUnknown_08AA1930 + colorIdx);
-    pal[7] = *(gUnknown_08AA1950 + colorIdx);
+    pal[9] = *(gWorldmapSkirmish_2 + colorIdx);
+    pal[7] = *(gWorldmapSkirmish_3 + colorIdx);
 
     EnablePaletteSync();
 
@@ -201,19 +201,19 @@ void PutWmMinimapSprites(struct GMapRadarProc * proc)
     return;
 }
 
-extern u16 gUnknown_0201B458[];
+extern u16 gUnk_17[];
 
 //! FE8U = 0x080C3A8C
-void GMapRadar_80C3A8C(struct GMapRadarProc * unused)
+void GMapRadar_0(struct GMapRadarProc * unused)
 {
-    TileMap_FillRect(gUnknown_0201B458, 8, 8, 0);
-    CallARM_FillTileRect(gUnknown_0201B458, gUnknown_08AA18AC, 0x000071E0);
+    TileMap_FillRect(gUnk_17, 8, 8, 0);
+    CallARM_FillTileRect(gUnk_17, gWorldmapSkirmish_1, 0x000071E0);
     return;
 }
 
 // clang-format off
 
-u8 const gUnknown_08206B70[] =
+u8 const gWorldmapRadar_0[] =
 {
     3, 0, 0, 0, 0, 1, 3, 1, 1, 1,
     2, 2, 3, 2, 2, 3, 3, 3, 2, 3,
@@ -222,20 +222,20 @@ u8 const gUnknown_08206B70[] =
 // clang-format on
 
 //! FE8U = 0x080C3AB8
-void GMapRadar_80C3AB8(struct GMapRadarProc * proc)
+void GMapRadar_1(struct GMapRadarProc * proc)
 {
     int state;
 
     if ((gGMData.state.bits.state_2) != 0)
     {
         proc->unk_34 = 0;
-        proc->unk_2a = sub_80C089C(0x20, 0x20, 0x30, 0x30);
+        proc->unk_2a = GetWMCursorScreenQuadrant(0x20, 0x20, 0x30, 0x30);
 
-        state = ((gUnknown_08206B70[proc->unk_2a + (gGMData.state.bits.state_4_5) * 5] & 3) << 4);
+        state = ((gWorldmapRadar_0[proc->unk_2a + (gGMData.state.bits.state_4_5) * 5] & 3) << 4);
         gGMData.state.bits.state_4_5 = 0;
         gGMData.state.raw |= state;
 
-        GMapRadar_80C3A8C(proc);
+        GMapRadar_0(proc);
 
         *&proc->unk_2d = gGMData.ix >> 8;
         *&proc->unk_2e = gGMData.iy >> 8;
@@ -250,7 +250,7 @@ void GMapRadar_80C3AB8(struct GMapRadarProc * proc)
 }
 
 //! FE8U = 0x080C3B40
-void GMapRadar_80C3B40(struct GMapRadarProc * proc)
+void GMapRadar_2(struct GMapRadarProc * proc)
 {
     int var;
 
@@ -274,14 +274,14 @@ void GMapRadar_80C3B40(struct GMapRadarProc * proc)
             return;
         }
 
-        var = sub_80C089C(0x20, 0x20, 0x30, 0x30);
+        var = GetWMCursorScreenQuadrant(0x20, 0x20, 0x30, 0x30);
 
         if (var == proc->unk_2a)
         {
             return;
         }
 
-        if (gGMData.state.bits.state_4_5 == gUnknown_08206B70[var + gGMData.state.bits.state_4_5 * 5])
+        if (gGMData.state.bits.state_4_5 == gWorldmapRadar_0[var + gGMData.state.bits.state_4_5 * 5])
         {
             return;
         }
@@ -293,17 +293,17 @@ void GMapRadar_80C3B40(struct GMapRadarProc * proc)
     return;
 }
 
-extern u16 gUnknown_0201B430[];
-extern u16 gUnknown_0201B458[];
+extern u16 gUnk_16[];
+extern u16 gUnk_17[];
 
 //! FE8U = 0x080C3BE4
 void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
 {
-    switch (gUnknown_08206B70[proc->unk_2a + gGMData.state.bits.state_4_5 * 5])
+    switch (gWorldmapRadar_0[proc->unk_2a + gGMData.state.bits.state_4_5 * 5])
     {
         case 0:
             TileMap_FillRect(gBG0TilemapBuffer, 8, 8, 0);
-            TileMap_CopyRect(gUnknown_0201B430 + (0x1c - b), gBG0TilemapBuffer, b, 8);
+            TileMap_CopyRect(gUnk_16 + (0x1c - b), gBG0TilemapBuffer, b, 8);
             proc->unk_2f = b - 8;
             proc->unk_30 = 0;
 
@@ -311,7 +311,7 @@ void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
 
         case 1:
             TileMap_FillRect(gBG0TilemapBuffer + 0x16, 8, 8, 0);
-            TileMap_CopyRect(gUnknown_0201B458, gBG0TilemapBuffer + (0x1e - b), b, 8);
+            TileMap_CopyRect(gUnk_17, gBG0TilemapBuffer + (0x1e - b), b, 8);
             proc->unk_2f = 30 - b;
             proc->unk_30 = 0;
 
@@ -319,7 +319,7 @@ void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
 
         case 2:
             TileMap_FillRect(gBG0TilemapBuffer + 0x180, 8, 8, 0);
-            TileMap_CopyRect(gUnknown_0201B430 + (0x1c - b), gBG0TilemapBuffer + 0x180, b, 8);
+            TileMap_CopyRect(gUnk_16 + (0x1c - b), gBG0TilemapBuffer + 0x180, b, 8);
             proc->unk_2f = b - 8;
             proc->unk_30 = 12;
 
@@ -327,7 +327,7 @@ void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
 
         case 3:
             TileMap_FillRect(gBG0TilemapBuffer + 0x196, 8, 8, 0);
-            TileMap_CopyRect(gUnknown_0201B458, gBG0TilemapBuffer + (0x19e - b), b, 12);
+            TileMap_CopyRect(gUnk_17, gBG0TilemapBuffer + (0x19e - b), b, 12);
             proc->unk_2f = 30 - b;
             proc->unk_30 = 12;
 
@@ -339,7 +339,7 @@ void PutWmMinimapGfx(struct GMapRadarProc * proc, int b)
     return;
 }
 
-s8 CONST_DATA gUnknown_08A3EE6C[] =
+s8 CONST_DATA gWorldmapRadar_1[] =
 {
     1, 2, 5, 8,
 };
@@ -347,7 +347,7 @@ s8 CONST_DATA gUnknown_08A3EE6C[] =
 //! FE8U = 0x080C3D24
 void GMapRadar_SlideIn(struct GMapRadarProc * proc)
 {
-    PutWmMinimapGfx(proc, gUnknown_08A3EE6C[proc->unk_34]);
+    PutWmMinimapGfx(proc, gWorldmapRadar_1[proc->unk_34]);
     PutWmMinimapSprites(proc);
 
     proc->unk_34++;
@@ -361,7 +361,7 @@ void GMapRadar_SlideIn(struct GMapRadarProc * proc)
     return;
 }
 
-s8 CONST_DATA gUnknown_08A3EE70[] =
+s8 CONST_DATA gWorldmapRadar_2[] =
 {
     5, 2, 1, 0,
 };
@@ -369,7 +369,7 @@ s8 CONST_DATA gUnknown_08A3EE70[] =
 //! FE8U = 0x080C3D5C
 void GMapRadar_SlideOut(struct GMapRadarProc * proc)
 {
-    PutWmMinimapGfx(proc, gUnknown_08A3EE70[proc->unk_34]);
+    PutWmMinimapGfx(proc, gWorldmapRadar_2[proc->unk_34]);
     PutWmMinimapSprites(proc);
 
     proc->unk_34++;
@@ -406,9 +406,9 @@ struct ProcCmd CONST_DATA ProcScr_GmapRader[] =
     PROC_CALL(GMapRadar_Init),
 
 PROC_LABEL(0),
-    PROC_REPEAT(GMapRadar_80C3AB8),
+    PROC_REPEAT(GMapRadar_1),
     PROC_REPEAT(GMapRadar_SlideIn),
-    PROC_REPEAT(GMapRadar_80C3B40),
+    PROC_REPEAT(GMapRadar_2),
     PROC_REPEAT(GMapRadar_SlideOut),
 
     PROC_GOTO(0),

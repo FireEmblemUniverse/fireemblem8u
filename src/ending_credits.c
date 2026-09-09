@@ -61,10 +61,10 @@ struct CreditsEnt
     /* 10 */ int unk_10; // delay before playing next staff credit roll
 };
 
-extern const struct CreditsEnt gUnknown_08206E24[];
-extern const u32 gUnknown_08206FDC[];
+extern const struct CreditsEnt gEndingCredits_0[];
+extern const u32 gEndingCredits_1[];
 
-extern u16 gUnknown_0201C5D4[];
+extern u16 gUnk_33[];
 
 #define CREDITS_PARENT(proc) ((struct CreditsMainProc *)(proc->proc_parent))
 
@@ -80,7 +80,7 @@ void CreditsBlendCG_Init(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C40B8
-void CreditsBlendCG_80C40B8(struct CreditsSubProc * proc)
+void CreditsBlendCG_0(struct CreditsSubProc * proc)
 {
     proc->unk_30++;
 
@@ -104,7 +104,7 @@ void CreditsBlendCG_80C40B8(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C412C
-void CreditsBlendCG_80C412C(struct CreditsSubProc * proc)
+void CreditsBlendCG_1(struct CreditsSubProc * proc)
 {
     int val;
     struct CreditsMainProc * parent;
@@ -129,7 +129,7 @@ void CreditsBlendCG_80C412C(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C4158
-void CreditsBlendCG_80C4158(struct CreditsSubProc * proc)
+void CreditsBlendCG_2(struct CreditsSubProc * proc)
 {
     proc->unk_34--;
 
@@ -144,7 +144,7 @@ void CreditsBlendCG_80C4158(struct CreditsSubProc * proc)
 }
 
 //! FE8U = 0x080C4184
-void CreditsBlendCG_80C4184(struct CreditsSubProc * proc)
+void CreditsBlendCG_3(struct CreditsSubProc * proc)
 {
     proc->unk_30++;
 
@@ -178,10 +178,10 @@ struct ProcCmd CONST_DATA ProcScr_EndingCredits_BlendCGMaybe[] =
 
     PROC_CALL(CreditsBlendCG_Init),
 
-    PROC_REPEAT(CreditsBlendCG_80C40B8),
-    PROC_REPEAT(CreditsBlendCG_80C412C),
-    PROC_REPEAT(CreditsBlendCG_80C4158),
-    PROC_REPEAT(CreditsBlendCG_80C4184),
+    PROC_REPEAT(CreditsBlendCG_0),
+    PROC_REPEAT(CreditsBlendCG_1),
+    PROC_REPEAT(CreditsBlendCG_2),
+    PROC_REPEAT(CreditsBlendCG_3),
 
     PROC_CALL(CreditsBlendCG_OnEnd),
 
@@ -212,7 +212,7 @@ void EndCreditsBlendCG(void)
 }
 
 //! FE8U = 0x080C4238
-void sub_80C4238(struct CreditsMainProc * proc)
+void EndingCredits_UpdateStaffReel(struct CreditsMainProc * proc)
 {
     u32 something;
     s32 i;
@@ -226,7 +226,7 @@ void sub_80C4238(struct CreditsMainProc * proc)
         {
             for (i = proc->unk_35 + 1; i < 23u; i++)
             {
-                ptr = &gUnknown_08206E24[i - 1];
+                ptr = &gEndingCredits_0[i - 1];
 
                 if (ptr->cg[0] == NULL)
                 {
@@ -253,21 +253,21 @@ void sub_80C4238(struct CreditsMainProc * proc)
             }
         }
 
-        ptr = &gUnknown_08206E24[proc->unk_35];
+        ptr = &gEndingCredits_0[proc->unk_35];
         something = (proc->unk_35 + 1) & 1;
         if (ptr->entry != NULL)
         {
-            Decompress(ptr->entry->img, (void *)(VRAM + gUnknown_08206FDC[something]));
+            Decompress(ptr->entry->img, (void *)(VRAM + gEndingCredits_1[something]));
             Decompress(ptr->entry->tsa, gGenericBuffer);
             CallARM_FillTileRect(
-                gUnknown_0201C5D4, gGenericBuffer, (u16)((gUnknown_08206FDC[something] / CHR_SIZE) + 0x7000));
+                gUnk_33, gGenericBuffer, (u16)((gEndingCredits_1[something] / CHR_SIZE) + 0x7000));
         }
         else
         {
-            CpuFastFill(-1, (void *)(VRAM + gUnknown_08206FDC[something]), 0x20);
+            CpuFastFill(-1, (void *)(VRAM + gEndingCredits_1[something]), 0x20);
             for (i = 0; i < 0x400; i++)
             {
-                gUnknown_0201C5D4[i] = (gUnknown_08206FDC[something] / CHR_SIZE) + 0x7000;
+                gUnk_33[i] = (gEndingCredits_1[something] / CHR_SIZE) + 0x7000;
             }
         }
 
@@ -278,7 +278,7 @@ void sub_80C4238(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C43B4
-void sub_80C43B4(struct CreditsMainProc * proc)
+void EndingCredits_UpdateScroll(struct CreditsMainProc * proc)
 {
     int unk_30 = (proc->unk_30 >> 8);
     proc->unk_38 = unk_30 / 16;
@@ -289,7 +289,7 @@ void sub_80C43B4(struct CreditsMainProc * proc)
         int val = tmp - (tmp / 0x100) * 0x100;
         val = ((val / 8) * 32);
 
-        CpuFastCopy(gUnknown_0201C5D4 + val, gBG0TilemapBuffer + val, 0x80);
+        CpuFastCopy(gUnk_33 + val, gBG0TilemapBuffer + val, 0x80);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
 
         proc->unk_36 = proc->unk_38;
@@ -332,9 +332,9 @@ void EndingCredits_Init(struct CreditsMainProc * proc)
 
     CpuFastFill(0, gPaletteBuffer, PLTT_SIZE);
 
-    ApplyPalette(Pal_StaffReelEnt_08A40FC8, 7);
+    ApplyPalette(Pal_StaffReelEnt_EndingFin, 7);
 
-    CpuFastFill(-1, (void *)(VRAM + (chr = gUnknown_08206FDC[0])), 0x20);
+    CpuFastFill(-1, (void *)(VRAM + (chr = gEndingCredits_1[0])), 0x20);
 
     chr = chr >> 5;
 
@@ -370,7 +370,7 @@ void EndingCredits_Init(struct CreditsMainProc * proc)
 }
 
 //! FE8U = 0x080C45E0
-void sub_80C45E0(struct CreditsMainProc * proc)
+void EndingCredits_LoadCG(struct CreditsMainProc * proc)
 {
     if (proc->unk_29_1)
     {
@@ -417,9 +417,9 @@ void EndingCredits_Loop_Main(struct CreditsMainProc * proc)
         proc->unk_30 += 0x80;
     }
 
-    sub_80C4238(proc);
-    sub_80C43B4(proc);
-    sub_80C45E0(proc);
+    EndingCredits_UpdateStaffReel(proc);
+    EndingCredits_UpdateScroll(proc);
+    EndingCredits_LoadCG(proc);
 
     if ((u8)proc->unk_35 > 20)
     {
@@ -438,7 +438,7 @@ void EndingCredits_EndBlendCG(void)
 }
 
 //! FE8U = 0x080C46F0
-void EndingCredits_80C46F0(void)
+void EndingCredits_0(void)
 {
     SetDispEnable(0, 0, 0, 0, 0);
     SetDefaultColorEffects();
@@ -454,16 +454,16 @@ void EndingCredits_80C46F0(void)
 void EndingCredits_ShowCopyright(struct CreditsMainProc * proc)
 {
     u32 chr;
-    const struct StaffReelEnt * ptr = (&gUnknown_08206E24[20])->entry;
+    const struct StaffReelEnt * ptr = (&gEndingCredits_0[20])->entry;
 
-    Decompress(ptr->img, (void *)(VRAM + (chr = gUnknown_08206FDC[0])));
+    Decompress(ptr->img, (void *)(VRAM + (chr = gEndingCredits_1[0])));
     Decompress(ptr->tsa, gGenericBuffer);
 
     CallARM_FillTileRect(gBG0TilemapBuffer, gGenericBuffer, (u16)((chr >> 5) + 0x7000));
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
     gPaletteBuffer[0] = 0;
-    ApplyPalette(Pal_StaffReelEnt_08A40FC8, 7);
+    ApplyPalette(Pal_StaffReelEnt_EndingFin, 7);
     EnablePaletteSync();
 
     proc->timer = 240;
@@ -524,7 +524,7 @@ PROC_LABEL(0),
     PROC_CALL_ARG(NewFadeOut, 16),
     PROC_WHILE(FadeOutExists),
 
-    PROC_CALL(EndingCredits_80C46F0),
+    PROC_CALL(EndingCredits_0),
     PROC_SLEEP(1),
 
     PROC_CALL(EndingCredits_ShowCopyright),
@@ -557,85 +557,85 @@ void StartEndingCredits(ProcPtr parent)
 
 // clang-format off
 
-const struct StaffReelEnt StaffReelEnt_08206BA0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_0 =
 {
-    .img = Img_StaffReelEnt_08A40FE8,
-    .tsa = Tsa_StaffReelEnt_08A4AE08,
+    .img = Img_StaffReelEnt_0,
+    .tsa = Tsa_StaffReelEnt_0,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BA8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_1 =
 {
-    .img = Img_StaffReelEnt_08A41B30,
-    .tsa = Tsa_StaffReelEnt_08A4B090,
+    .img = Img_StaffReelEnt_1,
+    .tsa = Tsa_StaffReelEnt_1,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BB0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_2 =
 {
-    .img = Img_StaffReelEnt_08A42748,
-    .tsa = Tsa_StaffReelEnt_08A4B2F4,
+    .img = Img_StaffReelEnt_2,
+    .tsa = Tsa_StaffReelEnt_2,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BB8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_3 =
 {
-    .img = Img_StaffReelEnt_08A432C0,
-    .tsa = Tsa_StaffReelEnt_08A4B558,
+    .img = Img_StaffReelEnt_3,
+    .tsa = Tsa_StaffReelEnt_3,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BC0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_4 =
 {
-    .img = Img_StaffReelEnt_08A43CBC,
-    .tsa = Tsa_StaffReelEnt_08A4B788,
+    .img = Img_StaffReelEnt_4,
+    .tsa = Tsa_StaffReelEnt_4,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BC8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_5 =
 {
-    .img = Img_StaffReelEnt_08A45150,
-    .tsa = Tsa_StaffReelEnt_08A4BB50,
+    .img = Img_StaffReelEnt_5,
+    .tsa = Tsa_StaffReelEnt_5,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BD0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_6 =
 {
-    .img = Img_StaffReelEnt_08A4561C,
-    .tsa = Tsa_StaffReelEnt_08A4BCC4,
+    .img = Img_StaffReelEnt_6,
+    .tsa = Tsa_StaffReelEnt_6,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BD8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_7 =
 {
-    .img = Img_StaffReelEnt_08A45F58,
-    .tsa = Tsa_StaffReelEnt_08A4BEC0,
+    .img = Img_StaffReelEnt_7,
+    .tsa = Tsa_StaffReelEnt_7,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BE0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_8 =
 {
-    .img = Img_StaffReelEnt_08A46988,
-    .tsa = Tsa_StaffReelEnt_08A4C0E4,
+    .img = Img_StaffReelEnt_8,
+    .tsa = Tsa_StaffReelEnt_8,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BE8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_9 =
 {
-    .img = Img_StaffReelEnt_08A472B0,
-    .tsa = Tsa_StaffReelEnt_08A4C308,
+    .img = Img_StaffReelEnt_9,
+    .tsa = Tsa_StaffReelEnt_9,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BF0 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_10 =
 {
-    .img = Img_StaffReelEnt_08A48744,
-    .tsa = Tsa_StaffReelEnt_08A4C6EC,
+    .img = Img_StaffReelEnt_10,
+    .tsa = Tsa_StaffReelEnt_10,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206BF8 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_11 =
 {
-    .img = Img_StaffReelEnt_08A497A8,
-    .tsa = Tsa_StaffReelEnt_08A4C9F0,
+    .img = Img_StaffReelEnt_11,
+    .tsa = Tsa_StaffReelEnt_11,
 };
 
-const struct StaffReelEnt StaffReelEnt_08206C00 =
+const struct StaffReelEnt StaffReelEnt_EndingCredits_12 =
 {
-    .img = Img_StaffReelEnt_08A4A9D4,
-    .tsa = Tsa_StaffReelEnt_08A4CD40,
+    .img = Img_StaffReelEnt_12,
+    .tsa = Tsa_StaffReelEnt_12,
 };
 
-const struct CreditsCG CreditsCG_08206C08 =
+const struct CreditsCG CreditsCG_EndingCredits_0 =
 {
     .img =
     {
@@ -655,7 +655,7 @@ const struct CreditsCG CreditsCG_08206C08 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206C3C =
+const struct CreditsCG CreditsCG_EndingCredits_1 =
 {
     .img =
     {
@@ -675,7 +675,7 @@ const struct CreditsCG CreditsCG_08206C3C =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206C70 =
+const struct CreditsCG CreditsCG_EndingCredits_2 =
 {
     .img =
     {
@@ -695,7 +695,7 @@ const struct CreditsCG CreditsCG_08206C70 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206CA4 =
+const struct CreditsCG CreditsCG_EndingCredits_3 =
 {
     .img =
     {
@@ -715,7 +715,7 @@ const struct CreditsCG CreditsCG_08206CA4 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206CD8 =
+const struct CreditsCG CreditsCG_EndingCredits_4 =
 {
     .img =
     {
@@ -735,7 +735,7 @@ const struct CreditsCG CreditsCG_08206CD8 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206D0C =
+const struct CreditsCG CreditsCG_EndingCredits_5 =
 {
     .img =
     {
@@ -755,7 +755,7 @@ const struct CreditsCG CreditsCG_08206D0C =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206D40 =
+const struct CreditsCG CreditsCG_EndingCredits_6 =
 {
     .img =
     {
@@ -775,7 +775,7 @@ const struct CreditsCG CreditsCG_08206D40 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206D74 =
+const struct CreditsCG CreditsCG_EndingCredits_7 =
 {
     .img =
     {
@@ -795,7 +795,7 @@ const struct CreditsCG CreditsCG_08206D74 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206DA8 =
+const struct CreditsCG CreditsCG_EndingCredits_8 =
 {
     .img =
     {
@@ -815,7 +815,7 @@ const struct CreditsCG CreditsCG_08206DA8 =
     .unk_30 = 0x78,
 };
 
-const struct CreditsCG CreditsCG_08206DDC =
+const struct CreditsCG CreditsCG_EndingCredits_9 =
 {
     .img =
     {
@@ -835,13 +835,13 @@ const struct CreditsCG CreditsCG_08206DDC =
     .unk_30 = 0x78,
 };
 
-const u32 Padding_08206E10[5] = {0};
+const u32 Padding_EndingCredits_0[5] = {0};
 
-const struct CreditsEnt gUnknown_08206E24[] =
+const struct CreditsEnt gEndingCredits_0[] =
 {
     [0] =
     {
-        .entry = &StaffReelEnt_08206BA0,
+        .entry = &StaffReelEnt_EndingCredits_0,
         .cg =
         {
             [0] = NULL,
@@ -855,15 +855,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206C3C,
-            [1] = &CreditsCG_08206C70,
+            [0] = &CreditsCG_EndingCredits_1,
+            [1] = &CreditsCG_EndingCredits_2,
         },
         .unk_0c = 0x00016000,
         .unk_10 = 0x00027000,
     },
     [2] =
     {
-        .entry = &StaffReelEnt_08206BA8,
+        .entry = &StaffReelEnt_EndingCredits_1,
         .cg =
         {
             [0] = NULL,
@@ -877,15 +877,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206DA8,
-            [1] = &CreditsCG_08206DA8,
+            [0] = &CreditsCG_EndingCredits_8,
+            [1] = &CreditsCG_EndingCredits_8,
         },
         .unk_0c = 0x00034000,
         .unk_10 = 0x00047000,
     },
     [4] =
     {
-        .entry = &StaffReelEnt_08206BB0,
+        .entry = &StaffReelEnt_EndingCredits_2,
         .cg =
         {
             [0] = NULL,
@@ -899,15 +899,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206CA4,
-            [1] = &CreditsCG_08206CA4,
+            [0] = &CreditsCG_EndingCredits_3,
+            [1] = &CreditsCG_EndingCredits_3,
         },
         .unk_0c = 0x00055000,
         .unk_10 = 0x00067000,
     },
     [6] =
     {
-        .entry = &StaffReelEnt_08206BB8,
+        .entry = &StaffReelEnt_EndingCredits_3,
         .cg =
         {
             [0] = NULL,
@@ -921,15 +921,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206D40,
-            [1] = &CreditsCG_08206D40,
+            [0] = &CreditsCG_EndingCredits_6,
+            [1] = &CreditsCG_EndingCredits_6,
         },
         .unk_0c = 0x00074000,
         .unk_10 = 0x00087000,
     },
     [8] =
     {
-        .entry = &StaffReelEnt_08206BC0,
+        .entry = &StaffReelEnt_EndingCredits_4,
         .cg =
         {
             [0] = NULL,
@@ -940,7 +940,7 @@ const struct CreditsEnt gUnknown_08206E24[] =
     },
     [9] =
     {
-        .entry = &StaffReelEnt_08206BC8,
+        .entry = &StaffReelEnt_EndingCredits_5,
         .cg =
         {
             [0] = NULL,
@@ -954,15 +954,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206D74,
-            [1] = &CreditsCG_08206D74,
+            [0] = &CreditsCG_EndingCredits_7,
+            [1] = &CreditsCG_EndingCredits_7,
         },
         .unk_0c = 0x0009E800,
         .unk_10 = 0x000B7000,
     },
     [11] =
     {
-        .entry = &StaffReelEnt_08206BD0,
+        .entry = &StaffReelEnt_EndingCredits_6,
         .cg =
         {
             [0] = NULL,
@@ -976,15 +976,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206DDC,
-            [1] = &CreditsCG_08206DDC,
+            [0] = &CreditsCG_EndingCredits_9,
+            [1] = &CreditsCG_EndingCredits_9,
         },
         .unk_0c = 0x000C2000,
         .unk_10 = 0x000D7000,
     },
     [13] =
     {
-        .entry = &StaffReelEnt_08206BD8,
+        .entry = &StaffReelEnt_EndingCredits_7,
         .cg =
         {
             [0] = NULL,
@@ -998,15 +998,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206CD8,
-            [1] = &CreditsCG_08206CD8,
+            [0] = &CreditsCG_EndingCredits_4,
+            [1] = &CreditsCG_EndingCredits_4,
         },
         .unk_0c = 0x000E4000,
         .unk_10 = 0x000F7000,
     },
     [15] =
     {
-        .entry = &StaffReelEnt_08206BE0,
+        .entry = &StaffReelEnt_EndingCredits_8,
         .cg =
         {
             [0] = NULL,
@@ -1020,15 +1020,15 @@ const struct CreditsEnt gUnknown_08206E24[] =
         .entry = NULL,
         .cg =
         {
-            [0] = &CreditsCG_08206D0C,
-            [1] = &CreditsCG_08206D0C,
+            [0] = &CreditsCG_EndingCredits_5,
+            [1] = &CreditsCG_EndingCredits_5,
         },
         .unk_0c = 0x00103000,
         .unk_10 = 0x00117000,
     },
     [17] =
     {
-        .entry = &StaffReelEnt_08206BE8,
+        .entry = &StaffReelEnt_EndingCredits_9,
         .cg =
         {
             [0] = NULL,
@@ -1039,7 +1039,7 @@ const struct CreditsEnt gUnknown_08206E24[] =
     },
     [18] =
     {
-        .entry = &StaffReelEnt_08206BF0,
+        .entry = &StaffReelEnt_EndingCredits_10,
         .cg =
         {
             [0] = NULL,
@@ -1050,7 +1050,7 @@ const struct CreditsEnt gUnknown_08206E24[] =
     },
     [19] =
     {
-        .entry = &StaffReelEnt_08206BF8,
+        .entry = &StaffReelEnt_EndingCredits_11,
         .cg =
         {
             [0] = NULL,
@@ -1061,7 +1061,7 @@ const struct CreditsEnt gUnknown_08206E24[] =
     },
     [20] =
     {
-        .entry = &StaffReelEnt_08206C00,
+        .entry = &StaffReelEnt_EndingCredits_12,
         .cg =
         {
             [0] = NULL,
@@ -1083,7 +1083,7 @@ const struct CreditsEnt gUnknown_08206E24[] =
     },
 };
 
-const u32 gUnknown_08206FDC[] =
+const u32 gEndingCredits_1[] =
 {
     0x400,
     0x3400,

@@ -75,7 +75,7 @@ static EWRAM_DATA struct {
     u8 unk00;
     u8 unk01;
     u8 unk02;
-} sUnknown_0203A60C = {};
+} sBmbattle_0 = {};
 
 void BattleGenerateSimulationInternal(struct Unit* actor, struct Unit* target, int x, int y, int actorWpnSlot) {
     InitBattleUnit(&gBattleActor, actor);
@@ -471,7 +471,7 @@ void SetBattleUnitWeaponBallista(struct BattleUnit* bu) {
     bu->canCounter = FALSE;
 }
 
-void sub_802A958(void) {} // unused
+void Battle_Nop(void) {} // unused
 
 void ComputeBattleUnitStats(struct BattleUnit* attacker, struct BattleUnit* defender) {
     ComputeBattleUnitDefense(attacker, defender);
@@ -1542,7 +1542,7 @@ void BattleApplyUnitUpdates(void) {
 }
 
 // unused?
-s8 sub_802C0B0(void) {
+s8 Battle_CondTrue(void) {
     return TRUE;
 }
 
@@ -1623,7 +1623,7 @@ void UpdateUnitFromBattle(struct Unit* unit, struct BattleUnit* bu) {
     unit->curHP = bu->unit.curHP;
     unit->state = bu->unit.state;
 
-    gUnknown_03003060 = UNIT_ARENA_LEVEL(unit);
+    gUnk_63 = UNIT_ARENA_LEVEL(unit);
 
     if (bu->statusOut >= 0)
         SetUnitStatus(unit, bu->statusOut);
@@ -1671,10 +1671,10 @@ void BattleApplyBallistaUpdates(void) {
 }
 
 // ???
-void sub_802C334(void) {
-    sUnknown_0203A60C.unk00 = 0;
-    sUnknown_0203A60C.unk01 = 0;
-    sUnknown_0203A60C.unk02 = 0;
+void ClearBmbattleStruct0(void) {
+    sBmbattle_0.unk00 = 0;
+    sBmbattle_0.unk01 = 0;
+    sBmbattle_0.unk02 = 0;
 }
 
 int GetUnitExpLevel(struct Unit* unit) {
@@ -2031,7 +2031,7 @@ void BeginBattleAnimations(void) {
 
     RenderBmMap();
 
-    if (sub_8055BC4()) {
+    if (EkrBattleStarting_CheckBattleAnimEnabled()) {
         SetBanimLinkArenaFlag(0);
         BeginAnimsOnBattleAnimations();
     } else {
@@ -2236,7 +2236,7 @@ void BattleGenerateArena(struct Unit* actor) {
         actor->state = (actor->state &~ (US_BIT17 | US_BIT18 | US_BIT19))
             + ((((UNIT_ARENA_LEVEL(actor) + 1) <= 7) ? (UNIT_ARENA_LEVEL(actor) + 1) << 17 : 7 << 17));
 
-        gUnknown_03003060 = UNIT_ARENA_LEVEL(actor);
+        gUnk_63 = UNIT_ARENA_LEVEL(actor);
     }
 
     BattlePrintDebugUnitInfo(&gBattleActor, &gBattleTarget);

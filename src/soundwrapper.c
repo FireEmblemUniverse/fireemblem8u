@@ -325,7 +325,7 @@ void PlaySong(int songId, struct MusicPlayerInfo *player)
 {
     if (songId < 128)
     {
-        sub_80028FC(songId);
+        Sound_SetupMaxChannelsForSong(songId);
         UnlockSoundRoomSong(0, songId);
     }
 
@@ -347,7 +347,7 @@ void Sound_SetMaxNumChannels(int maxchn)
     m4aSoundMode(maxchn << SOUND_MODE_MAXCHN_SHIFT);
 }
 
-void sub_80028FC(int songId)
+void Sound_SetupMaxChannelsForSong(int songId)
 {
     switch (songId)
     {
@@ -376,7 +376,7 @@ int IsMusicProc2Running(void)
         return FALSE;
 }
 
-void sub_800296C(struct Proc *proc)
+void ChangeBgm_FadeVolume(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
     if (IsBgmPlaying() != 0 && mproc->vc_init_volume != 0)
@@ -388,7 +388,7 @@ void sub_800296C(struct Proc *proc)
     }
 }
 
-void sub_80029BC(struct Proc *proc)
+void ChangeBgm_StartNewSong(struct Proc *proc)
 {
     struct MusicProc *mproc = (struct MusicProc *)proc;
     if (mproc->unk5C > 0)
@@ -405,9 +405,9 @@ void sub_80029BC(struct Proc *proc)
 static struct ProcCmd sMusicProc4Script[] =
 {
     PROC_SLEEP(1),
-    PROC_CALL(sub_800296C),
+    PROC_CALL(ChangeBgm_FadeVolume),
     PROC_SLEEP(1),
-    PROC_CALL(sub_80029BC),
+    PROC_CALL(ChangeBgm_StartNewSong),
     PROC_SLEEP(8),
     PROC_LABEL(0),
     PROC_YIELD,
@@ -445,7 +445,7 @@ s8 MusicProc4Exists(void)
         return FALSE;
 }
 
-void sub_8002A88(int songId)
+void Sound_ForceChangeBgm(int songId)
 {
     if (songId != gSoundSt.songId)
     {
@@ -460,7 +460,7 @@ void DeleteAll6CWaitMusicRelated(void)
     Proc_EndEach(gMusicProc3Script);
 }
 
-void sub_8002AC8(void)
+void Sound_StopBgmImmediate(void)
 {
     DeleteAll6CWaitMusicRelated();
     m4aMPlayFadeOut(&gMPlayInfo_BGM1, 1);

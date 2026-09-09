@@ -1,24 +1,24 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch12b_Turn[] = {
-    TurnEventEnemy(0, EventScr_089FB64C, 1)
-    TurnEventPlayer(EVFLAG_TMP(8), EventScr_089FB678, 2)
-    TurnEventPlayer_(0, EventScr_089FB998, 3, 2)
-    TurnEventPlayer_(0, EventScr_089FB9B0, 4, 3)
-    TurnEventPlayer_(0, EventScr_089FB9C8, 5, 3)
-    TurnEventPlayer_(0, EventScr_089FB9E0, 8, 3)
+    TurnEventEnemy(0, EventScr_Ch12B_0, 1)
+    TurnEventPlayer(EVFLAG_TMP(8), EventScr_Ch12B_1, 2)
+    TurnEventPlayer_(0, EventScr_Ch12B_5, 3, 2)
+    TurnEventPlayer_(0, EventScr_Ch12B_6, 4, 3)
+    TurnEventPlayer_(0, EventScr_Ch12B_7, 5, 3)
+    TurnEventPlayer_(0, EventScr_Ch12B_8, 8, 3)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch12b_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089FB90C, CHARACTER_EWAN, CHARACTER_MARISA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch12B_2, CHARACTER_EWAN, CHARACTER_MARISA)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch12b_Location[] = {
-    House(0, EventScr_089FB970, 6, 9)
-    Vendor(ShopList_Event_089ED8FA, 4, 1)
-    Village(0, EventScr_089FB934, 5, 5)
+    House(0, EventScr_Ch12B_4, 6, 9)
+    Vendor(ShopList_Ch12B_0, 4, 1)
+    Village(0, EventScr_Ch12B_3, 5, 5)
     END_MAIN
 };
 
@@ -55,11 +55,11 @@ CONST_DATA struct ChapterEventGroup Ch12EphraimEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch12b_UnitMove,
     .tutorialEvents                = EventListScr_Ch12b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB74,
-    .extraTrapsInHard = TrapData_Event_089EDED3,
+    .traps            = TrapData_Event_Ch12B_0,
+    .extraTrapsInHard = TrapData_Event_Ch12B_1,
 
-    .playerUnitsInNormal = UnitDef_088C46B8,
-    .playerUnitsInHard   = UnitDef_088C46B8,
+    .playerUnitsInNormal = UnitDef_Ch12BAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch12BAlly_0,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

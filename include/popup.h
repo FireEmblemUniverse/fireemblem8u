@@ -161,13 +161,13 @@ void NewPopup_WRankIncrease(u16 weapon, ProcPtr parent);
 // ??? NewPopup_NewAlly(???);
 // ??? NewPopup_VerySimple(???);
 // ??? BrownTextBox_Loop(???);
-// ??? nullsub_44(???);
-// ??? sub_8011A1C(???);
-// ??? sub_8011A48(???);
-// ??? sub_8011AA0(???);
-// ??? sub_8011AF4(???);
-// ??? sub_8011B4C(???);
-// ??? sub_8011B90(???);
+// ??? Nop_Popup_0(???);
+// ??? BrownTextBox_SetBlendFlag(???);
+// ??? BrownTextBox_FadeInInit(???);
+// ??? BrownTextBox_FadeInLoop(???);
+// ??? BrownTextBox_FadeOutInit(???);
+// ??? BrownTextBox_FadeOutLoop(???);
+// ??? BrownTextBox_FadeOutEnd(???);
 // ??? StartBrownTextBoxCore(???);
 void StartBrownTextBox(int, s16, s16, ProcPtr);
 
@@ -184,6 +184,6 @@ extern struct PopupInstruction CONST_DATA PopupScr_WpnBroken[];
 extern struct PopupInstruction CONST_DATA PopupScr_WRankUp[];
 extern struct PopupInstruction CONST_DATA PopupScr_NewAlly[];
 extern struct ProcCmd CONST_DATA ProcScr_BrownTextBox[];
-extern struct ProcCmd CONST_DATA ProcScr_08592530[];
+extern struct ProcCmd CONST_DATA ProcScr_Popup_0[];
 
 #endif /* GUARD_POPUP_H */

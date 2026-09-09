@@ -16,7 +16,7 @@
 int PromoMain_SetupTraineeEvent_(struct ProcPromoMain *proc);
 bool PromoTraineeEventExists(struct ProcPromoMain *proc);
 bool StartAndWaitPromoSelect(ProcPtr proc);
-bool sub_80CD330(struct ProcPromoMain *proc);
+bool PromoMain_WaitSelectDone(struct ProcPromoMain *proc);
 
 CONST_DATA struct ProcCmd ProcScr_PromoMain[] = {
 	PROC_NAME("ccramify"),
@@ -36,7 +36,7 @@ PROC_LABEL(PROMOMAIN_LABEL_TRAINEE),
 PROC_LABEL(PROMOMAIN_LABEL_SEL_EN),
     PROC_WHILE(StartAndWaitPromoSelect),
     PROC_SLEEP(5),
-    PROC_REPEAT(sub_80CD330),
+    PROC_REPEAT(PromoMain_WaitSelectDone),
 
 PROC_LABEL(PROMOMAIN_LABEL_POST_SEL),
     PROC_CALL(ExecClassChgReal),
@@ -98,7 +98,7 @@ void PromoMain_InitScreen(struct ProcPromoMain *proc)
         EndSysBrownBox();
         EndAllParallelWorkers();
         EndFaceById(0);
-        sub_80ACA84(0);
+        ClearUiCursorHandConfig(0);
         ResetFaces();
         ResetText();
         LoadUiFrameGraphics();

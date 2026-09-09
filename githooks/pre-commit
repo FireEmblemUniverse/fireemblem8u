@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+#
+# FE8J pre-commit hook — fast local build gate.
+#
+# Runs `make compare` (byte-match / self-containment oracle) and
+# `make shiftcheck` (blocking shiftability gate) before every commit that
+# touches build-relevant files, so CI never sees a red push. These are the two
+# gates CI enforces; catching them locally (incrementally, ~1-2 min + ~13 s)
+# is far faster than the ~5.5 min CI round-trip.
+#
+# Bypass (use sparingly):
+#   git commit --no-verify        # skip all hooks
+#   FE8J_SKIP_HOOK=1 git commit   # skip just this gate
+#
+# Install: ./githooks/install.sh   (sets core.hooksPath=githooks)
+#
+# Notes:
+#  * Gates the WORKING-TREE state (staged + unstaged), which is what will be
+#    built — matches how carve/rename commits stage everything they change.
+#  * Skips automatically for doc-only commits and during rebase/merge/cherry-pick
+#    (so it never fights an in-progress replay; the final commit is still gated).
+#  * Skips gracefully (with a warning) if the arm-none-eabi toolchain or
+#    tools/agbcc is absent, so it never hard-blocks in a toolchain-less checkout.
+
+set -uo pipefail
+
+[ "${FE8J_SKIP_HOOK:-0}" = "1" ] && { echo "[pre-commit] FE8J_SKIP_HOOK=1 — skipping build gate."; exit 0; }
+
+git_dir=$(git rev-parse --git-dir)
+for state in rebase-merge rebase-apply MERGE_HEAD CHERRY_PICK_HEAD REVERT_HEAD; do
+    if [ -e "$git_dir/$state" ]; then
+        echo "[pre-commit] $state in progress — skipping build gate (final commit is still gated)."
+        exit 0
+    fi
+done
+
+# Only gate commits that change build inputs.
+if ! git diff --cached --name-only --diff-filter=ACMR \
+    | grep -qE '(^Makefile$|\.(c|h|s|inc|tsv|mk|png|bin|gbapal|agbpal|4bpp|lz)$|^src/|^asm/|^layout/|^graphics/|^sound/|^data/|^banim/|^scripts/gen_layout\.py$)'; then
+    exit 0
+fi
+
+# Need the toolchain to build; skip gracefully if it is not installed.
+if ! command -v arm-none-eabi-ld >/dev/null 2>&1; then
+    echo "[pre-commit] arm-none-eabi toolchain not found — skipping build gate (CI will still check)."
+    exit 0
+fi
+if [ ! -x tools/agbcc/bin/agbcc ]; then
+    echo "[pre-commit] tools/agbcc not found — skipping build gate (CI will still check)."
+    exit 0
+fi
+
+fail() {
+    echo "[pre-commit] $1 FAILED — commit blocked."
+    echo "             (bypass with: git commit --no-verify)"
+    exit 1
+}
+
+echo "[pre-commit] make compare (fast/incremental)…"
+if ! make compare >/tmp/fe8j_precommit_compare.log 2>&1 \
+    || ! grep -q "fireemblem8.gba: OK" /tmp/fe8j_precommit_compare.log; then
+    tail -25 /tmp/fe8j_precommit_compare.log
+    fail "make compare"
+fi
+
+echo "[pre-commit] make shiftcheck…"
+if ! make shiftcheck >/tmp/fe8j_precommit_shift.log 2>&1; then
+    grep -A25 "HIGH (data pointer reaches" /tmp/fe8j_precommit_shift.log | head -30 \
+        || tail -25 /tmp/fe8j_precommit_shift.log
+    fail "make shiftcheck"
+fi
+
+echo "[pre-commit] OK — make compare + make shiftcheck passed."
+exit 0

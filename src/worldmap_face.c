@@ -38,7 +38,7 @@ void WMFaceCtrl_Init(struct WMFaceCtrlProc * proc)
 }
 
 //! FE8U = 0x080B826C
-int sub_80B826C(int xIn, int *xOut) {
+int GetWMFaceTileXAndScroll(int xIn, int *xOut) {
     int a = xIn - 0x30;
     int b;
 
@@ -65,7 +65,7 @@ int GetWMFaceVramOffset(void) {
 }
 
 //! FE8U = 0x080B82C8
-void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 flip)
+void PutWMFaceOnBg(int bg, u32 offset, int xIn, int yIn, u8 flip)
 {
     int bgX;
     u16* r0;
@@ -73,7 +73,7 @@ void sub_80B82C8(int bg, u32 offset, int xIn, int yIn, u8 flip)
     int y;
     int y_;
 
-    x = sub_80B826C(xIn, &bgX);
+    x = GetWMFaceTileXAndScroll(xIn, &bgX);
     y = yIn / 8;
     y_ = (y * 8) - yIn;
 
@@ -201,7 +201,7 @@ void WMFaceCtrl_LoopExt(struct WMFaceCtrlProc * proc)
             switch (iVar10) {
             case 1:
                 BG_Fill(BG_GetMapBuffer(bg), 0);
-                sub_80B82C8(
+                PutWMFaceOnBg(
                     GetWMFaceBg(),
                     GetWMFaceVramOffset(),
                     faceProc->xPos,
@@ -225,7 +225,7 @@ void WMFaceCtrl_LoopExt(struct WMFaceCtrlProc * proc)
 //! FE8U = 0x080B8630
 void WMFaceCtrl_Loop(struct WMFaceCtrlProc * proc)
 {
-    u8 gUnknown_08205F28[] = {
+    u8 sWMFaceCtrlLoopFrameCycle[] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 1, 1, 1, 1, 1, 1, 2, 2,
         2, 2, 2, 2, 3, 3, 3, 3, 3,
@@ -238,7 +238,7 @@ void WMFaceCtrl_Loop(struct WMFaceCtrlProc * proc)
 
     proc->timer++;
 
-    if (gUnknown_08205F28[proc->timer] == (u8)-1)
+    if (sWMFaceCtrlLoopFrameCycle[proc->timer] == (u8)-1)
         proc->timer = 0;
 
     WMFaceCtrl_LoopExt(proc);
@@ -248,13 +248,13 @@ void WMFaceCtrl_Loop(struct WMFaceCtrlProc * proc)
 }
 
 //! FE8U = 0x080B867C
-void nullsub_57(void) {
+void Nop_WorldmapFace_0(void) {
     return;
 }
 
 struct ProcCmd CONST_DATA ProcScr_WorldMapFaceCtrl[] = {
     PROC_MARK(8),
-    PROC_SET_END_CB(nullsub_57),
+    PROC_SET_END_CB(Nop_WorldmapFace_0),
 
     PROC_CALL(WMFaceCtrl_Init),
     PROC_REPEAT(WMFaceCtrl_Loop),
@@ -325,8 +325,8 @@ void WmDrawFace(int faceSlot, int faceId, u16 config)
         pWrapper->x = config & 0x00ff;
         pWrapper->y = (config & 0xff00) + 0x800;
 
-        sub_80066FC(offset / CHR_SIZE, faceId);
-        sub_800671C(4, faceId);
+        DecompressFaceImg(offset / CHR_SIZE, faceId);
+        ApplyFacePalette(4, faceId);
 
         BG_Fill(BG_GetMapBuffer(bg), 0);
 
@@ -390,8 +390,8 @@ void WmClearFace(int faceSlot, u16 config)
     if (pWrapper->faceProc != NULL && (pWrapper->y & 0x1000) == 0) {
         int tmp;
 
-        sub_80066FC(offset / CHR_SIZE, (s16)pWrapper->faceId);
-        sub_800671C(4, (s16)pWrapper->faceId);
+        DecompressFaceImg(offset / CHR_SIZE, (s16)pWrapper->faceId);
+        ApplyFacePalette(4, (s16)pWrapper->faceId);
 
         BG_Fill(BG_GetMapBuffer(bg), 0);
 

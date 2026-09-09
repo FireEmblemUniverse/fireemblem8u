@@ -9,7 +9,7 @@ CONST_DATA EventListScr EventListScr_Ruin10_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ruin10_Location[] = {
-    LOCA(0, ChestItemList_Event_089ED7C6, 9, 2, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Ruin10_0, 9, 2, TILE_COMMAND_CHEST)
     END_MAIN
 };
 
@@ -46,11 +46,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins10Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin10_UnitMove,
     .tutorialEvents                = EventListScr_Ruin10_Tutorial,
 
-    .traps            = TrapData_Event_089EDE75,
-    .extraTrapsInHard = TrapData_Event_089EDF6A,
+    .traps            = TrapData_Event_Ruin10_0,
+    .extraTrapsInHard = TrapData_Event_Ruin10_1,
 
-    .playerUnitsInNormal = UnitDef_088CFA30,
-    .playerUnitsInHard   = UnitDef_088CFA30,
+    .playerUnitsInNormal = UnitDef_Ruin10Ally,
+    .playerUnitsInHard   = UnitDef_Ruin10Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

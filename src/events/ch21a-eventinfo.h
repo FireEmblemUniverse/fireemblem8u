@@ -1,9 +1,9 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch21a_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_089F9448, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(11), EventScr_089F93A0, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089F93F4, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(13), EventScr_Ch21A_6, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(11), EventScr_Ch21A_2, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ch21A_4, 1, 255)
     END_MAIN
 };
 
@@ -20,11 +20,11 @@ CONST_DATA EventListScr EventListScr_Ch21a_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch21a_Misc[] = {
-    DefeatBoss(EventScr_089F92A0)
-    AREA(EVFLAG_TMP(10), EventScr_089F9428, 10, 5, 12, 6)
-    AREA(EVFLAG_TMP(8), EventScr_089F9380, 0, 7, 11, 12)
-    AREA(EVFLAG_TMP(9), EventScr_089F93D4, 12, 7, 22, 12)
-    AREA(EVFLAG_TMP(14), EventScr_089F947C, 1, 0, 21, 4)
+    DefeatBoss(EventScr_Ch21A_0)
+    AREA(EVFLAG_TMP(10), EventScr_Ch21A_5, 10, 5, 12, 6)
+    AREA(EVFLAG_TMP(8), EventScr_Ch21A_1, 0, 7, 11, 12)
+    AREA(EVFLAG_TMP(9), EventScr_Ch21A_3, 12, 7, 22, 12)
+    AREA(EVFLAG_TMP(14), EventScr_Ch21A_7, 1, 0, 21, 4)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -56,11 +56,11 @@ CONST_DATA struct ChapterEventGroup FinalEirikaEvents1 = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch21a_UnitMove,
     .tutorialEvents                = EventListScr_Ch21a_Tutorial,
 
-    .traps            = TrapData_Event_089EDB6B,
-    .extraTrapsInHard = TrapData_Event_089EDECA,
+    .traps            = TrapData_Event_Ch21A_0,
+    .extraTrapsInHard = TrapData_Event_Ch21A_1,
 
-    .playerUnitsInNormal = UnitDef_088C181C,
-    .playerUnitsInHard   = UnitDef_088C181C,
+    .playerUnitsInNormal = UnitDef_Ch21AAlly_0,
+    .playerUnitsInHard   = UnitDef_Ch21AAlly_0,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,
@@ -71,5 +71,5 @@ CONST_DATA struct ChapterEventGroup FinalEirikaEvents1 = {
     .enemyUnitsChoice3InEncounter = NULL,
 
     .beginningSceneEvents = EventScr_Ch21a_BeginningScene,
-    .endingSceneEvents    = EventScr_089F92A0,
+    .endingSceneEvents    = EventScr_Ch21A_0,
 };

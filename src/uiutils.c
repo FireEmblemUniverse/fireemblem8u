@@ -6,7 +6,7 @@
 #include "constants/video-global.h"
 #include "uiutils.h"
 
-static const u16 gUnknown_080DA2F4[] = {
+static const u16 gUiutils_0[] = {
     TILEREF(0x01, BGPAL_WINDOW_FRAME),
     TILEREF(0x02, BGPAL_WINDOW_FRAME),
     TILEREF(0x03, BGPAL_WINDOW_FRAME),
@@ -28,7 +28,7 @@ static const u16 gUnknown_080DA2F4[] = {
     TILEREF(0x21, BGPAL_WINDOW_FRAME),
 };
 
-static const u16 gUnknown_080DA314[] = {
+static const u16 gUiutils_1[] = {
     TILEREF(0x01, BGPAL_WINDOW_FRAME),
     TILEREF(0x02, BGPAL_WINDOW_FRAME),
     TILEREF(0x03, BGPAL_WINDOW_FRAME),
@@ -50,7 +50,7 @@ static const u16 gUnknown_080DA314[] = {
     TILEREF(0x21, BGPAL_WINDOW_FRAME),
 };
 
-static const u16 gUnknown_080DA334[] = {
+static const u16 gUiutils_2[] = {
     TILEREF(0x72, BGPAL_WINDOW_FRAME),
     TILEREF(0x73, BGPAL_WINDOW_FRAME),
     TILEREF(0x73, BGPAL_WINDOW_FRAME),
@@ -72,7 +72,7 @@ static const u16 gUnknown_080DA334[] = {
     TILEREF(0x79, BGPAL_WINDOW_FRAME),
 };
 
-static const u16 gUnknown_080DA354[] = {
+static const u16 gUiutils_3[] = {
     TILEREF(0x01, BGPAL_WINDOW_FRAME),
     TILEREF(0x02, BGPAL_WINDOW_FRAME),
     TILEREF(0x03, BGPAL_WINDOW_FRAME),
@@ -94,7 +94,7 @@ static const u16 gUnknown_080DA354[] = {
     TILEREF(0x21, BGPAL_WINDOW_FRAME),
 };
 
-static const u16 gUnknown_080DA374[] = {
+static const u16 gUiutils_4[] = {
     TILEREF(0x78, BGPAL_WINDOW_FRAME),
     TILEREF(0x79, BGPAL_WINDOW_FRAME),
     TILEREF(0x7A, BGPAL_WINDOW_FRAME),
@@ -118,10 +118,10 @@ static const u16 gUnknown_080DA374[] = {
 };
 
 static const u16* sUiFrameModelTilemapLookup[] = {
-    gUnknown_080DA2F4,
-    gUnknown_080DA334,
-    gUnknown_080DA354,
-    gUnknown_080DA314,
+    gUiutils_0,
+    gUiutils_2,
+    gUiutils_3,
+    gUiutils_1,
 };
 
 static const u16* sLegacyUiFramePaletteLookup[] = {
@@ -507,13 +507,13 @@ void ClearUiItemHover(int x, int y, int width)
 
     for (; x < xMax; x += 2)
     {
-        gBG1TilemapBuffer[TILEMAP_INDEX(x + 0, y)] = gUnknown_080DA374[6];
-        gBG1TilemapBuffer[TILEMAP_INDEX(x + 1, y)] = gUnknown_080DA374[7];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x + 0, y)] = gUiutils_4[6];
+        gBG1TilemapBuffer[TILEMAP_INDEX(x + 1, y)] = gUiutils_4[7];
     }
 
     gBG1TilemapBuffer[TILEMAP_INDEX(xMax, y)] = (width % 2)
-        ? gUnknown_080DA374[6]
-        : gUnknown_080DA374[7];
+        ? gUiutils_4[6]
+        : gUiutils_4[7];
 
     BG_EnableSyncByMask(BG1_SYNC_BIT);
 }
@@ -550,13 +550,13 @@ void ClearUiItemHoverExt(int bg, int base, int x, int y, int width)
 
     for (; x < xMax; x += 2)
     {
-        tilemap[TILEMAP_INDEX(x + 0, y)] = gUnknown_080DA374[6] + base;
-        tilemap[TILEMAP_INDEX(x + 1, y)] = gUnknown_080DA374[7] + base;
+        tilemap[TILEMAP_INDEX(x + 0, y)] = gUiutils_4[6] + base;
+        tilemap[TILEMAP_INDEX(x + 1, y)] = gUiutils_4[7] + base;
     }
 
     tilemap[TILEMAP_INDEX(xMax, y)] = (width % 2)
-        ? gUnknown_080DA374[6] + base
-        : gUnknown_080DA374[7] + base;
+        ? gUiutils_4[6] + base
+        : gUiutils_4[7] + base;
 
     BG_EnableSyncByMask(BG_SYNC_BIT(bg));
 }

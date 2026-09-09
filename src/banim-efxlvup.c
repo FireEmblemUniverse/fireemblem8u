@@ -21,7 +21,7 @@ EWRAM_OVERLAY(banim) u16 * gpBg1ScrollOffset = NULL;
 EWRAM_OVERLAY(banim) u16 gpBg1ScrollOffsetList1[160] = {0};
 EWRAM_OVERLAY(banim) u16 gpBg1ScrollOffsetList2[160] = {0};
 
-EWRAM_OVERLAY(banim) int gUnknown_02020044 = 0;
+EWRAM_OVERLAY(banim) int gEfxlvup_0 = 0;
 
 CONST_DATA struct ProcCmd ProcScr_EfxPartsofScroll[] = {
     PROC_NAME("efxPartsofScroll"),
@@ -109,7 +109,7 @@ void EfxPartsofScroll2CallBack(ProcPtr proc)
     return;
 }
 
-CONST_DATA s16 gUnknown_0875941C[] = {
+CONST_DATA s16 gEfxlvup_1[] = {
     -0x100, -0xEE, -0xDD, -0xCC, -0xBB, -0xAA, -0x99, -0x88,
      -0x77, -0x66, -0x55, -0x44, -0x33, -0x22, -0x22, -0x11,
       0x11,  0x22,  0x22,  0x33,  0x44,  0x55,  0x66,  0x77,
@@ -130,7 +130,7 @@ void EfxPartsofScroll2Main(ProcPtr proc)
 
     for (; i < 0xA0; i++)
     {
-        s16 * src = gUnknown_0875941C;
+        s16 * src = gEfxlvup_1;
         src = src - 0x28;
 
         if (i < 0x28)
@@ -504,7 +504,7 @@ void Loop6C1_EfxLvupBGCOL(struct ProcEfxBGCOL * proc)
     int ret;
     ret = EfxAdvanceFrameLut((s16 *)&proc->timer, (s16 *)&proc->frame, proc->frame_config);
     if (ret >= 0)
-        sub_805588C(proc->pal, gPaletteBuffer + 1, ret, 0xF, 8);
+        EfxCyclePalette(proc->pal, gPaletteBuffer + 1, ret, 0xF, 8);
 
     if (++proc->timer2 > proc->terminator)
     {
@@ -644,9 +644,9 @@ void PutEkrLvupStatGainLabelGfx2(int chr, int stat_gain)
 
 CONST_DATA struct ProcCmd ProcScr_eobjLvup[] = {
     PROC_NAME("eobjLvup"),
-    PROC_REPEAT(sub_8074E6C),
-    PROC_REPEAT(sub_8074EDC),
-    PROC_REPEAT(sub_8074F14),
+    PROC_REPEAT(EobjLvup_SpawnArrowAndLabel),
+    PROC_REPEAT(EobjLvup_RedrawGainLabel),
+    PROC_REPEAT(EobjLvup_WaitEndAndClear),
     PROC_END
 };
 
@@ -697,7 +697,7 @@ void BanimDrawStatupAp(int chr, int pal, int x, int y, int index, int gain)
     proc->diff = gain;
 }
 
-void sub_8074E6C(struct ProcEobjLvup * proc)
+void EobjLvup_SpawnArrowAndLabel(struct ProcEobjLvup * proc)
 {
     int oam2;
     if (proc->diff < 0)
@@ -731,7 +731,7 @@ void sub_8074E6C(struct ProcEobjLvup * proc)
     }
 }
 
-void sub_8074EDC(struct ProcEobjLvup * proc)
+void EobjLvup_RedrawGainLabel(struct ProcEobjLvup * proc)
 {
     int oam2;
     if (proc->diff < 0)
@@ -748,7 +748,7 @@ void sub_8074EDC(struct ProcEobjLvup * proc)
     }
 }
 
-void sub_8074F14(struct ProcEobjLvup * proc)
+void EobjLvup_WaitEndAndClear(struct ProcEobjLvup * proc)
 {
     if (gEkrLvupApfxUnexist == true)
     {

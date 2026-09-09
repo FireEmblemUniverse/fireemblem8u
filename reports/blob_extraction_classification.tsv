@@ -1,0 +1,87 @@
+path	size	first_u16	owning_s	format	invariant	consumer
+graphics/misc/gUnknown_089AD498.bin	104	0x0210	data/data_9A31F8.s	UNKNOWN		gUnknown_089AD498,
+graphics/misc/gUnknown_08A0AE84.bin	68	0x010F	data/data_A01CC4.s	UNKNOWN		
+graphics/misc/gUnknown_08A3F21C.bin	1268	0x131D	data/data_A3E4D4.s	UNKNOWN		
+graphics/misc/AP_DrawPreparationsBanner.bin	104	0x0004	data/data_A195B0.s	ap_definition	ok	APProc_Create(AP_DrawPreparationsBanner, 60, 16, OAM2_CHR(0x240) + OAM
+graphics/misc/ApConf_089A6254.bin	3308	0x0004	data/data_9A31F8.s	ap_definition	ok	APProc_Create(ApConf_089A6254, proc->xDisplay, proc->yDisplay, OAM2_CH
+graphics/misc/ApConf_ManimSilencefx.bin	312	0x0004	data/data_9A31F8.s	ap_definition	ok	ApConf_ManimSilencefx,
+graphics/misc/ApConf_MapAnimBerserkfx.bin	208	0x0004	data/data_9A31F8.s	ap_definition	ok	ApConf_MapAnimBerserkfx,
+graphics/misc/ApConf_MapAnimTorchfx.bin	92	0x0004	data/data_9A31F8.s	ap_definition	ok	ApConf_MapAnimTorchfx,
+graphics/misc/ApHandle_GmapSoguSprites.bin	124	0x0004	data/data_9A31F8.s	ap_definition	ok	ap = AP_Create(ApHandle_GmapSoguSprites, 7);
+graphics/misc/Ap_WmHightLightMap2.bin	316	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap2,
+graphics/misc/Ap_WmHightLightMap3.bin	100	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap3,
+graphics/misc/Ap_WmHightLightMap4.bin	92	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap4,
+graphics/misc/Ap_WmHightLightMap5.bin	52	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap5,
+graphics/misc/Ap_WmHightLightMap6.bin	80	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap6,
+graphics/misc/Ap_WmHightLightMap7.bin	56	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap7,
+graphics/misc/Ap_WmHightLightMap8.bin	104	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMap8,
+graphics/misc/Ap_WmHightLightMapFrecia.bin	112	0x0004	data/data_A3E4D4.s	ap_definition	ok	Ap_WmHightLightMapFrecia,
+graphics/misc/Obj_MapAnimMISS.bin	360	0x0004	data/data_9A31F8.s	ap_definition	ok	Obj_MapAnimMISS,
+graphics/misc/Obj_PoisonAnim.bin	152	0x0004	data/data_9A31F8.s	ap_definition	ok	Obj_PoisonAnim,
+graphics/misc/SpritAnim_MineFx.bin	148	0x0004	data/data_59E8E0.s	ap_definition	ok	APProc_Create(SpritAnim_MineFx, x, y, 0x5180, 0, 0);
+graphics/misc/SpriteAnim_ArrowTrap.bin	1468	0x0004	data/data_59E8E0.s	ap_definition	ok	APProc_Create(SpriteAnim_ArrowTrap, x, DISPLAY_HEIGHT / 2, oam2, 0, 0)
+graphics/misc/SpriteAnim_FireTrap.bin	1684	0x0004	data/data_59E8E0.s	ap_definition	ok	APProc_Create(SpriteAnim_FireTrap, x, y, oam2, 0, 0);
+graphics/misc/SpriteAnim_GasTrapHorizontal.bin	628	0x0004	data/data_59E8E0.s	ap_definition	ok	anim = SpriteAnim_GasTrapHorizontal;
+graphics/misc/SpriteAnim_GasTrapVertical.bin	676	0x0004	data/data_59E8E0.s	ap_definition	ok	anim = SpriteAnim_GasTrapVertical;
+graphics/misc/SpriteAnim_ManimStatGain.bin	1880	0x0004	data/data_9A31F8.s	ap_definition	ok	APProc_Create(SpriteAnim_ManimStatGain,
+graphics/misc/SpriteAnim_PikeTrap.bin	532	0x0004	data/data_59E8E0.s	ap_definition	ok	APProc_Create(SpriteAnim_PikeTrap, x, y, oam2, proc->direction, 0);
+graphics/misc/SpriteAnim_WorldmapSkirmish.bin	980	0x0004	data/data_A3E4D4.s	ap_definition	ok	proc->unk_48 = APProc_Create(SpriteAnim_WorldmapSkirmish, x, y, 0x3980
+graphics/misc/Sprite_08A97AEC.bin	428	0x0004	data/data_A3E4D4.s	ap_definition	ok	proc->ap = AP_Create(Sprite_08A97AEC, 11);
+graphics/misc/gUnknown_085A0EA0.bin	344	0x0004	data/data_59E8E0.s	ap_definition	ok	ap = AP_Create(gUnknown_085A0EA0, 0);
+graphics/misc/gUnknown_089A5A6C.bin	1932	0x0004	data/data_9A31F8.s	ap_definition	ok	APProc_Create(gUnknown_089A5A6C, x, y, OAM2_CHR(0x1C0) + OAM2_PAL(0x3)
+graphics/misc/gUnknown_08A280A8.bin	132	0x0004	data/data_A21658.s	ap_definition	ok	APProc_Create(gUnknown_08A280A8, 320, SAVE_MENU_PARENT(proc)->sus_slot
+graphics/misc/obj_MapAnimNODAMAGE.bin	396	0x0004	data/data_9A31F8.s	ap_definition	ok	obj_MapAnimNODAMAGE,
+graphics/banim/dragonfx/gUnknown_087A5240.bin	300	0x5138	data/banim-ekrdragonfx.s	banim_data		gUnknown_087A5240
+graphics/banim/dragonfx/gUnknown_087A536C.bin	36	0x5264	data/banim-ekrdragonfx.s	banim_data		gUnknown_087A536C,
+graphics/banim/efxlvupfx/gUnknown_085BF5FC.bin	1200	0x001F	data/banim-efxlvupfx.s	banim_data		
+graphics/misc/gUnknown_08A36284.bin	182	0x021D	data/data_A2EEF0.s	compressed_gfx		Decompress(gUnknown_08A36284, gGenericBuffer);
+data/fe6sio_payload.bin	34956	0x0012	data/data_fe6sio.s	fe6sio_multiboot		
+graphics/misc/gUnknown_08AA70DC.bin	14	0x0002	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, OAM1_X(x1 - 0x30), OAM0_Y(y1 - 0x20) | OAM0_WINDOW, gU
+graphics/misc/gUnknown_08AA70EA.bin	44	0x0007	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000838, gUnknown_08AA70EA, 0);
+graphics/misc/gUnknown_08AA7116.bin	20	0x0003	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, 0x10, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA7
+graphics/misc/gUnknown_08AA712A.bin	50	0x0008	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, 2, (OAM0_Y(y - 0x28)) | OAM0_WINDOW, gUnknown_08AA712A
+graphics/misc/gUnknown_08AA715C.bin	56	0x0009	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, x - 0x60, (OAM0_Y(y - 0x18)) | OAM0_WINDOW, gUnknown_0
+graphics/misc/gUnknown_08AA7194.bin	52	0x0008	data/data_AA6BFA.s	oam_object_data	ok	PutSpriteExt(0, OAM1_X(x - 0x38), 0x00000828, gUnknown_08AA7194, 0);
+graphics/misc/gUnknown_08A07C0A.bin	78	0x39F3	data/data_A01CC4.s	palette	ok	r6 = gUnknown_08A07C0A;
+graphics/misc/gUnknown_08A1BD60.bin	2468	0x0000	data/data_A195B0.s	palette	ok	gPaletteBuffer[0x14D] = *(gUnknown_08A1BD60 + (GetGameClock() >> 2 & 0
+graphics/misc/gUnknown_08A2C23C.bin	652	0x7FFF	data/data_A21658.s	palette	ok	SaveMenuCopyPalette(gUnknown_08A2C23C, gEndingTmScratchA, 2);
+graphics/misc/gUnknown_08A97E48.bin	144	0x7BC7	data/data_A3E4D4.s	palette	ok	pal[i] = idx[gUnknown_08A97E48];
+graphics/misc/gUnknown_085A0838.bin	184	0x0809	data/data_59E8E0.s	tilemap_fill		CallARM_FillTileRect(tm, gUnknown_085A0838, (u16)tileref);
+graphics/misc/gUnknown_085A08F0.bin	184	0x0809	data/data_59E8E0.s	tilemap_fill		CallARM_FillTileRect(tm, gUnknown_085A08F0, (u16)tileref);
+graphics/misc/gUnknown_085A0D4C.bin	340	0x0C0C	data/data_59E8E0.s	tilemap_fill		CallARM_FillTileRect(gBG1TilemapBuffer + 0x42, gUnknown_085A0D4C, 0x10
+graphics/misc/gUnknown_08A98CFC.bin	92	0x030A	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 14), gUnkno
+graphics/misc/gUnknown_08A98D58.bin	48	0x010A	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 3), gUnknow
+graphics/misc/gUnknown_08A98D88.bin	24	0x0104	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9), gUnknow
+graphics/misc/gUnknown_08A98DA0.bin	24	0x0104	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 11), gUnkno
+graphics/misc/gUnknown_08A98DB8.bin	20	0x0103	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 25, 16), gUnkn
+graphics/misc/gUnknown_08A98EAC.bin	132	0x040C	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(gUnknown_0201BBD8, gUnknown_08A98EAC, 0x8000);
+graphics/misc/gUnknown_08A98F30.bin	236	0x080C	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(gUnknown_0201BBD8, gUnknown_08A98F30, 0x8000);
+graphics/misc/gUnknown_08AA18AC.bin	132	0x0707	data/data_A3E4D4.s	tilemap_fill		CallARM_FillTileRect(gUnknown_0201B458, gUnknown_08AA18AC, 0x000071E0)
+graphics/misc/gUnknown_08A97FC4.bin	52	0x080C	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A97FC4,
+graphics/misc/gUnknown_08A97FF8.bin	56	0x090B	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A97FF8,
+graphics/misc/gUnknown_08A98030.bin	36	0x0F0E	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98030,
+graphics/misc/gUnknown_08A98054.bin	24	0x1210	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98054,
+graphics/misc/gUnknown_08A9806C.bin	36	0x1312	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9806C,
+graphics/misc/gUnknown_08A98090.bin	36	0x1614	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98090,
+graphics/misc/gUnknown_08A980B4.bin	40	0x1916	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A980B4,
+graphics/misc/gUnknown_08A980DC.bin	40	0x1916	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A980DC,
+graphics/misc/gUnknown_08A98144.bin	36	0x0712	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98144,
+graphics/misc/gUnknown_08A98168.bin	52	0x071A	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98168,
+graphics/misc/gUnknown_08A981BC.bin	56	0x0C21	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A981BC,
+graphics/misc/gUnknown_08A981F4.bin	52	0x1126	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A981F4,
+graphics/misc/gUnknown_08A98228.bin	84	0x0909	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98228,
+graphics/misc/gUnknown_08A9827C.bin	88	0x1408	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9827C,
+graphics/misc/gUnknown_08A98314.bin	48	0x1E13	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98314,
+graphics/misc/gUnknown_08A98344.bin	40	0x2019	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98344,
+graphics/misc/gUnknown_08A9836C.bin	80	0x1926	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9836C,
+graphics/misc/gUnknown_08A983BC.bin	52	0x1A1C	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A983BC,
+graphics/misc/gUnknown_08A983F0.bin	88	0x131A	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A983F0,
+graphics/misc/gUnknown_08A98448.bin	52	0x1126	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98448,
+graphics/misc/gUnknown_08A9847C.bin	88	0x0B12	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9847C,
+graphics/misc/gUnknown_08A984D4.bin	56	0x152C	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A984D4,
+graphics/misc/gUnknown_08A9850C.bin	52	0x0F2C	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9850C,
+graphics/misc/gUnknown_08A98540.bin	40	0x0B2F	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98540,
+graphics/misc/gUnknown_08A98568.bin	60	0x082A	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98568,
+graphics/misc/gUnknown_08A985A4.bin	88	0x0B30	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A985A4,
+graphics/misc/gUnknown_08A9863C.bin	88	0x0420	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A9863C,
+graphics/misc/gUnknown_08A98694.bin	44	0x082A	data/data_A3E4D4.s	wm_path_gfx	ok	.gfxData = gUnknown_08A98694,

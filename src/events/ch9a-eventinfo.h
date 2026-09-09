@@ -1,28 +1,28 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch9a_Turn[] = {
-    TURN(0, EventScr_089F4184, 5, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F40D0, 3, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F40E8, 4, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F40B8, 2, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F4118, 3, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F4100, 4, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F4130, 5, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F4148, 5, 0, FACTION_BLUE)
-    TURN(0, EventScr_089F4018, 12, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_13, 5, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_7, 3, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_8, 4, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_6, 2, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_10, 3, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_9, 4, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_11, 5, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_12, 5, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch9A_4, 12, 0, FACTION_BLUE)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch9a_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089F3F4C, CHARACTER_EIRIKA, CHARACTER_AMELIA)
-    CHAR(EVFLAG_TMP(7), EventScr_089F3F74, CHARACTER_FRANZ, CHARACTER_AMELIA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch9A_0, CHARACTER_EIRIKA, CHARACTER_AMELIA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch9A_1, CHARACTER_FRANZ, CHARACTER_AMELIA)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch9a_Location[] = {
     Vendor(ShopList_Event_Ch9aVendor, 1, 2)
-    Village(EVFLAG_TMP(8), EventScr_089F3F9C, 1, 11)
-    Village(EVFLAG_TMP(9), EventScr_089F3FDC, 11, 15)
+    Village(EVFLAG_TMP(8), EventScr_Ch9A_2, 1, 11)
+    Village(EVFLAG_TMP(9), EventScr_Ch9A_3, 11, 15)
     Armory(ShopList_Event_Ch9aArmory, 1, 5)
     END_MAIN
 };

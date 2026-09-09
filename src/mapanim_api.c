@@ -67,7 +67,7 @@ void SetBattleAnimFacing(int maActor, int maOpponent, int facing)
 void SetupBattleMOVEUNITs(void)
 {
     int maFacing = GetSpellAssocFacing(gManimSt.actor[0].bu->weaponBefore);
-    sub_807B4D0();
+    SortMapAnimActorObjLayers();
 
     switch (gManimSt.actorCount) {
     case 2:
@@ -86,7 +86,7 @@ void SetupBattleMOVEUNITs(void)
     } // switch (gManimSt.actorCount_maybe)
 }
 
-void sub_807B4D0(void)
+void SortMapAnimActorObjLayers(void)
 {
     u8 array[4];
     int i, j;
@@ -127,7 +127,7 @@ void sub_807B4D0(void)
 
     // Apply
     for (i = 0; i < count; ++i)
-        gManimSt.actor[array[i]].mu->sprite_anim->objLayer = gUnknown_08205714[i];
+        gManimSt.actor[array[i]].mu->sprite_anim->objLayer = gMapanimApi_0[i];
 }
 
 void BeginMapAnimForPoisonDmg(void)
@@ -312,7 +312,7 @@ int GetFacingDirection(int xFrom, int yFrom, int xTo, int yTo)
 }
 
 /* section.rodata */
-const u8 gUnknown_08205714[4] = {
+const u8 gMapanimApi_0[4] = {
     10, 9, 8, 7,
 };
 
@@ -323,11 +323,11 @@ CONST_DATA struct ProcCmd ProcScr_MapAnimDance[] = {
     PROC_CALL(MapAnim_MoveCameraOntoSubject),
     PROC_SLEEP(0x2),
     PROC_SLEEP(0x14),
-    PROC_CALL(sub_80812C0),
+    PROC_CALL(MapAnim_StartSubjectDanceAnim),
     PROC_SLEEP(0x50),
     PROC_CALL(StartDanceringAnim),
     PROC_SLEEP(0xA),
-    PROC_CALL(sub_80813C0),
+    PROC_CALL(MapAnim_FreezeSubjectAnim),
     PROC_SLEEP(0x14),
     PROC_JUMP(ProcScr_MapAnimEnd),
 };

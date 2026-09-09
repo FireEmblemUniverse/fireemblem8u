@@ -27,7 +27,7 @@ void ArenaBeginInternal(struct Unit* unit) {
     gArenaState.playerUnit = unit;
     gArenaState.opponentUnit = &gArenaOpponent;
 
-    gUnknown_03003060 = UNIT_ARENA_LEVEL(unit);
+    gUnk_63 = UNIT_ARENA_LEVEL(unit);
 
     gArenaState.playerClassId = unit->pClassData->number;
     gArenaState.playerWpnType = GetUnitBestWRankType(unit);

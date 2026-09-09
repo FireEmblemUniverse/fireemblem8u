@@ -120,14 +120,14 @@ int GetUnitCommandUseFlags(void)
 }
 
 //! FE8U = 0x080344E8
-int sub_80344E8(void)
+int GetActiveUnitCommandUseFlags(void)
 {
     GenerateUnitMovementMapExt(gActiveUnit, UNIT_MOV(gActiveUnit) - gActionData.moveCount);
     return GetUnitCommandUseFlags();
 }
 
 //! FE8U = 0x08034514
-int sub_8034514(void)
+int GetActiveUnitCommandUseFlagsStationary(void)
 {
     BmMapFill(gBmMapMovement, -1);
     gBmMapMovement[gActiveUnit->yPos][gActiveUnit->xPos] = 0;
@@ -136,7 +136,7 @@ int sub_8034514(void)
 }
 
 //! FE8U = 0x08034550
-void sub_8034550(struct Unit * unit)
+void MakeEnemyThreatTargetList(struct Unit * unit)
 {
     int i;
     int ix;

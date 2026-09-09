@@ -58,7 +58,7 @@ void efxDarkLongMons_Loop_Main(struct ProcEfx * proc)
     }
     else if (proc->timer == duration + 151)
     {
-        sub_806B4E4();
+        StartSubSpell_efxDarkLongMonsFadeToBlack();
     }
     else if (proc->timer == duration + 167)
     {
@@ -111,7 +111,7 @@ void efxDarkLongMons_Loop_Main(struct ProcEfx * proc)
 }
 
 //! FE8U = 0x0806B088
-void OnHBlank_806B088(void)
+void OnHBlank_0(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -164,62 +164,62 @@ void efxDarkLongMonsBG01_Loop_B(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxDarkLongMonsBG01[] =
 {
-    Tsa_086E64E0,
-    Tsa_086E65EC,
-    Tsa_086E671C,
-    Tsa_086E6860,
-    Tsa_086E69C8,
-    Tsa_086E6B38,
-    Tsa_086E6CC4,
-    Tsa_086E6E60,
-    Tsa_086E700C,
-    Tsa_086E71BC,
-    Tsa_086E7380,
-    Tsa_086E7550,
-    Tsa_086E7730,
-    Tsa_086E7914,
-    Tsa_086E7AFC,
-    Tsa_086E7CD8,
+    Tsa_efxDarkLongMonsBG01_0,
+    Tsa_efxDarkLongMonsBG01_1,
+    Tsa_efxDarkLongMonsBG01_2,
+    Tsa_efxDarkLongMonsBG01_3,
+    Tsa_efxDarkLongMonsBG01_4,
+    Tsa_efxDarkLongMonsBG01_5,
+    Tsa_efxDarkLongMonsBG01_6,
+    Tsa_efxDarkLongMonsBG01_7,
+    Tsa_efxDarkLongMonsBG01_8,
+    Tsa_efxDarkLongMonsBG01_9,
+    Tsa_efxDarkLongMonsBG01_10,
+    Tsa_efxDarkLongMonsBG01_11,
+    Tsa_efxDarkLongMonsBG01_12,
+    Tsa_efxDarkLongMonsBG01_13,
+    Tsa_efxDarkLongMonsBG01_14,
+    Tsa_efxDarkLongMonsBG01_15,
 };
 
 u16 * CONST_DATA ImgArray_efxDarkLongMonsBG01[] =
 {
-    Img_086DAF34,
-    Img_086DB760,
-    Img_086DC064,
-    Img_086DCA64,
-    Img_086DD598,
-    Img_086DE168,
-    Img_086DED90,
-    Img_086DF9F8,
-    Img_086E05F0,
-    Img_086E1294,
-    Img_086E1F54,
-    Img_086E2BE8,
-    Img_086E3828,
-    Img_086E4420,
-    Img_086E4F90,
-    Img_086E5A30,
+    Img_efxDarkLongMonsBG01_0,
+    Img_efxDarkLongMonsBG01_1,
+    Img_efxDarkLongMonsBG01_2,
+    Img_efxDarkLongMonsBG01_3,
+    Img_efxDarkLongMonsBG01_4,
+    Img_efxDarkLongMonsBG01_5,
+    Img_efxDarkLongMonsBG01_6,
+    Img_efxDarkLongMonsBG01_7,
+    Img_efxDarkLongMonsBG01_8,
+    Img_efxDarkLongMonsBG01_9,
+    Img_efxDarkLongMonsBG01_10,
+    Img_efxDarkLongMonsBG01_11,
+    Img_efxDarkLongMonsBG01_12,
+    Img_efxDarkLongMonsBG01_13,
+    Img_efxDarkLongMonsBG01_14,
+    Img_efxDarkLongMonsBG01_15,
 };
 
 u16 * CONST_DATA PalArray_efxDarkLongMonsBG01[] =
 {
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6440,
-    Pal_086E6460,
-    Pal_086E6460,
-    Pal_086E6480,
-    Pal_086E64A0,
-    Pal_086E64C0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_0,
+    Pal_efxDarkLongMonsBG01_1,
+    Pal_efxDarkLongMonsBG01_1,
+    Pal_efxDarkLongMonsBG01_2,
+    Pal_efxDarkLongMonsBG01_3,
+    Pal_efxDarkLongMonsBG01_4,
 };
 
 const u16 gFrameConfig_efxDarkLongMonsBG01[] =
@@ -275,7 +275,7 @@ void StartSubSpell_efxDarkLongMonsBG01(struct Anim * anim)
 
     BG_SetPosition(BG_1, 0, 0);
 
-    SetPrimaryHBlankHandler(OnHBlank_806B088);
+    SetPrimaryHBlankHandler(OnHBlank_0);
 
     return;
 }
@@ -307,15 +307,15 @@ void efxDarkLongMonsBG02_Loop(struct ProcEfxBG * proc)
 
 u16 * CONST_DATA TsaArray_efxDarkLongMonsBG02[] =
 {
-    Tsa_086E91D8,
-    Tsa_086E927C,
-    Tsa_086E9358,
-    Tsa_086E9474,
-    Tsa_086E95D4,
-    Tsa_086E9758,
-    Tsa_086E98E4,
-    Tsa_086E9A64,
-    Tsa_086E9BD4,
+    Tsa_efxDarkLongMonsBG02_0,
+    Tsa_efxDarkLongMonsBG02_1,
+    Tsa_efxDarkLongMonsBG02_2,
+    Tsa_efxDarkLongMonsBG02_3,
+    Tsa_efxDarkLongMonsBG02_4,
+    Tsa_efxDarkLongMonsBG02_5,
+    Tsa_efxDarkLongMonsBG02_6,
+    Tsa_efxDarkLongMonsBG02_7,
+    Tsa_efxDarkLongMonsBG02_8,
 };
 
 const u16 gFrameConfig_efxDarkLongMonsBG02[] =
@@ -363,8 +363,8 @@ void StartSubSpell_efxDarkLongMonsBG02(struct Anim * anim)
 
     proc->tsal = TsaArray_efxDarkLongMonsBG02;
 
-    SpellFx_RegisterBgGfx(Img_086E7EB0, 32 * 8 * CHR_SIZE);
-    SpellFx_RegisterBgPal(Pal_086E91B8, PLTT_SIZE_4BPP);
+    SpellFx_RegisterBgGfx(Img_efxDarkLongMonsBG, 32 * 8 * CHR_SIZE);
+    SpellFx_RegisterBgPal(Pal_efxDarkLongMonsBG, PLTT_SIZE_4BPP);
 
     BG_SetPosition(BG_1, 0, 0);
 
@@ -444,7 +444,7 @@ void StartSubSpell_efxDarkLongMonsOBJ(struct Anim * anim)
     proc->timer = 0;
     proc->terminator = 188;
 
-    scr = AnimScr_086DA920;
+    scr = AnimScr_efxDarkLongMonsOBJ;
     frontAnim = EfxCreateFrontAnim(anim, scr, scr, scr, scr);
     proc->anim2 = frontAnim;
 
@@ -459,8 +459,8 @@ void StartSubSpell_efxDarkLongMonsOBJ(struct Anim * anim)
 
     frontAnim->yPosition = 32;
 
-    SpellFx_RegisterObjPal(Pal_086DA33C, PLTT_SIZE_4BPP);
-    SpellFx_RegisterObjGfx(Img_086D9C40, 32 * 4 * CHR_SIZE);
+    SpellFx_RegisterObjPal(Pal_efxDarkLongMonsOBJ, PLTT_SIZE_4BPP);
+    SpellFx_RegisterObjGfx(Img_Banim_16, 32 * 4 * CHR_SIZE);
 
     return;
 }
@@ -473,7 +473,7 @@ struct Proc085D8AEC
 };
 
 //! FE8U = 0x0806B33C
-void sub_806B33C(struct Proc085D8AEC * proc)
+void EfxmagicShadowshot_FadeToBlack_Init(struct Proc085D8AEC * proc)
 {
     proc->unk4C = 0;
     return;
@@ -482,7 +482,7 @@ void sub_806B33C(struct Proc085D8AEC * proc)
 #define RGB_(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 
 //! FE8U = 0x0806B344
-void sub_806B344(struct Proc085D8AEC * proc)
+void EfxmagicShadowshot_FadeToBlack_Loop(struct Proc085D8AEC * proc)
 {
     int sl;
     u16 * r6;
@@ -556,10 +556,10 @@ void sub_806B344(struct Proc085D8AEC * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_085D8AEC[] =
+struct ProcCmd CONST_DATA ProcScr_EfxmagicShadowshot_0[] =
 {
-    PROC_CALL(sub_806B33C),
-    PROC_REPEAT(sub_806B344),
+    PROC_CALL(EfxmagicShadowshot_FadeToBlack_Init),
+    PROC_REPEAT(EfxmagicShadowshot_FadeToBlack_Loop),
 
     PROC_CALL(EnablePaletteSync),
 
@@ -569,8 +569,8 @@ struct ProcCmd CONST_DATA ProcScr_085D8AEC[] =
 // clang-format on
 
 //! FE8U = 0x0806B4E4
-void sub_806B4E4(void)
+void StartSubSpell_efxDarkLongMonsFadeToBlack(void)
 {
-    Proc_Start(ProcScr_085D8AEC, PROC_TREE_VSYNC);
+    Proc_Start(ProcScr_EfxmagicShadowshot_0, PROC_TREE_VSYNC);
     return;
 }

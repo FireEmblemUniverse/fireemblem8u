@@ -48,7 +48,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     FADI(16)
     SVAL(EVT_SLOT_B, 0x4000b)
     LOMA(CHAPTER_L_8)
-    LOAD1(0x1, UnitDef_088B5DAC)
+    LOAD1(0x1, UnitDef_Ch5xEnemy_1)
     ENUN
     FADU(16)
     SPAWN_ENEMY(CHARACTER_VALTER, 10, 10)
@@ -74,7 +74,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0xc0014)
     LOMA(CHAPTER_L_6)
-    LOAD2(0x1, UnitDef_088B5DFC)
+    LOAD2(0x1, UnitDef_Ch5xAlly_1)
     ENUN
     FADU(16)
     CUMO_CHAR(CHARACTER_EPHRAIM)
@@ -92,7 +92,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     SVAL(EVT_SLOT_B, 0x70009)
     LOMA(CHAPTER_L_7)
     FADU(16)
-    LOAD2(0x1, UnitDef_088B5E94)
+    LOAD2(0x1, UnitDef_Ch5xAlly_2)
     ENUN
     CUMO_CHAR(CHARACTER_EPHRAIM)
     STAL(60)
@@ -111,7 +111,7 @@ CONST_DATA EventListScr EventScr_Ch5x_BeginningScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x7000e)
     LOMA(CHAPTER_L_5X)
-    LOAD1(0x1, UnitDef_088B5AC8)
+    LOAD1(0x1, UnitDef_Ch5xEnemy_0)
     ENUN
     FADU(16)
     CUMO_CHAR(CHARACTER_ZONTA)
@@ -177,10 +177,10 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     CLEAN
     CAMERA2(13, 9)
     EvtSetLoadUnitNoREDA // ENOSUPP in EAstdlib
-    LOAD2(0x1, UnitDef_088B5D48)
+    LOAD2(0x1, UnitDef_Ch5xAlly_0)
     ENUN
     FADU(16)
-    LOAD1(0x1, UnitDef_088B5D48)
+    LOAD1(0x1, UnitDef_Ch5xAlly_0)
     ENUN
     CUMO_CHAR(CHARACTER_FORDE)
     STAL(60)
@@ -195,17 +195,17 @@ CONST_DATA EventListScr EventScr_Ch5x_EndingScene[] = {
     CLEN
     SVAL(EVT_SLOT_B, 0x4000a)
     LOMA(CHAPTER_L_7)
-    LOAD1(0x1, UnitDef_088B5FCC)
+    LOAD1(0x1, UnitDef_Ch5xEnemy_2)
     ENUN
     FADU(16)
     EVBIT_T(9)
-    LOAD2(0x1, UnitDef_088B5F7C)
+    LOAD2(0x1, UnitDef_Ch5xAlly_3)
     ENUN
     EVBIT_F(9)
     MUSC(SONG_RAID)
-    LOAD1(0x1, UnitDef_088B60A8)
+    LOAD1(0x1, UnitDef_Ch5xEnemy_3)
     ENUN
-    LOAD1(0x1, UnitDef_088B6120)
+    LOAD1(0x1, UnitDef_Ch5xEnemy_4)
     ENUN
     CUMO_CHAR(CHARACTER_VALTER)
     STAL(60)

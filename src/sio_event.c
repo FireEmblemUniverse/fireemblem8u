@@ -25,7 +25,7 @@
 
 
 //! FE8U = 0x08048260
-void sub_8048260(ProcPtr parent)
+void StartTacticianNameEntry(ProcPtr parent)
 {
     struct ProcTactician * proc = Proc_StartBlocking(ProcScr_TacticianNameSelection, parent);
     proc->unk33 = 7;
@@ -42,7 +42,7 @@ void StartTacticianNameSelect(ProcPtr parent)
     LoadLegacyUiFrameGraphics();
     UnsetBmStLinkArenaFlag();
 
-    InitTextFont(&Font_0203DB64, (void *)(0x06001800), 0xc0, 0);
+    InitTextFont(&Font_0, (void *)(0x06001800), 0xc0, 0);
 
     gLinkArenaSt.unk_05 = 0;
     gLinkArenaSt.unk_03 = 0;
@@ -57,10 +57,10 @@ void StartTacticianNameSelect(ProcPtr parent)
     return;
 }
 
-extern struct SioMessage gUnknown_03004E80;
+extern struct SioMessage gUnk_73;
 
 //! FE8U = 0x080482E0
-bool XMapTransfer_80482E0(ProcPtr proc)
+bool XMapTransfer_0(ProcPtr proc)
 {
     int i;
     u8 buf[4];
@@ -71,7 +71,7 @@ bool XMapTransfer_80482E0(ProcPtr proc)
     {
         if ((gKeyStatusPtr->newKeys & B_BUTTON) != 0)
         {
-            nullsub_15(proc, 4);
+            Nop_Scene_0(proc, 4);
             return false;
         }
 
@@ -80,7 +80,7 @@ bool XMapTransfer_80482E0(ProcPtr proc)
 
     if ((gSioSt->selfId > 1) || (gSioSt->playerStatus[gSioSt->selfId] == PLAYER_STATUS_2))
     {
-        nullsub_15(proc, 0);
+        Nop_Scene_0(proc, 0);
         return false;
     }
 
@@ -92,36 +92,36 @@ bool XMapTransfer_80482E0(ProcPtr proc)
         }
     }
 
-    if (!sub_80421E4() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
+    if (!Sio_CheckLinkAlive() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
     {
-        nullsub_15(proc, 0);
+        Nop_Scene_0(proc, 0);
         return false;
     }
 
-    gUnknown_03004E80.kind = SIO_MSG_8C;
-    gUnknown_03004E80.sender = gSioSt->selfId;
-    gUnknown_03004E80.param = gSioSt->unk_000;
-    SioSend(&gUnknown_03004E80, 10);
+    gUnk_73.kind = SIO_MSG_8C;
+    gUnk_73.sender = gSioSt->selfId;
+    gUnk_73.param = gSioSt->unk_000;
+    SioSend(&gUnk_73, 10);
 
     if ((gSioSt->selfId == 0) && !IsExtraMapAvailable())
     {
         buf[0] = 1;
         SioEmitData(buf, sizeof(buf));
-        nullsub_15(proc, 3);
+        Nop_Scene_0(proc, 3);
         return false;
     }
 
     if ((gSioSt->unk_009 & 3) == 3)
     {
         gSioSt->unk_009 = 3;
-        sub_8042AF4();
+        SioClearOutgoingQueue();
 
         gSioSt->unk_004 = 6;
         gSioSt->unk_01E = 0;
 
         if (gSioSt->selfId != 0)
         {
-            nullsub_15(proc, 1);
+            Nop_Scene_0(proc, 1);
         }
 
         return false;
@@ -131,43 +131,43 @@ bool XMapTransfer_80482E0(ProcPtr proc)
 }
 
 //! FE8U = 0x080483F8
-void XMapTransfer_80483F8(ProcPtr proc)
+void XMapTransfer_1(ProcPtr proc)
 {
     if (gSioSt->unk_009 > 3)
     {
-        nullsub_15(proc, 0);
+        Nop_Scene_0(proc, 0);
     }
 
     return;
 }
 
 //! FE8U = 0x08048418
-void XMapTransfer_8048418(ProcPtr proc)
+void XMapTransfer_2(ProcPtr proc)
 {
     u8 buf[4];
 
     if (GetTalkChoiceResult() == 1)
     {
-        gUnk_Sio_0203DD8C = 0;
+        gUnk_Sio_15 = 0;
     }
     else
     {
-        gUnk_Sio_0203DD8C = 1;
+        gUnk_Sio_15 = 1;
     }
 
-    buf[0] = gUnk_Sio_0203DD8C;
+    buf[0] = gUnk_Sio_15;
     SioEmitData(buf, sizeof(buf));
 
-    if (gUnk_Sio_0203DD8C != 0)
+    if (gUnk_Sio_15 != 0)
     {
-        nullsub_15(proc, 5);
+        Nop_Scene_0(proc, 5);
     }
 
     return;
 }
 
 //! FE8U = 0x08048460
-bool XMapTransfer_8048460(ProcPtr proc)
+bool XMapTransfer_3(ProcPtr proc)
 {
     u16 got;
     int i;
@@ -184,9 +184,9 @@ bool XMapTransfer_8048460(ProcPtr proc)
         }
     }
 
-    if (!sub_80421E4() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
+    if (!Sio_CheckLinkAlive() || (gSioSt->unk_01E > 60) || (numTimeouts != 0))
     {
-        nullsub_15(proc, 0);
+        Nop_Scene_0(proc, 0);
         return 0;
     }
 
@@ -196,7 +196,7 @@ bool XMapTransfer_8048460(ProcPtr proc)
     {
         if (buf[0] != 0)
         {
-            nullsub_15(proc, 5);
+            Nop_Scene_0(proc, 5);
         }
 
         return false;
@@ -227,7 +227,7 @@ void DrawXMapSendProgress(struct SioBigSendProc * proc)
         PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
-        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "送信中" /* "Sending" */, proc->unk_3C);
+        PutXMapProgressPercent(&gUnk_Sio_7[0], "送信中" /* "Sending" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -244,7 +244,7 @@ void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
         PlaySoundEffect(SONG_7D);
         proc->unk_3C++;
 
-        PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], "受信中" /* "Receiving" */, proc->unk_3C);
+        PutXMapProgressPercent(&gUnk_Sio_7[0], "受信中" /* "Receiving" */, proc->unk_3C);
         DrawStatBarGfx(
             0x100, 0xe, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, proc->unk_3C, 100 - proc->unk_3C);
         BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -256,17 +256,17 @@ void DrawXMapReceiveProgress(struct SioBigReceiveProc * proc)
 //! FE8U = 0x08048604
 void StartXMapTransfer(struct SioBigSendProc * proc)
 {
-    SetTextFont(&Font_0203DB64);
+    SetTextFont(&Font_0);
     InitSystemTextFont();
 
     if (gSioSt->selfId == 0)
     {
-        ReadSramFast(CART_SRAM + SRAM_OFFSET_XMAP, gUnk_Sio_02000000, SRAM_SIZE_XMAP);
-        StartSioBigSend(gUnk_Sio_02000000, SRAM_SIZE_XMAP, DrawXMapSendProgress, 0, proc);
+        ReadSramFast(CART_SRAM + SRAM_OFFSET_XMAP, gUnk_Sio_0, SRAM_SIZE_XMAP);
+        StartSioBigSend(gUnk_Sio_0, SRAM_SIZE_XMAP, DrawXMapSendProgress, 0, proc);
     }
     else
     {
-        StartSioBigReceive(gUnk_Sio_02000000, DrawXMapReceiveProgress, proc);
+        StartSioBigReceive(gUnk_Sio_0, DrawXMapReceiveProgress, proc);
     }
 
     return;
@@ -286,21 +286,21 @@ bool XMapTransfer_AwaitCompletion(void)
 
     if (gSioSt->selfId != 0)
     {
-        WriteAndVerifySramFast(gUnk_Sio_02000000, CART_SRAM + SRAM_OFFSET_XMAP, SRAM_SIZE_XMAP);
+        WriteAndVerifySramFast(gUnk_Sio_0, CART_SRAM + SRAM_OFFSET_XMAP, SRAM_SIZE_XMAP);
     }
 
     return false;
 }
 
 //! FE8U = 0x080486D4
-void sub_80486D4(void)
+void Sio_InitAckMask(void)
 {
     gSioSt->unk_00A = 1 << gSioSt->selfId;
     return;
 }
 
 //! FE8U = 0x080486E8
-bool sub_80486E8(void)
+bool Sio_SyncWaitAllAck(void)
 {
     gSioMsgBuf.kind = SIO_MSG_89;
     gSioMsgBuf.sender = gSioSt->selfId;
@@ -317,15 +317,15 @@ bool sub_80486E8(void)
 }
 
 //! FE8U = 0x08048730
-void XMapTransfer_8048730(void)
+void XMapTransfer_4(void)
 {
     UnpackUiBarPalette(6);
     DrawUiFrame2(0xd, 0xb, 0x10, 6, 0);
 
-    SetTextFont(&Font_0203DB64);
+    SetTextFont(&Font_0);
     InitSystemTextFont();
 
-    PutXMapProgressPercent(&gUnk_Sio_0203DA88[0], GetStringFromIndex(0x77E), 0);
+    PutXMapProgressPercent(&gUnk_Sio_7[0], GetStringFromIndex(0x77E), 0);
     DrawStatBarGfx(0x100, 0xd, TILEMAP_LOCATED(gBG0TilemapBuffer, 14, 15), 0x6000, 100, 0, 100);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
@@ -334,14 +334,14 @@ void XMapTransfer_8048730(void)
 }
 
 //! FE8U = 0x0804879C
-void sub_804879C(void)
+void Sio_EnableAllWOutLayers(void)
 {
     SetWOutLayers(1, 1, 1, 1, 1);
     return;
 }
 
 //! FE8U = 0x080487C0
-void sub_80487C0(struct Proc * proc)
+void EndSioMenuForXMapTransfer(struct Proc * proc)
 {
     int i;
     struct SioMenuItemProc ** iter;
@@ -358,14 +358,14 @@ void sub_80487C0(struct Proc * proc)
     }
 
     InitSioBG();
-    sub_804C3A0(0, 0);
+    Nop_SioUiutils_1(0, 0);
 
     gSioSt->unk_000 = 3;
 
-    SetTextFont(&Font_0203DB64);
+    SetTextFont(&Font_0);
     InitSystemTextFont();
 
-    InitTextDb(gUnk_Sio_0203DA88, 10);
+    InitTextDb(gUnk_Sio_7, 10);
 
     Sound_FadeOutBGM(1);
 
@@ -373,13 +373,13 @@ void sub_80487C0(struct Proc * proc)
 }
 
 //! FE8U = 0x0804881C
-void sub_804881C(void)
+void EndSioSessionAndLoadSuspend(void)
 {
     ClearSioBG();
 
-    sub_8045CBC();
-    sub_8045CE0();
-    sub_8041898();
+    EndSioProcs();
+    SioBat_ReleaseIrq();
+    Sio_ResetState();
 
     LoadAndVerfySuspendSave();
 

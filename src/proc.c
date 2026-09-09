@@ -428,7 +428,7 @@ static void ForAllFollowingProcs(struct Proc* proc, ProcFunc func)
 }
 
 // unreferenced
-static void sub_80030CC(ProcPtr proc, ProcFunc func)
+static void Proc_ForEachInTree(ProcPtr proc, ProcFunc func)
 {
     struct Proc* casted = (struct Proc*) proc;
 
@@ -767,7 +767,7 @@ static void PrintProcessTree(struct Proc* proc)
 }
 
 // unreferenced
-static void sub_800344C(void)
+static void Proc_Nop_0(void)
 {
 }
 
@@ -827,7 +827,7 @@ struct Proc *Proc_FindAfterWithParent(struct Proc* proc, struct Proc* parent)
 }
 
 // unreferenced
-static int sub_80034D4(void)
+static int CountFreeProcs(void)
 {
     int i, result = MAX_PROC_COUNT;
 

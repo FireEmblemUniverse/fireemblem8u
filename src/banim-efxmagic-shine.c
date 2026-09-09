@@ -325,8 +325,8 @@ void StartSubSpell_efxShineBGCOL(struct Anim * anim)
     proc->frame = 0;
     proc->frame_config = frames;
 
-    proc->pal = Pal_ShineBg_08726FF4;
-    SpellFx_RegisterBgPal(Pal_ShineBg_08726FF4, PLTT_SIZE_4BPP);
+    proc->pal = Pal_ShineBg_0;
+    SpellFx_RegisterBgPal(Pal_ShineBg_0, PLTT_SIZE_4BPP);
 
     return;
 }

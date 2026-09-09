@@ -232,7 +232,7 @@ void UnsetMapStaffAnim(s16 * out, u16 pos, u16 weapon)
     }
 }
 
-const u16 gUnknown_080DAE8C[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_0[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_HIT_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_NONCRIT_FAR,
@@ -240,7 +240,7 @@ const u16 gUnknown_080DAE8C[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_HIT_CLOSE
 };
 
-const u16 gUnknown_080DAE96[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_1[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_MISS_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_NONCRIT_FAR,
@@ -248,7 +248,7 @@ const u16 gUnknown_080DAE96[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_MISS_CLOSE
 };
 
-const u16 gUnknown_080DAEA0[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_2[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_CRIT_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_CRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_CRIT_FAR,
@@ -256,7 +256,7 @@ const u16 gUnknown_080DAEA0[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_CRIT_CLOSE
 };
 
-const u16 gUnknown_080DAEAA[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_3[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_TAKING_MISS_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_TAKING_MISS_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_TAKING_MISS_FAR,
@@ -264,7 +264,7 @@ const u16 gUnknown_080DAEAA[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_TAKING_MISS_CLOSE
 };
 
-const u16 gUnknown_080DAEB4[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_4[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_TAKING_HIT_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_TAKING_HIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_TAKING_HIT_FAR,
@@ -272,7 +272,7 @@ const u16 gUnknown_080DAEB4[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_TAKING_HIT_CLOSE
 };
 
-const u16 gUnknown_080DAEBE[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_5[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_NONCRIT_FAR,
@@ -280,7 +280,7 @@ const u16 gUnknown_080DAEBE[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_HIT_CLOSE
 };
 
-const u16 gUnknown_080DAEC8[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_6[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_CRIT_FAR,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_CRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_CRIT_FAR,
@@ -288,7 +288,7 @@ const u16 gUnknown_080DAEC8[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_CRIT_CLOSE
 };
 
-const u16 gUnknown_080DAED2[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_7[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_HIT_CLOSE,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_HIT_CLOSE,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_HIT_CLOSE,
@@ -296,7 +296,7 @@ const u16 gUnknown_080DAED2[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_INVALID
 };
 
-const u16 gUnknown_080DAEDC[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_8[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_NONCRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_NONCRIT_FAR,
@@ -304,7 +304,7 @@ const u16 gUnknown_080DAEDC[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_PROMOTION]   = ANIM_ROUND_INVALID
 };
 
-const u16 gUnknown_080DAEE6[EKR_DISTANCE_MAX] = {
+const u16 gBattleparse_9[EKR_DISTANCE_MAX] = {
     [EKR_DISTANCE_CLOSE]       = ANIM_ROUND_CRIT_FAR,
     [EKR_DISTANCE_FAR]         = ANIM_ROUND_CRIT_FAR,
     [EKR_DISTANCE_FARFAR]      = ANIM_ROUND_CRIT_FAR,
@@ -440,37 +440,37 @@ void ParseBattleHitToBanimCmd(void)
         if (hit->attributes & BATTLE_HIT_ATTR_CRIT)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAEA0[distance_r4];
+                *r5 = gBattleparse_2[distance_r4];
             else
-                *r5 = gUnknown_080DAEC8[distance_r4];
+                *r5 = gBattleparse_6[distance_r4];
         }
         else if (hit->attributes & BATTLE_HIT_ATTR_SILENCER)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAEA0[distance_r4];
+                *r5 = gBattleparse_2[distance_r4];
             else
-                *r5 = gUnknown_080DAEC8[distance_r4];
+                *r5 = gBattleparse_6[distance_r4];
         }
         else if (r3 >= 0)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAE8C[distance_r4];
+                *r5 = gBattleparse_0[distance_r4];
             else
-                *r5 = gUnknown_080DAEBE[distance_r4];
+                *r5 = gBattleparse_5[distance_r4];
         }
         else
         {
-            switch (sub_80716B0(2)) {
+            switch (LCGRand_N(2)) {
             case 0:
-                *r5 = gUnknown_080DAED2[distance_r4];
+                *r5 = gBattleparse_7[distance_r4];
                 break;
 
             case 1:
-                *r5 = gUnknown_080DAEDC[distance_r4];
+                *r5 = gBattleparse_8[distance_r4];
                 break;
 
             case 2:
-                *r5 = gUnknown_080DAEE6[distance_r4];
+                *r5 = gBattleparse_9[distance_r4];
                 break;
 
             default:
@@ -482,15 +482,15 @@ void ParseBattleHitToBanimCmd(void)
         if (hit->attributes & BATTLE_HIT_ATTR_MISS)
         {
             if (!UnitHasMagicRank(unit_r6))
-                *r5 = gUnknown_080DAE96[distance_r4];
+                *r5 = gBattleparse_1[distance_r4];
             else
-                *r5 = gUnknown_080DAEBE[distance_r4];
+                *r5 = gBattleparse_5[distance_r4];
 
-            *r8 = gUnknown_080DAEAA[distance_sp1C];
+            *r8 = gBattleparse_3[distance_sp1C];
         }
         else
         {
-            *r8 = gUnknown_080DAEB4[distance_sp1C];
+            *r8 = gBattleparse_4[distance_sp1C];
         }
 
         gAnimRoundData[ANIM_REF_OFFSET(round_sp0C, POS_L)] = sp00[POS_L];

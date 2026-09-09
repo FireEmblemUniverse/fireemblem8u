@@ -218,14 +218,14 @@ CONST_DATA struct ProcCmd ProcScr_ClassChgMenuSel[] = {
     PROC_SLEEP(6),
 	PROC_NAME("CCRamifyMenuSelect"),
     PROC_CALL(ClassChgMenuExec),
-    PROC_REPEAT(nullsub_80CDDD4),
+    PROC_REPEAT(Nop_ClasschgMenuselect_1),
     PROC_YIELD,
 
 PROC_LABEL(0),
     PROC_GOTO(2),
 
 PROC_LABEL(1),
-    PROC_CALL(nullsub_61),
+    PROC_CALL(Nop_ClasschgMenuselect_0),
 
 PROC_LABEL(2),
     PROC_END,
@@ -256,12 +256,12 @@ void ClassChgMenuExec(struct ProcClassChgMenuSel *proc)
 		(struct Proc *) proc);
 }
 
-void nullsub_80CDDD4(void)
+void Nop_ClasschgMenuselect_1(void)
 {
     return;
 }
 
-void nullsub_61(void)
+void Nop_ClasschgMenuselect_0(void)
 {
     return;
 }

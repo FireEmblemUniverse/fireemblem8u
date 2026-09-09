@@ -18,7 +18,7 @@ void UncompMapBattleBoxNumGfx(int tileNum)
         (u8*)(VRAM) + GetBackgroundTileDataOffset(0) + 0x20*(tileNum & 0x3FF));
 }
 
-void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int arg5)
+void MapAnim_DrawNumber(u16* tilemap, int num, int tileref, int len, u16 blankref, int arg5)
 {
     char buf[8];
     int i, j;
@@ -35,7 +35,7 @@ void sub_807BA28(u16* tilemap, int num, int tileref, int len, u16 blankref, int 
         }
     }
 
-    sub_8013168(tilemap, buf + sizeof(buf)-1, tileref, len, arg5);
+    PutNumberTilesRightAligned(tilemap, buf + sizeof(buf)-1, tileref, len, arg5);
 
     for (i = len - 1; i > 0 && buf[7 - i] == ' '; --i)
         tilemap[-i] = blankref;
@@ -48,7 +48,7 @@ void PrepareMapBattleBoxNumGfx(const u8* src)
     ApplyPalette(Pal_MapBattleInfoNum, 5);
 }
 
-void sub_807BB10(u16* buf1, int* buf2, int arg2, int arg3, int arg4)
+void MapAnim_DrawBarSegment(u16* buf1, int* buf2, int arg2, int arg3, int arg4)
 {
     int r1;
     if (*buf2 > arg3)
@@ -63,7 +63,7 @@ void sub_807BB10(u16* buf1, int* buf2, int arg2, int arg3, int arg4)
         *buf2 = 0;
 }
 
-void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* buf)
+void MapAnim_DrawBar(u16* tilemap, int arg1, int arg2, int arg3, u16* buf)
 {
     int unk4, count = 0;
     u16* it;
@@ -82,7 +82,7 @@ void sub_807BB40(u16* tilemap, int arg1, int arg2, int arg3, u16* buf)
         unk4 = 1;
 
     for (it = buf; it[0]; ++tilemap, it += 2)
-        sub_807BB10(tilemap, &unk4, gUnknown_089A3668[arg3], it[0], it[1]);
+        MapAnim_DrawBarSegment(tilemap, &unk4, gMapanimInfobox_1[arg3], it[0], it[1]);
 }
 
 void EndMapAnimInfoWindow(void)
@@ -137,7 +137,7 @@ void ProcMapInfoBox_OnDraw(struct MAInfoFrameProc* proc)
         gPaletteBuffer[BGPAL_OFFSET(2) + 1]);
 }
 
-void sub_807BCA8(struct MAInfoFrameProc* proc)
+void ProcMapInfoBox_AnimateHp(struct MAInfoFrameProc* proc)
 {
     s8 updated = FALSE;
     int i;
@@ -157,7 +157,7 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
 
         if (r4 != gManimSt.actor[i].hp_displayed_q4) {
             gManimSt.actor[i].hp_displayed_q4 = r4;
-            sub_807BD54(proc, i);
+            MapInfoBox_DrawHp(proc, i);
             updated = TRUE;
         }
     }
@@ -166,25 +166,25 @@ void sub_807BCA8(struct MAInfoFrameProc* proc)
         gManimSt.hp_changing = FALSE;
 }
 
-void sub_807BD54(struct MAInfoFrameProc* proc, int a)
+void MapInfoBox_DrawHp(struct MAInfoFrameProc* proc, int a)
 {
     int dummy = gManimSt.actor[a].hp_displayed_q4/16;
     int r6 = (dummy >= 100);
 
-    sub_807BA28(
+    MapAnim_DrawNumber(
         gBG0TilemapBuffer + TILEMAP_INDEX(
             gManimSt.actor[a].hp_info_x + 3,
             gManimSt.actor[a].hp_info_y + 3),
         gManimSt.actor[a].hp_displayed_q4/16,
         TILEREF(32, BM_BGPAL_BANIM_UNK5), 3, 0, r6);
 
-    sub_807BB40(
+    MapAnim_DrawBar(
         gBG0TilemapBuffer + TILEMAP_INDEX(
             gManimSt.actor[a].hp_info_x + 4,
             gManimSt.actor[a].hp_info_y + 3),
         gManimSt.actor[a].hp_max,
         gManimSt.actor[a].hp_displayed_q4/16,
-        0, gUnknown_089A3648);
+        0, gMapanimInfobox_0);
 
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 }
@@ -240,7 +240,7 @@ void DisplayBattleInfoBox(struct MAInfoFrameProc* proc, int index, int arg2)
 
     gManimSt.actor[index].hp_displayed_q4 = gManimSt.actor[index].hp_cur*16;
 
-    sub_807BD54(proc, index);
+    MapInfoBox_DrawHp(proc, index);
 }
 
 void MapInfoBox_PrepareForShake(struct MAInfoFrameProc* proc)
@@ -277,14 +277,14 @@ void MapInfoBoxShake(struct MAInfoFrameProc* proc)
  * section.data
 */
 
-CONST_DATA u16 gUnknown_089A3648[] = {
+CONST_DATA u16 gMapanimInfobox_0[] = {
     0x05, 0x2B, 0x08, 0x31,
     0x08, 0x31, 0x08, 0x31,
     0x08, 0x31, 0x08, 0x31,
     0x05, 0x3A, 0x00, 0x00
 };
 
-CONST_DATA int gUnknown_089A3668[] = {
+CONST_DATA int gMapanimInfobox_1[] = {
     0x05, 0x06
 };
 
@@ -300,6 +300,6 @@ CONST_DATA struct ProcCmd ProcScr_MapBattleInfoBox[] = {
     PROC_CALL(MapInfoBox_PrepareForShake),
     PROC_CALL(ProcMapInfoBox_OnDraw),
     PROC_REPEAT(MapInfoBoxShake),
-    PROC_REPEAT(sub_807BCA8),
+    PROC_REPEAT(ProcMapInfoBox_AnimateHp),
     PROC_END
 };

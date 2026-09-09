@@ -455,7 +455,7 @@ void WfxSandStorm_Init(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
-    Decompress(gUnknown_085A3964, gGenericBuffer);
+    Decompress(gParticlesFx_0, gGenericBuffer);
     Copy2dChr(gGenericBuffer, OBJ_VRAM0 + 0x1C * 0x20, 4, 4);
 
     for (i = 0; i < 0x40; ++i) {
@@ -495,7 +495,7 @@ void WfxSnowStorm_Init(void) {
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
 
-    Decompress(gUnknown_085A39EC, gGenericBuffer);
+    Decompress(gParticlesFx_1, gGenericBuffer);
     Copy2dChr(gGenericBuffer, OBJ_VRAM0 + 0x18 * 0x20, 8, 4);
 
     for (i = 0; i < 0x40; ++i) {
@@ -650,8 +650,8 @@ void WfxFlamesInitParticles(void) {
     int i;
 
     AllocWeatherParticles(gPlaySt.chapterWeatherId);
-    Decompress(gUnknown_085A3A84, OBJ_VRAM0 + 0x18 * 0x20);
-    ApplyPalette(gUnknown_085A3AC0, 0x1A);
+    Decompress(gParticlesFx_2, OBJ_VRAM0 + 0x18 * 0x20);
+    ApplyPalette(gParticlesFx_3, 0x1A);
 
     for (i = 0; i < 0x10; ++i) {
         sWeatherEffect.particles[i].xPosition = AdvanceGetLCGRNValue();
@@ -772,11 +772,11 @@ void WfxClouds_Init(void) {
     AllocWeatherParticles(WEATHER_FINE);
 
     Decompress(
-        gUnknown_085A3B00,
+        gParticlesFx_4,
         sWeatherEffect.gfxData
     );
 
-    ApplyPalette(gUnknown_085A401C, 0x10 + BM_OBJPAL_10);
+    ApplyPalette(gParticlesFx_5, 0x10 + BM_OBJPAL_10);
 }
 
 void WfxClouds_VSync(void) {
@@ -977,7 +977,7 @@ void StartBattleMap(struct GameCtrlProc* gameCtrl) {
     SetInterrupt_LCDVBlank(OnVBlank);
 
     ClearBattleMapState();
-    sub_80156D4();
+    LoadGameCoreGfxLegacyFrame();
     ApplyUnitSpritePalettes();
     ResetChapterFlags();
     ResetUnitSprites();
@@ -1043,7 +1043,7 @@ void RestartBattleMap(void) {
     SetMainUpdateRoutine(OnMain);
     SetInterrupt_LCDVBlank(OnVBlank);
 
-    sub_80156D4();
+    LoadGameCoreGfxLegacyFrame();
     ApplyUnitSpritePalettes();
     ResetUnitSprites();
 

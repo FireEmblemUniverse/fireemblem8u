@@ -2,7 +2,7 @@
 #include "bmitem.h"
 #include "constants/classes.h"
 
-CONST_DATA u8 ItemEffectiveness_088ADEB0[] = {
+CONST_DATA u8 ItemEffectiveness_Itemuse_0[] = {
     CLASS_CAVALIER,
     CLASS_CAVALIER_F,
     CLASS_PALADIN,
@@ -134,7 +134,7 @@ CONST_DATA u8 ItemEffectiveness_Dragon[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 ItemEffectiveness_088ADF1F[] = {
+CONST_DATA u8 ItemEffectiveness_Itemuse_1[] = {
     CLASS_WYVERN_RIDER,
     CLASS_WYVERN_RIDER_F,
     CLASS_WYVERN_LORD,
@@ -247,7 +247,7 @@ CONST_DATA u8 gItemUseJidList_GuidRing[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADF75[] = {
+CONST_DATA u8 Unk_Itemuse_0[] = {
     CLASS_NONE,
 };
 
@@ -292,15 +292,15 @@ CONST_DATA u8 gItemUseJidList_HeavenSeal[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADF99[] = {
+CONST_DATA u8 Unk_Itemuse_1[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADF9A[] = {
+CONST_DATA u8 Unk_Itemuse_2[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADF9B[] = {
+CONST_DATA u8 Unk_Itemuse_3[] = {
     CLASS_EPHRAIM_LORD,
     CLASS_EIRIKA_LORD,
     CLASS_NONE,
@@ -313,7 +313,7 @@ CONST_DATA u8 gItemUseJidList_OceanSeal[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADFA2[] = {
+CONST_DATA u8 Unk_Itemuse_4[] = {
     CLASS_NONE,
 };
 
@@ -331,18 +331,18 @@ CONST_DATA u8 gItemUseJidList_SolarBrace[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADFA8[] = {
+CONST_DATA u8 Unk_Itemuse_5[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADFA9[] = {
+CONST_DATA u8 Unk_Itemuse_6[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADFAA[] = {
+CONST_DATA u8 Unk_Itemuse_7[] = {
     CLASS_NONE,
 };
 
-CONST_DATA u8 Unk_088ADFAB[] = {
+CONST_DATA u8 Unk_Itemuse_8[] = {
     CLASS_NONE,
 };

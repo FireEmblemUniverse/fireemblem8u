@@ -71,24 +71,24 @@ s8 CONST_DATA gUnitBurstMapUiYOffsetTable[6] =
     -6, -6, -6, 3, 3, 3
 };
 
-u16 * CONST_DATA gUnknown_08A0186C[6] =
+u16 * CONST_DATA gPlayerInterface_0[6] =
 {
-    gUnknown_08A175B4,
-    gUnknown_08A175B4,
-    gUnknown_08A175B4,
-    gUnknown_08A175C8,
-    gUnknown_08A175DC,
-    gUnknown_08A175F0
+    gTsa_UnitBurstMapUiTopFlat,
+    gTsa_UnitBurstMapUiTopFlat,
+    gTsa_UnitBurstMapUiTopFlat,
+    gTsa_UnitBurstMapUiTopLeftTail,
+    gTsa_UnitBurstMapUiTopCenterTail,
+    gTsa_UnitBurstMapUiTopRightTail
 };
 
-u16 * CONST_DATA gUnknown_08A01884[6] =
+u16 * CONST_DATA gPlayerInterface_1[6] =
 {
-    gUnknown_08A1763C,
-    gUnknown_08A17650,
-    gUnknown_08A17664,
-    gUnknown_08A17678,
-    gUnknown_08A17678,
-    gUnknown_08A17678
+    gTsa_UnitBurstMapUiBottomLeftTail,
+    gTsa_UnitBurstMapUiBottomCenterTail,
+    gTsa_UnitBurstMapUiBottomRightTail,
+    gTsa_UnitBurstMapUiBottomFlat,
+    gTsa_UnitBurstMapUiBottomFlat,
+    gTsa_UnitBurstMapUiBottomFlat
 };
 
 s8 CONST_DATA sMMBSlideInWidthLut[4] =
@@ -590,7 +590,7 @@ void TerrainDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808C234
-void sub_808C234(struct PlayerInterfaceProc * proc)
+void PutUnitMapUiWindow(struct PlayerInterfaceProc * proc)
 {
     int x;
     int y;
@@ -620,7 +620,7 @@ void sub_808C234(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808C288
-void sub_808C288(struct PlayerInterfaceProc * proc)
+void PutTerrainDisplayWindow(struct PlayerInterfaceProc * proc)
 {
     int x;
 
@@ -659,7 +659,7 @@ void ApplyUnitMapUiFramePal(int faction, int palId)
         break;
 
     default:
-        nullsub_8();
+        Nop_Bmmap_0();
         break;
     }
 
@@ -669,7 +669,7 @@ void ApplyUnitMapUiFramePal(int faction, int palId)
 }
 
 //! FE8U = 0x0808C314
-int sub_808C314(void)
+int GetCursorScreenSideX(void)
 {
     if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) < DISPLAY_WIDTH / 2 - 8)
     {
@@ -682,7 +682,7 @@ int sub_808C314(void)
 }
 
 //! FE8U = 0x0808C33C
-int sub_808C33C(void)
+int GetCursorScreenSideXAlt(void)
 {
     if (((gBmSt.playerCursor.x * 16) - gBmSt.camera.x) > DISPLAY_WIDTH / 2 - 8)
     {
@@ -985,9 +985,9 @@ void DrawUnitBurstMapUi(struct PlayerInterfaceProc * proc, struct Unit * unit)
 
     UnitMapUiUpdate(proc, unit);
 
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A0186C[orientation], TILEREF(0x100, 3));
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 1), gUnknown_08A17604, TILEREF(0x100, 3));
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 4), gUnknown_08A01884[orientation], TILEREF(0x100, 3));
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gPlayerInterface_0[orientation], TILEREF(0x100, 3));
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 1), gTsa_UnitBurstMapUiMiddle, TILEREF(0x100, 3));
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y + 4), gPlayerInterface_1[orientation], TILEREF(0x100, 3));
 
     BG_EnableSyncByMask(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -1167,7 +1167,7 @@ void TerrainDisplay_Loop_Display(struct PlayerInterfaceProc * proc)
               sPlayerInterfaceConfigLut[proc->cursorQuadrant].yTerrain)))
         {
             DrawTerrainDisplayWindow(proc);
-            sub_808C288(proc);
+            PutTerrainDisplayWindow(proc);
             return;
         }
     }
@@ -1244,7 +1244,7 @@ void MMB_Loop_Display(struct PlayerInterfaceProc * proc)
 
     if ((proc->unitClock & 63) == 0)
     {
-        sub_808C234(proc);
+        PutUnitMapUiWindow(proc);
     }
 
     proc->xCursorPrev = proc->xCursor;
@@ -1292,7 +1292,7 @@ void MMB_CheckForUnit(struct PlayerInterfaceProc * proc)
     else
     {
         DrawUnitMapUi(proc, unit);
-        sub_808C234(proc);
+        PutUnitMapUiWindow(proc);
     }
 
     return;
@@ -1477,7 +1477,7 @@ void EndPlayerPhaseSideWindows(void)
 }
 
 //! FE8U = 0x0808D190
-bool sub_808D190(void)
+bool IsCursorInLowerScreenHalf(void)
 {
     if (((gBmSt.playerCursor.y * 16) - gBmSt.camera.y) > 64)
     {
@@ -1488,28 +1488,28 @@ bool sub_808D190(void)
 }
 
 //! FE8U = 0x0808D1B4
-int sub_808D1B4(void)
+int GetCursorScreenQuadrant(void)
 {
-    if (sub_808D190())
+    if (IsCursorInLowerScreenHalf())
     {
-        if (sub_808C314() == -1)
+        if (GetCursorScreenSideX() == -1)
         {
             return 2;
         }
 
-        if (sub_808C314() == +1)
+        if (GetCursorScreenSideX() == +1)
         {
             return 1;
         }
     }
     else
     {
-        if (sub_808C33C() == -1)
+        if (GetCursorScreenSideXAlt() == -1)
         {
             return 4;
         }
 
-        if (sub_808C33C() == +1)
+        if (GetCursorScreenSideXAlt() == +1)
         {
             return 3;
         }
@@ -1519,7 +1519,7 @@ int sub_808D1B4(void)
 }
 
 //! FE8U = 0x0808D200
-void sub_808D200(struct PlayerInterfaceProc * proc)
+void DrawGoalDisplayWindow(struct PlayerInterfaceProc * proc)
 {
     TileMap_FillRect(gUiTmScratchB + TILEMAP_INDEX(20, 10), 11, 9, 0);
     TileMap_FillRect(gUiTmScratchA + TILEMAP_INDEX(20, 12), 11, 9, 0);
@@ -1687,7 +1687,7 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 
     proc->windowQuadrant = quadrant;
 
-    sub_808D200(proc);
+    DrawGoalDisplayWindow(proc);
 
     proc->xCursor = gBmSt.playerCursor.x;
     proc->yCursor = gBmSt.playerCursor.y;
@@ -1701,7 +1701,7 @@ void GoalDisplay_Loop_OnSideChange(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808D514
-void sub_808D514(int quadrant, int param_2, int param_3)
+void PutGoalDisplayWindow(int quadrant, int param_2, int param_3)
 {
     int x = sPlayerInterfaceConfigLut[quadrant].xGoal;
     int y = sPlayerInterfaceConfigLut[quadrant].yGoal;
@@ -1762,7 +1762,7 @@ void GoalDisplay_Loop_SlideIn(struct PlayerInterfaceProc * proc)
 {
     int unk = sGoalSlideInWidthLut[proc->showHideClock];
 
-    sub_808D514(proc->cursorQuadrant, unk, proc->unitClock);
+    PutGoalDisplayWindow(proc->cursorQuadrant, unk, proc->unitClock);
 
     proc->showHideClock++;
 
@@ -1786,7 +1786,7 @@ void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 
     unk = sGoalSlideOutWidthLut[proc->showHideClock];
 
-    sub_808D514(proc->cursorQuadrant, unk, proc->unitClock);
+    PutGoalDisplayWindow(proc->cursorQuadrant, unk, proc->unitClock);
 
     proc->showHideClock++;
 
@@ -1804,7 +1804,7 @@ void GoalDisplay_Loop_SlideOut(struct PlayerInterfaceProc * proc)
 }
 
 //! FE8U = 0x0808D778
-void sub_808D778(void)
+void Nop_PlayerInterface_0(void)
 {
     return;
 }
@@ -1816,7 +1816,7 @@ void __malloc_unlock_0(void)
 }
 
 //! FE8U = 0x0808D780
-void sub_808D780(void)
+void Nop_PlayerInterface_1(void)
 {
     return;
 }

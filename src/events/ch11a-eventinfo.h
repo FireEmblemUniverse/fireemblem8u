@@ -1,16 +1,16 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch11a_Turn[] = {
-    TurnEventPlayer(0, EventScr_089F4EA4, 9)
-    TurnEventPlayer_(0, EventScr_089F4F40, 4, 2)
-    TurnEventPlayer(0, EventScr_089F4F58, 8)
-    TurnEventPlayer(0, EventScr_089F4F70, 12)
+    TurnEventPlayer(0, EventScr_Ch11A_2, 9)
+    TurnEventPlayer_(0, EventScr_Ch11A_6, 4, 2)
+    TurnEventPlayer(0, EventScr_Ch11A_7, 8)
+    TurnEventPlayer(0, EventScr_Ch11A_8, 12)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch11a_Character[] = {
-    CHAR(EVFLAG_TMP(10), EventScr_089F4E54, CHARACTER_EIRIKA, CHARACTER_LARACHEL)
-    CHAR(EVFLAG_TMP(11), EventScr_089F4E7C, CHARACTER_LARACHEL, CHARACTER_DOZLA)
+    CHAR(EVFLAG_TMP(10), EventScr_Ch11A_0, CHARACTER_EIRIKA, CHARACTER_LARACHEL)
+    CHAR(EVFLAG_TMP(11), EventScr_Ch11A_1, CHARACTER_LARACHEL, CHARACTER_DOZLA)
     END_MAIN
 };
 
@@ -26,10 +26,10 @@ CONST_DATA EventListScr EventListScr_Ch11a_Location[] = {
 
 CONST_DATA EventListScr EventListScr_Ch11a_Misc[] = {
     DefeatAll(EventScr_Ch11a_EndingScene)
-    AREA(EVFLAG_TMP(7), EventScr_089F4EBC, 14, 2, 21, 10)
-    AREA(EVFLAG_TMP(8), EventScr_089F4EE0, 12, 11, 21, 17)
-    AREA(EVFLAG_TMP(9), EventScr_089F4F1C, 1, 6, 5, 10)
-    AREA(EVFLAG_TMP(9), EventScr_089F4F1C, 6, 8, 8, 12)
+    AREA(EVFLAG_TMP(7), EventScr_Ch11A_3, 14, 2, 21, 10)
+    AREA(EVFLAG_TMP(8), EventScr_Ch11A_4, 12, 11, 21, 17)
+    AREA(EVFLAG_TMP(9), EventScr_Ch11A_5, 1, 6, 5, 10)
+    AREA(EVFLAG_TMP(9), EventScr_Ch11A_5, 6, 8, 8, 12)
     CauseGameOverIfLordDies
     END_MAIN
 };

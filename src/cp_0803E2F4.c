@@ -16,18 +16,18 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-u8 EWRAM_DATA gUnknown_0203AAA0 = 0;
+u8 EWRAM_DATA gAiStoredTargetCharId = 0;
 
 // forward declarations
 void AiFillDangerMap(void);
 s8 AiUpdateGetUnitIsHealing(struct Unit*);
 const struct AiEscapePt* GetEscapePointStructThingMaybe(void);
-void sub_803EC18(u16);
+void AiMarkStaffCapabilityFlags(u16);
 s8 AiIsWithinFlyingDistance(struct Unit*, int, int);
 int StoreItemAndGetUnitAttack(struct Unit*, u16*);
 s8 AiTryDoDanceAdjacent(int, int);
 s8 AiTryDoStealAdjacent(int, int);
-s8 sub_803EEB0(int, int);
+s8 AiTryDoCombatInRangeFromPosition(int, int);
 
 
 //! FE8U = 0x0803E2F4
@@ -400,7 +400,7 @@ s8 AiEquipGetFlags(u16 * out)
         }
         else
         {
-            sub_803EC18(item);
+            AiMarkStaffCapabilityFlags(item);
             out[i] |= 8;
         }
 
@@ -508,7 +508,7 @@ void AiEquipBestConsideringDanger(u16 range_danger, u16 melee_danger, u16 combin
 }
 
 //! FE8U = 0x0803EC18
-void sub_803EC18(u16 item) {
+void AiMarkStaffCapabilityFlags(u16 item) {
     switch (GetItemIndex(item)) {
         case ITEM_STAFF_HEAL:
         case ITEM_STAFF_MEND:
@@ -572,7 +572,7 @@ void AiTryActionAfterMove(void) {
         return;
     }
 
-    sub_803EEB0(gAiDecision.xMove, gAiDecision.yMove);
+    AiTryDoCombatInRangeFromPosition(gAiDecision.xMove, gAiDecision.yMove);
 
     return;
 }
@@ -649,7 +649,7 @@ s8 AiTryDoStealAdjacent(int x, int y) {
 }
 
 //! FE8U = 0x0803EEB0
-s8 sub_803EEB0(int x, int y) {
+s8 AiTryDoCombatInRangeFromPosition(int x, int y) {
     int ix;
     int iy;
 
@@ -765,7 +765,7 @@ struct Unknown_Sub80315C {
 };
 
 //! FE8U = 0x0803F15C
-s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
+s8 AiTryAttackFromConfiguredPosition(const struct Unknown_Sub80315C* input) {
     u16 item;
     int ix;
     int iy;
@@ -850,13 +850,13 @@ s8 sub_803F15C(const struct Unknown_Sub80315C* input) {
 }
 
 //! FE8U = 0x0803F330
-s8 sub_803F330(const void* input) {
+s8 AiFunc_StoreAiCounter(const void* input) {
     gAiState.cmd_result[0] = gActiveUnit->ai_counter;
     return 0;
 }
 
 //! FE8U = 0x0803F34C
-s8 sub_803F34C(const void* input) {
+s8 AiFunc_RestartDecisionState(const void* input) {
 
     int i;
     int faction = GetCurrentPhase();
@@ -871,7 +871,7 @@ s8 sub_803F34C(const void* input) {
 }
 
 //! FE8U = 0x0803F37C
-s8 sub_803F37C(const void* input) {
+s8 AiFunc_RestartDecisionStateDuplicate(const void* input) {
 
     int i;
     int faction = GetCurrentPhase();
@@ -894,11 +894,11 @@ s8 AiTryMoveToSpecificPosition(struct Vec2* out) {
     int idx = (gActiveUnit->ai_config & 0x1fc0) >> 8;
     int ai_counter = gActiveUnit->ai_counter;
 
-    if (gUnknown_085A8400 == NULL) {
+    if (gCpData_31 == NULL) {
         return 0;
     }
 
-    posA = gUnknown_085A8400[idx];
+    posA = gCpData_31[idx];
 
     if (posA == NULL) {
         return 0;
@@ -957,7 +957,7 @@ struct UnknownSub803F4A4 {
 };
 
 //! FE8U = 0x0803F4A4
-s8 sub_803F4A4(const void* input) {
+s8 AiFunc_CheckUnitInBoundingBox(const void* input) {
     const struct UnknownSub803F4A4* castInput = (const struct UnknownSub803F4A4*)input;
 
     u8 x = gActiveUnit->xPos;
@@ -974,7 +974,7 @@ s8 sub_803F4A4(const void* input) {
 }
 
 //! FE8U = 0x0803F4EC
-s8 sub_803F4EC(const void* input) {
+s8 AiDecideTalkBetweenChars(const void* input) {
 
     AiUpdateDecision(
         8,
@@ -988,7 +988,7 @@ s8 sub_803F4EC(const void* input) {
 }
 
 //! FE8U = 0x0803F51C
-s8 sub_803F51C(const void* input) {
+s8 AiFunc_FindLeaderCombatTarget(const void* input) {
     u16 leaderAi1;
     u16 leaderai_a_pc;
     struct Unit* leader;
@@ -1044,9 +1044,9 @@ _0803F584:
 }
 
 //! FE8U = 0x0803F5E0
-s8 sub_803F5E0(struct Unit* unit) {
+s8 AiIsUnitEnemyWithStoredCharId(struct Unit* unit) {
 
-    if (unit->pCharacterData->number != gUnknown_0203AAA0) {
+    if (unit->pCharacterData->number != gAiStoredTargetCharId) {
         return 0;
     }
 
@@ -1058,15 +1058,15 @@ s8 sub_803F5E0(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803F61C
-s8 sub_803F61C(const void* input) {
-    gUnknown_0203AAA0 = ((u8*)(input))[0];
+s8 AiFunc_AttackUnitWithCharId(const void* input) {
+    gAiStoredTargetCharId = ((u8*)(input))[0];
 
     if (AiUnitWithCharIdExists(((u8*)(input))[0]) != 1) {
         gAiState.cmd_result[1] = 1;
         return 0;
     }
 
-    AiAttemptOffensiveAction(sub_803F5E0);
+    AiAttemptOffensiveAction(AiIsUnitEnemyWithStoredCharId);
     gAiState.cmd_result[0] = 0;
 
     if ((gAiDecision.actionPerformed == 1) && (gAiDecision.actionId == AI_ACTION_COMBAT)) {
@@ -1079,7 +1079,7 @@ s8 sub_803F61C(const void* input) {
 }
 
 //! FE8U = 0x0803F680
-s8 sub_803F680(struct Unit* unit) {
+s8 AiIsUnitEnemyWithStoredUnitId(struct Unit* unit) {
 
     if (unit->index != gAiState.cmd_result[0]) {
         return 0;
@@ -1093,7 +1093,7 @@ s8 sub_803F680(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803F6B8
-s8 sub_803F6B8(struct Unit* unit) {
+s8 AiIsUnitEnemyInDirectionOfTarget(struct Unit* unit) {
     int a;
     int b;
     int c;
@@ -1122,7 +1122,7 @@ s8 sub_803F6B8(struct Unit* unit) {
 }
 
 //! FE8U = 0x0803F72C
-s8 sub_803F72C(const void* input) {
+s8 AiFunc_AttackStoredTargetOrMoveToward(const void* input) {
     struct Unit* unit;
 
     if (gAiState.cmd_result[0] == 0) {
@@ -1131,13 +1131,13 @@ s8 sub_803F72C(const void* input) {
 
     unit = GetUnit(gAiState.cmd_result[0]);
 
-    AiAttemptOffensiveAction(sub_803F680);
+    AiAttemptOffensiveAction(AiIsUnitEnemyWithStoredUnitId);
 
     if (gAiDecision.actionPerformed == 1) {
         return 1;
     }
 
-    AiAttemptOffensiveAction(sub_803F6B8);
+    AiAttemptOffensiveAction(AiIsUnitEnemyInDirectionOfTarget);
 
     if (gAiDecision.actionPerformed == 1) {
         return 1;
@@ -1148,7 +1148,7 @@ s8 sub_803F72C(const void* input) {
 }
 
 //! FE8U = 0x0803F790
-s8 sub_803F790(const void* input) {
+s8 AiFunc_TryHealStaffByChance(const void* input) {
     u8 rng = NextRN_N(100);
 
     gAiState.unk7C = ((u8*)(input))[1];
@@ -1167,7 +1167,7 @@ s8 sub_803F790(const void* input) {
 }
 
 //! FE8U = 0x0803F7DC
-s8 sub_803F7DC(const void* input) {
+s8 AiFunc_TrySpecialItemsByChance(const void* input) {
     u8 rng = NextRN_N(100);
 
     if (rng <= ((u8*)(input))[0]) {
@@ -1256,7 +1256,7 @@ s8 AiBallistaRideExit(const void * input)
 }
 
 //! FE8U = 0x0803F9A8
-s8 sub_803F9A8(const void* input) {
+s8 AiFunc_MoveTowardsInputPosition(const void* input) {
 
     AiTryMoveTowards(((u8*)(input))[0], ((u8*)(input))[1], 0, 0xff, 1);
 
@@ -1264,7 +1264,7 @@ s8 sub_803F9A8(const void* input) {
 }
 
 //! FE8U = 0x0803F9C8
-s8 sub_803F9C8(const void* input) {
+s8 AiFunc_EndDecision(const void* input) {
     gAiState.decideState = 4;
 
     return 1;

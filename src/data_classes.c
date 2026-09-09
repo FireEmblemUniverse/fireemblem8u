@@ -53,7 +53,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AEFD8,
+        .pBattleAnimDef = AnimConf_0,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -111,7 +111,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AEFE4,
+        .pBattleAnimDef = AnimConf_1,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -169,7 +169,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AEFF0,
+        .pBattleAnimDef = AnimConf_2,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -227,7 +227,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AEFFC,
+        .pBattleAnimDef = AnimConf_3,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -286,7 +286,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_E,
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF008,
+        .pBattleAnimDef = AnimConf_4,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT1Normal,
             TerrainTable_MovCost_HorseT1Rain,
@@ -345,7 +345,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_E,
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF018,
+        .pBattleAnimDef = AnimConf_5,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT1Normal,
             TerrainTable_MovCost_HorseT1Rain,
@@ -404,7 +404,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF028,
+        .pBattleAnimDef = AnimConf_6,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -463,7 +463,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF038,
+        .pBattleAnimDef = AnimConf_7,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -520,7 +520,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF048,
+        .pBattleAnimDef = AnimConf_8,
         .pMovCostTable = {
             TerrainTable_MovCost_ArmorNormal,
             TerrainTable_MovCost_ArmorRain,
@@ -577,7 +577,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF054,
+        .pBattleAnimDef = AnimConf_9,
         .pMovCostTable = {
             TerrainTable_MovCost_ArmorNormal,
             TerrainTable_MovCost_ArmorRain,
@@ -638,7 +638,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_LANCE] = WPN_EXP_C,
             [ITYPE_AXE]   = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF060,
+        .pBattleAnimDef = AnimConf_10,
         .pMovCostTable = {
             TerrainTable_MovCost_ArmorNormal,
             TerrainTable_MovCost_ArmorRain,
@@ -699,7 +699,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_LANCE] = WPN_EXP_C,
             [ITYPE_AXE]   = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF080,
+        .pBattleAnimDef = AnimConf_11,
         .pMovCostTable = {
             TerrainTable_MovCost_ArmorNormal,
             TerrainTable_MovCost_ArmorRain,
@@ -757,7 +757,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF0A0,
+        .pBattleAnimDef = AnimConf_12,
         .pMovCostTable = {
             TerrainTable_MovCost_ThiefNormal,
             TerrainTable_MovCost_ThiefRain,
@@ -811,7 +811,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF0AC,
+        .pBattleAnimDef = AnimConf_13,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -867,7 +867,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF0B8,
+        .pBattleAnimDef = AnimConf_14,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -923,7 +923,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF0C4,
+        .pBattleAnimDef = AnimConf_15,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -982,7 +982,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_C,
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF0D0,
+        .pBattleAnimDef = AnimConf_16,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1041,7 +1041,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_C,
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF0EC,
+        .pBattleAnimDef = AnimConf_17,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1099,7 +1099,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF108,
+        .pBattleAnimDef = AnimConf_18,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -1157,7 +1157,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF114,
+        .pBattleAnimDef = AnimConf_19,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -1215,7 +1215,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF120,
+        .pBattleAnimDef = AnimConf_20,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1273,7 +1273,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF12C,
+        .pBattleAnimDef = AnimConf_21,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1331,7 +1331,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF138,
+        .pBattleAnimDef = AnimConf_22,
         .pMovCostTable = {
             TerrainTable_MovCost_ThiefNormal,
             TerrainTable_MovCost_ThiefRain,
@@ -1389,7 +1389,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF144,
+        .pBattleAnimDef = AnimConf_23,
         .pMovCostTable = {
             TerrainTable_MovCost_ThiefNormal,
             TerrainTable_MovCost_ThiefRain,
@@ -1447,7 +1447,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF150,
+        .pBattleAnimDef = AnimConf_24,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -1505,7 +1505,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF168,
+        .pBattleAnimDef = AnimConf_25,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -1563,7 +1563,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF180,
+        .pBattleAnimDef = AnimConf_26,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1621,7 +1621,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF198,
+        .pBattleAnimDef = AnimConf_27,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT2Normal,
             TerrainTable_MovCost_CommonT2Rain,
@@ -1680,7 +1680,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_BOW]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF1B0,
+        .pBattleAnimDef = AnimConf_28,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT2Normal,
             TerrainTable_MovCost_AnimalT2Rain,
@@ -1739,7 +1739,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_BOW]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF1C0,
+        .pBattleAnimDef = AnimConf_29,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT2Normal,
             TerrainTable_MovCost_AnimalT2Rain,
@@ -1797,7 +1797,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF1D0,
+        .pBattleAnimDef = AnimConf_30,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -1855,7 +1855,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF1DC,
+        .pBattleAnimDef = AnimConf_31,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -1914,7 +1914,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF1E8,
+        .pBattleAnimDef = AnimConf_32,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -1973,7 +1973,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_D,
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF1F8,
+        .pBattleAnimDef = AnimConf_33,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -2031,7 +2031,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF208,
+        .pBattleAnimDef = AnimConf_34,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -2089,7 +2089,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF214,
+        .pBattleAnimDef = AnimConf_35,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -2145,7 +2145,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_ANIMA] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF220,
+        .pBattleAnimDef = AnimConf_36,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2201,7 +2201,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_ANIMA] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF234,
+        .pBattleAnimDef = AnimConf_37,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2261,7 +2261,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_ANIMA] = WPN_EXP_C,
             [ITYPE_LIGHT] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF248,
+        .pBattleAnimDef = AnimConf_38,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2321,7 +2321,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_ANIMA] = WPN_EXP_C,
             [ITYPE_LIGHT] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF260,
+        .pBattleAnimDef = AnimConf_39,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2380,7 +2380,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_D,
             [ITYPE_ANIMA] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF278,
+        .pBattleAnimDef = AnimConf_40,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -2439,7 +2439,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_D,
             [ITYPE_ANIMA] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF290,
+        .pBattleAnimDef = AnimConf_41,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -2498,7 +2498,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_C,
             [ITYPE_LIGHT] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF2A8,
+        .pBattleAnimDef = AnimConf_42,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2507,7 +2507,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C6C2,
+        ._pU50 = &Unk_TerrainTable_6,
     },
     [CLASS_BISHOP_F - 1] = {
         .nameTextId = 0x2d4,
@@ -2558,7 +2558,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_C,
             [ITYPE_LIGHT] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF2C0,
+        .pBattleAnimDef = AnimConf_43,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2567,7 +2567,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C6C2,
+        ._pU50 = &Unk_TerrainTable_6,
     },
     [CLASS_SHAMAN - 1] = {
         .nameTextId = 0x2e1,
@@ -2616,7 +2616,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_DARK]  = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF2D8,
+        .pBattleAnimDef = AnimConf_44,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2673,7 +2673,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_DARK]  = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF2EC,
+        .pBattleAnimDef = AnimConf_45,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2734,7 +2734,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_ANIMA] = WPN_EXP_D,
             [ITYPE_DARK]  = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF300,
+        .pBattleAnimDef = AnimConf_46,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2795,7 +2795,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_ANIMA] = WPN_EXP_D,
             [ITYPE_DARK]  = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF318,
+        .pBattleAnimDef = AnimConf_47,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2854,7 +2854,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_E,
             [ITYPE_DARK]  = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF330,
+        .pBattleAnimDef = AnimConf_48,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2913,7 +2913,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_E,
             [ITYPE_DARK]  = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF348,
+        .pBattleAnimDef = AnimConf_49,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -2971,7 +2971,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_SWORD] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF360,
+        .pBattleAnimDef = AnimConf_50,
         .pMovCostTable = {
             TerrainTable_MovCost_ThiefNormal,
             TerrainTable_MovCost_ThiefRain,
@@ -3081,7 +3081,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_LANCE] = WPN_EXP_D,
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF36C,
+        .pBattleAnimDef = AnimConf_51,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -3142,7 +3142,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_LANCE] = WPN_EXP_D,
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF38C,
+        .pBattleAnimDef = AnimConf_52,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -3198,7 +3198,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF3AC,
+        .pBattleAnimDef = AnimConf_53,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -3256,7 +3256,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF3B8,
+        .pBattleAnimDef = AnimConf_54,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -3316,7 +3316,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_LIGHT] = WPN_EXP_E,
             [ITYPE_DARK]  = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF3D0,
+        .pBattleAnimDef = AnimConf_55,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -3374,7 +3374,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF3E4,
+        .pBattleAnimDef = AnimConf_56,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -3428,7 +3428,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF3F0,
+        .pBattleAnimDef = AnimConf_57,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -3482,7 +3482,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF3FC,
+        .pBattleAnimDef = AnimConf_58,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -3539,7 +3539,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF408,
+        .pBattleAnimDef = AnimConf_59,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -3596,7 +3596,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_ANIMA] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF420,
+        .pBattleAnimDef = AnimConf_60,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -3652,7 +3652,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF434,
+        .pBattleAnimDef = AnimConf_61,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -3711,7 +3711,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_AXE]   = WPN_EXP_C,
             [ITYPE_BOW]   = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF44C,
+        .pBattleAnimDef = AnimConf_62,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -3766,7 +3766,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF468,
+        .pBattleAnimDef = AnimConf_63,
         .pMovCostTable = {
             TerrainTable_MovCost_BrigandNormal,
             TerrainTable_MovCost_BrigandRain,
@@ -3775,7 +3775,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C5FF,
+        ._pU50 = &Unk_TerrainTable_3,
     },
     [CLASS_PIRATE - 1] = {
         .nameTextId = 0x2ee,
@@ -3823,7 +3823,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF480,
+        .pBattleAnimDef = AnimConf_64,
         .pMovCostTable = {
             TerrainTable_MovCost_PirateNormal,
             TerrainTable_MovCost_PirateRain,
@@ -3832,7 +3832,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C640,
+        ._pU50 = &Unk_TerrainTable_4,
     },
     [CLASS_BERSERKER - 1] = {
         .nameTextId = 0x2df,
@@ -3882,7 +3882,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF498,
+        .pBattleAnimDef = AnimConf_65,
         .pMovCostTable = {
             TerrainTable_MovCost_BerserkerNormal,
             TerrainTable_MovCost_BerserkerRain,
@@ -3891,7 +3891,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C681,
+        ._pU50 = &Unk_TerrainTable_5,
     },
     [CLASS_MONK - 1] = {
         .nameTextId = 0x2e4,
@@ -3938,7 +3938,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LIGHT] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF4B0,
+        .pBattleAnimDef = AnimConf_66,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -3947,7 +3947,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C6C2,
+        ._pU50 = &Unk_TerrainTable_6,
     },
     [CLASS_PRIEST - 1] = {
         .nameTextId = 0x2e6,
@@ -3995,7 +3995,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_STAFF] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF4C4,
+        .pBattleAnimDef = AnimConf_67,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -4004,7 +4004,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C6C2,
+        ._pU50 = &Unk_TerrainTable_6,
     },
     [CLASS_BARD - 1] = {
         .nameTextId = 0x2e5,
@@ -4104,7 +4104,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF4D0,
+        .pBattleAnimDef = AnimConf_68,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4162,7 +4162,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF4DC,
+        .pBattleAnimDef = AnimConf_69,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -4221,7 +4221,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_E,
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF4E8,
+        .pBattleAnimDef = AnimConf_70,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -4277,7 +4277,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_STAFF] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF4F8,
+        .pBattleAnimDef = AnimConf_71,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -4286,7 +4286,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C6C2,
+        ._pU50 = &Unk_TerrainTable_6,
     },
     [CLASS_TROUBADOUR - 1] = {
         .nameTextId = 0x2ea,
@@ -4336,7 +4336,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_STAFF] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF504,
+        .pBattleAnimDef = AnimConf_72,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT1Normal,
             TerrainTable_MovCost_HorseT1Rain,
@@ -4395,7 +4395,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_D,
             [ITYPE_LIGHT] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF510,
+        .pBattleAnimDef = AnimConf_73,
         .pMovCostTable = {
             TerrainTable_MovCost_HorseT2Normal,
             TerrainTable_MovCost_HorseT2Rain,
@@ -4448,7 +4448,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_DANCE,
-        .pBattleAnimDef = AnimConf_088AF528,
+        .pBattleAnimDef = AnimConf_74,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4502,7 +4502,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_E,
         },
-        .pBattleAnimDef = AnimConf_088AF53C,
+        .pBattleAnimDef = AnimConf_75,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4561,7 +4561,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_STAFF] = WPN_EXP_S,
             [ITYPE_DARK]  = WPN_EXP_S,
         },
-        .pBattleAnimDef = AnimConf_088AF548,
+        .pBattleAnimDef = AnimConf_76,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -4721,7 +4721,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF560,
+        .pBattleAnimDef = AnimConf_77,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4774,7 +4774,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF56C,
+        .pBattleAnimDef = AnimConf_78,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4832,7 +4832,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_C,
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF578,
+        .pBattleAnimDef = AnimConf_79,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4887,7 +4887,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF588,
+        .pBattleAnimDef = AnimConf_80,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -4945,7 +4945,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_SWORD] = WPN_EXP_A,
             [ITYPE_LANCE] = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF594,
+        .pBattleAnimDef = AnimConf_81,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -5002,7 +5002,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_BOW]   = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF5A4,
+        .pBattleAnimDef = AnimConf_82,
         .pMovCostTable = {
             TerrainTable_MovCost_CommonT1Normal,
             TerrainTable_MovCost_CommonT1Rain,
@@ -5055,7 +5055,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF5B0,
+        .pBattleAnimDef = AnimConf_83,
         .pMovCostTable = {
             TerrainTable_MovCost_BrigandNormal,
             TerrainTable_MovCost_BrigandRain,
@@ -5064,7 +5064,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C5FF,
+        ._pU50 = &Unk_TerrainTable_3,
     },
     [CLASS_ELDER_BAEL - 1] = {
         .nameTextId = 0x2f7,
@@ -5109,7 +5109,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF5BC,
+        .pBattleAnimDef = AnimConf_84,
         .pMovCostTable = {
             TerrainTable_MovCost_BrigandNormal,
             TerrainTable_MovCost_BrigandRain,
@@ -5118,7 +5118,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C5FF,
+        ._pU50 = &Unk_TerrainTable_3,
     },
     [CLASS_CYCLOPS - 1] = {
         .nameTextId = 0x2f8,
@@ -5167,7 +5167,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF5C8,
+        .pBattleAnimDef = AnimConf_85,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -5220,7 +5220,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF5E0,
+        .pBattleAnimDef = AnimConf_86,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT1Normal,
             TerrainTable_MovCost_AnimalT1Rain,
@@ -5273,7 +5273,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF5EC,
+        .pBattleAnimDef = AnimConf_87,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT2Normal,
             TerrainTable_MovCost_AnimalT2Rain,
@@ -5328,7 +5328,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF5F8,
+        .pBattleAnimDef = AnimConf_88,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT1Normal,
             TerrainTable_MovCost_AnimalT1Rain,
@@ -5386,7 +5386,7 @@ CONST_DATA struct ClassData gClassData[] = {
             [ITYPE_AXE]   = WPN_EXP_A,
             [ITYPE_BOW]   = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF610,
+        .pBattleAnimDef = AnimConf_89,
         .pMovCostTable = {
             TerrainTable_MovCost_AnimalT2Normal,
             TerrainTable_MovCost_AnimalT2Rain,
@@ -5443,7 +5443,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_DARK]  = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF62C,
+        .pBattleAnimDef = AnimConf_90,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -5500,7 +5500,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_DARK]  = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF640,
+        .pBattleAnimDef = AnimConf_91,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -5557,7 +5557,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_DARK]  = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF654,
+        .pBattleAnimDef = AnimConf_92,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,
@@ -5661,7 +5661,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_C,
         },
-        .pBattleAnimDef = AnimConf_088AF668,
+        .pBattleAnimDef = AnimConf_93,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -5718,7 +5718,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_LANCE] = WPN_EXP_A,
         },
-        .pBattleAnimDef = AnimConf_088AF674,
+        .pBattleAnimDef = AnimConf_94,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -5771,7 +5771,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF680,
+        .pBattleAnimDef = AnimConf_95,
         .pMovCostTable = {
             TerrainTable_MovCost_FlyNormal,
             TerrainTable_MovCost_FlyRain,
@@ -5824,7 +5824,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF68C,
+        .pBattleAnimDef = AnimConf_96,
         .pMovCostTable = {
             TerrainTable_MovCost_DemonKing,
             TerrainTable_MovCost_DemonKing,
@@ -6883,7 +6883,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_S,
         },
-        .pBattleAnimDef = AnimConf_088AF6A4,
+        .pBattleAnimDef = AnimConf_97,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -6936,7 +6936,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .promotionRes = 0,
 
         .attributes = CA_PROMOTED | CA_LOCK_3,
-        .pBattleAnimDef = AnimConf_088AF6BC,
+        .pBattleAnimDef = AnimConf_98,
         .pMovCostTable = {
             TerrainTable_MovCost_BrigandNormal,
             TerrainTable_MovCost_BrigandRain,
@@ -6945,7 +6945,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .pTerrainAvoidLookup = TerrainTable_Avo_Common,
         .pTerrainDefenseLookup = TerrainTable_Def_Common,
         .pTerrainResistanceLookup = TerrainTable_Res_Common,
-        ._pU50 = &Unk_TerrainTable_0880C5FF,
+        ._pU50 = &Unk_TerrainTable_3,
     },
     [CLASS_JOURNEYMAN_T1 - 1] = {
         .nameTextId = 0x2d8,
@@ -6993,7 +6993,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_AXE]   = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF6C8,
+        .pBattleAnimDef = AnimConf_99,
         .pMovCostTable = {
             TerrainTable_MovCost_FighterNormal,
             TerrainTable_MovCost_FighterRain,
@@ -7049,7 +7049,7 @@ CONST_DATA struct ClassData gClassData[] = {
         .baseRanks = {
             [ITYPE_ANIMA] = WPN_EXP_D,
         },
-        .pBattleAnimDef = AnimConf_088AF6E0,
+        .pBattleAnimDef = AnimConf_100,
         .pMovCostTable = {
             TerrainTable_MovCost_MagicNormal,
             TerrainTable_MovCost_MagicRain,

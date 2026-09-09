@@ -1,7 +1,7 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch6_Turn[] = {
-    TURN(0, EventScr_089F2B74, 4, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch6_4, 4, 0, FACTION_BLUE)
     END_MAIN
 };
 
@@ -10,13 +10,13 @@ CONST_DATA EventListScr EventListScr_Ch6_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch6_Location[] = {
-    Village(0, EventScr_089F2A98, 11, 18)
+    Village(0, EventScr_Ch6_1, 11, 18)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch6_Misc[] = {
     DefeatBoss(EventScr_Ch6_EndingScene)
-    AREA(EVFLAG_TMP(7), EventScr_089F2940, 24, 9, 27, 14)
+    AREA(EVFLAG_TMP(7), EventScr_Ch6_0, 24, 9, 27, 14)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -53,13 +53,13 @@ CONST_DATA struct ChapterEventGroup Ch6Events = {
     .playerUnitsInNormal = UnitDef_Event_Ch6Ally,
     .playerUnitsInHard   = UnitDef_Event_Ch6Ally,
 
-    .playerUnitsChoice1InEncounter = UnitDef_088B6540,
-    .playerUnitsChoice2InEncounter = UnitDef_088B6838,
-    .playerUnitsChoice3InEncounter = UnitDef_088B6B30,
+    .playerUnitsChoice1InEncounter = UnitDef_Ch6Ally_1,
+    .playerUnitsChoice2InEncounter = UnitDef_Ch6Ally_2,
+    .playerUnitsChoice3InEncounter = UnitDef_Ch6Ally_3,
 
-    .enemyUnitsChoice1InEncounter = UnitDef_088B6608,
-    .enemyUnitsChoice2InEncounter = UnitDef_088B6900,
-    .enemyUnitsChoice3InEncounter = UnitDef_088B6BF8,
+    .enemyUnitsChoice1InEncounter = UnitDef_Ch6Enemy_1,
+    .enemyUnitsChoice2InEncounter = UnitDef_Ch6Enemy_2,
+    .enemyUnitsChoice3InEncounter = UnitDef_Ch6Enemy_3,
 
     .beginningSceneEvents = EventScr_Ch6_BeginningScene,
     .endingSceneEvents    = EventScr_Ch6_EndingScene,

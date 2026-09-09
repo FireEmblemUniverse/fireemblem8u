@@ -9,16 +9,16 @@ CONST_DATA EventListScr EventListScr_DebugMap_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_DebugMap_Location[] = {
-    House(0, EventScr_089FF4F4, 1, 1)
-    House(0, EventScr_089FFB48, 3, 1)
-    House(0, EventScr_089FFBB8, 5, 1)
+    House(0, EventScr_Ruin_54, 1, 1)
+    House(0, EventScr_Ruin_56, 3, 1)
+    House(0, EventScr_Ruin_58, 5, 1)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_DebugMap_Misc[] = {
-    AREA(0, EventScr_089FF4E4, 1, 1, 1, 1)
-    AREA(0, EventScr_089FFB38, 3, 1, 3, 1)
-    AREA(0, EventScr_089FFBA8, 5, 1, 5, 1)
+    AREA(0, EventScr_Ruin_53, 1, 1, 1, 1)
+    AREA(0, EventScr_Ruin_55, 3, 1, 3, 1)
+    AREA(0, EventScr_Ruin_57, 5, 1, 5, 1)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -50,11 +50,11 @@ CONST_DATA struct ChapterEventGroup DebugMapEvents = {
     .specialEventsAfterUnitMoved   = EventListScr_DebugMap_UnitMove,
     .tutorialEvents                = EventListScr_DebugMap_Tutorial,
 
-    .traps            = TrapData_Event_089EDE79,
-    .extraTrapsInHard = TrapData_Event_089EDF6E,
+    .traps            = TrapData_Event_DebugMap_0,
+    .extraTrapsInHard = TrapData_Event_DebugMap_1,
 
-    .playerUnitsInNormal = UnitDef_088D118C,
-    .playerUnitsInHard   = UnitDef_088D118C,
+    .playerUnitsInNormal = UnitDef_UnusedAlly,
+    .playerUnitsInHard   = UnitDef_UnusedAlly,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

@@ -1,15 +1,15 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch20b_Turn[] = {
-    TurnEventEnemy(0, EventScr_089FD578, 1)
-    TurnEventPlayer_(0, EventScr_089FD630, 15, 7)
-    TurnEventPlayer_(0, EventScr_089FD674, 16, 7)
-    TurnEventPlayer_(EVFLAG_TMP(10), EventScr_089FD6D8, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089FD72C, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089FD7B4, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_089FD83C, 1, 255)
-    TurnEventPlayer_(0, EventScr_089FD8F8, 19, 11)
-    TurnEventPlayer_(0, EventScr_089FD95C, 5, 2)
+    TurnEventEnemy(0, EventScr_Ch20B_0, 1)
+    TurnEventPlayer_(0, EventScr_Ch20B_1, 15, 7)
+    TurnEventPlayer_(0, EventScr_Ch20B_2, 16, 7)
+    TurnEventPlayer_(EVFLAG_TMP(10), EventScr_Ch20B_4, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ch20B_6, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch20B_8, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_Ch20B_10, 1, 255)
+    TurnEventPlayer_(0, EventScr_Ch20B_11, 19, 11)
+    TurnEventPlayer_(0, EventScr_Ch20B_12, 5, 2)
     END_MAIN
 };
 
@@ -23,10 +23,10 @@ CONST_DATA EventListScr EventListScr_Ch20b_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch20b_Misc[] = {
-    AREA(EVFLAG_TMP(9), EventScr_089FD6B8, 17, 0, 25, 13)
-    AREA(EVFLAG_TMP(11), EventScr_089FD70C, 7, 0, 16, 6)
-    AREA(EVFLAG_TMP(13), EventScr_089FD794, 7, 15, 16, 20)
-    AREA(EVFLAG_TMP(15), EventScr_089FD81C, 7, 7, 16, 14)
+    AREA(EVFLAG_TMP(9), EventScr_Ch20B_3, 17, 0, 25, 13)
+    AREA(EVFLAG_TMP(11), EventScr_Ch20B_5, 7, 0, 16, 6)
+    AREA(EVFLAG_TMP(13), EventScr_Ch20B_7, 7, 15, 16, 20)
+    AREA(EVFLAG_TMP(15), EventScr_Ch20B_9, 7, 7, 16, 14)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -58,11 +58,11 @@ CONST_DATA struct ChapterEventGroup Ch20EphraimEventData = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch20b_UnitMove,
     .tutorialEvents                = EventListScr_Ch20b_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE1,
-    .extraTrapsInHard = TrapData_Event_089EDEDE,
+    .traps            = TrapData_Event_Ch20B_0,
+    .extraTrapsInHard = TrapData_Event_Ch20B_1,
 
-    .playerUnitsInNormal = UnitDef_088CA63C,
-    .playerUnitsInHard   = UnitDef_088CA63C,
+    .playerUnitsInNormal = UnitDef_Ch20BAlly,
+    .playerUnitsInHard   = UnitDef_Ch20BAlly,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

@@ -384,25 +384,25 @@ struct ProcCmd CONST_DATA ProcScr_efxLiveBG[] =
     PROC_END,
 };
 
-const u16 gUnknown_080DD8C6[] =
+const u16 gEfxmagicHealstaves_0[] =
 {
      0, 62,
     -1,
 };
 
-const u16 gUnknown_080DD8CC[] =
+const u16 gEfxmagicHealstaves_1[] =
 {
      1, 62,
     -1,
 };
 
-const u16 gUnknown_080DD8D2[] =
+const u16 gEfxmagicHealstaves_2[] =
 {
      0, 62,
     -1,
 };
 
-const u16 gUnknown_080DD8D8[] =
+const u16 gEfxmagicHealstaves_3[] =
 {
      1, 62,
     -1,
@@ -426,7 +426,7 @@ void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind)
     {
         case 0:
             proc->unk29 = 1;
-            proc->frame_config = gUnknown_080DD8C6;
+            proc->frame_config = gEfxmagicHealstaves_0;
             proc->tsal = Tsa_HealSpellBg;
             proc->tsar = Tsa_HealSpellBg;
 
@@ -449,7 +449,7 @@ void StartSubSpell_efxLiveBG_A(struct Anim * anim, u32 kind)
         case 1:
         case 2:
             proc->unk29 = 1;
-            proc->frame_config = gUnknown_080DD8D2;
+            proc->frame_config = gEfxmagicHealstaves_2;
 
             proc->tsal = Tsa_EfxLiveBG_B_L;
             proc->tsar = Tsa_EfxLiveBG_B_R;
@@ -481,7 +481,7 @@ void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind)
     switch (kind)
     {
         case 0:
-            proc->frame_config = gUnknown_080DD8CC;
+            proc->frame_config = gEfxmagicHealstaves_1;
             proc->tsal = Tsa_HealSpellBg;
             proc->tsar = Tsa_HealSpellBg;
 
@@ -503,7 +503,7 @@ void StartSubSpell_efxLiveBG_B(struct Anim * anim, u32 kind)
 
         case 1:
         case 2:
-            proc->frame_config = gUnknown_080DD8D8;
+            proc->frame_config = gEfxmagicHealstaves_3;
 
             proc->tsal = Tsa_EfxLiveBG_B_L;
             proc->tsar = Tsa_EfxLiveBG_B_R;
@@ -529,7 +529,7 @@ void efxLiveBG_Loop(struct ProcEfxBG * proc)
         u16 ** tsaR = proc->tsar;
 
         // TODO: Is this the correct data type?
-        sub_805560C(proc->anim, (u16 *)(tsaL + ret * 0x12c), (u16 *)(tsaR + ret * 0x12c));
+        SpellFx_WriteBgMapRaw(proc->anim, (u16 *)(tsaL + ret * 0x12c), (u16 *)(tsaR + ret * 0x12c));
     }
     else
     {
@@ -561,7 +561,7 @@ struct ProcCmd CONST_DATA ProcScr_efxLiveBGCOL[] =
     PROC_END,
 };
 
-const u16 gUnknown_080DD8EE[] =
+const u16 gEfxmagicHealstaves_4[] =
 {
      0, 3,
      1, 3,
@@ -582,7 +582,7 @@ const u16 gUnknown_080DD8EE[] =
     -1,
 };
 
-const u16 gUnknown_080DD930[] =
+const u16 gEfxmagicHealstaves_5[] =
 {
     15, 5,
     14, 4,
@@ -603,7 +603,7 @@ const u16 gUnknown_080DD930[] =
     -1,
 };
 
-const u16 gUnknown_080DD972[] =
+const u16 gEfxmagicHealstaves_6[] =
 {
      0, 3,
      1, 3,
@@ -620,7 +620,7 @@ const u16 gUnknown_080DD972[] =
     -1,
 };
 
-const u16 gUnknown_080DD9A4[] =
+const u16 gEfxmagicHealstaves_7[] =
 {
      0, 3,
      1, 3,
@@ -657,15 +657,15 @@ void StartSubSpell_efxLiveBGCOL_A(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->frame_config = gUnknown_080DD8EE;
+        proc->frame_config = gEfxmagicHealstaves_4;
     }
     else if (kind == 1)
     {
-        proc->frame_config = gUnknown_080DD972;
+        proc->frame_config = gEfxmagicHealstaves_6;
     }
     else
     {
-        proc->frame_config = gUnknown_080DD9A4;
+        proc->frame_config = gEfxmagicHealstaves_7;
     }
 
     if (kind == 0)
@@ -674,11 +674,11 @@ void StartSubSpell_efxLiveBGCOL_A(struct Anim * anim, u32 kind)
     }
     else if (kind == 1)
     {
-        proc->pal = Pal_08672220;
+        proc->pal = Pal_efxLiveBGCOL;
     }
     else
     {
-        proc->pal = Pal_08672000;
+        proc->pal = Pal_Banim_4;
     }
 
     return;
@@ -698,15 +698,15 @@ void StartSubSpell_efxLiveBGCOL_B(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->frame_config = gUnknown_080DD930;
+        proc->frame_config = gEfxmagicHealstaves_5;
     }
     else if (kind == 1)
     {
-        proc->frame_config = gUnknown_080DD972;
+        proc->frame_config = gEfxmagicHealstaves_6;
     }
     else
     {
-        proc->frame_config = gUnknown_080DD9A4;
+        proc->frame_config = gEfxmagicHealstaves_7;
     }
 
     if (kind == 0)
@@ -715,11 +715,11 @@ void StartSubSpell_efxLiveBGCOL_B(struct Anim * anim, u32 kind)
     }
     else if (kind == 1)
     {
-        proc->pal = Pal_08672220;
+        proc->pal = Pal_efxLiveBGCOL;
     }
     else
     {
-        proc->pal = Pal_08672000;
+        proc->pal = Pal_Banim_4;
     }
 
     return;
@@ -1140,10 +1140,10 @@ struct ProcCmd CONST_DATA ProcScr_efxReserveBG[] =
 
 u16 * CONST_DATA TsaArray_Fortify[] =
 {
-    Tsa_08677E80,
-    Tsa_08677F8C,
-    Tsa_0867808C,
-    Tsa_08678198,
+    Tsa_Banim_14,
+    Tsa_Fortify_0,
+    Tsa_Fortify_1,
+    Tsa_Fortify_2,
 };
 
 // clang-format on
@@ -1327,11 +1327,11 @@ void StartSubSpell_efxReserveBGCOL(struct Anim * anim, u32 kind)
 
     if (kind == 0)
     {
-        proc->pal = Pal_08678720;
+        proc->pal = Pal_Banim_5;
     }
     else
     {
-        proc->pal = Pal_08678920;
+        proc->pal = Pal_efxReserveBGCOL_0;
     }
 
     return;
@@ -1370,7 +1370,7 @@ struct ProcCmd CONST_DATA ProcScr_efxReserveBG2[] =
 
 u16 * CONST_DATA TsaArray_FortifyBg2[] =
 {
-    Tsa_086782A4,
+    Tsa_FortifyBg2,
 };
 
 // clang-format on
@@ -1407,12 +1407,12 @@ void StartSubSpell_efxReserveBG2(struct Anim * anim)
     gLCDControlBuffer.bg1cnt.priority = 2;
     gLCDControlBuffer.bg3cnt.priority = 3;
 
-    sub_8055980();
+    SetEkrMiniAnimLayerFlag();
 
     anim->oam2Base &= ~OAM2_LAYER(3);
     anim->oam2Base |= OAM2_LAYER(1);
 
-    otherAnim = gUnknown_02000010[GetAnimPosition(anim)];
+    otherAnim = gEkrbattle_0[GetAnimPosition(anim)];
     if (otherAnim != NULL)
     {
         otherAnim->oam2Base &= ~OAM2_LAYER(3);
@@ -1434,7 +1434,7 @@ void efxReserveBG2_Loop(struct ProcEfxBG * proc)
     struct Anim * procAnim = proc->anim;
     struct Anim * otherAnim = GetAnimAnotherSide(procAnim);
 
-    struct Anim * anim3 = gUnknown_02000010[GetAnimPosition(procAnim)];
+    struct Anim * anim3 = gEkrbattle_0[GetAnimPosition(procAnim)];
 
     if (anim3 != NULL)
     {
@@ -1574,7 +1574,7 @@ void StartSubSpell_efxReserveBGCOL2(struct Anim * anim, u32 kind)
     }
     else
     {
-        proc->pal = Pal_08678B20;
+        proc->pal = Pal_efxReserveBGCOL_1;
     }
 
     return;
@@ -1716,36 +1716,36 @@ struct ProcCmd CONST_DATA ProcScr_efxRestBG[] =
 
 u16 * CONST_DATA TsaArray_RestoreBg[] =
 {
-    Tsa_0867B5C4,
-    Tsa_0867B670,
-    Tsa_0867B724,
-    Tsa_0867B7E4,
-    Tsa_0867B8AC,
-    Tsa_0867B988,
-    Tsa_0867BA68,
-    Tsa_0867BB50,
-    Tsa_0867BC40,
-    Tsa_0867BD40,
-    Tsa_0867BE4C,
-    Tsa_0867BF6C,
-    Tsa_0867C09C,
+    Tsa_Banim_15,
+    Tsa_RestoreBg_0,
+    Tsa_RestoreBg_1,
+    Tsa_RestoreBg_2,
+    Tsa_RestoreBg_3,
+    Tsa_RestoreBg_4,
+    Tsa_RestoreBg_5,
+    Tsa_RestoreBg_6,
+    Tsa_RestoreBg_7,
+    Tsa_RestoreBg_8,
+    Tsa_RestoreBg_9,
+    Tsa_RestoreBg_10,
+    Tsa_RestoreBg_11,
 };
 
 u16 * CONST_DATA ImgArray_RestoreBg[] =
 {
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_08679B04,
-    Img_0867A130,
-    Img_0867A130,
-    Img_0867A130,
-    Img_0867A828,
-    Img_0867A828,
-    Img_0867AE48,
-    Img_0867AE48,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_8,
+    Img_Banim_9,
+    Img_Banim_9,
+    Img_Banim_9,
+    Img_Banim_10,
+    Img_Banim_10,
+    Img_Banim_11,
+    Img_Banim_11,
 };
 
 // clang-format on

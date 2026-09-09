@@ -133,7 +133,7 @@ PROC_LABEL(0),
     PROC_REPEAT(ChapterStatus_LoopKeyHandler),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8013F58),
+    PROC_CALL(FadeOutBlackSpeed40Locking),
     PROC_YIELD,
     PROC_CALL(EndMuralBackground),
 
@@ -168,7 +168,7 @@ PROC_LABEL(0),
     PROC_REPEAT(ChapterStatus_LoopKeyHandler),
 
 PROC_LABEL(1),
-    PROC_CALL(sub_8013F58),
+    PROC_CALL(FadeOutBlackSpeed40Locking),
     PROC_YIELD,
 
     PROC_CALL(EndMuralBackground),
@@ -453,7 +453,7 @@ void UpdateStatusFactionSelectorGlow(struct ChapterStatusProc * proc)
     u16 base;
     int mod;
 
-    base = Pal_08A2E8F0[0x2F];
+    base = Pal_MenuStatus_0[0x2F];
     palPtr = &PAL_OBJ_COLOR(7, 14);
 
     mod = RED_VALUE(proc->timer >> 1);
@@ -563,7 +563,7 @@ void ChapterStatus_Init(struct ChapterStatusProc * proc)
     ClearBg0Bg1();
 
     ApplyPalettes(gUiFramePaletteA, 2, 3);
-    Decompress(Img_08A2E5EC, BG_CHR_ADDR(0x2C0));
+    Decompress(Img_MenuStatus_0, BG_CHR_ADDR(0x2C0));
 
     Decompress(Tsa_ChapterStatusUi, gGenericBuffer);
     CallARM_FillTileRect(gBG2TilemapBuffer, gGenericBuffer, TILEREF(0x0, 1));
@@ -974,13 +974,13 @@ void StatusScreenSpriteDraw_Init(struct ChapterStatusProc * proc)
     LoadObjUIGfx();
 
     ApplyPalette(Pal_StatusScreenLabelSprites, 0x14);
-    ApplyPalette(Pal_08A2E8F0, 0x17);
+    ApplyPalette(Pal_MenuStatus_0, 0x17);
 
     Decompress(Img_StatusScreenLabelSprites, OBJ_CHR_ADDR(0x340));
 
     proc->unk_64 = 0;
 
-    sub_80895B4(0x80, 0x13);
+    ApplyChapterTitlePal(0x80, 0x13);
     PutChapterTitleGfx(0xB80, GetChapterTitleWM(&gPlaySt));
 
     return;

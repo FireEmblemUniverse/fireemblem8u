@@ -109,94 +109,94 @@ struct ProcCmd CONST_DATA gProcScr_efxMistyrainBG[] =
     PROC_END,
 };
 
-u16 * CONST_DATA gUnknown_085D5920[] =
+u16 * CONST_DATA gEfxmagicFlux_0[] =
 {
-    Tsa_0862A310,
-    Tsa_0862A40C,
-    Tsa_0862A50C,
-    Tsa_0862A610,
-    Tsa_0862A708,
-    Tsa_0862A814,
-    Tsa_0862A920,
-    Tsa_0862AA40,
-    Tsa_0862AB64,
-    Tsa_0862AC4C,
-    Tsa_0862AD28,
-    Tsa_0862ADE8,
-    Tsa_0862AEA0,
-    Tsa_0862AF48,
-    Tsa_0862B004,
-    Tsa_0862B0DC,
-    Tsa_0862B1BC,
-    Tsa_0862B2AC,
-    Tsa_0862B3A8,
-    Tsa_0862B49C,
-    Tsa_0862B594,
-    Tsa_0862B680,
-    Tsa_0862B764,
-    Tsa_0862B83C,
-    Tsa_0862B90C,
-    Tsa_0862B9D8,
-    Tsa_0862BAA0,
-    Tsa_0862BB54,
-    Tsa_0862BC08,
-    Tsa_0862BCA8,
-    Tsa_0862BD5C,
-    Tsa_0862BE18,
-    Tsa_0862BEF4,
-    Tsa_0862BFDC,
-    Tsa_0862C100,
-    Tsa_0862C220,
-    Tsa_0862C32C,
-    Tsa_0862C438,
-    Tsa_0862C534,
-    Tsa_0862C634,
-    Tsa_0862C730,
+    Tsa_Flux_ClassReel_0,
+    Tsa_Flux_ClassReel_1,
+    Tsa_Flux_ClassReel_2,
+    Tsa_Flux_ClassReel_3,
+    Tsa_Flux_ClassReel_4,
+    Tsa_Flux_ClassReel_5,
+    Tsa_Flux_ClassReel_6,
+    Tsa_Flux_ClassReel_7,
+    Tsa_Flux_ClassReel_8,
+    Tsa_Flux_ClassReel_9,
+    Tsa_Flux_ClassReel_10,
+    Tsa_Flux_ClassReel_11,
+    Tsa_Flux_ClassReel_12,
+    Tsa_Flux_ClassReel_13,
+    Tsa_Flux_ClassReel_14,
+    Tsa_Flux_ClassReel_15,
+    Tsa_Flux_ClassReel_16,
+    Tsa_Flux_ClassReel_17,
+    Tsa_Flux_ClassReel_18,
+    Tsa_Flux_ClassReel_19,
+    Tsa_Flux_ClassReel_20,
+    Tsa_Flux_ClassReel_21,
+    Tsa_Flux_ClassReel_22,
+    Tsa_Flux_ClassReel_23,
+    Tsa_Flux_ClassReel_24,
+    Tsa_Flux_ClassReel_25,
+    Tsa_Flux_ClassReel_26,
+    Tsa_Flux_ClassReel_27,
+    Tsa_Flux_ClassReel_28,
+    Tsa_Flux_ClassReel_29,
+    Tsa_Flux_ClassReel_30,
+    Tsa_Flux_ClassReel_31,
+    Tsa_Flux_ClassReel_32,
+    Tsa_Flux_ClassReel_33,
+    Tsa_Flux_ClassReel_34,
+    Tsa_Flux_ClassReel_35,
+    Tsa_Flux_ClassReel_36,
+    Tsa_Flux_ClassReel_37,
+    Tsa_Flux_ClassReel_38,
+    Tsa_Flux_ClassReel_39,
+    Tsa_Flux_ClassReel_40,
 };
 
-u16 * CONST_DATA gUnknown_085D59C4[] =
+u16 * CONST_DATA gEfxmagicFlux_1[] =
 {
-    Img_08626944,
-    Img_08626944,
-    Img_08626944,
-    Img_08627514,
-    Img_08627514,
-    Img_08627514,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08629480,
-    Img_08629480,
-    Img_08629480,
-    Img_08629480,
-    Img_08629480,
-    Img_08629480,
-    Img_08629B04,
-    Img_08629B04,
-    Img_08629B04,
-    Img_08629B04,
-    Img_0862A060,
-    Img_0862A060,
-    Img_0862A060,
-    Img_0862A060,
-    Img_0862A060,
-    Img_0862A060,
-    Img_0862A060,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08628224,
-    Img_08627514,
-    Img_08627514,
-    Img_08627514,
-    Img_08626944,
-    Img_08626944,
-    Img_08626944,
+    Img_Banim_6,
+    Img_Banim_6,
+    Img_Banim_6,
+    Img_Flux_ClassReel_0,
+    Img_Flux_ClassReel_0,
+    Img_Flux_ClassReel_0,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_2,
+    Img_Flux_ClassReel_3,
+    Img_Flux_ClassReel_3,
+    Img_Flux_ClassReel_3,
+    Img_Flux_ClassReel_3,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_4,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_1,
+    Img_Flux_ClassReel_0,
+    Img_Flux_ClassReel_0,
+    Img_Flux_ClassReel_0,
+    Img_Banim_6,
+    Img_Banim_6,
+    Img_Banim_6,
 };
 
 // clang-format on
@@ -233,9 +233,9 @@ void StartSubSpell_efxMistyrainBG(struct Anim * anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = frames;
-    proc->tsar = proc->tsal = gUnknown_085D5920;
-    proc->img = gUnknown_085D59C4;
-    SpellFx_RegisterBgPal(Pal_0862A2D0, 0x20);
+    proc->tsar = proc->tsal = gEfxmagicFlux_0;
+    proc->img = gEfxmagicFlux_1;
+    SpellFx_RegisterBgPal(Pal_Banim_1, 0x20);
     SpellFx_SetSomeColorEffect();
 
     if (gEkrDistanceType != 0)
@@ -314,10 +314,10 @@ void StartSubSpell_efxMistyrainBG2(struct Anim * anim)
     proc->timer = 0;
     proc->frame = 0;
     proc->frame_config = frames;
-    proc->tsar = proc->tsal = gUnknown_085D5920;
-    proc->img = gUnknown_085D59C4;
+    proc->tsar = proc->tsal = gEfxmagicFlux_0;
+    proc->img = gEfxmagicFlux_1;
 
-    SpellFx_RegisterBgPal(Pal_0862A2F0, 0x20);
+    SpellFx_RegisterBgPal(Pal_Banim_2, 0x20);
     SpellFx_SetSomeColorEffect();
 
     SetBlendAlpha(10, 7);
@@ -370,13 +370,13 @@ struct ProcCmd CONST_DATA ProcScr_efxMistyrainOBJ[] =
 
     PROC_SET_END_CB(efxMistyRainObj_OnEnd),
 
-    PROC_REPEAT(efxMistyRainObj_805F24C),
+    PROC_REPEAT(efxMistyRainObj_0),
     PROC_SLEEP(32),
 
-    PROC_REPEAT(efxMistyRainObj_805F288),
+    PROC_REPEAT(efxMistyRainObj_1),
     PROC_SLEEP(11),
 
-    PROC_REPEAT(efxMistyRainObj_805F2C4),
+    PROC_REPEAT(efxMistyRainObj_2),
     PROC_SLEEP(22),
 
     PROC_END,
@@ -410,10 +410,10 @@ struct ProcCmd CONST_DATA gProcScr_efxMistyrainOBJ2[] =
 
     PROC_SET_END_CB(efxMistyRainObj_OnEnd),
 
-    PROC_REPEAT(efxMistyRainObj2_805F300),
+    PROC_REPEAT(efxMistyRainObj2_0),
     PROC_SLEEP(14),
 
-    PROC_REPEAT(efxMistyRainObj2_805F32C),
+    PROC_REPEAT(efxMistyRainObj2_1),
 
     PROC_END,
 };
@@ -448,7 +448,7 @@ void efxMistyRainObj_OnEnd(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F24C
-void efxMistyRainObj_805F24C(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_0(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = AnimScr_EfxMistyRainObj1;
     proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj1;
@@ -464,7 +464,7 @@ void efxMistyRainObj_805F24C(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F288
-void efxMistyRainObj_805F288(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_1(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = AnimScr_EfxMistyRainObj2;
     proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj2;
@@ -480,7 +480,7 @@ void efxMistyRainObj_805F288(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F2C4
-void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc)
+void efxMistyRainObj_2(struct ProcEfxOBJ * proc)
 {
     proc->anim2->pScrStart = AnimScr_EfxMistyRainObj3;
     proc->anim2->pScrCurrent = AnimScr_EfxMistyRainObj3;
@@ -496,7 +496,7 @@ void efxMistyRainObj_805F2C4(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F300
-void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc)
+void efxMistyRainObj2_0(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
     anim->pScrStart = AnimScr_EfxMistyRainObj4;
@@ -516,7 +516,7 @@ void efxMistyRainObj2_805F300(struct ProcEfxOBJ * proc)
 }
 
 //! FE8U = 0x0805F32C
-void efxMistyRainObj2_805F32C(struct ProcEfxOBJ * proc)
+void efxMistyRainObj2_1(struct ProcEfxOBJ * proc)
 {
     struct Anim * anim = proc->anim2;
 

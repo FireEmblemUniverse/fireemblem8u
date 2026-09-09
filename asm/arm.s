@@ -438,8 +438,8 @@ _08000574:
 
 	ARM_FUNC_END DrawGlyph
 
-	ARM_FUNC_START sub_8000620
-sub_8000620: @ 0x08000620
+	ARM_FUNC_START DrawGlyphHalfStride
+DrawGlyphHalfStride: @ 0x08000620
 	push {r4, r5, r6, r7, r8, r9, sl}
 	mov r9, #7
 	mov sl, #0x10000
@@ -493,7 +493,7 @@ _08000630:
 .LMsgHuffmanTableRoot: .4byte gMsgHuffmanTableRoot
 .LMsgHuffmanTable: .4byte gMsgHuffmanTable
 
-	ARM_FUNC_END sub_8000620
+	ARM_FUNC_END DrawGlyphHalfStride
 
 	ARM_FUNC_START DecodeString
 DecodeString: @ 0x080006E4

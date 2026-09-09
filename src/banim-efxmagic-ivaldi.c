@@ -145,18 +145,18 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiBG1[] =
 
 u16 * CONST_DATA TsaArray_IvaldiBg1[] =
 {
-    Tsa_086945E4,
-    Tsa_086946A0,
-    Tsa_086947C4,
-    Tsa_0869495C,
-    Tsa_08694B58,
-    Tsa_08694DD0,
-    Tsa_08695048,
-    Tsa_086952C0,
-    Tsa_08695530,
-    Tsa_08695744,
-    Tsa_086958F0,
-    Tsa_08695A34,
+    Tsa_IvaldiBg1_0,
+    Tsa_IvaldiBg1_1,
+    Tsa_IvaldiBg1_2,
+    Tsa_IvaldiBg1_3,
+    Tsa_IvaldiBg1_4,
+    Tsa_IvaldiBg1_5,
+    Tsa_IvaldiBg1_6,
+    Tsa_IvaldiBg1_7,
+    Tsa_IvaldiBg1_8,
+    Tsa_IvaldiBg1_9,
+    Tsa_IvaldiBg1_10,
+    Tsa_IvaldiBg1_11,
 };
 
 // clang-format on
@@ -248,11 +248,11 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiBG2[] =
 
 u16 * CONST_DATA TsaArray_IvaldiBg2[] =
 {
-    Tsa_08696860,
-    Tsa_086968F8,
-    Tsa_08696A8C,
-    Tsa_08696C28,
-    Tsa_08696DC4,
+    Tsa_IvaldiBg2_0,
+    Tsa_IvaldiBg2_1,
+    Tsa_IvaldiBg2_2,
+    Tsa_IvaldiBg2_3,
+    Tsa_IvaldiBg2_4,
 };
 
 // clang-format on
@@ -337,47 +337,47 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiBG3[] =
 
 u16 * CONST_DATA TsaArray_IvaldiBg3[] =
 {
-    Tsa_0869E970,
-    Tsa_0869EBB4,
-    Tsa_0869EE2C,
-    Tsa_0869F090,
-    Tsa_0869F304,
-    Tsa_0869F5C0,
-    Tsa_0869F888,
-    Tsa_0869FB4C,
-    Tsa_0869FDFC,
-    Tsa_086A00B0,
-    Tsa_086A0388,
+    Tsa_IvaldiBg3_0,
+    Tsa_IvaldiBg3_1,
+    Tsa_IvaldiBg3_2,
+    Tsa_IvaldiBg3_3,
+    Tsa_IvaldiBg3_4,
+    Tsa_IvaldiBg3_5,
+    Tsa_IvaldiBg3_6,
+    Tsa_IvaldiBg3_7,
+    Tsa_IvaldiBg3_8,
+    Tsa_IvaldiBg3_9,
+    Tsa_IvaldiBg3_10,
 };
 
 u16 * CONST_DATA ImgArray_IvaldiBg3[] =
 {
-    Img_08696F64,
-    Img_08697610,
-    Img_08697D18,
-    Img_08698584,
-    Img_08698F78,
-    Img_08699AEC,
-    Img_0869A70C,
-    Img_0869B470,
-    Img_0869C130,
-    Img_0869CE1C,
-    Img_0869DB90,
+    Img_IvaldiBg3_0,
+    Img_IvaldiBg3_1,
+    Img_IvaldiBg3_2,
+    Img_IvaldiBg3_3,
+    Img_IvaldiBg3_4,
+    Img_IvaldiBg3_5,
+    Img_IvaldiBg3_6,
+    Img_IvaldiBg3_7,
+    Img_IvaldiBg3_8,
+    Img_IvaldiBg3_9,
+    Img_IvaldiBg3_10,
 };
 
 u16 * CONST_DATA PalArray_IvaldiBg3[] =
 {
-    Pal_0869E810,
-    Pal_0869E830,
-    Pal_0869E850,
-    Pal_0869E870,
-    Pal_0869E890,
-    Pal_0869E8B0,
-    Pal_0869E8D0,
-    Pal_0869E8F0,
-    Pal_0869E910,
-    Pal_0869E930,
-    Pal_0869E950,
+    Pal_IvaldiBg3_0,
+    Pal_IvaldiBg3_1,
+    Pal_IvaldiBg3_2,
+    Pal_IvaldiBg3_3,
+    Pal_IvaldiBg3_4,
+    Pal_IvaldiBg3_5,
+    Pal_IvaldiBg3_6,
+    Pal_IvaldiBg3_7,
+    Pal_IvaldiBg3_8,
+    Pal_IvaldiBg3_9,
+    Pal_IvaldiBg3_10,
 };
 
 // clang-format on
@@ -475,7 +475,7 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiBG4[] =
 
 u16 * CONST_DATA TsaArray_IvaldiBg4[] =
 {
-    Tsa_086A1D00,
+    Tsa_IvaldiBg4,
 };
 
 // clang-format on
@@ -889,7 +889,7 @@ void StartSubSpell_efxIvaldiOBJ1(struct Anim * anim, int terminator, s16 x, s16 
     struct Anim * frontAnim;
 
     // clang-format off
-    u32 * gUnknown_080DE5E4[6][2] =
+    u32 * sIvaldiObj1AnimScrLut[6][2] =
     {
         {
             AnimScr_EfxIvald_L1,
@@ -931,28 +931,28 @@ void StartSubSpell_efxIvaldiOBJ1(struct Anim * anim, int terminator, s16 x, s16 
     switch (kind)
     {
         case 1:
-            scr = gUnknown_080DE5E4[1][pos];
+            scr = sIvaldiObj1AnimScrLut[1][pos];
             break;
 
         case 2:
-            scr = gUnknown_080DE5E4[2][pos];
+            scr = sIvaldiObj1AnimScrLut[2][pos];
             break;
 
         case 3:
-            scr = gUnknown_080DE5E4[3][pos];
+            scr = sIvaldiObj1AnimScrLut[3][pos];
             break;
 
         case 4:
-            scr = gUnknown_080DE5E4[4][pos];
+            scr = sIvaldiObj1AnimScrLut[4][pos];
             break;
 
         case 5:
-            scr = gUnknown_080DE5E4[5][pos];
+            scr = sIvaldiObj1AnimScrLut[5][pos];
             break;
 
         case 0:
         default:
-            scr = gUnknown_080DE5E4[0][pos];
+            scr = sIvaldiObj1AnimScrLut[0][pos];
             break;
     }
 
@@ -995,7 +995,7 @@ struct ProcCmd CONST_DATA ProcScr_efxIvaldiOBJ2[] =
 
 // clang-format on
 
-u32 * const gUnknown_080DE624[2] = {
+u32 * const gEfxmagicIvaldi_0[2] = {
     AnimScr_EfxIvald2_L,
     AnimScr_EfxIvald2_R,
 };
@@ -1010,8 +1010,8 @@ void StartSubSpell_efxIvaldiOBJ2(struct Anim * anim, int terminator, s16 x, s16 
     void * labels[2];
 
     labels[0] = &&label;
-    a[0] = gUnknown_080DE624[0];
-    a[1] = gUnknown_080DE624[1];
+    a[0] = gEfxmagicIvaldi_0[0];
+    a[1] = gEfxmagicIvaldi_0[1];
 
     gEfxBgSemaphore++;
 

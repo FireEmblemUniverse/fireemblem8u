@@ -1,17 +1,17 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch9b_Turn[] = {
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089FA734, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_089FA778, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_089FA7EC, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(18), EventScr_089FA6E0, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ch9B_6, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(16), EventScr_Ch9B_8, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(14), EventScr_Ch9B_10, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(18), EventScr_Ch9B_4, 1, 255)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch9b_Character[] = {
-    CHAR(EVFLAG_TMP(7), EventScr_089FA634, CHARACTER_EPHRAIM, CHARACTER_AMELIA)
-    CHAR(EVFLAG_TMP(7), EventScr_089FA65C, CHARACTER_FRANZ, CHARACTER_AMELIA)
-    CharacterEventBothWays(EVFLAG_TMP(8), EventScr_089FA690, CHARACTER_EPHRAIM, CHARACTER_TANA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch9B_0, CHARACTER_EPHRAIM, CHARACTER_AMELIA)
+    CHAR(EVFLAG_TMP(7), EventScr_Ch9B_1, CHARACTER_FRANZ, CHARACTER_AMELIA)
+    CharacterEventBothWays(EVFLAG_TMP(8), EventScr_Ch9B_2, CHARACTER_EPHRAIM, CHARACTER_TANA)
     END_MAIN
 };
 
@@ -29,10 +29,10 @@ CONST_DATA EventListScr EventListScr_Ch9b_Location[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ch9b_Misc[] = {
-    AFEV(EVFLAG_TMP(15), EventScr_089FA768, 17)
-    AREA(EVFLAG_TMP(13), EventScr_089FA7AC, 6, 3, 24, 4)
-    AREA(EVFLAG_TMP(11), EventScr_089FA714, 7, 17, 17, 20)
-    AREA(EVFLAG_TMP(10), EventScr_089FA6B4, 3, 10, 7, 16)
+    AFEV(EVFLAG_TMP(15), EventScr_Ch9B_7, 17)
+    AREA(EVFLAG_TMP(13), EventScr_Ch9B_9, 6, 3, 24, 4)
+    AREA(EVFLAG_TMP(11), EventScr_Ch9B_5, 7, 17, 17, 20)
+    AREA(EVFLAG_TMP(10), EventScr_Ch9B_3, 3, 10, 7, 16)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -64,11 +64,11 @@ CONST_DATA struct ChapterEventGroup Ch9Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Ch9b_UnitMove,
     .tutorialEvents                = EventListScr_Ch9b_Tutorial,
 
-    .traps            = TrapData_Event_089EDB6D,
-    .extraTrapsInHard = TrapData_Event_089EDECC,
+    .traps            = TrapData_Event_Ch9B_0,
+    .extraTrapsInHard = TrapData_Event_Ch9B_1,
 
-    .playerUnitsInNormal = UnitDef_088C22C8,
-    .playerUnitsInHard   = UnitDef_088C22C8,
+    .playerUnitsInNormal = UnitDef_Ch9BAlly,
+    .playerUnitsInHard   = UnitDef_Ch9BAlly,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

@@ -14,8 +14,8 @@ CONST_DATA EventListScr EventListScr_Ruin2_Location[] = {
 
 CONST_DATA EventListScr EventListScr_Ruin2_Misc[] = {
     AFEV(0, EventScr_Ruin2_EndingScene, EVFLAG_DEFEAT_ALL)
-    AREA(EVFLAG_TMP(7), EventScr_089FE3D8, 10, 0, 22, 17)
-    AREA(EVFLAG_TMP(7), EventScr_089FE3D8, 0, 10, 9, 17)
+    AREA(EVFLAG_TMP(7), EventScr_Ruin_3, 10, 0, 22, 17)
+    AREA(EVFLAG_TMP(7), EventScr_Ruin_3, 0, 10, 9, 17)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -47,11 +47,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins2Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin2_UnitMove,
     .tutorialEvents                = EventListScr_Ruin2_Tutorial,
 
-    .traps            = TrapData_Event_089EDCF9,
-    .extraTrapsInHard = TrapData_Event_089EDEEA,
+    .traps            = TrapData_Event_Ruin2_0,
+    .extraTrapsInHard = TrapData_Event_Ruin2_1,
 
-    .playerUnitsInNormal = UnitDef_088CD534,
-    .playerUnitsInHard   = UnitDef_088CD534,
+    .playerUnitsInNormal = UnitDef_Ruin2Ally,
+    .playerUnitsInHard   = UnitDef_Ruin2Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

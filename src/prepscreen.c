@@ -25,12 +25,12 @@ EWRAM_OVERLAY(0) struct Text gPrepMainMenuTexts[10] = {};
 EWRAM_OVERLAY(0) u8 gPrepUnitPool[0x1000] = {};
 EWRAM_OVERLAY(0) struct PrepUnitList gPrepUnitList = {};
 EWRAM_OVERLAY(0) struct PrepScreenItemListEnt gPrepScreenItemList[400] = {};
-EWRAM_OVERLAY(0) struct PrepScreenItemListEnt gUnknown_02012914[400] = {};
-EWRAM_OVERLAY(0) u16 gUnknown_02012F54 = 0;
-EWRAM_OVERLAY(0) u16 gUnknown_02012F56 = 0;
-EWRAM_OVERLAY(0) struct Win1H gUnknown_02012F58[2][160] = {};
-EWRAM_OVERLAY(0) struct Win1H * gUnknown_02013458[2] = {};
-EWRAM_OVERLAY(0) u16 gUnknown_02013460[0x1C] = {}; // maybe there is 0xC*sizeof(u16) free space
+EWRAM_OVERLAY(0) struct PrepScreenItemListEnt gPrepscreen_0[400] = {};
+EWRAM_OVERLAY(0) u16 gPrepscreen_1 = 0;
+EWRAM_OVERLAY(0) u16 gPrepscreen_2 = 0;
+EWRAM_OVERLAY(0) struct Win1H gPrepscreen_3[2][160] = {};
+EWRAM_OVERLAY(0) struct Win1H * gPrepscreen_4[2] = {};
+EWRAM_OVERLAY(0) u16 gPrepscreen_5[0x1C] = {}; // maybe there is 0xC*sizeof(u16) free space
 
 u16 CONST_DATA gBgConfig_ItemUseScreen[] =
 {
@@ -40,7 +40,7 @@ u16 CONST_DATA gBgConfig_ItemUseScreen[] =
     0x8000, 0xF800, 0x0000,
 };
 
-int CONST_DATA gUnknown_08A18200[][3] =
+int CONST_DATA gPrepscreen_6[][3] =
 {
     { 0x57A, 0x57A, 0x75D, },
     { 0x57B, 0x57C, 0x75E, },
@@ -69,35 +69,35 @@ u8 CanPrepScreenSave(void)
 }
 
 //! FE8U = 0x08095024
-int sub_8095024(void)
+int Prep_GetActiveMenuItemTextId(void)
 {
     int index = GetActivePrepMenuItemIndex();
 
     if (CheckInLinkArena())
     {
-        return gUnknown_08A18200[index][2];
+        return gPrepscreen_6[index][2];
     }
 
     if (index == 4)
     {
-        if (!sub_80A095C(2))
+        if (!IsDivinationOptionAvailable(2))
         {
-            return gUnknown_08A18200[4][0];
+            return gPrepscreen_6[4][0];
         }
     }
     else if (index == 2)
     {
         if (!CanPrepScreenSave())
         {
-            return gUnknown_08A18200[2][0];
+            return gPrepscreen_6[2][0];
         }
     }
 
-    return gUnknown_08A18200[index][1];
+    return gPrepscreen_6[index][1];
 }
 
 //! FE8U = 0x08095094
-int sub_8095094(int target, int val)
+int Prep_GetSupportItemBitIndex(int target, int val)
 {
     int i;
 
@@ -120,7 +120,7 @@ int sub_8095094(int target, int val)
 }
 
 //! FE8U = 0x080950C4
-int sub_80950C4(int val)
+int Prep_CountSupportMenuItems(int val)
 {
     int i;
     int count = 0;
@@ -137,7 +137,7 @@ int sub_80950C4(int val)
 }
 
 //! FE8U = 0x080950E8
-void sub_80950E8(int vram, int palId)
+void Prep_LoadWindowGfx(int vram, int palId)
 {
     u16 * palettes[4] =
     {
@@ -154,20 +154,20 @@ void sub_80950E8(int vram, int palId)
 }
 
 //! FE8U = 0x08095138
-void sub_8095138(u16 * tm, int b, u32 c, int d)
+void Prep_DrawWindowFrame(u16 * tm, int b, u32 c, int d)
 {
     int i;
 
-    CallARM_FillTileRect(tm, Tsa_08A1A41C, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+    CallARM_FillTileRect(tm, Tsa_PrepWindowFrameTop, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
 
     for (i = 0; i < b; i++)
     {
         CallARM_FillTileRect(
-            (i * 0x40) + tm + 0x20, Tsa_08A1A434, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
+            (i * 0x40) + tm + 0x20, Tsa_PrepWindowFrameMiddle, (u16)TILEREF((c / 2 & 0xffff) / 0x10, 1));
     }
 
     CallARM_FillTileRect(
-        i * 0x40 + tm + 0x20, Tsa_08A1A474, (u16)(d * 0x1000 + ((c / 2) & 0xffff) / 0x10));
+        i * 0x40 + tm + 0x20, Tsa_PrepWindowFrameBottom, (u16)(d * 0x1000 + ((c / 2) & 0xffff) / 0x10));
 
     return;
 }
@@ -213,7 +213,7 @@ int Prep_HasUnitDeployed()
         return 1;
 }
 
-void sub_8095284(ProcPtr proc)
+void PrepScreenMenu_OnUnk3(ProcPtr proc)
 {
     Proc_Goto(proc, 0x5);
 }
@@ -237,7 +237,7 @@ void PrepScreenMenu_OnCheckMap(struct ProcAtMenu* proc) {
     Proc_Goto(proc, 0x5);
 }
 
-void sub_80952CC() {}
+void __malloc_lock_1() {}
 void __malloc_unlock_1() {}
 
 void ResetSioPidPool()
@@ -370,13 +370,13 @@ void AtMenu_AddPrepScreenSupportMenuItem(struct ProcAtMenu *proc)
         return;
 
     for (i = 0; i < 4; i++) {
-        if (0 == (s8)sub_80A095C(i))
+        if (0 == (s8)IsDivinationOptionAvailable(i))
             continue;
 
         proc->unk_2F |= 1 << i;
     }
 
-    if (0 == (s8)sub_80A095C(2))
+    if (0 == (s8)IsDivinationOptionAvailable(2))
         color = 1;
 
     SetPrepScreenMenuItem(4, PrepScreenMenu_OnSupport, color, 0x577, 0);
@@ -449,7 +449,7 @@ void InitPrepScreenMainMenu(struct ProcAtMenu* proc)
 
         SetPrepScreenMenuItem(
             PREP_MAINMENU_UNK3,
-            sub_8095284,
+            PrepScreenMenu_OnUnk3,
             TEXT_COLOR_SYSTEM_WHITE,
             0x75C, 0);
     }

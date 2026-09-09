@@ -47,7 +47,7 @@ extern u8 Img_PhaseChangeEnemy[];
 extern u16 Pal_PhaseChangeEnemy[];
 extern u8 Img_PhaseChangeOther[];
 extern u16 Pal_PhaseChangeOther[];
-extern u16 Pal_085A06B8[];
+extern u16 Pal_PhaseChange_0[];
 extern u8 Img_PhaseChangeSquares[];
 
 #endif // GUARD_PHASECHANGEFX_H

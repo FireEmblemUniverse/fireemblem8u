@@ -14,7 +14,7 @@
 #include "constants/classes.h"
 #include "constants/items.h"
 
-CONST_DATA short gUnknown_0875879C[0x140] = {
+CONST_DATA short gEfxutils_0[0x140] = {
     0,   0,   0,
     1,   1,   1,
     2,   2,
@@ -95,7 +95,7 @@ CONST_DATA short gUnknown_0875879C[0x140] = {
     15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
 };
 
-void sub_8070D04(u16 * tm, u16 width, u16 height, int pal, int chr)
+void EfxTmReplacePal(u16 * tm, u16 width, u16 height, int pal, int chr)
 {
     int i, j;
     u16 tileref, len;
@@ -133,7 +133,7 @@ void FillBGRect(u16 * tm, u16 width, u16 height, int pal, int chr)
     }
 }
 
-void sub_8070DBC(u16 * tm, u16 width, u16 height, int pal, int chr)
+void EfxTmAddPal(u16 * tm, u16 width, u16 height, int pal, int chr)
 {
     int i, j;
     u16 val;
@@ -156,7 +156,7 @@ void sub_8070DBC(u16 * tm, u16 width, u16 height, int pal, int chr)
     }
 }
 
-CONST_DATA u16 gEfxTileRefPals_08758A1C[] = {
+CONST_DATA u16 gEfxTileRefPals_Efxutils_0[] = {
     0xB000, 0xC000, 0xD000, 0xE000, 0xF000,
     0xB000, 0xC000, 0xD000, 0xE000, 0xF000,
 };
@@ -180,7 +180,7 @@ void EfxTmModifyPal(u16 * tm, u16 width, u16 height)
         {
             tileref = _tileref = *_tm;
             tileref = (tileref & 0xFFF)
-                    + gEfxTileRefPals_08758A1C[(u16)(((_tileref >> 0xC) & 0xF) - 6)];
+                    + gEfxTileRefPals_Efxutils_0[(u16)(((_tileref >> 0xC) & 0xF) - 6)];
             *_tm = tileref;
             _tm++;
         }
@@ -278,7 +278,7 @@ void EfxTmCpyExtHFlip(const u16 * src, s16 src_width, u16 * dst, s16 dst_width, 
     }
 }
 
-void sub_8071068(u16 * tm, int arg1, int arg2)
+void EkrBuildGaugeBarTiles(u16 * tm, int arg1, int arg2)
 {
     int r1, i, flag = 0;
 
@@ -586,7 +586,7 @@ void EfxSplitColorPetrify(u16 * src, u8 * dst, u32 length)
     }
 }
 
-void sub_8071574(s8 * src1, s8 * src2, u16 * pal, u32 length, int ref)
+void EfxCalcSplitedColorStep(s8 * src1, s8 * src2, u16 * pal, u32 length, int ref)
 {
     u32 i;
     s16 c1, c2, c;
@@ -651,7 +651,7 @@ void EfxChapterMapFadeOUT(int speed)
     EnablePaletteSync();
 }
 
-int sub_80716B0(int a)
+int LCGRand_N(int a)
 {
     return DivRem(AdvanceGetLCGRNValue(), a + 1);
 }

@@ -9,9 +9,9 @@ CONST_DATA EventListScr EventListScr_Tower6_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Tower6_Location[] = {
-    LOCA(0, ChestItemList_Event_089ED728, 2, 18, TILE_COMMAND_CHEST)
-    LOCA(0, ChestItemList_Event_089ED732, 12, 1, TILE_COMMAND_CHEST)
-    LOCA(0, ChestItemList_Event_089ED746, 10, 1, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Tower6_0, 2, 18, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Tower6_1, 12, 1, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Tower6_2, 10, 1, TILE_COMMAND_CHEST)
     ChestMoney(5000, 19, 1)
     END_MAIN
 };
@@ -49,11 +49,11 @@ CONST_DATA struct ChapterEventGroup TowerOfValni6Events = {
     .specialEventsAfterUnitMoved   = EventListScr_Tower6_UnitMove,
     .tutorialEvents                = EventListScr_Tower6_Tutorial,
 
-    .traps            = TrapData_Event_089EDCE9,
-    .extraTrapsInHard = TrapData_Event_089EDEE6,
+    .traps            = TrapData_Event_Tower6_0,
+    .extraTrapsInHard = TrapData_Event_Tower6_1,
 
-    .playerUnitsInNormal = UnitDef_088CC5C8,
-    .playerUnitsInHard   = UnitDef_088CC5C8,
+    .playerUnitsInNormal = UnitDef_Tower6Ally,
+    .playerUnitsInHard   = UnitDef_Tower6Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

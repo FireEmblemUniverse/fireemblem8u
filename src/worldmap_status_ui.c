@@ -300,11 +300,11 @@ void WorldmapStatus_InitDetails(struct WorldmapStatusProc * proc)
 
     if (GetPortraitData(fid)->img)
     {
-        ApplyPalette(gUnknown_08A01EE4, 2);
+        ApplyPalette(Pal_FaceDisplayPortrait, 2);
     }
     else
     {
-        ApplyPalette(gUnknown_08A01F04, 2);
+        ApplyPalette(Pal_FaceDisplayGenericCard, 2);
     }
 
     EndAllMus();
@@ -344,19 +344,19 @@ void WorldmapStatus_InitGfx(void)
     ApplyUnitSpritePalettes();
     StartMuralBackground(NULL, (void *)0x0600B000, -1);
 
-    Decompress(gUnknown_08A986C0, (void *)0x06003000);
-    ApplyPalettes(gUnknown_08A98DCC, 6, 3);
+    Decompress(gWorldmapMinimap_0, (void *)0x06003000);
+    ApplyPalettes(gWorldmapMinimap_7, 6, 3);
 
     EnablePaletteSync();
 
-    Decompress(gUnknown_08A98BF8, gGenericBuffer);
+    Decompress(gWorldmapMinimap_1, gGenericBuffer);
     CallARM_FillTileRect(gBG1TilemapBuffer, gGenericBuffer, 0x1000);
 
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 14), gUnknown_08A98CFC, 0x6180);
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 3), gUnknown_08A98D58, 0x6180);
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9), gUnknown_08A98D88, 0x6180);
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 11), gUnknown_08A98DA0, 0x6180);
-    CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 25, 16), gUnknown_08A98DB8, 0x6180);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG1TilemapBuffer, 2, 14), gWorldmapMinimap_2, 0x6180);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 3), gWorldmapMinimap_3, 0x6180);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 9), gWorldmapMinimap_4, 0x6180);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG0TilemapBuffer, 2, 11), gWorldmapMinimap_5, 0x6180);
+    CallARM_FillTileRect(TILEMAP_LOCATED(gBG2TilemapBuffer, 25, 16), gWorldmapMinimap_6, 0x6180);
 
     return;
 }
@@ -383,7 +383,7 @@ void WorldmapStatus_OnEnd(void)
 }
 
 //! FE8U = 0x080C0E58
-void WorldmapStatus_80C0E58(void)
+void WorldmapStatus_0(void)
 {
     gLCDControlBuffer.bg0cnt.priority = 1;
     gLCDControlBuffer.bg1cnt.priority = 3;
@@ -450,7 +450,7 @@ void WorldmapStatus_Loop_KeyHandler(ProcPtr proc)
 }
 
 //! FE8U = 0x080C0FA4
-void WorldmapStatus_80C0FA4(void)
+void WorldmapStatus_1(void)
 {
     SetInterrupt_LCDVCountMatch(NULL);
     return;
@@ -474,13 +474,13 @@ struct ProcCmd CONST_DATA ProcScr_WorldmapStatusUi[] =
     PROC_CALL(StartGreenText),
 
     PROC_CALL(WorldmapStatus_InitDetails),
-    PROC_CALL(WorldmapStatus_80C0E58),
+    PROC_CALL(WorldmapStatus_0),
 
     PROC_START_CHILD(ProcScr_WmStatus_PutTimeAndGold),
 
     PROC_REPEAT(WorldmapStatus_Loop_KeyHandler),
 
-    PROC_CALL(WorldmapStatus_80C0FA4),
+    PROC_CALL(WorldmapStatus_1),
 
     PROC_CALL(EndAllMus),
 

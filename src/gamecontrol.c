@@ -22,8 +22,8 @@
 #include "constants/event-flags.h"
 #include "constants/songs.h"
 
-extern u16 EventScr_8A0035C[];
-extern u16 EventScr_8A00364[];
+extern u16 EventScr_Ruin_83[];
+extern u16 EventScr_Ruin_84[];
 extern u16 EventScr_EirikaModeGameEnd[];
 extern u16 EventScr_EphraimModeGameEnd[];
 
@@ -31,10 +31,10 @@ extern struct ProcCmd CONST_DATA ProcScr_GameEarlyStartUI[]; // pre-intro cutsce
 extern struct ProcCmd CONST_DATA ProcScr_OpAnim[]; // intro cutscene
 extern struct ProcCmd CONST_DATA ProcScr_WorldMapWrapper[];
 
-struct ProcCmd CONST_DATA gUnused_085916BC[] =
+struct ProcCmd CONST_DATA gUnused_Gamecontrol_0[] =
 {
-    PROC_CALL(GameControl_8009A58),
-    PROC_REPEAT(GameControl_8009A60_Null),
+    PROC_CALL(GameControl_0),
+    PROC_REPEAT(GameControl_Null_0),
 
     PROC_END,
 };
@@ -46,8 +46,8 @@ struct ProcCmd CONST_DATA gProcScr_GameControl[] =
 
     PROC_15,
     PROC_CALL(GameControl_CallEraseSaveEventWithKeyCombo),
-    PROC_CALL(GameControl_8009A58),
-    PROC_REPEAT(GameControl_8009A60_Null),
+    PROC_CALL(GameControl_0),
+    PROC_REPEAT(GameControl_Null_0),
 
     // fallthrough
 
@@ -65,14 +65,14 @@ PROC_LABEL(LGAMECTRL_OP_ANIM),
 
 PROC_LABEL(LGAMECTRL_CLASS_REEL),
     PROC_CALL_2(GamceControl_StartClassReel),
-    PROC_CALL(sub_8009B64),
+    PROC_CALL(GameControl_PostClassReel),
     PROC_YIELD,
     PROC_GOTO(LGAMECTRL_OP_ANIM),
 
 PROC_LABEL(3),
     PROC_YIELD,
-    PROC_CALL(sub_8009A84),
-    PROC_CALL(sub_8009B64),
+    PROC_CALL(GameControl_ClearPaletteAndReset),
+    PROC_CALL(GameControl_PostClassReel),
     PROC_YIELD,
     PROC_GOTO(LGAMECTRL_OP_ANIM),
 
@@ -120,7 +120,7 @@ PROC_LABEL(LGAMECTRL_EXEC_BM),
     PROC_YIELD,
     PROC_START_CHILD_BLOCKING(ProcScr_WorldMapWrapper),
     PROC_CALL(EndWM),
-    PROC_CALL(sub_8009E28),
+    PROC_CALL(GameControl_SetupBackdropBlend),
     PROC_YIELD,
     PROC_CALL(StartBattleMap),
     PROC_YIELD,
@@ -143,7 +143,7 @@ PROC_LABEL(19),
     PROC_GOTO(LGAMECTRL_EXEC_BM),
 
 PROC_LABEL(8),
-    PROC_CALL(sub_8009E28),
+    PROC_CALL(GameControl_SetupBackdropBlend),
     PROC_CALL(GameCtrl_StartResumedGame),
     PROC_YIELD,
     PROC_CALL(GameControl_RememberChapterId),
@@ -165,7 +165,7 @@ PROC_LABEL(LGAMECTRL_EXEC_BM_),
 PROC_LABEL(12),
     PROC_CALL(StartLinkArenaMainMenu),
     PROC_YIELD,
-    PROC_CALL(sub_8009ABC),
+    PROC_CALL(GameControl_StartMainTheme),
     PROC_GOTO(LGAMECTRL_EXEC_SAVEMENU),
 
 PROC_LABEL(16),
@@ -355,17 +355,17 @@ void GameControl_CallEraseSaveEventWithKeyCombo(ProcPtr proc)
 void GameControl_CallEraseMural(ProcPtr proc)
 {
     SetupBackgrounds(0);
-    sub_80156D4();
+    LoadGameCoreGfxLegacyFrame();
     gPlaySt.config.textSpeed = 1;
     StartMuralBackground(PROC_TREE_3, 0, -1);
 }
 
-void GameControl_8009A58(struct GameCtrlProc * proc)
+void GameControl_0(struct GameCtrlProc * proc)
 {
     proc->unk_2E = 20;
 }
 
-void GameControl_8009A60_Null(ProcPtr proc)
+void GameControl_Null_0(ProcPtr proc)
 {
     Proc_Break(proc);
 }
@@ -376,7 +376,7 @@ void EndProcIfNotMarkedB(ProcPtr proc)
         Proc_End(proc);
 }
 
-void sub_8009A84(ProcPtr proc)
+void GameControl_ClearPaletteAndReset(ProcPtr proc)
 {
     CpuFastFill16(0, gPaletteBuffer, 0x400);
     EnablePaletteSync();
@@ -384,14 +384,14 @@ void sub_8009A84(ProcPtr proc)
     SetMainUpdateRoutine(OnMain);
 }
 
-void sub_8009ABC(ProcPtr proc)
+void GameControl_StartMainTheme(ProcPtr proc)
 {
     StartBgmCore(SONG_MAIN_THEME, 0);
     StartBgmVolumeChange(0, 0xC0, 0x3C, 0);
 }
 
 
-void sub_8009AD8(ProcPtr proc)
+void GameControl_FadeBgmVolume(ProcPtr proc)
 {
     StartBgmVolumeChange(0x100, 0xC0, 0x20, 0);
 }
@@ -407,7 +407,7 @@ void GameControl_PostIntro(struct GameCtrlProc * proc)
 
     case GAME_ACTION_EVENT_RETURN:
         Proc_Goto(proc, LGAMECTRL_EXEC_SAVEMENU);
-        sub_8009AD8(proc);
+        GameControl_FadeBgmVolume(proc);
         break;
 
     case GAME_ACTION_CLASS_REEL:
@@ -431,7 +431,7 @@ void GameControl_PostIntro(struct GameCtrlProc * proc)
     }
 }
 
-void sub_8009B64(struct GameCtrlProc * proc)
+void GameControl_PostClassReel(struct GameCtrlProc * proc)
 {
     switch (proc->nextAction) {
     case GAME_ACTION_EVENT_RETURN:
@@ -489,18 +489,18 @@ void GameControl_SwitchPostSaveMenu(struct GameCtrlProc * proc)
     return;
 }
 
-void sub_8009C1C(struct GameCtrlProc * proc)
+void GameControl_GotoTitleIfAction5(struct GameCtrlProc * proc)
 {
     if (proc->nextAction == GAME_ACTION_5)
         Proc_Goto(proc, LGAMECTRL_TITLE_DIRECT);
 }
 
-void sub_8009C34(struct GameCtrlProc * proc)
+void GameControl_GotoTitle(struct GameCtrlProc * proc)
 {
     Proc_Goto(proc, LGAMECTRL_TITLE_DIRECT);
 }
 
-void sub_8009C40(struct GameCtrlProc * proc)
+void GameControl_GotoChapterSwitchIfClassReel(struct GameCtrlProc * proc)
 {
     if (proc->nextAction == GAME_ACTION_EVENT_RETURN)
         return;
@@ -509,7 +509,7 @@ void sub_8009C40(struct GameCtrlProc * proc)
         Proc_Goto(proc, 19);
 }
 
-void sub_8009C5C(struct GameCtrlProc * proc)
+void GameControl_InitTutorialGame(struct GameCtrlProc * proc)
 {
     if (proc->nextAction == GAME_ACTION_5)
     {
@@ -534,7 +534,7 @@ void GameCtrlStartExtraMap(ProcPtr proc)
 
 }
 
-void sub_8009CC0(ProcPtr proc)
+void GameControl_InvalidateSuspendSave(ProcPtr proc)
 {
     InvalidateSuspendSave(SAVE_ID_SUSPEND);
     gPlaySt.config.disableBgm = 0;
@@ -632,24 +632,24 @@ void GameCtrlStartIntroMonologue(struct GameCtrlProc * proc)
     StartIntroMonologue(proc);
 }
 
-void sub_8009E28(ProcPtr proc)
+void GameControl_SetupBackdropBlend(ProcPtr proc)
 {
     SetBlendConfig(3, 0, 0, 16);
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
 }
 
-void sub_8009E54(ProcPtr proc)
+void GameControl_StartRuinEvent(ProcPtr proc)
 {
     SetupBackgrounds(0);
 
     switch (gPlaySt.chapterModeIndex) {
         case 2:
-            CallEvent(EventScr_8A0035C, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_Ruin_83, EV_EXEC_CUTSCENE);
             break;
 
         case 3:
-            CallEvent(EventScr_8A00364, EV_EXEC_CUTSCENE);
+            CallEvent(EventScr_Ruin_84, EV_EXEC_CUTSCENE);
             break;
     }
 
@@ -661,7 +661,7 @@ void sub_8009E54(ProcPtr proc)
 void CallGameEndingEvent(ProcPtr proc) {
     StartBattleMap(proc);
 
-    sub_80141B0();
+    ForceScreenToBlack();
 
     switch (gPlaySt.chapterModeIndex) {
         case 2:
@@ -757,11 +757,11 @@ void RestartGameAndGoto12() {
     return;
 }
 
-void nullsub_RestartGameAndGoto7(void) {
+void RestartGameAndGoto7(void) {
     return;
 }
 
-void nullsub_9()
+void Nop_Gamecontrol_0()
 {
     return;
 }
@@ -772,7 +772,7 @@ void GameControl_EnableSoundEffects(ProcPtr proc)
     gPlaySt.config.disableSoundEffects = 0;
 }
 
-void sub_8009FF8(ProcPtr proc)
+void GameControl_ResetPlayConfig(ProcPtr proc)
 {
 
     gPlaySt.config.animationType = 0;

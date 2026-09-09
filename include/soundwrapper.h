@@ -39,15 +39,15 @@ void StartSongDelayed();
 void PlaySong();
 void Sound_SetDefaultMaxNumChannels();
 void Sound_SetMaxNumChannels();
-void sub_80028FC(int songId);
+void Sound_SetupMaxChannelsForSong(int songId);
 int IsMusicProc2Running(void);
-// ??? sub_800296C(???);
-// ??? sub_80029BC(???);
+// ??? ChangeBgm_FadeVolume(???);
+// ??? ChangeBgm_StartNewSong(???);
 void ChangeBgm(int songId, int vc_init_volume, int vc_end_volume, int duration, ProcPtr parent);
 s8 MusicProc4Exists(void);
-// ??? sub_8002A88(???);
+// ??? Sound_ForceChangeBgm(???);
 void DeleteAll6CWaitMusicRelated();
-void sub_8002AC8(void);
+void Sound_StopBgmImmediate(void);
 
 #define PlaySoundEffect(id) \
     if (!gPlaySt.config.disableSoundEffects) \

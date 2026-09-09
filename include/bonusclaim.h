@@ -44,17 +44,17 @@ struct BonusClaimConfig {
 };
 
 void PutChapterBannerSprites(void);
-void sub_80B0674(void);
-void sub_80B06FC(void);
+void BonusClaim_DrawChapterTitle(void);
+void BonusClaim_HBlankHandler(void);
 s8 InitBonusClaimData(void);
 void DrawBonusClaimItemText(int idx);
 void SetBonusItemClaimed(int idx);
 void SetupBonusClaimTargets(struct BonusClaimProc * proc);
-void sub_80B0ABC(void);
+void BonusClaim_DrawMainWindowFrame(void);
 void BonusClaim_Init(struct BonusClaimProc * proc);
 void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc);
 void BonusClaim_DrawTargetUnitSprites(struct BonusClaimProc * proc);
-void sub_80B1008(struct BonusClaimProc * proc);
+void BonusClaim_EndTargetSpriteWorker(struct BonusClaimProc * proc);
 void BonusClaim_StartSelectTargetSubMenu(struct BonusClaimProc * proc);
 s8 TryClaimBonusItem(struct BonusClaimProc * proc);
 void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc * proc);

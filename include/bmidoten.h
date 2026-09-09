@@ -27,7 +27,7 @@ void GenerateExtendedMovementMap(int x, int y, const s8 mct[]);
 void GenerateMovementMapOnWorkingMap(struct Unit * unit, int x, int y, int movement);
 void SetWorkingMoveCosts(const s8 mct[]);
 void GenerateMovementMap(int x, int y, int movement, int unitId);
-void sub_801A570(int connexion, int x, int y);
+void MapFloodCoreStepThumb(int connexion, int x, int y);
 void GenerateBestMovementScript(int x, int y, u8 output[]);
 void UnitApplyWorkingMovementScript(struct Unit * unit, int x, int y);
 void MarkMovementMapEdges(void);

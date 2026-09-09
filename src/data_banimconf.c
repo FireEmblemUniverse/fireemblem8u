@@ -3,7 +3,7 @@
 #include "ekrbattle.h"
 #include "constants/items.h"
 
-CONST_DATA struct BattleAnimDef AnimConf_088AEFD8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_0[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0001,
@@ -15,7 +15,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AEFD8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AEFE4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_1[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0003,
@@ -27,7 +27,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AEFE4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AEFF0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_2[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0005,
@@ -39,7 +39,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AEFF0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AEFFC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_3[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0008,
@@ -51,7 +51,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AEFFC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF008[] = {
+CONST_DATA struct BattleAnimDef AnimConf_4[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0034,
@@ -67,7 +67,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF008[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF018[] = {
+CONST_DATA struct BattleAnimDef AnimConf_5[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0037,
@@ -83,7 +83,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF018[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF028[] = {
+CONST_DATA struct BattleAnimDef AnimConf_6[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x003A,
@@ -99,7 +99,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF028[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF038[] = {
+CONST_DATA struct BattleAnimDef AnimConf_7[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x003D,
@@ -115,7 +115,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF038[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF048[] = {
+CONST_DATA struct BattleAnimDef AnimConf_8[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0040,
@@ -127,7 +127,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF048[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF054[] = {
+CONST_DATA struct BattleAnimDef AnimConf_9[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0042,
@@ -139,7 +139,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF054[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF060[] = {
+CONST_DATA struct BattleAnimDef AnimConf_10[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0045,
@@ -171,7 +171,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF060[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF080[] = {
+CONST_DATA struct BattleAnimDef AnimConf_11[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x004A,
@@ -203,7 +203,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF080[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0A0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_12[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0089,
@@ -215,7 +215,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0A0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0AC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_13[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x00C7,
@@ -227,7 +227,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0AC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0B8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_14[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x000B,
@@ -239,7 +239,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0B8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0C4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_15[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x000B,
@@ -251,7 +251,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0C4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0D0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_16[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x000D,
@@ -279,7 +279,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0D0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF0EC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_17[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x000D,
@@ -307,7 +307,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF0EC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF108[] = {
+CONST_DATA struct BattleAnimDef AnimConf_18[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0011,
@@ -319,7 +319,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF108[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF114[] = {
+CONST_DATA struct BattleAnimDef AnimConf_19[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0013,
@@ -331,7 +331,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF114[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF120[] = {
+CONST_DATA struct BattleAnimDef AnimConf_20[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0015,
@@ -343,7 +343,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF120[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF12C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_21[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0017,
@@ -355,7 +355,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF12C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF138[] = {
+CONST_DATA struct BattleAnimDef AnimConf_22[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x008B,
@@ -367,7 +367,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF138[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF144[] = {
+CONST_DATA struct BattleAnimDef AnimConf_23[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x008D,
@@ -379,7 +379,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF144[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF150[] = {
+CONST_DATA struct BattleAnimDef AnimConf_24[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x0026,
@@ -403,7 +403,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF150[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF168[] = {
+CONST_DATA struct BattleAnimDef AnimConf_25[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x0028,
@@ -427,7 +427,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF168[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF180[] = {
+CONST_DATA struct BattleAnimDef AnimConf_26[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x002A,
@@ -451,7 +451,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF180[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF198[] = {
+CONST_DATA struct BattleAnimDef AnimConf_27[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x002C,
@@ -475,7 +475,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF198[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1B0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_28[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x002F,
@@ -491,7 +491,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1B0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1C0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_29[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x0032,
@@ -507,7 +507,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1C0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1D0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_30[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0058,
@@ -519,7 +519,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1D0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1DC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_31[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x005A,
@@ -531,7 +531,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1DC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1E8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_32[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x005D,
@@ -547,7 +547,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1E8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF1F8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_33[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0060,
@@ -563,7 +563,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF1F8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF208[] = {
+CONST_DATA struct BattleAnimDef AnimConf_34[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0062,
@@ -575,7 +575,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF208[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF214[] = {
+CONST_DATA struct BattleAnimDef AnimConf_35[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0062,
@@ -587,7 +587,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF214[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF220[] = {
+CONST_DATA struct BattleAnimDef AnimConf_36[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x006B,
@@ -607,7 +607,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF220[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF234[] = {
+CONST_DATA struct BattleAnimDef AnimConf_37[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x006C,
@@ -627,7 +627,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF234[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF248[] = {
+CONST_DATA struct BattleAnimDef AnimConf_38[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x006D,
@@ -651,7 +651,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF248[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF260[] = {
+CONST_DATA struct BattleAnimDef AnimConf_39[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x006F,
@@ -675,7 +675,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF260[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF278[] = {
+CONST_DATA struct BattleAnimDef AnimConf_40[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0072,
@@ -699,7 +699,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF278[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF290[] = {
+CONST_DATA struct BattleAnimDef AnimConf_41[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0074,
@@ -723,7 +723,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF290[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF2A8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_42[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0082,
@@ -747,7 +747,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF2A8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF2C0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_43[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0083,
@@ -771,7 +771,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF2C0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF2D8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_44[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0075,
@@ -791,7 +791,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF2D8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF2EC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_45[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0076,
@@ -811,7 +811,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF2EC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF300[] = {
+CONST_DATA struct BattleAnimDef AnimConf_46[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0077,
@@ -835,7 +835,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF300[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF318[] = {
+CONST_DATA struct BattleAnimDef AnimConf_47[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0079,
@@ -859,7 +859,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF318[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF330[] = {
+CONST_DATA struct BattleAnimDef AnimConf_48[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x007B,
@@ -883,7 +883,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF330[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF348[] = {
+CONST_DATA struct BattleAnimDef AnimConf_49[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x007B,
@@ -907,7 +907,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF348[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF360[] = {
+CONST_DATA struct BattleAnimDef AnimConf_50[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x008F,
@@ -919,7 +919,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF360[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF36C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_51[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x004E,
@@ -951,7 +951,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF36C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF38C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_52[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x0053,
@@ -983,7 +983,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF38C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3AC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_53[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0096,
@@ -995,7 +995,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3AC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3B8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_54[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0092,
@@ -1019,7 +1019,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3B8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3D0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_55[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0095,
@@ -1039,7 +1039,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3D0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3E4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_56[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0096,
@@ -1051,7 +1051,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3E4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3F0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_57[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x00C9,
@@ -1063,7 +1063,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3F0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF3FC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_58[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x00C7,
@@ -1075,7 +1075,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF3FC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF408[] = {
+CONST_DATA struct BattleAnimDef AnimConf_59[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0092,
@@ -1099,7 +1099,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF408[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF420[] = {
+CONST_DATA struct BattleAnimDef AnimConf_60[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0095,
@@ -1119,7 +1119,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF420[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF434[] = {
+CONST_DATA struct BattleAnimDef AnimConf_61[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0019,
@@ -1143,7 +1143,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF434[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF44C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_62[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x001C,
@@ -1171,7 +1171,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF44C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF468[] = {
+CONST_DATA struct BattleAnimDef AnimConf_63[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0020,
@@ -1195,7 +1195,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF468[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF480[] = {
+CONST_DATA struct BattleAnimDef AnimConf_64[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x009A,
@@ -1219,7 +1219,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF480[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF498[] = {
+CONST_DATA struct BattleAnimDef AnimConf_65[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0023,
@@ -1243,7 +1243,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF498[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4B0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_66[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x007D,
@@ -1263,7 +1263,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4B0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4C4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_67[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x007F,
@@ -1275,7 +1275,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4C4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4D0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_68[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0096,
@@ -1287,7 +1287,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4D0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4DC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_69[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0066,
@@ -1299,7 +1299,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4DC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4E8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_70[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0069,
@@ -1315,7 +1315,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4E8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF4F8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_71[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0080,
@@ -1327,7 +1327,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF4F8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF504[] = {
+CONST_DATA struct BattleAnimDef AnimConf_72[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0086,
@@ -1339,7 +1339,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF504[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF510[] = {
+CONST_DATA struct BattleAnimDef AnimConf_73[] = {
     {
         .wtype = 0x0100 | ITYPE_STAFF,
         .index = 0x0088,
@@ -1363,7 +1363,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF510[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF528[] = {
+CONST_DATA struct BattleAnimDef AnimConf_74[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x0091,
@@ -1383,7 +1383,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF528[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF53C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_75[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x0098,
@@ -1395,7 +1395,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF53C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF548[] = {
+CONST_DATA struct BattleAnimDef AnimConf_76[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x009D,
@@ -1419,7 +1419,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF548[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF560[] = {
+CONST_DATA struct BattleAnimDef AnimConf_77[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00A0,
@@ -1431,7 +1431,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF560[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF56C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_78[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00A1,
@@ -1443,7 +1443,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF56C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF578[] = {
+CONST_DATA struct BattleAnimDef AnimConf_79[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x00A2,
@@ -1459,7 +1459,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF578[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF588[] = {
+CONST_DATA struct BattleAnimDef AnimConf_80[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x00A5,
@@ -1471,7 +1471,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF588[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF594[] = {
+CONST_DATA struct BattleAnimDef AnimConf_81[] = {
     {
         .wtype = 0x0100 | ITYPE_SWORD,
         .index = 0x00A7,
@@ -1487,7 +1487,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF594[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5A4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_82[] = {
     {
         .wtype = 0x0100 | ITYPE_BOW,
         .index = 0x00AA,
@@ -1499,7 +1499,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5A4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5B0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_83[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AC,
@@ -1511,7 +1511,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5B0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5BC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_84[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AD,
@@ -1523,7 +1523,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5BC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5C8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_85[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x00AE,
@@ -1547,7 +1547,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5C8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5E0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_86[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00B1,
@@ -1559,7 +1559,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5E0[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5EC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_87[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00B2,
@@ -1571,7 +1571,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5EC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF5F8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_88[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x00B3,
@@ -1595,7 +1595,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF5F8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF610[] = {
+CONST_DATA struct BattleAnimDef AnimConf_89[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x00B6,
@@ -1623,7 +1623,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF610[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF62C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_90[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x00BA,
@@ -1643,7 +1643,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF62C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF640[] = {
+CONST_DATA struct BattleAnimDef AnimConf_91[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x00BB,
@@ -1663,7 +1663,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF640[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF654[] = {
+CONST_DATA struct BattleAnimDef AnimConf_92[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x00BC,
@@ -1683,7 +1683,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF654[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF668[] = {
+CONST_DATA struct BattleAnimDef AnimConf_93[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x00BD,
@@ -1695,7 +1695,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF668[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF674[] = {
+CONST_DATA struct BattleAnimDef AnimConf_94[] = {
     {
         .wtype = 0x0100 | ITYPE_LANCE,
         .index = 0x00BF,
@@ -1707,7 +1707,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF674[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF680[] = {
+CONST_DATA struct BattleAnimDef AnimConf_95[] = {
     {
         .wtype = 0x0100 | ITYPE_ITEM,
         .index = 0x00C1,
@@ -1719,7 +1719,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF680[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF68C[] = {
+CONST_DATA struct BattleAnimDef AnimConf_96[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00C2,
@@ -1743,7 +1743,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF68C[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF6A4[] = {
+CONST_DATA struct BattleAnimDef AnimConf_97[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x00AE,
@@ -1767,7 +1767,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF6A4[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF6BC[] = {
+CONST_DATA struct BattleAnimDef AnimConf_98[] = {
     {
         .wtype = 0x0100 | ITYPE_MONSTER,
         .index = 0x00AD,
@@ -1779,7 +1779,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF6BC[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF6C8[] = {
+CONST_DATA struct BattleAnimDef AnimConf_99[] = {
     {
         .wtype = 0x0100 | ITYPE_AXE,
         .index = 0x0092,
@@ -1803,7 +1803,7 @@ CONST_DATA struct BattleAnimDef AnimConf_088AF6C8[] = {
     { 0 }
 };
 
-CONST_DATA struct BattleAnimDef AnimConf_088AF6E0[] = {
+CONST_DATA struct BattleAnimDef AnimConf_100[] = {
     {
         .wtype = 0x0100 | ITYPE_ANIMA,
         .index = 0x0095,

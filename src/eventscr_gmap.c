@@ -22,8 +22,8 @@ u8 Event80_WmSkip_Unsure(struct EventEngineProc * proc)
 {
     int delay = EVT_CMD_ARG32_LE(proc->pEventCurrent);
 
-    sub_80BA008(delay);
-    nullsub_5(delay);
+    WorldMap_RestartWithTimer(delay);
+    Nop_EndingDetails_0(delay);
 
     return EVC_ADVANCE_YIELD;
 }
@@ -985,7 +985,7 @@ u8 EventB9_WmRemoveHighlightNationPart1(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    sub_80C2C10(a);
+    RequestGmapRmBorder1Remove(a);
 
     return EVC_ADVANCE_CONTINUE;
 }
@@ -997,7 +997,7 @@ u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
 
     if (EVENT_IS_SKIPPING(proc))
     {
-        if (sub_80C2BC4(a))
+        if (GmapRmBorder1Exists(a))
         {
             EndGmapRmBorder1(a);
         }
@@ -1005,7 +1005,7 @@ u8 EventBA_WmRemoveHighlightNationPart2(struct EventEngineProc * proc)
         return EVC_ADVANCE_CONTINUE;
     }
 
-    if (!sub_80C2BC4(a))
+    if (!GmapRmBorder1Exists(a))
     {
         return EVC_ADVANCE_YIELD;
     }
@@ -1093,8 +1093,8 @@ u8 EventBE_(struct EventEngineProc * proc)
 //! FE8U = 0x0800CBAC
 u8 EventBF_(struct EventEngineProc * proc)
 {
-    sub_80B9FD4(GM_MAIN);
-    sub_80B9810(GM_MAIN);
+    WorldMap_PrepareSaveMenu(GM_MAIN);
+    WorldMap_TeardownForSubscreen(GM_MAIN);
     Make6C_SaveMenuPostChapter(proc);
 
     return EVC_ADVANCE_YIELD;
@@ -1193,13 +1193,13 @@ u8 EventC4_WmShowPortrait(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CCE8
-void nop_800CCE8(void)
+void nop_1(void)
 {
     return;
 }
 
 //! FE8U = 0x0800CCEC
-void nullsub_32(void)
+void Nop_EventscrGmap_0(void)
 {
     return;
 }
@@ -1233,13 +1233,13 @@ u8 EventC5_WmClearPortrait(struct EventEngineProc * proc)
 
 
 //! FE8U = 0x0800CD38
-void nop_800CD38(struct Proc8591C68 * proc)
+void nop_2(struct Proc8591C68 * proc)
 {
     return;
 }
 
 //! FE8U = 0x0800CD3C
-void nullsub_34(struct Proc8591C68 * proc)
+void Nop_EventscrGmap_1(struct Proc8591C68 * proc)
 {
     return;
 }
@@ -1316,13 +1316,13 @@ u8 EventC9_RemoveWmText(struct EventEngineProc * proc)
 }
 
 //! FE8U = 0x0800CDE8
-void sub_800CDE8(void)
+void Nop_EventscrGmap_2(void)
 {
     return;
 }
 
 //! FE8U = 0x0800CDEC
-void sub_800CDEC(void)
+void Nop_EventscrGmap_3(void)
 {
     return;
 }
@@ -1348,7 +1348,7 @@ u8 EventCC_(struct EventEngineProc * proc)
 
     if (!EVENT_IS_SKIPPING(proc))
     {
-        sub_80B8188(b, c, a);
+        Nop_EndingDetails_2(b, c, a);
     }
 
     return EVC_ADVANCE_CONTINUE;
@@ -1359,7 +1359,7 @@ u8 EventCD_(struct EventEngineProc * proc)
 {
     if (!EVENT_IS_SKIPPING(proc))
     {
-        nullsub_7();
+        Nop_EndingDetails_1();
     }
 
     return EVC_ADVANCE_CONTINUE;

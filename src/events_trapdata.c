@@ -8,11 +8,11 @@ CONST_DATA u8 TrapData_Event_Prologue[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9A9[] = {
+CONST_DATA u8 TrapData_Event_Prologue_0[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9AA[] = {
+CONST_DATA u8 TrapData_Event_Ch1_0[] = {
     TRAP_NONE
 };
 
@@ -28,7 +28,7 @@ CONST_DATA u8 TrapData_Event_Ch3[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9AE[] = {
+CONST_DATA u8 TrapData_Event_Ch3_0[] = {
     TRAP_NONE
 };
 
@@ -44,19 +44,19 @@ CONST_DATA u8 TrapData_Event_Ch5x[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9B2[] = {
+CONST_DATA u8 TrapData_Event_Ch5x_0[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9B3[] = {
+CONST_DATA u8 TrapData_Event_Ch5x_1[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9B4[] = {
+CONST_DATA u8 TrapData_Event_Ch6_0[] = {
     TRAP_NONE
 };
 
-CONST_DATA u8 TrapData_Event_089ED9B5[] = {
+CONST_DATA u8 TrapData_Event_Ch6_1[] = {
     TRAP_NONE
 };
 
@@ -83,7 +83,7 @@ CONST_DATA u8 TrapData_Event_Ch7[] = {
 };
 
 // 0x89ED9C4
-CONST_DATA u8 TrapData_Event_089ED9C4[] = {
+CONST_DATA u8 TrapData_Event_Ch7_0[] = {
     /* type */ TRAP_NONE
 };
 
@@ -93,12 +93,12 @@ CONST_DATA u8 TrapData_Event_Ch8[] = {
 };
 
 // 0x89ED9C6
-CONST_DATA u8 TrapData_Event_089ED9C6[] = {
+CONST_DATA u8 TrapData_Event_Ch8_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9C7
-CONST_DATA u8 TrapData_Event_089ED9C7[] = {
+CONST_DATA u8 TrapData_Event_Ch8_1[] = {
     /* type */ TRAP_NONE
 };
 
@@ -108,12 +108,12 @@ CONST_DATA u8 TrapData_Event_Ch9a[] = {
 };
 
 // 0x89ED9C9
-CONST_DATA u8 TrapData_Event_089ED9C9[] = {
+CONST_DATA u8 TrapData_Event_Ch8_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9CA
-CONST_DATA u8 TrapData_Event_089ED9CA[] = {
+CONST_DATA u8 TrapData_Event_Ch8_3[] = {
     /* type */ TRAP_NONE
 };
 
@@ -144,7 +144,7 @@ CONST_DATA u8 TrapData_Event_ch10a[] = {
 };
 
 // 0x89ED9DE
-CONST_DATA u8 TrapData_Event_089ED9DE[] = {
+CONST_DATA u8 TrapData_Event_Ch8_4[] = {
     /* type */ TRAP_NONE
 };
 
@@ -154,7 +154,7 @@ CONST_DATA u8 TrapData_Event_Ch11a[] = {
 };
 
 // 0x89ED9E0
-CONST_DATA u8 TrapData_Event_089ED9E0[] = {
+CONST_DATA u8 TrapData_Event_Ch8_5[] = {
     /* type */ TRAP_NONE
 };
 
@@ -190,17 +190,17 @@ CONST_DATA u8 TrapData_Event_Ch13a[] = {
 };
 
 // 0x89ED9F5
-CONST_DATA u8 TrapData_Event_089ED9F5[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_19[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9F6
-CONST_DATA u8 TrapData_Event_089ED9F6[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_20[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9F7
-CONST_DATA u8 TrapData_Event_089ED9F7[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_2[] = {
     /* type */ TRAP_NONE
 };
 
@@ -210,62 +210,62 @@ CONST_DATA u8 TrapData_Event_Ch14a[] = {
 };
 
 // 0x89ED9F9
-CONST_DATA u8 TrapData_Event_089ED9F9[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FA
-CONST_DATA u8 TrapData_Event_089ED9FA[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FB
-CONST_DATA u8 TrapData_Event_089ED9FB[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FC
-CONST_DATA u8 TrapData_Event_089ED9FC[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FD
-CONST_DATA u8 TrapData_Event_089ED9FD[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FE
-CONST_DATA u8 TrapData_Event_089ED9FE[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_6[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89ED9FF
-CONST_DATA u8 TrapData_Event_089ED9FF[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_7[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDA00
-CONST_DATA u8 TrapData_Event_089EDA00[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDA01
-CONST_DATA u8 TrapData_Event_089EDA01[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDA02
-CONST_DATA u8 TrapData_Event_089EDA02[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDA03
-CONST_DATA u8 TrapData_Event_089EDA03[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDA04
-CONST_DATA u8 TrapData_Event_089EDA04[] = {
+CONST_DATA u8 TrapData_Event_Ch18A_0[] = {
     /* type */ TRAP_GORGON_EGG,
     /* xPos */ 7,
     /* yPos */ 13,
@@ -683,117 +683,117 @@ CONST_DATA u8 TrapData_Event_089EDA04[] = {
 };
 
 // 0x89EDB67
-CONST_DATA u8 TrapData_Event_089EDB67[] = {
+CONST_DATA u8 TrapData_Event_Ch19A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB68
-CONST_DATA u8 TrapData_Event_089EDB68[] = {
+CONST_DATA u8 TrapData_Event_Ch19A_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB69
-CONST_DATA u8 TrapData_Event_089EDB69[] = {
+CONST_DATA u8 TrapData_Event_Ch20A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6A
-CONST_DATA u8 TrapData_Event_089EDB6A[] = {
+CONST_DATA u8 TrapData_Event_Ch20A_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6B
-CONST_DATA u8 TrapData_Event_089EDB6B[] = {
+CONST_DATA u8 TrapData_Event_Ch21A_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6C
-CONST_DATA u8 TrapData_Event_089EDB6C[] = {
+CONST_DATA u8 TrapData_Event_Ch21XA_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6D
-CONST_DATA u8 TrapData_Event_089EDB6D[] = {
+CONST_DATA u8 TrapData_Event_Ch9B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6E
-CONST_DATA u8 TrapData_Event_089EDB6E[] = {
+CONST_DATA u8 TrapData_Event_Ch9B_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB6F
-CONST_DATA u8 TrapData_Event_089EDB6F[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB70
-CONST_DATA u8 TrapData_Event_089EDB70[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB71
-CONST_DATA u8 TrapData_Event_089EDB71[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB72
-CONST_DATA u8 TrapData_Event_089EDB72[] = {
+CONST_DATA u8 TrapData_Event_Ch11B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB73
-CONST_DATA u8 TrapData_Event_089EDB73[] = {
+CONST_DATA u8 TrapData_Event_Ch11B_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB74
-CONST_DATA u8 TrapData_Event_089EDB74[] = {
+CONST_DATA u8 TrapData_Event_Ch12B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB75
-CONST_DATA u8 TrapData_Event_089EDB75[] = {
+CONST_DATA u8 TrapData_Event_Ch13B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB76
-CONST_DATA u8 TrapData_Event_089EDB76[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB77
-CONST_DATA u8 TrapData_Event_089EDB77[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB78
-CONST_DATA u8 TrapData_Event_089EDB78[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB79
-CONST_DATA u8 TrapData_Event_089EDB79[] = {
+CONST_DATA u8 TrapData_Event_Ch15B_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB7A
-CONST_DATA u8 TrapData_Event_089EDB7A[] = {
+CONST_DATA u8 TrapData_Event_Ch15B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB7B
-CONST_DATA u8 TrapData_Event_089EDB7B[] = {
+CONST_DATA u8 TrapData_Event_Ch16B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB7C
-CONST_DATA u8 TrapData_Event_089EDB7C[] = {
+CONST_DATA u8 TrapData_Event_Ch17B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDB7D
-CONST_DATA u8 TrapData_Event_089EDB7D[] = {
+CONST_DATA u8 TrapData_Event_Ch18B_0[] = {
     /* type */ TRAP_GORGON_EGG,
     /* xPos */ 7,
     /* yPos */ 13,
@@ -1211,62 +1211,62 @@ CONST_DATA u8 TrapData_Event_089EDB7D[] = {
 };
 
 // 0x89EDCE0
-CONST_DATA u8 TrapData_Event_089EDCE0[] = {
+CONST_DATA u8 TrapData_Event_Ch19B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE1
-CONST_DATA u8 TrapData_Event_089EDCE1[] = {
+CONST_DATA u8 TrapData_Event_Ch20B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE2
-CONST_DATA u8 TrapData_Event_089EDCE2[] = {
+CONST_DATA u8 TrapData_Event_Ch21B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE3
-CONST_DATA u8 TrapData_Event_089EDCE3[] = {
+CONST_DATA u8 TrapData_Event_Ch21XB_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE4
-CONST_DATA u8 TrapData_Event_089EDCE4[] = {
+CONST_DATA u8 TrapData_Event_Tower1_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE5
-CONST_DATA u8 TrapData_Event_089EDCE5[] = {
+CONST_DATA u8 TrapData_Event_Tower2_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE6
-CONST_DATA u8 TrapData_Event_089EDCE6[] = {
+CONST_DATA u8 TrapData_Event_Tower3_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE7
-CONST_DATA u8 TrapData_Event_089EDCE7[] = {
+CONST_DATA u8 TrapData_Event_Tower4_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE8
-CONST_DATA u8 TrapData_Event_089EDCE8[] = {
+CONST_DATA u8 TrapData_Event_Tower5_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCE9
-CONST_DATA u8 TrapData_Event_089EDCE9[] = {
+CONST_DATA u8 TrapData_Event_Tower6_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCEA
-CONST_DATA u8 TrapData_Event_089EDCEA[] = {
+CONST_DATA u8 TrapData_Event_Tower7_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCEB
-CONST_DATA u8 TrapData_Event_089EDCEB[] = {
+CONST_DATA u8 TrapData_Event_Tower8_0[] = {
     /* type */ TRAP_LIGHTARROW,
     /* xPos */ 3,
     /* yPos */ 0,
@@ -1285,27 +1285,27 @@ CONST_DATA u8 TrapData_Event_089EDCEB[] = {
 };
 
 // 0x89EDCF8
-CONST_DATA u8 TrapData_Event_089EDCF8[] = {
+CONST_DATA u8 TrapData_Event_Ruin1_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCF9
-CONST_DATA u8 TrapData_Event_089EDCF9[] = {
+CONST_DATA u8 TrapData_Event_Ruin2_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCFA
-CONST_DATA u8 TrapData_Event_089EDCFA[] = {
+CONST_DATA u8 TrapData_Event_Ruin3_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCFB
-CONST_DATA u8 TrapData_Event_089EDCFB[] = {
+CONST_DATA u8 TrapData_Event_Ruin4_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDCFC
-CONST_DATA u8 TrapData_Event_089EDCFC[] = {
+CONST_DATA u8 TrapData_Event_Ruin5_0[] = {
     /* type */ TRAP_GAS,
     /* xPos */ 9,
     /* yPos */ 10,
@@ -1457,22 +1457,22 @@ CONST_DATA u8 TrapData_Event_089EDCFC[] = {
 };
 
 // 0x89EDD7B
-CONST_DATA u8 TrapData_Event_089EDD7B[] = {
+CONST_DATA u8 TrapData_Event_Ruin6_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDD7C
-CONST_DATA u8 TrapData_Event_089EDD7C[] = {
+CONST_DATA u8 TrapData_Event_Ruin7_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDD7D
-CONST_DATA u8 TrapData_Event_089EDD7D[] = {
+CONST_DATA u8 TrapData_Event_Ruin8_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDD7E
-CONST_DATA u8 TrapData_Event_089EDD7E[] = {
+CONST_DATA u8 TrapData_Event_Ruin9_0[] = {
     /* type */ TRAP_FIRETILE,
     /* xPos */ 12,
     /* yPos */ 3,
@@ -1764,62 +1764,62 @@ CONST_DATA u8 TrapData_Event_089EDD7E[] = {
 };
 
 // 0x89EDE75
-CONST_DATA u8 TrapData_Event_089EDE75[] = {
+CONST_DATA u8 TrapData_Event_Ruin10_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE76
-CONST_DATA u8 TrapData_Event_089EDE76[] = {
+CONST_DATA u8 TrapData_Event_LordSplit_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE77
-CONST_DATA u8 TrapData_Event_089EDE77[] = {
+CONST_DATA u8 TrapData_Event_MelkaenCoast_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE78
-CONST_DATA u8 TrapData_Event_089EDE78[] = {
+CONST_DATA u8 TrapData_Event_Chunk3B_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE79
-CONST_DATA u8 TrapData_Event_089EDE79[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_0[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7A
-CONST_DATA u8 TrapData_Event_089EDE7A[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_23[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7B
-CONST_DATA u8 TrapData_Event_089EDE7B[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_24[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7C
-CONST_DATA u8 TrapData_Event_089EDE7C[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7D
-CONST_DATA u8 TrapData_Event_089EDE7D[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7E
-CONST_DATA u8 TrapData_Event_089EDE7E[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE7F
-CONST_DATA u8 TrapData_Event_089EDE7F[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE80
-CONST_DATA u8 TrapData_Event_089EDE80[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_6[] = {
     /* type */ TRAP_BALLISTA,
     /* xPos */ 12,
     /* yPos */ 0,
@@ -1857,12 +1857,12 @@ CONST_DATA u8 TrapData_Event_PrologueHard[] = {
 };
 
 // 0x89EDE9A
-CONST_DATA u8 TrapData_Event_089EDE9A[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_7[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDE9B
-CONST_DATA u8 TrapData_Event_089EDE9B[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_8[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1882,7 +1882,7 @@ CONST_DATA u8 TrapData_Event_Ch3Hard[] = {
 };
 
 // 0x89EDE9F
-CONST_DATA u8 TrapData_Event_089EDE9F[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_9[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1902,22 +1902,22 @@ CONST_DATA u8 TrapData_Event_Ch5xHard[] = {
 };
 
 // 0x89EDEA3
-CONST_DATA u8 TrapData_Event_089EDEA3[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_10[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEA4
-CONST_DATA u8 TrapData_Event_089EDEA4[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_11[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEA5
-CONST_DATA u8 TrapData_Event_089EDEA5[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_12[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEA6
-CONST_DATA u8 TrapData_Event_089EDEA6[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_13[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1932,7 +1932,7 @@ CONST_DATA u8 TrapData_Event_Ch7Hard[] = {
 };
 
 // 0x89EDEA9
-CONST_DATA u8 TrapData_Event_089EDEA9[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_6[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1942,12 +1942,12 @@ CONST_DATA u8 TrapData_Event_Ch8Hard[] = {
 };
 
 // 0x89EDEAB
-CONST_DATA u8 TrapData_Event_089EDEAB[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_7[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEAC
-CONST_DATA u8 TrapData_Event_089EDEAC[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_8[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1957,12 +1957,12 @@ CONST_DATA u8 TrapData_Event_Ch9aHard[] = {
 };
 
 // 0x89EDEAE
-CONST_DATA u8 TrapData_Event_089EDEAE[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_9[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEAF
-CONST_DATA u8 TrapData_Event_089EDEAF[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_10[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1972,7 +1972,7 @@ CONST_DATA u8 TrapData_Event_ch10aHard[] = {
 };
 
 // 0x89EDEB1
-CONST_DATA u8 TrapData_Event_089EDEB1[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_11[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1982,7 +1982,7 @@ CONST_DATA u8 TrapData_Event_Ch11aHard[] = {
 };
 
 // 0x89EDEB3
-CONST_DATA u8 TrapData_Event_089EDEB3[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_12[] = {
     /* type */ TRAP_NONE
 };
 
@@ -1997,17 +1997,17 @@ CONST_DATA u8 TrapData_Event_Ch13aHard[] = {
 };
 
 // 0x89EDEB6
-CONST_DATA u8 TrapData_Event_089EDEB6[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_13[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEB7
-CONST_DATA u8 TrapData_Event_089EDEB7[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_14[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEB8
-CONST_DATA u8 TrapData_Event_089EDEB8[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_15[] = {
     /* type */ TRAP_NONE
 };
 
@@ -2017,282 +2017,282 @@ CONST_DATA u8 TrapData_Event_Ch14aHard[] = {
 };
 
 // 0x89EDEBA
-CONST_DATA u8 TrapData_Event_089EDEBA[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_16[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEBB
-CONST_DATA u8 TrapData_Event_089EDEBB[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_17[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEBC
-CONST_DATA u8 TrapData_Event_089EDEBC[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_18[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEBD
-CONST_DATA u8 TrapData_Event_089EDEBD[] = {
+CONST_DATA u8 TrapData_Event_Ch15A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEBE
-CONST_DATA u8 TrapData_Event_089EDEBE[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEBF
-CONST_DATA u8 TrapData_Event_089EDEBF[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC0
-CONST_DATA u8 TrapData_Event_089EDEC0[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_4[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC1
-CONST_DATA u8 TrapData_Event_089EDEC1[] = {
+CONST_DATA u8 TrapData_Event_Ch16A_5[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC2
-CONST_DATA u8 TrapData_Event_089EDEC2[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC3
-CONST_DATA u8 TrapData_Event_089EDEC3[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC4
-CONST_DATA u8 TrapData_Event_089EDEC4[] = {
+CONST_DATA u8 TrapData_Event_Ch17A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC5
-CONST_DATA u8 TrapData_Event_089EDEC5[] = {
+CONST_DATA u8 TrapData_Event_Ch18A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC6
-CONST_DATA u8 TrapData_Event_089EDEC6[] = {
+CONST_DATA u8 TrapData_Event_Ch19A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC7
-CONST_DATA u8 TrapData_Event_089EDEC7[] = {
+CONST_DATA u8 TrapData_Event_Ch19A_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC8
-CONST_DATA u8 TrapData_Event_089EDEC8[] = {
+CONST_DATA u8 TrapData_Event_Ch20A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEC9
-CONST_DATA u8 TrapData_Event_089EDEC9[] = {
+CONST_DATA u8 TrapData_Event_Ch20A_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECA
-CONST_DATA u8 TrapData_Event_089EDECA[] = {
+CONST_DATA u8 TrapData_Event_Ch21A_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECB
-CONST_DATA u8 TrapData_Event_089EDECB[] = {
+CONST_DATA u8 TrapData_Event_Ch21XA_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECC
-CONST_DATA u8 TrapData_Event_089EDECC[] = {
+CONST_DATA u8 TrapData_Event_Ch9B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECD
-CONST_DATA u8 TrapData_Event_089EDECD[] = {
+CONST_DATA u8 TrapData_Event_Ch9B_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECE
-CONST_DATA u8 TrapData_Event_089EDECE[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDECF
-CONST_DATA u8 TrapData_Event_089EDECF[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED0
-CONST_DATA u8 TrapData_Event_089EDED0[] = {
+CONST_DATA u8 TrapData_Event_Ch10B_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED1
-CONST_DATA u8 TrapData_Event_089EDED1[] = {
+CONST_DATA u8 TrapData_Event_Ch11B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED2
-CONST_DATA u8 TrapData_Event_089EDED2[] = {
+CONST_DATA u8 TrapData_Event_Ch11B_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED3
-CONST_DATA u8 TrapData_Event_089EDED3[] = {
+CONST_DATA u8 TrapData_Event_Ch12B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED4
-CONST_DATA u8 TrapData_Event_089EDED4[] = {
+CONST_DATA u8 TrapData_Event_Ch13B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED5
-CONST_DATA u8 TrapData_Event_089EDED5[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED6
-CONST_DATA u8 TrapData_Event_089EDED6[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_2[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED7
-CONST_DATA u8 TrapData_Event_089EDED7[] = {
+CONST_DATA u8 TrapData_Event_Ch14B_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED8
-CONST_DATA u8 TrapData_Event_089EDED8[] = {
+CONST_DATA u8 TrapData_Event_Ch15B_3[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDED9
-CONST_DATA u8 TrapData_Event_089EDED9[] = {
+CONST_DATA u8 TrapData_Event_Ch15B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDA
-CONST_DATA u8 TrapData_Event_089EDEDA[] = {
+CONST_DATA u8 TrapData_Event_Ch16B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDB
-CONST_DATA u8 TrapData_Event_089EDEDB[] = {
+CONST_DATA u8 TrapData_Event_Ch17B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDC
-CONST_DATA u8 TrapData_Event_089EDEDC[] = {
+CONST_DATA u8 TrapData_Event_Ch18B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDD
-CONST_DATA u8 TrapData_Event_089EDEDD[] = {
+CONST_DATA u8 TrapData_Event_Ch19B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDE
-CONST_DATA u8 TrapData_Event_089EDEDE[] = {
+CONST_DATA u8 TrapData_Event_Ch20B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEDF
-CONST_DATA u8 TrapData_Event_089EDEDF[] = {
+CONST_DATA u8 TrapData_Event_Ch21B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE0
-CONST_DATA u8 TrapData_Event_089EDEE0[] = {
+CONST_DATA u8 TrapData_Event_Ch21XB_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE1
-CONST_DATA u8 TrapData_Event_089EDEE1[] = {
+CONST_DATA u8 TrapData_Event_Tower1_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE2
-CONST_DATA u8 TrapData_Event_089EDEE2[] = {
+CONST_DATA u8 TrapData_Event_Tower2_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE3
-CONST_DATA u8 TrapData_Event_089EDEE3[] = {
+CONST_DATA u8 TrapData_Event_Tower3_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE4
-CONST_DATA u8 TrapData_Event_089EDEE4[] = {
+CONST_DATA u8 TrapData_Event_Tower4_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE5
-CONST_DATA u8 TrapData_Event_089EDEE5[] = {
+CONST_DATA u8 TrapData_Event_Tower5_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE6
-CONST_DATA u8 TrapData_Event_089EDEE6[] = {
+CONST_DATA u8 TrapData_Event_Tower6_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE7
-CONST_DATA u8 TrapData_Event_089EDEE7[] = {
+CONST_DATA u8 TrapData_Event_Tower7_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE8
-CONST_DATA u8 TrapData_Event_089EDEE8[] = {
+CONST_DATA u8 TrapData_Event_Tower8_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEE9
-CONST_DATA u8 TrapData_Event_089EDEE9[] = {
+CONST_DATA u8 TrapData_Event_Ruin1_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEEA
-CONST_DATA u8 TrapData_Event_089EDEEA[] = {
+CONST_DATA u8 TrapData_Event_Ruin2_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEEB
-CONST_DATA u8 TrapData_Event_089EDEEB[] = {
+CONST_DATA u8 TrapData_Event_Ruin3_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEEC
-CONST_DATA u8 TrapData_Event_089EDEEC[] = {
+CONST_DATA u8 TrapData_Event_Ruin4_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEED
-CONST_DATA u8 TrapData_Event_089EDEED[] = {
+CONST_DATA u8 TrapData_Event_Ruin5_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEEE
-CONST_DATA u8 TrapData_Event_089EDEEE[] = {
+CONST_DATA u8 TrapData_Event_Ruin6_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEEF
-CONST_DATA u8 TrapData_Event_089EDEEF[] = {
+CONST_DATA u8 TrapData_Event_Ruin7_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEF0
-CONST_DATA u8 TrapData_Event_089EDEF0[] = {
+CONST_DATA u8 TrapData_Event_Ruin8_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDEF1
-CONST_DATA u8 TrapData_Event_089EDEF1[] = {
+CONST_DATA u8 TrapData_Event_Ruin9_1[] = {
     /* type */ TRAP_FIRETILE,
     /* xPos */ 1,
     /* yPos */ 0,
@@ -2437,71 +2437,71 @@ CONST_DATA u8 TrapData_Event_089EDEF1[] = {
 };
 
 // 0x89EDF6A
-CONST_DATA u8 TrapData_Event_089EDF6A[] = {
+CONST_DATA u8 TrapData_Event_Ruin10_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF6B
-CONST_DATA u8 TrapData_Event_089EDF6B[] = {
+CONST_DATA u8 TrapData_Event_LordSplit_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF6C
-CONST_DATA u8 TrapData_Event_089EDF6C[] = {
+CONST_DATA u8 TrapData_Event_MelkaenCoast_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF6D
-CONST_DATA u8 TrapData_Event_089EDF6D[] = {
+CONST_DATA u8 TrapData_Event_Chunk3B_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF6E
-CONST_DATA u8 TrapData_Event_089EDF6E[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_1[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF6F
-CONST_DATA u8 TrapData_Event_089EDF6F[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_14[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF70
-CONST_DATA u8 TrapData_Event_089EDF70[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_15[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF71
-CONST_DATA u8 TrapData_Event_089EDF71[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_16[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF72
-CONST_DATA u8 TrapData_Event_089EDF72[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_17[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF73
-CONST_DATA u8 TrapData_Event_089EDF73[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_18[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF74
-CONST_DATA u8 TrapData_Event_089EDF74[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_19[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF75
-CONST_DATA u8 TrapData_Event_089EDF75[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_20[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF76
-CONST_DATA u8 TrapData_Event_089EDF76[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_21[] = {
     /* type */ TRAP_NONE
 };
 
 // 0x89EDF77
-CONST_DATA u8 TrapData_Event_089EDF77[] = {
+CONST_DATA u8 TrapData_Event_DebugMap_22[] = {
     /* type */ TRAP_NONE
 };

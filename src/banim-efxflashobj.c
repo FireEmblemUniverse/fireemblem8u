@@ -10,8 +10,8 @@
 CONST_DATA struct ProcCmd ProcScr_efxWeaponIcon[] = {
     PROC_NAME("efxWeaponIcon"),
     PROC_MARK(PROC_MARK_EFX_BGCOL),
-    PROC_SET_END_CB(sub_8054F78),
-    PROC_REPEAT(sub_8054F10),
+    PROC_SET_END_CB(efxWeaponIcon_OnEnd),
+    PROC_REPEAT(efxWeaponIcon_Loop),
     PROC_END
 };
 
@@ -74,7 +74,7 @@ void EnableEfxWeaponIcon(void)
     gpProcEfxWeaponIcon->invalid = false;
 }
 
-void sub_8054F10(struct ProcEfxWeaponIcon *proc)
+void efxWeaponIcon_Loop(struct ProcEfxWeaponIcon *proc)
 {
     int ret;
 
@@ -99,7 +99,7 @@ void sub_8054F10(struct ProcEfxWeaponIcon *proc)
     EnablePaletteSync();
 }
 
-void sub_8054F78(struct ProcEfxWeaponIcon *proc)
+void efxWeaponIcon_OnEnd(struct ProcEfxWeaponIcon *proc)
 {
     ResetIconGraphics_();
 
@@ -115,9 +115,9 @@ void sub_8054F78(struct ProcEfxWeaponIcon *proc)
 CONST_DATA struct ProcCmd ProcScr_efxSpellCast[] = {
     PROC_NAME("efxSpellCast"),
     PROC_MARK(PROC_MARK_EFX_BGCOL),
-    PROC_REPEAT(sub_8055038),
-    PROC_REPEAT(sub_805509C),
-    PROC_REPEAT(sub_80550DC),
+    PROC_REPEAT(efxSpellCast_Loop_A),
+    PROC_REPEAT(efxSpellCast_Loop_B),
+    PROC_REPEAT(efxSpellCast_Loop_C),
     PROC_END
 };
 
@@ -166,7 +166,7 @@ void EndEfxSpellCast(void)
 #endif
 }
 
-void sub_8055038(struct ProcEfxSpellCast *proc)
+void efxSpellCast_Loop_A(struct ProcEfxSpellCast *proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x8, proc->timer, proc->terminator);
     
@@ -178,7 +178,7 @@ void sub_8055038(struct ProcEfxSpellCast *proc)
         Proc_Break(proc);
 }
 
-void sub_805509C(struct ProcEfxSpellCast *proc)
+void efxSpellCast_Loop_B(struct ProcEfxSpellCast *proc)
 {
     CpuFastCopy(gPal_Banim, PAL_BG(0x6), 0x140);
     EfxPalBlackInOut(PAL_BG(0x0), 0x6, 0xA, 0x8);
@@ -189,7 +189,7 @@ void sub_805509C(struct ProcEfxSpellCast *proc)
     }
 }
 
-void sub_80550DC(struct ProcEfxSpellCast *proc)
+void efxSpellCast_Loop_C(struct ProcEfxSpellCast *proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0x8, 0, proc->timer, proc->terminator);
 

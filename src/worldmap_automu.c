@@ -34,9 +34,9 @@ struct GMapAutoMuProc
 //! FE8U = 0x080C3124
 void GmapAutoMu_OnEnd(struct GMapAutoMuProc * proc)
 {
-    if (sub_80BE12C(GM_MU, proc->unitId) != 0)
+    if (GmMu_IsMoving(GM_MU, proc->unitId) != 0)
     {
-        sub_80BE330(GM_MU, proc->unitId);
+        GmMu_FinishMovement(GM_MU, proc->unitId);
     }
 
     EndGmapUnitFade();
@@ -75,7 +75,7 @@ void GmapAutoMu_WaitInitialDelay(struct GMapAutoMuProc * proc)
 }
 
 //! FE8U = 0x080C31C4
-void GmapAutoMu_80C31C4(struct GMapAutoMuProc * proc)
+void GmapAutoMu_0(struct GMapAutoMuProc * proc)
 {
     if ((proc->flags & 1) != 0)
     {
@@ -86,7 +86,7 @@ void GmapAutoMu_80C31C4(struct GMapAutoMuProc * proc)
 }
 
 //! FE8U = 0x080C31E0
-void GmapAutoMu_80C31E0(struct GMapAutoMuProc * proc)
+void GmapAutoMu_1(struct GMapAutoMuProc * proc)
 {
     if ((proc->flags & 2) != 0)
     {
@@ -97,7 +97,7 @@ void GmapAutoMu_80C31E0(struct GMapAutoMuProc * proc)
 }
 
 //! FE8U = 0x080C31FC
-void GmapAutoMu_80C31FC(struct GMapAutoMuProc * proc)
+void GmapAutoMu_2(struct GMapAutoMuProc * proc)
 {
     switch (proc->kind)
     {
@@ -143,7 +143,7 @@ void GmapAutoMu_WaitForFadeEnd(struct GMapAutoMuProc * proc)
 }
 
 //! FE8U = 0x080C3280
-void GmapAutoMu_80C3280(struct GMapAutoMuProc * proc)
+void GmapAutoMu_3(struct GMapAutoMuProc * proc)
 {
     struct UnknownSub80BDEB4 input;
 
@@ -157,13 +157,13 @@ void GmapAutoMu_80C3280(struct GMapAutoMuProc * proc)
     input.unk_03 = 0xff;
     input.unk_04 = 4;
 
-    sub_80BDEB4(GM_MU, &input);
+    GmMu_StartMoveBetweenNodes(GM_MU, &input);
 
     return;
 }
 
 //! FE8U = 0x080C32E4
-void GmapAutoMu_80C32E4(struct GMapAutoMuProc * proc)
+void GmapAutoMu_4(struct GMapAutoMuProc * proc)
 {
     struct UnknownSub80BDFA4 input;
 
@@ -180,15 +180,15 @@ void GmapAutoMu_80C32E4(struct GMapAutoMuProc * proc)
     input.unk_04 = 0xff;
     input.unk_05 = 4;
 
-    sub_80BDFA4(GM_MU, &input);
+    GmMu_StartMoveToPosition(GM_MU, &input);
 
     return;
 }
 
 //! FE8U = 0x080C3350
-void GmapAutoMu_80C3350(struct GMapAutoMuProc * proc)
+void GmapAutoMu_5(struct GMapAutoMuProc * proc)
 {
-    if (!sub_80BE12C(GM_MU, proc->unitId))
+    if (!GmMu_IsMoving(GM_MU, proc->unitId))
     {
         Proc_Break(proc);
     }
@@ -207,31 +207,31 @@ struct ProcCmd CONST_DATA ProcScr_GmapAutoMu[] =
     PROC_YIELD,
 
     PROC_REPEAT(GmapAutoMu_WaitInitialDelay),
-    PROC_CALL(GmapAutoMu_80C31C4),
+    PROC_CALL(GmapAutoMu_0),
 
-    PROC_CALL(GmapAutoMu_80C31FC),
+    PROC_CALL(GmapAutoMu_2),
 
 PROC_LABEL(0),
     PROC_CALL(GmapAutoMu_StartFadeIn),
     PROC_REPEAT(GmapAutoMu_WaitForFadeEnd),
 
-    PROC_CALL(GmapAutoMu_80C31FC),
+    PROC_CALL(GmapAutoMu_2),
 
     // fallthrough
 
 PROC_LABEL(1),
-    PROC_CALL(GmapAutoMu_80C3280),
+    PROC_CALL(GmapAutoMu_3),
 
     PROC_GOTO(3),
 
 PROC_LABEL(2),
-    PROC_CALL(GmapAutoMu_80C32E4),
+    PROC_CALL(GmapAutoMu_4),
 
     // fallthrough
 
 PROC_LABEL(3),
-    PROC_REPEAT(GmapAutoMu_80C3350),
-    PROC_CALL(GmapAutoMu_80C31E0),
+    PROC_REPEAT(GmapAutoMu_5),
+    PROC_CALL(GmapAutoMu_1),
 
     PROC_GOTO(5),
 

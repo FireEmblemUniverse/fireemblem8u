@@ -23,7 +23,7 @@ int AiCountNearbyEnemyUnits(s16, s16);
 // ??? AiCountNearbyAlliedUnits(???);
 void FillMovementAndRangeMapForItem(struct Unit* unit, u16 item);
 // ??? AiMakeMoveRangeUnitPowerMaps(???);
-// ??? sub_803B678(???);
+// ??? AiMakeMoveRangeItemRangeMaps(???);
 s8 AiFindBestAdjacentPositionByFunc(int, int, u8(*)(int, int), struct Vec2*);
 int AiGetItemStealRank(u16 item);
 s8 AiGetUnitStealItemSlot(struct Unit* unit);
@@ -42,10 +42,10 @@ void SetupUnitInventoryAIFlags(void);
 // ??? SetupUnitHealStaffAIFlags(???);
 // ??? SaveNumberOfAlliedUnitsIn0To8Range(???);
 void CharStoreAI(struct Unit* unit, const struct UnitDefinition* uDef);
-s8 sub_803C284(struct Vec2* out);
-int sub_803C364(void);
-int sub_803C3B0(void);
-s8 sub_803C44C(struct Unit* unit);
-void sub_803C490(struct Unit*);
+s8 GetAiBestSafeStaffTargetPosition(struct Vec2* out);
+int AiCountCurrentPhaseFlaggedUnits(void);
+int AiCountAlliedFlaggedUnitsInRange(void);
+s8 AiCanUnitUseAnyStaff(struct Unit* unit);
+void AiGenerateUnitMovementMapRespectStay(struct Unit*);
 
 #endif // GUARD_CP_UTILITY_H

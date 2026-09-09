@@ -114,8 +114,8 @@ PROC_LABEL(PL_SALLYCURSOR_ENTER_MAP),
     PROC_GOTO(PL_SALLYCURSOR_MAP_MENU),
 
 PROC_LABEL(PL_SALLYCURSOR_OPEN_MAP_MENU),
-    PROC_CALL(sub_8033514),
-    PROC_WHILE(sub_8013844),
+    PROC_CALL(PrepScreenProc_StartDimMap),
+    PROC_WHILE(MapPaletteBrightnessFadeExists),
     PROC_CALL(PrepScreenProc_StartMapMenu),
 
     // fallthrough
@@ -124,7 +124,7 @@ PROC_LABEL(PL_SALLYCURSOR_MAP_MENU),
     PROC_CALL(EnablePrepScreenMenu),
     PROC_WHILE(PrepScreenMenuExists),
     PROC_CALL(PrepScreenProc_StartBrightenMap),
-    PROC_WHILE(sub_8013844),
+    PROC_WHILE(MapPaletteBrightnessFadeExists),
 
     // fallthrough
 
@@ -177,7 +177,7 @@ PROC_LABEL(PL_SALLYCURSOR_POST_STATSCREEN_IDLE),
     PROC_GOTO(PL_SALLYCURSOR_MAP_IDLE),
 
 PROC_LABEL(PL_SALLYCURSOR_POST_STATSCREEN_MOVE),
-    PROC_CALL(sub_8034090),
+    PROC_CALL(PrepScreenProc_RefreshAfterStatScreen),
 
     PROC_GOTO(PL_SALLYCURSOR_UNIT_SELECTED),
 
@@ -205,7 +205,7 @@ PROC_LABEL(PL_SALLYCURSOR_UNIT_SWAP),
 PROC_LABEL(PL_SALLYCURSOR_CANCEL_SWAP),
     PROC_CALL(HideMoveRangeGraphics),
     PROC_WHILE_EXISTS(ProcScr_CamMove),
-    PROC_CALL(sub_8033DD8),
+    PROC_CALL(PrepScreenProc_RecenterOnActiveUnit),
     PROC_YIELD,
 
     PROC_GOTO(PL_SALLYCURSOR_MAP_IDLE),
@@ -250,7 +250,7 @@ PROC_LABEL(PL_SALLYCURSOR_SAVE),
     PROC_YIELD,
 
     PROC_CALL(BMapDispResume),
-    PROC_CALL(sub_8034168),
+    PROC_CALL(PrepScreenProc_RestoreBgmAfterSave),
 
     PROC_GOTO(PL_SALLYCURSOR_REENTER_MAP),
 
@@ -259,7 +259,7 @@ PROC_LABEL(PL_SALLYCURSOR_END_PREP),
     PROC_REPEAT(WaitForFade),
     PROC_CALL(PrepScreenProc_Cleanup),
 
-    PROC_CALL(nullsub_20),
+    PROC_CALL(Nop_Eventcall_0),
     PROC_YIELD,
 
     PROC_CALL(SyncUnitDeploymentState),
@@ -297,7 +297,7 @@ PROC_LABEL(PL_SALLYCURSOR_SHOP),
     PROC_CALL(RefreshUnitSprites),
 
     PROC_CALL(PrepScreenProc_UpdateBgm),
-    PROC_CALL(sub_8033608),
+    PROC_CALL(PrepScreenProc_ApplyBrownBoxPalette),
 
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WaitForFade),
@@ -551,15 +551,15 @@ void PrepScreenProc_DimMapImmediate(void)
 //! FE8U = 0x080334E8
 void PrepScreenProc_StartBrightenMap(ProcPtr proc)
 {
-    sub_8013800(0xC0, 0xC0, 0xC0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, proc);
+    StartMapPaletteBrightnessFade(0xC0, 0xC0, 0xC0, 0x100, 0x100, 0x100, 0xFF00FFF0, 0x40, proc);
     return;
 }
 
 //! FE8U = 0x08033514
-void sub_8033514(ProcPtr proc)
+void PrepScreenProc_StartDimMap(ProcPtr proc)
 {
     ArchiveCurrentPalettes();
-    sub_8013800(0x100, 0x100, 0x100, 0xC0, 0xC0, 0xC0, 0xFF00FFF0, 0x40, proc);
+    StartMapPaletteBrightnessFade(0x100, 0x100, 0x100, 0xC0, 0xC0, 0xC0, 0xFF00FFF0, 0x40, proc);
     return;
 }
 
@@ -584,7 +584,7 @@ void PrepHelpPrompt_Loop(void)
 }
 
 //! FE8U = 0x08033608
-void sub_8033608(void)
+void PrepScreenProc_ApplyBrownBoxPalette(void)
 {
     ApplyPalette(Pal_SysBrownBox, 0x12);
     return;
@@ -662,7 +662,7 @@ bool CanCharacterBePrepMoved(int unitId)
 }
 
 //! FE8U = 0x08033770
-void sub_8033770(struct ProcPrepSallyCursor * proc)
+void PrepCameraPan_Init(struct ProcPrepSallyCursor * proc)
 {
     s16 x;
 
@@ -680,7 +680,7 @@ void sub_8033770(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x08033798
-void sub_8033798(struct ProcPrepSallyCursor * proc)
+void PrepCameraPan_TurnDown(struct ProcPrepSallyCursor * proc)
 {
     s16 y;
 
@@ -694,7 +694,7 @@ void sub_8033798(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x080337B4
-void sub_80337B4(struct ProcPrepSallyCursor * proc)
+void PrepCameraPan_TurnLeft(struct ProcPrepSallyCursor * proc)
 {
     s16 x;
 
@@ -708,7 +708,7 @@ void sub_80337B4(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x080337D4
-void sub_80337D4(struct ProcPrepSallyCursor * proc)
+void PrepCameraPan_TurnUp(struct ProcPrepSallyCursor * proc)
 {
     s16 y;
 
@@ -722,7 +722,7 @@ void sub_80337D4(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x080337F0
-void sub_80337F0(struct ProcPrepSallyCursor * proc)
+void PrepCameraPan_Loop(struct ProcPrepSallyCursor * proc)
 {
     if (gKeyStatusPtr->newKeys & (A_BUTTON | B_BUTTON | START_BUTTON))
     {
@@ -933,7 +933,7 @@ void PrepScreenProc_MapIdle(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x08033BF8
-int sub_8033BF8(void)
+int PrepMapMenu_ReturnToAtMenu(void)
 {
     ProcPtr proc = Proc_Find(gProcScr_SALLYCURSOR);
     Proc_Goto(proc, PL_SALLYCURSOR_RETURN_TO_ATMENU);
@@ -943,7 +943,7 @@ int sub_8033BF8(void)
 //! FE8U = 0x08033C10
 void PrepScreen_StartUnitSwap(struct ProcPrepSallyCursor * proc)
 {
-    struct APHandle * ap = AP_Create(gUnknown_085A0EA0, 0);
+    struct APHandle * ap = AP_Create(gWarpPrepUnitSwapCursorAp, 0);
     ap->tileBase = 0;
     AP_SwitchAnimation(ap, 0);
 
@@ -1020,7 +1020,7 @@ void PrepScreen_UnitSwapIdle(struct ProcPrepSallyCursor * proc)
 }
 
 //! FE8U = 0x08033DD8
-void sub_8033DD8(ProcPtr proc)
+void PrepScreenProc_RecenterOnActiveUnit(ProcPtr proc)
 {
     SetCursorMapPosition(gActiveUnit->xPos, gActiveUnit->yPos);
     EnsureCameraOntoPosition(proc, gActiveUnit->xPos, gActiveUnit->yPos);
@@ -1173,7 +1173,7 @@ void PrepScreenProc_Cleanup(ProcPtr proc)
 }
 
 //! FE8U = 0x08034090
-void sub_8034090(ProcPtr proc)
+void PrepScreenProc_RefreshAfterStatScreen(ProcPtr proc)
 {
     if (gActiveUnit == NULL)
     {
@@ -1217,7 +1217,7 @@ void StartPrepSaveScreen(ProcPtr proc)
 }
 
 //! FE8U = 0x08034168
-void sub_8034168(void)
+void PrepScreenProc_RestoreBgmAfterSave(void)
 {
     StartBgmVolumeChange(0x80, 0x100, 0x20, NULL);
     gPlaySt.save_menu_type = 2;
@@ -1260,7 +1260,7 @@ void PrepScreenProc_HideEverythingAndUnlockGame(void)
     UnlockGame();
     BMapDispResume();
 
-    sub_80141B0(); // disables layers
+    ForceScreenToBlack(); // disables layers
 
     return;
 }

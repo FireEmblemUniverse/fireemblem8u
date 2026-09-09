@@ -48,8 +48,8 @@ void ShinningStonefx_CreateSpriteAnim(struct ProcShinningStonefx * proc)
         proc->timer = 0;
         Proc_Break(proc);
 
-        APProc_Create(ApConf_089A6254, proc->x, proc->y, 0x41C0, 0, 2);
-        APProc_Create(ApConf_089A6254, proc->x, proc->y, 0x41C0, 1, 2);
+        APProc_Create(ApConf_MapanimTorchAnim_0, proc->x, proc->y, 0x41C0, 0, 2);
+        APProc_Create(ApConf_MapanimTorchAnim_0, proc->x, proc->y, 0x41C0, 1, 2);
     }
 }
 

@@ -7,7 +7,7 @@
 #include "worldmap.h"
 
 //! FE8U = 0x080C34D0
-void sub_80C34D0(u16 * dstPal, int b, u16 colorA, u16 colorB)
+void GenerateGradientPalette(u16 * dstPal, int b, u16 colorA, u16 colorB)
 {
     int i;
 

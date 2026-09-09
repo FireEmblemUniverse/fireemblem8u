@@ -16,325 +16,325 @@
 
 #include "constants/songs.h"
 
-struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A40AC[] =
+struct MapAnimfxConf CONST_DATA MapAnimfxConf_MapanimEventcall_0[] =
 {
     {
-        gUnknown_089B83C0,
-        gUnknown_089D23D8,
-        gUnknown_089D2AD8,
+        gMapanimEventcall_23,
+        gMapanimEventcall_79,
+        gMapanimEventcall_135,
     },
     {
-        gUnknown_089B89C4,
-        gUnknown_089D23F8,
-        gUnknown_089D2C30,
+        gMapanimEventcall_24,
+        gMapanimEventcall_80,
+        gMapanimEventcall_136,
     },
     {
-        gUnknown_089B90D8,
-        gUnknown_089D2418,
-        gUnknown_089D2DC0,
+        gMapanimEventcall_25,
+        gMapanimEventcall_81,
+        gMapanimEventcall_137,
     },
     {
-        gUnknown_089B98DC,
-        gUnknown_089D2438,
-        gUnknown_089D2F78,
+        gMapanimEventcall_26,
+        gMapanimEventcall_82,
+        gMapanimEventcall_138,
     },
     {
-        gUnknown_089BA190,
-        gUnknown_089D2458,
-        gUnknown_089D3130,
+        gMapanimEventcall_27,
+        gMapanimEventcall_83,
+        gMapanimEventcall_139,
     },
     {
-        gUnknown_089BA9D8,
-        gUnknown_089D2478,
-        gUnknown_089D32D8,
+        gMapanimEventcall_28,
+        gMapanimEventcall_84,
+        gMapanimEventcall_140,
     },
     {
-        gUnknown_089BB2C8,
-        gUnknown_089D2498,
-        gUnknown_089D34A0,
+        gMapanimEventcall_29,
+        gMapanimEventcall_85,
+        gMapanimEventcall_141,
     },
     {
-        gUnknown_089BBD68,
-        gUnknown_089D24B8,
-        gUnknown_089D36B0,
+        gMapanimEventcall_30,
+        gMapanimEventcall_86,
+        gMapanimEventcall_142,
     },
     {
-        gUnknown_089BC884,
-        gUnknown_089D24D8,
-        gUnknown_089D38CC,
+        gMapanimEventcall_31,
+        gMapanimEventcall_87,
+        gMapanimEventcall_143,
     },
     {
-        gUnknown_089BD3B4,
-        gUnknown_089D24F8,
-        gUnknown_089D3AD4,
+        gMapanimEventcall_32,
+        gMapanimEventcall_88,
+        gMapanimEventcall_144,
     },
     {
-        gUnknown_089BDEE8,
-        gUnknown_089D2518,
-        gUnknown_089D3CF8,
+        gMapanimEventcall_33,
+        gMapanimEventcall_89,
+        gMapanimEventcall_145,
     },
     {
-        gUnknown_089BEA90,
-        gUnknown_089D2538,
-        gUnknown_089D3F20,
+        gMapanimEventcall_34,
+        gMapanimEventcall_90,
+        gMapanimEventcall_146,
     },
     {
-        gUnknown_089BF5FC,
-        gUnknown_089D2558,
-        gUnknown_089D4150,
+        gMapanimEventcall_35,
+        gMapanimEventcall_91,
+        gMapanimEventcall_147,
     },
     {
-        gUnknown_089BFF64,
-        gUnknown_089D2578,
-        gUnknown_089D432C,
+        gMapanimEventcall_36,
+        gMapanimEventcall_92,
+        gMapanimEventcall_148,
     },
     {
-        gUnknown_089C08C0,
-        gUnknown_089D2598,
-        gUnknown_089D4500,
+        gMapanimEventcall_37,
+        gMapanimEventcall_93,
+        gMapanimEventcall_149,
     },
     {
-        gUnknown_089C1190,
-        gUnknown_089D25B8,
-        gUnknown_089D46C4,
+        gMapanimEventcall_38,
+        gMapanimEventcall_94,
+        gMapanimEventcall_150,
     },
     {
-        gUnknown_089C1BA8,
-        gUnknown_089D25D8,
-        gUnknown_089D48AC,
+        gMapanimEventcall_39,
+        gMapanimEventcall_95,
+        gMapanimEventcall_151,
     },
     {
-        gUnknown_089C247C,
-        gUnknown_089D25F8,
-        gUnknown_089D4A60,
+        gMapanimEventcall_40,
+        gMapanimEventcall_96,
+        gMapanimEventcall_152,
     },
     {
-        gUnknown_089C2BF0,
-        gUnknown_089D2618,
-        gUnknown_089D4BFC,
+        gMapanimEventcall_41,
+        gMapanimEventcall_97,
+        gMapanimEventcall_153,
     },
     {
-        gUnknown_089C32A4,
-        gUnknown_089D2638,
-        gUnknown_089D4D74,
+        gMapanimEventcall_42,
+        gMapanimEventcall_98,
+        gMapanimEventcall_154,
     },
 };
 
-struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A419C[] =
+struct MapAnimfxConf CONST_DATA MapAnimfxConf_MapanimEventcall_1[] =
 {
     {
-        gUnknown_089C39A8,
-        gUnknown_089D2658,
-        gUnknown_089D4ECC,
+        gMapanimEventcall_43,
+        gMapanimEventcall_99,
+        gMapanimEventcall_155,
     },
     {
-        gUnknown_089C3EE8,
-        gUnknown_089D2678,
-        gUnknown_089D4FDC,
+        gMapanimEventcall_44,
+        gMapanimEventcall_100,
+        gMapanimEventcall_156,
     },
     {
-        gUnknown_089C447C,
-        gUnknown_089D2698,
-        gUnknown_089D5100,
+        gMapanimEventcall_45,
+        gMapanimEventcall_101,
+        gMapanimEventcall_157,
     },
     {
-        gUnknown_089C4834,
-        gUnknown_089D26B8,
-        gUnknown_089D5214,
+        gMapanimEventcall_46,
+        gMapanimEventcall_102,
+        gMapanimEventcall_158,
     },
     {
-        gUnknown_089C48E0,
-        gUnknown_089D26D8,
-        gUnknown_089D52D0,
+        gMapanimEventcall_47,
+        gMapanimEventcall_103,
+        gMapanimEventcall_159,
     },
     {
-        gUnknown_089C495C,
-        gUnknown_089D26F8,
-        gUnknown_089D538C,
+        gMapanimEventcall_48,
+        gMapanimEventcall_104,
+        gMapanimEventcall_160,
     },
     {
-        gUnknown_089C49CC,
-        gUnknown_089D2718,
-        gUnknown_089D5440,
+        gMapanimEventcall_49,
+        gMapanimEventcall_105,
+        gMapanimEventcall_161,
     },
     {
-        gUnknown_089C4E38,
-        gUnknown_089D2738,
-        gUnknown_089D5540,
+        gMapanimEventcall_50,
+        gMapanimEventcall_106,
+        gMapanimEventcall_162,
     },
     {
-        gUnknown_089C5328,
-        gUnknown_089D2758,
-        gUnknown_089D5658,
+        gMapanimEventcall_51,
+        gMapanimEventcall_107,
+        gMapanimEventcall_163,
     },
     {
-        gUnknown_089C5674,
-        gUnknown_089D2778,
-        gUnknown_089D5764,
+        gMapanimEventcall_52,
+        gMapanimEventcall_108,
+        gMapanimEventcall_164,
     },
     {
-        gUnknown_089C5734,
-        gUnknown_089D2798,
-        gUnknown_089D5820,
+        gMapanimEventcall_53,
+        gMapanimEventcall_109,
+        gMapanimEventcall_165,
     },
     {
-        gUnknown_089C57D8,
-        gUnknown_089D27B8,
-        gUnknown_089D58E0,
+        gMapanimEventcall_54,
+        gMapanimEventcall_110,
+        gMapanimEventcall_166,
     },
     {
-        gUnknown_089C5F70,
-        gUnknown_089D27D8,
-        gUnknown_089D5A20,
+        gMapanimEventcall_55,
+        gMapanimEventcall_111,
+        gMapanimEventcall_167,
     },
     {
-        gUnknown_089C65EC,
-        gUnknown_089D27F8,
-        gUnknown_089D5B58,
+        gMapanimEventcall_56,
+        gMapanimEventcall_112,
+        gMapanimEventcall_168,
     },
     {
-        gUnknown_089C6A58,
-        gUnknown_089D2818,
-        gUnknown_089D5C90,
+        gMapanimEventcall_57,
+        gMapanimEventcall_113,
+        gMapanimEventcall_169,
     },
     {
-        gUnknown_089C6B20,
-        gUnknown_089D2838,
-        gUnknown_089D5D4C,
+        gMapanimEventcall_58,
+        gMapanimEventcall_114,
+        gMapanimEventcall_170,
     },
     {
-        gUnknown_089C727C,
-        gUnknown_089D2858,
-        gUnknown_089D5E9C,
+        gMapanimEventcall_59,
+        gMapanimEventcall_115,
+        gMapanimEventcall_171,
     },
     {
-        gUnknown_089C7A2C,
-        gUnknown_089D2878,
-        gUnknown_089D5FF0,
+        gMapanimEventcall_60,
+        gMapanimEventcall_116,
+        gMapanimEventcall_172,
     },
     {
-        gUnknown_089C8440,
-        gUnknown_089D2898,
-        gUnknown_089D6170,
+        gMapanimEventcall_61,
+        gMapanimEventcall_117,
+        gMapanimEventcall_173,
     },
     {
-        gUnknown_089C8DC4,
-        gUnknown_089D28B8,
-        gUnknown_089D62F8,
+        gMapanimEventcall_62,
+        gMapanimEventcall_118,
+        gMapanimEventcall_174,
     },
     {
-        gUnknown_089C9A44,
-        gUnknown_089D28D8,
-        gUnknown_089D64EC,
+        gMapanimEventcall_63,
+        gMapanimEventcall_119,
+        gMapanimEventcall_175,
     },
     {
-        gUnknown_089CA444,
-        gUnknown_089D28F8,
-        gUnknown_089D66D0,
+        gMapanimEventcall_64,
+        gMapanimEventcall_120,
+        gMapanimEventcall_176,
     },
     {
-        gUnknown_089CAA10,
-        gUnknown_089D2918,
-        gUnknown_089D67F4,
+        gMapanimEventcall_65,
+        gMapanimEventcall_121,
+        gMapanimEventcall_177,
     },
     {
-        gUnknown_089CB7B0,
-        gUnknown_089D2938,
-        gUnknown_089D6AA4,
+        gMapanimEventcall_66,
+        gMapanimEventcall_122,
+        gMapanimEventcall_178,
     },
 };
 
-struct MapAnimfxConf CONST_DATA MapAnimfxConf_089A42BC[] =
+struct MapAnimfxConf CONST_DATA MapAnimfxConf_MapanimEventcall_2[] =
 {
     {
-        gUnknown_089CCA28,
-        gUnknown_089D2958,
-        gUnknown_089D6E1C,
+        gMapanimEventcall_67,
+        gMapanimEventcall_123,
+        gMapanimEventcall_179,
     },
     {
-        gUnknown_089CCE8C,
-        gUnknown_089D2978,
-        gUnknown_089D6F0C,
+        gMapanimEventcall_68,
+        gMapanimEventcall_124,
+        gMapanimEventcall_180,
     },
     {
-        gUnknown_089CD650,
-        gUnknown_089D2998,
-        gUnknown_089D704C,
+        gMapanimEventcall_69,
+        gMapanimEventcall_125,
+        gMapanimEventcall_181,
     },
     {
-        gUnknown_089CE038,
-        gUnknown_089D29B8,
-        gUnknown_089D71DC,
+        gMapanimEventcall_70,
+        gMapanimEventcall_126,
+        gMapanimEventcall_182,
     },
     {
-        gUnknown_089CEB94,
-        gUnknown_089D29D8,
-        gUnknown_089D73B4,
+        gMapanimEventcall_71,
+        gMapanimEventcall_127,
+        gMapanimEventcall_183,
     },
     {
-        gUnknown_089CF7C0,
-        gUnknown_089D29F8,
-        gUnknown_089D75BC,
+        gMapanimEventcall_72,
+        gMapanimEventcall_128,
+        gMapanimEventcall_184,
     },
     {
-        gUnknown_089D038C,
-        gUnknown_089D2A18,
-        gUnknown_089D77CC,
+        gMapanimEventcall_73,
+        gMapanimEventcall_129,
+        gMapanimEventcall_185,
     },
     {
-        gUnknown_089D0E08,
-        gUnknown_089D2A38,
-        gUnknown_089D79B4,
+        gMapanimEventcall_74,
+        gMapanimEventcall_130,
+        gMapanimEventcall_186,
     },
     {
-        gUnknown_089D1648,
-        gUnknown_089D2A58,
-        gUnknown_089D7B78,
+        gMapanimEventcall_75,
+        gMapanimEventcall_131,
+        gMapanimEventcall_187,
     },
     {
-        gUnknown_089D1CA4,
-        gUnknown_089D2A78,
-        gUnknown_089D7D04,
+        gMapanimEventcall_76,
+        gMapanimEventcall_132,
+        gMapanimEventcall_188,
     },
     {
-        gUnknown_089D20E0,
-        gUnknown_089D2A98,
-        gUnknown_089D7E48,
+        gMapanimEventcall_77,
+        gMapanimEventcall_133,
+        gMapanimEventcall_189,
     },
     {
-        gUnknown_089D230C,
-        gUnknown_089D2AB8,
-        gUnknown_089D7F48,
+        gMapanimEventcall_78,
+        gMapanimEventcall_134,
+        gMapanimEventcall_190,
     },
 };
 
-CONST_DATA struct ProcCmd ProcScr_089A434C[] =
+CONST_DATA struct ProcCmd ProcScr_MapanimEventcall_0[] =
 {
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_807F89C),
-    PROC_REPEAT(sub_807F964),
+    PROC_CALL(MapEventcallFx0_Init),
+    PROC_REPEAT(MapEventcallFx0_PlayIntroAnim),
 
     PROC_SLEEP(30),
 
-    PROC_REPEAT(sub_807FAA0),
-    PROC_REPEAT(sub_807FBCC),
-    PROC_REPEAT(sub_807FC58),
+    PROC_REPEAT(MapEventcallFx0_PlayMainAnim),
+    PROC_REPEAT(MapEventcallFx0_FillWhiteTile),
+    PROC_REPEAT(MapEventcallFx0_RampToWhite),
 
-    PROC_CALL(sub_807FCA8),
+    PROC_CALL(MapEventcallFx0_ClearBg2),
 
     PROC_END
 };
 
-void sub_807F878(ProcPtr proc)
+void StartMapEventcallFx0(ProcPtr proc)
 {
     if (proc)
-        Proc_StartBlocking(ProcScr_089A434C, proc);
+        Proc_StartBlocking(ProcScr_MapanimEventcall_0, proc);
     else
-        Proc_Start(ProcScr_089A434C, PROC_TREE_3);
+        Proc_Start(ProcScr_MapanimEventcall_0, PROC_TREE_3);
 }
 
-void sub_807F89C(struct MAEffectProc * proc)
+void MapEventcallFx0_Init(struct MAEffectProc * proc)
 {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 0;
@@ -364,19 +364,19 @@ void sub_807F89C(struct MAEffectProc * proc)
 
 // clang-format off
 
-const int gUnknown_08205884[] =
+const int gMapanimEventcall_0[] =
 {
     0x80, 0x1E0,
 };
 
-const u8 gUnknown_0820588C[] =
+const u8 gMapanimEventcall_1[] =
 {
     4, 5,
 };
 
 // clang-format on
 
-void sub_807F964(struct MAEffectProc * proc)
+void MapEventcallFx0_PlayIntroAnim(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
     {
@@ -397,22 +397,22 @@ void sub_807F964(struct MAEffectProc * proc)
         }
 
         Decompress(
-            MapAnimfxConf_089A40AC[proc->frame].img,
-            (void*) VRAM + gUnknown_08205884[proc->unk44] * 0x20);
+            MapAnimfxConf_MapanimEventcall_0[proc->frame].img,
+            (void*) VRAM + gMapanimEventcall_0[proc->unk44] * 0x20);
 
         Decompress(
-            MapAnimfxConf_089A40AC[proc->frame].tsa,
+            MapAnimfxConf_MapanimEventcall_0[proc->frame].tsa,
             gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16 *)gGenericBuffer,
             0, 0,
-            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+            gMapanimEventcall_0[proc->unk44] | (gMapanimEventcall_1[proc->unk44] << 12));
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        ApplyPalette(MapAnimfxConf_089A40AC[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
+        ApplyPalette(MapAnimfxConf_MapanimEventcall_0[proc->frame].pal, gMapanimEventcall_1[proc->unk44]);
         EnablePaletteSync();
 
         proc->frame++;
@@ -425,7 +425,7 @@ void sub_807F964(struct MAEffectProc * proc)
 
 // clang-format off
 
-const u8 gUnknown_0820588E[] =
+const u8 gMapanimEventcall_2[] =
 {
     4, 5, 6, 7, 7, 7, 4,
     5, 5, 6, 6, 4, 4, 5,
@@ -435,27 +435,27 @@ const u8 gUnknown_0820588E[] =
 
 // clang-format on
 
-void sub_807FAA0(struct MAEffectProc * proc)
+void MapEventcallFx0_PlayMainAnim(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
     {
         Decompress(
-            MapAnimfxConf_089A419C[proc->frame].img,
-            (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
+            MapAnimfxConf_MapanimEventcall_1[proc->frame].img,
+            (void*) VRAM + gMapanimEventcall_0[proc->unk44]*0x20);
 
         Decompress(
-            MapAnimfxConf_089A419C[proc->frame].tsa,
+            MapAnimfxConf_MapanimEventcall_1[proc->frame].tsa,
             gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16 *)gGenericBuffer,
             0, 0,
-            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+            gMapanimEventcall_0[proc->unk44] | (gMapanimEventcall_1[proc->unk44] << 12));
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-        ApplyPalette(MapAnimfxConf_089A419C[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
+        ApplyPalette(MapAnimfxConf_MapanimEventcall_1[proc->frame].pal, gMapanimEventcall_1[proc->unk44]);
         EnablePaletteSync();
 
         if (proc->frame == 0)
@@ -467,7 +467,7 @@ void sub_807FAA0(struct MAEffectProc * proc)
             Proc_Break(proc);
         }
 
-        proc->timer = gUnknown_0820588E[proc->frame];
+        proc->timer = gMapanimEventcall_2[proc->frame];
         proc->frame++;
         proc->unk44 ^= 1;
     }
@@ -475,7 +475,7 @@ void sub_807FAA0(struct MAEffectProc * proc)
     proc->timer--;
 }
 
-void sub_807FBCC(struct MAEffectProc * proc)
+void MapEventcallFx0_FillWhiteTile(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
     {
@@ -496,7 +496,7 @@ void sub_807FBCC(struct MAEffectProc * proc)
     proc->timer--;
 }
 
-void sub_807FC58(struct MAEffectProc * proc)
+void MapEventcallFx0_RampToWhite(struct MAEffectProc * proc)
 {
     u16 brightness = proc->frame * 4;
 
@@ -514,20 +514,20 @@ void sub_807FC58(struct MAEffectProc * proc)
     proc->frame++;
 }
 
-void sub_807FCA8(void)
+void MapEventcallFx0_ClearBg2(void)
 {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 }
 
-CONST_DATA struct ProcCmd ProcScr_089A4394[] =
+CONST_DATA struct ProcCmd ProcScr_MapanimEventcall_1[] =
 {
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_807FCE4),
-    PROC_REPEAT(sub_807FDC8),
-    PROC_REPEAT(sub_807FE0C),
-    PROC_CALL(sub_807FFF0),
+    PROC_CALL(MapEventcallFx1_Init),
+    PROC_REPEAT(MapEventcallFx1_FadeWhiteDown),
+    PROC_REPEAT(MapEventcallFx1_PlayFadeAnim),
+    PROC_CALL(MapEventcallFx1_ClearBgs),
 
     PROC_SLEEP(60),
 
@@ -536,15 +536,15 @@ CONST_DATA struct ProcCmd ProcScr_089A4394[] =
     PROC_END
 };
 
-void sub_807FCC0(ProcPtr proc)
+void StartMapEventcallFx1(ProcPtr proc)
 {
     if (proc)
-        Proc_StartBlocking(ProcScr_089A4394, proc);
+        Proc_StartBlocking(ProcScr_MapanimEventcall_1, proc);
     else
-        Proc_Start(ProcScr_089A4394, PROC_TREE_3);
+        Proc_Start(ProcScr_MapanimEventcall_1, PROC_TREE_3);
 }
 
-void sub_807FCE4(struct MAEffectProc * proc)
+void MapEventcallFx1_Init(struct MAEffectProc * proc)
 {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 0;
@@ -577,7 +577,7 @@ void sub_807FCE4(struct MAEffectProc * proc)
     proc->unk48 = 119;
 }
 
-void sub_807FDC8(struct MAEffectProc * proc)
+void MapEventcallFx1_FadeWhiteDown(struct MAEffectProc * proc)
 {
     int brightness = proc->unk48 * 32 / 120;
     PAL_BG_COLOR(3, 15) = RGB(brightness, brightness, brightness);
@@ -590,7 +590,7 @@ void sub_807FDC8(struct MAEffectProc * proc)
         Proc_Break(proc);
 }
 
-void sub_807FE0C(struct MAEffectProc * proc)
+void MapEventcallFx1_PlayFadeAnim(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
     {
@@ -609,24 +609,24 @@ void sub_807FE0C(struct MAEffectProc * proc)
         }
 
         Decompress(
-            MapAnimfxConf_089A42BC[proc->frame].img,
-            (void*) VRAM + gUnknown_08205884[proc->unk44]*0x20);
+            MapAnimfxConf_MapanimEventcall_2[proc->frame].img,
+            (void*) VRAM + gMapanimEventcall_0[proc->unk44]*0x20);
 
         Decompress(
-            MapAnimfxConf_089A42BC[proc->frame].tsa,
+            MapAnimfxConf_MapanimEventcall_2[proc->frame].tsa,
             gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16*) gGenericBuffer,
             0, 0,
-            gUnknown_08205884[proc->unk44] | (gUnknown_0820588C[proc->unk44] << 12));
+            gMapanimEventcall_0[proc->unk44] | (gMapanimEventcall_1[proc->unk44] << 12));
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
         if (proc->unk48 < 0)
         {
-            ApplyPalette(MapAnimfxConf_089A42BC[proc->frame].pal, gUnknown_0820588C[proc->unk44]);
+            ApplyPalette(MapAnimfxConf_MapanimEventcall_2[proc->frame].pal, gMapanimEventcall_1[proc->unk44]);
             EnablePaletteSync();
         }
 
@@ -645,8 +645,8 @@ void sub_807FE0C(struct MAEffectProc * proc)
     {
         int i, addedBrightness = proc->unk48 * 32 / 240;
 
-        const u16 * const in  = MapAnimfxConf_089A42BC[proc->frame_idx].pal;
-        u16 *       const out = &gPaletteBuffer[0x10 * gUnknown_0820588C[proc->unk4C]];
+        const u16 * const in  = MapAnimfxConf_MapanimEventcall_2[proc->frame_idx].pal;
+        u16 *       const out = &gPaletteBuffer[0x10 * gMapanimEventcall_1[proc->unk4C]];
 
         for (i = 1; i < 16; ++i)
         {
@@ -667,7 +667,7 @@ void sub_807FE0C(struct MAEffectProc * proc)
     }
 }
 
-void sub_807FFF0(void)
+void MapEventcallFx1_ClearBgs(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -675,21 +675,21 @@ void sub_807FFF0(void)
     BG_EnableSyncByMask(BG0_SYNC_BIT + BG2_SYNC_BIT);
 }
 
-void sub_8080014(ProcPtr proc)
+void StartMapEventcallFx2(ProcPtr proc)
 {
     if (proc)
-        Proc_StartBlocking(ProcScr_089A4434, proc);
+        Proc_StartBlocking(ProcScr_MapanimEventcall_2, proc);
     else
-        Proc_Start(ProcScr_089A4434, PROC_TREE_3);
+        Proc_Start(ProcScr_MapanimEventcall_2, PROC_TREE_3);
 }
 
-void sub_8080038(void)
+void MapEventcallFx2_OnEnd(void)
 {
     SetSecondaryHBlankHandler(NULL);
-    Proc_EndEach(ProcScr_089A448C);
+    Proc_EndEach(ProcScr_MapanimEventcall_3);
 }
 
-void sub_8080050(struct MAEffectProc * proc)
+void MapEventcallFx2_Init(struct MAEffectProc * proc)
 {
     struct Proc8080050 * vsync;
 
@@ -717,73 +717,73 @@ void sub_8080050(struct MAEffectProc * proc)
     proc->timer = 0;
     proc->unk44 = 0;
 
-    gUnknown_03001C7C = 0;
+    gUnk_57 = 0;
 
-    vsync = Proc_Start(ProcScr_089A448C, PROC_TREE_VSYNC);
+    vsync = Proc_Start(ProcScr_MapanimEventcall_3, PROC_TREE_VSYNC);
 
     vsync->unk29 = 0;
     vsync->unk2A = 0;
 
-    SetSecondaryHBlankHandler(sub_8080408);
+    SetSecondaryHBlankHandler(MapEventcallFx2_HBlankWobble);
 }
 
 // clang-format off
 
-struct MapAnimfxConf CONST_DATA gUnknown_089A43D4[] =
+struct MapAnimfxConf CONST_DATA gMapanimEventcall_16[] =
 {
     {
-        .img = gUnknown_089D8010,
-        .pal = gUnknown_089DCD48,
-        .tsa = gUnknown_089DCE48,
+        .img = gMapanimEventcall_191,
+        .pal = gMapanimEventcall_199,
+        .tsa = gMapanimEventcall_207,
     },
     {
-        .img = gUnknown_089D8198,
-        .pal = gUnknown_089DCD68,
-        .tsa = gUnknown_089DCF10,
+        .img = gMapanimEventcall_192,
+        .pal = gMapanimEventcall_200,
+        .tsa = gMapanimEventcall_208,
     },
     {
-        .img = gUnknown_089D84A8,
-        .pal = gUnknown_089DCD88,
-        .tsa = gUnknown_089DCFFC,
+        .img = gMapanimEventcall_193,
+        .pal = gMapanimEventcall_201,
+        .tsa = gMapanimEventcall_209,
     },
     {
-        .img = gUnknown_089D8910,
-        .pal = gUnknown_089DCDA8,
-        .tsa = gUnknown_089DD114,
+        .img = gMapanimEventcall_194,
+        .pal = gMapanimEventcall_202,
+        .tsa = gMapanimEventcall_210,
     },
     {
-        .img = gUnknown_089D925C,
-        .pal = gUnknown_089DCDC8,
-        .tsa = gUnknown_089DD284,
+        .img = gMapanimEventcall_195,
+        .pal = gMapanimEventcall_203,
+        .tsa = gMapanimEventcall_211,
     },
     {
-        .img = gUnknown_089DA40C,
-        .pal = gUnknown_089DCDE8,
-        .tsa = gUnknown_089DD4E8,
+        .img = gMapanimEventcall_196,
+        .pal = gMapanimEventcall_204,
+        .tsa = gMapanimEventcall_212,
     },
     {
-        .img = gUnknown_089DB1A0,
-        .pal = gUnknown_089DCE08,
-        .tsa = gUnknown_089DD790,
+        .img = gMapanimEventcall_197,
+        .pal = gMapanimEventcall_205,
+        .tsa = gMapanimEventcall_213,
     },
     {
-        .img = gUnknown_089DBFE0,
-        .pal = gUnknown_089DCE28,
-        .tsa = gUnknown_089DDA68,
+        .img = gMapanimEventcall_198,
+        .pal = gMapanimEventcall_206,
+        .tsa = gMapanimEventcall_214,
     },
 };
 
-const u32 gUnknown_082058A8[] =
+const u32 gMapanimEventcall_3[] =
 {
     0x160, 0x260,
 };
 
-const u8 gUnknown_082058B0[] =
+const u8 gMapanimEventcall_4[] =
 {
     4, 5,
 };
 
-const struct Unk082058B4 gUnknown_082058B4[] =
+const struct Unk082058B4 gMapanimEventcall_5[] =
 {
     { 0, 5, 0, },
     { 1, 4, 0, },
@@ -797,44 +797,44 @@ const struct Unk082058B4 gUnknown_082058B4[] =
 
 // clang-format on
 
-void sub_8080138(struct MAEffectProc* proc)
+void MapEventcallFx2_PlayAnim(struct MAEffectProc* proc)
 {
     if (proc->timer == 0)
     {
         struct Proc8080050* vsync;
-        u8 v0 = gUnknown_082058B4[proc->frame].unk00;
+        u8 v0 = gMapanimEventcall_5[proc->frame].unk00;
 
         Decompress(
-            gUnknown_089A43D4[v0].img,
-            (void*) VRAM + gUnknown_082058A8[proc->unk44] * 0x20);
+            gMapanimEventcall_16[v0].img,
+            (void*) VRAM + gMapanimEventcall_3[proc->unk44] * 0x20);
 
         Decompress(
-            gUnknown_089A43D4[v0].tsa,
+            gMapanimEventcall_16[v0].tsa,
             gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer,
             (u16*) gGenericBuffer,
             0, 0,
-            gUnknown_082058A8[proc->unk44] | (gUnknown_082058B0[proc->unk44] << 12));
+            gMapanimEventcall_3[proc->unk44] | (gMapanimEventcall_4[proc->unk44] << 12));
 
         BG_EnableSyncByMask(BG2_SYNC_BIT);
 
         ApplyPalette(
-            gUnknown_089A43D4[v0].pal,
-            gUnknown_082058B0[proc->unk44]);
+            gMapanimEventcall_16[v0].pal,
+            gMapanimEventcall_4[proc->unk44]);
 
         EnablePaletteSync();
 
-        vsync = (void*) Proc_Find(ProcScr_089A448C);
+        vsync = (void*) Proc_Find(ProcScr_MapanimEventcall_3);
 
         vsync->unk29 = 1;
-        vsync->unk2A = gUnknown_082058B4[proc->frame].unk02;
+        vsync->unk2A = gMapanimEventcall_5[proc->frame].unk02;
 
         if (proc->frame == 0)
             PlaySeSpacial(SONG_13F, proc->xDisplay);
 
-        proc->timer = gUnknown_082058B4[proc->frame].unk01;
+        proc->timer = gMapanimEventcall_5[proc->frame].unk01;
 
         if (proc->frame > 6)
         {
@@ -856,7 +856,7 @@ void sub_8080138(struct MAEffectProc* proc)
 }
 
 //! FE8U = 0x08080288
-void sub_8080288(struct MAEffectProc * proc)
+void MapEventcallFx2_RampToWhite(struct MAEffectProc * proc)
 {
     int i;
 
@@ -871,7 +871,7 @@ void sub_8080288(struct MAEffectProc * proc)
                 u16 r;
                 u16 g;
                 u16 b;
-                u16 color = PAL_BG_COLOR(gUnknown_082058B0[proc->unk44], i);
+                u16 color = PAL_BG_COLOR(gMapanimEventcall_4[proc->unk44], i);
 
                 r = amount + RED_VALUE(color);
 
@@ -894,7 +894,7 @@ void sub_8080288(struct MAEffectProc * proc)
                     b = 31;
                 }
 
-                PAL_BG_COLOR(gUnknown_082058B0[proc->unk44], i) = RGB(r, g, b);
+                PAL_BG_COLOR(gMapanimEventcall_4[proc->unk44], i) = RGB(r, g, b);
             }
         }
         else
@@ -921,7 +921,7 @@ void sub_8080288(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x0808038C
-void sub_808038C(struct MAEffectProc * proc)
+void MapEventcallFx2_FadeOutBlend(struct MAEffectProc * proc)
 {
     if (proc->frame < 130)
     {
@@ -940,7 +940,7 @@ void sub_808038C(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x080803D8
-void sub_80803D8(void)
+void MapEventcallFx2_ClearBgs(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
@@ -953,19 +953,19 @@ void sub_80803D8(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_089A4434[] =
+struct ProcCmd CONST_DATA ProcScr_MapanimEventcall_2[] =
 {
-    PROC_SET_END_CB(sub_8080038),
+    PROC_SET_END_CB(MapEventcallFx2_OnEnd),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8080050),
-    PROC_REPEAT(sub_8080138),
-    PROC_REPEAT(sub_8080288),
+    PROC_CALL(MapEventcallFx2_Init),
+    PROC_REPEAT(MapEventcallFx2_PlayAnim),
+    PROC_REPEAT(MapEventcallFx2_RampToWhite),
 
     PROC_SLEEP(30),
 
-    PROC_REPEAT(sub_808038C),
-    PROC_CALL(sub_80803D8),
+    PROC_REPEAT(MapEventcallFx2_FadeOutBlend),
+    PROC_CALL(MapEventcallFx2_ClearBgs),
 
     PROC_SLEEP(60),
 
@@ -977,11 +977,11 @@ struct ProcCmd CONST_DATA ProcScr_089A4434[] =
 // clang-format on
 
 //! FE8U = 0x08080408
-void sub_8080408(void)
+void MapEventcallFx2_HBlankWobble(void)
 {
     u16 vcount;
 
-    if (gUnknown_03001C7C == 0)
+    if (gUnk_57 == 0)
     {
         return;
     }
@@ -1009,11 +1009,11 @@ struct Proc89A448C
 };
 
 //! FE8U = 0x0808044C
-void sub_808044C(struct Proc89A448C * proc)
+void MapanimEventcall_VsyncWaveLoop(struct Proc89A448C * proc)
 {
     if (proc->unk_29 != 0)
     {
-        gUnknown_03001C7C = proc->unk_2a;
+        gUnk_57 = proc->unk_2a;
         proc->unk_29 = 0;
     }
 
@@ -1022,10 +1022,10 @@ void sub_808044C(struct Proc89A448C * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_089A448C[] =
+struct ProcCmd CONST_DATA ProcScr_MapanimEventcall_3[] =
 {
     PROC_YIELD,
-    PROC_REPEAT(sub_808044C),
+    PROC_REPEAT(MapanimEventcall_VsyncWaveLoop),
 
     PROC_END,
 };
@@ -1033,16 +1033,16 @@ struct ProcCmd CONST_DATA ProcScr_089A448C[] =
 // clang-format on
 
 //! FE8U = 0x08080474
-void sub_8080474(ProcPtr parent)
+void StartDemonKingSummonAnim(ProcPtr parent)
 {
 
     if (parent != NULL)
     {
-        Proc_StartBlocking(gUnknown_089A45DC, parent);
+        Proc_StartBlocking(gMapanimEventcall_18, parent);
     }
     else
     {
-        Proc_Start(gUnknown_089A45DC, PROC_TREE_3);
+        Proc_Start(gMapanimEventcall_18, PROC_TREE_3);
     }
 
     return;
@@ -1050,146 +1050,146 @@ void sub_8080474(ProcPtr parent)
 
 // clang-format off
 
-struct MapAnimfxConf CONST_DATA gUnknown_089A44A4[] =
+struct MapAnimfxConf CONST_DATA gMapanimEventcall_17[] =
 {
     {
-        .img = gUnknown_089DDE8C,
-        .pal = gUnknown_089E4C7C,
-        .tsa = gUnknown_089E4FBC,
+        .img = gMapanimEventcall_215,
+        .pal = gMapanimEventcall_241,
+        .tsa = gMapanimEventcall_267,
     },
     {
-        .img = gUnknown_089DDF10,
-        .pal = gUnknown_089E4C9C,
-        .tsa = gUnknown_089E5074,
+        .img = gMapanimEventcall_216,
+        .pal = gMapanimEventcall_242,
+        .tsa = gMapanimEventcall_268,
     },
     {
-        .img = gUnknown_089DDF9C,
-        .pal = gUnknown_089E4CBC,
-        .tsa = gUnknown_089E5130,
+        .img = gMapanimEventcall_217,
+        .pal = gMapanimEventcall_243,
+        .tsa = gMapanimEventcall_269,
     },
     {
-        .img = gUnknown_089DE030,
-        .pal = gUnknown_089E4CDC,
-        .tsa = gUnknown_089E51EC,
+        .img = gMapanimEventcall_218,
+        .pal = gMapanimEventcall_244,
+        .tsa = gMapanimEventcall_270,
     },
     {
-        .img = gUnknown_089DE0BC,
-        .pal = gUnknown_089E4CFC,
-        .tsa = gUnknown_089E52AC,
+        .img = gMapanimEventcall_219,
+        .pal = gMapanimEventcall_245,
+        .tsa = gMapanimEventcall_271,
     },
     {
-        .img = gUnknown_089DE14C,
-        .pal = gUnknown_089E4D1C,
-        .tsa = gUnknown_089E5364,
+        .img = gMapanimEventcall_220,
+        .pal = gMapanimEventcall_246,
+        .tsa = gMapanimEventcall_272,
     },
     {
-        .img = gUnknown_089DE1CC,
-        .pal = gUnknown_089E4D3C,
-        .tsa = gUnknown_089E541C,
+        .img = gMapanimEventcall_221,
+        .pal = gMapanimEventcall_247,
+        .tsa = gMapanimEventcall_273,
     },
     {
-        .img = gUnknown_089DEA30,
-        .pal = gUnknown_089E4D5C,
-        .tsa = gUnknown_089E5600,
+        .img = gMapanimEventcall_222,
+        .pal = gMapanimEventcall_248,
+        .tsa = gMapanimEventcall_274,
     },
     {
-        .img = gUnknown_089DF470,
-        .pal = gUnknown_089E4D7C,
-        .tsa = gUnknown_089E5814,
+        .img = gMapanimEventcall_223,
+        .pal = gMapanimEventcall_249,
+        .tsa = gMapanimEventcall_275,
     },
     {
-        .img = gUnknown_089DFF90,
-        .pal = gUnknown_089E4D9C,
-        .tsa = gUnknown_089E5A58,
+        .img = gMapanimEventcall_224,
+        .pal = gMapanimEventcall_250,
+        .tsa = gMapanimEventcall_276,
     },
     {
-        .img = gUnknown_089E0AB8,
-        .pal = gUnknown_089E4DBC,
-        .tsa = gUnknown_089E5D08,
+        .img = gMapanimEventcall_225,
+        .pal = gMapanimEventcall_251,
+        .tsa = gMapanimEventcall_277,
     },
     {
-        .img = gUnknown_089E1480,
-        .pal = gUnknown_089E4DDC,
-        .tsa = gUnknown_089E5FEC,
+        .img = gMapanimEventcall_226,
+        .pal = gMapanimEventcall_252,
+        .tsa = gMapanimEventcall_278,
     },
     {
-        .img = gUnknown_089E2154,
-        .pal = gUnknown_089E4DFC,
-        .tsa = gUnknown_089E6290,
+        .img = gMapanimEventcall_227,
+        .pal = gMapanimEventcall_253,
+        .tsa = gMapanimEventcall_279,
     },
     {
-        .img = gUnknown_089E2C1C,
-        .pal = gUnknown_089E4E1C,
-        .tsa = gUnknown_089E64D0,
+        .img = gMapanimEventcall_228,
+        .pal = gMapanimEventcall_254,
+        .tsa = gMapanimEventcall_280,
     },
     {
-        .img = gUnknown_089E34A8,
-        .pal = gUnknown_089E4E3C,
-        .tsa = gUnknown_089E66A0,
+        .img = gMapanimEventcall_229,
+        .pal = gMapanimEventcall_255,
+        .tsa = gMapanimEventcall_281,
     },
     {
-        .img = gUnknown_089E3B88,
-        .pal = gUnknown_089E4E5C,
-        .tsa = gUnknown_089E6808,
+        .img = gMapanimEventcall_230,
+        .pal = gMapanimEventcall_256,
+        .tsa = gMapanimEventcall_282,
     },
     {
-        .img = gUnknown_089E4024,
-        .pal = gUnknown_089E4E7C,
-        .tsa = gUnknown_089E6924,
+        .img = gMapanimEventcall_231,
+        .pal = gMapanimEventcall_257,
+        .tsa = gMapanimEventcall_283,
     },
     {
-        .img = gUnknown_089E4344,
-        .pal = gUnknown_089E4E9C,
-        .tsa = gUnknown_089E6A14,
+        .img = gMapanimEventcall_232,
+        .pal = gMapanimEventcall_258,
+        .tsa = gMapanimEventcall_284,
     },
     {
-        .img = gUnknown_089E44B8,
-        .pal = gUnknown_089E4EBC,
-        .tsa = gUnknown_089E6AE4,
+        .img = gMapanimEventcall_233,
+        .pal = gMapanimEventcall_259,
+        .tsa = gMapanimEventcall_285,
     },
     {
-        .img = gUnknown_089E45D0,
-        .pal = gUnknown_089E4EDC,
-        .tsa = gUnknown_089E6BB0,
+        .img = gMapanimEventcall_234,
+        .pal = gMapanimEventcall_260,
+        .tsa = gMapanimEventcall_286,
     },
     {
-        .img = gUnknown_089E46E8,
-        .pal = gUnknown_089E4EFC,
-        .tsa = gUnknown_089E6C80,
+        .img = gMapanimEventcall_235,
+        .pal = gMapanimEventcall_261,
+        .tsa = gMapanimEventcall_287,
     },
     {
-        .img = gUnknown_089E47CC,
-        .pal = gUnknown_089E4F1C,
-        .tsa = gUnknown_089E6D50,
+        .img = gMapanimEventcall_236,
+        .pal = gMapanimEventcall_262,
+        .tsa = gMapanimEventcall_288,
     },
     {
-        .img = gUnknown_089E48C0,
-        .pal = gUnknown_089E4F3C,
-        .tsa = gUnknown_089E6E1C,
+        .img = gMapanimEventcall_237,
+        .pal = gMapanimEventcall_263,
+        .tsa = gMapanimEventcall_289,
     },
     {
-        .img = gUnknown_089E49D8,
-        .pal = gUnknown_089E4F5C,
-        .tsa = gUnknown_089E6EE8,
+        .img = gMapanimEventcall_238,
+        .pal = gMapanimEventcall_264,
+        .tsa = gMapanimEventcall_290,
     },
     {
-        .img = gUnknown_089E4AEC,
-        .pal = gUnknown_089E4F7C,
-        .tsa = gUnknown_089E6FB4,
+        .img = gMapanimEventcall_239,
+        .pal = gMapanimEventcall_265,
+        .tsa = gMapanimEventcall_291,
     },
     {
-        .img = gUnknown_089E4BC8,
-        .pal = gUnknown_089E4F9C,
-        .tsa = gUnknown_089E7080,
+        .img = gMapanimEventcall_240,
+        .pal = gMapanimEventcall_266,
+        .tsa = gMapanimEventcall_292,
     },
 };
 
-const int gUnknown_082058D4[] =
+const int gMapanimEventcall_6[] =
 {
     0x160, 0x260,
 };
 
-const u8 gUnknown_082058DC[] =
+const u8 gMapanimEventcall_7[] =
 {
     4, 5,
 };
@@ -1197,28 +1197,28 @@ const u8 gUnknown_082058DC[] =
 // clang-format on
 
 //! FE8U = 0x08080498
-void sub_8080498(int frame, int unk44)
+void MapanimEventcall_SummonLoadFrameAndPal(int frame, int unk44)
 {
-    Decompress(gUnknown_089A44A4[frame].img, (void *)(VRAM + gUnknown_082058D4[unk44] * 0x20));
-    Decompress(gUnknown_089A44A4[frame].tsa, gGenericBuffer);
+    Decompress(gMapanimEventcall_17[frame].img, (void *)(VRAM + gMapanimEventcall_6[unk44] * 0x20));
+    Decompress(gMapanimEventcall_17[frame].tsa, gGenericBuffer);
     AddAttr2dBitMap(
-        gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gUnknown_082058D4[unk44] | gUnknown_082058DC[unk44] << 12);
+        gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gMapanimEventcall_6[unk44] | gMapanimEventcall_7[unk44] << 12);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
-    ApplyPalette(gUnknown_089A44A4[frame].pal, gUnknown_082058DC[unk44]);
+    ApplyPalette(gMapanimEventcall_17[frame].pal, gMapanimEventcall_7[unk44]);
     EnablePaletteSync();
 
     return;
 }
 
 //! FE8U = 0x08080530
-void sub_8080530(int frame, int unk44)
+void MapanimEventcall_SummonLoadFrame(int frame, int unk44)
 {
-    Decompress(gUnknown_089A44A4[frame].img, (void *)(VRAM + gUnknown_082058D4[unk44] * 0x20));
-    Decompress(gUnknown_089A44A4[frame].tsa, gGenericBuffer);
+    Decompress(gMapanimEventcall_17[frame].img, (void *)(VRAM + gMapanimEventcall_6[unk44] * 0x20));
+    Decompress(gMapanimEventcall_17[frame].tsa, gGenericBuffer);
     AddAttr2dBitMap(
-        gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gUnknown_082058D4[unk44] | gUnknown_082058DC[unk44] << 12);
+        gBG2TilemapBuffer, (u16 *)gGenericBuffer, 0, 0, gMapanimEventcall_6[unk44] | gMapanimEventcall_7[unk44] << 12);
 
     BG_EnableSyncByMask(BG2_SYNC_BIT);
 
@@ -1226,12 +1226,12 @@ void sub_8080530(int frame, int unk44)
 }
 
 //! FE8U = 0x080805AC
-void sub_80805AC(int idxA, int idxB, int val)
+void MapanimEventcall_SummonFadeFramePal(int idxA, int idxB, int val)
 {
     s32 i;
 
-    const u16 * src = gUnknown_089A44A4[idxA].pal;
-    u16 * dst = PAL_BG(gUnknown_082058DC[idxB]);
+    const u16 * src = gMapanimEventcall_17[idxA].pal;
+    u16 * dst = PAL_BG(gMapanimEventcall_7[idxB]);
 
     for (i = 0; i < 16; i++)
     {
@@ -1281,14 +1281,14 @@ struct MAEffectSummonProc
 };
 
 //! FE8U = 0x08080654
-void sub_8080654(struct MAEffectProc * proc)
+void DemonKingSummonAnim_OnEnd(struct MAEffectProc * proc)
 {
     Proc_End((void *)proc->img);
     return;
 }
 
 //! FE8U = 0x08080660
-void sub_8080660(struct MAEffectProc * proc)
+void DemonKingSummonAnim_Init(struct MAEffectProc * proc)
 {
     gLCDControlBuffer.bg0cnt.priority = 0;
     gLCDControlBuffer.bg1cnt.priority = 0;
@@ -1310,7 +1310,7 @@ void sub_8080660(struct MAEffectProc * proc)
 
     BG_SetPosition(BG_2, 8, 8);
 
-    proc->img = Proc_Start(gUnknown_089A4644, proc);
+    proc->img = Proc_Start(gMapanimEventcall_19, proc);
     proc->frame = 0;
     proc->timer = 0;
     proc->unk44 = 0;
@@ -1321,7 +1321,7 @@ void sub_8080660(struct MAEffectProc * proc)
 
 // clang-format off
 
-const u8 gUnknown_082058DE[] =
+const u8 gMapanimEventcall_8[] =
 {
     0, 1, 2, 3,
 };
@@ -1329,11 +1329,11 @@ const u8 gUnknown_082058DE[] =
 // clang-format on
 
 //! FE8U = 0x08080730
-void sub_8080730(struct MAEffectProc * proc)
+void DemonKingSummonAnim_PhaseIntro(struct MAEffectProc * proc)
 {
     if (proc->timer == 0)
     {
-        sub_8080498(gUnknown_082058DE[proc->frame], proc->unk44);
+        MapanimEventcall_SummonLoadFrameAndPal(gMapanimEventcall_8[proc->frame], proc->unk44);
 
         if (proc->frame == 0)
         {
@@ -1367,7 +1367,7 @@ void sub_8080730(struct MAEffectProc * proc)
 
 // clang-format off
 
-const u8 gUnknown_082058E2[] =
+const u8 gMapanimEventcall_9[] =
 {
     4, 5,
 };
@@ -1375,7 +1375,7 @@ const u8 gUnknown_082058E2[] =
 // clang-format on
 
 //! FE8U = 0x080807C8
-void sub_80807C8(struct MAEffectSummonProc * proc)
+void DemonKingSummonAnim_PhaseShakeRamp(struct MAEffectSummonProc * proc)
 {
     if (proc->unk_46 == 5)
     {
@@ -1401,7 +1401,7 @@ void sub_80807C8(struct MAEffectSummonProc * proc)
 
     if (proc->unk_42 == 0)
     {
-        sub_8080498(gUnknown_082058E2[proc->unk_40], proc->unk_44);
+        MapanimEventcall_SummonLoadFrameAndPal(gMapanimEventcall_9[proc->unk_40], proc->unk_44);
 
         proc->unk_40++;
         proc->unk_42 = 4;
@@ -1431,7 +1431,7 @@ void sub_80807C8(struct MAEffectSummonProc * proc)
 
 // clang-format off
 
-const u8 gUnknown_082058E4[] =
+const u8 gMapanimEventcall_10[] =
 {
      6,  7,  8,  9,
     10, 11, 12, 13,
@@ -1441,11 +1441,11 @@ const u8 gUnknown_082058E4[] =
 // clang-format on
 
 //! FE8U = 0x08080890
-void sub_8080890(struct MAEffectSummonProc * proc)
+void DemonKingSummonAnim_PhaseBurst(struct MAEffectSummonProc * proc)
 {
     if (proc->unk_42 == 0)
     {
-        sub_8080498(gUnknown_082058E4[proc->unk_40], proc->unk_44);
+        MapanimEventcall_SummonLoadFrameAndPal(gMapanimEventcall_10[proc->unk_40], proc->unk_44);
 
         proc->unk_42 = 3;
 
@@ -1471,7 +1471,7 @@ void sub_8080890(struct MAEffectSummonProc * proc)
 }
 
 //! FE8U = 0x08080900
-void sub_8080900(struct MAEffectSummonProc * proc)
+void DemonKingSummonAnim_PhaseFlashWhite(struct MAEffectSummonProc * proc)
 {
     int i;
 
@@ -1487,7 +1487,7 @@ void sub_8080900(struct MAEffectSummonProc * proc)
                 u16 g;
                 u16 b;
 
-                u16 color = PAL_BG_COLOR(gUnknown_082058DC[proc->unk_44], i);
+                u16 color = PAL_BG_COLOR(gMapanimEventcall_7[proc->unk_44], i);
 
                 r = amount + RED_VALUE(color);
 
@@ -1510,7 +1510,7 @@ void sub_8080900(struct MAEffectSummonProc * proc)
                     b = 31;
                 }
 
-                PAL_BG_COLOR(gUnknown_082058DC[proc->unk_44], i) = RGB(r, g, b);
+                PAL_BG_COLOR(gMapanimEventcall_7[proc->unk_44], i) = RGB(r, g, b);
             }
 
             EnablePaletteSync();
@@ -1539,7 +1539,7 @@ void sub_8080900(struct MAEffectSummonProc * proc)
 
 // clang-format off
 
-const u8 gUnknown_082058F0[] =
+const u8 gMapanimEventcall_11[] =
 {
     18, 19, 20, 21,
 };
@@ -1547,7 +1547,7 @@ const u8 gUnknown_082058F0[] =
 // clang-format on
 
 //! FE8U = 0x080809D8
-void sub_80809D8(struct MAEffectSummonProc * proc)
+void DemonKingSummonAnim_PhaseDissolve(struct MAEffectSummonProc * proc)
 {
     s16 tmp = 0x95;
 
@@ -1587,7 +1587,7 @@ void sub_80809D8(struct MAEffectSummonProc * proc)
 
     if (proc->unk_42 == 0)
     {
-        sub_8080530(gUnknown_082058F0[proc->unk_40], proc->unk_44);
+        MapanimEventcall_SummonLoadFrame(gMapanimEventcall_11[proc->unk_40], proc->unk_44);
 
         proc->unk_4a = proc->unk_40;
         proc->unk_40++;
@@ -1622,23 +1622,23 @@ void sub_80809D8(struct MAEffectSummonProc * proc)
 
     if (proc->unk_4a >= 0)
     {
-        sub_80805AC(gUnknown_082058F0[proc->unk_4a], proc->unk_44, 0x20 - ((proc->unk_48 * 0x20) / 0x96));
+        MapanimEventcall_SummonFadeFramePal(gMapanimEventcall_11[proc->unk_4a], proc->unk_44, 0x20 - ((proc->unk_48 * 0x20) / 0x96));
     }
 
     return;
 }
 
-const u8 gUnknown_082058F4[] =
+const u8 gMapanimEventcall_12[] =
 {
     22, 23, 24, 25,
 };
 
 //! FE8U = 0x08080B18
-void sub_8080B18(struct MAEffectSummonProc * proc)
+void DemonKingSummonAnim_PhaseOutro(struct MAEffectSummonProc * proc)
 {
     if (proc->unk_42 == 0)
     {
-        sub_8080498(gUnknown_082058F4[proc->unk_40], proc->unk_44);
+        MapanimEventcall_SummonLoadFrameAndPal(gMapanimEventcall_12[proc->unk_40], proc->unk_44);
 
         proc->unk_40++;
         proc->unk_42 = 5;
@@ -1659,7 +1659,7 @@ void sub_8080B18(struct MAEffectSummonProc * proc)
 }
 
 //! FE8U = 0x08080B84
-void sub_8080B84(void)
+void DemonKingSummonAnim_Cleanup(void)
 {
     BG_SetPosition(BG_2, 0, 0);
     BG_Fill(gBG2TilemapBuffer, 0);
@@ -1671,19 +1671,19 @@ void sub_8080B84(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_089A45DC[] =
+struct ProcCmd CONST_DATA gMapanimEventcall_18[] =
 {
-    PROC_SET_END_CB(sub_8080654),
+    PROC_SET_END_CB(DemonKingSummonAnim_OnEnd),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8080660),
-    PROC_REPEAT(sub_8080730),
-    PROC_REPEAT(sub_80807C8),
-    PROC_REPEAT(sub_8080890),
-    PROC_REPEAT(sub_8080900),
-    PROC_REPEAT(sub_80809D8),
-    PROC_REPEAT(sub_8080B18),
-    PROC_CALL(sub_8080B84),
+    PROC_CALL(DemonKingSummonAnim_Init),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseIntro),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseShakeRamp),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseBurst),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseFlashWhite),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseDissolve),
+    PROC_REPEAT(DemonKingSummonAnim_PhaseOutro),
+    PROC_CALL(DemonKingSummonAnim_Cleanup),
 
     PROC_SLEEP(60),
 
@@ -1695,7 +1695,7 @@ struct ProcCmd CONST_DATA gUnknown_089A45DC[] =
 // clang-format on
 
 //! FE8U = 0x08080BA8
-void sub_8080BA8(struct MAEffectSummonProc * proc)
+void DemonKingSummonShake_Init(struct MAEffectSummonProc * proc)
 {
     proc->unk_29 = 0;
     proc->unk_2a = 0;
@@ -1722,7 +1722,7 @@ struct Pair
     s8 y;
 };
 
-const struct Pair gUnknown_082058F8[] =
+const struct Pair gMapanimEventcall_13[] =
 {
     { -1, +0, },
     { +0, +0, },
@@ -1734,7 +1734,7 @@ const struct Pair gUnknown_082058F8[] =
     { +0, +0, },
 };
 
-const struct Pair gUnknown_08205918[] =
+const struct Pair gMapanimEventcall_14[] =
 {
     { -1, +0, },
     { +1, +0, },
@@ -1746,7 +1746,7 @@ const struct Pair gUnknown_08205918[] =
     { +0, +1, },
 };
 
-const struct Pair gUnknown_08205938[] =
+const struct Pair gMapanimEventcall_15[] =
 {
     { -2, +0, },
     { +1, +0, },
@@ -1761,7 +1761,7 @@ const struct Pair gUnknown_08205938[] =
 // clang-format on
 
 //! FE8U = 0x08080BD8
-void sub_8080BD8(struct MAEffectSummonProc * proc)
+void DemonKingSummonShake_Loop(struct MAEffectSummonProc * proc)
 {
     int tmp = 8;
 
@@ -1786,26 +1786,26 @@ void sub_8080BD8(struct MAEffectSummonProc * proc)
     switch (proc->unk_2a)
     {
         case 0:
-            proc->unk_30 = gUnknown_082058F8[proc->unk_38].x;
-            proc->unk_32 = gUnknown_082058F8[proc->unk_38].y;
+            proc->unk_30 = gMapanimEventcall_13[proc->unk_38].x;
+            proc->unk_32 = gMapanimEventcall_13[proc->unk_38].y;
 
             break;
 
         case 1:
-            proc->unk_30 = gUnknown_08205918[proc->unk_38].x;
-            proc->unk_32 = gUnknown_08205918[proc->unk_38].y;
+            proc->unk_30 = gMapanimEventcall_14[proc->unk_38].x;
+            proc->unk_32 = gMapanimEventcall_14[proc->unk_38].y;
 
             break;
 
         case 2:
-            proc->unk_30 = gUnknown_08205938[proc->unk_38].x;
-            proc->unk_32 = gUnknown_08205938[proc->unk_38].y;
+            proc->unk_30 = gMapanimEventcall_15[proc->unk_38].x;
+            proc->unk_32 = gMapanimEventcall_15[proc->unk_38].y;
 
             break;
 
         default:
-            proc->unk_30 = proc->unk_2a * gUnknown_08205918[proc->unk_38].x;
-            proc->unk_32 = proc->unk_2a * gUnknown_08205918[proc->unk_38].y;
+            proc->unk_30 = proc->unk_2a * gMapanimEventcall_14[proc->unk_38].x;
+            proc->unk_32 = proc->unk_2a * gMapanimEventcall_14[proc->unk_38].y;
 
             break;
     }
@@ -1827,12 +1827,12 @@ void sub_8080BD8(struct MAEffectSummonProc * proc)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_089A4644[] =
+struct ProcCmd CONST_DATA gMapanimEventcall_19[] =
 {
-    PROC_CALL(sub_8080BA8),
+    PROC_CALL(DemonKingSummonShake_Init),
     PROC_YIELD,
 
-    PROC_REPEAT(sub_8080BD8),
+    PROC_REPEAT(DemonKingSummonShake_Loop),
 
     PROC_END,
 };
@@ -1842,7 +1842,7 @@ struct ProcCmd CONST_DATA gUnknown_089A4644[] =
 //! FE8U = 0x0807AD08
 void New6C_SummonGfx(ProcPtr parent, int xBase, int yBase)
 {
-    struct MAEffectProc * proc = Proc_StartBlocking(gUnknown_089A46AC, parent);
+    struct MAEffectProc * proc = Proc_StartBlocking(gMapanimEventcall_21, parent);
 
     proc->xDisplay = ((xBase - (gBmSt.camera.x >> 4)) * 2 + 1) * 8;
     proc->yDisplay = ((yBase - (gBmSt.camera.y >> 4)) * 2 + 1) * 8;
@@ -1851,14 +1851,14 @@ void New6C_SummonGfx(ProcPtr parent, int xBase, int yBase)
 }
 
 //! FE8U = 0x08080D6C
-void sub_8080D6C(struct MAEffectProc * proc)
+void SummonGfxAnim_Init(struct MAEffectProc * proc)
 {
     SetDefaultMapAnimScreenConf();
 
     BG_SetPosition(BG_2, 0, 0);
 
-    Decompress(gUnknown_089E714C, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
-    ApplyPalette(gUnknown_089E7DEC, 4);
+    Decompress(gMapanimEventcall_293, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
+    ApplyPalette(gMapanimEventcall_294, 4);
     SetBlendAlpha(16, 16);
 
     proc->frame = 0;
@@ -1871,32 +1871,32 @@ void sub_8080D6C(struct MAEffectProc * proc)
 
 // clang-format off
 
-u8 * CONST_DATA gUnknown_089A4664[] =
+u8 * CONST_DATA gMapanimEventcall_20[] =
 {
-    Tsa_089E7E0C,
-    Tsa_089E7E2C,
-    Tsa_089E7E50,
-    Tsa_089E7E78,
-    Tsa_089E7EA0,
-    Tsa_089E7ECC,
-    Tsa_089E7EFC,
-    Tsa_089E7F2C,
-    Tsa_089E7F5C,
-    Tsa_089E7F8C,
-    Tsa_089E7FBC,
-    Tsa_089E7FFC,
-    Tsa_089E8040,
-    Tsa_089E8090,
-    Tsa_089E80EC,
-    Tsa_089E8148,
-    Tsa_089E81A4,
-    Tsa_089E8200,
+    Tsa_Mapeventcall_0,
+    Tsa_Mapeventcall_1,
+    Tsa_Mapeventcall_2,
+    Tsa_Mapeventcall_3,
+    Tsa_Mapeventcall_4,
+    Tsa_Mapeventcall_5,
+    Tsa_Mapeventcall_6,
+    Tsa_Mapeventcall_7,
+    Tsa_Mapeventcall_8,
+    Tsa_Mapeventcall_9,
+    Tsa_Mapeventcall_10,
+    Tsa_Mapeventcall_11,
+    Tsa_Mapeventcall_12,
+    Tsa_Mapeventcall_13,
+    Tsa_Mapeventcall_14,
+    Tsa_Mapeventcall_15,
+    Tsa_Mapeventcall_16,
+    Tsa_Mapeventcall_17,
 };
 
 // clang-format on
 
 //! FE8U = 0x08080DCC
-void sub_8080DCC(struct MAEffectProc * proc)
+void SummonGfxAnim_Loop(struct MAEffectProc * proc)
 {
     s32 exit;
 
@@ -1928,7 +1928,7 @@ void sub_8080DCC(struct MAEffectProc * proc)
             return;
         }
 
-        Decompress(gUnknown_089A4664[proc->frame], gGenericBuffer);
+        Decompress(gMapanimEventcall_20[proc->frame], gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer, (u16 *)gGenericBuffer, proc->xDisplay / 8 - 4, proc->yDisplay / 8 - 6, 0x00004160);
@@ -1945,7 +1945,7 @@ void sub_8080DCC(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x08080E84
-void sub_8080E84(void)
+void SummonGfxAnim_Cleanup(void)
 {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -1954,13 +1954,13 @@ void sub_8080E84(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_089A46AC[] =
+struct ProcCmd CONST_DATA gMapanimEventcall_21[] =
 {
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8080D6C),
-    PROC_REPEAT(sub_8080DCC),
-    PROC_CALL(sub_8080E84),
+    PROC_CALL(SummonGfxAnim_Init),
+    PROC_REPEAT(SummonGfxAnim_Loop),
+    PROC_CALL(SummonGfxAnim_Cleanup),
 
     PROC_CALL(MapSpellAnim_CommonEnd),
 
@@ -1970,9 +1970,9 @@ struct ProcCmd CONST_DATA gUnknown_089A46AC[] =
 // clang-format on
 
 //! FE8U = 0x08080E9C
-void sub_8080E9C(ProcPtr parent, struct Unit * unit)
+void StartSummonUnitRevealAnim(ProcPtr parent, struct Unit * unit)
 {
-    struct MAEffectProc * proc = Proc_StartBlocking(gUnknown_089A46DC, parent);
+    struct MAEffectProc * proc = Proc_StartBlocking(gMapanimEventcall_22, parent);
 
     proc->unit = unit;
     proc->xDisplay = (((unit->xPos - (gBmSt.camera.x >> 4)) * 2) + 1) * 8;
@@ -1982,14 +1982,14 @@ void sub_8080E9C(ProcPtr parent, struct Unit * unit)
 }
 
 //! FE8U = 0x08080EE4
-void sub_8080EE4(struct MAEffectProc * proc)
+void SummonUnitGfx_Init(struct MAEffectProc * proc)
 {
     SetDefaultMapAnimScreenConf();
 
     BG_SetPosition(BG_2, 0, 0);
 
-    Decompress(gUnknown_089E714C, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
-    ApplyPalette(gUnknown_089E7DEC, 4);
+    Decompress(gMapanimEventcall_293, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
+    ApplyPalette(gMapanimEventcall_294, 4);
     SetBlendAlpha(16, 16);
 
     proc->frame = 0;
@@ -2001,7 +2001,7 @@ void sub_8080EE4(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x08080F44
-void sub_8080F44(struct MAEffectProc * proc)
+void SummonUnitGfx_Loop(struct MAEffectProc * proc)
 {
     s32 exit;
 
@@ -2034,7 +2034,7 @@ void sub_8080F44(struct MAEffectProc * proc)
             return;
         }
 
-        Decompress(gUnknown_089A4664[proc->frame], gGenericBuffer);
+        Decompress(gMapanimEventcall_20[proc->frame], gGenericBuffer);
 
         AddAttr2dBitMap(
             gBG2TilemapBuffer, (u16 *)gGenericBuffer, proc->xDisplay / 8 - 4, proc->yDisplay / 8 - 6, 0x00004160);
@@ -2051,7 +2051,7 @@ void sub_8080F44(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x08081008
-void sub_8081008(void)
+void SummonUnitGfx_End(void)
 {
     BG_Fill(gBG2TilemapBuffer, 0);
     BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -2060,13 +2060,13 @@ void sub_8081008(void)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gUnknown_089A46DC[] =
+struct ProcCmd CONST_DATA gMapanimEventcall_22[] =
 {
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8080EE4),
-    PROC_REPEAT(sub_8080F44),
-    PROC_CALL(sub_8081008),
+    PROC_CALL(SummonUnitGfx_Init),
+    PROC_REPEAT(SummonUnitGfx_Loop),
+    PROC_CALL(SummonUnitGfx_End),
 
     PROC_CALL(MapSpellAnim_CommonEnd),
 
@@ -2095,7 +2095,7 @@ void RemoveGlowingCrossDirectly(void)
 }
 
 //! FE8U = 0x08081078
-void sub_8081078(struct MAEffectProc * proc)
+void GlowingCross_Init(struct MAEffectProc * proc)
 {
     SetDefaultMapAnimScreenConf();
 
@@ -2106,8 +2106,8 @@ void sub_8081078(struct MAEffectProc * proc)
 
     BG_SetPosition(BG_2, 0, 0);
 
-    Decompress(gUnknown_089E714C, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
-    ApplyPalette(gUnknown_089E7DEC, 4);
+    Decompress(gMapanimEventcall_293, (void *)(0x06002C00 + GetBackgroundTileDataOffset(BG_2)));
+    ApplyPalette(gMapanimEventcall_294, 4);
     SetBlendAlpha(16, 16);
 
     proc->frame = 0;
@@ -2119,7 +2119,7 @@ void sub_8081078(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x08081100
-void sub_8081100(struct MAEffectProc * proc)
+void GlowingCross_Loop(struct MAEffectProc * proc)
 {
     s32 exit;
 
@@ -2145,7 +2145,7 @@ void sub_8081100(struct MAEffectProc * proc)
             return;
         }
 
-        Decompress(gUnknown_089A4664[proc->frame], gGenericBuffer);
+        Decompress(gMapanimEventcall_20[proc->frame], gGenericBuffer);
         AddAttr2dBitMap(
             gBG2TilemapBuffer, (u16 *)gGenericBuffer, proc->xDisplay / 8 - 4, proc->yDisplay / 8 - 6, 0x00004160);
         BG_EnableSyncByMask(BG2_SYNC_BIT);
@@ -2160,7 +2160,7 @@ void sub_8081100(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x080811AC
-void sub_80811AC(void)
+void GlowingCross_OnEnd(void)
 {
     DeleteAllPaletteAnimator();
     SetWinEnable(0, 0, 0);
@@ -2173,10 +2173,10 @@ void sub_80811AC(void)
 struct ProcCmd CONST_DATA ProcScr_GlowingCross[] =
 {
     PROC_SLEEP(1),
-    PROC_SET_END_CB(sub_80811AC),
+    PROC_SET_END_CB(GlowingCross_OnEnd),
 
-    PROC_CALL(sub_8081078),
-    PROC_REPEAT(sub_8081100),
+    PROC_CALL(GlowingCross_Init),
+    PROC_REPEAT(GlowingCross_Loop),
 
     PROC_END,
 };
@@ -2192,7 +2192,7 @@ void RemoveGlowingCrossDirectlyWithAnim(ProcPtr parent, int timer)
 }
 
 //! FE8U = 0x080811EC
-void sub_80811EC(struct MAEffectProc * proc)
+void GlowCrossExit_Init(struct MAEffectProc * proc)
 {
     SetBlendAlpha(16, 16);
     proc->frame = 0;
@@ -2200,7 +2200,7 @@ void sub_80811EC(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x08081208
-void sub_8081208(struct MAEffectProc * proc)
+void GlowCrossExit_Loop(struct MAEffectProc * proc)
 {
     proc->frame++;
 
@@ -2218,7 +2218,7 @@ void sub_8081208(struct MAEffectProc * proc)
 }
 
 //! FE8U = 0x0808125C
-void nullsub_58(void)
+void Nop_MapanimEventcall_0(void)
 {
     return;
 }
@@ -2229,16 +2229,16 @@ struct ProcCmd CONST_DATA ProcScr_GlowCrossExit[] =
 {
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_80811EC),
-    PROC_REPEAT(sub_8081208),
-    PROC_CALL(nullsub_58),
+    PROC_CALL(GlowCrossExit_Init),
+    PROC_REPEAT(GlowCrossExit_Loop),
+    PROC_CALL(Nop_MapanimEventcall_0),
 
     PROC_CALL(MapSpellAnim_CommonEnd),
 
     PROC_END,
 };
 
-const u8 gUnused_08205958[] =
+const u8 gUnused_MapanimEventcall_0[] =
 {
     0, 0, 0, 0,
     0x50, 0, 0, 0,

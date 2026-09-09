@@ -1,8 +1,8 @@
 #include "gbafe.h"
 
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
+void InitBanimTerrain(void *);
+void EndBanimTerrain(void *);
+void SetBanimTerrainPos(void *, s16, s16, s16, s16);
 
 CONST_DATA struct ProcCmd gProc_ekrDispUP[] = {
     PROC_NAME("ekrDispUP"),
@@ -120,13 +120,13 @@ void ekrDispUPMain(struct ProcEkrDispUP *proc)
 
     if (height > 0) {
         if (proc->unk4C == 0) { 
-            EfxTmCpyBG(&gUnknown_0880210C[map_idx], &gBG0TilemapBuffer2D[iy][ix1], 15, height, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix1], 15, height, 2, 128);
+            EfxTmCpyBG(&gBanimmisc_0[map_idx], &gBG0TilemapBuffer2D[iy][ix1], 15, height, -1, -1);
+            EfxTmReplacePal(&gBG0TilemapBuffer2D[iy][ix1], 15, height, 2, 128);
         }
 
         if (proc->unk50 == 0) {
-            EfxTmCpyBG(&gUnknown_088021C0[map_idx], &gBG0TilemapBuffer2D[iy][ix2], ix2, height, -1, -1);
-            sub_8070D04(&gBG0TilemapBuffer2D[iy][ix2], 15, height, 3, 128);
+            EfxTmCpyBG(&gBanimmisc_1[map_idx], &gBG0TilemapBuffer2D[iy][ix2], ix2, height, -1, -1);
+            EfxTmReplacePal(&gBG0TilemapBuffer2D[iy][ix2], 15, height, 3, 128);
         }
     }
 
@@ -163,7 +163,7 @@ void EfxClearScreenFx(void)
     CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
 
     if (GetBattleAnimArenaFlag() == false)
-        sub_8051E00();
+        EfxInitTerrainBg();
     else
         CpuFastFill16(0, gBG2TilemapBuffer, 0x800);
 
@@ -176,24 +176,24 @@ void EfxClearScreenFx(void)
     SetDefaultColorEffects();
 }
 
-void sub_8051E00(void)
+void EfxInitTerrainBg(void)
 {
-    struct BanimUnkStructComm * unk0201FADC = &gUnknown_0201FADC;
+    struct BanimUnkStructComm * unk0201FADC = &gEkrbattle_9;
     struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimFloorfx[0]];
     struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimFloorfx[1]];
 
     switch (gEkrDistanceType) {
     case EKR_DISTANCE_CLOSE:
     case EKR_DISTANCE_PROMOTION:
-        gUnknown_0200003C[0] = &gUnk_Banim_020145C8[0];
-        gUnknown_0200003C[1] = &gUnk_Banim_020145C8[0x1000];
+        gEkrbattle_1[0] = &gUnk_Banim_Ekrbattle_0[0];
+        gEkrbattle_1[1] = &gUnk_Banim_Ekrbattle_0[0x1000];
         break;
 
     case EKR_DISTANCE_FAR:
     case EKR_DISTANCE_FARFAR:
     case EKR_DISTANCE_MONOCOMBAT:
-        gUnknown_0200003C[0] = &gUnk_Banim_020145C8[0x800];
-        gUnknown_0200003C[1] = &gUnk_Banim_020145C8[0x1800];
+        gEkrbattle_1[0] = &gUnk_Banim_Ekrbattle_0[0x800];
+        gEkrbattle_1[1] = &gUnk_Banim_Ekrbattle_0[0x1800];
         break;
 
     }
@@ -211,8 +211,8 @@ void sub_8051E00(void)
         break;
     }
 
-    gUnknown_02000044[0] = TsaConfs_BanimTmA[gEkrDistanceType * 2];
-    gUnknown_02000044[1] = TsaConfs_BanimTmA[gEkrDistanceType * 2 + 1];
+    gEkrbattle_2[0] = TsaConfs_BanimTmA[gEkrDistanceType * 2];
+    gEkrbattle_2[1] = TsaConfs_BanimTmA[gEkrDistanceType * 2 + 1];
 
     unk0201FADC->terrain_l = gBanimFloorfx[0];
     unk0201FADC->pal_l = 4;
@@ -223,9 +223,9 @@ void sub_8051E00(void)
     unk0201FADC->distance = gEkrDistanceType;
     unk0201FADC->unk0E = 2;
     unk0201FADC->unk1C = 0;
-    unk0201FADC->unk20 = &gUnk_Banim_020145C8[0];
+    unk0201FADC->unk20 = &gUnk_Banim_Ekrbattle_0[0];
     unk0201FADC->unk10 = (u16)gEkrSnowWeather;
-    sub_805AA68(unk0201FADC);
+    InitBanimTerrain(unk0201FADC);
 }
 
 void EfxPrepareScreenFx(void)
@@ -236,7 +236,7 @@ void EfxPrepareScreenFx(void)
     ApplyPalette(Pal_Text, 3);
     InitTextFont(&gBanimFont, (void *)0x6001880, 0xC4, 2);
     SetTextDrawNoClear();
-    LZ77UnCompVram(Img_08801C14, (void *)0x6001000);
+    LZ77UnCompVram(Img_Banimmisc_0, (void *)0x6001000);
 
     /* left unit name */
     if (gBanimValid[EKR_POS_L] == false)
@@ -283,13 +283,13 @@ void EfxPrepareScreenFx(void)
     Text_DrawString(&gBanimText[1], str);
 
     BG_Fill(gBG0TilemapBuffer, 0x80);
-    EfxTmCpyBG(gUnknown_08802508, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);
-    sub_8070D04(gBG0TilemapBuffer + 0x1F, 1, 20, 2, 128);
-    sub_8070D04(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
+    EfxTmCpyBG(gBanimmisc_5, gBG0TilemapBuffer + 0x1E, 2, 20, -1, -1);
+    EfxTmReplacePal(gBG0TilemapBuffer + 0x1F, 1, 20, 2, 128);
+    EfxTmReplacePal(gBG0TilemapBuffer + 0x1E, 1, 20, 3, 128);
     BG_EnableSyncByMask(BG0_SYNC_BIT);
 
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimFactionPal[POS_L], 0), PAL_BG(0x2), 0x20);
-    CpuFastCopy(&PAL_BUF_COLOR(gUnknown_08802558, gBanimFactionPal[POS_R], 0), PAL_BG(0x3), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gBanimmisc_6, gBanimFactionPal[POS_L], 0), PAL_BG(0x2), 0x20);
+    CpuFastCopy(&PAL_BUF_COLOR(gBanimmisc_6, gBanimFactionPal[POS_R], 0), PAL_BG(0x3), 0x20);
     EnablePaletteSync();
 
     gEkrBg0QuakeVec.x = 0;
@@ -339,19 +339,19 @@ void EkrEfxStatusClear(void)
 {
     gEkrHpBarCount = 0;
     gEfxSpellAnimExists = 0;
-    gUnknown_02017730 = 0;
+    gEkrbattle_3 = 0;
     gEkrDeadEventExist = 0;
     gEfxQuakeExist = 0;
     gEfxHitQuakeExist = 0;
     gEfxFarAttackExist = 0;
     gEfxBgSemaphore = 0;
     gEfxHpBarResireFlag = 0;
-    gUnknown_02017754 = 0;
+    gEkrbattle_4 = 0;
     gEfxTeonoState = 0;
-    gUnknown_0201775C = 0;
+    gEkrbattle_5 = 0;
     SetEkrBg2QuakeVec(0, 0);
-    gUnknown_02017764[0] = 0;
-    gUnknown_02017764[1] = 0;
+    gEkrbattle_6[0] = 0;
+    gEkrbattle_6[1] = 0;
     gEfxSpecalEffectExist[0] = 0;
     gEfxSpecalEffectExist[1] = 0;
     gEkrHitNow[0] = 0;

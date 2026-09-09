@@ -16,7 +16,7 @@ void * EWRAM_DATA gBGVramTilemapPointers[4] = { 0 };
 
 void (* EWRAM_DATA gMainCallback)(void) = NULL;
 
-static u32 EWRAM_DATA sPad_Unused_02024CBC = 0;
+static u32 EWRAM_DATA sPad_Unused_0 = 0;
 
 static struct KeyStatusBuffer EWRAM_DATA sKeyStatusBuffer = { 0 };
 struct KeyStatusBuffer * CONST_DATA gKeyStatusPtr = &sKeyStatusBuffer;
@@ -39,7 +39,7 @@ void CopyToPaletteBuffer(const void* src, int b, int size)
     sModifiedPalette = 1;
 }
 
-void sub_8000E14(u16 *a, int b, int size, int d)
+void CopyToPaletteBufferDimmed(u16 *a, int b, int size, int d)
 {
     u16 *dest = gPaletteBuffer + (b >> 1);
     u16 *src = a;
@@ -419,20 +419,20 @@ void BG_SetPosition(u16 bg, u16 x, u16 y)
     }
 }
 
-void sub_80014E8(void)
+void ClearBg0Tilemap(void)
 {
-    gUnknown_03000018 = gUnknown_03000019 = 0;
+    gUnk_34 = gUnk_35 = 0;
     BG_Fill(gBG0TilemapBuffer, 0);
     sModifiedBGs |= 1 << 0;
 }
 
-void sub_800151C(u8 a, u8 b)
+void Hardware_StoreUnk3435(u8 a, u8 b)
 {
-    gUnknown_03000018 = a;
-    gUnknown_03000019 = b;
+    gUnk_34 = a;
+    gUnk_35 = b;
 }
 
-void sub_8001530(u16 *a, u16 *b)
+void CopyTilemapScreen(u16 *a, u16 *b)
 {
     int i;
 
@@ -446,7 +446,7 @@ struct UnknownDmaStruct
     u8 unk02[1];
 };
 
-void sub_800154C(void* outTm, void const* inData, u8 base, u8 linebits)
+void BlitU8TileMapData(void* outTm, void const* inData, u8 base, u8 linebits)
 {
     u8 const* it = (u8 const*) inData + 2;
     u8* out;
@@ -529,7 +529,7 @@ void AddAttr2dBitMap(u16 * _dst, u16 * _src, s16 ix, s16 iy, u16 chr) // TODO: h
     }
 }
 
-void sub_80016C4(u16 *a, struct UnknownDmaStruct *b)
+void Hardware_CopyViaDmaStruct(u16 *a, struct UnknownDmaStruct *b)
 {
     int i;
     int j;
@@ -578,7 +578,7 @@ void MaybeSmoothChangeSomePal(u16 *src, int b, int c, int d)
     }
 }
 
-void sub_80017B4(int a, int b, int c, int d)
+void ColorFadeSetupRange(int a, int b, int c, int d)
 {
     int i;
     int j;
@@ -598,7 +598,7 @@ void sub_80017B4(int a, int b, int c, int d)
     }
 }
 
-void sub_800183C(int a, int b, int c)
+void ColorFadeSetStepRange(int a, int b, int c)
 {
     int i;
 
@@ -675,7 +675,7 @@ void ColorFadeSetupFromWhite(u8 a)
     }
 }
 
-void sub_8001A6C(void)
+void ColorFadeTickThumb(void)
 {
     int i;
     int j;
@@ -802,7 +802,7 @@ void SoftResetIfKeyComboPressed(void)
     }
 }
 
-void sub_8001CB0(int a)
+void EnterSleepMode(int a)
 {
     u16 savedIE = REG_IE;
 
@@ -950,7 +950,7 @@ void BG_EnableSync(int bg)
     sModifiedBGs |= 1 << bg;
 }
 
-void sub_8001FD0(int a)
+void ClearBgsModified(int a)
 {
     sModifiedBGs &= ~a;
 }
@@ -1070,7 +1070,7 @@ struct UnknownDmaStruct2
     s16 y;
 };
 
-void sub_80021E4(struct UnknownDmaStruct2 *a, int _x, int _y)
+void PutSpriteListToHiOam(struct UnknownDmaStruct2 *a, int _x, int _y)
 {
     while (a->attr01 != 1 && gOamHiPutIt < (u32 *)(gOam + 0x80))
     {

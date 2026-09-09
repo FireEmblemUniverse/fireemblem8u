@@ -1,14 +1,14 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ruin7_Turn[] = {
-    TurnEventPlayer_(0, EventScr_089FE860, 3, 2)
-    TurnEventPlayer_(0, EventScr_089FE878, 4, 2)
-    TurnEventPlayer_(0, EventScr_089FE890, 5, 2)
-    TurnEventPlayer_(0, EventScr_089FE8A8, 4, 3)
-    TurnEventPlayer_(EVFLAG_TMP(8), EventScr_089FE8E0, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(10), EventScr_089FE934, 1, 255)
-    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_089FE988, 1, 255)
-    TurnEventPlayer_(0, EventScr_089FE9BC, 9, 2)
+    TurnEventPlayer_(0, EventScr_Ruin_18, 3, 2)
+    TurnEventPlayer_(0, EventScr_Ruin_19, 4, 2)
+    TurnEventPlayer_(0, EventScr_Ruin_20, 5, 2)
+    TurnEventPlayer_(0, EventScr_Ruin_21, 4, 3)
+    TurnEventPlayer_(EVFLAG_TMP(8), EventScr_Ruin_23, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(10), EventScr_Ruin_25, 1, 255)
+    TurnEventPlayer_(EVFLAG_TMP(12), EventScr_Ruin_27, 1, 255)
+    TurnEventPlayer_(0, EventScr_Ruin_28, 9, 2)
     END_MAIN
 };
 
@@ -17,16 +17,16 @@ CONST_DATA EventListScr EventListScr_Ruin7_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ruin7_Location[] = {
-    LOCA(0, ChestItemList_Event_089ED7B6, 5, 11, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Ruin7_0, 5, 11, TILE_COMMAND_CHEST)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ruin7_Misc[] = {
     AFEV(0, EventScr_Ruin7_EndingScene, EVFLAG_DEFEAT_ALL)
-    AREA(EVFLAG_TMP(7), EventScr_089FE8C0, 2, 10, 6, 12)
-    AREA(EVFLAG_TMP(9), EventScr_089FE914, 14, 17, 24, 21)
-    AREA(EVFLAG_TMP(9), EventScr_089FE914, 21, 22, 24, 25)
-    AREA(EVFLAG_TMP(11), EventScr_089FE968, 13, 22, 20, 25)
+    AREA(EVFLAG_TMP(7), EventScr_Ruin_22, 2, 10, 6, 12)
+    AREA(EVFLAG_TMP(9), EventScr_Ruin_24, 14, 17, 24, 21)
+    AREA(EVFLAG_TMP(9), EventScr_Ruin_24, 21, 22, 24, 25)
+    AREA(EVFLAG_TMP(11), EventScr_Ruin_26, 13, 22, 20, 25)
     CauseGameOverIfLordDies
     END_MAIN
 };
@@ -58,11 +58,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins7Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin7_UnitMove,
     .tutorialEvents                = EventListScr_Ruin7_Tutorial,
 
-    .traps            = TrapData_Event_089EDD7C,
-    .extraTrapsInHard = TrapData_Event_089EDEEF,
+    .traps            = TrapData_Event_Ruin7_0,
+    .extraTrapsInHard = TrapData_Event_Ruin7_1,
 
-    .playerUnitsInNormal = UnitDef_088CEC84,
-    .playerUnitsInHard   = UnitDef_088CEC84,
+    .playerUnitsInNormal = UnitDef_Ruin7Ally,
+    .playerUnitsInHard   = UnitDef_Ruin7Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

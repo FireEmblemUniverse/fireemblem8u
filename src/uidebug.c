@@ -23,24 +23,24 @@ struct Struct089ED67C {
     /* 10 */ u8 _pad10[0x18 - 0x10];
 };
 
-CONST_DATA struct Struct089ED67C gUnknown_089ED67C[] = { 0 };
-CONST_DATA struct Struct089ED67C gUnknown_089ED694[] = { 0 };
-CONST_DATA struct Struct089ED67C gUnknown_089ED6AC[] = {
+CONST_DATA struct Struct089ED67C gUidebug_0[] = { 0 };
+CONST_DATA struct Struct089ED67C gUidebug_1[] = { 0 };
+CONST_DATA struct Struct089ED67C gUidebug_2[] = {
     {0},
     {0},
     {0},
     {0},
 };
 
-u8 sub_8084880()
+u8 Uidebug_PickRandomActiveCond0()
 {
     u8 buf[0x20];
     int i;
     int val = 0;
     int loc = 0;
 
-    for (i = 0; gUnknown_089ED67C[i].func; i++, val++) {
-        if (1 == gUnknown_089ED67C[i].func())
+    for (i = 0; gUidebug_0[i].func; i++, val++) {
+        if (1 == gUidebug_0[i].func())
             buf[loc++] = val;
     }
 
@@ -50,15 +50,15 @@ u8 sub_8084880()
     return buf[(GetGameClock() % 0x40) % loc];
 }
 
-u8 sub_80848E0()
+u8 Uidebug_PickRandomActiveCond1()
 {
     u8 buf[0x20];
     int i;
     int val = 0;
     int loc = 0;
 
-    for (i = 0; gUnknown_089ED694[i].func; i++, val++) {
-        if (1 == gUnknown_089ED694[i].func())
+    for (i = 0; gUidebug_1[i].func; i++, val++) {
+        if (1 == gUidebug_1[i].func())
             buf[loc++] = val;
     }
 
@@ -68,15 +68,15 @@ u8 sub_80848E0()
     return buf[(GetGameClock() % 0x40) % loc];
 }
 
-u8 sub_8084940()
+u8 Uidebug_PickRandomActiveCond2()
 {
     u8 buf[0x20];
     int i;
     int val = 0;
     int loc = 0;
 
-    for (i = 0; gUnknown_089ED6AC[i].func; i++, val++) {
-        if (1 == gUnknown_089ED6AC[i].func())
+    for (i = 0; gUidebug_2[i].func; i++, val++) {
+        if (1 == gUidebug_2[i].func())
             buf[loc++] = val;
     }
 
@@ -86,31 +86,31 @@ u8 sub_8084940()
     return buf[(GetGameClock() % 0x40) % loc];
 }
 
-u8 sub_80849A0()
+u8 Uidebug_GetClockCyclingIndex()
 {
     int i, val = 0;
-    for (i = 0; gUnknown_089ED6AC[i].func; i++, val++);
+    for (i = 0; gUidebug_2[i].func; i++, val++);
 
     return (GetGameClock() % 0x10) % val;
 }
 
-u8 sub_80849D8()
+u8 Uidebug_GetClockCyclingIndexHalf()
 {
     int i, val = 0;
-    for (i = 0; gUnknown_089ED6AC[i].func; i++, val++);
+    for (i = 0; gUidebug_2[i].func; i++, val++);
 
     return ((GetGameClock() / 2) % 0x10) % val;
 }
 
-u8 sub_8084A10()
+u8 Uidebug_GetClockCyclingIndexQuarter()
 {
     int i, val = 0;
-    for (i = 0; gUnknown_089ED6AC[i].func; i++, val++);
+    for (i = 0; gUidebug_2[i].func; i++, val++);
 
     return ((GetGameClock() / 4) % 0x10) % val;
 }
 
-int sub_8084A48()
+int Uidebug_ScanUnitsCond2RetFalse()
 {
     int i, ret = 0;
     for (i = 1; i < 0x40; i++)
@@ -122,7 +122,7 @@ int sub_8084A48()
         return 0;
 }
 
-int sub_8084A68()
+int Uidebug_ScanUnitsRetZero()
 {
     int i;
     for (i = 1; i < 0x40; i++)
@@ -131,37 +131,37 @@ int sub_8084A68()
     return 0;
 }
 
-int sub_8084A80() {return 1;}
-int sub_8084A84() {return 0;}
-int sub_8084A88() {return 0;}
-int sub_8084A8C() {return 0;}
-int sub_8084A90() {return 0;}
-int sub_8084A94() {return 0;}
-int sub_8084A98() {return 0;}
-int sub_8084A9C() {return 0;}
-int sub_8084AA0() {return 0;}
-int sub_8084AA4() {return 0;}
-int sub_8084AA8() {return 0;}
-int sub_8084AAC() {return 0;}
-int sub_8084AB0() {return 0;}
-int sub_8084AB4() {return 0;}
-int sub_8084AB8() {return 0;}
-int sub_8084ABC() {return 0;}
-int sub_8084AC0() {return 0;}
-int sub_8084AC4() {return 0;}
-int sub_8084AC8() {return 0;}
-int sub_8084ACC() {return 0;}
-int sub_8084AD0() {return 0;}
-int sub_8084AD4() {return 0;}
-int sub_8084AD8() {return 0;}
+int Uidebug_ConstTrue() {return 1;}
+int Uidebug_ConstFalse03() {return 0;}
+int Uidebug_ConstFalse04() {return 0;}
+int Uidebug_ConstFalse05() {return 0;}
+int Uidebug_ConstFalse06() {return 0;}
+int Uidebug_ConstFalse07() {return 0;}
+int Uidebug_ConstFalse08() {return 0;}
+int Uidebug_ConstFalse09() {return 0;}
+int Uidebug_ConstFalse10() {return 0;}
+int Uidebug_ConstFalse11() {return 0;}
+int Uidebug_ConstFalse12() {return 0;}
+int Uidebug_ConstFalse13() {return 0;}
+int Uidebug_ConstFalse14() {return 0;}
+int Uidebug_ConstFalse_03() {return 0;}
+int Uidebug_ConstFalse_04() {return 0;}
+int Uidebug_ConstFalse_05() {return 0;}
+int Uidebug_ConstFalse_06() {return 0;}
+int Uidebug_ConstFalse_07() {return 0;}
+int Uidebug_ConstFalse_08() {return 0;}
+int Uidebug_ConstFalse_09() {return 0;}
+int Uidebug_ConstFalse_10() {return 0;}
+int Uidebug_ConstFalse_11() {return 0;}
+int Uidebug_ConstFalse_12() {return 0;}
 
-void sub_8084ADC()
+void Debug_PromoteUnit0x100()
 {
     EndPlayerPhaseSideWindows();
-    sub_802F760(GetUnitFromCharId(0x100), 0);
+    ExecUnitDefaultPromotionAndHide(GetUnitFromCharId(0x100), 0);
 }
 
-int sub_8084AF4()
+int Uidebug_ScanAllUnitsRetZero()
 {
     int i;
     for (i = 1; i < 0x40; i++)
@@ -170,7 +170,7 @@ int sub_8084AF4()
     return 0;
 }
 
-void sub_8084B0C()
+void Debug_RemoveAllLightRunes()
 {
     struct Trap *cur;
     
@@ -181,12 +181,12 @@ void sub_8084B0C()
         }
 }
 
-void sub_8084B34()
+void Debug_SoftReset()
 {
     SoftReset(0xFE);
 }
 
-int sub_8084B40()
+int Debug_CondAButtonNotPressed()
 {
     if (A_BUTTON & gKeyStatusPtr->newKeys)
         return 0;
@@ -194,12 +194,12 @@ int sub_8084B40()
         return 1;
 }
 
-void sub_8084B60()
+void Debug_SoftReset2()
 {
     SoftReset(0xFE);
 }
 
-int sub_8084B6C()
+int Debug_CondAButtonPressed()
 {
     if (A_BUTTON & gKeyStatusPtr->newKeys)
         return 1;
@@ -207,17 +207,17 @@ int sub_8084B6C()
         return 0;
 }
 
-void sub_8084B8C()
+void Debug_RefreshMapFog()
 {
     UpdateMapViewWithFog(0);
 }
 
-void sub_8084B98()
+void Debug_AddGold()
 {
     SetPartyGoldAmount(GetPartyGoldAmount() + 5000);
 }
 
-void sub_8084BB0(int sub_val)
+void Debug_SubtractPartyGold(int sub_val)
 {
     if ((int)GetPartyGoldAmount() < sub_val)
         return;
@@ -225,7 +225,7 @@ void sub_8084BB0(int sub_val)
     SetPartyGoldAmount(GetPartyGoldAmount() - sub_val);
 }
 
-void sub_8084BCC(struct Unit *unit)
+void Debug_DecrementUnitStats(struct Unit *unit)
 {
     if (unit->maxHP > 0)
         unit->maxHP -= 1;
@@ -249,12 +249,12 @@ void sub_8084BCC(struct Unit *unit)
         unit->lck -= 1;
 }
 
-void sub_8084C38(u8 pid)
+void Debug_DecrementCharStatsByPid(u8 pid)
 {
-    sub_8084BCC(GetUnitFromCharId(pid));
+    Debug_DecrementUnitStats(GetUnitFromCharId(pid));
 }
 
-s8 sub_8084C4C(u8 pid)
+s8 IsCharDeployedPlayerUnit(u8 pid)
 {
     int i;
     struct Unit *unit;
@@ -277,10 +277,10 @@ s8 sub_8084C4C(u8 pid)
     return 0;
 }
 
-s8 sub_8084C8C() {return sub_8084C4C(0);}
-s8 sub_8084C9C() {return sub_8084C4C(0);}
+s8 IsChar0DeployedPlayerUnit() {return IsCharDeployedPlayerUnit(0);}
+s8 IsChar0DeployedPlayerUnit_Alt() {return IsCharDeployedPlayerUnit(0);}
 
-s8 sub_8084CAC(u8 pid)
+s8 IsCharAlivePlayerUnit(u8 pid)
 {
     int i;
     struct Unit *unit;
@@ -303,34 +303,34 @@ s8 sub_8084CAC(u8 pid)
     return 0;
 }
 
-s8 sub_8084CE8() {return sub_8084CAC(0);}
-s8 sub_8084CF8() {return sub_8084CAC(0);}
-s8 sub_8084D08() {return sub_8084CAC(0);}
-s8 sub_8084D18() {return sub_8084CAC(0);}
-s8 sub_8084D28() {return sub_8084CAC(0);}
-s8 sub_8084D38() {return sub_8084CAC(0);}
-s8 sub_8084D48() {return sub_8084CAC(0);}
-s8 sub_8084D58() {return sub_8084CAC(0);}
-s8 sub_8084D68() {return sub_8084CAC(0);}
-s8 sub_8084D78() {return sub_8084CAC(0);}
-s8 sub_8084D88() {return sub_8084CAC(0);}
-s8 sub_8084D98() {return sub_8084CAC(0);}
-s8 sub_8084DA8() {return sub_8084CAC(0);}
-s8 sub_8084DB8() {return sub_8084CAC(0);}
-s8 sub_8084DC8() {return sub_8084CAC(0);}
-s8 sub_8084DD8() {return sub_8084CAC(0);}
-s8 sub_8084DE8() {return sub_8084CAC(0);}
-s8 sub_8084DF8() {return sub_8084CAC(0);}
-s8 sub_8084E08() {return sub_8084CAC(0);}
-s8 sub_8084E18() {return sub_8084CAC(0);}
-s8 sub_8084E28() {return sub_8084CAC(0);}
-s8 sub_8084E38() {return sub_8084CAC(0);}
-s8 sub_8084E48() {return sub_8084CAC(0);}
-s8 sub_8084E58() {return sub_8084CAC(0);}
-s8 sub_8084E68() {return sub_8084CAC(0);}
-s8 sub_8084E78() {return sub_8084CAC(0);}
+s8 IsChar0AlivePlayerUnit() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_02() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_03() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_04() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_05() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_06() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_07() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_08() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_09() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_10() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_11() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_12() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_13() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_14() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_15() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_16() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_17() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_18() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_19() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_20() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_21() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_22() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_23() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_24() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_25() {return IsCharAlivePlayerUnit(0);}
+s8 IsChar0AlivePlayerUnit_26() {return IsCharAlivePlayerUnit(0);}
 
-s8 sub_8084E88(u8 pid)
+s8 DoesCharExistAsPlayerUnit(u8 pid)
 {
     int i;
     struct Unit *unit;
@@ -352,9 +352,9 @@ s8 sub_8084E88(u8 pid)
     return 0;
 }
 
-s8 sub_8084EB8() {return sub_8084E88(0);}
-s8 sub_8084EC8() {return sub_8084E88(0);}
-s8 sub_8084ED8() {return sub_8084E88(0);}
+s8 DoesChar0ExistAsPlayerUnit() {return DoesCharExistAsPlayerUnit(0);}
+s8 DoesChar0ExistAsPlayerUnit_02() {return DoesCharExistAsPlayerUnit(0);}
+s8 DoesChar0ExistAsPlayerUnit_03() {return DoesCharExistAsPlayerUnit(0);}
 
 int AreAnyEnemyUnitDead(void)
 {
@@ -385,7 +385,7 @@ u16 GetDeadEnemyAmount()
     return ret;
 }
 
-int sub_8084F54()
+int AreAllEnemyUnitsDead()
 {
     int dead = AreAnyEnemyUnitDead();
     int ret = 0;
@@ -409,7 +409,7 @@ s8 IsCharDeadAsNonPlayerUnit(u8 pid)
     return 0;
 }
 
-int sub_8084FA8()
+int CountDeployedSelectablePlayerUnits()
 {
     int i;
     int ret = 0;
@@ -425,7 +425,7 @@ int sub_8084FA8()
     return ret;
 }
 
-int sub_8084FE4()
+int AreAllNpcUnitsUnselectable()
 {
     int i;
     struct Unit *unit;
@@ -439,32 +439,32 @@ int sub_8084FE4()
     return 1;
 }
 
-s8 sub_8085018() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085028() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085038() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085048() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085058() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085068() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085078() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085088() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085098() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850A8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850B8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850C8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850D8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850E8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_80850F8() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085108() {return IsCharDeadAsNonPlayerUnit(0);}
-s8 sub_8085118() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_02() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_03() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_2() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_02_2() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_03_2() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_04() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_05() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_06() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_07() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0AliveAsNonPlayerUnit_08() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_09() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_10() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_11() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_12() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_13() {return IsCharDeadAsNonPlayerUnit(0);}
+s8 IsChar0DeadAsNonPlayerUnit_14() {return IsCharDeadAsNonPlayerUnit(0);}
 
-s8 sub_8085128() {return HaveCharactersMaxSupport(0, 0);}
-s8 sub_808513C() {return HaveCharactersMaxSupport(0, 0);}
-s8 sub_8085150() {return HaveCharactersMaxSupport(0, 0);}
-s8 sub_8085164() {return HaveCharactersMaxSupport(0, 0);}
-s8 sub_8085178() {return HaveCharactersMaxSupport(0, 0);}
-s8 sub_808518C() {return HaveCharactersMaxSupport(0, 0);}
+s8 DoChars0And0HaveMaxSupport() {return HaveCharactersMaxSupport(0, 0);}
+s8 HaveChars0MaxSupport_02() {return HaveCharactersMaxSupport(0, 0);}
+s8 HaveChars0MaxSupport_03() {return HaveCharactersMaxSupport(0, 0);}
+s8 HaveChars0MaxSupport_04() {return HaveCharactersMaxSupport(0, 0);}
+s8 HaveChars0MaxSupport_05() {return HaveCharactersMaxSupport(0, 0);}
+s8 HaveChars0MaxSupport_06() {return HaveCharactersMaxSupport(0, 0);}
 
-int sub_80851A0(u8 pid, int faction)
+int Uidebug_CountLivingUnitsOfCharInFaction(u8 pid, int faction)
 {
     int i;
     struct Unit * unit;
@@ -485,7 +485,7 @@ int sub_80851A0(u8 pid, int faction)
     return ret;
 }
 
-int sub_80851E4(int faction)
+int Uidebug_CountLivingUnitsInFaction(int faction)
 {
     int i;
     struct Unit * unit;
@@ -502,62 +502,62 @@ int sub_80851E4(int faction)
     return ret;
 }
 
-int sub_8085220()
+int Uidebug_IsTurnNumberOver20()
 {
     return gPlaySt.chapterTurnNumber > 20;
 }
 
-int sub_8085238()
+int Uidebug_IsTurnNumberOver25()
 {
     return gPlaySt.chapterTurnNumber > 25;
 }
 
-int sub_8085250()
+int Uidebug_IsTurnNumberOver30()
 {
     return gPlaySt.chapterTurnNumber > 30;
 }
 
-int sub_8085268()
+int Uidebug_IsPlayerPhase()
 {
     return FACTION_BLUE == gPlaySt.faction;
 }
 
-int sub_8085280()
+int Uidebug_IsEnemyPhase()
 {
     return FACTION_RED == gPlaySt.faction;
 }
 
-int sub_8085298()
+int Uidebug_IsActiveUnitMale()
 {
     return 0 == (CA_FEMALE & UNIT_CATTRIBUTES(gActiveUnit));
 }
 
-int sub_80852B4()
+int Uidebug_IsGoldOver9999()
 {
     return (int)GetPartyGoldAmount() > 9999;
 }
 
-int sub_80852D0()
+int Uidebug_IsGoldOver7999()
 {
     return (int)GetPartyGoldAmount() > 7999;
 }
 
-int sub_80852EC()
+int Uidebug_IsGoldOver5999()
 {
     return (int)GetPartyGoldAmount() > 5999;
 }
 
-int sub_8085308()
+int Uidebug_IsGoldOver4999()
 {
     return (int)GetPartyGoldAmount() > 4999;
 }
 
-int sub_8085324()
+int Uidebug_IsTalkChoiceResultOne()
 {
     return 1 == GetTalkChoiceResult();
 }
 
-int sub_8085338()
+int Uidebug_IsAliveEnemyCountAtLeast50()
 {
     if (GetDeadEnemyAmount() >= 50)
         return 1;
@@ -565,17 +565,17 @@ int sub_8085338()
         return 0;
 }
 
-int sub_8085350()
+int Uidebug_ConstFalse()
 {
     return 0;
 }
 
-int sub_8085354()
+int Uidebug_IsActiveUnitHpZero()
 {
     return GetUnitCurrentHp(gActiveUnit) == 0;
 }
 
-int sub_8085370()
+int Uidebug_ConstFalse2()
 {
     return 0;
 }

@@ -12,6 +12,16 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Current verified state
+
+The combined checkout builds the exact 16,777,216-byte USA ROM. There are now
+**zero direct baserom includes** in tracked source. Data recovery from the
+`laqieer/fireemblem8u` fork has been integrated and verified, as detailed below.
+This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
+`sub_8091F10`) still uses its naked assembly fallback. ARM routines, BIOS/audio
+interfaces, startup, timing assembly and the payload's assembly also remain in
+the inventory. The whole-ROM executable classification is not yet complete.
+
 ## Completion evidence
 
 - Build and compare the entire ROM against the canonical input.
@@ -173,3 +183,59 @@ has become C or that the whole game is complete.
   through an integer temporary and an empty `r1` clobber. It still does not match
   and has not replaced the assembly. The Japanese equivalent also remains naked
   assembly, so it did not supply a solved C implementation.
+
+## Integration of recovered data sources
+
+Merged [`laqieer/fireemblem8u` at
+`7b47dec8da6ff7c2ff9aad2bfa9bf40cc8b07b90`](https://github.com/laqieer/fireemblem8u/tree/7b47dec8da6ff7c2ff9aad2bfa9bf40cc8b07b90).
+Its branch shares ancestor `6ad3525d582564356d56b655ea7b77110d26745e` with our
+starting checkout. The integration retains the subsequent upstream help-box,
+map and class-reel work, plus our build fixes, source-built multiboot payload and
+audit. Overlapping symbol renames were reconciled using the independently
+matching ELF symbol addresses; the full ROM comparison verifies the result.
+
+The imported work replaces raw ROM slices with C data definitions and standalone
+graphics, palettes, maps, animation and audio inputs. It also brings their build
+rules and tools, including configurable LZ match distance and the data
+preprocessor. Battle-animation sources now live under `banim/`, so the audit
+includes that directory. This adds 76 tracked C files, mostly data definitions;
+it does not mean that 76 gameplay routines were newly decompiled.
+
+Verification performed:
+
+- Built the reference checkout from source with **no `baserom.gba` present**,
+  using the existing macOS shell/shebang fixes and the ARM preprocessor for the
+  multiboot sub-build. The resulting ROM passed the canonical SHA-1.
+- Built the merged working tree, including newly generated animation assets,
+  after resolving symbol/data-layout conflicts. The complete ROM passed.
+- Temporarily moved our extracted input ROM aside, forced recompilation of
+  `unitlistscreen.c`, `opinfo.c` and `const_data_DAEF0.c`, and rebuilt. The build
+  succeeded without recreating `baserom.gba`, and `cmp` verified all output bytes
+  against the saved input. The input ROM was then restored.
+- Kept the blank miniature-battle tilemap as a sized 75-halfword C array; linker
+  alignment supplies the final two padding bytes. Its name and consumer remain
+  consistent with our earlier recovery.
+
+Current lexical inventory (not a completion percentage):
+
+| Main-project source marker | Count |
+| --- | ---: |
+| Tracked C files | 434 |
+| Assembly entry macros | 73 |
+| Inline assembly sites, including register annotations/empty constraints | 70 |
+| Naked-function markers | 2 |
+| NONMATCHING conditionals | 45 |
+| Direct baserom includes | 0 |
+
+The embedded project remains separately reported: 15 C files, 23 assembly
+function declarations and one inline BIOS instruction site. Standalone binary
+assets remain asset inputs; zero baserom includes does not prove that every
+asset is editable or every executable instruction has a C representation.
+The imported README's broad completion claims were replaced with this explicit
+distinction. Legacy progress scripts still use directory-based proxies and are
+not authoritative evidence for the active goal.
+
+The new unit-list search ran 23,484 iterations from the 11-byte-difference
+candidate without an improvement. That configuration has been stopped; the
+matching replacement remains outstanding. The source is now named
+`UnitList_PageChangeIn_Loop`, at the unchanged ROM address `0x08091F10`.

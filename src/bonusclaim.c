@@ -44,13 +44,13 @@ int LoadBonusContentData(void*);
 
 //! FE8U = 0x080B0638
 void PutChapterBannerSprites(void) {
-    PutSpriteExt(4, 24, 8, *SpriteArray_08A209F0, 0x8000);
-    PutSpriteExt(4, 24, 16, *SpriteArray_08A209E4, 0x9000);
+    PutSpriteExt(4, 24, 8, *SpriteArray_SavemenuData_3, 0x8000);
+    PutSpriteExt(4, 24, 16, *SpriteArray_SavemenuData_2, 0x9000);
     return;
 }
 
 //! FE8U = 0x080B0674
-void sub_80B0674(void)
+void BonusClaim_DrawChapterTitle(void)
 {
     u32 flags = (-(gPlaySt.chapterStateBits & 0x40) >> 0x1f) & 4;
 
@@ -73,8 +73,8 @@ void sub_80B0674(void)
             flags |= 0x20;
     }
 
-    sub_80895B4(flags | 1, 0x18);
-    sub_80895B4(flags, 0x19);
+    ApplyChapterTitlePal(flags | 1, 0x18);
+    ApplyChapterTitlePal(flags, 0x19);
 
     EnablePaletteSync();
 
@@ -85,7 +85,7 @@ void sub_80B0674(void)
 }
 
 //! FE8U = 0x080B06FC
-void sub_80B06FC(void) {
+void BonusClaim_HBlankHandler(void) {
 
     u16 vcount = REG_VCOUNT + 1;
 
@@ -317,7 +317,7 @@ void SetupBonusClaimTargets(struct BonusClaimProc * proc)
 }
 
 //! FE8U = 0x080B0ABC
-void sub_80B0ABC(void) {
+void BonusClaim_DrawMainWindowFrame(void) {
     DrawUiFrame2(3, 6, 24, 12, 0);
     BG_EnableSyncByMask(3);
     return;
@@ -331,7 +331,7 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
     SetupBackgrounds(0);
 
     ApplyPalettes(Pal_CommGameBgScreenInShop, 0xC, 2);
-    ApplyPalette(Pal_08A295B4, 0xE);
+    ApplyPalette(Pal_MenuMainObjs_0, 0xE);
     Decompress(Img_CommGameBgScreen, (void*)0x06008000);
 
     CallARM_FillTileRect(gBG3TilemapBuffer, Tsa_CommGameBgScreenInShop, 0xc000);
@@ -344,8 +344,8 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
     LoadIconPalettes(4);
     LoadObjUIGfx();
 
-    sub_80B0674();
-    sub_80B0ABC();
+    BonusClaim_DrawChapterTitle();
+    BonusClaim_DrawMainWindowFrame();
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 1;
@@ -393,7 +393,7 @@ void BonusClaim_Init(struct BonusClaimProc * proc)
 
     BG_EnableSyncByMask(2);
 
-    SetPrimaryHBlankHandler(sub_80B06FC);
+    SetPrimaryHBlankHandler(BonusClaim_HBlankHandler);
 
     proc->menuIndex = 0;
     proc->unk_2c = 0;
@@ -460,12 +460,12 @@ void BonusClaim_Loop_MainKeyHandler(struct BonusClaimProc * proc)
 
                     case BONUSKIND_MONEY:
                         if (ent2->itemId == ITEM_3000G) {
-                            sub_8024E20(3000);
+                            AddPartyGoldAmount(3000);
                         }
 
                         ent = &gpBonusClaimData[itemIdx];
                         if (ent->itemId == ITEM_5000G) {
-                            sub_8024E20(5000);
+                            AddPartyGoldAmount(5000);
                         }
 
                         SetBonusItemClaimed(proc->menuIndex);
@@ -566,7 +566,7 @@ void BonusClaim_DrawTargetUnitSprites(struct BonusClaimProc * proc)
 }
 
 //! FE8U = 0x080B1008
-void sub_80B1008(struct BonusClaimProc * proc)
+void BonusClaim_EndTargetSpriteWorker(struct BonusClaimProc * proc)
 {
 
     if (proc->unk_34 != NULL) {
@@ -719,7 +719,7 @@ void BonusClaim_Loop_SelectTargetKeyHandler(struct BonusClaimProc * proc)
 
 //! FE8U = 0x080B1350
 void BonusClaim_EndSelectTargetSubMenu(struct BonusClaimProc * proc){
-    sub_80B1008(proc);
+    BonusClaim_EndTargetSpriteWorker(proc);
 
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 1;
@@ -728,11 +728,11 @@ void BonusClaim_EndSelectTargetSubMenu(struct BonusClaimProc * proc){
     BG_Fill(gBG1TilemapBuffer, 0);
     BG_Fill(gBG0TilemapBuffer, 0);
 
-    sub_80B0ABC();
+    BonusClaim_DrawMainWindowFrame();
 
     BG_EnableSyncByMask(3);
 
-    sub_80ACA84(0);
+    ClearUiCursorHandConfig(0);
 
     ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
@@ -767,16 +767,16 @@ void BonusClaim_DrawItemSentPopup(struct BonusClaimProc * proc)
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
 
-    sub_80B0ABC();
+    BonusClaim_DrawMainWindowFrame();
 
     BG_EnableSyncByMask(3);
 
-    sub_80B1008(proc);
+    BonusClaim_EndTargetSpriteWorker(proc);
 
     WriteGameSave(ReadLastGameSaveId());
 
     proc->timer = 0;
-    sub_80ACA84(0);
+    ClearUiCursorHandConfig(0);
 
     ShowSysHandCursor(40, proc->menuIndex * 16 + 56 - proc->unk_2c, 19, 0x800);
 
@@ -853,7 +853,7 @@ void BonusClaim_ClearItemSentPopup(void)
 {
     BG_Fill(gBG0TilemapBuffer, 0);
     BG_Fill(gBG1TilemapBuffer, 0);
-    sub_80B0ABC();
+    BonusClaim_DrawMainWindowFrame();
     BG_EnableSyncByMask(3);
     gLCDControlBuffer.dispcnt.win0_on = 0;
     gLCDControlBuffer.dispcnt.win1_on = 1;

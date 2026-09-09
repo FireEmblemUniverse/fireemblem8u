@@ -27,7 +27,7 @@
 #include "constants/items.h"
 
 static u16 ItemBackupEvtBattle;
-extern struct Unknown03000600 gUnknown_03000600[0x40];
+extern struct Unknown03000600 gUnk_38[0x40];
 
 //! FE8U = 0x08011CCC
 void ChangeUnitAi(struct Unit * unit, u8 ai1, u8 ai2, u8 unused)
@@ -180,7 +180,7 @@ void StartScriptBattleAnim(s8 useMapAnims)
 
     RenderBmMap();
 
-    banimEnabled = sub_8055BC4();
+    banimEnabled = EkrBattleStarting_CheckBattleAnimEnabled();
     if (useMapAnims)
     {
         banimEnabled = 0;
@@ -413,17 +413,17 @@ void EventPromoteUnitExt(struct Unit * unit, u8 jid, u8 item)
 }
 
 //! FE8U = 0x08012324
-void sub_8012324(void)
+void RestoreScreenAfterPromotion(void)
 {
     EndCgText();
 
     ResetDialogueScreen();
     SetupBackgrounds(NULL);
 
-    sub_80141B0();
+    ForceScreenToBlack();
 
     InitSystemTextFont();
-    sub_80156D4();
+    LoadGameCoreGfxLegacyFrame();
 
     return;
 }
@@ -587,7 +587,7 @@ void AssignUnitToFreeDeploySlot(struct Unit * unit)
 }
 
 //! FE8U = 0x08012578
-int sub_8012578(int index)
+int GetNextDeployedPlayerUnitId(int index)
 {
     for (; index < FACTION_GREEN; index++)
     {
@@ -615,7 +615,7 @@ int sub_8012578(int index)
 }
 
 //! FE8U = 0x080125C0
-void sub_80125C0(struct UnitDefinition * uDef)
+void BuildDeployedUnitDefinitionList(struct UnitDefinition * uDef)
 {
     int pid = GetPlayerLeaderPid();
     struct Unit * unit = GetUnitFromCharId(pid);
@@ -636,7 +636,7 @@ void sub_80125C0(struct UnitDefinition * uDef)
 
     while (uDef->charIndex != 0)
     {
-        pid = sub_8012578(pid);
+        pid = GetNextDeployedPlayerUnitId(pid);
 
         if (pid == 0)
         {
@@ -663,7 +663,7 @@ void sub_80125C0(struct UnitDefinition * uDef)
 void StoreUnitWordStructs(void)
 {
     int i;
-    struct Unknown03000600 * it = gUnknown_03000600;
+    struct Unknown03000600 * it = gUnk_38;
 
     for (i = FACTION_BLUE + 1; i < FACTION_GREEN; i++)
     {
@@ -691,7 +691,7 @@ void LoadUnitWordStructs(void)
 {
     struct Unknown03000600 * it;
 
-    for (it = gUnknown_03000600; it->pid != 0; it++)
+    for (it = gUnk_38; it->pid != 0; it++)
     {
         struct Unit * unit = GetUnitFromCharId(it->pid);
         unit->xPos = it->x;

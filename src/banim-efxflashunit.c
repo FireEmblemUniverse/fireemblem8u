@@ -70,7 +70,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
     if (GetAnimPosition(proc->anim) == EKR_POS_L)
     {
         if (gEkrGaugeHp[EKR_POS_L] <= 80)
-            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gBanimFactionPal[EKR_POS_L], 0),
+            CpuCopy16(&PAL_BUF_COLOR(gBanimmisc_10, gBanimFactionPal[EKR_POS_L], 0),
                       PAL_OBJ(OBPAL_EFXHPBAR_L), 0x20);
         else
             CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20); /* Why right? */
@@ -78,7 +78,7 @@ void EfxFlashHPBarRestorePal(struct ProcEfxFlashing * proc)
     else
     {
         if (gEkrGaugeHp[EKR_POS_R] <= 80)
-            CpuCopy16(&PAL_BUF_COLOR(gUnknown_08802B04, gBanimFactionPal[EKR_POS_R], 0),
+            CpuCopy16(&PAL_BUF_COLOR(gBanimmisc_10, gBanimFactionPal[EKR_POS_R], 0),
                       PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
         else
             CpuCopy16(gPalEfxHpBarPurple, PAL_OBJ(OBPAL_EFXHPBAR_R), 0x20);
@@ -137,32 +137,32 @@ void NewEfxHpBarColorChange(struct Anim * anim)
     proc->disabled = false;
 
     EfxSplitColor(
-        gUnknown_08802B04 + gBanimFactionPal[POS_L] * 0x10,
+        gBanimmisc_10 + gBanimFactionPal[POS_L] * 0x10,
         gEfxSplitedColorBufA,
         0x10);
 
     EfxSplitColor(
-        gUnknown_08802BC4 + gBanimFactionPal[POS_L] * 0x10,
+        gBanimmisc_11 + gBanimFactionPal[POS_L] * 0x10,
         gEfxSplitedColorBufB,
         0x10);
 
-    sub_8071574(
+    EfxCalcSplitedColorStep(
         gEfxSplitedColorBufA,
         gEfxSplitedColorBufB,
         gEfxSplitedColorBufC,
         0x10, 5);
 
     EfxSplitColor(
-        gUnknown_08802B04 + gBanimFactionPal[POS_R] * 0x10,
+        gBanimmisc_10 + gBanimFactionPal[POS_R] * 0x10,
         gEfxSplitedColorBufD,
         0x10);
 
     EfxSplitColor(
-        gUnknown_08802BC4 + gBanimFactionPal[POS_R] * 0x10,
+        gBanimmisc_11 + gBanimFactionPal[POS_R] * 0x10,
         gEfxSplitedColorBufE,
         0x10);
 
-    sub_8071574(
+    EfxCalcSplitedColorStep(
         gEfxSplitedColorBufD,
         gEfxSplitedColorBufE,
         gEfxSplitedColorBufF,

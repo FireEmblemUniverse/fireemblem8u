@@ -1,17 +1,17 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ch8_Turn[] = {
-    TURN(0, EventScr_089F3124, 2, 2, FACTION_BLUE)
-    TURN(EVFLAG_TMP(12), EventScr_089F3250, 1, 255, FACTION_BLUE)
-    TURN(0, EventScr_089F3268, 5, 0, FACTION_BLUE)
+    TURN(0, EventScr_Ch8_0, 2, 2, FACTION_BLUE)
+    TURN(EVFLAG_TMP(12), EventScr_Ch8_5, 1, 255, FACTION_BLUE)
+    TURN(0, EventScr_Ch8_6, 5, 0, FACTION_BLUE)
     END_MAIN
 };
 
 CONST_DATA EventListScr EventListScr_Ch8_Character[] = {
-    CharacterEventBothWays(EVFLAG_TMP(7),  EventScr_089F31B8, CHARACTER_EIRIKA, CHARACTER_EPHRAIM)
-    CharacterEventBothWays(EVFLAG_TMP(8),  EventScr_089F31D4, CHARACTER_EPHRAIM, CHARACTER_SETH)
-    CharacterEventBothWays(EVFLAG_TMP(9),  EventScr_089F31F4, CHARACTER_SETH, CHARACTER_KYLE)
-    CharacterEventBothWays(EVFLAG_TMP(10), EventScr_089F3214, CHARACTER_FRANZ, CHARACTER_FORDE)
+    CharacterEventBothWays(EVFLAG_TMP(7),  EventScr_Ch8_1, CHARACTER_EIRIKA, CHARACTER_EPHRAIM)
+    CharacterEventBothWays(EVFLAG_TMP(8),  EventScr_Ch8_2, CHARACTER_EPHRAIM, CHARACTER_SETH)
+    CharacterEventBothWays(EVFLAG_TMP(9),  EventScr_Ch8_3, CHARACTER_SETH, CHARACTER_KYLE)
+    CharacterEventBothWays(EVFLAG_TMP(10), EventScr_Ch8_4, CHARACTER_FRANZ, CHARACTER_FORDE)
     END_MAIN
 };
 

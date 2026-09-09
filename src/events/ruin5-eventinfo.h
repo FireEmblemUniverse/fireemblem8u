@@ -1,9 +1,9 @@
 #include "gbafe.h"
 
 CONST_DATA EventListScr EventListScr_Ruin5_Turn[] = {
-    TurnEventPlayer(0, EventScr_089FE67C, 8)
-    TurnEventPlayer(0, EventScr_089FE694, 2)
-    TurnEventPlayer(0, EventScr_089FE6AC, 4)
+    TurnEventPlayer(0, EventScr_Ruin_11, 8)
+    TurnEventPlayer(0, EventScr_Ruin_12, 2)
+    TurnEventPlayer(0, EventScr_Ruin_13, 4)
     END_MAIN
 };
 
@@ -12,9 +12,9 @@ CONST_DATA EventListScr EventListScr_Ruin5_Character[] = {
 };
 
 CONST_DATA EventListScr EventListScr_Ruin5_Location[] = {
-    LOCA(0, ChestItemList_Event_089ED792, 13, 10, TILE_COMMAND_CHEST)
-    LOCA(0, ChestItemList_Event_089ED79C, 17, 21, TILE_COMMAND_CHEST)
-    LOCA(0, ChestItemList_Event_089ED7A8, 4, 4, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Ruin5_0, 13, 10, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Ruin5_1, 17, 21, TILE_COMMAND_CHEST)
+    LOCA(0, ShopList_Ruin5_2, 4, 4, TILE_COMMAND_CHEST)
     END_MAIN
 };
 
@@ -51,11 +51,11 @@ CONST_DATA struct ChapterEventGroup LagdouRuins5Event = {
     .specialEventsAfterUnitMoved   = EventListScr_Ruin5_UnitMove,
     .tutorialEvents                = EventListScr_Ruin5_Tutorial,
 
-    .traps            = TrapData_Event_089EDCFC,
-    .extraTrapsInHard = TrapData_Event_089EDEED,
+    .traps            = TrapData_Event_Ruin5_0,
+    .extraTrapsInHard = TrapData_Event_Ruin5_1,
 
-    .playerUnitsInNormal = UnitDef_088CE36C,
-    .playerUnitsInHard   = UnitDef_088CE36C,
+    .playerUnitsInNormal = UnitDef_Ruin5Ally,
+    .playerUnitsInHard   = UnitDef_Ruin5Ally,
 
     .playerUnitsChoice1InEncounter = NULL,
     .playerUnitsChoice2InEncounter = NULL,

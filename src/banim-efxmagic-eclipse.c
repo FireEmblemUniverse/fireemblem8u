@@ -470,7 +470,7 @@ void efxHazymoonOBJ2_Loop_B(struct ProcEfxOBJ * proc)
         proc->terminator = 10;
 
         SpellFx_RegisterObjPal(Pal_EclipseSprites, PLTT_SIZE_4BPP);
-        SpellFx_RegisterObjGfx(Img_EclipseSprites_08650DA8, 32 * 4 * CHR_SIZE);
+        SpellFx_RegisterObjGfx(Img_EclipseSprites_0, 32 * 4 * CHR_SIZE);
     }
     else if (proc->timer == proc->terminator)
     {
@@ -497,7 +497,7 @@ void efxHazymoonOBJ2_Loop_C(struct ProcEfxOBJ * proc)
         proc->terminator = 10;
 
         SpellFx_RegisterObjPal(Pal_EclipseSprites, PLTT_SIZE_4BPP);
-        SpellFx_RegisterObjGfx(Img_EclipseSprites_08651240, 32 * 4 * CHR_SIZE);
+        SpellFx_RegisterObjGfx(Img_EclipseSprites_efxHazymoonOBJ, 32 * 4 * CHR_SIZE);
     }
     else if (proc->timer == proc->terminator)
     {

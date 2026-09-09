@@ -29,7 +29,7 @@ struct UnitInfoWindowProc {
     /* 63 */ u8 xNameText;
 };
 
-extern u8 gUnknown_08A173EC[];
+extern u16 gTSA_UnitInfoWindow[];
 
 void UnitInfoWindow_OnLoop(struct UnitInfoWindowProc* proc);
 
@@ -62,7 +62,7 @@ void UnitInfoWindow_OnLoop(struct UnitInfoWindowProc* proc) {
             );
         }
     } else {
-        sub_8027E4C(2, x, y, 0, proc->unit);
+        PutUiUnitSprite(2, x, y, 0, proc->unit);
     }
 
     return;
@@ -103,7 +103,7 @@ void UnitInfoWindow_PositionUnitName(struct UnitInfoWindowProc* proc) {
     return;
 }
 
-const u16 gUnknown_080D7F92[] = {
+const u16 gUnitinfowindow_0[] = {
     0x1003,
     0x1003,
     0x1004,
@@ -121,7 +121,7 @@ const u16 gUnknown_080D7F92[] = {
 
 //! FE8U = 0x0803483C
 struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* proc, struct Unit* unit, int x, int y, int width, int lines) {
-    const u16 *src = gUnknown_080D7F92;
+    const u16 *src = gUnitinfowindow_0;
 
     if (proc == 0) {
         proc = Proc_Find(gProcScr_UnitInfoWindow);
@@ -134,7 +134,7 @@ struct UnitInfoWindowProc* UnitInfoWindow_DrawBase(struct UnitInfoWindowProc* pr
 
     DrawUiFrame2(x, y + 2, width, 2 + lines * 2, 3);
 
-    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gUnknown_08A173EC, 0x1000);
+    CallARM_FillTileRect(gBG1TilemapBuffer + TILEMAP_INDEX(x, y), gTSA_UnitInfoWindow, 0x1000);
 
     if (width > 10) {
         int ix, j;

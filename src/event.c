@@ -46,8 +46,8 @@ CONST_DATA EventFuncType gEventLoCmdTable[] = {
 CONST_DATA struct ProcCmd ProcScr_SomeEventDeamon[] = {
     PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_YIELD,
-    PROC_CALL(nop_800CCE8),
-    PROC_REPEAT(nullsub_32),
+    PROC_CALL(nop_1),
+    PROC_REPEAT(Nop_EventscrGmap_0),
     PROC_END
 };
 
@@ -55,8 +55,8 @@ CONST_DATA struct ProcCmd ProcScr_EventFaceDeamon[] = {
     PROC_MARK(PROC_MARK_WMSTUFF),
     PROC_SET_END_CB(EventFaceDeamonDelete),
     PROC_YIELD,
-    PROC_CALL(nop_800CD38),
-    PROC_REPEAT(nullsub_34),
+    PROC_CALL(nop_2),
+    PROC_REPEAT(Nop_EventscrGmap_1),
     PROC_END
 };
 
@@ -156,12 +156,12 @@ void EventEngine_OnEnd(struct EventEngineProc* proc) {
     if (proc->execType != EV_EXEC_QUIET) {
         EndTalk();
         EndCgText(); // End some thing
-        sub_808BB74(); // End some more things
+        EndAllBoxDialogue(); // End some more things
 
         if (proc->execType == EV_EXEC_CUTSCENE)
             ChangeUnitSpritePalette(proc->mapSpritePalIdOverride);
 
-        sub_800E640(proc);
+        EndEventFaces(proc);
     }
 
     if (!(proc->evStateBits & EV_STATE_ABORT))
@@ -305,9 +305,9 @@ void SetEventSlotC(unsigned value) {
     gEventSlots[0xC] = value;
 }
 
-void sub_800D204(void) {} // nullsub
+void Event_NullFunc_0(void) {} // nullsub
 
-int sub_800D208(void) {
+int IsActiveEventTextTypeOnMap(void) {
     struct EventEngineProc* proc;
 
     if (!(proc = Proc_Find(ProcScr_StdEventEngine)))
@@ -438,10 +438,10 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
 
     if (!GetZero()) {
         if (WM_Exists() == TRUE) // World Map check
-            sub_800D488(proc);
+            EventEngine_BlankTalkDisplay(proc);
         else if (!(proc->evStateBits & EV_STATE_NOFADE)) {
             if (proc->evStateBits & EV_STATE_FADEDIN)
-                sub_800D488(proc);
+                EventEngine_BlankTalkDisplay(proc);
             else
                 StartLockingFadeToBlack(0x40, (struct Proc*)(proc));
 
@@ -450,13 +450,13 @@ void EventEngine_StartSkip(struct EventEngineProc* proc) {
     }
 
     if (proc->execType == EV_EXEC_WORLDMAP)
-        sub_80BA424();
+        GMapScreen_OnWorldmapEventUpdate();
 
     Proc_BlockEachMarked(5);
 }
 
-void sub_800D488(struct EventEngineProc* unused) {
-    sub_80141B0(); // disables layers
+void EventEngine_BlankTalkDisplay(struct EventEngineProc* unused) {
+    ForceScreenToBlack(); // disables layers
     Proc_EndEach(gProcScr_TalkOpen);
 }
 
@@ -485,7 +485,7 @@ ProcPtr MergeGenericProc(ProcPtr parent, ProcFunc init, ProcFunc loop, ProcFunc 
     return Proc_Start(gGenericProc, parent);
 }
 
-void sub_800D524(void) {} // nullsub
+void Event_NullFunc_1(void) {} // nullsub
 
 void SlotQueuePush(unsigned value) {
     gEventSlotQueue[gEventSlots[0xD]] = value;
