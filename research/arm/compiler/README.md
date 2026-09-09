@@ -51,3 +51,26 @@ Its 65,536 component/step checks still pass against original ARM execution.
 Both candidates remain excluded from the ROM build because instruction/data
 layout is not yet exact. Omit `--plugin` to retain the stock-compiler research
 baseline; reports record plugin binary hashes when one is selected.
+
+## Opt-in preceding pointer pool
+
+`-fplugin-arg-zero_test-prefix-pool=firstSymbol,secondSymbol` requests a single
+pool containing exactly the named pointer symbols in that order. The pass
+validates load-address RTL changes, rejects unmatched or duplicate symbols,
+unsupported element sizes and leftover pool references, and emits pointer data
+before the compiler's function label. Instructions still come from the ARM
+backend. This restricted option is research-only, not a general pool placer.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/arm/compiler/check_prefix_pool.py --plugin .deps/arm-matching-plugin/zero_test.so
+python3 research/arm/build_color_fade.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool
+.deps/arm-oracle-venv/bin/python research/arm/check_color_fade.py --rom baserom.gba --arm-candidate .deps/color-fade-match/candidate-body.bin
+```
+
+The prefix check links and executes two symbol orders at independent addresses,
+checks the function entry after its pool, and rejects four invalid manifests.
+With this option the palette candidate matches all 220 bytes (12 data + 208
+instruction bytes) at the original location. `candidate.bin` includes the pool;
+`candidate-body.bin` starts at the function for the execution oracle. The report
+records the complete-section comparison separately from instruction differences.
+Production integration remains outstanding.

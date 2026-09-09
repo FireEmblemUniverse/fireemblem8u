@@ -1291,3 +1291,32 @@ loads only), with all 80 effect checks and zero return-NZCV differences.
 Both routines still have trailing candidate pools instead of the original
 preceding/shared literal storage. They remain outside the production build
 until that layout is exact. The main ROM remains byte-identical.
+
+## Exact isolated palette pool and function
+
+The optional modern ARM plugin now supports an explicit ordered manifest for a
+single pointer-only prefix pool. It rewrites recognized pool-load RTL addresses,
+validates the changes, emits named pointer data before the function, and removes
+the original trailing pool. Duplicate/missing manifest entries, unsupported pool
+sizes and leftover references fail compilation. The implementation contains no
+game identifiers or opcodes; no instruction bytes are patched.
+
+`build_color_fade.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool`
+now reproduces all 220 bytes at `0x08000228..0x08000304`: all three pointers and
+all 52 instruction words match. The isolated function passes all 65,536 palette
+component/step cases against the ROM oracle. Ten independent relocated pool
+executions in both symbol orders pass; four invalid manifests are rejected.
+The existing 18,144 comparison-plugin probes still pass. `make compare -j8`
+continues to verify the production ROM; the candidate is not integrated yet.
+
+The user-facing standing tracker is now `PROGRESS.md`; its maintenance rule is
+recorded in `AGENTS.md`. It separates full-ROM matching from C coverage and
+records candidate progress without inventing an overall decompilation percentage.
+
+The latest comparison invocation also exposed an existing bootstrap defect:
+`mgfembp/tools/install_agbcc.sh` does not stop when its compiler build fails.
+The compiler target ran because its Makefile prerequisite was newer; the host
+compiler rejected part of that rebuild, but an existing executable satisfied
+`test -x` and the existing ROM passed the checksum. This run is evidence of
+current artifact matching, not successful fresh compiler reproduction. Repair
+and independently verify this bootstrap before production plugin integration.
