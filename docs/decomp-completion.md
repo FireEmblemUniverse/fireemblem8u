@@ -1080,3 +1080,28 @@ arm-none-eabi-gcc -S research/arm/color_fade_tick.c -std=gnu89 -O1 -marm -mcpu=a
 
 The main game and embedded payload retain their original ColorFadeTick assembly.
 Direct comparison confirms the production ROM still matches all original bytes.
+
+## ColorFadeTick candidate: 42 of 52 instruction words match
+
+The palette candidate now reproduces the original 208-byte instruction count,
+register save set, loop structure, component accesses and color packing. Add
+`-fno-move-loop-invariants -fno-tree-loop-im` to the preceding compile command.
+Empty constraints retain pointer-calculation order and component values across
+clamps; empty memory barriers keep the original explicit clamp branches instead
+of ARM conditional MOVs. The same C arithmetic checker still passes all 65,536
+component/step pairs and every palette entry.
+
+An isolated link at `0x08000234`, resolving the three data symbols from the
+current matching ELF, verifies 42 of the original 52 instruction words exactly.
+The remaining ten instruction words are:
+
+- Literal loads at `0x0800023C`, `0x08000250`, `0x080002E0`: GCC places its
+  12-byte pool after the function rather than before it.
+- Step test at `0x08000248`: CMP-zero instead of TST-self.
+- Upper clamps at `0x08000284/288`, `0x080002A8/2AC`, `0x080002CC/2D0`:
+  CMP-31/BLS instead of CMP-32/BLO.
+
+The output section is therefore 220 bytes including its trailing literals.
+Neither the extra pool nor the ten instruction mismatches are patched into
+place: they remain unsolved compilation/layout work. The candidate is excluded
+from the production ROM, whose direct full-byte comparison still passes.
