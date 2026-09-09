@@ -1723,3 +1723,27 @@ function declarations and 132 inline sites: 40 register bindings, 91 empty
 constraints and one original instruction-bearing BIOS template. Main inventory
 remains 58 assembly entry markers. Low-entry shims in both scopes and the main
 map flood dispatcher still require recovery.
+
+
+## MapFloodCore dispatcher reconstruction
+
+`research/arm/map_flood_core.c` recovers queue alternation and the original
+ordered neighbor expansions for connection values 0, 1, 2, 3 and 5. Connection
+4 terminates a frontier; an empty source frontier terminates the entire search.
+Invalid connection bytes remain outside the caller contract, as the original
+uses unchecked instruction dispatch. The candidate is excluded from production.
+
+`research/arm/check_map_flood_core.py`, run with the ARM-oracle Python, compiles
+and links the candidate independently and checks 128 original/candidate cases:
+eight initial queues times all incoming NZCV combinations. A controlled helper
+records source-node addresses and ordered (connection, dx, dy) calls and returns
+without enqueuing. Empty queues and mixed connection sequences pass, along with
+final queue pointers, the destination sentinel and r4-r11/SP preservation.
+This does not verify the full helper, multiple expanding frontiers, arbitrary
+memory writes or return-flag equivalence. The report records that limited scope.
+
+The generated section is 438 bytes including its constants and dispatch table.
+It uses a relative byte jump table, different argument setup and a separate
+phase comparison. This is not a byte-matching replacement. Source and binary
+hashes and compiler flags are in `.deps/map-flood-core-match/report.json`.
+No production source or embedded revision changed in this research checkpoint.
