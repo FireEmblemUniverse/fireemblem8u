@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: standalone XOR-fusion validation (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: experimental ARM branch-table lowering (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -38,6 +38,9 @@ An experimental compiler pass now emits the original EORS phase test; its
 cases. Jump-table and literal placement still differ; the pass is not enabled
 in production. A standalone suite now passes 10,080 baseline/plugin executions,
 checking XOR results, branch decisions, preserved registers and excluded forms.
+A separate experimental compiler pass now emits six ARM branch-table entries.
+Its 452-byte candidate passes 640 controlled-helper and 240 actual-helper cases;
+it still retains a bounds check, loaded table address and different indirect jump.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;
 it removes the extra bounds check but emits an address table, so it remains
 separate research. Low-entry object-list shims also remain unfinished.

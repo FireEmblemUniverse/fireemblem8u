@@ -1880,3 +1880,31 @@ consume them. The test's post-branch identity constraint and argument-free call
 isolate the supported pattern while still checking the full XOR return value.
 The experimental pass and game candidate are unchanged; production still does
 not load this pass. Jump-table and literal matching remain outstanding.
+
+
+## Experimental instruction-table lowering
+
+Installed GCC headers and RTL dumps identify the switch as an ARM casesi
+PARALLEL followed by an ADDR_DIFF_VEC. `research/arm/compiler/branch_tables.cc`
+now recognizes that form and emits six ordinary ARM branch instructions through
+GCC RTL, replacing the relative-offset data vector. The allocated table-base
+register must be distinct from the index and marked dead at the original jump.
+The original unsigned range check is retained; this prototype makes no unchecked
+index assumption. Each emitted instruction must pass the ARM recognizer, or
+compilation fails. No game addresses or opcode bytes are embedded in the pass.
+
+Build with `python3 research/arm/compiler/build_branch_tables.py`; validate with
+`.deps/arm-oracle-venv/bin/python research/arm/check_map_flood_full.py --plugin .deps/flood-core-rtl/branch_tables.so`.
+All 640 controlled-helper and 240 actual-helper cases pass, and the 48 argument
+setup words remain exact. The prototype section is 452 bytes. It still loads a
+table pointer, keeps the range check, selects r3 and uses MOV-pc instead of the
+original r0/PC-relative sequence and BX. It is not composed with XOR fusion yet,
+and is not enabled in production. Broader compiler table/invalid-index probes
+are still needed before considering promotion.
+
+Attempting a plain SET from PC (both pc_rtx and hard register 15 forms) failed
+ARM recognition; the pass instead retains the recognized literal load. Shifted
+addition requires the canonical shifted operand first in RTL. These observations
+narrow the remaining backend work without bypassing instruction recognition or
+patching generated object bytes. The original table-layout problem is reduced
+to address formation, scratch selection, guard policy and exact entry layout.
