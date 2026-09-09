@@ -40,6 +40,8 @@ constraints and no instruction-bearing assembly templates.
 from the audio pattern stack.
 `ply_fine` now compiles to matching C across its complete 46-byte extent,
 using a pinned agbcc variant with a guarded equality-only bit-test pattern.
+`clear_modM` is matching Thumb C (26 bytes), preserving the register contract
+required by its assembly callers.
 
 ## Completion evidence
 
@@ -864,3 +866,26 @@ files, 67 assembly entry markers and 134 inline sites: 73 register bindings,
 53 empty templates, one directive and seven instruction-bearing templates.
 The 42 NONMATCHING markers, one naked macro and remaining executable assembly
 are still outstanding; this is not a completion-percentage claim.
+
+## clear_modM matching C
+
+`src/m4a_clear_mod.c` replaces all 26 bytes at `0x080D0084..0x080D009E`.
+The helper clears the modulation amount and LFO counter, then marks pitch
+(flags `0x0C`) or volume (flags `0x03`) for recalculation according to modulation
+type. Its assembly callers keep the player pointer in r0, track pointer in r1
+and return address in r12; the generated leaf changes only r2/r3 and flags,
+exactly as the original body does. The two pointer parameters describe that
+entry convention even though the player argument is unused.
+
+The existing modern Thumb compiler configuration produces every instruction.
+Two register bindings and six empty templates preserve instruction selection
+and allocation. An empty r2 clobber in the zero-type branch prevents GCC from
+using ADD instead of the original MOV for loading `0x0C`; it emits no code.
+No instruction-bearing templates were added.
+
+The isolated 26-byte function and complete integrated ROM compare exactly.
+`make compare -j8`, direct comparison of all 16,777,216 bytes, and the five
+audio helper symbol checks pass. The tracked inventory now has 442 C files,
+66 assembly entry markers and 142 inline sites: 75 register bindings, 59 empty
+templates, one directive and seven instruction-bearing templates. The remaining
+assembly, naked unit-list routine and embedded executable are still in scope.

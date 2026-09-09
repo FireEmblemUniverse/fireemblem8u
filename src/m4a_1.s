@@ -1555,24 +1555,9 @@ _081DDD40:
 	bx lr
 	thumb_func_end ply_endtie
 
-	thumb_func_start clear_modM
-clear_modM:
-	movs r2, 0
-	strb r2, [r1, o_MusicPlayerTrack_modM]
-	strb r2, [r1, o_MusicPlayerTrack_lfoSpeedC]
-	ldrb r2, [r1, o_MusicPlayerTrack_modT]
-	cmp r2, 0
-	bne _081DDD54
-	movs r2, 0xC
-	b _081DDD56
-_081DDD54:
-	movs r2, 0x3
-_081DDD56:
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx lr
-	thumb_func_end clear_modM
+@ clear_modM is linked here from m4a_clear_mod.c.
+	.align 2, 0
+	.section .text.after_clear_mod, "ax", %progbits
 
 	thumb_func_start ld_r3_tp_adr_i_unchecked
 	.local ld_r3_tp_adr_i_unchecked
