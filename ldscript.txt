@@ -246,6 +246,8 @@ SECTIONS
         /* .text */
         src/rom_header.o(.text);
         src/crt0.o(.text);
+        ARMCodeToCopy_Start = .;
+        src/arm/color_fade_tick.o(.text);
         asm/arm.o(.text);
         src/arm/clear_oam.o(.text);
         src/arm/checksum.o(.text);

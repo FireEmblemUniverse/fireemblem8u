@@ -1,15 +1,8 @@
-/* Standalone oracle fixture; production implementation: src/arm/color_fade_tick.c.
- * All 220 bytes match with the ordered-prefix-pool compiler option.
- * Component storage wraps to eight bits; displayed color clamps the full sum.
- */
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-extern u16 gPaletteBuffer[];
-extern s8 gFadeComponents[];
-extern s8 gFadeComponentStep[];
+#include "global.h"
+#include "hardware.h"
 
+// Stored components wrap to eight bits; display clamps the full signed sum.
+// Empty register constraints preserve the copied ARM routine's register contract.
 void ColorFadeTick(void)
 {
     register u32 paletteOffset asm("r7") = 0x3E0;

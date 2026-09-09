@@ -23,3 +23,7 @@ The bundled changes replace embedded ClearOam (92 bytes), TmApplyTsa
 reference checksums.
 When adding further payload commits, regenerate this incremental bundle against
 the same upstream base so a fresh checkout can restore the complete local chain.
+
+The bundle also pins and repairs the embedded compiler installer. It serializes
+legacy generator builds, stops on errors, and stages installation; a fresh
+toolchain and fresh object builds of all three payload variants were verified.

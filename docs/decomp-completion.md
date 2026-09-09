@@ -14,6 +14,11 @@ that native engine or its mod platform.
 
 ## Current verified state
 
+ColorFadeTick is now integrated as matching C, including its preceding literal
+pool (220 bytes total); the source audit is down to 65 assembly entry markers.
+The full ROM comparison passes. See the latest section for compiler bootstrap
+repair and fresh payload-build verification.
+
 The combined checkout builds the exact 16,777,216-byte USA ROM. There are now
 **zero direct baserom includes** in tracked source. Data recovery from the
 `laqieer/fireemblem8u` fork has been integrated and verified, as detailed below.
@@ -1320,3 +1325,37 @@ compiler rejected part of that rebuild, but an existing executable satisfied
 `test -x` and the existing ROM passed the checksum. This run is evidence of
 current artifact matching, not successful fresh compiler reproduction. Repair
 and independently verify this bootstrap before production plugin integration.
+
+## Palette C integration and reproducible embedded bootstrap
+
+ColorFadeTick is now production C in `src/arm/color_fade_tick.c`. The compiler
+plugin and its checks moved to `tools/arm-matching/`; the Makefile builds it
+from source and loads it only for this translation unit. GCC 16.2.0 is required.
+The linker defines ARMCodeToCopy_Start before the generated prefix pool.
+The removed assembly contributes 208 instruction bytes and 12 pointer bytes.
+ColorFadeTick remains at `0x08000234` with size 208, and copied ARM block bounds
+remain `0x08000228..0x08000A20`. The whole 16,777,216-byte ROM compares exactly.
+
+The source inventory now contains 443 C files and 65 assembly entry markers.
+Its 178 inline sites classify as 84 register bindings, 86 empty constraints,
+one directive and seven instruction templates. The new palette file contains
+no instruction-bearing assembly. Linked mappings attribute 208 ARM bytes and
+12 data bytes to its C object. Total mapped ARM/Thumb bytes are unchanged;
+12 formerly unclassified pool bytes now map explicitly as data.
+
+The embedded compiler failure was caused by inheriting parallel make settings
+with incomplete legacy generated-header dependencies. Its installer now pins
+StanHash/agbcc `63b22f3eb8a8051af30bd80c4795b355e439e7ef`, forces serial builds,
+uses strict shell error handling and cleanup, and stages a complete installation
+before updating the destination. The main Makefile tracks the installer script
+as the compiler prerequisite, using the restored payload Makefile only for
+ordering. A fresh installation succeeded with inherited MAKEFLAGS=-j8, and fresh
+object builds of all three payload variants passed their checksums. A failed
+clone propagated its exact failure code without changing the installed compiler.
+The payload change is committed as `2706396a56a77207d9adfb8e80e16e5e54038f73` and
+included in the updated source bundle, verified in a base-only repository.
+
+Compiler comparison probes (18,144) and relocated prefix-pool checks still pass.
+The 65,536-pair palette oracle validation from the exact candidate is retained;
+full-ROM equality verifies that the integrated body is those exact instructions.
+The map flood helper and embedded palette implementation remain outstanding.

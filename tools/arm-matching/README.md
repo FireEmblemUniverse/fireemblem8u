@@ -1,7 +1,7 @@
-# Optional ARM matching-comparison plugin
+# ARM matching compiler plugin
 
-This is an experimental GCC 16.2.0 plugin for matching research. The production
-Makefile does not load it. It uses installed GCC plugin headers and checks
+This GCC 16.2.0 plugin generates the matching production ColorFadeTick routine.
+The production Makefile builds and loads it only for that C translation unit. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
 and build provenance remain in ignored `.deps/arm-matching-plugin/`.
@@ -29,8 +29,8 @@ consumer guard is necessary because signed branches can depend on overflow.
 From the repository root:
 
 ```sh
-python3 research/arm/compiler/build.py
-.deps/arm-oracle-venv/bin/python research/arm/compiler/check.py --plugin .deps/arm-matching-plugin/zero_test.so
+python3 tools/arm-matching/build.py
+.deps/arm-oracle-venv/bin/python tools/arm-matching/check.py --plugin .deps/arm-matching-plugin/zero_test.so
 .deps/arm-oracle-venv/bin/python research/arm/check_map_flood_step.py --plugin .deps/arm-matching-plugin/zero_test.so
 python3 research/arm/build_color_fade.py --plugin .deps/arm-matching-plugin/zero_test.so
 .deps/arm-oracle-venv/bin/python research/arm/check_color_fade.py --rom baserom.gba --arm-candidate .deps/color-fade-match/candidate.bin
@@ -44,13 +44,12 @@ checks verify TST for EQ/NE zero tests and CMP-32 for the eligible 31 boundary.
 Excluded comparisons and Thumb output must remain identical to the baseline.
 These bounded checks are not a general compiler correctness proof.
 
-With the plugin, the flood helper has six differing words (literal loads only),
-with no return-NZCV differences in its 80 cases. The palette helper has three
-differing words, all literal loads.
-Its 65,536 component/step checks still pass against original ARM execution.
-Both candidates remain excluded from the ROM build because instruction/data
-layout is not yet exact. Omit `--plugin` to retain the stock-compiler research
-baseline; reports record plugin binary hashes when one is selected.
+With the comparison rules alone, the flood helper has six differing words
+(literal loads only), with no return-NZCV differences in its 80 cases. The
+palette helper has three differing literal loads until the prefix-pool option
+below is enabled. Its 65,536 component/step checks pass against original ARM
+execution. Omit `--plugin` to retain the stock-compiler research baseline;
+reports record plugin binary hashes when one is selected.
 
 ## Opt-in preceding pointer pool
 
@@ -59,10 +58,10 @@ pool containing exactly the named pointer symbols in that order. The pass
 validates load-address RTL changes, rejects unmatched or duplicate symbols,
 unsupported element sizes and leftover pool references, and emits pointer data
 before the compiler's function label. Instructions still come from the ARM
-backend. This restricted option is research-only, not a general pool placer.
+backend. This restricted option supports the production palette routine; it is not a general pool placer.
 
 ```sh
-.deps/arm-oracle-venv/bin/python research/arm/compiler/check_prefix_pool.py --plugin .deps/arm-matching-plugin/zero_test.so
+.deps/arm-oracle-venv/bin/python tools/arm-matching/check_prefix_pool.py --plugin .deps/arm-matching-plugin/zero_test.so
 python3 research/arm/build_color_fade.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool
 .deps/arm-oracle-venv/bin/python research/arm/check_color_fade.py --rom baserom.gba --arm-candidate .deps/color-fade-match/candidate-body.bin
 ```
@@ -73,4 +72,5 @@ With this option the palette candidate matches all 220 bytes (12 data + 208
 instruction bytes) at the original location. `candidate.bin` includes the pool;
 `candidate-body.bin` starts at the function for the execution oracle. The report
 records the complete-section comparison separately from instruction differences.
-Production integration remains outstanding.
+The production palette routine is integrated and the complete ROM matches.
+The flood helper remains an isolated candidate.

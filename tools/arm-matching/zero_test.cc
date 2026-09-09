@@ -119,7 +119,10 @@ class pass_tst : public rtl_opt_pass {
 public:
     pass_tst(gcc::context *ctxt) : rtl_opt_pass(data, ctxt) {}
     unsigned int execute(function *) override {
-        if (!TARGET_ARM) return 0;
+        if (!TARGET_ARM) {
+            if (!prefix_names.empty()) fatal_error(UNKNOWN_LOCATION, "prefix pool requires ARM mode");
+            return 0;
+        }
         for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
             if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
             rtx set = PATTERN(insn), cc = SET_DEST(set), comparison = SET_SRC(set);

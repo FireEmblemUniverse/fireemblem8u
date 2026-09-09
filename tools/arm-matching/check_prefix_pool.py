@@ -45,7 +45,9 @@ def main():
         for order in ['alpha', 'alpha,missing', 'alpha,alpha', 'alpha,beta,extra']:
             result = subprocess.run(command + ['-marm', '-fplugin-arg-zero_test-prefix-pool=' + order], capture_output=True, text=True)
             assert result.returncode and ('prefix pool' in result.stderr or 'manifest' in result.stderr), result.stderr
-        print(f'{cases} relocated prefix-pool executions pass in both pointer orders; four invalid manifests rejected.')
+        result = subprocess.run(command + ['-mthumb', '-fplugin-arg-zero_test-prefix-pool=alpha,beta'], capture_output=True, text=True)
+        assert result.returncode and 'requires ARM mode' in result.stderr
+        print(f'{cases} relocated prefix-pool executions pass in both pointer orders; four invalid manifests and Thumb pool placement rejected.')
 
 
 if __name__ == '__main__':
