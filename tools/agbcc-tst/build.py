@@ -45,8 +45,8 @@ def main():
     if hashlib.sha256((build / 'gcc/final.c').read_bytes()).hexdigest() != PATCHED_FINAL_SHA256:
         raise ValueError('patched compiler source hash mismatch; refusing to build')
     bit_patch = Path(__file__).with_name('equality-bit-test.patch')
-    run(['git', 'apply', '--check', str(bit_patch)], cwd=build)
-    run(['git', 'apply', str(bit_patch)], cwd=build)
+    run(['git', 'apply', '--unidiff-zero', '--check', str(bit_patch)], cwd=build)
+    run(['git', 'apply', '--unidiff-zero', str(bit_patch)], cwd=build)
     if hashlib.sha256((build / 'gcc/thumb.md').read_bytes()).hexdigest() != '5163ba23328dddde3d5c681163dd0c179c51f1fbd382aea807f3255e1a938d4d':
         raise ValueError('patched Thumb backend hash mismatch')
     # The upstream generator dependencies require a serial clean build.
