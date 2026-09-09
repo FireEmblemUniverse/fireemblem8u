@@ -1,10 +1,7 @@
-/* Standalone oracle fixture for the matching ARM Huffman decoder.
- * All 35 instruction words match with the optional zero encodings; all 640 valid-tree oracle cases pass.
- * The decoder assumes a valid internal root, bitstream and output capacity.
- */
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
+#include "global.h"
+
+// Valid internal root and sufficient input/output storage are caller contracts.
+// Two-byte leaves may contain zero bytes; only a single-byte zero terminates.
 extern const u32 gMsgHuffmanTable[];
 extern const u32 * gMsgHuffmanTableRoot;
 

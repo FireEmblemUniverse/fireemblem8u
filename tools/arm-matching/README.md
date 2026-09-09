@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep, TmCopyRect, TmFillRect, DrawGlyph and DrawGlyphHalfStride routines. The production Makefile loads it only for those five
+MapFloodCoreStep, TmCopyRect, TmFillRect, DrawGlyph, DrawGlyphHalfStride and DecodeString routines. The production Makefile loads it only for those six
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -187,6 +187,8 @@ with defaults. Unsigned comparisons against 0x7fffffff that GCC has already
 lowered to sign tests are also eligible; their predicates remain unchanged.
 The expanded scalar suite passes 864 baseline/copy/zero cases, including
 arbitrary initial destination bits, every NZCV, preserved registers, pointer
-exclusions and Thumb rejection. DecodeString improves to one differing word;
-its final dead mask result still emits ANDS instead of TST, so it is not yet
-integrated into the ROM.
+exclusions and Thumb rejection. Production DecodeString enables both options
+and its two-symbol prefix pool. An empty read/write register constraint before
+the final byte-mask test produces TST without emitting an assembly instruction.
+All 35 instruction words and the eight pointer bytes match the original; the
+replacement is integrated into the ROM.

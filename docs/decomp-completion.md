@@ -1586,3 +1586,29 @@ instruction words match; the candidate remains excluded from production.
 The next step is to resolve this dead mask result without changing observable
 register behavior. Main and payload checksums continue to pass with the
 synchronized compiler's default settings.
+
+
+## DecodeString integrated as matching C
+
+An empty read/write constraint on the leaf value before its final byte-mask
+comparison makes GCC emit the original TST rather than destructive ANDS.
+The source contains register bindings and empty constraints, with no
+instruction-bearing inline assembly. No compiler rule changed for this step.
+`src/arm/decode_string.c` now replaces the assembly decoder and its preceding
+two-pointer pool, using the existing opt-in zero/sign encodings and prefix pool.
+The research fixture carries the same constraint.
+
+All 640 execution-oracle cases pass with zero return-NZCV differences. All
+148 bytes match: eight pointer bytes followed by 35 ARM instruction words.
+`make compare -j8` passes; DecodeString remains at `0x080006E4` with size 140,
+and the copied ARM block remains `0x08000228..0x08000A20`. The linked audit
+attributes 140 ARM and eight data bytes to `src/arm/decode_string.o`, with no
+orphan mapping symbols.
+
+The tracked source audit now reports 448 main C files, 59 assembly entry
+markers and 388 inline sites: 149 register bindings, 231 empty templates, one
+directive and seven instruction-bearing templates. Embedded inventory remains
+17 assembly function declarations. These counts do not establish overall C
+coverage. Remaining ARM work includes the shared PutOamHi/PutOamLo body and
+MapFloodCore dispatcher; startup, audio, hardware interfaces, the unit-list
+fallback and transfer code also remain in scope.

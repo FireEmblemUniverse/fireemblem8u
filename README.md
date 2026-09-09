@@ -122,11 +122,11 @@ Check [INSTALL.md](https://github.com/pret/pokeruby/blob/master/INSTALL.md) and 
 
 Check [remove_tools](https://github.com/laqieer/fireemblem8u/tree/remove_tools) branch if you don't want to build agbcc and other tools by yourself. It uses docker to make setting up easier. Follow its [README.md](https://github.com/laqieer/fireemblem8u/blob/remove_tools/README.md) instead.
 
-The matching `ColorFadeTick`, `MapFloodCoreStep`, `TmCopyRect`, `TmFillRect`, `DrawGlyph`, and `DrawGlyphHalfStride` implementations use GNU ARM GCC **16.2.0** and the
+The matching `ColorFadeTick`, `MapFloodCoreStep`, `TmCopyRect`, `TmFillRect`, `DrawGlyph`, `DrawGlyphHalfStride`, and `DecodeString` implementations use GNU ARM GCC **16.2.0** and the
 local [ARM matching plugin](tools/arm-matching/README.md). Its build requires
 that compiler's plugin headers, a host C++17 compiler, and GMP headers. `make`
 builds the plugin from source and emits the original preceding pointer pool.
-These routines occupy five main-program translation units that load this plugin. The embedded
+These routines occupy six main-program translation units that load this plugin. The embedded
 payload includes its own identical plugin source for its palette and tilemap implementations.
 
 The embedded compiler installer pins StanHash/agbcc revision

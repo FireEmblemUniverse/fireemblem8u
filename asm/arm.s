@@ -84,58 +84,7 @@ PutOamLo: @ 0x08000534
 @ DrawGlyph and its shift table/pointer pool are generated from matching C.
 	.section .text.after_draw_glyph, "ax", %progbits
 
-@ Both glyph routines are now generated together from matching C.
-	.align 2, 0
-.LMsgHuffmanTableRoot: .4byte gMsgHuffmanTableRoot
-.LMsgHuffmanTable: .4byte gMsgHuffmanTable
-
-
-	ARM_FUNC_START DecodeString
-DecodeString: @ 0x080006E4
-	push {r4, r5, r6, r7}
-	sub r3, r3, r3
-	ldr r5, .LMsgHuffmanTable
-	ldr r7, .LMsgHuffmanTableRoot
-	ldr r7, [r7]
-_080006F8:
-	mov r4, r7
-_080006FC:
-	subs r3, r3, #1
-	bpl _08000710
-	ldrb r2, [r0]
-	add r0, r0, #1
-	mov r3, #7
-_08000710:
-	tst r2, #1
-	beq _08000720
-	ldrh r6, [r4, #2]
-	b _08000724
-_08000720:
-	ldrh r6, [r4]
-_08000724:
-	add r4, r5, r6, lsl #2
-	lsr r2, r2, #1
-	ldr r6, [r4]
-	tst r6, r6
-	bpl _080006FC
-	tst r6, #0xff00
-	beq _08000754
-	strb r6, [r1]
-	lsr r6, r6, #8
-	strb r6, [r1, #1]
-	add r1, r1, #2
-	b _080006F8
-_08000754:
-	strb r6, [r1]
-	tst r6, #0xff
-	beq _08000768
-	add r1, r1, #1
-	b _080006F8
-_08000768:
-	pop {r4, r5, r6, r7}
-	bx lr
-	.align 2, 0
-	ARM_FUNC_END DecodeString
+@ DecodeString and its preceding pointers are generated from matching C.
 
 @ MapFloodCoreStep and its shared pointer pool are generated from C.
 	.section .text.after_map_flood_step, "ax", %progbits

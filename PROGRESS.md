@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: DecodeString candidate reduced to one differing word (this change).
+Updated: September 9, 2026. Latest verified implementation: DecodeString integrated as matching C (changes following `47167b71`).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,25 +12,26 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
-| String decoder candidate | `██████████████████░░` **34/35 instruction words (97.1%); not integrated** |
+| Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
 | Half-stride glyph routine | `████████████████████` **All 188 instruction bytes exact; shares the original pointer pool** |
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
 | Tilemap fill routine | `████████████████████` **All 56 bytes exact in main and three payload versions** |
 | Tilemap copy routine | `████████████████████` **All 92 bytes exact in main and three payload versions** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
-The function percentages describe these routines only. Both main routines and
-the embedded palette replacement are integrated into the production build.
+The function percentages describe these routines only. All listed replacements
+are integrated into the production build.
 An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: DecodeString instruction matching.**
-The C candidate passes 640 valid-tree cases with matching output, consumed
-input, registers, write boundaries, and return flags. Its pointer pool, zero initialization, and leaf sign test now match with
-checked optional compiler encodings. Only the final ANDS-versus-TST byte-mask
-test differs. It stays outside production until that matches.
-The full production ROM remains exact.
+**Next milestone: recover the remaining ARM object-list and map flood dispatcher routines.**
+DecodeString is now integrated as matching C. All 640 valid-tree cases pass,
+including output, consumed input, registers, write boundaries and return flags.
+Its entire 148-byte pool/function section matches, and `make compare -j8`
+verifies the complete production ROM. The linked audit attributes its 140 ARM
+instruction bytes and eight pointer bytes to the new C object, with no orphan
+mapping symbols.
 
 Latest checks: 65,536 palette component/step pairs; 80 map flood cases with no
 return-flag differences; 18,816 compiler-plugin execution probes; 30 relocated prefix-pool probes in both pointer orders, including cross-function
@@ -57,6 +58,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace main and embedded TmFillRect with matching C.
 - [x] Replace DrawGlyph and its shift table with matching C.
 - [x] Replace DrawGlyphHalfStride with matching C and preserve its shared pool.
+- [x] Replace DecodeString and its pointer pool with matching C.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -65,7 +67,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 60 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 59 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 17 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

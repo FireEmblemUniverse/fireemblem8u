@@ -260,6 +260,7 @@ SECTIONS
         DrawGlyphPointerPool = .;
         src/arm/draw_glyph.o(.text);
         asm/arm.o(.text.after_draw_glyph);
+        src/arm/decode_string.o(.text);
         MapFloodCoreStepPool = .;
         src/arm/map_flood_step.o(.text);
         asm/arm.o(.text.after_map_flood_step);
