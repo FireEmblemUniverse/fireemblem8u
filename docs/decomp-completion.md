@@ -1047,3 +1047,36 @@ function declarations. Three recovered embedded helpers now total 248 bytes;
 the remaining payload assembly and library routines are still outstanding.
 The source bundle includes the full local commit chain and was successfully
 restored in another upstream-only clone that initially lacked this commit.
+
+## ColorFadeTick C reconstruction and arithmetic checks
+
+`research/arm/color_fade_tick.c` now reconstructs the complete palette update
+algorithm in C, but is excluded from the ROM build. It visits all 32 palettes
+and 16 colors per palette in descending order, skips zero-step palettes, stores
+each updated component modulo 256, and packs the independently clamped RGB5
+components. Crucially, the displayed channel is clamped from `old + step - 32`
+before the stored byte wraps; clamping a reloaded byte would be incorrect.
+
+`python3 research/arm/check_color_fade.py` strips only empty register constraints
+and executes the same candidate C natively. A separate scalar reference checks
+all 65,536 pairs of unsigned component byte and signed step, with distinct
+channel values and a sentinel for unchanged palettes. The checks cover stored
+component bytes and every packed palette entry, including zero-step preservation.
+This verifies the reconstructed arithmetic against the reviewed algorithm;
+it does not emulate the original ARM instructions or establish a binary match.
+
+The initial GNU ARM GCC 16.2.0 candidate contains 204 instruction bytes followed
+by a 12-byte literal pool (216-byte symbol extent), whereas the original routine
+has 208 instruction bytes and its three literals precede the function. GCC also
+hoists pointers/constants into extra registers, uses predicated clamps and
+changes address calculations. These differences are unresolved and explicitly
+remain outside the matching build.
+
+Reproduce the initial compiler output from the repository root:
+
+```sh
+arm-none-eabi-gcc -S research/arm/color_fade_tick.c -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -o .deps/color-fade-tick.s
+```
+
+The main game and embedded payload retain their original ColorFadeTick assembly.
+Direct comparison confirms the production ROM still matches all original bytes.
