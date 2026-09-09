@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Check the candidate's C arithmetic; this does not verify ARM byte matching."""
+import argparse
 import ctypes
+import struct
 from pathlib import Path
 import re
 import subprocess
@@ -8,6 +10,19 @@ import tempfile
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--rom', type=Path, help='also execute canonical ROM instructions; requires unicorn==2.1.4')
+    parser.add_argument('--arm-candidate', type=Path, help='also execute candidate .text linked at 0x08000234')
+    args = parser.parse_args()
+    if args.arm_candidate and not args.rom:
+        parser.error('--arm-candidate requires --rom')
+    oracle = None
+    candidate_oracle = None
+    if args.rom:
+        from color_fade_oracle import make_oracle
+        oracle = make_oracle(args.rom)
+        if args.arm_candidate:
+            candidate_oracle = make_oracle(args.rom, args.arm_candidate)
     source = Path(__file__).with_name('color_fade_tick.c').read_text()
     # Remove only empty register constraints for a native execution of the same C.
     source = re.sub(r' asm\("r[0-9]+"\)', '', source)
@@ -46,10 +61,24 @@ def main():
                                 expected_components.append(total & 255)
                                 packed |= min(31, max(0, total - 32)) << (component * 5)
                         expected_palette.append(packed if step else 0xA55A)
+                if oracle:
+                    actual_components, actual_palette = oracle(
+                        bytes(components), bytes(steps), bytes(palette), group * 6 + batch)
+                    assert actual_components == bytes(expected_components), (group, batch, 'ROM components')
+                    assert actual_palette == struct.pack('<512H', *expected_palette), (group, batch, 'ROM palette')
+                if candidate_oracle:
+                    candidate_components, candidate_palette = candidate_oracle(
+                        bytes(components), bytes(steps), bytes(palette), group * 6 + batch)
+                    assert candidate_components == actual_components, (group, batch, 'ARM candidate components')
+                    assert candidate_palette == actual_palette, (group, batch, 'ARM candidate palette')
                 library.ColorFadeTick()
                 assert list(components) == expected_components, (group, batch, 'components')
                 assert list(palette) == expected_palette, (group, batch, 'palette')
         assert len(seen) == 65536
+    if candidate_oracle:
+        print('Compiled ARM candidate agrees with original ROM outputs and preservation checks.')
+    if oracle:
+        print('Original ROM execution agrees; write boundaries and preserved registers pass.')
     print('All 65,536 byte/signed-step pairs pass; zero-step palettes remain unchanged.')
 
 

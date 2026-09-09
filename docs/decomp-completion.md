@@ -1105,3 +1105,39 @@ The output section is therefore 220 bytes including its trailing literals.
 Neither the extra pool nor the ten instruction mismatches are patched into
 place: they remain unsolved compilation/layout work. The candidate is excluded
 from the production ROM, whose direct full-byte comparison still passes.
+
+## Palette fade original-instruction oracle
+
+The palette checks now execute the canonical original ARM instructions as well
+as native candidate C and the scalar reference. `color_fade_oracle.py` reads
+the original three pool addresses directly from the SHA-1-verified USA ROM,
+maps the relevant ROM/RAM and stack in Unicorn 2.1.4, and runs the original
+208-byte function to a return sentinel with a bounded instruction count.
+It varies all sixteen incoming NZCV flag combinations across the cases.
+
+All 65,536 component-byte/signed-step pairs agree on component storage and
+packed palette outputs. The oracle additionally verifies that writes stay
+within the two output buffers and the 16-byte stack frame, that the input
+step array is unchanged, and that r4-r12 and SP retain their entry values.
+The compiled ARM candidate passes the same checks against original ROM outputs.
+This is emulated instruction evidence for the exercised inputs, not a claim
+that the candidate has become byte-matching or a hardware timing test.
+
+`build_color_fade.py` now regenerates the isolated candidate and records its
+compiler version/flags, source and binary hashes, size and differing instruction
+words in `.deps/color-fade-match/report.json`. It resolves data addresses from
+the canonical ROM's existing pool; it does not rewrite generated instructions
+or relocate the candidate's pool into a matching position. The freshly built
+candidate still has ten differing words and a 220-byte section.
+
+Reproduce the complete check from the repository root:
+
+```sh
+python3 -m venv .deps/arm-oracle-venv
+.deps/arm-oracle-venv/bin/python -m pip install -r research/arm/oracle-requirements.txt
+python3 research/arm/build_color_fade.py
+.deps/arm-oracle-venv/bin/python research/arm/check_color_fade.py --rom baserom.gba --arm-candidate .deps/color-fade-match/candidate.bin
+```
+
+Without `--rom`, the checker remains available without Unicorn for the native
+C/scalar-reference checks. No production game source or ROM bytes changed.
