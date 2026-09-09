@@ -24,6 +24,9 @@ This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
 ARM routines, BIOS/audio
 interfaces, startup, timing assembly and the payload's assembly also remain in
 the inventory. The whole-ROM executable classification is not yet complete.
+The linked mapping audit additionally identifies 200 bytes of ARM code in
+the FE6 transfer wrapper's `.data` section, outside its compressed payload.
+Those instructions have no entry macros and remain outstanding.
 `ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
 complete ROM comparison passing after integration.
 `Checksum32` is also matching ARM-mode C (72 bytes), with the same full-ROM gate
@@ -889,3 +892,44 @@ audio helper symbol checks pass. The tracked inventory now has 442 C files,
 66 assembly entry markers and 142 inline sites: 75 register bindings, 59 empty
 templates, one directive and seven instruction-bearing templates. The remaining
 assembly, naked unit-list routine and embedded executable are still in scope.
+
+## Linked instruction mapping inventory
+
+`python3 scripts/audit_linked_code.py` supplements the lexical source audit.
+It reads ARM ELF `$a`, `$t` and `$d` mapping symbols, partitions each input
+section using the linker map, and attributes the resulting regions to objects.
+A mapping never propagates beyond its owning input section. ELF/map SHA-256
+hashes identify the audited artifacts; the JSON includes every region and
+per-object totals. Conflicting mappings and overlapping input contributions
+fail rather than silently choosing an interpretation.
+
+At the matching build following `46acd1d6`, it accounts for 14,202,427 bytes
+in 1,215 contributing objects and 24,493 regions:
+
+| Assembler classification | Bytes |
+| --- | ---: |
+| ARM instructions | 3,096 |
+| Thumb instructions | 774,534 |
+| Data mapping | 10,252,672 |
+| Input-section bytes with no mapping | 3,172,125 |
+| Bytes outside input sections, including linker fill | 2,574,789 |
+
+No ROM mapping symbols lie outside the parsed input sections. These are not
+C-completion percentages. Mapping symbols do not distinguish C from inline
+assembly, identify executable content hidden in data, or expand compressed
+payloads. The unmapped bytes and padding also remain unclassified. The embedded
+`mgfembp` executable still requires its own expanded instruction inventory.
+
+This audit identifies ARM instructions in `asm/fe6sio.o(.data)` that function
+entry macro counts do not include: four bytes at `0x08B1A0B8..0x08B1A0BC`,
+four at `0x08B1A178..0x08B1A17C`, and 192 at
+`0x08B1A198..0x08B1A258`. Source inspection confirms the entry branches,
+serial polling and reset/transfer logic. These 200 bytes are separate from
+both the compressed payload and its recovered C sources. They remain part
+of the complete decompilation objective regardless of the source comment
+suggesting this wrapper may be unused.
+
+Five regression checks cover wrapped map entries, section-boundary mapping
+resets, ARM code inside `.data`, mapping-name suffixes and duplicates, and
+conflicting/overlapping evidence. They pass. Direct comparison confirms the
+production ROM remains byte-identical; this audit introduces no build changes.
