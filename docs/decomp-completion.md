@@ -999,3 +999,28 @@ indexed pin without overwriting local modifications. The build invokes it when
 the payload Makefile is missing; README setup commands also use it. A fresh
 upstream-only test clone was verified not to contain the new commit, then
 successfully restored its exact hash and C source through this helper.
+
+## Embedded TmApplyTsa matching C
+
+The payload is now pinned to local commit
+`f2af4b9471b86061597b235dc701991f18c5f018`. Its `src/tm_apply_tsa.c` replaces
+all 84 bytes at `0x02010370..0x020103C4` with the main game's recovered tilemap
+application loop. It reads width/height minus one, consumes tile halfwords in
+order, and writes rows from bottom to top with the original 32-tile stride.
+The adjacent literal used by PutOamHi remains in assembly after the C object.
+
+The public payload interface still takes a 16-bit tile base. A word-sized r2
+local with an empty read/write constraint preserves the original ADD operand
+order; the first trial swapped its operands and failed the checksum despite
+equivalent arithmetic. The final C emits every original instruction using the
+same modern ARM GCC configuration already verified for the main game's routine.
+
+All three payload reference checksums pass. The full Sacred Stones checksum
+and direct 16,777,216-byte comparison also pass. The embedded inventory now has
+17 C files and 21 assembly function declarations; the two recovered payload
+helpers total 176 bytes. Remaining embedded assembly stays in scope.
+
+The incremental source bundle was regenerated against the original upstream
+base, including both local commits. An upstream-only clone verified to lack
+the new commit successfully fetched the bundle and restored its exact source.
+No upstream publication is required to reproduce this parent submodule pin.
