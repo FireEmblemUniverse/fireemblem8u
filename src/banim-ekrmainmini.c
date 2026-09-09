@@ -979,7 +979,7 @@ void sub_805AFA0(s16 distance, s16 position)
             break;
     }
 
-    EfxTmCpyExt(gUnknown_080DAF60, -1, gTmA_Banim + 0x35A + offset, 0x42, 0xf, 5, -1, -1);
+    EfxTmCpyExt(Tm_BanimMiniBlank, -1, gTmA_Banim + 0x35A + offset, 0x42, 0xf, 5, -1, -1);
 
     return;
 }

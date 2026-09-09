@@ -55,8 +55,13 @@ cd /path/to/fireemblem8u
 ```
 5. Build the project.
 ```
+git submodule update --init mgfembp
 make
 ```
+The embedded FE6 save-report program is built from the pinned `mgfembp`
+submodule. On its first build, its installer downloads and builds the separate
+agbcc variant required by that program. Later builds use the installed compiler.
+The main ROM comparison also verifies the compressed payload.
 6. You will see this for success.
 ```
 fireemblem8.gba: OK

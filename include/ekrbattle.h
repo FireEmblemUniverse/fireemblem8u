@@ -602,7 +602,7 @@ extern const u8 BanimDefaultStandingTypes[5];
 extern const u8 BanimTypesPosLeft[5];
 extern const u8 BanimTypesPosRight[5];
 extern const u16 BanimLeftDefaultPos[5];
-extern u16 gUnknown_080DAF60[];
+extern const u16 Tm_BanimMiniBlank[15 * 5];
 extern const u8 Img_080DB034[];
 extern const u8 Img_080DB538[];
 extern const u8 Img_080DB9C4[];

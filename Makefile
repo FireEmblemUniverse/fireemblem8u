@@ -189,6 +189,30 @@ include json_data_rules.mk
 %.gbapal: %.pal ; $(PAL2GBAPAL) $< $@
 %.gbapal: %.png ; $(GBAGFX) $< $@
 %.lz: % ; $(GBAGFX) $< $@
+
+# The FE6 save-report program embedded in FE8 is built separately: it uses
+# agbcc 010110-ThumbPatch, not the main game's compiler configuration.
+mgfembp/Makefile:
+	@echo 'Initialize the payload source with: git submodule update --init mgfembp'
+	@exit 1
+
+mgfembp/tools/agbcc/bin/agbcc: mgfembp/Makefile
+	cd mgfembp && env -u C_INCLUDE_PATH bash tools/install_agbcc.sh
+	test -x $@
+
+mgfembp/mgfembp.bin: mgfembp/tools/agbcc/bin/agbcc FORCE_MGFEMBP
+	env -u C_INCLUDE_PATH $(MAKE) -C mgfembp CPP="$(PREFIX)cpp" PREFIX="$(PREFIX)" tools
+	env -u C_INCLUDE_PATH $(MAKE) -C mgfembp CPP="$(PREFIX)cpp" PREFIX="$(PREFIX)" mgfembp.bin
+
+# Distance-one backreferences are valid for the bootstrap's WRAM decompressor.
+# Use the payload's compressor, which supports this option.
+fe6sio_payload.bin.lz: mgfembp/mgfembp.bin
+	mgfembp/tools/gbagfx/gbagfx $< $@ -search 1
+
+data/data_fe6sio.o: fe6sio_payload.bin.lz
+
+FORCE_MGFEMBP:
+.PHONY: FORCE_MGFEMBP
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
 %.bin: %.mar  ; $(MARTOMAP)  $< $@

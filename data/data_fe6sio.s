@@ -88,4 +88,7 @@ _reset: @ 0x08B1A1C4
 
     .space 0x100
 
-	.incbin "baserom.gba", 0xB1A368, 0xB1F734 - 0xB1A368
+    @ FE6 save-report multiboot program, built from the mgfembp source submodule.
+    @ The bootstrap decompresses this to 0x02010000 before entering it.
+FE6SIO_Payload:
+	.incbin "fe6sio_payload.bin.lz"

@@ -65,6 +65,9 @@ def audit(root):
         "assembly_entry_markers": re.compile(
             r"^\s*(?:thumb|arm)_func_start\s+(\w+)", re.I
         ),
+        "assembly_function_declarations": re.compile(
+            r"^\s*\.type\s+\w+\s*,\s*[%@]?function\b", re.I
+        ),
         "naked_function_markers": re.compile(r"^\s*NAKEDFUNC\b"),
         "nonmatching_conditionals": re.compile(r"^\s*#\s*if\w*\b.*\bNONMATCHING\b"),
         "baserom_includes": re.compile(r'^(?!\s*(?:@|//)).*\b(?:incbin|INCBIN\w*)\b.*["\']baserom\.gba["\']', re.I),
@@ -104,6 +107,30 @@ def audit(root):
             data = path.read_bytes()
             rom_hashes[name] = {"size": len(data), "sha1": hashlib.sha1(data).hexdigest()}
     result["local_rom_hashes"] = rom_hashes
+    # An embedded executable must not disappear from the inventory when its
+    # baserom include is replaced by a separately linked source build.
+    payload = root / "mgfembp"
+    if (root / ".gitmodules").is_file() and "mgfembp" in paths:
+        entry = {
+            "path": "mgfembp",
+            "rom_offset": 0xB1A368,
+            "compressed_size": 0x53CC,
+            "load_address": 0x02010000,
+            "expanded_size": 0x888C,
+            "pinned_commit": subprocess.check_output(
+                ["git", "rev-parse", ":mgfembp"], cwd=root, text=True
+            ).strip(),
+            "initialized": (payload / "Makefile").is_file(),
+        }
+        if entry["initialized"]:
+            entry["source_inventory"] = audit(payload)
+        binary = payload / "mgfembp.bin"
+        if binary.is_file():
+            data = binary.read_bytes()
+            entry["built_binary"] = {
+                "size": len(data), "sha1": hashlib.sha1(data).hexdigest()
+            }
+        result["embedded_executables"] = [entry]
     return result
 
 

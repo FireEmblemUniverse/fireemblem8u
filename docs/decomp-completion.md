@@ -7,8 +7,10 @@ Working branch: `decomp-completion`.
 The active goal is complete decompilation of Sacred Stones. The initial matching
 target is the USA ROM with SHA-1
 `c25b145e37456171ada4b0d440bf88a19f4d509f`, as specified by upstream.
-This work targets the original GBA executable; the native-engine feasibility
-blueprint in the parent folder describes a separate project.
+This immediate milestone targets the original GBA executable. The native-engine
+feasibility blueprint in the parent folder describes the broader ROM-importing
+LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
+that native engine or its mod platform.
 
 ## Completion evidence
 
@@ -126,3 +128,48 @@ program. That is not a reason to count it as an ordinary asset or omit it from
 the whole-ROM completion audit. The locally decoded file is ignored under
 `.deps/fe6-link-payload.bin`; its SHA-256 is
 `d3011f8a257e8000bb32612717f84e2389f5eb1897b70f27535910be22cf81d5`.
+
+### Source build recovered
+
+The Japanese reference repository pointed to
+[`StanHash/mgfembp`](https://github.com/StanHash/mgfembp), an existing
+decompilation of this FE6 save-report multiboot program. The project is now a
+submodule pinned to `c87e74dcd6c8878b809e013cd8ff0c52baa75332`. Its final-version
+build reproduces all 34,956 decompressed bytes (SHA-1
+`8a81a47d88f6b0a3f91c49784b9f7b317382abac`). Its own gbagfx with `-search 1`
+reproduces all 21,452 stored bytes at `0xB1A368..0xB1F734`; the main project's
+older gbagfx does not support the configurable search-distance option.
+
+The main Makefile now builds and compresses that source instead of copying the
+executable from baserom. The payload needs its own agbcc 010110-ThumbPatch variant
+with `-fprologue-bugfix` and selected `-O0`/`-O1` translation units. Its pinned
+installer fetches the `tpcs_frame` compiler branch; that compiler branch itself
+is not pinned by the upstream installer. First-time setup needs network access.
+The complete ROM checksum remains the final verification gate.
+
+The linked payload separates `.text` (`0x02010000..0x02016FD8`), `.rodata`
+(`0x02016FD8..0x02017CE8`) and `.data` (`0x02017CE8..0x0201888C`). It has 15 C
+translation units plus startup, ARM routines, BIOS wrappers and interworking
+veneers in assembly. These are now visible through `embedded_executables` in the
+audit, including `.type ..., function` declarations that the original macro-only
+scanner missed. This is a source-built executable, not a claim that its assembly
+has become C or that the whole game is complete.
+
+### Other verified progress
+
+- Recovered `0x080DAF60` as `Tm_BanimMiniBlank`: 75 zero halfwords for a packed
+  15-by-5 tilemap, followed by two alignment bytes. Its consumer passes those
+  dimensions and a packed source stride to `EfxTmCpyExt`. Replaced the 152-byte
+  baserom include with an explicit zero-fill and gave the declaration its size.
+- These two changes reduce active direct includes to 1,291, covering 1,100,064
+  unique ROM bytes. This is data/include accounting, not a C match percentage.
+- Rebuilt the entire ROM successfully after both changes: `fireemblem8.gba: OK`.
+  Also touched the payload's `src/report.c` without changing its contents and
+  reran the top-level build: the child recompiled it, regenerated the compressed
+  payload, and the full ROM still matched. This checks the recursive dependency
+  path rather than only a build with pre-existing payload output.
+- The unit-list experiment improved from 16 to 11 differing bytes (`l13` in
+  `.deps/unitlist-match/`). The rightward destination's masked row is evaluated
+  through an integer temporary and an empty `r1` clobber. It still does not match
+  and has not replaced the assembly. The Japanese equivalent also remains naked
+  assembly, so it did not supply a solved C implementation.
