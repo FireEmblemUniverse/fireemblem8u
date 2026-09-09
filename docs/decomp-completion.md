@@ -23,6 +23,8 @@ interfaces, startup, timing assembly and the payload's assembly also remain in
 the inventory. The whole-ROM executable classification is not yet complete.
 `ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
 complete ROM comparison passing after integration.
+`Checksum32` is also matching ARM-mode C (72 bytes), with the same full-ROM gate
+passing. These replacements retain the copied ARM block's original boundaries.
 
 ## Completion evidence
 
@@ -218,7 +220,7 @@ Verification performed:
   alignment supplies the final two padding bytes. Its name and consumer remain
   consistent with our earlier recovery.
 
-Current lexical inventory (not a completion percentage):
+Lexical inventory at the data-integration checkpoint (not a completion percentage):
 
 | Main-project source marker | Count |
 | --- | ---: |
@@ -272,3 +274,36 @@ entry macros and 71 inline-assembly sites. The extra inline site is the `r2`
 register annotation. Both naked functions and all 45 NONMATCHING conditionals
 remain. The unit-list compiler-variant experiment did not improve its existing
 11-byte-difference candidate.
+
+## Matching ARM C: Checksum32
+
+`src/arm/checksum.c` replaces the 72 bytes at `0x08000360..0x080003A8`.
+The function accumulates the sum and XOR of input halfwords, returning their
+low 16-bit values in the low and high halves respectively. Its original
+do/while behavior, including one read for sizes below two, is preserved.
+
+This file uses GNU ARM GCC rather than legacy ARM agbcc. Inspection of agbcc's
+`arm_expand_prologue` and `output_func_prologue` showed that it unconditionally
+adds `lr` to a nonempty callee-save set. That prevents its normal prologue from
+matching this routine's `push {r4, r5, r6, r7}`. GNU ARM GCC 16.2.0 produces the
+matching leaf save/restore sequence. No compiler source or generated instructions
+were patched.
+
+The Makefile selects ARM7TDMI, APCS GNU calling conventions, GNU89 C, `-O1`, and
+disables scheduling, automatic increment addressing and induction-variable
+optimization for this file. The source's fixed registers and empty asm
+constraints retain the original save set, operand order and mask construction.
+Every instruction is emitted by the compiler; none of the asm templates contains
+an instruction. Other GCC versions have not been verified, so the full ROM
+comparison remains necessary when changing toolchains.
+
+The linker places this C object after `ClearOam` and before the remaining
+`.text.after_checksum32` assembly. Verification covered the full ROM, the
+72-byte function, the unchanged `0x08000228..0x08000A20` copied block, and the
+unchanged entry point of the following `TmFillRect` at `0x080003A8`.
+
+The two C replacements now cover 164 bytes. The main project has 436 tracked C
+files and 71 assembly entry macros. Inline-site counts include the new register
+annotations and empty constraints; they are not counts of assembly instructions
+or unmatched functions. The two naked routines, other ARM routines, startup,
+BIOS/audio code and embedded assembly remain in scope.

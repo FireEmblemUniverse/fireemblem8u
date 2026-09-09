@@ -102,56 +102,8 @@ ColorFadeTick: @ 0x08000234
 
 	ARM_FUNC_END ColorFadeTick
 
-@ ClearOam is linked here from src/arm/clear_oam.c.
-	.section .text.after_clear_oam, "ax", %progbits
-
-/*
-Behavioral reference (the implementation below is still assembly):
-
-u32 Checksum32(const u16 * src, u32 size)
-{
-    u32 remaining = size - 2;
-    u32 sum = 0;
-    u32 parity = 0;
-
-    do
-    {
-        u32 value = *src++;
-        sum += value;
-        parity ^= value;
-        remaining -= 2;
-    } while ((s32) remaining >= 0);
-
-    return (sum & 0xFFFF) + (parity << 16);
-}
-
-The input is read as halfwords, not words. The do/while loop performs at least
-one read, even when size is below two; callers must supply readable storage.
-*/
-	ARM_FUNC_START Checksum32
-Checksum32: @ 0x08000360
-	push {r4, r5, r6, r7}
-	sub r1, r1, #2		@ r1 = remaining bytes after the first halfword
-	mov r2, #0			@ r2 = add_acc
-	mov r3, #0			@ r3 = xor_acc
-1:
-	ldrh r4, [r0]
-	add r2, r2, r4		@ r2 = add_acc += *src_u16
-	eor r3, r3, r4		@ r3 = xor_acc ^= *src_u16
-	add r0, r0, #2
-	subs r1, r1, #2
-	bpl 1b
-
-	mov r0, #0x10000
-	sub r0, r0, #1		@ 0xFFFF
-	and r2, r2, r0
-	lsl r3, r3, #0x10
-	mov r0, r2
-	add r0, r0, r3		@ return (u16)add_acc + ((u16)xor_acc << 0x10)
-	pop {r4, r5, r6, r7}
-	bx lr
-
-	ARM_FUNC_END Checksum32
+@ ClearOam and Checksum32 are linked here from src/arm/.
+	.section .text.after_checksum32, "ax", %progbits
 
 /*
 Behavioral reference (the implementation below is still assembly):
