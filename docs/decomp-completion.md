@@ -1747,3 +1747,23 @@ It uses a relative byte jump table, different argument setup and a separate
 phase comparison. This is not a byte-matching replacement. Source and binary
 hashes and compiler flags are in `.deps/map-flood-core-match/report.json`.
 No production source or embedded revision changed in this research checkpoint.
+
+
+## Dispatcher checked across expanding frontiers
+
+The dispatcher oracle now models helpers that append finite amounts of work.
+Five enqueue budgets (0/1/4/12/24) combine with eight initial queues and all
+incoming NZCV states for 640 original/candidate cases. The model skips every
+third attempted insertion and eventually exhausts its budget, creating repeated
+queue alternation followed by an empty frontier. A separate sequential reference
+computes call order and expected queue memory. The machine hook consumes actual
+argument registers and actual source/destination pointers when appending nodes.
+
+All cases pass: ordered helper calls, full IWRAM outside the original 16-byte
+stack save area, write bounds, r4-r11/SP preservation and final NZCV. The helper
+model deliberately changes r0-r3 and flags at every call, so the candidate cannot
+rely on accidentally preserved argument values. Return-flag differences are zero
+and now fail the checker if introduced. This remains dispatcher validation under
+controlled helper behavior, not execution of the terrain/movement helper itself.
+The 438-byte candidate and production ROM source are unchanged; instruction
+selection and original jump-table layout remain the next matching work.

@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: map flood dispatcher (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: expanding-frontier dispatcher validation (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -27,10 +27,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: map flood dispatcher reconstruction and instruction matching.**
-A maintained C candidate passes 128 original/candidate cases checking ordered
-neighbor calls, queue cursor alternation, sentinel writes and preserved registers
-with a controlled no-enqueue helper. Full-helper execution, multiple expanding
-frontiers, return flags and instruction matching remain unverified. The current
+A maintained C candidate passes 640 original/candidate cases checking ordered
+neighbor calls, repeated queue alternation, complete queue memory, preserved
+registers and return flags with finite-enqueue helper models. Budgets range from
+zero to 24 inserted nodes. Full terrain-helper execution and instruction
+matching remain unverified. The current
 438-byte candidate section uses a different jump table and argument setup.
 Low-entry object-list shims also remain unfinished.
 
