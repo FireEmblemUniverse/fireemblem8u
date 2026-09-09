@@ -673,3 +673,23 @@ and all seven audit regression tests pass. The tracked source now has 112 inline
 sites: 63 register bindings, 40 empty templates, one section directive and eight
 instruction-bearing templates, with none unresolved. The one naked unit-list
 fallback and all other remaining assembly remain within the completion goal.
+
+
+## Additional BG0 and event-text instruction-selection trials
+
+The eleven-byte unit-list candidate was rechecked with seven masked-row
+expression/type variants, nine shared-row lifetime/binding variants, and eleven
+barrier-before-mask variants. None improved the retained candidate. Explicit
+r3 bindings changed the surrounding address calculations rather than simply
+swapping the two desired registers. The candidates remained isolated under
+`.deps/unitlist-match`; production source was not changed.
+
+The event-text constant-load trial was also revisited with four empty tied
+constraints, including `"=r"`/`"=l"` outputs, an immediate `0x10` tied input,
+and with/without an explicit condition-code clobber. The isolated original
+`Event1B_TEXTSHOW` at `0x0800E3C8` was first verified against all 340 ROM bytes.
+Every variant retained that size but still differed in the same 14 bytes of
+switch-dispatch branch layout seen in the earlier assignment trial. Thus a
+tied immediate alone does not resolve the compiler's branch-length decision.
+The instruction template remains in production. These trials do not change
+completion counts or establish a new matching conversion.
