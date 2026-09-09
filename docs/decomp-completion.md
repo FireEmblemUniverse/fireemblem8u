@@ -18,7 +18,9 @@ The combined checkout builds the exact 16,777,216-byte USA ROM. There are now
 **zero direct baserom includes** in tracked source. Data recovery from the
 `laqieer/fireemblem8u` fork has been integrated and verified, as detailed below.
 This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
-`sub_8091F10`) still uses its naked assembly fallback. ARM routines, BIOS/audio
+`sub_8091F10`) still uses its naked assembly fallback.
+`GetUnitDefinitionFormEventScr` also has a 516-byte naked assembly fallback
+using an explicit attribute, which the initial macro-only audit missed. ARM routines, BIOS/audio
 interfaces, startup, timing assembly and the payload's assembly also remain in
 the inventory. The whole-ROM executable classification is not yet complete.
 `ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
@@ -29,8 +31,8 @@ passing. These replacements retain the copied ARM block's original boundaries.
 replacements to 248 bytes. The complete ROM still matches.
 `MultiBootWaitCycles` now generates nine of its twelve Thumb instructions from
 C; the PC read and two-instruction timing loop remain explicit assembly.
-There is now one naked function marker, but the residual timing assembly still
-belongs to the unfinished assembly inventory.
+There is now one `NAKEDFUNC` macro and one explicit naked attribute; both
+assembly bodies and the residual timing assembly remain unfinished.
 
 ## Completion evidence
 
@@ -438,3 +440,59 @@ and no direct baserom includes. Inline sites include register annotations,
 empty constraints and section directives; they are not assembly instruction
 counts. The remaining naked unit-list routine, other ARM functions, startup,
 BIOS/audio code, this timing assembly and embedded assembly remain in scope.
+
+
+## DisplayEventMapAnim: remove its last instruction template
+
+The explicit `add r2, r0, #0` in `DisplayEventMapAnim` is now generated from a
+C pointer copy constrained to register r2. An empty input constraint keeps the
+copy alive. This removes one hand-written Thumb instruction (two bytes) from
+the 336-byte function at `0x08085C7C..0x08085DCC`, without changing the generated
+code. There is no instruction-bearing inline assembly left in that function.
+The original agbcc build, complete ROM checksum and direct full-ROM byte
+comparison all pass. No compiler flags or linker changes were required.
+
+An independent trial replacing the constant-load template in `Event1B_TEXTSHOW`
+with a C assignment and empty output constraint changed the switch branch
+layout at `0x0800E422..0x0800E430`. Removing the constraint also changed code
+size. Neither trial was retained; that instruction template remains outstanding.
+
+## Audit correction: distinguish source annotations and naked attributes
+
+The original `naked_function_markers` category only recognized the `NAKEDFUNC`
+macro. `GetUnitDefinitionFormEventScr` in `src/eventscr.c` uses
+`__attribute__((naked))` and was therefore absent from that category, though
+its large inline template was included in the raw assembly-site inventory.
+The new `naked_function_attributes` category finds it explicitly. Its linked
+Thumb symbol is `0x0800F915`, size 516. Historical macro counts in this document
+must not be interpreted as total counts of naked functions. The current source
+contains two naked bodies: this event-unit selection routine and
+`UnitList_PageChangeIn_Loop`.
+
+`inline_assembly_classification` now reports the literal templates behind the
+raw assembly-site markers. After the DisplayEventMapAnim conversion, all 107
+main-project sites are classified:
+
+| Source-site kind | Count |
+| --- | ---: |
+| Register bindings | 62 |
+| Empty templates / compiler constraints | 35 |
+| Section directive only | 1 |
+| Instruction-bearing templates | 9 |
+| Unresolved templates | 0 |
+
+The nine instruction-bearing sites consist of two event-info NOPs, the event
+text constant load, the event-unit selection body, the sleep BIOS call, the
+audio BIOS call, the two multiboot hardware/timing templates, and the unit-list
+body. The embedded payload separately retains its BIOS instruction template.
+The 70 main assembly entry macros and embedded standalone assembly remain
+outside these inline-template counts. There are 44 NONMATCHING conditionals.
+
+This remains a source inventory: it does not evaluate preprocessor branches,
+expand macros, parse all C syntax, or claim executable byte coverage. A single
+template can contain many instructions. Unsupported literal syntax is reported
+as unresolved rather than treated as empty. Seven regression tests cover
+register bindings, empty templates, multiline adjacent literals, continued
+strings, directives, unresolved macro templates, and comments/line offsets:
+`python3 scripts/test_audit_decomp.py`. All pass. The final audit also verifies
+both naked marker forms and the classification of every currently found site.

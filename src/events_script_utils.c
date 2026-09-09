@@ -825,9 +825,11 @@ void DisplayEventMapAnim(ProcPtr parent, int val)
 {
     struct ProcEventMapAnim * proc = Proc_StartBlocking(ProcScr_EventMapAnim, parent);
 
-#ifndef NONMATCHING
-    asm("add r2, r0, #0");
-#endif
+    // Preserve the original register copy through compiler-generated C.
+    {
+        register struct ProcEventMapAnim * copy asm("r2") = proc;
+        asm("" : : "r"(copy));
+    }
     proc->mode = val;
 
     SetDispEnable(0, 0, 1, 1, 1);

@@ -57,6 +57,47 @@ def include_ranges(entries, rom_size):
     }
 
 
+def classify_inline_assembly(source, entry):
+    """Classify a literal asm template; keep unsupported syntax unresolved.
+
+    This does not evaluate preprocessor branches or count machine instructions.
+    Register bindings are declarations, not executable assembly templates.
+    """
+    offset = sum(len(line) for line in source.splitlines(keepends=True)[:entry["line"] - 1])
+    line = source[offset:].splitlines()[0]
+    match = re.search(r"\b(?:asm|__asm__?)\s*(?:(?:volatile|__volatile__?)\s*)?\(", line)
+    if not match:
+        return {**entry, "kind": "unresolved", "reason": "asm opening not found"}
+    prefix = line[:match.start()]
+    cursor = offset + match.end()
+    literals = []
+    while True:
+        trivia = re.match(r"(?:\s+|/\*.*?\*/|//[^\n]*(?:\n|$))*", source[cursor:], re.S)
+        cursor += trivia.end()
+        literal = re.match(r'"(?:\\[\s\S]|[^"\\])*"', source[cursor:])
+        if not literal:
+            break
+        try:
+            literals.append(ast.literal_eval(literal[0]))
+        except (SyntaxError, ValueError):
+            return {**entry, "kind": "unresolved", "reason": "unsupported string literal"}
+        cursor += literal.end()
+    if not literals or cursor >= len(source) or source[cursor] not in ":)":
+        return {**entry, "kind": "unresolved", "reason": "nonliteral or incomplete template"}
+    template = "".join(literals)
+    if re.search(r"\bregister\b", prefix) and re.fullmatch(r"(?:r(?:1[0-5]|[0-9])|[av][1-8]|ip|sp|lr|pc|fp|sl)", template):
+        kind = "register_binding"
+    elif not template.strip():
+        kind = "empty_template"
+    else:
+        # Classify directives separately, but never infer instruction counts:
+        # one assembler statement can expand into several instructions or data.
+        statements = [part.split("@", 1)[0].strip() for part in re.split(r"[\n;]", template)]
+        statements = [part for part in statements if part and not re.fullmatch(r"[\w.$]+:", part)]
+        kind = "directive_only" if statements and all(part.startswith(".") for part in statements) else "instruction_template"
+    return {**entry, "kind": kind, "template": template}
+
+
 def audit(root):
     paths = subprocess.check_output(
         ["git", "ls-files", "-z"], cwd=root
@@ -72,6 +113,7 @@ def audit(root):
             r"\b(?:asm|__asm__?)\s*(?:(?:volatile|__volatile__?)\s*)?\("
         ),
         "naked_function_markers": re.compile(r"^\s*NAKEDFUNC\b"),
+        "naked_function_attributes": re.compile(r"\b__attribute__\s*\(\([^\n]*\bnaked\b"),
         "nonmatching_conditionals": re.compile(r"^\s*#\s*if\w*\b.*\bNONMATCHING\b"),
         "baserom_includes": re.compile(r'^(?!\s*(?:@|//)).*\b(?:incbin|INCBIN\w*)\b.*["\']baserom\.gba["\']', re.I),
         "commented_baserom_includes": re.compile(r'^\s*(?:@|//).*\bincbin\b.*["\']baserom\.gba["\']', re.I),
@@ -102,6 +144,17 @@ def audit(root):
         "counts": {name: len(entries) for name, entries in findings.items()},
         "findings": findings,
         "direct_rom_includes": include_ranges(findings["baserom_includes"], 0x1000000),
+    }
+    classified = [
+        classify_inline_assembly((root / entry["path"]).read_text(), entry)
+        for entry in findings["inline_assembly_sites"]
+    ]
+    result["inline_assembly_classification"] = {
+        "scope": "Literal source templates, including inactive branches; not executable coverage or instruction counts.",
+        "counts": {kind: sum(entry["kind"] == kind for entry in classified) for kind in (
+            "register_binding", "empty_template", "directive_only", "instruction_template", "unresolved"
+        )},
+        "sites": classified,
     }
     rom_hashes = {}
     for name in ("baserom.gba", "fireemblem8.gba"):
