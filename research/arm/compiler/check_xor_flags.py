@@ -12,6 +12,7 @@ from unicorn import arm_const as regs
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin',type=Path,required=True)
+    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
     args = parser.parse_args()
     operations={}
     source='extern void hit(void);\n'
@@ -40,7 +41,7 @@ def main():
             obj = root/(name+'.o')
             elf = root/(name+'.elf')
             binary = root/(name+'.bin')
-            subprocess.run(['arm-none-eabi-gcc','-S','-O1','-marm','-mcpu=arm7tdmi',
+            subprocess.run([args.compiler,'-S','-O1','-marm','-mcpu=arm7tdmi',
                             '-fno-if-conversion','-fno-if-conversion2','-fno-schedule-insns','-fno-schedule-insns2',*plugin,str(root/'probe.c'),'-o',str(assembly)],check=True)
             text = assembly.read_text()
             if not plugin:
@@ -96,7 +97,7 @@ def main():
         # Thumb code is outside the pass's scope and must not change.
         thumb = []
         for plugin in ([],['-fplugin='+str(args.plugin.resolve())]):
-            subprocess.run(['arm-none-eabi-gcc','-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,
+            subprocess.run([args.compiler,'-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,
                             str(root/'probe.c'),'-o',str(root/'thumb.s')],check=True)
             thumb.append((root/'thumb.s').read_bytes())
         assert thumb[0]==thumb[1]

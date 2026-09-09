@@ -1958,3 +1958,34 @@ hash-checked before extension. Source URL, extension hash, configure arguments
 and resulting cc1 hash will be recorded on successful completion. The initial
 build has started; compilation and instruction/probe validation are not yet
 complete. No claim of working matching-backend output is made at this checkpoint.
+
+
+## Matching backend built and PC-relative dispatcher validated
+
+The isolated GCC build and local installation completed successfully. Both
+experimental plugins were rebuilt against its installed plugin headers into
+`.deps/flood-core-new-backend`; plugins from the system compiler are not reused.
+Plugin builders and checkers now accept an explicit compiler path, and the table
+pass exposes an opt-in `pc-relative` mode requiring the new backend patterns.
+The stock-backend build rejects that option; the new mode also rejects Thumb.
+
+The generated sequence is MOV r3,pc; ADD r3,r3,#8; ADD r3,r3,r6,LSL#2; BX r3.
+It computes the address of the following branch-instruction table without a
+literal load. Every instruction passes the backend recognizer. The old literal
+entry remains unused and will need layout work. The original uses r0, lacks the
+extra range check and has different table/fallthrough placement, so this is not
+a matching ROM replacement yet. The complete candidate section is 452 bytes.
+
+The two-pass PC-relative candidate passes all 640 controlled-helper and 240
+actual-helper dispatcher cases. On the new compiler, 4,608 standalone table
+executions and 10,080 XOR executions pass. Table probes additionally require
+PC reads and BX instructions in each generated function. Thumb remains unchanged
+when the mode is not requested and explicitly fails when it is requested.
+
+Reproduction uses the installed compiler at
+`.deps/gcc16-matching/install/bin/arm-none-eabi-gcc`. Pass that path with
+`--compiler` to both plugin builders, using `--output-dir .deps/flood-core-new-backend`.
+Then run the full-helper checker with that compiler, both rebuilt `--plugin`
+paths and `--pc-relative`. Build provenance is recorded in the isolated backend's
+`build-info.json` and the plugin output directory's build reports. Production
+compiler settings, main assembly and embedded sources remain unchanged.

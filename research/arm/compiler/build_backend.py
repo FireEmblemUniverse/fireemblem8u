@@ -48,9 +48,10 @@ def main():
                '--with-as=/opt/homebrew/bin/arm-none-eabi-as','--with-ld=/opt/homebrew/bin/arm-none-eabi-ld']
     if not (build/'Makefile').exists():subprocess.run(configure,cwd=build,env=env,check=True)
     subprocess.run(['make','-j4','all-gcc'],cwd=build,env=env,check=True)
+    subprocess.run(['make','install-gcc'],cwd=build,env=env,check=True)
     report={'source_url':URL,'source_sha256':SHA,'extension_sha256':hashlib.sha256(extension.read_bytes()).hexdigest(),
-            'configure':configure,'target':'all-gcc','compiler':str(build/'gcc/xgcc'),
+            'configure':configure,'target':'all-gcc','compiler':str(OUT/'install/bin/arm-none-eabi-gcc'),
             'cc1_sha256':hashlib.sha256((build/'gcc/cc1').read_bytes()).hexdigest()}
     (OUT/'build-info.json').write_text(json.dumps(report,indent=2)+'\n')
-    print(build/'gcc/xgcc')
+    print(OUT/'install/bin/arm-none-eabi-gcc')
 if __name__=='__main__':main()

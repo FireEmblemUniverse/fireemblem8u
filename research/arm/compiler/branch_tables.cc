@@ -16,6 +16,7 @@
 #include "insn-flags.h"
 int plugin_is_GPL_compatible;
 namespace {
+bool pc_relative=false;
 void checked(rtx_insn *insn) {
     if (recog_memoized(insn)<0) { debug_rtx(PATTERN(insn)); fatal_error(UNKNOWN_LOCATION,"unrecognized instruction-table RTL"); }
 }
@@ -24,7 +25,10 @@ class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *) override {
-        if (!TARGET_ARM) return 0;
+        if (!TARGET_ARM) {
+            if(pc_relative) fatal_error(UNKNOWN_LOCATION,"pc-relative instruction tables require ARM mode");
+            return 0;
+        }
         for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             rtx_insn *label=nullptr;rtx_jump_table_data *table=nullptr;
             if(!JUMP_P(i)||!tablejump_p(i,&label,&table))continue;
@@ -55,9 +59,20 @@ public:
             checked(emit_insn_before(gen_rtx_SET(cc,gen_rtx_COMPARE(CCmode,copy_rtx(index),copy_rtx(XEXP(cond,1)))),i));
             checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,gen_rtx_IF_THEN_ELSE(VOIDmode,
                 gen_rtx_GTU(VOIDmode,cc,const0_rtx),copy_rtx(fallback),pc_rtx)),i));
+#ifdef HAVE_match_arm_read_pc
+            if(pc_relative) {
+                checked(emit_insn_before(gen_match_arm_read_pc(copy_rtx(base)),i));
+                checked(emit_insn_before(gen_rtx_SET(copy_rtx(base),gen_rtx_PLUS(SImode,copy_rtx(base),GEN_INT(8))),i));
+            }
+#endif
             checked(emit_insn_before(gen_rtx_SET(copy_rtx(base),gen_rtx_PLUS(SImode,gen_rtx_ASHIFT(SImode,copy_rtx(index),GEN_INT(2)),
                 copy_rtx(base))),i));
-            checked(emit_jump_insn_before(gen_indirect_jump(copy_rtx(base)),i));
+#ifdef HAVE_match_arm_bx
+            if(pc_relative) checked(emit_jump_insn_before(gen_match_arm_bx(copy_rtx(base)),i));
+            else
+#endif
+                checked(emit_jump_insn_before(gen_indirect_jump(copy_rtx(base)),i));
+            if(pc_relative) remove_insn(load);
             for(int j=0;j<n;j++)checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,copy_rtx(XVECEXP(vector,1,j))),table));
             remove_insn(table);
             rtx_insn *previous=PREV_INSN(i);
@@ -70,6 +85,13 @@ public:
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version))return 1;
+    for(int a=0;a<info->argc;a++) {
+        if(strcmp(info->argv[a].key,"pc-relative") || info->argv[a].value) return 1;
+        pc_relative=true;
+    }
+#ifndef HAVE_match_arm_read_pc
+    if(pc_relative) { error("pc-relative tables require the matching ARM backend"); return 1; }
+#endif
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);
     return 0;

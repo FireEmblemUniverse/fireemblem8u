@@ -11,6 +11,8 @@ from unicorn import arm_const as r
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin',type=Path,required=True)
+    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+    parser.add_argument('--pc-relative',action='store_true')
     args=parser.parse_args()
     specs={}
     source='extern void hit(unsigned);\n'
@@ -26,13 +28,16 @@ def main():
         root=Path(tmp);(root/'probe.c').write_text(source)
         (root/'link.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) *(.rodata) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\nhit = 0x08020000;\n')
         checks=0
-        for plugin in ([],['-fplugin='+str(args.plugin.resolve())]):
-            command=['arm-none-eabi-gcc','-S','-O1','-marm','-mcpu=arm7tdmi','-fno-if-conversion','-fno-if-conversion2','-fno-tree-switch-conversion',*plugin,str(root/'probe.c'),'-o',str(root/'probe.s')]
+        for plugin in ([],['-fplugin='+str(args.plugin.resolve())]+(['-fplugin-arg-branch_tables-pc-relative'] if args.pc_relative else [])):
+            command=[args.compiler,'-S','-O1','-marm','-mcpu=arm7tdmi','-fno-if-conversion','-fno-if-conversion2','-fno-tree-switch-conversion',*plugin,str(root/'probe.c'),'-o',str(root/'probe.s')]
             subprocess.run(command,check=True)
             text=(root/'probe.s').read_text()
             assert bool(re.search(r'\bldrs?b\b',text)) == (not plugin),text
             if plugin:
                 assert '.byte' not in text
+                if args.pc_relative:
+                    assert len(re.findall(r'\bmov\s+r[0-9]+, pc',text))==len(specs)
+                    assert len(re.findall(r'\bbx\s+r[0-9]+',text))==len(specs)
                 assert len(re.findall(r'\bbhi\s',text))==len(specs)
             subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(root/'probe.s'),'-o',str(root/'probe.o')],check=True)
             subprocess.run(['arm-none-eabi-ld','-T',str(root/'link.ld'),str(root/'probe.o'),'-o',str(root/'probe.elf')],check=True)
@@ -61,7 +66,7 @@ def main():
                         checks+=1
         thumb=[]
         for plugin in ([],['-fplugin='+str(args.plugin.resolve())]):
-            subprocess.run(['arm-none-eabi-gcc','-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,str(root/'probe.c'),'-o',str(root/'thumb.s')],check=True)
+            subprocess.run([args.compiler,'-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,str(root/'probe.c'),'-o',str(root/'thumb.s')],check=True)
             thumb.append((root/'thumb.s').read_bytes())
         assert thumb[0]==thumb[1]
     print(f'{checks} baseline/plugin table executions pass; holes, shifted ranges, high unsigned indices, all NZCV, registers and Thumb exclusion checked.')

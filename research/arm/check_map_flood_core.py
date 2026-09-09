@@ -17,6 +17,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--computed', action='store_true', help='check the alternate computed-goto fixture')
     parser.add_argument('--plugin', type=Path, action='append', default=[], help='experimental compiler plugin; repeat to compose passes')
+    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+    parser.add_argument('--pc-relative',action='store_true')
     args=parser.parse_args()
     if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
@@ -27,7 +29,8 @@ def main():
     source=Path(__file__).with_name('map_flood_core_computed.c' if args.computed else 'map_flood_core.c')
     flags=FLAGS+['-ffixed-r14']
     flags+=['-fplugin='+str(plugin.resolve()) for plugin in args.plugin]
-    subprocess.run(['arm-none-eabi-gcc','-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
+    if args.pc_relative:flags+=['-fplugin-arg-branch_tables-pc-relative']
+    subprocess.run([args.compiler,'-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'candidate.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) *(.rodata) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n'+''.join(f'{name} = {value:#x};\n' for name,value in [('gMovMapFillState',state),('gMovMapFillStPool1',pool1),('gMovMapFillStPool2',pool2),('MapFloodCoreStep',0x08000784)]))
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'candidate.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)

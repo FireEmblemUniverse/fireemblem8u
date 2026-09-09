@@ -15,8 +15,12 @@ OUT=ROOT/'.deps/map-flood-core-match'
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin',type=Path,action='append',default=[])
+    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+    parser.add_argument('--pc-relative',action='store_true')
     args=parser.parse_args()
     options=[item for plugin in args.plugin for item in ['--plugin',str(plugin.resolve())]]
+    options+=['--compiler',args.compiler]
+    if args.pc_relative:options+=['--pc-relative']
     subprocess.run([sys.executable,str(Path(__file__).with_name('check_map_flood_core.py')),*options],check=True)
     rom=(ROOT/'baserom.gba').read_bytes()
     code=(OUT/'candidate.bin').read_bytes()

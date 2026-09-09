@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Build the experimental branch-table plugin against the installed ARM GCC headers."""
+import argparse
 import hashlib
 import json
 import os
@@ -12,15 +13,19 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def main():
-    version = subprocess.check_output(['arm-none-eabi-gcc', '-dumpfullversion'], text=True).strip()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+    parser.add_argument('--output-dir',type=Path,default=ROOT/'.deps/flood-core-rtl')
+    args=parser.parse_args()
+    version = subprocess.check_output([args.compiler, '-dumpfullversion'], text=True).strip()
     if version != '16.2.0':
         raise SystemExit('Matching ARM plugin requires GCC 16.2.0; found ' + version)
     source = Path(__file__).with_name('branch_tables.cc')
-    plugin = Path(subprocess.check_output(['arm-none-eabi-gcc','-print-file-name=plugin'],text=True).strip())
+    plugin = Path(subprocess.check_output([args.compiler,'-print-file-name=plugin'],text=True).strip())
     headers = plugin / 'include'
     if not (headers / 'gcc-plugin.h').is_file():
         raise SystemExit('Installed ARM GCC does not provide plugin headers.')
-    out = ROOT / '.deps/flood-core-rtl'
+    out = args.output_dir.resolve()
     out.mkdir(parents=True,exist_ok=True)
     binary = out / 'branch_tables.so'
     command = shlex.split(os.environ.get('CXX','c++'))
@@ -38,7 +43,7 @@ def main():
     os.replace(temporary, binary)
     report = {'command':command, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
               'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
-              'compiler_version':subprocess.check_output(['arm-none-eabi-gcc','-dumpfullversion'],text=True).strip()}
+              'compiler_version':subprocess.check_output([args.compiler,'-dumpfullversion'],text=True).strip()}
     (out/'branch-tables-build-info.json').write_text(json.dumps(report,indent=2)+'\n')
     print(binary)
 

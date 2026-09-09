@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: isolated matching-backend build (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: validated PC-relative dispatcher backend (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -26,11 +26,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: building an isolated compiler backend for PC reads and BX jumps.**
-The pinned GCC 16.2.0 archive passed its SHA-256 check. A C-only compiler build
-is running under `.deps/gcc16-matching`; its new explicit patterns are not yet
-validated or used by production. Next: verify generated PC/BX instructions and
-rerun the dispatcher tests with the isolated compiler.
+**Working on: matching the dispatcher scratch register, guard and literal layout.**
+The isolated GCC 16.2.0 build completed. Its explicit PC-read and BX patterns
+now generate the intended four-instruction address/jump sequence, using r3
+instead of the original r0. The candidate passes 640 controlled-helper and
+240 actual-helper cases, plus 4,608 table and 10,080 XOR compiler probes.
+The backend is still experimental and is not used by production.
 
 Dispatcher evidence so far:
 A maintained C candidate passes 640 original/candidate cases checking ordered
@@ -45,9 +46,9 @@ cases. Jump-table and literal placement still differ; the pass is not enabled
 in production. A standalone suite now passes 10,080 baseline/plugin executions,
 checking XOR results, branch decisions, preserved registers and excluded forms.
 A separate experimental compiler pass now emits six ARM branch-table entries.
-Combined with XOR fusion, its 448-byte candidate passes 640 controlled-helper
-and 240 actual-helper cases. Another 4,608 standalone table executions pass;
-it still retains a bounds check, loaded table address and different indirect jump.
+With XOR fusion and PC-relative lowering, its 452-byte candidate passes all
+dispatcher checks; it still retains the extra bounds check, r3 scratch register
+and differing table/literal layout.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;
 it removes the extra bounds check but emits an address table, so it remains
 separate research. Low-entry object-list shims also remain unfinished.
