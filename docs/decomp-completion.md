@@ -1234,3 +1234,33 @@ with literal placement and instruction matching.
 
 The candidate stays outside the production build; the complete ROM still
 compares byte-for-byte with the canonical input.
+
+## Guarded modern ARM zero-test lowering
+
+An optional research plugin now resolves the shared CMP-zero/TST-self issue
+through GCC's RTL instruction recognizer. `research/arm/compiler/` contains
+its source, local build/provenance helper and execution checks. It is not used
+by the production Makefile. The pass accepts only immediate EQ/NE flag consumers
+with a dead condition-code value, validates comparison/branch changes together,
+and submits the ARM backend's self-AND CC_NZ pattern with its required scratch
+clobber. It contains no game addresses, symbols or machine-byte templates.
+
+The first recognition attempt omitted that clobber and was rejected by GCC;
+inspection of an independently compiled bit-test probe established the proper
+backend form. The successful pass emits TST through ordinary instruction
+selection and updates branch condition-code metadata. Version checks prevent
+loading it into a mismatched compiler, and TARGET_ARM excludes Thumb.
+
+The plugin passes 2,016 baseline/plugin ARM execution probes: EQ/NE, four signed
+comparisons and mixed flag use, nine signed-boundary values, and all sixteen
+incoming NZCV combinations. Signed comparisons retain CMP, and Thumb assembly
+is unchanged. The matching reports record compiler flags and plugin hashes.
+
+With the plugin, MapFloodCoreStep matches 45 of 51 instruction words; only its
+six literal loads differ. All 80 queue/map cases pass, with zero return-NZCV
+differences, resolving the previously observed eight carry discrepancies.
+ColorFadeTick matches 43 of 52 words; its three literal loads and six upper-clamp
+comparison/branch words remain different. All 65,536 component/step pairs pass
+against original ARM execution and the scalar reference. Literal pools still
+follow the generated functions rather than occupying their original positions,
+so neither candidate has been integrated. The production ROM remains exact.

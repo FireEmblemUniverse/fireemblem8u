@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Compare the reconstructed helper with canonical ARM execution on edge cases."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -13,6 +14,9 @@ OUT = ROOT / '.deps/map-flood-match'
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--plugin', type=Path, help='optional experimental GCC plugin')
+    args = parser.parse_args()
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     addresses = struct.unpack_from('<5I', rom, 0x770)
@@ -22,6 +26,8 @@ def main():
     flags = ['-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi', '-mabi=apcs-gnu', '-ffreestanding',
              '-fno-builtin', '-ffixed-r14', '-fomit-frame-pointer', '-fno-schedule-insns', '-fno-schedule-insns2',
              '-fno-auto-inc-dec', '-fno-ivopts', '-fno-if-conversion', '-fno-if-conversion2', '-fno-reorder-blocks']
+    if args.plugin:
+        flags += ['-fplugin=' + str(args.plugin.resolve())]
     subprocess.run(['arm-none-eabi-gcc', '-S', str(Path(__file__).with_name('map_flood_step.c')),
                     *flags, '-o', str(OUT / 'candidate.s')], check=True)
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', '-o', str(OUT / 'candidate.o'), str(OUT / 'candidate.s')], check=True)
@@ -112,6 +118,7 @@ def main():
     report = {'candidate_sha256': hashlib.sha256(code).hexdigest(),
               'source_sha256': hashlib.sha256(Path(__file__).with_name('map_flood_step.c').read_bytes()).hexdigest(),
               'compiler_version': subprocess.check_output(['arm-none-eabi-gcc','-dumpfullversion'],text=True).strip(),
+              'plugin_sha256': hashlib.sha256(args.plugin.read_bytes()).hexdigest() if args.plugin else None,
               'compiler_flags': flags, 'cases': count, 'return_nzcv_difference_cases': flag_differences,
               'return_nzcv_difference_masks': sorted(flag_difference_masks),
               'original_instruction_bytes': 204, 'candidate_section_bytes': len(code),
