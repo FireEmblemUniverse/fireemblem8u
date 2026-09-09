@@ -496,3 +496,39 @@ register bindings, empty templates, multiline adjacent literals, continued
 strings, directives, unresolved macro templates, and comments/line offsets:
 `python3 scripts/test_audit_decomp.py`. All pass. The final audit also verifies
 both naked marker forms and the classification of every currently found site.
+
+
+## Event-unit selection: validated isolated comparison
+
+`scripts/match_unit_definition.py` now compares the existing C implementation
+of `GetUnitDefinitionFormEventScr` without changing production sources or
+objects. It first recompiles and isolates the original assembly fallback, links
+it at `0x0800F914`, and requires all 516 bytes to match the canonical ROM. Only
+then does it compile the C branch and report differences. Both the canonical
+ROM hash and the current production ROM match are prerequisites.
+
+The baseline test passes. The existing C candidate is also 516 bytes, with
+93 differing bytes. Its broad instruction structure is close, but register
+allocation differs: the existing C index commonly occupies r7 while the
+original uses r3. Five fixed-index-register trials, six declaration-order
+permutations, four plain register annotations, seven initial clobber trials,
+and six explicit mask-constant register trials did not improve on the base
+candidate. None was integrated. The fixed-r3 index trial produces 536 bytes and
+382 differing shared bytes plus 20 excess bytes, demonstrating that pinning this one register alone
+does not reproduce the original allocation across calls and copy loops.
+
+A critical harness detail is preservation of Thumb call-target types. Absolute
+linker-script assignments alone lost the function type and caused the linker
+to create three interworking veneers and shift the isolated function. The
+harness uses typed `.thumb_set` aliases for the verified Thumb function symbols
+and refuses unexpected ARM call targets. Rebuilding the original fallback
+exactly guards against scoring those harness artifacts as C differences.
+
+Run `python3 scripts/match_unit_definition.py`; the default ignored output
+folder is `.deps/unit-definition-match`, containing both assemblies, objects,
+linked binaries, disassemblies and `report.json`. Use `--candidate-body FILE`
+with a complete replacement C definition and `--output-dir DIRECTORY` to test
+another candidate. Both the default candidate and fixed-r3 override paths were
+executed successfully. A future zero-difference result still requires actual
+production integration and the full-ROM comparison; this tool does not claim
+completion from an isolated result.
