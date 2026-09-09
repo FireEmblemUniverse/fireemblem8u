@@ -14,7 +14,7 @@ PREFIX ?= arm-none-eabi-
 export PATH := $(TOOLCHAIN)/bin:$(PATH)
 
 ifeq ($(UNAME),Darwin)
-	SHELL := env PATH=$(PATH) /bin/bash
+	SHELL := /bin/bash
 endif
 
 CPP ?= $(PREFIX)cpp$(EXE)
