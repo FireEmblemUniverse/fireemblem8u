@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: combined dispatcher compiler passes (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: isolated matching-backend build (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -26,7 +26,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: map flood dispatcher reconstruction and instruction matching.**
+**Working on: building an isolated compiler backend for PC reads and BX jumps.**
+The pinned GCC 16.2.0 archive passed its SHA-256 check. A C-only compiler build
+is running under `.deps/gcc16-matching`; its new explicit patterns are not yet
+validated or used by production. Next: verify generated PC/BX instructions and
+rerun the dispatcher tests with the isolated compiler.
+
+Dispatcher evidence so far:
 A maintained C candidate passes 640 original/candidate cases checking ordered
 neighbor calls, repeated queue alternation, complete queue memory, preserved
 registers and return flags with finite-enqueue helper models. Budgets range from

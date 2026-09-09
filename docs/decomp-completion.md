@@ -1934,3 +1934,27 @@ remaining work includes PC-relative address formation, scratch register choice,
 removing the extra guard under an explicit valid-index contract, exact table
 entry placement and shared literals. Production source and compiler settings
 remain unchanged.
+
+
+## Isolated GCC backend build for missing ARM operations
+
+The pinned [GCC 16.2.0 ARM machine description](https://raw.githubusercontent.com/gcc-mirror/gcc/releases/gcc-16.2.0/gcc/config/arm/arm.md)
+explicitly emits MOV-pc for the ordinary ARM indirect-jump pattern. This explains
+why the interworking flag and generic jump generator did not select BX. Plain
+PC reads also failed the installed instruction recognizer in the earlier probe.
+
+`research/arm/compiler/matching.md` adds two explicit late RTL operations:
+a volatile instruction-position-dependent ARM PC read and an ARMv4T BX jump.
+Normal C expansion does not select these patterns. The extension contains no
+game symbols or addresses and leaves existing target patterns unchanged.
+`build_backend.py` appends its include to the pinned backend and builds an
+isolated C-only cross compiler under `.deps/gcc16-matching`, using four build
+jobs, no multilib and no debug information. The system compiler is not replaced.
+
+The GNU source archive SHA-256 is
+`e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e`, verified against
+the installed Homebrew formula. The unmodified ARM machine description is also
+hash-checked before extension. Source URL, extension hash, configure arguments
+and resulting cc1 hash will be recorded on successful completion. The initial
+build has started; compilation and instruction/probe validation are not yet
+complete. No claim of working matching-backend output is made at this checkpoint.
