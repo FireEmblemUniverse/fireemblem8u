@@ -18,8 +18,8 @@ submodule revision. Existing uncommitted changes are preserved: the helper
 stops instead of checking out a different revision over them. Normal builds
 invoke this helper when the payload Makefile is missing.
 
-The bundled changes replace embedded ClearOam (92 bytes) and TmApplyTsa
-(84 bytes) with matching ARM C. All three payload versions pass their existing
+The bundled changes replace embedded ClearOam (92 bytes), TmApplyTsa
+(84 bytes), and Checksum32 (72 bytes) with matching ARM C. All three payload versions pass their existing
 reference checksums.
 When adding further payload commits, regenerate this incremental bundle against
 the same upstream base so a fresh checkout can restore the complete local chain.

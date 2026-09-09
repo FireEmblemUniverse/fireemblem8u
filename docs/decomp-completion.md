@@ -1024,3 +1024,26 @@ The incremental source bundle was regenerated against the original upstream
 base, including both local commits. An upstream-only clone verified to lack
 the new commit successfully fetched the bundle and restored its exact source.
 No upstream publication is required to reproduce this parent submodule pin.
+
+## Embedded Checksum32 matching C
+
+The payload is now pinned to local commit
+`699d8f9289fc6ea8effedec1f154ed05250190e4`. Its `src/checksum.c` replaces
+all 72 bytes at `0x02010294..0x020102DC`. The halfword sum forms the low half
+of the return value and the halfword XOR forms the high half. The existing
+`void const *, int` public interface is retained; an unsigned local preserves
+word-sized subtraction and the original signed loop-exit test. As before,
+the loop reads at least one halfword even when size is less than two.
+
+The main game's recovered C generates the original payload instructions with
+the same modern ARM GCC settings. Empty register constraints preserve the save
+set, mask construction and result transfers; no instruction templates were
+added. The linked symbol now correctly reports a 72-byte extent, replacing
+an assembly definition which lacked its own size directive.
+
+All three payload reference checksums pass, and full-ROM checksum plus direct
+byte comparison pass. The source inventory has 18 C files and 20 assembly
+function declarations. Three recovered embedded helpers now total 248 bytes;
+the remaining payload assembly and library routines are still outstanding.
+The source bundle includes the full local commit chain and was successfully
+restored in another upstream-only clone that initially lacked this commit.
