@@ -2,8 +2,9 @@
 """Compare the event-unit definition C candidate without touching the ROM build.
 
 Run after a verified `make compare`. Optional --candidate-body accepts a full C
-function definition to substitute for the existing NONMATCHING implementation.
-The original assembly fallback must match before any candidate is scored.
+function definition to substitute for the current C implementation (or a legacy
+NONMATCHING branch).
+The production implementation must match before any candidate is scored.
 """
 import argparse
 import hashlib
@@ -91,15 +92,20 @@ def main():
     reference = rom[START - 0x08000000:START - 0x08000000 + SIZE]
     baseline = compile_function(source, output, 'baseline', symbols)
     if baseline != reference:
-        raise ValueError('isolated assembly fallback does not reproduce the ROM; refusing to score')
+        raise ValueError('isolated production implementation does not reproduce the ROM; refusing to score')
     marker = '#if NONMATCHING\n\n/* https://decomp.me/scratch/IyKOH */'
-    if source.count(marker) != 1:
-        raise ValueError('candidate branch marker changed')
+    if source.count(marker) > 1:
+        raise ValueError('candidate branch marker is ambiguous')
+    # Retain support for older checkouts while also validating the graduated C.
     candidate = source.replace(marker, '#if 1\n\n/* isolated C candidate */')
     if args.candidate_body:
-        branch = candidate.index('#if 1\n\n/* isolated C candidate */')
-        start = candidate.index('struct UnitDefinition * ' + FUNCTION + '(', branch)
-        end = candidate.index('\n#else // #if !NONMATCHING', start)
+        branch = candidate.find('#if 1\n\n/* isolated C candidate */')
+        start = candidate.index('struct UnitDefinition * ' + FUNCTION + '(', max(0, branch))
+        if branch >= 0:
+            end = candidate.index('\n#else // #if !NONMATCHING', start)
+        else:
+            # This source uses a column-zero closing brace for the definition.
+            end = candidate.index('\n}', start) + 2
         candidate = candidate[:start] + args.candidate_body.read_text() + '\n' + candidate[end:]
     data = compile_function(candidate, output, 'candidate', symbols)
     differences = [START + i for i, (actual, expected) in enumerate(zip(data, reference)) if actual != expected]

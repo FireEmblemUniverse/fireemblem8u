@@ -19,8 +19,9 @@ The combined checkout builds the exact 16,777,216-byte USA ROM. There are now
 `laqieer/fireemblem8u` fork has been integrated and verified, as detailed below.
 This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
 `sub_8091F10`) still uses its naked assembly fallback.
-`GetUnitDefinitionFormEventScr` also has a 516-byte naked assembly fallback
-using an explicit attribute, which the initial macro-only audit missed. ARM routines, BIOS/audio
+`GetUnitDefinitionFormEventScr` now compiles to matching C across its complete
+516-byte extent; its previously missed explicit naked fallback has been removed.
+ARM routines, BIOS/audio
 interfaces, startup, timing assembly and the payload's assembly also remain in
 the inventory. The whole-ROM executable classification is not yet complete.
 `ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
@@ -31,8 +32,8 @@ passing. These replacements retain the copied ARM block's original boundaries.
 replacements to 248 bytes. The complete ROM still matches.
 `MultiBootWaitCycles` now generates nine of its twelve Thumb instructions from
 C; the PC read and two-instruction timing loop remain explicit assembly.
-There is now one `NAKEDFUNC` macro and one explicit naked attribute; both
-assembly bodies and the residual timing assembly remain unfinished.
+There is now one `NAKEDFUNC` macro and no explicit naked attributes. The
+unit-list assembly body and residual timing assembly remain unfinished.
 
 ## Completion evidence
 
@@ -579,3 +580,54 @@ assembly bodies. The source inventory has 111 inline sites: 63 register
 bindings, 38 empty templates, one section directive and nine instruction
 bearing templates, with none unresolved. These counts include the inactive
 C branch and do not imply that the 516-byte function has graduated to C.
+
+
+## Matching C: GetUnitDefinitionFormEventScr
+
+The complete 516-byte function at `0x0800F914..0x0800FB18` is now generated
+from C by the normal project agbcc compiler. Its NONMATCHING conditional and
+naked instruction template have been removed. This supersedes the candidate
+checkpoints above; there are zero differing bytes in the integrated function.
+
+The final source keeps the random-selection bit constant live across RNG calls
+with an empty constraint. An explicit initial `if (i)` and subsequent countdown
+loop retain the original entry test, while the constrained RNG argument uses
+r0. The compiler now manages the loop-index spill itself, rather than the
+previous candidate's explicit word-sized memory variable. An empty r2 clobber
+before the percentage division preserves the remaining register lifetimes.
+These constraints contain no instruction templates.
+
+The final four stack-offset differences were resolved by declaring both flag
+arguments as ABI words (`int`) and narrowing them to `s8` at the beginning of
+the function. This preserves the original byte interpretation while reproducing
+the compiler's stack allocation order. The public declaration in `event.h` now
+states this signature. The existing caller passes a Boolean comparison and a
+one-bit flag; its code remains byte-identical, as does the rest of the ROM.
+No replacement opcodes, assembly rewriting, compiler patch or new compiler
+flags were used. The earlier JP reference informed the RNG lifetime work; the
+final USA source and its linked result were verified independently.
+
+The function continues to select distinct summonable-unit indices, copy
+unselected entries followed by selected entries, set each copied `sumFlag`,
+terminate the output list, and apply the optional REDA/deployed-list operations.
+This conversion preserves the existing routine's input assumptions; it does
+not add bounds changes or alter the selection algorithm.
+
+Verification:
+
+- `make -j8` passes the full ROM checksum, and direct comparison confirms all
+  16,777,216 bytes equal the canonical ROM.
+- The linked Thumb symbol is `0x0800F915`, size 516. `Event2C_LoadUnits` remains
+  at Thumb symbol `0x0800FB85`, size 268.
+- The isolated matching harness now supports the graduated C source as its
+  baseline. Both its default path and `--candidate-body` override path report
+  516 bytes with zero differences.
+- All seven source-audit regression tests pass. The current inventory has
+  110 inline sites: 63 register bindings, 38 empty templates, one section
+  directive, eight instruction-bearing templates and zero unresolved sites.
+  There are 43 NONMATCHING conditionals, one naked macro, zero explicit naked
+  attributes, 70 assembly entry macros and no direct baserom includes.
+
+The remaining unit-list fallback, ARM routines, startup, BIOS/audio interfaces,
+multiboot timing instructions and embedded assembly remain within the full
+completion goal. These inventory counts do not establish a completion percent.
