@@ -365,3 +365,36 @@ arm-none-eabi-objcopy -O binary -j .text .deps/arm-match/fill.o .deps/arm-match/
 Further matching work must resolve compiler instruction selection for these
 copies. Substituting hand-written instructions or rewriting emitted opcodes
 would not establish that the routine is compiler-generated matching C.
+
+
+## TmCopyRect: isolated C candidate, still nonmatching
+
+`research/arm/tm_copy_rect.c` recovers the 92-byte rectangle-copy routine at
+`0x080003E0..0x0800043C`. Both dimensions are signed counts: zero or negative
+values return without touching tile data. Positive values copy halfwords
+forward within each row, then advance both pointers to the next 64-byte row.
+The stride calculation uses unsigned arithmetic to preserve ARM wrapping.
+
+With GNU ARM GCC 16.2.0, the candidate matches 19 of 23 instruction words,
+including every load, store, pointer update and loop instruction. The four
+remaining differences are:
+
+| ROM address | Original word | Candidate word | Difference |
+| --- | --- | --- | --- |
+| `0x080003E4` | `e1120002` | `e3520000` | `tst r2, r2` versus `cmp r2, #0` |
+| `0x080003EC` | `4a000010` | `ba000010` | `bmi` versus `blt`, same target |
+| `0x080003F0` | `e1130003` | `e3530000` | `tst r3, r3` versus `cmp r3, #0` |
+| `0x080003F8` | `4a00000d` | `ba00000d` | `bmi` versus `blt`, same target |
+
+The generated comparisons and branches make the same signed-dimension choices:
+subtracting zero cannot overflow, so signed-less-than after CMP tests the same
+sign bit as BMI after TST. This does not make the encodings match. The candidate
+is excluded from the ROM build, and the production assembly remains unchanged.
+
+Reproduce with the TmFillRect command above, substituting
+`research/arm/tm_copy_rect.c` and `copy` output names, and adding
+`-fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks` to GCC's flags.
+The comparison covered all 23 words against ROM offsets `0x3E0..0x43C`.
+Empty constraints retain separate dimension tests and the original register
+lifetimes; they contain no instruction templates. The production ROM remained
+byte-identical after this research checkpoint.
