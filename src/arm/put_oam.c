@@ -1,11 +1,7 @@
-/* Standalone oracle fixture; production: src/arm/put_oam.c. PutOamLo enters the same
- * machine-code body after selecting its output cursor; this fixture initially
- * investigates the high entry. Counts are unsigned 16-bit, including 0x8000.
- * Caller supplies readable triples and room for count eight-byte OAM entries.
- */
-typedef unsigned int u32;
-typedef unsigned short u16;
-extern u16 *gOamHiPutIt;
+#include "global.h"
+
+// PutOamLo shares this body after the two-instruction high-entry prologue.
+// The linker and full-ROM comparison preserve that interior entry address.
 void PutOamHi(u32 xArg, u32 yArg, const u16 *listArg, u32 oam2)
 {
     register u32 xy asm("r0") = xArg;
@@ -14,7 +10,7 @@ void PutOamHi(u32 xArg, u32 yArg, const u16 *listArg, u32 oam2)
     register u32 count asm("r4");
     register u16 *dst asm("r5");
     register u32 attr asm("r6");
-    register u16 **cursor asm("r7") = &gOamHiPutIt;
+    register u16 **cursor asm("r7") = (u16 **)&gOamHiPutIt;
     register u32 low asm("r7");
     asm("" : "+r"(cursor));
     dst = *cursor;

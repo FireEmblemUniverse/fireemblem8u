@@ -255,6 +255,8 @@ SECTIONS
         src/arm/tm_fill_rect.o(.text);
         src/arm/tm_copy_rect.o(.text);
         src/arm/tm_apply_tsa.o(.text);
+        src/arm/put_oam.o(.text);
+        PutOamSharedBody = PutOamHi + 8;
         asm/arm.o(.text.after_tm_apply_tsa);
         src/arm/draw_glyph.o(.rodata);
         DrawGlyphPointerPool = .;

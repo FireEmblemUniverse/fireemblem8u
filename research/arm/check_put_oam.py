@@ -15,12 +15,14 @@ BASE, STACK, STOP = 0x02000000, 0x03007000, 0x08000f00
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin', type=Path, required=True)
+    parser.add_argument('--low', action='store_true', help='execute the original low-entry shim into the reconstructed shared body')
     args = parser.parse_args()
     subprocess.run([sys.executable, str(Path(__file__).with_name('build_put_oam.py')),
                     '--plugin', str(args.plugin.resolve()), '--prefix-pool'], check=True, cwd=ROOT)
     out = ROOT/'.deps/put-oam-match'
     rom = (ROOT/'baserom.gba').read_bytes()
-    pointer = struct.unpack_from('<I', rom, 0x490)[0]
+    pointer = struct.unpack_from('<I', rom, 0x530 if args.low else 0x490)[0]
+    entry = 0x08000534 if args.low else 0x08000494
     allowed = set()
     def check_write(uc, access, address, size, value, data):
         assert STACK-16 <= address and address+size <= STACK or all(a in allowed for a in range(address,address+size)), (hex(address), size)
@@ -28,7 +30,7 @@ def main():
     for section in (rom[0x490:0x530], (out/'candidate.bin').read_bytes()):
         uc = Uc(UC_ARCH_ARM, UC_MODE_ARM)
         uc.mem_map(0x08000000, 0x1000)
-        uc.mem_write(0x08000490, section)
+        uc.mem_write(0x08000490, section + rom[0x530:0x540])
         uc.mem_map(BASE, 0x4000)
         uc.mem_map(0x03000000, 0x8000)
         uc.hook_add(UC_HOOK_MEM_WRITE, check_write)
@@ -66,7 +68,7 @@ def main():
                         for r,value in enumerate((x,y,src,oam2)): uc.reg_write(getattr(regs,'UC_ARM_REG_R'+str(r)),value)
                         uc.reg_write(regs.UC_ARM_REG_SP,STACK)
                         uc.reg_write(regs.UC_ARM_REG_LR,STOP)
-                        uc.emu_start(0x08000494,STOP,count=10000)
+                        uc.emu_start(entry,STOP,count=10000)
                         assert uc.reg_read(regs.UC_ARM_REG_PC)==STOP
                         assert uc.reg_read(regs.UC_ARM_REG_SP)==STACK
                         assert bytes(uc.mem_read(BASE,len(expected)))==expected,(count,delta,x,y,nzcv)
@@ -82,8 +84,9 @@ def main():
     report=json.loads((out/'report.json').read_text())
     assert report['complete_section_match'], report['differing_words']
     report.update(cases=cases,register_difference_cases=register_differences,nzcv_difference_cases=flag_differences,
-                  scope='High entry only; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Full section, register and flag agreement required.')
-    (out/'execution-report.json').write_text(json.dumps(report,indent=2)+'\n')
+                  entry='low shim' if args.low else 'high',
+                  scope='Selected entry; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Full section, register and flag agreement required.')
+    (out/('execution-low-report.json' if args.low else 'execution-report.json')).write_text(json.dumps(report,indent=2)+'\n')
     print(f'{cases} memory/cursor/callee-saved checks passed; register mismatches {register_differences}; NZCV mismatches {flag_differences}.')
 
 if __name__=='__main__': main()

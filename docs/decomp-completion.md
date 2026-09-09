@@ -1682,3 +1682,24 @@ integrated replacement.
 
 The checker now requires full section, register and flag agreement. Main ROM
 and all three embedded payload checksum gates pass with the updated compiler.
+
+
+## PutOamHi shared body integrated
+
+`src/arm/put_oam.c` replaces the main high-entry pointer pool and 156-byte
+function. The legacy global cursor declaration is cast to the halfword view
+used by this routine, under the existing no-strict-aliasing compiler setting.
+The original PutOamLo assembly shim remains explicit unfinished work. Its branch
+now targets linker symbol `PutOamSharedBody = PutOamHi + 8`, preserving the
+entry after the high routine's push and cursor selection. No machine instruction
+is emitted by the C constraints. Full-ROM comparison verifies the interior
+entry address as well as the entire copied block.
+
+The execution checker adds `--low`, executing the original low-entry shim into
+the reconstructed body. Both high and low entries pass 1,280 cases each, with
+full memory, cursor, register and return-NZCV agreement. `make compare -j8`
+passes. The linked audit attributes 156 ARM bytes and four pointer bytes to
+`src/arm/put_oam.o`, with no mappings outside input sections. The source audit
+reports 449 main C files, 58 assembly entry markers and 421 inline sites;
+there are still seven instruction-bearing inline templates. Embedded object-list
+assembly is unchanged, and no overall C-coverage percentage is inferred.

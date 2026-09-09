@@ -14,63 +14,7 @@
 @ TmApplyTsa is linked here from src/arm/tm_apply_tsa.c.
 	.section .text.after_tm_apply_tsa, "ax", %progbits
 
-@ void PutOamHi(int x, int y, u16 const * oam_list, int oam2)
-.LOamHiPutIt: .4byte gOamHiPutIt @ pool
-	ARM_FUNC_START PutOamHi
-PutOamHi: @ 0x08000494
-	push {r4, r5, r6, r7}
-	ldr r7, .LOamHiPutIt
-.LPutOamExt:
-	ldr r5, [r7]				@ r5 = dst
-	ldrh r4, [r2]				@ r4 = count = *oam_list;
-	tst r4, r4
-	beq .LPutOamEnd
-	bmi .LPutOamEnd
-	add r2, r2, #2				@ src = oam_list + 1;
-	add r6, r5, r4, lsl #3
-	str r6, [r7]				@ *pdst = *pdst + count;
-	mov r7, #0x10000
-	sub r7, r7, #1
-	and r0, r0, r7
-	and r1, r1, r7
-	orr r0, r0, r1, lsl #16
-.LPutOamLoop:
-	@ ATTR0 = src[0]
-	@ ATTR0::Y = y
-	ldrh r1, [r2]
-	orr r6, r1, r0, lsr #16
-	and r6, r6, #0xff00
-	add r7, r1, r0, lsr #16
-	and r7, r7, #0xff
-	orr r6, r6, r7
-	strh r6, [r5]
-
-	@ ATTR1 = src[1]
-	@ ATTR1::X = x
-	ldrh r1, [r2, #2]
-	orr r6, r1, r0
-	and r6, r6, #0xfe00
-	add r7, r1, r0
-	lsl r7, r7, #0x17
-	lsr r7, r7, #0x17
-	orr r6, r6, r7
-	strh r6, [r5, #2]
-
-	@ ATTR2 = src[2] + oam2
-	ldrh r1, [r2, #4]
-	add r6, r1, r3
-	strh r6, [r5, #4]
-
-	add r2, r2, #6		@ src = src + 3;
-	add r5, r5, #8		@ dst++;
-	subs r4, r4, #1
-	bne .LPutOamLoop
-.LPutOamEnd:
-	pop {r4, r5, r6, r7}
-	bx lr
-	.align 2, 0
-	ARM_FUNC_END PutOamHi
-
+@ PutOamHi and its pointer pool are generated from matching C.
 .LOamLoPutIt: .4byte gOamLoPutIt @ pool
 
 @ void PutOamLo(int x, int y, u16 const * oam_list, int oam2)
@@ -78,7 +22,7 @@ PutOamHi: @ 0x08000494
 PutOamLo: @ 0x08000534
 	push {r4, r5, r6, r7}
 	ldr r7, .LOamLoPutIt
-	b .LPutOamExt
+	b PutOamSharedBody
 	ARM_FUNC_END PutOamLo
 
 @ DrawGlyph and its shift table/pointer pool are generated from matching C.

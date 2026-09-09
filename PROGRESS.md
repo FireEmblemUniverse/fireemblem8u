@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi fully matching candidate (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi shared body integrated (changes following `0a9d8b29`).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,7 +12,7 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
-| Object-list high-entry candidate | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact; not integrated** |
+| Integrated object-list high entry | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
 | Half-stride glyph routine | `████████████████████` **All 188 instruction bytes exact; shares the original pointer pool** |
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
@@ -20,19 +20,17 @@ advances, integration results, or changes in the current blocker.
 | Tilemap copy routine | `████████████████████` **All 92 bytes exact in main and three payload versions** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
-The function percentages describe these routines only. Rows marked integrated and completed replacements
-are in the production build; the object-list candidate remains research.
+The function percentages describe these routines only. All listed replacements are in the production build.
 An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: PutOamHi/PutOamLo shared object-list body.**
-The high-entry C candidate matches all 39 instruction words and its four-byte
-pointer pool. All 1,280 execution cases now match memory, cursor, registers and
-return flags. The compiler branch-pair rule now handles empty memory-only
-barriers; 20,832 branch probes pass with default options and another 20,832
-with optional zero encodings. Next: preserve the low-entry shared-body layout
-and integrate both entries without changing their copied-code addresses.
+**Next milestone: replace the remaining low-entry shim and embedded object-list assembly.**
+PutOamHi and its pointer pool are integrated as matching C. The existing
+three-instruction PutOamLo shim branches into the shared C-generated body at
+its original address. Each entry passes 1,280 execution cases with matching
+memory, cursor, registers and flags. The full ROM checksum passes. PutOamLo's
+shim remains assembly and is still counted as unfinished work.
 
 Latest integrated milestone:
 DecodeString is now integrated as matching C. All 640 valid-tree cases pass,
@@ -68,6 +66,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace DrawGlyph and its shift table with matching C.
 - [x] Replace DrawGlyphHalfStride with matching C and preserve its shared pool.
 - [x] Replace DecodeString and its pointer pool with matching C.
+- [x] Integrate PutOamHi and its shared drawing body as matching C.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -76,7 +75,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 59 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 58 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 17 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

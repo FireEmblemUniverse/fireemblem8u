@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep, TmCopyRect, TmFillRect, DrawGlyph, DrawGlyphHalfStride and DecodeString routines. The production Makefile loads it only for those six
+MapFloodCoreStep, TmCopyRect, TmFillRect, DrawGlyph, DrawGlyphHalfStride, DecodeString and PutOamHi routines. The production Makefile loads it only for those seven
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -200,4 +200,5 @@ cannot alter the condition flags. Outputs, register/flag clobbers and nonempty
 templates remain excluded. The expanded branch suite executes 20,832 cases in
 each default/optional configuration, including memory, register and CC barriers.
 This resolves the isolated PutOamHi entry: all 160 pool/function bytes and
-1,280 execution cases match. Shared low-entry layout is still pending.
+1,280 execution cases match. The high entry is now integrated; the original low-entry assembly shim branches
+into its C-generated body. Both entry points pass 1,280 execution cases each.
