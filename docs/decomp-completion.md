@@ -1636,3 +1636,27 @@ clobbers ip, so agreement with the original register contract is not yet proven.
 PutOamLo's three instructions select its cursor and enter the high routine's
 body after its prologue; preserving that shared layout remains necessary.
 Both entries remain in production assembly. No production source changed.
+
+
+## PutOamHi execution contract measured
+
+`research/arm/check_put_oam.py --plugin .deps/arm-matching-plugin/zero_test.so`
+(run with the ARM-oracle Python environment) rebuilds the candidate and runs
+1,280 original/candidate cases: counts 0/1/2/7/32, four relative input/output
+placements (-8/0/+2/+2048), four coordinate/attribute tuples, and all incoming
+NZCV states. An independent sequential halfword reference checks complete
+memory including sentinels and untouched fourth OAM halfwords. Cursor advances,
+stack balance, r4-r11 preservation and write boundaries also pass. Overlapping
+writes are reflected in subsequent source reads rather than snapshotting input.
+
+The remaining SUBS instruction clobbers r12 in all 1,280 cases. Return flags
+differ in 192 cases. These discrepancies are explicitly reported, not treated
+as successful equivalence. The checker rejects differences in other registers;
+its report records all mismatches alongside build provenance. Large counts,
+the low entry and unusual aliasing with the global cursor are not yet covered.
+
+Bounded source and optimization trials did not improve the 37/39 word match.
+A memory clobber between the two entry branches forces CMP instead of SUBS,
+but the existing conservative branch-pair rule deliberately excludes that
+clobber; it therefore does not yet yield the required TST/BMI sequence. No
+production or compiler source was changed in this checkpoint.

@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi 37/39 matching words (this change).
+Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi execution oracle (changes following `7d423683`).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -29,8 +29,10 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 **Working on: PutOamHi/PutOamLo shared object-list body.**
 The high-entry C candidate matches 37 of 39 instruction words and its four-byte
 pointer pool. Remaining differences are the entry SUBS versus TST and BLT versus
-BMI. Execution-oracle validation and the low-entry shared-body layout remain
-unfinished. Next: resolve those entry encodings and verify both entry contracts.
+BMI. The execution oracle passes 1,280 memory/cursor cases, but detects r12
+clobbering in all cases and return-flag differences in 192 cases. The candidate
+is not ready for integration. Next: resolve the entry encodings and preserve
+the low-entry shared-body layout.
 
 Latest integrated milestone:
 DecodeString is now integrated as matching C. All 640 valid-tree cases pass,
