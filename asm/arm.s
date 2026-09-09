@@ -440,36 +440,13 @@ _08000768:
 	ARM_FUNC_END DecodeString
 
 /*
-void MapFloodCoreStep(int connexion, int xPos, int yPos)
-{
-	u8 uid1, uid2;
-	struct MovMapFillState * st = &gMovMapFillState;
-	int xsrc = st->src->xPos;
-	int xdst = xsrc + xPos;
-	int ysrc = st->src->yPos;
-	int ydst = ysrc + yPos;
-	u32 cost = gWorkingTerrainMoveCosts[gBmMapTerrain[ydst][xdst]] + gWorkingBmMap[y1][xsrc];
-
-	if (cost > gWorkingBmMap[ydst][xdst])
-		return;
-
-	uid1 = st->hasUnit;
-	uid2 = gBmMapUnit[ydst][xdst];
-	if (uid1 && uid2 && (uid1 ^ uid2) & 0x80) // not allied
-		return;
-
-	if (cost > st->movement)
-		return;
-
-	st->dst->xPos = xdst;
-	st->dst->yPos = ydst;
-	st->dst->connexion = connexion;
-	st->dst->leastMoveCost = cost;
-	sr->dst++;
-
-	gWorkingBmMap[ydst][xdst] = cost;
-}
-*/
+ * Behavioral reconstruction: research/arm/map_flood_step.c (not byte-matching).
+ * The source coordinates are loaded unsigned despite the public s8 fields.
+ * Only strictly cheaper destinations are queued (equal cost is rejected).
+ * When hasUnit is enabled, unit blocking compares state.unitId against the
+ * destination unit's bit 7. hasUnit itself is only an enable flag.
+ * This helper checks neither coordinate bounds nor destination queue capacity.
+ */
 	ARM_FUNC_START MapFloodCoreStep
 MapFloodCoreStep: @ 0x08000784
 	push {r4, r5, r6, r7, r8, r9, sl}
@@ -525,6 +502,9 @@ _08000810:
 .LMapFloodCoreStepEnd:
 	pop {r4, r5, r6, r7, r8, r9, sl}
 	bx lr
+	ARM_FUNC_END MapFloodCoreStep
+
+@ Following literals and dispatch entries belong to the shared flood code.
 	.align 2, 0
 .LMovMapFillStPool1: .4byte gMovMapFillStPool1 @ pool
 .LMovMapFillStPool2: .4byte gMovMapFillStPool2 @ pool
@@ -539,7 +519,7 @@ _08000858:
 
 	.4byte _08000858
 
-	ARM_FUNC_END MapFloodCoreStep
+
 
 /*
 void MapFloodCore(void)

@@ -1162,3 +1162,46 @@ it remains 220 section bytes and ten differing original instruction words.
 These results narrow the next work to compiler lowering/pool layout rather
 than repeating either rejected overlapping-register constraints or this legacy
 compiler configuration. The production source and matching ROM are unchanged.
+
+## MapFloodCoreStep reconstruction and original-instruction checks
+
+`research/arm/map_flood_step.c` reconstructs the complete helper in C but is
+excluded from the matching build. Reviewing the instructions corrected two
+errors in the old assembly-file pseudocode: an equal-cost path is rejected
+(the comparison is `>=`, not `>`), and unit blocking compares the destination
+unit ID against `state.unitId`, not against the `hasUnit` enable flag. Source
+coordinates are unsigned byte loads despite the public node structure's s8
+fields. The routine checks neither coordinate bounds nor queue capacity.
+
+The helper computes terrain cost plus the source's existing cost without
+truncating that sum, rejects paths that do not improve the destination, checks
+unit bit 7 when enabled, and accepts costs equal to the movement budget. On
+success it appends a four-byte node, advances the destination pointer and updates
+the working map. The `maxMovementValue` byte is not consulted by this helper.
+
+Using the existing Unicorn environment, run:
+
+```sh
+.deps/arm-oracle-venv/bin/python research/arm/check_map_flood_step.py
+```
+
+The script rebuilds and links the isolated C candidate using the canonical
+ROM's five data-pointer literals, then executes both original and candidate
+ARM code. Eighty cases cover all four direction offsets, source coordinates
+16 and 129, equal costs, budget boundaries, opposite/same bit-7 unit groups,
+disabled unit checks, empty destinations, zero cost and sums exceeding 255.
+A connection value above 255 checks the original byte truncation. Each run
+checks exact queue/state/map effects, allowed write ranges, preserved r4-r11
+and SP, and a bounded return. All cases pass for both implementations.
+
+The C candidate remains nonmatching: it has 244 instruction bytes plus a
+20-byte pool. The original helper body is 204 bytes (`0x08000784..0x08000850`).
+Its old 240-byte ELF size incorrectly included eight literal bytes, six ARM
+dispatch branches and a four-byte dispatch pointer. The size marker now ends
+at the actual return. Those following 36 bytes remain in place and accounted
+for by the linked mapping audit; they were not deleted or excluded from scope.
+The corrected pseudocode points to the maintained research C source.
+
+`make compare -j8` and direct full-ROM comparison pass after the metadata-only
+assembly edit. The linked helper symbol retains address `0x08000784` and now
+reports size 204. Neither the candidate nor its expanded code is used in ROM.
