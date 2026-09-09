@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi shared body integrated (changes following `0a9d8b29`).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi shared body integrated in all three embedded payloads (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -18,6 +18,7 @@ advances, integration results, or changes in the current blocker.
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
 | Tilemap fill routine | `████████████████████` **All 56 bytes exact in main and three payload versions** |
 | Tilemap copy routine | `████████████████████` **All 92 bytes exact in main and three payload versions** |
+| Embedded object-list high entry | `████████████████████` **Exact in all three payload versions; low-entry shim remains assembly** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
 The function percentages describe these routines only. All listed replacements are in the production build.
@@ -25,8 +26,9 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Next milestone: replace the remaining low-entry shim and embedded object-list assembly.**
-PutOamHi and its pointer pool are integrated as matching C. The existing
+**Next milestone: recover the low-entry shims and remaining map flood dispatcher.**
+PutOamHi and its pointer pool are integrated as matching C in the main ROM
+and all three embedded payload versions. The existing
 three-instruction PutOamLo shim branches into the shared C-generated body at
 its original address. Each entry passes 1,280 execution cases with matching
 memory, cursor, registers and flags. The full ROM checksum passes. PutOamLo's
@@ -67,6 +69,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace DrawGlyphHalfStride with matching C and preserve its shared pool.
 - [x] Replace DecodeString and its pointer pool with matching C.
 - [x] Integrate PutOamHi and its shared drawing body as matching C.
+- [x] Replace embedded PutOamHi with matching C in all three payload versions.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -76,7 +79,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 | Scope | Latest source audit |
 |---|---|
 | Main program | 58 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
-| Embedded payload | 17 assembly function declarations; 1 instruction-bearing inline assembly template |
+| Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 
 These are source markers, not counts of independent unfinished functions. Empty

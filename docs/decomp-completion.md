@@ -1703,3 +1703,23 @@ passes. The linked audit attributes 156 ARM bytes and four pointer bytes to
 reports 449 main C files, 58 assembly entry markers and 421 inline sites;
 there are still seven instruction-bearing inline templates. Embedded object-list
 assembly is unchanged, and no overall C-coverage percentage is inferred.
+
+
+## Embedded PutOamHi integrated across all payload variants
+
+The embedded copy has the same 156-byte shared drawing body and preceding
+four-byte pointer pool. `mgfembp/src/put_oam.c` now generates both using the
+matching compiler settings. Its linker retains the interior entry at
+`PutOamHi + 8`; the original PutOamLo assembly shim remains in the inventory.
+The source change is committed at embedded revision `b602f3b` and preserved in
+the parent source bundle, with the indexed gitlink selecting that revision.
+
+All three payload checksum gates pass, and `make compare -j8` verifies the
+complete main ROM after recompression. The final payload remains 34,956 bytes
+with SHA-1 `8a81a47d88f6b0a3f91c49784b9f7b317382abac`. Its linked audit attributes
+156 ARM bytes and four data bytes to `src/put_oam.o`, with no mappings outside
+input sections. The embedded source inventory is now 22 C files, 16 assembly
+function declarations and 132 inline sites: 40 register bindings, 91 empty
+constraints and one original instruction-bearing BIOS template. Main inventory
+remains 58 assembly entry markers. Low-entry shims in both scopes and the main
+map flood dispatcher still require recovery.

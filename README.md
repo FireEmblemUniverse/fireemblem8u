@@ -127,7 +127,7 @@ local [ARM matching plugin](tools/arm-matching/README.md). Its build requires
 that compiler's plugin headers, a host C++17 compiler, and GMP headers. `make`
 builds the plugin from source and emits the original preceding pointer pool.
 These routines occupy seven main-program translation units that load this plugin. The embedded
-payload includes its own identical plugin source for its palette and tilemap implementations.
+payload includes its own identical plugin source for its palette, tilemap and object-list implementations.
 
 The embedded compiler installer pins StanHash/agbcc revision
 `63b22f3eb8a8051af30bd80c4795b355e439e7ef`, builds its legacy generators serially,
