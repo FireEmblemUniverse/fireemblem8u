@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compare the reconstructed helper with canonical ARM execution on edge cases."""
 import hashlib
+import json
 from pathlib import Path
 import struct
 import subprocess
@@ -19,7 +20,7 @@ def main():
     names = ['gWorkingTerrainMoveCosts', 'gMovMapFillState', 'gWorkingBmMap', 'gBmMapTerrain', 'gBmMapUnit']
     OUT.mkdir(parents=True, exist_ok=True)
     flags = ['-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi', '-mabi=apcs-gnu', '-ffreestanding',
-             '-fno-builtin', '-fomit-frame-pointer', '-fno-schedule-insns', '-fno-schedule-insns2',
+             '-fno-builtin', '-ffixed-r14', '-fomit-frame-pointer', '-fno-schedule-insns', '-fno-schedule-insns2',
              '-fno-auto-inc-dec', '-fno-ivopts', '-fno-if-conversion', '-fno-if-conversion2', '-fno-reorder-blocks']
     subprocess.run(['arm-none-eabi-gcc', '-S', str(Path(__file__).with_name('map_flood_step.c')),
                     *flags, '-o', str(OUT / 'candidate.s')], check=True)
@@ -49,12 +50,15 @@ def main():
              (9,10,3,6,1,0x81,0,True), (255,255,200,100,0,1,0,False),
              (0,0,0,0,0,1,0,False), (0,1,0,0,0,1,0,True)]
     count = 0
+    flag_differences = 0
+    flag_difference_masks = set()
     for coordinate in (16,129):
         for dx, dy in ((-1,0),(1,0),(0,-1),(0,1)):
             for budget, old, source_cost, terrain_cost, check, own, unit, accepted in cases:
                 x, y = coordinate + dx, coordinate + dy
                 expected_cost = source_cost + terrain_cost
                 outputs = []
+                flags_after = []
                 for uc in machines:
                     for pointer, table, data, fill in [(terrain,0x02002000,0x02008000,2),
                                                        (units,0x02002400,0x02011000,0),
@@ -71,7 +75,7 @@ def main():
                     uc.mem_write(source, bytes([coordinate,coordinate,5,source_cost]))
                     uc.mem_write(queue, b'\xA5'*16)
                     uc.mem_write(state, struct.pack('<IIBBBB',source,queue,check,budget,own,0x55))
-                    allowed = [(state+4,state+8),(queue,queue+4),(target,target+1),(stack-64,stack)]
+                    allowed = [(state+4,state+8),(queue,queue+4),(target,target+1),(stack-28,stack)]
                     violations = []
                     def watch(machine, access, address, size, value, user_data):
                         if not any(a <= address and address+size <= b for a,b in allowed):
@@ -81,7 +85,7 @@ def main():
                     uc.reg_write(regs.UC_ARM_REG_R0,0x123)
                     uc.reg_write(regs.UC_ARM_REG_R1,dx & 0xFFFFFFFF)
                     uc.reg_write(regs.UC_ARM_REG_R2,dy & 0xFFFFFFFF)
-                    for r in range(4,12): uc.reg_write(getattr(regs,'UC_ARM_REG_R'+str(r)),r*0x1010101)
+                    for r in range(4,13): uc.reg_write(getattr(regs,'UC_ARM_REG_R'+str(r)),r*0x1010101)
                     uc.reg_write(regs.UC_ARM_REG_SP,stack)
                     uc.reg_write(regs.UC_ARM_REG_LR,0x08000B00)
                     uc.emu_start(0x08000784,0x08000B00,count=1000)
@@ -89,14 +93,31 @@ def main():
                     assert not violations, violations
                     assert uc.reg_read(regs.UC_ARM_REG_PC)==0x08000B00
                     assert uc.reg_read(regs.UC_ARM_REG_SP)==stack
-                    for r in range(4,12): assert uc.reg_read(getattr(regs,'UC_ARM_REG_R'+str(r)))==r*0x1010101
+                    for r in range(4,13): assert uc.reg_read(getattr(regs,'UC_ARM_REG_R'+str(r)))==r*0x1010101
                     result = (bytes(uc.mem_read(state,12)),bytes(uc.mem_read(queue,16)),bytes(uc.mem_read(target,1)))
                     expected_state = struct.pack('<IIBBBB',source,queue+4*accepted,check,budget,own,0x55)
                     expected_queue = bytes([x,y,0x23,expected_cost])+b'\xA5'*12 if accepted else b'\xA5'*16
                     assert result == (expected_state,expected_queue,bytes([expected_cost if accepted else old])), (coordinate,dx,dy,cases.index((budget,old,source_cost,terrain_cost,check,own,unit,accepted)))
                     outputs.append(result)
+                    flags_after.append(uc.reg_read(regs.UC_ARM_REG_CPSR) & 0xF0000000)
                 assert outputs[0]==outputs[1]
+                if flags_after[0] != flags_after[1]:
+                    flag_difference_masks.add(hex(flags_after[0] ^ flags_after[1]))
+                flag_differences += flags_after[0] != flags_after[1]
                 count += 1
+    original = rom[0x784:0x850]
+    differences = [{'address': hex(0x08000784+i), 'original_bytes': original[i:i+4].hex(),
+                    'candidate_bytes': code[i:i+4].hex()}
+                   for i in range(0,204,4) if original[i:i+4] != code[i:i+4]]
+    report = {'candidate_sha256': hashlib.sha256(code).hexdigest(),
+              'source_sha256': hashlib.sha256(Path(__file__).with_name('map_flood_step.c').read_bytes()).hexdigest(),
+              'compiler_version': subprocess.check_output(['arm-none-eabi-gcc','-dumpfullversion'],text=True).strip(),
+              'compiler_flags': flags, 'cases': count, 'return_nzcv_difference_cases': flag_differences,
+              'return_nzcv_difference_masks': sorted(flag_difference_masks),
+              'original_instruction_bytes': 204, 'candidate_section_bytes': len(code),
+              'differing_words': differences}
+    (OUT / 'report.json').write_text(json.dumps(report,indent=2)+'\n')
+    print(str(len(differences))+' differing original instruction words; '+str(flag_differences)+' return-NZCV differences.')
     print(str(count)+' cases agree between original ARM, compiled C, and expected queue/map effects.')
     print('Candidate section: '+str(len(code))+' bytes; original helper body: 204 bytes. Still nonmatching.')
 

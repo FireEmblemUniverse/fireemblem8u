@@ -1205,3 +1205,32 @@ The corrected pseudocode points to the maintained research C source.
 `make compare -j8` and direct full-ROM comparison pass after the metadata-only
 assembly edit. The linked helper symbol retains address `0x08000784` and now
 reports size 204. Neither the candidate nor its expanded code is used in ROM.
+
+## MapFloodCoreStep candidate: 43 of 51 instruction words match
+
+The maintained C candidate now follows the original r0-r10 register allocation,
+pointer loads, byte accesses, cost comparison, unit check and queue stores.
+Explicit empty constraints preserve the intended lifetimes and reloads.
+`-ffixed-r14` prevents allocating LR as a temporary, allowing GCC to retain
+exactly the original seven-register save set. Moving the unit-mask constraint
+before its branch removes an extra branch while preserving the original ANDS.
+
+The candidate now contains 204 instruction bytes plus a trailing 20-byte pool,
+224 section bytes total. The isolated linker/oracle script records compiler
+flags/version, source/binary hashes and raw instruction differences in
+`.deps/map-flood-match/report.json`. Forty-three of the original 51 instruction
+words match exactly. Differences are the six forward-pool loads at
+`0x08000788`, `0x080007A0`, `0x080007B0`, `0x080007B8`, `0x080007E8`,
+`0x08000838`, and CMP-zero rather than TST-self at `0x080007E0/7F8`.
+
+All 80 queue/state/map cases still pass against original ARM execution. The
+write check is now tightened to the original 28-byte stack frame, and r12
+preservation is checked in addition to r4-r11 and SP. Comparing return flags
+exposes an additional material difference: eight unit-blocked cases differ in
+carry only (NZCV XOR `0x20000000`) because CMP-zero changes carry where TST
+preserves it. The script reports these differences rather than treating output
+buffer agreement as complete CPU equivalence. They remain unresolved along
+with literal placement and instruction matching.
+
+The candidate stays outside the production build; the complete ROM still
+compares byte-for-byte with the canonical input.
