@@ -23,17 +23,31 @@ public:
             if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
             rtx set = PATTERN(insn), cc = SET_DEST(set), comparison = SET_SRC(set);
             if (!REG_P(cc) || REGNO(cc) != CC_REGNUM || GET_CODE(comparison) != COMPARE
-                || !REG_P(XEXP(comparison,0)) || GET_MODE(XEXP(comparison,0)) != SImode
-                || XEXP(comparison,1) != const0_rtx) continue;
+                || !REG_P(XEXP(comparison,0)) || GET_MODE(XEXP(comparison,0)) != SImode) continue;
             rtx_insn *branch = next_nonnote_nondebug_insn(insn);
             if (!branch || !JUMP_P(branch) || GET_CODE(PATTERN(branch)) != SET) continue;
             rtx branch_pattern = PATTERN(branch), choice = SET_SRC(branch_pattern);
             if (SET_DEST(branch_pattern) != pc_rtx || GET_CODE(choice) != IF_THEN_ELSE) continue;
             rtx condition = XEXP(choice,0);
-            if ((GET_CODE(condition) != EQ && GET_CODE(condition) != NE)
-                || !rtx_equal_p(XEXP(condition,0), cc)
+            if (!rtx_equal_p(XEXP(condition,0), cc)
                 || XEXP(condition,1) != const0_rtx
                 || !find_reg_note(branch, REG_DEAD, cc)) continue;
+            // Equivalent unsigned power-of-two boundaries, with no live flags
+            // after the immediate consumer. Reject overflow and signed tests.
+            rtx bound = XEXP(comparison,1);
+            if (CONST_INT_P(bound) && INTVAL(bound) >= 0 && INTVAL(bound) < 0x7fffffff
+                && (INTVAL(bound) & (INTVAL(bound) + 1)) == 0
+                && (GET_CODE(condition) == LEU || GET_CODE(condition) == GTU)) {
+                rtx replacement = copy_rtx(set);
+                XEXP(SET_SRC(replacement),1) = GEN_INT(INTVAL(bound) + 1);
+                rtx newbranch = copy_rtx(branch_pattern);
+                PUT_CODE(XEXP(SET_SRC(newbranch),0), GET_CODE(condition) == LEU ? LTU : GEU);
+                bool valid = validate_change(insn, &PATTERN(insn), replacement, true);
+                valid &= validate_change(branch, &PATTERN(branch), newbranch, true);
+                if (!(valid && apply_change_group())) cancel_changes(0);
+                continue;
+            }
+            if (bound != const0_rtx || (GET_CODE(condition) != EQ && GET_CODE(condition) != NE)) continue;
             rtx value = XEXP(comparison,0), newcc = gen_rtx_REG(CC_NZmode, CC_REGNUM);
             rtx replacement = gen_rtx_SET(newcc, gen_rtx_COMPARE(CC_NZmode,
                 gen_rtx_AND(SImode, copy_rtx(value), copy_rtx(value)), const0_rtx));

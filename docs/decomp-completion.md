@@ -1264,3 +1264,30 @@ comparison/branch words remain different. All 65,536 component/step pairs pass
 against original ARM execution and the scalar reference. Literal pools still
 follow the generated functions rather than occupying their original positions,
 so neither candidate has been integrated. The production ROM remains exact.
+
+## Palette upper-clamp instruction matching
+
+The optional research plugin now includes a guarded unsigned-boundary rewrite:
+LEU/GTU comparisons with a power-of-two-minus-one constant become LTU/GEU at
+the next value. This preserves the predicate for every unsigned word value.
+It requires the same immediate, dead flag consumer as the zero-test rule,
+rejects signed/non-power-of-two/overflow boundaries, and validates both RTL
+changes through GCC before applying them. No emitted instruction bytes are
+patched, and no game symbol or address appears in the pass.
+
+The plugin's probe suite now covers 27 functions, 21 boundary values, all 16
+incoming NZCV combinations, and baseline/plugin builds: 18,144 ARM executions.
+It checks zero tests, mixed flag use, boundaries from zero through unsigned
+maximum, and signed/non-power-of-two exclusions. Eligible CMP-31 comparisons
+become CMP-32, while excluded comparisons and Thumb output remain unchanged.
+All checks pass.
+
+ColorFadeTick now matches 49 of its original 52 instruction words. Only the
+three literal loads differ; its save set, all six clamp instructions and every
+other instruction match. All 65,536 component/step checks still pass against
+original ARM execution. MapFloodCoreStep retains its 45-of-51 match (six literal
+loads only), with all 80 effect checks and zero return-NZCV differences.
+
+Both routines still have trailing candidate pools instead of the original
+preceding/shared literal storage. They remain outside the production build
+until that layout is exact. The main ROM remains byte-identical.

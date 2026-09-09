@@ -20,11 +20,24 @@ def main():
     for name,op in zip(list(operations)[:6],['==','!=','<','<=','>','>=']):
         source += 'void %s(int x) { if (x %s 0) hit(); }\n' % (name,op)
     source += 'void mixed(int x) { if (x == 0) hit(); if (x < 0) hit(); }\n'
+    for bound in [0,1,30,31,255,1023,0x3fffffff,0x7fffffff,0xffffffff]:
+        for relation in ['le','gt']:
+            name = 'u_'+relation+'_'+str(bound)
+            operator = '<=' if relation == 'le' else '>'
+            operations[name] = (lambda x,b=bound: (x & 0xffffffff)<=b) if relation=='le' else (lambda x,b=bound: (x & 0xffffffff)>b)
+            source += 'void %s(unsigned x) { if (x %s %su) hit(); }\n' % (name,operator,bound)
+    for relation in ['le','gt']:
+        name = 's_'+relation+'_31'
+        operator = '<=' if relation=='le' else '>'
+        operations[name] = (lambda x:x<=31) if relation=='le' else (lambda x:x>31)
+        source += 'void %s(int x) { if (x %s 31) hit(); }\n' % (name,operator)
+
     with tempfile.TemporaryDirectory(prefix='arm-tst-plugin-check-') as temporary:
         root = Path(temporary)
         (root/'probe.c').write_text(source)
         (root/'link.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\nhit = 0x08020000;\n')
         checks = 0
+        baseline_text = None
         for name,plugin in [('baseline',[]),('plugin',['-fplugin='+str(args.plugin.resolve())])]:
             assembly = root/(name+'.s')
             obj = root/(name+'.o')
@@ -32,11 +45,21 @@ def main():
             binary = root/(name+'.bin')
             subprocess.run(['arm-none-eabi-gcc','-S','-O1','-marm','-mcpu=arm7tdmi',
                             '-fno-if-conversion','-fno-if-conversion2',*plugin,str(root/'probe.c'),'-o',str(assembly)],check=True)
+            text = assembly.read_text()
+            if not plugin:
+                baseline_text = text
             if plugin:
-                text = assembly.read_text()
                 for function in list(operations)[:6]:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     assert bool(re.search(r'\btst\s',body)) == (function in ('eq','ne')), function
+                for function in ['u_le_31','u_gt_31']:
+                    body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
+                    assert re.search(r'\bcmp\s+[^\n]*#32\b',body), function
+                for function in ['u_le_30','u_gt_30','u_le_2147483647','u_gt_2147483647','u_le_4294967295','u_gt_4294967295','s_le_31','s_gt_31']:
+                    body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
+                    old = baseline_text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
+                    assert body == old, ('unsupported boundary changed',function)
+
             subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi','-o',str(obj),str(assembly)],check=True)
             subprocess.run(['arm-none-eabi-ld','-T',str(root/'link.ld'),'-o',str(elf),str(obj)],check=True)
             subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(elf),str(binary)],check=True)
@@ -57,7 +80,7 @@ def main():
                 calls.append(address)
             uc.hook_add(UC_HOOK_CODE,hit,begin=0x08020000,end=0x08020000)
             for function,operation in operations.items():
-                for value in [-2147483648,-129,-1,0,1,31,32,127,2147483647]:
+                for value in [-2147483648,-129,-2,-1,0,1,2,30,31,32,33,127,254,255,256,1023,1024,0x3ffffffe,0x3fffffff,0x40000000,2147483647]:
                     for nzcv in range(16):
                         calls.clear()
                         uc.reg_write(regs.UC_ARM_REG_CPSR,0x13 | (nzcv<<28))
@@ -77,7 +100,7 @@ def main():
             thumb.append((root/'thumb.s').read_bytes())
         assert thumb[0]==thumb[1]
     print(str(checks)+' baseline/plugin ARM executions pass, including all incoming NZCV combinations.')
-    print('EQ/NE select TST; signed comparisons retain CMP; Thumb output is unchanged.')
+    print('Zero tests and unsigned power-of-two boundaries pass; excluded boundaries and Thumb output are unchanged.')
 
 
 if __name__ == '__main__':

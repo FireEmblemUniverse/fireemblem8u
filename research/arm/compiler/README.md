@@ -1,4 +1,4 @@
-# Optional ARM equality-zero-test plugin
+# Optional ARM matching-comparison plugin
 
 This is an experimental GCC 16.2.0 plugin for matching research. The production
 Makefile does not load it. It uses installed GCC plugin headers and checks
@@ -15,6 +15,12 @@ The comparison and branch changes are validated together and rolled back if
 GCC rejects them. Branch notes are updated to the new condition-code mode.
 Thumb instructions, signed branches, and unknown/multiple flag uses are skipped.
 
+A second guarded rule changes unsigned LEU/GTU comparisons at a power-of-two
+boundary minus one to LTU/GEU at the boundary. For example, `x <= 31` becomes
+`x < 32`. It requires the same immediate dead flag consumer and rejects signed,
+non-power-of-two, and potentially overflowing boundaries. GCC must recognize
+both replacements before either change is kept.
+
 There are no game symbols, addresses or instruction byte templates in the pass.
 It changes compiler RTL and lets the ARM backend emit TST. It does not rewrite
 assembled opcodes. TST preserves carry/overflow, unlike CMP-zero; the restricted
@@ -30,16 +36,17 @@ python3 research/arm/build_color_fade.py --plugin .deps/arm-matching-plugin/zero
 .deps/arm-oracle-venv/bin/python research/arm/check_color_fade.py --rom baserom.gba --arm-candidate .deps/color-fade-match/candidate.bin
 ```
 
-The comparison probes execute baseline and plugin-generated code for EQ, NE,
-LT, LE, GT, GE and mixed flag use on nine signed-boundary values and all sixteen
-incoming NZCV combinations: 2,016 executions total. Assembly selection checks
-require TST only for the EQ/NE probes, and a separate comparison requires Thumb
-output to remain identical. These bounded checks are not a general compiler
-correctness proof.
+The probes execute baseline and plugin-generated code for zero comparisons,
+mixed flag use, unsigned power-of-two boundaries, non-power-of-two boundaries,
+signed boundaries, and unsigned overflow limits. Twenty-one boundary values
+and all sixteen incoming NZCV combinations give 18,144 executions. Selection
+checks verify TST for EQ/NE zero tests and CMP-32 for the eligible 31 boundary.
+Excluded comparisons and Thumb output must remain identical to the baseline.
+These bounded checks are not a general compiler correctness proof.
 
 With the plugin, the flood helper has six differing words (literal loads only),
-with no return-NZCV differences in its 80 cases. The palette helper has nine
-differing words: three literal loads and six upper-clamp comparison/branch words.
+with no return-NZCV differences in its 80 cases. The palette helper has three
+differing words, all literal loads.
 Its 65,536 component/step checks still pass against original ARM execution.
 Both candidates remain excluded from the ROM build because instruction/data
 layout is not yet exact. Omit `--plugin` to retain the stock-compiler research
