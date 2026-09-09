@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi execution oracle (changes following `7d423683`).
+Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi fully matching candidate (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,7 +12,7 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
-| Object-list high-entry candidate | `██████████████████░░` **37/39 instruction words (94.9%); not integrated** |
+| Object-list high-entry candidate | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact; not integrated** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
 | Half-stride glyph routine | `████████████████████` **All 188 instruction bytes exact; shares the original pointer pool** |
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
@@ -27,12 +27,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: PutOamHi/PutOamLo shared object-list body.**
-The high-entry C candidate matches 37 of 39 instruction words and its four-byte
-pointer pool. Remaining differences are the entry SUBS versus TST and BLT versus
-BMI. The execution oracle passes 1,280 memory/cursor cases, but detects r12
-clobbering in all cases and return-flag differences in 192 cases. The candidate
-is not ready for integration. Next: resolve the entry encodings and preserve
-the low-entry shared-body layout.
+The high-entry C candidate matches all 39 instruction words and its four-byte
+pointer pool. All 1,280 execution cases now match memory, cursor, registers and
+return flags. The compiler branch-pair rule now handles empty memory-only
+barriers; 20,832 branch probes pass with default options and another 20,832
+with optional zero encodings. Next: preserve the low-entry shared-body layout
+and integrate both entries without changing their copied-code addresses.
 
 Latest integrated milestone:
 DecodeString is now integrated as matching C. All 640 valid-tree cases pass,

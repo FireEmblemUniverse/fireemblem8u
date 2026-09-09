@@ -77,10 +77,12 @@ def main():
                         if results[0][r]!=results[1][r]: register_differences[str(r)]=register_differences.get(str(r),0)+1
                     flag_differences += results[0][13]!=results[1][13]
                     cases+=1
-    assert set(register_differences)<= {'12'}, register_differences
+    assert not register_differences, register_differences
+    assert flag_differences == 0, flag_differences
     report=json.loads((out/'report.json').read_text())
+    assert report['complete_section_match'], report['differing_words']
     report.update(cases=cases,register_difference_cases=register_differences,nzcv_difference_cases=flag_differences,
-                  scope='High entry only; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Register and flag mismatches are reported, not accepted for integration.')
+                  scope='High entry only; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Full section, register and flag agreement required.')
     (out/'execution-report.json').write_text(json.dumps(report,indent=2)+'\n')
     print(f'{cases} memory/cursor/callee-saved checks passed; register mismatches {register_differences}; NZCV mismatches {flag_differences}.')
 

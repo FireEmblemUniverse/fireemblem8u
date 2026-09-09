@@ -1660,3 +1660,25 @@ A memory clobber between the two entry branches forces CMP instead of SUBS,
 but the existing conservative branch-pair rule deliberately excludes that
 clobber; it therefore does not yet yield the required TST/BMI sequence. No
 production or compiler source was changed in this checkpoint.
+
+
+## PutOamHi high entry matches completely
+
+The empty memory barrier between zero and sign branches prevents GCC's r12
+copy. The compiler's paired-branch rule now recognizes this barrier only when
+it is an input-only empty ASM_OPERANDS plus a sole MEM clobber. It does not
+cross output operands, register/CC clobbers, nonempty templates, labels or calls.
+The existing grouped RTL validation still applies to the test and both branches.
+
+All 160 bytes of the isolated high entry now match the canonical ROM, including
+the four-byte pointer pool and 39 instructions. All 1,280 execution cases pass
+with zero register or return-flag mismatches. The expanded compiler suite runs
+20,832 cases with defaults and another 20,832 with optional zero encodings;
+new probes cover memory, register and flag barriers. Thumb output is unchanged.
+The compiler source and probe updates are synchronized into the embedded source
+bundle. Production object-list entries remain assembly pending preservation of
+PutOamLo's shared-body entry; this milestone is an exact candidate, not yet an
+integrated replacement.
+
+The checker now requires full section, register and flag agreement. Main ROM
+and all three embedded payload checksum gates pass with the updated compiler.

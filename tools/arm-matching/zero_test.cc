@@ -135,9 +135,24 @@ void prefix_pool() {
     for (const auto &entry : entries) remove_insn(entry.insn);
     remove_insn(end);
 }
+// A memory-only compiler barrier emits no instructions and cannot alter CC.
+// Reject outputs and every register/scratch clobber, including the flags.
+bool empty_cc_preserving_barrier(rtx pattern) {
+    rtx operands = pattern;
+    if (GET_CODE(pattern) == PARALLEL) {
+        if (XVECLEN(pattern,0) != 2) return false;
+        operands = XVECEXP(pattern,0,0);
+        rtx clobber = XVECEXP(pattern,0,1);
+        if (GET_CODE(clobber) != CLOBBER || !MEM_P(XEXP(clobber,0))) return false;
+    }
+    return GET_CODE(operands) == ASM_OPERANDS
+        && ASM_OPERANDS_TEMPLATE(operands)[0] == '\0'
+        && ASM_OPERANDS_OUTPUT_CONSTRAINT(operands)[0] == '\0';
+}
+
 // CMP-zero followed by EQ and LT to the same destination only needs Z and N.
 // Rewrite both consumers together so an incoming V bit cannot affect the sign
-// branch. Accept only input-only empty constraints between the two branches.
+// branch. Accept only input-only empty constraints, optionally clobbering memory.
 void zero_branch_pairs() {
     for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
         if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
@@ -156,9 +171,7 @@ void zero_branch_pairs() {
             || XEXP(first_choice,2) != pc_rtx) continue;
         rtx_insn *second = next_nonnote_nondebug_insn(first);
         while (second && GET_CODE(second) == INSN
-               && GET_CODE(PATTERN(second)) == ASM_OPERANDS
-               && ASM_OPERANDS_TEMPLATE(PATTERN(second))[0] == '\0'
-               && ASM_OPERANDS_OUTPUT_CONSTRAINT(PATTERN(second))[0] == '\0')
+               && empty_cc_preserving_barrier(PATTERN(second)))
             second = next_nonnote_nondebug_insn(second);
         if (!second || !JUMP_P(second) || GET_CODE(PATTERN(second)) != SET
             || SET_DEST(PATTERN(second)) != pc_rtx) continue;

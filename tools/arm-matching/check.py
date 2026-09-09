@@ -37,6 +37,13 @@ def main():
     operations['pair'] = lambda x: x > 0
     source += 'void pair(int x) { asm("" ::: "r4"); if (x == 0) goto end; asm("" : : "r"(x)); if (x < 0) goto end; hit(); end: asm(""); }\n'
 
+    operations['pair_memory'] = lambda x: x > 0
+    source += 'void pair_memory(int x) { asm("" ::: "r4"); if (x == 0) goto end; asm("" : : "r"(x) : "memory"); if (x < 0) goto end; hit(); end: asm(""); }\n'
+
+    for suffix, clobber in [('cc', 'cc'), ('register', 'r5')]:
+        operations['pair_'+suffix] = lambda x: x > 0
+        source += 'void pair_%s(int x) { asm("" ::: "r4"); if (x == 0) goto end; asm("" : : "r"(x) : "%s"); if (x < 0) goto end; hit(); end: asm(""); }\n' % (suffix, clobber)
+
     with tempfile.TemporaryDirectory(prefix='arm-tst-plugin-check-') as temporary:
         root = Path(temporary)
         (root/'probe.c').write_text(source)
@@ -57,8 +64,9 @@ def main():
                 for function in list(operations)[:6]:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     assert bool(re.search(r'\btst\s',body)) == (function in (('eq','ne','lt','ge') if args.zero_encodings else ('eq','ne'))), function
-                pair = text.split('\npair:',1)[1].split('\t.size',1)[0]
-                assert re.search(r'\btst\s', pair) and re.search(r'\b(?:bmi|blpl)\s', pair), pair
+                for function in ['pair', 'pair_memory']:
+                    pair = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
+                    assert re.search(r'\btst\s', pair) and re.search(r'\b(?:bmi|blpl)\s', pair), pair
                 for function in ['u_le_31','u_gt_31']:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     assert re.search(r'\bcmp\s+[^\n]*#32\b',body), function

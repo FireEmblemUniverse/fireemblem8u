@@ -192,3 +192,12 @@ and its two-symbol prefix pool. An empty read/write register constraint before
 the final byte-mask test produces TST without emitting an assembly instruction.
 All 35 instruction words and the eight pointer bytes match the original; the
 replacement is integrated into the ROM.
+
+
+The zero/sign branch-pair rule also accepts an input-only empty assembly
+constraint with a sole memory clobber. This barrier emits no instruction and
+cannot alter the condition flags. Outputs, register/flag clobbers and nonempty
+templates remain excluded. The expanded branch suite executes 20,832 cases in
+each default/optional configuration, including memory, register and CC barriers.
+This resolves the isolated PutOamHi entry: all 160 pool/function bytes and
+1,280 execution cases match. Shared low-entry layout is still pending.

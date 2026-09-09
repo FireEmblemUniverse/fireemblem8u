@@ -22,7 +22,7 @@ void PutOamHi(u32 xArg, u32 yArg, const u16 *listArg, u32 oam2)
     count = *src;
     asm("" : "+r"(count));
     if (count == 0) goto end;
-    asm("" : : "r"(count));
+    asm("" : : "r"(count) : "memory");
     if ((int)count < 0) goto end;
     src++;
     asm("" : "+r"(src));
