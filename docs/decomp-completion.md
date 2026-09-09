@@ -631,3 +631,45 @@ Verification:
 The remaining unit-list fallback, ARM routines, startup, BIOS/audio interfaces,
 multiboot timing instructions and embedded assembly remain within the full
 completion goal. These inventory counts do not establish a completion percent.
+
+
+## Unit-list page entry: retain and verify the best C candidate
+
+The NONMATCHING branch for `UnitList_PageChangeIn_Loop` now retains the best
+previous isolated candidate, updated to current symbol names. It uses an empty
+r1 clobber around the masked destination row in the forward page transition,
+and an explicit destination offset with the same clobber in the reverse case.
+The GNU statement-expression scopes around column calculations are retained;
+removing or flattening them changes compiler allocation and instruction layout.
+There are no instruction templates in this C candidate.
+
+The original live source candidate compiled to 428 bytes instead of 436,
+with 286 differing shared bytes. The retained candidate has the exact
+436-byte extent `0x08091F10..0x080920C4` and **11 differing bytes**. The original
+naked fallback is still active. Fresh register-binding, clobber-combination
+and source-address-expression trials did not improve on eleven. The local JP
+reference also still contains this routine as naked assembly, unlike the
+resolved event-unit selection routine.
+
+`scripts/match_unit_list.py` shares the baseline verification and typed Thumb
+symbol handling from `scripts/match_unit_definition.py`. The shared module now
+configures the source filename, declaration and conditional markers separately
+from compilation/linking. It first reproduces the original 436-byte body
+exactly, then scores the C branch. Both its default source and replacement-body
+paths were exercised; the default ignored output folder is
+`.deps/unit-list-match`. The event-unit selection harness was rerun after this
+change and still reports its complete 516-byte match.
+
+The remaining differences occur at `0x08091F82`, `0x08091F88`, `0x08091F8C`,
+`0x08091F8E`, `0x08091F9C`, `0x08091F9E`, `0x08091FA1`, `0x08091FA2`,
+`0x08091FA4`, `0x08092042`, and `0x08092044`. They are register choices in the
+BG0 source/destination address calculations. The next matching work remains
+focused on those calculations; changing generated instruction bytes directly
+would not establish matching C.
+
+Validation: the full ROM checksum and direct byte comparison pass with the
+fallback active, both matching harnesses reproduce their production baselines,
+and all seven audit regression tests pass. The tracked source now has 112 inline
+sites: 63 register bindings, 40 empty templates, one section directive and eight
+instruction-bearing templates, with none unresolved. The one naked unit-list
+fallback and all other remaining assembly remain within the completion goal.

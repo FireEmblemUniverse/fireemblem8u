@@ -17,6 +17,10 @@ ROOT = Path(__file__).resolve().parents[1]
 FUNCTION = 'GetUnitDefinitionFormEventScr'
 START = 0x0800F914
 SIZE = 516
+SOURCE_FILE = 'src/eventscr.c'
+FUNCTION_DECL = 'struct UnitDefinition * ' + FUNCTION + '('
+BRANCH_MARKER = '#if NONMATCHING\n\n/* https://decomp.me/scratch/IyKOH */'
+BRANCH_END = '\n#else // #if !NONMATCHING'
 SHA1 = 'c25b145e37456171ada4b0d440bf88a19f4d509f'
 FLAGS = ['-mthumb-interwork', '-Wimplicit', '-Wparentheses', '-Werror', '-O2',
          '-fhex-asm', '-ffix-debug-line', '-g']
@@ -88,21 +92,21 @@ def main():
             symbols[fields[-1]] = (int(fields[1], 16), fields[3])
     if symbols[FUNCTION] != (START | 1, 'FUNC'):
         raise ValueError('unexpected production function address or symbol type')
-    source = (ROOT / 'src/eventscr.c').read_text()
+    source = (ROOT / SOURCE_FILE).read_text()
     reference = rom[START - 0x08000000:START - 0x08000000 + SIZE]
     baseline = compile_function(source, output, 'baseline', symbols)
     if baseline != reference:
         raise ValueError('isolated production implementation does not reproduce the ROM; refusing to score')
-    marker = '#if NONMATCHING\n\n/* https://decomp.me/scratch/IyKOH */'
+    marker = BRANCH_MARKER
     if source.count(marker) > 1:
         raise ValueError('candidate branch marker is ambiguous')
     # Retain support for older checkouts while also validating the graduated C.
     candidate = source.replace(marker, '#if 1\n\n/* isolated C candidate */')
     if args.candidate_body:
         branch = candidate.find('#if 1\n\n/* isolated C candidate */')
-        start = candidate.index('struct UnitDefinition * ' + FUNCTION + '(', max(0, branch))
+        start = candidate.index(FUNCTION_DECL, max(0, branch))
         if branch >= 0:
-            end = candidate.index('\n#else // #if !NONMATCHING', start)
+            end = candidate.index(BRANCH_END, start)
         else:
             # This source uses a column-zero closing brace for the definition.
             end = candidate.index('\n}', start) + 2

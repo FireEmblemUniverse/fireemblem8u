@@ -1711,7 +1711,11 @@ void UnitList_PageChangeIn_Loop(struct UnitListScreenProc * proc)
         {
             for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
-                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnitlistscreen_0[r4 & 0x1f][r5 + 8];
+                gBG0TilemapBuffer[(({
+                    int temp = r4 & 0x1f;
+                    asm("" ::: "r1");
+                    temp;
+                })) * 0x20 + (({r5 + 0x1c;}) - proc->unk_38)] = gUnitlistscreen_0[r4 & 0x1f][r5 + 8];
             }
 
             for (r4 = 0; r4 < 2; r4++)
@@ -1726,8 +1730,9 @@ void UnitList_PageChangeIn_Loop(struct UnitListScreenProc * proc)
         {
             for (r4 = proc->unk_3e / 8; r4 < proc->unk_3e / 8 + 12; r4++)
             {
-                // gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + 8 + r5] = gUnitlistscreen_0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
-                gBG0TilemapBuffer[(r4 & 0x1f) * 0x20 + ({r5 + 8;})] = gUnitlistscreen_0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
+                int off = (r4 & 0x1f) * 0x20 + 8;
+                asm("" ::: "r1");
+                gBG0TilemapBuffer[off + r5] = gUnitlistscreen_0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38];
             }
 
             for (r4 = 0; r4 < 2; r4++)
