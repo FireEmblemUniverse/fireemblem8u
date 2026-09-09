@@ -1535,3 +1535,34 @@ The source audit still has 447 main C files and now 60 assembly entry markers.
 The glyph C object accounts for both functions plus 36 data bytes. Remaining
 instruction-bearing inline assembly and the embedded assembly inventory are
 unchanged. String decoding is the next ARM target.
+
+## DecodeString C reconstruction and execution oracle
+
+`research/arm/decode_string.c` reconstructs the ARM Huffman decoder with its
+original r0-r7 roles, least-significant-bit-first input consumption, internal
+node halfword indices, signed leaf marker, one- or two-byte output, and the
+single-byte zero terminator. A zero low byte in a two-byte leaf is emitted
+without terminating. The routine assumes a valid internal root, bitstream,
+and sufficient output capacity, as does the original.
+
+The matching script compiles a 148-byte pointer/function section at
+`0x080006DC..0x08000770`. Its two pointers and 31 of 35 instruction words match.
+Remaining differences are MOV-zero versus SUB-self at `0x080006E8`, CMP/BGE
+versus TST/BPL at `0x08000730/734`, and ANDS versus TST at `0x08000758`.
+The candidate remains outside production. No plugin changes have been made
+for these encodings yet.
+
+`check_decode_string.py` generates four valid tree shapes, including skewed
+paths, single-byte leaves, two-byte leaves and pairs with an embedded zero.
+Ten message lengths per tree exercise empty output and byte-boundary crossings;
+all sixteen incoming NZCV states give 640 cases. Original ARM, compiled C and
+the independently encoded leaf sequence agree on full output plus untouched
+sentinels, consumed input bytes, output cursor, r0-r12 results, preserved SP,
+the original 16-byte save area and allowed writes. Return-NZCV differences are
+zero in these cases, despite the differing internal tests. Source, compiler,
+plugin and candidate provenance is recorded with the instruction differences
+in ignored `.deps/decode-match/report.json`.
+
+The production source inventory is unchanged: 60 main assembly entry markers
+and 17 embedded assembly function declarations. Full-ROM matching remains
+verified; decoder instruction matching is the next step.
