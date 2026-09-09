@@ -1785,3 +1785,27 @@ constraint was tested but produced an additional copy and a comparison of the
 old phase, so the original candidate constraint is retained. Phase-test fusion,
 unchecked instruction dispatch and shared/prefix literals remain unresolved;
 this is still research and no production assembly has been removed.
+
+
+## Dispatcher validated with the actual movement helper
+
+`research/arm/check_map_flood_full.py` first rebuilds and checks the dispatcher,
+then executes it with the original 204-byte ARM movement helper from the verified
+ROM. Four bounded 9x9 terrain/unit layouts, five movement budgets, three
+allegiance/check combinations and four incoming NZCV patterns give 240 cases.
+An independent frontier reference computes expected movement costs, including
+strict cost improvement and the original bit-7 allegiance blocking rule.
+
+All final movement maps agree with the reference. Original and candidate also
+agree on complete EWRAM, queue/state memory and return flags, with r4-r11/SP
+preserved. This exercises actual helper calls and repeated expanding frontiers;
+it does not establish behavior on all possible maps or replace byte matching.
+The candidate remains 438 bytes and is excluded from production.
+
+Thirteen bounded phase-test source/flag configurations were inspected. Removing
+or making the phase constraint input-only gives a copy of the old phase followed
+by EOR and CMP-one; ten individual optimization/target flag trials retained that
+form. The existing read/write constraint gives EOR plus CMP-zero. None recovers
+the required EORS directly, so no trial was promoted. Original instruction
+dispatch and literal layout also remain unresolved. Production sources and the
+last verified main/payload binaries are unchanged in this checkpoint.

@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher argument instruction matching (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher with actual movement helper (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -30,8 +30,9 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 A maintained C candidate passes 640 original/candidate cases checking ordered
 neighbor calls, repeated queue alternation, complete queue memory, preserved
 registers and return flags with finite-enqueue helper models. Budgets range from
-zero to 24 inserted nodes. Full terrain-helper execution and instruction
-matching remain unverified. All 16 helper argument setups now match the original 48 instruction words.
+zero to 24 inserted nodes. Another 240 cases run the actual ROM movement helper: final maps match an
+independent reference, and original/candidate memory, queues and return flags
+agree. Instruction matching remains unfinished. All 16 helper argument setups now match the original 48 instruction words.
 The 438-byte candidate still uses a different jump table, literal placement
 and phase test; no overall routine match percentage is inferred.
 Low-entry object-list shims also remain unfinished.
