@@ -135,6 +135,13 @@ src/eventscr.o: src/eventscr.c $(EMPTY_ASM_CC1)
 $(EMPTY_ASM_CC1): tools/agbcc-empty-asm/build.py tools/agbcc-empty-asm/empty-asm-length.patch
 	$(PYTHON) tools/agbcc-empty-asm/build.py --output $@
 
+# The channel release handler needs the backend's equality-only bit test.
+TST_CC1 := tools/agbcc-tst/agbcc$(EXE)
+src/m4a_fine.o: CC1 := $(TST_CC1)
+src/m4a_fine.o: src/m4a_fine.c $(TST_CC1)
+$(TST_CC1): tools/agbcc-tst/build.py tools/agbcc-tst/check.py tools/agbcc-tst/empty-asm-length.patch tools/agbcc-tst/equality-bit-test.patch
+	$(PYTHON) tools/agbcc-tst/build.py --output $@
+
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error
 src/menu_def.o: CC1FLAGS += -Wno-error

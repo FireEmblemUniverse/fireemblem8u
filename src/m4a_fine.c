@@ -1,5 +1,7 @@
 #include "global.h"
 #include "gba/m4a_internal.h"
+
+// Empty constraints preserve the audio driver's original register allocation.
 void ply_fine(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
 {
     register struct MusicPlayerTrack * saved asm("r5") = track;
@@ -11,7 +13,7 @@ void ply_fine(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
         register unsigned status asm("r1") = channel->status;
         register unsigned mask asm("r0") = 0xC7;
         asm("" : "+r"(status), "+r"(mask));
-        if (status & mask)
+        if (mask & status)
         {
             mask = 0x40;
             asm("" : "+r"(mask));

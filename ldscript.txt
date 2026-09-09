@@ -573,6 +573,8 @@ SECTIONS
         src/m4a_1.o(.text);
         src/m4a_clear_chain.o(.text);
         src/m4a_1.o(.text.after_real_clear_chain);
+        src/m4a_fine.o(.text);
+        src/m4a_1.o(.text.after_ply_fine);
         src/m4a_pend.o(.text);
         src/m4a_1.o(.text.after_ply_pend);
         src/m4a.o(.text);

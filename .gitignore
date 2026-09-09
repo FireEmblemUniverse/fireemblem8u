@@ -995,3 +995,9 @@ src/arm/*.s
 /tools/agbcc-empty-asm/agbcc.exe
 /tools/agbcc-empty-asm/agbcc.tmp
 /tools/agbcc-empty-asm/agbcc.exe.tmp
+
+# Equality-only Thumb bit-test compiler, built from pinned source.
+/tools/agbcc-tst/agbcc
+/tools/agbcc-tst/agbcc.exe
+/tools/agbcc-tst/agbcc.tmp
+/tools/agbcc-tst/agbcc.exe.tmp

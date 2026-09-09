@@ -38,6 +38,8 @@ unit-list assembly body and residual timing assembly remain unfinished.
 constraints and no instruction-bearing assembly templates.
 `ply_pend` is also matching Thumb C (20 bytes), restoring the command pointer
 from the audio pattern stack.
+`ply_fine` now compiles to matching C across its complete 46-byte extent,
+using a pinned agbcc variant with a guarded equality-only bit-test pattern.
 
 ## Completion evidence
 
@@ -837,3 +839,28 @@ bytes of two register-copy instructions: original ADD-zero copies at
 relocation to `RealClearChain` matches. Compilation and comparison details are
 in `research/audio/README.md`. This is unfinished research, excluded from the
 ROM build; `ply_fine` remains assembly and the completion inventory is unchanged.
+
+## ply_fine matching C with guarded bit-test lowering
+
+The earlier two-mismatch research candidate has graduated to `src/m4a_fine.c`.
+All 46 bytes at `0x080CF928..0x080CF956` now match: it walks each channel,
+marks active channels for release, calls `RealClearChain`, follows the retained
+next pointer and clears the track flags. Its C source contains four register
+bindings and five empty constraints, with no instruction-bearing template.
+
+`tools/agbcc-tst/` reproducibly builds a separate pinned agbcc variant for this
+translation unit. Its general Thumb AND condition-code pattern uses the existing
+`next_insn_tests_no_inequality` guard. Equality comparisons can emit TST;
+signed comparisons retain AND/CMP because their overflow-flag requirements
+are different. The unsafe unrestricted experiment was not integrated. The
+variant also includes the existing empty-template length fix. Source hashes
+are verified after applying both patches, and six comparison checks run before
+the built compiler is installed. Other translation units retain their compilers.
+
+A fresh build from pinned committed compiler sources passed the six comparison
+checks. `make compare -j8` and direct full-ROM comparison both pass, as do the
+five audio symbol checks and seven audit tests. The inventory now has 441 C
+files, 67 assembly entry markers and 134 inline sites: 73 register bindings,
+53 empty templates, one directive and seven instruction-bearing templates.
+The 42 NONMATCHING markers, one naked macro and remaining executable assembly
+are still outstanding; this is not a completion-percentage claim.

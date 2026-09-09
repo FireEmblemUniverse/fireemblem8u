@@ -481,34 +481,9 @@ SoundMainBTM:
 	.align 2, 0
 	.section .text.after_real_clear_chain, "ax", %progbits
 
-	thumb_func_start ply_fine
-ply_fine:
-	push {r4,r5,lr}
-	adds r5, r1, 0
-	ldr r4, [r5, o_MusicPlayerTrack_chan]
-	cmp r4, 0
-	beq ply_fine_done
-ply_fine_loop:
-	ldrb r1, [r4]
-	movs r0, 0xC7
-	tst r0, r1
-	beq ply_fine_ok
-	movs r0, 0x40
-	orrs r1, r0
-	strb r1, [r4]
-ply_fine_ok:
-	adds r0, r4, 0
-	bl RealClearChain
-	ldr r4, [r4, 0x34]
-	cmp r4, 0
-	bne ply_fine_loop
-ply_fine_done:
-	movs r0, 0
-	strb r0, [r5]
-	pop {r4,r5}
-	pop {r0}
-	bx r0
-	thumb_func_end ply_fine
+@ ply_fine is linked here from m4a_fine.c.
+	.align 2, 0
+	.section .text.after_ply_fine, "ax", %progbits
 
 	thumb_func_start MPlayJumpTableCopy
 MPlayJumpTableCopy:

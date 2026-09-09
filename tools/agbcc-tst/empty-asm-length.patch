@@ -1,0 +1,7 @@
+--- a/gcc/final.c
++++ b/gcc/final.c
+@@ -1074,0 +1075,4 @@
++
++  /* Empty constraint templates emit no instructions. */
++  if (*template == 0)
++    return 0;
