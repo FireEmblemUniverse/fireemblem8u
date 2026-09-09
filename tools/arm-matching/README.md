@@ -1,7 +1,8 @@
 # ARM matching compiler plugin
 
-This GCC 16.2.0 plugin generates the matching production ColorFadeTick routine.
-The production Makefile builds and loads it only for that C translation unit. It uses installed GCC plugin headers and checks
+This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
+MapFloodCoreStep routines. The production Makefile loads it only for those two
+C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
 and build provenance remain in ignored `.deps/arm-matching-plugin/`.
@@ -73,4 +74,11 @@ instruction bytes) at the original location. `candidate.bin` includes the pool;
 `candidate-body.bin` starts at the function for the execution oracle. The report
 records the complete-section comparison separately from instruction differences.
 The production palette routine is integrated and the complete ROM matches.
-The flood helper remains an isolated candidate.
+MapFloodCoreStep is also integrated: its 20-byte prefix pool and 204-byte body
+match exactly. Its remaining assembly caller uses an R_ARM_LDR_PC_G0 relocation
+to read the shared pool through a linker-defined symbol, preserving the original
+instruction encoding without duplicating a literal.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/arm/check_map_flood_step.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool
+```

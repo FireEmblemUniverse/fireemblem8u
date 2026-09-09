@@ -333,78 +333,10 @@ _08000768:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-.LWorkingTerrainMoveCosts: .4byte gWorkingTerrainMoveCosts @ pool
-.LMovMapFillState: .4byte gMovMapFillState @ pool
-.LWorkingBmMap: .4byte gWorkingBmMap @ pool
-.LBmMapTerrain: .4byte gBmMapTerrain @ pool
-.LBmMapUnit: .4byte gBmMapUnit @ pool
-
 	ARM_FUNC_END DecodeString
 
-/*
- * Behavioral reconstruction: research/arm/map_flood_step.c (not byte-matching).
- * The source coordinates are loaded unsigned despite the public s8 fields.
- * Only strictly cheaper destinations are queued (equal cost is rejected).
- * When hasUnit is enabled, unit blocking compares state.unitId against the
- * destination unit's bit 7. hasUnit itself is only an enable flag.
- * This helper checks neither coordinate bounds nor destination queue capacity.
- */
-	ARM_FUNC_START MapFloodCoreStep
-MapFloodCoreStep: @ 0x08000784
-	push {r4, r5, r6, r7, r8, r9, sl}
-	ldr r3, .LMovMapFillState
-	ldr r4, [r3]
-	ldrb r5, [r4]
-	add r1, r1, r5
-	ldrb r6, [r4, #1]
-	add r2, r2, r6
-	ldr r7, .LBmMapTerrain
-	ldr r7, [r7]
-	ldr r7, [r7, r2, lsl #2]
-	ldrb r7, [r7, r1]
-	ldr r8, .LWorkingTerrainMoveCosts
-	ldrb sl, [r8, r7]
-	ldr r7, .LWorkingBmMap
-	ldr r7, [r7]
-	ldr r9, [r7, r6, lsl #2]
-	ldrb r9, [r9, r5]
-	add sl, sl, r9
-	ldr r9, [r7, r2, lsl #2]
-	ldrb r9, [r9, r1]
-	cmp sl, r9
-	bhs .LMapFloodCoreStepEnd
-	ldrb r4, [r3, #8]
-	tst r4, r4
-	beq _08000810
-	ldr r7, .LBmMapUnit
-	ldr r7, [r7]
-	ldr r7, [r7, r2, lsl #2]
-	ldrb r7, [r7, r1]
-	tst r7, r7
-	beq _08000810
-	ldrb r4, [r3, #0xa]
-	eor r4, r4, r7
-	ands r4, r4, #0x80
-	bne .LMapFloodCoreStepEnd
-_08000810:
-	ldrb r4, [r3, #9]
-	cmp sl, r4
-	bhi .LMapFloodCoreStepEnd
-	ldr r4, [r3, #4]
-	strb r1, [r4]
-	strb r2, [r4, #1]
-	strb r0, [r4, #2]
-	strb sl, [r4, #3]
-	add r4, r4, #4
-	str r4, [r3, #4]
-	ldr r7, .LWorkingBmMap
-	ldr r7, [r7]
-	ldr r7, [r7, r2, lsl #2]
-	strb sl, [r7, r1]
-.LMapFloodCoreStepEnd:
-	pop {r4, r5, r6, r7, r8, r9, sl}
-	bx lr
-	ARM_FUNC_END MapFloodCoreStep
+@ MapFloodCoreStep and its shared pointer pool are generated from C.
+	.section .text.after_map_flood_step, "ax", %progbits
 
 @ Following literals and dispatch entries belong to the shared flood code.
 	.align 2, 0
@@ -494,7 +426,7 @@ void MapFloodCore(void)
 MapFloodCore: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
-	ldr r5, .LMovMapFillState  @ gMovMapFillState
+	ldr r5, [pc, #:pc_g0:(MapFloodCoreStepPool + 4 - 8)] @ shared gMovMapFillState pointer
 .LMapFloodCoreLoop:
 	eors r4, r4, #1
 	beq _0800089C

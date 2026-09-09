@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: integrated ColorFadeTick and repaired compiler bootstrap (this change).
+Updated: September 9, 2026. Latest verified implementation: integrated map flood helper and embedded palette routine (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,19 +11,19 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Current map flood candidate | `██████████████████░░` **45/51 instruction words (88.2%)** |
+| Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
+| Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
-The function percentages describe those two functions only. The palette routine
-is now integrated into the production ROM; the map flood candidate remains outside
-the production build.
+The function percentages describe these routines only. Both main routines and
+the embedded palette replacement are integrated into the production build.
 An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Next: match the map flood pointer loads and recover the embedded palette routine.**
-ColorFadeTick now compiles from C in production with its original 12-byte pointer
-pool and 208-byte body. The full ROM matches after integration. The map flood
-candidate still differs in six pointer loads.
+**Next: remaining ARM tilemap routines and the flood dispatcher.**
+The map flood helper now compiles from C with its exact shared pointer pool.
+The embedded palette routine is also C, verified in all three payload versions.
+The complete ROM still matches byte-for-byte.
 
 Latest checks: 65,536 palette component/step pairs; 80 map flood cases with no
 return-flag differences; 18,144 compiler-plugin execution probes; 10 relocated prefix-pool probes in both
@@ -43,7 +43,8 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Recover matching C for GetUnitDefinitionFormEventScr, Event1B_TEXTSHOW and DisplayEventMapAnim.
 - [x] Integrate the exact 220-byte main palette pool/function C replacement.
 - [x] Repair and verify fresh embedded compiler setup.
-- [ ] Finish map flood candidate matching and integration.
+- [x] Integrate the exact 224-byte map flood pool/helper C replacement.
+- [x] Replace embedded ColorFadeTick with matching C in all three payload versions.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -52,8 +53,8 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 65 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
-| Embedded payload | 20 assembly function declarations; 1 instruction-bearing inline assembly template |
+| Main program | 64 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Embedded payload | 19 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 
 These are source markers, not counts of independent unfinished functions. Empty

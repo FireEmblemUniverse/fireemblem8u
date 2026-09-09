@@ -254,6 +254,9 @@ SECTIONS
         asm/arm.o(.text.after_checksum32);
         src/arm/tm_apply_tsa.o(.text);
         asm/arm.o(.text.after_tm_apply_tsa);
+        MapFloodCoreStepPool = .;
+        src/arm/map_flood_step.o(.text);
+        asm/arm.o(.text.after_map_flood_step);
         src/main.o(.text);
         src/fe3_dummy.o(.text);
         src/irq.o(.text);

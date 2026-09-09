@@ -16,7 +16,10 @@ OUT = ROOT / '.deps/map-flood-match'
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin', type=Path, help='optional experimental GCC plugin')
+    parser.add_argument("--prefix-pool", action="store_true", help="generate the original preceding pointer pool")
     args = parser.parse_args()
+    if args.prefix_pool and not args.plugin:
+        parser.error("--prefix-pool requires --plugin")
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     addresses = struct.unpack_from('<5I', rom, 0x770)
@@ -28,15 +31,23 @@ def main():
              '-fno-auto-inc-dec', '-fno-ivopts', '-fno-if-conversion', '-fno-if-conversion2', '-fno-reorder-blocks']
     if args.plugin:
         flags += ['-fplugin=' + str(args.plugin.resolve())]
+    if args.prefix_pool:
+        flags += ['-fplugin-arg-zero_test-prefix-pool=' + ','.join(names)]
     subprocess.run(['arm-none-eabi-gcc', '-S', str(Path(__file__).with_name('map_flood_step.c')),
                     *flags, '-o', str(OUT / 'candidate.s')], check=True)
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', '-o', str(OUT / 'candidate.o'), str(OUT / 'candidate.s')], check=True)
     script = 'SECTIONS { . = 0x08000784; .text : { *(.text) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n'
+    if args.prefix_pool:
+        script = script.replace('0x08000784', '0x08000770')
     script += ''.join(n + ' = ' + hex(a) + ';\n' for n, a in zip(names, addresses))
     (OUT / 'candidate.ld').write_text(script)
     subprocess.run(['arm-none-eabi-ld', '-T', str(OUT / 'candidate.ld'), '-o', str(OUT / 'candidate.elf'), str(OUT / 'candidate.o')], check=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT / 'candidate.elf'), str(OUT / 'candidate.bin')], check=True)
     code = (OUT / 'candidate.bin').read_bytes()
+    section = code
+    if args.prefix_pool:
+        code = section[20:]
+    (OUT / 'candidate-body.bin').write_bytes(code)
     assert len(code) < 0xB00 - 0x784
     machines = []
     for replacement in (None, code):
@@ -121,12 +132,14 @@ def main():
               'plugin_sha256': hashlib.sha256(args.plugin.read_bytes()).hexdigest() if args.plugin else None,
               'compiler_flags': flags, 'cases': count, 'return_nzcv_difference_cases': flag_differences,
               'return_nzcv_difference_masks': sorted(flag_difference_masks),
-              'original_instruction_bytes': 204, 'candidate_section_bytes': len(code),
+              'original_instruction_bytes': 204, 'candidate_section_bytes': len(section),
+              'complete_section_match': section == rom[0x770:0x850] if args.prefix_pool else False,
+              'candidate_section_sha256': hashlib.sha256(section).hexdigest(),
               'differing_words': differences}
     (OUT / 'report.json').write_text(json.dumps(report,indent=2)+'\n')
     print(str(len(differences))+' differing original instruction words; '+str(flag_differences)+' return-NZCV differences.')
     print(str(count)+' cases agree between original ARM, compiled C, and expected queue/map effects.')
-    print('Candidate section: '+str(len(code))+' bytes; original helper body: 204 bytes. Still nonmatching.')
+    print('Candidate section: '+str(len(section))+' bytes; complete section match: '+str(report['complete_section_match']))
 
 
 if __name__ == '__main__':

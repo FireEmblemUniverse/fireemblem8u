@@ -1,29 +1,17 @@
-/* Standalone oracle fixture; production implementation: src/arm/map_flood_step.c.
- * All 224 pool/function bytes match with the ordered-prefix-pool compiler option.
- * Coordinates and the output queue must be valid; the original has no bounds
- * or queue-capacity check. Equal-cost paths do not enter the queue.
- */
-typedef unsigned char u8;
-typedef unsigned int u32;
-struct FloodNode { u8 x, y, connection, cost; };
-struct FloodState {
-    struct FloodNode * source;
-    struct FloodNode * destination;
-    u8 checkUnits, movement, unitId, maxMovementValue;
-};
-extern struct FloodState gMovMapFillState;
-extern u8 ** gWorkingBmMap;
-extern u8 ** gBmMapTerrain;
-extern u8 ** gBmMapUnit;
-extern u8 gWorkingTerrainMoveCosts[];
+#include "global.h"
+#include "bmidoten.h"
+#include "bmbattle.h"
+#include "bmmap.h"
 
+// Coordinates are read unsigned, matching the original ARM byte loads.
+// Queue only strictly cheaper paths. Callers provide valid coordinates and capacity.
 void MapFloodCoreStep(int connectionArg, int dx, int dy)
 {
     register int connection asm("r0") = connectionArg;
     register int x asm("r1") = dx;
     register int y asm("r2") = dy;
-    register struct FloodState * state asm("r3") = &gMovMapFillState;
-    register struct FloodNode * node asm("r4");
+    register struct MovMapFillState * state asm("r3") = &gMovMapFillState;
+    register struct MovMapFillStateExt * node asm("r4");
     register unsigned sourceX asm("r5");
     register unsigned sourceY asm("r6");
     register u8 ** rows asm("r7");
@@ -32,13 +20,13 @@ void MapFloodCoreStep(int connectionArg, int dx, int dy)
     register unsigned cost asm("r10");
 
     asm("" : "+r"(state));
-    node = state->source;
+    node = state->src;
     asm("" : "+r"(node));
-    sourceX = node->x;
+    sourceX = (u8) node->xPos;
     asm("" : "+r"(sourceX));
     x += sourceX;
     asm("" : "+r"(x));
-    sourceY = node->y;
+    sourceY = (u8) node->yPos;
     asm("" : "+r"(sourceY));
     y += sourceY;
     asm("" : "+r"(y));
@@ -78,7 +66,7 @@ void MapFloodCoreStep(int connectionArg, int dx, int dy)
     if (cost >= oldCost)
         goto end;
     {
-        register unsigned flag asm("r4") = state->checkUnits;
+        register unsigned flag asm("r4") = (u8) state->hasUnit;
         asm("" : "+r"(flag));
         if (flag)
         {
@@ -109,15 +97,15 @@ void MapFloodCoreStep(int connectionArg, int dx, int dy)
         if (cost > flag)
             goto end;
     }
-    node = state->destination;
+    node = state->dst;
     asm("" : "+r"(node));
-    node->x = x;
-    node->y = y;
-    node->connection = connection;
-    node->cost = cost;
+    node->xPos = x;
+    node->yPos = y;
+    node->connexion = connection;
+    node->leastMoveCost = cost;
     node++;
     asm("" : "+r"(node));
-    state->destination = node;
+    state->dst = node;
     {
         register u8 *** address asm("r7") = &gWorkingBmMap;
         register u8 * row asm("r7");

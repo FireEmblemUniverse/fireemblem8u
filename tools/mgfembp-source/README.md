@@ -27,3 +27,8 @@ the same upstream base so a fresh checkout can restore the complete local chain.
 The bundle also pins and repairs the embedded compiler installer. It serializes
 legacy generator builds, stops on errors, and stages installation; a fresh
 toolchain and fresh object builds of all three payload variants were verified.
+
+Embedded ColorFadeTick is also matching C: 208 instruction bytes plus its
+12-byte pointer pool. The bundle includes the complete ARM plugin sources and
+helpers so standalone payload builds do not depend on files in the parent repo.
+All three payload reference checksums remain exact.
