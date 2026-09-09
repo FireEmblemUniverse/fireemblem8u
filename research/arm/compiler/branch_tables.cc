@@ -13,6 +13,7 @@
 #include "tm.h"
 #include "diagnostic-core.h"
 #include "insn-constants.h"
+#include "insn-flags.h"
 int plugin_is_GPL_compatible;
 namespace {
 void checked(rtx_insn *insn) {
@@ -56,7 +57,7 @@ public:
                 gen_rtx_GTU(VOIDmode,cc,const0_rtx),copy_rtx(fallback),pc_rtx)),i));
             checked(emit_insn_before(gen_rtx_SET(copy_rtx(base),gen_rtx_PLUS(SImode,gen_rtx_ASHIFT(SImode,copy_rtx(index),GEN_INT(2)),
                 copy_rtx(base))),i));
-            checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,copy_rtx(base)),i));
+            checked(emit_jump_insn_before(gen_indirect_jump(copy_rtx(base)),i));
             for(int j=0;j<n;j++)checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,copy_rtx(XVECEXP(vector,1,j))),table));
             remove_insn(table);
             rtx_insn *previous=PREV_INSN(i);

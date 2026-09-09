@@ -1908,3 +1908,29 @@ addition requires the canonical shifted operand first in RTL. These observations
 narrow the remaining backend work without bypassing instruction recognition or
 patching generated object bytes. The original table-layout problem is reduced
 to address formation, scratch selection, guard policy and exact entry layout.
+
+
+## Branch-table regression probes and composed passes
+
+`research/arm/compiler/check_branch_tables.py --plugin .deps/flood-core-rtl/branch_tables.so`
+passes 4,608 baseline/plugin executions: six switch functions, 24 indices and
+all 16 incoming NZCV combinations in both builds. Tables have five, six or nine
+slots, zero or seven as the lower bound, and a missing case. Inputs cover every
+slot, holes, values outside both ends, and high unsigned values. Call selections,
+r4-r11/SP preservation, emitted instruction-table form and unchanged Thumb
+output are checked. The retained bounds check correctly routes invalid indices
+to the default case.
+
+Both dispatcher checkers now accept repeated `--plugin` options and record each
+plugin's hash. Running the full-helper checker with XOR fusion and branch-table
+lowering together passes all 640 controlled-helper and 240 actual-helper cases.
+The composed candidate is 448 bytes, with EORS and an instruction table together;
+all 48 argument-setup words remain exact. This still is not ROM integration.
+
+Using GCC's `gen_indirect_jump` generator and separately testing ARM interworking
+still emits MOV-pc for this target, not the desired BX. The generator is retained
+as the backend interface; the unhelpful interworking flag is not retained. The
+remaining work includes PC-relative address formation, scratch register choice,
+removing the extra guard under an explicit valid-index contract, exact table
+entry placement and shared literals. Production source and compiler settings
+remain unchanged.
