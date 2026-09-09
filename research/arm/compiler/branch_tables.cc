@@ -21,6 +21,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 bool pc_relative=false;
+bool sink_trampolines=false;
 tree valid_switch_contract(tree *node,tree,tree,int,bool *no_add) {
     if(TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_unchecked_switch requires a function declaration");
@@ -32,6 +33,45 @@ const attribute_spec unchecked_attribute={"matching_unchecked_switch",0,0,true,f
 void register_contract(void *,void *) { register_attribute(&unchecked_attribute); }
 void checked(rtx_insn *insn) {
     if (recog_memoized(insn)<0) { debug_rtx(PATTERN(insn)); fatal_error(UNKNOWN_LOCATION,"unrecognized instruction-table RTL"); }
+}
+rtx jump_target(rtx_insn *i) {
+    if(!i || !JUMP_P(i) || GET_CODE(PATTERN(i))!=SET || SET_DEST(PATTERN(i))!=pc_rtx) return nullptr;
+    rtx target=SET_SRC(PATTERN(i));
+    return GET_CODE(target)==LABEL_REF ? XEXP(target,0) : nullptr;
+}
+// A jump around a jump-only block can become fallthrough if that block moves
+// after the following block's unconditional terminator. All labels retain identity.
+void sink_jump_only_blocks() {
+    bool changed;
+    do {
+        changed=false;
+        for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+            rtx common=jump_target(i);
+            if(!common)continue;
+            rtx_insn *skip_barrier=next_nonnote_nondebug_insn(i);
+            if(!skip_barrier || !BARRIER_P(skip_barrier))continue;
+            rtx_insn *start=next_nonnote_nondebug_insn(skip_barrier);
+            if(!start || !LABEL_P(start))continue;
+            rtx_insn *jump=next_nonnote_nondebug_insn(start);
+            while(jump && INSN_P(jump) && GET_CODE(PATTERN(jump))==ASM_OPERANDS
+                  && ASM_OPERANDS_TEMPLATE(PATTERN(jump))[0]=='\0'
+                  && ASM_OPERANDS_OUTPUT_CONSTRAINT(PATTERN(jump))[0]=='\0')
+                jump=next_nonnote_nondebug_insn(jump);
+            if(!jump_target(jump))continue;
+            rtx_insn *end=next_nonnote_nondebug_insn(jump);
+            if(!end || !BARRIER_P(end) || next_nonnote_nondebug_insn(end)!=common)continue;
+            rtx_insn *terminator=next_nonnote_nondebug_insn(as_a<rtx_insn *>(common));
+            while(terminator && GET_CODE(terminator)==INSN)terminator=next_nonnote_nondebug_insn(terminator);
+            if(!jump_target(terminator))continue;
+            rtx_insn *after=next_nonnote_nondebug_insn(terminator);
+            if(!after || !BARRIER_P(after))continue;
+            reorder_insns_nobb(start,end,after);
+            remove_insn(i);
+            remove_insn(skip_barrier);
+            changed=true;
+            break;
+        }
+    } while(changed);
 }
 const pass_data data={RTL_PASS,"branch_tables",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
@@ -101,6 +141,7 @@ public:
             remove_insn(i);
             i=previous;
         }
+        if(sink_trampolines) sink_jump_only_blocks();
         return 0;
     }
 };
@@ -108,8 +149,10 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version))return 1;
     for(int a=0;a<info->argc;a++) {
-        if(strcmp(info->argv[a].key,"pc-relative") || info->argv[a].value) return 1;
-        pc_relative=true;
+        if(info->argv[a].value) return 1;
+        if(!strcmp(info->argv[a].key,"pc-relative")) pc_relative=true;
+        else if(!strcmp(info->argv[a].key,"sink-trampolines")) sink_trampolines=true;
+        else return 1;
     }
 #ifndef HAVE_match_arm_read_pc
     if(pc_relative) { error("pc-relative tables require the matching ARM backend"); return 1; }

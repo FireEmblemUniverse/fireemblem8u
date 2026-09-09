@@ -20,6 +20,7 @@ def main():
     parser.add_argument('--compiler',default='arm-none-eabi-gcc')
     parser.add_argument('--pc-relative',action='store_true')
     parser.add_argument('--unchecked',action='store_true')
+    parser.add_argument('--sink-trampolines',action='store_true')
     args=parser.parse_args()
     if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
@@ -31,6 +32,7 @@ def main():
     flags=FLAGS+['-ffixed-r14','-ffixed-r1','-ffixed-r2','-ffixed-r3']
     flags+=['-fplugin='+str(plugin.resolve()) for plugin in args.plugin]
     if args.unchecked:flags+=['-DMATCH_UNCHECKED_DISPATCH','-Werror=attributes']
+    if args.sink_trampolines:flags+=['-fplugin-arg-branch_tables-sink-trampolines']
     if args.pc_relative:flags+=['-fplugin-arg-branch_tables-pc-relative']
     subprocess.run([args.compiler,'-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
@@ -38,6 +40,14 @@ def main():
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'candidate.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
     code=(OUT/'candidate.bin').read_bytes()
+    # Relink the same compiler object at the original address for raw word comparison.
+    (OUT/'matching.ld').write_text((OUT/'candidate.ld').read_text().replace('0x08010000','0x08000874'))
+    subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'matching.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'matching.elf')],check=True)
+    subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'matching.elf'),str(OUT/'matching.bin')],check=True)
+    matching=(OUT/'matching.bin').read_bytes()
+    original=rom[0x874:0xa20]
+    differences=[{'address':hex(0x08000874+i),'original':original[i:i+4].hex(),'candidate':matching[i:i+4].hex()}
+                 for i in range(0,len(original),4) if original[i:i+4]!=matching[i:i+4]]
     def call_setups(body, address):
         words=struct.unpack('<'+'I'*(len(body)//4),body[:len(body)//4*4])
         setups=[]
@@ -127,7 +137,7 @@ def main():
                 flag_differences+=returns[0]!=returns[1]
                 count+=1
     assert flag_differences == 0, flag_differences
-    report={'plugins':[{'path':str(plugin.resolve()),'sha256':hashlib.sha256(plugin.read_bytes()).hexdigest()} for plugin in args.plugin],'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
+    report={'original_instruction_words':107,'differing_words':differences,'relocated_section_bytes':len(matching),'plugins':[{'path':str(plugin.resolve()),'sha256':hashlib.sha256(plugin.read_bytes()).hexdigest()} for plugin in args.plugin],'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     print(f'{count} original/candidate dispatcher cases pass; candidate section {len(code)} bytes; instruction matching unfinished.')
 if __name__=='__main__':main()

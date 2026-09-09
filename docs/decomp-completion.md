@@ -2016,3 +2016,28 @@ section is currently 448 bytes; moving this trampoline and recovering the shared
 and preceding literals remain. All 640 controlled-helper and 240 actual-helper
 cases pass with r0, the explicit contract and table fallthrough together.
 Production source remains unchanged.
+
+
+## Dispatcher loop trampoline matched: five literal loads remain
+
+The optional `sink-trampolines` compiler rule recognizes a jump around a
+jump-only block, followed by a common block with an unconditional terminator.
+It moves the jump-only block after that terminator and removes the jump around
+it. It retains label identities and only crosses the recognized structure;
+nonempty code in the trampoline or intermediate labels/calls in the following
+block prevent this transformation. The empty phase constraint keeps the original
+loop trampoline represented in C. No original machine bytes are patched.
+
+With `--sink-trampolines` added to the existing new-compiler/PC-relative/unchecked
+checker command, all 640 controlled-helper and 240 actual-helper cases pass.
+The section shrinks to 444 bytes: 428 instruction bytes and 16 trailing literals.
+Relinking the same compiler object at `0x08000874` gives 102/107 matching
+instruction words. The only differences are literal loads at `0x0800087C`,
+`0x08000888`, `0x08000890`, `0x0800089C` and `0x080008A4`. All branch offsets,
+helper calls, loop instructions and return instructions now match at that address.
+
+The dispatcher checker now records this raw comparison separately from execution
+at its isolated address, including the extra candidate section bytes. The five
+loads still reference a trailing pool instead of the original preceding/shared
+pool, so the candidate remains outside production. Dedicated broader trampoline
+layout probes remain desirable before promoting the experimental compiler rule.
