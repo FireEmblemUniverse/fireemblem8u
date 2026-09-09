@@ -1,6 +1,5 @@
-/* NONMATCHING research candidate; not included in the ROM build.
- * GNU ARM GCC 16.2.0 reproduces 12 of 14 original instructions.
- * The two remaining differences are MOV versus SUB-immediate-zero copies.
+/* Standalone oracle fixture; production implementation: src/arm/tm_fill_rect.c.
+ * All 14 instruction words match with the scalar-copy-sub-zero compiler option.
  * See docs/decomp-completion.md for reproduction and exact offsets.
  */
 typedef unsigned int u32;

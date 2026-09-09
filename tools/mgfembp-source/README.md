@@ -36,3 +36,6 @@ All three payload reference checksums remain exact.
 Embedded TmCopyRect is matching C as well (92 bytes). The bundled compiler
 source includes the guarded zero/sign branch-pair rule; all three payload
 reference checksums still pass.
+
+Embedded TmFillRect is now matching C (56 bytes), using the bundled compiler's
+optional scalar-copy encoding rule. All three payload checksums still match.

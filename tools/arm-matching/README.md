@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep and TmCopyRect routines. The production Makefile loads it only for those three
+MapFloodCoreStep, TmCopyRect and TmFillRect routines. The production Makefile loads it only for those four
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -102,3 +102,26 @@ all 92 bytes, and runs 2,560 cases against the canonical ROM and sequential
 memory-copy reference. It covers overlapping buffers, zero and negative
 sizes, widths crossing the 32-tile stride, every incoming NZCV combination,
 all r0-r12 results, preserved stack/registers, and write boundaries.
+
+## Optional scalar copy encoding
+
+`-fplugin-arg-zero_test-scalar-copy-sub-zero` selects non-flag-setting SUB-zero
+instead of MOV for 32-bit register-to-register copies. It skips pointer-tagged
+registers, frame-related instructions, and r13-r15 and special registers. Each
+replacement goes through the ARM recognizer; rejection fails compilation.
+Explicit requests in Thumb mode are rejected. No opcode bytes are patched.
+Only TmFillRect enables this option; other functions keep the default behavior.
+
+```sh
+.deps/arm-oracle-venv/bin/python tools/arm-matching/check_scalar_copy.py --plugin .deps/arm-matching-plugin/zero_test.so
+.deps/arm-oracle-venv/bin/python research/arm/check_tm_fill_rect.py --plugin .deps/arm-matching-plugin/zero_test.so
+```
+
+The encoding probes execute 384 baseline/option scalar and pointer cases,
+checking all incoming NZCV, return values, r1-r12 and SP, unchanged pointer
+assembly, and Thumb rejection. The fill oracle covers 2,016 cases with inclusive
+zero counters, selected negative counter bit patterns, widths crossing the
+32-tile stride, value truncation, register/flag results, and write boundaries.
+All 56 original instruction bytes match. Original counter value 0x80000000
+would require an impractically large write and is outside these bounded cases;
+whole-section equality remains the stronger instruction-matching evidence.

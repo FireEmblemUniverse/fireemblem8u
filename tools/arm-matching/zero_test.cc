@@ -19,6 +19,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::vector<std::string> prefix_names;
+bool scalar_copy_sub_zero = false;
 struct pool_entry { rtx_insn *insn; rtx value; rtx_code_label *label; };
 
 bool references_label(rtx value, rtx_code_label *label) {
@@ -166,6 +167,23 @@ void zero_branch_pairs() {
     }
 }
 
+// Optional encoding choice for integer register copies. Pointer-typed copies,
+// special registers, frame setup, and non-word modes retain their normal form.
+void scalar_copies() {
+    if (!scalar_copy_sub_zero) return;
+    for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
+        if (!NONDEBUG_INSN_P(insn) || RTX_FRAME_RELATED_P(insn)
+            || GET_CODE(PATTERN(insn)) != SET) continue;
+        rtx set = PATTERN(insn), dst = SET_DEST(set), src = SET_SRC(set);
+        if (!REG_P(dst) || !REG_P(src) || GET_MODE(dst) != SImode
+            || GET_MODE(src) != SImode || REGNO(dst) >= 13 || REGNO(src) >= 13
+            || REG_POINTER(dst) || REG_POINTER(src)) continue;
+        rtx replacement = gen_rtx_SET(dst, gen_rtx_MINUS(SImode, src, const0_rtx));
+        if (!validate_change(insn, &PATTERN(insn), replacement, false))
+            fatal_error(UNKNOWN_LOCATION, "scalar SUB-zero copy rejected by ARM backend");
+    }
+}
+
 const pass_data data = {RTL_PASS, "equality_tst", OPTGROUP_NONE, TV_NONE, PROP_rtl, 0, 0, 0, 0};
 class pass_tst : public rtl_opt_pass {
 public:
@@ -173,8 +191,10 @@ public:
     unsigned int execute(function *) override {
         if (!TARGET_ARM) {
             if (!prefix_names.empty()) fatal_error(UNKNOWN_LOCATION, "prefix pool requires ARM mode");
+            if (scalar_copy_sub_zero) fatal_error(UNKNOWN_LOCATION, "scalar SUB-zero copies require ARM mode");
             return 0;
         }
+        scalar_copies();
         zero_branch_pairs();
         for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
             if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
@@ -227,6 +247,10 @@ public:
 int plugin_init(plugin_name_args *info, plugin_gcc_version *version) {
     if (!plugin_default_version_check(version, &gcc_version)) return 1;
     for (int i = 0; i < info->argc; ++i) {
+        if (!strcmp(info->argv[i].key, "scalar-copy-sub-zero") && !info->argv[i].value) {
+            scalar_copy_sub_zero = true;
+            continue;
+        }
         if (strcmp(info->argv[i].key, "prefix-pool") || !info->argv[i].value) return 1;
         std::string names(info->argv[i].value);
         size_t start = 0, comma;

@@ -7,47 +7,7 @@
 @ ClearOam and Checksum32 are linked here from src/arm/.
 	.section .text.after_checksum32, "ax", %progbits
 
-/*
-Behavioral reference (the implementation below is still assembly):
-
-void TmFillRect(u16 * dst, u32 widthMinusOne, u32 heightMinusOne, u32 fillValue)
-{
-    u32 y = heightMinusOne;
-    do
-    {
-        u16 * row = dst;
-        u32 x = widthMinusOne;
-        do
-        {
-            *row++ = fillValue;
-        } while ((s32) --x >= 0);
-        dst += 32;
-    } while ((s32) --y >= 0);
-}
-
-The dimensions are inclusive counters: (0, 0) writes one tile. In contrast,
-TmCopyRect below receives ordinary counts and returns on nonpositive sizes.
-*/
-	ARM_FUNC_START TmFillRect
-TmFillRect: @ 0x080003A8
-	push {r4, r5, r6, r7}
-	mov r4, r0
-	sub r6, r2, #0
-  1:
-	sub r5, r1, #0
-  2:
-	strh r3, [r4]
-	add r4, r4, #2
-	subs r5, r5, #1		@ decrement width counter
-	bpl 2b
-	add r0, r0, #0x40
-	mov r4, r0
-	subs r6, r6, #1		@ decrement height counter
-	bpl 1b
-	pop {r4, r5, r6, r7}
-	bx lr
-
-	ARM_FUNC_END TmFillRect
+@ TmFillRect is linked here from matching C.
 
 @ TmCopyRect is linked here from matching C.
 

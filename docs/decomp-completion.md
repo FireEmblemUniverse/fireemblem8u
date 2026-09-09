@@ -19,7 +19,8 @@ pool (220 bytes total); the source audit is down to 65 assembly entry markers.
 MapFloodCoreStep is now matching C as well (224 bytes including its shared
 pointer pool), and embedded ColorFadeTick is C in all three payload versions.
 TmCopyRect is now matching C in the main and embedded builds too.
-The current inventories are 63 main assembly entry markers and 18 embedded
+TmFillRect is also matching C in both builds.
+The current inventories are 62 main assembly entry markers and 17 embedded
 assembly function declarations. The full ROM comparison passes. See the latest
 sections for integration and toolchain verification.
 
@@ -1429,3 +1430,35 @@ assembly declarations, and 88 inline sites (28 bindings, 59 empty constraints,
 one original BIOS instruction). Linked mapping attributes 92 ARM bytes to the
 new main C object with no orphan mappings. TmFillRect remains nonmatching at
 two scalar-copy encodings and is the next tilemap target.
+
+## Main and embedded TmFillRect integrated
+
+TmFillRect now comes from C in both executables. Its 56-byte body remains at
+`0x080003A8` in the main ROM and `0x020102DC` in the final embedded payload.
+The copied ARM block boundaries remain unchanged, and all three payload
+checksums plus the full 16,777,216-byte ROM compare exactly.
+
+The last two differences were MOV scalar copies versus SUB-immediate-zero.
+An explicit compiler option now changes eligible SI-mode register copies to
+SUB-zero using GCC RTL recognition. Pointer-tagged registers, frame-related
+instructions, and special registers are excluded. The resulting instruction
+does not change flags. The option is enabled only for the fill translation
+unit, and explicit Thumb requests are rejected. The compiler source contains
+no game identifiers, addresses, or instruction-byte templates.
+
+The generic encoding checks pass 384 scalar/pointer cases across all incoming
+NZCV, including preserved r1-r12 and SP and unchanged pointer instructions.
+The fill oracle passes 2,016 original/candidate cases with inclusive zero
+counters, selected negative counter bit patterns, tile values with high bits,
+row-stride boundary widths, all flags, all r0-r12 results and allowed writes.
+These bounded cases exclude the impractically large 0x80000000 counter. The
+complete 56-byte match independently proves original instruction encoding.
+The 18,816 existing comparison-plugin probes and prefix-pool checks still pass.
+
+The updated child source/plugin bundle points to
+`8312955da4cc52db3f03283274b17509e0f32d1c`. The source audit reports 446 main C
+files, 62 assembly entry markers, and 263 inline sites: 116 register bindings,
+139 empty constraints, one directive and seven instruction templates. The
+embedded audit reports 21 C files, 17 assembly declarations and 99 inline sites:
+32 bindings, 66 empty constraints and one original BIOS instruction. The linked
+mapping audit attributes 56 ARM bytes to the new C object with no orphan mappings.
