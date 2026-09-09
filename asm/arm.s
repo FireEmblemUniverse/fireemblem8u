@@ -49,46 +49,7 @@ TmFillRect: @ 0x080003A8
 
 	ARM_FUNC_END TmFillRect
 
-/*
-void TmCopyRect(u16 * src, u16 * dst, int width, int height)
-{
-	int i, j;
-	for (i = 0; i < height; i++)
-		for (j = 0; j < width; j++)
-			dst[j + 0x20 * i] = src[j + 0x20 * i];
-}
-*/
-	ARM_FUNC_START TmCopyRect
-TmCopyRect: @ 0x080003E0
-	push {r4, r5, r6, r7}
-	tst r2, r2
-	beq .LCopyRectEnd
-	bmi .LCopyRectEnd
-	tst r3, r3
-	beq .LCopyRectEnd
-	bmi .LCopyRectEnd
-	mov r4, #0x40
-	sub r4, r4, r2, lsl #1
-	sub r6, r3, #1
-1:
-	sub r5, r2, #1
-2:
-	@ *dst++ = *src++
-	ldrh r7, [r0]
-	strh r7, [r1]
-	add r0, r0, #2
-	add r1, r1, #2
-	subs r5, r5, #1
-	bpl 2b
-	add r0, r0, r4
-	add r1, r1, r4
-	subs r6, r6, #1
-	bpl 1b
-.LCopyRectEnd:
-	pop {r4, r5, r6, r7}
-	bx lr
-
-	ARM_FUNC_END TmCopyRect
+@ TmCopyRect is linked here from matching C.
 
 @ TmApplyTsa is linked here from src/arm/tm_apply_tsa.c.
 	.section .text.after_tm_apply_tsa, "ax", %progbits

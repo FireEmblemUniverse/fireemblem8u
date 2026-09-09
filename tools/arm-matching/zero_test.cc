@@ -114,6 +114,58 @@ void prefix_pool() {
     for (const auto &entry : entries) remove_insn(entry.insn);
     remove_insn(end);
 }
+// CMP-zero followed by EQ and LT to the same destination only needs Z and N.
+// Rewrite both consumers together so an incoming V bit cannot affect the sign
+// branch. Accept only input-only empty constraints between the two branches.
+void zero_branch_pairs() {
+    for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
+        if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
+        rtx set = PATTERN(insn), cc = SET_DEST(set), cmp = SET_SRC(set);
+        if (!REG_P(cc) || REGNO(cc) != CC_REGNUM || GET_CODE(cmp) != COMPARE
+            || XEXP(cmp,1) != const0_rtx || !REG_P(XEXP(cmp,0))
+            || GET_MODE(XEXP(cmp,0)) != SImode) continue;
+        rtx_insn *first = next_nonnote_nondebug_insn(insn);
+        if (!first || !JUMP_P(first) || GET_CODE(PATTERN(first)) != SET
+            || SET_DEST(PATTERN(first)) != pc_rtx) continue;
+        rtx first_choice = SET_SRC(PATTERN(first));
+        if (GET_CODE(first_choice) != IF_THEN_ELSE) continue;
+        rtx eq = XEXP(first_choice,0);
+        if (GET_CODE(eq) != EQ || !rtx_equal_p(XEXP(eq,0),cc)
+            || XEXP(eq,1) != const0_rtx || GET_CODE(XEXP(first_choice,1)) != LABEL_REF
+            || XEXP(first_choice,2) != pc_rtx) continue;
+        rtx_insn *second = next_nonnote_nondebug_insn(first);
+        while (second && GET_CODE(second) == INSN
+               && GET_CODE(PATTERN(second)) == ASM_OPERANDS
+               && ASM_OPERANDS_TEMPLATE(PATTERN(second))[0] == '\0'
+               && ASM_OPERANDS_OUTPUT_CONSTRAINT(PATTERN(second))[0] == '\0')
+            second = next_nonnote_nondebug_insn(second);
+        if (!second || !JUMP_P(second) || GET_CODE(PATTERN(second)) != SET
+            || SET_DEST(PATTERN(second)) != pc_rtx) continue;
+        rtx second_choice = SET_SRC(PATTERN(second));
+        if (GET_CODE(second_choice) != IF_THEN_ELSE) continue;
+        rtx lt = XEXP(second_choice,0);
+        if (GET_CODE(lt) != LT || !rtx_equal_p(XEXP(lt,0),cc)
+            || XEXP(lt,1) != const0_rtx || XEXP(second_choice,2) != pc_rtx
+            || !rtx_equal_p(XEXP(first_choice,1), XEXP(second_choice,1))
+            || !find_regno_note(second, REG_DEAD, CC_REGNUM)) continue;
+        rtx newcc = gen_rtx_REG(CC_NZmode, CC_REGNUM), value = XEXP(cmp,0);
+        rtx replacement = gen_rtx_PARALLEL(VOIDmode, gen_rtvec(2,
+            gen_rtx_SET(newcc, gen_rtx_COMPARE(CC_NZmode,
+                gen_rtx_AND(SImode, copy_rtx(value), copy_rtx(value)), const0_rtx)),
+            gen_rtx_CLOBBER(VOIDmode, gen_rtx_SCRATCH(SImode))));
+        rtx branch1 = copy_rtx(PATTERN(first)), branch2 = copy_rtx(PATTERN(second));
+        XEXP(XEXP(SET_SRC(branch1),0),0) = newcc;
+        XEXP(XEXP(SET_SRC(branch2),0),0) = newcc;
+        bool valid = validate_change(insn, &PATTERN(insn), replacement, true);
+        valid &= validate_change(first, &PATTERN(first), branch1, true);
+        valid &= validate_change(second, &PATTERN(second), branch2, true);
+        if (valid && apply_change_group()) {
+            REG_NOTES(first) = replace_rtx(REG_NOTES(first),cc,newcc);
+            XEXP(find_regno_note(second, REG_DEAD, CC_REGNUM),0) = newcc;
+        } else cancel_changes(0);
+    }
+}
+
 const pass_data data = {RTL_PASS, "equality_tst", OPTGROUP_NONE, TV_NONE, PROP_rtl, 0, 0, 0, 0};
 class pass_tst : public rtl_opt_pass {
 public:
@@ -123,6 +175,7 @@ public:
             if (!prefix_names.empty()) fatal_error(UNKNOWN_LOCATION, "prefix pool requires ARM mode");
             return 0;
         }
+        zero_branch_pairs();
         for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
             if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
             rtx set = PATTERN(insn), cc = SET_DEST(set), comparison = SET_SRC(set);

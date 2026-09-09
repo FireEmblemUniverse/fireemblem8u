@@ -18,7 +18,8 @@ ColorFadeTick is now integrated as matching C, including its preceding literal
 pool (220 bytes total); the source audit is down to 65 assembly entry markers.
 MapFloodCoreStep is now matching C as well (224 bytes including its shared
 pointer pool), and embedded ColorFadeTick is C in all three payload versions.
-The current inventories are 64 main assembly entry markers and 19 embedded
+TmCopyRect is now matching C in the main and embedded builds too.
+The current inventories are 63 main assembly entry markers and 18 embedded
 assembly function declarations. The full ROM comparison passes. See the latest
 sections for integration and toolchain verification.
 
@@ -1397,3 +1398,34 @@ assembly function declarations; its 69 inline sites are 22 bindings, 46 empty
 constraints and one original BIOS instruction. Both linked mapping audits have
 zero orphan mappings and unchanged total ARM/Thumb instruction byte counts.
 The whole-ROM checksum passes after both integrations.
+
+## Main and embedded TmCopyRect integrated
+
+TmCopyRect is now matching C at `0x080003E0`, size 92. Its zero and negative
+dimension checks required a guarded compiler transformation of CMP-zero with
+EQ and LT consumers to TST with CC_NZ consumers. Both branches must target the
+same label, the final CC use must be dead, and only input-only empty constraints
+may intervene. All changes go through GCC recognition together. Register-number
+lookup is used for the death note because equivalent CC RTL objects need not
+share pointer identity. The final note is updated explicitly to the new mode.
+
+The isolated checker reproduces all 23 original instruction words and passes
+2,560 cases against original ARM and a sequential memory reference. Cases cover
+INT_MIN/negative/zero dimensions, widths 1 through 33 at boundary values,
+heights through four, disjoint and overlapping buffers in both directions,
+every incoming NZCV, r0-r12 results, the original 16-byte stack save, and allowed
+write ranges. The generic compiler suite now passes 18,816 baseline/plugin
+executions; excluded signed/boundary cases and Thumb output remain unchanged.
+Prefix-pool checks also pass after the extension.
+
+The same C body and identical compiler sources are included in the payload.
+All three payload checksums and the entire 16,777,216-byte ROM match after
+integration. The copied ARM block boundaries are unchanged. Payload revision
+`7def95f6a36c1fb0f5bc979633aa6e380ea86038` is included in the verified source
+bundle. The source audit now reports 445 main C files, 63 assembly markers,
+and 252 inline sites (112 bindings, 132 empty constraints, one directive,
+seven instruction templates). The embedded audit reports 20 C files, 18
+assembly declarations, and 88 inline sites (28 bindings, 59 empty constraints,
+one original BIOS instruction). Linked mapping attributes 92 ARM bytes to the
+new main C object with no orphan mappings. TmFillRect remains nonmatching at
+two scalar-copy encodings and is the next tilemap target.

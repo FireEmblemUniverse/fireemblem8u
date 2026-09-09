@@ -32,3 +32,7 @@ Embedded ColorFadeTick is also matching C: 208 instruction bytes plus its
 12-byte pointer pool. The bundle includes the complete ARM plugin sources and
 helpers so standalone payload builds do not depend on files in the parent repo.
 All three payload reference checksums remain exact.
+
+Embedded TmCopyRect is matching C as well (92 bytes). The bundled compiler
+source includes the guarded zero/sign branch-pair rule; all three payload
+reference checksums still pass.

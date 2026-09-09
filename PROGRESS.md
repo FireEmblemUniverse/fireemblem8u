@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: integrated map flood helper and embedded palette routine (this change).
+Updated: September 9, 2026. Latest verified implementation: integrated main and embedded TmCopyRect (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,6 +12,7 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
+| Tilemap copy routine | `████████████████████` **All 92 bytes exact in main and three payload versions** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
 The function percentages describe these routines only. Both main routines and
@@ -20,13 +21,14 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Next: remaining ARM tilemap routines and the flood dispatcher.**
-The map flood helper now compiles from C with its exact shared pointer pool.
-The embedded palette routine is also C, verified in all three payload versions.
-The complete ROM still matches byte-for-byte.
+**Next: TmFillRect and the remaining ARM routines.**
+TmCopyRect now compiles from C in the main game and all three payload versions.
+Its 2,560 execution cases cover nonpositive dimensions, overlapping buffers,
+registers, write boundaries, and all incoming flags. TmFillRect still has two
+MOV-versus-SUB-zero instruction differences. The full ROM remains exact.
 
 Latest checks: 65,536 palette component/step pairs; 80 map flood cases with no
-return-flag differences; 18,144 compiler-plugin execution probes; 10 relocated prefix-pool probes in both
+return-flag differences; 18,816 compiler-plugin execution probes; 10 relocated prefix-pool probes in both
 pointer orders and four invalid-manifest rejection checks. All passed.
 
 The embedded compiler installer is repaired: pinned source, serial generator
@@ -45,6 +47,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Repair and verify fresh embedded compiler setup.
 - [x] Integrate the exact 224-byte map flood pool/helper C replacement.
 - [x] Replace embedded ColorFadeTick with matching C in all three payload versions.
+- [x] Replace main and embedded TmCopyRect with matching C.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -53,8 +56,8 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 64 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
-| Embedded payload | 19 assembly function declarations; 1 instruction-bearing inline assembly template |
+| Main program | 63 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Embedded payload | 18 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 
 These are source markers, not counts of independent unfinished functions. Empty

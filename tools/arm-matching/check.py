@@ -32,6 +32,9 @@ def main():
         operations[name] = (lambda x:x<=31) if relation=='le' else (lambda x:x>31)
         source += 'void %s(int x) { if (x %s 31) hit(); }\n' % (name,operator)
 
+    operations['pair'] = lambda x: x > 0
+    source += 'void pair(int x) { asm("" ::: "r4"); if (x == 0) goto end; asm("" : : "r"(x)); if (x < 0) goto end; hit(); end: asm(""); }\n'
+
     with tempfile.TemporaryDirectory(prefix='arm-tst-plugin-check-') as temporary:
         root = Path(temporary)
         (root/'probe.c').write_text(source)
@@ -52,6 +55,8 @@ def main():
                 for function in list(operations)[:6]:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     assert bool(re.search(r'\btst\s',body)) == (function in ('eq','ne')), function
+                pair = text.split('\npair:',1)[1].split('\t.size',1)[0]
+                assert re.search(r'\btst\s', pair) and re.search(r'\b(?:bmi|blpl)\s', pair), pair
                 for function in ['u_le_31','u_gt_31']:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     assert re.search(r'\bcmp\s+[^\n]*#32\b',body), function
@@ -100,7 +105,7 @@ def main():
             thumb.append((root/'thumb.s').read_bytes())
         assert thumb[0]==thumb[1]
     print(str(checks)+' baseline/plugin ARM executions pass, including all incoming NZCV combinations.')
-    print('Zero tests and unsigned power-of-two boundaries pass; excluded boundaries and Thumb output are unchanged.')
+    print('Zero tests, paired zero/sign branches, and unsigned power-of-two boundaries pass; excluded boundaries and Thumb output are unchanged.')
 
 
 if __name__ == '__main__':

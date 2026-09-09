@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep routines. The production Makefile loads it only for those two
+MapFloodCoreStep and TmCopyRect routines. The production Makefile loads it only for those three
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -14,7 +14,9 @@ on that use. It then submits a self-AND zero test in CC_NZ mode to GCC's normal
 instruction recognizer, including the backend's required scratch clobber.
 The comparison and branch changes are validated together and rolled back if
 GCC rejects them. Branch notes are updated to the new condition-code mode.
-Thumb instructions, signed branches, and unknown/multiple flag uses are skipped.
+Thumb instructions and unknown flag uses are skipped. Standalone signed
+comparisons retain their original form; the paired rule below handles one
+specific multi-consumer case.
 
 A second guarded rule changes unsigned LEU/GTU comparisons at a power-of-two
 boundary minus one to LTU/GEU at the boundary. For example, `x <= 31` becomes
@@ -40,7 +42,8 @@ python3 research/arm/build_color_fade.py --plugin .deps/arm-matching-plugin/zero
 The probes execute baseline and plugin-generated code for zero comparisons,
 mixed flag use, unsigned power-of-two boundaries, non-power-of-two boundaries,
 signed boundaries, and unsigned overflow limits. Twenty-one boundary values
-and all sixteen incoming NZCV combinations give 18,144 executions. Selection
+and all sixteen incoming NZCV combinations give 18,816 executions across 28
+functions, including a paired zero/sign test. Selection
 checks verify TST for EQ/NE zero tests and CMP-32 for the eligible 31 boundary.
 Excluded comparisons and Thumb output must remain identical to the baseline.
 These bounded checks are not a general compiler correctness proof.
@@ -82,3 +85,20 @@ instruction encoding without duplicating a literal.
 ```sh
 .deps/arm-oracle-venv/bin/python research/arm/check_map_flood_step.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool
 ```
+
+## Paired zero and sign branches
+
+For a CMP-zero followed by EQ and LT branches to the same destination, the
+pass can use a TST with CC_NZ-mode consumers. The sign branch then tests N,
+independent of the incoming V bit. The last consumer must have a REG_DEAD note
+for the condition-code register. Between branches, only input-only empty asm
+constraints are accepted; labels, calls, nonempty asm, and clobbers stop the
+pattern. The three RTL changes are validated together and the final death
+note is updated to the new CC mode. This emits the original TST/BEQ/BMI sequence
+for TmCopyRect without editing instruction bytes.
+
+`research/arm/check_tm_copy_rect.py` compiles the isolated C fixture, verifies
+all 92 bytes, and runs 2,560 cases against the canonical ROM and sequential
+memory-copy reference. It covers overlapping buffers, zero and negative
+sizes, widths crossing the 32-tile stride, every incoming NZCV combination,
+all r0-r12 results, preserved stack/registers, and write boundaries.

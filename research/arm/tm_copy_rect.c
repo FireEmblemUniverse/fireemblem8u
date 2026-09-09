@@ -1,6 +1,5 @@
-/* NONMATCHING research candidate; excluded from the ROM build.
- * 19 of 23 instruction words match with GNU ARM GCC 16.2.0.
- * Remaining differences: CMP/BLT versus TST/BMI dimension checks.
+/* Standalone oracle fixture; production implementation: src/arm/tm_copy_rect.c.
+ * All 23 instruction words match with the zero/sign branch-pair compiler rule.
  * See docs/decomp-completion.md for compiler flags and evidence.
  */
 typedef unsigned int u32;
