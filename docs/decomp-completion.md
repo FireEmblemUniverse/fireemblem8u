@@ -1858,3 +1858,25 @@ rule is eligible for production. The original jump-instruction table and shared
 literal layout remain unresolved. The RTL inspection also confirms that the
 computed-goto alternative currently reaches a memory-indirect jump pattern,
 not the backend's branch-table form. Production sources remain unchanged.
+
+
+## Standalone XOR-fusion regression probes
+
+`research/arm/compiler/check_xor_flags.py --plugin .deps/flood-core-rtl/xor_flags.so`
+(run in the ARM-oracle environment) compiles separate baseline/plugin probes and
+runs 10,080 executions: 15 functions, 21 boundary input values, all 16 incoming
+NZCV combinations and both builds. It verifies independent XOR results, EQ/NE
+and signed branch decisions, return values, r4-r11 preservation and stack balance.
+The supported EQ/NE masks 1 and 255 must emit EORS. Signed comparisons, barriers
+with memory/CC clobbers and a nonempty identity assembly template must remain
+assembly-identical to baseline. Thumb output must also remain byte-identical.
+All checks pass.
+
+GCC lowers XOR with 0x80000000 to ADD; those probes are explicitly excluded
+from fusion and remain unchanged. Initial probe forms also revealed that GCC
+can combine the zero comparison with a register copy. Such PARALLEL comparisons
+are outside this pass's accepted plain-SET pattern; no rule was expanded to
+consume them. The test's post-branch identity constraint and argument-free call
+isolate the supported pattern while still checking the full XOR return value.
+The experimental pass and game candidate are unchanged; production still does
+not load this pass. Jump-table and literal matching remain outstanding.

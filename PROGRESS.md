@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: original dispatcher phase instruction recovered (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: standalone XOR-fusion validation (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -36,7 +36,8 @@ agree. Instruction matching remains unfinished. All 16 helper argument setups no
 An experimental compiler pass now emits the original EORS phase test; its
 434-byte candidate passes both the 640 controlled-helper and 240 actual-helper
 cases. Jump-table and literal placement still differ; the pass is not enabled
-in production and needs broader compiler regression probes.
+in production. A standalone suite now passes 10,080 baseline/plugin executions,
+checking XOR results, branch decisions, preserved registers and excluded forms.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;
 it removes the extra bounds check but emits an address table, so it remains
 separate research. Low-entry object-list shims also remain unfinished.
