@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: DecodeString integrated as matching C (changes following `47167b71`).
+Updated: September 9, 2026. Latest verified implementation: DecodeString integrated in `4a00f9b8`; latest research: PutOamHi 37/39 matching words (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,6 +12,7 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
+| Object-list high-entry candidate | `██████████████████░░` **37/39 instruction words (94.9%); not integrated** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
 | Half-stride glyph routine | `████████████████████` **All 188 instruction bytes exact; shares the original pointer pool** |
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
@@ -19,13 +20,19 @@ advances, integration results, or changes in the current blocker.
 | Tilemap copy routine | `████████████████████` **All 92 bytes exact in main and three payload versions** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
-The function percentages describe these routines only. All listed replacements
-are integrated into the production build.
+The function percentages describe these routines only. Rows marked integrated and completed replacements
+are in the production build; the object-list candidate remains research.
 An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Next milestone: recover the remaining ARM object-list and map flood dispatcher routines.**
+**Working on: PutOamHi/PutOamLo shared object-list body.**
+The high-entry C candidate matches 37 of 39 instruction words and its four-byte
+pointer pool. Remaining differences are the entry SUBS versus TST and BLT versus
+BMI. Execution-oracle validation and the low-entry shared-body layout remain
+unfinished. Next: resolve those entry encodings and verify both entry contracts.
+
+Latest integrated milestone:
 DecodeString is now integrated as matching C. All 640 valid-tree cases pass,
 including output, consumed input, registers, write boundaries and return flags.
 Its entire 148-byte pool/function section matches, and `make compare -j8`

@@ -1612,3 +1612,27 @@ directive and seven instruction-bearing templates. Embedded inventory remains
 coverage. Remaining ARM work includes the shared PutOamHi/PutOamLo body and
 MapFloodCore dispatcher; startup, audio, hardware interfaces, the unit-list
 fallback and transfer code also remain in scope.
+
+
+## PutOamHi initial matching C candidate
+
+`research/arm/put_oam.c` reconstructs the high-entry object-list writer. It
+preserves eight-byte output entries, six-byte input triples, the untouched
+fourth output halfword, masked X/Y additions, attribute flag OR operations,
+and unsigned 16-bit counts. The original count load zero-extends, so counts
+with bit 15 set are not negative. Input readability and output capacity remain
+caller obligations, including source/destination overlap effects.
+
+`python3 research/arm/build_put_oam.py --plugin .deps/arm-matching-plugin/zero_test.so --prefix-pool`
+compiles and links the candidate against the verified ROM pointer. The 160-byte
+section has an exact four-byte pool and 37 of 39 matching instruction words.
+Only `0x080004A4` (SUBS ip,r4,#0 versus TST r4,r4) and `0x080004AC` (BLT versus
+BMI) differ. Empty constraints after intermediate sums preserve the original
+r7 destinations throughout the loop. Compiler/source/plugin/output hashes and
+raw differences are recorded in `.deps/put-oam-match/report.json`.
+
+This is encoding evidence, not completed execution validation. The SUBS also
+clobbers ip, so agreement with the original register contract is not yet proven.
+PutOamLo's three instructions select its cursor and enter the high routine's
+body after its prologue; preserving that shared layout remains necessary.
+Both entries remain in production assembly. No production source changed.
