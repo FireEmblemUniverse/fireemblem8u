@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher with actual movement helper (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: alternate unchecked dispatcher (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -35,7 +35,9 @@ independent reference, and original/candidate memory, queues and return flags
 agree. Instruction matching remains unfinished. All 16 helper argument setups now match the original 48 instruction words.
 The 438-byte candidate still uses a different jump table, literal placement
 and phase test; no overall routine match percentage is inferred.
-Low-entry object-list shims also remain unfinished.
+An alternate computed-goto fixture also passes 640 controlled-helper cases;
+it removes the extra bounds check but emits an address table, so it remains
+separate research. Low-entry object-list shims also remain unfinished.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM

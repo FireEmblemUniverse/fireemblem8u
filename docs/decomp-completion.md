@@ -1809,3 +1809,27 @@ form. The existing read/write constraint gives EOR plus CMP-zero. None recovers
 the required EORS directly, so no trial was promoted. Original instruction
 dispatch and literal layout also remain unresolved. Production sources and the
 last verified main/payload binaries are unchanged in this checkpoint.
+
+
+## Unchecked computed-goto dispatcher alternative
+
+`research/arm/map_flood_core_computed.c` expresses the six valid connections
+with GNU C label addresses. `check_map_flood_core.py --computed` builds it into
+its own `.deps/map-flood-core-computed-match` directory, preserving the primary
+switch candidate and its reports. All 640 controlled-helper cases pass, including
+queue memory, registers and return flags; all 48 argument-setup words still
+match. Its section is 448 bytes including six address-table entries.
+
+This removes the switch's extra range check, consistent with the original valid
+connection-byte contract. It emits LDR-pc from an address table, however, while
+the original computes an instruction-table address and uses BX. It therefore
+remains an alternative compiler-input fixture, not an integrated replacement or
+an improvement claimed as overall word coverage. Full terrain-helper checks
+remain specific to the primary switch candidate.
+
+Six additional compiler configurations were inspected: word relocations,
+no shrink wrapping, Os, O2, AAPCS and disabled jump tables. The table-bearing
+variants retain byte-offset tables; the optimized levels also merge original
+case bodies. An explicit unreachable out-of-range source assertion likewise
+retains the switch guard. The next compiler work must address instruction-table
+lowering rather than assuming one of these flags selects it.

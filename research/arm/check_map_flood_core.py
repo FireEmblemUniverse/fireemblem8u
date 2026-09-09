@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check dispatcher call order with a controlled finite-enqueue helper models."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -12,12 +13,17 @@ ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/map-flood-core-match'
 
 def main():
+    global OUT
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--computed', action='store_true', help='check the alternate computed-goto fixture')
+    args=parser.parse_args()
+    if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
     rom=(ROOT/'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
     state=struct.unpack_from('<I',rom,0x774)[0]
     pool1,pool2=struct.unpack_from('<II',rom,0x850)
-    source=Path(__file__).with_name('map_flood_core.c')
+    source=Path(__file__).with_name('map_flood_core_computed.c' if args.computed else 'map_flood_core.c')
     flags=FLAGS+['-ffixed-r14']
     subprocess.run(['arm-none-eabi-gcc','-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
