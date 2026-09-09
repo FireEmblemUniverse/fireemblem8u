@@ -933,3 +933,39 @@ Five regression checks cover wrapped map entries, section-boundary mapping
 resets, ARM code inside `.data`, mapping-name suffixes and duplicates, and
 conflicting/overlapping evidence. They pass. Direct comparison confirms the
 production ROM remains byte-identical; this audit introduces no build changes.
+
+## Expanded embedded executable instruction inventory
+
+The linked audit now accepts an explicit image extent and recognizes custom
+section names without a leading dot. Run the embedded audit as:
+
+```sh
+python3 scripts/audit_linked_code.py --elf mgfembp/mgfembp.elf --map mgfembp/mgfembp.map --start 0x02010000 --size 34956
+```
+
+The expanded binary remains 34,956 bytes, SHA-1
+`8a81a47d88f6b0a3f91c49784b9f7b317382abac`. Its ELF mappings identify 1,108
+ARM instruction bytes, 24,608 Thumb instruction bytes and 9,239 data bytes.
+There are no unmapped input-section bytes and no orphan mapping symbols.
+The one byte outside input sections is the linker-map fill at `0x02016FFB`.
+This closes the expanded payload's mapping inventory, not its C decompilation.
+
+The four handwritten assembly objects contain 1,178 instruction bytes:
+
+| Embedded object | ARM bytes | Thumb bytes |
+| --- | ---: | ---: |
+| `src/crt0.o` | 328 | 0 |
+| `src/armfunc.o` | 772 | 0 |
+| `src/gbasvc.o` | 0 | 62 |
+| `src/fake_glue.o` | 8 | 8 |
+
+The runtime library contributions add 726 Thumb instruction bytes from libgcc
+and 94 from libc's memcpy. These are explicitly attributed rather than silently
+included in a C-completion percentage. Inline instructions inside C objects
+still require the source audit and review. The `fake_glue` section initially
+exposed a parser omission; custom-section support now accounts for both veneers.
+A sixth regression check covers a RAM-loaded image with a non-dot section.
+
+All six linked-audit checks pass. Re-running the main ROM audit preserves its
+previous totals exactly, and direct comparison confirms the production ROM
+is still byte-identical. No embedded submodule sources or pin were changed.

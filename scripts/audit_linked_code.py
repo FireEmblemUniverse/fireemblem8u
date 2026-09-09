@@ -19,11 +19,11 @@ ROM_START = 0x08000000
 ROM_END = 0x09000000
 
 
-def read_contributions(text):
+def read_contributions(text, image_start=ROM_START, image_end=ROM_END):
     result = []
     pending = None
     for line in text.splitlines():
-        match = re.match(r'^ (\.[^\s]+)(?:\s+(0x[0-9a-f]+)\s+(0x[0-9a-f]+)\s+(.+))?\s*$', line)
+        match = re.match(r'^ ([^\s]+)(?:\s+(0x[0-9a-f]+)\s+(0x[0-9a-f]+)\s+(.+))?\s*$', line)
         if match:
             section, address, size, owner = match.groups()
             pending = section if address is None else None
@@ -40,9 +40,9 @@ def read_contributions(text):
         if address is None:
             continue
         start, length = int(address, 16), int(size, 16)
-        if length and ROM_START <= start < ROM_END and ('.o' in owner or '.a(' in owner):
-            if start + length > ROM_END:
-                raise ValueError('input contribution exceeds ROM: ' + owner)
+        if length and image_start <= start < image_end and ('.o' in owner or '.a(' in owner):
+            if start + length > image_end:
+                raise ValueError('input contribution exceeds image: ' + owner)
             result.append(dict(start=start, end=start + length, section=section, object=owner))
     result.sort(key=lambda item: item['start'])
     for left, right in zip(result, result[1:]):
@@ -51,14 +51,14 @@ def read_contributions(text):
     return result
 
 
-def read_mappings(text):
+def read_mappings(text, image_start=ROM_START, image_end=ROM_END):
     mappings = {}
     for line in text.splitlines():
         fields = line.split()
         if len(fields) < 8 or not re.fullmatch(r'\$[atd](?:\..*)?', fields[-1]):
             continue
         address = int(fields[1], 16)
-        if fields[6] == 'ABS' or not ROM_START <= address < ROM_END:
+        if fields[6] == 'ABS' or not image_start <= address < image_end:
             continue
         kind = {'a': 'arm', 't': 'thumb', 'd': 'data'}[fields[-1][1]]
         if address in mappings and mappings[address] != kind:
@@ -83,13 +83,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--elf', type=Path, default=ROOT / 'fireemblem8.elf')
     parser.add_argument('--map', type=Path, default=ROOT / 'fireemblem8.map')
+    parser.add_argument("--start", type=lambda value: int(value, 0), default=ROM_START)
+    parser.add_argument("--size", type=lambda value: int(value, 0), default=ROM_END-ROM_START)
     args = parser.parse_args()
+    if args.start < 0 or args.size <= 0 or args.start + args.size > 0x100000000:
+        parser.error("invalid 32-bit image extent")
+    image_end = args.start + args.size
     symbols = subprocess.check_output(['arm-none-eabi-readelf', '-sW', str(args.elf)], text=True)
-    contributions = read_contributions(args.map.read_text())
-    mappings = read_mappings(symbols)
+    contributions = read_contributions(args.map.read_text(), args.start, image_end)
+    mappings = read_mappings(symbols, args.start, image_end)
     regions = partition(contributions, mappings)
     if not regions or not mappings:
-        raise SystemExit('no ROM input sections or mapping symbols found')
+        raise SystemExit('no image input sections or mapping symbols found')
     counts = Counter()
     objects = {}
     for region in regions:
@@ -107,9 +112,10 @@ def main():
         'scope': 'Assembler instruction/data mappings within linked input sections; not C coverage or proof that data contains no code.',
         'elf_sha256': hashlib.sha256(args.elf.read_bytes()).hexdigest(),
         'map_sha256': hashlib.sha256(args.map.read_bytes()).hexdigest(),
-        'rom_size': ROM_END - ROM_START,
+        'image_start': args.start,
+        'image_size': args.size,
         'input_section_bytes': accounted,
-        'bytes_outside_input_sections': ROM_END - ROM_START - accounted,
+        'bytes_outside_input_sections': args.size - accounted,
         'mapped_bytes': dict(counts),
         'mappings_outside_input_sections': orphan_mappings,
         'objects': objects,

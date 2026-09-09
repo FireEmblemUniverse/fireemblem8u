@@ -34,6 +34,18 @@ class LinkedCodeAuditTests(unittest.TestCase):
                 '3: 08000004 0 NOTYPE LOCAL DEFAULT 11 $d\n')
         self.assertEqual(read_mappings(text), {0x08000000: 'thumb', 0x08000004: 'data'})
 
+    def test_embedded_image_and_custom_section(self):
+        start = 0x02010000
+        sections = read_contributions(' fake_glue 0x02010000 0x10 src/fake_glue.o\n',
+                                      start, start + 16)
+        mappings = read_mappings('1: 02010000 0 NOTYPE LOCAL DEFAULT 1 $t\n'
+                                 '2: 02010004 0 NOTYPE LOCAL DEFAULT 1 $a\n',
+                                 start, start + 16)
+        regions = partition(sections, mappings)
+        self.assertEqual([(r['kind'], r['size']) for r in regions],
+                         [('thumb', 4), ('arm', 12)])
+        self.assertEqual(regions[0]['section'], 'fake_glue')
+
     def test_conflicts_and_overlaps_fail(self):
         with self.assertRaises(ValueError):
             read_mappings('1: 08000000 0 NOTYPE LOCAL DEFAULT 11 $t\n'
