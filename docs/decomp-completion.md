@@ -827,3 +827,13 @@ helper symbol checks pass. The source inventory now has 440 tracked C files,
 templates, one directive and seven instruction-bearing templates. These are
 source-marker counts, not a completion percentage; remaining assembly is still
 outstanding.
+
+## ply_fine candidate: two encoding mismatches
+
+`research/audio/ply_fine.c` reconstructs the 46-byte channel-release handler.
+An isolated link at its original address verifies every byte except the high
+bytes of two register-copy instructions: original ADD-zero copies at
+`0x080CF92A` and `0x080CF940` are MOVS copies in modern GCC output. The call
+relocation to `RealClearChain` matches. Compilation and comparison details are
+in `research/audio/README.md`. This is unfinished research, excluded from the
+ROM build; `ply_fine` remains assembly and the completion inventory is unchanged.
