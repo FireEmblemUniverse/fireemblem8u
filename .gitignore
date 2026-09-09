@@ -989,3 +989,9 @@ src/arm/*.s
 
 # Preserve isolated ARM decompilation research sources.
 !research/arm/
+
+# Reproducible host compiler variant; sources and patch are tracked.
+/tools/agbcc-empty-asm/agbcc
+/tools/agbcc-empty-asm/agbcc.exe
+/tools/agbcc-empty-asm/agbcc.tmp
+/tools/agbcc-empty-asm/agbcc.exe.tmp

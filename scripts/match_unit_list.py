@@ -12,6 +12,7 @@ import match_unit_definition as harness
 
 def main():
     harness.FUNCTION = 'UnitList_PageChangeIn_Loop'
+    harness.COMPILER = 'tools/agbcc/bin/agbcc'
     harness.START = 0x08091F10
     harness.SIZE = 436
     harness.SOURCE_FILE = 'src/unitlistscreen.c'

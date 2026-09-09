@@ -15,6 +15,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 FUNCTION = 'GetUnitDefinitionFormEventScr'
+COMPILER = 'tools/agbcc-empty-asm/agbcc'
 START = 0x0800F914
 SIZE = 516
 SOURCE_FILE = 'src/eventscr.c'
@@ -35,7 +36,7 @@ def compile_function(source, output, tag, symbols):
                         'include', '-iquote', '.', '-nostdinc', '-undef', '-'],
                        input=source.encode()).decode().encode('cp932')
     full_assembly = output / (tag + '.full.s')
-    run(['tools/agbcc/bin/agbcc', *FLAGS, '-o', str(full_assembly)], input=preprocessed)
+    run([COMPILER, *FLAGS, '-o', str(full_assembly)], input=preprocessed)
     assembly = full_assembly.read_text()
     start = assembly.index(FUNCTION + ':\n')
     end = re.search(r'^\s*\.size\s+' + FUNCTION + r',.*$', assembly[start:], re.M)

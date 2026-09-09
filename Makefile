@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := compare
+
 #### Tools ####
 
 ifeq ($(OS),Windows_NT)
@@ -120,6 +122,14 @@ $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apc
 # This Thumb leaf must not gain a prologue or alter the calibrated delay loop.
 src/sio_multiboot_wait.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/sio_multiboot_wait.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -g
+
+# Empty constraints must contribute zero estimated bytes in this translation
+# unit, or Event1B_TEXTSHOW receives an unnecessarily expanded branch.
+EMPTY_ASM_CC1 := tools/agbcc-empty-asm/agbcc$(EXE)
+src/eventscr.o: CC1 := $(EMPTY_ASM_CC1)
+src/eventscr.o: src/eventscr.c $(EMPTY_ASM_CC1)
+$(EMPTY_ASM_CC1): tools/agbcc-empty-asm/build.py tools/agbcc-empty-asm/empty-asm-length.patch
+	$(PYTHON) tools/agbcc-empty-asm/build.py --output $@
 
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error

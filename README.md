@@ -90,6 +90,9 @@ The ARM C routines use two compiler paths: `ClearOam` uses the installed
 `agbcc_arm`, and `Checksum32` and `TmApplyTsa` use `arm-none-eabi-gcc` (verified with GNU ARM GCC
 16.2.0). The partially converted Thumb `MultiBootWaitCycles` also uses GNU
 ARM GCC, retaining its PC read and calibrated timing loop as inline assembly.
+`src/eventscr.c` uses a pinned agbcc variant that correctly estimates empty
+assembly templates as zero bytes. Make builds it automatically; source and
+build details are in [tools/agbcc-empty-asm](tools/agbcc-empty-asm/README.md).
 Their per-file flags are in the Makefile. Run `make compare` to verify
 the entire ROM when changing compilers.
 6. You will see this for success.

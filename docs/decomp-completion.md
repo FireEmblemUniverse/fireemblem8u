@@ -693,3 +693,52 @@ switch-dispatch branch layout seen in the earlier assignment trial. Thus a
 tied immediate alone does not resolve the compiler's branch-length decision.
 The instruction template remains in production. These trials do not change
 completion counts or establish a new matching conversion.
+
+
+## Event text: remove the last instruction template with a compiler correction
+
+`Event1B_TEXTSHOW` now generates its `0x10` constant load from C. The former
+`asm("movs ...")` and its NONMATCHING conditional have been replaced with a C
+assignment and an empty read/write constraint. The complete 340-byte function
+at `0x0800E3C8..0x0800E51C` matches, including the original short switch-dispatch
+branch. This removes one hand-written Thumb instruction, not 340 previously
+unrecovered bytes.
+
+The prior 14-byte mismatch was traced to agbcc's branch-distance estimator:
+`gcc/final.c:asm_insn_count` initializes its instruction count to one even when
+the template is empty. Thumb's default length is two bytes. Replacing the load
+with C plus an empty constraint therefore introduced two nonexistent estimated
+bytes and pushed a conditional branch across the compiler's expansion threshold.
+Four tied-constraint alternatives showed the same behavior with the original
+compiler. With the generic empty-template correction, all four reproduced the
+original 340-byte function exactly.
+
+`tools/agbcc-empty-asm/empty-asm-length.patch` returns zero only for an exactly
+empty template. It contains no game addresses, symbols, register preferences
+or opcode substitutions; nonempty-template estimation is unchanged. The build
+script pins `pret/agbcc` revision `da598c1d918402c42c0c0d7128ba14567f3175e9`,
+clones committed sources, applies the patch, verifies the exact patched-source
+SHA-256, and retains the build log and provenance hashes in an ignored build directory. The upstream GPL license is
+included. Clean builds run serially because upstream's generated-header
+prerequisites are not safe under parallel Make. The compiler binary is ignored.
+
+Only `src/eventscr.c` uses this compiler variant. Its source object depends on
+the generated compiler, so a normal `make` builds it when required. The default
+Make goal is explicitly `compare`, preserving the full-ROM gate despite the
+new earlier compiler prerequisite rule. Both matching harnesses now select
+the appropriate compiler for their translation unit. The original installed
+agbcc and all other translation units retain their existing toolchains.
+
+Validation includes an isolated trial, a clean pinned-source compiler build,
+and a second build through the normal Make dependency path. The complete ROM
+checksum and direct comparison of all 16,777,216 bytes pass. The linked event
+text symbol is `0x0800E3C9`, size 340. The 516-byte event-unit selection C match
+is preserved, and the unit-list candidate remains 436 bytes with eleven
+mismatches. All seven audit regression tests pass.
+
+The current source inventory has 112 inline sites: 63 register bindings,
+41 empty templates, one section directive, seven instruction-bearing templates
+and zero unresolved sites. There are 42 NONMATCHING conditionals, one naked
+macro, zero explicit naked attributes, 70 assembly entry macros and no direct
+baserom includes. The remaining unit-list body, ARM routines, startup,
+BIOS/audio interfaces, timing loop and embedded assembly remain outstanding.

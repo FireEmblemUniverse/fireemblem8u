@@ -1025,11 +1025,8 @@ u8 Event1B_TEXTSHOW(struct EventEngineProc * proc)
 
                 case 3:
                     ea = evArgument;
-#ifdef NONMATCHING
                     flags = 0x0010;
-#else
-                    asm("movs %0, #0x10":"=r"(flags)::"cc");
-#endif
+                    asm("" : "+r"(flags));
                     goto label;
 
                 case 4:
