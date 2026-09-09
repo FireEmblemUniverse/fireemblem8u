@@ -123,9 +123,9 @@ $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apc
 src/sio_multiboot_wait.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/sio_multiboot_wait.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -g
 
-# Matching Thumb leaf with shared PCM/CGB channel linkage fields.
-src/m4a_clear_chain.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
-src/m4a_clear_chain.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -g
+# Matching Thumb audio leaves; channel linkage uses shared PCM/CGB fields.
+src/m4a_clear_chain.o src/m4a_pend.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/m4a_clear_chain.o src/m4a_pend.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -g
 
 # Empty constraints must contribute zero estimated bytes in this translation
 # unit, or Event1B_TEXTSHOW receives an unnecessarily expanded branch.

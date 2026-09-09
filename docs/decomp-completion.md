@@ -36,6 +36,8 @@ There is now one `NAKEDFUNC` macro and no explicit naked attributes. The
 unit-list assembly body and residual timing assembly remain unfinished.
 `RealClearChain` is now matching Thumb C (32 bytes), using empty register
 constraints and no instruction-bearing assembly templates.
+`ply_pend` is also matching Thumb C (20 bytes), restoring the command pointer
+from the audio pattern stack.
 
 ## Completion evidence
 
@@ -807,3 +809,21 @@ files, 69 assembly entry markers, and 118 inline sites: 66 register bindings,
 44 empty templates, one directive and seven instruction-bearing templates.
 The remaining naked unit-list body, ARM/audio routines, BIOS/startup interfaces,
 timing assembly and embedded executable assembly remain within the active goal.
+
+## ply_pend matching C
+
+`src/m4a_pend.c` replaces all 20 bytes at `0x080CF9D4..0x080CF9E8`.
+For a nonzero pattern level it decrements the level and restores the saved
+command pointer; a zero level leaves the track unchanged. The routine uses
+the same GNU ARM GCC flags as `RealClearChain`. Three register bindings and
+four empty constraints preserve the original instructions without embedding
+any instruction templates. Its linked Thumb symbol remains `0x080CF9D5`,
+size 20; neighboring `ply_patt` and `ply_rept` retain their original positions.
+
+The standalone generated function matches every original byte. After integration,
+`make compare -j8`, direct comparison of the entire ROM, and the five audio
+helper symbol checks pass. The source inventory now has 440 tracked C files,
+68 assembly entry markers and 125 inline sites: 69 register bindings, 48 empty
+templates, one directive and seven instruction-bearing templates. These are
+source-marker counts, not a completion percentage; remaining assembly is still
+outstanding.
