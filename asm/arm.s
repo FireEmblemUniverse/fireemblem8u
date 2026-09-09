@@ -102,61 +102,42 @@ ColorFadeTick: @ 0x08000234
 
 	ARM_FUNC_END ColorFadeTick
 
-@ void ClearOam(void * buf, int count);
-	ARM_FUNC_START ClearOam
-ClearOam: @ 0x08000304
-	lsr r1, r1, #4
-	sub r1, r1, #1		@ count = count / 16 - 1
-
-	@ set the y-coordinate of each OBJ to 160, which moves it offscreen
-	@ This loop is unrolled to set 16 OBJs each iteration
-	mov r2, #160
-1:
-	str r2, [r0, 8 * 0]
-	str r2, [r0, 8 * 1]
-	str r2, [r0, 8 * 2]
-	str r2, [r0, 8 * 3]
-	str r2, [r0, 8 * 4]
-	str r2, [r0, 8 * 5]
-	str r2, [r0, 8 * 6]
-	str r2, [r0, 8 * 7]
-	str r2, [r0, 8 * 8]
-	str r2, [r0, 8 * 9]
-	str r2, [r0, 8 * 10]
-	str r2, [r0, 8 * 11]
-	str r2, [r0, 8 * 12]
-	str r2, [r0, 8 * 13]
-	str r2, [r0, 8 * 14]
-	str r2, [r0, 8 * 15]
-	add r0, r0, 8 * 16
-	subs r1, r1, #1
-	bpl 1b
-	bx lr
-
-	ARM_FUNC_END ClearOam
+@ ClearOam is linked here from src/arm/clear_oam.c.
+	.section .text.after_clear_oam, "ax", %progbits
 
 /*
-u32 Checksum32(const u32 * buf, int size)
+Behavioral reference (the implementation below is still assembly):
+
+u32 Checksum32(const u16 * src, u32 size)
 {
-	int i;
-	for (i = 0; i < size / 4; i++)
-	{
-		add_acc += data_u32[i];
-		xor_acc ^= data_u32[i];
-	}
-	return (u16)add_acc + ((u16)xor_acc << 0x10);
+    u32 remaining = size - 2;
+    u32 sum = 0;
+    u32 parity = 0;
+
+    do
+    {
+        u32 value = *src++;
+        sum += value;
+        parity ^= value;
+        remaining -= 2;
+    } while ((s32) remaining >= 0);
+
+    return (sum & 0xFFFF) + (parity << 16);
 }
+
+The input is read as halfwords, not words. The do/while loop performs at least
+one read, even when size is below two; callers must supply readable storage.
 */
 	ARM_FUNC_START Checksum32
 Checksum32: @ 0x08000360
 	push {r4, r5, r6, r7}
-	sub r1, r1, #2		@ r1 = len
+	sub r1, r1, #2		@ r1 = remaining bytes after the first halfword
 	mov r2, #0			@ r2 = add_acc
 	mov r3, #0			@ r3 = xor_acc
 1:
 	ldrh r4, [r0]
-	add r2, r2, r4		@ r2 = add_acc += data_u32[i]
-	eor r3, r3, r4		@ r3 = xor_acc ^= data_u32[i]
+	add r2, r2, r4		@ r2 = add_acc += *src_u16
+	eor r3, r3, r4		@ r3 = xor_acc ^= *src_u16
 	add r0, r0, #2
 	subs r1, r1, #2
 	bpl 1b
@@ -173,13 +154,25 @@ Checksum32: @ 0x08000360
 	ARM_FUNC_END Checksum32
 
 /*
-void TmFillRect(u16 * dest, int width, int height, int fillValue)
+Behavioral reference (the implementation below is still assembly):
+
+void TmFillRect(u16 * dst, u32 widthMinusOne, u32 heightMinusOne, u32 fillValue)
 {
-	int i, j;
-	for (i = 0; i < height; i++)
-		for (j = 0; j < width; j++)
-			dst[j + 0x20 * i] = fillValue;
+    u32 y = heightMinusOne;
+    do
+    {
+        u16 * row = dst;
+        u32 x = widthMinusOne;
+        do
+        {
+            *row++ = fillValue;
+        } while ((s32) --x >= 0);
+        dst += 32;
+    } while ((s32) --y >= 0);
 }
+
+The dimensions are inclusive counters: (0, 0) writes one tile. In contrast,
+TmCopyRect below receives ordinary counts and returns on nonpositive sizes.
 */
 	ARM_FUNC_START TmFillRect
 TmFillRect: @ 0x080003A8

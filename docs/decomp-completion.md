@@ -21,6 +21,8 @@ This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
 `sub_8091F10`) still uses its naked assembly fallback. ARM routines, BIOS/audio
 interfaces, startup, timing assembly and the payload's assembly also remain in
 the inventory. The whole-ROM executable classification is not yet complete.
+`ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
+complete ROM comparison passing after integration.
 
 ## Completion evidence
 
@@ -239,3 +241,34 @@ The new unit-list search ran 23,484 iterations from the 11-byte-difference
 candidate without an improvement. That configuration has been stopped; the
 matching replacement remains outstanding. The source is now named
 `UnitList_PageChangeIn_Loop`, at the unchanged ROM address `0x08091F10`.
+
+## Matching ARM C: ClearOam
+
+`src/arm/clear_oam.c` now replaces the assembly at
+`0x08000304..0x08000360`. The ARM agbcc compiler, an explicit `r2` register
+variable, and disabled post-allocation instruction scheduling reproduce all
+92 bytes. There is no instruction-bearing inline assembly in the new function.
+The compiler's generic warning about debug information with an omitted frame
+pointer is expected; this function does not change the stack pointer.
+
+The linker places the C object between the first portion of `asm/arm.o` and its
+new `.text.after_clear_oam` section. The copied block still starts at
+`0x08000228` and ends at `0x08000A20`. `ClearOam` remains an ARM function at
+`0x08000304`, size 92; the existing Thumb veneer still branches to it. The full
+ROM checksum passed after this placement change.
+
+The function writes the first word of each eight-byte OAM entry to 160, clearing
+attributes 0 and 1 and placing the sprite below the visible screen. It preserves
+attribute 2 and the affine-parameter halfword. The unrolled loop processes
+16 entries per block and always executes once, including counts below 16.
+
+The neighboring assembly comments also now describe the actual instructions:
+`Checksum32` consumes halfwords rather than words, and `TmFillRect` uses
+inclusive dimension counters (zero, zero writes one tile). These are behavioral
+references only; those two assembly implementations have not been replaced.
+
+With the new C file tracked, the main inventory has 435 C files, 72 assembly
+entry macros and 71 inline-assembly sites. The extra inline site is the `r2`
+register annotation. Both naked functions and all 45 NONMATCHING conditionals
+remain. The unit-list compiler-variant experiment did not improve its existing
+11-byte-difference candidate.

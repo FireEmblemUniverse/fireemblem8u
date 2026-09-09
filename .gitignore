@@ -982,3 +982,7 @@ scripts/shiftcheck/mgba_oracle
 
 # Local Claude Code harness state
 .claude/
+
+# Matching ARM-mode C sources; override the generic IDE ARM/ build-directory rule.
+!src/arm/
+src/arm/*.s

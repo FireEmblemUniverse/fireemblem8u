@@ -73,6 +73,7 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt
 CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
+CFILES       += src/arm/clear_oam.c
 ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
@@ -103,6 +104,12 @@ AUTO_GEN_TARGETS :=
 # Use the older compiler to build library code
 src/agb_sram.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O1 -ffix-debug-line -g
 src/m4a.o: CC1 := $(CC1_OLD)
+
+# These routines execute in ARM mode inside the copied ARM code block.
+# This compiler warns about -g with -fomit-frame-pointer; this leaf function
+# does not create a stack frame. Keep debug information without -Werror here.
+src/arm/clear_oam.o: CC1 := tools/agbcc/bin/agbcc_arm$(EXE)
+src/arm/clear_oam.o: CC1FLAGS := -quiet -mthumb-interwork -Wimplicit -Wparentheses -O2 -fomit-frame-pointer -fno-schedule-insns2 -g
 
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error

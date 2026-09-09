@@ -247,6 +247,8 @@ SECTIONS
         src/rom_header.o(.text);
         src/crt0.o(.text);
         asm/arm.o(.text);
+        src/arm/clear_oam.o(.text);
+        asm/arm.o(.text.after_clear_oam);
         src/main.o(.text);
         src/fe3_dummy.o(.text);
         src/irq.o(.text);
