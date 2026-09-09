@@ -81,77 +81,11 @@ PutOamLo: @ 0x08000534
 	b .LPutOamExt
 	ARM_FUNC_END PutOamLo
 
-bitTable:
-	.4byte (1 << 0)
-	.4byte (1 << 2)
-	.4byte (1 << 4)
-	.4byte (1 << 6)
-	.4byte (1 << 8)
-	.4byte (1 << 10)
-	.4byte (1 << 12)
-	.4byte (1 << 14)
+@ DrawGlyph and its shift table/pointer pool are generated from matching C.
+	.section .text.after_draw_glyph, "ax", %progbits
 
-lt_bitTable: .4byte bitTable @ pool
-
-@ void DrawGlyph(u16 * pal, u32 * dst, u32 * src, int subx)
-	ARM_FUNC_START DrawGlyph
-DrawGlyph: @ 0x08000564
-	push {r4, r5, r6, r7, r8, r9, sl}
-	mov r9, #0xf
-	mov sl, #0x10000
-	sub sl, sl, #1
-_08000574:
-	@ u64 ref = src[i] * (1 << subx);
-	ldr r4, lt_bitTable  @ bitTable
-	ldr r5, [r4, r3, lsl #2]
-	ldr r4, [r2]
-	umull r5, r6, r4, r5
-
-	mov r7, r5
-	and r7, r7, #0xff
-	ldr r7, [r0, r7, lsl #1]
-	lsr r8, r5, #8
-	and r8, r8, #0xff
-	ldr r8, [r0, r8, lsl #1]
-	and r7, r7, sl
-	orr r7, r7, r8, lsl #16
-	ldr r4, [r1]
-	orr r4, r4, r7
-	str r4, [r1]
-
-	lsr r7, r5, #0x10
-	and r7, r7, #0xff
-	ldr r7, [r0, r7, lsl #1]
-	lsr r8, r5, #0x18
-	and r8, r8, #0xff
-	ldr r8, [r0, r8, lsl #1]
-	and r7, r7, sl
-	orr r7, r7, r8, lsl #16
-	ldr r4, [r1, #0x40]
-	orr r4, r4, r7
-	str r4, [r1, #0x40]
-
-	mov r7, r6
-	and r7, r7, #0xff
-	ldr r7, [r0, r7, lsl #1]
-	lsr r8, r6, #8
-	and r8, r8, #0xff
-	ldr r8, [r0, r8, lsl #1]
-	and r7, r7, sl
-	orr r7, r7, r8, lsl #16
-	ldr r4, [r1, #0x80]
-	orr r4, r4, r7
-	str r4, [r1, #0x80]
-
-	add r1, r1, #4
-	add r2, r2, #4
-	subs r9, r9, #1
-	bpl _08000574
-	pop {r4, r5, r6, r7, r8, r9, sl}
-	bx lr
-
-	ARM_FUNC_END DrawGlyph
-
+@ This variant reads columns at +0x40/+0x80 but writes at +0x20/+0x40.
+@ Preserve that asymmetry and the eight-row count during C reconstruction.
 	ARM_FUNC_START DrawGlyphHalfStride
 DrawGlyphHalfStride: @ 0x08000620
 	push {r4, r5, r6, r7, r8, r9, sl}
@@ -159,7 +93,7 @@ DrawGlyphHalfStride: @ 0x08000620
 	mov sl, #0x10000
 	sub sl, sl, #1
 _08000630:
-	ldr r4, lt_bitTable  @ gUnknown_08000540
+	ldr r4, [pc, #:pc_g0:(DrawGlyphPointerPool - 8)] @ shared bitTable pointer
 	ldr r5, [r4, r3, lsl #2]
 	ldr r4, [r2]
 	umull r5, r6, r4, r5

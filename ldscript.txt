@@ -256,6 +256,10 @@ SECTIONS
         src/arm/tm_copy_rect.o(.text);
         src/arm/tm_apply_tsa.o(.text);
         asm/arm.o(.text.after_tm_apply_tsa);
+        src/arm/draw_glyph.o(.rodata);
+        DrawGlyphPointerPool = .;
+        src/arm/draw_glyph.o(.text);
+        asm/arm.o(.text.after_draw_glyph);
         MapFloodCoreStepPool = .;
         src/arm/map_flood_step.o(.text);
         asm/arm.o(.text.after_map_flood_step);

@@ -20,7 +20,8 @@ MapFloodCoreStep is now matching C as well (224 bytes including its shared
 pointer pool), and embedded ColorFadeTick is C in all three payload versions.
 TmCopyRect is now matching C in the main and embedded builds too.
 TmFillRect is also matching C in both builds.
-The current inventories are 62 main assembly entry markers and 17 embedded
+DrawGlyph and its shift table are now matching C too.
+The current inventories are 61 main assembly entry markers and 17 embedded
 assembly function declarations. The full ROM comparison passes. See the latest
 sections for integration and toolchain verification.
 
@@ -1462,3 +1463,40 @@ files, 62 assembly entry markers, and 263 inline sites: 116 register bindings,
 embedded audit reports 21 C files, 17 assembly declarations and 99 inline sites:
 32 bindings, 66 empty constraints and one original BIOS instruction. The linked
 mapping audit attributes 56 ARM bytes to the new C object with no orphan mappings.
+
+## DrawGlyph and shift table integrated
+
+DrawGlyph now comes from `src/arm/draw_glyph.c`. It reconstructs the 64-bit
+multiply of each two-bit source row by the selected horizontal shift, three
+pairs of conversion-table lookups, and OR writes into three destination tile
+columns. All 188 instruction bytes at `0x08000564..0x08000620` match. The C
+object also supplies the original eight-word shift table at `0x08000540` and
+its pointer at `0x08000560`, accounting for another 36 data bytes.
+
+At O1 the compiler retained an unnecessary r11 save/restore after wide multiply
+temporaries were eliminated. A bounded compiler-flag experiment found that O2
+removes that save and produces the complete original instruction sequence.
+The existing prefix-pool option suffices; no new plugin transformation or
+opcode patch was introduced. Section anchors are disabled for the production
+translation unit to keep the pointer manifest bound to bitTable itself.
+
+`check_draw_glyph.py` verifies the complete 192-byte pointer/function section
+and passes 2,048 original/candidate execution cases. These cover all eight
+horizontal shifts, zero/ones/alternating/random glyphs, arbitrary lookup and
+background values, both halfword LUT alignments, source/destination overlap,
+all incoming NZCV, all r0-r12 results, preserved registers/SP, the original
+28-byte stack save, and allowed writes. Its independent pixel reference reads
+halfwords: the original ARM word loads use a two-byte stride but discard their
+upper halves. The C implementation deliberately reproduces those target-specific
+loads with strict aliasing disabled; no portability claim is made for them.
+
+The remaining DrawGlyphHalfStride assembly uses R_ARM_LDR_PC_G0 to read the
+shared pool through DrawGlyphPointerPool, retaining its exact load encoding.
+That variant draws eight rows and reads columns at +0x40/+0x80 while writing
+at +0x20/+0x40; this asymmetry is now explicitly recorded for its reconstruction.
+The main ROM still compares byte-for-byte and copied ARM block bounds remain
+unchanged. The source audit reports 447 C files, 61 assembly entry markers,
+and 312 inline sites: 128 register bindings, 176 empty constraints, one
+directive and seven instruction templates. Linked mapping attributes 188 ARM
+and 36 data bytes to the new C object with no orphan mappings. The embedded
+payload is unchanged in this milestone.

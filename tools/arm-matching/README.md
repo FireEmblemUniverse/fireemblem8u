@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep, TmCopyRect and TmFillRect routines. The production Makefile loads it only for those four
+MapFloodCoreStep, TmCopyRect, TmFillRect and DrawGlyph routines. The production Makefile loads it only for those five
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -125,3 +125,21 @@ zero counters, selected negative counter bit patterns, widths crossing the
 All 56 original instruction bytes match. Original counter value 0x80000000
 would require an impractically large write and is outside these bounded cases;
 whole-section equality remains the stronger instruction-matching evidence.
+
+## Glyph drawing integration
+
+DrawGlyph uses the existing ordered prefix pool at O2. O1 retains an unnecessary
+r11 save/restore after its 64-bit multiply temporaries disappear; O2 removes it
+and matches the original seven-register save set. Production disables section
+anchors so the pointer pool names the C shift table directly. The remaining
+half-stride assembly reads that shared pool through an ARM PC-relative linker
+relocation. No additional compiler-plugin transformation was needed.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/arm/check_draw_glyph.py --plugin .deps/arm-matching-plugin/zero_test.so
+```
+
+The glyph code deliberately reproduces ARM word loads at two-byte lookup
+strides, retaining only their low halfwords. It is target-specific C and uses
+`-fno-strict-aliasing`; it is not a portable unaligned-load abstraction. The
+independent reference uses halfword lookups and agrees for both LUT alignments.
