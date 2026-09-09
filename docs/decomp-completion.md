@@ -1989,3 +1989,30 @@ Then run the full-helper checker with that compiler, both rebuilt `--plugin`
 paths and `--pc-relative`. Build provenance is recorded in the isolated backend's
 `build-info.json` and the plugin output directory's build reports. Production
 compiler settings, main assembly and embedded sources remain unchanged.
+
+
+## Dispatcher r0 selection, unchecked contract and final table fallthrough
+
+Reserving r1/r2/r3 from general allocation makes the dispatcher table address
+use r0. The existing explicit C argument bindings still supply r1/r2 to each
+helper call; all 48 argument-setup words and all 880 dispatcher cases pass.
+
+The table pass registers a function-only `matching_unchecked_switch` attribute.
+The primary fixture requests it only under `MATCH_UNCHECKED_DISPATCH`, documenting
+its valid 0..5 queue-connection contract. The checker enables this with
+`--unchecked` and treats missing/ignored attributes as errors. Only attributed
+functions omit the unsigned bounds check; unannotated switches retain it.
+The standalone table checker adds 1,280 valid-index baseline/plugin cases for
+this contract, including holes and shifted ranges. Existing 4,608 checked cases
+continue to pass. Out-of-range execution is deliberately not claimed for the
+unchecked contract. Matching table options reject Thumb compilation.
+
+When the last vector target is the label immediately following the table, the
+pass omits the redundant final branch. The sixth dispatcher entry therefore
+falls directly into initial expansion after five explicit branch instructions.
+An empty phase constraint preserves the frontier-loop trampoline, but GCC places
+it before the common queue update and adds a branch around it. The candidate
+section is currently 448 bytes; moving this trampoline and recovering the shared
+and preceding literals remain. All 640 controlled-helper and 240 actual-helper
+cases pass with r0, the explicit contract and table fallthrough together.
+Production source remains unchanged.

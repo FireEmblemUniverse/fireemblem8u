@@ -19,6 +19,7 @@ def main():
     parser.add_argument('--plugin', type=Path, action='append', default=[], help='experimental compiler plugin; repeat to compose passes')
     parser.add_argument('--compiler',default='arm-none-eabi-gcc')
     parser.add_argument('--pc-relative',action='store_true')
+    parser.add_argument('--unchecked',action='store_true')
     args=parser.parse_args()
     if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
@@ -27,8 +28,9 @@ def main():
     state=struct.unpack_from('<I',rom,0x774)[0]
     pool1,pool2=struct.unpack_from('<II',rom,0x850)
     source=Path(__file__).with_name('map_flood_core_computed.c' if args.computed else 'map_flood_core.c')
-    flags=FLAGS+['-ffixed-r14']
+    flags=FLAGS+['-ffixed-r14','-ffixed-r1','-ffixed-r2','-ffixed-r3']
     flags+=['-fplugin='+str(plugin.resolve()) for plugin in args.plugin]
+    if args.unchecked:flags+=['-DMATCH_UNCHECKED_DISPATCH','-Werror=attributes']
     if args.pc_relative:flags+=['-fplugin-arg-branch_tables-pc-relative']
     subprocess.run([args.compiler,'-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)

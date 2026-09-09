@@ -20,6 +20,10 @@ static __inline__ __attribute__((always_inline)) void Step(int c, int x, int y)
     asm("" : "+r"(dy));
     MapFloodCoreStep(connection, dx, dy);
 }
+#ifdef MATCH_UNCHECKED_DISPATCH
+// Every queue connection is in 0..5; values outside that range are invalid input.
+__attribute__((matching_unchecked_switch))
+#endif
 void MapFloodCore(void)
 {
     register unsigned phase asm("r4") = 0;
@@ -101,6 +105,7 @@ void MapFloodCore(void)
             asm("" : "+r"(node));
             state->src = node;
         }
-next_frontier:;
+next_frontier:
+        asm("" : : "r"(phase));
     }
 }

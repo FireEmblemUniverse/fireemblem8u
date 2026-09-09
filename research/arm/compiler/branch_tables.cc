@@ -7,6 +7,10 @@
 #include "insn-config.h"
 #include "memmodel.h"
 #include "tree-pass.h"
+#include "tree.h"
+#include "stringpool.h"
+#include "attribs.h"
+#include "function.h"
 #include "rtl.h"
 #include "emit-rtl.h"
 #include "recog.h"
@@ -17,6 +21,15 @@
 int plugin_is_GPL_compatible;
 namespace {
 bool pc_relative=false;
+tree valid_switch_contract(tree *node,tree,tree,int,bool *no_add) {
+    if(TREE_CODE(*node)!=FUNCTION_DECL) {
+        error("matching_unchecked_switch requires a function declaration");
+        *no_add=true;
+    }
+    return NULL_TREE;
+}
+const attribute_spec unchecked_attribute={"matching_unchecked_switch",0,0,true,false,false,false,valid_switch_contract,nullptr};
+void register_contract(void *,void *) { register_attribute(&unchecked_attribute); }
 void checked(rtx_insn *insn) {
     if (recog_memoized(insn)<0) { debug_rtx(PATTERN(insn)); fatal_error(UNKNOWN_LOCATION,"unrecognized instruction-table RTL"); }
 }
@@ -24,9 +37,10 @@ const pass_data data={RTL_PASS,"branch_tables",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
-    unsigned int execute(function *) override {
+    unsigned int execute(function *fn) override {
+        bool unchecked=lookup_attribute("matching_unchecked_switch",DECL_ATTRIBUTES(fn->decl))!=NULL_TREE;
         if (!TARGET_ARM) {
-            if(pc_relative) fatal_error(UNKNOWN_LOCATION,"pc-relative instruction tables require ARM mode");
+            if(pc_relative || unchecked) fatal_error(UNKNOWN_LOCATION,"matching instruction-table options require ARM mode");
             return 0;
         }
         for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -54,11 +68,13 @@ public:
             rtx_insn *load=prev_nonnote_nondebug_insn(i);
             if(!load||!INSN_P(load)||GET_CODE(PATTERN(load))!=SET
                ||!rtx_equal_p(SET_DEST(PATTERN(load)),base))continue;
-            // Retain the original range check; no unchecked-index assumption.
+            // Only a source-level valid-index contract permits omitting the guard.
+            if(!unchecked) {
             rtx cc=gen_rtx_REG(CCmode,CC_REGNUM);
             checked(emit_insn_before(gen_rtx_SET(cc,gen_rtx_COMPARE(CCmode,copy_rtx(index),copy_rtx(XEXP(cond,1)))),i));
             checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,gen_rtx_IF_THEN_ELSE(VOIDmode,
                 gen_rtx_GTU(VOIDmode,cc,const0_rtx),copy_rtx(fallback),pc_rtx)),i));
+            }
 #ifdef HAVE_match_arm_read_pc
             if(pc_relative) {
                 checked(emit_insn_before(gen_match_arm_read_pc(copy_rtx(base)),i));
@@ -73,7 +89,13 @@ public:
 #endif
                 checked(emit_jump_insn_before(gen_indirect_jump(copy_rtx(base)),i));
             if(pc_relative) remove_insn(load);
-            for(int j=0;j<n;j++)checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,copy_rtx(XVECEXP(vector,1,j))),table));
+            int entries=n;
+            rtx_insn *following=next_nonnote_nondebug_insn(table);
+            while(following && BARRIER_P(following)) following=next_nonnote_nondebug_insn(following);
+            if(following && LABEL_P(following)
+               && GET_CODE(XVECEXP(vector,1,n-1))==LABEL_REF
+               && XEXP(XVECEXP(vector,1,n-1),0)==following) entries--;
+            for(int j=0;j<entries;j++)checked(emit_jump_insn_before(gen_rtx_SET(pc_rtx,copy_rtx(XVECEXP(vector,1,j))),table));
             remove_insn(table);
             rtx_insn *previous=PREV_INSN(i);
             remove_insn(i);
@@ -92,6 +114,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
 #ifndef HAVE_match_arm_read_pc
     if(pc_relative) { error("pc-relative tables require the matching ARM backend"); return 1; }
 #endif
+    register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);
     return 0;

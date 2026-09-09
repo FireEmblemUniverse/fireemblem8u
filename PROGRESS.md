@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: validated PC-relative dispatcher backend (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: r0 dispatch and valid-index contract (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -26,10 +26,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: matching the dispatcher scratch register, guard and literal layout.**
+**Working on: matching the dispatcher loop-branch placement and literal layout.**
 The isolated GCC 16.2.0 build completed. Its explicit PC-read and BX patterns
-now generate the intended four-instruction address/jump sequence, using r3
-instead of the original r0. The candidate passes 640 controlled-helper and
+now generate the original four-instruction address/jump sequence using r0.
+An explicit valid-index contract removes the extra guard, and the final table
+entry falls through as in the ROM. The candidate passes 640 controlled-helper and
 240 actual-helper cases, plus 4,608 table and 10,080 XOR compiler probes.
 The backend is still experimental and is not used by production.
 
@@ -46,9 +47,10 @@ cases. Jump-table and literal placement still differ; the pass is not enabled
 in production. A standalone suite now passes 10,080 baseline/plugin executions,
 checking XOR results, branch decisions, preserved registers and excluded forms.
 A separate experimental compiler pass now emits six ARM branch-table entries.
-With XOR fusion and PC-relative lowering, its 452-byte candidate passes all
-dispatcher checks; it still retains the extra bounds check, r3 scratch register
-and differing table/literal layout.
+The current 448-byte candidate passes all dispatcher checks. The remaining
+loop trampoline placement introduces an extra branch, and literals still need
+the original shared/prefix layout. Another 1,280 standalone valid-index cases
+verify the opt-in unchecked contract.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;
 it removes the extra bounds check but emits an address table, so it remains
 separate research. Low-entry object-list shims also remain unfinished.
