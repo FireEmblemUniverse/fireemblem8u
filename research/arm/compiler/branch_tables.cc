@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Experimental range-checked ARM instruction-table lowering, not production.
+#include <string>
 #include "gcc-plugin.h"
 #include "plugin-version.h"
 #include "context.h"
@@ -11,6 +12,7 @@
 #include "stringpool.h"
 #include "attribs.h"
 #include "function.h"
+#include "ggc.h"
 #include "rtl.h"
 #include "emit-rtl.h"
 #include "recog.h"
@@ -22,6 +24,8 @@ int plugin_is_GPL_compatible;
 namespace {
 bool pc_relative=false;
 bool sink_trampolines=false;
+std::string shared_source,shared_target;
+long shared_offset=0;
 tree valid_switch_contract(tree *node,tree,tree,int,bool *no_add) {
     if(TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_unchecked_switch requires a function declaration");
@@ -73,6 +77,49 @@ void sink_jump_only_blocks() {
         }
     } while(changed);
 }
+void shared_literal() {
+    if(shared_source.empty())return;
+#ifdef HAVE_match_arm_literal
+    rtx_code_label *last=nullptr,*pool=nullptr;
+    long offset=0,wanted=-1;
+    for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if(LABEL_P(i))last=as_a<rtx_code_label *>(i);
+        if(!NONDEBUG_INSN_P(i))continue;
+        rtx p=PATTERN(i);
+        if(GET_CODE(p)!=UNSPEC_VOLATILE || XINT(p,1)!=VUNSPEC_POOL_4)continue;
+        if(!pool)pool=last;
+        if(pool!=last || XVECLEN(p,0)!=1)fatal_error(UNKNOWN_LOCATION,"shared literal needs one word pool");
+        rtx value=XVECEXP(p,0,0);
+        if(GET_CODE(value)==SYMBOL_REF && shared_source==XSTR(value,0)) {
+            if(wanted>=0)fatal_error(UNKNOWN_LOCATION,"duplicate shared literal");
+            wanted=offset;
+        }
+        offset+=4;
+    }
+    if(wanted<0)fatal_error(UNKNOWN_LOCATION,"shared literal source missing");
+    unsigned changed=0;
+    for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if(!NONDEBUG_INSN_P(i)||GET_CODE(PATTERN(i))!=SET)continue;
+        rtx set=PATTERN(i),memory=SET_SRC(set);
+        if(!MEM_P(memory))continue;
+        rtx address=XEXP(memory,0);
+        if(GET_CODE(address)==CONST)address=XEXP(address,0);
+        long displacement=0;
+        if(GET_CODE(address)==PLUS && CONST_INT_P(XEXP(address,1))) {
+            displacement=INTVAL(XEXP(address,1));address=XEXP(address,0);
+        }
+        if(GET_CODE(address)!=LABEL_REF || XEXP(address,0)!=pool || displacement!=wanted)continue;
+        rtx target=gen_rtx_SYMBOL_REF(Pmode,ggc_strdup(shared_target.c_str()));
+        if(shared_offset)target=gen_rtx_CONST(Pmode,gen_rtx_PLUS(Pmode,target,GEN_INT(shared_offset)));
+        rtx replacement=gen_match_arm_literal(copy_rtx(SET_DEST(set)),target);
+        if(!validate_change(i,&PATTERN(i),replacement,true)) {
+            cancel_changes(0);fatal_error(UNKNOWN_LOCATION,"shared literal instruction rejected");
+        }
+        changed++;
+    }
+    if(!changed || !apply_change_group())fatal_error(UNKNOWN_LOCATION,"shared literal rewrite failed");
+#endif
+}
 const pass_data data={RTL_PASS,"branch_tables",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -80,7 +127,7 @@ public:
     unsigned int execute(function *fn) override {
         bool unchecked=lookup_attribute("matching_unchecked_switch",DECL_ATTRIBUTES(fn->decl))!=NULL_TREE;
         if (!TARGET_ARM) {
-            if(pc_relative || unchecked) fatal_error(UNKNOWN_LOCATION,"matching instruction-table options require ARM mode");
+            if(pc_relative || unchecked || !shared_source.empty()) fatal_error(UNKNOWN_LOCATION,"matching instruction-table options require ARM mode");
             return 0;
         }
         for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -142,6 +189,7 @@ public:
             i=previous;
         }
         if(sink_trampolines) sink_jump_only_blocks();
+        shared_literal();
         return 0;
     }
 };
@@ -149,6 +197,22 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version))return 1;
     for(int a=0;a<info->argc;a++) {
+        if(!strcmp(info->argv[a].key,"shared-literal")) {
+            if(!info->argv[a].value || !shared_source.empty())return 1;
+            std::string text=info->argv[a].value;
+            auto first=text.find(','),second=text.find(',',first==std::string::npos?first:first+1);
+            if(first==std::string::npos || second==std::string::npos)return 1;
+            shared_source=text.substr(0,first);shared_target=text.substr(first+1,second-first-1);
+            char *end=nullptr;shared_offset=strtol(text.c_str()+second+1,&end,10);
+            auto symbol=[](const std::string &name) {
+                if(name.empty() || (name[0]!='_' && !(name[0]>='A' && name[0]<='Z') && !(name[0]>='a' && name[0]<='z')))return false;
+                for(char c:name)if(c!='_' && !(c>='A' && c<='Z') && !(c>='a' && c<='z') && !(c>='0' && c<='9'))return false;
+                return true;
+            };
+            if(second+1==text.size() || !end || *end || !symbol(shared_source) || !symbol(shared_target)
+               || shared_offset<0 || shared_offset>4092 || shared_offset%4)return 1;
+            continue;
+        }
         if(info->argv[a].value) return 1;
         if(!strcmp(info->argv[a].key,"pc-relative")) pc_relative=true;
         else if(!strcmp(info->argv[a].key,"sink-trampolines")) sink_trampolines=true;
@@ -156,6 +220,9 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     }
 #ifndef HAVE_match_arm_read_pc
     if(pc_relative) { error("pc-relative tables require the matching ARM backend"); return 1; }
+#endif
+#ifndef HAVE_match_arm_literal
+    if(!shared_source.empty()) { error("shared literals require the matching ARM backend"); return 1; }
 #endif
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};

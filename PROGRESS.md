@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher 102/107 matching instruction words (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher 103/107 matching instruction words (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,7 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Map flood dispatcher candidate | `███████████████████░` **102/107 instruction words (95.3%); five literal loads differ; not integrated** |
+| Map flood dispatcher candidate | `███████████████████░` **103/107 instruction words (96.3%); four literal loads differ; not integrated** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
 | Integrated object-list high entry | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
@@ -49,8 +49,9 @@ in production. A standalone suite now passes 10,080 baseline/plugin executions,
 checking XOR results, branch decisions, preserved registers and excluded forms.
 A separate experimental compiler pass now emits six ARM branch-table entries.
 The current 444-byte candidate passes all dispatcher checks. Its 428-byte
-instruction body matches 102 of 107 words at the original ROM address; only
-five literal-load offsets differ. The loop trampoline now matches. Literals
+instruction body matches 103 of 107 words at the original ROM address; only
+four queue-pool literal-load offsets differ. The shared-state load is exact,
+with 384 standalone literal comparisons and six rejected out-of-range links. The loop trampoline now matches. Literals
 still need the original shared/prefix layout. Another 1,280 standalone valid-index cases
 verify the opt-in unchecked contract.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;

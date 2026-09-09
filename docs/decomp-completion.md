@@ -2041,3 +2041,31 @@ at its isolated address, including the extra candidate section bytes. The five
 loads still reference a trailing pool instead of the original preceding/shared
 pool, so the candidate remains outside production. Dedicated broader trampoline
 layout probes remain desirable before promoting the experimental compiler rule.
+
+
+## Shared-state literal load matched
+
+The isolated backend now includes `match_arm_literal`, a memory-load pattern
+using an explicit ARM PC-relative linker relocation. A plain external literal
+label failed assembler fixup, so the pattern emits the relocation directly
+without modifying object bytes. The table pass's `shared-literal` manifest
+specifies a source pointer symbol, an external pool symbol and an aligned byte
+offset. It requires one simple word pool and at least one recognized load,
+rejects malformed manifests, and validates replacement RTL as a group. Stock
+backends without this pattern reject the option; matching options reject Thumb.
+
+The checker option `--shared-literal` selects
+`gMovMapFillState,MapFloodCoreStepPool,4`. Isolated execution supplies the same
+state pointer in a nearby shadow pool; original-address linking resolves the
+symbol to the original helper pool at `0x08000770`. The load at `0x0800087C`
+now matches exactly. The dispatcher therefore matches 103/107 instruction words;
+only four loads of the two queue-pool pointers differ. All 640 controlled-helper
+and 240 actual-helper cases pass. The candidate still carries its obsolete
+trailing pool and is not integrated.
+
+`research/arm/compiler/check_shared_literal.py`, using the isolated compiler
+and rebuilt branch-table plugin, passes 384 baseline/shared comparisons across
+forward/backward pools, three word offsets, four array indices and all incoming
+NZCV states. Return values and r0-r12/flag results agree. Six deliberately
+out-of-range links are rejected by the ARM relocation check. The rebuilt backend
+and plugins have refreshed provenance reports; production remains unchanged.

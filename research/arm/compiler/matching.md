@@ -21,3 +21,15 @@
   "TARGET_ARM && arm_arch4t"
   "bx%?\t%0"
   [(set_attr "type" "branch") (set_attr "length" "4")])
+
+(define_c_enum "unspec" [UNSPEC_MATCH_ARM_LITERAL])
+
+;; Read a word from a link-time symbol address using an ARM PC-relative
+;; relocation. The memory expression preserves the load's memory semantics.
+(define_insn "match_arm_literal"
+  [(set (match_operand:SI 0 "s_register_operand" "=r")
+        (mem:SI (unspec:SI [(match_operand:SI 1 "immediate_operand" "i")]
+                          UNSPEC_MATCH_ARM_LITERAL)))]
+  "TARGET_ARM"
+  "ldr%?\t%0, [%|pc, #:pc_g0:(%c1 - 8)]"
+  [(set_attr "type" "load_4") (set_attr "length" "4")])

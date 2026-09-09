@@ -19,9 +19,11 @@ def main():
     parser.add_argument('--pc-relative',action='store_true')
     parser.add_argument('--unchecked',action='store_true')
     parser.add_argument('--sink-trampolines',action='store_true')
+    parser.add_argument('--shared-literal',action='store_true')
     args=parser.parse_args()
     options=[item for plugin in args.plugin for item in ['--plugin',str(plugin.resolve())]]
     options+=['--compiler',args.compiler]
+    if args.shared_literal:options+=['--shared-literal']
     if args.unchecked:options+=['--unchecked']
     if args.sink_trampolines:options+=['--sink-trampolines']
     if args.pc_relative:options+=['--pc-relative']
@@ -60,7 +62,7 @@ def main():
                     outputs=[]
                     for entry in (0x08000874,0x08010000):
                         uc=Uc(UC_ARCH_ARM,UC_MODE_ARM)
-                        uc.mem_map(0x08000000,0x20000);uc.mem_write(0x08000000,rom[:0x1000]);uc.mem_write(0x08010000,code)
+                        uc.mem_map(0x08000000,0x20000);uc.mem_write(0x08000000,rom[:0x1000]);uc.mem_write(0x08010000,code);uc.mem_write(0x0800ff04,struct.pack('<I',state))
                         uc.mem_map(0x02000000,0x40000);uc.mem_map(0x03000000,0x8000)
                         initial=bytearray([255]*81);initial[40]=0
                         for pointer,table,data,values in ((terrain,0x02001000,0x02002000,tiles),(units,0x02001100,0x02002100,occupants),(working,0x02001200,0x02002200,initial)):
