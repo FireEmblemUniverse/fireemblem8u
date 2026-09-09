@@ -571,6 +571,8 @@ SECTIONS
         src/classchg-postconfirm.o(.text);
         src/bmguide.o(.text);
         src/m4a_1.o(.text);
+        src/m4a_clear_chain.o(.text);
+        src/m4a_1.o(.text.after_real_clear_chain);
         src/m4a.o(.text);
         src/libagbsyscall.o(.text);
         src/agb_sram.o(.text);

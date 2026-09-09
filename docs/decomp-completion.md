@@ -34,6 +34,8 @@ replacements to 248 bytes. The complete ROM still matches.
 C; the PC read and two-instruction timing loop remain explicit assembly.
 There is now one `NAKEDFUNC` macro and no explicit naked attributes. The
 unit-list assembly body and residual timing assembly remain unfinished.
+`RealClearChain` is now matching Thumb C (32 bytes), using empty register
+constraints and no instruction-bearing assembly templates.
 
 ## Completion evidence
 
@@ -782,3 +784,26 @@ The corrected empty-template compiler was independently tested on the current
 unit-list candidate during this review. Its assembly baseline still matches,
 but the C candidate retains exactly eleven differing bytes. The unit-list
 translation unit therefore continues using the original compiler.
+
+## RealClearChain matching C
+
+`src/m4a_clear_chain.c` replaces the complete 32-byte audio channel unlink
+routine at `0x080CF908..0x080CF928`. It returns when the channel has no track,
+otherwise reconnects its previous and next channels (or the track's head), then
+clears its track pointer. PCM and CGB channels share the linkage offsets
+`0x2C`, `0x30` and `0x34`; this translation unit disables strict aliasing to
+support both layouts through the existing `void *` interface.
+
+GNU ARM GCC 16.2.0 generates every instruction, including the original leaf
+return. Three fixed register bindings and three empty constraints preserve
+register allocation. The linker inserts this object between two audio assembly
+sections. An explicit zero-filled alignment preserves the two original bytes
+after `SoundMainBTM`; the linker default fill alone would differ there.
+
+`make compare -j8` passes the canonical checksum, and direct comparison confirms
+all 16,777,216 ROM bytes match. The five audio helper symbol checks and seven
+audit regression tests pass. The tracked source inventory now contains 439 C
+files, 69 assembly entry markers, and 118 inline sites: 66 register bindings,
+44 empty templates, one directive and seven instruction-bearing templates.
+The remaining naked unit-list body, ARM/audio routines, BIOS/startup interfaces,
+timing assembly and embedded executable assembly remain within the active goal.

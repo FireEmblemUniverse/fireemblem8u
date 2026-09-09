@@ -477,29 +477,9 @@ SoundMainBTM:
 	bx lr
 	thumb_func_end SoundMainBTM
 
-	thumb_func_start RealClearChain
-RealClearChain:
-	ldr r3, [r0, 0x2C]
-	cmp r3, 0
-	beq _081DD5E2
-	ldr r1, [r0, 0x34]
-	ldr r2, [r0, 0x30]
-	cmp r2, 0
-	beq _081DD5D6
-	str r1, [r2, 0x34]
-	b _081DD5D8
-_081DD5D6:
-	str r1, [r3, 0x20]
-_081DD5D8:
-	cmp r1, 0
-	beq _081DD5DE
-	str r2, [r1, 0x30]
-_081DD5DE:
-	movs r1, 0
-	str r1, [r0, 0x2C]
-_081DD5E2:
-	bx lr
-	thumb_func_end RealClearChain
+@ RealClearChain is linked here from m4a_clear_chain.c.
+	.align 2, 0
+	.section .text.after_real_clear_chain, "ax", %progbits
 
 	thumb_func_start ply_fine
 ply_fine:
