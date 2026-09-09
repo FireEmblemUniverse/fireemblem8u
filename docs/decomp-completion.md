@@ -21,7 +21,8 @@ pointer pool), and embedded ColorFadeTick is C in all three payload versions.
 TmCopyRect is now matching C in the main and embedded builds too.
 TmFillRect is also matching C in both builds.
 DrawGlyph and its shift table are now matching C too.
-The current inventories are 61 main assembly entry markers and 17 embedded
+DrawGlyphHalfStride is now matching C as well.
+The current inventories are 60 main assembly entry markers and 17 embedded
 assembly function declarations. The full ROM comparison passes. See the latest
 sections for integration and toolchain verification.
 
@@ -1500,3 +1501,37 @@ and 312 inline sites: 128 register bindings, 176 empty constraints, one
 directive and seven instruction templates. Linked mapping attributes 188 ARM
 and 36 data bytes to the new C object with no orphan mappings. The embedded
 payload is unchanged in this milestone.
+
+## DrawGlyphHalfStride and shared compiler pool integrated
+
+DrawGlyphHalfStride now compiles alongside DrawGlyph in `src/arm/draw_glyph.c`.
+It retains all 188 instruction bytes at `0x08000620..0x080006DC`, with the
+original eight-row count and asymmetric source/background column reads at
++0x40/+0x80 versus writes at +0x20/+0x40. The isolated checker reproduces the
+entire 380-byte shared pointer/two-function region at `0x08000560..0x080006DC`.
+Its 2,048 half-stride cases pass against original ARM and an independent pixel
+reference, including overlap, arbitrary initial data, both LUT halfword
+alignments, all shifts and flags, preserved registers/SP and allowed writes.
+
+The optional compiler pool-sharing mode emits the first function's manifest
+once and references its labels from later functions in the same output section.
+It validates each function's pool and rejects section changes or an absent
+manifest. It caches only label numbers across function compilation, avoiding
+stale RTL pointers under GCC garbage collection. Thirty independent relocated
+pool executions cover both symbol orders and two functions, with forced GCC
+collection and explicit invalid-request checks. The existing 18,816 comparison
+probes and 384 scalar-copy probes still pass. No instructions are patched.
+
+The production translation unit preserves source order explicitly. The manual
+half-stride pool relocation has been removed along with its assembly body.
+Its old 196-byte symbol included the following eight Huffman pointer bytes;
+the C symbol now correctly has size 188 and those pointers remain in the
+assembly prefix for DecodeString. The complete ROM and all three payload
+checksums pass. The embedded runtime is unchanged; synchronized compiler
+support is bundled at child revision
+`2b20a2d3ce3767ef1501db893ecf4c8dddb02358`.
+
+The source audit still has 447 main C files and now 60 assembly entry markers.
+The glyph C object accounts for both functions plus 36 data bytes. Remaining
+instruction-bearing inline assembly and the embedded assembly inventory are
+unchanged. String decoding is the next ARM target.

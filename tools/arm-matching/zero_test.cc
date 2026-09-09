@@ -20,6 +20,10 @@ int plugin_is_GPL_compatible;
 namespace {
 std::vector<std::string> prefix_names;
 bool scalar_copy_sub_zero = false;
+bool share_prefix_pool = false;
+// Cache label numbers, not RTL pointers that can be collected between functions.
+std::vector<int> shared_labels;
+section *shared_section = nullptr;
 struct pool_entry { rtx_insn *insn; rtx value; rtx_code_label *label; };
 
 bool references_label(rtx value, rtx_code_label *label) {
@@ -36,7 +40,7 @@ bool references_label(rtx value, rtx_code_label *label) {
     return false;
 }
 
-// Explicit research-only layout request. Only a single pool of named pointers
+// Explicit pointer-pool layout request. Only a single pool of named pointers
 // is accepted; unsupported pools must not silently produce a different layout.
 void prefix_pool() {
     if (prefix_names.empty()) return;
@@ -77,6 +81,14 @@ void prefix_pool() {
             if (previous == found) fatal_error(UNKNOWN_LOCATION, "duplicate manifest symbol");
         order.push_back(found);
     }
+    section *destination_section = function_section(current_function_decl);
+    bool reuse = share_prefix_pool && !shared_labels.empty();
+    if (reuse) {
+        if (destination_section != shared_section || shared_labels.size() != order.size())
+            fatal_error(UNKNOWN_LOCATION, "shared prefix pool requires the same section and manifest");
+        for (unsigned n = 0; n < order.size(); ++n)
+            CODE_LABEL_NUMBER(entries[order[n]].label) = shared_labels[n];
+    }
     for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
         if (!NONDEBUG_INSN_P(insn) || GET_CODE(PATTERN(insn)) != SET) continue;
         rtx source = SET_SRC(PATTERN(insn));
@@ -102,15 +114,21 @@ void prefix_pool() {
     for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn))
         if (NONDEBUG_INSN_P(insn) && references_label(PATTERN(insn), pool))
             fatal_error(UNKNOWN_LOCATION, "unsupported prefix pool reference remains");
-    switch_to_section(function_section(current_function_decl));
-    assemble_align(32);
-    for (unsigned i : order) {
-        char label_name[64];
-        ASM_GENERATE_INTERNAL_LABEL(label_name, "L", CODE_LABEL_NUMBER(entries[i].label));
-        ASM_OUTPUT_INTERNAL_LABEL(asm_out_file, label_name);
-        fputs("\t.word\t", asm_out_file);
-        output_addr_const(asm_out_file, entries[i].value);
-        fputc('\n', asm_out_file);
+    if (!reuse) {
+        switch_to_section(destination_section);
+        assemble_align(32);
+        for (unsigned i : order) {
+            char label_name[64];
+            ASM_GENERATE_INTERNAL_LABEL(label_name, "L", CODE_LABEL_NUMBER(entries[i].label));
+            ASM_OUTPUT_INTERNAL_LABEL(asm_out_file, label_name);
+            fputs("\t.word\t", asm_out_file);
+            output_addr_const(asm_out_file, entries[i].value);
+            fputc('\n', asm_out_file);
+        }
+        if (share_prefix_pool) {
+            shared_section = destination_section;
+            for (unsigned i : order) shared_labels.push_back(CODE_LABEL_NUMBER(entries[i].label));
+        }
     }
     for (const auto &entry : entries) remove_insn(entry.insn);
     remove_insn(end);
@@ -247,6 +265,10 @@ public:
 int plugin_init(plugin_name_args *info, plugin_gcc_version *version) {
     if (!plugin_default_version_check(version, &gcc_version)) return 1;
     for (int i = 0; i < info->argc; ++i) {
+        if (!strcmp(info->argv[i].key, "share-prefix-pool") && !info->argv[i].value) {
+            share_prefix_pool = true;
+            continue;
+        }
         if (!strcmp(info->argv[i].key, "scalar-copy-sub-zero") && !info->argv[i].value) {
             scalar_copy_sub_zero = true;
             continue;
@@ -260,6 +282,7 @@ int plugin_init(plugin_name_args *info, plugin_gcc_version *version) {
             start = comma + 1;
         } while (comma != std::string::npos);
     }
+    if (share_prefix_pool && prefix_names.empty()) return 1;
     register_pass_info pass = {new pass_tst(g), "shorten", 1, PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name, PLUGIN_PASS_MANAGER_SETUP, nullptr, &pass);
     return 0;

@@ -39,3 +39,7 @@ reference checksums still pass.
 
 Embedded TmFillRect is now matching C (56 bytes), using the bundled compiler's
 optional scalar-copy encoding rule. All three payload checksums still match.
+
+The bundled compiler sources remain synchronized with the main game's optional
+same-section pool-sharing support and its garbage-collection stress checks.
+Payload translation units do not enable sharing; their checksums are unchanged.

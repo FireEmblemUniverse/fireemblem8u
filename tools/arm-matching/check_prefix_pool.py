@@ -47,7 +47,34 @@ def main():
             assert result.returncode and ('prefix pool' in result.stderr or 'manifest' in result.stderr), result.stderr
         result = subprocess.run(command + ['-mthumb', '-fplugin-arg-zero_test-prefix-pool=alpha,beta'], capture_output=True, text=True)
         assert result.returncode and 'requires ARM mode' in result.stderr
-        print(f'{cases} relocated prefix-pool executions pass in both pointer orders; four invalid manifests and Thumb pool placement rejected.')
+        source.write_text('extern volatile unsigned alpha, beta;\nunsigned probe(void) { return alpha + beta; }\nunsigned probe_second(void) { return beta - alpha; }\n')
+        shared = ['-fplugin-arg-zero_test-share-prefix-pool', '--param=ggc-min-expand=0', '--param=ggc-min-heapsize=0']
+        for order in ['alpha,beta', 'beta,alpha']:
+            subprocess.run(command + ['-marm', '-fplugin-arg-zero_test-prefix-pool=' + order] + shared, check=True)
+            assembly = (root/'probe.s').read_text()
+            assert assembly.count('\t.word\talpha') == 1 and assembly.count('\t.word\tbeta') == 1
+            subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(root/'probe.s'), '-o', str(root/'probe.o')], check=True)
+            subprocess.run(['arm-none-eabi-ld', '-T', str(root/'link.ld'), str(root/'probe.o'), '-o', str(root/'probe.elf')], check=True)
+            subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(root/'probe.elf'), str(root/'probe.bin')], check=True)
+            binary = (root/'probe.bin').read_bytes()
+            symbols = {line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(root/'probe.elf')],text=True).splitlines() if line.split()[-1] in ['probe','probe_second']}
+            for a,b in [(0,0),(1,2),(0xffffffff,1),(0x80000000,0x80000000),(0x12345678,0x87654321)]:
+                for function in ['probe','probe_second']:
+                    machine = Uc(UC_ARCH_ARM, UC_MODE_ARM)
+                    machine.mem_map(0x08010000, 0x1000)
+                    machine.mem_map(0x02000000, 0x1000)
+                    machine.mem_write(0x08010000, binary)
+                    machine.mem_write(0x02000000, struct.pack('<II',a,b))
+                    machine.reg_write(regs.UC_ARM_REG_LR,0x08010800)
+                    machine.emu_start(symbols[function],0x08010800,count=100)
+                    assert machine.reg_read(regs.UC_ARM_REG_PC)==0x08010800
+                    assert machine.reg_read(regs.UC_ARM_REG_R0)==((a+b) if function=='probe' else (b-a))&0xffffffff
+                    cases += 1
+        result = subprocess.run(command + ['-marm','-ffunction-sections','-fplugin-arg-zero_test-prefix-pool=alpha,beta'] + shared, capture_output=True,text=True)
+        assert result.returncode and 'requires the same section' in result.stderr
+        result = subprocess.run(command + ['-marm','-fplugin-arg-zero_test-share-prefix-pool'],capture_output=True,text=True)
+        assert result.returncode
+        print(f'{cases} relocated prefix-pool executions pass in both pointer orders; invalid manifests, Thumb placement, cross-section sharing, and missing sharing manifest rejected.')
 
 
 if __name__ == '__main__':

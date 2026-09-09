@@ -142,7 +142,7 @@ src/arm/tm_fill_rect.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=ap
 
 src/arm/draw_glyph.o: $(ARM_MATCH_PLUGIN)
 src/arm/draw_glyph.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
-src/arm/draw_glyph.o: CC1FLAGS := -std=gnu89 -O2 -fno-section-anchors -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffixed-r14 -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-move-loop-invariants -fno-tree-loop-im -fplugin=$(ARM_MATCH_PLUGIN) -fplugin-arg-zero_test-prefix-pool=bitTable
+src/arm/draw_glyph.o: CC1FLAGS := -std=gnu89 -O2 -fno-section-anchors -fno-toplevel-reorder -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffixed-r14 -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-move-loop-invariants -fno-tree-loop-im -fplugin=$(ARM_MATCH_PLUGIN) -fplugin-arg-zero_test-prefix-pool=bitTable -fplugin-arg-zero_test-share-prefix-pool
 
 # This Thumb leaf must not gain a prologue or alter the calibrated delay loop.
 src/sio_multiboot_wait.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -

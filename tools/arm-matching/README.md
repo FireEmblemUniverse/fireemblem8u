@@ -1,7 +1,7 @@
 # ARM matching compiler plugin
 
 This GCC 16.2.0 plugin generates the matching production ColorFadeTick and
-MapFloodCoreStep, TmCopyRect, TmFillRect and DrawGlyph routines. The production Makefile loads it only for those five
+MapFloodCoreStep, TmCopyRect, TmFillRect, DrawGlyph and DrawGlyphHalfStride routines. The production Makefile loads it only for those five
 C translation units. It uses installed GCC plugin headers and checks
 compiler-version compatibility at load time. Host C++ and GMP headers are
 required to build it. The source is GPL-3.0-or-later; generated host binaries
@@ -131,9 +131,8 @@ whole-section equality remains the stronger instruction-matching evidence.
 DrawGlyph uses the existing ordered prefix pool at O2. O1 retains an unnecessary
 r11 save/restore after its 64-bit multiply temporaries disappear; O2 removes it
 and matches the original seven-register save set. Production disables section
-anchors so the pointer pool names the C shift table directly. The remaining
-half-stride assembly reads that shared pool through an ARM PC-relative linker
-relocation. No additional compiler-plugin transformation was needed.
+anchors so the pointer pool names the C shift table directly. The half-stride C routine now reuses that shared pool in the same translation
+unit. No additional compiler-plugin transformation was needed.
 
 ```sh
 .deps/arm-oracle-venv/bin/python research/arm/check_draw_glyph.py --plugin .deps/arm-matching-plugin/zero_test.so
@@ -143,3 +142,26 @@ The glyph code deliberately reproduces ARM word loads at two-byte lookup
 strides, retaining only their low halfwords. It is target-specific C and uses
 `-fno-strict-aliasing`; it is not a portable unaligned-load abstraction. The
 independent reference uses halfword lookups and agrees for both LUT alignments.
+
+## Sharing a prefix pool between functions
+
+`-fplugin-arg-zero_test-share-prefix-pool` reuses the first emitted pool for
+later functions with the same ordered manifest in the same output section.
+It requires the prefix-pool manifest and rejects cross-section reuse. Only
+label numbers are cached across functions; no transient RTL pointers are kept.
+The assembler retains its normal PC-relative range checks. This option is
+currently enabled only for the translation unit containing both glyph routines.
+Source order is preserved explicitly with `-fno-toplevel-reorder`.
+
+The pool test suite now runs 30 relocated executions in both pointer orders,
+including a second function whose pool encounter order differs, forced GCC
+garbage collection, and rejection of cross-section sharing or a missing manifest.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/arm/check_draw_glyph.py --plugin .deps/arm-matching-plugin/zero_test.so --half-stride
+```
+
+This verifies the complete 380-byte shared pointer/function pair and executes
+2,048 half-stride cases. The reference deliberately reads at column offsets
+0/64/128 bytes while writing at 0/32/64 bytes, over eight rows. Arbitrary initial
+pixels and overlap exercise that asymmetry rather than assuming a blank buffer.
