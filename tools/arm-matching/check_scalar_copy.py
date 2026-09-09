@@ -18,23 +18,26 @@ def main():
     with tempfile.TemporaryDirectory(prefix='arm-scalar-copy-') as temporary:
         root = Path(temporary)
         (root/'probe.c').write_text('''unsigned scalar(unsigned x) { register unsigned v asm("r4")=x; asm("" : "+r"(v)); return v; }
+unsigned zero(unsigned x) { register unsigned v asm("r4")=0; asm("" : "+r"(v)); return v; }
 void * pointer(void * x) { register void * v asm("r4")=x; asm("" : "+r"(v)); return v; }
 ''')
         (root/'link.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n')
         images = []
         bodies = []
-        for options in ([], option):
+        for options in ([], option, ["-fplugin-arg-zero_test-zero-self-sub"]):
             subprocess.run(['arm-none-eabi-gcc','-S','-O1','-marm','-mcpu=arm7tdmi',*plugin,*options,str(root/'probe.c'),'-o',str(root/'probe.s')],check=True)
             text = (root/'probe.s').read_text()
             bodies.append(text.split('\npointer:',1)[1].split('\t.size',1)[0])
+            zero = text.split('\nzero:',1)[1].split('\t.size',1)[0]
+            assert bool(re.search(r'\bsub\s+r4, r4, r4',zero)) == ('-fplugin-arg-zero_test-zero-self-sub' in options), zero
             scalar = text.split('\nscalar:',1)[1].split('\t.size',1)[0]
-            assert bool(re.search(r'\bsub\s+r4, r0, #0',scalar)) == bool(options), scalar
+            assert bool(re.search(r'\bsub\s+r4, r0, #0',scalar)) == (options == option), scalar
             subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(root/'probe.s'),'-o',str(root/'probe.o')],check=True)
             subprocess.run(['arm-none-eabi-ld','-T',str(root/'link.ld'),str(root/'probe.o'),'-o',str(root/'probe.elf')],check=True)
             subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(root/'probe.elf'),str(root/'probe.bin')],check=True)
-            symbols = {line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(root/'probe.elf')],text=True).splitlines() if line.split()[-1] in ['scalar','pointer']}
+            symbols = {line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(root/'probe.elf')],text=True).splitlines() if line.split()[-1] in ['scalar','pointer','zero']}
             images.append(((root/'probe.bin').read_bytes(),symbols))
-        assert bodies[0] == bodies[1], 'pointer copy instructions changed'
+        assert all(body == bodies[0] for body in bodies), 'pointer copy instructions changed'
         cases = 0
         for body, symbols in images:
             uc = Uc(UC_ARCH_ARM,UC_MODE_ARM)
@@ -46,18 +49,20 @@ void * pointer(void * x) { register void * v asm("r4")=x; asm("" : "+r"(v)); ret
                     for nzcv in range(16):
                         uc.reg_write(regs.UC_ARM_REG_CPSR,0x13|(nzcv<<28))
                         for r in range(13): uc.reg_write(getattr(regs,'UC_ARM_REG_R'+str(r)),0x11110000+r)
+                        if symbol == "zero": uc.reg_write(regs.UC_ARM_REG_R4,value)
                         uc.reg_write(regs.UC_ARM_REG_R0,value)
                         uc.reg_write(regs.UC_ARM_REG_SP,0x03007000)
                         uc.reg_write(regs.UC_ARM_REG_LR,0x08010800)
                         uc.emu_start(symbols[symbol],0x08010800,count=100)
                         assert uc.reg_read(regs.UC_ARM_REG_PC)==0x08010800
-                        assert uc.reg_read(regs.UC_ARM_REG_R0)==value
+                        assert uc.reg_read(regs.UC_ARM_REG_R0)==(0 if symbol=="zero" else value)
                         assert uc.reg_read(regs.UC_ARM_REG_SP)==0x03007000
                         assert uc.reg_read(regs.UC_ARM_REG_CPSR)&0xf0000000==nzcv<<28
-                        for r in range(1,13): assert uc.reg_read(getattr(regs,'UC_ARM_REG_R'+str(r)))==0x11110000+r
+                        for r in range(1,13): assert uc.reg_read(getattr(regs,'UC_ARM_REG_R'+str(r)))==(value if symbol=="zero" and r==4 else 0x11110000+r)
                         cases += 1
-        result = subprocess.run(['arm-none-eabi-gcc','-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,*option,str(root/'probe.c'),'-o',str(root/'thumb.s')],capture_output=True,text=True)
-        assert result.returncode and 'require ARM mode' in result.stderr
+        for forbidden in (option, ["-fplugin-arg-zero_test-zero-self-sub"], ["-fplugin-arg-zero_test-sign-zero-tests"]):
+            result = subprocess.run(['arm-none-eabi-gcc','-S','-O1','-mthumb','-mcpu=arm7tdmi',*plugin,*forbidden,str(root/'probe.c'),'-o',str(root/'thumb.s')],capture_output=True,text=True)
+            assert result.returncode and 'require ARM mode' in result.stderr
         print(f'{cases} scalar/pointer executions preserve values, registers, and every NZCV; pointer encoding unchanged; Thumb request rejected.')
 
 

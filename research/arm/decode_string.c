@@ -1,5 +1,5 @@
 /* Standalone nonmatching ARM Huffman decoder reconstruction.
- * 31/35 instruction words match; all 640 valid-tree oracle cases pass.
+ * 34/35 instruction words match with the optional zero encodings; all 640 valid-tree oracle cases pass.
  * The decoder assumes a valid internal root, bitstream and output capacity.
  */
 typedef unsigned char u8;

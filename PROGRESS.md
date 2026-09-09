@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: verified DecodeString C candidate (this change).
+Updated: September 9, 2026. Latest verified implementation: DecodeString candidate reduced to one differing word (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -12,7 +12,7 @@ advances, integration results, or changes in the current blocker.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
-| String decoder candidate | `██████████████████░░` **31/35 instruction words (88.6%); not integrated** |
+| String decoder candidate | `██████████████████░░` **34/35 instruction words (97.1%); not integrated** |
 | Half-stride glyph routine | `████████████████████` **All 188 instruction bytes exact; shares the original pointer pool** |
 | Glyph drawing routine | `████████████████████` **All 188 instruction bytes exact; shift table and pointer also generated from C** |
 | Tilemap fill routine | `████████████████████` **All 56 bytes exact in main and three payload versions** |
@@ -27,9 +27,9 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 **Working on: DecodeString instruction matching.**
 The C candidate passes 640 valid-tree cases with matching output, consumed
-input, registers, write boundaries, and return flags. Its pointer pool matches;
-four instructions still differ: zero initialization, the leaf sign test/branch,
-and the final byte-mask test. It stays outside production until those match.
+input, registers, write boundaries, and return flags. Its pointer pool, zero initialization, and leaf sign test now match with
+checked optional compiler encodings. Only the final ANDS-versus-TST byte-mask
+test differs. It stays outside production until that matches.
 The full production ROM remains exact.
 
 Latest checks: 65,536 palette component/step pairs; 80 map flood cases with no

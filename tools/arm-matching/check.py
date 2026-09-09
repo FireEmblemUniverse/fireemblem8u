@@ -12,7 +12,9 @@ from unicorn import arm_const as regs
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin',type=Path,required=True)
+    parser.add_argument("--zero-encodings", action="store_true")
     args = parser.parse_args()
+    optional = ["-fplugin-arg-zero_test-zero-self-sub", "-fplugin-arg-zero_test-sign-zero-tests"] if args.zero_encodings else []
     operations = {'eq':lambda x:x==0,'ne':lambda x:x!=0,'lt':lambda x:x<0,
                   'le':lambda x:x<=0,'gt':lambda x:x>0,'ge':lambda x:x>=0,
                   'mixed':lambda x:x<=0}
@@ -41,7 +43,7 @@ def main():
         (root/'link.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\nhit = 0x08020000;\n')
         checks = 0
         baseline_text = None
-        for name,plugin in [('baseline',[]),('plugin',['-fplugin='+str(args.plugin.resolve())])]:
+        for name,plugin in [('baseline',[]),('plugin',['-fplugin='+str(args.plugin.resolve())]+optional)]:
             assembly = root/(name+'.s')
             obj = root/(name+'.o')
             elf = root/(name+'.elf')
@@ -54,7 +56,7 @@ def main():
             if plugin:
                 for function in list(operations)[:6]:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
-                    assert bool(re.search(r'\btst\s',body)) == (function in ('eq','ne')), function
+                    assert bool(re.search(r'\btst\s',body)) == (function in (('eq','ne','lt','ge') if args.zero_encodings else ('eq','ne'))), function
                 pair = text.split('\npair:',1)[1].split('\t.size',1)[0]
                 assert re.search(r'\btst\s', pair) and re.search(r'\b(?:bmi|blpl)\s', pair), pair
                 for function in ['u_le_31','u_gt_31']:
@@ -63,7 +65,10 @@ def main():
                 for function in ['u_le_30','u_gt_30','u_le_2147483647','u_gt_2147483647','u_le_4294967295','u_gt_4294967295','s_le_31','s_gt_31']:
                     body = text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
                     old = baseline_text.split('\n'+function+':',1)[1].split('\t.size',1)[0]
-                    assert body == old, ('unsupported boundary changed',function)
+                    if args.zero_encodings and function in ['u_le_2147483647','u_gt_2147483647']:
+                        assert re.search(r'\btst\s',body), function
+                    else:
+                        assert body == old, ('unsupported boundary changed',function)
 
             subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi','-o',str(obj),str(assembly)],check=True)
             subprocess.run(['arm-none-eabi-ld','-T',str(root/'link.ld'),'-o',str(elf),str(obj)],check=True)

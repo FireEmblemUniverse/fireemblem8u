@@ -18,12 +18,15 @@ OUT = ROOT / '.deps/decode-match'
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin',type=Path,required=True)
+    parser.add_argument("--zero-encodings",action="store_true")
     args=parser.parse_args()
     rom=(ROOT/'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
     root_address, table_address=struct.unpack_from('<II',rom,0x6dc)
     source=Path(__file__).with_name('decode_string.c')
     flags=FLAGS+['-ffixed-r14','-fno-strict-aliasing','-fplugin='+str(args.plugin.resolve()),'-fplugin-arg-zero_test-prefix-pool=gMsgHuffmanTableRoot,gMsgHuffmanTable']
+    if args.zero_encodings:
+        flags += ["-fplugin-arg-zero_test-zero-self-sub", "-fplugin-arg-zero_test-sign-zero-tests"]
     OUT.mkdir(parents=True,exist_ok=True)
     subprocess.run(['arm-none-eabi-gcc','-S',*flags,str(source),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)

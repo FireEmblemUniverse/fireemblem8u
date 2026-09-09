@@ -1566,3 +1566,23 @@ in ignored `.deps/decode-match/report.json`.
 The production source inventory is unchanged: 60 main assembly entry markers
 and 17 embedded assembly function declarations. Full-ROM matching remains
 verified; decoder instruction matching is the next step.
+
+## DecodeString reduced to one differing instruction
+
+Two opt-in compiler encodings resolve three of the decoder's four differences.
+Integer zero initialization can use a non-flag-setting SUB-self, and an immediate
+LT/GE zero comparison with dead CC can use TST plus CC_NZ-mode MI/PL consumption.
+Both go through GCC RTL recognition; neither contains game-specific symbols or
+opcode templates. Pointer/frame/special-register cases are excluded from the
+zero initializer, and both options reject Thumb requests. Defaults are unchanged.
+
+The branch probes pass 18,816 executions with these options and another 18,816
+with defaults. The expanded scalar/pointer/zero probes pass 864 cases across
+all incoming NZCV, with preserved registers and unchanged pointer encodings.
+The decoder still passes all 640 valid-tree cases with zero return-NZCV
+differences. Its complete 148-byte section now differs only at `0x08000758`:
+GCC emits ANDS r6,r6,#255 while the original uses TST r6,#255. Thus 34 of 35
+instruction words match; the candidate remains excluded from production.
+The next step is to resolve this dead mask result without changing observable
+register behavior. Main and payload checksums continue to pass with the
+synchronized compiler's default settings.

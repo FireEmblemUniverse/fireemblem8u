@@ -165,3 +165,28 @@ This verifies the complete 380-byte shared pointer/function pair and executes
 2,048 half-stride cases. The reference deliberately reads at column offsets
 0/64/128 bytes while writing at 0/32/64 bytes, over eight rows. Arbitrary initial
 pixels and overlap exercise that asymmetry rather than assuming a blank buffer.
+
+## Optional zero initialization and sign tests
+
+`zero-self-sub` materializes integer zero with a non-flag-setting self-subtract
+in ordinary SI hard registers, excluding pointers, special registers and frame
+setup. `sign-zero-tests` converts an immediate, dead LT/GE consumer of a word
+comparison against zero to CC_NZ-mode TST plus MI/PL semantics. Updating the
+consumer's mode makes the sign test independent of incoming overflow. The
+option does not generalize to LE/GT tests or live/multiple flag consumers.
+Both options are disabled by default and explicitly rejected in Thumb mode.
+
+```sh
+.deps/arm-oracle-venv/bin/python tools/arm-matching/check.py --plugin .deps/arm-matching-plugin/zero_test.so --zero-encodings
+.deps/arm-oracle-venv/bin/python tools/arm-matching/check_scalar_copy.py --plugin .deps/arm-matching-plugin/zero_test.so
+.deps/arm-oracle-venv/bin/python research/arm/check_decode_string.py --plugin .deps/arm-matching-plugin/zero_test.so --zero-encodings
+```
+
+The branch suite passes 18,816 executions with these options and separately
+with defaults. Unsigned comparisons against 0x7fffffff that GCC has already
+lowered to sign tests are also eligible; their predicates remain unchanged.
+The expanded scalar suite passes 864 baseline/copy/zero cases, including
+arbitrary initial destination bits, every NZCV, preserved registers, pointer
+exclusions and Thumb rejection. DecodeString improves to one differing word;
+its final dead mask result still emits ANDS instead of TST, so it is not yet
+integrated into the ROM.

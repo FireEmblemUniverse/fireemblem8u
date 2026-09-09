@@ -20,6 +20,8 @@ int plugin_is_GPL_compatible;
 namespace {
 std::vector<std::string> prefix_names;
 bool scalar_copy_sub_zero = false;
+bool zero_self_sub = false;
+bool sign_zero_tests = false;
 bool share_prefix_pool = false;
 // Cache label numbers, not RTL pointers that can be collected between functions.
 std::vector<int> shared_labels;
@@ -202,6 +204,46 @@ void scalar_copies() {
     }
 }
 
+// Optional non-flag-setting zero materialization and sign-only zero tests.
+void zero_encodings() {
+    for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
+        if (!NONDEBUG_INSN_P(insn) || RTX_FRAME_RELATED_P(insn)
+            || GET_CODE(PATTERN(insn)) != SET) continue;
+        rtx set = PATTERN(insn), dst = SET_DEST(set), src = SET_SRC(set);
+        if (zero_self_sub && REG_P(dst) && GET_MODE(dst) == SImode
+            && REGNO(dst) < 13 && !REG_POINTER(dst) && src == const0_rtx) {
+            rtx replacement = gen_rtx_SET(dst, gen_rtx_MINUS(SImode, dst, dst));
+            if (!validate_change(insn, &PATTERN(insn), replacement, false))
+                fatal_error(UNKNOWN_LOCATION, "self-subtract zero rejected by ARM backend");
+            continue;
+        }
+        if (!sign_zero_tests || !REG_P(dst) || REGNO(dst) != CC_REGNUM
+            || GET_CODE(src) != COMPARE || XEXP(src,1) != const0_rtx
+            || !REG_P(XEXP(src,0)) || GET_MODE(XEXP(src,0)) != SImode) continue;
+        rtx_insn *branch = next_nonnote_nondebug_insn(insn);
+        if (!branch || !JUMP_P(branch) || GET_CODE(PATTERN(branch)) != SET
+            || SET_DEST(PATTERN(branch)) != pc_rtx) continue;
+        rtx choice = SET_SRC(PATTERN(branch));
+        if (GET_CODE(choice) != IF_THEN_ELSE) continue;
+        rtx condition = XEXP(choice,0);
+        if ((GET_CODE(condition) != LT && GET_CODE(condition) != GE)
+            || !rtx_equal_p(XEXP(condition,0),dst) || XEXP(condition,1) != const0_rtx
+            || !find_regno_note(branch, REG_DEAD, CC_REGNUM)) continue;
+        rtx newcc = gen_rtx_REG(CC_NZmode,CC_REGNUM), value = XEXP(src,0);
+        rtx replacement = gen_rtx_PARALLEL(VOIDmode,gen_rtvec(2,
+            gen_rtx_SET(newcc,gen_rtx_COMPARE(CC_NZmode,
+                gen_rtx_AND(SImode,copy_rtx(value),copy_rtx(value)),const0_rtx)),
+            gen_rtx_CLOBBER(VOIDmode,gen_rtx_SCRATCH(SImode))));
+        rtx newbranch = copy_rtx(PATTERN(branch));
+        XEXP(XEXP(SET_SRC(newbranch),0),0) = newcc;
+        bool valid = validate_change(insn,&PATTERN(insn),replacement,true);
+        valid &= validate_change(branch,&PATTERN(branch),newbranch,true);
+        if (valid && apply_change_group())
+            XEXP(find_regno_note(branch,REG_DEAD,CC_REGNUM),0) = newcc;
+        else cancel_changes(0);
+    }
+}
+
 const pass_data data = {RTL_PASS, "equality_tst", OPTGROUP_NONE, TV_NONE, PROP_rtl, 0, 0, 0, 0};
 class pass_tst : public rtl_opt_pass {
 public:
@@ -210,8 +252,10 @@ public:
         if (!TARGET_ARM) {
             if (!prefix_names.empty()) fatal_error(UNKNOWN_LOCATION, "prefix pool requires ARM mode");
             if (scalar_copy_sub_zero) fatal_error(UNKNOWN_LOCATION, "scalar SUB-zero copies require ARM mode");
+            if (zero_self_sub || sign_zero_tests) fatal_error(UNKNOWN_LOCATION, "zero encoding options require ARM mode");
             return 0;
         }
+        zero_encodings();
         scalar_copies();
         zero_branch_pairs();
         for (rtx_insn *insn = get_insns(); insn; insn = NEXT_INSN(insn)) {
@@ -265,6 +309,8 @@ public:
 int plugin_init(plugin_name_args *info, plugin_gcc_version *version) {
     if (!plugin_default_version_check(version, &gcc_version)) return 1;
     for (int i = 0; i < info->argc; ++i) {
+        if (!strcmp(info->argv[i].key, "zero-self-sub") && !info->argv[i].value) { zero_self_sub = true; continue; }
+        if (!strcmp(info->argv[i].key, "sign-zero-tests") && !info->argv[i].value) { sign_zero_tests = true; continue; }
         if (!strcmp(info->argv[i].key, "share-prefix-pool") && !info->argv[i].value) {
             share_prefix_pool = true;
             continue;
