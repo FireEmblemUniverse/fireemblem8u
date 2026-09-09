@@ -742,3 +742,43 @@ and zero unresolved sites. There are 42 NONMATCHING conditionals, one naked
 macro, zero explicit naked attributes, 70 assembly entry macros and no direct
 baserom includes. The remaining unit-list body, ARM routines, startup,
 BIOS/audio interfaces, timing loop and embedded assembly remain outstanding.
+
+
+## Correct audio helper symbol extents
+
+A linked-symbol review found that `src/m4a_1.s` used the checked helper's name
+in the start/end markers around `ld_r3_tp_adr_i_unchecked`. The later end marker
+therefore overwrote the earlier checked helper's size with 1,822 bytes. A second
+`MPlayJumpTableCopy` end marker incorrectly included two neighboring helpers
+and their literal pool. These were metadata errors, not additional recovered C.
+
+The unchecked helper now has correctly named markers while retaining its local
+binding. The two previously zero-sized local readers have explicit ends, and
+the second jump-table-copy end marker is removed. Thirty-two consecutive duplicate
+end markers were also removed; those duplicates were otherwise harmless.
+
+| Symbol | Old size | Correct body size | Thumb address / binding |
+| --- | ---: | ---: | --- |
+| `MPlayJumpTableCopy` | 52 | 22 | `0x080CF959`, global |
+| `ldrb_r3_r2` | 0 | 2 | `0x080CF971`, local |
+| `chk_adr_r2` | 0 | 22 | `0x080CF973`, local |
+| `ld_r3_tp_adr_i` | 1822 | 10 | `0x080CF98D`, global |
+| `ld_r3_tp_adr_i_unchecked` | 0 | 10 | `0x080D00A1`, local |
+
+The two-byte reader falls through into the address-check helper; its extent
+covers its own body, not all code executed through that entry. The shared
+literal pool remains separate. The source marker inventory still contains 70
+assembly entries, but the two checked/unchecked entries now name distinct
+functions. These remain assembly within the completion goal.
+
+Verification assembled the previous source separately and compared its FUNC
+symbol table with the new object. The symbol-name set, every address and every
+binding were identical; only the five sizes above changed. `make -j8` passed
+the complete ROM checksum and a direct full-ROM byte comparison also passed.
+`python3 scripts/check_audio_symbols.py` now checks the five linked extents;
+all seven existing audit regression tests also pass.
+
+The corrected empty-template compiler was independently tested on the current
+unit-list candidate during this review. Its assembly baseline still matches,
+but the C candidate retains exactly eleven differing bytes. The unit-list
+translation unit therefore continues using the original compiler.
