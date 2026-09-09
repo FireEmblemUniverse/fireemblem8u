@@ -32,3 +32,29 @@ rather than TST and uses r0 rather than r1 for the status OR/store. Modern GCC's
 `-mno-asm-syntax-unified` does not change the two remaining copy encodings.
 The next matching problem is selecting ADD-zero copies without adding
 instructions or changing the current register allocation.
+
+## Legacy backend experiment
+
+The pinned legacy backend (`gcc/thumb.md`) has no bitwise TST pattern. Its
+`tstsi` pattern is a single-register zero comparison and emits CMP, so changing
+C expressions alone cannot request the missing instruction through that pattern.
+An isolated compiler experiment added a general recognition pattern for
+`(set (cc0) (compare (and:SI reg reg) (const_int 0)))`. Changing the candidate
+condition to `mask & status` then generated all original 46 function bytes,
+including the two ADD-zero copies. The output section also had two trailing
+alignment bytes; those are outside the function's 46-byte extent.
+
+**That compiler experiment is not safe to integrate.** Without a condition on
+flag use, it also changes signed comparisons of `(a & b)` into TST followed by
+BLT/BGE/BLE/BGT. TST preserves V, whereas CMP against zero clears V, so those
+branches can differ when incoming V is set. Explicit EQ, NE, LT, LE, GT and GE
+probe functions exposed this issue. No experimental compiler is selected by
+the production Makefile.
+
+An attempted guard using `next_cc0_user(insn)` plus an EQ/NE conditional-jump
+check prevented the rewrite for every probe, including EQ/NE and `ply_fine`.
+A safe backend implementation therefore still needs either a proven check on
+condition-code consumers during combine or a combined test-and-equality-branch
+pattern with correct branch-length accounting. An unrestricted TST rule is
+not an acceptable matching solution. Experiment sources and logs remain in
+`.deps/agbcc-tst-gcc` and `.deps/audio-match`.
