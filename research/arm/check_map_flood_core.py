@@ -16,6 +16,7 @@ def main():
     global OUT
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--computed', action='store_true', help='check the alternate computed-goto fixture')
+    parser.add_argument('--plugin', type=Path, help='optional experimental compiler plugin')
     args=parser.parse_args()
     if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
@@ -25,6 +26,7 @@ def main():
     pool1,pool2=struct.unpack_from('<II',rom,0x850)
     source=Path(__file__).with_name('map_flood_core_computed.c' if args.computed else 'map_flood_core.c')
     flags=FLAGS+['-ffixed-r14']
+    if args.plugin:flags+=['-fplugin='+str(args.plugin.resolve())]
     subprocess.run(['arm-none-eabi-gcc','-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'candidate.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) *(.rodata) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n'+''.join(f'{name} = {value:#x};\n' for name,value in [('gMovMapFillState',state),('gMovMapFillStPool1',pool1),('gMovMapFillStPool2',pool2),('MapFloodCoreStep',0x08000784)]))
@@ -120,7 +122,7 @@ def main():
                 flag_differences+=returns[0]!=returns[1]
                 count+=1
     assert flag_differences == 0, flag_differences
-    report={'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
+    report={'plugin_sha256':hashlib.sha256(args.plugin.read_bytes()).hexdigest() if args.plugin else None,'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     print(f'{count} original/candidate dispatcher cases pass; candidate section {len(code)} bytes; instruction matching unfinished.')
 if __name__=='__main__':main()

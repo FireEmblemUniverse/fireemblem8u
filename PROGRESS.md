@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: alternate unchecked dispatcher (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: original dispatcher phase instruction recovered (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -33,8 +33,10 @@ registers and return flags with finite-enqueue helper models. Budgets range from
 zero to 24 inserted nodes. Another 240 cases run the actual ROM movement helper: final maps match an
 independent reference, and original/candidate memory, queues and return flags
 agree. Instruction matching remains unfinished. All 16 helper argument setups now match the original 48 instruction words.
-The 438-byte candidate still uses a different jump table, literal placement
-and phase test; no overall routine match percentage is inferred.
+An experimental compiler pass now emits the original EORS phase test; its
+434-byte candidate passes both the 640 controlled-helper and 240 actual-helper
+cases. Jump-table and literal placement still differ; the pass is not enabled
+in production and needs broader compiler regression probes.
 An alternate computed-goto fixture also passes 640 controlled-helper cases;
 it removes the extra bounds check but emits an address table, so it remains
 separate research. Low-entry object-list shims also remain unfinished.

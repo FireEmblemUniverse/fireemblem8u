@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Execute the candidate dispatcher with the actual ROM terrain helper."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -12,7 +13,11 @@ ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/map-flood-core-match'
 
 def main():
-    subprocess.run([sys.executable,str(Path(__file__).with_name('check_map_flood_core.py'))],check=True)
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--plugin',type=Path)
+    args=parser.parse_args()
+    options=['--plugin',str(args.plugin.resolve())] if args.plugin else []
+    subprocess.run([sys.executable,str(Path(__file__).with_name('check_map_flood_core.py')),*options],check=True)
     rom=(ROOT/'baserom.gba').read_bytes()
     code=(OUT/'candidate.bin').read_bytes()
     costs,state,working,terrain,units=struct.unpack_from('<5I',rom,0x770)

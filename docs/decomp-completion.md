@@ -1833,3 +1833,28 @@ variants retain byte-offset tables; the optimized levels also merge original
 case bodies. An explicit unreachable out-of-range source assertion likewise
 retains the switch guard. The next compiler work must address instruction-table
 lowering rather than assuming one of these flags selects it.
+
+
+## Dispatcher phase test recovered with experimental RTL fusion
+
+`research/arm/compiler/xor_flags.cc` recognizes an ARM word XOR, an exact empty
+identity register constraint, and an EQ/NE zero-test branch with dead condition
+flags. It validates a combined flag-setting XOR and the changed CC_NZ branch
+through GCC's instruction recognizer, then removes the redundant comparison.
+It rejects non-identity constraints, nonempty templates, other branch conditions,
+special registers and frame instructions. The pass is experimental and is not
+part of any production compiler invocation or embedded bundle.
+
+Build with `python3 research/arm/compiler/build_xor_flags.py`, then run
+`.deps/arm-oracle-venv/bin/python research/arm/check_map_flood_full.py --plugin .deps/flood-core-rtl/xor_flags.so`.
+The builder records compiler/source/binary provenance. The dispatcher checker
+also records the plugin hash. The candidate emits the original EORS r4,r4,#1
+and no separate compare; its section shrinks from 438 to 434 bytes. All 48
+argument-setup words still match. All 640 controlled-helper and 240 actual-helper
+cases pass, including the existing register and return-flag checks.
+
+Broader standalone compiler regression probes are still required before this
+rule is eligible for production. The original jump-instruction table and shared
+literal layout remain unresolved. The RTL inspection also confirms that the
+computed-goto alternative currently reaches a memory-indirect jump pattern,
+not the backend's branch-table form. Production sources remain unchanged.
