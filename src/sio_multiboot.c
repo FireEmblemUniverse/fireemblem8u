@@ -442,28 +442,8 @@ int MultiBootHandShake(struct MultiBootParam * mp)
 #undef must_data
 }
 
-//! FE8U = 0x0804E024
-NAKEDFUNC
-void MultiBootWaitCycles(u32 cycles)
-{
-    asm("\n\
-        .syntax unified\n\
-        mov r2, pc\n\
-        lsrs r2, r2, #0x18\n\
-        movs r1, #0xc\n\
-        cmp r2, #2\n\
-        beq MultiBootWaitCyclesLoop\n\
-        movs r1, #0xd\n\
-        cmp r2, #8\n\
-        beq MultiBootWaitCyclesLoop\n\
-        movs r1, #4\n\
-    MultiBootWaitCyclesLoop:\n\
-        subs r0, r0, r1\n\
-        bgt MultiBootWaitCyclesLoop\n\
-        bx lr\n\
-        .syntax divided\n\
-    ");
-}
+// MultiBootWaitCycles is linked here from sio_multiboot_wait.c.
+asm(".section .text.after_multiboot_wait, \"ax\", %progbits");
 
 //! FE8U = 0x0804E03C
 void MultiBootWaitSendDone(void)

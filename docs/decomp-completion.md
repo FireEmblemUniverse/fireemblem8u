@@ -27,6 +27,10 @@ complete ROM comparison passing after integration.
 passing. These replacements retain the copied ARM block's original boundaries.
 `TmApplyTsa` is now matching ARM-mode C as well (84 bytes), bringing these three
 replacements to 248 bytes. The complete ROM still matches.
+`MultiBootWaitCycles` now generates nine of its twelve Thumb instructions from
+C; the PC read and two-instruction timing loop remain explicit assembly.
+There is now one naked function marker, but the residual timing assembly still
+belongs to the unfinished assembly inventory.
 
 ## Completion evidence
 
@@ -398,3 +402,39 @@ The comparison covered all 23 words against ROM offsets `0x3E0..0x43C`.
 Empty constraints retain separate dimension tests and the original register
 lifetimes; they contain no instruction templates. The production ROM remained
 byte-identical after this research checkpoint.
+
+
+## MultiBootWaitCycles: matching partial C conversion
+
+`src/sio_multiboot_wait.c` replaces the naked 24-byte implementation at
+`0x0804E024..0x0804E03C` with a normal Thumb C function. Nine instructions
+(18 bytes) are compiler-generated. The compiler selects the original decrement
+according to the executing address's high byte: 12 in EWRAM (region 2), 13 in
+ROM (region 8), and 4 elsewhere. Empty constraints preserve the constant loads.
+
+Three instructions remain explicit assembly and are **not counted as C**:
+
+- `mov r2, pc` reads the current execution region.
+- `subs r0, r0, r1` and `bgt` form the calibrated countdown loop, preserving
+  both timing and the original subtraction flags, including overflow behavior.
+
+GNU ARM GCC 16.2.0 generates the normal leaf return without adding a stack frame.
+The all-C countdown candidates tested with legacy agbcc, GNU ARM GCC, and Apple
+Clang added a comparison or other instructions. Those candidates were not
+integrated because the additional comparison changes the calibrated delay.
+The production source uses only the original two loop instructions and declares
+the condition-code clobber. This is partial decompilation, not a fully C match.
+
+The original translation unit switches to `.text.after_multiboot_wait` where
+the removed function stood. The linker inserts the new function before that
+section, preserving `MultiBootWaitSendDone` at `0x0804E03C`. Its Thumb symbol is
+`0x0804E03D`; `MultiBootWaitCycles` is `0x0804E025` with size 24. The isolated
+candidate matched all 24 bytes, and the integrated build passed both the full
+ROM checksum and a direct comparison of all 16,777,216 bytes.
+
+The tracked inventory now contains 438 production C files, 70 assembly entry
+macros, 106 inline sites, one naked function marker, 45 NONMATCHING conditionals,
+and no direct baserom includes. Inline sites include register annotations,
+empty constraints and section directives; they are not assembly instruction
+counts. The remaining naked unit-list routine, other ARM functions, startup,
+BIOS/audio code, this timing assembly and embedded assembly remain in scope.

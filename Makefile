@@ -117,6 +117,10 @@ MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
 $(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g
 
+# This Thumb leaf must not gain a prologue or alter the calibrated delay loop.
+src/sio_multiboot_wait.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/sio_multiboot_wait.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -g
+
 # TODO: find a more elegant solution to the inlining issue
 src/bmitem.o: CC1FLAGS += -Wno-error
 src/menu_def.o: CC1FLAGS += -Wno-error

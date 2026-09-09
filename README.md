@@ -88,7 +88,9 @@ The main ROM comparison also verifies the compressed payload.
 
 The ARM C routines use two compiler paths: `ClearOam` uses the installed
 `agbcc_arm`, and `Checksum32` and `TmApplyTsa` use `arm-none-eabi-gcc` (verified with GNU ARM GCC
-16.2.0). Their per-file flags are in the Makefile. Run `make compare` to verify
+16.2.0). The partially converted Thumb `MultiBootWaitCycles` also uses GNU
+ARM GCC, retaining its PC read and calibrated timing loop as inline assembly.
+Their per-file flags are in the Makefile. Run `make compare` to verify
 the entire ROM when changing compilers.
 6. You will see this for success.
 ```
