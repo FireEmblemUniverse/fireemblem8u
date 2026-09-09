@@ -2413,8 +2413,19 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
 
     while (i)
     {
-        r = NextRN_N(arraySize);
-        r = array[r];
+        // Adapted from laqieer/fireemblem8j's matching RNG spill constraints.
+        // The USA candidate still differs in stack-slot placement; keep it
+        // under NONMATCHING until the entire linked function matches.
+        {
+            register int callN asm("r0") = arraySize;
+            int iSpill = i;
+
+            asm("" : "+r"(callN));
+            asm("" : "+m"(iSpill));
+            r = NextRN_N(callN);
+            r = array[r];
+            asm("" : "=r"(i) : "0"(iSpill));
+        }
 
         if (!MASK_BIT_GET(r))
         {

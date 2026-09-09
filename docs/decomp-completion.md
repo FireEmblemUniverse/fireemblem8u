@@ -532,3 +532,50 @@ another candidate. Both the default candidate and fixed-r3 override paths were
 executed successfully. A future zero-difference result still requires actual
 production integration and the full-ROM comparison; this tool does not claim
 completion from an isolated result.
+
+
+## Event-unit selection: reduce the C candidate to ten differing bytes
+
+The live NONMATCHING C branch in `src/eventscr.c` now adapts the scoped RNG
+spill/reload constraints from
+`https://github.com/laqieer/fireemblem8j/blob/e0f8f8ff4f95be147535b9fdd9ad15423c3f2c87/src/sub_800FAD0.c`.
+This reference was already present in the local Japanese checkout. Its broader
+JP-specific ABI changes and compiler changes were not imported. The USA
+signature and surrounding C logic remain as before.
+
+The change passes `arraySize` through a constrained r0 variable, retains the
+remaining selection count in a word-sized spill across `NextRN_N`, and reloads
+the loop index through an empty tied constraint. The compiler generates all
+instructions in this candidate. The original assembly fallback remains active.
+
+The verified isolated comparison improved from 93 to **10 differing bytes**,
+with the exact 516-byte size and identical instruction/register sequence.
+Every remaining difference is a stack-slot offset:
+
+| Stored value | Original SP offset | Candidate SP offset |
+| --- | ---: | ---: |
+| Build-deployed flag byte in a word | `0x40` | `0x44` |
+| Disable-REDA flag byte in a word | `0x44` | `0x48` |
+| Shifted build-deployed flag | `0x48` | `0x4C` |
+| Shifted disable-REDA flag | `0x4C` | `0x50` |
+| Remaining random-selection count | `0x50` | `0x40` |
+
+The ten differing bytes are at `0x0800F934`, `0x0800F93A`, `0x0800F9A0`,
+`0x0800F9A4`, `0x0800F9A6`, `0x0800F9AA`, `0x0800F9B4`, `0x0800F9C4`,
+`0x0800FACE`, and `0x0800FAF8`. The remaining work is to reproduce the stack
+allocation order without replacing emitted instructions or changing behavior.
+
+Earlier lifetime, compiler and empty-barrier trials did not beat the JP-derived
+candidate. A local two-worker permuter search on the older base was explicitly
+stopped after 7,306 iterations with no saved improvement; no search process
+remains running. The best manual barrier trial had 72 differing bytes before
+the reference adaptation reached ten. Flag-home and spill-constraint variants
+also failed to beat ten and were not retained.
+
+Validation: `make -j8` passed the entire ROM checksum, and
+`python3 scripts/match_unit_definition.py` reproduced the original fallback
+exactly before measuring the updated C candidate. There are still two naked
+assembly bodies. The source inventory has 111 inline sites: 63 register
+bindings, 38 empty templates, one section directive and nine instruction
+bearing templates, with none unresolved. These counts include the inactive
+C branch and do not imply that the 516-byte function has graduated to C.
