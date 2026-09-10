@@ -413,14 +413,12 @@ MPlayMainCommandStatusBoundary:
 MPlayMainWaitCommandBoundary:
 _081DD92E:
 	.section .text.after_mplay_wait_command, "ax", %progbits
-	.global MPlayMainTrackWait
-MPlayMainTrackWait:
+	.global MPlayMainTrackWaitBoundary
+MPlayMainTrackWaitBoundary:
 _081DD938:
-	ldrb r0, [r5, o_MusicPlayerTrack_wait]
-	cmp r0, 0
-	beq _081DD8E0
-	subs r0, 0x1
-	strb r0, [r5, o_MusicPlayerTrack_wait]
+	.section .text.after_mplay_track_wait, "ax", %progbits
+	.global MPlayMainModulationStart
+MPlayMainModulationStart:
 	ldrb r1, [r5, o_MusicPlayerTrack_lfoSpeed]
 	cmp r1, 0
 	beq _081DD994

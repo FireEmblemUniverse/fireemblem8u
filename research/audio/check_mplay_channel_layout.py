@@ -28,7 +28,7 @@ def main():
            ('track_defaults_extent',source.replace('        __mplay_track_init_defaults_end = .;','        . += 2;\n        __mplay_track_init_defaults_end = .;'),'track defaults extent'),
            ('track_dispatch_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_track_init_defaults);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_track_init_defaults);'),'track defaults extent')]
  for name,expression in [('track_wait_far','__mplay_track_init_guard_start + 512'),('track_wait_odd','__mplay_track_init_guard_start + 127')]:
-  text=source.replace('        ASSERT(MPlayMainTrackWait >=','        MPlayMainTrackWait = '+expression+';\n        ASSERT(MPlayMainTrackWait >=',1)
+  text=source.replace('        ASSERT((MPlayMainTrackWait & ~1) >=','        MPlayMainTrackWait = '+expression+';\n        ASSERT((MPlayMainTrackWait & ~1) >=',1)
   cases.append((name,text,'track init transfer out of range'))
  cases += [('command_read_extent',source.replace('        __mplay_command_read_end = .;','        . += 2;\n        __mplay_command_read_end = .;'),'command read extent or decode'),
            ('command_decode_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_command_read);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_read);'),'command read extent or decode')]
@@ -52,6 +52,11 @@ def main():
  for name,expression in [('clock_far','((__mplay_wait_command_start + 4) & ~3) + 1024'),('clock_backward','((__mplay_wait_command_start + 4) & ~3) - 4'),('clock_unaligned','((__mplay_wait_command_start + 4) & ~3) + 2')]:
   text=source.replace('        ASSERT((lt_gClockTable & 3) ==','        lt_gClockTable = '+expression+';\n        ASSERT((lt_gClockTable & 3) ==',1)
   cases.append((name,text,'wait command shared literal out of range'))
+ cases += [('track_wait_extent',source.replace('        __mplay_track_wait_end = .;','        . += 2;\n        __mplay_track_wait_end = .;'),'track wait extent or continuation'),
+           ('modulation_entry',source.replace('        src/m4a_1.o(.text.after_mplay_track_wait);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_track_wait);'),'track wait extent or continuation')]
+ for name,expression in [('wait_dispatch_far','__mplay_track_wait_start + 264'),('wait_dispatch_backward','__mplay_track_wait_start - 250')]:
+  text=source.replace('        ASSERT((MPlayMainTrackDispatch & ~1) + 256 >=','        MPlayMainTrackDispatch = '+expression+';\n        ASSERT((MPlayMainTrackDispatch & ~1) + 256 >=',1)
+  cases.append((name,text,'track wait command transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

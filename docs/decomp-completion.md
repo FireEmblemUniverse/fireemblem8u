@@ -7226,3 +7226,45 @@ guards, track-wait/modulation handling and clear-call paths.
 
 The replacement fresh runtime verification passes: all four images and exports
 match, and the runtime-source inventory and receipt are refreshed.
+
+
+## MPlayMain track wait — September 10, 2026 (baseline `ed0c737f`)
+
+Integrated `src/m4a_mplay_track_wait.c` at 080CFC7C..080CFC86. It loads
+track.wait into r0, branches to the matching C command reader if zero, or subtracts
+one and writes the new delay before falling through to modulation processing.
+All ten original instruction bytes are generated from C. Modulation remains
+assembly. Existing private-tail/direct-tail compiler rules suffice without changes.
+
+`check_mplay_track_wait.py --production` passes 16,384 cases: every wait byte,
+all initial NZCV states and four storage positions including SP, SP-1 and the
+final RAM byte. There are 64 command-dispatch cases without a store and 16,320
+modulation cases with one decrement/store. All r0-r12, SP/LR, full CPSR, complete
+RAM and the ordered byte read/conditional store agree with original execution.
+The zero path retains CMP flags; the nonzero path retains SUBS flags, including
+Z on the one-to-zero transition. Four malformed source forms reject and loading
+the direct-tail plugin leaves source without its attribute unchanged. Execution
+stops at the next handler; this does not establish full MPlayMain behavior.
+
+The linker enforces the ten-byte extent, adjacent modulation entry and the signed
+short-branch range back to command dispatch. Existing wait-target contracts now
+explicitly mask the Thumb function tag when comparing instruction addresses.
+`make compare -j8` reproduces all 16 MiB. Fresh runtime source builds reproduce all
+four images and exports. Source, linked, inline and runtime inventories are refreshed;
+unchanged SoundMain/mixer regions are revalidated against the new ELF receipt.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,334 C-owned (92.63%),
+33,870 mixed C/assembly, 1,634 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,044 main bytes and 420
+payload bytes. There are 520 tracked main C files and 30 assembly entry markers.
+These figures include inherited work and are not overall completion.
+
+ELF SHA-256: `6f9bed34ad9c303e678a4c07d169aeea3650c3bc2b04cb257379c0a6b00143d5`.
+Evidence: `.deps/soundmain-packed/mplay-track-wait/report.json`, source/linked
+reports there, `mplay-track-wait-production.log`, `mplay-track-wait-build.log` and
+refreshed runtime/region receipts. Next work continues command guards, modulation
+handling and clear-call paths.
+
+The valid production layout passes and all 39 combined altered layouts reject.
+Four new cases cover the track-wait extent, modulation continuation and command
+dispatch targets beyond either short-branch bound. See `mplay-track-wait-layout.log`.

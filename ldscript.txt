@@ -1137,9 +1137,20 @@ SECTIONS
         src/m4a_mplay_wait_command.o(.text);
         __mplay_wait_command_end = .;
         src/m4a_1.o(.text.after_mplay_wait_command);
+        __mplay_track_wait_start = .;
+        src/m4a_mplay_track_wait.o(.text);
+        __mplay_track_wait_end = .;
+        src/m4a_1.o(.text.after_mplay_track_wait);
+        ASSERT((MPlayMainTrackWait & ~1) == MPlayMainTrackWaitBoundary &&
+               __mplay_track_wait_end - __mplay_track_wait_start == 10 &&
+               MPlayMainModulationStart == __mplay_track_wait_end,
+               "MPlayMain track wait extent or continuation changed");
+        ASSERT((MPlayMainTrackDispatch & ~1) + 256 >= __mplay_track_wait_start + 8 &&
+               (MPlayMainTrackDispatch & ~1) <= __mplay_track_wait_start + 8 + 254,
+               "MPlayMain track wait command transfer out of range");
         ASSERT((MPlayMainWaitCommand & ~1) == MPlayMainWaitCommandBoundary &&
                __mplay_wait_command_end - __mplay_wait_command_start == 10 &&
-               MPlayMainTrackWait == __mplay_wait_command_end,
+               (MPlayMainTrackWait & ~1) == __mplay_wait_command_end,
                "MPlayMain wait command extent or continuation changed");
         ASSERT((lt_gClockTable & 3) == 0 &&
                lt_gClockTable >= ((__mplay_wait_command_start + 4) & ~3) &&
@@ -1152,8 +1163,8 @@ SECTIONS
         ASSERT(MPlayMainTrackFinish >= __mplay_command_status_start + 8 &&
                MPlayMainTrackFinish <= __mplay_command_status_start + 8 + 254 &&
                (MPlayMainTrackFinish & 1) == 0 &&
-               MPlayMainTrackWait >= __mplay_command_status_start + 10 &&
-               MPlayMainTrackWait <= __mplay_command_status_start + 10 + 2046 &&
+               (MPlayMainTrackWait & ~1) >= __mplay_command_status_start + 10 &&
+               (MPlayMainTrackWait & ~1) <= __mplay_command_status_start + 10 + 2046 &&
                (MPlayMainTrackWait & 1) == 0,
                "MPlayMain command status transfer out of range");
         ASSERT((MPlayMainCommandInvoke & ~1) == MPlayMainCommandInvokeBoundary &&
@@ -1170,8 +1181,8 @@ SECTIONS
                MPlayMainNonNoteCommand == __mplay_note_invoke_end,
                "MPlayMain note invoke extent or following entry changed");
         ASSERT((call_r3 & ~1) == (MPlayMain & ~1) + 600 &&
-               MPlayMainTrackWait >= __mplay_note_invoke_start + 8 &&
-               MPlayMainTrackWait <= __mplay_note_invoke_start + 8 + 2046 &&
+               (MPlayMainTrackWait & ~1) >= __mplay_note_invoke_start + 8 &&
+               (MPlayMainTrackWait & ~1) <= __mplay_note_invoke_start + 8 + 2046 &&
                (MPlayMainTrackWait & 1) == 0,
                "MPlayMain note invoke trampoline or continuation changed");
         ASSERT((MPlayMainNoteSetup & ~1) == MPlayMainNoteSetupBoundary &&
@@ -1192,10 +1203,10 @@ SECTIONS
                __mplay_track_init_defaults_end - __mplay_track_init_defaults_start == 24 &&
                (MPlayMainTrackDispatch & ~1) == __mplay_track_init_defaults_end,
                "MPlayMain track defaults extent or dispatch changed");
-        ASSERT(MPlayMainTrackWait >= __mplay_track_init_guard_start + 10 &&
-               MPlayMainTrackWait <= __mplay_track_init_guard_start + 10 + 254 &&
-               MPlayMainTrackWait >= __mplay_track_init_defaults_start + 26 &&
-               MPlayMainTrackWait <= __mplay_track_init_defaults_start + 26 + 2046 &&
+        ASSERT((MPlayMainTrackWait & ~1) >= __mplay_track_init_guard_start + 10 &&
+               (MPlayMainTrackWait & ~1) <= __mplay_track_init_guard_start + 10 + 254 &&
+               (MPlayMainTrackWait & ~1) >= __mplay_track_init_defaults_start + 26 &&
+               (MPlayMainTrackWait & ~1) <= __mplay_track_init_defaults_start + 26 + 2046 &&
                (MPlayMainTrackWait & 1) == 0,
                "MPlayMain track init transfer out of range");
         ASSERT((MPlayMainChannelNext & ~1) == MPlayMainChannelNextBoundary &&

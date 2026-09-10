@@ -917,3 +917,9 @@ src/m4a_mplay_wait_command.o: $(THUMB_SHARED_PLUGIN) $(THUMB_TAIL_TRANSFER_PLUGI
 src/m4a_mplay_wait_command.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_wait_command.o: C_END_ALIGN := 1
 src/m4a_mplay_wait_command.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-symbol-literal=gClockTable,lt_gClockTable -fplugin-arg-thumb_shared_literal-omit-pool-alignment -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-after-shared-literals -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainTrackWait -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainTrackWait
+
+
+src/m4a_mplay_track_wait.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_track_wait.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_track_wait.o: C_END_ALIGN := 1
+src/m4a_mplay_track_wait.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTrackDispatch -fplugin-arg-tail_transfer-destination=MPlayMainModulationStart -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainTrackDispatch -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainModulationStart
