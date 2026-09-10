@@ -7778,3 +7778,49 @@ Next: pitch guard, signed key adjustment, CGB/PCM frequency calls and stores,
 then remaining command guards, earlier clear calls and MPlayMain's frame exit.
 The pitch setup must read keyM as signed despite its existing u8 struct field;
 the original uses LDRSB at track offset 8.
+
+
+## Pitch guard and key-adjustment research — September 10, 2026
+
+On baseline `705d7659`, the 8-byte pitch-update guard at 080CFD58..080CFD60
+matches as an isolated C candidate. All 16,384 track-flags/NZCV/storage-alias
+cases pass (4,096 next-channel exits, 12,288 key-adjustment exits). Three invalid
+source forms reject and unannotated compilation is unchanged. Full register,
+CPSR, SP/LR and RAM state plus the single ordered flags-byte read are checked.
+No complete pitch conversion or MPlayMain execution is claimed.
+
+The following key adjustment at 080CFD60..080CFD6C loads an unsigned channel
+key and signed track shift, adds them and clamps a negative wrapped result to
+zero. The source explicitly uses a signed byte read at offset eight because the
+existing keyM field is unsigned. Ordinary GCC produces either a branchless
+sequence clobbering r3 or, with if-conversion disabled, an extra CMP/BGE. Neither
+preserves the original ADD/BPL bytes and addition flags.
+
+A new constrained `matching_thumb_add_sign_branch` pass and machine pattern
+are implemented and built. They recognize exactly one adjacent low-register addition and GE
+zero forward branch in a private Thumb tail function, with no intervening label,
+call, barrier or assembly and a maximum 200-byte forward span. The emitted
+ADDS/BPL tests the sign of the wrapped sum, including overflow, and preserves
+addition NZCV. The isolated backend and dependent plugin rebuilds completed.
+The resulting 12 bytes match exactly. All 267,264 key-adjustment cases pass:
+262,144 key/shift/alias load-entry cases and 5,120 arithmetic-entry cases,
+including full-width signed overflow and random operands at all NZCV states.
+27,197 cases clamp to zero. All registers, full CPSR, SP/LR, RAM and ordered
+reads (or no reads for the arithmetic entry) match an independent arithmetic
+model. Four invalid source forms reject: missing private-tail contract,
+subtraction, equality test and an intervening register tie. Loading the new
+plugin does not change an unannotated function.
+
+The pitch guard again passes all 16,384 cases under the rebuilt compiler.
+Generic direct-tail regressions reject nine invalid configurations and three
+source forms; unannotated compilation is unchanged. Combined pitch/key coverage
+is 283,648 cases. Production ownership remains unchanged.
+
+Sources/checkers: `research/audio/mplay_post_pitch_guard.c`,
+`mplay_post_key_adjust.c` and corresponding `check_*.py` files. Compiler sources:
+`tools/arm-dispatch/thumb_add_sign_branch.cc`, its build helper and `matching.md`.
+Evidence: `.deps/soundmain-packed/mplay-post-pitch-guard/report.json` and
+`post-key-adjust-backend.log`, `mplay-post-key-adjust/report.json` and the
+matching check logs. Next: integrate both fragments with exact extents/ranges
+and full build/audit gates. This does not establish frequency conversion or
+whole-MPlayMain correctness.

@@ -401,3 +401,16 @@
   "TARGET_THUMB1"
   "tst\t%0, %1\n\tbne\t%2"
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Test the sign of the wrapped sum, preserving the addition's complete NZCV.
+(define_insn "match_thumb_add_nonnegative_branch"
+  [(set (pc)
+        (if_then_else
+         (ge (plus:SI (match_operand:SI 1 "low_register_operand" "l")
+                      (match_operand:SI 2 "low_register_operand" "l")) (const_int 0))
+         (label_ref (match_operand 3 "" "")) (pc)))
+   (set (match_operand:SI 0 "low_register_operand" "=l")
+        (plus:SI (match_dup 1) (match_dup 2)))]
+  "TARGET_THUMB1"
+  "adds\t%0, %1, %2\n\tbpl\t%l3"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
