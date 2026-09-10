@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: audio command-byte reader integration (baseline `ada294ff` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: audio command-byte reader integration (baseline `ada294ff` plus this change); full ROM checksum passes. Latest research: TrackStop candidate passes 768 cases (this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -28,8 +28,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: remaining ARM shims, unit-list fallback, audio and transfer code.**
-Next milestone: recover another remaining executable routine as matching C.
+**Working on: matching the audio TrackStop candidate.**
+Next milestone: eliminate its extra compare instruction, then integrate it and
+verify the full ROM. The standalone 68-byte candidate passes 768 original/C
+execution cases. It has 19 differing halfwords and is not integrated.
+Remaining ARM shims, unit-list fallback, audio and transfer code stay in scope.
 
 The map-flood dispatcher is now integrated. Its complete 464-byte section at
 `0x08000850` matches: 452 ARM instruction bytes (including the duplicate branch

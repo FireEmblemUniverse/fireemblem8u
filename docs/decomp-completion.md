@@ -2147,3 +2147,27 @@ register/flag agreement. `make compare -j8` passes the full ROM SHA-1.
 The linked audit assigns ten Thumb instruction bytes to the new object, with
 no orphan mapping symbols. The main inventory is 451 C files and 56 assembly
 entry markers; the naked fallback and seven inline instruction templates remain.
+
+
+### TrackStop candidate — September 9, 2026
+
+`research/audio/track_stop.c` reconstructs active-track channel detachment.
+Inactive tracks remain unchanged. Active tracks walk the channel list, invoke
+the CGB shutdown callback for live channels whose low three type bits are
+nonzero, clear live status, detach every channel from its track, and finally
+clear the track's head. The existing `call_r3` bridge remains an assembly
+interface; the candidate supplies its callback through r3 with empty constraints.
+
+`check_track_stop.py` builds with the existing equality-bit-test agbcc backend
+and checks 768 original/C executions: six track-flag values, eight channel-list
+layouts and all incoming NZCV patterns. The callback records type/channel/status/
+owner before detachment and clobbers r0-r3 and flags. An independent model checks
+complete test memory and callback order; callee-saved registers, stack and final
+flags agree. The isolated linker uses a typed Thumb alias for the original
+bridge to avoid an erroneous ARM interworking veneer.
+
+The candidate is 68 bytes including its pointer pool, matching the original
+section length. It still emits an extra CMP after AND, with compensating pool
+alignment; 19 halfwords differ. It is not integrated and the production build
+and inventory remain at commit `b25c75b9`. Next work is matching flag-producing
+AND/branch code without altering callback argument or register behavior.
