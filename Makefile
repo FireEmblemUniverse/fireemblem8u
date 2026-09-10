@@ -655,7 +655,6 @@ endif
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s $$(data_dep)
 	$(AS) $(ASFLAGS) -g $< -o $@
-	$(if $(filter src/m4a_1.o,$@),$(OBJCOPY) --set-section-alignment .text.after_no_reverb=2 $@)
 
 # Build the host preproc via its own Makefile (plain g++). build_tools.sh already
 # does this through make_tools.mk's tools/* wildcard; this explicit rule shadows
@@ -748,3 +747,12 @@ src/m4a_no_reverb.o: $(ARM_WORD_POSTINCREMENT_PLUGIN) $(ARM_SHIFT_CARRY_PLUGIN)
 src/m4a_no_reverb.o: C_END_ALIGN := 1
 src/m4a_no_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_no_reverb.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_WORD_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SHIFT_CARRY_PLUGIN)
+
+THUMB_FALLTHROUGH_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_fallthrough.so
+$(THUMB_FALLTHROUGH_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_fallthrough.cc tools/arm-dispatch/build_thumb_fallthrough.py
+	$(PYTHON) tools/arm-dispatch/build_thumb_fallthrough.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_channel_setup.o: $(THUMB_FALLTHROUGH_PLUGIN)
+src/m4a_channel_setup.o: C_END_ALIGN := 1
+src/m4a_channel_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_channel_setup.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FALLTHROUGH_PLUGIN)

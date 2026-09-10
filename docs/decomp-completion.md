@@ -14,13 +14,13 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After no-reverb clearing integration (baseline `f8051e82` plus this change),
+After channel-setup integration (baseline `6c5c3b53` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 491 main C files, 32 assembly entry markers,
-two manual assembly function declarations, one naked-function marker, seven
+The current source inventory has 492 main C files, 32 assembly entry markers,
+one manual assembly function declaration, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 719,750 in C-only objects, 33,870 in
-mixed C/assembly objects, 2,218 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 719,760 in C-only objects, 33,870 in
+mixed C/assembly objects, 2,208 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 
@@ -5637,3 +5637,46 @@ main-ROM bytes; the expanded-payload total remains 420. The contiguous 488-byte
 ARM region is unchanged and its evidence is tied to the new production ELF.
 Remaining Thumb channel/setup/control code and final executable classification
 remain in scope; this milestone does not establish overall completion.
+
+## Channel setup integrated as exact Thumb C — September 10, 2026
+
+Baseline `6c5c3b53` plus this change replaces the ten bytes at
+`0x080CF5DA..0x080CF5E4` with `src/m4a_channel_setup.c`. C loads the sound-info
+pointer from private frame offset 24, transfers divFreq to r12, loads maxChans
+into r0, advances r4 to the first channel, and falls through to the channel loop.
+All five original instructions and resulting ADDS flags are preserved.
+
+The new explicit `matching_thumb_fallthrough` compiler attribute requires
+Thumb-1, a zero-local-frame void function without arguments or debug/unwind
+instrumentation, and one straight body with no calls, branches, assembly or LR
+access. Each SP reference must be an aligned SI load from offset 0..60 into a
+general register. It removes only the validated leaf SP-use/LR-use/return tail.
+The linker verifies the ten-byte extent, original entry and adjacent channel
+loop. The C source contributes four register bindings and no instruction-bearing
+inline assembly; total source sites are 728 (367 bindings, 353 empty constraints,
+one directive and seven instruction templates).
+
+The retained channel-loop assembly now starts word-aligned at `0x080CF5E4`.
+Its literal load and ADR no longer need the two-byte section-offset correction,
+and the Makefile's special objcopy alignment adjustment is removed. Explicit
+original zero padding is retained. The full ROM comparison confirms unchanged
+neighboring instructions, branch relocations, data and padding.
+
+`check_channel_setup.py` requires exact ten-byte candidate/original equality,
+full production-ROM equality and the production symbol's address and size.
+Its 12,288 cases run in both ROM and copied RAM, checking every register, NZCV,
+SP/LR, exact fallthrough, all mapped data bytes and the three ordered reads.
+They cover all 256 maxChans values, random divFreq/register contents, all 16
+initial flags and three valid EWRAM sound-info/frame alias placements. Other
+address regions are not execution-tested. Twelve unsupported compiler forms
+reject (ARM, debug, unwind, arguments, calls, frame writes, out-of-frame and byte
+reads, assembly, LR accesses, local frames and branches). An unannotated object
+is identical with and without the plugin.
+
+`make compare -j8`, the 3,528-case complete production audio regression and fresh
+pinned runtime rebuilds for all four images/exported symbol sets pass. Ownership,
+inline, runtime and unchanged 488-byte ARM-region evidence is refreshed. C-only
+main instruction ownership is 719,760/777,630 (92.56%, including inherited work);
+reviewed non-library assembly is 2,618 main-ROM and 420 expanded-payload bytes.
+Channel-loop/control, entry/frame code, playback routines and complete executable
+coverage accounting remain unfinished.

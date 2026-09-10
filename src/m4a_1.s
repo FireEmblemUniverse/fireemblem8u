@@ -109,24 +109,19 @@ SoundMainRAM_NoReverbBoundary:
 @ The 46-byte Thumb clearing block is generated from m4a_no_reverb.c.
 	.section .text.after_no_reverb, "ax", %progbits
 	.thumb
-	.global SoundMainRAM_ChanSetup
-	.type SoundMainRAM_ChanSetup, %function
-	.thumb_func
-SoundMainRAM_ChanSetup:
-_081DCF36:
-	ldr r4, [sp, 0x18]
-	ldr r0, [r4, o_SoundInfo_divFreq]
-	mov r12, r0
-	ldrb r0, [r4, o_SoundInfo_maxChans]
-	adds r4, o_SoundInfo_chans
-
+	.global SoundMainRAM_ChanSetupBoundary
+SoundMainRAM_ChanSetupBoundary:
+@ The ten-byte private Thumb setup comes from m4a_channel_setup.c.
+	.section .text.after_channel_setup, "ax", %progbits
+	.thumb
+	.global SoundMainRAM_ChanLoop
 SoundMainRAM_ChanLoop:
 	str r0, [sp, 0x4]
 	ldr r3, [r4, o_SoundChannel_wav]
 	ldr r0, [sp, 0x14]
 	cmp r0, 0
 	beq _081DCF60
-	ldr r1, .Lchannel_vcount + 2
+	ldr r1, .Lchannel_vcount
 	ldrb r1, [r1]
 	cmp r1, VCOUNT_VBLANK
 	bhs _081DCF54
@@ -260,9 +255,7 @@ _081DD03A:
 	ldr r5, [sp, 0x8]
 	ldr r2, [r4, o_SoundChannel_ct]
 	ldr r3, [r4, o_SoundChannel_cp]
-@ This section starts two bytes into a word; ADR rounds the runtime PC down.
-@ The linker checks both section and target alignment for this adjustment.
-	adr r0, _081DD044 + 2
+	adr r0, _081DD044
 	bx r0
 	.2byte 0
 _081DD044:

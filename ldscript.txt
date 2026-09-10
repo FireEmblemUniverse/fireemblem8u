@@ -599,6 +599,16 @@ SECTIONS
         src/m4a_no_reverb.o(.text);
         __no_reverb_end = .;
         src/m4a_1.o(.text.after_no_reverb);
+        __channel_setup_start = .;
+        src/m4a_channel_setup.o(.text);
+        __channel_setup_end = .;
+        src/m4a_1.o(.text.after_channel_setup);
+        ASSERT((SoundMainRAM_ChanSetup | 1) == (__channel_setup_start | 1) &&
+               __channel_setup_start == SoundMainRAM_ChanSetupBoundary &&
+               __channel_setup_end - __channel_setup_start == 10,
+               "channel setup Thumb entry or ten-byte extent changed");
+        ASSERT(SoundMainRAM_ChanLoop == __channel_setup_end && (__channel_setup_end & 3) == 0,
+               "channel setup must fall through to word-aligned Thumb channel loop");
         ASSERT((SoundMainRAM_NoReverb | 1) == (__no_reverb_start | 1) &&
                __no_reverb_start == SoundMainRAM_NoReverbBoundary &&
                __no_reverb_start == __reverb_end &&
@@ -606,8 +616,8 @@ SECTIONS
                "no-reverb Thumb entry or 46-byte extent changed");
         ASSERT((SoundMainRAM_ChanSetup | 1) == (__no_reverb_end | 1),
                "no-reverb must fall through to adjacent Thumb channel setup");
-        ASSERT((__no_reverb_end & 3) == 2 && (SoundMainRAM_SampleEntryBoundary & 3) == 0,
-               "channel setup ADR requires halfword section start and word target");
+        ASSERT((SoundMainRAM_SampleEntryBoundary & 3) == 0,
+               "channel loop ADR requires word-aligned ARM destination");
         __sample_entry_start = .;
         src/m4a_sample_entry.o(.text);
         __sample_entry_end = .;

@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "f8051e820cbb85529482d53009c8b39c48332851",
+  "baseline_commit": "6c5c3b53fc1dd5f0318eb574155b42a6e6861502",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2218,
-        "c_owned": 719750,
+        "assembly_source": 2208,
+        "c_owned": 719760,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -822,14 +822,14 @@
           "instruction_bytes": 1568
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 1514
-        },
-        {
           "object": "src/sio_multiboot.o",
           "category": "c_owned",
           "instruction_bytes": 1514
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 1504
         },
         {
           "object": "src/opanim-healthsafetyscreen.o",
@@ -2117,6 +2117,11 @@
           "instruction_bytes": 12
         },
         {
+          "object": "src/m4a_channel_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 10
+        },
+        {
           "object": "src/m4a_checked_reader.o",
           "category": "c_owned",
           "instruction_bytes": 10
@@ -2167,13 +2172,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "f73122c98d68950e7cee2f1e530701313e46a95f2b18430257013a8b240b58ed",
-      "map_sha256": "382b86b3de8ac4e9bf7d1c3d3c40f88e64e27c0d62149dfb579da859de270aa9",
+      "elf_sha256": "b92af6723d520606d557e3c0f3164378d8eec93485c27573faed2b59b5c57e90",
+      "map_sha256": "add8e61a73a166251828ba6826068746c5bc1521a987871c8f85a591a13fbc46",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2628
+      "known_nonarchive_assembly_bytes": 2618
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,
