@@ -7639,3 +7639,34 @@ layouts reject, including six new extent/continuation cases and three far/backwa
 channel-gate targets. See `mplay-post-traversal-layout.log`. Next work continues
 channel volume/pitch/stopped-channel handling, command guards
 and clear-call paths.
+
+
+## Post-tick stopped-channel candidates — September 10, 2026
+
+On production baseline `0a98812b`, three isolated C candidates reproduce the
+original 16 instruction bytes at 080CFD2A..080CFD3A: channel status guard (8),
+ClearChain argument setup (2), and direct invocation/next-channel branch (6).
+The compiler now recognizes an inverse EQ masked test around an adjacent
+declared tail and emits TST/BNE through a dedicated machine pattern. Existing
+adjacency, register, destination and transfer-count restrictions remain enforced.
+The isolated GCC rebuild and all four affected plugin rebuilds completed.
+
+The guard passes all 16,384 status/NZCV/alias cases, including 512 cleanup exits
+and 15,872 processing exits; three invalid source forms reject and an
+unannotated source remains unchanged. The argument copy passes 26,880
+full-register/flags/no-memory-access cases. Direct call/return passes 24,576
+cases and rejects 15 invalid contracts; unannotated compilation is unchanged.
+The call checker substitutes a synthetic STR/BX LR callee at the real ClearChain
+address and therefore verifies call mechanics, not ClearChain's implementation.
+All checks stop at fragment boundaries; this is not full MPlayMain execution.
+Generic direct-tail regression rejects nine configurations and three source forms.
+The existing descending masked-zero track guard also passes its 16,384 cases,
+four invalid source forms and two invalid configurations with the rebuilt plugin.
+
+Sources and checkers are in `research/audio/mplay_post_channel_gate.c`,
+`mplay_post_clear_setup.c`, `mplay_post_clear_invoke.c` and their corresponding
+`check_*.py` files. Reports are under `.deps/soundmain-packed/` in the matching
+`mplay-post-*` directories. These are isolated candidates, not integrated
+production replacements. Production C ownership remains 720,500/777,630
+(92.65%). Next: integrate with exact section/branch assertions, validate altered
+layouts, reproduce the ROM, and refresh source/runtime/ownership evidence.

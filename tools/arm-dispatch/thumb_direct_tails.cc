@@ -90,12 +90,14 @@ public:
             } else if (!bundled&&(GET_CODE(condition)==NE||GET_CODE(condition)==EQ)&&XEXP(condition,1)==const0_rtx) {
                 // Inverse masked test followed by one tail, then its skip label.
                 rtx mask=XEXP(condition,0);rtx_insn *stub=next_op(i);symbol=symbol_of(stub);
-                if (symbol&&GET_CODE(condition)==NE&&GET_CODE(mask)==AND&&low(XEXP(mask,0))&&low(XEXP(mask,1))
+                if (symbol&&(GET_CODE(condition)==NE||GET_CODE(condition)==EQ)&&GET_CODE(mask)==AND&&low(XEXP(mask,0))&&low(XEXP(mask,1))
                     &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {
                     rtx a=XEXP(mask,0),b=XEXP(mask,1);
                     if (descending_masks ? REGNO(a)<REGNO(b) : REGNO(a)>REGNO(b)) {rtx t=a;a=b;b=t;}
                     masked++;
-                    replacement=gen_match_thumb_mask_zero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol));
+                    replacement=GET_CODE(condition)==NE
+                        ? gen_match_thumb_mask_zero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol))
+                        : gen_match_thumb_mask_nonzero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol));
                     remove=stub;
                 } else if (symbol&&(GET_CODE(condition)==EQ||GET_CODE(condition)==NE)&&low(mask)
                            &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {

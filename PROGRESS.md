@@ -4,6 +4,8 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `f86bd130`): MPlayMain’s post-tick channel-list load/advance and track flag/count cleanup are matching C. All 22 instruction bytes match; 86,784 production/original cases pass. The full ROM and fresh runtime builds match; all 81 altered layouts reject. Main-ROM C ownership is 720,500/777,630 mapped instruction bytes (92.65%). Remaining channel processing, command guards, clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
+Candidate milestone (September 10): the next 16 post-tick channel-status/clear-call bytes match in isolated C candidates; 67,840 execution cases pass. These candidates are not production-integrated and do not increase the ownership meter. The rebuilt compiler supports the required masked-nonzero tail branch. Production integration and full-ROM validation are next.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

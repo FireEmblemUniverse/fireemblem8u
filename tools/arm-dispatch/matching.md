@@ -389,3 +389,15 @@
   "TARGET_THUMB1"
   "cmp\t%0, #0\n\tbne\t%1"
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+
+;; Nonzero masked private transfer; linker constraints prove branch reach.
+(define_insn "match_thumb_mask_nonzero_tail"
+  [(set (pc)
+        (if_then_else
+         (ne (and:SI (match_operand:SI 0 "low_register_operand" "l")
+                     (match_operand:SI 1 "low_register_operand" "l")) (const_int 0))
+         (match_operand:SI 2 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1"
+  "tst\t%0, %1\n\tbne\t%2"
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
