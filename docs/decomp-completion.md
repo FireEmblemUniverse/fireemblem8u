@@ -7371,3 +7371,52 @@ Evidence: `.deps/soundmain-packed/mplay-modulation-update/report.json`,
 `mplay-modulation-update-check.log`, `mplay-modulation-update-layout.log`,
 `mplay-modulation-update-build.log` and refreshed runtime/region receipts.
 Next work continues command guards, track-loop completion and clear-call paths.
+
+
+## MPlayMain saved state and track advance — September 10, 2026 (baseline `1db7efed`)
+
+Integrated `src/m4a_mplay_track_finish.c` at 080CFCD8..080CFCDC and
+`src/m4a_mplay_track_advance.c` at 080CFCDC..080CFCE8. The first restores r3/r4
+from saved r10/r11 without changing flags. The second retains the shared entry
+used when restoration is skipped, decrements the full-width track count and
+selects clock update or the next track. Continuing tracks advance by 80 bytes and
+shift the track mask. All 16 original instruction bytes are generated from C.
+
+Existing private-tail and signed-fork-decrement contracts suffice without compiler
+changes. The C comparison uses the original signed count greater than one and
+performs a wrapped unsigned decrement on both paths. This preserves the original
+SUBS/BLE decision for signed-overflow inputs, including 0x80000000; simply testing
+the wrapped decremented count as signed would be incorrect for that input.
+
+The execution suite covers all count bytes, seven full-width boundaries and 64
+random words, four pointer-overflow positions, four mask values, all initial NZCV
+and three entry modes: restore only, restore plus advance, and shared advance.
+The production run strengthens the initial probe by keeping destination r3 random
+and distinct from the saved-mask fixture on restore paths. Expected r3/r4 restore
+values are derived from r10/r11. The model also checks count subtraction flags,
+ADD overflow and shift carry. All r0-r12, SP/LR, full CPSR, complete RAM and absence
+of data-memory accesses are checked. It stops at next-track or clock-update entry,
+not the complete MPlayMain iteration.
+
+The linker enforces the four-byte restore and twelve-byte advance extents, both
+shared continuation boundaries and backward loop-branch range/alignment. Existing
+finish-target contracts now explicitly compare masked Thumb instruction addresses.
+`make compare -j8` reproduces all 16 MiB. Fresh runtime source builds reproduce
+all four images and exports. Source, linked, inline and runtime inventories are
+refreshed, and unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,432 C-owned (92.64%), 33,870
+mixed C/assembly, 1,536 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,946 main bytes and 420 payload bytes.
+There are 524 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `f41039cee7d77fbfded6f0aa9d6b3c656702684c293dee5d4b78c24e96f5975d`.
+Evidence: `.deps/soundmain-packed/mplay-track-advance/report.json`, source/linked
+reports there, `mplay-track-advance-build.log` and refreshed runtime/region receipts.
+Production execution passes all 251,136 cases: 83,712 restore-only, 151,552 next-track
+and 15,872 clock-update cases. The valid layout passes and all 53 combined altered
+layouts reject, including seven new extent/continuation and far/backward/odd loop
+target cases. See `mplay-track-advance-production.log` and
+`mplay-track-advance-layout.log`. Next work continues tick-clock/status completion,
+command guards and clear-call paths.

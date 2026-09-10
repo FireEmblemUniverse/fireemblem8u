@@ -45,7 +45,7 @@ def main():
  cases += [('command_status_extent',source.replace('        __mplay_command_status_end = .;','        . += 2;\n        __mplay_command_status_end = .;'),'command status extent or continuation'),
            ('wait_command_entry',source.replace('        src/m4a_1.o(.text.after_mplay_command_status);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_status);'),'command status extent or continuation')]
  for name,expression in [('finish_far','__mplay_command_status_start + 264'),('finish_backward','__mplay_command_status_start - 256'),('finish_odd','__mplay_command_status_start + 109')]:
-  text=source.replace('        ASSERT(MPlayMainTrackFinish >=','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >=',1)
+  text=source.replace('        ASSERT((MPlayMainTrackFinish & ~1) >=','        MPlayMainTrackFinish = '+expression+';\n        ASSERT((MPlayMainTrackFinish & ~1) >=',1)
   cases.append((name,text,'command status transfer out of range'))
  cases += [('wait_command_extent',source.replace('        __mplay_wait_command_end = .;','        . += 2;\n        __mplay_wait_command_end = .;'),'wait command extent or continuation'),
            ('wait_track_entry',source.replace('        src/m4a_1.o(.text.after_mplay_wait_command);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_wait_command);'),'wait command extent or continuation')]
@@ -60,10 +60,17 @@ def main():
  cases += [('modulation_guard_extent',source.replace('        __mplay_modulation_guard_end = .;','        . += 2;\n        __mplay_modulation_guard_end = .;'),'modulation guard extent or continuation'),
            ('modulation_update_entry',source.replace('        src/m4a_1.o(.text.after_mplay_modulation_guard);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_modulation_guard);'),'modulation guard extent or continuation')]
  for name,expression in [('modulation_finish_far','__mplay_modulation_guard_start + 264'),('modulation_finish_backward','__mplay_modulation_guard_start - 256'),('modulation_finish_odd','__mplay_modulation_guard_start + 83')]:
-  text=source.replace('        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard',1)
+  text=source.replace('        ASSERT((MPlayMainTrackFinish & ~1) >= __mplay_modulation_guard','        MPlayMainTrackFinish = '+expression+';\n        ASSERT((MPlayMainTrackFinish & ~1) >= __mplay_modulation_guard',1)
   cases.append((name,text,'modulation guard transfer out of range'))
  cases += [('modulation_update_extent',source.replace('        __mplay_modulation_update_end = .;','        . += 2;\n        __mplay_modulation_update_end = .;'),'modulation update extent or continuation'),
            ('track_finish_entry',source.replace('        src/m4a_1.o(.text.after_mplay_modulation_update);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_modulation_update);'),'modulation update extent or continuation')]
+ cases += [('track_finish_extent',source.replace('        __mplay_track_finish_end = .;','        . += 2;\n        __mplay_track_finish_end = .;'),'track finish extent or continuation'),
+           ('track_advance_entry',source.replace('        src/m4a_1.o(.text.after_mplay_track_finish);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_track_finish);'),'track finish extent or continuation'),
+           ('track_advance_extent',source.replace('        __mplay_track_advance_end = .;','        . += 2;\n        __mplay_track_advance_end = .;'),'track advance extent or continuation'),
+           ('clock_update_entry',source.replace('        src/m4a_1.o(.text.after_mplay_track_advance);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_track_advance);'),'track advance extent or continuation')]
+ for name,expression in [('advance_loop_far','__mplay_track_advance_start + 2062'),('advance_loop_backward','__mplay_track_advance_start - 2036'),('advance_loop_odd','__mplay_track_advance_start - 283')]:
+  text=source.replace('        ASSERT(MPlayMainTrackLoop + 2048 >=','        MPlayMainTrackLoop = '+expression+';\n        ASSERT(MPlayMainTrackLoop + 2048 >=',1)
+  cases.append((name,text,'track advance loop transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

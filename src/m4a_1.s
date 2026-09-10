@@ -344,6 +344,8 @@ _081DD874:
 	ldr r5, [r7, o_MusicPlayerInfo_tracks]
 	movs r3, 0x1
 	movs r4, 0
+	.global MPlayMainTrackLoop
+MPlayMainTrackLoop:
 _081DD87C:
 	ldrb r0, [r5]
 	movs r1, 0x80
@@ -424,18 +426,16 @@ MPlayMainModulationStartBoundary:
 MPlayMainModulationUpdateBoundary:
 _081DD95A:
 	.section .text.after_mplay_modulation_update, "ax", %progbits
-	.global MPlayMainTrackFinish
-MPlayMainTrackFinish:
+	.global MPlayMainTrackFinishBoundary
+MPlayMainTrackFinishBoundary:
 _081DD994:
-	mov r3, r10
-	mov r4, r11
+	.section .text.after_mplay_track_finish, "ax", %progbits
+	.global MPlayMainTrackAdvanceBoundary
+MPlayMainTrackAdvanceBoundary:
 _081DD998:
-	subs r6, 0x1
-	ble _081DD9A4
-	movs r0, 0x50
-	adds r5, r0
-	lsls r3, 1
-	b _081DD87C
+	.section .text.after_mplay_track_advance, "ax", %progbits
+	.global MPlayMainClockUpdate
+MPlayMainClockUpdate:
 _081DD9A4:
 	ldr r0, [r7, o_MusicPlayerInfo_clock]
 	adds r0, 0x1

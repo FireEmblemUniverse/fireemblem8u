@@ -1149,16 +1149,36 @@ SECTIONS
         src/m4a_mplay_modulation_update.o(.text);
         __mplay_modulation_update_end = .;
         src/m4a_1.o(.text.after_mplay_modulation_update);
+        __mplay_track_finish_start = .;
+        src/m4a_mplay_track_finish.o(.text);
+        __mplay_track_finish_end = .;
+        src/m4a_1.o(.text.after_mplay_track_finish);
+        __mplay_track_advance_start = .;
+        src/m4a_mplay_track_advance.o(.text);
+        __mplay_track_advance_end = .;
+        src/m4a_1.o(.text.after_mplay_track_advance);
+        ASSERT((MPlayMainTrackFinish & ~1) == MPlayMainTrackFinishBoundary &&
+               __mplay_track_finish_end - __mplay_track_finish_start == 4 &&
+               (MPlayMainTrackAdvance & ~1) == __mplay_track_finish_end,
+               "MPlayMain track finish extent or continuation changed");
+        ASSERT((MPlayMainTrackAdvance & ~1) == MPlayMainTrackAdvanceBoundary &&
+               __mplay_track_advance_end - __mplay_track_advance_start == 12 &&
+               MPlayMainClockUpdate == __mplay_track_advance_end,
+               "MPlayMain track advance extent or continuation changed");
+        ASSERT(MPlayMainTrackLoop + 2048 >= __mplay_track_advance_start + 14 &&
+               MPlayMainTrackLoop <= __mplay_track_advance_start + 14 + 2046 &&
+               (MPlayMainTrackLoop & 1) == 0,
+               "MPlayMain track advance loop transfer out of range");
         ASSERT((MPlayMainModulationUpdate & ~1) == MPlayMainModulationUpdateBoundary &&
                __mplay_modulation_update_end - __mplay_modulation_update_start == 58 &&
-               MPlayMainTrackFinish == __mplay_modulation_update_end,
+               (MPlayMainTrackFinish & ~1) == __mplay_modulation_update_end,
                "MPlayMain modulation update extent or continuation changed");
         ASSERT((MPlayMainModulationStart & ~1) == MPlayMainModulationStartBoundary &&
                __mplay_modulation_guard_end - __mplay_modulation_guard_start == 24 &&
                (MPlayMainModulationUpdate & ~1) == __mplay_modulation_guard_end,
                "MPlayMain modulation guard extent or continuation changed");
-        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard_start + 26 &&
-               MPlayMainTrackFinish <= __mplay_modulation_guard_start + 8 + 254 &&
+        ASSERT((MPlayMainTrackFinish & ~1) >= __mplay_modulation_guard_start + 26 &&
+               (MPlayMainTrackFinish & ~1) <= __mplay_modulation_guard_start + 8 + 254 &&
                (MPlayMainTrackFinish & 1) == 0 &&
                (MPlayMainModulationUpdate & ~1) >= __mplay_modulation_guard_start + 20 &&
                (MPlayMainModulationUpdate & ~1) <= __mplay_modulation_guard_start + 20 + 254 &&
@@ -1183,8 +1203,8 @@ SECTIONS
                __mplay_command_status_end - __mplay_command_status_start == 8 &&
                (MPlayMainWaitCommand & ~1) == __mplay_command_status_end,
                "MPlayMain command status extent or continuation changed");
-        ASSERT(MPlayMainTrackFinish >= __mplay_command_status_start + 8 &&
-               MPlayMainTrackFinish <= __mplay_command_status_start + 8 + 254 &&
+        ASSERT((MPlayMainTrackFinish & ~1) >= __mplay_command_status_start + 8 &&
+               (MPlayMainTrackFinish & ~1) <= __mplay_command_status_start + 8 + 254 &&
                (MPlayMainTrackFinish & 1) == 0 &&
                (MPlayMainTrackWait & ~1) >= __mplay_command_status_start + 10 &&
                (MPlayMainTrackWait & ~1) <= __mplay_command_status_start + 10 + 2046 &&
