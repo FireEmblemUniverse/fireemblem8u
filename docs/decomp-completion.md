@@ -2549,3 +2549,32 @@ transfer-wrapper work remains in scope; this is not 100% C decompilation.
 Evidence: `.deps/vsync-integration-compare.log`, `.deps/vsync-source-audit.json`,
 `.deps/vsync-linked-audit.json` and `.deps/sound-vsync-match/report.json`.
 Next work targets the remaining small audio command handlers.
+
+### September 9: command setter private ABI isolated
+
+Research begins from production `7eae15fd` with `command_setters.c` and
+`check_command_setters.py`. Priority (`080CFA18`, field offset 29) and LFO delay
+(`080CFACC`, field offset 27) each have an original ten-byte body:
+save LR in r12, call the checked byte reader, store r3, return through r12.
+The C candidates bind the private reader result to r3 and the track to r1.
+GCC correctly emits the call and byte store, but emits PUSH LR / POP r0 / BX r0
+for the frame and return. Each candidate is twelve bytes and is not matching.
+
+The new oracle links each candidate at its original entry address and executes
+the original ROM's `ld_r3_tp_adr_i` and address filter, rather than substituting
+a helper model. Each handler passes 2,064 memory/return-flag cases: every byte
+from a normal RAM stream and a rejected low-memory stream, four incoming NZCV
+patterns, and all four aliases into the command-pointer field. Aliased reads
+observe the already-incremented pointer, as required by the helper's ordering.
+All callee-saved registers and SP agree. The only r0-r12 differences are r0 and
+r12, in every case, caused by the return convention. The global register
+declarations produce GCC's expected call-clobbered-register warnings; this
+private helper convention cannot be assumed for arbitrary callees.
+
+Next work needs a constrained compiler return-frame contract that reserves r12
+and verifies that every call preserves it, avoiding arbitrary call sites or
+stack layouts. The existing matching leaf-frame attribute is insufficient
+because these functions call the reader. Production remains byte-identical
+and unchanged, with 52 assembly entry markers. Evidence is recorded in
+`.deps/audio-command-setters/report.json`; reproduce with
+`.deps/arm-oracle-venv/bin/python research/audio/check_command_setters.py`.

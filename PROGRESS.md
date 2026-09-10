@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: VSync/DMA integration (baseline `0261b2cf` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified production implementation: VSync/DMA integration (`7eae15fd`); full ROM checksum passes. Current research: private return ABI for the priority/LFO-delay setters.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -33,7 +33,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: replace the remaining small audio command handlers with matching C.
+Next milestone: match the priority and LFO-delay command setters' private return ABI.
+Their C candidates pass 4,128 state/flag cases using the actual ROM byte reader,
+including rejected low-memory reads and command-pointer aliases. Each candidate
+is 12 bytes versus the original 10. The call and field store match; GCC's stack
+return sequence changes r0 and r12. A constrained r12 return convention is the
+next compiler target. These candidates remain outside the production build.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
