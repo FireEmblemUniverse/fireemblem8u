@@ -8803,3 +8803,40 @@ Evidence: `.deps/soundmain-packed/mplay-lock/production-build.log`,
 `source.json`, `linked.json`, `layout.log`, refreshed tracked ownership/runtime/
 audio receipts and `docs/mplay-code-region.json`. Production ELF SHA-256:
 `fa75006d424318e3af8ec33a88de4b9a56c6e613201c9b52b4d40e2ef4d7326b`.
+
+
+## September 10, 2026 — ply_note command decoding model and C probe
+
+On baseline `2065262f`, work advances into `ply_note`'s remaining 502 assembly
+instruction bytes. Its optional-argument decoder occupies 38 bytes at
+080CFE64..080CFE8A. It reads up to three bytes below 0x80, updating key, velocity
+and gate time in that order. The command pointer is stored only after consuming
+at least one byte; command bytes at or above 0x80 remain for the next handler.
+Reads and writes can alias, so later reads must observe earlier track writes.
+
+`research/audio/check_ply_note_command_model.py` passes 338,688 original-ROM
+cases: every byte value in each argument position, boundary triples, four gate
+seeds, all sixteen incoming NZCV patterns and six stream placements. Placements
+include the track's gate/key/velocity and command-pointer fields. Initialization
+uses the resulting memory when seeds overlap. Cases consume zero/one/two/three
+bytes 56,320/39,936/75,840/166,592 times respectively. Full r0-r12, SP, LR, CPSR,
+all mapped RAM and ordered byte/word accesses are checked. Byte-write traces
+mask the Unicorn hook value to the actual access width. The model stops before
+tone selection and uses mapped EWRAM pointers, not pointer wrap or invalid memory.
+
+`research/audio/ply_note_command.c` produces the original 38-byte layout with
+the existing private tail-transfer convention after adding empty pointer ties
+at ordered reads. It is not matching yet: GCC emits CMP #127/BHI for all three
+unsigned tests, while the original uses CMP #128/BCS. Branch decisions agree,
+but CPU flags differ. The candidate model rejects at stream (0,0,128), gate=0,
+NZCV=0, disjoint stream 02000800, after consuming two bytes. This is a concrete
+flag counterexample, not a byte-only mismatch. Next: validate a compiler
+normalization for these local unsigned bounds, rerun the model, then integrate
+with exact extent and continuation constraints. Production is unchanged.
+
+Probe compilation uses GCC 16.2.0, -O1, -fno-reorder-blocks, Thumb ARM7TDMI,
+apcs-gnu, freestanding and tail_transfer with destination/terminal-adjacent-
+destination PlyNoteToneSetup, private-frame64 and acyclic-branches. The candidate
+links at 080CFE64 with continuation 080CFE8A. Evidence:
+`.deps/soundmain-packed/ply-note/command-original-model.json`, `command-model.log`,
+`command-probe-model.log`, `command.s`, `command.elf` and `command.bin`.
