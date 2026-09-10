@@ -2212,3 +2212,25 @@ remain assembly. The former TrackStop assembly body is removed.
 68 bytes to the C object, with no orphan mapping symbols. Other audio handlers,
 startup and BIOS interfaces, ARM shims, the naked unit-list fallback and transfer
 code remain unfinished; no overall completion percentage is inferred.
+
+
+### Tied-note release candidate — September 9, 2026
+
+`research/audio/end_tie.c` reconstructs `ply_endtie`. Bytes below 128 update
+the track key and advance the command pointer; other bytes retain the saved key
+and pointer. The handler scans channels and marks only the first channel whose
+status has any 0x83 bit, lacks the 0x40 release bit, and has the requested note.
+
+`check_end_tie.py` compiles the candidate using GNU ARM GCC and passes 768
+original/C cases: six command bytes across the optional-key boundary, eight
+list layouts including duplicate matches, empty lists and excluded statuses,
+and all incoming NZCV patterns. An independent model checks complete test RAM;
+callee-saved registers, stack and final flags agree. Caller-clobbered register
+values are not asserted by this candidate-stage test.
+
+The candidate is 66 bytes against the original 64 at `0x080D0044..0x080D0084`.
+Five halfwords in the overlapping region differ. GCC's Thumb frame code
+explicitly saves LR whenever low callee-saved registers are pushed; the original
+leaf preserves only r4/r5. Threshold/branch and one TST operand choice also
+remain different. Production remains unchanged at `d3354ff9`; no integration or
+overall completion is claimed.
