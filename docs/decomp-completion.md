@@ -8004,3 +8004,35 @@ Evidence: `.deps/soundmain-packed/mplay-post-frequency-result-build.log`,
 `mplay-post-frequency-result-production-identity.json`, source/linked reports and
 refreshed tracked ownership/runtime/region receipts. Next: post-track advancement
 and MPlayMain's frame exit, plus earlier command guards and clear-call paths.
+
+
+## Exit identifier restoration candidate — September 10, 2026
+
+On production baseline `d254436e`, an isolated C candidate reproduces the four
+bytes at 080CFDB0..080CFDB4: read the shared identifier literal at 080CFDCC and
+store it to MusicPlayerInfo.ident (offset 52). The existing shared-literal and
+adjacent private-tail rules suffice. The candidate stops at ExitRestore.
+
+All 29,216 original/candidate cases pass: 166 literal values (the real identifier,
+full-width boundaries, single bits and random words), eleven player placements,
+and every NZCV. Placements include separate storage, the identifier destination
+at each of the nine saved-frame words (including the eventual return address),
+and the final RAM word. Synthetic cases replace the literal in both emulator
+images. All registers, full CPSR, SP/LR and RAM agree; the trace is exactly one
+literal read followed by the identifier write. These checks do not execute the
+subsequent stack restoration or establish a complete return.
+
+Sources/checker: `research/audio/mplay_exit_unlock.c` and
+`research/audio/check_mplay_exit_unlock.py`. Evidence:
+`.deps/soundmain-packed/mplay-exit-unlock/report.json` and
+`mplay-exit-unlock-check.log`. The assembler's generic alignment warning is
+resolved for this candidate by linking at its original word-aligned address and
+checking the exact relocated bytes; production will need explicit address/range
+constraints before integration. Production ownership is unchanged.
+
+The remaining exit pops r0-r7 from offsets 0..28, copies r0-r3 into r8-r11,
+pops the return target into r3 from offset 32, then uses the shared call_r3 BX.
+The existing grouped `thumb_frame_return` contract instead consumes 64 bytes
+with low-register loads at offsets 28..56 and the target at 60. It cannot be
+reused unchanged. Next: support and verify the exact 36-byte frame while
+preserving the shared trampoline entry, then integrate the complete exit path.
