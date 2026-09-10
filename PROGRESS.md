@@ -7,6 +7,13 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `c1a351f5`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
+Current research (baseline `bfacce48`): the 30-byte priority/clamp/type-dispatch
+path has an independent 147,456-case original-ROM model, covering every priority
+pair, carry behavior and stack aliases. A deliberate wrong-carry encoding rejects.
+The C probe matches the first 28 bytes but uses a four-byte dispatch in place of
+the original two-byte branch. Collapse that transfer while preserving flags before
+integration. Production ownership remains 92.70%.
+
 Next: recover `ply_note` priority and channel allocation, then its remaining
 setup/frame paths (378 assembly instruction bytes total). MPlayMain's ownership
 receipt is `docs/mplay-code-region.json`; it does not assert full-game completion

@@ -9044,3 +9044,44 @@ afterward; other concurrent disk changes are not attributed to this cleanup.
 Recover individual files from the matching `*-assembly.tar.gz` into the original
 directory recorded by `*-manifest.json` before rerunning a historical probe that
 expects a loose assembly file. Current production builds use no archived paths.
+
+
+## September 10, 2026 — Priority clamp/dispatch model and near-matching probe
+
+On baseline `bfacce48`, the thirty bytes at 080CFEE0..080CFEFE save the selected
+key, add player and track priority bytes, clamp the result to 255, save it, mask
+the tone type with seven, save that channel type and dispatch to PCM at 080CFF30
+or CGB at 080CFEFE. The carry flag from CMP priority_sum,#255 survives MOVS/ANDS
+and both stack stores. A transfer replacement must preserve that carry.
+
+`research/audio/check_ply_note_priority_model.py` passes 147,456 original-ROM
+cases: all 65,536 independent priority pairs with rotating type/flags, plus every
+type byte and NZCV combination at five priority boundaries and four stack
+placements. Saved-key stores can overwrite player or track priority before its
+read; storing clamped priority can overwrite tone type before masking. Checks
+cover complete r0-r12/CPSR/SP/LR/RAM, SP at each instruction and ordered accesses.
+Outcomes are 19,968 PCM and 127,488 CGB transfers. Effective sums are below/equal/
+above 255 in 61,186/16,799/69,471 cases. The model stops at channel-selection entry,
+not at allocation or a complete ply_note return; supplied-binary mode does not
+establish C/compiler provenance.
+
+A deliberate CMP #254 mutation preserves the saturated numeric result but changes
+carry at sum=254. The model rejects it at priorities (0,254), tone type=254,
+NZCV=14, disjoint stack. This isolates a flag-only failure that a memory/result
+comparison would miss.
+
+`research/audio/ply_note_priority.c` compiles to a 32-byte probe; the first 28
+bytes exactly equal the original. The remaining BNE/local skip plus unconditional
+PCM transfer must collapse to a direct BEQ while retaining the existing ANDS
+flags. The current fallthrough is two bytes past the required CGB continuation,
+so this probe is not production-ready or claimed behavior-equivalent. Next:
+validate that store/flag-preserving direct transfer, require all thirty original
+bytes, run the model against the candidate, then integrate. Production still
+retains 378 ply_note assembly instruction bytes and 92.70% C ownership.
+
+Probe flags: GCC 16.2.0 -O1 -fno-reorder-blocks, Thumb ARM7TDMI, apcs-gnu,
+freestanding; tail_transfer with PlyNoteCgbSelect/PlyNotePcmSelect,
+private-frame64, acyclic-branches and terminal-adjacent-destination=PlyNoteCgbSelect.
+Evidence: `.deps/soundmain-packed/ply-note/priority-original-model.json`,
+`priority-model.log`, `priority-wrong-carry.log`, `priority-probe-report.json`,
+`priority-probe.s`, `priority-probe.elf` and `priority-probe.bin`.
