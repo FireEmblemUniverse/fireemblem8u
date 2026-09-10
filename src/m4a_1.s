@@ -306,16 +306,14 @@ _081DD07C:
 _081DD0A8:
 	ldr r6, [r5]
 	ldr r7, [r5, 0x630]
-_081DD0B0:
-	ldrsb r0, [r3], 0x1
-	mul r1, r10, r0
-	bic r1, r1, 0xFF0000
-	add r6, r1, r6, ror 8
-	mul r1, r11, r0
-	bic r1, r1, 0xFF0000
-	add r7, r1, r7, ror 8
-	adds r5, r5, 0x40000000
-	bcc _081DD0B0
+@ The packed inner loop is linked here from m4a_packed.c.
+	.global SoundMainRAM_PackedBoundary
+SoundMainRAM_PackedBoundary:
+	.section .text.after_packed, "ax", %progbits
+	.arm
+	.global SoundMainRAM_PackedStore
+	.type SoundMainRAM_PackedStore, %function
+SoundMainRAM_PackedStore:
 	str r7, [r5, 0x630]
 	str r6, [r5], 0x4
 	subs r8, r8, 0x4

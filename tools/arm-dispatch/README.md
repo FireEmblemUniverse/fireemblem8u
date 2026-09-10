@@ -212,5 +212,15 @@ by an unsigned carry branch with GCC's addition/carry pattern, preserving the
 machine branch sense across CC/CC_C modes. Positive addends must be below
 0x80000000; the condition flags must die at the adjacent LTU/GEU branch. It does
 not cross other operations. Tests are `research/audio/check_add_carry.py` and
-`check_soundmain_packed.py`. This currently supports a research packed-mixer
-candidate and is not a production-build dependency.
+`check_soundmain_packed.py`. The production packed-mixer loop uses this rule.
+
+
+`arm_adjacent.cc` and `build_arm_adjacent.py` provide `matching_arm_adjacent`
+with a mandatory `destination=NAME` contract. They remove a sole LR save,
+terminal direct call, immediate LR restore and return, allowing private ARM
+code to fall through to its continuation. The linker MUST place that ARM
+continuation immediately after the C section. Local loops are allowed; branches
+that bypass the call, additional calls, local frames, SP/LR body uses, executable
+asm, debug/unwind and non-void functions are rejected. Empty register constraints
+are allowed. `src/m4a_packed.c` uses this with explicit size and adjacency asserts;
+`research/audio/check_arm_adjacent.py` covers execution and rejection boundaries.

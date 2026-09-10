@@ -18,7 +18,7 @@ ID = 0x68736d53
 
 
 def main():
-    p = argparse.ArgumentParser(description=__doc__); p.add_argument('--compiler', required=True); a = p.parse_args()
+    p = argparse.ArgumentParser(description=__doc__); p.add_argument('--compiler', required=True); p.add_argument('--production', action='store_true'); a = p.parse_args()
     OUT.mkdir(exist_ok=True); objects = []
     for name in ('complete', 'setup', 'reverb', 'channel', 'fixed', 'resample'):
         obj = OUT / (name + '.o'); objects.append(str(obj))
@@ -31,6 +31,10 @@ def main():
     nm = subprocess.check_output(['arm-none-eabi-nm', str(OUT / 'candidate.elf')], text=True)
     model_entry = int(next(line.split()[0] for line in nm.splitlines() if line.endswith(' SoundMainCompleteModel')), 16)
     rom = (ROOT / 'baserom.gba').read_bytes(); assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
+    if a.production:
+        production = (ROOT / 'fireemblem8.gba').read_bytes()
+        assert production == rom, 'production ROM does not match original'
+        rom = production
     machines = []
     def callback(uc, address, size, state):
         if address not in (0x080e0000, 0x080e0010, 0x080e0020): return
@@ -110,8 +114,8 @@ def main():
         outcomes['deadline_exits'] += machines[0][1]['deadline_exits']
     assert outcomes['deadline_exits'] > 0, 'deadline schedules did not trigger an exit'
     report = dict(cases=len(rows), outcomes=dict(outcomes), scope='complete original SoundMain and copied RAM mixer versus composed C; active fixed/resampled channels, reverb, mutable callbacks/global pointer, deterministic VCOUNT schedules, lock release, full sound memory, preserved registers/SP and ARM/Thumb returns',
-                  C_integration=False, limitations='Semantic composition only; exact private frame, scratch registers, flags, audio access order and cycle timing not matched. Positive sample counts >=16 divisible by four; valid mapped waves and loop geometry.')
-    (OUT / 'report.json').write_text(json.dumps(report, indent=2) + '\n'); print(json.dumps(report, indent=2))
+                  C_integration=False, engine_under_test="production" if a.production else "original", limitations='Semantic composition only; exact private frame, scratch registers, flags, audio access order and cycle timing not matched. Positive sample counts >=16 divisible by four; valid mapped waves and loop geometry.')
+    (OUT / ('production-report.json' if a.production else 'report.json')).write_text(json.dumps(report, indent=2) + '\n'); print(json.dumps(report, indent=2))
 
 
 if __name__ == '__main__': main()

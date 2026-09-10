@@ -4094,3 +4094,45 @@ Thumb, intervening asm, signed-overflow use and missing arithmetic reject;
 unannotated object bytes are unchanged. Evidence is under
 `.deps/soundmain-packed/` (report.json, oracle.log, add-carry-guards.log and fixtures).
 Production remains unchanged; the continuation and integration are next.
+
+
+### September 10: packed sample loop integrated into production mixer
+
+`src/m4a_packed.c` replaces the 36-byte fixed-rate inner loop at 080CF738..080CF75C.
+It consumes source bytes and exits on the output-pointer carry, then falls
+through to the existing ARM word stores. No placeholder return remains.
+The linker checks the C loop begins immediately after the word loads, contains
+exactly 36 bytes, and ends at its ARM continuation. The whole copied mixer span
+remains 932 bytes. `make compare -j8` passes for the complete ROM.
+
+The opt-in `arm_adjacent` compiler rule validates and removes the otherwise
+unnecessary LR-only save, terminal direct call, immediate LR restore and return.
+It accepts local branches only when their targets remain before the terminal
+call; it rejects extra calls, early-return bypasses, local stack use, executable
+asm, non-void functions, debug/unwind and mismatched destinations. Empty register
+constraints emit no instructions and remain allowed. This is an explicit private
+continuation contract with mandatory linker adjacency, not a general external-
+call optimization. Preserving incoming LR matters because the mixer uses it as
+a remaining-sample counter in this path.
+
+The production packed-loop oracle passes 18,432 cases from ROM and another
+18,432 after copying the mixer to RAM, with all 36 bytes exact and matching
+r0-r12, flags, source consumption, final pointer and unchanged source/stack.
+The 3,528 complete SoundMain cases also pass against the production engine,
+including active fixed/resampled channels, reverb, mutating callbacks, 1,728
+forced deadline exits and ARM/Thumb returns. The continuation rule passes 160
+standalone executions, eleven compiler rejection cases, two displaced-target
+link failures and unchanged unannotated object output.
+
+The refreshed ownership inventory moves 36 instruction bytes from assembly to C:
+719,252 main instruction bytes are C-owned, 33,870 belong to C objects with
+assembly, 2,716 to assembly sources and 21,792 to runtime archives. The total
+remains 777,630 and rounded C-owned share remains 92.49%. Reviewed non-library
+assembly is now 3,126 main bytes plus 420 payload bytes. There are 473 main C
+files and 619 inline sites (271 register bindings, 340 empty templates, one
+directive-only and seven instruction templates); the 32 assembly entry markers
+remain. Both ownership totals and source totals include inherited community work.
+Evidence: `.deps/soundmain-packed/production*.json`, production-build.log,
+adjacent-guards.log, and `.deps/soundmain-complete/production-report.json`.
+The outer fixed-rate loop, resampled mixer, channel preparation and original
+SoundMain private frame still need matching C integration.

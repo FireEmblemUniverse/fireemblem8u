@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 84-byte reverb integration (baseline `f79552fe` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: 36-byte packed-loop integration (baseline `10bff9c6` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,8 +19,9 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.49%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **3,162 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **3,126 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated packed sample loop | `████████████████████` **All 36 bytes exact; 36,864 production ROM/copied-RAM cases pass** |
 | Integrated reverb block | `████████████████████` **All 84 bytes exact; 13,584 production ROM/copied-RAM cases pass** |
 | Integrated audio byte-load entry | `████████████████████` **Both bytes exact; 49,152 production cases pass** |
 | Integrated multiply-high ARM body | `████████████████████` **All 12 ARM bytes exact; 41,984 production cases pass; Thumb entry remains assembly** |
@@ -98,10 +99,12 @@ rejected entries. Full sound memory, callback/VCOUNT traces, global-pointer
 mutations, preserved registers, SP and both return modes agree. This establishes
 semantic composition; the original private frame and matching instruction
 sequence remain unfinished, so production coverage is unchanged.
-The fixed-rate packed inner loop now compiles to all 36 original bytes and
-passes 18,432 private-register/flag comparisons. Its addition-carry compiler rule
-passes 116,032 standalone checks for both branch directions. The candidate still
-has a placeholder return; continuation and production integration remain open.
+The 36-byte packed inner loop is integrated as `src/m4a_packed.c`, falling through
+to the original ARM stores with its private registers and stack intact. All 36,864
+production/original checks pass across ROM and copied RAM. The full production
+SoundMain also passes the 3,528 complete-call suite. The continuation rule passes
+160 executions, eleven compiler rejection cases and two link rejection cases.
+The addition-carry rule passes 116,032 standalone checks.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
@@ -111,11 +114,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 3,162 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 3,126 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,216 C-owned, 33,870 in C objects containing assembly, 2,752 in assembly
+719,252 C-owned, 33,870 in C objects containing assembly, 2,716 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer
@@ -197,7 +200,7 @@ all 4,128 production/original cases agree on memory, flags and r0-r12, including
 rejected reads and command-pointer aliases. `make compare -j8` passes for the
 complete ROM. Their installed private-return compiler contract passes 128
 two-call executions with ARM/Thumb return modes and rejects nineteen unsupported
-configurations. The source inventory now has 472 C files and 32 assembly entries.
+configurations. The source inventory now has 473 C files and 32 assembly entries.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
@@ -236,7 +239,7 @@ including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
 The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
 original/production execution cases match, including saturation and private ABI.
-Main source inventory is now 472 C files and 32 assembly entry markers.
+Main source inventory is now 473 C files and 32 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
