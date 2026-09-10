@@ -3105,3 +3105,31 @@ comprise 236 register bindings, 334 empty constraints, one directive-only templa
 and seven instruction templates. Audio engine, assembly interfaces, embedded
 code, transfer wrapper, naked fallback and executable-classification work remain
 unfinished. Evidence is retained in `.deps/reset-setters/`.
+
+
+### September 9: audio jump-table copy research
+
+`research/audio/jump_table.c` expresses `MPlayJumpTableCopy` at `080CF958`:
+36 words are loaded from `gMPlayJumpTableTemplate`, passed through the actual
+address filter and stored sequentially. A nonvolatile destination register
+binding lets GCC emit the original STM-with-increment operation; the volatile
+pointer variant instead needed a temporary saved register and separate store.
+The current candidate still emits an ordinary return frame, a redundant compare
+and a local literal, rather than the original private r12 return/shared literal.
+
+`research/audio/check_jump_table.py --compiler COMPILER` passes 3,072 copy cases:
+original and fifteen synthetic 36-word templates, six EWRAM/IWRAM destinations,
+sixteen incoming flag combinations and ARM/Thumb returns. Copied words, adjacent
+canaries, preserved registers, final SP, return mode/PC and flags agree. The
+candidate differs in r0/r12 and is 32 bytes versus the original 24-byte section.
+Synthetic data is written only in the emulated template region for this test.
+
+The original-address candidate would overwrite the neighboring filter while
+executing. The harness therefore retains its original-address linked bytes for
+matching comparison and separately relinks its execution image at `080E1000`.
+The original filter remains intact and executes in both machines. This is a
+research isolation measure, not a production relocation or matching claim.
+Next is guarded loop support for the private return, matching decrement/branch
+selection and use of the existing shared literal at `080CF988`. Production
+remains `3bcc2a7c`, with 35 assembly entry markers. Evidence is retained in
+`.deps/jump-table-match/`.

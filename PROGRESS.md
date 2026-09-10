@@ -52,7 +52,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: continue the remaining audio engine and assembly interfaces.
+Next milestone: match the audio jump-table copy loop and shared literal load.
+The jump-table C research candidate passes 3,072 copy checks using the actual
+filter, original/synthetic templates, six RAM destinations and ARM/Thumb returns.
+It remains 32 bytes versus 24 original, with r0/r12 return differences. Remaining
+work is the private return, redundant loop comparison and shared literal pool;
+production is unchanged.
 LFO speed and modulation commands are integrated as C. Both 18-byte bodies
 match; 99,072 production cases verify zero-byte resets, three modulation types,
 track flags, unchecked low reads, pointer aliases and all r0-r12/return flags.
