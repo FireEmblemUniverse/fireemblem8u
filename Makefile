@@ -713,3 +713,11 @@ src/m4a_word_finish.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apc
 src/m4a_fixed_word_finish.o: $(ARM_WORD_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_fixed_word_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_fixed_word_finish.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_WORD_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_SaveChannel -fplugin-arg-arm_adjacent-early=SoundMainRAM_FixedSetup -fplugin-arg-arm_adjacent-transfer=branch
+
+src/m4a_fixed_lane.o: $(ARM_ADD_CARRY_PLUGIN) $(ARM_ADJACENT_PLUGIN)
+src/m4a_fixed_lane.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_fixed_lane.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_FixedWordFinish -fplugin-arg-arm_adjacent-early=SoundMainRAM_ShortMix
+
+src/m4a_resample_lane.o: $(ARM_ADD_CARRY_PLUGIN) $(ARM_ADJACENT_PLUGIN)
+src/m4a_resample_lane.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_resample_lane.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleWordFinish -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleMix

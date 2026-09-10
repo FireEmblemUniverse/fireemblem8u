@@ -604,6 +604,19 @@ SECTIONS
         __short_end = .;
         SoundMainRAM_ShortMix = __short_start + 8;
         src/m4a_1.o(.text.after_short);
+        __fixed_lane_start = .;
+        src/m4a_fixed_lane.o(.text);
+        __fixed_lane_end = .;
+        src/m4a_1.o(.text.after_fixed_lane);
+        ASSERT(SoundMainRAM_ShortCount == SoundMainRAM_FixedLaneBoundary && __fixed_lane_end - __fixed_lane_start == 8,
+               "fixed_lane entry or eight-byte extent changed");
+        ASSERT(SoundMainRAM_FixedWordFinish == __fixed_lane_end,
+               "fixed_lane word completion must be adjacent ARM code");
+        ASSERT((SoundMainRAM_ShortMix & 3) == 0 && SoundMainRAM_ShortMix < __fixed_lane_start &&
+               SoundMainRAM_ShortMix >= (SoundMainRAM & ~1),
+               "fixed_lane mix target must be backward ARM code in copied mixer");
+        ASSERT((__fixed_lane_start + 12) - SoundMainRAM_ShortMix <= 0x2000000,
+               "fixed_lane carry branch out of range");
         __fixed_word_start = .;
         src/m4a_fixed_word_finish.o(.text);
         __fixed_word_end = .;
@@ -694,6 +707,19 @@ SECTIONS
         __advance_end = .;
         SoundMainRAM_ResampleReload = __advance_start + 20;
         src/m4a_1.o(.text.after_advance);
+        __resample_lane_start = .;
+        src/m4a_resample_lane.o(.text);
+        __resample_lane_end = .;
+        src/m4a_1.o(.text.after_resample_lane);
+        ASSERT(SoundMainRAM_ResampleNoAdvance == SoundMainRAM_ResampleLaneBoundary && __resample_lane_end - __resample_lane_start == 8,
+               "resample_lane entry or eight-byte extent changed");
+        ASSERT(SoundMainRAM_ResampleWordFinish == __resample_lane_end,
+               "resample_lane word completion must be adjacent ARM code");
+        ASSERT((SoundMainRAM_ResampleMix & 3) == 0 && SoundMainRAM_ResampleMix < __resample_lane_start &&
+               SoundMainRAM_ResampleMix >= (SoundMainRAM & ~1),
+               "resample_lane mix target must be backward ARM code in copied mixer");
+        ASSERT((__resample_lane_start + 12) - SoundMainRAM_ResampleMix <= 0x2000000,
+               "resample_lane carry branch out of range");
         __word_finish_start = .;
         src/m4a_word_finish.o(.text);
         __word_finish_end = .;

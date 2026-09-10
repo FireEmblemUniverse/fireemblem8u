@@ -110,7 +110,8 @@ rtx_insn *lower_diamond() {
         fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported terminal diamond");
     rtx choice=SET_SRC(p),condition=XEXP(choice,0);
     if ((GET_CODE(condition)!=EQ && GET_CODE(condition)!=NE
-         && !(early_exit&&(GET_CODE(condition)==LE||GET_CODE(condition)==LT||GET_CODE(condition)==GE||GET_CODE(condition)==GT)))||!REG_P(XEXP(condition,0))
+         && !(early_exit&&(GET_CODE(condition)==LE||GET_CODE(condition)==LT||GET_CODE(condition)==GE||GET_CODE(condition)==GT
+                          ||GET_CODE(condition)==LTU||GET_CODE(condition)==GEU)))||!REG_P(XEXP(condition,0))
         ||REGNO(XEXP(condition,0))!=CC_REGNUM||XEXP(condition,1)!=const0_rtx
         ||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx)
         fatal_error(UNKNOWN_LOCATION,"ARM adjacent diamond requires equality branch");

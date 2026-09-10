@@ -5130,3 +5130,51 @@ fixed-word-finish-production.json, fixed-word-finish-production-ram.json,
 fixed-word-finish-check.log, fixed-word-finish-check-ram.log,
 fixed-word-finish-source-audit.json and fixed-word-finish-ownership.log. The
 complete-call report remains under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — both packed-lane advances integrated (16 bytes)
+
+Baseline: `10902bdd`. `src/m4a_fixed_lane.c` replaces the ADDS/BCC pair at
+0x080CF7A0 and `src/m4a_resample_lane.c` replaces the pair at 0x080CF894. Both
+use unsigned addition overflow to add 0x40000000 to packed output r5, branch
+to the respective mixing entry when carry is clear, and fall through to word
+completion on carry. The linker enforces each eight-byte extent, adjacent
+completion and backward aligned mixing target/range inside the copied mixer.
+
+The opt-in arm_adjacent early-exit condition whitelist additionally accepts
+LTU/GEU. It preserves the condition and CC mode supplied by add_carry, including
+CC_C's reversed carry representation; default EQ/NE diamonds are unchanged.
+No backend MD changes or instruction-bearing C assembly templates were added.
+
+`check_soundmain_lane.py` passes 24,928 cases per mode, 49,856 across production/
+original ROM and copied RAM. Each mode crosses 779 output values, two entries
+and sixteen incoming NZCV states: 18,464 mix exits and 6,464 word exits. The
+independent expected state checks wrapped r5, exact ADDS NZCV, every register,
+SP/LR, exit PC and frame canaries. Boundary values include all four packed lanes,
+carry/overflow transitions and deterministic random values. The complete
+SoundMain regression passes 3,528 calls, including 1,728 deadline exits.
+The full 16 MiB ROM passes its original SHA-1 check.
+
+`check_arm_carry_early.py` passes 4,672 synthetic carry-set/clear executions in
+ROM and relocated code. Four invalid forms reject; the extra-return case is
+rejected by add_carry before arm_adjacent runs. The initial test incorrectly
+required an arm_adjacent diagnostic for that case; its expected diagnostic is
+now specific to the earlier pass. Production code did not change for that fix.
+Existing regressions pass: adjacent 160 executions/11 compiler/2 link rejects;
+conditional 13,632/11/3; frame 55,296/8; LR read-only and accumulator 13,056 each
+with nine rejects each; early, repeat and pop-pair guards 12, eight and ten.
+
+Refreshed main ownership: 719,588 C-owned instruction bytes (92.54%), 33,870
+mixed-object bytes, 2,380 assembly-source bytes and 21,792 runtime bytes, total
+777,630. Reviewed non-library assembly is 2,790 main bytes and 420 payload bytes.
+Source inventory: 486 C files, 32 assembly entry markers, five manual declarations,
+693 inline sites (337 register bindings, 348 empty constraints, one directive,
+seven instruction templates). Remaining audio setup/frame/channel paths and
+runtime C rebuild verification remain open. This is not overall 100% completion.
+
+Evidence under `.deps/soundmain-packed/`: lane-production-build.log,
+lane-production.json, lane-production-ram.json, lane-check.log,
+lane-check-ram.log, lane-regression-*.log, lane-source-audit.json and
+lane-ownership.log. Complete-call evidence is in
+`.deps/soundmain-complete/production-report.json`. Ownership, inline and runtime
+reports were regenerated from the current build.

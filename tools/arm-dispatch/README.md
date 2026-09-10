@@ -416,3 +416,20 @@ Production `src/m4a_stop.c` uses pop2 with `transfer=branch`. Its linker checks
 `check_arm_pop_pair.py` checks rejected contracts; `check_soundmain_stop.py`
 checks original/production ordered reads, exact SP advance, all registers/flags
 and untouched frame/canaries in ROM and copied RAM.
+
+
+ARM adjacent `early=NAME` also accepts LTU/GEU condition codes, preserving the
+incoming CC mode and condition when emitting the external conditional transfer.
+This includes CC_C produced by `matching_add_carry`; its reversed carry encoding
+is retained, so a C overflow test branches with the corresponding BCC/BCS.
+Default terminal-diamond conditions remain EQ/NE. Existing exact tail, prefix,
+frame and destination validation still applies.
+
+Production `src/m4a_fixed_lane.c` and `src/m4a_resample_lane.c` use unsigned
+addition overflow to advance the packed output lane. Both compile to ADDS/BCC
+and fall through to adjacent word completion on carry. Link assertions check
+eight-byte size, adjacent completion and backward aligned mix targets inside
+the copied mixer. `check_arm_carry_early.py` exercises both carry polarities in
+ROM and relocated code; an extra return rejects in add_carry before the adjacent
+pass, while post-call work, debug and unwind settings reject in arm_adjacent.
+`check_soundmain_lane.py` checks both original/production blocks and full flags.

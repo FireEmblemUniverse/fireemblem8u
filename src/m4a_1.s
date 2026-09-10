@@ -318,12 +318,11 @@ SoundMainRAM_ShortBoundary:
 @ Stereo word loads and one sample are linked here from m4a_short.c.
     .section .text.after_short, "ax", %progbits
     .arm
-    .global SoundMainRAM_ShortCount
-    .type SoundMainRAM_ShortCount, %function
-SoundMainRAM_ShortCount:
-_081DD118:
-	adds r5, r5, 0x40000000
-	bcc SoundMainRAM_ShortMix
+    .global SoundMainRAM_FixedLaneBoundary
+SoundMainRAM_FixedLaneBoundary:
+@ Fixed-rate packed-lane advance is linked from m4a_fixed_lane.c.
+    .section .text.after_fixed_lane, "ax", %progbits
+    .arm
 	.global SoundMainRAM_FixedWordBoundary
 SoundMainRAM_FixedWordBoundary:
 @ Fixed-rate stereo stores and sample-count control come from C.
@@ -382,11 +381,11 @@ SoundMainRAM_AdvanceBoundary:
 	.section .text.after_advance, "ax", %progbits
 	.arm
 _081DD208:
-	.global SoundMainRAM_ResampleNoAdvance
-	.type SoundMainRAM_ResampleNoAdvance, %function
-SoundMainRAM_ResampleNoAdvance:
-	adds r5, r5, 0x40000000
-	bcc SoundMainRAM_ResampleMix
+	.global SoundMainRAM_ResampleLaneBoundary
+SoundMainRAM_ResampleLaneBoundary:
+@ Resampling packed-lane advance is linked from m4a_resample_lane.c.
+	.section .text.after_resample_lane, "ax", %progbits
+	.arm
 	.global SoundMainRAM_WordFinishBoundary
 SoundMainRAM_WordFinishBoundary:
 @ Stereo stores and sample-count decision are linked from m4a_word_finish.c.
