@@ -24,7 +24,7 @@ void m4aSoundVSync(void)
     asm("" : "+r"(state));
     if (state > 1) return;
     counter = info->pcmDmaCounter;
-    asm("" : "+r"(counter));
+    asm("" : : "r"(counter));
     --counter;
     info->pcmDmaCounter = counter;
     if (counter > 0) return;

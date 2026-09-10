@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: stereo channel-volume integration (baseline `cd973d23` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified production implementation: stereo channel-volume integration (`70290e0c`); full ROM checksum passes. Latest research milestone: complete VSync candidate match (baseline `e60c244d` plus this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -33,10 +33,14 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
 Next milestone: match and integrate the audio VSync/DMA handler.
-Its 76-byte C candidate now has the original section size and passes 2,304 original/C cases checking the ordered
-counter and DMA accesses, memory, r0-r12 and return flags. Shared literal loads now match;
-the DMA carry branches now use the original instructions. The extra signed
-counter comparison remains the next matching target. Another 4,096 standalone
+Its complete 76-byte C candidate now matches the original section exactly, including
+shared literal loads, every instruction, zero padding and local literal data.
+All 2,304 original/C cases pass, checking ordered counter and DMA accesses,
+memory, r0-r12 and return flags. The bounded counter transformation passes
+65,664 baseline/plugin executions; six unsupported patterns remain unchanged.
+Next: promote the reproducible compiler support, integrate the C object and verify
+the complete ROM. This candidate is still research, not a production replacement.
+Another 4,096 standalone
 bit-test executions pass across bit positions, branch senses and short/long/far
 branch distances, including saved return-address checks. Large leaf-function
 far-branch probes trigger a baseline GCC internal error; this remains a compiler

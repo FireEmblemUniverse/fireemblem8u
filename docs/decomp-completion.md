@@ -2457,3 +2457,58 @@ production promotion. No production source or ROM bytes changed in this step.
 Verified with `.deps/arm-oracle-venv/bin/python research/audio/check_thumb_carry.py
 --compiler .deps/sound-vsync-match/gcc
 --plugin .deps/sound-vsync-match/thumb_shared_literal.so`.
+
+### September 9: complete 76-byte VSync candidate match
+
+Starting from research revision `e60c244d`, the VSync candidate now matches the
+entire original section at `080CFB1C..080CFB68`, including both shared Thumb
+literal loads, all instructions, the two zero alignment bytes and the two
+local DMA constants. Candidate SHA-256:
+`dc1f26a42cabf2ec4cddeffe54d52fe85e61473478f237d16d3b4f2774defd91`.
+
+The counter's empty constraint is now input-only. It still binds the byte load
+to r1, while retaining the unsigned-byte range proof. The experimental plugin
+combines adjacent decrement, byte store and GT/LE branch into a single RTL
+bundle only after finding the zero-extending byte load. The decrement result
+is in [-1,254], so signed overflow cannot occur and its flags implement the
+branch correctly. The bundle explicitly writes the decremented register and
+truncated memory value and branches on the bounded decrement result. It does
+not reuse arbitrary arithmetic flags or assume that an output asm preserves
+a range. The memory address must use an independent low register and byte
+offset 0..31; branch targets are limited to a conservative forward 200-byte
+span. Other forms retain normal GCC code.
+
+The remaining difference after this bundle was `46C0` code NOP padding where
+the ROM contains `0000`. The opt-in zero-pool-padding rule uses an explicit
+`.balign 4, 0` backend pattern immediately before the selected pool, and requires
+a preceding control-flow barrier. It does not write game opcodes.
+
+Validation with the rebuilt experimental compiler:
+
+- VSync: all 2,304 original/C cases pass, with exact bytes and zero r0-r12 or
+  return-flag differences; memory and ordered counter/MMIO accesses also match.
+  `--require-match` now makes all of these results mandatory. DMA execution
+  and hardware timing are still outside the CPU oracle's scope.
+- `check_thumb_byte_counter.py`: 65,664 baseline/plugin executions cover every
+  byte and incoming NZCV value, both branch senses, full-width overflow edges,
+  output memory, return PC, stack and callee-saved registers. Six unsupported
+  forms remain unchanged: output asm, flags clobber, signed byte, full-width
+  input, decrement by two and a target outside the accepted short span. Only
+  compiler-generated unique long-branch label numbers are normalized when
+  comparing assembly text.
+- Carry regression: all 4,096 baseline/plugin executions still pass, including
+  long and far branches in non-leaf functions. The previously recorded large
+  leaf-function GCC limitation remains.
+
+Reproduction: `python3 research/audio/build_thumb_shared.py`, then
+`.deps/arm-oracle-venv/bin/python research/audio/check_sound_vsync.py
+--compiler .deps/sound-vsync-match/gcc
+--plugin .deps/sound-vsync-match/thumb_shared_literal.so
+--carry-tests --byte-counter --zero-pool-padding --require-match`.
+Experimental cc1 SHA-256:
+`a32be83edcf35f5e0bf0843e800d76d12a9060ed343e32c705a265e798e393be`.
+
+Production remains at the verified stereo-volume integration `70290e0c`.
+The VSync assembly has not yet been removed. Next is reproducible compiler
+promotion, linker integration and a full ROM comparison, followed by source
+and linked-code inventory updates.

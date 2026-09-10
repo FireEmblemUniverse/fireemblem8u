@@ -30,3 +30,28 @@ Run `.deps/arm-oracle-venv/bin/python research/audio/check_read_command.py` afte
 `make compare -j8` to compare its private register ABI against the original ROM.
 The checker includes pointer-field aliases, so it verifies store-before-read
 ordering in addition to the ordinary command stream cases.
+
+The VSync candidate in `sound_vsync.c` uses the isolated experimental compiler
+built by `build_thumb_shared.py`. It does not yet replace production assembly.
+The shared-literal plugin has independent opt-in transformations:
+
+- `literal=integer,symbol` relocates a selected word load to a shared forward
+  pool. Explicit linker range assertions are required because GNU ld can wrap
+  the scaled Thumb relocation silently.
+- `carry-tests` lowers single-bit equality tests to shifts and carry branches.
+- `byte-counter` bundles a proven unsigned-byte load followed by decrement,
+  byte store and signed GT/LE branch. Only an adjacent load, optionally separated
+  by an input-only empty constraint, establishes the range. The store must use
+  an independent low base register and offset 0..31. Only forward branches with
+  a conservative span of at most 200 bytes are accepted. Full-width or signed
+  inputs, output constraints and intervening clobbers do not establish proof.
+- `zero-pool-padding` explicitly zero-fills word alignment immediately before
+  the selected pool, requiring a preceding control-flow barrier. It cannot be
+  enabled without a literal manifest.
+
+These are compiler RTL operations and alignment directives; the source does
+not embed the game's instruction bytes. The installed production compiler is
+unchanged while these experimental build-tree patterns are under validation.
+`check_thumb_byte_counter.py` checks both accepted patterns and unchanged
+unsupported patterns. `check_sound_vsync.py --require-match` makes exact bytes,
+registers and return flags mandatory in addition to its ordered-access checks.

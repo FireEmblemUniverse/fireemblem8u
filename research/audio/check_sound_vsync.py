@@ -11,11 +11,16 @@ def main():
     parser.add_argument("--compiler",default="arm-none-eabi-gcc")
     parser.add_argument("--plugin",type=Path)
     parser.add_argument("--carry-tests",action="store_true")
+    parser.add_argument("--byte-counter",action="store_true")
+    parser.add_argument("--zero-pool-padding",action="store_true")
+    parser.add_argument("--require-match",action="store_true")
     args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-if-conversion','-fno-if-conversion2','-fno-schedule-insns','-fno-schedule-insns2','-fno-reorder-blocks']
     if args.plugin:flags += ['-fplugin='+str(args.plugin.resolve()),'-fplugin-arg-thumb_shared_literal-literal=0x03007ff0,SharedSoundInfo','-fplugin-arg-thumb_shared_literal-literal=0x68736d53,SharedIdent']
     if args.carry_tests:flags += ["-fplugin-arg-thumb_shared_literal-carry-tests"]
+    if args.byte_counter:flags += ["-fplugin-arg-thumb_shared_literal-byte-counter"]
+    if args.zero_pool_padding:flags += ["-fplugin-arg-thumb_shared_literal-zero-pool-padding"]
     subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'link.ld').write_text(f'SECTIONS {{ . = {ENTRY:#x}; .text : {{ *(.text) }} }} SharedSoundInfo = 0x080cfdc8; SharedIdent = 0x080cfdcc;\nASSERT(SharedSoundInfo >= ADDR(.text)+SIZEOF(.text) && SharedIdent+4 <= ADDR(.text)+1024, "Shared Thumb literals outside conservative forward range")\n')
@@ -64,4 +69,6 @@ def main():
                         flag_differences+=results[0][0]!=results[1][0];register_differences+=results[0][1]!=results[1][1];count+=1
     report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'return_flag_difference_cases':flag_differences,'r0_r12_difference_cases':register_differences,'complete_match':candidate==original,'candidate_sha256':hashlib.sha256(candidate).hexdigest(),'differing_halfword_offsets':[i for i in range(0,min(len(candidate),len(original)),2) if candidate[i:i+2]!=original[i:i+2]],'scope':'CPU memory and ordered MMIO accesses; DMA hardware transfer execution/timing not modeled.'}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report)
+    if args.require_match:
+        assert report['complete_match'] and not flag_differences and not register_differences, report
 if __name__=='__main__':main()
