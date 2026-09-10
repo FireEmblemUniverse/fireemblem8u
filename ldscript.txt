@@ -631,13 +631,14 @@ SECTIONS
         __save_channel_start = .;
         src/m4a_save_channel.o(.text);
         __save_channel_end = .;
-        SoundMainRAM_RestoreFrame = __save_channel_start + 8;
+        SoundMainRAM_SaveChannel = __save_channel_start + 4;
+        SoundMainRAM_RestoreFrame = __save_channel_start + 12;
         src/m4a_1.o(.text.after_save_channel);
-        ASSERT(SoundMainRAM_SaveChannel == SoundMainRAM_SaveBoundary,
-               "channel save C block must follow fraction save");
-        ASSERT(__save_channel_end - __save_channel_start == 20,
-               "channel save C block must contain exactly 20 bytes");
-        ASSERT((SoundMainRAM_ChanAdvance | 1) == __save_channel_start + 12 + 8 + 1,
+        ASSERT(SoundMainRAM_SaveResampled == SoundMainRAM_SaveBoundary,
+               "resampled channel save C block must follow register restoration");
+        ASSERT(__save_channel_end - __save_channel_start == 24,
+               "channel save C block must contain exactly 24 bytes");
+        ASSERT((SoundMainRAM_ChanAdvance | 1) == __save_channel_start + 16 + 8 + 1,
                "channel save PC-relative Thumb continuation moved");
         ASSERT(SoundMainRAM_Resample == SoundMainRAM_ResampleBoundary,
                "resample C block must follow sample setup");

@@ -252,9 +252,13 @@ src/m4a_loop.o: $(ARM_ADJACENT_PLUGIN)
 src/m4a_loop.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_loop.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Partial -fplugin-arg-arm_adjacent-conditional=SoundMainRAM_ShortCount -fplugin-arg-arm_adjacent-sp-input=frame64
 
-src/m4a_save_channel.o: $(ARM_PC_ADDRESS_PLUGIN)
+ARM_INDIRECT_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/arm_indirect_frame.so
+$(ARM_INDIRECT_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/arm_indirect_frame.cc tools/arm-dispatch/build_arm_indirect_frame.py
+	$(PYTHON) tools/arm-dispatch/build_arm_indirect_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_save_channel.o: $(ARM_PC_ADDRESS_PLUGIN) $(ARM_INDIRECT_FRAME_PLUGIN)
 src/m4a_save_channel.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
-src/m4a_save_channel.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanAdvance -fplugin-arg-pc_address-offset=1
+src/m4a_save_channel.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin=$(ARM_INDIRECT_FRAME_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanAdvance -fplugin-arg-pc_address-offset=1
 
 src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_PC_ADDRESS_PLUGIN)
 src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -

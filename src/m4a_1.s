@@ -325,7 +325,7 @@ _081DD118:
 	str r6, [r5], 0x4
 	subs r8, r8, 0x4
 	bgt _081DD07C
-	b _081DD22C
+	b SoundMainRAM_SaveChannel
 _081DD134:
 	ldr r0, [sp, 0x18]
 	cmp r0, 0
@@ -396,8 +396,6 @@ SoundMainRAM_ResampleNoAdvance:
 	sub r3, r3, 0x1
 	pop {r4,r12}
 _081DD228:
-	str lr, [r4, o_SoundChannel_fw]
-_081DD22C:
 	.global SoundMainRAM_SaveBoundary
 SoundMainRAM_SaveBoundary:
 @ Channel save and frame restore are linked here from m4a_save_channel.c.

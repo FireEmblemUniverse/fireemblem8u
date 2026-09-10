@@ -4628,3 +4628,44 @@ are incomplete. Evidence under `.deps/soundmain-packed/`: save-channel-build.log
 save-production.json, save-production-ram.json, save-source-audit.json,
 save-ownership.log and the save-resampled.s candidate; complete-call report
 under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — fractional channel save integrated (24 bytes)
+
+Baseline: `12ed0ca6`. The channel-save C block now starts at 0x080CF8B4 and
+includes the incoming LR fractional-position store to channel fw. Its six ARM
+instructions occupy exactly 24 bytes. SaveChannel is a linker entry at +4,
+RestoreFrame at +12, and the existing Thumb continuation remains at 0x080CF8CC.
+The earlier research candidate has been promoted into production and removed.
+
+The opt-in arm_indirect_frame compiler pass validates and removes the sole LR
+push/restore around the terminal indirect sibling transfer through r0. Global
+r0/SP/LR bindings and a void zero-frame ARM function are mandatory. Frame reads
+are aligned words within 64 bytes; incoming LR may only be stored to a word
+address independent of SP/LR. Other calls, body branches, stack writes, LR
+writes, executable assembly and debug/unwind forms are rejected. The pass runs
+after PC-address materialization, tolerates its empty pool shell, and removes
+stale LR death notes. The retained sibling call emits the original BX r0.
+The standalone checker passes 27,648 executions across arbitrary LR values,
+frame aliasing, all NZCV states and both destination modes, rejects 14 invalid
+forms, and confirms unchanged unannotated output.
+
+`make compare -j8` passes. Production save checks pass 122,880 cases in ROM and
+122,880 after copying the mixer to RAM, with 40,960 cases per entry per mode.
+Five channel positions include separate memory and ct/cp/fw aliases with the
+frame sample word. Independent expected ordered stores and frame read, complete
+memory/canaries, r0-r12, SP/LR, NZCV and Thumb destination/mode match. Fraction
+values cover distributed zero, boundary and arbitrary patterns. The composed
+SoundMain regression passes all 3,528 production calls, including 1,728 deadline
+exits; this does not prove cycle timing or full private-frame semantics.
+
+Refreshed instruction ownership: 719,456 main C-owned bytes, 33,870 mixed-object
+bytes, 2,512 assembly-source bytes and 21,792 runtime bytes (777,630 total).
+Reviewed non-library assembly is 2,922 main bytes and 420 payload bytes. Source
+inventory is 478 C files, 32 assembly entry markers, six manual declarations,
+663 inline sites (309 register bindings, 346 empty constraints, one directive,
+seven instruction templates). Remaining mixer frame construction, channel
+control, resampling source/loop control and runtime rebuild work are incomplete.
+Evidence: `.deps/soundmain-packed/save-resampled-build.log`, save-production.json,
+save-production-ram.json, indirect-frame-guards.log, save-resampled-source-audit.json,
+save-resampled-ownership.log; `.deps/soundmain-complete/production-report.json`.

@@ -293,3 +293,21 @@ frame boundaries, ordered reads, backward conditional transfers, unchanged
 frame/SP/LR, rejection cases and a compared-register overwrite that must retain
 the second CMP. Production `src/m4a_loop.c` uses this contract with the shared
 `include/gba/m4a_mixer_frame.h` layout.
+
+
+`arm_indirect_frame.cc` provides `matching_arm_indirect_frame` for a private
+ARM entry that stores incoming LR and finishes with an indirect sibling transfer
+through r0. It requires global r0/SP/LR bindings, void zero-frame code, one LR
+push and its immediate restore before the terminal transfer. Body control flow,
+extra calls, explicit stack writes, LR writes, executable assembly, debug and
+unwind forms are rejected. SP reads are aligned word loads within 64 bytes;
+LR reads are restricted to a word store through an address independent of SP/LR.
+The pass removes only the validated push/restore and stale LR death notes,
+retaining the compiler-generated BX. This is a private ABI with incoming SP/LR.
+
+When combined with `pc_address`, load that plugin first. An empty aligned
+literal-pool shell after the transfer is accepted, but data and executable
+instructions are rejected. The production linker enforces the 24-byte extent,
+shared entry offsets and exact PC-relative Thumb continuation. Run
+`research/audio/check_arm_indirect_frame.py` for execution and rejection checks,
+and `check_soundmain_save.py` in ROM and copied-RAM modes for the production ABI.
