@@ -2897,3 +2897,28 @@ restricted compiler support for those tail transfers and matching comparison
 selection, with validation of the private register and return contracts.
 The production ROM remains the verified `3f99b484` implementation with 39
 assembly entry markers. Evidence is retained in `.deps/pattern-match/`.
+
+
+### September 9: pattern channel and transfer contracts audited
+
+The pattern oracle now covers zero, one and two linked channels, with status
+bytes swept across all 256 values by the nesting-level dimension. Expected
+shutdown behavior includes conditional stop bits, removal from the track list,
+cleared channel ownership and repaired previous links. All 49,152 cases agree
+on track/channel memory, r0-r12, flags, final SP and return PC. Both actual ROM
+callees execute; this closes the earlier empty-channel-only coverage gap.
+
+New entry tracing at `ply_goto` and `ply_fine` exposes a material remaining
+contract difference: all 49,152 candidate cases enter the selected callee with
+a different SP and LR. Final-state agreement alone did not establish the
+original tail-transfer behavior. `--require-match` now also rejects either
+callee-entry mismatch. The candidate remains 40 bytes versus 28 original.
+
+Inspection of the pinned GCC 16.2.0 `gcc/config/arm/arm.cc`, function
+`arm_function_ok_for_sibcall`, confirms that it returns false unconditionally
+for `TARGET_THUMB1`. Ordinary sibling-call optimization flags cannot recover
+these terminal branches. Next is restricted support for direct Thumb terminal
+transfers with explicit destination contracts, no live frame or post-call work,
+and link-range verification. Production remains unchanged at `3f99b484`;
+39 assembly entry markers remain. Updated evidence is in
+`.deps/pattern-match/channel-oracle.log` and `report.json`.
