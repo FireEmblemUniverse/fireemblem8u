@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integration: the 52-byte channel volume/loop-metadata block now comes from matching C (baseline `72de5643` plus this change). Full ROM matching, 131,072 complete-state cases, 16,544 ADD-zero flag checks, eight compiler rejection cases, 3,528 complete audio calls and fresh runtime rebuilds pass.
+Updated: September 10, 2026. Latest research (baseline `ed63d207`): channel advancement now has a 14-byte C candidate with 33,600 complete-state cases passing in original/candidate ROM and copied RAM. It remains four bytes larger than the original and is not integrated. Latest production integration remains the exact 52-byte volume/loop block; coverage and full-ROM matching are unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,6 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,380 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Channel-advance candidate | **33,600 cases pass; 14 bytes versus original ten; not integrated** |
 | Integrated channel volume/loop setup | **52/52 bytes exact; 131,072 cases pass with original registers, flags and ordered alias-sensitive memory accesses** |
 | Integrated channel status/envelope | **160/160 bytes exact; 196,608 cases pass with original registers, flags, decisions and ordered memory accesses** |
 | Integrated channel deadline | **32/32 section bytes exact; 98,304 cases pass with original registers, flags, direct exits and ordered data/MMIO accesses** |
@@ -85,7 +86,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the remaining Thumb sample handoff and channel-advance/return paths in SoundMainRAM. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: combine the channel-advance compare and duplicated decrement into the original ten-byte sequence, then integrate it. The sample handoff and mixer return remain assembly. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.

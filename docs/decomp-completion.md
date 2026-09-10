@@ -12,6 +12,31 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Channel advancement candidate — September 10, 2026
+
+Research baseline `ed63d207`. `research/audio/soundmain_channel_advance.c`
+expresses the original ten-byte path at 080CF8CC..080CF8D6 using a signed
+comparison of the original count and unsigned subtraction. This preserves the
+original SUBS/BLE behavior at 0x80000000 without undefined signed C overflow.
+The count decrements on both paths. Positive counts greater than one advance
+the channel address by 64 with unsigned wraparound and branch to ChanLoop;
+other counts continue to DeadlineExit. The private 64-byte frame is unchanged.
+
+The first candidate was 16 bytes. Reordering the two paths and declaring the
+validated terminal-adjacent DeadlineExit continuation reduces it to 14 bytes:
+LDR, CMP, BLE, SUBS, ADDS, B, SUBS. It is not integrated. The next instruction
+selection step must merge the identical decrements ahead of the branch and
+reuse their comparison flags, preserving the signed-before-subtraction test.
+
+`check_soundmain_channel_advance.py` compiles and links the candidate and checks
+33,600 cases in four original/candidate ROM/copied-RAM machines. All r0-r12,
+SP/LR, final flags, branch destinations, complete mapped data and the single
+ordered frame read match an independent arithmetic model. The inputs cover 13
+count boundaries plus 512 full-width random counts, four channel addresses
+including carry/signed-overflow boundaries, and all 16 initial NZCV settings.
+There are 16,576 exits and 17,024 channel advances. Full-width values are sampled,
+and cycle timing is not modeled. Production ROM and coverage remain unchanged.
+
 ## Channel volume and loop metadata integration — September 10, 2026
 
 `src/m4a_volume.c` replaces all 52 Thumb instruction bytes at
