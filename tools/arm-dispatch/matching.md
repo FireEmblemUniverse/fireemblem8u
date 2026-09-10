@@ -260,3 +260,15 @@
   "TARGET_THUMB1"
   "pop\t{r0-r7}"
   [(set_attr "length" "2") (set_attr "type" "load_4")])
+
+;; Thumb ADR uses the aligned PC and preserves all condition flags.
+;; The selecting pass and linker jointly prove the target's relative location.
+(define_c_enum "unspec" [UNSPEC_MATCH_THUMB_PC_ADDRESS])
+(define_insn "match_thumb_pc_address"
+  [(set (match_operand:SI 0 "low_register_operand" "=l")
+        (unspec_volatile:SI [(match_operand:SI 1 "const_int_operand" "n")]
+                            UNSPEC_MATCH_THUMB_PC_ADDRESS))]
+  "TARGET_THUMB1 && INTVAL (operands[1]) >= 0 && INTVAL (operands[1]) <= 1020
+   && (INTVAL (operands[1]) & 3) == 0"
+  "add\t%0, pc, %1"
+  [(set_attr "type" "alu_imm") (set_attr "length" "2")])

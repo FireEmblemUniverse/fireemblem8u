@@ -12,6 +12,39 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Sample handoff integration — September 10, 2026
+
+Baseline `4eccafb3` plus this change. `src/m4a_sample_handoff.c` replaces the
+complete section at 080CF6D8..080CF6E4: ten instruction bytes and two zero padding
+bytes. The three state loads, Thumb ADR and BX r0 all match. The same compiled
+bytes compute the correct ARM destination when copied into mixer RAM.
+
+The opt-in `matching_thumb_pc_handoff` pass validates private zero-frame Thumb
+code with global r0/SP bindings, read-only aligned frame accesses, no calls,
+branches, assembly or LR accesses, a final r0 load from the sole symbol pool,
+and the recognized leaf return. Its declared six-byte instruction site must
+match the actual prefix length. It selects a flag-preserving Thumb PC-relative
+address operation and BX r0, removes the pointer literal and retains explicit
+zero alignment. Offset values must be multiples of four within 0..1020. The
+linker independently asserts the aligned-PC formula, target ARM alignment,
+entry placement and twelve-byte section extent. Incorrect target placements
+cannot silently pass the production contract.
+
+The isolated compiler rebuild succeeds. Thirteen unsupported source/configuration
+cases reject; unannotated output is unchanged. Eight wrong ROM/RAM target
+placements reject and two correct placements link. Another 512 generated ADR
+executions verify eight offset boundaries, both instruction alignments, ROM/RAM
+and every NZCV state. `check_soundmain_sample_handoff.py --production` passes
+24,576 full transfers across original/C ROM/copied-RAM machines with exact
+section bytes, registers, flags, SP/LR, ARM destination, full data and ordered
+reads. Word inputs are sampled and cycle timing is not modeled.
+
+The full ROM checksum, all 3,528 complete audio calls and fresh runtime source
+rebuilds of all four images pass. Main C-owned mapped instructions rise by ten
+bytes to 720,040; reviewed non-library assembly falls to 2,338 main-ROM bytes.
+There are 499 tracked C files. Initial mixer/SoundMain setup and other remaining
+assembly still prevent completion of the full goal.
+
 ## Sample handoff state candidate — September 10, 2026
 
 Research baseline `5ef0305e`. `research/audio/soundmain_sample_handoff.c`
@@ -206,13 +239,13 @@ These are coverage measures including inherited work, not overall completion.
 
 ## Current verified state
 
-After mixer-exit integration (baseline `282321b3` plus this change),
+After sample-handoff integration (baseline `4eccafb3` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 498 main C files, 32 assembly entry markers,
+The current source inventory has 499 main C files, 32 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 720,030 in C-only objects, 33,870 in
-mixed C/assembly objects, 1,938 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 720,040 in C-only objects, 33,870 in
+mixed C/assembly objects, 1,928 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 

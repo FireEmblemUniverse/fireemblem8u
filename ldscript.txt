@@ -615,6 +615,16 @@ SECTIONS
         src/m4a_volume.o(.text);
         __volume_end = .;
         src/m4a_1.o(.text.after_volume);
+        __sample_handoff_start = .;
+        src/m4a_sample_handoff.o(.text);
+        __sample_handoff_end = .;
+        src/m4a_1.o(.text.after_sample_handoff);
+        ASSERT((SoundMainRAM_ResumeSamples & ~1) == SoundMainRAM_SampleHandoffBoundary &&
+               (__sample_handoff_start & 3) == 0 && __sample_handoff_end - __sample_handoff_start == 12,
+               "sample handoff entry or twelve-byte extent changed");
+        ASSERT(SoundMainRAM_SampleEntry == (((__sample_handoff_start + 6 + 4) & ~3) + 4) &&
+               (SoundMainRAM_SampleEntry & 3) == 0 && SoundMainRAM_SampleEntry == __sample_handoff_end,
+               "Thumb ADR at offset six must reach the adjacent ARM sample entry");
         ASSERT((SoundMainRAM_EnvelopeVolume | 1) == (__volume_start | 1) &&
                __volume_start == SoundMainRAM_EnvelopeVolumeBoundary &&
                __volume_start == __envelope_end && __volume_end - __volume_start == 52,

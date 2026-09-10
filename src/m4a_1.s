@@ -129,18 +129,11 @@ SoundMainRAM_EnvelopeVolumeBoundary:
 @ Volume and loop metadata come from the 52-byte matching C block.
 	.section .text.after_volume, "ax", %progbits
 	.thumb
-	.global SoundMainRAM_ResumeSamples
-	.type SoundMainRAM_ResumeSamples, %function
-	.thumb_func
-SoundMainRAM_ResumeSamples:
-_081DD03A:
-	ldr r5, [sp, 0x8]
-	ldr r2, [r4, o_SoundChannel_ct]
-	ldr r3, [r4, o_SoundChannel_cp]
-	adr r0, _081DD044
-	bx r0
-	.2byte 0
-_081DD044:
+	.global SoundMainRAM_SampleHandoffBoundary
+SoundMainRAM_SampleHandoffBoundary:
+@ State loads, PC-relative address and ARM handoff come from matching C.
+	.section .text.after_sample_handoff, "ax", %progbits
+	.arm
     .global SoundMainRAM_SampleEntryBoundary
 SoundMainRAM_SampleEntryBoundary:
 @ Count preservation, volume expansion and sample-path selection come from C.

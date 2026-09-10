@@ -792,3 +792,10 @@ $(THUMB_FRAME_RETURN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_frame_
 src/m4a_exit_restore.o: $(THUMB_FRAME_RETURN_PLUGIN)
 src/m4a_exit_restore.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_exit_restore.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FRAME_RETURN_PLUGIN) -fplugin-arg-thumb_frame_return-grouped
+
+THUMB_PC_HANDOFF_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_pc_handoff.so
+$(THUMB_PC_HANDOFF_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_pc_handoff.cc tools/arm-dispatch/build_thumb_pc_handoff.py
+	python3 tools/arm-dispatch/build_thumb_pc_handoff.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_sample_handoff.o: $(THUMB_PC_HANDOFF_PLUGIN)
+src/m4a_sample_handoff.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_sample_handoff.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_PC_HANDOFF_PLUGIN) -fplugin-arg-thumb_pc_handoff-symbol=SoundMainRAM_SampleEntry -fplugin-arg-thumb_pc_handoff-site=6 -fplugin-arg-thumb_pc_handoff-offset=4
