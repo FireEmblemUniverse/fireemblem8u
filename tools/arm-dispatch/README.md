@@ -1003,3 +1003,25 @@ The decoder checker requires the original 38 bytes with bound 128 and three
 branches, rejects eleven altered source/options, checks unchanged unannotated
 output, and executes 338,688 independent command/track-alias cases with full
 registers, flags and ordered memory effects. Its scope ends at tone selection.
+
+### Tone-selection branch layout
+
+The optional flag `thumb_block_layout` → `tone-selection` selects two explicit
+masked tests (0xc0 and 0x40) retained through empty self-ties. It permits empty
+r0-r11 ties and requires exactly two branch-arm swaps with no removed jumps.
+Each selected branch has a straight fallthrough arm ending in a jump to a shared
+forward join; the following arm must fall into that join. The pass inverts the
+selector, moves the following arm ahead of the first, and moves the existing
+join jump to the moved arm's end. Labels and all branch destinations are retained.
+Its normal low-register ADD #0 and TST operand canonicalization then applies.
+Unknown/duplicate/value-bearing options reject; default mode is unchanged.
+
+```
+python3 tools/arm-dispatch/build_thumb_block_layout.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_ply_note_tone.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_soundmain_envelope.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```
+
+The tone checker requires all 86 original bytes, rejects eleven unsupported
+contracts, checks unannotated output is unchanged, and executes 92,160 independent
+full-state alias cases. The envelope checker exercises the existing default mode.

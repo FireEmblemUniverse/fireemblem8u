@@ -25,6 +25,7 @@
 #include "hard-reg-set.h"
 int plugin_is_GPL_compatible;
 namespace {
+bool tone_selection=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_block_layout requires a function");*no_add=true; }
     return NULL_TREE;
@@ -50,7 +51,7 @@ rtx_insn *next_op(rtx_insn *i) {
     return nullptr;
 }
 bool empty_tie(rtx p) {
-    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))>=8) return false;
+    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))>=(tone_selection?12:8)) return false;
     rtx a=SET_SRC(p);
     return GET_CODE(a)==ASM_OPERANDS&&!ASM_OPERANDS_TEMPLATE(a)[0]
         &&!strcmp(ASM_OPERANDS_OUTPUT_CONSTRAINT(a),"=r")&&ASM_OPERANDS_INPUT_LENGTH(a)==1
@@ -83,12 +84,12 @@ bool chosen_test(rtx_insn *branch) {
     for (int n=0;n<2;n++) if (!REG_P(XEXP(and_expr,n))||GET_MODE(XEXP(and_expr,n))!=SImode||REGNO(XEXP(and_expr,n))>=8) return false;
     rtx_insn *fall=next_op(branch);
     if (unconditional(fall)&&GET_CODE(SET_SRC(PATTERN(fall)))==LABEL_REF) return true;
-    // The explicit initial selector is the known 0x80 register mask, retained
-    // through an exact empty tie. Other non-stub branches stay in place.
+    // Select the explicit 0x80 mask by default, or the tone 0xc0/0x40
+    // masks in tone-selection mode, each retained through an empty self-tie.
     rtx_insn *tie=prev_op(branch),*load=tie?prev_op(tie):nullptr;
     if (!tie||!load||!empty_tie(PATTERN(tie))||GET_CODE(PATTERN(load))!=SET) return false;
     rtx p=PATTERN(load),reg=SET_DEST(p);
-    return CONST_INT_P(SET_SRC(p))&&INTVAL(SET_SRC(p))==128
+    return CONST_INT_P(SET_SRC(p))&&(tone_selection ? (INTVAL(SET_SRC(p))==192||INTVAL(SET_SRC(p))==64) : INTVAL(SET_SRC(p))==128)
         &&rtx_equal_p(reg,SET_DEST(PATTERN(tie)))
         &&(rtx_equal_p(reg,XEXP(and_expr,0))||rtx_equal_p(reg,XEXP(and_expr,1)));
 }
@@ -115,6 +116,31 @@ public:
             for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
                 if (!chosen_test(i)) continue;
                 rtx_insn *label=as_a<rtx_insn *>(XEXP(XEXP(SET_SRC(PATTERN(i)),1),0));
+                if (tone_selection) {
+                    // Swap a closed fallthrough arm with the following arm that
+                    // falls into their shared join. Move the existing join jump
+                    // to the end of the moved arm; never add/remove an edge.
+                    rtx_insn *jump=prev_op(label);
+                    if (!unconditional(jump)||GET_CODE(SET_SRC(PATTERN(jump)))!=LABEL_REF) continue;
+                    rtx_insn *barrier=NEXT_INSN(jump);
+                    if (!barrier||!BARRIER_P(barrier)) continue;
+                    auto *join=as_a<rtx_insn *>(XEXP(SET_SRC(PATTERN(jump)),0));
+                    bool forward=false,plain=true;
+                    for (rtx_insn *j=NEXT_INSN(label);j;j=NEXT_INSN(j)) if (j==join) {forward=true;break;}
+                    for (rtx_insn *j=NEXT_INSN(i);j&&j!=jump;j=NEXT_INSN(j))
+                        if (LABEL_P(j)||JUMP_P(j)||CALL_P(j)) plain=false;
+                    rtx_insn *last=prev_op(join);
+                    if (!forward||!plain||!last||JUMP_P(last)||CALL_P(last)) continue;
+                    rtx_insn *end=PREV_INSN(join);
+                    rtx_code_label *fall=gen_label_rtx();emit_label_after(fall,i);
+                    rtx replacement=copy_rtx(PATTERN(i));rtx choice=SET_SRC(replacement);
+                    PUT_CODE(XEXP(choice,0),EQ);XEXP(choice,1)=gen_rtx_LABEL_REF(VOIDmode,fall);
+                    if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"Thumb tone diamond inversion rejected");
+                    LABEL_NUSES(label)--;LABEL_NUSES(fall)++;JUMP_LABEL(i)=fall;REG_NOTES(i)=nullptr;
+                    reorder_insns(label,end,i);
+                    reorder_insns(jump,barrier,end);
+                    moved++;again=true;break;
+                }
                 rtx_insn *end=closed_end(i,label);if (!end) continue;
                 rtx_code_label *fall=gen_label_rtx();emit_label_after(fall,i);
                 rtx replacement=copy_rtx(PATTERN(i));rtx choice=SET_SRC(replacement);
@@ -168,13 +194,17 @@ public:
             }
             if (changed&&!validate_change(i,&PATTERN(i),p,false)) fatal_error(UNKNOWN_LOCATION,"Thumb layout encoding normalization rejected");
         }
-        if (!moved||!removed) fatal_error(UNKNOWN_LOCATION,"Thumb layout found no closed-region improvement");
+        if (tone_selection ? (moved!=2||removed!=0) : (!moved||!removed)) fatal_error(UNKNOWN_LOCATION,"Thumb layout found no closed-region improvement (moved %u, removed %u)",moved,removed);
         return 0;
     }
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if (!plugin_default_version_check(version,&gcc_version)||info->argc) return 1;
+    if (!plugin_default_version_check(version,&gcc_version)) return 1;
+    for (int n=0;n<info->argc;n++) {
+        if (!strcmp(info->argv[n].key,"tone-selection")&&!info->argv[n].value&&!tone_selection) tone_selection=true;
+        else return 1;
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

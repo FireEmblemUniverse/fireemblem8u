@@ -8949,3 +8949,43 @@ remaining ply_note assembly instruction bytes are unchanged. Evidence:
 `.deps/soundmain-packed/ply-note/tone-original-model.json`, `tone-model.log`,
 `tone-candidate-model.json`, `tone-probe-model.log`, `tone-probe.s`,
 `tone-probe.elf` and `tone-probe.bin`.
+
+
+## September 10, 2026 — ply_note tone candidate matches
+
+On baseline `93ef4b2a`, the 86-byte tone-selection candidate at
+080CFE8A..080CFEE0 now matches every original instruction byte. The optional
+`thumb_block_layout` tone-selection mode validates the 0xc0/0x40 masked selectors,
+permits empty r0-r11 self-ties and requires exactly two branch-arm swaps without
+removed jumps. Each swap validates a straight first arm ending at a shared
+forward join and a following arm falling into that join. It inverts the selector,
+moves the following arm ahead of the first, and moves the existing join jump to
+the moved arm's end. Labels and branch destinations remain intact. Existing
+low-register ADD #0 and TST operand canonicalization supplies the exact encodings.
+
+The original closed-region transformation moved two regions but required a jump
+removal and placed short arms too late. The new explicitly selected diamond swap
+preserves all edges and instruction lengths while reproducing the original order.
+The default layout mode retains its existing transformation and validation.
+
+`research/audio/check_ply_note_tone.py` requires exact bytes and passes all
+92,160 independent cases, including stack/track/selected-tone aliases, full final
+registers/CPSR/SP/LR/RAM and ordered memory accesses. Eleven unsupported contracts
+reject: altered selector masks, missing private annotation or mode, duplicate or
+value-bearing mode, unknown options, debug/unwind, arguments and instruction asm.
+Unannotated output is unchanged. The complete existing SoundMain envelope checker
+also passes with the rebuilt plugin, including eleven invalid-contract rejections
+and unchanged unannotated output. No backend rebuild was required.
+
+This is a candidate milestone. Production still has 464 ply_note assembly
+instruction bytes, and main-ROM C ownership remains 92.69%. Next: integrate the
+86-byte tone path with exact extent/priority-continuation/exit constraints, run
+full ROM/runtime and ownership checks, then continue priority/channel allocation.
+The tone model stops before priority selection or at the shared exit entry;
+it does not establish full ply_note execution.
+
+Evidence: `.deps/soundmain-packed/ply-note/tone-report.json`, `tone-check.log`,
+`tone-candidate-model.json`, `tone-layout-regression.log`, `tone-layout-build.log`
+and the linked `tone-candidate.elf`/`tone-candidate.bin` artifacts. Sources:
+`research/audio/ply_note_tone.c`, `check_ply_note_tone.py` and the extended
+`tools/arm-dispatch/thumb_block_layout.cc`.

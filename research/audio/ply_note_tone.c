@@ -17,7 +17,7 @@ register volatile u32 toneSP asm("sp");
 #define TIE(x) asm("" : "+r"(x))
 extern void PlyNotePriority(void);
 extern void PlyNoteExit(void);
-__attribute__((matching_tail_transfer))
+__attribute__((matching_tail_transfer, matching_thumb_block_layout))
 void PlyNoteToneCandidate(void)
 {
     toneR0 = 0; TIE(toneR0);
