@@ -3744,3 +3744,35 @@ This establishes the frame/transfer target for matching code generation. Active
 channel mixing, reverb, timing-exit paths and a full C replacement remain open.
 Evidence is in `.deps/soundmain-setup/frame-report.json` and frame-oracle.log.
 Production remains unchanged.
+
+
+### September 10: reverb arithmetic and ordered buffer access recovered in C
+
+`research/audio/soundmain_reverb.c` models the ARM reverb block at 080CF558,
+ending before 080CF5DA. Counter 2 selects the base PCM buffer as source;
+other counters select output plus sample count. Each iteration reads four
+signed bytes, multiplies their sum by strength, shifts arithmetically by nine,
+then increments if result bit 7 is set. This includes positive results >=128;
+it must not be reduced to a negative-value rounding rule. Right and left byte
+stores follow the four reads. Volatile accesses preserve overlap behavior.
+
+`check_soundmain_reverb.py` compiles the model with the installed GCC and runs
+6,792 comparisons against the SHA-1-verified original ROM block. It covers all
+256 strengths with constant signed-byte boundaries, a byte ramp and seeded
+random data. Nine selected strengths additionally exercise eight layouts,
+including source/output overlap, offsets 1 and 1583, sample counts up to 528,
+and counters 0, 1, 2, 3 and 255. All final buffer memory and ordered byte reads
+and writes match. Write-hook values are masked to access width because Unicorn
+reports the whole source register even for STRB; upper discarded bits are not
+claimed to match. The C function also preserves its ABI callee-saved registers
+and stack pointer.
+
+The model is 112 ARM bytes and is not a matching private-block replacement.
+GCC uses different registers, a pointer-end loop instead of the original signed
+countdown, and tests the corresponding pre-shift bit. Its normal LR save/return
+also differs from the original intra-mixer transfer. Zero/negative counts,
+private register outputs, flags and full channel mixing are outside this check.
+The next work is matching code generation and integration, not additional C
+coverage credit for this semantic model. Production remains unchanged.
+Evidence: `.deps/soundmain-reverb/report.json`, candidate ELF/binary and
+`.deps/soundmain-reverb-run.log`.
