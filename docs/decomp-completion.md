@@ -12,6 +12,26 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Sample handoff state candidate — September 10, 2026
+
+Research baseline `5ef0305e`. `research/audio/soundmain_sample_handoff.c`
+recovers the three loads and ARM destination at 080CF6D8..080CF6E4. The frame
+buffer goes to r5, the channel count to r2, and its current source to r3. Their
+six instruction bytes already match. C currently materializes SampleEntry with
+a word literal and finishes with ordinary BX LR; the section is 16 bytes versus
+the original 12 (ten instruction bytes and two zero padding bytes).
+
+`check_soundmain_sample_handoff.py` passes 24,576 pre-transfer cases across four
+original/candidate ROM/RAM machines. It checks all registers, SP/LR, NZCV,
+complete data and the ordered three reads across separate storage and two
+frame/channel aliases. Each candidate is separately linked for its placement,
+so this verifies the destination value but does not prove position-independent
+copying. The original computes the target from PC, whereas this candidate's
+literal would retain its original address when copied unchanged. PC-relative
+Thumb address selection and the final BX r0 remain the next compiler work.
+Inputs are sampled and cycle timing is not modeled. No production changes or
+coverage increase are claimed for this candidate.
+
 ## Mixer exit restore integration — September 10, 2026
 
 Baseline `282321b3` plus this change. `src/m4a_exit_restore.c` now generates

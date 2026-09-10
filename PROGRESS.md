@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integration (baseline `282321b3` plus this change): the complete mixer exit restore now comes from matching C, including its shared BX r3 entry and literal. All 24 section bytes match. Full ROM matching, 40,960 complete returns, 2,048 direct-entry cases, instruction-by-instruction stack checks, 14 compiler rejection cases, 3,528 complete audio calls and fresh runtime rebuilds pass.
+Updated: September 10, 2026. Latest research (baseline `5ef0305e`): sample handoff state passes 24,576 pre-transfer cases, with all six load bytes exact. The candidate is 16 bytes versus the original 12-byte section and needs PC-relative address generation plus BX r0. It is not integrated; production coverage and full-ROM matching remain unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,6 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,348 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Sample handoff candidate | **24,576 pre-transfer cases pass; six load bytes exact; relative target generation and BX r0 remain** |
 | Integrated mixer exit restore | **24/24 section bytes exact; 40,960 complete returns and 2,048 shared-entry cases pass, including original stack progression** |
 | Integrated channel advancement | **10/10 bytes exact; 33,600 complete-state cases pass; shared exit frame read also matches its two original bytes** |
 | Integrated channel volume/loop setup | **52/52 bytes exact; 131,072 cases pass with original registers, flags and ordered alias-sensitive memory accesses** |
@@ -87,7 +88,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the remaining Thumb-to-ARM sample handoff and initial SoundMain/SoundMainRAM setup. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: generate the sample handoff’s original PC-relative target and BX r0, then address initial SoundMain/SoundMainRAM setup. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
