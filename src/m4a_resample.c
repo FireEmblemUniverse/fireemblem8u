@@ -14,6 +14,7 @@ register u32 sampleLeftVolume asm("r11");
 register volatile u32 sampleProduct asm("r12");
 register u32 sampleFraction asm("lr");
 extern void SoundMainRAM_ResampleAdvance(void);
+extern void SoundMainRAM_ResampleNoAdvance(void);
 __attribute__((matching_arm_adjacent))
 void SoundMainRAM_Resample(void)
 {
@@ -31,5 +32,9 @@ void SoundMainRAM_Resample(void)
     sampleLeft = sampleProduct + ((sampleLeft >> 8) | (sampleLeft << 24));
     // Forward the wrapped fraction through the private LR accumulator contract.
     sampleFraction += sampleStep;
-    SoundMainRAM_ResampleAdvance();
+    sampleInterpolated = sampleFraction >> 23;
+    if (sampleInterpolated == 0)
+        SoundMainRAM_ResampleNoAdvance();
+    else
+        SoundMainRAM_ResampleAdvance();
 }

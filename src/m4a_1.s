@@ -380,8 +380,6 @@ SoundMainRAM_ResampleBoundary:
 	.global SoundMainRAM_ResampleAdvance
 	.type SoundMainRAM_ResampleAdvance, %function
 SoundMainRAM_ResampleAdvance:
-	movs r9, lr, lsr 23
-	beq _081DD208
 	bic lr, lr, 0x3F800000
 	subs r2, r2, r9
 	ble _081DD134
@@ -392,6 +390,9 @@ _081DD1FC:
 	ldrsb r1, [r3, 0x1]!
 	sub r1, r1, r0
 _081DD208:
+	.global SoundMainRAM_ResampleNoAdvance
+	.type SoundMainRAM_ResampleNoAdvance, %function
+SoundMainRAM_ResampleNoAdvance:
 	adds r5, r5, 0x40000000
 	bcc SoundMainRAM_ResampleMix
 	str r7, [r5, 0x630]

@@ -256,3 +256,23 @@ not a normal C return ABI; explicit global LR binding and linker adjacency
 remain required. Other LR writes, memory writeback and stack/control uses
 remain rejected. Run `check_arm_adjacent_lr.py --accumulator` for execution
 and guard checks; run without the flag to verify the read-only contract.
+
+
+Optional `conditional=NAME` accepts one exact terminal two-call diamond: an
+EQ/NE branch to the second call, first call followed by the common LR restore/
+return, and second call jumping back to that return. The first call must name
+the conditional target; the second must name the adjacent target. Both labels,
+all body/frame checks and absence of prefix jumps bypassing the continuations
+are verified. The pass reverses the branch condition, emits the explicit ARM
+conditional-tail backend operation, and falls through on the other path.
+Side-effect-free LR reads in combined result/condition-code SETs are accepted
+when LR input is enabled. Default single-continuation behavior is unchanged.
+
+The external conditional transfer uses an explicit UNSPEC with the condition
+register as an input. An ordinary conditional-jump RTL would incorrectly invite
+GCC's local-label verification and ARM final predication logic. This pattern
+still emits one four-byte conditional ARM branch. The linker MUST enforce
+adjacency, word alignment, branch range and the intended copied-code scope;
+production resampling checks all of these against its mixer boundaries.
+`research/audio/check_arm_conditional.py` checks both outcomes, full shift flags,
+relocation to RAM and invalid compiler/link contracts with checking enabled.

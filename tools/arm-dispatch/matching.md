@@ -167,3 +167,18 @@
   "TARGET_ARM && INTVAL (operands[1]) >= 0 && INTVAL (operands[1]) <= 255"
   "add%?\t%0, %|pc, %1"
   [(set_attr "type" "alu_imm") (set_attr "length" "4")])
+
+;; Guarded private ARM conditional tail transfer. The late continuation pass
+;; supplies the symbol and condition; link-time ARM mode/range checks are required.
+(define_predicate "match_arm_tail_symbol" (match_code "symbol_ref"))
+(define_c_enum "unspec" [UNSPEC_MATCH_ARM_CONDITIONAL_TAIL])
+(define_insn "match_arm_cond_tail_transfer"
+  [(set (pc)
+        (unspec:SI [(match_operand:SI 0 "match_arm_tail_symbol" "s")
+                    (match_operator 1 "arm_comparison_operator"
+                      [(match_operand 2 "cc_register" "") (const_int 0)])]
+                   UNSPEC_MATCH_ARM_CONDITIONAL_TAIL))]
+  "TARGET_ARM"
+  "b%d1\t%c0"
+  [(set_attr "conds" "use") (set_attr "type" "branch")
+   (set_attr "length" "4")])

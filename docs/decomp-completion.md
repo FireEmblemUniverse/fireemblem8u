@@ -4408,3 +4408,62 @@ resample-advance-build.log, resample-production.json, resample-production-ram.js
 resample-advance-source-audit.json, resample-advance-ownership.log,
 adjacent-lr-accumulator.log, adjacent-lr.log and adjacent-regression.log; the
 complete-call report is under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — resampling conditional continuation integrated (52 bytes)
+
+Baseline: `3ce4355f`. `src/m4a_resample.c` now includes the MOVS r9,LR,LSR#23
+and BEQ pair at 0x080CF86C/0x080CF870. The matching block is 52 bytes, ending at
+0x080CF874. Its C condition calls `SoundMainRAM_ResampleNoAdvance` when the shifted
+fraction is zero; otherwise it continues at `SoundMainRAM_ResampleAdvance`.
+The former is the existing ARM path at 0x080CF894; the latter is adjacent.
+The linker checks extent, adjacency, destination word alignment, branch range
+and membership in the copied mixer. The shared interpolation entry remains +8.
+
+The adjacent compiler rule now accepts optional `conditional=NAME`, restricted
+to the exact terminal EQ/NE two-call diamond emitted here at -O1. It verifies
+both call targets, the two label destinations, common restore/return and lack
+of prefix jumps into those destinations. It reverses the equality condition,
+replaces the call/return scaffold with one explicit conditional-tail operation,
+and applies the existing private frame/continuation checks. Flag-setting
+result/CC SET pairs may read the globally bound LR without modifying it.
+The backend represents the external transfer with an UNSPEC carrying the
+condition register and symbol. Ordinary conditional-jump RTL was rejected by
+GCC's local-label verification/final ARM predication assumptions; the explicit
+operation avoids that incorrect classification while emitting the original
+four-byte BEQ. Final tests and production builds use normal compiler checking.
+
+The pinned backend was rebuilt and installed successfully; Make rebuilt its
+dependent plugins and production objects. `check_arm_conditional.py` passes
+13,632 original-location/copied-code executions, including 2,720 taken branches.
+It checks the updated LR, shifted value, N/Z/C/V (including shift carry and
+preserved V), all registers, stack, memory and selected continuation. Eleven
+compiler rejections cover missing/wrong/shared targets, missing contract,
+post-call/post-join work, non-equality branching, stack use, early-return bypass,
+LR assignment and debug code. Three link rejections cover adjacency, target
+placement/alignment and range. The older adjacent suite passes 160 cases,
+eleven compiler and two link rejections, and unchanged unannotated output;
+both LR modes pass 13,056 executions and nine rejection cases each.
+
+`make compare -j8` passes for the full ROM. The resampling block checker passes
+71,680 cases in ROM and 71,680 in copied RAM: per mode, 50,770 advance exits and
+20,910 no-advance exits. Each checks the exact exit PC, full shift flags,
+wrapped LR, all r0-r12, independently calculated packed outputs and ordered
+reads, unchanged memory and SP. It exercises both the word-load and shared
+interpolation entries across all four packed lanes. The production complete
+SoundMain regression passes 3,528 calls, including 1,728 deadline exits.
+These functional comparisons do not establish hardware cycle timing.
+
+The audit records 719,400 main C-owned instruction bytes (92.51% rounded),
+33,870 mixed-object bytes, 2,568 assembly-source bytes and 21,792 runtime bytes,
+total 777,630. Reviewed non-library assembly is 2,978 main bytes plus 420 payload
+bytes. Source counts: 476 C files, 32 assembly entry markers, six manual assembly
+declarations, 650 inline sites (297 register bindings, 345 empty constraints,
+one directive, seven instruction templates). Naming the existing no-advance
+entry adds a declaration without adding instructions. Actual source advancement,
+sample-loop transitions, broader frame/channel integration and runtime rebuild
+verification remain unfinished. Evidence under `.deps/soundmain-packed/`:
+conditional-backend-build.log, conditional-guards.log, resample-branch-build.log,
+resample-production.json, resample-production-ram.json, resample-branch-source-audit.json,
+resample-branch-ownership.log and adjacent regression/LR logs; complete-call
+report under `.deps/soundmain-complete/`.

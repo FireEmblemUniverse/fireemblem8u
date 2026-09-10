@@ -615,10 +615,17 @@ SECTIONS
         src/m4a_1.o(.text.after_resample);
         ASSERT(SoundMainRAM_Resample == SoundMainRAM_ResampleBoundary,
                "resample C block must follow sample setup");
-        ASSERT(__resample_end - __resample_start == 44,
-               "resample C block must contain exactly 44 bytes");
+        ASSERT(__resample_end - __resample_start == 52,
+               "resample C block must contain exactly 52 bytes");
         ASSERT(SoundMainRAM_ResampleAdvance == __resample_end,
                "resample continuation must be adjacent in ARM mode");
+        ASSERT((SoundMainRAM_ResampleNoAdvance & 3) == 0,
+               "resample conditional destination must be word-aligned ARM code");
+        ASSERT(SoundMainRAM_ResampleNoAdvance >= __resample_end &&
+               SoundMainRAM_ResampleNoAdvance < SoundMainRAM_End,
+               "resample conditional destination must remain in copied mixer");
+        ASSERT(SoundMainRAM_ResampleNoAdvance - (__resample_end + 4) < 0x2000000,
+               "resample conditional ARM branch out of range");
         ASSERT(SoundMainRAM_Partial == SoundMainRAM_PartialBoundary,
                "partial-word C block must follow sample loop selection");
         ASSERT(__partial_end - __partial_start == 36,
