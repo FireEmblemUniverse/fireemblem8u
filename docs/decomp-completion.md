@@ -7268,3 +7268,47 @@ handling and clear-call paths.
 The valid production layout passes and all 39 combined altered layouts reject.
 Four new cases cover the track-wait extent, modulation continuation and command
 dispatch targets beyond either short-branch bound. See `mplay-track-wait-layout.log`.
+
+
+## MPlayMain modulation guards and delay — September 10, 2026 (baseline `98d1d064`)
+
+Integrated `src/m4a_mplay_modulation_guard.c` at 080CFC86..080CFC9E. It reads
+LFO speed into r1, exits when speed or modulation depth is zero, and reads the
+LFO delay into r0 otherwise. A zero delay selects modulation update; nonzero delay
+is decremented and stored before track completion. All 24 original instruction
+bytes are generated from C. Modulation arithmetic remains assembly. Existing
+private-tail and direct-tail compiler rules suffice without changes.
+
+The candidate suite passes 409,600 cases. All 65,536 speed/depth byte pairs run
+at four track positions with cycling delay/initial flags. Every delay byte also
+runs against all nine combinations of disabled/minimum/maximum speed and depth,
+all initial NZCV and the four track positions. Storage covers ordinary RAM, speed
+at SP, delay at SP and delay at the final RAM byte. There are 50,176 speed-disabled,
+33,788 depth-disabled, 1,276 update and 324,360 delay-decrement cases. All r0-r12,
+SP/LR, full CPSR, complete RAM and conditional ordered reads/store agree. Early
+exits preserve the corresponding zero comparison's flags; decrement paths retain
+SUBS flags, including the one-to-zero transition. Four malformed source forms
+reject; loading the plugin does not change source without its direct-tail attribute.
+The checker stops at track completion or modulation update, not full MPlayMain.
+
+The linker enforces 24-byte extent, following modulation-update entry and the
+range/alignment of all outgoing transfers. `make compare -j8` reproduces the full
+16 MiB ROM. Fresh runtime source builds reproduce all four images and exports.
+Source, linked, inline and runtime inventories are refreshed; unchanged SoundMain/
+mixer regions are revalidated against the updated ELF receipt.
+
+Mapped main instruction bytes remain 777,630: 720,358 C-owned (92.64%), 33,870
+mixed C/assembly, 1,610 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 2,020 main bytes and 420 payload bytes.
+There are 521 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `1f6e46440c91e316bc5aed2e8caea291f2995d34fa60dbd3ee677ae918ff1a63`.
+Evidence: `.deps/soundmain-packed/mplay-modulation-guard/report.json`, source/linked
+reports there, `mplay-modulation-guard-check.log`, `mplay-modulation-guard-build.log`
+and refreshed runtime/region receipts. Production execution verification also passes
+all 409,600 cases; see `mplay-modulation-guard-production.log`. The valid production
+layout passes and all 44 combined altered layouts reject, including five new extent,
+continuation and far/backward/odd completion-target cases. See
+`mplay-modulation-guard-layout.log`. Next work continues modulation arithmetic,
+command guards and clear-call paths.

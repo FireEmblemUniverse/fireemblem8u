@@ -57,6 +57,11 @@ def main():
  for name,expression in [('wait_dispatch_far','__mplay_track_wait_start + 264'),('wait_dispatch_backward','__mplay_track_wait_start - 250')]:
   text=source.replace('        ASSERT((MPlayMainTrackDispatch & ~1) + 256 >=','        MPlayMainTrackDispatch = '+expression+';\n        ASSERT((MPlayMainTrackDispatch & ~1) + 256 >=',1)
   cases.append((name,text,'track wait command transfer out of range'))
+ cases += [('modulation_guard_extent',source.replace('        __mplay_modulation_guard_end = .;','        . += 2;\n        __mplay_modulation_guard_end = .;'),'modulation guard extent or continuation'),
+           ('modulation_update_entry',source.replace('        src/m4a_1.o(.text.after_mplay_modulation_guard);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_modulation_guard);'),'modulation guard extent or continuation')]
+ for name,expression in [('modulation_finish_far','__mplay_modulation_guard_start + 264'),('modulation_finish_backward','__mplay_modulation_guard_start - 256'),('modulation_finish_odd','__mplay_modulation_guard_start + 83')]:
+  text=source.replace('        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard',1)
+  cases.append((name,text,'modulation guard transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
