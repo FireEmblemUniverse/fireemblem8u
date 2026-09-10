@@ -3276,3 +3276,18 @@ This remains research-only: the candidate is 56 bytes versus the original
 r4-in-r12 save convention. No production source changed; the verified baseline
 remains `01763457` with 34 assembly entry markers. Evidence is retained under
 `.deps/audio-clear-match/`.
+
+### September 9: block-clear private register state recovered in C
+
+The research candidate now expresses the incoming r4 save in a global r12
+register binding and restores r4 explicitly. GCC emits MOV IP,r4 and MOV r4,IP
+with a direct BX LR return, eliminating the stack frame. All 3,072 oracle
+cases now agree on r0-r12 as well as memory, canaries, SP and return mode.
+The candidate remains 56 bytes; all cases still differ in return flags because
+the four explicit ADD instructions replace flag-preserving STM writeback.
+
+O2, Os and O3 probes also retain sixteen scalar stores. GCC already has a
+Thumb four-register STM-with-writeback instruction pattern in ldmstm.md; next
+work is to establish a guarded lowering of the four stores and pointer update
+into that existing pattern. No new instruction template or production change
+is needed for the register-save improvement. The matching gate remains unsatisfied.

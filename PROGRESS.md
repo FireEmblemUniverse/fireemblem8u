@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: jump-table integration (baseline `51d4ccb4` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: jump-table integration (`01763457`); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -53,11 +53,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match the audio 64-byte clear's grouped stores and r4/r12 save.
+Next milestone: match the audio 64-byte clear's grouped stores and return flags.
 The clear-block C candidate passes 3,072 memory/canary and preserved-register
 checks across RAM destinations, data patterns and ARM/Thumb returns. It remains
-56 bytes versus 24 original, with r0/r12 differences and different return flags
-in every case. It is research-only; the production ROM is unchanged.
+56 bytes versus 24 original. Explicit C register bindings now reproduce the
+r4/r12 save and all r0-r12 results; return flags still differ in every case. It is research-only; the production ROM is unchanged.
 The jump-table copy is integrated as C. All 22 instruction bytes and two zero
 padding bytes match. Its 3,072 production cases verify data, canaries, r0-r12,
 flags and ARM/Thumb returns. The installed countdown passes 320 standalone
