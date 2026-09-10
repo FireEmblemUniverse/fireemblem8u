@@ -238,6 +238,10 @@ THUMB_TAIL_TRANSFER_PLUGIN := $(ARM_DISPATCH_DIR)/tail_transfer.so
 $(THUMB_TAIL_TRANSFER_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/tail_transfer.cc tools/arm-dispatch/build_tail_transfer.py
 	$(PYTHON) tools/arm-dispatch/build_tail_transfer.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
 
+src/m4a_checked_reader.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_checked_reader.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_checked_reader.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=chk_adr_r2
+
 src/m4a_pattern.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_pattern.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_pattern.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=ply_goto -fplugin-arg-tail_transfer-destination=ply_fine -fplugin-arg-tail_transfer-raise-unsigned-bound

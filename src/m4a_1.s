@@ -509,17 +509,8 @@ chk_adr_r2_done:
 	.global lt_MPlayJumpTableTemplate
 lt_MPlayJumpTableTemplate: .word gMPlayJumpTableTemplate
 
-	thumb_func_start ld_r3_tp_adr_i
-ld_r3_tp_adr_i:
-	ldr r2, [r1, 0x40]
-	.global _081DD64A
-	.thumb_func
-_081DD64A:
-	adds r3, r2, 0x1
-	str r3, [r1, 0x40]
-	ldrb r3, [r2]
-	b chk_adr_r2
-	thumb_func_end ld_r3_tp_adr_i
+@ Checked byte reader is generated from m4a_checked_reader.c.
+	.align 2, 0
 
 @ ply_goto and its shared-stack entry are generated from matching C.
 	.align 2, 0

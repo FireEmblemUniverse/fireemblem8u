@@ -3338,3 +3338,29 @@ constraints, one directive-only template and seven instruction templates.
 The naked fallback, remaining audio engine and interfaces, embedded executable,
 transfer assembly and complete executable classification are still unfinished.
 Logs and audit evidence are retained under `.deps/audio-clear-match/`.
+
+### September 9: checked audio byte reader integrated
+
+`src/m4a_checked_reader.c` replaces ld_r3_tp_adr_i at 080CF98C. It loads
+track->cmdPtr into r2, stores the incremented pointer before reading through
+r2 (including aliases into the pointer field), and tail-transfers to the existing
+chk_adr_r2 filter. The existing guarded tail-transfer compiler plugin produces
+all ten original Thumb instruction bytes; two zero padding bytes also match.
+The linker exports the alternate entry _081DD64A at function + 2, 080CF98E.
+That entry consumes the incoming r2 instead of loading the track pointer.
+
+The standalone and production oracle each pass 180,224 cases: both entries,
+all 256 byte values, all sixteen NZCV states, ARM/Thumb returns, normal aligned
+and unaligned EWRAM sources, IWRAM, four pointer-field aliases, and two rejected
+low-address regions. Tests verify track memory, r0-r12, final flags, SP and
+return state while executing the actual shared filter. Candidate, production
+and original section bytes are identical. `make compare -j8` passes the entire
+ROM checksum, and nm confirms both entry addresses. Linked mappings contain
+10 Thumb bytes and two data/padding bytes with no orphan mappings.
+
+Inventory: 468 main C files, 32 assembly entry markers, 593 inline sites
+(249 register bindings, 336 empty constraints, one directive-only template,
+seven instruction templates). The shared filter itself remains assembly;
+the remaining engine, naked fallback, embedded and transfer code, and complete
+executable classification remain in scope. Evidence is retained under
+`.deps/checked-reader-match/`.
