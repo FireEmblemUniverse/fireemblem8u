@@ -6,7 +6,7 @@
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "8695fa9c215352db9f7d1a43fdfbc4f6873b88d9f802176a9d8ca8f70c67532d",
+      "elf_sha256": "8fb2eccfe60dafa3589e1ad84cf01076ccb40e0ae6d976f246f7749a77a1a441",
       "assembly_instruction_bytes": 726,
       "C_source_located_instruction_bytes": 21066,
       "members": [

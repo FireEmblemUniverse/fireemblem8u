@@ -680,3 +680,13 @@ endif
 
 # debug print, to use, call "make print-(your label here)"
 print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
+
+ARM_BYTE_PREINCREMENT_PLUGIN := $(ARM_DISPATCH_DIR)/byte_preincrement.so
+$(ARM_BYTE_PREINCREMENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/byte_preincrement.cc tools/arm-dispatch/build_byte_preincrement.py
+	$(PYTHON) tools/arm-dispatch/build_byte_preincrement.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+ARM_SUBTRACT_ZERO_PLUGIN := $(ARM_DISPATCH_DIR)/subtract_zero.so
+$(ARM_SUBTRACT_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/subtract_zero.cc tools/arm-dispatch/build_subtract_zero.py
+	$(PYTHON) tools/arm-dispatch/build_subtract_zero.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_advance.o: $(ARM_ADJACENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_BYTE_PREINCREMENT_PLUGIN) $(ARM_SUBTRACT_ZERO_PLUGIN)
+src/m4a_advance.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_advance.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_BYTE_PREINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_ZERO_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleNoAdvance -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleLoop -fplugin-arg-arm_adjacent-lr-input=masked

@@ -628,6 +628,23 @@ SECTIONS
         __resample_end = .;
         SoundMainRAM_ResampleMix = __resample_start + 8;
         src/m4a_1.o(.text.after_resample);
+        __advance_start = .;
+        src/m4a_advance.o(.text);
+        __advance_end = .;
+        SoundMainRAM_ResampleReload = __advance_start + 20;
+        src/m4a_1.o(.text.after_advance);
+        ASSERT(SoundMainRAM_ResampleAdvance == SoundMainRAM_AdvanceBoundary,
+               "advance C block must follow resampling arithmetic");
+        ASSERT(__advance_end - __advance_start == 32,
+               "advance C block must contain exactly 32 bytes");
+        ASSERT(SoundMainRAM_ResampleNoAdvance == __advance_end,
+               "advance continuation must be adjacent ARM code");
+        ASSERT((SoundMainRAM_ResampleLoop & 3) == 0 &&
+               SoundMainRAM_ResampleLoop >= (SoundMainRAM & ~1) &&
+               SoundMainRAM_ResampleLoop < __advance_start,
+               "advance early target must be backward ARM code in copied mixer");
+        ASSERT((__advance_start + 16) - SoundMainRAM_ResampleLoop <= 0x2000000,
+               "advance early branch out of range");
         __save_channel_start = .;
         src/m4a_save_channel.o(.text);
         __save_channel_end = .;

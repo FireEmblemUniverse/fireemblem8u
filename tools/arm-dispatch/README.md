@@ -334,8 +334,7 @@ intervening operations and labels are rejected. Only signed QI loads qualify.
 `build_byte_preincrement.py` builds against the pinned compiler headers.
 `research/audio/check_byte_preincrement.py` compares baseline/folded registers,
 flags, ordered reads and unchanged memory, including untaken predicates,
-negative register offsets and all byte values. The source-advance research
-candidate uses this pass; no production source uses it yet.
+negative register offsets and all byte values. Production `src/m4a_advance.c` uses this pass.
 
 
 `subtract_zero.cc` provides opt-in `matching_subtract_zero` for the adjacent
@@ -351,4 +350,23 @@ The rule retains the base register, removes the empty tie and redundant CMP,
 and leaves unannotated functions unchanged. `check_subtract_zero.py` checks
 baseline/folded values and independently expected flags, signed overflow and
 ARM/Thumb returns, plus rejected contracts. The source-advance candidate uses
-it to reproduce original SUBS flags; it is not used in production yet.
+it to reproduce original SUBS flags; production `src/m4a_advance.c` now uses it.
+
+
+ARM adjacent `early=NAME` accepts a single prefix EQ/NE or signed relational
+branch around a straight-line body ending in the adjacent call. The alternate
+arm calls NAME and rejoins the common LR restore/return. Exactly those two
+labels and both named calls are required; additional prefix jumps or work after
+calls reject. The original branch condition is retained in the explicit ARM
+conditional transfer. This mode runs after `shorten` so preceding opt-in
+arithmetic folds finish before calls/frame are removed. All emitted instructions
+are fixed-width ARM; linker assertions enforce adjacency, alignment, branch
+range and copied-code scope. Default terminal-diamond processing is unchanged.
+
+`lr-input=masked` requires the existing global LR binding. In addition to
+side-effect-free LR reads, it permits exactly LR &= 0xC07FFFFF and a single-input,
+single-output empty tied LR register constraint. Other LR writes remain rejected.
+This supports fractional-position masking without saving/restoring a return
+address. `check_arm_early.py` checks invalid contracts and
+`check_soundmain_advance.py` checks exact linked bytes and production execution
+in ROM and copied RAM. Production `src/m4a_advance.c` uses these contracts.

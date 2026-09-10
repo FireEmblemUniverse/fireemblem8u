@@ -327,6 +327,9 @@ _081DD118:
 	bgt _081DD07C
 	b SoundMainRAM_SaveChannel
 _081DD134:
+	.global SoundMainRAM_ResampleLoop
+	.type SoundMainRAM_ResampleLoop, %function
+SoundMainRAM_ResampleLoop:
 	ldr r0, [sp, 0x18]
 	cmp r0, 0
 	beq _081DD158
@@ -334,7 +337,7 @@ _081DD134:
 	rsb r9, r2, 0
 _081DD148:
 	adds r2, r0, r2
-	bgt _081DD1FC
+	bgt SoundMainRAM_ResampleReload
 	sub r9, r9, r0
 	b _081DD148
 _081DD158:
@@ -371,18 +374,11 @@ SoundMainRAM_ResampleBoundary:
 @ Word loads and interpolation are linked here from m4a_resample.c.
 	.section .text.after_resample, "ax", %progbits
 	.arm
-	.global SoundMainRAM_ResampleAdvance
-	.type SoundMainRAM_ResampleAdvance, %function
-SoundMainRAM_ResampleAdvance:
-	bic lr, lr, 0x3F800000
-	subs r2, r2, r9
-	ble _081DD134
-	subs r9, r9, 0x1
-	addeq r0, r0, r1
-_081DD1FC:
-	ldrsbne r0, [r3, r9]!
-	ldrsb r1, [r3, 0x1]!
-	sub r1, r1, r0
+	.global SoundMainRAM_AdvanceBoundary
+SoundMainRAM_AdvanceBoundary:
+@ Source advancement and shared reload are linked here from m4a_advance.c.
+	.section .text.after_advance, "ax", %progbits
+	.arm
 _081DD208:
 	.global SoundMainRAM_ResampleNoAdvance
 	.type SoundMainRAM_ResampleNoAdvance, %function

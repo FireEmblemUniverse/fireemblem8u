@@ -4811,3 +4811,51 @@ before terminal BL. This remains research code; the remaining frame and early
 conditional/adjacent transfers must be converted before integration. Evidence:
 advance-candidate-check.log and advance-candidate-report.json in the same
 ignored directory. Production build selection and coverage are unchanged.
+
+
+## September 10, 2026 — resampling source advance integrated (32 bytes)
+
+Baseline: `0162f304`. Promoted the source-advance candidate to `src/m4a_advance.c`
+and removed the research copy. The full eight-instruction block at
+0x080CF874..0x080CF894 now comes from C. The shared source reload remains at
+0x080CF888 (+20), reached by the separate assembly loop helper. Link assertions
+require 32 bytes, adjacent NoAdvance control, backward aligned ResampleLoop
+inside the copied mixer and valid ARM branch range. Full ROM checksum passes.
+
+Extended arm_adjacent with `early=NAME` for a single prefix conditional branch
+around a straight-line body, plus the exact common restore/return and alternate
+call/back-edge tail. It retains EQ/NE or signed relational conditions, validates
+both destination names and exactly two internal labels, removes the alternate
+tail, then applies the existing frame/adjacency validation. Extra prefix jumps
+and post-call work reject. In this mode only, the pass runs after shorten;
+arithmetic passes must finish before frame removal. The emitted ARM instructions
+are fixed-width and the assembler/linker resolve the checked external branch.
+`lr-input=masked` permits exactly LR &= 0xC07FFFFF and an empty identity LR tie,
+in addition to the existing read-only forms. It requires a global LR binding.
+
+Production checks pass 35,200 cases across four machines: original and production,
+each in ROM and copied RAM. The 20,400 loop exits and 14,800 continuing exits
+per machine agree on every r0-r12, LR, SP, complete frame/canaries, exact NZCV,
+ordered source reads and unchanged source memory. The standalone compiled block
+and linked production bytes both equal the original 32 bytes; symbols and shared
+reload offset are checked. The checker covers the full advance entry; the shared
+reload's independent-entry edge cases are not separately enumerated. The complete
+SoundMain regression passes 3,528 production calls, including 1,728 deadline exits.
+Hardware cycle timing remains outside functional checks.
+
+Twelve invalid early/masked contracts reject. Existing regression suites pass:
+160 adjacent cases (11 compiler/two link rejects), 13,632 conditional cases
+(11 compiler/three link rejects), 55,296 frame cases (eight rejects), and both
+LR modes (13,056 each, nine rejects each). The updated ownership audit records
+719,488 main C-owned instruction bytes, 33,870 mixed-object bytes, 2,480 assembly
+source bytes and 21,792 runtime bytes, totaling 777,630. Reviewed non-library
+assembly is 2,890 main bytes and 420 payload bytes. Source inventory: 479 C files,
+32 assembly entry markers, six manual declarations and 671 inline sites (315
+register bindings, 348 empty constraints, one directive, seven instruction
+templates). Remaining mixer frame construction, channel/loop control and runtime
+rebuild work are incomplete.
+
+Evidence under `.deps/soundmain-packed/`: advance-production-build.log,
+advance-production-check.log, advance-production-report.json, early-guards.log,
+early-check_arm_*.log, early-lr-*.log, advance-source-audit.json and
+advance-ownership.log. Complete-call report remains under `.deps/soundmain-complete/`.
