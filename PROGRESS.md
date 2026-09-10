@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: multiply-high ARM integration (baseline `9d789c35` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: audio byte-load integration (baseline `c7400ccf` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,6 +19,7 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated audio byte-load entry | `████████████████████` **Both bytes exact; 49,152 production cases pass** |
 | Integrated multiply-high ARM body | `████████████████████` **All 12 ARM bytes exact; 41,984 production cases pass; Thumb entry remains assembly** |
 | Integrated audio address filter | `████████████████████` **All 22 bytes exact; 206,592 production execution cases pass** |
 | Integrated checked audio reader | `████████████████████` **Complete 12-byte section exact; 180,224 production execution cases pass** |
@@ -57,7 +58,10 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the remaining audio interworking and byte-load entries.
+Next milestone: recover the remaining audio interworking entry and engine routines.
+The byte-load entry is integrated as C: its two bytes match exactly, and the
+linker requires the filter to follow immediately. All 49,152 production cases
+and 32,832 sequence-jump caller cases pass. Full ROM comparison passes.
 The multiply-high ARM body is integrated as C: all 12 bytes match. Its 41,984
 production cases pass through both ARM and original Thumb entries, preserving
 r0-r12, flags, SP and both return modes. The full ROM checksum passes.
@@ -129,7 +133,7 @@ all 4,128 production/original cases agree on memory, flags and r0-r12, including
 rejected reads and command-pointer aliases. `make compare -j8` passes for the
 complete ROM. Their installed private-return compiler contract passes 128
 two-call executions with ARM/Thumb return modes and rejects nineteen unsupported
-configurations. The source inventory now has 470 C files and 32 assembly entries.
+configurations. The source inventory now has 471 C files and 32 assembly entries.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
@@ -168,7 +172,7 @@ including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
 The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
 original/production execution cases match, including saturation and private ABI.
-Main source inventory is now 470 C files and 32 assembly entry markers.
+Main source inventory is now 471 C files and 32 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM

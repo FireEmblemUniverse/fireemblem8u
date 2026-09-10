@@ -29,6 +29,12 @@ def main():
         (decl+attr+'void probe(void) { helper(); }', ['-marm'], plugin, 'ARM mode'),
         (decl+attr+'void probe(void) { asm volatile("nop"); helper(); }', [], plugin, 'executable asm'),
     ]
+    adjacent=plugin+['-fplugin-arg-tail_transfer-adjacent-destination=helper']
+    fixtures += [
+        (decl+attr+'void probe(void) { if(value) value++; helper(); }', [], adjacent, 'adjacent conditional body'),
+        (decl+attr+'void probe(void) { helper(); }', [], plugin+['-fplugin-arg-tail_transfer-adjacent-destination=other'], 'adjacent wrong destination'),
+        (decl+attr+'void probe(void) { helper(); }', [], adjacent+['-fplugin-arg-tail_transfer-raise-unsigned-bound'], 'adjacent incompatible option'),
+    ]
     with tempfile.TemporaryDirectory() as temp:
         root = Path(temp)
         cmd = [args.compiler, *flags, str(root/'probe.c'), '-o', str(root/'probe.s')]
@@ -45,6 +51,9 @@ def main():
         subprocess.run(cmd+plugin, check=True)
         result = (root/'probe.s').read_text()
         assert 'push' not in result and 'pop' not in result and '\tbl\t' not in result and ('\tb\thelper' in result or '\tb\t#helper' in result), result
+        subprocess.run(cmd+adjacent,check=True)
+        result=(root/'probe.s').read_text()
+        assert '\tbl\t' not in result and '\tb\t' not in result and 'push' not in result and 'pop' not in result, result
     print(f'{len(fixtures)} unsupported contracts rejected; direct terminal transfer accepted; unannotated assembly unchanged.')
 
 

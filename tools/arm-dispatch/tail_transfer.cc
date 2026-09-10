@@ -27,6 +27,7 @@ int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> callees;
 bool raise_bound=false;
+std::string adjacent;
 tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_tail_transfer requires a function");*no_add=true;
@@ -156,7 +157,21 @@ public:
         // Every route into the common return must belong to a terminal call.
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) if (NONDEBUG_INSN_P(i) && epilogue_p(i) && !discard.count(i))
             fatal_error(UNKNOWN_LOCATION,"uncovered return path");
+        if (!adjacent.empty()) {
+            if (calls.size()!=1 || adjacent!=XSTR(calls[0].second,0))
+                fatal_error(UNKNOWN_LOCATION,"adjacent transfer requires one declared destination");
+            bool after=false;
+            for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+                if (!NONDEBUG_INSN_P(i)) continue;
+                if (i==calls[0].first) { after=true;continue; }
+                if (JUMP_P(i) && !epilogue_p(i))
+                    fatal_error(UNKNOWN_LOCATION,"adjacent transfer requires straight-line code");
+                if (after && !discard.count(i) && !sp_marker(PATTERN(i)))
+                    fatal_error(UNKNOWN_LOCATION,"adjacent transfer cannot retain trailing operations");
+            }
+        }
         for (auto item:calls) {
+            if (!adjacent.empty()) { delete_insn(item.first);continue; }
             rtx_insn *jump=emit_jump_insn_before(gen_match_thumb_tail_transfer(copy_rtx(item.second)),item.first);
             emit_barrier_after(jump);delete_insn(item.first);
         }
@@ -181,10 +196,15 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;
+        if (key=="adjacent-destination" && info->argv[n].value && *info->argv[n].value) {
+            if (!adjacent.empty()) return 1;
+            adjacent=info->argv[n].value;continue;
+        }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
         if (key!="destination" || !info->argv[n].value || !*info->argv[n].value) return 1;
         callees.insert(info->argv[n].value);
     }
+    if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);

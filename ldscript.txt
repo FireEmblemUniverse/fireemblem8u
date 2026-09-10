@@ -600,9 +600,15 @@ SECTIONS
         src/m4a_jump_table.o(.text);
         __jump_table_copy_end = .;
         src/m4a_1.o(.text.after_jump_table_copy);
+        __audio_byte_load_start = .;
+        src/m4a_byte_load.o(.text);
+        __audio_byte_load_end = .;
         __audio_filter_start = .;
         src/m4a_address_filter.o(.text);
         __audio_filter_end = .;
+        ASSERT((chk_adr_r2 & ~1) == __audio_byte_load_end &&
+               __audio_byte_load_end - __audio_byte_load_start == 2,
+               "byte load must fall through directly to filter");
         src/m4a_1.o(.text.after_address_filter);
         ASSERT(lt_MPlayJumpTableTemplate >= __audio_filter_end &&
                lt_MPlayJumpTableTemplate + 4 <= __audio_filter_start + 1024,

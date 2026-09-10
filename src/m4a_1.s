@@ -475,12 +475,7 @@ _081DD25E:
 	.align 2, 0
 	.section .text.after_jump_table_copy, "ax", %progbits
 
-	.align 1, 0
-	.global ldrb_r3_r2
-	.thumb_func
-ldrb_r3_r2:
-	ldrb r3, [r2]
-	thumb_func_end ldrb_r3_r2
+@ ldrb_r3_r2 is generated from m4a_byte_load.c.
 
 @ chk_adr_r2 is generated from m4a_address_filter.c.
 	.section .text.after_address_filter, "ax", %progbits

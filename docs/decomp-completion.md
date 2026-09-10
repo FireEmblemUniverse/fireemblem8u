@@ -3541,3 +3541,31 @@ orphan mappings. The assembly-marker count remains 32 because the public
 Thumb entry remains assembly. Audio engine code, entry shims, naked fallback,
 embedded/transfer code and complete executable classification remain unfinished.
 Evidence is retained under `.deps/audio-multiply-match/`.
+
+### September 9: audio byte-load entry integrated as C
+
+`src/m4a_byte_load.c` replaces the final two-byte ldrb_r3_r2 entry at 080CF970.
+Its C loads r3 through r2 and calls chk_adr_r2. The explicit adjacent-destination
+option extends the existing guarded terminal-transfer pass: it requires one
+specified destination, straight-line code and no retained trailing operations.
+After existing terminal-path checks, it omits the transfer instruction. The
+linker asserts the object is exactly two bytes and ends at chk_adr_r2, preventing
+padding or reordering from breaking the continuation. The object uses two-byte
+end alignment. Source and plugins contain no new instruction template for this.
+
+The production oracle passes 49,152 cases over all bytes and NZCV states,
+low-address rejection, EWRAM/IWRAM and both return modes. It checks raw byte,
+SP, LR and flags on filter entry, then r0-r12, final flags, SP and return state.
+The sequence-jump caller oracle now loads the production ROM for its candidate
+machine and passes 32,832 cases. Fourteen unsupported tail contracts are rejected,
+including conditional adjacent bodies, wrong destinations and incompatible
+options. The default terminal transfer and unannotated output checks still pass.
+`make compare -j8` passes the entire ROM checksum.
+
+The source inventory is 471 C files and 600 inline sites (255 register bindings,
+337 empty constraints, one directive-only template, seven instruction templates).
+The linked object contains two Thumb bytes; no orphan mappings exist. Counted
+assembly entry markers stay at 32 because the removed label did not use the
+counted macro. Remaining audio engine, interworking shim, naked fallback,
+embedded/transfer code and executable classification remain unfinished. Evidence
+is retained under `.deps/audio-byte-load-match/`.
