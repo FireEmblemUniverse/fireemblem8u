@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: complete 28-byte resampling setup (baseline `e6d5650b` plus this change); full ROM checksum, 66,560 setup cases, compiler regressions and 3,528 complete audio calls pass.
+Updated: September 10, 2026. Latest research advance: fixed-rate setup C body passes 100,864 original/candidate cases (baseline `9c84aa8f`); exact private-tail integration remains unfinished. Latest production milestone remains the complete 28-byte resampling setup.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -76,7 +76,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover remaining audio setup and frame/channel paths. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: integrate fixed-rate setup after validating its two early exits and private LR/frame conversion. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -217,6 +217,13 @@ placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
 Current source inventory: 487 C files, 32 assembly entry markers, five manual
 assembly function declarations, and seven instruction-bearing inline templates.
+The fixed-rate setup C candidate passes 100,864 semantic-body cases on four
+machines (original/candidate in ROM/copied RAM), including 10,192 subtraction-
+overflow cases and all three paths. All registers, LR, SP, NZCV and frame
+canaries agree. The compiler's 76-byte function still includes a normal LR
+save/restore and three call sites; the checker skips the initial save and stops
+before calls. Therefore this is research evidence, not a replacement for the
+original 44-byte private entry, and production coverage does not increase.
 Resampling setup is integrated as `src/m4a_resample_setup.c` (28 bytes):
 private stack save, fractional-position/frequency reads, frequency multiplication,
 signed current/next sample loads and source advance. All 66,560 cases compare

@@ -5277,3 +5277,36 @@ resample-setup-production-build.log, resample-setup-production-check.log,
 push-pair-guards.log, push-regression-*.log, setup-source-audit.json and
 setup-ownership.log. Full-call evidence is under `.deps/soundmain-complete/`;
 current runtime rebuild evidence is in docs/runtime-rebuild.json.
+
+
+## September 10, 2026 — fixed-rate setup arithmetic and paths verified
+
+Baseline: `9c84aa8f`. `research/audio/soundmain_fixed_setup.c` recovers the
+44-byte setup at 0x080CF704. Its first signed comparison selects the short path
+for count<=4. Otherwise subtraction updates r2 and compares the original signed
+count with signed requested r8: the remaining-data path clears LR, while the
+final-data path restores the count, adjusts r8/LR, masks the count to two bits,
+and replaces zero with four. Existing matching_subtract_compare produces the
+original SUBS and final ANDS/MOVEQ sequence, preserving overflow and carry.
+
+`check_soundmain_fixed_setup.py` compiles the candidate and passes 100,864 cases
+across 394 counts, sixteen requested counts and sixteen initial NZCV states.
+Each case checks four machines: original/candidate ROM and copied RAM. Outcomes:
+19,712 short, 58,704 packed-with-data-remaining, 22,448 final packed segment;
+10,192 cases have subtraction overflow. Independent expected state verifies
+r0-r12, LR, SP, NZCV, selected exit and frame canaries. Counts include all byte
+values, deterministic random full-width values, audio-buffer sizes, signed
+extremes and wrap boundaries. LR inputs include zero, one and full-width values.
+
+This is deliberately a semantic-body check: the candidate's initial compiler
+LR push is skipped, and code hooks stop before each BL can overwrite LR. The
+emitted function is 76 bytes, with a common LR restore/return and three call
+sites. It is not yet the original 44-byte private entry and is not in production.
+The next compiler work must validate both early exits, predicate the early LR
+zero assignment and remove the common frame/tail without altering other paths.
+No compiler or production source changed in this milestone. The standing
+ownership/remaining-assembly counts are unchanged.
+
+Evidence: `.deps/soundmain-packed/fixed-setup/report.json`, candidate.o/.elf/.bin
+in the same directory, fixed-setup.s, fixed-setup-build.log and fixed-setup-check.log.
+The original ROM SHA-1 is verified before every execution run.
