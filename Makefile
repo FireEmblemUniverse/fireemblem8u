@@ -230,11 +230,11 @@ $(ARM_ADJACENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/arm_adjacent.cc to
 	$(PYTHON) tools/arm-dispatch/build_arm_adjacent.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
 src/m4a_packed.o: $(ARM_ADD_CARRY_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_packed.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
-src/m4a_packed.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_PackedFinish
+src/m4a_packed.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Short -fplugin-arg-arm_adjacent-conditional=SoundMainRAM_SaveChannel -fplugin-arg-arm_adjacent-lr-input=read-only
 
 src/m4a_short.o: $(ARM_ADJACENT_PLUGIN)
 src/m4a_short.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
-src/m4a_short.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ShortCount
+src/m4a_short.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ShortCount -fplugin-arg-arm_adjacent-conditional=SoundMainRAM_ShortEnd
 
 ARM_WORD_POSTINCREMENT_PLUGIN := $(ARM_DISPATCH_DIR)/word_postincrement.so
 $(ARM_WORD_POSTINCREMENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/word_postincrement.cc tools/arm-dispatch/build_word_postincrement.py

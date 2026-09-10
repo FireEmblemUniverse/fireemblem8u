@@ -14,7 +14,9 @@ register u32 packedRemaining asm("r8");
 register u32 packedRightVolume asm("r10");
 register u32 packedLeftVolume asm("r11");
 
-extern void SoundMainRAM_PackedFinish(void);
+register u32 packedRemainder asm("lr");
+extern void SoundMainRAM_Short(void);
+extern void SoundMainRAM_SaveChannel(void);
 __attribute__((matching_add_carry, matching_subtract_compare, matching_arm_adjacent))
 void SoundMainRAM_Packed(void)
 {
@@ -46,5 +48,10 @@ void SoundMainRAM_Packed(void)
         oldRemaining = packedRemaining;
         packedRemaining -= 4;
     } while ((s32)oldRemaining > 4);
-    SoundMainRAM_PackedFinish();
+    // Restore the short-sample remainder, or save the completed channel.
+    packedRemaining += packedRemainder;
+    if (packedRemaining == 0)
+        SoundMainRAM_SaveChannel();
+    else
+        SoundMainRAM_Short();
 }

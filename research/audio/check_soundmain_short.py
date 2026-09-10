@@ -20,11 +20,12 @@ def main():
     assert hashlib.sha1(original).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     nm = subprocess.check_output(['arm-none-eabi-nm', '-S', str(ROOT / 'fireemblem8.elf')], text=True)
     fields = next(line.split() for line in nm.splitlines() if line.endswith(' SoundMainRAM_Short'))
-    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 36, fields
+    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 44, fields
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in nm.splitlines() if len(line.split()) >= 3}
     assert symbols['SoundMainRAM_ShortMix'] == ENTRY + 8
-    assert symbols['SoundMainRAM_ShortCount'] == ENTRY + 36
-    assert production[ENTRY-0x08000000:ENTRY-0x08000000+36] == original[ENTRY-0x08000000:ENTRY-0x08000000+36]
+    assert symbols['SoundMainRAM_ShortCount'] == ENTRY + 44
+    assert production[ENTRY-0x08000000:ENTRY-0x08000000+44] == original[ENTRY-0x08000000:ENTRY-0x08000000+44]
+    assert symbols['SoundMainRAM_ShortEnd'] == 0x080cf7ec
     machines = []
     def access(uc, kind, address, size, value, trace):
         if kind == UC_MEM_READ: value = int.from_bytes(uc.mem_read(address, size), 'little')
@@ -37,13 +38,18 @@ def main():
         trace = []; uc.hook_add(UC_HOOK_MEM_READ | UC_HOOK_MEM_WRITE, access, trace, begin=DATA, end=DATA+0x1fff)
         machines.append((uc, trace))
     entry = ENTRY + (0x03002c60 - 0x080cf54c if a.copied_ram else 0)
-    cases = 0; entries = {'word_load': 0, 'sample_reentry': 0}
+    cases = 0; entries = {'word_load': 0, 'sample_reentry': 0}; paths = {'continue': 0, 'end': 0}
+    counts = (0, 1, 2, 3, 4, 255, 256, 0x7fffffff, 0x80000000, 0xffffffff)
     for byte in range(256):
         for source in (DATA + 0x1800, OUTPUT, OUTPUT + 1, OUTPUT + 1584):
             for right, left in ((0, 0), (1, 255), (255, 1), (128, 128), (255, 255), (17, 73)):
                 for packed_right, packed_left in ((0, 0), (0xffffffff, 0x80808080), (0x01234567, 0xfedcba98)):
                     # The shared sample entry is reached with every packed-address lane.
                     for offset, lane in ((0, 0), (8, 0), (8, 1), (8, 2), (8, 3)):
+                        remaining = counts[(cases // 5) % len(counts)]
+                        result_count = (remaining - 1) & 0xffffffff
+                        stop_pc = entry + (0x78 if result_count == 0 else 44)
+                        paths['end' if result_count == 0 else 'continue'] += 1
                         raw = bytearray([0xa5]) * 0x2000
                         struct.pack_into('<I', raw, OUTPUT-DATA, packed_right)
                         struct.pack_into('<I', raw, OUTPUT-DATA+1584, packed_left)
@@ -54,17 +60,19 @@ def main():
                             flags = 0x13 | (cases % 16) << 28
                             uc.reg_write(r.UC_ARM_REG_CPSR, flags)
                             regs = [0x12340000+n for n in range(13)]
-                            regs[3] = source; regs[5] = OUTPUT | lane << 30
+                            regs[2] = remaining; regs[3] = source; regs[5] = OUTPUT | lane << 30
                             regs[6] = packed_right; regs[7] = packed_left
                             regs[10] = right << 16; regs[11] = left << 16
                             for n, value in enumerate(regs): uc.reg_write(getattr(r, 'UC_ARM_REG_R'+str(n)), value)
                             lr = (0, 7, 0xdeadbeef)[cases % 3]
                             uc.reg_write(r.UC_ARM_REG_SP, SP); uc.reg_write(r.UC_ARM_REG_LR, lr)
-                            uc.emu_start(entry+offset, entry+36, count=20)
-                            assert uc.reg_read(r.UC_ARM_REG_PC) == entry+36
+                            uc.emu_start(entry+offset, stop_pc, count=20)
+                            assert uc.reg_read(r.UC_ARM_REG_PC) == stop_pc
                             assert uc.reg_read(r.UC_ARM_REG_R3) == source+1
                             assert uc.reg_read(r.UC_ARM_REG_R5) == regs[5]
-                            assert uc.reg_read(r.UC_ARM_REG_CPSR) == flags
+                            expected_flags = 0x13 | (result_count & 0x80000000) | ((result_count == 0) << 30) | ((remaining >= 1) << 29) | ((remaining == 0x80000000) << 28)
+                            assert uc.reg_read(r.UC_ARM_REG_CPSR) == expected_flags
+                            assert uc.reg_read(r.UC_ARM_REG_R2) == result_count
                             assert uc.reg_read(r.UC_ARM_REG_SP) == SP and uc.reg_read(r.UC_ARM_REG_LR) == lr
                             assert bytes(uc.mem_read(SP-16, 32)) == bytes([0xa5]) * 32
                             assert bytes(uc.mem_read(DATA, len(raw))) == raw
@@ -73,8 +81,8 @@ def main():
                         assert snapshots[0] == snapshots[1], (byte, source, right, left, packed_right, packed_left, offset, lane)
                         entries['sample_reentry' if offset else 'word_load'] += 1
                         cases += 1
-    report = dict(cases=cases, entries=entries, matching_C_bytes=36, copied_RAM=a.copied_ram,
-                  scope='production stereo-word load and shared single-sample entry; all signed bytes, four packed lanes, source/output aliases, volumes/word boundaries; exact ordered accesses, full memory, r0-r12, unchanged flags, SP/LR and canaries')
+    report = dict(cases=cases, entries=entries, paths=paths, counts=counts, matching_C_bytes=44, copied_RAM=a.copied_ram,
+                  scope='production stereo-word load, shared single-sample entry and countdown branch; all signed bytes, four packed lanes, source/output aliases, volumes/word boundaries; exact ordered accesses, full memory, r0-r12, subtraction flags and branch destination, SP/LR and canaries')
     (OUT / ('short-production-ram.json' if a.copied_ram else 'short-production.json')).write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))
 

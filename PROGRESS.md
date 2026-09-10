@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 52-byte resampling conditional continuation integration (baseline `3ce4355f` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: short/packed countdown branches integrated (baseline `9e8ae8c4` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,12 +19,12 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.51%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,978 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,962 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated resampling arithmetic | `████████████████████` **All 52 bytes exact; 143,360 production ROM/copied-RAM cases pass across both entries and fractional-wrap boundaries** |
 | Integrated partial-word completion | `████████████████████` **All 36 bytes exact; 61,440 production ROM/copied-RAM cases pass, including zero rotation and overlapping state/output** |
-| Integrated short-sample block | `████████████████████` **All 36 bytes exact; 184,320 production ROM/copied-RAM cases pass across both entries and four packed lanes** |
-| Integrated packed stereo-word block | `████████████████████` **All 60 bytes exact; 36,864 production ROM/copied-RAM cases pass, including repeated words, counter boundaries, ordered accesses and aliases** |
+| Integrated short-sample block | `████████████████████` **All 44 bytes exact; 184,320 production ROM/copied-RAM cases pass across both entries and four packed lanes** |
+| Integrated packed stereo-word block | `████████████████████` **All 68 bytes exact; 36,864 production ROM/copied-RAM cases pass, including repeated words, counter boundaries, ordered accesses and aliases** |
 | Integrated reverb block | `████████████████████` **All 84 bytes exact; 13,584 production ROM/copied-RAM cases pass** |
 | Integrated audio byte-load entry | `████████████████████` **Both bytes exact; 49,152 production cases pass** |
 | Integrated multiply-high ARM body | `████████████████████` **All 12 ARM bytes exact; 41,984 production cases pass; Thumb entry remains assembly** |
@@ -102,9 +102,10 @@ rejected entries. Full sound memory, callback/VCOUNT traces, global-pointer
 mutations, preserved registers, SP and both return modes agree. This establishes
 semantic composition; the original private frame and matching instruction
 sequence remain unfinished, so production coverage is unchanged.
-The 60-byte packed stereo-word block is integrated as `src/m4a_packed.c`,
+The 68-byte packed stereo-word block is integrated as `src/m4a_packed.c`,
 including word loads/stores and the outer sample-count decrement/repeat branch.
-It falls through to the remaining short-sample/finish logic.
+It adds the short-sample remainder and branches to channel saving when complete,
+otherwise falling through to the short-sample C block.
 All 36,864 production/original checks pass across ROM and copied RAM, including
 source/output overlap, 15 counter values (up to 528 samples and signed-overflow
 boundaries), ordered accesses, registers, flags and stack canaries. The full production
@@ -112,12 +113,12 @@ SoundMain also passes the 3,528 complete-call suite. The continuation rule passe
 160 executions, eleven compiler rejection cases and two link rejection cases.
 The addition-carry rule passes 116,032 standalone checks.
 The short-sample word loads and one-sample arithmetic are now integrated as
-`src/m4a_short.c` (36 bytes). Both the word-load entry and shared sample entry
+`src/m4a_short.c` (44 bytes), including the source-count decrement and end branch. Both the word-load entry and shared sample entry
 pass 184,320 production/original comparisons across ROM and copied RAM; source
 aliases, all signed bytes, four packed lanes, ordered accesses, registers,
-unchanged flags and untouched memory/stack agree. Full ROM matching and the
+subtraction flags, selected exit and untouched memory/stack agree. Full ROM matching and the
 3,528 complete-call regression pass. Source inventory is now 476 C files,
-32 assembly entry markers and six manual assembly function declarations.
+32 assembly entry markers and seven manual assembly function declarations.
 The partial-word completion shared by fixed-rate and resampled paths is now
 integrated as `src/m4a_partial.c` (36 bytes). Its 61,440 ROM/copied-RAM checks
 verify all four lanes (including zero rotation), status-byte truncation,
@@ -139,7 +140,13 @@ no-advance-path exits across ROM/RAM, checking complete shift flags and branch
 destinations. The conditional-continuation compiler rule passes 13,632 standalone
 executions, eleven compiler rejections and three linker rejections. Source
 advancement and sample-loop transitions remain assembly.
-The short path's count/loop selection and resampling control remain assembly.
+The short path's loop-metadata handling and remaining resampling control are still assembly.
+The latest countdown checks cover ten short-source counts, including zero and
+signed-overflow boundaries (18,440 end exits across ROM/RAM), and all 135 selected
+packed counter/remainder pairs (3,288 channel-save exits). They verify complete
+addition/subtraction flags and the exact exit PC. The existing conditional rule
+handles both paths without further compiler changes. Full ROM matching and
+3,528 complete-call checks pass. Loop metadata handling remains assembly.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
@@ -149,11 +156,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,978 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,962 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,400 C-owned, 33,870 in C objects containing assembly, 2,568 in assembly
+719,416 C-owned, 33,870 in C objects containing assembly, 2,552 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

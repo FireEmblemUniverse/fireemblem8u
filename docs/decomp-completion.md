@@ -4467,3 +4467,49 @@ conditional-backend-build.log, conditional-guards.log, resample-branch-build.log
 resample-production.json, resample-production-ram.json, resample-branch-source-audit.json,
 resample-branch-ownership.log and adjacent regression/LR logs; complete-call
 report under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — short and packed countdown branches integrated
+
+Baseline: `9e8ae8c4`. The existing conditional-continuation contract now handles
+two more fixed-rate mixer decisions without a compiler/backend change.
+`src/m4a_short.c` grows from 36 to 44 bytes (0x080CF774 through 0x080CF7A0),
+including SUBS r2,1 and BEQ to `SoundMainRAM_ShortEnd` at 0x080CF7EC. The shared
+sample entry remains +8. `src/m4a_packed.c` grows from 60 to 68 bytes (0x080CF730
+through 0x080CF774), adding ADDS r8,r8,LR and BEQ to `SoundMainRAM_SaveChannel`
+at 0x080CF8B8; the other path falls directly into the short-sample C function.
+The packed block declares LR as a read-only remainder input. The old assembly
+PackedFinish boundary is removed. Linker assertions check sizes, adjacent
+continuations, conditional target alignment/range and copied-mixer membership.
+
+`make compare -j8` passes. The short checker passes 92,160 cases in ROM and
+92,160 in copied RAM, with all four packed lanes at the shared entry and ten
+selected source counts including zero, one and signed/wrapped boundaries.
+Each mode has 82,940 continuing exits and 9,220 end-of-sample exits. It checks
+the decremented count, full subtraction flags, exact exit PC, signed-sample
+arithmetic, ordered reads, all registers, unchanged memory and SP/LR/canaries.
+
+The packed checker with `--finish` passes 18,432 cases in ROM and 18,432 in
+copied RAM, now executing through the final remainder addition/branch. All
+135 combinations of fifteen selected counters and nine remainder inputs occur
+across the byte/volume/packed-word/source-alias cases (not a full Cartesian
+product with those other dimensions). Each mode has 16,788 short-path exits
+and 1,644 channel-save exits. The checker independently calculates wrapped
+remaining count and complete addition N/Z/C/V, and verifies destination PC,
+all registers, full RAM, ordered sample accesses/stores, and preserved SP/LR.
+The complete production SoundMain suite again passes 3,528 calls, including
+1,728 deadline exits. The test scope remains functional, not cycle timing.
+
+The audit moves sixteen bytes to C: 719,416 C-owned main instruction bytes,
+33,870 mixed-object bytes, 2,552 assembly-source bytes and 21,792 runtime bytes,
+total 777,630 (92.51% rounded C ownership). Reviewed non-library assembly is
+2,962 main bytes plus 420 payload bytes. Inventory remains 476 C files and
+32 assembly entry markers; there are seven manual assembly declarations and
+652 inline sites (299 register bindings, 345 empty constraints, one directive,
+seven instruction templates). Newly named existing destinations add metadata
+only. Loop metadata handling, source advancement, broader frame/channel code
+and runtime rebuild verification remain unfinished. Evidence under
+`.deps/soundmain-packed/`: countdown-branches-build.log, short-production.json,
+short-production-ram.json, finish-production.json, finish-production-ram.json,
+countdown-branches-source-audit.json and countdown-branches-ownership.log;
+complete-call report under `.deps/soundmain-complete/`.

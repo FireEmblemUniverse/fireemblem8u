@@ -634,16 +634,28 @@ SECTIONS
                "partial-word continuation must be adjacent in ARM mode");
         ASSERT(SoundMainRAM_Short == SoundMainRAM_ShortBoundary,
                "short sample C block must follow packed finish");
-        ASSERT(__short_end - __short_start == 36,
-               "short sample C block must contain exactly 36 bytes");
+        ASSERT(__short_end - __short_start == 44,
+               "short sample C block must contain exactly 44 bytes");
         ASSERT(SoundMainRAM_ShortCount == __short_end,
                "short sample continuation must be adjacent in ARM mode");
+        ASSERT((SoundMainRAM_ShortEnd & 3) == 0,
+               "short sample conditional destination must be word-aligned ARM code");
+        ASSERT(SoundMainRAM_ShortEnd >= __short_end && SoundMainRAM_ShortEnd < SoundMainRAM_End,
+               "short sample conditional destination must remain in copied mixer");
+        ASSERT(SoundMainRAM_ShortEnd - (__short_end + 4) < 0x2000000,
+               "short sample conditional ARM branch out of range");
         ASSERT(SoundMainRAM_Packed == SoundMainRAM_PackedBoundary,
                "packed C block must follow fixed-rate setup");
-        ASSERT(__packed_end - __packed_start == 60,
-               "packed C block must contain exactly 60 bytes");
-        ASSERT(SoundMainRAM_PackedFinish == __packed_end,
+        ASSERT(__packed_end - __packed_start == 68,
+               "packed C block must contain exactly 68 bytes");
+        ASSERT(SoundMainRAM_Short == __packed_end,
                "packed continuation must be adjacent in ARM mode");
+        ASSERT((SoundMainRAM_SaveChannel & 3) == 0,
+               "packed conditional destination must be word-aligned ARM code");
+        ASSERT(SoundMainRAM_SaveChannel >= __packed_end && SoundMainRAM_SaveChannel < SoundMainRAM_End,
+               "packed conditional destination must remain in copied mixer");
+        ASSERT(SoundMainRAM_SaveChannel - (__packed_end + 4) < 0x2000000,
+               "packed conditional ARM branch out of range");
         ASSERT(SoundMainRAM_Reverb == SoundMainRAM_ReverbBoundary,
                "reverb ARM block must follow Thumb dispatch");
         ASSERT(__reverb_end - __reverb_start == 84,

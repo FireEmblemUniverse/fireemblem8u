@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "3ce4355f6e934864e2893c81071fe385c7f44ba7",
+  "baseline_commit": "9e8ae8c4cdd8719c78d233b102afc17e8a09f957",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2568,
-        "c_owned": 719400,
+        "assembly_source": 2552,
+        "c_owned": 719416,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -752,14 +752,14 @@
           "instruction_bytes": 1864
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 1864
-        },
-        {
           "object": "src/sio_result.o",
           "category": "c_owned",
           "instruction_bytes": 1852
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 1848
         },
         {
           "object": "src/events_script_utils.o",
@@ -1787,6 +1787,11 @@
           "instruction_bytes": 72
         },
         {
+          "object": "src/m4a_packed.o",
+          "category": "c_owned",
+          "instruction_bytes": 68
+        },
+        {
           "object": "src/m4a_sound_vsync.o",
           "category": "c_owned",
           "instruction_bytes": 66
@@ -1825,11 +1830,6 @@
           "object": "src/m4a_track_stop.o",
           "category": "c_owned",
           "instruction_bytes": 62
-        },
-        {
-          "object": "src/m4a_packed.o",
-          "category": "c_owned",
-          "instruction_bytes": 60
         },
         {
           "object": "tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
@@ -1897,6 +1897,11 @@
           "instruction_bytes": 46
         },
         {
+          "object": "src/m4a_short.o",
+          "category": "c_owned",
+          "instruction_bytes": 44
+        },
+        {
           "object": "src/unit_facing.o",
           "category": "c_owned",
           "instruction_bytes": 44
@@ -1948,11 +1953,6 @@
         },
         {
           "object": "src/m4a_reset_setters.o",
-          "category": "c_owned",
-          "instruction_bytes": 36
-        },
-        {
-          "object": "src/m4a_short.o",
           "category": "c_owned",
           "instruction_bytes": 36
         },
@@ -2092,13 +2092,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "f33c45769e0c4101a65fc32fd293bb1d41fff8c865364ef5bc09f5c06a8af22d",
-      "map_sha256": "024a30834cb97c98ca352d1b58cb008ae95394498282a133ef9e43b708c86ded",
+      "elf_sha256": "92a1ca78451ad8af7258325b6c94db1bc00a8f109026ac5f52bf19cd9251a4b8",
+      "map_sha256": "ee0a3366a52b899db35f4632a3691247b3a8a003978cfe118dbcb676da549737",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2978
+      "known_nonarchive_assembly_bytes": 2962
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

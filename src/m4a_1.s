@@ -309,11 +309,6 @@ _081DD0A8:
 SoundMainRAM_PackedBoundary:
 	.section .text.after_packed, "ax", %progbits
 	.arm
-	.global SoundMainRAM_PackedFinish
-	.type SoundMainRAM_PackedFinish, %function
-SoundMainRAM_PackedFinish:
-	adds r8, r8, lr
-	beq _081DD22C
 _081DD0EC:
     .global SoundMainRAM_ShortBoundary
 SoundMainRAM_ShortBoundary:
@@ -323,8 +318,6 @@ SoundMainRAM_ShortBoundary:
     .global SoundMainRAM_ShortCount
     .type SoundMainRAM_ShortCount, %function
 SoundMainRAM_ShortCount:
-	subs r2, r2, 0x1
-	beq _081DD164
 _081DD118:
 	adds r5, r5, 0x40000000
 	bcc SoundMainRAM_ShortMix
@@ -349,6 +342,9 @@ _081DD158:
 	mov r2, 0
 	b _081DD174
 _081DD164:
+	.global SoundMainRAM_ShortEnd
+	.type SoundMainRAM_ShortEnd, %function
+SoundMainRAM_ShortEnd:
 	ldr r2, [sp, 0x10]
 	cmp r2, 0
 	ldrne r3, [sp, 0xC]
@@ -404,6 +400,9 @@ SoundMainRAM_ResampleNoAdvance:
 _081DD228:
 	str lr, [r4, o_SoundChannel_fw]
 _081DD22C:
+	.global SoundMainRAM_SaveChannel
+	.type SoundMainRAM_SaveChannel, %function
+SoundMainRAM_SaveChannel:
 	str r2, [r4, o_SoundChannel_ct]
 	str r3, [r4, o_SoundChannel_cp]
 _081DD234:
