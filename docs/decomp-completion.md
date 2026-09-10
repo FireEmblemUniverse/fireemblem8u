@@ -3569,3 +3569,24 @@ assembly entry markers stay at 32 because the removed label did not use the
 counted macro. Remaining audio engine, interworking shim, naked fallback,
 embedded/transfer code and executable classification remain unfinished. Evidence
 is retained under `.deps/audio-byte-load-match/`.
+
+### September 9: multiplication interworking entry characterized
+
+`research/audio/multiply_entry.c` uses an ordinary typed Thumb C call to the
+integrated ARM multiply body. GCC emits a saved-LR call frame and the linker
+adds a mode-switching veneer. The research wrapper occupies 24 bytes including
+the veneer versus the original four-byte ADR/BX entry; its POP return clobbers
+r1. It is relocated to 080E1000 for execution so its larger footprint cannot
+overwrite the original ARM body.
+
+The oracle passes 20,992 cases over boundary and seeded operand pairs, all NZCV
+states and both return modes. Results, preserved registers, SP and return mode
+agree; r1 differs and flags do not. No production code changed. Matching the
+entry requires a frame-free interworking transfer with the original destination
+address materialization. Evidence is in `.deps/audio-interwork-match/`.
+
+The user asked how close the full goal is. A full ROM checksum and an entry-marker
+count cannot establish overall C completion: remaining functions vary greatly
+in size and some executable regions are not marked as functions. Prioritize a
+size-weighted remaining-executable inventory to make progress reporting useful
+without inventing a percentage or treating inherited work as new contributions.

@@ -58,7 +58,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the remaining audio interworking entry and engine routines.
+Next milestone: establish a size-weighted remaining-code inventory, then continue
+recovering the remaining audio interworking entry and engine routines.
+The interworking-entry C probe passes 20,992 result/preserved-register cases,
+but uses 24 bytes including a veneer versus four original entry bytes and
+changes r1. It remains research-only; production is unchanged.
 The byte-load entry is integrated as C: its two bytes match exactly, and the
 linker requires the filter to follow immediately. All 49,152 production cases
 and 32,832 sequence-jump caller cases pass. Full ROM comparison passes.
