@@ -1009,3 +1009,18 @@ src/m4a_mplay_post_clear_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
 src/m4a_mplay_post_clear_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_clear_invoke.o: C_END_ALIGN := 1
 src/m4a_mplay_post_clear_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=ClearChain -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostChannelNext
+
+src/m4a_mplay_post_volume_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_volume_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_volume_guard.o: C_END_ALIGN := 1
+src/m4a_mplay_post_volume_guard.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-reorder-blocks -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostPitchGuard -fplugin-arg-tail_transfer-destination=MPlayMainPostVolumeInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostVolumeInvoke -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostPitchGuard -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+src/m4a_mplay_post_volume_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_post_volume_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_volume_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_post_volume_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=ChnVolSetAsm -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostVolumeFinish -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_mplay_post_volume_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_post_volume_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_volume_finish.o: C_END_ALIGN := 1
+src/m4a_mplay_post_volume_finish.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-reorder-blocks -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostPitchGuard -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostPitchGuard

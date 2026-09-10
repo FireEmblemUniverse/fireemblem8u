@@ -7742,3 +7742,39 @@ and corresponding `check_*.py` files; reports are under
 isolated candidates and stop at fragment boundaries, not complete MPlayMain
 execution. Production ownership is unchanged. Next: integrate all 30 bytes with exact
 extents/ranges and full build/audit gates.
+
+
+## Channel volume path production integration — September 10, 2026
+
+On baseline `1b261ebc`, the 30-byte volume path at 080CFD3A..080CFD58 is
+integrated as three C-only objects. The production sources equal the verified
+candidates except for function names; linked ownership confirms the exact Thumb
+ranges. The old assembly instructions are removed. The branch after the final
+volume update falls through to the new MPlayMainPostPitchGuard boundary.
+
+`make compare -j8` reproduces all 16 MiB. Fresh runtime builds reproduce all four
+images and exported symbols. Source, linked, inline and runtime inventories are
+refreshed. SoundMain (1,064 bytes) and mixer (932 bytes) retain their fully C-owned
+regions and original bytes. All 1,009,536 production/original fragment cases
+pass: 264,064 guard, 24,576 synthetic-callee invocation, and 720,896 mode update.
+The preceding candidate section describes coverage and limits; these tests do
+not execute a full MPlayMain call or the real ChnVolSetAsm body.
+
+The valid production layout passes and all 105 altered layouts reject, including
+six new extent/continuation perturbations, three invalid pitch-guard targets and
+two out-of-range volume-callee targets. See `mplay-post-volume-layout.log`.
+
+Main mapped instruction bytes: 777,630 total, 720,546 C-owned (92.66%),
+33,870 mixed C/assembly, 1,422 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,832 main bytes and 420 payload bytes. There are
+538 tracked main C files and 30 assembly entry markers. These figures include
+inherited work and do not measure overall completion.
+
+ELF SHA-256: `8d0f58e2ee2e275c417178203232ade8b8882e588576daf9190cd58043ceb172`.
+Evidence: `.deps/soundmain-packed/mplay-post-volume-build.log`,
+`mplay-post-volume-production-identity.json`, source/linked audit reports,
+production execution logs and refreshed tracked ownership/runtime/region receipts.
+Next: pitch guard, signed key adjustment, CGB/PCM frequency calls and stores,
+then remaining command guards, earlier clear calls and MPlayMain's frame exit.
+The pitch setup must read keyM as signed despite its existing u8 struct field;
+the original uses LDRSB at track offset 8.

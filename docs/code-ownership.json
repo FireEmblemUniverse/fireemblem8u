@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "21d596b2fe07ac9985de6bb6c88dd29e0ecdea57",
+  "baseline_commit": "1b261ebc67dd27538208779ff5c9009b31472cfe",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1452,
-        "c_owned": 720516,
+        "assembly_source": 1422,
+        "c_owned": 720546,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1187,11 +1187,6 @@
           "instruction_bytes": 760
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 748
-        },
-        {
           "object": "src/cp_order.o",
           "category": "c_owned",
           "instruction_bytes": 746
@@ -1210,6 +1205,11 @@
           "object": "src/banim-efxmagic-aircalibur.o",
           "category": "c_owned",
           "instruction_bytes": 732
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 718
         },
         {
           "object": "src/bb.o",
@@ -2182,12 +2182,22 @@
           "instruction_bytes": 14
         },
         {
+          "object": "src/m4a_mplay_post_volume_guard.o",
+          "category": "c_owned",
+          "instruction_bytes": 14
+        },
+        {
           "object": "asm/arm.o",
           "category": "assembly_source",
           "instruction_bytes": 12
         },
         {
           "object": "src/m4a_mplay_note_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 12
+        },
+        {
+          "object": "src/m4a_mplay_post_volume_finish.o",
           "category": "c_owned",
           "instruction_bytes": 12
         },
@@ -2347,6 +2357,11 @@
           "instruction_bytes": 4
         },
         {
+          "object": "src/m4a_mplay_post_volume_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
           "object": "src/m4a_mplay_track_finish.o",
           "category": "c_owned",
           "instruction_bytes": 4
@@ -2382,13 +2397,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "f983969ea6a87215dd0ff5f7071a3f79a278d39fe1fe678ae7e922efe5d9679c",
-      "map_sha256": "2db3450d576aa437174be513c6411f28103b8f5cdfb3f38ca89398cb9f18433b",
+      "elf_sha256": "8d0f58e2ee2e275c417178203232ade8b8882e588576daf9190cd58043ceb172",
+      "map_sha256": "8398339669923797590ec4d651a37cc8f7323e00468b131218809a5b2c36be7b",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1862
+      "known_nonarchive_assembly_bytes": 1832
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

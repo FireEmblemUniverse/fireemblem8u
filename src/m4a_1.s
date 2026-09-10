@@ -473,23 +473,18 @@ MPlayMainPostClearSetupBoundary:
 	.global MPlayMainPostClearInvokeBoundary
 MPlayMainPostClearInvokeBoundary:
 	.section .text.after_mplay_post_clear_invoke, "ax", %progbits
-	.global MPlayMainPostChannelBody
-MPlayMainPostChannelBody:
+	.global MPlayMainPostChannelBodyBoundary
+MPlayMainPostChannelBodyBoundary:
 _081DD9F6:
-	ldrb r0, [r4, o_SoundChannel_type]
-	movs r6, 0x7
-	ands r6, r0
-	ldrb r3, [r5, o_MusicPlayerTrack_flags]
-	movs r0, 0x3
-	tst r0, r3
-	beq _081DDA14
-	bl ChnVolSetAsm
-	cmp r6, 0
-	beq _081DDA14
-	ldrb r0, [r4, o_CgbChannel_mo]
-	movs r1, 0x1
-	orrs r0, r1
-	strb r0, [r4, o_CgbChannel_mo]
+	.section .text.after_mplay_post_volume_guard, "ax", %progbits
+	.global MPlayMainPostVolumeInvokeBoundary
+MPlayMainPostVolumeInvokeBoundary:
+	.section .text.after_mplay_post_volume_invoke, "ax", %progbits
+	.global MPlayMainPostVolumeFinishBoundary
+MPlayMainPostVolumeFinishBoundary:
+	.section .text.after_mplay_post_volume_finish, "ax", %progbits
+	.global MPlayMainPostPitchGuard
+MPlayMainPostPitchGuard:
 _081DDA14:
 	ldrb r3, [r5, o_MusicPlayerTrack_flags]
 	movs r0, 0xC

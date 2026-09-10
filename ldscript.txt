@@ -1335,6 +1335,37 @@ SECTIONS
         src/m4a_mplay_post_clear_invoke.o(.text);
         __mplay_post_clear_invoke_end = .;
         src/m4a_1.o(.text.after_mplay_post_clear_invoke);
+        __mplay_post_volume_guard_start = .;
+        src/m4a_mplay_post_volume_guard.o(.text);
+        __mplay_post_volume_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_post_volume_guard);
+        ASSERT((MPlayMainPostChannelBody & ~1) == MPlayMainPostChannelBodyBoundary &&
+               __mplay_post_volume_guard_end - __mplay_post_volume_guard_start == 14 &&
+               (MPlayMainPostVolumeInvoke & ~1) == __mplay_post_volume_guard_end,
+               "MPlayMain post volume_guard extent or continuation changed");
+        __mplay_post_volume_invoke_start = .;
+        src/m4a_mplay_post_volume_invoke.o(.text);
+        __mplay_post_volume_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_post_volume_invoke);
+        ASSERT((MPlayMainPostVolumeInvoke & ~1) == MPlayMainPostVolumeInvokeBoundary &&
+               __mplay_post_volume_invoke_end - __mplay_post_volume_invoke_start == 4 &&
+               (MPlayMainPostVolumeFinish & ~1) == __mplay_post_volume_invoke_end,
+               "MPlayMain post volume_invoke extent or continuation changed");
+        __mplay_post_volume_finish_start = .;
+        src/m4a_mplay_post_volume_finish.o(.text);
+        __mplay_post_volume_finish_end = .;
+        src/m4a_1.o(.text.after_mplay_post_volume_finish);
+        ASSERT((MPlayMainPostVolumeFinish & ~1) == MPlayMainPostVolumeFinishBoundary &&
+               __mplay_post_volume_finish_end - __mplay_post_volume_finish_start == 12 &&
+               (MPlayMainPostPitchGuard & ~1) == __mplay_post_volume_finish_end,
+               "MPlayMain post volume_finish extent or continuation changed");
+        ASSERT(MPlayMainPostPitchGuard >= __mplay_post_volume_guard_start + 16 &&
+               MPlayMainPostPitchGuard <= __mplay_post_volume_guard_start + 16 + 254 &&
+               (MPlayMainPostPitchGuard & 1) == 0,
+               "MPlayMain post volume_guard transfer out of range");
+        ASSERT((ChnVolSetAsm & ~1) >= __mplay_post_volume_invoke_start + 4 &&
+               (ChnVolSetAsm & ~1) <= __mplay_post_volume_invoke_start + 4 + 4194302,
+               "MPlayMain post volume_invoke callee out of range");
         ASSERT((MPlayMainPostClearInvoke & ~1) == MPlayMainPostClearInvokeBoundary &&
                __mplay_post_clear_invoke_end - __mplay_post_clear_invoke_start == 6 &&
                (MPlayMainPostChannelBody & ~1) == __mplay_post_clear_invoke_end,
