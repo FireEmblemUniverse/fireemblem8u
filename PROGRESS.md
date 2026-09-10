@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research advance: the 160-byte channel status/envelope region has a 174-byte C candidate with no register differences across 196,608 four-machine cases (baseline `91725054`). Ordered accesses, memory and decisions agree; 12,288 zero-length echo flag differences and instruction/layout gaps remain. Production ELF and coverage are unchanged; full ROM comparison passes.
+Updated: September 10, 2026. Latest research advance: the channel status/envelope candidate is down to 172 bytes versus 160 original, with no register or flag differences across 196,608 four-machine cases (baseline `b69fc6dc`). The original byte-decrement flags are recovered; 49,152 carry-bundle checks and both 65,664-case counter suites pass. Instruction layout remains unmatched. Production ELF and coverage are unchanged; full ROM comparison passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -225,13 +225,14 @@ regressions pass. Full ROM matching and 3,528 complete audio calls pass.
 The channel status/envelope candidate passes 196,608 cases across original and
 candidate ROM/copied RAM. All status bytes, four envelope levels, four parameter
 settings, all initial flags and three wave/channel aliases are covered. Decisions,
-ordered accesses, tested data memory and every register agree. The candidate is
-174 bytes versus 160 original bytes; 12,288 zero-length echo cases still differ
-in flags because the compiler adds a comparison after decrement/store. The
-opt-in acyclic-control contract permits shared backward paths but rejects loops;
-five invalid configurations reject, and the 17 private-frame plus 14 existing
-tail-contract regressions pass. Production ELF is unchanged. Next: recover the
-original decrement flags and conditional-branch layout before integration.
+ordered accesses, tested data memory, every register and all flags now agree.
+The candidate is 172 bytes versus 160 original bytes. A proven unsigned-byte
+load/decrement/store now emits the original carry branch without a second
+comparison, including correct zero-length echo flags. Its 49,152 isolated bundle
+checks pass; both existing signed and new carry counter suites pass 65,664 cases
+apiece with six unsupported forms unchanged. Five invalid acyclic configurations
+reject. Production ELF is unchanged. Next: match conditional-branch layout,
+operand ordering and remaining redundant instructions before integration.
 Channel-deadline control is integrated as `src/m4a_deadline.c`: all 26 instruction
 bytes, two padding bytes and the four-byte VCOUNT pointer match. All 98,304 cases
 pass with exact destinations, registers, NZCV, private frame and ordered data/MMIO

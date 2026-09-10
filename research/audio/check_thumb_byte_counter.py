@@ -13,6 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
     parser.add_argument('--plugin', type=Path, required=True)
+    parser.add_argument('--carry', action='store_true')
     args = parser.parse_args()
     specs = {
         'positive_gt': ('unsigned char', ': : "r"(n)', 1, '>', True),
@@ -40,13 +41,14 @@ def main():
              '-fno-schedule-insns', '-fno-schedule-insns2', '-fwrapv']
     baseline = {}
     cases = 0
-    bundle = re.compile(r'subs\s+(r\d+),\s*\1,\s*#1\s*\n\s*strb[^\n]*\n\s*b(?:gt|le)\s')
+    senses='hi|ls' if args.carry else 'gt|le'
+    bundle = re.compile(r'subs\s+(r\d+),\s*\1,\s*#1\s*\n\s*strb[^\n]*\n\s*b(?:'+senses+r')\s')
     with tempfile.TemporaryDirectory(prefix='thumb-byte-counter-') as temp:
         root = Path(temp)
         (root / 'probe.c').write_text(source)
         for enabled in (False, True):
             extra = ['-fplugin=' + str(args.plugin.resolve()),
-                     '-fplugin-arg-thumb_shared_literal-byte-counter'] if enabled else []
+                     '-fplugin-arg-thumb_shared_literal-byte-counter'+('-carry' if args.carry else '')] if enabled else []
             subprocess.run([args.compiler, '-S', *flags, *extra, str(root / 'probe.c'),
                             '-o', str(root / 'probe.s')], check=True)
             assembly = (root / 'probe.s').read_text()
@@ -101,7 +103,7 @@ def main():
                         for reg in range(4, 12):
                             assert uc.reg_read(getattr(r, 'UC_ARM_REG_R' + str(reg))) == 0x12340000 + reg
                         cases += 1
-    print(f'{cases} baseline/bundled executions pass; both signed branch senses bundle, six unsupported patterns remain unchanged.')
+    print(f'{cases} baseline/bundled executions pass; both requested branch senses bundle, six unsupported patterns remain unchanged.')
 
 
 if __name__ == '__main__':

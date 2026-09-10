@@ -25,6 +25,7 @@ int plugin_is_GPL_compatible;
 namespace {
 struct entry { unsigned long value; std::string symbol; std::string source_symbol; };
 std::vector<entry> manifest;
+bool byte_counter_carry=false;
 bool carry_tests=false, byte_counter=false, zero_pool_padding=false, omit_pool_alignment=false;
 rtx_insn *previous_operation(rtx_insn *i) {
     for (i=PREV_INSN(i);i;i=PREV_INSN(i)) {
@@ -80,7 +81,11 @@ void combine_byte_counter(rtx_insn *branch) {
     if (GET_CODE(p)!=SET || !rtx_equal_p(SET_DEST(p),reg)
         || GET_CODE(SET_SRC(p))!=ZERO_EXTEND || GET_MODE(SET_SRC(p))!=SImode
         || !MEM_P(XEXP(SET_SRC(p),0)) || GET_MODE(XEXP(SET_SRC(p),0))!=QImode) return;
-    rtx new_condition=gen_rtx_fmt_ee(GET_CODE(condition),VOIDmode,
+    // For a zero-extended byte, SUBS n,1 yields HI exactly when signed n-1>0:
+    // zero has C=0, one has Z=1, and inputs 2..255 have C=1,Z=0.
+    enum rtx_code branch_code=GET_CODE(condition);
+    if (byte_counter_carry) branch_code=branch_code==GT?GTU:LEU;
+    rtx new_condition=gen_rtx_fmt_ee(branch_code,VOIDmode,
         gen_rtx_UNSPEC(SImode,gen_rtvec(1,copy_rtx(reg)),UNSPEC_MATCH_THUMB_BYTE_DEC),const0_rtx);
     rtx replacement=gen_match_thumb_byte_dec(copy_rtx(reg),copy_rtx(memory),new_condition,XEXP(target,0));
     if (!validate_change(branch,&PATTERN(branch),replacement,false))
@@ -207,6 +212,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     for (int n=0;n<info->argc;n++) {
         if (std::string(info->argv[n].key)=="omit-pool-alignment" && !info->argv[n].value) { omit_pool_alignment=true;continue; }
         if (std::string(info->argv[n].key)=="zero-pool-padding" && !info->argv[n].value) { zero_pool_padding=true;continue; }
+        if (std::string(info->argv[n].key)=="byte-counter-carry" && !info->argv[n].value) { byte_counter=true;byte_counter_carry=true;continue; }
         if (std::string(info->argv[n].key)=="byte-counter" && !info->argv[n].value) { byte_counter=true;continue; }
         if (std::string(info->argv[n].key)=="carry-tests" && !info->argv[n].value) { carry_tests=true;continue; }
         bool named=std::string(info->argv[n].key)=="symbol-literal";

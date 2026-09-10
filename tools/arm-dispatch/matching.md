@@ -102,7 +102,8 @@
    (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))
    (set (match_operand:QI 1 "memory_operand" "=m")
         (truncate:QI (plus:SI (match_dup 0) (const_int -1))))]
-  "TARGET_THUMB1 && (GET_CODE (operands[2]) == GT || GET_CODE (operands[2]) == LE)"
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == GT || GET_CODE (operands[2]) == LE
+                     || GET_CODE (operands[2]) == GTU || GET_CODE (operands[2]) == LEU)"
   "subs\t%0, %0, #1\n\tstrb\t%0, %1\n\tb%d2\t%l3"
   [(set_attr "length" "6") (set_attr "type" "multiple")])
 

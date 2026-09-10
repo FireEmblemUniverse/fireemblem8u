@@ -57,7 +57,6 @@ existing:
     if (!(envelopeValue & envelopeStatus))
         goto release;
     envelopeValue = envelopeChannel->echoLength;
-    asm("" : "+r"(envelopeValue));
     envelopeValue -= 1;
     envelopeChannel->echoLength = envelopeValue;
     if ((s32)envelopeValue > 0)

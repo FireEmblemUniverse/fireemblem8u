@@ -5823,3 +5823,49 @@ cases pass, with unannotated assembly unchanged. `make compare -j8` still matche
 the complete ROM, and the production ELF SHA-256 equals the current ownership
 receipt. Production coverage is unchanged; this milestone does not claim the
 remaining envelope region as decompiled.
+
+## Original echo decrement flags recovered — September 10, 2026
+
+Research baseline `b69fc6dc`: the envelope candidate decreases from 174 to 172
+bytes and now agrees on all registers and NZCV in all 196,608 four-machine cases.
+The former 12,288 zero-length echo flag differences are eliminated. Decisions,
+ordered accesses and complete tested data memory continue to match. The original
+region is still 160 bytes; extra branches, a redundant comparison and instruction
+operand/layout differences remain, so this code is not integrated.
+
+The installed pinned GCC backend's existing byte-decrement bundle now also
+accepts explicit unsigned HI/LS branch senses. The new opt-in
+`thumb_shared_literal` option `byte-counter-carry` uses them only after the
+existing proof: an immediately preceding zero-extended byte load, decrement by
+one, byte store through a distinct low base register at offset 0..31, and a
+short forward signed-positive/nonpositive branch. Opaque output constraints,
+signed-byte or word loads, other decrements and unsupported spans remain
+unmodified. The range is 0..255, so SUBS sets C=0 for zero, Z=1 for one, and
+C=1/Z=0 for 2..255; HI therefore implements the original signed-positive decision
+while preserving the subtract flags. LS is its complement. The intervening STRB
+preserves flags. The echo-length output tie was removed to expose the actual
+byte-load range to this proof; no unsafe range assumption was added.
+
+Validation:
+
+- The isolated GCC backend rebuild succeeds from pinned source with the updated
+  matching pattern; no new instruction-bearing C assembly is introduced.
+- `check_byte_counter_carry_flags.py`: 49,152 exact SUBS/STRB/BHI-or-BLS
+  executions cover both branch polarities, all byte inputs, all initial NZCV,
+  three byte-store addresses and ROM/copied RAM. Full registers, SP/LR, final
+  flags, branch destination, memory and the single truncated byte write agree.
+- `check_thumb_byte_counter.py --carry`: 65,664 baseline/bundled executions
+  pass; six unsupported forms retain identical assembly. The original signed
+  mode also passes all 65,664 executions with the same unchanged negative forms.
+- `check_soundmain_envelope.py`: all 196,608 cases pass with no register or flag
+  differences; five invalid acyclic configurations still reject. The oracle's
+  representative envelope parameters and lack of cycle modeling remain limits.
+- `make compare -j8`: the entire ROM still matches. The production ELF SHA-256
+  equals the ownership receipt, so production coverage and runtime evidence are
+  unchanged.
+
+A small compiler-option probe (branch-probability, jump-threading, dominator,
+temporary-expression, if-conversion and partition controls) did not reduce the
+remaining control-flow layout; no such option changes were retained. The next
+step is to recover the original branch layout and eliminate remaining redundant
+instructions without sacrificing the newly verified full-state behavior.
