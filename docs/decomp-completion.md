@@ -4021,3 +4021,39 @@ return. Production coverage is unchanged. Both sample paths now have semantic
 models; matching their code generation and composing them with channel/setup
 logic remain unfinished. Evidence: `.deps/soundmain-resample/report.json`,
 candidate ELF/binary and `.deps/soundmain-resample-run.log`.
+
+
+### September 10: recovered SoundMain pieces verified as complete calls
+
+`research/audio/soundmain_complete.c` composes the entry, reverb, channel,
+fixed-rate and resampling models into a complete semantic SoundMain call. It
+retains the initial SoundInfo pointer across callbacks, handles buffer clearing
+or reverb, caches divFreq for channel processing, checks the deadline before
+each channel, and releases the original SoundInfo lock after mixing or a
+deadline exit. A zero maxChans value still visits one channel, as the original
+do/while structure does. The no-reverb clearing model is scoped to sample
+counts >=16 divisible by four.
+
+`check_soundmain_complete.py` compiles all six C components together and compares
+full calls with the original entry and its copied 0x400-byte RAM mixer. All 3,528
+cases pass: 3,456 valid entries and 72 invalid/locked entries. An execution hook
+confirms 1,728 of the valid calls take the original deadline-exit branch.
+Synthetic VCOUNT schedules deliberately produce exits before the first channel
+and after two channels; they are read-driven test schedules, not cycle timing.
+
+The grid covers four sample sizes, maxChans 0/1/4/12, three DMA counters, three
+reverb strengths, optional callbacks and four callback-mutation policies.
+Channels mix fixed and resampled types with attack, decay, sustain, release,
+echo, start/stop and inactive states. Callbacks can change sample geometry,
+master volume, maxLines, a channel status, the Cgb callback, lock value and the
+global SoundInfo pointer. The model and original agree on complete 64 KiB sound/
+wave/output test memory, global pointer, callback addresses/arguments/observed
+locks, and VCOUNT read sequences. Both preserve r4-r11 and SP, leave the upper
+stack canary untouched, and return correctly in ARM and Thumb modes.
+
+This proves composition within the fixtures' valid mapped-wave and buffer
+geometry. It does not establish matching private stack layout, scratch registers,
+flags, audio access order or execution timing, nor multi-frame lifecycle behavior.
+No production code changed. Matching code generation for SoundMain and the
+remaining mixer is still required. Evidence: `.deps/soundmain-complete/report.json`,
+candidate ELF/binary and `.deps/soundmain-complete-run.log`.

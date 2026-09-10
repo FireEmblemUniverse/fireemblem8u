@@ -92,6 +92,12 @@ stop and 9,136 continue. The resampling model also passes 6,912 comparisons
 covering fractional wrap, interpolation and multiple loop crossings (1,066 stop,
 5,846 continue). Both sample paths still need matching code generation and
 integration; their semantic checks do not add production coverage.
+The composed SoundMain C model passes 3,528 complete original/C calls with active
+channels: 3,456 valid entries (including 1,728 forced deadline exits) and 72
+rejected entries. Full sound memory, callback/VCOUNT traces, global-pointer
+mutations, preserved registers, SP and both return modes agree. This establishes
+semantic composition; the original private frame and matching instruction
+sequence remain unfinished, so production coverage is unchanged.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
