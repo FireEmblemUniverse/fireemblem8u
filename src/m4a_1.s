@@ -362,11 +362,13 @@ _081DD886:
 	.global MPlayMainChannelGateBoundary
 MPlayMainChannelGateBoundary:
 	.section .text.after_mplay_channel_gate, "ax", %progbits
-	.global MPlayMainChannelClear
-MPlayMainChannelClear:
+	.global MPlayMainChannelClearBoundary
+MPlayMainChannelClearBoundary:
 _081DD8AE:
-	adds r0, r4, 0
-	bl ClearChain
+	.section .text.after_mplay_channel_clear_setup, "ax", %progbits
+	.global MPlayMainChannelClearInvokeBoundary
+MPlayMainChannelClearInvokeBoundary:
+	.section .text.after_mplay_channel_clear_invoke, "ax", %progbits
 	.global MPlayMainChannelNextBoundary
 MPlayMainChannelNextBoundary:
 _081DD8B4:
@@ -375,10 +377,12 @@ _081DD8B4:
 MPlayMainTrackInitBoundary:
 _081DD8BA:
 	.section .text.after_mplay_track_init_guard, "ax", %progbits
-	.global MPlayMainTrackClear
-MPlayMainTrackClear:
-	adds r0, r5, 0
-	bl Clear64byte
+	.global MPlayMainTrackClearBoundary
+MPlayMainTrackClearBoundary:
+	.section .text.after_mplay_track_clear_setup, "ax", %progbits
+	.global MPlayMainTrackClearInvokeBoundary
+MPlayMainTrackClearInvokeBoundary:
+	.section .text.after_mplay_track_clear_invoke, "ax", %progbits
 	.global MPlayMainTrackDefaultsBoundary
 MPlayMainTrackDefaultsBoundary:
 	.section .text.after_mplay_track_init_defaults, "ax", %progbits

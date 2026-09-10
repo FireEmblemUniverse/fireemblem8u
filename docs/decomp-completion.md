@@ -8227,3 +8227,49 @@ Evidence: `.deps/soundmain-packed/post-track-next-production.log`,
 tracked ownership, runtime and audio-region receipts. Production ELF SHA-256:
 `dd4bf5b76991bbaf2400207e9fbc3ede21ebd5737de1e3e5c0e3d7ec04533286`.
 Next: MPlayMain's earlier clear-call paths, command guards and entry/loop code.
+
+
+## September 10, 2026 — Earlier MPlayMain clear-call integration
+
+On baseline `8e335df2`, the earlier channel clear at 080CFBF2..080CFBF8 and
+track clear at 080CFC06..080CFC0C now come from four matching C fragments:
+a two-byte ADDS argument setup and a four-byte BL invocation per path.
+The existing copy and private callback compiler contracts generate these
+instructions without new backend changes. ClearChain and Clear64byte remain
+Thumb functions at their original addresses; each call falls through to its
+original continuation with the original LR. Production source is identical to
+the matching candidates except for function names, and linked ownership verifies
+all four exact Thumb extents in C-only objects.
+
+The setup checkers pass 26,880 cases per path, including every NZCV, four stack
+positions, byte values and full-width boundary/bit/random register values.
+The invocation checkers pass 24,576 cases per path across all incoming/returned
+NZCV pairs, four stacks and three callee-write aliases. Each rejects 15 invalid
+contracts and confirms unannotated compilation is unchanged. Total execution
+cases: 102,912. The invocation tests use a synthetic STR/BX callee at the real
+address to isolate call/return mechanics; they do not execute actual cleanup
+logic or complete MPlayMain.
+
+The full 16 MiB ROM matches. Fresh pinned runtime builds reproduce all four
+images and exported symbols. Main-ROM ownership is 720,648 C-owned, 33,870 mixed
+C/assembly, 1,320 assembly-source and 21,792 runtime archive instruction bytes
+(777,630 total). Reviewed non-library assembly is 1,730 main-ROM bytes and
+420 expanded-payload bytes. The source audit counts 554 main C files and
+30 assembly entry markers. SoundMain and mixer C ownership remain intact.
+
+New linker assertions constrain all four extents/continuations and both BL
+ranges. Their backward limits use ABSOLUTE(start): subtracting the range from a
+section-relative offset caused unsigned underflow during the initial link,
+which correctly failed its assertions; the corrected full link and ROM compare
+pass. The valid full layout links and all 156 altered layouts reject, including
+12 new extent/continuation and forward/backward call-range violations.
+The suite report is in `early-clear-layout.log`.
+
+Evidence: `research/audio/check_mplay_early_clear_setup.py` and
+`check_mplay_early_clear_invoke.py` (each supports channel/track),
+`.deps/soundmain-packed/early-clear-build.log`, `early-*-clear-*.log`,
+`early-clear-production-identity.json`, `early-clear-source.json`,
+`early-clear-linked.json`, and refreshed tracked ownership/runtime/audio receipts.
+Production ELF SHA-256:
+`b8e0ce48f31141b2f39a47b6d5506e605cf009d01f7ee03d3e69bab2c6794bbe`.
+Next: MPlayMain command guards and entry/loop code.

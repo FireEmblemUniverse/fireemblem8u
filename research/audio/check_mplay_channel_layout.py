@@ -146,6 +146,15 @@ def main():
  for name,expression in [('post_loop_far','__mplay_post_track_next_start + 268'),('post_loop_backward','__mplay_post_track_next_start - 246')]:
   text=source.replace('        ASSERT((MPlayMainPostTrackGuard & ~1) + 256 >=','        MPlayMainPostTrackGuard = '+expression+';\n        ASSERT((MPlayMainPostTrackGuard & ~1) + 256 >=',1)
   cases.append((name,text,'post track_next transfer out of range'))
+ for kind,callee in [('channel','ClearChain'),('track','Clear64byte')]:
+  for part in ('setup','invoke'):
+   stem='mplay_'+kind+'_clear_'+part
+   cases.append((kind+'_clear_'+part+'_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),kind+' clear '+part+' extent or continuation'))
+   cases.append((kind+'_clear_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_'+stem+');','        . += 2;\n        src/m4a_1.o(.text.after_'+stem+');'),kind+' clear '+part+' extent or continuation'))
+  stem='__mplay_'+kind+'_clear_invoke_start'
+  needle='        ASSERT(('+callee+' & ~1) >= ABSOLUTE('+stem+') + 4 - 4194304'
+  for name,offset in [('far',4194308),('backward',-4194304)]:
+   cases.append((kind+'_clear_'+name,source.replace(needle,'        '+callee+' = '+stem+' + ('+str(offset)+');\n'+needle,1),kind+' clear callee out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

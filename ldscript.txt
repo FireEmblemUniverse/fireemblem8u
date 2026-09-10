@@ -1097,6 +1097,25 @@ SECTIONS
         src/m4a_mplay_channel_gate.o(.text);
         __mplay_channel_gate_end = .;
         src/m4a_1.o(.text.after_mplay_channel_gate);
+        __mplay_channel_clear_setup_start = .;
+        src/m4a_mplay_channel_clear_setup.o(.text);
+        __mplay_channel_clear_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_channel_clear_setup);
+        ASSERT((MPlayMainChannelClear & ~1) == MPlayMainChannelClearBoundary &&
+               __mplay_channel_clear_setup_end - __mplay_channel_clear_setup_start == 2 &&
+               (MPlayMainChannelClearInvoke & ~1) == __mplay_channel_clear_setup_end,
+               "MPlayMain channel clear setup extent or continuation changed");
+        __mplay_channel_clear_invoke_start = .;
+        src/m4a_mplay_channel_clear_invoke.o(.text);
+        __mplay_channel_clear_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_channel_clear_invoke);
+        ASSERT((MPlayMainChannelClearInvoke & ~1) == MPlayMainChannelClearInvokeBoundary &&
+               __mplay_channel_clear_invoke_end - __mplay_channel_clear_invoke_start == 4 &&
+               (MPlayMainChannelNext & ~1) == __mplay_channel_clear_invoke_end,
+               "MPlayMain channel clear invoke extent or continuation changed");
+        ASSERT((ClearChain & ~1) >= ABSOLUTE(__mplay_channel_clear_invoke_start) + 4 - 4194304 &&
+               (ClearChain & ~1) <= ABSOLUTE(__mplay_channel_clear_invoke_start) + 4 + 4194302,
+               "MPlayMain channel clear callee out of range");
         __mplay_channel_next_start = .;
         src/m4a_mplay_channel_next.o(.text);
         __mplay_channel_next_end = .;
@@ -1105,6 +1124,25 @@ SECTIONS
         src/m4a_mplay_track_init_guard.o(.text);
         __mplay_track_init_guard_end = .;
         src/m4a_1.o(.text.after_mplay_track_init_guard);
+        __mplay_track_clear_setup_start = .;
+        src/m4a_mplay_track_clear_setup.o(.text);
+        __mplay_track_clear_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_track_clear_setup);
+        ASSERT((MPlayMainTrackClear & ~1) == MPlayMainTrackClearBoundary &&
+               __mplay_track_clear_setup_end - __mplay_track_clear_setup_start == 2 &&
+               (MPlayMainTrackClearInvoke & ~1) == __mplay_track_clear_setup_end,
+               "MPlayMain track clear setup extent or continuation changed");
+        __mplay_track_clear_invoke_start = .;
+        src/m4a_mplay_track_clear_invoke.o(.text);
+        __mplay_track_clear_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_track_clear_invoke);
+        ASSERT((MPlayMainTrackClearInvoke & ~1) == MPlayMainTrackClearInvokeBoundary &&
+               __mplay_track_clear_invoke_end - __mplay_track_clear_invoke_start == 4 &&
+               (MPlayMainTrackDefaults & ~1) == __mplay_track_clear_invoke_end,
+               "MPlayMain track clear invoke extent or continuation changed");
+        ASSERT((Clear64byte & ~1) >= ABSOLUTE(__mplay_track_clear_invoke_start) + 4 - 4194304 &&
+               (Clear64byte & ~1) <= ABSOLUTE(__mplay_track_clear_invoke_start) + 4 + 4194302,
+               "MPlayMain track clear callee out of range");
         __mplay_track_init_defaults_start = .;
         src/m4a_mplay_track_init_defaults.o(.text);
         __mplay_track_init_defaults_end = .;
