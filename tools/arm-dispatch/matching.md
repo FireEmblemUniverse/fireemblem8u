@@ -272,3 +272,14 @@
    && (INTVAL (operands[1]) & 3) == 0"
   "add\t%0, pc, %1"
   [(set_attr "type" "alu_imm") (set_attr "length" "2")])
+
+;; A guarded zero test may bypass a terminal local stub and branch directly.
+;; The linker must prove the Thumb destination fits the conditional branch.
+(define_insn "match_thumb_zero_tail"
+  [(set (pc)
+        (if_then_else
+         (eq (match_operand:SI 0 "low_register_operand" "l") (const_int 0))
+         (match_operand:SI 1 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1"
+  "cmp\t%0, #0\n\tbeq\t%1"
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])

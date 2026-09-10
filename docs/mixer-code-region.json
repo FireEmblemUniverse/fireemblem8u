@@ -1,0 +1,212 @@
+{
+  "start": "0x80cf54c",
+  "end": "0x80cf8f0",
+  "section_bytes": 932,
+  "bytes_by_kind": {
+    "thumb": 346,
+    "data": 14,
+    "arm": 572
+  },
+  "all_regions_c_owned": true,
+  "elf_sha256": "2fb4398ab239578b5e9608e79d795c50b748b62cc5fc19f8a9c570c71f138eec",
+  "regions": [
+    {
+      "start": "0x80cf54c",
+      "end": "0x80cf556",
+      "kind": "thumb",
+      "object": "src/m4a_mixer_entry.o"
+    },
+    {
+      "start": "0x80cf556",
+      "end": "0x80cf558",
+      "kind": "data",
+      "object": "src/m4a_mixer_entry.o"
+    },
+    {
+      "start": "0x80cf558",
+      "end": "0x80cf5ac",
+      "kind": "arm",
+      "object": "src/m4a_reverb.o"
+    },
+    {
+      "start": "0x80cf5ac",
+      "end": "0x80cf5da",
+      "kind": "thumb",
+      "object": "src/m4a_no_reverb.o"
+    },
+    {
+      "start": "0x80cf5da",
+      "end": "0x80cf5e4",
+      "kind": "thumb",
+      "object": "src/m4a_channel_setup.o"
+    },
+    {
+      "start": "0x80cf5e4",
+      "end": "0x80cf5fe",
+      "kind": "thumb",
+      "object": "src/m4a_deadline.o"
+    },
+    {
+      "start": "0x80cf5fe",
+      "end": "0x80cf604",
+      "kind": "data",
+      "object": "src/m4a_deadline.o"
+    },
+    {
+      "start": "0x80cf604",
+      "end": "0x80cf6a4",
+      "kind": "thumb",
+      "object": "src/m4a_envelope.o"
+    },
+    {
+      "start": "0x80cf6a4",
+      "end": "0x80cf6d8",
+      "kind": "thumb",
+      "object": "src/m4a_volume.o"
+    },
+    {
+      "start": "0x80cf6d8",
+      "end": "0x80cf6e2",
+      "kind": "thumb",
+      "object": "src/m4a_sample_handoff.o"
+    },
+    {
+      "start": "0x80cf6e2",
+      "end": "0x80cf6e4",
+      "kind": "data",
+      "object": "src/m4a_sample_handoff.o"
+    },
+    {
+      "start": "0x80cf6e4",
+      "end": "0x80cf704",
+      "kind": "arm",
+      "object": "src/m4a_sample_entry.o"
+    },
+    {
+      "start": "0x80cf704",
+      "end": "0x80cf730",
+      "kind": "arm",
+      "object": "src/m4a_fixed_setup.o"
+    },
+    {
+      "start": "0x80cf730",
+      "end": "0x80cf774",
+      "kind": "arm",
+      "object": "src/m4a_packed.o"
+    },
+    {
+      "start": "0x80cf774",
+      "end": "0x80cf7a0",
+      "kind": "arm",
+      "object": "src/m4a_short.o"
+    },
+    {
+      "start": "0x80cf7a0",
+      "end": "0x80cf7a8",
+      "kind": "arm",
+      "object": "src/m4a_fixed_lane.o"
+    },
+    {
+      "start": "0x80cf7a8",
+      "end": "0x80cf7bc",
+      "kind": "arm",
+      "object": "src/m4a_fixed_word_finish.o"
+    },
+    {
+      "start": "0x80cf7bc",
+      "end": "0x80cf7d0",
+      "kind": "arm",
+      "object": "src/m4a_resample_loop.o"
+    },
+    {
+      "start": "0x80cf7d0",
+      "end": "0x80cf7e0",
+      "kind": "arm",
+      "object": "src/m4a_wrap.o"
+    },
+    {
+      "start": "0x80cf7e0",
+      "end": "0x80cf7ec",
+      "kind": "arm",
+      "object": "src/m4a_stop.o"
+    },
+    {
+      "start": "0x80cf7ec",
+      "end": "0x80cf7fc",
+      "kind": "arm",
+      "object": "src/m4a_loop.o"
+    },
+    {
+      "start": "0x80cf7fc",
+      "end": "0x80cf824",
+      "kind": "arm",
+      "object": "src/m4a_partial.o"
+    },
+    {
+      "start": "0x80cf824",
+      "end": "0x80cf840",
+      "kind": "arm",
+      "object": "src/m4a_resample_setup.o"
+    },
+    {
+      "start": "0x80cf840",
+      "end": "0x80cf874",
+      "kind": "arm",
+      "object": "src/m4a_resample.o"
+    },
+    {
+      "start": "0x80cf874",
+      "end": "0x80cf894",
+      "kind": "arm",
+      "object": "src/m4a_advance.o"
+    },
+    {
+      "start": "0x80cf894",
+      "end": "0x80cf89c",
+      "kind": "arm",
+      "object": "src/m4a_resample_lane.o"
+    },
+    {
+      "start": "0x80cf89c",
+      "end": "0x80cf8ac",
+      "kind": "arm",
+      "object": "src/m4a_word_finish.o"
+    },
+    {
+      "start": "0x80cf8ac",
+      "end": "0x80cf8b4",
+      "kind": "arm",
+      "object": "src/m4a_resample_finish.o"
+    },
+    {
+      "start": "0x80cf8b4",
+      "end": "0x80cf8cc",
+      "kind": "arm",
+      "object": "src/m4a_save_channel.o"
+    },
+    {
+      "start": "0x80cf8cc",
+      "end": "0x80cf8d6",
+      "kind": "thumb",
+      "object": "src/m4a_channel_advance.o"
+    },
+    {
+      "start": "0x80cf8d6",
+      "end": "0x80cf8d8",
+      "kind": "thumb",
+      "object": "src/m4a_exit_info.o"
+    },
+    {
+      "start": "0x80cf8d8",
+      "end": "0x80cf8ec",
+      "kind": "thumb",
+      "object": "src/m4a_exit_restore.o"
+    },
+    {
+      "start": "0x80cf8ec",
+      "end": "0x80cf8f0",
+      "kind": "data",
+      "object": "src/m4a_exit_restore.o"
+    }
+  ]
+}

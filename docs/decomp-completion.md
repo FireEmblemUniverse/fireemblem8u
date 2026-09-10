@@ -12,6 +12,44 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Copied mixer completion — September 10, 2026
+
+Baseline `7a763d31` plus this change. `src/m4a_mixer_entry.c` now generates the
+original twelve-byte SoundMainRAM entry at 080CF54C. The byte load, zero test,
+direct Thumb clear-path branch, ADR and BX r1 match, including zero padding.
+A local preprocessing alias avoids conflicting with the raw-byte declaration
+used by existing copy callers; their header interface and emitted bytes remain
+unchanged.
+
+The new split-handoff pass runs after validated direct/indirect tail conversion.
+It accepts only the exact byte-load/zero-test/target-load/empty-tie/indirect-tail/
+direct-stub/single-symbol-pool shape. The zero-test target must have one use and
+identify that terminal stub. Target symbols must match both declarations. The
+pass folds CMP/BEQ to the direct Thumb symbol, selects the existing PC-relative
+address operation, removes the empty tie, stub and pointer word, and emits zero
+alignment. The resulting ADR is at byte six. Link assertions pin its aligned-PC
+formula, adjacent ARM target, twelve-byte extent and the forward conditional
+branch range. Twelve malformed source/configuration shapes and eight invalid
+ROM/RAM placements reject; four valid placements including the range boundary
+pass. Unannotated output is unchanged.
+
+`check_soundmain_mixer_entry.py --production` passes 12,288 complete transfers
+covering every reverb byte, every initial NZCV state and three info addresses,
+with original/C code in ROM and copied RAM. Registers, flags, stack, destination
+mode/PC, memory and ordered reads agree. All 3,528 complete audio regressions,
+the full ROM checksum and fresh runtime rebuilds of all four images pass.
+Cycle timing is not modeled.
+
+The reproducible `scripts/audit_mixer_region.py` verifies continuous coverage of
+080CF54C..080CF8F0 against current ELF ownership and symbols. Its receipt is
+`docs/mixer-code-region.json`: all 932 section bytes belong to C-only objects,
+comprising 346 Thumb instruction bytes, 572 ARM instruction bytes and 14 data/
+alignment bytes. This completes the copied mixer, not the entire audio engine
+or game. Outer SoundMain, other audio handlers, startup/interfaces, unit-list
+fallback, transfer code and runtime assembly still need work. Main C ownership
+is 720,050 mapped instruction bytes; reviewed non-library main assembly is
+2,328 bytes. There are 500 tracked C files and 31 assembly entry markers.
+
 ## Mixer entry terminal transfers — September 10, 2026
 
 Research baseline `3489c6b5`. `soundmain_mixer_entry_transfers.c` expresses both
@@ -287,13 +325,13 @@ These are coverage measures including inherited work, not overall completion.
 
 ## Current verified state
 
-After sample-handoff integration (baseline `4eccafb3` plus this change),
+After mixer-entry integration (baseline `7a763d31` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 499 main C files, 32 assembly entry markers,
+The current source inventory has 500 main C files, 31 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 720,040 in C-only objects, 33,870 in
-mixed C/assembly objects, 1,928 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 720,050 in C-only objects, 33,870 in
+mixed C/assembly objects, 1,918 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 

@@ -591,6 +591,19 @@ SECTIONS
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");
         src/m4a_1.o(.text.after_multiply_high);
+        __mixer_entry_start = .;
+        src/m4a_mixer_entry.o(.text);
+        __mixer_entry_end = .;
+        src/m4a_1.o(.text.after_mixer_entry);
+        ASSERT((SoundMainRAM & ~1) == SoundMainRAM_EntryBoundary &&
+               (__mixer_entry_start & 3) == 0 && __mixer_entry_end - __mixer_entry_start == 12,
+               "mixer entry or twelve-byte extent changed");
+        ASSERT(SoundMainRAM_Reverb == (((__mixer_entry_start + 6 + 4) & ~3) + 4) &&
+               (SoundMainRAM_Reverb & 3) == 0 && SoundMainRAM_Reverb == __mixer_entry_end,
+               "mixer ADR must reach adjacent ARM reverb entry");
+        ASSERT((SoundMainRAM_NoReverb & ~1) >= __mixer_entry_start + 8 &&
+               (SoundMainRAM_NoReverb & ~1) - (__mixer_entry_start + 8) <= 254,
+               "mixer zero exit must fit forward Thumb conditional range");
         __reverb_start = .;
         src/m4a_reverb.o(.text);
         __reverb_end = .;

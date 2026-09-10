@@ -89,19 +89,13 @@ lt_o_SoundInfo_pcmBuffer: .word o_SoundInfo_pcmBuffer
 lt_PCM_DMA_BUF_SIZE:      .word PCM_DMA_BUF_SIZE
 	thumb_func_end SoundMain
 
-	thumb_func_start SoundMainRAM
-SoundMainRAM:
-	ldrb r3, [r0, o_SoundInfo_reverb]
-	cmp r3, 0
-	beq .Lreverb_boundary + 84 @ linker checks the inserted C block size
-	adr r1, .Lreverb_boundary
-	bx r1
-	.align 2, 0
-	thumb_func_end SoundMainRAM
-@ The 84-byte ARM reverb block is generated from m4a_reverb.c.
+	.global SoundMainRAM_EntryBoundary
+SoundMainRAM_EntryBoundary:
+@ Byte selection and both Thumb/ARM transfers are generated from C.
+	.section .text.after_mixer_entry, "ax", %progbits
+	.arm
 	.global SoundMainRAM_ReverbBoundary
 SoundMainRAM_ReverbBoundary:
-.Lreverb_boundary:
 	.section .text.after_reverb, "ax", %progbits
 	.thumb
 	.global SoundMainRAM_NoReverbBoundary
