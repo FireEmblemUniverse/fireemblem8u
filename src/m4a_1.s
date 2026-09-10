@@ -16,12 +16,10 @@
 umul3232H32:
 	adr r2, __umul3232H32
 	bx r2
-	.arm
-__umul3232H32:
-	umull r2, r3, r0, r1
-	add r0, r3, 0
-	bx lr
 	thumb_func_end umul3232H32
+@ ARM body is linked here from m4a_multiply_high.c; ADR targets this boundary.
+__umul3232H32:
+	.section .text.after_multiply_high, "ax", %progbits
 
 	thumb_func_start SoundMain
 SoundMain:

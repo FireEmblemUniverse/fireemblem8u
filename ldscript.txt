@@ -587,6 +587,10 @@ SECTIONS
         src/classchg-postconfirm.o(.text);
         src/bmguide.o(.text);
         src/m4a_1.o(.text);
+        src/m4a_multiply_high.o(.text);
+        ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
+               "multiply ARM body must follow Thumb entry");
+        src/m4a_1.o(.text.after_multiply_high);
         src/m4a_clear_block.o(.text);
         src/m4a_clear_chain.o(.text);
         src/m4a_1.o(.text.after_real_clear_chain);

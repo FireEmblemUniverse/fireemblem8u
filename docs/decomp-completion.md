@@ -3516,3 +3516,28 @@ This is research-only and production remains at `4333424a`. Reproducible source,
 oracle and results are under research/audio and `.deps/audio-multiply-match/`.
 Next is the register-copy encoding, followed by integration that preserves the
 interworking entry, and ultimately replacing that remaining assembly entry.
+
+### September 9: matching multiply-high ARM body integrated
+
+`src/m4a_multiply_high.c` now supplies the 12-byte ARM body at 080CF4BC.
+The opt-in matching_copy_add_zero pass selects the existing ARM ADD pattern
+with a zero immediate for distinct general-register SI copies. It validates
+the replacement RTL and leaves flags unchanged. The installed guard checker
+accepts the copy, rejects Thumb mode, absent copies and immediate-only returns,
+and verifies unchanged unannotated output.
+
+The original Thumb ADR/BX entry remains at 080CF4B8. Its ADR targets the end
+of that assembly section, immediately followed by the C body; a linker ASSERT
+ensures the ARM function starts four bytes after the public Thumb entry. The
+following SoundMain assembly is split into its own section without relocation.
+All three original ARM words match: UMULL, ADD #0, BX LR. The complete ROM
+checksum passes and the production oracle passes 41,984 cases through both
+entries and return modes, checking registers, SP and flags.
+
+Inventory is 470 main C files, 598 inline sites (253 register bindings, 337
+empty constraints, one directive-only template and seven instruction templates).
+The linked C object contains twelve ARM bytes and the linked audit has no
+orphan mappings. The assembly-marker count remains 32 because the public
+Thumb entry remains assembly. Audio engine code, entry shims, naked fallback,
+embedded/transfer code and complete executable classification remain unfinished.
+Evidence is retained under `.deps/audio-multiply-match/`.
