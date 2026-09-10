@@ -1111,13 +1111,15 @@ SECTIONS
         ASSERT((call_r3 & ~1) >= __mplay_entry_callback_invoke_start + 4 &&
                (call_r3 & ~1) <= __mplay_entry_callback_invoke_start + 4 + 4194302,
                "MPlayMain entry callback trampoline out of range");
-        __mplay_entry_frame_tail_start = .;
-        src/m4a_1.o(.text.mplay_entry_frame_tail);
-        __mplay_entry_frame_tail_end = .;
-        ASSERT(__mplay_entry_frame_tail_start == (MPlayMain & ~1) + 40 &&
-               __mplay_entry_frame_tail_end - __mplay_entry_frame_tail_start == 2 &&
-               __mplay_entry_frame_tail_end == (MPlayMainEntryStatus & ~1),
-               "MPlayMain entry frame tail extent or continuation changed");
+        __mplay_entry_frame_start = .;
+        src/m4a_mplay_entry_frame.o(.text);
+        __mplay_entry_frame_end = .;
+        src/m4a_1.o(.text.after_mplay_entry_frame);
+        ASSERT((MPlayMainEntryFrame & ~1) == MPlayMainEntryFrameBoundary &&
+               __mplay_entry_frame_start == (MPlayMain & ~1) + 28 &&
+               __mplay_entry_frame_end - __mplay_entry_frame_start == 14 &&
+               __mplay_entry_frame_end == (MPlayMainEntryStatus & ~1),
+               "MPlayMain entry frame extent or continuation changed");
         __mplay_entry_status_start = .;
         src/m4a_mplay_entry_status.o(.text);
         __mplay_entry_status_end = .;

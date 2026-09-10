@@ -939,6 +939,6 @@ python3 tools/arm-dispatch/build_thumb_saved_entry_frame.py --compiler .deps/gcc
 .deps/arm-oracle-venv/bin/python research/audio/check_mplay_lock_callback_frame_model.py --frame-candidate
 ```
 
-The frame is a verified candidate, not yet integrated. Its direct checker passes
+The frame is integrated as matching C in production. Its direct checker passes
 26,880 cases and rejects 15 unsupported contracts; the complete original entry
 path with the candidate frame passes 86,016 model cases, including lock rejections.

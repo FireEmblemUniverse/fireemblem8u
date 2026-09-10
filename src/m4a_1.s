@@ -309,17 +309,10 @@ MPlayMainEntryCallbackSetupBoundary:
 	.global MPlayMainEntryCallbackInvokeBoundary
 MPlayMainEntryCallbackInvokeBoundary:
 	.section .text.after_mplay_entry_callback_invoke, "ax", %progbits
-	.global MPlayMainEntryFrame
-MPlayMainEntryFrame:
+	.global MPlayMainEntryFrameBoundary
+MPlayMainEntryFrameBoundary:
 _081DD840:
-	pop {r0}
-	push {r4-r7}
-	mov r4, r8
-	mov r5, r9
-	mov r6, r10
-	mov r7, r11
-	.section .text.mplay_entry_frame_tail, "ax", %progbits
-	push {r4-r7}
+	.section .text.after_mplay_entry_frame, "ax", %progbits
 	.global MPlayMainEntryStatusBoundary
 MPlayMainEntryStatusBoundary:
 	.section .text.after_mplay_entry_status, "ax", %progbits

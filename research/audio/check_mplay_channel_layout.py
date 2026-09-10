@@ -183,8 +183,8 @@ def main():
  for name,offset in [('fade_callee_far',4194308),('fade_callee_backward',0)]:
   needle='        ASSERT((FadeOutBody & ~1) >= __mplay_fade_invoke_start + 4'
   cases.append((name,source.replace(needle,'        FadeOutBody = __mplay_fade_invoke_start + '+str(offset)+';\n'+needle,1),'fade callee out of range'))
- cases.append(('entry_frame_tail_extent',source.replace('        __mplay_entry_frame_tail_end = .;','        . += 2;\n        __mplay_entry_frame_tail_end = .;'),'entry frame tail extent or continuation'))
- cases.append(('entry_frame_tail_continuation',source.replace('        __mplay_entry_status_start = .;','        . += 2;\n        __mplay_entry_status_start = .;'),'entry frame tail extent or continuation'))
+ cases.append(('entry_frame_extent',source.replace('        __mplay_entry_frame_end = .;','        . += 2;\n        __mplay_entry_frame_end = .;'),'entry frame extent or continuation'))
+ cases.append(('entry_frame_continuation',source.replace('        __mplay_entry_status_start = .;','        . += 2;\n        __mplay_entry_status_start = .;'),'entry frame extent or continuation'))
  for part in ('entry_callback_setup','entry_callback_invoke'):
   stem='mplay_'+part
   cases.append((part+'_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),part+' extent or continuation'))

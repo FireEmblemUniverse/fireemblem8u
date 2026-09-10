@@ -1160,3 +1160,11 @@ src/m4a_mplay_entry_callback_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
 src/m4a_mplay_entry_callback_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_entry_callback_invoke.o: C_END_ALIGN := 1
 src/m4a_mplay_entry_callback_invoke.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-trampoline=call_r3 -fplugin-arg-thumb_callback_tail-continuation=MPlayMainEntryFrame -fplugin-arg-thumb_callback_tail-fallthrough
+
+THUMB_SAVED_ENTRY_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_saved_entry_frame.so
+$(THUMB_SAVED_ENTRY_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_saved_entry_frame.cc tools/arm-dispatch/build_thumb_saved_entry_frame.py
+	python3 tools/arm-dispatch/build_thumb_saved_entry_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_entry_frame.o: $(THUMB_SAVED_ENTRY_FRAME_PLUGIN)
+src/m4a_mplay_entry_frame.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_entry_frame.o: C_END_ALIGN := 1
+src/m4a_mplay_entry_frame.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SAVED_ENTRY_FRAME_PLUGIN) -fplugin-arg-thumb_saved_entry_frame-continuation=MPlayMainEntryStatus
