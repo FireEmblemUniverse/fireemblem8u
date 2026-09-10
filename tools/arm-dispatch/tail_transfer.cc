@@ -65,8 +65,9 @@ bool frame_word(rtx p) {
     if (GET_CODE(address)==PLUS&&CONST_INT_P(XEXP(address,1))) { offset=INTVAL(XEXP(address,1));address=XEXP(address,0); }
     return reg_is(address,SP_REGNUM)&&offset>=0&&offset<=60&&!(offset&3);
 }
+// Empty self-ties may retain any general register; SP/LR/PC are excluded.
 bool empty_tie(rtx p) {
-    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode||REGNO(SET_DEST(p))>=8) return false;
+    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode||REGNO(SET_DEST(p))>=13) return false;
     rtx a=SET_SRC(p);
     return GET_CODE(a)==ASM_OPERANDS&&GET_MODE(a)==SImode&&!ASM_OPERANDS_TEMPLATE(a)[0]
         &&!strcmp(ASM_OPERANDS_OUTPUT_CONSTRAINT(a),"=r")&&ASM_OPERANDS_OUTPUT_IDX(a)==0

@@ -6334,3 +6334,30 @@ Reviewed non-library assembly is now 2,432 main-ROM and 420 expanded-payload byt
 There are 764 inline sites: 378 register bindings, 378 empty constraints, one
 directive and seven instruction templates. Volume/loop setup, entry/frame handling,
 playback routines and final executable coverage accounting remain unfinished.
+
+
+### Buffer entry private transfer (September 10, 2026; baseline d7169a14)
+
+The research buffer checker now supports `--literals --transfer`. It appends a
+C indirect terminal call through the bound r3 after an empty constraint and uses
+the existing private-frame tail-transfer contract. The generated final instruction
+is the original BX r3. The original ROM and candidate both execute to 0x03002c60
+in Thumb mode; 98,304 cases verify all r0-r12, SP/LR, NZCV, complete test RAM and
+ordered frame/info accesses. This is transfer-entry verification, not execution
+of the subsequent mixer body.
+
+The tail-transfer guard now accepts exact empty self-ties for registers r0-r12,
+including the existing r8 sample-count constraint. It still rejects SP/LR ties,
+instruction-bearing assembly and arbitrary untied assembly. Regression checks
+accept r8/r12 empty ties, reject their instruction-bearing variants and all 12
+existing indirect-transfer invalid contracts, and preserve unannotated output.
+All 17 existing private-frame/adjacency rejection cases also pass.
+
+The candidate remains research: 48 section bytes, 34 instruction bytes before
+BX versus the original 32. An extra comparison, commuted ADD operands and private
+literal placement still prevent byte matching. No C ownership increase is claimed.
+`make compare -j8` passes and the production ELF hash remains identical to the
+current ownership receipt. Evidence: `.deps/soundmain-packed/buffer-entry/report.json`
+and `buffer-entry-transfer.log`; reproducible via
+`research/audio/check_soundmain_buffer_entry.py --compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc --literals --transfer`.

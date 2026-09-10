@@ -17,6 +17,12 @@ def main():
   result=subprocess.run(cmd+list(extra)+[str(src),'-o',str(obj)],capture_output=True,text=True)
   return result,obj
  result,_=compile('positive',source);assert not result.returncode,result.stderr
+ for reg in ('r8','r12'):
+  high='register unsigned held asm("'+reg+'");\n'+source
+  high=high.replace('    mixerReverb =', '    asm("" : "+r"(held));\n    mixerReverb =')
+  assert high!=('register unsigned held asm("'+reg+'");\n'+source)
+  result,_=compile('tie_'+reg,high);assert not result.returncode,result.stderr
+  result,_=compile('executable_tie_'+reg,high.replace('asm("" : "+r"(held))','asm("nop" : "+r"(held))'));assert result.returncode,result.stderr
  cases={
  'missing_contract':(source,{'indirect':None}),
  'wrong_register':(source,{'indirect':'0'}),
@@ -36,5 +42,5 @@ def main():
  plain=source.replace('__attribute__((matching_tail_transfer))','')
  result,obj=compile('plain',plain,False);assert not result.returncode,result.stderr
  original=obj.read_bytes();result,obj=compile('plain',plain);assert not result.returncode and original==obj.read_bytes(),result.stderr
- print('Mixed direct/indirect tails accepted; 12 unsupported contracts rejected; unannotated output unchanged.')
+ print('Mixed direct/indirect tails accepted; 14 unsupported contracts rejected; r8/r12 empty ties accepted; unannotated output unchanged.')
 if __name__=='__main__':main()
