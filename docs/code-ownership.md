@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `b5168c46`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `965bd9d8`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
@@ -65,6 +65,15 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 | Object | Instruction bytes |
 |---|---:|
 | `src/hardware.o` | 6,330 |
+
+## Reviewed assembly inside C
+
+| Scope | Inline instruction bytes | Assembly sources + reviewed inline |
+|---|---:|---:|
+| main_rom | 410 | 3,246 |
+| mgfembp | 2 | 420 |
+
+The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
 
 ## Interpretation
 

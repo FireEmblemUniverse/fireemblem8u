@@ -19,7 +19,7 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.48%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Known assembly-source instructions | **2,836 bytes in main ROM; 418 bytes in expanded payload** — excludes assembly inside C and runtime archives |
+| Reviewed non-library assembly | **3,246 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated audio byte-load entry | `████████████████████` **Both bytes exact; 49,152 production cases pass** |
 | Integrated multiply-high ARM body | `████████████████████` **All 12 ARM bytes exact; 41,984 production cases pass; Thumb entry remains assembly** |
@@ -60,8 +60,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: measure the assembly within mixed C objects and classify runtime
-archive code, while continuing the remaining audio implementation work.
+Next milestone: classify runtime archive code and continue the remaining audio work.
+All eight detected instruction-bearing inline sites now have source/symbol/byte
+checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
+The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
+of literals/alignment. Combined with assembly sources, reviewed non-library
+assembly totals 3,246 main-ROM bytes and 420 expanded-payload bytes. This is
+still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
 719,132 C-owned, 33,870 in C objects containing assembly, 2,836 in assembly

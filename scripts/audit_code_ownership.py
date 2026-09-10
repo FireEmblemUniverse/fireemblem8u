@@ -41,6 +41,12 @@ def main():
         base=ROOT/embedded['path']
         info=read_json([sys.executable,'scripts/audit_linked_code.py','--elf',str(base/'mgfembp.elf'),'--map',str(base/'mgfembp.map'),'--start',hex(embedded['load_address']),'--size',str(embedded['expanded_size'])])
         images[embedded['path']]=classify(info,embedded['source_inventory'],base)
+    inline=read_json([sys.executable,'scripts/audit_inline_regions.py'])
+    for name,img in images.items():
+        assert inline['images'][name]['elf_sha256']==img['elf_sha256']
+        img['reviewed_inline_instruction_bytes']=inline['totals'][name]
+        assert inline['totals'][name]<=img['categories'].get('c_with_assembly',0)
+        img['known_nonarchive_assembly_bytes']=img['categories'].get('assembly_source',0)+inline['totals'][name]
     report=dict(scope='Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.',baseline_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),images=images,limitations=[
         'C-owned does not prove assembly-free generated code, complete recovery or native engine compatibility.',
         'C-with-assembly counts the entire containing object; it is not all remaining assembly.',
@@ -62,6 +68,10 @@ def main():
         lines += ['', 'C objects needing assembly review (whole-object sizes, **not** remaining assembly bytes):','', '| Object | Instruction bytes |','|---|---:|']
         for obj in img['objects']:
             if obj['category']=='c_with_assembly':lines.append(f"| `{obj['object']}` | {obj['instruction_bytes']:,} |")
+    lines += ['','## Reviewed assembly inside C','', '| Scope | Inline instruction bytes | Assembly sources + reviewed inline |','|---|---:|---:|']
+    for name,img in images.items():
+        lines.append(f"| {name} | {img['reviewed_inline_instruction_bytes']:,} | {img['known_nonarchive_assembly_bytes']:,} |")
+    lines += ['', 'The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.']
     lines += ['','## Interpretation','']+['- '+x for x in report['limitations']]
     a.markdown.write_text('\n'.join(lines)+'\n')
     print(json.dumps({name:dict(mapped_instruction_bytes=x['mapped_instruction_bytes'],categories=x['categories']) for name,x in images.items()},indent=2))

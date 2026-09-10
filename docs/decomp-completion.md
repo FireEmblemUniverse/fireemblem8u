@@ -3620,3 +3620,26 @@ claiming a full decompilation percentage. These totals include inherited work.
 Validation: the main-ROM checksum and all three embedded payload comparison
 targets pass. Inventory was regenerated after those checks. Production source
 is unchanged by this measurement milestone.
+
+### September 10: inline assembly narrowed to verified instruction regions
+
+`scripts/audit_inline_regions.py` verifies all seven main-ROM and one payload
+instruction-template sites against source markers, function symbols, expected
+opcodes and mapped-region ownership. Its source inventory cross-check rejects
+new or removed inline sites; symbol bounds, overlapping regions, unknown mapping
+kinds and changed expected opcode bytes also fail. ELF/map fingerprints identify
+the measured build. The naked fallback is measured by its full symbol extent
+but only ARM/Thumb mapped bytes enter the instruction count.
+
+Main inline assembly contributes 410 instruction bytes: 396 in the 436-byte
+UnitList_PageChangeIn_Loop body (40 bytes are literals/alignment), four NOP bytes
+in StartAvailableTileEvent, two SWI bytes each in EnterSleepMode and
+MusicPlayerJumpTableCopy, and six bytes for the PC read and calibrated loop in
+MultiBootWaitCycles. The expanded payload contributes one two-byte SWI in
+func_02011F4C. These are verified sites, not whole containing-object estimates.
+
+Combined with mapped assembly-source instructions, known non-library assembly
+is 3,246 bytes in the main image and 420 bytes in the payload. Runtime archive
+classification (21,792 main and 820 payload bytes), hidden-code/mapping gaps and
+other completion requirements remain open. The ownership audit now regenerates
+and checks these refined totals. No production source changed in this milestone.

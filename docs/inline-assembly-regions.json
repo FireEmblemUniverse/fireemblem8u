@@ -1,0 +1,91 @@
+{
+  "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
+  "totals": {
+    "main_rom": 410,
+    "mgfembp": 2
+  },
+  "sites": [
+    {
+      "image": "main_rom",
+      "source": "src/unitlistscreen.c",
+      "function": "UnitList_PageChangeIn_Loop",
+      "address": "0x8091f10",
+      "region_bytes": 436,
+      "instruction_bytes": 396,
+      "literal_alignment_bytes": 40
+    },
+    {
+      "image": "main_rom",
+      "source": "src/eventinfo.c",
+      "function": "StartAvailableTileEvent",
+      "address": "0x8084320",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/eventinfo.c",
+      "function": "StartAvailableTileEvent",
+      "address": "0x8084324",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/hardware.c",
+      "function": "EnterSleepMode",
+      "address": "0x8001ce2",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/m4a.c",
+      "function": "MusicPlayerJumpTableCopy",
+      "address": "0x80d054c",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/sio_multiboot_wait.c",
+      "function": "MultiBootWaitCycles",
+      "address": "0x804e024",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/sio_multiboot_wait.c",
+      "function": "MultiBootWaitCycles",
+      "address": "0x804e036",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/hardware.c",
+      "function": "func_02011F4C",
+      "address": "0x2011fa4",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    }
+  ],
+  "images": {
+    "main_rom": {
+      "elf_sha256": "c50912e51dabd9922e517fd98a1f8920191e27165d98c7fbef5336b478fdae25",
+      "map_sha256": "f754541f514ce531fde2de0d73b0fb231dd13c77cc7dd889191cdb035d1a3338"
+    },
+    "mgfembp": {
+      "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
+      "map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0"
+    }
+  }
+}

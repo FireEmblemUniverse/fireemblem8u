@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "b5168c46867eafc4506629878247b3f4ed5b6ccc",
+  "baseline_commit": "965bd9d895cd7e922c17634795a88f5c8d23b177",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2071,7 +2071,9 @@
       "map_sha256": "f754541f514ce531fde2de0d73b0fb231dd13c77cc7dd889191cdb035d1a3338",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
-      "outside_input_bytes": 2574801
+      "outside_input_bytes": 2574801,
+      "reviewed_inline_instruction_bytes": 410,
+      "known_nonarchive_assembly_bytes": 3246
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,
@@ -2247,7 +2249,9 @@
       "map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9239,
-      "outside_input_bytes": 1
+      "outside_input_bytes": 1,
+      "reviewed_inline_instruction_bytes": 2,
+      "known_nonarchive_assembly_bytes": 420
     }
   },
   "limitations": [
