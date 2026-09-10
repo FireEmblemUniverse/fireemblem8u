@@ -3424,3 +3424,26 @@ stack guard checker accepts PUSH and rejects absent frames, larger frames and
 unwind metadata, and proves unchanged output for an unannotated fixture.
 The remaining restore uses LDR r0,[SP] / ADD SP,#4 rather than POP r0, and the
 literal layout still differs. This remains research-only; production is unchanged.
+
+### September 9: audio filter POP matched; entry alignment isolated
+
+The pinned backend now has a semantic single-low-register Thumb POP pattern,
+expressing a word load from SP and simultaneous SP += 4. The research stack-word
+pass recognizes the paired restore, crossing only notes and GCC's zero-code
+VUNSPEC_BLOCKAGE epilogue marker. It retains the load's memory attributes and
+requires exactly one restore paired with the saved register. No executable
+inline assembly is introduced in the C source.
+
+The rebuilt compiler passes the unchanged production full-ROM checksum. The
+research guard checker accepts PUSH/POP, rejects absent/larger frames, missing
+restores and unwind metadata, and leaves unannotated output unchanged. The
+filter oracle additionally checks the saved word and neighboring stack canaries.
+It now resolves the candidate entry from nm rather than assuming its address.
+
+Although PUSH and POP match, the candidate still occupies 30 bytes versus 26:
+its local literal forces four-byte section alignment, moving chk_adr_r2 from
+080CF972 to 080CF974 and adding internal padding. This layout difference remains
+unresolved. The shared byte-load prefix at 080CF970 and existing exported pool
+at 080CF988 provide the next integration boundary to investigate. Production
+remains unchanged; the filter remains research-only. Rebuild and verification
+logs are retained in `.deps/address-filter-match/`.

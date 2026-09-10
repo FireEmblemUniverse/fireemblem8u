@@ -55,6 +55,23 @@ public:
         if (!validate_change(first,&PATTERN(first),replacement,false)) fatal_error(UNKNOWN_LOCATION,"stack push pattern rejected");
         RTX_FRAME_RELATED_P(first)=0;REG_NOTES(first)=nullptr;
         delete_insn(second);
+        unsigned restores=0;
+        for (rtx_insn *i=NEXT_INSN(first);i;i=NEXT_INSN(i)) {
+            if (!NONJUMP_INSN_P(i)||GET_CODE(PATTERN(i))!=SET) continue;
+            rtx load=PATTERN(i),loaded=SET_SRC(load);
+            if (!rtx_equal_p(SET_DEST(load),reg)||!MEM_P(loaded)||GET_MODE(loaded)!=SImode||!rtx_equal_p(XEXP(loaded,0),stack_pointer_rtx)) continue;
+            rtx_insn *adjust=NEXT_INSN(i);
+            while (adjust && (NOTE_P(adjust)||DEBUG_INSN_P(adjust)
+                || (NONJUMP_INSN_P(adjust) && GET_CODE(PATTERN(adjust))==UNSPEC_VOLATILE && XINT(PATTERN(adjust),1)==VUNSPEC_BLOCKAGE))) adjust=NEXT_INSN(adjust);
+            if (!adjust||!NONJUMP_INSN_P(adjust)||GET_CODE(PATTERN(adjust))!=SET) continue;
+            rtx change=PATTERN(adjust),sum=SET_SRC(change);
+            if (!rtx_equal_p(SET_DEST(change),stack_pointer_rtx)||GET_CODE(sum)!=PLUS||!rtx_equal_p(XEXP(sum,0),stack_pointer_rtx)||!CONST_INT_P(XEXP(sum,1))||INTVAL(XEXP(sum,1))!=4) continue;
+            rtx pop=gen_rtx_PARALLEL(VOIDmode,gen_rtvec(2,copy_rtx(load),copy_rtx(change)));
+            if (!validate_change(i,&PATTERN(i),pop,false)) fatal_error(UNKNOWN_LOCATION,"stack pop pattern rejected");
+            REG_NOTES(i)=nullptr;RTX_FRAME_RELATED_P(i)=0;
+            delete_insn(adjust);restores++;
+        }
+        if (restores!=1) fatal_error(UNKNOWN_LOCATION,"stack word requires exactly one paired restore");
         return 0;
     }
 };

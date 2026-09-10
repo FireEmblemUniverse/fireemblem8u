@@ -13,11 +13,11 @@ def main():
         src=out/(name+'.c');src.write_text(text);dest=out/(name+'.s')
         r=subprocess.run([a.compiler,*flags,*extra,*(['-fplugin='+str(a.plugin.resolve())] if plugin else []),str(src),'-o',str(dest)],capture_output=True,text=True)
         return r,dest
-    r,d=compile_case('accepted',source);assert not r.returncode and '\tpush\t{r0}' in d.read_text(),r.stderr
-    for name,text,extra in [('no_frame',source.replace('volatile unsigned saved=value; value=0; value=saved;', 'value=0;'),()),('large_frame',source.replace('volatile unsigned saved=value; value=0; value=saved;', 'volatile unsigned saved[2]; saved[0]=value; saved[1]=value; value=saved[0]+saved[1];'),()),('unwind',source,('-funwind-tables',))]:
+    r,d=compile_case('accepted',source);assert not r.returncode and '\tpush\t{r0}' in d.read_text() and '\tpop\t{r0}' in d.read_text(),r.stderr
+    for name,text,extra in [('no_frame',source.replace('volatile unsigned saved=value; value=0; value=saved;', 'value=0;'),()),('large_frame',source.replace('volatile unsigned saved=value; value=0; value=saved;', 'volatile unsigned saved[2]; saved[0]=value; saved[1]=value; value=saved[0]+saved[1];'),()),('missing_restore',source.replace('value=saved;', 'value=1;'),()),('unwind',source,('-funwind-tables',))]:
         r,d=compile_case(name,text,extra);assert r.returncode and 'stack word' in r.stderr,(name,r.stderr)
     plain=source.replace('__attribute__((matching_stack_word))','')
     r,d=compile_case('plain',plain,plugin=False);assert not r.returncode,r.stderr
     original=d.read_bytes();r,d=compile_case('plain',plain);assert not r.returncode and original==d.read_bytes(),r.stderr
-    print('PUSH accepted; absent frame, larger frame and unwind metadata rejected; unannotated output unchanged.')
+    print('PUSH/POP accepted; absent frame, larger frame, missing restore and unwind metadata rejected; unannotated output unchanged.')
 if __name__=='__main__':main()

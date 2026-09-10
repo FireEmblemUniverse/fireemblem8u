@@ -145,3 +145,14 @@
   "TARGET_THUMB1"
   "subs\t%0, %0, #1\n\tbgt\t%l1"
   [(set_attr "length" "4") (set_attr "type" "multiple")])
+
+;; Restore a single low register from the stack with flag-preserving writeback.
+;; The opt-in stack-word pass proves the adjacent load and SP adjustment.
+(define_insn "match_thumb_pop_word"
+  [(set (match_operand:SI 0 "low_register_operand" "=l")
+        (mem:SI (reg:SI SP_REGNUM)))
+   (set (reg:SI SP_REGNUM)
+        (plus:SI (reg:SI SP_REGNUM) (const_int 4)))]
+  "TARGET_THUMB1"
+  "pop\t{%0}"
+  [(set_attr "length" "2") (set_attr "type" "load_4")])
