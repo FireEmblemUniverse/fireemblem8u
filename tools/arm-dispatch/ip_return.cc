@@ -99,9 +99,18 @@ bool forward_exit(rtx_insn *i) {
 // All targets must remain after the LR save and before the terminal epilogue.
 // This permits loops without allowing re-entry into the frame or its pool data.
 bool body_branch(rtx_insn *i,rtx_insn *push) {
-    rtx p=PATTERN(i);
-    if (GET_CODE(p)!=SET || SET_DEST(p)!=pc_rtx || mentions(p,SP_REGNUM)
-        || mentions(p,LR_REGNUM) || mentions(p,IP_REGNUM)) return false;
+    rtx full=PATTERN(i),p=full;
+    if (mentions(full,SP_REGNUM) || mentions(full,LR_REGNUM) || mentions(full,IP_REGNUM)) return false;
+    if (GET_CODE(p)==PARALLEL) {
+        if (XVECLEN(p,0)!=2) return false;
+        rtx update=XVECEXP(p,0,1);
+        if (GET_CODE(update)!=SET || !REG_P(SET_DEST(update)) || REGNO(SET_DEST(update))>=8
+            || GET_MODE(SET_DEST(update))!=SImode || GET_CODE(SET_SRC(update))!=PLUS
+            || !rtx_equal_p(XEXP(SET_SRC(update),0),SET_DEST(update))
+            || !CONST_INT_P(XEXP(SET_SRC(update),1)) || INTVAL(XEXP(SET_SRC(update),1))!=-1) return false;
+        p=XVECEXP(p,0,0);
+    }
+    if (GET_CODE(p)!=SET || SET_DEST(p)!=pc_rtx) return false;
     rtx target=SET_SRC(p);
     if (GET_CODE(target)==IF_THEN_ELSE) {
         if (XEXP(target,2)!=pc_rtx) return false;
@@ -139,7 +148,7 @@ public:
             // Only compiler-generated pool data may follow the terminal return.
             if (epilogue && pool_barrier && GET_CODE(p)==UNSPEC_VOLATILE) {
                 int kind=XINT(p,1);
-                if (kind==VUNSPEC_ALIGN && XVECLEN(p,0)==1 && XVECEXP(p,0,0)==const0_rtx) continue;
+                if (kind==VUNSPEC_ALIGN && XVECLEN(p,0)==1 && (XVECEXP(p,0,0)==const0_rtx || XVECEXP(p,0,0)==const1_rtx)) continue;
                 if (kind==VUNSPEC_POOL_4 && XVECLEN(p,0)==1 && (CONST_INT_P(XVECEXP(p,0,0)) || GET_CODE(XVECEXP(p,0,0))==SYMBOL_REF)) continue;
                 if (kind==VUNSPEC_POOL_END) continue;
             }

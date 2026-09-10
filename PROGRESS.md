@@ -52,12 +52,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match the jump-table countdown branch without its redundant comparison.
-The jump-table candidate now uses the original shared literal and fits the
-24-byte section. All 3,072 original-address cases agree on r0-r12, flags and
-copied data, but the extra comparison still prevents a byte match. Symbolic
-shared pools pass 672 executions and reject 13 invalid configurations. The
-complete production ROM still matches; the routine remains assembly.
+Next milestone: promote countdown support and integrate the exact jump-table copy.
+The jump-table candidate now matches all 24 bytes and passes 3,072 executions
+at its original address, including r0-r12, flags, copied data and return modes.
+The new countdown passes 320 standalone original/folded executions and rejects
+eight unsupported loops. Private-return checks pass 128 cases and reject 26
+unsupported forms. The rebuilt compiler passes the full existing ROM checksum.
+The jump-table routine remains assembly until production integration completes.
 LFO speed and modulation commands are integrated as C. Both 18-byte bodies
 match; 99,072 production cases verify zero-byte resets, three modulation types,
 track flags, unchecked low reads, pointer aliases and all r0-r12/return flags.

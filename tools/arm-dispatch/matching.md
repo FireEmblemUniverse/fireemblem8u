@@ -131,3 +131,17 @@
   "TARGET_THUMB1"
   "b\t%0"
   [(set_attr "length" "2") (set_attr "type" "branch")])
+
+;; A positive bounded counter decremented once per iteration cannot overflow.
+;; Only the guarded countdown pass may select this short backward branch.
+(define_c_enum "unspec" [UNSPEC_MATCH_THUMB_COUNTDOWN])
+(define_insn "match_thumb_countdown"
+  [(set (pc)
+        (if_then_else
+         (gt (unspec:SI [(match_operand:SI 0 "s_register_operand" "+l")]
+                       UNSPEC_MATCH_THUMB_COUNTDOWN) (const_int 0))
+         (label_ref (match_operand 1 "" "")) (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))]
+  "TARGET_THUMB1"
+  "subs\t%0, %0, #1\n\tbgt\t%l1"
+  [(set_attr "length" "4") (set_attr "type" "multiple")])

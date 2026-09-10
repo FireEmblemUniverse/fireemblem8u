@@ -19,6 +19,7 @@ def main():
     p.add_argument('--require-match', action='store_true')
     p.add_argument('--plugin', type=Path)
     p.add_argument('--shared-plugin', type=Path)
+    p.add_argument('--countdown-plugin', type=Path)
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
@@ -31,6 +32,15 @@ def main():
         assert args.plugin, 'Shared-pool execution requires the compact private-return candidate'
         flags += ['-fplugin='+str(args.shared_plugin.resolve()),
                   '-fplugin-arg-thumb_shared_literal-symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate']
+    if args.countdown_plugin:
+        assert args.plugin and args.shared_plugin
+        flags += ['-DTABLE_COUNTDOWN', '-fplugin='+str(args.countdown_plugin.resolve()),
+                  '-fplugin-arg-countdown-preserves-counter=chk_adr_r2',
+                  '-fplugin-arg-thumb_shared_literal-zero-pool-padding']
+    if args.countdown_plugin:
+        # GCC inserts same-anchor passes in reverse registration order.
+        loads = [flag for flag in flags if flag.startswith('-fplugin=')]
+        flags = loads[::-1] + [flag for flag in flags if not flag.startswith('-fplugin=')]
     subprocess.run([args.compiler, *flags, '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
                     str(ROOT/'include'), str(args.source), '-o', str(OUT/'candidate.s')], check=True)
     with (OUT/'candidate.s').open('a') as f:

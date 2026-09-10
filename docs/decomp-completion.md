@@ -3186,3 +3186,38 @@ production ROM. The routine remains assembly, with 35 production assembly entry
 markers. Evidence is retained under `.deps/jump-table-match/`, including
 `shared-oracle.log`, `installed-shared-oracle.log`, `installed-symbol-contract.log`
 and `shared-compare.log`. The next step is a guarded countdown rewrite.
+
+
+### September 9: exact jump-table countdown candidate
+
+The pinned backend now contains `match_thumb_countdown`, selected only by the
+research `matching_countdown` pass. It bundles subtraction by one with the
+short backward signed-positive branch, avoiding the redundant comparison.
+The proof requires one positive constant initializer (1..255), a single loop
+branch, an adjacent decrement, no other counter writes and a conservative loop
+span below the short-branch limit. Calls require an explicit counter-preservation
+manifest; inline assembly and additional control flow are rejected. This range
+ensures subtraction cannot overflow, so its flags support the original branch.
+
+The jump-table helper is explicitly declared to preserve the counter. Its
+private contract overrides generic call-clobber analysis, while all other writes
+remain checked. The private-return checker now recognizes the bundled low-register
+decrement/branch and compiler-generated zero pool alignment; its stack and
+return-register exclusions remain in force. This supports composition with the
+shared-literal and countdown passes.
+
+`research/audio/check_countdown.py` passes 320 original/folded executions for
+counts 1, 2, 36, 127 and 255 across all NZCV combinations and ARM/Thumb returns.
+It rejects eight unsupported loop forms and leaves unannotated code unchanged.
+The private-return suite passes 128 cases and rejects 26 unsupported forms.
+The rebuilt installed compiler passes `make compare -j8` for the existing ROM.
+
+`research/audio/check_jump_table.py --compiler COMPILER --plugin IP_PLUGIN
+--shared-plugin SHARED_PLUGIN --countdown-plugin COUNTDOWN_PLUGIN --require-match`
+now matches all 24 original bytes and passes 3,072 original-address executions
+with no memory, register or flag differences. The countdown operation and shared
+zero padding reproduce the original instruction stream and alignment. The
+candidate is still research-only; next is promotion of its pass/builder and
+production integration. There remain 35 production assembly entry markers.
+Evidence is retained in `.deps/jump-table-match/`, including the countdown build,
+contract, private-contract, oracle and final full-ROM comparison logs.
