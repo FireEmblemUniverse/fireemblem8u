@@ -2389,3 +2389,29 @@ explicitly, rather than relying on relocation failure.
 The VSync C candidate remains 84 bytes, with its previously verified 2,304
 cases unchanged. This probe resolves the relocation mechanism and required
 validation for the next compiler change; production remains unchanged.
+
+
+### VSync shared Thumb literals emitted by compiler — September 9, 2026
+
+The experimental `thumb_shared_literal.md` pattern and corresponding C++ pass
+now generate the two forward shared loads from constant-to-symbol manifests.
+Selected constants are removed from the local pool and retained pool references
+are adjusted. Unsupported references fail compilation. The load is represented
+as an explicit volatile late operation; Thumb's generic immediate predicate
+rejects external symbols, so this pattern accepts only SYMBOL_REF operands
+explicitly. It emits a normal LDR and an R_ARM_THM_PC8 relocation, with no
+post-compilation byte edits.
+
+`research/audio/build_thumb_shared.py` reconstructs the experimental extension
+from the maintained backend, rebuilds the build-tree compiler, stages compatible
+generated plugin headers, builds the plugin and records hashes. It leaves the
+installed production compiler untouched. The ignored source/build tree currently
+contains this extension; the production bootstrap will restore its canonical
+matching.md until this work is promoted.
+
+The checker links shared pools at their original `0x080CFDC8` and `0x080CFDCC`
+addresses and asserts conservative forward-range bounds. Both emitted loads
+now match exactly. The candidate is down from 84 to the original 76 bytes.
+All 2,304 cases pass with zero r0-r12 or return-flag differences, preserving
+ordered counter/MMIO accesses. The extra counter compare and shift/carry branch
+selection remain different; production integration is not yet possible.

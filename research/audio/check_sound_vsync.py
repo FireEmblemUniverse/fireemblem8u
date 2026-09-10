@@ -1,17 +1,24 @@
 #!/usr/bin/env python3
 """Compare VSync C reconstruction with ROM CPU behavior and ordered MMIO accesses."""
 from pathlib import Path
-import subprocess,struct,json
+import subprocess,struct,json,argparse,hashlib
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/sound-vsync-match';ENTRY=0x080cfb1c;INFO=0x02000000;IO=0x04000000;IDENT=0x68736d53
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--compiler",default="arm-none-eabi-gcc")
+    parser.add_argument("--plugin",type=Path)
+    args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-if-conversion','-fno-if-conversion2','-fno-schedule-insns','-fno-schedule-insns2','-fno-reorder-blocks']
-    subprocess.run(['arm-none-eabi-gcc','-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
+    if args.plugin:flags += ['-fplugin='+str(args.plugin.resolve()),'-fplugin-arg-thumb_shared_literal-literal=0x03007ff0,SharedSoundInfo','-fplugin-arg-thumb_shared_literal-literal=0x68736d53,SharedIdent']
+    subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
-    subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.o'),str(OUT/'candidate.bin')],check=True)
+    (OUT/'link.ld').write_text(f'SECTIONS {{ . = {ENTRY:#x}; .text : {{ *(.text) }} }} SharedSoundInfo = 0x080cfdc8; SharedIdent = 0x080cfdcc;\nASSERT(SharedSoundInfo >= ADDR(.text)+SIZEOF(.text) && SharedIdent+4 <= ADDR(.text)+1024, "Shared Thumb literals outside conservative forward range")\n')
+    subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'link.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
+    subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
     candidate=(OUT/'candidate.bin').read_bytes();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0xcfb1c:0xcfb68];count=0;flag_differences=0;register_differences=0
     for ident in (0,IDENT-1,IDENT,IDENT+1,IDENT+2,0xffffffff):
         for counter in (0,1,2,127,128,255):
@@ -53,6 +60,6 @@ def main():
                             for reg in range(4,12):assert uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(reg)))==0x12340000+reg
                             results.append((uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000,[uc.reg_read(getattr(r,"UC_ARM_REG_R"+str(reg))) for reg in range(13)]))
                         flag_differences+=results[0][0]!=results[1][0];register_differences+=results[0][1]!=results[1][1];count+=1
-    report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'return_flag_difference_cases':flag_differences,'r0_r12_difference_cases':register_differences,'complete_match':candidate==original,'scope':'CPU memory and ordered MMIO accesses; DMA hardware transfer execution/timing not modeled.'}
+    report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'return_flag_difference_cases':flag_differences,'r0_r12_difference_cases':register_differences,'complete_match':candidate==original,'candidate_sha256':hashlib.sha256(candidate).hexdigest(),'differing_halfword_offsets':[i for i in range(0,min(len(candidate),len(original)),2) if candidate[i:i+2]!=original[i:i+2]],'scope':'CPU memory and ordered MMIO accesses; DMA hardware transfer execution/timing not modeled.'}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report)
 if __name__=='__main__':main()
