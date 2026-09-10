@@ -25,7 +25,7 @@ int plugin_is_GPL_compatible;
 namespace {
 struct entry { unsigned long value; std::string symbol; std::string source_symbol; };
 std::vector<entry> manifest;
-bool carry_tests=false, byte_counter=false, zero_pool_padding=false;
+bool carry_tests=false, byte_counter=false, zero_pool_padding=false, omit_pool_alignment=false;
 rtx_insn *previous_operation(rtx_insn *i) {
     for (i=PREV_INSN(i);i;i=PREV_INSN(i)) {
         if (NOTE_P(i) || DEBUG_INSN_P(i)) continue;
@@ -145,6 +145,16 @@ public:
             literals.push_back({i,offset,shared,0});
             if (shared<0) offset+=4;
         }
+        if (omit_pool_alignment) {
+            for (const auto &literal:literals) if (literal.shared<0)
+                fatal_error(UNKNOWN_LOCATION,"cannot omit alignment with local literals remaining");
+            rtx_insn *align=pool ? previous_operation(pool) : nullptr;
+            if (!align || GET_CODE(PATTERN(align))!=UNSPEC_VOLATILE
+                || XINT(PATTERN(align),1)!=VUNSPEC_ALIGN || XVECLEN(PATTERN(align),0)!=1
+                || XVECEXP(PATTERN(align),0,0)!=const0_rtx)
+                fatal_error(UNKNOWN_LOCATION,"expected word alignment before removed pool");
+            remove_insn(align);
+        }
         if (zero_pool_padding) {
             rtx_insn *align=pool ? previous_operation(pool) : nullptr;
             if (!align || GET_CODE(PATTERN(align))!=UNSPEC_VOLATILE
@@ -195,6 +205,7 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)=="omit-pool-alignment" && !info->argv[n].value) { omit_pool_alignment=true;continue; }
         if (std::string(info->argv[n].key)=="zero-pool-padding" && !info->argv[n].value) { zero_pool_padding=true;continue; }
         if (std::string(info->argv[n].key)=="byte-counter" && !info->argv[n].value) { byte_counter=true;continue; }
         if (std::string(info->argv[n].key)=="carry-tests" && !info->argv[n].value) { carry_tests=true;continue; }
@@ -216,7 +227,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         for (const auto &old:manifest) if (old.source_symbol==source && (named || old.value==value)) return 1;
         manifest.push_back({value,symbol,source});
     }
-    if (zero_pool_padding && manifest.empty()) return 1;
+    if ((zero_pool_padding || omit_pool_alignment) && manifest.empty()) return 1;
+    if (zero_pool_padding && omit_pool_alignment) return 1;
     if (manifest.empty() && !carry_tests && !byte_counter) return 1;
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);

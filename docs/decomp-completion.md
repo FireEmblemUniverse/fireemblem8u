@@ -3447,3 +3447,29 @@ unresolved. The shared byte-load prefix at 080CF970 and existing exported pool
 at 080CF988 provide the next integration boundary to investigate. Production
 remains unchanged; the filter remains research-only. Rebuild and verification
 logs are retained in `.deps/address-filter-match/`.
+
+### September 9: exact audio filter entry and shared literal recovered
+
+The shared-literal plugin now supports explicit omit-pool-alignment. It removes
+the old local word alignment only when every local literal has been replaced
+by a shared reference, and rejects combining this option with zero-pool-padding.
+It checks the expected alignment operation and rejects remaining local words.
+Existing default behavior is unchanged.
+
+The filter uses the existing gMPlayJumpTableTemplate word at lt_MPlayJumpTableTemplate
+(080CF988). Removing its empty local pool alignment restores chk_adr_r2 to
+080CF972 and reduces the candidate to exactly the original 22 instruction bytes.
+All 206,592 oracle cases pass, including synthetic pool values, all return flags,
+registers, actual linked entry, saved stack word and surrounding canaries. The
+oracle checks the shared pool's alignment and forward Thumb literal range.
+Production integration must retain an explicit linker range assertion.
+
+The extended shared-literal checker passes 1,008 executions with default,
+zero-padding and omitted-alignment modes. The omitted mode is exercised at a
+two-byte-aligned entry. Sixteen invalid configurations are rejected, including
+an attempt to omit alignment while retaining a local literal. The filter remains
+research-only; next is production integration and verification of shared callers.
+Evidence is retained under `.deps/address-filter-match/`.
+
+The canonical shared-literal plugin rebuild also passes `make compare -j8`;
+the existing production ROM remains byte-identical after this opt-in extension.

@@ -55,17 +55,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: preserve the audio filter's original entry and shared literal layout.
-The filter C candidate passes 206,592 value/register cases across address
-boundaries, seeded addresses, six template addresses and both return modes.
-The guarded comparison-order pass now eliminates all return-flag differences
-in those 206,592 cases. It accepts four unsigned relations, rejects four
-unsupported contracts and leaves unannotated output unchanged. The candidate
-now uses the original PUSH/POP r0. It remains 30 bytes versus the original
-26-byte body/literal section because local literal alignment shifts the entry
-from 080CF972 to 080CF974. The oracle enters the actual linked symbol. Stack
-canaries pass; the stack pass rejects missing restores and unsupported frames. It remains research-only.
-Production remains the verified checked-reader integration (`5987c104`).
+Next milestone: integrate the exact shared audio address filter and verify its callers.
+The filter candidate now matches all 22 instruction bytes at 080CF972, using
+its existing shared literal at 080CF988. All 206,592 execution cases pass,
+including registers, flags and stack canaries. Shared-literal validation passes
+1,008 cases across three alignment modes and rejects 16 invalid configurations.
+The filter remains research-only pending production integration.
 The checked byte reader is integrated: all 12 section bytes match and 180,224
 production cases pass across both entry points, pointer aliases, low-address
 rejection, all byte values and NZCV states, and ARM/Thumb returns. Its alternate
