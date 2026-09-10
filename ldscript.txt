@@ -1151,6 +1151,17 @@ SECTIONS
         src/m4a_mplay_command_read.o(.text);
         __mplay_command_read_end = .;
         src/m4a_1.o(.text.after_mplay_command_read);
+        __mplay_note_guard_start = .;
+        src/m4a_mplay_note_guard.o(.text);
+        __mplay_note_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_note_guard);
+        ASSERT((MPlayMainCommandDecode & ~1) == MPlayMainCommandDecodeBoundary &&
+               __mplay_note_guard_end - __mplay_note_guard_start == 4 &&
+               (MPlayMainNoteSetup & ~1) == __mplay_note_guard_end,
+               "MPlayMain note guard extent or continuation changed");
+        ASSERT((MPlayMainNonNoteCommand & ~1) >= __mplay_note_guard_start + 6 &&
+               (MPlayMainNonNoteCommand & ~1) <= __mplay_note_guard_start + 6 + 254,
+               "MPlayMain note guard conditional tail out of range");
         __mplay_note_setup_start = .;
         src/m4a_mplay_note_setup.o(.text);
         __mplay_note_setup_end = .;
@@ -1159,6 +1170,17 @@ SECTIONS
         src/m4a_mplay_note_invoke.o(.text);
         __mplay_note_invoke_end = .;
         src/m4a_1.o(.text.after_mplay_note_invoke);
+        __mplay_wait_guard_start = .;
+        src/m4a_mplay_wait_guard.o(.text);
+        __mplay_wait_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_wait_guard);
+        ASSERT((MPlayMainNonNoteCommand & ~1) == MPlayMainNonNoteCommandBoundary &&
+               __mplay_wait_guard_end - __mplay_wait_guard_start == 4 &&
+               (MPlayMainCommandSetup & ~1) == __mplay_wait_guard_end,
+               "MPlayMain wait guard extent or continuation changed");
+        ASSERT((MPlayMainWaitCommand & ~1) >= __mplay_wait_guard_start + 6 &&
+               (MPlayMainWaitCommand & ~1) <= __mplay_wait_guard_start + 6 + 254,
+               "MPlayMain wait guard conditional tail out of range");
         __mplay_command_setup_start = .;
         src/m4a_mplay_command_setup.o(.text);
         __mplay_command_setup_end = .;

@@ -1110,3 +1110,13 @@ src/m4a_mplay_track_clear_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
 src/m4a_mplay_track_clear_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_track_clear_invoke.o: C_END_ALIGN := 1
 src/m4a_mplay_track_clear_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=Clear64byte -fplugin-arg-thumb_callback_tail-continuation=MPlayMainTrackDefaults -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_mplay_note_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_note_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_note_guard.o: C_END_ALIGN := 1
+src/m4a_mplay_note_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainNonNoteCommand -fplugin-arg-tail_transfer-destination=MPlayMainNoteSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainNoteSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainNonNoteCommand -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-unsigned-immediate=lt
+
+src/m4a_mplay_wait_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_wait_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_wait_guard.o: C_END_ALIGN := 1
+src/m4a_mplay_wait_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainWaitCommand -fplugin-arg-tail_transfer-destination=MPlayMainCommandSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainCommandSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainWaitCommand -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-unsigned-immediate=le

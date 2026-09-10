@@ -390,22 +390,20 @@ MPlayMainTrackDefaultsBoundary:
 MPlayMainTrackDispatchBoundary:
 _081DD8E0:
 	.section .text.after_mplay_command_read, "ax", %progbits
-	.global MPlayMainCommandDecode
-MPlayMainCommandDecode:
+	.global MPlayMainCommandDecodeBoundary
+MPlayMainCommandDecodeBoundary:
 _081DD8F6:
-	cmp r1, 0xCF
-	bcc _081DD90C
+	.section .text.after_mplay_note_guard, "ax", %progbits
 	.global MPlayMainNoteSetupBoundary
 MPlayMainNoteSetupBoundary:
 	.section .text.after_mplay_note_setup, "ax", %progbits
 	.global MPlayMainNoteInvokeBoundary
 MPlayMainNoteInvokeBoundary:
 	.section .text.after_mplay_note_invoke, "ax", %progbits
-	.global MPlayMainNonNoteCommand
-MPlayMainNonNoteCommand:
+	.global MPlayMainNonNoteCommandBoundary
+MPlayMainNonNoteCommandBoundary:
 _081DD90C:
-	cmp r1, 0xB0
-	bls _081DD92E
+	.section .text.after_mplay_wait_guard, "ax", %progbits
 	.global MPlayMainCommandSetupBoundary
 MPlayMainCommandSetupBoundary:
 	.section .text.after_mplay_command_setup, "ax", %progbits

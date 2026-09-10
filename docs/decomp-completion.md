@@ -8314,3 +8314,38 @@ Sources: `research/audio/mplay_note_guard.c`, `mplay_wait_guard.c`,
 plugin build logs. The rebuilt compiler corrected an initial duplicate immediate
 prefix in the machine pattern; the final assembled candidates and executions
 above use the corrected output.
+
+
+## September 10, 2026 — Command guards integrated
+
+On baseline `971a7942`, the note guard at 080CFC3A..080CFC3E and wait guard
+at 080CFC50..080CFC54 are integrated as matching C. Both production sources are
+identical to their verified candidates except for function names. Linked
+ownership attributes each exact four-byte Thumb extent to its C-only object.
+The new linker assertions constrain both extents, fallthrough continuations and
+forward short conditional targets.
+
+The full 16 MiB ROM passes `make compare -j8`. All 53,760 execution cases pass
+with production ROM identity verified, covering both unsigned comparison
+outcomes and exact CMP flags, registers, stack, memory and no memory accesses.
+Each guard rejects ten unsupported configurations and preserves unannotated
+compilation. The earlier candidate milestone also verified all 1,048,576
+channel-guard regression cases under the rebuilt compiler. These fragment
+checks do not establish complete MPlayMain execution.
+
+Fresh pinned runtime builds reproduce all four images and exported symbols.
+Main-ROM mapped instruction ownership is 720,656 C-owned, 33,870 mixed C/assembly,
+1,312 assembly-source and 21,792 runtime archive bytes (777,630 total).
+Reviewed non-library assembly is 1,722 main-ROM bytes and 420 expanded-payload
+bytes; there are 556 tracked main C files and 30 assembly entry markers.
+SoundMain's 1,064-byte section and the 932-byte copied mixer remain entirely
+attributed to C. These are inherited-inclusive inventories, not an overall
+completion percentage. The valid full layout links and all 164 altered layouts reject,
+including eight new extent/continuation and forward/backward target violations.
+
+Evidence: `.deps/soundmain-packed/command-guard/production-build.log`,
+`production-check.log`, `production-identity.json`, `source.json`, `linked.json`,
+`layout.log`, and refreshed tracked ownership/runtime/audio receipts.
+Production ELF SHA-256:
+`aa27103f1501ebc87fa3f395f840602a6be108d4650de86f7bc3131db8fee040`.
+Next: MPlayMain entry and track-loop setup/dispatch code.

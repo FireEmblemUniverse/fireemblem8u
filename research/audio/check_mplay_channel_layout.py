@@ -155,6 +155,13 @@ def main():
   needle='        ASSERT(('+callee+' & ~1) >= ABSOLUTE('+stem+') + 4 - 4194304'
   for name,offset in [('far',4194308),('backward',-4194304)]:
    cases.append((kind+'_clear_'+name,source.replace(needle,'        '+callee+' = '+stem+' + ('+str(offset)+');\n'+needle,1),kind+' clear callee out of range'))
+ for name,target in [('note','MPlayMainNonNoteCommand'),('wait','MPlayMainWaitCommand')]:
+  stem='mplay_'+name+'_guard'
+  cases.append((name+'_guard_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),name+' guard extent or continuation'))
+  cases.append((name+'_guard_continuation',source.replace('        src/m4a_1.o(.text.after_'+stem+');','        . += 2;\n        src/m4a_1.o(.text.after_'+stem+');'),name+' guard extent or continuation'))
+  needle='        ASSERT(('+target+' & ~1) >= __'+stem+'_start + 6'
+  for direction,offset in [('far',262),('backward',-252)]:
+   cases.append((name+'_guard_'+direction,source.replace(needle,'        '+target+' = __'+stem+'_start + ('+str(offset)+');\n'+needle,1),name+' guard conditional tail out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

@@ -876,8 +876,8 @@ tail attributes; existing direct-tail behavior is unchanged without it.
 The strict form recovers the original comparison against 207, rather than the
 compiler's canonical comparison against 206, so the MPlayMain note guard has
 matching CMP flags as well as matching branch decisions. The wait guard uses
-inclusive comparison against 176. These are candidate fragments, not production
-integration or complete MPlayMain verification.
+inclusive comparison against 176. Both fragments are integrated in production; complete MPlayMain verification
+remains unfinished.
 
 ```sh
 python3 tools/arm-dispatch/build_backend.py
