@@ -1355,6 +1355,25 @@ SECTIONS
         src/m4a_mplay_post_volume_finish.o(.text);
         __mplay_post_volume_finish_end = .;
         src/m4a_1.o(.text.after_mplay_post_volume_finish);
+        __mplay_post_pitch_guard_start = .;
+        src/m4a_mplay_post_pitch_guard.o(.text);
+        __mplay_post_pitch_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_post_pitch_guard);
+        ASSERT((MPlayMainPostPitchGuard & ~1) == MPlayMainPostPitchGuardBoundary &&
+               __mplay_post_pitch_guard_end - __mplay_post_pitch_guard_start == 8 &&
+               (MPlayMainPostKeyAdjust & ~1) == __mplay_post_pitch_guard_end,
+               "MPlayMain post pitch_guard extent or continuation changed");
+        __mplay_post_key_adjust_start = .;
+        src/m4a_mplay_post_key_adjust.o(.text);
+        __mplay_post_key_adjust_end = .;
+        src/m4a_1.o(.text.after_mplay_post_key_adjust);
+        ASSERT((MPlayMainPostKeyAdjust & ~1) == MPlayMainPostKeyAdjustBoundary &&
+               __mplay_post_key_adjust_end - __mplay_post_key_adjust_start == 12 &&
+               (MPlayMainPostFrequencySelect & ~1) == __mplay_post_key_adjust_end,
+               "MPlayMain post key_adjust extent or continuation changed");
+        ASSERT((MPlayMainPostChannelNext & ~1) >= __mplay_post_pitch_guard_start + 10 &&
+               (MPlayMainPostChannelNext & ~1) <= __mplay_post_pitch_guard_start + 10 + 254,
+               "MPlayMain post pitch_guard transfer out of range");
         ASSERT((MPlayMainPostVolumeFinish & ~1) == MPlayMainPostVolumeFinishBoundary &&
                __mplay_post_volume_finish_end - __mplay_post_volume_finish_start == 12 &&
                (MPlayMainPostPitchGuard & ~1) == __mplay_post_volume_finish_end,

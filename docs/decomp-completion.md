@@ -7824,3 +7824,40 @@ Evidence: `.deps/soundmain-packed/mplay-post-pitch-guard/report.json` and
 matching check logs. Next: integrate both fragments with exact extents/ranges
 and full build/audit gates. This does not establish frequency conversion or
 whole-MPlayMain correctness.
+
+
+## Pitch guard/key adjustment production integration — September 10, 2026
+
+On baseline `2be9fb98`, the 20 bytes at 080CFD58..080CFD6C are integrated as
+two C-only objects. The production sources equal their candidates except for
+function names; the linked audit confirms the exact Thumb instruction ranges.
+The assembly instructions are removed, and FrequencySelect names the following
+hardware/software frequency dispatch boundary. The new compiler plugin is a
+Make dependency of the key-adjustment object.
+
+All 283,648 production/original cases pass: 16,384 pitch-guard decisions and
+267,264 key-adjustment cases, including 5,120 arithmetic-entry cases covering
+full-width overflow and random operands. The candidate section documents the
+four rejected key-adjustment forms and the execution limits. These fragments
+do not execute frequency conversion or an entire MPlayMain call.
+
+`make compare -j8` reproduces all 16 MiB. Fresh runtime builds reproduce all four
+images and exported symbols. Source, linked, inline and runtime inventories are
+refreshed. SoundMain (1,064 bytes) and mixer (932 bytes) retain their fully
+C-owned extents and original bytes. The valid layout passes and all 111 altered
+layouts reject, including four new extent/continuation perturbations and two
+out-of-range next-channel targets. See `mplay-post-key-layout.log`.
+
+Main mapped instruction bytes: 777,630 total, 720,566 C-owned (92.66%),
+33,870 mixed C/assembly, 1,402 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,812 main bytes and 420 payload bytes. There are
+540 tracked main C files and 30 assembly entry markers. These totals include
+inherited work and do not measure overall completion.
+
+ELF SHA-256: `da1f16f3836c9566ea4cf36866d2d9efc7b21bce200a34597fa814c9c6eedf92`.
+Evidence: `.deps/soundmain-packed/mplay-post-key-build.log`,
+`mplay-post-{pitch-guard,key-adjust}-production.log`,
+`mplay-post-key-production-identity.json`, source/linked audits and refreshed
+tracked ownership/runtime/region receipts. Next: frequency selection, CGB/PCM
+frequency call setup/invocation/stores, then remaining command guards, earlier
+clear calls and MPlayMain's frame exit.

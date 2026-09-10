@@ -114,6 +114,12 @@ def main():
  for name,expression in [('volume_callee_far','__mplay_post_volume_invoke_start + 4194308'),('volume_callee_backward','__mplay_post_volume_invoke_start - 4194304')]:
   text=source.replace('        ASSERT((ChnVolSetAsm & ~1) >=','        ChnVolSetAsm = '+expression+';\n        ASSERT((ChnVolSetAsm & ~1) >=',1)
   cases.append((name,text,'post volume_invoke callee out of range'))
+ for part in ('pitch_guard','key_adjust'):
+  cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
+  cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ for name,expression in [('pitch_next_far','__mplay_post_pitch_guard_start + 266'),('pitch_next_backward','__mplay_post_pitch_guard_start - 248')]:
+  text=source.replace('        ASSERT((MPlayMainPostChannelNext & ~1) >=','        MPlayMainPostChannelNext = '+expression+';\n        ASSERT((MPlayMainPostChannelNext & ~1) >=',1)
+  cases.append((name,text,'post pitch_guard transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

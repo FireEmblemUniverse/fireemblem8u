@@ -483,19 +483,15 @@ MPlayMainPostVolumeInvokeBoundary:
 	.global MPlayMainPostVolumeFinishBoundary
 MPlayMainPostVolumeFinishBoundary:
 	.section .text.after_mplay_post_volume_finish, "ax", %progbits
-	.global MPlayMainPostPitchGuard
-MPlayMainPostPitchGuard:
+	.global MPlayMainPostPitchGuardBoundary
+MPlayMainPostPitchGuardBoundary:
 _081DDA14:
-	ldrb r3, [r5, o_MusicPlayerTrack_flags]
-	movs r0, 0xC
-	tst r0, r3
-	beq _081DDA52
-	ldrb r1, [r4, o_SoundChannel_ky]
-	movs r0, 0x8
-	ldrsb r0, [r5, r0]
-	adds r2, r1, r0
-	bpl _081DDA28
-	movs r2, 0
+	.section .text.after_mplay_post_pitch_guard, "ax", %progbits
+	.global MPlayMainPostKeyAdjustBoundary
+MPlayMainPostKeyAdjustBoundary:
+	.section .text.after_mplay_post_key_adjust, "ax", %progbits
+	.global MPlayMainPostFrequencySelect
+MPlayMainPostFrequencySelect:
 _081DDA28:
 	cmp r6, 0
 	beq _081DDA46

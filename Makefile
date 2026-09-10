@@ -1024,3 +1024,17 @@ src/m4a_mplay_post_volume_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_mplay_post_volume_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_volume_finish.o: C_END_ALIGN := 1
 src/m4a_mplay_post_volume_finish.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-reorder-blocks -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostPitchGuard -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostPitchGuard
+
+THUMB_ADD_SIGN_BRANCH_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_add_sign_branch.so
+$(THUMB_ADD_SIGN_BRANCH_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_add_sign_branch.cc tools/arm-dispatch/build_thumb_add_sign_branch.py
+	python3 tools/arm-dispatch/build_thumb_add_sign_branch.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_mplay_post_pitch_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_pitch_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_pitch_guard.o: C_END_ALIGN := 1
+src/m4a_mplay_post_pitch_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelNext -fplugin-arg-tail_transfer-destination=MPlayMainPostKeyAdjust -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostKeyAdjust -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostChannelNext -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+src/m4a_mplay_post_key_adjust.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_ADD_SIGN_BRANCH_PLUGIN)
+src/m4a_mplay_post_key_adjust.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_key_adjust.o: C_END_ALIGN := 1
+src/m4a_mplay_post_key_adjust.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-if-conversion -fno-if-conversion2 -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostFrequencySelect -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostFrequencySelect -fplugin=$(THUMB_ADD_SIGN_BRANCH_PLUGIN)
