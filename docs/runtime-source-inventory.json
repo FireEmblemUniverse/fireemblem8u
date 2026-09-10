@@ -1,0 +1,444 @@
+{
+  "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+  "archive_sha256": {
+    "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
+    "libgcc.a": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
+  },
+  "images": {
+    "main_rom": {
+      "elf_sha256": "c50912e51dabd9922e517fd98a1f8920191e27165d98c7fbef5336b478fdae25",
+      "assembly_instruction_bytes": 726,
+      "C_source_located_instruction_bytes": 21066,
+      "members": [
+        {
+          "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
+          "instruction_bytes": 3910,
+          "source": "libc/stdio/vfprintf.c",
+          "source_sha256": "51f4cd6afc629ae8045eaaa3546ae755f3024d22a24790af2ad697be3ca81246",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(dtoa.o)",
+          "instruction_bytes": 3352,
+          "source": "libc/stdlib/dtoa.c",
+          "source_sha256": "311a75ee13d98ae8b0c72d70674904a0e6d1fe1c62b66ccd7203fdc9aec2181f",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(dp-bit.o)",
+          "instruction_bytes": 3310,
+          "source": "libgcc/fp-bit-base.c",
+          "source_sha256": "9aa27be26b945edde2c6ef81d0289724d1d9ca1e756a1a98230ab58de46091eb",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(fp-bit.o)",
+          "instruction_bytes": 2302,
+          "source": "libgcc/fp-bit-base.c",
+          "source_sha256": "9aa27be26b945edde2c6ef81d0289724d1d9ca1e756a1a98230ab58de46091eb",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mprec.o)",
+          "instruction_bytes": 2146,
+          "source": "libc/stdlib/mprec.c",
+          "source_sha256": "67f94f948941463ddc14645368d3f104f7bd0de4ec3232248c7f303cfac49732",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mallocr.o)",
+          "instruction_bytes": 1208,
+          "source": "libc/stdlib/mallocr.c",
+          "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(syscalls.o)",
+          "instruction_bytes": 1014,
+          "source": "libc/arm/syscalls.c",
+          "source_sha256": "ec0dd10f8608a507f7a822f78d0f7fb612214bbb16ef52e0c20446017e852a7f",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(freer.o)",
+          "instruction_bytes": 576,
+          "source": "libc/stdlib/mallocr.c",
+          "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fvwrite.o)",
+          "instruction_bytes": 554,
+          "source": "libc/stdio/fvwrite.c",
+          "source_sha256": "bb023c67e5a5b519248bb70ef965f6741f23e94005d92e609739c98fe1adf5a7",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(findfp.o)",
+          "instruction_bytes": 312,
+          "source": "libc/stdio/findfp.c",
+          "source_sha256": "c287d8427ec98c15dfbd1bc435db3b60bc1643852badc9d192de3a08dcf14ff1",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(makebuf.o)",
+          "instruction_bytes": 208,
+          "source": "libc/stdio/makebuf.c",
+          "source_sha256": "d0e4248af527b9b25d01ee605c6d1e9a902fcbef6a929c4bd3ce581b6939775d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "instruction_bytes": 206,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 208,
+          "text_sha256": "b6cff6667b7e1a6335e2f82f82db5fa64e135b0a3defb14c7f0b49f600a2b031"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "instruction_bytes": 192,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 192,
+          "text_sha256": "cff75b95f09ef0d5116d3b9643fe49e7e4bb56bb43d6618e802a3cce2823882c"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(stdio.o)",
+          "instruction_bytes": 178,
+          "source": "libc/stdio/stdio.c",
+          "source_sha256": "c87a527685383b1d288836be1c27762ba5e9816fc6f35a25c7f025f94f96731f",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(wsetup.o)",
+          "instruction_bytes": 166,
+          "source": "libc/stdio/wsetup.c",
+          "source_sha256": "7cd70a7d97bb2e6c5a8ae42fdaee2a578fa3b0d2eab9b133a10303f3b7cbefa0",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "instruction_bytes": 146,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 148,
+          "text_sha256": "e9dfbdbf898414c3ec6199436297d3e9b626e2ca53de311c0557df32ffd3ebfa"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memmove.o)",
+          "instruction_bytes": 136,
+          "source": "libc/string/memmove.c",
+          "source_sha256": "018dbd67cc6087eb9015ee133a2cd5b1a792341d147772f9fb15529ac5a861d9",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fflush.o)",
+          "instruction_bytes": 134,
+          "source": "libc/stdio/fflush.c",
+          "source_sha256": "734ccf4f8b90b2e690cc9bddd165260b450f3efa3048b4ca73f71a1818084513",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "instruction_bytes": 120,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 120,
+          "text_sha256": "ef44b6e0f7b9f3f9bb0d72fcad4e9b09c2f7369e86c39f00541475629a293afb"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memchr.o)",
+          "instruction_bytes": 118,
+          "source": "libc/string/memchr.c",
+          "source_sha256": "3fd97d1c290c82bf122bc799e24f87682da89a786ab210506964811e5e115d1e",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(sprintf.o)",
+          "instruction_bytes": 110,
+          "source": "libc/stdio/sprintf.c",
+          "source_sha256": "c9b9e12b5f91e95a53b1d32aab4bf5cec68b29d2612fd01612e951adef37a7c2",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_muldi3.o)",
+          "instruction_bytes": 108,
+          "source": "libgcc/libgcc2.c",
+          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memcpy.o)",
+          "instruction_bytes": 94,
+          "source": "libc/string/memcpy.c",
+          "source_sha256": "89ee5338c9b7afed59068cfb408769c0c46cefe0c59f979731a4520311e53990",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(callocr.o)",
+          "instruction_bytes": 88,
+          "source": "libc/stdlib/mallocr.c",
+          "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(locale.o)",
+          "instruction_bytes": 82,
+          "source": "libc/locale/locale.c",
+          "source_sha256": "7e3111e71b40ac7e01bd38fdba496659607fe7d003af549423f83d3157ca8ace",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memset.o)",
+          "instruction_bytes": 82,
+          "source": "libc/string/memset.c",
+          "source_sha256": "86793e2d167133a652d5a31b89708e4cbcefc2192c27b0ba781977c8c473d32a",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strcmp.o)",
+          "instruction_bytes": 82,
+          "source": "libc/string/strcmp.c",
+          "source_sha256": "6f62e0d671b401da18f5e708f064dacb1eef465d393cdb7d13b390e9717b0e7e",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strcpy.o)",
+          "instruction_bytes": 66,
+          "source": "libc/string/strcpy.c",
+          "source_sha256": "591ce22174939e22ef839071c998c58c4e49ae0170d90499f003391d2ba8c74c",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strstr.o)",
+          "instruction_bytes": 66,
+          "source": "libc/string/strstr.c",
+          "source_sha256": "09437b966be6a045479e511b84d9ef0156823a5c9ccd29dc4c93d0f7c53998e7",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fwalk.o)",
+          "instruction_bytes": 64,
+          "source": "libc/stdio/fwalk.c",
+          "source_sha256": "d0e051dab8bfa43ea17eb54d0b11a298a6871fe710d46260936002593b12a73f",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "instruction_bytes": 60,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 60,
+          "text_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strlen.o)",
+          "instruction_bytes": 58,
+          "source": "libc/string/strlen.c",
+          "source_sha256": "70495ac9114b96b9023be71440e31173f6a90f9b499f81b7ddca7f59ae7e981f",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_ashldi3.o)",
+          "instruction_bytes": 50,
+          "source": "libgcc/libgcc2.c",
+          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_lshrdi3.o)",
+          "instruction_bytes": 50,
+          "source": "libgcc/libgcc2.c",
+          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(vsprintf.o)",
+          "instruction_bytes": 44,
+          "source": "libc/stdio/vsprintf.c",
+          "source_sha256": "be83aceec4717cf4ed6e32aa775e276bc4168803c227826970837ff3702a4831",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(lseekr.o)",
+          "instruction_bytes": 42,
+          "source": "libc/reent/lseekr.c",
+          "source_sha256": "29584e6e5455c1d40264ab5f041c6d7e4f384b50b52b6a18d824f46d544982ce",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mbtowc_r.o)",
+          "instruction_bytes": 42,
+          "source": "libc/stdlib/mbtowc_r.c",
+          "source_sha256": "8cdf73cb3224611fd52f01bbf1dea0ddf9bcac151c31a0847800b166eb0ce6d4",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(readr.o)",
+          "instruction_bytes": 42,
+          "source": "libc/reent/readr.c",
+          "source_sha256": "ea40a19f1f8d41717e9fb4f60ecfac8352a58acadfb7384023306f64b64242c4",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(writer.o)",
+          "instruction_bytes": 42,
+          "source": "libc/reent/writer.c",
+          "source_sha256": "c2c1a9cc95229e8b95f5e4c3781e4bcb99de5bef482c6f589ad0fc74af350ff2",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fstatr.o)",
+          "instruction_bytes": 40,
+          "source": "libc/reent/fstatr.c",
+          "source_sha256": "707f3d17659adfef04dc2cbef44875b142f606fa5e99c4e063947db810c65d69",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(closer.o)",
+          "instruction_bytes": 38,
+          "source": "libc/reent/closer.c",
+          "source_sha256": "a71d620ff451b53088e8cb188a0fc3f29c1edb754178d8c972643a4f4b63e7e3",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(sbrkr.o)",
+          "instruction_bytes": 38,
+          "source": "libc/reent/sbrkr.c",
+          "source_sha256": "5dd93f7cc4c2026e9ca929de1deaddface6095d900dcc3d8373a265e03581e0d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(libcfunc.o)",
+          "instruction_bytes": 32,
+          "source": "libc/arm/libcfunc.c",
+          "source_sha256": "ffe7b369a270869372992e0d31b48a96f49508832b7c244932c1f75304a88df7",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(s_isinf.o)",
+          "instruction_bytes": 28,
+          "source": "libc/math/s_isinf.c",
+          "source_sha256": "6ad8d20514f62949ef8ac38ed181ba989079c30e2dd5e60dfcad510aaec2a032",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
+          "instruction_bytes": 22,
+          "source": "libc/math/s_isnan.c",
+          "source_sha256": "2e0359c2f4855d1a1910c934356396cea927aaca54048f9209fb7f56dea7bf01",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_negdi2.o)",
+          "instruction_bytes": 22,
+          "source": "libgcc/libgcc2.c",
+          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(errno.o)",
+          "instruction_bytes": 6,
+          "source": "libc/errno/errno.c",
+          "source_sha256": "b8289e696607e597adb5a1dcd3386cd06fa1503ddb63281847def1af652b54c7",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mlock.o)",
+          "instruction_bytes": 4,
+          "source": "libc/stdlib/mlock.c",
+          "source_sha256": "eb0ea25e56c50fa81c1d5e1e846a966a7c7c67a03d981dfe1ed30a08b1cf3bbf",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "instruction_bytes": 2,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 4,
+          "text_sha256": "aad34e7f7239f66b87e511a5ad008715fe86a4b977201c5fec08c3777a9011d0"
+        }
+      ]
+    },
+    "mgfembp": {
+      "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
+      "assembly_instruction_bytes": 726,
+      "C_source_located_instruction_bytes": 94,
+      "members": [
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "instruction_bytes": 206,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 208,
+          "text_sha256": "b6cff6667b7e1a6335e2f82f82db5fa64e135b0a3defb14c7f0b49f600a2b031"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "instruction_bytes": 192,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 192,
+          "text_sha256": "cff75b95f09ef0d5116d3b9643fe49e7e4bb56bb43d6618e802a3cce2823882c"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "instruction_bytes": 146,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 148,
+          "text_sha256": "e9dfbdbf898414c3ec6199436297d3e9b626e2ca53de311c0557df32ffd3ebfa"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "instruction_bytes": 120,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 120,
+          "text_sha256": "ef44b6e0f7b9f3f9bb0d72fcad4e9b09c2f7369e86c39f00541475629a293afb"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libc.a(memcpy.o)",
+          "instruction_bytes": 94,
+          "source": "libc/string/memcpy.c",
+          "source_sha256": "89ee5338c9b7afed59068cfb408769c0c46cefe0c59f979731a4520311e53990",
+          "status": "C_source_located_rebuild_unverified"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "instruction_bytes": 60,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 60,
+          "text_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73"
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "instruction_bytes": 2,
+          "source": "libgcc/lib1thumb.asm",
+          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
+          "status": "assembly_reproduced",
+          "text_bytes": 4,
+          "text_sha256": "aad34e7f7239f66b87e511a5ad008715fe86a4b977201c5fec08c3777a9011d0"
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "C source location is not a verified matching rebuild or proof of no inline assembly; syscalls.c explicitly contains assembly.",
+    "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",
+    "Header dependencies and macro-selected C variants need build verification before crediting runtime C completion."
+  ]
+}

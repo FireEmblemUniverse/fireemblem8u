@@ -60,7 +60,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: classify runtime archive code and continue the remaining audio work.
+Next milestone: continue the remaining audio engine work; runtime C rebuild and
+syscall inline-assembly verification also remain open.
+The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
+archive member's candidate source at the pinned agbcc revision. Six assembly
+helpers rebuild exactly and contribute 726 instruction bytes in each image.
+The other 21,066 main-ROM and 94 payload runtime bytes have located C sources,
+not yet verified matching rebuilds; syscalls.c contains additional inline assembly.
 All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes

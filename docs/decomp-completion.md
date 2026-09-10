@@ -3643,3 +3643,29 @@ is 3,246 bytes in the main image and 420 bytes in the payload. Runtime archive
 classification (21,792 main and 820 payload bytes), hidden-code/mapping gaps and
 other completion requirements remain open. The ownership audit now regenerates
 and checks these refined totals. No production source changed in this milestone.
+
+### September 10: runtime archive provenance and assembly reproduction
+
+`scripts/audit_runtime_sources.py` checks the local agbcc source pin
+`da598c1d918402c42c0c0d7128ba14567f3175e9`, fingerprints installed archives,
+locates every linked member's candidate source and verifies each selected file
+against that pinned git content. The ownership ELF fingerprints must match the
+current images before their mapped-byte counts are used.
+
+The six lib1thumb.asm members (_udivsi3, _divsi3, _umodsi3, _modsi3, _dvmd_tls,
+_call_via_rX) are preprocessed with the recorded member selector and assembled
+in an isolated output directory. Every .text section matches the corresponding
+installed archive member byte-for-byte. Their linked instruction contribution
+is 726 bytes in each image; complete text sizes include additional padding.
+
+All other linked archive members have located C sources: 21,066 main-ROM bytes
+and 94 payload bytes. This is source attribution, not an exact C rebuild claim.
+Allocator members map to macro-selected mallocr.c variants; floating-point
+members map to fp-bit-base.c variants; other libgcc helpers map to libgcc2.c.
+The 1,014-byte main syscalls.o comes from C containing inline assembly and
+requires further instruction-level classification. Header/macro dependencies and
+matching builds remain to be verified before runtime C completion is credited.
+
+The readable report and machine-readable fingerprints are in
+`docs/runtime-source-inventory.md` and `.json`. No production code or installed
+archive was changed; isolated rebuild artifacts are in `.deps/runtime-audit/`.
