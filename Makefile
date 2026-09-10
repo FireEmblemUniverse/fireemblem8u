@@ -806,3 +806,16 @@ $(THUMB_SPLIT_HANDOFF_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_split
 src/m4a_mixer_entry.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_SPLIT_HANDOFF_PLUGIN)
 src/m4a_mixer_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mixer_entry.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_NoReverb -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-indirect-register=1 -fplugin=$(THUMB_SPLIT_HANDOFF_PLUGIN) -fplugin-arg-thumb_split_handoff-arm-destination=SoundMainRAM_Reverb -fplugin-arg-thumb_split_handoff-thumb-destination=SoundMainRAM_NoReverb
+
+THUMB_LITERAL_CONSTANTS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_literal_constants.so
+$(THUMB_LITERAL_CONSTANTS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_literal_constants.cc tools/arm-dispatch/build_thumb_literal_constants.py
+	python3 tools/arm-dispatch/build_thumb_literal_constants.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+THUMB_SUBTRACT_BRANCH_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_subtract_branch.so
+$(THUMB_SUBTRACT_BRANCH_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_subtract_branch.cc tools/arm-dispatch/build_thumb_subtract_branch.py
+	python3 tools/arm-dispatch/build_thumb_subtract_branch.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+THUMB_ADD_ORDER_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_add_order.so
+$(THUMB_ADD_ORDER_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_add_order.cc tools/arm-dispatch/build_thumb_add_order.py
+	python3 tools/arm-dispatch/build_thumb_add_order.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_buffer_entry.o: $(THUMB_LITERAL_CONSTANTS_PLUGIN) $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_SUBTRACT_BRANCH_PLUGIN) $(THUMB_ADD_ORDER_PLUGIN) $(THUMB_SHARED_PLUGIN)
+src/m4a_buffer_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_buffer_entry.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_LITERAL_CONSTANTS_PLUGIN) -fplugin-arg-thumb_literal_constants-value=848 -fplugin-arg-thumb_literal_constants-value=1584 -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-indirect-register=3 -fplugin=$(THUMB_SUBTRACT_BRANCH_PLUGIN) -fplugin=$(THUMB_ADD_ORDER_PLUGIN) -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=848,lt_o_SoundInfo_pcmBuffer -fplugin-arg-thumb_shared_literal-literal=1584,lt_PCM_DMA_BUF_SIZE -fplugin-arg-thumb_shared_literal-symbol-literal=SoundMainRAM_BufferThumb,lt_SoundMainRAM_Buffer -fplugin-arg-thumb_shared_literal-zero-pool-padding

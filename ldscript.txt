@@ -591,6 +591,24 @@ SECTIONS
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");
         src/m4a_1.o(.text.after_multiply_high);
+        __buffer_entry_start = .;
+        src/m4a_buffer_entry.o(.text);
+        __buffer_entry_end = .;
+        src/m4a_1.o(.text.after_buffer_entry);
+        SoundMainRAM_BufferThumb = SoundMainRAM_Buffer + 1;
+        ASSERT((SoundMainBufferEntry & ~1) == SoundMainBufferEntryBoundary &&
+               ABSOLUTE(__buffer_entry_start) == 0x080CF510 &&
+               __buffer_entry_end - __buffer_entry_start == 36,
+               "buffer entry position or 36-byte extent changed");
+        ASSERT(lt_o_SoundInfo_pcmBuffer == __buffer_entry_start + 52 &&
+               lt_PCM_DMA_BUF_SIZE == __buffer_entry_start + 56 &&
+               lt_SoundMainRAM_Buffer == __buffer_entry_start + 44 &&
+               (__buffer_entry_start & 3) == 0,
+               "buffer shared literal positions changed");
+        ASSERT(lt_SOUND_INFO_PTR == (SoundMain & ~1) + 108 &&
+               lt_ID_NUMBER == (SoundMain & ~1) + 112 &&
+               lt_REG_VCOUNT == (SoundMain & ~1) + 120,
+               "SoundMain entry shared literal positions changed");
         __mixer_entry_start = .;
         src/m4a_mixer_entry.o(.text);
         __mixer_entry_end = .;

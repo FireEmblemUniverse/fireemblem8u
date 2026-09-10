@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research (baseline `e319cb1d`): buffer subtraction/branch folding removes the extra comparison. The candidate now has the original 32 instruction bytes before BX r3; 14 of its 17 instruction words match exactly. All 98,304 full-state transfers pass. Two literal-load offsets, ADD operand order and shared pool/alignment layout remain. It is not integrated. The full production ROM still matches and its ELF is unchanged.
+Updated: September 10, 2026. Latest integrated milestone (baseline `cb4ce887`): the outer SoundMain buffer setup is matching C. All 36 section bytes match (34 Thumb instruction bytes plus two zero-padding bytes); 98,304 production transfers and 3,528 complete audio cases pass. The full ROM and fresh runtime rebuilds match. Main-ROM C ownership is now 720,084/777,630 mapped instruction bytes (92.60%). The outer entry/lock/deadline/callback code and other remaining assembly are still unfinished.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -18,11 +18,11 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.59%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,328 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.60%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **2,294 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Outer SoundMain buffer candidate | **98,304 full transfers pass; original instruction length reached; ADD operand order and shared literals remain** |
+| Integrated outer SoundMain buffer setup | **36/36 section bytes exact; 98,304 full-state production transfers pass into mixer RAM** |
 | Complete copied mixer | `████████████████████` **932/932 section bytes in C-only objects: 918 instruction bytes plus 14 data/alignment bytes; full ROM exact** |
 | Integrated mixer entry | **12/12 section bytes exact; 12,288 full Thumb/ARM path transfers pass in ROM and copied RAM** |
 | Integrated sample handoff | **12/12 section bytes exact; 24,576 full Thumb-to-ARM transfers pass with identical ROM/copied-RAM code** |

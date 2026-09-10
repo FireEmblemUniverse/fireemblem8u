@@ -6396,3 +6396,53 @@ plugins. The production ELF hash remains identical to its ownership receipt.
 This milestone changes research matching and compiler support, not production
 C ownership. Logs: `.deps/soundmain-packed/buffer-subtract-branch.log`,
 `subtract-backend-build.log` and `subtract-branch-compare.log`.
+
+
+### Integrated SoundMain buffer setup (September 10, 2026; baseline cb4ce887)
+
+`src/m4a_buffer_entry.c` now owns 0x080CF510..0x080CF534: 34 Thumb instruction
+bytes followed by two zero padding bytes, all matching the original ROM.
+The C code reloads post-callback sound info, preserves sample count in r8,
+computes the DMA buffer address, stores the private frame pointer, sets the
+buffer width and transfers through r3 to the copied mixer in Thumb mode.
+
+The new opt-in ADD-order pass commutes a low-register addition to print the
+destination as its first source. All 17,296 standalone arithmetic/NZCV cases
+pass, seven unsupported contracts reject, and unannotated output is unchanged.
+No new backend instruction is needed for this commutative rewrite. The existing
+shared-literal pass maps both integer constants and the Thumb entry alias to
+the original pool; zero padding preserves the full original section extent.
+
+The remaining outer SoundMain assembly is split at the post-callback fallthrough.
+Its three pool loads now use explicit R_ARM_THM_PC8 relocations, because the
+assembler cannot directly encode the cross-section local load with a negative
+implicit addend. Link assertions preserve the entry boundary, absolute address,
+36-byte extent and six shared literal locations. Absolute-address checking uses
+ABSOLUTE on the section-relative linker symbol. Four deliberately shifted
+production layouts reject; the unmodified production link passes.
+
+`check_soundmain_buffer_entry.py --compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc --literals --transfer
+--subtract-branch --add-order --shared --production` verifies all 36 bytes and
+passes 98,304 production/original cases with identical r0-r12, NZCV, SP/LR,
+complete test RAM, ordered frame/info accesses and final Thumb mixer entry.
+The complete production audio oracle also passes 3,528 cases. These are bounded
+execution checks; no new cycle-timing claim is made.
+
+`make compare -j8` verifies the entire 16 MiB ROM. Fresh runtime source rebuilds
+reproduce all four images and exported symbols. Linked/source/inline/runtime
+inventories and both copied-mixer receipts are refreshed for ELF SHA-256
+`ebaeca75de36abc0048d750f7f26458477bb037f9986d14ee0b9ca0b609963f7`.
+Main-ROM mapped instructions remain 777,630: 720,084 C-owned (92.60%), 33,870
+mixed C/assembly, 1,884 assembly-source and 21,792 runtime, with zero unknown
+ownership. Reviewed non-library assembly is 2,294 main-ROM instruction bytes
+and 420 payload bytes. The source inventory has 501 C files and 31 assembly
+entry markers. These totals include inherited work and are not overall completion.
+
+Evidence logs: `.deps/soundmain-packed/buffer-production.log`,
+`buffer-integrated-compare.log`, `buffer-layout/report.json`,
+`.deps/soundmain-complete/production-run.log` and
+`.deps/runtime-rebuild/verification.log`. The outer entry/locking, deadline and
+callback prefix remains 72 bytes of assembly, with its 24-byte shared pool.
+Other audio routines, runtime helpers, unit-list and transfer code and final
+executable classification remain unfinished.

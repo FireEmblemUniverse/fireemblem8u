@@ -548,13 +548,30 @@ its signed countdown/fallthrough still require separate matching work.
 
 ## Subtraction flags and unsigned branches
 
-`thumb_subtract_branch.cc` provides `matching_thumb_subtract_branch`, currently
-used only by the buffer-entry research checker with `--subtract-branch`.
+`thumb_subtract_branch.cc` provides `matching_thumb_subtract_branch`, used by `src/m4a_buffer_entry.c` and its research checker with `--subtract-branch`.
 It requires `matching_tail_transfer` and Thumb-1. A low-register `dst=src-1`,
 an exact empty self-tie on dst, and an immediately following unsigned `src<=1`
 branch become a single SUBS/BLS bundle. Distinct source/destination registers
 and a conservative short forward target are required. Unsupported annotated
 functions fail compilation; unannotated functions are unchanged. The standalone
 `check_thumb_subtract_branch.py` verifies full-width arithmetic, registers,
-flags and private transfers, plus invalid contracts. No production object selects
-this attribute yet.
+flags and private transfers, plus invalid contracts. The production buffer object selects this attribute with its private transfer contract.
+
+
+## Buffer entry literal and ADD selection
+
+`thumb_add_order.cc` provides `matching_thumb_add_order`. After allocation it
+commutes low-register additions when the destination is the second source, so
+the destination is printed first. Modular arithmetic and ADD flags are unchanged.
+Unsupported annotated functions fail; unannotated functions are unchanged.
+`check_thumb_add_order.py` covers full-width sums, NZCV, registers and rejection
+contracts. `build_thumb_add_order.py` builds against the installed matching GCC.
+
+The integrated `src/m4a_buffer_entry.c` combines this rule with literal constant
+selection, subtraction/branch folding, private r3 transfer and the existing
+shared-literal pool pass. Its pool remains in the assembly entry object; the
+linker verifies the 36-byte C extent and every fixed shared-pool position.
+`SoundMainRAM_BufferThumb` is the linker alias for the copied Thumb entry address.
+The compiler removes its private pointer pool in favor of the existing shared
+word. The remaining outer assembly loads use explicit R_ARM_THM_PC8 relocations
+after splitting their pool into a separate input section.
