@@ -17,11 +17,15 @@ def main():
     p.add_argument('--compiler', required=True)
     p.add_argument('--source', type=Path, default=ROOT/'research/audio/jump_table.c')
     p.add_argument('--require-match', action='store_true')
+    p.add_argument('--plugin', type=Path)
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
              '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing', '-fno-schedule-insns',
              '-fno-schedule-insns2', '-fno-unwind-tables', '-fno-asynchronous-unwind-tables']
+    if args.plugin:
+        flags += ['-DTABLE_PRIVATE_RETURN', '-Werror=attributes', '-fno-reorder-blocks', '-fplugin='+str(args.plugin.resolve()),
+                  '-fplugin-arg-ip_return-preserves-ip=chk_adr_r2', '-fplugin-arg-ip_return-body-branches']
     subprocess.run([args.compiler, *flags, '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
                     str(ROOT/'include'), str(args.source), '-o', str(OUT/'candidate.s')], check=True)
     with (OUT/'candidate.s').open('a') as f:

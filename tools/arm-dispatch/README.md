@@ -140,3 +140,12 @@ The repeat oracle compares actual shared-entry SP/LR and covers counter
 wraparound and aliased reads. The private entry and returning-reader register
 contracts are verified against ROM code; they are not inferred for arbitrary
 manifest symbols. Branch-range restrictions are the same as terminal transfers.
+
+
+`ip_return` also has an opt-in `body-branches` mode for private-ABI loops.
+All direct branch labels must be inside the region after the LR save and before
+the terminal epilogue; indirect transfers and return-register/stack operands
+remain forbidden. Every call still needs its r12-preservation contract. The
+trailing pool may contain integer or symbol-address words behind the terminal
+barrier. The jump-table research oracle exercises this mode; it is not enabled
+for existing production functions.

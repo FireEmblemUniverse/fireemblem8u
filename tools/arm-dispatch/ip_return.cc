@@ -26,6 +26,7 @@ int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> callees;
 bool forward_exits=false;
+bool body_branches=false;
 tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_ip_return requires a function");*no_add=true;
@@ -95,6 +96,26 @@ bool forward_exit(rtx_insn *i) {
     }
     return false;
 }
+// All targets must remain after the LR save and before the terminal epilogue.
+// This permits loops without allowing re-entry into the frame or its pool data.
+bool body_branch(rtx_insn *i,rtx_insn *push) {
+    rtx p=PATTERN(i);
+    if (GET_CODE(p)!=SET || SET_DEST(p)!=pc_rtx || mentions(p,SP_REGNUM)
+        || mentions(p,LR_REGNUM) || mentions(p,IP_REGNUM)) return false;
+    rtx target=SET_SRC(p);
+    if (GET_CODE(target)==IF_THEN_ELSE) {
+        if (XEXP(target,2)!=pc_rtx) return false;
+        target=XEXP(target,1);
+    }
+    if (GET_CODE(target)!=LABEL_REF) return false;
+    rtx_insn *label=as_a<rtx_insn *>(XEXP(target,0));
+    for (rtx_insn *cursor=NEXT_INSN(push);cursor;cursor=NEXT_INSN(cursor)) {
+        if (cursor==label) return true;
+        if (NONDEBUG_INSN_P(cursor) && GET_CODE(PATTERN(cursor))==UNSPEC_VOLATILE
+            && XINT(PATTERN(cursor),1)==VUNSPEC_EPILOGUE) return false;
+    }
+    return false;
+}
 const pass_data data={RTL_PASS,"ip_return",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -119,7 +140,7 @@ public:
             if (epilogue && pool_barrier && GET_CODE(p)==UNSPEC_VOLATILE) {
                 int kind=XINT(p,1);
                 if (kind==VUNSPEC_ALIGN && XVECLEN(p,0)==1 && XVECEXP(p,0,0)==const0_rtx) continue;
-                if (kind==VUNSPEC_POOL_4 && XVECLEN(p,0)==1 && CONST_INT_P(XVECEXP(p,0,0))) continue;
+                if (kind==VUNSPEC_POOL_4 && XVECLEN(p,0)==1 && (CONST_INT_P(XVECEXP(p,0,0)) || GET_CODE(XVECEXP(p,0,0))==SYMBOL_REF)) continue;
                 if (kind==VUNSPEC_POOL_END) continue;
             }
 
@@ -147,6 +168,7 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"matching_ip_return call uses r12 or stack arguments");
                 calls++;continue;
             }
+            if (body_branches && push && !epilogue && JUMP_P(i) && body_branch(i,push)) continue;
             if (forward_exits && push && !epilogue && calls && JUMP_P(i) && forward_exit(i)) continue;
             if (!push || epilogue || JUMP_P(i) || (asm_noperands(p)>=0 && !empty_register_constraint(p)) || mentions(p,IP_REGNUM)
                 || mentions(p,LR_REGNUM) || mentions(p,SP_REGNUM))
@@ -165,6 +187,10 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)=="body-branches") {
+            if (info->argv[n].value) return 1;
+            body_branches=true;continue;
+        }
         if (std::string(info->argv[n].key)=="forward-exits") {
             if (info->argv[n].value) return 1;
             forward_exits=true;continue;

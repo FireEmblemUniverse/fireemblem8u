@@ -3133,3 +3133,29 @@ Next is guarded loop support for the private return, matching decrement/branch
 selection and use of the existing shared literal at `080CF988`. Production
 remains `3bcc2a7c`, with 35 assembly entry markers. Evidence is retained in
 `.deps/jump-table-match/`.
+
+
+### September 9: jump-table private return corrected
+
+The opt-in `ip_return` `body-branches` mode permits direct conditional and
+unconditional branches only to labels after the entry LR save and before the
+terminal epilogue. Branch operands may not use SP, LR or r12. Existing frame,
+call-manifest, executable-asm and return restrictions still apply. Symbol-address
+words are now accepted in compiler-generated trailing pools, alongside integer
+words, only after a terminal barrier. Default production control-flow contracts
+are unchanged.
+
+With this support, `research/audio/check_jump_table.py --compiler COMPILER
+--plugin PLUGIN` passes 3,072 cases with no r0-r12 or final-flag differences.
+The candidate shrank from 32 to 28 bytes; the original section remains 24 bytes.
+It still emits an extra comparison and uses a local pool instead of the shared
+literal at `080CF988`. The routine remains assembly in production.
+
+The installed compiler plugin passes 128 two-call contract cases and rejects
+26 unsupported forms, including loop-mode executable asm, an indirect transfer
+and a stack clobber. Unannotated assembly is unchanged. `make compare -j8`
+verifies the existing complete ROM after rebuilding the production plugin.
+The loop-mode execution and contract checks were repeated against that installed
+plugin. Evidence is in `.deps/jump-table-match/installed-oracle.log`,
+`installed-contract.log`, `private-oracle.log` and `compare.log`. The remaining
+production inventory is still 35 assembly entry markers.
