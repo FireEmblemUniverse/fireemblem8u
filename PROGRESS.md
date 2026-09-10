@@ -35,7 +35,9 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 Next milestone: match and integrate the audio VSync/DMA handler.
 Its 84-byte C candidate passes 2,304 original/C cases checking the ordered
 counter and DMA accesses, memory, r0-r12 and return flags. The original is 76 bytes;
-shared literals and instruction selection remain unfinished.
+shared literals and instruction selection remain unfinished. A standalone
+Thumb literal probe passes 192 execution cases; explicit link assertions reject
+12 offsets that the linker otherwise silently wraps.
 
 The tied-note release handler is integrated: all 64 Thumb bytes match.
 Its 768 production-ROM execution cases verify all r0-r12 values, preserved

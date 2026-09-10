@@ -2366,3 +2366,26 @@ and ordered-access reference. The checker now also compares all r0-r12 values
 at return: zero register differences and zero flag differences occur. DMA
 hardware execution/timing remains outside this CPU-level model. Production
 source and its assembly inventory remain unchanged.
+
+
+### Thumb shared-literal relocation probe — September 9, 2026
+
+`check_thumb_shared_literal.py` establishes a viable external Thumb literal
+encoding for the VSync shared pool. Ordinary external LDR syntax is rejected
+by GAS. An explicit `R_ARM_THM_PC8` relocation requires the instruction's scaled
+implicit addend to encode -4 (`ldr r0,[pc,#1020]` before relocation), accounting
+for the architectural PC bias. A relocation expression `Shared-4` alone did not
+encode that addend and loaded four bytes past the target. This is an assembler
+relocation experiment, not copied ROM opcodes or production code.
+
+The probe verifies final addresses for minimum through maximum forward offsets
+and executes 192 valid loads across two origins, both word/halfword instruction
+alignments and all NZCV inputs. All values and flags match. GNU ld silently
+wraps twelve backward/out-of-range cases; explicit decoded-address checks catch
+all twelve, and matching linker ASSERT bounds reject each. Any production
+shared-literal support must enforce the forward 0..1020-byte aligned PC range
+explicitly, rather than relying on relocation failure.
+
+The VSync C candidate remains 84 bytes, with its previously verified 2,304
+cases unchanged. This probe resolves the relocation mechanism and required
+validation for the next compiler change; production remains unchanged.
