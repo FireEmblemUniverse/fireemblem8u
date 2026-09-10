@@ -2437,3 +2437,23 @@ Removing the C constraint after decrement does not eliminate that comparison:
 GCC conservatively tracks arithmetic flags as NZ-only. Next work must prove
 the byte counter's subtraction cannot overflow before reusing those flags for
 a signed branch. Production remains unchanged.
+
+### September 9: Thumb carry branch distance regression
+
+Extended `research/audio/check_thumb_carry.py` beyond short branches with
+160-store and 1,200-store volatile C bodies in both branch senses. The probe
+asserts that the plugin emits the conditional skip plus B and BL forms,
+respectively. All 4,096 baseline/plugin executions pass across incoming NZCV
+values, checking the selected output, return PC, stack and callee-saved registers.
+Range fixtures call a noinline barrier so the incoming return address is saved.
+
+An initial oversized inline-assembly leaf fixture and then an ordinary volatile
+C leaf fixture both triggered `Unexpected thumb1 far jump` in the baseline
+compiler as well as the extension configuration. Consequently these passing
+non-leaf tests do not establish support for large leaf functions. Resolve that
+compiler limitation or explicitly reject unsupported extension contracts before
+production promotion. No production source or ROM bytes changed in this step.
+
+Verified with `.deps/arm-oracle-venv/bin/python research/audio/check_thumb_carry.py
+--compiler .deps/sound-vsync-match/gcc
+--plugin .deps/sound-vsync-match/thumb_shared_literal.so`.

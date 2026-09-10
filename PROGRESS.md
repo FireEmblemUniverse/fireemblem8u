@@ -36,8 +36,11 @@ Next milestone: match and integrate the audio VSync/DMA handler.
 Its 76-byte C candidate now has the original section size and passes 2,304 original/C cases checking the ordered
 counter and DMA accesses, memory, r0-r12 and return flags. Shared literal loads now match;
 the DMA carry branches now use the original instructions. The extra signed
-counter comparison remains the next matching target. Another 3,072 standalone
-bit-test executions pass across bit positions and branch senses. A standalone
+counter comparison remains the next matching target. Another 4,096 standalone
+bit-test executions pass across bit positions, branch senses and short/long/far
+branch distances, including saved return-address checks. Large leaf-function
+far-branch probes trigger a baseline GCC internal error; this remains a compiler
+limitation to resolve or reject explicitly before promoting the extension. A standalone
 Thumb literal probe passes 192 execution cases; explicit link assertions reject
 12 offsets that the linker otherwise silently wraps.
 
