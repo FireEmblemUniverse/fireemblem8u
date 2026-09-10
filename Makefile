@@ -1082,3 +1082,11 @@ src/m4a_mplay_exit_restore.o: $(THUMB_FRAME_RETURN_PLUGIN)
 src/m4a_mplay_exit_restore.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_exit_restore.o: C_END_ALIGN := 1
 src/m4a_mplay_exit_restore.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FRAME_RETURN_PLUGIN) -fplugin-arg-thumb_frame_return-grouped -fplugin-arg-thumb_frame_return-frame36 -fplugin-arg-thumb_frame_return-return-entry=call_r3
+
+THUMB_POSITIVE_ADVANCE_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_positive_advance.so
+$(THUMB_POSITIVE_ADVANCE_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_positive_advance.cc tools/arm-dispatch/build_thumb_positive_advance.py
+	python3 tools/arm-dispatch/build_thumb_positive_advance.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_post_track_next.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_FORK_DECREMENT_PLUGIN) $(THUMB_POSITIVE_ADVANCE_PLUGIN)
+src/m4a_mplay_post_track_next.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_track_next.o: C_END_ALIGN := 1
+src/m4a_mplay_post_track_next.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainExit -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackGuard -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainExit -fplugin=$(THUMB_FORK_DECREMENT_PLUGIN) -fplugin=$(THUMB_POSITIVE_ADVANCE_PLUGIN) -fplugin-arg-thumb_positive_advance-destination=MPlayMainPostTrackGuard

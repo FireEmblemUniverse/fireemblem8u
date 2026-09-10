@@ -1473,6 +1473,17 @@ SECTIONS
         src/m4a_mplay_post_track_finish.o(.text);
         __mplay_post_track_finish_end = .;
         src/m4a_1.o(.text.after_mplay_post_track_finish);
+        __mplay_post_track_next_start = .;
+        src/m4a_mplay_post_track_next.o(.text);
+        __mplay_post_track_next_end = .;
+        src/m4a_1.o(.text.after_mplay_post_track_next);
+        ASSERT((MPlayMainPostTrackNext & ~1) == MPlayMainPostTrackNextBoundary &&
+               __mplay_post_track_next_end - __mplay_post_track_next_start == 10 &&
+               (MPlayMainExit & ~1) == __mplay_post_track_next_end,
+               "MPlayMain post track_next extent or continuation changed");
+        ASSERT((MPlayMainPostTrackGuard & ~1) + 256 >= __mplay_post_track_next_start + 12 &&
+               (MPlayMainPostTrackGuard & ~1) <= __mplay_post_track_next_start + 12 + 254,
+               "MPlayMain post track_next transfer out of range");
         __mplay_exit_unlock_start = .;
         src/m4a_mplay_exit_unlock.o(.text);
         __mplay_exit_unlock_end = .;

@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[2];ENTRY=0x080cfda6;EXIT=0x080cfdb0;LOOP=0
 def signed(x):return x if x<0x80000000 else x-0x100000000
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--production',action='store_true');a=p.parse_args()
  out=ROOT/'.deps/soundmain-packed/mplay-post-track-next';out.mkdir(parents=True,exist_ok=True);obj=out/'candidate.o';binary=out/'candidate.bin';elf=out/'candidate.elf'
  command=[a.compiler,'-c','-std=gnu89','-O1','-fno-reorder-blocks','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include')]
  options=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/tail_transfer.so'),'-fplugin-arg-tail_transfer-destination=MPlayMainExit','-fplugin-arg-tail_transfer-destination=MPlayMainPostTrackGuard','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-acyclic-branches','-fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainExit','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_fork_decrement.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_positive_advance.so'),'-fplugin-arg-thumb_positive_advance-destination=MPlayMainPostTrackGuard']
@@ -27,6 +27,7 @@ def main():
  plain=source.replace(', matching_thumb_positive_advance','');result,baseline=guard(plain,[x for x in options if 'thumb_positive_advance' not in x]);assert not result.returncode,result.stderr
  result,loaded=guard(plain);assert not result.returncode and loaded==baseline,result.stderr
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+ if a.production:assert (ROOT/'fireemblem8.gba').read_bytes()==rom
  assert code==rom[ENTRY-0x08000000:EXIT-0x08000000],code.hex()
  uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_write(ENTRY,code);uc.mem_map(DATA,0x4000);memory=bytes([0xa5])*0x4000;uc.mem_write(DATA,memory);accesses=[]
  def access(u,kind,address,size,value,user):accesses.append((kind,address,size,value))
@@ -56,6 +57,6 @@ def main():
   assert uc.reg_read(r.UC_ARM_REG_SP)==SP and uc.reg_read(r.UC_ARM_REG_LR)==0x12345679
   assert not accesses and bytes(uc.mem_read(DATA,0x4000))==memory
   outcomes[outcome]+=1
- report=dict(rejected_source_forms=len(invalid),unannotated_unchanged=True,cases=sum(outcomes.values()),outcomes=outcomes,original_instruction_bytes=10,candidate_matching=True,scope='Matching C candidate against independent original-verified model: all byte counts, full-width boundaries/random counts, ten pointer boundary values, every NZCV; full registers/CPSR/SP/LR and no memory accesses. Signed pre-overflow pointer sum tested across both wrap boundaries.',limitations='Does not execute complete traversal or full MPlayMain.')
+ report=dict(rejected_source_forms=len(invalid),unannotated_unchanged=True,cases=sum(outcomes.values()),outcomes=outcomes,original_instruction_bytes=10,candidate_matching=True,production_integrated=a.production,scope='Matching C candidate against independent original-verified model: all byte counts, full-width boundaries/random counts, ten pointer boundary values, every NZCV; full registers/CPSR/SP/LR and no memory accesses. Signed pre-overflow pointer sum tested across both wrap boundaries.',limitations='Does not execute complete traversal or full MPlayMain.')
  out=ROOT/'.deps/soundmain-packed/mplay-post-track-next';out.mkdir(parents=True,exist_ok=True);(out/'candidate-model.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

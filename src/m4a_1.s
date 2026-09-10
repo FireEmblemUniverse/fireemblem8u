@@ -521,14 +521,10 @@ _081DDA52:
 MPlayMainPostTrackFinishBoundary:
 _081DDA58:
 	.section .text.after_mplay_post_track_finish, "ax", %progbits
-	.global MPlayMainPostTrackNext
-MPlayMainPostTrackNext:
+	.global MPlayMainPostTrackNextBoundary
+MPlayMainPostTrackNextBoundary:
 _081DDA62:
-	subs r2, 0x1
-	ble _081DDA6C
-	movs r0, 0x50
-	adds r5, r0
-	bgt _081DD9C8
+	.section .text.after_mplay_post_track_next, "ax", %progbits
 	.global MPlayMainExitBoundary
 MPlayMainExitBoundary:
 _081DDA6C:

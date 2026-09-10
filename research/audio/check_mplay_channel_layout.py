@@ -141,6 +141,11 @@ def main():
  for name,expression in [('exit_literal_far','__mplay_exit_unlock_start + 1028'),('exit_literal_backward','__mplay_exit_unlock_start'),('exit_literal_unaligned','__mplay_exit_unlock_start + 6')]:
   text=source.replace('        ASSERT((__mplay_exit_unlock_start & 3) ==','        lt2_ID_NUMBER = '+expression+';\n        ASSERT((__mplay_exit_unlock_start & 3) ==',1)
   cases.append((name,text,'exit identifier literal out of range'))
+ cases.append(('post_track_next_extent',source.replace('        __mplay_post_track_next_end = .;','        . += 2;\n        __mplay_post_track_next_end = .;'),'post track_next extent or continuation'))
+ cases.append(('post_track_next_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_track_next);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_track_next);'),'post track_next extent or continuation'))
+ for name,expression in [('post_loop_far','__mplay_post_track_next_start + 268'),('post_loop_backward','__mplay_post_track_next_start - 246')]:
+  text=source.replace('        ASSERT((MPlayMainPostTrackGuard & ~1) + 256 >=','        MPlayMainPostTrackGuard = '+expression+';\n        ASSERT((MPlayMainPostTrackGuard & ~1) + 256 >=',1)
+  cases.append((name,text,'post track_next transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
