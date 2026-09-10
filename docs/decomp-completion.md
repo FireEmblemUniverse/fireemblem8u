@@ -2349,3 +2349,20 @@ The candidate remains 92 bytes against the original 76-byte region at
 `0x080CFB1C..0x080CFB68`. Shared forward literal references, redundant compares,
 bit-test lowering and halfword-store narrowing still differ. It is not
 integrated; production remains at `70290e0c` with the full ROM matching.
+
+
+### VSync narrowing instructions removed — September 9, 2026
+
+Empty read/write register constraints between each pair of halfword stores
+prevent GCC from sharing a separately narrowed temporary. Both stores now use
+the original register directly, eliminating two redundant shift pairs. The
+CPU instruction and MMIO sequence is otherwise unchanged by the constraints.
+The candidate shrinks from 92 to 84 bytes; it is still unintegrated against the
+76-byte original section. Shared forward literals, the counter comparison and
+DMA bit-test instructions remain different.
+
+All 2,304 original/C execution cases continue to pass the independent state
+and ordered-access reference. The checker now also compares all r0-r12 values
+at return: zero register differences and zero flag differences occur. DMA
+hardware execution/timing remains outside this CPU-level model. Production
+source and its assembly inventory remain unchanged.

@@ -12,7 +12,7 @@ def main():
     subprocess.run(['arm-none-eabi-gcc','-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.o'),str(OUT/'candidate.bin')],check=True)
-    candidate=(OUT/'candidate.bin').read_bytes();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0xcfb1c:0xcfb68];count=0;flag_differences=0
+    candidate=(OUT/'candidate.bin').read_bytes();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0xcfb1c:0xcfb68];count=0;flag_differences=0;register_differences=0
     for ident in (0,IDENT-1,IDENT,IDENT+1,IDENT+2,0xffffffff):
         for counter in (0,1,2,127,128,255):
             for period in (0,1,7,255):
@@ -51,8 +51,8 @@ def main():
                             assert actual==trace,(ident,counter,period,repeats,actual,trace)
                             assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                             for reg in range(4,12):assert uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(reg)))==0x12340000+reg
-                            results.append(uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000)
-                        flag_differences+=results[0]!=results[1];count+=1
-    report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'return_flag_difference_cases':flag_differences,'complete_match':candidate==original,'scope':'CPU memory and ordered MMIO accesses; DMA hardware transfer execution/timing not modeled.'}
+                            results.append((uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000,[uc.reg_read(getattr(r,"UC_ARM_REG_R"+str(reg))) for reg in range(13)]))
+                        flag_differences+=results[0][0]!=results[1][0];register_differences+=results[0][1]!=results[1][1];count+=1
+    report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'return_flag_difference_cases':flag_differences,'r0_r12_difference_cases':register_differences,'complete_match':candidate==original,'scope':'CPU memory and ordered MMIO accesses; DMA hardware transfer execution/timing not modeled.'}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report)
 if __name__=='__main__':main()

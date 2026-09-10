@@ -55,12 +55,14 @@ void m4aSoundVSync(void)
         control <<= 8;
         asm("" : "+r"(control));
         dma[0].cnt.half.flags = control;
+        asm("" : "+r"(control));
         dma[1].cnt.half.flags = control;
         control = (DMA_ENABLE | DMA_START_SPECIAL | DMA_32BIT | DMA_REPEAT) >> 8;
         asm("" : "+r"(control));
         control <<= 8;
         asm("" : "+r"(control));
         dma[0].cnt.half.flags = control;
+        asm("" : "+r"(control));
         dma[1].cnt.half.flags = control;
     }
 }
