@@ -857,3 +857,35 @@ changes the table pointer before it is read. The latter uses aligned resulting
 word loads. Full RAM, r0-r12, SP/LR, flags and ordered accesses agree. The callback
 invocation and post-callback logic are excluded. Two new layout checks bring the
 combined negative layouts to twenty-three; no compiler rule changed here.
+
+
+### Unsigned immediate command guards
+
+`thumb_direct_tails` accepts opt-in `unsigned-immediate=lt` or `=le` with
+`expected-transfers=1`. It recognizes a low-register unsigned `x > k` branch
+that skips a single declared unconditional tail, with no intervening instructions
+or labels before the stub and no instructions between it and the skip label.
+The inverted external transfer is `x <= k`; `lt` expresses the equivalent
+`x < k+1` and requires the adjusted bound to fit 0..255. `le` retains the bound.
+The new machine pattern emits CMP/BCC or CMP/BLS. Exactly one such rewrite must
+occur; this option cannot combine with descending masked-operand order.
+Signed comparisons and unsupported immediate shapes fail this contract.
+The option is inactive unless the function carries the private tail and direct
+tail attributes; existing direct-tail behavior is unchanged without it.
+
+The strict form recovers the original comparison against 207, rather than the
+compiler's canonical comparison against 206, so the MPlayMain note guard has
+matching CMP flags as well as matching branch decisions. The wait guard uses
+inclusive comparison against 176. These are candidate fragments, not production
+integration or complete MPlayMain verification.
+
+```sh
+python3 tools/arm-dispatch/build_backend.py
+python3 tools/arm-dispatch/build_tail_transfer.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_command_guards.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```
+
+Both four-byte candidates match and pass 26,880 execution cases apiece, checking
+all registers/CPSR/SP/LR and absence of memory accesses. Each rejects ten invalid
+source/option configurations and preserves unannotated compilation.

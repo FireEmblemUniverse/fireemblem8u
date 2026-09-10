@@ -426,3 +426,20 @@
   "TARGET_THUMB1"
   "adds\t%0, %0, %1\n\tbgt\t%2"
   [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
+
+;; Unsigned immediate guards with explicit short external continuations.
+(define_insn "match_thumb_unsigned_imm_tail"
+  [(set (pc)
+        (if_then_else
+         (match_operator 2 "comparison_operator"
+          [(match_operand:SI 0 "low_register_operand" "l")
+           (match_operand:SI 1 "const_int_operand" "n")])
+         (match_operand:SI 3 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == LTU || GET_CODE (operands[2]) == LEU)
+   && INTVAL (operands[1]) >= 0 && INTVAL (operands[1]) <= 255"
+  {
+    return GET_CODE (operands[2]) == LTU
+      ? "cmp\t%0, #%c1\n\tbcc\t%3"
+      : "cmp\t%0, #%c1\n\tbls\t%3";
+  }
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])

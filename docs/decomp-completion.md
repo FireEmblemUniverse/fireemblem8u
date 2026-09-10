@@ -8273,3 +8273,44 @@ Evidence: `research/audio/check_mplay_early_clear_setup.py` and
 Production ELF SHA-256:
 `b8e0ce48f31141b2f39a47b6d5506e605cf009d01f7ee03d3e69bab2c6794bbe`.
 Next: MPlayMain command guards and entry/loop code.
+
+
+## September 10, 2026 — Exact note/wait command-guard candidates
+
+On production baseline `f4c0c237`, the note guard at 080CFC3A..080CFC3E
+and wait guard at 080CFC50..080CFC54 now have matching C candidates.
+The initial ordinary C note guard emitted CMP 206/BHI and an extra unconditional
+branch. Although its branch decisions were equivalent, its flags differed from
+the original CMP 207/BCC. The new opt-in `unsigned-immediate` mode in the existing
+Thumb direct-tail pass folds a validated inverse GTU branch and its adjacent
+single declared tail. `lt` uses the equivalent strict bound k+1; `le` retains k.
+Both require low-register comparison, immediate range, a closed skip region and
+exactly one rewrite. The machine pattern emits CMP/BCC or CMP/BLS with explicit
+flags clobber. The installed isolated compiler and plugins rebuilt successfully.
+
+Both candidates reproduce all four original bytes. Each passes 26,880 cases
+against the original plus an independent comparison/CMP-NZCV model: all command
+bytes, full-width boundaries/bit patterns/random words, every initial NZCV and
+four stack positions. Registers r0-r12, CPSR, SP/LR and no-memory-access state
+match. Note outcomes are 13,760 taken / 13,120 fallthrough; wait outcomes are
+11,840 / 15,040. Each rejects ten source/option violations and preserves
+unannotated output. A high-register source binding is not claimed as invalid:
+GCC can legally copy it to a low temporary before the supported comparison.
+The committed negative tests instead reject genuinely unsupported comparison,
+barrier, private-contract and option shapes.
+
+Existing direct-tail regression passes nine invalid configurations, three
+invalid source forms and unchanged unannotated output. All 1,048,576 existing
+production channel-guard execution cases pass under the rebuilt compiler.
+No production instructions changed in this milestone; ownership totals are
+unchanged. Complete continuation bodies and full MPlayMain are not tested by
+the new checker. Next: integrate both guards, constrain extents and conditional
+targets, and run full ROM/layout/runtime/ownership gates.
+
+Sources: `research/audio/mplay_note_guard.c`, `mplay_wait_guard.c`,
+`check_mplay_command_guards.py`, `tools/arm-dispatch/thumb_direct_tails.cc` and
+`matching.md`. Evidence: `.deps/soundmain-packed/command-guard/report.json`,
+`check.log`, `regression.log`, `channel-regression.log`, `backend-build.log` and
+plugin build logs. The rebuilt compiler corrected an initial duplicate immediate
+prefix in the machine pattern; the final assembled candidates and executions
+above use the corrected output.

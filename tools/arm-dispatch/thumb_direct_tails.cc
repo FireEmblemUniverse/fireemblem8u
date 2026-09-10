@@ -26,6 +26,7 @@ namespace {
 std::set<std::string> destinations;
 unsigned expected=0;
 bool descending_masks=false;
+std::string unsigned_immediate;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {error("matching_thumb_direct_tails requires a function");*no_add=true;}
     return NULL_TREE;
@@ -64,7 +65,7 @@ public:
         if (!lookup_attribute("matching_thumb_direct_tails",DECL_ATTRIBUTES(fn->decl))) return 0;
         if (!TARGET_THUMB1||!lookup_attribute("matching_tail_transfer",DECL_ATTRIBUTES(fn->decl)))
             fatal_error(UNKNOWN_LOCATION,"Thumb direct tails require private Thumb tails");
-        unsigned rewritten=0,masked=0;
+        unsigned rewritten=0,masked=0,unsigned_guards=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i),set=p;
@@ -107,6 +108,24 @@ public:
                     remove=stub;
                 }
             }
+            if (!replacement && !unsigned_immediate.empty() && !bundled
+                && GET_CODE(condition)==GTU && low(XEXP(condition,0))
+                && CONST_INT_P(XEXP(condition,1))) {
+                // x > k skips a single declared tail: invert to x <= k.
+                // The strict form uses x < k+1; its bound must fit an immediate.
+                rtx_insn *stub=next_op(i);rtx destination=symbol_of(stub);
+                HOST_WIDE_INT bound=INTVAL(XEXP(condition,1));
+                if (destination && bound>=0 && bound<=255
+                    && (unsigned_immediate!="lt" || bound<255)
+                    && adjacent_unlabelled(i,stub) && forward_empty_to(stub,label)) {
+                    rtx reg=copy_rtx(XEXP(condition,0));
+                    rtx imm=GEN_INT(bound+(unsigned_immediate=="lt"));
+                    rtx test=gen_rtx_fmt_ee(unsigned_immediate=="lt"?LTU:LEU,VOIDmode,
+                                          copy_rtx(reg),copy_rtx(imm));
+                    replacement=gen_match_thumb_unsigned_imm_tail(reg,imm,test,copy_rtx(destination));
+                    remove=stub;unsigned_guards++;
+                }
+            }
             if (!replacement) continue;
             if (!validate_change(i,&PATTERN(i),replacement,false))
                 fatal_error(UNKNOWN_LOCATION,"Thumb direct tail pattern rejected");
@@ -121,6 +140,8 @@ public:
             }
             rewritten++;
         }
+        if (!unsigned_immediate.empty() && unsigned_guards!=1)
+            fatal_error(UNKNOWN_LOCATION,"unsigned immediate mode requires exactly one unsigned guard");
         if (descending_masks&&!masked) fatal_error(UNKNOWN_LOCATION,"descending mask order requires a masked tail");
         if (rewritten!=expected) fatal_error(UNKNOWN_LOCATION,"Thumb direct tails expected %u transfers, found %u",expected,rewritten);
         return 0;
@@ -132,6 +153,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;const char *v=info->argv[n].value;
         if (key=="descending-mask-operands"&&!v&&!descending_masks) {descending_masks=true;continue;}
+        if (key=="unsigned-immediate" && v && unsigned_immediate.empty()
+            && (!strcmp(v,"lt") || !strcmp(v,"le"))) {unsigned_immediate=v;continue;}
         if (key=="destination"&&v&&*v) {if(!destinations.insert(v).second) return 1;continue;}
         if (key=="expected-transfers"&&v&&*v&&!expected) {
             char *end=nullptr;unsigned long value=strtoul(v,&end,10);
@@ -140,6 +163,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         return 1;
     }
     if (destinations.empty()||!expected) return 1;
+    if (!unsigned_immediate.empty() && (expected!=1 || descending_masks)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_AFTER};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

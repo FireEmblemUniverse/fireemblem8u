@@ -4,6 +4,14 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `8e335df2`): both earlier MPlayMain clear-call paths are generated from matching C. All 12 instruction bytes match, 102,912 setup/call-return cases pass, and each invocation rejects 15 invalid contracts. The full ROM and fresh runtime builds match. Main-ROM ownership is 720,648/777,630 mapped instruction bytes attributed to C (92.67%); reviewed non-library assembly is 1,730 bytes, with 554 tracked C files. The valid layout links and all 156 altered layouts reject. Remaining work includes MPlayMain entry/loop code and command guards, ply_note, runtime helpers, unit-list/transfer code and final executable classification.
 
+Candidate milestone (September 10, baseline `f4c0c237`): both command guards now
+match all eight original instruction bytes and pass 53,760 execution cases,
+including exact CMP flags. Each rejects ten unsupported configurations and
+preserves unannotated compilation. The new opt-in unsigned-immediate tail rule
+and rebuilt compiler pass the existing 12 direct-tail contract rejections;
+all 1,048,576 existing channel-guard execution cases pass. Production ownership
+remains unchanged pending integration, full build and audit gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
