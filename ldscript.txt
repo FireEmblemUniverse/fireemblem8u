@@ -593,6 +593,10 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_fine);
         src/m4a_pend.o(.text);
         src/m4a_1.o(.text.after_ply_pend);
+        src/m4a_command_setters.o(.text.ply_prio);
+        src/m4a_1.o(.text.after_ply_prio);
+        src/m4a_command_setters.o(.text.ply_lfodl);
+        src/m4a_1.o(.text.after_ply_lfodl);
         __sound_vsync_start = .;
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;

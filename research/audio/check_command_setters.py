@@ -20,15 +20,16 @@ def main():
     parser.add_argument('--compiler', default='arm-none-eabi-gcc')
     parser.add_argument("--plugin", type=Path)
     parser.add_argument("--require-match", action="store_true")
+    parser.add_argument("--production", action="store_true")
     args = parser.parse_args()
-    extra = (["-DMATCH_IP_RETURN", "-Werror=attributes", "-fno-unwind-tables", "-fno-asynchronous-unwind-tables",
+    extra = (["-Werror=attributes", "-fno-unwind-tables", "-fno-asynchronous-unwind-tables",
               "-fplugin="+str(args.plugin.resolve()), "-fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i"] if args.plugin else [])
     OUT.mkdir(exist_ok=True)
     subprocess.run([args.compiler, '-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi',
                     '-mabi=apcs-gnu', '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing',
                     '-ffunction-sections', '-fno-if-conversion', '-fno-if-conversion2',
                     '-fno-reorder-blocks', '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
-                    str(ROOT/'include'), str(ROOT/'research/audio/command_setters.c'),
+                    str(ROOT/'include'), str(ROOT/'src/m4a_command_setters.c'),
                     '-o', str(OUT/'candidate.s'), *extra], check=True)
     assembly = (OUT/'candidate.s').read_text()
     (OUT/'linked.s').write_text(assembly+'\n.global ld_r3_tp_adr_i\n.thumb_set ld_r3_tp_adr_i, 0x080cf98d\n')
@@ -41,6 +42,8 @@ def main():
         subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT/'candidate.elf'), str(OUT/(name+'.bin'))], check=True)
         candidate = (OUT/(name+'.bin')).read_bytes()
         original = rom[entry-0x08000000:entry-0x08000000+10]
+        if args.production:
+            assert candidate == (ROOT/'fireemblem8.gba').read_bytes()[entry-0x08000000:entry-0x08000000+10], name
         machines = []
         for code in (original, candidate):
             uc = Uc(UC_ARCH_ARM, UC_MODE_THUMB)

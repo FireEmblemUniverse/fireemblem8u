@@ -2618,3 +2618,38 @@ Experimental cc1 SHA-256: `5b5b162ff0d13992d9f9881b05671af29bc48f6d52a043447c6d4
 Production remains at `7eae15fd`, with 52 assembly entry markers. The two
 candidates still require compiler promotion, section placement, full-ROM
 comparison and updated linked/source audits before integration is claimed.
+
+### September 9: priority and LFO-delay setters integrated
+
+The exact candidates from `4b3053e7` are now `src/m4a_command_setters.c`, with
+separate function sections linked at `080CFA18` and `080CFACC`. Their original
+assembly bodies were removed. Explicit zero alignment remains at the preceding
+assembly boundaries: without it, the assembler padded the shortened sections
+with NOPs instead of the original zeros. Both following routine addresses are
+unchanged (`ply_tempo` at `080CFA24`, `ply_modt` at `080CFAD8`).
+
+Private-return patterns and plugin support were promoted into
+`tools/arm-dispatch/`, with a builder using the installed compiler's generated
+headers. The normal Makefile builds all dependencies and provides the explicit
+checked-reader r12 contract. The research compiler copies were removed.
+
+`make compare -j8` passes the full 16,777,216-byte ROM checksum. Both ten-byte
+setter bodies pass 4,128 production/original memory, register and flag cases
+using the actual ROM helper, with no differences. The installed plugin passes
+128 two-call return-mode cases and rejects fourteen unsupported contracts;
+unannotated assembly is unchanged. The exact BL instructions still target the
+original Thumb reader directly, with no introduced veneer.
+
+The source audit reports 456 main C files and 50 assembly entry markers. Of
+541 inline sites, 201 are register bindings, 332 are empty constraints, one is
+directive-only and seven contain instructions. One naked-function marker and
+42 NONMATCHING conditionals remain, with no baserom includes. The linked audit
+attributes twenty Thumb bytes and two padding bytes to the new C object, with
+no mapping symbols outside input sections. Remaining embedded and transfer
+code remains in scope.
+
+Evidence: `.deps/audio-command-setters/compare.log`, `report.json`,
+`source-audit.json` and `linked-audit.json`. The progress panel is updated.
+The root README's inherited “Used by” section was also clarified in response
+to the user's question: those downstream tools can consume symbols and data
+while C recovery is incomplete; they are not a completion or maintenance claim.

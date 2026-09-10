@@ -17,9 +17,12 @@ and run `python3 scripts/audit_decomp.py` for the current source inventory.
 It builds the following ROM:
 * fireemblem8.gba `sha1: c25b145e37456171ada4b0d440bf88a19f4d509f`
 
-## Used by
+## Downstream tools
 
-Projects powered by this decomp:
+The upstream project lists the following tools as consumers of this repository's
+symbols, data and recovered code. They can use these outputs while parts of the
+game remain in assembly; this list does not imply that C decompilation is complete
+or that these tools are maintained as part of this task.
 
 * [**fe-maps**](https://github.com/laqieer/fe-maps) ([site](https://laqieer.github.io/fe-maps/)) — browsable ROM/RAM data maps extracted from this decomp's ELF with `readelf`/`nm -l`.
 * [**FE_GBA_Function_Library**](https://github.com/laqieer/FE_GBA_Function_Library) ([site](https://laqieer.github.io/FE_GBA_Function_Library/)) — cross-game function documentation using `nm -l` for signatures and `source:line` links.

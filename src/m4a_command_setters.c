@@ -1,11 +1,7 @@
 #include "global.h"
 #include "gba/m4a_internal.h"
 
-#ifdef MATCH_IP_RETURN
 #define PRIVATE_RETURN __attribute__((matching_ip_return))
-#else
-#define PRIVATE_RETURN
-#endif
 
 /* The audio byte-reader ABI preserves r0/r1 and returns its byte in r3. */
 register struct MusicPlayerTrack * commandTrack asm("r1");

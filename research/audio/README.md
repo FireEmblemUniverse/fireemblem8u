@@ -57,3 +57,12 @@ units do not enable the Thumb plugin unless their Makefile rule requests it.
 `check_thumb_byte_counter.py` checks both accepted patterns and unchanged
 unsupported patterns. `check_sound_vsync.py --require-match` makes exact bytes,
 registers and return flags mandatory in addition to its ordered-access checks.
+
+Priority and LFO-delay setters have graduated to `src/m4a_command_setters.c`.
+Their private return convention is implemented by `tools/arm-dispatch/ip_return.cc`
+and the pinned backend's explicit return pattern. The normal Makefile builds
+the plugin and applies the matching attribute with the checked byte reader's
+r12-preservation contract. Use `check_command_setters.py --compiler COMPILER
+--plugin PLUGIN --require-match --production` and `check_ip_return.py` for
+production and contract validation. The experimental compiler copies have
+been removed after promotion.

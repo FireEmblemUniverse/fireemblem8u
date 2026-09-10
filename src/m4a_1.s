@@ -609,13 +609,9 @@ ply_rept_2:
 	bx r0
 	thumb_func_end ply_rept
 
-	thumb_func_start ply_prio
-ply_prio:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	strb r3, [r1, o_MusicPlayerTrack_priority]
-	bx r12
-	thumb_func_end ply_prio
+@ ply_prio is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_prio, "ax", %progbits
 
 	thumb_func_start ply_tempo
 ply_tempo:
@@ -716,13 +712,9 @@ ply_bendr:
 	bx r12
 	thumb_func_end ply_bendr
 
-	thumb_func_start ply_lfodl
-ply_lfodl:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	strb r3, [r1, o_MusicPlayerTrack_lfoDelay]
-	bx r12
-	thumb_func_end ply_lfodl
+@ ply_lfodl is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_lfodl, "ax", %progbits
 
 	thumb_func_start ply_modt
 ply_modt:
