@@ -12,15 +12,42 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Channel volume and loop metadata integration — September 10, 2026
+
+`src/m4a_volume.c` replaces all 52 Thumb instruction bytes at
+080CF6A4..080CF6D8. It updates envelope/stereo volumes with unsigned 32-bit
+multiplication wraparound, then computes optional loop start and length in the
+shared mixer frame. Volatile reads preserve behavior when channel, sound-info,
+wave and frame memory overlap. The linker enforces the 52-byte extent and exact
+adjacency to the remaining sample handoff.
+
+The compiler's explicit `matching_thumb_copy_add_zero` contract selects the
+existing Thumb ADDS-zero pattern for distinct low-register copies. Its flag
+behavior is intentional; the existing ARM contract continues to preserve flags.
+Eight unsupported mode/copy combinations reject, both modes compile positively,
+and unannotated ARM output remains unchanged. The volume block's actual copy
+passes 16,544 full-width boundary/random executions across all NZCV and ROM/RAM.
+
+`check_soundmain_volume.py` verifies exact production ROM bytes and entry size,
+then checks 131,072 cases in four original/candidate ROM/copied-RAM machines.
+An independent mutable-memory model verifies all registers, final flags,
+fallthrough, full data memory and ordered accesses, including four alias layouts
+and 64,272 actual initial-product wrap cases. Byte envelope/master pairs are
+exhaustive; independent parameter combinations are sampled and cycle timing is
+not modeled. All 3,528 complete audio regression calls pass. Fresh pinned runtime
+sources reproduce all four images. Main mapped C ownership rises by 52 bytes to
+719,998/777,630 (92.59%); reviewed non-library assembly falls to 2,380 main bytes.
+These are coverage measures including inherited work, not overall completion.
+
 ## Current verified state
 
-After channel status/envelope integration (baseline `86e15a92` plus this change),
+After channel volume/loop integration (baseline `72de5643` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 494 main C files, 32 assembly entry markers,
+The current source inventory has 495 main C files, 32 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 719,946 in C-only objects, 33,870 in
-mixed C/assembly objects, 2,022 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 719,998 in C-only objects, 33,870 in
+mixed C/assembly objects, 1,970 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 

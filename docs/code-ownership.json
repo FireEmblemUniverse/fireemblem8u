@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "86e15a92f684baf456455b6afff1a87f038ef272",
+  "baseline_commit": "72de564358ff9ad48996885afd80b523645eb465",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2022,
-        "c_owned": 719946,
+        "assembly_source": 1970,
+        "c_owned": 719998,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -907,11 +907,6 @@
           "instruction_bytes": 1334
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 1318
-        },
-        {
           "object": "src/menuitempanel.o",
           "category": "c_owned",
           "instruction_bytes": 1312
@@ -935,6 +930,11 @@
           "object": "src/banim-efxmagic-shadowshot.o",
           "category": "c_owned",
           "instruction_bytes": 1276
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 1266
         },
         {
           "object": "src/prep_itemusemind.o",
@@ -1862,6 +1862,11 @@
           "instruction_bytes": 52
         },
         {
+          "object": "src/m4a_volume.o",
+          "category": "c_owned",
+          "instruction_bytes": 52
+        },
+        {
           "object": "src/eventcmd_warp.o",
           "category": "c_owned",
           "instruction_bytes": 50
@@ -2182,13 +2187,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "24dbafa3c539ac3816734684e963b0ce323011d3b4a379e3b85620bf25885a34",
-      "map_sha256": "9e380240fd2e9770c7005df4e54b2f67ad7801bea94a5ced9b2ed2efb01e1b57",
+      "elf_sha256": "2ea6864a221eef5438ba0da8349332926a2f3a210d52c0501d6b8af83291bc87",
+      "map_sha256": "53455262658034aeb8b0c48e87ffcfd60a8492879084296b48a3abda860c7a97",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2432
+      "known_nonarchive_assembly_bytes": 2380
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

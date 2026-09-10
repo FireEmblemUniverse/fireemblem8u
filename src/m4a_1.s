@@ -124,37 +124,15 @@ SoundMainRAM_DeadlineContinueBoundary:
 @ The 160-byte status/envelope block is generated from m4a_envelope.c.
 	.section .text.after_envelope, "ax", %progbits
 	.thumb
-	.global SoundMainRAM_EnvelopeVolume
-	.type SoundMainRAM_EnvelopeVolume, %function
+	.global SoundMainRAM_EnvelopeVolumeBoundary
+SoundMainRAM_EnvelopeVolumeBoundary:
+@ Volume and loop metadata come from the 52-byte matching C block.
+	.section .text.after_volume, "ax", %progbits
+	.thumb
+	.global SoundMainRAM_ResumeSamples
+	.type SoundMainRAM_ResumeSamples, %function
 	.thumb_func
-SoundMainRAM_EnvelopeVolume:
-_081DD006:
-	strb r5, [r4, o_SoundChannel_ev]
-	ldr r0, [sp, 0x18]
-	ldrb r0, [r0, o_SoundChannel_release]
-	adds r0, 0x1
-	muls r0, r5
-	lsrs r5, r0, 4
-	ldrb r0, [r4, o_SoundChannel_rightVolume]
-	muls r0, r5
-	lsrs r0, 8
-	strb r0, [r4, o_SoundChannel_er]
-	ldrb r0, [r4, o_SoundChannel_leftVolume]
-	muls r0, r5
-	lsrs r0, 8
-	strb r0, [r4, o_SoundChannel_el]
-	movs r0, 0x10
-	ands r0, r6
-	str r0, [sp, 0x10]
-	beq _081DD03A
-	adds r0, r3, 0
-	adds r0, 0x10
-	ldr r1, [r3, 0x8]
-	adds r0, r1
-	str r0, [sp, 0xC]
-	ldr r0, [r3, 0xC]
-	subs r0, r1
-	str r0, [sp, 0x10]
+SoundMainRAM_ResumeSamples:
 _081DD03A:
 	ldr r5, [sp, 0x8]
 	ldr r2, [r4, o_SoundChannel_ct]

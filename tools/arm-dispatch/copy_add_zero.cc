@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Select flag-preserving ARM ADD #0 for explicit register-copy contracts.
+// Select ARM ADD #0 or flag-setting Thumb ADDS #0 under explicit contracts.
 #include "gcc-plugin.h"
 #include "plugin-version.h"
 #include "context.h"
@@ -16,6 +16,7 @@
 #include "stringpool.h"
 #include "attribs.h"
 #include "diagnostic-core.h"
+#include "insn-flags.h"
 int plugin_is_GPL_compatible;
 static tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node) != FUNCTION_DECL) {
@@ -25,22 +26,27 @@ static tree validate(tree *node, tree, tree, int, bool *no_add) {
     return NULL_TREE;
 }
 static const attribute_spec contract={"matching_copy_add_zero",0,0,true,false,false,false,validate,nullptr};
-static void register_contract(void *,void *) { register_attribute(&contract); }
+static const attribute_spec thumb_contract={"matching_thumb_copy_add_zero",0,0,true,false,false,false,validate,nullptr};
+static void register_contract(void *,void *) { register_attribute(&contract);register_attribute(&thumb_contract); }
 static const pass_data data={RTL_PASS,"copy_add_zero",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class match_pass:public rtl_opt_pass {
 public:
     match_pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if (!lookup_attribute("matching_copy_add_zero",DECL_ATTRIBUTES(fn->decl))) return 0;
-        if (!TARGET_ARM) fatal_error(UNKNOWN_LOCATION,"copy add zero requires ARM mode");
+        bool arm=lookup_attribute("matching_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
+        bool thumb=lookup_attribute("matching_thumb_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
+        if (!arm&&!thumb) return 0;
+        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1))
+            fatal_error(UNKNOWN_LOCATION,"copy add zero requires one mode-specific contract");
         unsigned copies=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!NONJUMP_INSN_P(i)||GET_CODE(PATTERN(i))!=SET) continue;
             rtx set=PATTERN(i),dst=SET_DEST(set),src=SET_SRC(set);
             if (!REG_P(dst)||!REG_P(src)||GET_MODE(dst)!=SImode||GET_MODE(src)!=SImode) continue;
-            if (REGNO(dst)>=13||REGNO(src)>=13||REGNO(dst)==REGNO(src))
+            if (REGNO(dst)>=(thumb?8:13)||REGNO(src)>=(thumb?8:13)||REGNO(dst)==REGNO(src))
                 fatal_error(UNKNOWN_LOCATION,"copy add zero requires distinct general registers");
-            rtx replacement=gen_rtx_SET(copy_rtx(dst),gen_rtx_PLUS(SImode,copy_rtx(src),const0_rtx));
+            rtx replacement=thumb?gen_match_thumb_add_zero(copy_rtx(dst),copy_rtx(src))
+                :gen_rtx_SET(copy_rtx(dst),gen_rtx_PLUS(SImode,copy_rtx(src),const0_rtx));
             if (!validate_change(i,&PATTERN(i),replacement,false))
                 fatal_error(UNKNOWN_LOCATION,"copy add zero pattern rejected");
             REG_NOTES(i)=nullptr;copies++;

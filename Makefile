@@ -768,3 +768,8 @@ $(THUMB_BLOCK_LAYOUT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_block_
 src/m4a_envelope.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_BLOCK_LAYOUT_PLUGIN) $(THUMB_SHARED_PLUGIN)
 src/m4a_envelope.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_envelope.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_EnvelopeVolume -fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanAdvance -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume -fplugin=$(THUMB_BLOCK_LAYOUT_PLUGIN) -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-byte-counter-carry
+
+# Private Thumb volume calculation and alias-sensitive loop setup.
+src/m4a_volume.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_volume.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_volume.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_ResumeSamples -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_ResumeSamples -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

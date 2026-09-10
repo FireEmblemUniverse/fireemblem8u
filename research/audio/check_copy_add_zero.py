@@ -16,7 +16,11 @@ def main():
     result,dest=compile_case('accepted',source);assert not result.returncode and '\tadd\tr0, r1, #0' in dest.read_text(),result.stderr
     for name,text,mode in [('thumb',source,'-mthumb'),('no_copy',source.replace('return b','return a'),'-marm'),('constant',source.replace('return b','return 7'),'-marm')]:
         result,_=compile_case(name,text,mode);assert result.returncode and 'copy add zero' in result.stderr,result.stderr
+    thumb_source=source.replace('matching_copy_add_zero','matching_thumb_copy_add_zero')
+    result,dest=compile_case('thumb_accepted',thumb_source,'-mthumb');assert not result.returncode and '\tadds\tr0, r1, #0' in dest.read_text(),result.stderr
+    for name,text,mode in [('thumb_on_arm',thumb_source,'-marm'),('thumb_no_copy',thumb_source.replace('return b','return a'),'-mthumb'),('thumb_constant',thumb_source.replace('return b','return 7'),'-mthumb'),('both',thumb_source.replace('matching_thumb_copy_add_zero','matching_thumb_copy_add_zero,matching_copy_add_zero'),'-mthumb'),('high_register','register unsigned high asm("r8"); __attribute__((matching_thumb_copy_add_zero)) unsigned fixture(void) { return high; }','-mthumb')]:
+        result,_=compile_case(name,text,mode);assert result.returncode and 'copy add zero' in result.stderr,result.stderr
     plain=source.replace(attr,'');result,dest=compile_case('plain',plain,plugin=False);assert not result.returncode,result.stderr
     before=dest.read_bytes();result,dest=compile_case('plain',plain);assert not result.returncode and before==dest.read_bytes(),result.stderr
-    print('ARM copy accepted; Thumb mode, absent copy and immediate return rejected; unannotated output unchanged.')
+    print('ARM/Thumb copies accepted; eight unsupported mode/copy contracts rejected; unannotated output unchanged.')
 if __name__=='__main__':main()
