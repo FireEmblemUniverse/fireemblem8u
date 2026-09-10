@@ -12,6 +12,33 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Buffer candidate literal loads and flags — September 10, 2026
+
+Research baseline `d790aa3b`. The opt-in `matching_thumb_literal_constants`
+pass runs after register allocation and before the second split pass. It matches
+explicitly declared SI constant assignments to low registers and replaces their
+sources with GCC constant-pool memory. GCC's existing pool layout then emits
+literal LDR instructions, preserving NZCV rather than synthesizing MOVS/LSLS.
+The pass rejects missing constants, unsupported destinations/mode and invalid
+options. It does not attempt to reconstruct constants already lowered before
+this stage; a simple return-256 fixture verifies that rejection. No backend
+modification is required.
+
+`check_soundmain_buffer_entry.py --literals` selects pool loads for 848 and
+1584. All 98,304 cases now match every register, flags, stack, memory and ordered
+accesses; the prior 41,376 flag mismatches are gone. The candidate has 34
+instruction bytes before its return versus original 32 before the RAM transfer.
+Its standalone section grows from 44 to 48 bytes because it includes two new
+literal words; eventual integration must reuse the original shared pool. The
+extra counter comparison, commuted ADD encoding and BX LR instead of BX r3
+still require matching work. No production integration is claimed.
+
+The isolated literal test executes seven constant values in ROM and RAM under
+all 16 initial flag states: 224 executions preserve NZCV, SP/LR and unaffected
+registers. Nine invalid contracts reject, including a constant already lowered
+to arithmetic; unannotated output is byte-identical. Production source, ROM,
+ownership and existing verification receipts are unchanged.
+
 ## Outer SoundMain buffer-state recovery — September 10, 2026
 
 Research baseline `2221e725`. `research/audio/soundmain_buffer_entry.c`

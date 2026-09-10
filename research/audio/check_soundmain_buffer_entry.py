@@ -11,12 +11,16 @@ def flags(a,b,subtract):
  overflow=((a^b)&(a^value)) if subtract else (~(a^b)&(a^value))
  return (value>>31)<<3|((value==0)<<2)|(carry<<1)|((overflow>>31)&1)
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--literals',action='store_true');a=p.parse_args()
  out=ROOT/'.deps/soundmain-packed/buffer-entry';out.mkdir(exist_ok=True);obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
- subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/soundmain_buffer_entry.c'),'-o',str(obj)],check=True)
+ source=ROOT/'research/audio/soundmain_buffer_entry.c';extra=[]
+ if a.literals:
+  replacement=out/'literals.c';replacement.write_text(source.read_text().replace('void SoundMainBufferEntryCandidate', '__attribute__((matching_thumb_literal_constants))\nvoid SoundMainBufferEntryCandidate'));source=replacement
+  extra=['-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_literal_constants.so'),'-fplugin-arg-thumb_literal_constants-value=848','-fplugin-arg-thumb_literal_constants-value=1584']
+ subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(source),'-o',str(obj)]+extra,check=True)
  subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainBufferEntryCandidate','--defsym=SoundMainRAM_Buffer=0x03002c60',str(obj),'-o',str(elf)],check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
- code=binary.read_bytes();assert len(code)==44 and code[38:40]==bytes.fromhex('7047')
+ code=binary.read_bytes();assert len(code)==(48 if a.literals else 44) and code[(34 if a.literals else 38):(36 if a.literals else 40)]==bytes.fromhex('7047')
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f';machines=[]
  for candidate in (False,True):
   uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_map(DATA,0x4000)
@@ -43,13 +47,13 @@ def main():
        uc.mem_write(DATA,bytes(memory));trace.clear()
        for i,value in enumerate(regs):uc.reg_write(getattr(r,'UC_ARM_REG_R'+str(i)),value)
        uc.reg_write(r.UC_ARM_REG_SP,SP);uc.reg_write(r.UC_ARM_REG_LR,0xdeadbeef);uc.reg_write(r.UC_ARM_REG_CPSR,0x33|initial_flags<<28)
-       start=0x08001000 if candidate else ENTRY;end=start+38 if candidate else END;uc.emu_start(start|1,end,count=30)
+       start=0x08001000 if candidate else ENTRY;end=start+(34 if a.literals else 38) if candidate else END;uc.emu_start(start|1,end,count=30)
        assert uc.reg_read(r.UC_ARM_REG_PC)==end
        assert [uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(i))) for i in range(13)]==wanted,(counter,period,samples,candidate)
        assert uc.reg_read(r.UC_ARM_REG_SP)==SP and uc.reg_read(r.UC_ARM_REG_LR)==0xdeadbeef
-       assert uc.reg_read(r.UC_ARM_REG_CPSR)>>28==(final_flags&1 if candidate else final_flags)
+       assert uc.reg_read(r.UC_ARM_REG_CPSR)>>28==(final_flags&1 if candidate and not a.literals else final_flags)
        assert bytes(uc.mem_read(DATA,0x4000))==expected and trace==expected_trace
-      cases+=1;flag_differences+=final_flags!=(final_flags&1)
- report=dict(cases=cases,register_or_memory_mismatch_cases=0,final_flag_mismatch_cases=flag_differences,candidate_section_bytes=len(code),candidate_instruction_bytes_before_return=38,original_instruction_bytes_before_transfer=32,production_integrated=False,scope='All DMA counter bytes, three periods, four full-width sample counts, two aliases and every initial NZCV; exact registers, stack, memory and ordered accesses before final transfer.',limitations=['Candidate width synthesis clears N/Z/C, unlike the original literal load; this mismatch is counted and is not accepted for integration. Candidate still returns via LR instead of transferring via r3. Constants and branch encoding are not matched.'])
+      cases+=1;flag_differences+=not a.literals and final_flags!=(final_flags&1)
+ report=dict(cases=cases,register_or_memory_mismatch_cases=0,final_flag_mismatch_cases=flag_differences,candidate_section_bytes=len(code),candidate_instruction_bytes_before_return=34 if a.literals else 38,original_instruction_bytes_before_transfer=32,production_integrated=False,scope='All DMA counter bytes, three periods, four full-width sample counts, two aliases and every initial NZCV; exact registers, stack, memory and ordered accesses before final transfer.',limitations=[('' if a.literals else 'Candidate width synthesis clears N/Z/C; this mismatch is not accepted for integration. ')+'Candidate still returns via LR instead of transferring via r3. Branch encoding and shared pool placement are not matched.'])
  (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()
