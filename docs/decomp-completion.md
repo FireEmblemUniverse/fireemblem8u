@@ -4057,3 +4057,40 @@ flags, audio access order or execution timing, nor multi-frame lifecycle behavio
 No production code changed. Matching code generation for SoundMain and the
 remaining mixer is still required. Evidence: `.deps/soundmain-complete/report.json`,
 candidate ELF/binary and `.deps/soundmain-complete-run.log`.
+
+
+### September 10: packed fixed-rate inner loop generated as matching C
+
+`research/audio/soundmain_packed_private.c` expresses the original loop at
+080CF738 using its shared registers. It loads signed source bytes, forms the
+masked stereo products, rotates and accumulates packed words, and uses
+`__builtin_add_overflow` for the output pointer's +0x40000000 advance. The high
+two bits encode the lane; carry exits after the remaining one to four samples.
+Empty register constraints preserve the original allocation without emitting
+instructions. No executable inline assembly was added.
+
+GCC initially selected subtraction of a negative immediate for the carry update.
+The opt-in `matching_add_carry` rule in `tools/arm-dispatch/add_carry.cc` selects
+its existing addition/carry pattern for a matching negative-compare/add pair.
+It requires ARM mode, general registers, a positive addend below 0x80000000,
+and an adjacent LTU/GEU branch with dead condition flags. The branch predicate
+is inverted when moving from CC to CC_C representation, preserving the machine's
+BCC/BCS decision. Other instructions and barriers are not crossed. Some already-
+matching additions use this same internal form and are accepted without changing
+machine bytes. Unannotated functions remain untouched.
+
+All 36 inner-loop bytes now match. `check_soundmain_packed.py` passes 18,432
+original/C cases spanning every source byte, four initial lanes, six stereo
+volume pairs and three packed-word pairs. It compares r0-r12 and full CPSR,
+checks consumed source bytes and the final pointer, and verifies unchanged
+source memory, SP/LR and stack canaries. Execution stops before the original
+word stores and the C candidate's placeholder BX LR; candidate size is 40 bytes.
+
+`check_add_carry.py` passes 116,032 scalar addition/branch checks for seven
+immediates, both carry branch senses, all initial NZCV values, byte values,
+signed-overflow boundaries and seeded 32-bit values. Exact ADDS/branch/BX bytes,
+registers, flags, SP/LR and branch destinations agree with independent arithmetic.
+Thumb, intervening asm, signed-overflow use and missing arithmetic reject;
+unannotated object bytes are unchanged. Evidence is under
+`.deps/soundmain-packed/` (report.json, oracle.log, add-carry-guards.log and fixtures).
+Production remains unchanged; the continuation and integration are next.

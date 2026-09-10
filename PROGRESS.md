@@ -98,6 +98,10 @@ rejected entries. Full sound memory, callback/VCOUNT traces, global-pointer
 mutations, preserved registers, SP and both return modes agree. This establishes
 semantic composition; the original private frame and matching instruction
 sequence remain unfinished, so production coverage is unchanged.
+The fixed-rate packed inner loop now compiles to all 36 original bytes and
+passes 18,432 private-register/flag comparisons. Its addition-carry compiler rule
+passes 116,032 standalone checks for both branch directions. The candidate still
+has a placeholder return; continuation and production integration remain open.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.

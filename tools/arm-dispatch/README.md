@@ -204,3 +204,13 @@ address plus eight plus the selected offset. Production reverb asserts its
 C's indirect sibling call then emits BX and honors the Thumb bit. This keeps the
 transfer valid after SoundInit copies the mixer to RAM. `check_pc_address.py`
 covers PC values, flags, rejection cases, and deliberately broken link contracts.
+
+
+`add_carry.cc` and `build_add_carry.py` provide opt-in ARM `matching_add_carry`.
+The pass replaces an equivalent negative-immediate comparison/add pair followed
+by an unsigned carry branch with GCC's addition/carry pattern, preserving the
+machine branch sense across CC/CC_C modes. Positive addends must be below
+0x80000000; the condition flags must die at the adjacent LTU/GEU branch. It does
+not cross other operations. Tests are `research/audio/check_add_carry.py` and
+`check_soundmain_packed.py`. This currently supports a research packed-mixer
+candidate and is not a production-build dependency.
