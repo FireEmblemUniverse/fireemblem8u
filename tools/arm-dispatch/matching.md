@@ -477,3 +477,24 @@
   "TARGET_THUMB1"
   "ands\t%0, %1\n\tstr\t%0, %2\n\tbeq\t%3"
   [(set_attr "length" "6") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+
+;; Direct low-register unsigned comparison to a declared private continuation.
+;; Record the CMP for the ordinary following cbranch, which can reuse NZCV.
+(define_insn "match_thumb_unsigned_reg_tail"
+  [(set (pc)
+        (if_then_else
+         (match_operator 2 "comparison_operator"
+          [(match_operand:SI 0 "low_register_operand" "l")
+           (match_operand:SI 1 "low_register_operand" "l")])
+         (match_operand:SI 3 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == LTU || GET_CODE (operands[2]) == GEU)"
+{
+  output_asm_insn ("cmp\t%0, %1", operands);
+  cfun->machine->thumb1_cc_insn = insn;
+  cfun->machine->thumb1_cc_op0 = operands[0];
+  cfun->machine->thumb1_cc_op1 = operands[1];
+  cfun->machine->thumb1_cc_mode = CCmode;
+  return "b%d2\t%3";
+}
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])

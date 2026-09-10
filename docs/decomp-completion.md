@@ -9176,7 +9176,7 @@ at channel attach or the shared exit; it does not validate subsequent channel
 chain mutation or the whole routine. Bank/track addresses are synthetic.
 
 The probe shares reject/accept branches differently from the original and
-uses different equivalent ADD/TST encodings. It is not byte matching and has
+uses a different equivalent TST operand order. The ADD encoding already matches. It is not byte matching and has
 not been integrated. Production counts and the last full-ROM/runtime receipts
 remain unchanged. Next work is compiler branch layout and encoding matching.
 
@@ -9187,3 +9187,49 @@ Sources: `research/audio/ply_note_cgb_select.c` and
 The probe uses GCC 16.2.0, Thumb ARM7TDMI, -O1 -fno-reorder-blocks,
 APCS GNU, freestanding, and tail_transfer with private-frame64,
 acyclic-branches and the declared PlyNoteChannelAttach/PlyNoteExit exits.
+
+
+## September 10, 2026 — CGB channel-selection candidate matches
+
+On baseline `edcbea6b`, the CGB selection candidate now reproduces all fifty
+original instruction bytes. Expressing rejection calls locally and disabling
+cross-jumping retains the original reject paths. The opt-in
+`matching_thumb_shared_tails` pass bypasses one isolated shared tail stub for
+masked EQ/NE tests and low-register unsigned LTU/GEU comparisons. It requires
+an explicitly declared destination and exact incoming-edge count; preserved
+labels, aliases, fallthrough, unsupported comparisons and unaccounted label
+uses prevent rewriting. TST operands are ordered ascending. The original ADD
+encoding needs no transformation.
+
+A new `match_thumb_unsigned_reg_tail` backend pattern emits CMP plus the direct
+conditional transfer, and records the comparison in GCC's Thumb flag tracking.
+The following ordinary equality branch can reuse those flags without emitting
+a duplicate CMP. The pattern's clobber attribute invalidates older flag state;
+normal subsequent instructions still invalidate the recorded comparison when
+appropriate. This is a compiler transformation of C comparisons and declared
+control-flow edges; no original instruction bytes are embedded in the C source.
+
+The candidate passes all 246,480 model cases, checking complete final register
+and flag state, SP/LR, unchanged memory and ordered reads. Fourteen unsupported
+compiler contracts reject, including signed/unsupported comparisons, changed
+edges, high-register operands, an unsupported zero-test edge, fallthrough into
+the stub, missing private ABI and invalid options. Unannotated output remains
+byte identical with the plugin loaded. Rebuilt command, tone and priority
+regressions pass 338,688, 92,160 and 147,456 cases respectively, retain exact
+candidate bytes and production source identity, and retain their negative
+contract checks. These are isolated candidate checks; no fresh production ROM
+or runtime build is claimed for this milestone.
+
+Production remains at 720,912 C-owned main-ROM instruction bytes (92.71%) and
+348 ply_note assembly instruction bytes. Next is production integration with
+full-ROM comparison, fresh runtime reproduction and layout rejection tests.
+The CGB model still stops at attach/shared exit; full allocation and full-routine
+execution remain outside its verified scope.
+
+Sources: `research/audio/ply_note_cgb_select.c`,
+`research/audio/check_ply_note_cgb_select.py`,
+`tools/arm-dispatch/thumb_shared_tails.cc`, its build helper and `matching.md`.
+Evidence: `.deps/soundmain-packed/ply-note/cgb_select-report.json`,
+`cgb-select-check.log`, `cgb-backend-build.log`, `cgb-shared-plugin-build.log`,
+`cgb-command-regression.log`, `cgb-tone-regression.log`,
+`cgb-priority-regression.log` and `cgb_select-candidate.{o,elf,bin,ld}`.

@@ -7,14 +7,14 @@ register volatile u32 cgbR6 asm("r6");
 register volatile u32 cgbSP asm("sp");
 extern void PlyNoteChannelAttach(void);
 extern void PlyNoteExit(void);
-__attribute__((matching_tail_transfer))
+__attribute__((matching_tail_transfer, matching_thumb_shared_tails))
 void PlyNoteCgbSelectCandidate(void)
 {
     cgbR0 = *(volatile u32 *)(cgbSP + 4);
     asm("" : "+r"(cgbR0));
     cgbR4 = *(volatile u32 *)(cgbR0 + 28);
     asm("" : "+r"(cgbR4));
-    if (!cgbR4) goto reject;
+    if (!cgbR4) { PlyNoteExit(); return; }
     cgbR6--;
     asm("" : "+r"(cgbR6));
     cgbR0 = cgbR6 << 6;
@@ -34,11 +34,10 @@ void PlyNoteCgbSelectCandidate(void)
     cgbR0 = *(volatile u32 *)(cgbSP + 16);
     asm("" : "+r"(cgbR0));
     if (cgbR1 < cgbR0) goto accept;
-    if (cgbR1 != cgbR0) goto reject;
+    if (cgbR1 != cgbR0) { PlyNoteExit(); return; }
     cgbR0 = *(volatile u32 *)(cgbR4 + 44);
     asm("" : "+r"(cgbR0));
     if (cgbR0 >= cgbR5) goto accept;
-reject:
     PlyNoteExit();
     return;
 accept:
