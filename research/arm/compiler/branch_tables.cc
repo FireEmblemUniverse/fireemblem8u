@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Experimental range-checked ARM instruction-table lowering, not production.
 #include <string>
+#include <vector>
 #include "gcc-plugin.h"
 #include "plugin-version.h"
 #include "context.h"
@@ -20,12 +21,14 @@
 #include "diagnostic-core.h"
 #include "insn-constants.h"
 #include "insn-flags.h"
+#include "output.h"
 int plugin_is_GPL_compatible;
 namespace {
 bool pc_relative=false;
 bool sink_trampolines=false;
-std::string shared_source,shared_target;
-long shared_offset=0;
+std::vector<std::string> prefix_symbols;
+struct shared_entry { std::string source,target; long offset; };
+std::vector<shared_entry> shared_entries;
 tree valid_switch_contract(tree *node,tree,tree,int,bool *no_add) {
     if(TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_unchecked_switch requires a function declaration");
@@ -77,8 +80,10 @@ void sink_jump_only_blocks() {
         }
     } while(changed);
 }
-void shared_literal() {
-    if(shared_source.empty())return;
+void shared_literal(const shared_entry &entry) {
+    const auto &shared_source=entry.source;
+    const auto &shared_target=entry.target;
+    long shared_offset=entry.offset;
 #ifdef HAVE_match_arm_literal
     rtx_code_label *last=nullptr,*pool=nullptr;
     long offset=0,wanted=-1;
@@ -120,6 +125,66 @@ void shared_literal() {
     if(!changed || !apply_change_group())fatal_error(UNKNOWN_LOCATION,"shared literal rewrite failed");
 #endif
 }
+bool references(rtx x,rtx label) {
+    if(!x)return false;
+    if(GET_CODE(x)==LABEL_REF)return XEXP(x,0)==label;
+    if(LABEL_P(x))return false;
+    const char *format=GET_RTX_FORMAT(GET_CODE(x));
+    for(int j=0;j<GET_RTX_LENGTH(GET_CODE(x));j++) {
+        if(format[j]=='e' && references(XEXP(x,j),label))return true;
+        if(format[j]=='E')for(int k=0;k<XVECLEN(x,j);k++)if(references(XVECEXP(x,j,k),label))return true;
+    }
+    return false;
+}
+void emit_prefix(const std::vector<rtx> &targets) {
+    if(prefix_symbols.empty())return;
+    if(targets.empty())fatal_error(UNKNOWN_LOCATION,"prefix table missing");
+    std::vector<rtx> values;
+    std::vector<rtx_insn *> literals;
+    rtx_insn *end=nullptr;
+    rtx_code_label *last=nullptr,*pool=nullptr;
+    for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if(LABEL_P(i))last=as_a<rtx_code_label *>(i);
+        if(!NONDEBUG_INSN_P(i))continue;
+        rtx p=PATTERN(i);
+        if(GET_CODE(p)!=UNSPEC_VOLATILE)continue;
+        if(XINT(p,1)==VUNSPEC_POOL_4) {
+            if(!pool)pool=last;
+            if(pool!=last || XVECLEN(p,0)!=1)fatal_error(UNKNOWN_LOCATION,"prefix needs one simple word pool");
+            values.push_back(XVECEXP(p,0,0));literals.push_back(i);
+        } else if(XINT(p,1)==VUNSPEC_POOL_END) {
+            if(end)fatal_error(UNKNOWN_LOCATION,"multiple prefix pools");
+            end=i;
+        }
+    }
+    if(!pool || !end)fatal_error(UNKNOWN_LOCATION,"prefix pool missing");
+    for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i))
+        if(NONDEBUG_INSN_P(i) && references(PATTERN(i),pool))fatal_error(UNKNOWN_LOCATION,"prefix has unconverted literal references");
+    std::vector<rtx> selected;
+    for(const auto &name:prefix_symbols) {
+        rtx found=nullptr;
+        for(rtx value:values)if(GET_CODE(value)==SYMBOL_REF && name==XSTR(value,0)) {
+            if(found)fatal_error(UNKNOWN_LOCATION,"duplicate prefix symbol");found=value;
+        }
+        if(!found)fatal_error(UNKNOWN_LOCATION,"prefix symbol missing");
+        selected.push_back(found);
+    }
+    switch_to_section(function_section(current_function_decl));
+    assemble_align(32);
+    for(rtx value:selected) { fputs("\t.word\t",asm_out_file);output_addr_const(asm_out_file,value);fputc('\n',asm_out_file); }
+    rtx_code_label *prefix=gen_label_rtx();
+    char name[64];ASM_GENERATE_INTERNAL_LABEL(name,"L",CODE_LABEL_NUMBER(prefix));
+    ASM_OUTPUT_INTERNAL_LABEL(asm_out_file,name);
+    fputs("\t.arm\n",asm_out_file);
+    for(rtx target:targets) {
+        // Targets come from the compiler's checked branch vector, never ROM bytes.
+        output_asm_insn("b\t%l0",&target);
+    }
+    fputs("\t.word\t",asm_out_file);
+    output_addr_const(asm_out_file,gen_rtx_LABEL_REF(Pmode,prefix));fputc('\n',asm_out_file);
+    for(rtx_insn *i:literals)remove_insn(i);
+    remove_insn(end);
+}
 const pass_data data={RTL_PASS,"branch_tables",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -127,9 +192,10 @@ public:
     unsigned int execute(function *fn) override {
         bool unchecked=lookup_attribute("matching_unchecked_switch",DECL_ATTRIBUTES(fn->decl))!=NULL_TREE;
         if (!TARGET_ARM) {
-            if(pc_relative || unchecked || !shared_source.empty()) fatal_error(UNKNOWN_LOCATION,"matching instruction-table options require ARM mode");
+            if(pc_relative || unchecked || !shared_entries.empty() || !prefix_symbols.empty()) fatal_error(UNKNOWN_LOCATION,"matching instruction-table options require ARM mode");
             return 0;
         }
+        std::vector<rtx> prefix_targets;
         for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             rtx_insn *label=nullptr;rtx_jump_table_data *table=nullptr;
             if(!JUMP_P(i)||!tablejump_p(i,&label,&table))continue;
@@ -155,6 +221,10 @@ public:
             rtx_insn *load=prev_nonnote_nondebug_insn(i);
             if(!load||!INSN_P(load)||GET_CODE(PATTERN(load))!=SET
                ||!rtx_equal_p(SET_DEST(PATTERN(load)),base))continue;
+            if(!prefix_symbols.empty()) {
+                if(!prefix_targets.empty())fatal_error(UNKNOWN_LOCATION,"multiple prefix dispatch tables");
+                for(int j=0;j<n;j++)prefix_targets.push_back(copy_rtx(XVECEXP(vector,1,j)));
+            }
             // Only a source-level valid-index contract permits omitting the guard.
             if(!unchecked) {
             rtx cc=gen_rtx_REG(CCmode,CC_REGNUM);
@@ -189,7 +259,8 @@ public:
             i=previous;
         }
         if(sink_trampolines) sink_jump_only_blocks();
-        shared_literal();
+        for(const auto &entry:shared_entries) shared_literal(entry);
+        emit_prefix(prefix_targets);
         return 0;
     }
 };
@@ -197,8 +268,25 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version))return 1;
     for(int a=0;a<info->argc;a++) {
+        if(!strcmp(info->argv[a].key,"prefix-symbols")) {
+            if(!info->argv[a].value || !prefix_symbols.empty())return 1;
+            std::string text=info->argv[a].value;
+            size_t start=0;
+            do {
+                size_t end=text.find(',',start);
+                std::string symbol=text.substr(start,end==std::string::npos?end:end-start);
+                if(symbol.empty())return 1;
+                for(const auto &old:prefix_symbols)if(old==symbol)return 1;
+                prefix_symbols.push_back(symbol);
+                if(end==std::string::npos)break;
+                start=end+1;
+            } while(true);
+            continue;
+        }
         if(!strcmp(info->argv[a].key,"shared-literal")) {
-            if(!info->argv[a].value || !shared_source.empty())return 1;
+            if(!info->argv[a].value)return 1;
+            std::string shared_source,shared_target;
+            long shared_offset;
             std::string text=info->argv[a].value;
             auto first=text.find(','),second=text.find(',',first==std::string::npos?first:first+1);
             if(first==std::string::npos || second==std::string::npos)return 1;
@@ -211,6 +299,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             };
             if(second+1==text.size() || !end || *end || !symbol(shared_source) || !symbol(shared_target)
                || shared_offset<0 || shared_offset>4092 || shared_offset%4)return 1;
+            for(const auto &entry:shared_entries)if(entry.source==shared_source)return 1;
+            shared_entries.push_back({shared_source,shared_target,shared_offset});
             continue;
         }
         if(info->argv[a].value) return 1;
@@ -222,7 +312,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(pc_relative) { error("pc-relative tables require the matching ARM backend"); return 1; }
 #endif
 #ifndef HAVE_match_arm_literal
-    if(!shared_source.empty()) { error("shared literals require the matching ARM backend"); return 1; }
+    if(!shared_entries.empty()) { error("shared literals require the matching ARM backend"); return 1; }
 #endif
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};

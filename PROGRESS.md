@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher 103/107 matching instruction words (this change).
+Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher complete 464-byte candidate matches (verified against baseline `a76c7ece` plus current research changes).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,7 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Map flood dispatcher candidate | `███████████████████░` **103/107 instruction words (96.3%); four literal loads differ; not integrated** |
+| Map flood dispatcher candidate | `████████████████████` **107/107 instruction words; complete 464-byte section exact; not integrated** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
 | Integrated object-list high entry | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
@@ -27,7 +27,8 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: matching the dispatcher shared/prefix literal layout.**
+**Working on: validating and integrating the exact dispatcher candidate.**
+Next milestone: promote the reproducible compiler support and C dispatcher into the production build, then verify the full ROM checksum.
 The isolated GCC 16.2.0 build completed. Its explicit PC-read and BX patterns
 now generate the original four-instruction address/jump sequence using r0.
 An explicit valid-index contract removes the extra guard, and the final table
@@ -36,27 +37,19 @@ entry falls through as in the ROM. The candidate passes 640 controlled-helper an
 The backend is still experimental and is not used by production.
 
 Dispatcher evidence so far:
-A maintained C candidate passes 640 original/candidate cases checking ordered
-neighbor calls, repeated queue alternation, complete queue memory, preserved
-registers and return flags with finite-enqueue helper models. Budgets range from
-zero to 24 inserted nodes. Another 240 cases run the actual ROM movement helper: final maps match an
-independent reference, and original/candidate memory, queues and return flags
-agree. Instruction matching remains unfinished. All 16 helper argument setups now match the original 48 instruction words.
-An experimental compiler pass now emits the original EORS phase test; its
-434-byte candidate passes both the 640 controlled-helper and 240 actual-helper
-cases. Jump-table and literal placement still differ; the pass is not enabled
-in production. A standalone suite now passes 10,080 baseline/plugin executions,
-checking XOR results, branch decisions, preserved registers and excluded forms.
-A separate experimental compiler pass now emits six ARM branch-table entries.
-The current 444-byte candidate passes all dispatcher checks. Its 428-byte
-instruction body matches 103 of 107 words at the original ROM address; only
-four queue-pool literal-load offsets differ. The shared-state load is exact,
-with 384 standalone literal comparisons and six rejected out-of-range links. The loop trampoline now matches. Literals
-still need the original shared/prefix layout. Another 1,280 standalone valid-index cases
-verify the opt-in unchecked contract.
-An alternate computed-goto fixture also passes 640 controlled-helper cases;
-it removes the extra bounds check but emits an address table, so it remains
-separate research. Low-entry object-list shims also remain unfinished.
+The candidate's complete 464-byte section now matches the original ROM at
+`0x08000850`: a 36-byte pointer/branch prefix and all 107 instruction words.
+The compiler emits the prefix from pointer symbols and its own switch targets;
+obsolete trailing literals are removed. Repeated shared-literal mappings resolve
+all queue and state loads to their original pools.
+
+All 640 controlled-helper and 240 actual-helper cases pass, checking queue and
+map memory, ordered calls, preserved registers and return flags. Existing isolated
+compiler probes cover 4,608 checked-table executions, 1,280 valid-index unchecked
+executions, 10,080 XOR executions and 384 shared-literal comparisons, with six
+out-of-range links rejected. The prefix emitter passes 2,560 additional executions across pointer orders,
+relocated builds, repeated functions and forced compiler garbage collection;
+six invalid configurations are rejected. Production integration is next. The production build remains unchanged.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM

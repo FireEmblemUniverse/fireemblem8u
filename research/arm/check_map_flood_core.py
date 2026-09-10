@@ -22,7 +22,11 @@ def main():
     parser.add_argument('--unchecked',action='store_true')
     parser.add_argument('--sink-trampolines',action='store_true')
     parser.add_argument('--shared-literal',action='store_true')
+    parser.add_argument('--shared-queue-literals',action='store_true')
+    parser.add_argument('--prefix-table',action='store_true')
     args=parser.parse_args()
+    prefix_size=36 if args.prefix_table else 0
+    section_base=0x08010000-prefix_size
     if args.computed:OUT=ROOT/'.deps/map-flood-core-computed-match'
     OUT.mkdir(exist_ok=True)
     rom=(ROOT/'baserom.gba').read_bytes()
@@ -32,24 +36,28 @@ def main():
     source=Path(__file__).with_name('map_flood_core_computed.c' if args.computed else 'map_flood_core.c')
     flags=FLAGS+['-ffixed-r14','-ffixed-r1','-ffixed-r2','-ffixed-r3']
     flags+=['-fplugin='+str(plugin.resolve()) for plugin in args.plugin]
+    if args.prefix_table:flags+=['-fplugin-arg-branch_tables-prefix-symbols=gMovMapFillStPool1,gMovMapFillStPool2']
+    if args.shared_queue_literals:flags+=['-fplugin-arg-branch_tables-shared-literal=gMovMapFillStPool1,MapFloodCorePool,0','-fplugin-arg-branch_tables-shared-literal=gMovMapFillStPool2,MapFloodCorePool,4']
     if args.shared_literal:flags+=['-fplugin-arg-branch_tables-shared-literal=gMovMapFillState,MapFloodCoreStepPool,4']
     if args.unchecked:flags+=['-DMATCH_UNCHECKED_DISPATCH','-Werror=attributes']
     if args.sink_trampolines:flags+=['-fplugin-arg-branch_tables-sink-trampolines']
     if args.pc_relative:flags+=['-fplugin-arg-branch_tables-pc-relative']
     subprocess.run([args.compiler,'-S',str(source),*flags,'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
-    (OUT/'candidate.ld').write_text('SECTIONS { . = 0x08010000; .text : { *(.text) *(.rodata) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n'+''.join(f'{name} = {value:#x};\n' for name,value in [('gMovMapFillState',state),('gMovMapFillStPool1',pool1),('gMovMapFillStPool2',pool2),('MapFloodCoreStep',0x08000784),('MapFloodCoreStepPool',0x0800ff00)]))
+    (OUT/'candidate.ld').write_text(('SECTIONS { . = '+hex(section_base)+'; .text : { *(.text) *(.rodata) } /DISCARD/ : { *(.ARM.attributes) *(.comment) } }\n')+''.join(f'{name} = {value:#x};\n' for name,value in [('gMovMapFillState',state),('gMovMapFillStPool1',pool1),('gMovMapFillStPool2',pool2),('MapFloodCoreStep',0x08000784),('MapFloodCoreStepPool',0x0800ff00),('MapFloodCorePool',section_base if args.prefix_table else 0x0800ff20)]))
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'candidate.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
     code=(OUT/'candidate.bin').read_bytes()
     # Relink the same compiler object at the original address for raw word comparison.
-    (OUT/'matching.ld').write_text((OUT/'candidate.ld').read_text().replace('0x08010000','0x08000874').replace('0x800ff00','0x8000770'))
+    (OUT/'matching.ld').write_text((OUT/'candidate.ld').read_text().replace(hex(section_base),hex(0x08000874-prefix_size)).replace('0x800ff00','0x8000770').replace('0x800ff20','0x8000850'))
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'matching.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'matching.elf')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'matching.elf'),str(OUT/'matching.bin')],check=True)
     matching=(OUT/'matching.bin').read_bytes()
     original=rom[0x874:0xa20]
-    differences=[{'address':hex(0x08000874+i),'original':original[i:i+4].hex(),'candidate':matching[i:i+4].hex()}
-                 for i in range(0,len(original),4) if original[i:i+4]!=matching[i:i+4]]
+    matching_body=matching[prefix_size:]
+    complete_section_match=matching==rom[0x874-prefix_size:0xa20]
+    differences=[{'address':hex(0x08000874+i),'original':original[i:i+4].hex(),'candidate':matching_body[i:i+4].hex()}
+                 for i in range(0,len(original),4) if original[i:i+4]!=matching_body[i:i+4]]
     def call_setups(body, address):
         words=struct.unpack('<'+'I'*(len(body)//4),body[:len(body)//4*4])
         setups=[]
@@ -62,7 +70,7 @@ def main():
                 setups.append(words[i-3:i])
         return setups
     original_setups=call_setups(rom[0x874:0xa20],0x08000874)
-    candidate_setups=call_setups(code,0x08010000)
+    candidate_setups=call_setups(code,section_base)
     assert len(original_setups)==16
     assert candidate_setups==original_setups, (candidate_setups,original_setups)
     directions={0:[3,2,0],1:[3,2,1],2:[2,0,1],3:[3,0,1],5:[3,2,0,1]}
@@ -101,7 +109,7 @@ def main():
                 returns=[]
                 for entry in (0x08000874,0x08010000):
                     uc=Uc(UC_ARCH_ARM,UC_MODE_ARM)
-                    uc.mem_map(0x08000000,0x20000);uc.mem_write(0x08000000,rom[:0x1000]);uc.mem_write(0x08010000,code);uc.mem_write(0x0800ff04,struct.pack('<I',state))
+                    uc.mem_map(0x08000000,0x20000);uc.mem_write(0x08000000,rom[:0x1000]);uc.mem_write(section_base,code);uc.mem_write(0x0800ff04,struct.pack('<I',state));uc.mem_write(0x0800ff20,struct.pack('<II',pool1,pool2))
                     uc.mem_map(0x02000000,0x40000);uc.mem_map(base,0x8000);uc.mem_write(base,bytes(initial))
                     trace=[]
                     left=[budget]
@@ -139,7 +147,7 @@ def main():
                 flag_differences+=returns[0]!=returns[1]
                 count+=1
     assert flag_differences == 0, flag_differences
-    report={'original_instruction_words':107,'differing_words':differences,'relocated_section_bytes':len(matching),'plugins':[{'path':str(plugin.resolve()),'sha256':hashlib.sha256(plugin.read_bytes()).hexdigest()} for plugin in args.plugin],'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Not full terrain helper or instruction matching.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
+    report={'complete_section_match':complete_section_match,'prefix_bytes':prefix_size,'original_instruction_words':107,'differing_words':differences,'relocated_section_bytes':len(matching),'plugins':[{'path':str(plugin.resolve()),'sha256':hashlib.sha256(plugin.read_bytes()).hexdigest()} for plugin in args.plugin],'matching_argument_setup_words':48,'cases':count,'return_flag_difference_cases':flag_differences,'scope':'Finite-enqueue helper models; eight initial queues, five enqueue budgets, all NZCV; ordered calls, complete IWRAM except stack save area, write bounds and callee-saved registers. Controlled-helper execution scope; original-address byte matching is reported separately.', 'candidate_section_bytes':len(code),'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(code).hexdigest(),'compiler_flags':flags}
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n')
-    print(f'{count} original/candidate dispatcher cases pass; candidate section {len(code)} bytes; instruction matching unfinished.')
+    print(f'{count} original/candidate dispatcher cases pass; candidate section {len(code)} bytes; complete section match: {complete_section_match}; differing instruction words: {len(differences)}.')
 if __name__=='__main__':main()

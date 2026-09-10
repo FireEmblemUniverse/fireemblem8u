@@ -2069,3 +2069,36 @@ forward/backward pools, three word offsets, four array indices and all incoming
 NZCV states. Return values and r0-r12/flag results agree. Six deliberately
 out-of-range links are rejected by the ARM relocation check. The rebuilt backend
 and plugins have refreshed provenance reports; production remains unchanged.
+
+
+### Complete dispatcher candidate section — September 9, 2026
+
+Against baseline `a76c7ece`, repeated shared-literal manifests resolve both queue
+pointers and the state pointer to their original pools. The branch-table pass
+now emits a prefix containing the requested pointer symbols, branches to the
+compiler's own switch targets, and the table address. It rejects surviving
+references before deleting the obsolete trailing pool. No ROM instructions or
+object bytes are copied into the candidate.
+
+The checker options `--shared-queue-literals --prefix-table`, together with the
+existing custom compiler, XOR/table plugins, PC-relative switch, unchecked
+contract, trampoline sinking and shared-state mapping, produce an exact
+464-byte section at `0x08000850..0x08000A20`: 36 prefix bytes plus 428 function
+bytes. The report records `complete_section_match: true`, zero differing
+instruction words, and all 48 argument-setup words exact. All 640 controlled
+helper and 240 actual-helper cases pass. This is an isolated candidate; the
+production compiler/build is unchanged. Broader prefix-emitter regression checks
+and production integration remain next.
+
+
+The dedicated `check_prefix_tables.py` suite now passes 2,560 executions: three
+functions with five, six and nine cases, both pointer orders, two load addresses,
+all incoming NZCV patterns, and ordinary versus redirected prefix-table entry.
+The redirected runs preserve each function's prologue and redirect its computed
+jump through the duplicated prefix table, checking every branch target, result,
+stack and preserved register. All functions compile together under forced GCC
+garbage collection, exercising repeated prefix emission and shared manifests.
+Six invalid configurations are rejected, including an unconverted trailing
+literal and Thumb mode. Prefix-only Thumb options now explicitly reject rather
+than silently skipping the transformation. The dispatcher was rebuilt with this
+plugin: all 464 bytes remain exact and all 880 execution cases pass.
