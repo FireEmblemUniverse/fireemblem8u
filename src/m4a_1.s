@@ -658,31 +658,13 @@ ply_voice:
 	.align 2, 0
 	.section .text.after_ply_vol, "ax", %progbits
 
-	thumb_func_start ply_pan
-ply_pan:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	subs r3, 0x40
-	strb r3, [r1, o_MusicPlayerTrack_pan]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0x3
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_pan
+@ ply_pan is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_pan, "ax", %progbits
 
-	thumb_func_start ply_bend
-ply_bend:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	subs r3, 0x40
-	strb r3, [r1, o_MusicPlayerTrack_bend]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0xC
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_bend
+@ ply_bend is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_bend, "ax", %progbits
 
 @ ply_bendr is generated from matching C.
 	.align 2, 0
@@ -708,18 +690,9 @@ _081DD7AA:
 	bx r12
 	thumb_func_end ply_modt
 
-	thumb_func_start ply_tune
-ply_tune:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	subs r3, 0x40
-	strb r3, [r1, o_MusicPlayerTrack_tune]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0xC
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_tune
+@ ply_tune is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_tune, "ax", %progbits
 
 	thumb_func_start ply_port
 ply_port:

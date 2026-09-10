@@ -599,10 +599,16 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_keysh);
         src/m4a_flag_setters.o(.text.ply_vol);
         src/m4a_1.o(.text.after_ply_vol);
+        src/m4a_flag_setters.o(.text.ply_pan);
+        src/m4a_1.o(.text.after_ply_pan);
+        src/m4a_flag_setters.o(.text.ply_bend);
+        src/m4a_1.o(.text.after_ply_bend);
         src/m4a_flag_setters.o(.text.ply_bendr);
         src/m4a_1.o(.text.after_ply_bendr);
         src/m4a_command_setters.o(.text.ply_lfodl);
         src/m4a_1.o(.text.after_ply_lfodl);
+        src/m4a_flag_setters.o(.text.ply_tune);
+        src/m4a_1.o(.text.after_ply_tune);
         __sound_vsync_start = .;
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;

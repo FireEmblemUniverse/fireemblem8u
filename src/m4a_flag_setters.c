@@ -34,3 +34,36 @@ PRIVATE_RETURN void ply_bendr(struct MusicPlayerInfo * player, struct MusicPlaye
     commandByte |= commandMask;
     commandTrack->flags = commandByte;
 }
+
+PRIVATE_RETURN void ply_pan(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
+{
+    ld_r3_tp_adr_i();
+    commandByte -= 64;
+    commandTrack->pan = commandByte;
+    commandByte = commandTrack->flags;
+    commandMask = 3;
+    commandByte |= commandMask;
+    commandTrack->flags = commandByte;
+}
+
+PRIVATE_RETURN void ply_bend(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
+{
+    ld_r3_tp_adr_i();
+    commandByte -= 64;
+    commandTrack->bend = commandByte;
+    commandByte = commandTrack->flags;
+    commandMask = 12;
+    commandByte |= commandMask;
+    commandTrack->flags = commandByte;
+}
+
+PRIVATE_RETURN void ply_tune(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
+{
+    ld_r3_tp_adr_i();
+    commandByte -= 64;
+    commandTrack->tune = commandByte;
+    commandByte = commandTrack->flags;
+    commandMask = 12;
+    commandByte |= commandMask;
+    commandTrack->flags = commandByte;
+}

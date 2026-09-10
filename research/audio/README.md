@@ -71,3 +71,8 @@ Key-shift, volume and bend-range handlers are in `src/m4a_flag_setters.c`, using
 the same private-return support. Add `--flag-setters` to the command-setter
 checker to verify those production entries. Their artifacts are kept in
 `.deps/audio-command-setters/flag-setters/`, separate from the first two setters.
+
+The flag-setter suite also covers pan, bend and tuning, including subtraction
+of 64 and byte wraparound. `--flag-setters --require-match --production` now
+checks all six flag-updating handlers (99,072 cases) against the actual reader
+and linked ROM. Their combined C instruction extent is 114 Thumb bytes.

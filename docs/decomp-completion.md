@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the flag-setter integration (baseline `95773cc5` plus this change),
+After the pan/bend/tuning integration (baseline `1104c8a3` plus this change),
 `make compare -j8` verifies all 16,777,216
 bytes against the USA ROM checksum. The current source inventory is 457 main
-C files, 47 assembly entry markers, one naked-function marker, seven
+C files, 44 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2664,3 +2664,30 @@ latter supplied 76 C files, mostly data definitions, as recorded at integration.
 Repository totals and upstream badges must not be mistaken for work newly
 completed during this task. The audit's stale opening inventory was replaced
 with the current counts; historical milestone entries remain below it.
+
+### September 9: pan, bend and tuning handlers integrated
+
+The flag-setter C object now also implements `ply_pan` at `080CFA90`,
+`ply_bend` at `080CFAA4` and `ply_tune` at `080CFAF0`. Each original twenty-byte
+body matches exactly, including the subtraction of 64 before storing the
+signed-byte parameter and the corresponding flag mask. The existing private
+return convention and volatile fixed-register bindings suffice; no compiler
+change or new inline assembly was needed. Their original assembly bodies were
+removed, with zero alignment retained at each section boundary.
+
+The oracle now describes a per-handler byte bias and checks the wrapped stored
+result after both accepted and rejected reads. Each new handler passes 16,512
+production/original cases: every stream byte, eight track-flag patterns, four
+NZCV patterns and command-pointer aliases. The complete six-handler flag suite
+passes 99,072 cases with exact bytes and zero RAM/register/flag differences.
+`--production` verifies the compiler output equals the actual ROM section.
+`make compare -j8` passes the full ROM checksum.
+
+The main inventory remains 457 C files and is down to 44 assembly entry markers.
+The other source counts are unchanged: 544 inline sites (seven instruction
+templates), one naked marker, 42 NONMATCHING conditionals, no baserom includes.
+The linked audit attributes all 114 Thumb bytes of the six handlers to the C
+object, with no orphan mapping symbols. Evidence is in
+`.deps/audio-command-setters/flag-setters/compare-biased.log`, `report.json`,
+`source-audit.json` and `linked-audit.json`. Remaining tempo, modulation, port,
+voice and engine handlers still require work.

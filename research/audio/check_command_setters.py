@@ -13,8 +13,10 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT/'.deps/audio-command-setters'
 TRACK = 0x02000000
 RETURN = 0x080e0000
-SPECS = {'ply_prio': (0x080cfa18, 29, 0, 10), 'ply_lfodl': (0x080cfacc, 27, 0, 10)}
-FLAG_SPECS = {'ply_keysh': (0x080cfa38, 10, 12, 18), 'ply_vol': (0x080cfa7c, 18, 3, 18), 'ply_bendr': (0x080cfab8, 15, 12, 18)}
+SPECS = {'ply_prio': (0x080cfa18, 29, 0, 10, 0), 'ply_lfodl': (0x080cfacc, 27, 0, 10, 0)}
+FLAG_SPECS = {'ply_keysh': (0x080cfa38, 10, 12, 18, 0), 'ply_vol': (0x080cfa7c, 18, 3, 18, 0), 'ply_bendr': (0x080cfab8, 15, 12, 18, 0)}
+
+FLAG_SPECS.update({'ply_pan': (0x080cfa90, 20, 3, 20, 64), 'ply_bend': (0x080cfaa4, 14, 12, 20, 64), 'ply_tune': (0x080cfaf0, 12, 12, 20, 64)})
 
 
 def main():
@@ -42,7 +44,7 @@ def main():
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(out/'linked.s'), '-o', str(out/'candidate.o')], check=True)
     rom = (ROOT/'baserom.gba').read_bytes()
     report = {}
-    for name, (entry, field, mask, length) in specs.items():
+    for name, (entry, field, mask, length, bias) in specs.items():
         (out/'link.ld').write_text(f'SECTIONS {{ . = {entry:#x}; .text : {{ *(.text.{name}) }} /DISCARD/ : {{ *(*) }} }}\n')
         subprocess.run(['arm-none-eabi-ld', '-T', str(out/'link.ld'), str(out/'candidate.o'), '-o', str(out/'candidate.elf')], check=True)
         subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(out/'candidate.elf'), str(out/(name+'.bin'))], check=True)
@@ -70,7 +72,7 @@ def main():
                 expected = initial.copy()
                 struct.pack_into('<I', expected, 64, command+1)
                 byte = expected[command-TRACK] if TRACK <= command < TRACK+0x100 else value
-                expected[field] = byte if command >= 0x02000000 else 0
+                expected[field] = ((byte if command >= 0x02000000 else 0) - bias) & 255
                 expected[0] |= mask
                 for nzcv in (0, 5, 10, 15):
                     states = []
