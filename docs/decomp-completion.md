@@ -7706,3 +7706,39 @@ Evidence: `.deps/soundmain-packed/mplay-post-clear-build.log`,
 three candidate report directories and refreshed tracked ownership/runtime/region
 receipts. Next: channel volume/pitch handling, command guards, earlier clear
 calls and the remaining MPlayMain frame exit.
+
+
+## Channel volume path candidates — September 10, 2026
+
+On production baseline `2941b969`, three isolated C fragments reproduce the
+30 bytes at 080CFD3A..080CFD58: type/volume guard (14), ChnVolSetAsm direct
+invocation (4), and conditional CgbChannel.mo update (12). No new compiler
+pattern is required. The guard uses the existing ascending masked-zero external
+tail; the invocation uses the existing direct-callee/fallthrough contract; the
+update uses an ordinary local branch and adjacent terminal transfer.
+
+The guard passes 264,064 cases: every type/flag byte pair at four aliases with
+cycling NZCV, plus 30 boundary pairs at all aliases and all 16 NZCV states.
+Aliases cover separate storage, channel at SP, flags at SP, and type/flags sharing
+one byte. The model reads the final stored byte for that shared alias. It checks
+all registers, SP/LR, complete CPSR/RAM, ordered type-then-flags reads and exact
+exit choice (66,176 pitch, 197,888 volume). Three invalid source forms reject;
+unannotated compilation is unchanged.
+
+The invocation passes 24,576 cases and rejects 15 invalid contracts; unannotated
+compilation is unchanged. A synthetic STR/BX LR at the real ChnVolSetAsm address
+080CFE14 validates the direct-call/return mechanics and arbitrary returned
+registers/flags; the callee implementation is not exercised by this checker.
+The flag-update model checks zero/nonzero channel type, retained registers,
+CMP/OR flags and conditional mo read/write. All 720,896 cases pass: every mode
+byte, types 0..7 plus four full-width boundaries and 32 single-bit values, four
+aliases (normal, update byte at SP, channel at SP, last RAM byte), and all NZCV.
+There are 16,384 skipped updates and 704,512 read/write updates. Combined with
+the decision and invocation, all 1,009,536 fragment cases pass.
+
+Sources/checkers are `research/audio/mplay_post_volume_{guard,invoke,finish}.c`
+and corresponding `check_*.py` files; reports are under
+`.deps/soundmain-packed/mplay-post-volume-{guard,invoke,finish}/`. These are
+isolated candidates and stop at fragment boundaries, not complete MPlayMain
+execution. Production ownership is unchanged. Next: integrate all 30 bytes with exact
+extents/ranges and full build/audit gates.

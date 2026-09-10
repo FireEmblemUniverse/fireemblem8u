@@ -4,6 +4,8 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `21d596b2`): MPlayMain's post-tick channel-status guard and stopped-channel argument/invocation path are matching C. All 16 instruction bytes match; 67,840 production/original cases pass. The full ROM and fresh runtime builds match; all 94 altered layouts reject. Main-ROM C ownership is 720,516/777,630 mapped instruction bytes (92.65%). Remaining channel processing, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
+Candidate work (September 10): the next 30-byte channel-volume path matches in isolated C. All three candidates pass 1,009,536 execution checks, including the 12-byte hardware flag update. Production integration and full build/audit gates are next. Production remains at the integrated totals above.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
