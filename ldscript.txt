@@ -604,6 +604,21 @@ SECTIONS
         __short_end = .;
         SoundMainRAM_ShortMix = __short_start + 8;
         src/m4a_1.o(.text.after_short);
+        __loop_start = .;
+        src/m4a_loop.o(.text);
+        __loop_end = .;
+        src/m4a_1.o(.text.after_loop);
+        ASSERT(SoundMainRAM_ShortEnd == SoundMainRAM_LoopBoundary,
+               "loop metadata C block must follow resampling loop helper");
+        ASSERT(__loop_end - __loop_start == 16,
+               "loop metadata C block must contain exactly 16 bytes");
+        ASSERT(SoundMainRAM_Partial == __loop_end,
+               "loop metadata continuation must be adjacent in ARM mode");
+        ASSERT((SoundMainRAM_ShortCount & 3) == 0 && SoundMainRAM_ShortCount < __loop_start &&
+               SoundMainRAM_ShortCount >= (SoundMainRAM & ~1),
+               "loop conditional target must be backward ARM code within copied mixer");
+        ASSERT((__loop_end + 4) - SoundMainRAM_ShortCount <= 0x2000000,
+               "loop conditional ARM branch out of range");
         __partial_start = .;
         src/m4a_partial.o(.text);
         __partial_end = .;

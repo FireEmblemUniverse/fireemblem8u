@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false;
+bool read_only_lr=false,accumulator_lr=false,frame64=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -138,6 +138,44 @@ bool lr_read_set(rtx p) {
         && (REGNO(SET_DEST(p))<13 || REGNO(SET_DEST(p))==CC_REGNUM)
         && !side_effects_p(SET_SRC(p));
 }
+// Read-only aligned words from the explicitly declared 64-byte private frame.
+bool frame_word_load(rtx p) {
+    if (GET_CODE(p)==COND_EXEC) {
+        if (GET_CODE(COND_EXEC_CODE(p))!=SET) return false;
+        return frame_word_load(COND_EXEC_CODE(p));
+    }
+    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode
+        ||REGNO(SET_DEST(p))>=13||!MEM_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode) return false;
+    rtx address=XEXP(SET_SRC(p),0);
+    if (reg_is(address,SP_REGNUM)) return true;
+    return GET_CODE(address)==PLUS && reg_is(XEXP(address,0),SP_REGNUM)
+        && CONST_INT_P(XEXP(address,1)) && INTVAL(XEXP(address,1))>=0
+        && INTVAL(XEXP(address,1))<64 && !(INTVAL(XEXP(address,1))&3);
+}
+void remove_frame_compare_repeat() {
+    if (!frame64) return;
+    for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if (!NONJUMP_INSN_P(i)) continue;
+        rtx p=PATTERN(i);
+        if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))!=CC_REGNUM
+            ||GET_CODE(SET_SRC(p))!=COMPARE) continue;
+        rtx cmp=SET_SRC(p),reg=XEXP(cmp,0);
+        if (!REG_P(reg)||REGNO(reg)>=13||GET_MODE(reg)!=SImode||XEXP(cmp,1)!=const0_rtx) continue;
+        rtx_insn *load=NEXT_INSN(i);
+        while (load && NOTE_P(load)) load=NEXT_INSN(load);
+        if (!load||!NONJUMP_INSN_P(load)||GET_CODE(PATTERN(load))!=COND_EXEC||!frame_word_load(PATTERN(load))) continue;
+        rtx conditional=PATTERN(load),test=COND_EXEC_TEST(conditional),body=COND_EXEC_CODE(conditional);
+        if ((GET_CODE(test)!=EQ&&GET_CODE(test)!=NE)||!rtx_equal_p(XEXP(test,0),SET_DEST(p))
+            ||XEXP(test,1)!=const0_rtx||REGNO(SET_DEST(body))==REGNO(reg)) continue;
+        rtx_insn *repeat=NEXT_INSN(load);
+        while (repeat && NOTE_P(repeat)) repeat=NEXT_INSN(repeat);
+        if (repeat && NONJUMP_INSN_P(repeat) && rtx_equal_p(PATTERN(repeat),p)) {
+            // The original flags now remain live through the conditional load.
+            if (rtx dead=find_reg_note(load,REG_DEAD,SET_DEST(p))) remove_note(load,dead);
+            delete_insn(repeat);
+        }
+    }
+}
 const pass_data data={RTL_PASS,"arm_adjacent",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -150,6 +188,9 @@ public:
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires zero-local-frame void code without debug/unwind");
         if (read_only_lr && !global_regs[LR_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent LR input requires global register binding");
+        if (frame64 && !global_regs[SP_REGNUM])
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent frame requires global SP binding");
+        remove_frame_compare_repeat();
         rtx_insn *external_branch=lower_diamond();
         unsigned phase=0;std::vector<rtx_insn *> discard;
         std::set<rtx> labels,targets;
@@ -199,7 +240,7 @@ public:
                     && REG_P(XEXP(src,1)) && GET_MODE(XEXP(src,1))==SImode
                     && REGNO(XEXP(src,1))<13;
             }
-            if (phase!=1||mentions(p,SP_REGNUM)||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add)||executable_asm(p))
+            if (phase!=1||(mentions(p,SP_REGNUM)&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add)||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
                 if (i==external_branch) continue;
@@ -222,7 +263,7 @@ public:
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
-    bool have_destination=false,have_lr=false,have_conditional=false;
+    bool have_destination=false,have_lr=false,have_conditional=false,have_frame=false;
     for (int n=0;n<info->argc;n++) {
         const char *key=info->argv[n].key,*value=info->argv[n].value;
         if (std::string(key)=="destination" && !have_destination && value && *value) {
@@ -231,6 +272,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             read_only_lr=true;accumulator_lr=std::string(value)=="accumulator";have_lr=true;
         } else if (std::string(key)=="conditional" && !have_conditional && value && *value) {
             conditional_destination=value;have_conditional=true;
+        } else if (std::string(key)=="sp-input" && !have_frame && value && std::string(value)=="frame64") {
+            frame64=true;have_frame=true;
         } else return 1;
     }
     if (have_conditional && conditional_destination==destination) return 1;

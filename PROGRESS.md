@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: short/packed countdown branches integrated (baseline `9e8ae8c4` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: 16-byte fixed-rate loop metadata integration (baseline `85af428e` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -18,9 +18,10 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.51%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,962 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.52%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **2,946 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated fixed-rate loop metadata | `████████████████████` **All 16 bytes exact; 67,584 production ROM/copied-RAM cases pass, including conditional frame reads and both exits** |
 | Integrated resampling arithmetic | `████████████████████` **All 52 bytes exact; 143,360 production ROM/copied-RAM cases pass across both entries and fractional-wrap boundaries** |
 | Integrated partial-word completion | `████████████████████` **All 36 bytes exact; 61,440 production ROM/copied-RAM cases pass, including zero rotation and overlapping state/output** |
 | Integrated short-sample block | `████████████████████` **All 44 bytes exact; 184,320 production ROM/copied-RAM cases pass across both entries and four packed lanes** |
@@ -117,8 +118,8 @@ The short-sample word loads and one-sample arithmetic are now integrated as
 pass 184,320 production/original comparisons across ROM and copied RAM; source
 aliases, all signed bytes, four packed lanes, ordered accesses, registers,
 subtraction flags, selected exit and untouched memory/stack agree. Full ROM matching and the
-3,528 complete-call regression pass. Source inventory is now 476 C files,
-32 assembly entry markers and seven manual assembly function declarations.
+3,528 complete-call regression pass. Source inventory is now 477 C files,
+32 assembly entry markers and six manual assembly function declarations.
 The partial-word completion shared by fixed-rate and resampled paths is now
 integrated as `src/m4a_partial.c` (36 bytes). Its 61,440 ROM/copied-RAM checks
 verify all four lanes (including zero rotation), status-byte truncation,
@@ -140,13 +141,20 @@ no-advance-path exits across ROM/RAM, checking complete shift flags and branch
 destinations. The conditional-continuation compiler rule passes 13,632 standalone
 executions, eleven compiler rejections and three linker rejections. Source
 advancement and sample-loop transitions remain assembly.
-The short path's loop-metadata handling and remaining resampling control are still assembly.
+The short path's packed-lane control and remaining resampling control are still assembly.
 The latest countdown checks cover ten short-source counts, including zero and
 signed-overflow boundaries (18,440 end exits across ROM/RAM), and all 135 selected
 packed counter/remainder pairs (3,288 channel-save exits). They verify complete
 addition/subtraction flags and the exact exit PC. The existing conditional rule
 handles both paths without further compiler changes. Full ROM matching and
-3,528 complete-call checks pass. Loop metadata handling remains assembly.
+3,528 complete-call checks pass. Fixed-rate loop metadata is now integrated
+as `src/m4a_loop.c` (16 bytes): 67,584 ROM/copied-RAM cases verify conditional
+frame reads, both exits, comparison flags, all registers and an untouched frame.
+The read-only frame compiler contract passes 55,296 cases, retains the second
+comparison when its input changes, and rejects eight invalid forms. The shared
+64-byte frame definition now lives in `include/gba/m4a_mixer_frame.h` with
+loop-field offset checks; research uses the same header. Resampling loop metadata
+handling and source advancement remain assembly.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
@@ -156,11 +164,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,962 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,946 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,416 C-owned, 33,870 in C objects containing assembly, 2,552 in assembly
+719,432 C-owned, 33,870 in C objects containing assembly, 2,536 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

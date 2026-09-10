@@ -342,13 +342,11 @@ _081DD158:
 	mov r2, 0
 	b _081DD174
 _081DD164:
-	.global SoundMainRAM_ShortEnd
-	.type SoundMainRAM_ShortEnd, %function
-SoundMainRAM_ShortEnd:
-	ldr r2, [sp, 0x10]
-	cmp r2, 0
-	ldrne r3, [sp, 0xC]
-	bne _081DD118
+	.global SoundMainRAM_LoopBoundary
+SoundMainRAM_LoopBoundary:
+@ Loop metadata and selection are linked here from m4a_loop.c.
+	.section .text.after_loop, "ax", %progbits
+	.arm
 _081DD174:
 	.global SoundMainRAM_PartialBoundary
 SoundMainRAM_PartialBoundary:

@@ -4513,3 +4513,66 @@ and runtime rebuild verification remain unfinished. Evidence under
 short-production-ram.json, finish-production.json, finish-production-ram.json,
 countdown-branches-source-audit.json and countdown-branches-ownership.log;
 complete-call report under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — fixed-rate loop metadata integrated (16 bytes)
+
+Baseline: `85af428e`. `src/m4a_loop.c` now defines the existing
+`SoundMainRAM_ShortEnd` entry at 0x080CF7EC. Its four ARM instructions read the
+loop length at SP+16, compare it with zero, conditionally load the loop source
+at SP+12, and branch backward to `SoundMainRAM_ShortCount` at 0x080CF7A0 when
+looping. The zero path falls through to `SoundMainRAM_Partial` at 0x080CF7FC.
+Linker contracts check the 16-byte extent, entry/adjacent boundary, backward
+branch range, alignment and location inside the copied mixer. The resampling
+loop helper is a separate path and remains assembly.
+
+The adjacent compiler pass has a new explicit `sp-input=frame64` contract.
+It requires a global SP binding, zero local frame and the existing validated
+sole-LR save/call/restore/return shape. Only aligned SI word reads from SP+0..60
+are accepted, including a single predicated read. No frame writes, SP updates,
+other access widths or out-of-bounds offsets are allowed. Removing the LR-save
+scaffold leaves accesses relative to the declared incoming mixer SP. This is
+a private frame contract, not a conventional C-call ABI.
+
+The pass also removes an exactly repeated CMP(reg,0) across one conditional
+frame-word load when the load cannot change the compared register. It crosses
+no other operation or label, preserves every comparison flag and removes a
+stale CC death note if present. The C count uses one empty register constraint
+to stay in r2. No new instruction template/backend operation was added.
+The verified 64-byte frame layout moved to `include/gba/m4a_mixer_frame.h`;
+the research header includes it. Compile-time size/offset checks now explicitly
+cover loop-source offset 12 and loop-length offset 16, alongside prior checks.
+
+`check_arm_frame.py` passes 55,296 original-location/copied-code executions
+covering normal metadata loads, the last allowed frame word, and a conditional
+load that overwrites the comparison input. That last case must retain both
+CMP instructions and is checked for correct branch flags/outcome. Tests verify
+ordered frame reads, all registers, complete memory/frame, SP/LR and backward
+branch destinations. Eight invalid contracts are rejected: missing opt-in,
+outside/negative offsets, byte reads, stores, SP increments, missing global SP
+binding and local stack use. Unannotated objects remain byte-identical. The
+conditional regression passes 13,632 executions, eleven compiler and three
+link rejections; the original adjacent suite passes 160 executions, eleven
+compiler and two link rejections.
+
+`make compare -j8` passes. `check_soundmain_loop.py` passes 33,792 cases from ROM
+and 33,792 from copied RAM, crossing 264 count values, eight pointer values
+and sixteen initial NZCV states. Each mode has 33,664 loop exits and 128 stop
+exits. Besides original/production comparison, it checks expected r0-r12/CPSR,
+exact destination PC, the skipped pointer read when count is zero, ordered
+reads when nonzero, preserved SP/LR, all frame bytes and surrounding canaries.
+The complete production SoundMain suite passes 3,528 calls, including 1,728
+deadline exits, using the promoted common frame layout. Cycle timing remains
+outside these functional checks.
+
+The audit records 719,432 C-owned main instruction bytes (92.52% rounded),
+33,870 mixed-object bytes, 2,536 assembly-source bytes and 21,792 runtime bytes,
+total 777,630. Reviewed non-library assembly is 2,946 main bytes plus 420 payload
+bytes. Source inventory: 477 C files, 32 assembly entry markers, six manual
+assembly declarations, 656 inline sites (302 register bindings, 346 empty
+constraints, one directive, seven instruction templates). Remaining private
+frame/channel integration, source advancement, loop control and runtime rebuild
+verification are incomplete. Evidence under `.deps/soundmain-packed/`:
+loop-build.log, frame-guards.log, loop-production.json, loop-production-ram.json,
+loop-source-audit.json, loop-ownership.log and conditional/adjacent regression
+logs; complete-call report under `.deps/soundmain-complete/`.

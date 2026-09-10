@@ -276,3 +276,20 @@ adjacency, word alignment, branch range and the intended copied-code scope;
 production resampling checks all of these against its mixer boundaries.
 `research/audio/check_arm_conditional.py` checks both outcomes, full shift flags,
 relocation to RAM and invalid compiler/link contracts with checking enabled.
+
+
+Optional `sp-input=frame64` requires a global SP binding and permits only
+aligned SI word loads at offsets 0..60 from the incoming private frame, including
+single predicated loads. SP updates, stores, other widths and out-of-range
+accesses remain rejected; local frames and the existing call/return restrictions
+still apply. Removing the sole LR save preserves the explicitly declared incoming
+SP coordinate system. This is a private entry contract, not a normal C-call ABI.
+
+Within that contract, an exact CMP(reg,0), conditional frame load, identical CMP
+sequence may reuse the first comparison. The load must not write the compared
+register, and no other instructions or labels may intervene. The rule removes
+any stale condition-code death note on the load. `check_arm_frame.py` verifies
+frame boundaries, ordered reads, backward conditional transfers, unchanged
+frame/SP/LR, rejection cases and a compared-register overwrite that must retain
+the second CMP. Production `src/m4a_loop.c` uses this contract with the shared
+`include/gba/m4a_mixer_frame.h` layout.
