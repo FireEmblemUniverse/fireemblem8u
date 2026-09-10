@@ -85,6 +85,10 @@ mixing boundary: 9,819 skipped/stopped channels, 13,739 ready-to-mix channels an
 7,674 deadline exits. It covers all status and VCOUNT bytes, envelope boundaries,
 loop metadata and complete channel/frame updates. This is research, not yet a
 matching replacement for the channel loop or sample mixer.
+The fixed-rate sample-mixing model passes 10,080 original/C comparisons,
+including short samples, repeated loops, packed-word overflow and final partial
+words. It reproduces full sound memory and private frame effects; 944 cases
+stop and 9,136 continue. Resampling and matching code generation remain open.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.

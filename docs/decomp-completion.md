@@ -3950,3 +3950,37 @@ flags, exact memory-access order or instruction bytes, and does not execute
 sample mixing or mixer return. Production and its verified coverage remain
 unchanged. Evidence: `.deps/soundmain-channel/report.json`, candidate ELF/binary,
 and `.deps/soundmain-channel-run.log`.
+
+
+### September 10: fixed-rate packed sample mixing recovered in C
+
+`research/audio/soundmain_fixed.c` models the type-bit-8 sample path beginning
+at 080CF6E4 through the shared Thumb channel-loop continuation at 080CF8CC.
+The model processes four output lanes per packed word, rotates the existing
+word right by eight, and adds the signed sample times the sixteen-bit-shifted
+stereo volume after masking bits 16..23. Arithmetic wraps as unsigned 32-bit;
+this is not equivalent to an independently clamped byte mixer.
+
+When source count reaches zero, a positive loop length reloads the loop source
+and count, including at word and buffer boundaries. Without a loop, the model
+clears channel status, rotates the partially accumulated word by the remaining
+lane count, stores both stereo words, and leaves stored cp/ct unchanged. Only
+a continuing channel saves its new source pointer and count. This matches the
+original optimized group loop and its short-source path without copying their
+instruction-level pointer/carry control structure.
+
+`check_soundmain_fixed.py` passes 10,080 comparisons against the hash-verified
+original ROM: 944 stopped and 9,136 continuing channels. It covers six output
+sizes (4..528), fifteen source counts including 1..5 and buffer boundaries,
+seven loop lengths including zero and repeated one-byte loops, all combinations
+of four stereo-volume boundary values, constant signed-byte boundary patterns,
+a byte ramp and seeded data. All sound/channel/output memory and private frame
+bytes with surrounding canaries match. The C model preserves its ABI registers
+and stack pointer; the original restores r8 and transfers back to Thumb.
+
+Scope requires positive output counts divisible by four, aligned output words,
+positive initial source counts and positive active loop lengths. Source/output
+aliasing, private register/flag equivalence, access ordering, the resampling path
+and full mixer return are not claimed. This is research only; production C
+coverage remains unchanged. Evidence: `.deps/soundmain-fixed/report.json`,
+candidate ELF/binary and `.deps/soundmain-fixed-run.log`.
