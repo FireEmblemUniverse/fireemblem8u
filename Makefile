@@ -773,3 +773,15 @@ src/m4a_envelope.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu
 src/m4a_volume.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/m4a_volume.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_volume.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_ResumeSamples -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_ResumeSamples -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+THUMB_FORK_DECREMENT_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_fork_decrement.so
+$(THUMB_FORK_DECREMENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_fork_decrement.cc tools/arm-dispatch/build_thumb_fork_decrement.py
+	python3 tools/arm-dispatch/build_thumb_fork_decrement.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_channel_advance.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_FORK_DECREMENT_PLUGIN)
+src/m4a_channel_advance.o: C_END_ALIGN := 1
+src/m4a_channel_advance.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_channel_advance.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit -fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanLoop -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_DeadlineExit -fplugin=$(THUMB_FORK_DECREMENT_PLUGIN)
+src/m4a_exit_info.o: $(THUMB_FALLTHROUGH_PLUGIN)
+src/m4a_exit_info.o: C_END_ALIGN := 1
+src/m4a_exit_info.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_exit_info.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FALLTHROUGH_PLUGIN)

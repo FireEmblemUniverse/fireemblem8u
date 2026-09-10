@@ -14,20 +14,30 @@ def arithmetic_flags(a,b,subtract):
  return ((value>>31)<<3)|((value==0)<<2)|(carry<<1)|((overflow>>31)&1)
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--fold',action='store_true');p.add_argument('--production',action='store_true');a=p.parse_args();a.fold |= a.production
  out=ROOT/'.deps/soundmain-packed/channel-advance';out.mkdir(exist_ok=True);obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
+ source=ROOT/('src/m4a_channel_advance.c' if a.production else 'research/audio/soundmain_channel_advance.c');extra=[]
+ if a.fold:
+  replacement=out/'folded.c';replacement.write_text(source.read_text().replace('matching_tail_transfer)', 'matching_tail_transfer, matching_thumb_fork_decrement)'));source=replacement
+  extra=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_fork_decrement.so')]
  plugin=ROOT/'.deps/flood-core-new-backend/tail_transfer.so'
- subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-fno-reorder-blocks','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-fplugin='+str(plugin),'-fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit','-fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanLoop','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-acyclic-branches','-fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_DeadlineExit',str(ROOT/'research/audio/soundmain_channel_advance.c'),'-o',str(obj)],check=True)
- subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_ChannelAdvanceCandidate','--defsym=SoundMainRAM_DeadlineExit=0x0800100e','--defsym=SoundMainRAM_ChanLoop=0x08000e00',str(obj),'-o',str(elf)],check=True)
+ subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-fno-reorder-blocks','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-fplugin='+str(plugin),'-fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit','-fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanLoop','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-acyclic-branches','-fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_DeadlineExit',str(source),'-o',str(obj)]+extra,check=True)
+ subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry='+('SoundMainRAM_ChanAdvance' if a.production else 'SoundMainRAM_ChannelAdvanceCandidate'),'--defsym=SoundMainRAM_DeadlineExit='+hex(0x08001000+(10 if a.fold else 14)),'--defsym=SoundMainRAM_ChanLoop=0x08000d18',str(obj),'-o',str(elf)],check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
- code=binary.read_bytes();assert len(code)==14
+ code=binary.read_bytes();assert len(code)==(10 if a.fold else 14)
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+ if a.fold:assert code==rom[ENTRY-0x08000000:EXIT-0x08000000]
+ if a.production:
+  assert (ROOT/'fireemblem8.gba').read_bytes()==rom
+  symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+  assert any(line.split()==['080cf8cc','0000000a','T','SoundMainRAM_ChanAdvance'] for line in symbols.splitlines())
+  assert any(line.split()==['080cf8d6','00000002','T','SoundMainRAM_DeadlineExit'] for line in symbols.splitlines())
  machines=[]
  for copied in (False,True):
   for candidate in (False,True):
    delta=(0x03002000-0x08001000 if candidate else 0x03002c60-0x080cf54c) if copied else 0
    start=(0x08001000 if candidate else ENTRY)+delta
-   exits=((0x0800100e if candidate else EXIT)+delta,(0x08000e00 if candidate else LOOP)+delta)
+   exits=((0x08001000+(10 if a.fold else 14) if candidate else EXIT)+delta,(0x08000d18 if candidate else LOOP)+delta)
    uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_map(0x03000000,0x8000);uc.mem_map(DATA,0x4000)
    uc.mem_write(start,code if candidate else rom[ENTRY-0x08000000:EXIT-0x08000000]);trace=[]
    def stop(u,address,size,targets):
@@ -56,6 +66,6 @@ def main():
      assert uc.reg_read(r.UC_ARM_REG_SP)==SP and uc.reg_read(r.UC_ARM_REG_LR)==0xdeadbeef
      assert bytes(uc.mem_read(DATA,0x4000))==memory and trace==[(16,SP+4,4,None)]
     cases+=1
- report=dict(cases=cases,machines_per_case=4,exit_cases=paths[0],advance_cases=paths[1],candidate_bytes=len(code),original_bytes=10,production_integrated=False,scope='Full-width boundary/random counts, pointer addition overflow, every initial NZCV, exact register/flag state and ordered frame read in ROM/copied RAM.',limitations=['Random full-width values are sampled. Cycle timing is not modeled. Candidate is four bytes larger than original.'])
+ report=dict(cases=cases,machines_per_case=4,exit_cases=paths[0],advance_cases=paths[1],candidate_bytes=len(code),original_bytes=10,production_integrated=a.production,scope='Full-width boundary/random counts, pointer addition overflow, every initial NZCV, exact register/flag state and ordered frame read in ROM/copied RAM.',limitations=['Random full-width values are sampled. Cycle timing is not modeled.' + ('' if a.fold else ' Candidate is four bytes larger than original.')])
  (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -243,21 +243,13 @@ SoundMainRAM_SaveBoundary:
 	.section .text.after_save_channel, "ax", %progbits
 	.thumb
 _081DD240:
-	.global SoundMainRAM_ChanAdvance
-	.type SoundMainRAM_ChanAdvance, %function
-	.thumb_func
-SoundMainRAM_ChanAdvance:
-	ldr r0, [sp, 0x4]
-	subs r0, 1
-	ble _081DD24A
-	adds r4, SoundChannel_size
-	b SoundMainRAM_ChanLoop
-	.global SoundMainRAM_DeadlineExit
-	.type SoundMainRAM_DeadlineExit, %function
-	.thumb_func
-SoundMainRAM_DeadlineExit:
-_081DD24A:
-	ldr r0, [sp, 0x18]
+	.global SoundMainRAM_ChanAdvanceBoundary
+SoundMainRAM_ChanAdvanceBoundary:
+@ Channel advancement and the shared exit's frame read come from C.
+	.section .text.after_channel_advance, "ax", %progbits
+	.thumb
+	.global SoundMainRAM_ExitRestoreBoundary
+SoundMainRAM_ExitRestoreBoundary:
 	ldr r3, =ID_NUMBER
 	str r3, [r0]
 	add sp, 0x1C

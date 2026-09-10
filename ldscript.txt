@@ -856,6 +856,20 @@ SECTIONS
         SoundMainRAM_SaveChannel = __save_channel_start + 4;
         SoundMainRAM_RestoreFrame = __save_channel_start + 12;
         src/m4a_1.o(.text.after_save_channel);
+        __channel_advance_start = .;
+        src/m4a_channel_advance.o(.text);
+        __channel_advance_end = .;
+        src/m4a_exit_info.o(.text);
+        __exit_info_end = .;
+        src/m4a_1.o(.text.after_channel_advance);
+        ASSERT((SoundMainRAM_ChanAdvance & ~1) == __channel_advance_start &&
+               __channel_advance_start == SoundMainRAM_ChanAdvanceBoundary &&
+               __channel_advance_end - __channel_advance_start == 10,
+               "channel advance entry or ten-byte extent changed");
+        ASSERT((SoundMainRAM_DeadlineExit & ~1) == __channel_advance_end &&
+               __exit_info_end - __channel_advance_end == 2 &&
+               SoundMainRAM_ExitRestoreBoundary == __exit_info_end,
+               "channel exit frame read must be two bytes followed by restore code");
         ASSERT(SoundMainRAM_SaveResampled == SoundMainRAM_SaveBoundary,
                "resampled channel save C block must follow register restoration");
         ASSERT(__save_channel_end - __save_channel_start == 24,

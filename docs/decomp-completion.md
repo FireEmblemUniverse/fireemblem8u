@@ -12,6 +12,36 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Channel advancement integration — September 10, 2026
+
+Baseline `0e1e53c6` plus this change. `src/m4a_channel_advance.c` now produces
+all ten original bytes at 080CF8CC..080CF8D6. `src/m4a_exit_info.c` produces the
+shared exit's following two-byte frame read. Moving that read also keeps the
+remaining assembly restore sequence and its literal pool word-aligned without
+padding changes. Link assertions pin both entries, extents and adjacency.
+
+The new opt-in `matching_thumb_fork_decrement` pass proves a signed <=1 branch
+whose two successors begin with the same low-register decrement. The taken
+label must have one use, no preservation requirement, be forward and within
+200 bytes, and follow a closed block. Labels, barriers or other operations before
+either decrement prevent folding. It replaces the branch and both decrements
+with an explicit RTL parallel: branch on the original signed value <=1 and
+update that register modulo 2^32. The backend emits SUBS/BLE, whose N/V/Z flags
+implement that original-value comparison even at 0x80000000. This removes the
+extra CMP and duplicated SUBS without assuming a bounded channel count.
+
+The isolated GCC backend rebuild succeeds. Six unsupported source shapes reject
+(wrong bound, unsigned comparison, unequal/missing decrement, missing private
+contract and an intervening store); unannotated output is byte-identical.
+`check_soundmain_channel_advance.py --production` verifies exact bytes and both
+production symbol extents, then passes 33,600 original/C ROM/copied-RAM cases
+with no register, flags, memory, access-order or exit differences. All 3,528
+complete audio regression calls pass, as do the full ROM checksum and fresh
+runtime source rebuilds of all four images. Full-width values are sampled and
+cycle timing is not modeled. The source inventory is 497 C files. Main C-owned
+mapped instructions rise by 12 bytes to 720,010; reviewed non-library assembly
+falls to 2,368 main-ROM bytes. This is not overall completion.
+
 ## Channel advancement candidate — September 10, 2026
 
 Research baseline `ed63d207`. `research/audio/soundmain_channel_advance.c`
@@ -66,13 +96,13 @@ These are coverage measures including inherited work, not overall completion.
 
 ## Current verified state
 
-After channel volume/loop integration (baseline `72de5643` plus this change),
+After channel-advance integration (baseline `0e1e53c6` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 495 main C files, 32 assembly entry markers,
+The current source inventory has 497 main C files, 32 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 719,998 in C-only objects, 33,870 in
-mixed C/assembly objects, 1,970 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 720,010 in C-only objects, 33,870 in
+mixed C/assembly objects, 1,958 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 

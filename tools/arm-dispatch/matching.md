@@ -231,3 +231,15 @@
   "adds\t%0, %1, #0"
   [(set_attr "conds" "set") (set_attr "length" "2")
    (set_attr "type" "alus_imm")])
+
+;; Compare the original signed value with one while decrementing modulo 2^32.
+;; SUBS flags implement this comparison even when the result wraps at INT_MIN.
+(define_insn "match_thumb_fork_decrement"
+  [(set (pc)
+        (if_then_else
+         (le (match_operand:SI 0 "low_register_operand" "+l") (const_int 1))
+         (label_ref (match_operand 1 "" "")) (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))]
+  "TARGET_THUMB1"
+  "subs\t%0, %0, #1\n\tble\t%l1"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
