@@ -4760,3 +4760,26 @@ object bytes are unchanged. Tests use the pinned installed GCC 16.2.0.
 Evidence: `.deps/soundmain-packed/preincrement-guards.log`,
 advance-candidate-check.log and advance-candidate-report.json. Production
 sources/tool selection are unchanged from the previously passing ROM build.
+
+
+## September 10, 2026 — private source-advance register preservation
+
+Baseline: `6b2e3ddc`. An empty tied r9 constraint after the decrement keeps the
+updated skip in its original register. The candidate no longer writes r12 and
+its conditional preincrement load now addresses through r9, as the original
+does. It remains 60 bytes because the compiler emits SUB r9,r9,1 followed by
+CMP r9,0 instead of SUBS. Nine ordinary optimization switches and alternate
+source forms did not remove the temporary while retaining the desired form;
+those probes remain ignored research output.
+
+The 35,200-case checker now requires every r0-r12 value and live LR to match
+at both exits, not just the formerly selected live subset. It independently
+checks candidate SP/frame and flags too: an extra four-byte LR save remains,
+and the continuing path has CMP-result-with-zero flags rather than original
+SUBS flags. The loop path has the original subtraction flags. All checks pass.
+These differences are asserted explicitly; candidate calls are still stopped
+before BL and no production or coverage claim is made. Next matching work is
+guarded SUB/CMP flag folding and the private early-exit/adjacent continuation.
+Evidence remains `.deps/soundmain-packed/advance-candidate-check.log` and
+advance-candidate-report.json; the exact candidate object confirms both r9
+instructions and absence of r12 writes.

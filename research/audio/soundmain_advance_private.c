@@ -23,6 +23,8 @@ void SoundMainRAM_AdvanceCandidate(void)
         return;
     }
     advanceSkip--;
+    // Keep the private update in r9; later flag folding must retain this tie.
+    asm("" : "+r"(advanceSkip));
     if (advanceSkip == 0)
         advanceCurrent += advanceDifference;
     else {

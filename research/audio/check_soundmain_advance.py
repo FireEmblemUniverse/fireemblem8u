@@ -77,16 +77,23 @@ def main():
                             uc.reg_write(r.UC_ARM_REG_SP,0x03007000);uc.reg_write(r.UC_ARM_REG_LR,fraction);uc.reg_write(r.UC_ARM_REG_CPSR,0x13|flags<<28);trace.clear();state.clear()
                             uc.emu_start(entry,0,count=64)
                             assert state==[outcome],(mode,state)
-                            for i in (0,1,2,3,9):assert uc.reg_read(REGS[i])==expected[i],(mode,i,count,skip)
+                            for i in range(13):assert uc.reg_read(REGS[i])==expected[i],(mode,i,count,skip)
                             assert uc.reg_read(r.UC_ARM_REG_LR)==fraction&~0x3f800000
                             assert trace==reads,(mode,trace,reads)
                             assert bytes(uc.mem_read(0x02000000,len(data)))==data
-                            if mode!='candidate':
+                            if mode=='candidate':
+                                candidate_flags=expected_flags if outcome=='loop' else ((expected[9]>>31)<<3)|((expected[9]==0)<<2)|2
+                                assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|candidate_flags<<28
+                                assert uc.reg_read(r.UC_ARM_REG_SP)==0x03006ffc
+                                candidate_frame=bytearray([0xa5])*512
+                                struct.pack_into('<I',candidate_frame,252,fraction)
+                                assert bytes(uc.mem_read(0x03006f00,512))==candidate_frame
+                            else:
                                 assert [uc.reg_read(reg) for reg in REGS]==expected
                                 assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|expected_flags<<28
                                 assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                                 assert bytes(uc.mem_read(0x03006f00,512))==bytes([0xa5])*512
                         outcomes[outcome]+=1;cases+=1
-    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,candidate_bytes=len(code),original_bytes=32,production_integration=False,scope='Original ROM/copied RAM and C candidate: private live r0/r1/r2/r3/r9/LR, ordered source reads, immutable source memory, signed overflow boundaries. Original additionally validates all registers, SP, frame and flags. Candidate compiler frame, scratch registers, flags and call/return behavior are not matching.')
+    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,candidate_bytes=len(code),original_bytes=32,production_integration=False,scope='Original ROM/copied RAM and C candidate: all r0-r12 and live LR, ordered source reads, immutable source memory, signed overflow boundaries. Both engines validate independently expected SP/frame/flags; candidate still has an extra LR save and CMP flags, and its call/return behavior is not matching.')
     (OUT/'advance-candidate-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()
