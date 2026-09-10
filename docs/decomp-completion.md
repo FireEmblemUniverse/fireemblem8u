@@ -6361,3 +6361,38 @@ current ownership receipt. Evidence: `.deps/soundmain-packed/buffer-entry/report
 and `buffer-entry-transfer.log`; reproducible via
 `research/audio/check_soundmain_buffer_entry.py --compiler
 .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --literals --transfer`.
+
+
+### Buffer subtraction/branch matching (September 10, 2026; baseline e319cb1d)
+
+The opt-in `matching_thumb_subtract_branch` compiler pass selects a new explicit
+SUBS/BLS backend pattern for a distinct low-register subtraction by one, an exact
+empty self-tie, and an immediately following unsigned <= 1 branch. It proves
+short forward reach and rejects unsupported annotated functions. This preserves
+the original subtraction flags without emitting a redundant comparison. The
+machine pattern expresses both the result and the unsigned branch; it does not
+substitute hardcoded routine bytes.
+
+The rebuilt compiler passes 20,176 standalone executions over all byte values,
+full-width boundaries, 1,000 deterministic random words and all 16 initial NZCV
+states. Both destination entries, all r0-r12, flags and SP/LR are checked.
+Twelve unsupported contracts reject, including distant targets, signed tests,
+wrong subtraction/bounds, instruction-bearing ties and high result registers.
+Unannotated compilation is byte-identical with and without the pass loaded.
+
+`check_soundmain_buffer_entry.py --compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc --literals --transfer
+--subtract-branch` passes all 98,304 cases. Its instruction prefix is 32 bytes
+before the original BX r3, matching the original length. Direct comparison now
+finds exactly three unequal instruction words out of 17: literal loads at
+relative offsets 6 and 28, and the commuted ADD at offset 8. Shared pool placement
+and alignment still prevent integration; the research section remains 48 bytes.
+The first byte-difference assertion expected all three literal loads to differ;
+inspection showed the RAM-pointer load already has the original relative offset,
+so the assertion was corrected to the actual three differing words above.
+
+`make compare -j8` passes after rebuilding the backend and dependent production
+plugins. The production ELF hash remains identical to its ownership receipt.
+This milestone changes research matching and compiler support, not production
+C ownership. Logs: `.deps/soundmain-packed/buffer-subtract-branch.log`,
+`subtract-backend-build.log` and `subtract-branch-compare.log`.

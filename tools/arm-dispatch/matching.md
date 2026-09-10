@@ -244,6 +244,19 @@
   "subs\t%0, %0, #1\n\tble\t%l1"
   [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
 
+;; An unsigned <= 1 test uses the same subtraction flags as a preceding x-1.
+;; The late pass proves the distinct result register and short forward branch.
+(define_insn "match_thumb_subtract_branch"
+  [(set (pc)
+        (if_then_else
+         (leu (match_operand:SI 1 "low_register_operand" "l") (const_int 1))
+         (label_ref (match_operand 2 "" "")) (pc)))
+   (set (match_operand:SI 0 "low_register_operand" "=l")
+        (plus:SI (match_dup 1) (const_int -1)))]
+  "TARGET_THUMB1 && REGNO (operands[0]) != REGNO (operands[1])"
+  "subs\t%0, %1, #1\n\tbls\t%l2"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
+
 ;; Restore an ordered bank of eight low registers with stack writeback.
 ;; The frame-return pass proves all eight contiguous word loads before selecting.
 (define_insn "match_thumb_pop_low8"

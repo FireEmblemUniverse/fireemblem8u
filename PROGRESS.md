@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research (baseline `d7169a14`): the buffer candidate now transfers through BX r3 into mixer RAM. All 98,304 cases match registers, flags, stack, memory, access order and final Thumb entry. Its 34 pre-transfer instruction bytes still exceed the original 32; branch encoding, ADD operand order and shared literal placement remain. It is not integrated. The full production ROM still matches; its ELF is unchanged.
+Updated: September 10, 2026. Latest research (baseline `e319cb1d`): buffer subtraction/branch folding removes the extra comparison. The candidate now has the original 32 instruction bytes before BX r3; 14 of its 17 instruction words match exactly. All 98,304 full-state transfers pass. Two literal-load offsets, ADD operand order and shared pool/alignment layout remain. It is not integrated. The full production ROM still matches and its ELF is unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,7 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,328 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Outer SoundMain buffer candidate | **98,304 full transfers pass into mixer RAM; branch, ADD operand order and shared literals remain** |
+| Outer SoundMain buffer candidate | **98,304 full transfers pass; original instruction length reached; ADD operand order and shared literals remain** |
 | Complete copied mixer | `████████████████████` **932/932 section bytes in C-only objects: 918 instruction bytes plus 14 data/alignment bytes; full ROM exact** |
 | Integrated mixer entry | **12/12 section bytes exact; 12,288 full Thumb/ARM path transfers pass in ROM and copied RAM** |
 | Integrated sample handoff | **12/12 section bytes exact; 24,576 full Thumb-to-ARM transfers pass with identical ROM/copied-RAM code** |

@@ -544,3 +544,17 @@ polarities, full registers/NZCV and ROM/copied code, plus rejection and opt-in
 isolation checks. The no-reverb candidate supplies an explicit discarded-bit
 expression and a branch-likelihood hint to retain the original inline layout;
 its signed countdown/fallthrough still require separate matching work.
+
+
+## Subtraction flags and unsigned branches
+
+`thumb_subtract_branch.cc` provides `matching_thumb_subtract_branch`, currently
+used only by the buffer-entry research checker with `--subtract-branch`.
+It requires `matching_tail_transfer` and Thumb-1. A low-register `dst=src-1`,
+an exact empty self-tie on dst, and an immediately following unsigned `src<=1`
+branch become a single SUBS/BLS bundle. Distinct source/destination registers
+and a conservative short forward target are required. Unsupported annotated
+functions fail compilation; unannotated functions are unchanged. The standalone
+`check_thumb_subtract_branch.py` verifies full-width arithmetic, registers,
+flags and private transfers, plus invalid contracts. No production object selects
+this attribute yet.
