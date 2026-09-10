@@ -80,6 +80,11 @@ The compiler's PC-address rule passes 96 execution cases, six compiler rejection
 cases and twelve link-contract rejection cases. The byte-load and subtraction
 rules pass 8,192 and 33,152 standalone checks. The setup/frame models above are
 still research; the full SoundMain entry and remaining mixer are unfinished.
+The channel-preparation C model passes 31,232 comparisons through the sample-
+mixing boundary: 9,819 skipped/stopped channels, 13,739 ready-to-mix channels and
+7,674 deadline exits. It covers all status and VCOUNT bytes, envelope boundaries,
+loop metadata and complete channel/frame updates. This is research, not yet a
+matching replacement for the channel loop or sample mixer.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.

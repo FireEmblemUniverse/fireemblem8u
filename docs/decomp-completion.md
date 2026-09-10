@@ -3914,3 +3914,39 @@ plus 420 payload bytes. Source inventory: 472 main C files, 32 assembly entry
 markers, 609 inline sites (263 register bindings, 338 empty templates, one
 directive-only and seven instruction templates). The overall goal remains
 unfinished; setup/frame generation and remaining channel mixing are next.
+
+
+### September 10: channel deadline, envelope and loop preparation recovered in C
+
+`research/audio/soundmain_channel.c` models the original channel loop from
+080CF5E4 through its three boundaries: skip/stop at 080CF8CC, whole-mixer deadline
+exit at 080CF8D6, or ARM sample-mixing entry at 080CF6E4. It records the remaining
+channel count before checking the deadline, performs status transitions and
+attack/decay/sustain/release/echo processing, computes stereo envelope volumes,
+and prepares the loop pointer and length in the private frame.
+
+The inactive mask is 0xC7. A new channel starts in attack with its wave pointer,
+sample count and fractional position reset; wave status bits 0xC000 enable
+looping. A simultaneous start/stop flag stops immediately. Echo length zero
+wraps to 255 but still stops, just like length one; only old values >1 continue.
+Attack reaching exactly 255 saturates and advances phase. Release and decay use
+unsigned products shifted by eight, preserving equality behavior at echo and
+sustain thresholds. Master volume uses byte offset seven of SoundInfo, and
+stereo outputs retain the original byte truncation even for oversized volume
+settings. Loop length subtraction and loop pointer addition retain 32-bit wrap.
+
+`check_soundmain_channel.py` compiles the model and compares it with the SHA-1-
+verified original code. All 31,232 cases pass: 9,819 skip/stop, 13,739 mix and
+7,674 deadline exits. The grid covers every status byte, seven envelope boundary
+values, eight envelope/volume vectors, every VCOUNT byte and eleven deadline
+values. Wave cases include loop bits, zero sizes and wrapping loop descriptors.
+The harness compares full SoundInfo/channel/wave memory and all 64 private frame
+bytes, as well as the selected outcome; it checks the model's callee-saved
+registers, SP and upper stack canary. Wave storage and channel storage are
+separate in these fixtures.
+
+This is a semantic model only. It does not reproduce private register outputs,
+flags, exact memory-access order or instruction bytes, and does not execute
+sample mixing or mixer return. Production and its verified coverage remain
+unchanged. Evidence: `.deps/soundmain-channel/report.json`, candidate ELF/binary,
+and `.deps/soundmain-channel-run.log`.
