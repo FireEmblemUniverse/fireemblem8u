@@ -7420,3 +7420,42 @@ layouts reject, including seven new extent/continuation and far/backward/odd loo
 target cases. See `mplay-track-advance-production.log` and
 `mplay-track-advance-layout.log`. Next work continues tick-clock/status completion,
 command guards and clear-call paths.
+
+
+## MPlayMain tick clock/status — September 10, 2026 (baseline `51f38b74`)
+
+Integrated `src/m4a_mplay_clock_update.c` at 080CFCE8..080CFCFA. It increments
+and stores the wrapped 32-bit tick clock. Active tracks continue into the existing
+matching C tempo-finish block; no active tracks set status to 0x80000000 and branch
+to the shared exit. All 18 original instruction bytes are generated from C. The
+shared exit remains assembly. Existing private-tail contracts suffice without
+compiler changes; an empty self-tie preserves the original MOVS/LSLS constant pair.
+
+`check_mplay_clock_update.py --production` passes 99,840 cases: all clock bytes,
+six full-width boundaries and 128 random clocks, four zero/low/high active-track
+words, all initial NZCV and four player positions. Fixtures put the clock at SP,
+status at SP or the clock at the final RAM word. There are 74,880 active and 24,960
+inactive cases. All r0-r12, SP/LR, full CPSR, complete RAM and the ordered clock
+read/increment store/conditional status store agree. Active paths retain the track
+comparison flags and incremented r0; inactive paths retain the constant shift's
+N=1/Z=0/C=0/V=0 and r0=0x80000000. Execution stops at tempo finish or shared exit;
+complete MPlayMain is outside this fragment.
+
+The linker enforces the 18-byte extent, adjacent tempo-finish entry and shared-exit
+branch range/alignment. `make compare -j8` reproduces all 16 MiB. Fresh runtime
+source builds reproduce all four images and exports. Source, linked, inline and
+runtime inventories are refreshed; unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,450 C-owned (92.65%), 33,870
+mixed C/assembly, 1,518 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,928 main bytes and 420 payload bytes.
+There are 525 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `c1f6419d9fd8347869556964678e9fb26935557c471ceddefa4e861e8fcaea28`.
+Evidence: `.deps/soundmain-packed/mplay-clock-update/report.json`, source/linked
+reports there, `mplay-clock-update-production.log`, `mplay-clock-update-build.log`
+and refreshed runtime/region receipts. The valid production layout passes and all
+58 combined altered layouts reject, including five new extent, continuation and
+far/backward/odd exit-target cases. See `mplay-clock-update-layout.log`.
+Next work continues command guards, post-tick processing and clear-call paths.

@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "1db7efedc789587f5f664c56335a17b3163ff0d4",
+  "baseline_commit": "51f38b74a6b6d3fc2bd323bd0414b2a060b64cb6",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1536,
-        "c_owned": 720432,
+        "assembly_source": 1518,
+        "c_owned": 720450,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1142,14 +1142,14 @@
           "instruction_bytes": 832
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 832
-        },
-        {
           "object": "src/bmlib-math.o",
           "category": "c_owned",
           "instruction_bytes": 830
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 814
         },
         {
           "object": "src/banim-efxmagic-wretchedair.o",
@@ -2152,6 +2152,11 @@
           "instruction_bytes": 20
         },
         {
+          "object": "src/m4a_mplay_clock_update.o",
+          "category": "c_owned",
+          "instruction_bytes": 18
+        },
+        {
           "object": "src/m4a_mplay_command_setup.o",
           "category": "c_owned",
           "instruction_bytes": 18
@@ -2327,13 +2332,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "f41039cee7d77fbfded6f0aa9d6b3c656702684c293dee5d4b78c24e96f5975d",
-      "map_sha256": "a8dfdf488b07ab90f81cb718d177f5c6eae76a8cd64b50d74b55f44f5398a049",
+      "elf_sha256": "c1f6419d9fd8347869556964678e9fb26935557c471ceddefa4e861e8fcaea28",
+      "map_sha256": "0a4e34f6b4ed9b29fe6be4738594b99001cf57381e9691750b0861817bbc9de6",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1946
+      "known_nonarchive_assembly_bytes": 1928
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

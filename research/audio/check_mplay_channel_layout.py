@@ -71,6 +71,11 @@ def main():
  for name,expression in [('advance_loop_far','__mplay_track_advance_start + 2062'),('advance_loop_backward','__mplay_track_advance_start - 2036'),('advance_loop_odd','__mplay_track_advance_start - 283')]:
   text=source.replace('        ASSERT(MPlayMainTrackLoop + 2048 >=','        MPlayMainTrackLoop = '+expression+';\n        ASSERT(MPlayMainTrackLoop + 2048 >=',1)
   cases.append((name,text,'track advance loop transfer out of range'))
+ cases += [('clock_update_extent',source.replace('        __mplay_clock_update_end = .;','        . += 2;\n        __mplay_clock_update_end = .;'),'clock update extent or continuation'),
+           ('tempo_finish_entry',source.replace('        src/m4a_1.o(.text.after_mplay_clock_update);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_clock_update);'),'clock update extent or continuation')]
+ for name,expression in [('clock_exit_far','__mplay_clock_update_start + 2068'),('clock_exit_backward','__mplay_clock_update_start - 2048'),('clock_exit_odd','__mplay_clock_update_start + 201')]:
+  text=source.replace('        ASSERT(MPlayMainExit >=','        MPlayMainExit = '+expression+';\n        ASSERT(MPlayMainExit >=',1)
+  cases.append((name,text,'clock update exit transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

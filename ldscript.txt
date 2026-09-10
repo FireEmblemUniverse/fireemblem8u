@@ -1157,13 +1157,25 @@ SECTIONS
         src/m4a_mplay_track_advance.o(.text);
         __mplay_track_advance_end = .;
         src/m4a_1.o(.text.after_mplay_track_advance);
+        __mplay_clock_update_start = .;
+        src/m4a_mplay_clock_update.o(.text);
+        __mplay_clock_update_end = .;
+        src/m4a_1.o(.text.after_mplay_clock_update);
+        ASSERT((MPlayMainClockUpdate & ~1) == MPlayMainClockUpdateBoundary &&
+               __mplay_clock_update_end - __mplay_clock_update_start == 18 &&
+               (MPlayMainTempoFinish & ~1) == __mplay_clock_update_end,
+               "MPlayMain clock update extent or continuation changed");
+        ASSERT(MPlayMainExit >= __mplay_clock_update_start + 20 &&
+               MPlayMainExit <= __mplay_clock_update_start + 20 + 2046 &&
+               (MPlayMainExit & 1) == 0,
+               "MPlayMain clock update exit transfer out of range");
         ASSERT((MPlayMainTrackFinish & ~1) == MPlayMainTrackFinishBoundary &&
                __mplay_track_finish_end - __mplay_track_finish_start == 4 &&
                (MPlayMainTrackAdvance & ~1) == __mplay_track_finish_end,
                "MPlayMain track finish extent or continuation changed");
         ASSERT((MPlayMainTrackAdvance & ~1) == MPlayMainTrackAdvanceBoundary &&
                __mplay_track_advance_end - __mplay_track_advance_start == 12 &&
-               MPlayMainClockUpdate == __mplay_track_advance_end,
+               (MPlayMainClockUpdate & ~1) == __mplay_track_advance_end,
                "MPlayMain track advance extent or continuation changed");
         ASSERT(MPlayMainTrackLoop + 2048 >= __mplay_track_advance_start + 14 &&
                MPlayMainTrackLoop <= __mplay_track_advance_start + 14 + 2046 &&

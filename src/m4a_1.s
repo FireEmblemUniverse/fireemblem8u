@@ -434,18 +434,10 @@ _081DD994:
 MPlayMainTrackAdvanceBoundary:
 _081DD998:
 	.section .text.after_mplay_track_advance, "ax", %progbits
-	.global MPlayMainClockUpdate
-MPlayMainClockUpdate:
+	.global MPlayMainClockUpdateBoundary
+MPlayMainClockUpdateBoundary:
 _081DD9A4:
-	ldr r0, [r7, o_MusicPlayerInfo_clock]
-	adds r0, 0x1
-	str r0, [r7, o_MusicPlayerInfo_clock]
-	cmp r4, 0
-	bne _081DD9B6
-	movs r0, 0x80
-	lsls r0, 24
-	str r0, [r7, o_MusicPlayerInfo_status]
-	b _081DDA6C
+	.section .text.after_mplay_clock_update, "ax", %progbits
 _081DD9B6:
 	.global MPlayMainTempoFinishBoundary
 MPlayMainTempoFinishBoundary:
@@ -545,6 +537,8 @@ _081DDA62:
 	movs r0, 0x50
 	adds r5, r0
 	bgt _081DD9C8
+	.global MPlayMainExit
+MPlayMainExit:
 _081DDA6C:
 	ldr r0, [pc, #1020]
 	.reloc .-2, R_ARM_THM_PC8, lt2_ID_NUMBER
