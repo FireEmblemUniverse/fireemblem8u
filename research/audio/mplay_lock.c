@@ -18,6 +18,7 @@ register volatile u32 lockR11 asm("r11");
 register volatile u32 lockSP asm("sp");
 register volatile u32 lockLR asm("lr");
 extern void MPlayMainEntryCallbackSetup(void);
+__attribute__((matching_thumb_lock_frame))
 void MPlayLockCandidate(void)
 {
     lockR2 = 0x68736d53;

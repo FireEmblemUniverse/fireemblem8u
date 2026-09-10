@@ -942,3 +942,38 @@ python3 tools/arm-dispatch/build_thumb_saved_entry_frame.py --compiler .deps/gcc
 The frame is integrated as matching C in production. Its direct checker passes
 26,880 cases and rejects 15 unsupported contracts; the complete original entry
 path with the candidate frame passes 86,016 model cases, including lock rejections.
+
+### MPlayMain lock and initial player/return save
+
+`thumb_lock_frame.cc` implements `matching_thumb_lock_frame` for a private
+zero-local-frame Thumb entry. It requires bound r0-r11, SP and LR, a void function
+without arguments/debug/unwind, exactly two empty self-ties and eighteen other
+RTL operations. The exact comparison, identifier read/store at r0+52, increment,
+stack decrement, ordered player/LR saves, restored lock value, declared no-argument
+continuation and ordinary compiler prologue/epilogue must all validate.
+
+The successful comparison establishes the incremented lock value, allowing the
+compiler's temporary LR copy and redundant constant reload to disappear when
+selecting PUSH {r0,lr}. Rejection uses a flag-preserving BX LR; success falls
+through into the declared continuation. The identifier store stays before both
+stack writes, including overlapping addresses. The shared literal has an explicit
+PC-relative relocation. This is a private entry convention, not ordinary ABI
+function-call semantics. Integration must enforce the continuation's adjacency,
+entry extent and literal address/range in the linker script.
+
+Both `id=VALUE,SYMBOL` and `continuation=SYMBOL` are required; unknown and duplicate
+options reject. Unannotated functions retain ordinary compiler output.
+
+```
+python3 tools/arm-dispatch/build_backend.py
+python3 tools/arm-dispatch/build_thumb_lock_frame.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_lock.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_lock_callback_frame_model.py --lock-candidate
+```
+
+Rebuild other plugins against the installed headers after a backend rebuild.
+The direct checker links at the original address, requires all sixteen original
+bytes, checks 22 invalid contracts and unchanged unannotated output, then runs
+the independent 32,256-case lock model. The separate 86,016-case entry model
+executes the candidate with the original callback/frame path and controlled
+ARM/Thumb callbacks. These tests do not establish complete MPlayMain behavior.

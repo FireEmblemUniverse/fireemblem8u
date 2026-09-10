@@ -12,7 +12,7 @@ def flags_sub(a,b):
  return (result>>31)<<3|((result==0)<<2)|((a>=b)<<1)|bool(((a^b)&(a^result))&0x80000000)
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler');p.add_argument('--candidate',action='store_true');p.add_argument('--production',action='store_true');p.add_argument('--frame-candidate',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler');p.add_argument('--candidate',action='store_true');p.add_argument('--production',action='store_true');p.add_argument('--frame-candidate',action='store_true');p.add_argument('--lock-candidate',action='store_true');a=p.parse_args()
  if a.candidate:
   assert a.compiler,'--candidate requires --compiler'
   out=ROOT/'.deps/soundmain-packed/mplay-entry/callback-setup';out.mkdir(parents=True,exist_ok=True);obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
@@ -28,6 +28,11 @@ def main():
   setup=binary.read_bytes();invoke=(ROOT/'.deps/soundmain-packed/mplay-entry-callback-invoke/candidate.bin').read_bytes()
   assert len(setup)==8 and len(invoke)==4 and setup+invoke==rom[0xcfb78:0xcfb84]
   uc.mem_write(0x080cfb78,setup+invoke)
+ if a.lock_candidate:
+  out=ROOT/'.deps/soundmain-packed/mplay-lock'
+  assert (out/'candidate.c').read_text()==(ROOT/'research/audio/mplay_lock.c').read_text(),'Run check_mplay_lock.py for current source first'
+  lock=(out/'candidate.bin').read_bytes();assert len(lock)==16 and lock==rom[0xcfb68:0xcfb78]
+  uc.mem_write(ENTRY,lock)
  if a.frame_candidate:
   out=ROOT/'.deps/soundmain-packed/entry-frame'
   assert (out/'candidate.c').read_text()==(ROOT/'research/audio/mplay_entry_frame.c').read_text(),'Run check_mplay_entry_frame.py for current source first'
@@ -85,6 +90,6 @@ def main():
   assert state['entries']==expected_entries
   assert bytes(uc.mem_read(DATA,0x4000))==wanted and state['accesses']==accesses,(state['accesses'],accesses)
   cases+=1;outcomes[outcome]+=1
- report=dict(candidate_frame_bytes=14 if a.frame_candidate else 0,production_integrated=a.production,candidate_callback_bytes=12 if a.candidate else 0,cases=cases,outcomes=outcomes,original_instruction_bytes=42,scope='Independent original-ROM model of lock rejection, identifier store, callback dispatch, ordered frame writes and low/high register saves; seven player locations, four callback-write aliases, ARM/Thumb callbacks and rejection returns, two stacks, all incoming NZCV and four returned flag patterns; exact SP at each executed entry instruction, complete registers/CPSR/LR/RAM and ordered accesses.',limitations='Synthetic callback bodies at controlled ROM addresses; stops at entry-status continuation and does not execute complete MPlayMain. Player locations avoid callback-pointer fields overwritten by the initial two-word push.')
- out=ROOT/'.deps/soundmain-packed/mplay-entry';out.mkdir(parents=True,exist_ok=True);(out/('saved-frame-candidate-model.json' if a.frame_candidate else 'lock-callback-frame-candidate.json' if a.candidate else 'lock-callback-frame-model.json')).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+ report=dict(candidate_lock_bytes=16 if a.lock_candidate else 0,candidate_frame_bytes=14 if a.frame_candidate else 0,production_integrated=a.production,candidate_callback_bytes=12 if a.candidate else 0,cases=cases,outcomes=outcomes,original_instruction_bytes=42,scope='Independent original-ROM model of lock rejection, identifier store, callback dispatch, ordered frame writes and low/high register saves; seven player locations, four callback-write aliases, ARM/Thumb callbacks and rejection returns, two stacks, all incoming NZCV and four returned flag patterns; exact SP at each executed entry instruction, complete registers/CPSR/LR/RAM and ordered accesses.',limitations='Synthetic callback bodies at controlled ROM addresses; stops at entry-status continuation and does not execute complete MPlayMain. Player locations avoid callback-pointer fields overwritten by the initial two-word push.')
+ out=ROOT/'.deps/soundmain-packed/mplay-entry';out.mkdir(parents=True,exist_ok=True);(out/('lock-candidate-entry-model.json' if a.lock_candidate else 'saved-frame-candidate-model.json' if a.frame_candidate else 'lock-callback-frame-candidate.json' if a.candidate else 'lock-callback-frame-model.json')).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

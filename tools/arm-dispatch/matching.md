@@ -454,3 +454,12 @@
   "TARGET_THUMB1"
   "push\t{r4-r7}"
   [(set_attr "length" "2") (set_attr "type" "multiple")])
+
+;; Save the player and return address, preserving all registers and flags.
+(define_insn "match_thumb_push_player_lr"
+  [(set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -8))) (reg:SI 0))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -4))) (reg:SI LR_REGNUM))
+   (set (reg:SI SP_REGNUM) (plus:SI (reg:SI SP_REGNUM) (const_int -8)))]
+  "TARGET_THUMB1"
+  "push\t{r0, lr}"
+  [(set_attr "length" "2") (set_attr "type" "multiple")])

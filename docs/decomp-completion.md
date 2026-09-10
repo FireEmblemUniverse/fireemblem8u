@@ -8724,3 +8724,42 @@ Evidence: `.deps/soundmain-packed/mplay-lock/original-model.json`,
 `model-negative-controls.json`, individual negative-control logs and `probe.s`.
 Original 16-byte SHA-256:
 `93cc001f2c9a8b24736affdb5867f15b5a556c0e158f9c09a099b65fef325d6b`.
+
+
+## September 10, 2026 — Final MPlayMain lock candidate matches
+
+On baseline `5791e568`, `research/audio/mplay_lock.c` now generates exactly the
+original sixteen bytes at 080CFB68..080CFB78. The new `thumb_lock_frame` plugin
+validates the complete eighteen-operation/two-tie RTL shape, identifier comparison,
+ordered volatile accesses, increment, saved player/LR words and restored lock
+value, declared continuation, and compiler prologue/epilogue. A new backend
+PUSH {r0,lr} pattern replaces the explicit stack allocation/stores while preserving
+r3. The accepted comparison proves the redundant constant reload's value.
+The shared identifier load retains its relocation to 080CFDCC. Rejection becomes
+BX LR and successful entry falls through after the push. This private convention
+requires explicit linker adjacency, extent and literal constraints on integration.
+
+The candidate passes all 32,256 independent lock cases, including saved-word
+aliases and callback fields overwritten by the push. All 22 unsupported source
+or option contracts reject, and unannotated output is unchanged. The whole-entry
+model passes 86,016 cases with the lock candidate substituted: 64,512 rejections
+and 7,168 each of no callback, Thumb callback and ARM callback. Complete MPlayMain
+and real callback implementations remain outside these tests. The saved-entry
+frame plugin was rebuilt against the new backend headers; its 26,880 cases and
+15 invalid contracts pass as a regression check.
+
+The first backend rebuild failed with Clang frontend errors while the filesystem
+was nearly full. Removing 341,917,588 bytes of older generated runtime images/maps
+preserved sources, logs, the newest three runs and the current runtime receipt's
+run. The retry completed successfully. Other production plugins must rebuild
+against the newly installed compiler headers before the next production build.
+No production source or ownership totals changed in this milestone.
+
+Sources: `tools/arm-dispatch/thumb_lock_frame.cc`, its build helper,
+`matching.md`, `research/audio/check_mplay_lock.py`, the annotated C candidate
+and the extended lock/callback/frame model. Evidence:
+`.deps/soundmain-packed/mplay-lock/report.json`, `check.log`, `chain-check.log`,
+`frame-regression.log`, `backend-retry.log`, and
+`.deps/soundmain-packed/mplay-entry/lock-candidate-entry-model.json`.
+Next: integrate the final lock candidate with strict linker assertions, run the
+full ROM/runtime and ownership gates, and verify altered layouts reject.
