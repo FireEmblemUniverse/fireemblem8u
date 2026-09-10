@@ -29,6 +29,7 @@ namespace {
 std::set<std::string> callees;
 int indirect_register=-1;
 bool raise_bound=false;
+bool after_shared_literals=false;
 bool private_frame=false;
 bool acyclic_branches=false;
 std::string adjacent;
@@ -201,14 +202,23 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"adjacent transfer cannot retain trailing operations");
             }
         }
+        if (after_shared_literals && calls.size()!=1)
+            fatal_error(UNKNOWN_LOCATION,"late shared-literal fallthrough requires one terminal call");
         rtx_insn *terminal_call=nullptr;
         if (!terminal_adjacent.empty()) {
             if (XSTR(calls.back().second,0)!=terminal_adjacent)
                 fatal_error(UNKNOWN_LOCATION,"terminal adjacency requires the final declared call");
             terminal_call=calls.back().first;
-            for (rtx_insn *i=NEXT_INSN(terminal_call);i;i=NEXT_INSN(i))
-                if (NONDEBUG_INSN_P(i)&&!discard.count(i))
-                    fatal_error(UNKNOWN_LOCATION,"terminal adjacency rejects trailing code or data");
+            for (rtx_insn *i=NEXT_INSN(terminal_call);i;i=NEXT_INSN(i)) {
+                if (!NONDEBUG_INSN_P(i)||discard.count(i)) continue;
+                rtx p=PATTERN(i);
+                // A removed shared-only pool leaves this zero-code terminator.
+                if (GET_CODE(p)==UNSPEC_VOLATILE&&XINT(p,1)==VUNSPEC_POOL_END
+                    &&XVECLEN(p,0)==1&&XVECEXP(p,0,0)==const0_rtx) {
+                    discard.insert(i);continue;
+                }
+                fatal_error(UNKNOWN_LOCATION,"terminal adjacency rejects trailing code or data");
+            }
         }
         rtx_insn *pool_call=nullptr,*pool_label=nullptr,*pool_align=nullptr;
         if (!pool_adjacent.empty()) {
@@ -285,6 +295,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             if (indirect_register>=0||value[0]<'0'||value[0]>'7'||value[1]) return 1;
             indirect_register=value[0]-'0';continue;
         }
+        if (key=="after-shared-literals" && !info->argv[n].value && !after_shared_literals) { after_shared_literals=true;continue; }
         if (key=="acyclic-branches" && !info->argv[n].value) { acyclic_branches=true;continue; }
         if (key=="private-frame64" && !info->argv[n].value) { private_frame=true;continue; }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
@@ -297,7 +308,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (acyclic_branches&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty())) return 1;
     if (!pool_adjacent.empty() && (!adjacent.empty()||!private_frame||!callees.count(pool_adjacent))) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
-    register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
+    if (after_shared_literals && terminal_adjacent.empty()) return 1;
+    register_pass_info registration={new pass(g),"shorten",1,after_shared_literals?PASS_POS_INSERT_AFTER:PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);
     return 0;
 }

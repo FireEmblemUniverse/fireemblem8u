@@ -42,19 +42,13 @@ SoundMain_1:
 	mov r4, r11
 	push {r0-r4}
 	sub sp, 0x18
-	ldrb r1, [r0, o_SoundInfo_maxLines]
-	cmp r1, 0 @ if maxLines is 0, there is no maximum
-	beq SoundMain_3
-	ldr r2, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_REG_VCOUNT
-	ldrb r2, [r2]
-	cmp r2, VCOUNT_VBLANK
-	bhs SoundMain_2
-	adds r2, TOTAL_SCANLINES
-SoundMain_2:
-	adds r1, r2
-SoundMain_3:
-	str r1, [sp, 0x14]
+	thumb_func_end SoundMain
+	.global SoundMainDeadlineSetupBoundary
+SoundMainDeadlineSetupBoundary:
+@ Scanline deadline calculation is generated from matching C.
+	.section .text.after_deadline_setup, "ax", %progbits
+	thumb_func_start SoundMainCallbacks
+SoundMainCallbacks:
 	ldr r3, [r0, o_SoundInfo_func]
 	cmp r3, 0
 	beq SoundMain_4
@@ -64,7 +58,7 @@ SoundMain_3:
 SoundMain_4:
 	ldr r3, [r0, o_SoundInfo_CgbSound]
 	bl SoundMainRAM_ExitRestore + 18
-	thumb_func_end SoundMain
+	thumb_func_end SoundMainCallbacks
 	.global SoundMainBufferEntryBoundary
 SoundMainBufferEntryBoundary:
 @ Post-callback buffer setup and its RAM transfer are generated from C.

@@ -591,6 +591,18 @@ SECTIONS
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");
         src/m4a_1.o(.text.after_multiply_high);
+        __deadline_setup_start = .;
+        src/m4a_deadline_setup.o(.text);
+        __deadline_setup_end = .;
+        src/m4a_1.o(.text.after_deadline_setup);
+        ASSERT((SoundMainDeadlineSetup & ~1) == SoundMainDeadlineSetupBoundary &&
+               __deadline_setup_start == (SoundMain & ~1) + 32 &&
+               __deadline_setup_end - __deadline_setup_start == 20 &&
+               (__deadline_setup_start & 3) == 0,
+               "deadline setup position or twenty-byte extent changed");
+        ASSERT((SoundMainCallbacks & ~1) == __deadline_setup_end &&
+               lt_REG_VCOUNT == __deadline_setup_start + 88,
+               "deadline fallthrough or shared VCOUNT literal changed");
         __buffer_entry_start = .;
         src/m4a_buffer_entry.o(.text);
         __buffer_entry_end = .;

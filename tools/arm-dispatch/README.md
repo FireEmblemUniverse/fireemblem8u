@@ -575,3 +575,23 @@ linker verifies the 36-byte C extent and every fixed shared-pool position.
 The compiler removes its private pointer pool in favor of the existing shared
 word. The remaining outer assembly loads use explicit R_ARM_THM_PC8 relocations
 after splitting their pool into a separate input section.
+
+
+## Deadline setup after shared-pool removal
+
+The `after-shared-literals` option on `tail_transfer.cc` schedules its pass after
+branch shortening, when the existing shared-literal pass has already removed
+local pool words and alignment. This mode requires one terminal call and the
+private, acyclic terminal-adjacency contract. It only removes that call/frame
+and uses same-length unsigned-bound rewrites; it does not create new branches.
+A zero-valued VUNSPEC_POOL_END marker is accepted and removed as zero-code
+metadata. Any remaining alignment, word data or executable trailing operation
+still rejects. Other users keep the existing pass timing.
+
+`src/m4a_deadline_setup.c` uses this mode to fall through into the adjacent
+SoundMainCallbacks fragment. The linker proves its 20-byte extent, callback
+adjacency and shared VCOUNT literal position. The checker
+`research/audio/check_soundmain_deadline_setup.py` supports `--production` for
+byte verification and `--guards-only` for compiler checks without repeating the
+exhaustive execution run. A normal run covers every pair of byte inputs, every
+initial NZCV and two ordinary/stack-alias layouts.

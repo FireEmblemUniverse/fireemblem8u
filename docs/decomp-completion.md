@@ -6446,3 +6446,56 @@ Evidence logs: `.deps/soundmain-packed/buffer-production.log`,
 callback prefix remains 72 bytes of assembly, with its 24-byte shared pool.
 Other audio routines, runtime helpers, unit-list and transfer code and final
 executable classification remain unfinished.
+
+
+### Integrated outer SoundMain deadline setup (September 10, 2026; baseline 8cc774db)
+
+`src/m4a_deadline_setup.c` now owns the exact 20 bytes at
+0x080CF4E8..0x080CF4FC. It reads maxLines, conditionally reads the VCOUNT byte,
+adds 228 before scanline 160, adds the deadline allowance, stores frame word 20
+and falls through into the existing callback code. When maxLines is zero,
+VCOUNT and r2 remain untouched. The existing shared pool supplies REG_VCOUNT.
+
+The tail-transfer pass gains `after-shared-literals`, restricted to a single
+terminal call under the private-frame/acyclic/terminal-adjacency contracts.
+It executes after branch shortening, once shared-pool removal has run; it only
+removes instructions or rewrites a branch comparison without changing its
+length. The sole accepted trailing pool marker is a zero-valued, zero-code
+VUNSPEC_POOL_END, which is discarded. Remaining alignment, data or instructions
+still reject. Seven new rejection cases pass, along with the existing 14 direct,
+17 private-frame/pool and 14 indirect contract cases. Existing users retain their
+prior scheduling and behavior.
+
+The exhaustive candidate/original oracle passes 2,097,152 cases: every maxLines
+and VCOUNT byte pair, all 16 NZCV inputs and two info layouts, including aliasing
+the final frame destination. It compares all r0-r12, SP/LR, flags, complete test
+RAM, exact ordered info/MMIO reads and stack writes, and the final callback-entry
+PC. Its original report says production_integrated=false because that execution
+run started before integration. A separate `--guards-only --production` run
+verifies that the integrated 20 bytes are identical to the exhaustively tested
+candidate and that the complete production ROM has the original checksum.
+No second exhaustive execution run is implied by that byte-verification receipt.
+The complete audio production oracle passes 3,528 cases.
+
+The assembly entry is split around the C fragment. Link assertions prove its
+position, size, word alignment, callback adjacency and shared literal location;
+four deliberately shifted production layouts reject. `make compare -j8` passes.
+Fresh runtime rebuilds reproduce all four images and exported symbols. All linked,
+source, inline and runtime inventories and the two unchanged copied-mixer region
+receipts are refreshed for ELF SHA-256
+`eeade9a07e8315bf5967eaa070b391dea618598519247dd9dd9d04225105f84a`.
+
+Main-ROM mapped instructions remain 777,630: 720,104 C-owned (92.60%), 33,870 mixed
+C/assembly, 1,864 assembly-source, and 21,792 runtime; unresolved ownership is zero.
+Reviewed non-library assembly is 2,274 main-ROM instruction bytes and 420 payload
+bytes. There are 502 tracked C files and 32 assembly entry markers. The additional
+marker names the existing callback fragment after splitting SoundMain; it does
+not represent added executable code or a new unfinished routine. The remaining
+outer assembly is the 32-byte entry/lock/frame prefix and 20-byte callback fragment,
+plus their 24-byte pool. Other audio, runtime, unit-list and transfer code and final
+executable classification remain unfinished.
+
+Evidence: `.deps/soundmain-packed/deadline-setup/report.json`,
+`deadline-setup/guards.json`, `deadline-setup-integrated-compare.log`,
+`deadline-layout/report.json`, `.deps/soundmain-complete/production-run.log` and
+`.deps/runtime-rebuild/verification.log`.
