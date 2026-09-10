@@ -794,7 +794,7 @@ option/source forms and verifies a mixed high/low-copy fixture.
 MPlayMain's 12-byte note setup uses this option to preserve MOV r0,r8, load the
 callback pointer, subtract 207 from the command and put player/track arguments in
 r1/r2. The last ADDS determines the required flags. Its callback invocation is an
-adjacent assembly continuation and is excluded from the setup's execution checker.
+adjacent C continuation, covered separately by the callback-tail checker below.
 
 ```sh
 python3 research/audio/check_copy_add_zero.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --plugin .deps/flood-core-new-backend/copy_add_zero.so
@@ -806,3 +806,34 @@ boundaries/random words, all NZCV, three info addresses, and zero/high/full-widt
 player/track words. It checks all registers, SP/LR, flags, complete RAM and the
 single callback-pointer read. Two new layout mutations bring the combined checks
 to seventeen.
+
+
+### Private callback followed by a continuation
+
+`matching_thumb_callback_tail` handles exactly one no-argument r3 callback and
+one declared no-argument direct continuation. It requires global r0-r3 bindings,
+a void/no-argument zero-local-frame Thumb entry, an LR-only compiler prologue,
+the exact return epilogue, no live labels, and no debug/unwind/profiling setup.
+It removes that extra compiler frame, emits the callback through the declared
+shared BX r3 trampoline, and branches to the continuation without changing the
+callback's returned registers, SP or flags. Other instruction/call layouts reject.
+The trampoline must be a typed Thumb function implementing BX r3; this contract
+is verified from the linked ELF and matching ROM bytes for the production use.
+
+```sh
+python3 tools/arm-dispatch/build_thumb_callback_tail.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_note_invoke.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+```
+
+The MPlayMain invocation is six bytes: BL call_r3, then B to track wait. Its
+49,152 tests execute synthetic Thumb and ARM callbacks containing STR/BX LR,
+cover every pair of incoming/returned NZCV states, four stack positions and three
+write aliases, and compare callback-entry state, all returned registers, full RAM
+and ordered accesses. Eleven unsupported compiler contracts reject; unannotated
+objects are unchanged. The checker does not claim to validate real ply_note logic.
+
+Linker expressions resolve the Thumb function to its even instruction address,
+so the Thumb tag is checked in ELF symbol metadata rather than a linker bit test.
+The linker checks the exact shared-trampoline address, fragment extent, following
+entry and continuation range. Four new negative layouts bring the combined checks
+to twenty-one.

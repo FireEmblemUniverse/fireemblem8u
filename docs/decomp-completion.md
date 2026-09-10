@@ -6976,3 +6976,59 @@ and ownership output there, `mplay-note-setup-production-check.log`,
 `mplay-note-setup-production-compare.log`, copy-rule guards, the combined layout
 receipt and refreshed runtime/SoundMain/mixer receipts. Next work continues
 callback invocation, command decoding and remaining clear-call paths.
+
+
+## Matching MPlayMain note callback invocation — September 10, 2026
+
+Baseline `da5bb8c7`. `src/m4a_mplay_note_invoke.c` replaces six original
+instruction bytes at 080CFC4A..080CFC50: call the callback in r3 through the shared
+call_r3 trampoline and then branch to track wait. The preceding note setup is
+already C. The note-command guard and real ply_note body remain unfinished.
+
+The new opt-in callback-tail rule validates exactly an LR-only compiler frame,
+a no-argument r3 callback, a declared no-argument continuation and the standard
+private return epilogue. It requires global r0-r3 bindings and rejects local
+frames, entry arguments, live labels, post-callback work, altered callback or
+continuation shapes, and debug/unwind instrumentation. The extra compiler frame
+is removed; the callback remains a call and the final continuation becomes a
+branch. Eleven invalid source/configuration forms reject and unannotated output
+is identical. No new backend instruction pattern was needed.
+
+The initial linker Thumb-tag assertion rejected the build. An emitted-value
+probe confirmed that linker expressions expose call_r3 as 080CFDC0 with bit zero
+clear, while ELF metadata records a FUNC at 080CFDC1. The tag check therefore
+belongs in the ELF verifier; the linker keeps its address/range checks. After
+that correction, the full build and all dependent audits were rerun successfully.
+The production verifier requires the typed Thumb symbol and the original BX r3
+bytes, avoiding a veneer or an incorrectly typed shared entry.
+
+`check_mplay_note_invoke.py --production` proves exact original/production bytes
+and passes 49,152 cases. Synthetic ARM and Thumb callbacks execute an actual word
+store and BX LR, with every incoming/returned NZCV combination, four stack
+positions, three write aliases and randomized register clobbers. The checker
+verifies all callback-entry registers, mode, SP and LR; all returned r0-r12, SP,
+LR and flags; the complete 16 KiB RAM image; the single ordered callback write;
+and the final wait-loop destination. There is no compiler-generated stack write.
+These tests validate dispatch/return mechanics, not actual ply_note behavior or
+full MPlayMain execution.
+
+The linker enforces the six-byte extent, following non-note entry, original
+trampoline address and continuation reach. Twenty-one combined altered layouts
+reject, including four new invocation-size/following-entry/trampoline/range cases.
+`make compare -j8` verifies the full 16 MiB ROM. Fresh runtime source builds
+reproduce all four images and exports. Source/linked, inline-assembly and runtime
+inventories are refreshed, with unchanged SoundMain/mixer ranges revalidated
+against the updated ELF receipts.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,284 C-owned (92.63%),
+33,870 mixed C/assembly, 1,684 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,094 main-ROM instruction
+bytes and 420 payload bytes. There are 515 tracked main C files and 30 assembly
+entry markers. Totals include inherited work and are not overall completion.
+
+ELF SHA-256: `268079673e72b9edab9cd67ad23953217ce07c385427c15e498f8d3886fa9f67`.
+Evidence: `.deps/soundmain-packed/mplay-note-invoke/report.json`, source/linked
+and ownership output there, `mplay-note-invoke-production-check.log`,
+`mplay-note-invoke-production-compare.log`, `tag-probe.bin`, the combined layout
+receipt and refreshed runtime/SoundMain/mixer receipts. Next work continues
+command decoding, other callbacks and clear-call paths.

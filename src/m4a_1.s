@@ -392,10 +392,11 @@ _081DD8F6:
 	.global MPlayMainNoteSetupBoundary
 MPlayMainNoteSetupBoundary:
 	.section .text.after_mplay_note_setup, "ax", %progbits
-	.global MPlayMainNoteInvoke
-MPlayMainNoteInvoke:
-	bl call_r3
-	b _081DD938
+	.global MPlayMainNoteInvokeBoundary
+MPlayMainNoteInvokeBoundary:
+	.section .text.after_mplay_note_invoke, "ax", %progbits
+	.global MPlayMainNonNoteCommand
+MPlayMainNonNoteCommand:
 _081DD90C:
 	cmp r1, 0xB0
 	bls _081DD92E

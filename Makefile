@@ -847,6 +847,14 @@ $(THUMB_STORE_DECREMENT_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thum
 THUMB_DIRECT_TAILS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_direct_tails.so
 $(THUMB_DIRECT_TAILS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_direct_tails.cc tools/arm-dispatch/build_thumb_direct_tails.py
 	python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+THUMB_CALLBACK_TAIL_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_callback_tail.so
+$(THUMB_CALLBACK_TAIL_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_callback_tail.cc tools/arm-dispatch/build_thumb_callback_tail.py
+	python3 tools/arm-dispatch/build_thumb_callback_tail.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_note_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_note_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_note_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_note_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-trampoline=call_r3 -fplugin-arg-thumb_callback_tail-continuation=MPlayMainTrackWait
+
 src/m4a_mplay_note_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/m4a_mplay_note_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_note_setup.o: C_END_ALIGN := 1

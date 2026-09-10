@@ -1117,10 +1117,23 @@ SECTIONS
         src/m4a_mplay_note_setup.o(.text);
         __mplay_note_setup_end = .;
         src/m4a_1.o(.text.after_mplay_note_setup);
+        __mplay_note_invoke_start = .;
+        src/m4a_mplay_note_invoke.o(.text);
+        __mplay_note_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_note_invoke);
+        ASSERT((MPlayMainNoteInvoke & ~1) == MPlayMainNoteInvokeBoundary &&
+               __mplay_note_invoke_end - __mplay_note_invoke_start == 6 &&
+               MPlayMainNonNoteCommand == __mplay_note_invoke_end,
+               "MPlayMain note invoke extent or following entry changed");
+        ASSERT((call_r3 & ~1) == (MPlayMain & ~1) + 600 &&
+               MPlayMainTrackWait >= __mplay_note_invoke_start + 8 &&
+               MPlayMainTrackWait <= __mplay_note_invoke_start + 8 + 2046 &&
+               (MPlayMainTrackWait & 1) == 0,
+               "MPlayMain note invoke trampoline or continuation changed");
         ASSERT((MPlayMainNoteSetup & ~1) == MPlayMainNoteSetupBoundary &&
                __mplay_note_setup_start == MPlayMainCommandDecode + 4 &&
                __mplay_note_setup_end - __mplay_note_setup_start == 12 &&
-               MPlayMainNoteInvoke == __mplay_note_setup_end,
+               (MPlayMainNoteInvoke & ~1) == __mplay_note_setup_end,
                "MPlayMain note setup extent or callback entry changed");
         ASSERT((MPlayMainTrackDispatch & ~1) == MPlayMainTrackDispatchBoundary &&
                __mplay_command_read_end - __mplay_command_read_start == 22 &&

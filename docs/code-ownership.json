@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "5669de2c15cd862d08a4daa80ffd50ff91e4982f",
+  "baseline_commit": "da5bb8c7fea105e46a518603971aaf7b4539cefc",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1690,
-        "c_owned": 720278,
+        "assembly_source": 1684,
+        "c_owned": 720284,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1064,7 +1064,7 @@
         {
           "object": "src/m4a_1.o",
           "category": "assembly_source",
-          "instruction_bytes": 986
+          "instruction_bytes": 980
         },
         {
           "object": "src/banim-efxmagic-bolting.o",
@@ -2242,6 +2242,11 @@
           "instruction_bytes": 6
         },
         {
+          "object": "src/m4a_mplay_note_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 6
+        },
+        {
           "object": "src/m4a_mplay_tempo_finish.o",
           "category": "c_owned",
           "instruction_bytes": 6
@@ -2277,13 +2282,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "04e3463f3275b538a25e283453b3e4460cf9de0bc208efc1b8fb598a10716038",
-      "map_sha256": "b5b46d70f34d8568649651fbc52969e2829a662ea6069bb905993a44a612ff09",
+      "elf_sha256": "268079673e72b9edab9cd67ad23953217ce07c385427c15e498f8d3886fa9f67",
+      "map_sha256": "f3009cfa54a0df0853cb9cbbf75a1bae79599a7f5ea7fa939cc79d5fe961d887",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2100
+      "known_nonarchive_assembly_bytes": 2094
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

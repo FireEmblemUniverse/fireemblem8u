@@ -34,6 +34,10 @@ def main():
            ('command_decode_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_command_read);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_read);'),'command read extent or decode')]
  cases += [('note_setup_extent',source.replace('        __mplay_note_setup_end = .;','        . += 2;\n        __mplay_note_setup_end = .;'),'note setup extent or callback'),
            ('note_callback_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_note_setup);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_note_setup);'),'note setup extent or callback')]
+ cases += [('note_invoke_extent',source.replace('        __mplay_note_invoke_end = .;','        . += 2;\n        __mplay_note_invoke_end = .;'),'note invoke extent or following'),
+           ('note_following_entry',source.replace('        src/m4a_1.o(.text.after_mplay_note_invoke);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_note_invoke);'),'note invoke extent or following'),
+           ('note_trampoline',source.replace('        ASSERT((call_r3 & ~1) ==','        call_r3 = (MPlayMain & ~1) + 599;\n        ASSERT((call_r3 & ~1) ==',1),'note invoke trampoline or continuation'),
+           ('note_far_continuation',source.replace('        ASSERT((call_r3 & ~1) ==','        MPlayMainTrackWait = __mplay_note_invoke_start + 2056;\n        ASSERT((call_r3 & ~1) ==',1),'note invoke trampoline or continuation')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
