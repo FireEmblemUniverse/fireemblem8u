@@ -2,19 +2,13 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `d9f69051`): ply_note's 30-byte priority/clamp/type-dispatch path is matching C. All 147,456 production cases pass; twelve unsupported contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,912/777,630 mapped instruction bytes (92.71%); reviewed non-library assembly is 1,466 bytes, with 569 tracked C files. The valid layout links and all 217 altered layouts reject. ply_note retains 348 assembly instruction bytes. MPlayMain's 602 mapped instruction bytes remain C-owned, with 14 literal/padding bytes in assembly data. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `faa3d81d`): ply_note's 50-byte CGB channel-selection path is matching C. All 246,480 production cases pass; fourteen unsupported compiler contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,962/777,630 mapped instruction bytes (92.71%); reviewed non-library assembly is 1,416 bytes, with 570 tracked C files. The valid layout links and all 222 altered layouts reject. ply_note retains 298 assembly instruction bytes. MPlayMain's 602 mapped instruction bytes remain C-owned, with 14 literal/padding bytes in assembly data. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `edcbea6b`): CGB channel selection now has a
-**50/50-byte matching C candidate**. All 246,480 model cases pass. Fourteen
-unsupported compiler contracts reject, and unannotated output is unchanged.
-Command, tone and priority regressions pass with the rebuilt compiler.
-The candidate is not integrated; production ownership remains unchanged.
-Next: integrate these 50 bytes and verify full-ROM/runtime builds and linker
-constraints, then recover PCM selection/allocation and remaining setup/frame
-paths (348 assembly instruction bytes currently remain). MPlayMain's
+Next: recover PCM channel selection/allocation and the remaining ply_note
+setup/frame paths (298 assembly instruction bytes total). MPlayMain's
 ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game
 completion or independent validation of every real callback implementation.
 
@@ -31,10 +25,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.71%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,466 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,416 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| CGB channel-selection research | **50/50-byte matching C candidate; 246,480 cases pass; fourteen unsupported contracts reject; not integrated** |
+| Integrated ply_note CGB selection | **50/50 bytes exact; 246,480 cases pass; fourteen unsupported contracts reject; full ROM/runtime match; 222 altered layouts reject** |
 | Integrated ply_note priority/dispatch | **30/30 bytes exact; 147,456 cases pass; twelve unsupported contracts and 217 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note tone selection | **86/86 bytes exact; 92,160 cases pass; eleven unsupported contracts and 212 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note command decoder | **38/38 bytes exact; 338,688 cases pass; eleven unsupported contracts and 207 altered layouts reject; full ROM/runtime match** |

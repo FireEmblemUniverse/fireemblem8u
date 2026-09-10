@@ -551,35 +551,9 @@ PlyNoteToneBoundary:
 	.global PlyNotePriorityBoundary
 PlyNotePriorityBoundary:
 	.section .text.after_ply_note_priority, "ax", %progbits
-	.global PlyNoteCgbSelect
-PlyNoteCgbSelect:
-	ldr r0, [sp, 0x4]
-	ldr r4, [r0, 0x1C]
-	cmp r4, 0
-	bne _081DDBC4
-	b _081DDCEA
-_081DDBC4:
-	subs r6, 0x1
-	lsls r0, r6, 6
-	adds r4, r0
-	ldrb r1, [r4]
-	movs r0, 0xC7
-	tst r0, r1
-	beq _081DDC40
-	movs r0, 0x40
-	tst r0, r1
-	bne _081DDC40
-	ldrb r1, [r4, 0x13]
-	ldr r0, [sp, 0x10]
-	cmp r1, r0
-	bcc _081DDC40
-	beq _081DDBE4
-	b _081DDCEA
-_081DDBE4:
-	ldr r0, [r4, 0x2C]
-	cmp r0, r5
-	bcs _081DDC40
-	b _081DDCEA
+	.global PlyNoteCgbBoundary
+PlyNoteCgbBoundary:
+	.section .text.after_ply_note_cgb, "ax", %progbits
 	.global PlyNotePcmSelect
 PlyNotePcmSelect:
 _081DDBEC:
@@ -632,6 +606,8 @@ _081DDC34:
 	mov r4, r8
 	cmp r4, 0
 	beq _081DDCEA
+	.global PlyNoteChannelAttach
+PlyNoteChannelAttach:
 _081DDC40:
 	adds r0, r4, 0
 	bl ClearChain

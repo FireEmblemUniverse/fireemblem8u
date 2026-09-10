@@ -3,7 +3,7 @@
   "end": "0x80cfdd0",
   "c_owned_instruction_bytes": 602,
   "assembly_data_bytes": 14,
-  "elf_sha256": "5d8b16bad7c214c1678f28508127869e1f36d74d67124a3704e1e66714945625",
+  "elf_sha256": "633a5b23609cfa936cbbf16008a0823aabf556e53f0b843771c85003bb151437",
   "scope": "All mapped MPlayMain instructions, including shared call_r3 return, belong to C-owned objects. Fourteen padding/literal bytes remain in an assembly data section. This does not prove whole-game completion or executable classification outside this region.",
   "regions": [
     {

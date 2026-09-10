@@ -1190,6 +1190,14 @@ src/m4a_ply_note_tone.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_tone.o: C_END_ALIGN := 1
 src/m4a_ply_note_tone.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=PlyNotePriority -fplugin-arg-tail_transfer-destination=PlyNoteExit -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=PlyNotePriority -fplugin=$(THUMB_BLOCK_LAYOUT_PLUGIN) -fplugin-arg-thumb_block_layout-tone-selection
 
+THUMB_SHARED_TAILS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_shared_tails.so
+$(THUMB_SHARED_TAILS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_shared_tails.cc tools/arm-dispatch/build_thumb_shared_tails.py
+	python3 tools/arm-dispatch/build_thumb_shared_tails.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_ply_note_cgb_select.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_SHARED_TAILS_PLUGIN)
+src/m4a_ply_note_cgb_select.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_cgb_select.o: C_END_ALIGN := 1
+src/m4a_ply_note_cgb_select.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -fno-crossjumping -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=PlyNoteChannelAttach -fplugin-arg-tail_transfer-destination=PlyNoteExit -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_SHARED_TAILS_PLUGIN) -fplugin-arg-thumb_shared_tails-destination=PlyNoteChannelAttach -fplugin-arg-thumb_shared_tails-expected-transfers=4
+
 THUMB_AND_STORE_TAIL_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_and_store_tail.so
 $(THUMB_AND_STORE_TAIL_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_and_store_tail.cc tools/arm-dispatch/build_thumb_and_store_tail.py
 	python3 tools/arm-dispatch/build_thumb_and_store_tail.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)

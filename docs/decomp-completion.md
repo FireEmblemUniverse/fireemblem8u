@@ -9233,3 +9233,41 @@ Evidence: `.deps/soundmain-packed/ply-note/cgb_select-report.json`,
 `cgb-select-check.log`, `cgb-backend-build.log`, `cgb-shared-plugin-build.log`,
 `cgb-command-regression.log`, `cgb-tone-regression.log`,
 `cgb-priority-regression.log` and `cgb_select-candidate.{o,elf,bin,ld}`.
+
+
+## September 10, 2026 — CGB channel selection integrated
+
+On baseline `faa3d81d`, `src/m4a_ply_note_cgb_select.c` replaces fifty assembly
+instruction bytes at 080CFEFE..080CFF30. Its source matches the verified candidate
+except for the production function name. A zero-size assembly boundary anchors
+the entry, and the original PCM selection remains the immediate continuation.
+The linker requires entry+186, exact extent 50 and attach at entry+320, even and
+within the common forward reach of all four conditional transfers. The existing
+exact shared-exit placement also bounds the three unconditional reject branches.
+The preceding priority assertion masks the new Thumb function symbol.
+
+`make compare -j8` passes. All 246,480 production cases pass, including unsigned
+priority and owner-pointer tie handling, complete final registers/flags and
+ordered reads. Fourteen unsupported compiler contracts reject and unannotated
+output is unchanged. Fresh pinned runtime builds reproduce all four images
+and exported symbols. The copied mixer, SoundMain and all 602 MPlayMain mapped
+instruction bytes retain their C ownership. These checks stop at channel attach
+or shared exit; full allocation and full-routine execution remain unfinished.
+
+Mapped main-ROM ownership is 720,962 C-owned (92.71%), 33,870 mixed C/assembly,
+1,006 assembly-source and 21,792 runtime archive instruction bytes, totaling
+777,630. Reviewed non-library assembly is 1,416 main-ROM bytes and 420 payload
+bytes. Inventory is 570 tracked main C files and 29 assembly entry markers.
+ply_note retains 298 assembly instruction bytes: 32 before its C fragments and
+266 after them. Totals include inherited community work. Next: PCM channel
+selection/allocation and remaining setup/frame paths, followed by broader
+runtime, unit-list/transfer and executable-classification work.
+
+Evidence: `.deps/soundmain-packed/ply-note/cgb-production-build.log`,
+`cgb-production-check.log`, `cgb-production-identity.json`, `cgb-source.json`,
+`cgb-linked.json`, `cgb-runtime.log`, `cgb-production-layout.log` and refreshed
+tracked ownership/runtime/audio receipts. Production ELF SHA-256:
+`633a5b23609cfa936cbbf16008a0823aabf556e53f0b843771c85003bb151437`.
+
+The valid full layout links and all 222 altered layouts reject, including five
+new CGB extent/continuation and attach transfer placement cases.

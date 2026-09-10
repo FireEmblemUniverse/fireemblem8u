@@ -215,6 +215,11 @@ def main():
  for name,offset in [('note_priority_pcm_far',1024),('note_priority_pcm_backward',0),('note_priority_pcm_odd',237)]:
   needle='        ASSERT(PlyNotePcmSelect =='
   cases.append((name,source.replace(needle,'        PlyNotePcmSelect = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note priority PCM transfer'))
+ cases += [('note_cgb_extent',source.replace('        __ply_note_cgb_end = .;','        . += 2;\n        __ply_note_cgb_end = .;'),'ply_note CGB extent or continuation'),
+           ('note_cgb_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_cgb);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_cgb);'),'ply_note CGB extent or continuation')]
+ for name,offset in [('note_cgb_attach_far',1024),('note_cgb_attach_backward',0),('note_cgb_attach_odd',321)]:
+  needle='        ASSERT(PlyNoteChannelAttach =='
+  cases.append((name,source.replace(needle,'        PlyNoteChannelAttach = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note CGB attach transfer'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

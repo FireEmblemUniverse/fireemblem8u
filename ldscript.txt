@@ -1752,10 +1752,24 @@ SECTIONS
         src/m4a_ply_note_priority.o(.text);
         __ply_note_priority_end = .;
         src/m4a_1.o(.text.after_ply_note_priority);
+        __ply_note_cgb_start = .;
+        src/m4a_ply_note_cgb_select.o(.text);
+        __ply_note_cgb_end = .;
+        src/m4a_1.o(.text.after_ply_note_cgb);
+        ASSERT((PlyNoteCgbSelect & ~1) == PlyNoteCgbBoundary &&
+               __ply_note_cgb_start == (ply_note & ~1) + 186 &&
+               __ply_note_cgb_end - __ply_note_cgb_start == 50 &&
+               PlyNotePcmSelect == __ply_note_cgb_end,
+               "ply_note CGB extent or continuation changed");
+        ASSERT(PlyNoteChannelAttach == (ply_note & ~1) + 320 &&
+               (PlyNoteChannelAttach & 1) == 0 &&
+               PlyNoteChannelAttach >= __ply_note_cgb_start + 50 &&
+               PlyNoteChannelAttach <= __ply_note_cgb_start + 26 + 254,
+               "ply_note CGB attach transfer changed");
         ASSERT((PlyNotePriority & ~1) == PlyNotePriorityBoundary &&
                __ply_note_priority_start == (ply_note & ~1) + 156 &&
                __ply_note_priority_end - __ply_note_priority_start == 30 &&
-               PlyNoteCgbSelect == __ply_note_priority_end,
+               (PlyNoteCgbSelect & ~1) == __ply_note_priority_end,
                "ply_note priority extent or continuation changed");
         ASSERT(PlyNotePcmSelect == (ply_note & ~1) + 236 &&
                (PlyNotePcmSelect & 1) == 0 &&
