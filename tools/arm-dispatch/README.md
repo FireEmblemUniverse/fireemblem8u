@@ -320,3 +320,19 @@ dead saved-value temporary. Intervening operations, changed operands and a live
 saved temporary are rejected. Exact NZCV equivalence holds for all 32-bit
 operands, including signed overflow. `check_subtract_compare.py --register`
 checks this form; the default continues to check immediate amounts.
+
+
+`byte_preincrement.cc` provides opt-in `matching_byte_preincrement`. It folds
+exactly three adjacent operations: copy base to the eventual load destination,
+update base by that copy plus an offset, and sign-extend a byte loaded from the
+same sum into the copy register. The result uses an existing ARM PRE_MODIFY
+load, preserving MEM attributes. The offset is either immediate one or a
+separate r0-r12 register. Base/destination/offset aliasing is rejected. All
+three operations must be unconditional or have the identical predicate;
+intervening operations and labels are rejected. Only signed QI loads qualify.
+
+`build_byte_preincrement.py` builds against the pinned compiler headers.
+`research/audio/check_byte_preincrement.py` compares baseline/folded registers,
+flags, ordered reads and unchanged memory, including untaken predicates,
+negative register offsets and all byte values. The source-advance research
+candidate uses this pass; no production source uses it yet.

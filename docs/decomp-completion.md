@@ -4730,3 +4730,33 @@ Full-ROM `make compare -j8` passes with the rebuilt plugin. Production C coverag
 is unchanged. Logs: `.deps/soundmain-packed/subtract-register-guards.log`,
 subtract-immediate-regression.log, subtract-register-build.log and
 advance-candidate-check.log.
+
+
+## September 10, 2026 — signed-byte preincrement folding
+
+Baseline: `2f78cd35`. Added the opt-in byte_preincrement compiler pass and its
+builder. It recognizes a strict adjacent copy/update/signed-byte-load sequence
+whose copied address temporary is overwritten by the load. It folds to existing
+ARM PRE_MODIFY RTL, retaining memory volatility/alias attributes and recording
+base writeback. The offset must be immediate one or a distinct general register;
+all three instructions must have the same predicate or be unconditional.
+Intervening operations, labels and operand aliasing are excluded.
+
+The advance candidate now emits 60 bytes rather than 76 (initially 84), with
+LDRSBNE r0,[r3,ip]! and LDRSB r1,[r3,1]! replacing two three-instruction address
+sequences. Its 35,200 ROM/copied-RAM/C semantic comparisons still pass. The
+original block is 32 bytes. Scratch-register decrement/update and private
+frame/continuation conversion remain unfinished; there is no production
+integration or coverage increase at this checkpoint.
+
+The standalone preincrement checker passes 102,400 baseline/folded cases:
+immediate, register and conditional forms; all 256 byte values and sixteen
+input NZCV states; eight register offsets including negative displacements;
+and both conditional outcomes. It compares full registers/flags, SP/LR/return,
+ordered reads and immutable memory, with independent source/value expectations.
+Eight unsupported forms reject (Thumb, unsigned/word loads, immediate two,
+decrement, missing update, a barrier and an intervening store); unannotated
+object bytes are unchanged. Tests use the pinned installed GCC 16.2.0.
+Evidence: `.deps/soundmain-packed/preincrement-guards.log`,
+advance-candidate-check.log and advance-candidate-report.json. Production
+sources/tool selection are unchanged from the previously passing ROM build.
