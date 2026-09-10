@@ -5225,3 +5225,55 @@ python3 scripts/audit_runtime_sources.py --markdown docs/runtime-source-inventor
 The main-ROM instruction ownership remains 92.54%; reviewed non-library
 assembly remains 2,790 main bytes and 420 payload bytes. Runtime rebuilding
 closes a verification gap rather than claiming new assembly-to-C conversion.
+
+
+## September 10, 2026 — complete resampling setup integrated (28 bytes)
+
+Baseline: `e6d5650b`. `src/m4a_resample_setup.c` replaces all seven instructions
+at 0x080CF824..0x080CF840: PUSH r4/r12, fractional LR load, frequency r1 load,
+MUL r4,r12,r1, current signed sample load, next signed sample preincrement load,
+and difference subtraction. Original entry and adjacent mixing continuation
+are enforced by linker assertions. The C product operand order preserves the
+original multiplier encoding; global r2 is reserved to retain the sample count.
+
+The arm_adjacent contract adds opt-in `sp-input=push2` and `lr-input=load-word`.
+Push lowering accepts only SP-=8 followed immediately by ascending r0-r12 word
+stores to SP/SP+4 after the sole compiler LR push. It uses GCC's existing
+UNSPEC_PUSH_MULT pattern: the ordinary store-multiple predicate rejects negative
+writeback. The combined memory has conservative alias information and retains
+volatility. LR loading allows exactly one unconditional SI load from a general
+base with optional aligned offset 0..60. Existing whole-body validation rejects
+other explicit SP/LR effects and removes only the verified compiler frame/tail.
+Default contracts and backend MD are unchanged.
+
+`check_soundmain_resample_setup.py` compiles and byte-checks a standalone object,
+checks the production symbol/28-byte extent, and runs 66,560 cases on four
+machines: original/production ROM and copied RAM. The 65,536 sample pairs cover
+every possible pair of signed bytes; 1,024 additional cases cross eight product
+boundaries, sixteen NZCV states and stack/channel/source aliases. Independent
+expected state verifies all r0-r12, LR/fraction, SP-8, unchanged NZCV, final PC,
+ordered two stack stores/two channel reads/two sample reads, and complete tested
+RAM/data regions with canaries. Alias expectations apply stack writes before
+channel/sample reads. The complete production SoundMain passes 3,528 calls.
+The full ROM checksum passes.
+
+`check_arm_push_pair.py` rejects 13 invalid contracts: wrong stack step/offset,
+reversed registers, barrier, extra stack access, extra LR load, LR arithmetic,
+missing LR load, wrong LR/frame mode, debug, unwind and Thumb. Existing adjacent,
+conditional, frame, read-only/accumulator LR, carry-early, early, repeat and
+pop-pair suites all pass. Fresh runtime libraries reproduce all four updated
+production images and exported symbols; runtime receipt/inventory were refreshed.
+
+Ownership is now 719,616 C-owned instruction bytes (92.54%), 33,870 mixed,
+2,352 assembly-source and 21,792 runtime, total 777,630. Reviewed non-library
+assembly is 2,762 main bytes and 420 payload bytes. Source inventory: 487 C files,
+32 assembly entry markers, five manual declarations, 701 inline sites (345
+register bindings, 348 empty constraints, one directive, seven instruction
+templates). Remaining fixed-rate setup, channel/frame control, other audio
+handlers and broader assembly recovery are unfinished.
+
+Evidence: `.deps/soundmain-packed/resample-setup/report.json`,
+resample-setup-production-build.log, resample-setup-production-check.log,
+push-pair-guards.log, push-regression-*.log, setup-source-audit.json and
+setup-ownership.log. Full-call evidence is under `.deps/soundmain-complete/`;
+current runtime rebuild evidence is in docs/runtime-rebuild.json.

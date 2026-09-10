@@ -433,3 +433,27 @@ the copied mixer. `check_arm_carry_early.py` exercises both carry polarities in
 ROM and relocated code; an extra return rejects in add_carry before the adjacent
 pass, while post-call work, debug and unwind settings reject in arm_adjacent.
 `check_soundmain_lane.py` checks both original/production blocks and full flags.
+
+
+ARM adjacent `sp-input=push2` requires global SP and exactly three prefix
+operations after the compiler's sole LR save: SP-=8, an SI store from a general
+r0-r12 to SP, then an SI store from a higher-numbered r0-r12 to SP+4. No labels,
+barriers, wrong offsets, reversed register order or additional SP use are
+accepted. It emits GCC's existing push pattern, with conservative memory alias
+information and volatility retained. The generic store-multiple predicate
+rejects negative writeback, so this uses the dedicated push representation.
+Normal compiler LR save/restore removal still requires the complete existing
+terminal-frame contract. Default frame modes are unchanged.
+
+`lr-input=load-word` requires a global LR binding and exactly one unconditional
+SI load into LR from a general r0-r12 base, optionally plus an aligned constant
+from zero through 60. Writeback, stack-relative loads, arithmetic writes and
+additional LR operations reject. This preserves a channel's fractional position
+while entering the private resampling frame. Other LR modes are unchanged.
+
+Production `src/m4a_resample_setup.c` combines these contracts with signed byte
+preincrement. `check_arm_push_pair.py` verifies 13 rejected configurations;
+`check_soundmain_resample_setup.py` compiles an exact standalone 28-byte object
+and checks the original and production blocks in ROM/copied RAM, full state,
+ordered accesses and aliases. The linker checks original entry/size and the
+adjacent ARM mixing continuation.

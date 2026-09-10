@@ -697,6 +697,15 @@ SECTIONS
         src/m4a_partial.o(.text);
         __partial_end = .;
         src/m4a_1.o(.text.after_partial);
+        __resample_setup_start = .;
+        src/m4a_resample_setup.o(.text);
+        __resample_setup_end = .;
+        src/m4a_1.o(.text.after_resample_setup);
+        ASSERT(SoundMainRAM_ResampleSetup == SoundMainRAM_ResampleSetupBoundary &&
+               __resample_setup_end - __resample_setup_start == 28,
+               "resampling setup entry or 28-byte extent changed");
+        ASSERT(SoundMainRAM_Resample == __resample_setup_end && (SoundMainRAM_Resample & 3) == 0,
+               "resampling setup must fall through to adjacent ARM mixing code");
         __resample_start = .;
         src/m4a_resample.o(.text);
         __resample_end = .;

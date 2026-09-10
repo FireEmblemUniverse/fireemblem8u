@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false;
+bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -216,6 +216,55 @@ rtx_insn *lower_pop_pair() {
     delete_insn(second);delete_insn(adjust);
     return first;
 }
+// Save two ascending registers below incoming SP, with exactly one decrement.
+rtx_insn *lower_push_pair() {
+    if (!push_pair) return nullptr;
+    auto next=[](rtx_insn *i) { while(i&&!NONDEBUG_INSN_P(i)) { if (LABEL_P(i)) return (rtx_insn *)nullptr; i=NEXT_INSN(i); } return i; };
+    rtx_insn *saved=next(get_insns());
+    if (!saved||!lr_push(PATTERN(saved))) fatal_error(UNKNOWN_LOCATION,"ARM adjacent push pair requires sole LR save");
+    rtx_insn *adjust=next(NEXT_INSN(saved)),*first=adjust?next(NEXT_INSN(adjust)):nullptr;
+    rtx_insn *second=first?next(NEXT_INSN(first)):nullptr;
+    if (!adjust||!first||!second||!NONJUMP_INSN_P(adjust)||!NONJUMP_INSN_P(first)||!NONJUMP_INSN_P(second))
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent push pair missing prefix");
+    rtx c=PATTERN(adjust),a=PATTERN(first),b=PATTERN(second);
+    auto store=[](rtx p,int offset) {
+        if (GET_CODE(p)!=SET||!REG_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode||REGNO(SET_SRC(p))>=13
+            ||!MEM_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode) return false;
+        rtx address=XEXP(SET_DEST(p),0);
+        if (!offset) return reg_is(address,SP_REGNUM);
+        return GET_CODE(address)==PLUS&&reg_is(XEXP(address,0),SP_REGNUM)
+            &&CONST_INT_P(XEXP(address,1))&&INTVAL(XEXP(address,1))==offset;
+    };
+    if (!store(a,0)||!store(b,4)||REGNO(SET_SRC(a))>=REGNO(SET_SRC(b))
+        ||GET_CODE(c)!=SET||!reg_is(SET_DEST(c),SP_REGNUM)||GET_CODE(SET_SRC(c))!=PLUS
+        ||!reg_is(XEXP(SET_SRC(c),0),SP_REGNUM)||!CONST_INT_P(XEXP(SET_SRC(c),1))||INTVAL(XEXP(SET_SRC(c),1))!=-8)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent push pair requires SP minus eight and ascending word stores");
+    // Generic store-multiple recognition only accepts positive writeback.
+    // Use GCC's existing push pattern for descending stack stores.
+    rtx sp=gen_rtx_REG(SImode,SP_REGNUM);
+    rtx mem=gen_rtx_MEM(BLKmode,gen_rtx_PRE_MODIFY(SImode,sp,plus_constant(SImode,sp,-8)));
+    MEM_VOLATILE_P(mem)=MEM_VOLATILE_P(SET_DEST(a))||MEM_VOLATILE_P(SET_DEST(b));
+    set_mem_align(mem,32);
+    rtx replacement=gen_rtx_PARALLEL(VOIDmode,gen_rtvec(2,
+        gen_rtx_SET(mem,gen_rtx_UNSPEC(BLKmode,gen_rtvec(1,copy_rtx(SET_SRC(a))),UNSPEC_PUSH_MULT)),
+        gen_rtx_USE(VOIDmode,copy_rtx(SET_SRC(b)))));
+    if (!validate_change(adjust,&PATTERN(adjust),replacement,false))
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent push pair store-multiple rejected");
+    REG_NOTES(adjust)=nullptr;add_reg_note(adjust,REG_INC,gen_rtx_REG(SImode,SP_REGNUM));
+    delete_insn(first);delete_insn(second);
+    return adjust;
+}
+bool lr_word_load(rtx p) {
+    if (!load_word_lr||GET_CODE(p)!=SET||!reg_is(SET_DEST(p),LR_REGNUM)
+        ||!MEM_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode) return false;
+    rtx address=XEXP(SET_SRC(p),0);
+    if (GET_CODE(address)==PLUS) {
+        if (!CONST_INT_P(XEXP(address,1))||INTVAL(XEXP(address,1))<0
+            ||INTVAL(XEXP(address,1))>60||(INTVAL(XEXP(address,1))&3)) return false;
+        address=XEXP(address,0);
+    }
+    return REG_P(address)&&GET_MODE(address)==SImode&&REGNO(address)<13;
+}
 const pass_data data={RTL_PASS,"arm_adjacent",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -226,11 +275,12 @@ public:
             ||flag_unwind_tables||flag_asynchronous_unwind_tables||flag_exceptions
             ||debug_info_level!=DINFO_LEVEL_NONE||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires zero-local-frame void code without debug/unwind");
-        if (read_only_lr && !global_regs[LR_REGNUM])
+        if ((read_only_lr||load_word_lr) && !global_regs[LR_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent LR input requires global register binding");
-        if ((frame64||pop_pair) && !global_regs[SP_REGNUM])
+        if ((frame64||pop_pair||push_pair) && !global_regs[SP_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent frame requires global SP binding");
-        rtx_insn *popped=lower_pop_pair();
+        rtx_insn *popped=lower_pop_pair(),*pushed=lower_push_pair();
+        unsigned lr_loads=0;
         remove_frame_compare_repeat();
         rtx_insn *external_branch=lower_diamond();
         unsigned phase=0;std::vector<rtx_insn *> discard;rtx_insn *terminal_call=nullptr;
@@ -292,7 +342,9 @@ public:
                     && ASM_OPERANDS_LABEL_LENGTH(src)==0 && reg_is(ASM_OPERANDS_INPUT(src,0),LR_REGNUM)
                     && !strcmp(ASM_OPERANDS_INPUT_CONSTRAINT(src,0),"0")) lr_mask=true;
             }
-            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask)||executable_asm(p))
+            bool lr_load=lr_word_load(p);
+            if (lr_load) lr_loads++;
+            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&i!=pushed&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask&&!lr_load)||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
                 if (i==external_branch) continue;
@@ -306,6 +358,7 @@ public:
                 targets.insert(XEXP(target,0));
             }
         }
+        if (load_word_lr&&lr_loads!=1) fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires exactly one LR word load");
         if (phase!=4) fatal_error(UNKNOWN_LOCATION,"ARM adjacent missing complete terminal frame");
         for (rtx target:targets) if (!labels.count(target)) fatal_error(UNKNOWN_LOCATION,"ARM adjacent branch bypasses continuation");
         if (terminal_call) {
@@ -328,16 +381,16 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         const char *key=info->argv[n].key,*value=info->argv[n].value;
         if (std::string(key)=="destination" && !have_destination && value && *value) {
             destination=value;have_destination=true;
-        } else if (std::string(key)=="lr-input" && !have_lr && value && (std::string(value)=="read-only" || std::string(value)=="accumulator" || std::string(value)=="masked")) {
-            read_only_lr=true;accumulator_lr=std::string(value)=="accumulator";masked_lr=std::string(value)=="masked";have_lr=true;
+        } else if (std::string(key)=="lr-input" && !have_lr && value && (std::string(value)=="read-only" || std::string(value)=="accumulator" || std::string(value)=="masked" || std::string(value)=="load-word")) {
+            load_word_lr=std::string(value)=="load-word";read_only_lr=!load_word_lr;accumulator_lr=std::string(value)=="accumulator";masked_lr=std::string(value)=="masked";have_lr=true;
         } else if (std::string(key)=="early" && !have_conditional && value && *value) {
             conditional_destination=value;have_conditional=true;early_exit=true;
         } else if (std::string(key)=="conditional" && !have_conditional && value && *value) {
             conditional_destination=value;have_conditional=true;
         } else if (std::string(key)=="transfer" && !have_transfer && value && std::string(value)=="branch") {
             branch_transfer=true;have_transfer=true;
-        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2")) {
-            frame64=std::string(value)=="frame64";pop_pair=std::string(value)=="pop2";have_frame=true;
+        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2"||std::string(value)=="push2")) {
+            frame64=std::string(value)=="frame64";pop_pair=std::string(value)=="pop2";push_pair=std::string(value)=="push2";have_frame=true;
         } else return 1;
     }
     if (have_conditional && conditional_destination==destination) return 1;

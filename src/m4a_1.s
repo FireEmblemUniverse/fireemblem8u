@@ -362,13 +362,11 @@ SoundMainRAM_PartialBoundary:
 SoundMainRAM_PartialDone:
 	b SoundMainRAM_RestoreFrame
 _081DD19C:
-	push {r4,r12}
-	ldr lr, [r4, o_SoundChannel_fw]
-	ldr r1, [r4, o_SoundChannel_freq]
-	mul r4, r12, r1
-	ldrsb r0, [r3]
-	ldrsb r1, [r3, 0x1]!
-	sub r1, r1, r0
+    .global SoundMainRAM_ResampleSetupBoundary
+SoundMainRAM_ResampleSetupBoundary:
+@ Resampling stack entry and first samples are linked from C.
+    .section .text.after_resample_setup, "ax", %progbits
+    .arm
 _081DD1B4:
 	.global SoundMainRAM_ResampleBoundary
 SoundMainRAM_ResampleBoundary:
