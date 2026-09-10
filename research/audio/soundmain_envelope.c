@@ -16,7 +16,7 @@ void SoundMainRAM_EnvelopeCandidate(void)
     envelopeValue = 0xC7;
     asm("" : "+r"(envelopeValue));
     if (!(envelopeValue & envelopeStatus))
-        goto skip;
+        { SoundMainRAM_EnvelopeSkip(); return; }
     envelopeValue = 0x80;
     asm("" : "+r"(envelopeValue));
     if (!(envelopeValue & envelopeStatus))
@@ -44,7 +44,7 @@ void SoundMainRAM_EnvelopeCandidate(void)
     asm("" : "+r"(envelopeValue));
     if (envelopeValue & envelopePhase) {
         envelopeValue = 0x10;
-    asm("" : "+r"(envelopeValue));
+        asm("" : "+r"(envelopeValue));
         envelopeStatus |= envelopeValue;
         envelopeChannel->status = envelopeStatus;
     }
@@ -65,7 +65,8 @@ stop:
     envelopeValue = 0;
     asm("" : "+r"(envelopeValue));
     envelopeChannel->status = envelopeValue;
-    goto skip;
+    SoundMainRAM_EnvelopeSkip();
+    return;
 release:
     envelopeValue = 0x40;
     asm("" : "+r"(envelopeValue));
@@ -104,7 +105,6 @@ decay:
     if (envelopeLevel > envelopeValue)
         goto volume;
     envelopeLevel = envelopeValue;
-    asm("" : "+r"(envelopeLevel));
     if (!envelopeLevel)
         goto echo;
     envelopeStatus -= 1;
@@ -125,7 +125,5 @@ attack:
     envelopeChannel->status = envelopeStatus;
 volume:
     SoundMainRAM_EnvelopeVolume();
-    return;
-skip:
-    SoundMainRAM_EnvelopeSkip();
+
 }

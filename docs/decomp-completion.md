@@ -5869,3 +5869,43 @@ temporary-expression, if-conversion and partition controls) did not reduce the
 remaining control-flow layout; no such option changes were retained. The next
 step is to recover the original branch layout and eliminate remaining redundant
 instructions without sacrificing the newly verified full-state behavior.
+
+## Envelope sustain comparison and volume fallthrough — September 10, 2026
+
+Research baseline `e944f591`: the envelope candidate decreases from 172 to 168
+bytes while retaining zero register or flag differences across 196,608 original/
+candidate ROM/copied-RAM cases. Ordered accesses, decisions and complete tested
+data memory continue to agree. The original region is still 160 bytes, so this
+is not production integration.
+
+The C source now transfers directly to the skip destination at both stop sites,
+matching the original control intent without a shared trailing skip stub. Removing
+the empty tie after the sustain-to-level assignment lets the compiler combine
+the move and zero test, removing a redundant comparison. The final volume call
+uses an explicit checked fallthrough instead of an extra branch.
+
+`terminal-adjacent-destination` is a new opt-in tail-transfer contract requiring
+both private-frame and acyclic-control validation. It cannot combine with either
+other adjacency mode. The declared destination must be the final terminal call,
+and every subsequent executable RTL operation must already belong to the proven
+common return cleanup. Trailing code or literal pools reject. Existing whole-path
+validation still proves that every path reaches a declared terminal call and that
+post-call work cannot be discarded. Only that final call is removed; its existing
+incoming labels become the function-end continuation. Eventual production
+integration must enforce the corresponding adjacent destination in the linker.
+
+The envelope test linker places the volume destination exactly at the candidate
+section end and the skip destination at a separate fixed Thumb target. Its oracle
+now checks actual fallthrough at `start + candidate_size`, not a replaced jump.
+All 196,608 cases pass with unchanged representative-parameter/timing limitations.
+Nine invalid configurations reject, adding wrong final destination, trailing pool,
+post-volume-call work and duplicate adjacency options to the five existing
+acyclic guards. `--contracts-only` runs these compiler checks without repeating
+or overwriting the execution report. All 17 private-frame/pool checks and 14
+older tail-contract checks still pass, with unannotated assembly unchanged.
+
+`make compare -j8` passes, and the production ELF SHA-256 equals the current
+ownership receipt. Production coverage and runtime evidence remain unchanged.
+Remaining work includes four surplus local branches from block ordering and
+instruction-encoding differences; all newly recovered state behavior must remain
+intact when matching those final bytes.

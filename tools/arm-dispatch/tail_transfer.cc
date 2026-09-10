@@ -31,6 +31,7 @@ bool private_frame=false;
 bool acyclic_branches=false;
 std::string adjacent;
 std::string pool_adjacent;
+std::string terminal_adjacent;
 tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_tail_transfer requires a function");*no_add=true;
@@ -193,6 +194,15 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"adjacent transfer cannot retain trailing operations");
             }
         }
+        rtx_insn *terminal_call=nullptr;
+        if (!terminal_adjacent.empty()) {
+            if (XSTR(calls.back().second,0)!=terminal_adjacent)
+                fatal_error(UNKNOWN_LOCATION,"terminal adjacency requires the final declared call");
+            terminal_call=calls.back().first;
+            for (rtx_insn *i=NEXT_INSN(terminal_call);i;i=NEXT_INSN(i))
+                if (NONDEBUG_INSN_P(i)&&!discard.count(i))
+                    fatal_error(UNKNOWN_LOCATION,"terminal adjacency rejects trailing code or data");
+        }
         rtx_insn *pool_call=nullptr,*pool_label=nullptr,*pool_align=nullptr;
         if (!pool_adjacent.empty()) {
             if (!private_frame||calls.size()!=2||XSTR(calls.back().second,0)!=pool_adjacent)
@@ -225,7 +235,7 @@ public:
         if (pool_align&&!validate_change(pool_align,&PATTERN(pool_align),gen_match_thumb_zero_pool_align(),false))
             fatal_error(UNKNOWN_LOCATION,"pool adjacency zero padding rewrite rejected");
         for (auto item:calls) {
-            if (!adjacent.empty()||item.first==pool_call) { delete_insn(item.first);continue; }
+            if (!adjacent.empty()||item.first==pool_call||item.first==terminal_call) { delete_insn(item.first);continue; }
             rtx_insn *jump=emit_jump_insn_before(gen_match_thumb_tail_transfer(copy_rtx(item.second)),item.first);
             emit_barrier_after(jump);delete_insn(item.first);
         }
@@ -259,6 +269,10 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             if (!pool_adjacent.empty()) return 1;
             pool_adjacent=info->argv[n].value;continue;
         }
+        if (key=="terminal-adjacent-destination" && info->argv[n].value && *info->argv[n].value) {
+            if (!terminal_adjacent.empty()) return 1;
+            terminal_adjacent=info->argv[n].value;continue;
+        }
         if (key=="acyclic-branches" && !info->argv[n].value) { acyclic_branches=true;continue; }
         if (key=="private-frame64" && !info->argv[n].value) { private_frame=true;continue; }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
@@ -266,6 +280,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         callees.insert(info->argv[n].value);
     }
     if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound)) return 1;
+    if (!terminal_adjacent.empty()&&(!private_frame||!acyclic_branches||!adjacent.empty()||!pool_adjacent.empty()||!callees.count(terminal_adjacent))) return 1;
     if (acyclic_branches&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty())) return 1;
     if (!pool_adjacent.empty() && (!adjacent.empty()||!private_frame||!callees.count(pool_adjacent))) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
