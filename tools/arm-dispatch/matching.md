@@ -307,3 +307,29 @@
   "TARGET_THUMB1 && GET_CODE (operands[1]) == SYMBOL_REF"
   "bl\t%c1 + %c2"
   [(set_attr "type" "call") (set_attr "length" "4") (set_attr "conds" "clob")])
+
+;; Store an ordered five-register bank and allocate its 20-byte stack area.
+(define_insn "match_thumb_push_saved5"
+  [
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -20))) (reg:SI 4))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -16))) (reg:SI 5))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -12))) (reg:SI 6))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -8))) (reg:SI 7))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -4))) (reg:SI LR_REGNUM))
+   (set (reg:SI SP_REGNUM) (plus:SI (reg:SI SP_REGNUM) (const_int -20)))]
+  "TARGET_THUMB1"
+  "push\t{r4-r7, lr}"
+  [(set_attr "length" "2") (set_attr "type" "multiple")])
+
+;; Store an ordered five-register bank and allocate its 20-byte stack area.
+(define_insn "match_thumb_push_low5"
+  [
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -20))) (reg:SI 0))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -16))) (reg:SI 1))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -12))) (reg:SI 2))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -8))) (reg:SI 3))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -4))) (reg:SI 4))
+   (set (reg:SI SP_REGNUM) (plus:SI (reg:SI SP_REGNUM) (const_int -20)))]
+  "TARGET_THUMB1"
+  "push\t{r0-r4}"
+  [(set_attr "length" "2") (set_attr "type" "multiple")])

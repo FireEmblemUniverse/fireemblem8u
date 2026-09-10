@@ -830,3 +830,13 @@ $(THUMB_CALLBACK_CHAIN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_call
 src/m4a_callbacks.o: $(THUMB_CALLBACK_CHAIN_PLUGIN)
 src/m4a_callbacks.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_callbacks.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_CHAIN_PLUGIN) -fplugin-arg-thumb_callback_chain-trampoline=SoundMainRAM_ExitRestore -fplugin-arg-thumb_callback_chain-offset=18
+
+THUMB_ENTRY_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_entry_frame.so
+$(THUMB_ENTRY_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_entry_frame.cc tools/arm-dispatch/build_thumb_entry_frame.py
+	python3 tools/arm-dispatch/build_thumb_entry_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_entry_frame.o: $(THUMB_ENTRY_FRAME_PLUGIN)
+src/m4a_entry_frame.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_entry_frame.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_ENTRY_FRAME_PLUGIN) -fplugin-arg-thumb_entry_frame-pointer=0x03007ff0,lt_SOUND_INFO_PTR -fplugin-arg-thumb_entry_frame-id=0x68736d53,lt_ID_NUMBER
+src/m4a_entry_literals.o: $(ARM_DISPATCH_CC)
+src/m4a_entry_literals.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_entry_literals.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding

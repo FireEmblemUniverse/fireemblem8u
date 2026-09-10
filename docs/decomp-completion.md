@@ -6552,3 +6552,61 @@ Evidence: `.deps/soundmain-packed/callbacks/report.json`, `production-check.log`
 `production-compare.log`, `layout/report.json`,
 `.deps/soundmain-complete/production-run.log` and
 `.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.
+
+
+### Complete matching SoundMain (September 10, 2026; baseline 341919ce)
+
+SoundMain's final 32-byte entry/lock/frame prefix is now in
+`src/m4a_entry_frame.c`, and its shared six-word pool is defined in
+`src/m4a_entry_literals.c`. Together with the previously integrated deadline,
+callbacks, buffer setup and copied mixer, the complete contiguous region
+0x080CF4C8..0x080CF8F0 is generated from C: 1,064 total bytes, comprising 452 Thumb
+and 572 ARM instruction bytes (1,024 total), plus 40 data/alignment bytes.
+Every byte remains identical to the original ROM.
+
+The entry C expresses the pointer/lock reads, rejection, lock increment, two
+ordered register-save banks and 24-byte scratch allocation. A volatile scalar
+SP binding avoids the compiler retaining hidden pointer temporaries. The new
+entry-frame contract validates the entire allocated sequence, including all
+register bindings, pool values, empty ties, frame stores/copies, branch and
+compiler entry/return. It selects PUSH {r4-r7,lr} and PUSH {r0-r4}, preserves the
+original success branch and early BX LR, and removes the extra compiler frame.
+Its backend patterns describe the ordered memory stores and SP changes; no
+instruction bytes are embedded in C. The literal options must match the compiled
+constant values before a shared load is selected.
+
+The production entry oracle passes 77,824 cases, including 1,792 valid frame
+entries. It covers lock boundary/bit changes, eight info layouts including saved
+frame and pointer-slot aliases, random register values, every NZCV state and
+ARM/Thumb early returns. All r0-r12, SP/LR, flags, complete RAM, ordered pointer
+reads and lock/frame writes, and SP at each executed instruction agree with the
+original. Sixteen unsupported compiler contracts reject; unannotated compilation
+is unchanged. Four altered production entry/extent/fallthrough/pool layouts reject.
+The complete production audio oracle passes 3,528 cases. Its research semantic
+reference remains separate from the integrated matching C fragments; the older
+C_integration=false field describes that reference, not remaining SoundMain
+assembly.
+
+`make compare -j8` verifies the complete ROM. Fresh runtime source rebuilds
+reproduce all four images and exported symbols. Source, linked, inline and runtime
+inventories and both unchanged copied-mixer receipts are refreshed for ELF SHA-256
+`00c1699b1bd9f102132d3bd29c1989932553f8de4a42cad6ee89f821371c6f7a`.
+The new `scripts/audit_soundmain_region.py` verifies contiguous coverage by
+C-owned instruction objects and the exact 24-byte data-only C literal object;
+its receipt records the latter's source/object hashes separately because the
+instruction-ownership inventory excludes objects containing no instructions.
+It proves the complete region's 1,024 instruction bytes and 40 data bytes.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,156 C-owned (92.61%),
+33,870 mixed C/assembly, 1,812 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,222 main-ROM instruction
+bytes and 420 payload bytes. The source inventory has 505 C files and 30 assembly
+entry markers. This includes inherited community work and is not an overall
+completion percentage. MPlayMain, ply_note and other audio code, runtime helpers,
+unit-list and transfer code and final executable classification remain unfinished.
+
+Evidence: `docs/soundmain-code-region.json`,
+`.deps/soundmain-packed/entry-frame/report.json`, `production-check.log`,
+`production-compare.log`, `layout/report.json`,
+`.deps/soundmain-complete/production-run.log` and
+`.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.

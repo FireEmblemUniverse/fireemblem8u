@@ -21,28 +21,10 @@ umul3232H32:
 __umul3232H32:
 	.section .text.after_multiply_high, "ax", %progbits
 
-	thumb_func_start SoundMain
-SoundMain:
-	ldr r0, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_SOUND_INFO_PTR
-	ldr r0, [r0]
-	ldr r2, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_ID_NUMBER
-	ldr r3, [r0, o_SoundInfo_ident]
-	cmp r2, r3
-	beq SoundMain_1
-	bx lr @ Exit the function if ident doesn't match ID_NUMBER.
-SoundMain_1:
-	adds r3, 1
-	str r3, [r0, o_SoundInfo_ident]
-	push {r4-r7,lr}
-	mov r1, r8
-	mov r2, r9
-	mov r3, r10
-	mov r4, r11
-	push {r0-r4}
-	sub sp, 0x18
-	thumb_func_end SoundMain
+	.global SoundMainEntryBoundary
+SoundMainEntryBoundary:
+@ Lock checking and mixer frame allocation are generated from C.
+	.section .text.after_entry_frame, "ax", %progbits
 	.global SoundMainDeadlineSetupBoundary
 SoundMainDeadlineSetupBoundary:
 @ Scanline deadline calculation is generated from matching C.
@@ -56,15 +38,10 @@ SoundMainBufferEntryBoundary:
 @ Post-callback buffer setup and its RAM transfer are generated from C.
 	.section .text.after_buffer_entry, "ax", %progbits
 	.align 2, 0
-	.global lt_o_SoundInfo_pcmBuffer, lt_PCM_DMA_BUF_SIZE, lt_SoundMainRAM_Buffer
-	.global lt_SOUND_INFO_PTR, lt_ID_NUMBER, lt_REG_VCOUNT
-lt_SOUND_INFO_PTR:        .word SOUND_INFO_PTR
-lt_ID_NUMBER:             .word ID_NUMBER
-lt_SoundMainRAM_Buffer:   .word SoundMainRAM_Buffer + 1
-lt_REG_VCOUNT:            .word REG_VCOUNT
-lt_o_SoundInfo_pcmBuffer: .word o_SoundInfo_pcmBuffer
-lt_PCM_DMA_BUF_SIZE:      .word PCM_DMA_BUF_SIZE
-
+	.global SoundMainEntryLiteralsBoundary
+SoundMainEntryLiteralsBoundary:
+@ The six shared literal words are defined in m4a_entry_literals.c.
+	.section .text.after_entry_literals, "ax", %progbits
 	.global SoundMainRAM_EntryBoundary
 SoundMainRAM_EntryBoundary:
 @ Byte selection and both Thumb/ARM transfers are generated from C.

@@ -591,6 +591,14 @@ SECTIONS
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");
         src/m4a_1.o(.text.after_multiply_high);
+        __soundmain_entry_start = .;
+        src/m4a_entry_frame.o(.text);
+        __soundmain_entry_end = .;
+        src/m4a_1.o(.text.after_entry_frame);
+        ASSERT((SoundMain & ~1) == SoundMainEntryBoundary &&
+               __soundmain_entry_end - __soundmain_entry_start == 32 &&
+               (SoundMainDeadlineSetup & ~1) == __soundmain_entry_end,
+               "SoundMain entry extent or deadline fallthrough changed");
         __deadline_setup_start = .;
         src/m4a_deadline_setup.o(.text);
         __deadline_setup_end = .;
@@ -619,6 +627,19 @@ SECTIONS
         src/m4a_buffer_entry.o(.text);
         __buffer_entry_end = .;
         src/m4a_1.o(.text.after_buffer_entry);
+        __soundmain_literals_start = .;
+        src/m4a_entry_literals.o(.rodata);
+        __soundmain_literals_end = .;
+        src/m4a_1.o(.text.after_entry_literals);
+        lt_SOUND_INFO_PTR = gSoundMainEntryLiterals;
+        lt_ID_NUMBER = gSoundMainEntryLiterals + 4;
+        lt_SoundMainRAM_Buffer = gSoundMainEntryLiterals + 8;
+        lt_REG_VCOUNT = gSoundMainEntryLiterals + 12;
+        lt_o_SoundInfo_pcmBuffer = gSoundMainEntryLiterals + 16;
+        lt_PCM_DMA_BUF_SIZE = gSoundMainEntryLiterals + 20;
+        ASSERT(gSoundMainEntryLiterals == SoundMainEntryLiteralsBoundary &&
+               __soundmain_literals_end - __soundmain_literals_start == 24,
+               "SoundMain shared C literal extent changed");
         SoundMainRAM_BufferThumb = SoundMainRAM_Buffer + 1;
         ASSERT((SoundMainBufferEntry & ~1) == SoundMainBufferEntryBoundary &&
                ABSOLUTE(__buffer_entry_start) == 0x080CF510 &&

@@ -616,3 +616,28 @@ an untyped odd alias. The linker proves callback extent, final fallthrough and
 BL reach; execution checks verify the shared BX bytes and both ARM/Thumb modes.
 `check_soundmain_callback_chain.py` also verifies unannotated output is unchanged and rejects
 12 unsupported contracts. No new inline instruction template is added to C.
+
+
+## SoundMain entry frame
+
+`thumb_entry_frame.cc` provides `matching_thumb_entry_frame`. It validates the
+entire lock gate and explicit frame construction in `src/m4a_entry_frame.c`:
+fixed r0-r11/SP/LR bindings, matching constant-pool values, exact empty ties,
+unsigned lock comparison/increment/store, ordered register saves and high-register
+copies, stack decrements, and the compiler's zero-local-frame entry/return.
+Other operations, labels, frame sizes and debug/unwind configurations reject.
+
+The pass selects two grouped PUSH patterns from the proven word stores, replaces
+the mismatch-to-common-return branch with the original equality/early-BX layout,
+and removes the compiler's extra LR save/return. Shared loads use the declared
+`pointer=VALUE,SYMBOL` and `id=VALUE,SYMBOL` literals only after their compiled
+values are verified. The caller's LR is preserved and saved in the mixer frame.
+The valid path falls through into adjacent deadline setup, as checked by the
+linker. The literal pool itself is defined by `src/m4a_entry_literals.c`.
+
+`check_soundmain_entry_frame.py --production` compares all 32 bytes and checks
+ordered saves, RAM aliases, flags, registers, ARM/Thumb early returns and SP at
+each instruction. `scripts/audit_soundmain_region.py` verifies the complete
+1,064-byte entry/mixer region, including its separately identified C-only data
+object. The original SoundMain assembly is fully replaced; other audio routines
+still use `src/m4a_1.s`.
