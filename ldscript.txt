@@ -599,6 +599,17 @@ SECTIONS
         src/m4a_packed.o(.text);
         __packed_end = .;
         src/m4a_1.o(.text.after_packed);
+        __short_start = .;
+        src/m4a_short.o(.text);
+        __short_end = .;
+        SoundMainRAM_ShortMix = __short_start + 8;
+        src/m4a_1.o(.text.after_short);
+        ASSERT(SoundMainRAM_Short == SoundMainRAM_ShortBoundary,
+               "short sample C block must follow packed finish");
+        ASSERT(__short_end - __short_start == 36,
+               "short sample C block must contain exactly 36 bytes");
+        ASSERT(SoundMainRAM_ShortCount == __short_end,
+               "short sample continuation must be adjacent in ARM mode");
         ASSERT(SoundMainRAM_Packed == SoundMainRAM_PackedBoundary,
                "packed C block must follow fixed-rate setup");
         ASSERT(__packed_end - __packed_start == 60,

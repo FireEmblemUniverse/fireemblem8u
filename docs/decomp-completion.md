@@ -4207,3 +4207,43 @@ The broader audio frame/channel integration and runtime rebuild work remain
 unfinished. Evidence: `.deps/soundmain-packed/outer-build.log`,
 `outer-production.json`, `outer-production-ram.json`, `outer-source-audit.json`,
 and `.deps/soundmain-complete/production-report.json`.
+
+
+## September 10, 2026 — short-sample arithmetic integrated (36 bytes)
+
+Baseline: `c40beefc`. `src/m4a_short.c` replaces the nine ARM instructions
+at 0x080CF774 through 0x080CF798: stereo word loads followed by the signed
+sample load, two volume multiplies, masks and packed rotated additions. The
+existing adjacent-continuation rule removes the compiler's private call frame
+and falls through to `SoundMainRAM_ShortCount`. No new compiler rule or
+instruction template was needed. The linker checks the entry, 36-byte extent
+and continuation adjacency. The shared `SoundMainRAM_ShortMix` symbol is fixed
+at entry + 8, after the two loads; the assembly carry branch targets that symbol.
+Its offset is verified against original instruction bytes and executed directly
+by the new checker, including every packed address lane. These boundary/offset
+contracts must be retained when changing the C block.
+
+`make compare -j8` passes. `research/audio/check_soundmain_short.py` passes
+92,160 production/original cases from ROM and 92,160 after copying the mixer
+to RAM. Each mode covers 18,432 word-load entries and 73,728 shared entries.
+The Cartesian combinations cover all signed source bytes, four source positions
+(separate, right output, unaligned right+1 and left output), six volume pairs,
+three initial word pairs, and all four lanes at the shared entry. The checks
+compare ordered memory reads and r0-r12, and require unchanged flags, all test
+memory, output pointer, SP/LR and stack canaries. The source pointer advances
+exactly one byte. Full production SoundMain still passes 3,528 composed-model
+checks, including 1,728 deadline exits. These tests do not establish cycle timing.
+
+The audit moves 36 bytes from assembly to C: 719,312 main C-owned instruction
+bytes (92.50% rounded), 33,870 in mixed C objects, 2,656 assembly-source bytes
+and 21,792 runtime bytes, total 777,630. Main m4a_1.o has 1,952 instruction
+bytes remaining. Reviewed non-library assembly is 3,066 main bytes plus 420
+payload bytes. There are 474 C files, 32 assembly entry markers, three manual
+assembly function declarations and 631 inline sites (280 register bindings,
+343 empty constraints, one directive, seven instruction templates). The extra
+assembly declaration and ARM directive name a split continuation; they do not
+represent newly introduced instructions. Short-sample countdown/loop selection,
+partial-word completion, resampling and the broader private frame/channel work
+remain incomplete. Evidence: `.deps/soundmain-packed/short-build.log`,
+`short-production.json`, `short-production-ram.json`, `short-source-audit.json`,
+`short-ownership.log`, and `.deps/soundmain-complete/production-report.json`.

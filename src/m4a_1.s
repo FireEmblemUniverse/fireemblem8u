@@ -315,21 +315,19 @@ SoundMainRAM_PackedFinish:
 	adds r8, r8, lr
 	beq _081DD22C
 _081DD0EC:
-	ldr r6, [r5]
-	ldr r7, [r5, 0x630]
-_081DD0F4:
-	ldrsb r0, [r3], 0x1
-	mul r1, r10, r0
-	bic r1, r1, 0xFF0000
-	add r6, r1, r6, ror 8
-	mul r1, r11, r0
-	bic r1, r1, 0xFF0000
-	add r7, r1, r7, ror 8
+    .global SoundMainRAM_ShortBoundary
+SoundMainRAM_ShortBoundary:
+@ Stereo word loads and one sample are linked here from m4a_short.c.
+    .section .text.after_short, "ax", %progbits
+    .arm
+    .global SoundMainRAM_ShortCount
+    .type SoundMainRAM_ShortCount, %function
+SoundMainRAM_ShortCount:
 	subs r2, r2, 0x1
 	beq _081DD164
 _081DD118:
 	adds r5, r5, 0x40000000
-	bcc _081DD0F4
+	bcc SoundMainRAM_ShortMix
 	str r7, [r5, 0x630]
 	str r6, [r5], 0x4
 	subs r8, r8, 0x4
