@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 16-byte fixed-rate loop metadata integration (baseline `85af428e` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: 20-byte channel save/frame restore integration (baseline `6d46849f` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,8 +19,9 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.52%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,946 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,926 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated channel save/frame restore | `████████████████████` **All 20 bytes exact; 131,072 production ROM/copied-RAM cases pass across save and restore-only entries, including the Thumb transfer** |
 | Integrated fixed-rate loop metadata | `████████████████████` **All 16 bytes exact; 67,584 production ROM/copied-RAM cases pass, including conditional frame reads and both exits** |
 | Integrated resampling arithmetic | `████████████████████` **All 52 bytes exact; 143,360 production ROM/copied-RAM cases pass across both entries and fractional-wrap boundaries** |
 | Integrated partial-word completion | `████████████████████` **All 36 bytes exact; 61,440 production ROM/copied-RAM cases pass, including zero rotation and overlapping state/output** |
@@ -118,7 +119,7 @@ The short-sample word loads and one-sample arithmetic are now integrated as
 pass 184,320 production/original comparisons across ROM and copied RAM; source
 aliases, all signed bytes, four packed lanes, ordered accesses, registers,
 subtraction flags, selected exit and untouched memory/stack agree. Full ROM matching and the
-3,528 complete-call regression pass. Source inventory is now 477 C files,
+3,528 complete-call regression pass. Source inventory is now 478 C files,
 32 assembly entry markers and six manual assembly function declarations.
 The partial-word completion shared by fixed-rate and resampled paths is now
 integrated as `src/m4a_partial.c` (36 bytes). Its 61,440 ROM/copied-RAM checks
@@ -155,6 +156,14 @@ comparison when its input changes, and rejects eight invalid forms. The shared
 64-byte frame definition now lives in `include/gba/m4a_mixer_frame.h` with
 loop-field offset checks; research uses the same header. Resampling loop metadata
 handling and source advancement remain assembly.
+Channel ct/cp saving, sample-count restoration and the ARM-to-Thumb transfer
+are integrated as `src/m4a_save_channel.c` (20 bytes). Both entries pass 131,072
+ROM/copied-RAM checks, including channel/frame overlap, ordered stores/load,
+all registers, unchanged SP/LR/NZCV and the exact Thumb destination/mode.
+Full ROM matching and 3,528 complete audio calls pass. A larger candidate adding
+the preceding fractional-position store currently introduces an extra compiler
+LR save/restore and shifts the frame access; it is research only and requires
+an explicit indirect-tail frame contract before integration.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
@@ -164,11 +173,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,946 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,926 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,432 C-owned, 33,870 in C objects containing assembly, 2,536 in assembly
+719,452 C-owned, 33,870 in C objects containing assembly, 2,516 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

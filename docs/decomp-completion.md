@@ -4576,3 +4576,55 @@ verification are incomplete. Evidence under `.deps/soundmain-packed/`:
 loop-build.log, frame-guards.log, loop-production.json, loop-production-ram.json,
 loop-source-audit.json, loop-ownership.log and conditional/adjacent regression
 logs; complete-call report under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — channel save and frame restore integrated (20 bytes)
+
+Baseline: `6d46849f`. `src/m4a_save_channel.c` replaces five ARM instructions
+at 0x080CF8B8 through 0x080CF8CC: channel ct/cp stores, sample-count reload from
+SP, PC-relative continuation materialization and BX into Thumb channel control.
+The shared restore-only entry `SoundMainRAM_RestoreFrame` is at +8 and skips
+the stores. The partial-word path's branch now names that linker symbol.
+`SoundMainRAM_ChanAdvance` names the original Thumb entry at 0x080CF8CC (raw ELF
+function value 0x080CF8CD). The linker checks the entry boundary, 20-byte extent
+and PC+8+1 continuation relation. The existing PC-address compiler rule and
+ordinary indirect sibling call emit ADD/BX; no compiler changes were required.
+
+`make compare -j8` passes. `check_soundmain_save.py` passes 65,536 cases in ROM
+and 65,536 after copying the mixer to RAM. Each mode has 32,768 save entries and
+32,768 restore-only entries. It crosses eight count, source and sample-count
+values with four channel positions, both entries and sixteen NZCV states.
+Channel positions include a separate buffer, ct overlapping the frame's sample
+word, cp overlapping that word, and stores into other frame slots. Independent
+expected memory checks require ct before cp before the frame read, so aliasing
+can change the restored r8 value exactly as in the original. Full data/frame
+and surrounding bytes, all r0-r12, preserved SP/LR/NZCV and exact Thumb PC/mode
+agree. The checker uses raw readelf values for the Thumb symbol bit because
+nm displays its normalized even address. The production SoundMain regression
+also passes 3,528 complete calls, including 1,728 deadline exits. Hardware cycle
+timing is outside these functional checks.
+
+A larger 24-byte candidate including the preceding fractional-position store
+is preserved as `research/audio/soundmain_save_resampled_private.c`. With a
+global LR binding, GCC emits an extra LR push and restore, yielding 32 bytes;
+its SP-relative load consequently reads the wrong private-frame location, and
+the provisional PC-relative offset would also require revalidation. It is
+not integrated or a verified semantic model. A guarded indirect-tail frame
+conversion is the next requirement before that candidate can replace code.
+The probe is reproducible with the installed pinned compiler, `-O1
+-foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding`, the
+existing pc_address plugin with symbol SoundMainRAM_ChanAdvance and offset 1,
+and the standard project include paths. The current 20-byte production block
+has no such frame and matches all original bytes.
+
+The refreshed audit records 719,452 C-owned main instruction bytes (92.52%
+rounded), 33,870 mixed-object bytes, 2,516 assembly-source bytes and 21,792 runtime
+bytes, total 777,630. Reviewed non-library assembly is 2,926 main bytes plus
+420 payload bytes. There are 478 C files, 32 assembly entry markers, six manual
+assembly declarations and 662 inline sites (308 register bindings, 346 empty
+constraints, one directive, seven instruction templates). Remaining mixer frame
+construction, fractional save, source/loop control and runtime rebuild work
+are incomplete. Evidence under `.deps/soundmain-packed/`: save-channel-build.log,
+save-production.json, save-production-ram.json, save-source-audit.json,
+save-ownership.log and the save-resampled.s candidate; complete-call report
+under `.deps/soundmain-complete/`.

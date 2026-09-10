@@ -356,7 +356,7 @@ SoundMainRAM_PartialBoundary:
 	.global SoundMainRAM_PartialDone
 	.type SoundMainRAM_PartialDone, %function
 SoundMainRAM_PartialDone:
-	b _081DD234
+	b SoundMainRAM_RestoreFrame
 _081DD19C:
 	push {r4,r12}
 	ldr lr, [r4, o_SoundChannel_fw]
@@ -398,17 +398,16 @@ SoundMainRAM_ResampleNoAdvance:
 _081DD228:
 	str lr, [r4, o_SoundChannel_fw]
 _081DD22C:
-	.global SoundMainRAM_SaveChannel
-	.type SoundMainRAM_SaveChannel, %function
-SoundMainRAM_SaveChannel:
-	str r2, [r4, o_SoundChannel_ct]
-	str r3, [r4, o_SoundChannel_cp]
-_081DD234:
-	ldr r8, [sp]
-	add r0, pc, 0x1
-	bx r0
+	.global SoundMainRAM_SaveBoundary
+SoundMainRAM_SaveBoundary:
+@ Channel save and frame restore are linked here from m4a_save_channel.c.
+	.section .text.after_save_channel, "ax", %progbits
 	.thumb
 _081DD240:
+	.global SoundMainRAM_ChanAdvance
+	.type SoundMainRAM_ChanAdvance, %function
+	.thumb_func
+SoundMainRAM_ChanAdvance:
 	ldr r0, [sp, 0x4]
 	subs r0, 1
 	ble _081DD24A
