@@ -49,6 +49,11 @@ def main():
     run(['git', 'apply', '--unidiff-zero', str(bit_patch)], cwd=build)
     if hashlib.sha256((build / 'gcc/thumb.md').read_bytes()).hexdigest() != '5163ba23328dddde3d5c681163dd0c179c51f1fbd382aea807f3255e1a938d4d':
         raise ValueError('patched Thumb backend hash mismatch')
+    live_patch = Path(__file__).with_name('live-and-zero.patch')
+    run(['git', 'apply', '--check', str(live_patch)], cwd=build)
+    run(['git', 'apply', str(live_patch)], cwd=build)
+    if hashlib.sha256((build / 'gcc/thumb.md').read_bytes()).hexdigest() != 'b3afe0e40f92a70683208c7daede41f33ebc5d4d27f53f0443b58a64e08ed49e':
+        raise ValueError('live AND backend hash mismatch')
     # The upstream generator dependencies require a serial clean build.
     print('Compiler build log: ' + str(build / 'build.log'), flush=True)
     with (build / 'build.log').open('w') as log:
@@ -64,6 +69,7 @@ def main():
         'upstream': UPSTREAM, 'revision': REVISION,
         'patch_sha256': hashlib.sha256(PATCH.read_bytes()).hexdigest(),
         'bit_test_patch_sha256': hashlib.sha256(bit_patch.read_bytes()).hexdigest(),
+        'live_and_patch_sha256': hashlib.sha256(live_patch.read_bytes()).hexdigest(),
         'compiler_sha256': hashlib.sha256(output.read_bytes()).hexdigest(),
         'build_directory': str(build), 'output': str(output),
     }

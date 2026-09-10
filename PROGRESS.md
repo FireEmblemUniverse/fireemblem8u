@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: audio command-byte reader integration (baseline `ada294ff` plus this change); full ROM checksum passes. Latest research: TrackStop complete 68-byte candidate matches and passes 768 cases (this change).
+Updated: September 9, 2026. Latest verified implementation: TrackStop integration (baseline `2a572b21` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,6 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated audio track stop | `████████████████████` **Complete 68-byte section exact; full ROM verified** |
 | Integrated audio byte reader | `████████████████████` **All 10 bytes exact; 32,768 original/production execution cases pass** |
 | Integrated map flood dispatcher | `████████████████████` **107/107 instruction words; complete 464-byte section exact; full ROM verified** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
@@ -28,11 +29,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: matching the audio TrackStop candidate.**
-Next milestone: regression-test the equality-only AND/zero compiler rewrite,
-then integrate TrackStop and verify the full ROM. Its complete 68-byte candidate
-now matches exactly and passes 768 original/C execution cases. It is not integrated.
-Remaining ARM shims, unit-list fallback, audio and transfer code stay in scope.
+**Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
+Next milestone: recover another remaining executable routine as matching C.
+
+TrackStop is integrated: its entire 68-byte section matches, and all 768
+original/C cases pass. A fresh pinned compiler build passes 14,336 standalone
+baseline/folded executions; signed comparisons and asm barriers stay unchanged.
 
 The map-flood dispatcher is now integrated. Its complete 464-byte section at
 `0x08000850` matches: 452 ARM instruction bytes (including the duplicate branch
@@ -46,7 +48,7 @@ to the dispatcher. The C source uses the project's queue/state structures.
 The audio command-byte reader is also integrated: all 10 Thumb bytes match,
 including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
-Main source inventory is now 451 C files and 56 assembly entry markers.
+Main source inventory is now 452 C files and 55 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
@@ -94,6 +96,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace embedded PutOamHi with matching C in all three payload versions.
 - [x] Integrate the complete matching map-flood dispatcher and compiler-generated prefix.
 - [x] Replace the internal audio command-byte reader with matching C.
+- [x] Replace TrackStop with matching C and validate live AND/zero compiler folding.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -102,7 +105,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 56 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 55 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

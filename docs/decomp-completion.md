@@ -2188,3 +2188,27 @@ original/C execution cases still pass. `check_track_stop.py --compiler` allows
 selecting this isolated compiler. The patch needs standalone positive and
 negative condition-code regression checks and a reproducible fresh build before
 production promotion. TrackStop remains a candidate, not an integrated replacement.
+
+
+### TrackStop production integration — September 9, 2026
+
+The equality-only live AND/zero patch is now maintained under `tools/agbcc-tst/`.
+The pinned builder applies it after the existing patches, verifies the resulting
+backend hash and runs twelve static comparison checks. A fresh committed-source
+build passes those checks and 14,336 baseline/folded execution probes covering
+live AND results, all incoming NZCV states, callback clobbers, signed/high-bit
+operands and excluded asm barriers. The existing signed comparison bodies and
+barrier fixture remain byte-for-byte identical at assembly-source level.
+
+`src/m4a_track_stop.c` is integrated at `0x080CFDD0..0x080CFE14`. Its 68-byte
+section contains 62 Thumb instruction bytes, two alignment bytes and a four-byte
+sound-info pointer. All bytes match the original ROM; all 768 TrackStop cases
+pass with the freshly built compiler. The existing audio `call_r3` bridge is
+exported and marked as Thumb for the new C object's relocation; its instructions
+remain assembly. The former TrackStop assembly body is removed.
+
+`make compare -j8` passes the complete ROM checksum. The source audit now reports
+452 main C files and 55 assembly entry markers. The linked audit attributes all
+68 bytes to the C object, with no orphan mapping symbols. Other audio handlers,
+startup and BIOS interfaces, ARM shims, the naked unit-list fallback and transfer
+code remain unfinished; no overall completion percentage is inferred.

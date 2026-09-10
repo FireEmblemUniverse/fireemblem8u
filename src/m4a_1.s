@@ -1156,6 +1156,8 @@ _081DDA6C:
 	mov r11, r3
 	pop {r3}
 
+	.global call_r3
+	.thumb_func
 call_r3:
 	bx r3
 
@@ -1165,45 +1167,8 @@ lt2_SOUND_INFO_PTR: .word SOUND_INFO_PTR
 lt2_ID_NUMBER:      .word ID_NUMBER
 	thumb_func_end MPlayMain
 
-	thumb_func_start TrackStop
-TrackStop:
-	push {r4-r6,lr}
-	adds r5, r1, 0
-	ldrb r1, [r5, o_MusicPlayerTrack_flags]
-	movs r0, 0x80
-	tst r0, r1
-	beq TrackStop_Done
-	ldr r4, [r5, o_MusicPlayerTrack_chan]
-	cmp r4, 0
-	beq TrackStop_3
-	movs r6, 0
-TrackStop_Loop:
-	ldrb r0, [r4, o_SoundChannel_status]
-	cmp r0, 0
-	beq TrackStop_2
-	ldrb r0, [r4, o_SoundChannel_type]
-	movs r3, 0x7
-	ands r0, r3
-	beq TrackStop_1
-	ldr r3, =SOUND_INFO_PTR
-	ldr r3, [r3]
-	ldr r3, [r3, o_SoundInfo_CgbOscOff]
-	bl call_r3
-TrackStop_1:
-	strb r6, [r4, o_SoundChannel_status]
-TrackStop_2:
-	str r6, [r4, o_SoundChannel_track]
-	ldr r4, [r4, o_SoundChannel_np]
-	cmp r4, 0
-	bne TrackStop_Loop
-TrackStop_3:
-	str r4, [r5, o_MusicPlayerTrack_chan]
-TrackStop_Done:
-	pop {r4-r6}
-	pop {r0}
-	bx r0
-	.pool
-	thumb_func_end TrackStop
+@ TrackStop and its sound-info pointer pool are generated from matching C.
+	.section .text.after_track_stop, "ax", %progbits
 
 	THUMB_FUNC_START ChnVolSetAsm
 ChnVolSetAsm: @ 0x080CFE14
