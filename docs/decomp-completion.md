@@ -2871,3 +2871,29 @@ to `src/m4a_sequence_goto.o`, with no orphan mappings. Source inventory is
 seven instruction templates. Remaining embedded, transfer-wrapper, naked
 fallback and executable-classification scope is unchanged. Local evidence is
 in `.deps/sequence-goto-match/`.
+
+
+### September 9: pattern nesting research verified
+
+`research/audio/pattern.c` models the pattern handler's three-level return
+stack. Levels zero through two save the address after the four-byte target,
+increment the nesting level and enter the sequence jump. Levels three through
+255 enter the fine handler. The C deliberately preserves sequential stores and
+reads, including command data overlapping the return-stack slot.
+
+`research/audio/check_pattern.py --compiler COMPILER` passes 16,384 executions
+against the original `ply_patt` at `080CF9B8`. It covers all nesting levels,
+four track-flag patterns, normal/rejected command locations, command-pointer
+and return-stack aliases, and four initial NZCV patterns. Both original and
+candidate run the actual ROM jump/fine callees. Track RAM, r0-r12, flags, SP,
+return PC and preserved registers agree. The fine path currently uses an empty
+channel list; nonempty channel-chain coverage remains necessary for integration.
+
+This is behavior research, not production integration. The compiler emits a
+40-byte section rather than the original 28 bytes: it uses an LR save, ordinary
+calls and a common return instead of the original terminal branches. Its
+unsigned nesting comparison is `> 2` rather than the original `>= 3`. Next is
+restricted compiler support for those tail transfers and matching comparison
+selection, with validation of the private register and return contracts.
+The production ROM remains the verified `3f99b484` implementation with 39
+assembly entry markers. Evidence is retained in `.deps/pattern-match/`.

@@ -49,7 +49,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: continue pattern/repeat handling and the remaining audio engine.
+Next milestone: match the pattern handler's tail branches and nesting comparison.
+The pattern C research candidate passes 16,384 cases across every nesting level,
+four track-flag patterns and normal/rejected/aliased command pointers, using the
+actual jump and fine handlers with an empty channel list. Track RAM, r0-r12,
+flags and return state agree. It remains unintegrated: its 40-byte section differs
+from the original 28 bytes because of ordinary calls/return handling and the
+compiler's equivalent `> 2` comparison in place of `>= 3`.
 The sequence jump is integrated as C. All 32 bytes match; 32,832 production
 cases verify every value in each pointer byte, rejected low-byte reads,
 command-pointer aliases, public/shared-stack entries and ARM/Thumb returns.
