@@ -12,6 +12,33 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Mixer exit interworking return — September 10, 2026
+
+Research baseline `27271aa0`. The new opt-in `matching_thumb_frame_return`
+compiler contract converts the ordinary leaf return into BX r3 only after
+validating the private 64-byte saved-frame convention. It requires Thumb-1,
+void/no-argument/zero-local-frame code, global r3/SP bindings, the recognized
+leaf epilogue, a final r3 word load from SP+60 followed by SP+=64, and no calls,
+branches, executable assembly or LR accesses in the body. Other SP accesses
+must be aligned word reads within the frame. Only a single constant-word pool
+may follow the epilogue. Debug/unwind/profiling configurations reject.
+
+The pass uses the existing backend private-return instruction; no backend rebuild
+is needed. `check_thumb_frame_return.py` accepts the candidate and rejects ten
+unsupported contracts: wrong/unaligned target slot, wrong stack advance, missing
+target/frame bindings, clobbered target, inline instructions, ARM mode, debug
+and unwind. Unannotated output remains byte-identical.
+
+`check_soundmain_exit_restore.py --return` passes 40,960 cases in four original/C
+ROM/copied-RAM machines through the final branch. The saved return targets cover
+ARM and Thumb code in ROM and RAM. The lock-pointer/return-slot alias overwrites
+the target with ID_NUMBER and is tested as well. All registers, final SP/LR,
+NZCV, return PC/mode, complete data and ordered accesses agree. This extends the
+previous pre-branch proof. The section remains 40 bytes versus original 24;
+intermediate SP values still differ and grouped POP selection remains next.
+Saved words are sampled; cycle timing and asynchronous observation are not
+modeled. This remains research-only, with production coverage unchanged.
+
 ## Mixer exit restore candidate — September 10, 2026
 
 Research baseline `22ea617a`. `research/audio/soundmain_exit_restore.c`

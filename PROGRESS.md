@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research (baseline `22ea617a`): the mixer exit's C restore candidate passes 40,960 pre-branch complete-state cases in original/candidate ROM and copied RAM. Its section is 40 bytes versus the original 24; POP selection, intermediate stack updates and BX r3 remain unresolved. It is not integrated. Production coverage and full-ROM matching remain unchanged.
+Updated: September 10, 2026. Latest research (baseline `27271aa0`): the mixer exit candidate now passes 40,960 complete return cases, including ARM/Thumb transfers, and ten invalid compiler contracts reject. Its section remains 40 bytes versus the original 24; grouped POP selection and intermediate stack updates remain unresolved. It is not integrated. Production coverage and full-ROM matching remain unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,7 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,368 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Mixer exit restore candidate | **40,960 pre-branch cases pass; 40-byte section versus original 24; final return and stack instruction matching remain** |
+| Mixer exit restore candidate | **40,960 complete ARM/Thumb return cases pass; 40-byte section versus original 24; grouped stack instruction matching remains** |
 | Integrated channel advancement | **10/10 bytes exact; 33,600 complete-state cases pass; shared exit frame read also matches its two original bytes** |
 | Integrated channel volume/loop setup | **52/52 bytes exact; 131,072 cases pass with original registers, flags and ordered alias-sensitive memory accesses** |
 | Integrated channel status/envelope | **160/160 bytes exact; 196,608 cases pass with original registers, flags, decisions and ordered memory accesses** |
@@ -87,7 +87,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: select the original grouped stack restores and BX r3 for the verified mixer exit candidate. The sample handoff also remains assembly. Channel advancement and its shared exit frame read are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: select the original grouped stack restores for the verified mixer exit candidate; BX r3 is now generated and tested. The sample handoff also remains assembly. Channel advancement and its shared exit frame read are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
