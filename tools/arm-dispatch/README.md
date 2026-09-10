@@ -481,3 +481,15 @@ uses this with the existing subtraction comparison fold. `check_arm_early_pair.p
 checks twelve invalid forms; `check_soundmain_fixed_setup.py` checks all three
 paths, signed-overflow flags, original/production ROM/copied RAM and exact bytes.
 Existing single-exit/default frame contracts remain unchanged.
+
+
+ARM adjacent `sp-input=store0` requires a global SP binding and one exact prefix
+instruction immediately after the compiler's sole LR save: an SI store from
+r0-r12 to incoming SP with no writeback. Any label, barrier or other prefix work
+rejects; the complete body check rejects further SP accesses or updates. The
+store itself is retained unchanged, including its memory attributes, while the
+existing contract removes the compiler LR save/restore. Frame64, pop2 and push2
+modes are unchanged. Production `src/m4a_sample_entry.c` uses this with the early
+resampling exit. `check_arm_store_zero.py` covers twelve invalid contracts;
+`check_soundmain_sample_entry.py` verifies exact bytes, ordered accesses, flags,
+registers and alias effects against the original in ROM and copied RAM.

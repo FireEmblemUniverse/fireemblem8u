@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false,early_pair=false,remainder_lr=false;
+bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false,early_pair=false,remainder_lr=false,store_zero=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -348,6 +348,20 @@ bool lr_word_load(rtx p) {
     }
     return REG_P(address)&&GET_MODE(address)==SImode&&REGNO(address)<13;
 }
+rtx_insn *validate_store_zero() {
+    if (!store_zero) return nullptr;
+    auto next=[](rtx_insn *i) { while(i&&!NONDEBUG_INSN_P(i)) { if (LABEL_P(i)) return (rtx_insn *)nullptr; i=NEXT_INSN(i); } return i; };
+    rtx_insn *saved=next(get_insns());
+    if (!saved||!lr_push(PATTERN(saved))) fatal_error(UNKNOWN_LOCATION,"ARM adjacent store0 requires sole LR save");
+    rtx_insn *store=next(NEXT_INSN(saved));
+    if (!store||!NONJUMP_INSN_P(store)) fatal_error(UNKNOWN_LOCATION,"ARM adjacent store0 missing prefix store");
+    rtx p=PATTERN(store);
+    if (GET_CODE(p)!=SET||!MEM_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode
+        ||!reg_is(XEXP(SET_DEST(p),0),SP_REGNUM)||!REG_P(SET_SRC(p))
+        ||GET_MODE(SET_SRC(p))!=SImode||REGNO(SET_SRC(p))>=13)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent store0 requires general-register word store at incoming SP");
+    return store;
+}
 const pass_data data={RTL_PASS,"arm_adjacent",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -360,9 +374,9 @@ public:
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires zero-local-frame void code without debug/unwind");
         if ((read_only_lr||load_word_lr||remainder_lr) && !global_regs[LR_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent LR input requires global register binding");
-        if ((frame64||pop_pair||push_pair) && !global_regs[SP_REGNUM])
+        if ((frame64||pop_pair||push_pair||store_zero) && !global_regs[SP_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent frame requires global SP binding");
-        rtx_insn *popped=lower_pop_pair(),*pushed=lower_push_pair();
+        rtx_insn *popped=lower_pop_pair(),*pushed=lower_push_pair(),*stored=validate_store_zero();
         unsigned lr_loads=0;
         remove_frame_compare_repeat();
         rtx_insn *external_branch=lower_diamond();
@@ -428,7 +442,7 @@ public:
             }
             bool lr_load=lr_word_load(p);
             if (lr_load) lr_loads++;
-            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&i!=pushed&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask&&!lr_load&&!lr_remainder_set(p))||executable_asm(p))
+            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&i!=pushed&&i!=stored&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask&&!lr_load&&!lr_remainder_set(p))||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
                 if (i==external_branch||pair_branches.count(i)) continue;
@@ -475,8 +489,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             conditional_destination=value;have_conditional=true;
         } else if (std::string(key)=="transfer" && !have_transfer && value && std::string(value)=="branch") {
             branch_transfer=true;have_transfer=true;
-        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2"||std::string(value)=="push2")) {
-            frame64=std::string(value)=="frame64";pop_pair=std::string(value)=="pop2";push_pair=std::string(value)=="push2";have_frame=true;
+        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2"||std::string(value)=="push2"||std::string(value)=="store0")) {
+            frame64=std::string(value)=="frame64";pop_pair=std::string(value)=="pop2";push_pair=std::string(value)=="push2";store_zero=std::string(value)=="store0";have_frame=true;
         } else return 1;
     }
     if (have_conditional && conditional_destination==destination) return 1;

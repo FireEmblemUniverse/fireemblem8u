@@ -729,3 +729,7 @@ src/m4a_resample_setup.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=
 src/m4a_fixed_setup.o: $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_fixed_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_fixed_setup.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Packed -fplugin-arg-arm_adjacent-early-pair=SoundMainRAM_Short -fplugin-arg-arm_adjacent-lr-input=remainder
+
+src/m4a_sample_entry.o: $(ARM_ADJACENT_PLUGIN)
+src/m4a_sample_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_sample_entry.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_FixedSetup -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleSetup -fplugin-arg-arm_adjacent-sp-input=store0

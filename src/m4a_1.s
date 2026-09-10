@@ -283,14 +283,11 @@ _081DD03A:
 	bx r0
 	.arm
 _081DD044:
-	str r8, [sp]
-	ldrb r10, [r4, o_SoundChannel_er]
-	ldrb r11, [r4, o_SoundChannel_el]
-	mov r10, r10, lsl 16
-	mov r11, r11, lsl 16
-	ldrb r0, [r4, o_SoundChannel_type]
-	tst r0, 0x8
-	beq _081DD19C
+    .global SoundMainRAM_SampleEntryBoundary
+SoundMainRAM_SampleEntryBoundary:
+@ Count preservation, volume expansion and sample-path selection come from C.
+    .section .text.after_sample_entry, "ax", %progbits
+    .arm
 _081DD07C:
     .global SoundMainRAM_FixedSetupBoundary
 SoundMainRAM_FixedSetupBoundary:

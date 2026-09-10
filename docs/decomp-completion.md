@@ -5363,3 +5363,52 @@ fixed-setup-production-build.log, fixed-setup-production-check.log,
 early-pair-regression-*.log, fixed-setup-source-audit.json and
 fixed-setup-ownership.log. Full-call evidence is under `.deps/soundmain-complete/`;
 fresh library evidence is recorded by docs/runtime-rebuild.json.
+
+
+## September 10, 2026 — shared sample-path entry integrated (32 bytes)
+
+Baseline: `3376f630`. `src/m4a_sample_entry.c` replaces all eight instructions at
+0x080CF6E4..0x080CF704: save r8 to incoming SP, read right/left envelope volumes,
+shift both by sixteen, read the channel type, TST bit three and BEQ resampling
+setup. The fixed path falls through to its adjacent C setup. Link assertions
+check the original entry and size, adjacent aligned fixed setup, and forward
+aligned resampling setup inside the copied mixer and branch range. The existing
+Thumb ADR/BX still enters the original address via the retained boundary label.
+
+The opt-in arm_adjacent `sp-input=store0` contract accepts exactly a general
+r0-r12 SI store at SP as the first instruction after the sole compiler LR save.
+It leaves that store and its memory attributes unchanged; the complete body
+validator rejects every other SP access/update. Standard private frame/tail
+removal then eliminates the compiler's LR save/restore. No GCC backend MD or
+instruction-bearing C assembly was added. Other stack modes are unchanged.
+
+`check_soundmain_sample_entry.py` compiles the exact standalone 32-byte object,
+verifies production symbol/extent/bytes and passes 75,776 cases on four machines:
+original/production ROM and copied RAM. The 65,536 volume pairs also cover all
+channel type bytes and incoming NZCV states. Another 10,240 cases cross five
+channel placements relative to SP, eight sample-count boundaries, sixteen type
+values and sixteen NZCV states. Expected memory applies the count store before
+reading potentially overlapping volume/type fields. All r0-r12, SP, LR, PC,
+TST NZCV, ordered store/three reads and complete tested data/frame memory agree.
+The complete SoundMain suite passes 3,528 calls; full ROM checksum passes.
+
+`check_arm_store_zero.py` rejects twelve invalid forms: wrong offset, byte or
+halfword store, extra stack store/read, delayed prefix store, barrier, missing
+SP binding, wrong frame mode, debug, unwind and Thumb. Existing adjacent,
+conditional, frame, LR, carry, early, early-pair, repeat, pop-pair and push-pair
+regressions pass. Fresh runtime archives reproduce all four current images and
+exported symbols; runtime evidence and all ownership/inline reports are refreshed.
+
+Main ownership: 719,692 C-owned instruction bytes (92.55%), 33,870 mixed,
+2,276 assembly-source and 21,792 runtime, total 777,630. Reviewed non-library
+assembly is 2,686 main bytes and 420 payload bytes. Source inventory: 489 C files,
+32 assembly entry markers, four manual declarations, 710 inline sites (354
+register bindings, 348 empty constraints, one directive, seven instruction
+templates). Channel/frame control, resampling exit and other audio/hardware
+assembly remain unfinished.
+
+Evidence under `.deps/soundmain-packed/`: sample-entry/report.json,
+sample-entry-production-build.log, sample-entry-production-check.log,
+store0-regression-*.log, sample-entry-source-audit.json and
+sample-entry-ownership.log. Complete-call evidence is under
+`.deps/soundmain-complete/`; fresh-library receipts remain in docs/runtime-rebuild.json.

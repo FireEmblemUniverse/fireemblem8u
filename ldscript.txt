@@ -595,6 +595,19 @@ SECTIONS
         src/m4a_reverb.o(.text);
         __reverb_end = .;
         src/m4a_1.o(.text.after_reverb);
+        __sample_entry_start = .;
+        src/m4a_sample_entry.o(.text);
+        __sample_entry_end = .;
+        src/m4a_1.o(.text.after_sample_entry);
+        ASSERT(SoundMainRAM_SampleEntry == SoundMainRAM_SampleEntryBoundary &&
+               __sample_entry_end - __sample_entry_start == 32,
+               "sample entry boundary or 32-byte extent changed");
+        ASSERT(SoundMainRAM_FixedSetup == __sample_entry_end && (SoundMainRAM_FixedSetup & 3) == 0,
+               "sample entry must fall through to adjacent ARM fixed-rate setup");
+        ASSERT((SoundMainRAM_ResampleSetup & 3) == 0 && SoundMainRAM_ResampleSetup > __sample_entry_end &&
+               SoundMainRAM_ResampleSetup < SoundMainRAM_End &&
+               SoundMainRAM_ResampleSetup - (__sample_entry_start + 36) < 0x2000000,
+               "sample entry resampling target must be forward ARM code in copied mixer and branch range");
         __fixed_setup_start = .;
         src/m4a_fixed_setup.o(.text);
         __fixed_setup_end = .;
