@@ -31,9 +31,10 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
 Next milestone: match and integrate the tied-note release handler `ply_endtie`.
-Its C candidate passes 768 original/C cases; an experimental Thumb leaf-frame contract reduces it to the original 64
-bytes, with three differing halfwords remaining. It remains
-unintegrated while comparison and TST operand choices are resolved and the frame contract is regression-tested.
+Its C candidate passes 768 original/C cases; its complete 64-byte section now matches exactly with the experimental
+Thumb leaf-frame contract and instruction rewrites. Another 5,760 standalone
+executions pass, and five invalid contracts are rejected. Reproducible compiler
+promotion and production integration remain next.
 
 TrackStop is integrated: its entire 68-byte section matches, and all 768
 original/C cases pass. A fresh pinned compiler build passes 14,336 standalone

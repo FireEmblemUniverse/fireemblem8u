@@ -2256,3 +2256,27 @@ and still passes all 768 original/C cases. Only halfwords at offsets 6, 8 and
 epilogue now match. This remains research; standalone frame-contract regression
 cases, mode/unsupported-use checks, reproducible bootstrap support and final
 integration remain required. The production compiler and ROM are unchanged.
+
+
+### Exact tied-note candidate and frame probes — September 9, 2026
+
+The `leaf_frame` experimental pass now handles GCC's combined Thumb-1
+comparison/branch RTL. It rewrites unsigned power-of-two boundary tests from
+`> boundary-1` to `>= boundary` (and the complementary <=/< form), restricted
+to low registers and encodable boundaries. Register-only EQ/NE TST operands
+are ordered by register number; their bitwise result and flag effects are
+commutative. Only functions bearing the explicit leaf contract are transformed.
+The pass rejects that contract outside Thumb-1.
+
+All 64 bytes of the tied-note candidate now match, and its 768 original/C
+execution cases pass. `check_leaf_frame.py` adds 5,760 baseline/matching
+executions across boundary and signed tests, register TSTs, high-bit operands,
+all incoming flags and saved-register preservation. Loading the plugin without
+the contract leaves assembly unchanged. Non-leaf calls, high saved registers,
+frame-pointer functions, ARM mode and a variable carrying the function attribute
+are rejected. These are bounded regression probes, not a general compiler proof.
+
+Reproducible backend/plugin promotion, stronger source/ABI evidence for the
+production object and full-ROM integration remain next. The production compiler
+is still the installed version; the experimental build-tree compiler and plugin
+are selected explicitly with `check_end_tie.py --compiler ... --plugin ...`.
