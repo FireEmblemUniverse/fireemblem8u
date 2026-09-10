@@ -337,28 +337,14 @@ _081DD86C:
 MPlayMainTempoAccumulateBoundary:
 @ Halfword loads and full-width addition are generated from C.
 	.section .text.after_mplay_tempo_accumulate, "ax", %progbits
-	.global MPlayMainTickLoop
-MPlayMainTickLoop:
+	.global MPlayMainTickLoopBoundary
+MPlayMainTickLoopBoundary:
 _081DD874:
-	ldrb r6, [r7, o_MusicPlayerInfo_trackCount]
-	ldr r5, [r7, o_MusicPlayerInfo_tracks]
-	movs r3, 0x1
-	movs r4, 0
-	.global MPlayMainTrackLoop
-MPlayMainTrackLoop:
+	.section .text.after_mplay_tick_setup, "ax", %progbits
+	.global MPlayMainTrackLoopBoundary
+MPlayMainTrackLoopBoundary:
 _081DD87C:
-	ldrb r0, [r5]
-	movs r1, 0x80
-	tst r1, r0
-	bne _081DD886
-	b _081DD998
-_081DD886:
-	mov r10, r3
-	orrs r4, r3
-	mov r11, r4
-	ldr r4, [r5, o_MusicPlayerTrack_chan]
-	cmp r4, 0
-	beq _081DD8BA
+	.section .text.after_mplay_track_dispatch, "ax", %progbits
 	.global MPlayMainChannelGateBoundary
 MPlayMainChannelGateBoundary:
 	.section .text.after_mplay_channel_gate, "ax", %progbits

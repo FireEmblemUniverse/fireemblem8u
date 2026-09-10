@@ -1093,6 +1093,28 @@ SECTIONS
         src/m4a_mplay_tempo_accumulate.o(.text);
         __mplay_tempo_accumulate_end = .;
         src/m4a_1.o(.text.after_mplay_tempo_accumulate);
+        __mplay_tick_setup_start = .;
+        src/m4a_mplay_tick_setup.o(.text);
+        __mplay_tick_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_tick_setup);
+        ASSERT((MPlayMainTickLoop & ~1) == MPlayMainTickLoopBoundary &&
+               __mplay_tick_setup_end - __mplay_tick_setup_start == 8 &&
+               (MPlayMainTrackLoop & ~1) == __mplay_tick_setup_end,
+               "MPlayMain tick_setup extent or continuation changed");
+        __mplay_track_dispatch_start = .;
+        src/m4a_mplay_track_dispatch.o(.text);
+        __mplay_track_dispatch_end = .;
+        src/m4a_1.o(.text.after_mplay_track_dispatch);
+        ASSERT((MPlayMainTrackLoop & ~1) == MPlayMainTrackLoopBoundary &&
+               __mplay_track_dispatch_end - __mplay_track_dispatch_start == 22 &&
+               (MPlayMainChannelGate & ~1) == __mplay_track_dispatch_end,
+               "MPlayMain track_dispatch extent or continuation changed");
+        ASSERT((MPlayMainTrackAdvance & ~1) >= __mplay_track_dispatch_start + 12 &&
+               (MPlayMainTrackAdvance & ~1) <= __mplay_track_dispatch_start + 12 + 2046,
+               "MPlayMain track dispatch advance out of range");
+        ASSERT((MPlayMainTrackInit & ~1) >= __mplay_track_dispatch_start + 24 &&
+               (MPlayMainTrackInit & ~1) <= __mplay_track_dispatch_start + 24 + 254,
+               "MPlayMain track dispatch init out of range");
         __mplay_channel_gate_start = .;
         src/m4a_mplay_channel_gate.o(.text);
         __mplay_channel_gate_end = .;

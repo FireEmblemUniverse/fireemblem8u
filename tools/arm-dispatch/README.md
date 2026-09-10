@@ -904,7 +904,7 @@ external-mask order are rejected. Unannotated compilation is unchanged.
 The MPlayMain track-dispatch candidate uses this for the original TST r1,r0,
 while its separate zero-channel branch is folded to BEQ TrackInit. The tick
 setup candidate needs only the existing private adjacent-tail contract and
-ordered empty register constraints. Neither candidate is yet integrated.
+ordered empty register constraints. Both fragments are integrated in production; complete MPlayMain remains unfinished.
 
 ```sh
 python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend

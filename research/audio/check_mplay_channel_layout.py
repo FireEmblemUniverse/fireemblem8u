@@ -162,6 +162,14 @@ def main():
   needle='        ASSERT(('+target+' & ~1) >= __'+stem+'_start + 6'
   for direction,offset in [('far',262),('backward',-252)]:
    cases.append((name+'_guard_'+direction,source.replace(needle,'        '+target+' = __'+stem+'_start + ('+str(offset)+');\n'+needle,1),name+' guard conditional tail out of range'))
+ for part in ('tick_setup','track_dispatch'):
+  stem='mplay_'+part
+  cases.append((part+'_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),part+' extent or continuation'))
+  cases.append((part+'_continuation',source.replace('        src/m4a_1.o(.text.after_'+stem+');','        . += 2;\n        src/m4a_1.o(.text.after_'+stem+');'),part+' extent or continuation'))
+ for part,target,pc,far in [('advance','MPlayMainTrackAdvance',12,2060),('init','MPlayMainTrackInit',24,280)]:
+  needle='        ASSERT(('+target+' & ~1) >= __mplay_track_dispatch_start + '+str(pc)
+  for direction,offset in [('far',far),('backward',pc-2)]:
+   cases.append(('dispatch_'+part+'_'+direction,source.replace(needle,'        '+target+' = __mplay_track_dispatch_start + ('+str(offset)+');\n'+needle,1),'track dispatch '+part+' out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

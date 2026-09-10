@@ -1120,3 +1120,13 @@ src/m4a_mplay_wait_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_P
 src/m4a_mplay_wait_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_wait_guard.o: C_END_ALIGN := 1
 src/m4a_mplay_wait_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainWaitCommand -fplugin-arg-tail_transfer-destination=MPlayMainCommandSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainCommandSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainWaitCommand -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-unsigned-immediate=le
+
+src/m4a_mplay_tick_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_tick_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_tick_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_tick_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTrackLoop -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainTrackLoop
+
+src/m4a_mplay_track_dispatch.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_track_dispatch.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_track_dispatch.o: C_END_ALIGN := 1
+src/m4a_mplay_track_dispatch.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainChannelGate -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainChannelGate -fplugin-arg-tail_transfer-destination=MPlayMainTrackAdvance -fplugin-arg-tail_transfer-destination=MPlayMainTrackInit -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainTrackInit -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-descending-local-mask-operands
