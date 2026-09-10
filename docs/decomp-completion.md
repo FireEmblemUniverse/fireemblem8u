@@ -5178,3 +5178,50 @@ lane-check-ram.log, lane-regression-*.log, lane-source-audit.json and
 lane-ownership.log. Complete-call evidence is in
 `.deps/soundmain-complete/production-report.json`. Ownership, inline and runtime
 reports were regenerated from the current build.
+
+
+## September 10, 2026 — runtime C source rebuild verified in all four images
+
+Baseline: `9a1fa839`. `scripts/verify_runtime_rebuild.py` extracts libc, libgcc,
+and ginclude directly from agbcc pin da598c1d918402c42c0c0d7128ba14567f3175e9 into
+a fresh isolated directory. It builds both complete libraries with the pinned
+Makefiles and fingerprinted installed old_agbcc. Generated floating-point and
+allocator variants use that snapshot's headers/macros; no earlier library
+objects or preprocessed files are reused. Installed production archives remain
+untouched. Compiler bootstrapping is outside this verifier.
+
+Relinking with only the fresh archive search paths reproduces every byte of the
+16 MiB main ROM (SHA-1 c25b145e37456171ada4b0d440bf88a19f4d509f) and all three
+payload variants: mgfembp, mgfembp_20030206 and mgfembp_20030219. The verifier
+checks that both new archives appear in each link map, and compares exported
+symbol addresses and sizes against each production ELF, including RAM symbols.
+Non-runtime project objects come from the current production builds. Payload
+input-object order is recovered from each current map's LOAD records.
+
+This verifies C-source rebuilds for 21,066 main-ROM and 94 expanded-payload
+runtime instruction bytes. It does not increase the C-only ownership figure:
+six assembly helpers still contribute 726 instruction bytes per image, and the
+main syscalls.o object contains inline assembly. Its whole 1,014 instruction
+bytes must not be reported as an inline assembly count. Remaining work includes
+that instruction-level review and recovery, as well as broader assembly removal.
+
+The runtime inventory now consumes the rebuild receipt, checks current source
+pin, installed compiler/archives, all four ELF/map/image hashes and symbol-match
+results, and distinguishes verified rebuilds from source location alone.
+Three negative checks reject a changed compiler fingerprint, stale main ELF
+fingerprint and missing payload result. Evidence is in docs/runtime-rebuild.json
+and docs/runtime-source-inventory.{json,md}; detailed build/link logs are in the
+fresh build directory recorded by the receipt. The initial verifier used the
+main linker-script name for payloads; after correcting it to mgfembp.lds, a
+fresh full run passed for all four images.
+
+Reproduce with:
+
+```
+python3 scripts/verify_runtime_rebuild.py --json docs/runtime-rebuild.json
+python3 scripts/audit_runtime_sources.py --markdown docs/runtime-source-inventory.md > docs/runtime-source-inventory.json
+```
+
+The main-ROM instruction ownership remains 92.54%; reviewed non-library
+assembly remains 2,790 main bytes and 420 payload bytes. Runtime rebuilding
+closes a verification gap rather than claiming new assembly-to-C conversion.

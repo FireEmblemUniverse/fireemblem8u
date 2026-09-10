@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: both packed-lane advances, 16 bytes (baseline `10902bdd` plus this change); full ROM checksum, 49,856 lane cases, compiler regressions and 3,528 complete audio calls pass.
+Updated: September 10, 2026. Latest verified milestone: fresh pinned runtime-library builds reproduce the entire main ROM and all three embedded payloads, including exported symbols (baseline `9a1fa839` plus this change).
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -20,6 +20,7 @@ they do not attribute the entire decompilation to this task.
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.54%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
 | Reviewed non-library assembly | **2,790 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated packed-lane advances | `████████████████████` **Both eight-byte blocks exact; 49,856 production ROM/copied-RAM cases and 4,672 compiler carry-branch cases pass** |
 | Integrated fixed-rate word completion | `████████████████████` **All 20 bytes exact; 203,520 production ROM/copied-RAM cases pass, including ordered stereo stores and repeat/save branches** |
@@ -74,7 +75,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover remaining audio setup and frame/channel paths. Runtime C rebuild/syscall verification remains open.
+Next milestone: recover remaining audio setup and frame/channel paths. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -218,8 +219,15 @@ assembly function declarations, and seven instruction-bearing inline templates.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
-The other 21,066 main-ROM and 94 payload runtime bytes have located C sources,
-not yet verified matching rebuilds; syscalls.c contains additional inline assembly.
+Fresh libc/libgcc builds from the pinned source and headers reproduce the
+entire main ROM and all three embedded payloads, with matching exported symbol
+addresses and sizes. This verifies the C-source rebuild for 21,066 main-ROM and
+94 payload runtime instruction bytes. The main total includes the 1,014-byte
+syscalls.o object, which contains inline assembly; that assembly still needs
+instruction-level review and recovery. The six helpers remain assembly.
+[Runtime rebuild evidence](docs/runtime-rebuild.json) records the source snapshot,
+compiler and image fingerprints. The reproducible verifier uses an isolated
+fresh directory and does not replace the installed archives.
 All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
@@ -401,6 +409,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace the tied-note release handler with matching C and validate its Thumb leaf frame.
 - [x] Replace stereo channel-volume calculation with matching C.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
+- [x] Rebuild pinned runtime libraries and verify exact main/all three payload images and exported symbols.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
 
