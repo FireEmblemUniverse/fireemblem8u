@@ -1291,15 +1291,31 @@ SECTIONS
         src/m4a_mplay_tempo_gate.o(.text);
         __mplay_tempo_gate_end = .;
         src/m4a_1.o(.text.after_mplay_tempo_gate);
+        __mplay_post_entry_start = .;
+        src/m4a_mplay_post_entry.o(.text);
+        __mplay_post_entry_end = .;
+        src/m4a_1.o(.text.after_mplay_post_entry);
+        ASSERT((MPlayMainPostTick & ~1) == MPlayMainPostTickBoundary &&
+               __mplay_post_entry_end - __mplay_post_entry_start == 4 &&
+               (MPlayMainPostTrackGuard & ~1) == __mplay_post_entry_end,
+               "MPlayMain post entry extent or continuation changed");
         __mplay_post_track_guard_start = .;
         src/m4a_mplay_post_track_guard.o(.text);
         __mplay_post_track_guard_end = .;
         src/m4a_1.o(.text.after_mplay_post_track_guard);
+        __mplay_post_setup_start = .;
+        src/m4a_mplay_post_setup.o(.text);
+        __mplay_post_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_post_setup);
+        ASSERT((MPlayMainPostTrackSetup & ~1) == MPlayMainPostTrackSetupBoundary &&
+               __mplay_post_setup_end - __mplay_post_setup_start == 6 &&
+               (MPlayMainPostTrackInvoke & ~1) == __mplay_post_setup_end,
+               "MPlayMain post setup extent or continuation changed");
         src/m4a_1.o(.text.mplay_main_literals);
         ASSERT((MPlayMainPostTrackGuard & ~1) == MPlayMainPostTrackGuardBoundary &&
-               __mplay_post_track_guard_start == MPlayMainPostTick + 4 &&
+               __mplay_post_track_guard_start == (MPlayMainPostTick & ~1) + 4 &&
                __mplay_post_track_guard_end - __mplay_post_track_guard_start == 14 &&
-               MPlayMainPostTrackSetup == __mplay_post_track_guard_end,
+               (MPlayMainPostTrackSetup & ~1) == __mplay_post_track_guard_end,
                "MPlayMain post track guard extent or continuation changed");
         ASSERT(MPlayMainPostTrackNext >= __mplay_post_track_guard_start + 16 &&
                MPlayMainPostTrackNext <= __mplay_post_track_guard_start + 8 + 254 &&
@@ -1315,7 +1331,7 @@ SECTIONS
                "MPlay tick finish extent or gate fallthrough changed");
         ASSERT((MPlayMainTempoStore & ~1) == MPlayMainTempoStoreBoundary &&
                __mplay_tempo_gate_end - __mplay_tempo_gate_start == 8 &&
-               MPlayMainPostTick == __mplay_tempo_gate_end &&
+               (MPlayMainPostTick & ~1) == __mplay_tempo_gate_end &&
                __mplay_tempo_gate_start - MPlayMainTickLoop < 2044,
                "MPlay tempo gate extent, fallthrough or branch range changed");
         ASSERT(lt_gClockTable == (MPlayMain & ~1) + 604 &&

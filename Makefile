@@ -958,3 +958,15 @@ src/m4a_mplay_post_track_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_T
 src/m4a_mplay_post_track_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_track_guard.o: C_END_ALIGN := 1
 src/m4a_mplay_post_track_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackNext -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostTrackSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostTrackNext -fplugin-arg-thumb_direct_tails-expected-transfers=2 -fplugin-arg-thumb_direct_tails-descending-mask-operands
+
+
+src/m4a_mplay_post_entry.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_post_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_entry.o: C_END_ALIGN := 1
+src/m4a_mplay_post_entry.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackGuard -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostTrackGuard
+
+
+src/m4a_mplay_post_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_post_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_post_setup.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackInvoke -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostTrackInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN) -fplugin-arg-copy_add_zero-preserve-thumb-high-copies

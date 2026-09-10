@@ -7509,3 +7509,43 @@ runtime/region receipts. The valid layout passes and all 64 altered layouts reje
 including six new extent, continuation, target-range/alignment and shared-pool
 placement cases. See `mplay-post-track-guard-layout.log`. Next work continues
 post-tick setup/channel processing, command guards and clear-call paths.
+
+
+## MPlayMain post-tick entry/setup — September 10, 2026 (baseline `9cdcfcc8`)
+
+Integrated `src/m4a_mplay_post_entry.c` at 080CFD08..080CFD0C and
+`src/m4a_mplay_post_setup.c` at 080CFD1A..080CFD20. The first loads track count
+and track-list pointer in the original order without changing flags. The second
+saves the full r2 count in r9 and prepares r0/r1 from player/track pointers using
+the original flag-setting copies. All ten instruction bytes are matching C.
+The following TrkVolPitSet call remains assembly. Existing private-tail and
+high-copy-preserving copy-as-ADD-zero contracts suffice without compiler changes.
+
+`check_mplay_post_setup.py --production` passes 132,608 cases: 65,536 entry and
+67,072 setup cases. Entry covers every count byte, four pointer words, all NZCV
+and four player placements including count/pointer fields at SP and the pointer
+at the final RAM word. Setup adds six full-width count values and crosses four
+player/track argument words with every initial NZCV. All r0-r12, SP/LR, full CPSR,
+complete RAM and exact accesses agree. Entry performs one byte read then one word
+read; setup performs no memory accesses. Setup's final NZ comes from the track
+word and C/V are zero. The checker stops before the track guard or volume/pitch
+invocation, not full post-tick processing.
+
+The linker enforces both extents and adjacent continuations, retaining the shared
+guard and invocation addresses. `make compare -j8` reproduces all 16 MiB. Fresh
+runtime builds reproduce all four images and exports. Source, linked, inline and
+runtime inventories are refreshed; unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,474 C-owned (92.65%), 33,870
+mixed C/assembly, 1,494 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,904 main bytes and 420 payload bytes.
+There are 528 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `9d0e30f46e5164dafdf28b6c13dc4ac087f23ac87e5b671839ac233a532ce66a`.
+Evidence: `.deps/soundmain-packed/mplay-post-setup/report.json`, source/linked
+reports there, `mplay-post-setup-production.log`, `mplay-post-setup-build.log` and
+refreshed runtime/region receipts. The valid production layout passes and all 68
+altered layouts reject, including the four new extent/continuation cases. See
+`mplay-post-setup-layout.log`. Next work continues the volume/pitch invocation, post-tick channel processing,
+command guards and clear-call paths.

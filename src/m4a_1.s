@@ -446,20 +446,19 @@ MPlayMainTempoFinishBoundary:
 	.global MPlayMainTempoStoreBoundary
 MPlayMainTempoStoreBoundary:
 	.section .text.after_mplay_tempo_gate, "ax", %progbits
-	.global MPlayMainPostTick
-MPlayMainPostTick:
+	.global MPlayMainPostTickBoundary
+MPlayMainPostTickBoundary:
 _081DD9C4:
-	ldrb r2, [r7, o_MusicPlayerInfo_trackCount]
-	ldr r5, [r7, o_MusicPlayerInfo_tracks]
+	.section .text.after_mplay_post_entry, "ax", %progbits
 	.global MPlayMainPostTrackGuardBoundary
 MPlayMainPostTrackGuardBoundary:
 _081DD9C8:
 	.section .text.after_mplay_post_track_guard, "ax", %progbits
-	.global MPlayMainPostTrackSetup
-MPlayMainPostTrackSetup:
-	mov r9, r2
-	adds r0, r7, 0
-	adds r1, r5, 0
+	.global MPlayMainPostTrackSetupBoundary
+MPlayMainPostTrackSetupBoundary:
+	.section .text.after_mplay_post_setup, "ax", %progbits
+	.global MPlayMainPostTrackInvoke
+MPlayMainPostTrackInvoke:
 	bl TrkVolPitSet
 	ldr r4, [r5, o_MusicPlayerTrack_chan]
 	cmp r4, 0
