@@ -4669,3 +4669,37 @@ control, resampling source/loop control and runtime rebuild work are incomplete.
 Evidence: `.deps/soundmain-packed/save-resampled-build.log`, save-production.json,
 save-production-ram.json, indirect-frame-guards.log, save-resampled-source-audit.json,
 save-resampled-ownership.log; `.deps/soundmain-complete/production-report.json`.
+
+
+## September 10, 2026 — source-advance semantics and matching candidate
+
+Baseline: `34df7638`, unchanged production. Added
+`research/audio/soundmain_advance_private.c` for the 32-byte resampling advance
+block at 0x080CF874..0x080CF894. The incoming LR mask clears bits 23..29 while
+preserving the top two bits. SUBS r2,r2,r9 followed by BLE compares the signed
+incoming count and advance, not just the sign of the wrapped result. This
+matters at 0x80000000 and adjacent values. For a continuing source, subtracting
+one from the advance either reuses current+difference or reads the displaced
+signed byte; the next signed byte establishes the new difference.
+
+`check_soundmain_advance.py` passes 35,200 cases across three machines (original
+ROM, copied RAM and compiled C candidate). Counts include zero, small/length
+boundaries, signed extrema and all-ones; skips include zero and 1..511 boundary
+values. Five signed current samples, five difference values and all 16 NZCV
+states are crossed; incoming LR uses deterministic random values. There are
+20,400 loop exits and 14,800 source-continuation exits. Independent expectations
+validate live r0/r1/r2/r3/r9/LR and ordered byte reads, with unchanged source
+memory. Original-code checks also validate all registers, full frame/SP and
+subtraction NZCV. Candidate execution stops before the terminal BL; its frame,
+scratch registers, flags and call/return ABI are deliberately not claimed to
+match. These private-exit semantics do not validate the separate loop helper.
+
+The compiled candidate is 84 bytes, versus 32 original bytes. Volatile private
+register declarations avoid an additional r4 save and unnecessary temporaries,
+but register-subtraction flag reuse, preincrement signed-byte loads and the
+conditional private transfer remain matching work. No production bytes or
+coverage metrics changed. Reproduce with the checker and `--compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc`; evidence is
+`.deps/soundmain-packed/advance-candidate-report.json` and
+`advance-candidate-check.log`. Object/ELF/binary files are generated in that
+same ignored directory.

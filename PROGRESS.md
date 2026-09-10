@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 24-byte fractional/channel save and frame restore integration (baseline `12ed0ca6` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: 24-byte fractional/channel save and frame restore integration (`34df7638`); full ROM checksum passes. Latest research: source-advance candidate passes 35,200 cases against ROM and copied RAM, but is not instruction-matching.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -67,8 +67,8 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: generate SoundMain's verified mixer frame and recover the
-remaining channel-mixing code. Runtime C rebuild/syscall verification remains open.
+Next milestone: match the resampling source-advance block, then continue mixer
+frame and channel-control integration. Runtime C rebuild/syscall verification remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -156,6 +156,14 @@ comparison when its input changes, and rejects eight invalid forms. The shared
 64-byte frame definition now lives in `include/gba/m4a_mixer_frame.h` with
 loop-field offset checks; research uses the same header. Resampling loop metadata
 handling and source advancement remain assembly.
+A source-advance C candidate now passes 35,200 cases against both original ROM
+and copied RAM: signed subtraction-overflow boundaries, one/multiple-sample
+advancement, signed byte reads and ordered memory accesses. Its live values
+match at both private exits. Original-code checks additionally cover all
+registers, frame and flags. The candidate emits 84 bytes versus the original
+32 and is not integrated; compiler frame, scratch registers, flags and terminal
+calls still differ. Matching needs register-subtraction flag reuse, conditional
+byte-load writeback and the appropriate private continuation contract.
 Fractional-position and channel ct/cp saving, sample-count restoration and the
 ARM-to-Thumb transfer are integrated as `src/m4a_save_channel.c` (24 bytes).
 All three entries pass 245,760 ROM/copied-RAM checks, including channel/frame
