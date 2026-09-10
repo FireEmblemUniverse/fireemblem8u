@@ -7,8 +7,12 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `d9f69051`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: recover `ply_note` CGB/PCM channel selection and allocation, then its
-remaining setup/frame paths (348 assembly instruction bytes total). MPlayMain's
+Current research (baseline `a3c1845c`): the CGB channel-selection original and
+C probe each pass 246,480 model cases. The probe is 48 bytes versus the original
+50 and is **not byte matching or integrated**; production ownership is unchanged.
+Next: match its branch layout and instruction encodings, then recover PCM
+selection/allocation and remaining setup/frame paths (348 assembly instruction
+bytes total). MPlayMain's
 ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game
 completion or independent validation of every real callback implementation.
 
@@ -28,6 +32,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **1,466 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| CGB channel-selection research | **246,480 cases pass for original and C probe; 48-byte probe differs from 50-byte original; not integrated** |
 | Integrated ply_note priority/dispatch | **30/30 bytes exact; 147,456 cases pass; twelve unsupported contracts and 217 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note tone selection | **86/86 bytes exact; 92,160 cases pass; eleven unsupported contracts and 212 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note command decoder | **38/38 bytes exact; 338,688 cases pass; eleven unsupported contracts and 207 altered layouts reject; full ROM/runtime match** |

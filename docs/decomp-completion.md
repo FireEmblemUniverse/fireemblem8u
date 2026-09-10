@@ -9162,3 +9162,28 @@ receipts. Production ELF SHA-256:
 
 The valid full layout links and all 217 altered layouts reject, including five
 new priority extent/continuation and PCM transfer placement cases.
+
+
+## September 10, 2026 — CGB channel-selection behavior recovered
+
+On baseline `a3c1845c`, the original 50-byte selection region at
+080CFEFE..080CFF30 and the compiler-generated 48-byte C probe each pass
+246,480 independent model cases. Coverage includes every byte-priority pair,
+all status bytes for channel kinds 1..7 at priority and owner boundaries,
+wide unsigned requested priorities and missing-bank entries. Checks cover
+final r0–r12, SP, LR, CPSR, unchanged RAM and ordered reads. Execution stops
+at channel attach or the shared exit; it does not validate subsequent channel
+chain mutation or the whole routine. Bank/track addresses are synthetic.
+
+The probe shares reject/accept branches differently from the original and
+uses different equivalent ADD/TST encodings. It is not byte matching and has
+not been integrated. Production counts and the last full-ROM/runtime receipts
+remain unchanged. Next work is compiler branch layout and encoding matching.
+
+Sources: `research/audio/ply_note_cgb_select.c` and
+`research/audio/check_ply_note_cgb_model.py`. Evidence:
+`.deps/soundmain-packed/ply-note/cgb-original-model.json`,
+`cgb-candidate-model.json`, corresponding logs and `cgb-probe.{s,o,elf,bin,ld}`.
+The probe uses GCC 16.2.0, Thumb ARM7TDMI, -O1 -fno-reorder-blocks,
+APCS GNU, freestanding, and tail_transfer with private-frame64,
+acyclic-branches and the declared PlyNoteChannelAttach/PlyNoteExit exits.
