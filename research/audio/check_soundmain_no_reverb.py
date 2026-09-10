@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify no-reverb C memory semantics and measure remaining private-ABI gaps."""
+"""Verify exact no-reverb candidate bytes and complete private-ABI behavior."""
 import argparse, hashlib, json, subprocess
 from pathlib import Path
 from unicorn import Uc, UC_ARCH_ARM, UC_MODE_THUMB, UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE
@@ -11,17 +11,22 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     out=ROOT/'.deps/soundmain-packed/no-reverb';out.mkdir(exist_ok=True)
     obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_no_reverb.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/word_postincrement.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/shift_carry.so')],check=True)
-    subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_NoReverbCandidate',str(obj),'-o',str(elf)],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'src/m4a_no_reverb.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/word_postincrement.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/shift_carry.so')],check=True)
+    subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_NoReverb',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
-    code=binary.read_bytes();returns=[x for x in range(0,len(code),2) if code[x:x+2]==b'\x70\x47'];assert len(returns)==1
+    code=binary.read_bytes();assert len(code)==END-ENTRY
     rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+    assert code==rom[ENTRY-0x08000000:END-0x08000000], 'candidate bytes differ'
+    production=(ROOT/'fireemblem8.gba').read_bytes();assert production==rom
+    assert production[ENTRY-0x08000000:END-0x08000000]==code
+    symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+    assert any(line.split()==['080cf5ac','0000002e','T','SoundMainRAM_NoReverb'] for line in symbols.splitlines())
     machines=[]
     for copied in (False,True):
         for candidate in (False,True):
             uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_map(0x03000000,0x8000);uc.mem_map(DATA,0x4000)
             if candidate:
-                start=0x03002000 if copied else 0x08001000;uc.mem_write(start,code);end=start+returns[0]
+                start=0x03002000 if copied else 0x08001000;uc.mem_write(start,code);end=start+len(code)
             else:
                 delta=0x03002c60-0x080cf54c if copied else 0;start=ENTRY+delta;end=END+delta;uc.mem_write(start,rom[ENTRY-0x08000000:END-0x08000000])
             trace=[]
@@ -52,14 +57,10 @@ def main():
                     assert bytes(uc.mem_read(DATA,0x4000))==expected and bytes(uc.mem_read(0x03006f80,256))==frame
                     assert trace==expected_trace,(count,offset,candidate,'access order')
                     for i in (0,1,5,6,8):assert result[i]==wanted[i],(count,i,result,wanted)
-                    if not candidate:assert result==wanted and actual_flags==end_flags
-                    elif len(observed)==1:
-                        for i,(x,y) in enumerate(zip(result,wanted)):
-                            if x!=y:register_mismatches[str(i)]=register_mismatches.get(str(i),0)+1
-                        flag_mismatches+=actual_flags!=end_flags
+                    assert result==wanted and actual_flags==end_flags,(count,offset,candidate,result,wanted,actual_flags,end_flags)
                     observed.append((result,actual_flags))
                 assert observed[0]==observed[2] and observed[1]==observed[3]
                 cases+=1;writes+=len(expected_trace);paths['below_16' if count<16 else 'normal']+=1
-    report=dict(cases=cases,count_values=len(counts),machines_per_case=4,ordered_writes_per_implementation=writes,paths=paths,original_bytes=END-ENTRY,candidate_bytes=len(code),scratch_register_mismatch_cases=register_mismatches,flag_mismatch_cases=flag_mismatches,production_integrated=False,scope='Exact ordered stereo stores, pointer/counter results and complete tested memory in original/candidate ROM and copied RAM.',limitations=['Candidate return is intercepted before BX LR; original falls through to channel setup.','Scratch-register and flag differences are measured, not accepted as matching.','Counts tested from 0 through 1024; larger counts are not execution-tested.'])
+    report=dict(cases=cases,count_values=len(counts),machines_per_case=4,ordered_writes_per_implementation=writes,paths=paths,original_bytes=END-ENTRY,candidate_bytes=len(code),scratch_register_mismatch_cases=register_mismatches,flag_mismatch_cases=flag_mismatches,production_integrated=True,scope='Exact bytes, fallthrough, all registers and flags, ordered stereo stores and complete tested memory in original/candidate ROM and copied RAM.',limitations=['Counts tested from 0 through 1024; larger counts are not execution-tested.'])
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

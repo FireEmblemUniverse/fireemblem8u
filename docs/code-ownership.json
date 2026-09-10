@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "50f5de71bf5510aab2faa3db758859265345512b",
+  "baseline_commit": "f8051e820cbb85529482d53009c8b39c48332851",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2264,
-        "c_owned": 719704,
+        "assembly_source": 2218,
+        "c_owned": 719750,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -824,7 +824,7 @@
         {
           "object": "src/m4a_1.o",
           "category": "assembly_source",
-          "instruction_bytes": 1560
+          "instruction_bytes": 1514
         },
         {
           "object": "src/sio_multiboot.o",
@@ -1887,6 +1887,11 @@
           "instruction_bytes": 46
         },
         {
+          "object": "src/m4a_no_reverb.o",
+          "category": "c_owned",
+          "instruction_bytes": 46
+        },
+        {
           "object": "src/m4a_repeat.o",
           "category": "c_owned",
           "instruction_bytes": 46
@@ -2162,13 +2167,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "c6fb38f8212908ee68e0e66c2604eca6c6a6e6ad9002ab557373635884a58b83",
-      "map_sha256": "14f10d1c980b40d5f89528501114d48e78c355aeaa3e15d9ec5d062e25a3e60d",
+      "elf_sha256": "f73122c98d68950e7cee2f1e530701313e46a95f2b18430257013a8b240b58ed",
+      "map_sha256": "382b86b3de8ac4e9bf7d1c3d3c40f88e64e27c0d62149dfb579da859de270aa9",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2674
+      "known_nonarchive_assembly_bytes": 2628
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

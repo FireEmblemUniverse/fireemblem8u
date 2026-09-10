@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research advance: no-reverb candidate reduced to 50 bytes with no register differences (baseline `b11db938`); 14,640 memory cases and 140,864 shift/carry checks pass. Countdown flags and private fallthrough still prevent exact 46-byte integration.
+Updated: September 10, 2026. Latest integration: all 46 bytes of no-reverb clearing now come from C (baseline `f8051e82` plus this change). Full ROM matching, 14,640 complete-state block cases, 16,448 countdown checks, 140,864 shift/carry regressions and 3,528 complete audio calls pass.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -18,10 +18,11 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.55%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,674 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.56%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **2,628 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated no-reverb clearing | **46/46 bytes exact; 14,640 full-state cases pass, including zero-count flags and private fallthrough** |
 | ARM sample-mixing region | `████████████████████` **488/488 contiguous instruction bytes now belong to C-only objects; exact original ROM bytes preserved** |
 | Integrated resampling exit | `████████████████████` **All eight bytes exact; 201,216 ROM/copied-RAM cases pass, including source rewind, ordered register restores and frame advance** |
 | Integrated shared sample entry | `████████████████████` **All 32 bytes exact; 75,776 original/production ROM/copied-RAM cases pass, including every volume pair and frame/channel aliases** |
@@ -219,19 +220,19 @@ all registers, SP/LR and frame canaries. The early-exit compiler contract now
 accepts unsigned carry conditions; 4,672 checks cover both polarities and code
 placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
-Current source inventory: 490 C files, 32 assembly entry markers, two manual
+Current source inventory: 491 C files, 32 assembly entry markers, two manual
 assembly function declarations, and seven instruction-bearing inline templates.
-The no-reverb C candidate passes 14,640 memory-semantics cases across original/
-candidate ROM and copied RAM, covering 183 counts, five stereo-buffer offsets,
-all initial flags and 1,554,080 ordered writes per implementation. It preserves
-the original minimum four-pair loop even for counts below sixteen. The candidate now uses Thumb store writeback and combined shift/carry branches,
-with no register differences. Remaining measured gaps are carry flags in 1,280
-small-count cases, a return instead of private fallthrough, and 50 emitted bytes
-versus 46. The guarded shift/carry rule passes 140,864 executions across all 31
-supported shifts and both polarities; nine invalid forms reject. The opt-in Thumb
-writeback rule passes 147,456 executions and six rejection cases; the existing
-ARM rule passes 37,056 executions and nine rejections. Production ELF is unchanged.
-This remains research code and does not increase production coverage.
+The no-reverb clearing block is integrated as `src/m4a_no_reverb.c`, with all
+46 original bytes exact. Its 14,640 original/production/candidate ROM/copied-RAM
+cases cover 183 counts, five stereo-buffer offsets, every initial NZCV value and
+1,554,080 ordered writes per implementation. All registers, flags, frame canaries
+and the fallthrough agree, including the minimum four-pair loop below count 16.
+The bounded countdown/fallthrough compiler contract passes 16,448 boundary checks
+and rejects 12 unsafe configurations. The existing shift/carry suite still passes
+140,864 cases and nine rejections, with unannotated output unchanged. Full ROM
+matching, 3,528 complete audio calls and fresh runtime rebuilds of all four images
+pass. The next audio targets are the remaining Thumb channel setup/control and
+entry/frame code; the complete executable-coverage audit also remains unfinished.
 Both final ARM exit fragments are now integrated: source rewind/register
 restoration in `src/m4a_resample_finish.c` (eight bytes) and the terminal branch
 in `src/m4a_partial.c` (now 40 bytes). Their suites pass 201,216 and 61,440 cases
@@ -279,11 +280,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,674 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,628 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,704 C-owned, 33,870 in C objects containing assembly, 2,264 in assembly
+719,750 C-owned, 33,870 in C objects containing assembly, 2,218 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

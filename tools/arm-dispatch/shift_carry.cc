@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Retain an unsigned shifted value while branching on its discarded bit.
+#include <vector>
+#include <map>
 #include "gcc-plugin.h"
 #include "plugin-version.h"
 #include "context.h"
@@ -21,6 +23,7 @@
 #include "insn-attr.h"
 #include "hard-reg-set.h"
 #include "regs.h"
+#include "options.h"
 int plugin_is_GPL_compatible;
 namespace {
 tree validate(tree *node,tree,tree,int,bool *no_add) {
@@ -28,7 +31,8 @@ tree validate(tree *node,tree,tree,int,bool *no_add) {
     return NULL_TREE;
 }
 const attribute_spec contract={"matching_shift_carry",0,0,true,false,false,false,validate,nullptr};
-void attributes(void *,void *) { register_attribute(&contract); }
+const attribute_spec loop_contract={"matching_shift_loop_fallthrough",0,0,true,false,false,false,validate,nullptr};
+void attributes(void *,void *) { register_attribute(&contract); register_attribute(&loop_contract); }
 bool low(rtx x) { return REG_P(x)&&GET_MODE(x)==SImode&&REGNO(x)<8; }
 rtx_insn *next_operation(rtx_insn *i) {
     do { i=NEXT_INSN(i); } while(i&&(NOTE_P(i)||DEBUG_INSN_P(i)));
@@ -42,12 +46,90 @@ bool tie(rtx p,rtx reg) {
         &&ASM_OPERANDS_INPUT_LENGTH(a)==1&&ASM_OPERANDS_LABEL_LENGTH(a)==0
         &&rtx_equal_p(ASM_OPERANDS_INPUT(a,0),reg)&&!strcmp(ASM_OPERANDS_INPUT_CONSTRAINT(a,0),"0");
 }
+bool mentions(rtx x,unsigned reg) {
+    if (!x||LABEL_P(x)) return false;
+    if (REG_P(x)) return REGNO(x)==reg;
+    const char *format=GET_RTX_FORMAT(GET_CODE(x));
+    for (int n=0;n<GET_RTX_LENGTH(GET_CODE(x));n++) {
+        if (format[n]=='e'&&mentions(XEXP(x,n),reg)) return true;
+        if (format[n]=='E') for (int k=0;k<XVECLEN(x,n);k++) if (mentions(XVECEXP(x,n,k),reg)) return true;
+    }
+    return false;
+}
+void lower_loop(function *fn) {
+    if (!lookup_attribute("matching_shift_loop_fallthrough",DECL_ATTRIBUTES(fn->decl))) return;
+    if (frame_pointer_needed||!known_eq(get_frame_size(),0)||crtl->profile||flag_unwind_tables
+        ||flag_asynchronous_unwind_tables||flag_exceptions||debug_info_level!=DINFO_LEVEL_NONE
+        ||DECL_ARGUMENTS(fn->decl)||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
+        fatal_error(UNKNOWN_LOCATION,"shift loop requires zero-frame private void entry without debug/unwind");
+    std::vector<rtx_insn *> ops;std::map<rtx,unsigned> positions;unsigned position=0;
+    for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        positions[i]=position++;
+        if (NONDEBUG_INSN_P(i)) ops.push_back(i);
+    }
+    if (ops.size()<7) fatal_error(UNKNOWN_LOCATION,"shift loop missing complete leaf tail");
+    unsigned n=ops.size();rtx_insn *sub=ops[n-5],*branch=ops[n-4],*spuse=ops[n-3],*lruse=ops[n-2],*ret=ops[n-1];
+    rtx sp=PATTERN(spuse),lr=PATTERN(lruse),ep=PATTERN(ret),jump=PATTERN(branch),update=PATTERN(sub);
+    if (GET_CODE(sp)!=UNSPEC||XINT(sp,1)!=UNSPEC_REGISTER_USE||XVECLEN(sp,0)!=1
+        ||!REG_P(XVECEXP(sp,0,0))||REGNO(XVECEXP(sp,0,0))!=SP_REGNUM
+        ||GET_CODE(lr)!=USE||!REG_P(XEXP(lr,0))||REGNO(XEXP(lr,0))!=LR_REGNUM
+        ||!JUMP_P(ret)||GET_CODE(ep)!=UNSPEC_VOLATILE||XINT(ep,1)!=VUNSPEC_EPILOGUE
+        ||XVECLEN(ep,0)!=1||GET_CODE(XVECEXP(ep,0,0))!=RETURN)
+        fatal_error(UNKNOWN_LOCATION,"shift loop leaf epilogue changed");
+    if (!JUMP_P(branch)||GET_CODE(jump)!=SET||SET_DEST(jump)!=pc_rtx||GET_CODE(SET_SRC(jump))!=IF_THEN_ELSE)
+        fatal_error(UNKNOWN_LOCATION,"shift loop requires terminal signed-positive branch");
+    rtx choice=SET_SRC(jump),test=XEXP(choice,0);
+    if (GET_CODE(test)!=GT||!low(XEXP(test,0))||XEXP(test,1)!=const0_rtx
+        ||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx)
+        fatal_error(UNKNOWN_LOCATION,"shift loop requires low-register signed-positive test");
+    rtx counter=XEXP(test,0),label=XEXP(XEXP(choice,1),0);
+    if (!NONJUMP_INSN_P(sub)||GET_CODE(update)!=SET||!rtx_equal_p(SET_DEST(update),counter)
+        ||GET_CODE(SET_SRC(update))!=PLUS||!rtx_equal_p(XEXP(SET_SRC(update),0),counter)
+        ||!CONST_INT_P(XEXP(SET_SRC(update),1))||INTVAL(XEXP(SET_SRC(update),1))!=-1
+        ||!positions.count(label)||positions[label]>=positions[sub])
+        fatal_error(UNKNOWN_LOCATION,"shift loop requires backward decrement-by-one loop");
+    bool bounded=false,inside=false;unsigned span=0,shifts=0;
+    for (rtx_insn *i=get_insns();i&&i!=branch;i=NEXT_INSN(i)) {
+        if (i==label) { if (!bounded) fatal_error(UNKNOWN_LOCATION,"shift loop counter lacks unsigned-shift bound");inside=true; }
+        else if (inside&&LABEL_P(i)) fatal_error(UNKNOWN_LOCATION,"shift loop body must be one straight block");
+        if (!NONDEBUG_INSN_P(i)) continue;
+        rtx p=PATTERN(i);
+        if (CALL_P(i)||mentions(p,SP_REGNUM)||mentions(p,LR_REGNUM)) fatal_error(UNKNOWN_LOCATION,"shift loop body touches private frame or calls");
+        if (asm_noperands(p)>=0&&!(GET_CODE(p)==SET&&low(SET_DEST(p))&&tie(p,SET_DEST(p))))
+            fatal_error(UNKNOWN_LOCATION,"shift loop rejects executable or untied assembly");
+        if (i==sub) continue;
+        if (JUMP_P(i)) {
+            if (inside||recog_memoized(i)!=CODE_FOR_match_thumb_shift_carry)
+                fatal_error(UNKNOWN_LOCATION,"shift loop prefix allows only proven forward shift branches");
+            rtx set=XVECEXP(p,0,1),c=SET_SRC(XVECEXP(p,0,0));
+            rtx target=XEXP(XEXP(c,1),0);
+            if (!rtx_equal_p(SET_DEST(set),counter)||!positions.count(target)
+                ||positions[target]<=positions[i]||positions[target]>positions[label])
+                fatal_error(UNKNOWN_LOCATION,"shift loop shift branch bypasses initializer or loop");
+            // Every prefix branch writes a nonnegative counter before its edge.
+            bounded=true;shifts++;
+        } else if (reg_set_p(counter,i)) {
+            if (inside) fatal_error(UNKNOWN_LOCATION,"shift loop changes counter inside body");
+            bounded=false;
+        }
+        if (inside) { span+=get_attr_length(i);if (span>200) fatal_error(UNKNOWN_LOCATION,"shift loop backward branch too far"); }
+    }
+    if (!inside||!shifts) fatal_error(UNKNOWN_LOCATION,"shift loop missing bounded entry");
+    if (!validate_change(branch,&PATTERN(branch),gen_match_thumb_countdown(copy_rtx(counter),label),false))
+        fatal_error(UNKNOWN_LOCATION,"shift loop countdown rewrite rejected");
+    REG_NOTES(branch)=nullptr;
+    delete_insn(sub);delete_insn(spuse);delete_insn(lruse);delete_insn(ret);
+}
 const pass_data data={RTL_PASS,"shift_carry",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if (!lookup_attribute("matching_shift_carry",DECL_ATTRIBUTES(fn->decl))) return 0;
+        if (!lookup_attribute("matching_shift_carry",DECL_ATTRIBUTES(fn->decl))) {
+            if (lookup_attribute("matching_shift_loop_fallthrough",DECL_ATTRIBUTES(fn->decl)))
+                fatal_error(UNKNOWN_LOCATION,"shift loop requires the matching shift-carry contract");
+            return 0;
+        }
         if (!TARGET_THUMB1) fatal_error(UNKNOWN_LOCATION,"shift carry requires Thumb-1");
         unsigned folded=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -94,6 +176,7 @@ public:
             delete_insn(i);delete_insn(shift);delete_insn(barrier);folded++;i=branch;
         }
         if (!folded) fatal_error(UNKNOWN_LOCATION,"shift carry found no eligible sequence");
+        lower_loop(fn);
         return 0;
     }
 };

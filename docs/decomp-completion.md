@@ -14,12 +14,14 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the jump-table integration (baseline `51d4ccb4` plus this change),
-`make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 466 main
-C files, 34 assembly entry markers, one naked-function marker, seven
-instruction-bearing inline templates and zero direct baserom includes. The
-embedded payload still has 16 assembly function declarations. The latest
+After no-reverb clearing integration (baseline `f8051e82` plus this change),
+`make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
+The current source inventory has 491 main C files, 32 assembly entry markers,
+two manual assembly function declarations, one naked-function marker, seven
+instruction-bearing inline templates and zero direct baserom includes.
+Mapped main-ROM instruction bytes include 719,750 in C-only objects, 33,870 in
+mixed C/assembly objects, 2,218 in assembly sources and 21,792 in runtime archives.
+The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 
 This is not 100% C decompilation. Remaining work includes audio handlers and
@@ -5583,3 +5585,55 @@ no-reverb-shift-carry-check.log, no-reverb/report.json and
 shift-carry-production-build.log. Source inventory/remaining assembly figures
 are unchanged. Next work is the zero-inclusive Thumb countdown and private
 fallthrough contract.
+
+## No-reverb clearing integrated as exact Thumb C — September 10, 2026
+
+Baseline `f8051e82` plus this change replaces the 46-byte block at
+`0x080CF5AC..0x080CF5DA` with `src/m4a_no_reverb.c`. The earlier 50-byte
+candidate is now exact: the countdown uses the original SUBS/BGT flags and
+falls through to the neighboring Thumb channel setup. No instruction-bearing
+inline assembly was added; the new source has five register bindings and five
+empty constraint sites (724 inline sites total, 363 bindings and 353 empty ties).
+
+The opt-in `matching_shift_loop_fallthrough` compiler contract requires the
+existing shift/carry contract, a zero-frame private void entry, and no arguments,
+debug, exceptions or unwind instrumentation. It validates a terminal decrement
+by one and signed-positive loop, a straight loop body that cannot rewrite the
+counter, and only forward prefix branches that each assign the same counter an
+unsigned-right-shifted value. Thus the counter starts in 0..INT_MAX; subtraction
+never overflows, including zero becoming -1. It rejects private SP/LR accesses,
+calls, executable assembly, unbounded initialization and oversized loop bodies.
+Only the verified leaf return is removed. This is an explicit private fallthrough
+ABI, with entry, extent and adjacent destination enforced by the linker.
+
+Splitting the following Thumb section requires halfword alignment. Its retained
+PC-relative VCOUNT load and ARM-entry ADR account for the section's two-byte
+word offset; literal padding remains explicit, and objcopy lowers only this
+section's alignment to two. Linker checks enforce the section offset and aligned
+ARM destination. All bytes, including the neighboring code and padding, match
+the original ROM. This section remains assembly and is still counted as such.
+
+Validation:
+
+- `make compare -j8`: all 16 MiB match the supplied USA ROM.
+- `check_soundmain_no_reverb.py`: exact 46-byte object and production symbol;
+  14,640 cases in original/candidate ROM and copied RAM, with production ROM
+  equality also required. All registers, NZCV, SP/LR, frame, memory, ordered
+  writes and terminal fallthrough agree. Counts include 0..63, multiples of
+  four through 528, and 1023/1024; larger complete loops are not execution-tested.
+- `check_shift_loop.py`: 16,448 single-countdown boundary executions across
+  zero, positive values up to INT_MAX, all flags and ROM/RAM; 12 unsafe forms
+  reject. Testing the final iteration avoids impractically long INT_MAX loops.
+- `check_shift_carry.py`: 140,864 existing executions and nine rejection cases
+  still pass; unannotated object output is unchanged.
+- `check_soundmain_complete.py --production`: 3,528 complete calls pass, with
+  the existing semantic-composition/cycle-timing limitations unchanged.
+- Fresh pinned libc/libgcc rebuilds reproduce all four images and exported
+  symbol sets; runtime, inline and ownership evidence is refreshed.
+
+C-only main-ROM instruction ownership rises by 46 bytes to 719,750 of 777,630
+(92.56%, including inherited work). Reviewed non-library assembly falls to 2,628
+main-ROM bytes; the expanded-payload total remains 420. The contiguous 488-byte
+ARM region is unchanged and its evidence is tied to the new production ELF.
+Remaining Thumb channel/setup/control code and final executable classification
+remain in scope; this milestone does not establish overall completion.

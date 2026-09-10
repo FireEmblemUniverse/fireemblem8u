@@ -8,8 +8,8 @@ register u32 clearSamples asm("r8");
     *(volatile u32 *)clearRight = clearZero; clearRight += 4; asm("" : "+r"(clearRight)); \
     *(volatile u32 *)clearLeft = clearZero; clearLeft += 4; asm("" : "+r"(clearLeft)); \
 } while (0)
-__attribute__((matching_thumb_word_postincrement, matching_shift_carry))
-void SoundMainRAM_NoReverbCandidate(void)
+__attribute__((matching_thumb_word_postincrement, matching_shift_carry, matching_shift_loop_fallthrough))
+void SoundMainRAM_NoReverb(void)
 {
     u32 discarded;
     clearZero = 0;

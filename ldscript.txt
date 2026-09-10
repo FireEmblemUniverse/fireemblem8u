@@ -595,6 +595,19 @@ SECTIONS
         src/m4a_reverb.o(.text);
         __reverb_end = .;
         src/m4a_1.o(.text.after_reverb);
+        __no_reverb_start = .;
+        src/m4a_no_reverb.o(.text);
+        __no_reverb_end = .;
+        src/m4a_1.o(.text.after_no_reverb);
+        ASSERT((SoundMainRAM_NoReverb | 1) == (__no_reverb_start | 1) &&
+               __no_reverb_start == SoundMainRAM_NoReverbBoundary &&
+               __no_reverb_start == __reverb_end &&
+               __no_reverb_end - __no_reverb_start == 46,
+               "no-reverb Thumb entry or 46-byte extent changed");
+        ASSERT((SoundMainRAM_ChanSetup | 1) == (__no_reverb_end | 1),
+               "no-reverb must fall through to adjacent Thumb channel setup");
+        ASSERT((__no_reverb_end & 3) == 2 && (SoundMainRAM_SampleEntryBoundary & 3) == 0,
+               "channel setup ADR requires halfword section start and word target");
         __sample_entry_start = .;
         src/m4a_sample_entry.o(.text);
         __sample_entry_end = .;

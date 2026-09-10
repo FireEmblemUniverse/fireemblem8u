@@ -104,32 +104,11 @@ SoundMainRAM_ReverbBoundary:
 .Lreverb_boundary:
 	.section .text.after_reverb, "ax", %progbits
 	.thumb
-SoundMainRAM_NoReverb:
-	movs r0, 0
-	mov r1, r8
-	adds r6, r5
-	lsrs r1, 3
-	bcc SoundMainRAM_NoReverb_Ok
-	stm r5!, {r0}
-	stm r6!, {r0}
-SoundMainRAM_NoReverb_Ok:
-	lsrs r1, 1
-	bcc SoundMainRAM_NoReverb_Loop
-	stm r5!, {r0}
-	stm r6!, {r0}
-	stm r5!, {r0}
-	stm r6!, {r0}
-SoundMainRAM_NoReverb_Loop:
-	stm r5!, {r0}
-	stm r6!, {r0}
-	stm r5!, {r0}
-	stm r6!, {r0}
-	stm r5!, {r0}
-	stm r6!, {r0}
-	stm r5!, {r0}
-	stm r6!, {r0}
-	subs r1, 1
-	bgt SoundMainRAM_NoReverb_Loop
+	.global SoundMainRAM_NoReverbBoundary
+SoundMainRAM_NoReverbBoundary:
+@ The 46-byte Thumb clearing block is generated from m4a_no_reverb.c.
+	.section .text.after_no_reverb, "ax", %progbits
+	.thumb
 	.global SoundMainRAM_ChanSetup
 	.type SoundMainRAM_ChanSetup, %function
 	.thumb_func
@@ -147,7 +126,7 @@ SoundMainRAM_ChanLoop:
 	ldr r0, [sp, 0x14]
 	cmp r0, 0
 	beq _081DCF60
-	ldr r1, =REG_VCOUNT
+	ldr r1, .Lchannel_vcount + 2
 	ldrb r1, [r1]
 	cmp r1, VCOUNT_VBLANK
 	bhs _081DCF54
@@ -157,7 +136,9 @@ _081DCF54:
 	blo _081DCF60
 	b _081DD24A
 
-	.pool
+	.2byte 0
+.Lchannel_vcount:
+	.word REG_VCOUNT
 
 _081DCF60:
 	ldrb r6, [r4, o_SoundChannel_status]
@@ -279,9 +260,11 @@ _081DD03A:
 	ldr r5, [sp, 0x8]
 	ldr r2, [r4, o_SoundChannel_ct]
 	ldr r3, [r4, o_SoundChannel_cp]
-	adr r0, _081DD044
+@ This section starts two bytes into a word; ADR rounds the runtime PC down.
+@ The linker checks both section and target alignment for this adjustment.
+	adr r0, _081DD044 + 2
 	bx r0
-	.arm
+	.2byte 0
 _081DD044:
     .global SoundMainRAM_SampleEntryBoundary
 SoundMainRAM_SampleEntryBoundary:
