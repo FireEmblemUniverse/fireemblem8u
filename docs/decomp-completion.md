@@ -2326,3 +2326,26 @@ passes the complete ROM checksum. The linked audit assigns all 48 Thumb bytes
 to the C object with no orphan mappings. Main inventory is now 454 C files and
 53 assembly entry markers. All previously identified remaining scopes remain
 part of the full decompilation goal.
+
+
+### Audio VSync/DMA candidate — September 9, 2026
+
+`research/audio/sound_vsync.c` reconstructs `m4aSoundVSync`. It accepts the
+unlocked and active sound identifiers, decrements the byte counter with the
+original signed decision, and reloads it when the prior counter is zero or one.
+For each DMA channel whose repeat bit is set, it writes the original immediate
+restart control value, then disables and re-enables both channels in FIFO mode
+with the original halfword write order. Hardware accesses use volatile C fields.
+
+`check_sound_vsync.py` passes 2,304 original/C cases spanning six identifier
+values, six counters, four reload periods, four repeat-bit combinations and
+four incoming NZCV patterns. An independent model checks sound-state memory,
+MMIO memory, and ordered access addresses, widths and write values, including
+the counter decrement and reload before DMA accesses. Write traces mask values
+to their bus width. Preserved registers and stack agree, and no return-flag
+differences occur. This models CPU accesses, not DMA execution or timing.
+
+The candidate remains 92 bytes against the original 76-byte region at
+`0x080CFB1C..0x080CFB68`. Shared forward literal references, redundant compares,
+bit-test lowering and halfword-store narrowing still differ. It is not
+integrated; production remains at `70290e0c` with the full ROM matching.

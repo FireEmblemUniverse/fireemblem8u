@@ -32,7 +32,10 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover another remaining audio handler or executable routine.
+Next milestone: match and integrate the audio VSync/DMA handler.
+Its 92-byte C candidate passes 2,304 original/C cases checking the ordered
+counter and DMA accesses, memory and return flags. The original is 76 bytes;
+shared literals and instruction selection remain unfinished.
 
 The tied-note release handler is integrated: all 64 Thumb bytes match.
 Its 768 production-ROM execution cases verify all r0-r12 values, preserved
