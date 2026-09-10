@@ -3804,3 +3804,35 @@ original transfer remains necessary. No production code or C coverage changed.
 Evidence: `.deps/soundmain-reverb/private-report.json`, private.o/elf/bin and
 private-oracle.log. No compiler plugin or generated assembly substitution was
 introduced for this candidate.
+
+
+### September 10: original reverb post-index load generated from C
+
+The opt-in `matching_byte_postincrement` rule in
+`tools/arm-dispatch/byte_postincrement.cc` combines an adjacent signed/unsigned
+byte load and base-pointer increment into GCC's existing ARM post-index load
+pattern. It requires distinct general destination/base registers, a QI memory
+operand and an exact +1 update. It copies the memory attributes including
+volatility, adds the register-increment note, and never crosses another
+instruction, memory operation, label or transfer. It rejects non-ARM use and
+annotated functions without an eligible pair. Unannotated functions are untouched.
+The installer builds against the pinned installed GCC 16.2.0 plugin headers.
+
+`check_byte_postincrement.py` passes 8,192 executions spanning every signed
+and unsigned byte and all sixteen incoming NZCV combinations. It verifies the
+exact eight-byte fixture (post-index load plus BX LR), r0-r12, LR, flags, SP,
+return PC and unchanged memory. Seven unsupported cases reject: Thumb, word
+load, increment two, decrement, missing update, asm barrier and intervening
+volatile store. Unannotated object bytes match with and without the plugin.
+
+The private reverb candidate opts in only under `REVERB_POSTINCREMENT`;
+`check_soundmain_reverb.py --private --postincrement-plugin ...` passes all
+6,792 original comparisons with memory, access order, registers, flags and
+stack checks. Its first 68 bytes match the original calculation exactly.
+The candidate is now 84 bytes including placeholder BX LR. The original is
+76 calculation bytes plus an eight-byte ARM-to-Thumb transfer. SUB/CMP still
+needs to become the original SUBS, which also changes the backward branch
+encoding; the original Thumb transfer remains to be generated. Production is
+unchanged and this candidate receives no integrated coverage credit.
+Evidence: `.deps/soundmain-reverb/private-postincrement-report.json`, matching
+candidate ELF/binary, private-postincrement-oracle.log and postincrement-guards/.

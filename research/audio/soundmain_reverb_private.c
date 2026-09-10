@@ -13,6 +13,9 @@ register volatile u32 reverbWidth asm("r6");
 register u8 * volatile reverbSource asm("r7");
 register u32 reverbSamples asm("r8");
 
+#ifdef REVERB_POSTINCREMENT
+__attribute__((matching_byte_postincrement))
+#endif
 void SoundMainReverbPrivate(void)
 {
     if (reverbCount == 2)

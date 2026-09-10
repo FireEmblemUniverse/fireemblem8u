@@ -171,3 +171,15 @@ SUBS flags replace the redundant comparison. The Makefile combines this pass
 with private-return and symbolic shared-literal support for `m4a_jump_table.o`.
 The linker explicitly bounds its shared literal. `check_countdown.py` exercises
 boundary counts, rejected forms and unchanged unannotated code.
+
+
+`byte_postincrement.cc` provides the opt-in ARM-only
+`matching_byte_postincrement` attribute. It selects an existing post-index
+signed/unsigned byte-load pattern from an adjacent byte load and +1 pointer
+update, preserving memory attributes and rejecting annotated functions with no
+eligible pair. It does not cross instructions or labels and excludes special
+or overlapping base/destination registers. Build with
+`build_byte_postincrement.py`. The research reverb candidate enables this under
+`REVERB_POSTINCREMENT`; it is not yet part of the production build.
+`research/audio/check_byte_postincrement.py` checks instruction bytes, execution,
+rejection boundaries and unchanged unannotated output.

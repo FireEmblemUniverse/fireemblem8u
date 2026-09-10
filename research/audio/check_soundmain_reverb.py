@@ -19,13 +19,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
     parser.add_argument('--private', action='store_true', help='Check the private-register candidate before its ordinary return')
+    parser.add_argument('--postincrement-plugin', type=Path)
     args = parser.parse_args()
+    if args.postincrement_plugin and not args.private:
+        parser.error('--postincrement-plugin requires --private')
     OUT.mkdir(exist_ok=True)
-    stem = 'private' if args.private else 'candidate'
+    stem = 'private-postincrement' if args.postincrement_plugin else 'private' if args.private else 'candidate'
     source = 'soundmain_reverb_private.c' if args.private else 'soundmain_reverb.c'
     symbol = 'SoundMainReverbPrivate' if args.private else 'SoundMainReverbModel'
     subprocess.run([args.compiler, '-c', '-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi',
-                    '-mabi=apcs-gnu', '-ffreestanding', *([] if args.private else ['-Werror']),
+                    '-mabi=apcs-gnu', '-ffreestanding',
+                    *(['-DREVERB_POSTINCREMENT', '-fplugin=' + str(args.postincrement_plugin.resolve())] if args.postincrement_plugin else []), *([] if args.private else ['-Werror']),
                     '-I' + str(ROOT / 'tools/agbcc/include'), '-iquote', str(ROOT / 'include'),
                     str(ROOT / 'research/audio' / source), '-o', str(OUT / (stem + '.o'))], check=True)
     subprocess.run(['arm-none-eabi-ld', '-Ttext=' + hex(MODEL), '-e', symbol,
@@ -114,7 +118,7 @@ def main():
         report.update(private_registers_and_flags_match=True, candidate_bytes=len(candidate),
                       original_calculation_bytes=original_stop-ENTRY,
                       limitations='Positive sample counts only; stopped before original ARM-to-Thumb transfer and C BX LR; not byte matching or integrated.')
-    (OUT / ('private-report.json' if args.private else 'report.json')).write_text(json.dumps(report, indent=2) + '\n')
+    (OUT / (stem + '-report.json' if args.private else 'report.json')).write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 
 
