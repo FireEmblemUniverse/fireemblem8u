@@ -114,27 +114,15 @@ SoundMainRAM_ChanSetupBoundary:
 @ The ten-byte private Thumb setup comes from m4a_channel_setup.c.
 	.section .text.after_channel_setup, "ax", %progbits
 	.thumb
-	.global SoundMainRAM_ChanLoop
-SoundMainRAM_ChanLoop:
-	str r0, [sp, 0x4]
-	ldr r3, [r4, o_SoundChannel_wav]
-	ldr r0, [sp, 0x14]
-	cmp r0, 0
-	beq _081DCF60
-	ldr r1, .Lchannel_vcount
-	ldrb r1, [r1]
-	cmp r1, VCOUNT_VBLANK
-	bhs _081DCF54
-	adds r1, TOTAL_SCANLINES
-_081DCF54:
-	cmp r1, r0
-	blo _081DCF60
-	b _081DD24A
-
-	.2byte 0
-.Lchannel_vcount:
-	.word REG_VCOUNT
-
+	.global SoundMainRAM_ChanLoopBoundary
+SoundMainRAM_ChanLoopBoundary:
+@ Deadline control and its literal pool come from m4a_deadline.c.
+	.section .text.after_deadline, "ax", %progbits
+	.thumb
+	.global SoundMainRAM_DeadlineContinue
+	.type SoundMainRAM_DeadlineContinue, %function
+	.thumb_func
+SoundMainRAM_DeadlineContinue:
 _081DCF60:
 	ldrb r6, [r4, o_SoundChannel_status]
 	movs r0, 0xC7
@@ -370,6 +358,10 @@ SoundMainRAM_ChanAdvance:
 	ble _081DD24A
 	adds r4, SoundChannel_size
 	b SoundMainRAM_ChanLoop
+	.global SoundMainRAM_DeadlineExit
+	.type SoundMainRAM_DeadlineExit, %function
+	.thumb_func
+SoundMainRAM_DeadlineExit:
 _081DD24A:
 	ldr r0, [sp, 0x18]
 	ldr r3, =ID_NUMBER

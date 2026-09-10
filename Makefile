@@ -756,3 +756,7 @@ src/m4a_channel_setup.o: $(THUMB_FALLTHROUGH_PLUGIN)
 src/m4a_channel_setup.o: C_END_ALIGN := 1
 src/m4a_channel_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_channel_setup.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FALLTHROUGH_PLUGIN)
+
+src/m4a_deadline.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_deadline.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_deadline.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineContinue -fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-raise-unsigned-bound -fplugin-arg-tail_transfer-pool-adjacent-destination=SoundMainRAM_DeadlineContinue

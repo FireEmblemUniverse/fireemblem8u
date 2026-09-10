@@ -603,11 +603,24 @@ SECTIONS
         src/m4a_channel_setup.o(.text);
         __channel_setup_end = .;
         src/m4a_1.o(.text.after_channel_setup);
+        __deadline_start = .;
+        src/m4a_deadline.o(.text);
+        __deadline_end = .;
+        src/m4a_1.o(.text.after_deadline);
+        ASSERT((SoundMainRAM_ChanLoop | 1) == (__deadline_start | 1) &&
+               __deadline_start == SoundMainRAM_ChanLoopBoundary &&
+               (__deadline_start & 3) == 0 && __deadline_end - __deadline_start == 32,
+               "deadline Thumb entry or 32-byte pool section changed");
+        ASSERT((SoundMainRAM_DeadlineContinue | 1) == (__deadline_end | 1),
+               "deadline continuation must immediately follow its literal pool");
+        ASSERT((SoundMainRAM_DeadlineExit & ~1) >= __deadline_end &&
+               (SoundMainRAM_DeadlineExit & ~1) - (__deadline_start + 28) <= 2046,
+               "deadline Thumb exit must be forward and within short-branch range");
         ASSERT((SoundMainRAM_ChanSetup | 1) == (__channel_setup_start | 1) &&
                __channel_setup_start == SoundMainRAM_ChanSetupBoundary &&
                __channel_setup_end - __channel_setup_start == 10,
                "channel setup Thumb entry or ten-byte extent changed");
-        ASSERT(SoundMainRAM_ChanLoop == __channel_setup_end && (__channel_setup_end & 3) == 0,
+        ASSERT((SoundMainRAM_ChanLoop & ~1) == __channel_setup_end && (__channel_setup_end & 3) == 0,
                "channel setup must fall through to word-aligned Thumb channel loop");
         ASSERT((SoundMainRAM_NoReverb | 1) == (__no_reverb_start | 1) &&
                __no_reverb_start == SoundMainRAM_NoReverbBoundary &&

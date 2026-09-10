@@ -11,12 +11,26 @@ def subflags(a,b):
  result=(a-b)&0xffffffff
  return ((result>>31)<<3)|((result==0)<<2)|((a>=b)<<1)|(((a^b)&(a^result))>>31)
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--direct',action='store_true');a=p.parse_args()
  out=ROOT/'.deps/soundmain-packed/deadline';out.mkdir(exist_ok=True);obj=out/'candidate.o';binary=out/'candidate.bin'
- subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/soundmain_deadline.c'),'-o',str(obj)],check=True)
+ extra=[]
+ if a.direct:
+  extra=['-fno-reorder-blocks','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/tail_transfer.so'),'-fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineContinue','-fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-raise-unsigned-bound','-fplugin-arg-tail_transfer-pool-adjacent-destination=SoundMainRAM_DeadlineContinue']
+ source=ROOT/'src/m4a_deadline.c' if a.direct else ROOT/'research/audio/soundmain_deadline.c'
+ subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include')]+extra+[str(source),'-o',str(obj)],check=True)
+ if a.direct:
+  elf=out/'candidate.elf'
+  subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_ChanLoop','--defsym=SoundMainRAM_DeadlineContinue=0x08001020','--defsym=SoundMainRAM_DeadlineExit='+hex(0x08001000+EXIT-ENTRY),str(obj),'-o',str(elf)],check=True)
+  obj=elf
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(obj),str(binary)],check=True)
- code=binary.read_bytes();returns=[i for i in range(0,len(code),2) if code[i:i+2]==bytes.fromhex('7047')];assert len(returns)==1
+ code=binary.read_bytes();returns=[i for i in range(0,len(code),2) if code[i:i+2]==bytes.fromhex('7047')]
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+ if a.direct:
+  assert code==rom[ENTRY-0x08000000:CONTINUE-0x08000000],code.hex()
+  assert (ROOT/'fireemblem8.gba').read_bytes()==rom
+  symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+  assert any(line.split()==['080cf5e4','00000020','T','SoundMainRAM_ChanLoop'] for line in symbols.splitlines())
+ else:assert len(returns)==1
  machines=[]
  for copied in (False,True):
   for candidate in (False,True):
@@ -49,12 +63,12 @@ def main():
       uc.mem_write(DATA,initial);uc.mem_write(0x04000006,bytes([scan]));trace.clear()
       for i,v in enumerate(regs):uc.reg_write(getattr(r,'UC_ARM_REG_R'+str(i)),v)
       uc.reg_write(r.UC_ARM_REG_SP,SP);uc.reg_write(r.UC_ARM_REG_LR,0xdeadbeef);uc.reg_write(r.UC_ARM_REG_CPSR,0x33|flags<<28)
-      end=start+returns[0] if candidate else (EXIT if exiting else CONTINUE)+delta
+      end=(start+(EXIT if exiting else CONTINUE)-ENTRY if a.direct else start+returns[0]) if candidate else (EXIT if exiting else CONTINUE)+delta
       uc.emu_start(start|1,end,count=30)
       actual=[uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(i))) for i in range(13)];actualflags=uc.reg_read(r.UC_ARM_REG_CPSR)>>28
       assert uc.reg_read(r.UC_ARM_REG_PC)==end and uc.reg_read(r.UC_ARM_REG_SP)==SP and uc.reg_read(r.UC_ARM_REG_LR)==0xdeadbeef,(scan,deadline,candidate,'control')
       assert bytes(uc.mem_read(DATA,0x4000))==memory and trace==expected,(scan,deadline,candidate,trace,expected)
-      if not candidate:assert actual==wanted and actualflags==wantedflags,(scan,deadline,actualflags,wantedflags)
+      if not candidate or a.direct:assert actual==wanted and actualflags==wantedflags,(scan,deadline,actualflags,wantedflags)
       else:
        assert actual[2]==int(exiting)
        assert all(actual[i]==wanted[i] for i in range(13) if i!=2)
@@ -63,6 +77,7 @@ def main():
         for i,(x,y) in enumerate(zip(actual,wanted)):
          if x!=y:regdiff[str(i)]=regdiff.get(str(i),0)+1
      cases+=1
- report=dict(cases=cases,machines_per_case=4,paths=paths,original_section_bytes=32,candidate_section_bytes=len(code),register_mismatch_cases=regdiff,flag_mismatch_cases=flagdiff,production_integrated=False,scope='Every VCOUNT byte, unsigned deadline boundaries including high-bit values, all initial flags, frame/channel aliases, ordered data/MMIO accesses and complete tested memory.',limitations=['Candidate decision is in r2; production branches directly. Candidate BX LR is intercepted.','Scratch-register and flag differences are measured, not accepted as matching.','PC-relative literal reads are excluded from access traces. Cycle timing is not modeled.'])
- (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+ report=dict(cases=cases,machines_per_case=4,paths=paths,original_section_bytes=32,candidate_section_bytes=len(code),register_mismatch_cases=regdiff,flag_mismatch_cases=flagdiff,production_integrated=a.direct,direct_transfers=a.direct,scope='Every VCOUNT byte, unsigned deadline boundaries including high-bit values, all initial flags, frame/channel aliases, ordered data/MMIO accesses and complete tested memory.',limitations=['Candidate decision is in r2; production branches directly. Candidate BX LR is intercepted.','Scratch-register and flag differences are measured, not accepted as matching.','PC-relative literal reads are excluded from access traces. Cycle timing is not modeled.'])
+ if a.direct:report['limitations']=['PC-relative literal reads are excluded from access traces. Cycle timing is not modeled.']
+ (out/('direct-report.json' if a.direct else 'report.json')).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

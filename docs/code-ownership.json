@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "6c5c3b53fc1dd5f0318eb574155b42a6e6861502",
+  "baseline_commit": "5aae98aa06c065da03ded36430c7d11187ed1773",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2208,
-        "c_owned": 719760,
+        "assembly_source": 2182,
+        "c_owned": 719786,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -829,7 +829,7 @@
         {
           "object": "src/m4a_1.o",
           "category": "assembly_source",
-          "instruction_bytes": 1504
+          "instruction_bytes": 1478
         },
         {
           "object": "src/opanim-healthsafetyscreen.o",
@@ -2012,6 +2012,11 @@
           "instruction_bytes": 26
         },
         {
+          "object": "src/m4a_deadline.o",
+          "category": "c_owned",
+          "instruction_bytes": 26
+        },
+        {
           "object": "src/m4a_pattern.o",
           "category": "c_owned",
           "instruction_bytes": 26
@@ -2172,13 +2177,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "b92af6723d520606d557e3c0f3164378d8eec93485c27573faed2b59b5c57e90",
-      "map_sha256": "add8e61a73a166251828ba6826068746c5bc1521a987871c8f85a591a13fbc46",
+      "elf_sha256": "27c90651738d06fc6c7e7ee04fbc623c1cbd3288df640e1d7cbe28acfed47752",
+      "map_sha256": "b24777f321e9bddcac3091b0c5ef19af269c7ad68ebab612639ddb62084beab8",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2618
+      "known_nonarchive_assembly_bytes": 2592
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

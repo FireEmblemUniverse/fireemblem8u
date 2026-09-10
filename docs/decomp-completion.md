@@ -14,13 +14,13 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After channel-setup integration (baseline `6c5c3b53` plus this change),
+After channel-deadline integration (baseline `5aae98aa` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 492 main C files, 32 assembly entry markers,
-one manual assembly function declaration, one naked-function marker, seven
+The current source inventory has 493 main C files, 32 assembly entry markers,
+three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 719,760 in C-only objects, 33,870 in
-mixed C/assembly objects, 2,208 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 719,786 in C-only objects, 33,870 in
+mixed C/assembly objects, 2,182 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 
@@ -5716,3 +5716,62 @@ The production ELF hash still equals the current ownership receipt; no productio
 C, linker or compiler changes were made. The next step is matching the two Thumb
 control destinations while preserving final compare flags and the original
 section layout. Overall decompilation remains incomplete.
+
+## Channel-deadline control integrated as exact C — September 10, 2026
+
+Baseline `5aae98aa` plus this change integrates `src/m4a_deadline.c` at
+`0x080CF5E4..0x080CF604`, including the original 26 instruction bytes, two zero
+padding bytes and four-byte VCOUNT pointer. The C source uses direct terminal
+calls to the channel continuation and mixer exit; the opt-in compiler turns
+these into the original control transfers. The earlier research decision
+register and return have been eliminated, with all scratch registers and flags
+now matching. The original decision-register model remains available separately.
+
+The existing tail-transfer pass gains two explicit options. `private-frame64`
+permits only aligned SI word loads/stores between SP offsets 0..60 and general
+registers, plus exact empty low-register ties. Taking the frame address, changing
+SP/LR, local frames, arguments and executable assembly remain rejected. The
+existing validated LR-only compiler frame is removed so the C source accesses
+the mixer's incoming frame. `pool-adjacent-destination` requires exactly two
+terminal calls, the declared continuation last, its leading label preceded by
+the other terminal path, and precisely one aligned four-byte trailing pool.
+Every original path must reach a terminal call. The continuation call is removed,
+its label moves past the non-executable pool, and only the validated pool
+alignment changes to zero padding. The other call becomes a direct Thumb branch.
+Existing unsigned-bound normalization gives CMP 160/BCS instead of CMP 159/BHI;
+all outgoing flags are independently checked for this block.
+
+The linker verifies the original entry, word alignment, 32-byte section extent,
+immediately adjacent continuation after the pool, and the forward Thumb exit's
+short-branch range. The two exported continuation/exit labels remain assembly,
+which accounts for the rise from one to three manual assembly declarations.
+This is additional symbol visibility, not additional recovered code.
+
+Validation:
+
+- `make compare -j8`: all 16 MiB match, including all existing users of the
+  rebuilt tail-transfer plugin.
+- `check_soundmain_deadline.py --direct`: the entire candidate section matches
+  the original bytes, the complete production ROM matches, and the production
+  function address/size are exact. All 98,304 cases pass on four machines with
+  original/candidate code in ROM and copied RAM. Both outgoing destinations,
+  all registers, NZCV, SP/LR, mapped data and ordered frame/channel/MMIO accesses
+  agree. No decision-register or flag differences remain. PC-relative literal
+  access traces and cycle timing remain outside the oracle's scope.
+- `check_tail_private_frame.py`: 17 unsupported configurations reject, including
+  missing/wrong contracts, out-of-frame reads/writes, byte reads, frame-address
+  escape, SP writes, executable/untied assembly, post-call work, absent pool,
+  arguments, local frames, unsupported block order, ARM, debug and unwind.
+- `check_tail_contracts.py`: 14 existing rejection cases still pass, direct
+  transfer is accepted, and unannotated assembly remains unchanged.
+- The complete production audio regression passes 3,528 calls; fresh pinned
+  runtime libraries reproduce all four images and exported symbol sets.
+
+Ownership, inline and runtime reports are refreshed, as is the ELF fingerprint
+for the unchanged contiguous 488-byte C-only ARM mixer region. C-only mapped main
+instruction ownership increases by 26 to 719,786 of 777,630 bytes (92.56%, including
+inherited work). Reviewed non-library assembly falls to 2,592 main-ROM bytes;
+the expanded payload remains 420 bytes. There are 735 inline sites: 372 register
+bindings, 355 empty constraints, one directive and seven instruction templates.
+Channel status/envelope code, entry/frame handling, playback routines and full
+executable coverage accounting remain in scope.

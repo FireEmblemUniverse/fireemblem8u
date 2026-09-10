@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research advance: the channel-deadline C candidate passes 98,304 ordered-access/control cases in original/candidate ROM and copied RAM (baseline `89342d36`). It emits 36 bytes versus the original 32-byte section; decision-register, flag and direct-transfer differences remain. Production ELF and coverage are unchanged.
+Updated: September 10, 2026. Latest integration: channel-deadline control and its complete 32-byte pool section now come from C (baseline `5aae98aa` plus this change). Full ROM matching, 98,304 complete-state cases, 17 new compiler rejection cases, 14 existing contract regressions, 3,528 complete audio calls and fresh runtime rebuilds pass.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,9 +19,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.56%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,618 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,592 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated channel deadline | **32/32 section bytes exact; 98,304 cases pass with original registers, flags, direct exits and ordered data/MMIO accesses** |
 | Integrated channel setup | **10/10 bytes exact; 12,288 cases pass with ordered frame/info reads, all registers and flags** |
 | Integrated no-reverb clearing | **46/46 bytes exact; 14,640 full-state cases pass, including zero-count flags and private fallthrough** |
 | ARM sample-mixing region | `████████████████████` **488/488 contiguous instruction bytes now belong to C-only objects; exact original ROM bytes preserved** |
@@ -221,15 +222,16 @@ all registers, SP/LR and frame canaries. The early-exit compiler contract now
 accepts unsigned carry conditions; 4,672 checks cover both polarities and code
 placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
-The channel-deadline candidate passes 98,304 cases in four code placements:
-all VCOUNT bytes, deadline boundaries including high-bit unsigned values, every
-initial NZCV value and three frame/channel alias arrangements. Decisions, ordered
-frame/channel/MMIO accesses and all tested data memory agree. No deadline means
-no VCOUNT read. The remaining measured differences are r2 in all cases, NZCV in
-49,152 continue cases, an intercepted return instead of direct continuation/exit,
-and a 36-byte section versus 32 original bytes. This remains research code and
-adds no production coverage. The next matching work is the direct Thumb control
-transfer and preserving compare flags through both exits.
+Channel-deadline control is integrated as `src/m4a_deadline.c`: all 26 instruction
+bytes, two padding bytes and the four-byte VCOUNT pointer match. All 98,304 cases
+pass with exact destinations, registers, NZCV, private frame and ordered data/MMIO
+accesses in original/candidate ROM and copied RAM. Production ROM equality and
+entry size/address are required by the checker. The earlier r2 decision and flag
+differences are eliminated. The compiler validates private frame accesses and a
+terminal continuation after one literal pool; 17 unsafe forms reject, 14 existing
+contracts still reject, and unannotated assembly is unchanged. Full ROM matching,
+3,528 complete audio calls and fresh runtime rebuilds pass. The next audio work
+is channel status/envelope control and the remaining entry/frame handling.
 Channel setup is integrated as `src/m4a_channel_setup.c` (ten bytes). All 12,288
 cases pass across ROM/copied RAM, all channel-count bytes, all initial flags,
 random frequency/register values and three frame/info alias placements. The
@@ -238,7 +240,7 @@ the 64-byte frame and removes the verified leaf return; 12 unsafe forms reject,
 and unannotated objects are unchanged. Full ROM matching, 3,528 complete audio
 calls and fresh runtime builds pass. The following assembly section now starts
 at a word boundary, so its temporary halfword alignment adjustment is removed.
-Current source inventory: 492 C files, 32 assembly entry markers, one manual
+Current source inventory: 493 C files, 32 assembly entry markers, three manual
 assembly function declarations, and seven instruction-bearing inline templates.
 The no-reverb clearing block is integrated as `src/m4a_no_reverb.c`, with all
 46 original bytes exact. Its 14,640 original/production/candidate ROM/copied-RAM
@@ -298,11 +300,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,618 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,592 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,760 C-owned, 33,870 in C objects containing assembly, 2,208 in assembly
+719,786 C-owned, 33,870 in C objects containing assembly, 2,182 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer
