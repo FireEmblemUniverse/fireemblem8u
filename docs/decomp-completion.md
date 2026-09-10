@@ -3776,3 +3776,31 @@ The next work is matching code generation and integration, not additional C
 coverage credit for this semantic model. Production remains unchanged.
 Evidence: `.deps/soundmain-reverb/report.json`, candidate ELF/binary and
 `.deps/soundmain-reverb-run.log`.
+
+
+### September 10: reverb private register state reproduced by C
+
+`research/audio/soundmain_reverb_private.c` expresses the calculation using
+its original r0/r1 scratch values, strength r3, count r4, output r5, width r6,
+source r7 and sample count r8. Empty register constraints prevent invariant
+copies into otherwise preserved registers; they emit no instructions. Reversing
+the commutative C multiply operands produces the original MUL operand encoding.
+The compiler emits no stack frame for this candidate.
+
+The reverb oracle's `--private` mode passes 6,792 cases comparing both versions
+before their terminal transfers: original 080CF5A4 and candidate's terminal
+BX LR. In addition to full buffer memory and all ordered accesses, it compares
+r0-r12, LR, NZCV, processor mode and SP, and checks 256 stack bytes below SP plus
+a sixteen-byte upper canary remain untouched. Positive sample counts are the
+supported domain; the unsigned C decrement followed by signed comparison is
+not asserted equivalent to the original SUBS/BGT for arbitrary signed-overflow
+inputs. The ordinary semantic-model mode still passes its 6,792 cases.
+
+The candidate occupies 88 bytes including BX LR, versus the original 76-byte
+calculation plus eight-byte ARM-to-Thumb transfer. The remaining calculation
+differences are separate LDRSB/ADD instead of post-index LDRSB, separate SUB/CMP
+instead of SUBS, and the resulting backward-branch displacement. Matching the
+original transfer remains necessary. No production code or C coverage changed.
+Evidence: `.deps/soundmain-reverb/private-report.json`, private.o/elf/bin and
+private-oracle.log. No compiler plugin or generated assembly substitution was
+introduced for this candidate.

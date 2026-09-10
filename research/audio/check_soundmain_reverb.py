@@ -18,18 +18,27 @@ ENTRY, STOP = 0x080cf558, 0x080cf5da
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
+    parser.add_argument('--private', action='store_true', help='Check the private-register candidate before its ordinary return')
     args = parser.parse_args()
     OUT.mkdir(exist_ok=True)
+    stem = 'private' if args.private else 'candidate'
+    source = 'soundmain_reverb_private.c' if args.private else 'soundmain_reverb.c'
+    symbol = 'SoundMainReverbPrivate' if args.private else 'SoundMainReverbModel'
     subprocess.run([args.compiler, '-c', '-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi',
-                    '-mabi=apcs-gnu', '-ffreestanding', '-Werror',
+                    '-mabi=apcs-gnu', '-ffreestanding', *([] if args.private else ['-Werror']),
                     '-I' + str(ROOT / 'tools/agbcc/include'), '-iquote', str(ROOT / 'include'),
-                    str(ROOT / 'research/audio/soundmain_reverb.c'), '-o', str(OUT / 'candidate.o')], check=True)
-    subprocess.run(['arm-none-eabi-ld', '-Ttext=' + hex(MODEL), '-e', 'SoundMainReverbModel',
-                    str(OUT / 'candidate.o'), '-o', str(OUT / 'candidate.elf')], check=True)
+                    str(ROOT / 'research/audio' / source), '-o', str(OUT / (stem + '.o'))], check=True)
+    subprocess.run(['arm-none-eabi-ld', '-Ttext=' + hex(MODEL), '-e', symbol,
+                    str(OUT / (stem + '.o')), '-o', str(OUT / (stem + '.elf'))], check=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text',
-                    str(OUT / 'candidate.elf'), str(OUT / 'candidate.bin')], check=True)
+                    str(OUT / (stem + '.elf')), str(OUT / (stem + '.bin'))], check=True)
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
+    candidate = (OUT / (stem + '.bin')).read_bytes()
+    original_stop = 0x080cf5a4 if args.private else STOP
+    model_stop = MODEL + len(candidate) - 4 if args.private else RETURN
+    if args.private:
+        assert candidate[-4:] == bytes.fromhex('1eff2fe1'), 'expected terminal BX LR'
     machines, traces = [], [[], []]
     def access(uc, kind, address, size, value, trace):
         if kind == UC_MEM_READ:  # Capture actual byte value before access.
@@ -43,7 +52,7 @@ def main():
             uc.mem_map(base, size)
         uc.mem_write(0x08000000, rom)
         if model:
-            uc.mem_write(MODEL, (OUT / 'candidate.bin').read_bytes())
+            uc.mem_write(MODEL, (OUT / (stem + '.bin')).read_bytes())
         uc.hook_add(UC_HOOK_MEM_READ | UC_HOOK_MEM_WRITE, access, traces[int(model)],
                     begin=SOUND + 0x350, end=SOUND + 0x3fff)
         machines.append(uc)
@@ -65,6 +74,7 @@ def main():
                 raw[5] = strength
                 output = SOUND + 0x350 + offset
                 results = []
+                registers = []
                 for model, uc in enumerate(machines):
                     traces[model].clear()
                     uc.mem_write(SOUND, bytes(raw))
@@ -74,26 +84,37 @@ def main():
                         uc.reg_write(getattr(r, 'UC_ARM_REG_R' + str(n)), 0x12340000 + n)
                     uc.reg_write(r.UC_ARM_REG_SP, SP)
                     uc.reg_write(r.UC_ARM_REG_LR, RETURN)
-                    inputs = {0: SOUND, 1: output, 2: samples, 3: counter} if model else {
+                    inputs = {0: SOUND, 1: output, 2: samples, 3: counter} if model and not args.private else {
                         0: SOUND, 3: strength, 4: counter, 5: output, 6: 1584, 8: samples}
                     for n, value in inputs.items():
                         uc.reg_write(getattr(r, 'UC_ARM_REG_R' + str(n)), value)
-                    uc.emu_start(MODEL if model else ENTRY, RETURN if model else STOP, count=50000)
-                    assert uc.reg_read(r.UC_ARM_REG_PC) == (RETURN if model else STOP)
+                    uc.emu_start(MODEL if model else ENTRY, model_stop if model else original_stop, count=50000)
+                    assert uc.reg_read(r.UC_ARM_REG_PC) == (model_stop if model else original_stop)
                     assert uc.reg_read(r.UC_ARM_REG_SP) == SP
+                    assert bytes(uc.mem_read(SP, 16)) == bytes([0xa5]) * 16
+                    if args.private:
+                        assert bytes(uc.mem_read(SP - 256, 256)) == bytes([0xa5]) * 256
                     results.append(bytes(uc.mem_read(SOUND, 0x4000)))
-                    if model:
+                    registers.append(tuple(uc.reg_read(getattr(r, 'UC_ARM_REG_R' + str(n))) for n in range(13)) +
+                                     (uc.reg_read(r.UC_ARM_REG_LR), uc.reg_read(r.UC_ARM_REG_CPSR) & 0xf000003f))
+                    if model and not args.private:
                         for n in range(4, 12):
                             assert uc.reg_read(getattr(r, 'UC_ARM_REG_R' + str(n))) == 0x12340000 + n
                 case = (strength, pattern_index, counter, offset, samples)
                 assert results[0] == results[1], case
                 assert traces[0] == traces[1], (case, traces[0][:12], traces[1][:12])
+                if args.private:
+                    assert registers[0] == registers[1], (case, registers)
                 assert len(traces[0]) == samples * 6
                 cases += 1
     report = dict(cases=cases, scope='positive sample counts; all 256 strengths; signed byte boundaries, seeded data, source/output overlap; exact buffer memory and ordered reads/writes',
-                  original_sha1=hashlib.sha1(rom).hexdigest(), candidate_sha256=hashlib.sha256((OUT / 'candidate.bin').read_bytes()).hexdigest(),
+                  original_sha1=hashlib.sha1(rom).hexdigest(), candidate_sha256=hashlib.sha256((OUT / (stem + '.bin')).read_bytes()).hexdigest(),
                   matching_C_integration=False, limitations='No full mixer, private register/frame ABI, final flags, or zero/negative sample count equivalence claimed.')
-    (OUT / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+    if args.private:
+        report.update(private_registers_and_flags_match=True, candidate_bytes=len(candidate),
+                      original_calculation_bytes=original_stop-ENTRY,
+                      limitations='Positive sample counts only; stopped before original ARM-to-Thumb transfer and C BX LR; not byte matching or integrated.')
+    (OUT / ('private-report.json' if args.private else 'report.json')).write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 
 

@@ -74,8 +74,10 @@ return modes. The typed 64-byte frame layout compiles with offset/size checks.
 The reverb C model passes 6,792 original ARM/C comparisons covering all 256
 strengths, signed-byte boundaries and overlapping source/output buffers, with
 identical ordered byte reads/writes and final buffer memory. Its 112-byte ARM
-function still differs from the original private block in registers, frame and
-loop instructions. This is research-only and does not replace the mixer or the
+function remains a semantic reference. A separate 88-byte private-register C
+candidate now passes another 6,792 comparisons with exact r0-r12, LR, NZCV,
+buffer accesses and untouched stack at the calculation boundary. It still needs
+the original combined load/increment, counter update and Thumb transfer. This is research-only and does not replace the mixer or the
 full SoundMain entry.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
