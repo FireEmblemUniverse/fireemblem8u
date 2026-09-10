@@ -93,33 +93,16 @@ lt_PCM_DMA_BUF_SIZE:      .word PCM_DMA_BUF_SIZE
 SoundMainRAM:
 	ldrb r3, [r0, o_SoundInfo_reverb]
 	cmp r3, 0
-	beq SoundMainRAM_NoReverb
-	adr r1, SoundMainRAM_Reverb
+	beq .Lreverb_boundary + 84 @ linker checks the inserted C block size
+	adr r1, .Lreverb_boundary
 	bx r1
-	.arm
-SoundMainRAM_Reverb:
-	cmp r4, 0x2
-	addeq r7, r0, o_SoundInfo_pcmBuffer
-	addne r7, r5, r8
-	mov r4, r8
-_081DCEC4:
-	ldrsb r0, [r5, r6]
-	ldrsb r1, [r5]
-	add r0, r0, r1
-	ldrsb r1, [r7, r6]
-	add r0, r0, r1
-	ldrsb r1, [r7], 0x1
-	add r0, r0, r1
-	mul r1, r0, r3
-	mov r0, r1, asr 9
-	tst r0, 0x80
-	addne r0, r0, 0x1
-	strb r0, [r5, r6]
-	strb r0, [r5], 0x1
-	subs r4, r4, 0x1
-	bgt _081DCEC4
-	adr r0, _081DCF36 + 1 @ plus 1 because THUMB
-	bx r0
+	.align 2, 0
+	thumb_func_end SoundMainRAM
+@ The 84-byte ARM reverb block is generated from m4a_reverb.c.
+	.global SoundMainRAM_ReverbBoundary
+SoundMainRAM_ReverbBoundary:
+.Lreverb_boundary:
+	.section .text.after_reverb, "ax", %progbits
 	.thumb
 SoundMainRAM_NoReverb:
 	movs r0, 0
@@ -147,6 +130,10 @@ SoundMainRAM_NoReverb_Loop:
 	stm r6!, {r0}
 	subs r1, 1
 	bgt SoundMainRAM_NoReverb_Loop
+	.global SoundMainRAM_ChanSetup
+	.type SoundMainRAM_ChanSetup, %function
+	.thumb_func
+SoundMainRAM_ChanSetup:
 _081DCF36:
 	ldr r4, [sp, 0x18]
 	ldr r0, [r4, o_SoundInfo_divFreq]
@@ -458,7 +445,8 @@ _081DD24A:
 _081DD25E:
 	bx r3
 	.pool
-	thumb_func_end SoundMainRAM
+	.global SoundMainRAM_End
+SoundMainRAM_End:
 
 @ SoundMainBTM is generated from m4a_clear_block.c.
 	.align 2, 0

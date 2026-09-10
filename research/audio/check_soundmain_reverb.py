@@ -21,31 +21,49 @@ def main():
     parser.add_argument('--private', action='store_true', help='Check the private-register candidate before its ordinary return')
     parser.add_argument('--postincrement-plugin', type=Path)
     parser.add_argument('--subtract-plugin', type=Path)
+    parser.add_argument('--production', action='store_true')
+    parser.add_argument('--copied-ram', action='store_true')
     args = parser.parse_args()
+    if args.copied_ram and not args.production:
+        parser.error('--copied-ram requires --production')
+    if args.production:
+        args.private = True
     if args.subtract_plugin and not args.postincrement_plugin:
         parser.error('--subtract-plugin requires --postincrement-plugin')
     if args.postincrement_plugin and not args.private:
         parser.error('--postincrement-plugin requires --private')
     OUT.mkdir(exist_ok=True)
     stem = 'private-subtract' if args.subtract_plugin else 'private-postincrement' if args.postincrement_plugin else 'private' if args.private else 'candidate'
+    if args.production:
+        stem = 'production-ram' if args.copied_ram else 'production'
     source = 'soundmain_reverb_private.c' if args.private else 'soundmain_reverb.c'
     symbol = 'SoundMainReverbPrivate' if args.private else 'SoundMainReverbModel'
-    subprocess.run([args.compiler, '-c', '-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi',
-                    '-mabi=apcs-gnu', '-ffreestanding',
-                    *(['-DREVERB_SUBTRACT_COMPARE', '-fplugin=' + str(args.subtract_plugin.resolve())] if args.subtract_plugin else []),
-                    *(['-DREVERB_POSTINCREMENT', '-fplugin=' + str(args.postincrement_plugin.resolve())] if args.postincrement_plugin else []), *([] if args.private else ['-Werror']),
-                    '-I' + str(ROOT / 'tools/agbcc/include'), '-iquote', str(ROOT / 'include'),
-                    str(ROOT / 'research/audio' / source), '-o', str(OUT / (stem + '.o'))], check=True)
-    subprocess.run(['arm-none-eabi-ld', '-Ttext=' + hex(MODEL), '-e', symbol,
-                    str(OUT / (stem + '.o')), '-o', str(OUT / (stem + '.elf'))], check=True)
-    subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text',
-                    str(OUT / (stem + '.elf')), str(OUT / (stem + '.bin'))], check=True)
+    if not args.production:
+        subprocess.run([args.compiler, '-c', '-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi',
+                        '-mabi=apcs-gnu', '-ffreestanding',
+                        *(['-DREVERB_SUBTRACT_COMPARE', '-fplugin=' + str(args.subtract_plugin.resolve())] if args.subtract_plugin else []),
+                        *(['-DREVERB_POSTINCREMENT', '-fplugin=' + str(args.postincrement_plugin.resolve())] if args.postincrement_plugin else []), *([] if args.private else ['-Werror']),
+                        '-I' + str(ROOT / 'tools/agbcc/include'), '-iquote', str(ROOT / 'include'),
+                        str(ROOT / 'research/audio' / source), '-o', str(OUT / (stem + '.o'))], check=True)
+        subprocess.run(['arm-none-eabi-ld', '-Ttext=' + hex(MODEL), '-e', symbol,
+                        str(OUT / (stem + '.o')), '-o', str(OUT / (stem + '.elf'))], check=True)
+        subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text',
+                        str(OUT / (stem + '.elf')), str(OUT / (stem + '.bin'))], check=True)
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
-    candidate = (OUT / (stem + '.bin')).read_bytes()
+    production = (ROOT / 'fireemblem8.gba').read_bytes() if args.production else None
+    candidate = production[ENTRY - 0x08000000:ENTRY - 0x08000000 + 84] if args.production else (OUT / (stem + '.bin')).read_bytes()
+    entry = ENTRY
+    model_entry = MODEL
+    if args.production:
+        assert candidate == rom[ENTRY - 0x08000000:ENTRY - 0x08000000 + 84], 'production reverb mismatch'
     original_stop = 0x080cf5a4 if args.private else STOP
     model_stop = MODEL + len(candidate) - 4 if args.private else RETURN
-    if args.private:
+    if args.production:
+        delta = 0x03002c60 - 0x080cf54c if args.copied_ram else 0
+        entry = model_entry = ENTRY + delta
+        original_stop = model_stop = STOP + delta
+    if args.private and not args.production:
         assert candidate[-4:] == bytes.fromhex('1eff2fe1'), 'expected terminal BX LR'
     if args.subtract_plugin:
         assert candidate[:76] == rom[ENTRY - 0x08000000:ENTRY - 0x08000000 + 76], 'calculation byte mismatch'
@@ -60,9 +78,12 @@ def main():
         uc = Uc(UC_ARCH_ARM, UC_MODE_ARM)
         for base, size in ((SOUND, 0x4000), (0x03000000, 0x8000), (0x08000000, 0x1000000)):
             uc.mem_map(base, size)
-        uc.mem_write(0x08000000, rom)
-        if model:
-            uc.mem_write(MODEL, (OUT / (stem + '.bin')).read_bytes())
+        image = production if model and args.production else rom
+        uc.mem_write(0x08000000, image)
+        if args.copied_ram:
+            uc.mem_write(0x03002c60, image[0xcf54c:0xcf54c + 0x400])
+        if model and not args.production:
+            uc.mem_write(MODEL, candidate)
         uc.hook_add(UC_HOOK_MEM_READ | UC_HOOK_MEM_WRITE, access, traces[int(model)],
                     begin=SOUND + 0x350, end=SOUND + 0x3fff)
         machines.append(uc)
@@ -98,7 +119,7 @@ def main():
                         0: SOUND, 3: strength, 4: counter, 5: output, 6: 1584, 8: samples}
                     for n, value in inputs.items():
                         uc.reg_write(getattr(r, 'UC_ARM_REG_R' + str(n)), value)
-                    uc.emu_start(MODEL if model else ENTRY, model_stop if model else original_stop, count=50000)
+                    uc.emu_start(model_entry if model else entry, model_stop if model else original_stop, count=50000)
                     assert uc.reg_read(r.UC_ARM_REG_PC) == (model_stop if model else original_stop)
                     assert uc.reg_read(r.UC_ARM_REG_SP) == SP
                     assert bytes(uc.mem_read(SP, 16)) == bytes([0xa5]) * 16
@@ -118,14 +139,17 @@ def main():
                 assert len(traces[0]) == samples * 6
                 cases += 1
     report = dict(cases=cases, scope='positive sample counts; all 256 strengths; signed byte boundaries, seeded data, source/output overlap; exact buffer memory and ordered reads/writes',
-                  original_sha1=hashlib.sha1(rom).hexdigest(), candidate_sha256=hashlib.sha256((OUT / (stem + '.bin')).read_bytes()).hexdigest(),
+                  original_sha1=hashlib.sha1(rom).hexdigest(), candidate_sha256=hashlib.sha256(candidate).hexdigest(),
                   matching_C_integration=False, limitations='No full mixer, private register/frame ABI, final flags, or zero/negative sample count equivalence claimed.')
     if args.private:
         report.update(private_registers_and_flags_match=True, candidate_bytes=len(candidate),
-                      original_calculation_bytes=original_stop-ENTRY,
+                      original_calculation_bytes=76,
                       limitations='Positive sample counts only; stopped before original ARM-to-Thumb transfer and C BX LR; not a complete byte-matching replacement or integrated.')
     if args.subtract_plugin:
         report['matching_calculation_bytes'] = 76
+    if args.production:
+        report.update(matching_C_integration=True, matching_section_bytes=84, copied_RAM=args.copied_ram,
+                      limitations='Reverb block through ARM-to-Thumb transfer; positive counts; downstream channel mixing outside this check.')
     (OUT / (stem + '-report.json' if args.private else 'report.json')).write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 

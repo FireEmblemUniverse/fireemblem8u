@@ -3870,3 +3870,47 @@ that transfer and integrating the block remain required; production C coverage
 is unchanged. Evidence: `.deps/soundmain-reverb/private-subtract-report.json`,
 private-subtract-oracle.log, candidate ELF/binary, subtract-guards.log and the
 standalone subtract-guards directory.
+
+
+### September 10: full reverb block integrated, including copied-RAM transfer
+
+`src/m4a_reverb.c` now replaces all 84 bytes at 080CF558..080CF5AC with compiled
+C: the 76-byte calculation and original ADD r0,PC,#47 / BX r0 transfer. The C
+source materializes the continuation function address in its private r0 and
+makes an indirect sibling call. The opt-in `pc_address` plugin lowers its sole
+symbol-pool load to an explicit PC-relative backend operation; the ordinary
+compiler generates BX. No instruction template or ROM byte array was added.
+The pinned compiler was rebuilt and dependent production plugins regenerated.
+
+The linker asserts the C block follows the dispatch boundary, has exactly 84
+bytes, and the Thumb continuation address equals block start +76+8+47. It also
+checks the copied mixer remains 932 bytes. The split assembly preserves the
+original two-byte zero padding before the ARM block. A local boundary label is
+used for Thumb ADR; its no-reverb branch skips the link-checked 84-byte C block.
+The assembly SoundMainRAM symbol now describes its twelve-byte dispatch prefix;
+SoundMainRAM_End records the complete mixed-source span. Hardware behavior and
+all ROM bytes are unchanged.
+
+`make compare -j8` passes for the complete 16 MiB ROM. The reverb oracle's
+`--production` and `--production --copied-ram` modes each pass 6,792 cases,
+including the ARM-to-Thumb transfer. Both compare actual production code against
+the original ROM, with exact full buffer memory, ordered byte accesses, r0-r12,
+LR, NZCV/mode, SP and untouched stack canaries. The copied mode copies the same
+0x400-byte mixer span as SoundInit before entering its reverb block. These checks
+cover positive counts, signed byte boundaries, overlapping buffers and all
+strengths; downstream active-channel processing remains outside their scope.
+
+The PC-address rule passes 96 executions at six offsets with every incoming
+NZCV, six invalid compiler configurations, twelve deliberately displaced target
+link failures, and unchanged unannotated output. The new compiler also passes
+the byte-load rule's 8,192 cases and subtraction rule's 33,152 cases. Production
+and guard evidence is under `.deps/soundmain-reverb/`.
+
+The refreshed ownership audit has the same 777,630 mapped main instruction bytes:
+719,216 C-owned (92.49%), 33,870 in C objects with assembly, 2,752 assembly-source,
+and 21,792 runtime-archive bytes. The reverb integration moves 84 bytes from
+assembly to C. Reviewed non-library assembly is now 3,162 main instruction bytes
+plus 420 payload bytes. Source inventory: 472 main C files, 32 assembly entry
+markers, 609 inline sites (263 register bindings, 338 empty templates, one
+directive-only and seven instruction templates). The overall goal remains
+unfinished; setup/frame generation and remaining channel mixing are next.

@@ -156,3 +156,14 @@
   "TARGET_THUMB1"
   "pop\t{%0}"
   [(set_attr "length" "2") (set_attr "type" "load_4")])
+
+;; PC-relative address materialization, selected only with a link-checked
+;; symbol/offset contract. ARM reads PC as this instruction's address + 8.
+(define_c_enum "unspec" [UNSPEC_MATCH_ARM_PC_ADDRESS])
+(define_insn "match_arm_pc_address"
+  [(set (match_operand:SI 0 "s_register_operand" "=r")
+        (unspec_volatile:SI [(match_operand:SI 1 "const_int_operand" "n")]
+                            UNSPEC_MATCH_ARM_PC_ADDRESS))]
+  "TARGET_ARM && INTVAL (operands[1]) >= 0 && INTVAL (operands[1]) <= 255"
+  "add%?\t%0, %|pc, %1"
+  [(set_attr "type" "alu_imm") (set_attr "length" "4")])

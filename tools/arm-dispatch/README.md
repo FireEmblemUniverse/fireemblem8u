@@ -179,8 +179,7 @@ signed/unsigned byte-load pattern from an adjacent byte load and +1 pointer
 update, preserving memory attributes and rejecting annotated functions with no
 eligible pair. It does not cross instructions or labels and excludes special
 or overlapping base/destination registers. Build with
-`build_byte_postincrement.py`. The research reverb candidate enables this under
-`REVERB_POSTINCREMENT`; it is not yet part of the production build.
+`build_byte_postincrement.py`. The production `src/m4a_reverb.c` uses this rule.
 `research/audio/check_byte_postincrement.py` checks instruction bytes, execution,
 rejection boundaries and unchanged unannotated output.
 
@@ -191,5 +190,17 @@ adjacent old-value copy, subtraction and comparison with the same immediate
 The existing GCC SUBS pattern reproduces the comparison's full flags, including
 overflow; no positive-count assumption is needed for the fold itself. Build with
 `build_subtract_compare.py`; test with `research/audio/check_subtract_compare.py`.
-The research reverb candidate enables it under `REVERB_SUBTRACT_COMPARE`; it is
-not yet a production-build dependency.
+The production `src/m4a_reverb.c` uses this rule.
+
+
+`pc_address.cc` and `build_pc_address.py` provide `matching_pc_address` with
+mandatory `symbol=NAME` and `offset=0..255` arguments. One direct symbol-word
+pool load becomes the backend's explicit `match_arm_pc_address` operation:
+ADD destination, PC, immediate. The pool word is removed. Other symbols,
+multiple loads, unsupported pool references and non-ARM use are rejected.
+The linker MUST assert the symbol address equals the emitted instruction's
+address plus eight plus the selected offset. Production reverb asserts its
+84-byte size and Thumb continuation address relative to the 76-byte calculation.
+C's indirect sibling call then emits BX and honors the Thumb bit. This keeps the
+transfer valid after SoundInit copies the mixer to RAM. `check_pc_address.py`
+covers PC values, flags, rejection cases, and deliberately broken link contracts.

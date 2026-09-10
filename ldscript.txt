@@ -591,6 +591,18 @@ SECTIONS
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");
         src/m4a_1.o(.text.after_multiply_high);
+        __reverb_start = .;
+        src/m4a_reverb.o(.text);
+        __reverb_end = .;
+        src/m4a_1.o(.text.after_reverb);
+        ASSERT(SoundMainRAM_Reverb == SoundMainRAM_ReverbBoundary,
+               "reverb ARM block must follow Thumb dispatch");
+        ASSERT(__reverb_end - __reverb_start == 84,
+               "reverb block must contain exactly 84 bytes");
+        ASSERT((SoundMainRAM_ChanSetup | 1) == __reverb_start + 76 + 8 + 47,
+               "reverb PC-relative Thumb continuation moved");
+        ASSERT(SoundMainRAM_End - (SoundMainRAM & ~1) == 932,
+               "copied mixer size changed");
         src/m4a_clear_block.o(.text);
         src/m4a_clear_chain.o(.text);
         src/m4a_1.o(.text.after_real_clear_chain);

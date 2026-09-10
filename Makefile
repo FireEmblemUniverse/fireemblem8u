@@ -213,6 +213,19 @@ src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gn
 ARM_COPY_ADD_ZERO_PLUGIN := $(ARM_DISPATCH_DIR)/copy_add_zero.so
 $(ARM_COPY_ADD_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/copy_add_zero.cc tools/arm-dispatch/build_copy_add_zero.py
 	$(PYTHON) tools/arm-dispatch/build_copy_add_zero.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+ARM_BYTE_POSTINCREMENT_PLUGIN := $(ARM_DISPATCH_DIR)/byte_postincrement.so
+$(ARM_BYTE_POSTINCREMENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/byte_postincrement.cc tools/arm-dispatch/build_byte_postincrement.py
+	$(PYTHON) tools/arm-dispatch/build_byte_postincrement.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+ARM_SUBTRACT_COMPARE_PLUGIN := $(ARM_DISPATCH_DIR)/subtract_compare.so
+$(ARM_SUBTRACT_COMPARE_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/subtract_compare.cc tools/arm-dispatch/build_subtract_compare.py
+	$(PYTHON) tools/arm-dispatch/build_subtract_compare.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+ARM_PC_ADDRESS_PLUGIN := $(ARM_DISPATCH_DIR)/pc_address.so
+$(ARM_PC_ADDRESS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/pc_address.cc tools/arm-dispatch/build_pc_address.py
+	$(PYTHON) tools/arm-dispatch/build_pc_address.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_PC_ADDRESS_PLUGIN)
+src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_reverb.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_BYTE_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanSetup -fplugin-arg-pc_address-offset=47
+
 src/m4a_multiply_high.o: $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/m4a_multiply_high.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_multiply_high.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
