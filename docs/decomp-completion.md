@@ -2578,3 +2578,43 @@ because these functions call the reader. Production remains byte-identical
 and unchanged, with 52 assembly entry markers. Evidence is recorded in
 `.deps/audio-command-setters/report.json`; reproduce with
 `.deps/arm-oracle-venv/bin/python research/audio/check_command_setters.py`.
+
+### September 9: exact command setters with restricted r12 return
+
+Starting from `1c32326f`, both setter candidates now match all ten original
+bytes. Each passes 2,064 original/C cases against the actual checked ROM reader,
+with no memory, r0-r12 or return-flag differences. The source remains C with
+fixed-register bindings and an opt-in `matching_ip_return` function attribute.
+
+The experimental `ip_return` pass validates an LR-only entry push, a single
+epilogue, no local frame and a straight-line void body. Each ordinary direct
+call must have an explicit `preserves-ip` manifest entry. The declaration is a
+private ABI contract, not inferred proof of an arbitrary callee: the actual
+audio reader is independently exercised by the setter oracle and preserves
+r12. Any interworking veneer must also preserve the contract; production
+integration must retain direct Thumb calls and exact linked bytes.
+
+After validation, the pass replaces the LR push with a normal RTL register
+move from LR to r12, and uses an explicit Thumb return pattern that emits BX
+r12. It clears obsolete frame notes and refuses unwind, exception and debug
+configurations, so it does not publish inaccurate stack-unwind information.
+The installed production compiler is unchanged; `build_ip_return.py` builds
+the extension and compatible plugin in the experimental compiler tree.
+
+`check_ip_return.py` passes 128 executions spanning two calls, every incoming
+NZCV pattern, four initial r12 values and ARM/Thumb return modes. Fourteen
+unsupported forms are rejected without internal compiler errors: absent or
+unknown callee contracts, indirect calls, stack locals, r12 clobbers, control
+flow, frame pointers, debug/unwind configurations, nonvoid returns, ARM mode,
+global r12 variables, variable attributes and exposed return addresses.
+Loading the plugin leaves an unannotated function's assembly unchanged.
+
+Reproduce with `python3 research/audio/build_ip_return.py`, then run
+`check_command_setters.py --compiler .deps/audio-command-setters/gcc
+--plugin .deps/audio-command-setters/ip_return.so --require-match` and
+`check_ip_return.py` with the same compiler/plugin, using the Unicorn venv.
+Experimental cc1 SHA-256: `5b5b162ff0d13992d9f9881b05671af29bc48f6d52a043447c6d430f06ba85ca`.
+
+Production remains at `7eae15fd`, with 52 assembly entry markers. The two
+candidates still require compiler promotion, section placement, full-ROM
+comparison and updated linked/source audits before integration is claimed.

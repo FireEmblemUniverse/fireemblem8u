@@ -18,14 +18,18 @@ SPECS = {'ply_prio': (0x080cfa18, 29), 'ply_lfodl': (0x080cfacc, 27)}
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', default='arm-none-eabi-gcc')
+    parser.add_argument("--plugin", type=Path)
+    parser.add_argument("--require-match", action="store_true")
     args = parser.parse_args()
+    extra = (["-DMATCH_IP_RETURN", "-Werror=attributes", "-fno-unwind-tables", "-fno-asynchronous-unwind-tables",
+              "-fplugin="+str(args.plugin.resolve()), "-fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i"] if args.plugin else [])
     OUT.mkdir(exist_ok=True)
     subprocess.run([args.compiler, '-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi',
                     '-mabi=apcs-gnu', '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing',
                     '-ffunction-sections', '-fno-if-conversion', '-fno-if-conversion2',
                     '-fno-reorder-blocks', '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
                     str(ROOT/'include'), str(ROOT/'research/audio/command_setters.c'),
-                    '-o', str(OUT/'candidate.s')], check=True)
+                    '-o', str(OUT/'candidate.s'), *extra], check=True)
     assembly = (OUT/'candidate.s').read_text()
     (OUT/'linked.s').write_text(assembly+'\n.global ld_r3_tp_adr_i\n.thumb_set ld_r3_tp_adr_i, 0x080cf98d\n')
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(OUT/'linked.s'), '-o', str(OUT/'candidate.o')], check=True)
@@ -83,6 +87,8 @@ def main():
                         'flag_difference_cases': flags_differ, 'differing_registers': sorted(differing_registers)}
     (OUT/'report.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report))
+    if args.require_match:
+        assert all(item['complete_match'] and not item['register_difference_cases'] and not item['flag_difference_cases'] for item in report.values()), report
 
 
 if __name__ == '__main__':

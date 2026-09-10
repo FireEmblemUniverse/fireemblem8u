@@ -34,11 +34,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
 Next milestone: match the priority and LFO-delay command setters' private return ABI.
-Their C candidates pass 4,128 state/flag cases using the actual ROM byte reader,
-including rejected low-memory reads and command-pointer aliases. Each candidate
-is 12 bytes versus the original 10. The call and field store match; GCC's stack
-return sequence changes r0 and r12. A constrained r12 return convention is the
-next compiler target. These candidates remain outside the production build.
+Both ten-byte C candidates now match exactly. All 4,128 original/C cases agree
+on memory, flags and r0-r12, including rejected reads and command-pointer aliases.
+The private-return compiler contract passes 128 two-call executions with both
+ARM and Thumb return modes; fourteen unsupported configurations are rejected.
+Next: promote the compiler support and integrate these two handlers, then verify
+the complete ROM. They remain research candidates; production has 52 assembly
+entry markers.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
