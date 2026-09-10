@@ -2,9 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `2be9fb98`): MPlayMain's pitch-update guard and signed key adjustment are matching C. All 20 instruction bytes match; 283,648 production/original cases pass. The full ROM and fresh runtime builds match; all 111 altered layouts reject. Main-ROM C ownership is 720,566/777,630 mapped instruction bytes (92.66%). Remaining frequency conversion, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
-
-Candidate milestone (September 10): frequency selection and CGB/PCM argument setup match 20 original instruction bytes and pass 182,880 execution checks. The copy-rule regression rejects all 13 invalid forms and leaves unannotated output unchanged. Production ownership remains unchanged until integration and full build/audit gates.
+Updated: September 10, 2026. Latest integrated milestone (baseline `56f0c441`): MPlayMain's frequency selection and CGB/PCM argument setup are matching C. All 20 instruction bytes match; 182,880 production/original cases pass. The full ROM and fresh runtime builds match; all 119 altered layouts reject. Main-ROM C ownership is 720,586/777,630 mapped instruction bytes (92.66%). Remaining frequency invocation/result stores, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -22,9 +20,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.66%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,812 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,792 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated MPlayMain frequency selection/setup | **20/20 instruction bytes exact; 182,880 production/original cases pass; 119 combined altered layouts reject** |
 | Integrated MPlayMain pitch guard/key adjustment | **20/20 instruction bytes exact; 283,648 production/original cases pass; 111 combined altered layouts reject** |
 | Integrated MPlayMain channel-volume path | **30/30 instruction bytes exact; 1,009,536 production/original cases pass; 105 combined altered layouts reject** |
 | Integrated MPlayMain stopped-channel guard/cleanup call | **16/16 instruction bytes exact; 67,840 production/original cases pass; 94 combined altered layouts reject** |

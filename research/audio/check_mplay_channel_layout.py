@@ -120,6 +120,12 @@ def main():
  for name,expression in [('pitch_next_far','__mplay_post_pitch_guard_start + 266'),('pitch_next_backward','__mplay_post_pitch_guard_start - 248')]:
   text=source.replace('        ASSERT((MPlayMainPostChannelNext & ~1) >=','        MPlayMainPostChannelNext = '+expression+';\n        ASSERT((MPlayMainPostChannelNext & ~1) >=',1)
   cases.append((name,text,'post pitch_guard transfer out of range'))
+ for part in ('frequency_select','cgb_setup','pcm_setup'):
+  cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
+  cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ for name,expression in [('pcm_setup_far','__mplay_post_frequency_select_start + 262'),('pcm_setup_backward','__mplay_post_frequency_select_start - 252')]:
+  text=source.replace('        ASSERT((MPlayMainPostPcmSetup & ~1) >=','        MPlayMainPostPcmSetup = '+expression+';\n        ASSERT((MPlayMainPostPcmSetup & ~1) >=',1)
+  cases.append((name,text,'post frequency_select transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

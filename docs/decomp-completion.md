@@ -7898,3 +7898,37 @@ Sources: `research/audio/mplay_post_frequency_select.c`,
 `.deps/soundmain-packed/mplay-post-frequency-setup/report.json` and
 `mplay-post-frequency-setup-check.log`. Next: integrate selection/setup with exact
 extents and transfer checks, then finish frequency invocation/result stores.
+
+
+## Frequency selection/setup production integration — September 10, 2026
+
+On baseline `56f0c441`, frequency selection (080CFD6C..080CFD70), CGB setup
+(080CFD70..080CFD7A) and PCM setup (080CFD8A..080CFD90) are integrated as
+three C-only objects, replacing 20 assembly instruction bytes. Production source
+identity with the candidates and exact linked Thumb extents are verified.
+The shared CGB/PCM invocation boundaries retain the original assembly calls.
+
+All 182,880 production/original cases pass: 6,752 selection cases and 88,064
+cases per setup. The candidate section documents coverage of full-width values,
+ordered pointer/byte reads and overlapping storage, plus the test limitations.
+This does not execute the conversion functions or complete MPlayMain.
+
+`make compare -j8` reproduces the full 16 MiB ROM. Fresh runtime builds reproduce
+all four images and exported symbols. Source, linked, inline and runtime
+inventories are refreshed. SoundMain (1,064 bytes) and mixer (932 bytes) retain
+their fully C-owned extents and original bytes. The valid layout passes and all
+119 altered layouts reject, including six new extent/continuation perturbations
+and two out-of-range PCM-setup targets. See `mplay-post-frequency-layout.log`.
+
+Main mapped instruction bytes: 777,630 total, 720,586 C-owned (92.66%),
+33,870 mixed C/assembly, 1,382 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,792 main bytes and 420 payload bytes. There are
+543 tracked main C files and 30 assembly entry markers. These figures include
+inherited work and are not an overall completion percentage.
+
+ELF SHA-256: `bcb582b7acc43ad19de678c39e073590d8e50e12e4306395c76e9306dc7c5795`.
+Evidence: `.deps/soundmain-packed/mplay-post-frequency-build.log`,
+`mplay-post-frequency-production.log`, `mplay-post-frequency-production-identity.json`,
+source/linked reports and refreshed tracked ownership/runtime/region receipts.
+Next: CGB/PCM frequency invocation and result stores, then remaining command
+guards, earlier clear calls and MPlayMain's frame exit.

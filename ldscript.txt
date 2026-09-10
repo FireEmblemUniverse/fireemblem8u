@@ -1367,6 +1367,33 @@ SECTIONS
         src/m4a_mplay_post_key_adjust.o(.text);
         __mplay_post_key_adjust_end = .;
         src/m4a_1.o(.text.after_mplay_post_key_adjust);
+        __mplay_post_frequency_select_start = .;
+        src/m4a_mplay_post_frequency_select.o(.text);
+        __mplay_post_frequency_select_end = .;
+        src/m4a_1.o(.text.after_mplay_post_frequency_select);
+        ASSERT((MPlayMainPostFrequencySelect & ~1) == MPlayMainPostFrequencySelectBoundary &&
+               __mplay_post_frequency_select_end - __mplay_post_frequency_select_start == 4 &&
+               (MPlayMainPostCgbSetup & ~1) == __mplay_post_frequency_select_end,
+               "MPlayMain post frequency_select extent or continuation changed");
+        __mplay_post_cgb_setup_start = .;
+        src/m4a_mplay_post_cgb_setup.o(.text);
+        __mplay_post_cgb_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_post_cgb_setup);
+        ASSERT((MPlayMainPostCgbSetup & ~1) == MPlayMainPostCgbSetupBoundary &&
+               __mplay_post_cgb_setup_end - __mplay_post_cgb_setup_start == 10 &&
+               (MPlayMainPostCgbInvoke & ~1) == __mplay_post_cgb_setup_end,
+               "MPlayMain post cgb_setup extent or continuation changed");
+        __mplay_post_pcm_setup_start = .;
+        src/m4a_mplay_post_pcm_setup.o(.text);
+        __mplay_post_pcm_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_post_pcm_setup);
+        ASSERT((MPlayMainPostPcmSetup & ~1) == MPlayMainPostPcmSetupBoundary &&
+               __mplay_post_pcm_setup_end - __mplay_post_pcm_setup_start == 6 &&
+               (MPlayMainPostPcmInvoke & ~1) == __mplay_post_pcm_setup_end,
+               "MPlayMain post pcm_setup extent or continuation changed");
+        ASSERT((MPlayMainPostPcmSetup & ~1) >= __mplay_post_frequency_select_start + 6 &&
+               (MPlayMainPostPcmSetup & ~1) <= __mplay_post_frequency_select_start + 6 + 254,
+               "MPlayMain post frequency_select transfer out of range");
         ASSERT((MPlayMainPostKeyAdjust & ~1) == MPlayMainPostKeyAdjustBoundary &&
                __mplay_post_key_adjust_end - __mplay_post_key_adjust_start == 12 &&
                (MPlayMainPostFrequencySelect & ~1) == __mplay_post_key_adjust_end,

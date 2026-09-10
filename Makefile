@@ -1038,3 +1038,18 @@ src/m4a_mplay_post_key_adjust.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_ADD_SIGN_
 src/m4a_mplay_post_key_adjust.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_key_adjust.o: C_END_ALIGN := 1
 src/m4a_mplay_post_key_adjust.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-if-conversion -fno-if-conversion2 -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostFrequencySelect -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostFrequencySelect -fplugin=$(THUMB_ADD_SIGN_BRANCH_PLUGIN)
+
+src/m4a_mplay_post_frequency_select.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_frequency_select.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_frequency_select.o: C_END_ALIGN := 1
+src/m4a_mplay_post_frequency_select.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostCgbSetup -fplugin-arg-tail_transfer-destination=MPlayMainPostPcmSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostCgbSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostPcmSetup -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+src/m4a_mplay_post_cgb_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_post_cgb_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_cgb_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_post_cgb_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostCgbInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostCgbInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN) -fplugin-arg-copy_add_zero-preserve-thumb-high-copies
+
+src/m4a_mplay_post_pcm_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_post_pcm_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_pcm_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_post_pcm_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostPcmInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostPcmInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

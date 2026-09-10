@@ -490,16 +490,15 @@ _081DDA14:
 	.global MPlayMainPostKeyAdjustBoundary
 MPlayMainPostKeyAdjustBoundary:
 	.section .text.after_mplay_post_key_adjust, "ax", %progbits
-	.global MPlayMainPostFrequencySelect
-MPlayMainPostFrequencySelect:
+	.global MPlayMainPostFrequencySelectBoundary
+MPlayMainPostFrequencySelectBoundary:
 _081DDA28:
-	cmp r6, 0
-	beq _081DDA46
-	mov r0, r8
-	ldr r3, [r0, o_SoundInfo_MidiKeyToCgbFreq]
-	adds r1, r2, 0
-	ldrb r2, [r5, o_MusicPlayerTrack_pitM]
-	adds r0, r6, 0
+	.section .text.after_mplay_post_frequency_select, "ax", %progbits
+	.global MPlayMainPostCgbSetupBoundary
+MPlayMainPostCgbSetupBoundary:
+	.section .text.after_mplay_post_cgb_setup, "ax", %progbits
+	.global MPlayMainPostCgbInvoke
+MPlayMainPostCgbInvoke:
 	bl call_r3
 	str r0, [r4, o_CgbChannel_fr]
 	ldrb r0, [r4, o_CgbChannel_mo]
@@ -507,10 +506,12 @@ _081DDA28:
 	orrs r0, r1
 	strb r0, [r4, o_CgbChannel_mo]
 	b _081DDA52
+	.global MPlayMainPostPcmSetupBoundary
+MPlayMainPostPcmSetupBoundary:
 _081DDA46:
-	adds r1, r2, 0
-	ldrb r2, [r5, o_MusicPlayerTrack_pitM]
-	ldr r0, [r4, o_SoundChannel_wav]
+	.section .text.after_mplay_post_pcm_setup, "ax", %progbits
+	.global MPlayMainPostPcmInvoke
+MPlayMainPostPcmInvoke:
 	bl MidiKeyToFreq
 	str r0, [r4, o_SoundChannel_freq]
 	.global MPlayMainPostChannelNextBoundary
