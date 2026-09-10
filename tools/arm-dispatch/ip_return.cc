@@ -25,6 +25,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> callees;
+bool forward_exits=false;
 tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {
         error("matching_ip_return requires a function");*no_add=true;
@@ -68,6 +69,30 @@ bool lr_push(rtx p) {
     return reg_is(XEXP(add,0),SP_REGNUM) && CONST_INT_P(XEXP(add,1)) && INTVAL(XEXP(add,1))==-4
         && GET_CODE(src)==UNSPEC && XINT(src,1)==UNSPEC_PUSH_MULT
         && XVECLEN(src,0)==1 && reg_is(XVECEXP(src,0,0),LR_REGNUM);
+}
+// Accept only a low-register equality branch to the single terminal epilogue.
+// A forward destination cannot bypass the entry save or create a loop.
+bool forward_exit(rtx_insn *i) {
+    rtx p=PATTERN(i);
+    if (GET_CODE(p)!=SET || SET_DEST(p)!=pc_rtx || GET_CODE(SET_SRC(p))!=IF_THEN_ELSE) return false;
+    rtx choice=SET_SRC(p),test=XEXP(choice,0),target=XEXP(choice,1);
+    if ((GET_CODE(test)!=EQ && GET_CODE(test)!=NE) || GET_CODE(target)!=LABEL_REF
+        || XEXP(choice,2)!=pc_rtx) return false;
+    for (int n=0;n<2;n++) {
+        rtx operand=XEXP(test,n);
+        if (!REG_P(operand) || GET_MODE(operand)!=SImode || REGNO(operand)>=8) return false;
+    }
+    rtx_insn *label=as_a<rtx_insn *>(XEXP(target,0)),*cursor=NEXT_INSN(i);
+    while (cursor && cursor!=label) cursor=NEXT_INSN(cursor);
+    if (!cursor) return false;
+    for (cursor=NEXT_INSN(cursor);cursor;cursor=NEXT_INSN(cursor)) {
+        if (!NONDEBUG_INSN_P(cursor)) continue;
+        rtx body=PATTERN(cursor);
+        if (GET_CODE(body)==UNSPEC && XINT(body,1)==UNSPEC_REGISTER_USE && XVECLEN(body,0)==1
+            && reg_is(XVECEXP(body,0,0),SP_REGNUM)) continue;
+        return JUMP_P(cursor) && GET_CODE(body)==UNSPEC_VOLATILE && XINT(body,1)==VUNSPEC_EPILOGUE;
+    }
+    return false;
 }
 const pass_data data={RTL_PASS,"ip_return",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
@@ -121,6 +146,7 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"matching_ip_return call uses r12 or stack arguments");
                 calls++;continue;
             }
+            if (forward_exits && push && !epilogue && calls && JUMP_P(i) && forward_exit(i)) continue;
             if (!push || epilogue || JUMP_P(i) || (asm_noperands(p)>=0 && !empty_register_constraint(p)) || mentions(p,IP_REGNUM)
                 || mentions(p,LR_REGNUM) || mentions(p,SP_REGNUM))
                 fatal_error(UNKNOWN_LOCATION,"matching_ip_return rejects control flow, asm and stack/return-register uses");
@@ -138,6 +164,10 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)=="forward-exits") {
+            if (info->argv[n].value) return 1;
+            forward_exits=true;continue;
+        }
         if (std::string(info->argv[n].key)!="preserves-ip" || !info->argv[n].value || !*info->argv[n].value) return 1;
         std::string symbol=info->argv[n].value;
         if (!(ISALPHA(symbol[0]) || symbol[0]=='_')) return 1;

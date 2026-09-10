@@ -77,7 +77,7 @@ and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
 Large leaf far-branch fixtures remain unsupported by this GCC backend (the
 baseline compiler also rejects them); VSync only uses short branches.
 
-The `ip_return` plugin supports the command and flag setters and the tempo and port handlers.
+The `ip_return` plugin supports the command and flag setters and the tempo, port and modulation-type handlers.
 It is built by `build_ip_return.py` against the installed compiler. The explicit
 `matching_ip_return` attribute requires a straight-line void function with an
 LR-only frame, and every direct call must have a `preserves-ip=SYMBOL` manifest
@@ -85,7 +85,7 @@ entry. The helper and its entire call path must preserve r12; this is a private
 ABI requirement checked against the actual audio reader by the production
 oracle, not a property inferred for arbitrary external functions.
 
-The pass rejects stack use, indirect calls, branches, executable or unsupported assembly, global r12
+The pass rejects stack use, indirect calls, unsupported branches, executable or unsupported assembly, global r12
 variables, exposed return registers and debug/unwind/exception configurations.
 The only accepted inline constraint is an empty, single low-register `+r`
 operand with no extra inputs or clobbers; it emits no instructions.
@@ -96,3 +96,12 @@ It replaces the entry LR push with a register move and the epilogue with BX r12.
 `research/audio/check_ip_return.py` covers accepted and rejected contracts;
 `check_command_setters.py --compiler COMPILER --plugin PLUGIN --require-match
 --production` checks the exact linked setter bytes and actual ROM helper calls.
+
+The opt-in `forward-exits` option permits low-register EQ/NE branches to the
+single terminal epilogue, after the entry save and at least one contracted call.
+The label must occur later in the instruction stream and lead directly to the
+epilogue, allowing only the compiler's zero-code SP-use marker in between.
+Backward branches, ordered comparisons and targets before further body work
+remain rejected. `src/m4a_mod_type.c` uses this option; the existing setters keep
+the default straight-line restriction. `check_command_setters.py --mod-type`
+exercises both taken and fallthrough paths with the actual ROM reader.

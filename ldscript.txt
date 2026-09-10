@@ -609,6 +609,8 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_bendr);
         src/m4a_command_setters.o(.text.ply_lfodl);
         src/m4a_1.o(.text.after_ply_lfodl);
+        src/m4a_mod_type.o(.text.ply_modt);
+        src/m4a_1.o(.text.after_ply_modt);
         src/m4a_flag_setters.o(.text.ply_tune);
         src/m4a_1.o(.text.after_ply_tune);
         src/m4a_port.o(.text);

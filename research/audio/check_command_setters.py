@@ -26,12 +26,19 @@ def main():
     parser.add_argument("--require-match", action="store_true")
     parser.add_argument("--production", action="store_true")
     parser.add_argument("--flag-setters", action="store_true")
+    parser.add_argument("--mod-type", action="store_true")
     args = parser.parse_args()
     specs = FLAG_SPECS if args.flag_setters else SPECS
     out = OUT/"flag-setters" if args.flag_setters else OUT
     source = ROOT/("src/m4a_flag_setters.c" if args.flag_setters else "src/m4a_command_setters.c")
+    if args.mod_type:
+        specs = {'ply_modt': (0x080cfad8, 24, 15, 24, 0)}
+        out = ROOT/'.deps/mod-type-match'
+        source = ROOT/'src/m4a_mod_type.c'
     extra = (["-Werror=attributes", "-fno-unwind-tables", "-fno-asynchronous-unwind-tables",
               "-fplugin="+str(args.plugin.resolve()), "-fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i"] if args.plugin else [])
+    if args.mod_type:
+        extra += ['-DMOD_PRIVATE_RETURN', '-fplugin-arg-ip_return-forward-exits']
     out.mkdir(parents=True, exist_ok=True)
     subprocess.run([args.compiler, '-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi',
                     '-mabi=apcs-gnu', '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing',
@@ -65,15 +72,20 @@ def main():
         for command in (TRACK+0x200, 0x200, TRACK+64, TRACK+65, TRACK+66, TRACK+67):
             values = range(256) if command in (TRACK+0x200, 0x200) else (0,)
             flags = (0, 1, 3, 4, 8, 12, 0x80, 0xff) if mask else (0xa5,)
-            for value, track_flags in product(values, flags):
+            for value, track_flags, old_case in product(values, flags, range(4) if args.mod_type else (0,)):
                 initial = bytearray([0xa5]*0x100)
                 initial[0] = track_flags
                 struct.pack_into('<I', initial, 64, command)
                 expected = initial.copy()
                 struct.pack_into('<I', expected, 64, command+1)
                 byte = expected[command-TRACK] if TRACK <= command < TRACK+0x100 else value
+                if args.mod_type:
+                    byte = byte if command >= 0x02000000 else 0
+                    old_type = (byte, byte ^ 1, 0, 255)[old_case]
+                    initial[field] = expected[field] = old_type
                 expected[field] = ((byte if command >= 0x02000000 else 0) - bias) & 255
-                expected[0] |= mask
+                if not args.mod_type or old_type != expected[field]:
+                    expected[0] |= mask
                 for nzcv in (0, 5, 10, 15):
                     states = []
                     for uc in machines:

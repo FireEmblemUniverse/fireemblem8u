@@ -667,21 +667,9 @@ ply_voice:
 	.align 2, 0
 	.section .text.after_ply_lfodl, "ax", %progbits
 
-	thumb_func_start ply_modt
-ply_modt:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	ldrb r0, [r1, o_MusicPlayerTrack_modT]
-	cmp r0, r3
-	beq _081DD7AA
-	strb r3, [r1, o_MusicPlayerTrack_modT]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0xF
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-_081DD7AA:
-	bx r12
-	thumb_func_end ply_modt
+@ ply_modt is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_modt, "ax", %progbits
 
 @ ply_tune is generated from matching C.
 	.align 2, 0

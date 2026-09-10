@@ -46,6 +46,14 @@ def main():
         source = decl + register_decl + 'register unsigned other asm("r2"); register unsigned high asm("r8"); unsigned cell;\n'
         source += attr + 'void probe(void) { helper(); ' + body + ' }'
         negatives.append((source, [], plugin, label))
+    branch_decl = decl + 'register volatile unsigned left asm("r0"), right asm("r3"); register volatile unsigned *ptr asm("r1");\n'
+    for body, label in [
+        ('helper(); while (left != right) { *ptr=left; helper(); }', 'backward conditional loop'),
+        ('helper(); if (left < right) *ptr=left;', 'ordered forward comparison'),
+        ('helper(); if (left != right) *ptr=left; helper();', 'branch target before another call'),
+    ]:
+        negatives.append((branch_decl+attr+'void probe(void) { '+body+' }', [],
+                          plugin+['-fplugin-arg-ip_return-forward-exits'], label))
     with tempfile.TemporaryDirectory(prefix='ip-return-') as temp:
         root = Path(temp)
         command = [args.compiler, *flags, str(root/'probe.c'), '-o', str(root/'probe.s')]

@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the port integration (baseline `c5584d09` plus this change),
+After the modulation-type integration (baseline `b98cd6bc` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 459 main
-C files, 42 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 460 main
+C files, 41 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2783,3 +2783,34 @@ inline sites comprise 212 register bindings, 334 empty constraints, one
 directive-only template and seven instruction templates. The naked fallback,
 42 NONMATCHING conditionals, embedded declarations and transfer-wrapper scope
 remain unfinished. Local logs and audit reports are in `.deps/port-match/`.
+
+
+### September 9: modulation type integrated
+
+`src/m4a_mod_type.c` replaces `ply_modt` at `080CFAD8..080CFAF0`.
+The checked command byte is compared with the current modulation type. Only
+when they differ does the handler store the new type and set the low four track
+flags. All 24 Thumb bytes match, with no instruction-bearing inline assembly.
+
+The private-return plugin has an explicit `forward-exits` option. It accepts
+only a low-register EQ/NE branch whose forward label leads directly to the
+terminal epilogue (apart from a compiler SP-use marker), after an entry save
+and a contracted call. Backward branches, ordered comparisons and targets
+before another call are regression rejection cases. The default remains
+straight-line. The installed contract suite passes 128 two-call cases and
+rejects 22 unsupported forms; unannotated assembly is unchanged.
+
+`research/audio/check_command_setters.py --compiler COMPILER --plugin PLUGIN
+--mod-type --require-match --production` passes 66,048 executions against the
+actual ROM reader. Each command byte is checked against equal, differing, zero
+and 255 initial modulation types, with eight initial flag patterns and four
+incoming NZCV patterns. Rejected reads and four pointer aliases are included.
+Full track RAM, r0-r12, flags, stack, return PC and preserved registers agree.
+
+The full ROM passes `make compare -j8`. The linked audit assigns 24 Thumb bytes
+to `src/m4a_mod_type.o`, with no orphan mappings. Source inventory is 460 main
+C files and 41 assembly entry markers. The 558 inline sites comprise 216
+register bindings, 334 empty constraints, one directive-only template and seven
+instruction templates. The remaining naked fallback, embedded declarations,
+transfer wrapper and executable-classification work remain in scope. Evidence
+is recorded under `.deps/mod-type-match/`.
