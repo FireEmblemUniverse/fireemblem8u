@@ -47,18 +47,10 @@ SoundMain_1:
 SoundMainDeadlineSetupBoundary:
 @ Scanline deadline calculation is generated from matching C.
 	.section .text.after_deadline_setup, "ax", %progbits
-	thumb_func_start SoundMainCallbacks
-SoundMainCallbacks:
-	ldr r3, [r0, o_SoundInfo_func]
-	cmp r3, 0
-	beq SoundMain_4
-	ldr r0, [r0, o_SoundInfo_intp]
-	bl SoundMainRAM_ExitRestore + 18
-	ldr r0, [sp, 0x18]
-SoundMain_4:
-	ldr r3, [r0, o_SoundInfo_CgbSound]
-	bl SoundMainRAM_ExitRestore + 18
-	thumb_func_end SoundMainCallbacks
+	.global SoundMainCallbacksBoundary
+SoundMainCallbacksBoundary:
+@ Both callbacks and their private frame convention are generated from C.
+	.section .text.after_callbacks, "ax", %progbits
 	.global SoundMainBufferEntryBoundary
 SoundMainBufferEntryBoundary:
 @ Post-callback buffer setup and its RAM transfer are generated from C.

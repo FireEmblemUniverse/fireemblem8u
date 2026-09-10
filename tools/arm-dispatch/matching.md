@@ -296,3 +296,14 @@
   "TARGET_THUMB1"
   "cmp\t%0, #0\n\tbeq\t%1"
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Invoke a register callback through an existing shared Thumb BX trampoline.
+;; The late private-chain pass proves the trampoline contract and exact frame.
+(define_insn "match_thumb_shared_callback"
+  [(call (mem:SI (match_operand:SI 0 "low_register_operand" "l")) (const_int 0))
+   (use (match_operand:SI 1 "" "X"))
+   (use (match_operand 2 "const_int_operand" "n"))
+   (clobber (reg:SI LR_REGNUM))]
+  "TARGET_THUMB1 && GET_CODE (operands[1]) == SYMBOL_REF"
+  "bl\t%c1 + %c2"
+  [(set_attr "type" "call") (set_attr "length" "4") (set_attr "conds" "clob")])

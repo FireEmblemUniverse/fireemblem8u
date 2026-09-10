@@ -595,3 +595,24 @@ adjacency and shared VCOUNT literal position. The checker
 byte verification and `--guards-only` for compiler checks without repeating the
 exhaustive execution run. A normal run covers every pair of byte inputs, every
 initial NZCV and two ordinary/stack-alias layouts.
+
+
+## Shared callback trampoline
+
+`thumb_callback_chain.cc` provides `matching_thumb_callback_chain`, used by
+`src/m4a_callbacks.c`. It accepts only the private r0/r3/SP optional/mandatory
+callback shape: a volatile pointer load and exact empty r3 tie, null branch,
+argument load and first callback, bounded frame reload, mandatory pointer load
+and second callback. It proves the branch target, LR-only compiler frame,
+zero local frame, empty argument usage and the ordinary epilogue; debug/unwind,
+extra work, live labels or other frame/register conventions reject.
+
+The pass removes the compiler's extra frame and epilogue and selects
+`match_thumb_shared_callback` for each C indirect call. The RTL still calls the
+r3 callback; its encoding uses BL to the declared `trampoline=SYMBOL` plus an
+even `offset`, where an existing BX r3 transfers to that callback. Production
+uses the typed `SoundMainRAM_ExitRestore` function plus 18, avoiding a veneer for
+an untyped odd alias. The linker proves callback extent, final fallthrough and
+BL reach; execution checks verify the shared BX bytes and both ARM/Thumb modes.
+`check_soundmain_callback_chain.py` also verifies unannotated output is unchanged and rejects
+12 unsupported contracts. No new inline instruction template is added to C.

@@ -595,6 +595,18 @@ SECTIONS
         src/m4a_deadline_setup.o(.text);
         __deadline_setup_end = .;
         src/m4a_1.o(.text.after_deadline_setup);
+        __callbacks_start = .;
+        src/m4a_callbacks.o(.text);
+        __callbacks_end = .;
+        src/m4a_1.o(.text.after_callbacks);
+        ASSERT((SoundMainCallbacks & ~1) == SoundMainCallbacksBoundary &&
+               __callbacks_end - __callbacks_start == 20 &&
+               (SoundMainBufferEntry & ~1) == __callbacks_end,
+               "callback entry, twenty-byte extent or fallthrough changed");
+        ASSERT(((SoundMainRAM_ExitRestore & ~1) + 18) == (SoundMainRAM_IndirectReturn & ~1) &&
+               ((SoundMainRAM_ExitRestore & ~1) + 18) > __callbacks_end &&
+               ((SoundMainRAM_ExitRestore & ~1) + 18) - __callbacks_start < 0x400000,
+               "callback shared BX entry or Thumb BL range changed");
         ASSERT((SoundMainDeadlineSetup & ~1) == SoundMainDeadlineSetupBoundary &&
                __deadline_setup_start == (SoundMain & ~1) + 32 &&
                __deadline_setup_end - __deadline_setup_start == 20 &&

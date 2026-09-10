@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `8cc774db`): the outer SoundMain deadline setup is matching C. All 20 bytes match; 2,097,152 candidate/original state cases pass, and the identical production bytes plus 3,528 complete audio cases are verified. Full ROM and fresh runtime rebuilds match. Main-ROM C ownership is 720,104/777,630 mapped instruction bytes (92.60%). The 32-byte entry/lock/frame prefix, 20-byte callback fragment and other assembly remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `2e442ceb`): SoundMain's callback fragment is matching C. All 20 bytes match; 27,648 production/original callback-state cases and 3,528 complete audio cases pass. Full ROM and fresh runtime rebuilds match. Main-ROM C ownership is 720,124/777,630 mapped instruction bytes (92.60%). Only the 32-byte entry/lock/frame prefix remains as SoundMain instructions in assembly; other routines and final executable classification are still unfinished.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,9 +19,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.60%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,274 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,254 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated SoundMain callbacks | **20/20 bytes exact; 27,648 production cases pass with ARM/Thumb callbacks, mutable saved pointers and exact callback-entry state** |
 | Integrated outer SoundMain deadline setup | **20/20 bytes exact; 2,097,152 complete-state cases pass, including disabled MMIO reads and frame aliases** |
 | Integrated outer SoundMain buffer setup | **36/36 section bytes exact; 98,304 full-state production transfers pass into mixer RAM** |
 | Complete copied mixer | `████████████████████` **932/932 section bytes in C-only objects: 918 instruction bytes plus 14 data/alignment bytes; full ROM exact** |
@@ -504,7 +505,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 32 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 31 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

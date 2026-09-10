@@ -6499,3 +6499,56 @@ Evidence: `.deps/soundmain-packed/deadline-setup/report.json`,
 `deadline-setup/guards.json`, `deadline-setup-integrated-compare.log`,
 `deadline-layout/report.json`, `.deps/soundmain-complete/production-run.log` and
 `.deps/runtime-rebuild/verification.log`.
+
+
+### Integrated SoundMain callback fragment (September 10, 2026; baseline 2e442ceb)
+
+`src/m4a_callbacks.c` owns the exact 20 bytes at 0x080CF4FC..0x080CF510.
+The optional callback receives the intp field in r0; after it returns, the saved
+SoundInfo pointer is reloaded from frame word 24. The mandatory callback pointer
+is then read from that current info structure and invoked, followed by the
+existing fallthrough into matching buffer setup. This preserves mutations made
+by the optional callback to either the saved info pointer or mandatory callback.
+
+The new restricted callback-chain compiler pass validates the complete allocated
+load/branch/call/frame layout, removes the extra compiler LR frame and return,
+and selects two BL instructions through the existing shared BX r3 entry. The
+backend RTL expresses an indirect call through r3, with the trampoline symbol
+and offset carried as operands. It does not embed recovered instruction bytes.
+The target is the typed C function SoundMainRAM_ExitRestore plus 18, preserving
+Thumb call relocation without an alias veneer. Both source and production are
+compiled through assembly, as in the normal Makefile, to avoid mixing EABI0
+research objects with EABI5 production assembly objects in the isolated link.
+
+`check_soundmain_callback_chain.py --compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production` passes 27,648
+cases and compares all 20 production bytes with the original and candidate.
+Cases include absent/Thumb/ARM optional callbacks, Thumb/ARM mandatory callbacks,
+three mutation policies, saved-info redirection, aliasing intp/frame words,
+random callback register clobbers and every initial/first-callback NZCV pair.
+Final callback flags range over all 16 values. Each call's target, r0-r12, SP,
+LR and ARM/Thumb mode are checked, together with exact ordered source reads,
+complete RAM and final registers/flags/return PC. The callbacks execute actual
+BX LR return instructions, so interworking and link registers are exercised.
+Twelve unsupported compiler contracts reject and unannotated output is unchanged.
+
+The full ROM passes `make compare -j8`; the complete audio oracle passes 3,528
+production cases. Fresh runtime source rebuilds reproduce all four images and
+exported symbols. Link assertions preserve the callback entry, 20-byte extent,
+final fallthrough and shared trampoline reach; three deliberately shifted layouts
+reject. All source, linked, inline and runtime inventories and both unchanged
+copied-mixer receipts are refreshed for ELF SHA-256
+`a61649dae33649390b8be286b1c6da9ca490a93b860a3c24b1cfb506fe721837`.
+
+Main-ROM mapped instructions remain 777,630: 720,124 C-owned (92.60%), 33,870 mixed
+C/assembly, 1,844 assembly-source and 21,792 runtime, with zero unresolved ownership.
+Reviewed non-library assembly is 2,254 main-ROM bytes and 420 payload bytes.
+There are 503 tracked C files and 31 assembly entry markers. SoundMain's remaining
+assembly instructions are its 32-byte entry/lock/frame prefix; its 24-byte shared
+pool also remains in the assembly object. Other audio routines, runtime helpers,
+unit-list and transfer code and final executable classification remain unfinished.
+
+Evidence: `.deps/soundmain-packed/callbacks/report.json`, `production-check.log`,
+`production-compare.log`, `layout/report.json`,
+`.deps/soundmain-complete/production-run.log` and
+`.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.
