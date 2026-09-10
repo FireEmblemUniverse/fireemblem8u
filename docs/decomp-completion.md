@@ -3669,3 +3669,27 @@ matching builds remain to be verified before runtime C completion is credited.
 The readable report and machine-readable fingerprints are in
 `docs/runtime-source-inventory.md` and `.json`. No production code or installed
 archive was changed; isolated rebuild artifacts are in `.deps/runtime-audit/`.
+
+### September 10: SoundMain setup arithmetic characterized in C
+
+`research/audio/soundmain_setup.c` models the scanline deadline and DMA-buffer
+selection used before SoundMain enters SoundMainRAM_Buffer. It keeps unsigned
+32-bit wraparound explicit for counter-1, period-counter and sample multiplication;
+integer address arithmetic avoids pretending wrapped addresses remain within a
+C buffer object. The deadline is zero for maxLines=0, otherwise it adds VCOUNT
+with 228 added when VCOUNT is below 160.
+
+The oracle runs the original SoundMain until RAM mixer entry and compares those
+values with the compiled C model. Its 21,504 cases cover all byte counters and
+VCOUNT values, selected zero/boundary periods and sample counts, all-zero/all-set
+entry flags and optional/no optional callback. Callbacks are stable test stubs.
+It verifies optional callback context, subsequent CgbSound ordering, ident's
+lock increment, original r0/r4, r5/r6/r7/r8 setup, the deadline stack slot and
+64-byte mixer frame. C modeling does not modify SoundInfo. Production is unchanged.
+
+This does not claim a full matching SoundMain replacement or mixer verification.
+The real deadline is computed before callbacks while buffer selection occurs
+after them; mutations across callbacks must be preserved in subsequent work.
+The full custom frame, transfer and original instruction encoding also remain.
+Reproducible source and oracle are under research/audio; evidence is retained
+under `.deps/soundmain-setup/`.

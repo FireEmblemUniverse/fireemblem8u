@@ -60,8 +60,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: continue the remaining audio engine work; runtime C rebuild and
-syscall inline-assembly verification also remain open.
+Next milestone: preserve SoundMain callback mutations and its private mixer frame
+in a matching C implementation. Runtime C rebuild/syscall verification remains open.
+The SoundMain setup arithmetic model passes 21,504 cases against the original
+entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
+selection, stable callback order, lock update and the 64-byte mixer frame.
+This is research-only and does not replace the mixer or the full SoundMain entry.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
