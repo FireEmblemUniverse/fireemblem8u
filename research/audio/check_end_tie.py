@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check the tied-note release C candidate against original code and a list model."""
 from pathlib import Path
-import struct,subprocess,json
+import struct,subprocess,json,argparse
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2]
@@ -10,9 +10,14 @@ ENTRY=0x080d0044
 RAM=0x02000000
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--compiler",default="arm-none-eabi-gcc")
+    parser.add_argument("--plugin",type=Path)
+    args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-O1','-std=gnu89','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fomit-frame-pointer','-fno-schedule-insns','-fno-schedule-insns2','-fno-if-conversion','-fno-if-conversion2','-fno-reorder-blocks']
-    subprocess.run(['arm-none-eabi-gcc','-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/end_tie.c'),'-o',str(OUT/'candidate.s')],check=True)
+    if args.plugin:flags += ['-DMATCH_LEAF_FRAME','-Werror=attributes','-fplugin='+str(args.plugin.resolve())]
+    subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/end_tie.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.o'),str(OUT/'candidate.bin')],check=True)
     candidate=(OUT/'candidate.bin').read_bytes();original=(ROOT/'baserom.gba').read_bytes()[0xd0044:0xd0084]

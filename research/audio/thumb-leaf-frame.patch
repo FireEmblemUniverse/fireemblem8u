@@ -1,0 +1,21 @@
+--- a/gcc/config/arm/arm.cc
++++ b/gcc/config/arm/arm.cc
+@@ -21468,8 +21468,16 @@
+   if (!frame_pointer_needed && CALLER_INTERWORKING_SLOT_SIZE > 0)
+     mask |= 1 << ARM_HARD_FRAME_POINTER_REGNUM;
+ 
+-  /* LR will also be pushed if any lo regs are pushed.  */
+-  if (mask & 0xff || thumb_force_lr_save ())
++  /* An explicit matching contract allows simple Thumb leaves to retain LR.  */
++  bool matching_leaf = lookup_attribute ("matching_leaf_frame",
++                                         DECL_ATTRIBUTES (current_function_decl));
++  if (matching_leaf
++      && (!crtl->is_leaf || frame_pointer_needed || (mask & ~0xffUL)
++          || thumb_force_lr_save ()))
++    error ("matching_leaf_frame requires a simple Thumb leaf with low saved registers");
++
++  /* Preserve the ordinary ABI choice unless the matching contract is present.  */
++  if ((!matching_leaf && (mask & 0xff)) || thumb_force_lr_save ())
+     mask |= (1 << LR_REGNUM);
+ 
+   bool call_clobbered_scratch

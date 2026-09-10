@@ -2,6 +2,9 @@
 #include "gba/m4a_internal.h"
 
 // Consume an optional key byte and release the first live matching tied channel.
+#ifdef MATCH_LEAF_FRAME
+__attribute__((matching_leaf_frame))
+#endif
 void ply_endtie(struct MusicPlayerInfo * player, struct MusicPlayerTrack * track)
 {
     register u8 * command asm("r2") = track->cmdPtr;

@@ -2234,3 +2234,25 @@ explicitly saves LR whenever low callee-saved registers are pushed; the original
 leaf preserves only r4/r5. Threshold/branch and one TST operand choice also
 remain different. Production remains unchanged at `d3354ff9`; no integration or
 overall completion is claimed.
+
+
+### Thumb leaf-frame experiment — September 9, 2026
+
+`research/audio/thumb-leaf-frame.patch` changes the isolated GCC frame-mask
+calculation only for the explicit `matching_leaf_frame` function attribute.
+It suppresses the default save of LR for a simple leaf with low saved registers;
+non-leaves, required LR saves, frame pointers and high-register save masks are
+rejected. The original `arm.cc` SHA-256 is
+`4266ee54c3ba2a8f89630486a304624a80ec3c2daa8550c143d5b24eee3c1e0c`.
+The small `research/audio/leaf_frame.cc` plugin registers the experimental
+attribute. The isolated GCC build-tree compiler was rebuilt, without installing
+it over the production compiler. Its source tree currently contains this
+experimental patch; do not promote that tree without validation and updating
+the reproducible builder's source checks.
+
+With `MATCH_LEAF_FRAME`, the tied-note candidate is now the original 64 bytes
+and still passes all 768 original/C cases. Only halfwords at offsets 6, 8 and
+36 differ: the threshold/branch pair and one TST operand order. Prologue and
+epilogue now match. This remains research; standalone frame-contract regression
+cases, mode/unsupported-use checks, reproducible bootstrap support and final
+integration remain required. The production compiler and ROM are unchanged.
