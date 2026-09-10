@@ -380,21 +380,12 @@ MPlayMainTrackClear:
 	.global MPlayMainTrackDefaultsBoundary
 MPlayMainTrackDefaultsBoundary:
 	.section .text.after_mplay_track_init_defaults, "ax", %progbits
-	.global MPlayMainTrackDispatch
-MPlayMainTrackDispatch:
+	.global MPlayMainTrackDispatchBoundary
+MPlayMainTrackDispatchBoundary:
 _081DD8E0:
-	ldr r2, [r5, o_MusicPlayerTrack_cmdPtr]
-	ldrb r1, [r2]
-	cmp r1, 0x80
-	bhs _081DD8EC
-	ldrb r1, [r5, o_MusicPlayerTrack_runningStatus]
-	b _081DD8F6
-_081DD8EC:
-	adds r2, 0x1
-	str r2, [r5, o_MusicPlayerTrack_cmdPtr]
-	cmp r1, 0xBD
-	bcc _081DD8F6
-	strb r1, [r5, o_MusicPlayerTrack_runningStatus]
+	.section .text.after_mplay_command_read, "ax", %progbits
+	.global MPlayMainCommandDecode
+MPlayMainCommandDecode:
 _081DD8F6:
 	cmp r1, 0xCF
 	bcc _081DD90C

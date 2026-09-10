@@ -6881,3 +6881,51 @@ and ownership output in that directory, `mplay-track-init-production-check.log`,
 `mplay-track-init-production-compare.log`, the combined channel layout receipt,
 and refreshed runtime/SoundMain/mixer receipts. Next work continues track command
 processing and remaining clear-call paths.
+
+
+## Matching MPlayMain command reader integrated — September 10, 2026
+
+Baseline `b9f81f07`. `src/m4a_mplay_command_read.c` replaces all 22 instruction
+bytes at 080CFC24..080CFC3A. It reads the current command pointer and byte. Bytes
+below 128 select the track's running status without advancing the pointer; new
+commands advance the pointer, and bytes at least 189 also replace running status.
+The original entry retains its public `MPlayMainTrackDispatch` name; command
+decoding and callback dispatch after this reader remain assembly.
+
+The existing private tail rules and both unsigned-bound options produce CMP
+128/BCS and CMP 189/BCC with the original final flags. The final decode entry is
+adjacent, and the linker preserves the 22-byte extent and exact continuation.
+The preceding defaults assertion accounts for the now-typed Thumb C entry.
+Fifteen combined altered full-link layouts reject, including new command-reader
+size and decode-continuation cases. No new compiler rule was required.
+
+`check_mplay_command_read.py --production` proves exact original/production bytes
+and passes 328,640 execution cases. It covers every constructed command/status
+byte pair across five fixtures with cycling initial flags, plus all initial NZCV
+states at command thresholds. Separate-storage fixtures cover independent bytes;
+stream/status and stream/pointer-field aliases deliberately make their effective
+values dependent. The expected initial pointer and bytes are derived after memory
+construction. Other fixtures place the pointer field at SP or the stream at the
+last mapped RAM byte, where advancing reaches the end of the mapping without a
+further read. All r0-r12, SP/LR, final CPSR, complete 16 KiB RAM and ordered word/
+byte accesses agree. Outcomes: 164,704 running-status selections, 78,092 transient
+new commands, and 85,844 new running-status commands. Command decoding, callbacks
+and full MPlayMain execution are outside this checker.
+
+`make compare -j8` verifies the full 16 MiB ROM. Fresh runtime source builds
+reproduce all four images and exported symbols. Source/linked, inline-assembly
+and runtime inventories are refreshed, with unchanged SoundMain/mixer regions
+revalidated against updated ELF receipts.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,266 C-owned (92.62%),
+33,870 mixed C/assembly, 1,702 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,112 main-ROM instruction
+bytes and 420 payload bytes. There are 513 tracked main C files and 30 assembly
+entry markers. Totals include inherited work and are not overall completion.
+
+ELF SHA-256: `04625c5393f1a9b6fe1fb45880d2ef241fba343b4d7b7a26b6ce7b6e8a83e036`.
+Evidence: `.deps/soundmain-packed/mplay-command-read/report.json`, source/linked
+and ownership output in that directory, `mplay-command-read-production-check.log`,
+`mplay-command-read-production-compare.log`, the combined layout receipt and the
+refreshed runtime/SoundMain/mixer receipts. Next work continues command decoding,
+callbacks and remaining clear-call paths.

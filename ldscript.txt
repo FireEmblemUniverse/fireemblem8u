@@ -1109,6 +1109,14 @@ SECTIONS
         src/m4a_mplay_track_init_defaults.o(.text);
         __mplay_track_init_defaults_end = .;
         src/m4a_1.o(.text.after_mplay_track_init_defaults);
+        __mplay_command_read_start = .;
+        src/m4a_mplay_command_read.o(.text);
+        __mplay_command_read_end = .;
+        src/m4a_1.o(.text.after_mplay_command_read);
+        ASSERT((MPlayMainTrackDispatch & ~1) == MPlayMainTrackDispatchBoundary &&
+               __mplay_command_read_end - __mplay_command_read_start == 22 &&
+               MPlayMainCommandDecode == __mplay_command_read_end,
+               "MPlayMain command read extent or decode entry changed");
         ASSERT((MPlayMainTrackInit & ~1) == MPlayMainTrackInitBoundary &&
                __mplay_track_init_guard_end - __mplay_track_init_guard_start == 8 &&
                MPlayMainTrackClear == __mplay_track_init_guard_end,
@@ -1116,7 +1124,7 @@ SECTIONS
         ASSERT((MPlayMainTrackDefaults & ~1) == MPlayMainTrackDefaultsBoundary &&
                __mplay_track_init_defaults_start == MPlayMainTrackClear + 6 &&
                __mplay_track_init_defaults_end - __mplay_track_init_defaults_start == 24 &&
-               MPlayMainTrackDispatch == __mplay_track_init_defaults_end,
+               (MPlayMainTrackDispatch & ~1) == __mplay_track_init_defaults_end,
                "MPlayMain track defaults extent or dispatch changed");
         ASSERT(MPlayMainTrackWait >= __mplay_track_init_guard_start + 10 &&
                MPlayMainTrackWait <= __mplay_track_init_guard_start + 10 + 254 &&

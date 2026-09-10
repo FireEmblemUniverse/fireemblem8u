@@ -847,6 +847,11 @@ $(THUMB_STORE_DECREMENT_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thum
 THUMB_DIRECT_TAILS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_direct_tails.so
 $(THUMB_DIRECT_TAILS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_direct_tails.cc tools/arm-dispatch/build_thumb_direct_tails.py
 	python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_command_read.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_command_read.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_command_read.o: C_END_ALIGN := 1
+src/m4a_mplay_command_read.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainCommandDecode -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainCommandDecode -fplugin-arg-tail_transfer-raise-unsigned-bound -fplugin-arg-tail_transfer-raise-unsigned-le-bound
+
 src/m4a_mplay_track_init_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
 src/m4a_mplay_track_init_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_track_init_guard.o: C_END_ALIGN := 1

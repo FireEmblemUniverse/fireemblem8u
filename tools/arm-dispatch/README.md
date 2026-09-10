@@ -759,3 +759,22 @@ all registers, complete RAM and ordered accesses. It checks the two fragments
 independently and excludes the intervening clear call. Five new layout mutations
 join the existing eight, checking guard/default extents, dispatch continuation,
 and far or odd wait destinations.
+
+
+MPlayMain's command-byte reader uses both existing unsigned-bound options in one
+private tail function: `raise-unsigned-bound` emits CMP 128/BCS, and
+`raise-unsigned-le-bound` emits CMP 189/BCC. Its final continuation is adjacent.
+The resulting 22 bytes preserve the original running-status load, pointer advance
+and conditional running-status store, including the required comparison flags.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_command_read.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+```
+
+The checker passes 328,640 cases: every constructed command/status byte pair in
+five fixtures with cycling initial flags, plus all-NZCV boundary sweeps. Fixtures
+include aliased stream/status and stream/pointer-field storage, a pointer field
+at SP and a stream at the last RAM byte. For self-aliases the effective initial
+pointer and bytes are derived after constructing memory. All registers, flags,
+complete RAM and ordered accesses agree; execution stops before command decoding.
+Two new size/continuation mutations bring the combined layout checks to fifteen.
