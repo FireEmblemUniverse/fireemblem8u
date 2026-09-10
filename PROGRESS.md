@@ -35,7 +35,9 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 Next milestone: match and integrate the audio VSync/DMA handler.
 Its 76-byte C candidate now has the original section size and passes 2,304 original/C cases checking the ordered
 counter and DMA accesses, memory, r0-r12 and return flags. Shared literal loads now match;
-the extra counter comparison and carry-branch selection remain unfinished. A standalone
+the DMA carry branches now use the original instructions. The extra signed
+counter comparison remains the next matching target. Another 3,072 standalone
+bit-test executions pass across bit positions and branch senses. A standalone
 Thumb literal probe passes 192 execution cases; explicit link assertions reject
 12 offsets that the linker otherwise silently wraps.
 

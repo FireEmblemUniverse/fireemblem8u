@@ -24,6 +24,7 @@ int plugin_is_GPL_compatible;
 namespace {
 struct entry { unsigned long value; std::string symbol; };
 std::vector<entry> manifest;
+bool carry_tests=false;
 struct literal { rtx_insn *insn; long offset; int shared; unsigned uses; };
 bool references(rtx x,rtx label) {
     if (!x) return false;
@@ -42,6 +43,23 @@ public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *) override {
         if (!TARGET_THUMB1) fatal_error(UNKNOWN_LOCATION,"shared Thumb literals require Thumb-1");
+        if (carry_tests) for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+            if (!JUMP_P(i) || GET_CODE(PATTERN(i))!=PARALLEL || XVECLEN(PATTERN(i),0)!=2) continue;
+            rtx p=PATTERN(i),set=XVECEXP(p,0,0),clobber=XVECEXP(p,0,1);
+            if (GET_CODE(set)!=SET || SET_DEST(set)!=pc_rtx || GET_CODE(SET_SRC(set))!=IF_THEN_ELSE
+                || GET_CODE(clobber)!=CLOBBER || !REG_P(XEXP(clobber,0)) || REGNO(XEXP(clobber,0))>=8) continue;
+            rtx condition=XEXP(SET_SRC(set),0);
+            if (GET_CODE(condition)!=EQ && GET_CODE(condition)!=NE) continue;
+            rtx extract=XEXP(condition,0);
+            if (XEXP(condition,1)!=const0_rtx || GET_CODE(extract)!=ZERO_EXTRACT
+                || GET_MODE(extract)!=SImode || !REG_P(XEXP(extract,0)) || REGNO(XEXP(extract,0))>=8
+                || XEXP(extract,1)!=const1_rtx || !CONST_INT_P(XEXP(extract,2))) continue;
+            long bit=INTVAL(XEXP(extract,2));if (bit<0 || bit>=32) continue;
+            rtx replacement=copy_rtx(p),target=XEXP(SET_SRC(XVECEXP(replacement,0,0)),0);
+            XEXP(target,0)=gen_rtx_UNSPEC(SImode,gen_rtvec(2,copy_rtx(XEXP(extract,0)),GEN_INT(bit)),UNSPEC_MATCH_THUMB_BIT);
+            if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"Thumb carry-bit rewrite rejected");
+        }
+        if (manifest.empty()) return 0;
         std::vector<literal> literals; std::vector<unsigned> found(manifest.size());
         rtx_code_label *last=nullptr,*pool=nullptr;
         long offset=0;
@@ -96,6 +114,7 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)=="carry-tests" && !info->argv[n].value) { carry_tests=true;continue; }
         if (std::string(info->argv[n].key)!="literal" || !info->argv[n].value) return 1;
         std::string text=info->argv[n].value;auto split=text.find(',');if (split==std::string::npos) return 1;
         char *end=nullptr;unsigned long value=strtoul(text.c_str(),&end,0);
@@ -106,7 +125,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         for (const auto &old:manifest) if (old.value==value) return 1;
         manifest.push_back({value,symbol});
     }
-    if (manifest.empty()) return 1;
+    if (manifest.empty() && !carry_tests) return 1;
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&registration);
     return 0;

@@ -2415,3 +2415,25 @@ now match exactly. The candidate is down from 84 to the original 76 bytes.
 All 2,304 cases pass with zero r0-r12 or return-flag differences, preserving
 ordered counter/MMIO accesses. The extra counter compare and shift/carry branch
 selection remain different; production integration is not yet possible.
+
+
+### VSync shift/carry branches matched — September 9, 2026
+
+The experimental Thumb extension now includes an explicit single-bit branch
+operation selected by `--carry-tests`. The pass converts register-bit extraction
+branches while preserving their condition, label and scratch register. Bits
+1..31 use a left shift by 32-bit-index; bit zero uses a right shift by one,
+avoiding an unencodable Thumb LSL #32. EQ/NE become carry-clear/carry-set
+branches. Short, long and far assembly forms retain the existing branch-distance
+strategy; the long/far forms still need dedicated regression coverage.
+
+`check_thumb_carry.py` passes 3,072 baseline/carry executions across six bit
+positions (including 0 and 31), both senses, boundary/alternating inputs and all
+incoming NZCV states, checking branch results and preserved registers/stack.
+The VSync candidate uses the original LSL #7/BCC sequences and still passes all
+2,304 state, ordered-access and register/flag comparisons. Its section remains
+76 bytes, but the redundant signed counter compare shifts later instructions.
+Removing the C constraint after decrement does not eliminate that comparison:
+GCC conservatively tracks arithmetic flags as NZ-only. Next work must prove
+the byte counter's subtraction cannot overflow before reusing those flags for
+a signed branch. Production remains unchanged.

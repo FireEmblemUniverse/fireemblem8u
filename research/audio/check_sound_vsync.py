@@ -10,10 +10,12 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--compiler",default="arm-none-eabi-gcc")
     parser.add_argument("--plugin",type=Path)
+    parser.add_argument("--carry-tests",action="store_true")
     args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-if-conversion','-fno-if-conversion2','-fno-schedule-insns','-fno-schedule-insns2','-fno-reorder-blocks']
     if args.plugin:flags += ['-fplugin='+str(args.plugin.resolve()),'-fplugin-arg-thumb_shared_literal-literal=0x03007ff0,SharedSoundInfo','-fplugin-arg-thumb_shared_literal-literal=0x68736d53,SharedIdent']
+    if args.carry_tests:flags += ["-fplugin-arg-thumb_shared_literal-carry-tests"]
     subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'link.ld').write_text(f'SECTIONS {{ . = {ENTRY:#x}; .text : {{ *(.text) }} }} SharedSoundInfo = 0x080cfdc8; SharedIdent = 0x080cfdcc;\nASSERT(SharedSoundInfo >= ADDR(.text)+SIZEOF(.text) && SharedIdent+4 <= ADDR(.text)+1024, "Shared Thumb literals outside conservative forward range")\n')
