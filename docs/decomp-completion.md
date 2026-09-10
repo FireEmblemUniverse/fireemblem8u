@@ -5680,3 +5680,39 @@ main instruction ownership is 719,760/777,630 (92.56%, including inherited work)
 reviewed non-library assembly is 2,618 main-ROM and 420 expanded-payload bytes.
 Channel-loop/control, entry/frame code, playback routines and complete executable
 coverage accounting remain unfinished.
+
+## Channel deadline semantics and matching gap — September 10, 2026
+
+Research baseline `89342d36`: `research/audio/soundmain_deadline.c` preserves
+channel-count storage, wave-pointer loading and the optional VCOUNT deadline
+check at `0x080CF5E4..0x080CF604`. The original section contains 26 instruction
+bytes, two alignment bytes and a four-byte VCOUNT pointer. Zero deadline skips
+the hardware read. Otherwise the low VCOUNT byte is normalized by adding 228
+below scanline 160 and compared to the deadline as an unsigned value. Equality
+exits the mixer at `0x080CF8D6`; a smaller normalized scanline continues at
+`0x080CF604`.
+
+An initial return-value candidate caused GCC to introduce a saved-register frame,
+which invalidated the private SP offsets. The current void candidate uses a
+research decision register r2 and an empty r0 tie before the final comparison.
+It emits no frame adjustment and keeps the original read/write order. It is not
+integrated: the 36-byte section returns through BX LR rather than the original
+conditional/direct transfers, changes r2 and changes continue-path flags.
+
+`check_soundmain_deadline.py` passes 98,304 cases, each on four machines (original
+and candidate in ROM and copied RAM). It tests all 256 VCOUNT bytes, deadlines
+0, 1, normalized scanline minus/equal/plus one, INT_MAX, 0x80000000 and UINT_MAX;
+all 16 initial NZCV states; and three channel/frame layouts, including wave
+pointer aliasing with the count store or deadline. It independently checks the
+branch decision, original subtraction flags, SP/LR, all registers, entire mapped
+data memory and ordered frame/channel/MMIO accesses. The original paths comprise
+12,288 no-deadline cases, 49,152 deadline-continue cases and 36,864 exits. Candidate
+r2 differs in all 98,304 cases, and flags differ in the 49,152 continue cases;
+all other registers agree. The candidate return is intercepted before BX LR.
+PC-relative code/literal reads and cycle timing are not checked by this oracle.
+
+The report is reproducible at `.deps/soundmain-packed/deadline/report.json`.
+The production ELF hash still equals the current ownership receipt; no production
+C, linker or compiler changes were made. The next step is matching the two Thumb
+control destinations while preserving final compare flags and the original
+section layout. Overall decompilation remains incomplete.

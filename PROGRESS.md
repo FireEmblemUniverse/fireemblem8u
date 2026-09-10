@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integration: all ten channel-setup bytes now come from C (baseline `6c5c3b53` plus this change). Full ROM matching, 12,288 complete-state block cases, 12 compiler rejection cases, 3,528 complete audio calls and fresh runtime rebuilds pass.
+Updated: September 10, 2026. Latest research advance: the channel-deadline C candidate passes 98,304 ordered-access/control cases in original/candidate ROM and copied RAM (baseline `89342d36`). It emits 36 bytes versus the original 32-byte section; decision-register, flag and direct-transfer differences remain. Production ELF and coverage are unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -221,6 +221,15 @@ all registers, SP/LR and frame canaries. The early-exit compiler contract now
 accepts unsigned carry conditions; 4,672 checks cover both polarities and code
 placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
+The channel-deadline candidate passes 98,304 cases in four code placements:
+all VCOUNT bytes, deadline boundaries including high-bit unsigned values, every
+initial NZCV value and three frame/channel alias arrangements. Decisions, ordered
+frame/channel/MMIO accesses and all tested data memory agree. No deadline means
+no VCOUNT read. The remaining measured differences are r2 in all cases, NZCV in
+49,152 continue cases, an intercepted return instead of direct continuation/exit,
+and a 36-byte section versus 32 original bytes. This remains research code and
+adds no production coverage. The next matching work is the direct Thumb control
+transfer and preserving compare flags through both exits.
 Channel setup is integrated as `src/m4a_channel_setup.c` (ten bytes). All 12,288
 cases pass across ROM/copied RAM, all channel-count bytes, all initial flags,
 random frequency/register values and three frame/info alias placements. The
