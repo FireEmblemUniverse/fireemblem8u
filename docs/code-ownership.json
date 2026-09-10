@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "3376f630bd8c8cbb576ce36c3211094d077b8e1b",
+  "baseline_commit": "50f5de71bf5510aab2faa3db758859265345512b",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 2276,
-        "c_owned": 719692,
+        "assembly_source": 2264,
+        "c_owned": 719704,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -817,14 +817,14 @@
           "instruction_bytes": 1596
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 1572
-        },
-        {
           "object": "src/event.o",
           "category": "c_owned",
           "instruction_bytes": 1568
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 1560
         },
         {
           "object": "src/sio_multiboot.o",
@@ -1937,6 +1937,11 @@
           "instruction_bytes": 42
         },
         {
+          "object": "src/m4a_partial.o",
+          "category": "c_owned",
+          "instruction_bytes": 40
+        },
+        {
           "object": "tools/agbcc/lib/libc.a(fstatr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 40
@@ -1950,11 +1955,6 @@
           "object": "tools/agbcc/lib/libc.a(sbrkr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 38
-        },
-        {
-          "object": "src/m4a_partial.o",
-          "category": "c_owned",
-          "instruction_bytes": 36
         },
         {
           "object": "src/m4a_reset_setters.o",
@@ -2127,6 +2127,11 @@
           "instruction_bytes": 8
         },
         {
+          "object": "src/m4a_resample_finish.o",
+          "category": "c_owned",
+          "instruction_bytes": 8
+        },
+        {
           "object": "src/m4a_resample_lane.o",
           "category": "c_owned",
           "instruction_bytes": 8
@@ -2157,13 +2162,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "3e8a3dc4aea59e144a6b9212ba0e4b09c1033e601321aef4bab6e460f8fdecba",
-      "map_sha256": "8e98b9081e687a5dc2054f6641ecbc3ee497e87a9837911d1d2a8edec444683e",
+      "elf_sha256": "c6fb38f8212908ee68e0e66c2604eca6c6a6e6ad9002ab557373635884a58b83",
+      "map_sha256": "14f10d1c980b40d5f89528501114d48e78c355aeaa3e15d9ec5d062e25a3e60d",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2686
+      "known_nonarchive_assembly_bytes": 2674
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

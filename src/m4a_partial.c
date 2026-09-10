@@ -9,7 +9,7 @@ register volatile struct SoundChannel *partialChannel asm("r4");
 register u32 partialOutput asm("r5");
 register volatile u32 partialRight asm("r6");
 register volatile u32 partialLeft asm("r7");
-extern void SoundMainRAM_PartialDone(void);
+extern void SoundMainRAM_RestoreFrame(void);
 __attribute__((matching_word_postincrement, matching_arm_adjacent))
 void SoundMainRAM_Partial(void)
 {
@@ -29,5 +29,5 @@ void SoundMainRAM_Partial(void)
     *(volatile u32 *)(partialOutput + PCM_DMA_BUF_SIZE) = partialLeft;
     *(volatile u32 *)partialOutput = partialRight;
     partialOutput += 4;
-    SoundMainRAM_PartialDone();
+    SoundMainRAM_RestoreFrame();
 }

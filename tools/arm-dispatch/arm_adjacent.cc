@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false,early_pair=false,remainder_lr=false,store_zero=false;
+bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false,early_pair=false,remainder_lr=false,store_zero=false,pop_decrement=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -275,7 +275,18 @@ rtx_insn *lower_pop_pair() {
     auto next=[](rtx_insn *i) { while(i&&!NONDEBUG_INSN_P(i)) { if (LABEL_P(i)) return (rtx_insn *)nullptr; i=NEXT_INSN(i); } return i; };
     rtx_insn *push=next(get_insns());
     if (!push||!lr_push(PATTERN(push))) fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop pair requires sole LR save");
-    rtx_insn *first=next(NEXT_INSN(push)),*second=first?next(NEXT_INSN(first)):nullptr;
+    rtx_insn *first=next(NEXT_INSN(push));
+    rtx decrement_reg=nullptr;
+    if (pop_decrement) {
+        if (!first||!NONJUMP_INSN_P(first)) fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop decrement missing prefix");
+        rtx p=PATTERN(first);
+        if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode||REGNO(SET_DEST(p))>=13
+            ||GET_CODE(SET_SRC(p))!=PLUS||!rtx_equal_p(SET_DEST(p),XEXP(SET_SRC(p),0))
+            ||!CONST_INT_P(XEXP(SET_SRC(p),1))||INTVAL(XEXP(SET_SRC(p),1))!=-1)
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop decrement requires a nonflag general-register decrement");
+        decrement_reg=SET_DEST(p);first=next(NEXT_INSN(first));
+    }
+    rtx_insn *second=first?next(NEXT_INSN(first)):nullptr;
     rtx_insn *adjust=second?next(NEXT_INSN(second)):nullptr;
     if (!first||!second||!adjust||!NONJUMP_INSN_P(first)||!NONJUMP_INSN_P(second)||!NONJUMP_INSN_P(adjust))
         fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop pair missing prefix");
@@ -292,6 +303,8 @@ rtx_insn *lower_pop_pair() {
         ||GET_CODE(c)!=SET||!reg_is(SET_DEST(c),SP_REGNUM)||GET_CODE(SET_SRC(c))!=PLUS
         ||!reg_is(XEXP(SET_SRC(c),0),SP_REGNUM)||!CONST_INT_P(XEXP(SET_SRC(c),1))||INTVAL(XEXP(SET_SRC(c),1))!=8)
         fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop pair requires ascending word loads and SP plus eight");
+    if (decrement_reg&&(REGNO(decrement_reg)==REGNO(SET_DEST(a))||REGNO(decrement_reg)==REGNO(SET_DEST(b))))
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop decrement must remain live after the restore");
     rtx replacement=gen_rtx_PARALLEL(VOIDmode,gen_rtvec(3,copy_rtx(c),copy_rtx(a),copy_rtx(b)));
     if (!validate_change(first,&PATTERN(first),replacement,false))
         fatal_error(UNKNOWN_LOCATION,"ARM adjacent pop pair load-multiple rejected");
@@ -489,8 +502,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             conditional_destination=value;have_conditional=true;
         } else if (std::string(key)=="transfer" && !have_transfer && value && std::string(value)=="branch") {
             branch_transfer=true;have_transfer=true;
-        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2"||std::string(value)=="push2"||std::string(value)=="store0")) {
-            frame64=std::string(value)=="frame64";pop_pair=std::string(value)=="pop2";push_pair=std::string(value)=="push2";store_zero=std::string(value)=="store0";have_frame=true;
+        } else if (std::string(key)=="sp-input" && !have_frame && value && (std::string(value)=="frame64"||std::string(value)=="pop2"||std::string(value)=="push2"||std::string(value)=="store0"||std::string(value)=="pop2-decrement")) {
+            frame64=std::string(value)=="frame64";pop_decrement=std::string(value)=="pop2-decrement";pop_pair=std::string(value)=="pop2"||pop_decrement;push_pair=std::string(value)=="push2";store_zero=std::string(value)=="store0";have_frame=true;
         } else return 1;
     }
     if (have_conditional && conditional_destination==destination) return 1;

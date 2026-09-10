@@ -345,10 +345,6 @@ SoundMainRAM_PartialBoundary:
 @ Partial-word completion is linked here from m4a_partial.c.
 	.section .text.after_partial, "ax", %progbits
 	.arm
-	.global SoundMainRAM_PartialDone
-	.type SoundMainRAM_PartialDone, %function
-SoundMainRAM_PartialDone:
-	b SoundMainRAM_RestoreFrame
 _081DD19C:
     .global SoundMainRAM_ResampleSetupBoundary
 SoundMainRAM_ResampleSetupBoundary:
@@ -377,11 +373,11 @@ SoundMainRAM_WordFinishBoundary:
 @ Stereo stores and sample-count decision are linked from m4a_word_finish.c.
 	.section .text.after_word_finish, "ax", %progbits
 	.arm
-	.global SoundMainRAM_ResampleFinish
-	.type SoundMainRAM_ResampleFinish, %function
-SoundMainRAM_ResampleFinish:
-	sub r3, r3, 0x1
-	pop {r4,r12}
+    .global SoundMainRAM_ResampleFinishBoundary
+SoundMainRAM_ResampleFinishBoundary:
+@ Source rewind and resampling register restoration come from C.
+    .section .text.after_resample_finish, "ax", %progbits
+    .arm
 _081DD228:
 	.global SoundMainRAM_SaveBoundary
 SoundMainRAM_SaveBoundary:

@@ -5412,3 +5412,52 @@ sample-entry-production-build.log, sample-entry-production-check.log,
 store0-regression-*.log, sample-entry-source-audit.json and
 sample-entry-ownership.log. Complete-call evidence is under
 `.deps/soundmain-complete/`; fresh-library receipts remain in docs/runtime-rebuild.json.
+
+
+## September 10, 2026 — final ARM mixer exits integrated; 488-byte region complete
+
+Baseline: `50f5de71`. `src/m4a_resample_finish.c` replaces the eight-byte
+SUB r3,1 / POP r4,r12 sequence at 0x080CF8AC and falls through to adjacent
+resampled-channel saving at 0x080CF8B4. The private pop-pair contract gains
+`pop2-decrement`: exactly one nonflag general-register decrement by one before
+the existing ascending two-word restores and SP+=8. The decremented register
+must differ from both restored registers. Only the existing restore operations
+are folded; the prefix is retained. Ordinary pop2 is unchanged.
+
+`src/m4a_partial.c` now owns the terminal B to frame restoration at 0x080CF8C0,
+using the existing transfer=branch contract. Its exact size grows from 36 to
+40 bytes; the old assembly-only PartialDone entry is removed. Link assertions
+check both original extents/entries, adjacent resampled saving and the aligned
+forward frame-restore branch within the copied mixer/range.
+
+The resampling-exit suite passes 100,608 cases per placement, 201,216 total
+across original/production ROM and copied RAM. It covers 262 saved-channel
+values, eight saved-product boundaries, three stack placements, sixteen flag
+states, selected full-width source values including zero/one, and arbitrary LR.
+Expected state checks source minus one with wrap, ordered two-word reads,
+restored r4/r12, SP+8, unchanged NZCV/LR, all other registers, exact exit PC and
+untouched frame/canaries. Partial completion passes 61,440 cases through the
+actual final branch, preserving its previous alias, rotation, status and ordered
+write coverage. Ten invalid decrement/pop contracts reject. All existing
+adjacent/conditional/frame/LR/carry/early/early-pair/store/pop/push regression
+suites pass. Complete production SoundMain passes 3,528 calls; full ROM checksum
+and fresh runtime-library relinks of all four images/symbols pass.
+
+A linked-region audit verifies contiguous coverage of 0x080CF6E4..0x080CF8CC:
+all 488 bytes are ARM instructions owned by C-only objects in the current
+ownership inventory, with no gaps or overlaps. The audit checks the common ELF
+fingerprint and records each contributing region in docs/mixer-arm-region.json.
+This completes the ARM sample-mixing region, not the full SoundMain routine:
+surrounding Thumb setup/channel/frame control and no-reverb clearing remain.
+
+Main ownership is now 719,704 C-owned instruction bytes (92.55%), 33,870 mixed,
+2,264 assembly-source and 21,792 runtime, total 777,630. Reviewed non-library
+assembly is 2,674 main bytes and 420 payload bytes. Source inventory: 490 C files,
+32 assembly entry markers, two manual declarations, 714 inline sites (358
+register bindings, 348 empty constraints, one directive, seven instruction
+templates). Runtime/inline/hardware work and full coverage accounting remain open.
+
+Evidence under `.deps/soundmain-packed/`: mixer-exits-production-build.log,
+resample-finish-production*.json, partial-production*.json, exits-regression-*.log,
+mixer-exits-source-audit.json, mixer-exits-ownership.log and mixer-exits-linked.json.
+Current complete-call and runtime receipts are maintained in their usual locations.

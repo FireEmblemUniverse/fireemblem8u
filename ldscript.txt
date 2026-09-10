@@ -759,6 +759,15 @@ SECTIONS
         src/m4a_word_finish.o(.text);
         __word_finish_end = .;
         src/m4a_1.o(.text.after_word_finish);
+        __resample_finish_start = .;
+        src/m4a_resample_finish.o(.text);
+        __resample_finish_end = .;
+        src/m4a_1.o(.text.after_resample_finish);
+        ASSERT(SoundMainRAM_ResampleFinish == SoundMainRAM_ResampleFinishBoundary &&
+               __resample_finish_end - __resample_finish_start == 8,
+               "resampling finish entry or eight-byte extent changed");
+        ASSERT(SoundMainRAM_SaveResampled == __resample_finish_end && (SoundMainRAM_SaveResampled & 3) == 0,
+               "resampling finish must fall through to adjacent ARM saving code");
         ASSERT(SoundMainRAM_ResampleWordFinish == SoundMainRAM_WordFinishBoundary,
                "word finish C block must follow packed-lane advance");
         ASSERT(__word_finish_end - __word_finish_start == 16,
@@ -809,10 +818,12 @@ SECTIONS
                "resample conditional ARM branch out of range");
         ASSERT(SoundMainRAM_Partial == SoundMainRAM_PartialBoundary,
                "partial-word C block must follow sample loop selection");
-        ASSERT(__partial_end - __partial_start == 36,
-               "partial-word C block must contain exactly 36 bytes");
-        ASSERT(SoundMainRAM_PartialDone == __partial_end,
-               "partial-word continuation must be adjacent in ARM mode");
+        ASSERT(__partial_end - __partial_start == 40,
+               "partial-word C block including restore branch must contain exactly 40 bytes");
+        ASSERT((SoundMainRAM_RestoreFrame & 3) == 0 && SoundMainRAM_RestoreFrame > __partial_end &&
+               SoundMainRAM_RestoreFrame < SoundMainRAM_End &&
+               SoundMainRAM_RestoreFrame - (__partial_start + 44) < 0x2000000,
+               "partial restore must be forward ARM code in copied mixer and branch range");
         ASSERT(SoundMainRAM_Short == SoundMainRAM_ShortBoundary,
                "short sample C block must follow packed finish");
         ASSERT(__short_end - __short_start == 44,

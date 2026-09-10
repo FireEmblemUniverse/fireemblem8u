@@ -24,8 +24,8 @@ def main():
     assert hashlib.sha1(original).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     nm = subprocess.check_output(['arm-none-eabi-nm', '-S', str(ROOT / 'fireemblem8.elf')], text=True)
     fields = next(line.split() for line in nm.splitlines() if line.endswith(' SoundMainRAM_Partial'))
-    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 36, fields
-    assert production[ENTRY-0x08000000:ENTRY-0x08000000+36] == original[ENTRY-0x08000000:ENTRY-0x08000000+36]
+    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 40, fields
+    assert production[ENTRY-0x08000000:ENTRY-0x08000000+40] == original[ENTRY-0x08000000:ENTRY-0x08000000+40]
     machines = []
     def access(uc, kind, address, size, value, trace):
         trace.append((kind, address, size, value & ((1 << (8 * size)) - 1)))
@@ -66,8 +66,8 @@ def main():
                         for n, value in enumerate(regs): uc.reg_write(getattr(r, 'UC_ARM_REG_R'+str(n)), value)
                         lr = (0, 7, 0xdeadbeef)[cases % 3]
                         uc.reg_write(r.UC_ARM_REG_SP, SP); uc.reg_write(r.UC_ARM_REG_LR, lr)
-                        uc.emu_start(entry, entry+36, count=20)
-                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+36
+                        uc.emu_start(entry, entry+(0x080cf8c0-ENTRY), count=20)
+                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+(0x080cf8c0-ENTRY)
                         assert uc.reg_read(r.UC_ARM_REG_CPSR) == flags
                         assert uc.reg_read(r.UC_ARM_REG_SP) == SP and uc.reg_read(r.UC_ARM_REG_LR) == lr
                         assert bytes(uc.mem_read(SP-16, 32)) == bytes([0xa5]) * 32
@@ -79,7 +79,7 @@ def main():
                         snapshots.append((observed, trace.copy()))
                     assert snapshots[0] == snapshots[1], (byte, lane, channel, right, left)
                     cases += 1
-    report = dict(cases=cases, matching_C_bytes=36, copied_RAM=a.copied_ram,
+    report = dict(cases=cases, matching_C_bytes=40, copied_RAM=a.copied_ram,
                   scope='production partial-word finish; four lanes including zero rotate, all status bytes/truncation, channel/output aliases, boundary and seeded packed words; exact ordered writes, independent expected memory/registers, unchanged flags and SP/LR/canaries')
     (OUT / ('partial-production-ram.json' if a.copied_ram else 'partial-production.json')).write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))

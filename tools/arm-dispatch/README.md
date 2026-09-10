@@ -493,3 +493,16 @@ modes are unchanged. Production `src/m4a_sample_entry.c` uses this with the earl
 resampling exit. `check_arm_store_zero.py` covers twelve invalid contracts;
 `check_soundmain_sample_entry.py` verifies exact bytes, ordered accesses, flags,
 registers and alias effects against the original in ROM and copied RAM.
+
+
+ARM adjacent `sp-input=pop2-decrement` retains one exact nonflag prefix decrement
+before the existing pop-pair sequence: a general r0-r12 register minus one.
+That register must differ from both restored registers. The remaining prefix
+must be the normal ascending word loads from SP/SP+4 and SP+=8; barriers,
+other arithmetic, wrong offsets and further SP effects reject. Only the loads
+and stack adjustment are combined, preserving the preceding decrement and
+original load attributes. Ordinary pop2 behavior is unchanged. Production
+`src/m4a_resample_finish.c` uses this to rewind r3 and restore r4/r12 before
+falling through to channel saving. `check_arm_pop_decrement.py` covers ten
+invalid contracts; `check_soundmain_resample_finish.py` checks production state,
+ordered reads, source wrap and stack canaries in ROM/copied RAM.
