@@ -1170,36 +1170,8 @@ lt2_ID_NUMBER:      .word ID_NUMBER
 @ TrackStop and its sound-info pointer pool are generated from matching C.
 	.section .text.after_track_stop, "ax", %progbits
 
-	THUMB_FUNC_START ChnVolSetAsm
-ChnVolSetAsm: @ 0x080CFE14
-	ldrb r1, [r4, #0x12]
-	movs r0, #0x14
-	ldrsb r2, [r4, r0]
-	movs r3, #0x80
-	adds r3, r3, r2
-	muls r3, r1, r3
-	ldrb r0, [r5, #0x10]
-	muls r0, r3, r0
-	asrs r0, r0, #0xe
-	cmp r0, #0xff
-	bls _080CFE2C
-	movs r0, #0xff
-_080CFE2C:
-	strb r0, [r4, #2]
-	movs r3, #0x7f
-	subs r3, r3, r2
-	muls r3, r1, r3
-	ldrb r0, [r5, #0x11]
-	muls r0, r3, r0
-	asrs r0, r0, #0xe
-	cmp r0, #0xff
-	bls _080CFE40
-	movs r0, #0xff
-_080CFE40:
-	strb r0, [r4, #3]
-	bx lr
-
-	THUMB_FUNC_END ChnVolSetAsm
+@ Stereo channel volumes are generated from matching C.
+	.section .text.after_channel_volume, "ax", %progbits
 
 	thumb_func_start ply_note
 ply_note:

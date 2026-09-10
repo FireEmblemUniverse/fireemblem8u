@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: tied-note release integration (baseline `94e26126` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: stereo channel-volume integration (baseline `cd973d23` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,6 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated stereo channel volume | `████████████████████` **All 48 bytes exact; 4,032 production execution cases pass** |
 | Integrated tied-note release | `████████████████████` **All 64 bytes exact; full ROM verified** |
 | Integrated audio track stop | `████████████████████` **Complete 68-byte section exact; full ROM verified** |
 | Integrated audio byte reader | `████████████████████` **All 10 bytes exact; 32,768 original/production execution cases pass** |
@@ -54,7 +55,9 @@ to the dispatcher. The C source uses the project's queue/state structures.
 The audio command-byte reader is also integrated: all 10 Thumb bytes match,
 including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
-Main source inventory is now 453 C files and 54 assembly entry markers.
+The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
+original/production execution cases match, including saturation and private ABI.
+Main source inventory is now 454 C files and 53 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
@@ -104,6 +107,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace the internal audio command-byte reader with matching C.
 - [x] Replace TrackStop with matching C and validate live AND/zero compiler folding.
 - [x] Replace the tied-note release handler with matching C and validate its Thumb leaf frame.
+- [x] Replace stereo channel-volume calculation with matching C.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -112,7 +116,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 54 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 53 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

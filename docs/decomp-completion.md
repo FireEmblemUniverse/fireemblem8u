@@ -2305,3 +2305,24 @@ flags. The checker confirms the compiled candidate and production bytes agree.
 The linked audit assigns 64 Thumb bytes to the new object with no orphan
 mappings. Inventory is now 453 main C files and 54 assembly entry markers;
 embedded code and other remaining executable scopes still require completion.
+
+
+### Stereo channel-volume integration — September 9, 2026
+
+`src/m4a_channel_volume.c` replaces all 48 Thumb bytes of `ChnVolSetAsm` at
+`0x080CFE14..0x080CFE44`. Fixed-register global declarations express its private
+inputs (channel in r4, track in r5); local empty constraints preserve the original
+register allocation. No instruction templates or additional compiler patches
+are used. Signed channel pan ranges from -128 to 127; right/left factors are
+128+pan and 127-pan. Each factor is multiplied by velocity and track volume,
+shifted by 14 and clamped to 255 before storing. These bounded products fit
+in signed 32-bit arithmetic.
+
+`research/audio/check_channel_volume.py` passes 4,032 original/production cases
+covering pan extremes, velocity/volume boundaries, saturation and all incoming
+NZCV states. Complete test memory, r0-r12, preserved stack and final flags agree
+with the original and an independent arithmetic reference. `make compare -j8`
+passes the complete ROM checksum. The linked audit assigns all 48 Thumb bytes
+to the C object with no orphan mappings. Main inventory is now 454 C files and
+53 assembly entry markers. All previously identified remaining scopes remain
+part of the full decompilation goal.
