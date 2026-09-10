@@ -1089,6 +1089,28 @@ SECTIONS
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;
         src/m4a_1.o(.text.after_sound_vsync);
+        __mplay_entry_callback_setup_start = .;
+        src/m4a_mplay_entry_callback_setup.o(.text);
+        __mplay_entry_callback_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_entry_callback_setup);
+        ASSERT((MPlayMainEntryCallbackSetup & ~1) == MPlayMainEntryCallbackSetupBoundary &&
+               __mplay_entry_callback_setup_end - __mplay_entry_callback_setup_start == 8 &&
+               (MPlayMainEntryCallbackInvoke & ~1) == __mplay_entry_callback_setup_end,
+               "MPlayMain entry_callback_setup extent or continuation changed");
+        __mplay_entry_callback_invoke_start = .;
+        src/m4a_mplay_entry_callback_invoke.o(.text);
+        __mplay_entry_callback_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_entry_callback_invoke);
+        ASSERT((MPlayMainEntryCallbackInvoke & ~1) == MPlayMainEntryCallbackInvokeBoundary &&
+               __mplay_entry_callback_invoke_end - __mplay_entry_callback_invoke_start == 4 &&
+               (MPlayMainEntryFrame & ~1) == __mplay_entry_callback_invoke_end,
+               "MPlayMain entry_callback_invoke extent or continuation changed");
+        ASSERT((MPlayMainEntryFrame & ~1) >= __mplay_entry_callback_setup_start + 8 &&
+               (MPlayMainEntryFrame & ~1) <= __mplay_entry_callback_setup_start + 8 + 254,
+               "MPlayMain entry callback skip out of range");
+        ASSERT((call_r3 & ~1) >= __mplay_entry_callback_invoke_start + 4 &&
+               (call_r3 & ~1) <= __mplay_entry_callback_invoke_start + 4 + 4194302,
+               "MPlayMain entry callback trampoline out of range");
         __mplay_entry_frame_tail_start = .;
         src/m4a_1.o(.text.mplay_entry_frame_tail);
         __mplay_entry_frame_tail_end = .;

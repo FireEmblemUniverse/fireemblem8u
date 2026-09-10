@@ -12,7 +12,7 @@ def flags_sub(a,b):
  return (result>>31)<<3|((result==0)<<2)|((a>=b)<<1)|bool(((a^b)&(a^result))&0x80000000)
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler');p.add_argument('--candidate',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler');p.add_argument('--candidate',action='store_true');p.add_argument('--production',action='store_true');a=p.parse_args()
  if a.candidate:
   assert a.compiler,'--candidate requires --compiler'
   out=ROOT/'.deps/soundmain-packed/mplay-entry/callback-setup';out.mkdir(parents=True,exist_ok=True);obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
@@ -21,6 +21,7 @@ def main():
   script=out/'candidate.ld';script.write_text('SECTIONS { .text 0x080cfb78 : { *(.text) } MPlayMainEntryFrame = 0x080cfb84; MPlayMainEntryCallbackInvoke = 0x080cfb80; }')
   subprocess.run(['arm-none-eabi-ld','-T',str(script),str(obj),'-o',str(elf)],check=True);subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+ if a.production:assert (ROOT/'fireemblem8.gba').read_bytes()==rom
  uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_map(DATA,0x4000)
  if a.candidate:
   assert (ROOT/'.deps/soundmain-packed/mplay-entry-callback-invoke/candidate.c').read_text()==(ROOT/'research/audio/mplay_entry_callback_invoke.c').read_text(),'Run check_mplay_entry_callback_invoke.py for the current source first'
@@ -79,6 +80,6 @@ def main():
   assert state['entries']==expected_entries
   assert bytes(uc.mem_read(DATA,0x4000))==wanted and state['accesses']==accesses,(state['accesses'],accesses)
   cases+=1;outcomes[outcome]+=1
- report=dict(candidate_callback_bytes=12 if a.candidate else 0,cases=cases,outcomes=outcomes,original_instruction_bytes=42,scope='Independent original-ROM model of lock rejection, identifier store, callback dispatch, ordered frame writes and low/high register saves; seven player locations, four callback-write aliases, ARM/Thumb callbacks and rejection returns, two stacks, all incoming NZCV and four returned flag patterns; exact SP at each executed entry instruction, complete registers/CPSR/LR/RAM and ordered accesses.',limitations='Synthetic callback bodies at controlled ROM addresses; stops at entry-status continuation and does not execute complete MPlayMain. Player locations avoid callback-pointer fields overwritten by the initial two-word push.')
+ report=dict(production_integrated=a.production,candidate_callback_bytes=12 if a.candidate else 0,cases=cases,outcomes=outcomes,original_instruction_bytes=42,scope='Independent original-ROM model of lock rejection, identifier store, callback dispatch, ordered frame writes and low/high register saves; seven player locations, four callback-write aliases, ARM/Thumb callbacks and rejection returns, two stacks, all incoming NZCV and four returned flag patterns; exact SP at each executed entry instruction, complete registers/CPSR/LR/RAM and ordered accesses.',limitations='Synthetic callback bodies at controlled ROM addresses; stops at entry-status continuation and does not execute complete MPlayMain. Player locations avoid callback-pointer fields overwritten by the initial two-word push.')
  out=ROOT/'.deps/soundmain-packed/mplay-entry';out.mkdir(parents=True,exist_ok=True);(out/('lock-callback-frame-candidate.json' if a.candidate else 'lock-callback-frame-model.json')).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

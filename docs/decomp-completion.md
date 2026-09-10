@@ -8565,3 +8565,42 @@ Sources: `research/audio/mplay_entry_callback_setup.c`,
 `lock-callback-frame-candidate.json`, corresponding logs,
 `callback-invoke-check.log`, and
 `.deps/soundmain-packed/mplay-entry-callback-invoke/report.json`.
+
+
+## September 10, 2026 — Entry callback setup/invocation integrated
+
+On baseline `0ee7b16c`, the eight-byte callback setup and four-byte invocation
+at 080CFB78..080CFB84 are integrated as matching C. Their source text equals
+the verified candidates except for function names, and linked ownership verifies
+the exact Thumb extents in C-only objects. The remaining assembly is 16 bytes
+of lock/initial push plus 14 bytes of frame setup (30 total). The MPlayMain
+assembly symbol ends before the inserted callback C; frame setup retains its
+own continuation label and existing two-byte final-push section.
+
+`make compare -j8` passes for the full ROM. The entry/frame model passes all
+86,016 cases with candidate bytes and production identity verified: 64,512 lock
+rejections (which do not enter the new fragments) and 21,504 accepted entries.
+It covers ARM/Thumb callbacks and rejection returns, seven player locations,
+four callback-write aliases, two stacks, all incoming NZCV and four returned
+flag patterns, exact SP during the entry path and complete ordered RAM/register
+state. The invocation separately passes 49,152 cases across all incoming/returned
+NZCV pairs; 13 invalid contracts reject and unannotated output is unchanged.
+Synthetic callbacks isolate dispatch/frame behavior; these checks do not execute
+actual user callback logic or complete MPlayMain.
+
+Fresh pinned runtime builds reproduce all four images and exported symbols.
+Main-ROM ownership is 720,728 C-owned, 33,870 mixed C/assembly, 1,240
+assembly-source and 21,792 runtime archive instruction bytes (777,630 total).
+Reviewed non-library assembly is 1,650 main-ROM bytes and 420 expanded-payload
+bytes; source inventory is 564 main C files and 30 assembly entry markers.
+SoundMain and the mixer remain entirely attributed to C. The valid full layout
+links and all 197 altered layouts reject, including eight new callback extent,
+continuation, skip-range and trampoline-range violations.
+
+Evidence: `.deps/soundmain-packed/mplay-entry/callback-production-build.log`,
+`callback-invoke-production.log`, `callback-frame-production.log`,
+`callback-production-identity.json`, `callback-source.json`, `callback-linked.json`,
+`callback-layout.log`, and refreshed tracked ownership/runtime/audio receipts.
+Production ELF SHA-256:
+`f4780c654800200fc57544601917cebaa56408bc31a0751a3315775e612dfce7`.
+Next: remaining MPlayMain lock/initial-push and frame setup.

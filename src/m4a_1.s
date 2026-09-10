@@ -302,11 +302,15 @@ _081DD82E:
 	adds r3, 0x1
 	str r3, [r0, o_MusicPlayerInfo_ident]
 	push {r0,lr}
-	ldr r3, [r0, o_MusicPlayerInfo_func]
-	cmp r3, 0
-	beq _081DD840
-	ldr r0, [r0, o_MusicPlayerInfo_intp]
-	bl call_r3
+	thumb_func_end MPlayMain
+	.global MPlayMainEntryCallbackSetupBoundary
+MPlayMainEntryCallbackSetupBoundary:
+	.section .text.after_mplay_entry_callback_setup, "ax", %progbits
+	.global MPlayMainEntryCallbackInvokeBoundary
+MPlayMainEntryCallbackInvokeBoundary:
+	.section .text.after_mplay_entry_callback_invoke, "ax", %progbits
+	.global MPlayMainEntryFrame
+MPlayMainEntryFrame:
 _081DD840:
 	pop {r0}
 	push {r4-r7}
@@ -314,7 +318,6 @@ _081DD840:
 	mov r5, r9
 	mov r6, r10
 	mov r7, r11
-	thumb_func_end MPlayMain
 	.section .text.mplay_entry_frame_tail, "ax", %progbits
 	push {r4-r7}
 	.global MPlayMainEntryStatusBoundary

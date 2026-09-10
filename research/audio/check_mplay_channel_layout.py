@@ -185,6 +185,16 @@ def main():
   cases.append((name,source.replace(needle,'        FadeOutBody = __mplay_fade_invoke_start + '+str(offset)+';\n'+needle,1),'fade callee out of range'))
  cases.append(('entry_frame_tail_extent',source.replace('        __mplay_entry_frame_tail_end = .;','        . += 2;\n        __mplay_entry_frame_tail_end = .;'),'entry frame tail extent or continuation'))
  cases.append(('entry_frame_tail_continuation',source.replace('        __mplay_entry_status_start = .;','        . += 2;\n        __mplay_entry_status_start = .;'),'entry frame tail extent or continuation'))
+ for part in ('entry_callback_setup','entry_callback_invoke'):
+  stem='mplay_'+part
+  cases.append((part+'_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),part+' extent or continuation'))
+  cases.append((part+'_continuation',source.replace('        src/m4a_1.o(.text.after_'+stem+');','        . += 2;\n        src/m4a_1.o(.text.after_'+stem+');'),part+' extent or continuation'))
+ for name,offset in [('callback_skip_far',264),('callback_skip_backward',6)]:
+  needle='        ASSERT((MPlayMainEntryFrame & ~1) >= __mplay_entry_callback_setup_start + 8'
+  cases.append((name,source.replace(needle,'        MPlayMainEntryFrame = __mplay_entry_callback_setup_start + '+str(offset)+';\n'+needle,1),'entry callback skip out of range'))
+ for name,offset in [('entry_trampoline_far',4194308),('entry_trampoline_backward',0)]:
+  needle='        ASSERT((call_r3 & ~1) >= __mplay_entry_callback_invoke_start + 4'
+  cases.append((name,source.replace(needle,'        call_r3 = __mplay_entry_callback_invoke_start + '+str(offset)+';\n'+needle,1),'entry callback trampoline out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

@@ -1150,3 +1150,13 @@ src/m4a_mplay_fade_status.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_mplay_fade_status.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_fade_status.o: C_END_ALIGN := 1
 src/m4a_mplay_fade_status.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainTempoAccumulate -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainTempoAccumulate -fplugin-arg-tail_transfer-destination=MPlayMainExit
+
+src/m4a_mplay_entry_callback_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_entry_callback_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_entry_callback_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_entry_callback_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainEntryFrame -fplugin-arg-tail_transfer-destination=MPlayMainEntryCallbackInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainEntryCallbackInvoke -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainEntryFrame -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+src/m4a_mplay_entry_callback_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_entry_callback_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_entry_callback_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_entry_callback_invoke.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-trampoline=call_r3 -fplugin-arg-thumb_callback_tail-continuation=MPlayMainEntryFrame -fplugin-arg-thumb_callback_tail-fallthrough
