@@ -1093,6 +1093,21 @@ SECTIONS
         src/m4a_mplay_tempo_accumulate.o(.text);
         __mplay_tempo_accumulate_end = .;
         src/m4a_1.o(.text.after_mplay_tempo_accumulate);
+        __mplay_channel_gate_start = .;
+        src/m4a_mplay_channel_gate.o(.text);
+        __mplay_channel_gate_end = .;
+        src/m4a_1.o(.text.after_mplay_channel_gate);
+        ASSERT((MPlayMainChannelGate & ~1) == MPlayMainChannelGateBoundary &&
+               __mplay_channel_gate_end - __mplay_channel_gate_start == 28 &&
+               MPlayMainChannelClear == __mplay_channel_gate_end &&
+               MPlayMainChannelNext == __mplay_channel_gate_end + 6,
+               "MPlayMain channel gate extent or continuation changed");
+        ASSERT(MPlayMainChannelClear >= __mplay_channel_gate_start + 10 &&
+               MPlayMainChannelClear <= __mplay_channel_gate_start + 10 + 254 &&
+               MPlayMainChannelNext >= __mplay_channel_gate_start + 22 &&
+               MPlayMainChannelNext <= __mplay_channel_gate_start + 16 + 254 &&
+               (MPlayMainChannelClear & 1) == 0 && (MPlayMainChannelNext & 1) == 0,
+               "MPlayMain channel gate conditional tail out of range");
         __mplay_tempo_finish_start = .;
         src/m4a_mplay_tempo_finish.o(.text);
         __mplay_tempo_finish_end = .;

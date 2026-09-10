@@ -357,28 +357,20 @@ _081DD886:
 	ldr r4, [r5, o_MusicPlayerTrack_chan]
 	cmp r4, 0
 	beq _081DD8BA
-_081DD892:
-	ldrb r1, [r4]
-	movs r0, 0xC7
-	tst r0, r1
-	beq _081DD8AE
-	ldrb r0, [r4, 0x10]
-	cmp r0, 0
-	beq _081DD8B4
-	subs r0, 0x1
-	strb r0, [r4, 0x10]
-	bne _081DD8B4
-	movs r0, 0x40
-	orrs r1, r0
-	strb r1, [r4]
-	b _081DD8B4
+	.global MPlayMainChannelGateBoundary
+MPlayMainChannelGateBoundary:
+	.section .text.after_mplay_channel_gate, "ax", %progbits
+	.global MPlayMainChannelClear
+MPlayMainChannelClear:
 _081DD8AE:
 	adds r0, r4, 0
 	bl ClearChain
+	.global MPlayMainChannelNext
+MPlayMainChannelNext:
 _081DD8B4:
 	ldr r4, [r4, 0x34]
 	cmp r4, 0
-	bne _081DD892
+	bne MPlayMainChannelGate
 _081DD8BA:
 	ldrb r3, [r5, o_MusicPlayerTrack_flags]
 	movs r0, 0x40

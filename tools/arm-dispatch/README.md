@@ -689,5 +689,37 @@ python3 tools/arm-dispatch/build_thumb_store_decrement_zero.py --compiler .deps/
 The standalone checker covers both equality senses, full-width boundary/random
 values, all initial NZCV states and unsupported source forms. The MPlayMain
 checker additionally tests every status/gate byte and initial NZCV combination
-against the original ROM. This rule is currently used by a research candidate;
-MPlayMain's channel gate is not yet integrated as matching production C.
+against the original ROM. This rule is used by the matching production MPlayMain channel gate, together
+with the direct-tail rule below.
+
+
+### Direct conditional private tails
+
+`matching_thumb_direct_tails` retargets the validated local continuation stubs
+left by `matching_tail_transfer`. It supports a zero comparison, the validated
+EQ/NE decrement/store bundle, and an inverse masked-zero branch over an adjacent
+unlabelled tail stub. The masked AND is commutative; low-register operands are
+ordered ascending for the required TST encoding. No instruction or labelled entry
+may intervene before a removed tail stub. Its obsolete barrier is also removed.
+
+Every destination must be declared with `destination=NAME`; duplicate destinations
+are rejected. `expected-transfers=N` requires exactly that many rewrites and rejects
+missing or unsupported forms. The rule runs after branch shortening, so the
+existing decrement/store rule has completed; transformations only shorten code or
+retain its size. New external conditional targets require linker range assertions.
+The production linker checks all three branch PCs, even destinations, the 28-byte
+fragment extent and both continuation positions. The rule leaves unannotated
+compilation unchanged and does not insert assembly into C source.
+
+```sh
+python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_thumb_direct_tails.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_channel_gate.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+python3 research/audio/check_mplay_channel_layout.py
+```
+
+The Makefile builds both new plugins automatically for `m4a_mplay_channel_gate.o`.
+The channel checker proves exact original and production bytes before executing
+all 1,048,576 status/gate/NZCV cases. Twelve invalid compiler contracts and five
+altered production layouts are rejected. Channel traversal, ClearChain and full
+MPlayMain execution remain outside this fragment's semantic checker.

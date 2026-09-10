@@ -841,6 +841,17 @@ src/m4a_entry_literals.o: $(ARM_DISPATCH_CC)
 src/m4a_entry_literals.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_entry_literals.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding
 
+THUMB_STORE_DECREMENT_ZERO_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_store_decrement_zero.so
+$(THUMB_STORE_DECREMENT_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_store_decrement_zero.cc tools/arm-dispatch/build_thumb_store_decrement_zero.py
+	python3 tools/arm-dispatch/build_thumb_store_decrement_zero.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+THUMB_DIRECT_TAILS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_direct_tails.so
+$(THUMB_DIRECT_TAILS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_direct_tails.cc tools/arm-dispatch/build_thumb_direct_tails.py
+	python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_channel_gate.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_STORE_DECREMENT_ZERO_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_channel_gate.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_channel_gate.o: C_END_ALIGN := 1
+src/m4a_mplay_channel_gate.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainChannelClear -fplugin-arg-tail_transfer-destination=MPlayMainChannelNext -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_STORE_DECREMENT_ZERO_PLUGIN) -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainChannelClear -fplugin-arg-thumb_direct_tails-destination=MPlayMainChannelNext -fplugin-arg-thumb_direct_tails-expected-transfers=3
+
 src/m4a_mplay_tempo_accumulate.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_mplay_tempo_accumulate.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_tempo_accumulate.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTempoStore

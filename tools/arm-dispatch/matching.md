@@ -350,3 +350,32 @@
   "TARGET_THUMB1 && (GET_CODE (operands[2]) == EQ || GET_CODE (operands[2]) == NE)"
   "subs\t%0, %0, #1\n\tstrb\t%0, %1\n\tb%d2\t%l3"
   [(set_attr "length" "6") (set_attr "type" "multiple")])
+
+;; Direct private masked-zero transfer. Operand order is explicit; the AND
+;; remains commutative and preserves the original Thumb TST flags.
+(define_insn "match_thumb_mask_zero_tail"
+  [(set (pc)
+        (if_then_else
+         (eq (and:SI (match_operand:SI 0 "low_register_operand" "l")
+                     (match_operand:SI 1 "low_register_operand" "l")) (const_int 0))
+         (match_operand:SI 2 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1"
+  "tst\t%0, %1\n\tbeq\t%2"
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Equality-only decrement/store bundle targeting a declared private symbol.
+;; The linker must prove conditional-branch reach for every such transfer.
+(define_insn "match_thumb_store_decrement_zero_tail"
+  [(set (pc)
+        (if_then_else
+         (match_operator 2 "comparison_operator"
+          [(unspec:SI [(match_operand:SI 0 "s_register_operand" "+l")]
+                      UNSPEC_MATCH_THUMB_BYTE_DEC)
+           (const_int 0)])
+         (match_operand:SI 3 "match_thumb_tail_symbol" "s") (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))
+   (set (match_operand:QI 1 "memory_operand" "=m")
+        (truncate:QI (plus:SI (match_dup 0) (const_int -1))))]
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == EQ || GET_CODE (operands[2]) == NE)"
+  "subs\t%0, %0, #1\n\tstrb\t%0, %1\n\tb%d2\t%3"
+  [(set_attr "length" "6") (set_attr "type" "multiple")])

@@ -6728,3 +6728,58 @@ Evidence: `.deps/soundmain-packed/mplay-channel-gate-folded/report.json`,
 `mplay-channel-backend.log` and `mplay-channel-backend-compare.log` under the same
 soundmain-packed directory. Plugin build instructions and limitations are in
 `tools/arm-dispatch/README.md`.
+
+
+## Matching MPlayMain channel gate integrated — September 10, 2026
+
+Baseline `790739cc`. `src/m4a_mplay_channel_gate.c` replaces the original 28
+instruction bytes at 080CFBD6..080CFBF2. The C source loads channel status,
+checks active bits 0xC7, decrements nonzero gate time, and sets release bit 0x40
+on expiry. Inactive channels transfer to the existing ClearChain path; live
+channels transfer to the existing next-channel load. Those continuations remain
+assembly and are outside this fragment's claimed C coverage.
+
+The new opt-in direct-tail compiler rule eliminates local terminal stubs for a
+masked-zero branch, a plain zero branch and the validated decrement/store equality
+bundle. It orders the commutative TST operands as required, declares every external
+destination and requires exactly three safe rewrites. A removed inverse-branch
+stub must be adjacent and unlabelled; its obsolete barrier is removed as well.
+The pass runs after shortening so the decrement/store rule has already run, and
+only retains or reduces instruction sizes. Twelve unsupported configurations or
+source forms reject; unannotated object output is unchanged. The Makefile builds
+both new plugins automatically and applies them only to the selected C object.
+
+The linker keeps the fragment halfword-aligned and exactly 28 bytes long, with
+ClearChain's continuation at its end and next-channel handling six bytes later.
+It checks conditional-branch reach and even targets for all three external
+branches. One valid full link passes; five altered layouts reject, covering size,
+continuation, forward/backward range and odd targets. The original loop-back
+branch now targets the typed C entry at its unchanged address.
+
+`check_mplay_channel_gate.py --production` passes 1,048,576 cases against the
+original ROM. It first proves all 28 candidate bytes equal the original and the
+production slice, and verifies the complete production ROM checksum. Execution
+covers every status byte, gate-time byte and initial NZCV state, with normal and
+stack-overlapping channel data. Every register, SP/LR, final CPSR, full 16 KiB RAM,
+exit destination and ordered memory access agrees. Outcomes are 32,768 clear-chain
+transfers, 3,968 disabled counters, 1,007,872 continuing counters and 3,968 releases.
+ClearChain execution, channel traversal and full MPlayMain execution remain outside
+these checks. No broader audio-engine or timing claim is inferred.
+
+`make compare -j8` verifies the full 16 MiB ROM. Fresh runtime source rebuilds
+reproduce all four images and exported symbols. Source, linked ownership, inline
+assembly and runtime inventories are refreshed; the unchanged complete SoundMain,
+copied mixer and ARM mixer regions are revalidated against their new ELF receipt.
+ELF SHA-256 is `98ae15da475ad1fe4e754db37a71bf6cc8e3a76fb64d6dcd5d2c973cf5ff6038`.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,206 C-owned (92.62%),
+33,870 mixed C/assembly, 1,762 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,172 main-ROM instruction
+bytes and 420 payload bytes. There are 509 tracked C files and 30 assembly entry
+markers. Totals include inherited work and are not an overall completion percentage.
+
+Evidence: `.deps/soundmain-packed/mplay-channel-gate-direct/report.json`,
+`guards/report.json`, `layout/report.json`, source/linked/ownership audit output in
+that directory, `mplay-channel-gate-direct-production-check.log`,
+`mplay-channel-gate-direct-production-compare.log`, and the runtime rebuild receipt.
+Next work continues MPlayMain channel traversal and track processing.

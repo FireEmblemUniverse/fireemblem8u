@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Compare the C channel gate candidate with MPlayMain's original private entry.
 
-This is a behavioral research gate, not a claim of matching production bytes.
+Default mode checks behavior; --direct-tails proves exact bytes and --production
+also checks those bytes in the complete matching production ROM.
 It stops before ClearChain or the next-channel load, neither of which is covered.
 """
 import argparse
@@ -21,8 +22,15 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
     parser.add_argument('--decrement-store', action='store_true')
+    parser.add_argument('--direct-tails', action='store_true')
+    parser.add_argument('--production', action='store_true')
     args = parser.parse_args()
-    out = ROOT / ('.deps/soundmain-packed/mplay-channel-gate-folded' if args.decrement_store else '.deps/soundmain-packed/mplay-channel-gate')
+    if args.production:
+        args.direct_tails = True
+    if args.direct_tails:
+        args.decrement_store = True
+    candidate_address = ENTRY if args.direct_tails else CANDIDATE
+    out = ROOT / ('.deps/soundmain-packed/mplay-channel-gate-direct' if args.direct_tails else '.deps/soundmain-packed/mplay-channel-gate-folded' if args.decrement_store else '.deps/soundmain-packed/mplay-channel-gate')
     out.mkdir(parents=True, exist_ok=True)
     source = ROOT / 'research/audio/mplay_channel_gate.c'
     obj, elf, binary = (out / name for name in ('candidate.o', 'candidate.elf', 'candidate.bin'))
@@ -35,27 +43,37 @@ def main():
                     '-fplugin-arg-tail_transfer-destination=MPlayMainChannelNext',
                     '-fplugin-arg-tail_transfer-private-frame64',
                     '-fplugin-arg-tail_transfer-acyclic-branches'] +
-                   (['-DMATCH_DECREMENT_STORE', '-fplugin=' + str(ROOT / '.deps/flood-core-new-backend/thumb_store_decrement_zero.so')] if args.decrement_store else []), check=True)
+                   (['-DMATCH_DECREMENT_STORE', '-fplugin=' + str(ROOT / '.deps/flood-core-new-backend/thumb_store_decrement_zero.so')] if args.decrement_store else []) +
+                   (['-DMATCH_DIRECT_TAILS', '-fplugin=' + str(ROOT / '.deps/flood-core-new-backend/thumb_direct_tails.so'),
+                     '-fplugin-arg-thumb_direct_tails-destination=MPlayMainChannelClear',
+                     '-fplugin-arg-thumb_direct_tails-destination=MPlayMainChannelNext',
+                     '-fplugin-arg-thumb_direct_tails-expected-transfers=3'] if args.direct_tails else []), check=True)
     # Destinations are nearby to preserve short Thumb branches. Compare their roles,
     # translating only candidate entry/exit PCs; all data addresses remain identical.
-    cclear, cnext = CANDIDATE + 0x100, CANDIDATE + 0x102
+    cclear, cnext = (CLEAR, NEXT) if args.direct_tails else (CANDIDATE + 0x100, CANDIDATE + 0x102)
     script = out / 'candidate.ld'
-    script.write_text('SECTIONS { .text ' + hex(CANDIDATE) + ' : { *(.text) } '
+    script.write_text('SECTIONS { .text ' + hex(candidate_address) + ' : { *(.text) } '
                       'MPlayMainChannelClear = ' + hex(cclear) + '; '
                       'MPlayMainChannelNext = ' + hex(cnext) + '; }')
     subprocess.run(['arm-none-eabi-ld', '-T', str(script), str(obj), '-o', str(elf)], check=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '-j', '.text', str(elf), str(binary)], check=True)
     code = binary.read_bytes()
-    assert len(code) == (30 if args.decrement_store else 32), code.hex()
+    assert len(code) == (28 if args.direct_tails else 30 if args.decrement_store else 32), code.hex()
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
+    if args.direct_tails:
+        assert code == rom[ENTRY - 0x08000000:CLEAR - 0x08000000], code.hex()
+    if args.production:
+        production = (ROOT / 'fireemblem8.gba').read_bytes()
+        assert hashlib.sha1(production).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
+        assert code == production[ENTRY - 0x08000000:CLEAR - 0x08000000]
     machines = []
     for candidate in (False, True):
         uc = Uc(UC_ARCH_ARM, UC_MODE_THUMB)
         uc.mem_map(0x08000000, 0x1000000)
         uc.mem_write(0x08000000, rom)
         if candidate:
-            uc.mem_write(CANDIDATE, code)
+            uc.mem_write(candidate_address, code)
         uc.mem_map(DATA, 0x4000)
         trace = []
         def access(u, kind, address, size, value, trace):
@@ -66,7 +84,7 @@ def main():
             if address in exits:
                 u.emu_stop()
         uc.hook_add(UC_HOOK_CODE, stop, exits)
-        machines.append((uc, trace, exits, CANDIDATE if candidate else ENTRY))
+        machines.append((uc, trace, exits, candidate_address if candidate else ENTRY))
     rng = random.Random(0xfe8ca7e)
     counts = dict(clear=0, disabled=0, counting=0, release=0)
     for status, gate, flags in itertools.product(range(256), range(256), range(16)):
@@ -112,11 +130,11 @@ def main():
             results.append(uc.reg_read(r.UC_ARM_REG_CPSR))
         assert results[0] == results[1], (status, gate, flags, results)
         counts[role] += 1
-    report = dict(decrement_store_folded=args.decrement_store, cases=sum(counts.values()), outcomes=counts, original_bytes=CLEAR - ENTRY,
+    report = dict(exact_candidate_bytes=args.direct_tails, decrement_store_folded=args.decrement_store, cases=sum(counts.values()), outcomes=counts, original_bytes=CLEAR - ENTRY,
                   candidate_bytes=len(code), candidate_sha256=hashlib.sha256(code).hexdigest(),
-                  source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(), production_integrated=False,
+                  source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(), production_integrated=args.production,
                   scope='All 256 status bytes, 256 gate bytes and 16 initial NZCV states; normal and frame-overlap channel addresses; all registers, SP/LR, flags, complete RAM and ordered accesses.',
-                  limitations='Candidate has different instruction encoding/layout. Excludes ClearChain, next-channel traversal, and full MPlayMain execution.')
+                  limitations=('' if args.direct_tails else 'Candidate has different instruction encoding/layout. ') + 'Excludes ClearChain, next-channel traversal, and full MPlayMain execution.')
     (out / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 
