@@ -4,6 +4,7 @@
 // LR holds the fractional position here, rather than a return address.
 register u32 sampleCurrent asm("r0");
 register u32 sampleDifference asm("r1");
+register u32 sampleStep asm("r4");
 register u32 sampleOutput asm("r5");
 register volatile u32 sampleRight asm("r6");
 register volatile u32 sampleLeft asm("r7");
@@ -28,5 +29,7 @@ void SoundMainRAM_Resample(void)
     sampleProduct = sampleInterpolated * sampleLeftVolume;
     sampleProduct &= ~0xFF0000u;
     sampleLeft = sampleProduct + ((sampleLeft >> 8) | (sampleLeft << 24));
+    // Forward the wrapped fraction through the private LR accumulator contract.
+    sampleFraction += sampleStep;
     SoundMainRAM_ResampleAdvance();
 }

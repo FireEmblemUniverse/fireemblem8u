@@ -29,10 +29,10 @@ def main():
     assert hashlib.sha1(original).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     nm = subprocess.check_output(['arm-none-eabi-nm', '-S', str(ROOT / 'fireemblem8.elf')], text=True)
     fields = next(line.split() for line in nm.splitlines() if line.endswith(' SoundMainRAM_Resample'))
-    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 40, fields
+    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 44, fields
     symbols = {line.split()[-1]: int(line.split()[0], 16) for line in nm.splitlines() if len(line.split()) >= 3}
-    assert symbols['SoundMainRAM_ResampleMix'] == ENTRY+8 and symbols['SoundMainRAM_ResampleAdvance'] == ENTRY+40
-    assert production[ENTRY-0x08000000:ENTRY-0x08000000+40] == original[ENTRY-0x08000000:ENTRY-0x08000000+40]
+    assert symbols['SoundMainRAM_ResampleMix'] == ENTRY+8 and symbols['SoundMainRAM_ResampleAdvance'] == ENTRY+44
+    assert production[ENTRY-0x08000000:ENTRY-0x08000000+44] == original[ENTRY-0x08000000:ENTRY-0x08000000+44]
     machines = []
     def access(uc, kind, address, size, value, trace):
         if kind == UC_MEM_READ: value = int.from_bytes(uc.mem_read(address, size), 'little')
@@ -52,6 +52,8 @@ def main():
         for difference in (-255, -128, -1, 0, 1, 127, 255):
             for fraction in (0, 1, 0x7fffff, 0x800000, 0x7fffffff, 0x80000000, 0xffffffff, 0x12345678):
                 for offset, lane in ((0, 0), (8, 0), (8, 1), (8, 2), (8, 3)):
+                    steps = (0, 1, 0x7fffff, 0x800000, 0x7fffffff, 0x80000000, 0xffffffff, 0x12345678, (-fraction) & MASK)
+                    step = steps[(cases // 5) % len(steps)]
                     right_vol, left_vol = volumes[cases % len(volumes)]
                     right, left = pairs[(cases // len(volumes)) % len(pairs)]
                     right_vol <<= 16; left_vol <<= 16
@@ -64,14 +66,14 @@ def main():
                         trace.clear(); uc.mem_write(DATA, bytes(raw)); uc.mem_write(SP-16, bytes([0xa5]) * 32)
                         flags = 0x13 | (cases % 16) << 28; uc.reg_write(r.UC_ARM_REG_CPSR, flags)
                         regs = [0x12340000+n for n in range(13)]; regs[0] = current & MASK; regs[1] = difference & MASK
-                        regs[5] = OUTPUT | lane << 30; regs[6] = right; regs[7] = left
+                        regs[4] = step; regs[5] = OUTPUT | lane << 30; regs[6] = right; regs[7] = left
                         regs[10] = right_vol; regs[11] = left_vol
                         for n, value in enumerate(regs): uc.reg_write(getattr(r, 'UC_ARM_REG_R'+str(n)), value)
                         uc.reg_write(r.UC_ARM_REG_SP, SP); uc.reg_write(r.UC_ARM_REG_LR, fraction)
-                        uc.emu_start(entry+offset, entry+40, count=20)
-                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+40
+                        uc.emu_start(entry+offset, entry+44, count=20)
+                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+44
                         assert uc.reg_read(r.UC_ARM_REG_CPSR) == flags
-                        assert uc.reg_read(r.UC_ARM_REG_SP) == SP and uc.reg_read(r.UC_ARM_REG_LR) == fraction
+                        assert uc.reg_read(r.UC_ARM_REG_SP) == SP and uc.reg_read(r.UC_ARM_REG_LR) == (fraction + step) & MASK
                         assert bytes(uc.mem_read(SP-16, 32)) == bytes([0xa5]) * 32
                         assert bytes(uc.mem_read(DATA, len(raw))) == raw
                         assert trace == ([] if offset else [(UC_MEM_READ, OUTPUT, 4, right), (UC_MEM_READ, OUTPUT+1584, 4, left)])
@@ -82,8 +84,8 @@ def main():
                         snapshots.append((observed, trace.copy()))
                     assert snapshots[0] == snapshots[1]
                     entries['interpolation_reentry' if offset else 'word_load'] += 1; cases += 1
-    report = dict(cases=cases, entries=entries, matching_C_bytes=40, copied_RAM=a.copied_ram,
-                  scope='production interpolation and shared entry; every current signed byte, difference/fraction boundaries and wrap, four lanes; distributed volume/packed-word boundaries; independent expected arithmetic/registers, ordered reads, unchanged memory/flags/SP/LR')
+    report = dict(cases=cases, entries=entries, matching_C_bytes=44, copied_RAM=a.copied_ram,
+                  scope='production interpolation/fraction advance and shared entry; every current signed byte, difference/fraction boundaries and wrap, four lanes; distributed volume/packed-word boundaries; independent expected arithmetic/registers, ordered reads, unchanged memory/flags/SP, wrapped LR output')
     (OUT / ('resample-production-ram.json' if a.copied_ram else 'resample-production.json')).write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))
 

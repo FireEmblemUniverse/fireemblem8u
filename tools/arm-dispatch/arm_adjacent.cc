@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination;
-bool read_only_lr=false;
+bool read_only_lr=false,accumulator_lr=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -121,11 +121,19 @@ public:
                 discard.push_back(i);phase=4;continue;
             }
             // An explicit fixed LR input may be read by a general-register SET.
-            // No LR writes, implicit writeback, control effects or volatile access.
+            // Accumulator mode additionally permits LR += a general register.
+            // No implicit writeback, control effects or volatile access.
             bool lr_read=read_only_lr && GET_CODE(p)==SET && REG_P(SET_DEST(p))
                 && GET_MODE(SET_DEST(p))==SImode && REGNO(SET_DEST(p))<13
                 && !side_effects_p(SET_SRC(p));
-            if (phase!=1||mentions(p,SP_REGNUM)||(mentions(p,LR_REGNUM)&&!lr_read)||executable_asm(p))
+            bool lr_add=false;
+            if (accumulator_lr && GET_CODE(p)==SET && reg_is(SET_DEST(p),LR_REGNUM)) {
+                rtx src=SET_SRC(p);
+                lr_add=GET_CODE(src)==PLUS && reg_is(XEXP(src,0),LR_REGNUM)
+                    && REG_P(XEXP(src,1)) && GET_MODE(XEXP(src,1))==SImode
+                    && REGNO(XEXP(src,1))<13;
+            }
+            if (phase!=1||mentions(p,SP_REGNUM)||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add)||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
                 if (GET_CODE(p)!=SET||SET_DEST(p)!=pc_rtx) fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported jump");
@@ -152,8 +160,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         const char *key=info->argv[n].key,*value=info->argv[n].value;
         if (std::string(key)=="destination" && !have_destination && value && *value) {
             destination=value;have_destination=true;
-        } else if (std::string(key)=="lr-input" && !have_lr && value && std::string(value)=="read-only") {
-            read_only_lr=true;have_lr=true;
+        } else if (std::string(key)=="lr-input" && !have_lr && value && (std::string(value)=="read-only" || std::string(value)=="accumulator")) {
+            read_only_lr=true;accumulator_lr=std::string(value)=="accumulator";have_lr=true;
         } else return 1;
     }
     if (!have_destination) return 1;

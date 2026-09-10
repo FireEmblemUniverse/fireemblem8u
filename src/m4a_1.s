@@ -380,7 +380,6 @@ SoundMainRAM_ResampleBoundary:
 	.global SoundMainRAM_ResampleAdvance
 	.type SoundMainRAM_ResampleAdvance, %function
 SoundMainRAM_ResampleAdvance:
-	add lr, lr, r4
 	movs r9, lr, lsr 23
 	beq _081DD208
 	bic lr, lr, 0x3F800000

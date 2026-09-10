@@ -4356,3 +4356,55 @@ unfinished, as does runtime rebuild verification. Evidence under
 resample-production-ram.json, resample-source-audit.json, resample-ownership.log,
 adjacent-lr.log and adjacent-regression.log; complete-call report under
 `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — fractional advance integrated (44-byte block)
+
+Baseline: `abe2a434`. The production resampling block now includes the original
+ADD LR,LR,r4 at 0x080CF868, extending its matched span to 44 bytes ending at
+0x080CF86C. `sampleStep` binds to the private r4 input, and unsigned addition
+advances the fraction with 32-bit wrap. The adjacent continuation now starts
+with the flag-setting shift that determines source advancement. Its branch and
+loop transitions remain assembly. Linker extent/adjacency and the shared +8
+interpolation entry stay checked; the whole copied mixer remains 932 bytes.
+
+The explicit `lr-input=accumulator` compiler contract permits the prior read-only
+LR forms plus a non-flag-setting SET LR = LR + a register r0-r12. It requires
+the same global LR binding and complete validated frame/call/restore sequence.
+Removing that terminal restore forwards the updated private LR value instead
+of reinstating the incoming fraction. Arbitrary assignments, other LR updates,
+stack references and control uses remain rejected. No instruction pattern was
+added; GCC already emits the exact ADD. The ordinary/read-only modes retain
+their previous restrictions.
+
+`check_arm_adjacent_lr.py --accumulator` passes 13,056 execution cases checking
+the old-fraction product and wrapped new LR, preserved flags/registers/memory
+and untouched stack. Nine invalid forms are rejected. The read-only mode also
+passes its 13,056 cases and nine rejections; the original adjacent suite passes
+160 cases, eleven compiler rejections, two link rejections and unchanged
+unannotated output. The test directories are shared, so the two LR modes run
+sequentially; their separate logs preserve both outcomes.
+
+`make compare -j8` passes. The extended production block checker again passes
+71,680 cases in ROM and 71,680 in copied RAM, now requiring LR = fraction + step
+modulo 2^32. Nine step choices are distributed across the existing sample,
+difference, fraction and entry combinations: zero, one, fractional/sign
+boundaries, 0xffffffff, a mixed-bit value and the negative incoming fraction
+for exact wrap to zero. Original/production execution and independent expected
+arithmetic agree on the interpolated sample, packed outputs, all registers,
+ordered reads, flags, memory and SP. The production complete-call regression
+passes 3,528 calls, including 1,728 deadline exits. These checks do not measure
+hardware cycle timing.
+
+The audit moves four more bytes to C: 719,392 C-owned main instruction bytes,
+33,870 mixed-object bytes, 2,576 assembly-source bytes and 21,792 runtime bytes,
+total 777,630 (92.51% rounded C ownership). Reviewed non-library assembly is
+2,986 main bytes plus 420 payload bytes. Source inventory remains 476 C files,
+32 assembly entry markers and five manual assembly declarations; inline sites
+are 650 (297 register bindings, 345 empty constraints, one directive and seven
+instruction templates). Full frame/channel, remaining audio control and runtime
+rebuild verification remain unfinished. Evidence under `.deps/soundmain-packed/`:
+resample-advance-build.log, resample-production.json, resample-production-ram.json,
+resample-advance-source-audit.json, resample-advance-ownership.log,
+adjacent-lr-accumulator.log, adjacent-lr.log and adjacent-regression.log; the
+complete-call report is under `.deps/soundmain-complete/`.

@@ -246,3 +246,13 @@ Without the option, any LR body use is still rejected. This supports the
 resampling mixer's fractional-position input without treating it as a normal
 return address. `research/audio/check_arm_adjacent_lr.py` verifies arbitrary LR
 values, flags and invalid contracts; the original adjacent checks remain passing.
+
+
+For fractional-position updates, `lr-input=accumulator` adds exactly one
+permitted LR-writing pattern to the read-only contract: a non-flag-setting
+`LR = LR + r0-r12` SET. The compiler frame/call/restore are removed so the
+updated LR reaches the adjacent private continuation. This is deliberately
+not a normal C return ABI; explicit global LR binding and linker adjacency
+remain required. Other LR writes, memory writeback and stack/control uses
+remain rejected. Run `check_arm_adjacent_lr.py --accumulator` for execution
+and guard checks; run without the flag to verify the read-only contract.
