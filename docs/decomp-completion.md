@@ -12,6 +12,34 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Mixer exit restore candidate — September 10, 2026
+
+Research baseline `22ea617a`. `research/audio/soundmain_exit_restore.c`
+recovers the lock release and register restoration at 080CF8D8..080CF8EA,
+immediately before the original BX r3. It writes ID_NUMBER through incoming r0,
+then reads the nine saved words in address order. The first four become r8-r11,
+the following four become r4-r7, and the final word becomes the return target in
+r3. Original scratch r0-r2 retain the restored high-register values. r12 and LR
+remain unchanged, and final SP advances by 64. The write precedes the reads,
+including when the lock pointer aliases a saved word or the return address.
+
+The first pointer-increment formulation made GCC use r12 as scratch and change
+flags. Reading from fixed offsets of the original frame and advancing SP at the
+end eliminates those differences. The emitted section is 40 bytes versus the
+original 24 (including literal data/alignment). It uses individual word loads
+and an ordinary BX LR. The next compiler work must select ADD SP/POP r0-r7,
+high-register copies, POP r3, and BX r3, preserving the original intermediate
+stack progression and final transfer. The candidate is not integrated.
+
+`check_soundmain_exit_restore.py` passes 40,960 cases across four original/C
+ROM/copied-RAM machines. It checks all r0-r12, final SP/LR, NZCV, complete mapped
+data and the ordered lock write followed by nine frame reads. Inputs comprise
+256 random saved-frame sets, a separate sound-info pointer plus each of the
+nine saved-word aliases, and all 16 initial flag states. Execution stops before
+the final branch in both implementations; final interworking behavior is not
+claimed. Intermediate SP values differ, and cycle timing/asynchronous observation
+are not modeled. Production bytes, ownership and prior verification are unchanged.
+
 ## Channel advancement integration — September 10, 2026
 
 Baseline `0e1e53c6` plus this change. `src/m4a_channel_advance.c` now produces
