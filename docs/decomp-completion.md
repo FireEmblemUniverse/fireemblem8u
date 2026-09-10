@@ -3984,3 +3984,40 @@ aliasing, private register/flag equivalence, access ordering, the resampling pat
 and full mixer return are not claimed. This is research only; production C
 coverage remains unchanged. Evidence: `.deps/soundmain-fixed/report.json`,
 candidate ELF/binary and `.deps/soundmain-fixed-run.log`.
+
+
+### September 10: fractional resampling and loop overshoot recovered in C
+
+`research/audio/soundmain_resample.c` models the non-fixed-rate path from ARM
+sample entry through its Thumb continuation. It forms the step from the low
+32 bits of divFreq*frequency, interpolates between signed source bytes using
+the original wrapped product and arithmetic shift by 23, and uses the same
+packed stereo accumulation as the fixed-rate model.
+
+After each output sample, the updated fraction determines the integer advance.
+The original mask clears only bits 23..29, retaining the top two bits; the model
+preserves this even for extreme fractional inputs. A single-source advance reuses
+the already-read next byte. Larger advances skip source bytes. When an advance
+crosses the end, repeated loop-length additions determine the positive remaining
+count and loop overshoot index. With no loop, the current packed word is finished
+and channel status cleared without saving cp/ct/fw. Continuing channels save all
+three fields, with cp pointing to the current byte rather than the lookahead.
+
+`check_soundmain_resample.py` passes 6,912 original/C comparisons: 1,066 stopped
+and 5,846 continuing. The grid includes four output sizes, six source counts,
+four loop lengths, eight initial fractions and nine steps from zero through
+0xFFFFFFFF. Four odd divFreq values and modular-inverse frequency values produce
+the requested wrapped steps. Stereo volumes and constant/ramp/seeded source and
+output patterns exercise signed interpolation and packed overflow. Output and
+all channel/sound/frame memory match. The original's saved r4/r12 words below the
+frame are checked separately, with surrounding canaries; the C model preserves
+its ABI registers and SP. Both return to their expected boundaries.
+
+The supported geometry has aligned output words, positive output counts divisible
+by four, positive source counts and positive active loop lengths. The fixtures
+use distinct source/output storage. This does not establish private register,
+flag, memory-access-order or instruction equivalence, nor execute the full mixer
+return. Production coverage is unchanged. Both sample paths now have semantic
+models; matching their code generation and composing them with channel/setup
+logic remain unfinished. Evidence: `.deps/soundmain-resample/report.json`,
+candidate ELF/binary and `.deps/soundmain-resample-run.log`.

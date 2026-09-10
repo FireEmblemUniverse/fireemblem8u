@@ -88,7 +88,10 @@ matching replacement for the channel loop or sample mixer.
 The fixed-rate sample-mixing model passes 10,080 original/C comparisons,
 including short samples, repeated loops, packed-word overflow and final partial
 words. It reproduces full sound memory and private frame effects; 944 cases
-stop and 9,136 continue. Resampling and matching code generation remain open.
+stop and 9,136 continue. The resampling model also passes 6,912 comparisons
+covering fractional wrap, interpolation and multiple loop crossings (1,066 stop,
+5,846 continue). Both sample paths still need matching code generation and
+integration; their semantic checks do not add production coverage.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
 helpers rebuild exactly and contribute 726 instruction bytes in each image.
