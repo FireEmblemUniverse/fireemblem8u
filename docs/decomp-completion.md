@@ -3250,3 +3250,29 @@ template and seven instruction templates. Remaining audio engine, assembly
 interfaces, embedded code, transfer wrapper, naked fallback and whole-ROM
 executable-classification work remain unfinished. Production verification logs
 and audit reports are retained under `.deps/jump-table-match/`.
+
+
+### September 9: audio block-clear research verified
+
+`research/audio/clear_block.c` models `SoundMainBTM` at `080CF8F0`:
+clear sixteen words, advance r0 by 64 and preserve the caller's r4. The original
+saves r4 in r12, initializes r1-r4 to zero and executes four STM operations before
+restoring r4. The C candidate uses empty register constraints to retain the four
+zero operands and pointer updates, but GCC emits sixteen individual stores and
+an ordinary stack frame. Scalar and aggregate source variants at O1/Os did not
+produce the grouped stores.
+
+`research/audio/check_clear_block.py --compiler COMPILER` passes 3,072 memory
+and preserved-register cases: six EWRAM/IWRAM destinations, sixteen initial
+memory/register patterns, all NZCV combinations and ARM/Thumb returns. Exactly
+64 destination bytes are cleared and neighboring canaries remain intact.
+Final SP, return PC/mode and r4-r11 agree. Final r0/r12 differ, and flags differ
+in all cases because the candidate's explicit pointer additions change flags
+where the original STM writeback does not. The matching gate reports and rejects
+those differences.
+
+This remains research-only: the candidate is 56 bytes versus the original
+24-byte section. Next is guarded grouped-store generation and the original
+r4-in-r12 save convention. No production source changed; the verified baseline
+remains `01763457` with 34 assembly entry markers. Evidence is retained under
+`.deps/audio-clear-match/`.

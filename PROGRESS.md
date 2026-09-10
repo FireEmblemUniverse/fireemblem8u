@@ -53,7 +53,11 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: continue the remaining audio engine and assembly interfaces.
+Next milestone: match the audio 64-byte clear's grouped stores and r4/r12 save.
+The clear-block C candidate passes 3,072 memory/canary and preserved-register
+checks across RAM destinations, data patterns and ARM/Thumb returns. It remains
+56 bytes versus 24 original, with r0/r12 differences and different return flags
+in every case. It is research-only; the production ROM is unchanged.
 The jump-table copy is integrated as C. All 22 instruction bytes and two zero
 padding bytes match. Its 3,072 production cases verify data, canaries, r0-r12,
 flags and ARM/Thumb returns. The installed countdown passes 320 standalone
