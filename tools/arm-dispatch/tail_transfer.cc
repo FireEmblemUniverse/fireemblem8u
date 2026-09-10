@@ -23,9 +23,11 @@
 #include "insn-flags.h"
 #include "options.h"
 #include "hard-reg-set.h"
+#include "regs.h"
 int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> callees;
+int indirect_register=-1;
 bool raise_bound=false;
 bool private_frame=false;
 bool acyclic_branches=false;
@@ -134,6 +136,8 @@ public:
             || flag_unwind_tables || flag_asynchronous_unwind_tables || flag_exceptions
             || (private_frame&&DECL_ARGUMENTS(fn->decl)) || debug_info_level!=DINFO_LEVEL_NONE || TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"matching_tail_transfer requires frameless Thumb void code without debug/unwind");
+        if (indirect_register>=0&&!global_regs[indirect_register])
+            fatal_error(UNKNOWN_LOCATION,"indirect tail requires the declared global register");
         rtx_insn *push=nullptr; unsigned returns=0;
         std::vector<std::pair<rtx_insn *,rtx>> calls;
         std::set<rtx_insn *> discard;
@@ -151,12 +155,14 @@ public:
                 if (SIBLING_CALL_P(i) || GET_CODE(p)!=PARALLEL || XVECLEN(p,0)!=3)
                     fatal_error(UNKNOWN_LOCATION,"unsupported tail call shape");
                 rtx call=XVECEXP(p,0,0);
-                if (GET_CODE(call)!=CALL || !MEM_P(XEXP(call,0)) || GET_CODE(XEXP(XEXP(call,0),0))!=SYMBOL_REF
+                if (GET_CODE(call)!=CALL || !MEM_P(XEXP(call,0))
                     || XEXP(call,1)!=const0_rtx || mentions(p,SP_REGNUM)
                     || mentions(CALL_INSN_FUNCTION_USAGE(i),SP_REGNUM))
-                    fatal_error(UNKNOWN_LOCATION,"tail transfer requires direct call without stack arguments");
+                    fatal_error(UNKNOWN_LOCATION,"tail transfer requires call without stack arguments");
                 rtx symbol=XEXP(XEXP(call,0),0);
-                if (!callees.count(XSTR(symbol,0)) || !terminal_path(i,discard))
+                bool allowed=GET_CODE(symbol)==SYMBOL_REF ? callees.count(XSTR(symbol,0))
+                    : indirect_register>=0&&reg_is(symbol,indirect_register);
+                if (!allowed || !terminal_path(i,discard))
                     fatal_error(UNKNOWN_LOCATION,"tail destination missing or call has post-call work");
                 calls.push_back({i,symbol});continue;
             }
@@ -236,7 +242,7 @@ public:
             fatal_error(UNKNOWN_LOCATION,"pool adjacency zero padding rewrite rejected");
         for (auto item:calls) {
             if (!adjacent.empty()||item.first==pool_call||item.first==terminal_call) { delete_insn(item.first);continue; }
-            rtx_insn *jump=emit_jump_insn_before(gen_match_thumb_tail_transfer(copy_rtx(item.second)),item.first);
+            rtx_insn *jump=emit_jump_insn_before(REG_P(item.second)?gen_match_thumb_private_return(copy_rtx(item.second)):gen_match_thumb_tail_transfer(copy_rtx(item.second)),item.first);
             emit_barrier_after(jump);delete_insn(item.first);
         }
         for (rtx_insn *i:discard) delete_insn(i);
@@ -273,12 +279,18 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             if (!terminal_adjacent.empty()) return 1;
             terminal_adjacent=info->argv[n].value;continue;
         }
+        if (key=="indirect-register"&&info->argv[n].value) {
+            const char *value=info->argv[n].value;
+            if (indirect_register>=0||value[0]<'0'||value[0]>'7'||value[1]) return 1;
+            indirect_register=value[0]-'0';continue;
+        }
         if (key=="acyclic-branches" && !info->argv[n].value) { acyclic_branches=true;continue; }
         if (key=="private-frame64" && !info->argv[n].value) { private_frame=true;continue; }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
         if (key!="destination" || !info->argv[n].value || !*info->argv[n].value) return 1;
         callees.insert(info->argv[n].value);
     }
+    if (indirect_register>=0&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty()||!terminal_adjacent.empty())) return 1;
     if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound)) return 1;
     if (!terminal_adjacent.empty()&&(!private_frame||!acyclic_branches||!adjacent.empty()||!pool_adjacent.empty()||!callees.count(terminal_adjacent))) return 1;
     if (acyclic_branches&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty())) return 1;

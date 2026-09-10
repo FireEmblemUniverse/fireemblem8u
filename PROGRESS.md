@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research (baseline `13e52a3e`): mixer entry state passes 12,288 cases covering every reverb byte and initial flag state. Its load/compare prefix matches four bytes; the candidate remains 16 bytes versus the original 12-byte section and needs both original transfers. It is not integrated. Production coverage and full-ROM matching remain unchanged.
+Updated: September 10, 2026. Latest research (baseline `3489c6b5`): mixer entry now passes 12,288 full selected-path transfers with the original stack, registers and flags. The 16-byte candidate still needs branch folding and PC-relative target generation to match the original 12-byte section. Twelve new indirect-tail rejection checks and prior tail regressions pass. Production ROM, ELF/map receipts and coverage remain unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,7 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,338 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Mixer entry candidate | **12,288 entry-state cases pass; four prefix bytes exact; zero-reverb branch and relative ARM transfer remain** |
+| Mixer entry candidate | **12,288 full transfers pass; 16 bytes versus original 12; branch folding and relative target generation remain** |
 | Integrated sample handoff | **12/12 section bytes exact; 24,576 full Thumb-to-ARM transfers pass with identical ROM/copied-RAM code** |
 | Integrated mixer exit restore | **24/24 section bytes exact; 40,960 complete returns and 2,048 shared-entry cases pass, including original stack progression** |
 | Integrated channel advancement | **10/10 bytes exact; 33,600 complete-state cases pass; shared exit frame read also matches its two original bytes** |
@@ -89,7 +89,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: select the mixer entry’s zero-reverb Thumb exit and conditional PC-relative ARM handoff, then recover outer SoundMain setup. The sample handoff is integrated. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: fold the mixer entry’s extra zero-path branch and select its PC-relative ARM target, then recover outer SoundMain setup. The sample handoff is integrated. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.

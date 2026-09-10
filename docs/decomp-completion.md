@@ -12,6 +12,34 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Mixer entry terminal transfers — September 10, 2026
+
+Research baseline `3489c6b5`. `soundmain_mixer_entry_transfers.c` expresses both
+paths explicitly: a direct terminal call to NoReverb on zero and a register-r1
+indirect call to the ARM Reverb entry otherwise. An empty register tie keeps
+the indirect call visible to the compiler. The emitted candidate is 16 bytes:
+LDRB, CMP, BEQ to a local exit stub, pointer load, BX r1, B NoReverb, and a target
+literal. It is not integrated. Folding the local exit stub and replacing the
+literal with ADR remain necessary to match the original twelve-byte section.
+
+The tail-transfer compiler now accepts an explicitly declared low indirect
+register under its private-frame contract. It requires that register to be a
+global binding and still proves every path ends in a validated terminal call,
+with no post-call work or stack arguments. The indirect call becomes the
+existing private BX instruction; the direct path keeps its original handling.
+Indirect mode cannot combine with any adjacency option, preventing symbol-only
+adjacency logic from receiving a register target. Existing direct-only behavior
+is unchanged unless this option is supplied.
+
+`check_soundmain_mixer_entry.py --transfers` passes all 12,288 cases through the
+selected exits in original/C ROM/RAM machines, including return mode, PC,
+registers, NZCV, unchanged SP/LR, full data and the ordered byte read. The pointer
+literal is still linked separately for ROM and RAM, so unchanged-copy relocation
+is not claimed. `check_tail_indirect.py` rejects 12 unsupported contracts and
+preserves unannotated output. The prior 14 direct-tail and 17 private-frame/pool
+rejections also pass. The full ROM comparison passes, and existing ELF/map
+fingerprints are unchanged; no production coverage increase is claimed.
+
 ## Mixer entry state candidate — September 10, 2026
 
 Research baseline `13e52a3e`. `research/audio/soundmain_mixer_entry.c` recovers
