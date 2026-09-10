@@ -677,6 +677,21 @@ SECTIONS
         __advance_end = .;
         SoundMainRAM_ResampleReload = __advance_start + 20;
         src/m4a_1.o(.text.after_advance);
+        __word_finish_start = .;
+        src/m4a_word_finish.o(.text);
+        __word_finish_end = .;
+        src/m4a_1.o(.text.after_word_finish);
+        ASSERT(SoundMainRAM_ResampleWordFinish == SoundMainRAM_WordFinishBoundary,
+               "word finish C block must follow packed-lane advance");
+        ASSERT(__word_finish_end - __word_finish_start == 16,
+               "word finish C block must contain exactly 16 bytes");
+        ASSERT(SoundMainRAM_ResampleFinish == __word_finish_end,
+               "word finish continuation must be adjacent ARM code");
+        ASSERT((SoundMainRAM_Resample & 3) == 0 && SoundMainRAM_Resample < __word_finish_start &&
+               SoundMainRAM_Resample >= (SoundMainRAM & ~1),
+               "word finish loop target must be backward ARM code in copied mixer");
+        ASSERT((__word_finish_start + 20) - SoundMainRAM_Resample <= 0x2000000,
+               "word finish loop branch out of range");
         ASSERT(SoundMainRAM_ResampleAdvance == SoundMainRAM_AdvanceBoundary,
                "advance C block must follow resampling arithmetic");
         ASSERT(__advance_end - __advance_start == 32,

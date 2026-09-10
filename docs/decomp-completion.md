@@ -5052,3 +5052,41 @@ stop-production.json, stop-production-ram.json, stop-check.log,
 stop-check-ram.log, pop-pair-guards.log, pop-check_arm_*.log, pop-lr-*.log,
 stop-source-audit.json and stop-ownership.log. The full-call report remains
 under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — resampling stereo-word completion integrated (16 bytes)
+
+Baseline: `e7bf8f37`. `src/m4a_word_finish.c` replaces four instructions at
+0x080CF89C..0x080CF8AC: left-word store, right-word store with output writeback,
+SUBS sample count by four and BGT back to the resampling word entry. It uses the
+existing word_postincrement, subtract_compare and early arm_adjacent contracts;
+no compiler changes were needed. The C comparison uses the incoming signed
+count rather than the wrapped subtraction result. Link assertions require the
+16-byte extent, adjacent finish continuation at 0x080CF8AC, backward aligned
+resampling entry at 0x080CF840 within the copied mixer and branch range.
+The preceding lane-advance pair and following source/frame update remain assembly.
+
+`make compare -j8` passes. `check_soundmain_word_finish.py` passes 101,760 cases
+per mode, 203,520 total in ROM and copied RAM. It crosses 265 counter values,
+four output placements, six stereo-word pairs and sixteen initial NZCV states.
+Each mode has 50,304 repeat exits and 51,456 finish exits. Counter boundaries
+include signed overflow; output placements include ordinary EWRAM and left/right
+stores overlapping the private frame. Independent expected state checks left
+before right, no reads or extra writes, output+4, wrapped count, exact SUBS NZCV,
+every register, preserved SP/LR, exit PC and full data/frame/canary memory.
+The complete audio regression passes 3,528 calls, including 1,728 deadline exits.
+Hardware cycle timing is outside these functional checks.
+
+Refreshed main instruction ownership: 719,552 C-owned bytes (92.53%), 33,870
+mixed-object bytes, 2,416 assembly-source bytes and 21,792 runtime bytes, total
+777,630. Reviewed non-library assembly is 2,826 main bytes and 420 payload bytes.
+Source inventory: 483 C files, 32 assembly entry markers, six manual declarations,
+687 inline sites (331 register bindings, 348 empty constraints, one directive,
+seven instruction templates). The new manual symbol names an existing finish
+continuation; it is not additional unfinished code.
+
+Evidence under `.deps/soundmain-packed/`: word-finish-production-build.log,
+word-finish-production.json, word-finish-production-ram.json,
+word-finish-check.log, word-finish-check-ram.log,
+word-finish-source-audit.json and word-finish-ownership.log. The complete-call
+report remains under `.deps/soundmain-complete/`.

@@ -384,10 +384,14 @@ _081DD208:
 SoundMainRAM_ResampleNoAdvance:
 	adds r5, r5, 0x40000000
 	bcc SoundMainRAM_ResampleMix
-	str r7, [r5, 0x630]
-	str r6, [r5], 0x4
-	subs r8, r8, 0x4
-	bgt _081DD1B4
+	.global SoundMainRAM_WordFinishBoundary
+SoundMainRAM_WordFinishBoundary:
+@ Stereo stores and sample-count decision are linked from m4a_word_finish.c.
+	.section .text.after_word_finish, "ax", %progbits
+	.arm
+	.global SoundMainRAM_ResampleFinish
+	.type SoundMainRAM_ResampleFinish, %function
+SoundMainRAM_ResampleFinish:
 	sub r3, r3, 0x1
 	pop {r4,r12}
 _081DD228:
