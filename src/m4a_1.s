@@ -314,25 +314,23 @@ _081DD840:
 	mov r5, r9
 	mov r6, r10
 	mov r7, r11
-	push {r4-r7}
-	adds r7, r0, 0
-	ldr r0, [r7, o_MusicPlayerInfo_status]
-	cmp r0, 0
-	bge _081DD858
-	b _081DDA6C
-_081DD858:
-	ldr r0, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt2_SOUND_INFO_PTR
-	ldr r0, [r0]
-	mov r8, r0
-	adds r0, r7, 0
-	bl FadeOutBody
-	ldr r0, [r7, o_MusicPlayerInfo_status]
-	cmp r0, 0
-	bge _081DD86C
-	b _081DDA6C
-_081DD86C:
 	thumb_func_end MPlayMain
+	.section .text.mplay_entry_frame_tail, "ax", %progbits
+	push {r4-r7}
+	.global MPlayMainEntryStatusBoundary
+MPlayMainEntryStatusBoundary:
+	.section .text.after_mplay_entry_status, "ax", %progbits
+	.global MPlayMainSoundInfoSetupBoundary
+MPlayMainSoundInfoSetupBoundary:
+_081DD858:
+	.section .text.after_mplay_sound_info_setup, "ax", %progbits
+	.global MPlayMainFadeInvokeBoundary
+MPlayMainFadeInvokeBoundary:
+	.section .text.after_mplay_fade_invoke, "ax", %progbits
+	.global MPlayMainFadeStatusBoundary
+MPlayMainFadeStatusBoundary:
+	.section .text.after_mplay_fade_status, "ax", %progbits
+_081DD86C:
 	.global MPlayMainTempoAccumulateBoundary
 MPlayMainTempoAccumulateBoundary:
 @ Halfword loads and full-width addition are generated from C.

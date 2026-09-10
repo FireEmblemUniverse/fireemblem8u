@@ -1130,3 +1130,23 @@ src/m4a_mplay_track_dispatch.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAI
 src/m4a_mplay_track_dispatch.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_track_dispatch.o: C_END_ALIGN := 1
 src/m4a_mplay_track_dispatch.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainChannelGate -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainChannelGate -fplugin-arg-tail_transfer-destination=MPlayMainTrackAdvance -fplugin-arg-tail_transfer-destination=MPlayMainTrackInit -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainTrackInit -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-descending-local-mask-operands
+
+src/m4a_mplay_entry_status.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_entry_status.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_entry_status.o: C_END_ALIGN := 1
+src/m4a_mplay_entry_status.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainSoundInfoSetup -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainSoundInfoSetup -fplugin-arg-tail_transfer-destination=MPlayMainExit -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_mplay_sound_info_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN) $(THUMB_SHARED_PLUGIN)
+src/m4a_mplay_sound_info_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_sound_info_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_sound_info_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=0x03007ff0,lt2_SOUND_INFO_PTR -fplugin-arg-thumb_shared_literal-omit-pool-alignment -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainFadeInvoke -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainFadeInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN) -fplugin-arg-tail_transfer-after-shared-literals -fplugin-arg-copy_add_zero-preserve-thumb-high-copies
+
+src/m4a_mplay_fade_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_fade_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_fade_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_fade_invoke.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=FadeOutBody -fplugin-arg-thumb_callback_tail-continuation=MPlayMainFadeStatus -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_mplay_fade_status.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_fade_status.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_fade_status.o: C_END_ALIGN := 1
+src/m4a_mplay_fade_status.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainTempoAccumulate -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainTempoAccumulate -fplugin-arg-tail_transfer-destination=MPlayMainExit

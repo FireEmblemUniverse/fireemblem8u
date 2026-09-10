@@ -1089,6 +1089,58 @@ SECTIONS
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;
         src/m4a_1.o(.text.after_sound_vsync);
+        __mplay_entry_frame_tail_start = .;
+        src/m4a_1.o(.text.mplay_entry_frame_tail);
+        __mplay_entry_frame_tail_end = .;
+        ASSERT(__mplay_entry_frame_tail_start == (MPlayMain & ~1) + 40 &&
+               __mplay_entry_frame_tail_end - __mplay_entry_frame_tail_start == 2 &&
+               __mplay_entry_frame_tail_end == (MPlayMainEntryStatus & ~1),
+               "MPlayMain entry frame tail extent or continuation changed");
+        __mplay_entry_status_start = .;
+        src/m4a_mplay_entry_status.o(.text);
+        __mplay_entry_status_end = .;
+        src/m4a_1.o(.text.after_mplay_entry_status);
+        ASSERT((MPlayMainEntryStatus & ~1) == MPlayMainEntryStatusBoundary &&
+               __mplay_entry_status_end - __mplay_entry_status_start == 10 &&
+               (MPlayMainSoundInfoSetup & ~1) == __mplay_entry_status_end,
+               "MPlayMain entry_status extent or continuation changed");
+        __mplay_sound_info_setup_start = .;
+        src/m4a_mplay_sound_info_setup.o(.text);
+        __mplay_sound_info_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_sound_info_setup);
+        ASSERT((MPlayMainSoundInfoSetup & ~1) == MPlayMainSoundInfoSetupBoundary &&
+               __mplay_sound_info_setup_end - __mplay_sound_info_setup_start == 8 &&
+               (MPlayMainFadeInvoke & ~1) == __mplay_sound_info_setup_end,
+               "MPlayMain sound_info_setup extent or continuation changed");
+        __mplay_fade_invoke_start = .;
+        src/m4a_mplay_fade_invoke.o(.text);
+        __mplay_fade_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_fade_invoke);
+        ASSERT((MPlayMainFadeInvoke & ~1) == MPlayMainFadeInvokeBoundary &&
+               __mplay_fade_invoke_end - __mplay_fade_invoke_start == 4 &&
+               (MPlayMainFadeStatus & ~1) == __mplay_fade_invoke_end,
+               "MPlayMain fade_invoke extent or continuation changed");
+        __mplay_fade_status_start = .;
+        src/m4a_mplay_fade_status.o(.text);
+        __mplay_fade_status_end = .;
+        src/m4a_1.o(.text.after_mplay_fade_status);
+        ASSERT((MPlayMainFadeStatus & ~1) == MPlayMainFadeStatusBoundary &&
+               __mplay_fade_status_end - __mplay_fade_status_start == 8 &&
+               (MPlayMainTempoAccumulate & ~1) == __mplay_fade_status_end,
+               "MPlayMain fade_status extent or continuation changed");
+        ASSERT((MPlayMainExit & ~1) >= __mplay_entry_status_start + 12 &&
+               (MPlayMainExit & ~1) <= __mplay_entry_status_start + 12 + 2046 &&
+               (MPlayMainExit & ~1) >= __mplay_fade_status_start + 10 &&
+               (MPlayMainExit & ~1) <= __mplay_fade_status_start + 10 + 2046,
+               "MPlayMain entry status exit out of range");
+        ASSERT((__mplay_sound_info_setup_start & 3) == 0 &&
+               (lt2_SOUND_INFO_PTR & 3) == 0 &&
+               lt2_SOUND_INFO_PTR >= __mplay_sound_info_setup_start + 4 &&
+               lt2_SOUND_INFO_PTR <= __mplay_sound_info_setup_start + 4 + 1020,
+               "MPlayMain sound info literal out of range or alignment");
+        ASSERT((FadeOutBody & ~1) >= __mplay_fade_invoke_start + 4 &&
+               (FadeOutBody & ~1) <= __mplay_fade_invoke_start + 4 + 4194302,
+               "MPlayMain fade callee out of range");
         __mplay_tempo_accumulate_start = .;
         src/m4a_mplay_tempo_accumulate.o(.text);
         __mplay_tempo_accumulate_end = .;

@@ -170,6 +170,21 @@ def main():
   needle='        ASSERT(('+target+' & ~1) >= __mplay_track_dispatch_start + '+str(pc)
   for direction,offset in [('far',far),('backward',pc-2)]:
    cases.append(('dispatch_'+part+'_'+direction,source.replace(needle,'        '+target+' = __mplay_track_dispatch_start + ('+str(offset)+');\n'+needle,1),'track dispatch '+part+' out of range'))
+ for part in ('entry_status','sound_info_setup','fade_invoke','fade_status'):
+  stem='mplay_'+part
+  cases.append((part+'_extent',source.replace('        __'+stem+'_end = .;','        . += 2;\n        __'+stem+'_end = .;'),part+' extent or continuation'))
+  cases.append((part+'_continuation',source.replace('        src/m4a_1.o(.text.after_'+stem+');','        . += 2;\n        src/m4a_1.o(.text.after_'+stem+');'),part+' extent or continuation'))
+ for name,expression in [('status_exit_far','__mplay_entry_status_start + 2060'),('status_exit_backward','__mplay_fade_status_start + 8')]:
+  needle='        ASSERT((MPlayMainExit & ~1) >= __mplay_entry_status_start + 12'
+  cases.append((name,source.replace(needle,'        MPlayMainExit = '+expression+';\n'+needle,1),'entry status exit out of range'))
+ for name,offset in [('info_literal_far',1028),('info_literal_backward',0),('info_literal_unaligned',6)]:
+  needle='        ASSERT((__mplay_sound_info_setup_start & 3) == 0'
+  cases.append((name,source.replace(needle,'        lt2_SOUND_INFO_PTR = __mplay_sound_info_setup_start + '+str(offset)+';\n'+needle,1),'sound info literal out of range or alignment'))
+ for name,offset in [('fade_callee_far',4194308),('fade_callee_backward',0)]:
+  needle='        ASSERT((FadeOutBody & ~1) >= __mplay_fade_invoke_start + 4'
+  cases.append((name,source.replace(needle,'        FadeOutBody = __mplay_fade_invoke_start + '+str(offset)+';\n'+needle,1),'fade callee out of range'))
+ cases.append(('entry_frame_tail_extent',source.replace('        __mplay_entry_frame_tail_end = .;','        . += 2;\n        __mplay_entry_frame_tail_end = .;'),'entry frame tail extent or continuation'))
+ cases.append(('entry_frame_tail_continuation',source.replace('        __mplay_entry_status_start = .;','        . += 2;\n        __mplay_entry_status_start = .;'),'entry frame tail extent or continuation'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

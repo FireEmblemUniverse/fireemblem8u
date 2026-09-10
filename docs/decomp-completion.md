@@ -8473,3 +8473,45 @@ Sources: `research/audio/mplay_entry_status.c`, `mplay_fade_status.c`,
 `.deps/soundmain-packed/mplay-entry/status-report.json`, `status-check.log`,
 `info/report.json`, `info-check.log`, `fade-check.log`, and
 `.deps/soundmain-packed/mplay-fade-invoke/report.json`.
+
+
+## September 10, 2026 — Entry status/sound-info/fade integration
+
+On baseline `1daa6c91`, four matching C fragments now own 080CFB92..080CFBB0:
+entry status (ten bytes), sound-info setup (eight), fade invocation (four), and
+post-fade status (eight). Each production source is identical to its verified
+candidate except for the function name, and linked ownership verifies all four
+exact Thumb extents in C-only objects.
+
+The initial link caught two bytes of automatic trailing alignment in the
+shortened assembly input section. Its final PUSH is now in a separate two-byte
+assembly section, preserving the original address and instruction exactly.
+The MPlayMain symbol's assembly extent ends before that section; the linked
+inventory still counts both assembly pieces (40+2 bytes). A linker assertion
+checks the final push's offset/extent and the next C entry. This is a layout
+change, not a claim that the retained push has been decompiled.
+
+The full ROM passes `make compare -j8`. All 133,760 production cases pass:
+82,304 across the two status gates, 26,880 sound-info setup cases, and 24,576
+fade-call cases. The call checker rejects 15 unsupported contracts and preserves
+unannotated output. Shared literal/IWRAM reads, CMP/ADDS flags, registers and
+stack aliases agree. The fade test uses a synthetic callee at the real address;
+these fragment tests do not execute actual FadeOutBody logic or full MPlayMain.
+
+Fresh pinned runtime builds reproduce all four images and exported symbols.
+Ownership is 720,716 C-owned, 33,870 mixed C/assembly, 1,252 assembly-source and
+21,792 runtime archive instruction bytes in the main ROM (777,630 total).
+Reviewed non-library assembly is 1,662 main-ROM bytes and 420 expanded-payload
+bytes; source inventory is 562 main C files and 30 assembly entry markers.
+SoundMain and the copied mixer remain entirely attributed to C. The valid full layout
+links and all 189 altered layouts reject, including 17 new fragment/retained-push
+extent and continuation, status-exit, literal-range/alignment and callee-range
+violations.
+
+Evidence: `.deps/soundmain-packed/mplay-entry/production-build.log`,
+`production-entry_status.log`, `production-sound_info_setup.log`,
+`production-fade_invoke.log`, `production-identity.json`, `source.json`,
+`linked.json`, `layout.log`, and refreshed tracked ownership/runtime/audio
+receipts. Production ELF SHA-256:
+`d988d65e9fa72b83caeef8b61e6c8094d8a7d354ff5cdfad98961e3c6b205170`.
+Next: MPlayMain's 42-byte lock/callback/frame path at 080CFB68..080CFB92.
