@@ -85,6 +85,11 @@ def main():
  for part in ('entry','setup'):
   cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
   cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ cases += [('post_invoke_extent',source.replace('        __mplay_post_invoke_end = .;','        . += 2;\n        __mplay_post_invoke_end = .;'),'post invoke extent or continuation'),
+           ('post_channel_load_entry',source.replace('        src/m4a_1.o(.text.after_mplay_post_invoke);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_invoke);'),'post invoke extent or continuation')]
+ for name,expression in [('post_direct_far','__mplay_post_invoke_start + 4194308'),('post_direct_backward','__mplay_post_invoke_start - 4194304')]:
+  text=source.replace('        ASSERT((TrkVolPitSet & ~1) >=','        TrkVolPitSet = '+expression+';\n        ASSERT((TrkVolPitSet & ~1) >=',1)
+  cases.append((name,text,'post invoke direct callee out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

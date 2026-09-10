@@ -1307,6 +1307,17 @@ SECTIONS
         src/m4a_mplay_post_setup.o(.text);
         __mplay_post_setup_end = .;
         src/m4a_1.o(.text.after_mplay_post_setup);
+        __mplay_post_invoke_start = .;
+        src/m4a_mplay_post_invoke.o(.text);
+        __mplay_post_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_post_invoke);
+        ASSERT((MPlayMainPostTrackInvoke & ~1) == MPlayMainPostTrackInvokeBoundary &&
+               __mplay_post_invoke_end - __mplay_post_invoke_start == 4 &&
+               MPlayMainPostChannelLoad == __mplay_post_invoke_end,
+               "MPlayMain post invoke extent or continuation changed");
+        ASSERT((TrkVolPitSet & ~1) >= __mplay_post_invoke_start + 4 &&
+               (TrkVolPitSet & ~1) <= __mplay_post_invoke_start + 4 + 4194302,
+               "MPlayMain post invoke direct callee out of range");
         ASSERT((MPlayMainPostTrackSetup & ~1) == MPlayMainPostTrackSetupBoundary &&
                __mplay_post_setup_end - __mplay_post_setup_start == 6 &&
                (MPlayMainPostTrackInvoke & ~1) == __mplay_post_setup_end,

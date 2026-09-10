@@ -457,9 +457,11 @@ _081DD9C8:
 	.global MPlayMainPostTrackSetupBoundary
 MPlayMainPostTrackSetupBoundary:
 	.section .text.after_mplay_post_setup, "ax", %progbits
-	.global MPlayMainPostTrackInvoke
-MPlayMainPostTrackInvoke:
-	bl TrkVolPitSet
+	.global MPlayMainPostTrackInvokeBoundary
+MPlayMainPostTrackInvokeBoundary:
+	.section .text.after_mplay_post_invoke, "ax", %progbits
+	.global MPlayMainPostChannelLoad
+MPlayMainPostChannelLoad:
 	ldr r4, [r5, o_MusicPlayerTrack_chan]
 	cmp r4, 0
 	beq _081DDA58

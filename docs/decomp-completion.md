@@ -7549,3 +7549,50 @@ refreshed runtime/region receipts. The valid production layout passes and all 68
 altered layouts reject, including the four new extent/continuation cases. See
 `mplay-post-setup-layout.log`. Next work continues the volume/pitch invocation, post-tick channel processing,
 command guards and clear-call paths.
+
+
+## MPlayMain post-tick volume/pitch invocation — September 10, 2026 (baseline `9a827ca2`)
+
+Integrated `src/m4a_mplay_post_invoke.c` at 080CFD20..080CFD24. The four-byte
+BL TrkVolPitSet is generated from C and returns directly into channel loading.
+The preceding matching C fragment supplies private register arguments. This source
+uses a no-argument private declaration with explicit r0-r3 bindings; it is not a
+public C calling interface. TrkVolPitSet itself was already C.
+
+The strict callback-tail contract now accepts `direct-callee` as a mutually
+exclusive alternative to `trampoline`. It validates the declared direct symbol
+and retains its ordinary call instruction while removing the private wrapper frame
+and applying the declared continuation. All prior zero-frame, global-register,
+void/no-argument, exact call/epilogue shape, label and debug/unwind checks remain.
+Mixed modes, duplicate/direct-target errors and incorrect calls reject. No backend
+changes were needed. Existing note and command callback regressions each pass
+49,152 cases and thirteen invalid contracts with unchanged unannotated behavior.
+
+`check_mplay_post_invoke.py --production` passes 24,576 cases and fifteen invalid
+contracts; unannotated source is unchanged. A synthetic Thumb store/BX-LR body at
+the real callee address tests all incoming/returned NZCV combinations, four stack
+positions, three write aliases and random register clobbers. Exact callee-entry
+registers/SP/LR/mode/flags, all returned registers/flags, full RAM and the one
+ordered write agree. Typed Thumb callee metadata is checked in candidate and
+production ELF files. No hidden wrapper frame appears. This validates invocation
+mechanics, not actual TrkVolPitSet logic or complete MPlayMain execution.
+
+The linker enforces the four-byte extent, adjacent channel-load continuation and
+direct-call range. `make compare -j8` reproduces all 16 MiB. Fresh runtime builds
+reproduce all four images and exports. Source, linked, inline and runtime
+inventories are refreshed; unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,478 C-owned (92.65%), 33,870
+mixed C/assembly, 1,490 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,900 main bytes and 420 payload bytes.
+There are 529 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `1dcd9d53cb3bd423cbaeac8189ea110819b75124d961bb261c65f69261648238`.
+Evidence: `.deps/soundmain-packed/mplay-post-invoke/report.json`, source/linked
+reports there, `mplay-post-invoke-production.log`, note/command regression logs,
+`mplay-post-invoke-build.log` and refreshed runtime/region receipts. The valid
+production layout passes and all 72 altered layouts reject, including four new
+extent/continuation and far/backward direct-target cases. See
+`mplay-post-invoke-layout.log`. Next work continues post-tick channel processing,
+command guards and clear-call paths.
