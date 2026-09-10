@@ -3408,3 +3408,19 @@ unannotated fixture's assembly is byte-for-byte unchanged. Candidate size is
 still 34 versus 26 bytes; stack save/restore folding and literal layout remain.
 The plugin, builder and checks live under research/audio and are not loaded by
 production. Verification is retained in `.deps/address-filter-match/`.
+
+### September 9: audio filter entry PUSH matched
+
+The research matching_stack_word pass folds exactly an entry SP -= 4 followed
+by an SI low-register store at SP into GCC's existing Thumb multi-register PUSH
+pattern. It checks both operations, preserves the store's volatility and validates
+the generated RTL. Unwind/exception metadata is rejected because the pass does
+not rewrite frame metadata. It only applies to explicitly annotated functions.
+The filter retains its explicit saved C local and now emits the original PUSH r0.
+
+The candidate shrinks from 34 to 30 bytes including padding and its literal.
+All 206,592 oracle cases still pass registers, return modes, SP and flags. The
+stack guard checker accepts PUSH and rejects absent frames, larger frames and
+unwind metadata, and proves unchanged output for an unannotated fixture.
+The remaining restore uses LDR r0,[SP] / ADD SP,#4 rather than POP r0, and the
+literal layout still differs. This remains research-only; production is unchanged.
