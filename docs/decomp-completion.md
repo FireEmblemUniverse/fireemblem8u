@@ -5010,3 +5010,45 @@ wrap-production-check.log, wrap-production-report.json, repeat-guards.log,
 repeat-check_arm_*.log, repeat-lr-*.log, repeat-early.log,
 repeat-signed-sum-guards.log, wrap-source-audit.json and wrap-ownership.log.
 The full-call report remains under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — resampling stop and frame restore integrated (12 bytes)
+
+Baseline: `4855847f`. `src/m4a_stop.c` replaces the three instructions at
+0x080CF7E0..0x080CF7EC: POP r4/r12, MOV r2,0 and B to partial-word completion
+at 0x080CF7FC. The linker enforces the original entry, 12-byte extent, forward
+aligned destination inside the copied mixer and branch range. The full ROM
+checksum passes.
+
+Extended arm_adjacent with `sp-input=pop2`. It requires a global SP binding,
+the sole compiler LR save, then exactly two ascending-register SI loads from
+SP and SP+4 followed by SP+=8. The three body operations become existing ARM
+load-multiple RTL with both original MEM attributes preserved. All other
+explicit SP operations reject; labels/intervening operations and descending
+or aliased register pairs reject. The existing private-frame validation removes
+the compiler LR save/restore and return. `transfer=branch` emits the final B.
+This is separate from the unchanged read-only frame64 mode.
+
+Production tests pass 100,608 cases in ROM and 100,608 in copied RAM. They cross
+262 saved-channel values, eight saved-product values, three stack placements
+and sixteen input NZCV states, with varied incoming r2/LR. Expected accesses are
+exactly one word read at old SP followed by one at old SP+4, with no writes.
+Every r0-r12, LR, NZCV, SP+8, exit PC, full frame and surrounding canaries agrees.
+The complete audio regression passes 3,528 calls including 1,728 deadline exits.
+Hardware cycle timing remains outside the functional checks.
+
+Ten invalid pop-pair contracts reject. Existing adjacent, conditional, frame,
+both LR modes, early-exit and repeat-contract suites pass. Refreshed main
+ownership: 719,536 C-owned instruction bytes (92.53%), 33,870 mixed-object bytes,
+2,432 assembly-source bytes and 21,792 runtime bytes, total 777,630. Reviewed
+non-library assembly is 2,842 main bytes and 420 payload bytes. Source inventory:
+482 C files, 32 assembly entry markers, five manual declarations, 683 inline
+sites (327 register bindings, 348 empty constraints, one directive, seven
+instruction templates). Remaining word-completion, frame/channel control and
+runtime rebuild work are incomplete.
+
+Evidence under `.deps/soundmain-packed/`: stop-production-build.log,
+stop-production.json, stop-production-ram.json, stop-check.log,
+stop-check-ram.log, pop-pair-guards.log, pop-check_arm_*.log, pop-lr-*.log,
+stop-source-audit.json and stop-ownership.log. The full-call report remains
+under `.deps/soundmain-complete/`.

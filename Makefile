@@ -701,3 +701,7 @@ $(ARM_SIGNED_SUM_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/signed_sum.cc to
 src/m4a_wrap.o: $(ARM_ADJACENT_PLUGIN) $(ARM_SIGNED_SUM_PLUGIN)
 src/m4a_wrap.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_wrap.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_SIGNED_SUM_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleWrap -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleReload -fplugin-arg-arm_adjacent-transfer=branch
+
+src/m4a_stop.o: $(ARM_ADJACENT_PLUGIN)
+src/m4a_stop.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_stop.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Partial -fplugin-arg-arm_adjacent-transfer=branch -fplugin-arg-arm_adjacent-sp-input=pop2

@@ -612,6 +612,19 @@ SECTIONS
         src/m4a_wrap.o(.text);
         __wrap_end = .;
         src/m4a_1.o(.text.after_wrap);
+        __stop_start = .;
+        src/m4a_stop.o(.text);
+        __stop_end = .;
+        src/m4a_1.o(.text.after_stop);
+        ASSERT(SoundMainRAM_ResampleStop == SoundMainRAM_StopBoundary,
+               "resampling stop C block must follow wrap iteration");
+        ASSERT(__stop_end - __stop_start == 12,
+               "resampling stop C block must contain exactly 12 bytes");
+        ASSERT((SoundMainRAM_Partial & 3) == 0 &&
+               SoundMainRAM_Partial >= __stop_end && SoundMainRAM_Partial < SoundMainRAM_End,
+               "resampling stop target must be forward ARM code in copied mixer");
+        ASSERT(SoundMainRAM_Partial - (__stop_start + 16) < 0x2000000,
+               "resampling stop branch out of range");
         ASSERT(SoundMainRAM_ResampleWrap == SoundMainRAM_WrapBoundary &&
                SoundMainRAM_ResampleWrap == __wrap_start,
                "wrap iteration entry and backward branch target moved");

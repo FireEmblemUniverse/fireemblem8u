@@ -338,12 +338,11 @@ SoundMainRAM_WrapBoundary:
 	.section .text.after_wrap, "ax", %progbits
 	.arm
 _081DD158:
-	.global SoundMainRAM_ResampleStop
-	.type SoundMainRAM_ResampleStop, %function
-SoundMainRAM_ResampleStop:
-	pop {r4,r12}
-	mov r2, 0
-	b _081DD174
+	.global SoundMainRAM_StopBoundary
+SoundMainRAM_StopBoundary:
+@ Restore the resampling frame and enter partial completion from m4a_stop.c.
+	.section .text.after_stop, "ax", %progbits
+	.arm
 _081DD164:
 	.global SoundMainRAM_LoopBoundary
 SoundMainRAM_LoopBoundary:

@@ -400,3 +400,19 @@ The caller's linker contract must check the named destination's ARM mode and
 branch range rather than adjacency; the production wrap loop branches to its
 own verified entry. `check_arm_repeat.py` covers invalid contracts and
 `check_soundmain_wrap.py` checks production backward/forward exits in ROM/RAM.
+
+
+ARM adjacent `sp-input=pop2` requires global SP and exactly three prefix body
+operations immediately after the validated sole LR save: an SI load from SP,
+an SI load from SP+4 into a higher-numbered r0-r12, and SP+=8. The pass combines
+them into the existing ARM load-multiple-with-writeback operation, preserving
+both MEM attributes and load order. No other explicit SP use is accepted in
+this mode; it is separate from read-only `frame64`. Labels, intervening operations,
+wrong offsets/widths/order and additional stack accesses reject. The compiler's
+LR push/restore are then removed under the existing private-frame validation.
+
+Production `src/m4a_stop.c` uses pop2 with `transfer=branch`. Its linker checks
+12 bytes and a forward ARM partial-completion target in the copied mixer.
+`check_arm_pop_pair.py` checks rejected contracts; `check_soundmain_stop.py`
+checks original/production ordered reads, exact SP advance, all registers/flags
+and untouched frame/canaries in ROM and copied RAM.
