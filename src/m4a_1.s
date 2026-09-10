@@ -501,6 +501,7 @@ MPlayJumpTableCopy_Loop:
 	thumb_func_end MPlayJumpTableCopy
 
 	.align 2, 0
+	.global ldrb_r3_r2
 	.thumb_func
 ldrb_r3_r2:
 	ldrb r3, [r2]
@@ -542,25 +543,9 @@ _081DD64A:
 	b chk_adr_r2
 	thumb_func_end ld_r3_tp_adr_i
 
-	thumb_func_start ply_goto
-ply_goto:
-	push {lr}
-ply_goto_1:
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r0, [r2, 0x3]
-	lsls r0, 8
-	ldrb r3, [r2, 0x2]
-	orrs r0, r3
-	lsls r0, 8
-	ldrb r3, [r2, 0x1]
-	orrs r0, r3
-	lsls r0, 8
-	bl ldrb_r3_r2
-	orrs r0, r3
-	str r0, [r1, o_MusicPlayerTrack_cmdPtr]
-	pop {r0}
-	bx r0
-	thumb_func_end ply_goto
+@ ply_goto and its shared-stack entry are generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_goto, "ax", %progbits
 
 	thumb_func_start ply_patt
 ply_patt:

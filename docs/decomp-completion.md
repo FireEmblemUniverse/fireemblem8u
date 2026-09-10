@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the voice-selection integration (baseline `f09159d2` plus this change),
+After the sequence-jump integration (baseline `ad161a2e` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 461 main
-C files, 40 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 462 main
+C files, 39 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2841,3 +2841,33 @@ The source audit reports 461 main C files and 40 assembly entry markers. Of
 directive-only and seven contain instructions. The naked fallback, embedded
 code, transfer wrapper and unfinished executable classification remain in
 scope. Evidence is retained under `.deps/voice-match/`.
+
+
+### September 9: sequence jump integrated
+
+`src/m4a_sequence_goto.c` replaces `ply_goto` at `080CF998..080CF9B8`.
+All 32 Thumb bytes match using the pinned compiler's ordinary LR push/pop;
+no private-return plugin is needed. The destination is assembled from its
+highest byte downward. Only the lowest byte passes through the existing
+`ldrb_r3_r2` address filter, now exported for C linkage.
+
+The repeat handler branches into `ply_goto_1` with a return address already
+saved on the stack. The linker retains this internal entry at `080CF99A`, two
+bytes after `ply_goto`, preserving the original instruction stream and stack
+contract. Pattern and repeat remain assembly and are still counted as such.
+
+`research/audio/check_sequence_goto.py --compiler COMPILER --production`
+passes 32,832 original/production executions. It sweeps every value in each
+of the four pointer bytes, normal and rejected command locations, and four
+command-pointer aliases. Both public and shared-stack entries are checked
+with ARM and Thumb return modes and four incoming NZCV patterns. Track RAM,
+r0-r12, flags, SP, return PC and preserved registers agree. The internal-entry
+cases use a deliberately different incoming LR to verify the stacked return.
+
+The full ROM passes `make compare -j8`. The linked audit assigns 32 Thumb bytes
+to `src/m4a_sequence_goto.o`, with no orphan mappings. Source inventory is
+462 main C files and 39 assembly entry markers. The 566 inline sites comprise
+224 register bindings, 334 empty constraints, one directive-only template and
+seven instruction templates. Remaining embedded, transfer-wrapper, naked
+fallback and executable-classification scope is unchanged. Local evidence is
+in `.deps/sequence-goto-match/`.

@@ -206,6 +206,10 @@ src/m4a_tempo.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_tempo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+src/m4a_sequence_goto.o: $(ARM_DISPATCH_CC)
+src/m4a_sequence_goto.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_sequence_goto.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables
+
 src/m4a_voice.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_voice.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_voice.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=chk_adr_r2
