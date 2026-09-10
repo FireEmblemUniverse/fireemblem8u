@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integration (baseline `7a763d31` plus this change): the 12-byte mixer entry now matches, completing C ownership of the entire 932-byte copied SoundMainRAM region (918 instruction bytes and 14 data/alignment bytes). Full ROM matching, 12,288 entry transfers, 12 compiler rejections, eight invalid link placements, 3,528 complete audio calls and fresh runtime rebuilds pass. Outer SoundMain and other assembly remain unfinished.
+Updated: September 10, 2026. Latest research (baseline `2221e725`): outer SoundMain's post-callback buffer candidate matches registers, stack, memory and ordered accesses in 98,304 cases. Its constant synthesis causes 41,376 final-flag mismatches, and the final transfer is not matched. It is not integrated. The complete copied mixer and production ROM remain verified and unchanged.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -22,6 +22,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **2,328 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Outer SoundMain buffer candidate | **98,304 register/memory cases checked; 41,376 flag mismatches isolated to constant synthesis; not integrated** |
 | Complete copied mixer | `████████████████████` **932/932 section bytes in C-only objects: 918 instruction bytes plus 14 data/alignment bytes; full ROM exact** |
 | Integrated mixer entry | **12/12 section bytes exact; 12,288 full Thumb/ARM path transfers pass in ROM and copied RAM** |
 | Integrated sample handoff | **12/12 section bytes exact; 24,576 full Thumb-to-ARM transfers pass with identical ROM/copied-RAM code** |
@@ -90,7 +91,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover outer SoundMain setup and callback/frame handling. The complete copied mixer is now generated from C. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: restore the buffer candidate’s original literal loads and flags, then match its branch and RAM transfer. Outer callback/frame handling remains; the copied mixer is generated from C. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.

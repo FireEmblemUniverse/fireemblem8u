@@ -12,6 +12,33 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Outer SoundMain buffer-state recovery — September 10, 2026
+
+Research baseline `2221e725`. `research/audio/soundmain_buffer_entry.c`
+recovers the post-callback phase at 080CF510..080CF530, immediately before BX r3
+into copied mixer RAM. It reloads the retained SoundInfo pointer, samples per
+VBlank, DMA counter and optional period, performs modulo-32-bit buffer arithmetic,
+stores the selected buffer into the frame, and prepares width and RAM target.
+This improves on the existing semantic setup model by retaining every private
+register and the ordered accesses, including frame/field overlap.
+
+The first formulation caused register spills and a compiler epilogue failure.
+Empty register ties eliminate the hidden retained values and produce a zero-local-
+frame candidate. It has 38 instruction bytes before its ordinary return, versus
+32 before the original transfer, and a 44-byte section with its own literal.
+GCC synthesizes constants using MOVS/LSLS and adds an extra counter comparison.
+The final width synthesis clears N/Z/C instead of preserving the original flags.
+
+`check_soundmain_buffer_entry.py` checks 98,304 cases: every counter byte, three
+periods, four full-width sample values, two frame/info layouts and all initial
+NZCV states. All r0-r12, SP/LR, full data and ordered reads/writes agree. Original
+flags agree with an independent arithmetic model; candidate flags equal that
+result's V bit because the final constant sequence clears N/Z/C. There are
+41,376 final-flag mismatch cases. This is an explicitly unresolved gap, not an
+accepted relaxation. The candidate also returns through LR instead of BX r3.
+Literal selection, flags, branch encoding and the final transfer remain next;
+production code and coverage are unchanged.
+
 ## Copied mixer completion — September 10, 2026
 
 Baseline `7a763d31` plus this change. `src/m4a_mixer_entry.c` now generates the
