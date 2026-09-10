@@ -59,3 +59,20 @@ hashes, applies the patch to original source when needed, and records its hash.
 `research/audio/check_end_tie.py --compiler COMPILER --plugin PLUGIN --production`
 compares the exact candidate with the production ROM and executes the original
 and production code, including r0-r12, stack, complete test RAM and flags.
+
+VSync uses `thumb_shared_literal.cc`, built by `build_thumb_shared.py` against
+the same installed compiler headers. Its explicit options select shared Thumb
+word relocations, carry-bit branches, proven unsigned-byte decrement/store/branch
+bundles and zero-filled data-pool alignment. See `research/audio/README.md`
+for the contracts. GNU ld can silently wrap the Thumb PC8 relocation, so
+`ldscript.txt` explicitly bounds both shared literals relative to the complete
+VSync section. The original pool remains in the adjacent MPlayMain assembly.
+
+The normal `make compare -j8` builds the compiler/plugin dependencies and
+verifies the whole ROM. Run `research/audio/check_sound_vsync.py` with the
+installed compiler, `thumb_shared_literal.so`, `--carry-tests --byte-counter
+--zero-pool-padding --require-match --production` for the production CPU oracle.
+Standalone regressions are `check_thumb_byte_counter.py`, `check_thumb_carry.py`
+and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
+Large leaf far-branch fixtures remain unsupported by this GCC backend (the
+baseline compiler also rejects them); VSync only uses short branches.

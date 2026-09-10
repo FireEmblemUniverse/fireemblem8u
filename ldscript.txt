@@ -593,6 +593,13 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_fine);
         src/m4a_pend.o(.text);
         src/m4a_1.o(.text.after_ply_pend);
+        __sound_vsync_start = .;
+        src/m4a_sound_vsync.o(.text);
+        __sound_vsync_end = .;
+        src/m4a_1.o(.text.after_sound_vsync);
+        ASSERT(lt2_SOUND_INFO_PTR >= __sound_vsync_end &&
+               lt2_ID_NUMBER + 4 <= __sound_vsync_start + 1024,
+               "VSync shared Thumb literals outside conservative forward range");
         src/m4a_track_stop.o(.text);
         src/m4a_channel_volume.o(.text);
         src/m4a_1.o(.text.after_channel_volume);

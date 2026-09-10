@@ -767,64 +767,8 @@ ply_port:
 	.pool
 	thumb_func_end ply_port
 
-	thumb_func_start m4aSoundVSync
-m4aSoundVSync:
-	ldr r0, lt2_SOUND_INFO_PTR
-	ldr r0, [r0]
-
-	@ Exit the function if ident is not ID_NUMBER or ID_NUMBER+1.
-	ldr r2, lt2_ID_NUMBER
-	ldr r3, [r0, o_SoundInfo_ident]
-	subs r3, r2
-	cmp r3, 1
-	bhi m4aSoundVSync_Done
-
-	@ Decrement the PCM DMA counter. If it reaches 0, we need to do a DMA.
-	ldrb r1, [r0, o_SoundInfo_pcmDmaCounter]
-	subs r1, 1
-	strb r1, [r0, o_SoundInfo_pcmDmaCounter]
-	bgt m4aSoundVSync_Done
-
-	@ Reload the PCM DMA counter.
-	ldrb r1, [r0, o_SoundInfo_pcmDmaPeriod]
-	strb r1, [r0, o_SoundInfo_pcmDmaCounter]
-
-	ldr r2, =REG_DMA1
-
-	ldr r1, [r2, 0x8] @ DMA1CNT
-	lsls r1, 7
-	bcc m4aSoundVSync_SkipDMA1 @ branch if repeat bit isn't set
-
-	ldr r1, =((DMA_ENABLE | DMA_START_NOW | DMA_32BIT | DMA_SRC_INC | DMA_DEST_FIXED) << 16) | 4
-	str r1, [r2, 0x8] @ DMA1CNT
-
-m4aSoundVSync_SkipDMA1:
-	ldr r1, [r2, 0xC + 0x8] @ DMA2CNT
-	lsls r1, 7
-	bcc m4aSoundVSync_SkipDMA2 @ branch if repeat bit isn't set
-
-	ldr r1, =((DMA_ENABLE | DMA_START_NOW | DMA_32BIT | DMA_SRC_INC | DMA_DEST_FIXED) << 16) | 4
-	str r1, [r2, 0xC + 0x8] @ DMA2CNT
-
-m4aSoundVSync_SkipDMA2:
-
-	@ turn off DMA1/DMA2
-	movs r1, DMA_32BIT >> 8
-	lsls r1, 8
-	strh r1, [r2, 0xA]       @ DMA1CNT_H
-	strh r1, [r2, 0xC + 0xA] @ DMA2CNT_H
-
-	@ turn on DMA1/DMA2 direct-sound FIFO mode
-	movs r1, (DMA_ENABLE | DMA_START_SPECIAL | DMA_32BIT | DMA_REPEAT) >> 8
-	lsls r1, 8 @ LSB is 0, so DMA_SRC_INC is used (destination is always fixed in FIFO mode)
-	strh r1, [r2, 0xA]       @ DMA1CNT_H
-	strh r1, [r2, 0xC + 0xA] @ DMA2CNT_H
-
-m4aSoundVSync_Done:
-	bx lr
-
-	.pool
-	thumb_func_end m4aSoundVSync
+@ VSync/DMA handling is generated from matching C.
+	.section .text.after_sound_vsync, "ax", %progbits
 
 	thumb_func_start MPlayMain
 MPlayMain:
@@ -1163,6 +1107,8 @@ call_r3:
 
 	.align 2, 0
 lt_gClockTable:     .word gClockTable
+	.global lt2_SOUND_INFO_PTR
+	.global lt2_ID_NUMBER
 lt2_SOUND_INFO_PTR: .word SOUND_INFO_PTR
 lt2_ID_NUMBER:      .word ID_NUMBER
 	thumb_func_end MPlayMain

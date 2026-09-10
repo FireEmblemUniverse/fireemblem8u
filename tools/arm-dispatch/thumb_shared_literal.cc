@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Experimental relocation of selected constant words from a Thumb literal pool.
+// Matching Thumb literal pools, carry tests and bounded byte counters.
 #include <string>
 #include <vector>
 #include "gcc-plugin.h"

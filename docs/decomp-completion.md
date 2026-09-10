@@ -2512,3 +2512,40 @@ Production remains at the verified stereo-volume integration `70290e0c`.
 The VSync assembly has not yet been removed. Next is reproducible compiler
 promotion, linker integration and a full ROM comparison, followed by source
 and linked-code inventory updates.
+
+### September 9: VSync production integration
+
+The exact candidate from `0261b2cf` is now `src/m4a_sound_vsync.c`; its assembly
+body was removed from `src/m4a_1.s`. The linker inserts the C object before
+`.text.after_sound_vsync` and keeps the original MPlayMain pool addresses.
+The two shared pool labels are exported; explicit conservative forward-range
+assertions protect the Thumb relocations from linker wraparound.
+
+Compiler patterns are promoted into `tools/arm-dispatch/matching.md`, with
+`thumb_shared_literal.cc` and `build_thumb_shared.py` alongside the other
+pinned compiler tools. The normal Makefile builds the isolated compiler,
+rebuilds plugins against its installed generated headers and selects the
+Thumb options only for VSync. Superseded research compiler/source copies were
+removed. The research checker compiles the production source and supports
+`--production` to require equality with the actual linked ROM section.
+
+`make compare -j8` passes: all 16,777,216 bytes match SHA-1
+`c25b145e37456171ada4b0d440bf88a19f4d509f`. The installed compiler/plugin passes
+2,304 production/original VSync execution cases, 65,664 bounded-counter cases
+and 4,096 carry-branch cases. An additional literal-plugin regression verifies
+224 executions when every local pool word moves to a shared pool, with both
+padding modes; eight invalid configurations are rejected without compiler
+internal errors. The earlier Thumb range/alignment probe still documents why
+explicit linker guards are necessary. No hardware DMA timing is claimed.
+
+The source audit now reports 455 main C files, 52 assembly entry markers, one
+naked-function marker, 42 NONMATCHING conditionals, and no baserom includes.
+Of 539 literal inline-assembly sites, 199 are register bindings, 332 are empty
+constraints, one is directive-only and seven contain instructions. The linked
+audit attributes 66 Thumb bytes and ten data/padding bytes to the VSync C
+object, with no mapping symbols outside input sections. Embedded payload and
+transfer-wrapper work remains in scope; this is not 100% C decompilation.
+
+Evidence: `.deps/vsync-integration-compare.log`, `.deps/vsync-source-audit.json`,
+`.deps/vsync-linked-audit.json` and `.deps/sound-vsync-match/report.json`.
+Next work targets the remaining small audio command handlers.

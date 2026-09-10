@@ -14,6 +14,7 @@ def main():
     parser.add_argument("--byte-counter",action="store_true")
     parser.add_argument("--zero-pool-padding",action="store_true")
     parser.add_argument("--require-match",action="store_true")
+    parser.add_argument("--production",action="store_true")
     args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-if-conversion','-fno-if-conversion2','-fno-schedule-insns','-fno-schedule-insns2','-fno-reorder-blocks']
@@ -21,12 +22,14 @@ def main():
     if args.carry_tests:flags += ["-fplugin-arg-thumb_shared_literal-carry-tests"]
     if args.byte_counter:flags += ["-fplugin-arg-thumb_shared_literal-byte-counter"]
     if args.zero_pool_padding:flags += ["-fplugin-arg-thumb_shared_literal-zero-pool-padding"]
-    subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
+    subprocess.run([args.compiler,'-S',*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'src/m4a_sound_vsync.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'link.ld').write_text(f'SECTIONS {{ . = {ENTRY:#x}; .text : {{ *(.text) }} }} SharedSoundInfo = 0x080cfdc8; SharedIdent = 0x080cfdcc;\nASSERT(SharedSoundInfo >= ADDR(.text)+SIZEOF(.text) && SharedIdent+4 <= ADDR(.text)+1024, "Shared Thumb literals outside conservative forward range")\n')
     subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'link.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
     candidate=(OUT/'candidate.bin').read_bytes();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0xcfb1c:0xcfb68];count=0;flag_differences=0;register_differences=0
+    if args.production:
+        assert candidate == (ROOT/'fireemblem8.gba').read_bytes()[0xcfb1c:0xcfb68], 'Candidate differs from production ROM'
     for ident in (0,IDENT-1,IDENT,IDENT+1,IDENT+2,0xffffffff):
         for counter in (0,1,2,127,128,255):
             for period in (0,1,7,255):

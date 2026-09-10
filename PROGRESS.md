@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified production implementation: stereo channel-volume integration (`70290e0c`); full ROM checksum passes. Latest research milestone: complete VSync candidate match (baseline `e60c244d` plus this change).
+Updated: September 9, 2026. Latest verified implementation: VSync/DMA integration (baseline `0261b2cf` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,6 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated audio VSync/DMA | `████████████████████` **All 76 bytes exact; 2,304 production execution cases pass** |
 | Integrated stereo channel volume | `████████████████████` **All 48 bytes exact; 4,032 production execution cases pass** |
 | Integrated tied-note release | `████████████████████` **All 64 bytes exact; full ROM verified** |
 | Integrated audio track stop | `████████████████████` **Complete 68-byte section exact; full ROM verified** |
@@ -32,19 +33,19 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match and integrate the audio VSync/DMA handler.
-Its complete 76-byte C candidate now matches the original section exactly, including
-shared literal loads, every instruction, zero padding and local literal data.
-All 2,304 original/C cases pass, checking ordered counter and DMA accesses,
-memory, r0-r12 and return flags. The bounded counter transformation passes
-65,664 baseline/plugin executions; six unsupported patterns remain unchanged.
-Next: promote the reproducible compiler support, integrate the C object and verify
-the complete ROM. This candidate is still research, not a production replacement.
+Next milestone: replace the remaining small audio command handlers with matching C.
+VSync/DMA handling is integrated: the complete 76-byte C section matches,
+including shared literal loads, every instruction, zero padding and local data.
+All 2,304 production/original cases pass for ordered counter and DMA accesses,
+memory, r0-r12 and return flags. `make compare -j8` verifies the complete ROM.
+The installed compiler's bounded counter tests pass 65,664 executions; six
+unsupported patterns remain unchanged. Shared-only literal pools pass 224
+execution cases, and eight invalid plugin configurations are rejected.
 Another 4,096 standalone
 bit-test executions pass across bit positions, branch senses and short/long/far
 branch distances, including saved return-address checks. Large leaf-function
-far-branch probes trigger a baseline GCC internal error; this remains a compiler
-limitation to resolve or reject explicitly before promoting the extension. A standalone
+far-branch probes trigger a baseline GCC internal error; such large leaf functions remain unsupported. The production VSync branches
+are short and pass the matching checks. A standalone
 Thumb literal probe passes 192 execution cases; explicit link assertions reject
 12 offsets that the linker otherwise silently wraps.
 
@@ -71,7 +72,7 @@ including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
 The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
 original/production execution cases match, including saturation and private ABI.
-Main source inventory is now 454 C files and 53 assembly entry markers.
+Main source inventory is now 455 C files and 52 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
@@ -130,7 +131,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 53 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 52 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

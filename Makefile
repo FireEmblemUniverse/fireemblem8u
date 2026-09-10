@@ -178,6 +178,14 @@ src/sio_multiboot_wait.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mab
 src/m4a_clear_chain.o src/m4a_pend.o src/m4a_clear_mod.o src/m4a_read_command.o src/m4a_channel_volume.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/m4a_clear_chain.o src/m4a_pend.o src/m4a_clear_mod.o src/m4a_read_command.o src/m4a_channel_volume.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -g
 
+THUMB_SHARED_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_shared_literal.so
+$(THUMB_SHARED_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_shared_literal.cc tools/arm-dispatch/build_thumb_shared.py
+	$(PYTHON) tools/arm-dispatch/build_thumb_shared.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_sound_vsync.o: $(THUMB_SHARED_PLUGIN)
+src/m4a_sound_vsync.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_sound_vsync.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=0x03007ff0,lt2_SOUND_INFO_PTR -fplugin-arg-thumb_shared_literal-literal=0x68736d53,lt2_ID_NUMBER -fplugin-arg-thumb_shared_literal-carry-tests -fplugin-arg-thumb_shared_literal-byte-counter -fplugin-arg-thumb_shared_literal-zero-pool-padding
+
 THUMB_LEAF_PLUGIN := $(ARM_DISPATCH_DIR)/leaf_frame.so
 $(THUMB_LEAF_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/leaf_frame.cc tools/arm-dispatch/build_leaf_frame.py
 	$(PYTHON) tools/arm-dispatch/build_leaf_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)

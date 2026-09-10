@@ -24,6 +24,7 @@ void m4aSoundVSync(void)
     asm("" : "+r"(state));
     if (state > 1) return;
     counter = info->pcmDmaCounter;
+    /* Input-only: preserve the unsigned-byte range for the bounded decrement. */
     asm("" : : "r"(counter));
     --counter;
     info->pcmDmaCounter = counter;

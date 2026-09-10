@@ -31,8 +31,10 @@ Run `.deps/arm-oracle-venv/bin/python research/audio/check_read_command.py` afte
 The checker includes pointer-field aliases, so it verifies store-before-read
 ordering in addition to the ordinary command stream cases.
 
-The VSync candidate in `sound_vsync.c` uses the isolated experimental compiler
-built by `build_thumb_shared.py`. It does not yet replace production assembly.
+VSync is implemented in `src/m4a_sound_vsync.c`. Its compiler support lives in
+`tools/arm-dispatch/`: `build_backend.py` installs the pinned matching GCC and
+`build_thumb_shared.py` builds the plugin against that compiler's generated
+headers. The normal Makefile builds both dependencies.
 The shared-literal plugin has independent opt-in transformations:
 
 - `literal=integer,symbol` relocates a selected word load to a shared forward
@@ -50,8 +52,8 @@ The shared-literal plugin has independent opt-in transformations:
   enabled without a literal manifest.
 
 These are compiler RTL operations and alignment directives; the source does
-not embed the game's instruction bytes. The installed production compiler is
-unchanged while these experimental build-tree patterns are under validation.
+not embed the game's instruction bytes. The pinned production compiler includes these patterns; other compilation
+units do not enable the Thumb plugin unless their Makefile rule requests it.
 `check_thumb_byte_counter.py` checks both accepted patterns and unchanged
 unsupported patterns. `check_sound_vsync.py --require-match` makes exact bytes,
 registers and return flags mandatory in addition to its ordered-access checks.
