@@ -24,3 +24,9 @@ the original operand order. Empty register constraints preserve allocation;
 all function instructions are generated from C. Fresh pinned-source compiler
 build and complete ROM comparison both pass. Earlier experiments remain in
 ignored `.deps/audio-match` and `.deps/agbcc-tst-gcc` directories.
+
+The internal unchecked command-byte reader is now in `src/m4a_read_command.c`.
+Run `.deps/arm-oracle-venv/bin/python research/audio/check_read_command.py` after
+`make compare -j8` to compare its private register ABI against the original ROM.
+The checker includes pointer-field aliases, so it verifies store-before-read
+ordering in addition to the ordinary command stream cases.

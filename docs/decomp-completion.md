@@ -2127,3 +2127,23 @@ markers, one naked-function marker and seven instruction-bearing inline
 assembly templates. The embedded payload remains at 16 assembly declarations.
 Overall C coverage is still unproven; startup/BIOS interfaces, ARM shims, audio,
 unit-list fallback and the 200-byte transfer wrapper remain in scope.
+
+
+### Internal audio byte reader integration — September 9, 2026
+
+`src/m4a_read_command.c` replaces `ld_r3_tp_adr_i_unchecked` with all ten
+Thumb bytes exact at `0x080D00A0..0x080D00AA`. It preserves the audio engine's
+private convention: r0/r1 and r4-r12 are unchanged, r2 holds the old command
+pointer, and r3 returns the unsigned byte. The stream pointer is incremented
+and stored before the byte is read, including when the stream aliases the
+pointer field itself. Empty register constraints preserve this allocation;
+the source contains no instruction templates. The linker retains the original
+four-byte entry alignment. Existing assembly callers resolve the C symbol.
+
+`research/audio/check_read_command.py` passes 32,768 original/production
+execution cases across byte values, all NZCV inputs, four stream alignments
+and four command-pointer-field aliases, checking complete test memory and
+register/flag agreement. `make compare -j8` passes the full ROM SHA-1.
+The linked audit assigns ten Thumb instruction bytes to the new object, with
+no orphan mapping symbols. The main inventory is 451 C files and 56 assembly
+entry markers; the naked fallback and seven inline instruction templates remain.

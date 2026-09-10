@@ -1559,15 +1559,7 @@ _081DDD40:
 	.align 2, 0
 	.section .text.after_clear_mod, "ax", %progbits
 
-	thumb_func_start ld_r3_tp_adr_i_unchecked
-	.local ld_r3_tp_adr_i_unchecked
-ld_r3_tp_adr_i_unchecked:
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	adds r3, r2, 1
-	str r3, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r3, [r2]
-	bx lr
-	thumb_func_end ld_r3_tp_adr_i_unchecked
+@ Command-byte reader is generated from matching C.
 
 	thumb_func_start ply_lfos
 ply_lfos:
