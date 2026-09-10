@@ -14,49 +14,24 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-ColorFadeTick is now integrated as matching C, including its preceding literal
-pool (220 bytes total); the source audit is down to 65 assembly entry markers.
-MapFloodCoreStep is now matching C as well (224 bytes including its shared
-pointer pool), and embedded ColorFadeTick is C in all three payload versions.
-TmCopyRect is now matching C in the main and embedded builds too.
-TmFillRect is also matching C in both builds.
-DrawGlyph and its shift table are now matching C too.
-DrawGlyphHalfStride is now matching C as well.
-The current inventories are 60 main assembly entry markers and 17 embedded
-assembly function declarations. The full ROM comparison passes. See the latest
-sections for integration and toolchain verification.
+After the flag-setter integration (baseline `95773cc5` plus this change),
+`make compare -j8` verifies all 16,777,216
+bytes against the USA ROM checksum. The current source inventory is 457 main
+C files, 47 assembly entry markers, one naked-function marker, seven
+instruction-bearing inline templates and zero direct baserom includes. The
+embedded payload still has 16 assembly function declarations. The latest
+integration sections below and `PROGRESS.md` contain the corresponding evidence.
 
-The combined checkout builds the exact 16,777,216-byte USA ROM. There are now
-**zero direct baserom includes** in tracked source. Data recovery from the
-`laqieer/fireemblem8u` fork has been integrated and verified, as detailed below.
-This is not 100% C decompilation: `UnitList_PageChangeIn_Loop` (formerly
-`sub_8091F10`) still uses its naked assembly fallback.
-`GetUnitDefinitionFormEventScr` now compiles to matching C across its complete
-516-byte extent; its previously missed explicit naked fallback has been removed.
-ARM routines, BIOS/audio
-interfaces, startup, timing assembly and the payload's assembly also remain in
-the inventory. The whole-ROM executable classification is not yet complete.
-The linked mapping audit additionally identifies 200 bytes of ARM code in
-the FE6 transfer wrapper's `.data` section, outside its compressed payload.
-Those instructions have no entry macros and remain outstanding.
-`ClearOam` has now been replaced with matching ARM-mode C (92 bytes), with the
-complete ROM comparison passing after integration.
-`Checksum32` is also matching ARM-mode C (72 bytes), with the same full-ROM gate
-passing. These replacements retain the copied ARM block's original boundaries.
-`TmApplyTsa` is now matching ARM-mode C as well (84 bytes), bringing these three
-replacements to 248 bytes. The complete ROM still matches.
-`MultiBootWaitCycles` now generates nine of its twelve Thumb instructions from
-C; the PC read and two-instruction timing loop remain explicit assembly.
-There is now one `NAKEDFUNC` macro and no explicit naked attributes. The
-unit-list assembly body and residual timing assembly remain unfinished.
-`RealClearChain` is now matching Thumb C (32 bytes), using empty register
-constraints and no instruction-bearing assembly templates.
-`ply_pend` is also matching Thumb C (20 bytes), restoring the command pointer
-from the audio pattern stack.
-`ply_fine` now compiles to matching C across its complete 46-byte extent,
-using a pinned agbcc variant with a guarded equality-only bit-test pattern.
-`clear_modM` is matching Thumb C (26 bytes), preserving the register contract
-required by its assembly callers.
+This is not 100% C decompilation. Remaining work includes audio handlers and
+mixing code, startup and BIOS interfaces, the naked unit-list fallback, timing
+assembly, embedded code and 200 ARM bytes in the FE6 transfer wrapper's data
+section. Whole-ROM executable classification is still incomplete, so no
+reliable overall C-completion percentage is claimed.
+
+The starting FEUniverse checkout and laqieer's later data-source import are
+community contributions. The initial and imported inventories below distinguish
+those inputs from this task's matching replacements, build fixes and verification.
+A larger current file count does not mean every file was newly decompiled here.
 
 ## Completion evidence
 
@@ -2653,3 +2628,39 @@ Evidence: `.deps/audio-command-setters/compare.log`, `report.json`,
 The root README's inherited “Used by” section was also clarified in response
 to the user's question: those downstream tools can consume symbols and data
 while C recovery is incomplete; they are not a completion or maintenance claim.
+
+### September 9: flag setters integrated and provenance clarified
+
+`src/m4a_flag_setters.c` replaces the key-shift, volume and bend-range assembly
+handlers at `080CFA38`, `080CFA7C` and `080CFAB8`. Each eighteen-byte body matches
+exactly. They use the existing validated private-return plugin; no new backend
+transformation was needed. Volatile fixed-register mask/result bindings retain
+the required global register writes and their ordering under the pinned GCC.
+The ordinary bindings initially duplicated the immediate into r0; making only
+the mask volatile removed the duplicate but still reordered the mask and flag
+load. Both volatile bindings with scheduling disabled yield the original code.
+The statements are C operations, without instruction-bearing inline assembly.
+
+`check_command_setters.py --flag-setters --require-match --production` compiles
+the production source and verifies equality with the linked ROM before execution.
+All 49,536 cases pass using the actual checked byte reader: every command byte,
+eight track-flag patterns, four NZCV patterns, rejected low-memory reads and
+four command-pointer aliases. RAM, r0-r12, return flags, stack and preserved
+registers agree. The previous two setters also pass their 4,128 production cases
+through the generalized checker. Output directories separate their artifacts.
+
+`make compare -j8` verifies the full ROM. The source audit reports 457 main C
+files and 47 assembly entry markers. Its 544 inline sites comprise 204 register
+bindings, 332 empty constraints, one directive-only template and seven instruction
+templates. One naked-function marker, 42 NONMATCHING conditionals and zero
+baserom includes remain. The linked audit attributes 54 Thumb bytes and two
+padding bytes to the new object, with no orphan mapping symbols. Evidence lives
+in `.deps/audio-command-setters/flag-setters/` (`compare.log`, `report.json`,
+`source-audit.json`, `linked-audit.json`).
+
+The README and standing panel now explicitly credit the recorded FEUniverse
+starting revision `ecc6798b` and the later laqieer data import `7b47dec8`. The
+latter supplied 76 C files, mostly data definitions, as recorded at integration.
+Repository totals and upstream badges must not be mistaken for work newly
+completed during this task. The audit's stale opening inventory was replaced
+with the current counts; historical milestone entries remain below it.

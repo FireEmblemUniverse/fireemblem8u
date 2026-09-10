@@ -66,3 +66,8 @@ r12-preservation contract. Use `check_command_setters.py --compiler COMPILER
 --plugin PLUGIN --require-match --production` and `check_ip_return.py` for
 production and contract validation. The experimental compiler copies have
 been removed after promotion.
+
+Key-shift, volume and bend-range handlers are in `src/m4a_flag_setters.c`, using
+the same private-return support. Add `--flag-setters` to the command-setter
+checker to verify those production entries. Their artifacts are kept in
+`.deps/audio-command-setters/flag-setters/`, separate from the first two setters.

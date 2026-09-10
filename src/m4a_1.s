@@ -626,17 +626,9 @@ ply_tempo:
 	bx r12
 	thumb_func_end ply_tempo
 
-	thumb_func_start ply_keysh
-ply_keysh:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	strb r3, [r1, o_MusicPlayerTrack_keyShift]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0xC
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_keysh
+@ ply_keysh is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_keysh, "ax", %progbits
 
 	thumb_func_start ply_voice
 ply_voice:
@@ -662,17 +654,9 @@ ply_voice:
 	bx r12
 	thumb_func_end ply_voice
 
-	thumb_func_start ply_vol
-ply_vol:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	strb r3, [r1, o_MusicPlayerTrack_vol]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0x3
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_vol
+@ ply_vol is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_vol, "ax", %progbits
 
 	thumb_func_start ply_pan
 ply_pan:
@@ -700,17 +684,9 @@ ply_bend:
 	bx r12
 	thumb_func_end ply_bend
 
-	thumb_func_start ply_bendr
-ply_bendr:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	strb r3, [r1, o_MusicPlayerTrack_bendRange]
-	ldrb r3, [r1, o_MusicPlayerTrack_flags]
-	movs r2, 0xC
-	orrs r3, r2
-	strb r3, [r1, o_MusicPlayerTrack_flags]
-	bx r12
-	thumb_func_end ply_bendr
+@ ply_bendr is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_bendr, "ax", %progbits
 
 @ ply_lfodl is generated from matching C.
 	.align 2, 0

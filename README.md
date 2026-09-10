@@ -8,6 +8,12 @@
 
 [Wiki](https://github.com/laqieer/fireemblem8u/wiki) · [FE Decomp Portal](https://laqieer.github.io/fe-decomp-portal/) · [decomp.dev](https://decomp.dev/laqieer/fireemblem8u/us)
 
+This local completion effort started from `FireEmblemUniverse/fireemblem8u`
+revision `ecc6798b` and later integrated data-recovery work from laqieer's fork
+at `7b47dec8`. Much of this repository predates the local work. The badges above
+refer to upstream projects; see [local progress](PROGRESS.md) and the
+[provenance and completion audit](docs/decomp-completion.md) for this checkout.
+
 This is a matching decompilation and disassembly of Fire Emblem: The Sacred
 Stones (USA). The ROM builds byte-for-byte from the checked-in source and assets.
 Matching output does not establish complete C recovery: assembly routines and a
