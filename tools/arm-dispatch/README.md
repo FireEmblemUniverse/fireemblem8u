@@ -336,3 +336,19 @@ intervening operations and labels are rejected. Only signed QI loads qualify.
 flags, ordered reads and unchanged memory, including untaken predicates,
 negative register offsets and all byte values. The source-advance research
 candidate uses this pass; no production source uses it yet.
+
+
+`subtract_zero.cc` provides opt-in `matching_subtract_zero` for the adjacent
+sequence base-=1, empty tied +r(base), compare base with zero. The constraint
+must be exactly one matching register input/output, with no labels/clobbers.
+It emits SUBS with a comparison of the incoming base against one. This preserves
+zero/equality behavior but can change carry and overflow versus CMP(result,0),
+so every subsequent condition-code consumer must be an EQ/NE predicate until
+an unconditional flag overwrite, call without flag inputs, or return. Labels,
+other control transfers, embedded asm and non-equality flag consumers reject.
+
+The rule retains the base register, removes the empty tie and redundant CMP,
+and leaves unannotated functions unchanged. `check_subtract_zero.py` checks
+baseline/folded values and independently expected flags, signed overflow and
+ARM/Thumb returns, plus rejected contracts. The source-advance candidate uses
+it to reproduce original SUBS flags; it is not used in production yet.

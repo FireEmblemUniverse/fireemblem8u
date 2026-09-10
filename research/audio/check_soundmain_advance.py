@@ -20,7 +20,7 @@ def subflags(a,b):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     obj=OUT/'advance-candidate.o';elf=OUT/'advance-candidate.elf';binary=OUT/'advance-candidate.bin'
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_advance_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/byte_preincrement.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_compare.so')],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_advance_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_zero.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/byte_preincrement.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_compare.so')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext=0x08100000','--entry=SoundMainRAM_AdvanceCandidate','--defsym=SoundMainRAM_ResampleLoop=0x08101000','--defsym=SoundMainRAM_ResampleNoAdvance=0x08101004',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
     rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
@@ -82,7 +82,7 @@ def main():
                             assert trace==reads,(mode,trace,reads)
                             assert bytes(uc.mem_read(0x02000000,len(data)))==data
                             if mode=='candidate':
-                                candidate_flags=expected_flags if outcome=='loop' else ((expected[9]>>31)<<3)|((expected[9]==0)<<2)|2
+                                candidate_flags=expected_flags
                                 assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|candidate_flags<<28
                                 assert uc.reg_read(r.UC_ARM_REG_SP)==0x03006ffc
                                 candidate_frame=bytearray([0xa5])*512
@@ -94,6 +94,6 @@ def main():
                                 assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                                 assert bytes(uc.mem_read(0x03006f00,512))==bytes([0xa5])*512
                         outcomes[outcome]+=1;cases+=1
-    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,candidate_bytes=len(code),original_bytes=32,production_integration=False,scope='Original ROM/copied RAM and C candidate: all r0-r12 and live LR, ordered source reads, immutable source memory, signed overflow boundaries. Both engines validate independently expected SP/frame/flags; candidate still has an extra LR save and CMP flags, and its call/return behavior is not matching.')
+    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,candidate_bytes=len(code),original_bytes=32,production_integration=False,scope='Original ROM/copied RAM and C candidate: all r0-r12 and live LR, ordered source reads, immutable source memory, signed overflow boundaries. Both engines validate independently expected SP/frame/flags; candidate still has an extra LR save, and its call/return behavior is not matching.')
     (OUT/'advance-candidate-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

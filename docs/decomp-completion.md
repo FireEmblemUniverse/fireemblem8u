@@ -4783,3 +4783,31 @@ guarded SUB/CMP flag folding and the private early-exit/adjacent continuation.
 Evidence remains `.deps/soundmain-packed/advance-candidate-check.log` and
 advance-candidate-report.json; the exact candidate object confirms both r9
 instructions and absence of r12 writes.
+
+
+## September 10, 2026 — tied decrement zero-test folding
+
+Baseline: `0f86d72d`. Added the subtract_zero opt-in compiler pass and builder.
+It recognizes an adjacent decrement-by-one, exact empty +r identity constraint
+and zero comparison. The result is existing ARM SUBS RTL in the original base
+register. Since CMP(result,0) and SUBS have different carry/overflow behavior,
+the pass verifies the complete remaining flag lifetime: only EQ/NE predicates
+are permitted until an unconditional overwrite, flag-independent call or
+return. Labels, other jumps, embedded asm and other flag consumers reject.
+The tied register operation has no clobbers or labels and exactly one matching
+input/output. Stale notes on the replacement are cleared.
+
+The standalone checker passes 16,576 baseline/folded executions over 518 count
+values, sixteen initial NZCV states and ARM/Thumb returns. All registers and
+SP/LR agree; expected flags are checked separately for baseline CMP and folded
+SUBS, including signed overflow. Eight invalid forms reject, and unannotated
+object bytes are unchanged. Evidence: `.deps/soundmain-packed/subtract-zero-guards.log`.
+
+The source-advance candidate is now 56 bytes (initially 84; original 32).
+Its 35,200 comparisons against original ROM and copied RAM pass with all
+r0-r12, live LR and flags matching at both exits. Its extra four-byte LR save
+and associated frame bytes are still asserted separately, and execution stops
+before terminal BL. This remains research code; the remaining frame and early
+conditional/adjacent transfers must be converted before integration. Evidence:
+advance-candidate-check.log and advance-candidate-report.json in the same
+ignored directory. Production build selection and coverage are unchanged.

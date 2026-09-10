@@ -160,14 +160,15 @@ A source-advance C candidate now passes 35,200 cases against both original ROM
 and copied RAM: signed subtraction-overflow boundaries, one/multiple-sample
 advancement, signed byte reads and ordered memory accesses. All r0-r12 and live LR now match at both private exits. Checks independently
 validate the original and candidate frame/flags, including the candidate's
-remaining extra LR save and result-compare flags. The candidate now emits 60 bytes (down from 84) versus the original
+remaining extra LR save; candidate flags now match the original. The candidate now emits 56 bytes (down from 84) versus the original
 32 and is not integrated; compiler frame, scratch registers, flags and terminal
 calls still differ. Register-subtraction flag reuse now passes 91,168 standalone execution cases
 and six rejection cases; the existing immediate rule passes 33,152 cases.
 Signed-byte preincrement folding now passes 102,400 baseline/folded cases and
 eight rejection cases, including conditional loads and backward offsets.
-The decrement now stays in r9 and preserves r12. Matching still needs folding
-its SUB/CMP into SUBS and the appropriate private continuation contract.
+The decrement now stays in r9 and preserves r12. The equality-only flag fold
+passes 16,576 baseline/folded cases and eight rejection cases, emitting the
+original SUBS. Matching still needs the private frame and continuation contract.
 Fractional-position and channel ct/cp saving, sample-count restoration and the
 ARM-to-Thumb transfer are integrated as `src/m4a_save_channel.c` (24 bytes).
 All three entries pass 245,760 ROM/copied-RAM checks, including channel/frame

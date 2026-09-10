@@ -10,7 +10,7 @@ register volatile u32 advanceSkip asm("r9");
 register u32 advanceFraction asm("lr");
 extern void SoundMainRAM_ResampleLoop(void);
 extern void SoundMainRAM_ResampleNoAdvance(void);
-__attribute__((matching_subtract_compare, matching_byte_preincrement))
+__attribute__((matching_subtract_compare, matching_byte_preincrement, matching_subtract_zero))
 void SoundMainRAM_AdvanceCandidate(void)
 {
     u32 previous;
