@@ -7127,3 +7127,51 @@ reports in that directory, `mplay-command-invoke-production.log`,
 `mplay-note-invoke-regression.log`, `mplay-command-invoke-layout.log`,
 `mplay-command-invoke-build.log` and refreshed runtime/region receipts.
 Next work is the callback return-status check, command guards and clear-call paths.
+
+
+## MPlayMain command return status — September 10, 2026 (baseline `4389f043`)
+
+Integrated `src/m4a_mplay_command_status.c` at 080CFC6A..080CFC72. It loads
+track flags into r0 and selects track completion for zero or the existing wait
+handler for nonzero. All eight original instruction bytes are generated from C.
+The following wait-command table lookup and track-finish bodies remain assembly.
+
+The existing private direct-tail compiler rule now handles an inverse nonzero
+low-register test that skips one adjacent, unlabelled declared tail. It replaces
+that pair with the existing CMP/BEQ direct-tail pattern and removes the obsolete
+unconditional branch/barrier. The same exact adjacency, forward-empty-path,
+private-tail and expected-transfer checks apply as to the existing inverse-zero
+form. No backend pattern was added. The generic guard suite passes nine invalid
+configurations and three invalid source forms; unannotated behavior is unchanged.
+
+`check_mplay_command_status.py --production` passes 16,384 original/production
+cases: every status byte, all 16 initial NZCV states and four storage positions,
+including SP, SP-1 and the final mapped RAM byte. The 64 zero cases reach track
+completion and 16,320 nonzero cases reach track wait. All r0-r12, SP/LR, CPSR,
+complete RAM and the sole ordered byte read match; the final comparison sets
+N=0, Z according to the loaded byte, C=1 and V=0. Four malformed source forms
+reject and source without the direct-tail attribute is unaffected by loading the
+plugin. Actual callbacks and complete MPlayMain execution are outside this test.
+
+The production linker constrains the eight-byte extent, following wait-command
+entry, conditional finish-target range/alignment and unconditional wait-target
+range/alignment. `make compare -j8` reproduces all 16 MiB. Fresh runtime source
+builds reproduce all four images and exports. Source, linked, inline and runtime
+inventories are refreshed, and unchanged SoundMain/mixer regions are revalidated.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,314 C-owned (92.63%),
+33,870 mixed C/assembly, 1,654 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,064 main bytes and 420
+payload bytes. There are 518 tracked main C files and 30 assembly entry markers.
+These figures include inherited work and do not establish overall completion.
+
+ELF SHA-256: `086e1ff9c067d82eb27504bb2965d5f0257043affaa1e773c7dc02fb22323410`.
+Evidence: `.deps/soundmain-packed/mplay-command-status/report.json`, source/linked
+reports in that directory, `mplay-command-status-production.log`,
+`mplay-command-status-plugin.log`, `mplay-command-status-build.log` and refreshed
+runtime/region receipts. Next work continues command guards, wait/modulation
+handling and clear-call paths.
+
+The full production layout passes and all 30 combined altered layouts reject.
+Five new cases cover the status extent, following entry and far/backward/odd
+finish targets. See `mplay-command-status-layout.log`.

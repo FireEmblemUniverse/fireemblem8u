@@ -95,9 +95,11 @@ public:
                     if (REGNO(a)>REGNO(b)) {rtx t=a;a=b;b=t;}
                     replacement=gen_match_thumb_mask_zero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol));
                     remove=stub;
-                } else if (symbol&&GET_CODE(condition)==EQ&&low(mask)
+                } else if (symbol&&(GET_CODE(condition)==EQ||GET_CODE(condition)==NE)&&low(mask)
                            &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {
-                    replacement=gen_match_thumb_nonzero_tail(copy_rtx(mask),copy_rtx(symbol));
+                    replacement=GET_CODE(condition)==EQ
+                        ? gen_match_thumb_nonzero_tail(copy_rtx(mask),copy_rtx(symbol))
+                        : gen_match_thumb_zero_tail(copy_rtx(mask),copy_rtx(symbol));
                     remove=stub;
                 }
             }

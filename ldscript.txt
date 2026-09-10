@@ -1129,9 +1129,24 @@ SECTIONS
         src/m4a_mplay_command_invoke.o(.text);
         __mplay_command_invoke_end = .;
         src/m4a_1.o(.text.after_mplay_command_invoke);
+        __mplay_command_status_start = .;
+        src/m4a_mplay_command_status.o(.text);
+        __mplay_command_status_end = .;
+        src/m4a_1.o(.text.after_mplay_command_status);
+        ASSERT((MPlayMainCommandStatus & ~1) == MPlayMainCommandStatusBoundary &&
+               __mplay_command_status_end - __mplay_command_status_start == 8 &&
+               MPlayMainWaitCommand == __mplay_command_status_end,
+               "MPlayMain command status extent or continuation changed");
+        ASSERT(MPlayMainTrackFinish >= __mplay_command_status_start + 8 &&
+               MPlayMainTrackFinish <= __mplay_command_status_start + 8 + 254 &&
+               (MPlayMainTrackFinish & 1) == 0 &&
+               MPlayMainTrackWait >= __mplay_command_status_start + 10 &&
+               MPlayMainTrackWait <= __mplay_command_status_start + 10 + 2046 &&
+               (MPlayMainTrackWait & 1) == 0,
+               "MPlayMain command status transfer out of range");
         ASSERT((MPlayMainCommandInvoke & ~1) == MPlayMainCommandInvokeBoundary &&
                __mplay_command_invoke_end - __mplay_command_invoke_start == 4 &&
-               MPlayMainCommandStatus == __mplay_command_invoke_end,
+               (MPlayMainCommandStatus & ~1) == __mplay_command_invoke_end,
                "MPlayMain command invoke extent or continuation changed");
         ASSERT((MPlayMainCommandSetup & ~1) == MPlayMainCommandSetupBoundary &&
                __mplay_command_setup_start == MPlayMainNonNoteCommand + 4 &&

@@ -42,6 +42,11 @@ def main():
            ('command_callback_entry',source.replace('        src/m4a_1.o(.text.after_mplay_command_setup);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_setup);'),'command setup extent or callback')]
  cases += [('command_invoke_extent',source.replace('        __mplay_command_invoke_end = .;','        . += 2;\n        __mplay_command_invoke_end = .;'),'command invoke extent or continuation'),
            ('command_status_entry',source.replace('        src/m4a_1.o(.text.after_mplay_command_invoke);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_invoke);'),'command invoke extent or continuation')]
+ cases += [('command_status_extent',source.replace('        __mplay_command_status_end = .;','        . += 2;\n        __mplay_command_status_end = .;'),'command status extent or continuation'),
+           ('wait_command_entry',source.replace('        src/m4a_1.o(.text.after_mplay_command_status);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_status);'),'command status extent or continuation')]
+ for name,expression in [('finish_far','__mplay_command_status_start + 264'),('finish_backward','__mplay_command_status_start - 256'),('finish_odd','__mplay_command_status_start + 109')]:
+  text=source.replace('        ASSERT(MPlayMainTrackFinish >=','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >=',1)
+  cases.append((name,text,'command status transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
