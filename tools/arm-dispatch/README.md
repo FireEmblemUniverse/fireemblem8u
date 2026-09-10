@@ -977,3 +977,29 @@ bytes, checks 22 invalid contracts and unchanged unannotated output, then runs
 the independent 32,256-case lock model. The separate 86,016-case entry model
 executes the candidate with the original callback/frame path and controlled
 ARM/Thumb callbacks. These tests do not establish complete MPlayMain behavior.
+
+### Local unsigned bounds with explicit comparison flags
+
+`thumb_unsigned_bounds.cc` adds `matching_thumb_unsigned_bounds` for functions
+also annotated `matching_tail_transfer`. On Thumb-1, after branch shortening,
+it validates every remaining local conditional as an unsigned low-register
+`x > bound-1` branch to a label, then selects `x >= bound`. Both forms take the
+same edge for every unsigned word; this private contract explicitly selects the
+flags from CMP bound, including equality at the threshold. Branch targets and
+instruction lengths remain unchanged. No instruction templates are inserted
+into C sources, and no backend rebuild is needed.
+
+Required options are `bound=1..255` and `expected=1..255`. All conditional shapes
+and the count must match, and missing, duplicate or unknown options reject.
+Unannotated functions are unchanged. This pass does not remove a function's ABI
+frame or establish its continuation contract; tail_transfer provides that part.
+
+```
+python3 tools/arm-dispatch/build_thumb_unsigned_bounds.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_ply_note_command.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```
+
+The decoder checker requires the original 38 bytes with bound 128 and three
+branches, rejects eleven altered source/options, checks unchanged unannotated
+output, and executes 338,688 independent command/track-alias cases with full
+registers, flags and ordered memory effects. Its scope ends at tone selection.

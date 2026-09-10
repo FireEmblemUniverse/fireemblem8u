@@ -7,12 +7,11 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `c9b50c09`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `2065262f`): `ply_note`'s 38-byte optional-argument
-decoder has an independent original-ROM model passing 338,688 cases, including
-command/track aliases and full CPU flags. The C probe has the correct length and
-register/memory layout but three comparison/branch pairs leave different flags;
-the model rejects it. Correct those encodings before integration. Production
-ownership remains 92.69%.
+Current research (baseline `113e02c9`): `ply_note`'s 38-byte optional-argument
+decoder now matches C exactly, including CPU flags. All 338,688 independent
+command/track-alias cases pass; eleven unsupported compiler/source contracts
+reject and unannotated output is unchanged. Integration and linker-layout checks
+are next. Production ownership remains 92.69%.
 
 Next: recover the remaining 502 instruction bytes of `ply_note`, then continue
 through the remaining low-level code and final executable-classification audit.

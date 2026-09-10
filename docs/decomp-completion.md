@@ -8840,3 +8840,37 @@ destination PlyNoteToneSetup, private-frame64 and acyclic-branches. The candidat
 links at 080CFE64 with continuation 080CFE8A. Evidence:
 `.deps/soundmain-packed/ply-note/command-original-model.json`, `command-model.log`,
 `command-probe-model.log`, `command.s`, `command.elf` and `command.bin`.
+
+
+## September 10, 2026 — ply_note argument decoder candidate matches
+
+On baseline `113e02c9`, the C candidate for 080CFE64..080CFE8A now matches all
+38 original instruction bytes. The new `thumb_unsigned_bounds` compiler plugin
+validates the explicit `matching_thumb_unsigned_bounds` contract together with
+`matching_tail_transfer`. After shortening, every local conditional must compare
+a low register unsigned-greater-than bound-1 to a label; all shapes and the
+expected branch count must agree. It selects unsigned-greater-or-equal bound
+without changing the edge or instruction length. The private convention selects
+CMP bound's flags. For this decoder, bound=128 and expected=3 reproduce the
+original CMP #128/BCS sequences; the previous equality-flag counterexample passes.
+
+`research/audio/check_ply_note_command.py` passes all 338,688 independent cases
+with exact instruction identity, full registers/CPSR/SP/LR/RAM and ordered memory
+accesses. Eleven altered source/option contracts reject, including signed tests,
+changed threshold, missing private annotation, wrong/missing count or bound,
+duplicates, out-of-range bounds and unknown options. Unannotated output is
+unchanged. The existing backend patterns support this comparison, so only the
+new plugin was compiled; no backend rebuild was necessary.
+
+This remains a candidate milestone: production still contains the original
+502-byte ply_note instruction region and mapped C ownership remains 92.69%.
+Next: integrate the 38-byte decoder with exact entry/extent/continuation checks,
+run production ROM/runtime and ownership gates, then continue tone selection
+and channel allocation. The execution model stops at tone selection and does
+not prove complete ply_note behavior.
+
+Sources: `research/audio/ply_note_command.c`, `check_ply_note_command.py`,
+`tools/arm-dispatch/thumb_unsigned_bounds.cc` and its build helper. Evidence:
+`.deps/soundmain-packed/ply-note/command-report.json`, `command-check.log`,
+`command-candidate-model.json`, individual rejection logs and the linked
+`command-candidate.elf`/`command-candidate.bin` artifacts.
