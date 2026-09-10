@@ -1073,3 +1073,12 @@ src/m4a_mplay_post_pcm_store.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_mplay_post_pcm_store.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_pcm_store.o: C_END_ALIGN := 1
 src/m4a_mplay_post_pcm_store.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelNext -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostChannelNext
+
+src/m4a_mplay_exit_unlock.o: $(THUMB_SHARED_PLUGIN) $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_exit_unlock.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_exit_unlock.o: C_END_ALIGN := 1
+src/m4a_mplay_exit_unlock.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=0x68736d53,lt2_ID_NUMBER -fplugin-arg-thumb_shared_literal-omit-pool-alignment -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-after-shared-literals -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-destination=MPlayMainExitRestore -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainExitRestore
+src/m4a_mplay_exit_restore.o: $(THUMB_FRAME_RETURN_PLUGIN)
+src/m4a_mplay_exit_restore.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_exit_restore.o: C_END_ALIGN := 1
+src/m4a_mplay_exit_restore.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FRAME_RETURN_PLUGIN) -fplugin-arg-thumb_frame_return-grouped -fplugin-arg-thumb_frame_return-frame36 -fplugin-arg-thumb_frame_return-return-entry=call_r3

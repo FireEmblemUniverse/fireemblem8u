@@ -8073,3 +8073,47 @@ Sources/checkers: `research/audio/mplay_exit_restore.c`,
 build receipt. Production ownership is unchanged. Next: integrate the identifier
 store and return while preserving call_r3 as a typed shared Thumb entry, verify
 full ROM and altered layouts, and refresh ownership/runtime evidence.
+
+
+## MPlayMain exit production integration — September 10, 2026
+
+On baseline `2126c8ba`, the 18-byte exit at 080CFDB0..080CFDC2 is generated
+by two C-only objects: identifier restoration (4) and saved-frame restoration/
+shared BX (14). Production sources equal their candidates except for function
+names, and linked ownership confirms the exact Thumb ranges.
+
+The frame-return plugin's optional `return-entry` emits only a global Thumb
+symbol alias at the final BX after compiling the return function. It requires
+the grouped 36-byte mode and a valid identifier. The branch itself remains the
+existing return machine pattern. Defining the alias solely through the linker
+lost Thumb metadata and introduced a veneer; compiler-emitted `.thumb_set`
+metadata preserves `call_r3` as FUNC at 080CFDC1 without added instruction bytes.
+The production check verifies that symbol type/address, and the full ROM match
+proves the original calls and layout are retained.
+
+All 61,984 exit fragment cases pass (29,216 identifier store and 32,768
+full-return/shared-entry cases). The CGB caller regression passes another
+49,152 ARM/Thumb callback cases with the production shared entry. The new return
+contract rejects 18 invalid forms, including four invalid shared-entry options,
+and unannotated compilation is unchanged. Coverage remains that of the separate
+fragment models documented above, not complete MPlayMain execution.
+
+`make compare -j8` reproduces all 16 MiB. Fresh runtime builds reproduce all four
+images and exports. Source, linked, inline and runtime inventories are refreshed.
+SoundMain (1,064 bytes) and mixer (932 bytes) retain their fully C-owned extents
+and original bytes. The valid layout passes and all 140 altered layouts reject,
+including new exit extent/continuation/pool-placement changes and three invalid
+identifier literal positions. See `mplay-exit-layout.log`.
+
+Main mapped instruction bytes: 777,630 total, 720,626 C-owned (92.67%),
+33,870 mixed C/assembly, 1,342 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,752 main bytes and 420 payload bytes. There are
+549 tracked main C files and 30 assembly entry markers. These figures include
+inherited work and are not an overall completion percentage.
+
+ELF SHA-256: `0a7e6502cfb8e7d43220963472c55acc9ef7c1e3f49666519808fbc09f1c313c`.
+Evidence: `.deps/soundmain-packed/mplay-exit-build.log`,
+`mplay-exit-{unlock,restore}-production.log`, `mplay-exit-callback-regression.log`,
+`mplay-exit-production-identity.json`, source/linked reports and refreshed tracked
+ownership/runtime/region receipts. Next: post-track advancement, earlier command
+guards and clear-call paths, and remaining MPlayMain entry/loop assembly.

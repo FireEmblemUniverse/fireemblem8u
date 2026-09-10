@@ -1473,6 +1473,28 @@ SECTIONS
         src/m4a_mplay_post_track_finish.o(.text);
         __mplay_post_track_finish_end = .;
         src/m4a_1.o(.text.after_mplay_post_track_finish);
+        __mplay_exit_unlock_start = .;
+        src/m4a_mplay_exit_unlock.o(.text);
+        __mplay_exit_unlock_end = .;
+        src/m4a_1.o(.text.after_mplay_exit_unlock);
+        __mplay_exit_restore_start = .;
+        src/m4a_mplay_exit_restore.o(.text);
+        __mplay_exit_restore_end = .;
+        src/m4a_1.o(.text.after_mplay_exit_restore);
+        ASSERT((MPlayMainExit & ~1) == MPlayMainExitBoundary &&
+               __mplay_exit_unlock_end - __mplay_exit_unlock_start == 4 &&
+               (MPlayMainExitRestore & ~1) == __mplay_exit_unlock_end,
+               "MPlayMain exit unlock extent or continuation changed");
+        ASSERT((MPlayMainExitRestore & ~1) == MPlayMainExitRestoreBoundary &&
+               __mplay_exit_restore_end - __mplay_exit_restore_start == 14 &&
+               (call_r3 & ~1) == __mplay_exit_restore_start + 12 &&
+               (call_r3 & ~1) + 2 == __mplay_exit_restore_end,
+               "MPlayMain exit restore extent or shared entry changed");
+        ASSERT((__mplay_exit_unlock_start & 3) == 0 &&
+               (lt2_ID_NUMBER & 3) == 0 &&
+               lt2_ID_NUMBER >= __mplay_exit_unlock_start + 4 &&
+               lt2_ID_NUMBER <= __mplay_exit_unlock_start + 4 + 1020,
+               "MPlayMain exit identifier literal out of range");
         ASSERT((MPlayMainPostTrackFinish & ~1) == MPlayMainPostTrackFinishBoundary &&
                __mplay_post_track_finish_end - __mplay_post_track_finish_start == 10 &&
                (MPlayMainPostTrackNext & ~1) == __mplay_post_track_finish_end,

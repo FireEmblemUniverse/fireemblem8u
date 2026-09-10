@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Explicit private Thumb frame return with read-only access to the mixer frame.
 #include <vector>
+#include <string>
 #include <map>
 #include "gcc-plugin.h"
 #include "plugin-version.h"
@@ -24,9 +25,15 @@
 #include "hard-reg-set.h"
 #include "regs.h"
 #include "options.h"
+#include "output.h"
 int plugin_is_GPL_compatible;
 namespace {
 bool grouped=false,frame36=false;
+std::string return_entry,return_function;
+void finish_unit(void *,void *) {
+    if (!return_entry.empty()&&!return_function.empty())
+        fprintf(asm_out_file,".global %s\n.thumb_set %s, %s + 12\n.type %s, %%function\n",return_entry.c_str(),return_entry.c_str(),return_function.c_str(),return_entry.c_str());
+}
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_frame_return requires a function");*no_add=true; }
     return NULL_TREE;
@@ -147,6 +154,10 @@ public:
         }
         if (!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,3)),false))
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return branch rejected");
+        if (!return_entry.empty()) {
+            if (!return_function.empty()) fatal_error(UNKNOWN_LOCATION,"Thumb shared return requires one annotated function");
+            return_function=IDENTIFIER_POINTER(DECL_ASSEMBLER_NAME(fn->decl));
+        }
         REG_NOTES(ret)=nullptr;
         delete_insn(spuse);delete_insn(lruse);
         return 0;
@@ -158,10 +169,16 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     for (int n=0;n<info->argc;n++) {
         if (!strcmp(info->argv[n].key,"grouped")&&!info->argv[n].value&&!grouped) grouped=true;
         else if (!strcmp(info->argv[n].key,"frame36")&&!info->argv[n].value&&!frame36) frame36=true;
-        else return 1;
+        else if (!strcmp(info->argv[n].key,"return-entry")&&info->argv[n].value&&return_entry.empty()) {
+            std::string value=info->argv[n].value;
+            if (value.empty()||(!((value[0]>='A'&&value[0]<='Z')||(value[0]>='a'&&value[0]<='z'))&&value[0]!='_')) return 1;
+            for (unsigned char c:value) if (!((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9'))&&c!='_') return 1;
+            return_entry=value;
+        } else return 1;
     }
-    if (frame36&&!grouped) return 1;
+    if ((frame36&&!grouped)||(!return_entry.empty()&&!frame36)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
+    register_callback(info->base_name,PLUGIN_FINISH_UNIT,finish_unit,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
     return 0;

@@ -35,8 +35,14 @@ def main():
    'intervening_update':(source.replace('exitR8 = exitR0;', 'exitR7 += 1; exitR8 = exitR0;'),()),
    'reordered_loads':(source.replace('exitR0 = exitStack[0];\n    exitR1 = exitStack[1];','exitR1 = exitStack[1];\n    exitR0 = exitStack[0];'),()),
   })
+ cases.update({
+  'entry_empty':(source,('-fplugin-arg-thumb_frame_return-return-entry',)),
+  'entry_invalid':(source,('-fplugin-arg-thumb_frame_return-return-entry=bad;name',)),
+  'entry_digit':(source,('-fplugin-arg-thumb_frame_return-return-entry=1bad',)),
+  'entry_duplicate':(source,('-fplugin-arg-thumb_frame_return-return-entry=call_r3','-fplugin-arg-thumb_frame_return-return-entry=call_r3')),
+ })
  for name,(text,extra) in cases.items():
-  result,_=compile(name,text,extra=extra);assert result.returncode and ('Thumb frame return' in result.stderr or 'Thumb 36-byte return' in result.stderr),(name,result.stderr)
+  result,_=compile(name,text,extra=extra);assert result.returncode and ('Thumb frame return' in result.stderr or 'Thumb 36-byte return' in result.stderr or 'initialize' in result.stderr),(name,result.stderr)
  result,obj=compile('plain',plain,False);assert not result.returncode,result.stderr
  original=obj.read_bytes();result,obj=compile('plain',plain);assert not result.returncode and original==obj.read_bytes(),result.stderr
  print(f'Private return accepted; {len(cases)} unsupported contracts rejected; unannotated object unchanged.')

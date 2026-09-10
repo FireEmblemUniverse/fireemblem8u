@@ -135,6 +135,12 @@ def main():
  for name,expression in [('pcm_callee_far','__mplay_post_pcm_invoke_start + 4194308'),('pcm_callee_backward','__mplay_post_pcm_invoke_start - 4194304')]:
   text=source.replace('        ASSERT((MidiKeyToFreq & ~1) >=','        MidiKeyToFreq = '+expression+';\n        ASSERT((MidiKeyToFreq & ~1) >=',1)
   cases.append((name,text,'post pcm callee out of range'))
+ for part in ('unlock','restore'):
+  cases.append(('exit_'+part+'_extent',source.replace('        __mplay_exit_'+part+'_end = .;','        . += 2;\n        __mplay_exit_'+part+'_end = .;'),'exit '+part+' extent or'))
+  cases.append(('exit_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_exit_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_exit_'+part+');'),('exit unlock extent or' if part=='unlock' else 'MPlay shared literal placement changed')))
+ for name,expression in [('exit_literal_far','__mplay_exit_unlock_start + 1028'),('exit_literal_backward','__mplay_exit_unlock_start'),('exit_literal_unaligned','__mplay_exit_unlock_start + 6')]:
+  text=source.replace('        ASSERT((__mplay_exit_unlock_start & 3) ==','        lt2_ID_NUMBER = '+expression+';\n        ASSERT((__mplay_exit_unlock_start & 3) ==',1)
+  cases.append((name,text,'exit identifier literal out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

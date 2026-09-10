@@ -529,24 +529,13 @@ _081DDA62:
 	movs r0, 0x50
 	adds r5, r0
 	bgt _081DD9C8
-	.global MPlayMainExit
-MPlayMainExit:
+	.global MPlayMainExitBoundary
+MPlayMainExitBoundary:
 _081DDA6C:
-	ldr r0, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt2_ID_NUMBER
-	str r0, [r7, o_MusicPlayerInfo_ident]
-	pop {r0-r7}
-	mov r8, r0
-	mov r9, r1
-	mov r10, r2
-	mov r11, r3
-	pop {r3}
-
-	.global call_r3
-	.thumb_func
-call_r3:
-	bx r3
-
+	.section .text.after_mplay_exit_unlock, "ax", %progbits
+	.global MPlayMainExitRestoreBoundary
+MPlayMainExitRestoreBoundary:
+	.section .text.after_mplay_exit_restore, "ax", %progbits
 	.section .text.mplay_main_literals, "ax", %progbits
 	.2byte 0 @ Original padding after the shared BX trampoline.
 	.global lt_gClockTable
