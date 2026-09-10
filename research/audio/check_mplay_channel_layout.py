@@ -62,6 +62,8 @@ def main():
  for name,expression in [('modulation_finish_far','__mplay_modulation_guard_start + 264'),('modulation_finish_backward','__mplay_modulation_guard_start - 256'),('modulation_finish_odd','__mplay_modulation_guard_start + 83')]:
   text=source.replace('        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard',1)
   cases.append((name,text,'modulation guard transfer out of range'))
+ cases += [('modulation_update_extent',source.replace('        __mplay_modulation_update_end = .;','        . += 2;\n        __mplay_modulation_update_end = .;'),'modulation update extent or continuation'),
+           ('track_finish_entry',source.replace('        src/m4a_1.o(.text.after_mplay_modulation_update);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_modulation_update);'),'modulation update extent or continuation')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

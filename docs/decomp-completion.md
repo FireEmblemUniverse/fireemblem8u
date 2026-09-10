@@ -7312,3 +7312,62 @@ layout passes and all 44 combined altered layouts reject, including five new ext
 continuation and far/backward/odd completion-target cases. See
 `mplay-modulation-guard-layout.log`. Next work continues modulation arithmetic,
 command guards and clear-call paths.
+
+
+## MPlayMain modulation arithmetic — September 10, 2026 (baseline `999ef1f8`)
+
+Integrated `src/m4a_mplay_modulation_update.c` at 080CFC9E..080CFCD8. It advances
+and stores the phase, derives the signed triangular waveform, multiplies by depth,
+arithmetically shifts the wrapped product and compares the low result byte with
+previous modulation. Changed values are stored and the appropriate pitch/volume
+update bits are ORed into track flags. All 58 original instruction bytes are
+produced from C. Track-loop completion remains assembly.
+
+No compiler plugin changes were needed. Removing unnecessary empty self-ties
+between shifts and their conditions allows the original LSLS/BPL and LSLS/BEQ
+pairs. Disabling if-conversion preserves the original type-selection branches.
+An empty self-tie in the zero-type arm prevents replacement of MOVS #12 by an
+ADD from known zero, which would change carry. Existing private-tail and copy-
+as-ADD-zero contracts preserve the other original register/flag behavior.
+
+The independent arithmetic suite passes 700,416 original/candidate executions:
+524,288 phase/speed byte-pair cases at four depths and changed/unchanged results,
+65,536 phase/depth byte pairs and 110,592 full-width speed boundary cases with
+all initial NZCV, type variants and four stack/boundary track locations. The
+model independently computes wrapped additions/multiplication, signed eight-bit
+waveform values, arithmetic right shifts and final flags. All r0-r12, SP/LR,
+full CPSR, complete RAM and ordered byte accesses agree. Stores are checked both
+as complete source-register hook values and truncated memory bytes. There are
+317,661 unchanged, 149,759 pitch-update and 232,996 volume-update cases. Unchanged
+exits retain shift carry and the earlier arithmetic overflow; changed exits retain
+C=1/V=0 from the type comparison. Full MPlayMain and audible output are outside
+this fragment's validation.
+
+Production integration was verified by exact identity rather than a duplicate
+execution run. The production C source equals the tested source with only the
+function name changed; its complete linked 58-byte Thumb region belongs to the
+C-owned object and equals the tested candidate and original ROM. A separate
+`production-verification.json` records the source, checker, candidate, ELF and ROM
+hashes, linked region and execution count. The candidate report's
+`production_integrated: false` describes the earlier execution invocation; the
+separate identity receipt proves the subsequent integration. Running the checker
+with `--production` remains available to reproduce both checks in one invocation.
+
+`make compare -j8` reproduces all 16 MiB. The valid production layout passes and
+all 46 combined altered layouts reject, including the new extent and track-finish
+continuation perturbations. Fresh runtime source builds reproduce all four images
+and exports. Source, linked, inline and runtime inventories are refreshed and
+unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,416 C-owned (92.64%), 33,870
+mixed C/assembly, 1,552 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,962 main bytes and 420 payload bytes.
+There are 522 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `9fe639520a5b01e1ad8d9a4abe6119294ceed22e10b45d5dca8db304a5acc94f`.
+Evidence: `.deps/soundmain-packed/mplay-modulation-update/report.json`,
+`production-verification.json`, source/linked reports there,
+`mplay-modulation-update-check.log`, `mplay-modulation-update-layout.log`,
+`mplay-modulation-update-build.log` and refreshed runtime/region receipts.
+Next work continues command guards, track-loop completion and clear-call paths.

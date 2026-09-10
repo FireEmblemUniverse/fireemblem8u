@@ -1145,15 +1145,23 @@ SECTIONS
         src/m4a_mplay_modulation_guard.o(.text);
         __mplay_modulation_guard_end = .;
         src/m4a_1.o(.text.after_mplay_modulation_guard);
+        __mplay_modulation_update_start = .;
+        src/m4a_mplay_modulation_update.o(.text);
+        __mplay_modulation_update_end = .;
+        src/m4a_1.o(.text.after_mplay_modulation_update);
+        ASSERT((MPlayMainModulationUpdate & ~1) == MPlayMainModulationUpdateBoundary &&
+               __mplay_modulation_update_end - __mplay_modulation_update_start == 58 &&
+               MPlayMainTrackFinish == __mplay_modulation_update_end,
+               "MPlayMain modulation update extent or continuation changed");
         ASSERT((MPlayMainModulationStart & ~1) == MPlayMainModulationStartBoundary &&
                __mplay_modulation_guard_end - __mplay_modulation_guard_start == 24 &&
-               MPlayMainModulationUpdate == __mplay_modulation_guard_end,
+               (MPlayMainModulationUpdate & ~1) == __mplay_modulation_guard_end,
                "MPlayMain modulation guard extent or continuation changed");
         ASSERT(MPlayMainTrackFinish >= __mplay_modulation_guard_start + 26 &&
                MPlayMainTrackFinish <= __mplay_modulation_guard_start + 8 + 254 &&
                (MPlayMainTrackFinish & 1) == 0 &&
-               MPlayMainModulationUpdate >= __mplay_modulation_guard_start + 20 &&
-               MPlayMainModulationUpdate <= __mplay_modulation_guard_start + 20 + 254 &&
+               (MPlayMainModulationUpdate & ~1) >= __mplay_modulation_guard_start + 20 &&
+               (MPlayMainModulationUpdate & ~1) <= __mplay_modulation_guard_start + 20 + 254 &&
                (MPlayMainModulationUpdate & 1) == 0,
                "MPlayMain modulation guard transfer out of range");
         ASSERT((MPlayMainTrackWait & ~1) == MPlayMainTrackWaitBoundary &&

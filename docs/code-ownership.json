@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "98d1d06444d301aaf9681cf11176032d078f0eb0",
+  "baseline_commit": "999ef1f89ac7e7f4e36a573973337cb4a74a1041",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1610,
-        "c_owned": 720358,
+        "assembly_source": 1552,
+        "c_owned": 720416,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1102,11 +1102,6 @@
           "instruction_bytes": 920
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 906
-        },
-        {
           "object": "src/banim-ekrbattleending.o",
           "category": "c_owned",
           "instruction_bytes": 900
@@ -1135,6 +1130,11 @@
           "object": "src/worldmap_automu.o",
           "category": "c_owned",
           "instruction_bytes": 858
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 848
         },
         {
           "object": "src/cp_decide.o",
@@ -1842,6 +1842,11 @@
           "instruction_bytes": 60
         },
         {
+          "object": "src/m4a_mplay_modulation_update.o",
+          "category": "c_owned",
+          "instruction_bytes": 58
+        },
+        {
           "object": "tools/agbcc/lib/libc.a(strlen.o)",
           "category": "runtime_archive",
           "instruction_bytes": 58
@@ -2312,13 +2317,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "1f6e46440c91e316bc5aed2e8caea291f2995d34fa60dbd3ee677ae918ff1a63",
-      "map_sha256": "6c521d38b5bdb563bc4b4d902ddd0e096151bec54b76c88af17a97192e71132f",
+      "elf_sha256": "9fe639520a5b01e1ad8d9a4abe6119294ceed22e10b45d5dca8db304a5acc94f",
+      "map_sha256": "e9e78d71319bddb5ea15f94b59202f5c2e63c0d672b0c1fb45c8a827effaab7e",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 2020
+      "known_nonarchive_assembly_bytes": 1962
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

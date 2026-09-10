@@ -420,42 +420,10 @@ _081DD938:
 	.global MPlayMainModulationStartBoundary
 MPlayMainModulationStartBoundary:
 	.section .text.after_mplay_modulation_guard, "ax", %progbits
-	.global MPlayMainModulationUpdate
-MPlayMainModulationUpdate:
+	.global MPlayMainModulationUpdateBoundary
+MPlayMainModulationUpdateBoundary:
 _081DD95A:
-	ldrb r0, [r5, o_MusicPlayerTrack_lfoSpeedC]
-	adds r0, r1
-	strb r0, [r5, o_MusicPlayerTrack_lfoSpeedC]
-	adds r1, r0, 0
-	subs r0, 0x40
-	lsls r0, 24
-	bpl _081DD96E
-	lsls r2, r1, 24
-	asrs r2, 24
-	b _081DD972
-_081DD96E:
-	movs r0, 0x80
-	subs r2, r0, r1
-_081DD972:
-	ldrb r0, [r5, o_MusicPlayerTrack_mod]
-	muls r0, r2
-	asrs r2, r0, 6
-	ldrb r0, [r5, o_MusicPlayerTrack_modM]
-	eors r0, r2
-	lsls r0, 24
-	beq _081DD994
-	strb r2, [r5, o_MusicPlayerTrack_modM]
-	ldrb r0, [r5]
-	ldrb r1, [r5, o_MusicPlayerTrack_modT]
-	cmp r1, 0
-	bne _081DD98E
-	movs r1, 0xC
-	b _081DD990
-_081DD98E:
-	movs r1, 0x3
-_081DD990:
-	orrs r0, r1
-	strb r0, [r5, o_MusicPlayerTrack_flags]
+	.section .text.after_mplay_modulation_update, "ax", %progbits
 	.global MPlayMainTrackFinish
 MPlayMainTrackFinish:
 _081DD994:

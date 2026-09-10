@@ -929,3 +929,9 @@ src/m4a_mplay_modulation_guard.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_T
 src/m4a_mplay_modulation_guard.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_modulation_guard.o: C_END_ALIGN := 1
 src/m4a_mplay_modulation_guard.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTrackFinish -fplugin-arg-tail_transfer-destination=MPlayMainModulationUpdate -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainTrackFinish -fplugin-arg-thumb_direct_tails-destination=MPlayMainModulationUpdate -fplugin-arg-thumb_direct_tails-expected-transfers=3
+
+
+src/m4a_mplay_modulation_update.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_modulation_update.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_modulation_update.o: C_END_ALIGN := 1
+src/m4a_mplay_modulation_update.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -fno-if-conversion -fno-if-conversion2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTrackFinish -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainTrackFinish -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
