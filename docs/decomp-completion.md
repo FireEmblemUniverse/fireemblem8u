@@ -8515,3 +8515,53 @@ Evidence: `.deps/soundmain-packed/mplay-entry/production-build.log`,
 receipts. Production ELF SHA-256:
 `d988d65e9fa72b83caeef8b61e6c8094d8a7d354ff5cdfad98961e3c6b205170`.
 Next: MPlayMain's 42-byte lock/callback/frame path at 080CFB68..080CFB92.
+
+
+## September 10, 2026 — Lock/callback/frame model and callback candidates
+
+On baseline `7245a2bd`, an independent model now verifies the remaining original
+42-byte entry path at 080CFB68..080CFB92. All 86,016 original executions pass:
+64,512 lock rejections, 7,168 no-callback entries, 7,168 Thumb-callback entries,
+and 7,168 ARM-callback entries. The model checks identifier reads/stores,
+callback selection and argument reads, saved input/return words, all eight
+low/high-register frame writes, exact SP at each executed entry instruction,
+complete registers/CPSR/LR/RAM and ordered memory accesses.
+
+Seven player locations exercise frame overlap; four callback-write locations
+include the saved player/return words, identifier and final high-register bank.
+Both ARM/Thumb rejection returns, two stacks, every incoming NZCV and four
+returned flag patterns are covered. The synthetic callback changes r0-r12 and
+executes a real STR/BX sequence. Player placements deliberately avoid callback
+pointer fields overwritten by the initial two-word push; arbitrary self-modified
+callback targets are not claimed as covered. Tests stop at entry-status setup.
+
+The eight-byte callback setup at 080CFB78..080CFB80 and four-byte invocation at
+080CFB80..080CFB84 now have exact matching C candidates using existing direct-tail
+and shared-callback compiler contracts. No compiler implementation changed.
+With those twelve candidate bytes installed, the full entry/frame model again
+passes all 86,016 cases (the 64,512 lock rejections do not enter the new fragments).
+The invocation separately passes 49,152 ARM/Thumb call-return cases across all
+incoming/returned NZCV pairs, four stacks and three callback-write aliases;
+13 unsupported contracts reject and unannotated compilation is unchanged.
+
+The whole-path candidate check compiles setup and requires the invocation
+checker artifact to correspond to the current source. Reproduce in order:
+
+```sh
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_entry_callback_invoke.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_lock_callback_frame_model.py --candidate --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```
+
+Production ownership is unchanged. Integration would leave 30 assembly bytes
+across the lock/initial-push and remaining frame setup. Actual user callback
+logic and complete MPlayMain execution are outside these synthetic-callback
+checks. Next: integrate both fragments with extent/continuation/branch/trampoline
+constraints, then full ROM/layout/runtime/ownership gates.
+
+Sources: `research/audio/mplay_entry_callback_setup.c`,
+`mplay_entry_callback_invoke.c`, `check_mplay_entry_callback_invoke.py`,
+`check_mplay_lock_callback_frame_model.py`. Evidence:
+`.deps/soundmain-packed/mplay-entry/lock-callback-frame-model.json`,
+`lock-callback-frame-candidate.json`, corresponding logs,
+`callback-invoke-check.log`, and
+`.deps/soundmain-packed/mplay-entry-callback-invoke/report.json`.
