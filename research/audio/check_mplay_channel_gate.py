@@ -20,8 +20,9 @@ CANDIDATE, DATA, SP = 0x08100000, 0x02000000, 0x02001000
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
+    parser.add_argument('--decrement-store', action='store_true')
     args = parser.parse_args()
-    out = ROOT / '.deps/soundmain-packed/mplay-channel-gate'
+    out = ROOT / ('.deps/soundmain-packed/mplay-channel-gate-folded' if args.decrement_store else '.deps/soundmain-packed/mplay-channel-gate')
     out.mkdir(parents=True, exist_ok=True)
     source = ROOT / 'research/audio/mplay_channel_gate.c'
     obj, elf, binary = (out / name for name in ('candidate.o', 'candidate.elf', 'candidate.bin'))
@@ -33,7 +34,8 @@ def main():
                     '-fplugin-arg-tail_transfer-destination=MPlayMainChannelClear',
                     '-fplugin-arg-tail_transfer-destination=MPlayMainChannelNext',
                     '-fplugin-arg-tail_transfer-private-frame64',
-                    '-fplugin-arg-tail_transfer-acyclic-branches'], check=True)
+                    '-fplugin-arg-tail_transfer-acyclic-branches'] +
+                   (['-DMATCH_DECREMENT_STORE', '-fplugin=' + str(ROOT / '.deps/flood-core-new-backend/thumb_store_decrement_zero.so')] if args.decrement_store else []), check=True)
     # Destinations are nearby to preserve short Thumb branches. Compare their roles,
     # translating only candidate entry/exit PCs; all data addresses remain identical.
     cclear, cnext = CANDIDATE + 0x100, CANDIDATE + 0x102
@@ -44,6 +46,7 @@ def main():
     subprocess.run(['arm-none-eabi-ld', '-T', str(script), str(obj), '-o', str(elf)], check=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '-j', '.text', str(elf), str(binary)], check=True)
     code = binary.read_bytes()
+    assert len(code) == (30 if args.decrement_store else 32), code.hex()
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     machines = []
@@ -109,7 +112,7 @@ def main():
             results.append(uc.reg_read(r.UC_ARM_REG_CPSR))
         assert results[0] == results[1], (status, gate, flags, results)
         counts[role] += 1
-    report = dict(cases=sum(counts.values()), outcomes=counts, original_bytes=CLEAR - ENTRY,
+    report = dict(decrement_store_folded=args.decrement_store, cases=sum(counts.values()), outcomes=counts, original_bytes=CLEAR - ENTRY,
                   candidate_bytes=len(code), candidate_sha256=hashlib.sha256(code).hexdigest(),
                   source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(), production_integrated=False,
                   scope='All 256 status bytes, 256 gate bytes and 16 initial NZCV states; normal and frame-overlap channel addresses; all registers, SP/LR, flags, complete RAM and ordered accesses.',

@@ -5,6 +5,9 @@ register volatile u32 channelStatus asm("r1");
 register volatile struct SoundChannel *gateChannel asm("r4");
 extern void MPlayMainChannelClear(void);
 extern void MPlayMainChannelNext(void);
+#ifdef MATCH_DECREMENT_STORE
+__attribute__((matching_thumb_store_decrement_zero))
+#endif
 __attribute__((matching_tail_transfer))
 void MPlayChannelGateCandidate(void)
 {

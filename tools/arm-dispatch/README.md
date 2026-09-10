@@ -659,3 +659,35 @@ existing direct-tail and adjacent-tail modes. The gate touches no stack memory;
 its private-tail contract only removes the compiler's extra frame.
 `check_mplay_tempo.py --production` verifies the three fragments together, while
 `check_tail_unsigned_le.py` guards compiler selection and unaffected cases.
+
+### Private Thumb decrement/store equality branches
+
+`matching_thumb_store_decrement_zero` explicitly selects SUBS/STRB/BEQ-or-BNE
+for a decrement by one, byte store of that same register and zero comparison.
+It requires `matching_tail_transfer`, low registers, a byte-store address with a
+separate low base and offset 0..31, and a short forward target. Intervening work,
+nonzero comparisons, signed inequalities and wider stores are rejected. An exact
+empty self-tie between subtraction and store is allowed. The rule applies after
+the tail-transfer plugin and accepts the remaining tie or a directly adjacent
+subtraction. The branch uses the full 32-bit result; only the store truncates.
+
+The attribute deliberately selects the subtraction's carry and overflow flags,
+which can differ from a separate comparison for unrestricted 32-bit inputs.
+Private callers must verify the required flags. It is not a general optimization
+for code that observes compiler-generated NZCV. Unannotated functions are unchanged.
+The machine pattern shares the existing decrement marker but accepts only EQ/NE;
+the older bounded-counter pattern continues to accept only ordered comparisons.
+
+After rebuilding the matching compiler, build and check the plugin with:
+
+```sh
+python3 tools/arm-dispatch/build_thumb_store_decrement_zero.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_thumb_store_decrement_zero.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_channel_gate.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --decrement-store
+```
+
+The standalone checker covers both equality senses, full-width boundary/random
+values, all initial NZCV states and unsupported source forms. The MPlayMain
+checker additionally tests every status/gate byte and initial NZCV combination
+against the original ROM. This rule is currently used by a research candidate;
+MPlayMain's channel gate is not yet integrated as matching production C.

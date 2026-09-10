@@ -3,7 +3,7 @@
 **Status: active — not yet 100% decompiled.**
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `dabed094`): MPlayMain's tempo accumulator, tick-completion arithmetic and loop gate are matching C. All 22 instruction bytes match; 533,888 production/original cases pass, including halfword truncation with full-width loop decisions. Full ROM and fresh runtime rebuilds match. Main-ROM C ownership is 720,178/777,630 mapped instruction bytes (92.61%). The rest of MPlayMain, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
-Latest research (baseline `5b4197e4`): MPlayMain’s channel gate-time C candidate passes 1,048,576 original/candidate cases. It is 32 bytes versus the original 28 and is not integrated; production coverage is unchanged.
+Latest research (baseline `8f8e66fd`): a checked decrement/store/zero compiler rule reduces MPlayMain’s channel gate-time candidate from 32 to 30 bytes (original: 28). All 1,048,576 original/candidate cases pass again; 16,544 compiler execution checks and eight rejected forms pass. Full ROM comparison still passes. Branch layout and TST operand order remain; this candidate is not integrated and production coverage is unchanged.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

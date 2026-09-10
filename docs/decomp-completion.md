@@ -6692,3 +6692,39 @@ Evidence: `.deps/soundmain-packed/mplay-channel-gate/report.json`,
 `candidate.disassembly`, and `.deps/soundmain-packed/mplay-channel-gate-check.log`.
 The standing progress panel’s obsolete SoundMain buffer milestone was replaced
 with the current MPlayMain work; SoundMain is already fully integrated.
+
+
+## Channel gate decrement/store instruction fold — September 10, 2026
+
+Baseline `8f8e66fd`. The new opt-in `matching_thumb_store_decrement_zero`
+compiler rule combines an allocated decrement-by-one, byte store and EQ/NE-zero
+branch into SUBS/STRB/BEQ-or-BNE. It preserves the full-width branch decision and
+truncates only the store. Validation requires low registers, a separate low base
+with byte offset 0..31, a short forward label, and the private tail contract.
+Unsupported source shapes fail rather than silently changing code. Empty exact
+self-ties are accepted; arbitrary intervening work is not. This private rule
+intentionally selects SUBS carry/overflow instead of a separate CMP's flags.
+
+The new backend pattern accepts only EQ/NE and does not change the existing
+ordered byte-counter pattern. The isolated compiler was rebuilt successfully.
+`check_thumb_store_decrement_zero.py` passes 16,544 executions across both branch
+senses, all initial flags, byte values, full-width boundary values including signed
+overflow, and random words. It checks all general registers, SP/LR, RAM and final
+flags. Eight invalid forms are rejected and an unannotated object is identical.
+The test fixture disables if-conversion to exercise actual branches; the production
+research candidate retains its existing compilation options.
+
+With `--decrement-store`, `check_mplay_channel_gate.py` verifies the improved
+30-byte candidate against the original 28-byte block in 1,048,576 cases, with
+unchanged outcomes and full-state/access checks. The redundant zero comparison is
+gone. Remaining work is TST operand order and branch layout, including external
+next-channel targets; this is still research, not a production C replacement.
+`make compare -j8` passes after rebuilding dependent compiler plugins. Production
+ELF SHA-256 remains `2a46cf9e1aca153eea101bfb26da0fd257fcaf7369ee3a08903683d476748454`,
+so existing code ownership receipts remain current and C ownership stays 92.61%.
+
+Evidence: `.deps/soundmain-packed/mplay-channel-gate-folded/report.json`,
+`mplay-channel-gate-folded-check.log`, `store-decrement-zero-guards/report.json`,
+`mplay-channel-backend.log` and `mplay-channel-backend-compare.log` under the same
+soundmain-packed directory. Plugin build instructions and limitations are in
+`tools/arm-dispatch/README.md`.

@@ -333,3 +333,20 @@
   "TARGET_THUMB1"
   "push\t{r0-r4}"
   [(set_attr "length" "2") (set_attr "type" "multiple")])
+
+;; Explicit private SUBS/STRB/equality branch. Unlike the range-based counter,
+;; equality of the decremented SI value is valid for every 32-bit input.
+(define_insn "match_thumb_store_decrement_zero"
+  [(set (pc)
+        (if_then_else
+         (match_operator 2 "comparison_operator"
+          [(unspec:SI [(match_operand:SI 0 "s_register_operand" "+l")]
+                      UNSPEC_MATCH_THUMB_BYTE_DEC)
+           (const_int 0)])
+         (label_ref (match_operand 3 "" "")) (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))
+   (set (match_operand:QI 1 "memory_operand" "=m")
+        (truncate:QI (plus:SI (match_dup 0) (const_int -1))))]
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == EQ || GET_CODE (operands[2]) == NE)"
+  "subs\t%0, %0, #1\n\tstrb\t%0, %1\n\tb%d2\t%l3"
+  [(set_attr "length" "6") (set_attr "type" "multiple")])
