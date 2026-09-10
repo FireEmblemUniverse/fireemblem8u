@@ -2724,3 +2724,29 @@ Embedded and transfer-wrapper remaining scope is unchanged. Local evidence is
 in `.deps/tempo-match/`: production, contract and regression logs, source and
 linked audits, and the full-ROM comparison log. Overall completion remains
 unproven while executable classification and assembly replacements remain.
+
+
+### September 9: port command behavior verified in research
+
+`research/audio/port.c` expresses the two-byte port command in C. The first
+byte selects an offset from `0x04000060`; the private reader entry
+`_081DD64A` at `080CF98E` consumes the second byte and advances the track pointer
+past both bytes. The byte value is written to the computed hardware address.
+
+`research/audio/check_port.py --compiler COMPILER` compiles the ordinary return
+candidate and exercises all 65,536 offset/value pairs against the original ROM.
+The ordered byte write, all track RAM, flags, stack, return PC and r4-r11 agree.
+The incoming flag patterns vary across all sixteen combinations with offset.
+This models CPU accesses only, not sound hardware timing. The current oracle
+covers normal command RAM; rejected and aliased reads remain to be added before
+production integration.
+
+The candidate is not a byte match: its 28-byte section differs from the original
+24-byte section and its ordinary return changes r0/r12. Compiling with
+`-DPORT_PRIVATE_RETURN` and the current `ip_return` plugin rejects the trailing
+literal pool after the epilogue, as expected from its straight-line restriction.
+The address addition also encodes its two source operands in the reverse order.
+Next is guarded literal-pool support and matching operand selection, followed by
+expanded private-ABI validation and full-ROM integration. Production remains
+`2ae198bb`, at 43 assembly entry markers. Research output and the execution
+report are in `.deps/port-match/`; no production implementation changed.

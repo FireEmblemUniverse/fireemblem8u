@@ -45,7 +45,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match the remaining modulation/port handlers.
+Next milestone: match the port handler's private return and literal pool, then modulation.
+The port C research candidate passes all 65,536 offset/value pairs for ordered
+byte writes, track memory, flags and preserved registers. It is not integrated:
+its 28-byte body/pool differs from the original 24 bytes, with r0/r12 return
+differences. The private-return checker currently rejects its trailing literal
+pool; the address addition also has reversed encoded operands.
 Tempo is integrated as C. All 20 original bytes match; 24,768 production
 execution cases verify tempo arithmetic, rejected reads, pointer aliases,
 registers and flags. The full ROM checksum passes. The updated private-return
