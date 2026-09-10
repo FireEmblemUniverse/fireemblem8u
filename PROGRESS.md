@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified milestone: the entire 488-byte ARM sample-mixing region is now C-owned (baseline `50f5de71` plus this change). Both final exit fragments are integrated; full ROM matching, block tests, compiler regressions and 3,528 complete audio calls pass.
+Updated: September 10, 2026. Latest research advance: no-reverb buffer clearing matches memory/store order in 14,640 cases (baseline `45b2789f`); scratch-register, flag and exact Thumb-code differences remain. Latest production milestone remains the complete 488-byte ARM sample-mixing region.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -80,7 +80,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover remaining Thumb channel/frame control and no-reverb buffer clearing. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: resolve no-reverb Thumb shift/carry, word-store writeback and private-entry register differences, then integrate its 46-byte block. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -221,6 +221,13 @@ placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
 Current source inventory: 490 C files, 32 assembly entry markers, two manual
 assembly function declarations, and seven instruction-bearing inline templates.
+The no-reverb C candidate passes 14,640 memory-semantics cases across original/
+candidate ROM and copied RAM, covering 183 counts, five stereo-buffer offsets,
+all initial flags and 1,554,080 ordered writes per implementation. It preserves
+the original minimum four-pair loop even for counts below sixteen. The measured
+gaps are r2/r3 clobbers in all cases, carry-flag differences in 1,280 small-count
+cases, a return instead of private fallthrough, and 70 emitted bytes versus 46.
+This remains research code and does not increase production coverage.
 Both final ARM exit fragments are now integrated: source rewind/register
 restoration in `src/m4a_resample_finish.c` (eight bytes) and the terminal branch
 in `src/m4a_partial.c` (now 40 bytes). Their suites pass 201,216 and 61,440 cases

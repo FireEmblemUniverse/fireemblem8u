@@ -5461,3 +5461,42 @@ Evidence under `.deps/soundmain-packed/`: mixer-exits-production-build.log,
 resample-finish-production*.json, partial-production*.json, exits-regression-*.log,
 mixer-exits-source-audit.json, mixer-exits-ownership.log and mixer-exits-linked.json.
 Current complete-call and runtime receipts are maintained in their usual locations.
+
+
+## September 10, 2026 — no-reverb Thumb clearing semantics recovered
+
+Baseline: `45b2789f`. `research/audio/soundmain_no_reverb.c` models the 46-byte
+Thumb path at 0x080CF5AC..0x080CF5DA. It clears one stereo word pair when count
+bit two is set, two pairs for bit three, then always enters a four-pair loop.
+The number of cleared words per side is `(bit2 ? 1 : 0) + (bit3 ? 2 : 0) +
+4 * max(count >> 4, 1)`. Thus counts below sixteen still clear at least sixteen
+bytes per side; simplifying the code to a conventional count-bounded clear
+would change original behavior. Counts below four are also included in research.
+
+`check_soundmain_no_reverb.py` compiles the C candidate and passes 14,640 cases
+on four machines: original/candidate ROM and copied RAM. It crosses 183 counts
+(all 0..63, multiples of four through 528, 1023 and 1024), offsets -12/0/4/8/1584,
+and sixteen initial NZCV states. Each implementation performs 1,554,080 checked
+ordered writes across these cases. An independent model checks every stereo
+store, pointer/counter/zero-register results, full tested output memory and
+stack canaries, including overlapping buffers. Original registers and final
+flags are checked independently; candidate deviations are counted explicitly.
+
+The generated Thumb candidate is 70 bytes, compared with the original 46.
+Scratch r2/r3 differ in all 14,640 cases, and the final carry flag differs in
+1,280 cases with counts below sixteen. Normal-count output flags agree. The
+candidate is stopped before its BX LR, while the original reaches channel setup
+by fallthrough. Neither these state differences nor that control-flow difference
+are treated as an acceptable matching replacement. Production source, compiler
+passes, ownership and completion counts are unchanged.
+
+Next work must recover the original shift/carry selection, interleaved STM
+writeback, countdown flags and private fallthrough. The current countdown rule
+requires a positive initializer and a single loop branch; the word-postincrement
+rule is ARM-only. They cannot be applied unchanged to this zero-inclusive Thumb
+path. The complete no-reverb path remains unintegrated.
+
+Evidence: `.deps/soundmain-packed/no-reverb/report.json`, candidate.o/.elf/.bin
+in that directory, no-reverb.s, no-reverb-build.log and no-reverb-check.log.
+The original ROM hash is verified for every test run. Larger counts than 1024
+are not execution-tested by this suite.
