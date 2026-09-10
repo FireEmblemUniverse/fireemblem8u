@@ -7032,3 +7032,51 @@ and ownership output there, `mplay-note-invoke-production-check.log`,
 `mplay-note-invoke-production-compare.log`, `tag-probe.bin`, the combined layout
 receipt and refreshed runtime/SoundMain/mixer receipts. Next work continues
 command decoding, other callbacks and clear-call paths.
+
+
+## Matching MPlayMain non-note command setup — September 10, 2026
+
+Baseline `39900155`. `src/m4a_mplay_command_setup.c` replaces 18 instruction
+bytes at 080CFC54..080CFC66. It computes command-177, stores the low command byte,
+loads the MPlay jump table from sound-info, shifts the full-width index by two,
+reads the callback and places player/track arguments in r0/r1. Register r2 remains
+unchanged. The command guard, callback invocation and return handling remain
+assembly and are not included in this replacement.
+
+The existing copy and private-tail contracts already produce the exact sequence,
+including MOV from r8 and the required low-register ADDS copies. No compiler change
+was needed. The command field is written through a byte pointer using its derived
+structure offset, allowing the alias probes without a struct-alignment assumption
+for the byte-only player access. Arithmetic remains full width; only the store
+truncates. The original write-before-read order is preserved.
+
+`check_mplay_command_setup.py --production` proves exact original/production bytes
+and passes 279,552 cases. Every command byte appears with all four top-two-bit
+patterns, plus additional full-width boundaries, every initial NZCV and four track
+argument words. Normal storage, table field at SP, command field at SP and command
+store overlapping the selected entry each contribute 65,792 cases. Another 16,384
+cases overlap the command store with the table pointer; these retain aligned word
+loads. Expected table pointers/entries are derived after the byte write. All
+r0-r12, SP/LR, final CPSR, complete 16 KiB RAM and the ordered byte write followed
+by two word reads agree. The write hook's full source register is checked separately
+from the actual truncated byte in RAM. Execution stops before the callback.
+
+The linker preserves the four-byte command guard gap, 18-byte setup extent and
+adjacent callback entry. Twenty-three combined altered layouts reject, including
+two new setup-size/callback-entry cases. `make compare -j8` passes for all 16 MiB.
+Fresh runtime source builds reproduce all four images and exports. Source/linked,
+inline-assembly and runtime inventories are refreshed, with unchanged SoundMain/
+mixer regions revalidated against updated ELF receipts.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,302 C-owned (92.63%),
+33,870 mixed C/assembly, 1,666 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,076 main-ROM instruction
+bytes and 420 payload bytes. There are 516 tracked main C files and 30 assembly
+entry markers. Totals include inherited work and are not overall completion.
+
+ELF SHA-256: `121888f46d3960518332f85166ece8ab5cc162eed1182a6d49f388a4ea44501c`.
+Evidence: `.deps/soundmain-packed/mplay-command-setup/report.json`, source/linked
+and ownership output there, `mplay-command-setup-production-check.log`,
+`mplay-command-setup-production-compare.log`, combined layout checks and refreshed
+runtime/SoundMain/mixer receipts. Next work continues command callback/return
+handling, command guards and remaining clear-call paths.

@@ -400,15 +400,11 @@ MPlayMainNonNoteCommand:
 _081DD90C:
 	cmp r1, 0xB0
 	bls _081DD92E
-	adds r0, r1, 0
-	subs r0, 0xB1
-	strb r0, [r7, o_MusicPlayerInfo_cmd]
-	mov r3, r8
-	ldr r3, [r3, o_SoundInfo_MPlayJumpTable]
-	lsls r0, 2
-	ldr r3, [r3, r0]
-	adds r0, r7, 0
-	adds r1, r5, 0
+	.global MPlayMainCommandSetupBoundary
+MPlayMainCommandSetupBoundary:
+	.section .text.after_mplay_command_setup, "ax", %progbits
+	.global MPlayMainCommandInvoke
+MPlayMainCommandInvoke:
 	bl call_r3
 	ldrb r0, [r5, o_MusicPlayerTrack_flags]
 	cmp r0, 0

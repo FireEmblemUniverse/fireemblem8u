@@ -38,6 +38,8 @@ def main():
            ('note_following_entry',source.replace('        src/m4a_1.o(.text.after_mplay_note_invoke);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_note_invoke);'),'note invoke extent or following'),
            ('note_trampoline',source.replace('        ASSERT((call_r3 & ~1) ==','        call_r3 = (MPlayMain & ~1) + 599;\n        ASSERT((call_r3 & ~1) ==',1),'note invoke trampoline or continuation'),
            ('note_far_continuation',source.replace('        ASSERT((call_r3 & ~1) ==','        MPlayMainTrackWait = __mplay_note_invoke_start + 2056;\n        ASSERT((call_r3 & ~1) ==',1),'note invoke trampoline or continuation')]
+ cases += [('command_setup_extent',source.replace('        __mplay_command_setup_end = .;','        . += 2;\n        __mplay_command_setup_end = .;'),'command setup extent or callback'),
+           ('command_callback_entry',source.replace('        src/m4a_1.o(.text.after_mplay_command_setup);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_setup);'),'command setup extent or callback')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

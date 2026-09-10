@@ -837,3 +837,23 @@ so the Thumb tag is checked in ELF symbol metadata rather than a linker bit test
 The linker checks the exact shared-trampoline address, fragment extent, following
 entry and continuation range. Four new negative layouts bring the combined checks
 to twenty-one.
+
+
+The non-note command setup also uses the existing private tail and mixed-register
+copy rules. Its 18 bytes compute command-177, store the command byte, load the
+jump-table pointer, scale the full-width index, read the callback and copy player/
+track arguments. The byte store uses an offset derived from `MusicPlayerInfo.cmd`;
+the subtraction/index stays full width until the original shift. The compiler
+preserves the store before either table read, including overlapping storage.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_command_setup.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+```
+
+The 279,552 cases cover all command bytes with four top-bit patterns, additional
+word boundaries, all NZCV and four track words. They include table/command fields
+at SP, a command store overlapping the selected entry, and a command store that
+changes the table pointer before it is read. The latter uses aligned resulting
+word loads. Full RAM, r0-r12, SP/LR, flags and ordered accesses agree. The callback
+invocation and post-callback logic are excluded. Two new layout checks bring the
+combined negative layouts to twenty-three; no compiler rule changed here.
