@@ -532,6 +532,8 @@ lt_MPlayJumpTableTemplate: .word gMPlayJumpTableTemplate
 	thumb_func_start ld_r3_tp_adr_i
 ld_r3_tp_adr_i:
 	ldr r2, [r1, 0x40]
+	.global _081DD64A
+	.thumb_func
 _081DD64A:
 	adds r3, r2, 0x1
 	str r3, [r1, 0x40]
@@ -685,19 +687,9 @@ _081DD7AA:
 	.align 2, 0
 	.section .text.after_ply_tune, "ax", %progbits
 
-	thumb_func_start ply_port
-ply_port:
-	mov r12, lr
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r3, [r2]
-	adds r2, 1
-	ldr r0, =REG_SOUND1CNT_L @ sound register base address
-	adds r0, r3
-	bl _081DD64A
-	strb r3, [r0]
-	bx r12
-	.pool
-	thumb_func_end ply_port
+@ ply_port is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_port, "ax", %progbits
 
 @ VSync/DMA handling is generated from matching C.
 	.section .text.after_sound_vsync, "ax", %progbits

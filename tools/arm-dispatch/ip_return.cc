@@ -84,9 +84,19 @@ public:
             || TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"matching_ip_return requires a frameless void function");
         rtx_insn *push=nullptr,*epilogue=nullptr;unsigned calls=0;
+        bool pool_barrier=false;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+            if (epilogue && BARRIER_P(i)) pool_barrier=true;
             if (!NONDEBUG_INSN_P(i)) continue;
             rtx p=PATTERN(i);
+            // Only compiler-generated pool data may follow the terminal return.
+            if (epilogue && pool_barrier && GET_CODE(p)==UNSPEC_VOLATILE) {
+                int kind=XINT(p,1);
+                if (kind==VUNSPEC_ALIGN && XVECLEN(p,0)==1 && XVECEXP(p,0,0)==const0_rtx) continue;
+                if (kind==VUNSPEC_POOL_4 && XVECLEN(p,0)==1 && CONST_INT_P(XVECEXP(p,0,0))) continue;
+                if (kind==VUNSPEC_POOL_END) continue;
+            }
+
             if (lr_push(p)) {
                 if (push || calls) fatal_error(UNKNOWN_LOCATION,"matching_ip_return requires a single entry LR push");
                 push=i;continue;

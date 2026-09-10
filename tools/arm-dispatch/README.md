@@ -77,7 +77,7 @@ and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
 Large leaf far-branch fixtures remain unsupported by this GCC backend (the
 baseline compiler also rejects them); VSync only uses short branches.
 
-The `ip_return` plugin supports the command and flag setters and `src/m4a_tempo.c`.
+The `ip_return` plugin supports the command and flag setters and the tempo and port handlers.
 It is built by `build_ip_return.py` against the installed compiler. The explicit
 `matching_ip_return` attribute requires a straight-line void function with an
 LR-only frame, and every direct call must have a `preserves-ip=SYMBOL` manifest
@@ -89,6 +89,9 @@ The pass rejects stack use, indirect calls, branches, executable or unsupported 
 variables, exposed return registers and debug/unwind/exception configurations.
 The only accepted inline constraint is an empty, single low-register `+r`
 operand with no extra inputs or clobbers; it emits no instructions.
+After the return, compiler-generated constant word pools and their alignment
+are permitted only behind a control-flow barrier. Executable instructions after
+the epilogue remain rejected.
 It replaces the entry LR push with a register move and the epilogue with BX r12.
 `research/audio/check_ip_return.py` covers accepted and rejected contracts;
 `check_command_setters.py --compiler COMPILER --plugin PLUGIN --require-match

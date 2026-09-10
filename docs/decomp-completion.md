@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the tempo integration (baseline `2aa5409e` plus this change),
+After the port integration (baseline `c5584d09` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 458 main
-C files, 43 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 459 main
+C files, 42 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2750,3 +2750,36 @@ Next is guarded literal-pool support and matching operand selection, followed by
 expanded private-ABI validation and full-ROM integration. Production remains
 `2ae198bb`, at 43 assembly entry markers. Research output and the execution
 report are in `.deps/port-match/`; no production implementation changed.
+
+
+### September 9: port command integrated
+
+The port candidate is now `src/m4a_port.c`, replacing the original 24-byte
+section at `080CFB04..080CFB1C`. All 20 instruction bytes and the four-byte
+sound-register-base literal match. An empty r0 read/write constraint preserves
+the original addition operand order; no executable inline assembly is used.
+The existing private reader entry `_081DD64A` is exported for the C caller.
+
+The private-return pass now permits compiler-generated integer word-pool data,
+word alignment and pool-end markers after the epilogue, only behind a terminal
+control-flow barrier. It continues to reject executable post-return patterns,
+control flow, unsupported constraints and stack/return-register uses. The
+installed plugin passes 128 two-call cases and rejects all 19 existing negative
+fixtures; loading it leaves unannotated assembly unchanged.
+
+`research/audio/check_port.py --compiler COMPILER --plugin PLUGIN --require-match
+--production` verifies exact production bytes and 132,352 executions. Coverage
+includes every offset/value pair in normal and rejected low RAM, plus five
+command-pointer aliases. It checks the ordered byte MMIO write, full track RAM,
+r0-r12, flags, stack, return PC and preserved registers. Writes follow the actual
+ROM helper's pointer-store-before-read behavior. This is CPU access verification,
+not a sound-hardware timing simulation. Tempo passes 24,768 production regression
+cases with the updated installed plugin.
+
+`make compare -j8` verifies the complete ROM. The linked audit attributes
+20 Thumb bytes and four data bytes to `src/m4a_port.o`, with no orphan mappings.
+The source inventory is 459 main C files and 42 assembly entry markers. Its 554
+inline sites comprise 212 register bindings, 334 empty constraints, one
+directive-only template and seven instruction templates. The naked fallback,
+42 NONMATCHING conditionals, embedded declarations and transfer-wrapper scope
+remain unfinished. Local logs and audit reports are in `.deps/port-match/`.
