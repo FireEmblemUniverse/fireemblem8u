@@ -304,18 +304,14 @@ _081DD07C:
 	ands r2, r2, 0x3
 	moveq r2, 0x4
 _081DD0A8:
-	ldr r6, [r5]
-	ldr r7, [r5, 0x630]
-@ The packed inner loop is linked here from m4a_packed.c.
+@ The packed word loop is linked here from m4a_packed.c.
 	.global SoundMainRAM_PackedBoundary
 SoundMainRAM_PackedBoundary:
 	.section .text.after_packed, "ax", %progbits
 	.arm
-	.global SoundMainRAM_PackedStore
-	.type SoundMainRAM_PackedStore, %function
-SoundMainRAM_PackedStore:
-	str r7, [r5, 0x630]
-	str r6, [r5], 0x4
+	.global SoundMainRAM_PackedAdvance
+	.type SoundMainRAM_PackedAdvance, %function
+SoundMainRAM_PackedAdvance:
 	subs r8, r8, 0x4
 	bgt _081DD0A8
 	adds r8, r8, lr

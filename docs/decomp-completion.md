@@ -4136,3 +4136,36 @@ Evidence: `.deps/soundmain-packed/production*.json`, production-build.log,
 adjacent-guards.log, and `.deps/soundmain-complete/production-report.json`.
 The outer fixed-rate loop, resampled mixer, channel preparation and original
 SoundMain private frame still need matching C integration.
+
+
+### September 10: packed C block expanded to include stereo loads and stores
+
+`src/m4a_packed.c` now covers 52 bytes at 080CF730..080CF764, adding the two
+stereo word loads and two stores around the already matching 36-byte inner loop.
+An empty post-loop constraint keeps the computed words in r6/r7 for their stores.
+The right-side address advances by four through the original post-index store.
+The C block falls through to `SoundMainRAM_PackedAdvance`, where the existing
+assembly updates the remaining count and selects the next group. The linker
+asserts the new 52-byte size, entry boundary and continuation adjacency.
+No compiler rule or instruction template was added for this extension.
+
+`make compare -j8` passes. `check_soundmain_packed_word.py` verifies both linked
+symbol extent and all 52 original bytes, then passes 18,432 production/original
+executions in ROM and another 18,432 after copying the mixer to RAM. It covers
+every source byte, stereo-volume and initial-word boundaries, and source data
+separate from output or overlapping the right word, its unaligned +1 position,
+or the left word. Each case compares the eight ordered memory accesses, all
+source/output memory, r0-r12, CPSR, final pointers, incoming LR and stack canaries.
+The production mixer again passes all 3,528 complete SoundMain calls, including
+1,728 forced deadline exits.
+
+The extension moves another 16 instruction bytes from assembly to C. The audit
+now reports 719,268 main C-owned instruction bytes, 33,870 in C objects with
+assembly, 2,700 assembly-source bytes and 21,792 runtime bytes, with the same
+777,630 total and rounded 92.49% C-owned share. Reviewed non-library assembly is
+3,110 main bytes plus 420 payload bytes. The source count remains 473 C files;
+inline sites are 620 (271 register bindings, 341 empty constraints, one directive
+and seven instruction templates). Remaining outer-loop and channel/frame work
+is not credited as complete. Evidence: `.deps/soundmain-packed/word-production*.json`,
+word-production-build.log, word-ownership.log, and the refreshed complete-call
+production report under `.deps/soundmain-complete/`.
