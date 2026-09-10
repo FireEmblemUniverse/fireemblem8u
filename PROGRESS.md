@@ -50,7 +50,13 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match repeat handling and continue the remaining audio engine.
+Next milestone: match repeat handling's shared-stack transfers.
+The repeat C candidate passes 264,704 final-state cases across all limit/counter
+pairs in normal and rejected RAM, including aliases and counter overflow.
+It remains 56 bytes versus 48 original. Shared-entry SP/LR differs in all
+66,950 jump cases, while 197,754 cases finish locally. The next change must
+retain the existing saved LR and branch into the shared entry. Production is
+unchanged.
 Pattern handling is integrated as C. Its 26 instruction bytes and two padding
 bytes match. All 49,152 production cases agree on track/channel RAM, r0-r12,
 flags, final return state and callee-entry SP/LR. Eleven unsupported compiler

@@ -2984,3 +2984,34 @@ inline sites (228 bindings, 334 empty constraints, one directive-only template
 and seven instruction templates). Repeat handling and all previously recorded
 remaining scopes are unfinished. Evidence is in `.deps/pattern-match/` under
 the production comparison, oracle, contract, range and audit reports.
+
+
+### September 9: repeat semantics and shared entry verified in research
+
+`research/audio/repeat.c` models `ply_rept` at `080CF9E8`. A zero limit jumps
+unconditionally after advancing the command pointer. A nonzero limit increments
+the byte repeat counter but retains the full increment in r12 for comparison;
+in particular, old counter 255 stores zero while comparing 256. The checked
+reader advances the command pointer before reading the limit. Completion clears
+the counter and skips the five-byte repeat command; continuation jumps through
+the four-byte destination.
+
+`research/audio/check_repeat.py --compiler COMPILER` passes 264,704 final-state
+cases. Coverage sweeps every limit/counter pair in normal and rejected RAM,
+plus counter and command-pointer aliases, with two initial NZCV patterns. The
+model applies stores before subsequent aliased reads. Actual ROM reader and
+jump implementations run in both machines. All track RAM, r0-r12, flags,
+final SP, return PC and preserved registers agree. There are 66,950 jump cases
+and 197,754 local-completion cases.
+
+The candidate is not integrated: it is 56 bytes versus the original 48. It calls
+the public jump function rather than branching past that function's LR push
+with its own saved LR. Tracing the shared entry at `080CF99A` finds SP/LR
+differences in all 66,950 jump cases. The matching gate explicitly rejects
+those entry differences, even though final states agree. Next is restricted
+shared-frame transfer support that retains the repeat handler's frame and local
+return, plus its ordinary checked-reader call. The existing all-terminal-call
+pass cannot be applied unchanged.
+
+Production remains `aea5146b`, with 38 assembly entry markers. Research evidence
+is in `.deps/repeat-match/oracle.log`, `entry-oracle.log` and `report.json`.
