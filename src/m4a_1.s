@@ -327,20 +327,23 @@ _081DD118:
 	bgt _081DD07C
 	b SoundMainRAM_SaveChannel
 _081DD134:
-	.global SoundMainRAM_ResampleLoop
-	.type SoundMainRAM_ResampleLoop, %function
-SoundMainRAM_ResampleLoop:
-	ldr r0, [sp, 0x18]
-	cmp r0, 0
-	beq _081DD158
-	ldr r3, [sp, 0x14]
-	rsb r9, r2, 0
+	.global SoundMainRAM_ResampleLoopBoundary
+SoundMainRAM_ResampleLoopBoundary:
+@ Loop-length selection and source reset are linked from m4a_resample_loop.c.
+	.section .text.after_resample_loop, "ax", %progbits
+	.arm
+	.global SoundMainRAM_ResampleWrap
+	.type SoundMainRAM_ResampleWrap, %function
+SoundMainRAM_ResampleWrap:
 _081DD148:
 	adds r2, r0, r2
 	bgt SoundMainRAM_ResampleReload
 	sub r9, r9, r0
 	b _081DD148
 _081DD158:
+	.global SoundMainRAM_ResampleStop
+	.type SoundMainRAM_ResampleStop, %function
+SoundMainRAM_ResampleStop:
 	pop {r4,r12}
 	mov r2, 0
 	b _081DD174

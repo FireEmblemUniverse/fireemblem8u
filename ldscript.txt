@@ -604,6 +604,22 @@ SECTIONS
         __short_end = .;
         SoundMainRAM_ShortMix = __short_start + 8;
         src/m4a_1.o(.text.after_short);
+        __resample_loop_start = .;
+        src/m4a_resample_loop.o(.text);
+        __resample_loop_end = .;
+        src/m4a_1.o(.text.after_resample_loop);
+        ASSERT(SoundMainRAM_ResampleLoop == SoundMainRAM_ResampleLoopBoundary,
+               "resampling loop C block must follow short-count control");
+        ASSERT(__resample_loop_end - __resample_loop_start == 20,
+               "resampling loop metadata C block must contain exactly 20 bytes");
+        ASSERT(SoundMainRAM_ResampleWrap == __resample_loop_end,
+               "resampling wrap continuation must be adjacent ARM code");
+        ASSERT((SoundMainRAM_ResampleStop & 3) == 0 &&
+               SoundMainRAM_ResampleStop >= __resample_loop_end &&
+               SoundMainRAM_ResampleStop < SoundMainRAM_End,
+               "resampling stop must be forward ARM code in copied mixer");
+        ASSERT(SoundMainRAM_ResampleStop - (__resample_loop_start + 16) < 0x2000000,
+               "resampling stop branch out of range");
         __loop_start = .;
         src/m4a_loop.o(.text);
         __loop_end = .;

@@ -4859,3 +4859,45 @@ Evidence under `.deps/soundmain-packed/`: advance-production-build.log,
 advance-production-check.log, advance-production-report.json, early-guards.log,
 early-check_arm_*.log, early-lr-*.log, advance-source-audit.json and
 advance-ownership.log. Complete-call report remains under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — resampling loop metadata integrated (20 bytes)
+
+Baseline: `81411c78`. `src/m4a_resample_loop.c` replaces the five instructions
+at 0x080CF7BC..0x080CF7D0: load loop length, compare zero, branch to stop if zero,
+load loop source and negate the remaining count into r9. Existing arm_adjacent
+`early` and `frame64` contracts produce exact code without compiler changes.
+The linker checks the 20-byte extent, adjacent ResampleWrap at 0x080CF7D0,
+forward aligned ResampleStop at 0x080CF7E0, copied-mixer scope and branch range.
+The wrapping arithmetic and frame-restoring stop body remain assembly.
+
+The shared mixer header now defines SoundMainResampleFrame: saved channel and
+product words followed by the existing 64-byte frame. Compile-time checks
+require 72 bytes, loop source at offset 20 and loop length at offset 24. The
+compiler frame64 contract only permits aligned loads through offset 60; these
+reads fall within that window and retain the original SP coordinate system.
+
+`make compare -j8` passes. `check_soundmain_resample_loop.py` passes 270,336 cases
+per mode, 540,672 total across ROM and copied RAM. It crosses 264 loop lengths,
+eight pointers, eight remaining counts and sixteen initial NZCV states. Each
+mode includes 269,312 looping exits and 1,024 stop exits. Independent expected
+state requires the loop-length read before any source read, no source read for
+zero length, exact r9 negation only on the looping path, every r0-r12, NZCV,
+SP/LR, exit PC, full 72-byte frame and surrounding canaries. The complete audio
+regression also passes all 3,528 production calls, including 1,728 deadline exits.
+These functional checks do not measure hardware cycle timing.
+
+Refreshed main instruction ownership: 719,508 C-owned bytes (92.53% rounded),
+33,870 mixed-object bytes, 2,460 assembly-source bytes and 21,792 runtime bytes,
+total 777,630. Reviewed non-library assembly is 2,870 main bytes and 420 payload
+bytes. Source inventory: 480 C files, 32 assembly entry markers, seven manual
+assembly declarations, 676 inline sites (320 register bindings, 348 empty
+constraints, one directive, seven instruction templates). The additional manual
+symbol identifies an existing private continuation; marker totals do not measure
+unfinished independent functions.
+
+Evidence under `.deps/soundmain-packed/`: resample-loop-production-build.log,
+resample-loop-production.json, resample-loop-production-ram.json,
+resample-loop-check.log, resample-loop-check-ram.log,
+resample-loop-source-audit.json and resample-loop-ownership.log. The complete
+production call report is under `.deps/soundmain-complete/`.

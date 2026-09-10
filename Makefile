@@ -690,3 +690,7 @@ $(ARM_SUBTRACT_ZERO_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/subtract_zero
 src/m4a_advance.o: $(ARM_ADJACENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_BYTE_PREINCREMENT_PLUGIN) $(ARM_SUBTRACT_ZERO_PLUGIN)
 src/m4a_advance.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_advance.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_BYTE_PREINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_ZERO_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleNoAdvance -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleLoop -fplugin-arg-arm_adjacent-lr-input=masked
+
+src/m4a_resample_loop.o: $(ARM_ADJACENT_PLUGIN)
+src/m4a_resample_loop.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_resample_loop.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleWrap -fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleStop -fplugin-arg-arm_adjacent-sp-input=frame64

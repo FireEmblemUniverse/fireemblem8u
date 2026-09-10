@@ -27,4 +27,14 @@ typedef char SoundMainFrameInfoCheck[__builtin_offsetof(struct SoundMainMixerFra
 typedef char SoundMainFrameReturnCheck[__builtin_offsetof(struct SoundMainMixerFrame,returnAddress)==60 ? 1 : -1];
 typedef char SoundMainFrameLoopSourceCheck[__builtin_offsetof(struct SoundMainMixerFrame,mixerScratchC)==12 ? 1 : -1];
 typedef char SoundMainFrameLoopCountCheck[__builtin_offsetof(struct SoundMainMixerFrame,mixerScratch10)==16 ? 1 : -1];
+// The resampling path saves two live registers below the main mixer frame.
+struct SoundMainResampleFrame
+{
+    u32 savedChannel;
+    u32 savedProduct;
+    struct SoundMainMixerFrame mixer;
+};
+typedef char SoundMainResampleFrameSizeCheck[sizeof(struct SoundMainResampleFrame)==72 ? 1 : -1];
+typedef char SoundMainResampleSourceCheck[__builtin_offsetof(struct SoundMainResampleFrame,mixer.mixerScratchC)==20 ? 1 : -1];
+typedef char SoundMainResampleCountCheck[__builtin_offsetof(struct SoundMainResampleFrame,mixer.mixerScratch10)==24 ? 1 : -1];
 #endif
