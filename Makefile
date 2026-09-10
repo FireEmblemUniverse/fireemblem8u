@@ -1168,3 +1168,11 @@ src/m4a_mplay_entry_frame.o: $(THUMB_SAVED_ENTRY_FRAME_PLUGIN)
 src/m4a_mplay_entry_frame.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_entry_frame.o: C_END_ALIGN := 1
 src/m4a_mplay_entry_frame.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SAVED_ENTRY_FRAME_PLUGIN) -fplugin-arg-thumb_saved_entry_frame-continuation=MPlayMainEntryStatus
+
+THUMB_LOCK_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_lock_frame.so
+$(THUMB_LOCK_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_lock_frame.cc tools/arm-dispatch/build_thumb_lock_frame.py
+	python3 tools/arm-dispatch/build_thumb_lock_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_mplay_lock.o: $(THUMB_LOCK_FRAME_PLUGIN)
+src/m4a_mplay_lock.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_lock.o: C_END_ALIGN := 1
+src/m4a_mplay_lock.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_LOCK_FRAME_PLUGIN) -fplugin-arg-thumb_lock_frame-id=0x68736d53,lt2_ID_NUMBER -fplugin-arg-thumb_lock_frame-continuation=MPlayMainEntryCallbackSetup

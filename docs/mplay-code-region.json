@@ -1,0 +1,506 @@
+{
+  "start": "0x80cfb68",
+  "end": "0x80cfdd0",
+  "c_owned_instruction_bytes": 602,
+  "assembly_data_bytes": 14,
+  "elf_sha256": "fa75006d424318e3af8ec33a88de4b9a56c6e613201c9b52b4d40e2ef4d7326b",
+  "scope": "All mapped MPlayMain instructions, including shared call_r3 return, belong to C-owned objects. Fourteen padding/literal bytes remain in an assembly data section. This does not prove whole-game completion or executable classification outside this region.",
+  "regions": [
+    {
+      "start": 135068520,
+      "end": 135068536,
+      "section": ".text",
+      "object": "src/m4a_mplay_lock.o",
+      "size": 16,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068536,
+      "end": 135068544,
+      "section": ".text",
+      "object": "src/m4a_mplay_entry_callback_setup.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068544,
+      "end": 135068548,
+      "section": ".text",
+      "object": "src/m4a_mplay_entry_callback_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068548,
+      "end": 135068562,
+      "section": ".text",
+      "object": "src/m4a_mplay_entry_frame.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068562,
+      "end": 135068572,
+      "section": ".text",
+      "object": "src/m4a_mplay_entry_status.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068572,
+      "end": 135068580,
+      "section": ".text",
+      "object": "src/m4a_mplay_sound_info_setup.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068580,
+      "end": 135068584,
+      "section": ".text",
+      "object": "src/m4a_mplay_fade_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068584,
+      "end": 135068592,
+      "section": ".text",
+      "object": "src/m4a_mplay_fade_status.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068592,
+      "end": 135068600,
+      "section": ".text",
+      "object": "src/m4a_mplay_tempo_accumulate.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068600,
+      "end": 135068608,
+      "section": ".text",
+      "object": "src/m4a_mplay_tick_setup.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068608,
+      "end": 135068630,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_dispatch.o",
+      "size": 22,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068630,
+      "end": 135068658,
+      "section": ".text",
+      "object": "src/m4a_mplay_channel_gate.o",
+      "size": 28,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068658,
+      "end": 135068660,
+      "section": ".text",
+      "object": "src/m4a_mplay_channel_clear_setup.o",
+      "size": 2,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068660,
+      "end": 135068664,
+      "section": ".text",
+      "object": "src/m4a_mplay_channel_clear_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068664,
+      "end": 135068670,
+      "section": ".text",
+      "object": "src/m4a_mplay_channel_next.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068670,
+      "end": 135068678,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_init_guard.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068678,
+      "end": 135068680,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_clear_setup.o",
+      "size": 2,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068680,
+      "end": 135068684,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_clear_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068684,
+      "end": 135068708,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_init_defaults.o",
+      "size": 24,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068708,
+      "end": 135068730,
+      "section": ".text",
+      "object": "src/m4a_mplay_command_read.o",
+      "size": 22,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068730,
+      "end": 135068734,
+      "section": ".text",
+      "object": "src/m4a_mplay_note_guard.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068734,
+      "end": 135068746,
+      "section": ".text",
+      "object": "src/m4a_mplay_note_setup.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068746,
+      "end": 135068752,
+      "section": ".text",
+      "object": "src/m4a_mplay_note_invoke.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068752,
+      "end": 135068756,
+      "section": ".text",
+      "object": "src/m4a_mplay_wait_guard.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068756,
+      "end": 135068774,
+      "section": ".text",
+      "object": "src/m4a_mplay_command_setup.o",
+      "size": 18,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068774,
+      "end": 135068778,
+      "section": ".text",
+      "object": "src/m4a_mplay_command_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068778,
+      "end": 135068786,
+      "section": ".text",
+      "object": "src/m4a_mplay_command_status.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068786,
+      "end": 135068796,
+      "section": ".text",
+      "object": "src/m4a_mplay_wait_command.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068796,
+      "end": 135068806,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_wait.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068806,
+      "end": 135068830,
+      "section": ".text",
+      "object": "src/m4a_mplay_modulation_guard.o",
+      "size": 24,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068830,
+      "end": 135068888,
+      "section": ".text",
+      "object": "src/m4a_mplay_modulation_update.o",
+      "size": 58,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068888,
+      "end": 135068892,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_finish.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068892,
+      "end": 135068904,
+      "section": ".text",
+      "object": "src/m4a_mplay_track_advance.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068904,
+      "end": 135068922,
+      "section": ".text",
+      "object": "src/m4a_mplay_clock_update.o",
+      "size": 18,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068922,
+      "end": 135068928,
+      "section": ".text",
+      "object": "src/m4a_mplay_tempo_finish.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068928,
+      "end": 135068936,
+      "section": ".text",
+      "object": "src/m4a_mplay_tempo_gate.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068936,
+      "end": 135068940,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_entry.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068940,
+      "end": 135068954,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_track_guard.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068954,
+      "end": 135068960,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_setup.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068960,
+      "end": 135068964,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068964,
+      "end": 135068970,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_channel_load.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068970,
+      "end": 135068978,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_channel_gate.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068978,
+      "end": 135068980,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_clear_setup.o",
+      "size": 2,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068980,
+      "end": 135068986,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_clear_invoke.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135068986,
+      "end": 135069000,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_volume_guard.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069000,
+      "end": 135069004,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_volume_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069004,
+      "end": 135069016,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_volume_finish.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069016,
+      "end": 135069024,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_pitch_guard.o",
+      "size": 8,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069024,
+      "end": 135069036,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_key_adjust.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069036,
+      "end": 135069040,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_frequency_select.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069040,
+      "end": 135069050,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_cgb_setup.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069050,
+      "end": 135069054,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_cgb_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069054,
+      "end": 135069066,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_cgb_store.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069066,
+      "end": 135069072,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_pcm_setup.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069072,
+      "end": 135069076,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_pcm_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069076,
+      "end": 135069078,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_pcm_store.o",
+      "size": 2,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069078,
+      "end": 135069084,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_channel_next.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069084,
+      "end": 135069094,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_track_finish.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069094,
+      "end": 135069104,
+      "section": ".text",
+      "object": "src/m4a_mplay_post_track_next.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069104,
+      "end": 135069108,
+      "section": ".text",
+      "object": "src/m4a_mplay_exit_unlock.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069108,
+      "end": 135069122,
+      "section": ".text",
+      "object": "src/m4a_mplay_exit_restore.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069122,
+      "end": 135069136,
+      "section": ".text.mplay_main_literals",
+      "object": "src/m4a_1.o",
+      "size": 14,
+      "kind": "data"
+    }
+  ]
+}

@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler', required=True)
+    p.add_argument('--production', action='store_true')
     a = p.parse_args()
     out = ROOT / '.deps/soundmain-packed/mplay-lock'
     out.mkdir(parents=True, exist_ok=True)
@@ -43,6 +44,9 @@ def main():
     rom = (ROOT/'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     assert binary.read_bytes() == rom[0xcfb68:0xcfb78], binary.read_bytes().hex()
+    if a.production:
+        assert (ROOT/'fireemblem8.gba').read_bytes() == rom
+        assert (ROOT/'src/m4a_mplay_lock.c').read_text() == source.replace('MPlayLockCandidate', 'MPlayMain')
     invalid = [
         ('argument', source.replace('MPlayLockCandidate(void)', 'MPlayLockCandidate(u32 arg)'), options),
         ('return_type', source.replace('void MPlayLockCandidate', 'u32 MPlayLockCandidate'), options),
@@ -83,7 +87,7 @@ def main():
     report = dict(exact_bytes=16, invalid_contracts=len(invalid), unannotated_unchanged=True,
                   source_sha256=hashlib.sha256(source.encode()).hexdigest(),
                   model=json.loads((out/'candidate-model.json').read_text()),
-                  production_integrated=False)
+                  production_integrated=a.production)
     (out/'report.json').write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))
 

@@ -1089,6 +1089,20 @@ SECTIONS
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;
         src/m4a_1.o(.text.after_sound_vsync);
+        __mplay_lock_start = .;
+        src/m4a_mplay_lock.o(.text);
+        __mplay_lock_end = .;
+        src/m4a_1.o(.text.after_mplay_lock);
+        ASSERT((MPlayMain & ~1) == MPlayMainLockBoundary &&
+               (MPlayMain & ~1) == __mplay_lock_start &&
+               __mplay_lock_end - __mplay_lock_start == 16 &&
+               (MPlayMainEntryCallbackSetup & ~1) == __mplay_lock_end,
+               "MPlayMain lock extent or continuation changed");
+        ASSERT(lt2_ID_NUMBER == __mplay_lock_start + 612 &&
+               (lt2_ID_NUMBER & 3) == 0 &&
+               lt2_ID_NUMBER >= ((__mplay_lock_start + 4) & ~3) &&
+               lt2_ID_NUMBER <= ((__mplay_lock_start + 4) & ~3) + 1020,
+               "MPlayMain lock literal placement changed");
         __mplay_entry_callback_setup_start = .;
         src/m4a_mplay_entry_callback_setup.o(.text);
         __mplay_entry_callback_setup_end = .;

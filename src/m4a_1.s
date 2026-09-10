@@ -290,19 +290,11 @@ lt_MPlayJumpTableTemplate: .word gMPlayJumpTableTemplate
 @ VSync/DMA handling is generated from matching C.
 	.section .text.after_sound_vsync, "ax", %progbits
 
-	thumb_func_start MPlayMain
-MPlayMain:
-	ldr r2, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt2_ID_NUMBER
-	ldr r3, [r0, o_MusicPlayerInfo_ident]
-	cmp r2, r3
-	beq _081DD82E
-	bx lr
-_081DD82E:
-	adds r3, 0x1
-	str r3, [r0, o_MusicPlayerInfo_ident]
-	push {r0,lr}
-	thumb_func_end MPlayMain
+@ MPlayMain lock and initial save are generated from matching C.
+	.align 2, 0
+	.global MPlayMainLockBoundary
+MPlayMainLockBoundary:
+	.section .text.after_mplay_lock, "ax", %progbits
 	.global MPlayMainEntryCallbackSetupBoundary
 MPlayMainEntryCallbackSetupBoundary:
 	.section .text.after_mplay_entry_callback_setup, "ax", %progbits

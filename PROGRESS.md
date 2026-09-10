@@ -2,17 +2,16 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `556fa2cc`): MPlayMain's 14-byte saved-entry frame is matching C. All 26,880 direct frame cases pass; 15 unsupported contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,742/777,630 mapped instruction bytes (92.68%); reviewed non-library assembly is 1,636 bytes, with 565 tracked C files. The 86,016-case entry-path model passes; the valid layout links and all 197 altered layouts reject. MPlayMain retains only its 16-byte lock/initial-push assembly fragment; ply_note, runtime helpers, unit-list/transfer code and final executable classification also remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `c9b50c09`): MPlayMain's final 16-byte lock/initial push is matching C. All 602 mapped MPlayMain instruction bytes are now C-owned; its 14 literal/padding bytes remain assembly data. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,758/777,630 mapped instruction bytes (92.69%); reviewed non-library assembly is 1,620 bytes, with 566 tracked C files. The lock passes 32,256 direct cases and 86,016 entry-path cases; 22 unsupported contracts reject. The valid layout links and all 203 altered layouts reject. ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `5791e568`): all 16 bytes of MPlayMain's final lock/push
-fragment now match a C candidate. The candidate passes 32,256 direct lock cases
-and 86,016 callback/frame entry-path cases; 22 unsupported compiler contracts
-reject and unannotated output is unchanged. The rebuilt compiler also passes
-26,880 saved-frame regression cases. Production integration and linker-layout
-checks are next; the verified C-ownership percentage is unchanged.
+Next: recover the remaining 502 instruction bytes of `ply_note`, then continue
+through the remaining low-level code and final executable-classification audit.
+MPlayMain's complete-instruction ownership receipt is `docs/mplay-code-region.json`;
+it does not assert full-game completion or independent validation of every real
+callback implementation.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -26,10 +25,12 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.68%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,636 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.69%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **1,620 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Complete MPlayMain instruction ownership | **602/602 mapped instruction bytes C-owned; 14 literal/padding bytes remain assembly data; full ROM/runtime match** |
+| Integrated MPlayMain lock/initial push | **16/16 bytes exact; 32,256 direct cases and 86,016 entry-path cases pass; 22 invalid contracts and 203 altered layouts reject** |
 | Integrated MPlayMain saved-entry frame | **14/14 bytes exact; 26,880 direct cases pass; full ROM/runtime match; 86,016 entry-path cases pass; 197 altered layouts reject** |
 | Integrated MPlayMain entry callback | **12/12 bytes exact; 86,016 entry/frame model cases and 49,152 invocation cases pass; full ROM/runtime match; 197 altered layouts reject** |
 | Integrated MPlayMain entry status and fade path | **30/30 instruction bytes exact; 133,760 execution cases pass; full ROM/runtime match; 189 altered layouts reject** |
@@ -136,7 +137,8 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover MPlayMain’s final 16-byte lock/initial-push entry; post-tick channel-status/stopped-channel call handling is integrated; command lookup/setup/invocation/return-status check, wait-command lookup, track-wait step, modulation guards/delay/arithmetic, saved track state/advance, tick clock/status, post-tick entry/track guard/setup/invocation/traversal/cleanup, note setup/invocation and preceding track/channel fragments are integrated. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: recover `ply_note` (502 mapped instruction bytes). All MPlayMain instructions are now C-owned; its literal/padding data remains assembly. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -303,7 +305,7 @@ the 64-byte frame and removes the verified leaf return; 12 unsafe forms reject,
 and unannotated objects are unchanged. Full ROM matching, 3,528 complete audio
 calls and fresh runtime builds pass. The following assembly section now starts
 at a word boundary, so its temporary halfword alignment adjustment is removed.
-Current source inventory: 500 C files, 31 assembly entry markers, three manual
+Source inventory at that earlier milestone: 500 C files, 31 assembly entry markers, three manual
 assembly function declarations, and seven instruction-bearing inline templates.
 The no-reverb clearing block is integrated as `src/m4a_no_reverb.c`, with all
 46 original bytes exact. Its 14,640 original/production/candidate ROM/copied-RAM

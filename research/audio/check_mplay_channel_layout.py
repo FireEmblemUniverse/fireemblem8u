@@ -195,6 +195,11 @@ def main():
  for name,offset in [('entry_trampoline_far',4194308),('entry_trampoline_backward',0)]:
   needle='        ASSERT((call_r3 & ~1) >= __mplay_entry_callback_invoke_start + 4'
   cases.append((name,source.replace(needle,'        call_r3 = __mplay_entry_callback_invoke_start + '+str(offset)+';\n'+needle,1),'entry callback trampoline out of range'))
+ cases += [('lock_extent',source.replace('        __mplay_lock_end = .;', '        . += 2;\n        __mplay_lock_end = .;'),'lock extent or continuation'),
+           ('lock_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_lock);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_lock);'),'lock extent or continuation')]
+ for name,offset in [('lock_literal_far',2048),('lock_literal_backward',0),('lock_literal_odd',613),('lock_literal_wrong',608)]:
+  needle='        ASSERT(lt2_ID_NUMBER == __mplay_lock_start + 612'
+  cases.append((name,source.replace(needle,'        lt2_ID_NUMBER = __mplay_lock_start + '+str(offset)+';\n'+needle,1),'lock literal placement'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

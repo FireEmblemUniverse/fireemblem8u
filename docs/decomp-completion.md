@@ -8763,3 +8763,43 @@ and the extended lock/callback/frame model. Evidence:
 `.deps/soundmain-packed/mplay-entry/lock-candidate-entry-model.json`.
 Next: integrate the final lock candidate with strict linker assertions, run the
 full ROM/runtime and ownership gates, and verify altered layouts reject.
+
+
+## September 10, 2026 — Final lock integrated; all MPlayMain instructions C-owned
+
+On baseline `c9b50c09`, `src/m4a_mplay_lock.c` replaces MPlayMain's final sixteen
+assembly instruction bytes at 080CFB68..080CFB78. Source identity is verified
+against the candidate except for the function name. The linker enforces the
+entry boundary, sixteen-byte extent, immediate callback-setup continuation and
+original identifier literal at entry+612. All production plugins rebuild against
+the updated compiler headers through their compiler prerequisites.
+
+`make compare -j8` passes for the full ROM, and fresh pinned runtime builds
+reproduce all four images and exported symbols. The lock's 32,256 direct cases
+pass with production ROM/source identity verified, 22 unsupported contracts
+reject, and unannotated output is unchanged. The 86,016-case entry model also
+passes with production identity verified and the candidate lock substituted.
+The valid full link passes and all 203 altered layouts reject, including six new
+lock extent/continuation/literal cases.
+
+The new `scripts/audit_mplay_region.py` checks continuous coverage and C ownership
+of all 602 mapped Thumb instruction bytes from 080CFB68 through 080CFDC2,
+including shared call_r3. The fourteen following bytes through 080CFDD0 remain
+padding/literals in an assembly data section. The tracked receipt is
+`docs/mplay-code-region.json`. This is complete instruction ownership within
+this bounded region, not complete executable classification of the game or proof
+of every real callback's behavior. SoundMain/mixer ownership remains verified.
+
+Main-ROM mapped ownership is now 720,758 C-owned (92.69%), 33,870 mixed C/assembly,
+1,210 assembly-source and 21,792 runtime archive instruction bytes, totaling
+777,630. Reviewed non-library assembly is 1,620 main-ROM bytes and 420 expanded
+payload bytes. Source inventory is 566 tracked main C files and 29 assembly entry
+markers. Totals include inherited community work. Next: `ply_note`, whose 502
+mapped instruction bytes remain assembly; runtime helpers, unit-list/startup/
+transfer code and final executable classification also remain unfinished.
+
+Evidence: `.deps/soundmain-packed/mplay-lock/production-build.log`,
+`production-check.log`, `production-chain.log`, `production-identity.json`,
+`source.json`, `linked.json`, `layout.log`, refreshed tracked ownership/runtime/
+audio receipts and `docs/mplay-code-region.json`. Production ELF SHA-256:
+`fa75006d424318e3af8ec33a88de4b9a56c6e613201c9b52b4d40e2ef4d7326b`.
