@@ -6,12 +6,8 @@ register const u32 * volatile tableSource asm("r2");
 register volatile u32 tableWord asm("r3");
 extern const u32 gMPlayJumpTableTemplate[];
 extern void chk_adr_r2(void);
-#ifdef TABLE_PRIVATE_RETURN
 __attribute__((matching_ip_return))
-#endif
-#ifdef TABLE_COUNTDOWN
 __attribute__((matching_countdown))
-#endif
 void MPlayJumpTableCopy(void **destination)
 {
     tableCount = 36;

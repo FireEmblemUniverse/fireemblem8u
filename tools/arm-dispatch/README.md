@@ -158,3 +158,16 @@ Explicit assembler-name aliases are normalized, and duplicate/missing sources
 or malformed identifiers are rejected. The linker must still enforce the Thumb
 PC-relative load range. The jump-table research oracle exercises the real shared
 pool; production VSync continues to use numeric manifests.
+
+
+## Guarded countdown loops
+
+`countdown.cc` and `build_countdown.py` provide `matching_countdown` for the
+jump-table copy. It requires a positive constant initializer in 1..255, one
+short backward loop branch and one adjacent decrement, with no other counter
+writes. Calls need `preserves-counter=SYMBOL`; that is a private ABI contract
+verified against the actual helper. The bounded counter cannot overflow, so
+SUBS flags replace the redundant comparison. The Makefile combines this pass
+with private-return and symbolic shared-literal support for `m4a_jump_table.o`.
+The linker explicitly bounds its shared literal. `check_countdown.py` exercises
+boundary counts, rejected forms and unchanged unannotated code.

@@ -210,6 +210,14 @@ src/m4a_tempo.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_tempo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+THUMB_COUNTDOWN_PLUGIN := $(ARM_DISPATCH_DIR)/countdown.so
+$(THUMB_COUNTDOWN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/countdown.cc tools/arm-dispatch/build_countdown.py
+	$(PYTHON) tools/arm-dispatch/build_countdown.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_jump_table.o: $(THUMB_IP_RETURN_PLUGIN) $(THUMB_SHARED_PLUGIN) $(THUMB_COUNTDOWN_PLUGIN)
+src/m4a_jump_table.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_jump_table.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_COUNTDOWN_PLUGIN) -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-countdown-preserves-counter=chk_adr_r2 -fplugin-arg-thumb_shared_literal-symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate -fplugin-arg-thumb_shared_literal-zero-pool-padding -fplugin-arg-ip_return-preserves-ip=chk_adr_r2 -fplugin-arg-ip_return-body-branches
+
 THUMB_SHARED_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/shared_frame.so
 $(THUMB_SHARED_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/shared_frame.cc tools/arm-dispatch/build_shared_frame.py
 	$(PYTHON) tools/arm-dispatch/build_shared_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)

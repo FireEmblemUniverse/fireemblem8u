@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the LFO/modulation integration (baseline `45b0cd4f` plus this change),
+After the jump-table integration (baseline `51d4ccb4` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 465 main
-C files, 35 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 466 main
+C files, 34 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -3221,3 +3221,32 @@ candidate is still research-only; next is promotion of its pass/builder and
 production integration. There remain 35 production assembly entry markers.
 Evidence is retained in `.deps/jump-table-match/`, including the countdown build,
 contract, private-contract, oracle and final full-ROM comparison logs.
+
+
+### September 9: jump-table copy integrated
+
+`src/m4a_jump_table.c` replaces `MPlayJumpTableCopy` at `080CF958..080CF970`.
+The complete 24-byte section matches: 22 Thumb instruction bytes and two zero
+padding bytes. The existing shared literal `lt_MPlayJumpTableTemplate` is exported
+for the C object's relocation. The linker bounds it explicitly to prevent silent
+Thumb PC-relative offset wrapping. The actual address filter remains in place.
+
+The countdown pass and builder were promoted to `tools/arm-dispatch/`. The
+Makefile builds the countdown, private-return and shared-literal plugins against
+the pinned compiler and applies the combined contracts to this object only.
+The installed countdown passes 320 original/folded executions and rejects eight
+unsupported loops; unannotated assembly is unchanged.
+
+`research/audio/check_jump_table.py --compiler COMPILER --plugin IP_PLUGIN
+--shared-plugin SHARED_PLUGIN --countdown-plugin COUNTDOWN_PLUGIN --require-match
+--production` passes 3,072 executions against the original bytes, with no memory,
+r0-r12, flag or return-mode differences. `make compare -j8` passes for all
+16,777,216 ROM bytes. The linked audit assigns 22 Thumb bytes and two padding
+bytes to `src/m4a_jump_table.o`, with no orphan mappings.
+
+Inventory is 466 main C files and 34 assembly entry markers. The 582 inline
+sites comprise 240 register bindings, 334 empty constraints, one directive-only
+template and seven instruction templates. Remaining audio engine, assembly
+interfaces, embedded code, transfer wrapper, naked fallback and whole-ROM
+executable-classification work remain unfinished. Production verification logs
+and audit reports are retained under `.deps/jump-table-match/`.

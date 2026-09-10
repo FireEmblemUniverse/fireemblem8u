@@ -485,20 +485,9 @@ SoundMainBTM:
 	.align 2, 0
 	.section .text.after_ply_fine, "ax", %progbits
 
-	thumb_func_start MPlayJumpTableCopy
-MPlayJumpTableCopy:
-	mov r12, lr
-	movs r1, 0x24
-	ldr r2, lt_MPlayJumpTableTemplate
-MPlayJumpTableCopy_Loop:
-	ldr r3, [r2]
-	bl chk_adr_r2
-	stm r0!, {r3}
-	adds r2, 0x4
-	subs r1, 0x1
-	bgt MPlayJumpTableCopy_Loop
-	bx r12
-	thumb_func_end MPlayJumpTableCopy
+@ MPlayJumpTableCopy is generated from matching C.
+	.align 2, 0
+	.section .text.after_jump_table_copy, "ax", %progbits
 
 	.align 2, 0
 	.global ldrb_r3_r2
@@ -529,6 +518,7 @@ chk_adr_r2_done:
 	thumb_func_end chk_adr_r2
 
 	.align 2, 0
+	.global lt_MPlayJumpTableTemplate
 lt_MPlayJumpTableTemplate: .word gMPlayJumpTableTemplate
 
 	thumb_func_start ld_r3_tp_adr_i
