@@ -16,11 +16,14 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler', required=True)
     p.add_argument('--source', type=Path, default=ROOT/'research/audio/clear_block.c')
+    p.add_argument('--plugin', type=Path)
     p.add_argument('--require-match', action='store_true')
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu',
              '-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-schedule-insns','-fno-schedule-insns2']
+    if args.plugin:
+        flags += ['-fplugin='+str(args.plugin.resolve())]
     subprocess.run([args.compiler,*flags,'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(args.source),'-o',str(OUT/'candidate.s')],check=True)
     with (OUT/'candidate.s').open('a') as f: f.write('\n.align 2,0\n')
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)

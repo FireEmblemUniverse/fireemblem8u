@@ -5,6 +5,7 @@
 register u32 *clearOutput asm("r0");
 register u32 clearSavedR4 asm("r12");
 register u32 clearR4 asm("r4");
+__attribute__((matching_group_stores))
 void SoundMainBTM(void)
 {
     register u32 zero1 asm("r1");

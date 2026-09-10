@@ -3291,3 +3291,27 @@ Thumb four-register STM-with-writeback instruction pattern in ldmstm.md; next
 work is to establish a guarded lowering of the four stores and pointer update
 into that existing pattern. No new instruction template or production change
 is needed for the register-save improvement. The matching gate remains unsatisfied.
+
+### September 9: exact audio block-clear C candidate
+
+The grouped-store research plugin recognizes four consecutive nonvolatile,
+word-aligned SI stores from strictly ascending distinct low registers to offsets
+0, 4, 8 and 12 of one low-register base, followed immediately by base += 16.
+The base must not occur among the source registers. Labels, calls, executable
+operations and asm barriers interrupt the sequence. The replacement is GCC's
+existing five-SET Thumb STM-with-writeback RTL pattern, validated by the backend;
+there is no new instruction template. Only matching_group_stores functions opt in.
+GCC's ordinary store peephole requires the base to die, which this routine's
+explicit subsequent update prevents. Combining that update preserves the live base.
+
+The candidate now matches all 24 original bytes at 080CF8F0. The oracle's 3,072
+cases have no r0-r12 or flag differences and pass memory/canary, SP and ARM/Thumb
+return checks. `check_group_stores.py` rejects six fixtures (volatile stores,
+wrong increment, reversed registers, duplicate register, noncontiguous offsets,
+memory barrier), verifies unchanged unannotated assembly, and confirms four STMs
+for the accepted candidate. Compiler inputs and provenance are retained under
+`.deps/audio-clear-match/`; reproducible sources and checks are in research/audio.
+
+This milestone is research-only. Production remains at the verified jump-table
+integration; next is canonical plugin/build integration, assembly replacement,
+production execution checks and the full-ROM comparison. Remaining scope is unchanged.
