@@ -35,6 +35,17 @@ def main():
         (attr+'unsigned variable;', [], plugin, 'variable attribute'),
         (decl+'volatile void *saved;\n'+attr+'void probe(void) { helper(); saved=__builtin_return_address(0); }', [], plugin, 'return address use'),
     ]
+    register_decl = 'register unsigned operand asm("r3");\n'
+    for body, label in [
+        ('asm("adds %0, #1" : "+r"(operand));', 'instruction-bearing low-register asm'),
+        ('asm("" : "+r"(operand) : "r"(other));', 'extra constraint input'),
+        ('asm("" : "+r"(operand) : : "cc");', 'constraint clobber'),
+        ('asm("" : "+m"(cell));', 'memory constraint'),
+        ('asm("" : "+r"(high));', 'high-register constraint'),
+    ]:
+        source = decl + register_decl + 'register unsigned other asm("r2"); register unsigned high asm("r8"); unsigned cell;\n'
+        source += attr + 'void probe(void) { helper(); ' + body + ' }'
+        negatives.append((source, [], plugin, label))
     with tempfile.TemporaryDirectory(prefix='ip-return-') as temp:
         root = Path(temp)
         command = [args.compiler, *flags, str(root/'probe.c'), '-o', str(root/'probe.s')]
@@ -51,7 +62,7 @@ def main():
         assert (root/'probe.s').read_text() == normal
         # A real two-call body exercises the lifetime spanning both LR clobbers.
         source = decl+'register volatile unsigned *output asm("r1");\nregister unsigned value asm("r3");\n'
-        source += attr+'void probe(void) { helper(); *output=value; helper(); *output=value+1; }\n'
+        source += attr+'void probe(void) { helper(); asm("" : "+r"(value)); *output=value; helper(); *output=value+1; }\n'
         (root/'probe.c').write_text(source)
         subprocess.run(command+plugin, check=True)
         assembly = (root/'probe.s').read_text()

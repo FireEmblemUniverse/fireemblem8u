@@ -45,6 +45,18 @@ bool mentions(rtx x,unsigned reg) {
     }
     return false;
 }
+// A single low-register read/write constraint has an empty instruction stream.
+// Do not generalize this to clobbers, asm-goto, memory operands or other templates.
+bool empty_register_constraint(rtx p) {
+    if (GET_CODE(p)!=SET || !REG_P(SET_DEST(p)) || GET_MODE(SET_DEST(p))!=SImode
+        || REGNO(SET_DEST(p))>=8) return false;
+    rtx value=SET_SRC(p);
+    return GET_CODE(value)==ASM_OPERANDS && !*ASM_OPERANDS_TEMPLATE(value)
+        && !strcmp(ASM_OPERANDS_OUTPUT_CONSTRAINT(value),"=r")
+        && ASM_OPERANDS_LABEL_LENGTH(value)==0 && ASM_OPERANDS_INPUT_LENGTH(value)==1
+        && !strcmp(ASM_OPERANDS_INPUT_CONSTRAINT(value,0),"0")
+        && rtx_equal_p(ASM_OPERANDS_INPUT(value,0),SET_DEST(p));
+}
 bool lr_push(rtx p) {
     if (GET_CODE(p)!=PARALLEL || XVECLEN(p,0)!=1) return false;
     rtx set=XVECEXP(p,0,0);
@@ -99,7 +111,7 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"matching_ip_return call uses r12 or stack arguments");
                 calls++;continue;
             }
-            if (!push || epilogue || JUMP_P(i) || asm_noperands(p)>=0 || mentions(p,IP_REGNUM)
+            if (!push || epilogue || JUMP_P(i) || (asm_noperands(p)>=0 && !empty_register_constraint(p)) || mentions(p,IP_REGNUM)
                 || mentions(p,LR_REGNUM) || mentions(p,SP_REGNUM))
                 fatal_error(UNKNOWN_LOCATION,"matching_ip_return rejects control flow, asm and stack/return-register uses");
         }

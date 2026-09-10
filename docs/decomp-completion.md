@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the pan/bend/tuning integration (baseline `1104c8a3` plus this change),
+After the tempo integration (baseline `2aa5409e` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 457 main
-C files, 44 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 458 main
+C files, 43 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2691,3 +2691,36 @@ object, with no orphan mapping symbols. Evidence is in
 `.deps/audio-command-setters/flag-setters/compare-biased.log`, `report.json`,
 `source-audit.json` and `linked-audit.json`. Remaining tempo, modulation, port,
 voice and engine handlers still require work.
+
+
+### September 9: tempo handler integrated
+
+`src/m4a_tempo.c` replaces all 20 bytes of `ply_tempo` at
+`080CFA24..080CFA38`. It calls the original checked command reader, doubles
+its byte into tempoD, multiplies by tempoU, shifts by eight and stores tempoI.
+The C uses the private reader register convention and one empty r2 read/write
+constraint; it contains no instruction-bearing assembly.
+
+The private-return pass now accepts only a single empty low-register SI `+r`
+constraint with its tied input and no additional operands or clobbers. Executable
+assembly, memory operands, high registers and clobbers remain rejected. The
+installed plugin passes 128 two-call executions and 19 rejection fixtures;
+unannotated assembly remains unchanged.
+
+`research/audio/check_tempo.py --compiler COMPILER --plugin PLUGIN --production`
+checks all 20 bytes and 24,768 original/production executions using the actual
+ROM reader. Cases cover all command bytes, twelve scale values, low rejected
+addresses, four command-pointer aliases and four incoming flag patterns. Checks
+include player/track RAM, r0-r12, stack, return PC and flags, including halfword
+truncation of the effective tempo. The six existing flag setters also pass
+99,072 production regression cases with the updated plugin.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. The linked audit assigns
+20 Thumb bytes to `src/m4a_tempo.o` with no orphan mappings. The source audit
+reports 458 main C files, 43 assembly entry markers, 549 inline sites (208
+register bindings, 333 empty constraints, one directive-only template and seven
+instruction templates), one naked marker and 42 NONMATCHING conditionals.
+Embedded and transfer-wrapper remaining scope is unchanged. Local evidence is
+in `.deps/tempo-match/`: production, contract and regression logs, source and
+linked audits, and the full-ROM comparison log. Overall completion remains
+unproven while executable classification and assembly replacements remain.

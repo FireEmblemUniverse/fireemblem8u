@@ -77,7 +77,7 @@ and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
 Large leaf far-branch fixtures remain unsupported by this GCC backend (the
 baseline compiler also rejects them); VSync only uses short branches.
 
-The `ip_return` plugin supports the two setters in `src/m4a_command_setters.c`.
+The `ip_return` plugin supports the command and flag setters and `src/m4a_tempo.c`.
 It is built by `build_ip_return.py` against the installed compiler. The explicit
 `matching_ip_return` attribute requires a straight-line void function with an
 LR-only frame, and every direct call must have a `preserves-ip=SYMBOL` manifest
@@ -85,8 +85,10 @@ entry. The helper and its entire call path must preserve r12; this is a private
 ABI requirement checked against the actual audio reader by the production
 oracle, not a property inferred for arbitrary external functions.
 
-The pass rejects stack use, indirect calls, branches, assembly, global r12
+The pass rejects stack use, indirect calls, branches, executable or unsupported assembly, global r12
 variables, exposed return registers and debug/unwind/exception configurations.
+The only accepted inline constraint is an empty, single low-register `+r`
+operand with no extra inputs or clobbers; it emits no instructions.
 It replaces the entry LR push with a register move and the epilogue with BX r12.
 `research/audio/check_ip_return.py` covers accepted and rejected contracts;
 `check_command_setters.py --compiler COMPILER --plugin PLUGIN --require-match

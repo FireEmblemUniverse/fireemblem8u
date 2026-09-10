@@ -595,6 +595,8 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_pend);
         src/m4a_command_setters.o(.text.ply_prio);
         src/m4a_1.o(.text.after_ply_prio);
+        src/m4a_tempo.o(.text);
+        src/m4a_1.o(.text.after_ply_tempo);
         src/m4a_flag_setters.o(.text.ply_keysh);
         src/m4a_1.o(.text.after_ply_keysh);
         src/m4a_flag_setters.o(.text.ply_vol);

@@ -613,18 +613,9 @@ ply_rept_2:
 	.align 2, 0
 	.section .text.after_ply_prio, "ax", %progbits
 
-	thumb_func_start ply_tempo
-ply_tempo:
-	mov r12, lr
-	bl ld_r3_tp_adr_i
-	lsls r3, 1
-	strh r3, [r0, o_MusicPlayerInfo_tempoD]
-	ldrh r2, [r0, o_MusicPlayerInfo_tempoU]
-	muls r3, r2
-	lsrs r3, 8
-	strh r3, [r0, o_MusicPlayerInfo_tempoI]
-	bx r12
-	thumb_func_end ply_tempo
+@ ply_tempo is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_tempo, "ax", %progbits
 
 @ ply_keysh is generated from matching C.
 	.align 2, 0
