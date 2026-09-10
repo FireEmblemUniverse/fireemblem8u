@@ -7968,3 +7968,39 @@ Sources: `research/audio/mplay_post_{cgb,pcm}_{invoke,store}.c`. Checkers:
 `.deps/soundmain-packed/mplay-post-{cgb-invoke,pcm-invoke,frequency-store}`.
 Production ownership remains unchanged. Next: integrate all four fragments with
 exact extents, call/branch ranges, full ROM comparison and refreshed audits.
+
+
+## Frequency invocation/store production integration — September 10, 2026
+
+On baseline `40e45661`, four C-only objects replace 22 instruction bytes:
+CGB invocation at 080CFD7A..080CFD7E, CGB frequency/mode stores and branch at
+080CFD7E..080CFD8A, PCM invocation at 080CFD90..080CFD94, and PCM frequency
+store at 080CFD94..080CFD96. Production sources equal the candidate sources
+except for function names, and linked ownership confirms the exact Thumb ranges.
+The production assembly no longer contains these calls or result stores.
+
+All 201,088 production/original cases pass: 49,152 CGB call/return cases,
+24,576 PCM call/return cases, 100,352 CGB result-store cases and 27,008 PCM
+result-store cases. The preceding candidate section specifies synthetic-callee
+and emulator coverage limits; conversion-function logic, complete MPlayMain and
+physical hardware timing are not established by these fragment checks.
+
+`make compare -j8` reproduces all 16 MiB. Fresh runtime builds reproduce all four
+images and exported symbols. Source, inline, linked and runtime inventories are
+refreshed. SoundMain (1,064 bytes) and mixer (932 bytes) retain their fully
+C-owned extents and original bytes. The valid layout passes and all 133 altered
+layouts reject, including eight new extent/continuation perturbations and six
+out-of-range call/result-branch targets. See `mplay-post-frequency-result-layout.log`.
+
+Main mapped instruction bytes: 777,630 total, 720,608 C-owned (92.67%),
+33,870 mixed C/assembly, 1,360 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,770 main bytes and 420 payload bytes. There are
+547 tracked main C files and 30 assembly entry markers. These totals include
+inherited work and are not an overall completion percentage.
+
+ELF SHA-256: `9d4de02f74e835e847c2ad280698f84c0993560315e70e5e82fac1049e9a29a5`.
+Evidence: `.deps/soundmain-packed/mplay-post-frequency-result-build.log`,
+`mplay-post-{cgb-invoke,pcm-invoke,frequency-store}-production.log`,
+`mplay-post-frequency-result-production-identity.json`, source/linked reports and
+refreshed tracked ownership/runtime/region receipts. Next: post-track advancement
+and MPlayMain's frame exit, plus earlier command guards and clear-call paths.

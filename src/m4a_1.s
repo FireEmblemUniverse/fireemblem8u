@@ -497,23 +497,22 @@ _081DDA28:
 	.global MPlayMainPostCgbSetupBoundary
 MPlayMainPostCgbSetupBoundary:
 	.section .text.after_mplay_post_cgb_setup, "ax", %progbits
-	.global MPlayMainPostCgbInvoke
-MPlayMainPostCgbInvoke:
-	bl call_r3
-	str r0, [r4, o_CgbChannel_fr]
-	ldrb r0, [r4, o_CgbChannel_mo]
-	movs r1, 0x2
-	orrs r0, r1
-	strb r0, [r4, o_CgbChannel_mo]
-	b _081DDA52
+	.global MPlayMainPostCgbInvokeBoundary
+MPlayMainPostCgbInvokeBoundary:
+	.section .text.after_mplay_post_cgb_invoke, "ax", %progbits
+	.global MPlayMainPostCgbStoreBoundary
+MPlayMainPostCgbStoreBoundary:
+	.section .text.after_mplay_post_cgb_store, "ax", %progbits
 	.global MPlayMainPostPcmSetupBoundary
 MPlayMainPostPcmSetupBoundary:
 _081DDA46:
 	.section .text.after_mplay_post_pcm_setup, "ax", %progbits
-	.global MPlayMainPostPcmInvoke
-MPlayMainPostPcmInvoke:
-	bl MidiKeyToFreq
-	str r0, [r4, o_SoundChannel_freq]
+	.global MPlayMainPostPcmInvokeBoundary
+MPlayMainPostPcmInvokeBoundary:
+	.section .text.after_mplay_post_pcm_invoke, "ax", %progbits
+	.global MPlayMainPostPcmStoreBoundary
+MPlayMainPostPcmStoreBoundary:
+	.section .text.after_mplay_post_pcm_store, "ax", %progbits
 	.global MPlayMainPostChannelNextBoundary
 MPlayMainPostChannelNextBoundary:
 _081DDA52:

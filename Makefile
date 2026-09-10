@@ -1053,3 +1053,23 @@ src/m4a_mplay_post_pcm_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZER
 src/m4a_mplay_post_pcm_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_pcm_setup.o: C_END_ALIGN := 1
 src/m4a_mplay_post_pcm_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostPcmInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostPcmInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_mplay_post_cgb_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_post_cgb_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_cgb_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_post_cgb_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-trampoline=call_r3 -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostCgbStore -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_mplay_post_cgb_store.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_post_cgb_store.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_cgb_store.o: C_END_ALIGN := 1
+src/m4a_mplay_post_cgb_store.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelNext -fplugin-arg-tail_transfer-private-frame64
+
+src/m4a_mplay_post_pcm_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_post_pcm_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_pcm_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_post_pcm_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=MidiKeyToFreq -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostPcmStore -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_mplay_post_pcm_store.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_post_pcm_store.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_pcm_store.o: C_END_ALIGN := 1
+src/m4a_mplay_post_pcm_store.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelNext -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostChannelNext

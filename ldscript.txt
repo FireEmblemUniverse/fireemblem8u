@@ -1379,6 +1379,27 @@ SECTIONS
         src/m4a_mplay_post_cgb_setup.o(.text);
         __mplay_post_cgb_setup_end = .;
         src/m4a_1.o(.text.after_mplay_post_cgb_setup);
+        __mplay_post_cgb_invoke_start = .;
+        src/m4a_mplay_post_cgb_invoke.o(.text);
+        __mplay_post_cgb_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_post_cgb_invoke);
+        ASSERT((MPlayMainPostCgbInvoke & ~1) == MPlayMainPostCgbInvokeBoundary &&
+               __mplay_post_cgb_invoke_end - __mplay_post_cgb_invoke_start == 4 &&
+               (MPlayMainPostCgbStore & ~1) == __mplay_post_cgb_invoke_end,
+               "MPlayMain post cgb_invoke extent or continuation changed");
+        __mplay_post_cgb_store_start = .;
+        src/m4a_mplay_post_cgb_store.o(.text);
+        __mplay_post_cgb_store_end = .;
+        src/m4a_1.o(.text.after_mplay_post_cgb_store);
+        ASSERT((MPlayMainPostCgbStore & ~1) == MPlayMainPostCgbStoreBoundary &&
+               __mplay_post_cgb_store_end - __mplay_post_cgb_store_start == 12 &&
+               (MPlayMainPostPcmSetup & ~1) == __mplay_post_cgb_store_end,
+               "MPlayMain post cgb_store extent or continuation changed");
+        ASSERT((call_r3 & ~1) >= __mplay_post_cgb_invoke_start + 4 &&
+               (call_r3 & ~1) <= __mplay_post_cgb_invoke_start + 4 + 4194302 &&
+               (MPlayMainPostChannelNext & ~1) >= __mplay_post_cgb_store_start + 14 &&
+               (MPlayMainPostChannelNext & ~1) <= __mplay_post_cgb_store_start + 14 + 2046,
+               "MPlayMain post cgb call or store transfer out of range");
         ASSERT((MPlayMainPostCgbSetup & ~1) == MPlayMainPostCgbSetupBoundary &&
                __mplay_post_cgb_setup_end - __mplay_post_cgb_setup_start == 10 &&
                (MPlayMainPostCgbInvoke & ~1) == __mplay_post_cgb_setup_end,
@@ -1387,6 +1408,25 @@ SECTIONS
         src/m4a_mplay_post_pcm_setup.o(.text);
         __mplay_post_pcm_setup_end = .;
         src/m4a_1.o(.text.after_mplay_post_pcm_setup);
+        __mplay_post_pcm_invoke_start = .;
+        src/m4a_mplay_post_pcm_invoke.o(.text);
+        __mplay_post_pcm_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_post_pcm_invoke);
+        ASSERT((MPlayMainPostPcmInvoke & ~1) == MPlayMainPostPcmInvokeBoundary &&
+               __mplay_post_pcm_invoke_end - __mplay_post_pcm_invoke_start == 4 &&
+               (MPlayMainPostPcmStore & ~1) == __mplay_post_pcm_invoke_end,
+               "MPlayMain post pcm_invoke extent or continuation changed");
+        __mplay_post_pcm_store_start = .;
+        src/m4a_mplay_post_pcm_store.o(.text);
+        __mplay_post_pcm_store_end = .;
+        src/m4a_1.o(.text.after_mplay_post_pcm_store);
+        ASSERT((MPlayMainPostPcmStore & ~1) == MPlayMainPostPcmStoreBoundary &&
+               __mplay_post_pcm_store_end - __mplay_post_pcm_store_start == 2 &&
+               (MPlayMainPostChannelNext & ~1) == __mplay_post_pcm_store_end,
+               "MPlayMain post pcm_store extent or continuation changed");
+        ASSERT((MidiKeyToFreq & ~1) >= __mplay_post_pcm_invoke_start + 4 &&
+               (MidiKeyToFreq & ~1) <= __mplay_post_pcm_invoke_start + 4 + 4194302,
+               "MPlayMain post pcm callee out of range");
         ASSERT((MPlayMainPostPcmSetup & ~1) == MPlayMainPostPcmSetupBoundary &&
                __mplay_post_pcm_setup_end - __mplay_post_pcm_setup_start == 6 &&
                (MPlayMainPostPcmInvoke & ~1) == __mplay_post_pcm_setup_end,

@@ -126,6 +126,15 @@ def main():
  for name,expression in [('pcm_setup_far','__mplay_post_frequency_select_start + 262'),('pcm_setup_backward','__mplay_post_frequency_select_start - 252')]:
   text=source.replace('        ASSERT((MPlayMainPostPcmSetup & ~1) >=','        MPlayMainPostPcmSetup = '+expression+';\n        ASSERT((MPlayMainPostPcmSetup & ~1) >=',1)
   cases.append((name,text,'post frequency_select transfer out of range'))
+ for part in ('cgb_invoke','cgb_store','pcm_invoke','pcm_store'):
+  cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
+  cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ for name,symbol,expression in [('cgb_call_far','call_r3','__mplay_post_cgb_invoke_start + 4194308'),('cgb_call_backward','call_r3','__mplay_post_cgb_invoke_start - 4194304'),('cgb_store_far','MPlayMainPostChannelNext','__mplay_post_cgb_store_start + 2062'),('cgb_store_backward','MPlayMainPostChannelNext','__mplay_post_cgb_store_start - 2048')]:
+  text=source.replace('        ASSERT((call_r3 & ~1) >= __mplay_post_cgb','        '+symbol+' = '+expression+';\n        ASSERT((call_r3 & ~1) >= __mplay_post_cgb',1)
+  cases.append((name,text,'post cgb call or store transfer out of range'))
+ for name,expression in [('pcm_callee_far','__mplay_post_pcm_invoke_start + 4194308'),('pcm_callee_backward','__mplay_post_pcm_invoke_start - 4194304')]:
+  text=source.replace('        ASSERT((MidiKeyToFreq & ~1) >=','        MidiKeyToFreq = '+expression+';\n        ASSERT((MidiKeyToFreq & ~1) >=',1)
+  cases.append((name,text,'post pcm callee out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
