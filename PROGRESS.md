@@ -4,6 +4,8 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `2126c8ba`): MPlayMain's identifier restoration and 36-byte-frame return are matching C, including the shared Thumb BX entry. All 18 instruction bytes match; 61,984 exit cases and 49,152 caller regression cases pass. The full ROM and fresh runtime builds match; all 140 altered layouts reject. Main-ROM C ownership is 720,626/777,630 mapped instruction bytes (92.67%). Remaining post-track advancement, command guards, earlier clear-call paths, other MPlayMain entry/loop code, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
+Research milestone (September 10): the original 10-byte post-track advancement passes a 51,840-case independent register/flags model, including signed-overflow pointer boundaries. The current C probe needs new matching support: the tail-only form emits 24 bytes and clobbers r3, while the existing decrement rule rejects the nested branch. This is verified behavior research, not an integrated C-ownership increase.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

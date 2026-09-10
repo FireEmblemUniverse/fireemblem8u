@@ -8117,3 +8117,38 @@ Evidence: `.deps/soundmain-packed/mplay-exit-build.log`,
 `mplay-exit-production-identity.json`, source/linked reports and refreshed tracked
 ownership/runtime/region receipts. Next: post-track advancement, earlier command
 guards and clear-call paths, and remaining MPlayMain entry/loop assembly.
+
+
+## Post-track advancement model and compiler probe — September 10, 2026
+
+On production baseline `0947008d`, the remaining 10-byte block at
+080CFDA6..080CFDB0 decrements r2, exits on the decrement's BLE condition,
+otherwise sets r0 to 80, advances r5 and loops on the addition's BGT condition.
+The first decision equals signed original count <= 1, including INT_MIN
+subtraction overflow. The second equals signed original track + 80 > 0 before
+overflow, or signed original track > -80. Testing the wrapped result alone would
+be incorrect when a positive pointer sum crosses INT_MAX.
+
+An independent original-only model passes 51,840 cases: every byte count,
+four full-width boundaries and 64 random counts, ten pointer values around
+signed wrap/zero thresholds, and all NZCV. Outcomes are 5,920 count exits,
+13,776 pointer exits and 32,144 loop entries. All registers, full CPSR, SP/LR,
+RAM and absence of data accesses match. This establishes the model, not a
+matching C replacement or complete MPlayMain traversal.
+
+The direct constant comparison compiles to a fused ADD/BLT form unsupported by
+the private-tail control-flow validator. Expressing the negative bound via the
+known 80-byte size and a register tie produces supported scalar control flow.
+That tail-only probe emits 24 bytes and clobbers r3: CMP/count branches, NEG/CMP
+for the pointer bound, duplicated pointer additions and duplicated decrements.
+The existing fork-decrement rule rejects the nested graph. No guard has been
+relaxed to accept this nonmatching output. The next matching rule must combine
+the count fork and pointer fork while retaining the original subtraction and
+addition flags and avoiding an r3 temporary.
+
+Source: `research/audio/mplay_post_track_next.c`. Original model checker:
+`research/audio/check_mplay_post_track_next_model.py`. Evidence:
+`.deps/soundmain-packed/mplay-post-track-next/original-model.json`,
+`tail-only.c`, `tail-only.o`, and the ordinary assembly probe at
+`.deps/soundmain-packed/mplay-post-track-next-plain.s`. Production is unchanged;
+all preceding matching milestones remain the verified baseline.
