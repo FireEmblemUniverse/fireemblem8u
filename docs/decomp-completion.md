@@ -7596,3 +7596,46 @@ production layout passes and all 72 altered layouts reject, including four new
 extent/continuation and far/backward direct-target cases. See
 `mplay-post-invoke-layout.log`. Next work continues post-tick channel processing,
 command guards and clear-call paths.
+
+
+## MPlayMain post-tick traversal/cleanup — September 10, 2026 (baseline `f86bd130`)
+
+Integrated `src/m4a_mplay_post_channel_load.c` at 080CFD24..080CFD2A,
+`src/m4a_mplay_post_channel_next.c` at 080CFD96..080CFD9C and
+`src/m4a_mplay_post_track_finish.c` at 080CFD9C..080CFDA6. The first loads the
+track's channel pointer and selects channel processing or cleanup. The second
+loads the next channel and loops or falls into cleanup. Cleanup retains the high
+flag nibble, stores it and restores the saved loop count from r9 into r2.
+All 22 original instruction bytes are matching C. Existing private-tail/direct-tail
+rules suffice without compiler changes; channel processing itself remains assembly.
+
+`check_mplay_post_traversal.py --production` passes 86,784 cases: 10,624 each for
+channel load/next and 65,536 cleanup cases. Pointer tests include zero, low/high
+boundaries, every single-bit word and 128 random words, all NZCV and four base
+positions including pointer fields at SP and the last RAM word. Cleanup crosses
+every flag byte, four full-width saved counts, all NZCV and four track positions
+including SP, SP-1 and final RAM byte. All registers, SP/LR, full CPSR, complete
+RAM and ordered accesses agree. Pointer paths retain CMP flags; cleanup retains
+incoming C/V and the masked result's NZ, with the high-register copy preserving
+those flags. The tests stop at handler boundaries, not complete list traversal or
+channel updates.
+
+The linker constrains each extent and continuation and the channel conditional
+transfer ranges. `make compare -j8` reproduces all 16 MiB. Fresh runtime builds
+reproduce all four images and exports. Source, linked, inline and runtime inventories
+are refreshed; unchanged SoundMain/mixer regions are revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,500 C-owned (92.65%), 33,870
+mixed C/assembly, 1,468 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,878 main bytes and 420 payload bytes.
+There are 532 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `6e1ddd9e94be8d44a639e29ed9d40ba8e0ed190d5ec78896528169ed5157c6c8`.
+Evidence: `.deps/soundmain-packed/mplay-post-traversal/report.json`, source/linked
+reports there, `mplay-post-traversal-production.log`, `mplay-post-traversal-build.log`
+and refreshed runtime/region receipts. The valid layout passes and all 81 altered
+layouts reject, including six new extent/continuation cases and three far/backward/odd
+channel-gate targets. See `mplay-post-traversal-layout.log`. Next work continues
+channel volume/pitch/stopped-channel handling, command guards
+and clear-call paths.

@@ -90,6 +90,12 @@ def main():
  for name,expression in [('post_direct_far','__mplay_post_invoke_start + 4194308'),('post_direct_backward','__mplay_post_invoke_start - 4194304')]:
   text=source.replace('        ASSERT((TrkVolPitSet & ~1) >=','        TrkVolPitSet = '+expression+';\n        ASSERT((TrkVolPitSet & ~1) >=',1)
   cases.append((name,text,'post invoke direct callee out of range'))
+ for part in ('channel_load','channel_next','track_finish'):
+  cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
+  cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ for name,expression in [('post_channel_gate_far','__mplay_post_channel_next_start + 264'),('post_channel_gate_backward','__mplay_post_channel_next_start - 250'),('post_channel_gate_odd','__mplay_post_channel_next_start - 107')]:
+  text=source.replace('        ASSERT((MPlayMainPostTrackFinish & ~1) >=','        MPlayMainPostChannelGate = '+expression+';\n        ASSERT((MPlayMainPostTrackFinish & ~1) >=',1)
+  cases.append((name,text,'post channel transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

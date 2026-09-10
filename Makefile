@@ -976,3 +976,21 @@ src/m4a_mplay_post_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
 src/m4a_mplay_post_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_invoke.o: C_END_ALIGN := 1
 src/m4a_mplay_post_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=TrkVolPitSet -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostChannelLoad -fplugin-arg-thumb_callback_tail-fallthrough
+
+
+src/m4a_mplay_post_channel_load.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_channel_load.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_channel_load.o: C_END_ALIGN := 1
+src/m4a_mplay_post_channel_load.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackFinish -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelGate -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostChannelGate -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostTrackFinish -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+
+src/m4a_mplay_post_channel_next.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_channel_next.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_channel_next.o: C_END_ALIGN := 1
+src/m4a_mplay_post_channel_next.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackFinish -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelGate -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostTrackFinish -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostChannelGate -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+
+src/m4a_mplay_post_track_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_post_track_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_track_finish.o: C_END_ALIGN := 1
+src/m4a_mplay_post_track_finish.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackNext -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostTrackNext

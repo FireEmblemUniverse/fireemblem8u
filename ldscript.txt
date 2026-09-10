@@ -1311,9 +1311,39 @@ SECTIONS
         src/m4a_mplay_post_invoke.o(.text);
         __mplay_post_invoke_end = .;
         src/m4a_1.o(.text.after_mplay_post_invoke);
+        __mplay_post_channel_load_start = .;
+        src/m4a_mplay_post_channel_load.o(.text);
+        __mplay_post_channel_load_end = .;
+        src/m4a_1.o(.text.after_mplay_post_channel_load);
+        __mplay_post_channel_next_start = .;
+        src/m4a_mplay_post_channel_next.o(.text);
+        __mplay_post_channel_next_end = .;
+        src/m4a_1.o(.text.after_mplay_post_channel_next);
+        __mplay_post_track_finish_start = .;
+        src/m4a_mplay_post_track_finish.o(.text);
+        __mplay_post_track_finish_end = .;
+        src/m4a_1.o(.text.after_mplay_post_track_finish);
+        ASSERT((MPlayMainPostTrackFinish & ~1) == MPlayMainPostTrackFinishBoundary &&
+               __mplay_post_track_finish_end - __mplay_post_track_finish_start == 10 &&
+               (MPlayMainPostTrackNext & ~1) == __mplay_post_track_finish_end,
+               "MPlayMain post track_finish extent or continuation changed");
+        ASSERT((MPlayMainPostChannelNext & ~1) == MPlayMainPostChannelNextBoundary &&
+               __mplay_post_channel_next_end - __mplay_post_channel_next_start == 6 &&
+               (MPlayMainPostTrackFinish & ~1) == __mplay_post_channel_next_end,
+               "MPlayMain post channel_next extent or continuation changed");
+        ASSERT((MPlayMainPostTrackFinish & ~1) >= __mplay_post_channel_load_start + 8 &&
+               (MPlayMainPostTrackFinish & ~1) <= __mplay_post_channel_load_start + 8 + 254 &&
+               MPlayMainPostChannelGate + 256 >= __mplay_post_channel_next_start + 8 &&
+               MPlayMainPostChannelGate <= __mplay_post_channel_next_start + 8 + 254 &&
+               (MPlayMainPostChannelGate & 1) == 0,
+               "MPlayMain post channel transfer out of range");
+        ASSERT((MPlayMainPostChannelLoad & ~1) == MPlayMainPostChannelLoadBoundary &&
+               __mplay_post_channel_load_end - __mplay_post_channel_load_start == 6 &&
+               (MPlayMainPostChannelGate & ~1) == __mplay_post_channel_load_end,
+               "MPlayMain post channel_load extent or continuation changed");
         ASSERT((MPlayMainPostTrackInvoke & ~1) == MPlayMainPostTrackInvokeBoundary &&
                __mplay_post_invoke_end - __mplay_post_invoke_start == 4 &&
-               MPlayMainPostChannelLoad == __mplay_post_invoke_end,
+               (MPlayMainPostChannelLoad & ~1) == __mplay_post_invoke_end,
                "MPlayMain post invoke extent or continuation changed");
         ASSERT((TrkVolPitSet & ~1) >= __mplay_post_invoke_start + 4 &&
                (TrkVolPitSet & ~1) <= __mplay_post_invoke_start + 4 + 4194302,

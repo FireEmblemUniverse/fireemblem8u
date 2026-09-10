@@ -460,11 +460,11 @@ MPlayMainPostTrackSetupBoundary:
 	.global MPlayMainPostTrackInvokeBoundary
 MPlayMainPostTrackInvokeBoundary:
 	.section .text.after_mplay_post_invoke, "ax", %progbits
-	.global MPlayMainPostChannelLoad
-MPlayMainPostChannelLoad:
-	ldr r4, [r5, o_MusicPlayerTrack_chan]
-	cmp r4, 0
-	beq _081DDA58
+	.global MPlayMainPostChannelLoadBoundary
+MPlayMainPostChannelLoadBoundary:
+	.section .text.after_mplay_post_channel_load, "ax", %progbits
+	.global MPlayMainPostChannelGate
+MPlayMainPostChannelGate:
 _081DD9E6:
 	ldrb r1, [r4, o_SoundChannel_status]
 	movs r0, 0xC7
@@ -520,16 +520,14 @@ _081DDA46:
 	ldr r0, [r4, o_SoundChannel_wav]
 	bl MidiKeyToFreq
 	str r0, [r4, o_SoundChannel_freq]
+	.global MPlayMainPostChannelNextBoundary
+MPlayMainPostChannelNextBoundary:
 _081DDA52:
-	ldr r4, [r4, o_SoundChannel_np]
-	cmp r4, 0
-	bne _081DD9E6
+	.section .text.after_mplay_post_channel_next, "ax", %progbits
+	.global MPlayMainPostTrackFinishBoundary
+MPlayMainPostTrackFinishBoundary:
 _081DDA58:
-	ldrb r0, [r5, o_MusicPlayerTrack_flags]
-	movs r1, 0xF0
-	ands r0, r1
-	strb r0, [r5, o_MusicPlayerTrack_flags]
-	mov r2, r9
+	.section .text.after_mplay_post_track_finish, "ax", %progbits
 	.global MPlayMainPostTrackNext
 MPlayMainPostTrackNext:
 _081DDA62:
