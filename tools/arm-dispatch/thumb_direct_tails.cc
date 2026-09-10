@@ -26,6 +26,7 @@ namespace {
 std::set<std::string> destinations;
 unsigned expected=0;
 bool descending_masks=false;
+bool descending_local_masks=false;
 std::string unsigned_immediate;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {error("matching_thumb_direct_tails requires a function");*no_add=true;}
@@ -65,7 +66,7 @@ public:
         if (!lookup_attribute("matching_thumb_direct_tails",DECL_ATTRIBUTES(fn->decl))) return 0;
         if (!TARGET_THUMB1||!lookup_attribute("matching_tail_transfer",DECL_ATTRIBUTES(fn->decl)))
             fatal_error(UNKNOWN_LOCATION,"Thumb direct tails require private Thumb tails");
-        unsigned rewritten=0,masked=0,unsigned_guards=0;
+        unsigned rewritten=0,masked=0,unsigned_guards=0,local_masks=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i),set=p;
@@ -78,6 +79,22 @@ public:
             if (GET_CODE(set)!=SET||SET_DEST(set)!=pc_rtx||GET_CODE(SET_SRC(set))!=IF_THEN_ELSE) continue;
             rtx choice=SET_SRC(set),condition=XEXP(choice,0),target=XEXP(choice,1);
             if (GET_CODE(target)!=LABEL_REF||XEXP(choice,2)!=pc_rtx) continue;
+            if (descending_local_masks && !bundled
+                && (GET_CODE(condition)==EQ || GET_CODE(condition)==NE)
+                && XEXP(condition,1)==const0_rtx && GET_CODE(XEXP(condition,0))==AND
+                && low(XEXP(XEXP(condition,0),0)) && low(XEXP(XEXP(condition,0),1))
+                && REGNO(XEXP(XEXP(condition,0),0))!=REGNO(XEXP(XEXP(condition,0),1))) {
+                rtx updated=copy_rtx(p),mask=XEXP(XEXP(SET_SRC(updated),0),0);
+                if (REGNO(XEXP(mask,0))<REGNO(XEXP(mask,1))) {
+                    rtx temp=XEXP(mask,0);XEXP(mask,0)=XEXP(mask,1);XEXP(mask,1)=temp;
+                }
+                if (!validate_change(i,&PATTERN(i),updated,false))
+                    fatal_error(UNKNOWN_LOCATION,"local masked branch operand order rejected");
+                // Keep this conditional branch local; direct-tail rewrites apply
+                // only to the other transfers in the function.
+                local_masks++;
+                continue;
+            }
             rtx_insn *label=as_a<rtx_insn *>(XEXP(target,0));
             rtx symbol=symbol_of(next_op(label)),replacement=nullptr;
             rtx_insn *remove=nullptr;
@@ -140,6 +157,8 @@ public:
             }
             rewritten++;
         }
+        if (descending_local_masks && local_masks!=1)
+            fatal_error(UNKNOWN_LOCATION,"descending local mask order requires exactly one local masked branch");
         if (!unsigned_immediate.empty() && unsigned_guards!=1)
             fatal_error(UNKNOWN_LOCATION,"unsigned immediate mode requires exactly one unsigned guard");
         if (descending_masks&&!masked) fatal_error(UNKNOWN_LOCATION,"descending mask order requires a masked tail");
@@ -153,6 +172,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;const char *v=info->argv[n].value;
         if (key=="descending-mask-operands"&&!v&&!descending_masks) {descending_masks=true;continue;}
+        if (key=="descending-local-mask-operands" && !v && !descending_local_masks) {descending_local_masks=true;continue;}
         if (key=="unsigned-immediate" && v && unsigned_immediate.empty()
             && (!strcmp(v,"lt") || !strcmp(v,"le"))) {unsigned_immediate=v;continue;}
         if (key=="destination"&&v&&*v) {if(!destinations.insert(v).second) return 1;continue;}
@@ -163,7 +183,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         return 1;
     }
     if (destinations.empty()||!expected) return 1;
-    if (!unsigned_immediate.empty() && (expected!=1 || descending_masks)) return 1;
+    if (descending_local_masks && descending_masks) return 1;
+    if (!unsigned_immediate.empty() && (expected!=1 || descending_masks || descending_local_masks)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_AFTER};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

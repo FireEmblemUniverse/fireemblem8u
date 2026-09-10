@@ -889,3 +889,25 @@ python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-ma
 Both four-byte candidates match and pass 26,880 execution cases apiece, checking
 all registers/CPSR/SP/LR and absence of memory accesses. Each rejects ten invalid
 source/option configurations and preserves unannotated compilation.
+
+
+### Local masked-branch operand order
+
+`thumb_direct_tails` optionally accepts `descending-local-mask-operands`.
+Exactly one local EQ/NE branch must test the AND of two distinct low registers
+against zero. The pass orders the higher register first, preserving the logical
+result and flags, and keeps this branch local. Other declared transfers can
+still use the existing direct-tail rewrites. Missing/multiple masked branches,
+duplicate/valued options, or combinations with unsigned-immediate or descending
+external-mask order are rejected. Unannotated compilation is unchanged.
+
+The MPlayMain track-dispatch candidate uses this for the original TST r1,r0,
+while its separate zero-channel branch is folded to BEQ TrackInit. The tick
+setup candidate needs only the existing private adjacent-tail contract and
+ordered empty register constraints. Neither candidate is yet integrated.
+
+```sh
+python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_tick_setup.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_track_dispatch.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```

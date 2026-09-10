@@ -4,6 +4,13 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `971a7942`): MPlayMain's note/wait command guards now come from matching C. All eight instruction bytes match; 53,760 execution cases pass, including exact comparison flags, and each guard rejects ten unsupported configurations. The full ROM and fresh runtime builds match. Ownership is 720,656/777,630 mapped main-ROM instruction bytes attributed to C (92.67%); reviewed non-library assembly is 1,722 bytes, with 556 tracked C files. The valid full layout links and all 164 altered layouts reject. Remaining work includes MPlayMain entry/loop code, ply_note, runtime helpers, unit-list/transfer code and final executable classification.
 
+Candidate milestone (September 10, baseline `28bd496a`): tick setup and track
+dispatch now match all 30 original instruction bytes. Their 393,216 execution
+cases pass with exact registers/flags and ordered reads, including stack aliases.
+Dispatch rejects nine unsupported contracts; all 53,760 command-guard regression
+cases and 12 existing direct-tail contract rejections pass. Production ownership
+remains unchanged until integration, full build and audit gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

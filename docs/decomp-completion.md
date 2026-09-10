@@ -8349,3 +8349,46 @@ Evidence: `.deps/soundmain-packed/command-guard/production-build.log`,
 Production ELF SHA-256:
 `aa27103f1501ebc87fa3f395f840602a6be108d4650de86f7bc3131db8fee040`.
 Next: MPlayMain entry and track-loop setup/dispatch code.
+
+
+## September 10, 2026 — Tick setup and track-dispatch candidates
+
+On production baseline `28bd496a`, matching C candidates now cover tick setup
+at 080CFBB8..080CFBC0 (eight bytes) and track dispatch at 080CFBC0..080CFBD6
+(22 bytes). The setup performs ordered track-count and track-pointer loads,
+then initializes the mask/status registers. It uses the existing private-tail
+contract without compiler changes and passes 131,072 original/candidate cases
+against independent register/flag/read expectations. Coverage includes every
+byte count and initial NZCV, four aligned player locations (stack aliases and
+RAM boundary), eight track words, all registers/SP/LR and complete RAM.
+
+The initial dispatch C probe differed in TST operand order and had a redundant
+branch for the zero-channel continuation. The existing direct-tail pass now
+has an optional descending-local-mask mode: exactly one local equality test of
+two distinct low-register AND operands is reordered while keeping that branch
+local. Its AND result and flags are invariant under swapping the operands.
+The separate zero-channel test uses the existing direct conditional-tail rule.
+No new machine pattern or backend rebuild was needed for this extension.
+
+All 262,144 dispatch cases pass for original and matching candidate against an
+independent state/read/flag model: 131,072 inactive, 32,768 track-init and 98,304
+channel paths. Tests span every status byte/NZCV, channel/mask boundaries, four
+track locations including stack aliases and RAM boundary, high-register state,
+conditional ordered reads and complete unchanged RAM. Nine invalid source/option
+configurations reject; unannotated output remains unchanged. The final plugin
+keeps the reordered branch local rather than allowing a later direct-tail fold.
+Both candidates were verified before production integration; continuation bodies
+and complete MPlayMain remain outside these checks.
+
+After the final plugin change, all 53,760 production command-guard regression
+cases pass, as do nine existing invalid direct-tail configurations and three
+invalid source forms. Total new candidate cases are 393,216. Production
+ownership is unchanged. Next: integrate the contiguous 30-byte region with
+extent/continuation/branch-range assertions, then full ROM/layout/runtime/audits.
+
+Sources: `research/audio/mplay_tick_setup.c`, `mplay_track_dispatch.c`,
+`check_mplay_tick_setup.py`, `check_mplay_track_dispatch.py` and
+`tools/arm-dispatch/thumb_direct_tails.cc`. Evidence:
+`.deps/soundmain-packed/tick-setup/report.json`, `check.log`, `dispatch-check.log`,
+`dispatch-plugin-build.log`, `direct-regression.log`, `command-regression.log`,
+and `.deps/soundmain-packed/track-dispatch/report.json`.
