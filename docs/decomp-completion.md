@@ -2280,3 +2280,28 @@ Reproducible backend/plugin promotion, stronger source/ABI evidence for the
 production object and full-ROM integration remain next. The production compiler
 is still the installed version; the experimental build-tree compiler and plugin
 are selected explicitly with `check_end_tie.py --compiler ... --plugin ...`.
+
+
+### Tied-note release production integration — September 9, 2026
+
+`src/m4a_end_tie.c` now replaces all 64 Thumb instruction bytes of `ply_endtie`
+at `0x080D0044..0x080D0084`. The former assembly body is removed, and the linker
+places the C object before `clear_modM`. The explicit leaf contract preserves
+the original r4/r5-only save frame and BX LR return.
+
+The leaf plugin and backend patch are now maintained in `tools/arm-dispatch/`.
+The compiler builder accepts only the known original or patched `arm.cc` hashes
+and records the patch/source hashes in build provenance. Applying the patch to
+the untouched `arm.cc` extracted from the verified GNU source archive reproduces
+the built source exactly. The Makefile rebuilds and installs the isolated
+compiler, builds compatible plugins, and applies this plugin only to the new
+Thumb translation unit. Existing ARM dispatcher support remains compatible.
+
+`make compare -j8` passes the complete ROM checksum. The installed compiler
+passes 5,760 standalone frame/rewrite executions and rejects five invalid
+contracts. The 768 tied-note executions now also compare every r0-r12 value
+between the original and production ROM code, alongside memory, stack and
+flags. The checker confirms the compiled candidate and production bytes agree.
+The linked audit assigns 64 Thumb bytes to the new object with no orphan
+mappings. Inventory is now 453 main C files and 54 assembly entry markers;
+embedded code and other remaining executable scopes still require completion.

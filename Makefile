@@ -133,7 +133,7 @@ ARM_DISPATCH_CC := .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
 ARM_DISPATCH_DIR := .deps/flood-core-new-backend
 ARM_DISPATCH_TABLE := $(ARM_DISPATCH_DIR)/branch_tables.so
 ARM_DISPATCH_XOR := $(ARM_DISPATCH_DIR)/xor_flags.so
-$(ARM_DISPATCH_CC): tools/arm-dispatch/build_backend.py tools/arm-dispatch/matching.md
+$(ARM_DISPATCH_CC): tools/arm-dispatch/build_backend.py tools/arm-dispatch/matching.md tools/arm-dispatch/thumb-leaf-frame.patch
 	$(PYTHON) tools/arm-dispatch/build_backend.py
 
 $(ARM_DISPATCH_TABLE): $(ARM_DISPATCH_CC) tools/arm-dispatch/branch_tables.cc tools/arm-dispatch/build_branch_tables.py
@@ -177,6 +177,14 @@ src/sio_multiboot_wait.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mab
 # Matching Thumb audio leaves; channel linkage uses shared PCM/CGB fields.
 src/m4a_clear_chain.o src/m4a_pend.o src/m4a_clear_mod.o src/m4a_read_command.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/m4a_clear_chain.o src/m4a_pend.o src/m4a_clear_mod.o src/m4a_read_command.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -g
+
+THUMB_LEAF_PLUGIN := $(ARM_DISPATCH_DIR)/leaf_frame.so
+$(THUMB_LEAF_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/leaf_frame.cc tools/arm-dispatch/build_leaf_frame.py
+	$(PYTHON) tools/arm-dispatch/build_leaf_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_end_tie.o: $(THUMB_LEAF_PLUGIN)
+src/m4a_end_tie.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_end_tie.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -Werror=attributes -fplugin=$(THUMB_LEAF_PLUGIN)
 
 # Empty constraints must contribute zero estimated bytes in this translation
 # unit, or Event1B_TEXTSHOW receives an unnecessarily expanded branch.

@@ -46,3 +46,16 @@ The unchecked switch attribute requires the caller to supply a valid connection
 in 0..5. Prefix emission rejects surviving references to the removed literal
 pool. Shared literal relocations are checked by the linker for ARM range limits.
 These tools support this matching build; they are not a general GCC distribution.
+
+The same isolated compiler also builds `src/m4a_end_tie.c`. The pinned
+`thumb-leaf-frame.patch` and `leaf_frame` plugin provide an explicit Thumb-1
+leaf contract, low-register save frame, encodable unsigned boundary rewrites
+and commutative register TST operand ordering. Default functions retain normal
+compiler behavior. The builder verifies both original and patched `arm.cc`
+hashes, applies the patch to original source when needed, and records its hash.
+`build_leaf_frame.py` builds against the chosen compiler's plugin headers.
+
+`research/audio/check_leaf_frame.py` checks the contract and rejected uses.
+`research/audio/check_end_tie.py --compiler COMPILER --plugin PLUGIN --production`
+compares the exact candidate with the production ROM and executes the original
+and production code, including r0-r12, stack, complete test RAM and flags.

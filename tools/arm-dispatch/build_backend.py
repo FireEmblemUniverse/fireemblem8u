@@ -36,6 +36,14 @@ def main():
     original=text.removesuffix(include)
     assert hashlib.sha256(original.encode()).hexdigest()=='18263badc08b5d6dba7de2cfc1fbfeac918509b60fdc12d58503505961d22585','Unexpected ARM backend source changes'
     if '(include "matching.md")' not in text:md.write_text(text+include)
+    leaf_patch=Path(__file__).with_name('thumb-leaf-frame.patch')
+    arm_source=source/'gcc/config/arm/arm.cc'
+    original_arm_sha='4266ee54c3ba2a8f89630486a304624a80ec3c2daa8550c143d5b24eee3c1e0c'
+    patched_arm_sha='c33816b724d0f27bb93e806e3e5eb6769301617d97148adecb01fa7e707cda2f'
+    current_arm_sha=hashlib.sha256(arm_source.read_bytes()).hexdigest()
+    if current_arm_sha==original_arm_sha:
+        subprocess.run(['patch','--batch','-p1','-i',str(leaf_patch.resolve())],cwd=source,check=True)
+    assert hashlib.sha256(arm_source.read_bytes()).hexdigest()==patched_arm_sha,'Unexpected Thumb frame backend changes'
     build=OUT/'build';build.mkdir(exist_ok=True)
     env=os.environ.copy()
     for key in ('C_INCLUDE_PATH','CPLUS_INCLUDE_PATH','MAKEFLAGS'):env.pop(key,None)
@@ -50,6 +58,7 @@ def main():
     subprocess.run(['make','-j4','all-gcc'],cwd=build,env=env,check=True)
     subprocess.run(['make','install-gcc'],cwd=build,env=env,check=True)
     report={'source_url':URL,'source_sha256':SHA,'extension_sha256':hashlib.sha256(extension.read_bytes()).hexdigest(),
+            'leaf_patch_sha256':hashlib.sha256(leaf_patch.read_bytes()).hexdigest(),'arm_cc_sha256':patched_arm_sha,
             'configure':configure,'target':'all-gcc','compiler':str(OUT/'install/bin/arm-none-eabi-gcc'),
             'cc1_sha256':hashlib.sha256((build/'gcc/cc1').read_bytes()).hexdigest()}
     (OUT/'build-info.json').write_text(json.dumps(report,indent=2)+'\n')

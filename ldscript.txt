@@ -595,6 +595,7 @@ SECTIONS
         src/m4a_1.o(.text.after_ply_pend);
         src/m4a_track_stop.o(.text);
         src/m4a_1.o(.text.after_track_stop);
+        src/m4a_end_tie.o(.text);
         src/m4a_clear_mod.o(.text);
         . = ALIGN(4);
         src/m4a_read_command.o(.text);

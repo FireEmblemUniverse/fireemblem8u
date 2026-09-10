@@ -1479,46 +1479,7 @@ _081DDCEA:
 	.pool
 	thumb_func_end ply_note
 
-	thumb_func_start ply_endtie
-ply_endtie:
-	push {r4,r5}
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r3, [r2]
-	cmp r3, 0x80
-	bhs _081DDD16
-	strb r3, [r1, o_MusicPlayerTrack_key]
-	adds r2, 0x1
-	str r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	b _081DDD18
-_081DDD16:
-	ldrb r3, [r1, o_MusicPlayerTrack_key]
-_081DDD18:
-	ldr r1, [r1, o_MusicPlayerTrack_chan]
-	cmp r1, 0
-	beq _081DDD40
-	movs r4, 0x83
-	movs r5, 0x40
-_081DDD22:
-	ldrb r2, [r1, o_SoundChannel_status]
-	tst r2, r4
-	beq _081DDD3A
-	tst r2, r5
-	bne _081DDD3A
-	ldrb r0, [r1, o_SoundChannel_mk]
-	cmp r0, r3
-	bne _081DDD3A
-	movs r0, 0x40
-	orrs r2, r0
-	strb r2, [r1, o_SoundChannel_status]
-	b _081DDD40
-_081DDD3A:
-	ldr r1, [r1, o_SoundChannel_np]
-	cmp r1, 0
-	bne _081DDD22
-_081DDD40:
-	pop {r4,r5}
-	bx lr
-	thumb_func_end ply_endtie
+@ ply_endtie is generated from matching C.
 
 @ clear_modM is linked here from m4a_clear_mod.c.
 	.align 2, 0

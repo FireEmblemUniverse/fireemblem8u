@@ -13,6 +13,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--compiler",default="arm-none-eabi-gcc")
     parser.add_argument("--plugin",type=Path)
+    parser.add_argument("--production",action="store_true")
     args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     flags=['-O1','-std=gnu89','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fomit-frame-pointer','-fno-schedule-insns','-fno-schedule-insns2','-fno-if-conversion','-fno-if-conversion2','-fno-reorder-blocks']
@@ -21,6 +22,10 @@ def main():
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.o'),str(OUT/'candidate.bin')],check=True)
     candidate=(OUT/'candidate.bin').read_bytes();original=(ROOT/'baserom.gba').read_bytes()[0xd0044:0xd0084]
+    if args.production:
+        production=(ROOT/'fireemblem8.gba').read_bytes()[0xd0044:0xd0084]
+        assert candidate==production, 'Production object differs from checked C candidate'
+        candidate=production
     count=0
     for command in (0,1,60,127,128,255):
         key=command if command<128 else 60
@@ -48,7 +53,7 @@ def main():
                     assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                     for reg in range(4,12):assert uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(reg)))==0x12340000+reg
                     memory=bytes(uc.mem_read(RAM,0x1000));assert memory==expected,(command,layout)
-                    results.append((memory,uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000))
+                    results.append((memory,[uc.reg_read(getattr(r,"UC_ARM_REG_R"+str(reg))) for reg in range(13)] if args.production else [],uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000))
                 assert results[0]==results[1]
                 count+=1
     report={'cases':count,'candidate_bytes':len(candidate),'original_bytes':len(original),'differing_halfword_offsets':[i for i in range(0,min(len(candidate),len(original)),2) if candidate[i:i+2]!=original[i:i+2]],'complete_match':candidate==original}
