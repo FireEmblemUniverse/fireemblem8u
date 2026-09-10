@@ -123,3 +123,20 @@ checks actual destination-entry SP/LR as well as memory and final registers.
 The assembler/linker must reject out-of-range Thumb branches; this contract
 does not synthesize veneers. `research/audio/check_tail_contracts.py` and
 `check_tail_range.py` cover rejection rules and branch limits.
+
+
+## Shared Thumb stack frames
+
+`shared_frame.cc` and `build_shared_frame.py` support the opt-in
+`matching_shared_frame` attribute used by `src/m4a_repeat.c`. One declared
+`destination=SYMBOL` is replaced by a branch to `entry=SYMBOL`, whose private
+contract consumes the already saved LR. Explicit `returning-call=SYMBOL`
+entries remain ordinary calls. The LR-only entry frame and common local return
+are retained, so local-completion paths remain valid. Terminal transfer paths
+must reach that return without further body work. Debug/unwind, unsupported
+stack uses, indirect calls and backward control flow are rejected.
+
+The repeat oracle compares actual shared-entry SP/LR and covers counter
+wraparound and aliased reads. The private entry and returning-reader register
+contracts are verified against ROM code; they are not inferred for arbitrary
+manifest symbols. Branch-range restrictions are the same as terminal transfers.

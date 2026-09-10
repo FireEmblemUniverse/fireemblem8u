@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the pattern integration (baseline `5a6f4d3b` plus this change),
+After the repeat integration (baseline `e1c1d023` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 463 main
-C files, 38 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 464 main
+C files, 37 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -3046,3 +3046,31 @@ needed. Next is promotion and full-ROM integration. The production baseline
 remains `aea5146b` with 38 assembly entry markers. Local evidence is in
 `.deps/repeat-match/shared-oracle.log`, `shared-contract.log`, plugin build
 provenance and the execution report.
+
+
+### September 9: repeat handler integrated
+
+`src/m4a_repeat.c` now replaces `ply_rept` at `080CF9E8..080CFA18`.
+The complete section matches: 46 Thumb instruction bytes and two padding bytes.
+The source calls the regular typed `ply_goto` declaration using a bound r0 player
+pointer; it no longer needs a separate assembler-name alias. The matching pass
+redirects the terminal calls to the original shared-stack entry while retaining
+the repeat handler's LR push and local return.
+
+The shared-frame pass and builder were promoted to `tools/arm-dispatch/` and
+added to the production Makefile for this object. The production plugin passes
+ten rejection fixtures and the acceptance/unchanged-unannotated checks.
+`research/audio/check_repeat.py --compiler COMPILER --plugin PLUGIN
+--require-match --production` passes 264,704 cases: 66,950 jumping cases and
+197,754 local completions. There are no shared-entry SP/LR, track-RAM, r0-r12,
+flag or final return differences. Counter wraparound and aliased command reads
+remain explicitly covered.
+
+`make compare -j8` passes for all ROM bytes. The linked audit attributes
+46 Thumb bytes and two padding bytes to `src/m4a_repeat.o`, with no orphan
+mappings. Source inventory is 464 main C files and 37 assembly entry markers.
+The 575 inline sites comprise 233 register bindings, 334 empty constraints,
+one directive-only template and seven instruction templates. Audio engine,
+LFO/modulation commands, embedded, transfer-wrapper, naked fallback and complete
+executable-classification work remain unfinished. Production logs and audits
+are retained under `.deps/repeat-match/`.

@@ -555,33 +555,9 @@ _081DD64A:
 	.align 2, 0
 	.section .text.after_ply_pend, "ax", %progbits
 
-	thumb_func_start ply_rept
-ply_rept:
-	push {lr}
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r3, [r2]
-	cmp r3, 0
-	bne ply_rept_1
-	adds r2, 1
-	str r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	b ply_goto_1
-ply_rept_1:
-	ldrb r3, [r1, o_MusicPlayerTrack_repN]
-	adds r3, 1
-	strb r3, [r1, o_MusicPlayerTrack_repN]
-	mov r12, r3
-	bl ld_r3_tp_adr_i
-	cmp r12, r3
-	bhs ply_rept_2
-	b ply_goto_1
-ply_rept_2:
-	movs r3, 0
-	strb r3, [r1, o_MusicPlayerTrack_repN]
-	adds r2, 5
-	str r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	pop {r0}
-	bx r0
-	thumb_func_end ply_rept
+@ ply_rept is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_rept, "ax", %progbits
 
 @ ply_prio is generated from matching C.
 	.align 2, 0

@@ -206,6 +206,14 @@ src/m4a_tempo.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_tempo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+THUMB_SHARED_FRAME_PLUGIN := $(ARM_DISPATCH_DIR)/shared_frame.so
+$(THUMB_SHARED_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/shared_frame.cc tools/arm-dispatch/build_shared_frame.py
+	$(PYTHON) tools/arm-dispatch/build_shared_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_repeat.o: $(THUMB_SHARED_FRAME_PLUGIN)
+src/m4a_repeat.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_repeat.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_SHARED_FRAME_PLUGIN) -fplugin-arg-shared_frame-destination=ply_goto -fplugin-arg-shared_frame-entry=ply_goto_1 -fplugin-arg-shared_frame-returning-call=ld_r3_tp_adr_i
+
 THUMB_TAIL_TRANSFER_PLUGIN := $(ARM_DISPATCH_DIR)/tail_transfer.so
 $(THUMB_TAIL_TRANSFER_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/tail_transfer.cc tools/arm-dispatch/build_tail_transfer.py
 	$(PYTHON) tools/arm-dispatch/build_tail_transfer.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)

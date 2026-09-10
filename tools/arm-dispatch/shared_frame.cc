@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Research shared-frame transfer: preserve entry LR push and the local return.
+// Restricted shared-frame transfer: preserve entry LR push and the local return.
 #include <vector>
 #include <set>
 #include <string>

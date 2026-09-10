@@ -15,9 +15,10 @@ ENTRY, TRACK, RETURN = 0x080cf9e8, 0x02000000, 0x080e0000
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler', required=True)
-    p.add_argument('--source', type=Path, default=ROOT/'research/audio/repeat.c')
+    p.add_argument('--source', type=Path, default=ROOT/'src/m4a_repeat.c')
     p.add_argument('--require-match', action='store_true')
-    p.add_argument('--plugin', type=Path)
+    p.add_argument('--plugin', type=Path, required=True)
+    p.add_argument('--production', action='store_true')
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
@@ -39,6 +40,8 @@ def main():
     candidate = (OUT/'candidate.bin').read_bytes()
     if args.require_match:
         assert candidate == original
+    if args.production:
+        assert candidate == (ROOT/'fireemblem8.gba').read_bytes()[ENTRY-0x08000000:ENTRY-0x08000000+48]
     machines = []
     for code in (original, candidate):
         uc = Uc(UC_ARCH_ARM, UC_MODE_THUMB)
@@ -110,7 +113,7 @@ def main():
                     count += 1
                     jump_cases += take_jump
                     finish_cases += not take_jump
-    report = dict(cases=count, original_bytes=48, candidate_bytes=len(candidate), complete_match=candidate==original,
+    report = dict(cases=count, production=args.production, original_bytes=48, candidate_bytes=len(candidate), complete_match=candidate==original,
                   jump_cases=jump_cases, finish_cases=finish_cases, differing_registers=sorted(different_regs),
                   flag_difference_cases=flag_differences, shared_entry_difference_cases=entry_differences,
                   scope='All repeat limit/counter pairs in normal/rejected RAM, counter/pointer aliases, actual reader and goto, track RAM, r0-r12, flags, SP and return PC. Shared-entry SP/LR differences reported.')
