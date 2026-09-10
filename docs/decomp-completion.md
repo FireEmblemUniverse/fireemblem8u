@@ -8874,3 +8874,41 @@ Sources: `research/audio/ply_note_command.c`, `check_ply_note_command.py`,
 `.deps/soundmain-packed/ply-note/command-report.json`, `command-check.log`,
 `command-candidate-model.json`, individual rejection logs and the linked
 `command-candidate.elf`/`command-candidate.bin` artifacts.
+
+
+## September 10, 2026 — ply_note argument decoder integrated
+
+On baseline `a6bd7b4c`, `src/m4a_ply_note_command.c` replaces the 38 assembly
+instruction bytes at 080CFE64..080CFE8A. Source identity is verified against the
+candidate except for the function name; the linked region is C-owned. Exact
+entry+32, extent and continuation constraints preserve the original layout.
+The entry's two pool loads now use explicit relocations to the original literals
+at 080D003C and 080D0040. Splitting the assembly initially exposed a two-byte
+section-alignment shift, which the new continuation assertion rejected. Explicit
+original halfword padding before the literal pool fixes the halfword-starting
+continuation section without adding input-section alignment.
+
+`make compare -j8` passes. All 338,688 decoder cases pass with production ROM and
+source identity verified; eleven invalid source/options reject, and unannotated
+output is unchanged. Fresh pinned runtime builds reproduce all four images and
+exported symbols. SoundMain/mixer and all 602 MPlayMain instruction bytes retain
+verified C ownership. The decoder model stops at tone selection and does not
+prove full ply_note behavior.
+
+Mapped main-ROM ownership is 720,796 C-owned (92.69%), 33,870 mixed C/assembly,
+1,172 assembly-source and 21,792 runtime archive instruction bytes (777,630 total).
+Reviewed non-library assembly is 1,582 main-ROM bytes and 420 expanded-payload
+bytes. Inventory is 567 tracked main C files and 29 assembly entry markers.
+ply_note now retains 464 assembly instruction bytes: 32 bytes before the decoder
+and 432 after it. Totals include inherited community contributions. Next: tone
+selection, channel allocation and the remaining setup/frame paths, alongside the
+broader outstanding runtime/unit-list/transfer and executable-classification work.
+
+Evidence: `.deps/soundmain-packed/ply-note/command-production-build.log`,
+`command-production-check.log`, `command-production-identity.json`, `source.json`,
+`linked.json`, `command-layout.log` and refreshed tracked ownership/runtime/audio
+receipts. Production ELF SHA-256:
+`9d8f8cd0d82ce1c30c11cb6fae9b33676e9dea0fbec728bb23f4d27d9e30e771`.
+
+The valid full layout links and all 207 altered layouts reject, including four
+new decoder extent/continuation and entry literal-placement cases.

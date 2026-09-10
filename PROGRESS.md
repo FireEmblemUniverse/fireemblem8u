@@ -2,22 +2,15 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `c9b50c09`): MPlayMain's final 16-byte lock/initial push is matching C. All 602 mapped MPlayMain instruction bytes are now C-owned; its 14 literal/padding bytes remain assembly data. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,758/777,630 mapped instruction bytes (92.69%); reviewed non-library assembly is 1,620 bytes, with 566 tracked C files. The lock passes 32,256 direct cases and 86,016 entry-path cases; 22 unsupported contracts reject. The valid layout links and all 203 altered layouts reject. ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `a6bd7b4c`): ply_note's 38-byte optional-argument decoder is matching C. All 338,688 production cases pass; eleven unsupported contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,796/777,630 mapped instruction bytes (92.69%); reviewed non-library assembly is 1,582 bytes, with 567 tracked C files. The valid layout links and all 207 altered layouts reject. ply_note retains 464 assembly instruction bytes. MPlayMain's 602 mapped instruction bytes remain C-owned, with 14 literal/padding bytes in assembly data. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `113e02c9`): `ply_note`'s 38-byte optional-argument
-decoder now matches C exactly, including CPU flags. All 338,688 independent
-command/track-alias cases pass; eleven unsupported compiler/source contracts
-reject and unannotated output is unchanged. Integration and linker-layout checks
-are next. Production ownership remains 92.69%.
-
-Next: recover the remaining 502 instruction bytes of `ply_note`, then continue
-through the remaining low-level code and final executable-classification audit.
-MPlayMain's complete-instruction ownership receipt is `docs/mplay-code-region.json`;
-it does not assert full-game completion or independent validation of every real
-callback implementation.
+Next: recover `ply_note` tone selection and channel allocation, then its remaining
+setup/frame paths (464 assembly instruction bytes total). MPlayMain's ownership
+receipt is `docs/mplay-code-region.json`; it does not assert full-game completion
+or independent validation of every real callback implementation.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -32,9 +25,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.69%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,620 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,582 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ply_note command decoder | **38/38 bytes exact; 338,688 cases pass; eleven unsupported contracts and 207 altered layouts reject; full ROM/runtime match** |
 | Complete MPlayMain instruction ownership | **602/602 mapped instruction bytes C-owned; 14 literal/padding bytes remain assembly data; full ROM/runtime match** |
 | Integrated MPlayMain lock/initial push | **16/16 bytes exact; 32,256 direct cases and 86,016 entry-path cases pass; 22 invalid contracts and 203 altered layouts reject** |
 | Integrated MPlayMain saved-entry frame | **14/14 bytes exact; 26,880 direct cases pass; full ROM/runtime match; 86,016 entry-path cases pass; 197 altered layouts reject** |
@@ -143,7 +137,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover `ply_note` (502 mapped instruction bytes). All MPlayMain instructions are now C-owned; its literal/padding data remains assembly. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: recover `ply_note` tone selection and channel allocation (464 assembly instruction bytes remain across the routine). All MPlayMain instructions are now C-owned; its literal/padding data remains assembly. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer

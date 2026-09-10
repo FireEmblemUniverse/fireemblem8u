@@ -532,33 +532,21 @@ ply_note:
 	sub sp, 0x18
 	str r1, [sp]
 	adds r5, r2, 0
-	ldr r1, =SOUND_INFO_PTR
+	ldr r1, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt_PlyNoteSoundInfo
 	ldr r1, [r1]
 	str r1, [sp, 0x4]
-	ldr r1, =gClockTable
+	ldr r1, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt_PlyNoteClockTable
 	adds r0, r1
 	ldrb r0, [r0]
 	strb r0, [r5, o_MusicPlayerTrack_gateTime]
-	ldr r3, [r5, o_MusicPlayerTrack_cmdPtr]
-	ldrb r0, [r3]
-	cmp r0, 0x80
-	bhs _081DDB46
-	strb r0, [r5, o_MusicPlayerTrack_key]
-	adds r3, 0x1
-	ldrb r0, [r3]
-	cmp r0, 0x80
-	bhs _081DDB44
-	strb r0, [r5, o_MusicPlayerTrack_velocity]
-	adds r3, 0x1
-	ldrb r0, [r3]
-	cmp r0, 0x80
-	bhs _081DDB44
-	ldrb r1, [r5, o_MusicPlayerTrack_gateTime]
-	adds r1, r0
-	strb r1, [r5, o_MusicPlayerTrack_gateTime]
-	adds r3, 0x1
-_081DDB44:
-	str r3, [r5, o_MusicPlayerTrack_cmdPtr]
+	thumb_func_end ply_note
+	.global PlyNoteCommandBoundary
+PlyNoteCommandBoundary:
+	.section .text.after_ply_note_command, "ax", %progbits
+	.global PlyNoteToneSetup
+PlyNoteToneSetup:
 _081DDB46:
 	movs r0, 0
 	str r0, [sp, 0x14]
@@ -796,13 +784,16 @@ _081DDCEA:
 	mov r11, r3
 	pop {r0}
 	bx r0
-	.pool
-	thumb_func_end ply_note
+	.2byte 0 @ Original padding before the note literals.
+	.global lt_PlyNoteSoundInfo
+lt_PlyNoteSoundInfo: .word SOUND_INFO_PTR
+	.global lt_PlyNoteClockTable
+lt_PlyNoteClockTable: .word gClockTable
+
 
 @ ply_endtie is generated from matching C.
 
 @ clear_modM is linked here from m4a_clear_mod.c.
-	.align 2, 0
 	.section .text.after_clear_mod, "ax", %progbits
 
 @ Command-byte reader is generated from matching C.

@@ -6,7 +6,7 @@
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "fa75006d424318e3af8ec33a88de4b9a56c6e613201c9b52b4d40e2ef4d7326b",
+      "elf_sha256": "9d8f8cd0d82ce1c30c11cb6fae9b33676e9dea0fbec728bb23f4d27d9e30e771",
       "assembly_instruction_bytes": 726,
       "C_source_located_instruction_bytes": 0,
       "C_source_rebuilt_instruction_bytes": 21066,
@@ -440,7 +440,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "9dea6e47b331589426132e9c0cf818184da33a83455cd985f87e65fd76647000",
+  "rebuild_report_sha256": "7a32a3218ae24c47947f524af380b2856404d5ce103b437777f361daf9db4984",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

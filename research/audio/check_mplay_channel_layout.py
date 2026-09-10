@@ -200,6 +200,11 @@ def main():
  for name,offset in [('lock_literal_far',2048),('lock_literal_backward',0),('lock_literal_odd',613),('lock_literal_wrong',608)]:
   needle='        ASSERT(lt2_ID_NUMBER == __mplay_lock_start + 612'
   cases.append((name,source.replace(needle,'        lt2_ID_NUMBER = __mplay_lock_start + '+str(offset)+';\n'+needle,1),'lock literal placement'))
+ cases += [('note_command_extent',source.replace('        __ply_note_command_end = .;','        . += 2;\n        __ply_note_command_end = .;'),'ply_note command extent or continuation'),
+           ('note_command_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_command);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_command);'),'ply_note command extent or continuation')]
+ for name,symbol in [('note_sound_literal','lt_PlyNoteSoundInfo'),('note_clock_literal','lt_PlyNoteClockTable')]:
+  needle='        ASSERT(lt_PlyNoteSoundInfo =='
+  cases.append((name,source.replace(needle,'        '+symbol+' = (ply_note & ~1) + 506;\n'+needle,1),'ply_note entry literal placement'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

@@ -1740,6 +1740,19 @@ SECTIONS
         src/m4a_track_stop.o(.text);
         src/m4a_channel_volume.o(.text);
         src/m4a_1.o(.text.after_channel_volume);
+        __ply_note_command_start = .;
+        src/m4a_ply_note_command.o(.text);
+        __ply_note_command_end = .;
+        src/m4a_1.o(.text.after_ply_note_command);
+        ASSERT((PlyNoteCommand & ~1) == PlyNoteCommandBoundary &&
+               __ply_note_command_start == (ply_note & ~1) + 32 &&
+               __ply_note_command_end - __ply_note_command_start == 38 &&
+               PlyNoteToneSetup == __ply_note_command_end,
+               "ply_note command extent or continuation changed");
+        ASSERT(lt_PlyNoteSoundInfo == (ply_note & ~1) + 504 &&
+               lt_PlyNoteClockTable == lt_PlyNoteSoundInfo + 4 &&
+               (lt_PlyNoteSoundInfo & 3) == 0,
+               "ply_note entry literal placement changed");
         src/m4a_end_tie.o(.text);
         src/m4a_clear_mod.o(.text);
         . = ALIGN(4);
