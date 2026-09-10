@@ -309,11 +309,9 @@ _081DD0A8:
 SoundMainRAM_PackedBoundary:
 	.section .text.after_packed, "ax", %progbits
 	.arm
-	.global SoundMainRAM_PackedAdvance
-	.type SoundMainRAM_PackedAdvance, %function
-SoundMainRAM_PackedAdvance:
-	subs r8, r8, 0x4
-	bgt _081DD0A8
+	.global SoundMainRAM_PackedFinish
+	.type SoundMainRAM_PackedFinish, %function
+SoundMainRAM_PackedFinish:
 	adds r8, r8, lr
 	beq _081DD22C
 _081DD0EC:

@@ -4169,3 +4169,41 @@ and seven instruction templates). Remaining outer-loop and channel/frame work
 is not credited as complete. Evidence: `.deps/soundmain-packed/word-production*.json`,
 word-production-build.log, word-ownership.log, and the refreshed complete-call
 production report under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — packed outer countdown integrated (60 bytes)
+
+Baseline: `e42c080c`. `src/m4a_packed.c` now owns the original 60-byte span
+at 0x080CF730 through 0x080CF76C, adding the SUBS r8,4 / BGT word-load pair.
+The C outer loop saves the old remaining count, subtracts four with unsigned
+wrap, and repeats when the old count interpreted as signed exceeds four.
+Comparing the wrapped result against zero would differ at signed overflow.
+The existing opt-in subtract/compare compiler rule generates the original
+flag-setting subtraction. No new instruction templates or compiler rules were
+introduced. The linker checks the 60-byte extent and adjacent ARM continuation
+`SoundMainRAM_PackedFinish`; the remaining count-plus-LR and finish branch stay
+in assembly. The complete original 932-byte mixer span is preserved.
+
+`make compare -j8` passes for the full ROM. The extended packed-word checker
+with `--outer` passes 18,432 production/original cases from ROM and 18,432 after
+copying the mixer to RAM. Counts rotate through 0, 1, 2, 3, 4, 5, 7, 8, 9, 12,
+20, 528, 0x80000000, 0x80000001 and 0xffffffff; these exercise one through 132
+word iterations, partial-count rounding, underflow and signed-overflow exits.
+Each case checks source/output pointers, final count, ordered reads and writes,
+full test memory, r0-r12, CPSR, untouched SP/LR and stack canaries. Source-byte,
+volume and initial-word combinations include overlapping right/left output
+and an unaligned source. Counts are distributed across those combinations,
+not an exhaustive Cartesian product. The production SoundMain composition
+regression again passes 3,528 calls, including 1,728 forced deadline exits.
+
+Regenerated ownership reports show 719,276 C-owned main instruction bytes,
+33,870 in C objects with assembly, 2,692 assembly-source bytes and 21,792 runtime
+bytes out of 777,630 total. The rounded C-owned share remains 92.49%; this is
+not overall completion. Reviewed non-library assembly is 3,102 main bytes and
+420 expanded-payload bytes. Source counts remain 473 C files, 32 entry markers
+and two manual assembly declarations; inline sites total 621 (272 register
+bindings, 341 empty constraints, one directive and seven instruction templates).
+The broader audio frame/channel integration and runtime rebuild work remain
+unfinished. Evidence: `.deps/soundmain-packed/outer-build.log`,
+`outer-production.json`, `outer-production-ram.json`, `outer-source-audit.json`,
+and `.deps/soundmain-complete/production-report.json`.

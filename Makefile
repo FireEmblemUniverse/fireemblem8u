@@ -228,9 +228,9 @@ $(ARM_ADD_CARRY_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/add_carry.cc tool
 ARM_ADJACENT_PLUGIN := $(ARM_DISPATCH_DIR)/arm_adjacent.so
 $(ARM_ADJACENT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/arm_adjacent.cc tools/arm-dispatch/build_arm_adjacent.py
 	$(PYTHON) tools/arm-dispatch/build_arm_adjacent.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
-src/m4a_packed.o: $(ARM_ADD_CARRY_PLUGIN) $(ARM_ADJACENT_PLUGIN)
+src/m4a_packed.o: $(ARM_ADD_CARRY_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_packed.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
-src/m4a_packed.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_PackedAdvance
+src/m4a_packed.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADD_CARRY_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_PackedFinish
 
 src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_PC_ADDRESS_PLUGIN)
 src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -

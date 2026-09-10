@@ -14,13 +14,13 @@ ENTRY, DATA, OUTPUT, SP = 0x080cf730, 0x02000000, 0x02001000, 0x03007000
 
 
 def main():
-    p = argparse.ArgumentParser(description=__doc__); p.add_argument('--copied-ram', action='store_true'); a = p.parse_args()
+    p = argparse.ArgumentParser(description=__doc__); p.add_argument('--copied-ram', action='store_true'); p.add_argument('--outer', action='store_true'); a = p.parse_args()
     original = (ROOT / 'baserom.gba').read_bytes(); production = (ROOT / 'fireemblem8.gba').read_bytes()
     assert hashlib.sha1(original).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     nm = subprocess.check_output(['arm-none-eabi-nm', '-S', str(ROOT / 'fireemblem8.elf')], text=True)
     fields = next(line.split() for line in nm.splitlines() if line.endswith(' SoundMainRAM_Packed'))
-    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 52, fields
-    assert production[ENTRY-0x08000000:ENTRY-0x08000000+52] == original[ENTRY-0x08000000:ENTRY-0x08000000+52]
+    assert int(fields[0], 16) == ENTRY and int(fields[1], 16) == 60, fields
+    assert production[ENTRY-0x08000000:ENTRY-0x08000000+60] == original[ENTRY-0x08000000:ENTRY-0x08000000+60]
     machines = []
     def access(uc, kind, address, size, value, trace):
         if kind == UC_MEM_READ: value = int.from_bytes(uc.mem_read(address, size), 'little')
@@ -34,37 +34,46 @@ def main():
         machines.append((uc, trace))
     entry = ENTRY + (0x03002c60 - 0x080cf54c if a.copied_ram else 0)
     cases = 0
+    span = 60 if a.outer else 52
+    counts = (0, 1, 2, 3, 4, 5, 7, 8, 9, 12, 20, 528, 0x80000000, 0x80000001, 0xffffffff)
+    exercised_counts = set()
     for byte in range(256):
         for source in (DATA + 0x1800, OUTPUT, OUTPUT + 1, OUTPUT + 1584):
             for right, left in ((0, 0), (1, 255), (255, 1), (128, 128), (255, 255), (17, 73)):
                 for packed_right, packed_left in ((0, 0), (0xffffffff, 0x80808080), (0x01234567, 0xfedcba98)):
+                    remaining = counts[cases % len(counts)] if a.outer else 4
+                    exercised_counts.add(remaining)
+                    words = max(1, (remaining + 3) // 4) if remaining < 0x80000000 else 1
+                    samples = 4 * words
                     raw = bytearray([0xa5]) * 0x2000
-                    struct.pack_into('<I', raw, OUTPUT-DATA, packed_right)
-                    struct.pack_into('<I', raw, OUTPUT-DATA+1584, packed_left)
-                    raw[source-DATA:source-DATA+4] = bytes((byte, byte ^ 128, 255-byte, (byte << 1 | byte >> 7) & 255))
+                    for offset in range(0, samples, 4):
+                        struct.pack_into('<I', raw, OUTPUT-DATA+offset, packed_right)
+                        struct.pack_into('<I', raw, OUTPUT-DATA+1584+offset, packed_left)
+                    raw[source-DATA:source-DATA+samples] = bytes((byte, byte ^ 128, 255-byte, (byte << 1 | byte >> 7) & 255)) * words
                     snapshots = []
                     for uc, trace in machines:
                         trace.clear(); uc.mem_write(DATA, bytes(raw)); uc.mem_write(SP-16, bytes([0xa5]) * 32)
                         uc.reg_write(r.UC_ARM_REG_CPSR, 0x13 | (cases % 16) << 28)
                         regs = [0x12340000+n for n in range(13)]; regs[3] = source; regs[5] = OUTPUT
-                        regs[10] = right << 16; regs[11] = left << 16
+                        regs[8] = remaining; regs[10] = right << 16; regs[11] = left << 16
                         for n, value in enumerate(regs): uc.reg_write(getattr(r, 'UC_ARM_REG_R'+str(n)), value)
                         lr = (0, 7, 0xdeadbeef)[cases % 3]
                         uc.reg_write(r.UC_ARM_REG_SP, SP); uc.reg_write(r.UC_ARM_REG_LR, lr)
-                        uc.emu_start(entry, entry+52, count=100)
-                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+52
-                        assert uc.reg_read(r.UC_ARM_REG_R3) == source+4
-                        assert uc.reg_read(r.UC_ARM_REG_R5) == OUTPUT+4
+                        uc.emu_start(entry, entry+span, count=100 * words)
+                        assert uc.reg_read(r.UC_ARM_REG_PC) == entry+span
+                        assert uc.reg_read(r.UC_ARM_REG_R3) == source+samples
+                        assert uc.reg_read(r.UC_ARM_REG_R5) == OUTPUT+samples
                         assert uc.reg_read(r.UC_ARM_REG_SP) == SP and uc.reg_read(r.UC_ARM_REG_LR) == lr
                         assert bytes(uc.mem_read(SP-16, 32)) == bytes([0xa5]) * 32
-                        assert len(trace) == 8
+                        assert len(trace) == 8 * words
+                        assert uc.reg_read(r.UC_ARM_REG_R8) == ((remaining - samples) & 0xffffffff if a.outer else remaining)
                         snapshots.append((tuple(uc.reg_read(getattr(r, 'UC_ARM_REG_R'+str(n))) for n in range(13)),
                                           uc.reg_read(r.UC_ARM_REG_CPSR), bytes(uc.mem_read(DATA, len(raw))), trace.copy()))
                     assert snapshots[0] == snapshots[1], (byte, source, right, left, packed_right, packed_left)
                     cases += 1
-    report = dict(cases=cases, matching_C_bytes=52, copied_RAM=a.copied_ram,
-                  scope='production stereo-word loads, packed loop and stores; all source byte values, source/output aliases, stereo boundaries; exact ordered accesses, full memory, r0-r12, flags, SP/LR and canaries')
-    (OUT / ('word-production-ram.json' if a.copied_ram else 'word-production.json')).write_text(json.dumps(report, indent=2)+'\n')
+    report = dict(cases=cases, matching_C_bytes=60, tested_bytes=span, copied_RAM=a.copied_ram, counts=sorted(exercised_counts),
+                  scope='production stereo-word loads, packed loop and stores; optional outer countdown/repeat including signed overflow; all source byte values, source/output aliases, stereo boundaries; exact ordered accesses, full memory, r0-r12, flags, SP/LR and canaries')
+    (OUT / (('outer' if a.outer else 'word') + ('-production-ram.json' if a.copied_ram else '-production.json'))).write_text(json.dumps(report, indent=2)+'\n')
     print(json.dumps(report, indent=2))
 
 

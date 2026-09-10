@@ -601,9 +601,9 @@ SECTIONS
         src/m4a_1.o(.text.after_packed);
         ASSERT(SoundMainRAM_Packed == SoundMainRAM_PackedBoundary,
                "packed C block must follow fixed-rate setup");
-        ASSERT(__packed_end - __packed_start == 52,
-               "packed C block must contain exactly 52 bytes");
-        ASSERT(SoundMainRAM_PackedAdvance == __packed_end,
+        ASSERT(__packed_end - __packed_start == 60,
+               "packed C block must contain exactly 60 bytes");
+        ASSERT(SoundMainRAM_PackedFinish == __packed_end,
                "packed continuation must be adjacent in ARM mode");
         ASSERT(SoundMainRAM_Reverb == SoundMainRAM_ReverbBoundary,
                "reverb ARM block must follow Thumb dispatch");
