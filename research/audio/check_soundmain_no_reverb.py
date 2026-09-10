@@ -11,7 +11,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     out=ROOT/'.deps/soundmain-packed/no-reverb';out.mkdir(exist_ok=True)
     obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_no_reverb.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding'],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_no_reverb.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/word_postincrement.so')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_NoReverbCandidate',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
     code=binary.read_bytes();returns=[x for x in range(0,len(code),2) if code[x:x+2]==b'\x70\x47'];assert len(returns)==1

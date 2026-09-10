@@ -25,22 +25,26 @@ tree validate(tree *node,tree,tree,int,bool *no_add) {
     return NULL_TREE;
 }
 const attribute_spec contract={"matching_word_postincrement",0,0,true,false,false,false,validate,nullptr};
-void attributes(void *,void *) { register_attribute(&contract); }
+const attribute_spec thumb_contract={"matching_thumb_word_postincrement",0,0,true,false,false,false,validate,nullptr};
+void attributes(void *,void *) { register_attribute(&contract); register_attribute(&thumb_contract); }
 bool general(rtx x) { return REG_P(x) && GET_MODE(x)==SImode && REGNO(x)<13; }
 const pass_data data={RTL_PASS,"word_postincrement",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if (!lookup_attribute("matching_word_postincrement",DECL_ATTRIBUTES(fn->decl))) return 0;
-        if (!TARGET_ARM) fatal_error(UNKNOWN_LOCATION,"word postincrement requires ARM mode");
+        bool arm=lookup_attribute("matching_word_postincrement",DECL_ATTRIBUTES(fn->decl));
+        bool thumb=lookup_attribute("matching_thumb_word_postincrement",DECL_ATTRIBUTES(fn->decl));
+        if (!arm&&!thumb) return 0;
+        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1))
+            fatal_error(UNKNOWN_LOCATION,"word postincrement requires exactly one matching ARM/Thumb mode contract");
         unsigned folded=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!NONJUMP_INSN_P(i)||GET_CODE(PATTERN(i))!=SET) continue;
             rtx set=PATTERN(i),mem=SET_DEST(set),value=SET_SRC(set);
             if (!MEM_P(mem)||GET_MODE(mem)!=SImode||!general(value)) continue;
             rtx base=XEXP(mem,0);
-            if (!general(base)||REGNO(base)==REGNO(value)) continue;
+            if (!general(base)||REGNO(base)==REGNO(value)||(thumb&&(REGNO(base)>=8||REGNO(value)>=8))) continue;
             rtx_insn *next=NEXT_INSN(i);
             while (next && NOTE_P(next)) next=NEXT_INSN(next);
             // Never cross another access, instruction, label or control transfer.

@@ -5500,3 +5500,41 @@ Evidence: `.deps/soundmain-packed/no-reverb/report.json`, candidate.o/.elf/.bin
 in that directory, no-reverb.s, no-reverb-build.log and no-reverb-check.log.
 The original ROM hash is verified for every test run. Larger counts than 1024
 are not execution-tested by this suite.
+
+
+## September 10, 2026 — Thumb word writeback reduces no-reverb matching gaps
+
+Baseline: `8279bf8b`. The no-reverb candidate now explicitly ties its private
+counter after copying r8, and ties each pointer after its word increment. The
+empty compiler constraints prevent address coalescing across interleaved stores.
+They contain no executable assembly. The opt-in new attribute
+matching_thumb_word_postincrement folds only an adjacent SI store plus same-base
+increment by four into Thumb's POST_INC/STMIA instruction. Base and value must
+be distinct low RTL registers. The original ARM attribute remains ARM-only;
+dual attributes and invalid patterns reject. MEM attributes and volatility are
+retained, and the update's REG_INC note is recorded.
+
+The generated no-reverb function drops from 70 to 62 bytes (original 46), and
+r2 is now preserved. All 14,640 original/candidate ROM/copied-RAM cases still
+match ordered stores, required output registers and full tested memory, including
+1,554,080 stores per implementation. Remaining mismatches are r3 in all cases,
+carry flags in the 1,280 counts-below-sixteen cases, and the terminal return/code
+layout. This remains research code and is not production coverage.
+
+`check_thumb_word_postincrement.py` passes 147,456 execution cases across four
+low-register base/value pairs, 384 values, three output addresses, sixteen NZCV
+states and both ARM/Thumb returns. It checks exact STM/BX bytes, all registers,
+SP/LR, preserved flags, exact single write and memory value, including writing
+at SP. Six invalid cases reject; an unannotated object is unchanged. A high C
+value-register case is explicitly accepted when GCC inserts MOV r3,r8 before
+the legal low-register STM. The initial test incorrectly expected that source
+form to reject; no compiler change was needed to correct that expectation.
+The existing ARM writeback suite passes 37,056 comparisons and nine rejections.
+Full production ROM comparison passes and its ELF SHA-256 remains identical to
+the recorded ownership inventory. No production source or coverage counts changed.
+
+Evidence: `.deps/soundmain-packed/no-reverb/report.json`,
+no-reverb-writeback-check.log, thumb-writeback-check.log,
+thumb-writeback-arm-regression.log, thumb-writeback-production-build.log and
+thumb-writeback-build.log. The unresolved shift/carry and zero-inclusive countdown
+rules remain the next matching work.

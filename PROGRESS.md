@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research advance: no-reverb buffer clearing matches memory/store order in 14,640 cases (baseline `45b2789f`); scratch-register, flag and exact Thumb-code differences remain. Latest production milestone remains the complete 488-byte ARM sample-mixing region.
+Updated: September 10, 2026. Latest research advance: no-reverb candidate reduced from 70 to 62 bytes and now preserves r2 (baseline `8279bf8b`); all 14,640 memory cases and 147,456 Thumb writeback checks pass. Exact 46-byte integration remains unfinished.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -224,9 +224,11 @@ assembly function declarations, and seven instruction-bearing inline templates.
 The no-reverb C candidate passes 14,640 memory-semantics cases across original/
 candidate ROM and copied RAM, covering 183 counts, five stereo-buffer offsets,
 all initial flags and 1,554,080 ordered writes per implementation. It preserves
-the original minimum four-pair loop even for counts below sixteen. The measured
-gaps are r2/r3 clobbers in all cases, carry-flag differences in 1,280 small-count
-cases, a return instead of private fallthrough, and 70 emitted bytes versus 46.
+the original minimum four-pair loop even for counts below sixteen. The candidate now uses Thumb store writeback and preserves r2. Remaining measured
+gaps are an r3 clobber, carry-flag differences in 1,280 small-count cases, a return
+instead of private fallthrough, and 62 emitted bytes versus 46. The opt-in Thumb
+writeback rule passes 147,456 executions and six rejection cases; the existing
+ARM rule passes 37,056 executions and nine rejections. Production ELF is unchanged.
 This remains research code and does not increase production coverage.
 Both final ARM exit fragments are now integrated: source rewind/register
 restoration in `src/m4a_resample_finish.c` (eight bytes) and the terminal branch

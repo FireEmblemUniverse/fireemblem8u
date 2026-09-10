@@ -506,3 +506,21 @@ original load attributes. Ordinary pop2 behavior is unchanged. Production
 falling through to channel saving. `check_arm_pop_decrement.py` covers ten
 invalid contracts; `check_soundmain_resample_finish.py` checks production state,
 ordered reads, source wrap and stack canaries in ROM/copied RAM.
+
+
+`word_postincrement.cc` additionally provides opt-in
+`matching_thumb_word_postincrement` for Thumb-1. It requires the same adjacent
+SI store and same-base increment by four, with distinct low-register base/value
+operands. The copied MEM retains volatility and alias attributes; POST_INC
+selects Thumb STMIA writeback and the update is removed. ARM's original attribute
+still rejects Thumb mode, and selecting both attributes rejects. Unannotated
+functions are unchanged. A high C register binding may first be copied into a
+low RTL operand, which is valid; the fold itself never emits a high-register STM.
+
+Thumb STM preserves NZCV, unlike a separate flag-setting ADDS pointer update.
+`check_thumb_word_postincrement.py` verifies the resulting flags, memory, registers
+and both return modes across four register pairs, including a stack-slot output.
+The no-reverb research candidate uses empty tied pointer constraints to preserve
+each store/update boundary, avoiding address coalescing and temporary-register
+copies. These constraints contain no executable instructions. The whole block
+still needs shift/carry, countdown and private-fallthrough matching.
