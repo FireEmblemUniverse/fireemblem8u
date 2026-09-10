@@ -5090,3 +5090,43 @@ word-finish-production.json, word-finish-production-ram.json,
 word-finish-check.log, word-finish-check-ram.log,
 word-finish-source-audit.json and word-finish-ownership.log. The complete-call
 report remains under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — fixed-rate stereo-word completion integrated (20 bytes)
+
+Baseline: `8ca7c1eb`. `src/m4a_fixed_word_finish.c` replaces the five instructions
+at 0x080CF7A8..0x080CF7BC: left/right stereo stores, right-store output writeback,
+SUBS count by four, BGT backward to fixed-rate setup and B forward to channel
+saving. Existing word_postincrement, subtract_compare and arm_adjacent early/
+branch contracts produce the exact sequence without compiler changes. The
+comparison uses the incoming signed count, preserving overflow behavior.
+
+The linker enforces the original 20-byte extent, backward aligned setup at
+0x080CF704, forward aligned save at 0x080CF8B8, copied-mixer scope and both ARM
+branch ranges. `SoundMainRAM_FixedSetup` names the pre-existing local setup
+entry; no new executable code is introduced there. Full ROM checksum passes.
+
+`check_soundmain_fixed_word_finish.py` passes 101,760 cases per mode, 203,520
+total across ROM and copied RAM. The cases cross 265 counts, four output
+placements, six stereo-word pairs and sixteen initial NZCV states. Each mode
+has 50,304 repeat and 51,456 save exits. Independent expected state checks
+left-before-right stores, no reads/extra writes, output+4, wrapped count, exact
+SUBS NZCV, every register, preserved SP/LR, both PCs and complete data/frame
+memory with canaries. Output placements include left/right frame aliases.
+The complete SoundMain regression passes 3,528 calls, including 1,728 deadline
+exits; hardware cycle timing is outside these functional checks.
+
+Refreshed main ownership: 719,572 C-owned instruction bytes (92.53%), 33,870
+mixed-object bytes, 2,396 assembly-source bytes and 21,792 runtime bytes, total
+777,630. Reviewed non-library assembly is 2,806 main bytes and 420 payload bytes.
+Source inventory: 484 C files, 32 assembly entry markers, seven manual declarations,
+691 inline sites (335 register bindings, 348 empty constraints, one directive,
+seven instruction templates). The additional manual declaration is the existing
+setup entry's exported name. Packed-lane control and broader frame/channel and
+runtime rebuilding work remain incomplete.
+
+Evidence under `.deps/soundmain-packed/`: fixed-word-finish-production-build.log,
+fixed-word-finish-production.json, fixed-word-finish-production-ram.json,
+fixed-word-finish-check.log, fixed-word-finish-check-ram.log,
+fixed-word-finish-source-audit.json and fixed-word-finish-ownership.log. The
+complete-call report remains under `.deps/soundmain-complete/`.

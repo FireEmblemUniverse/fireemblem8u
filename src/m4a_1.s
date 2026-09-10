@@ -292,6 +292,9 @@ _081DD044:
 	tst r0, 0x8
 	beq _081DD19C
 _081DD07C:
+	.global SoundMainRAM_FixedSetup
+	.type SoundMainRAM_FixedSetup, %function
+SoundMainRAM_FixedSetup:
 	cmp r2, 0x4
 	ble _081DD0EC
 	subs r2, r2, r8
@@ -321,11 +324,11 @@ SoundMainRAM_ShortCount:
 _081DD118:
 	adds r5, r5, 0x40000000
 	bcc SoundMainRAM_ShortMix
-	str r7, [r5, 0x630]
-	str r6, [r5], 0x4
-	subs r8, r8, 0x4
-	bgt _081DD07C
-	b SoundMainRAM_SaveChannel
+	.global SoundMainRAM_FixedWordBoundary
+SoundMainRAM_FixedWordBoundary:
+@ Fixed-rate stereo stores and sample-count control come from C.
+	.section .text.after_fixed_word_finish, "ax", %progbits
+	.arm
 _081DD134:
 	.global SoundMainRAM_ResampleLoopBoundary
 SoundMainRAM_ResampleLoopBoundary:

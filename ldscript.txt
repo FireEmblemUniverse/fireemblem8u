@@ -604,6 +604,23 @@ SECTIONS
         __short_end = .;
         SoundMainRAM_ShortMix = __short_start + 8;
         src/m4a_1.o(.text.after_short);
+        __fixed_word_start = .;
+        src/m4a_fixed_word_finish.o(.text);
+        __fixed_word_end = .;
+        src/m4a_1.o(.text.after_fixed_word_finish);
+        ASSERT(SoundMainRAM_FixedWordFinish == SoundMainRAM_FixedWordBoundary,
+               "fixed word C block must follow packed-lane advance");
+        ASSERT(__fixed_word_end - __fixed_word_start == 20,
+               "fixed word C block must contain exactly 20 bytes");
+        ASSERT((SoundMainRAM_FixedSetup & 3) == 0 && SoundMainRAM_FixedSetup < __fixed_word_start &&
+               SoundMainRAM_FixedSetup >= (SoundMainRAM & ~1),
+               "fixed word repeat target must be backward ARM code in copied mixer");
+        ASSERT((SoundMainRAM_SaveChannel & 3) == 0 && SoundMainRAM_SaveChannel >= __fixed_word_end &&
+               SoundMainRAM_SaveChannel < SoundMainRAM_End,
+               "fixed word save target must be forward ARM code in copied mixer");
+        ASSERT((__fixed_word_start + 20) - SoundMainRAM_FixedSetup <= 0x2000000 &&
+               SoundMainRAM_SaveChannel - (__fixed_word_start + 24) < 0x2000000,
+               "fixed word branch out of range");
         __resample_loop_start = .;
         src/m4a_resample_loop.o(.text);
         __resample_loop_end = .;
