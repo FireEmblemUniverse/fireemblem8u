@@ -1125,10 +1125,18 @@ SECTIONS
         src/m4a_mplay_command_setup.o(.text);
         __mplay_command_setup_end = .;
         src/m4a_1.o(.text.after_mplay_command_setup);
+        __mplay_command_invoke_start = .;
+        src/m4a_mplay_command_invoke.o(.text);
+        __mplay_command_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_command_invoke);
+        ASSERT((MPlayMainCommandInvoke & ~1) == MPlayMainCommandInvokeBoundary &&
+               __mplay_command_invoke_end - __mplay_command_invoke_start == 4 &&
+               MPlayMainCommandStatus == __mplay_command_invoke_end,
+               "MPlayMain command invoke extent or continuation changed");
         ASSERT((MPlayMainCommandSetup & ~1) == MPlayMainCommandSetupBoundary &&
                __mplay_command_setup_start == MPlayMainNonNoteCommand + 4 &&
                __mplay_command_setup_end - __mplay_command_setup_start == 18 &&
-               MPlayMainCommandInvoke == __mplay_command_setup_end,
+               (MPlayMainCommandInvoke & ~1) == __mplay_command_setup_end,
                "MPlayMain command setup extent or callback entry changed");
         ASSERT((MPlayMainNoteInvoke & ~1) == MPlayMainNoteInvokeBoundary &&
                __mplay_note_invoke_end - __mplay_note_invoke_start == 6 &&

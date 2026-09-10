@@ -80,8 +80,8 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "121888f46d3960518332f85166ece8ab5cc162eed1182a6d49f388a4ea44501c",
-      "map_sha256": "9b5e9a5eea4d3cc7815f0dba3ca5cc07f754f3f4fbd479a632df92664b983e6f"
+      "elf_sha256": "e6b35701f78e5a5f4e367e89c9e18f8f2c95f649a3a7e4db88f00a7bd7650b3d",
+      "map_sha256": "1c4036b332ab9d09a193970376401b56f70e3ef39199d853dfe3380fd13c8427"
     },
     "mgfembp": {
       "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",

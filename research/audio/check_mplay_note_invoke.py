@@ -8,9 +8,14 @@ ROOT=Path(__file__).resolve().parents[2];ENTRY,END,WAIT,TRAMP=0x080cfc4a,0x080cf
 CALLBACKS=(0x080e0001,0x080e0020)
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--production',action='store_true');a=p.parse_args()
- out=ROOT/'.deps/soundmain-packed/mplay-note-invoke';out.mkdir(parents=True,exist_ok=True)
- source=(ROOT/'research/audio/mplay_note_invoke.c').read_text();options=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_callback_tail.so'),'-fplugin-arg-thumb_callback_tail-trampoline=call_r3','-fplugin-arg-thumb_callback_tail-continuation=MPlayMainTrackWait']
+ global ENTRY,END,WAIT
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--production',action='store_true');p.add_argument('--command',action='store_true');a=p.parse_args()
+ if a.command:ENTRY,END,WAIT=0x080cfc66,0x080cfc6a,0x080cfc6a
+ continuation='MPlayMainCommandStatus' if a.command else 'MPlayMainTrackWait'
+ candidate_name='MPlayCommandInvokeCandidate' if a.command else 'MPlayNoteInvokeCandidate'
+ prefix='command' if a.command else 'note'
+ out=ROOT/('.deps/soundmain-packed/mplay-command-invoke' if a.command else '.deps/soundmain-packed/mplay-note-invoke');out.mkdir(parents=True,exist_ok=True)
+ source=(ROOT/('research/audio/mplay_command_invoke.c' if a.command else 'research/audio/mplay_note_invoke.c')).read_text();options=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_callback_tail.so'),'-fplugin-arg-thumb_callback_tail-trampoline=call_r3','-fplugin-arg-thumb_callback_tail-continuation='+continuation]+(['-fplugin-arg-thumb_callback_tail-fallthrough'] if a.command else [])
  def compile(name,text=source,flags=options):
   src=out/(name+'.c');asm=out/(name+'.s');obj=out/(name+'.o');src.write_text(text)
   result=subprocess.run([a.compiler,'-S','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(src),'-o',str(asm)]+flags,capture_output=True,text=True)
@@ -19,25 +24,27 @@ def main():
  result,obj=compile('candidate');assert not result.returncode,result.stderr
  trampoline=out/'trampoline.s';trampoline.write_text('.syntax unified\n.thumb\n.global call_r3\n.thumb_func\ncall_r3:\n bx r3\n')
  subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(trampoline),'-o',str(out/'trampoline.o')],check=True)
- script=out/'candidate.ld';script.write_text('SECTIONS { .text '+hex(ENTRY)+' : { '+str(obj)+'(.text) } .trampoline '+hex(TRAMP)+' : { '+str(out/'trampoline.o')+'(.text) } MPlayMainTrackWait = '+hex(WAIT)+'; }')
+ script=out/'candidate.ld';script.write_text('SECTIONS { .text '+hex(ENTRY)+' : { '+str(obj)+'(.text) } .trampoline '+hex(TRAMP)+' : { '+str(out/'trampoline.o')+'(.text) } '+continuation+' = '+hex(WAIT)+'; }')
  elf=out/'candidate.elf';binary=out/'candidate.bin';subprocess.run(['arm-none-eabi-ld','-T',str(script),str(obj),str(out/'trampoline.o'),'-o',str(elf)],check=True);subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
  code=binary.read_bytes();rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
- assert len(code)==6 and code==rom[ENTRY-0x08000000:END-0x08000000],code.hex();assert rom[TRAMP-0x08000000:TRAMP-0x08000000+2]==bytes.fromhex('1847')
+ assert len(code)==END-ENTRY and code==rom[ENTRY-0x08000000:END-0x08000000],code.hex();assert rom[TRAMP-0x08000000:TRAMP-0x08000000+2]==bytes.fromhex('1847')
  if a.production:
   production=(ROOT/'fireemblem8.gba').read_bytes();assert hashlib.sha1(production).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f';assert code==production[ENTRY-0x08000000:END-0x08000000]
  for image in [elf]+([ROOT/'fireemblem8.elf'] if a.production else []):
   symbols=subprocess.check_output(['arm-none-eabi-readelf','-sW',str(image)],text=True)
   entries=[line.split() for line in symbols.splitlines() if line.split() and line.split()[-1]=='call_r3']
   assert len(entries)==1 and entries[0][3]=='FUNC' and int(entries[0][1],16)==TRAMP|1,entries
- invalid=[('other_register',source.replace('noteCallback asm("r3")','noteCallback asm("r4")'),options),
-          ('post_callback_work',source.replace('MPlayMainTrackWait();','noteInput0 = 1; MPlayMainTrackWait();'),options),
-          ('callback_arguments',source.replace('((void (*)(void))noteCallback)();','((void (*)(u32))noteCallback)(noteInput0);'),options),
-          ('wrong_continuation',source.replace('MPlayMainTrackWait();','OtherContinuation();'),options),
-          ('entry_argument',source.replace('MPlayNoteInvokeCandidate(void)','MPlayNoteInvokeCandidate(u32 arg)'),options),
-          ('conditional_callback',source.replace('((void (*)(void))noteCallback)();','if (noteCallback) ((void (*)(void))noteCallback)();'),options),
-          ('missing_binding',source.replace('register volatile u32 noteInput2 asm("r2");',''),options),
+ invalid=[('other_register',source.replace(prefix+'Callback asm("r3")',prefix+'Callback asm("r4")'),options),
+          ('post_callback_work',source.replace(continuation+'();',prefix+'Input0 = 1; '+continuation+'();'),options),
+          ('callback_arguments',source.replace('((void (*)(void))'+prefix+'Callback)();','((void (*)(u32))'+prefix+'Callback)('+prefix+'Input0);'),options),
+          ('wrong_continuation',source.replace(continuation+'();','OtherContinuation();'),options),
+          ('entry_argument',source.replace(candidate_name+'(void)',candidate_name+'(u32 arg)'),options),
+          ('conditional_callback',source.replace('((void (*)(void))'+prefix+'Callback)();','if ('+prefix+'Callback) ((void (*)(void))'+prefix+'Callback)();'),options),
+          ('missing_binding',source.replace('register volatile u32 '+prefix+'Input2 asm("r2");',''),options),
           ('debug',source,options+['-g']),('unwind',source,options+['-funwind-tables']),
-          ('duplicate',source,options+[options[1]]),('missing_target',source,options[:-1])]
+          ('duplicate',source,options+[options[1]]),('missing_target',source,options[:2]+options[3:]),
+          ('duplicate_fallthrough',source,options+['-fplugin-arg-thumb_callback_tail-fallthrough']*2),
+          ('valued_fallthrough',source,options+['-fplugin-arg-thumb_callback_tail-fallthrough=1'])]
  for name,text,flags in invalid:
   result,_=compile('reject_'+name,text,flags);assert result.returncode,(name,result.stderr)
  plain=source.replace('__attribute__((matching_thumb_callback_tail))','');result,obj=compile('plain',plain,[]);assert not result.returncode,result.stderr;before=obj.read_bytes()
@@ -69,8 +76,8 @@ def main():
    assert uc.reg_read(r.UC_ARM_REG_SP)==sp and uc.reg_read(r.UC_ARM_REG_LR)==(ENTRY+4)|1
    assert bytes(uc.mem_read(DATA,0x4000))==wanted and state['accesses']==[(17,sp+offset,4,clobbers[0])]
   cases+=1
- report=dict(cases=cases,matching_instruction_bytes=6,production_integrated=a.production,rejected_contracts=len(invalid),unannotated_unchanged=True,
+ report=dict(command_fallthrough=a.command,cases=cases,matching_instruction_bytes=END-ENTRY,production_integrated=a.production,rejected_contracts=len(invalid),unannotated_unchanged=True,
              scope='ARM/Thumb callbacks execute STR/BX LR; all incoming/returned NZCV combinations, four stack positions and three callback-write aliases; exact callback-entry registers/mode/SP/LR, all returned registers/flags, complete RAM and ordered writes.',
-             limitations='Uses synthetic callbacks to test private dispatch/return mechanics; actual ply_note and full MPlayMain track execution remain outside this checker.')
+             limitations='Uses synthetic callbacks to test private dispatch/return mechanics; actual callback logic and full MPlayMain track execution remain outside this checker.')
  (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

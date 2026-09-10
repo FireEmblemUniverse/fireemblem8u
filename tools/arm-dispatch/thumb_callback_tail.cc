@@ -27,6 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string trampoline,continuation;
+bool fallthrough=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_callback_tail requires a function");*no_add=true; }
     return NULL_TREE;
@@ -85,10 +86,12 @@ public:
         if (!validate_change(ops[1],&PATTERN(ops[1]),shared,false))
             fatal_error(UNKNOWN_LOCATION,"callback tail shared call rejected");
         REG_NOTES(ops[1])=nullptr;
-        rtx target=XEXP(XEXP(XVECEXP(PATTERN(ops[2]),0,0),0),0);
-        rtx_insn *jump=emit_jump_insn_before(gen_match_thumb_tail_transfer(copy_rtx(target)),ops[2]);
-        if (recog_memoized(jump)<0) fatal_error(UNKNOWN_LOCATION,"callback tail continuation rejected");
-        emit_barrier_after(jump);
+        if (!fallthrough) {
+            rtx target=XEXP(XEXP(XVECEXP(PATTERN(ops[2]),0,0),0),0);
+            rtx_insn *jump=emit_jump_insn_before(gen_match_thumb_tail_transfer(copy_rtx(target)),ops[2]);
+            if (recog_memoized(jump)<0) fatal_error(UNKNOWN_LOCATION,"callback tail continuation rejected");
+            emit_barrier_after(jump);
+        }
         for (unsigned n:{0U,2U,3U,4U}) delete_insn(ops[n]);
         return 0;
     }
@@ -97,7 +100,11 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
-        const char *key=info->argv[n].key,*value=info->argv[n].value;if (!value||!*value) return 1;
+        const char *key=info->argv[n].key,*value=info->argv[n].value;
+        if (!strcmp(key,"fallthrough")) {
+            if (value||fallthrough) return 1;fallthrough=true;continue;
+        }
+        if (!value||!*value) return 1;
         if (!(ISALPHA(*value)||*value=='_')) return 1;
         for (const char *c=value;*c;c++) if (!(ISALNUM(*c)||*c=='_')) return 1;
         if (!strcmp(key,"trampoline")&&trampoline.empty()) trampoline=value;

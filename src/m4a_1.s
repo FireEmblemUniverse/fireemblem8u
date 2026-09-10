@@ -403,9 +403,11 @@ _081DD90C:
 	.global MPlayMainCommandSetupBoundary
 MPlayMainCommandSetupBoundary:
 	.section .text.after_mplay_command_setup, "ax", %progbits
-	.global MPlayMainCommandInvoke
-MPlayMainCommandInvoke:
-	bl call_r3
+	.global MPlayMainCommandInvokeBoundary
+MPlayMainCommandInvokeBoundary:
+	.section .text.after_mplay_command_invoke, "ax", %progbits
+	.global MPlayMainCommandStatus
+MPlayMainCommandStatus:
 	ldrb r0, [r5, o_MusicPlayerTrack_flags]
 	cmp r0, 0
 	beq _081DD994

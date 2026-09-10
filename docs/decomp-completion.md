@@ -7080,3 +7080,50 @@ and ownership output there, `mplay-command-setup-production-check.log`,
 `mplay-command-setup-production-compare.log`, combined layout checks and refreshed
 runtime/SoundMain/mixer receipts. Next work continues command callback/return
 handling, command guards and remaining clear-call paths.
+
+
+## MPlayMain command invocation — September 10, 2026 (baseline `189d71e3`)
+
+Integrated `src/m4a_mplay_command_invoke.c` at 080CFC66..080CFC6A.
+The four-byte shared-trampoline callback is generated from C. Its return falls
+through directly into the existing assembly status check at 080CFC6A, preserving
+callback-produced registers and flags. The shared `call_r3` body is still assembly;
+this milestone covers its caller only.
+
+The strict `thumb_callback_tail` compiler contract now accepts a valueless
+`fallthrough` option. It still validates the original five-operation frame/call/
+continuation/return shape, the no-argument r3 callback, the declared direct
+continuation and global r0-r3 bindings before removing the private frame. This
+option omits the continuation branch; the production linker therefore enforces
+exact four-byte extent and adjacency to `MPlayMainCommandStatus`. Duplicate and
+value-bearing fallthrough options reject. The default note path retains its
+branch. No backend pattern changes were necessary.
+
+`check_mplay_note_invoke.py --command --production` passes 49,152 cases and the
+existing note mode passes another 49,152. Both reject 13 malformed contracts and
+leave unannotated source unchanged. Synthetic ARM and Thumb callbacks execute a
+store and BX LR, with every initial/returned NZCV combination, four stack positions
+and three callback-write aliases. Callback-entry state, all returned registers,
+SP/LR, flags/mode, complete RAM and ordered writes agree with original execution.
+The candidate and production callback bytes match the original; typed Thumb
+trampoline metadata is checked in both ELF files. This does not claim coverage of
+actual callback logic or complete MPlayMain execution.
+
+The production layout passes; all 25 altered layouts reject, including new extent
+and return-continuation perturbations. `make compare -j8` reproduces the complete
+16 MiB ROM. Fresh runtime source builds reproduce all four images and exported
+symbols. Source, linked ownership, inline and runtime inventories are refreshed;
+the complete SoundMain/mixer and contiguous ARM receipts retain exact regions.
+
+Mapped main instruction bytes remain 777,630: 720,306 C-owned (92.63%), 33,870
+mixed C/assembly, 1,662 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 2,072 main bytes and 420 payload
+bytes. There are 517 tracked main C files and 30 assembly entry markers. These
+figures include inherited work and are not overall completion.
+
+ELF SHA-256: `e6b35701f78e5a5f4e367e89c9e18f8f2c95f649a3a7e4db88f00a7bd7650b3d`.
+Evidence: `.deps/soundmain-packed/mplay-command-invoke/report.json`, source/linked
+reports in that directory, `mplay-command-invoke-production.log`,
+`mplay-note-invoke-regression.log`, `mplay-command-invoke-layout.log`,
+`mplay-command-invoke-build.log` and refreshed runtime/region receipts.
+Next work is the callback return-status check, command guards and clear-call paths.
