@@ -2,21 +2,15 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `c1a351f5`): ply_note's 86-byte tone-selection path is matching C. All 92,160 production cases pass; eleven unsupported contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,882/777,630 mapped instruction bytes (92.70%); reviewed non-library assembly is 1,496 bytes, with 568 tracked C files. The valid layout links and all 212 altered layouts reject. ply_note retains 378 assembly instruction bytes. MPlayMain's 602 mapped instruction bytes remain C-owned, with 14 literal/padding bytes in assembly data. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `d9f69051`): ply_note's 30-byte priority/clamp/type-dispatch path is matching C. All 147,456 production cases pass; twelve unsupported contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,912/777,630 mapped instruction bytes (92.71%); reviewed non-library assembly is 1,466 bytes, with 569 tracked C files. The valid layout links and all 217 altered layouts reject. ply_note retains 348 assembly instruction bytes. MPlayMain's 602 mapped instruction bytes remain C-owned, with 14 literal/padding bytes in assembly data. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `7ec45b6a`): the 30-byte priority/clamp/type-dispatch
-C candidate now matches every original byte and passes all 147,456 independent
-cases. Twelve unsupported contracts reject and unannotated output is unchanged.
-The rebuilt compiler also passes 338,688 command and 92,160 tone regression cases.
-Production integration is next; measured C ownership remains 92.70%.
-
-Next: recover `ply_note` priority and channel allocation, then its remaining
-setup/frame paths (378 assembly instruction bytes total). MPlayMain's ownership
-receipt is `docs/mplay-code-region.json`; it does not assert full-game completion
-or independent validation of every real callback implementation.
+Next: recover `ply_note` CGB/PCM channel selection and allocation, then its
+remaining setup/frame paths (348 assembly instruction bytes total). MPlayMain's
+ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game
+completion or independent validation of every real callback implementation.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -30,10 +24,11 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.70%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,496 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.71%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **1,466 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ply_note priority/dispatch | **30/30 bytes exact; 147,456 cases pass; twelve unsupported contracts and 217 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note tone selection | **86/86 bytes exact; 92,160 cases pass; eleven unsupported contracts and 212 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note command decoder | **38/38 bytes exact; 338,688 cases pass; eleven unsupported contracts and 207 altered layouts reject; full ROM/runtime match** |
 | Complete MPlayMain instruction ownership | **602/602 mapped instruction bytes C-owned; 14 literal/padding bytes remain assembly data; full ROM/runtime match** |
@@ -144,7 +139,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover `ply_note` priority and channel allocation (378 assembly instruction bytes remain across the routine). All MPlayMain instructions are now C-owned; its literal/padding data remains assembly. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: recover `ply_note` CGB/PCM channel selection and allocation (348 assembly instruction bytes remain across the routine). All MPlayMain instructions are now C-owned; its literal/padding data remains assembly. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer

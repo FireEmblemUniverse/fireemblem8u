@@ -1748,10 +1748,24 @@ SECTIONS
         src/m4a_ply_note_tone.o(.text);
         __ply_note_tone_end = .;
         src/m4a_1.o(.text.after_ply_note_tone);
+        __ply_note_priority_start = .;
+        src/m4a_ply_note_priority.o(.text);
+        __ply_note_priority_end = .;
+        src/m4a_1.o(.text.after_ply_note_priority);
+        ASSERT((PlyNotePriority & ~1) == PlyNotePriorityBoundary &&
+               __ply_note_priority_start == (ply_note & ~1) + 156 &&
+               __ply_note_priority_end - __ply_note_priority_start == 30 &&
+               PlyNoteCgbSelect == __ply_note_priority_end,
+               "ply_note priority extent or continuation changed");
+        ASSERT(PlyNotePcmSelect == (ply_note & ~1) + 236 &&
+               (PlyNotePcmSelect & 1) == 0 &&
+               PlyNotePcmSelect >= __ply_note_priority_start + 32 &&
+               PlyNotePcmSelect <= __ply_note_priority_start + 32 + 254,
+               "ply_note priority PCM transfer changed");
         ASSERT((PlyNoteToneSetup & ~1) == PlyNoteToneBoundary &&
                __ply_note_tone_start == (ply_note & ~1) + 70 &&
                __ply_note_tone_end - __ply_note_tone_start == 86 &&
-               PlyNotePriority == __ply_note_tone_end,
+               (PlyNotePriority & ~1) == __ply_note_tone_end,
                "ply_note tone extent or continuation changed");
         ASSERT(PlyNoteExit == (ply_note & ~1) + 486 &&
                (PlyNoteExit & 1) == 0 &&

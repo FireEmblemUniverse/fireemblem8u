@@ -548,25 +548,11 @@ PlyNoteCommandBoundary:
 	.global PlyNoteToneBoundary
 PlyNoteToneBoundary:
 	.section .text.after_ply_note_tone, "ax", %progbits
-	.global PlyNotePriority
-PlyNotePriority:
-_081DDB9C:
-	str r3, [sp, 0x8]
-	ldr r6, [sp]
-	ldrb r1, [r6, 0x9]
-	ldrb r0, [r5, 0x1D]
-	adds r0, r1
-	cmp r0, 0xFF
-	bls _081DDBAC
-	movs r0, 0xFF
-_081DDBAC:
-	str r0, [sp, 0x10]
-	mov r6, r9
-	ldrb r0, [r6]
-	movs r6, 0x7
-	ands r6, r0
-	str r6, [sp, 0xC]
-	beq _081DDBEC
+	.global PlyNotePriorityBoundary
+PlyNotePriorityBoundary:
+	.section .text.after_ply_note_priority, "ax", %progbits
+	.global PlyNoteCgbSelect
+PlyNoteCgbSelect:
 	ldr r0, [sp, 0x4]
 	ldr r4, [r0, 0x1C]
 	cmp r4, 0
@@ -594,6 +580,8 @@ _081DDBE4:
 	cmp r0, r5
 	bcs _081DDC40
 	b _081DDCEA
+	.global PlyNotePcmSelect
+PlyNotePcmSelect:
 _081DDBEC:
 	ldr r6, [sp, 0x10]
 	adds r7, r5, 0

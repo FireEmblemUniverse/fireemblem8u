@@ -210,6 +210,11 @@ def main():
  for name,offset in [('note_tone_exit_far',4096),('note_tone_exit_backward',0),('note_tone_exit_odd',487)]:
   needle='        ASSERT(PlyNoteExit =='
   cases.append((name,source.replace(needle,'        PlyNoteExit = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note tone exit placement'))
+ cases += [('note_priority_extent',source.replace('        __ply_note_priority_end = .;','        . += 2;\n        __ply_note_priority_end = .;'),'ply_note priority extent or continuation'),
+           ('note_priority_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_priority);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_priority);'),'ply_note priority extent or continuation')]
+ for name,offset in [('note_priority_pcm_far',1024),('note_priority_pcm_backward',0),('note_priority_pcm_odd',237)]:
+  needle='        ASSERT(PlyNotePcmSelect =='
+  cases.append((name,source.replace(needle,'        PlyNotePcmSelect = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note priority PCM transfer'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

@@ -9124,3 +9124,41 @@ Evidence: `.deps/soundmain-packed/ply-note/priority-report.json`,
 `priority-check.log`, `priority-command-regression.log`,
 `priority-tone-regression.log`, `priority-backend-build.log`,
 `priority-plugin-build.log` and the linked priority candidate artifacts.
+
+
+## September 10, 2026 — ply_note priority/clamp/dispatch integrated
+
+On baseline `d9f69051`, `src/m4a_ply_note_priority.c` replaces thirty assembly
+instruction bytes at 080CFEE0..080CFEFE. Source identity is verified against the
+candidate except for its production name. The linker enforces entry+156,
+exact extent, immediate CGB continuation and the original aligned/range-safe PCM
+transfer to 080CFF30. The preceding tone continuation assertion consistently
+masks the new Thumb function symbol. Production plugins rebuilt against the
+updated backend headers through their compiler prerequisites.
+
+`make compare -j8` passes. All 147,456 priority cases pass with production ROM and
+source identity verified, including saturation carry and ordered stack aliases.
+Twelve unsupported contracts reject, and unannotated output is unchanged. Fresh
+pinned runtime builds reproduce all four images and exported symbols. SoundMain,
+the copied mixer and all 602 MPlayMain instruction bytes retain verified C
+ownership. Checks stop at channel selection and do not prove allocation or full
+ply_note execution.
+
+Mapped main-ROM ownership is 720,912 C-owned (92.71%), 33,870 mixed C/assembly,
+1,056 assembly-source and 21,792 runtime archive instruction bytes, totaling
+777,630. Reviewed non-library assembly is 1,466 main-ROM bytes and 420 payload
+bytes. Inventory is 569 tracked main C files and 29 assembly entry markers.
+ply_note retains 348 assembly instruction bytes: 32 before the C fragments and
+316 after them. Totals include inherited community work. Next: CGB/PCM channel
+selection and allocation, then remaining setup/frame paths and broader runtime,
+unit-list/transfer and executable-classification work.
+
+Evidence: `.deps/soundmain-packed/ply-note/priority-production-build.log`,
+`priority-production-check.log`, `priority-production-identity.json`,
+`priority-source.json`, `priority-linked.json`, `priority-runtime.log`,
+`priority-production-layout.log` and refreshed tracked ownership/runtime/audio
+receipts. Production ELF SHA-256:
+`5d8b16bad7c214c1678f28508127869e1f36d74d67124a3704e1e66714945625`.
+
+The valid full layout links and all 217 altered layouts reject, including five
+new priority extent/continuation and PCM transfer placement cases.
