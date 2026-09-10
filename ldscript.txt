@@ -608,6 +608,17 @@ SECTIONS
         src/m4a_partial.o(.text);
         __partial_end = .;
         src/m4a_1.o(.text.after_partial);
+        __resample_start = .;
+        src/m4a_resample.o(.text);
+        __resample_end = .;
+        SoundMainRAM_ResampleMix = __resample_start + 8;
+        src/m4a_1.o(.text.after_resample);
+        ASSERT(SoundMainRAM_Resample == SoundMainRAM_ResampleBoundary,
+               "resample C block must follow sample setup");
+        ASSERT(__resample_end - __resample_start == 40,
+               "resample C block must contain exactly 40 bytes");
+        ASSERT(SoundMainRAM_ResampleAdvance == __resample_end,
+               "resample continuation must be adjacent in ARM mode");
         ASSERT(SoundMainRAM_Partial == SoundMainRAM_PartialBoundary,
                "partial-word C block must follow sample loop selection");
         ASSERT(__partial_end - __partial_start == 36,

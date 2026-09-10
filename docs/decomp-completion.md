@@ -4299,3 +4299,60 @@ runtime rebuild verification remain incomplete. Evidence is under
 `.deps/soundmain-packed/`: partial-build.log, partial-production.json,
 partial-production-ram.json, partial-source-audit.json, partial-ownership.log,
 word-store-guards.log; complete-call report under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — resampling arithmetic integrated (40 bytes)
+
+Baseline: `72db596e`. `src/m4a_resample.c` replaces the ten ARM instructions
+at 0x080CF840 through 0x080CF868: two stereo word loads, fractional interpolation
+and both packed volume/mask/rotate additions. `SoundMainRAM_ResampleMix` is the
+shared entry at +8, after the loads; the existing carry branch targets it.
+The linker checks the entry, 40-byte extent and adjacent ARM continuation
+`SoundMainRAM_ResampleAdvance`. The checker verifies the shared-entry offset
+against original bytes and exercises all four packed lanes directly. The full
+932-byte copied mixer span remains unchanged.
+
+Here LR is the fractional position, not a return address. The adjacent compiler
+rule now has an explicit optional `lr-input=read-only` contract. It requires a
+global LR register binding and permits LR only in side-effect-free sources of
+r0-r12 SETs; LR writes, stack use, implicit writeback and control uses remain
+rejected. The default still rejects all LR body use. The original sole-LR frame,
+terminal direct call, immediate restore and return checks remain mandatory.
+The production arithmetic reads LR once for multiplication and leaves it intact.
+Two empty constraints keep the interpolated value in its private r9 register;
+there are no new executable instruction templates.
+
+`check_arm_adjacent_lr.py` passes 13,056 executions across 136 LR values,
+six factors and sixteen NZCV states, checking the product, unchanged LR/SP,
+other registers and memory at the continuation. Nine invalid contracts are
+rejected: missing opt-in, LR write/update, missing global binding, local stack,
+extra call, conditional continuation, executable assembly and invalid option.
+The original adjacent suite also passes 160 executions, eleven compiler
+rejections, two link-contract rejections and unchanged unannotated output.
+
+`make compare -j8` passes. `check_soundmain_resample_block.py` passes 71,680
+production/original cases from ROM and another 71,680 after copying to RAM.
+Each mode includes 14,336 word-load entries and 57,344 shared interpolation
+entries. It crosses every signed current-sample byte with seven signed
+difference boundaries, eight fraction values (including 32-bit wrap boundaries)
+and the word-load/four-lane entry cases. Six volume pairs and three packed-word
+pairs are distributed across those combinations. Independent arithmetic checks
+wrap the product before arithmetic shift by 23, then verify both packed outputs
+and final r9/r12. Full memory, ordered reads, all r0-r12, flags and private SP/LR
+agree; no memory writes occur in the block. The production SoundMain composition
+suite passes all 3,528 calls, including 1,728 deadline exits. These are functional
+checks and do not establish cycle timing.
+
+The audit now records 719,388 main C-owned instruction bytes (92.51% rounded),
+33,870 mixed-object bytes, 2,580 assembly-source bytes and 21,792 runtime bytes,
+total 777,630. Reviewed non-library assembly is 2,990 main bytes plus 420 payload
+bytes. Source inventory is 476 C files, 32 assembly entry markers, five manual
+assembly declarations and 649 inline sites (296 register bindings, 345 empty
+constraints, one directive and seven instruction templates). The extra ARM
+continuation declaration adds no executable assembly. Fraction updates, source
+advancement, loop control and the complete frame/channel integration remain
+unfinished, as does runtime rebuild verification. Evidence under
+`.deps/soundmain-packed/`: resample-build.log, resample-production.json,
+resample-production-ram.json, resample-source-audit.json, resample-ownership.log,
+adjacent-lr.log and adjacent-regression.log; complete-call report under
+`.deps/soundmain-complete/`.

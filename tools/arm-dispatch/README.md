@@ -236,3 +236,13 @@ loads and missing updates are rejected when no eligible sequence exists.
 Unannotated functions are unchanged. `src/m4a_partial.c` uses this rule;
 `research/audio/check_word_postincrement.py` compares baseline/folded execution,
 ordered writes, all flags, ARM/Thumb returns and rejection boundaries.
+
+
+The ARM adjacent rule also accepts optional `lr-input=read-only`. This requires
+a global LR register binding and permits LR reads only in side-effect-free
+sources of r0-r12 SETs. LR writes, stack references, implicit writeback and
+control uses remain rejected, as do the existing frame/continuation violations.
+Without the option, any LR body use is still rejected. This supports the
+resampling mixer's fractional-position input without treating it as a normal
+return address. `research/audio/check_arm_adjacent_lr.py` verifies arbitrary LR
+values, flags and invalid contracts; the original adjacent checks remain passing.

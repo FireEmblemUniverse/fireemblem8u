@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 36-byte partial-word completion integration (baseline `ba987283` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: 40-byte resampling arithmetic integration (baseline `72db596e` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,8 +19,9 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.51%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **3,030 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,990 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated resampling arithmetic | `████████████████████` **All 40 bytes exact; 143,360 production ROM/copied-RAM cases pass across both entries and fractional-wrap boundaries** |
 | Integrated partial-word completion | `████████████████████` **All 36 bytes exact; 61,440 production ROM/copied-RAM cases pass, including zero rotation and overlapping state/output** |
 | Integrated short-sample block | `████████████████████` **All 36 bytes exact; 184,320 production ROM/copied-RAM cases pass across both entries and four packed lanes** |
 | Integrated packed stereo-word block | `████████████████████` **All 60 bytes exact; 36,864 production ROM/copied-RAM cases pass, including repeated words, counter boundaries, ordered accesses and aliases** |
@@ -115,14 +116,22 @@ The short-sample word loads and one-sample arithmetic are now integrated as
 pass 184,320 production/original comparisons across ROM and copied RAM; source
 aliases, all signed bytes, four packed lanes, ordered accesses, registers,
 unchanged flags and untouched memory/stack agree. Full ROM matching and the
-3,528 complete-call regression pass. Source inventory is now 475 C files,
-32 assembly entry markers and four manual assembly function declarations.
+3,528 complete-call regression pass. Source inventory is now 476 C files,
+32 assembly entry markers and five manual assembly function declarations.
 The partial-word completion shared by fixed-rate and resampled paths is now
 integrated as `src/m4a_partial.c` (36 bytes). Its 61,440 ROM/copied-RAM checks
 verify all four lanes (including zero rotation), status-byte truncation,
 channel/output aliases, ordered writes and expected full memory/register state.
 The word-store writeback rule passes 37,056 standalone comparisons and rejects
 nine unsupported patterns. Full ROM matching and 3,528 complete-call checks pass.
+The resampling word loads and interpolation/stereo arithmetic are integrated
+as `src/m4a_resample.c` (40 bytes). Both entries pass 143,360 ROM/copied-RAM
+checks covering signed samples, difference/fraction boundaries and overflow,
+four packed lanes and independently calculated register/memory effects.
+The explicit read-only LR continuation contract passes 13,056 executions and
+nine rejection cases; the original continuation guards still pass. Full ROM
+matching and the 3,528 complete-call regression pass. Fractional-position
+updates, source advancement and loop transitions remain assembly.
 The short path's count/loop selection and resampling control remain assembly.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly
@@ -133,11 +142,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 3,030 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,990 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,348 C-owned, 33,870 in C objects containing assembly, 2,620 in assembly
+719,388 C-owned, 33,870 in C objects containing assembly, 2,580 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

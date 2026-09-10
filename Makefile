@@ -244,6 +244,10 @@ src/m4a_partial.o: $(ARM_WORD_POSTINCREMENT_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_partial.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_partial.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_WORD_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_PartialDone
 
+src/m4a_resample.o: $(ARM_ADJACENT_PLUGIN)
+src/m4a_resample.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_resample.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleAdvance -fplugin-arg-arm_adjacent-lr-input=read-only
+
 src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_PC_ADDRESS_PLUGIN)
 src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_reverb.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_BYTE_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanSetup -fplugin-arg-pc_address-offset=47

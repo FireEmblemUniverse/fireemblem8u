@@ -372,17 +372,14 @@ _081DD19C:
 	ldrsb r1, [r3, 0x1]!
 	sub r1, r1, r0
 _081DD1B4:
-	ldr r6, [r5]
-	ldr r7, [r5, 0x630]
-_081DD1BC:
-	mul r9, lr, r1
-	add r9, r0, r9, asr 23
-	mul r12, r10, r9
-	bic r12, r12, 0xFF0000
-	add r6, r12, r6, ror 8
-	mul r12, r11, r9
-	bic r12, r12, 0xFF0000
-	add r7, r12, r7, ror 8
+	.global SoundMainRAM_ResampleBoundary
+SoundMainRAM_ResampleBoundary:
+@ Word loads and interpolation are linked here from m4a_resample.c.
+	.section .text.after_resample, "ax", %progbits
+	.arm
+	.global SoundMainRAM_ResampleAdvance
+	.type SoundMainRAM_ResampleAdvance, %function
+SoundMainRAM_ResampleAdvance:
 	add lr, lr, r4
 	movs r9, lr, lsr 23
 	beq _081DD208
@@ -397,7 +394,7 @@ _081DD1FC:
 	sub r1, r1, r0
 _081DD208:
 	adds r5, r5, 0x40000000
-	bcc _081DD1BC
+	bcc SoundMainRAM_ResampleMix
 	str r7, [r5, 0x630]
 	str r6, [r5], 0x4
 	subs r8, r8, 0x4

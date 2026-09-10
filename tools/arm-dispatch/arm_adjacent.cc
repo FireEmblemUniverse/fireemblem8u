@@ -23,9 +23,11 @@
 #include "insn-flags.h"
 #include "options.h"
 #include "hard-reg-set.h"
+#include "regs.h"
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination;
+bool read_only_lr=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -79,6 +81,8 @@ public:
             ||flag_unwind_tables||flag_asynchronous_unwind_tables||flag_exceptions
             ||debug_info_level!=DINFO_LEVEL_NONE||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires zero-local-frame void code without debug/unwind");
+        if (read_only_lr && !global_regs[LR_REGNUM])
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent LR input requires global register binding");
         unsigned phase=0;std::vector<rtx_insn *> discard;
         std::set<rtx> labels,targets;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -116,7 +120,12 @@ public:
                 if (!JUMP_P(i)||GET_CODE(p)!=SIMPLE_RETURN) fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires terminal return");
                 discard.push_back(i);phase=4;continue;
             }
-            if (phase!=1||mentions(p,SP_REGNUM)||mentions(p,LR_REGNUM)||executable_asm(p))
+            // An explicit fixed LR input may be read by a general-register SET.
+            // No LR writes, implicit writeback, control effects or volatile access.
+            bool lr_read=read_only_lr && GET_CODE(p)==SET && REG_P(SET_DEST(p))
+                && GET_MODE(SET_DEST(p))==SImode && REGNO(SET_DEST(p))<13
+                && !side_effects_p(SET_SRC(p));
+            if (phase!=1||mentions(p,SP_REGNUM)||(mentions(p,LR_REGNUM)&&!lr_read)||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
                 if (GET_CODE(p)!=SET||SET_DEST(p)!=pc_rtx) fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported jump");
@@ -137,9 +146,17 @@ public:
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if (!plugin_default_version_check(version,&gcc_version)||info->argc!=1
-        ||std::string(info->argv[0].key)!="destination"||!info->argv[0].value||!*info->argv[0].value) return 1;
-    destination=info->argv[0].value;
+    if (!plugin_default_version_check(version,&gcc_version)) return 1;
+    bool have_destination=false,have_lr=false;
+    for (int n=0;n<info->argc;n++) {
+        const char *key=info->argv[n].key,*value=info->argv[n].value;
+        if (std::string(key)=="destination" && !have_destination && value && *value) {
+            destination=value;have_destination=true;
+        } else if (std::string(key)=="lr-input" && !have_lr && value && std::string(value)=="read-only") {
+            read_only_lr=true;have_lr=true;
+        } else return 1;
+    }
+    if (!have_destination) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
