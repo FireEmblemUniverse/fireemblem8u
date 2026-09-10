@@ -462,20 +462,8 @@ _081DD25E:
 	.pool
 	thumb_func_end SoundMainRAM
 
-	thumb_func_start SoundMainBTM
-SoundMainBTM:
-	mov r12, r4
-	movs r1, 0
-	movs r2, 0
-	movs r3, 0
-	movs r4, 0
-	stm r0!, {r1-r4}
-	stm r0!, {r1-r4}
-	stm r0!, {r1-r4}
-	stm r0!, {r1-r4}
-	mov r4, r12
-	bx lr
-	thumb_func_end SoundMainBTM
+@ SoundMainBTM is generated from m4a_clear_block.c.
+	.align 2, 0
 
 @ RealClearChain is linked here from m4a_clear_chain.c.
 	.align 2, 0

@@ -15,7 +15,8 @@ ENTRY, TRACK, PLAYER, RETURN = 0x080cf8f0, 0x02000000, 0x02001000, 0x080e0000
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler', required=True)
-    p.add_argument('--source', type=Path, default=ROOT/'research/audio/clear_block.c')
+    p.add_argument('--source', type=Path, default=ROOT/'src/m4a_clear_block.c')
+    p.add_argument('--production', action='store_true')
     p.add_argument('--plugin', type=Path)
     p.add_argument('--require-match', action='store_true')
     args = p.parse_args()
@@ -32,6 +33,10 @@ def main():
     rom=(ROOT/'baserom.gba').read_bytes()
     original=rom[ENTRY-0x08000000:ENTRY-0x08000000+24]
     candidate=(OUT/'candidate.bin').read_bytes()
+    if args.production:
+        production = (ROOT/'fireemblem8.gba').read_bytes()[ENTRY-0x08000000:ENTRY-0x08000000+24]
+        assert candidate == production, 'Production differs from checked candidate'
+        candidate = production
     execution_code,execution_entry=candidate,ENTRY
     machines = []
     for code, entry in ((original, ENTRY), (execution_code, execution_entry)):
@@ -72,7 +77,7 @@ def main():
                     differing_regs.update(n for n in range(13) if states[0][0][n] != states[1][0][n])
                     flag_differences += states[0][1] != states[1][1]
                     count += 1
-    report = dict(cases=count,  original_bytes=24, candidate_bytes=len(candidate), complete_match=candidate==original,
+    report = dict(cases=count, production=args.production, original_bytes=24, candidate_bytes=len(candidate), complete_match=candidate==original,
                   differing_registers=sorted(differing_regs), flag_difference_cases=flag_differences,
                   scope='64-byte clear, six RAM destinations, sixteen data/register patterns, canaries, all NZCV combinations, ARM/Thumb returns and preserved registers. Final r0-r12 and flag differences reported.')
     if args.require_match:

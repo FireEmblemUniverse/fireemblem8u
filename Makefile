@@ -210,6 +210,14 @@ src/m4a_tempo.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_tempo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+THUMB_GROUP_STORES_PLUGIN := $(ARM_DISPATCH_DIR)/group_stores.so
+$(THUMB_GROUP_STORES_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/group_stores.cc tools/arm-dispatch/build_group_stores.py
+	$(PYTHON) tools/arm-dispatch/build_group_stores.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_clear_block.o: $(THUMB_GROUP_STORES_PLUGIN)
+src/m4a_clear_block.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_clear_block.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -Werror=attributes -fplugin=$(THUMB_GROUP_STORES_PLUGIN)
+
 THUMB_COUNTDOWN_PLUGIN := $(ARM_DISPATCH_DIR)/countdown.so
 $(THUMB_COUNTDOWN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/countdown.cc tools/arm-dispatch/build_countdown.py
 	$(PYTHON) tools/arm-dispatch/build_countdown.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)

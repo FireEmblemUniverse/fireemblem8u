@@ -3315,3 +3315,26 @@ for the accepted candidate. Compiler inputs and provenance are retained under
 This milestone is research-only. Production remains at the verified jump-table
 integration; next is canonical plugin/build integration, assembly replacement,
 production execution checks and the full-ROM comparison. Remaining scope is unchanged.
+
+### September 9: audio block clear integrated and full ROM verified
+
+`src/m4a_clear_block.c` replaces SoundMainBTM at 080CF8F0 through 080CF908.
+The linked object contains 22 Thumb bytes and two zero padding bytes. Its C
+expresses the sixteen word stores, pointer advance and private r4/r12 save.
+The guarded grouped-store plugin and reproducible builder now live in
+`tools/arm-dispatch`; the Makefile loads the installed plugin for this object.
+The original assembly body is removed and the linker places its replacement
+immediately before RealClearChain.
+
+`make compare -j8` passes the complete 16,777,216-byte ROM checksum. The
+production oracle verifies the linked bytes equal the standalone candidate
+and original and passes all 3,072 memory/register/flag/return cases. The installed
+plugin passes its six rejection fixtures and unannotated-output check. The
+linked audit reports no mappings outside input sections.
+
+The tracked source inventory is now 467 main C files and 33 assembly entry
+markers. Its 590 inline sites comprise 246 register bindings, 336 empty
+constraints, one directive-only template and seven instruction templates.
+The naked fallback, remaining audio engine and interfaces, embedded executable,
+transfer assembly and complete executable classification are still unfinished.
+Logs and audit evidence are retained under `.deps/audio-clear-match/`.

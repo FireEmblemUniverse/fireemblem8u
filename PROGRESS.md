@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: jump-table integration (`01763457`); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: audio block-clear integration (baseline `8a4da0a6` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,6 +19,7 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated audio buffer clear | `████████████████████` **Complete 24-byte section exact; 3,072 production execution cases pass** |
 | Integrated audio jump-table copy | `████████████████████` **Complete 24-byte section exact; 3,072 production execution cases pass** |
 | Integrated LFO / modulation commands | `████████████████████` **Both 18-byte bodies exact; 99,072 production execution cases pass** |
 | Integrated repeat command | `████████████████████` **Complete 48-byte section exact; 264,704 production execution cases pass** |
@@ -53,13 +54,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: integrate the exact audio 64-byte clear candidate and verify the full ROM.
-The clear-block C candidate now matches the complete original 24-byte section.
-All 3,072 execution cases agree on memory, canaries, r0-r12, SP, return mode and
-flags. A guarded compiler pass combines four ordered word stores and an explicit
-pointer update using GCC's existing Thumb STM pattern. Six unsupported sequences
-are rejected; unannotated output is unchanged. It remains research-only pending
-production integration and the full-ROM gate.
+Next milestone: recover the remaining checked audio byte-reader/filter interface.
+The 64-byte audio clear is integrated as C. Its 22 instruction bytes and two
+padding bytes match, and all 3,072 production execution cases agree on memory,
+canaries, r0-r12, SP, return mode and flags. The installed grouped-store pass
+rejects six unsupported sequences and leaves unannotated output unchanged.
+The complete ROM checksum passes; the linked audit has no orphan mappings.
 The jump-table copy is integrated as C. All 22 instruction bytes and two zero
 padding bytes match. Its 3,072 production cases verify data, canaries, r0-r12,
 flags and ARM/Thumb returns. The installed countdown passes 320 standalone
@@ -113,7 +113,7 @@ all 4,128 production/original cases agree on memory, flags and r0-r12, including
 rejected reads and command-pointer aliases. `make compare -j8` passes for the
 complete ROM. Their installed private-return compiler contract passes 128
 two-call executions with ARM/Thumb return modes and rejects nineteen unsupported
-configurations. The source inventory now has 466 C files and 34 assembly entries.
+configurations. The source inventory now has 467 C files and 33 assembly entries.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
@@ -152,7 +152,7 @@ including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
 The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
 original/production execution cases match, including saturation and private ABI.
-Main source inventory is now 466 C files and 34 assembly entry markers.
+Main source inventory is now 467 C files and 33 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
@@ -211,7 +211,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 34 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 33 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

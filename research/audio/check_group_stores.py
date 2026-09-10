@@ -13,7 +13,7 @@ def main():
     a = p.parse_args()
     out = ROOT/'.deps/audio-clear-match/guards'
     out.mkdir(parents=True, exist_ok=True)
-    source = (ROOT/'research/audio/clear_block.c').read_text()
+    source = (ROOT/'src/m4a_clear_block.c').read_text()
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
              '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing',
              '-fno-schedule-insns', '-fno-schedule-insns2',
