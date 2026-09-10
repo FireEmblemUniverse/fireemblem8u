@@ -47,6 +47,11 @@ def main():
  for name,expression in [('finish_far','__mplay_command_status_start + 264'),('finish_backward','__mplay_command_status_start - 256'),('finish_odd','__mplay_command_status_start + 109')]:
   text=source.replace('        ASSERT(MPlayMainTrackFinish >=','        MPlayMainTrackFinish = '+expression+';\n        ASSERT(MPlayMainTrackFinish >=',1)
   cases.append((name,text,'command status transfer out of range'))
+ cases += [('wait_command_extent',source.replace('        __mplay_wait_command_end = .;','        . += 2;\n        __mplay_wait_command_end = .;'),'wait command extent or continuation'),
+           ('wait_track_entry',source.replace('        src/m4a_1.o(.text.after_mplay_wait_command);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_wait_command);'),'wait command extent or continuation')]
+ for name,expression in [('clock_far','((__mplay_wait_command_start + 4) & ~3) + 1024'),('clock_backward','((__mplay_wait_command_start + 4) & ~3) - 4'),('clock_unaligned','((__mplay_wait_command_start + 4) & ~3) + 2')]:
+  text=source.replace('        ASSERT((lt_gClockTable & 3) ==','        lt_gClockTable = '+expression+';\n        ASSERT((lt_gClockTable & 3) ==',1)
+  cases.append((name,text,'wait command shared literal out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

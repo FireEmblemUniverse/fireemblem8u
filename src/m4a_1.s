@@ -409,15 +409,10 @@ MPlayMainCommandInvokeBoundary:
 	.global MPlayMainCommandStatusBoundary
 MPlayMainCommandStatusBoundary:
 	.section .text.after_mplay_command_status, "ax", %progbits
-	.global MPlayMainWaitCommand
-MPlayMainWaitCommand:
+	.global MPlayMainWaitCommandBoundary
+MPlayMainWaitCommandBoundary:
 _081DD92E:
-	ldr r0, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_gClockTable
-	subs r1, 0x80
-	adds r1, r0
-	ldrb r0, [r1]
-	strb r0, [r5, o_MusicPlayerTrack_wait]
+	.section .text.after_mplay_wait_command, "ax", %progbits
 	.global MPlayMainTrackWait
 MPlayMainTrackWait:
 _081DD938:

@@ -1133,9 +1133,21 @@ SECTIONS
         src/m4a_mplay_command_status.o(.text);
         __mplay_command_status_end = .;
         src/m4a_1.o(.text.after_mplay_command_status);
+        __mplay_wait_command_start = .;
+        src/m4a_mplay_wait_command.o(.text);
+        __mplay_wait_command_end = .;
+        src/m4a_1.o(.text.after_mplay_wait_command);
+        ASSERT((MPlayMainWaitCommand & ~1) == MPlayMainWaitCommandBoundary &&
+               __mplay_wait_command_end - __mplay_wait_command_start == 10 &&
+               MPlayMainTrackWait == __mplay_wait_command_end,
+               "MPlayMain wait command extent or continuation changed");
+        ASSERT((lt_gClockTable & 3) == 0 &&
+               lt_gClockTable >= ((__mplay_wait_command_start + 4) & ~3) &&
+               lt_gClockTable <= ((__mplay_wait_command_start + 4) & ~3) + 1020,
+               "MPlayMain wait command shared literal out of range");
         ASSERT((MPlayMainCommandStatus & ~1) == MPlayMainCommandStatusBoundary &&
                __mplay_command_status_end - __mplay_command_status_start == 8 &&
-               MPlayMainWaitCommand == __mplay_command_status_end,
+               (MPlayMainWaitCommand & ~1) == __mplay_command_status_end,
                "MPlayMain command status extent or continuation changed");
         ASSERT(MPlayMainTrackFinish >= __mplay_command_status_start + 8 &&
                MPlayMainTrackFinish <= __mplay_command_status_start + 8 + 254 &&

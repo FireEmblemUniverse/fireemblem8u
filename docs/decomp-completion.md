@@ -7175,3 +7175,54 @@ handling and clear-call paths.
 The full production layout passes and all 30 combined altered layouts reject.
 Five new cases cover the status extent, following entry and far/backward/odd
 finish targets. See `mplay-command-status-layout.log`.
+
+
+## MPlayMain wait-command lookup — September 10, 2026 (baseline `1ffdc8d1`)
+
+Integrated `src/m4a_mplay_wait_command.c` at 080CFC72..080CFC7C. It loads the
+shared clock-table pointer, subtracts 128 from the full-width command, adds the
+table base, reads one delay byte and stores it to track.wait before falling through
+to the existing track-wait handler. All ten original instruction bytes are generated
+from C. Existing shared-literal and late private-tail rules suffice; no compiler
+plugin or backend changes were required. The shared pointer pool remains assembly.
+
+`check_mplay_wait_command.py --production` passes 78,016 cases. There are 3,136
+checks using the original table for every valid wait command (128..176), all NZCV
+states and four output positions including the final RAM byte. Another 74,880
+checks patch the shared pointer so all command bytes, full-width boundary values
+and 128 random words address mapped memory. Every possible result byte appears.
+Synthetic lookups cover ordinary, stack, unaligned and final-byte sources, with
+output overlapping the source or stack. Exact r0-r12, SP/LR, full CPSR, complete
+RAM and the ordered literal read, byte read and byte store agree. Final flags are
+those of the full-width address ADD, including unsigned carry and signed overflow.
+The synthetic pointer patch is test-only; production keeps the original pool.
+This checker stops before track-wait execution and does not cover command guards
+or full MPlayMain.
+
+The linker constrains the ten-byte extent and adjacent track-wait entry, and the
+shared literal's word alignment and actual aligned-PC-relative range. These
+constraints handle the intentionally halfword-aligned entry. All 35 combined
+altered layouts reject, including five new extent, continuation and far/backward/
+unaligned pool cases. `make compare -j8` reproduces all 16 MiB. Source, linked and
+inline inventories are refreshed; unchanged SoundMain/mixer regions are revalidated.
+
+The first fresh runtime rebuild failed with an explicit no-space-left error while
+assembling libc. Removed only older generated top-level ELF/ROM/binary/map files
+from isolated runtime verification directories, preserving source trees, build logs,
+verification receipts and the three newest directories. This reclaimed 1,845,492,549
+bytes. A new fresh runtime verification was started after the failed process exited.
+
+Mapped main instruction bytes remain 777,630: 720,324 C-owned (92.63%), 33,870
+mixed C/assembly, 1,644 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 2,054 main bytes and 420 payload bytes.
+There are 519 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `0d30a9a8089fe597f0b24c0a6b81d339a2078d6dae127f132394f26a01bab100`.
+Evidence: `.deps/soundmain-packed/mplay-wait-command/report.json`, source/linked
+reports there, `mplay-wait-command-production.log`, `mplay-wait-command-layout.log`,
+`mplay-wait-command-build.log` and region receipts. Next work continues command
+guards, track-wait/modulation handling and clear-call paths.
+
+The replacement fresh runtime verification passes: all four images and exports
+match, and the runtime-source inventory and receipt are refreshed.
