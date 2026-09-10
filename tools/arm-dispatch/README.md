@@ -388,5 +388,15 @@ would be incorrect. The validated positive predicate remains exact for all
 signed 32-bit inputs. Rebuild the pinned backend with `build_backend.py` before
 building this plugin. `check_signed_sum.py` tests guards and opt-in isolation;
 `check_soundmain_wrap.py` tests full registers/NZCV and both iteration outcomes
-against the original, including signed overflow. The wrap candidate remains
-research code; production does not select this pass yet.
+against the original, including signed overflow. Production `src/m4a_wrap.c` now selects this pass.
+
+
+ARM adjacent `transfer=branch` retains a terminal transfer instead of removing
+it for fallthrough. After the complete existing frame/body validation, the
+normal direct call becomes the compiler's direct sibling-call pattern, which
+emits B without changing LR. The sole LR push, restore and return are removed.
+It composes with the `early` exit contract. Default fallthrough is unchanged.
+The caller's linker contract must check the named destination's ARM mode and
+branch range rather than adjacency; the production wrap loop branches to its
+own verified entry. `check_arm_repeat.py` covers invalid contracts and
+`check_soundmain_wrap.py` checks production backward/forward exits in ROM/RAM.

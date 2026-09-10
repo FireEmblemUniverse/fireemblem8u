@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[2]
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--plugin',type=Path,required=True);a=p.parse_args()
     out=ROOT/'.deps/soundmain-packed/signed-sum-guards';out.mkdir(exist_ok=True)
-    source=(ROOT/'research/audio/soundmain_wrap_private.c').read_text()
+    source=(ROOT/'src/m4a_wrap.c').read_text().replace(', matching_arm_adjacent','')
     def compile_case(name,text,mode='-marm',plugin=True):
         src=out/(name+'.c');obj=out/(name+'.o');src.write_text(text)
         result=subprocess.run([a.compiler,'-c',str(src),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1',mode,'-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding',*(['-fplugin='+str(a.plugin.resolve())] if plugin else [])],capture_output=True,text=True)

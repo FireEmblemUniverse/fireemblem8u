@@ -6,8 +6,8 @@ register volatile u32 wrapRemaining asm("r2");
 register u32 wrapSkip asm("r9");
 extern void SoundMainRAM_ResampleReload(void);
 extern void SoundMainRAM_ResampleWrap(void);
-__attribute__((matching_signed_sum))
-void SoundMainRAM_WrapCandidate(void)
+__attribute__((matching_signed_sum, matching_arm_adjacent))
+void SoundMainRAM_ResampleWrap(void)
 {
     s64 total = (s64)(s32)wrapLength + (s64)(s32)wrapRemaining;
     wrapRemaining = (u32)total;

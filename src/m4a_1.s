@@ -332,14 +332,11 @@ SoundMainRAM_ResampleLoopBoundary:
 @ Loop-length selection and source reset are linked from m4a_resample_loop.c.
 	.section .text.after_resample_loop, "ax", %progbits
 	.arm
-	.global SoundMainRAM_ResampleWrap
-	.type SoundMainRAM_ResampleWrap, %function
-SoundMainRAM_ResampleWrap:
-_081DD148:
-	adds r2, r0, r2
-	bgt SoundMainRAM_ResampleReload
-	sub r9, r9, r0
-	b _081DD148
+	.global SoundMainRAM_WrapBoundary
+SoundMainRAM_WrapBoundary:
+@ One signed-overflow-aware wrapping iteration is linked from m4a_wrap.c.
+	.section .text.after_wrap, "ax", %progbits
+	.arm
 _081DD158:
 	.global SoundMainRAM_ResampleStop
 	.type SoundMainRAM_ResampleStop, %function

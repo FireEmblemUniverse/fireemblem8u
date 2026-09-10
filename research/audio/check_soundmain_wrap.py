@@ -16,28 +16,25 @@ def signed(n):return n-(0x100000000 if n&0x80000000 else 0)
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     obj=OUT/'wrap-candidate.o';elf=obj.with_suffix('.elf');binary=obj.with_suffix('.bin')
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_wrap_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/signed_sum.so')],check=True)
-    subprocess.run(['arm-none-eabi-ld','-Ttext=0x08100000','--entry=SoundMainRAM_WrapCandidate','--defsym=SoundMainRAM_ResampleWrap=0x08101000','--defsym=SoundMainRAM_ResampleReload=0x08101004',str(obj),'-o',str(elf)],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'src/m4a_wrap.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/arm_adjacent.so'),'-fplugin-arg-arm_adjacent-destination=SoundMainRAM_ResampleWrap','-fplugin-arg-arm_adjacent-early=SoundMainRAM_ResampleReload','-fplugin-arg-arm_adjacent-transfer=branch','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/signed_sum.so')],check=True)
+    subprocess.run(['arm-none-eabi-ld','-Ttext=0x080cf7d0','--entry=SoundMainRAM_ResampleWrap','--defsym=SoundMainRAM_ResampleReload=0x080cf888',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
-    code=binary.read_bytes();calls={}
-    for offset in range(0,len(code),4):
-        word=struct.unpack_from('<I',code,offset)[0]
-        if word>>24==0xeb:
-            imm=word&0xffffff
-            if imm&0x800000:imm-=0x1000000
-            target=0x08100000+offset+8+imm*4
-            assert target in (0x08101000,0x08101004)
-            calls[0x08100000+offset]='repeat' if target==0x08101000 else 'reload'
-    assert len(calls)==2
+    code=binary.read_bytes()
     rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+    production=(ROOT/'fireemblem8.gba').read_bytes()
+    assert len(code)==16 and code==rom[0xcf7d0:0xcf7e0]==production[0xcf7d0:0xcf7e0],code.hex()
+    symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+    fields=next(line.split() for line in symbols.splitlines() if line.endswith(' SoundMainRAM_ResampleWrap'))
+    assert int(fields[0],16)==0x080cf7d0 and int(fields[1],16)==16,fields
     machines=[]
-    for mode in ('rom','ram','candidate'):
+    for mode in ('rom','ram','production','production_ram'):
         uc=Uc(UC_ARCH_ARM,UC_MODE_ARM);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_map(0x03000000,0x8000)
-        delta=0x03002c60-0x080cf54c if mode=='ram' else 0
-        if mode=='ram':uc.mem_write(0x03002c60,rom[0xcf54c:0xcf94c])
-        if mode=='candidate':uc.mem_write(0x08100000,code)
-        entry=0x08100000 if mode=='candidate' else 0x080cf7d0+delta
-        stops=calls if mode=='candidate' else {entry:'repeat',0x080cf888+delta:'reload'}
+        delta=0x03002c60-0x080cf54c if mode.endswith('ram') else 0
+        image=production if mode.startswith('production') else rom
+        uc.mem_write(0x08000000,image)
+        if mode.endswith('ram'):uc.mem_write(0x03002c60,image[0xcf54c:0xcf94c])
+        entry=0x080cf7d0+delta
+        stops= {entry:'repeat',0x080cf888+delta:'reload'}
         state=[]
         def hook(uc,pc,size,data):
             entry,stops,state=data
@@ -68,14 +65,10 @@ def main():
                     for i in range(13):assert uc.reg_read(REGS[i])==expected[i],(mode,i,length,count)
                     assert uc.reg_read(r.UC_ARM_REG_LR)==lr
                     assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|expected_flags<<28
-                    if mode=='candidate':
-                        assert uc.reg_read(r.UC_ARM_REG_SP)==0x03006ffc;struct.pack_into('<I',raw,124,lr)
-                    else:
-                        assert [uc.reg_read(reg) for reg in REGS]==expected
-                        assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|expected_flags<<28
-                        assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
+                    assert [uc.reg_read(reg) for reg in REGS]==expected
+                    assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                     assert bytes(uc.mem_read(0x03006f80,256))==raw
                 cases+=1;outcomes[outcome]+=1;overflow_cases+=overflow
-    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,signed_overflow_cases=overflow_cases,candidate_bytes=len(code),original_bytes=16,production_integration=False,scope='One loop iteration in original ROM/copied RAM and semantic C, including inputs that may repeat forever. Independent mathematical signed sum and wrapped count/skip, continuation selection and LR; all engines match registers/NZCV; original frame preserved and candidate compiler frame separately asserted; candidate stops before calls.')
-    (OUT/'wrap-candidate-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+    report=dict(cases=cases,machines_per_case=4,outcomes=outcomes,signed_overflow_cases=overflow_cases,candidate_bytes=len(code),original_bytes=16,production_integration=True,scope='One loop iteration in original and production, each in ROM/copied RAM, including inputs that may repeat forever. Independent mathematical signed sum and wrapped count/skip, continuation selection and LR; all engines match registers/NZCV; full frame preserved; exact linked 16-byte C block and both branch targets verified.')
+    (OUT/'wrap-production-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

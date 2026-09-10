@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 20-byte resampling loop metadata (baseline `81411c78` plus this change); full ROM checksum and 3,528 complete audio calls pass. Latest research: wrap-iteration semantics pass 40,800 cases, including 9,888 signed-overflow cases.
+Updated: September 10, 2026. Latest verified implementation: 16-byte resampling wrap loop (baseline `666b0945` plus this change); full ROM checksum, 40,800 wrap cases and 3,528 complete audio calls pass.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,8 +19,9 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.53%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,870 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,854 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated resampling wrap loop | `████████████████████` **All 16 bytes exact; 40,800 cases compare original/production ROM and copied RAM, including signed overflow and repeat/reload exits** |
 | Integrated resampling loop metadata | `████████████████████` **All 20 bytes exact; 540,672 production ROM/copied-RAM cases pass, including both exits and conditional frame reads** |
 | Integrated resampling source advance | `████████████████████` **All 32 bytes exact; 35,200 cases compare original and production in ROM and copied RAM, with full registers/flags/frame and both exits** |
 | Integrated channel save/frame restore | `████████████████████` **All 24 bytes exact; 245,760 production ROM/copied-RAM cases pass across resampled, save and restore-only entries, including the Thumb transfer** |
@@ -69,7 +70,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover resampling wrap arithmetic and stop-frame restoration, then continue mixer frame
+Next milestone: recover resampling stop-frame restoration, then continue mixer frame
 and channel-control integration. Runtime C rebuild/syscall verification remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
@@ -162,15 +163,13 @@ below the main frame. Resampling loop metadata is integrated as
 `src/m4a_resample_loop.c` (20 bytes): 540,672 ROM/copied-RAM checks verify all
 registers, exact flags, conditional ordered frame reads, unchanged frame/SP/LR,
 and both loop/stop exits. The length read stays at SP+24 and source at SP+20.
-The wrap-addition loop and stop-frame restoration remain assembly.
-The wrap-iteration C model now passes 40,800 cases against original ROM and
-copied RAM. It preserves the mathematical signed-sum branch, including 9,888
-overflow cases and inputs that can repeat indefinitely. A widened C addition
-avoids signed-overflow undefined behavior. The candidate is now 36 bytes (down from 52) versus
-16 original bytes. A guarded widened-add fold produces the original ADDS/BGT;
-all registers and flags match in 40,800 cases. Eight unsupported patterns reject
-and unannotated output is unchanged. Call/frame handling still needs matching. The checker stops after one iteration and does not claim a
-complete looping C integration.
+The wrap-addition loop is integrated as `src/m4a_wrap.c` (16 bytes).
+All 40,800 iteration cases pass against original/production ROM and copied RAM,
+including 9,888 signed-overflow cases. Every register, flag, frame byte and
+repeat/reload exit matches. The private terminal branch replaces the compiler
+call/return frame with the original backward branch. Eight invalid branch
+contracts reject, and existing compiler regression suites pass. The complete
+audio regression passes 3,528 calls. Stop-frame restoration remains assembly.
 Source advancement is now integrated as
 `src/m4a_advance.c` (32 bytes), including the shared reload entry at +20.
 All 35,200 cases pass across original/production ROM and copied RAM, with
@@ -197,11 +196,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,870 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,854 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-719,508 C-owned, 33,870 in C objects containing assembly, 2,460 in assembly
+719,524 C-owned, 33,870 in C objects containing assembly, 2,444 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

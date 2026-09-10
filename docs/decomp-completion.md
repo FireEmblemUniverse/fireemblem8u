@@ -4968,3 +4968,45 @@ Evidence under `.deps/soundmain-packed/`: signed-sum-backend-build.log,
 signed-sum-production-build.log, signed-sum-guards.log, wrap-candidate-check.log
 and wrap-candidate-report.json. Remaining work is the private frame and repeated
 conditional transfer; production C coverage is unchanged at this checkpoint.
+
+
+## September 10, 2026 — resampling wrap loop integrated (16 bytes)
+
+Baseline: `666b0945`. Promoted the wrap candidate to `src/m4a_wrap.c`, removing
+the research copy. The four instructions at 0x080CF7D0..0x080CF7E0 are generated
+from C: ADDS, forward BGT to the shared source reload, skip subtraction and
+backward B to the wrap entry. The C source retains its signed 64-bit expression;
+the guarded signed_sum pass emits the correct positive-sum flags and branch.
+
+The arm_adjacent `transfer=branch` mode validates the existing private frame
+and direct-call contract, then changes the terminal call to GCC's direct
+sibling-call pattern. The compiler emits B and preserves LR; the sole LR push,
+restore and return are removed. Default adjacent fallthrough is unchanged.
+The existing early-exit handling preserves the reload branch. Linker assertions
+require the exact 16-byte extent, self-branch entry, aligned forward reload in
+the copied mixer and valid branch range. Full ROM checksum passes.
+
+Production wrap checks pass 40,800 cases across four machines (original and
+production, each in ROM and copied RAM): 22,368 reloads and 18,432 repeats per
+machine, including 9,888 signed overflows. Every r0-r12, LR/SP, NZCV and full
+frame/canaries agrees with independent expected state; both branch targets and
+the linked bytes are checked. Each case stops after one iteration, retaining
+coverage of potentially nonterminating input combinations. The full SoundMain
+regression also passes 3,528 calls, including 1,728 deadline exits. Hardware
+cycle timing is not measured by these functional checks.
+
+Eight invalid repeated-branch contracts reject. Existing adjacent, conditional,
+frame, both LR-mode, early-exit and signed-sum guard suites pass with the updated
+plugin. The refreshed ownership inventory has 719,524 C-owned main instruction
+bytes (92.53%), 33,870 mixed-object bytes, 2,444 assembly-source bytes and 21,792
+runtime bytes, total 777,630. Reviewed non-library assembly is 2,854 main bytes
+and 420 payload bytes. Source inventory: 481 C files, 32 assembly entry markers,
+six manual declarations, 679 inline sites (323 register bindings, 348 empty
+constraints, one directive, seven instruction templates). Resampling stop-frame
+restoration, broader frame/channel control and runtime rebuild work remain.
+
+Evidence under `.deps/soundmain-packed/`: wrap-production-build.log,
+wrap-production-check.log, wrap-production-report.json, repeat-guards.log,
+repeat-check_arm_*.log, repeat-lr-*.log, repeat-early.log,
+repeat-signed-sum-guards.log, wrap-source-audit.json and wrap-ownership.log.
+The full-call report remains under `.deps/soundmain-complete/`.

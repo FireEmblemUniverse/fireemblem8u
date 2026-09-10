@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false;
+bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -201,7 +201,7 @@ public:
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent frame requires global SP binding");
         remove_frame_compare_repeat();
         rtx_insn *external_branch=lower_diamond();
-        unsigned phase=0;std::vector<rtx_insn *> discard;
+        unsigned phase=0;std::vector<rtx_insn *> discard;rtx_insn *terminal_call=nullptr;
         std::set<rtx> labels,targets;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (LABEL_P(i)) {
@@ -225,7 +225,7 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires direct register-argument call");
                 const char *name=XSTR(XEXP(XEXP(call,0),0),0);if (*name=='*') name++;
                 if (destination!=name) fatal_error(UNKNOWN_LOCATION,"ARM adjacent destination mismatch");
-                discard.push_back(i);phase=2;continue;
+                if (branch_transfer) terminal_call=i; else discard.push_back(i);phase=2;continue;
             }
             if (phase==2) {
                 if (GET_CODE(p)!=SET||!reg_is(SET_DEST(p),LR_REGNUM)||!MEM_P(SET_SRC(p))
@@ -276,6 +276,14 @@ public:
         }
         if (phase!=4) fatal_error(UNKNOWN_LOCATION,"ARM adjacent missing complete terminal frame");
         for (rtx target:targets) if (!labels.count(target)) fatal_error(UNKNOWN_LOCATION,"ARM adjacent branch bypasses continuation");
+        if (terminal_call) {
+            rtx p=PATTERN(terminal_call);
+            rtx replacement=gen_rtx_PARALLEL(VOIDmode,gen_rtvec(3,
+                copy_rtx(XVECEXP(p,0,0)),ret_rtx,copy_rtx(XVECEXP(p,0,1))));
+            SIBLING_CALL_P(terminal_call)=1;
+            if (!validate_change(terminal_call,&PATTERN(terminal_call),replacement,false))
+                fatal_error(UNKNOWN_LOCATION,"ARM adjacent terminal branch rejected");
+        }
         for (rtx_insn *i:discard) delete_insn(i);
         return 0;
     }
@@ -283,7 +291,7 @@ public:
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
-    bool have_destination=false,have_lr=false,have_conditional=false,have_frame=false;
+    bool have_destination=false,have_lr=false,have_conditional=false,have_frame=false,have_transfer=false;
     for (int n=0;n<info->argc;n++) {
         const char *key=info->argv[n].key,*value=info->argv[n].value;
         if (std::string(key)=="destination" && !have_destination && value && *value) {
@@ -294,6 +302,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             conditional_destination=value;have_conditional=true;early_exit=true;
         } else if (std::string(key)=="conditional" && !have_conditional && value && *value) {
             conditional_destination=value;have_conditional=true;
+        } else if (std::string(key)=="transfer" && !have_transfer && value && std::string(value)=="branch") {
+            branch_transfer=true;have_transfer=true;
         } else if (std::string(key)=="sp-input" && !have_frame && value && std::string(value)=="frame64") {
             frame64=true;have_frame=true;
         } else return 1;
