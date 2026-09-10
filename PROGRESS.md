@@ -52,14 +52,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match the jump-table countdown branch and shared literal load.
-The jump-table candidate now passes 3,072 cases with no r0-r12 or flag
-differences after adding guarded private-return loop support. It has shrunk
-from 32 to 28 bytes; the original section is 24 bytes. Remaining differences
-are the redundant loop comparison and local rather than shared literal pool.
-The installed compiler contract passes 128 cases and rejects 26 unsupported
-forms. The full production-ROM checksum still passes; the routine remains
-assembly in production.
+Next milestone: match the jump-table countdown branch without its redundant comparison.
+The jump-table candidate now uses the original shared literal and fits the
+24-byte section. All 3,072 original-address cases agree on r0-r12, flags and
+copied data, but the extra comparison still prevents a byte match. Symbolic
+shared pools pass 672 executions and reject 13 invalid configurations. The
+complete production ROM still matches; the routine remains assembly.
 LFO speed and modulation commands are integrated as C. Both 18-byte bodies
 match; 99,072 production cases verify zero-byte resets, three modulation types,
 track flags, unchecked low reads, pointer aliases and all r0-r12/return flags.

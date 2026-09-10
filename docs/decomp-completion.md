@@ -3159,3 +3159,30 @@ The loop-mode execution and contract checks were repeated against that installed
 plugin. Evidence is in `.deps/jump-table-match/installed-oracle.log`,
 `installed-contract.log`, `private-oracle.log` and `compare.log`. The remaining
 production inventory is still 35 assembly entry markers.
+
+
+### September 9: jump-table shared literal recovered
+
+The shared-literal plugin now accepts
+`symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate`. It identifies
+the local symbol-address word, redirects its uses to the existing shared word
+and removes the duplicate pool entry. Numeric and symbolic manifests remain
+distinct. Explicit assembler-name aliases are normalized; duplicate source
+symbols, missing sources and malformed identifiers are rejected.
+
+The jump-table candidate is now 24 bytes and executes at its original address
+without covering the adjacent helpers. All 3,072 cases agree on copied data,
+canaries, r0-r12, flags and ARM/Thumb return behavior using the real filter and
+shared literal. It is still not a byte match: the redundant loop comparison
+occupies instruction space where the original has a shorter countdown branch
+and final padding. Probing O1, O2, Os and Og, with and without the volatile
+counter binding, retained the comparison in every case.
+
+The expanded shared-pool suite passes 672 executions across integer constants,
+symbol addresses and explicit assembler aliases in both padding modes; thirteen
+invalid configurations are rejected. The jump-table and shared-pool checks pass
+against the installed rebuilt plugin. `make compare -j8` verifies the unchanged
+production ROM. The routine remains assembly, with 35 production assembly entry
+markers. Evidence is retained under `.deps/jump-table-match/`, including
+`shared-oracle.log`, `installed-shared-oracle.log`, `installed-symbol-contract.log`
+and `shared-compare.log`. The next step is a guarded countdown rewrite.

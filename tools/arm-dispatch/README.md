@@ -149,3 +149,12 @@ remain forbidden. Every call still needs its r12-preservation contract. The
 trailing pool may contain integer or symbol-address words behind the terminal
 barrier. The jump-table research oracle exercises this mode; it is not enabled
 for existing production functions.
+
+
+Shared literal manifests also accept `symbol-literal=SOURCE_SYMBOL,POOL_SYMBOL`.
+The source must be a symbol-address word in the compiler's local pool; the
+replacement names an existing shared pool word containing that same address.
+Explicit assembler-name aliases are normalized, and duplicate/missing sources
+or malformed identifiers are rejected. The linker must still enforce the Thumb
+PC-relative load range. The jump-table research oracle exercises the real shared
+pool; production VSync continues to use numeric manifests.

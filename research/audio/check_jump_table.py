@@ -18,6 +18,7 @@ def main():
     p.add_argument('--source', type=Path, default=ROOT/'research/audio/jump_table.c')
     p.add_argument('--require-match', action='store_true')
     p.add_argument('--plugin', type=Path)
+    p.add_argument('--shared-plugin', type=Path)
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
@@ -26,10 +27,14 @@ def main():
     if args.plugin:
         flags += ['-DTABLE_PRIVATE_RETURN', '-Werror=attributes', '-fno-reorder-blocks', '-fplugin='+str(args.plugin.resolve()),
                   '-fplugin-arg-ip_return-preserves-ip=chk_adr_r2', '-fplugin-arg-ip_return-body-branches']
+    if args.shared_plugin:
+        assert args.plugin, 'Shared-pool execution requires the compact private-return candidate'
+        flags += ['-fplugin='+str(args.shared_plugin.resolve()),
+                  '-fplugin-arg-thumb_shared_literal-symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate']
     subprocess.run([args.compiler, *flags, '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
                     str(ROOT/'include'), str(args.source), '-o', str(OUT/'candidate.s')], check=True)
     with (OUT/'candidate.s').open('a') as f:
-        f.write('\n.align 2,0\n.global chk_adr_r2\n.thumb_set chk_adr_r2,0x080cf973\n.global gMPlayJumpTableTemplate\n.set gMPlayJumpTableTemplate,0x08207190\n')
+        f.write('\n.align 2,0\n.global chk_adr_r2\n.thumb_set chk_adr_r2,0x080cf973\n.global gMPlayJumpTableTemplate\n.set gMPlayJumpTableTemplate,0x08207190\n.global lt_MPlayJumpTableTemplate\n.set lt_MPlayJumpTableTemplate,0x080cf988\n')
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(OUT/'candidate.s'), '-o', str(OUT/'candidate.o')], check=True)
     subprocess.run(['arm-none-eabi-ld', '-Ttext='+hex(ENTRY), str(OUT/'candidate.o'), '-o', str(OUT/'candidate.elf')], check=True, capture_output=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT/'candidate.elf'), str(OUT/'candidate.bin')], check=True)
@@ -40,11 +45,16 @@ def main():
         assert candidate == original
     # The oversized research body would overwrite the adjacent filter at its
     # original location. Relink execution separately while retaining original-address bytes.
-    execution_entry = 0x080e1000
-    subprocess.run(['arm-none-eabi-ld', '-Ttext='+hex(execution_entry), str(OUT/'candidate.o'), '-o', str(OUT/'execution.elf')], check=True, capture_output=True)
-    subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT/'execution.elf'), str(OUT/'execution.bin')], check=True)
+    if args.shared_plugin:
+        assert len(candidate) <= 24, 'Shared pool candidate overlaps the original helpers'
+        execution_entry, execution_code = ENTRY, candidate
+    else:
+        execution_entry = 0x080e1000
+        subprocess.run(['arm-none-eabi-ld', '-Ttext='+hex(execution_entry), str(OUT/'candidate.o'), '-o', str(OUT/'execution.elf')], check=True, capture_output=True)
+        subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT/'execution.elf'), str(OUT/'execution.bin')], check=True)
+        execution_code = (OUT/'execution.bin').read_bytes()
     machines = []
-    for code, entry in ((original, ENTRY), ((OUT/'execution.bin').read_bytes(), execution_entry)):
+    for code, entry in ((original, ENTRY), (execution_code, execution_entry)):
         uc = Uc(UC_ARCH_ARM, UC_MODE_THUMB)
         for address, size in ((0, 0x1000), (TRACK, 0x4000), (0x03000000, 0x8000), (0x08000000, 0x1000000)):
             uc.mem_map(address, size)

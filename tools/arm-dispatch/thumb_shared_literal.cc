@@ -23,7 +23,7 @@
 #include "insn-attr.h"
 int plugin_is_GPL_compatible;
 namespace {
-struct entry { unsigned long value; std::string symbol; };
+struct entry { unsigned long value; std::string symbol; std::string source_symbol; };
 std::vector<entry> manifest;
 bool carry_tests=false, byte_counter=false, zero_pool_padding=false;
 rtx_insn *previous_operation(rtx_insn *i) {
@@ -137,7 +137,11 @@ public:
             if (pool!=last || XVECLEN(p,0)!=1) fatal_error(UNKNOWN_LOCATION,"expected one simple Thumb word pool");
             rtx value=XVECEXP(p,0,0);int shared=-1;
             if (CONST_INT_P(value)) for (unsigned n=0;n<manifest.size();n++)
-                if ((unsigned long)(unsigned int)INTVAL(value)==manifest[n].value) { shared=n;found[n]++; }
+                if (manifest[n].source_symbol.empty() && (unsigned long)(unsigned int)INTVAL(value)==manifest[n].value) { shared=n;found[n]++; }
+            if (GET_CODE(value)==SYMBOL_REF) {
+                const char *name=XSTR(value,0);if (*name=='*') name++;
+                for (unsigned n=0;n<manifest.size();n++) if (manifest[n].source_symbol==name) { shared=n;found[n]++; }
+            }
             literals.push_back({i,offset,shared,0});
             if (shared<0) offset+=4;
         }
@@ -194,15 +198,23 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         if (std::string(info->argv[n].key)=="zero-pool-padding" && !info->argv[n].value) { zero_pool_padding=true;continue; }
         if (std::string(info->argv[n].key)=="byte-counter" && !info->argv[n].value) { byte_counter=true;continue; }
         if (std::string(info->argv[n].key)=="carry-tests" && !info->argv[n].value) { carry_tests=true;continue; }
-        if (std::string(info->argv[n].key)!="literal" || !info->argv[n].value) return 1;
+        bool named=std::string(info->argv[n].key)=="symbol-literal";
+        if ((!named && std::string(info->argv[n].key)!="literal") || !info->argv[n].value) return 1;
         std::string text=info->argv[n].value;auto split=text.find(',');if (split==std::string::npos) return 1;
-        char *end=nullptr;unsigned long value=strtoul(text.c_str(),&end,0);
-        if (end==text.c_str() || end!=text.c_str()+split || value>0xffffffffUL) return 1;
+        unsigned long value=0;std::string source;
+        if (named) {
+            source=text.substr(0,split);
+            if (source.empty() || !(ISALPHA(source[0]) || source[0]=='_')) return 1;
+            for (char c:source) if (!(ISALNUM(c)||c=='_')) return 1;
+        } else {
+            char *end=nullptr;value=strtoul(text.c_str(),&end,0);
+            if (end==text.c_str() || end!=text.c_str()+split || value>0xffffffffUL) return 1;
+        }
         std::string symbol=text.substr(split+1);
         if (symbol.empty() || !(ISALPHA(symbol[0]) || symbol[0]=='_')) return 1;
         for (char c:symbol) if (!(ISALNUM(c)||c=='_')) return 1;
-        for (const auto &old:manifest) if (old.value==value) return 1;
-        manifest.push_back({value,symbol});
+        for (const auto &old:manifest) if (old.source_symbol==source && (named || old.value==value)) return 1;
+        manifest.push_back({value,symbol,source});
     }
     if (zero_pool_padding && manifest.empty()) return 1;
     if (manifest.empty() && !carry_tests && !byte_counter) return 1;
