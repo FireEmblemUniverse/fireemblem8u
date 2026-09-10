@@ -55,7 +55,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the shared audio address filter and remaining engine routines.
+Next milestone: match the shared audio filter's stack operations and comparison flags.
+The filter C candidate passes 206,592 value/register cases across address
+boundaries, seeded addresses, six template addresses and both return modes.
+It is 34 bytes versus the original 26-byte body/literal section; reversed
+comparison operands cause 36,480 return-flag differences. It remains research-only.
+Production remains the verified checked-reader integration (`5987c104`).
 The checked byte reader is integrated: all 12 section bytes match and 180,224
 production cases pass across both entry points, pointer aliases, low-address
 rejection, all byte values and NZCV states, and ARM/Thumb returns. Its alternate

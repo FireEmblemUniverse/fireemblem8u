@@ -3364,3 +3364,27 @@ seven instruction templates). The shared filter itself remains assembly;
 the remaining engine, naked fallback, embedded and transfer code, and complete
 executable classification remain in scope. Evidence is retained under
 `.deps/checked-reader-match/`.
+
+### September 9: shared audio address-filter C research
+
+`research/audio/address_filter.c` models chk_adr_r2 at 080CF972. It preserves
+incoming r0, accepts addresses whose upper seven bits are nonzero, and otherwise
+accepts only addresses at least the template address and below 0x4000. Rejection
+zeros r3. The supplied ROM's template is 08207190, so that BIOS exception cannot
+actually succeed; the C retains it for exact control flow and flags. Volatile
+register bindings and an explicit volatile saved word retain the private state
+without executable inline assembly.
+
+The candidate compiles to 34 bytes including its literal versus 26 original
+bytes. GCC emits SUB SP/STR and LDR/ADD SP instead of PUSH/POP r0, and compares
+r0 against r2 with BHI rather than r2 against r0 with BLO. These branches select
+the same paths but leave different flags on some rejection paths. The shared
+literal will also need to retain its existing exported pool location.
+
+`check_address_filter.py` passes 206,592 value/register/return checks. It covers
+address boundaries, reproducibly seeded full-width and low addresses, six pool
+values (including synthetic ones exercising the dormant BIOS exception), four
+incoming words, every NZCV state and ARM/Thumb returns. All r0-r12 and final SP
+agree. Flags differ in 36,480 cases; the exact-match gate rejects this candidate.
+No production code changed. Evidence is retained in `.deps/address-filter-match/`.
+Next work is guarded stack save/restore folding and comparison operand ordering.
