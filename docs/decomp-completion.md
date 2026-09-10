@@ -8152,3 +8152,42 @@ Source: `research/audio/mplay_post_track_next.c`. Original model checker:
 `tail-only.c`, `tail-only.o`, and the ordinary assembly probe at
 `.deps/soundmain-packed/mplay-post-track-next-plain.s`. Production is unchanged;
 all preceding matching milestones remain the verified baseline.
+
+
+## Matching post-track advancement candidate — September 10, 2026
+
+On production baseline `8fd078e5`, the post-track candidate now reproduces all
+10 bytes at 080CFDA6..080CFDB0. The fork-decrement rule permits exact empty
+single-register self ties while still rejecting instruction-bearing or clobbering
+assembly. This produces the original SUBS/BLE pair across the nested pointer
+fork. Eight invalid shapes reject, the tied/untied positive output agrees, and
+unannotated compilation is unchanged.
+
+A new `thumb_positive_advance` pass and machine pattern fold the pointer fork
+into ADDS/BGT to its declared external destination. The pass requires a proven
+positive size constant 1..255 followed by its exact tie, a dead nonglobal NEG
+temporary, the expected signed comparison, identical additions on both arms,
+and a closed tail/join layout. It retains empty join labels used by the count
+exit. The machine pattern models a widened signed sum and modulo-32-bit result,
+so overflow preserves the original BGT meaning. The isolated compiler and
+required plugins rebuilt successfully.
+
+All 51,840 matching-candidate cases pass against the previously original-verified
+independent model: 5,920 count exits, 13,776 pointer exits and 32,144 loops.
+Full registers including preserved r3, CPSR, SP/LR and no-memory-access state
+agree across byte/full-width counts, pointer wrap thresholds and all NZCV.
+Six invalid source forms reject (zero/oversized step, unequal arithmetic,
+missing private-tail contract, nonempty assembly, reversed comparison), and
+unannotated output is unchanged. The earlier saved-state/track-advance regression
+also passes all 251,136 cases under the rebuilt compiler. This does not execute
+complete traversal or full MPlayMain; production ownership is unchanged.
+
+Sources/checkers: `research/audio/mplay_post_track_next.c`,
+`check_mplay_post_track_next.py`, `check_thumb_fork_decrement.py`; compiler sources
+are `tools/arm-dispatch/thumb_positive_advance.cc`, its build helper, the extended
+fork-decrement pass and `matching.md`. Evidence:
+`.deps/soundmain-packed/mplay-post-track-next/candidate-model.json`,
+`mplay-post-track-next-check.log`, `post-track-next-advance-regression.log`,
+`post-track-next-backend.log` and plugin build receipts. Next: production
+integration with exact extent and both conditional transfer constraints, full
+ROM verification and refreshed audits.

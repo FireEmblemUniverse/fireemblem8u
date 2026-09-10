@@ -39,6 +39,14 @@ bool decrement(rtx_insn *i,rtx reg) {
     return rtx_equal_p(SET_DEST(p),reg)&&GET_CODE(v)==PLUS
         &&rtx_equal_p(XEXP(v,0),reg)&&CONST_INT_P(XEXP(v,1))&&INTVAL(XEXP(v,1))==-1;
 }
+bool empty_tie(rtx p) {
+    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||GET_MODE(SET_DEST(p))!=SImode||REGNO(SET_DEST(p))>=13) return false;
+    rtx a=SET_SRC(p);
+    return GET_CODE(a)==ASM_OPERANDS&&GET_MODE(a)==SImode&&!ASM_OPERANDS_TEMPLATE(a)[0]
+        &&!strcmp(ASM_OPERANDS_OUTPUT_CONSTRAINT(a),"=r")&&ASM_OPERANDS_OUTPUT_IDX(a)==0
+        &&ASM_OPERANDS_INPUT_LENGTH(a)==1&&ASM_OPERANDS_LABEL_LENGTH(a)==0
+        &&rtx_equal_p(ASM_OPERANDS_INPUT(a,0),SET_DEST(p))&&!strcmp(ASM_OPERANDS_INPUT_CONSTRAINT(a,0),"0");
+}
 const pass_data data={RTL_PASS,"thumb_fork_decrement",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -65,7 +73,7 @@ public:
             for (rtx_insn *j=NEXT_INSN(i);j;j=NEXT_INSN(j)) {
                 if (j==label) { forward=true;closed=previous&&BARRIER_P(previous);break; }
                 if (NONDEBUG_INSN_P(j)) {
-                    if (CALL_P(j)||asm_noperands(PATTERN(j))>=0) { span=1000;break; }
+                    if (CALL_P(j)||(asm_noperands(PATTERN(j))>=0&&!empty_tie(PATTERN(j)))) { span=1000;break; }
                     span+=get_attr_length(j);
                 }
                 if (!NOTE_P(j)&&!DEBUG_INSN_P(j)) previous=j;

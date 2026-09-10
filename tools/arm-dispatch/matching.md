@@ -414,3 +414,15 @@
   "TARGET_THUMB1"
   "adds\t%0, %1, %2\n\tbpl\t%l3"
   [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
+
+;; Private pointer advancement tests the widened signed sum, not wrapped sign.
+(define_insn "match_thumb_add_positive_tail"
+  [(set (pc)
+        (if_then_else
+         (gt (plus:DI (sign_extend:DI (match_operand:SI 0 "low_register_operand" "+l"))
+                      (sign_extend:DI (match_operand:SI 1 "low_register_operand" "l"))) (const_int 0))
+         (match_operand:SI 2 "match_thumb_tail_symbol" "s") (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (match_dup 1)))]
+  "TARGET_THUMB1"
+  "adds\t%0, %0, %1\n\tbgt\t%2"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])

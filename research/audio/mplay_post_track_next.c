@@ -4,7 +4,7 @@ register volatile u32 nextCount asm("r2");
 register volatile u32 nextTrack asm("r5");
 extern void MPlayMainExit(void);
 extern void MPlayMainPostTrackGuard(void);
-__attribute__((matching_tail_transfer, matching_thumb_fork_decrement))
+__attribute__((matching_tail_transfer, matching_thumb_fork_decrement, matching_thumb_positive_advance))
 void MPlayPostTrackNextCandidate(void)
 {
     if ((s32)nextCount > 1) {

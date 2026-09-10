@@ -15,6 +15,11 @@ def main():
   result=subprocess.run(cmd+[str(src),'-o',str(obj)],capture_output=True,text=True)
   return result,obj
  result,obj=compile('positive',annotated);assert not result.returncode,result.stderr
+ before_tie=obj.read_bytes()
+ tied=annotated.replace('        SoundMainRAM_ChanLoop();','        asm("" : "+r"(advanceChannel));\n        SoundMainRAM_ChanLoop();')
+ result,obj=compile('positive',tied);assert not result.returncode and obj.read_bytes()==before_tie,result.stderr
+ for name,text in [('nonempty_tie',tied.replace('asm(""','asm("nop"')),('clobber_tie',tied.replace('"+r"(advanceChannel));','"+r"(advanceChannel) : : "r1");'))]:
+  result,_=compile(name,text);assert result.returncode and 'tail' in result.stderr.lower(),(name,result.stderr)
  cases={
   'wrong_bound':annotated.replace('advanceCount > 1','advanceCount > 2'),
   'unsigned':annotated.replace('(s32)advanceCount','(u32)advanceCount'),
@@ -27,5 +32,5 @@ def main():
   result,_=compile(name,text);assert result.returncode and ('Thumb fork decrement' in result.stderr), (name,result.stderr)
  result,obj=compile('plain',source,False);assert not result.returncode,result.stderr
  before=obj.read_bytes();result,obj=compile('plain',source);assert not result.returncode and before==obj.read_bytes(),result.stderr
- print('Positive fold and six unsupported shape rejections pass; unannotated object unchanged.')
+ print('Positive folds with/without empty tie and eight unsupported shape rejections pass; unannotated object unchanged.')
 if __name__=='__main__':main()
