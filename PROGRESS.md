@@ -7,6 +7,13 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `a6bd7b4c`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
+Current research (baseline `d35e34fc`): the 86-byte `ply_note` tone-selection path
+has a C probe passing the same 92,160 independent cases as the original ROM,
+including full flags, ordered accesses and stack/track/tone aliases. The probe
+has the original length but different block order, low-register copy encodings
+and TST operand order. It is not an exact match or integrated yet. Normalize
+those layouts before integration; production ownership remains 92.69%.
+
 Next: recover `ply_note` tone selection and channel allocation, then its remaining
 setup/frame paths (464 assembly instruction bytes total). MPlayMain's ownership
 receipt is `docs/mplay-code-region.json`; it does not assert full-game completion

@@ -8912,3 +8912,40 @@ receipts. Production ELF SHA-256:
 
 The valid full layout links and all 207 altered layouts reject, including four
 new decoder extent/continuation and entry literal-placement cases.
+
+
+## September 10, 2026 — ply_note tone model and behavior-verified C probe
+
+On baseline `d35e34fc`, `research/audio/check_ply_note_tone_model.py` models the
+86-byte tone-selection path at 080CFE8A..080CFEE0. It covers the initial stack pan
+clear, plain/split/rhythm selection, split-table lookup and twelve-byte tone
+indexing, invalid nested-tone exit, and rhythm key/pan overrides. Every relevant
+arithmetic/logic flag effect is modeled; checks compare final r0-r12/CPSR/SP/LR,
+all mapped RAM, SP at every instruction and ordered byte/word accesses.
+
+Both original-ROM code and `research/audio/ply_note_tone.c`'s compiled probe pass
+92,160 cases. Inputs span ten parent types, six child types, six pan values, four
+keys, all sixteen incoming NZCV and four stack placements. Aliases allow the
+initial stack write to overwrite the track key, parent type or selected tone
+before its subsequent read. Outcomes are 43,776 plain, 7,680 split, 19,200 rhythm
+and 21,504 invalid-child exits, with 5,120 rhythm pan writes. Test data use mapped
+synthetic EWRAM tables; checks stop at priority selection or the shared exit
+entry, not at a complete ply_note return. The model accepts a linked candidate
+binary but does not alone establish source/compiler provenance.
+
+The probe is built using GCC 16.2.0 -O1 -fno-reorder-blocks, Thumb ARM7TDMI,
+apcs-gnu, freestanding, and tail_transfer with PlyNotePriority/PlyNoteExit,
+private-frame64, acyclic-branches and terminal-adjacent-destination=PlyNotePriority.
+It links at 080CFE8A with priority 080CFEE0 and exit 080D002A. Explicit empty
+register ties preserve the ordered global-register operations without inserting
+instruction templates in the C source. The probe is 86 bytes but is not byte
+matching: GCC places the plain and unsplit paths earlier, uses MOVS instead of
+ADDS #0 for low-register copies, and reverses low-register TST operand order.
+The full-state model passes despite those encoding/layout differences.
+
+Next: validate the required closed-region reordering and canonical encodings,
+then require exact original bytes before integration. Production and its 464
+remaining ply_note assembly instruction bytes are unchanged. Evidence:
+`.deps/soundmain-packed/ply-note/tone-original-model.json`, `tone-model.log`,
+`tone-candidate-model.json`, `tone-probe-model.log`, `tone-probe.s`,
+`tone-probe.elf` and `tone-probe.bin`.
