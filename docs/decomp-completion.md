@@ -2171,3 +2171,20 @@ section length. It still emits an extra CMP after AND, with compensating pool
 alignment; 19 halfwords differ. It is not integrated and the production build
 and inventory remain at commit `b25c75b9`. Next work is matching flag-producing
 AND/branch code without altering callback argument or register behavior.
+
+
+### Exact TrackStop candidate — September 9, 2026
+
+The legacy Thumb backend resets its condition-code knowledge after ordinary
+AND, retaining a redundant zero compare. `research/audio/live-and-zero.patch`
+adds a peephole for a same-destination register AND immediately followed by a
+zero comparison, guarded by the existing equality-only condition consumer
+predicate. It emits the AND while preserving its live result. The original
+production compiler remains unchanged.
+
+An isolated compiler with this patch now produces all 68 TrackStop section
+bytes exactly at the original address, with zero differing halfwords. All 768
+original/C execution cases still pass. `check_track_stop.py --compiler` allows
+selecting this isolated compiler. The patch needs standalone positive and
+negative condition-code regression checks and a reproducible fresh build before
+production promotion. TrackStop remains a candidate, not an integrated replacement.

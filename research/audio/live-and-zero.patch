@@ -1,0 +1,15 @@
+--- a/gcc/thumb.md
++++ b/gcc/thumb.md
+@@ -1146,3 +1146,12 @@
+    assemble_align (32);
+    return \"\";
+ ")
++
++;; Matching live AND followed by an equality-only zero comparison.
++(define_peephole
++  [(set (match_operand:SI 0 "s_register_operand" "=l")
++        (and:SI (match_dup 0)
++                (match_operand:SI 1 "s_register_operand" "l")))
++   (set (cc0) (match_dup 0))]
++  "next_insn_tests_no_inequality (insn)"
++  "and\\t%0, %0, %1")

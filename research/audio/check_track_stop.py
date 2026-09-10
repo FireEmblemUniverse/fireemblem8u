@@ -2,6 +2,7 @@
 """Build and compare TrackStop's C candidate with the original audio routine."""
 from pathlib import Path
 import json
+import argparse
 import struct
 import subprocess
 from unicorn import Uc, UC_ARCH_ARM, UC_MODE_THUMB, UC_HOOK_CODE
@@ -16,11 +17,14 @@ RETURN=0x080d9000
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--compiler",type=Path,default=ROOT/"tools/agbcc-tst/agbcc")
+    args=parser.parse_args()
     OUT.mkdir(exist_ok=True)
     source=ROOT/'research/audio/track_stop.c'
     pre=subprocess.check_output(['arm-none-eabi-cpp','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-iquote',str(ROOT),'-nostdinc','-undef',str(source)])
     (OUT/'candidate.i').write_bytes(pre)
-    subprocess.run([str(ROOT/'tools/agbcc-tst/agbcc'),'-mthumb-interwork','-Wimplicit','-Wparentheses','-Werror','-O2','-fhex-asm','-ffix-debug-line',str(OUT/'candidate.i'),'-o',str(OUT/'candidate.s')],check=True)
+    subprocess.run([str(args.compiler.resolve()),'-mthumb-interwork','-Wimplicit','-Wparentheses','-Werror','-O2','-fhex-asm','-ffix-debug-line',str(OUT/'candidate.i'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi','-mthumb-interwork',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     (OUT/'link.ld').write_text(f'SECTIONS {{ . = {ENTRY:#x}; .text : {{ *(.text) }} }}\n')
     (OUT/'bridge.s').write_text('.syntax unified\n.thumb\n.global call_r3\n.type call_r3, %function\n.thumb_set call_r3, 0x080cfdc1\n')
