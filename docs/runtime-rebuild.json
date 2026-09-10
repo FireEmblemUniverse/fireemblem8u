@@ -2,7 +2,7 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
   "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
-  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-pu1owpsk",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-3r_yg8vp",
   "tool_versions": {
     "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
     "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
@@ -13,16 +13,16 @@
     "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
   },
   "rebuilt_archive_sha256": {
-    "libc": "8b51e7673007b753f6efa1815490a0c19671c665f37ff74c5470c21f352b0f9b",
-    "libgcc": "c7b00fe77c0adcfcd83a99fc8648640e66c39b7c679ede16ef7f23cb1f992abe"
+    "libc": "23e6e9eb242799afefc148659ba2b9d170d5dafa8be285b0e294d2446b2c2ecc",
+    "libgcc": "069e6db294268efcc7a7283072ed387ccf4b2773dc70eee11627d06002811a98"
   },
   "images": {
     "main_rom": {
       "bytes": 16777216,
       "sha1": "c25b145e37456171ada4b0d440bf88a19f4d509f",
-      "original_elf_sha256": "27c90651738d06fc6c7e7ee04fbc623c1cbd3288df640e1d7cbe28acfed47752",
-      "original_map_sha256": "b24777f321e9bddcac3091b0c5ef19af269c7ad68ebab612639ddb62084beab8",
-      "rebuilt_elf_sha256": "27c90651738d06fc6c7e7ee04fbc623c1cbd3288df640e1d7cbe28acfed47752",
+      "original_elf_sha256": "24dbafa3c539ac3816734684e963b0ce323011d3b4a379e3b85620bf25885a34",
+      "original_map_sha256": "9e380240fd2e9770c7005df4e54b2f67ad7801bea94a5ced9b2ed2efb01e1b57",
+      "rebuilt_elf_sha256": "24dbafa3c539ac3816734684e963b0ce323011d3b4a379e3b85620bf25885a34",
       "global_symbols_match": true
     },
     "mgfembp": {

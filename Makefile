@@ -760,3 +760,11 @@ src/m4a_channel_setup.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi
 src/m4a_deadline.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_deadline.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_deadline.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineContinue -fplugin-arg-tail_transfer-destination=SoundMainRAM_DeadlineExit -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-raise-unsigned-bound -fplugin-arg-tail_transfer-pool-adjacent-destination=SoundMainRAM_DeadlineContinue
+
+THUMB_BLOCK_LAYOUT_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_block_layout.so
+$(THUMB_BLOCK_LAYOUT_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_block_layout.cc tools/arm-dispatch/build_thumb_block_layout.py
+	$(PYTHON) tools/arm-dispatch/build_thumb_block_layout.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_envelope.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_BLOCK_LAYOUT_PLUGIN) $(THUMB_SHARED_PLUGIN)
+src/m4a_envelope.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_envelope.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=SoundMainRAM_EnvelopeVolume -fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanAdvance -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume -fplugin=$(THUMB_BLOCK_LAYOUT_PLUGIN) -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-byte-counter-carry

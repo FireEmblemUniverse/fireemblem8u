@@ -219,3 +219,15 @@
   return GET_CODE (operands[0]) == EQ ? "bcc\t%l3" : "bcs\t%l3";
 }
   [(set_attr "length" "4") (set_attr "type" "multiple")])
+
+;; Explicit flag-setting Thumb register copy. Ordinary ADD RTL also admits
+;; non-flag-setting high-register forms, so preserve the low-register NZ contract.
+(define_c_enum "unspec" [UNSPEC_MATCH_THUMB_ADD_ZERO])
+(define_insn "match_thumb_add_zero"
+  [(set (match_operand:SI 0 "s_register_operand" "=l")
+        (unspec:SI [(match_operand:SI 1 "s_register_operand" "l")]
+                   UNSPEC_MATCH_THUMB_ADD_ZERO))]
+  "TARGET_THUMB1 && REGNO (operands[0]) != REGNO (operands[1])"
+  "adds\t%0, %1, #0"
+  [(set_attr "conds" "set") (set_attr "length" "2")
+   (set_attr "type" "alus_imm")])

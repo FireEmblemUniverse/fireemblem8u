@@ -48,13 +48,17 @@ def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--contracts-only',action='store_true');a=p.parse_args()
  out=ROOT/'.deps/soundmain-packed/envelope';out.mkdir(exist_ok=True);obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
  flags=['-std=gnu89','-O1','-fno-reorder-blocks','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include')]
- plugin=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/tail_transfer.so'),'-fplugin-arg-tail_transfer-destination=SoundMainRAM_EnvelopeVolume','-fplugin-arg-tail_transfer-destination=SoundMainRAM_EnvelopeSkip','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-acyclic-branches','-fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_shared_literal.so'),'-fplugin-arg-thumb_shared_literal-byte-counter-carry']
- source=ROOT/'research/audio/soundmain_envelope.c'
+ plugin=['-fplugin='+str(ROOT/'.deps/flood-core-new-backend/tail_transfer.so'),'-fplugin-arg-tail_transfer-destination=SoundMainRAM_EnvelopeVolume','-fplugin-arg-tail_transfer-destination=SoundMainRAM_ChanAdvance','-fplugin-arg-tail_transfer-private-frame64','-fplugin-arg-tail_transfer-acyclic-branches','-fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_block_layout.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_shared_literal.so'),'-fplugin-arg-thumb_shared_literal-byte-counter-carry']
+ source=ROOT/'src/m4a_envelope.c'
  subprocess.run([a.compiler,'-c']+flags+plugin+[str(source),'-o',str(obj)],check=True)
- script=out/'candidate.ld';script.write_text('SECTIONS { . = 0x08001000; .text : { *(.text) } SoundMainRAM_EnvelopeVolume = .; SoundMainRAM_EnvelopeSkip = 0x08001802; }')
- subprocess.run(['arm-none-eabi-ld','-T',str(script),'--entry=SoundMainRAM_EnvelopeCandidate',str(obj),'-o',str(elf)],check=True)
+ script=out/'candidate.ld';script.write_text('SECTIONS { . = 0x08001000; .text : { *(.text) } SoundMainRAM_EnvelopeVolume = .; SoundMainRAM_ChanAdvance = 0x080012c8; }')
+ subprocess.run(['arm-none-eabi-ld','-T',str(script),'--entry=SoundMainRAM_DeadlineContinue',str(obj),'-o',str(elf)],check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
  code=binary.read_bytes();rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
+ assert code==rom[ENTRY-0x08000000:VOLUME-0x08000000],code.hex()
+ assert (ROOT/'fireemblem8.gba').read_bytes()==rom
+ symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+ assert any(line.split()==['080cf604','000000a0','T','SoundMainRAM_DeadlineContinue'] for line in symbols.splitlines())
  machines=[]
  for copied in (False,True):
   for candidate in (False,True):
@@ -80,7 +84,7 @@ def main():
         uc.mem_write(DATA,initial);trace.clear()
         for i,v in enumerate(regs):uc.reg_write(getattr(r,'UC_ARM_REG_R'+str(i)),v)
         uc.reg_write(r.UC_ARM_REG_SP,DATA+0x3000);uc.reg_write(r.UC_ARM_REG_LR,0xdeadbeef);uc.reg_write(r.UC_ARM_REG_CPSR,0x33|flags_in<<28)
-        end=start+(len(code) if volume else 0x802) if candidate else (VOLUME if volume else SKIP)+delta
+        end=start+(len(code) if volume else SKIP-ENTRY) if candidate else (VOLUME if volume else SKIP)+delta
         try:uc.emu_start(start|1,end,count=150)
         except Exception as error:raise AssertionError((status,level,parameter,hex(wave),candidate,hex(start),hex(end),hex(uc.reg_read(r.UC_ARM_REG_PC)),trace)) from error
         actual=[uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(i))) for i in range(13)];nzcv=uc.reg_read(r.UC_ARM_REG_CPSR)>>28
@@ -93,17 +97,27 @@ def main():
        for i,(x,y) in enumerate(zip(observed[0][0],observed[1][0])):
         if x!=y:regdiff[str(i)]=regdiff.get(str(i),0)+1
        flagdiff+=observed[0][1]!=observed[1][1];cases+=1
-  report=dict(cases=cases,machines_per_case=4,paths=paths,original_instruction_bytes=VOLUME-ENTRY,candidate_section_bytes=len(code),register_mismatch_cases=regdiff,flag_mismatch_cases=flagdiff,production_integrated=False,scope='Every status byte, four envelope levels and parameter settings, all NZCV, three wave/channel aliases; independent decisions, complete data memory, ordered accesses and preserved private state.',limitations=['Scratch-register and flag differences are measured, not accepted as matching.','Four representative parameter settings are tested, not every independent envelope-parameter combination. Cycle timing is not modeled.'])
+  assert not regdiff and flagdiff==0, (regdiff,flagdiff)
+  report=dict(cases=cases,machines_per_case=4,paths=paths,original_instruction_bytes=VOLUME-ENTRY,candidate_section_bytes=len(code),register_mismatch_cases=regdiff,flag_mismatch_cases=flagdiff,production_integrated=True,scope='Every status byte, four envelope levels and parameter settings, all NZCV, three wave/channel aliases; independent decisions, complete data memory, ordered accesses and preserved private state.',limitations=['Four representative parameter settings are tested, not every independent envelope-parameter combination. Cycle timing is not modeled.'])
   (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
  text=source.read_text()
- tests=[('no_frame',text,[x for x in plugin if not x.endswith('-private-frame64')]),('unopted_backwards',text,[x for x in plugin if not x.endswith('-acyclic-branches')]),('loop',text.replace('    envelopeStatus = envelopeChannel->status;','    while (envelopeValue) envelopeValue--;\n    envelopeStatus = envelopeChannel->status;'),plugin),('post_call',text.replace('    SoundMainRAM_EnvelopeSkip();','    SoundMainRAM_EnvelopeSkip(); envelopeValue++;'),plugin),('bare_return',text.replace('    SoundMainRAM_EnvelopeSkip();','    return;'),plugin)]
+ tests=[('no_frame',text,[x for x in plugin if not x.endswith('-private-frame64')]),('unopted_backwards',text,[x for x in plugin if not x.endswith('-acyclic-branches')]),('loop',text.replace('    envelopeStatus = envelopeChannel->status;','    while (envelopeValue) envelopeValue--;\n    envelopeStatus = envelopeChannel->status;'),plugin),('post_call',text.replace('    SoundMainRAM_ChanAdvance();','    SoundMainRAM_ChanAdvance(); envelopeValue++;'),plugin),('bare_return',text.replace('    SoundMainRAM_ChanAdvance();','    return;'),plugin)]
  tests += [
-  ('wrong_adjacent',text,[x.replace('terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume','terminal-adjacent-destination=SoundMainRAM_EnvelopeSkip') for x in plugin]),
+  ('wrong_adjacent',text,[x.replace('terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume','terminal-adjacent-destination=SoundMainRAM_ChanAdvance') for x in plugin]),
   ('trailing_pool',text.replace('    envelopeStatus = envelopeChannel->status;', '    envelopeValue=0x12345678; asm("" : "+r"(envelopeValue));\n    envelopeStatus = envelopeChannel->status;'),plugin),
   ('post_volume',text.replace('    SoundMainRAM_EnvelopeVolume();','    SoundMainRAM_EnvelopeVolume(); envelopeValue++;'),plugin),
   ('duplicate_adjacent',text,plugin+['-fplugin-arg-tail_transfer-terminal-adjacent-destination=SoundMainRAM_EnvelopeVolume'])]
+ tests += [
+  ('layout_without_tail',text.replace('matching_tail_transfer, ',''),plugin),
+  ('layout_empty_body',text[:text.index('void SoundMainRAM_DeadlineContinue')]+ 'void SoundMainRAM_DeadlineContinue(void) { SoundMainRAM_EnvelopeVolume(); }',plugin)]
  for name,text,selected in tests:
   src=out/(name+'.c');src.write_text(text);result=subprocess.run([a.compiler,'-c']+flags+selected+[str(src),'-o',str(src.with_suffix('.o'))],capture_output=True,text=True)
-  assert result.returncode and ('tail' in result.stderr or 'plugin' in result.stderr or 'terminal adjacency' in result.stderr),(name,result.stderr)
- print(f'{len(tests)} invalid acyclic-transfer configurations reject.')
+  assert result.returncode and ('tail' in result.stderr or 'plugin' in result.stderr or 'terminal adjacency' in result.stderr or 'Thumb layout' in result.stderr),(name,result.stderr)
+ plain=out/'layout_unannotated.c';plain.write_text(source.read_text().replace(', matching_thumb_block_layout',''))
+ plainobj=plain.with_suffix('.o')
+ subprocess.run([a.compiler,'-c']+flags+plugin+[str(plain),'-o',str(plainobj)],capture_output=True,check=True)
+ baseline=plainobj.read_bytes()
+ subprocess.run([a.compiler,'-c']+flags+[x for x in plugin if 'thumb_block_layout.so' not in x]+[str(plain),'-o',str(plainobj)],capture_output=True,check=True)
+ assert baseline==plainobj.read_bytes(), 'layout changed unannotated object'
+ print(f'{len(tests)} invalid layout/acyclic-transfer configurations reject; unannotated layout object unchanged.')
 if __name__=='__main__':main()

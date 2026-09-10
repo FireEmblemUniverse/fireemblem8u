@@ -7,16 +7,16 @@ register volatile struct SoundChannel *envelopeChannel asm("r4");
 register volatile u32 envelopeLevel asm("r5");
 register volatile u32 envelopeStatus asm("r6");
 extern void SoundMainRAM_EnvelopeVolume(void);
-extern void SoundMainRAM_EnvelopeSkip(void);
-__attribute__((matching_tail_transfer))
-void SoundMainRAM_EnvelopeCandidate(void)
+extern void SoundMainRAM_ChanAdvance(void);
+__attribute__((matching_tail_transfer, matching_thumb_block_layout))
+void SoundMainRAM_DeadlineContinue(void)
 {
     envelopeStatus = envelopeChannel->status;
     asm("" : "+r"(envelopeStatus));
     envelopeValue = 0xC7;
     asm("" : "+r"(envelopeValue));
     if (!(envelopeValue & envelopeStatus))
-        { SoundMainRAM_EnvelopeSkip(); return; }
+        { SoundMainRAM_ChanAdvance(); return; }
     envelopeValue = 0x80;
     asm("" : "+r"(envelopeValue));
     if (!(envelopeValue & envelopeStatus))
@@ -65,7 +65,7 @@ stop:
     envelopeValue = 0;
     asm("" : "+r"(envelopeValue));
     envelopeChannel->status = envelopeValue;
-    SoundMainRAM_EnvelopeSkip();
+    SoundMainRAM_ChanAdvance();
     return;
 release:
     envelopeValue = 0x40;

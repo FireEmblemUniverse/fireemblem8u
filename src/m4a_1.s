@@ -119,99 +119,15 @@ SoundMainRAM_ChanLoopBoundary:
 @ Deadline control and its literal pool come from m4a_deadline.c.
 	.section .text.after_deadline, "ax", %progbits
 	.thumb
-	.global SoundMainRAM_DeadlineContinue
-	.type SoundMainRAM_DeadlineContinue, %function
+	.global SoundMainRAM_DeadlineContinueBoundary
+SoundMainRAM_DeadlineContinueBoundary:
+@ The 160-byte status/envelope block is generated from m4a_envelope.c.
+	.section .text.after_envelope, "ax", %progbits
+	.thumb
+	.global SoundMainRAM_EnvelopeVolume
+	.type SoundMainRAM_EnvelopeVolume, %function
 	.thumb_func
-SoundMainRAM_DeadlineContinue:
-_081DCF60:
-	ldrb r6, [r4, o_SoundChannel_status]
-	movs r0, 0xC7
-	tst r0, r6
-	bne _081DCF6A
-	b _081DD240
-_081DCF6A:
-	movs r0, 0x80
-	tst r0, r6
-	beq _081DCFA0
-	movs r0, 0x40
-	tst r0, r6
-	bne _081DCFB0
-	movs r6, 0x3
-	strb r6, [r4, o_SoundChannel_status]
-	adds r0, r3, 0
-	adds r0, 0x10
-	str r0, [r4, o_SoundChannel_cp]
-	ldr r0, [r3, 0xC]
-	str r0, [r4, o_SoundChannel_ct]
-	movs r5, 0
-	strb r5, [r4, o_SoundChannel_ev]
-	str r5, [r4, o_SoundChannel_fw]
-	ldrb r2, [r3, 0x3]
-	movs r0, 0xC0
-	tst r0, r2
-	beq _081DCFF8
-	movs r0, 0x10
-	orrs r6, r0
-	strb r6, [r4, o_SoundChannel_status]
-	b _081DCFF8
-_081DCFA0:
-	ldrb r5, [r4, o_SoundChannel_ev]
-	movs r0, 0x4
-	tst r0, r6
-	beq _081DCFB6
-	ldrb r0, [r4, o_SoundChannel_iel]
-	subs r0, 1
-	strb r0, [r4, o_SoundChannel_iel]
-	bhi _081DD006
-_081DCFB0:
-	movs r0, 0
-	strb r0, [r4, o_SoundChannel_status]
-	b _081DD240
-_081DCFB6:
-	movs r0, 0x40
-	tst r0, r6
-	beq _081DCFD6
-	ldrb r0, [r4, o_SoundChannel_release]
-	muls r5, r0
-	lsrs r5, 8
-	ldrb r0, [r4, o_SoundChannel_iev]
-	cmp r5, r0
-	bhi _081DD006
-_081DCFC8:
-	ldrb r5, [r4, o_SoundChannel_iev]
-	cmp r5, 0
-	beq _081DCFB0
-	movs r0, 0x4
-	orrs r6, r0
-	strb r6, [r4, o_SoundChannel_status]
-	b _081DD006
-_081DCFD6:
-	movs r2, 0x3
-	ands r2, r6
-	cmp r2, 0x2
-	bne _081DCFF4
-	ldrb r0, [r4, o_SoundChannel_decay]
-	muls r5, r0
-	lsrs r5, 8
-	ldrb r0, [r4, o_SoundChannel_sustain]
-	cmp r5, r0
-	bhi _081DD006
-	adds r5, r0, 0
-	beq _081DCFC8
-	subs r6, 0x1
-	strb r6, [r4, o_SoundChannel_status]
-	b _081DD006
-_081DCFF4:
-	cmp r2, 0x3
-	bne _081DD006
-_081DCFF8:
-	ldrb r0, [r4, o_SoundChannel_attack]
-	adds r5, r0
-	cmp r5, 0xFF
-	bcc _081DD006
-	movs r5, 0xFF
-	subs r6, 0x1
-	strb r6, [r4, o_SoundChannel_status]
+SoundMainRAM_EnvelopeVolume:
 _081DD006:
 	strb r5, [r4, o_SoundChannel_ev]
 	ldr r0, [sp, 0x18]

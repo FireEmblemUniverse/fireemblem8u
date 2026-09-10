@@ -14,13 +14,13 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After channel-deadline integration (baseline `5aae98aa` plus this change),
+After channel status/envelope integration (baseline `86e15a92` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 493 main C files, 32 assembly entry markers,
+The current source inventory has 494 main C files, 32 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 719,786 in C-only objects, 33,870 in
-mixed C/assembly objects, 2,182 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 719,946 in C-only objects, 33,870 in
+mixed C/assembly objects, 2,022 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 
@@ -5909,3 +5909,63 @@ ownership receipt. Production coverage and runtime evidence remain unchanged.
 Remaining work includes four surplus local branches from block ordering and
 instruction-encoding differences; all newly recovered state behavior must remain
 intact when matching those final bytes.
+
+## Channel status/envelope integrated as exact C — September 10, 2026
+
+Baseline `86e15a92` plus this change integrates `src/m4a_envelope.c` at
+`0x080CF604..0x080CF6A4`. All 160 original instruction bytes match. The C block
+handles status selection, initialization, echo lifetime, release, decay, sustain
+and attack before falling through to volume calculation or branching to channel
+advance. The last research source is moved into production, not counted twice.
+
+The opt-in `matching_thumb_block_layout` pass requires validated tail-transfer
+code, no arguments/local frame/debug/unwind/exceptions/profiling, resolved calls,
+no data pools and only exact empty ties. It selects the retained 0x80 mask and
+NE register-test branches followed by local branch stubs. A moved region must
+start at its target label, have an unconditional predecessor at its old location,
+and end at an unconditional transfer plus barrier. All internal labels and exits
+move together. Conditional moves invert only EQ/NE and target a new label at the
+old fallthrough; jump label references and use counts are updated. Closed forward
+jump targets may similarly replace their caller jump, and jumps to the immediately
+following label are removed. These checks preserve every logical edge while
+eliminating the four extra branches. Regions without the required closed
+boundaries are left in place; a function with no improvement rejects.
+
+The same explicit private layout contract normalizes low-register TST operand
+order and equivalent strict unsigned bounds. Low-register copies and subtract-zero
+copies use a new explicit ADD-zero backend pattern that records its N/Z-setting
+behavior, avoiding a redundant comparison. Both source/destination registers must
+be distinct low SI registers. Ordinary ADD RTL also admits non-flag-setting forms,
+which is why a dedicated matching pattern was needed. The compiler was rebuilt
+from pinned source. No instruction-bearing inline assembly was introduced.
+
+The linker requires the original entry, aligned 160-byte extent, adjacent Thumb
+volume destination and in-range forward Thumb skip destination. The volume stage
+remains assembly; the exported continuation name now belongs to the C function.
+
+Validation:
+
+- `make compare -j8`: all 16 MiB exactly match the supplied ROM.
+- `check_soundmain_envelope.py`: candidate/original byte equality, complete
+  production-ROM equality, and production entry address/size are required.
+  All 196,608 cases pass on four machines (original/candidate ROM/copied RAM),
+  with exact registers, NZCV, SP/LR, decisions, ordered accesses and tested data
+  memory. Register/flag differences now fail the checker. Representative parameter
+  settings and lack of cycle timing remain its documented execution limits.
+- Eleven invalid layout/transfer configurations reject, including applying layout
+  without a tail contract or without a region to improve. The unannotated object
+  is identical with and without the layout plugin. The 17 existing private-frame/
+  pool cases and 14 older tail-contract cases continue to pass.
+- `check_thumb_add_zero_flags.py`: 33,088 executions of the actual two generated
+  ADD-zero instructions pass over full-width boundary/random values, every initial
+  NZCV and ROM/RAM. All registers, SP/LR, result, destination and flags agree.
+- The complete production audio regression passes 3,528 calls. Fresh pinned runtime
+  libraries reproduce all four images and exported symbol sets.
+
+Ownership, inline and runtime receipts are refreshed, and the unchanged contiguous
+488-byte ARM mixer proof uses the new ELF fingerprint. C-only mapped main-ROM
+instructions rise by 160 to 719,946/777,630 (92.58%, including inherited work).
+Reviewed non-library assembly is now 2,432 main-ROM and 420 expanded-payload bytes.
+There are 764 inline sites: 378 register bindings, 378 empty constraints, one
+directive and seven instruction templates. Volume/loop setup, entry/frame handling,
+playback routines and final executable coverage accounting remain unfinished.

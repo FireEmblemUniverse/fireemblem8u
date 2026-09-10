@@ -607,6 +607,19 @@ SECTIONS
         src/m4a_deadline.o(.text);
         __deadline_end = .;
         src/m4a_1.o(.text.after_deadline);
+        __envelope_start = .;
+        src/m4a_envelope.o(.text);
+        __envelope_end = .;
+        src/m4a_1.o(.text.after_envelope);
+        ASSERT((SoundMainRAM_DeadlineContinue | 1) == (__envelope_start | 1) &&
+               __envelope_start == SoundMainRAM_DeadlineContinueBoundary &&
+               (__envelope_start & 3) == 0 && __envelope_end - __envelope_start == 160,
+               "envelope Thumb entry or 160-byte extent changed");
+        ASSERT((SoundMainRAM_EnvelopeVolume | 1) == (__envelope_end | 1),
+               "envelope must fall through to adjacent Thumb volume stage");
+        ASSERT((SoundMainRAM_ChanAdvance & ~1) >= __envelope_end &&
+               (SoundMainRAM_ChanAdvance & ~1) - (__envelope_start + 12) <= 2046,
+               "envelope Thumb skip destination out of short-branch range");
         ASSERT((SoundMainRAM_ChanLoop | 1) == (__deadline_start | 1) &&
                __deadline_start == SoundMainRAM_ChanLoopBoundary &&
                (__deadline_start & 3) == 0 && __deadline_end - __deadline_start == 32,
