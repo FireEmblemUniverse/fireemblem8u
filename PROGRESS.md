@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: checked audio reader integration (baseline `7215c674` plus this change); full ROM checksum passes.
+Updated: September 9, 2026. Latest verified implementation: shared audio filter integration (baseline `bfe62e4f` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,6 +19,7 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated audio address filter | `████████████████████` **All 22 bytes exact; 206,592 production execution cases pass** |
 | Integrated checked audio reader | `████████████████████` **Complete 12-byte section exact; 180,224 production execution cases pass** |
 | Integrated audio buffer clear | `████████████████████` **Complete 24-byte section exact; 3,072 production execution cases pass** |
 | Integrated audio jump-table copy | `████████████████████` **Complete 24-byte section exact; 3,072 production execution cases pass** |
@@ -55,12 +56,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: integrate the exact shared audio address filter and verify its callers.
-The filter candidate now matches all 22 instruction bytes at 080CF972, using
-its existing shared literal at 080CF988. All 206,592 execution cases pass,
-including registers, flags and stack canaries. Shared-literal validation passes
-1,008 cases across three alignment modes and rejects 16 invalid configurations.
-The filter remains research-only pending production integration.
+Next milestone: recover the remaining audio byte-load entry and engine routines.
+The shared address filter is integrated as C: all 22 instruction bytes match
+at 080CF972, with the shared literal retained at 080CF988. The complete ROM
+checksum passes, and 206,592 production filter cases pass, including flags,
+registers and stack canaries. Checked-reader and jump-table caller checks also
+exercise the integrated filter. The linked audit has no orphan mappings.
 The checked byte reader is integrated: all 12 section bytes match and 180,224
 production cases pass across both entry points, pointer aliases, low-address
 rejection, all byte values and NZCV states, and ARM/Thumb returns. Its alternate
@@ -123,7 +124,7 @@ all 4,128 production/original cases agree on memory, flags and r0-r12, including
 rejected reads and command-pointer aliases. `make compare -j8` passes for the
 complete ROM. Their installed private-return compiler contract passes 128
 two-call executions with ARM/Thumb return modes and rejects nineteen unsupported
-configurations. The source inventory now has 468 C files and 32 assembly entries.
+configurations. The source inventory now has 469 C files and 32 assembly entries.
 VSync/DMA handling is integrated: the complete 76-byte C section matches,
 including shared literal loads, every instruction, zero padding and local data.
 All 2,304 production/original cases pass for ordered counter and DMA accesses,
@@ -162,7 +163,7 @@ including its private r3 result convention. All 32,768 original/production
 execution cases pass, including command-pointer aliasing.
 The stereo channel-volume helper is also integrated: all 48 bytes and 4,032
 original/production execution cases match, including saturation and private ABI.
-Main source inventory is now 468 C files and 32 assembly entry markers.
+Main source inventory is now 469 C files and 32 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM

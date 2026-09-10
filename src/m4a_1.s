@@ -477,33 +477,15 @@ _081DD25E:
 	.align 2, 0
 	.section .text.after_jump_table_copy, "ax", %progbits
 
-	.align 2, 0
+	.align 1, 0
 	.global ldrb_r3_r2
 	.thumb_func
 ldrb_r3_r2:
 	ldrb r3, [r2]
 	thumb_func_end ldrb_r3_r2
 
-@ This attempts to protect against reading anything from the BIOS ROM
-@ besides the jump table template.
-@ It assumes that the jump table template is located at the end of the ROM.
-	.global chk_adr_r2
-	.thumb_func
-chk_adr_r2:
-	push {r0}
-	lsrs r0, r2, 25
-	bne chk_adr_r2_done @ if adr >= 0x2000000 (i.e. not in BIOS ROM), accept it
-	ldr r0, lt_MPlayJumpTableTemplate
-	cmp r2, r0
-	blo chk_adr_r2_reject @ if adr < gMPlayJumpTableTemplate, reject it
-	lsrs r0, r2, 14
-	beq chk_adr_r2_done @ if adr < 0x40000 (i.e. in BIOS ROM), accept it
-chk_adr_r2_reject:
-	movs r3, 0
-chk_adr_r2_done:
-	pop {r0}
-	bx lr
-	thumb_func_end chk_adr_r2
+@ chk_adr_r2 is generated from m4a_address_filter.c.
+	.section .text.after_address_filter, "ax", %progbits
 
 	.align 2, 0
 	.global lt_MPlayJumpTableTemplate

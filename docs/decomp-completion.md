@@ -3473,3 +3473,27 @@ Evidence is retained under `.deps/address-filter-match/`.
 
 The canonical shared-literal plugin rebuild also passes `make compare -j8`;
 the existing production ROM remains byte-identical after this opt-in extension.
+
+### September 9: shared audio address filter integrated
+
+`src/m4a_address_filter.c` now replaces chk_adr_r2. The compare-order and
+stack-word plugins/builders move to tools/arm-dispatch and are loaded only for
+this object, alongside the shared-literal pass. The object ends on a two-byte
+boundary; its preceding two-byte ldrb entry also retains two-byte section
+alignment. The linker keeps the filter at 080CF972 and the shared literal at
+080CF988 with an explicit forward-range assertion. The byte-load entry at
+080CF970 and checked reader at 080CF98C remain at their original addresses.
+
+`make compare -j8` passes the complete ROM checksum. The production filter
+oracle passes 206,592 cases. The checked-reader and jump-table oracles now load
+the production ROM for their candidate machine so calls execute the integrated
+filter: 180,224 reader cases and 3,072 jump-table cases pass. Installed stack-word
+and comparison-order guard tests pass. The linked filter contains 22 Thumb
+bytes, with no mappings outside input sections.
+
+Inventory is 469 main C files, 596 inline sites (252 register bindings, 336
+empty constraints, one directive-only template, seven instruction templates).
+Assembly entry markers remain 32 because this filter used a global label rather
+than the counted entry macro. The remaining byte-load entry, audio engine,
+naked fallback, embedded/transfer code and full executable classification remain
+unfinished. Evidence is under `.deps/address-filter-match/`.

@@ -210,6 +210,18 @@ src/m4a_tempo.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_tempo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_tempo.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+THUMB_COMPARE_ORDER_PLUGIN := $(ARM_DISPATCH_DIR)/compare_order.so
+$(THUMB_COMPARE_ORDER_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/compare_order.cc tools/arm-dispatch/build_compare_order.py
+	$(PYTHON) tools/arm-dispatch/build_compare_order.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+THUMB_STACK_WORD_PLUGIN := $(ARM_DISPATCH_DIR)/stack_word.so
+$(THUMB_STACK_WORD_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/stack_word.cc tools/arm-dispatch/build_stack_word.py
+	$(PYTHON) tools/arm-dispatch/build_stack_word.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/m4a_address_filter.o: $(THUMB_COMPARE_ORDER_PLUGIN) $(THUMB_STACK_WORD_PLUGIN) $(THUMB_SHARED_PLUGIN)
+src/m4a_address_filter.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_address_filter.o: C_END_ALIGN := 1
+src/m4a_address_filter.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin=$(THUMB_STACK_WORD_PLUGIN) -fplugin=$(THUMB_COMPARE_ORDER_PLUGIN) -fplugin-arg-thumb_shared_literal-symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate -fplugin-arg-thumb_shared_literal-omit-pool-alignment
+
 THUMB_GROUP_STORES_PLUGIN := $(ARM_DISPATCH_DIR)/group_stores.so
 $(THUMB_GROUP_STORES_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/group_stores.cc tools/arm-dispatch/build_group_stores.py
 	$(PYTHON) tools/arm-dispatch/build_group_stores.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
@@ -528,10 +540,12 @@ $(ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT) $(SYM_FILES)
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x9000000 --gap-fill=0xff $< $@
 
+C_END_ALIGN := 2
+
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
 	$(CPP) $(CPPFLAGS) $< | iconv -f UTF-8 -t CP932 | $(CC1) $(CC1FLAGS) -o $*.s
-	echo '.ALIGN 2, 0' >> $*.s
+	echo '.ALIGN $(C_END_ALIGN), 0' >> $*.s
 ifeq ($(UNAME),Darwin)
 	$(SED) -f scripts/align_2_before_debug_section_for_osx.sed $*.s
 else
@@ -589,7 +603,7 @@ $(PREPROC): tools/preproc/preproc.cpp tools/preproc/Makefile
 
 $(DATA_SRC_C_OBJECTS): %.o: %.c $(PREPROC) $$(data_dep)
 	$(PREPROC) $< | $(CPP) $(CPPFLAGS) - | iconv -f UTF-8 -t CP932 | $(CC1) $(CC1FLAGS) -o $*.s
-	echo '.ALIGN 2, 0' >> $*.s
+	echo '.ALIGN $(C_END_ALIGN), 0' >> $*.s
 ifeq ($(UNAME),Darwin)
 	$(SED) -f scripts/align_2_before_debug_section_for_osx.sed $*.s
 else

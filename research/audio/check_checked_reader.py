@@ -39,7 +39,7 @@ def main():
         uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB)
         for base,size in ((0,0x1000),(0x01000000,0x1000),(TRACK,0x4000),(0x03000000,0x8000),(0x08000000,0x1000000)):
             uc.mem_map(base,size)
-        uc.mem_write(0x08000000,rom)
+        uc.mem_write(0x08000000,(ROOT/'fireemblem8.gba').read_bytes() if a.production and machines else rom)
         uc.mem_write(ENTRY,code)
         machines.append(uc)
     cases=0

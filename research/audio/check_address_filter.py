@@ -18,13 +18,14 @@ def main():
     p.add_argument('--shared-plugin',type=Path)
     p.add_argument('--stack-plugin',type=Path)
     p.add_argument('--plugin',type=Path)
+    p.add_argument('--production',action='store_true')
     p.add_argument('--require-match',action='store_true')
     a=p.parse_args();OUT.mkdir(exist_ok=True)
     flags=['-S','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-schedule-insns','-fno-schedule-insns2','-fno-if-conversion','-fno-if-conversion2','-fno-reorder-blocks']
     if a.shared_plugin: flags += ['-fplugin='+str(a.shared_plugin.resolve()),'-fplugin-arg-thumb_shared_literal-symbol-literal=gMPlayJumpTableTemplate,lt_MPlayJumpTableTemplate','-fplugin-arg-thumb_shared_literal-omit-pool-alignment']
     if a.stack_plugin: flags += ['-fplugin='+str(a.stack_plugin.resolve())]
     if a.plugin: flags += ['-fplugin='+str(a.plugin.resolve())]
-    subprocess.run([a.compiler,*flags,'-I'+str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/address_filter.c'),'-o',str(OUT/'candidate.s')],check=True)
+    subprocess.run([a.compiler,*flags,'-I'+str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'src/m4a_address_filter.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext='+hex(ENTRY),'--defsym=gMPlayJumpTableTemplate=0x08207190','--defsym=lt_MPlayJumpTableTemplate='+hex(POOL),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True,capture_output=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
@@ -36,6 +37,8 @@ def main():
     if a.shared_plugin:
         assert candidate_entry==ENTRY
         assert POOL%4==0 and POOL>=ENTRY+len(candidate) and POOL+4<=ENTRY+1024
+    if a.production:
+        assert a.shared_plugin and candidate==(ROOT/'fireemblem8.gba').read_bytes()[ENTRY-0x08000000:POOL-0x08000000]
     machines=[]
     for code,entry in ((original,ENTRY),(candidate,candidate_entry)):
         uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB)
@@ -67,7 +70,7 @@ def main():
                             assert bytes(uc.mem_read(0x03006ff8,16))==bytes([0xa5])*4+struct.pack('<I',0x12340000)+bytes([0xa5])*8
                             states.append(uc.reg_read(r.UC_ARM_REG_CPSR)&0xf0000000)
                         flag_differences+=states[0]!=states[1];count+=1
-    report=dict(cases=count,candidate_entry=hex(candidate_entry),original_bytes=len(original),candidate_bytes=len(candidate),complete_match=candidate==original,flag_difference_cases=flag_differences,scope='boundary and seeded addresses, six pool values, four incoming words, all NZCV, both return modes, r0-r12 and stack preservation')
+    report=dict(cases=count,production=a.production,candidate_entry=hex(candidate_entry),original_bytes=len(original),candidate_bytes=len(candidate),complete_match=candidate==original,flag_difference_cases=flag_differences,scope='boundary and seeded addresses, six pool values, four incoming words, all NZCV, both return modes, r0-r12 and stack preservation')
     (OUT/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(report)
     if a.require_match:assert candidate==original and not flag_differences
 
