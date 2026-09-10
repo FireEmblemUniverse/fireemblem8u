@@ -443,3 +443,14 @@
       : "cmp\t%0, #%c1\n\tbls\t%3";
   }
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Store r4-r7 in ascending address order and allocate exactly sixteen bytes.
+(define_insn "match_thumb_push_saved4"
+  [(set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -16))) (reg:SI 4))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -12))) (reg:SI 5))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -8))) (reg:SI 6))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -4))) (reg:SI 7))
+   (set (reg:SI SP_REGNUM) (plus:SI (reg:SI SP_REGNUM) (const_int -16)))]
+  "TARGET_THUMB1"
+  "push\t{r4-r7}"
+  [(set_attr "length" "2") (set_attr "type" "multiple")])

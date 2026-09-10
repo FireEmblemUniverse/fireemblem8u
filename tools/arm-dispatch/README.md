@@ -911,3 +911,34 @@ python3 tools/arm-dispatch/build_thumb_direct_tails.py --compiler .deps/gcc16-ma
 .deps/arm-oracle-venv/bin/python research/audio/check_mplay_tick_setup.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
 .deps/arm-oracle-venv/bin/python research/audio/check_mplay_track_dispatch.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
 ```
+
+
+### Saved entry frame
+
+`thumb_saved_entry_frame` selects MPlayMain's private POP/PUSH frame setup from
+explicit C memory operations. It requires a zero-local-frame void Thumb function
+with no arguments/debug/unwind and bound r0/r4-r11/SP, carrying
+`matching_thumb_saved_entry_frame`. One `continuation` option names the no-argument
+call that must be the terminal operation; the matching fragment falls through
+and its linker must place that continuation immediately after its 14 bytes.
+
+The pass checks exactly 19 compiler operations: the compiler LR-only prologue,
+a volatile stack-word read, net SP adjustment -12, four ordered low-register
+stores, four high-to-low copies, SP adjustment -16, four ordered high-bank stores,
+the declared call and compiler return markers. It replaces the read/first
+adjustment with POP r0 / PUSH r4-r7, and the second adjustment/stores with PUSH
+r4-r7, preserving the four copies. Only the proven compiler prologue/return and
+redundant scalar stores are removed. All other shapes are rejected.
+The POP precedes the first PUSH, which overwrites the original saved-player word;
+that ordering and every intermediate SP are verified against the ROM.
+
+```sh
+python3 tools/arm-dispatch/build_backend.py
+python3 tools/arm-dispatch/build_thumb_saved_entry_frame.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_entry_frame.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_lock_callback_frame_model.py --frame-candidate
+```
+
+The frame is a verified candidate, not yet integrated. Its direct checker passes
+26,880 cases and rejects 15 unsupported contracts; the complete original entry
+path with the candidate frame passes 86,016 model cases, including lock rejections.

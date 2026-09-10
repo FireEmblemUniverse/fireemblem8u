@@ -4,6 +4,13 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `0ee7b16c`): entry callback setup and invocation are matching C. All 12 bytes match; the 86,016-case entry/frame model and 49,152 invocation cases pass, with 13 unsupported contracts rejected. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,728/777,630 mapped instruction bytes (92.68%); reviewed non-library assembly is 1,650 bytes, with 564 tracked C files. The valid full layout links and all 197 altered layouts reject. MPlayMain retains 30 assembly instruction bytes in its lock/initial-push and frame setup; ply_note, runtime helpers, unit-list/transfer code and final executable classification also remain unfinished.
 
+Candidate milestone (September 10, baseline `45feb2fc`): frame setup now matches
+all 14 original bytes. It passes 26,880 direct frame cases and the 86,016-case
+entry-path model (64,512 lock rejections; 21,504 accepted entries), rejects 15
+unsupported contracts and preserves unannotated compilation. The rebuilt
+compiler also passes all 32,768 exit-frame regression cases. Production ownership
+is unchanged pending integration and full gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

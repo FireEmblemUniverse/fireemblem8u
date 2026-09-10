@@ -8604,3 +8604,50 @@ Evidence: `.deps/soundmain-packed/mplay-entry/callback-production-build.log`,
 Production ELF SHA-256:
 `f4780c654800200fc57544601917cebaa56408bc31a0751a3315775e612dfce7`.
 Next: remaining MPlayMain lock/initial-push and frame setup.
+
+
+## September 10, 2026 — Matching saved-entry frame candidate
+
+On production baseline `45feb2fc`, the 14-byte frame setup at
+080CFB84..080CFB92 now has a matching C candidate. The source explicitly reads
+the saved player, updates SP, stores the low bank, copies r8-r11 to r4-r7, and
+stores the high bank. Ordinary compilation introduced an ABI return frame and
+scalar stores; a pointer-typed SP probe also generated temporary registers.
+The final source uses an integer-bound SP, with no inline assembly templates,
+and the new private frame pass proves its exact ordered operations before
+selecting POP/PUSH banks and adjacent continuation.
+
+The new four-register PUSH machine pattern models ascending-address stores and
+16-byte allocation. The existing POP-word pattern supplies the initial load and
+four-byte writeback. The pass strictly validates the 19-operation shape, global
+bindings, frameless/no-argument Thumb entry, no debug/unwind, exact bank order,
+stack deltas and one declared continuation. The isolated pinned compiler and
+new plugin rebuilt successfully.
+
+All 26,880 original/candidate frame executions pass against independent memory,
+register and flag expectations: saved-player byte/boundary/bit/random words,
+all NZCV and four stack positions including both RAM boundaries. POP reads the
+old word before the first PUSH overwrites it; every intermediate SP, ordered
+read/write, unchanged flags and remaining registers are checked. Fifteen invalid
+source/option contracts reject; unannotated output is unchanged.
+
+The full entry-path model with candidate frame also passes all 86,016 cases:
+64,512 lock rejections do not execute the candidate, and 21,504 accepted entries
+do. Callback writes may change saved player/return words or overlap future frame
+stores. ARM/Thumb callbacks/returns, all incoming flags, four returned flag
+patterns, full registers/memory and per-instruction SP agree. Existing exit-frame
+regression passes 32,768 cases under the rebuilt compiler (16,384 full returns
+and 16,384 shared BX entries). Synthetic callbacks and bounded frame models do
+not prove complete MPlayMain execution or physical timing.
+
+Production ownership remains unchanged. Integration would leave the original
+16-byte lock/initial-push fragment. Next: integrate the 14-byte frame with exact
+extent and continuation constraints, refresh all verification receipts, then
+recover the final lock/initial-push entry.
+
+Sources: `research/audio/mplay_entry_frame.c`, `check_mplay_entry_frame.py`,
+updated `check_mplay_lock_callback_frame_model.py`,
+`tools/arm-dispatch/thumb_saved_entry_frame.cc`, its build helper and `matching.md`.
+Evidence: `.deps/soundmain-packed/entry-frame/report.json`, `check.log`,
+`chain-check.log`, `return-regression.log`, `backend-build.log`, `plugin-build.log`,
+and `.deps/soundmain-packed/mplay-entry/saved-frame-candidate-model.json`.
