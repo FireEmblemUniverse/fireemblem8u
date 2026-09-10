@@ -8036,3 +8036,40 @@ The existing grouped `thumb_frame_return` contract instead consumes 64 bytes
 with low-register loads at offsets 28..56 and the target at 60. It cannot be
 reused unchanged. Next: support and verify the exact 36-byte frame while
 preserving the shared trampoline entry, then integrate the complete exit path.
+
+
+## MPlayMain 36-byte return candidate — September 10, 2026
+
+On baseline `99cd30b7`, the existing grouped frame-return plugin gains an
+explicit `frame36` option, requiring `grouped`. The default remains the 64-byte
+mixer frame. The new mode requires exactly the ordered restoration body, loads
+r0-r7 at offsets 0..28, copies r0-r3 into r8-r11, loads the final target from
+32 and consumes 36 bytes. The transformation emits POP low-eight, the four
+high-register MOVs, POP r3 and BX r3. Unlike the mixer mode, it adds no initial
+SP adjustment. Existing zero-frame, no-arguments, no-debug/unwind, no-branch/call/
+assembly, aligned read-only frame and saved-target checks remain enforced.
+
+The 14 candidate bytes at 080CFDB4..080CFDC2 match the original exactly.
+All 32,768 original/candidate cases pass: 16,384 full-frame restorations and
+16,384 direct entries at the shared BX instruction. Coverage spans ARM/Thumb
+return targets, all NZCV, four stack placements including the final mapped
+36-byte frame, and random saved/initial registers. All registers, full CPSR,
+SP/LR, RAM, nine ordered word reads and SP at every instruction agree with the
+independent frame model. Shared entry performs no frame reads or SP movement.
+The preceding identifier store and complete MPlayMain body are outside this
+checker; they are not claimed by the return result.
+
+Fourteen invalid 36-byte source forms reject and unannotated compilation is
+unchanged. The original grouped mixer contract still rejects its 14 invalid
+forms, with unannotated output unchanged. Its execution regression passes
+40,960 cases across four ROM/copied-RAM machines plus 2,048 shared entries,
+retaining the exact 24-byte mixer-return section and final ARM/Thumb transfer.
+
+Sources/checkers: `research/audio/mplay_exit_restore.c`,
+`check_mplay_exit_restore.py`, `check_mplay_exit_restore_contract.py`; compiler:
+`tools/arm-dispatch/thumb_frame_return.cc`. Evidence:
+`.deps/soundmain-packed/mplay-exit-restore/report.json`,
+`mplay-exit-restore-check.log`, `mplay-exit-mixer-regression.log` and the plugin
+build receipt. Production ownership is unchanged. Next: integrate the identifier
+store and return while preserving call_r3 as a typed shared Thumb entry, verify
+full ROM and altered layouts, and refresh ownership/runtime evidence.

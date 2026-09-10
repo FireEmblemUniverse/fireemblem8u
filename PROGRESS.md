@@ -4,7 +4,7 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `40e45661`): MPlayMain's frequency calls and result stores are matching C. All 22 instruction bytes match; 201,088 production/original cases pass. The full ROM and fresh runtime builds match; all 133 altered layouts reject. Main-ROM C ownership is 720,608/777,630 mapped instruction bytes (92.67%). Remaining post-track advancement/frame exit, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
-Candidate milestone (September 10): the 4-byte exit identifier restoration matches in isolated C and passes 29,216 register/flags/memory cases, including identifier destinations overlapping each saved-frame word. The remaining return needs the 36-byte MPlayMain frame layout; the existing grouped return rule currently handles the mixer’s 64-byte frame. Production ownership is unchanged.
+Candidate milestone (September 10): the 14-byte 36-byte-frame return now matches in isolated C and passes 32,768 full-restore/shared-entry cases, including ARM/Thumb targets and SP at each instruction. Fourteen invalid source forms reject. The mixer-return regression passes 40,960 cases plus 2,048 shared-entry cases; its 14 contract guards also pass. The preceding 4-byte identifier restoration is also verified; production ownership is unchanged.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

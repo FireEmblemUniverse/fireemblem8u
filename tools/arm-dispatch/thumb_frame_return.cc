@@ -26,7 +26,7 @@
 #include "options.h"
 int plugin_is_GPL_compatible;
 namespace {
-bool grouped=false;
+bool grouped=false,frame36=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_frame_return requires a function");*no_add=true; }
     return NULL_TREE;
@@ -74,6 +74,7 @@ public:
         }
         if (pool_stage&&pool_stage!=3) fatal_error(UNKNOWN_LOCATION,"Thumb frame return incomplete pool");
         if (ops.size()<5) fatal_error(UNKNOWN_LOCATION,"Thumb frame return missing complete leaf tail");
+        const unsigned frame=frame36?36:64, first_offset=frame-36;
         unsigned n=ops.size();rtx_insn *spuse=ops[n-3],*lruse=ops[n-2],*ret=ops[n-1];
         rtx sp=PATTERN(spuse),lr=PATTERN(lruse),ep=PATTERN(ret);
         if (GET_CODE(sp)!=UNSPEC||XINT(sp,1)!=UNSPEC_REGISTER_USE||XVECLEN(sp,0)!=1
@@ -86,15 +87,15 @@ public:
         rtx ap=PATTERN(advance),tp=PATTERN(target);
         if (GET_CODE(ap)!=SET||!REG_P(SET_DEST(ap))||REGNO(SET_DEST(ap))!=SP_REGNUM
             ||GET_CODE(SET_SRC(ap))!=PLUS||!REG_P(XEXP(SET_SRC(ap),0))||REGNO(XEXP(SET_SRC(ap),0))!=SP_REGNUM
-            ||!CONST_INT_P(XEXP(SET_SRC(ap),1))||INTVAL(XEXP(SET_SRC(ap),1))!=64)
-            fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires final SP advance of 64");
+            ||!CONST_INT_P(XEXP(SET_SRC(ap),1))||INTVAL(XEXP(SET_SRC(ap),1))!=frame)
+            fatal_error(UNKNOWN_LOCATION,"Thumb frame return final SP advance differs from declared frame");
         if (GET_CODE(tp)!=SET||!REG_P(SET_DEST(tp))||REGNO(SET_DEST(tp))!=3
             ||!MEM_P(SET_SRC(tp))||GET_MODE(SET_SRC(tp))!=SImode)
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires final saved r3 load");
         rtx address=XEXP(SET_SRC(tp),0);
         if (GET_CODE(address)!=PLUS||!REG_P(XEXP(address,0))||REGNO(XEXP(address,0))!=SP_REGNUM
-            ||!CONST_INT_P(XEXP(address,1))||INTVAL(XEXP(address,1))!=60)
-            fatal_error(UNKNOWN_LOCATION,"Thumb frame return target must be frame word 60");
+            ||!CONST_INT_P(XEXP(address,1))||INTVAL(XEXP(address,1))!=frame-4)
+            fatal_error(UNKNOWN_LOCATION,"Thumb frame return target must be final frame word");
         for (rtx_insn *i=get_insns();i&&i!=spuse;i=NEXT_INSN(i)) {
             if (LABEL_P(i)) fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires a straight body");
             if (!NONDEBUG_INSN_P(i)) continue;
@@ -102,7 +103,7 @@ public:
             if (CALL_P(i)||JUMP_P(i)||asm_noperands(p)>=0||mentions(p,LR_REGNUM))
                 fatal_error(UNKNOWN_LOCATION,"Thumb frame return rejects calls, branches, assembly or LR accesses");
             if (i==advance||!mentions(p,SP_REGNUM)) continue;
-            // The private frame is read-only: one aligned SI load at an offset 0..60.
+            // The private frame is read-only: aligned SI loads within the declared size.
             if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))>=13
                 ||GET_MODE(SET_DEST(p))!=SImode||!MEM_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode)
                 fatal_error(UNKNOWN_LOCATION,"Thumb frame return permits only word reads from the private frame");
@@ -110,20 +111,21 @@ public:
             if (GET_CODE(address)==PLUS&&CONST_INT_P(XEXP(address,1))) {
                 offset=INTVAL(XEXP(address,1));address=XEXP(address,0);
             }
-            if (!REG_P(address)||REGNO(address)!=SP_REGNUM||offset<0||offset>60||(offset&3))
-                fatal_error(UNKNOWN_LOCATION,"Thumb frame return frame read outside aligned 64-byte contract");
+            if (!REG_P(address)||REGNO(address)!=SP_REGNUM||offset<0||offset>frame-4||(offset&3))
+                fatal_error(UNKNOWN_LOCATION,"Thumb frame return frame read outside aligned frame contract");
         }
         if (grouped) {
             if (n<17) fatal_error(UNKNOWN_LOCATION,"Thumb frame return missing grouped restores");
             unsigned first=n-17;
+            if (frame36&&first!=0) fatal_error(UNKNOWN_LOCATION,"Thumb 36-byte return requires only ordered restores");
             for (unsigned k=0;k<8;k++) {
                 rtx p=PATTERN(ops[first+k]);
                 if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))!=k
                     ||GET_MODE(SET_DEST(p))!=SImode||!MEM_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode)
                     fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires ordered low-register loads");
-                rtx a=XEXP(SET_SRC(p),0);
-                if (GET_CODE(a)!=PLUS||!REG_P(XEXP(a,0))||REGNO(XEXP(a,0))!=SP_REGNUM
-                    ||!CONST_INT_P(XEXP(a,1))||INTVAL(XEXP(a,1))!=28+4*k)
+                rtx a=XEXP(SET_SRC(p),0);HOST_WIDE_INT offset=0;
+                if (GET_CODE(a)==PLUS&&CONST_INT_P(XEXP(a,1))) {offset=INTVAL(XEXP(a,1));a=XEXP(a,0);}
+                if (!REG_P(a)||REGNO(a)!=SP_REGNUM||offset!=first_offset+4*k)
                     fatal_error(UNKNOWN_LOCATION,"Thumb frame return grouped offsets changed");
             }
             for (unsigned k=0;k<4;k++) {
@@ -134,8 +136,8 @@ public:
                     fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires exact high-register copies");
             }
             rtx spreg=gen_rtx_REG(SImode,SP_REGNUM);
-            rtx_insn *adjust=emit_insn_before(gen_rtx_SET(spreg,gen_rtx_PLUS(SImode,spreg,GEN_INT(28))),ops[first]);
-            if (recog_memoized(adjust)<0
+            rtx_insn *adjust=first_offset?emit_insn_before(gen_rtx_SET(spreg,gen_rtx_PLUS(SImode,spreg,GEN_INT(first_offset))),ops[first]):nullptr;
+            if ((adjust&&recog_memoized(adjust)<0)
                 ||!validate_change(ops[first],&PATTERN(ops[first]),gen_match_thumb_pop_low8(),false)
                 ||!validate_change(target,&PATTERN(target),gen_match_thumb_pop_word(gen_rtx_REG(SImode,3)),false))
                 fatal_error(UNKNOWN_LOCATION,"Thumb frame return grouped pattern rejected");
@@ -154,9 +156,11 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
-        if (strcmp(info->argv[n].key,"grouped")||info->argv[n].value||grouped) return 1;
-        grouped=true;
+        if (!strcmp(info->argv[n].key,"grouped")&&!info->argv[n].value&&!grouped) grouped=true;
+        else if (!strcmp(info->argv[n].key,"frame36")&&!info->argv[n].value&&!frame36) frame36=true;
+        else return 1;
     }
+    if (frame36&&!grouped) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
