@@ -198,6 +198,10 @@ src/m4a_flag_setters.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_flag_setters.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_flag_setters.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffunction-sections -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i
 
+src/m4a_reset_setters.o: $(THUMB_IP_RETURN_PLUGIN)
+src/m4a_reset_setters.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_reset_setters.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffunction-sections -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i_unchecked -fplugin-arg-ip_return-preserves-ip=clear_modM -fplugin-arg-ip_return-forward-exits
+
 src/m4a_mod_type.o: $(THUMB_IP_RETURN_PLUGIN)
 src/m4a_mod_type.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mod_type.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffunction-sections -fno-schedule-insns -fno-schedule-insns2 -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_IP_RETURN_PLUGIN) -fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i -fplugin-arg-ip_return-forward-exits

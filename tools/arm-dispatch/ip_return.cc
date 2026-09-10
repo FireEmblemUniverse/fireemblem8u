@@ -70,7 +70,7 @@ bool lr_push(rtx p) {
         && GET_CODE(src)==UNSPEC && XINT(src,1)==UNSPEC_PUSH_MULT
         && XVECLEN(src,0)==1 && reg_is(XVECEXP(src,0,0),LR_REGNUM);
 }
-// Accept only a low-register equality branch to the single terminal epilogue.
+// Accept only a low-register equality (or zero-test) branch to the single terminal epilogue.
 // A forward destination cannot bypass the entry save or create a loop.
 bool forward_exit(rtx_insn *i) {
     rtx p=PATTERN(i);
@@ -80,6 +80,7 @@ bool forward_exit(rtx_insn *i) {
         || XEXP(choice,2)!=pc_rtx) return false;
     for (int n=0;n<2;n++) {
         rtx operand=XEXP(test,n);
+        if (n==1 && operand==const0_rtx) continue;
         if (!REG_P(operand) || GET_MODE(operand)!=SImode || REGNO(operand)>=8) return false;
     }
     rtx_insn *label=as_a<rtx_insn *>(XEXP(target,0)),*cursor=NEXT_INSN(i);

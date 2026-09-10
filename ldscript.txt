@@ -640,6 +640,10 @@ SECTIONS
         . = ALIGN(4);
         src/m4a_read_command.o(.text);
         src/m4a_1.o(.text.after_clear_mod);
+        src/m4a_reset_setters.o(.text.ply_lfos);
+        src/m4a_1.o(.text.after_ply_lfos);
+        src/m4a_reset_setters.o(.text.ply_mod);
+        src/m4a_1.o(.text.after_ply_mod);
         src/m4a.o(.text);
         src/libagbsyscall.o(.text);
         src/agb_sram.o(.text);

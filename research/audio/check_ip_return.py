@@ -54,6 +54,8 @@ def main():
     ]:
         negatives.append((branch_decl+attr+'void probe(void) { '+body+' }', [],
                           plugin+['-fplugin-arg-ip_return-forward-exits'], label))
+    negatives.append((decl+register_decl+attr+'void probe(void) { helper(); if (operand != 1) helper(); }', [],
+                      plugin+['-fplugin-arg-ip_return-forward-exits'], 'nonzero immediate exit test'))
     with tempfile.TemporaryDirectory(prefix='ip-return-') as temp:
         root = Path(temp)
         command = [args.compiler, *flags, str(root/'probe.c'), '-o', str(root/'probe.s')]

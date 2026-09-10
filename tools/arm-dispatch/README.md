@@ -77,7 +77,7 @@ and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
 Large leaf far-branch fixtures remain unsupported by this GCC backend (the
 baseline compiler also rejects them); VSync only uses short branches.
 
-The `ip_return` plugin supports the command and flag setters and the tempo, port, modulation-type and voice-selection handlers.
+The `ip_return` plugin supports the command and flag setters and the tempo, port, modulation-type and voice-selection and LFO/modulation reset handlers.
 It is built by `build_ip_return.py` against the installed compiler. The explicit
 `matching_ip_return` attribute requires a straight-line void function with an
 LR-only frame, and every direct call must have a `preserves-ip=SYMBOL` manifest
@@ -97,7 +97,7 @@ It replaces the entry LR push with a register move and the epilogue with BX r12.
 `check_command_setters.py --compiler COMPILER --plugin PLUGIN --require-match
 --production` checks the exact linked setter bytes and actual ROM helper calls.
 
-The opt-in `forward-exits` option permits low-register EQ/NE branches to the
+The opt-in `forward-exits` option permits low-register EQ/NE branches (including comparisons with zero) to the
 single terminal epilogue, after the entry save and at least one contracted call.
 The label must occur later in the instruction stream and lead directly to the
 epilogue, allowing only the compiler's zero-code SP-use marker in between.

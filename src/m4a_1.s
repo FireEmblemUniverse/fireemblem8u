@@ -1245,28 +1245,10 @@ _081DDCEA:
 
 @ Command-byte reader is generated from matching C.
 
-	thumb_func_start ply_lfos
-ply_lfos:
-	mov r12, lr
-	bl ld_r3_tp_adr_i_unchecked
-	strb r3, [r1, o_MusicPlayerTrack_lfoSpeed]
-	cmp r3, 0
-	bne _081DDD7C
-	bl clear_modM
-_081DDD7C:
-	bx r12
-	thumb_func_end ply_lfos
-
-	thumb_func_start ply_mod
-ply_mod:
-	mov r12, lr
-	bl ld_r3_tp_adr_i_unchecked
-	strb r3, [r1, o_MusicPlayerTrack_mod]
-	cmp r3, 0
-	bne _081DDD90
-	bl clear_modM
-_081DDD90:
-	bx r12
-	thumb_func_end ply_mod
+@ ply_lfos and ply_mod are generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_lfos, "ax", %progbits
+	.align 2, 0
+	.section .text.after_ply_mod, "ax", %progbits
 
 	.align 2, 0 @ Don't pad with nop.

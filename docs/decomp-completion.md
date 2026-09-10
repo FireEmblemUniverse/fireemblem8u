@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the repeat integration (baseline `e1c1d023` plus this change),
+After the LFO/modulation integration (baseline `45b0cd4f` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 464 main
-C files, 37 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 465 main
+C files, 35 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -3074,3 +3074,34 @@ one directive-only template and seven instruction templates. Audio engine,
 LFO/modulation commands, embedded, transfer-wrapper, naked fallback and complete
 executable-classification work remain unfinished. Production logs and audits
 are retained under `.deps/repeat-match/`.
+
+
+### September 9: LFO and modulation reset commands integrated
+
+`src/m4a_reset_setters.c` replaces `ply_lfos` at `080D00AC` and `ply_mod` at
+`080D00C0`. Both 18-byte bodies match. Each command stores the unchecked reader's
+byte and calls `clear_modM` only when it is zero. The helper clears modulation
+and LFO counters and updates the appropriate track flags. Both actual helpers
+preserve the private r12 return convention.
+
+The opt-in private-return forward-exit checker now accepts a zero immediate
+as well as a second low register in EQ/NE comparisons. A nonzero-immediate
+fixture remains rejected. The installed contract suite passes 128 executions,
+rejects 23 unsupported forms and leaves unannotated assembly unchanged.
+
+`research/audio/check_command_setters.py --compiler COMPILER --plugin PLUGIN
+--reset-setters --require-match --production` passes 49,536 cases per function,
+99,072 total. The tests include every command byte, three modulation types,
+eight initial track flags, four incoming NZCV patterns and pointer aliases.
+Low-address reads intentionally remain unchecked; the expected model does not
+apply the checked reader's zero filter. Full track RAM, r0-r12, return flags,
+SP, return PC and preserved registers agree, including the actual reset helper.
+
+`make compare -j8` verifies all ROM bytes and original zero padding. The linked
+audit assigns 36 Thumb bytes and two padding bytes to the C object, with the
+remaining inter-function alignment supplied by the linker and no orphan mappings.
+Inventory is 465 main C files and 35 assembly entry markers. The 578 inline sites
+comprise 236 register bindings, 334 empty constraints, one directive-only template
+and seven instruction templates. Audio engine, assembly interfaces, embedded
+code, transfer wrapper, naked fallback and executable-classification work remain
+unfinished. Evidence is retained in `.deps/reset-setters/`.

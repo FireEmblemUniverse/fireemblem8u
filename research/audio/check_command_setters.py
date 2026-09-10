@@ -27,6 +27,7 @@ def main():
     parser.add_argument("--production", action="store_true")
     parser.add_argument("--flag-setters", action="store_true")
     parser.add_argument("--mod-type", action="store_true")
+    parser.add_argument("--reset-setters", action="store_true")
     args = parser.parse_args()
     specs = FLAG_SPECS if args.flag_setters else SPECS
     out = OUT/"flag-setters" if args.flag_setters else OUT
@@ -35,10 +36,17 @@ def main():
         specs = {'ply_modt': (0x080cfad8, 24, 15, 24, 0)}
         out = ROOT/'.deps/mod-type-match'
         source = ROOT/'src/m4a_mod_type.c'
+    if args.reset_setters:
+        specs = {'ply_lfos': (0x080d00ac,25,0,18,0), 'ply_mod': (0x080d00c0,23,0,18,0)}
+        out = ROOT/'.deps/reset-setters'
+        source = ROOT/'src/m4a_reset_setters.c'
     extra = (["-Werror=attributes", "-fno-unwind-tables", "-fno-asynchronous-unwind-tables",
               "-fplugin="+str(args.plugin.resolve()), "-fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i"] if args.plugin else [])
     if args.mod_type:
         extra += ['-DMOD_PRIVATE_RETURN', '-fplugin-arg-ip_return-forward-exits']
+    if args.reset_setters:
+        extra += ['-fplugin-arg-ip_return-forward-exits', '-fplugin-arg-ip_return-preserves-ip=ld_r3_tp_adr_i_unchecked',
+                  '-fplugin-arg-ip_return-preserves-ip=clear_modM']
     out.mkdir(parents=True, exist_ok=True)
     subprocess.run([args.compiler, '-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi',
                     '-mabi=apcs-gnu', '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing',
@@ -48,6 +56,9 @@ def main():
                     '-o', str(out/'candidate.s'), *extra], check=True)
     assembly = (out/'candidate.s').read_text()
     (out/'linked.s').write_text(assembly+'\n.global ld_r3_tp_adr_i\n.thumb_set ld_r3_tp_adr_i, 0x080cf98d\n')
+    if args.reset_setters:
+        with (out/'linked.s').open('a') as f:
+            f.write('\n.global ld_r3_tp_adr_i_unchecked,clear_modM\n.thumb_set ld_r3_tp_adr_i_unchecked,0x080d00a1\n.thumb_set clear_modM,0x080d0085\n')
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(out/'linked.s'), '-o', str(out/'candidate.o')], check=True)
     rom = (ROOT/'baserom.gba').read_bytes()
     report = {}
@@ -71,11 +82,13 @@ def main():
         differing_registers = set()
         for command in (TRACK+0x200, 0x200, TRACK+64, TRACK+65, TRACK+66, TRACK+67):
             values = range(256) if command in (TRACK+0x200, 0x200) else (0,)
-            flags = (0, 1, 3, 4, 8, 12, 0x80, 0xff) if mask else (0xa5,)
-            for value, track_flags, old_case in product(values, flags, range(4) if args.mod_type else (0,)):
+            flags = (0, 1, 3, 4, 8, 12, 0x80, 0xff) if mask or args.reset_setters else (0xa5,)
+            for value, track_flags, old_case in product(values, flags, range(4) if args.mod_type else (range(3) if args.reset_setters else (0,))):
                 initial = bytearray([0xa5]*0x100)
                 initial[0] = track_flags
                 struct.pack_into('<I', initial, 64, command)
+                if args.reset_setters:
+                    initial[24] = (0, 1, 255)[old_case]
                 expected = initial.copy()
                 struct.pack_into('<I', expected, 64, command+1)
                 byte = expected[command-TRACK] if TRACK <= command < TRACK+0x100 else value
@@ -83,9 +96,12 @@ def main():
                     byte = byte if command >= 0x02000000 else 0
                     old_type = (byte, byte ^ 1, 0, 255)[old_case]
                     initial[field] = expected[field] = old_type
-                expected[field] = ((byte if command >= 0x02000000 else 0) - bias) & 255
+                expected[field] = ((byte if command >= 0x02000000 or args.reset_setters else 0) - bias) & 255
                 if not args.mod_type or old_type != expected[field]:
                     expected[0] |= mask
+                if args.reset_setters and expected[field] == 0:
+                    expected[22] = expected[26] = 0
+                    expected[0] |= 12 if expected[24] == 0 else 3
                 for nzcv in (0, 5, 10, 15):
                     states = []
                     for uc in machines:
