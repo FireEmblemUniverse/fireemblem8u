@@ -86,14 +86,18 @@ public:
                 } else if (GET_CODE(condition)==EQ&&low(XEXP(condition,0))&&XEXP(condition,1)==const0_rtx) {
                     replacement=gen_match_thumb_zero_tail(copy_rtx(XEXP(condition,0)),copy_rtx(symbol));
                 }
-            } else if (!bundled&&GET_CODE(condition)==NE&&XEXP(condition,1)==const0_rtx) {
+            } else if (!bundled&&(GET_CODE(condition)==NE||GET_CODE(condition)==EQ)&&XEXP(condition,1)==const0_rtx) {
                 // Inverse masked test followed by one tail, then its skip label.
                 rtx mask=XEXP(condition,0);rtx_insn *stub=next_op(i);symbol=symbol_of(stub);
-                if (symbol&&GET_CODE(mask)==AND&&low(XEXP(mask,0))&&low(XEXP(mask,1))
+                if (symbol&&GET_CODE(condition)==NE&&GET_CODE(mask)==AND&&low(XEXP(mask,0))&&low(XEXP(mask,1))
                     &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {
                     rtx a=XEXP(mask,0),b=XEXP(mask,1);
                     if (REGNO(a)>REGNO(b)) {rtx t=a;a=b;b=t;}
                     replacement=gen_match_thumb_mask_zero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol));
+                    remove=stub;
+                } else if (symbol&&GET_CODE(condition)==EQ&&low(mask)
+                           &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {
+                    replacement=gen_match_thumb_nonzero_tail(copy_rtx(mask),copy_rtx(symbol));
                     remove=stub;
                 }
             }

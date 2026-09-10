@@ -697,8 +697,8 @@ with the direct-tail rule below.
 
 `matching_thumb_direct_tails` retargets the validated local continuation stubs
 left by `matching_tail_transfer`. It supports a zero comparison, the validated
-EQ/NE decrement/store bundle, and an inverse masked-zero branch over an adjacent
-unlabelled tail stub. The masked AND is commutative; low-register operands are
+EQ/NE decrement/store bundle, and an inverse masked-zero or plain-zero branch over an adjacent
+unlabelled tail stub. A plain-zero skip becomes a direct nonzero transfer. The masked AND is commutative; low-register operands are
 ordered ascending for the required TST encoding. No instruction or labelled entry
 may intervene before a removed tail stub. Its obsolete barrier is also removed.
 
@@ -720,6 +720,23 @@ python3 research/audio/check_mplay_channel_layout.py
 
 The Makefile builds both new plugins automatically for `m4a_mplay_channel_gate.o`.
 The channel checker proves exact original and production bytes before executing
-all 1,048,576 status/gate/NZCV cases. Twelve invalid compiler contracts and five
-altered production layouts are rejected. Channel traversal, ClearChain and full
+all 1,048,576 status/gate/NZCV cases. Twelve existing invalid compiler contracts, four next-channel source forms and
+eight altered production layouts are rejected. Channel traversal, ClearChain and full
 MPlayMain execution remain outside this fragment's semantic checker.
+
+
+The direct-tail rule also supports `m4a_mplay_channel_next.o`: a word load into r4,
+CMP against zero, and BNE back to the channel gate. The zero path falls through
+to track initialization. The linker proves the six-byte extent, adjacent track
+entry and backward conditional-branch range; Thumb function symbols are masked
+to their even instruction addresses for placement checks.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_channel_next.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+```
+
+Its 68,288 cases include pointer-word boundaries, every bit and 1,024 random
+words across all initial NZCV states and four channel addresses, including reads
+at SP, SP-4 and the last mapped RAM word. It checks the one ordered word read,
+complete RAM, all registers and both continuations. Four invalid source forms
+reject, and loading the plugin leaves unannotated compilation unchanged.

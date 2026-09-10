@@ -6783,3 +6783,52 @@ Evidence: `.deps/soundmain-packed/mplay-channel-gate-direct/report.json`,
 that directory, `mplay-channel-gate-direct-production-check.log`,
 `mplay-channel-gate-direct-production-compare.log`, and the runtime rebuild receipt.
 Next work continues MPlayMain channel traversal and track processing.
+
+
+## Matching MPlayMain next-channel transfer integrated — September 10, 2026
+
+Baseline `4abf43c2`. `src/m4a_mplay_channel_next.c` replaces six instruction
+bytes at 080CFBF8..080CFBFE: load the channel's `np` word into r4, compare with
+zero, and branch to the matching channel gate if nonzero. The zero path falls
+through to the existing track initialization entry. This is six bytes / three
+instructions; track initialization and the ClearChain call path remain assembly.
+
+The opt-in direct-tail rule now recognizes a plain-zero skip over an adjacent,
+unlabelled declared continuation stub and emits the equivalent direct nonzero
+branch. It preserves CMP flags and inherits the existing destination/count
+contracts and barrier/label safeguards. The pinned backend was rebuilt, and the
+Makefile selects the rule only for annotated code. Four new invalid source forms
+reject; unannotated output is unchanged. The existing twelve direct-tail contract
+checks still pass.
+
+`check_mplay_channel_next.py --production` verifies all six bytes against the
+original and the full matching production ROM, then passes 68,288 execution
+cases. Tests cover full-width pointer boundaries, every pointer bit and 1,024
+random words, all initial NZCV states, and four channel addresses including fields
+at SP, SP-4 and the last mapped RAM word. There are 68,224 loop transfers and 64
+track-entry transfers. All r0-r12, SP/LR, final CPSR, the complete 16 KiB RAM image
+and the single ordered word read agree. An initial last-word test address was
+corrected from just past the mapping to its final valid word. Execution stops at
+the channel gate or track entry; full channel lists and full MPlayMain execution
+are not claimed by this fragment checker.
+
+The production linker enforces the six-byte extent, track-entry fallthrough and
+backward conditional-branch reach. The preceding gate's assertions now account
+for the next-channel entry being a typed Thumb C symbol. Eight altered full-link
+layouts reject, including the previous five gate checks and three new size,
+continuation and range cases. `make compare -j8` passes for the entire ROM; fresh
+runtime builds reproduce all four images and exported symbols. Source/linked,
+inline-assembly and runtime inventories are refreshed, as are the unchanged
+SoundMain and mixer ownership receipts.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,212 C-owned (92.62%),
+33,870 mixed C/assembly, 1,756 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,166 main-ROM bytes and
+420 payload bytes. There are 510 tracked main C files and 30 assembly entry
+markers. These totals include inherited work and are not overall completion.
+
+ELF SHA-256: `d36bb69d3969094bf109709820ad6b0a1a082035d78d5cbdd8ef3961ae0dcd64`.
+Evidence: `.deps/soundmain-packed/mplay-channel-next/report.json`, source/linked
+and ownership output in that directory, `mplay-channel-next-production-check.log`,
+`mplay-channel-next-production-compare.log`, the combined channel layout receipt
+and the refreshed runtime receipt. Next work is track initialization/processing.

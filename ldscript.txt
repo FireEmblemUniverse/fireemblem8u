@@ -1097,16 +1097,28 @@ SECTIONS
         src/m4a_mplay_channel_gate.o(.text);
         __mplay_channel_gate_end = .;
         src/m4a_1.o(.text.after_mplay_channel_gate);
+        __mplay_channel_next_start = .;
+        src/m4a_mplay_channel_next.o(.text);
+        __mplay_channel_next_end = .;
+        src/m4a_1.o(.text.after_mplay_channel_next);
+        ASSERT((MPlayMainChannelNext & ~1) == MPlayMainChannelNextBoundary &&
+               __mplay_channel_next_end - __mplay_channel_next_start == 6 &&
+               MPlayMainTrackInit == __mplay_channel_next_end,
+               "MPlayMain channel next extent or continuation changed");
+        ASSERT((MPlayMainChannelGate & ~1) + 256 >= __mplay_channel_next_start + 8 &&
+               (MPlayMainChannelGate & ~1) <= __mplay_channel_next_start + 8 + 254 &&
+               (__mplay_channel_next_start & 1) == 0,
+               "MPlayMain channel next conditional tail out of range");
         ASSERT((MPlayMainChannelGate & ~1) == MPlayMainChannelGateBoundary &&
                __mplay_channel_gate_end - __mplay_channel_gate_start == 28 &&
                MPlayMainChannelClear == __mplay_channel_gate_end &&
-               MPlayMainChannelNext == __mplay_channel_gate_end + 6,
+               (MPlayMainChannelNext & ~1) == __mplay_channel_gate_end + 6,
                "MPlayMain channel gate extent or continuation changed");
         ASSERT(MPlayMainChannelClear >= __mplay_channel_gate_start + 10 &&
                MPlayMainChannelClear <= __mplay_channel_gate_start + 10 + 254 &&
-               MPlayMainChannelNext >= __mplay_channel_gate_start + 22 &&
-               MPlayMainChannelNext <= __mplay_channel_gate_start + 16 + 254 &&
-               (MPlayMainChannelClear & 1) == 0 && (MPlayMainChannelNext & 1) == 0,
+               (MPlayMainChannelNext & ~1) >= __mplay_channel_gate_start + 22 &&
+               (MPlayMainChannelNext & ~1) <= __mplay_channel_gate_start + 16 + 254 &&
+               (MPlayMainChannelClear & 1) == 0 && (__mplay_channel_next_start & 1) == 0,
                "MPlayMain channel gate conditional tail out of range");
         __mplay_tempo_finish_start = .;
         src/m4a_mplay_tempo_finish.o(.text);

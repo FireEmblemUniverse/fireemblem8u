@@ -18,8 +18,12 @@ def main():
  second=source.index('        ASSERT(MPlayMainChannelClear >=',first)
  range_only=source[:first]+source[second:]
  for name,expression in [('far','__mplay_channel_gate_start + 512'),('backward','__mplay_channel_gate_start - 512'),('odd','__mplay_channel_gate_start + 35')]:
-  text=range_only.replace('        ASSERT(MPlayMainChannelClear >=','        MPlayMainChannelNext = '+expression+';\n        ASSERT(MPlayMainChannelClear >=',1)
+  target='__mplay_channel_next_start' if name=='odd' else 'MPlayMainChannelNext'
+  text=range_only.replace('        ASSERT(MPlayMainChannelClear >=','        '+target+' = '+expression+';\n        ASSERT(MPlayMainChannelClear >=',1)
   cases.append((name,text,'conditional tail out of range'))
+ cases += [('next_extent',source.replace('        __mplay_channel_next_end = .;','        . += 2;\n        __mplay_channel_next_end = .;'),'channel next extent or continuation'),
+           ('track_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_channel_next);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_channel_next);'),'channel next extent or continuation'),
+           ('next_far_gate',source.replace('        ASSERT((MPlayMainChannelGate & ~1) + 256 >=','        MPlayMainChannelGate = __mplay_channel_next_start + 264;\n        ASSERT((MPlayMainChannelGate & ~1) + 256 >=',1),'channel next conditional tail out of range')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

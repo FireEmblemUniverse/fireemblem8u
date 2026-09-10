@@ -379,3 +379,13 @@
   "TARGET_THUMB1 && (GET_CODE (operands[2]) == EQ || GET_CODE (operands[2]) == NE)"
   "subs\t%0, %0, #1\n\tstrb\t%0, %1\n\tb%d2\t%3"
   [(set_attr "length" "6") (set_attr "type" "multiple")])
+
+;; Private nonzero counterpart to match_thumb_zero_tail. The linker proves reach.
+(define_insn "match_thumb_nonzero_tail"
+  [(set (pc)
+        (if_then_else
+         (ne (match_operand:SI 0 "low_register_operand" "l") (const_int 0))
+         (match_operand:SI 1 "match_thumb_tail_symbol" "s") (pc)))]
+  "TARGET_THUMB1"
+  "cmp\t%0, #0\n\tbne\t%1"
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])

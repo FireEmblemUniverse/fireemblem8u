@@ -365,12 +365,12 @@ MPlayMainChannelClear:
 _081DD8AE:
 	adds r0, r4, 0
 	bl ClearChain
-	.global MPlayMainChannelNext
-MPlayMainChannelNext:
+	.global MPlayMainChannelNextBoundary
+MPlayMainChannelNextBoundary:
 _081DD8B4:
-	ldr r4, [r4, 0x34]
-	cmp r4, 0
-	bne MPlayMainChannelGate
+	.section .text.after_mplay_channel_next, "ax", %progbits
+	.global MPlayMainTrackInit
+MPlayMainTrackInit:
 _081DD8BA:
 	ldrb r3, [r5, o_MusicPlayerTrack_flags]
 	movs r0, 0x40
