@@ -4901,3 +4901,35 @@ resample-loop-production.json, resample-loop-production-ram.json,
 resample-loop-check.log, resample-loop-check-ram.log,
 resample-loop-source-audit.json and resample-loop-ownership.log. The complete
 production call report is under `.deps/soundmain-complete/`.
+
+
+## September 10, 2026 — wrap iteration semantics verified
+
+Baseline: `79b64ec2`, production unchanged. Added
+`research/audio/soundmain_wrap_private.c` and `check_soundmain_wrap.py` for one
+iteration of the 16-byte wrapping loop at 0x080CF7D0..0x080CF7E0. ADDS followed
+by BGT tests whether the mathematical sum of two signed 32-bit operands is
+positive, including when the stored result wraps. For example 0x7FFFFFFF+1
+branches to reload despite a negative stored result; 0x80000000+0xFFFFFFFF
+repeats despite a positive stored result. A signed 64-bit C sum represents this
+without undefined signed overflow, then casts to u32 for the stored count.
+On the repeating path the skip is reduced by the unsigned loop length.
+
+The checker passes 40,800 cases across original ROM, copied RAM and compiled
+candidate: 13x13 boundary operand pairs plus 256 deterministic random pairs,
+six skip values and sixteen input NZCV states. There are 22,368 reload outcomes,
+18,432 repeat outcomes and 9,888 signed-overflow cases. Independent expectations
+check the mathematical branch and wrapped count/skip, LR and frame; original
+checks cover every register and exact ADDS NZCV. The candidate's compiler LR
+save is asserted separately, while scratch registers/flags remain unmatched.
+Execution stops before its terminal calls. Original execution stops at the
+first reload or return to the loop entry, so zero and other potentially infinite
+inputs can be checked without falsely claiming the whole loop terminates.
+
+The candidate emits 52 bytes: sign extension, low-word ADDS, high-word ADC,
+64-bit positive comparison, branch, skip update and compiler frame/calls. The
+next matching work is a guarded reduction of the widened addition/comparison
+to original ADDS/BGT, then private transfer handling. Neither production bytes
+nor coverage changed. Evidence under `.deps/soundmain-packed/`:
+wrap-candidate-check.log, wrap-candidate-report.json and wrap-candidate.s;
+reproduce with the checker and the pinned compiler path.

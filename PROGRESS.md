@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest verified implementation: 20-byte resampling loop metadata (baseline `81411c78` plus this change); full ROM checksum and 3,528 complete audio calls pass.
+Updated: September 10, 2026. Latest verified implementation: 20-byte resampling loop metadata (baseline `81411c78` plus this change); full ROM checksum and 3,528 complete audio calls pass. Latest research: wrap-iteration semantics pass 40,800 cases, including 9,888 signed-overflow cases.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -163,6 +163,13 @@ below the main frame. Resampling loop metadata is integrated as
 registers, exact flags, conditional ordered frame reads, unchanged frame/SP/LR,
 and both loop/stop exits. The length read stays at SP+24 and source at SP+20.
 The wrap-addition loop and stop-frame restoration remain assembly.
+The wrap-iteration C model now passes 40,800 cases against original ROM and
+copied RAM. It preserves the mathematical signed-sum branch, including 9,888
+overflow cases and inputs that can repeat indefinitely. A widened C addition
+avoids signed-overflow undefined behavior. The candidate is 52 bytes versus
+16 original bytes; its temporary registers, flags and call/frame handling still
+need matching. The checker stops after one iteration and does not claim a
+complete looping C integration.
 Source advancement is now integrated as
 `src/m4a_advance.c` (32 bytes), including the shared reload entry at +20.
 All 35,200 cases pass across original/production ROM and copied RAM, with
