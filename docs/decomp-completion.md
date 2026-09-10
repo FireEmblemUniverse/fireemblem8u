@@ -3497,3 +3497,22 @@ Assembly entry markers remain 32 because this filter used a global label rather
 than the counted entry macro. The remaining byte-load entry, audio engine,
 naked fallback, embedded/transfer code and full executable classification remain
 unfinished. Evidence is under `.deps/address-filter-match/`.
+
+### September 9: multiply-high ARM C candidate verified
+
+`research/audio/multiply_high.c` expresses the ARM half of umul3232H32 as a
+64-bit unsigned product in r2/r3 and returns its high word in r0. The original
+Thumb entry at 080CF4B8 uses ADR/BX to enter ARM code at 080CF4BC. That entry is
+retained in the research execution fixture; it has not been decompiled here.
+The generated 12-byte ARM body matches UMULL r2,r3,r0,r1 and BX LR, but emits
+MOV r0,r3 instead of the original non-flag-setting ADD r0,r3,#0.
+
+The oracle passes 41,984 cases: a Cartesian product of twelve boundary/bit-pattern
+values plus 512 seeded full-width operand pairs, all sixteen NZCV states,
+both direct ARM and original Thumb entries, and ARM/Thumb return modes. It
+checks high/low product halves, r0-r12, SP, return PC/mode and preserved flags.
+Two of three instruction words match; the exact-byte gate remains unsatisfied.
+This is research-only and production remains at `4333424a`. Reproducible source,
+oracle and results are under research/audio and `.deps/audio-multiply-match/`.
+Next is the register-copy encoding, followed by integration that preserves the
+interworking entry, and ultimately replacing that remaining assembly entry.

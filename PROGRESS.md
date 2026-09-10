@@ -56,7 +56,12 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: recover the remaining audio byte-load entry and engine routines.
+Next milestone: match the multiply-high helper's final register-copy encoding.
+A C candidate for its ARM body passes 41,984 cases through direct ARM and
+original Thumb entries, with all registers/flags and both return modes matching.
+Two of three ARM instruction words match; MOV r0,r3 must match the original
+ADD r0,r3,#0. It remains research-only. The byte-load fall-through entry and
+larger audio engine routines also remain unfinished.
 The shared address filter is integrated as C: all 22 instruction bytes match
 at 080CF972, with the shared literal retained at 080CF988. The complete ROM
 checksum passes, and 206,592 production filter cases pass, including flags,
