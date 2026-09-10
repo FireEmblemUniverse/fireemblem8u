@@ -3388,3 +3388,23 @@ incoming words, every NZCV state and ARM/Thumb returns. All r0-r12 and final SP
 agree. Flags differ in 36,480 cases; the exact-match gate rejects this candidate.
 No production code changed. Evidence is retained in `.deps/address-filter-match/`.
 Next work is guarded stack save/restore folding and comparison operand ordering.
+
+### September 9: audio filter comparison flags matched
+
+The research-only matching_compare_order contract reverses ascending distinct
+low SI register operands for unsigned comparison branches and reverses the
+relation (LTU/GTU or LEU/GEU) to preserve branch decisions. It runs on Thumb-1
+RTL before shortening and validates the replacement against the existing
+backend. Signed comparisons, equality/inequality and contracts without eligible
+register comparisons are rejected. Unannotated functions remain unchanged.
+The explicit private-ABI contract is necessary because comparison operand
+order affects machine flags even when C branch behavior is identical.
+
+The filter now emits CMP r2,r0 / BLO as in the original. Its complete 206,592-case
+oracle has zero return-flag differences and still passes all value/register,
+SP and return-mode checks. Four unsigned-relation fixtures compile with the
+requested operand order; four unsupported contracts are rejected and the
+unannotated fixture's assembly is byte-for-byte unchanged. Candidate size is
+still 34 versus 26 bytes; stack save/restore folding and literal layout remain.
+The plugin, builder and checks live under research/audio and are not loaded by
+production. Verification is retained in `.deps/address-filter-match/`.

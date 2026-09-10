@@ -6,6 +6,7 @@ register volatile u32 filterScratch asm("r0");
 register u32 filterAddress asm("r2");
 register volatile u32 filterValue asm("r3");
 extern const u32 gMPlayJumpTableTemplate[];
+__attribute__((matching_compare_order))
 void chk_adr_r2(void)
 {
     volatile u32 saved = filterScratch;

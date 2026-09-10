@@ -15,9 +15,11 @@ ENTRY,POOL,RETURN=0x080cf972,0x080cf988,0x080e0000
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler',required=True)
+    p.add_argument('--plugin',type=Path)
     p.add_argument('--require-match',action='store_true')
     a=p.parse_args();OUT.mkdir(exist_ok=True)
     flags=['-S','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-fno-strict-aliasing','-fno-schedule-insns','-fno-schedule-insns2','-fno-if-conversion','-fno-if-conversion2','-fno-reorder-blocks']
+    if a.plugin: flags += ['-fplugin='+str(a.plugin.resolve())]
     subprocess.run([a.compiler,*flags,'-I'+str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/address_filter.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext='+hex(ENTRY),'--defsym=gMPlayJumpTableTemplate=0x08207190',str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True,capture_output=True)
