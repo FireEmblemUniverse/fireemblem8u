@@ -369,27 +369,19 @@ _081DD8AE:
 MPlayMainChannelNextBoundary:
 _081DD8B4:
 	.section .text.after_mplay_channel_next, "ax", %progbits
-	.global MPlayMainTrackInit
-MPlayMainTrackInit:
+	.global MPlayMainTrackInitBoundary
+MPlayMainTrackInitBoundary:
 _081DD8BA:
-	ldrb r3, [r5, o_MusicPlayerTrack_flags]
-	movs r0, 0x40
-	tst r0, r3
-	beq _081DD938
+	.section .text.after_mplay_track_init_guard, "ax", %progbits
+	.global MPlayMainTrackClear
+MPlayMainTrackClear:
 	adds r0, r5, 0
 	bl Clear64byte
-	movs r0, 0x80
-	strb r0, [r5]
-	movs r0, 0x2
-	strb r0, [r5, o_MusicPlayerTrack_bendRange]
-	movs r0, 0x40
-	strb r0, [r5, o_MusicPlayerTrack_volX]
-	movs r0, 0x16
-	strb r0, [r5, o_MusicPlayerTrack_lfoSpeed]
-	movs r0, 0x1
-	adds r1, r5, 0x6
-	strb r0, [r1, o_MusicPlayerTrack_ToneData_type - 0x6]
-	b _081DD938
+	.global MPlayMainTrackDefaultsBoundary
+MPlayMainTrackDefaultsBoundary:
+	.section .text.after_mplay_track_init_defaults, "ax", %progbits
+	.global MPlayMainTrackDispatch
+MPlayMainTrackDispatch:
 _081DD8E0:
 	ldr r2, [r5, o_MusicPlayerTrack_cmdPtr]
 	ldrb r1, [r2]
@@ -438,6 +430,8 @@ _081DD92E:
 	adds r1, r0
 	ldrb r0, [r1]
 	strb r0, [r5, o_MusicPlayerTrack_wait]
+	.global MPlayMainTrackWait
+MPlayMainTrackWait:
 _081DD938:
 	ldrb r0, [r5, o_MusicPlayerTrack_wait]
 	cmp r0, 0

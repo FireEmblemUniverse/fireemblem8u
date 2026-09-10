@@ -1101,9 +1101,32 @@ SECTIONS
         src/m4a_mplay_channel_next.o(.text);
         __mplay_channel_next_end = .;
         src/m4a_1.o(.text.after_mplay_channel_next);
+        __mplay_track_init_guard_start = .;
+        src/m4a_mplay_track_init_guard.o(.text);
+        __mplay_track_init_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_track_init_guard);
+        __mplay_track_init_defaults_start = .;
+        src/m4a_mplay_track_init_defaults.o(.text);
+        __mplay_track_init_defaults_end = .;
+        src/m4a_1.o(.text.after_mplay_track_init_defaults);
+        ASSERT((MPlayMainTrackInit & ~1) == MPlayMainTrackInitBoundary &&
+               __mplay_track_init_guard_end - __mplay_track_init_guard_start == 8 &&
+               MPlayMainTrackClear == __mplay_track_init_guard_end,
+               "MPlayMain track init guard extent or clear entry changed");
+        ASSERT((MPlayMainTrackDefaults & ~1) == MPlayMainTrackDefaultsBoundary &&
+               __mplay_track_init_defaults_start == MPlayMainTrackClear + 6 &&
+               __mplay_track_init_defaults_end - __mplay_track_init_defaults_start == 24 &&
+               MPlayMainTrackDispatch == __mplay_track_init_defaults_end,
+               "MPlayMain track defaults extent or dispatch changed");
+        ASSERT(MPlayMainTrackWait >= __mplay_track_init_guard_start + 10 &&
+               MPlayMainTrackWait <= __mplay_track_init_guard_start + 10 + 254 &&
+               MPlayMainTrackWait >= __mplay_track_init_defaults_start + 26 &&
+               MPlayMainTrackWait <= __mplay_track_init_defaults_start + 26 + 2046 &&
+               (MPlayMainTrackWait & 1) == 0,
+               "MPlayMain track init transfer out of range");
         ASSERT((MPlayMainChannelNext & ~1) == MPlayMainChannelNextBoundary &&
                __mplay_channel_next_end - __mplay_channel_next_start == 6 &&
-               MPlayMainTrackInit == __mplay_channel_next_end,
+               (MPlayMainTrackInit & ~1) == __mplay_channel_next_end,
                "MPlayMain channel next extent or continuation changed");
         ASSERT((MPlayMainChannelGate & ~1) + 256 >= __mplay_channel_next_start + 8 &&
                (MPlayMainChannelGate & ~1) <= __mplay_channel_next_start + 8 + 254 &&

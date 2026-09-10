@@ -740,3 +740,22 @@ words across all initial NZCV states and four channel addresses, including reads
 at SP, SP-4 and the last mapped RAM word. It checks the one ordered word read,
 complete RAM, all registers and both continuations. Four invalid source forms
 reject, and loading the plugin leaves unannotated compilation unchanged.
+
+
+The existing direct-tail and tail-transfer rules also compile MPlayMain's
+track-start guard (8 bytes) and default writes (24 bytes). No new compiler rule
+was needed. The guard's TST preserves carry/overflow; the defaults' final ADD
+retains track+6 in r1 while STRB reaches the tone type through its derived offset.
+The six-byte `Clear64byte` call between these C fragments remains assembly.
+
+```sh
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_track_init.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+python3 research/audio/check_mplay_channel_layout.py
+```
+
+The fragment checker passes 16,384 guard cases and 16,384 default-write cases,
+covering all flags/memory-pattern bytes and initial NZCV, four track addresses,
+all registers, complete RAM and ordered accesses. It checks the two fragments
+independently and excludes the intervening clear call. Five new layout mutations
+join the existing eight, checking guard/default extents, dispatch continuation,
+and far or odd wait destinations.

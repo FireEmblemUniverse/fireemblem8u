@@ -6832,3 +6832,52 @@ Evidence: `.deps/soundmain-packed/mplay-channel-next/report.json`, source/linked
 and ownership output in that directory, `mplay-channel-next-production-check.log`,
 `mplay-channel-next-production-compare.log`, the combined channel layout receipt
 and the refreshed runtime receipt. Next work is track initialization/processing.
+
+
+## Matching MPlayMain track-start guard and defaults — September 10, 2026
+
+Baseline `7d34fd53`. Two C fragments replace 32 original instruction bytes:
+`src/m4a_mplay_track_init_guard.c` covers 080CFBFE..080CFC06, and
+`src/m4a_mplay_track_init_defaults.c` covers 080CFC0C..080CFC24. The six bytes
+between them still call Clear64byte from assembly. The guard tests start bit
+0x40 and either enters that clear call or transfers to the wait/command loop.
+The defaults write flags=128, bendRange=2, volX=64, lfoSpeed=22 and tone.type=1,
+retaining track+6 in r1 as the original code requires.
+
+Existing checked compiler rules produce the exact instruction streams; no new
+backend rule or plugin change was needed. Both fragments preserve the private
+register/frame convention. Empty compiler constraints retain intermediate values;
+the tone-type byte address is derived from the structure layout. The linker
+preserves the eight-byte guard, six-byte call gap, 24-byte defaults, following
+dispatch entry and short-branch range. The prior next-channel assertion now masks
+the typed Thumb C track-init symbol. Thirteen combined altered full-link layouts
+reject, including five new guard/default/dispatch/wait-target cases.
+
+`check_mplay_track_init.py --production` proves exact fragment bytes against the
+original and the matching production ROM. Its 32,768 execution cases include
+16,384 guard cases and 16,384 default cases, every flags/memory-pattern byte and
+initial NZCV, and four track addresses including SP, a field at SP, and a final
+write at the last mapped RAM byte. It checks all r0-r12, SP/LR, full CPSR, complete
+16 KiB RAM and ordered accesses. Guard cases produce 8,192 clear entries and
+8,192 wait entries; defaults produce 16,384 wait entries. The guard preserves
+initial C/V through MOVS/TST, and defaults finish with the flags from track+6.
+The two fragments are tested independently: the intervening clear call and full
+MPlayMain execution are explicitly outside this checker.
+
+`make compare -j8` passes for the complete 16 MiB ROM. Fresh runtime source builds
+reproduce all four images and exported symbols. Source, linked ownership, inline
+assembly and runtime inventories are updated; unchanged SoundMain/mixer regions
+are revalidated and their ELF receipts refreshed.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,244 C-owned (92.62%),
+33,870 mixed C/assembly, 1,724 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,134 main-ROM instruction
+bytes and 420 payload bytes. There are 512 tracked main C files and 30 assembly
+entry markers. These totals include inherited work and are not overall completion.
+
+ELF SHA-256: `c08e67bad2b26e3de714f60a03f4299ff20303bd844e848dbe2859f5b9cd3532`.
+Evidence: `.deps/soundmain-packed/mplay-track-init/report.json`, source/linked
+and ownership output in that directory, `mplay-track-init-production-check.log`,
+`mplay-track-init-production-compare.log`, the combined channel layout receipt,
+and refreshed runtime/SoundMain/mixer receipts. Next work continues track command
+processing and remaining clear-call paths.
