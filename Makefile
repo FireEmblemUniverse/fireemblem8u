@@ -725,3 +725,7 @@ src/m4a_resample_lane.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=a
 src/m4a_resample_setup.o: $(ARM_BYTE_PREINCREMENT_PLUGIN) $(ARM_ADJACENT_PLUGIN)
 src/m4a_resample_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_resample_setup.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_BYTE_PREINCREMENT_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Resample -fplugin-arg-arm_adjacent-sp-input=push2 -fplugin-arg-arm_adjacent-lr-input=load-word
+
+src/m4a_fixed_setup.o: $(ARM_SUBTRACT_COMPARE_PLUGIN) $(ARM_ADJACENT_PLUGIN)
+src/m4a_fixed_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_fixed_setup.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_ADJACENT_PLUGIN) -fplugin-arg-arm_adjacent-destination=SoundMainRAM_Packed -fplugin-arg-arm_adjacent-early-pair=SoundMainRAM_Short -fplugin-arg-arm_adjacent-lr-input=remainder

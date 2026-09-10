@@ -27,7 +27,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string destination,conditional_destination;
-bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false;
+bool read_only_lr=false,accumulator_lr=false,masked_lr=false,early_exit=false,frame64=false,branch_transfer=false,pop_pair=false,push_pair=false,load_word_lr=false,early_pair=false,remainder_lr=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_adjacent requires a function");*no_add=true; }
     return NULL_TREE;
@@ -90,7 +90,7 @@ bool named(rtx symbol,const std::string &name) {
     return name==text;
 }
 rtx_insn *lower_diamond() {
-    if (conditional_destination.empty()) return nullptr;
+    if (conditional_destination.empty()||early_pair) return nullptr;
     std::vector<rtx_insn *> ops;
     for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) if (NONDEBUG_INSN_P(i)) ops.push_back(i);
     if (ops.size()<7) fatal_error(UNKNOWN_LOCATION,"ARM adjacent missing terminal diamond");
@@ -138,6 +138,89 @@ rtx_insn *lower_diamond() {
     delete_insn(second);delete_insn(back);
     for (rtx label:labels) delete_insn(as_a<rtx_insn *>(label));
     return branch;
+}
+// Two prefix exits: one direct continuation and one assignment/continuation.
+// The second exit shares the adjacent destination with the main path.
+std::set<rtx_insn *> lower_early_pair() {
+    if (!early_pair) return {};
+    std::vector<rtx_insn *> ops,branches;
+    std::set<rtx> labels;
+    for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if (NONDEBUG_INSN_P(i)) ops.push_back(i);
+        if (LABEL_P(i)) labels.insert(i);
+    }
+    if (ops.size()<13) fatal_error(UNKNOWN_LOCATION,"ARM adjacent missing early pair");
+    unsigned tail=ops.size()-8;
+    for (unsigned n=0;n<tail;n++) if (JUMP_P(ops[n])) branches.push_back(ops[n]);
+    if (branches.size()!=2||labels.size()!=3)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair requires two prefix branches and three labels");
+    rtx_insn *main=ops[tail],*restore=ops[tail+1],*ret=ops[tail+2],*first=ops[tail+3],*back1=ops[tail+4];
+    rtx_insn *assign=ops[tail+5],*second=ops[tail+6],*back2=ops[tail+7];
+    if (!named(call_symbol(main),destination)||!named(call_symbol(first),conditional_destination)
+        ||!named(call_symbol(second),destination)||!JUMP_P(ret)||GET_CODE(PATTERN(ret))!=SIMPLE_RETURN)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair destinations changed");
+    auto target=[](rtx_insn *i)->rtx {
+        rtx p=PATTERN(i);
+        return JUMP_P(i)&&GET_CODE(p)==SET&&SET_DEST(p)==pc_rtx&&GET_CODE(SET_SRC(p))==LABEL_REF
+            ? XEXP(SET_SRC(p),0) : nullptr;
+    };
+    rtx join=target(back1);
+    if (!join||join!=target(back2)||!labels.count(join))
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair join changed");
+    auto next=[](rtx_insn *i) { while(i&&!NONDEBUG_INSN_P(i)) i=NEXT_INSN(i);return i; };
+    if (next(as_a<rtx_insn *>(join))!=restore)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair restore target changed");
+    rtx conditions[2];std::set<rtx> seen{join};
+    for (unsigned n=0;n<2;n++) {
+        rtx p=PATTERN(branches[n]);
+        if (GET_CODE(p)!=SET||SET_DEST(p)!=pc_rtx||GET_CODE(SET_SRC(p))!=IF_THEN_ELSE)
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair requires conditional branches");
+        rtx choice=SET_SRC(p),condition=XEXP(choice,0);
+        auto code=GET_CODE(condition);
+        if ((code!=EQ&&code!=NE&&code!=LE&&code!=LT&&code!=GE&&code!=GT)
+            ||!REG_P(XEXP(condition,0))||REGNO(XEXP(condition,0))!=CC_REGNUM
+            ||XEXP(condition,1)!=const0_rtx||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx)
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair unsupported condition");
+        rtx label=XEXP(XEXP(choice,1),0);
+        if (!labels.count(label)||!seen.insert(label).second
+            ||next(as_a<rtx_insn *>(label))!=(n?assign:first))
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair branch target changed");
+        conditions[n]=copy_rtx(condition);
+    }
+    rtx assignment=PATTERN(assign);
+    if (!NONJUMP_INSN_P(assign)||GET_CODE(assignment)!=SET||!reg_is(SET_DEST(assignment),LR_REGNUM)
+        ||SET_SRC(assignment)!=const0_rtx||!remainder_lr)
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair requires declared LR zero assignment");
+    rtx predicated=gen_rtx_COND_EXEC(VOIDmode,copy_rtx(conditions[1]),copy_rtx(assignment));
+    if (!validate_change(assign,&PATTERN(assign),predicated,false))
+        fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair predication rejected");
+    // Reuse the existing UID: this pass runs after branch shortening.
+    REG_NOTES(assign)=nullptr;
+    reorder_insns(assign,assign,PREV_INSN(branches[1]));
+    for (unsigned n=0;n<2;n++) {
+        rtx replacement=gen_match_arm_cond_tail_transfer(copy_rtx(call_symbol(n?second:first)),conditions[n],copy_rtx(XEXP(conditions[n],0)));
+        if (!validate_change(branches[n],&PATTERN(branches[n]),replacement,false))
+            fatal_error(UNKNOWN_LOCATION,"ARM adjacent early pair transfer rejected");
+        JUMP_LABEL(branches[n])=nullptr;
+    }
+    for (rtx_insn *i:{first,back1,second,back2}) delete_insn(i);
+    for (rtx label:labels) delete_insn(as_a<rtx_insn *>(label));
+    return {branches[0],branches[1]};
+}
+bool lr_remainder_set(rtx p) {
+    if (!remainder_lr) return false;
+    if (GET_CODE(p)==COND_EXEC) {
+        rtx test=COND_EXEC_TEST(p),body=COND_EXEC_CODE(p);
+        auto code=GET_CODE(test);
+        return (code==EQ||code==NE||code==LE||code==LT||code==GE||code==GT)
+            &&REG_P(XEXP(test,0))&&REGNO(XEXP(test,0))==CC_REGNUM&&XEXP(test,1)==const0_rtx
+            &&GET_CODE(body)==SET&&reg_is(SET_DEST(body),LR_REGNUM)&&SET_SRC(body)==const0_rtx;
+    }
+    if (GET_CODE(p)!=SET||!reg_is(SET_DEST(p),LR_REGNUM)) return false;
+    rtx src=SET_SRC(p);
+    if (REG_P(src)&&GET_MODE(src)==SImode&&REGNO(src)<13) return true;
+    return GET_CODE(src)==MINUS&&reg_is(XEXP(src,0),LR_REGNUM)
+        &&REG_P(XEXP(src,1))&&GET_MODE(XEXP(src,1))==SImode&&REGNO(XEXP(src,1))<13;
 }
 bool lr_read_set(rtx p) {
     if (GET_CODE(p)==PARALLEL) {
@@ -275,7 +358,7 @@ public:
             ||flag_unwind_tables||flag_asynchronous_unwind_tables||flag_exceptions
             ||debug_info_level!=DINFO_LEVEL_NONE||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent requires zero-local-frame void code without debug/unwind");
-        if ((read_only_lr||load_word_lr) && !global_regs[LR_REGNUM])
+        if ((read_only_lr||load_word_lr||remainder_lr) && !global_regs[LR_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent LR input requires global register binding");
         if ((frame64||pop_pair||push_pair) && !global_regs[SP_REGNUM])
             fatal_error(UNKNOWN_LOCATION,"ARM adjacent frame requires global SP binding");
@@ -283,6 +366,7 @@ public:
         unsigned lr_loads=0;
         remove_frame_compare_repeat();
         rtx_insn *external_branch=lower_diamond();
+        std::set<rtx_insn *> pair_branches=lower_early_pair();
         unsigned phase=0;std::vector<rtx_insn *> discard;rtx_insn *terminal_call=nullptr;
         std::set<rtx> labels,targets;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -344,10 +428,10 @@ public:
             }
             bool lr_load=lr_word_load(p);
             if (lr_load) lr_loads++;
-            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&i!=pushed&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask&&!lr_load)||executable_asm(p))
+            if (phase!=1||(mentions(p,SP_REGNUM)&&i!=popped&&i!=pushed&&!(frame64&&frame_word_load(p)))||(mentions(p,LR_REGNUM)&&!lr_read&&!lr_add&&!lr_mask&&!lr_load&&!lr_remainder_set(p))||executable_asm(p))
                 fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported frame/body operation");
             if (JUMP_P(i)) {
-                if (i==external_branch) continue;
+                if (i==external_branch||pair_branches.count(i)) continue;
                 if (GET_CODE(p)!=SET||SET_DEST(p)!=pc_rtx) fatal_error(UNKNOWN_LOCATION,"ARM adjacent unsupported jump");
                 rtx target=SET_SRC(p);
                 if (GET_CODE(target)==IF_THEN_ELSE) {
@@ -381,8 +465,10 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         const char *key=info->argv[n].key,*value=info->argv[n].value;
         if (std::string(key)=="destination" && !have_destination && value && *value) {
             destination=value;have_destination=true;
-        } else if (std::string(key)=="lr-input" && !have_lr && value && (std::string(value)=="read-only" || std::string(value)=="accumulator" || std::string(value)=="masked" || std::string(value)=="load-word")) {
-            load_word_lr=std::string(value)=="load-word";read_only_lr=!load_word_lr;accumulator_lr=std::string(value)=="accumulator";masked_lr=std::string(value)=="masked";have_lr=true;
+        } else if (std::string(key)=="lr-input" && !have_lr && value && (std::string(value)=="read-only" || std::string(value)=="accumulator" || std::string(value)=="masked" || std::string(value)=="load-word" || std::string(value)=="remainder")) {
+            load_word_lr=std::string(value)=="load-word";remainder_lr=std::string(value)=="remainder";read_only_lr=!load_word_lr&&!remainder_lr;accumulator_lr=std::string(value)=="accumulator";masked_lr=std::string(value)=="masked";have_lr=true;
+        } else if (std::string(key)=="early-pair" && !have_conditional && value && *value) {
+            conditional_destination=value;have_conditional=true;early_pair=true;
         } else if (std::string(key)=="early" && !have_conditional && value && *value) {
             conditional_destination=value;have_conditional=true;early_exit=true;
         } else if (std::string(key)=="conditional" && !have_conditional && value && *value) {
@@ -396,7 +482,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (have_conditional && conditional_destination==destination) return 1;
     if (!have_destination) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
-    register_pass_info p={new pass(g),"shorten",1,early_exit?PASS_POS_INSERT_AFTER:PASS_POS_INSERT_BEFORE};
+    register_pass_info p={new pass(g),"shorten",1,(early_exit||early_pair)?PASS_POS_INSERT_AFTER:PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
     return 0;
 }

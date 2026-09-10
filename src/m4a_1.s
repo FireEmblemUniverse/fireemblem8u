@@ -292,20 +292,11 @@ _081DD044:
 	tst r0, 0x8
 	beq _081DD19C
 _081DD07C:
-	.global SoundMainRAM_FixedSetup
-	.type SoundMainRAM_FixedSetup, %function
-SoundMainRAM_FixedSetup:
-	cmp r2, 0x4
-	ble _081DD0EC
-	subs r2, r2, r8
-	movgt lr, 0
-	bgt _081DD0A8
-	mov lr, r8
-	add r2, r2, r8
-	sub r8, r2, 0x4
-	sub lr, lr, r8
-	ands r2, r2, 0x3
-	moveq r2, 0x4
+    .global SoundMainRAM_FixedSetupBoundary
+SoundMainRAM_FixedSetupBoundary:
+@ Signed fixed-rate count selection and packed remainder come from C.
+    .section .text.after_fixed_setup, "ax", %progbits
+    .arm
 _081DD0A8:
 @ The packed word loop is linked here from m4a_packed.c.
 	.global SoundMainRAM_PackedBoundary

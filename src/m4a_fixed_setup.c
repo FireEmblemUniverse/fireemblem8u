@@ -4,8 +4,8 @@ register volatile u32 setupRequested asm("r8");
 register volatile u32 setupRemainder asm("lr");
 extern void SoundMainRAM_Short(void);
 extern void SoundMainRAM_Packed(void);
-__attribute__((matching_subtract_compare))
-void SoundMainRAM_FixedSetupCandidate(void)
+__attribute__((matching_subtract_compare, matching_arm_adjacent))
+void SoundMainRAM_FixedSetup(void)
 {
     u32 previous;
     if ((s32)setupCount <= 4) {

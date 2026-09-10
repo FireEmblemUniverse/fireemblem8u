@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate fixed-rate setup C arithmetic before private-tail integration."""
+"""Verify exact fixed-rate setup C generation and private-entry behavior."""
 import argparse, hashlib, json, random, subprocess
 from pathlib import Path
 from unicorn import Uc, UC_ARCH_ARM, UC_MODE_ARM, UC_HOOK_CODE
@@ -11,34 +11,25 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     out=ROOT/'.deps/soundmain-packed/fixed-setup';out.mkdir(exist_ok=True)
     obj=out/'candidate.o';elf=out/'candidate.elf';binary=out/'candidate.bin'
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_fixed_setup.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_compare.so')],check=True)
-    subprocess.run(['arm-none-eabi-ld','-Ttext=0x08001000','--entry=SoundMainRAM_FixedSetupCandidate','--defsym=SoundMainRAM_Short=0x08002000','--defsym=SoundMainRAM_Packed=0x08003000',str(obj),'-o',str(elf)],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'src/m4a_fixed_setup.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_compare.so'),'-fplugin='+str(ROOT/'.deps/flood-core-new-backend/arm_adjacent.so'),'-fplugin-arg-arm_adjacent-destination=SoundMainRAM_Packed','-fplugin-arg-arm_adjacent-early-pair=SoundMainRAM_Short','-fplugin-arg-arm_adjacent-lr-input=remainder'],check=True)
+    subprocess.run(['arm-none-eabi-ld','-Ttext=0x080cf704','--entry=SoundMainRAM_FixedSetup','--defsym=SoundMainRAM_Short=0x080cf774','--defsym=SoundMainRAM_Packed=0x080cf730',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
     code=binary.read_bytes();rom=(ROOT/'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
-    # Explicitly skip the compiler's LR push and stop before BL changes LR.
-    # These are semantic-body checks, not a matching private-entry replacement.
-    assert code[:4].hex()=='04e02de5'
-    calls={}
-    for offset in range(0,len(code),4):
-        word=int.from_bytes(code[offset:offset+4],'little')
-        if word>>24==0xeb:
-            delta=word&0xffffff
-            if delta&0x800000:delta-=0x1000000
-            destination=0x08001000+offset+8+delta*4
-            assert destination in (0x08002000,0x08003000)
-            calls[0x08001000+offset]='short' if destination==0x08002000 else 'packed'
-    assert len(calls)==3 and list(calls.values()).count('packed')==2
+    assert len(code)==44 and code==rom[0xcf704:0xcf730]
+    production=(ROOT/'fireemblem8.gba').read_bytes()
+    assert production[0xcf704:0xcf730]==code
+    nm=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+    fields=next(line.split() for line in nm.splitlines() if line.endswith(' SoundMainRAM_FixedSetup'))
+    assert int(fields[0],16)==ENTRY and int(fields[1],16)==44
     machines=[]
     for copied in (False,True):
         for candidate in (False,True):
             uc=Uc(UC_ARCH_ARM,UC_MODE_ARM);uc.mem_map(0x08000000,0x1000000);uc.mem_write(0x08000000,rom);uc.mem_map(0x03000000,0x8000)
             delta=0x03002c60-0x080cf54c if copied else 0
-            if candidate:
-                base=0x03002000 if copied else 0x08001000;uc.mem_write(base,code);start=base+4
-                stops={addr+(base-0x08001000):kind for addr,kind in calls.items()}
-            else:
-                start=ENTRY+delta;uc.mem_write(start,rom[0xcf704:0xcf730]);stops={0x080cf774+delta:'short',0x080cf730+delta:'packed'}
+            start=ENTRY+delta
+            uc.mem_write(start,(production if candidate else rom)[0xcf704:0xcf730])
+            stops={0x080cf774+delta:'short',0x080cf730+delta:'packed'}
             state={}
             def hook(u,address,size,user):
                 exits,result=user
@@ -78,6 +69,6 @@ def main():
                     assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|expected_flags<<28,(cases,'flags')
                     assert bytes(uc.mem_read(0x03006f80,256))==frame
                 paths[kind]+=1;cases+=1
-    report=dict(cases=cases,machines_per_case=4,count_values=len(counts),requested_values=len(requested),paths=paths,subtraction_overflow_cases=overflow,original_bytes=44,candidate_bytes=len(code),production_integrated=False,limitations=['Compiler LR push is skipped and execution stops before each terminal BL; private frame/tail conversion and exact 44-byte integration remain unfinished.'],scope='All registers, LR, SP, NZCV, paths and stack canaries; original and candidate semantic bodies in ROM/copied RAM.')
+    report=dict(cases=cases,machines_per_case=4,count_values=len(counts),requested_values=len(requested),paths=paths,subtraction_overflow_cases=overflow,original_bytes=44,candidate_bytes=len(code),production_integrated=True,limitations=['Functional instruction/state checks do not model hardware cycle timing.'],scope='All registers, LR, SP, NZCV, paths and stack canaries; original and production private entries in ROM/copied RAM.')
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

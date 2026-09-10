@@ -5310,3 +5310,56 @@ ownership/remaining-assembly counts are unchanged.
 Evidence: `.deps/soundmain-packed/fixed-setup/report.json`, candidate.o/.elf/.bin
 in the same directory, fixed-setup.s, fixed-setup-build.log and fixed-setup-check.log.
 The original ROM SHA-1 is verified before every execution run.
+
+
+## September 10, 2026 — fixed-rate setup integrated as exact 44-byte C
+
+Baseline: `a0311d84`. The previously verified candidate is promoted to
+`src/m4a_fixed_setup.c` and replaces 0x080CF704..0x080CF730. All eleven original
+instructions match, including BLE to the short path, SUBS/MOVGT/BGT to packed
+mixing, LR/count restoration and ANDS/MOVEQ final remainder. Link assertions
+check the original entry/44-byte extent, adjacent aligned packed continuation
+and forward aligned short continuation within the copied mixer/branch range.
+
+The opt-in `early-pair` continuation contract validates exactly two prefix
+conditional branches and three labels: one early direct call, one early LR=0
+assignment plus call, and the main call, all sharing the same LR restore/return.
+The second early assignment must be exactly LR=0 under the explicit remainder
+LR contract. It moves before its branch under that branch's unchanged condition;
+both branches become external transfers. Main and second early calls must name
+the same adjacent destination. Extra alternate-block work, target changes and
+unsupported frame/LR operations reject. Remaining body/frame validation uses
+the existing private continuation checks.
+
+The first prototype emitted a new predicated instruction after shortening and
+triggered GCC's final-pass address-table assertion. The final implementation
+reuses and moves the original assignment instruction UID, maintaining the
+fixed-width representation without changing the GCC backend MD. `lr-input=remainder`
+accepts only a general-register copy into LR, LR minus a general register, or a
+CC-predicated zero assignment. No instruction-bearing C assembly was added.
+
+`check_soundmain_fixed_setup.py` now compiles the exact standalone 44-byte
+object, verifies the production symbol/extent/bytes, and tests full real entries
+without skipping any frame instructions or intercepting calls. All 100,864
+cases pass on original/production ROM and copied RAM: 19,712 short, 58,704
+packed-with-data-remaining, 22,448 final packed, including 10,192 subtraction
+overflows. Independent full r0-r12/LR/SP/NZCV, path and canary expectations agree.
+The complete production SoundMain passes 3,528 calls and the full ROM checksum
+passes. Twelve invalid two-exit configurations reject. Adjacent, conditional,
+frame, LR read-only/accumulator, carry-early, early, repeat, pop-pair and push-pair
+regression suites all pass. Fresh runtime libraries reproduce all four updated
+images and exported symbols; the runtime receipt and inventory were regenerated.
+
+Main ownership is now 719,660 C-owned instruction bytes (92.55%), 33,870 mixed,
+2,308 assembly-source and 21,792 runtime, total 777,630. Reviewed non-library
+assembly is 2,718 main bytes and 420 payload bytes. Source inventory: 488 C files,
+32 assembly entry markers, four manual declarations, 704 inline sites (348
+register bindings, 348 empty constraints, one directive, seven instruction
+templates). Remaining channel/frame control, sample-path entry/exit assembly,
+other audio handlers and broader assembly recovery remain unfinished.
+
+Evidence under `.deps/soundmain-packed/`: fixed-setup/report.json,
+fixed-setup-production-build.log, fixed-setup-production-check.log,
+early-pair-regression-*.log, fixed-setup-source-audit.json and
+fixed-setup-ownership.log. Full-call evidence is under `.deps/soundmain-complete/`;
+fresh library evidence is recorded by docs/runtime-rebuild.json.

@@ -457,3 +457,27 @@ preincrement. `check_arm_push_pair.py` verifies 13 rejected configurations;
 and checks the original and production blocks in ROM/copied RAM, full state,
 ordered accesses and aliases. The linker checks original entry/size and the
 adjacent ARM mixing continuation.
+
+
+ARM adjacent `early-pair=NAME` handles one strictly validated three-path tail:
+two prefix conditional branches, a main call to `destination`, common LR
+restore/return, a call to NAME plus jump to that restore, and an LR=0 assignment
+followed by another destination call and jump to the same restore. Exactly
+three labels must identify those two alternate blocks and the common restore;
+other branch shapes, changed targets or additional alternate-block work reject.
+Conditions are EQ/NE or signed LE/LT/GE/GT. It requires `lr-input=remainder`.
+
+The LR=0 assignment is predicated by the second branch condition and moved
+immediately before that branch. Both branches become external conditional
+transfers, preserving their CC modes. The original assignment UID is reused:
+this pass runs after shortening, where allocating a new instruction UID would
+invalidate final-pass address tables. The usual whole-body/frame validation
+then removes only the main call and common compiler frame. All remaining
+instructions have fixed ARM widths; link assertions constrain destinations.
+
+`lr-input=remainder` permits LR copies from r0-r12, LR minus r0-r12, and a
+CC-predicated LR=0 SET. Other LR operations reject. Production fixed-rate setup
+uses this with the existing subtraction comparison fold. `check_arm_early_pair.py`
+checks twelve invalid forms; `check_soundmain_fixed_setup.py` checks all three
+paths, signed-overflow flags, original/production ROM/copied RAM and exact bytes.
+Existing single-exit/default frame contracts remain unchanged.

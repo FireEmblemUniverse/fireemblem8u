@@ -595,6 +595,19 @@ SECTIONS
         src/m4a_reverb.o(.text);
         __reverb_end = .;
         src/m4a_1.o(.text.after_reverb);
+        __fixed_setup_start = .;
+        src/m4a_fixed_setup.o(.text);
+        __fixed_setup_end = .;
+        src/m4a_1.o(.text.after_fixed_setup);
+        ASSERT(SoundMainRAM_FixedSetup == SoundMainRAM_FixedSetupBoundary &&
+               __fixed_setup_end - __fixed_setup_start == 44,
+               "fixed-rate setup entry or 44-byte extent changed");
+        ASSERT(SoundMainRAM_Packed == __fixed_setup_end && (SoundMainRAM_Packed & 3) == 0,
+               "fixed-rate setup must fall through to adjacent ARM packed code");
+        ASSERT((SoundMainRAM_Short & 3) == 0 && SoundMainRAM_Short > __fixed_setup_end &&
+               SoundMainRAM_Short < SoundMainRAM_End &&
+               SoundMainRAM_Short - (__fixed_setup_start + 12) < 0x2000000,
+               "fixed-rate short target must be forward ARM code in copied mixer and branch range");
         __packed_start = .;
         src/m4a_packed.o(.text);
         __packed_end = .;
