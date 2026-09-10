@@ -28,6 +28,7 @@ namespace {
 std::set<std::string> callees;
 bool raise_bound=false;
 bool private_frame=false;
+bool acyclic_branches=false;
 std::string adjacent;
 std::string pool_adjacent;
 tree validate(tree *node, tree, tree, int, bool *no_add) {
@@ -171,7 +172,7 @@ public:
                 if (GET_CODE(target)!=LABEL_REF) fatal_error(UNKNOWN_LOCATION,"unsupported tail branch target");
                 rtx_insn *label=as_a<rtx_insn *>(XEXP(target,0)),*next=NEXT_INSN(i);
                 while (next && next!=label) next=NEXT_INSN(next);
-                if (!next) fatal_error(UNKNOWN_LOCATION,"tail transfer rejects backward branches");
+                if (!next&&!acyclic_branches) fatal_error(UNKNOWN_LOCATION,"tail transfer rejects backward branches");
             }
         }
         if (!push || calls.empty() || returns!=1) fatal_error(UNKNOWN_LOCATION,"tail transfer needs one return and terminal calls");
@@ -258,12 +259,14 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             if (!pool_adjacent.empty()) return 1;
             pool_adjacent=info->argv[n].value;continue;
         }
+        if (key=="acyclic-branches" && !info->argv[n].value) { acyclic_branches=true;continue; }
         if (key=="private-frame64" && !info->argv[n].value) { private_frame=true;continue; }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
         if (key!="destination" || !info->argv[n].value || !*info->argv[n].value) return 1;
         callees.insert(info->argv[n].value);
     }
     if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound)) return 1;
+    if (acyclic_branches&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty())) return 1;
     if (!pool_adjacent.empty() && (!adjacent.empty()||!private_frame||!callees.count(pool_adjacent))) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info registration={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};

@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integration: channel-deadline control and its complete 32-byte pool section now come from C (baseline `5aae98aa` plus this change). Full ROM matching, 98,304 complete-state cases, 17 new compiler rejection cases, 14 existing contract regressions, 3,528 complete audio calls and fresh runtime rebuilds pass.
+Updated: September 10, 2026. Latest research advance: the 160-byte channel status/envelope region has a 174-byte C candidate with no register differences across 196,608 four-machine cases (baseline `91725054`). Ordered accesses, memory and decisions agree; 12,288 zero-length echo flag differences and instruction/layout gaps remain. Production ELF and coverage are unchanged; full ROM comparison passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -222,6 +222,16 @@ all registers, SP/LR and frame canaries. The early-exit compiler contract now
 accepts unsigned carry conditions; 4,672 checks cover both polarities and code
 placements, four invalid forms reject, and all existing adjacent/frame/LR
 regressions pass. Full ROM matching and 3,528 complete audio calls pass.
+The channel status/envelope candidate passes 196,608 cases across original and
+candidate ROM/copied RAM. All status bytes, four envelope levels, four parameter
+settings, all initial flags and three wave/channel aliases are covered. Decisions,
+ordered accesses, tested data memory and every register agree. The candidate is
+174 bytes versus 160 original bytes; 12,288 zero-length echo cases still differ
+in flags because the compiler adds a comparison after decrement/store. The
+opt-in acyclic-control contract permits shared backward paths but rejects loops;
+five invalid configurations reject, and the 17 private-frame plus 14 existing
+tail-contract regressions pass. Production ELF is unchanged. Next: recover the
+original decrement flags and conditional-branch layout before integration.
 Channel-deadline control is integrated as `src/m4a_deadline.c`: all 26 instruction
 bytes, two padding bytes and the four-byte VCOUNT pointer match. All 98,304 cases
 pass with exact destinations, registers, NZCV, private frame and ordered data/MMIO

@@ -5775,3 +5775,51 @@ the expanded payload remains 420 bytes. There are 735 inline sites: 372 register
 bindings, 355 empty constraints, one directive and seven instruction templates.
 Channel status/envelope code, entry/frame handling, playback routines and full
 executable coverage accounting remain in scope.
+
+## Channel status/envelope candidate and acyclic control — September 10, 2026
+
+Research baseline `91725054`: `research/audio/soundmain_envelope.c` models the
+complete 160-byte region at `0x080CF604..0x080CF6A4`, through the outgoing volume
+or skip decision. The source preserves explicit register state, byte-sized wave
+flag reads, channel initialization, echo lifetime, release/decay/sustain and
+attack saturation. Original assembly label names contain obsolete address-like
+numbers; the block boundary was verified from the object symbol `_081DD006` at
+offset 0xA0, not inferred from its spelling.
+
+The first compiler output introduced a saved-register frame and scratch copies.
+Empty register ties remove that frame and retain status, level and phase in the
+original registers. The final candidate is 174 bytes (initially 176), with no
+register differences in the tested cases. It is not integrated: instruction
+ordering, extra branches/comparisons and zero-length echo flags remain different.
+The flags differ because C currently emits a comparison after the byte-range
+decrement/store; original zero-to-minus-one subtraction leaves carry clear,
+whereas the subsequent comparison sets carry. The next matching work must
+preserve the original subtract flags and branch sequence.
+
+The existing tail-transfer pass adds an explicit `acyclic-branches` option,
+which requires `private-frame64` and cannot combine with either adjacency mode.
+It permits backward branches only while retaining the complete control-flow
+proof that every path reaches a validated terminal call. The path traversal
+rejects revisiting an instruction, so actual loops are still rejected. Default
+contracts continue rejecting backward branches as before. No production source
+uses the new option.
+
+`check_soundmain_envelope.py` passes 196,608 cases on four machines each: original
+and candidate in ROM/copied RAM, all 256 status values, envelope levels
+0/1/127/255, parameter settings 0/1/128/255, all 16 NZCV values, and three
+wave/channel aliases. These settings are representative rather than an exhaustive
+cross-product of independent parameters. An independent mutable-memory model
+checks decisions, every ordered byte/word access and complete tested RAM, including
+alias-sensitive initialization reads. Store traces are normalized to their actual
+byte/word width; full memory also verifies truncation. The block takes 87,552
+skip paths and 109,056 volume paths. All registers and SP/LR agree between original
+and candidate; 12,288 zero-length echo cases still have different flags. Timing is
+not modeled. Results are reproducible in `.deps/soundmain-packed/envelope/report.json`.
+
+Five invalid acyclic configurations reject: absent private-frame permission,
+unopted backward flow, a genuine loop, post-call work and a bare-return path.
+All 17 existing private-frame/pool checks and 14 older tail-contract rejection
+cases pass, with unannotated assembly unchanged. `make compare -j8` still matches
+the complete ROM, and the production ELF SHA-256 equals the current ownership
+receipt. Production coverage is unchanged; this milestone does not claim the
+remaining envelope region as decompiled.
