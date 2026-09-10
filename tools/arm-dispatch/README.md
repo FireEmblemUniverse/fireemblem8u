@@ -1025,3 +1025,33 @@ python3 tools/arm-dispatch/build_thumb_block_layout.py --compiler .deps/gcc16-ma
 The tone checker requires all 86 original bytes, rejects eleven unsupported
 contracts, checks unannotated output is unchanged, and executes 92,160 independent
 full-state alias cases. The envelope checker exercises the existing default mode.
+
+### AND/store with a flag-preserving zero transfer
+
+`thumb_and_store_tail.cc` supplies `matching_thumb_and_store_tail` for private
+Thumb tail-transfer functions. It validates exactly one adjacent low-register
+AND, volatile aligned word store to the private SP frame (offset 0..60), and
+nonzero local skip over the declared tail. The store and zero test must use the
+AND result. The skip label must have one use, and the skipped region must contain
+only the declared transfer, notes and barriers. Any intervening operation prevents
+the fold. The `destination` option is required, unique and nonempty.
+
+The backend pattern represents the AND result, ordered store and zero edge
+explicitly, emitting ANDS/STR/BEQ in six bytes. It preserves carry and overflow
+through ANDS and STR; no CMP #0 is inserted. This matters when the preceding
+priority clamp's carry must survive into channel selection. The external short
+branch requires an integration-time range/alignment assertion. Unannotated code
+is unchanged. Rebuild plugins against the installed headers after rebuilding
+the backend.
+
+```
+python3 tools/arm-dispatch/build_backend.py
+python3 tools/arm-dispatch/build_tail_transfer.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+python3 tools/arm-dispatch/build_thumb_and_store_tail.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/flood-core-new-backend
+.deps/arm-oracle-venv/bin/python research/audio/check_ply_note_priority.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+```
+
+The priority checker requires all thirty original bytes, rejects twelve unsupported
+contracts, checks unchanged unannotated output and runs 147,456 independent cases.
+Those cases include the priority-comparison carry and ordered stack aliases;
+they stop at channel selection, not at allocation or full ply_note return.

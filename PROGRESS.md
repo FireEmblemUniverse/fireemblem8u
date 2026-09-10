@@ -7,12 +7,11 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `c1a351f5`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Current research (baseline `bfacce48`): the 30-byte priority/clamp/type-dispatch
-path has an independent 147,456-case original-ROM model, covering every priority
-pair, carry behavior and stack aliases. A deliberate wrong-carry encoding rejects.
-The C probe matches the first 28 bytes but uses a four-byte dispatch in place of
-the original two-byte branch. Collapse that transfer while preserving flags before
-integration. Production ownership remains 92.70%.
+Current research (baseline `7ec45b6a`): the 30-byte priority/clamp/type-dispatch
+C candidate now matches every original byte and passes all 147,456 independent
+cases. Twelve unsupported contracts reject and unannotated output is unchanged.
+The rebuilt compiler also passes 338,688 command and 92,160 tone regression cases.
+Production integration is next; measured C ownership remains 92.70%.
 
 Next: recover `ply_note` priority and channel allocation, then its remaining
 setup/frame paths (378 assembly instruction bytes total). MPlayMain's ownership

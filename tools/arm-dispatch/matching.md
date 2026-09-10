@@ -463,3 +463,17 @@
   "TARGET_THUMB1"
   "push\t{r0, lr}"
   [(set_attr "length" "2") (set_attr "type" "multiple")])
+
+;; AND, ordered private stack store, then zero transfer. ANDS preserves C/V.
+(define_insn "match_thumb_and_store_zero_tail"
+  [(set (pc)
+        (if_then_else
+         (eq (and:SI (match_operand:SI 0 "low_register_operand" "+l")
+                     (match_operand:SI 1 "low_register_operand" "l")) (const_int 0))
+         (match_operand:SI 3 "match_thumb_tail_symbol" "s") (pc)))
+   (set (match_dup 0) (and:SI (match_dup 0) (match_dup 1)))
+   (set (match_operand:SI 2 "memory_operand" "=m")
+        (and:SI (match_dup 0) (match_dup 1)))]
+  "TARGET_THUMB1"
+  "ands\t%0, %1\n\tstr\t%0, %2\n\tbeq\t%3"
+  [(set_attr "length" "6") (set_attr "type" "branch") (set_attr "conds" "clob")])

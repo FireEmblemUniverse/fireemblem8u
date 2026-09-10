@@ -9085,3 +9085,42 @@ private-frame64, acyclic-branches and terminal-adjacent-destination=PlyNoteCgbSe
 Evidence: `.deps/soundmain-packed/ply-note/priority-original-model.json`,
 `priority-model.log`, `priority-wrong-carry.log`, `priority-probe-report.json`,
 `priority-probe.s`, `priority-probe.elf` and `priority-probe.bin`.
+
+
+## September 10, 2026 — Priority clamp/dispatch candidate matches
+
+On baseline `7ec45b6a`, the thirty bytes at 080CFEE0..080CFEFE now match the C
+candidate exactly. `thumb_and_store_tail` validates a low-register AND, its
+adjacent volatile word store to an aligned private SP slot, and a nonzero local
+skip over the declared tail. The store and branch must consume the AND result;
+the skip label must have one use and no intervening instructions or labels.
+Exactly one safe sequence must fold. A new backend pattern models the AND result,
+ordered store and zero edge, emitting ANDS/STR/BEQ in six bytes. This replaces
+the four-byte skip/unconditional dispatch with the original two-byte BEQ without
+inserting a carry-clobbering CMP #0. Integration must enforce the short external
+branch's range/alignment and the immediate CGB continuation.
+
+The backend rebuild completed successfully. The dependent tail_transfer,
+thumb_unsigned_bounds and thumb_block_layout plugins were rebuilt against its
+installed headers, along with the new plugin. All 147,456 priority cases pass,
+including full flags and stack/priority/tone aliases. Twelve unsupported source
+or option contracts reject: wrong operation/result store, unaligned/out-of-frame
+or nonvolatile store, reversed condition, missing private annotation, wrong/
+missing/duplicate destination, unknown option and intervening flag-changing code.
+Unannotated output is unchanged. Command and tone regressions pass 338,688 and
+92,160 cases respectively, including their exact bytes, contract rejections and
+production source/ROM identity checks.
+
+This is a candidate milestone; production ownership remains 92.70%, with 378
+ply_note assembly instruction bytes outstanding. Other production plugins must
+rebuild against the new headers on the next production build. Next: integrate
+the thirty-byte priority/dispatch path, verify full ROM/runtime and ownership
+checks plus altered layouts, then continue actual channel selection/allocation.
+The execution models remain bounded fragments, not complete ply_note execution.
+
+Sources: `research/audio/ply_note_priority.c`, `check_ply_note_priority.py`,
+`tools/arm-dispatch/thumb_and_store_tail.cc`, its build helper and `matching.md`.
+Evidence: `.deps/soundmain-packed/ply-note/priority-report.json`,
+`priority-check.log`, `priority-command-regression.log`,
+`priority-tone-regression.log`, `priority-backend-build.log`,
+`priority-plugin-build.log` and the linked priority candidate artifacts.

@@ -8,7 +8,7 @@ register volatile u32 priorityR9 asm("r9");
 register volatile u32 prioritySP asm("sp");
 extern void PlyNoteCgbSelect(void);
 extern void PlyNotePcmSelect(void);
-__attribute__((matching_tail_transfer))
+__attribute__((matching_tail_transfer, matching_thumb_and_store_tail))
 void PlyNotePriorityCandidate(void)
 {
     *(volatile u32 *)(prioritySP + 8) = priorityR3;
