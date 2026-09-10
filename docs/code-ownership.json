@@ -1,0 +1,2261 @@
+{
+  "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
+  "baseline_commit": "b5168c46867eafc4506629878247b3f4ed5b6ccc",
+  "images": {
+    "main_rom": {
+      "mapped_instruction_bytes": 777630,
+      "categories": {
+        "assembly_source": 2836,
+        "c_owned": 719132,
+        "c_with_assembly": 33870,
+        "runtime_archive": 21792
+      },
+      "objects": [
+        {
+          "object": "src/opanim-main.o",
+          "category": "c_owned",
+          "instruction_bytes": 18552
+        },
+        {
+          "object": "src/unitlistscreen.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 18458
+        },
+        {
+          "object": "src/eventscr.o",
+          "category": "c_owned",
+          "instruction_bytes": 12676
+        },
+        {
+          "object": "src/bmbattle.o",
+          "category": "c_owned",
+          "instruction_bytes": 11818
+        },
+        {
+          "object": "src/statscreen.o",
+          "category": "c_owned",
+          "instruction_bytes": 9056
+        },
+        {
+          "object": "src/bmmenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 8676
+        },
+        {
+          "object": "src/sio_battlemap.o",
+          "category": "c_owned",
+          "instruction_bytes": 8664
+        },
+        {
+          "object": "src/scene.o",
+          "category": "c_owned",
+          "instruction_bytes": 8238
+        },
+        {
+          "object": "src/uisupport.o",
+          "category": "c_owned",
+          "instruction_bytes": 8004
+        },
+        {
+          "object": "src/helpbox.o",
+          "category": "c_owned",
+          "instruction_bytes": 7896
+        },
+        {
+          "object": "src/prep_itemscreen.o",
+          "category": "c_owned",
+          "instruction_bytes": 7854
+        },
+        {
+          "object": "src/savemenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 7308
+        },
+        {
+          "object": "src/bmlib.o",
+          "category": "c_owned",
+          "instruction_bytes": 7272
+        },
+        {
+          "object": "src/player_interface.o",
+          "category": "c_owned",
+          "instruction_bytes": 6938
+        },
+        {
+          "object": "src/bmunit.o",
+          "category": "c_owned",
+          "instruction_bytes": 6926
+        },
+        {
+          "object": "src/sysutil.o",
+          "category": "c_owned",
+          "instruction_bytes": 6822
+        },
+        {
+          "object": "src/cp_utility.o",
+          "category": "c_owned",
+          "instruction_bytes": 6802
+        },
+        {
+          "object": "src/bmdifficulty.o",
+          "category": "c_owned",
+          "instruction_bytes": 6250
+        },
+        {
+          "object": "src/bmudisp.o",
+          "category": "c_owned",
+          "instruction_bytes": 6220
+        },
+        {
+          "object": "src/ending_details.o",
+          "category": "c_owned",
+          "instruction_bytes": 6220
+        },
+        {
+          "object": "src/eventinfo.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 6030
+        },
+        {
+          "object": "src/worldmap_main.o",
+          "category": "c_owned",
+          "instruction_bytes": 6026
+        },
+        {
+          "object": "src/mapanim_eventcall.o",
+          "category": "c_owned",
+          "instruction_bytes": 6018
+        },
+        {
+          "object": "src/mapanim_staffeffect.o",
+          "category": "c_owned",
+          "instruction_bytes": 5868
+        },
+        {
+          "object": "src/prep_itemsupply.o",
+          "category": "c_owned",
+          "instruction_bytes": 5862
+        },
+        {
+          "object": "src/opinfo.o",
+          "category": "c_owned",
+          "instruction_bytes": 5782
+        },
+        {
+          "object": "src/bmsave.o",
+          "category": "c_owned",
+          "instruction_bytes": 5676
+        },
+        {
+          "object": "src/soundroom.o",
+          "category": "c_owned",
+          "instruction_bytes": 5620
+        },
+        {
+          "object": "src/banim-ekrbattleintro.o",
+          "category": "c_owned",
+          "instruction_bytes": 5614
+        },
+        {
+          "object": "src/bmtarget.o",
+          "category": "c_owned",
+          "instruction_bytes": 5392
+        },
+        {
+          "object": "src/banim-ekrdragon-demonking.o",
+          "category": "c_owned",
+          "instruction_bytes": 5324
+        },
+        {
+          "object": "src/spline.o",
+          "category": "c_owned",
+          "instruction_bytes": 5308
+        },
+        {
+          "object": "src/mu.o",
+          "category": "c_owned",
+          "instruction_bytes": 5298
+        },
+        {
+          "object": "src/cp_0803E2F4.o",
+          "category": "c_owned",
+          "instruction_bytes": 5266
+        },
+        {
+          "object": "src/fontgrp.o",
+          "category": "c_owned",
+          "instruction_bytes": 5252
+        },
+        {
+          "object": "src/sio_core.o",
+          "category": "c_owned",
+          "instruction_bytes": 5244
+        },
+        {
+          "object": "src/bmidoten.o",
+          "category": "c_owned",
+          "instruction_bytes": 5072
+        },
+        {
+          "object": "src/worldmap_path.o",
+          "category": "c_owned",
+          "instruction_bytes": 5064
+        },
+        {
+          "object": "src/bmshop.o",
+          "category": "c_owned",
+          "instruction_bytes": 5014
+        },
+        {
+          "object": "src/bmguide.o",
+          "category": "c_owned",
+          "instruction_bytes": 4986
+        },
+        {
+          "object": "src/cgtext.o",
+          "category": "c_owned",
+          "instruction_bytes": 4900
+        },
+        {
+          "object": "src/sio_uiutils.o",
+          "category": "c_owned",
+          "instruction_bytes": 4852
+        },
+        {
+          "object": "src/savedraw.o",
+          "category": "c_owned",
+          "instruction_bytes": 4840
+        },
+        {
+          "object": "src/m4a.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 4808
+        },
+        {
+          "object": "src/chapterintrofx.o",
+          "category": "c_owned",
+          "instruction_bytes": 4772
+        },
+        {
+          "object": "src/bmsave-lib.o",
+          "category": "c_owned",
+          "instruction_bytes": 4730
+        },
+        {
+          "object": "src/worldmap_mapmu.o",
+          "category": "c_owned",
+          "instruction_bytes": 4572
+        },
+        {
+          "object": "src/hardware.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 4550
+        },
+        {
+          "object": "src/bmitem.o",
+          "category": "c_owned",
+          "instruction_bytes": 4512
+        },
+        {
+          "object": "src/banim-efxmagic-healstaves.o",
+          "category": "c_owned",
+          "instruction_bytes": 4500
+        },
+        {
+          "object": "src/bmio.o",
+          "category": "c_owned",
+          "instruction_bytes": 4476
+        },
+        {
+          "object": "src/worldmap_rm.o",
+          "category": "c_owned",
+          "instruction_bytes": 4398
+        },
+        {
+          "object": "src/bmusemind.o",
+          "category": "c_owned",
+          "instruction_bytes": 4320
+        },
+        {
+          "object": "src/banim-efxmisc.o",
+          "category": "c_owned",
+          "instruction_bytes": 4276
+        },
+        {
+          "object": "src/prep_itemlist.o",
+          "category": "c_owned",
+          "instruction_bytes": 4272
+        },
+        {
+          "object": "src/sio_teamlist.o",
+          "category": "c_owned",
+          "instruction_bytes": 4248
+        },
+        {
+          "object": "src/minimap.o",
+          "category": "c_owned",
+          "instruction_bytes": 4192
+        },
+        {
+          "object": "src/face.o",
+          "category": "c_owned",
+          "instruction_bytes": 4128
+        },
+        {
+          "object": "src/playerphase.o",
+          "category": "c_owned",
+          "instruction_bytes": 4088
+        },
+        {
+          "object": "src/banim-efxmagic-gleipnir.o",
+          "category": "c_owned",
+          "instruction_bytes": 4086
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 3910
+        },
+        {
+          "object": "src/eventscr_gmap.o",
+          "category": "c_owned",
+          "instruction_bytes": 3902
+        },
+        {
+          "object": "src/banim-efxop.o",
+          "category": "c_owned",
+          "instruction_bytes": 3836
+        },
+        {
+          "object": "src/bonusclaim.o",
+          "category": "c_owned",
+          "instruction_bytes": 3780
+        },
+        {
+          "object": "src/sio_bat.o",
+          "category": "c_owned",
+          "instruction_bytes": 3770
+        },
+        {
+          "object": "src/prep_unitselect.o",
+          "category": "c_owned",
+          "instruction_bytes": 3738
+        },
+        {
+          "object": "src/banim-efxmagic-effectstaves.o",
+          "category": "c_owned",
+          "instruction_bytes": 3720
+        },
+        {
+          "object": "src/prep_sallycursor.o",
+          "category": "c_owned",
+          "instruction_bytes": 3696
+        },
+        {
+          "object": "src/banim-ekrlvup.o",
+          "category": "c_owned",
+          "instruction_bytes": 3682
+        },
+        {
+          "object": "src/bksel.o",
+          "category": "c_owned",
+          "instruction_bytes": 3680
+        },
+        {
+          "object": "src/mapanim_scanline.o",
+          "category": "c_owned",
+          "instruction_bytes": 3670
+        },
+        {
+          "object": "src/bmitemuse.o",
+          "category": "c_owned",
+          "instruction_bytes": 3668
+        },
+        {
+          "object": "src/banim-efxmagic-crimsoneye.o",
+          "category": "c_owned",
+          "instruction_bytes": 3662
+        },
+        {
+          "object": "src/banim-efxmagic-demonlight.o",
+          "category": "c_owned",
+          "instruction_bytes": 3554
+        },
+        {
+          "object": "src/prep_menuproc.o",
+          "category": "c_owned",
+          "instruction_bytes": 3520
+        },
+        {
+          "object": "src/titlescreen.o",
+          "category": "c_owned",
+          "instruction_bytes": 3504
+        },
+        {
+          "object": "src/banim-ekrbattle.o",
+          "category": "c_owned",
+          "instruction_bytes": 3502
+        },
+        {
+          "object": "src/bmtrade.o",
+          "category": "c_owned",
+          "instruction_bytes": 3468
+        },
+        {
+          "object": "src/prep_itemuse.o",
+          "category": "c_owned",
+          "instruction_bytes": 3444
+        },
+        {
+          "object": "src/cp_battle.o",
+          "category": "c_owned",
+          "instruction_bytes": 3400
+        },
+        {
+          "object": "src/bm.o",
+          "category": "c_owned",
+          "instruction_bytes": 3382
+        },
+        {
+          "object": "src/cp_script.o",
+          "category": "c_owned",
+          "instruction_bytes": 3366
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(dtoa.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 3352
+        },
+        {
+          "object": "src/bmmap.o",
+          "category": "c_owned",
+          "instruction_bytes": 3350
+        },
+        {
+          "object": "src/cp_staff.o",
+          "category": "c_owned",
+          "instruction_bytes": 3336
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(dp-bit.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 3310
+        },
+        {
+          "object": "src/banim-efxmagic-demonsurge.o",
+          "category": "c_owned",
+          "instruction_bytes": 3244
+        },
+        {
+          "object": "src/unitinfowindow.o",
+          "category": "c_owned",
+          "instruction_bytes": 3222
+        },
+        {
+          "object": "src/uimenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 3166
+        },
+        {
+          "object": "src/cpextra_80407F0.o",
+          "category": "c_owned",
+          "instruction_bytes": 3156
+        },
+        {
+          "object": "src/banim-efxutils.o",
+          "category": "c_owned",
+          "instruction_bytes": 3116
+        },
+        {
+          "object": "src/bmdebug.o",
+          "category": "c_owned",
+          "instruction_bytes": 3098
+        },
+        {
+          "object": "src/banim-efxmagic-ivaldi.o",
+          "category": "c_owned",
+          "instruction_bytes": 3060
+        },
+        {
+          "object": "src/bmusailment.o",
+          "category": "c_owned",
+          "instruction_bytes": 3050
+        },
+        {
+          "object": "src/popup.o",
+          "category": "c_owned",
+          "instruction_bytes": 3050
+        },
+        {
+          "object": "src/sio_tactician.o",
+          "category": "c_owned",
+          "instruction_bytes": 2998
+        },
+        {
+          "object": "src/uiconfig.o",
+          "category": "c_owned",
+          "instruction_bytes": 2970
+        },
+        {
+          "object": "src/banim-efxmagic-naglfar.o",
+          "category": "c_owned",
+          "instruction_bytes": 2946
+        },
+        {
+          "object": "src/uichapterstatus.o",
+          "category": "c_owned",
+          "instruction_bytes": 2926
+        },
+        {
+          "object": "src/banim-ekrgauge.o",
+          "category": "c_owned",
+          "instruction_bytes": 2778
+        },
+        {
+          "object": "src/banim-efxsound.o",
+          "category": "c_owned",
+          "instruction_bytes": 2766
+        },
+        {
+          "object": "src/classchg-sel.o",
+          "category": "c_owned",
+          "instruction_bytes": 2762
+        },
+        {
+          "object": "src/bmsave-bwl.o",
+          "category": "c_owned",
+          "instruction_bytes": 2748
+        },
+        {
+          "object": "src/worldmap_player_interface.o",
+          "category": "c_owned",
+          "instruction_bytes": 2742
+        },
+        {
+          "object": "src/mapanim_spellassoc.o",
+          "category": "c_owned",
+          "instruction_bytes": 2686
+        },
+        {
+          "object": "src/worldmap_entry.o",
+          "category": "c_owned",
+          "instruction_bytes": 2662
+        },
+        {
+          "object": "src/opsubtitle.o",
+          "category": "c_owned",
+          "instruction_bytes": 2646
+        },
+        {
+          "object": "src/uidebug.o",
+          "category": "c_owned",
+          "instruction_bytes": 2646
+        },
+        {
+          "object": "src/uiutils.o",
+          "category": "c_owned",
+          "instruction_bytes": 2630
+        },
+        {
+          "object": "src/banim-main.o",
+          "category": "c_owned",
+          "instruction_bytes": 2608
+        },
+        {
+          "object": "src/banim-ekrmainmini.o",
+          "category": "c_owned",
+          "instruction_bytes": 2582
+        },
+        {
+          "object": "src/banim-ekrclasschg.o",
+          "category": "c_owned",
+          "instruction_bytes": 2526
+        },
+        {
+          "object": "src/banim-efxhpbar.o",
+          "category": "c_owned",
+          "instruction_bytes": 2500
+        },
+        {
+          "object": "src/prepscreen.o",
+          "category": "c_owned",
+          "instruction_bytes": 2498
+        },
+        {
+          "object": "src/banim-ekrtriangle.o",
+          "category": "c_owned",
+          "instruction_bytes": 2454
+        },
+        {
+          "object": "src/banim-efxbattle.o",
+          "category": "c_owned",
+          "instruction_bytes": 2440
+        },
+        {
+          "object": "src/difficultymenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 2438
+        },
+        {
+          "object": "src/muctrl.o",
+          "category": "c_owned",
+          "instruction_bytes": 2412
+        },
+        {
+          "object": "src/banim-efxmagic-phywpn.o",
+          "category": "c_owned",
+          "instruction_bytes": 2378
+        },
+        {
+          "object": "src/banim-ekrutils.o",
+          "category": "c_owned",
+          "instruction_bytes": 2342
+        },
+        {
+          "object": "src/sio_points.o",
+          "category": "c_owned",
+          "instruction_bytes": 2332
+        },
+        {
+          "object": "src/banim-efxmagic.o",
+          "category": "c_owned",
+          "instruction_bytes": 2326
+        },
+        {
+          "object": "src/eventscr3.o",
+          "category": "c_owned",
+          "instruction_bytes": 2304
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(fp-bit.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 2302
+        },
+        {
+          "object": "src/bmtrick.o",
+          "category": "c_owned",
+          "instruction_bytes": 2272
+        },
+        {
+          "object": "src/worldmap_gmapunit.o",
+          "category": "c_owned",
+          "instruction_bytes": 2272
+        },
+        {
+          "object": "src/prep_itemtrade.o",
+          "category": "c_owned",
+          "instruction_bytes": 2258
+        },
+        {
+          "object": "src/banim-efxmagic-light.o",
+          "category": "c_owned",
+          "instruction_bytes": 2214
+        },
+        {
+          "object": "src/proc.o",
+          "category": "c_owned",
+          "instruction_bytes": 2210
+        },
+        {
+          "object": "src/banim-ekrmain.o",
+          "category": "c_owned",
+          "instruction_bytes": 2208
+        },
+        {
+          "object": "src/bmmind.o",
+          "category": "c_owned",
+          "instruction_bytes": 2208
+        },
+        {
+          "object": "src/banim-efxmagic-excalibur.o",
+          "category": "c_owned",
+          "instruction_bytes": 2194
+        },
+        {
+          "object": "src/prep_wm_sell.o",
+          "category": "c_owned",
+          "instruction_bytes": 2178
+        },
+        {
+          "object": "src/banim-efxmagic-luna.o",
+          "category": "c_owned",
+          "instruction_bytes": 2174
+        },
+        {
+          "object": "src/prep_atmenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 2174
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mprec.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 2146
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 2132
+        },
+        {
+          "object": "src/banim-efxlvup.o",
+          "category": "c_owned",
+          "instruction_bytes": 2062
+        },
+        {
+          "object": "src/banim-ekrpopup.o",
+          "category": "c_owned",
+          "instruction_bytes": 2044
+        },
+        {
+          "object": "src/gamerankings.o",
+          "category": "c_owned",
+          "instruction_bytes": 2018
+        },
+        {
+          "object": "src/phasechangefx.o",
+          "category": "c_owned",
+          "instruction_bytes": 1982
+        },
+        {
+          "object": "src/eventcall.o",
+          "category": "c_owned",
+          "instruction_bytes": 1976
+        },
+        {
+          "object": "src/worldmap_face.o",
+          "category": "c_owned",
+          "instruction_bytes": 1952
+        },
+        {
+          "object": "src/worldmap_screen.o",
+          "category": "c_owned",
+          "instruction_bytes": 1942
+        },
+        {
+          "object": "src/mapanim_debug.o",
+          "category": "c_owned",
+          "instruction_bytes": 1918
+        },
+        {
+          "object": "src/bmpatharrowdisp.o",
+          "category": "c_owned",
+          "instruction_bytes": 1914
+        },
+        {
+          "object": "src/bmarena.o",
+          "category": "c_owned",
+          "instruction_bytes": 1910
+        },
+        {
+          "object": "src/sio_menu.o",
+          "category": "c_owned",
+          "instruction_bytes": 1884
+        },
+        {
+          "object": "src/banim-battleparse.o",
+          "category": "c_owned",
+          "instruction_bytes": 1864
+        },
+        {
+          "object": "src/sio_result.o",
+          "category": "c_owned",
+          "instruction_bytes": 1852
+        },
+        {
+          "object": "src/events_script_utils.o",
+          "category": "c_owned",
+          "instruction_bytes": 1842
+        },
+        {
+          "object": "src/soundwrapper.o",
+          "category": "c_owned",
+          "instruction_bytes": 1820
+        },
+        {
+          "object": "src/ending_credits.o",
+          "category": "c_owned",
+          "instruction_bytes": 1810
+        },
+        {
+          "object": "src/worldmap_radar.o",
+          "category": "c_owned",
+          "instruction_bytes": 1762
+        },
+        {
+          "object": "src/cp_perform.o",
+          "category": "c_owned",
+          "instruction_bytes": 1702
+        },
+        {
+          "object": "src/prep_utils.o",
+          "category": "c_owned",
+          "instruction_bytes": 1692
+        },
+        {
+          "object": "src/banim-efxmagic-fenrir.o",
+          "category": "c_owned",
+          "instruction_bytes": 1690
+        },
+        {
+          "object": "src/banim-efxmagic-breath.o",
+          "category": "c_owned",
+          "instruction_bytes": 1666
+        },
+        {
+          "object": "src/gamecontrol.o",
+          "category": "c_owned",
+          "instruction_bytes": 1628
+        },
+        {
+          "object": "src/banim-ekrdispup.o",
+          "category": "c_owned",
+          "instruction_bytes": 1624
+        },
+        {
+          "object": "src/bmreliance.o",
+          "category": "c_owned",
+          "instruction_bytes": 1624
+        },
+        {
+          "object": "src/sio_postbattle.o",
+          "category": "c_owned",
+          "instruction_bytes": 1596
+        },
+        {
+          "object": "src/event.o",
+          "category": "c_owned",
+          "instruction_bytes": 1568
+        },
+        {
+          "object": "src/sio_multiboot.o",
+          "category": "c_owned",
+          "instruction_bytes": 1514
+        },
+        {
+          "object": "src/opanim-healthsafetyscreen.o",
+          "category": "c_owned",
+          "instruction_bytes": 1472
+        },
+        {
+          "object": "src/mapanim_api.o",
+          "category": "c_owned",
+          "instruction_bytes": 1470
+        },
+        {
+          "object": "src/mapanim_summon.o",
+          "category": "c_owned",
+          "instruction_bytes": 1458
+        },
+        {
+          "object": "src/banim-efxmagic-fimbulvetr.o",
+          "category": "c_owned",
+          "instruction_bytes": 1440
+        },
+        {
+          "object": "src/mapanim.o",
+          "category": "c_owned",
+          "instruction_bytes": 1418
+        },
+        {
+          "object": "src/banim-efxhit.o",
+          "category": "c_owned",
+          "instruction_bytes": 1408
+        },
+        {
+          "object": "src/banim-efxskill.o",
+          "category": "c_owned",
+          "instruction_bytes": 1408
+        },
+        {
+          "object": "src/mapanim_lvupfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 1402
+        },
+        {
+          "object": "src/banim-efxdeath.o",
+          "category": "c_owned",
+          "instruction_bytes": 1392
+        },
+        {
+          "object": "src/uiarena.o",
+          "category": "c_owned",
+          "instruction_bytes": 1384
+        },
+        {
+          "object": "src/banim-efxmagic-eclipse.o",
+          "category": "c_owned",
+          "instruction_bytes": 1354
+        },
+        {
+          "object": "src/banim-efxmagic-fire.o",
+          "category": "c_owned",
+          "instruction_bytes": 1346
+        },
+        {
+          "object": "src/mapanim_infobox.o",
+          "category": "c_owned",
+          "instruction_bytes": 1346
+        },
+        {
+          "object": "src/banim-efxmagic-aura.o",
+          "category": "c_owned",
+          "instruction_bytes": 1344
+        },
+        {
+          "object": "src/ap.o",
+          "category": "c_owned",
+          "instruction_bytes": 1334
+        },
+        {
+          "object": "src/sio_804B920.o",
+          "category": "c_owned",
+          "instruction_bytes": 1334
+        },
+        {
+          "object": "src/menuitempanel.o",
+          "category": "c_owned",
+          "instruction_bytes": 1312
+        },
+        {
+          "object": "src/sio_event.o",
+          "category": "c_owned",
+          "instruction_bytes": 1306
+        },
+        {
+          "object": "src/worldmap_status_ui.o",
+          "category": "c_owned",
+          "instruction_bytes": 1296
+        },
+        {
+          "object": "src/banim-ekrdragon-dracozombie.o",
+          "category": "c_owned",
+          "instruction_bytes": 1294
+        },
+        {
+          "object": "src/banim-efxmagic-shadowshot.o",
+          "category": "c_owned",
+          "instruction_bytes": 1276
+        },
+        {
+          "object": "src/prep_itemusemind.o",
+          "category": "c_owned",
+          "instruction_bytes": 1244
+        },
+        {
+          "object": "src/banim-efxmagic-nosferatu.o",
+          "category": "c_owned",
+          "instruction_bytes": 1240
+        },
+        {
+          "object": "src/mapanim_specialeffect.o",
+          "category": "c_owned",
+          "instruction_bytes": 1230
+        },
+        {
+          "object": "src/bmsave-multiarena.o",
+          "category": "c_owned",
+          "instruction_bytes": 1222
+        },
+        {
+          "object": "src/prep_sallycir.o",
+          "category": "c_owned",
+          "instruction_bytes": 1216
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mallocr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 1208
+        },
+        {
+          "object": "src/banim-ekrdragon-utils.o",
+          "category": "c_owned",
+          "instruction_bytes": 1204
+        },
+        {
+          "object": "src/opanimfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 1200
+        },
+        {
+          "object": "src/banim-efxflashunit.o",
+          "category": "c_owned",
+          "instruction_bytes": 1192
+        },
+        {
+          "object": "src/banim-efxflashbg.o",
+          "category": "c_owned",
+          "instruction_bytes": 1190
+        },
+        {
+          "object": "src/banim-ekrbattlestarting.o",
+          "category": "c_owned",
+          "instruction_bytes": 1190
+        },
+        {
+          "object": "src/animedrv.o",
+          "category": "c_owned",
+          "instruction_bytes": 1188
+        },
+        {
+          "object": "src/worldmap_timemons.o",
+          "category": "c_owned",
+          "instruction_bytes": 1156
+        },
+        {
+          "object": "src/banim-efxmagic-shine.o",
+          "category": "c_owned",
+          "instruction_bytes": 1114
+        },
+        {
+          "object": "src/banim-ekrdragon-demonkingobj.o",
+          "category": "c_owned",
+          "instruction_bytes": 1114
+        },
+        {
+          "object": "src/worldmap_screen2.o",
+          "category": "c_owned",
+          "instruction_bytes": 1108
+        },
+        {
+          "object": "src/sio_term.o",
+          "category": "c_owned",
+          "instruction_bytes": 1098
+        },
+        {
+          "object": "src/bmsave-gmap.o",
+          "category": "c_owned",
+          "instruction_bytes": 1088
+        },
+        {
+          "object": "src/eventscr_utils.o",
+          "category": "c_owned",
+          "instruction_bytes": 1080
+        },
+        {
+          "object": "src/uiselecttarget.o",
+          "category": "c_owned",
+          "instruction_bytes": 1078
+        },
+        {
+          "object": "src/lightrunefx.o",
+          "category": "c_owned",
+          "instruction_bytes": 1032
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(syscalls.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 1014
+        },
+        {
+          "object": "src/bmtrap.o",
+          "category": "c_owned",
+          "instruction_bytes": 1012
+        },
+        {
+          "object": "src/mapanim_lvup.o",
+          "category": "c_owned",
+          "instruction_bytes": 1010
+        },
+        {
+          "object": "src/sio_mu.o",
+          "category": "c_owned",
+          "instruction_bytes": 996
+        },
+        {
+          "object": "src/banim-efxmagic-flux.o",
+          "category": "c_owned",
+          "instruction_bytes": 992
+        },
+        {
+          "object": "src/banim-efxmagic-bolting.o",
+          "category": "c_owned",
+          "instruction_bytes": 972
+        },
+        {
+          "object": "src/events_script.o",
+          "category": "c_owned",
+          "instruction_bytes": 972
+        },
+        {
+          "object": "src/banim-ekrdragon-myrrh.o",
+          "category": "c_owned",
+          "instruction_bytes": 970
+        },
+        {
+          "object": "src/trapfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 970
+        },
+        {
+          "object": "src/classchg-event.o",
+          "category": "c_owned",
+          "instruction_bytes": 968
+        },
+        {
+          "object": "src/worldmap_effect.o",
+          "category": "c_owned",
+          "instruction_bytes": 964
+        },
+        {
+          "object": "src/popup2.o",
+          "category": "c_owned",
+          "instruction_bytes": 928
+        },
+        {
+          "object": "src/prep_menuscroll.o",
+          "category": "c_owned",
+          "instruction_bytes": 920
+        },
+        {
+          "object": "src/banim-ekrbattleending.o",
+          "category": "c_owned",
+          "instruction_bytes": 900
+        },
+        {
+          "object": "src/sio_rulesettings.o",
+          "category": "c_owned",
+          "instruction_bytes": 890
+        },
+        {
+          "object": "src/banim-efxmagic-refresh.o",
+          "category": "c_owned",
+          "instruction_bytes": 886
+        },
+        {
+          "object": "src/banim-efxmagic-evileye.o",
+          "category": "c_owned",
+          "instruction_bytes": 880
+        },
+        {
+          "object": "src/banim-efxstatusunit.o",
+          "category": "c_owned",
+          "instruction_bytes": 880
+        },
+        {
+          "object": "src/worldmap_automu.o",
+          "category": "c_owned",
+          "instruction_bytes": 858
+        },
+        {
+          "object": "src/cp_decide.o",
+          "category": "c_owned",
+          "instruction_bytes": 846
+        },
+        {
+          "object": "src/classchg-handler.o",
+          "category": "c_owned",
+          "instruction_bytes": 832
+        },
+        {
+          "object": "src/bmlib-math.o",
+          "category": "c_owned",
+          "instruction_bytes": 830
+        },
+        {
+          "object": "src/banim-efxmagic-wretchedair.o",
+          "category": "c_owned",
+          "instruction_bytes": 798
+        },
+        {
+          "object": "src/banim-ekrarena.o",
+          "category": "c_owned",
+          "instruction_bytes": 796
+        },
+        {
+          "object": "src/banim-ekrcmd.o",
+          "category": "c_owned",
+          "instruction_bytes": 790
+        },
+        {
+          "object": "src/prep_80A0760.o",
+          "category": "c_owned",
+          "instruction_bytes": 786
+        },
+        {
+          "object": "src/gameoverbgfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 778
+        },
+        {
+          "object": "src/colorfade.o",
+          "category": "c_owned",
+          "instruction_bytes": 776
+        },
+        {
+          "object": "src/worldmap_scrollmanage.o",
+          "category": "c_owned",
+          "instruction_bytes": 764
+        },
+        {
+          "object": "src/emitstarfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 760
+        },
+        {
+          "object": "src/cp_order.o",
+          "category": "c_owned",
+          "instruction_bytes": 746
+        },
+        {
+          "object": "src/bmsave-misc.o",
+          "category": "c_owned",
+          "instruction_bytes": 740
+        },
+        {
+          "object": "src/worldmap_sogu.o",
+          "category": "c_owned",
+          "instruction_bytes": 736
+        },
+        {
+          "object": "src/banim-efxmagic-aircalibur.o",
+          "category": "c_owned",
+          "instruction_bytes": 732
+        },
+        {
+          "object": "src/bb.o",
+          "category": "c_owned",
+          "instruction_bytes": 700
+        },
+        {
+          "object": "src/convoymenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 698
+        },
+        {
+          "object": "src/mapanim_spellassocfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 694
+        },
+        {
+          "object": "src/sio_main2.o",
+          "category": "c_owned",
+          "instruction_bytes": 690
+        },
+        {
+          "object": "src/bmcommanddbg.o",
+          "category": "c_owned",
+          "instruction_bytes": 674
+        },
+        {
+          "object": "src/spinning_arrow.o",
+          "category": "c_owned",
+          "instruction_bytes": 668
+        },
+        {
+          "object": "src/classchg-menuselect.o",
+          "category": "c_owned",
+          "instruction_bytes": 666
+        },
+        {
+          "object": "src/banim-efxmagic-thunder.o",
+          "category": "c_owned",
+          "instruction_bytes": 664
+        },
+        {
+          "object": "src/worldmap_tm_confront.o",
+          "category": "c_owned",
+          "instruction_bytes": 662
+        },
+        {
+          "object": "src/cursor_hand.o",
+          "category": "c_owned",
+          "instruction_bytes": 656
+        },
+        {
+          "object": "src/banim-efxmagic-stone.o",
+          "category": "c_owned",
+          "instruction_bytes": 632
+        },
+        {
+          "object": "src/msg.o",
+          "category": "c_owned",
+          "instruction_bytes": 630
+        },
+        {
+          "object": "src/banim-efxflashobj.o",
+          "category": "c_owned",
+          "instruction_bytes": 620
+        },
+        {
+          "object": "src/classchg-main.o",
+          "category": "c_owned",
+          "instruction_bytes": 606
+        },
+        {
+          "object": "src/bmsave-xmap.o",
+          "category": "c_owned",
+          "instruction_bytes": 602
+        },
+        {
+          "object": "src/eventfx-fade.o",
+          "category": "c_owned",
+          "instruction_bytes": 580
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(freer.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 576
+        },
+        {
+          "object": "src/statbar.o",
+          "category": "c_owned",
+          "instruction_bytes": 556
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fvwrite.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 554
+        },
+        {
+          "object": "src/mapanim_expbar.o",
+          "category": "c_owned",
+          "instruction_bytes": 550
+        },
+        {
+          "object": "src/eventwarpfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 544
+        },
+        {
+          "object": "src/worldmap_line_fade.o",
+          "category": "c_owned",
+          "instruction_bytes": 536
+        },
+        {
+          "object": "src/bmlib-hblank.o",
+          "category": "c_owned",
+          "instruction_bytes": 522
+        },
+        {
+          "object": "src/mural_background.o",
+          "category": "c_owned",
+          "instruction_bytes": 520
+        },
+        {
+          "object": "src/chapter_title.o",
+          "category": "c_owned",
+          "instruction_bytes": 498
+        },
+        {
+          "object": "src/chapterintrofx_title.o",
+          "category": "c_owned",
+          "instruction_bytes": 498
+        },
+        {
+          "object": "src/banim-ekrhensei.o",
+          "category": "c_owned",
+          "instruction_bytes": 488
+        },
+        {
+          "object": "src/worldmap_text.o",
+          "category": "c_owned",
+          "instruction_bytes": 488
+        },
+        {
+          "object": "src/prep_unitswap.o",
+          "category": "c_owned",
+          "instruction_bytes": 484
+        },
+        {
+          "object": "src/banim-ekrdragonstatus.o",
+          "category": "c_owned",
+          "instruction_bytes": 482
+        },
+        {
+          "object": "src/fogmap.o",
+          "category": "c_owned",
+          "instruction_bytes": 472
+        },
+        {
+          "object": "src/sio_main.o",
+          "category": "c_owned",
+          "instruction_bytes": 472
+        },
+        {
+          "object": "src/bmarch.o",
+          "category": "c_owned",
+          "instruction_bytes": 466
+        },
+        {
+          "object": "src/worldmap_palette_fade.o",
+          "category": "c_owned",
+          "instruction_bytes": 456
+        },
+        {
+          "object": "src/icon.o",
+          "category": "c_owned",
+          "instruction_bytes": 454
+        },
+        {
+          "object": "src/arm/map_flood_core.o",
+          "category": "c_owned",
+          "instruction_bytes": 452
+        },
+        {
+          "object": "src/worldmap_basemenu.o",
+          "category": "c_owned",
+          "instruction_bytes": 430
+        },
+        {
+          "object": "src/banim-ekrdragon-8070710.o",
+          "category": "c_owned",
+          "instruction_bytes": 418
+        },
+        {
+          "object": "src/worldmap_hb.o",
+          "category": "c_owned",
+          "instruction_bytes": 416
+        },
+        {
+          "object": "src/banim-efxmagic-ballista.o",
+          "category": "c_owned",
+          "instruction_bytes": 406
+        },
+        {
+          "object": "src/code_80AC6AC.o",
+          "category": "c_owned",
+          "instruction_bytes": 404
+        },
+        {
+          "object": "src/worldmap_80C0834.o",
+          "category": "c_owned",
+          "instruction_bytes": 402
+        },
+        {
+          "object": "src/banim-efxmagic-dancerings.o",
+          "category": "c_owned",
+          "instruction_bytes": 400
+        },
+        {
+          "object": "src/eventfx-shinningstone.o",
+          "category": "c_owned",
+          "instruction_bytes": 398
+        },
+        {
+          "object": "src/sioerror.o",
+          "category": "c_owned",
+          "instruction_bytes": 398
+        },
+        {
+          "object": "src/whitecircularfadefx.o",
+          "category": "c_owned",
+          "instruction_bytes": 398
+        },
+        {
+          "object": "src/bmcontainer.o",
+          "category": "c_owned",
+          "instruction_bytes": 386
+        },
+        {
+          "object": "src/arm/draw_glyph.o",
+          "category": "c_owned",
+          "instruction_bytes": 376
+        },
+        {
+          "object": "src/banim-efxmagic-bindingblade.o",
+          "category": "c_owned",
+          "instruction_bytes": 374
+        },
+        {
+          "object": "src/extramenu_unk.o",
+          "category": "c_owned",
+          "instruction_bytes": 374
+        },
+        {
+          "object": "src/bonusclaim_helpbox.o",
+          "category": "c_owned",
+          "instruction_bytes": 372
+        },
+        {
+          "object": "src/danceringfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 364
+        },
+        {
+          "object": "src/ctc.o",
+          "category": "c_owned",
+          "instruction_bytes": 360
+        },
+        {
+          "object": "src/banim-efxmagic-ereshkigal.o",
+          "category": "c_owned",
+          "instruction_bytes": 344
+        },
+        {
+          "object": "src/crt0.o",
+          "category": "assembly_source",
+          "instruction_bytes": 340
+        },
+        {
+          "object": "src/worldmap_cursor.o",
+          "category": "c_owned",
+          "instruction_bytes": 340
+        },
+        {
+          "object": "src/agb_sram.o",
+          "category": "c_owned",
+          "instruction_bytes": 336
+        },
+        {
+          "object": "src/eventscr2.o",
+          "category": "c_owned",
+          "instruction_bytes": 332
+        },
+        {
+          "object": "src/rng.o",
+          "category": "c_owned",
+          "instruction_bytes": 328
+        },
+        {
+          "object": "src/bmcamadjust.o",
+          "category": "c_owned",
+          "instruction_bytes": 326
+        },
+        {
+          "object": "src/monstergen.o",
+          "category": "c_owned",
+          "instruction_bytes": 324
+        },
+        {
+          "object": "src/classchg-postconfirm.o",
+          "category": "c_owned",
+          "instruction_bytes": 322
+        },
+        {
+          "object": "src/koido.o",
+          "category": "c_owned",
+          "instruction_bytes": 318
+        },
+        {
+          "object": "src/sio_menudef.o",
+          "category": "c_owned",
+          "instruction_bytes": 316
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(findfp.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 312
+        },
+        {
+          "object": "src/banim-efxmagic-gespenst.o",
+          "category": "c_owned",
+          "instruction_bytes": 308
+        },
+        {
+          "object": "src/eventfx-earthquake.o",
+          "category": "c_owned",
+          "instruction_bytes": 286
+        },
+        {
+          "object": "src/bmxfade.o",
+          "category": "c_owned",
+          "instruction_bytes": 252
+        },
+        {
+          "object": "src/bmphase.o",
+          "category": "c_owned",
+          "instruction_bytes": 228
+        },
+        {
+          "object": "src/code_8086934.o",
+          "category": "c_owned",
+          "instruction_bytes": 226
+        },
+        {
+          "object": "src/worldmap_draw.o",
+          "category": "c_owned",
+          "instruction_bytes": 212
+        },
+        {
+          "object": "src/arm/color_fade_tick.o",
+          "category": "c_owned",
+          "instruction_bytes": 208
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(makebuf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 208
+        },
+        {
+          "object": "src/eventfx-stoneshatter.o",
+          "category": "c_owned",
+          "instruction_bytes": 206
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 206
+        },
+        {
+          "object": "src/arm/map_flood_step.o",
+          "category": "c_owned",
+          "instruction_bytes": 204
+        },
+        {
+          "object": "asm/fe6sio.o",
+          "category": "assembly_source",
+          "instruction_bytes": 200
+        },
+        {
+          "object": "src/chapterdata.o",
+          "category": "c_owned",
+          "instruction_bytes": 200
+        },
+        {
+          "object": "src/main.o",
+          "category": "c_owned",
+          "instruction_bytes": 198
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 192
+        },
+        {
+          "object": "src/classchg-menuconfirm.o",
+          "category": "c_owned",
+          "instruction_bytes": 188
+        },
+        {
+          "object": "src/cp_phase.o",
+          "category": "c_owned",
+          "instruction_bytes": 182
+        },
+        {
+          "object": "src/ramfunc.o",
+          "category": "c_owned",
+          "instruction_bytes": 182
+        },
+        {
+          "object": "src/sprite-animfx.o",
+          "category": "c_owned",
+          "instruction_bytes": 180
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(stdio.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 178
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(wsetup.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 166
+        },
+        {
+          "object": "src/bmusort.o",
+          "category": "c_owned",
+          "instruction_bytes": 160
+        },
+        {
+          "object": "src/arm/put_oam.o",
+          "category": "c_owned",
+          "instruction_bytes": 156
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 146
+        },
+        {
+          "object": "src/time.o",
+          "category": "c_owned",
+          "instruction_bytes": 142
+        },
+        {
+          "object": "src/arm/decode_string.o",
+          "category": "c_owned",
+          "instruction_bytes": 140
+        },
+        {
+          "object": "src/spellassoc.o",
+          "category": "c_owned",
+          "instruction_bytes": 140
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memmove.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 136
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fflush.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 134
+        },
+        {
+          "object": "src/cg.o",
+          "category": "c_owned",
+          "instruction_bytes": 130
+        },
+        {
+          "object": "src/minefx.o",
+          "category": "c_owned",
+          "instruction_bytes": 122
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 120
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memchr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 118
+        },
+        {
+          "object": "src/m4a_flag_setters.o",
+          "category": "c_owned",
+          "instruction_bytes": 114
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(sprintf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 110
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_muldi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 108
+        },
+        {
+          "object": "src/libagbsyscall.o",
+          "category": "assembly_source",
+          "instruction_bytes": 100
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memcpy.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 94
+        },
+        {
+          "object": "src/arm/clear_oam.o",
+          "category": "c_owned",
+          "instruction_bytes": 92
+        },
+        {
+          "object": "src/arm/tm_copy_rect.o",
+          "category": "c_owned",
+          "instruction_bytes": 92
+        },
+        {
+          "object": "src/banim-ekrlvupfan.o",
+          "category": "c_owned",
+          "instruction_bytes": 88
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(callocr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 88
+        },
+        {
+          "object": "src/arm/tm_apply_tsa.o",
+          "category": "c_owned",
+          "instruction_bytes": 84
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(locale.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 82
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(memset.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 82
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strcmp.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 82
+        },
+        {
+          "object": "src/eventfx-boomfog.o",
+          "category": "c_owned",
+          "instruction_bytes": 80
+        },
+        {
+          "object": "src/mapanim_eventbattle.o",
+          "category": "c_owned",
+          "instruction_bytes": 78
+        },
+        {
+          "object": "src/arm/checksum.o",
+          "category": "c_owned",
+          "instruction_bytes": 72
+        },
+        {
+          "object": "src/m4a_sound_vsync.o",
+          "category": "c_owned",
+          "instruction_bytes": 66
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strcpy.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 66
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strstr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 66
+        },
+        {
+          "object": "src/m4a_end_tie.o",
+          "category": "c_owned",
+          "instruction_bytes": 64
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fwalk.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 64
+        },
+        {
+          "object": "src/bmgold.o",
+          "category": "c_owned",
+          "instruction_bytes": 62
+        },
+        {
+          "object": "src/classdisplayfont.o",
+          "category": "c_owned",
+          "instruction_bytes": 62
+        },
+        {
+          "object": "src/m4a_track_stop.o",
+          "category": "c_owned",
+          "instruction_bytes": 62
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 60
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(strlen.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 58
+        },
+        {
+          "object": "src/arm/tm_fill_rect.o",
+          "category": "c_owned",
+          "instruction_bytes": 56
+        },
+        {
+          "object": "src/irq.o",
+          "category": "c_owned",
+          "instruction_bytes": 54
+        },
+        {
+          "object": "src/eventcmd_warp.o",
+          "category": "c_owned",
+          "instruction_bytes": 50
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_ashldi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 50
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_lshrdi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 50
+        },
+        {
+          "object": "asm/arm_call.o",
+          "category": "assembly_source",
+          "instruction_bytes": 48
+        },
+        {
+          "object": "src/m4a_channel_volume.o",
+          "category": "c_owned",
+          "instruction_bytes": 48
+        },
+        {
+          "object": "src/m4a_fine.o",
+          "category": "c_owned",
+          "instruction_bytes": 46
+        },
+        {
+          "object": "src/m4a_repeat.o",
+          "category": "c_owned",
+          "instruction_bytes": 46
+        },
+        {
+          "object": "src/m4a_voice.o",
+          "category": "c_owned",
+          "instruction_bytes": 46
+        },
+        {
+          "object": "src/unit_facing.o",
+          "category": "c_owned",
+          "instruction_bytes": 44
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(vsprintf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 44
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(lseekr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 42
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mbtowc_r.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 42
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(readr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 42
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(writer.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 42
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(fstatr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 40
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(closer.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 38
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(sbrkr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 38
+        },
+        {
+          "object": "src/m4a_reset_setters.o",
+          "category": "c_owned",
+          "instruction_bytes": 36
+        },
+        {
+          "object": "src/m4a_clear_chain.o",
+          "category": "c_owned",
+          "instruction_bytes": 32
+        },
+        {
+          "object": "src/m4a_sequence_goto.o",
+          "category": "c_owned",
+          "instruction_bytes": 32
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(libcfunc.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 32
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(s_isinf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 28
+        },
+        {
+          "object": "src/fe3_dummy.o",
+          "category": "c_owned",
+          "instruction_bytes": 26
+        },
+        {
+          "object": "src/m4a_clear_mod.o",
+          "category": "c_owned",
+          "instruction_bytes": 26
+        },
+        {
+          "object": "src/m4a_pattern.o",
+          "category": "c_owned",
+          "instruction_bytes": 26
+        },
+        {
+          "object": "src/m4a_mod_type.o",
+          "category": "c_owned",
+          "instruction_bytes": 24
+        },
+        {
+          "object": "src/sio_multiboot_wait.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 24
+        },
+        {
+          "object": "src/m4a_address_filter.o",
+          "category": "c_owned",
+          "instruction_bytes": 22
+        },
+        {
+          "object": "src/m4a_clear_block.o",
+          "category": "c_owned",
+          "instruction_bytes": 22
+        },
+        {
+          "object": "src/m4a_jump_table.o",
+          "category": "c_owned",
+          "instruction_bytes": 22
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 22
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_negdi2.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 22
+        },
+        {
+          "object": "src/m4a_command_setters.o",
+          "category": "c_owned",
+          "instruction_bytes": 20
+        },
+        {
+          "object": "src/m4a_pend.o",
+          "category": "c_owned",
+          "instruction_bytes": 20
+        },
+        {
+          "object": "src/m4a_port.o",
+          "category": "c_owned",
+          "instruction_bytes": 20
+        },
+        {
+          "object": "src/m4a_tempo.o",
+          "category": "c_owned",
+          "instruction_bytes": 20
+        },
+        {
+          "object": "asm/arm.o",
+          "category": "assembly_source",
+          "instruction_bytes": 12
+        },
+        {
+          "object": "src/m4a_multiply_high.o",
+          "category": "c_owned",
+          "instruction_bytes": 12
+        },
+        {
+          "object": "src/m4a_checked_reader.o",
+          "category": "c_owned",
+          "instruction_bytes": 10
+        },
+        {
+          "object": "src/m4a_read_command.o",
+          "category": "c_owned",
+          "instruction_bytes": 10
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(errno.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 6
+        },
+        {
+          "object": "src/rom_header.o",
+          "category": "assembly_source",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "tools/agbcc/lib/libc.a(mlock.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "src/m4a_byte_load.o",
+          "category": "c_owned",
+          "instruction_bytes": 2
+        },
+        {
+          "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 2
+        }
+      ],
+      "elf_sha256": "c50912e51dabd9922e517fd98a1f8920191e27165d98c7fbef5336b478fdae25",
+      "map_sha256": "f754541f514ce531fde2de0d73b0fb231dd13c77cc7dd889191cdb035d1a3338",
+      "unmapped_input_bytes": 3172113,
+      "data_mapped_bytes": 10252672,
+      "outside_input_bytes": 2574801
+    },
+    "mgfembp": {
+      "mapped_instruction_bytes": 25716,
+      "categories": {
+        "assembly_source": 418,
+        "c_owned": 18148,
+        "c_with_assembly": 6330,
+        "runtime_archive": 820
+      },
+      "objects": [
+        {
+          "object": "src/hardware.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 6330
+        },
+        {
+          "object": "src/sio.o",
+          "category": "c_owned",
+          "instruction_bytes": 5514
+        },
+        {
+          "object": "src/proc.o",
+          "category": "c_owned",
+          "instruction_bytes": 4314
+        },
+        {
+          "object": "src/debug_text.o",
+          "category": "c_owned",
+          "instruction_bytes": 1818
+        },
+        {
+          "object": "src/save.o",
+          "category": "c_owned",
+          "instruction_bytes": 1326
+        },
+        {
+          "object": "src/report.o",
+          "category": "c_owned",
+          "instruction_bytes": 1040
+        },
+        {
+          "object": "src/sprite.o",
+          "category": "c_owned",
+          "instruction_bytes": 902
+        },
+        {
+          "object": "src/oam.o",
+          "category": "c_owned",
+          "instruction_bytes": 616
+        },
+        {
+          "object": "src/async_upload.o",
+          "category": "c_owned",
+          "instruction_bytes": 544
+        },
+        {
+          "object": "src/game_control.o",
+          "category": "c_owned",
+          "instruction_bytes": 472
+        },
+        {
+          "object": "src/gbasram.o",
+          "category": "c_owned",
+          "instruction_bytes": 332
+        },
+        {
+          "object": "src/crt0.o",
+          "category": "assembly_source",
+          "instruction_bytes": 328
+        },
+        {
+          "object": "src/ramfunc.o",
+          "category": "c_owned",
+          "instruction_bytes": 218
+        },
+        {
+          "object": "src/color_fade_tick.o",
+          "category": "c_owned",
+          "instruction_bytes": 208
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 206
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 192
+        },
+        {
+          "object": "src/main.o",
+          "category": "c_owned",
+          "instruction_bytes": 184
+        },
+        {
+          "object": "src/put_oam.o",
+          "category": "c_owned",
+          "instruction_bytes": 156
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 146
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 120
+        },
+        {
+          "object": "src/interrupts.o",
+          "category": "c_owned",
+          "instruction_bytes": 108
+        },
+        {
+          "object": "../../tools/agbcc/lib/libc.a(memcpy.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 94
+        },
+        {
+          "object": "src/clear_oam.o",
+          "category": "c_owned",
+          "instruction_bytes": 92
+        },
+        {
+          "object": "src/tm_copy_rect.o",
+          "category": "c_owned",
+          "instruction_bytes": 92
+        },
+        {
+          "object": "src/tm_apply_tsa.o",
+          "category": "c_owned",
+          "instruction_bytes": 84
+        },
+        {
+          "object": "src/checksum.o",
+          "category": "c_owned",
+          "instruction_bytes": 72
+        },
+        {
+          "object": "src/gbasvc.o",
+          "category": "assembly_source",
+          "instruction_bytes": 62
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 60
+        },
+        {
+          "object": "src/tm_fill_rect.o",
+          "category": "c_owned",
+          "instruction_bytes": 56
+        },
+        {
+          "object": "src/fake_glue.o",
+          "category": "assembly_source",
+          "instruction_bytes": 16
+        },
+        {
+          "object": "src/armfunc.o",
+          "category": "assembly_source",
+          "instruction_bytes": 12
+        },
+        {
+          "object": "../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 2
+        }
+      ],
+      "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
+      "map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0",
+      "unmapped_input_bytes": 0,
+      "data_mapped_bytes": 9239,
+      "outside_input_bytes": 1
+    }
+  },
+  "limitations": [
+    "C-owned does not prove assembly-free generated code, complete recovery or native engine compatibility.",
+    "C-with-assembly counts the entire containing object; it is not all remaining assembly.",
+    "Runtime archives require source provenance and instruction-level classification before inclusion in a completion score.",
+    "Assembler mappings may include alignment and omit hidden code in data/unmapped areas.",
+    "Main ROM and expanded payload are separate scopes; do not add their stored image sizes or count the compressed payload as instructions.",
+    "Counts include inherited community work, not only changes made in this task."
+  ]
+}

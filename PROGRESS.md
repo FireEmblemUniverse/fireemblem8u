@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: audio byte-load integration (baseline `c7400ccf` plus this change); full ROM checksum passes.
+Updated: September 10, 2026. Latest verified implementation: audio byte-load integration (baseline `c7400ccf` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -18,6 +18,8 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
+| Main-ROM instruction ownership | **92.48%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Known assembly-source instructions | **2,836 bytes in main ROM; 418 bytes in expanded payload** — excludes assembly inside C and runtime archives |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated audio byte-load entry | `████████████████████` **Both bytes exact; 49,152 production cases pass** |
 | Integrated multiply-high ARM body | `████████████████████` **All 12 ARM bytes exact; 41,984 production cases pass; Thumb entry remains assembly** |
@@ -58,8 +60,15 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: establish a size-weighted remaining-code inventory, then continue
-recovering the remaining audio interworking entry and engine routines.
+Next milestone: measure the assembly within mixed C objects and classify runtime
+archive code, while continuing the remaining audio implementation work.
+The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
+current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
+719,132 C-owned, 33,870 in C objects containing assembly, 2,836 in assembly
+sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
+assembly sizes. The expanded payload is measured separately: 25,716 mapped
+instruction bytes, including 418 in assembly sources. The 200-byte transfer
+bootstrap is already included in the main assembly total, not counted twice.
 The interworking-entry C probe passes 20,992 result/preserved-register cases,
 but uses 24 bytes including a veneer versus four original entry bytes and
 changes r1. It remains research-only; production is unchanged.

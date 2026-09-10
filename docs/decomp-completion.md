@@ -3590,3 +3590,33 @@ count cannot establish overall C completion: remaining functions vary greatly
 in size and some executable regions are not marked as functions. Prioritize a
 size-weighted remaining-executable inventory to make progress reporting useful
 without inventing a percentage or treating inherited work as new contributions.
+
+### September 10: reproducible size-weighted ownership inventory
+
+`scripts/audit_code_ownership.py` regenerates docs/code-ownership.json and .md
+from fresh source and linked-code audits of the main ELF and expanded mgfembp
+ELF. It partitions mapped ARM/Thumb bytes by source ownership, checks the totals
+against the complete mapped-instruction denominator and rejects orphan mappings.
+Runtime archives and C objects containing detected instruction templates/naked
+markers are explicitly separate categories. All known owners resolve.
+
+Main-ROM mapped instruction bytes total 777,630: 719,132 in C-owned objects
+without detected instruction templates (92.48%), 33,870 in mixed C objects,
+2,836 in assembly sources, and 21,792 in runtime archives. The main assembly
+inventory is dominated by m4a_1.o (2,132), startup (340), transfer bootstrap
+(200), BIOS wrappers (100), arm_call.o (48), arm.o (12) and header entry (4).
+The 200 transfer bytes already have ARM mappings despite residing in .data;
+they must not be added again as unmarked code.
+
+The expanded payload contains 25,716 mapped instruction bytes: 18,148 C-owned,
+6,330 mixed C (hardware.o), 418 assembly and 820 runtime archive bytes. Its stored
+compressed bytes are not added to the instruction denominator. Main mixed C
+objects are unitlistscreen, eventinfo, m4a, hardware and sio_multiboot_wait.
+Their whole-object sizes deliberately overinclude C and are not an estimate of
+remaining assembly. Follow-up classification must isolate their instruction
+sites and runtime-library provenance, and address mapping blind spots before
+claiming a full decompilation percentage. These totals include inherited work.
+
+Validation: the main-ROM checksum and all three embedded payload comparison
+targets pass. Inventory was regenerated after those checks. Production source
+is unchanged by this measurement milestone.
