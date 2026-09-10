@@ -862,6 +862,15 @@ SECTIONS
         src/m4a_exit_info.o(.text);
         __exit_info_end = .;
         src/m4a_1.o(.text.after_channel_advance);
+        __exit_restore_start = .;
+        src/m4a_exit_restore.o(.text);
+        __exit_restore_end = .;
+        SoundMainRAM_IndirectReturn = (__exit_restore_start + 18) | 1;
+        src/m4a_1.o(.text.after_exit_restore);
+        ASSERT((SoundMainRAM_ExitRestore & ~1) == SoundMainRAM_ExitRestoreBoundary &&
+               (__exit_restore_start & 3) == 0 && __exit_restore_end - __exit_restore_start == 24 &&
+               SoundMainRAM_End == __exit_restore_end,
+               "mixer exit restore entry or 24-byte extent changed");
         ASSERT((SoundMainRAM_ChanAdvance & ~1) == __channel_advance_start &&
                __channel_advance_start == SoundMainRAM_ChanAdvanceBoundary &&
                __channel_advance_end - __channel_advance_start == 10,

@@ -56,11 +56,11 @@ SoundMain_3:
 	cmp r3, 0
 	beq SoundMain_4
 	ldr r0, [r0, o_SoundInfo_intp]
-	bl _081DD25E
+	bl SoundMainRAM_ExitRestore + 18
 	ldr r0, [sp, 0x18]
 SoundMain_4:
 	ldr r3, [r0, o_SoundInfo_CgbSound]
-	bl _081DD25E
+	bl SoundMainRAM_ExitRestore + 18
 	ldr r0, [sp, 0x18]
 	ldr r3, [r0, o_SoundInfo_pcmSamplesPerVBlank]
 	mov r8, r3
@@ -250,18 +250,9 @@ SoundMainRAM_ChanAdvanceBoundary:
 	.thumb
 	.global SoundMainRAM_ExitRestoreBoundary
 SoundMainRAM_ExitRestoreBoundary:
-	ldr r3, =ID_NUMBER
-	str r3, [r0]
-	add sp, 0x1C
-	pop {r0-r7}
-	mov r8, r0
-	mov r9, r1
-	mov r10, r2
-	mov r11, r3
-	pop {r3}
-_081DD25E:
-	bx r3
-	.pool
+@ The complete restore sequence and literal come from matching C.
+	.section .text.after_exit_restore, "ax", %progbits
+	.thumb
 	.global SoundMainRAM_End
 SoundMainRAM_End:
 

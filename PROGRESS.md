@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research (baseline `27271aa0`): the mixer exit candidate now passes 40,960 complete return cases, including ARM/Thumb transfers, and ten invalid compiler contracts reject. Its section remains 40 bytes versus the original 24; grouped POP selection and intermediate stack updates remain unresolved. It is not integrated. Production coverage and full-ROM matching remain unchanged.
+Updated: September 10, 2026. Latest integration (baseline `282321b3` plus this change): the complete mixer exit restore now comes from matching C, including its shared BX r3 entry and literal. All 24 section bytes match. Full ROM matching, 40,960 complete returns, 2,048 direct-entry cases, instruction-by-instruction stack checks, 14 compiler rejection cases, 3,528 complete audio calls and fresh runtime rebuilds pass.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,10 +19,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.59%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,368 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,348 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Mixer exit restore candidate | **40,960 complete ARM/Thumb return cases pass; 40-byte section versus original 24; grouped stack instruction matching remains** |
+| Integrated mixer exit restore | **24/24 section bytes exact; 40,960 complete returns and 2,048 shared-entry cases pass, including original stack progression** |
 | Integrated channel advancement | **10/10 bytes exact; 33,600 complete-state cases pass; shared exit frame read also matches its two original bytes** |
 | Integrated channel volume/loop setup | **52/52 bytes exact; 131,072 cases pass with original registers, flags and ordered alias-sensitive memory accesses** |
 | Integrated channel status/envelope | **160/160 bytes exact; 196,608 cases pass with original registers, flags, decisions and ordered memory accesses** |
@@ -87,7 +87,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: select the original grouped stack restores for the verified mixer exit candidate; BX r3 is now generated and tested. The sample handoff also remains assembly. Channel advancement and its shared exit frame read are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: recover the remaining Thumb-to-ARM sample handoff and initial SoundMain/SoundMainRAM setup. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -254,7 +254,7 @@ the 64-byte frame and removes the verified leaf return; 12 unsafe forms reject,
 and unannotated objects are unchanged. Full ROM matching, 3,528 complete audio
 calls and fresh runtime builds pass. The following assembly section now starts
 at a word boundary, so its temporary halfword alignment adjustment is removed.
-Current source inventory: 497 C files, 32 assembly entry markers, three manual
+Current source inventory: 498 C files, 32 assembly entry markers, three manual
 assembly function declarations, and seven instruction-bearing inline templates.
 The no-reverb clearing block is integrated as `src/m4a_no_reverb.c`, with all
 46 original bytes exact. Its 14,640 original/production/candidate ROM/copied-RAM
@@ -314,11 +314,11 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,368 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 2,348 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-720,010 C-owned, 33,870 in C objects containing assembly, 1,958 in assembly
+720,030 C-owned, 33,870 in C objects containing assembly, 1,938 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer

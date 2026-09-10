@@ -2,22 +2,29 @@
 """Verify mixer exit state immediately before its final interworking branch."""
 import argparse,hashlib,json,random,subprocess
 from pathlib import Path
-from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE
+from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_MEM_READ,UC_HOOK_MEM_WRITE,UC_HOOK_CODE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];DATA=0x02000000;SP=DATA+0x1000;ENTRY=0x080cf8d8
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--return',dest='transfer',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);p.add_argument('--return',dest='transfer',action='store_true');p.add_argument('--grouped',action='store_true');p.add_argument('--production',action='store_true');a=p.parse_args();a.grouped |= a.production;a.transfer |= a.grouped
  out=ROOT/'.deps/soundmain-packed/exit-restore';out.mkdir(exist_ok=True);obj=out/'candidate.o';binary=out/'candidate.bin'
- source=ROOT/'research/audio/soundmain_exit_restore.c';extra=[]
+ source=ROOT/('src/m4a_exit_restore.c' if a.production else 'research/audio/soundmain_exit_restore.c');extra=[]
  if a.transfer:
-  replacement=out/'return.c';replacement.write_text(source.read_text().replace('void SoundMainRAM_', '__attribute__((matching_thumb_frame_return))\nvoid SoundMainRAM_'));source=replacement
+  replacement=out/'return.c';replacement.write_text(source.read_text() if a.production else source.read_text().replace('void SoundMainRAM_', '__attribute__((matching_thumb_frame_return))\nvoid SoundMainRAM_'));source=replacement
   extra=['-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/thumb_frame_return.so')]
+ if a.grouped:extra+=['-fplugin-arg-thumb_frame_return-grouped']
  subprocess.run([a.compiler,'-c','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(source),'-o',str(obj)]+extra,check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(obj),str(binary)],check=True)
- code=binary.read_bytes();assert len(code)==40 and code[32:34]==bytes.fromhex('1847' if a.transfer else '7047')
+ code=binary.read_bytes();assert len(code)==(24 if a.grouped else 40) and code[(18 if a.grouped else 32):(20 if a.grouped else 34)]==bytes.fromhex('1847' if a.transfer else '7047')
  rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
  original=rom[ENTRY-0x08000000:ENTRY-0x08000000+24];assert original[18:20]==bytes.fromhex('1847')
+ if a.grouped:assert code==original
+ if a.production:
+  assert (ROOT/'fireemblem8.gba').read_bytes()==rom
+  symbols=subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True)
+  assert any(line.split()==['080cf8d8','00000018','T','SoundMainRAM_ExitRestore'] for line in symbols.splitlines())
+  assert any(line.split()[-1]=='SoundMainRAM_IndirectReturn' and int(line.split()[0],16)&~1==ENTRY+18 for line in symbols.splitlines())
  machines=[]
  for copied in (False,True):
   for candidate in (False,True):
@@ -25,7 +32,12 @@ def main():
    uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB);uc.mem_map(0x08000000,0x1000000);uc.mem_map(0x03000000,0x8000);uc.mem_map(DATA,0x4000);uc.mem_map(0x68736000,0x1000);uc.mem_write(start,code if candidate else original);trace=[]
    def access(u,kind,address,size,value,log):log.append((kind,address,size,value&((1<<(8*size))-1) if kind==17 else None))
    uc.hook_add(UC_HOOK_MEM_READ|UC_HOOK_MEM_WRITE,access,trace,DATA,DATA+0x3fff)
-   machines.append((uc,start,start+(32 if candidate else 18),trace))
+   stack_trace=[]
+   if a.grouped:
+    def step(u,address,size,user):
+     origin,log=user;log.append((address-origin,u.reg_read(r.UC_ARM_REG_SP)))
+    uc.hook_add(UC_HOOK_CODE,step,(start,stack_trace))
+   machines.append((uc,start,start+(32 if candidate and not a.grouped else 18),trace,stack_trace))
  rng=random.Random(0xe817);cases=0
  for iteration in range(256):
   words=[rng.getrandbits(32) for _ in range(16)]
@@ -38,8 +50,8 @@ def main():
     saved=[int.from_bytes(expected[SP+4*i-DATA:SP+4*i-DATA+4],'little') for i in range(7,16)]
     regs=[rng.getrandbits(32) for _ in range(13)];regs[0]=info;wanted=regs.copy();wanted[:8]=saved[:8];wanted[8:12]=saved[:4];wanted[3]=saved[8]
     expected_trace=[(17,info,4,0x68736d53)]+[(16,SP+4*i,4,None) for i in range(7,16)]
-    for uc,start,end,trace in machines:
-     uc.mem_write(DATA,bytes(initial));trace.clear()
+    for uc,start,end,trace,stack_trace in machines:
+     uc.mem_write(DATA,bytes(initial));trace.clear();stack_trace.clear()
      for i,value in enumerate(regs):uc.reg_write(getattr(r,'UC_ARM_REG_R'+str(i)),value)
      uc.reg_write(r.UC_ARM_REG_SP,SP);uc.reg_write(r.UC_ARM_REG_LR,0xdeadbeef);uc.reg_write(r.UC_ARM_REG_CPSR,0x33|flags<<28)
      target=(saved[8]&~1) if a.transfer else end
@@ -49,7 +61,25 @@ def main():
      assert uc.reg_read(r.UC_ARM_REG_SP)==SP+64 and uc.reg_read(r.UC_ARM_REG_LR)==0xdeadbeef
      assert uc.reg_read(r.UC_ARM_REG_CPSR)==(0x13|((saved[8]&1)<<5) if a.transfer else 0x33)|flags<<28
      assert bytes(uc.mem_read(DATA,0x4000))==expected and trace==expected_trace
+     if a.grouped:assert stack_trace==[(2*i,SP+offset) for i,offset in enumerate((0,0,0,28,60,60,60,60,60,64))],stack_trace
     cases+=1
- report=dict(cases=cases,machines_per_case=4,candidate_section_bytes=len(code),original_section_bytes=len(original),production_integrated=False,final_transfer_verified=a.transfer,scope=('Through final ARM/Thumb transfer:' if a.transfer else 'State immediately before final branch:')+' all registers, NZCV, final SP/LR, full data memory and ordered lock-write/frame reads in ROM/copied RAM, including nine saved-frame aliases.',limitations=[('' if a.transfer else 'Final BX r3 is not generated by this C candidate; it currently ends with BX LR. ')+'Intermediate SP values differ. Cycle timing and arbitrary asynchronous observations are not modeled. Saved words are sampled.'])
+ shared_cases=0
+ if a.grouped:
+  for sample in range(64):
+   for flags in range(16):
+    for mode in (0,1):
+     regs=[rng.getrandbits(32) for _ in range(13)];regs[3]=(0x08002000 if sample&1 else 0x03003000)|mode
+     for uc,start,end,trace,stack_trace in machines:
+      trace.clear();stack_trace.clear()
+      for i,value in enumerate(regs):uc.reg_write(getattr(r,'UC_ARM_REG_R'+str(i)),value)
+      uc.reg_write(r.UC_ARM_REG_SP,SP);uc.reg_write(r.UC_ARM_REG_LR,0xdeadbeef);uc.reg_write(r.UC_ARM_REG_CPSR,0x33|flags<<28)
+      uc.emu_start((start+18)|1,regs[3]&~1,count=1)
+      assert uc.reg_read(r.UC_ARM_REG_PC)==regs[3]&~1
+      assert [uc.reg_read(getattr(r,'UC_ARM_REG_R'+str(i))) for i in range(13)]==regs
+      assert uc.reg_read(r.UC_ARM_REG_SP)==SP and uc.reg_read(r.UC_ARM_REG_LR)==0xdeadbeef
+      assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|(mode<<5)|flags<<28
+      assert not trace and stack_trace==[(18,SP)]
+     shared_cases+=1
+ report=dict(cases=cases,machines_per_case=4,candidate_section_bytes=len(code),original_section_bytes=len(original),production_integrated=a.production,shared_entry_cases=shared_cases,final_transfer_verified=a.transfer,exact_original_bytes=a.grouped,scope=('Through final ARM/Thumb transfer:' if a.transfer else 'State immediately before final branch:')+' all registers, NZCV, final SP/LR, full data memory and ordered lock-write/frame reads in ROM/copied RAM, including nine saved-frame aliases.',limitations=[('' if a.transfer else 'Final BX r3 is not generated by this C candidate; it currently ends with BX LR. ')+('' if a.grouped else 'Intermediate SP values differ. ')+'Cycle timing and arbitrary asynchronous observations are not modeled. Saved words are sampled.'])
  (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -26,6 +26,7 @@
 #include "options.h"
 int plugin_is_GPL_compatible;
 namespace {
+bool grouped=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_frame_return requires a function");*no_add=true; }
     return NULL_TREE;
@@ -112,6 +113,36 @@ public:
             if (!REG_P(address)||REGNO(address)!=SP_REGNUM||offset<0||offset>60||(offset&3))
                 fatal_error(UNKNOWN_LOCATION,"Thumb frame return frame read outside aligned 64-byte contract");
         }
+        if (grouped) {
+            if (n<17) fatal_error(UNKNOWN_LOCATION,"Thumb frame return missing grouped restores");
+            unsigned first=n-17;
+            for (unsigned k=0;k<8;k++) {
+                rtx p=PATTERN(ops[first+k]);
+                if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))!=k
+                    ||GET_MODE(SET_DEST(p))!=SImode||!MEM_P(SET_SRC(p))||GET_MODE(SET_SRC(p))!=SImode)
+                    fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires ordered low-register loads");
+                rtx a=XEXP(SET_SRC(p),0);
+                if (GET_CODE(a)!=PLUS||!REG_P(XEXP(a,0))||REGNO(XEXP(a,0))!=SP_REGNUM
+                    ||!CONST_INT_P(XEXP(a,1))||INTVAL(XEXP(a,1))!=28+4*k)
+                    fatal_error(UNKNOWN_LOCATION,"Thumb frame return grouped offsets changed");
+            }
+            for (unsigned k=0;k<4;k++) {
+                rtx p=PATTERN(ops[first+8+k]);
+                if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))!=8+k
+                    ||GET_MODE(SET_DEST(p))!=SImode||!REG_P(SET_SRC(p))||REGNO(SET_SRC(p))!=k
+                    ||GET_MODE(SET_SRC(p))!=SImode)
+                    fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires exact high-register copies");
+            }
+            rtx spreg=gen_rtx_REG(SImode,SP_REGNUM);
+            rtx_insn *adjust=emit_insn_before(gen_rtx_SET(spreg,gen_rtx_PLUS(SImode,spreg,GEN_INT(28))),ops[first]);
+            if (recog_memoized(adjust)<0
+                ||!validate_change(ops[first],&PATTERN(ops[first]),gen_match_thumb_pop_low8(),false)
+                ||!validate_change(target,&PATTERN(target),gen_match_thumb_pop_word(gen_rtx_REG(SImode,3)),false))
+                fatal_error(UNKNOWN_LOCATION,"Thumb frame return grouped pattern rejected");
+            REG_NOTES(ops[first])=nullptr;REG_NOTES(target)=nullptr;
+            for (unsigned k=1;k<8;k++) delete_insn(ops[first+k]);
+            delete_insn(advance);
+        }
         if (!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,3)),false))
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return branch rejected");
         REG_NOTES(ret)=nullptr;
@@ -121,7 +152,11 @@ public:
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if (!plugin_default_version_check(version,&gcc_version)||info->argc) return 1;
+    if (!plugin_default_version_check(version,&gcc_version)) return 1;
+    for (int n=0;n<info->argc;n++) {
+        if (strcmp(info->argv[n].key,"grouped")||info->argv[n].value||grouped) return 1;
+        grouped=true;
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

@@ -12,6 +12,41 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Mixer exit restore integration — September 10, 2026
+
+Baseline `282321b3` plus this change. `src/m4a_exit_restore.c` now generates
+all 24 original section bytes at 080CF8D8..080CF8F0: 20 instruction bytes and
+the four-byte ID_NUMBER literal. Lock release, saved-register restoration,
+original intermediate SP updates and BX r3 match. The linker pins the entry,
+word alignment, section extent and SoundMainRAM end address.
+
+The grouped frame-return option proves eight contiguous SP+28..56 word reads
+into r0-r7, followed by exactly r8-r11 copies from r0-r3 and the already verified
+SP+60 target load/SP+=64 tail. It emits ADD SP,28; POP r0-r7; the unchanged high
+copies; POP r3; and the private return. The new backend POP pattern describes
+all eight word reads and SP writeback. The compiler rebuild succeeds. Four
+additional malformed groups reject (wrong offset, wrong high copy, intervening
+update and reordered reads), bringing grouped rejection coverage to 14. The
+original ten return guards and unannotated-output checks continue to pass.
+
+Two SoundMain callbacks enter the final BX directly. Their assembly calls use
+`SoundMainRAM_ExitRestore + 18`, retaining the parent's Thumb function type and
+avoiding an unwanted linker interworking veneer. The linked address alias
+`SoundMainRAM_IndirectReturn` identifies the same byte position for auditing;
+it is not used as an untyped call target. The full ROM checksum proves both
+callback encodings and all subsequent code retain their original bytes.
+
+`check_soundmain_exit_restore.py --production` passes 40,960 full return cases
+across original/C ROM and copied RAM, with exact bytes, all registers, flags,
+return mode/PC, memory and ordered accesses. A code hook checks SP at every
+instruction against the original 0,28,60,64 progression. Another 2,048 cases
+enter BX directly and verify ARM/Thumb destinations with unchanged registers,
+SP/LR and no data accesses. Saved words are sampled; cycle timing/asynchronous
+observation are not modeled. All 3,528 complete audio regression calls and fresh
+runtime source rebuilds of all four images pass. There are now 498 tracked C
+files, 720,030 main-ROM C-owned mapped instruction bytes and 2,348 reviewed
+non-library main assembly bytes. Overall completion remains unproven.
+
 ## Mixer exit interworking return — September 10, 2026
 
 Research baseline `27271aa0`. The new opt-in `matching_thumb_frame_return`
@@ -151,13 +186,13 @@ These are coverage measures including inherited work, not overall completion.
 
 ## Current verified state
 
-After channel-advance integration (baseline `0e1e53c6` plus this change),
+After mixer-exit integration (baseline `282321b3` plus this change),
 `make compare -j8` verifies all 16,777,216 bytes against the USA ROM checksum.
-The current source inventory has 497 main C files, 32 assembly entry markers,
+The current source inventory has 498 main C files, 32 assembly entry markers,
 three manual assembly function declarations, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes.
-Mapped main-ROM instruction bytes include 720,010 in C-only objects, 33,870 in
-mixed C/assembly objects, 1,958 in assembly sources and 21,792 in runtime archives.
+Mapped main-ROM instruction bytes include 720,030 in C-only objects, 33,870 in
+mixed C/assembly objects, 1,938 in assembly sources and 21,792 in runtime archives.
 The embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
 

@@ -785,3 +785,10 @@ src/m4a_exit_info.o: $(THUMB_FALLTHROUGH_PLUGIN)
 src/m4a_exit_info.o: C_END_ALIGN := 1
 src/m4a_exit_info.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_exit_info.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FALLTHROUGH_PLUGIN)
+
+THUMB_FRAME_RETURN_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_frame_return.so
+$(THUMB_FRAME_RETURN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_frame_return.cc tools/arm-dispatch/build_thumb_frame_return.py
+	python3 tools/arm-dispatch/build_thumb_frame_return.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_exit_restore.o: $(THUMB_FRAME_RETURN_PLUGIN)
+src/m4a_exit_restore.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_exit_restore.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FRAME_RETURN_PLUGIN) -fplugin-arg-thumb_frame_return-grouped

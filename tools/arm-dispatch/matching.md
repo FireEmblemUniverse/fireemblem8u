@@ -243,3 +243,20 @@
   "TARGET_THUMB1"
   "subs\t%0, %0, #1\n\tble\t%l1"
   [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
+
+;; Restore an ordered bank of eight low registers with stack writeback.
+;; The frame-return pass proves all eight contiguous word loads before selecting.
+(define_insn "match_thumb_pop_low8"
+  [
+   (set (reg:SI 0) (mem:SI (reg:SI SP_REGNUM)))
+   (set (reg:SI 1) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 4))))
+   (set (reg:SI 2) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 8))))
+   (set (reg:SI 3) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 12))))
+   (set (reg:SI 4) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 16))))
+   (set (reg:SI 5) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 20))))
+   (set (reg:SI 6) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 24))))
+   (set (reg:SI 7) (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int 28))))
+   (set (reg:SI SP_REGNUM) (plus:SI (reg:SI SP_REGNUM) (const_int 32)))]
+  "TARGET_THUMB1"
+  "pop\t{r0-r7}"
+  [(set_attr "length" "2") (set_attr "type" "load_4")])
