@@ -7861,3 +7861,40 @@ Evidence: `.deps/soundmain-packed/mplay-post-key-build.log`,
 tracked ownership/runtime/region receipts. Next: frequency selection, CGB/PCM
 frequency call setup/invocation/stores, then remaining command guards, earlier
 clear calls and MPlayMain's frame exit.
+
+
+## Frequency selection and setup candidates — September 10, 2026
+
+On production baseline `9cfa4b5a`, three isolated C candidates reproduce 20
+instruction bytes: frequency selection at 080CFD6C..080CFD70 (4), CGB setup at
+080CFD70..080CFD7A (10), and PCM setup at 080CFD8A..080CFD90 (6). Existing
+private-tail, direct-zero-tail and copy-add-zero rules suffice. The CGB source
+explicitly casts the function pointer to its register word representation.
+
+All 182,880 original/candidate execution cases pass. Selection covers 422 type
+values (all byte values, boundaries, single bits and random words) at all 16
+NZCV states: 6,752 cases. Each setup passes 88,064 cases: every pitch byte with
+14 type values, six key boundaries, four aliases and cycling NZCV, plus 2,048
+random cases spanning all NZCV. Aliases include separate storage, the word at
+SP, pitch at SP, and pitch sharing the pointer's first byte. The model uses the
+final stored pointer word after the overlapping byte write.
+
+Checks compare all registers r0-r12, SP/LR, full CPSR, complete RAM and ordered
+accesses. CGB reads the function word before the pitch byte; PCM reads the pitch
+byte before the waveform word. Final CGB flags reflect the channel-type ADDS #0;
+PCM flags reflect the key ADDS #0 despite the later loads. Selection preserves
+registers with CMP flags and chooses the correct setup. Calls themselves are
+outside this checker; neither frequency-function behavior nor full MPlayMain
+execution is claimed.
+
+The final sources pass after the explicit pointer cast. The copy-add-zero
+regression accepts ARM/Thumb copies, rejects eight original contracts and five
+high-copy option forms, and leaves unannotated output unchanged. No production
+integration or ownership increase is claimed yet.
+
+Sources: `research/audio/mplay_post_frequency_select.c`,
+`mplay_post_cgb_setup.c`, `mplay_post_pcm_setup.c`; checker:
+`research/audio/check_mplay_post_frequency_setup.py`. Evidence:
+`.deps/soundmain-packed/mplay-post-frequency-setup/report.json` and
+`mplay-post-frequency-setup-check.log`. Next: integrate selection/setup with exact
+extents and transfer checks, then finish frequency invocation/result stores.

@@ -4,6 +4,8 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `2be9fb98`): MPlayMain's pitch-update guard and signed key adjustment are matching C. All 20 instruction bytes match; 283,648 production/original cases pass. The full ROM and fresh runtime builds match; all 111 altered layouts reject. Main-ROM C ownership is 720,566/777,630 mapped instruction bytes (92.66%). Remaining frequency conversion, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
+Candidate milestone (September 10): frequency selection and CGB/PCM argument setup match 20 original instruction bytes and pass 182,880 execution checks. The copy-rule regression rejects all 13 invalid forms and leaves unannotated output unchanged. Production ownership remains unchanged until integration and full build/audit gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
