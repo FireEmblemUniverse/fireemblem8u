@@ -595,6 +595,8 @@ SECTIONS
         /* Repeat branches past the verified two-byte LR push with its own saved LR. */
         ply_goto_1 = (ply_goto & ~1) + 2;
         src/m4a_1.o(.text.after_ply_goto);
+        src/m4a_pattern.o(.text);
+        src/m4a_1.o(.text.after_ply_patt);
         src/m4a_pend.o(.text);
         src/m4a_1.o(.text.after_ply_pend);
         src/m4a_command_setters.o(.text.ply_prio);

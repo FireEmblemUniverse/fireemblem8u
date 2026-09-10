@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Research-only terminal transfer conversion with explicit destination contracts.
+// Restricted terminal transfer conversion with explicit destination contracts.
 #include <vector>
 #include <set>
 #include <string>

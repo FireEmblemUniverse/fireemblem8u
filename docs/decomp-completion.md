@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the sequence-jump integration (baseline `ad161a2e` plus this change),
+After the pattern integration (baseline `5a6f4d3b` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 462 main
-C files, 39 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 463 main
+C files, 38 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2957,3 +2957,30 @@ markers. Next is promotion of the research pass/builder and pattern integration;
 exact research bytes alone do not complete that step. Evidence is retained in
 `.deps/pattern-match/`: backend build/compare logs, tail oracle/contract logs,
 plugin provenance and the execution report.
+
+
+### September 9: pattern handler integrated
+
+`src/m4a_pattern.c` now replaces the original `ply_patt` section at
+`080CF9B8..080CF9D4`. The complete 28-byte section is exact: 26 Thumb instruction
+bytes and two zero padding bytes. The pattern stack updates and transfers to
+`ply_goto`/`ply_fine` are generated from C without executable inline assembly.
+
+The verified tail-transfer pass and builder were promoted from research to
+`tools/arm-dispatch/`. The Makefile builds the plugin against the pinned compiler
+and enables its destination/comparison contracts only for the pattern object.
+The installed plugin passes eleven rejection fixtures, a direct-transfer
+acceptance check and unchanged-unannotated-assembly verification. Four valid
+branch encodings match and two out-of-range boundary cases are rejected.
+
+`research/audio/check_pattern.py --compiler COMPILER --plugin PLUGIN
+--require-match --production` passes all 49,152 executions. It verifies the
+actual ROM callees, active channel-chain shutdown, pointer aliases, final
+memory/register/flag state and unchanged SP/LR at either destination entry.
+`make compare -j8` passes for the complete ROM. The linked audit assigns
+26 Thumb bytes and two padding bytes to `src/m4a_pattern.o`, with no orphan
+mappings. Inventory is 463 main C files, 38 assembly entry markers and 570
+inline sites (228 bindings, 334 empty constraints, one directive-only template
+and seven instruction templates). Repeat handling and all previously recorded
+remaining scopes are unfinished. Evidence is in `.deps/pattern-match/` under
+the production comparison, oracle, contract, range and audit reports.

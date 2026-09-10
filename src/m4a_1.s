@@ -547,23 +547,9 @@ _081DD64A:
 	.align 2, 0
 	.section .text.after_ply_goto, "ax", %progbits
 
-	thumb_func_start ply_patt
-ply_patt:
-	ldrb r2, [r1, o_MusicPlayerTrack_patternLevel]
-	cmp r2, 3
-	bhs ply_patt_done
-	lsls r2, 2
-	adds r3, r1, r2
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	adds r2, 0x4
-	str r2, [r3, o_MusicPlayerTrack_patternStack]
-	ldrb r2, [r1, o_MusicPlayerTrack_patternLevel]
-	adds r2, 1
-	strb r2, [r1, o_MusicPlayerTrack_patternLevel]
-	b ply_goto
-ply_patt_done:
-	b ply_fine
-	thumb_func_end ply_patt
+@ ply_patt is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_patt, "ax", %progbits
 
 @ ply_pend is linked here from m4a_pend.c.
 	.align 2, 0

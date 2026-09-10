@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Research oracle for pattern nesting; ordinary calls are not a matching tail transfer."""
+"""Verify pattern nesting and terminal transfers against the original ROM."""
 import argparse
 import json
 from itertools import product
@@ -16,9 +16,10 @@ ENTRY, TRACK, RETURN = 0x080cf9b8, 0x02000000, 0x080e0000
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--compiler', required=True)
-    p.add_argument('--source', type=Path, default=ROOT/'research/audio/pattern.c')
+    p.add_argument('--source', type=Path, default=ROOT/'src/m4a_pattern.c')
     p.add_argument('--require-match', action='store_true')
-    p.add_argument('--plugin', type=Path)
+    p.add_argument('--plugin', type=Path, required=True)
+    p.add_argument('--production', action='store_true')
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
@@ -40,6 +41,8 @@ def main():
     candidate = (OUT/'candidate.bin').read_bytes()
     if args.require_match:
         assert candidate == original
+    if args.production:
+        assert candidate == (ROOT/'fireemblem8.gba').read_bytes()[ENTRY-0x08000000:ENTRY-0x08000000+28]
     machines = []
     for code in (original, candidate):
         uc = Uc(UC_ARCH_ARM, UC_MODE_THUMB)
@@ -120,7 +123,7 @@ def main():
                     callee_stack_differences += states[0][2][1] != states[1][2][1]
                     callee_return_differences += states[0][2][2] != states[1][2][2]
                     count += 1
-    report = dict(cases=count, original_bytes=28, candidate_bytes=len(candidate), complete_match=candidate==original,
+    report = dict(cases=count, production=args.production, original_bytes=28, candidate_bytes=len(candidate), complete_match=candidate==original,
                   differing_registers=sorted(register_differences), flag_difference_cases=flag_differences,
                   callee_stack_difference_cases=callee_stack_differences, callee_return_difference_cases=callee_return_differences,
                   scope='All nesting levels, four flags, normal/rejected/aliased commands, actual goto/fine callees with zero/one/two channels and swept status bytes, RAM, preserved registers, flags, SP and return PC.')

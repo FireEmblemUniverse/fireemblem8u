@@ -1,13 +1,11 @@
 #include "global.h"
 #include "gba/m4a_internal.h"
-// Research candidate: ordinary calls still differ from the original tail branches.
+// Tail-transfer contract preserves the caller's SP/LR at either destination.
 register struct MusicPlayerInfo *patternPlayer asm("r0");
 register struct MusicPlayerTrack *patternTrack asm("r1");
 register volatile unsigned patternValue asm("r2");
 register u8 * volatile patternSlot asm("r3");
-#ifdef PATTERN_TAIL_TRANSFER
 __attribute__((matching_tail_transfer))
-#endif
 void ply_patt(struct MusicPlayerInfo *player, struct MusicPlayerTrack *track)
 {
     patternValue = patternTrack->patternLevel;

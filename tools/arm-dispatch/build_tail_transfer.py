@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the matching private Thumb return plugin against the installed ARM GCC headers."""
+"""Build the matching Thumb terminal-transfer plugin against the installed ARM GCC headers."""
 import argparse
 import hashlib
 import json
@@ -20,7 +20,7 @@ def main():
     version = subprocess.check_output([args.compiler, '-dumpfullversion'], text=True).strip()
     if version != '16.2.0':
         raise SystemExit('Matching ARM plugin requires GCC 16.2.0; found ' + version)
-    source = ROOT/'research/audio/tail_transfer.cc'
+    source = Path(__file__).with_name('tail_transfer.cc')
     plugin = Path(subprocess.check_output([args.compiler,'-print-file-name=plugin'],text=True).strip())
     headers = plugin / 'include'
     if not (headers / 'gcc-plugin.h').is_file():

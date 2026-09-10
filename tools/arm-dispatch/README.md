@@ -105,3 +105,21 @@ Backward branches, ordered comparisons and targets before further body work
 remain rejected. `src/m4a_mod_type.c` uses this option; the existing setters keep
 the default straight-line restriction. `check_command_setters.py --mod-type`
 exercises both taken and fallthrough paths with the actual ROM reader.
+
+
+## Direct Thumb terminal transfers
+
+`tail_transfer.cc` and `build_tail_transfer.py` provide the opt-in
+`matching_tail_transfer` contract used by `src/m4a_pattern.c`. Each direct
+Thumb destination is listed with `destination=SYMBOL`. The pass proves that
+all paths reach terminal calls, rejects local frames and work after calls,
+and replaces the LR-only frame/calls with direct branches. It rejects debug,
+unwind, indirect calls, backward loops and bare return paths. Keep
+`-fno-reorder-blocks` for the supported forward layout.
+
+`raise-unsigned-bound` permits a GTU-immediate to GEU-next-immediate rewrite;
+private flags must be verified for the selected routine. The pattern oracle
+checks actual destination-entry SP/LR as well as memory and final registers.
+The assembler/linker must reject out-of-range Thumb branches; this contract
+does not synthesize veneers. `research/audio/check_tail_contracts.py` and
+`check_tail_range.py` cover rejection rules and branch limits.
