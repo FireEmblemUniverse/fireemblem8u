@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "51f38b74a6b6d3fc2bd323bd0414b2a060b64cb6",
+  "baseline_commit": "d583e0d07763852bd2c55b0c08d75138e98496ae",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1518,
-        "c_owned": 720450,
+        "assembly_source": 1504,
+        "c_owned": 720464,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1149,7 +1149,7 @@
         {
           "object": "src/m4a_1.o",
           "category": "assembly_source",
-          "instruction_bytes": 814
+          "instruction_bytes": 800
         },
         {
           "object": "src/banim-efxmagic-wretchedair.o",
@@ -2177,6 +2177,11 @@
           "instruction_bytes": 16
         },
         {
+          "object": "src/m4a_mplay_post_track_guard.o",
+          "category": "c_owned",
+          "instruction_bytes": 14
+        },
+        {
           "object": "asm/arm.o",
           "category": "assembly_source",
           "instruction_bytes": 12
@@ -2332,13 +2337,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "c1f6419d9fd8347869556964678e9fb26935557c471ceddefa4e861e8fcaea28",
-      "map_sha256": "0a4e34f6b4ed9b29fe6be4738594b99001cf57381e9691750b0861817bbc9de6",
+      "elf_sha256": "7fb1e1324d0835e64c5572537d7a013d2de22cfade390cc6c839733fb59a774f",
+      "map_sha256": "214d89851b82ba3a482167ea746dc69fce1a7931983e19840d9df953937e19e1",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1928
+      "known_nonarchive_assembly_bytes": 1914
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

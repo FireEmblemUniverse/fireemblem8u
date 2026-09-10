@@ -7459,3 +7459,53 @@ and refreshed runtime/region receipts. The valid production layout passes and al
 58 combined altered layouts reject, including five new extent, continuation and
 far/backward/odd exit-target cases. See `mplay-clock-update-layout.log`.
 Next work continues command guards, post-tick processing and clear-call paths.
+
+
+## MPlayMain post-tick track guard — September 10, 2026 (baseline `d583e0d0`)
+
+Integrated `src/m4a_mplay_post_track_guard.c` at 080CFD0C..080CFD1A. It loads
+track flags, tests the active bit and then pending-change bits, skipping tracks
+that fail either test. All 14 original instruction bytes are generated from C.
+Post-tick setup and channel updates remain assembly.
+
+The direct-tail compiler contract adds the valueless `descending-mask-operands`
+option to select the original TST r1,r0 encoding. Default ascending order remains
+unchanged. Duplicate/value-bearing options and applying the option to a function
+without a rewritten masked tail reject. Existing adjacency/declared-destination
+checks remain enforced. No backend changes were needed. The original guard suite
+still rejects nine invalid configurations and three invalid source forms; the new
+fragment rejects four source forms and two configurations. Unannotated source is
+unchanged by loading the plugin.
+
+`check_mplay_post_track_guard.py --production` passes 16,384 cases: all flag bytes,
+all initial NZCV and four track locations including SP, SP-1 and final RAM byte.
+There are 8,192 inactive skips, 512 unchanged skips and 7,680 setup transfers.
+All r0-r12, SP/LR, full CPSR, complete RAM and the single ordered byte read agree.
+Both TST paths preserve incoming C/V and produce the original N/Z. The initial
+probe's instruction limit was too small for the longer path; it was corrected
+before the successful production run. Full MPlayMain is outside this fragment.
+
+Splitting the assembly at the halfword-aligned setup entry initially introduced
+word-alignment padding from its later literal pool. The shared pool and original
+two-byte zero padding now occupy `.text.mplay_main_literals`, retaining original
+addresses and bytes while the preceding section remains halfword-aligned. Linker
+assertions verify the pool locations, 14-byte guard extent, setup adjacency and
+skip-target range/alignment. `make compare -j8` reproduces the full 16 MiB ROM.
+Fresh runtime builds reproduce all four images and exports. Source, linked, inline
+and runtime inventories are refreshed; unchanged SoundMain/mixer regions are
+revalidated.
+
+Mapped main instruction bytes remain 777,630: 720,464 C-owned (92.65%), 33,870
+mixed C/assembly, 1,504 assembly-source and 21,792 runtime, with zero unresolved
+ownership. Reviewed non-library assembly is 1,914 main bytes and 420 payload bytes.
+There are 526 tracked main C files and 30 assembly entry markers. These figures
+include inherited work and are not overall completion.
+
+ELF SHA-256: `7fb1e1324d0835e64c5572537d7a013d2de22cfade390cc6c839733fb59a774f`.
+Evidence: `.deps/soundmain-packed/mplay-post-track-guard/report.json`, source/linked
+reports there, `mplay-post-track-guard-production.log`,
+`mplay-post-track-guard-plugin.log`, `mplay-post-track-guard-build.log` and refreshed
+runtime/region receipts. The valid layout passes and all 64 altered layouts reject,
+including six new extent, continuation, target-range/alignment and shared-pool
+placement cases. See `mplay-post-track-guard-layout.log`. Next work continues
+post-tick setup/channel processing, command guards and clear-call paths.

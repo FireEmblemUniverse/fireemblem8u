@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `51f38b74`): MPlayMain’s tick-clock increment and inactive-player status update are matching C. All 18 instruction bytes match; 99,840 production/original cases pass across clock wraparound, active-track words and stack/boundary aliases. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,450/777,630 mapped instruction bytes (92.65%). Command guards, post-tick processing, clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `d583e0d0`): MPlayMain’s post-tick active/change guard is matching C. All 14 instruction bytes match; 16,384 production/original cases pass, including preservation of incoming C/V. All 64 altered layouts reject. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,464/777,630 mapped instruction bytes (92.65%). Command guards, remaining post-tick processing, clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -20,9 +20,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.65%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,928 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,914 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated MPlayMain post-tick track guard | **14/14 instruction bytes exact; 16,384 production/original cases pass; six new contract rejections and 64 combined altered layouts reject** |
 | Integrated MPlayMain tick clock/status | **18/18 instruction bytes exact; 99,840 production/original cases pass; 58 combined altered layouts reject** |
 | Integrated MPlayMain saved state/track advance | **16/16 instruction bytes exact; 251,136 production/original cases pass; 53 combined altered layouts reject** |
 | Integrated MPlayMain modulation arithmetic | **58/58 instruction bytes exact; 700,416 arithmetic cases pass with production identity verified; 46 combined altered layouts reject** |
@@ -112,7 +113,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: continue MPlayMain’s command guards, post-tick processing and clear-call paths; command lookup/setup/invocation/return-status check, wait-command lookup, track-wait step, modulation guards/delay/arithmetic, saved track state/advance, tick clock/status, note setup/invocation and preceding track/channel fragments are integrated. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: continue MPlayMain’s command guards, post-tick processing and clear-call paths; command lookup/setup/invocation/return-status check, wait-command lookup, track-wait step, modulation guards/delay/arithmetic, saved track state/advance, tick clock/status, post-tick track guard, note setup/invocation and preceding track/channel fragments are integrated. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.

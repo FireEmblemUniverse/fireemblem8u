@@ -25,6 +25,7 @@ int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> destinations;
 unsigned expected=0;
+bool descending_masks=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) {error("matching_thumb_direct_tails requires a function");*no_add=true;}
     return NULL_TREE;
@@ -63,7 +64,7 @@ public:
         if (!lookup_attribute("matching_thumb_direct_tails",DECL_ATTRIBUTES(fn->decl))) return 0;
         if (!TARGET_THUMB1||!lookup_attribute("matching_tail_transfer",DECL_ATTRIBUTES(fn->decl)))
             fatal_error(UNKNOWN_LOCATION,"Thumb direct tails require private Thumb tails");
-        unsigned rewritten=0;
+        unsigned rewritten=0,masked=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i),set=p;
@@ -92,7 +93,8 @@ public:
                 if (symbol&&GET_CODE(condition)==NE&&GET_CODE(mask)==AND&&low(XEXP(mask,0))&&low(XEXP(mask,1))
                     &&adjacent_unlabelled(i,stub)&&forward_empty_to(stub,label)) {
                     rtx a=XEXP(mask,0),b=XEXP(mask,1);
-                    if (REGNO(a)>REGNO(b)) {rtx t=a;a=b;b=t;}
+                    if (descending_masks ? REGNO(a)<REGNO(b) : REGNO(a)>REGNO(b)) {rtx t=a;a=b;b=t;}
+                    masked++;
                     replacement=gen_match_thumb_mask_zero_tail(copy_rtx(a),copy_rtx(b),copy_rtx(symbol));
                     remove=stub;
                 } else if (symbol&&(GET_CODE(condition)==EQ||GET_CODE(condition)==NE)&&low(mask)
@@ -117,6 +119,7 @@ public:
             }
             rewritten++;
         }
+        if (descending_masks&&!masked) fatal_error(UNKNOWN_LOCATION,"descending mask order requires a masked tail");
         if (rewritten!=expected) fatal_error(UNKNOWN_LOCATION,"Thumb direct tails expected %u transfers, found %u",expected,rewritten);
         return 0;
     }
@@ -126,6 +129,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;const char *v=info->argv[n].value;
+        if (key=="descending-mask-operands"&&!v&&!descending_masks) {descending_masks=true;continue;}
         if (key=="destination"&&v&&*v) {if(!destinations.insert(v).second) return 1;continue;}
         if (key=="expected-transfers"&&v&&*v&&!expected) {
             char *end=nullptr;unsigned long value=strtoul(v,&end,10);

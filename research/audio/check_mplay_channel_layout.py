@@ -76,6 +76,12 @@ def main():
  for name,expression in [('clock_exit_far','__mplay_clock_update_start + 2068'),('clock_exit_backward','__mplay_clock_update_start - 2048'),('clock_exit_odd','__mplay_clock_update_start + 201')]:
   text=source.replace('        ASSERT(MPlayMainExit >=','        MPlayMainExit = '+expression+';\n        ASSERT(MPlayMainExit >=',1)
   cases.append((name,text,'clock update exit transfer out of range'))
+ cases += [('post_track_guard_extent',source.replace('        __mplay_post_track_guard_end = .;','        . += 2;\n        __mplay_post_track_guard_end = .;'),'post track guard extent or continuation'),
+           ('post_track_setup_entry',source.replace('        src/m4a_1.o(.text.after_mplay_post_track_guard);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_track_guard);'),'post track guard extent or continuation')]
+ for name,expression in [('post_track_skip_far','__mplay_post_track_guard_start + 264'),('post_track_skip_backward','__mplay_post_track_guard_start - 256'),('post_track_skip_odd','__mplay_post_track_guard_start + 155')]:
+  text=source.replace('        ASSERT(MPlayMainPostTrackNext >=','        MPlayMainPostTrackNext = '+expression+';\n        ASSERT(MPlayMainPostTrackNext >=',1)
+  cases.append((name,text,'post track guard transfer out of range'))
+ cases += [('mplay_pool_placement',source.replace('        src/m4a_1.o(.text.mplay_main_literals);','        . += 2;\n        src/m4a_1.o(.text.mplay_main_literals);'),'MPlay shared literal placement changed')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

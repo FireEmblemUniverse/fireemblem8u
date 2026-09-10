@@ -451,14 +451,12 @@ MPlayMainPostTick:
 _081DD9C4:
 	ldrb r2, [r7, o_MusicPlayerInfo_trackCount]
 	ldr r5, [r7, o_MusicPlayerInfo_tracks]
+	.global MPlayMainPostTrackGuardBoundary
+MPlayMainPostTrackGuardBoundary:
 _081DD9C8:
-	ldrb r0, [r5, o_MusicPlayerTrack_flags]
-	movs r1, 0x80
-	tst r1, r0
-	beq _081DDA62
-	movs r1, 0xF
-	tst r1, r0
-	beq _081DDA62
+	.section .text.after_mplay_post_track_guard, "ax", %progbits
+	.global MPlayMainPostTrackSetup
+MPlayMainPostTrackSetup:
 	mov r9, r2
 	adds r0, r7, 0
 	adds r1, r5, 0
@@ -531,6 +529,8 @@ _081DDA58:
 	ands r0, r1
 	strb r0, [r5, o_MusicPlayerTrack_flags]
 	mov r2, r9
+	.global MPlayMainPostTrackNext
+MPlayMainPostTrackNext:
 _081DDA62:
 	subs r2, 0x1
 	ble _081DDA6C
@@ -555,7 +555,8 @@ _081DDA6C:
 call_r3:
 	bx r3
 
-	.align 2, 0
+	.section .text.mplay_main_literals, "ax", %progbits
+	.2byte 0 @ Original padding after the shared BX trampoline.
 	.global lt_gClockTable
 lt_gClockTable:     .word gClockTable
 	.global lt2_SOUND_INFO_PTR

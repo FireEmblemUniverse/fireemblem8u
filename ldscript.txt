@@ -1291,6 +1291,20 @@ SECTIONS
         src/m4a_mplay_tempo_gate.o(.text);
         __mplay_tempo_gate_end = .;
         src/m4a_1.o(.text.after_mplay_tempo_gate);
+        __mplay_post_track_guard_start = .;
+        src/m4a_mplay_post_track_guard.o(.text);
+        __mplay_post_track_guard_end = .;
+        src/m4a_1.o(.text.after_mplay_post_track_guard);
+        src/m4a_1.o(.text.mplay_main_literals);
+        ASSERT((MPlayMainPostTrackGuard & ~1) == MPlayMainPostTrackGuardBoundary &&
+               __mplay_post_track_guard_start == MPlayMainPostTick + 4 &&
+               __mplay_post_track_guard_end - __mplay_post_track_guard_start == 14 &&
+               MPlayMainPostTrackSetup == __mplay_post_track_guard_end,
+               "MPlayMain post track guard extent or continuation changed");
+        ASSERT(MPlayMainPostTrackNext >= __mplay_post_track_guard_start + 16 &&
+               MPlayMainPostTrackNext <= __mplay_post_track_guard_start + 8 + 254 &&
+               (MPlayMainPostTrackNext & 1) == 0,
+               "MPlayMain post track guard transfer out of range");
         ASSERT((MPlayMainTempoAccumulate & ~1) == MPlayMainTempoAccumulateBoundary &&
                __mplay_tempo_accumulate_end - __mplay_tempo_accumulate_start == 8 &&
                MPlayMainTickLoop == __mplay_tempo_accumulate_end,
