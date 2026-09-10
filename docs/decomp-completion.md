@@ -3693,3 +3693,28 @@ after them; mutations across callbacks must be preserved in subsequent work.
 The full custom frame, transfer and original instruction encoding also remain.
 Reproducible source and oracle are under research/audio; evidence is retained
 under `.deps/soundmain-setup/`.
+
+### September 10: SoundMain callback mutation and rejection semantics verified
+
+The C research model now separates deadline computation from buffer selection
+and adds SoundMainEntryModel. It validates the ID, sets the lock, computes the
+deadline, calls the optional context callback, loads/calls the current CgbSound
+callback with the private SoundInfo argument, then selects the buffer. It retains
+the original SoundInfo pointer rather than reloading the mutable global pointer.
+The output array records mixer inputs, not the original private frame or flags.
+
+The new oracle passes 600 valid-entry cases with stable/optional/Cgb/both callback
+mutations and 1,800 locked/invalid-ID cases. Callback mutations exercise DMA
+counter, period, sample count, maxLines and ident changes, replacement of the
+Cgb callback, and replacement of the global SoundInfo pointer. It compares full
+sound memory, callback addresses/arguments/lock observations, global pointer,
+and mixer inputs. Rejected entries call no callbacks and leave memory/output
+unchanged. Deadline uses the pre-callback maxLines while buffer geometry uses
+post-callback fields. Both versions execute stub callback code with controlled
+shared-memory mutations supplied by the harness.
+
+The previous 21,504 arithmetic cases still pass after factoring the phases;
+that oracle now resolves its C entry symbol instead of assuming function order.
+This is not a full machine-state match: custom stack/register transfer and flags
+remain to be reproduced, and mixing remains unverified. No production code
+changed. Evidence is under `.deps/soundmain-setup/`.

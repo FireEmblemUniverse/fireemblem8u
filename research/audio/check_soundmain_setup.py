@@ -15,8 +15,10 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args();OUT.mkdir(exist_ok=True)
     subprocess.run([a.compiler,'-S','-std=gnu89','-O1','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-I'+str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),str(ROOT/'research/audio/soundmain_setup.c'),'-o',str(OUT/'candidate.s')],check=True)
     subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'candidate.s'),'-o',str(OUT/'candidate.o')],check=True)
-    subprocess.run(['arm-none-eabi-ld','-Ttext='+hex(MODEL),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True,capture_output=True)
+    subprocess.run(['arm-none-eabi-ld','-Ttext='+hex(MODEL),str(OUT/'candidate.o'),'-L'+str(ROOT/'tools/agbcc/lib'),'-lgcc','-o',str(OUT/'candidate.elf')],check=True,capture_output=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','--only-section=.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
+    nm=subprocess.check_output(['arm-none-eabi-nm',str(OUT/'candidate.elf')],text=True)
+    entry=int(next(line.split()[0] for line in nm.splitlines() if line.endswith(' SoundMainSetupModel')),16)
     rom=(ROOT/'baserom.gba').read_bytes();machines=[]
     for model in (False,True):
         uc=Uc(UC_ARCH_ARM,UC_MODE_THUMB)
@@ -49,7 +51,7 @@ def main():
                     uc.reg_write(r.UC_ARM_REG_SP,0x03007000);uc.reg_write(r.UC_ARM_REG_LR,RETURN|1)
                     if model:
                         uc.reg_write(r.UC_ARM_REG_R0,OUTPUT);uc.reg_write(r.UC_ARM_REG_R1,SOUND);uc.reg_write(r.UC_ARM_REG_R2,vcount)
-                        uc.emu_start(MODEL|1,RETURN,count=200);assert uc.reg_read(r.UC_ARM_REG_PC)==RETURN
+                        uc.emu_start(entry|1,RETURN,count=200);assert uc.reg_read(r.UC_ARM_REG_PC)==RETURN
                         assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                         values.append(struct.unpack('<5I',uc.mem_read(OUTPUT,20)))
                         assert bytes(uc.mem_read(SOUND,0x1000))==raw
