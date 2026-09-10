@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest research advance: no-reverb candidate reduced from 70 to 62 bytes and now preserves r2 (baseline `8279bf8b`); all 14,640 memory cases and 147,456 Thumb writeback checks pass. Exact 46-byte integration remains unfinished.
+Updated: September 10, 2026. Latest research advance: no-reverb candidate reduced to 50 bytes with no register differences (baseline `b11db938`); 14,640 memory cases and 140,864 shift/carry checks pass. Countdown flags and private fallthrough still prevent exact 46-byte integration.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -80,7 +80,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: resolve no-reverb Thumb shift/carry, word-store writeback and private-entry register differences, then integrate its 46-byte block. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: resolve no-reverb zero-inclusive countdown flags and private fallthrough, then integrate its 46-byte block. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -224,9 +224,11 @@ assembly function declarations, and seven instruction-bearing inline templates.
 The no-reverb C candidate passes 14,640 memory-semantics cases across original/
 candidate ROM and copied RAM, covering 183 counts, five stereo-buffer offsets,
 all initial flags and 1,554,080 ordered writes per implementation. It preserves
-the original minimum four-pair loop even for counts below sixteen. The candidate now uses Thumb store writeback and preserves r2. Remaining measured
-gaps are an r3 clobber, carry-flag differences in 1,280 small-count cases, a return
-instead of private fallthrough, and 62 emitted bytes versus 46. The opt-in Thumb
+the original minimum four-pair loop even for counts below sixteen. The candidate now uses Thumb store writeback and combined shift/carry branches,
+with no register differences. Remaining measured gaps are carry flags in 1,280
+small-count cases, a return instead of private fallthrough, and 50 emitted bytes
+versus 46. The guarded shift/carry rule passes 140,864 executions across all 31
+supported shifts and both polarities; nine invalid forms reject. The opt-in Thumb
 writeback rule passes 147,456 executions and six rejection cases; the existing
 ARM rule passes 37,056 executions and nine rejections. Production ELF is unchanged.
 This remains research code and does not increase production coverage.

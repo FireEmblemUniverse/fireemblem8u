@@ -198,3 +198,23 @@
   "adds%?\t%0, %1, %2"
   [(set_attr "conds" "set") (set_attr "type" "alus_sreg")
    (set_attr "length" "4")])
+
+;; Retain the shifted counter and branch on its discarded bit. The guarded
+;; late pass proves a short forward target and dead copied temporary.
+(define_c_enum "unspec" [UNSPEC_MATCH_THUMB_SHIFT_CARRY])
+(define_insn "match_thumb_shift_carry"
+  [(set (pc)
+        (if_then_else
+         (match_operator 0 "equality_operator"
+          [(unspec:SI [(match_operand:SI 1 "s_register_operand" "+l")
+                       (match_operand:SI 2 "const_int_operand" "i")]
+                      UNSPEC_MATCH_THUMB_SHIFT_CARRY)
+           (const_int 0)])
+         (label_ref (match_operand 3 "" "")) (pc)))
+   (set (match_dup 1) (lshiftrt:SI (match_dup 1) (match_dup 2)))]
+  "TARGET_THUMB1 && INTVAL (operands[2]) >= 1 && INTVAL (operands[2]) <= 31"
+{
+  output_asm_insn ("lsrs\t%1, %1, %2", operands);
+  return GET_CODE (operands[0]) == EQ ? "bcc\t%l3" : "bcs\t%l3";
+}
+  [(set_attr "length" "4") (set_attr "type" "multiple")])

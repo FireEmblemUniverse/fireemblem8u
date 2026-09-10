@@ -5538,3 +5538,48 @@ no-reverb-writeback-check.log, thumb-writeback-check.log,
 thumb-writeback-arm-regression.log, thumb-writeback-production-build.log and
 thumb-writeback-build.log. The unresolved shift/carry and zero-inclusive countdown
 rules remain the next matching work.
+
+
+## September 10, 2026 — retained Thumb shift/carry removes the final scratch clobber
+
+Baseline: `b11db938`. `matching_shift_carry` and its explicit Thumb backend
+pattern fold an exact copied-counter/right-shift/empty-tie/bit-branch sequence.
+The temporary must be a distinct nonglobal low register, dead and clobbered at
+the branch; the tested bit must equal shift amount minus one. The shift amount
+is limited to 1..31. The replacement emits LSRS counter,counter,n and BCC/BCS,
+while its RTL explicitly retains the counter result and describes the branch
+on the discarded bit. It does not merely clobber a value needed by later code.
+Only a short forward single-block target with <=240 bytes of intervening code
+is accepted; other control flow and executable assembly reject.
+
+The no-reverb C candidate explicitly captures the discarded bit through an
+unsigned left shift and uses a branch-likelihood hint to keep its stores inline.
+Both decisions now use the original right-shift/carry structure. Its generated
+size drops from 62 to 50 bytes and the r3 clobber disappears. All 14,640 cases
+continue matching ordered memory effects and now have no register differences
+across original/candidate ROM/copied RAM. The remaining differences are the
+extra countdown CMP (carry differs in 1,280 below-sixteen cases) and BX LR where
+the original falls through. The original 46-byte block remains in production.
+
+The pinned GCC backend was rebuilt from the verified source using the normal
+builder, followed by the new plugin and production build. Full ROM checksum
+passes and the production ELF is unchanged from the ownership inventory.
+The complete production SoundMain suite passes 3,528 calls. No production
+coverage increase is claimed for this compiler/research milestone.
+
+`check_shift_carry.py` passes 140,864 executions: 31 shifts, two polarities,
+71 boundary/random values per shift, sixteen incoming NZCV states and ROM/RAM
+placements. It checks the exact LSRS/carry opcodes, all registers, unchanged
+SP/LR, branch exit and full shift NZCV including preserved V. Nine invalid forms
+reject: wrong bit/shift pairing, missing tie, intervening work, live temporary,
+high counter, shift 32, ARM mode and an executable-assembly long target. An
+unannotated object remains identical. The initial plugin build encountered a
+C++ name collision with opt_pass::next; renaming its iterator helper resolved
+that build issue without changing the matching contract.
+
+Evidence under `.deps/soundmain-packed/`: shift-carry-backend-build.log,
+shift-carry-plugin-build.log, shift-carry-check.log,
+no-reverb-shift-carry-check.log, no-reverb/report.json and
+shift-carry-production-build.log. Source inventory/remaining assembly figures
+are unchanged. Next work is the zero-inclusive Thumb countdown and private
+fallthrough contract.

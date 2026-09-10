@@ -524,3 +524,23 @@ The no-reverb research candidate uses empty tied pointer constraints to preserve
 each store/update boundary, avoiding address coalescing and temporary-register
 copies. These constraints contain no executable instructions. The whole block
 still needs shift/carry, countdown and private-fallthrough matching.
+
+
+`shift_carry.cc` provides opt-in `matching_shift_carry` for Thumb-1. It requires
+an exact four-operation sequence: a low counter copied to a distinct nonglobal
+low temporary, counter >>= n (1..31), an empty tied counter constraint, and a
+bit-test branch on bit n-1 of the copy. The branch must both consume and clobber
+the dead temporary. The late pass replaces it with `match_thumb_shift_carry`,
+which explicitly describes the shifted counter result and the discarded-bit
+branch. It deletes only the copied temporary, separate shift and empty tie.
+The counter result and flags come from LSRS; EQ/NE select BCC/BCS respectively.
+
+Only a short forward target through a single straight block is allowed. Labels,
+calls, other jumps or executable assembly before the target reject; the bounded
+span must be at most 240 bytes. This avoids depending on unchecked Thumb branch
+range or expanding a carry branch into a call. Rebuild the pinned backend before
+building this plugin. `check_shift_carry.py` covers all 31 shifts, both branch
+polarities, full registers/NZCV and ROM/copied code, plus rejection and opt-in
+isolation checks. The no-reverb candidate supplies an explicit discarded-bit
+expression and a branch-likelihood hint to retain the original inline layout;
+its signed countdown/fallthrough still require separate matching work.

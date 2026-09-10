@@ -8,25 +8,26 @@ register u32 clearSamples asm("r8");
     *(volatile u32 *)clearRight = clearZero; clearRight += 4; asm("" : "+r"(clearRight)); \
     *(volatile u32 *)clearLeft = clearZero; clearLeft += 4; asm("" : "+r"(clearLeft)); \
 } while (0)
-__attribute__((matching_thumb_word_postincrement))
+__attribute__((matching_thumb_word_postincrement, matching_shift_carry))
 void SoundMainRAM_NoReverbCandidate(void)
 {
+    u32 discarded;
     clearZero = 0;
     clearWords = clearSamples;
     asm("" : "+r"(clearWords));
     clearLeft += clearRight;
-    if (clearWords & 4) {
-        clearWords >>= 3;
+    discarded = clearWords << 29;
+    clearWords >>= 3;
+    asm("" : "+r"(clearWords));
+    if (__builtin_expect((s32)discarded < 0, 1)) {
         CLEAR_PAIR();
-    } else {
-        clearWords >>= 3;
     }
-    if (clearWords & 1) {
-        clearWords >>= 1;
+    discarded = clearWords << 31;
+    clearWords >>= 1;
+    asm("" : "+r"(clearWords));
+    if (__builtin_expect((s32)discarded < 0, 1)) {
         CLEAR_PAIR();
         CLEAR_PAIR();
-    } else {
-        clearWords >>= 1;
     }
     do {
         CLEAR_PAIR();
