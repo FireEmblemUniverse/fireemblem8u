@@ -3,6 +3,8 @@
 **Status: active — not yet 100% decompiled.**
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `dabed094`): MPlayMain's tempo accumulator, tick-completion arithmetic and loop gate are matching C. All 22 instruction bytes match; 533,888 production/original cases pass, including halfword truncation with full-width loop decisions. Full ROM and fresh runtime rebuilds match. Main-ROM C ownership is 720,178/777,630 mapped instruction bytes (92.61%). The rest of MPlayMain, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Latest research (baseline `5b4197e4`): MPlayMain’s channel gate-time C candidate passes 1,048,576 original/candidate cases. It is 32 bytes versus the original 28 and is not integrated; production coverage is unchanged.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -96,7 +98,7 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: match the buffer candidate’s branch encoding, shared literal placement and RAM transfer; literal loads now preserve the original flags. Outer callback/frame handling remains; the copied mixer is generated from C. Channel advancement and the complete mixer exit are integrated. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
+Next milestone: match and integrate MPlayMain’s channel gate-time handling, then continue channel traversal and track processing. SoundMain, including its outer frame, callbacks, buffer setup and copied mixer, is fully integrated as matching C. Runtime source rebuilding is verified; syscall inline-assembly review remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.

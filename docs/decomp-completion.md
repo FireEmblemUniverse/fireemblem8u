@@ -6658,3 +6658,37 @@ markers. Totals include inherited work and do not represent overall completion.
 Evidence: `.deps/soundmain-packed/mplay-tempo/report.json`, `production-check.log`,
 `production-compare.log`, `layout/report.json`, the linked ownership receipts and
 `.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.
+
+
+## MPlayMain channel gate-time behavioral recovery — September 10, 2026
+
+Baseline `5b4197e4`. `research/audio/mplay_channel_gate.c` recovers the
+private block at 080CFBD6..080CFBF2 as C: status mask 0xC7 selects live channels,
+nonzero gate time decrements, and reaching zero sets release bit 0x40. Inactive
+channels transfer to ClearChain; live channels transfer to next-channel handling.
+The existing tail-transfer contract preserves the caller’s frame. Empty compiler
+constraints preserve private register state and prevent a known-zero optimization
+from changing MOVS to ADDS and consequently changing carry on release.
+
+`check_mplay_channel_gate.py` passes 1,048,576 original/candidate cases: every
+status byte, gate-time byte and initial NZCV state. It checks r0-r12, SP/LR, full
+CPSR, complete 16 KiB RAM and ordered accesses, including channel fields overlapping
+the stack. Outcomes: 32,768 clear-chain transfers, 3,968 disabled counters,
+1,007,872 continuing counters and 3,968 releases. Candidate code executes at a
+separate address, with only entry/exit PCs translated; data addresses are identical.
+The checker independently asserts expected registers, memory and access sequence,
+and compares final flags against execution of the verified original ROM.
+
+This is a behavioral candidate, not production integration. It emits 32 bytes
+versus the original 28. Remaining encoding differences include reversed TST
+operands, a local inverse branch plus tail jump in place of the original direct
+conditional transfer, a separate post-decrement zero comparison, and local branch
+targets that go through the common next-channel tail. Next work is to obtain those
+original encodings under checked compiler contracts and prove their linker ranges.
+ClearChain itself, channel traversal and full MPlayMain execution are outside this
+checker. No cycle equivalence is claimed. Main-ROM C coverage remains 92.61%.
+
+Evidence: `.deps/soundmain-packed/mplay-channel-gate/report.json`,
+`candidate.disassembly`, and `.deps/soundmain-packed/mplay-channel-gate-check.log`.
+The standing progress panel’s obsolete SoundMain buffer milestone was replaced
+with the current MPlayMain work; SoundMain is already fully integrated.
