@@ -463,16 +463,18 @@ MPlayMainPostTrackInvokeBoundary:
 	.global MPlayMainPostChannelLoadBoundary
 MPlayMainPostChannelLoadBoundary:
 	.section .text.after_mplay_post_channel_load, "ax", %progbits
-	.global MPlayMainPostChannelGate
-MPlayMainPostChannelGate:
+	.global MPlayMainPostChannelGateBoundary
+MPlayMainPostChannelGateBoundary:
 _081DD9E6:
-	ldrb r1, [r4, o_SoundChannel_status]
-	movs r0, 0xC7
-	tst r0, r1
-	bne _081DD9F6
-	adds r0, r4, 0
-	bl ClearChain
-	b _081DDA52
+	.section .text.after_mplay_post_channel_gate, "ax", %progbits
+	.global MPlayMainPostClearSetupBoundary
+MPlayMainPostClearSetupBoundary:
+	.section .text.after_mplay_post_clear_setup, "ax", %progbits
+	.global MPlayMainPostClearInvokeBoundary
+MPlayMainPostClearInvokeBoundary:
+	.section .text.after_mplay_post_clear_invoke, "ax", %progbits
+	.global MPlayMainPostChannelBody
+MPlayMainPostChannelBody:
 _081DD9F6:
 	ldrb r0, [r4, o_SoundChannel_type]
 	movs r6, 0x7

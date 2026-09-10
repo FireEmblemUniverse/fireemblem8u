@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "f86bd130a9a4c1c792550368e450be51b478b6a4",
+  "baseline_commit": "21d596b2fe07ac9985de6bb6c88dd29e0ecdea57",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1468,
-        "c_owned": 720500,
+        "assembly_source": 1452,
+        "c_owned": 720516,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1177,11 +1177,6 @@
           "instruction_bytes": 776
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 764
-        },
-        {
           "object": "src/worldmap_scrollmanage.o",
           "category": "c_owned",
           "instruction_bytes": 764
@@ -1190,6 +1185,11 @@
           "object": "src/emitstarfx.o",
           "category": "c_owned",
           "instruction_bytes": 760
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 748
         },
         {
           "object": "src/cp_order.o",
@@ -2262,6 +2262,11 @@
           "instruction_bytes": 8
         },
         {
+          "object": "src/m4a_mplay_post_channel_gate.o",
+          "category": "c_owned",
+          "instruction_bytes": 8
+        },
+        {
           "object": "src/m4a_mplay_tempo_accumulate.o",
           "category": "c_owned",
           "instruction_bytes": 8
@@ -2303,6 +2308,11 @@
         },
         {
           "object": "src/m4a_mplay_post_channel_next.o",
+          "category": "c_owned",
+          "instruction_bytes": 6
+        },
+        {
+          "object": "src/m4a_mplay_post_clear_invoke.o",
           "category": "c_owned",
           "instruction_bytes": 6
         },
@@ -2362,18 +2372,23 @@
           "instruction_bytes": 2
         },
         {
+          "object": "src/m4a_mplay_post_clear_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 2
+        },
+        {
           "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "6e1ddd9e94be8d44a639e29ed9d40ba8e0ed190d5ec78896528169ed5157c6c8",
-      "map_sha256": "89ccd3c2c7aadcd73ba19de22057dc091226cb3c4d25ebc75552c799a767f00c",
+      "elf_sha256": "f983969ea6a87215dd0ff5f7071a3f79a278d39fe1fe678ae7e922efe5d9679c",
+      "map_sha256": "2db3450d576aa437174be513c6411f28103b8f5cdfb3f38ca89398cb9f18433b",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1878
+      "known_nonarchive_assembly_bytes": 1862
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

@@ -994,3 +994,18 @@ src/m4a_mplay_post_track_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
 src/m4a_mplay_post_track_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_mplay_post_track_finish.o: C_END_ALIGN := 1
 src/m4a_mplay_post_track_finish.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=MPlayMainPostTrackNext -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostTrackNext
+
+src/m4a_mplay_post_channel_gate.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
+src/m4a_mplay_post_channel_gate.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_channel_gate.o: C_END_ALIGN := 1
+src/m4a_mplay_post_channel_gate.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fno-reorder-blocks -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostChannelBody -fplugin-arg-tail_transfer-destination=MPlayMainPostClearSetup -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostClearSetup -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=MPlayMainPostChannelBody -fplugin-arg-thumb_direct_tails-expected-transfers=1
+
+src/m4a_mplay_post_clear_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_mplay_post_clear_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_clear_setup.o: C_END_ALIGN := 1
+src/m4a_mplay_post_clear_setup.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainPostClearInvoke -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainPostClearInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_mplay_post_clear_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
+src/m4a_mplay_post_clear_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_post_clear_invoke.o: C_END_ALIGN := 1
+src/m4a_mplay_post_clear_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=ClearChain -fplugin-arg-thumb_callback_tail-continuation=MPlayMainPostChannelNext

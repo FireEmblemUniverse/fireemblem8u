@@ -7670,3 +7670,39 @@ Sources and checkers are in `research/audio/mplay_post_channel_gate.c`,
 production replacements. Production C ownership remains 720,500/777,630
 (92.65%). Next: integrate with exact section/branch assertions, validate altered
 layouts, reproduce the ROM, and refresh source/runtime/ownership evidence.
+
+
+## Integrated post-tick stopped-channel handling — September 10, 2026
+
+On baseline `21d596b2`, the verified 8-byte status gate, 2-byte argument copy,
+and 6-byte ClearChain invocation/next-channel branch are now production C at
+080CFD2A..080CFD3A. Each production source equals its candidate except for the
+function name; the linked audit assigns the exact Thumb ranges to the three
+C-only objects. The corresponding assembly instructions have been removed.
+
+All 67,840 production/original cases pass: 16,384 status decisions, 26,880
+argument setups and 24,576 synthetic-callee call/return cases. The earlier
+candidate milestone documents model coverage and limitations; ClearChain logic
+and whole MPlayMain execution are not claimed by these fragment tests.
+
+`make compare -j8` reproduces all 16 MiB. The valid production link passes, and
+all 94 altered layouts reject, including six new fragment extent/continuation
+perturbations, three conditional channel-body targets and four out-of-range
+callee/next-channel transfers. Fresh runtime builds reproduce all four images
+and exported symbols. Source, inline, ownership, linked and runtime inventories
+are refreshed. SoundMain (1,064 bytes) and mixer (932 bytes) remain entirely C
+with unchanged extents and original bytes.
+
+Main mapped instruction bytes: 777,630 total, 720,516 C-owned (92.65%),
+33,870 mixed C/assembly, 1,452 assembly-source and 21,792 runtime archives.
+Reviewed non-library assembly: 1,862 main bytes and 420 payload bytes. There are
+535 tracked main C files and 30 assembly entry markers. These totals include
+inherited work and are not a measured overall completion percentage.
+
+ELF SHA-256: `f983969ea6a87215dd0ff5f7071a3f79a278d39fe1fe678ae7e922efe5d9679c`.
+Evidence: `.deps/soundmain-packed/mplay-post-clear-build.log`,
+`mplay-post-clear-*-production.log`, `mplay-post-clear-layout.log`,
+`mplay-post-clear-production-identity.json`, source/linked audit reports, the
+three candidate report directories and refreshed tracked ownership/runtime/region
+receipts. Next: channel volume/pitch handling, command guards, earlier clear
+calls and the remaining MPlayMain frame exit.

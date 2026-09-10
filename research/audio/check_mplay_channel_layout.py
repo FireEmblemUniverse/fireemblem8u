@@ -96,6 +96,15 @@ def main():
  for name,expression in [('post_channel_gate_far','__mplay_post_channel_next_start + 264'),('post_channel_gate_backward','__mplay_post_channel_next_start - 250'),('post_channel_gate_odd','__mplay_post_channel_next_start - 107')]:
   text=source.replace('        ASSERT((MPlayMainPostTrackFinish & ~1) >=','        MPlayMainPostChannelGate = '+expression+';\n        ASSERT((MPlayMainPostTrackFinish & ~1) >=',1)
   cases.append((name,text,'post channel transfer out of range'))
+ for part in ('channel_gate','clear_setup','clear_invoke'):
+  cases.append(('post_'+part+'_extent',source.replace('        __mplay_post_'+part+'_end = .;','        . += 2;\n        __mplay_post_'+part+'_end = .;'),'post '+part+' extent or continuation'))
+  cases.append(('post_'+part+'_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_post_'+part+');','        . += 2;\n        src/m4a_1.o(.text.after_mplay_post_'+part+');'),'post '+part+' extent or continuation'))
+ for name,expression in [('body_far','__mplay_post_channel_gate_start + 266'),('body_backward','__mplay_post_channel_gate_start - 248'),('body_odd','__mplay_post_channel_gate_start + 17')]:
+  text=source.replace('        ASSERT(MPlayMainPostChannelBody >=','        MPlayMainPostChannelBody = '+expression+';\n        ASSERT(MPlayMainPostChannelBody >=',1)
+  cases.append((name,text,'post channel_gate transfer out of range'))
+ for name,symbol,expression in [('clear_far','ClearChain','__mplay_post_clear_invoke_start + 4194308'),('clear_backward','ClearChain','__mplay_post_clear_invoke_start - 4194304'),('clear_next_far','MPlayMainPostChannelNext','__mplay_post_clear_invoke_start + 2056'),('clear_next_backward','MPlayMainPostChannelNext','__mplay_post_clear_invoke_start - 2048')]:
+  text=source.replace('        ASSERT((ClearChain & ~1) >=','        '+symbol+' = '+expression+';\n        ASSERT((ClearChain & ~1) >=',1)
+  cases.append((name,text,'post clear_invoke transfer out of range'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

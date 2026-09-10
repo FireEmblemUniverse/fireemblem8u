@@ -1315,6 +1315,39 @@ SECTIONS
         src/m4a_mplay_post_channel_load.o(.text);
         __mplay_post_channel_load_end = .;
         src/m4a_1.o(.text.after_mplay_post_channel_load);
+        __mplay_post_channel_gate_start = .;
+        src/m4a_mplay_post_channel_gate.o(.text);
+        __mplay_post_channel_gate_end = .;
+        src/m4a_1.o(.text.after_mplay_post_channel_gate);
+        ASSERT((MPlayMainPostChannelGate & ~1) == MPlayMainPostChannelGateBoundary &&
+               __mplay_post_channel_gate_end - __mplay_post_channel_gate_start == 8 &&
+               (MPlayMainPostClearSetup & ~1) == __mplay_post_channel_gate_end,
+               "MPlayMain post channel_gate extent or continuation changed");
+        __mplay_post_clear_setup_start = .;
+        src/m4a_mplay_post_clear_setup.o(.text);
+        __mplay_post_clear_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_post_clear_setup);
+        ASSERT((MPlayMainPostClearSetup & ~1) == MPlayMainPostClearSetupBoundary &&
+               __mplay_post_clear_setup_end - __mplay_post_clear_setup_start == 2 &&
+               (MPlayMainPostClearInvoke & ~1) == __mplay_post_clear_setup_end,
+               "MPlayMain post clear_setup extent or continuation changed");
+        __mplay_post_clear_invoke_start = .;
+        src/m4a_mplay_post_clear_invoke.o(.text);
+        __mplay_post_clear_invoke_end = .;
+        src/m4a_1.o(.text.after_mplay_post_clear_invoke);
+        ASSERT((MPlayMainPostClearInvoke & ~1) == MPlayMainPostClearInvokeBoundary &&
+               __mplay_post_clear_invoke_end - __mplay_post_clear_invoke_start == 6 &&
+               (MPlayMainPostChannelBody & ~1) == __mplay_post_clear_invoke_end,
+               "MPlayMain post clear_invoke extent or continuation changed");
+        ASSERT(MPlayMainPostChannelBody >= __mplay_post_channel_gate_start + 10 &&
+               MPlayMainPostChannelBody <= __mplay_post_channel_gate_start + 10 + 254 &&
+               (MPlayMainPostChannelBody & 1) == 0,
+               "MPlayMain post channel_gate transfer out of range");
+        ASSERT((ClearChain & ~1) >= __mplay_post_clear_invoke_start + 4 &&
+               (ClearChain & ~1) <= __mplay_post_clear_invoke_start + 4 + 4194302 &&
+               (MPlayMainPostChannelNext & ~1) >= __mplay_post_clear_invoke_start + 8 &&
+               (MPlayMainPostChannelNext & ~1) <= __mplay_post_clear_invoke_start + 8 + 2046,
+               "MPlayMain post clear_invoke transfer out of range");
         __mplay_post_channel_next_start = .;
         src/m4a_mplay_post_channel_next.o(.text);
         __mplay_post_channel_next_end = .;
