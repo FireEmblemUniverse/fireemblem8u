@@ -8689,3 +8689,38 @@ Evidence: `.deps/soundmain-packed/entry-frame/production-build.log`,
 runtime and audio receipts. Production ELF SHA-256:
 `52b5ffa68b2a0802b9ba4c4fb482f35cf6fd9b88806701b5aa9a03fb7fe3c319`.
 Next: recover the final MPlayMain lock/initial-push entry.
+
+## September 10, 2026 — Final lock fragment model and spill-free probe
+
+On baseline `980e4f1d`, `research/audio/check_mplay_lock_model.py` independently
+models the original 16 instruction bytes at 080CFB68..080CFB78. All 32,256 cases
+pass: 2,688 accepted identifiers and 29,568 rejections, covering 12 identifier
+values, 21 aligned player/stack placements, all 16 incoming NZCV patterns, four
+stack positions and both ARM/Thumb rejection return modes. Checks cover r0-r12,
+LR, CPSR, SP before every instruction and at exit, all mapped RAM and ordered
+memory accesses. The model stops before callback setup, allowing stack writes
+over callback fields that the earlier whole-entry model intentionally excludes.
+Accepted cases include 128 lock stores overlapping the saved-player slot, 128
+overlapping the saved-return slot and 256 cases overwriting callback fields.
+
+Three deliberately wrong 16-byte binaries fail execution/model comparisons:
+swapping the final STR and PUSH, replacing PUSH {r0,lr} with PUSH {r1,lr}, and
+replacing ADDS r3,#1 with ADDS r3,#2. Candidate-binary mode does not itself prove
+C-source or compiler provenance. These are original-ROM behavioral results,
+not a newly integrated C match.
+
+`research/audio/mplay_lock.c` records a C research probe. Re-establishing r3 as
+ID+1 after storing LR removes the compiler's local spill: ordinary GCC 16.2.0
+now emits a zero-local-frame body with a temporary LR copy and redundant literal
+reload. The accepted comparison establishes that value, and the original PUSH
+preserves it without the copy. Ordinary output still includes an ABI prologue,
+epilogue and continuation call, so it cannot replace the original fragment.
+Next: validate the exact RTL contract, select the two-word PUSH and early BX LR,
+retain the shared literal address, and verify the resulting candidate before
+production integration. Production ownership and the last verified ROM build
+remain unchanged.
+
+Evidence: `.deps/soundmain-packed/mplay-lock/original-model.json`,
+`model-negative-controls.json`, individual negative-control logs and `probe.s`.
+Original 16-byte SHA-256:
+`93cc001f2c9a8b24736affdb5867f15b5a556c0e158f9c09a099b65fef325d6b`.

@@ -7,6 +7,13 @@ Updated: September 10, 2026. Latest integrated milestone (baseline `556fa2cc`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
+Current research (baseline `980e4f1d`): the final 16-byte MPlayMain lock/push
+fragment now has an independent 32,256-case original-ROM model, including lock
+stores overlapping either saved stack word and stack writes overwriting callback
+fields. All cases pass; three deliberately incorrect binaries reject. A C probe
+avoids a compiler spill, but still needs validated private-entry lowering and
+integration. This research does not change the verified C-ownership percentage.
+
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
 and 73 assembly entry markers). We later integrated laqieer's data-recovery
