@@ -32,6 +32,8 @@ def main():
   cases.append((name,text,'track init transfer out of range'))
  cases += [('command_read_extent',source.replace('        __mplay_command_read_end = .;','        . += 2;\n        __mplay_command_read_end = .;'),'command read extent or decode'),
            ('command_decode_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_command_read);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_command_read);'),'command read extent or decode')]
+ cases += [('note_setup_extent',source.replace('        __mplay_note_setup_end = .;','        . += 2;\n        __mplay_note_setup_end = .;'),'note setup extent or callback'),
+           ('note_callback_continuation',source.replace('        src/m4a_1.o(.text.after_mplay_note_setup);','        . += 2;\n        src/m4a_1.o(.text.after_mplay_note_setup);'),'note setup extent or callback')]
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

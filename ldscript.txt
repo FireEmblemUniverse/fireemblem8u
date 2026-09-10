@@ -1113,6 +1113,15 @@ SECTIONS
         src/m4a_mplay_command_read.o(.text);
         __mplay_command_read_end = .;
         src/m4a_1.o(.text.after_mplay_command_read);
+        __mplay_note_setup_start = .;
+        src/m4a_mplay_note_setup.o(.text);
+        __mplay_note_setup_end = .;
+        src/m4a_1.o(.text.after_mplay_note_setup);
+        ASSERT((MPlayMainNoteSetup & ~1) == MPlayMainNoteSetupBoundary &&
+               __mplay_note_setup_start == MPlayMainCommandDecode + 4 &&
+               __mplay_note_setup_end - __mplay_note_setup_start == 12 &&
+               MPlayMainNoteInvoke == __mplay_note_setup_end,
+               "MPlayMain note setup extent or callback entry changed");
         ASSERT((MPlayMainTrackDispatch & ~1) == MPlayMainTrackDispatchBoundary &&
                __mplay_command_read_end - __mplay_command_read_start == 22 &&
                MPlayMainCommandDecode == __mplay_command_read_end,

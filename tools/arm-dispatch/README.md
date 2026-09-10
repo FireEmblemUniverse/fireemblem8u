@@ -778,3 +778,31 @@ at SP and a stream at the last RAM byte. For self-aliases the effective initial
 pointer and bytes are derived after constructing memory. All registers, flags,
 complete RAM and ordered accesses agree; execution stops before command decoding.
 Two new size/continuation mutations bring the combined layout checks to fifteen.
+
+
+### Preserving high-register Thumb copies
+
+`copy_add_zero` now accepts the explicit flag `preserve-thumb-high-copies` with
+`matching_thumb_copy_add_zero`. It leaves a distinct r0..r12 register copy
+unchanged when either register is high, while still converting low-register copies
+to flag-setting ADDS #0. At least one low-register copy must be converted. SP, LR,
+PC, duplicate/value-bearing options and use with the ARM copy contract reject.
+Without this option the original strict behavior remains; unannotated functions
+are unchanged. The extended checker rejects eight original forms and five new
+option/source forms and verifies a mixed high/low-copy fixture.
+
+MPlayMain's 12-byte note setup uses this option to preserve MOV r0,r8, load the
+callback pointer, subtract 207 from the command and put player/track arguments in
+r1/r2. The last ADDS determines the required flags. Its callback invocation is an
+adjacent assembly continuation and is excluded from the setup's execution checker.
+
+```sh
+python3 research/audio/check_copy_add_zero.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --plugin .deps/flood-core-new-backend/copy_add_zero.so
+.deps/arm-oracle-venv/bin/python research/audio/check_mplay_note_setup.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --production
+```
+
+The latter passes 74,880 cases with every command byte, full-width command
+boundaries/random words, all NZCV, three info addresses, and zero/high/full-width
+player/track words. It checks all registers, SP/LR, flags, complete RAM and the
+single callback-pointer read. Two new layout mutations bring the combined checks
+to seventeen.

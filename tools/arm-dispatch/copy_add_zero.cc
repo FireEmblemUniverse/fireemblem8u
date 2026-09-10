@@ -18,6 +18,7 @@
 #include "diagnostic-core.h"
 #include "insn-flags.h"
 int plugin_is_GPL_compatible;
+static bool preserve_thumb_high_copies=false;
 static tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node) != FUNCTION_DECL) {
         error("matching_copy_add_zero requires a function");
@@ -36,13 +37,15 @@ public:
         bool arm=lookup_attribute("matching_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
         bool thumb=lookup_attribute("matching_thumb_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
         if (!arm&&!thumb) return 0;
-        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1))
+        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1)||(preserve_thumb_high_copies&&!thumb))
             fatal_error(UNKNOWN_LOCATION,"copy add zero requires one mode-specific contract");
         unsigned copies=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!NONJUMP_INSN_P(i)||GET_CODE(PATTERN(i))!=SET) continue;
             rtx set=PATTERN(i),dst=SET_DEST(set),src=SET_SRC(set);
             if (!REG_P(dst)||!REG_P(src)||GET_MODE(dst)!=SImode||GET_MODE(src)!=SImode) continue;
+            if (thumb&&preserve_thumb_high_copies&&REGNO(dst)<13&&REGNO(src)<13
+                &&REGNO(dst)!=REGNO(src)&&(REGNO(dst)>=8||REGNO(src)>=8)) continue;
             if (REGNO(dst)>=(thumb?8:13)||REGNO(src)>=(thumb?8:13)||REGNO(dst)==REGNO(src))
                 fatal_error(UNKNOWN_LOCATION,"copy add zero requires distinct general registers");
             rtx replacement=thumb?gen_match_thumb_add_zero(copy_rtx(dst),copy_rtx(src))
@@ -56,7 +59,11 @@ public:
     }
 };
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if (!plugin_default_version_check(version,&gcc_version)||info->argc) return 1;
+    if (!plugin_default_version_check(version,&gcc_version)) return 1;
+    for (int n=0;n<info->argc;n++) {
+        if (strcmp(info->argv[n].key,"preserve-thumb-high-copies")||info->argv[n].value||preserve_thumb_high_copies) return 1;
+        preserve_thumb_high_copies=true;
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,register_contract,nullptr);
     register_pass_info pass={new match_pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&pass);

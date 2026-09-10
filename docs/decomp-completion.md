@@ -6929,3 +6929,50 @@ and ownership output in that directory, `mplay-command-read-production-check.log
 `mplay-command-read-production-compare.log`, the combined layout receipt and the
 refreshed runtime/SoundMain/mixer receipts. Next work continues command decoding,
 callbacks and remaining clear-call paths.
+
+
+## Matching MPlayMain note setup integrated — September 10, 2026
+
+Baseline `5669de2c`. `src/m4a_mplay_note_setup.c` replaces all 12 instruction
+bytes at 080CFC3E..080CFC4A. It copies the sound-info address from r8, loads its
+plynote callback, computes command-207 and places the player/track arguments in
+r1/r2. The preceding note-command comparison and following callback invocation
+remain assembly and are not counted as converted by this milestone.
+
+The copy rule's new opt-in `preserve-thumb-high-copies` flag leaves ordinary
+high-register MOV instructions intact and selects ADDS #0 only for distinct low
+register copies. It still requires at least one low copy; SP/LR/PC, duplicate or
+value-bearing flags and ARM-contract use reject. The original default remains
+strict. Thirteen guard checks pass (eight original and five new unsupported
+forms), a mixed high/low fixture emits the intended instructions, and unannotated
+output is unchanged. The production Makefile enables this option only for the
+new setup fragment; the entire ROM still matches after dependent plugin rebuilds.
+
+`check_mplay_note_setup.py --production` proves exact original/production bytes
+and passes 74,880 execution cases. These cover every command byte plus full-width
+boundaries/random values, all NZCV, three info addresses including a callback
+field at SP or the final RAM word, and zero/high/full-width player/track argument
+words. It verifies r0-r12, SP/LR, final CPSR, complete 16 KiB RAM and the single
+ordered callback-pointer read at info+56. Execution stops before BL/callback
+execution. Final N/Z come from the track argument and C/V are cleared by ADDS #0;
+full-width subtraction is retained in r0.
+
+The linker enforces the four-byte guard gap, exact 12-byte fragment and adjacent
+callback entry. Seventeen combined altered layouts reject, including two new
+setup-size/callback-continuation cases. `make compare -j8` verifies all 16 MiB.
+Fresh runtime source builds reproduce all four images and exports. Source/linked,
+inline-assembly and runtime inventories are refreshed, and unchanged SoundMain/
+mixer ranges are revalidated against updated ELF receipts.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,278 C-owned (92.62%),
+33,870 mixed C/assembly, 1,690 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,100 main-ROM instruction
+bytes and 420 payload bytes. There are 514 tracked main C files and 30 assembly
+entry markers. Totals include inherited work and are not overall completion.
+
+ELF SHA-256: `04e3463f3275b538a25e283453b3e4460cf9de0bc208efc1b8fb598a10716038`.
+Evidence: `.deps/soundmain-packed/mplay-note-setup/report.json`, source/linked
+and ownership output there, `mplay-note-setup-production-check.log`,
+`mplay-note-setup-production-compare.log`, copy-rule guards, the combined layout
+receipt and refreshed runtime/SoundMain/mixer receipts. Next work continues
+callback invocation, command decoding and remaining clear-call paths.

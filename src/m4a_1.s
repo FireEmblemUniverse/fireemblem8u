@@ -389,12 +389,11 @@ MPlayMainCommandDecode:
 _081DD8F6:
 	cmp r1, 0xCF
 	bcc _081DD90C
-	mov r0, r8
-	ldr r3, [r0, o_SoundInfo_plynote]
-	adds r0, r1, 0
-	subs r0, 0xCF
-	adds r1, r7, 0
-	adds r2, r5, 0
+	.global MPlayMainNoteSetupBoundary
+MPlayMainNoteSetupBoundary:
+	.section .text.after_mplay_note_setup, "ax", %progbits
+	.global MPlayMainNoteInvoke
+MPlayMainNoteInvoke:
 	bl call_r3
 	b _081DD938
 _081DD90C:
