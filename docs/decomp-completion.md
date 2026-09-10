@@ -3015,3 +3015,34 @@ pass cannot be applied unchanged.
 
 Production remains `aea5146b`, with 38 assembly entry markers. Research evidence
 is in `.deps/repeat-match/oracle.log`, `entry-oracle.log` and `report.json`.
+
+
+### September 9: exact shared-frame repeat candidate
+
+`research/audio/shared_frame.cc` and its builder provide a separate opt-in
+`matching_shared_frame` contract. It retains the original entry LR push and
+local epilogue, permits explicitly listed ordinary returning calls and converts
+only terminal calls to a declared shared entry. The selected terminal paths
+must lead directly to the common return through forward jumps and zero-code
+markers. It does not remove shared return instructions or SP markers needed
+by local-completion paths. Executable asm, stack access outside the frame,
+indirect calls, backward control flow and work after a transfer are rejected.
+Explicit assembler names are normalized when looking up destination contracts;
+GCC represents the C alias for `ply_goto` as `*ply_goto` internally.
+
+With `destination=ply_goto`, `entry=ply_goto_1` and
+`returning-call=ld_r3_tp_adr_i`, the repeat candidate now matches all 48 original
+bytes. `research/audio/check_repeat.py --compiler COMPILER --plugin PLUGIN
+--require-match` passes 264,704 executions. All 66,950 jumping cases have
+identical SP/LR at the shared entry; all 197,754 local completions also match.
+There are no track-RAM, r0-r12, flag or final return differences. The untruncated
+counter comparison and aliases remain covered. `check_shared_contracts.py`
+rejects ten unsupported forms, accepts a retained-frame transfer and leaves
+unannotated assembly unchanged.
+
+The new support is still research-only and uses the already installed backend
+terminal-branch operation; no compiler rebuild or production source change was
+needed. Next is promotion and full-ROM integration. The production baseline
+remains `aea5146b` with 38 assembly entry markers. Local evidence is in
+`.deps/repeat-match/shared-oracle.log`, `shared-contract.log`, plugin build
+provenance and the execution report.

@@ -17,15 +17,20 @@ def main():
     p.add_argument('--compiler', required=True)
     p.add_argument('--source', type=Path, default=ROOT/'research/audio/repeat.c')
     p.add_argument('--require-match', action='store_true')
+    p.add_argument('--plugin', type=Path)
     args = p.parse_args()
     OUT.mkdir(exist_ok=True)
     flags = ['-S', '-std=gnu89', '-O1', '-mthumb', '-mcpu=arm7tdmi', '-mabi=apcs-gnu',
              '-ffreestanding', '-fno-builtin', '-fno-strict-aliasing', '-fno-schedule-insns',
              '-fno-schedule-insns2', '-fno-unwind-tables', '-fno-asynchronous-unwind-tables']
+    if args.plugin:
+        flags += ['-DREPEAT_SHARED_FRAME', '-Werror=attributes', '-fno-reorder-blocks', '-fno-if-conversion', '-fno-if-conversion2',
+                  '-fplugin='+str(args.plugin.resolve()), '-fplugin-arg-shared_frame-destination=ply_goto',
+                  '-fplugin-arg-shared_frame-entry=ply_goto_1', '-fplugin-arg-shared_frame-returning-call=ld_r3_tp_adr_i']
     subprocess.run([args.compiler, *flags, '-I', str(ROOT/'tools/agbcc/include'), '-iquote',
                     str(ROOT/'include'), str(args.source), '-o', str(OUT/'candidate.s')], check=True)
     with (OUT/'candidate.s').open('a') as f:
-        f.write('\n.align 2,0\n.global ply_goto,ld_r3_tp_adr_i\n.thumb_set ply_goto,0x080cf999\n.thumb_set ld_r3_tp_adr_i,0x080cf98d\n')
+        f.write('\n.align 2,0\n.global ply_goto,ply_goto_1,ld_r3_tp_adr_i\n.thumb_set ply_goto,0x080cf999\n.thumb_set ply_goto_1,0x080cf99b\n.thumb_set ld_r3_tp_adr_i,0x080cf98d\n')
     subprocess.run(['arm-none-eabi-as', '-mcpu=arm7tdmi', str(OUT/'candidate.s'), '-o', str(OUT/'candidate.o')], check=True)
     subprocess.run(['arm-none-eabi-ld', '-Ttext='+hex(ENTRY), str(OUT/'candidate.o'), '-o', str(OUT/'candidate.elf')], check=True, capture_output=True)
     subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '--only-section=.text', str(OUT/'candidate.elf'), str(OUT/'candidate.bin')], check=True)
