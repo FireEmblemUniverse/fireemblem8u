@@ -4,6 +4,13 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `df03fbe2`): tick setup and track dispatch are matching C. All 30 instruction bytes match; 393,216 execution cases pass, and dispatch rejects nine unsupported contracts. The full ROM and fresh runtime builds match. Main-ROM C ownership is 720,686/777,630 mapped instruction bytes (92.68%); reviewed non-library assembly is 1,692 bytes, with 558 tracked C files. The valid full layout links and all 172 altered layouts reject. MPlayMain's remaining assembly is its 72-byte entry/callback/frame/status setup; ply_note, runtime helpers, unit-list/transfer code and final executable classification also remain unfinished.
 
+Candidate milestone (September 10, baseline `147f2265`): the entry status gate,
+sound-info setup, fade invocation and second status gate now match all 30 bytes
+at 080CFB92..080CFBB0. All 133,760 execution cases pass; the fade-call checker
+rejects 15 invalid contracts and preserves unannotated output. These candidates
+reuse existing compiler rules. Production ownership remains unchanged until
+integration, literal/branch layout checks, full build and audit gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

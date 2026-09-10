@@ -8428,3 +8428,48 @@ Evidence: `.deps/soundmain-packed/tick-setup/production-build.log`,
 runtime and audio receipts. Production ELF SHA-256:
 `84dd527d173b834b34c095064bd1f1fc22d804f0b1c86bec7a6a458245e1d660`.
 Next: MPlayMain's remaining entry/callback/frame/status setup.
+
+
+## September 10, 2026 — Entry status/sound-info/fade candidates
+
+On production baseline `147f2265`, four matching C candidates cover the final
+30 bytes of MPlayMain's remaining 72-byte entry region, 080CFB92..080CFBB0.
+They reuse existing private-tail, low-copy, high-copy preservation, shared-literal
+and direct-callback contracts. No compiler implementation changed.
+
+The first ten-byte fragment copies the player to r7 and performs the signed
+status gate; the second status gate at 080CFBA8 is eight bytes. Each passes
+41,152 original/candidate executions against independent CMP flags, signed
+branch, register and ordered-read expectations. Tests cover both sign halves of
+byte patterns, full-width boundaries/random statuses, all incoming NZCV and
+four aligned player locations including frame aliases and the RAM boundary.
+Both preserve all unrelated registers, stack and memory.
+
+The eight-byte sound-info setup at 080CFB9C uses the fixed shared literal at
+080CFDC8 to read 03007FF0, copies the pointer to r8, and prepares r0 from r7
+using the original ADDS instruction. All 26,880 original/candidate cases pass
+for ordered literal/IWRAM reads, full register/flag state and unchanged IWRAM.
+The halfword-aligned object deliberately omits automatic pool alignment;
+production integration must assert its actual word-aligned entry, literal
+alignment and PC-relative range, as for the existing shared-literal fragments.
+
+The four-byte BL FadeOutBody at 080CFBA4 matches and passes 24,576 call/return
+cases. Its synthetic callee at the real Thumb address checks incoming and
+returned registers/NZCV, SP/LR and three write aliases near four stack positions.
+Fifteen unsupported contracts reject; unannotated output is unchanged. This
+checker isolates call mechanics and does not execute FadeOutBody's actual logic.
+
+Total new candidate executions: 133,760. The checkers stop at continuation/exit
+entries and do not execute frame restore or complete MPlayMain. Production
+ownership remains unchanged; after integration these fragments would leave
+42 bytes at 080CFB68..080CFB92 for the lock/callback/frame path. Next: integrate
+all four fragments, assert extents/continuations/literal and branch ranges, then
+run the full ROM/layout/runtime/ownership gates.
+
+Sources: `research/audio/mplay_entry_status.c`, `mplay_fade_status.c`,
+`mplay_sound_info_setup.c`, `mplay_fade_invoke.c`, and the new checkers
+`check_mplay_entry_status.py`, `check_mplay_sound_info_setup.py`,
+`check_mplay_fade_invoke.py`. Evidence:
+`.deps/soundmain-packed/mplay-entry/status-report.json`, `status-check.log`,
+`info/report.json`, `info-check.log`, `fade-check.log`, and
+`.deps/soundmain-packed/mplay-fade-invoke/report.json`.
