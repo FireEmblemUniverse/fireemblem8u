@@ -509,6 +509,7 @@ ldrb_r3_r2:
 @ This attempts to protect against reading anything from the BIOS ROM
 @ besides the jump table template.
 @ It assumes that the jump table template is located at the end of the ROM.
+	.global chk_adr_r2
 	.thumb_func
 chk_adr_r2:
 	push {r0}
@@ -623,29 +624,9 @@ ply_rept_2:
 	.align 2, 0
 	.section .text.after_ply_keysh, "ax", %progbits
 
-	thumb_func_start ply_voice
-ply_voice:
-	mov r12, lr
-	ldr r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	ldrb r3, [r2]
-	adds r2, 1
-	str r2, [r1, o_MusicPlayerTrack_cmdPtr]
-	lsls r2, r3, 1
-	adds r2, r3
-	lsls r2, 2
-	ldr r3, [r0, o_MusicPlayerInfo_tone]
-	adds r2, r3
-	ldr r3, [r2]
-	bl chk_adr_r2
-	str r3, [r1, o_MusicPlayerTrack_ToneData_type]
-	ldr r3, [r2, 0x4]
-	bl chk_adr_r2
-	str r3, [r1, o_MusicPlayerTrack_ToneData_wav]
-	ldr r3, [r2, 0x8]
-	bl chk_adr_r2
-	str r3, [r1, o_MusicPlayerTrack_ToneData_attack]
-	bx r12
-	thumb_func_end ply_voice
+@ ply_voice is generated from matching C.
+	.align 2, 0
+	.section .text.after_ply_voice, "ax", %progbits
 
 @ ply_vol is generated from matching C.
 	.align 2, 0

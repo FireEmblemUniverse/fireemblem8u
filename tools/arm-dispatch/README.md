@@ -77,7 +77,7 @@ and `check_thumb_literal_plugin.py`, each accepting `--compiler` and `--plugin`.
 Large leaf far-branch fixtures remain unsupported by this GCC backend (the
 baseline compiler also rejects them); VSync only uses short branches.
 
-The `ip_return` plugin supports the command and flag setters and the tempo, port and modulation-type handlers.
+The `ip_return` plugin supports the command and flag setters and the tempo, port, modulation-type and voice-selection handlers.
 It is built by `build_ip_return.py` against the installed compiler. The explicit
 `matching_ip_return` attribute requires a straight-line void function with an
 LR-only frame, and every direct call must have a `preserves-ip=SYMBOL` manifest

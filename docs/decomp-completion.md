@@ -14,10 +14,10 @@ that native engine or its mod platform.
 
 ## Current verified state
 
-After the modulation-type integration (baseline `b98cd6bc` plus this change),
+After the voice-selection integration (baseline `f09159d2` plus this change),
 `make compare -j8` verifies all 16,777,216
-bytes against the USA ROM checksum. The current source inventory is 460 main
-C files, 41 assembly entry markers, one naked-function marker, seven
+bytes against the USA ROM checksum. The current source inventory is 461 main
+C files, 40 assembly entry markers, one naked-function marker, seven
 instruction-bearing inline templates and zero direct baserom includes. The
 embedded payload still has 16 assembly function declarations. The latest
 integration sections below and `PROGRESS.md` contain the corresponding evidence.
@@ -2814,3 +2814,30 @@ register bindings, 334 empty constraints, one directive-only template and seven
 instruction templates. The remaining naked fallback, embedded declarations,
 transfer wrapper and executable-classification work remain in scope. Evidence
 is recorded under `.deps/mod-type-match/`.
+
+
+### September 9: voice selection integrated
+
+`src/m4a_voice.c` replaces `ply_voice` at `080CFA4C..080CFA7C`.
+Its 46 instruction bytes and two zero padding bytes match. The handler reads
+the voice index before advancing the command pointer, computes a twelve-byte
+instrument offset and copies three words with the existing address filter.
+The filter `chk_adr_r2` is exported for the C caller. It validates the instrument
+base address on every call; the C retains that exact private convention and the
+original word-by-word ordering. No new compiler changes were required.
+
+`research/audio/check_voice.py --compiler COMPILER --plugin PLUGIN --production`
+passes 24,960 original/production executions. Cases cover all 256 indices, a
+rejected low source, four sources overlapping the destination instrument,
+four command-pointer aliases, four data patterns and four initial flag patterns.
+The model applies each word store before reading the next source word, retaining
+observable overlap effects. All 16 KiB test RAM, r0-r12, flags, stack, return PC
+and preserved registers agree.
+
+`make compare -j8` verifies all ROM bytes. The linked audit assigns 46 Thumb
+bytes and two padding/data bytes to `src/m4a_voice.o`, with no orphan mappings.
+The source audit reports 461 main C files and 40 assembly entry markers. Of
+562 inline sites, 220 are register bindings, 334 empty constraints, one is
+directive-only and seven contain instructions. The naked fallback, embedded
+code, transfer wrapper and unfinished executable classification remain in
+scope. Evidence is retained under `.deps/voice-match/`.
