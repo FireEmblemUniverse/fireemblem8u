@@ -224,3 +224,15 @@ that bypass the call, additional calls, local frames, SP/LR body uses, executabl
 asm, debug/unwind and non-void functions are rejected. Empty register constraints
 are allowed. `src/m4a_packed.c` uses this with explicit size and adjacency asserts;
 `research/audio/check_arm_adjacent.py` covers execution and rejection boundaries.
+
+
+`word_postincrement.cc` and `build_word_postincrement.py` provide opt-in ARM
+`matching_word_postincrement`. An adjacent SI word store and non-flag-setting
+base increment by four become the existing ARM POST_INC store pattern. Base
+and stored value must occupy distinct r0-r12 registers. The pass copies MEM
+volatility/alias attributes, adds REG_INC, and crosses no intervening operation
+or label. Thumb, wrong widths/steps, offset addresses, same-register operands,
+loads and missing updates are rejected when no eligible sequence exists.
+Unannotated functions are unchanged. `src/m4a_partial.c` uses this rule;
+`research/audio/check_word_postincrement.py` compares baseline/folded execution,
+ordered writes, all flags, ARM/Thumb returns and rejection boundaries.

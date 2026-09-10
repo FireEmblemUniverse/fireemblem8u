@@ -354,15 +354,14 @@ _081DD164:
 	ldrne r3, [sp, 0xC]
 	bne _081DD118
 _081DD174:
-	strb r2, [r4, o_SoundChannel_status]
-	mov r0, r5, lsr 30
-	bic r5, r5, 0xC0000000
-	rsb r0, r0, 0x3
-	mov r0, r0, lsl 3
-	mov r6, r6, ror r0
-	mov r7, r7, ror r0
-	str r7, [r5, 0x630]
-	str r6, [r5], 0x4
+	.global SoundMainRAM_PartialBoundary
+SoundMainRAM_PartialBoundary:
+@ Partial-word completion is linked here from m4a_partial.c.
+	.section .text.after_partial, "ax", %progbits
+	.arm
+	.global SoundMainRAM_PartialDone
+	.type SoundMainRAM_PartialDone, %function
+SoundMainRAM_PartialDone:
 	b _081DD234
 _081DD19C:
 	push {r4,r12}

@@ -604,6 +604,16 @@ SECTIONS
         __short_end = .;
         SoundMainRAM_ShortMix = __short_start + 8;
         src/m4a_1.o(.text.after_short);
+        __partial_start = .;
+        src/m4a_partial.o(.text);
+        __partial_end = .;
+        src/m4a_1.o(.text.after_partial);
+        ASSERT(SoundMainRAM_Partial == SoundMainRAM_PartialBoundary,
+               "partial-word C block must follow sample loop selection");
+        ASSERT(__partial_end - __partial_start == 36,
+               "partial-word C block must contain exactly 36 bytes");
+        ASSERT(SoundMainRAM_PartialDone == __partial_end,
+               "partial-word continuation must be adjacent in ARM mode");
         ASSERT(SoundMainRAM_Short == SoundMainRAM_ShortBoundary,
                "short sample C block must follow packed finish");
         ASSERT(__short_end - __short_start == 36,

@@ -4247,3 +4247,55 @@ partial-word completion, resampling and the broader private frame/channel work
 remain incomplete. Evidence: `.deps/soundmain-packed/short-build.log`,
 `short-production.json`, `short-production-ram.json`, `short-source-audit.json`,
 `short-ownership.log`, and `.deps/soundmain-complete/production-report.json`.
+
+
+## September 10, 2026 — partial-word completion integrated (36 bytes)
+
+Baseline: `ba987283`. `src/m4a_partial.c` replaces the nine ARM instructions
+at 0x080CF7FC through 0x080CF820. It stores the channel status byte, extracts
+and clears the packed output-address lane, computes the remaining rotation,
+rotates both stereo words, writes left then right and advances the output.
+The fixed-rate and resampled stop paths share this entry. The existing adjacent
+continuation rule leaves the branch to mixer restoration in assembly. Linker
+assertions require the original boundary, 36-byte extent and adjacency.
+
+Each volatile packed register is captured once before expressing the rotate;
+otherwise GCC treats its two reads as separate values and emits shifts/ORs.
+The complementary shift is masked to keep the zero-rotation case defined in C.
+GCC produces the original ROR instructions. A new opt-in
+`matching_word_postincrement` pass combines only an adjacent SI register store
+and base += 4 into GCC's existing POST_INC store pattern. Both registers must
+be distinct r0-r12; MEM volatility and alias attributes are retained, flags
+are unchanged and no intervening operations or labels are crossed. There is
+no new backend instruction template. The Makefile builds the pinned plugin
+and applies it only to this production object.
+
+`check_word_postincrement.py` passes 37,056 baseline/folded execution comparisons:
+386 boundary/byte-pattern/seeded words, three aligned memory locations (including
+the last mapped word), sixteen NZCV states and both return modes. Registers,
+full memory and the one ordered write agree. Nine invalid forms are rejected
+(Thumb, byte store, step eight, decrement, missing update, memory barrier,
+same base/value register, offset store and load); unannotated output is unchanged.
+
+`make compare -j8` passes for the full ROM. `check_soundmain_partial.py` passes
+30,720 cases from ROM and another 30,720 after copying the mixer to RAM. It
+covers all four packed lanes, all status bytes with varied upper bits, five
+channel positions including overlap with each output word, and six boundary/
+seeded packed-word pairs. Besides original/production comparison, an independent
+expected-state calculation checks the three ordered writes, rotated words,
+output increment, complete memory, r0-r12, unchanged flags and SP/LR/canaries.
+The production SoundMain composed-model regression passes all 3,528 calls,
+including 1,728 deadline exits. Cycle timing is not established by these checks.
+
+The refreshed audit reports 719,348 C-owned main instruction bytes (92.51%
+rounded), 33,870 in mixed C objects, 2,620 assembly-source bytes and 21,792
+runtime bytes, total 777,630. Reviewed non-library assembly is 3,030 main bytes
+plus 420 payload bytes. Source inventory: 475 C files, 32 assembly entry markers,
+four manual assembly declarations and 637 inline sites (286 register bindings,
+343 empty constraints, one directive and seven instruction templates). The
+extra continuation declaration/ARM directive introduce no assembly instructions.
+Audio loop control, resampling, the full private frame/channel integration and
+runtime rebuild verification remain incomplete. Evidence is under
+`.deps/soundmain-packed/`: partial-build.log, partial-production.json,
+partial-production-ram.json, partial-source-audit.json, partial-ownership.log,
+word-store-guards.log; complete-call report under `.deps/soundmain-complete/`.
