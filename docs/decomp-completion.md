@@ -2922,3 +2922,38 @@ transfers with explicit destination contracts, no live frame or post-call work,
 and link-range verification. Production remains unchanged at `3f99b484`;
 39 assembly entry markers remain. Updated evidence is in
 `.deps/pattern-match/channel-oracle.log` and `report.json`.
+
+
+### September 9: exact pattern tail-transfer candidate
+
+The pinned backend now provides `match_thumb_tail_transfer`, a direct two-byte
+Thumb symbol branch. A first build exposed a missing predicate name; an explicit
+symbol-only predicate fixed that definition. The rebuilt/installed compiler
+passes the full production-ROM checksum through `make compare -j8`.
+
+`research/audio/tail_transfer.cc` is an opt-in research pass with the
+`matching_tail_transfer` attribute and explicit `destination=SYMBOL` contracts.
+It requires an LR-only frame, direct zero-stack-argument calls, no stack/return
+register accesses in the body, forward control flow and a terminal call on every
+path. Each call must lead to the sole epilogue through only zero-code markers
+and forward jumps. It removes the now-unneeded frame and replaces terminal
+calls with branches. Debug/unwind configurations, indirect calls, backward
+loops, bare return paths, post-call work and executable asm are rejected.
+The optional `raise-unsigned-bound` rewrite changes GTU n to GEU n+1 for bounded
+immediate values; its private flag effects are checked by the actual-callee
+oracle. `-fno-reorder-blocks` retains the supported forward return layout.
+
+`research/audio/check_pattern.py --compiler COMPILER --plugin PLUGIN
+--require-match` now verifies all 28 original bytes and 49,152 executions, with
+zero final-register, flag, callee-stack or callee-return differences. It includes
+active channel-chain shutdown and pointer aliases. `check_tail_contracts.py`
+rejects eleven unsupported forms, accepts a direct terminal transfer and leaves
+unannotated assembly unchanged. `check_tail_range.py` verifies four in-range
+branch encodings and rejection of both out-of-range boundary cases. GNU as
+accepts the backend's `b #symbol` spelling with the expected Thumb relocation.
+
+Production still uses the original pattern assembly, with 39 assembly entry
+markers. Next is promotion of the research pass/builder and pattern integration;
+exact research bytes alone do not complete that step. Evidence is retained in
+`.deps/pattern-match/`: backend build/compare logs, tail oracle/contract logs,
+plugin provenance and the execution report.

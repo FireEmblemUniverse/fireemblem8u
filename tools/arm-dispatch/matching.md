@@ -121,3 +121,13 @@
   "TARGET_THUMB1"
   "bx\t%0"
   [(set_attr "length" "2") (set_attr "type" "branch")])
+
+;; Direct Thumb terminal transfer; caller frame and destination are validated
+;; by the opt-in tail-transfer pass. Linker range checks remain mandatory.
+(define_predicate "match_thumb_tail_symbol" (match_code "symbol_ref"))
+
+(define_insn "match_thumb_tail_transfer"
+  [(set (pc) (match_operand:SI 0 "match_thumb_tail_symbol" "s"))]
+  "TARGET_THUMB1"
+  "b\t%0"
+  [(set_attr "length" "2") (set_attr "type" "branch")])
