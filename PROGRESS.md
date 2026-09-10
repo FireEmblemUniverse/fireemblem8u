@@ -60,8 +60,8 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: reproduce the reverb block's private registers and loop from C,
-then generate SoundMain's verified mixer frame and transfer. Runtime C rebuild/syscall verification remains open.
+Next milestone: generate the reverb block's ARM-to-Thumb transfer and integrate
+the matching calculation; then generate SoundMain's verified mixer frame. Runtime C rebuild/syscall verification remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
@@ -76,10 +76,12 @@ strengths, signed-byte boundaries and overlapping source/output buffers, with
 identical ordered byte reads/writes and final buffer memory. Its 112-byte ARM
 function remains a semantic reference. A separate 88-byte private-register C
 candidate passes 6,792 comparisons with exact r0-r12, LR, NZCV, buffer accesses
-and untouched stack at the calculation boundary. The opt-in byte-postincrement
-compiler rule reduces it to 84 bytes including its placeholder return; its first
-68 calculation bytes now match exactly. The rule passes 8,192 standalone
-executions and seven rejection checks. Counter update and Thumb transfer remain. This is research-only and does not replace the mixer or the
+and untouched stack at the calculation boundary. With the opt-in byte-load
+postincrement and subtract/compare rules, all 76 calculation bytes match. The
+candidate is 80 bytes including a placeholder return. The subtraction rule
+passes 33,152 execution checks and five rejection cases; the byte-load rule
+passes 8,192 checks and seven rejection cases. The original Thumb transfer and
+production integration remain. This is research-only and does not replace the mixer or the
 full SoundMain entry.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly

@@ -16,6 +16,9 @@ register u32 reverbSamples asm("r8");
 #ifdef REVERB_POSTINCREMENT
 __attribute__((matching_byte_postincrement))
 #endif
+#ifdef REVERB_SUBTRACT_COMPARE
+__attribute__((matching_subtract_compare))
+#endif
 void SoundMainReverbPrivate(void)
 {
     if (reverbCount == 2)
@@ -39,6 +42,11 @@ void SoundMainReverbPrivate(void)
             reverbR0++;
         *(volatile u8 *)(reverbOutput + reverbWidth) = reverbR0;
         *(volatile u8 *)reverbOutput++ = reverbR0;
+#ifdef REVERB_SUBTRACT_COMPARE
+        // SUBS/BGT compares the old signed counter with one, including overflow.
+    } while ((s32)reverbCount-- > 1);
+#else
         reverbCount--;
     } while ((s32)reverbCount > 0);
+#endif
 }

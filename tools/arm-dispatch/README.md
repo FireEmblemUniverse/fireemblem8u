@@ -183,3 +183,13 @@ or overlapping base/destination registers. Build with
 `REVERB_POSTINCREMENT`; it is not yet part of the production build.
 `research/audio/check_byte_postincrement.py` checks instruction bytes, execution,
 rejection boundaries and unchanged unannotated output.
+
+
+`subtract_compare.cc` provides opt-in ARM `matching_subtract_compare` for an
+adjacent old-value copy, subtraction and comparison with the same immediate
+(1..255). The copy's temporary must be non-global and dead at the comparison.
+The existing GCC SUBS pattern reproduces the comparison's full flags, including
+overflow; no positive-count assumption is needed for the fold itself. Build with
+`build_subtract_compare.py`; test with `research/audio/check_subtract_compare.py`.
+The research reverb candidate enables it under `REVERB_SUBTRACT_COMPARE`; it is
+not yet a production-build dependency.

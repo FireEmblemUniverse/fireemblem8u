@@ -3836,3 +3836,37 @@ encoding; the original Thumb transfer remains to be generated. Production is
 unchanged and this candidate receives no integrated coverage credit.
 Evidence: `.deps/soundmain-reverb/private-postincrement-report.json`, matching
 candidate ELF/binary, private-postincrement-oracle.log and postincrement-guards/.
+
+
+### September 10: all 76 reverb calculation bytes generated exactly
+
+The private model's opt-in countdown condition is `(s32)reverbCount-- > 1`.
+This compares the old signed count with one, which reproduces SUBS/BGT even
+at signed overflow. Comparing the wrapped new count with zero does not do so.
+The unannotated research variant retains the previously verified positive-count
+form; no production behavior is changed.
+
+`matching_subtract_compare` in `tools/arm-dispatch/subtract_compare.cc` folds
+three adjacent RTL operations: copy the old register to a dead temporary,
+subtract a constant, then compare that temporary with the same constant. It
+uses GCC's existing `subsi3_compare` pattern, computing exactly the same NZCV
+for every 32-bit input. The rule requires ARM mode, distinct general registers,
+a non-global temporary whose REG_DEAD note is present at the comparison,
+CCmode, and a subtraction/compare constant in 1..255. It never crosses other
+instructions or labels. A function must opt in and contain an eligible sequence.
+
+`check_subtract_compare.py` passes 33,152 single-subtraction/branch executions
+for constants 1, 2, 127 and 255, all sixteen incoming NZCV patterns, all byte
+values, signed-overflow boundaries and seeded 32-bit values. It checks exact
+SUBS/BGT/BX bytes, updated count, other registers, flags, SP/LR and branch choice.
+Thumb, mismatched comparison, asm barrier, live old value and missing subtraction
+are rejected; unannotated object bytes are unchanged with the plugin loaded.
+
+The reverb oracle with both plugins verifies all 76 calculation bytes against
+the original ROM and passes its 6,792 full memory/access/register/flag cases.
+The candidate is now 80 bytes: the exact calculation followed by a placeholder
+BX LR. The original adds an eight-byte ARM-to-Thumb transfer instead. Generating
+that transfer and integrating the block remain required; production C coverage
+is unchanged. Evidence: `.deps/soundmain-reverb/private-subtract-report.json`,
+private-subtract-oracle.log, candidate ELF/binary, subtract-guards.log and the
+standalone subtract-guards directory.

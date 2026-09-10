@@ -20,15 +20,19 @@ def main():
     parser.add_argument('--compiler', required=True)
     parser.add_argument('--private', action='store_true', help='Check the private-register candidate before its ordinary return')
     parser.add_argument('--postincrement-plugin', type=Path)
+    parser.add_argument('--subtract-plugin', type=Path)
     args = parser.parse_args()
+    if args.subtract_plugin and not args.postincrement_plugin:
+        parser.error('--subtract-plugin requires --postincrement-plugin')
     if args.postincrement_plugin and not args.private:
         parser.error('--postincrement-plugin requires --private')
     OUT.mkdir(exist_ok=True)
-    stem = 'private-postincrement' if args.postincrement_plugin else 'private' if args.private else 'candidate'
+    stem = 'private-subtract' if args.subtract_plugin else 'private-postincrement' if args.postincrement_plugin else 'private' if args.private else 'candidate'
     source = 'soundmain_reverb_private.c' if args.private else 'soundmain_reverb.c'
     symbol = 'SoundMainReverbPrivate' if args.private else 'SoundMainReverbModel'
     subprocess.run([args.compiler, '-c', '-std=gnu89', '-O1', '-marm', '-mcpu=arm7tdmi',
                     '-mabi=apcs-gnu', '-ffreestanding',
+                    *(['-DREVERB_SUBTRACT_COMPARE', '-fplugin=' + str(args.subtract_plugin.resolve())] if args.subtract_plugin else []),
                     *(['-DREVERB_POSTINCREMENT', '-fplugin=' + str(args.postincrement_plugin.resolve())] if args.postincrement_plugin else []), *([] if args.private else ['-Werror']),
                     '-I' + str(ROOT / 'tools/agbcc/include'), '-iquote', str(ROOT / 'include'),
                     str(ROOT / 'research/audio' / source), '-o', str(OUT / (stem + '.o'))], check=True)
@@ -43,6 +47,8 @@ def main():
     model_stop = MODEL + len(candidate) - 4 if args.private else RETURN
     if args.private:
         assert candidate[-4:] == bytes.fromhex('1eff2fe1'), 'expected terminal BX LR'
+    if args.subtract_plugin:
+        assert candidate[:76] == rom[ENTRY - 0x08000000:ENTRY - 0x08000000 + 76], 'calculation byte mismatch'
     machines, traces = [], [[], []]
     def access(uc, kind, address, size, value, trace):
         if kind == UC_MEM_READ:  # Capture actual byte value before access.
@@ -117,7 +123,9 @@ def main():
     if args.private:
         report.update(private_registers_and_flags_match=True, candidate_bytes=len(candidate),
                       original_calculation_bytes=original_stop-ENTRY,
-                      limitations='Positive sample counts only; stopped before original ARM-to-Thumb transfer and C BX LR; not byte matching or integrated.')
+                      limitations='Positive sample counts only; stopped before original ARM-to-Thumb transfer and C BX LR; not a complete byte-matching replacement or integrated.')
+    if args.subtract_plugin:
+        report['matching_calculation_bytes'] = 76
     (OUT / (stem + '-report.json' if args.private else 'report.json')).write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 
