@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import urllib.request
-ROOT=Path(__file__).resolve().parents[3]
+ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/gcc16-matching'
 SHA='e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e'
 URL='https://ftp.gnu.org/gnu/gcc/gcc-16.2.0/gcc-16.2.0.tar.xz'

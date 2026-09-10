@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 9, 2026. Latest verified implementation: PutOamHi embedded integration at `0a19de24`; latest research: dispatcher complete 464-byte candidate matches (verified against baseline `a76c7ece` plus current research changes).
+Updated: September 9, 2026. Latest verified implementation: complete map-flood dispatcher integration (baseline `195e2009` plus this change); full ROM checksum passes.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -11,7 +11,7 @@ advances, integration results, or changes in the current blocker.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Map flood dispatcher candidate | `████████████████████` **107/107 instruction words; complete 464-byte section exact; not integrated** |
+| Integrated map flood dispatcher | `████████████████████` **107/107 instruction words; complete 464-byte section exact; full ROM verified** |
 | Integrated map flood helper | `████████████████████` **51/51 instruction words (100%); full 224-byte section exact** |
 | Integrated object-list high entry | `████████████████████` **39/39 instruction words (100%); full 160-byte section exact** |
 | Integrated string decoder | `████████████████████` **35/35 instruction words (100%); full 148-byte section exact** |
@@ -22,34 +22,24 @@ advances, integration results, or changes in the current blocker.
 | Embedded object-list high entry | `████████████████████` **Exact in all three payload versions; low-entry shim remains assembly** |
 | Embedded palette routine | `████████████████████` **Exact in all three payload versions** |
 
-The function percentages describe these routines only. Completed replacements are in the production build; the dispatcher remains a candidate.
+The function percentages describe these routines only. All replacements listed above are in the production build.
 An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 
 ## Working on now
 
-**Working on: validating and integrating the exact dispatcher candidate.**
-Next milestone: promote the reproducible compiler support and C dispatcher into the production build, then verify the full ROM checksum.
-The isolated GCC 16.2.0 build completed. Its explicit PC-read and BX patterns
-now generate the original four-instruction address/jump sequence using r0.
-An explicit valid-index contract removes the extra guard, and the final table
-entry falls through as in the ROM. The candidate passes 640 controlled-helper and
-240 actual-helper cases, plus 4,608 table and 10,080 XOR compiler probes.
-The backend is still experimental and is not used by production.
+**Working on: remaining ARM shims, unit-list fallback, audio and transfer code.**
+Next milestone: recover another remaining executable routine as matching C.
 
-Dispatcher evidence so far:
-The candidate's complete 464-byte section now matches the original ROM at
-`0x08000850`: a 36-byte pointer/branch prefix and all 107 instruction words.
-The compiler emits the prefix from pointer symbols and its own switch targets;
-obsolete trailing literals are removed. Repeated shared-literal mappings resolve
-all queue and state loads to their original pools.
+The map-flood dispatcher is now integrated. Its complete 464-byte section at
+`0x08000850` matches: 452 ARM instruction bytes (including the duplicate branch
+prefix) and 12 pointer bytes. All 880 dispatcher execution cases and 2,560
+prefix-table cases pass. The complete 16 MiB ROM passes `make compare -j8`.
+The linked audit attributes the entire region to `src/arm/map_flood_core.o`.
 
-All 640 controlled-helper and 240 actual-helper cases pass, checking queue and
-map memory, ordered calls, preserved registers and return flags. Existing isolated
-compiler probes cover 4,608 checked-table executions, 1,280 valid-index unchecked
-executions, 10,080 XOR executions and 384 shared-literal comparisons, with six
-out-of-range links rejected. The prefix emitter passes 2,560 additional executions across pointer orders,
-relocated builds, repeated functions and forced compiler garbage collection;
-six invalid configurations are rejected. Production integration is next. The production build remains unchanged.
+The isolated pinned GCC backend and compiler passes now live in
+`tools/arm-dispatch/`; the Makefile builds them when needed and applies them only
+to the dispatcher. The C source uses the project's queue/state structures.
+Main source inventory is now 450 C files and 57 assembly entry markers.
 
 Latest integrated milestone:
 PutOamHi and its pointer pool are integrated as matching C in the main ROM
@@ -95,6 +85,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace DecodeString and its pointer pool with matching C.
 - [x] Integrate PutOamHi and its shared drawing body as matching C.
 - [x] Replace embedded PutOamHi with matching C in all three payload versions.
+- [x] Integrate the complete matching map-flood dispatcher and compiler-generated prefix.
 - [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
@@ -103,7 +94,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Latest source audit |
 |---|---|
-| Main program | 58 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
+| Main program | 57 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
 | Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
 | Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
 

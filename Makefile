@@ -75,7 +75,7 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt
 CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
-CFILES       += src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
+CFILES       += src/arm/map_flood_core.c src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
 ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
@@ -127,6 +127,24 @@ $(ARM_MATCH_PLUGIN): tools/arm-matching/zero_test.cc tools/arm-matching/build.py
 src/arm/color_fade_tick.o: $(ARM_MATCH_PLUGIN)
 src/arm/color_fade_tick.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/arm/color_fade_tick.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-move-loop-invariants -fno-tree-loop-im -fplugin=$(ARM_MATCH_PLUGIN) -fplugin-arg-zero_test-prefix-pool=gPaletteBuffer,gFadeComponents,gFadeComponentStep
+
+# Isolated pinned backend: explicit PC reads, BX dispatch and shared literals.
+ARM_DISPATCH_CC := .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+ARM_DISPATCH_DIR := .deps/flood-core-new-backend
+ARM_DISPATCH_TABLE := $(ARM_DISPATCH_DIR)/branch_tables.so
+ARM_DISPATCH_XOR := $(ARM_DISPATCH_DIR)/xor_flags.so
+$(ARM_DISPATCH_CC): tools/arm-dispatch/build_backend.py tools/arm-dispatch/matching.md
+	$(PYTHON) tools/arm-dispatch/build_backend.py
+
+$(ARM_DISPATCH_TABLE): $(ARM_DISPATCH_CC) tools/arm-dispatch/branch_tables.cc tools/arm-dispatch/build_branch_tables.py
+	$(PYTHON) tools/arm-dispatch/build_branch_tables.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+$(ARM_DISPATCH_XOR): $(ARM_DISPATCH_CC) tools/arm-dispatch/xor_flags.cc tools/arm-dispatch/build_xor_flags.py
+	$(PYTHON) tools/arm-dispatch/build_xor_flags.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+
+src/arm/map_flood_core.o: $(ARM_DISPATCH_TABLE) $(ARM_DISPATCH_XOR)
+src/arm/map_flood_core.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/arm/map_flood_core.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-move-loop-invariants -fno-tree-loop-im -ffixed-r14 -ffixed-r1 -ffixed-r2 -ffixed-r3 -Werror=attributes -fplugin=$(ARM_DISPATCH_XOR) -fplugin=$(ARM_DISPATCH_TABLE) -fplugin-arg-branch_tables-pc-relative -fplugin-arg-branch_tables-sink-trampolines -fplugin-arg-branch_tables-prefix-symbols=gMovMapFillStPool1,gMovMapFillStPool2 -fplugin-arg-branch_tables-shared-literal=gMovMapFillStPool1,MapFloodCorePool,0 -fplugin-arg-branch_tables-shared-literal=gMovMapFillStPool2,MapFloodCorePool,4 -fplugin-arg-branch_tables-shared-literal=gMovMapFillState,MapFloodCoreStepPool,4
 
 src/arm/map_flood_step.o: $(ARM_MATCH_PLUGIN)
 src/arm/map_flood_step.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -

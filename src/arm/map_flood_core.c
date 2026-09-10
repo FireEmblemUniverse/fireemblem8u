@@ -1,13 +1,10 @@
-/* Standalone oracle fixture for the integrated src/arm/map_flood_core.c. Queue connections are
- * 0=left, 1=right, 2=down, 3=up, 4=end, 5=initial expansion.
- * Callers provide valid connection bytes and sufficient queue capacity.
- */
-typedef unsigned char u8;
-struct Node { u8 x, y, connection, cost; };
-struct State { struct Node *src, *dst; };
-extern struct State gMovMapFillState;
-extern struct Node gMovMapFillStPool1[], gMovMapFillStPool2[];
+#include "global.h"
+#include "bmidoten.h"
+
+// Queue connections: 0=left, 1=right, 2=down, 3=up, 4=end, 5=initial.
+// Callers supply valid connections and sufficient queue capacity.
 extern void MapFloodCoreStep(int connection, int dx, int dy);
+
 static __inline__ __attribute__((always_inline)) void Step(int c, int x, int y)
 {
     register int connection asm("r0") = c;
@@ -20,17 +17,15 @@ static __inline__ __attribute__((always_inline)) void Step(int c, int x, int y)
     asm("" : "+r"(dy));
     MapFloodCoreStep(connection, dx, dy);
 }
-#ifdef MATCH_UNCHECKED_DISPATCH
 // Every queue connection is in 0..5; values outside that range are invalid input.
 __attribute__((matching_unchecked_switch))
-#endif
 void MapFloodCore(void)
 {
     register unsigned phase asm("r4") = 0;
-    register struct State *state asm("r5") = &gMovMapFillState;
+    register struct MovMapFillState *state asm("r5") = &gMovMapFillState;
     register unsigned connection asm("r6");
-    register struct Node *node asm("r6");
-    register struct Node *pool asm("r0");
+    register struct MovMapFillStateExt *node asm("r6");
+    register struct MovMapFillStateExt *pool asm("r0");
     asm("" : "+r"(phase), "+r"(state));
     for (;;) {
         phase ^= 1;
@@ -52,13 +47,13 @@ void MapFloodCore(void)
         }
         node = state->src;
         asm("" : "+r"(node));
-        connection = node->connection;
+        connection = node->connexion;
         asm("" : "+r"(connection));
         if (connection == 4) return;
         for (;;) {
             node = state->src;
             asm("" : "+r"(node));
-            connection = node->connection;
+            connection = node->connexion;
             asm("" : "+r"(connection));
             switch (connection) {
             case 5:
@@ -97,7 +92,7 @@ void MapFloodCore(void)
             {
                 register unsigned end asm("r0") = 4;
                 asm("" : "+r"(end));
-                node->connection = end;
+                node->connexion = end;
             }
             node = state->src;
             asm("" : "+r"(node));

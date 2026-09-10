@@ -265,7 +265,9 @@ SECTIONS
         src/arm/decode_string.o(.text);
         MapFloodCoreStepPool = .;
         src/arm/map_flood_step.o(.text);
-        asm/arm.o(.text.after_map_flood_step);
+        MapFloodCorePool = .;
+        src/arm/map_flood_core.o(.text);
+        ARMCodeToCopy_End = .;
         src/main.o(.text);
         src/fe3_dummy.o(.text);
         src/irq.o(.text);

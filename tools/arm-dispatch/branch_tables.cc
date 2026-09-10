@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Experimental range-checked ARM instruction-table lowering, not production.
+// ARM instruction-table lowering for the pinned matching backend.
 #include <string>
 #include <vector>
 #include "gcc-plugin.h"

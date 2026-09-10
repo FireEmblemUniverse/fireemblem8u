@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the experimental XOR flag-fusion plugin against the installed ARM GCC headers."""
+"""Build the experimental branch-table plugin against the installed ARM GCC headers."""
 import argparse
 import hashlib
 import json
@@ -9,7 +9,7 @@ import shlex
 import subprocess
 import sys
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def main():
@@ -20,14 +20,14 @@ def main():
     version = subprocess.check_output([args.compiler, '-dumpfullversion'], text=True).strip()
     if version != '16.2.0':
         raise SystemExit('Matching ARM plugin requires GCC 16.2.0; found ' + version)
-    source = Path(__file__).with_name('xor_flags.cc')
+    source = Path(__file__).with_name('branch_tables.cc')
     plugin = Path(subprocess.check_output([args.compiler,'-print-file-name=plugin'],text=True).strip())
     headers = plugin / 'include'
     if not (headers / 'gcc-plugin.h').is_file():
         raise SystemExit('Installed ARM GCC does not provide plugin headers.')
     out = args.output_dir.resolve()
     out.mkdir(parents=True,exist_ok=True)
-    binary = out / 'xor_flags.so'
+    binary = out / 'branch_tables.so'
     command = shlex.split(os.environ.get('CXX','c++'))
     command += ['-std=gnu++17','-fno-rtti','-fPIC','-shared','-Wno-deprecated-declarations',
                 '-Wno-array-bounds','-I',str(headers)]
@@ -44,7 +44,7 @@ def main():
     report = {'command':command, 'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
               'binary_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),
               'compiler_version':subprocess.check_output([args.compiler,'-dumpfullversion'],text=True).strip()}
-    (out/'build-info.json').write_text(json.dumps(report,indent=2)+'\n')
+    (out/'branch-tables-build-info.json').write_text(json.dumps(report,indent=2)+'\n')
     print(binary)
 
 

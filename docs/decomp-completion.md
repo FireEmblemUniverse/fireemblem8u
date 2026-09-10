@@ -2102,3 +2102,28 @@ Six invalid configurations are rejected, including an unconverted trailing
 literal and Thumb mode. Prefix-only Thumb options now explicitly reject rather
 than silently skipping the transformation. The dispatcher was rebuilt with this
 plugin: all 464 bytes remain exact and all 880 execution cases pass.
+
+
+### Production map-flood dispatcher integration — September 9, 2026
+
+`src/arm/map_flood_core.c` now uses the public `MovMapFillState` and
+`MovMapFillStateExt` structures. The linker places its compiler-generated
+prefix and function at `0x08000850..0x08000A20`; the former assembly dispatcher
+and duplicate prefix were removed. `ARMCodeToCopy_End` is now defined by the
+linker after the C object, preserving the copied ARM block's original endpoint.
+
+The pinned backend extension and XOR/branch-table passes moved to
+`tools/arm-dispatch/`. Make builds the isolated compiler and its compatible
+plugins as dependencies of this single object. It supplies the verified options
+and shared pointer symbols explicitly. Source checksum validation, isolated
+installation and build provenance are retained; other compiler paths are unchanged.
+The standalone research source remains an oracle fixture.
+
+`make compare -j8` passes: all 16,777,216 ROM bytes match SHA-1
+`c25b145e37456171ada4b0d440bf88a19f4d509f`. The linked audit classifies the new
+object as 452 ARM instruction bytes (428 body + 24 prefix branch bytes) and
+12 pointer bytes. The source audit reports 450 main C files, 57 assembly entry
+markers, one naked-function marker and seven instruction-bearing inline
+assembly templates. The embedded payload remains at 16 assembly declarations.
+Overall C coverage is still unproven; startup/BIOS interfaces, ARM shims, audio,
+unit-list fallback and the 200-byte transfer wrapper remain in scope.
