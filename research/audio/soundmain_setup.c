@@ -1,5 +1,6 @@
 #include "global.h"
 #include "gba/m4a_internal.h"
+#include "soundmain_frame.h"
 
 static u32 SoundMainDeadlineModel(u32 maxLines, u32 vcount)
 {

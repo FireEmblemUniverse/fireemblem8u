@@ -60,14 +60,17 @@ An exact ROM build can still contain assembly; its 100% meter is not C coverage.
 ## Working on now
 
 **Working on: remaining audio handlers, ARM shims, unit-list fallback and transfer code.**
-Next milestone: reproduce SoundMain's private mixer frame and register transfer
-in matching C. Runtime C rebuild/syscall verification remains open.
+Next milestone: generate SoundMain's verified private mixer frame and transfer
+from C. Runtime C rebuild/syscall verification remains open.
 The SoundMain setup arithmetic model passes 21,504 cases against the original
 entry, covering deadlines, all DMA counters/VCOUNT values, wrapped buffer
 selection, stable callback order, lock update and the 64-byte mixer frame.
 The entry model additionally passes 600 callback-mutation cases and 1,800
 locked/invalid-entry cases. It retains the initial SoundInfo pointer, computes
 the deadline before callbacks and uses updated buffer fields after callbacks.
+A further 6,912 original-entry/mixer-return cases verify all saved frame words,
+stereo clearing without reverb, lock release and r4-r11 restoration in both
+return modes. The typed 64-byte frame layout compiles with offset/size checks.
 This is research-only and does not replace the mixer or the full SoundMain entry.
 The [runtime inventory](docs/runtime-source-inventory.md) identifies every linked
 archive member's candidate source at the pinned agbcc revision. Six assembly

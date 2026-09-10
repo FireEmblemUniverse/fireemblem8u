@@ -3718,3 +3718,29 @@ that oracle now resolves its C entry symbol instead of assuming function order.
 This is not a full machine-state match: custom stack/register transfer and flags
 remain to be reproduced, and mixing remains unverified. No production code
 changed. Evidence is under `.deps/soundmain-setup/`.
+
+### September 10: SoundMain private frame verified through mixer return
+
+`research/audio/soundmain_frame.h` records the 64-byte mixer-entry frame:
+six scratch/deadline words, saved SoundInfo, saved r8-r11, saved r4-r7, and LR.
+The sound pointer is at +24 and the return address at +60; target compilation
+checks those offsets and total size. The header is included by the C setup model.
+No claim is made that GCC yet emits this frame for a complete C replacement.
+
+`check_soundmain_frame.py` copies the original 0x400-byte RAM mixer exactly as
+SoundInit does, then runs the original full SoundMain entry through its return.
+All 6,912 cases pass across six sample sizes (including all four-byte remainders
+within a sixteen-byte block), four DMA counters, three channel counts, three
+deadline settings, four VCOUNT positions, four incoming register/flag patterns
+and both ARM/Thumb return modes. Reverb is disabled and all channels inactive.
+The hook checks all sixteen frame words, including untouched scratch slots.
+The final checks verify exact stereo clearing, unchanged surrounding sound
+memory, lock release, SP and stack canaries, r4-r11 restoration, and the original
+r0-r3 return values (saved r8-r10 and return address).
+
+The mixer discards 28 frame bytes, pops saved high/low registers together,
+restores r8-r11 from r0-r3, and pops the return address into r3 before BX.
+This establishes the frame/transfer target for matching code generation. Active
+channel mixing, reverb, timing-exit paths and a full C replacement remain open.
+Evidence is in `.deps/soundmain-setup/frame-report.json` and frame-oracle.log.
+Production remains unchanged.
