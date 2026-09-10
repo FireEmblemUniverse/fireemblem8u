@@ -1744,10 +1744,24 @@ SECTIONS
         src/m4a_ply_note_command.o(.text);
         __ply_note_command_end = .;
         src/m4a_1.o(.text.after_ply_note_command);
+        __ply_note_tone_start = .;
+        src/m4a_ply_note_tone.o(.text);
+        __ply_note_tone_end = .;
+        src/m4a_1.o(.text.after_ply_note_tone);
+        ASSERT((PlyNoteToneSetup & ~1) == PlyNoteToneBoundary &&
+               __ply_note_tone_start == (ply_note & ~1) + 70 &&
+               __ply_note_tone_end - __ply_note_tone_start == 86 &&
+               PlyNotePriority == __ply_note_tone_end,
+               "ply_note tone extent or continuation changed");
+        ASSERT(PlyNoteExit == (ply_note & ~1) + 486 &&
+               (PlyNoteExit & 1) == 0 &&
+               PlyNoteExit >= __ply_note_tone_start + 60 &&
+               PlyNoteExit <= __ply_note_tone_start + 60 + 2046,
+               "ply_note tone exit placement changed");
         ASSERT((PlyNoteCommand & ~1) == PlyNoteCommandBoundary &&
                __ply_note_command_start == (ply_note & ~1) + 32 &&
                __ply_note_command_end - __ply_note_command_start == 38 &&
-               PlyNoteToneSetup == __ply_note_command_end,
+               (PlyNoteToneSetup & ~1) == __ply_note_command_end,
                "ply_note command extent or continuation changed");
         ASSERT(lt_PlyNoteSoundInfo == (ply_note & ~1) + 504 &&
                lt_PlyNoteClockTable == lt_PlyNoteSoundInfo + 4 &&

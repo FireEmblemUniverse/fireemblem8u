@@ -205,6 +205,11 @@ def main():
  for name,symbol in [('note_sound_literal','lt_PlyNoteSoundInfo'),('note_clock_literal','lt_PlyNoteClockTable')]:
   needle='        ASSERT(lt_PlyNoteSoundInfo =='
   cases.append((name,source.replace(needle,'        '+symbol+' = (ply_note & ~1) + 506;\n'+needle,1),'ply_note entry literal placement'))
+ cases += [('note_tone_extent',source.replace('        __ply_note_tone_end = .;','        . += 2;\n        __ply_note_tone_end = .;'),'ply_note tone extent or continuation'),
+           ('note_tone_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_tone);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_tone);'),'ply_note tone extent or continuation')]
+ for name,offset in [('note_tone_exit_far',4096),('note_tone_exit_backward',0),('note_tone_exit_odd',487)]:
+  needle='        ASSERT(PlyNoteExit =='
+  cases.append((name,source.replace(needle,'        PlyNoteExit = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note tone exit placement'))
  for name,text,message in cases:
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')

@@ -8989,3 +8989,58 @@ Evidence: `.deps/soundmain-packed/ply-note/tone-report.json`, `tone-check.log`,
 and the linked `tone-candidate.elf`/`tone-candidate.bin` artifacts. Sources:
 `research/audio/ply_note_tone.c`, `check_ply_note_tone.py` and the extended
 `tools/arm-dispatch/thumb_block_layout.cc`.
+
+
+## September 10, 2026 — ply_note tone selection integrated
+
+On baseline `c1a351f5`, `src/m4a_ply_note_tone.c` replaces all 86 assembly
+instruction bytes at 080CFE8A..080CFEE0. Its source matches the verified candidate
+except for the production name PlyNoteToneSetup. Linker assertions enforce the
+entry boundary and entry+70 position, exact extent, priority continuation and
+original aligned/range-safe early exit at 080D002A. The assembly continuation now
+begins at priority selection. Existing command-decoder continuation checks mask
+the new Thumb function symbol consistently.
+
+`make compare -j8` passes. All 92,160 tone cases pass with production ROM/source
+identity verified; eleven invalid contracts reject and unannotated output is
+unchanged. Full r0-r12/CPSR/SP/LR/RAM and ordered accesses agree, including initial
+pan-slot writes overlapping track or selected-tone fields. This is bounded tone
+selection coverage, not complete ply_note or real instrument-library execution.
+The earlier 196,608-case envelope regression verified the compiler layout change;
+SoundMain/mixer and MPlayMain C-ownership receipts are refreshed for this ELF.
+
+The first fresh runtime verification passed the main image but failed while
+stripping an embedded image with 'No space left on device'. Removing 205,205,064
+bytes of older generated runtime images/maps preserved sources, logs, the newest
+three runs and the existing receipt's run. The retry passed all four images and
+exported symbols. No compiler/source cleanup was performed.
+
+Main-ROM ownership is now 720,882 C-owned (92.70%), 33,870 mixed C/assembly,
+1,086 assembly-source and 21,792 runtime archive instruction bytes (777,630 total).
+Reviewed non-library assembly is 1,496 main-ROM bytes and 420 payload bytes.
+Inventory is 568 tracked main C files and 29 assembly entry markers. ply_note
+retains 378 assembly instruction bytes: 32 before its C decoder/tone paths and
+346 after them. Totals include inherited community work. Next: priority and
+channel allocation, followed by remaining setup/frame and broader outstanding
+runtime/unit-list/transfer/classification work.
+
+Evidence: `.deps/soundmain-packed/ply-note/tone-production-build.log`,
+`tone-production-check.log`, `tone-production-identity.json`, `tone-source.json`,
+`tone-linked.json`, `tone-runtime-retry.log`, `tone-production-layout.log` and
+refreshed tracked ownership/runtime/audio receipts. Production ELF SHA-256:
+`d0c57ea5cc406ddec3f43f59fdfc15c68b5f9c415296d958587159502c20d93e`.
+
+The valid full layout links and all 212 altered layouts reject, including five
+new tone extent/continuation and early-exit placement cases.
+
+During this milestone the user authorized proactive disk cleanup. A further
+873,070,337 bytes (833 MiB) were reclaimed by compressing 2,088 old generated
+assembly files from `.deps/unitlist-match` and `.deps/unitdef-match`. Every file's
+SHA-256 was checked inside the completed archive and again against the original
+before removing its loose copy. Archives and manifests are retained under
+`.deps/archived-compiler-output`; source code, ROMs, compiler installations and
+verification logs were preserved. The filesystem reported 4.7 GiB available
+afterward; other concurrent disk changes are not attributed to this cleanup.
+Recover individual files from the matching `*-assembly.tar.gz` into the original
+directory recorded by `*-manifest.json` before rerunning a historical probe that
+expects a loose assembly file. Current production builds use no archived paths.

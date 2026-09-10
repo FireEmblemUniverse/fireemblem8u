@@ -545,57 +545,11 @@ ply_note:
 	.global PlyNoteCommandBoundary
 PlyNoteCommandBoundary:
 	.section .text.after_ply_note_command, "ax", %progbits
-	.global PlyNoteToneSetup
-PlyNoteToneSetup:
-_081DDB46:
-	movs r0, 0
-	str r0, [sp, 0x14]
-	adds r4, r5, 0
-	adds r4, o_MusicPlayerTrack_ToneData_type
-	ldrb r2, [r4]
-	movs r0, TONEDATA_TYPE_RHY | TONEDATA_TYPE_SPL
-	tst r0, r2
-	beq _081DDB98
-	ldrb r3, [r5, o_MusicPlayerTrack_key]
-	movs r0, TONEDATA_TYPE_SPL
-	tst r0, r2
-	beq _081DDB66
-	ldr r1, [r5, o_MusicPlayerTrack_ToneData_keySplitTable]
-	adds r1, r3
-	ldrb r0, [r1]
-	b _081DDB68
-_081DDB66:
-	adds r0, r3, 0
-_081DDB68:
-	lsls r1, r0, 1
-	adds r1, r0
-	lsls r1, 2
-	ldr r0, [r5, o_MusicPlayerTrack_ToneData_wav]
-	adds r1, r0
-	mov r9, r1
-	mov r6, r9
-	ldrb r1, [r6]
-	movs r0, 0xC0
-	tst r0, r1
-	beq _081DDB80
-	b _081DDCEA
-_081DDB80:
-	movs r0, 0x80
-	tst r0, r2
-	beq _081DDB9C
-	ldrb r1, [r6, 0x3]
-	movs r0, 0x80
-	tst r0, r1
-	beq _081DDB94
-	subs r1, 0xC0
-	lsls r1, 1
-	str r1, [sp, 0x14]
-_081DDB94:
-	ldrb r3, [r6, 0x1]
-	b _081DDB9C
-_081DDB98:
-	mov r9, r4
-	ldrb r3, [r5, 0x5]
+	.global PlyNoteToneBoundary
+PlyNoteToneBoundary:
+	.section .text.after_ply_note_tone, "ax", %progbits
+	.global PlyNotePriority
+PlyNotePriority:
 _081DDB9C:
 	str r3, [sp, 0x8]
 	ldr r6, [sp]
@@ -775,6 +729,8 @@ _081DDCDC:
 	movs r0, 0xF0
 	ands r0, r1
 	strb r0, [r5]
+	.global PlyNoteExit
+PlyNoteExit:
 _081DDCEA:
 	add sp, 0x18
 	pop {r0-r7}

@@ -23,7 +23,7 @@ def main():
  assert binary.read_bytes()==rom[0xcfe8a:0xcfee0],binary.read_bytes().hex()
  if a.production:
   assert (ROOT/'fireemblem8.gba').read_bytes()==rom
-  assert (ROOT/'src/m4a_ply_note_tone.c').read_text()==source.replace('PlyNoteToneCandidate','PlyNoteTone')
+  assert (ROOT/'src/m4a_ply_note_tone.c').read_text()==source.replace('PlyNoteToneCandidate','PlyNoteToneSetup')
  invalid=[('first_mask',source.replace('toneR0 = 0xc0','toneR0 = 0xa0',1),tail+plugin),
           ('second_mask',source.replace('toneR0 = 0x40','toneR0 = 0x20',1),tail+plugin),
           ('missing_private',source.replace('matching_tail_transfer, ',''),plugin),
