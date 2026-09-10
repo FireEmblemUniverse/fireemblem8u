@@ -4703,3 +4703,30 @@ coverage metrics changed. Reproduce with the checker and `--compiler
 `.deps/soundmain-packed/advance-candidate-report.json` and
 `advance-candidate-check.log`. Object/ELF/binary files are generated in that
 same ignored directory.
+
+
+## September 10, 2026 — register subtraction flag reuse
+
+Baseline: `4d97f078`. Extended the opt-in subtract_compare pass to accept an
+SI register RHS distinct from the updated base and dead saved-value temporary.
+Only the adjacent copy/subtract/compare pattern is accepted. The comparison
+must use the original base copy and identical amount. It emits existing ARM
+SUBS RTL, whose NZCV exactly equals the old-value comparison for every 32-bit
+operand. Existing immediate behavior remains unchanged.
+
+The source-advance candidate uses an empty LR constraint to keep its fraction
+mask before the saved count, allowing the adjacent fold without moving across
+another operation. It now emits 76 bytes instead of 84. Its 35,200 three-machine
+semantic cases still pass. It remains research only: 32 original bytes and
+private frame/flags/register/control requirements are not yet matched.
+
+`check_subtract_compare.py --register` passes 91,168 executions: eleven RHS
+boundary values, 518 count values (including 256 deterministic random values)
+and all sixteen input NZCV states. It checks all registers, SP/LR, exact flags
+and the following signed branch. Six invalid forms are rejected, including an
+operand change between subtraction and comparison; unannotated output is
+unchanged. The immediate regression passes 33,152 executions and five rejects.
+Full-ROM `make compare -j8` passes with the rebuilt plugin. Production C coverage
+is unchanged. Logs: `.deps/soundmain-packed/subtract-register-guards.log`,
+subtract-immediate-regression.log, subtract-register-build.log and
+advance-candidate-check.log.

@@ -160,10 +160,12 @@ A source-advance C candidate now passes 35,200 cases against both original ROM
 and copied RAM: signed subtraction-overflow boundaries, one/multiple-sample
 advancement, signed byte reads and ordered memory accesses. Its live values
 match at both private exits. Original-code checks additionally cover all
-registers, frame and flags. The candidate emits 84 bytes versus the original
+registers, frame and flags. The candidate now emits 76 bytes (down from 84) versus the original
 32 and is not integrated; compiler frame, scratch registers, flags and terminal
-calls still differ. Matching needs register-subtraction flag reuse, conditional
-byte-load writeback and the appropriate private continuation contract.
+calls still differ. Register-subtraction flag reuse now passes 91,168 standalone execution cases
+and six rejection cases; the existing immediate rule passes 33,152 cases.
+Matching still needs conditional byte-load writeback, direct register updates
+and the appropriate private continuation contract.
 Fractional-position and channel ct/cp saving, sample-count restoration and the
 ARM-to-Thumb transfer are integrated as `src/m4a_save_channel.c` (24 bytes).
 All three entries pass 245,760 ROM/copied-RAM checks, including channel/frame

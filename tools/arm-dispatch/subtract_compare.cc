@@ -44,23 +44,31 @@ public:
             while (sub && NOTE_P(sub)) sub=NEXT_INSN(sub);
             if (!sub||!NONJUMP_INSN_P(sub)||GET_CODE(PATTERN(sub))!=SET) continue;
             rtx update=PATTERN(sub),add=SET_SRC(update);
-            if (!rtx_equal_p(SET_DEST(update),base)||GET_CODE(add)!=PLUS
-                ||!rtx_equal_p(XEXP(add,0),base)||!CONST_INT_P(XEXP(add,1))) continue;
-            HOST_WIDE_INT delta=INTVAL(XEXP(add,1));
-            if (delta>=0||delta < -255) continue;
-            HOST_WIDE_INT amount=-delta;
+            if (!rtx_equal_p(SET_DEST(update),base)) continue;
+            rtx amount=nullptr;
+            if (GET_CODE(add)==PLUS && rtx_equal_p(XEXP(add,0),base)
+                && CONST_INT_P(XEXP(add,1))) {
+                HOST_WIDE_INT delta=INTVAL(XEXP(add,1));
+                if (delta>=0||delta < -255) continue;
+                amount=GEN_INT(-delta);
+            } else if (GET_CODE(add)==MINUS && rtx_equal_p(XEXP(add,0),base)
+                       && general(XEXP(add,1))
+                       && REGNO(XEXP(add,1))!=REGNO(base)
+                       && REGNO(XEXP(add,1))!=REGNO(tmp)) {
+                amount=XEXP(add,1);
+            } else continue;
             rtx_insn *cmp=NEXT_INSN(sub);
             while (cmp && NOTE_P(cmp)) cmp=NEXT_INSN(cmp);
             if (!cmp||!NONJUMP_INSN_P(cmp)||GET_CODE(PATTERN(cmp))!=SET) continue;
             rtx comparison=PATTERN(cmp),cc=SET_DEST(comparison),test=SET_SRC(comparison);
             if (!REG_P(cc)||REGNO(cc)!=CC_REGNUM||GET_MODE(cc)!=CCmode
                 ||GET_CODE(test)!=COMPARE||!rtx_equal_p(XEXP(test,0),tmp)
-                ||!CONST_INT_P(XEXP(test,1))||INTVAL(XEXP(test,1))!=amount
+                ||!rtx_equal_p(XEXP(test,1),amount)
                 ||!find_reg_note(cmp,REG_DEAD,tmp)) continue;
             // SUBS computes the exact same NZCV as comparing the OLD base to
             // amount. This holds for every 32-bit input, including overflow.
-            rtx flags=gen_rtx_SET(copy_rtx(cc),gen_rtx_COMPARE(CCmode,copy_rtx(base),GEN_INT(amount)));
-            rtx value=gen_rtx_SET(copy_rtx(base),gen_rtx_MINUS(SImode,copy_rtx(base),GEN_INT(amount)));
+            rtx flags=gen_rtx_SET(copy_rtx(cc),gen_rtx_COMPARE(CCmode,copy_rtx(base),copy_rtx(amount)));
+            rtx value=gen_rtx_SET(copy_rtx(base),gen_rtx_MINUS(SImode,copy_rtx(base),copy_rtx(amount)));
             rtx replacement=gen_rtx_PARALLEL(VOIDmode,gen_rtvec(2,flags,value));
             if (!validate_change(i,&PATTERN(i),replacement,false))
                 fatal_error(UNKNOWN_LOCATION,"subtract compare pattern rejected");

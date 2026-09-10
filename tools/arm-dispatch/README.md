@@ -311,3 +311,12 @@ instructions are rejected. The production linker enforces the 24-byte extent,
 shared entry offsets and exact PC-relative Thumb continuation. Run
 `research/audio/check_arm_indirect_frame.py` for execution and rejection checks,
 and `check_soundmain_save.py` in ROM and copied-RAM modes for the production ABI.
+
+
+The subtract-compare rule also accepts a register amount: an adjacent saved
+old base, base-minus-amount SET and comparison of old base against that same
+amount become SUBS. The amount must be an SI r0-r12 distinct from base and the
+dead saved-value temporary. Intervening operations, changed operands and a live
+saved temporary are rejected. Exact NZCV equivalence holds for all 32-bit
+operands, including signed overflow. `check_subtract_compare.py --register`
+checks this form; the default continues to check immediate amounts.

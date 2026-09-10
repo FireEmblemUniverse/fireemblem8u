@@ -20,7 +20,7 @@ def subflags(a,b):
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     obj=OUT/'advance-candidate.o';elf=OUT/'advance-candidate.elf';binary=OUT/'advance-candidate.bin'
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_advance_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin'],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_advance_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-builtin','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/subtract_compare.so')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext=0x08100000','--entry=SoundMainRAM_AdvanceCandidate','--defsym=SoundMainRAM_ResampleLoop=0x08101000','--defsym=SoundMainRAM_ResampleNoAdvance=0x08101004',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
     rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f'
