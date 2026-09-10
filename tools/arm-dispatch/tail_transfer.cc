@@ -29,6 +29,7 @@ namespace {
 std::set<std::string> callees;
 int indirect_register=-1;
 bool raise_bound=false;
+bool raise_le_bound=false;
 bool after_shared_literals=false;
 bool private_frame=false;
 bool acyclic_branches=false;
@@ -258,16 +259,16 @@ public:
         }
         for (rtx_insn *i:discard) delete_insn(i);
         if (pool_label) reorder_insns(pool_label,pool_label,get_last_insn());
-        if (raise_bound) for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if (raise_bound||raise_le_bound) for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i);
             if (GET_CODE(p)!=SET || GET_CODE(SET_SRC(p))!=IF_THEN_ELSE) continue;
             rtx test=XEXP(SET_SRC(p),0);
-            if (GET_CODE(test)!=GTU || !REG_P(XEXP(test,0)) || !CONST_INT_P(XEXP(test,1))) continue;
+            if (!((raise_bound&&GET_CODE(test)==GTU)||(raise_le_bound&&GET_CODE(test)==LEU)) || !REG_P(XEXP(test,0)) || !CONST_INT_P(XEXP(test,1))) continue;
             HOST_WIDE_INT bound=INTVAL(XEXP(test,1));
             if (bound<0 || bound>=255) continue;
             rtx replacement=copy_rtx(p);
-            XEXP(SET_SRC(replacement),0)=gen_rtx_GEU(GET_MODE(test),copy_rtx(XEXP(test,0)),GEN_INT(bound+1));
+            XEXP(SET_SRC(replacement),0)=gen_rtx_fmt_ee(GET_CODE(test)==GTU?GEU:LTU,GET_MODE(test),copy_rtx(XEXP(test,0)),GEN_INT(bound+1));
             if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"tail comparison rewrite rejected");
         }
         return 0;
@@ -298,12 +299,13 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         if (key=="after-shared-literals" && !info->argv[n].value && !after_shared_literals) { after_shared_literals=true;continue; }
         if (key=="acyclic-branches" && !info->argv[n].value) { acyclic_branches=true;continue; }
         if (key=="private-frame64" && !info->argv[n].value) { private_frame=true;continue; }
+        if (key=="raise-unsigned-le-bound" && !info->argv[n].value && !raise_le_bound) { raise_le_bound=true;continue; }
         if (key=="raise-unsigned-bound" && !info->argv[n].value) { raise_bound=true;continue; }
         if (key!="destination" || !info->argv[n].value || !*info->argv[n].value) return 1;
         callees.insert(info->argv[n].value);
     }
     if (indirect_register>=0&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty()||!terminal_adjacent.empty())) return 1;
-    if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound)) return 1;
+    if (!adjacent.empty() && (!callees.count(adjacent) || raise_bound || raise_le_bound)) return 1;
     if (!terminal_adjacent.empty()&&(!private_frame||!acyclic_branches||!adjacent.empty()||!pool_adjacent.empty()||!callees.count(terminal_adjacent))) return 1;
     if (acyclic_branches&&(!private_frame||!adjacent.empty()||!pool_adjacent.empty())) return 1;
     if (!pool_adjacent.empty() && (!adjacent.empty()||!private_frame||!callees.count(pool_adjacent))) return 1;

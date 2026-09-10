@@ -641,3 +641,21 @@ each instruction. `scripts/audit_soundmain_region.py` verifies the complete
 1,064-byte entry/mixer region, including its separately identified C-only data
 object. The original SoundMain assembly is fully replaced; other audio routines
 still use `src/m4a_1.s`.
+
+
+## Unsigned inclusive-bound comparison selection
+
+The separate `raise-unsigned-le-bound` tail-transfer option changes unsigned
+`x <= k` to `x < k+1` for immediate bounds 0..254. This preserves the branch
+decision while selecting the original comparison instruction and its flags.
+It does not change the existing `raise-unsigned-bound` option or default behavior.
+Signed comparisons and larger bounds remain unchanged; invalid option values,
+duplicates and incompatible straight adjacency reject.
+
+The MPlayMain tempo gate uses this option to select CMP r0,150 / BCC after storing
+r0's low halfword. The register retains the complete 32-bit value, so the branch
+must not use the truncated field. Accumulator and tick-finish fragments use the
+existing direct-tail and adjacent-tail modes. The gate touches no stack memory;
+its private-tail contract only removes the compiler's extra frame.
+`check_mplay_tempo.py --production` verifies the three fragments together, while
+`check_tail_unsigned_le.py` guards compiler selection and unaffected cases.

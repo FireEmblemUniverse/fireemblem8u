@@ -6610,3 +6610,51 @@ Evidence: `docs/soundmain-code-region.json`,
 `production-compare.log`, `layout/report.json`,
 `.deps/soundmain-complete/production-run.log` and
 `.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.
+
+
+### Integrated MPlayMain tempo arithmetic (September 10, 2026; baseline dabed094)
+
+Three MPlayMain fragments are now matching C: the eight-byte accumulator at
+0x080CFBB0, six-byte tick finish at 0x080CFCFA and eight-byte store/loop gate at
+0x080CFD00. The accumulator reads tempoC and tempoI as halfwords but retains their
+full sum in r0. Tick finish writes the track-status mask, reloads tempoC and
+subtracts 150 modulo 2^32. The common gate stores only r0's low 16 bits while
+comparing the full register against 150. For example, 65,535 + 150 stores 149
+but must continue the tick loop using the live value 65,685.
+
+The new opt-in unsigned-LE bound selection rewrites <=149 as <150 to reproduce
+CMP r0,150 / BCC, including the original NZCV. Signed and large-bound probes and
+unannotated compilation remain unchanged; three invalid configurations reject.
+All existing 14 direct-tail, 17 private-frame/pool and 14 indirect contract checks
+also pass. No backend instruction or new C inline instruction template is needed.
+The gate accesses no private-frame words; the private tail mode removes its
+compiler-generated LR frame without assuming additional caller storage.
+
+The production oracle passes 533,888 cases: 393,216 accumulation cases (every
+halfword tempo with increments 0,150,65535 in normal/frame-alias layouts), 131,072
+cases covering every halfword tick subtraction, and 9,600 full-width gate cases
+with all initial NZCV states. It verifies all r0-r12, SP/LR, flags, loop destination,
+complete RAM and ordered word/halfword reads and writes. There are 140,534 tested
+wide-register cases, 532,904 tick-loop exits and 984 post-tick exits. The initial
+write-trace expectation was corrected for Unicorn exposing the source register's
+full value on STRH hooks; actual memory truncation is independently checked.
+The complete MPlayMain track loop, callback dispatch and final return are outside
+these fragment tests and remain unfinished.
+
+The assembly body is split around the C fragments. Its cross-section pool loads
+use explicit R_ARM_THM_PC8 relocations, and the linker preserves fragment extents,
+fallthroughs, loop branch reach and shared literal positions. Four altered layouts
+reject. `make compare -j8` verifies the complete ROM. Fresh runtime rebuilds
+reproduce all four images and exported symbols. All linked/source/inline/runtime
+inventories and unchanged SoundMain/mixer receipts are refreshed for ELF SHA-256
+`2a46cf9e1aca153eea101bfb26da0fd257fcaf7369ee3a08903683d476748454`.
+
+Main-ROM mapped instruction bytes remain 777,630: 720,178 C-owned (92.61%),
+33,870 mixed C/assembly, 1,790 assembly-source and 21,792 runtime, with zero
+unresolved ownership. Reviewed non-library assembly is 2,200 main-ROM instruction
+bytes and 420 payload bytes. There are 508 tracked C files and 30 assembly entry
+markers. Totals include inherited work and do not represent overall completion.
+
+Evidence: `.deps/soundmain-packed/mplay-tempo/report.json`, `production-check.log`,
+`production-compare.log`, `layout/report.json`, the linked ownership receipts and
+`.deps/runtime-rebuild/verification.log`. No cycle-timing claim is made.

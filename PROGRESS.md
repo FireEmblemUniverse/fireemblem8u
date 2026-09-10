@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 10, 2026. Latest integrated milestone (baseline `341919ce`): complete SoundMain and its copied mixer are now backed by matching C objects, including the shared literal pool. All 1,064 bytes match (1,024 instruction bytes and 40 data/alignment bytes). The final 32-byte entry passes 77,824 production/original cases; complete audio regression and fresh runtime rebuilds pass. Main-ROM C ownership is 720,156/777,630 mapped instruction bytes (92.61%). Other audio routines, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 10, 2026. Latest integrated milestone (baseline `dabed094`): MPlayMain's tempo accumulator, tick-completion arithmetic and loop gate are matching C. All 22 instruction bytes match; 533,888 production/original cases pass, including halfword truncation with full-width loop decisions. Full ROM and fresh runtime rebuilds match. Main-ROM C ownership is 720,178/777,630 mapped instruction bytes (92.61%). The rest of MPlayMain, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -19,9 +19,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.61%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **2,222 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **2,200 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated MPlayMain tempo arithmetic/gate | **22/22 instruction bytes exact; 533,888 cases pass with full-width overflow/underflow and ordered halfword accesses** |
 | Complete SoundMain and copied mixer | `████████████████████` **1,064/1,064 bytes from C; 1,024 instruction bytes plus 40 data/alignment bytes; full ROM exact** |
 | Integrated SoundMain entry/lock/frame | **32/32 bytes exact; 77,824 cases pass, including overlapping frames, early ARM/Thumb returns and SP at every instruction** |
 | Integrated SoundMain callbacks | **20/20 bytes exact; 27,648 production cases pass with ARM/Thumb callbacks, mutable saved pointers and exact callback-entry state** |

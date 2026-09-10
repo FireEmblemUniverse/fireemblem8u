@@ -292,7 +292,8 @@ lt_MPlayJumpTableTemplate: .word gMPlayJumpTableTemplate
 
 	thumb_func_start MPlayMain
 MPlayMain:
-	ldr r2, lt2_ID_NUMBER
+	ldr r2, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt2_ID_NUMBER
 	ldr r3, [r0, o_MusicPlayerInfo_ident]
 	cmp r2, r3
 	beq _081DD82E
@@ -320,7 +321,8 @@ _081DD840:
 	bge _081DD858
 	b _081DDA6C
 _081DD858:
-	ldr r0, lt2_SOUND_INFO_PTR
+	ldr r0, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt2_SOUND_INFO_PTR
 	ldr r0, [r0]
 	mov r8, r0
 	adds r0, r7, 0
@@ -330,10 +332,13 @@ _081DD858:
 	bge _081DD86C
 	b _081DDA6C
 _081DD86C:
-	ldrh r0, [r7, o_MusicPlayerInfo_tempoC]
-	ldrh r1, [r7, o_MusicPlayerInfo_tempoI]
-	adds r0, r1
-	b _081DD9BC
+	thumb_func_end MPlayMain
+	.global MPlayMainTempoAccumulateBoundary
+MPlayMainTempoAccumulateBoundary:
+@ Halfword loads and full-width addition are generated from C.
+	.section .text.after_mplay_tempo_accumulate, "ax", %progbits
+	.global MPlayMainTickLoop
+MPlayMainTickLoop:
 _081DD874:
 	ldrb r6, [r7, o_MusicPlayerInfo_trackCount]
 	ldr r5, [r7, o_MusicPlayerInfo_tracks]
@@ -435,7 +440,8 @@ _081DD90C:
 	beq _081DD994
 	b _081DD938
 _081DD92E:
-	ldr r0, lt_gClockTable
+	ldr r0, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt_gClockTable
 	subs r1, 0x80
 	adds r1, r0
 	ldrb r0, [r1]
@@ -513,14 +519,15 @@ _081DD9A4:
 	str r0, [r7, o_MusicPlayerInfo_status]
 	b _081DDA6C
 _081DD9B6:
-	str r4, [r7, o_MusicPlayerInfo_status]
-	ldrh r0, [r7, o_MusicPlayerInfo_tempoC]
-	subs r0, 0x96
-_081DD9BC:
-	strh r0, [r7, o_MusicPlayerInfo_tempoC]
-	cmp r0, 0x96
-	bcc _081DD9C4
-	b _081DD874
+	.global MPlayMainTempoFinishBoundary
+MPlayMainTempoFinishBoundary:
+@ Tick completion and the full-width loop gate are generated from C.
+	.section .text.after_mplay_tempo_finish, "ax", %progbits
+	.global MPlayMainTempoStoreBoundary
+MPlayMainTempoStoreBoundary:
+	.section .text.after_mplay_tempo_gate, "ax", %progbits
+	.global MPlayMainPostTick
+MPlayMainPostTick:
 _081DD9C4:
 	ldrb r2, [r7, o_MusicPlayerInfo_trackCount]
 	ldr r5, [r7, o_MusicPlayerInfo_tracks]
@@ -611,7 +618,8 @@ _081DDA62:
 	adds r5, r0
 	bgt _081DD9C8
 _081DDA6C:
-	ldr r0, lt2_ID_NUMBER
+	ldr r0, [pc, #1020]
+	.reloc .-2, R_ARM_THM_PC8, lt2_ID_NUMBER
 	str r0, [r7, o_MusicPlayerInfo_ident]
 	pop {r0-r7}
 	mov r8, r0
@@ -626,12 +634,12 @@ call_r3:
 	bx r3
 
 	.align 2, 0
+	.global lt_gClockTable
 lt_gClockTable:     .word gClockTable
 	.global lt2_SOUND_INFO_PTR
 	.global lt2_ID_NUMBER
 lt2_SOUND_INFO_PTR: .word SOUND_INFO_PTR
 lt2_ID_NUMBER:      .word ID_NUMBER
-	thumb_func_end MPlayMain
 
 @ TrackStop and its sound-info pointer pool are generated from matching C.
 	.section .text.after_track_stop, "ax", %progbits

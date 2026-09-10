@@ -1089,6 +1089,35 @@ SECTIONS
         src/m4a_sound_vsync.o(.text);
         __sound_vsync_end = .;
         src/m4a_1.o(.text.after_sound_vsync);
+        __mplay_tempo_accumulate_start = .;
+        src/m4a_mplay_tempo_accumulate.o(.text);
+        __mplay_tempo_accumulate_end = .;
+        src/m4a_1.o(.text.after_mplay_tempo_accumulate);
+        __mplay_tempo_finish_start = .;
+        src/m4a_mplay_tempo_finish.o(.text);
+        __mplay_tempo_finish_end = .;
+        src/m4a_1.o(.text.after_mplay_tempo_finish);
+        __mplay_tempo_gate_start = .;
+        src/m4a_mplay_tempo_gate.o(.text);
+        __mplay_tempo_gate_end = .;
+        src/m4a_1.o(.text.after_mplay_tempo_gate);
+        ASSERT((MPlayMainTempoAccumulate & ~1) == MPlayMainTempoAccumulateBoundary &&
+               __mplay_tempo_accumulate_end - __mplay_tempo_accumulate_start == 8 &&
+               MPlayMainTickLoop == __mplay_tempo_accumulate_end,
+               "MPlay tempo accumulator extent or loop boundary changed");
+        ASSERT((MPlayMainTempoFinish & ~1) == MPlayMainTempoFinishBoundary &&
+               __mplay_tempo_finish_end - __mplay_tempo_finish_start == 6 &&
+               __mplay_tempo_finish_end == (MPlayMainTempoStore & ~1),
+               "MPlay tick finish extent or gate fallthrough changed");
+        ASSERT((MPlayMainTempoStore & ~1) == MPlayMainTempoStoreBoundary &&
+               __mplay_tempo_gate_end - __mplay_tempo_gate_start == 8 &&
+               MPlayMainPostTick == __mplay_tempo_gate_end &&
+               __mplay_tempo_gate_start - MPlayMainTickLoop < 2044,
+               "MPlay tempo gate extent, fallthrough or branch range changed");
+        ASSERT(lt_gClockTable == (MPlayMain & ~1) + 604 &&
+               lt2_SOUND_INFO_PTR == (MPlayMain & ~1) + 608 &&
+               lt2_ID_NUMBER == (MPlayMain & ~1) + 612,
+               "MPlay shared literal placement changed");
         ASSERT(lt2_SOUND_INFO_PTR >= __sound_vsync_end &&
                lt2_ID_NUMBER + 4 <= __sound_vsync_start + 1024,
                "VSync shared Thumb literals outside conservative forward range");

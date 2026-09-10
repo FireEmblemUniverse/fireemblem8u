@@ -840,3 +840,14 @@ src/m4a_entry_frame.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=a
 src/m4a_entry_literals.o: $(ARM_DISPATCH_CC)
 src/m4a_entry_literals.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_entry_literals.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding
+
+src/m4a_mplay_tempo_accumulate.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_tempo_accumulate.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_tempo_accumulate.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTempoStore
+src/m4a_mplay_tempo_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_tempo_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_tempo_finish.o: C_END_ALIGN := 1
+src/m4a_mplay_tempo_finish.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTempoStore -fplugin-arg-tail_transfer-adjacent-destination=MPlayMainTempoStore
+src/m4a_mplay_tempo_gate.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_mplay_tempo_gate.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_mplay_tempo_gate.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-destination=MPlayMainTickLoop -fplugin-arg-tail_transfer-destination=MPlayMainPostTick -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=MPlayMainPostTick -fplugin-arg-tail_transfer-raise-unsigned-le-bound
