@@ -4,6 +4,8 @@
 
 Updated: September 10, 2026. Latest integrated milestone (baseline `56f0c441`): MPlayMain's frequency selection and CGB/PCM argument setup are matching C. All 20 instruction bytes match; 182,880 production/original cases pass. The full ROM and fresh runtime builds match; all 119 altered layouts reject. Main-ROM C ownership is 720,586/777,630 mapped instruction bytes (92.66%). Remaining frequency invocation/result stores, command guards, earlier clear-call paths, ply_note, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
+Candidate milestone (September 10): the frequency calls and result stores match 22 instruction bytes in isolated C and pass 201,088 execution cases. The call plugins reject 28 invalid contracts and leave unannotated output unchanged. Production ownership remains unchanged until integration and full build/audit gates.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

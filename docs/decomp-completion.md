@@ -7932,3 +7932,39 @@ Evidence: `.deps/soundmain-packed/mplay-post-frequency-build.log`,
 source/linked reports and refreshed tracked ownership/runtime/region receipts.
 Next: CGB/PCM frequency invocation and result stores, then remaining command
 guards, earlier clear calls and MPlayMain's frame exit.
+
+
+## Frequency invocation/result-store candidates — September 10, 2026
+
+On production baseline `cc4b5b2c`, four isolated C candidates reproduce 22
+instruction bytes: CGB invocation 080CFD7A..080CFD7E (4), CGB result/update
+080CFD7E..080CFD8A (12), PCM invocation 080CFD90..080CFD94 (4), and PCM
+result 080CFD94..080CFD96 (2). Existing callback/private-tail rules suffice.
+These candidates have not replaced the production assembly yet.
+
+All 201,088 original/candidate execution cases pass. CGB invocation passes
+49,152 cases using the real shared call_r3 trampoline and synthetic ARM/Thumb
+STR/BX LR callback bodies. PCM invocation passes 24,576 cases with a synthetic
+Thumb body at MidiKeyToFreq's real address, 080D00D4. Both check callback-entry
+state, arbitrary returned registers/NZCV, SP/LR, full RAM and ordered writes
+across four stack positions and three write aliases. They reject 13 and 15
+invalid contracts respectively; unannotated compilation is unchanged. These
+checks establish call/return mechanics, not the conversion functions' logic.
+
+CGB result storage passes 100,352 cases: all mode bytes, six frequency-word
+boundaries, random frequencies, four channel placements and every NZCV. PCM
+storage passes 27,008 cases covering byte values, boundaries, single bits and
+random frequency words over the same channel placements/NZCV. Exact registers,
+CPSR, SP/LR, RAM and accesses agree. The CGB sequence stores frequency first,
+reads mode, sets bit 1 (mask 2), writes mode, and branches to channel advance;
+it preserves incoming C/V and clears N/Z. PCM stores frequency and preserves
+all flags. Placement cases include frequency at SP, mode at SP (an unaligned
+frequency-word address), and the last mapped RAM word. These are emulator-based
+original/candidate comparisons; physical GBA bus alignment/timing is not tested.
+
+Sources: `research/audio/mplay_post_{cgb,pcm}_{invoke,store}.c`. Checkers:
+`check_mplay_post_cgb_invoke.py`, `check_mplay_post_pcm_invoke.py` and
+`check_mplay_post_frequency_store.py`. Reports and logs are under
+`.deps/soundmain-packed/mplay-post-{cgb-invoke,pcm-invoke,frequency-store}`.
+Production ownership remains unchanged. Next: integrate all four fragments with
+exact extents, call/branch ranges, full ROM comparison and refreshed audits.
