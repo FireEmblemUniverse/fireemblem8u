@@ -4933,3 +4933,38 @@ to original ADDS/BGT, then private transfer handling. Neither production bytes
 nor coverage changed. Evidence under `.deps/soundmain-packed/`:
 wrap-candidate-check.log, wrap-candidate-report.json and wrap-candidate.s;
 reproduce with the checker and the pinned compiler path.
+
+
+## September 10, 2026 — widened signed-sum positive-test reduction
+
+Baseline: `b9cd6e62`. Added signed_sum and its builder, plus the explicit
+match_arm_signed_sum_flags backend operation. The pass validates exactly six
+adjacent operations: sign extraction of the count, low-word carry addition,
+high-word ADC, low-word comparison with one, high-word borrow comparison and
+GE branch. The high temporary must be a distinct nonglobal register with dead
+and unused notes; comparison flags must die at the branch. Matching uses hard
+register numbers for those notes because GCC may retain different RTL register
+objects for the high temporary's successive values.
+
+The replacement preserves the original low add operand order and emits ADDS
+plus BGT to the existing local target. Its flags are represented by an explicit
+opaque operation, restricted to the immediately following positive-sum branch.
+This avoids incorrectly equating all flags with a 64-bit comparison: notably
+INT_MIN + INT_MIN has a zero low word but a negative mathematical sum, so EQ
+would be invalid. The guarded GT predicate is correct for the entire input range.
+The pinned compiler backend rebuilt successfully; all production plugins rebuilt
+and `make compare -j8` still passes.
+
+The wrap candidate shrinks from 52 to 36 bytes (original 16). All 40,800 cases
+pass, including 9,888 signed overflows, 22,368 reloads and 18,432 repeats. The
+checker now requires every r0-r12 and exact NZCV to match, in addition to live
+LR, wrapped state and exit. Candidate stack-save behavior remains separately
+asserted and calls are stopped before execution; it is not production-integrated.
+Eight invalid patterns reject: Thumb, nonnegative/negative predicates, unsigned
+addition, subtraction, comparison of the wrapped result, an intervening barrier
+and a live high word. Unannotated object bytes are unchanged.
+
+Evidence under `.deps/soundmain-packed/`: signed-sum-backend-build.log,
+signed-sum-production-build.log, signed-sum-guards.log, wrap-candidate-check.log
+and wrap-candidate-report.json. Remaining work is the private frame and repeated
+conditional transfer; production C coverage is unchanged at this checkpoint.

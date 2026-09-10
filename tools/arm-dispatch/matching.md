@@ -182,3 +182,19 @@
   "b%d1\t%c0"
   [(set_attr "conds" "use") (set_attr "type" "branch")
    (set_attr "length" "4")])
+
+;; Flags for a positive mathematical signed sum, selected only by the guarded
+;; widened-add reduction. Only the immediately following GT branch may consume
+;; this opaque flag value; EQ would be invalid for INT_MIN + INT_MIN.
+(define_c_enum "unspec" [UNSPEC_MATCH_ARM_SIGNED_SUM_FLAGS])
+(define_insn "match_arm_signed_sum_flags"
+  [(set (reg:CC CC_REGNUM)
+        (unspec:CC [(match_operand:SI 1 "s_register_operand" "r")
+                    (match_operand:SI 2 "s_register_operand" "r")]
+                   UNSPEC_MATCH_ARM_SIGNED_SUM_FLAGS))
+   (set (match_operand:SI 0 "s_register_operand" "=r")
+        (plus:SI (match_dup 1) (match_dup 2)))]
+  "TARGET_ARM"
+  "adds%?\t%0, %1, %2"
+  [(set_attr "conds" "set") (set_attr "type" "alus_sreg")
+   (set_attr "length" "4")])

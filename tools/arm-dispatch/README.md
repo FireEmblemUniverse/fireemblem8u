@@ -370,3 +370,23 @@ This supports fractional-position masking without saving/restoring a return
 address. `check_arm_early.py` checks invalid contracts and
 `check_soundmain_advance.py` checks exact linked bytes and production execution
 in ROM and copied RAM. Production `src/m4a_advance.c` uses these contracts.
+
+
+`signed_sum.cc` provides opt-in `matching_signed_sum` for one exact widened
+signed addition and positive-test sequence: sign extraction, low-word add with
+carry, high-word ADC, low comparison with one, high borrow comparison and GE
+branch. It requires a distinct nonglobal high temporary, dead/unused at the
+comparison, and dead comparison flags at the branch. All operations must be
+adjacent except notes; aliases, extra operations and alternate comparisons
+reject. The replacement uses `match_arm_signed_sum_flags` plus an ordinary GT
+branch, preserving the original target and operand order.
+
+The explicit flags operation emits ADDS but its opaque condition value may
+only feed that immediately following GT branch. A mathematical signed sum can
+be negative while its low word is zero (INT_MIN + INT_MIN), so allowing EQ
+would be incorrect. The validated positive predicate remains exact for all
+signed 32-bit inputs. Rebuild the pinned backend with `build_backend.py` before
+building this plugin. `check_signed_sum.py` tests guards and opt-in isolation;
+`check_soundmain_wrap.py` tests full registers/NZCV and both iteration outcomes
+against the original, including signed overflow. The wrap candidate remains
+research code; production does not select this pass yet.

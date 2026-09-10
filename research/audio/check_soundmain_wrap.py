@@ -16,7 +16,7 @@ def signed(n):return n-(0x100000000 if n&0x80000000 else 0)
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler',required=True);a=p.parse_args()
     obj=OUT/'wrap-candidate.o';elf=obj.with_suffix('.elf');binary=obj.with_suffix('.bin')
-    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_wrap_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding'],check=True)
+    subprocess.run([a.compiler,'-c',str(ROOT/'research/audio/soundmain_wrap_private.c'),'-o',str(obj),'-I',str(ROOT/'tools/agbcc/include'),'-iquote',str(ROOT/'include'),'-std=gnu89','-O1','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-Werror=attributes','-fplugin='+str(ROOT/'.deps/flood-core-new-backend/signed_sum.so')],check=True)
     subprocess.run(['arm-none-eabi-ld','-Ttext=0x08100000','--entry=SoundMainRAM_WrapCandidate','--defsym=SoundMainRAM_ResampleWrap=0x08101000','--defsym=SoundMainRAM_ResampleReload=0x08101004',str(obj),'-o',str(elf)],check=True)
     subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(elf),str(binary)],check=True)
     code=binary.read_bytes();calls={}
@@ -65,8 +65,9 @@ def main():
                     uc.reg_write(r.UC_ARM_REG_CPSR,0x13|flags<<28);uc.reg_write(r.UC_ARM_REG_LR,lr);uc.reg_write(r.UC_ARM_REG_SP,0x03007000)
                     uc.emu_start(entry,0,count=32)
                     assert state==['entered',outcome],(mode,length,count,state)
-                    for i in (0,2,9):assert uc.reg_read(REGS[i])==expected[i],(mode,i,length,count)
+                    for i in range(13):assert uc.reg_read(REGS[i])==expected[i],(mode,i,length,count)
                     assert uc.reg_read(r.UC_ARM_REG_LR)==lr
+                    assert uc.reg_read(r.UC_ARM_REG_CPSR)==0x13|expected_flags<<28
                     if mode=='candidate':
                         assert uc.reg_read(r.UC_ARM_REG_SP)==0x03006ffc;struct.pack_into('<I',raw,124,lr)
                     else:
@@ -75,6 +76,6 @@ def main():
                         assert uc.reg_read(r.UC_ARM_REG_SP)==0x03007000
                     assert bytes(uc.mem_read(0x03006f80,256))==raw
                 cases+=1;outcomes[outcome]+=1;overflow_cases+=overflow
-    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,signed_overflow_cases=overflow_cases,candidate_bytes=len(code),original_bytes=16,production_integration=False,scope='One loop iteration in original ROM/copied RAM and semantic C, including inputs that may repeat forever. Independent mathematical signed sum and wrapped count/skip, continuation selection and LR; original all registers/NZCV/frame; candidate compiler frame separately asserted, scratch registers and flags not matching; candidate stops before calls.')
+    report=dict(cases=cases,machines_per_case=3,outcomes=outcomes,signed_overflow_cases=overflow_cases,candidate_bytes=len(code),original_bytes=16,production_integration=False,scope='One loop iteration in original ROM/copied RAM and semantic C, including inputs that may repeat forever. Independent mathematical signed sum and wrapped count/skip, continuation selection and LR; all engines match registers/NZCV; original frame preserved and candidate compiler frame separately asserted; candidate stops before calls.')
     (OUT/'wrap-candidate-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

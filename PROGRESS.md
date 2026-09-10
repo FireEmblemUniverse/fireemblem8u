@@ -166,9 +166,10 @@ The wrap-addition loop and stop-frame restoration remain assembly.
 The wrap-iteration C model now passes 40,800 cases against original ROM and
 copied RAM. It preserves the mathematical signed-sum branch, including 9,888
 overflow cases and inputs that can repeat indefinitely. A widened C addition
-avoids signed-overflow undefined behavior. The candidate is 52 bytes versus
-16 original bytes; its temporary registers, flags and call/frame handling still
-need matching. The checker stops after one iteration and does not claim a
+avoids signed-overflow undefined behavior. The candidate is now 36 bytes (down from 52) versus
+16 original bytes. A guarded widened-add fold produces the original ADDS/BGT;
+all registers and flags match in 40,800 cases. Eight unsupported patterns reject
+and unannotated output is unchanged. Call/frame handling still needs matching. The checker stops after one iteration and does not claim a
 complete looping C integration.
 Source advancement is now integrated as
 `src/m4a_advance.c` (32 bytes), including the shared reload entry at +20.
