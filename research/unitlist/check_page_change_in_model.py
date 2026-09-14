@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Check the near-matching C page transition against an independent tile-copy model."""
-import hashlib,itertools,json,random,subprocess
+import argparse,hashlib,itertools,json,random,subprocess
 from pathlib import Path
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/unitlist-page-in';ENTRY=0x08091f10;RETURN=0x080e0000;DATA=0x02000000;PROC=DATA+0x30000;STACK=0x03007000
 
 def main():
- rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f';code=(OUT/'baseline.bin').read_bytes();assert len(code)==436
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('--candidate',type=Path,default=OUT/'baseline.bin')
+ parser.add_argument('--report',type=Path,default=OUT/'model-report.json')
+ args=parser.parse_args()
+ rom=(ROOT/'baserom.gba').read_bytes();assert hashlib.sha1(rom).hexdigest()=='c25b145e37456171ada4b0d440bf88a19f4d509f';code=args.candidate.read_bytes();assert len(code)==436
  symbols={x.split()[-1]:int(x.split()[1],16)&~1 for x in subprocess.check_output(['arm-none-eabi-readelf','-sW',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(x.split())>=8 and x.split()[0].rstrip(':').isdigit()}
  bg0,bg2,src0,src1,table=[symbols[x] for x in ('gBG0TilemapBuffer','gBG2TilemapBuffer','gUnitlistscreen_0','gUnitlistscreen_1','gUnitlistscreen_11')];sync=symbols['BG_EnableSyncByMask'];brk=symbols['Proc_Break'];machines=[]
  for candidate in (False,True):
@@ -51,5 +55,5 @@ def main():
   assert results[0]==results[1],(width,tick,scroll,target,previous)
   counts['right' if target>previous else 'left_or_equal']+=1;counts['break']+=amount>=20;counts['wrap']+=raw>255;cases+=1
  report=dict(cases=cases,outcomes=counts,candidate_sha256=hashlib.sha256(code).hexdigest(),candidate_bytes=len(code),matching_bytes=sum(x==y for x,y in zip(code,rom[0x91f10:0x920c4])),production_integrated=False,scope='All ten speed-table indices; widths 0..20 plus overflow cases; eight scroll boundaries; both directions and equal pages. Independent full EWRAM/write-order/callback model; original/C final registers, flags, LR and IWRAM agree with synthetic caller-clobbering callbacks. Incoming NZCV cycles across cases.',limitations='Not byte-matching. Calls are synthetic and do not validate BG sync or Proc_Break implementations. No hardware timing, all-input flag Cartesian product, or arbitrary pointer aliases.')
- (OUT/'model-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+ args.report.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

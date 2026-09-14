@@ -10159,3 +10159,24 @@ The patched experimental compiler source and executable were restored after
 measurement; installed production compilers were never changed. The patch,
 reproduction instructions, and JSON receipt preserve the experiment. No
 production sources changed or new behavior-model coverage is claimed.
+
+### Diagnostic behavior verification and forward-chain exclusion
+
+The reverse-only diagnostic (mask 8, SHA256
+`a798444351612dca34cee829473a9adf1ff3ecc6352997639438be3dc6e514c1`)
+passes all 5,520 independent tile-copy/callback cases, with full final memory,
+register, flag and stack comparisons. The checker now accepts explicit
+`--candidate` and `--report` paths, preserving the baseline default and receipt.
+This verifies the changed compiler output within the existing model domain;
+it is still nine differing halfwords short of a byte match and is not integrated.
+
+All sixteen masks over the forward shift/add/add and reverse shift merges
+compile to 436 bytes. Only reverse-only mask 8 improves the baseline; the
+remaining nonzero masks score 346..405 matching bytes. This rules out simple
+combinations of declining these forward merges as the fix. Sixty source
+row-pointer/address/offset constraint variants also compile; none improves
+the baseline. The next investigation must control allocation preference or
+change the forward-loop dataflow, rather than merely split these quantities.
+The experimental source/compiler were restored; production remains unchanged.
+Detailed results are in `docs/unitlist-page-in-research.json`; the diagnostic
+patch and its reproduction steps live under `research/unitlist/`.

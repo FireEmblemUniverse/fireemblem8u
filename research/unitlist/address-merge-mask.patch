@@ -1,0 +1,12 @@
+--- a/local-alloc.c
++++ b/local-alloc.c
+@@ -1553,0 +1554,9 @@
++
++  /* Diagnostic only: decline selected address-chain merges. */
++  if (getenv("UNITLIST_MERGE_MASK")) {
++    int mask = atoi(getenv("UNITLIST_MERGE_MASK"));
++    int uid = INSN_UID(insn);
++    if ((uid == 200 && (mask & 1)) || (uid == 201 && (mask & 2))
++        || (uid == 202 && (mask & 4)) || (uid == 401 && (mask & 8)))
++      return 0;
++  }

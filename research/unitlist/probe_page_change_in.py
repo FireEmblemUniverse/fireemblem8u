@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/unitlist-page-in'
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--search',action='store_true');p.add_argument('--clobbers',action='store_true');p.add_argument('--lifetimes',action='store_true');p.add_argument('--row-live',action='store_true');a=p.parse_args();OUT.mkdir(exist_ok=True)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--search',action='store_true');p.add_argument('--clobbers',action='store_true');p.add_argument('--lifetimes',action='store_true');p.add_argument('--row-live',action='store_true');p.add_argument('--row-pointer',action='store_true');a=p.parse_args();OUT.mkdir(exist_ok=True)
  source=(ROOT/'research/unitlist/page_change_in.c').read_text();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0x91f10:0x920c4]
  symbols={v.split()[-1]:int(v.split()[1],16) for v in subprocess.check_output(['arm-none-eabi-readelf','-sW',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(v.split())>=8 and v.split()[0].rstrip(':').isdigit()}
  for name in ('BG_EnableSyncByMask','Proc_Break'):symbols[name]|=1
@@ -58,6 +58,19 @@ def main():
    for constraint in ('r','l','g'):
     text=source.replace(needle,needle+' asm("" :: "'+constraint+'"('+expr+'));')
     variants.append(('row-live-'+str(len(variants)),text))
+ if a.row_pointer:
+  for side in ('forward','reverse'):
+   old='gUnitlistscreen_0[r4 & 0x1f]'+('[r5 + 8]' if side=='forward' else '[({r5 + 0x1c;}) - proc->unk_38]')
+   col='r5 + 8' if side=='forward' else 'r5 + 28 - proc->unk_38'
+   for reg in ('','r0','r1','r2','r3'):
+    for constraint in ('+r','+&r'):
+     for kind in ('row','address','offset'):
+      ty='int' if kind=='offset' else 'u16 *'
+      init='(r4 & 31) * 64' if kind=='offset' else ('gUnitlistscreen_0[r4 & 31]' if kind=='row' else '&gUnitlistscreen_0[r4 & 31]['+col+']')
+      decl=('register '+ty+' value asm("'+reg+'")' if reg else ty+' value')
+      expr='({ '+decl+' = '+init+'; asm("" : "'+constraint+'"(value)); value; })'
+      new=expr+'['+col+']' if kind=='row' else ('*'+expr if kind=='address' else '*(u16 *)((u8 *)gUnitlistscreen_0 + '+expr+' + ('+col+') * 2)')
+      variants.append(('row-pointer-'+side+'-'+str(len(variants)),source.replace(old,new)))
  reports=[]
  for name,text in variants:
   src=OUT/(name+'.c');src.write_text(text);pp=OUT/(name+'.i');asm=OUT/(name+'.s');obj=OUT/(name+'.o');elf=OUT/(name+'.elf');binary=OUT/(name+'.bin')

@@ -21,4 +21,17 @@ identify RTL for this exact baseline; do not use them as a compiler contract.
 
 The 401 result fixes the reverse loop but leaves all nine forward-loop
 halfwords different. Byte equality here includes forty literal/padding bytes.
-The baseline behavioral model has not been rerun on these diagnostic outputs.
+The 427-byte-match diagnostic passes the 5,520-case behavioral model; the other diagnostic outputs have not been model-checked.
+
+For the address-chain experiment, use `address-merge-mask.patch` instead of
+`no-shift-merge.patch`. Compile with `UNITLIST_MERGE_MASK=0` through `15`;
+bits 1, 2, 4, 8 decline merges at UIDs 200, 201, 202, 401 respectively.
+No mask improves on reverse-only mask 8. In particular, declining both
+forward shift and add merges does not fix the forward loop. These remain
+diagnostic RTL selectors, with no production use.
+
+Validate a diagnostic binary with:
+
+```sh
+.deps/arm-oracle-venv/bin/python research/unitlist/check_page_change_in_model.py --candidate .deps/unitlist-page-in/merge-mask-8.bin --report .deps/unitlist-page-in/allocator-model-report.json
+```
