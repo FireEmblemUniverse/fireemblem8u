@@ -13614,3 +13614,17 @@ references, computed pointers and indirect execution targets remain outside the
 check. The named-relocation scan excludes runtime archives and unlinked objects.
 This closes one reference inventory, not executable classification or overall
 decompilation. Production source and ROM are unchanged.
+
+## Mini-animation command queue source recovery — September 14, 2026
+
+Baseline `0715b0bb`. `EkrUnitMainMini_UpdateAnim` formerly shifted the Anim
+pointer by the queue count, cast that byte address to `struct Anim *`, and read
+its `commandQueueSize` member. The size field is at offset 0x14 and the queue
+starts at 0x15, so this is the last queued command: offset `0x15 + count - 1`.
+The existing zero-count guard precedes the read. The source now uses the actual
+array expression, removing the unexplained struct-pointer cast and its FIXME.
+`make compare -j8` passes for the entire 16 MiB ROM. Receipt:
+`docs/mini-command-queue.json`. This proves matching output for the clarification;
+upstream queue bounds, wait release and complete handler behavior remain open.
+Existing ELF-hashed audit receipts describe their recorded build, since changing
+source/debug information can change ELF hashes even when the ROM is identical.

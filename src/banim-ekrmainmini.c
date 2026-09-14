@@ -65,8 +65,8 @@ void EkrUnitMainMini_UpdateAnim(struct AnimBuffer * pAnimBuf, struct Anim * anim
             goto _exit;
         }
 
-        // FIXME: I really have no idea what is going on here...
-        r0 = ((struct Anim *)((anim->commandQueueSize + (u8 *)(anim))))->commandQueueSize;
+        // The queue is consumed from the last command, as in BattleAIS_ExecCommands.
+        r0 = anim->commandQueue[anim->commandQueueSize - 1];
 
         switch (r0)
         {

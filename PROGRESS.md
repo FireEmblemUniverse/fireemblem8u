@@ -12,6 +12,8 @@ All 439 sound samples also have verified direct-sound instrument references: 1,5
 
 Latest reference audit (baseline `15c44ba0`): 1,328 directly linked objects contain exactly 1,575 named sample relocations, all at verified instrument pointers. An independent scan of every aligned ROM word finds exactly the same 1,575 sample-start pointers and no extras. Interior, unaligned and computed pointers remain outside this check. Receipt: `docs/sound-relocations.json`.
 
+Latest source clarification (baseline `0715b0bb`): the mini-animation command handler now reads `commandQueue[commandQueueSize - 1]` directly, replacing an unexplained shifted struct-pointer cast. The full production ROM still matches. Queue bounds and handler behavior remain separate verification work. Receipt: `docs/mini-command-queue.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

@@ -1,0 +1,16 @@
+{
+  "baseline": "0715b0bb",
+  "function": "EkrUnitMainMini_UpdateAnim",
+  "change": "Replace shifted struct-pointer member access with commandQueue[commandQueueSize - 1].",
+  "layout": {
+    "commandQueueSize": 20,
+    "commandQueue": 21,
+    "capacity": 7
+  },
+  "address_identity": "anim + count + 20 == anim + 21 + (count - 1)",
+  "precondition": "The existing zero-count guard precedes this access; valid queue counts are 1 through 7. This change does not prove upstream queue bounds.",
+  "source_sha256": "fc3989245973d47edc0302ee67d0224d8751e73115a0366cb4a86797abe4fffd",
+  "rom_sha1": "c25b145e37456171ada4b0d440bf88a19f4d509f",
+  "validation": "make compare -j8 passed; entire 16 MiB production ROM exact",
+  "log": ".deps/mini-command-queue.log"
+}
