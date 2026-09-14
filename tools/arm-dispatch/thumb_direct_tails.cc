@@ -25,6 +25,7 @@ int plugin_is_GPL_compatible;
 namespace {
 std::set<std::string> destinations;
 unsigned expected=0;
+bool fork_decrement=false;
 bool descending_masks=false;
 bool descending_local_masks=false;
 std::string unsigned_immediate;
@@ -66,11 +67,28 @@ public:
         if (!lookup_attribute("matching_thumb_direct_tails",DECL_ATTRIBUTES(fn->decl))) return 0;
         if (!TARGET_THUMB1||!lookup_attribute("matching_tail_transfer",DECL_ATTRIBUTES(fn->decl)))
             fatal_error(UNKNOWN_LOCATION,"Thumb direct tails require private Thumb tails");
-        unsigned rewritten=0,masked=0,unsigned_guards=0,local_masks=0;
+        unsigned rewritten=0,masked=0,unsigned_guards=0,local_masks=0,decrement_guards=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i),set=p;
             bool bundled=GET_CODE(p)==PARALLEL;
+            if (bundled&&fork_decrement&&recog_memoized(i)==CODE_FOR_match_thumb_fork_decrement) {
+                if (!lookup_attribute("matching_thumb_fork_decrement",DECL_ATTRIBUTES(fn->decl)))
+                    fatal_error(UNKNOWN_LOCATION,"direct decrement requires fork-decrement contract");
+                rtx choice=SET_SRC(XVECEXP(p,0,0));
+                auto *label=as_a<rtx_insn *>(XEXP(XEXP(choice,1),0));
+                rtx_insn *stub=next_op(i);rtx destination=symbol_of(stub);
+                if (!destination||!adjacent_unlabelled(i,stub)||!forward_empty_to(stub,label)) continue;
+                rtx reg=XEXP(XEXP(choice,0),0);
+                rtx replacement=gen_match_thumb_fork_decrement_tail(copy_rtx(reg),copy_rtx(destination));
+                if (!validate_change(i,&PATTERN(i),replacement,false))
+                    fatal_error(UNKNOWN_LOCATION,"direct decrement pattern rejected");
+                REG_NOTES(i)=nullptr;JUMP_LABEL(i)=nullptr;
+                rtx_insn *after=NEXT_INSN(stub);
+                while (after&&NOTE_P(after)) after=NEXT_INSN(after);
+                if (!after||!BARRIER_P(after)) fatal_error(UNKNOWN_LOCATION,"direct decrement tail requires barrier");
+                delete_insn(after);delete_insn(stub);rewritten++;decrement_guards++;continue;
+            }
             if (bundled) {
                 // Only the validated decrement/store pattern may retain side effects.
                 if (recog_memoized(i)!=CODE_FOR_match_thumb_store_decrement_zero) continue;
@@ -157,6 +175,8 @@ public:
             }
             rewritten++;
         }
+        if (fork_decrement&&decrement_guards!=1)
+            fatal_error(UNKNOWN_LOCATION,"direct decrement requires exactly one proven fork");
         if (descending_local_masks && local_masks!=1)
             fatal_error(UNKNOWN_LOCATION,"descending local mask order requires exactly one local masked branch");
         if (!unsigned_immediate.empty() && unsigned_guards!=1)
@@ -171,6 +191,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;const char *v=info->argv[n].value;
+        if (key=="fork-decrement"&&!v&&!fork_decrement) {fork_decrement=true;continue;}
         if (key=="descending-mask-operands"&&!v&&!descending_masks) {descending_masks=true;continue;}
         if (key=="descending-local-mask-operands" && !v && !descending_local_masks) {descending_local_masks=true;continue;}
         if (key=="unsigned-immediate" && v && unsigned_immediate.empty()
@@ -183,6 +204,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         return 1;
     }
     if (destinations.empty()||!expected) return 1;
+    if (fork_decrement&&(descending_masks||descending_local_masks||!unsigned_immediate.empty())) return 1;
     if (descending_local_masks && descending_masks) return 1;
     if (!unsigned_immediate.empty() && (expected!=1 || descending_masks || descending_local_masks)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);

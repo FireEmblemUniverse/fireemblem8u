@@ -1078,5 +1078,23 @@ and unannotated functions do not enable this transformation.
 58-byte choice candidate, rejected compiler contracts, unchanged unannotated
 output, and complete PCM-selection model behavior when combined with the
 original setup and advancement bytes. Pass `--production` to verify the
-integrated source/object and ROM identity. Its final twelve-byte loop
-advancement remains assembly.
+integrated source/object and ROM identity. PCM loop advancement is also
+integrated; `docs/pcm-selection-code-region.json` records all 84 instruction bytes.
+
+
+The `thumb_direct_tails` option `fork-decrement` inverts an existing validated
+`match_thumb_fork_decrement` around one adjacent, declared unconditional tail.
+The source must also carry `matching_thumb_fork_decrement`. No label or operation
+may intervene between the decrement/skip and tail; the skip target follows the
+tail without executable work. Both the modulo decrement and signed comparison
+of the original count against one remain in RTL. The new backend pattern emits
+SUBS/BGT and preserves its original NZCV, including signed underflow. Exactly
+one such transformation must be proven; mask-order and unsigned-immediate modes
+cannot be combined with it. Other modes and unannotated output are unchanged.
+The linker must check the direct conditional destination's alignment and range.
+
+`check_ply_note_pcm_advance.py --compiler COMPILER --production` verifies the
+12-byte body and source/object identity, twelve contract rejections, 16,848
+full-width boundary cases, and 37,369 complete selection cases. The standalone
+`check_ply_note_pcm_advance_model.py` exercises every incoming NZCV and checks
+all registers, SP/LR and absence of data-memory access through the three exits.

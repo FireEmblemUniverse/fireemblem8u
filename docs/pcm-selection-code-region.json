@@ -1,0 +1,38 @@
+{
+  "start": "0x80cff30",
+  "end": "0x80cff84",
+  "c_owned_instruction_bytes": 84,
+  "objects": {
+    "src/m4a_ply_note_pcm_setup.o": 14,
+    "src/m4a_ply_note_pcm_choose.o": 58,
+    "src/m4a_ply_note_pcm_advance.o": 12
+  },
+  "elf_sha256": "608b1144374705f33cbb17a0320adc7fd83da0fe24623338bc01f782a81cc10c",
+  "regions": [
+    {
+      "start": 135069488,
+      "end": 135069502,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_setup.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069502,
+      "end": 135069560,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_choose.o",
+      "size": 58,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069560,
+      "end": 135069572,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_advance.o",
+      "size": 12,
+      "kind": "thumb"
+    }
+  ],
+  "scope": "All mapped PCM selection instructions belong to C-owned objects; stops before channel attachment. Does not establish full ply_note behavior or whole-game completion."
+}

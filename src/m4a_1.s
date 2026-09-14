@@ -565,12 +565,7 @@ _081DDBFA:
 	.global PlyNotePcmAdvance
 PlyNotePcmAdvance:
 _081DDC34:
-	adds r4, 0x40
-	subs r3, 0x1
-	bgt _081DDBFA
-	mov r4, r8
-	cmp r4, 0
-	beq _081DDCEA
+	.section .text.after_ply_note_pcm_advance, "ax", %progbits
 	.global PlyNoteChannelAttach
 PlyNoteChannelAttach:
 _081DDC40:

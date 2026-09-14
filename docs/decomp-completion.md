@@ -9436,3 +9436,59 @@ fork-decrement and direct-exit support, but emits fourteen bytes: SUBS/BLE plus
 an unconditional loop transfer in place of the original SUBS/BGT. It needs a
 proven direct decrement-and-repeat transfer; it is not integrated or credited
 as matching C. Probe evidence: `pcm-advance-probe.{s,log}`.
+
+
+## September 13, 2026 — Complete PCM selection integrated
+
+On baseline `c1beb699`, `src/m4a_ply_note_pcm_advance.c` replaces the final
+twelve-byte advancement at 080CFF78..080CFF84. The new opt-in direct-tail
+`fork-decrement` mode accepts only the already validated decrement/skip pattern
+around one adjacent declared unconditional tail. No intervening label or
+operation is allowed before the tail, and no executable work may occur before
+its skip target. It requires the fork-decrement source contract and exactly
+one transformation. The backend preserves the modulo decrement and signed
+comparison against one in RTL while emitting SUBS/BGT. Linker assertions cover
+fragment extent, immediate attach continuation, and even in-range loop/exit
+destinations.
+
+The candidate and integrated production object both reproduce all twelve
+original bytes. `make compare -j8` passes. The isolated advancement model passes
+16,848 cases across full-width counter and pointer boundaries (including
+INT_MIN signed underflow and pointer wrap), all incoming NZCV and all registers,
+SP/LR, with no data-memory access. The full selection model passes 37,369 cases.
+Twelve invalid source/options configurations reject, and unannotated output is
+unchanged. Existing direct-tail regression checks pass nine invalid
+configurations and three rejected source forms. Existing fork-decrement checks
+pass positive folds with/without empty ties and eight unsupported shapes.
+
+Fresh pinned runtime libraries reproduce all four images and exported symbols.
+`scripts/audit_pcm_selection_region.py` proves that all 84 mapped instruction
+bytes at 080CFF30..080CFF84 belong to the setup (14), choice (58), and advancement
+(12) C objects. This does not establish full ply_note allocation/callback
+execution or whole-game completion. Mixer, SoundMain and all 602 MPlayMain
+instruction bytes retain their C ownership.
+
+Main-ROM ownership is 721,046 C-owned (92.72%), 33,870 mixed C/assembly, 922
+assembly-source and 21,792 runtime archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,332 main-ROM and 420 payload bytes. There
+are 573 tracked main C files and 29 assembly entry markers. ply_note retains
+214 assembly instruction bytes. Production ELF SHA-256 is
+`608b1144374705f33cbb17a0320adc7fd83da0fe24623338bc01f782a81cc10c`.
+
+Evidence in `.deps/soundmain-packed/ply-note/`: `pcm-advance-report.json`,
+`pcm-advance-production-build.log`, `pcm-advance-production-check.log`,
+`pcm-advance-candidate.{c,o,elf,bin,ld,log}`, `pcm-advance-production.{elf,bin}`,
+`pcm-advance-original-model.log`, `pcm-advance-model.json`,
+`pcm-advance-with-original-selection.bin`, `pcm-advance-runtime.log`,
+`pcm-advance-region.log`, `pcm-advance-ownership.log`,
+`pcm-advance-source.json`, `pcm-advance-linked.json`,
+`pcm-advance-direct-regression.log`, `pcm-advance-fork-regression.log`,
+`pcm-advance-backend-build.log`, `pcm-advance-backend-build-info.json`,
+`pcm-advance-direct-build-info.json`, and refreshed tracked runtime, ownership
+and region receipts. Next: channel attachment/initialization after selection,
+remaining frame paths, then runtime helpers, unit-list/transfer code and final
+executable classification.
+
+The valid production layout links and all 239 altered layouts reject, including
+eight new advancement extent, continuation and loop/exit transfer constraints.
+Evidence: `.deps/soundmain-packed/ply-note/pcm-advance-production-layout.log`.

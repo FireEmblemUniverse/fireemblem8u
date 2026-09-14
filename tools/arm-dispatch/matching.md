@@ -513,3 +513,15 @@
   "TARGET_THUMB1 && (GET_CODE (operands[2]) == GTU || GET_CODE (operands[2]) == LTU)"
   "b%d2\t%l3"
   [(set_attr "length" "2") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Invert a proven decrement/skip around one declared private tail. Compare the
+;; original signed value with one, retaining modulo decrement and SUBS NZCV.
+(define_insn "match_thumb_fork_decrement_tail"
+  [(set (pc)
+        (if_then_else
+         (gt (match_operand:SI 0 "low_register_operand" "+l") (const_int 1))
+         (match_operand:SI 1 "match_thumb_tail_symbol" "s") (pc)))
+   (set (match_dup 0) (plus:SI (match_dup 0) (const_int -1)))]
+  "TARGET_THUMB1"
+  "subs\t%0, %0, #1\n\tbgt\t%1"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])

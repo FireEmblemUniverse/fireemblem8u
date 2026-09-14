@@ -230,6 +230,12 @@ def main():
  for name,offset in [('note_pcm_choose_attach_far',1024),('note_pcm_choose_attach_backward',0),('note_pcm_choose_attach_odd',321)]:
   needle='        ASSERT((PlyNoteChannelAttach & 1) =='
   cases.append((name,source.replace(needle,'        PlyNoteChannelAttach = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM choice attach transfer'))
+ cases += [('note_pcm_advance_extent',source.replace('        __ply_note_pcm_advance_end = .;','        . += 2;\n        __ply_note_pcm_advance_end = .;'),'ply_note PCM advancement extent or continuation'),
+           ('note_pcm_advance_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_pcm_advance);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_pcm_advance);'),'ply_note PCM advancement extent or continuation')]
+ for symbol in ('PlyNotePcmLoop','PlyNoteExit'):
+  for name,offset in [('far',1024),('backward',-1024),('odd',309)]:
+   needle='        ASSERT((PlyNotePcmLoop & 1) =='
+   cases.append(('note_pcm_advance_'+symbol+'_'+name,source.replace(needle,'        '+symbol+' = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM advancement transfer'))
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

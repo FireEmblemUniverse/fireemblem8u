@@ -1764,6 +1764,22 @@ SECTIONS
         src/m4a_ply_note_pcm_choose.o(.text);
         __ply_note_pcm_choose_end = .;
         src/m4a_1.o(.text.after_ply_note_pcm_choose);
+        __ply_note_pcm_advance_start = .;
+        src/m4a_ply_note_pcm_advance.o(.text);
+        __ply_note_pcm_advance_end = .;
+        src/m4a_1.o(.text.after_ply_note_pcm_advance);
+        ASSERT((PlyNotePcmAdvanceBody & ~1) == PlyNotePcmAdvance &&
+               __ply_note_pcm_advance_start == (ply_note & ~1) + 308 &&
+               __ply_note_pcm_advance_end - __ply_note_pcm_advance_start == 12 &&
+               PlyNoteChannelAttach == __ply_note_pcm_advance_end,
+               "ply_note PCM advancement extent or continuation changed");
+        ASSERT((PlyNotePcmLoop & 1) == 0 &&
+               PlyNotePcmLoop >= __ply_note_pcm_advance_start + 8 - 256 &&
+               PlyNotePcmLoop <= __ply_note_pcm_advance_start + 8 + 254 &&
+               (PlyNoteExit & 1) == 0 &&
+               PlyNoteExit >= __ply_note_pcm_advance_start + 14 - 256 &&
+               PlyNoteExit <= __ply_note_pcm_advance_start + 14 + 254,
+               "ply_note PCM advancement transfer out of range");
         ASSERT((PlyNotePcmChoose & ~1) == PlyNotePcmLoop &&
                __ply_note_pcm_choose_start == (ply_note & ~1) + 250 &&
                __ply_note_pcm_choose_end - __ply_note_pcm_choose_start == 58 &&

@@ -14,7 +14,7 @@
     "source_sha256": "68c6b842d9e2b8a247c7a718c659e04bd9bb1d0feaaed32f6d4e758b0431aac6",
     "object_sha256": "6cb0e49eaabf07b5165eed84304d1df87c1a5675c8b013fc7d01dd5e6d8ab9d5"
   },
-  "elf_sha256": "2de5ddac2adfd5c27d60767818d990541162c2548b92dfa2e137217b2533e783",
+  "elf_sha256": "608b1144374705f33cbb17a0320adc7fd83da0fe24623338bc01f782a81cc10c",
   "regions": [
     {
       "start": "0x80cf4c8",
