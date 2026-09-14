@@ -586,23 +586,11 @@ _081DDC66:
 	ldr r0, [sp]
 	adds r1, r5, 0
 	bl TrkVolPitSet
-	ldr r0, [r5, 0x4]
-	str r0, [r4, 0x10]
-	ldr r0, [sp, 0x10]
-	strb r0, [r4, 0x13]
-	ldr r0, [sp, 0x8]
-	strb r0, [r4, 0x8]
-	ldr r0, [sp, 0x14]
-	strb r0, [r4, 0x14]
-	mov r6, r9
-	ldrb r0, [r6]
-	strb r0, [r4, 0x1]
-	ldr r7, [r6, 0x4]
-	str r7, [r4, 0x24]
-	ldr r0, [r6, 0x8]
-	str r0, [r4, 0x4]
-	ldrh r0, [r5, 0x1E]
-	strh r0, [r4, 0xC]
+	.global PlyNoteChannelInit
+PlyNoteChannelInit:
+	.section .text.after_ply_note_channel_init, "ax", %progbits
+	.global PlyNoteVolumeInvoke
+PlyNoteVolumeInvoke:
 	bl ChnVolSetAsm
 	ldrb r1, [r4, 0x8]
 	movs r0, 0x8

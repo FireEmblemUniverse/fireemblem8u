@@ -1772,6 +1772,15 @@ SECTIONS
         src/m4a_ply_note_channel_link.o(.text);
         __ply_note_channel_link_end = .;
         src/m4a_1.o(.text.after_ply_note_channel_link);
+        __ply_note_channel_init_start = .;
+        src/m4a_ply_note_channel_init.o(.text);
+        __ply_note_channel_init_end = .;
+        src/m4a_1.o(.text.after_ply_note_channel_init);
+        ASSERT((PlyNoteChannelInitBody & ~1) == PlyNoteChannelInit &&
+               __ply_note_channel_init_start == (ply_note & ~1) + 366 &&
+               __ply_note_channel_init_end - __ply_note_channel_init_start == 34 &&
+               PlyNoteVolumeInvoke == __ply_note_channel_init_end,
+               "ply_note channel initialization extent or continuation changed");
         ASSERT((PlyNoteChannelLinkBody & ~1) == PlyNoteChannelLink &&
                __ply_note_channel_link_start == (ply_note & ~1) + 326 &&
                __ply_note_channel_link_end - __ply_note_channel_link_start == 18 &&
