@@ -12502,3 +12502,26 @@ CMP r1,#0 flags from the entry. Repeating CMP or initializing r3 again would
 break the full layout. That private shared-flags convention must be checked
 and modeled across both fragments before combining the zero handler and
 claiming an exact 206-byte helper. Production libraries remain unchanged.
+
+
+### Complete signed-modulus shared-flags match (September 14, 2026)
+
+Baseline `48851e78`. The sign-branch plugin now has an explicit incoming-r1-
+flags option. It requires global r3 state, the checked saved-sign frame and
+no prefix instructions other than empty register constraints before the first
+r1 GE-zero test. The backend represents its branch as a read of incoming N,
+not as a fresh comparison. The remaining two sign checks still emit CMP/BPL.
+
+`smod_shared_flags.c` consumes the entry's r3=1 and CMP r1,#0 state.
+`check_smod_complete.py` asserts entry/core/zero offsets 0/6/196, alignment
+and total length 206. All 206 bytes match the original. All 6,312 cases,
+including 252 zero divisors, pass r0-r14/CPSR/stack-write checks. No flags or
+r3 values are specially seeded for the candidate: the actual entry supplies
+them. The receipt fingerprints all fragments and plugins.
+
+Controls reject prefix work, missing fixed r3, wrong sign register, duplicate
+and valued options, and a displaced core. Existing signed-division controls
+also pass. `make compare -j8` passes after the backend rebuild, and the
+production ELF is unchanged. Next package the full helper as a relocatable
+_modsi3.o with original padding, verify all image layouts, then integrate.
+Production signed-modulus ownership remains unchanged until that step.

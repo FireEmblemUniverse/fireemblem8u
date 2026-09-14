@@ -1,0 +1,9 @@
+{
+  "rejected_sources": [
+    "prefix-work",
+    "missing-bit-register",
+    "wrong-sign-register"
+  ],
+  "invalid_options_rejected": 2,
+  "displaced_core_rejected": true
+}

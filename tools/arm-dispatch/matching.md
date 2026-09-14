@@ -590,3 +590,12 @@
   "TARGET_THUMB1"
   "cmp\t%0, #0\n\tbpl\t%l1"
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; Private entry has already executed CMP r1,#0. Consume its N flag unchanged.
+(define_insn "match_thumb_incoming_nonnegative"
+  [(set (pc)
+        (if_then_else (ge (reg:CC_N CC_REGNUM) (const_int 0))
+          (label_ref (match_operand 0 "" "")) (pc)))]
+  "TARGET_THUMB1"
+  "bpl\t%l0"
+  [(set_attr "length" "2") (set_attr "type" "branch") (set_attr "conds" "use")])
