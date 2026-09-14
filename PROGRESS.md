@@ -8,7 +8,7 @@ Latest coverage inventory (baseline `f4a13197`): all 8,663 main-ROM declared fun
 
 Latest format closure (baseline `7ea7a0ce`): all 439 direct-sound records rebuild exactly from AIFF sources, accounting for the entire 3,272,220-byte region, including 707 zero-alignment bytes. Audio-format provenance is verified; references/control-flow evidence remain separate. Receipt: `docs/sound-sample-data.json`.
 
-Next: bind these sound records to consumers and continue animation/embedded-code classification while auditing platform-operation contracts. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
+All 439 sound samples also have verified direct-sound instrument references: 1,575 complete 12-byte records match ROM and their owning input sections. Receipt: `docs/sound-sample-references.json`. Song reachability and other possible references are not yet closed. Next: continue consumer/control-flow and animation/embedded-code classification. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

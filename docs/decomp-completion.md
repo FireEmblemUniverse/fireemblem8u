@@ -13580,3 +13580,20 @@ This establishes audio format/provenance and source reconstruction, not a proof
 that arbitrary control flow cannot target data. Consumer/reference analysis
 and the remaining embedded-executable classification are still required.
 The ROM and instruction-ownership totals are unchanged.
+
+
+### Sound instrument reference bindings (September 14, 2026)
+
+Baseline `28a2810e`. `scripts/audit_sound_sample_references.py` parses every
+direct-sound instrument macro in the voicegroup sources and independently
+constructs its complete 12-byte ToneData record. All 1,575 records match ROM:
+type, key, pan, WaveData pointer and attack/decay/sustain/release fields. Each
+record lies inside its declared voicegroup object's linked contribution.
+All 439 audited sound samples have at least one such verified reference.
+Evidence: `docs/sound-sample-references.json`, with every record and per-sample
+reference counts, bound to the prior sample-format receipt and macro source.
+
+This establishes declared instrument use, not complete runtime reachability.
+It does not rule out additional pointers, arbitrary code targets into data,
+or unreachable instruments. Song/consumer and other executable-classification
+work remain open. The ROM and instruction ownership totals are unchanged.
