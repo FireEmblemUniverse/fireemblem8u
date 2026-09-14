@@ -16,8 +16,12 @@ void __attribute__((noreturn)) IrqContinuation(void)
                  : "r"(irqStatus) : "memory");
     irqPointer = (unsigned)gIRQHandlers;
     irqPointer += irqOffset;
+    asm volatile("" : "+r"(irqPointer));
     irqValue = *(unsigned *)irqPointer;
-    *--irqStack = irqLink;
+    asm volatile("" : "+r"(irqValue));
+    irqStack--;
+    asm volatile("" : "+k"(irqStack));
+    *irqStack = irqLink;
     ((void (*)(void))irqValue)();
     irqLink = *irqStack++;
     asm volatile("mrs %0, cpsr" : "=r"(irqStatus));

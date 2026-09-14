@@ -1,7 +1,7 @@
 {
   "cases": 256,
-  "candidate_bytes": 108,
-  "candidate_sha256": "f18edb7a734351996c9b5be8fb1955fe5048f0c3847e18929bec6541b8be7d9e",
+  "candidate_bytes": 104,
+  "candidate_sha256": "af451a652f28299b07ad31304db82cbb712ac041d58594fdfead6ef318e9264c",
   "first_mode_write_offset": 20,
   "extra_irq_stack_bytes": 4,
   "production_integrated": false,

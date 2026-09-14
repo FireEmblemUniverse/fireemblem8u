@@ -10915,3 +10915,26 @@ in the draft. Synthetic masks include high bits only to test the halfword
 store. Callback execution, IRQ-frame restoration, final return and whole
 byte equality are explicitly outside this check. Evidence is in
 `docs/irq-continuation-prefix-research.json`. Production remains unchanged.
+
+### IRQ continuation callback refinement
+
+Explicit pointer constraints preserve handler-lookup order, and splitting the
+System-stack decrement from its store removes GCC's temporary SP copy in r12.
+With instruction scheduling disabled for this draft, the candidate shrinks from
+108 to 104 bytes including its literal. Production code remains unchanged.
+
+`research/irq/check_continuation_callback.py` freshly compiles the candidate and
+checks 448 combinations: fourteen handler slots, sixteen flag patterns, and
+ARM/Thumb synthetic handlers. Acknowledgement, lookup, System SP/LR saving and
+restoration, r0-r12, IRQ LR and CPSR agree through IRQ-mode reentry. Relocated
+callback return addresses are checked against their respective expected values.
+The prior draft at `36585432` fails because it clobbers r12 even when the handler
+preserves that register; the negative receipt records the observed difference.
+
+The checker explicitly confirms that the extra compiler entry save still leaves
+IRQ SP four bytes too low. It stops before saved-frame restoration and does not
+validate final return or byte equality. Compiler frame suppression, frame-opcode
+selection, private transfers and literal placement remain open. Evidence is in
+`docs/irq-continuation-callback-research.json` and
+`docs/irq-continuation-callback-negative.json`; the 256-case prefix receipt
+was also refreshed for the improved source.

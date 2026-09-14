@@ -1,0 +1,5 @@
+{
+  "prior_revision": "365854320fe0c3e319e0f87f22e89eae8688f8b8",
+  "rejected": true,
+  "diagnostic": "AssertionError: ('state mismatch', 0, 0, False, [(12, '0xda73c', '0x3007000')])"
+}

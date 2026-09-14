@@ -1,0 +1,10 @@
+{
+  "cases": 448,
+  "arm_cases": 224,
+  "thumb_cases": 224,
+  "candidate_bytes": 104,
+  "candidate_sha256": "af451a652f28299b07ad31304db82cbb712ac041d58594fdfead6ef318e9264c",
+  "extra_irq_stack_bytes": 4,
+  "production_integrated": false,
+  "scope": "Synthetic handlers cover all fourteen table slots and sixteen flag patterns in ARM and Thumb. Acknowledgement, handler lookup, saved/restored System SP/LR, r0-r12 and IRQ LR/CPSR agree through IRQ-mode reentry. Handler-return addresses differ as expected for relocated code; IRQ SP remains four bytes too low. Stops before saved-frame restoration; final return and byte matching remain unverified."
+}

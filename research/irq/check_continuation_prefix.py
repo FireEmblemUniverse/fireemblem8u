@@ -5,7 +5,7 @@ import hashlib,json,subprocess
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/irq-search'
-subprocess.run(['arm-none-eabi-gcc','-c','-O2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(ROOT/'research/irq/continuation.c'),'-o',str(OUT/'continuation.o')],check=True,capture_output=True)
+subprocess.run(['arm-none-eabi-gcc','-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(ROOT/'research/irq/continuation.c'),'-o',str(OUT/'continuation.o')],check=True,capture_output=True)
 (OUT/'continuation.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } gIRQHandlers = 0x030030f0; }')
 subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'continuation.ld'),str(OUT/'continuation.o'),'-o',str(OUT/'continuation.elf')],check=True)
 subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'continuation.elf'),str(OUT/'continuation.bin')],check=True)
