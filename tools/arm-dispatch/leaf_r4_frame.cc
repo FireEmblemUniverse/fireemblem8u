@@ -19,7 +19,7 @@
 #include "insn-flags.h"
 int plugin_is_GPL_compatible;
 namespace {
-bool thumb_return=false;
+bool thumb_return=false, zero_return=false;
 void fail() { fatal_error(UNKNOWN_LOCATION,"leaf r4 frame requires one r4-r6 save and a stack-independent leaf body"); }
 tree validate(tree *node,tree,tree,int,bool *no_add) {
  if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_leaf_r4_frame requires a function");*no_add=true; }
@@ -79,6 +79,30 @@ public:
    }
   }
   if(!push||!ret||clobbers!=((1u<<saved_count)-1)||sp_uses!=1||lr_uses!=1) fail();
+  // Optional zero-r2 shortcut may only bypass a pure return epilogue.
+  rtx_insn *shortcut=nullptr;
+  if(zero_return) {
+   if(!thumb_return) fail();
+   for(rtx_insn *i=NEXT_INSN(push);i&&i!=ret;i=NEXT_INSN(i)) {
+    if(!JUMP_P(i)) continue;
+    rtx p=PATTERN(i);if(GET_CODE(p)!=SET||SET_DEST(p)!=pc_rtx)continue;
+    rtx a=SET_SRC(p);if(GET_CODE(a)!=IF_THEN_ELSE)continue;
+    rtx c=XEXP(a,0);if(GET_CODE(c)!=EQ||!reg(XEXP(c,0),2)||XEXP(c,1)!=const0_rtx)continue;
+    if(shortcut||GET_CODE(XEXP(a,1))!=LABEL_REF||XEXP(a,2)!=pc_rtx)fail();
+    rtx_insn *target=as_a<rtx_insn *>(XEXP(XEXP(a,1),0));bool found=false;
+    for(rtx_insn *j=NEXT_INSN(target);j;j=NEXT_INSN(j)) {
+     if(j==ret){found=true;break;}
+     if(!INSN_P(j))continue;
+     rtx q=PATTERN(j);
+     if(GET_CODE(q)==USE&&(reg(XEXP(q,0),0)||reg(XEXP(q,0),14)))continue;
+     if(GET_CODE(q)==CLOBBER&&REG_P(XEXP(q,0))&&REGNO(XEXP(q,0))>=4&&REGNO(XEXP(q,0))<=6)continue;
+     if(GET_CODE(q)==UNSPEC&&XINT(q,1)==UNSPEC_REGISTER_USE&&XVECLEN(q,0)==1&&reg(XVECEXP(q,0,0),13))continue;
+     fail();
+    }
+    if(!found)fail();shortcut=i;
+   }
+   if(!shortcut)fail();
+  }
   rtx s=copy_rtx(XVECEXP(PATTERN(push),0,0));
   XEXP(SET_DEST(s),0)=gen_rtx_PRE_MODIFY(SImode,gen_rtx_REG(SImode,13),gen_rtx_PLUS(SImode,gen_rtx_REG(SImode,13),GEN_INT(-4)));
   if(!validate_change(push,&PATTERN(push),gen_rtx_PARALLEL(VOIDmode,gen_rtvec(1,s)),false)) fail();
@@ -86,6 +110,19 @@ public:
   rtx_insn *pop=emit_insn_before(gen_match_thumb_pop_word(gen_rtx_REG(SImode,4)),ret);
   rtx_insn *end=emit_jump_insn_before(thumb_return?gen_rtx_SET(pc_rtx,gen_rtx_REG(SImode,14)):gen_match_thumb_private_return(gen_rtx_REG(SImode,14)),ret);
   if(recog_memoized(pop)<0||recog_memoized(end)<0) fail();
+  if(shortcut) {
+   rtx_insn *next=NEXT_INSN(shortcut);
+   rtx_code_label *resume=gen_label_rtx();
+   rtx p=copy_rtx(PATTERN(shortcut)),a=SET_SRC(p);
+   XEXP(a,0)=gen_rtx_NE(VOIDmode,gen_rtx_REG(SImode,2),const0_rtx);
+   XEXP(a,1)=gen_rtx_LABEL_REF(VOIDmode,resume);
+   if(!validate_change(shortcut,&PATTERN(shortcut),p,false))fail();
+   JUMP_LABEL(shortcut)=resume;LABEL_NUSES(resume)=1;REG_NOTES(shortcut)=nullptr;
+   rtx_insn *early_pop=emit_insn_before(gen_match_thumb_pop_word(gen_rtx_REG(SImode,4)),next);
+   rtx_insn *early_ret=emit_jump_insn_before(gen_rtx_SET(pc_rtx,gen_rtx_REG(SImode,14)),next);
+   if(recog_memoized(early_pop)<0||recog_memoized(early_ret)<0)fail();
+   emit_label_before(resume,next);
+  }
   delete_insn(ret);
   return 0;
  }
@@ -94,6 +131,7 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
  if(!plugin_default_version_check(version,&gcc_version)) return 1;
  for(int n=0;n<info->argc;n++) {
+  if(!strcmp(info->argv[n].key,"zero-r2-return")){if(info->argv[n].value||zero_return)return 1;zero_return=true;continue;}
   if(strcmp(info->argv[n].key,"thumb-return")||info->argv[n].value||thumb_return) return 1;
   thumb_return=true;
  }

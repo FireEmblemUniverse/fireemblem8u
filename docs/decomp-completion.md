@@ -12137,3 +12137,29 @@ The entry-state requirement is a private convention, not a public C ABI.
 Next add a narrowly checked conditional early-return transformation with
 rejection controls, then verify all 170 core bytes before combining the
 entry guard and zero path. No production source or compiler pass changed.
+
+
+### Exact 170-byte modulus core (September 14, 2026)
+
+Baseline `7e517fb9`. The leaf-r4 pass accepts an optional zero-r2-return
+contract together with thumb-return. It requires exactly one r2==0 branch
+whose destination contains only the validated return epilogue and no work.
+It inverts that branch around a duplicate pop-r4/MOV-PC return. The existing
+frame proof still rejects memory, calls and live pruned registers.
+
+The generated core equals all 170 original bytes at offsets 12..182 within
+__umodsi3. All 1,724 private-core cases pass exact final r0-r14, CPSR and
+stack-write equality. The checker now asserts modulus core bytes explicitly
+with --require-exact-core. The receipt is
+`docs/runtime-umod-exact-core-research.json`.
+
+`check_umod_early_return.py` verifies exact bytes, runs inherited frame
+rejection/unannotated controls, and rejects a wrong zero register, changed
+condition, post-return work, missing thumb-return, duplicate option and
+valued option. The option is not enabled for production division. The next
+step is the 12-byte entry handoff and linking the returning zero path before
+full-helper tests and archive integration. No modulus production ownership
+credit is taken yet.
+
+`make compare -j8` passes after rebuilding the updated plugin; the
+production ELF remains identical to the integrated runtime receipt.

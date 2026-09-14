@@ -65,8 +65,9 @@ for numerator,denominator,flags in cases:
  zero_cases+=denominator==0
 
 if args.require_state_match:assert not flagdiffs and not stack_diffs and not any(register_diffs.values())
-core_exact=args.operation=='division' and code==rom[symbols[helper_symbol]-0x08000000+4:symbols[helper_symbol]-0x08000000+0x6e]
-if args.require_exact_core:assert args.nonzero_only and core_exact and not flagdiffs and not callerdiffs and not stack_diffs and not any(register_diffs.values())
+core_start,core_end=(12,182) if args.operation=='modulus' else (4,110)
+core_exact=code==rom[symbols[helper_symbol]-0x08000000+core_start:symbols[helper_symbol]-0x08000000+core_end]
+if args.require_exact_core:assert (args.division_needed if args.operation=='modulus' else args.nonzero_only) and core_exact and not flagdiffs and not callerdiffs and not stack_diffs and not any(register_diffs.values())
 original=rom[symbols[helper_symbol]-0x08000000:symbols[helper_symbol]-0x08000000+helper_size]
 helper_exact=code==original
 if args.require_exact_helper:assert args.assembled_helper and not args.nonzero_only and helper_exact and not flagdiffs and not callerdiffs and not stack_diffs and not any(register_diffs.values())

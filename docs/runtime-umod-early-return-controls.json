@@ -1,0 +1,10 @@
+{
+  "exact_core_bytes": 170,
+  "altered_contracts_rejected": [
+    "wrong-zero-register",
+    "wrong-condition",
+    "post-return-work"
+  ],
+  "invalid_options_rejected": 3,
+  "inherited_frame_controls_pass": true
+}
