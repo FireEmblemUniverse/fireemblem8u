@@ -11598,3 +11598,34 @@ left the production ELF unchanged. The candidates are not integrated yet;
 reviewed main non-library assembly remains 116 bytes, including 24 bytes in
 six assembly-source Thumb entries. Integration must retain the link assertions
 and refresh ownership/runtime evidence.
+
+
+### Six Thumb entries integrated; main assembly-source instruction ownership reaches zero
+
+`src/thumb_arm_entry.c` now supplies the six public entries using the checked
+private handoff contract. Makefile builds the plugin through the standard
+matching compiler path. The linker selects each entry before its existing
+C ARM body and explicitly asserts word alignment and body == entry + 4.
+`asm/arm_call.s` is removed. The generated object list rebuilds correctly
+through the Makefile dependency added during the SoftReset integration.
+
+The production-source check passes all 768 handoffs, seven unsupported
+contracts and two invalid layouts. Unannotated code remains unchanged.
+`docs/thumb-arm-entry-integrated-model.json` records this evidence; the
+model stops before the target routines execute. `docs/arm-call-code-regions.json`
+checks all 48 veneer bytes, symbol mode bits, target branches, C ownership
+of both halves and the required production link assertions.
+
+The full 16,777,216-byte ROM and all four fresh runtime images/exported
+symbols match. All code/data-provenance audits pass. Main whole-object C
+ownership increases from 740,014 to 740,038 of 777,630 mapped instruction
+bytes (95.17% rounded). Mixed C/assembly ownership remains 15,800 bytes and
+runtime-archive ownership 21,792 bytes. There are 607 tracked main C files.
+No mapped main instruction bytes remain owned by assembly source files;
+reviewed non-library assembly is the 92 retained inline instruction bytes.
+
+This is not 100% decompilation. Runtime assembly, 420 bytes of expanded
+payload assembly, retained platform instructions, and complete executable
+classification remain unfinished. Assembly data files also remain. All
+3,172,286 unmapped-input bytes and generated-fill provenance totals are
+unchanged; provenance alone is not an execution-classification proof.

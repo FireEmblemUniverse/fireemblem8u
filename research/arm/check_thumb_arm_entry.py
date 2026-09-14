@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Check exact private Thumb-to-ARM entries and reject unsupported contracts/layouts."""
-import hashlib,json,random,subprocess
+import argparse,hashlib,json,random,subprocess
 from pathlib import Path
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/arm-veneers';OUT.mkdir(exist_ok=True)
 CC=ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc';PLUGIN=OUT/'thumb_arm_entry.so'
-source=(ROOT/'research/arm/thumb_arm_entry.c').read_text()
+parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=ROOT/'research/arm/thumb_arm_entry.c');parser.add_argument('--plugin',type=Path,default=PLUGIN);parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba');parser.add_argument('--integrated',action='store_true');args=parser.parse_args();PLUGIN=args.plugin.resolve()
+source=args.source.read_text()
 names=['ClearOAMBuffer','CallARM_FillTileRect','TileMap_FillRect','CALLARM_ColorFadeTick','TileMap_CopyRect','ComputeChecksum32']
 bodies=['ArmCall_Clear','ArmCall_Tsa','ArmCall_Fill','ArmCall_Fade','ArmCall_Copy','ArmCall_Checksum']
 targets=['ClearOam','TmApplyTsa','TmFillRect','ColorFadeTick','TmCopyRect','Checksum32']
@@ -30,7 +31,7 @@ script+='\n'.join(f'{name} = 0x{symbols[name]:x};' for name in targets)
 def link(path):return subprocess.run(['arm-none-eabi-ld','-T',str(path),str(obj),str(ROOT/'src/arm/call_wrappers.o'),'-o',str(OUT/'entries.elf')],capture_output=True,text=True)
 res=link(OUT/'entries.ld');assert res.returncode==0,res.stderr
 subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'entries.elf'),str(OUT/'entries.bin')],check=True)
-code=(OUT/'entries.bin').read_bytes();rom=(ROOT/'baserom.gba').read_bytes();assert len(code)==48 and code==rom[0xd7498:0xd74c8]
+code=(OUT/'entries.bin').read_bytes();rom=args.rom.read_bytes();assert len(code)==48 and code==rom[0xd7498:0xd74c8]
 wrong=OUT/'displaced.ld';wrong.write_text(script.replace('*(.text.arm_call_clear)', '. += 4; *(.text.arm_call_clear)'))
 assert link(wrong).returncode!=0
 misaligned=OUT/'misaligned.ld';misaligned.write_text(script.replace('0x080d7498','0x080d749a').replace(': {', ': SUBALIGN(2) {'))
@@ -75,4 +76,4 @@ for index,target in enumerate(targets):
      assert snapshot==values+[0x03007000,lr,0x1f|(flags<<28)]
      snapshots.append(snapshot)
     assert snapshots[0]==snapshots[1];cases+=1
-print(json.dumps(dict(exact_region_bytes=48,candidate_entry_bytes=24,cases=cases,rejected_contracts=list(variants),rejected_displaced_layout=True,rejected_misaligned_layout=True,unannotated_unchanged=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),plugin_sha256=hashlib.sha256(PLUGIN.read_bytes()).hexdigest(),production_integrated=False,scope='Exact six entry candidates linked to existing C ARM branches. Checks mode switch, untouched registers/flags/LR/SP, branch targets and skipped NOP; stops before executing target routines. Integration and full rebuild remain pending.'),indent=2))
+print(json.dumps(dict(exact_region_bytes=48,candidate_entry_bytes=24,cases=cases,rejected_contracts=list(variants),rejected_displaced_layout=True,rejected_misaligned_layout=True,unannotated_unchanged=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),plugin_sha256=hashlib.sha256(PLUGIN.read_bytes()).hexdigest(),production_integrated=args.integrated,scope='Exact six entry candidates linked to existing C ARM branches. Checks mode switch, untouched registers/flags/LR/SP, branch targets and skipped NOP; stops before executing target routines. Actual target routines and whole-game behavior are outside this model.'),indent=2))

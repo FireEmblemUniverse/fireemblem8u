@@ -1159,7 +1159,7 @@ controls against this source/plugin, pass `--source src/bios_u16_return.c
 `research/bios/check_u16_return.py`.
 
 
-### Private Thumb-to-ARM entry handoffs (research)
+### Private Thumb-to-ARM entry handoffs
 
 `thumb_arm_entry.cc` lowers an explicit
 `matching_thumb_arm_entry("destination")` terminal call with an LR-only
@@ -1178,3 +1178,9 @@ python3 tools/arm-dispatch/build_thumb_arm_entry.py --compiler .deps/gcc16-match
 
 The checker covers exact bytes, unsupported contracts, displaced/misaligned
 layouts and direct handoffs; it stops before the ARM routines execute.
+
+Production `src/thumb_arm_entry.c` uses this contract for all six veneers.
+`ldscript.txt` enforces each entry/body alignment and adjacency. To check the
+production source and plugin, pass `--source src/thumb_arm_entry.c --plugin
+.deps/flood-core-new-backend/thumb_arm_entry.so --rom fireemblem8.gba
+--integrated` to the checker above.

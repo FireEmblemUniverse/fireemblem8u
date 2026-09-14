@@ -2131,17 +2131,17 @@ SECTIONS
         *libgcc.a:fp-bit.o(.text);
         *libgcc.a:_lshrdi3.o(.text);
         *libgcc.a:_negdi2.o(.text);
-        asm/arm_call.o(.text.arm_entry_clear);
+        src/thumb_arm_entry.o(.text.ClearOAMBuffer);
         src/arm/call_wrappers.o(.text.arm_call_clear);
-        asm/arm_call.o(.text.arm_entry_tsa);
+        src/thumb_arm_entry.o(.text.CallARM_FillTileRect);
         src/arm/call_wrappers.o(.text.arm_call_tsa);
-        asm/arm_call.o(.text.arm_entry_fill);
+        src/thumb_arm_entry.o(.text.TileMap_FillRect);
         src/arm/call_wrappers.o(.text.arm_call_fill);
-        asm/arm_call.o(.text.arm_entry_fade);
+        src/thumb_arm_entry.o(.text.CALLARM_ColorFadeTick);
         src/arm/call_wrappers.o(.text.arm_call_fade);
-        asm/arm_call.o(.text.arm_entry_copy);
+        src/thumb_arm_entry.o(.text.TileMap_CopyRect);
         src/arm/call_wrappers.o(.text.arm_call_copy);
-        asm/arm_call.o(.text.arm_entry_checksum);
+        src/thumb_arm_entry.o(.text.ComputeChecksum32);
         src/arm/call_wrappers.o(.text.arm_call_checksum);
 
         /* .rodata */
@@ -2834,3 +2834,15 @@ SECTIONS
         *(*);
     }
 }
+
+ASSERT((ClearOAMBuffer & 3) == 0 && ArmCall_Clear == ClearOAMBuffer + 4, "Thumb ARM entry/body layout: ClearOAMBuffer");
+
+ASSERT((CallARM_FillTileRect & 3) == 0 && ArmCall_Tsa == CallARM_FillTileRect + 4, "Thumb ARM entry/body layout: CallARM_FillTileRect");
+
+ASSERT((TileMap_FillRect & 3) == 0 && ArmCall_Fill == TileMap_FillRect + 4, "Thumb ARM entry/body layout: TileMap_FillRect");
+
+ASSERT((CALLARM_ColorFadeTick & 3) == 0 && ArmCall_Fade == CALLARM_ColorFadeTick + 4, "Thumb ARM entry/body layout: CALLARM_ColorFadeTick");
+
+ASSERT((TileMap_CopyRect & 3) == 0 && ArmCall_Copy == TileMap_CopyRect + 4, "Thumb ARM entry/body layout: TileMap_CopyRect");
+
+ASSERT((ComputeChecksum32 & 3) == 0 && ArmCall_Checksum == ComputeChecksum32 + 4, "Thumb ARM entry/body layout: ComputeChecksum32");

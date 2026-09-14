@@ -331,6 +331,13 @@ src/bios_u16_return.o: $(BIOS_U16_RETURN_PLUGIN)
 src/bios_u16_return.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/bios_u16_return.o: CC1FLAGS := -std=gnu89 -O2 -falign-functions=2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -Werror=attributes -fplugin=$(BIOS_U16_RETURN_PLUGIN)
 
+THUMB_ARM_ENTRY_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_arm_entry.so
+$(THUMB_ARM_ENTRY_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_arm_entry.cc tools/arm-dispatch/build_thumb_arm_entry.py
+	$(PYTHON) tools/arm-dispatch/build_thumb_arm_entry.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/thumb_arm_entry.o: $(THUMB_ARM_ENTRY_PLUGIN)
+src/thumb_arm_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/thumb_arm_entry.o: CC1FLAGS := -std=gnu89 -O2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -ffunction-sections -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(THUMB_ARM_ENTRY_PLUGIN)
+
 src/bios_divrem.o: $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/bios_divrem.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/bios_divrem.o: CC1FLAGS := -std=gnu89 -O2 -falign-functions=2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -Werror=attributes -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

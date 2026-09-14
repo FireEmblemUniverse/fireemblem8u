@@ -341,8 +341,8 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
-      "map_sha256": "6ebcba459e1f039a6cd68c82b3cf9286b66db5004c9ac1460e7e5ea728bfd72b"
+      "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
+      "map_sha256": "4c6109b8b64edca11037d4d4b8780ec8dc44954717262f857db83c291b81e9de"
     },
     "mgfembp": {
       "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",

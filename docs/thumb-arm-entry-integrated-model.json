@@ -1,0 +1,21 @@
+{
+  "exact_region_bytes": 48,
+  "candidate_entry_bytes": 24,
+  "cases": 768,
+  "rejected_contracts": [
+    "wrong-destination",
+    "arm-mode",
+    "extra-store",
+    "changed-argument",
+    "returning-call",
+    "unwind",
+    "debug"
+  ],
+  "rejected_displaced_layout": true,
+  "rejected_misaligned_layout": true,
+  "unannotated_unchanged": true,
+  "source_sha256": "aa666a345e4aad389f66cb19d83c67176ec9607645f3ed2e5f0ca7d19a13db59",
+  "plugin_sha256": "23c59149b2fddec4933555d51a375b7782ef437f5e084342e504618fde436824",
+  "production_integrated": true,
+  "scope": "Exact six entry candidates linked to existing C ARM branches. Checks mode switch, untouched registers/flags/LR/SP, branch targets and skipped NOP; stops before executing target routines. Actual target routines and whole-game behavior are outside this model."
+}

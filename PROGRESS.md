@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Current research (baseline `8c6de480`): six Thumb-to-ARM entry candidates now match all 48 veneer bytes when linked with the existing C ARM bodies. An explicit compiler handoff contract validates the terminal call before emitting BX-PC/NOP; link assertions enforce aligned, adjacent ARM bodies. All 768 execution cases pass, seven unsupported contracts and two invalid layouts reject, and unannotated code is unchanged. The rebuilt matching compiler reproduces the unchanged production ELF and ROM. Candidate integration is next; production coverage totals remain unchanged. Latest integrated milestone (baseline `03d527b3`): SoftReset now compiles from production C using ordinary GCC, including the IME byte write and stack switch. Its full 24-byte region matches: ten C-generated instruction bytes, four retained SWI bytes, eight compiler literals and two explicit zero-padding bytes. The production source passes 256 synthetic two-service handoff cases. All twenty BIOS wrappers are now integrated; `src/libagbsyscall.s` is removed. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. Reviewed main-ROM non-library assembly is now 116 bytes (24 source plus 92 inline), with 606 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership remains 740,014/777,630 mapped instruction bytes (95.16% rounded); mixed C/assembly objects now contain 15,800 bytes. Fully accounted unmapped-input bytes remain 3,172,286 (final residual 812). Thumb entries, retained status/BIOS instructions, runtime assembly, and complete mapped-data/executable classification remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `e1833927`): all six Thumb-to-ARM entries now compile from production C under the checked private handoff contract. The full 48-byte veneer region matches; 24 more instruction bytes become C-owned. The production-source model passes 768 handoffs, seven unsupported contracts and two invalid layouts reject, and unannotated code is unchanged. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. No mapped main-ROM instruction bytes remain owned by assembly source files. Reviewed main-ROM non-library assembly is now 92 inline bytes, with 607 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership rises to 740,038/777,630 mapped instruction bytes (95.17% rounded); mixed C/assembly objects contain 15,800 bytes and runtime archives 21,792. Fully accounted unmapped-input bytes remain 3,172,286 (final residual 812). Retained status/BIOS instructions, runtime assembly, expanded payload assembly, and complete mapped-data/executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -30,8 +30,8 @@ they do not attribute the entire decompilation to this task.
 | Message-data provenance | **3,404/3,404 streams regenerate, match ROM, and decode to source tokens; 467,734 unmapped bytes explained; three invalid streams rejected** |
 | ROM gaps by build provenance | **144/144 gaps accounted for: 2,574,807 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **95.16%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **116 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **95.17%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **92 inline instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
 | Integrated BIOS wrappers | **20 wrappers, 100 exact instruction bytes: 58 C-generated plus 42 retained SWI bytes; 2,816 production-source synthetic boundary cases pass** |
@@ -45,7 +45,7 @@ they do not attribute the entire decompilation to this task.
 | Integrated serial bootstrap branches | **8/8 bytes exact C; original destinations, registers and header/padding placement preserved** |
 | Integrated serial reset | **164-byte region exact: 144 C-generated instruction bytes, four retained SVC bytes, 16 literals; full ROM/runtime match** |
 | Integrated serial polling | **44/44 ARM instruction bytes exact C; private r0/r1 and returned flags preserved; full ROM/runtime match** |
-| Integrated ARM call bodies | **24/24 ARM bytes C-owned; all six eight-byte veneers exact; 24 Thumb entry bytes still assembly** |
+| Integrated ARM call veneers | **48/48 instruction bytes C-owned; all six Thumb/ARM veneers exact; 768 production-source handoff cases and layout rejection checks pass** |
 | Integrated unit-list page transition | **396 instruction bytes converted to C; complete 436-byte region exact; pinned compiler build, eight rejections and 61 unchanged controls; full ROM/runtime match** |
 | Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |
@@ -585,7 +585,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Current verified inventory |
 |---|---|
-| Main assembly-source instructions | 24 bytes: six Thumb veneer entries |
+| Main assembly-source instructions | 0 mapped instruction bytes; remaining assembly files may contain data |
 | Main reviewed inline assembly | 92 instruction bytes, including BIOS SWIs and startup/IRQ status operations |
 | Expanded payload assembly | 420 instruction bytes: 418 source plus 2 inline |
 | Runtime and classification | Runtime archive assembly and complete executable classification remain open |

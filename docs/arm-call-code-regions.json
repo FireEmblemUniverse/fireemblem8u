@@ -1,7 +1,7 @@
 {
-  "c_owned_instruction_bytes": 24,
-  "assembly_entry_instruction_bytes": 24,
-  "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
+  "c_owned_instruction_bytes": 48,
+  "assembly_entry_instruction_bytes": 0,
+  "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
   "full_rom_exact": true,
   "veneers": [
     {
@@ -47,5 +47,5 @@
       "bytes": "7847c046a5a3fcea"
     }
   ],
-  "scope": "Six C ARM tail branches are exact; six Thumb BX-PC/NOP entries remain assembly. Branches preserve all incoming registers, flags and LR before executing their targets. Not whole-game completion."
+  "scope": "Six C Thumb entries and six C ARM tail branches are exact. Branches preserve all incoming registers, flags and LR before executing their targets. Not whole-game completion."
 }

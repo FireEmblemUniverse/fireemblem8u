@@ -1,14 +1,13 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "03d527b3ce8461ec3d3b06dabee461001313cee9",
+  "baseline_commit": "e1833927c778ce44e1ecf91c9d51fcd7117047e4",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "c_owned": 740014,
+        "c_owned": 740038,
         "c_with_assembly": 15800,
-        "runtime_archive": 21792,
-        "assembly_source": 24
+        "runtime_archive": 21792
       },
       "objects": [
         {
@@ -2092,11 +2091,6 @@
           "instruction_bytes": 26
         },
         {
-          "object": "asm/arm_call.o",
-          "category": "assembly_source",
-          "instruction_bytes": 24
-        },
-        {
           "object": "src/arm/call_wrappers.o",
           "category": "c_owned",
           "instruction_bytes": 24
@@ -2124,6 +2118,11 @@
         {
           "object": "src/sio_multiboot_wait.o",
           "category": "c_with_assembly",
+          "instruction_bytes": 24
+        },
+        {
+          "object": "src/thumb_arm_entry.o",
+          "category": "c_owned",
           "instruction_bytes": 24
         },
         {
@@ -2707,13 +2706,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
-      "map_sha256": "6ebcba459e1f039a6cd68c82b3cf9286b66db5004c9ac1460e7e5ea728bfd72b",
+      "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
+      "map_sha256": "4c6109b8b64edca11037d4d4b8780ec8dc44954717262f857db83c291b81e9de",
       "unmapped_input_bytes": 3172286,
       "data_mapped_bytes": 10252493,
       "outside_input_bytes": 2574807,
       "reviewed_inline_instruction_bytes": 92,
-      "known_nonarchive_assembly_bytes": 116
+      "known_nonarchive_assembly_bytes": 92
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,
