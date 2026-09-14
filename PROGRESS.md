@@ -10,6 +10,8 @@ Payload veneer research (baseline `e431656f`): C Thumb handoffs and ordinary ARM
 
 Latest payload veneer integration (baseline `165169e5`): both interworking veneers now compile from production C; fake_glue.s is removed. All three payload checksums, 768 production-source handoff cases, six layout rejection checks, main-ROM comparison and fresh four-image runtime comparisons pass. Payload C-owned bytes rise to 18,176; assembly-source bytes fall to 390, or 392 including retained inline instructions. Recovery bundle pins payload `e10ffde8`.
 
+Payload BIOS research (baseline `82ef105c`): C candidates reproduce all eleven BIOS entry addresses and the complete 76-byte region in every payload version, including reset literals/padding. Synthetic boundary tests pass 1,920 returning-wrapper and 96 reset cases. SWIs remain explicit; production integration and ownership refresh are pending, so remaining expanded assembly stays 392 bytes.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

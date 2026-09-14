@@ -1,0 +1,30 @@
+{
+  "images": [
+    {
+      "image": "mgfembp",
+      "start": "0x2016a9c",
+      "exact_bytes": 76,
+      "exact_entry_addresses": 11,
+      "sha256": "701549ad8813322d96485118ace9add3df90a5814cc3b3616a3c93853793a98a"
+    },
+    {
+      "image": "mgfembp_20030206",
+      "start": "0x2016c84",
+      "exact_bytes": 76,
+      "exact_entry_addresses": 11,
+      "sha256": "701549ad8813322d96485118ace9add3df90a5814cc3b3616a3c93853793a98a"
+    },
+    {
+      "image": "mgfembp_20030219",
+      "start": "0x2016a5c",
+      "exact_bytes": 76,
+      "exact_entry_addresses": 11,
+      "sha256": "701549ad8813322d96485118ace9add3df90a5814cc3b3616a3c93853793a98a"
+    }
+  ],
+  "source_sha256": {
+    "bios_wrappers": "fedca2620bf994e5d311d985d2419a37be109ed2349533e67c1ca1398493654e",
+    "bios_soft_reset": "04758d059c61859840b0190db1a3497c40f541e65c985bbdf8bc4745e9074dda"
+  },
+  "scope": "Research byte/layout comparison only; BIOS execution and reset control flow require separate boundary models. SWIs remain inline; production unchanged."
+}

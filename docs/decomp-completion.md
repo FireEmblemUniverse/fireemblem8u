@@ -12958,3 +12958,28 @@ inline/runtime inventories and code/data provenance checks are refreshed.
 Remaining payload source assembly consists of startup (328 bytes) and BIOS
 wrappers (62 bytes), alongside the two inline bytes. Full executable/data
 classification and retained platform operations remain unfinished.
+
+
+### Payload BIOS-wrapper C candidates (September 14, 2026)
+
+Baseline `82ef105c`. research/payload/bios_wrappers.c adapts the main-ROM
+C BIOS-boundary implementations to the payload's names; bios_soft_reset.c
+provides the explicit stack-changing terminal reset sequence. Ordinary ARM
+GCC generates register setup and returns while SWIs remain inline. Linked
+function sections preserve all eleven entry addresses and the entire
+76-byte original region in all three payload versions, including the reset
+pointer literals and zero padding. No compiler extension is required.
+
+check_bios_model.py executes synthetic BIOS responses across all layouts.
+1,920 returning-wrapper cases verify service numbers, argument setup, r0–r3
+response propagation, other registers, flags and both ARM/Thumb return modes.
+Ninety-six reset cases verify one zero byte write to IME, SP=0x03007F00,
+service order 1 then 0, reset flags at the first boundary, and preservation
+of unrelated registers. The reset model stops at SWI 0; it does not treat
+its trailing padding/literals as an executable continuation. BIOS internals
+and real reset behavior are outside this synthetic boundary model.
+
+Receipts: payload-bios-byte-research.json and payload-bios-model-research.json.
+Production gbasvc.s remains unchanged pending integration and ownership
+refresh. The research does not yet reduce the 392-byte expanded assembly
+inventory or establish complete executable/data classification.
