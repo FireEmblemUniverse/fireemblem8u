@@ -1768,22 +1768,76 @@ SECTIONS
         src/m4a_ply_note_pcm_advance.o(.text);
         __ply_note_pcm_advance_end = .;
         src/m4a_1.o(.text.after_ply_note_pcm_advance);
+        __ply_note_clear_invoke_start = .;
+        src/m4a_ply_note_clear_invoke.o(.text);
+        __ply_note_clear_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_clear_invoke);
         __ply_note_channel_link_start = .;
         src/m4a_ply_note_channel_link.o(.text);
         __ply_note_channel_link_end = .;
         src/m4a_1.o(.text.after_ply_note_channel_link);
+        __ply_note_mod_invoke_start = .;
+        src/m4a_ply_note_mod_invoke.o(.text);
+        __ply_note_mod_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_mod_invoke);
+        __ply_note_track_volume_invoke_start = .;
+        src/m4a_ply_note_track_volume_invoke.o(.text);
+        __ply_note_track_volume_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_track_volume_invoke);
         __ply_note_channel_init_start = .;
         src/m4a_ply_note_channel_init.o(.text);
         __ply_note_channel_init_end = .;
         src/m4a_1.o(.text.after_ply_note_channel_init);
+        __ply_note_volume_invoke_start = .;
+        src/m4a_ply_note_volume_invoke.o(.text);
+        __ply_note_volume_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_volume_invoke);
         __ply_note_frequency_setup_start = .;
         src/m4a_ply_note_frequency_setup.o(.text);
         __ply_note_frequency_setup_end = .;
         src/m4a_1.o(.text.after_ply_note_frequency_setup);
+        __ply_note_cgb_frequency_invoke_start = .;
+        src/m4a_ply_note_cgb_frequency_invoke.o(.text);
+        __ply_note_cgb_frequency_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_cgb_frequency_invoke);
+        __ply_note_pcm_frequency_invoke_start = .;
+        src/m4a_ply_note_pcm_frequency_invoke.o(.text);
+        __ply_note_pcm_frequency_invoke_end = .;
+        src/m4a_1.o(.text.after_ply_note_pcm_frequency_invoke);
         __ply_note_finish_start = .;
         src/m4a_ply_note_finish.o(.text);
         __ply_note_finish_end = .;
         src/m4a_1.o(.text.after_ply_note_finish);
+        ASSERT((PlyNoteClearInvokeBody & ~1) == PlyNoteClearInvoke &&
+               __ply_note_clear_invoke_start == (ply_note & ~1) + 322 &&
+               __ply_note_clear_invoke_end - __ply_note_clear_invoke_start == 4 &&
+               PlyNoteChannelLink == __ply_note_clear_invoke_end,
+               "ply_note clear call extent or continuation changed");
+        ASSERT((PlyNoteModInvokeBody & ~1) == PlyNoteModInvoke &&
+               __ply_note_mod_invoke_start == (ply_note & ~1) + 354 &&
+               __ply_note_mod_invoke_end - __ply_note_mod_invoke_start == 4 &&
+               PlyNoteTrackVolumeSetup == __ply_note_mod_invoke_end,
+               "ply_note mod call extent or continuation changed");
+        ASSERT((PlyNoteTrackVolumeInvokeBody & ~1) == PlyNoteTrackVolumeInvoke &&
+               __ply_note_track_volume_invoke_start == (ply_note & ~1) + 362 &&
+               __ply_note_track_volume_invoke_end - __ply_note_track_volume_invoke_start == 4 &&
+               PlyNoteChannelInit == __ply_note_track_volume_invoke_end,
+               "ply_note track_volume call extent or continuation changed");
+        ASSERT((PlyNoteVolumeInvokeBody & ~1) == PlyNoteVolumeInvoke &&
+               __ply_note_volume_invoke_start == (ply_note & ~1) + 400 &&
+               __ply_note_volume_invoke_end - __ply_note_volume_invoke_start == 4 &&
+               PlyNoteFrequencySetup == __ply_note_volume_invoke_end,
+               "ply_note volume call extent or continuation changed");
+        ASSERT((PlyNoteCgbFrequencyInvokeBody & ~1) == PlyNoteCgbFrequencyInvoke &&
+               __ply_note_cgb_frequency_invoke_start == (ply_note & ~1) + 456 &&
+               __ply_note_cgb_frequency_invoke_end - __ply_note_cgb_frequency_invoke_start == 6 &&
+               PlyNoteFinish == (ply_note & ~1) + 472,
+               "ply_note cgb_frequency call extent or continuation changed");
+        ASSERT((PlyNotePcmFrequencyInvokeBody & ~1) == PlyNotePcmFrequencyInvoke &&
+               __ply_note_pcm_frequency_invoke_start == (ply_note & ~1) + 468 &&
+               __ply_note_pcm_frequency_invoke_end - __ply_note_pcm_frequency_invoke_start == 4 &&
+               PlyNoteFinish == __ply_note_pcm_frequency_invoke_end,
+               "ply_note pcm_frequency call extent or continuation changed");
         ASSERT((PlyNoteFinishBody & ~1) == PlyNoteFinish &&
                __ply_note_finish_start == (ply_note & ~1) + 472 &&
                __ply_note_finish_end - __ply_note_finish_start == 14 &&

@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "c2a43d74698705008d4d1a43af14b49f18335127",
+  "baseline_commit": "15cffcad151ad390ecc867fd9b75337feffff6e7",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 804,
-        "c_owned": 721164,
+        "assembly_source": 778,
+        "c_owned": 721190,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1722,11 +1722,6 @@
           "instruction_bytes": 100
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 100
-        },
-        {
           "object": "tools/agbcc/lib/libc.a(memcpy.o)",
           "category": "runtime_archive",
           "instruction_bytes": 94
@@ -1790,6 +1785,11 @@
           "object": "src/mapanim_eventbattle.o",
           "category": "c_owned",
           "instruction_bytes": 78
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
+          "instruction_bytes": 74
         },
         {
           "object": "src/arm/checksum.o",
@@ -2467,6 +2467,11 @@
           "instruction_bytes": 6
         },
         {
+          "object": "src/m4a_ply_note_cgb_frequency_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 6
+        },
+        {
           "object": "tools/agbcc/lib/libc.a(errno.o)",
           "category": "runtime_archive",
           "instruction_bytes": 6
@@ -2547,6 +2552,31 @@
           "instruction_bytes": 4
         },
         {
+          "object": "src/m4a_ply_note_clear_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "src/m4a_ply_note_mod_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "src/m4a_ply_note_pcm_frequency_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "src/m4a_ply_note_track_volume_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
+          "object": "src/m4a_ply_note_volume_invoke.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
           "object": "src/rom_header.o",
           "category": "assembly_source",
           "instruction_bytes": 4
@@ -2592,13 +2622,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "d7a027013ae6af310c6d3b754f5b1ad0dd12232b8c0d88f44410edfcd576f545",
-      "map_sha256": "2a5a5ec6587720c7ce8cee2685ac29e00ce10ff2ebc6b6e6e326e2ed47e2095e",
+      "elf_sha256": "ca0e3f8d6455dd5352db791588998bdfae32fb7dedb3bb255dc85bf4b045b158",
+      "map_sha256": "4981d0c8de7ee662011a1b0ab7f2e308e3908eed1627581e3b605b23c9e174df",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1214
+      "known_nonarchive_assembly_bytes": 1188
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

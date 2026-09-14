@@ -9706,3 +9706,61 @@ code and executable classification.
 The valid production layout links and all 250 altered layouts reject, including
 two new completion extent/continuation cases. Evidence:
 `.deps/soundmain-packed/ply-note/finish-production-layout.log`.
+
+
+## September 13, 2026 — Six note call boundaries integrated
+
+On baseline `15cffcad`, six C fragments replace 26 assembly instruction bytes:
+ClearChain at 080CFF86 (4), clear_modM at 080CFFA6 (4), TrkVolPitSet at
+080CFFAE (4), ChnVolSetAsm at 080CFFD4 (4), the CGB indirect callback and
+continuation branch at 080D000C (6), and MidiKeyToFreq at 080D0018 (4).
+The existing private callback-tail compiler contract preserves input registers,
+BL return addresses and zero-frame continuations. CGB invokes the r3 function
+pointer through call_r3 and branches over PCM setup. No compiler changes or
+instruction templates were added. Exact entry offsets, extents, body identities
+and continuation positions are asserted by the linker.
+
+`check_ply_note_invocations.py --production` verifies candidate/production source
+identity, exact object bytes, full-ROM equality and actual callee symbols. All
+172,032 synthetic call/return cases pass: each direct boundary has 24,576 cases,
+and the indirect boundary has 49,152 across Thumb and ARM callbacks. Cases cover
+all incoming/returned NZCV pairs, all registers, SP/LR, four frame positions and
+three write aliases. Callback entry state and post-return state, full RAM and
+ordered writes are checked. Twelve unsupported contracts per boundary reject
+(72 total); unannotated output remains unchanged. The test assembler now uses
+the same ABI as production objects; the initial EABI mismatch was confined to
+the standalone harness. Synthetic callbacks intentionally clobber registers and
+flags; these tests do not independently validate actual callee algorithms or
+full ply_note execution.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. Refreshed mixer,
+SoundMain, MPlayMain and PCM selection receipts retain their C ownership.
+Main-ROM ownership is 721,190 C-owned (92.74%), 33,870 mixed C/assembly, 778
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,188 main-ROM and 420 payload bytes; the
+source inventory has 583 main C files and 29 assembly entry markers.
+
+Remaining ply_note assembly instructions total 70 bytes:
+
+| Range | Bytes | Remaining work |
+|---|---:|---|
+| 080CFE44..080CFE64 | 32 | Entry frame, literal reads and gate-time setup |
+| 080CFF84..080CFF86 | 2 | ClearChain argument setup |
+| 080CFF9C..080CFFA6 | 10 | LFO delay/reset test and argument setup |
+| 080CFFAA..080CFFAE | 4 | Track volume arguments |
+| 080D0012..080D0018 | 6 | PCM frequency arguments |
+| 080D002A..080D003A | 16 | Saved-frame return |
+
+Production ELF SHA-256:
+`ca0e3f8d6455dd5352db791588998bdfae32fb7dedb3bb255dc85bf4b045b158`.
+Evidence under `.deps/soundmain-packed/ply-note/`: `invocations-report.json`,
+`invocations-production-check.log`, `invocations-production-build.log`,
+`invocations-runtime.log`, `invocations-ownership.log`, `invocations-source.json`,
+`invocations-linked.json`, region audit logs and `calls/*` per-boundary objects,
+models and compiler rejection logs. Next: remaining argument/frame fragments,
+runtime helpers, unit-list/transfer code and complete executable classification.
+
+The valid production layout links and all 261 altered layouts reject, including
+eleven new call extent/continuation cases. Evidence:
+`.deps/soundmain-packed/ply-note/invocations-production-layout.log`.
