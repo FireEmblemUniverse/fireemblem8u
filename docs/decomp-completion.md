@@ -10648,3 +10648,32 @@ for those arbitrary scratch results. Evidence is
 `docs/serial-handoff-research.json`. The next terminal-transfer work must
 remove these differences while preserving the separately accounted SVC.
 The inspected ARM machine descriptions have no SVC pattern to reuse.
+
+### Serial BIOS suffix terminal LR transfer
+
+The optional `matching_arm_lr_transfer` pass in
+`tools/arm-dispatch/arm_lr_transfer.cc` replaces the final private LR call
+with GCC's simple-return pattern and removes the sole entry LR save. The
+source loads LR and retains it through an empty register tie. The pass
+requires a bounded seven-operation body: save, two literal inputs, the
+existing explicit SVC with its scratch contract, LR load, LR tie and
+zero-argument LR call. It accepts only interworking ARMv4T noreturn void
+code without arguments, local frame, debug or unwind metadata. The SVC
+assembly is retained unchanged and remains assembly-owned.
+
+The resulting suffix emits the desired five instructions and two literal
+words (28 bytes). All 32 synthetic BIOS-return cases now match r0-r12, SP,
+LR and CPSR at entry 02010000. `check_handoff.py --lr-transfer` reproduces
+this result after building with `build_arm_lr_transfer.py --output-dir
+.deps/serial-reset`. Twelve invalid contracts reject; the unannotated
+control is unchanged. Receipts are
+`docs/serial-handoff-lr-transfer-research.json` and
+`docs/serial-handoff-lr-transfer-rejections.json`.
+
+The standard sibling-call pattern rejects LR because its register
+constraint permits caller-save registers; the explicit private terminal
+contract instead uses the target's simple-return pattern for BX LR. The
+ordinary source now has an LR tie, so its unmodified baseline discrepancy
+is r12/SP/LR rather than the earlier r3/SP/LR. Combined handshake/suffix
+layout, shared literal placement and production integration remain open.
+No actual BIOS/decompression validation or full C conversion is claimed.

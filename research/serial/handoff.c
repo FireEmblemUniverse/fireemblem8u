@@ -2,11 +2,17 @@
 register const void *input asm("r0");
 register void *output asm("r1");
 register void (*entry)(void) asm("lr");
-void __attribute__((noreturn)) handoff(void) {
+#ifdef SERIAL_LR_TRANSFER
+#define SERIAL_TRANSFER __attribute__((matching_arm_lr_transfer))
+#else
+#define SERIAL_TRANSFER
+#endif
+void SERIAL_TRANSFER __attribute__((noreturn)) handoff(void) {
  input=(const void *)0x020002b0;
  output=(void *)0x02010000;
  asm volatile("svc #0x110000" : "+r"(input), "+r"(output) : : "r2", "r3", "ip", "cc", "memory");
  entry=(void (*)(void))0x02010000;
+ asm volatile("" : "+r"(entry));
  entry();
  __builtin_unreachable();
 }

@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Compare handoff ABI with a synthetic BIOS return, not a BIOS implementation."""
 from pathlib import Path
-import json,subprocess
+import argparse,json,subprocess
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_CODE,UC_HOOK_INTR
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/serial-reset'
-subprocess.run(['arm-none-eabi-gcc','-c','-O2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(ROOT/'research/serial/handoff.c'),'-o',str(OUT/'handoff.o')],check=True,capture_output=True)
+parser=argparse.ArgumentParser()
+parser.add_argument('--lr-transfer',action='store_true')
+args=parser.parse_args()
+extra=['-DSERIAL_LR_TRANSFER','-fplugin='+str(OUT/'arm_lr_transfer.so')] if args.lr_transfer else []
+subprocess.run(['arm-none-eabi-gcc','-c','-O2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',*extra,str(ROOT/'research/serial/handoff.c'),'-o',str(OUT/'handoff.o')],check=True,capture_output=True)
 (OUT/'handoff.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } }')
 subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'handoff.ld'),str(OUT/'handoff.o'),'-o',str(OUT/'handoff.elf')],check=True)
 subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'handoff.elf'),str(OUT/'handoff.bin')],check=True)
@@ -38,6 +42,6 @@ for seed in range(32):
   results.append(regs)
  assert results[0]['lr']==0x02010000 and results[0]['sp']==0x03007000
  mismatch={key for key in results[0] if results[0][key]!=results[1][key]}
- assert mismatch=={'r3','sp','lr'},mismatch
+ assert mismatch==(set() if args.lr_transfer else {'r12','sp','lr'}),mismatch
  differences.update(mismatch)
-print(json.dumps(dict(cases=32,bios_number='0x11',input='0x020002b0',output_and_entry='0x02010000',candidate_bytes=len(code),candidate_mismatches=sorted(differences),production_integrated=False,scope='Both invoke the correct ARM SVC with correct input/output and reach the ARM entry under synthetic BIOS scratch results. Candidate remains mixed C/assembly and nonmatching: r3, SP and LR differ. No decompression or actual BIOS behavior is emulated.'),indent=2))
+print(json.dumps(dict(lr_transfer=args.lr_transfer,cases=32,bios_number='0x11',input='0x020002b0',output_and_entry='0x02010000',candidate_bytes=len(code),candidate_mismatches=sorted(differences),production_integrated=False,scope='Both invoke the correct ARM SVC with correct input/output and reach the ARM entry under synthetic BIOS scratch results. SVC remains assembly-owned; candidate mismatches are listed explicitly. Literal pool placement is not checked. No decompression or actual BIOS behavior is emulated.'),indent=2))

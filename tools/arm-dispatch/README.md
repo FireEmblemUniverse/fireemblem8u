@@ -1111,3 +1111,10 @@ It rejects debug/unwind builds, instruction assembly, indirect calls and
 nonlocal jumps. This is currently serial-reset research, not a production
 build dependency. See `research/serial/check_private_frame.py` and the
 private-frame receipts in `docs/`.
+
+`build_arm_lr_transfer.py` builds the experimental
+`matching_arm_lr_transfer` pass for the serial BIOS suffix. It requires
+a fixed structural contract, ARMv4T interworking, an explicit existing
+SVC and a terminal private transfer through loaded LR. The SVC stays
+assembly-owned; the backend changes only frame/terminal-transfer RTL.
+`research/serial/check_lr_transfer.py` exercises its rejection boundary.

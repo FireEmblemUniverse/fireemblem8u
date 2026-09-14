@@ -1,15 +1,11 @@
 {
-  "lr_transfer": false,
+  "lr_transfer": true,
   "cases": 32,
   "bios_number": "0x11",
   "input": "0x020002b0",
   "output_and_entry": "0x02010000",
-  "candidate_bytes": 40,
-  "candidate_mismatches": [
-    "lr",
-    "r12",
-    "sp"
-  ],
+  "candidate_bytes": 28,
+  "candidate_mismatches": [],
   "production_integrated": false,
   "scope": "Both invoke the correct ARM SVC with correct input/output and reach the ARM entry under synthetic BIOS scratch results. SVC remains assembly-owned; candidate mismatches are listed explicitly. Literal pool placement is not checked. No decompression or actual BIOS behavior is emulated."
 }
