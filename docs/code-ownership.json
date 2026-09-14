@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "2968bf585b50b29b098a23c6098f7113fca00619",
+  "baseline_commit": "53e4869b04992aa9b5b9bcd265cff99e3466ccc0",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2717,8 +2717,8 @@
     "mgfembp": {
       "mapped_instruction_bytes": 25714,
       "categories": {
-        "assembly_source": 328,
-        "c_owned": 18176,
+        "assembly_source": 160,
+        "c_owned": 18344,
         "c_with_assembly": 6390,
         "runtime_archive": 820
       },
@@ -2779,11 +2779,6 @@
           "instruction_bytes": 332
         },
         {
-          "object": "src/crt0.o",
-          "category": "assembly_source",
-          "instruction_bytes": 328
-        },
-        {
           "object": "src/ramfunc.o",
           "category": "c_owned",
           "instruction_bytes": 218
@@ -2807,6 +2802,16 @@
           "object": "src/main.o",
           "category": "c_owned",
           "instruction_bytes": 184
+        },
+        {
+          "object": "src/irq_search.o",
+          "category": "c_owned",
+          "instruction_bytes": 168
+        },
+        {
+          "object": "src/crt0.o",
+          "category": "assembly_source",
+          "instruction_bytes": 160
         },
         {
           "object": "src/put_oam.o",
@@ -2894,13 +2899,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "f3cce81777c6c611824685b6892a98f62396eef6c2c3ea4fec32f14676fbfe37",
-      "map_sha256": "103c94dda8a38da7e07b65aeae55e4d3ea7a028a862847160b572df10f1fe054",
+      "elf_sha256": "b260ff93d53c5a5c60fc5234d37a48a977dd8bc3c02c83bedfe90f06b9e77878",
+      "map_sha256": "af6fe2e4e4bbda0b0cd982ad5d18ca315b1b33510cdb7cad85e15f45392e4491",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9235,
       "outside_input_bytes": 7,
       "reviewed_inline_instruction_bytes": 26,
-      "known_nonarchive_assembly_bytes": 354
+      "known_nonarchive_assembly_bytes": 186
     }
   },
   "limitations": [

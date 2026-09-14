@@ -1,0 +1,34 @@
+{
+  "rejected": [
+    {
+      "image": "mgfembp",
+      "mutation": "search_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp",
+      "mutation": "continuation_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030206",
+      "mutation": "search_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030206",
+      "mutation": "continuation_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030219",
+      "mutation": "search_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030219",
+      "mutation": "continuation_gap",
+      "rejected": true
+    }
+  ]
+}

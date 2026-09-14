@@ -56,3 +56,7 @@ and linker adjacency assertions are part of the bundled payload build.
 Payload BIOS wrappers now use ordinary C setup/returns and explicit inline
 SWIs, including the stack-changing reset sequence. All three complete BIOS
 regions remain byte-identical; linker ordering preserves their entry points.
+
+The payload IRQ priority search is now checked C with its original grouped
+0xC0 first priority. Cross-section startup literal distances and search
+entry/continuation placement are enforced by the linker.

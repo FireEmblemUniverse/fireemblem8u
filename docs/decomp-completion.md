@@ -13040,3 +13040,31 @@ integration-stage extension; this model's enumeration is scoped explicitly.
 Receipt: payload-irq-search-research.json. Production crt0.s is unchanged.
 This is the next integration target; expanded assembly remains 354 bytes
 until the candidate is integrated and ownership/image checks are refreshed.
+
+
+### Payload IRQ-search integration (September 14, 2026)
+
+Baseline `53e4869b`. Production irq_search.c replaces the 168-byte search
+inside crt0.s. The preserved prefix falls through into C; the C private tail
+falls through to PayloadIrqSelected in the remaining assembly continuation.
+Linker assertions retain IntrMain+28 for entry and the 168-byte continuation
+distance. Two startup loads cross the new section split; their original
+PC-relative offsets are retained in assembly, with named source/destination
+labels and explicit linker distance assertions. No encoded bytes change.
+Six four-byte gap mutations across the three payload layouts reject.
+
+The production-source model covers all 16,384 fourteen-bit pending masks
+and 1,024 additional independent IE/IF words. All 17,408 cases pass, including
+masking, grouped priority, selected table offset, zero-pending behavior,
+bit-13 halt and preserved registers/no writes. All payload checksums, the
+main-ROM comparison and fresh four-image/runtime-symbol checks pass.
+Ownership now assigns 168 more payload instruction bytes to C; assembly
+source falls to 160 bytes. With 26 inline bytes, expanded assembly totals
+186. Mapped instruction totals and main-ROM ownership are unchanged.
+
+Payload commit 3a5cf6e6488e7bf7e60ca8ade62736a4b810123f is retained in the
+verified recovery bundle. Production evidence is payload-irq-search.json and
+payload-irq-layout.json, with refreshed runtime/code/data audit receipts.
+The remaining assembly comprises 52 startup bytes, 28 IRQ entry/frame bytes
+and 80 continuation bytes. Complete mode/callback/return recovery and full
+executable/data classification remain open.

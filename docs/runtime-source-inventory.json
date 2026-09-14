@@ -451,7 +451,7 @@
       ]
     },
     "mgfembp": {
-      "elf_sha256": "f3cce81777c6c611824685b6892a98f62396eef6c2c3ea4fec32f14676fbfe37",
+      "elf_sha256": "b260ff93d53c5a5c60fc5234d37a48a977dd8bc3c02c83bedfe90f06b9e77878",
       "assembly_instruction_bytes": 0,
       "C_source_located_instruction_bytes": 0,
       "C_source_rebuilt_instruction_bytes": 820,
@@ -587,7 +587,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "d1cf37feac2046bc48fcf3a1d3ba64c5388092348907985bf4b42725e767a767",
+  "rebuild_report_sha256": "806d282bd6068d7c86457935796b43b152253991711c72697d106765838ac0f4",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",
