@@ -5,7 +5,12 @@ register unsigned *startupStack asm("sp");
 register unsigned startupLink asm("lr");
 extern unsigned __sp_irq[], __sp_usr[];
 extern void IrqMain(void), AgbMain(void);
-void __attribute__((noreturn)) Startup(void)
+#ifdef RESEARCH_STARTUP_FRAME
+#define STARTUP_FRAME __attribute__((research_arm_startup_frame))
+#else
+#define STARTUP_FRAME
+#endif
+void __attribute__((noreturn)) STARTUP_FRAME Startup(void)
 {
     for (;;) {
         startupValue = 0x12;

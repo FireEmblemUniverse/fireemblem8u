@@ -11131,3 +11131,33 @@ Evidence is in `docs/startup-research.json` and
 correct for startup entry. The model excludes actual BIOS/reset entry and real
 AgbMain execution; exact byte equality is unfinished. Production remains at
 234 reviewed main-ROM non-library assembly bytes.
+
+### Startup entry-save suppression and stack parity
+
+`research/irq/startup_frame.cc` is an isolated opt-in backend for the startup
+loop. It validates a bounded eighteen-operation body: sole entry LR save,
+one restart label, IRQ/System mode constants and banked status constraints,
+literal loads, register ties, vector store, zero-argument r1 call and the
+backward branch to the first mode assignment. It also requires a zero-local-
+frame nonreturning ARM function without arguments, debug or unwind state.
+After validation, it removes only the initial compiler LR save.
+
+`research/irq/check_startup.py --plugin PATH` requires exact modeled memory
+write traces and preserved Supervisor SP for the transformed candidate,
+while its default mode continues to verify the stock draft's known extra
+write. `check_startup_frame.py` builds the plugin and runs the transformed
+96-case suite, seven rejected configurations and an unannotated control.
+All pass. The rejected cases change the first mode, remove the r0 value tie,
+add a stack store, add a function argument, or enable debug/unwind/Thumb.
+The plugin uses the system GCC headers to match the compiler used by the
+startup model; loading a plugin built against the separate compiler's headers
+was rejected during initialization and was corrected before validation.
+
+The candidate is now 72 bytes: 52 instruction bytes plus twenty literals.
+Its modeled stack and register behavior agrees through two synthetic main
+entries for IRQ, Supervisor and System initial modes, all sixteen NZCV
+profiles, and ARM/Thumb main targets. Two MSR instructions remain explicit
+assembly. ADR selection, literal ownership/placement and whole byte equality
+remain unfinished. This candidate is not integrated, and production remains
+unchanged. Evidence is in `docs/startup-frame-research.json`; the default
+stock-draft receipt was also refreshed for the optional-attribute source.
