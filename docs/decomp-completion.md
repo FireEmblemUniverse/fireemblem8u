@@ -10416,3 +10416,26 @@ records in this corpus. It does not simulate wait-command release, queued
 command handlers, command-queue capacity, frame timing or actual rendering.
 A structural STOP is not a claim that execution always reaches it. Those
 limits remain explicit; native C instruction coverage is unchanged.
+
+### Remaining unmapped input assets bound to source
+
+After excluding the separately audited message and battle-animation objects,
+the mapping inventory contains 59 unmapped intervals totaling 324,219 bytes.
+`scripts/audit_unmapped_assets.py` reads each contributing C source, identifies
+explicit INCBIN_U8/U16/U32 declarations, resolves their ELF OBJECT symbols
+within the contributing intervals, and requires declared width, symbol size,
+asset bytes and ROM bytes to agree. It rejects ambiguous symbols, overlapping
+asset bindings and missing or mismatched bytes. Intersections are accounted
+without extending a source binding over adjacent unknown bytes.
+
+There are 157 verified bindings accounting for 312,032 bytes. The remaining
+12,187 bytes are retained as named residual intervals, without relabeling
+them as padding or data based solely on their contents.
+`docs/unmapped-asset-provenance.json` contains all bindings, source/asset
+hashes, residual intervals and current ELF/map hashes. The complete ROM
+also matches the base image. Production code and C ownership are unchanged.
+
+This is an asset-provenance result, not compressed-data semantic validation
+or a no-execution proof. The mapping inventory remains intentionally
+unchanged; the separate receipt explains the source-bound portion of its
+unmapped count while preserving the unresolved remainder.
