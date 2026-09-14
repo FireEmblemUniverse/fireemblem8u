@@ -46,6 +46,8 @@ Latest orphan suffix analysis (baseline `a29ebb06`): 42,812 bytes reconstruct fr
 
 Latest orphan-tail accounting (baseline `f0e0123a`): the final 76 bytes match the runtime allocator tail at 0x08B1FE30 with four pointers shifted by 0xA788. The full 42,888-byte block now has a byte-reconstruction model, with one exceptional runtime rodata word still semantically unresolved. Source-based production reconstruction and executable classification remain open. Receipt: `docs/orphan-runtime-copy.json`.
 
+Latest source-object rebuild candidate (baseline `fcd0775c`): all 42,888 orphan bytes rebuild exactly from a fresh provisional link with the opaque object replaced by verified zero storage. The candidate uses recovered objects, documented pointer adjustments and one historical rodata constant; baserom is consulted only for final comparison. Production integration remains next. Receipt: `docs/orphan-object-rebuild.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

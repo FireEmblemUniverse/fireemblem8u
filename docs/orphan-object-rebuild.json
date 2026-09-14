@@ -1,0 +1,11 @@
+{
+  "bytes": 42888,
+  "sha256": "7061707ca941a249236bff4e3f3b0f05a2dec8d2b28c4a9558de721ccb9cd36e",
+  "opaque_object_excluded": true,
+  "placeholder_bytes_verified_zero": true,
+  "uniform_pointer_changes": 260,
+  "tail_pointer_changes": 4,
+  "historical_rodata_constant": "0x085913f0",
+  "scope": "Research candidate derived from a fresh provisional link of current recovered objects with the opaque object replaced by zero storage. Reference ROM used only for final comparison. Does not rebuild every input object, establish historical origin/reachability, or integrate production build.",
+  "output": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/orphan-rebuild/orphan.bin"
+}
