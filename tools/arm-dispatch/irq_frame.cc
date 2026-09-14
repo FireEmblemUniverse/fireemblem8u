@@ -29,11 +29,11 @@ int plugin_is_GPL_compatible;
 namespace {
 
 tree validate(tree *node,tree,tree,int,bool *no_add) {
-    if (TREE_CODE(*node)!=FUNCTION_DECL) { error("research_arm_irq_frame requires a function");*no_add=true; }
-    if (!TARGET_ARM) { error("IRQ research requires ARM mode"); *no_add=true; }
+    if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_irq_frame requires a function");*no_add=true; }
+    if (!TARGET_ARM) { error("IRQ frame requires ARM mode"); *no_add=true; }
     return NULL_TREE;
 }
-const attribute_spec contract={"research_arm_irq_frame",0,0,true,false,false,false,validate,nullptr};
+const attribute_spec contract={"matching_arm_irq_frame",0,0,true,false,false,false,validate,nullptr};
 void attributes(void *,void *) { register_attribute(&contract); }
 bool reg_is(rtx x,unsigned reg) { return REG_P(x) && GET_MODE(x)==SImode && REGNO(x)==reg; }
 bool mentions(rtx x,unsigned reg) {
@@ -148,12 +148,12 @@ bool frame_load(rtx p) {
     return true;
 }
 std::string external_pool;
-const pass_data data={RTL_PASS,"research_irq_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
+const pass_data data={RTL_PASS,"irq_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if(!lookup_attribute("research_arm_irq_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
+        if(!lookup_attribute("matching_arm_irq_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
         if(!TARGET_ARM || !TARGET_INTERWORK || !arm_arch4t || arm_arch5t
             || lookup_attribute("interrupt",DECL_ATTRIBUTES(fn->decl))
             || lookup_attribute("isr",DECL_ATTRIBUTES(fn->decl))
@@ -162,10 +162,10 @@ public:
             || flag_unwind_tables || flag_asynchronous_unwind_tables || flag_exceptions
             || debug_info_level!=DINFO_LEVEL_NONE || !global_regs[LR_REGNUM] || !global_regs[SP_REGNUM]
             || TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
-            fatal_error(UNKNOWN_LOCATION,"IRQ research requires private noreturn ARM frame");
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame requires private noreturn ARM frame");
         std::vector<rtx_insn *> ops;
         for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
-            if(LABEL_P(i) && LABEL_NUSES(i)) fatal_error(UNKNOWN_LOCATION,"IRQ research rejects control-flow labels");
+            if(LABEL_P(i) && LABEL_NUSES(i)) fatal_error(UNKNOWN_LOCATION,"IRQ frame rejects control-flow labels");
             if(!NONDEBUG_INSN_P(i)) continue;
             rtx p=PATTERN(i);
             if(GET_CODE(p)==UNSPEC_VOLATILE && (XINT(p,1)==VUNSPEC_ALIGN
@@ -173,12 +173,12 @@ public:
             ops.push_back(i);
         }
         if(ops.size()!=25 || !lr_push(PATTERN(ops[0])))
-            fatal_error(UNKNOWN_LOCATION,"IRQ research requires bounded entry-save skeleton");
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame requires bounded entry-save skeleton");
         auto p=[&](int n){return PATTERN(ops[n]);};
         if(!status_read(p(2)) || !status_read(p(16)) || !mode_write(p(5)) || !mode_write(p(19))
             || !saved_status_write(p(23)) || !private_call(ops[14],0) || !private_call(ops[24],LR_REGNUM)
             || !stack_add(p(11),-4) || !stack_add(p(21),16) || !frame_load(p(20)))
-            fatal_error(UNKNOWN_LOCATION,"IRQ research requires banked frame and private calls");
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame requires banked frame and private calls");
         rtx tie=p(12),save=p(13),restore=p(15);
         if(GET_CODE(tie)!=SET || !reg_is(SET_DEST(tie),SP_REGNUM)
             || GET_CODE(SET_SRC(tie))!=ASM_OPERANDS || executable_asm(tie)
@@ -190,20 +190,20 @@ public:
             || !MEM_P(SET_SRC(restore)) || GET_MODE(SET_SRC(restore))!=SImode
             || GET_CODE(XEXP(SET_SRC(restore),0))!=POST_INC
             || !reg_is(XEXP(XEXP(SET_SRC(restore),0),0),SP_REGNUM))
-            fatal_error(UNKNOWN_LOCATION,"IRQ research requires explicit System LR frame");
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame requires explicit System LR frame");
         for(int n:{1,3,4,6,7,8,9,10,17,18,22})
             if(CALL_P(ops[n]) || JUMP_P(ops[n]) || mentions(p(n),SP_REGNUM)
                 || mentions(p(n),LR_REGNUM) || executable_asm(p(n)))
-                fatal_error(UNKNOWN_LOCATION,"IRQ research rejects other stack/LR/control effects");
+                fatal_error(UNKNOWN_LOCATION,"IRQ frame rejects other stack/LR/control effects");
         if(!external_pool.empty()) {
             rtx load=p(6);
             if(GET_CODE(load)!=SET || !reg_is(SET_DEST(load),1) || !MEM_P(SET_SRC(load))
                 || GET_MODE(SET_SRC(load))!=SImode || GET_CODE(XEXP(SET_SRC(load),0))!=LABEL_REF)
-                fatal_error(UNKNOWN_LOCATION,"IRQ research requires direct handler-pool load");
+                fatal_error(UNKNOWN_LOCATION,"IRQ frame requires direct handler-pool load");
             rtx label=XEXP(XEXP(SET_SRC(load),0),0);
             for(unsigned n=0;n<ops.size();n++)
                 if(n!=6 && references_label(p(n),label))
-                    fatal_error(UNKNOWN_LOCATION,"IRQ research rejects shared handler-pool references");
+                    fatal_error(UNKNOWN_LOCATION,"IRQ frame rejects shared handler-pool references");
             rtx_insn *word=nullptr;rtx last=nullptr;
             for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
                 if(LABEL_P(i)) last=i;
@@ -212,14 +212,14 @@ public:
                 if(GET_CODE(x)!=UNSPEC_VOLATILE || XINT(x,1)!=VUNSPEC_POOL_4) continue;
                 if(word || last!=label || XVECLEN(x,0)!=1 || GET_CODE(XVECEXP(x,0,0))!=SYMBOL_REF
                     || std::string(XSTR(XVECEXP(x,0,0),0))!="gIRQHandlers")
-                    fatal_error(UNKNOWN_LOCATION,"IRQ research requires sole handler symbol word");
+                    fatal_error(UNKNOWN_LOCATION,"IRQ frame requires sole handler symbol word");
                 word=i;
             }
-            if(!word) fatal_error(UNKNOWN_LOCATION,"IRQ research missing handler symbol word");
+            if(!word) fatal_error(UNKNOWN_LOCATION,"IRQ frame missing handler symbol word");
             rtx replacement=gen_match_arm_literal(copy_rtx(SET_DEST(load)),
                 gen_rtx_SYMBOL_REF(SImode,ggc_strdup(external_pool.c_str())));
             if(!validate_change(ops[6],&PATTERN(ops[6]),replacement,false))
-                fatal_error(UNKNOWN_LOCATION,"IRQ research external literal rejected");
+                fatal_error(UNKNOWN_LOCATION,"IRQ frame external literal rejected");
             REG_NOTES(ops[6])=nullptr;
             delete_insn(word);
         }
@@ -227,7 +227,7 @@ public:
         rtx_insn *system_pop=emit_insn_before(gen_match_arm_ldmia_word(copy_rtx(SET_DEST(restore))),ops[15]);
         rtx_insn *callback=emit_call_insn_before(gen_match_arm_call_addzero(gen_rtx_REG(SImode,0)),ops[14]);
         if(recog_memoized(push)<0 || recog_memoized(system_pop)<0 || recog_memoized(callback)<0)
-            fatal_error(UNKNOWN_LOCATION,"IRQ research block-transfer/callback patterns rejected");
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame block-transfer/callback patterns rejected");
         delete_insn(ops[11]); delete_insn(ops[12]); delete_insn(ops[13]);
         delete_insn(ops[14]); delete_insn(ops[15]);
         // The validated loads exclude SP as a destination. Combine their following
@@ -236,10 +236,10 @@ public:
         RTVEC_ELT(loads,0)=copy_rtx(p(21));
         for(int n=0;n<4;n++) RTVEC_ELT(loads,n+1)=copy_rtx(XVECEXP(p(20),0,n));
         rtx_insn *pop=emit_insn_before(gen_rtx_PARALLEL(VOIDmode,loads),ops[20]);
-        if(recog_memoized(pop)<0) fatal_error(UNKNOWN_LOCATION,"IRQ research writeback LDM rejected");
+        if(recog_memoized(pop)<0) fatal_error(UNKNOWN_LOCATION,"IRQ frame writeback LDM rejected");
         delete_insn(ops[20]); delete_insn(ops[21]);
         rtx_insn *leave=emit_jump_insn_before(gen_simple_return(),ops[24]);
-        if(recog_memoized(leave)<0) fatal_error(UNKNOWN_LOCATION,"IRQ research return pattern rejected");
+        if(recog_memoized(leave)<0) fatal_error(UNKNOWN_LOCATION,"IRQ frame return pattern rejected");
         delete_insn(ops[24]); delete_insn(ops[0]);
         return 0;
     }

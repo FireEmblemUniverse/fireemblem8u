@@ -41,40 +41,6 @@ IrqSaveFrame:
 	mrs r0, spsr
 	push {r0, r1, r3, lr}
 
-.section .text.irq_after_search,"ax",%progbits
-.global IrqSelected
-IrqSelected:
-handle_normal_irq:
-	strh r0, [r3, #2]
-
-	@ Switch to System Mode
-	mrs r3, cpsr
-	bic r3, r3, #0xdf
-	orr r3, r3, #0x1f
-	msr cpsr_fc, r3
-
-	@ jump to irq-handler
-	ldr r1, .LHandlers
-	add r1, r1, r2
-	ldr r0, [r1]
-	stmdb sp!, {lr}
-	add lr, pc, #0	@ post_irq
-	bx r0
-post_irq:
-	ldmia sp!, {lr}
-
-	@ Reset to IRQ Mode, also disable irq interrupt
-	mrs r3, cpsr_fc
-	bic r3, r3, 0xDF
-	orr r3, r3, 0x92
-	msr cpsr_fc, r3
-
-	@ Restore original spsr & IE
-	pop {r0, r1, r3, lr}
-	strh r1, [r3]
-	msr spsr_fc, r0
-	bx lr
-
+.section .rodata.irq_startup_pointers,"a",%progbits
 .LIntrVector: .word INTR_VECTOR
 .LMain: .word AgbMain
-.LHandlers: .word gIRQHandlers

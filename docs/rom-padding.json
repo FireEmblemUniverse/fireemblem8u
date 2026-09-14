@@ -1134,8 +1134,8 @@
       "sha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546"
     }
   ],
-  "elf_sha256": "63f0b99ab81e40950b02aac0f2eb4dfd44adcccc91dcc3ddbcc1a069bd28124f",
-  "map_sha256": "919971786c30dbcf97c9417dfe9cda1582a5dd45331bcc6db0ddc2a9eea9da52",
+  "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
+  "map_sha256": "46560595dd853633c4f68a49ae6b80a2eca68e52fee319ff536ae5f7239f89f9",
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "elf_rom_load_end": "0x8ffff00",
   "objcopy_policy": "--pad-to 0x9000000 --gap-fill=0xff",

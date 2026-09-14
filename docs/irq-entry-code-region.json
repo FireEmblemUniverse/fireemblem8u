@@ -6,6 +6,6 @@
   "full_rom_exact": true,
   "source_sha256": "08973bbd1fffe299698992a8cc2ca670942d62c8cb9b8fd3a5f5a1ff709c7398",
   "region_sha256": "c7250d65bbba8c56f8a7aee1274b31bdaa8ef646d84cf905ca38002eb5f96761",
-  "elf_sha256": "63f0b99ab81e40950b02aac0f2eb4dfd44adcccc91dcc3ddbcc1a069bd28124f",
+  "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
   "scope": "Exact register setup and full-ROM equality; linker assertion and symbols verify adjacent SPSR/frame-save assembly. Startup ADR still addresses IrqMain. No hardware execution claim."
 }

@@ -1,4 +1,4 @@
-// Research: status-register instructions remain explicitly assembly-owned.
+// Private IRQ continuation; processor-status instructions remain assembly-owned.
 register unsigned irqValue asm("r0");
 register unsigned irqPointer asm("r1");
 register unsigned irqOffset asm("r2");
@@ -6,15 +6,9 @@ register unsigned irqStatus asm("r3");
 register unsigned *irqStack asm("sp");
 register unsigned irqLink asm("lr");
 extern unsigned gIRQHandlers[14];
-#ifdef RESEARCH_IRQ_EXTERNAL_POOL
 unsigned *const IrqHandlersPointer __attribute__((used,section(".rodata.irq_handlers"))) = gIRQHandlers;
-#endif
-#ifdef RESEARCH_IRQ_FRAME
-#define IRQ_FRAME __attribute__((matching_arm_irq_frame))
-#else
-#define IRQ_FRAME
-#endif
-void __attribute__((noreturn)) IRQ_FRAME IrqContinuation(void)
+
+void __attribute__((noreturn)) __attribute__((matching_arm_irq_frame)) IrqSelected(void)
 {
     *(volatile unsigned short *)(irqStatus + 2) = irqValue;
     asm volatile("mrs %0, cpsr" : "=r"(irqStatus));

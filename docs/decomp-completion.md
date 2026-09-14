@@ -11012,3 +11012,33 @@ match, not a production conversion: integration must preserve the startup
 vector/main literals and IRQ search adjacency, update ownership audits, and
 retain five status instructions (20 bytes) as assembly-owned. The other
 60 instruction bytes are generated from C in the isolated candidate.
+
+### Integrated IRQ continuation and shared startup literals
+
+`src/irq_continuation.c` now supplies IrqSelected at 080001CC..0800021C
+and the handler-pointer word at 08000224. The matching backend and builder
+move to `tools/arm-dispatch/irq_frame.cc` and `build_irq_frame.py`, using
+`matching_arm_irq_frame` as the explicit contract. `src/crt0.s` retains
+its original startup vector/main words in a dedicated adjacent data section.
+The linker asserts both search-to-continuation adjacency and the handler
+pointer's offset of 88 bytes from IrqSelected. No ROM bytes change.
+
+The continuation contains sixty C-generated instruction bytes and twenty
+retained processor-status instruction bytes. `audit_inline_regions.py` now
+records all five status sites, and `audit_irq_continuation.py` verifies the
+linked 80-byte mixed object, exact ROM, symbols, pointer target, assertions
+and explicit status instructions. Whole-object C ownership is unchanged at
+739,998/777,630 (95.16%), because this object is correctly counted as mixed.
+Assembly-source instruction bytes decrease from 280 to 200; reviewed inline
+bytes increase from eighteen to thirty-eight, giving 238 main non-library
+assembly bytes in total. There are now 598 tracked main C files.
+
+`make compare -j8` passes. The 4,115-case dispatcher model passes against
+`fireemblem8.gba`, including 3,107 complete returns and 1,008 halts. The
+backend's fresh candidate, negative cases, external-pool layout checks and
+unannotated control also pass after the tool move. All four fresh runtime
+images and exported symbols match, and code/data-provenance receipts have
+been refreshed to the integrated ELF. Hardware entry, BIOS epilogue, nested
+interrupts, real handlers and hardware IF effects remain model exclusions.
+The remaining startup and saved-frame assembly, runtime/BIOS boundaries
+and complete executable classification are still unfinished.

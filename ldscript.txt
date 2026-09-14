@@ -250,7 +250,10 @@ SECTIONS
         src/crt0.o(.text.irq_save_frame);
         ASSERT(IrqSaveFrame == IrqMain + 20, "IRQ entry adjacency changed");
         src/irq_search.o(.text);
-        src/crt0.o(.text.irq_after_search);
+        src/irq_continuation.o(.text);
+        src/crt0.o(.rodata.irq_startup_pointers);
+        src/irq_continuation.o(.rodata.irq_handlers);
+        ASSERT(IrqHandlersPointer == IrqSelected + 88, "IRQ handler pool displacement");
         ASSERT(IrqSelected == IrqSearch + 180, "IRQ search adjacency changed");
         ARMCodeToCopy_Start = .;
         src/arm/color_fade_tick.o(.text);

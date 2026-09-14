@@ -163,6 +163,13 @@ ARM_DISPATCH_XOR := $(ARM_DISPATCH_DIR)/xor_flags.so
 $(ARM_DISPATCH_CC): tools/arm-dispatch/build_backend.py tools/arm-dispatch/matching.md tools/arm-dispatch/thumb-leaf-frame.patch
 	$(PYTHON) tools/arm-dispatch/build_backend.py
 
+IRQ_FRAME_PLUGIN := .deps/irq-frame-backend/irq_frame.so
+$(IRQ_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/irq_frame.cc tools/arm-dispatch/build_irq_frame.py
+	$(PYTHON) tools/arm-dispatch/build_irq_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir .deps/irq-frame-backend
+src/irq_continuation.o: $(IRQ_FRAME_PLUGIN)
+src/irq_continuation.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/irq_continuation.o: CC1FLAGS := -std=gnu89 -O2 -fno-schedule-insns2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(IRQ_FRAME_PLUGIN) -fplugin-arg-irq_frame-pool=IrqHandlersPointer
+
 $(ARM_DISPATCH_TABLE): $(ARM_DISPATCH_CC) tools/arm-dispatch/branch_tables.cc tools/arm-dispatch/build_branch_tables.py
 	$(PYTHON) tools/arm-dispatch/build_branch_tables.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the isolated research IRQ frame plugin against installed ARM GCC headers."""
+"""Build the matching IRQ frame plugin against installed ARM GCC headers."""
 import argparse
 import hashlib
 import json

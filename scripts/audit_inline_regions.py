@@ -8,6 +8,11 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('main_rom','src/irq_continuation.c','IrqSelected',0x080001d0,'00300fe1',4,'asm volatile("mrs %0, cpsr"'),
+ ('main_rom','src/irq_continuation.c','IrqSelected',0x080001dc,'03f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
+ ('main_rom','src/irq_continuation.c','IrqSelected',0x080001fc,'00300fe1',4,'asm volatile("mrs %0, cpsr"'),
+ ('main_rom','src/irq_continuation.c','IrqSelected',0x08000208,'03f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
+ ('main_rom','src/irq_continuation.c','IrqSelected',0x08000214,'00f069e1',4,'asm volatile("msr spsr_fc, %0"'),
  ('main_rom','src/serial_reset.c','SerialReset',0x08b1a24c,'000011ef',4,'asm volatile("svc #0x110000"'),
  ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084320,'c046',2,'asm("nop")'),
  ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084324,'c046',2,'asm("nop")'),

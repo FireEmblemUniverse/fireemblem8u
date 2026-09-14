@@ -5,7 +5,7 @@ import hashlib,json,subprocess,sys
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/irq-frame-backend';OUT.mkdir(parents=True,exist_ok=True)
 compiler=str(ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc')
-subprocess.run([sys.executable,str(ROOT/'research/irq/build_irq_frame.py'),'--compiler',compiler],check=True,capture_output=True)
+subprocess.run([sys.executable,str(ROOT/'tools/arm-dispatch/build_irq_frame.py'),'--compiler',compiler],check=True,capture_output=True)
 source=(ROOT/'research/irq/continuation.c').read_text()
 flags=[compiler,'-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables']
 plugin=['-fplugin='+str(OUT/'irq_frame.so')]
@@ -32,18 +32,18 @@ mutants=[
 rejected=[]
 for name,text,extra in mutants:
  result=compile(name,text,plugin+['-DRESEARCH_IRQ_FRAME']+extra)
- assert result.returncode!=0 and 'IRQ research' in result.stderr,(name,result.stderr)
+ assert result.returncode!=0 and 'IRQ frame' in result.stderr,(name,result.stderr)
  rejected.append(name)
 # Plugin loading without opt-in must not alter the emitted instructions.
 for name,extra in [('plain',[]),('unannotated',plugin)]:
  result=compile(name,source,extra);assert result.returncode==0,result.stderr
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/(name+'.o')),str(OUT/(name+'.bin'))],check=True)
 assert (OUT/'plain.bin').read_bytes()==(OUT/'unannotated.bin').read_bytes()
-report.update(rejected_cases=rejected,unannotated_control_unchanged=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'research/irq/irq_frame.cc').read_bytes()).hexdigest())
+report.update(rejected_cases=rejected,unannotated_control_unchanged=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/irq_frame.cc').read_bytes()).hexdigest())
 # Recreate the original shared-pool layout around the external C pointer word.
 external_flags=plugin+['-DRESEARCH_IRQ_FRAME','-DRESEARCH_IRQ_EXTERNAL_POOL','-fplugin-arg-irq_frame-pool=IrqHandlersPointer']
 result=compile('wrong_pool_symbol',source.replace('gIRQHandlers','gOtherHandlers'),external_flags)
-assert result.returncode!=0 and 'IRQ research requires sole handler symbol word' in result.stderr
+assert result.returncode!=0 and 'IRQ frame requires sole handler symbol word' in result.stderr
 report['wrong_pool_symbol_rejected']=True
 result=compile('external',source,external_flags);assert result.returncode==0,result.stderr
 rom=(ROOT/'baserom.gba').read_bytes()

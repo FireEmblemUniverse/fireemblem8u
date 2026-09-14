@@ -16,7 +16,7 @@
     "unknown-command",
     "stop-payload"
   ],
-  "elf_sha256": "63f0b99ab81e40950b02aac0f2eb4dfd44adcccc91dcc3ddbcc1a069bd28124f",
+  "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
   "interpreter_sha256": "636d3efde841accef25b3670372a4036ef90fc371d7d6aa3505ade4a270b2454",
   "format_header_sha256": "410caa663a9c6c2f717c9ac2d793bd17cfadfda814f9446256c82d77958a385a",
   "streams_detail": [

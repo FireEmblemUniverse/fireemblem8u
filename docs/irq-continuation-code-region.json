@@ -1,0 +1,13 @@
+{
+  "start": "0x80001cc",
+  "end": "0x800021c",
+  "instruction_bytes": 80,
+  "c_generated_instruction_bytes": 60,
+  "retained_status_assembly_bytes": 20,
+  "c_pointer_bytes": 4,
+  "full_rom_exact": true,
+  "source_sha256": "8d7f4946dbe430fb0400a6689f0a40f217a621f5e1c0d5ec2f7f796f730958ce",
+  "region_sha256": "55211d1f64cb6d52103f1e8b227aafd99330bdc3c9e021447a9a8a91434dd2bc",
+  "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
+  "scope": "Exact integrated continuation and shared literal placement; five status instructions remain assembly-owned. Whole-object ownership remains mixed. Dispatcher execution is documented separately; no hardware execution claim."
+}
