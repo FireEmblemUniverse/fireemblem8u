@@ -12462,3 +12462,21 @@ No production compiler dependency or archive is changed. Next reuse the
 compare-zero sign-branch contract and recover the zero-divisor entry before
 full 206-byte helper tests and integration. Production runtime assembly
 remains 268 bytes per audited image.
+
+
+### Exact signed-modulus nonzero path (September 14, 2026)
+
+Baseline `615af6ce`. `smod_sign.c` combines the saved-sign frame with the
+existing checked compare-zero sign-branch pass. The generated 194 bytes
+match original __modsi3 offsets 0..4 followed by 6..196 exactly. This omits
+only the zero-divisor BEQ halfword and ten-byte zero handler, not any
+nonzero arithmetic instruction. All 6,060 nonzero cases pass mandatory
+r0-r14, CPSR and stack-write equality.
+
+`check_smod_nonzero.py` rebuilds the candidate, runs the full nonzero model,
+and explicitly asserts the two original byte spans. Its receipt records the
+omitted ranges and distinguishes this match from a full-helper match.
+No compiler pass changed. Next recover the zero-divisor terminal handoff
+between CMP r1,#0 and the existing BPL without introducing a second compare,
+then verify all 206 helper bytes and all zero-divisor cases before archive
+integration. Production runtime assembly remains 268 bytes per audited image.

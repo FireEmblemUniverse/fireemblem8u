@@ -1,0 +1,66 @@
+{
+  "exact_nonzero_core": false,
+  "compiler_extra_flags": [],
+  "nonzero_only": true,
+  "extra_plugin_sha256": [
+    "89768bab39574d097f3503847e40439323997c9a46fa8ad47c882c6ee0b8c786",
+    "7cc6ef1e4068690ca9791c05c1a08231ef585fb3e95eb591c2f050247d831b66",
+    "bc23c0d2c5db169d70b631beba8ef819d77c034b9aa9017e786b367390a28afe"
+  ],
+  "zero_divisor_flag_difference_cases": 0,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": null,
+  "register_difference_cases": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0
+  },
+  "stack_write_difference_cases": 0,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 6,
+      "candidate_offset": 4,
+      "bytes": 190
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": "e6d1b3f3d6b7d3cc56186e5edb42ac8a3ff4ae7fc043cde21af68c1c20bc6eb0",
+  "assembled_helper_sha256": "2843f0fdbaa7388c51d39ea1b567b23e6814bf6bd631266ee6f7bfe189e0fcb0",
+  "cases": 6060,
+  "divide_by_zero_cases": 0,
+  "initial_bit_one": false,
+  "division_needed": false,
+  "operation": "signed-modulus",
+  "original_instruction_bytes": 206,
+  "candidate_section_bytes": 194,
+  "result_and_preserved_registers_match": true,
+  "flag_difference_cases": 0,
+  "caller_register_difference_cases": 0,
+  "bytes_exact": false,
+  "production_integrated": false,
+  "scope": "All original nonzero-path bytes match after removing only the zero-branch halfword and ten-byte zero handler. All final registers, CPSR and stack writes match for nonzero divisors. Full helper is not yet matched or integrated.",
+  "exact_nonzero_path_excluding_zero_branch": true,
+  "omitted_original_ranges": [
+    {
+      "offset": 4,
+      "bytes": 2
+    },
+    {
+      "offset": 196,
+      "bytes": 10
+    }
+  ]
+}
