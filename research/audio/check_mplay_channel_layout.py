@@ -266,6 +266,10 @@ def main():
            ('note_pcm_frequency_setup_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_pcm_frequency_setup);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_pcm_frequency_setup);'),'ply_note pcm_frequency_setup extent or continuation')]
  cases += [('note_exit_restore_extent',source.replace('        __ply_note_exit_restore_end = .;','        . += 2;\n        __ply_note_exit_restore_end = .;'),'ply_note exit restore extent or literal boundary'),
            ('note_exit_restore_literals',source.replace('        src/m4a_1.o(.text.after_ply_note_exit_restore);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_exit_restore);'),'ply_note exit restore extent or literal boundary')]
+ cases += [('note_lfo_extent',source.replace('        __ply_note_lfo_delay_end = .;','        . += 2;\n        __ply_note_lfo_delay_end = .;'),'ply_note LFO extent or continuation'),
+           ('note_lfo_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_lfo_delay);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_lfo_delay);'),'ply_note LFO extent or continuation')]
+ for name,value in [('far','__ply_note_lfo_delay_start + 266'),('backward','__ply_note_lfo_delay_start + 8'),('odd','__ply_note_lfo_delay_start + 11')]:
+  cases.append(('note_lfo_'+name,source.replace('        ASSERT((PlyNoteTrackVolumeSetup & 1)', '        PlyNoteTrackVolumeSetup = '+value+';\n        ASSERT((PlyNoteTrackVolumeSetup & 1)'), 'ply_note LFO equality target outside forward conditional range'))
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

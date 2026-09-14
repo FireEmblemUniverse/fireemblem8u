@@ -1780,6 +1780,19 @@ SECTIONS
         src/m4a_ply_note_channel_link.o(.text);
         __ply_note_channel_link_end = .;
         src/m4a_1.o(.text.after_ply_note_channel_link);
+        __ply_note_lfo_delay_start = .;
+        src/m4a_ply_note_lfo_delay.o(.text);
+        __ply_note_lfo_delay_end = .;
+        src/m4a_1.o(.text.after_ply_note_lfo_delay);
+        ASSERT((PlyNoteLfoDelayBody & ~1) == PlyNoteLfoDelay &&
+               __ply_note_lfo_delay_start == (ply_note & ~1) + 344 &&
+               __ply_note_lfo_delay_end - __ply_note_lfo_delay_start == 10 &&
+               PlyNoteModInvoke == __ply_note_lfo_delay_end,
+               "ply_note LFO extent or continuation changed");
+        ASSERT((PlyNoteTrackVolumeSetup & 1) == 0 &&
+               PlyNoteTrackVolumeSetup >= __ply_note_lfo_delay_start + 10 &&
+               PlyNoteTrackVolumeSetup <= __ply_note_lfo_delay_start + 10 + 254,
+               "ply_note LFO equality target outside forward conditional range");
         __ply_note_mod_invoke_start = .;
         src/m4a_ply_note_mod_invoke.o(.text);
         __ply_note_mod_invoke_end = .;

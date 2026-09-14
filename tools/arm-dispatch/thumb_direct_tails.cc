@@ -26,6 +26,7 @@ namespace {
 std::set<std::string> destinations;
 unsigned expected=0;
 bool fork_decrement=false;
+bool register_equality=false;
 bool descending_masks=false;
 bool descending_local_masks=false;
 std::string unsigned_immediate;
@@ -67,7 +68,7 @@ public:
         if (!lookup_attribute("matching_thumb_direct_tails",DECL_ATTRIBUTES(fn->decl))) return 0;
         if (!TARGET_THUMB1||!lookup_attribute("matching_tail_transfer",DECL_ATTRIBUTES(fn->decl)))
             fatal_error(UNKNOWN_LOCATION,"Thumb direct tails require private Thumb tails");
-        unsigned rewritten=0,masked=0,unsigned_guards=0,local_masks=0,decrement_guards=0;
+        unsigned rewritten=0,masked=0,unsigned_guards=0,local_masks=0,decrement_guards=0,equality_guards=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
             if (!JUMP_P(i)) continue;
             rtx p=PATTERN(i),set=p;
@@ -143,6 +144,25 @@ public:
                     remove=stub;
                 }
             }
+            if (!replacement && register_equality && !bundled
+                && (GET_CODE(condition)==EQ || GET_CODE(condition)==NE)
+                && low(XEXP(condition,0)) && low(XEXP(condition,1))) {
+                // Either branch to a declared tail stub, or invert an adjacent
+                // tail guarded by the branch. Preserve CMP operand order/NZCV.
+                rtx destination=symbol_of(next_op(label));
+                rtx test=copy_rtx(condition);
+                if (!destination) {
+                    rtx_insn *stub=next_op(i);destination=symbol_of(stub);
+                    if (!destination || !adjacent_unlabelled(i,stub)
+                        || !forward_empty_to(stub,label)) continue;
+                    test=gen_rtx_fmt_ee(GET_CODE(condition)==EQ?NE:EQ,VOIDmode,
+                                       copy_rtx(XEXP(condition,0)),copy_rtx(XEXP(condition,1)));
+                    remove=stub;
+                }
+                replacement=gen_match_thumb_unsigned_reg_tail(copy_rtx(XEXP(condition,0)),
+                    copy_rtx(XEXP(condition,1)),test,copy_rtx(destination));
+                equality_guards++;
+            }
             if (!replacement && !unsigned_immediate.empty() && !bundled
                 && GET_CODE(condition)==GTU && low(XEXP(condition,0))
                 && CONST_INT_P(XEXP(condition,1))) {
@@ -175,6 +195,8 @@ public:
             }
             rewritten++;
         }
+        if (register_equality&&equality_guards!=1)
+            fatal_error(UNKNOWN_LOCATION,"register equality requires exactly one proven guard");
         if (fork_decrement&&decrement_guards!=1)
             fatal_error(UNKNOWN_LOCATION,"direct decrement requires exactly one proven fork");
         if (descending_local_masks && local_masks!=1)
@@ -191,6 +213,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         std::string key=info->argv[n].key;const char *v=info->argv[n].value;
+        if (key=="register-equality"&&!v&&!register_equality) {register_equality=true;continue;}
         if (key=="fork-decrement"&&!v&&!fork_decrement) {fork_decrement=true;continue;}
         if (key=="descending-mask-operands"&&!v&&!descending_masks) {descending_masks=true;continue;}
         if (key=="descending-local-mask-operands" && !v && !descending_local_masks) {descending_local_masks=true;continue;}
@@ -204,6 +227,8 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         return 1;
     }
     if (destinations.empty()||!expected) return 1;
+    if (register_equality && (expected!=1 || destinations.size()!=1 || fork_decrement
+        || descending_masks || descending_local_masks || !unsigned_immediate.empty())) return 1;
     if (fork_decrement&&(descending_masks||descending_local_masks||!unsigned_immediate.empty())) return 1;
     if (descending_local_masks && descending_masks) return 1;
     if (!unsigned_immediate.empty() && (expected!=1 || descending_masks || descending_local_masks)) return 1;

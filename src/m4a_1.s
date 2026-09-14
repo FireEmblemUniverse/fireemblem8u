@@ -578,11 +578,7 @@ PlyNoteChannelLink:
 	.section .text.after_ply_note_channel_link, "ax", %progbits
 	.global PlyNoteLfoDelay
 PlyNoteLfoDelay:
-	ldrb r0, [r5, 0x1B]
-	strb r0, [r5, 0x1C]
-	cmp r0, r1
-	beq _081DDC66
-	adds r1, r5, 0
+	.section .text.after_ply_note_lfo_delay, "ax", %progbits
 	.global PlyNoteModInvoke
 PlyNoteModInvoke:
 	.section .text.after_ply_note_mod_invoke, "ax", %progbits

@@ -9886,3 +9886,66 @@ executable classification.
 The valid production layout links and all 269 altered layouts reject, including
 two new return extent/literal-boundary cases. Evidence:
 `.deps/soundmain-packed/ply-note/exit-restore-production-layout.log`.
+
+
+## September 13, 2026 — Note LFO delay branch integrated
+
+On baseline `a91e4961`, `src/m4a_ply_note_lfo_delay.c` replaces ten assembly
+instruction bytes at 080CFF9C..080CFFA6. It reads the track's LFO delay, stores
+the delay counter, compares the byte against the incoming r1 value, and either
+skips modulation reset or prepares r1 for that reset. The prior rejected
+candidate now compiles exactly through new opt-in register-equality support.
+
+`thumb_direct_tails` accepts one declared equality continuation with an exact
+transfer count. It redirects a local tail stub or inverts an adjacent guarded
+tail while retaining comparison operands and NZCV. The existing low-register
+comparison pattern also admits EQ/NE alongside LTU/GEU. The option rejects mixed
+modes, high operands, unsigned comparisons and malformed declarations. No
+instruction templates were added to the C source. The pinned compiler was
+rebuilt with the backend predicate change. Linker guards fix the ten-byte extent,
+entry offset, immediate reset continuation and forward/even branch target.
+
+`check_ply_note_lfo_delay.py --production` verifies source identity, production
+object bytes and the full ROM. All 163,840 model cases pass: every delay byte,
+every incoming NZCV, ten sampled full-width comparison values and four track/
+stack placements. Cases cover read/write overlap at the saved frame and a store
+at the last RAM byte. There are 147,264 reset-path and 16,576 skip-path cases.
+Every case checks all registers, SP/LR, exact flags, full RAM and ordered byte
+read/write. Equality preserves CMP's Z/C flags; reset preparation produces the
+original ADD-zero flags. Twelve unsupported compiler contracts reject and
+unannotated objects remain unchanged. Checks stop before actual callees.
+
+The separate `--inequality` regression passes 163,840 cases, including nonzero
+CMP differences and overflow. Its reference is the original instruction sequence
+with BEQ changed to BNE, not an original game routine; it validates the second
+comparison operator accepted by the new compiler predicate. The same twelve
+malformed contracts reject. Existing direct-tail guards reject nine option
+configurations and three source forms. CGB selection, which shares the modified
+comparison pattern, retains exact bytes and passes all 246,480 model cases and
+fourteen malformed contracts.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. Refreshed mixer,
+SoundMain, MPlayMain and PCM-selection receipts retain C ownership. Main-ROM
+ownership is 721,228 C-owned (92.75%), 33,870 mixed C/assembly, 740 assembly-source
+and 21,792 runtime-archive instruction bytes, totaling 777,630. Reviewed
+non-library assembly is 1,150 main-ROM and 420 payload bytes. Inventory contains
+588 tracked main C files and 29 assembly entry markers.
+
+ply_note retains exactly 32 assembly instruction bytes at 080CFE44..080CFE64:
+its entry frame, shared literal loads and gate-time setup. Production ELF SHA-256:
+`59476175d256857ff6bda9109e7d539c183995d9a4f94f7287f9059f80c25241`.
+
+Evidence under `.deps/soundmain-packed/ply-note/`: `lfo-delay/report.json`,
+`lfo-delay-ne/report.json`, `lfo-check.log`, `lfo-production-check.log`,
+`lfo-inequality-regression.log`, `lfo-cgb-regression.log`,
+`lfo-direct-guards-regression.log`, `lfo-backend-build.log`, `lfo-plugin-build.log`,
+`lfo-production-build.log`, `lfo-runtime.log`, `lfo-ownership.log`,
+`lfo-source.json`, `lfo-linked.json` and region audit logs/receipts. Compiler
+provenance is refreshed in `.deps/gcc16-matching/build-info.json`. Remaining work
+includes the note entry, runtime helpers, unit-list/transfer code and complete
+executable classification.
+
+The valid layout links and all 274 altered layouts reject, including five new
+LFO extent/continuation and forward/backward/odd-target mutations. Evidence:
+`.deps/soundmain-packed/ply-note/lfo-production-layout.log`.

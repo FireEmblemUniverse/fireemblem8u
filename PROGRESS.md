@@ -2,14 +2,14 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 13, 2026. Latest integrated milestone (baseline `dff2bc8b`): ply_note's sixteen-byte saved-frame return is matching C. All 32,768 production return cases pass; fourteen unsupported compiler contracts reject and unannotated output is unchanged. Existing mixer/MPlayMain return regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,218/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,160 bytes, with 587 tracked C files. The valid layout links and all 269 altered layouts reject. ply_note retains 42 assembly instruction bytes. PCM selection's 84 bytes and MPlayMain's 602 mapped instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 13, 2026. Latest integrated milestone (baseline `a91e4961`): ply_note's ten-byte LFO delay branch is matching C. All 163,840 production cases pass; twelve unsupported compiler contracts reject and unannotated output is unchanged. A separate 163,840-case inequality regression and the 246,480-case CGB selection regression pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,228/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,150 bytes, with 588 tracked C files. The valid layout links and all 274 altered layouts reject. ply_note retains only its 32 assembly entry instruction bytes. PCM selection's 84 bytes and MPlayMain's 602 mapped instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: recover the ten-byte LFO delay branch and 32 bytes of entry handling.
-The LFO candidate needs direct register-equality tail support; the existing
-compiler rule rejects it. Return checks start with a prepared saved frame and stop at the caller target. MPlayMain's
+Next: recover ply_note's 32-byte entry frame/literal/gate-time setup.
+LFO checks cover the delay store and branch through the reset or track-volume
+continuation, stopping before real callee execution. MPlayMain's
 ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game
 completion or independent validation of every real callback implementation.
 
@@ -26,9 +26,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.75%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,160 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,150 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ply_note LFO delay | **10/10 bytes exact; 163,840 production cases pass; twelve unsupported contracts and 274 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note saved-frame return | **16/16 bytes exact; 32,768 production cases pass; fourteen unsupported contracts and 269 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note argument setup | **12/12 bytes exact; 773,120 production cases pass; eighteen unsupported contracts and 267 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note call boundaries | **26/26 bytes exact; 172,032 cases pass; 72 unsupported contracts and 261 altered layouts reject; full ROM/runtime match** |

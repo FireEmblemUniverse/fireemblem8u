@@ -479,7 +479,7 @@
   [(set_attr "length" "6") (set_attr "type" "branch") (set_attr "conds" "clob")])
 
 
-;; Direct low-register unsigned comparison to a declared private continuation.
+;; Direct low-register unsigned/equality comparison to a private continuation.
 ;; Record the CMP for the ordinary following cbranch, which can reuse NZCV.
 (define_insn "match_thumb_unsigned_reg_tail"
   [(set (pc)
@@ -488,7 +488,8 @@
           [(match_operand:SI 0 "low_register_operand" "l")
            (match_operand:SI 1 "low_register_operand" "l")])
          (match_operand:SI 3 "match_thumb_tail_symbol" "s") (pc)))]
-  "TARGET_THUMB1 && (GET_CODE (operands[2]) == LTU || GET_CODE (operands[2]) == GEU)"
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == LTU || GET_CODE (operands[2]) == GEU
+                       || GET_CODE (operands[2]) == EQ || GET_CODE (operands[2]) == NE)"
 {
   output_asm_insn ("cmp\t%0, %1", operands);
   cfun->machine->thumb1_cc_insn = insn;
