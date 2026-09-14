@@ -1,9 +1,15 @@
 {
   "rejected_controls": [
     "sp_without_opt_in",
-    "arm_mode"
+    "arm_mode",
+    "wrong_swi",
+    "wrong_result",
+    "extra_store",
+    "argument",
+    "debug",
+    "unwind"
   ],
-  "exact_cores": 11,
+  "exact_cores": 13,
   "total_cores": 13,
   "sites": [
     {
@@ -90,20 +96,20 @@
     {
       "site": 9,
       "function": "_exit",
-      "source_sha256": "4832a0a2c83f2a7d0277386da3b01aa1b62eb627f0b22bb2efd1c26862d4200c",
-      "text_hex": "80b44746101c80b4191cabdf804680bcb84680bc7047",
+      "source_sha256": "41ba54eb1e01e118b95d7ecf989d3c51d4eaa11a38a1919665a6517b2057a62c",
+      "text_hex": "101c191cabdf80467047",
       "reference_core_hex": "101c191cabdf8046",
-      "exact_contiguous_core": false,
-      "core_offset": -1
+      "exact_contiguous_core": true,
+      "core_offset": 0
     },
     {
       "site": 10,
       "function": "_kill",
-      "source_sha256": "4832a0a2c83f2a7d0277386da3b01aa1b62eb627f0b22bb2efd1c26862d4200c",
-      "text_hex": "80b44746101c80b4191cabdf804680bcb84680bc7047",
+      "source_sha256": "41ba54eb1e01e118b95d7ecf989d3c51d4eaa11a38a1919665a6517b2057a62c",
+      "text_hex": "101c191cabdf80467047",
       "reference_core_hex": "101c191cabdf8046",
-      "exact_contiguous_core": false,
-      "core_offset": -1
+      "exact_contiguous_core": true,
+      "core_offset": 0
     },
     {
       "site": 11,
@@ -124,5 +130,5 @@
       "core_offset": 0
     }
   ],
-  "scope": "Research-only isolated snippets; ordinary high-register frames prevent two contiguous cores. The SWI remains inline. Caller context, monitor clobbers, behavior and full-member integration are not verified."
+  "scope": "Research-only isolated snippets; r8 variants use an explicit private result-register contract. The SWI remains inline. Caller context, monitor clobbers, behavior and full-member integration are not verified."
 }

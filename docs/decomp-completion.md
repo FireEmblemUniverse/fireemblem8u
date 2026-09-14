@@ -12764,3 +12764,29 @@ unverified. This is isolated byte-match evidence, not production recovery.
 `make compare -j8` passes and the production ELF is unchanged. Rebuilding the
 archive changed its identity, requiring fresh runtime verification receipts.
 See runtime-syscall-core-probe.json for all candidate bytes.
+
+
+### All thirteen isolated syscall cores verified (September 14, 2026)
+
+Baseline `59c85b71`. Ordinary -fcall-used-r8 did not remove the fixed-global
+r8 preservation frame. The new matching_monitor_r8_core contract instead
+validates the entire ten-operation RTL sequence: two compiler r7 pushes,
+the r8 save copy, r2/r3 argument assignments, exact retained SWI 171 with
+tied r0/r1 operands, SP-use marker, r8 result assignment, LR use and epilogue.
+Only the validated compiler frame and restoring epilogue are removed. The
+contract treats r8 as a private result; it is not a standard C ABI wrapper.
+
+All thirteen isolated eight-byte sequences now match contiguously at offset
+zero. Eight negative controls reject, including altered service/result, extra
+work, function arguments and debug/unwind cases. check_syscall_cores.py runs
+1,664 cases across all sites, sixteen incoming NZCV combinations and eight
+result values. It checks incoming monitor arguments and flags, injects a
+synthetic response changing r0/r1/LR/NZCV, then verifies every r0–r14 value,
+final flags and absence of writes. The model stops after the result move;
+it never executes the snippet return after the synthetic LR change.
+
+Receipts: runtime-syscall-core-probe.json and runtime-syscall-core-model.json.
+No production dependency or runtime source changes are made. These isolated
+results do not verify original caller allocation, actual monitor behavior,
+full syscall functions or integration. All 104 production inline syscall
+bytes remain in the inventory until complete-member recovery is verified.

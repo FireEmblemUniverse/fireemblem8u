@@ -1,0 +1,7 @@
+{
+  "cases": 1664,
+  "probe_sha256": "27afe2e6b5bea4fcbe3a53b8c229c3ca2f1c357bafd9fb2f14b7956239601faf",
+  "all_registers_and_flags_match_model": true,
+  "no_memory_writes": true,
+  "scope": "Four-instruction core only; synthetic monitor changes r0/r1/LR/NZCV. Does not execute wrapper return or model real monitor behavior."
+}

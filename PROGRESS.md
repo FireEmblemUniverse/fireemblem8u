@@ -10,6 +10,8 @@ Syscall move research (baseline `c30d1ca1`): two C fixed-register assignment var
 
 Isolated syscall cores (baseline `36984bcf`): fixed-register C assignments around the retained SWI reproduce 11/13 contiguous eight-byte reference cores. Two r8-result cases still introduce compiler save/restore work. Low-register copies require the original ADDS #0 encoding and flags; explicit SP-copy opt-in preserves the high-register move. Two invalid contracts reject. The production ROM comparison passes and its ELF is unchanged; full syscall-member recovery remains pending.
 
+Complete isolated syscall cores (baseline `59c85b71`): all 13 eight-byte move/SWI sequences now match. A checked private r8-result pass removes only the exact compiler save/restore frame in the two high-register cases. Eight negative controls reject; 1,664 synthetic monitor cases verify all registers and flags at the core boundary with no memory writes. Full syscall context, monitor semantics and default-build integration remain open; production inline counts are unchanged.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
