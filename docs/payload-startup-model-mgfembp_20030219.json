@@ -1,0 +1,19 @@
+{
+  "image": "mgfembp_20030219",
+  "cases": 96,
+  "handoffs_per_case": 2,
+  "initial_modes": [
+    "IRQ",
+    "Supervisor",
+    "System"
+  ],
+  "flag_profiles": 16,
+  "handler_modes": [
+    "ARM",
+    "Thumb"
+  ],
+  "candidate_sha256": "d0cb08d0cf5833b9a24e35b5c9f05d92d6fc425f8b5b156c605fd7d5ee731d42",
+  "source_sha256": "64476a07b84968332b3fe756206bc866be299e8468661c4471f115089775fc62",
+  "production_integrated": false,
+  "scope": "Original payload and C candidate startup with synthetic ARM/Thumb main return and restart. Checks exact vector writes, register parity, flags, stack banks and untouched initial stack guards. Main target literal is patched for synthetic callbacks. No hardware reset/BIOS or real Main behavior claim."
+}

@@ -13280,3 +13280,24 @@ The isolated fixture currently binds the main-ROM symbol contract names to
 payload addresses. Independent startup execution, payload symbol contracts
 and production integration are still required. Production is unchanged;
 complete decompilation and executable/data classification remain unfinished.
+
+
+### Payload startup execution model (September 14, 2026)
+
+Baseline `5243c850`. `research/payload/check_startup_model.py` compares the
+original startup with the freshly rebuilt C candidate in all three payloads.
+All 96 cases per version pass (288 total): ARM/Thumb synthetic Main targets,
+IRQ/Supervisor/System initial modes and all sixteen condition-flag profiles.
+Each run observes two Main entries, executing Main's return and startup restart.
+
+The model checks installed vector, IRQ/System stack pointers, Supervisor stack
+preservation, exact vector-write traces, untouched initial stack guards, Main
+entry mode/flags/return address and register parity before and after synthetic
+caller-saved effects. The Main pointer literal is patched for the synthetic
+callback; hardware reset, BIOS and real Main behavior are outside scope.
+Receipts are `payload-startup-model-mgfembp.json`,
+`payload-startup-model-mgfembp_20030206.json` and
+`payload-startup-model-mgfembp_20030219.json`.
+
+Production remains unchanged. Payload-specific compiler symbol contracts and
+integration are next; the full decompilation goal remains unfinished.

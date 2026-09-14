@@ -6,7 +6,7 @@ Updated: September 14, 2026. Latest integration (baseline `20c16d4e`): the paylo
 
 Latest research (baseline `d967b5d7`): startup C matches all 52 instruction bytes and 16 pointer-data bytes in all three payloads, with nine displaced layouts rejected. It generates 44 instruction bytes from C and retains eight mode-write bytes. Production totals are unchanged. Evidence: `docs/payload-startup-research.json`.
 
-Next IRQ milestone: model startup execution and adapt its payload symbol contracts, then integrate it. The entry, saved frame, search and continuation now build from C with explicit retained processor-status instructions. Production evidence: `docs/payload-irq-continuation.json`.
+Startup execution modeling now passes 288 cases across all three versions, covering ARM/Thumb Main callbacks, three initial modes, all flag profiles and restart. Next IRQ milestone: adapt startup payload symbol contracts, then integrate it. The entry, saved frame, search and continuation now build from C with explicit retained processor-status instructions. Production evidence: `docs/payload-irq-continuation.json`.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
