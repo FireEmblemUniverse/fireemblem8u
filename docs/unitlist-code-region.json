@@ -1,0 +1,38 @@
+{
+  "start": "0x8091f10",
+  "end": "0x80920c4",
+  "region_bytes": 436,
+  "c_owned_instruction_bytes": 396,
+  "literal_alignment_bytes": 40,
+  "object": {
+    "object": "src/unitlistscreen.o",
+    "category": "c_owned",
+    "instruction_bytes": 18458
+  },
+  "elf_sha256": "afa81214cc0f52c9e8f2219dbf1c135f81178fa745ea67380e0cb593353a3625",
+  "region_sha256": "73011f6fac7bfe346f4511f8ece1025e3796ea4d10a7826dcded5210c2f81e71",
+  "full_rom_exact": true,
+  "regions": [
+    {
+      "start": "0x8091f10",
+      "end": "0x8091fea",
+      "kind": "thumb"
+    },
+    {
+      "start": "0x8091fea",
+      "end": "0x8092000",
+      "kind": "data"
+    },
+    {
+      "start": "0x8092000",
+      "end": "0x80920b2",
+      "kind": "thumb"
+    },
+    {
+      "start": "0x80920b2",
+      "end": "0x80920c4",
+      "kind": "data"
+    }
+  ],
+  "scope": "This routine contributes 396 newly C-owned instruction bytes. Its complete 18,458-byte object now has no instruction templates; the other instructions in that object were already C. Not whole-game completion."
+}

@@ -343,6 +343,12 @@ src/m4a_end_tie.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-
 
 # Empty constraints must contribute zero estimated bytes in this translation
 # unit, or Event1B_TEXTSHOW receives an unnecessarily expanded branch.
+ROW_SHIFT_CC1 := tools/agbcc-row-shift/agbcc$(EXE)
+src/unitlistscreen.o: CC1 := $(ROW_SHIFT_CC1)
+src/unitlistscreen.o: src/unitlistscreen.c $(ROW_SHIFT_CC1)
+$(ROW_SHIFT_CC1): tools/agbcc-row-shift/build.py tools/agbcc-row-shift/empty-asm-length.patch tools/agbcc-row-shift/row-shift-alloc.patch
+	$(PYTHON) tools/agbcc-row-shift/build.py --output $@
+
 EMPTY_ASM_CC1 := tools/agbcc-empty-asm/agbcc$(EXE)
 src/eventscr.o: CC1 := $(EMPTY_ASM_CC1)
 src/eventscr.o: src/eventscr.c $(EMPTY_ASM_CC1)

@@ -10205,3 +10205,32 @@ Tracked evidence: `research/unitlist/row-shift-alloc.patch`,
 research receipt. Reproducible clean build, expanded negative contracts,
 production integration and full-ROM verification are the next milestone.
 No production ownership increase is claimed yet.
+
+### Unit-list page transition integrated from a clean pinned compiler
+
+The production fallback has been replaced with the annotated C routine in
+`src/unitlistscreen.c`. `tools/agbcc-row-shift/build.py` clones pinned agbcc
+revision `da598c1d918402c42c0c0d7128ba14567f3175e9`, applies the empty-template
+length and structural allocation patches, and records source/compiler hashes.
+The first clean build exposed incorrect zero-context hunk offsets: Python
+`splitlines()` counted form-feed characters as line boundaries while patch
+counts LF only. Regenerating the patch with LF-only splitting fixed the
+reproducibility issue. The corrected clean compiler passes both exact and
+renamed-function byte comparisons, eight negative contracts and 61 unchanged
+unannotated controls. The research and production structural patches agree.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh libc/libgcc
+rebuilds reproduce all four executable images and exported symbols. Region
+audit `scripts/audit_unitlist_region.py` verifies 396 Thumb instruction bytes
+and 40 literal/alignment bytes in the original 436-byte location. Audio,
+PCM, ply_note and multiply ownership receipts are refreshed for the new ELF.
+No layout changed, so the prior 287-layout gate is retained as historical
+evidence rather than claimed as rerun.
+
+Main-ROM C ownership rises from 721,264 to 739,722 of 777,630 instruction
+bytes (95.13%): removal of the final instruction template makes the entire
+18,458-byte unit-list object C-owned. The newly converted routine accounts
+for 396 instruction bytes; the other 18,062 bytes were already C. Reviewed
+non-library main-ROM assembly falls from 1,114 to 718 bytes. Runtime archives,
+remaining transfer/startup instructions and executable classification still
+prevent a claim of complete decompilation. The user-deleted README is preserved.

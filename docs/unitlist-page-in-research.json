@@ -1,6 +1,6 @@
 {
   "baseline_commit": "2039044df0eb2cd88dd4ddda016e46b464735482",
-  "production_integrated": false,
+  "production_integrated": true,
   "original_instruction_bytes": 396,
   "original_literal_alignment_bytes": 40,
   "baseline_candidate": {
@@ -43,7 +43,7 @@
   },
   "source_sha256": "de5eacd9314575099d30cb5e2e0153c92b41cc0e597729ecf322313640a6dab6",
   "elf_sha256": "7d1c5877487db4d3767e9f1c28bc24c7216cc77868e34acc99b6aab35cb45c83",
-  "scope": "Research receipt, not production C coverage. Byte similarity includes literals/alignment and is not a decompilation percentage.",
+  "scope": "Earlier probes/models retained as historical research. Production C integration is verified by the production region receipt and full-ROM comparison; this is not whole-game completion.",
   "additional_probes": {
     "clobber_combinations": 256,
     "clobber_successful_compiles": 256,
@@ -923,6 +923,26 @@
         "name": "opt3",
         "returncode": 1,
         "diagnostic": ".deps/unitlist-page-in/contract-opt3.c:30: thumb_row_shift_alloc: requires -O2\n"
+      },
+      {
+        "name": "opt1",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-opt1.c:30: thumb_row_shift_alloc: requires -O2\n.deps/unitlist-page-in/contract-opt1.c: In function `UnitList_PageChangeIn_Loop':\n.deps/unitlist-page-in/contract-opt1.c:87: thumb_row_shift_alloc: expected two masked row shift pairs\n"
+      },
+      {
+        "name": "wide-mask",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-wide-mask.c: In function `UnitList_PageChangeIn_Loop':\n.deps/unitlist-page-in/contract-wide-mask.c:87: thumb_row_shift_alloc: expected two masked row shift pairs\n"
+      },
+      {
+        "name": "one-pair",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-one-pair.c: In function `UnitList_PageChangeIn_Loop':\n.deps/unitlist-page-in/contract-one-pair.c:87: thumb_row_shift_alloc: expected two masked row shift pairs\n"
+      },
+      {
+        "name": "attribute-args",
+        "returncode": 1,
+        "diagnostic": "agbcc: warnings being treated as errors\n.deps/unitlist-page-in/contract-attribute-args.c:30: warning: `thumb_row_shift_alloc' attribute directive ignored\n"
       }
     ],
     "unannotated_unchanged": 61,
@@ -989,9 +1009,58 @@
       "row-pointer-reverse-59.i",
       "row-pointer-reverse-60.i"
     ],
-    "production_integrated": false,
-    "compiler_sha256": "f3e22a69b5947cda97ef10fd95947c49e67b29949af2e52574c03c9e0b1863ac",
-    "patch_sha256": "534d0c8af110d75ad9d57ad43f58ee5260ab56124f0c12c58a19d08982b275dd",
-    "limitations": "Research compiler only; pinned clean build, expanded rejection tests and full production integration remain required."
+    "production_integrated": true
+  },
+  "production": {
+    "start": "0x8091f10",
+    "end": "0x80920c4",
+    "region_bytes": 436,
+    "c_owned_instruction_bytes": 396,
+    "literal_alignment_bytes": 40,
+    "object": {
+      "object": "src/unitlistscreen.o",
+      "category": "c_owned",
+      "instruction_bytes": 18458
+    },
+    "elf_sha256": "afa81214cc0f52c9e8f2219dbf1c135f81178fa745ea67380e0cb593353a3625",
+    "region_sha256": "73011f6fac7bfe346f4511f8ece1025e3796ea4d10a7826dcded5210c2f81e71",
+    "full_rom_exact": true,
+    "regions": [
+      {
+        "start": "0x8091f10",
+        "end": "0x8091fea",
+        "kind": "thumb"
+      },
+      {
+        "start": "0x8091fea",
+        "end": "0x8092000",
+        "kind": "data"
+      },
+      {
+        "start": "0x8092000",
+        "end": "0x80920b2",
+        "kind": "thumb"
+      },
+      {
+        "start": "0x80920b2",
+        "end": "0x80920c4",
+        "kind": "data"
+      }
+    ],
+    "scope": "This routine contributes 396 newly C-owned instruction bytes. Its complete 18,458-byte object now has no instruction templates; the other instructions in that object were already C. Not whole-game completion."
+  },
+  "clean_build": {
+    "upstream": "https://github.com/pret/agbcc.git",
+    "revision": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+    "patch_sha256": "6f8344755ba1bd240dd68ce22b613221c679e56d1d4e0dc54872ce5d3be63ea3",
+    "row_patch_sha256": "4e83c67815d7d9f230892017bf7a72a639e3e511d19afaefe8882f79960ae456",
+    "source_hashes": {
+      "local-alloc.c": "c27a8621a92fb855c0d4f0ab94142e746bb045d3f82af633ccdb0d8446c06907",
+      "thumb.c": "6c3a81d11a8f59af06ee6c2d15d875c2a22c95b5e8bc3b1e4f7fa0dc8705d7f2",
+      "final.c": "0bd51768fc0b1dcf02342126ff84c283e02682e140390edae4041fd5c740e77c"
+    },
+    "compiler_sha256": "2dd8ccb0f2eb2f022e87894e3946f823fbbd296f142ebce720d9c4b397d2abf3",
+    "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/agbcc-row-shift-build-q34hk56h",
+    "output": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/tools/agbcc-row-shift/agbcc"
   }
 }

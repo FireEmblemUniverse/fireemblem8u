@@ -1001,3 +1001,9 @@ src/arm/*.s
 /tools/agbcc-tst/agbcc.exe
 /tools/agbcc-tst/agbcc.tmp
 /tools/agbcc-tst/agbcc.exe.tmp
+
+# Pinned masked-row allocation compiler and local build provenance.
+/tools/agbcc-row-shift/agbcc
+/tools/agbcc-row-shift/agbcc.exe
+/tools/agbcc-row-shift/*.tmp
+/tools/agbcc-row-shift/*.provenance.json

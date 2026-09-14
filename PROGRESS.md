@@ -2,15 +2,12 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Current research: the complete 436-byte unit-list page transition now matches exactly under an opt-in structural allocator contract. Renaming the function still compiles; four unsupported contracts reject; all 61 unannotated controls remain identical. The compiler changes allocation only and contains no opcode templates or function/RTL-number selectors. This is not integrated yet: a pinned clean compiler build, broader rejection checks and full production verification remain. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `7c9d5059`): the complete unit-list page transition is C, with all 436 bytes exact (396 instructions and 40 literals/alignment). The checked row-shift allocator builds from pinned sources; eight unsupported contracts reject and 61 unannotated controls remain unchanged. Full-ROM comparison and fresh runtime rebuilds for all four images pass. Main-ROM C ownership is 739,722/777,630 mapped instruction bytes (95.13%). The 18,458-byte unit-list object is now wholly C-owned; only 396 of those instruction bytes were newly converted in this milestone. Reviewed non-library assembly is 718 bytes in main ROM and 420 in expanded payload, with 591 tracked main C files. Existing audio/multiply ownership audits pass against the new ELF. The previous 287-layout rejection suite remains the latest layout evidence; no layout changed here. Runtime helpers, transfer/startup code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: build the row-shift allocator contract reproducibly, expand its rejection checks, and integrate the exact unit-list C routine with full-ROM verification.
-`docs/unitlist-page-in-research.json` records the exact contract and earlier model evidence.
-The routine remains assembly in production. Runtime helpers, transfer/startup
-code and executable classification also remain unfinished.
+Next: continue the remaining transfer/startup and runtime assembly inventory, and finish executable classification. The unit-list production receipt is `docs/unitlist-code-region.json`; compiler and earlier model evidence is in `docs/unitlist-page-in-research.json`.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -24,11 +21,11 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.75%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,114 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **95.13%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **718 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Unit-list page transition research | **436/436 section bytes exact with structural allocator contract; 61 unannotated controls unchanged; not integrated** |
+| Integrated unit-list page transition | **396 instruction bytes converted to C; complete 436-byte region exact; pinned compiler build, eight rejections and 61 unchanged controls; full ROM/runtime match** |
 | Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note LFO delay | **10/10 bytes exact; 163,840 production cases pass; twelve unsupported contracts and 274 altered layouts reject; full ROM/runtime match** |
