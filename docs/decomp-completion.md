@@ -12676,3 +12676,31 @@ main ELF hash remains the current runtime receipt's value. Default runtime
 archive integration is still pending, so production assembly inventory stays
 at 60 bytes; syscall inline assembly, expanded payload assembly and complete
 executable/data classification remain unfinished.
+
+
+### Default runtime veneer integration (September 14, 2026)
+
+Baseline `1968d0f0`. `runtime/register_veneer.c` is identical to the tested
+research source. `scripts/build_runtime_veneers.py` builds its checked plugin
+in a dedicated output directory, compiles all fifteen register variants,
+preserves in-symbol code alignment, and verifies the complete member against
+ROM bytes D18C0–D18FB. It requires no research output cache. Both the default
+archive target and isolated runtime verifier now build and replace this member.
+
+The full ROM comparison passes. Both dated payloads relink successfully, and
+fresh default runtime builds reproduce all four binaries and exported symbol
+addresses/sizes exactly. The refreshed source inventory reports zero assembly-
+source runtime instruction bytes in both audited images. Runtime C-source
+instruction totals are now 21,792 in the main ROM and 820 in the payload.
+The main total includes 1,014 bytes in the mixed syscall object; it does not
+claim that those bytes are free of inline assembly. Runtime archives remain
+a separate ownership category, so the whole-object C percentage is unchanged.
+
+Ownership, inline-region, code-region, startup/BIOS, asset provenance, animation
+rebuild and residual-data receipts are refreshed for the new ELF/map identities.
+All pass. The fifteen-entry assembly-source runtime member was the final one
+in the current mapped runtime inventory; installed legacy archives remain as
+reference inputs, with recovered members replaced by the default derived build.
+The outstanding goal still includes syscall/platform inline assembly, 420
+expanded payload assembly bytes, and complete mapped-data/executable
+classification. Full decompilation is not claimed.

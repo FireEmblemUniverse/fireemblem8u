@@ -86,6 +86,9 @@ def main():
         member = a.div0_member.resolve()
         assert member.name == '_dvmd_tls.o'
         run(['arm-none-eabi-ar', 'r', str(out / 'libgcc/libgcc.a'), str(member)], ROOT, 'div0-replacement.log')
+    if not a.veneer_member:
+        run(['python3', str(ROOT / 'scripts/build_runtime_veneers.py'), '--output-dir', str(out / 'runtime-veneers')], ROOT, 'veneer-build.log')
+        a.veneer_member = out / 'runtime-veneers/_call_via_rX.o'
     if a.veneer_member:
         member = a.veneer_member.resolve()
         assert member.name == '_call_via_rX.o'
