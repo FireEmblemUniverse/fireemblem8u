@@ -1,7 +1,7 @@
 {
   "scope": "Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.",
-  "classified": 32,
-  "remaining": 9,
+  "classified": 39,
+  "remaining": 2,
   "prior_sha256": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
   "unit_header_sha256": "10548dc46626ae9ffbc1433cb0d350ed09912199c42d9e031f7ab3ba18b2b59e",
   "records": [
@@ -35,7 +35,11 @@
       ],
       "target_owner": "src/hardware.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/img/00639C98_Img_08639C98.4bpp.lz",
+      "asset_symbol": "Img_DivineBg3_1",
+      "asset_offset": 824,
+      "asset_sha256": "01834c26c504d932a6102fef0b5d752b1c4da66808bc002fc61b3e44132d1917"
     },
     {
       "address": "0x863a44c",
@@ -47,7 +51,11 @@
       ],
       "target_owner": "src/scene.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/img/0063A360_Img_0863A360.4bpp.lz",
+      "asset_symbol": "Img_DivineBg3_2",
+      "asset_offset": 236,
+      "asset_sha256": "47003972d30685d521f861506d487120a2f0c12f2086da2e0604b3fba11612eb"
     },
     {
       "address": "0x8643524",
@@ -59,7 +67,11 @@
       ],
       "target_owner": "src/arm/clear_oam.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/tsa/006433C4_Tsa_086433C4.map.bin.lz",
+      "asset_symbol": "Tsa_DivineBg3_8",
+      "asset_offset": 352,
+      "asset_sha256": "6cad9b8ee58fea86918d146ab815b7d0645c4b1c2bfeb81a96be1e5227b20d12"
     },
     {
       "address": "0x866def4",
@@ -71,7 +83,11 @@
       ],
       "target_owner": "src/bmlib.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/tsa/0066DC40_Tsa_0866DC40.map.bin.lz",
+      "asset_symbol": "Tsa_PurgeBg_67",
+      "asset_offset": 692,
+      "asset_sha256": "7912acc8bce38ac2b2cee4add69feb0127cad74cd800127def89e885511c0fe3"
     },
     {
       "address": "0x86d4118",
@@ -83,7 +99,11 @@
       ],
       "target_owner": "src/bmlib.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/tsa/006D40CC_Tsa_086D40CC.map.bin.lz",
+      "asset_symbol": "Tsa_EvilEye_10",
+      "asset_offset": 76,
+      "asset_sha256": "a98049a68d78916a0da39d2a2b698749b970cf28e7bb318a12335974c1a6d016"
     },
     {
       "address": "0x870d07c",
@@ -95,7 +115,11 @@
       ],
       "target_owner": "src/scene.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "verified_assembly_incbin_asset_bytes",
+      "asset": "./graphics/banim/assets/img/0070CDF0_Img_0870CDF0.4bpp.lz",
+      "asset_symbol": "Img_NaglfarBg2_10",
+      "asset_offset": 652,
+      "asset_sha256": "e41340c5134a78a025985e4b7e5c59a2c1959e222b9ecac7f19a267c0f8dc05b"
     },
     {
       "address": "0x876e3a8",
@@ -412,7 +436,12 @@
           "offset": "0x4"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "sprite_oam_halfwords",
+      "field_group": "first sprite attr1 and attr2",
+      "halfwords": [
+        0,
+        2048
+      ]
     },
     {
       "address": "0x8a984f4",

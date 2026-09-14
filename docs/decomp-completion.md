@@ -13833,3 +13833,16 @@ world-map table match, one preparation-screen sprite match and one unclassified
 raw block. Full-file equality establishes source provenance, not consumer
 semantics or absence of arbitrary executable entry. Production source remains
 unchanged; the overall executable coverage audit is still open.
+
+## Assembly asset and preparation sprite residuals — September 14, 2026
+
+Baseline `7dd72d4f`. Six remaining matches in `src/data/banim/data_banim.o`
+resolve through assembly labels to unsliced INCBIN assets. Their complete files
+match the ROM at the linked labels; hashes, paths and offsets are recorded.
+The preparation-screen match at 0x08A18E20 consists of the first sprite's attr1
+and attr2 halfwords (0x0000 and 0x0800). Independent reconstruction of the entire
+three-sprite OAM definition matches all 20 bytes.
+
+The data-owner receipt now classifies 39 of its original 41 inputs. The world-map
+animation table and the unclassified raw block remain open. These are provenance
+advances, not proof of complete executable coverage. Production source is unchanged.

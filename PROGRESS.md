@@ -36,6 +36,8 @@ Latest residual data ownership (baseline `997cd2ef`): eleven address matches bin
 
 Latest residual asset binding (baseline `1758398a`): fifteen additional pointer-shaped words lie in INCBIN asset arrays whose complete files and symbol extents match the ROM. The data-owner audit now accounts for 32 of its original 41 residuals, leaving nine. Receipt: `docs/function-pointer-data-owners.json`.
 
+Latest residual closure (baseline `7dd72d4f`): six assembly-defined animation matches bind to complete exact INCBIN assets; the preparation-screen word is verified as two OAM halfwords. The residual data-owner audit now accounts for 39/41 inputs, leaving the world-map table and unclassified raw block open. Receipt: `docs/function-pointer-data-owners.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

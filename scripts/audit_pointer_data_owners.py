@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Locate residual address matches within source data records/assets."""
-import hashlib,json,re,subprocess
+import hashlib,json,re,struct,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 prior=ROOT/'docs/function-pointer-residuals.json';rows=json.loads(prior.read_text())['remaining_candidates'];rom=(ROOT/'fireemblem8.gba').read_bytes()
@@ -9,6 +9,17 @@ symbols=[]
 for line in subprocess.check_output(['arm-none-eabi-nm','-S',str(ROOT/'fireemblem8.elf')],text=True).splitlines():
  f=line.split()
  if len(f)==4:symbols.append((int(f[0],16),int(f[1],16),f[3]))
+all_symbols={}
+for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines():
+ f=line.split()
+ if len(f)==3:all_symbols[f[2]]=int(f[0],16)
+asm_assets=[]
+asm_source=(ROOT/'src/data/banim/data_banim.s').read_text()
+for match in re.finditer(r'^(\w+):[^\n]*\n\s*\.incbin\s+"([^"]+)"([^\n]*)',asm_source,re.M):
+ name,path,tail=match.groups()
+ if tail.split('@')[0].strip():continue # sliced includes require separate parsing
+ start=all_symbols[name];data=(ROOT/path).read_bytes()
+ asm_assets.append((start,data,name,path))
 assets=json.loads((ROOT/'docs/banim-data-classification.json').read_text())['assets'];result=[]
 for row in rows:
  a=int(row['address'],16);matches=[(n,a-b) for b,z,n in symbols if z and b<=a and a+4<=b+z]
@@ -32,6 +43,17 @@ for row in rows:
     extents=[z for b,z,n in symbols if b==start and n==name];assert extents==[len(data)],name
     assert rom[start-0x08000000:start-0x08000000+len(data)]==data,name
     item.update(classification='verified_incbin_asset_bytes',asset=path,asset_offset=offset,asset_sha256=hashlib.sha256(data).hexdigest())
+ if item['classification']=='needs_data_provenance' and row['owner']=='src/data/banim/data_banim.o':
+  found=[x for x in asm_assets if x[0]<=a and a+4<=x[0]+len(x[1])];assert len(found)==1,row
+  start,data,name,path=found[0]
+  assert rom[start-0x08000000:start-0x08000000+len(data)]==data,name
+  item.update(classification='verified_assembly_incbin_asset_bytes',asset=path,asset_symbol=name,asset_offset=a-start,asset_sha256=hashlib.sha256(data).hexdigest())
+ if row['owner']=='src/prep_itemscreen.o':
+  start=all_symbols['gSprite_PrepItemscreen_0']
+  expected=struct.pack('<10H',3,0x4000,0,0x0800,0x4008,0,0x0806,0x4010,0,0x080c)
+  assert rom[start-0x08000000:start-0x08000000+len(expected)]==expected
+  assert a==start+4
+  item.update(classification='sprite_oam_halfwords',field_group='first sprite attr1 and attr2',halfwords=[0,0x0800])
  result.append(item)
 remaining=[x for x in result if x['classification']=='needs_data_provenance']
 report=dict(scope='Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.',classified=len(result)-len(remaining),remaining=len(remaining),prior_sha256=hashlib.sha256(prior.read_bytes()).hexdigest(),unit_header_sha256=hashlib.sha256((ROOT/'include/bmunit.h').read_bytes()).hexdigest(),records=result)
