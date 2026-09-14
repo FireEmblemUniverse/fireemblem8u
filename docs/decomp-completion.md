@@ -11042,3 +11042,35 @@ been refreshed to the integrated ELF. Hardware entry, BIOS epilogue, nested
 interrupts, real handlers and hardware IF effects remain model exclusions.
 The remaining startup and saved-frame assembly, runtime/BIOS boundaries
 and complete executable classification are still unfinished.
+
+### Exact isolated IRQ save-frame candidate
+
+`research/irq/save_frame.c` retains MRS SPSR as assembly and expresses the
+four-word private frame in C, followed by the nonreturning IrqSearch handoff.
+Ordinary GCC adds an unwanted entry LR save and emits SUB/STM/BL. The new
+`matching_arm_irq_save_frame` contract in the existing IRQ backend requires
+a bounded six-operation sequence: sole compiler entry save, SPSR capture
+into r0, sixteen-byte decrement, empty SP tie, stores of r0/r1/r3/LR at
+offsets 0/4/8/12 and an explicit zero-argument adjacent target.
+
+After validation, it folds the stores and decrement into GCC's canonical
+UNSPEC_PUSH_MULT representation, removes the unwanted entry save, and
+removes the contracted adjacent call. A generic negative-offset STM RTL
+form was not recognized; the canonical multiple-register push produces the
+original STMDB encoding. No new instruction pattern was required.
+
+`research/irq/check_save_frame.py` freshly builds the plugin and candidate,
+links an asserted handoff to IrqSearch, and verifies exact bytes at
+08000110..08000118. All 4,096 cases pass: randomized registers and SPSR,
+all sixteen NZCV profiles, exact saved frame and untouched surrounding
+stack memory. Wrong status source, frame size, saved register, target,
+arguments, debug, unwind and Thumb configurations reject; a displaced
+handoff fails the linker assertion. Loading the plugin without opting in
+leaves the control text unchanged. The receipt is
+`docs/irq-save-frame-research.json`.
+
+The existing continuation checker (both pool layouts, rejection cases and
+controls) and `make compare -j8` pass with the extended backend. The
+save-frame candidate is not integrated yet. Its four-byte MRS remains
+assembly-owned; the four-byte push is C-generated. Production assembly
+coverage remains 238 main-ROM non-library bytes.

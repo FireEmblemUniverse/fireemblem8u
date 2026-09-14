@@ -34,7 +34,8 @@ tree validate(tree *node,tree,tree,int,bool *no_add) {
     return NULL_TREE;
 }
 const attribute_spec contract={"matching_arm_irq_frame",0,0,true,false,false,false,validate,nullptr};
-void attributes(void *,void *) { register_attribute(&contract); }
+const attribute_spec save_contract={"matching_arm_irq_save_frame",0,0,true,false,false,false,validate,nullptr};
+void attributes(void *,void *) { register_attribute(&contract); register_attribute(&save_contract); }
 bool reg_is(rtx x,unsigned reg) { return REG_P(x) && GET_MODE(x)==SImode && REGNO(x)==reg; }
 bool mentions(rtx x,unsigned reg) {
     if (!x) return false;
@@ -147,13 +148,62 @@ bool frame_load(rtx p) {
     }
     return true;
 }
-std::string external_pool;
+std::string external_pool,save_adjacent;
+void convert_save_frame(const std::vector<rtx_insn *> &ops) {
+    if(ops.size()!=6 || !lr_push(PATTERN(ops[0])) || save_adjacent.empty())
+        fatal_error(UNKNOWN_LOCATION,"IRQ frame save requires six operations and adjacent target");
+    auto p=[&](int n){return PATTERN(ops[n]);};
+    rtx read=p(1),tie=p(3),stores=p(4),call=p(5);
+    if(GET_CODE(read)!=SET || !reg_is(SET_DEST(read),0) || GET_CODE(SET_SRC(read))!=ASM_OPERANDS)
+        fatal_error(UNKNOWN_LOCATION,"IRQ frame save requires SPSR capture");
+    rtx a=SET_SRC(read);
+    if(std::string(ASM_OPERANDS_TEMPLATE(a))!="mrs %0, spsr" || ASM_OPERANDS_INPUT_LENGTH(a)
+        || ASM_OPERANDS_LABEL_LENGTH(a) || !stack_add(p(2),-16)
+        || GET_CODE(tie)!=SET || !reg_is(SET_DEST(tie),SP_REGNUM)
+        || GET_CODE(SET_SRC(tie))!=ASM_OPERANDS || executable_asm(tie)
+        || ASM_OPERANDS_INPUT_LENGTH(SET_SRC(tie))!=1
+        || ASM_OPERANDS_LABEL_LENGTH(SET_SRC(tie))
+        || !reg_is(ASM_OPERANDS_INPUT(SET_SRC(tie),0),SP_REGNUM)
+        || GET_CODE(stores)!=PARALLEL || XVECLEN(stores,0)!=4)
+        fatal_error(UNKNOWN_LOCATION,"IRQ frame save requires SPSR and sixteen-byte stack frame");
+    unsigned regs[]={0,1,3,LR_REGNUM};
+    for(int n=0;n<4;n++) {
+        rtx x=XVECEXP(stores,0,n);
+        if(GET_CODE(x)!=SET || !reg_is(SET_SRC(x),regs[n]) || !MEM_P(SET_DEST(x))
+            || GET_MODE(SET_DEST(x))!=SImode)
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame save register layout rejected");
+        rtx address=XEXP(SET_DEST(x),0);
+        if(n ? !plus(address,SP_REGNUM,4*n) : !reg_is(address,SP_REGNUM))
+            fatal_error(UNKNOWN_LOCATION,"IRQ frame save stack offsets rejected");
+    }
+    if(!CALL_P(ops[5]) || SIBLING_CALL_P(ops[5]) || CALL_INSN_FUNCTION_USAGE(ops[5])
+        || GET_CODE(call)!=PARALLEL || XVECLEN(call,0)!=3)
+        fatal_error(UNKNOWN_LOCATION,"IRQ frame save terminal call rejected");
+    rtx c=XVECEXP(call,0,0),u=XVECEXP(call,0,1),k=XVECEXP(call,0,2);
+    if(GET_CODE(c)!=CALL || !MEM_P(XEXP(c,0)) || GET_CODE(XEXP(XEXP(c,0),0))!=SYMBOL_REF
+        || std::string(XSTR(XEXP(XEXP(c,0),0),0))!=save_adjacent || XEXP(c,1)!=const0_rtx
+        || GET_CODE(u)!=USE || XEXP(u,0)!=const0_rtx || GET_CODE(k)!=CLOBBER
+        || !reg_is(XEXP(k,0),LR_REGNUM))
+        fatal_error(UNKNOWN_LOCATION,"IRQ frame save adjacent call contract rejected");
+    // Use GCC's canonical multiple-register push representation.
+    rtvec vec=rtvec_alloc(4);
+    rtx address=gen_rtx_PRE_MODIFY(SImode,stack_pointer_rtx,
+        gen_rtx_PLUS(SImode,stack_pointer_rtx,GEN_INT(-16)));
+    RTVEC_ELT(vec,0)=gen_rtx_SET(gen_rtx_MEM(BLKmode,address),
+        gen_rtx_UNSPEC(BLKmode,gen_rtvec(1,gen_rtx_REG(SImode,0)),UNSPEC_PUSH_MULT));
+    for(int n=1;n<4;n++) RTVEC_ELT(vec,n)=gen_rtx_USE(VOIDmode,gen_rtx_REG(SImode,regs[n]));
+    rtx_insn *push=emit_insn_before(gen_rtx_PARALLEL(VOIDmode,vec),ops[2]);
+    if(recog_memoized(push)<0) fatal_error(UNKNOWN_LOCATION,"IRQ frame save writeback STM rejected");
+    for(int n:{0,2,3,4,5}) delete_insn(ops[n]);
+}
+
 const pass_data data={RTL_PASS,"irq_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if(!lookup_attribute("matching_arm_irq_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
+        bool save_mode=lookup_attribute("matching_arm_irq_save_frame",DECL_ATTRIBUTES(fn->decl));
+        if(!save_mode && !lookup_attribute("matching_arm_irq_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
         if(!TARGET_ARM || !TARGET_INTERWORK || !arm_arch4t || arm_arch5t
             || lookup_attribute("interrupt",DECL_ATTRIBUTES(fn->decl))
             || lookup_attribute("isr",DECL_ATTRIBUTES(fn->decl))
@@ -172,6 +222,7 @@ public:
                 || XINT(p,1)==VUNSPEC_POOL_4 || XINT(p,1)==VUNSPEC_POOL_END)) continue;
             ops.push_back(i);
         }
+        if(save_mode) { convert_save_frame(ops); return 0; }
         if(ops.size()!=25 || !lr_push(PATTERN(ops[0])))
             fatal_error(UNKNOWN_LOCATION,"IRQ frame requires bounded entry-save skeleton");
         auto p=[&](int n){return PATTERN(ops[n]);};
@@ -248,6 +299,9 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version)) return 1;
     for(int n=0;n<info->argc;n++) {
+        if(std::string(info->argv[n].key)=="save-adjacent" && info->argv[n].value && *info->argv[n].value && save_adjacent.empty()) {
+            save_adjacent=info->argv[n].value; continue;
+        }
         if(std::string(info->argv[n].key)!="pool" || !info->argv[n].value || !external_pool.empty()) return 1;
         external_pool=info->argv[n].value;
         if(external_pool.empty()) return 1;

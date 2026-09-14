@@ -1,0 +1,23 @@
+{
+  "cases": 4096,
+  "bytes": 8,
+  "c_generated_instruction_bytes": 4,
+  "retained_status_assembly_bytes": 4,
+  "sha256": "9388b912fba6d430acb4fc17f2d20a23e0ca7ce6079ab748ad8bd3619fb52c3d",
+  "source_sha256": "040587c235776e2463376c039b56df472cce3a4290e186b30d3e4331cf78e228",
+  "backend_sha256": "e45446956a3d14b1142f3e529cfb7e83ddcc251811af661ca59be6d6dc89554e",
+  "rejected": [
+    "wrong_status",
+    "wrong_size",
+    "wrong_register",
+    "wrong_target",
+    "argument",
+    "debug",
+    "unwind",
+    "thumb"
+  ],
+  "displaced_handoff_rejected": true,
+  "unannotated_control_unchanged": true,
+  "production_integrated": false,
+  "scope": "Exact eight-byte isolated region; random register/SPSR states, all sixteen NZCV profiles, exact sixteen-byte frame and untouched surrounding stack bytes. Stops at IrqSearch; no hardware interrupt-entry claim."
+}
