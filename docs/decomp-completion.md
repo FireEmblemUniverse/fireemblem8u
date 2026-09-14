@@ -11734,3 +11734,40 @@ with `research/runtime/check_udiv.py --source research/runtime/udiv_returns.c
 --optimization Os --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
 --plugin .deps/flood-core-new-backend/copy_add_zero.so` using the Unicorn Python
 environment. No production code or decompilation ownership totals changed.
+
+
+### Unsigned division return flags match on both paths
+
+The existing copy-selection pass now supports an exclusive
+`matching_thumb_copy_add_zero_pair(destination, source)` contract. Both
+arguments must be distinct integer register numbers in r0-r7. Only matching
+SImode register copies are replaced; all others remain unchanged. The pass
+rejects an absent selected copy, conflicting copy contracts, ARM mode or the
+high-register-preservation option. Existing unrestricted contracts retain
+their behavior.
+
+`research/runtime/udiv_return_flags.c` selects only r2-to-r0. This preserves
+ADD-zero flags on the normal result path while leaving the zero-divisor
+path's MOVS copy unchanged. The final model run passes all 3,176 cases with
+zero flag differences on both zero and nonzero inputs. Quotients, r0 and
+r2-r13 still match; r1 differs throughout, LR differs on 252 zero paths,
+and stack writes differ throughout. The draft remains 122 bytes, with the
+same 46-byte exact loop span at offset 48. No whole-helper byte match is
+claimed.
+
+`research/runtime/check_copy_pair.py` verifies that precisely the selected
+copy halfword changes while another register copy stays unchanged. It rejects
+eight invalid contracts and verifies unannotated output. The existing copy
+pass regression also accepts its original modes, rejects thirteen unsupported
+forms and preserves unannotated output. Evidence is in
+`docs/runtime-copy-pair-controls.json` and
+`docs/runtime-udiv-flags-research.json`. Build the research plugin with
+`build_copy_add_zero.py --output-dir .deps/runtime-division` and use
+`check_udiv.py --source research/runtime/udiv_return_flags.c --optimization Os
+--compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+--plugin .deps/runtime-division/copy_add_zero.so` in the Unicorn environment.
+
+`make compare -j8` passes after rebuilding the production copy plugin; the
+production ELF remains unchanged. These research changes do not replace
+runtime assembly or change coverage totals. Matching the conditional frame,
+register restore and remaining branch/instruction layout is still required.

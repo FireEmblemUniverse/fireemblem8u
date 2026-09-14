@@ -1,0 +1,21 @@
+{
+  "changed_halfwords": 1,
+  "selected_pair": [
+    0,
+    2
+  ],
+  "other_copy_bytes_unchanged": true,
+  "unannotated_unchanged": true,
+  "rejected_cases": [
+    "same-register",
+    "high-register",
+    "negative-register",
+    "string-register",
+    "missing-copy",
+    "conflicting-contract",
+    "arm-mode",
+    "high-option"
+  ],
+  "plugin_source_sha256": "56f703d34abb96a4f9b732750215305344020202c48d2877ca0bb5f4e9055ade",
+  "plugin_sha256": "b98ecf44d9b5adc352464c351aa06ae94d634b561f704ce28cc918a9699103fd"
+}

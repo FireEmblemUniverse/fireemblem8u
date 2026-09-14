@@ -28,7 +28,19 @@ static tree validate(tree *node, tree, tree, int, bool *no_add) {
 }
 static const attribute_spec contract={"matching_copy_add_zero",0,0,true,false,false,false,validate,nullptr};
 static const attribute_spec thumb_contract={"matching_thumb_copy_add_zero",0,0,true,false,false,false,validate,nullptr};
-static void register_contract(void *,void *) { register_attribute(&contract);register_attribute(&thumb_contract); }
+static tree validate_pair(tree *node, tree, tree args, int, bool *no_add) {
+    if (TREE_CODE(*node)!=FUNCTION_DECL || !args || !TREE_CHAIN(args)
+        || TREE_CODE(TREE_VALUE(args))!=INTEGER_CST || TREE_CODE(TREE_VALUE(TREE_CHAIN(args)))!=INTEGER_CST
+        || !tree_fits_uhwi_p(TREE_VALUE(args)) || !tree_fits_uhwi_p(TREE_VALUE(TREE_CHAIN(args)))
+        || tree_to_uhwi(TREE_VALUE(args))>=8 || tree_to_uhwi(TREE_VALUE(TREE_CHAIN(args)))>=8
+        || tree_to_uhwi(TREE_VALUE(args))==tree_to_uhwi(TREE_VALUE(TREE_CHAIN(args)))) {
+        error("matching_thumb_copy_add_zero_pair requires distinct low destination/source registers");
+        *no_add=true;
+    }
+    return NULL_TREE;
+}
+static const attribute_spec pair_contract={"matching_thumb_copy_add_zero_pair",2,2,true,false,false,false,validate_pair,nullptr};
+static void register_contract(void *,void *) { register_attribute(&contract);register_attribute(&thumb_contract);register_attribute(&pair_contract); }
 static const pass_data data={RTL_PASS,"copy_add_zero",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class match_pass:public rtl_opt_pass {
 public:
@@ -36,7 +48,16 @@ public:
     unsigned int execute(function *fn) override {
         bool arm=lookup_attribute("matching_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
         bool thumb=lookup_attribute("matching_thumb_copy_add_zero",DECL_ATTRIBUTES(fn->decl));
-        if (!arm&&!thumb) return 0;
+        tree pair=lookup_attribute("matching_thumb_copy_add_zero_pair",DECL_ATTRIBUTES(fn->decl));
+        if (!arm&&!thumb&&!pair) return 0;
+        unsigned pair_dst=0,pair_src=0;
+        if (pair) {
+            if (arm||thumb||preserve_thumb_high_copies)
+                fatal_error(UNKNOWN_LOCATION,"copy add zero pair requires an exclusive contract");
+            tree args=TREE_VALUE(pair);
+            pair_dst=tree_to_uhwi(TREE_VALUE(args));pair_src=tree_to_uhwi(TREE_VALUE(TREE_CHAIN(args)));
+            thumb=true;
+        }
         if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1)||(preserve_thumb_high_copies&&!thumb))
             fatal_error(UNKNOWN_LOCATION,"copy add zero requires one mode-specific contract");
         unsigned copies=0;
@@ -44,6 +65,7 @@ public:
             if (!NONJUMP_INSN_P(i)||GET_CODE(PATTERN(i))!=SET) continue;
             rtx set=PATTERN(i),dst=SET_DEST(set),src=SET_SRC(set);
             if (!REG_P(dst)||!REG_P(src)||GET_MODE(dst)!=SImode||GET_MODE(src)!=SImode) continue;
+            if (pair&&(REGNO(dst)!=pair_dst||REGNO(src)!=pair_src)) continue;
             if (thumb&&preserve_thumb_high_copies&&REGNO(dst)<13&&REGNO(src)<13
                 &&REGNO(dst)!=REGNO(src)&&(REGNO(dst)>=8||REGNO(src)>=8)) continue;
             if (REGNO(dst)>=(thumb?8:13)||REGNO(src)>=(thumb?8:13)||REGNO(dst)==REGNO(src))

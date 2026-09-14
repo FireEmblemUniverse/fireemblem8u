@@ -1184,3 +1184,14 @@ Production `src/thumb_arm_entry.c` uses this contract for all six veneers.
 production source and plugin, pass `--source src/thumb_arm_entry.c --plugin
 .deps/flood-core-new-backend/thumb_arm_entry.so --rom fireemblem8.gba
 --integrated` to the checker above.
+
+
+### Select one Thumb register-copy pair
+
+`matching_thumb_copy_add_zero_pair(destination, source)` opts into ADD-zero
+only for one distinct low-register pair. For example, `(0, 2)` changes
+r2-to-r0 copies while preserving the flag behavior of other copies. It is
+exclusive with the other copy contracts and with the high-copy option;
+missing copies and unsupported modes reject. Existing contracts are unchanged.
+`research/runtime/check_copy_pair.py` checks selection, rejection and
+unannotated behavior using the plugin in `.deps/runtime-division`.
