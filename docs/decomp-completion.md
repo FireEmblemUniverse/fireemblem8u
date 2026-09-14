@@ -11531,3 +11531,29 @@ is 15,800 bytes, with 606 tracked main C files. Expanded payload assembly stays
 420 bytes. Unmapped-input and generated-fill provenance totals are unchanged.
 Runtime assembly, retained platform instructions and complete executable
 classification still prevent an overall completion claim.
+
+
+### Ordinary linker veneer generation tested
+
+`research/arm/veneer_probe.c` supplies six synthetic Thumb calls to the ARM
+routine symbols. `research/arm/check_linker_veneers.py` compiles the probe,
+links the ARM symbols at their production addresses, and checks the resulting
+interworking stubs against the original six veneers. These calls are link
+probes, not executable tests of the routines' real argument contracts.
+
+The installed linker generates all six BX-PC/ARM-B sequences and resolves
+each ARM branch to the correct target. However, it emits 0xE7FD (a backward
+Thumb branch) in the skipped halfword where the original uses 0x46C0 (NOP).
+It also allocates the stubs alongside caller text instead of the requested
+legacy glue section, and orders ColorFadeTick before TmFillRect. Therefore
+the ordinary generated stubs are not an exact production replacement. The
+padding distinction does not execute on the intended BX-PC path, but remains
+a byte-match requirement. No alternate-entry or whole-game reachability
+claim follows from that observation.
+
+`docs/linker-veneer-research.json` records linker version, source hash, all
+six generated/original addresses and bytes, and verified branch destinations.
+No production files changed. The remaining main assembly-source instructions
+are still the 24 bytes of six Thumb entries, and reviewed main non-library
+assembly remains 116 bytes. A controlled layout/compiler interworking approach
+is still needed; the direct ordinary-linker recipe has been ruled out.

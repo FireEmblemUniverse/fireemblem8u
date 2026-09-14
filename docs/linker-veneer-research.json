@@ -1,0 +1,68 @@
+{
+  "source_sha256": "91c83f81bc28e97fca54da8aa467b996e6e9de1a99e3c4cbfbe5ee9bba2b75c8",
+  "linker_version": "GNU ld (GNU Binutils) 2.47.20260726",
+  "veneers": [
+    {
+      "target": "ClearOam",
+      "original_address": "0x80d7498",
+      "generated_address": "0x80f0020",
+      "original_bytes": "7847c04698a3fcea",
+      "generated_bytes": "7847fde7b640fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    },
+    {
+      "target": "TmApplyTsa",
+      "original_address": "0x80d74a0",
+      "generated_address": "0x80f0028",
+      "original_bytes": "7847c046e4a3fcea",
+      "generated_bytes": "7847fde70241fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    },
+    {
+      "target": "TmFillRect",
+      "original_address": "0x80d74a8",
+      "generated_address": "0x80f0038",
+      "original_bytes": "7847c046bda3fcea",
+      "generated_bytes": "7847fde7d940fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    },
+    {
+      "target": "ColorFadeTick",
+      "original_address": "0x80d74b0",
+      "generated_address": "0x80f0030",
+      "original_bytes": "7847c0465ea3fcea",
+      "generated_bytes": "7847fde77e40fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    },
+    {
+      "target": "TmCopyRect",
+      "original_address": "0x80d74b8",
+      "generated_address": "0x80f0040",
+      "original_bytes": "7847c046c7a3fcea",
+      "generated_bytes": "7847fde7e540fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    },
+    {
+      "target": "Checksum32",
+      "original_address": "0x80d74c0",
+      "generated_address": "0x80f0048",
+      "original_bytes": "7847c046a5a3fcea",
+      "generated_bytes": "7847fde7c340fcea",
+      "branch_target_exact": true,
+      "padding_exact": false,
+      "placement_exact": false
+    }
+  ],
+  "production_integrated": false,
+  "scope": "Six linker-generated BX-PC/ARM-B stubs target the correct ARM functions, but use a backward Thumb branch instead of original NOP padding and are allocated with caller text, in a different order. This ordinary linker recipe is not a byte-matching production replacement."
+}
