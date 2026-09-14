@@ -14,6 +14,6 @@ def main():
  assert symbols['IrqMain']==start and symbols['IrqSaveFrame']==end
  assert 'ASSERT(IrqSaveFrame == IrqMain + 20,' in (ROOT/'ldscript.txt').read_text()
  rom=(ROOT/'fireemblem8.gba').read_bytes();assert rom==(ROOT/'baserom.gba').read_bytes()
- report=dict(start=hex(start),end=hex(end),c_owned_instruction_bytes=20,adjacent_handoff='IrqSaveFrame',full_rom_exact=True,source_sha256=hashlib.sha256((ROOT/'src/irq_entry.c').read_bytes()).hexdigest(),region_sha256=hashlib.sha256(rom[0xfc:0x110]).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact register setup and full-ROM equality; linker assertion and symbols verify adjacent SPSR/frame-save assembly. Startup ADR still addresses IrqMain. No hardware execution claim.')
+ report=dict(start=hex(start),end=hex(end),c_owned_instruction_bytes=20,adjacent_handoff='IrqSaveFrame',full_rom_exact=True,source_sha256=hashlib.sha256((ROOT/'src/irq_entry.c').read_bytes()).hexdigest(),region_sha256=hashlib.sha256(rom[0xfc:0x110]).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact register setup and full-ROM equality; linker assertion and symbols verify adjacent SPSR/frame-save continuation. Startup ADR still addresses IrqMain. No hardware execution claim.')
  (ROOT/'docs/irq-entry-code-region.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

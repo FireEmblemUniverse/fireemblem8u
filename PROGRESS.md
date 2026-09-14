@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Current research (baseline `90ecde2a`): the eight-byte IRQ save-frame candidate matches exactly and passes 4,096 register/stack cases, eight backend rejections and a displaced-handoff rejection. It retains four assembly bytes for SPSR capture and emits the four-byte frame push from C. Existing continuation checks and the production ROM still pass; this save-frame candidate is not yet integrated. Latest integrated milestone (baseline `dd8ed24d`): the IRQ continuation's 80 instruction bytes and shared literal layout match exactly. Sixty instruction bytes now come from C; five status instructions (20 bytes) remain assembly-owned. The built-ROM dispatcher passes 4,115 cases through frame restoration and return. Full-ROM comparison, all four fresh runtime rebuilds and code/provenance audits pass. Reviewed main-ROM non-library assembly falls from 298 to 238 bytes (200 source plus 38 inline), with 598 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership remains 739,998/777,630 mapped instruction bytes (95.16%): the new 80-byte object is classified as mixed C/assembly. All 3,172,290 unmapped-input bytes and ROM gaps have source/build provenance receipts; mapped-data and executable classification remain open. Startup/saved-state operations, Thumb entries, BIOS instructions and runtime helpers remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `cfaee817`): the eight-byte IRQ frame save now comes from C with four retained assembly bytes for SPSR capture. Its four-register push matches exactly, and linker assertions preserve entry/save/search adjacency. Full-ROM comparison, all four fresh runtime rebuilds and the 4,115-case built-ROM dispatcher pass; the isolated 4,096-case frame checker and its rejection/control suite also pass. Reviewed main-ROM non-library assembly is now 234 bytes (192 source plus 42 inline), with 599 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership remains 739,998/777,630 mapped instruction bytes (95.16%): both IRQ frame objects are correctly classified as mixed C/assembly. All 3,172,290 unmapped-input bytes and ROM gaps have source/build provenance receipts; mapped-data and executable classification remain open. Startup operations, status/BIOS instructions, Thumb entries and runtime helpers remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -31,9 +31,10 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **141/141 gaps accounted for: 2,574,801 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.16%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **238 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **234 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated IRQ save frame | **8 instruction bytes exact: 4 C-generated push bytes plus 4 retained SPSR-capture bytes; frame layout and adjacent search verified** |
 | Integrated IRQ continuation | **80 instruction bytes exact: 60 C-generated plus 20 retained status-assembly bytes; shared literal placement and 4,115 built-ROM dispatcher cases verified** |
 | Integrated IRQ entry setup | **20/20 bytes exact C; startup ADR, saved-frame adjacency and 4,115 dispatcher cases verified; full ROM/runtime match** |
 | Integrated IRQ priority search | **180/180 instruction bytes exact C; 69,632 state-parity cases; halt loops and adjacent continuation verified; full ROM/runtime match** |
@@ -571,22 +572,23 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace TrackStop with matching C and validate live AND/zero compiler folding.
 - [x] Replace the tied-note release handler with matching C and validate its Thumb leaf frame.
 - [x] Replace stereo channel-volume calculation with matching C.
-- [ ] Replace remaining recoverable assembly, including the unit-list fallback, ARM, audio and transfer code.
+- [ ] Replace remaining recoverable assembly, including startup, platform interfaces and runtime code.
 - [x] Rebuild pinned runtime libraries and verify exact main/all three payload images and exported symbols.
 - [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
 - [ ] Run and document the final complete decompilation verification.
 
 ## Remaining inventory
 
-| Scope | Latest source audit |
+| Scope | Current verified inventory |
 |---|---|
-| Main program | 30 assembly entry markers; 1 naked-function marker; 7 instruction-bearing inline assembly templates |
-| Embedded payload | 16 assembly function declarations; 1 instruction-bearing inline assembly template |
-| Additional identified code | 200 ARM instruction bytes in the transfer wrapper's data section |
+| Main assembly-source instructions | 192 bytes: BIOS wrappers 100, startup 52, Thumb veneers 24, PutOamLo prefix 12, header branch 4 |
+| Main reviewed inline assembly | 42 instruction bytes, including IRQ status operations |
+| Expanded payload assembly | 420 instruction bytes: 418 source plus 2 inline |
+| Runtime and classification | Runtime archive assembly and complete executable classification remain open |
 
-These are source markers, not counts of independent unfinished functions. Empty
-compiler constraints and register bindings are not counted as assembly instructions.
-No overall percentage or completion date is inferred from these counts.
+These counts exclude runtime archives and do not establish an overall completion
+percentage. Empty compiler constraints and register bindings are not counted as
+assembly instructions.
 
 The immediate goal is the original GBA decompilation. The root blueprint's native
 LÖVE/Lua engine and mod platform are separate work and are not counted as delivered.

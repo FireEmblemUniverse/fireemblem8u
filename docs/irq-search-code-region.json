@@ -7,6 +7,6 @@
   "source_sha256": "ca12048b838535c0cb45ee8c6644841ceb0ac81c70581bc523f858b97cebf102",
   "region_sha256": "9e03c635ec9b427d790fdbf96f458e4c848f986c0523c686bbd04730500f833b",
   "startup_block_sha256": "145bf3eff699a2147a5c8f011d1d8e435f6e92cd415b497273528a5ebab9e593",
-  "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
+  "elf_sha256": "bb0c803bb7b6d1475cf474f874722d441a69465440b6f53892505e1f2f784f69",
   "scope": "Exact 180-byte C search including two immutable conditional halt loops; linker and symbols verify continuation adjacency. Full ROM preserves the surrounding startup, literal pools and IRQ mode transitions. Emulator search coverage is separate; no hardware IRQ execution claim."
 }

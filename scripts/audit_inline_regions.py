@@ -8,6 +8,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('main_rom','src/irq_save_frame.c','IrqSaveFrame',0x08000110,'00004fe1',4,'asm volatile("mrs %0, spsr"'),
  ('main_rom','src/irq_continuation.c','IrqSelected',0x080001d0,'00300fe1',4,'asm volatile("mrs %0, cpsr"'),
  ('main_rom','src/irq_continuation.c','IrqSelected',0x080001dc,'03f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
  ('main_rom','src/irq_continuation.c','IrqSelected',0x080001fc,'00300fe1',4,'asm volatile("mrs %0, cpsr"'),

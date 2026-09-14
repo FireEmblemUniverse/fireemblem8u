@@ -11074,3 +11074,28 @@ controls) and `make compare -j8` pass with the extended backend. The
 save-frame candidate is not integrated yet. Its four-byte MRS remains
 assembly-owned; the four-byte push is C-generated. Production assembly
 coverage remains 238 main-ROM non-library bytes.
+
+### Integrated IRQ save frame
+
+`src/irq_save_frame.c` now supplies IrqSaveFrame at 08000110..08000118.
+The old assembly block is removed from `src/crt0.s`, whose only remaining
+instructions are the 52-byte startup path. The linker retains the existing
+IrqMain-to-save assertion and adds `IrqSearch == IrqSaveFrame + 8`, making
+the private fallthrough contract explicit in the production layout.
+
+`audit_irq_save_frame.py` checks the eight-byte mixed object, exact MRS/push
+bytes, symbols, adjacent handoff, source status template and full-ROM equality.
+The inline audit now records the four-byte MRS SPSR at 08000110. Assembly-source
+instructions fall from 200 to 192 bytes; reviewed inline instructions increase
+from 38 to 42, for 234 main-ROM non-library assembly bytes. Four additional
+instruction bytes are C-generated. Whole-object C ownership remains
+739,998/777,630 (95.16%), and there are 599 tracked main C files.
+
+`make compare -j8` passes. All four fresh runtime images and exported symbols
+match. The 4,115-case dispatcher passes against the production ROM, and the
+fresh isolated frame checker passes all 4,096 cases plus its eight backend
+rejections, displaced-link rejection and unannotated control. Existing linked
+code and data-provenance audits have been refreshed and pass. Hardware
+interrupt entry and full executable classification remain outside these checks.
+The progress panel's old source-marker table has been replaced with the
+current verified remaining-byte inventory.

@@ -35,12 +35,6 @@ crt0:
 ___sp_usr:	.word __sp_usr
 ___sp_irq:	.word __sp_irq
 
-.section .text.irq_save_frame,"ax",%progbits
-.global IrqSaveFrame
-IrqSaveFrame:
-	mrs r0, spsr
-	push {r0, r1, r3, lr}
-
 .section .rodata.irq_startup_pointers,"a",%progbits
 .LIntrVector: .word INTR_VECTOR
 .LMain: .word AgbMain

@@ -1,10 +1,19 @@
 {
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
-    "main_rom": 38,
+    "main_rom": 42,
     "mgfembp": 2
   },
   "sites": [
+    {
+      "image": "main_rom",
+      "source": "src/irq_save_frame.c",
+      "function": "IrqSaveFrame",
+      "address": "0x8000110",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
     {
       "image": "main_rom",
       "source": "src/irq_continuation.c",
@@ -125,8 +134,8 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "67b2498dd07a7b7a669d6ca53796115c73c586656f60f7c3c6af1516196323ce",
-      "map_sha256": "46560595dd853633c4f68a49ae6b80a2eca68e52fee319ff536ae5f7239f89f9"
+      "elf_sha256": "bb0c803bb7b6d1475cf474f874722d441a69465440b6f53892505e1f2f784f69",
+      "map_sha256": "1d3ce04305efee1c5295be5d3c6d1e495872e610ef3961a3de4a8902cbe071f9"
     },
     "mgfembp": {
       "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",

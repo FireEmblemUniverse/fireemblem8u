@@ -247,9 +247,10 @@ SECTIONS
         src/rom_header.o(.text);
         src/crt0.o(.text);
         src/irq_entry.o(.text);
-        src/crt0.o(.text.irq_save_frame);
+        src/irq_save_frame.o(.text);
         ASSERT(IrqSaveFrame == IrqMain + 20, "IRQ entry adjacency changed");
         src/irq_search.o(.text);
+        ASSERT(IrqSearch == IrqSaveFrame + 8, "IRQ save adjacency changed");
         src/irq_continuation.o(.text);
         src/crt0.o(.rodata.irq_startup_pointers);
         src/irq_continuation.o(.rodata.irq_handlers);
