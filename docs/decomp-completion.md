@@ -10578,3 +10578,22 @@ are `docs/serial-reset-constrained-research.json` and
 `docs/serial-reset-aligned-research.json`. The earlier twelve-option result
 describes the prior source revision; the probe now also includes the CSE
 option that resolved register selection.
+
+### Serial-reset shared flag loop matches failure branches
+
+The constrained draft now places a volatile Z output at a shared
+`header_check` label immediately after the first header poll. Failed poll
+results branch back to that label, as do mismatched header comparisons.
+This reproduces the original self-loop and all later failure branches
+without instruction templates. The isolated candidate shrinks to 144 bytes.
+All 272 protocol cases and 208 successful r0-r12/CPSR handoff comparisons
+continue to pass, with the expected four-byte stack discrepancy.
+
+The aligned comparison now matches 30/32 pre-BIOS instruction words. Only
+the two literal-load displacements differ. The extra entry LR save and
+placeholder BIOS transfer remain outside that comparison and prevent
+integration. Reserving LR via either a global register declaration or
+`-ffixed-lr`, and marking it call-used, did not eliminate the save. A naked
+attribute probe suppresses it, but has not been adopted as the compiler
+contract for this C body. A validated private-frame backend and the actual
+BIOS/terminal transfer remain next work. Production ownership is unchanged.

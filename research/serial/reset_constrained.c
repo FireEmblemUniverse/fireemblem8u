@@ -14,6 +14,7 @@ static __inline__ int poll_failed(void)
 }
 void __attribute__((noreturn)) SerialReset(void)
 {
+    unsigned accepted;
     serialBase = (volatile unsigned short *)0x04000120;
 restart:
     if (poll_failed()) goto restart;
@@ -39,17 +40,20 @@ exchange:
     asm volatile("" : "+r"(serialHeader));
     serialExpected = serialHeader[0];
     serialBase[5] = serialExpected;
-    if (__builtin_expect(poll_failed(), 0)) goto failed;
-    if (__builtin_expect(serialValue != serialExpected, 0)) goto failed;
+    sio_polling();
+// Re-read the private Z result at the common halt/recheck point.
+// A mismatched comparison leaves Z clear, so this loop cannot recover.
+header_check:
+    asm volatile("" : "=@cceq"(accepted));
+    if (!accepted) goto header_check;
+    if (serialValue != serialExpected) goto header_check;
     serialExpected = serialHeader[1];
     serialBase[5] = serialExpected;
-    if (__builtin_expect(poll_failed(), 0)) goto failed;
-    if (__builtin_expect(serialValue != serialExpected, 0)) goto failed;
+    if (poll_failed()) goto header_check;
+    if (serialValue != serialExpected) goto header_check;
     asm volatile("" : : : "r1");
     serialValue = 0;
     asm volatile("" : "+r"(serialValue));
     serialBase[5] = serialValue;
     SerialDecompressAndJump();
-failed:
-    for (;;) {}
 }

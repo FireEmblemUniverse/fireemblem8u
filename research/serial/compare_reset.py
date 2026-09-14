@@ -15,5 +15,5 @@ assert len(a)==len(b)==128
 mismatches=[]
 for i in range(0,128,4):
  if a[i:i+4]!=b[i:i+4]:mismatches.append(dict(address=hex(0x08b1a1c4+i),original=a[i:i+4].hex(),candidate=b[i:i+4].hex()))
-report=dict(compared_instruction_words=32,exact_words=32-len(mismatches),mismatches=mismatches,scope='Aligned 128-byte pre-BIOS handshake only. Extra entry stack save, missing BIOS suffix, literal pool and failure-loop placement prevent full matching. No output bytes are patched.')
+report=dict(compared_instruction_words=32,exact_words=32-len(mismatches),mismatches=mismatches,scope='Aligned 128-byte pre-BIOS handshake only. Extra entry stack save, missing BIOS suffix, literal pool prevent full matching. No output bytes are patched.')
 print(json.dumps(report,indent=2))
