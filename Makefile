@@ -1285,3 +1285,8 @@ src/m4a_ply_note_pcm_frequency_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY
 src/m4a_ply_note_pcm_frequency_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_pcm_frequency_setup.o: C_END_ALIGN := 1
 src/m4a_ply_note_pcm_frequency_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNotePcmFrequencyInvoke -fplugin-arg-tail_transfer-adjacent-destination=PlyNotePcmFrequencyInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_ply_note_exit_restore.o: $(THUMB_FRAME_RETURN_PLUGIN)
+src/m4a_ply_note_exit_restore.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_exit_restore.o: C_END_ALIGN := 1
+src/m4a_ply_note_exit_restore.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_FRAME_RETURN_PLUGIN) -fplugin-arg-thumb_frame_return-grouped -fplugin-arg-thumb_frame_return-frame60-r0

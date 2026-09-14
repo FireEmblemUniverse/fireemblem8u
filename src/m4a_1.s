@@ -619,14 +619,7 @@ PlyNoteFinish:
 	.global PlyNoteExit
 PlyNoteExit:
 _081DDCEA:
-	add sp, 0x18
-	pop {r0-r7}
-	mov r8, r0
-	mov r9, r1
-	mov r10, r2
-	mov r11, r3
-	pop {r0}
-	bx r0
+	.section .text.after_ply_note_exit_restore, "ax", %progbits
 	.2byte 0 @ Original padding before the note literals.
 	.global lt_PlyNoteSoundInfo
 lt_PlyNoteSoundInfo: .word SOUND_INFO_PTR

@@ -1820,6 +1820,15 @@ SECTIONS
         src/m4a_ply_note_finish.o(.text);
         __ply_note_finish_end = .;
         src/m4a_1.o(.text.after_ply_note_finish);
+        __ply_note_exit_restore_start = .;
+        src/m4a_ply_note_exit_restore.o(.text);
+        __ply_note_exit_restore_end = .;
+        src/m4a_1.o(.text.after_ply_note_exit_restore);
+        ASSERT((PlyNoteExitRestoreBody & ~1) == PlyNoteExit &&
+               __ply_note_exit_restore_start == (ply_note & ~1) + 486 &&
+               __ply_note_exit_restore_end - __ply_note_exit_restore_start == 16 &&
+               lt_PlyNoteSoundInfo == __ply_note_exit_restore_end + 2,
+               "ply_note exit restore extent or literal boundary changed");
         ASSERT((PlyNoteClearSetupBody & ~1) == PlyNoteChannelAttach &&
                __ply_note_clear_setup_start == (ply_note & ~1) + 320 &&
                __ply_note_clear_setup_end - __ply_note_clear_setup_start == 2 &&

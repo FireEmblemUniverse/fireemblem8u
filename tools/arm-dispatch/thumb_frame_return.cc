@@ -28,7 +28,7 @@
 #include "output.h"
 int plugin_is_GPL_compatible;
 namespace {
-bool grouped=false,frame36=false;
+bool grouped=false,frame36=false,frame60_r0=false;
 std::string return_entry,return_function;
 void finish_unit(void *,void *) {
     if (!return_entry.empty()&&!return_function.empty())
@@ -57,9 +57,10 @@ public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
         if (!lookup_attribute("matching_thumb_frame_return",DECL_ATTRIBUTES(fn->decl))) return 0;
+        const unsigned return_reg=frame60_r0?0:3;
         if (!TARGET_THUMB1||frame_pointer_needed||!known_eq(get_frame_size(),0)||crtl->profile
             ||flag_unwind_tables||flag_asynchronous_unwind_tables||flag_exceptions||debug_info_level!=DINFO_LEVEL_NONE
-            ||!global_regs[3]||!global_regs[SP_REGNUM]||DECL_ARGUMENTS(fn->decl)||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
+            ||!global_regs[return_reg]||!global_regs[SP_REGNUM]||DECL_ARGUMENTS(fn->decl)||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires a zero-frame private void Thumb-1 entry without debug/unwind");
         std::vector<rtx_insn *> ops;
         bool ended=false;
@@ -81,7 +82,7 @@ public:
         }
         if (pool_stage&&pool_stage!=3) fatal_error(UNKNOWN_LOCATION,"Thumb frame return incomplete pool");
         if (ops.size()<5) fatal_error(UNKNOWN_LOCATION,"Thumb frame return missing complete leaf tail");
-        const unsigned frame=frame36?36:64, first_offset=frame-36;
+        const unsigned frame=frame60_r0?60:(frame36?36:64), first_offset=frame-36;
         unsigned n=ops.size();rtx_insn *spuse=ops[n-3],*lruse=ops[n-2],*ret=ops[n-1];
         rtx sp=PATTERN(spuse),lr=PATTERN(lruse),ep=PATTERN(ret);
         if (GET_CODE(sp)!=UNSPEC||XINT(sp,1)!=UNSPEC_REGISTER_USE||XVECLEN(sp,0)!=1
@@ -96,9 +97,9 @@ public:
             ||GET_CODE(SET_SRC(ap))!=PLUS||!REG_P(XEXP(SET_SRC(ap),0))||REGNO(XEXP(SET_SRC(ap),0))!=SP_REGNUM
             ||!CONST_INT_P(XEXP(SET_SRC(ap),1))||INTVAL(XEXP(SET_SRC(ap),1))!=frame)
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return final SP advance differs from declared frame");
-        if (GET_CODE(tp)!=SET||!REG_P(SET_DEST(tp))||REGNO(SET_DEST(tp))!=3
+        if (GET_CODE(tp)!=SET||!REG_P(SET_DEST(tp))||REGNO(SET_DEST(tp))!=return_reg
             ||!MEM_P(SET_SRC(tp))||GET_MODE(SET_SRC(tp))!=SImode)
-            fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires final saved r3 load");
+            fatal_error(UNKNOWN_LOCATION,"Thumb frame return requires final saved return-register load");
         rtx address=XEXP(SET_SRC(tp),0);
         if (GET_CODE(address)!=PLUS||!REG_P(XEXP(address,0))||REGNO(XEXP(address,0))!=SP_REGNUM
             ||!CONST_INT_P(XEXP(address,1))||INTVAL(XEXP(address,1))!=frame-4)
@@ -124,7 +125,7 @@ public:
         if (grouped) {
             if (n<17) fatal_error(UNKNOWN_LOCATION,"Thumb frame return missing grouped restores");
             unsigned first=n-17;
-            if (frame36&&first!=0) fatal_error(UNKNOWN_LOCATION,"Thumb 36-byte return requires only ordered restores");
+            if ((frame36||frame60_r0)&&first!=0) fatal_error(UNKNOWN_LOCATION,"Thumb fixed grouped return requires only ordered restores");
             for (unsigned k=0;k<8;k++) {
                 rtx p=PATTERN(ops[first+k]);
                 if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))!=k
@@ -146,13 +147,13 @@ public:
             rtx_insn *adjust=first_offset?emit_insn_before(gen_rtx_SET(spreg,gen_rtx_PLUS(SImode,spreg,GEN_INT(first_offset))),ops[first]):nullptr;
             if ((adjust&&recog_memoized(adjust)<0)
                 ||!validate_change(ops[first],&PATTERN(ops[first]),gen_match_thumb_pop_low8(),false)
-                ||!validate_change(target,&PATTERN(target),gen_match_thumb_pop_word(gen_rtx_REG(SImode,3)),false))
+                ||!validate_change(target,&PATTERN(target),gen_match_thumb_pop_word(gen_rtx_REG(SImode,return_reg)),false))
                 fatal_error(UNKNOWN_LOCATION,"Thumb frame return grouped pattern rejected");
             REG_NOTES(ops[first])=nullptr;REG_NOTES(target)=nullptr;
             for (unsigned k=1;k<8;k++) delete_insn(ops[first+k]);
             delete_insn(advance);
         }
-        if (!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,3)),false))
+        if (!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,return_reg)),false))
             fatal_error(UNKNOWN_LOCATION,"Thumb frame return branch rejected");
         if (!return_entry.empty()) {
             if (!return_function.empty()) fatal_error(UNKNOWN_LOCATION,"Thumb shared return requires one annotated function");
@@ -168,6 +169,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         if (!strcmp(info->argv[n].key,"grouped")&&!info->argv[n].value&&!grouped) grouped=true;
+        else if (!strcmp(info->argv[n].key,"frame60-r0")&&!info->argv[n].value&&!frame60_r0) frame60_r0=true;
         else if (!strcmp(info->argv[n].key,"frame36")&&!info->argv[n].value&&!frame36) frame36=true;
         else if (!strcmp(info->argv[n].key,"return-entry")&&info->argv[n].value&&return_entry.empty()) {
             std::string value=info->argv[n].value;
@@ -176,7 +178,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             return_entry=value;
         } else return 1;
     }
-    if ((frame36&&!grouped)||(!return_entry.empty()&&!frame36)) return 1;
+    if (((frame36||frame60_r0)&&!grouped)||(frame36&&frame60_r0)||(!return_entry.empty()&&!frame36)) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_callback(info->base_name,PLUGIN_FINISH_UNIT,finish_unit,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};

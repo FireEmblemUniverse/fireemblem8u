@@ -264,6 +264,8 @@ def main():
            ('note_track_volume_setup_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_track_volume_setup);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_track_volume_setup);'),'ply_note track_volume_setup extent or continuation')]
  cases += [('note_pcm_frequency_setup_extent',source.replace('        __ply_note_pcm_frequency_setup_end = .;','        . += 2;\n        __ply_note_pcm_frequency_setup_end = .;'),'ply_note pcm_frequency_setup extent or continuation'),
            ('note_pcm_frequency_setup_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_pcm_frequency_setup);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_pcm_frequency_setup);'),'ply_note pcm_frequency_setup extent or continuation')]
+ cases += [('note_exit_restore_extent',source.replace('        __ply_note_exit_restore_end = .;','        . += 2;\n        __ply_note_exit_restore_end = .;'),'ply_note exit restore extent or literal boundary'),
+           ('note_exit_restore_literals',source.replace('        src/m4a_1.o(.text.after_ply_note_exit_restore);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_exit_restore);'),'ply_note exit restore extent or literal boundary')]
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

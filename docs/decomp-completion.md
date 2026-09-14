@@ -9825,3 +9825,64 @@ Production verification also passes all 773,120 cases with source and object
 identity. The valid layout links and all 267 altered layouts reject, including
 six new argument extent/continuation mutations. Evidence:
 `.deps/soundmain-packed/ply-note/arguments-production-layout.log`.
+
+
+## September 13, 2026 — Note saved-frame return integrated
+
+On baseline `dff2bc8b`, `src/m4a_ply_note_exit_restore.c` replaces the sixteen
+assembly instruction bytes at 080D002A..080D003A. The opt-in frame-return
+contract now supports `frame60-r0` with grouped restores: skip 24 local bytes,
+restore r0-r7 from eight saved words, copy r0-r3 to r8-r11, then restore the
+return target to r0 and transfer through it. The C body expresses ordered
+volatile frame reads and the total 60-byte SP advance. Existing compiler
+patterns emit the original ADD SP/POP/MOV/BX sequence; no new instruction
+patterns or source instruction templates were added.
+
+The compiler requires the exact ordered restore body and a zero-frame private
+void function without arguments/debug/unwind. The new mode requires grouped
+restores and rejects mixed frame modes and shared-return aliases. Existing
+36-byte and 64-byte modes retain their prior behavior. Linker assertions require
+entry+486, sixteen bytes, body identity and the original padding/literal boundary.
+
+`check_ply_note_exit_restore.py --production` verifies source identity, exact
+production object bytes and full-ROM equality. All 32,768 cases pass across
+ARM/Thumb destinations, every incoming NZCV and four frame positions including
+a frame ending at the RAM boundary. Saved words and input registers are sampled.
+The independent model checks all r0-r12, SP/LR, flags, unchanged full RAM, nine
+ordered word reads and SP at each of the eight instructions. Fourteen malformed
+compiler contracts reject; unannotated output remains unchanged. These checks
+start with a prepared frame; they do not execute the preceding ply_note body
+or model physical timing/asynchronous observations.
+
+Shared compiler regressions pass: MPlayMain has 16,384 full restores and 16,384
+shared BX-entry cases; mixer exit has 40,960 cases on four ROM/copied-RAM machines
+plus 2,048 shared-entry cases. Existing private-return guards reject ten malformed
+ordinary and fourteen malformed grouped contracts, with unchanged unannotated
+objects in both modes.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. Mixer, SoundMain,
+MPlayMain and PCM-selection C ownership receipts remain valid. Main-ROM ownership
+is 721,218 C-owned (92.75%), 33,870 mixed C/assembly, 750 assembly-source and
+21,792 runtime-archive instruction bytes, totaling 777,630. Reviewed non-library
+assembly is 1,160 main-ROM and 420 payload bytes. Inventory has 587 main C files
+and 29 assembly entry markers.
+
+ply_note retains 42 assembly instruction bytes: entry/gate-time setup at
+080CFE44..080CFE64 (32) and LFO delay/reset at 080CFF9C..080CFFA6 (10).
+Its return padding and literal words remain data. Production ELF SHA-256:
+`c939ff2f461a5bc24702fe5f743b2b717f786f0476b9154d54422839d556bd81`.
+
+Evidence under `.deps/soundmain-packed/ply-note/`: `exit-restore/report.json`,
+`exit-restore-check.log`, `exit-restore-production-check.log`,
+`exit-restore-production-build.log`, `exit-restore-runtime.log`,
+`exit-restore-mplay-regression.log`, `exit-restore-mixer-regression.log`,
+`exit-restore-guards-regression.log`, `exit-restore-grouped-guards-regression.log`,
+`exit-restore-ownership.log`, `exit-restore-source.json`, `exit-restore-linked.json`
+and current region receipts. Remaining work includes entry setup, LFO equality
+continuation support, runtime helpers, unit-list/transfer code and complete
+executable classification.
+
+The valid production layout links and all 269 altered layouts reject, including
+two new return extent/literal-boundary cases. Evidence:
+`.deps/soundmain-packed/ply-note/exit-restore-production-layout.log`.
