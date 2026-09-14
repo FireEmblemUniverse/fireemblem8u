@@ -12261,3 +12261,24 @@ Next bind the original r0-r4 arithmetic state and r12 sign state, then
 recover the frame, sign-restoration flags and exact layout. This candidate
 is not integrated; production runtime assembly remains 414 bytes per
 audited image and overall completion is unproven.
+
+
+### Signed-division private-core state match (September 14, 2026)
+
+Baseline `6249b066`. `sdiv_core.c` binds the arithmetic state to r0-r4 and
+keeps the saved sign in r12. It reuses the verified normalization layout,
+scoped return-copy contract and checked single-r4 frame with MOV-PC return.
+The private precondition excludes zero divisors. All 6,060 nonzero cases
+match result, every r0-r14 register, CPSR and stack-write sequence exactly.
+`docs/runtime-sdiv-core-research.json` records source/plugin hashes and the
+zero-difference counts.
+
+The generated core is the original 132-byte size. Exactly four halfwords
+differ: offset 2 is MOVS r4,r0 versus ADDS r4,r0,#0; offsets 14, 20 and 124
+use BGE instead of BPL after compare-to-zero. The arithmetic span from core
+offset 22 is 102 consecutive exact bytes. CMP-to-zero clears overflow, which
+explains why the BGE/BPL choices agree in the differential model, but their
+encodings still require explicit recovery before claiming an exact match.
+Next recover those copy/sign-branch encodings with scoped compiler checks,
+then join the entry guard and returning zero path. Production runtime
+assembly remains 414 bytes per audited image.
