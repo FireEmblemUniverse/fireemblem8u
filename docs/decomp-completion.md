@@ -13368,3 +13368,28 @@ The compiler currently emits MOV/SUB/CMP/BLT rather than SUB/BGT. The candidate
 therefore is not timing-exact and does not preserve the original clobbers or
 final flags; production remains unchanged. Exact compiler recovery of the
 four-byte loop is the next target. The PC read remains a platform operation.
+
+
+### Exact multiboot countdown compiler candidate (September 14, 2026)
+
+Baseline `5a4442a7`. The new match_thumb_register_countdown backend pattern
+expresses the signed comparison of original operands and modular subtraction
+as one parallel RTL operation. The opt-in thumb_countdown pass recognizes
+only the adjacent saved-old-value/subtraction/branch loop, requires a dead
+non-global temporary with no other function references, distinct low registers,
+and a single-use backward label at the exact loop beginning. It removes the
+temporary copy and lets the backend emit SUBS/BGT. The existing constant-step
+countdown pattern remains separate and unchanged.
+
+The matching compiler rebuilt successfully after resolving a pattern-name
+collision during development. `research/multiboot/check_matching_delay.py`
+verifies exact four-byte loop output and 12,315 single-iteration cases against
+the original, including all registers and condition flags. Unsigned comparison,
+altered subtraction, debug and ARM-mode candidates reject. Loading the pass
+without opt-in leaves emitted code unchanged. Evidence:
+`docs/multiboot-delay-matching.json` with source/backend/pass hashes.
+
+Production remains unchanged. The next step is integration with the PC-derived
+step setup and complete calibrated wait, followed by full-image/compiler
+regression verification. This isolated loop match does not claim that the
+entire delay function or other compiler clients have yet been rebuilt.

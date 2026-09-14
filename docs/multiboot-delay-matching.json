@@ -1,4 +1,13 @@
 {
+  "unannotated_control_unchanged": true,
+  "backend_sha256": "96bbef8658fc5bb5dd1fe41c8b6b69369c24f81c6700e989358722a6495373e0",
+  "pass_sha256": "1476acd751d40a14c1a11443622e63a6f978cee968e4b7cd78e1373afb272214",
+  "rejected": [
+    "wrong_condition",
+    "wrong_subtract",
+    "debug",
+    "arm"
+  ],
   "cases": 12315,
   "steps": [
     4,
@@ -6,9 +15,9 @@
     13
   ],
   "original_loop_bytes": 4,
-  "candidate_loop_bytes": 8,
+  "candidate_loop_bytes": 4,
   "source_sha256": "e7464a4bb679fa62242252ee8e1311a6d6d7cf06fbb3d7b122eef951ec973f55",
-  "candidate_sha256": "92ec24364532bb428adc53cec0e2a0b5e16d1db6dd7bae7e64165dab384b9f48",
+  "candidate_sha256": "a36cd3f9f4dbf2e2e576b67489e3cf90cc3548cb8728012394c98b6b66384ab3",
   "overflow_examples": [
     {
       "cycles": "0x80000000",
@@ -54,5 +63,5 @@
     }
   ],
   "production_integrated": false,
-  "scope": "One countdown iteration, wrapped result and branch decision from original SUBS/BGT and compiled defined C. Covers directed signed-overflow boundaries and random words. Candidate has extra MOV/CMP and is not timing-exact; flags/register clobbers and full calibrated wait are not equivalent yet."
+  "scope": "One countdown iteration, all registers/flags, wrapped result and branch decision from original SUBS/BGT and compiled defined C. Covers directed signed-overflow boundaries and random words. Isolated compiled loop bytes match; full calibrated function integration remains open."
 }

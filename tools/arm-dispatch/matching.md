@@ -607,3 +607,17 @@
   "TARGET_THUMB1 && REGNO (operands[0]) == SP_REGNUM"
   "bx\t%0"
   [(set_attr "length" "2") (set_attr "type" "branch")])
+
+;; Preserve the signed pre-subtraction comparison, including overflow.
+;; The late countdown pass must prove the saved old value is dead and the
+;; backward target begins this exact subtract/branch pair.
+(define_insn "match_thumb_register_countdown"
+  [(set (pc)
+        (if_then_else
+         (gt (match_operand:SI 0 "low_register_operand" "+l")
+             (match_operand:SI 1 "low_register_operand" "l"))
+         (label_ref (match_operand 2 "" "")) (pc)))
+   (set (match_dup 0) (minus:SI (match_dup 0) (match_dup 1)))]
+  "TARGET_THUMB1 && REGNO (operands[0]) != REGNO (operands[1])"
+  "subs\t%0, %0, %1\n\tbgt\t%l2"
+  [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
