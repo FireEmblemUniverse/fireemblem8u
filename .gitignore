@@ -1010,3 +1010,6 @@ src/arm/*.s
 
 # C startup assembly output (formerly tracked hand-written source).
 /src/crt0.s
+
+# C cartridge-header assembly intermediate.
+/src/rom_header.s

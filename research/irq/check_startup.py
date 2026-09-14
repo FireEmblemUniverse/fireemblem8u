@@ -11,6 +11,7 @@ parser.add_argument('--source',type=Path,default=ROOT/'research/irq/startup.c')
 parser.add_argument('--plugin',type=Path)
 parser.add_argument('--compiler',default='arm-none-eabi-gcc')
 parser.add_argument('--layout',action='store_true')
+parser.add_argument('--from-init',action='store_true',help='Start the reference ROM at its cartridge entry branch')
 args=parser.parse_args()
 extra=['-DRESEARCH_STARTUP_FRAME','-fplugin='+str(args.plugin.resolve())] if args.plugin else []
 if args.layout:
@@ -64,7 +65,7 @@ for thumb in (False,True):
      for n in (0,1,2,3,12):u.reg_write(getattr(r,f'UC_ARM_REG_R{n}'),0xabcdef00+n)
      u.reg_write(r.UC_ARM_REG_CPSR,u.reg_read(r.UC_ARM_REG_CPSR)|(15-flags)<<28)
     u.hook_add(UC_HOOK_CODE,hook,state);u.hook_add(UC_HOOK_MEM_WRITE,write,state)
-    u.emu_start(candidate_base if draft else 0x080000c0,0,count=100)
+    u.emu_start(candidate_base if draft else (0x08000000 if args.from_init else 0x080000c0),0,count=100)
     assert state['calls']==2
     expected_writes=[(0x03007ffc,4,0x080000fc)]*2
     if draft and not args.plugin:expected_writes.insert(0,(bank_sp[mode]-4,4,bank_lr[mode]))
@@ -78,7 +79,7 @@ for thumb in (False,True):
     snapshots.append(state['snapshots'])
    assert snapshots[0]==snapshots[1], [(entry,n,hex(a),hex(b)) for entry,(left,right) in enumerate(zip(*snapshots)) for n,(a,b) in enumerate(zip(left,right)) if a!=b]
    cases+=1
-report=dict(exact_layout=args.layout,cases=cases,handoffs_per_case=2,initial_modes=['IRQ','Supervisor','System'],flag_profiles=16,handler_modes=['ARM','Thumb'],candidate_bytes=len(candidate),candidate_sha256=hashes,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),extra_entry_stack_write_bytes=0 if args.plugin else 4,production_integrated=False,scope='Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. Draft writes LR to the initial stack once; Supervisor SP also remains four bytes low when entered in Supervisor mode. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered.')
+report=dict(from_init=args.from_init,exact_layout=args.layout,cases=cases,handoffs_per_case=2,initial_modes=['IRQ','Supervisor','System'],flag_profiles=16,handler_modes=['ARM','Thumb'],candidate_bytes=len(candidate),candidate_sha256=hashes,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),extra_entry_stack_write_bytes=0 if args.plugin else 4,production_integrated=False,scope='Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. Draft writes LR to the initial stack once; Supervisor SP also remains four bytes low when entered in Supervisor mode. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered.')
 if args.plugin:
  report['scope']=report['scope'].replace('Draft writes LR to the initial stack once; Supervisor SP also remains four bytes low when entered in Supervisor mode.', 'No initial-stack writes; Supervisor SP is preserved. Modeled memory-write traces agree exactly.')
 print(json.dumps(report,indent=2))

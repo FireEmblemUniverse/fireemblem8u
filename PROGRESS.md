@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `8ead2965`): PutOamLo's twelve instruction bytes and four-byte C cursor pointer are integrated exactly. All 1,280 end-to-end OAM cases pass with no register or flag differences; backend rejections and layout controls also pass. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. Reviewed main-ROM non-library assembly is now 178 bytes (128 source plus 50 inline), with 601 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership rises to 740,010/777,630 mapped instruction bytes (95.16% rounded). The pointer is now mapped C data, reducing the fully accounted unmapped-input inventory to 3,172,286 bytes (final residual 812). Mapped-data and executable classification remain open. Status/BIOS instructions, Thumb entries, header branch and runtime helpers remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `98ba0583`): the four-byte ROM entry branch and all 188 header-data bytes now come from ordinary C, without a backend plugin. All 192 bytes match in a fresh isolated compilation and in the full ROM. The 96-case startup model also passes beginning at the cartridge entry branch. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. Reviewed main-ROM non-library assembly is now 174 bytes (124 source plus 50 inline), with 602 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership rises to 740,014/777,630 mapped instruction bytes (95.16% rounded). Fully accounted unmapped-input bytes remain 3,172,286 (final residual 812). Mapped-data and executable classification remain open. Status/BIOS instructions, Thumb entries and runtime helpers remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -31,9 +31,10 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **141/141 gaps accounted for: 2,574,801 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.16%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **178 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **174 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ROM entry/header | **4 C-generated branch bytes and 188 C data bytes exact; ordinary compiler, fresh rebuild and startup-from-entry model verified** |
 | Integrated PutOamLo entry | **12/12 instruction bytes C-owned; 4-byte C cursor word; 1,280 shared-body execution cases and full-ROM/runtime match** |
 | Integrated startup | **52 instruction bytes exact: 44 C-generated plus 8 retained mode-write bytes; 16 C literal bytes, ADR and 96 startup cases verified** |
 | Integrated IRQ save frame | **8 instruction bytes exact: 4 C-generated push bytes plus 4 retained SPSR-capture bytes; frame layout and adjacent search verified** |
@@ -583,7 +584,7 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Current verified inventory |
 |---|---|
-| Main assembly-source instructions | 128 bytes: BIOS wrappers 100, Thumb veneers 24, header branch 4 |
+| Main assembly-source instructions | 124 bytes: BIOS wrappers 100, Thumb veneers 24 |
 | Main reviewed inline assembly | 50 instruction bytes, including startup/IRQ status operations |
 | Expanded payload assembly | 420 instruction bytes: 418 source plus 2 inline |
 | Runtime and classification | Runtime archive assembly and complete executable classification remain open |

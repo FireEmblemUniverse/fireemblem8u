@@ -11289,3 +11289,36 @@ All four fresh runtime images and exported symbols match. Existing linked
 code and data-provenance audits have been refreshed and pass. The final
 pointer type correction leaves the integrated ELF unchanged; the entry-source
 and residual-provenance audits were rerun after that correction.
+
+### Integrated ordinary-C ROM entry and header fields
+
+`src/rom_header.c` replaces the tracked header assembly. An ordinary C
+call to crt0 becomes the original ARM tail branch under GCC16's existing
+non-interworking flags, as used for the serial bootstrap. No backend plugin
+or instruction-bearing inline assembly is involved. Explicit byte arrays
+preserve the existing logo, title, game/maker codes, flags, reserved fields
+and checksum. Named input sections sort the fields into their original order.
+
+The build appends word alignment to generated assembly. An initial integration
+attempt therefore padded the final two-byte reserved field. Keeping Init last
+with `-fno-toplevel-reorder` leaves that alignment in the four-byte text section
+instead; the individual data fields retain their required byte alignment.
+Production assertions fix Init, the logo and crt0's offset. Generated
+`src/rom_header.s` is now an ignored C compilation intermediate.
+
+`audit_rom_header.py` freshly compiles and links the complete 192-byte header
+and verifies exact production bytes, C ownership, symbols, assertions and
+header checksum. The startup model now accepts `--from-init`; all 96 cases
+pass against the built ROM from the cartridge entry branch through two main
+handoffs. It still uses synthetic main routines and does not emulate BIOS
+header validation or actual hardware reset entry.
+
+`make compare -j8`, all four fresh runtime images/exported symbols, and the
+existing code/data-provenance audits pass. Four more instruction bytes become
+C-owned, raising whole-object C ownership to 740,014/777,630 (95.16% rounded).
+There are 602 tracked main C files. Assembly-source bytes fall from 128 to
+124 (100 BIOS-wrapper bytes and 24 Thumb entry bytes); reviewed inline bytes
+remain 50, for 174 main-ROM non-library assembly bytes. The 188 header bytes
+remain mapped data, so the unmapped-input provenance denominator is unchanged.
+Evidence includes `docs/rom-header-code-region.json` and
+`docs/rom-entry-startup-model.json`.

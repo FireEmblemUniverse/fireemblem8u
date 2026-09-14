@@ -80,7 +80,7 @@ ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
-SRC_S_FILES  := src/rom_header.s src/m4a_1.s src/libagbsyscall.s
+SRC_S_FILES  := src/m4a_1.s src/libagbsyscall.s
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 DATA_SRC_C_FILES := $(wildcard $(DATA_SRC_SUBDIR)/*.c $(DATA_SRC_SUBDIR)/mapanim/*.c $(DATA_SRC_SUBDIR)/menu/*.c $(DATA_SRC_SUBDIR)/ending/*.c $(DATA_SRC_SUBDIR)/worldmap/*.c $(DATA_SRC_SUBDIR)/ui/*.c)
 DATA_SRC_C_OBJECTS := $(DATA_SRC_C_FILES:.c=.o)
@@ -117,6 +117,9 @@ src/arm/clear_oam.o: CC1FLAGS := -quiet -mthumb-interwork -Wimplicit -Wparenthes
 # GNU ARM GCC can reproduce these routines' original leaf prologues without lr.
 src/arm/call_wrappers.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/arm/call_wrappers.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables
+
+src/rom_header.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/rom_header.o: CC1FLAGS := -std=gnu89 -O2 -fno-toplevel-reorder -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables
 
 src/serial_boot.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/serial_boot.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables

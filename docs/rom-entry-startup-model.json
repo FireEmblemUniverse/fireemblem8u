@@ -1,0 +1,25 @@
+{
+  "from_init": true,
+  "exact_layout": true,
+  "cases": 96,
+  "handoffs_per_case": 2,
+  "initial_modes": [
+    "IRQ",
+    "Supervisor",
+    "System"
+  ],
+  "flag_profiles": 16,
+  "handler_modes": [
+    "ARM",
+    "Thumb"
+  ],
+  "candidate_bytes": 356,
+  "candidate_sha256": {
+    "arm": "6da5ec8c439e2c8da487ea009d660b5d4b5bfd5b927d420b6680a26665f6b27e",
+    "thumb": "96db94c3d77321f97b44b7cd534b2bc7d84a44fadf1e9152610ee190ecf53a29"
+  },
+  "source_sha256": "f189323ccf6ff7c4676364cdbd971cb1f71eca2a2260c64dca48c991e1441319",
+  "extra_entry_stack_write_bytes": 0,
+  "production_integrated": false,
+  "scope": "Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. No initial-stack writes; Supervisor SP is preserved. Modeled memory-write traces agree exactly. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered."
+}

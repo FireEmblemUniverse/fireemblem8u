@@ -245,6 +245,10 @@ SECTIONS
     {
         /* .text */
         src/rom_header.o(.text);
+        src/rom_header.o(SORT_BY_NAME(.rodata.rom_header.*));
+        ASSERT(Init == ORIGIN(rom), "ROM entry moved");
+        ASSERT(RomHeaderNintendoLogo == Init + 4, "ROM logo moved");
+        ASSERT(crt0 == Init + 192, "ROM startup target moved");
         src/crt0.o(.text);
         src/crt0.o(.rodata.startup_stack);
         ASSERT(StartupStackPointers == crt0 + 52, "Startup stack pool moved");
