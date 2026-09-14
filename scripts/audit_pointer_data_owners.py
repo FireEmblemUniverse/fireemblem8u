@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Locate residual address matches within source data records/assets."""
-import hashlib,json,subprocess
+import hashlib,json,re,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 prior=ROOT/'docs/function-pointer-residuals.json';rows=json.loads(prior.read_text())['remaining_candidates'];rom=(ROOT/'fireemblem8.gba').read_bytes()
@@ -22,6 +22,16 @@ for row in rows:
   assert len(matches)==1
   name,offset=matches[0];field=offset%20;assert field in (0,4)
   item.update(classification='unit_definition_scalar_fields',unit_record=offset//20,record_offset=field,field_group='character/class/leader/level flags' if field==0 else 'position/spawn flags/extra data/reda count')
+ if item['classification']=='needs_data_provenance' and len(matches)==1:
+  name,offset=matches[0];source=ROOT/Path(row['owner']).with_suffix('.c')
+  if source.is_file():
+   declaration=re.search(r'\b'+re.escape(name)+r'\s*\[[^]]*\]\s*=\s*INCBIN_U(?:8|16|32)\("([^"\n]+)"\)',source.read_text())
+   if declaration:
+    path=declaration[1];data=(ROOT/path).read_bytes()
+    start=a-offset
+    extents=[z for b,z,n in symbols if b==start and n==name];assert extents==[len(data)],name
+    assert rom[start-0x08000000:start-0x08000000+len(data)]==data,name
+    item.update(classification='verified_incbin_asset_bytes',asset=path,asset_offset=offset,asset_sha256=hashlib.sha256(data).hexdigest())
  result.append(item)
 remaining=[x for x in result if x['classification']=='needs_data_provenance']
 report=dict(scope='Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.',classified=len(result)-len(remaining),remaining=len(remaining),prior_sha256=hashlib.sha256(prior.read_bytes()).hexdigest(),unit_header_sha256=hashlib.sha256((ROOT/'include/bmunit.h').read_bytes()).hexdigest(),records=result)

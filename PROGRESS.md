@@ -34,6 +34,8 @@ Latest pointer residual review (baseline `0c2bf28b`): nine runtime-archive candi
 
 Latest residual data ownership (baseline `997cd2ef`): eleven address matches bind to exact animation assets and six fall in scalar UnitDefinition fields rather than its pointer field. This leaves 24 candidates requiring data provenance; containing symbols are recorded where available. Receipt: `docs/function-pointer-data-owners.json`.
 
+Latest residual asset binding (baseline `1758398a`): fifteen additional pointer-shaped words lie in INCBIN asset arrays whose complete files and symbol extents match the ROM. The data-owner audit now accounts for 32 of its original 41 residuals, leaving nine. Receipt: `docs/function-pointer-data-owners.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

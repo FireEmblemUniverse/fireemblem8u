@@ -13818,3 +13818,18 @@ provenance. `docs/function-pointer-data-owners.json` records classifications and
 containing symbols where available. Symbol names alone are not treated as proof
 that data cannot execute. Production source remains unchanged; complete
 executable classification remains open.
+
+## Residual INCBIN asset bindings — September 14, 2026
+
+Baseline `1758398a`. The data-owner audit now resolves containing C declarations
+to INCBIN source paths and checks each complete asset file against both the linked
+symbol extent and ROM bytes. Fifteen more candidate words bind to these assets,
+including chapter maps, battle backgrounds, portraits, graphics and palettes.
+Asset path, offset and SHA-256 are recorded in the updated receipt.
+
+Of the 41 inputs to this audit, 32 now have concrete data-field or asset
+provenance. Nine remain: six assembly-defined animation-data matches, one
+world-map table match, one preparation-screen sprite match and one unclassified
+raw block. Full-file equality establishes source provenance, not consumer
+semantics or absence of arbitrary executable entry. Production source remains
+unchanged; the overall executable coverage audit is still open.

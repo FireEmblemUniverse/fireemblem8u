@@ -1,7 +1,7 @@
 {
   "scope": "Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.",
-  "classified": 17,
-  "remaining": 24,
+  "classified": 32,
+  "remaining": 9,
   "prior_sha256": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
   "unit_header_sha256": "10548dc46626ae9ffbc1433cb0d350ed09912199c42d9e031f7ab3ba18b2b59e",
   "records": [
@@ -20,7 +20,10 @@
           "offset": "0x14"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/map/layout/LagdouRuins1Map.bin.lz",
+      "asset_offset": 20,
+      "asset_sha256": "44d07fd9b974c07e4ebc794903eb838f687a8df7ad507fabee8b0adb19a30866"
     },
     {
       "address": "0x8639fd0",
@@ -109,7 +112,10 @@
           "offset": "0x58"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/btl_bg/btl_bg_14.map.bin.lz",
+      "asset_offset": 88,
+      "asset_sha256": "ceb3a3d62d6e9ad62d46d5bfd2b7c59e23d8e97af0b50f8f4bc2dd7ab7c9cbeb"
     },
     {
       "address": "0x8781dbc",
@@ -126,7 +132,10 @@
           "offset": "0x28"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/btl_bg/btl_bg_55.gbapal.lz",
+      "asset_offset": 40,
+      "asset_sha256": "56486695c2424272cfdd4acadf6037b32b916fe5f27b42484dc3a9ef15c810e2"
     },
     {
       "address": "0x8790098",
@@ -143,7 +152,10 @@
           "offset": "0x2a50"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/banim/dragonfx/Img_EfxDracoZombie.4bpp.lz",
+      "asset_offset": 10832,
+      "asset_sha256": "8069975435799e8a8ee18ca6e62241d266f074233b82bba276624da73d5cdc20"
     },
     {
       "address": "0x88250f8",
@@ -160,7 +172,10 @@
           "offset": "0x64c"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/portrait/portrait_Mage_card.4bpp.lz",
+      "asset_offset": 1612,
+      "asset_sha256": "29ecc7197c39d858290f5ddf1f5f843980dad5d909bebf3d73fcf86bcfa156fe"
     },
     {
       "address": "0x88b4588",
@@ -297,7 +312,10 @@
           "offset": "0x288c"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/bg/bg_Caer_Pelyn.feimg2.bin.lz",
+      "asset_offset": 10380,
+      "asset_sha256": "4c34b4cec827ffcf99f45322785102ce47c666a644f72496a6767791df5be74f"
     },
     {
       "address": "0x88f112c",
@@ -314,7 +332,10 @@
           "offset": "0x20"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/bg/bg_Castle_Night.gbapal",
+      "asset_offset": 32,
+      "asset_sha256": "2ea9a4ddeb5ecb7c980fa7fd22af08995e840d1cc6307c69e77ea8a93789f4ea"
     },
     {
       "address": "0x88f116c",
@@ -331,7 +352,10 @@
           "offset": "0x60"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/bg/bg_Castle_Night.gbapal",
+      "asset_offset": 96,
+      "asset_sha256": "2ea9a4ddeb5ecb7c980fa7fd22af08995e840d1cc6307c69e77ea8a93789f4ea"
     },
     {
       "address": "0x890a470",
@@ -348,7 +372,10 @@
           "offset": "0x58"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/bg/bg_Grass_Plains_2.4bpp.lz",
+      "asset_offset": 88,
+      "asset_sha256": "de9af84d47d248d7b20bf048434d488310b46335c31973a7b6ed7cde0240ca93"
     },
     {
       "address": "0x89bff28",
@@ -365,7 +392,10 @@
           "offset": "0x92c"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/misc/gUnknown_089BF5FC.4bpp.lz",
+      "asset_offset": 2348,
+      "asset_sha256": "fd9863ac02db4a537e26c405f62867d7ce435d0d595ef5480a72417f78bc547e"
     },
     {
       "address": "0x8a18e20",
@@ -411,7 +441,10 @@
           "offset": "0xb4"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/op_anim/OpAnimEphraimClose2.map.bin.lz",
+      "asset_offset": 180,
+      "asset_sha256": "33527cc3ab24362b92a121a8d4516e0cd46f03a307c7796f8a80a0f6c667c9d8"
     },
     {
       "address": "0x8af1b7c",
@@ -428,7 +461,10 @@
           "offset": "0x44"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/op_anim/opanim_08AF1B38.4bpp.lz",
+      "asset_offset": 68,
+      "asset_sha256": "685c44fe254f585dd09c5094ecdf7c6f6141568db80813c9743a02af2eebe82a"
     },
     {
       "address": "0x8b18224",
@@ -445,7 +481,10 @@
           "offset": "0x6c0"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/misc/Img_ChapterIntro_LensFlare.4bpp.lz",
+      "asset_offset": 1728,
+      "asset_sha256": "53a4d4f1aff5ef4fa0d1f1f7f67de39bb73fd4d6e75df639bdd0a92c20a9f6e1"
     },
     {
       "address": "0x8b22960",
@@ -644,7 +683,10 @@
           "offset": "0x14d8"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/misc/gUnknown_08FE0000.4bpp",
+      "asset_offset": 5336,
+      "asset_sha256": "7f6159b49b9be60b4020ccdfdbf35d5492d83b0e25aac8b339e541aac346a6e0"
     },
     {
       "address": "0x8fe200c",
@@ -661,7 +703,10 @@
           "offset": "0x200c"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_incbin_asset_bytes",
+      "asset": "graphics/misc/gUnknown_08FE0000.4bpp",
+      "asset_offset": 8204,
+      "asset_sha256": "7f6159b49b9be60b4020ccdfdbf35d5492d83b0e25aac8b339e541aac346a6e0"
     }
   ]
 }
