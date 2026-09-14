@@ -1,0 +1,41 @@
+{
+  "probes": [
+    {
+      "expression": "mask",
+      "sign_branches": [
+        "bge",
+        "bge",
+        "bge"
+      ],
+      "source_sha256": "83f2fd8abd52c364e31dbd0ac94035f55e4c1d2b8c6bd1b8391f81f863a2e99d"
+    },
+    {
+      "expression": "signed-cast",
+      "sign_branches": [
+        "bge",
+        "bge",
+        "bge"
+      ],
+      "source_sha256": "e0bdcdbcd34f12151ddd65120930c73031f896565fffb886759afdbd6ce99985"
+    },
+    {
+      "expression": "shift",
+      "sign_branches": [
+        "bge",
+        "bge",
+        "bge"
+      ],
+      "source_sha256": "b7f231e26f6d6134233f2e992e99ca3c8d2a0589df08fdb79a15ac629fe77629"
+    },
+    {
+      "expression": "unsigned-bound",
+      "sign_branches": [
+        "bge",
+        "bge",
+        "bge"
+      ],
+      "source_sha256": "519700972820780b94344f19f4313eb21aaf86607db5797e5866eaa785def142"
+    }
+  ],
+  "scope": "Compile-only sign-expression probes; behavioral evidence belongs to the tested copy candidate."
+}

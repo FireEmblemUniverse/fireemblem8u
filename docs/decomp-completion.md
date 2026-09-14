@@ -12282,3 +12282,21 @@ encodings still require explicit recovery before claiming an exact match.
 Next recover those copy/sign-branch encodings with scoped compiler checks,
 then join the entry guard and returning zero path. Production runtime
 assembly remains 414 bytes per audited image.
+
+
+### Signed-division copy encoding match (September 14, 2026)
+
+Baseline `b36f1dc6`. `sdiv_copy.c` uses the existing Thumb copy contract with
+preserve-thumb-high-copies. Both low-register copies now use ADDS #0 while
+r12 sign transfers remain their original high-register MOV instructions.
+All 6,060 nonzero cases pass mandatory r0-r14, CPSR and stack-write equality.
+The core stays 132 bytes; only the three BGE/BPL halfwords remain different.
+`docs/runtime-sdiv-copy-research.json` records the verified candidate.
+
+`probe_sdiv_sign.py` compiles four C sign-expression forms: high-bit mask,
+signed comparison to zero, shift by 31 and unsigned threshold comparison.
+All emit three BGE branches. These are compile-only experiments, recorded
+separately in `docs/runtime-sdiv-sign-probes.json`, and do not receive runtime
+verification credit. The result supports using a checked compare-zero sign
+branch encoding rather than further source spelling changes. Production
+compiler patterns and libraries remain unchanged.

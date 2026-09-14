@@ -1,0 +1,62 @@
+{
+  "exact_nonzero_core": false,
+  "compiler_extra_flags": [
+    "-fplugin-arg-leaf_r4_frame-thumb-return",
+    "-fplugin-arg-copy_add_zero-preserve-thumb-high-copies"
+  ],
+  "nonzero_only": true,
+  "extra_plugin_sha256": [
+    "89768bab39574d097f3503847e40439323997c9a46fa8ad47c882c6ee0b8c786",
+    "b79834c296c03ae7fe82ef5dc239a93086baaed45796f164eac830ab25768a3e"
+  ],
+  "zero_divisor_flag_difference_cases": 0,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": ".deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": "b716077a5ed9545bb5042402b1608eabb48643143ae0d17acc4f99ffdd963a80",
+  "register_difference_cases": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0
+  },
+  "stack_write_difference_cases": 0,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 4,
+      "candidate_offset": 0,
+      "bytes": 14
+    },
+    {
+      "original_offset": 26,
+      "candidate_offset": 22,
+      "bytes": 102
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": "83f2fd8abd52c364e31dbd0ac94035f55e4c1d2b8c6bd1b8391f81f863a2e99d",
+  "assembled_helper_sha256": "365660ca3baba0477a0aff482357b17050bf509a9070f01874ba4acb224ec342",
+  "cases": 6060,
+  "divide_by_zero_cases": 0,
+  "initial_bit_one": false,
+  "division_needed": false,
+  "operation": "signed-division",
+  "original_instruction_bytes": 146,
+  "candidate_section_bytes": 132,
+  "result_and_preserved_registers_match": true,
+  "flag_difference_cases": 0,
+  "caller_register_difference_cases": 0,
+  "bytes_exact": false,
+  "production_integrated": false,
+  "scope": "Checks arithmetic result against original ROM and Python integer arithmetic, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement."
+}
