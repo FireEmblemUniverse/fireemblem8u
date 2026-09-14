@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "bc7144beb8a693c570ae34ab87b0063509e047d2",
+  "baseline_commit": "638ed1e70b90aada45197189aa7db82f6c941335",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2706,8 +2706,8 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
-      "map_sha256": "947eb1bbe86fb6bd4c2469b3de59ac9a78583afc4cc9b2584b6a6242b7acd9a1",
+      "elf_sha256": "df70b224b3c16293ea5fa21262780a33267f62ef5f8f4bab7ad547094f0cdb92",
+      "map_sha256": "bffbcc40676b645a8e25e695153925e5f25280c202406d5e6df7bd54d6c74d87",
       "unmapped_input_bytes": 3172286,
       "data_mapped_bytes": 10252493,
       "outside_input_bytes": 2574807,
@@ -2884,8 +2884,8 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "8a795599b6801770a220e68c926d92de22a323aa5041860a07b31215cbe3c4a7",
-      "map_sha256": "95dc3831ad9b0def6930a094a8aab638e724e113932d67b1b2932d11856d56c3",
+      "elf_sha256": "b2d94794897d7a57f2c89cc113593f92d99f54617a703de126fec3d149154225",
+      "map_sha256": "5898f9422299954f8dc7416ce9a7eaa974e2c9ee3db95cb87fffe5459969f6ec",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9239,
       "outside_input_bytes": 1,

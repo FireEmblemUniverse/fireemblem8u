@@ -8,7 +8,7 @@ import re
 import subprocess
 ROOT=Path(__file__).resolve().parents[1]
 PIN='da598c1d918402c42c0c0d7128ba14567f3175e9'
-ASM_NAMES={'_divsi3','_modsi3','_dvmd_tls','_call_via_rX'}
+ASM_NAMES={'_modsi3','_dvmd_tls','_call_via_rX'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,default=ROOT/'.deps/agbcc');p.add_argument('--markdown',type=Path);p.add_argument('--rebuild-report',type=Path,default=ROOT/'docs/runtime-rebuild.json');a=p.parse_args();source=a.source.resolve()
@@ -55,7 +55,7 @@ def main():
             if obj['category']!='runtime_archive':continue
             match=re.search(r'(lib(?:c|gcc)\.a)\(([^)]+)\.o\)$',obj['object']);assert match,obj
             archive,name=match.groups()
-            if archive=='libgcc.a' and name in ('_udivsi3','_umodsi3'):
+            if archive=='libgcc.a' and name in ('_udivsi3','_umodsi3','_divsi3'):
                 assert rebuild, 'Recovered runtime requires fresh rebuild evidence'
                 sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}
                 assert sources==rebuild['runtime_c_sources']
@@ -94,7 +94,7 @@ def main():
         lines += ['', '## Reproduced assembly members','', '| Member | Mapped instruction bytes per image | Reproduced text bytes including padding |','|---|---:|---:|']
         for row in images['main_rom']['members']:
             if row['status']=='assembly_reproduced':lines.append(f"| `{row['object']}` | {row['instruction_bytes']} | {row['text_bytes']} |")
-        lines += ['', '## Remaining verification','', 'Four assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
+        lines += ['', '## Remaining verification','', 'Three assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
         a.markdown.write_text('\n'.join(lines)+'\n')
     print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

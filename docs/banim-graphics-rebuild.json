@@ -5,8 +5,8 @@
   "expanded_bytes": 6191020,
   "compressed_bytes": 2360888,
   "gbagfx_sha256": "19056b2179fb2dea4d05f205eb60ae7087c39c1dda7a7e9e89d3a1eba897cf4e",
-  "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
-  "asset_receipt_sha256": "b68f4a1850b13c8ed0171264270fcb224b90e9a5fb8f4ffdeba40bfba0fd14be",
+  "elf_sha256": "df70b224b3c16293ea5fa21262780a33267f62ef5f8f4bab7ad547094f0cdb92",
+  "asset_receipt_sha256": "f4cdbffa88493cccd0c1ae6d05b783f899e926477889a8ca0b8db12642277f74",
   "assets": [
     {
       "path": "graphics/banim/banim_lorm_sp1_sheet_0.4bpp.lz",

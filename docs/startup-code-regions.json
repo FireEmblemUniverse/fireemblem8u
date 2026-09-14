@@ -16,6 +16,6 @@
   "full_rom_exact": true,
   "source_sha256": "2d853e56d9007aa255c5d491891571f645213d6df9cd0ffcfcd50777c2db8382",
   "region_sha256": "401828a4778638e98ff999889c2f7b9af4bee6317cde6e0c6edb206ec2043eb9",
-  "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
+  "elf_sha256": "df70b224b3c16293ea5fa21262780a33267f62ef5f8f4bab7ad547094f0cdb92",
   "scope": "Exact integrated startup, typed main-function pointer, C stack/vector tables and asserted ADR/pool placement. Two mode writes remain assembly-owned. Hardware reset/BIOS entry and real main execution are not proved by this audit."
 }

@@ -1397,14 +1397,14 @@ src/m4a_multiply_entry.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mab
 
 # Recovered runtime member, built independently of research output caches.
 RUNTIME_C_DIR := .deps/runtime-c
-RUNTIME_C_PASSES := umod_entry udiv_entry copy_add_zero leaf_frame leaf_r4_frame divzero_return
-RUNTIME_C_INPUTS := $(wildcard runtime/*.c) scripts/build_runtime_udiv.py scripts/build_runtime_umod.py $(foreach p,$(RUNTIME_C_PASSES),tools/arm-dispatch/$(p).cc tools/arm-dispatch/build_$(p).py)
+RUNTIME_C_PASSES := thumb_sign_branches umod_entry udiv_entry copy_add_zero leaf_frame leaf_r4_frame divzero_return
+RUNTIME_C_INPUTS := $(wildcard runtime/*.c) scripts/build_runtime_udiv.py scripts/build_runtime_umod.py scripts/build_runtime_sdiv.py $(foreach p,$(RUNTIME_C_PASSES),tools/arm-dispatch/$(p).cc tools/arm-dispatch/build_$(p).py)
 $(RUNTIME_C_DIR)/_udivsi3.o: $(ARM_DISPATCH_CC) $(RUNTIME_C_INPUTS)
 	$(PYTHON) scripts/build_runtime_udiv.py --output-dir $(RUNTIME_C_DIR)
 
-$(RUNTIME_C_DIR)/libgcc.a: $(RUNTIME_C_DIR)/modulus/_umodsi3.o $(RUNTIME_C_DIR)/_udivsi3.o tools/agbcc/lib/libgcc.a
+$(RUNTIME_C_DIR)/libgcc.a: $(RUNTIME_C_DIR)/signed/_divsi3.o $(RUNTIME_C_DIR)/modulus/_umodsi3.o $(RUNTIME_C_DIR)/_udivsi3.o tools/agbcc/lib/libgcc.a
 	cp tools/agbcc/lib/libgcc.a $@.tmp
-	arm-none-eabi-ar r $@.tmp $(RUNTIME_C_DIR)/_udivsi3.o $(RUNTIME_C_DIR)/modulus/_umodsi3.o
+	arm-none-eabi-ar r $@.tmp $(RUNTIME_C_DIR)/signed/_divsi3.o $(RUNTIME_C_DIR)/_udivsi3.o $(RUNTIME_C_DIR)/modulus/_umodsi3.o
 	mv $@.tmp $@
 
 .PHONY: runtime-c-archive
@@ -1415,3 +1415,6 @@ mgfembp/mgfembp.bin: $(RUNTIME_C_DIR)/libgcc.a
 
 $(RUNTIME_C_DIR)/modulus/_umodsi3.o: $(ARM_DISPATCH_CC) $(RUNTIME_C_INPUTS)
 	$(PYTHON) scripts/build_runtime_umod.py --output-dir $(RUNTIME_C_DIR)/modulus
+
+$(RUNTIME_C_DIR)/signed/_divsi3.o: $(ARM_DISPATCH_CC) $(RUNTIME_C_INPUTS)
+	$(PYTHON) scripts/build_runtime_sdiv.py --output-dir $(RUNTIME_C_DIR)/signed

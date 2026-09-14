@@ -2,14 +2,14 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
     "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
-    "libgcc.a": "679a998f2b25c81919b4ce002253b021ad18d0401d7fe7806789cd845c0f25eb"
+    "libgcc.a": "70efd9d220bef20cec07862d21c32275ed5a3a175748c760a28a3cd4c87ff514"
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
-      "assembly_instruction_bytes": 414,
+      "elf_sha256": "df70b224b3c16293ea5fa21262780a33267f62ef5f8f4bab7ad547094f0cdb92",
+      "assembly_instruction_bytes": 268,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 21378,
+      "C_source_rebuilt_instruction_bytes": 21524,
       "rebuilt_syscalls_object_instruction_bytes": 1014,
       "members": [
         {
@@ -106,6 +106,7 @@
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
             "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
             "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
@@ -128,11 +129,16 @@
         {
           "object": ".deps/runtime-c/libgcc.a(_divsi3.o)",
           "instruction_bytes": 146,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 148,
-          "text_sha256": "e9dfbdbf898414c3ec6199436297d3e9b626e2ca53de311c0557df32ffd3ebfa"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "tools/agbcc/lib/libc.a(memmove.o)",
@@ -156,6 +162,7 @@
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
             "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
             "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
@@ -378,10 +385,10 @@
       ]
     },
     "mgfembp": {
-      "elf_sha256": "8a795599b6801770a220e68c926d92de22a323aa5041860a07b31215cbe3c4a7",
-      "assembly_instruction_bytes": 414,
+      "elf_sha256": "b2d94794897d7a57f2c89cc113593f92d99f54617a703de126fec3d149154225",
+      "assembly_instruction_bytes": 268,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 406,
+      "C_source_rebuilt_instruction_bytes": 552,
       "rebuilt_syscalls_object_instruction_bytes": 0,
       "members": [
         {
@@ -401,6 +408,7 @@
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
             "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
             "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
@@ -409,11 +417,16 @@
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_divsi3.o)",
           "instruction_bytes": 146,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 148,
-          "text_sha256": "e9dfbdbf898414c3ec6199436297d3e9b626e2ca53de311c0557df32ffd3ebfa"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_udivsi3.o)",
@@ -423,6 +436,7 @@
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
             "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
             "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
@@ -456,7 +470,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "184e21ed06281091565b82bd25aad06ceb6779769795d88bb02ebdb1cda61ab5",
+  "rebuild_report_sha256": "200acf461bc82f379307a95c78a0307e55b20d095dff9fd6779965ad15070d40",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

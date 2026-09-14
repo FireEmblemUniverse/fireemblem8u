@@ -12345,3 +12345,27 @@ in runtime-sdiv-complete-research.json and runtime-sdiv-four-images.json.
 Next adopt the signed member in the default runtime C archive, rerun the
 production builds and update ownership/provenance. No production signed
 assembly bytes are reclassified at this research milestone.
+
+
+### Default signed-division integration (September 14, 2026)
+
+Baseline `638ed1e7`. `runtime/sdiv_sign.c` and `build_runtime_sdiv.py` now
+build the recovered signed member in its own plugin/output directory. The
+default derived archive depends on all three recovered members and preserves
+the signed member's two zero-padding bytes. Fresh runtime verification also
+builds it by default, alongside unsigned division and unsigned modulus.
+
+`make compare -j8` passes and both dated payloads relink. Fresh independent
+runtime/plugin builds reproduce the four complete image binaries and exported
+symbol addresses/sizes. The source audit fingerprints the derived archive
+and local C sources and now classifies _divsi3 as verified C. Main runtime
+C-source instructions rise to 21,524, payload runtime C-source instructions
+to 552, and assembly falls from 414 to 268 in each audited image. Main runtime
+archive instruction totals remain 21,792 and are not folded into the separate
+whole-object C percentage.
+
+Region and data-provenance receipts are refreshed for the new ELF/map
+identities. Remaining runtime assembly consists of signed modulus (206),
+indirect-call veneers (60) and __div0 (2). Syscall inline assembly, expanded
+payload assembly and complete mapped-data/executable classification remain
+open; overall completion is not claimed.
