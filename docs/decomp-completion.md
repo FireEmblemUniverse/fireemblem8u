@@ -11805,3 +11805,44 @@ unannotated output and five rejected contracts.
 No production or coverage totals changed. The full objective still requires
 a matching zero-divisor path, the original frame/return convention and exact
 instruction layout, alongside the other runtime and classification work.
+
+
+### Nonzero division core frame and stack writes matched
+
+Final RTL inspection located r5/r6 only in the save and epilogue clobber
+markers, with no uses in the emitted body. `leaf_r4_frame.cc` adds an opt-in
+`matching_leaf_r4_frame` pass that requires the existing leaf contract,
+exactly one r4-r6 push, one leaf epilogue, and no calls, memory accesses,
+stack/LR use, or live r5/r6 use in the body. It rejects nonempty instruction
+assembly, unsupported jumps, debug/unwind modes and mismatching frame shapes.
+Only after validation does it narrow the push to r4 and replace the implicit
+epilogue with an explicit r4 pop and BX LR using existing backend operations.
+No backend rebuild or new instruction pattern was needed.
+
+`research/runtime/udiv_r4_leaf.c` uses this pass with the existing leaf-frame
+and scoped-copy contracts. Removing the empty constraint between shifting
+the current bit and testing it also removes an unnecessary CMP. The final
+106-byte draft matches the original nonzero core's length (original offsets
+4 through 0x6e); the full original helper remains 120 bytes including the
+four-byte zero guard and ten-byte zero path. Length equality is not byte
+matching: normalization branch layout and BX LR versus MOV PC,LR still differ.
+
+All 2,924 nonzero cases now have identical r0-r14, flags and stack write
+address/size/value sequences. Two exact spans are recorded: sixteen bytes at
+original offset 4/candidate offset 0, and forty-six bytes at original offset
+48/candidate offset 32. `docs/runtime-udiv-r4-leaf-research.json` records this
+result. The private nonzero precondition remains mandatory; zero inputs and
+ARM return addresses are outside this model's contract.
+
+`research/runtime/check_leaf_r4_frame.py` accepts the intended single-r4
+save/restore, preserves unannotated bytes, and rejects eleven changed forms,
+including memory accesses, live r5/r6, stack references, calls, instruction
+assembly and unsupported compilation modes. Evidence and plugin fingerprints
+are in `docs/runtime-leaf-r4-controls.json`. Build with
+`build_leaf_r4_frame.py --output-dir .deps/runtime-division` against the
+matching compiler; pass that plugin as a second --extra-plugin after
+leaf_frame.so to the unsigned-division checker with --nonzero-only.
+
+No production changes or coverage reductions are claimed. Exact instruction
+layout, return encoding and a complete zero-divisor dispatcher are required
+before replacing the runtime helper.

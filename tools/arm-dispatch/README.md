@@ -1195,3 +1195,17 @@ exclusive with the other copy contracts and with the high-copy option;
 missing copies and unsupported modes reject. Existing contracts are unchanged.
 `research/runtime/check_copy_pair.py` checks selection, rejection and
 unannotated behavior using the plugin in `.deps/runtime-division`.
+
+
+### Prune a checked r4-only leaf frame (research)
+
+`matching_leaf_r4_frame` requires `matching_leaf_frame` and an exact stale
+r4-r6 save/epilogue shape. The pass proves the body has no stack/memory access,
+calls, LR use, or live r5/r6 references before selecting an r4-only push/pop.
+Nonempty assembly, unsupported jumps and debug/unwind modes reject. The
+return remains BX LR; legacy MOV PC,LR matching is separate work.
+
+Build with `build_leaf_r4_frame.py --compiler
+.deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir
+.deps/runtime-division`. `research/runtime/check_leaf_r4_frame.py` verifies
+acceptance, eleven rejected forms and unchanged unannotated code.
