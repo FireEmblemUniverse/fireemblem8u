@@ -1,0 +1,39 @@
+{
+  "rejected_layouts": [
+    "mgfembp:gap",
+    "mgfembp:wrong_adjacency",
+    "mgfembp_20030206:gap",
+    "mgfembp_20030206:wrong_adjacency",
+    "mgfembp_20030219:gap",
+    "mgfembp_20030219:wrong_adjacency"
+  ],
+  "images": [
+    {
+      "image": "mgfembp",
+      "address": "0x2016fc8",
+      "exact_bytes": 16,
+      "cases": 256,
+      "code_sha256": "32d90b55f8675d20dd78c77869de32ebe4512f24624ca9ecee8e0bd560e65ccd"
+    },
+    {
+      "image": "mgfembp_20030206",
+      "address": "0x20171b0",
+      "exact_bytes": 16,
+      "cases": 256,
+      "code_sha256": "6af0a647cb110295308c6dd521c6645f8b81b35f0a42a3e1ece29f7fa65920b0"
+    },
+    {
+      "image": "mgfembp_20030219",
+      "address": "0x2016f88",
+      "exact_bytes": 16,
+      "cases": 256,
+      "code_sha256": "0b984ed0c39411f346eed52dce2ff8af9374ce04ded7dec623fa072cca041cc4"
+    }
+  ],
+  "cases": 768,
+  "source_sha256": {
+    "arm_entries.c": "f048d5a4fb8019ac1075990aa09f5284e2a58f960265f80af33dbe0c74d8f297",
+    "thumb_entries.c": "13515f709d7304de0ea111b7bd02baf4b35c18f1c975156871767e63c9769233"
+  },
+  "scope": "C replacements; two executed instructions per veneer (BX PC, ARM branch), padding NOP skipped. Checks register/flag preservation and exact destination, not callee execution."
+}

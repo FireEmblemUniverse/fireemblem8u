@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "334334aa3619544d0d29ba184516ab4b399da6f7",
+  "baseline_commit": "165169e57b837d16766acbfc09f8755d7cb260b0",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2717,8 +2717,8 @@
     "mgfembp": {
       "mapped_instruction_bytes": 25716,
       "categories": {
-        "assembly_source": 406,
-        "c_owned": 18160,
+        "assembly_source": 390,
+        "c_owned": 18176,
         "c_with_assembly": 6330,
         "runtime_archive": 820
       },
@@ -2869,14 +2869,19 @@
           "instruction_bytes": 56
         },
         {
-          "object": "src/fake_glue.o",
-          "category": "assembly_source",
-          "instruction_bytes": 16
-        },
-        {
           "object": "src/put_oam_lo.o",
           "category": "c_owned",
           "instruction_bytes": 12
+        },
+        {
+          "object": "src/arm_entries.o",
+          "category": "c_owned",
+          "instruction_bytes": 8
+        },
+        {
+          "object": "src/thumb_entries.o",
+          "category": "c_owned",
+          "instruction_bytes": 8
         },
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_dvmd_tls.o)",
@@ -2884,13 +2889,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "c60bce22f1452acb169df61f9c4ac43ebdc240f95ce2ddd76b8c64af4f05afc6",
-      "map_sha256": "ad99ad1a56a7df9d5f589d942912c3cd53668aa4a6e1a25a25c5fc9f772a0d4b",
+      "elf_sha256": "f2228c8b0693e81a3339e75cd91e4ce83564b540b7a09ff6fac84521e262694b",
+      "map_sha256": "fef7a89f71e48b7a63e18e588295164ec22f83f3665260db26b75154e77b4d37",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9239,
       "outside_input_bytes": 1,
       "reviewed_inline_instruction_bytes": 2,
-      "known_nonarchive_assembly_bytes": 408
+      "known_nonarchive_assembly_bytes": 392
     }
   },
   "limitations": [

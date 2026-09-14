@@ -48,3 +48,7 @@ Embedded PutOamLo now uses the parent repository's checked matching compiler
 and OAM-entry pass. Its 12 instruction bytes and four-byte cursor pointer
 match all payload versions. The payload Makefile can request the compiler
 from the parent build when it is absent.
+
+The two embedded interworking veneers now use explicit C Thumb handoffs and
+ARM tail-call wrappers, replacing fake_glue.s. Parent compiler dependencies
+and linker adjacency assertions are part of the bundled payload build.

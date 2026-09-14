@@ -12932,3 +12932,29 @@ The receipt is payload-interworking-research.json. These are research-only
 candidates; fake_glue.s remains in the default payload build. Integration,
 fresh image verification and bundle/pin refresh are next. No production
 assembly reduction is claimed yet; expanded payload assembly stays 408 bytes.
+
+
+### Default payload interworking integration (September 14, 2026)
+
+Baseline `165169e5`. Payload thumb_entries.c and arm_entries.c are the
+verified C candidates, now compiled by default. Explicit linker ordering and
+adjacency/alignment assertions replace the fake_glue section; fake_glue.s is
+removed. The existing parent matching compiler/plugin is built on demand.
+Both entries retain their sixteen total bytes and original target addresses.
+The ARM continuation helpers are newly named C symbols.
+
+All three payload reference checksums pass. The model accepts a source-dir
+argument and verifies production source directly: 768 register/flag handoffs
+and six rejected layouts pass. The main ROM remains byte-exact, and fresh
+runtime rebuilds reproduce all four images and their integrated exported
+symbols. Ownership identifies eight Thumb and eight ARM instruction bytes
+in the two new C objects. Payload C-owned instruction bytes total 18,176;
+assembly-source bytes decrease from 406 to 390. Including two inline bytes,
+expanded payload assembly is now 392. Main-ROM ownership is unchanged.
+
+Payload commit e10ffde8e7d5e49d979056ffbce7995c72d3994b is retained in the
+verified recovery bundle on refs/heads/decomp-completion. Code ownership,
+inline/runtime inventories and code/data provenance checks are refreshed.
+Remaining payload source assembly consists of startup (328 bytes) and BIOS
+wrappers (62 bytes), alongside the two inline bytes. Full executable/data
+classification and retained platform operations remain unfinished.
