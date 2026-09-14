@@ -1,0 +1,181 @@
+{
+  "verified_bytes": 639,
+  "regions": 17,
+  "fresh_c_objects": 14,
+  "remaining_unbound_bytes": 0,
+  "elf_sha256": "429a0a8c91e6f70d5ebf2525d14ab8d37a5371c9a2229d3f00a124ce30d50af1",
+  "map_sha256": "f1cfadffe3167f2086673496009a4848c7710b3c74f62482d901ab16feeb9424",
+  "compiler_sha256": "05c3eee224f7543df30dfdf9b3e107d728d314fcd57695e019b26a4c2c757c88",
+  "records": [
+    {
+      "object": "asm/arm.o",
+      "start": "0x8000530",
+      "end": "0x8000534",
+      "bytes": 4,
+      "method": "explicit pointer pool",
+      "target": "gOamLoPutIt",
+      "source_sha256": "0f857fa49c41134b948dd7be216979e457f264570d2c0a585c969190c51e3098",
+      "sha256": "9d8b7c14ce4f2c0f767d4f57fcd6423b6d000d5c3e570ff5b97fedb249506642"
+    },
+    {
+      "object": "src/banim-ekrmain.o",
+      "start": "0x80daef0",
+      "end": "0x80daf27",
+      "bytes": 55,
+      "method": "fresh C compilation",
+      "source_sha256": "87d73839a7d460f93228c028d2aa68cb7aa02edb6155bbde492d4a845bec7cbc",
+      "section": ".rodata",
+      "sha256": "06aa855516ed3dc5c1e694ed4f578dbffbb2d8e42145346e19f9a708466f270f"
+    },
+    {
+      "object": "src/bksel.o",
+      "start": "0x859e4f8",
+      "end": "0x859e520",
+      "bytes": 40,
+      "method": "fresh C compilation",
+      "source_sha256": "40a335715a5d31a302e31326fd7ba1df91b8cd57df2785b5ef93d98ea15a5ebb",
+      "section": ".data",
+      "sha256": "7fbf0c59b2e0980e2d4957f28ab577779c893c37756f867d7c64f7c8e174595e"
+    },
+    {
+      "object": "src/bmreliance.o",
+      "start": "0x80d7c14",
+      "end": "0x80d7c18",
+      "bytes": 4,
+      "method": "fresh C compilation",
+      "source_sha256": "a4a3395b13c44b03ad1176e47fa637f2ffb938ae052c2734fc02768d77d76a2b",
+      "section": ".rodata",
+      "sha256": "461f91dae341c2a174d4020a7cd0242f1877c73274e19b260e36823b242b20ff"
+    },
+    {
+      "object": "src/cp_data.o",
+      "start": "0x80d816c",
+      "end": "0x80d8175",
+      "bytes": 9,
+      "method": "fresh C compilation",
+      "source_sha256": "6582c3499717e52266990a1f5e54b48c68c716a88aca35f03e0fe3b3dd06c7d3",
+      "section": ".rodata",
+      "sha256": "3e7077fd2f66d689e0cee6a7cf5b37bf2dca7c979af356d0a31cbc5c85605c7d"
+    },
+    {
+      "object": "src/events_shoplist.o",
+      "start": "0x89ed70c",
+      "end": "0x89ed7cc",
+      "bytes": 192,
+      "method": "fresh C compilation",
+      "source_sha256": "da9939226adf7edb080b45ce32565f37f3c896d650c07775463e72ae5f277e38",
+      "section": ".data",
+      "sha256": "636f6ecb301a5a6aef12f649c4744839cbce03a08ae0537ee5abf365d3990229"
+    },
+    {
+      "object": "src/gamerankings.o",
+      "start": "0x8a3cb04",
+      "end": "0x8a3cb1d",
+      "bytes": 25,
+      "method": "fresh C compilation",
+      "source_sha256": "9230ae78871360c2d227d9e2817c65f14e48917f71c008cca30ab3557d27f3bd",
+      "section": ".data",
+      "sha256": "188551799184ceefc03638c86069ab5d30e7677c3609bbcf81c6c07fbd6cbd10"
+    },
+    {
+      "object": "src/minimap.o",
+      "start": "0x8205d84",
+      "end": "0x8205db7",
+      "bytes": 51,
+      "method": "fresh C compilation",
+      "source_sha256": "82a226dcb9de4042d11a324940509cb5a1be7a88f0caf14e4f829e81bd1613a2",
+      "section": ".rodata",
+      "sha256": "19f225e591e0015456a2d2bf508ee2670e2af60f506a841ef728be5ddcef9572"
+    },
+    {
+      "object": "src/monstergen_data.o",
+      "start": "0x88d2058",
+      "end": "0x88d2060",
+      "bytes": 8,
+      "method": "fresh C compilation",
+      "source_sha256": "d5c0bc30b6f9b581a35761f7c6b2ab2360b6853b253f89684b548b6a602193e3",
+      "section": ".data",
+      "sha256": "55427ea7e0d28e3cc82067409a49dfefc396976eb3c0f3f4bbf730ef4bbd544e"
+    },
+    {
+      "object": "src/sio_battlemap.o",
+      "start": "0x85aa158",
+      "end": "0x85aa1ac",
+      "bytes": 84,
+      "method": "fresh C compilation",
+      "source_sha256": "95cbd93f72bf595b18d61608f0121d6879bc0e28da3a8c035563d3a590cade0d",
+      "section": ".data",
+      "sha256": "0988a69c74894daa2ea0dddcdb676230de1a2747e50cc15692394129da5bb11f"
+    },
+    {
+      "object": "src/sio_points.o",
+      "start": "0x80d9f28",
+      "end": "0x80d9f48",
+      "bytes": 32,
+      "method": "fresh C compilation",
+      "source_sha256": "5eade99f7b72bc38ee20a46da7cc1a46d87c82420bb6dd0e44aa7d09f47f210a",
+      "section": ".rodata",
+      "sha256": "abd7338b9d7417ef3714ce80d20378e316874e5c6cd48634bbbf08c55716ba43"
+    },
+    {
+      "object": "src/worldmap_gmapunit.o",
+      "start": "0x8205f7c",
+      "end": "0x8205f83",
+      "bytes": 7,
+      "method": "fresh C compilation",
+      "source_sha256": "5622b6c31249994bb751193dade006476348fabbee333f5f3bb15b9f6d055dcf",
+      "section": ".rodata",
+      "sha256": "a0c416f7cc69762029e925f5ab3067e01526867d7df4140084ac464d6c2132fc"
+    },
+    {
+      "object": "src/worldmap_radar.o",
+      "start": "0x8206b70",
+      "end": "0x8206b84",
+      "bytes": 20,
+      "method": "fresh C compilation",
+      "source_sha256": "46c3f1ed435b809cf8b0fe760fbe17f39a3e009d758df4a9b981a403202b8e6c",
+      "section": ".rodata",
+      "sha256": "10c1992810408f5455bcd77bc592ddd695f81face0ec43d48557f0f9d6e34c06"
+    },
+    {
+      "object": "src/worldmap_radar.o",
+      "start": "0x8a3ee6c",
+      "end": "0x8a3ee74",
+      "bytes": 8,
+      "method": "fresh C compilation",
+      "source_sha256": "46c3f1ed435b809cf8b0fe760fbe17f39a3e009d758df4a9b981a403202b8e6c",
+      "section": ".data",
+      "sha256": "324de5f1c076c5681c9e096287a6915b2f208430ee1e0be09e100e89e1b91fd5"
+    },
+    {
+      "object": "src/worldmap_screen2.o",
+      "start": "0x8206450",
+      "end": "0x820648a",
+      "bytes": 58,
+      "method": "fresh C compilation",
+      "source_sha256": "0afc142580c87e934c23770eb7297c6bb3ba37e82880619fc3927f40cb8e39a1",
+      "section": ".rodata",
+      "sha256": "061bb5c680c74be3ff9b740e9acb7099a01dd4cfb14ef327e04cd4967fe2ed33"
+    },
+    {
+      "object": "src/worldmap_timemons.o",
+      "start": "0x8206948",
+      "end": "0x8206952",
+      "bytes": 10,
+      "method": "fresh C compilation",
+      "source_sha256": "cf3281538064976293f297ff0252fae1b7bc5bbe24a116f7be3671eca26a857e",
+      "section": ".rodata",
+      "sha256": "81e1f8cfce0308f80b2eee572cd8d65d4c878c2452f09ce759c3cbb78fa7f9d7"
+    },
+    {
+      "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
+      "start": "0x8587700",
+      "end": "0x8587720",
+      "bytes": 32,
+      "method": "explicit libc padding arrays",
+      "source_sha256": "51f4cd6afc629ae8045eaaa3546ae755f3024d22a24790af2ad697be3ca81246",
+      "sha256": "97fec1b1f0590aae7f183f80616a56a2025d734bf9288dcbfdae512678816fc2"
+    }
+  ],
+  "scope": "Final 639 residual bytes reproduce from fresh C translation units or explicit pointer/libc source definitions. Completes provenance of the previously unmapped-input inventory together with prior receipts; not a no-execution proof, mapped-data audit or whole-game completion."
+}

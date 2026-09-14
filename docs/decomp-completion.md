@@ -10461,3 +10461,29 @@ metadata. Together these checks explain 11,548 of the previously unbound
 the current ELF hash. Whole-ROM equality remains verified; production and
 C ownership do not change. The result establishes numeric/asset provenance
 without inferring that arbitrary data cannot be executed.
+
+### Final unmapped-input provenance closed
+
+`scripts/audit_final_unmapped.py` freshly preprocesses, compiles and
+assembles 14 C translation units in a temporary directory, then extracts
+the relevant data-section slices using original input-contribution offsets.
+All 603 C-defined residual bytes match the ROM. The other 36 bytes are
+verified directly against source: the four-byte gOamLoPutIt pointer literal
+and vfprintf's sixteen spaces plus sixteen zero characters. The script
+checks all 17 residual intervals, records source/compiler/ELF/map hashes,
+and does not overwrite production build outputs.
+
+`docs/final-unmapped-provenance.json` accounts for the final 639 bytes.
+Together, the verified unmapped-input partitions are: messages 467,734;
+battle-animation assets 2,380,160; explicit INCBIN assets 312,032; terrain,
+font and icon definitions 11,548; final small definitions 639. Their sum is
+3,172,113, exactly the mapping inventory's unmapped-input total. The
+separate 2,574,801-byte generated-fill gap inventory is also accounted for
+and is not included in that sum.
+
+This closes build/source provenance for the unmapped input intervals. It
+does not turn them into C instructions, prove data is unreachable as code,
+or finish the audit of 10,252,672 assembler-mapped data bytes and embedded
+executables. Remaining native assembly, runtime helpers and executable
+classification still prevent a full-decompilation claim. Production ROM
+and C ownership remain unchanged.
