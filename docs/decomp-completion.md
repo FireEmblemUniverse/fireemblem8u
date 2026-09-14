@@ -11949,3 +11949,28 @@ The production runtime archive still supplies __udivsi3. Next replace that
 archive member through a reproducible C build for all four images, then
 update the runtime provenance audit and rerun ROM comparison. No production
 coverage total changes at this milestone.
+
+
+### Relocatable division member and four-image verification (September 14, 2026)
+
+Baseline `7a07e7b9`. `research/runtime/build_udiv_member.py` compiles the
+three fragments, namespaces compiler-local labels before assembly, and sets
+the encompassing public function size to 120 bytes. The builder checks the
+entry/core/zero offsets (0/4/110) and symbol size before renaming the public
+entry to __udivsi3 and localizing private fragment symbols. Instruction text
+comes from the compiler outputs; the packaging adds alignment and symbol
+metadata. The object retains the __div0 relocation and can move between
+images without patching instructions.
+
+`verify_runtime_rebuild.py --udiv-member` supports an explicit research
+replacement in the freshly rebuilt, pinned libgcc archive. The default
+verification path remains unchanged. With this member, all four images
+(main ROM, mgfembp and its two dated variants) match their original bytes
+and exported symbol addresses/sizes exactly. The main ROM retains SHA1
+c25b145e37456171ada4b0d440bf88a19f4d509f. Evidence and archive/object hashes
+are recorded in `docs/runtime-udiv-four-images.json`.
+
+This verifies the replacement across all linked image layouts. Default
+Makefile integration, reproducible plugin build dependencies and runtime
+source-ownership accounting still need to adopt the replacement. Installed
+production libraries were not modified and coverage totals are unchanged.

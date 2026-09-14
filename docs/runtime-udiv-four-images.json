@@ -1,0 +1,59 @@
+{
+  "udiv_replacement_sha256": "e9c128ba4ca78af9b294de5d8f206ea1e6b3b5dff506092563a0697d502f8b29",
+  "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+  "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
+  "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-zmfd5ktb",
+  "tool_versions": {
+    "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
+    "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
+    "arm-none-eabi-ld": "GNU ld (GNU Binutils) 2.47.20260726"
+  },
+  "installed_archive_sha256": {
+    "libc": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
+    "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
+  },
+  "rebuilt_archive_sha256": {
+    "libc": "c87d28defb96d344775ed68015c285730f682dc84463e4aa17195cd5e5135469",
+    "libgcc": "bd46fcc6e715aca3a164a0ad940ac3012c94e2b585a3eb4af2c435092751847b"
+  },
+  "images": {
+    "main_rom": {
+      "bytes": 16777216,
+      "sha1": "c25b145e37456171ada4b0d440bf88a19f4d509f",
+      "original_elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
+      "original_map_sha256": "4c6109b8b64edca11037d4d4b8780ec8dc44954717262f857db83c291b81e9de",
+      "rebuilt_elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
+      "global_symbols_match": true
+    },
+    "mgfembp": {
+      "bytes": 34956,
+      "sha1": "8a81a47d88f6b0a3f91c49784b9f7b317382abac",
+      "original_elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
+      "original_map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0",
+      "rebuilt_elf_sha256": "6211fb6f7e50ebfef77351cafcc4aff3c331e3d0bb8ec3bce68184cd0d2625f1",
+      "global_symbols_match": true
+    },
+    "mgfembp_20030206": {
+      "bytes": 34788,
+      "sha1": "6674fc5b5ee26433665c44b842cdb26bcf785051",
+      "original_elf_sha256": "b96cde28ce5c2dc0a6a24bbac7279d70b97be0776e37acd0f9ba039306c88a92",
+      "original_map_sha256": "46ce86b1c6b913d685492c3e9f80f1edaf967d0f30dd44ba50766275db21bcd3",
+      "rebuilt_elf_sha256": "e722b437da36ee71d87a5bbc5de427059c7b3edd7e0804f36a076945152e1339",
+      "global_symbols_match": true
+    },
+    "mgfembp_20030219": {
+      "bytes": 34196,
+      "sha1": "ad3ffdb4fc50206f944972a0a7ad26bfa8b5ef74",
+      "original_elf_sha256": "53acfd94c1dce30f21894688edfc1275ab6b65b373a54b431d93856034a7f7ed",
+      "original_map_sha256": "0d552831e4991120b0d22f76dae5f327745cddb58c1c841c236b8d51ca4ec4ad",
+      "rebuilt_elf_sha256": "1da490ae1232568f15bf9fcdbdd117055eb9dbf9efadfa49d02c5c768142d686",
+      "global_symbols_match": true
+    }
+  },
+  "limitations": [
+    "Matching source rebuild does not make assembly helpers or inline syscall assembly C-only.",
+    "The installed old_agbcc compiler is fingerprinted and reused, not bootstrapped by this check.",
+    "Non-runtime project objects are reused from the current production builds."
+  ]
+}
