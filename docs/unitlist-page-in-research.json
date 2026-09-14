@@ -889,5 +889,109 @@
     "production_integrated": false,
     "scope": "All ten speed-table indices; widths 0..20 plus overflow cases; eight scroll boundaries; both directions and equal pages. Independent full EWRAM/write-order/callback model; original/C final registers, flags, LR and IWRAM agree with synthetic caller-clobbering callbacks. Incoming NZCV cycles across cases.",
     "limitations": "Not byte-matching. Calls are synthetic and do not validate BG sync or Proc_Break implementations. No hardware timing, all-input flag Cartesian product, or arbitrary pointer aliases."
+  },
+  "structural_contract": {
+    "exact_bytes": 436,
+    "binary_sha256": "73011f6fac7bfe346f4511f8ece1025e3796ea4d10a7826dcded5210c2f81e71",
+    "contracts": [
+      {
+        "name": "exact",
+        "returncode": 0,
+        "diagnostic": ""
+      },
+      {
+        "name": "renamed",
+        "returncode": 0,
+        "diagnostic": ""
+      },
+      {
+        "name": "mask",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-mask.c: In function `UnitList_PageChangeIn_Loop':\n.deps/unitlist-page-in/contract-mask.c:87: thumb_row_shift_alloc: expected two masked row shift pairs\n"
+      },
+      {
+        "name": "stride",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-stride.c: In function `UnitList_PageChangeIn_Loop':\n.deps/unitlist-page-in/contract-stride.c:87: thumb_row_shift_alloc: expected two masked row shift pairs\n"
+      },
+      {
+        "name": "no-opt",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-no-opt.c:30: thumb_row_shift_alloc: requires -O2\n"
+      },
+      {
+        "name": "opt3",
+        "returncode": 1,
+        "diagnostic": ".deps/unitlist-page-in/contract-opt3.c:30: thumb_row_shift_alloc: requires -O2\n"
+      }
+    ],
+    "unannotated_unchanged": 61,
+    "controls": [
+      "baseline.i",
+      "row-pointer-forward-1.i",
+      "row-pointer-forward-10.i",
+      "row-pointer-forward-11.i",
+      "row-pointer-forward-12.i",
+      "row-pointer-forward-13.i",
+      "row-pointer-forward-14.i",
+      "row-pointer-forward-15.i",
+      "row-pointer-forward-16.i",
+      "row-pointer-forward-17.i",
+      "row-pointer-forward-18.i",
+      "row-pointer-forward-19.i",
+      "row-pointer-forward-2.i",
+      "row-pointer-forward-20.i",
+      "row-pointer-forward-21.i",
+      "row-pointer-forward-22.i",
+      "row-pointer-forward-23.i",
+      "row-pointer-forward-24.i",
+      "row-pointer-forward-25.i",
+      "row-pointer-forward-26.i",
+      "row-pointer-forward-27.i",
+      "row-pointer-forward-28.i",
+      "row-pointer-forward-29.i",
+      "row-pointer-forward-3.i",
+      "row-pointer-forward-30.i",
+      "row-pointer-forward-4.i",
+      "row-pointer-forward-5.i",
+      "row-pointer-forward-6.i",
+      "row-pointer-forward-7.i",
+      "row-pointer-forward-8.i",
+      "row-pointer-forward-9.i",
+      "row-pointer-reverse-31.i",
+      "row-pointer-reverse-32.i",
+      "row-pointer-reverse-33.i",
+      "row-pointer-reverse-34.i",
+      "row-pointer-reverse-35.i",
+      "row-pointer-reverse-36.i",
+      "row-pointer-reverse-37.i",
+      "row-pointer-reverse-38.i",
+      "row-pointer-reverse-39.i",
+      "row-pointer-reverse-40.i",
+      "row-pointer-reverse-41.i",
+      "row-pointer-reverse-42.i",
+      "row-pointer-reverse-43.i",
+      "row-pointer-reverse-44.i",
+      "row-pointer-reverse-45.i",
+      "row-pointer-reverse-46.i",
+      "row-pointer-reverse-47.i",
+      "row-pointer-reverse-48.i",
+      "row-pointer-reverse-49.i",
+      "row-pointer-reverse-50.i",
+      "row-pointer-reverse-51.i",
+      "row-pointer-reverse-52.i",
+      "row-pointer-reverse-53.i",
+      "row-pointer-reverse-54.i",
+      "row-pointer-reverse-55.i",
+      "row-pointer-reverse-56.i",
+      "row-pointer-reverse-57.i",
+      "row-pointer-reverse-58.i",
+      "row-pointer-reverse-59.i",
+      "row-pointer-reverse-60.i"
+    ],
+    "production_integrated": false,
+    "compiler_sha256": "f3e22a69b5947cda97ef10fd95947c49e67b29949af2e52574c03c9e0b1863ac",
+    "patch_sha256": "534d0c8af110d75ad9d57ad43f58ee5260ab56124f0c12c58a19d08982b275dd",
+    "limitations": "Research compiler only; pinned clean build, expanded rejection tests and full production integration remain required."
   }
 }

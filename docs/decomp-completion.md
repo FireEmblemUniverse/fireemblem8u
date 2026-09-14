@@ -10180,3 +10180,28 @@ change the forward-loop dataflow, rather than merely split these quantities.
 The experimental source/compiler were restored; production remains unchanged.
 Detailed results are in `docs/unitlist-page-in-research.json`; the diagnostic
 patch and its reproduction steps live under `research/unitlist/`.
+
+### Exact unit-list C output with structural allocation contract
+
+A diagnostic preference for r3 on the forward row, combined with separate
+row/shift quantities in both loops, produces all 436 original bytes. The
+subsequent `thumb_row_shift_alloc` contract removes function names, RTL UIDs
+and pseudo-register IDs from the implementation. It recognizes two row
+indices masked by 31 feeding shifts by five and six within basic blocks,
+requires dead shift-by-six inputs, declines those two quantity merges, and
+suggests r3 for the first row. Final local assignments are checked; the
+contract accepts -O2 only. It changes allocation, not RTL or instruction text.
+
+The annotated C region is exactly equal to the original 436 bytes (396
+instructions plus 40 literals/alignment). The renamed-function case compiles;
+changed masks, changed stride, -O0 and -O3 reject. All 61 unannotated controls
+(baseline and sixty pointer variants) produce identical assembly. These are
+research checks, not a complete production compiler gate. The experimental
+compiler is saved as `.deps/unitlist-page-in/agbcc-row-contract`; the prior
+compiler/source were restored.
+
+Tracked evidence: `research/unitlist/row-shift-alloc.patch`,
+`page_change_in_contract.c`, `check_row_shift_contract.py`, and the JSON
+research receipt. Reproducible clean build, expanded negative contracts,
+production integration and full-ROM verification are the next milestone.
+No production ownership increase is claimed yet.

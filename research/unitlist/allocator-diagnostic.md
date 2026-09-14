@@ -35,3 +35,12 @@ Validate a diagnostic binary with:
 ```sh
 .deps/arm-oracle-venv/bin/python research/unitlist/check_page_change_in_model.py --candidate .deps/unitlist-page-in/merge-mask-8.bin --report .deps/unitlist-page-in/allocator-model-report.json
 ```
+
+The exact result is now available without diagnostic selectors: apply
+`row-shift-alloc.patch` to the same empty-asm-patched pinned GCC source
+directory, then build `normal`. Compile `page_change_in_contract.c` with
+that compiler and the original probe flags/linker. It produces all 436
+original bytes. Save the extracted text to `contract.bin`, run the normal
+probe with `--row-pointer`, then run `check_row_shift_contract.py --compiler
+<compiler-path>`. The research gate checks four rejected contracts and
+61 unchanged unannotated outputs. Production integration is pending.

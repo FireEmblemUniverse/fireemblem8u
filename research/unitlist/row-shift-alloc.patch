@@ -1,0 +1,103 @@
+--- a/local-alloc.c
++++ b/local-alloc.c
+@@ -73,0 +74 @@
++#include "tree.h"
+@@ -295,0 +297,64 @@
++/* Opt-in allocator contract: two masked row indices feed shifts by five and
++   six in separate blocks. Split the dead shift-by-six inputs from outputs;
++   prefer r3 for the first row. This changes allocation only, never RTL. */
++static rtx row_shift_sites[2];
++static int row_shift_regs[2];
++static int row_shift_active;
++
++static void
++identify_row_shift_contract (void)
++{
++  int b, count = 0;
++  rtx insn, set, src, row, scan, prior, mask, def;
++  row_shift_active = lookup_attribute ("thumb_row_shift_alloc",
++      DECL_MACHINE_ATTRIBUTES (current_function_decl)) != NULL_TREE;
++  if (!row_shift_active) return;
++  for (b = 0; b < n_basic_blocks; b++)
++    for (insn = BLOCK_HEAD(b); ; insn = NEXT_INSN(insn)) {
++      if (GET_CODE(insn) == INSN && (set = single_set(insn))
++          && GET_CODE(SET_DEST(set)) == REG
++          && GET_CODE(src = SET_SRC(set)) == ASHIFT
++          && GET_CODE(XEXP(src, 0)) == REG
++          && GET_CODE(XEXP(src, 1)) == CONST_INT
++          && INTVAL(XEXP(src, 1)) == 6) {
++        int saw_and = 0, saw_five = 0;
++        row = XEXP(src, 0);
++        for (scan = BLOCK_HEAD(b); scan != insn; scan = NEXT_INSN(scan)) {
++          if (GET_CODE(scan) != INSN || !(prior = single_set(scan))) continue;
++          if (GET_CODE(SET_SRC(prior)) == ASHIFT
++              && rtx_equal_p(XEXP(SET_SRC(prior), 0), row)
++              && GET_CODE(XEXP(SET_SRC(prior), 1)) == CONST_INT
++              && INTVAL(XEXP(SET_SRC(prior), 1)) == 5) saw_five = 1;
++          if (rtx_equal_p(SET_DEST(prior), row)
++              && GET_CODE(SET_SRC(prior)) == AND
++              && rtx_equal_p(XEXP(SET_SRC(prior), 0), row)) {
++            mask = XEXP(SET_SRC(prior), 1);
++            if (GET_CODE(mask) == REG)
++              for (def = PREV_INSN(scan); def; def = PREV_INSN(def)) {
++                rtx ds;
++                if (GET_CODE(def) == INSN && (ds = single_set(def))
++                    && rtx_equal_p(SET_DEST(ds), mask)) {
++                  mask = SET_SRC(ds); break;
++                }
++              }
++            saw_and = GET_CODE(mask) == CONST_INT && INTVAL(mask) == 31;
++          }
++        }
++        if (saw_and && saw_five) {
++          if (count == 2 || !find_reg_note(insn, REG_DEAD, row)
++              || GET_MODE(row) != SImode || REGNO(row) < FIRST_PSEUDO_REGISTER) {
++            error("thumb_row_shift_alloc: unsupported row lifetime");
++            row_shift_active = 0; return;
++          }
++          row_shift_sites[count] = insn;
++          row_shift_regs[count++] = REGNO(row);
++        }
++      }
++      if (insn == BLOCK_END(b)) break;
++    }
++  if (count != 2) {
++    error("thumb_row_shift_alloc: expected two masked row shift pairs");
++    row_shift_active = 0;
++  }
++}
++
+@@ -302,0 +368,2 @@
++
++  identify_row_shift_contract ();
+@@ -411,0 +479,6 @@
++
++  if (row_shift_active && (reg_renumber[row_shift_regs[0]] != 3
++      || reg_renumber[REGNO(SET_DEST(single_set(row_shift_sites[0])))] == 3
++      || reg_renumber[row_shift_regs[1]] ==
++         reg_renumber[REGNO(SET_DEST(single_set(row_shift_sites[1])))]))
++    error("thumb_row_shift_alloc: required allocation unavailable");
+@@ -1339,0 +1413,11 @@
++  if (row_shift_active) {
++    int reg;
++    for (q = 0; q < next_qty; q++)
++      for (reg = qty_first_reg[q]; reg >= 0; reg = reg_next_in_qty[reg])
++        if (reg == row_shift_regs[0]) {
++          CLEAR_HARD_REG_SET(qty_phys_copy_sugg[q]);
++          SET_HARD_REG_BIT(qty_phys_copy_sugg[q], 3);
++          qty_phys_num_copy_sugg[q] = 1;
++        }
++  }
++
+@@ -1553,0 +1638,3 @@
++
++  if (row_shift_active && (insn == row_shift_sites[0]
++                           || insn == row_shift_sites[1])) return 0;
+--- a/thumb.c
++++ b/thumb.c
+@@ -1525,0 +1526,5 @@
++    if (is_attribute_p("thumb_row_shift_alloc", attr)) {
++        if (optimize != 2) error("thumb_row_shift_alloc: requires -O2");
++        return TREE_CODE(decl) == FUNCTION_DECL;
++    }
++

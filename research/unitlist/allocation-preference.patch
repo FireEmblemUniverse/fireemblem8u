@@ -1,0 +1,22 @@
+--- a/local-alloc.c
++++ b/local-alloc.c
+@@ -1339,0 +1340,15 @@
++  if (getenv("UNITLIST_ALLOC_DIAG") && b == 7) {
++    int mode = atoi(getenv("UNITLIST_ALLOC_DIAG"));
++    int reg;
++    for (q = 0; q < next_qty; q++) {
++      for (reg = qty_first_reg[q]; reg >= 0; reg = reg_next_in_qty[reg]) {
++        if (reg == 91 || (reg == 112 && (mode & 1))) {
++          int target = reg == 91 ? 3 : 0;
++          CLEAR_HARD_REG_SET(qty_phys_copy_sugg[q]);
++          SET_HARD_REG_BIT(qty_phys_copy_sugg[q], target);
++          qty_phys_num_copy_sugg[q] = 1;
++        }
++      }
++    }
++  }
++
+@@ -1553,0 +1569,3 @@
++
++  if (getenv("UNITLIST_ALLOC_DIAG")
++      && (INSN_UID(insn) == 200 || INSN_UID(insn) == 401)) return 0;

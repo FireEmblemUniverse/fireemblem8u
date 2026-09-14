@@ -2,15 +2,13 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Current research: the unit-list page transition has a reproducible 436-byte C candidate with eleven differing Thumb halfwords; all 5,520 independent tile-copy/callback model cases pass. The initial 42 compiler/source probes, 256 clobber combinations and 20 operand-lifetime variants found no exact match, so production coverage is unchanged. A diagnostic compiler experiment fixes the reverse loop completely (427/436 bytes overall) by disabling its row/shift merge; this is not a production solution. Its 5,520 behavior cases now pass. The sixteen address-merge masks and sixty pointer-constraint variants rule out broader merge suppression and those source constraints as forward-loop fixes. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 14, 2026. Current research: the complete 436-byte unit-list page transition now matches exactly under an opt-in structural allocator contract. Renaming the function still compiles; four unsupported contracts reject; all 61 unannotated controls remain identical. The compiler changes allocation only and contains no opcode templates or function/RTL-number selectors. This is not integrated yet: a pinned clean compiler build, broader rejection checks and full production verification remain. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: express the verified reverse-loop allocation requirement through a supported source/compiler contract, and resolve the separate forward-loop allocation mismatch. The
-checked research candidate differs at section offsets 0x72..0x94 and
-0x132..0x134; its control-flow layout, calls and pools match.
-`docs/unitlist-page-in-research.json` records the candidate and model evidence.
+Next: build the row-shift allocator contract reproducibly, expand its rejection checks, and integrate the exact unit-list C routine with full-ROM verification.
+`docs/unitlist-page-in-research.json` records the exact contract and earlier model evidence.
 The routine remains assembly in production. Runtime helpers, transfer/startup
 code and executable classification also remain unfinished.
 
@@ -30,7 +28,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **1,114 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Unit-list page transition research | **425/436 section bytes agree; eleven Thumb halfwords differ; 5,520 model cases pass; not integrated** |
+| Unit-list page transition research | **436/436 section bytes exact with structural allocator contract; 61 unannotated controls unchanged; not integrated** |
 | Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note LFO delay | **10/10 bytes exact; 163,840 production cases pass; twelve unsupported contracts and 274 altered layouts reject; full ROM/runtime match** |
