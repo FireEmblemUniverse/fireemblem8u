@@ -13,7 +13,7 @@
   "end": "0x8e47180",
   "script_sha256": "2182e000f2f66ac8bd4ceb4d65f446ed36288585dcb458f1db2a0c0e63ea83e0",
   "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-  "map_sha256": "121e2b66acc22e85a5869af886a516f431b504be190d99476f00980cf5acada7",
+  "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468",
   "rejected_checks": [
     "bad-header",
     "missing-flags",

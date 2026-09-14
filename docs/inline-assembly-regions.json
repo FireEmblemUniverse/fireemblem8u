@@ -342,11 +342,11 @@
   "images": {
     "main_rom": {
       "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-      "map_sha256": "121e2b66acc22e85a5869af886a516f431b504be190d99476f00980cf5acada7"
+      "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
     },
     "mgfembp": {
       "elf_sha256": "02d83cff5e702770fe5f28a98f7eb7bacbd625a21328f6f054e665b90bb99c44",
-      "map_sha256": "0c499675cd09b3b037b19a11d83011dddcf7543b4199348db4dbbbfef690cff4"
+      "map_sha256": "12f7d106c21b93a7b0a644666b70bb5d3e534321029620020945ccc42e7fabf6"
     }
   }
 }

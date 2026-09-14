@@ -38,7 +38,7 @@ def main():
     assert len(data)==188 and data[offset:offset+len(wanted)]==wanted
     record.update(method='fresh assembly of explicit header data',source_sha256=sha(source.read_bytes()),section=contribution['section'])
    else:
-    assert obj=='tools/agbcc/lib/libc.a(vfprintf.o)'
+    assert obj=='.deps/runtime-c/libc.a(vfprintf.o)'
     source=(ROOT/'.deps/agbcc/libc/stdio/vfprintf.c').read_bytes();assert b'#define\tPADSIZE\t16' in source
     assert b"{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}" in source
     assert b"{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'}" in source

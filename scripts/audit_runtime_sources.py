@@ -17,13 +17,14 @@ def main():
     ownership=json.loads((ROOT/'docs/code-ownership.json').read_text())
     archives={name:ROOT/'tools/agbcc/lib'/name for name in ('libc.a','libgcc.a')}
     archives['libgcc.a']=ROOT/'.deps/runtime-c/libgcc.a'
+    archives['libc.a']=ROOT/'.deps/runtime-c/libc.a'
     rebuild=None
     if a.rebuild_report.exists():
         rebuild=json.loads(a.rebuild_report.read_text())
         assert rebuild['source_commit']==PIN
         assert rebuild['compiler_sha256']==sha(ROOT/'tools/agbcc/bin/old_agbcc')
         for name,path in archives.items():
-            assert (rebuild['derived_archive_sha256'] if name=='libgcc.a' else rebuild['installed_archive_sha256'][name[:-2]])==sha(path)
+            assert (rebuild['derived_archive_sha256'] if name=='libgcc.a' else rebuild['derived_libc_sha256'])==sha(path)
         for name,info in rebuild['images'].items():
             original=ROOT/('fireemblem8' if name=='main_rom' else 'mgfembp/'+name)
             assert info['original_elf_sha256']==sha(original.with_suffix('.elf')),'Rerun verify_runtime_rebuild.py after rebuilding'
@@ -57,10 +58,17 @@ def main():
             archive,name=match.groups()
             if archive=='libgcc.a' and name in ('_udivsi3','_umodsi3','_divsi3','_modsi3','_dvmd_tls','_call_via_rX'):
                 assert rebuild, 'Recovered runtime requires fresh rebuild evidence'
-                sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}
+                sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*') if path.suffix in ('.c','.h')}
                 assert sources==rebuild['runtime_c_sources']
                 rebuilt_bytes+=obj['instruction_bytes']
                 rows.append(dict(object=obj['object'],instruction_bytes=obj['instruction_bytes'],source='runtime/*.c',source_sha256=sources,status='C_source_rebuild_verified'))
+                continue
+            if archive=='libc.a' and name=='syscalls':
+                assert rebuild and rebuild['syscall_replacement_sha256']==sha(ROOT/'.deps/runtime-c/syscalls/syscalls.o')
+                sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*') if path.suffix in ('.c','.h')}
+                assert sources==rebuild['runtime_c_sources']
+                rebuilt_bytes+=obj['instruction_bytes'];mixed_bytes+=obj['instruction_bytes']
+                rows.append(dict(object=obj['object'],instruction_bytes=obj['instruction_bytes'],source='runtime/monitor_core.c + pinned libc/arm/syscalls.c allocation bridge',source_sha256=sources,status='C_with_inline_assembly_rebuild_verified',retained_inline_instruction_bytes=26,recovered_register_move_bytes=78))
                 continue
             if archive=='libgcc.a' and name in ASM_NAMES:
                 path=asm;status='assembly_reproduced';assembly_bytes+=obj['instruction_bytes']
@@ -96,7 +104,7 @@ def main():
             lines += ['', '## Reproduced assembly members','', '| Member | Mapped instruction bytes per image | Reproduced text bytes including padding |','|---|---:|---:|']
             for row in assembly_rows:
                 lines.append(f"| `{row['object']}` | {row['instruction_bytes']} | {row['text_bytes']} |")
-        lines += ['', '## Remaining verification','', 'No assembly-source runtime members remain. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
+        lines += ['', '## Remaining verification','', 'No assembly-source runtime members remain. The recovered syscall bridge retains 26 inline SWI bytes; its 78 former template move bytes now compile from C. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
         a.markdown.write_text('\n'.join(lines)+'\n')
     print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "1968d0f010b9a07c3636495fd99de5213898dd99",
+  "baseline_commit": "3d0f59508c99085e9db3fa0b25ddf93fe6c50718",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -311,7 +311,7 @@
           "instruction_bytes": 4086
         },
         {
-          "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
+          "object": ".deps/runtime-c/libc.a(vfprintf.o)",
           "category": "runtime_archive",
           "instruction_bytes": 3910
         },
@@ -421,7 +421,7 @@
           "instruction_bytes": 3366
         },
         {
-          "object": "tools/agbcc/lib/libc.a(dtoa.o)",
+          "object": ".deps/runtime-c/libc.a(dtoa.o)",
           "category": "runtime_archive",
           "instruction_bytes": 3352
         },
@@ -686,7 +686,7 @@
           "instruction_bytes": 2174
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mprec.o)",
+          "object": ".deps/runtime-c/libc.a(mprec.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2146
         },
@@ -956,7 +956,7 @@
           "instruction_bytes": 1216
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mallocr.o)",
+          "object": ".deps/runtime-c/libc.a(mallocr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 1208
         },
@@ -1036,7 +1036,7 @@
           "instruction_bytes": 1032
         },
         {
-          "object": "tools/agbcc/lib/libc.a(syscalls.o)",
+          "object": ".deps/runtime-c/libc.a(syscalls.o)",
           "category": "runtime_archive",
           "instruction_bytes": 1014
         },
@@ -1286,7 +1286,7 @@
           "instruction_bytes": 580
         },
         {
-          "object": "tools/agbcc/lib/libc.a(freer.o)",
+          "object": ".deps/runtime-c/libc.a(freer.o)",
           "category": "runtime_archive",
           "instruction_bytes": 576
         },
@@ -1296,7 +1296,7 @@
           "instruction_bytes": 556
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fvwrite.o)",
+          "object": ".deps/runtime-c/libc.a(fvwrite.o)",
           "category": "runtime_archive",
           "instruction_bytes": 554
         },
@@ -1521,7 +1521,7 @@
           "instruction_bytes": 316
         },
         {
-          "object": "tools/agbcc/lib/libc.a(findfp.o)",
+          "object": ".deps/runtime-c/libc.a(findfp.o)",
           "category": "runtime_archive",
           "instruction_bytes": 312
         },
@@ -1556,13 +1556,13 @@
           "instruction_bytes": 212
         },
         {
-          "object": "src/arm/color_fade_tick.o",
-          "category": "c_owned",
+          "object": ".deps/runtime-c/libc.a(makebuf.o)",
+          "category": "runtime_archive",
           "instruction_bytes": 208
         },
         {
-          "object": "tools/agbcc/lib/libc.a(makebuf.o)",
-          "category": "runtime_archive",
+          "object": "src/arm/color_fade_tick.o",
+          "category": "c_owned",
           "instruction_bytes": 208
         },
         {
@@ -1621,12 +1621,12 @@
           "instruction_bytes": 180
         },
         {
-          "object": "tools/agbcc/lib/libc.a(stdio.o)",
+          "object": ".deps/runtime-c/libc.a(stdio.o)",
           "category": "runtime_archive",
           "instruction_bytes": 178
         },
         {
-          "object": "tools/agbcc/lib/libc.a(wsetup.o)",
+          "object": ".deps/runtime-c/libc.a(wsetup.o)",
           "category": "runtime_archive",
           "instruction_bytes": 166
         },
@@ -1671,12 +1671,12 @@
           "instruction_bytes": 140
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memmove.o)",
+          "object": ".deps/runtime-c/libc.a(memmove.o)",
           "category": "runtime_archive",
           "instruction_bytes": 136
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fflush.o)",
+          "object": ".deps/runtime-c/libc.a(fflush.o)",
           "category": "runtime_archive",
           "instruction_bytes": 134
         },
@@ -1696,7 +1696,7 @@
           "instruction_bytes": 120
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memchr.o)",
+          "object": ".deps/runtime-c/libc.a(memchr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 118
         },
@@ -1706,7 +1706,7 @@
           "instruction_bytes": 114
         },
         {
-          "object": "tools/agbcc/lib/libc.a(sprintf.o)",
+          "object": ".deps/runtime-c/libc.a(sprintf.o)",
           "category": "runtime_archive",
           "instruction_bytes": 110
         },
@@ -1716,7 +1716,7 @@
           "instruction_bytes": 108
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memcpy.o)",
+          "object": ".deps/runtime-c/libc.a(memcpy.o)",
           "category": "runtime_archive",
           "instruction_bytes": 94
         },
@@ -1731,13 +1731,13 @@
           "instruction_bytes": 92
         },
         {
-          "object": "src/banim-ekrlvupfan.o",
-          "category": "c_owned",
+          "object": ".deps/runtime-c/libc.a(callocr.o)",
+          "category": "runtime_archive",
           "instruction_bytes": 88
         },
         {
-          "object": "tools/agbcc/lib/libc.a(callocr.o)",
-          "category": "runtime_archive",
+          "object": "src/banim-ekrlvupfan.o",
+          "category": "c_owned",
           "instruction_bytes": 88
         },
         {
@@ -1756,17 +1756,17 @@
           "instruction_bytes": 84
         },
         {
-          "object": "tools/agbcc/lib/libc.a(locale.o)",
+          "object": ".deps/runtime-c/libc.a(locale.o)",
           "category": "runtime_archive",
           "instruction_bytes": 82
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memset.o)",
+          "object": ".deps/runtime-c/libc.a(memset.o)",
           "category": "runtime_archive",
           "instruction_bytes": 82
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strcmp.o)",
+          "object": ".deps/runtime-c/libc.a(strcmp.o)",
           "category": "runtime_archive",
           "instruction_bytes": 82
         },
@@ -1801,28 +1801,28 @@
           "instruction_bytes": 68
         },
         {
+          "object": ".deps/runtime-c/libc.a(strcpy.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 66
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(strstr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 66
+        },
+        {
           "object": "src/m4a_sound_vsync.o",
           "category": "c_owned",
           "instruction_bytes": 66
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strcpy.o)",
+          "object": ".deps/runtime-c/libc.a(fwalk.o)",
           "category": "runtime_archive",
-          "instruction_bytes": 66
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(strstr.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 66
+          "instruction_bytes": 64
         },
         {
           "object": "src/m4a_end_tie.o",
           "category": "c_owned",
-          "instruction_bytes": 64
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(fwalk.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 64
         },
         {
@@ -1846,6 +1846,11 @@
           "instruction_bytes": 60
         },
         {
+          "object": ".deps/runtime-c/libc.a(strlen.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 58
+        },
+        {
           "object": "src/m4a_mplay_modulation_update.o",
           "category": "c_owned",
           "instruction_bytes": 58
@@ -1853,11 +1858,6 @@
         {
           "object": "src/m4a_ply_note_pcm_choose.o",
           "category": "c_owned",
-          "instruction_bytes": 58
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(strlen.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 58
         },
         {
@@ -1936,6 +1936,11 @@
           "instruction_bytes": 46
         },
         {
+          "object": ".deps/runtime-c/libc.a(vsprintf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 44
+        },
+        {
           "object": "src/m4a_fixed_setup.o",
           "category": "c_owned",
           "instruction_bytes": 44
@@ -1956,29 +1961,29 @@
           "instruction_bytes": 44
         },
         {
-          "object": "tools/agbcc/lib/libc.a(vsprintf.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 44
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(lseekr.o)",
+          "object": ".deps/runtime-c/libc.a(lseekr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 42
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mbtowc_r.o)",
+          "object": ".deps/runtime-c/libc.a(mbtowc_r.o)",
           "category": "runtime_archive",
           "instruction_bytes": 42
         },
         {
-          "object": "tools/agbcc/lib/libc.a(readr.o)",
+          "object": ".deps/runtime-c/libc.a(readr.o)",
           "category": "runtime_archive",
           "instruction_bytes": 42
         },
         {
-          "object": "tools/agbcc/lib/libc.a(writer.o)",
+          "object": ".deps/runtime-c/libc.a(writer.o)",
           "category": "runtime_archive",
           "instruction_bytes": 42
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(fstatr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 40
         },
         {
           "object": "src/m4a_partial.o",
@@ -1986,23 +1991,18 @@
           "instruction_bytes": 40
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fstatr.o)",
+          "object": ".deps/runtime-c/libc.a(closer.o)",
           "category": "runtime_archive",
-          "instruction_bytes": 40
+          "instruction_bytes": 38
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(sbrkr.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 38
         },
         {
           "object": "src/m4a_ply_note_command.o",
           "category": "c_owned",
-          "instruction_bytes": 38
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(closer.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 38
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(sbrkr.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 38
         },
         {
@@ -2019,6 +2019,11 @@
           "object": "src/m4a_ply_note_channel_init.o",
           "category": "c_owned",
           "instruction_bytes": 34
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(libcfunc.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 32
         },
         {
           "object": "src/m4a_advance.o",
@@ -2046,14 +2051,14 @@
           "instruction_bytes": 32
         },
         {
-          "object": "tools/agbcc/lib/libc.a(libcfunc.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 32
-        },
-        {
           "object": "src/m4a_ply_note_priority.o",
           "category": "c_owned",
           "instruction_bytes": 30
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(s_isinf.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 28
         },
         {
           "object": "src/m4a_mplay_channel_gate.o",
@@ -2063,11 +2068,6 @@
         {
           "object": "src/m4a_resample_setup.o",
           "category": "c_owned",
-          "instruction_bytes": 28
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(s_isinf.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 28
         },
         {
@@ -2126,6 +2126,11 @@
           "instruction_bytes": 24
         },
         {
+          "object": ".deps/runtime-c/libc.a(s_isnan.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 22
+        },
+        {
           "object": ".deps/runtime-c/libgcc.a(_negdi2.o)",
           "category": "runtime_archive",
           "instruction_bytes": 22
@@ -2153,11 +2158,6 @@
         {
           "object": "src/m4a_mplay_track_dispatch.o",
           "category": "c_owned",
-          "instruction_bytes": 22
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 22
         },
         {
@@ -2486,6 +2486,11 @@
           "instruction_bytes": 8
         },
         {
+          "object": ".deps/runtime-c/libc.a(errno.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 6
+        },
+        {
           "object": "src/bios_divrem.o",
           "category": "c_with_assembly",
           "instruction_bytes": 6
@@ -2541,9 +2546,9 @@
           "instruction_bytes": 6
         },
         {
-          "object": "tools/agbcc/lib/libc.a(errno.o)",
+          "object": ".deps/runtime-c/libc.a(mlock.o)",
           "category": "runtime_archive",
-          "instruction_bytes": 6
+          "instruction_bytes": 4
         },
         {
           "object": "src/m4a_mplay_channel_clear_invoke.o",
@@ -2661,11 +2666,6 @@
           "instruction_bytes": 4
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mlock.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 4
-        },
-        {
           "object": ".deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2
@@ -2707,7 +2707,7 @@
         }
       ],
       "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-      "map_sha256": "121e2b66acc22e85a5869af886a516f431b504be190d99476f00980cf5acada7",
+      "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468",
       "unmapped_input_bytes": 3172286,
       "data_mapped_bytes": 10252493,
       "outside_input_bytes": 2574807,
@@ -2829,7 +2829,7 @@
           "instruction_bytes": 108
         },
         {
-          "object": "../../tools/agbcc/lib/libc.a(memcpy.o)",
+          "object": "../../../.deps/runtime-c/libc.a(memcpy.o)",
           "category": "runtime_archive",
           "instruction_bytes": 94
         },
@@ -2885,7 +2885,7 @@
         }
       ],
       "elf_sha256": "02d83cff5e702770fe5f28a98f7eb7bacbd625a21328f6f054e665b90bb99c44",
-      "map_sha256": "0c499675cd09b3b037b19a11d83011dddcf7543b4199348db4dbbbfef690cff4",
+      "map_sha256": "12f7d106c21b93a7b0a644666b70bb5d3e534321029620020945ccc42e7fabf6",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9239,
       "outside_input_bytes": 1,

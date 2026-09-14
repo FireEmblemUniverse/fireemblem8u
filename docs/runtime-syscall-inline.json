@@ -1,11 +1,14 @@
 {
+  "production_bridge_sha256": "9197f334d1c087f2cd75f66ae939c9bb69e3dd10a616d452bc07be2dbe2d3cc5",
+  "production_retained_inline_instruction_bytes": 26,
+  "production_recovered_C_move_bytes": 78,
   "source_pin": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_sha256": "ec0dd10f8608a507f7a822f78d0f7fb612214bbb16ef52e0c20446017e852a7f",
-  "rebuild_receipt_sha256": "ddcdf251019112c756ca075b1603a543a33b847b0d7c3033b4812307cae13335",
+  "rebuild_receipt_sha256": "72bd04cc0ceb45dac26924d097e287806e456c4e17870fa011069ef66e1a3c7b",
   "assembly_sha256": "6a207eab073c1caeb0293e4f12dc3c46eda758b049acdf1e8fa52394a17ddb94",
   "object_text_sha256": "dcf5c21d01204048ca727aac49c3ae851672fe70a5723641d3d66d01596168a2",
   "inline_sites": 13,
-  "inline_instruction_bytes": 104,
+  "reference_inline_instruction_bytes": 104,
   "swi_instruction_bytes": 26,
   "register_move_instruction_bytes": 78,
   "whole_object_mapped_instruction_bytes": 1014,
@@ -144,6 +147,6 @@
   "limitations": [
     "Counts the active ARM_RDI_MONITOR variant only; inactive source branches are not linked instructions.",
     "This is byte provenance, not a claim of reachability or GBA BIOS semantics for the monitor service.",
-    "No inline instructions have been replaced."
+    "The legacy reference template is 104 bytes; production now generates 78 move bytes from C and retains 26 inline SWI bytes."
   ]
 }

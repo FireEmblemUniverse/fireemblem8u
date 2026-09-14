@@ -94,6 +94,9 @@ def main():
         member = a.veneer_member.resolve()
         assert member.name == '_call_via_rX.o'
         run(['arm-none-eabi-ar', 'r', str(out / 'libgcc/libgcc.a'), str(member)], ROOT, 'veneer-replacement.log')
+    if not a.syscall_member:
+        run(['python3', str(ROOT / 'scripts/build_runtime_syscalls.py'), '--output-dir', str(out / 'runtime-syscalls')], ROOT, 'syscall-build.log')
+        a.syscall_member = out / 'runtime-syscalls/syscalls.o'
     if a.syscall_member:
         member = a.syscall_member.resolve()
         assert member.name == 'syscalls.o'
@@ -141,7 +144,7 @@ def main():
                    if line.startswith('LOAD ') and line.endswith('.o')]
         assert objects and all((cwd / x).is_file() for x in objects)
         check_image(name, original, ['arm-none-eabi-ld', '-T', '../../mgfembp.lds', *objects], cwd)
-    report = dict(syscall_replacement_sha256=sha(a.syscall_member) if a.syscall_member else None, veneer_replacement_sha256=sha(a.veneer_member) if a.veneer_member else None, div0_replacement_sha256=sha(a.div0_member) if a.div0_member else None, smod_replacement_sha256=sha(a.smod_member) if a.smod_member else None, sdiv_replacement_sha256=sha(a.sdiv_member) if a.sdiv_member else None, umod_replacement_sha256=sha(a.umod_member) if a.umod_member else None, derived_archive_sha256=sha(ROOT / '.deps/runtime-c/libgcc.a'), runtime_c_sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}, udiv_replacement_sha256=sha(a.udiv_member) if a.udiv_member else None, source_commit=PIN, source_archive_sha256=hashlib.sha256(blob).hexdigest(),
+    report = dict(derived_libc_sha256=sha(ROOT / '.deps/runtime-c/libc.a'), syscall_replacement_sha256=sha(a.syscall_member) if a.syscall_member else None, veneer_replacement_sha256=sha(a.veneer_member) if a.veneer_member else None, div0_replacement_sha256=sha(a.div0_member) if a.div0_member else None, smod_replacement_sha256=sha(a.smod_member) if a.smod_member else None, sdiv_replacement_sha256=sha(a.sdiv_member) if a.sdiv_member else None, umod_replacement_sha256=sha(a.umod_member) if a.umod_member else None, derived_archive_sha256=sha(ROOT / '.deps/runtime-c/libgcc.a'), runtime_c_sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*') if path.suffix in ('.c','.h')}, udiv_replacement_sha256=sha(a.udiv_member) if a.udiv_member else None, source_commit=PIN, source_archive_sha256=hashlib.sha256(blob).hexdigest(),
                   compiler_sha256=sha(compiler), build_directory=str(out),
                   tool_versions={name: subprocess.check_output([name, '--version'], text=True).splitlines()[0]
                                  for name in ('arm-none-eabi-cpp', 'arm-none-eabi-as', 'arm-none-eabi-ld')},

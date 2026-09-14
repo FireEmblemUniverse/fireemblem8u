@@ -13,7 +13,7 @@ The C-source total includes 1,014 main-ROM instruction bytes in syscalls.o, whic
 
 ## Remaining verification
 
-No assembly-source runtime members remain. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.
+No assembly-source runtime members remain. The recovered syscall bridge retains 26 inline SWI bytes; its 78 former template move bytes now compile from C. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.
 
 - Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.
 - Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.

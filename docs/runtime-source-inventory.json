@@ -1,8 +1,8 @@
 {
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
-    "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
-    "libgcc.a": "c502ecbaf0cf9e199d902a63e6a5b81144b501d031d6b457380600c57eab23b3"
+    "libc.a": "726ea1679f20637daa81a32c724e0e8d668aa14c1548e5e6ea2e96d6e79bc5ad",
+    "libgcc.a": "01867c4a760473ef78f0d7178a44ae0c30497303dc505f1402da21c7d65febc3"
   },
   "images": {
     "main_rom": {
@@ -13,14 +13,14 @@
       "rebuilt_syscalls_object_instruction_bytes": 1014,
       "members": [
         {
-          "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
+          "object": ".deps/runtime-c/libc.a(vfprintf.o)",
           "instruction_bytes": 3910,
           "source": "libc/stdio/vfprintf.c",
           "source_sha256": "51f4cd6afc629ae8045eaaa3546ae755f3024d22a24790af2ad697be3ca81246",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(dtoa.o)",
+          "object": ".deps/runtime-c/libc.a(dtoa.o)",
           "instruction_bytes": 3352,
           "source": "libc/stdlib/dtoa.c",
           "source_sha256": "311a75ee13d98ae8b0c72d70674904a0e6d1fe1c62b66ccd7203fdc9aec2181f",
@@ -41,49 +41,64 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mprec.o)",
+          "object": ".deps/runtime-c/libc.a(mprec.o)",
           "instruction_bytes": 2146,
           "source": "libc/stdlib/mprec.c",
           "source_sha256": "67f94f948941463ddc14645368d3f104f7bd0de4ec3232248c7f303cfac49732",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mallocr.o)",
+          "object": ".deps/runtime-c/libc.a(mallocr.o)",
           "instruction_bytes": 1208,
           "source": "libc/stdlib/mallocr.c",
           "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(syscalls.o)",
+          "object": ".deps/runtime-c/libc.a(syscalls.o)",
           "instruction_bytes": 1014,
-          "source": "libc/arm/syscalls.c",
-          "source_sha256": "ec0dd10f8608a507f7a822f78d0f7fb612214bbb16ef52e0c20446017e852a7f",
-          "status": "C_with_inline_assembly_rebuild_verified"
+          "source": "runtime/monitor_core.c + pinned libc/arm/syscalls.c allocation bridge",
+          "source_sha256": {
+            "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
+            "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_with_inline_assembly_rebuild_verified",
+          "retained_inline_instruction_bytes": 26,
+          "recovered_register_move_bytes": 78
         },
         {
-          "object": "tools/agbcc/lib/libc.a(freer.o)",
+          "object": ".deps/runtime-c/libc.a(freer.o)",
           "instruction_bytes": 576,
           "source": "libc/stdlib/mallocr.c",
           "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fvwrite.o)",
+          "object": ".deps/runtime-c/libc.a(fvwrite.o)",
           "instruction_bytes": 554,
           "source": "libc/stdio/fvwrite.c",
           "source_sha256": "bb023c67e5a5b519248bb70ef965f6741f23e94005d92e609739c98fe1adf5a7",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(findfp.o)",
+          "object": ".deps/runtime-c/libc.a(findfp.o)",
           "instruction_bytes": 312,
           "source": "libc/stdio/findfp.c",
           "source_sha256": "c287d8427ec98c15dfbd1bc435db3b60bc1643852badc9d192de3a08dcf14ff1",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(makebuf.o)",
+          "object": ".deps/runtime-c/libc.a(makebuf.o)",
           "instruction_bytes": 208,
           "source": "libc/stdio/makebuf.c",
           "source_sha256": "d0e4248af527b9b25d01ee605c6d1e9a902fcbef6a929c4bd3ce581b6939775d",
@@ -98,7 +113,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -116,7 +133,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -126,14 +145,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(stdio.o)",
+          "object": ".deps/runtime-c/libc.a(stdio.o)",
           "instruction_bytes": 178,
           "source": "libc/stdio/stdio.c",
           "source_sha256": "c87a527685383b1d288836be1c27762ba5e9816fc6f35a25c7f025f94f96731f",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(wsetup.o)",
+          "object": ".deps/runtime-c/libc.a(wsetup.o)",
           "instruction_bytes": 166,
           "source": "libc/stdio/wsetup.c",
           "source_sha256": "7cd70a7d97bb2e6c5a8ae42fdaee2a578fa3b0d2eab9b133a10303f3b7cbefa0",
@@ -148,7 +167,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -158,14 +179,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memmove.o)",
+          "object": ".deps/runtime-c/libc.a(memmove.o)",
           "instruction_bytes": 136,
           "source": "libc/string/memmove.c",
           "source_sha256": "018dbd67cc6087eb9015ee133a2cd5b1a792341d147772f9fb15529ac5a861d9",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fflush.o)",
+          "object": ".deps/runtime-c/libc.a(fflush.o)",
           "instruction_bytes": 134,
           "source": "libc/stdio/fflush.c",
           "source_sha256": "734ccf4f8b90b2e690cc9bddd165260b450f3efa3048b4ca73f71a1818084513",
@@ -180,7 +201,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -190,14 +213,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memchr.o)",
+          "object": ".deps/runtime-c/libc.a(memchr.o)",
           "instruction_bytes": 118,
           "source": "libc/string/memchr.c",
           "source_sha256": "3fd97d1c290c82bf122bc799e24f87682da89a786ab210506964811e5e115d1e",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(sprintf.o)",
+          "object": ".deps/runtime-c/libc.a(sprintf.o)",
           "instruction_bytes": 110,
           "source": "libc/stdio/sprintf.c",
           "source_sha256": "c9b9e12b5f91e95a53b1d32aab4bf5cec68b29d2612fd01612e951adef37a7c2",
@@ -211,56 +234,56 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memcpy.o)",
+          "object": ".deps/runtime-c/libc.a(memcpy.o)",
           "instruction_bytes": 94,
           "source": "libc/string/memcpy.c",
           "source_sha256": "89ee5338c9b7afed59068cfb408769c0c46cefe0c59f979731a4520311e53990",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(callocr.o)",
+          "object": ".deps/runtime-c/libc.a(callocr.o)",
           "instruction_bytes": 88,
           "source": "libc/stdlib/mallocr.c",
           "source_sha256": "8a3fe01c7c61463488c7bcb5cc284277961ef493e94587e335d4134958bdea3e",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(locale.o)",
+          "object": ".deps/runtime-c/libc.a(locale.o)",
           "instruction_bytes": 82,
           "source": "libc/locale/locale.c",
           "source_sha256": "7e3111e71b40ac7e01bd38fdba496659607fe7d003af549423f83d3157ca8ace",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(memset.o)",
+          "object": ".deps/runtime-c/libc.a(memset.o)",
           "instruction_bytes": 82,
           "source": "libc/string/memset.c",
           "source_sha256": "86793e2d167133a652d5a31b89708e4cbcefc2192c27b0ba781977c8c473d32a",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strcmp.o)",
+          "object": ".deps/runtime-c/libc.a(strcmp.o)",
           "instruction_bytes": 82,
           "source": "libc/string/strcmp.c",
           "source_sha256": "6f62e0d671b401da18f5e708f064dacb1eef465d393cdb7d13b390e9717b0e7e",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strcpy.o)",
+          "object": ".deps/runtime-c/libc.a(strcpy.o)",
           "instruction_bytes": 66,
           "source": "libc/string/strcpy.c",
           "source_sha256": "591ce22174939e22ef839071c998c58c4e49ae0170d90499f003391d2ba8c74c",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strstr.o)",
+          "object": ".deps/runtime-c/libc.a(strstr.o)",
           "instruction_bytes": 66,
           "source": "libc/string/strstr.c",
           "source_sha256": "09437b966be6a045479e511b84d9ef0156823a5c9ccd29dc4c93d0f7c53998e7",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fwalk.o)",
+          "object": ".deps/runtime-c/libc.a(fwalk.o)",
           "instruction_bytes": 64,
           "source": "libc/stdio/fwalk.c",
           "source_sha256": "d0e051dab8bfa43ea17eb54d0b11a298a6871fe710d46260936002593b12a73f",
@@ -275,7 +298,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -285,7 +310,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(strlen.o)",
+          "object": ".deps/runtime-c/libc.a(strlen.o)",
           "instruction_bytes": 58,
           "source": "libc/string/strlen.c",
           "source_sha256": "70495ac9114b96b9023be71440e31173f6a90f9b499f81b7ddca7f59ae7e981f",
@@ -306,73 +331,80 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(vsprintf.o)",
+          "object": ".deps/runtime-c/libc.a(vsprintf.o)",
           "instruction_bytes": 44,
           "source": "libc/stdio/vsprintf.c",
           "source_sha256": "be83aceec4717cf4ed6e32aa775e276bc4168803c227826970837ff3702a4831",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(lseekr.o)",
+          "object": ".deps/runtime-c/libc.a(lseekr.o)",
           "instruction_bytes": 42,
           "source": "libc/reent/lseekr.c",
           "source_sha256": "29584e6e5455c1d40264ab5f041c6d7e4f384b50b52b6a18d824f46d544982ce",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mbtowc_r.o)",
+          "object": ".deps/runtime-c/libc.a(mbtowc_r.o)",
           "instruction_bytes": 42,
           "source": "libc/stdlib/mbtowc_r.c",
           "source_sha256": "8cdf73cb3224611fd52f01bbf1dea0ddf9bcac151c31a0847800b166eb0ce6d4",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(readr.o)",
+          "object": ".deps/runtime-c/libc.a(readr.o)",
           "instruction_bytes": 42,
           "source": "libc/reent/readr.c",
           "source_sha256": "ea40a19f1f8d41717e9fb4f60ecfac8352a58acadfb7384023306f64b64242c4",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(writer.o)",
+          "object": ".deps/runtime-c/libc.a(writer.o)",
           "instruction_bytes": 42,
           "source": "libc/reent/writer.c",
           "source_sha256": "c2c1a9cc95229e8b95f5e4c3781e4bcb99de5bef482c6f589ad0fc74af350ff2",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(fstatr.o)",
+          "object": ".deps/runtime-c/libc.a(fstatr.o)",
           "instruction_bytes": 40,
           "source": "libc/reent/fstatr.c",
           "source_sha256": "707f3d17659adfef04dc2cbef44875b142f606fa5e99c4e063947db810c65d69",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(closer.o)",
+          "object": ".deps/runtime-c/libc.a(closer.o)",
           "instruction_bytes": 38,
           "source": "libc/reent/closer.c",
           "source_sha256": "a71d620ff451b53088e8cb188a0fc3f29c1edb754178d8c972643a4f4b63e7e3",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(sbrkr.o)",
+          "object": ".deps/runtime-c/libc.a(sbrkr.o)",
           "instruction_bytes": 38,
           "source": "libc/reent/sbrkr.c",
           "source_sha256": "5dd93f7cc4c2026e9ca929de1deaddface6095d900dcc3d8373a265e03581e0d",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(libcfunc.o)",
+          "object": ".deps/runtime-c/libc.a(libcfunc.o)",
           "instruction_bytes": 32,
           "source": "libc/arm/libcfunc.c",
           "source_sha256": "ffe7b369a270869372992e0d31b48a96f49508832b7c244932c1f75304a88df7",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(s_isinf.o)",
+          "object": ".deps/runtime-c/libc.a(s_isinf.o)",
           "instruction_bytes": 28,
           "source": "libc/math/s_isinf.c",
           "source_sha256": "6ad8d20514f62949ef8ac38ed181ba989079c30e2dd5e60dfcad510aaec2a032",
+          "status": "C_source_rebuild_verified"
+        },
+        {
+          "object": ".deps/runtime-c/libc.a(s_isnan.o)",
+          "instruction_bytes": 22,
+          "source": "libc/math/s_isnan.c",
+          "source_sha256": "2e0359c2f4855d1a1910c934356396cea927aaca54048f9209fb7f56dea7bf01",
           "status": "C_source_rebuild_verified"
         },
         {
@@ -383,21 +415,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
-          "instruction_bytes": 22,
-          "source": "libc/math/s_isnan.c",
-          "source_sha256": "2e0359c2f4855d1a1910c934356396cea927aaca54048f9209fb7f56dea7bf01",
-          "status": "C_source_rebuild_verified"
-        },
-        {
-          "object": "tools/agbcc/lib/libc.a(errno.o)",
+          "object": ".deps/runtime-c/libc.a(errno.o)",
           "instruction_bytes": 6,
           "source": "libc/errno/errno.c",
           "source_sha256": "b8289e696607e597adb5a1dcd3386cd06fa1503ddb63281847def1af652b54c7",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libc.a(mlock.o)",
+          "object": ".deps/runtime-c/libc.a(mlock.o)",
           "instruction_bytes": 4,
           "source": "libc/stdlib/mlock.c",
           "source_sha256": "eb0ea25e56c50fa81c1d5e1e846a966a7c7c67a03d981dfe1ed30a08b1cf3bbf",
@@ -412,7 +437,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -439,7 +466,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -457,7 +486,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -475,7 +506,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -493,7 +526,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -503,7 +538,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "../../tools/agbcc/lib/libc.a(memcpy.o)",
+          "object": "../../../.deps/runtime-c/libc.a(memcpy.o)",
           "instruction_bytes": 94,
           "source": "libc/string/memcpy.c",
           "source_sha256": "89ee5338c9b7afed59068cfb408769c0c46cefe0c59f979731a4520311e53990",
@@ -518,7 +553,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -536,7 +573,9 @@
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
             "register_veneer.c": "abfa58ea0e2df1842f6cf294a1350de273910654ca7096f8714c587b15464e94",
             "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "monitor_allocation.h": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "monitor_core.c": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
             "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
@@ -548,7 +587,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "ddcdf251019112c756ca075b1603a543a33b847b0d7c3033b4812307cae13335",
+  "rebuild_report_sha256": "72bd04cc0ceb45dac26924d097e287806e456c4e17870fa011069ef66e1a3c7b",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

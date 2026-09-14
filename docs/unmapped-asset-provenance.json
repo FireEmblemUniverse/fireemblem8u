@@ -5,7 +5,7 @@
   "asset_bound_bytes": 312032,
   "residual_bytes": 12360,
   "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-  "map_sha256": "121e2b66acc22e85a5869af886a516f431b504be190d99476f00980cf5acada7",
+  "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468",
   "sources": {
     "src/banim-ekrmain.c": "87d73839a7d460f93228c028d2aa68cb7aa02edb6155bbde492d4a845bec7cbc",
     "src/bksel.c": "40a335715a5d31a302e31326fd7ba1df91b8cd57df2785b5ef93d98ea15a5ebb",
@@ -1480,6 +1480,12 @@
   ],
   "residual": [
     {
+      "object": ".deps/runtime-c/libc.a(vfprintf.o)",
+      "start": "0x8587700",
+      "end": "0x8587720",
+      "bytes": 32
+    },
+    {
       "object": "asm/fe6sio.o",
       "start": "0x8b1a0bc",
       "end": "0x8b1a16d",
@@ -1592,12 +1598,6 @@
       "start": "0x8206948",
       "end": "0x8206952",
       "bytes": 10
-    },
-    {
-      "object": "tools/agbcc/lib/libc.a(vfprintf.o)",
-      "start": "0x8587700",
-      "end": "0x8587720",
-      "bytes": 32
     }
   ],
   "scope": "Exact source-declared binary asset provenance for unmapped intervals, excluding previously audited message/battle-animation contributions. Unbound bytes stay explicit; this neither classifies every compressed asset semantically nor proves data cannot execute."

@@ -47,6 +47,14 @@ for n,row in enumerate(rows):
     code=blobs[0][start:end];assert len(code)==8 and code[4:6]==bytes.fromhex('abdf')
     assert rom[address-0x08000000+start:address-0x08000000+end]==code
     row.update(object_offset=start,rom_address=hex(address+start),bytes=8,hex=code.hex(),swi_bytes=2,register_move_bytes=6)
-report=dict(source_pin=pin,source_sha256=sha(source),rebuild_receipt_sha256=sha(receipt),assembly_sha256=sha(asm),object_text_sha256=hashlib.sha256(blobs[0]).hexdigest(),inline_sites=len(rows),inline_instruction_bytes=sum(x['bytes'] for x in rows),swi_instruction_bytes=26,register_move_instruction_bytes=78,whole_object_mapped_instruction_bytes=1014,sites=rows,limitations=['Counts the active ARM_RDI_MONITOR variant only; inactive source branches are not linked instructions.','This is byte provenance, not a claim of reachability or GBA BIOS semantics for the monitor service.','No inline instructions have been replaced.'])
+bridge_path=ROOT/'.deps/runtime-c/syscalls/syscall-build.json'
+bridge=json.loads(bridge_path.read_text())
+assert bridge['member_sha256']==rebuild['syscall_replacement_sha256']
+assert bridge['allocation_source_sha256']==sha(ROOT/'runtime/monitor_allocation.h')
+assert bridge['core_source_sha256']==sha(ROOT/'runtime/monitor_core.c')
+assert len(bridge['sites'])==len(rows)==13
+for row,site in zip(rows,bridge['sites']):
+    assert row['assembly']==f"mov r0, {site['reason']}; mov r1, {site['argument']}; swi 171; mov {site['result']}, r0"
+report=dict(production_bridge_sha256=sha(bridge_path),production_retained_inline_instruction_bytes=26,production_recovered_C_move_bytes=78,source_pin=pin,source_sha256=sha(source),rebuild_receipt_sha256=sha(receipt),assembly_sha256=sha(asm),object_text_sha256=hashlib.sha256(blobs[0]).hexdigest(),inline_sites=len(rows),reference_inline_instruction_bytes=sum(x['bytes'] for x in rows),swi_instruction_bytes=26,register_move_instruction_bytes=78,whole_object_mapped_instruction_bytes=1014,sites=rows,limitations=['Counts the active ARM_RDI_MONITOR variant only; inactive source branches are not linked instructions.','This is byte provenance, not a claim of reachability or GBA BIOS semantics for the monitor service.','The legacy reference template is 104 bytes; production now generates 78 move bytes from C and retains 26 inline SWI bytes.'])
 (ROOT/'docs/runtime-syscall-inline.json').write_text(json.dumps(report,indent=2)+'\n')
-print('13 exact sites: 104 inline bytes = 26 SWI + 78 register moves')
+print('13 bound syscall sites: production retains 26 inline SWI bytes; 78 move bytes compile from C')

@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `1968d0f0`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `3d0f5950`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 

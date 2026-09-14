@@ -1159,7 +1159,7 @@
     }
   ],
   "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-  "map_sha256": "121e2b66acc22e85a5869af886a516f431b504be190d99476f00980cf5acada7",
+  "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468",
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "elf_rom_load_end": "0x8ffff00",
   "objcopy_policy": "--pad-to 0x9000000 --gap-fill=0xff",

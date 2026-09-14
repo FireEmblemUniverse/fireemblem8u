@@ -12846,3 +12846,35 @@ archive checks. Default integration is still pending. The allocation marker
 is deliberately not standalone executable C; both compiler stages are required
 by the explicit bridge contract. All thirteen SWIs remain inline operations.
 Production inline inventory and overall completion status are unchanged.
+
+
+### Default syscall bridge integration (September 14, 2026)
+
+Baseline `3d0f5950`. Production monitor_core.c and monitor_allocation.h now
+provide the explicit executable and allocation halves. build_runtime_syscalls.py
+extracts pinned sources and headers, rebuilds its plugins and generates a
+checked syscalls.o without research caches. The default derived libc archive
+replaces that member. It is part of the existing runtime dependency chain
+used by main and payload links; derived libgcc depends on derived libc so
+payload rebuilds cannot overlook a changed libc. Legacy reference archives
+remain untouched.
+
+Fresh default runtime verification now rebuilds this member without override
+arguments, fingerprints both derived archives and all runtime C/header inputs,
+and reproduces all four binaries and exported symbols exactly. The full ROM
+comparison and dated payload builds pass. Runtime source and syscall-site
+audits validate the bridge against its current source/member hashes. The
+legacy 104-byte template region now comprises 78 C-generated move bytes and
+26 retained inline SWI bytes across thirteen sites. The whole syscall object
+remains mixed C/inline assembly; its 1,014-byte mapped size is unchanged.
+Runtime C-source totals and separate ownership categories remain unchanged.
+
+The production sources are the verified independent sources promoted without
+semantic edits. Code ownership, inline-region, runtime, code-region and data
+provenance receipts are refreshed. No overall decompilation completion is
+claimed: platform/status/SWI instructions, 420 expanded-payload assembly
+bytes and complete executable/data classification remain.
+
+The final residual-provenance audit required updating its explicit vfprintf
+archive path to derived libc; it then passed with all 812 residual bytes
+verified. All scheduled verification checks completed successfully.
