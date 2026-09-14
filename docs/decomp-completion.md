@@ -13188,3 +13188,28 @@ Production is unchanged. Exact byte matching does not replace independent
 callback/mode/return checks. Those checks and a parameterized or otherwise
 verified payload handler-symbol contract are required before integration;
 the compiler currently validates the main-ROM handler symbol by name.
+
+
+### Payload candidate dispatcher model (September 14, 2026)
+
+Baseline `6aa95ce9`. `research/payload/check_irq_dispatch.py` executes each
+payload's IRQ entry and priority search with the freshly compiled continuation
+candidate at its original address. All 36,883 cases per version pass, totaling
+110,649: 16,384 pending masks each tested with ARM and Thumb callback choices,
+4,096 random independent IE/IF words and 19 directed cases. Halting masks do
+not call either handler. The reference model explicitly uses the payload's
+grouped 0xC0 priority, followed by the twelve-slot search ordering.
+
+Checks cover the acknowledged mask, IE restoration after synthetic handler
+modification, callback table slot and return address, exact saved frame,
+IRQ/System stack and LR banks, restored SPSR, condition flags and final
+register values. Synthetic callbacks return through real ARM/Thumb BX LR
+instructions, with hooks applying caller-saved register effects. Receipts:
+`payload-irq-dispatch-mgfembp.json`,
+`payload-irq-dispatch-mgfembp_20030206.json`, and
+`payload-irq-dispatch-mgfembp_20030219.json`.
+
+This models dispatcher boundaries, not hardware interrupt entry, nested
+interrupts, real handlers, BIOS epilogue or IF write-one-to-clear hardware.
+Production remains unchanged. The payload-specific compiler handler-symbol
+contract and production integration are next; assembly totals are unchanged.

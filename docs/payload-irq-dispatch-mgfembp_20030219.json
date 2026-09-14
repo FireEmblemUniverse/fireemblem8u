@@ -1,0 +1,22 @@
+{
+  "rom_sha256": "06f61b8519b3ef372edf6d2e4c285944a3d8d653c85dbb60d79db9f8fe0de9d0",
+  "cases": 36883,
+  "outcomes": {
+    "returned": 19491,
+    "halted": 17392
+  },
+  "handler_modes": {
+    "arm": 9763,
+    "thumb": 9728
+  },
+  "original_block_sha256": "16fdcda23e308146eb849f095f01ef3dc34e25331618757c22574e0abc0a6804",
+  "scope": "Payload IRQ entry/search with candidate continuation at its original address with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.",
+  "candidate_sha256": "96ec92c1bdd5e438d324014d3e42dedcd5665757ae00f8681c3571c0989c99a3",
+  "candidate_bytes": 92,
+  "production_integrated": false,
+  "image": "mgfembp_20030219",
+  "enumerated_pending_masks": 16384,
+  "enumerated_handler_modes_per_mask": 2,
+  "independent_ie_if_cases": 4096,
+  "directed_cases": 19
+}
