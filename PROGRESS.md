@@ -14,6 +14,8 @@ Complete isolated syscall cores (baseline `59c85b71`): all 13 eight-byte move/SW
 
 Whole syscall member research (baseline `eb7ed79c`): a two-compiler bridge preserves legacy operand allocation with a non-executable marker and replaces all 13 markers with generated C cores. The complete 1,124-byte text, symbol table and relocations match. A fresh runtime archive with this member reproduces all four images and exported symbols exactly. Production integration and a durable bridge/source contract remain pending; no production inline-byte reduction is claimed.
 
+Independent syscall builder (baseline `9ba3cc7b`): the bridge now builds from pinned source/header extraction and explicit monitor allocation/core sources, rebuilding both plugins without cached snippets or audit receipts. Two output directories produce identical members. All text, rodata, data, symbols and relocations match; an unguarded allocator marker rejects. Fresh archive checks reproduce all four images and symbols. Default-build integration remains next; production inline counts are unchanged.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

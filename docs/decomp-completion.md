@@ -12818,3 +12818,31 @@ validate the combined source contract. The earlier synthetic core model
 remains scoped to register/flag transfers rather than actual monitor service
 behavior. All production inline syscall bytes remain unchanged pending
 integration; SWI instructions are still intentionally present in the cores.
+
+
+### Independent syscall source builder (September 14, 2026)
+
+Baseline `9ba3cc7b`. research/runtime/build_syscall_member.py extracts pinned
+libc and header sources directly, verifies the original syscall source hash,
+and rebuilds both matching plugins in its output directory. It uses explicit
+monitor_allocation.h and monitor_core.c inputs. The former supplies only the
+legacy allocation marker and rejects compilation without the bridge flag;
+the latter defines the executable argument assignments, retained SWI, and
+result assignment. Register-binding headers are generated from the legacy
+allocator's emitted operands, with strict register syntax and r8-site checks.
+
+Every generated core must contain exactly four operations and one removable
+return. Thirteen replacements are required. The resulting member's entire
+text, rodata and data match the installed reference member; nm symbols and
+readelf relocations also match. No research JSON, generated snippet cache or
+previous runtime rebuild directory is used as a build input. Two independent
+output directories produce byte-identical member objects. The allocation
+header without its bridge flag rejects as intended.
+
+The independently built member passes fresh four-image and exported-symbol
+comparisons. runtime-syscall-independent-build.json fingerprints source inputs
+and results; runtime-syscall-independent-four-images.json records the fresh
+archive checks. Default integration is still pending. The allocation marker
+is deliberately not standalone executable C; both compiler stages are required
+by the explicit bridge contract. All thirteen SWIs remain inline operations.
+Production inline inventory and overall completion status are unchanged.

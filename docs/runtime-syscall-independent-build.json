@@ -1,0 +1,109 @@
+{
+  "member_sha256": "d551c1c1951bd2ca6db659cb5c776f54f5bb40cde1db2cf28408eb56d339117b",
+  "source_archive_sha256": "26034d55f880045c57e609312c8c4e1d5803f18c6f423a1753fc450dc79f2929",
+  "source_pin": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+  "allocation_source_sha256": "95a38216465e1270825ab976eb29d1575a078a346fe217e5694fffef609d0d59",
+  "core_source_sha256": "d7c554c4609bf7ddcea5f3ef3981eea35058a16ba470ae655fdbdd3843e262f0",
+  "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
+  "matching_compiler_sha256": "7621edcf27a499e1c97d633b85288b0562f810c8ef7b03f0de6e5fc0820cf272",
+  "sites": [
+    {
+      "result": "r2",
+      "reason": "r5",
+      "argument": "sp",
+      "configuration_sha256": "8c34dc12134e8e2f86a4819977fd6e782347bf765b5ac24ce410f5139e78bf32",
+      "assembly_sha256": "b1208f85958118bb0371f4caf2e009203d8e10cc498064fcfc69533c253e73bb"
+    },
+    {
+      "result": "r2",
+      "reason": "r4",
+      "argument": "sp",
+      "configuration_sha256": "8d01a7628d6efa1b44aabaa6e2d8c4606e6ffe6dfeecd1666a39b5a211e3b556",
+      "assembly_sha256": "ca11b13829886b88e1860b0cbaead188ab956a58e29b7c416102ae2f0cf0d3b7"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "r4",
+      "configuration_sha256": "9867bd7438284baa732e9b605296f6b8ae8d21392a2b192e9df8937846010367",
+      "assembly_sha256": "43331d348f9301242f3416eb3be9f4678b1a447b110b6b89c1f5f66a97f8817c"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "sp",
+      "configuration_sha256": "476ce7f7dc2067d865a0ecf67a838ca484dba94810f0ab1de643c6e3ce74d15c",
+      "assembly_sha256": "db98db95160291ab5fc135d271b4cc98090d23382e96ff217bf51a2ad57d8303"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "sp",
+      "configuration_sha256": "476ce7f7dc2067d865a0ecf67a838ca484dba94810f0ab1de643c6e3ce74d15c",
+      "assembly_sha256": "db98db95160291ab5fc135d271b4cc98090d23382e96ff217bf51a2ad57d8303"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "sp",
+      "configuration_sha256": "476ce7f7dc2067d865a0ecf67a838ca484dba94810f0ab1de643c6e3ce74d15c",
+      "assembly_sha256": "db98db95160291ab5fc135d271b4cc98090d23382e96ff217bf51a2ad57d8303"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "sp",
+      "configuration_sha256": "476ce7f7dc2067d865a0ecf67a838ca484dba94810f0ab1de643c6e3ce74d15c",
+      "assembly_sha256": "db98db95160291ab5fc135d271b4cc98090d23382e96ff217bf51a2ad57d8303"
+    },
+    {
+      "result": "r3",
+      "reason": "r2",
+      "argument": "sp",
+      "configuration_sha256": "0234d04d7267e279fa06c870402bc3c03513caf26a4ba73439cb0f0bc5a6698d",
+      "assembly_sha256": "b7f9592c66184c4664ad509c07a5414a4e3d2dc24ca9c279c228030930898ac4"
+    },
+    {
+      "result": "r2",
+      "reason": "r3",
+      "argument": "sp",
+      "configuration_sha256": "476ce7f7dc2067d865a0ecf67a838ca484dba94810f0ab1de643c6e3ce74d15c",
+      "assembly_sha256": "db98db95160291ab5fc135d271b4cc98090d23382e96ff217bf51a2ad57d8303"
+    },
+    {
+      "result": "r8",
+      "reason": "r2",
+      "argument": "r3",
+      "configuration_sha256": "35f9d506f95c85cf0a33f8b7da940b81197697b62499e3bb8d36a5f266c789e6",
+      "assembly_sha256": "3f95984bdd1800aec7363c3c387aa6c1fb8d11028fc2dc0b108b40ecff94c8fb"
+    },
+    {
+      "result": "r8",
+      "reason": "r2",
+      "argument": "r3",
+      "configuration_sha256": "35f9d506f95c85cf0a33f8b7da940b81197697b62499e3bb8d36a5f266c789e6",
+      "assembly_sha256": "3f95984bdd1800aec7363c3c387aa6c1fb8d11028fc2dc0b108b40ecff94c8fb"
+    },
+    {
+      "result": "r5",
+      "reason": "r4",
+      "argument": "r5",
+      "configuration_sha256": "179800c199d8b9947d46a80e2c21ce5258e88be8dfdea9f4a1e39f410c4cb8ec",
+      "assembly_sha256": "eb51c9c1fb849664e2095d15b409cc800c6c7b51e4a2ce558d09e7fdae9052b5"
+    },
+    {
+      "result": "r3",
+      "reason": "r4",
+      "argument": "r5",
+      "configuration_sha256": "53b396c821760fef73c15a1d286c27768f6d2d2791e942ae7ab8fad0b4614c98",
+      "assembly_sha256": "a9c091ed0e4a56238920aa1a4ff6ab7f917b51fb351cb3a63d3097fd7c1e6fa9"
+    }
+  ],
+  "exact_text_bytes": 1124,
+  "exact_rodata_and_data": true,
+  "exact_symbols_and_relocations": true,
+  "scope": "Independent research build; not wired into production defaults.",
+  "second_directory_member_sha256": "d551c1c1951bd2ca6db659cb5c776f54f5bb40cde1db2cf28408eb56d339117b",
+  "independent_directories_identical": true,
+  "unguarded_marker_rejected": true
+}
