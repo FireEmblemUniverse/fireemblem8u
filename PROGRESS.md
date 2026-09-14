@@ -28,6 +28,8 @@ Latest class-script closure (baseline `a99b9957`): all 14 class-reel scripts (10
 
 Latest main-ROM pointer frontier (baseline `4f9d4095`): 5,561 aligned noninstruction words match 3,668 declared function pointers across 288 source owners. Menu definitions, spell associations and event data lead the review list. These are candidates, not proven references or complete indirect coverage. Receipt: `docs/function-pointer-frontier.json`; summary: `docs/function-pointer-frontier.md`.
 
+Latest pointer provenance (baseline `9f322578`): named ABS32 relocations confirm 5,474 of the 5,561 candidate function-pointer words. The remaining 87 include nine runtime-archive words and matches in sound/graphics/data regions; these remain unconfirmed rather than being counted as callbacks. Receipt: `docs/function-pointer-relocations.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

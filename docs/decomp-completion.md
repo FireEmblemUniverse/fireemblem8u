@@ -13764,3 +13764,22 @@ Candidate equality does not establish that a word is used as a pointer. The scan
 excludes instruction immediates, unaligned/interior/untyped targets, RAM targets,
 compressed pointers and computed dispatch. It is a review frontier, not closure
 of executable coverage or reachability. Production source is unchanged.
+
+## Main-ROM function-pointer relocation provenance — September 14, 2026
+
+Baseline `9f322578`. `scripts/audit_function_pointer_relocations.py` scans the
+285 directly linked objects owning pointer candidates. At each candidate's exact
+linked address, it checks for an ABS32 relocation naming the corresponding FUNC
+symbol. ROM/ELF/map hashes must match the prior frontier. This confirms 5,474
+explicit function references out of 5,561 candidates, leaving 87 unconfirmed.
+
+The unconfirmed set includes 37 sound-sample words, 11 merged animation-data
+words and nine runtime-archive words. Data matches may be coincidences; absence
+of a named relocation is not proof of invalidity because section-relative/local
+references and archive members need separate handling. No unconfirmed candidate
+is promoted to a callback. The full residual list and per-owner counts are in
+`docs/function-pointer-relocations.json` alongside all confirmed references.
+
+This materially narrows reference-provenance review but does not establish
+callback behavior, reachability or absence of other executable targets.
+Production source is unchanged; the decompilation goal remains open.
