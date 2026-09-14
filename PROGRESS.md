@@ -42,6 +42,8 @@ Latest world-map residual (baseline `81642671`): the 56-byte gWorldmapSprite_26 
 
 New executable-classification finding (baseline `2c476bb7`): the first 40,952 bytes of gUnkData_108 exactly duplicate ROM at 0x08B15740, including FE6 serial payload and recovered serial routines. The remaining 1,936-byte suffix differs. The duplicate must be accounted for as embedded-code content; reachability and reproducible source representation remain open. Receipt: `docs/orphan-duplicate.json`.
 
+Latest orphan suffix analysis (baseline `a29ebb06`): 42,812 bytes reconstruct from the earlier region with 260 runtime-data pointers shifted by 0xA73C and one explicit unresolved word substitution. The final 76 bytes are recorded separately. This is byte-level evidence, not a recovered source representation or proof of reachability. Receipt: `docs/orphan-runtime-copy.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

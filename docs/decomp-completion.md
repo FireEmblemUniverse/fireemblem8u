@@ -13876,3 +13876,19 @@ not sufficient to exclude that content. `docs/orphan-duplicate.json` records
 source/destination ranges and owners. Reachability, suffix interpretation and
 reproducible representation from recovered sources remain unfinished. The current
 ROM is unchanged and completion is not claimed.
+
+## Orphan runtime-data relocation pattern — September 14, 2026
+
+Baseline `a29ebb06`. `scripts/audit_orphan_runtime_copy.py` extends duplicate
+analysis to 42,812 bytes, stopping before the original region would overlap the
+destination. Exactly 260 changed words increase by 0xA73C, the source/destination
+displacement; all original values point into 0x08B1F734..0x08B1FE7B runtime data.
+One other word at block offset 0xA028 changes from 0x08587790 to 0x085913F0.
+That exception is recorded, not accepted as a semantically validated relocation.
+
+Applying these changes reconstructs all 42,812 bytes exactly. The remaining
+76 bytes are captured as 19 words in `docs/orphan-runtime-copy.json`. The pattern
+suggests a differently linked runtime-data copy, but historical origin is an
+inference. It does not establish that the copy executes or that its exceptional
+pointer is meaningful in the current image. Source reconstruction, copied code
+coverage and the tail's semantics remain open; no production source changed.
