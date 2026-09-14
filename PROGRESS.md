@@ -6,7 +6,7 @@ Updated: September 14, 2026. Latest integration (baseline `1c9d289a`): the calib
 
 Latest inventory (baseline `e7e52055`): all 146 reviewed nonlibrary inline bytes are purpose-classified: 76 software-interrupt bytes, 64 processor-status bytes, two PC-read bytes and four explicit NOP bytes. The payload contains only software interrupts/status operations. This does not close hidden-executable coverage. Evidence: `docs/platform-operations.json`.
 
-Latest NOP research: 512 original return-path cases pass; direct volatile C r8 self-assignment is eliminated by GCC and does not reproduce the NOP. Exact recovery needs an explicit compiler contract or builtin, plus preservation of the original switch layout. Evidence: `docs/event-nop-research.json`. Next: recover the two event NOP sites and close executable/data classification. The countdown's two-byte PC read remains explicitly assembly-owned.
+Latest NOP research: 512 original return-path cases pass; direct volatile C r8 self-assignment is eliminated by GCC and does not reproduce the NOP. A pinned experimental compiler now emits a NOP builtin, but merges the two identical switch cases: the candidate event object is four bytes short (6,652 versus 6,656). The unmodified-source control matches. Preserving distinct switch paths is the next requirement. Evidence: `docs/event-nop-research.json`. Next: recover the two event NOP sites and close executable/data classification. The countdown's two-byte PC read remains explicitly assembly-owned.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

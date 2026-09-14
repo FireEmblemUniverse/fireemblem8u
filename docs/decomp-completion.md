@@ -13471,3 +13471,25 @@ padding for the source operation. Evidence: `docs/event-nop-research.json`.
 Production remains unchanged. A compiler identity/builtin contract and the
 original switch layout still need recovery; full event dispatch is outside
 this return-path model's scope.
+
+
+### Event NOP builtin experiment (September 14, 2026)
+
+Baseline `fe63edb7`. `research/event/build_nop_compiler.py` builds an isolated
+compiler from pinned agbcc da598c1d918402c42c0c0d7128ba14567f3175e9. It exposes
+a zero-argument builtin through a volatile NOP machine operation, rather than
+an assembly template in game source. An ordinary gen_nop first disappeared
+under optimization; the volatile operation survives.
+
+`research/event/check_nop_builtin.py` compiles the complete eventinfo source
+with both NOP calls replaced, plus unmodified-source controls using the
+experimental and installed compilers. The control text is exact (6,656 bytes).
+The builtin candidate is 6,652 bytes: the compiler merges the two identical
+switch-case tails into one NOP path and removes their separating branch.
+Thus it is not a production-ready match. Evidence:
+`docs/event-nop-builtin-research.json`, including pinned-source and compiler
+hashes. This receipt checks object text, not complete linked relocations.
+
+Production remains unchanged. The next requirement is a bounded compiler
+contract preserving distinct source paths while retaining NOP emission. No
+inline-byte reduction is claimed by this experiment.

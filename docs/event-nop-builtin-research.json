@@ -1,0 +1,23 @@
+{
+  "reference_bytes": 6656,
+  "candidate_bytes": 6652,
+  "unmodified_control_exact": true,
+  "candidate_exact": false,
+  "source_sha256": "c8904574c457b8353289177e9666b21bf2c5d04a459bbc6364a2f97dad49a34d",
+  "candidate_source_sha256": "cf8eb86a339e06fd0d06b944ab8cd6961687e30aa80cd660e65519273221427b",
+  "compiler": {
+    "revision": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+    "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/agbcc-nop-build-n_m8vmfx",
+    "compiler": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/agbcc-nop-build-n_m8vmfx/gcc/agbcc",
+    "compiler_sha256": "2f3d16e648f5f51912863a0332b58b9336269bd3098df3ac70c3c4429577e387",
+    "sources": {
+      "gcc/tree.h": "6cca2b3eedafb0759a9ca3c23ba223e6332a7f16af95abba9608bc9b59457457",
+      "gcc/c-decl.c": "3557e05536b55d7f3ebe93accfac32bb92b68ca69141fbc5e3a89b5b355400ae",
+      "gcc/expr.c": "304bd7601acf17dcf191716c9875cd08eee374a55b9983651cca18efdb28dbf3",
+      "gcc/thumb.md": "a21b6fb924c954f856660f20b08496ecdb8c6a5b7bd7cb7ea8adcb63025cf3fe"
+    },
+    "production_integrated": false
+  },
+  "production_integrated": false,
+  "first_difference": 4718
+}
