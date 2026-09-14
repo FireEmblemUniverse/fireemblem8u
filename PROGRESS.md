@@ -2,12 +2,12 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `0b648ad4`): all six ARM interworking tail-call bodies are C, removing 24 assembly instruction bytes. Their 24-byte Thumb entry scaffolding remains assembly. The complete 48-byte veneer region and full ROM are exact. Main-ROM C ownership is 739,746/777,630 mapped instruction bytes (95.13%); reviewed non-library assembly is 694 bytes in main ROM and 420 in expanded payload, with 592 tracked main C files. The prior unit-list conversion remains verified: 396 instruction bytes converted, all 436 region bytes exact, eight rejected compiler contracts and 61 unchanged controls. Current runtime rebuild and ownership receipts accompany this milestone. The previous 287-layout rejection suite remains the latest layout evidence; no layout changed here. Runtime helpers, Thumb entry scaffolding, transfer/startup code and final executable classification remain unfinished.
+Updated: September 14, 2026. Classification milestone: all 2,574,801 bytes outside input sections are verified generated fill across 141 gaps (2,574,545 linker-fill bytes and 256 objcopy-tail bytes); five invalid cases reject. This resolves fill provenance, not executable reachability or hidden code. Latest integrated milestone (baseline `0b648ad4`): all six ARM interworking tail-call bodies are C, removing 24 assembly instruction bytes. Their 24-byte Thumb entry scaffolding remains assembly. The complete 48-byte veneer region and full ROM are exact. Main-ROM C ownership is 739,746/777,630 mapped instruction bytes (95.13%); reviewed non-library assembly is 694 bytes in main ROM and 420 in expanded payload, with 592 tracked main C files. The prior unit-list conversion remains verified: 396 instruction bytes converted, all 436 region bytes exact, eight rejected compiler contracts and 61 unchanged controls. Current runtime rebuild and ownership receipts accompany this milestone. The previous 287-layout rejection suite remains the latest layout evidence; no layout changed here. Runtime helpers, Thumb entry scaffolding, transfer/startup code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: continue the remaining transfer/startup and runtime assembly inventory, and finish executable classification. The unit-list production receipt is `docs/unitlist-code-region.json`; compiler and earlier model evidence is in `docs/unitlist-page-in-research.json`.
+Next: inspect unmapped input data, led by battle-animation and message assets, while continuing the remaining transfer/startup and runtime assembly. `docs/rom-padding.json` verifies the now-accounted-for gaps. Mapped input data and compressed payloads still require executable classification; no overall completion denominator is claimed.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -20,6 +20,7 @@ they do not attribute the entire decompilation to this task.
 | Meter | Verified progress |
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
+| ROM gaps by build provenance | **141/141 gaps accounted for: 2,574,801 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.13%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
 | Reviewed non-library assembly | **694 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |

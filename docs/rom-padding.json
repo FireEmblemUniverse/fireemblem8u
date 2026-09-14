@@ -1,0 +1,1150 @@
+{
+  "outside_input_bytes": 2574801,
+  "gap_count": 141,
+  "linker_fill_bytes": 2574545,
+  "objcopy_padding_bytes": 256,
+  "unclassified_outside_input_bytes": 0,
+  "regions": [
+    {
+      "start": 135068194,
+      "end": 135068196,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135068234,
+      "end": 135068236,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135068302,
+      "end": 135068304,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135068362,
+      "end": 135068364,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135069854,
+      "end": 135069856,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135069866,
+      "end": 135069868,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135069886,
+      "end": 135069888,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135099634,
+      "end": 135099636,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135100338,
+      "end": 135100340,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135100697,
+      "end": 135100700,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135100715,
+      "end": 135100716,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135100755,
+      "end": 135100756,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135100885,
+      "end": 135100888,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135101145,
+      "end": 135101148,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135101205,
+      "end": 135101208,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135101230,
+      "end": 135101232,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135101458,
+      "end": 135101460,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135101513,
+      "end": 135101516,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135102179,
+      "end": 135102180,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135102334,
+      "end": 135102336,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135102383,
+      "end": 135102384,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135102414,
+      "end": 135102416,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135102635,
+      "end": 135102636,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135102683,
+      "end": 135102684,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135104127,
+      "end": 135104128,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135110334,
+      "end": 135110336,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135110439,
+      "end": 135110440,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135110585,
+      "end": 135110588,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135111382,
+      "end": 135111384,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135111409,
+      "end": 135111412,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135111587,
+      "end": 135111588,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135111614,
+      "end": 135111616,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135111627,
+      "end": 135111628,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135111637,
+      "end": 135111640,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135111650,
+      "end": 135111652,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135111777,
+      "end": 135111780,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135111851,
+      "end": 135111852,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135113779,
+      "end": 135113780,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135113930,
+      "end": 135113932,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135114053,
+      "end": 135114056,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135114086,
+      "end": 135114088,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135114378,
+      "end": 135114380,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135114742,
+      "end": 135114744,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135121098,
+      "end": 135121100,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135121217,
+      "end": 135121220,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135121369,
+      "end": 135121372,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135121398,
+      "end": 135121400,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135121426,
+      "end": 135121428,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135122057,
+      "end": 135122060,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135122194,
+      "end": 135122196,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135122505,
+      "end": 135122508,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135122778,
+      "end": 135122780,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135123057,
+      "end": 135123060,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135123293,
+      "end": 135123296,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135123557,
+      "end": 135123560,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135124405,
+      "end": 135124408,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135124707,
+      "end": 135124708,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135125135,
+      "end": 135125136,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135126219,
+      "end": 135126220,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135127075,
+      "end": 135127076,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135127451,
+      "end": 135127452,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135127742,
+      "end": 135127744,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135128170,
+      "end": 135128172,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135128250,
+      "end": 135128252,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135128265,
+      "end": 135128268,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135128634,
+      "end": 135128636,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135130802,
+      "end": 135130804,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135130981,
+      "end": 135130984,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135131191,
+      "end": 135131192,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135131418,
+      "end": 135131420,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135131910,
+      "end": 135131912,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135132610,
+      "end": 135132612,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135132713,
+      "end": 135132716,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135133738,
+      "end": 135133740,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135140383,
+      "end": 135140384,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135140811,
+      "end": 135140812,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135140839,
+      "end": 135140840,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 135141113,
+      "end": 135141116,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135141309,
+      "end": 135141312,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135168690,
+      "end": 135168692,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135168729,
+      "end": 135168732,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 135169006,
+      "end": 135169008,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135169041,
+      "end": 135169044,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136063955,
+      "end": 136063956,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136065993,
+      "end": 136065996,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136337161,
+      "end": 136337164,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136337307,
+      "end": 136337308,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136338274,
+      "end": 136338276,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136338291,
+      "end": 136338292,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136338391,
+      "end": 136338392,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136338413,
+      "end": 136338416,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136338898,
+      "end": 136338900,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136338909,
+      "end": 136338912,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136338965,
+      "end": 136338968,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136339057,
+      "end": 136339060,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136339082,
+      "end": 136339084,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136339295,
+      "end": 136339296,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136339323,
+      "end": 136339324,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136339359,
+      "end": 136339360,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136340631,
+      "end": 136340632,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136340667,
+      "end": 136340668,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136341615,
+      "end": 136341616,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136341643,
+      "end": 136341644,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136341683,
+      "end": 136341684,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136341698,
+      "end": 136341700,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136341730,
+      "end": 136341732,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136341747,
+      "end": 136341748,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136341789,
+      "end": 136341792,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136341830,
+      "end": 136341832,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 136342211,
+      "end": 136342212,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136342367,
+      "end": 136342368,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136342381,
+      "end": 136342384,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136342415,
+      "end": 136342416,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136342431,
+      "end": 136342432,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136343617,
+      "end": 136343620,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136343657,
+      "end": 136343660,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 136343755,
+      "end": 136343756,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136343811,
+      "end": 136343812,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 1,
+      "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+    },
+    {
+      "start": 136344680,
+      "end": 136344688,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 8,
+      "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+    },
+    {
+      "start": 140015482,
+      "end": 140015484,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140015502,
+      "end": 140015504,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140015506,
+      "end": 140015508,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140015566,
+      "end": 140015568,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140015897,
+      "end": 140015900,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 140059078,
+      "end": 140059080,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140097958,
+      "end": 140097960,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140106346,
+      "end": 140106348,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 140149033,
+      "end": 140149036,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 142660598,
+      "end": 142660600,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 144606601,
+      "end": 144606604,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 144627321,
+      "end": 144627324,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 3,
+      "sha256": "709e80c88487a2411e1ee4dfb9f22a861492d20c4765150c0c794abd70f8147c"
+    },
+    {
+      "start": 144628134,
+      "end": 144628136,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 145925636,
+      "end": 146800640,
+      "pattern": "ff",
+      "kind": "linker_fill",
+      "size": 875004,
+      "sha256": "a69c2c6087b14ef29ab45a915065d95379ccdef2e3cb0c7a054a17109252a80f"
+    },
+    {
+      "start": 146807080,
+      "end": 146808832,
+      "pattern": "00",
+      "kind": "linker_fill",
+      "size": 1752,
+      "sha256": "d9bf817f2b942e96cc8ed302c35214d3f82a94df67220ac465c0c3cad059617d"
+    },
+    {
+      "start": 149188992,
+      "end": 149815296,
+      "pattern": "ff",
+      "kind": "linker_fill",
+      "size": 626304,
+      "sha256": "501b0920fe7ce12ba8c2a3f935485fbb9a75259de30b3f01dccb58fb53658a07"
+    },
+    {
+      "start": 149818064,
+      "end": 149818368,
+      "pattern": "00",
+      "kind": "linker_fill",
+      "size": 304,
+      "sha256": "e2fc162ed9124452d23c85e81d60a0c228f414c3214a5de635737e25fbd29ac1"
+    },
+    {
+      "start": 149892888,
+      "end": 149913600,
+      "pattern": "ff",
+      "kind": "linker_fill",
+      "size": 20712,
+      "sha256": "b3c83b00b64d9c470d15994c6e80e7e09bc523d059f74f4fa9fdc34d7fd4e724"
+    },
+    {
+      "start": 149915336,
+      "end": 149917696,
+      "pattern": "00",
+      "kind": "linker_fill",
+      "size": 2360,
+      "sha256": "a46253ca41c1ab2cc537ffb9fe3102ee93ef51a3c20d48cd39b046ad4724f5ae"
+    },
+    {
+      "start": 149926624,
+      "end": 150863872,
+      "pattern": "ff",
+      "kind": "linker_fill",
+      "size": 937248,
+      "sha256": "8f9fccba6de241eb313d284a8de9ea48869c187a67d4a74f99af154af854e8a4"
+    },
+    {
+      "start": 150880256,
+      "end": 150990848,
+      "pattern": "ff",
+      "kind": "linker_fill",
+      "size": 110592,
+      "sha256": "be1e5a32fff9f186f58214b34b996d6336fd87609116d7eb7fe643b81a68bb10"
+    },
+    {
+      "start": 150994688,
+      "end": 150994944,
+      "pattern": "ff",
+      "kind": "objcopy_tail_padding",
+      "size": 256,
+      "sha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546"
+    }
+  ],
+  "elf_sha256": "429a0a8c91e6f70d5ebf2525d14ab8d37a5371c9a2229d3f00a124ce30d50af1",
+  "map_sha256": "f1cfadffe3167f2086673496009a4848c7710b3c74f62482d901ab16feeb9424",
+  "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+  "elf_rom_load_end": "0x8ffff00",
+  "objcopy_policy": "--pad-to 0x9000000 --gap-fill=0xff",
+  "rejected_checks": [
+    "changed-fill-byte",
+    "changed-tail-byte",
+    "wrong-load-end",
+    "short-rom",
+    "missing-fill-provenance"
+  ],
+  "scope": "Build-provenance classification of generated fill outside input sections. Not a proof of unreachability, absence of hidden code in input data, or an overall executable denominator."
+}
