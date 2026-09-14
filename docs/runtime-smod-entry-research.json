@@ -1,0 +1,17 @@
+{
+  "exact_entry_bytes": 6,
+  "source_sha256": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
+  "plugin_sha256": "43771dca6c48cb0e9252ff8204146c385d52d190ab151e46842100309c1c8cba",
+  "rejected_contracts": [
+    "wrong-bit",
+    "wrong-register",
+    "wrong-target",
+    "wrong-test",
+    "extra-work",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true,
+  "scope": "Entry bytes at original address; full shared-flags handoff still requires integration and runtime modeling."
+}

@@ -12480,3 +12480,25 @@ No compiler pass changed. Next recover the zero-divisor terminal handoff
 between CMP r1,#0 and the existing BPL without introducing a second compare,
 then verify all 206 helper bytes and all zero-divisor cases before archive
 integration. Production runtime assembly remains 268 bytes per audited image.
+
+
+### Signed-modulus six-byte entry recovery (September 14, 2026)
+
+Baseline `caf4deb8`. A direct terminal-zero-call probe confirms that ordinary
+compilation introduces an LR-saving frame and repeats the divisor comparison.
+`research/runtime/smod_zero_probe.c` preserves that compile-only experiment;
+it is not a verified full-helper implementation.
+
+`smod_entry.c` uses the private terminal convention with explicit r3=1 and
+a zero test. The smod_entry pass retains that assignment and validates the
+same LR-only push, zero-test edge and two terminal targets as the division
+entry contract. Its result is exactly the original six bytes at 0x080D1994.
+`check_smod_entry.py` verifies those bytes with the original zero destination,
+eight rejection cases and unchanged unannotated output. The receipt includes
+source/plugin hashes and explicitly limits its scope to the entry.
+
+The next handoff must enter the nonzero path immediately at BPL, consuming
+CMP r1,#0 flags from the entry. Repeating CMP or initializing r3 again would
+break the full layout. That private shared-flags convention must be checked
+and modeled across both fragments before combining the zero handler and
+claiming an exact 206-byte helper. Production libraries remain unchanged.
