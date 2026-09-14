@@ -1,0 +1,31 @@
+{
+  "images": [
+    {
+      "image": "mgfembp",
+      "sha1": "8a81a47d88f6b0a3f91c49784b9f7b317382abac",
+      "entry": "0x2010468",
+      "cases": 128,
+      "c_instruction_bytes": 12,
+      "c_pointer_bytes": 4
+    },
+    {
+      "image": "mgfembp_20030206",
+      "sha1": "6674fc5b5ee26433665c44b842cdb26bcf785051",
+      "entry": "0x2010468",
+      "cases": 128,
+      "c_instruction_bytes": 12,
+      "c_pointer_bytes": 4
+    },
+    {
+      "image": "mgfembp_20030219",
+      "sha1": "ad3ffdb4fc50206f944972a0a7ad26bfa8b5ef74",
+      "entry": "0x2010468",
+      "cases": 128,
+      "c_instruction_bytes": 12,
+      "c_pointer_bytes": 4
+    }
+  ],
+  "cases": 384,
+  "scope": "Three-instruction low-entry boundary only; validates saved r4-r7 frame, cursor, SP, flags, preserved registers and shared-body destination. Entire image checksums match references.",
+  "source_sha256": "53306b95c6518dc5bf5de2388c4efb33345034b4aad0f51a9206f06937c370ae"
+}

@@ -43,3 +43,8 @@ optional scalar-copy encoding rule. All three payload checksums still match.
 The bundled compiler sources remain synchronized with the main game's optional
 same-section pool-sharing support and its garbage-collection stress checks.
 Payload translation units do not enable sharing; their checksums are unchanged.
+
+Embedded PutOamLo now uses the parent repository's checked matching compiler
+and OAM-entry pass. Its 12 instruction bytes and four-byte cursor pointer
+match all payload versions. The payload Makefile can request the compiler
+from the parent build when it is absent.

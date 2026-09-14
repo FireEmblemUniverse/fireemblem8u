@@ -12878,3 +12878,35 @@ bytes and complete executable/data classification remain.
 The final residual-provenance audit required updating its explicit vfprintf
 archive path to derived libc; it then passed with all 812 residual bytes
 verified. All scheduled verification checks completed successfully.
+
+
+### Embedded low-OAM entry recovery (September 14, 2026)
+
+Baseline `334334aa`. Payload put_oam_lo.c reuses the main-ROM checked private
+entry source. Its C stack/frame assignments compile to the original three
+ARM instructions; its four-byte cursor pointer is C data. The linker keeps
+the pointer adjacent to the entry and asserts the shared PutOamHi frame
+boundary and twelve-byte code size. The remaining entry assembly is removed
+from armfunc.s; ArmCodeEnd is now established by the linker at the same address.
+
+All three payload binaries match their original reference checksums exactly.
+Every prior exported address is unchanged. PutOamLo gains a twelve-byte symbol
+size (previously unspecified), and PutOamLoCursorPointer is a newly named
+four-byte data symbol. The model runs 384 cases across three images and all
+NZCV combinations, checking saved r4–r7 words, SP adjustment, cursor value,
+remaining registers, flags and the shared-body branch destination. It stops
+at that boundary. See payload-oam-entry.json.
+
+The main ROM comparison and fresh runtime rebuilds of all four images pass;
+exported symbols match the integrated layouts. Ownership now reports 406
+assembly-source payload instruction bytes (down twelve), 18,160 C-owned
+bytes, and the unchanged mixed/runtime categories. With two retained inline
+bytes, expanded payload assembly totals 408. Main-ROM ownership is unchanged.
+All code-region, runtime and data-provenance audits pass.
+
+Payload commits 20c9ac4 and 33d1fdd contain the implementation and missing-
+compiler parent build rule. The parent pins 33d1fddf6f091a0df6be8a5e3b34637f68846e73.
+The recovery bundle includes the complete local history on the expected
+refs/heads/decomp-completion ref and passes git bundle verify. Remaining
+payload startup, BIOS wrappers and two interworking veneers are still assembly;
+full executable/data classification and platform instructions also remain open.

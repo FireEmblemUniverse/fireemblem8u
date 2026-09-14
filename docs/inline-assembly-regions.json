@@ -345,8 +345,8 @@
       "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
     },
     "mgfembp": {
-      "elf_sha256": "02d83cff5e702770fe5f28a98f7eb7bacbd625a21328f6f054e665b90bb99c44",
-      "map_sha256": "12f7d106c21b93a7b0a644666b70bb5d3e534321029620020945ccc42e7fabf6"
+      "elf_sha256": "c60bce22f1452acb169df61f9c4ac43ebdc240f95ce2ddd76b8c64af4f05afc6",
+      "map_sha256": "ad99ad1a56a7df9d5f589d942912c3cd53668aa4a6e1a25a25c5fc9f772a0d4b"
     }
   }
 }
