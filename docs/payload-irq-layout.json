@@ -2,6 +2,16 @@
   "rejected": [
     {
       "image": "mgfembp",
+      "mutation": "entry_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp",
+      "mutation": "frame_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp",
       "mutation": "search_gap",
       "rejected": true
     },
@@ -12,12 +22,32 @@
     },
     {
       "image": "mgfembp_20030206",
+      "mutation": "entry_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030206",
+      "mutation": "frame_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030206",
       "mutation": "search_gap",
       "rejected": true
     },
     {
       "image": "mgfembp_20030206",
       "mutation": "continuation_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030219",
+      "mutation": "entry_gap",
+      "rejected": true
+    },
+    {
+      "image": "mgfembp_20030219",
+      "mutation": "frame_gap",
       "rejected": true
     },
     {

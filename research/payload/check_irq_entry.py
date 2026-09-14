@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check C payload IRQ register setup against bytes and an independent model."""
+import argparse
 import hashlib
 import json
 import random
@@ -11,7 +12,11 @@ from unicorn import arm_const as r
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / '.deps/payload-irq-entry'
 OUT.mkdir(exist_ok=True)
-source = ROOT / 'research/payload/irq_entry.c'
+parser = argparse.ArgumentParser()
+parser.add_argument('--source', type=Path, default=ROOT / 'research/payload/irq_entry.c')
+parser.add_argument('--json', type=Path, default=ROOT / 'docs/payload-irq-entry-research.json')
+args = parser.parse_args()
+source = args.source
 subprocess.run(['python3', str(ROOT / 'tools/arm-dispatch/build_arm_noreturn_frame.py'),
                 '--output-dir', str(OUT)], check=True)
 flags = ['-O2', '-fno-shrink-wrap', '-fno-schedule-insns2', '-marm',
@@ -56,9 +61,9 @@ for case in range(512):
     assert u.reg_read(r.UC_ARM_REG_CPSR) == cpsr
     assert u.reg_read(r.UC_ARM_REG_PC) == 0x02010050 and not writes
 report = dict(exact_images=images, exact_code_bytes=len(code), model_cases=512,
-              displaced_layout_rejected=True, production_integrated=False,
+              displaced_layout_rejected=True, production_integrated=source.resolve() == ROOT / 'mgfembp/src/irq_entry.c',
               source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
               code_sha256=hashlib.sha256(code).hexdigest(),
               scope='IRQ register setup only; all condition flags and random IE/IF words, registers and no writes. Excludes SPSR capture, saved frame, startup ADR and dispatch.')
-(ROOT / 'docs/payload-irq-entry-research.json').write_text(json.dumps(report, indent=2) + '\n')
+args.json.write_text(json.dumps(report, indent=2) + '\n')
 print('20 bytes match three payloads; 512 register/flag cases and displaced-layout rejection pass')

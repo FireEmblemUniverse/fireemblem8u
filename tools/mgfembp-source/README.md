@@ -60,3 +60,7 @@ regions remain byte-identical; linker ordering preserves their entry points.
 The payload IRQ priority search is now checked C with its original grouped
 0xC0 first priority. Cross-section startup literal distances and search
 entry/continuation placement are enforced by the linker.
+
+The payload IRQ register setup now builds from checked C. Startup ADR and
+entry/saved-frame/search fallthrough distances are enforced by linker
+assertions; all three payload images remain exact.

@@ -13091,3 +13091,28 @@ This is research only: production startup and ownership totals are unchanged.
 The checks exclude SPSR capture, stack-frame save, startup ADR relocation,
 mode switching and callback dispatch. Integrating the entry and saved frame
 with checked production layout is the next step.
+
+
+### Payload IRQ-entry integration (September 14, 2026)
+
+Baseline `4d10278d`. Production `mgfembp/src/irq_entry.c` now generates the
+20-byte IRQ register setup. The retained SPSR capture and push occupy a
+separate eight-byte assembly section. Startup's ADR now crosses sections;
+its original PC-relative add is explicit, with a linker assertion binding
+IntrMain to that instruction's PC plus 0x18. Additional assertions bind the
+C entry to the saved frame and the frame to the search. All bytes remain exact.
+
+The production-source entry model passes 512 register/flag cases. Twelve
+four-byte gap mutations across entry, frame, search and continuation in all
+three payload layouts reject. All three payload checksums, the main-ROM
+comparison and fresh four-image runtime/symbol verification pass. Receipts:
+`payload-irq-entry.json`, `payload-irq-layout.json`, `runtime-rebuild.json`.
+The entry model is limited to register setup; full IRQ mode/callback behavior
+is not claimed by these checks.
+
+Payload revision `ae6330126359434c3e496ea7426b5371a2a919a5` is retained in the
+verified recovery bundle. Payload assembly-source instructions fall from
+160 to 140 bytes, comprising 52 startup, eight saved-frame and 80 continuation
+bytes. With 26 inline bytes, expanded assembly is 166 bytes. C ownership rises
+20 bytes to 18,364; other instruction categories and total bytes are unchanged.
+Complete executable/data classification remains open.

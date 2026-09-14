@@ -2,9 +2,9 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integration (baseline `53e4869b`): the payload's 168-byte IRQ priority search now builds from C, including its grouped 0xC0 priority and bit-13 halt. All three payloads and the main ROM match their references; 17,408 search cases and six displaced-layout rejection checks pass. Fresh runtime builds reproduce all four images and exported symbols. Expanded payload assembly is now 186 bytes: 160 startup/IRQ assembly-source bytes plus 26 inline bytes. Payload mapped instruction bytes remain 25,714 (18,344 C-owned, 6,390 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Remaining startup/IRQ code, platform operations and complete executable/data classification are unfinished; no overall completion percentage is claimed.
+Updated: September 14, 2026. Latest integration (baseline `4d10278d`): the payload IRQ register setup now builds from C, replacing 20 assembly-source instruction bytes. All three payloads and the main ROM match their references; 512 production-source register/flag cases and 12 displaced-layout rejection checks pass. Fresh runtime builds reproduce all four images and exported symbols. Expanded payload assembly is now 166 bytes: 140 startup/IRQ assembly-source bytes plus 26 inline bytes. Payload mapped instruction bytes remain 25,714 (18,364 C-owned, 6,390 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Remaining startup/IRQ code, platform operations and complete executable/data classification are unfinished; no overall completion percentage is claimed.
 
-Latest research (baseline `0bbac796`): a C candidate reproduces the payload IRQ entry setup exactly (20 bytes in all three payloads). An independent model passes 512 random IE/IF and register cases across all 16 condition-flag combinations; a displaced frame target is rejected. Production ownership totals above are unchanged. Next: integrate this entry with the saved-frame boundary and verify startup ADR placement. Evidence: `docs/payload-irq-entry-research.json`.
+Next IRQ milestone: recover the payload saved-frame boundary from C, then the continuation and startup. The startup IRQ address calculation and private fallthrough distances now have explicit linker assertions.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -33,7 +33,7 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **144/144 gaps accounted for: 2,574,807 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.17%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **92 inline instruction bytes in main ROM; 186 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **92 inline instruction bytes in main ROM; 166 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime inline syscall assembly | **26 SWI bytes retained; 78 argument/result move bytes now generated from C across 13 sites** |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,792 main-ROM and 820 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |

@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "53e4869b04992aa9b5b9bcd265cff99e3466ccc0",
+  "baseline_commit": "4d10278d823a048458f09c83fe897068ec387456",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2717,8 +2717,8 @@
     "mgfembp": {
       "mapped_instruction_bytes": 25714,
       "categories": {
-        "assembly_source": 160,
-        "c_owned": 18344,
+        "assembly_source": 140,
+        "c_owned": 18364,
         "c_with_assembly": 6390,
         "runtime_archive": 820
       },
@@ -2809,11 +2809,6 @@
           "instruction_bytes": 168
         },
         {
-          "object": "src/crt0.o",
-          "category": "assembly_source",
-          "instruction_bytes": 160
-        },
-        {
           "object": "src/put_oam.o",
           "category": "c_owned",
           "instruction_bytes": 156
@@ -2822,6 +2817,11 @@
           "object": "../../../.deps/runtime-c/libgcc.a(_divsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 146
+        },
+        {
+          "object": "src/crt0.o",
+          "category": "assembly_source",
+          "instruction_bytes": 140
         },
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_udivsi3.o)",
@@ -2874,6 +2874,11 @@
           "instruction_bytes": 46
         },
         {
+          "object": "src/irq_entry.o",
+          "category": "c_owned",
+          "instruction_bytes": 20
+        },
+        {
           "object": "src/bios_soft_reset.o",
           "category": "c_with_assembly",
           "instruction_bytes": 14
@@ -2899,13 +2904,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "b260ff93d53c5a5c60fc5234d37a48a977dd8bc3c02c83bedfe90f06b9e77878",
-      "map_sha256": "af6fe2e4e4bbda0b0cd982ad5d18ca315b1b33510cdb7cad85e15f45392e4491",
+      "elf_sha256": "85b7ed84d112ca1d8d53401617d8f7001ef78b29ecdc3c1c92a193c8dac0715d",
+      "map_sha256": "9b309194bbca9e08f7e61864cef1ba8edee4f6027bbdc5be16a5d4cc94adb05c",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9235,
       "outside_input_bytes": 7,
       "reviewed_inline_instruction_bytes": 26,
-      "known_nonarchive_assembly_bytes": 186
+      "known_nonarchive_assembly_bytes": 166
     }
   },
   "limitations": [
