@@ -11,8 +11,8 @@
   },
   "original_block_sha256": "5ad90b88272b8a2f2f425121a98e5b24b83836975c7f0e23ea6ba596cd7ba602",
   "scope": "Original ROM IRQ entry/search with relocated research continuation with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.",
-  "candidate_sha256": "e00cf304c38fda0bea23ee095f8e9b9cd7a28f9f9483882167d8904562e44a3c",
-  "candidate_bytes": 88,
+  "candidate_sha256": "46bf52e6a26b0f40dcd0b2a5005021c6b30dff9eef17ab399047dd0f3f2496eb",
+  "candidate_bytes": 84,
   "production_integrated": false,
   "rejected_cases": [
     "thumb",
@@ -26,6 +26,35 @@
     "extra_call"
   ],
   "unannotated_control_unchanged": true,
-  "source_sha256": "65ed92488b5de7e5a361b3bd54d6e542045d9d76e8446dd35c09290536c5c2fc",
-  "backend_sha256": "f5a063f4dd5e98093894c75a79790736600f7ee7223aef4aa3f4515116f1035e"
+  "source_sha256": "904a3f45142f9703e3cd15ca31658ee9d7f5d0018d9584d15dc6d5732c2795d4",
+  "backend_sha256": "343328e89c56bde7d0ddaa6e492ed81445e0bb23c656327fb3d2d8e56d063cfb",
+  "wrong_pool_symbol_rejected": true,
+  "external_pool_model": {
+    "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+    "cases": 4115,
+    "outcomes": {
+      "returned": 3107,
+      "halted": 1008
+    },
+    "handler_modes": {
+      "arm": 1571,
+      "thumb": 1536
+    },
+    "original_block_sha256": "5ad90b88272b8a2f2f425121a98e5b24b83836975c7f0e23ea6ba596cd7ba602",
+    "scope": "Original ROM IRQ entry/search with relocated research continuation with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.",
+    "candidate_sha256": "55211d1f64cb6d52103f1e8b227aafd99330bdc3c9e021447a9a8a91434dd2bc",
+    "candidate_bytes": 92,
+    "production_integrated": false
+  },
+  "isolated_original_region_match": {
+    "start": "0x080001cc",
+    "end": "0x08000228",
+    "bytes": 92,
+    "instruction_bytes": 80,
+    "retained_status_assembly_bytes": 20,
+    "fixture_pool_prefix_bytes": 8,
+    "c_pointer_bytes": 4
+  },
+  "displaced_pool_rejected": true,
+  "compiler_extension_sha256": "ca58a4cb919c10253cfc0536d58d46ac48cbbf5e0e8bc29a7ea35f0e96765950"
 }

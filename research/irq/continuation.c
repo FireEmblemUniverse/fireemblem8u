@@ -6,6 +6,9 @@ register unsigned irqStatus asm("r3");
 register unsigned *irqStack asm("sp");
 register unsigned irqLink asm("lr");
 extern unsigned gIRQHandlers[14];
+#ifdef RESEARCH_IRQ_EXTERNAL_POOL
+unsigned *const IrqHandlersPointer __attribute__((used,section(".rodata.irq_handlers"))) = gIRQHandlers;
+#endif
 #ifdef RESEARCH_IRQ_FRAME
 #define IRQ_FRAME __attribute__((research_arm_irq_frame))
 #else

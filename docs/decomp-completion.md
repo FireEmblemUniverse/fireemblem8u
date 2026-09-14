@@ -10975,3 +10975,40 @@ as a backend rejection. An unannotated source produces identical text with and
 without the loaded plugin. The complete receipt is
 `docs/irq-continuation-frame-research.json`. No production coverage changes are
 claimed from this experiment.
+
+### IRQ continuation exact isolated instruction and pool match
+
+Three explicit ARM backend patterns in `tools/arm-dispatch/matching.md` now
+express a single-register STMDB stack save, LDMIA stack restore, and an ARMv4T
+register call whose return address uses ADD zero. The stack patterns retain
+word-memory and SP-writeback effects; the call retains zero-argument call and
+LR-clobber effects. The research pass selects these only after validating the
+existing C-generated System frame and callback. The compiler was rebuilt with
+`python3 tools/arm-dispatch/build_backend.py`; the research builder now defaults
+to that compiler's installed headers.
+
+The internal-pool candidate is 84 bytes (80 instruction bytes plus its pointer).
+The optional external-pool mode verifies the sole `gIRQHandlers` pool word and
+its unique direct load, replaces the load with the existing ARM literal
+relocation pattern, and removes the internal word. A C constant pointer supplies
+`IrqHandlersPointer`. An isolated linker fixture inserts the original two
+startup pointer words before that C pointer; those eight fixture bytes are
+read from the ROM and are not claimed as new C recovery. The resulting full
+92-byte region at 080001CC..08000228 matches the ROM exactly.
+
+The refreshed frame checker validates both internal-pool and external-pool
+candidates through all 4,115 dispatcher cases each (3,107 returns and 1,008
+halts), with the same model exclusions as before. Nine unsupported backend
+configurations still reject; a wrong pool symbol is rejected by the backend,
+and a displaced pointer fails the linker's explicit adjacency assertion.
+Unannotated code remains unchanged when the plugin is merely loaded. The
+receipt records source, backend and compiler-extension hashes alongside the
+exact candidate-region bounds and assembly accounting.
+
+`make compare -j8` also passes against the production ROM after rebuilding
+with the compiler extension. Its SHA1 remains
+`c25b145e37456171ada4b0d440bf88a19f4d509f`. This is still an isolated research
+match, not a production conversion: integration must preserve the startup
+vector/main literals and IRQ search adjacency, update ownership audits, and
+retain five status instructions (20 bytes) as assembly-owned. The other
+60 instruction bytes are generated from C in the isolated candidate.

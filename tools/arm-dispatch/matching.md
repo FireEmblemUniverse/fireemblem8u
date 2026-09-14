@@ -526,3 +526,36 @@
   "TARGET_THUMB1"
   "subs\t%0, %0, #1\n\tbgt\t%1"
   [(set_attr "length" "4") (set_attr "type" "multiple") (set_attr "conds" "clob")])
+
+;; Explicit single-register block transfers preserve legacy ARM encodings.
+;; Opt-in late passes prove the adjacent stack adjustment and word transfer.
+(define_insn "match_arm_stmdb_word"
+  [(set (reg:SI SP_REGNUM)
+        (plus:SI (reg:SI SP_REGNUM) (const_int -4)))
+   (set (mem:SI (plus:SI (reg:SI SP_REGNUM) (const_int -4)))
+        (match_operand:SI 0 "s_register_operand" "r"))]
+  "TARGET_ARM && REGNO (operands[0]) != SP_REGNUM && REGNO (operands[0]) != PC_REGNUM"
+  "stmdb%?\t%|sp!, {%0}"
+  [(set_attr "length" "4") (set_attr "type" "store_4")])
+
+(define_insn "match_arm_ldmia_word"
+  [(set (match_operand:SI 0 "s_register_operand" "=r")
+        (mem:SI (reg:SI SP_REGNUM)))
+   (set (reg:SI SP_REGNUM)
+        (plus:SI (reg:SI SP_REGNUM) (const_int 4)))]
+  "TARGET_ARM && REGNO (operands[0]) != SP_REGNUM && REGNO (operands[0]) != PC_REGNUM"
+  "ldmia%?\t%|sp!, {%0}"
+  [(set_attr "length" "4") (set_attr "type" "load_4")])
+
+;; This call has ordinary ARMv4T register-call effects, but materializes the
+;; return PC using ADD zero. The unspec marks this opt-in encoding selection.
+(define_c_enum "unspec" [UNSPEC_MATCH_ARM_CALL_ADDZERO])
+(define_insn "match_arm_call_addzero"
+  [(call (mem:SI (unspec:SI [(match_operand:SI 0 "s_register_operand" "r")]
+                           UNSPEC_MATCH_ARM_CALL_ADDZERO))
+         (const_int 0))
+   (use (const_int 0))
+   (clobber (reg:SI LR_REGNUM))]
+  "TARGET_ARM && arm_arch4t && !arm_arch5t && REGNO (operands[0]) != LR_REGNUM && REGNO (operands[0]) != PC_REGNUM"
+  "add%?\t%|lr, %|pc, #0\;bx%?\t%0"
+  [(set_attr "length" "8") (set_attr "type" "call")])

@@ -17,6 +17,7 @@
 #include "recog.h"
 #include "tm.h"
 #include "stringpool.h"
+#include "ggc.h"
 #include "attribs.h"
 #include "diagnostic-core.h"
 #include "insn-constants.h"
@@ -73,6 +74,17 @@ bool executable_asm(rtx x) {
 }
 
 
+bool references_label(rtx x,rtx label) {
+    if(!x || LABEL_P(x)) return false;
+    if(GET_CODE(x)==LABEL_REF) return XEXP(x,0)==label;
+    const char *format=GET_RTX_FORMAT(GET_CODE(x));
+    for(int n=0;n<GET_RTX_LENGTH(GET_CODE(x));n++) {
+        if(format[n]=='e' && references_label(XEXP(x,n),label)) return true;
+        if(format[n]=='E') for(int j=0;j<XVECLEN(x,n);j++)
+            if(references_label(XVECEXP(x,n,j),label)) return true;
+    }
+    return false;
+}
 bool memory_clobber(rtx x) {
     return GET_CODE(x)==CLOBBER && MEM_P(XEXP(x,0))
         && GET_CODE(XEXP(XEXP(x,0),0))==SCRATCH;
@@ -135,6 +147,7 @@ bool frame_load(rtx p) {
     }
     return true;
 }
+std::string external_pool;
 const pass_data data={RTL_PASS,"research_irq_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -182,6 +195,41 @@ public:
             if(CALL_P(ops[n]) || JUMP_P(ops[n]) || mentions(p(n),SP_REGNUM)
                 || mentions(p(n),LR_REGNUM) || executable_asm(p(n)))
                 fatal_error(UNKNOWN_LOCATION,"IRQ research rejects other stack/LR/control effects");
+        if(!external_pool.empty()) {
+            rtx load=p(6);
+            if(GET_CODE(load)!=SET || !reg_is(SET_DEST(load),1) || !MEM_P(SET_SRC(load))
+                || GET_MODE(SET_SRC(load))!=SImode || GET_CODE(XEXP(SET_SRC(load),0))!=LABEL_REF)
+                fatal_error(UNKNOWN_LOCATION,"IRQ research requires direct handler-pool load");
+            rtx label=XEXP(XEXP(SET_SRC(load),0),0);
+            for(unsigned n=0;n<ops.size();n++)
+                if(n!=6 && references_label(p(n),label))
+                    fatal_error(UNKNOWN_LOCATION,"IRQ research rejects shared handler-pool references");
+            rtx_insn *word=nullptr;rtx last=nullptr;
+            for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+                if(LABEL_P(i)) last=i;
+                if(!NONDEBUG_INSN_P(i)) continue;
+                rtx x=PATTERN(i);
+                if(GET_CODE(x)!=UNSPEC_VOLATILE || XINT(x,1)!=VUNSPEC_POOL_4) continue;
+                if(word || last!=label || XVECLEN(x,0)!=1 || GET_CODE(XVECEXP(x,0,0))!=SYMBOL_REF
+                    || std::string(XSTR(XVECEXP(x,0,0),0))!="gIRQHandlers")
+                    fatal_error(UNKNOWN_LOCATION,"IRQ research requires sole handler symbol word");
+                word=i;
+            }
+            if(!word) fatal_error(UNKNOWN_LOCATION,"IRQ research missing handler symbol word");
+            rtx replacement=gen_match_arm_literal(copy_rtx(SET_DEST(load)),
+                gen_rtx_SYMBOL_REF(SImode,ggc_strdup(external_pool.c_str())));
+            if(!validate_change(ops[6],&PATTERN(ops[6]),replacement,false))
+                fatal_error(UNKNOWN_LOCATION,"IRQ research external literal rejected");
+            REG_NOTES(ops[6])=nullptr;
+            delete_insn(word);
+        }
+        rtx_insn *push=emit_insn_before(gen_match_arm_stmdb_word(copy_rtx(SET_SRC(save))),ops[11]);
+        rtx_insn *system_pop=emit_insn_before(gen_match_arm_ldmia_word(copy_rtx(SET_DEST(restore))),ops[15]);
+        rtx_insn *callback=emit_call_insn_before(gen_match_arm_call_addzero(gen_rtx_REG(SImode,0)),ops[14]);
+        if(recog_memoized(push)<0 || recog_memoized(system_pop)<0 || recog_memoized(callback)<0)
+            fatal_error(UNKNOWN_LOCATION,"IRQ research block-transfer/callback patterns rejected");
+        delete_insn(ops[11]); delete_insn(ops[12]); delete_insn(ops[13]);
+        delete_insn(ops[14]); delete_insn(ops[15]);
         // The validated loads exclude SP as a destination. Combine their following
         // stack advance into the target's standard writeback LDM pattern.
         rtvec loads=rtvec_alloc(5);
@@ -198,7 +246,14 @@ public:
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if(!plugin_default_version_check(version,&gcc_version) || info->argc) return 1;
+    if(!plugin_default_version_check(version,&gcc_version)) return 1;
+    for(int n=0;n<info->argc;n++) {
+        if(std::string(info->argv[n].key)!="pool" || !info->argv[n].value || !external_pool.empty()) return 1;
+        external_pool=info->argv[n].value;
+        if(external_pool.empty()) return 1;
+        for(char c:external_pool) if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='_')) return 1;
+        if(external_pool[0]>='0'&&external_pool[0]<='9') return 1;
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
