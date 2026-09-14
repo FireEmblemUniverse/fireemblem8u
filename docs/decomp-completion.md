@@ -11629,3 +11629,40 @@ payload assembly, retained platform instructions, and complete executable
 classification remain unfinished. Assembly data files also remain. All
 3,172,286 unmapped-input bytes and generated-fill provenance totals are
 unchanged; provenance alone is not an execution-classification proof.
+
+
+### Runtime unsigned division recovered and behavior checked
+
+The runtime inventory identifies 726 assembly instruction bytes per image
+across six libgcc members. `research/runtime/udiv.c` recovers the original
+unsigned-division algorithm from pinned `lib1thumb.asm`, retaining its license
+and attribution. It normalizes the divisor in four-bit then one-bit shifts,
+performs four unrolled subtract/quotient-bit steps per iteration, terminates
+when the dividend or current bit is zero, and preserves the original __div0
+call followed by a zero result. It contains no division operator that could
+silently call another division helper.
+
+`research/runtime/check_udiv.py` freshly compiles and links the draft, imports
+the production ELF symbols with their Thumb function types, and executes
+both original and candidate code. Importing only a numeric __div0 address
+initially caused an incorrect ARM interworking stub; importing typed ELF
+symbols fixed the probe before evidence was collected. The actual __div0
+routine executes; a hook counts calls and observes the final return.
+
+The -O2 draft has 152 section bytes and passes 2,952 cases. The -Os draft has
+124 section bytes and passes an expanded 3,176 cases, including 252 zero
+divisors, all sixteen flag profiles, high-bit/power-of-two boundaries and
+seeded random operands. Quotients agree with both the ROM and Python integer
+division; r4-r11 and the restored SP agree with the incoming state. Zero
+divisors call __div0 once and return zero. Evidence is in
+`docs/runtime-udiv-research.json` and `docs/runtime-udiv-size-research.json`.
+
+This is algorithm recovery, not a matching replacement. The original has
+120 instruction bytes. The -Os draft differs in caller-register state on
+all 3,176 cases and in flags on 1,952 cases; it uses a different frame,
+register allocation, normalization constant strategy and return sequence.
+Transient stack writes are not matched by this checker. Further register,
+frame and instruction-layout matching is required before integration.
+No production changes or coverage reductions are claimed; main reviewed
+inline assembly remains 92 bytes, and runtime/payload assembly and executable
+classification remain unfinished.

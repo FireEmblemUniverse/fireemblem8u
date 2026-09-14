@@ -1,0 +1,14 @@
+{
+  "optimization": "Os",
+  "source_sha256": "b21e81192143c16040e6eaac49793b0e6062140e5c81e3749fbf6d1b0097d157",
+  "cases": 3176,
+  "divide_by_zero_cases": 252,
+  "original_instruction_bytes": 120,
+  "candidate_section_bytes": 124,
+  "quotient_and_preserved_registers_match": true,
+  "flag_difference_cases": 1952,
+  "caller_register_difference_cases": 3176,
+  "bytes_exact": false,
+  "production_integrated": false,
+  "scope": "Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; transient stack layout and exact instructions are not matched. No production replacement."
+}
