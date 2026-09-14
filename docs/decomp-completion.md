@@ -10888,3 +10888,30 @@ Whole-object C ownership is 739,998/777,630 (95.16% rounded), and tracked
 main C files rise to 597. The saved IRQ frame, mode transitions, startup,
 Thumb entries, BIOS instructions, runtime helpers and complete executable
 classification are still unfinished.
+
+### IRQ continuation draft and banked-SP constraint
+
+`research/irq/continuation.c` expresses acknowledgement, status-bit changes,
+handler lookup, explicit private frames and terminal transfer in C. Five
+processor-status operations remain instruction assembly. The draft is
+108 bytes including its literal, not byte-matching or integrated. GCC
+adds an initial LR save, materializes a scratch stack address for the
+System-frame push, expands the IRQ-frame pop, and uses ordinary calls
+instead of the original private transfers. The initial extra save shifts
+the IRQ frame and prevents correct restoration without further work.
+
+The mode-write constraints expose changed SP and LR banks to the compiler.
+Using a generic `+r` constraint for SP made GCC copy old IRQ SP through r1
+and write it into System SP after the switch. ARM's `+k` stack-register
+constraint, verified in the local target constraints, keeps the output on
+SP itself and removes that invalid copy. This is necessary to describe the
+banked register semantics of the retained status instruction.
+
+`research/irq/check_continuation_prefix.py` freshly compiles the draft and
+compares it with the original through the first System-mode switch for
+256 flag/mask pairs. Acknowledgement stores and visible r0-r12/CPSR/System
+SP/LR agree; the checker separately confirms IRQ SP is four bytes too low
+in the draft. Synthetic masks include high bits only to test the halfword
+store. Callback execution, IRQ-frame restoration, final return and whole
+byte equality are explicitly outside this check. Evidence is in
+`docs/irq-continuation-prefix-research.json`. Production remains unchanged.

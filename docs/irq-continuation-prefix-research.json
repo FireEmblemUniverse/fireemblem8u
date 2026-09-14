@@ -1,0 +1,9 @@
+{
+  "cases": 256,
+  "candidate_bytes": 108,
+  "candidate_sha256": "f18edb7a734351996c9b5be8fb1955fe5048f0c3847e18929bec6541b8be7d9e",
+  "first_mode_write_offset": 20,
+  "extra_irq_stack_bytes": 4,
+  "production_integrated": false,
+  "scope": "Original and mixed C/assembly draft match acknowledgement writes and visible registers/CPSR through the first System-mode switch. The draft leaves IRQ SP four bytes too low. Callback transfer, IRQ restoration, final return and overall byte equality are not validated; synthetic masks include high bits solely to test the store."
+}
