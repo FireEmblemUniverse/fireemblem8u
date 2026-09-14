@@ -16,6 +16,8 @@ Latest source clarification (baseline `0715b0bb`): the mini-animation command ha
 
 Latest animation dispatch inventory (baseline `a7019e4c`): 14,421 command records use 93 IDs across 201 streams; all 30,693 frames have nonzero delays. Four observed IDs (0x0E, 0x53–0x55) have no explicit main-handler case; the queue-consumption path still handles their removal. Mini-animation has separate cases/default behavior. Execution and mode reachability are still open. Receipt: `docs/banim-command-dispatch.json`.
 
+Latest interpreter execution (baseline `8ea03a9e`): all 47,523 recovered motion records pass independent state-model checks against the production interpreter, whose 384-byte region matches the original ROM. Checks cover full Anim output, command queues, wait rewind, frame advancement, return, preserved registers and write bounds. Scheduling and handler effects remain open. Receipt: `docs/animation-interpreter-execution.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

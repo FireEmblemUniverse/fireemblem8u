@@ -13649,3 +13649,26 @@ source hashes and each handler's case inventory. This does not prove handler
 execution, queue bounds, wait release or mode reachability. In particular, the
 absence of zero-delay frames is only one ingredient in checking update/queue
 behavior; command handlers and external scheduling remain to be verified.
+
+## Motion interpreter execution coverage — September 14, 2026
+
+Baseline `8ea03a9e`. `research/animation/check_interpreter.py` executes the
+production `AnimInterpret` region at 0x08005040 (384 bytes, identical to the
+original ROM) for every record in all 201 recovered motion streams: 14,421
+commands, 30,693 frames and 2,409 stops, totaling 47,523 passing executions.
+The stream hashes are checked against the existing grammar receipt.
+
+An independent Python model predicts the entire 72-byte Anim state after each
+record. Initial fields are randomized, valid pre-append queue sizes rotate from
+zero through six, and all initial flag profiles are exercised across the cases.
+Checks include wait-command script rewind, queue append, timer and state flags,
+sheet/OAM pointers, script advancement, zero return, r4-r11 preservation, restored
+SP, and writes confined to Anim or the function's stack region. An initial model
+error used 0x8000 for STOP; the source header defines 0x4000. Correcting that
+model constant produced the passing result; production source was unchanged.
+
+Receipt: `docs/animation-interpreter-execution.json`. This verifies each record
+independently, not a complete animation run. Scheduling, queue drain frequency,
+wait release, command-handler effects and pointer opcodes absent from these
+streams remain outside the check. The existing broader completion goal remains
+open.
