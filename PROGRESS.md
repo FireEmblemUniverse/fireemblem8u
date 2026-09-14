@@ -30,6 +30,8 @@ Latest main-ROM pointer frontier (baseline `4f9d4095`): 5,561 aligned noninstruc
 
 Latest pointer provenance (baseline `9f322578`): named ABS32 relocations confirm 5,474 of the 5,561 candidate function-pointer words. The remaining 87 include nine runtime-archive words and matches in sound/graphics/data regions; these remain unconfirmed rather than being counted as callbacks. Receipt: `docs/function-pointer-relocations.json`.
 
+Latest pointer residual review (baseline `0c2bf28b`): nine runtime-archive candidates are confirmed named function references; 37 sound candidates lie inside exact verified PCM payloads. This leaves 41 candidates for further provenance review. PCM address equality is not classified as a callback. Receipt: `docs/function-pointer-residuals.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

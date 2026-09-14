@@ -1,0 +1,1047 @@
+{
+  "scope": "Archive named relocations establish reference provenance. Sample matches are located inside verified PCM payloads, not headers or padding; their value alone does not establish pointer use or exclude arbitrary execution. Other candidates and computed/untyped targets remain open.",
+  "archive_references": 9,
+  "sample_payload_matches": 37,
+  "remaining": 41,
+  "prior_receipt_sha256": "2fc3a74d3ef5959379d90ea00d9c4eee0f77abdfbba2d1d0423822fe53f80c6d",
+  "resolved": [
+    {
+      "address": "0x80d4668",
+      "owner": ".deps/runtime-c/libc.a(makebuf.o)",
+      "mapping": "data",
+      "pointer": "0x80d56e1",
+      "functions": [
+        "__sseek"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(stdio.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "__sseek"
+    },
+    {
+      "address": "0x80d46d0",
+      "owner": ".deps/runtime-c/libc.a(makebuf.o)",
+      "mapping": "data",
+      "pointer": "0x80d4021",
+      "functions": [
+        "_cleanup_r"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "_cleanup_r"
+    },
+    {
+      "address": "0x80d3ec8",
+      "owner": ".deps/runtime-c/libc.a(fflush.o)",
+      "mapping": "data",
+      "pointer": "0x80d3eb1",
+      "functions": [
+        "fflush"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(fflush.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "fflush"
+    },
+    {
+      "address": "0x80d3f6c",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d566d",
+      "functions": [
+        "__sread"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(stdio.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "__sread"
+    },
+    {
+      "address": "0x80d3f70",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d56a1",
+      "functions": [
+        "__swrite"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(stdio.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "__swrite"
+    },
+    {
+      "address": "0x80d3f74",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d56e1",
+      "functions": [
+        "__sseek"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(stdio.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "__sseek"
+    },
+    {
+      "address": "0x80d3f78",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d5721",
+      "functions": [
+        "__sclose"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(stdio.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "__sclose"
+    },
+    {
+      "address": "0x80d402c",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d3eb1",
+      "functions": [
+        "fflush"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(fflush.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "fflush"
+    },
+    {
+      "address": "0x80d409c",
+      "owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "mapping": "data",
+      "pointer": "0x80d4021",
+      "functions": [
+        "_cleanup_r"
+      ],
+      "target_owner": ".deps/runtime-c/libc.a(findfp.o)",
+      "classification": "named_archive_function_reference",
+      "relocation_symbol": "_cleanup_r"
+    },
+    {
+      "address": "0x8256664",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80b1621",
+      "functions": [
+        "BonusClaim_ClearItemSentPopup"
+      ],
+      "target_owner": "src/bonusclaim.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_k_brass3_c3_13k",
+      "source": "sound/direct_sound_samples/k_brass3_c3_13k.bin",
+      "sample_offset": 13816
+    },
+    {
+      "address": "0x828722c",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80c1625",
+      "functions": [
+        "GmapSogu_Loop2"
+      ],
+      "target_owner": "src/worldmap_sogu.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_k_synstrings1_c4_13k",
+      "source": "sound/direct_sound_samples/k_synstrings1_c4_13k.bin",
+      "sample_offset": 21580
+    },
+    {
+      "address": "0x82d10c0",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80702fd",
+      "functions": [
+        "SetEkrDragonPaletteBack"
+      ],
+      "target_owner": "src/banim-ekrdragon-utils.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_horse2_e3_p2_13k8b",
+      "source": "sound/direct_sound_samples/horse2_e3_p2_13k8b.bin",
+      "sample_offset": 1192
+    },
+    {
+      "address": "0x82db388",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8081b11",
+      "functions": [
+        "MapAnimCallSpellAssocRecover"
+      ],
+      "target_owner": "src/mapanim_spellassoc.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_rest2_e1l_p18_10k8b",
+      "source": "sound/direct_sound_samples/rest2_e1l_p18_10k8b.bin",
+      "sample_offset": 12952
+    },
+    {
+      "address": "0x83042dc",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80a0901",
+      "functions": [
+        "FortuneSubMenu_OnOptionSelected"
+      ],
+      "target_owner": "src/prep_80A0760.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_sand_wind1_e5l_8k8b",
+      "source": "sound/direct_sound_samples/sand_wind1_e5l_8k8b.bin",
+      "sample_offset": 6764
+    },
+    {
+      "address": "0x83069c4",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80a0b05",
+      "functions": [
+        "GetSupportScreenPartnerIsAlive"
+      ],
+      "target_owner": "src/uisupport.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_sand_wind1_e5l_8k8b",
+      "source": "sound/direct_sound_samples/sand_wind1_e5l_8k8b.bin",
+      "sample_offset": 16724
+    },
+    {
+      "address": "0x8319ad4",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x802ea01",
+      "functions": [
+        "RefreshEntityBmMapsAsRed"
+      ],
+      "target_owner": "src/bmtrick.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_elec1_e2_13k8b",
+      "source": "sound/direct_sound_samples/elec1_e2_13k8b.bin",
+      "sample_offset": 3508
+    },
+    {
+      "address": "0x83265bc",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80c2d45",
+      "functions": [
+        "WmDotPalAnim_Loop1"
+      ],
+      "target_owner": "src/worldmap_rm.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_scream1c_m_e2_10k8b",
+      "source": "sound/direct_sound_samples/scream1c_m_e2_10k8b.bin",
+      "sample_offset": 1476
+    },
+    {
+      "address": "0x832daf4",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8050001",
+      "functions": [
+        "ekrBattleMain"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_dragon_scream3_e6_10k8b",
+      "source": "sound/direct_sound_samples/dragon_scream3_e6_10k8b.bin",
+      "sample_offset": 21080
+    },
+    {
+      "address": "0x8334c20",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80702fd",
+      "functions": [
+        "SetEkrDragonPaletteBack"
+      ],
+      "target_owner": "src/banim-ekrdragon-utils.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_fire_e2_13k8b",
+      "source": "sound/direct_sound_samples/fire_e2_13k8b.bin",
+      "sample_offset": 4476
+    },
+    {
+      "address": "0x838a740",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80bfd01",
+      "functions": [
+        "EndGmapMuEntry1"
+      ],
+      "target_owner": "src/worldmap_entry.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_hu1_f1_water1_m1_13k8b",
+      "source": "sound/direct_sound_samples/hu1_f1_water1_m1_13k8b.bin",
+      "sample_offset": 392
+    },
+    {
+      "address": "0x838d6a8",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80bfd01",
+      "functions": [
+        "EndGmapMuEntry1"
+      ],
+      "target_owner": "src/worldmap_entry.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_hu2_f1_dart1_m1_13k8b",
+      "source": "sound/direct_sound_samples/hu2_f1_dart1_m1_13k8b.bin",
+      "sample_offset": 1112
+    },
+    {
+      "address": "0x839797c",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_btl_bird2_e2_13k8b",
+      "source": "sound/direct_sound_samples/btl_bird2_e2_13k8b.bin",
+      "sample_offset": 2076
+    },
+    {
+      "address": "0x839c78c",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80702fd",
+      "functions": [
+        "SetEkrDragonPaletteBack"
+      ],
+      "target_owner": "src/banim-ekrdragon-utils.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_horse2_b2_flat1_13k8b",
+      "source": "sound/direct_sound_samples/horse2_b2_flat1_13k8b.bin",
+      "sample_offset": 684
+    },
+    {
+      "address": "0x83b752c",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8040301",
+      "functions": [
+        "GetAiSilenceEffectivenessScore"
+      ],
+      "target_owner": "src/cp_staff.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_horse3_f1_sand1_m1_13k8b",
+      "source": "sound/direct_sound_samples/horse3_f1_sand1_m1_13k8b.bin",
+      "sample_offset": 588
+    },
+    {
+      "address": "0x83e2138",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80b06fd",
+      "functions": [
+        "BonusClaim_HBlankHandler"
+      ],
+      "target_owner": "src/bonusclaim.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_h_oura3_07_02_10k8b",
+      "source": "sound/direct_sound_samples/h_oura3_07_02_10k8b.bin",
+      "sample_offset": 15656
+    },
+    {
+      "address": "0x83e2468",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8000e15",
+      "functions": [
+        "CopyToPaletteBufferDimmed"
+      ],
+      "target_owner": "src/hardware.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_h_oura3_07_02_10k8b",
+      "source": "sound/direct_sound_samples/h_oura3_07_02_10k8b.bin",
+      "sample_offset": 16472
+    },
+    {
+      "address": "0x8418250",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x801f601",
+      "functions": [
+        "StartGasTrapAnim"
+      ],
+      "target_owner": "src/trapfx.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_bae_move_wood1_13k",
+      "source": "sound/direct_sound_samples/mon_bae_move_wood1_13k.bin",
+      "sample_offset": 1252
+    },
+    {
+      "address": "0x843a704",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x807cbdd",
+      "functions": [
+        "MapAnim_BeginWallBreakAnim"
+      ],
+      "target_owner": "src/mapanim_specialeffect.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_bgl_attack6_2_13k",
+      "source": "sound/direct_sound_samples/mon_bgl_attack6_2_13k.bin",
+      "sample_offset": 6496
+    },
+    {
+      "address": "0x8444d00",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x804faed",
+      "functions": [
+        "TargetSelection_HandleMoveInput"
+      ],
+      "target_owner": "src/uiselecttarget.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_btl_mnt_magic1_13k",
+      "source": "sound/direct_sound_samples/btl_mnt_magic1_13k.bin",
+      "sample_offset": 3708
+    },
+    {
+      "address": "0x844ab10",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80c1725",
+      "functions": [
+        "GenerateRandomonsterMergeNode"
+      ],
+      "target_owner": "src/worldmap_timemons.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_mao_attack1_13k",
+      "source": "sound/direct_sound_samples/mon_mao_attack1_13k.bin",
+      "sample_offset": 6144
+    },
+    {
+      "address": "0x84573d0",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80906f9",
+      "functions": [
+        "UnitListScreenSprites_Init"
+      ],
+      "target_owner": "src/unitlistscreen.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_mao_magic1_1_10k",
+      "source": "sound/direct_sound_samples/mon_mao_magic1_1_10k.bin",
+      "sample_offset": 8812
+    },
+    {
+      "address": "0x845edbc",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8000304",
+      "functions": [
+        "ClearOam"
+      ],
+      "target_owner": "src/arm/clear_oam.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_mao_magic1_2_10k",
+      "source": "sound/direct_sound_samples/mon_mao_magic1_2_10k.bin",
+      "sample_offset": 8964
+    },
+    {
+      "address": "0x845f240",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8050305",
+      "functions": [
+        "ekrBattleExecTriangleAtk"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_mon_mao_magic1_2_10k",
+      "source": "sound/direct_sound_samples/mon_mao_magic1_2_10k.bin",
+      "sample_offset": 10120
+    },
+    {
+      "address": "0x8461528",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80bf211",
+      "functions": [
+        "StartGmMoveCursor"
+      ],
+      "target_owner": "src/worldmap_scrollmanage.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_btl_skill1_13k",
+      "source": "sound/direct_sound_samples/btl_skill1_13k.bin",
+      "sample_offset": 4736
+    },
+    {
+      "address": "0x8468790",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80701f5",
+      "functions": [
+        "SetEkrDragonDead"
+      ],
+      "target_owner": "src/banim-ekrdragon-utils.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_btl_evl_magic2_10k",
+      "source": "sound/direct_sound_samples/btl_evl_magic2_10k.bin",
+      "sample_offset": 17332
+    },
+    {
+      "address": "0x8477224",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x806f0fd",
+      "functions": [
+        "efxopLiveALPHA_Loop_A"
+      ],
+      "target_owner": "src/banim-efxop.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_btl_dance1_10k",
+      "source": "sound/direct_sound_samples/btl_dance1_10k.bin",
+      "sample_offset": 3840
+    },
+    {
+      "address": "0x84b3350",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8050305",
+      "functions": [
+        "ekrBattleExecTriangleAtk"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_sys_op_fadein1_13k",
+      "source": "sound/direct_sound_samples/sys_op_fadein1_13k.bin",
+      "sample_offset": 20576
+    },
+    {
+      "address": "0x84f1850",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x801f9fd",
+      "functions": [
+        "NewPopup2_PlanA"
+      ],
+      "target_owner": "src/popup2.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_8",
+      "source": "sound/direct_sound_samples/084E7244.bin",
+      "sample_offset": 42492
+    },
+    {
+      "address": "0x8506434",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8040301",
+      "functions": [
+        "GetAiSilenceEffectivenessScore"
+      ],
+      "target_owner": "src/cp_staff.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_h_dr_midtom_13k8b_ss",
+      "source": "sound/direct_sound_samples/h_dr_midtom_13k8b_ss.bin",
+      "sample_offset": 1036
+    },
+    {
+      "address": "0x850b730",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8021d05",
+      "functions": [
+        "ProcEventWrapAnim_End"
+      ],
+      "target_owner": "src/eventwarpfx.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_34",
+      "source": "sound/direct_sound_samples/0850A7D0.bin",
+      "sample_offset": 3920
+    },
+    {
+      "address": "0x8517a68",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x806f6ed",
+      "functions": [
+        "efxopEvilEye_Loop_B"
+      ],
+      "target_owner": "src/banim-efxop.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_y_se_wind_1_l_13k8b",
+      "source": "sound/direct_sound_samples/y_se_wind_1_l_13k8b.bin",
+      "sample_offset": 5080
+    },
+    {
+      "address": "0x8519520",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8050601",
+      "functions": [
+        "ekrBattle_3"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_y_bird_1_13k8b",
+      "source": "sound/direct_sound_samples/y_bird_1_13k8b.bin",
+      "sample_offset": 6216
+    },
+    {
+      "address": "0x8519aec",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x805fdfd",
+      "functions": [
+        "StartSubSpell_efxPurgeOBJ"
+      ],
+      "target_owner": "src/banim-efxmagic-light.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_y_bird_1_13k8b",
+      "source": "sound/direct_sound_samples/y_bird_1_13k8b.bin",
+      "sample_offset": 7700
+    },
+    {
+      "address": "0x851e248",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8050001",
+      "functions": [
+        "ekrBattleMain"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_y_bird_3_13k8b",
+      "source": "sound/direct_sound_samples/y_bird_3_13k8b.bin",
+      "sample_offset": 5268
+    },
+    {
+      "address": "0x8542248",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x80202f9",
+      "functions": [
+        "ChapterIntro_TwinLights_Loop"
+      ],
+      "target_owner": "src/chapterintrofx.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_h_river1_13k",
+      "source": "sound/direct_sound_samples/h_river1_13k.bin",
+      "sample_offset": 4208
+    },
+    {
+      "address": "0x8544bf0",
+      "owner": "sound/direct_sound_data.o",
+      "mapping": "data",
+      "pointer": "0x8021d05",
+      "functions": [
+        "ProcEventWrapAnim_End"
+      ],
+      "target_owner": "src/eventwarpfx.o",
+      "classification": "sample_payload_bytes_equal_function_address",
+      "sample": "DirectSoundData_44",
+      "source": "sound/direct_sound_samples/08543C90.bin",
+      "sample_offset": 3920
+    }
+  ],
+  "remaining_candidates": [
+    {
+      "address": "0x81b1aa0",
+      "owner": "src/data/const_data_chapter_maps.o",
+      "mapping": "data",
+      "pointer": "0x802a401",
+      "functions": [
+        "BattleGenerateUiStats"
+      ],
+      "target_owner": "src/bmbattle.o"
+    },
+    {
+      "address": "0x8639fd0",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8000fc5",
+      "functions": [
+        "BG_GetTileMapOffset"
+      ],
+      "target_owner": "src/hardware.o"
+    },
+    {
+      "address": "0x863a44c",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8006b11",
+      "functions": [
+        "SetTalkPrintColor"
+      ],
+      "target_owner": "src/scene.o"
+    },
+    {
+      "address": "0x8643524",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8000304",
+      "functions": [
+        "ClearOam"
+      ],
+      "target_owner": "src/arm/clear_oam.o"
+    },
+    {
+      "address": "0x866def4",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o"
+    },
+    {
+      "address": "0x86d4118",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o"
+    },
+    {
+      "address": "0x870d07c",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8007fdd",
+      "functions": [
+        "TalkShiftClear_OnIdle"
+      ],
+      "target_owner": "src/scene.o"
+    },
+    {
+      "address": "0x876e3a8",
+      "owner": "src/data/data_btl_bg.o",
+      "mapping": "data",
+      "pointer": "0x8080409",
+      "functions": [
+        "MapEventcallFx2_HBlankWobble"
+      ],
+      "target_owner": "src/mapanim_eventcall.o"
+    },
+    {
+      "address": "0x8781dbc",
+      "owner": "src/data/data_btl_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x8790098",
+      "owner": "src/data/banim-ekrdragonfx.o",
+      "mapping": "unmapped",
+      "pointer": "0x8005515",
+      "functions": [
+        "GetPortraitData"
+      ],
+      "target_owner": "src/face.o"
+    },
+    {
+      "address": "0x88250f8",
+      "owner": "src/data/data_portrait.o",
+      "mapping": "data",
+      "pointer": "0x80c0201",
+      "functions": [
+        "EndGmMuEntry"
+      ],
+      "target_owner": "src/worldmap_entry.o"
+    },
+    {
+      "address": "0x88b4588",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o"
+    },
+    {
+      "address": "0x88b492c",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o"
+    },
+    {
+      "address": "0x88b49e0",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o"
+    },
+    {
+      "address": "0x88b83e4",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o"
+    },
+    {
+      "address": "0x88c26dc",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8000110",
+      "functions": [
+        "IrqSaveFrame"
+      ],
+      "target_owner": "src/irq_save_frame.o"
+    },
+    {
+      "address": "0x88d1ba0",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o"
+    },
+    {
+      "address": "0x88d8b64",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x80d0013",
+      "functions": [
+        "PlyNotePcmFrequencySetupBody"
+      ],
+      "target_owner": "src/m4a_ply_note_pcm_frequency_setup.o"
+    },
+    {
+      "address": "0x88f112c",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x88f116c",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x890a470",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x800ee55",
+      "functions": [
+        "ConvoBackgroundFade_RestoreMap"
+      ],
+      "target_owner": "src/eventscr.o"
+    },
+    {
+      "address": "0x89bff28",
+      "owner": "src/data/mapanim/mapanim_eventcall.o",
+      "mapping": "data",
+      "pointer": "0x8003451",
+      "functions": [
+        "Proc_SetRepeatCb"
+      ],
+      "target_owner": "src/proc.o"
+    },
+    {
+      "address": "0x8a18e20",
+      "owner": "src/prep_itemscreen.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x8a984f4",
+      "owner": "src/data/worldmap/anim_worldmap_sprite.o",
+      "mapping": "data",
+      "pointer": "0x8050001",
+      "functions": [
+        "ekrBattleMain"
+      ],
+      "target_owner": "src/banim-ekrbattle.o"
+    },
+    {
+      "address": "0x8ac1c4c",
+      "owner": "src/data/data_opanim_gfx.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x8af1b7c",
+      "owner": "src/data/data_opanim_gfx.o",
+      "mapping": "data",
+      "pointer": "0x800c0b9",
+      "functions": [
+        "Event8A_WmShowCursor_Unsure"
+      ],
+      "target_owner": "src/eventscr_gmap.o"
+    },
+    {
+      "address": "0x8b18224",
+      "owner": "src/data/data_B12A60.o",
+      "mapping": "data",
+      "pointer": "0x8082a7d",
+      "functions": [
+        "HBlank_ScrollBG1"
+      ],
+      "target_owner": "src/mapanim_scanline.o"
+    },
+    {
+      "address": "0x8b22960",
+      "owner": "src/data_B1FE7C.o",
+      "mapping": "data",
+      "pointer": "0x8082a7d",
+      "functions": [
+        "HBlank_ScrollBG1"
+      ],
+      "target_owner": "src/mapanim_scanline.o"
+    },
+    {
+      "address": "0x8c1aa24",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80310f9",
+      "functions": [
+        "RefreshBMapDisplay_FromBattle"
+      ],
+      "target_owner": "src/bmio.o"
+    },
+    {
+      "address": "0x8c32a90",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800043c",
+      "functions": [
+        "TmApplyTsa"
+      ],
+      "target_owner": "src/arm/tm_apply_tsa.o"
+    },
+    {
+      "address": "0x8c70794",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o"
+    },
+    {
+      "address": "0x8c89c90",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x8cc2554",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80b40d1",
+      "functions": [
+        "StartClassStatsDisplay"
+      ],
+      "target_owner": "src/opinfo.o"
+    },
+    {
+      "address": "0x8cc8324",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80b40d1",
+      "functions": [
+        "StartClassStatsDisplay"
+      ],
+      "target_owner": "src/opinfo.o"
+    },
+    {
+      "address": "0x8d6cd50",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800114d",
+      "functions": [
+        "FlushBackgrounds"
+      ],
+      "target_owner": "src/hardware.o"
+    },
+    {
+      "address": "0x8d8fe54",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8009761",
+      "functions": [
+        "APProc_OnUpdate"
+      ],
+      "target_owner": "src/ap.o"
+    },
+    {
+      "address": "0x8e009a4",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8000118",
+      "functions": [
+        "IrqSearch"
+      ],
+      "target_owner": "src/irq_search.o"
+    },
+    {
+      "address": "0x8e1bd7c",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8009aed",
+      "functions": [
+        "GameControl_PostIntro"
+      ],
+      "target_owner": "src/gamecontrol.o"
+    },
+    {
+      "address": "0x8e3bf94",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800cd89",
+      "functions": [
+        "EventC7_"
+      ],
+      "target_owner": "src/eventscr_gmap.o"
+    },
+    {
+      "address": "0x8fe14d8",
+      "owner": "src/data/data_FE0000.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    },
+    {
+      "address": "0x8fe200c",
+      "owner": "src/data/data_FE0000.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o"
+    }
+  ]
+}

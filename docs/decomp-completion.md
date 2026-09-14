@@ -13783,3 +13783,22 @@ is promoted to a callback. The full residual list and per-owner counts are in
 This materially narrows reference-provenance review but does not establish
 callback behavior, reachability or absence of other executable targets.
 Production source is unchanged; the decompilation goal remains open.
+
+## Pointer residual archive and sound provenance — September 14, 2026
+
+Baseline `0c2bf28b`. `scripts/audit_pointer_residuals.py` checks relocations
+inside the linked runtime archive members using their original input-section
+addresses. All nine archive candidates have ABS32 relocations naming the exact
+candidate function. Combined with the earlier direct-object scan, 5,483 candidate
+words now have explicit named-function provenance.
+
+All 37 sound candidates lie entirely inside verified PCM payloads, beyond the
+16-byte sample headers and before alignment padding. Their source sample hashes
+and exact ROM bytes agree. The receipt records each sample symbol and payload
+offset. Address equality in these bytes is not promoted to callback use; this
+check establishes asset provenance without proving absence of arbitrary control
+flow into sample memory.
+
+The remaining 41 candidates are listed in `docs/function-pointer-residuals.json`.
+Further data/table provenance and computed/untyped target classification remain
+open. Production source is unchanged.
