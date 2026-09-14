@@ -24,6 +24,8 @@ Latest round-end integration check (baseline `fec152d3`): the mini-handler execu
 
 Latest indirect-target audit (baseline `dc35446a`): all 65 class-reel magic selectors are within the nine-entry spell callback table. All nine ROM pointers match source initializers and linked C function symbols in `src/banim-efxop.o`. Callback effects and runtime selector provenance remain separate. Receipt: `docs/class-reel-dispatch.json`.
 
+Latest class-script closure (baseline `a99b9957`): all 14 class-reel scripts (100 two-byte records) reconstruct exactly from source macros; all 65 class-entry script pointers target their starts. Only defined control/wait opcodes occur, with structural END termination; Gorgon has one extra trailing END. Wait completion and interpreter effects remain open. Receipt: `docs/class-reel-dispatch.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

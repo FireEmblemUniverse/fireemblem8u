@@ -13728,3 +13728,20 @@ This accounts for the static selector values and indirect target set. It does
 not prove runtime selector immutability, class-entry selection bounds or callback
 effects. Production source is unchanged; complete executable classification
 remains open.
+
+## Class-reel script format and pointers — September 14, 2026
+
+Baseline `a99b9957`. The class-reel audit now independently reconstructs all
+14 script arrays from their source macros and compares all 100 two-byte records
+to the ROM. All 65 class entries' script pointers resolve to these array starts.
+Opcodes are limited to the defined control/wait operations 0 through 8; these
+records contain no native-code pointer instruction. Every script reaches a
+structural END. Gorgon's source includes one additional trailing END, explicitly
+accounted for rather than treated as another executable or unexplained byte.
+
+The audited interpreter source advances through these records or waits for frame
+counts/round completion; END selects the ending proc label. This static audit
+does not prove those waits terminate or validate the effects of the called
+animation routines. `docs/class-reel-dispatch.json` contains per-script sizes,
+opcode lists, first-END positions, trailing-END counts and all class pointers.
+Production source is unchanged; the full decompilation goal remains open.
