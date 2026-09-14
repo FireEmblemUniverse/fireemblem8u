@@ -3,8 +3,8 @@
   "regions": 17,
   "fresh_c_objects": 14,
   "remaining_unbound_bytes": 0,
-  "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
-  "map_sha256": "83d67bd63f07ef8afb2ca5753c6abe7f3c85ead009fe184ba58fea84080afd8d",
+  "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
+  "map_sha256": "6ebcba459e1f039a6cd68c82b3cf9286b66db5004c9ac1460e7e5ea728bfd72b",
   "compiler_sha256": "05c3eee224f7543df30dfdf9b3e107d728d314fcd57695e019b26a4c2c757c88",
   "records": [
     {

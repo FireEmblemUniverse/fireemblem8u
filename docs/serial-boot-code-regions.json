@@ -13,7 +13,7 @@
     }
   ],
   "source_sha256": "2bbdf3c288e63f2679a59d75c53da24bdb34818ab8800b2f435c9a4ec59e7ced",
-  "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
+  "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
   "full_rom_exact": true,
   "scope": "Exact ARM B instructions preserve LR, SP, flags and other registers while reaching the original bootstrap destinations. Header and padding remain data."
 }

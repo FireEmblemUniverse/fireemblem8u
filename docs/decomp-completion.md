@@ -11493,3 +11493,41 @@ are 605 tracked main C files. Expanded payload assembly remains 420 bytes.
 Unmapped-input provenance and generated-fill accounting are unchanged.
 SoftReset, Thumb entries, retained platform instructions, runtime assembly,
 and complete executable classification remain unfinished.
+
+
+### SoftReset integrated; assembly-source BIOS wrappers eliminated
+
+`src/bios_soft_reset.c` generates the IME address load, zero setup, byte-wide
+IME clear, stack-pointer literal load and stack switch with ordinary GCC.
+The two BIOS SWIs remain explicit. Fixed register bindings describe the private
+sequence; `+k` binds the stack barrier directly to SP. Disabling instruction
+scheduling preserves the original load/store order. Explicit `.balign 4, 0`
+after the terminal SWI preserves the two zero bytes before the compiler's
+eight-byte literal pool, rather than assembler NOP padding. All 24 bytes match:
+ten C-generated instruction bytes, four SWI bytes, two padding bytes and eight
+literal bytes. No new compiler pass is required.
+
+The standalone research model and the freshly compiled production-source model
+both pass 256 cases: sixteen initial flag profiles, four reset-flag inputs and
+four initial stack positions. They compare complete register/flag snapshots
+at both BIOS boundaries, require SP 0x03007F00, and verify exactly one byte
+write to IME while preserving its neighboring byte. The service-1 hook supplies
+prescribed caller-register/flag results; service 0 terminates the model.
+This does not implement or verify actual BIOS memory clearing, reset, interrupt
+effects or hardware restart. Receipts are `docs/bios-soft-reset-research.json`
+and `docs/bios-soft-reset-integrated-model.json`.
+
+All twenty wrappers are now integrated with their explicit BIOS boundaries,
+and `src/libagbsyscall.s` is removed. The build object-list rule now depends
+on Makefile so removing an explicit assembly object regenerates `objects.lst`;
+a stale list initially caused duplicate SoftReset definitions before this fix.
+
+The full ROM and all four fresh runtime images/exported symbols match, and
+code/data-provenance audits pass. Reviewed main non-library assembly falls
+from 126 to 116 bytes (24 source plus 92 inline). The only remaining mapped
+main assembly-source instructions are six Thumb veneer entries. Whole-object
+C ownership remains 740,014/777,630 (95.16% rounded); mixed C/assembly ownership
+is 15,800 bytes, with 606 tracked main C files. Expanded payload assembly stays
+420 bytes. Unmapped-input and generated-fill provenance totals are unchanged.
+Runtime assembly, retained platform instructions and complete executable
+classification still prevent an overall completion claim.

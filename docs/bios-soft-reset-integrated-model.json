@@ -1,0 +1,23 @@
+{
+  "source_sha256": "9e9a6a1d7e7ed264a5e24cfe23a685314806a9ca9f83b173b3d4f9134d548484",
+  "compiler_flags": [
+    "-O2",
+    "-fno-schedule-insns",
+    "-fno-schedule-insns2",
+    "-mthumb",
+    "-mcpu=arm7tdmi",
+    "-mabi=apcs-gnu",
+    "-ffreestanding",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables"
+  ],
+  "region_bytes": 24,
+  "instruction_bytes": 14,
+  "retained_swi_bytes": 4,
+  "c_generated_instruction_bytes": 10,
+  "zero_padding_bytes": 2,
+  "literal_bytes": 8,
+  "exact": true,
+  "cases": 256,
+  "scope": "Checks exact setup, byte-wide IME write, stack switch and both synthetic BIOS handoffs. Service 1 supplies prescribed registers/flags; service 0 stops execution. Does not implement BIOS clearing/reset, interrupt effects or hardware restart."
+}

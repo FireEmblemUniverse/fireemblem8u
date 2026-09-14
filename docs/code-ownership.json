@@ -1,14 +1,14 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "e94ae02b30dd9118d487a16130e4a1a0aed14beb",
+  "baseline_commit": "03d527b3ce8461ec3d3b06dabee461001313cee9",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
         "c_owned": 740014,
-        "c_with_assembly": 15786,
-        "assembly_source": 38,
-        "runtime_archive": 21792
+        "c_with_assembly": 15800,
+        "runtime_archive": 21792,
+        "assembly_source": 24
       },
       "objects": [
         {
@@ -2257,8 +2257,8 @@
           "instruction_bytes": 16
         },
         {
-          "object": "src/libagbsyscall.o",
-          "category": "assembly_source",
+          "object": "src/bios_soft_reset.o",
+          "category": "c_with_assembly",
           "instruction_bytes": 14
         },
         {
@@ -2707,13 +2707,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
-      "map_sha256": "83d67bd63f07ef8afb2ca5753c6abe7f3c85ead009fe184ba58fea84080afd8d",
+      "elf_sha256": "e85835f33900376dfff76a2438bf16c238d6fbf1536904c5e687b4c8b6dceab3",
+      "map_sha256": "6ebcba459e1f039a6cd68c82b3cf9286b66db5004c9ac1460e7e5ea728bfd72b",
       "unmapped_input_bytes": 3172286,
       "data_mapped_bytes": 10252493,
       "outside_input_bytes": 2574807,
-      "reviewed_inline_instruction_bytes": 88,
-      "known_nonarchive_assembly_bytes": 126
+      "reviewed_inline_instruction_bytes": 92,
+      "known_nonarchive_assembly_bytes": 116
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

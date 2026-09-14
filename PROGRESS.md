@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `e94ae02b`): ArcTan2 and Sqrt now compile from production C under the explicit BIOS u16-return compiler contract. Their eight instruction bytes match, with four C-generated return bytes and four retained SWI bytes. The production source passes 1,024 synthetic BIOS boundary cases, ten unsupported forms reject, and unannotated code remains unchanged. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. Reviewed main-ROM non-library assembly is now 126 bytes (38 source plus 88 inline), with 605 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership remains 740,014/777,630 mapped instruction bytes (95.16% rounded); mixed C/assembly objects now contain 15,786 bytes. Fully accounted unmapped-input bytes remain 3,172,286 (final residual 812). SoftReset is the only remaining assembly-source BIOS wrapper. Retained status/BIOS instructions, Thumb entries, runtime assembly, and complete mapped-data/executable classification remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `03d527b3`): SoftReset now compiles from production C using ordinary GCC, including the IME byte write and stack switch. Its full 24-byte region matches: ten C-generated instruction bytes, four retained SWI bytes, eight compiler literals and two explicit zero-padding bytes. The production source passes 256 synthetic two-service handoff cases. All twenty BIOS wrappers are now integrated; `src/libagbsyscall.s` is removed. Full-ROM comparison, all four fresh runtime rebuilds and code/data-provenance audits pass. Reviewed main-ROM non-library assembly is now 116 bytes (24 source plus 92 inline), with 606 tracked main C files. Expanded payload assembly remains 420 bytes. Main-ROM whole-object C ownership remains 740,014/777,630 mapped instruction bytes (95.16% rounded); mixed C/assembly objects now contain 15,800 bytes. Fully accounted unmapped-input bytes remain 3,172,286 (final residual 812). Thumb entries, retained status/BIOS instructions, runtime assembly, and complete mapped-data/executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -31,10 +31,10 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **144/144 gaps accounted for: 2,574,807 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.16%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **126 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **116 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
-| Integrated BIOS wrappers | **19 wrappers, 86 exact instruction bytes: 48 C-generated plus 38 retained SWI bytes; 1,024 ordinary-wrapper, 512 DivRem and 1,024 u16-return production-source boundary cases pass** |
+| Integrated BIOS wrappers | **20 wrappers, 100 exact instruction bytes: 58 C-generated plus 42 retained SWI bytes; 2,816 production-source synthetic boundary cases pass** |
 | Integrated ROM entry/header | **4 C-generated branch bytes and 188 C data bytes exact; ordinary compiler, fresh rebuild and startup-from-entry model verified** |
 | Integrated PutOamLo entry | **12/12 instruction bytes C-owned; 4-byte C cursor word; 1,280 shared-body execution cases and full-ROM/runtime match** |
 | Integrated startup | **52 instruction bytes exact: 44 C-generated plus 8 retained mode-write bytes; 16 C literal bytes, ADR and 96 startup cases verified** |
@@ -585,8 +585,8 @@ and fresh objects for all three payload versions passed their checksum gates.
 
 | Scope | Current verified inventory |
 |---|---|
-| Main assembly-source instructions | 38 bytes: SoftReset 14, Thumb veneers 24 |
-| Main reviewed inline assembly | 88 instruction bytes, including BIOS SWIs and startup/IRQ status operations |
+| Main assembly-source instructions | 24 bytes: six Thumb veneer entries |
+| Main reviewed inline assembly | 92 instruction bytes, including BIOS SWIs and startup/IRQ status operations |
 | Expanded payload assembly | 420 instruction bytes: 418 source plus 2 inline |
 | Runtime and classification | Runtime archive assembly and complete executable classification remain open |
 

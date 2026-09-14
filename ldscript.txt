@@ -2070,7 +2070,8 @@ SECTIONS
         src/bios_wrappers.o(.text.RLUnCompWram);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.RegisterRamReset);
-        src/libagbsyscall.o(.text.SoftReset);
+        . = ALIGN(4);
+        src/bios_soft_reset.o(.text);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.SoundBiasReset);
         . = ALIGN(4);
