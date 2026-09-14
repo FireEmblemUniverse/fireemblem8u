@@ -8,6 +8,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('mgfembp','src/irq_save_frame.c','PayloadIrqSaveFrame',0x02010050,'00004fe1',4,'asm volatile("mrs %0, spsr"'),
  ('main_rom', 'src/bios_soft_reset.c', 'SoftReset', 0x080D16BA, '01df', 2, 'asm volatile('),
  ('main_rom', 'src/bios_soft_reset.c', 'SoftReset', 0x080D16BC, '00df', 2, 'asm volatile('),
  ('main_rom', 'src/bios_u16_return.c', 'ArcTan2', 0x080D166C, '0adf', 2, 'asm volatile('),

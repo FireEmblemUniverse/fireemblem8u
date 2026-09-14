@@ -4,7 +4,7 @@
   "production_recovered_C_move_bytes": 78,
   "source_pin": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_sha256": "ec0dd10f8608a507f7a822f78d0f7fb612214bbb16ef52e0c20446017e852a7f",
-  "rebuild_receipt_sha256": "49bec6f4063a80b0dc64ad3d9f478ba05716de08c3938f49aebc15d254aca8c0",
+  "rebuild_receipt_sha256": "387e07150eaad8cb6dd9a4a463bc5226ee2627102b9c344cf5dc3227354f5245",
   "assembly_sha256": "6a207eab073c1caeb0293e4f12dc3c46eda758b049acdf1e8fa52394a17ddb94",
   "object_text_sha256": "dcf5c21d01204048ca727aac49c3ae851672fe70a5723641d3d66d01596168a2",
   "inline_sites": 13,

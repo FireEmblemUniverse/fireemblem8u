@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Fresh-build the exact IRQ save frame and reject unsupported contracts."""
 from pathlib import Path
-import hashlib,json,random,subprocess,sys
+import argparse,hashlib,json,random,subprocess,sys
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/payload-irq-save-frame';OUT.mkdir(parents=True,exist_ok=True)
 compiler=str(ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc')
 subprocess.run([sys.executable,str(ROOT/'tools/arm-dispatch/build_irq_frame.py'),'--output-dir',str(OUT)],check=True,capture_output=True)
-source=(ROOT/'research/payload/irq_save_frame.c').read_text()
+parser=argparse.ArgumentParser()
+parser.add_argument('--source',type=Path,default=ROOT/'research/payload/irq_save_frame.c')
+parser.add_argument('--json',type=Path,default=ROOT/'docs/payload-irq-save-frame-research.json')
+args=parser.parse_args()
+source=args.source.read_text()
 flags=[compiler,'-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables']
 plugin=['-fplugin='+str(OUT/'irq_frame.so'),'-fplugin-arg-irq_frame-save-adjacent=PayloadIrqSearch']
 def compile(name,text,extra):
@@ -47,9 +51,10 @@ for name,text,extra in mutants:
 result=subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'displaced.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'displaced.elf')],capture_output=True,text=True)
 assert result.returncode!=0 and 'IRQ save adjacency changed' in result.stderr
 for name,extra in [('plain',[]),('unannotated',plugin)]:
- result=compile(name,source,extra);assert result.returncode==0,result.stderr
+ control=source.replace('__attribute__((matching_arm_irq_save_frame))','')
+ result=compile(name,control,extra);assert result.returncode==0,result.stderr
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/(name+'.o')),str(OUT/(name+'.bin'))],check=True)
 assert (OUT/'plain.bin').read_bytes()==(OUT/'unannotated.bin').read_bytes()
-report = dict(exact_images=['mgfembp','mgfembp_20030206','mgfembp_20030219'],cases=4096,bytes=len(code),c_generated_instruction_bytes=4,retained_status_assembly_bytes=4,sha256=hashlib.sha256(code).hexdigest(),source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/irq_frame.cc').read_bytes()).hexdigest(),rejected=[m[0] for m in mutants],displaced_handoff_rejected=True,unannotated_control_unchanged=True,production_integrated=False,scope='Exact eight-byte isolated region; random register/SPSR states, all sixteen NZCV profiles, exact sixteen-byte frame and untouched surrounding stack bytes. Stops at PayloadIrqSearch; no hardware interrupt-entry claim.')
-(ROOT/'docs/payload-irq-save-frame-research.json').write_text(json.dumps(report,indent=2)+'\n')
+report = dict(exact_images=['mgfembp','mgfembp_20030206','mgfembp_20030219'],cases=4096,bytes=len(code),c_generated_instruction_bytes=4,retained_status_assembly_bytes=4,sha256=hashlib.sha256(code).hexdigest(),source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/irq_frame.cc').read_bytes()).hexdigest(),rejected=[m[0] for m in mutants],displaced_handoff_rejected=True,unannotated_control_unchanged=True,production_integrated=args.source.resolve()==ROOT/'mgfembp/src/irq_save_frame.c',scope='Exact eight-byte isolated region; random register/SPSR states, all sixteen NZCV profiles, exact sixteen-byte frame and untouched surrounding stack bytes. Stops at PayloadIrqSearch; no hardware interrupt-entry claim.')
+args.json.write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

@@ -64,3 +64,7 @@ entry/continuation placement are enforced by the linker.
 The payload IRQ register setup now builds from checked C. Startup ADR and
 entry/saved-frame/search fallthrough distances are enforced by linker
 assertions; all three payload images remain exact.
+
+The payload IRQ saved frame now uses C stores and an explicit SPSR read,
+compiled with the parent matching compiler and IRQ frame pass. The payload
+Makefile builds the pass on demand and retains the checked search adjacency.

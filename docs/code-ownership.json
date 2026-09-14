@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "4d10278d823a048458f09c83fe897068ec387456",
+  "baseline_commit": "ec96265f0396f89db9b7a70824607db6652fcbc8",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -2717,9 +2717,9 @@
     "mgfembp": {
       "mapped_instruction_bytes": 25714,
       "categories": {
-        "assembly_source": 140,
+        "assembly_source": 132,
         "c_owned": 18364,
-        "c_with_assembly": 6390,
+        "c_with_assembly": 6398,
         "runtime_archive": 820
       },
       "objects": [
@@ -2821,7 +2821,7 @@
         {
           "object": "src/crt0.o",
           "category": "assembly_source",
-          "instruction_bytes": 140
+          "instruction_bytes": 132
         },
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_udivsi3.o)",
@@ -2894,6 +2894,11 @@
           "instruction_bytes": 8
         },
         {
+          "object": "src/irq_save_frame.o",
+          "category": "c_with_assembly",
+          "instruction_bytes": 8
+        },
+        {
           "object": "src/thumb_entries.o",
           "category": "c_owned",
           "instruction_bytes": 8
@@ -2904,13 +2909,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "85b7ed84d112ca1d8d53401617d8f7001ef78b29ecdc3c1c92a193c8dac0715d",
-      "map_sha256": "9b309194bbca9e08f7e61864cef1ba8edee4f6027bbdc5be16a5d4cc94adb05c",
+      "elf_sha256": "542cfcc956bd426e683ab2c2493783fcdf3860298666a262780b96e29258b96c",
+      "map_sha256": "5371b8a8eec4d1017651465168779461539f87949a50916b38ea8576e75ed0bf",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9235,
       "outside_input_bytes": 7,
-      "reviewed_inline_instruction_bytes": 26,
-      "known_nonarchive_assembly_bytes": 166
+      "reviewed_inline_instruction_bytes": 30,
+      "known_nonarchive_assembly_bytes": 162
     }
   },
   "limitations": [

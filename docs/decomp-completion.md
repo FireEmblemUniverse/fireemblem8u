@@ -13139,3 +13139,29 @@ Production remains unchanged. This validates an isolated saved-frame block,
 not hardware interrupt entry or the complete dispatcher. Integration with
 production layout and refreshed ownership is the next step; four bytes of
 status-read assembly will remain after this candidate is integrated.
+
+
+### Payload saved-frame integration (September 14, 2026)
+
+Baseline `ec96265f`. Production `mgfembp/src/irq_save_frame.c` replaces the
+eight-byte assembly saved-frame section. The existing matching compiler and
+IRQ frame pass generate the four-byte stack writeback from C stores; the
+four-byte SPSR read remains explicit inline assembly. The linker retains
+entry/frame/search adjacency and all startup address calculations.
+
+All three payload checksums and the main ROM comparison pass. The freshly
+compiled production source passes 4,096 exact register/status/stack-write
+cases, eight unsupported-contract rejections, an isolated displaced target
+rejection and unchanged unannotated compiler controls. Twelve production
+layout mutations also reject. Fresh runtime builds reproduce all four images
+and exported symbols. Evidence: `payload-irq-save-frame.json`,
+`payload-irq-layout.json` and refreshed ownership/inline/runtime receipts.
+These boundary checks do not establish full hardware interrupt behavior.
+
+Payload commit `c55c45c84ab495912224e99f9040149ddeebbdb8` is retained in the
+verified recovery bundle. Assembly source falls eight bytes to 132; inline
+assembly rises four bytes to 30, for 162 expanded assembly bytes. The mixed
+C/assembly category rises eight bytes to 6,398; C-owned bytes remain 18,364
+because the recovered stack instruction shares an object with the SPSR read.
+The remaining assembly source is 52 startup and 80 continuation bytes.
+Complete executable/data classification remains unfinished.

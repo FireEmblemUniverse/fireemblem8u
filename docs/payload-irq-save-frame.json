@@ -1,0 +1,28 @@
+{
+  "exact_images": [
+    "mgfembp",
+    "mgfembp_20030206",
+    "mgfembp_20030219"
+  ],
+  "cases": 4096,
+  "bytes": 8,
+  "c_generated_instruction_bytes": 4,
+  "retained_status_assembly_bytes": 4,
+  "sha256": "9388b912fba6d430acb4fc17f2d20a23e0ca7ce6079ab748ad8bd3619fb52c3d",
+  "source_sha256": "4788fad0f12c12ef7b7e758b8e6eee72fa2a5fa1e87c5a5cbd3c5acf3eac239a",
+  "backend_sha256": "e45446956a3d14b1142f3e529cfb7e83ddcc251811af661ca59be6d6dc89554e",
+  "rejected": [
+    "wrong_status",
+    "wrong_size",
+    "wrong_register",
+    "wrong_target",
+    "argument",
+    "debug",
+    "unwind",
+    "thumb"
+  ],
+  "displaced_handoff_rejected": true,
+  "unannotated_control_unchanged": true,
+  "production_integrated": true,
+  "scope": "Exact eight-byte isolated region; random register/SPSR states, all sixteen NZCV profiles, exact sixteen-byte frame and untouched surrounding stack bytes. Stops at PayloadIrqSearch; no hardware interrupt-entry claim."
+}
