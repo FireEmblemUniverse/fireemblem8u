@@ -1,0 +1,199 @@
+{
+  "source_sha256": "12a0cab2d89a6cce065e527db35d4e0b08eb9af70abccd81c4d4c92b2e820f84",
+  "wrappers": [
+    {
+      "name": "ArcTan2",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 8,
+      "instruction_bytes_exact": false,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 56,
+      "svc": 10
+    },
+    {
+      "name": "BgAffineSet",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 14
+    },
+    {
+      "name": "CpuFastSet",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 12
+    },
+    {
+      "name": "CpuSet",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 11
+    },
+    {
+      "name": "Div",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 6
+    },
+    {
+      "name": "DivArm",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 7
+    },
+    {
+      "name": "DivRem",
+      "original_instruction_bytes": 6,
+      "candidate_bytes": 6,
+      "instruction_bytes_exact": false,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 48,
+      "svc": 6
+    },
+    {
+      "name": "HuffUnComp",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 19
+    },
+    {
+      "name": "LZ77UnCompVram",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 18
+    },
+    {
+      "name": "LZ77UnCompWram",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 17
+    },
+    {
+      "name": "MultiBoot",
+      "original_instruction_bytes": 6,
+      "candidate_bytes": 6,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 37
+    },
+    {
+      "name": "ObjAffineSet",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 15
+    },
+    {
+      "name": "RLUnCompVram",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 21
+    },
+    {
+      "name": "RLUnCompWram",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 20
+    },
+    {
+      "name": "RegisterRamReset",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 1
+    },
+    {
+      "name": "SoundBiasReset",
+      "original_instruction_bytes": 6,
+      "candidate_bytes": 6,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 25
+    },
+    {
+      "name": "SoundBiasSet",
+      "original_instruction_bytes": 6,
+      "candidate_bytes": 6,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 25
+    },
+    {
+      "name": "Sqrt",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 8,
+      "instruction_bytes_exact": false,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 56,
+      "svc": 8
+    },
+    {
+      "name": "VBlankIntrWait",
+      "original_instruction_bytes": 6,
+      "candidate_bytes": 6,
+      "instruction_bytes_exact": true,
+      "cases": 64,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 5
+    }
+  ],
+  "exact_wrappers": 16,
+  "total_cases": 1216,
+  "production_integrated": false,
+  "scope": "Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft."
+}

@@ -11322,3 +11322,37 @@ remain 50, for 174 main-ROM non-library assembly bytes. The 188 header bytes
 remain mapped data, so the unmapped-input provenance denominator is unchanged.
 Evidence includes `docs/rom-header-code-region.json` and
 `docs/rom-entry-startup-model.json`.
+
+### BIOS wrapper C drafts and synthetic service boundaries
+
+`research/bios/wrappers.c` drafts nineteen of the twenty BIOS wrappers using
+the existing syscall declarations. SWI remains explicit assembly with fixed
+argument/result registers and conservative caller-register/flag clobbers;
+setup and return instructions are ordinary C. Function sections with two-byte
+alignment keep linker padding separate from the instruction regions.
+
+Sixteen candidates match their complete instruction regions, totaling 72
+bytes: 32 retained SWI bytes and forty C-generated setup/return bytes. The
+remaining drafts reveal real flag differences. DivRem emits MOVS rather than
+ADD-zero, preserving carry/overflow that the original clears. ArcTan2 and
+Sqrt insert a pair of shifts to narrow their unsigned 16-bit returns, changing
+flags even when the service result is already within range. A range-assumption
+experiment did not remove those shifts and is not retained in the source.
+SoftReset's stack/reset sequence is not yet part of this draft.
+
+`research/bios/check_wrappers.py` freshly compiles each section, compares its
+instruction bytes, and runs 1,216 cases (nineteen wrappers, sixteen service
+flag profiles, four register/result seeds). A synthetic SWI hook checks
+incoming registers/flags, supplies identical result registers/flags, and
+checks wrapper return, stack behavior and final state. The sixteen exact
+wrappers have no register or flag differences. DivRem has 48 flag-difference
+cases; ArcTan2 and Sqrt have 56 each, with no returned-register differences.
+These failures are asserted as expected evidence, not accepted as matches.
+
+The hook resumes in Thumb mode explicitly; writing an even PC initially
+switched decoder mode and was corrected before collecting the receipt. The
+model does not implement BIOS services or prove service memory effects, timing,
+error behavior or hardware interrupts. Evidence is in
+`docs/bios-wrapper-research.json`. No production integration or assembly
+coverage change is claimed yet; reviewed main-ROM non-library assembly
+remains 174 bytes.
