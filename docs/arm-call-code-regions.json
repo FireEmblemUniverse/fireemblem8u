@@ -1,0 +1,51 @@
+{
+  "c_owned_instruction_bytes": 24,
+  "assembly_entry_instruction_bytes": 24,
+  "elf_sha256": "429a0a8c91e6f70d5ebf2525d14ab8d37a5371c9a2229d3f00a124ce30d50af1",
+  "full_rom_exact": true,
+  "veneers": [
+    {
+      "entry": "ClearOAMBuffer",
+      "address": "0x80d7498",
+      "body": "ArmCall_Clear",
+      "target": "ClearOam",
+      "bytes": "7847c04698a3fcea"
+    },
+    {
+      "entry": "CallARM_FillTileRect",
+      "address": "0x80d74a0",
+      "body": "ArmCall_Tsa",
+      "target": "TmApplyTsa",
+      "bytes": "7847c046e4a3fcea"
+    },
+    {
+      "entry": "TileMap_FillRect",
+      "address": "0x80d74a8",
+      "body": "ArmCall_Fill",
+      "target": "TmFillRect",
+      "bytes": "7847c046bda3fcea"
+    },
+    {
+      "entry": "CALLARM_ColorFadeTick",
+      "address": "0x80d74b0",
+      "body": "ArmCall_Fade",
+      "target": "ColorFadeTick",
+      "bytes": "7847c0465ea3fcea"
+    },
+    {
+      "entry": "TileMap_CopyRect",
+      "address": "0x80d74b8",
+      "body": "ArmCall_Copy",
+      "target": "TmCopyRect",
+      "bytes": "7847c046c7a3fcea"
+    },
+    {
+      "entry": "ComputeChecksum32",
+      "address": "0x80d74c0",
+      "body": "ArmCall_Checksum",
+      "target": "Checksum32",
+      "bytes": "7847c046a5a3fcea"
+    }
+  ],
+  "scope": "Six C ARM tail branches are exact; six Thumb BX-PC/NOP entries remain assembly. Branches preserve all incoming registers, flags and LR before executing their targets. Not whole-game completion."
+}

@@ -2072,7 +2072,18 @@ SECTIONS
         *libgcc.a:fp-bit.o(.text);
         *libgcc.a:_lshrdi3.o(.text);
         *libgcc.a:_negdi2.o(.text);
-        asm/arm_call.o(.text);
+        asm/arm_call.o(.text.arm_entry_clear);
+        src/arm/call_wrappers.o(.text.arm_call_clear);
+        asm/arm_call.o(.text.arm_entry_tsa);
+        src/arm/call_wrappers.o(.text.arm_call_tsa);
+        asm/arm_call.o(.text.arm_entry_fill);
+        src/arm/call_wrappers.o(.text.arm_call_fill);
+        asm/arm_call.o(.text.arm_entry_fade);
+        src/arm/call_wrappers.o(.text.arm_call_fade);
+        asm/arm_call.o(.text.arm_entry_copy);
+        src/arm/call_wrappers.o(.text.arm_call_copy);
+        asm/arm_call.o(.text.arm_entry_checksum);
+        src/arm/call_wrappers.o(.text.arm_call_checksum);
 
         /* .rodata */
         . = ALIGN(4); src/main.o(.rodata);

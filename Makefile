@@ -75,7 +75,7 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt
 CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
-CFILES       += src/arm/map_flood_core.c src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
+CFILES       += src/arm/call_wrappers.c src/arm/map_flood_core.c src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
 ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
@@ -115,6 +115,9 @@ src/arm/clear_oam.o: CC1FLAGS := -quiet -mthumb-interwork -Wimplicit -Wparenthes
 
 # Legacy ARM agbcc always saves lr along with any callee-saved registers.
 # GNU ARM GCC can reproduce these routines' original leaf prologues without lr.
+src/arm/call_wrappers.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/arm/call_wrappers.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables
+
 MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
 $(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g

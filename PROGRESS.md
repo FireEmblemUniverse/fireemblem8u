@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `7c9d5059`): the complete unit-list page transition is C, with all 436 bytes exact (396 instructions and 40 literals/alignment). The checked row-shift allocator builds from pinned sources; eight unsupported contracts reject and 61 unannotated controls remain unchanged. Full-ROM comparison and fresh runtime rebuilds for all four images pass. Main-ROM C ownership is 739,722/777,630 mapped instruction bytes (95.13%). The 18,458-byte unit-list object is now wholly C-owned; only 396 of those instruction bytes were newly converted in this milestone. Reviewed non-library assembly is 718 bytes in main ROM and 420 in expanded payload, with 591 tracked main C files. Existing audio/multiply ownership audits pass against the new ELF. The previous 287-layout rejection suite remains the latest layout evidence; no layout changed here. Runtime helpers, transfer/startup code and final executable classification remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `0b648ad4`): all six ARM interworking tail-call bodies are C, removing 24 assembly instruction bytes. Their 24-byte Thumb entry scaffolding remains assembly. The complete 48-byte veneer region and full ROM are exact. Main-ROM C ownership is 739,746/777,630 mapped instruction bytes (95.13%); reviewed non-library assembly is 694 bytes in main ROM and 420 in expanded payload, with 592 tracked main C files. The prior unit-list conversion remains verified: 396 instruction bytes converted, all 436 region bytes exact, eight rejected compiler contracts and 61 unchanged controls. Current runtime rebuild and ownership receipts accompany this milestone. The previous 287-layout rejection suite remains the latest layout evidence; no layout changed here. Runtime helpers, Thumb entry scaffolding, transfer/startup code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -22,9 +22,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.13%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **718 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **694 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ARM call bodies | **24/24 ARM bytes C-owned; all six eight-byte veneers exact; 24 Thumb entry bytes still assembly** |
 | Integrated unit-list page transition | **396 instruction bytes converted to C; complete 436-byte region exact; pinned compiler build, eight rejections and 61 unchanged controls; full ROM/runtime match** |
 | Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |

@@ -10234,3 +10234,34 @@ for 396 instruction bytes; the other 18,062 bytes were already C. Reviewed
 non-library main-ROM assembly falls from 1,114 to 718 bytes. Runtime archives,
 remaining transfer/startup instructions and executable classification still
 prevent a claim of complete decompilation. The user-deleted README is preserved.
+
+### Six ARM interworking tail-call bodies converted to C
+
+`src/arm/call_wrappers.c` expresses the six ARM halves as ordinary tail calls
+to ClearOam, TmApplyTsa, TmFillRect, ColorFadeTick, TmCopyRect and Checksum32.
+The ARM7 build disables interworking for this file because all six targets
+are verified ARM entries. Otherwise GCC preserves an unnecessary call frame
+instead of selecting a sibling branch. No compiler plugin or instruction
+template is used for these bodies. The linker places each four-byte C body
+after its existing four-byte Thumb BX-PC/NOP entry. Public entry addresses
+and Thumb state are preserved; public symbol sizes now cover the four-byte
+entry, with separately named C bodies covering the remaining four bytes.
+
+The ordinary linker veneer probe emitted BX-PC followed by a Thumb self-loop
+(0xe7fd), whereas the original uses NOP (0x46c0). Therefore linker veneer
+generation was not used as an exact replacement. The explicit Thumb halves
+remain in `asm/arm_call.s`; this milestone does not claim their conversion.
+
+`make compare -j8` passes. `scripts/audit_arm_call_regions.py` checks all six
+public addresses, ARM body symbols, branch opcodes and decoded targets,
+Thumb and ARM mapping ownership, and complete ROM equality. Those branches
+leave incoming registers, flags, stack and LR unchanged before their target,
+so byte equality directly establishes the wrapper behavior. The existing
+runtime rebuild and region audits are refreshed for this ELF.
+
+C ownership is now 739,746/777,630 mapped main-ROM instruction bytes (95.13%).
+Assembly-source instruction bytes fall from 704 to 680; with 14 reviewed
+inline bytes, reviewed main-ROM non-library assembly is 694 bytes. Payload
+assembly remains 420 bytes. There are 592 tracked main C files. Remaining
+Thumb entries, transfer/startup instructions, runtime helpers and executable
+classification still prevent a claim of full decompilation.
