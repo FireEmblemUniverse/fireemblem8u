@@ -13672,3 +13672,24 @@ independently, not a complete animation run. Scheduling, queue drain frequency,
 wait release, command-handler effects and pointer opcodes absent from these
 streams remain outside the check. The existing broader completion goal remains
 open.
+
+## Mini-animation queue execution — September 14, 2026
+
+Baseline `6ee35a33`. `research/animation/check_mini_queue.py` executes the entire
+420-byte `EkrUnitMainMini_UpdateAnim` region at 0x0805A3DC, verified identical to
+the original ROM. All 4,000 cases pass: 250 byte-valued IDs, homogeneous queues
+of size zero through seven, and command-only or command-plus-stop state.
+Commands 1, 2, 5, 13, 14 and 24 call helpers and are excluded from this run.
+
+An independent model checks the entire Anim state, including clearing the queue,
+masking state2, setting nextRoundId for STOP, and advancing the script once per
+command for IDs 3 and 4. Randomized surrounding fields and saved registers are
+preserved; SP is restored; writes stay within Anim and the stack. A code hook
+rejects execution outside the handler, establishing that these paths make no
+external calls. Default handling includes unused byte IDs as well as observed
+stream commands. Receipt: `docs/mini-animation-queue-execution.json`.
+
+This is execution evidence for queue consumption under the stated inputs.
+It excludes mixed queues, helper effects, frame-graphics processing and external
+scheduling; it does not establish complete animation behavior or overall
+executable coverage. No production source changed.

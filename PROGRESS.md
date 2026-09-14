@@ -18,6 +18,8 @@ Latest animation dispatch inventory (baseline `a7019e4c`): 14,421 command record
 
 Latest interpreter execution (baseline `8ea03a9e`): all 47,523 recovered motion records pass independent state-model checks against the production interpreter, whose 384-byte region matches the original ROM. Checks cover full Anim output, command queues, wait rewind, frame advancement, return, preserved registers and write bounds. Scheduling and handler effects remain open. Receipt: `docs/animation-interpreter-execution.json`.
 
+Latest mini-handler execution (baseline `6ee35a33`): 4,000 complete queue-drain cases pass for 250 command IDs, queue sizes 0–7 and command/command-plus-stop states. Checks cover full Anim output, script advancement, register/stack preservation, write bounds and no external calls. Six helper-command IDs and graphics/scheduling remain outside this check. Receipt: `docs/mini-animation-queue-execution.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
