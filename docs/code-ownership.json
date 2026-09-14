@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "2543832f3c8e3120240b447eb5c7441b591dfa3c",
+  "baseline_commit": "22975adb3a4d08f8146bc5f537894eed9c36cd54",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,

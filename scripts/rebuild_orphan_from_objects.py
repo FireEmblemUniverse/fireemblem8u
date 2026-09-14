@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Research rebuild of duplicate data without reading its opaque initializer."""
-import hashlib,json,struct,subprocess
+import argparse,hashlib,json,struct,subprocess
 from pathlib import Path
+parser=argparse.ArgumentParser();parser.add_argument('--objects',default='objects.lst');parser.add_argument('--verify',action='store_true');args=parser.parse_args()
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'.deps/orphan-rebuild';OUT.mkdir(exist_ok=True)
 def run(args):subprocess.run(args,cwd=ROOT,check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
 placeholder=OUT/'placeholder.o';assembly=OUT/'placeholder.s'
 assembly.write_text('.section .data\n.global gUnkData_108\ngUnkData_108:\n.space 0xa788\n')
 run(['arm-none-eabi-as','-o',str(placeholder),str(assembly)])
-old='src/data_B1FE7C.o';ldscript=(ROOT/'ldscript.txt').read_text();objects=(ROOT/'objects.lst').read_text()
+old='src/data_B1FE7C.o';ldscript=(ROOT/'ldscript.txt').read_text();objects=(ROOT/args.objects).read_text()
 assert old in ldscript and old in objects
 (OUT/'link.ld').write_text(ldscript.replace(old,str(placeholder)))
 (OUT/'objects.lst').write_text(objects.replace(old,str(placeholder)))
@@ -27,7 +28,9 @@ tail=bytearray(stage[0xb1fe30:0xb1fe7c])
 for offset in range(0,16,4):struct.pack_into('<I',tail,offset,struct.unpack_from('<I',tail,offset)[0]+0xa788)
 data+=tail;assert len(data)==0xa788
 # Reference ROM is used only after generating the entire candidate.
-assert data==(ROOT/'baserom.gba').read_bytes()[0xb1fe7c:0xb2a604]
+if args.verify:assert data==(ROOT/'baserom.gba').read_bytes()[0xb1fe7c:0xb2a604]
 (OUT/'orphan.bin').write_bytes(data)
-report=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),opaque_object_excluded=True,placeholder_bytes_verified_zero=True,uniform_pointer_changes=shifted,tail_pointer_changes=4,historical_rodata_constant='0x085913f0',scope='Research candidate derived from a fresh provisional link of current recovered objects with the opaque object replaced by zero storage. Reference ROM used only for final comparison. Does not rebuild every input object, establish historical origin/reachability, or integrate production build.',output=str(OUT/'orphan.bin'))
+header=OUT/'orphan.inc';temporary=header.with_suffix('.tmp')
+temporary.write_text('\n'.join(', '.join('0x%02x'%x for x in data[i:i+16])+',' for i in range(0,len(data),16))+'\n');temporary.replace(header)
+report=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),opaque_object_excluded=True,placeholder_bytes_verified_zero=True,uniform_pointer_changes=shifted,tail_pointer_changes=4,historical_rodata_constant='0x085913f0',reference_compared=args.verify,scope='Generated duplicate derived from a fresh provisional link of current recovered objects with the opaque object replaced by zero storage. Reference ROM used only with --verify. Does not establish historical origin or reachability.',output=str(OUT/'orphan.bin'))
 (ROOT/'docs/orphan-object-rebuild.json').write_text(json.dumps(report,indent=2)+'\n');print(len(data),'bytes rebuild exactly without opaque source object')

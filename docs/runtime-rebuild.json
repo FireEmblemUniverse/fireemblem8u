@@ -25,7 +25,7 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
   "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
-  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-bo44rwvp",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-j4hx3kih",
   "tool_versions": {
     "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
     "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
@@ -36,8 +36,8 @@
     "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
   },
   "rebuilt_archive_sha256": {
-    "libc": "7333b79fa7994ee661e673801cb0ddff28780ab2da1ffefe22eb2916f419136a",
-    "libgcc": "bec1322efea473834eb1836d83fb082d3eea9b85d7a9876b7d089f18d1cb2668"
+    "libc": "a1efccebd4fb8c686062119a3c35c993ddb73093417e42023969ce5b534c7701",
+    "libgcc": "67ec8addc37d22760ac4113b08cb4f4929e6e8e85bebfbeb0eee1cd549d0c83a"
   },
   "images": {
     "main_rom": {

@@ -1446,3 +1446,15 @@ $(EVENT_NOP_CC): tools/agbcc-nop/build.py
 	$(PYTHON) tools/agbcc-nop/build.py
 src/eventinfo.o: $(EVENT_NOP_CC)
 src/eventinfo.o: CC1 := $(EVENT_NOP_CC)
+
+# Rebuild duplicate tail from a provisional link that excludes its own object.
+ifeq (,$(filter runtime-c-archive,$(MAKECMDGOALS)))
+.deps/orphan-rebuild/inputs.lst: Makefile
+	@mkdir -p .deps/orphan-rebuild
+	@echo $(ALL_OBJECTS) > $@
+
+.deps/orphan-rebuild/orphan.inc: $(filter-out src/data_B1FE7C.o,$(ALL_OBJECTS)) .deps/orphan-rebuild/inputs.lst $(LDSCRIPT) $(SYM_FILES) $(RUNTIME_C_DIR)/libgcc.a scripts/rebuild_orphan_from_objects.py
+	$(PYTHON) scripts/rebuild_orphan_from_objects.py --objects .deps/orphan-rebuild/inputs.lst
+
+src/data_B1FE7C.o: .deps/orphan-rebuild/orphan.inc
+endif
