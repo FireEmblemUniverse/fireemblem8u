@@ -16,7 +16,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--plugin', type=Path, required=True)
     parser.add_argument('--low', action='store_true', help='execute the original low-entry shim into the reconstructed shared body')
+    parser.add_argument('--low-candidate',type=Path,help='Fresh sixteen-byte low-entry pool/code region')
     args = parser.parse_args()
+    if args.low_candidate and not args.low:parser.error('--low-candidate requires --low')
     subprocess.run([sys.executable, str(Path(__file__).with_name('build_put_oam.py')),
                     '--plugin', str(args.plugin.resolve()), '--prefix-pool'], check=True, cwd=ROOT)
     out = ROOT/'.deps/put-oam-match'
@@ -30,7 +32,9 @@ def main():
     for section in (rom[0x490:0x530], (out/'candidate.bin').read_bytes()):
         uc = Uc(UC_ARCH_ARM, UC_MODE_ARM)
         uc.mem_map(0x08000000, 0x1000)
-        uc.mem_write(0x08000490, section + rom[0x530:0x540])
+        shim=args.low_candidate.read_bytes() if args.low_candidate and machines else rom[0x530:0x540]
+        assert len(shim)==16
+        uc.mem_write(0x08000490, section + shim)
         uc.mem_map(BASE, 0x4000)
         uc.mem_map(0x03000000, 0x8000)
         uc.hook_add(UC_HOOK_MEM_WRITE, check_write)
@@ -84,7 +88,7 @@ def main():
     report=json.loads((out/'report.json').read_text())
     assert report['complete_section_match'], report['differing_words']
     report.update(cases=cases,register_difference_cases=register_differences,nzcv_difference_cases=flag_differences,
-                  entry='low shim' if args.low else 'high',
+                  entry=('C low candidate' if args.low_candidate else 'low shim') if args.low else 'high',
                   scope='Selected entry; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Full section, register and flag agreement required.')
     (out/('execution-low-report.json' if args.low else 'execution-report.json')).write_text(json.dumps(report,indent=2)+'\n')
     print(f'{cases} memory/cursor/callee-saved checks passed; register mismatches {register_differences}; NZCV mismatches {flag_differences}.')

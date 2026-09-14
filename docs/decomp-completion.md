@@ -11227,3 +11227,33 @@ been refreshed to the integrated ELF and pass. Hardware reset/BIOS entry,
 real AgbMain execution and complete executable classification remain outside
 these checks. Evidence includes `docs/startup-code-regions.json`,
 `docs/startup-built-model.json`, and the refreshed startup backend receipt.
+
+### Exact isolated PutOamLo C entry
+
+`research/arm/put_oam_lo.c` expresses the r4-r7 private frame, cursor selection
+and nonreturning transfer into PutOamHi's shared C body. The ordinary compiler
+adds an unwanted r7/LR frame and emits SUB/STM/load/BL. The isolated
+`research/arm/oam_entry.cc` backend validates the complete seven-operation
+sequence, four-register layout, sixteen-byte stack decrement, cursor pool
+and zero-argument shared-body call. It emits GCC's canonical four-register
+push and standard sibling-call pattern, preserves original LR, removes the
+unwanted compiler frame and uses the external literal pattern for a C pointer
+word preceding the entry. It introduces no instruction-bearing source asm.
+
+`check_oam_entry.py` freshly builds and links the candidate at 08000530,
+asserting cursor-pool and shared-body relationships. All sixteen bytes match:
+four pointer bytes and twelve ARM instruction bytes. The existing OAM model
+now accepts `--low-candidate` and exercises the candidate prefix with the
+reconstructed C shared body against the original. All 1,280 cases pass across
+counts 0/1/2/7/32, four overlaps, four coordinate/attribute tuples and all
+sixteen NZCV profiles. Memory, cursor, returned registers and flags agree.
+
+Eight invalid configurations reject: altered frame size, saved register,
+cursor symbol, shared body, argument count, debug, unwind and Thumb. The
+saved-register mutation disables late-combine to keep the test within the
+backend validator, as in earlier global-register experiments. Displaced
+cursor-pool and shared-body linker fixtures reject; merely loading the plugin
+does not change the unannotated control. Evidence is in
+`docs/oam-low-entry-research.json`. This candidate is not integrated; production
+remains at 190 reviewed main-ROM non-library assembly bytes. Integration must
+also update the provenance receipt for the existing four-byte low-cursor word.

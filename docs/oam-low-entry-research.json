@@ -1,0 +1,63 @@
+{
+  "bytes": 16,
+  "instruction_bytes": 12,
+  "c_pointer_bytes": 4,
+  "sha256": "ad7a4bb1df7f03f3a711cb45240553df6226f49757e963181f2261bb62f819c6",
+  "source_sha256": "6fec45175fdf4cd0bb7cc633ef067638e263740c5851a8afc3d1dc04ff13c78d",
+  "backend_sha256": "f5e09250c22d2bc34ac3f464fd85ee44475eb7a087a1980e2a0b377656a20d79",
+  "rejected": [
+    "size",
+    "saved_register",
+    "cursor_symbol",
+    "shared_body",
+    "argument_count",
+    "debug",
+    "unwind",
+    "thumb"
+  ],
+  "displaced_layouts_rejected": [
+    "pool",
+    "body"
+  ],
+  "unannotated_control_unchanged": true,
+  "execution": {
+    "compiler_version": "16.2.0",
+    "flags": [
+      "-std=gnu89",
+      "-O1",
+      "-marm",
+      "-mcpu=arm7tdmi",
+      "-mabi=apcs-gnu",
+      "-ffreestanding",
+      "-fno-builtin",
+      "-fomit-frame-pointer",
+      "-fno-schedule-insns",
+      "-fno-schedule-insns2",
+      "-fno-auto-inc-dec",
+      "-fno-ivopts",
+      "-fno-if-conversion",
+      "-fno-if-conversion2",
+      "-fno-reorder-blocks",
+      "-fno-move-loop-invariants",
+      "-fno-tree-loop-im",
+      "-ffixed-r14",
+      "-fno-strict-aliasing",
+      "-fplugin=/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/arm-matching-plugin/zero_test.so",
+      "-fplugin-arg-zero_test-prefix-pool=gOamHiPutIt"
+    ],
+    "plugin_sha256": "4d615f3654060c55984789a8d5ab9cc8c04c0afe41bbc79faa442f8f30831ee8",
+    "source_sha256": "2cbad45cc9d7462e45be1d5183662c9b9a3ab8e9ccd837a5c0f3d482d947ced5",
+    "candidate_sha256": "dca6f8f512c40231826b7d7495a2db2589160dd888659707642cd3a46ea97ff5",
+    "candidate_section_sha256": "35d1439f1e5ef140731cb7feae09f7741d115c5c96cd44261d7ce1b5e9f93ced",
+    "original_instruction_bytes": 156,
+    "candidate_section_bytes": 160,
+    "complete_section_match": true,
+    "scope": "Selected entry; counts 0,1,2,7,32; four overlaps; four coordinate/attribute tuples; all NZCV. Full section, register and flag agreement required.",
+    "differing_words": [],
+    "cases": 1280,
+    "register_difference_cases": {},
+    "nzcv_difference_cases": 0,
+    "entry": "C low candidate"
+  },
+  "production_integrated": false
+}
