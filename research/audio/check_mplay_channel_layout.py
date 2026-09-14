@@ -236,6 +236,8 @@ def main():
   for name,offset in [('far',1024),('backward',-1024),('odd',309)]:
    needle='        ASSERT((PlyNotePcmLoop & 1) =='
    cases.append(('note_pcm_advance_'+symbol+'_'+name,source.replace(needle,'        '+symbol+' = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM advancement transfer'))
+ cases += [('note_channel_link_extent',source.replace('        __ply_note_channel_link_end = .;','        . += 2;\n        __ply_note_channel_link_end = .;'),'ply_note channel link extent or continuation'),
+           ('note_channel_link_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_channel_link);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_channel_link);'),'ply_note channel link extent or continuation')]
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

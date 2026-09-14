@@ -571,16 +571,11 @@ PlyNoteChannelAttach:
 _081DDC40:
 	adds r0, r4, 0
 	bl ClearChain
-	movs r1, 0
-	str r1, [r4, 0x30]
-	ldr r3, [r5, 0x20]
-	str r3, [r4, 0x34]
-	cmp r3, 0
-	beq _081DDC54
-	str r4, [r3, 0x30]
-_081DDC54:
-	str r4, [r5, 0x20]
-	str r5, [r4, 0x2C]
+	.global PlyNoteChannelLink
+PlyNoteChannelLink:
+	.section .text.after_ply_note_channel_link, "ax", %progbits
+	.global PlyNoteLfoDelay
+PlyNoteLfoDelay:
 	ldrb r0, [r5, 0x1B]
 	strb r0, [r5, 0x1C]
 	cmp r0, r1

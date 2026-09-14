@@ -9492,3 +9492,54 @@ executable classification.
 The valid production layout links and all 239 altered layouts reject, including
 eight new advancement extent, continuation and loop/exit transfer constraints.
 Evidence: `.deps/soundmain-packed/ply-note/pcm-advance-production-layout.log`.
+
+
+## September 13, 2026 — Channel-list insertion integrated
+
+On baseline `115f3b61`, `src/m4a_ply_note_channel_link.c` replaces eighteen
+assembly instruction bytes at 080CFF8A..080CFF9C. It resets the selected
+channel's previous pointer, loads the track head, records it as the selected
+channel's next pointer, updates the former head's previous pointer if non-null,
+and stores the track head and channel owner. Volatile accesses retain original
+ordering, including overlapping fields. Existing private-tail support suffices;
+no compiler change was needed. The linker requires entry+326, exact extent 18
+and immediate fallthrough to LFO-delay initialization.
+
+The original-ROM model and candidate pass 83,232 cases: every combination of
+aligned channel/track/head addresses in a 68-byte window, plus null heads, with
+all sixteen incoming flag combinations. It checks full registers, SP/LR, full
+mapped RAM and ordered reads/writes. There are 8,160 loaded-null-head cases,
+including cases where the initial previous-pointer store aliases the subsequent
+track-head load. These synthetic aligned cases start after ClearChain returns
+and stop before LFO initialization; they do not establish the unlink callback's
+behavior or full ply_note execution.
+
+`make compare -j8` passes. The production checker verifies source identity,
+actual production object bytes and full-ROM identity. All 83,232 model cases
+pass, seven unsupported compiler contracts reject, and unannotated output is
+unchanged. Fresh pinned runtime libraries reproduce all four images and
+exported symbols. PCM selection retains all 84 C-owned bytes, and mixer,
+SoundMain and all 602 mapped MPlayMain instruction bytes retain C ownership.
+
+Main-ROM ownership is 721,064 C-owned (92.72%), 33,870 mixed C/assembly, 904
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,314 main-ROM and 420 payload bytes. There
+are 574 tracked main C files and 29 assembly entry markers. ply_note retains
+196 assembly instruction bytes. Production ELF SHA-256:
+`14db3038a1a8303127fa8831bcc196c6b6756d015815ffcdfd3924cda87abf27`.
+
+Evidence in `.deps/soundmain-packed/ply-note/`: `channel-link-report.json`,
+`channel-link-original-model.log`, `channel-link-check.log`,
+`channel-link-production-check.log`, `channel-link-production-build.log`,
+`channel-link-candidate.{c,o,bin,log}`, `channel-link-production.bin`,
+`channel-link-model.json`, `reject-channel-link-*.log`,
+`channel-link-runtime.log`, `channel-link-ownership.log`,
+`channel-link-source.json`, `channel-link-linked.json`, and mixer/SoundMain/
+MPlayMain/PCM-region audit logs. Tracked ownership, runtime, inline and audio
+receipts are refreshed. Next: the attachment unlink invocation, LFO
+initialization, remaining allocation/setup/frame paths, then runtime helpers,
+unit-list/transfer code and executable classification.
+
+The valid production layout links and all 241 altered layouts reject, including
+the two new channel-link extent/continuation cases. Evidence:
+`.deps/soundmain-packed/ply-note/channel-link-production-layout.log`.

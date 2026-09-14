@@ -1768,6 +1768,15 @@ SECTIONS
         src/m4a_ply_note_pcm_advance.o(.text);
         __ply_note_pcm_advance_end = .;
         src/m4a_1.o(.text.after_ply_note_pcm_advance);
+        __ply_note_channel_link_start = .;
+        src/m4a_ply_note_channel_link.o(.text);
+        __ply_note_channel_link_end = .;
+        src/m4a_1.o(.text.after_ply_note_channel_link);
+        ASSERT((PlyNoteChannelLinkBody & ~1) == PlyNoteChannelLink &&
+               __ply_note_channel_link_start == (ply_note & ~1) + 326 &&
+               __ply_note_channel_link_end - __ply_note_channel_link_start == 18 &&
+               PlyNoteLfoDelay == __ply_note_channel_link_end,
+               "ply_note channel link extent or continuation changed");
         ASSERT((PlyNotePcmAdvanceBody & ~1) == PlyNotePcmAdvance &&
                __ply_note_pcm_advance_start == (ply_note & ~1) + 308 &&
                __ply_note_pcm_advance_end - __ply_note_pcm_advance_start == 12 &&
