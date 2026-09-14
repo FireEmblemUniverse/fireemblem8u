@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Fresh-build the payload continuation and verify its original shared pool."""
-import hashlib,json,subprocess
+import argparse,hashlib,json,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/payload-irq-continuation';OUT.mkdir(exist_ok=True)
-source=ROOT/'research/payload/irq_continuation.c'
+parser=argparse.ArgumentParser()
+parser.add_argument('--source',type=Path,default=ROOT/'research/payload/irq_continuation.c')
+parser.add_argument('--json',type=Path,default=ROOT/'docs/payload-irq-continuation-research.json')
+args=parser.parse_args();source=args.source
 subprocess.run(['python3',str(ROOT/'tools/arm-dispatch/build_irq_frame.py'),'--output-dir',str(OUT)],check=True)
 compiler=ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc'
 flags=['-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-Werror=attributes','-fplugin='+str(OUT/'irq_frame.so'),'-fplugin-arg-irq_frame-pool=PayloadIrqHandlersPointer','-fplugin-arg-irq_frame-handler-symbol=gIrqFuncTable']
@@ -36,6 +39,6 @@ for name in ('mgfembp','mgfembp_20030206','mgfembp_20030219'):
  assert bad.returncode and 'IRQ handler pool displacement' in bad.stderr
  script.write_text(layout)
  images.append(dict(image=name,bytes=len(code),sha256=hashlib.sha256(code).hexdigest(),displaced_pool_rejected=True))
-report=dict(rejected_contracts=rejected,images=images,instruction_bytes=80,c_generated_instruction_bytes=60,retained_status_assembly_bytes=20,fixture_pool_prefix_bytes=8,c_pointer_bytes=4,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),production_integrated=False,scope='Exact continuation and shared-pool bytes in all three payloads. Explicit handler-symbol contract binds gIrqFuncTable. No independent callback/mode/return model yet.')
-(ROOT/'docs/payload-irq-continuation-research.json').write_text(json.dumps(report,indent=2)+'\n')
+report=dict(rejected_contracts=rejected,images=images,instruction_bytes=80,c_generated_instruction_bytes=60,retained_status_assembly_bytes=20,fixture_pool_prefix_bytes=8,c_pointer_bytes=4,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),production_integrated=source.resolve()==ROOT/'mgfembp/src/irq_continuation.c',scope='Exact continuation and shared-pool bytes in all three payloads. Explicit handler-symbol contract binds gIrqFuncTable. No independent callback/mode/return model yet.')
+args.json.write_text(json.dumps(report,indent=2)+'\n')
 print('80 continuation instruction bytes and 12 pool bytes match all three payloads; three displaced pools reject')

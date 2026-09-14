@@ -8,6 +8,12 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620228, '00300fe1', 4, 'asm volatile("mrs %0, cpsr"'),
+('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620240, '03f029e1', 4, 'asm volatile("msr cpsr_fc, %2"'),
+('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620272, '00300fe1', 4, 'asm volatile("mrs %0, cpsr"'),
+('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620284, '03f029e1', 4, 'asm volatile("msr cpsr_fc, %2"'),
+('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620296, '00f069e1', 4, 'asm volatile("msr spsr_fc, %0"'),
+
  ('mgfembp','src/irq_save_frame.c','PayloadIrqSaveFrame',0x02010050,'00004fe1',4,'asm volatile("mrs %0, spsr"'),
  ('main_rom', 'src/bios_soft_reset.c', 'SoftReset', 0x080D16BA, '01df', 2, 'asm volatile('),
  ('main_rom', 'src/bios_soft_reset.c', 'SoftReset', 0x080D16BC, '00df', 2, 'asm volatile('),

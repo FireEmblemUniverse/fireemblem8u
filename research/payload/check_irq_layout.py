@@ -7,7 +7,7 @@ for image in ('mgfembp','mgfembp_20030206','mgfembp_20030219'):
  cwd=ROOT/'mgfembp/build'/image
  objects=[line.split()[1] for line in (ROOT/f'mgfembp/{image}.map').read_text().splitlines() if line.startswith('LOAD ') and line.endswith('.o')]
  assert objects and all((cwd/x).is_file() for x in objects)
- for name,needle in [('entry_gap','src/irq_entry.o(.text);'),('frame_gap','src/irq_save_frame.o(.text);'),('search_gap','src/irq_search.o(.text);'),('continuation_gap','src/crt0.o(.text.irq_selected);')]:
+ for name,needle in [('entry_gap','src/irq_entry.o(.text);'),('frame_gap','src/irq_save_frame.o(.text);'),('search_gap','src/irq_search.o(.text);'),('continuation_gap','src/irq_continuation.o(.text);')]:
   assert layout.count(needle)==1
   script=out/(image+'-'+name+'.ld');script.write_text(layout.replace(needle,'. += 4; '+needle))
   result=subprocess.run(['arm-none-eabi-ld','-T',str(script),*objects,'-L'+str(ROOT/'.deps/runtime-c'),'-L'+str(ROOT/'tools/agbcc/lib'),'-lc','-lgcc','-o',str(out/(image+'-'+name+'.elf'))],cwd=cwd,capture_output=True,text=True)

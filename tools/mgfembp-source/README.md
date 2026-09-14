@@ -68,3 +68,7 @@ assertions; all three payload images remain exact.
 The payload IRQ saved frame now uses C stores and an explicit SPSR read,
 compiled with the parent matching compiler and IRQ frame pass. The payload
 Makefile builds the pass on demand and retains the checked search adjacency.
+
+The payload IRQ continuation now builds from C with explicit status-register
+operations. Its handler table uses the explicit gIrqFuncTable compiler contract,
+and the linker checks its shared C pointer placement after startup literals.

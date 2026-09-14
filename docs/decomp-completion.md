@@ -13232,3 +13232,30 @@ controls. Evidence: `docs/payload-irq-handler-contract.json` and updated
 `docs/payload-irq-continuation-research.json`. Payload dispatcher checks were
 rerun against the rebuilt candidate. Production payload integration and its
 full ownership/build audit refresh remain next.
+
+
+### Payload IRQ continuation integration (September 14, 2026)
+
+Baseline `20c16d4e`. Production irq_continuation.c now generates the 80-byte
+continuation, including 60 recovered C instruction bytes and 20 retained
+status-register instruction bytes. The four-byte handler pointer is C data;
+the eight-byte startup literal prefix remains in a separate assembly data
+section. Linker assertions preserve the shared pool displacement and existing
+startup/entry/frame/search contracts. The explicit compiler handler-symbol
+contract names gIrqFuncTable.
+
+All three payload images and the main ROM remain byte-identical. Fresh
+runtime builds reproduce all four images and exported symbols. The candidate
+checker was run against production C and all 110,649 dispatcher cases rerun
+against those exact compiled bytes at their original address. Twelve layout
+mutations reject. Evidence: `payload-irq-continuation.json`, existing per-image
+dispatch receipts and refreshed runtime, ownership and inline receipts.
+The dispatcher model's explicit hardware/nesting/real-handler exclusions
+remain; its candidate label denotes its isolated insertion mechanism.
+
+Payload commit `b86a821377508cd2091cb522caaf91d737e6e720` is retained in the
+verified recovery bundle. Assembly-source instructions fall to 52 startup
+bytes; inline instructions rise to 50 bytes, totaling 102 expanded assembly
+bytes. Mixed object ownership rises to 6,478 bytes; C-owned ownership remains
+18,364 because the continuation object contains retained status instructions.
+The complete executable/data classification and full decompilation remain open.

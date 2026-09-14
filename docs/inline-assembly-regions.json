@@ -1,10 +1,55 @@
 {
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
-    "mgfembp": 30,
+    "mgfembp": 50,
     "main_rom": 92
   },
   "sites": [
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010104",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010110",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010130",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x201013c",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010148",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
     {
       "image": "mgfembp",
       "source": "src/irq_save_frame.c",
@@ -462,8 +507,8 @@
       "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
     },
     "mgfembp": {
-      "elf_sha256": "542cfcc956bd426e683ab2c2493783fcdf3860298666a262780b96e29258b96c",
-      "map_sha256": "5371b8a8eec4d1017651465168779461539f87949a50916b38ea8576e75ed0bf"
+      "elf_sha256": "7ace166d892708d403d15795519fb8ed7983c40f1c9283e5e08fec3e9ed45be4",
+      "map_sha256": "4fc3a525de5574a105d90c1008ae8de2881b0676c3ebb32589bcda6c5343569b"
     }
   }
 }

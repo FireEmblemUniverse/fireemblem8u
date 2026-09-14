@@ -1,0 +1,36 @@
+{
+  "rejected_contracts": [
+    "wrong_table",
+    "wrong_contract",
+    "invalid_identifier",
+    "empty_identifier"
+  ],
+  "images": [
+    {
+      "image": "mgfembp",
+      "bytes": 92,
+      "sha256": "96ec92c1bdd5e438d324014d3e42dedcd5665757ae00f8681c3571c0989c99a3",
+      "displaced_pool_rejected": true
+    },
+    {
+      "image": "mgfembp_20030206",
+      "bytes": 92,
+      "sha256": "96ec92c1bdd5e438d324014d3e42dedcd5665757ae00f8681c3571c0989c99a3",
+      "displaced_pool_rejected": true
+    },
+    {
+      "image": "mgfembp_20030219",
+      "bytes": 92,
+      "sha256": "96ec92c1bdd5e438d324014d3e42dedcd5665757ae00f8681c3571c0989c99a3",
+      "displaced_pool_rejected": true
+    }
+  ],
+  "instruction_bytes": 80,
+  "c_generated_instruction_bytes": 60,
+  "retained_status_assembly_bytes": 20,
+  "fixture_pool_prefix_bytes": 8,
+  "c_pointer_bytes": 4,
+  "source_sha256": "9dd3a36f6c312624407ed7c90aacb161d3f51cd129012edb25cd2f7154b8c71a",
+  "production_integrated": true,
+  "scope": "Exact continuation and shared-pool bytes in all three payloads. Explicit handler-symbol contract binds gIrqFuncTable. No independent callback/mode/return model yet."
+}
