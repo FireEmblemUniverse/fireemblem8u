@@ -2,15 +2,15 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 13, 2026. Latest integrated milestone (baseline `0d030610`): ply_note's 34-byte channel initialization is matching C. All 160,000 alias cases pass; seven unsupported compiler contracts reject and unannotated output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,098/777,630 mapped instruction bytes (92.73%); reviewed non-library assembly is 1,280 bytes, with 575 tracked C files. The valid layout links and all 243 altered layouts reject. ply_note retains 162 assembly instruction bytes. PCM selection's 84 bytes and MPlayMain's 602 mapped instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 13, 2026. Latest integrated milestone (baseline `99e12d90`): ply_note's 52-byte pitch adjustment and frequency setup is matching C. All 137,216 model cases pass; twelve unsupported compiler contracts reject and unannotated direct-tail output is unchanged. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,150/777,630 mapped instruction bytes (92.74%); reviewed non-library assembly is 1,228 bytes, with 576 tracked C files. The valid layout links and all 248 altered layouts reject. ply_note retains 110 assembly instruction bytes. PCM selection's 84 bytes and MPlayMain's 602 mapped instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: recover remaining LFO/pitch/frequency
-setup, callback invocations and frame paths (162 production assembly instruction
-bytes total). Channel initialization checks cover ordered scalar copies after
-TrkVolPitSet returns and stop before ChnVolSetAsm. MPlayMain's
+Next: recover remaining LFO/PCM setup,
+callback invocations, final stores and frame paths (110 production assembly
+instruction bytes total). Frequency-setup checks stop before either frequency
+callback and cover only valid mapped bank pointers. MPlayMain's
 ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game
 completion or independent validation of every real callback implementation.
 
@@ -26,10 +26,11 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
-| Main-ROM instruction ownership | **92.73%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,280 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Main-ROM instruction ownership | **92.74%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
+| Reviewed non-library assembly | **1,228 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated ply_note pitch/frequency setup | **52/52 bytes exact; 137,216 cases pass; twelve unsupported contracts reject; full ROM/runtime match; 248 altered layouts reject** |
 | Integrated ply_note channel initialization | **34/34 bytes exact; 160,000 alias cases pass; seven unsupported contracts reject; full ROM/runtime match; 243 altered layouts reject** |
 | Integrated ply_note channel-list insertion | **18/18 bytes exact; 83,232 alias cases pass; seven unsupported contracts reject; full ROM/runtime match; 241 altered layouts reject** |
 | Complete ply_note PCM selection | **84/84 bytes C-owned; twelve-byte advancement passes 16,848 boundary and 37,369 selection cases; twelve unsupported contracts reject; full ROM/runtime match; 239 altered layouts reject** |

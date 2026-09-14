@@ -592,37 +592,15 @@ PlyNoteChannelInit:
 	.global PlyNoteVolumeInvoke
 PlyNoteVolumeInvoke:
 	bl ChnVolSetAsm
-	ldrb r1, [r4, 0x8]
-	movs r0, 0x8
-	ldrsb r0, [r5, r0]
-	adds r3, r1, r0
-	bpl _081DDCA0
-	movs r3, 0
-_081DDCA0:
-	ldr r6, [sp, 0xC]
-	cmp r6, 0
-	beq _081DDCCE
-	mov r6, r9
-	ldrb r0, [r6, 0x2]
-	strb r0, [r4, 0x1E]
-	ldrb r1, [r6, 0x3]
-	movs r0, 0x80
-	tst r0, r1
-	bne _081DDCBA
-	movs r0, 0x70
-	tst r0, r1
-	bne _081DDCBC
-_081DDCBA:
-	movs r1, 0x8
-_081DDCBC:
-	strb r1, [r4, 0x1F]
-	ldrb r2, [r5, 0x9]
-	adds r1, r3, 0
-	ldr r0, [sp, 0xC]
-	ldr r3, [sp, 0x4]
-	ldr r3, [r3, 0x30]
+	.global PlyNoteFrequencySetup
+PlyNoteFrequencySetup:
+	.section .text.after_ply_note_frequency_setup, "ax", %progbits
+	.global PlyNoteCgbFrequencyInvoke
+PlyNoteCgbFrequencyInvoke:
 	bl call_r3
 	b _081DDCDC
+	.global PlyNotePcmFrequencySetup
+PlyNotePcmFrequencySetup:
 _081DDCCE:
 	ldrb r2, [r5, 0x9]
 	adds r1, r3, 0

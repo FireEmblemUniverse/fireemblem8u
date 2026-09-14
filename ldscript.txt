@@ -1776,6 +1776,20 @@ SECTIONS
         src/m4a_ply_note_channel_init.o(.text);
         __ply_note_channel_init_end = .;
         src/m4a_1.o(.text.after_ply_note_channel_init);
+        __ply_note_frequency_setup_start = .;
+        src/m4a_ply_note_frequency_setup.o(.text);
+        __ply_note_frequency_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_frequency_setup);
+        ASSERT((PlyNoteFrequencySetupBody & ~1) == PlyNoteFrequencySetup &&
+               __ply_note_frequency_setup_start == (ply_note & ~1) + 404 &&
+               __ply_note_frequency_setup_end - __ply_note_frequency_setup_start == 52 &&
+               PlyNoteCgbFrequencyInvoke == __ply_note_frequency_setup_end,
+               "ply_note frequency setup extent or continuation changed");
+        ASSERT(PlyNotePcmFrequencySetup == (ply_note & ~1) + 462 &&
+               (PlyNotePcmFrequencySetup & 1) == 0 &&
+               PlyNotePcmFrequencySetup >= __ply_note_frequency_setup_start + 20 &&
+               PlyNotePcmFrequencySetup <= __ply_note_frequency_setup_start + 20 + 254,
+               "ply_note frequency PCM transfer changed");
         ASSERT((PlyNoteChannelInitBody & ~1) == PlyNoteChannelInit &&
                __ply_note_channel_init_start == (ply_note & ~1) + 366 &&
                __ply_note_channel_init_end - __ply_note_channel_init_start == 34 &&

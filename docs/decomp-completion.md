@@ -9594,3 +9594,58 @@ paths, then runtime helpers, unit-list/transfer code and executable classificati
 The valid production layout links and all 243 altered layouts reject, including
 the two new initialization extent/continuation cases. Evidence:
 `.deps/soundmain-packed/ply-note/channel-init-production-layout.log`.
+
+
+## September 13, 2026 — Pitch adjustment and frequency setup integrated
+
+On baseline `99e12d90`, `src/m4a_ply_note_frequency_setup.c` replaces 52 assembly
+instruction bytes at 080CFFD8..080D000C. It applies the signed track key offset,
+clamps a negative pitch to zero, chooses PCM or CGB frequency setup from the
+private frame, configures CGB tone bytes, and prepares the CGB callback registers.
+Ordered volatile loads/stores preserve later reloads from the frame and bank.
+Disabling if-conversion retains the original clamp branch rather than a
+branchless shift/AND sequence. Reversing the commutative source mask operands
+retains the original TST encoding. Existing add/sign, ADD-zero-copy and direct
+tail plugins suffice; no compiler source changes were required.
+
+The original-ROM and matching candidate models each pass 137,216 cases: every
+key/signed-offset byte pair on the PCM path, every CGB flag byte with boundary
+pitch inputs and four nonzero selectors, and aligned alias layouts. All NZCV
+values occur across cases. There are 65,536 PCM exits, 71,680 CGB exits and
+16,672 clamped cases. The model checks full registers, SP/LR, full mapped memory
+and ordered accesses, including frame selector reloads after channel writes.
+It excludes layouts that overwrite the bank pointer's high bytes with arbitrary
+flags and leave mapped memory; neither frequency callback nor full ply_note
+execution is covered. CGB pitch combinations and RAM data are sampled.
+
+`make compare -j8` passes. The production checker verifies source identity,
+actual production object bytes relocated at the original address, and full-ROM
+identity. All 137,216 model cases pass, twelve unsupported compiler contracts
+reject, and unannotated direct-tail output is unchanged. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. PCM selection
+retains its complete 84-byte C ownership; mixer, SoundMain and all 602 mapped
+MPlayMain instruction bytes retain C ownership. The linker requires entry+404,
+extent 52, immediate CGB callback continuation, and the original even PCM target
+at entry+462 within conservative conditional-branch reach.
+
+Main-ROM ownership is 721,150 C-owned (92.74%), 33,870 mixed C/assembly, 818
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,228 main-ROM and 420 payload bytes. There
+are 576 tracked main C files and 29 assembly entry markers. ply_note retains
+110 assembly instruction bytes. Production ELF SHA-256:
+`53b04b0b0907efb6d40f3712e1e72a089bc96d1ec5af69327a229b9e58047888`.
+
+Evidence in `.deps/soundmain-packed/ply-note/`: `frequency-setup-report.json`,
+`frequency-original-model.log`, `frequency-setup-check.log`,
+`frequency-setup-production-check.log`, `frequency-setup-production-build.log`,
+`frequency-setup-candidate.{c,o,elf,bin,ld,log}`,
+`frequency-setup-production.{elf,bin}`, `frequency-model.json`,
+`reject-frequency-*.log`, `frequency-setup-runtime.log`,
+`frequency-setup-ownership.log`, `frequency-setup-source.json`,
+`frequency-setup-linked.json` and the refreshed region audit logs/receipts.
+Next: remaining LFO/PCM setup, callback invocations, final stores and frame
+paths, then runtime helpers, unit-list/transfer code and executable classification.
+
+The valid production layout links and all 248 altered layouts reject, including
+five new frequency-setup extent/continuation and PCM transfer cases. Evidence:
+`.deps/soundmain-packed/ply-note/frequency-setup-production-layout.log`.
