@@ -10863,3 +10863,28 @@ SPSR/frame-save boundary. `compare_entry.py` and
 `docs/irq-entry-research.json` reproduce this evidence. It is not integrated;
 the production startup ADR and section split must be adapted first. SPSR
 capture, explicit IRQ-frame saving and mode transitions remain assembly.
+
+### Integrated IRQ entry setup: twenty instruction bytes converted
+
+`src/irq_entry.c` now supplies IrqMain's first five instructions at
+080000FC..08000110. `src/crt0.s` retains SPSR capture and frame saving in a
+separate adjacent section. The startup ADR uses an explicit
+R_ARM_ALU_PC_G0_NC relocation with its ARM PC bias encoded in the instruction
+addend. It produces the original ADR bytes and still points to IrqMain.
+The linker asserts `IrqSaveFrame == IrqMain + 20`; an isolated displaced
+continuation is rejected. No compiler backend change was needed.
+
+`audit_irq_entry.py` checks the twenty C-owned bytes, symbols, source,
+adjacency assertion and full-ROM equality. The dispatcher model now accepts
+`--rom`, and all 4,115 cases pass against `fireemblem8.gba`: 3,107 returns
+with synthetic ARM/Thumb handlers and 1,008 Game Pak halts. This remains
+a model of the wrapper, not hardware interrupt entry, BIOS epilogue or
+actual game-handler execution. `make compare -j8`, all four fresh runtime
+rebuilds and the existing code/data-provenance audits pass.
+
+Assembly-source instruction bytes fall from 300 to 280; with eighteen
+inline bytes, reviewed main-ROM non-library assembly is 298 bytes.
+Whole-object C ownership is 739,998/777,630 (95.16% rounded), and tracked
+main C files rise to 597. The saved IRQ frame, mode transitions, startup,
+Thumb entries, BIOS instructions, runtime helpers and complete executable
+classification are still unfinished.

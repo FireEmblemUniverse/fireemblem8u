@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Check original IRQ entry/search/exit using synthetic ARM and Thumb handlers."""
 from pathlib import Path
-import hashlib,json,random,subprocess
+import argparse,hashlib,json,random,subprocess
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2]
-rom=(ROOT/'baserom.gba').read_bytes()
+parser=argparse.ArgumentParser()
+parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba')
+args=parser.parse_args()
+rom=args.rom.read_bytes()
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
 u=Uc(UC_ARCH_ARM,UC_MODE_ARM);u.mem_map(0x08000000,len(rom));u.mem_write(0x08000000,rom)
 u.mem_map(0x02000000,0x40000);u.mem_map(0x03000000,0x8000);u.mem_map(0x04000000,0x1000)
@@ -64,5 +67,5 @@ for index,word in enumerate(words):
  u.reg_write(r.UC_ARM_REG_CPSR,0x1f)
  assert u.reg_read(r.UC_ARM_REG_SP)==0x03007000 and u.reg_read(r.UC_ARM_REG_LR)==0x03006000
  outcomes['returned']+=1;modes['thumb' if thumb else 'arm']+=1
-report=dict(cases=len(words),outcomes=outcomes,handler_modes=modes,original_block_sha256=hashlib.sha256(rom[0xfc:0x21c]).hexdigest(),scope='Original ROM IRQ entry/search/exit with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.')
+report=dict(rom_sha256=hashlib.sha256(rom).hexdigest(),cases=len(words),outcomes=outcomes,handler_modes=modes,original_block_sha256=hashlib.sha256(rom[0xfc:0x21c]).hexdigest(),scope='Original ROM IRQ entry/search/exit with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.')
 print(json.dumps(report,indent=2))

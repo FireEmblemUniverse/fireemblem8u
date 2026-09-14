@@ -138,6 +138,10 @@ src/irq_search.o: $(IRQ_SEARCH_PLUGIN)
 src/irq_search.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/irq_search.o: CC1FLAGS := -std=gnu89 -O2 -fno-cse-follow-jumps -fno-shrink-wrap -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -fplugin=$(IRQ_SEARCH_PLUGIN) -fplugin-arg-arm_noreturn_frame-callee=IrqSelected -fplugin-arg-arm_noreturn_frame-fold-halts=2 -fplugin-arg-arm_noreturn_frame-adjacent=IrqSelected
 
+src/irq_entry.o: $(IRQ_SEARCH_PLUGIN)
+src/irq_entry.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/irq_entry.o: CC1FLAGS := -std=gnu89 -O2 -fno-shrink-wrap -fno-schedule-insns2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -fplugin=$(IRQ_SEARCH_PLUGIN) -fplugin-arg-arm_noreturn_frame-callee=IrqSaveFrame -fplugin-arg-arm_noreturn_frame-adjacent=IrqSaveFrame
+
 MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
 $(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g

@@ -246,6 +246,9 @@ SECTIONS
         /* .text */
         src/rom_header.o(.text);
         src/crt0.o(.text);
+        src/irq_entry.o(.text);
+        src/crt0.o(.text.irq_save_frame);
+        ASSERT(IrqSaveFrame == IrqMain + 20, "IRQ entry adjacency changed");
         src/irq_search.o(.text);
         src/crt0.o(.text.irq_after_search);
         ASSERT(IrqSelected == IrqSearch + 180, "IRQ search adjacency changed");

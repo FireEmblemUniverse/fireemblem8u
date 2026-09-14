@@ -1,4 +1,5 @@
 {
+  "displaced_link_rejected": true,
   "instruction_bytes": 20,
   "matching_words": 5,
   "source_sha256": "5e84b8348b1e8032d1a2e2e0a05599297278c31d6a50e171220df01cf067f2ec",

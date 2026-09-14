@@ -4,8 +4,8 @@
   "verified_asset_bindings": 157,
   "asset_bound_bytes": 312032,
   "residual_bytes": 12364,
-  "elf_sha256": "8886be217e414f754c50e413aa64c471e3fa3ef564cde2da4452d59688c6eccb",
-  "map_sha256": "f67946988428cfbc949d0bbfbcee10a08c070359be74024f72dceab9b7ebc64e",
+  "elf_sha256": "63f0b99ab81e40950b02aac0f2eb4dfd44adcccc91dcc3ddbcc1a069bd28124f",
+  "map_sha256": "919971786c30dbcf97c9417dfe9cda1582a5dd45331bcc6db0ddc2a9eea9da52",
   "sources": {
     "src/banim-ekrmain.c": "87d73839a7d460f93228c028d2aa68cb7aa02edb6155bbde492d4a845bec7cbc",
     "src/bksel.c": "40a335715a5d31a302e31326fd7ba1df91b8cd57df2785b5ef93d98ea15a5ebb",
