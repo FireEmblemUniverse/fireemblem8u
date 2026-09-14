@@ -10836,3 +10836,30 @@ rises to 739,978/777,630 (95.16%), and tracked main C files rise to 596.
 Expanded-payload assembly remains 420 bytes. Startup and IRQ mode/state
 transitions, Thumb entry scaffolding, BIOS instructions, runtime helpers
 and complete executable classification remain in scope.
+
+### IRQ entry/exit behavior and exact entry-setup draft
+
+`research/irq/check_dispatch.py` executes the original ROM from IrqMain
+through its final return using synthetic ARM and Thumb handler stubs. All
+4,115 cases pass: 3,107 returns (1,571 ARM handlers and 1,536 Thumb handlers)
+and 1,008 Game Pak halts. It checks acknowledgement mask and address,
+System-mode handler entry, IRQ/System banked stacks and LRs, the saved
+SPSR/IE/base/LR frame, restored SPSR and IE, final IRQ-disabled mode, and
+register/flag results. Synthetic handlers deliberately change IE and
+caller-saved registers/flags; the wrapper restores its required state.
+Game Pak cases make no acknowledgement or handler call.
+
+This test does not simulate hardware interrupt entry, BIOS epilogue, nested
+interrupts, IF write-one-to-clear semantics or real game handlers. The
+receipt is `docs/irq-dispatch-research.json`; the existing exhaustive search
+model remains a separate check.
+
+`research/irq/entry.c` expresses the first five entry instructions as C:
+construct IE/IF base, read the word, and extract IE. Empty pointer ties
+prevent address folding; disabling late scheduling keeps the removable
+entry save in the existing backend's accepted location. The isolated
+20-byte section matches exactly, with a linker assertion for the following
+SPSR/frame-save boundary. `compare_entry.py` and
+`docs/irq-entry-research.json` reproduce this evidence. It is not integrated;
+the production startup ADR and section split must be adapted first. SPSR
+capture, explicit IRQ-frame saving and mode transitions remain assembly.

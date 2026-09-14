@@ -1,0 +1,8 @@
+{
+  "instruction_bytes": 20,
+  "matching_words": 5,
+  "source_sha256": "5e84b8348b1e8032d1a2e2e0a05599297278c31d6a50e171220df01cf067f2ec",
+  "code_sha256": "c7250d65bbba8c56f8a7aee1274b31bdaa8ef646d84cf905ca38002eb5f96761",
+  "production_integrated": false,
+  "scope": "Exact ordinary register setup before SPSR capture/frame save, with isolated linker adjacency check. The production startup section split is not yet changed."
+}

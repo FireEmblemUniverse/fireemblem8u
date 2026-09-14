@@ -1,0 +1,13 @@
+{
+  "cases": 4115,
+  "outcomes": {
+    "returned": 3107,
+    "halted": 1008
+  },
+  "handler_modes": {
+    "arm": 1571,
+    "thumb": 1536
+  },
+  "original_block_sha256": "5ad90b88272b8a2f2f425121a98e5b24b83836975c7f0e23ea6ba596cd7ba602",
+  "scope": "Original ROM IRQ entry/search/exit with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers."
+}
