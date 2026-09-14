@@ -12114,3 +12114,26 @@ original entry does that before reaching the saved-r4 core. GCC also merges
 the original two returns. Those layout differences and the early-return/
 zero paths remain before a full 192-byte helper can replace the archive
 member. No compiler plugin or production library changed this turn.
+
+
+### Modulus entry-state and return-layout probes (September 14, 2026)
+
+Baseline `e32cd3e5`. `probe_umod_layout.py` tests twelve combinations of
+cross-jumping, tree tail merging, block ordering, loop optimization,
+branch-probability and dominator/thread-jump options. All accept the frame
+contract and produce the same 168-byte size, with merged returns; none
+matches the original 170-byte saved-r4 core. The separate JSON receipt
+records each flag set and differing halfword offsets.
+
+`umod_entry_state.c` consumes private incoming r3=1 instead of initializing
+it inside the frame. The extended checker explicitly seeds this register
+with `--initial-bit-one`, leaving the original reference entry intact.
+All 1,724 applicable cases pass `--require-state-match`: every r0-r14,
+CPSR and stack-write sequence matches. The candidate is now 166 bytes.
+It starts with the original push and normalization sequence; the remaining
+four-byte size deficit corresponds to the merged early pop/return pair.
+The entry-state requirement is a private convention, not a public C ABI.
+
+Next add a narrowly checked conditional early-return transformation with
+rejection controls, then verify all 170 core bytes before combining the
+entry guard and zero path. No production source or compiler pass changed.
