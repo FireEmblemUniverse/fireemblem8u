@@ -1,0 +1,19 @@
+{
+  "compared_instruction_words": 45,
+  "matching_instruction_words": 43,
+  "candidate_total_bytes": 192,
+  "mismatches": [
+    {
+      "address": "0x8000120",
+      "original": "feffff1a",
+      "candidate": "2a00001a"
+    },
+    {
+      "address": "0x80001c8",
+      "original": "feffff1a",
+      "candidate": "0100001a"
+    }
+  ],
+  "production_integrated": false,
+  "scope": "Aligned original search window only. Extra terminal call and separate halt loops remain beyond that window; this is not an executable drop-in replacement."
+}

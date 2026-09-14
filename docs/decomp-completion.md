@@ -10773,3 +10773,28 @@ IRQ entry/exit, mode transitions, acknowledgement writes and actual handler
 execution remain outside the model. Next work is the flag-loop layout,
 private frame and adjacent handoff needed for exact region generation.
 Production code and ownership totals remain unchanged this milestone.
+
+### IRQ search private frame and instruction alignment
+
+The constrained search now optionally uses the already validated
+`matching_arm_noreturn_frame` contract with `IrqSelected` as its sole private
+callee. `-fno-shrink-wrap` places the removable LR save at entry, and
+`-fno-cse-follow-jumps` restores the literal-zero assignment to r2. The
+192-byte candidate has no stack adjustment and preserves original register
+selection. `compare_search.py` aligns it at 08000118 and compares the
+original 180-byte window: 43 of 45 words match exactly. The two differences
+are the branches to separate halt blocks. An extra terminal call and the
+two unconditional halt branches remain outside the compared window.
+
+All 69,632 cases pass again. Dispatches agree on r0-r12, CPSR and SP.
+Halted cases additionally agree on LR; selected LR is excluded because the
+placeholder call changes it. The test's input coverage remains every
+16-bit pending mask plus 4,096 seeded IE/IF words. Receipts are
+`docs/irq-search-private-frame-research.json` and
+`docs/irq-search-aligned-research.json`. The initial direct-flag-loop source
+experiment was rejected because GCC emitted nonflag-setting AND before
+reading flags; the retained source continues to use value-based C loops.
+
+Next work is to fold proven immutable halt blocks into their conditional
+branches and replace the private terminal call with validated adjacency.
+No production code or completion totals change at this research milestone.

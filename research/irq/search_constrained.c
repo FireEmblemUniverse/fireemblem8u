@@ -3,7 +3,12 @@ register unsigned irqBit asm("r0");
 register unsigned irqPending asm("r1");
 register unsigned irqWord asm("r2");
 extern void IrqSelected(void) __attribute__((noreturn));
-void __attribute__((noreturn)) IrqSearch(void)
+#ifdef IRQ_PRIVATE_FRAME
+#define IRQ_FRAME __attribute__((matching_arm_noreturn_frame))
+#else
+#define IRQ_FRAME
+#endif
+void IRQ_FRAME __attribute__((noreturn)) IrqSearch(void)
 {
     irqPending = irqWord & (irqWord >> 16);
     asm volatile("" : "+r"(irqPending));

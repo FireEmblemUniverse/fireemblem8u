@@ -7,10 +7,13 @@ from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/irq-search'
 parser=argparse.ArgumentParser()
 parser.add_argument('--source',type=Path,default=ROOT/'research/irq/search.c')
+parser.add_argument('--cflag',action='append',default=[])
+parser.add_argument('--stack-delta',type=int,default=-4)
+parser.add_argument('--check-halt-state',action='store_true')
 parser.add_argument('--check-state',action='store_true')
 args=parser.parse_args()
 OUT.mkdir(exist_ok=True)
-subprocess.run(['arm-none-eabi-gcc','-c','-O2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(args.source),'-o',str(OUT/'search.o')],check=True,capture_output=True)
+subprocess.run(['arm-none-eabi-gcc','-c','-O2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',*args.cflag,str(args.source),'-o',str(OUT/'search.o')],check=True,capture_output=True)
 (OUT/'search.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } IrqSelected = 0x080ff000; }')
 subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'search.ld'),str(OUT/'search.o'),'-o',str(OUT/'search.elf')],check=True)
 subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'search.elf'),str(OUT/'search.bin')],check=True)
@@ -45,11 +48,13 @@ for index,word in enumerate(words):
   u.reg_write(r.UC_ARM_REG_R2,word);u.reg_write(r.UC_ARM_REG_LR,0x03006000)
   u.emu_start(0x080f0000 if candidate else 0x08000118,0,count=200)
   assert state['result']==expected,(index,hex(word),candidate,state,expected)
-  states.append(([u.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(13)],u.reg_read(r.UC_ARM_REG_CPSR),u.reg_read(r.UC_ARM_REG_SP)))
+  states.append(([u.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(13)],u.reg_read(r.UC_ARM_REG_CPSR),u.reg_read(r.UC_ARM_REG_SP),u.reg_read(r.UC_ARM_REG_LR)))
  if args.check_state and expected[0]=='selected':
   assert states[0][:2]==states[1][:2],(index,states)
-  assert states[1][2]==states[0][2]-4,(index,states)
+  assert states[1][2]==states[0][2]+args.stack_delta,(index,states)
+ if args.check_halt_state and expected[0]=='halt':
+  assert states[0]==states[1],(index,states)
  outcomes[expected[0]]+=1
  if expected[0]=='selected' and expected[1]==0:zero+=1
-report=dict(source=str(args.source.resolve().relative_to(ROOT)),selected_state_check=args.check_state,cases=len(words),exhaustive_pending_masks=65536,seeded_ie_if_words=4096,outcomes=outcomes,zero_mask_dispatches=zero,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent lowest-set-bit model on Game Pak halt or acknowledgement mask, pending word and handler-table offset. No recognized pending bit selects offset 52 with mask zero. Optional selected-state checks cover r0-r12/CPSR and the known four-byte candidate stack decrement. Halt-state parity, IRQ mode transitions and actual handler execution are not checked; candidate is not byte-matching.')
+report=dict(compiler_flags=args.cflag,expected_stack_delta=args.stack_delta,halt_state_check=args.check_halt_state,source=str(args.source.resolve().relative_to(ROOT)),selected_state_check=args.check_state,cases=len(words),exhaustive_pending_masks=65536,seeded_ie_if_words=4096,outcomes=outcomes,zero_mask_dispatches=zero,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent lowest-set-bit model on Game Pak halt or acknowledgement mask, pending word and handler-table offset. No recognized pending bit selects offset 52 with mask zero. Optional selected-state checks cover r0-r12/CPSR and the specified candidate stack delta. Optional halt-state checks additionally compare LR and SP. IRQ mode transitions and actual handler execution are not checked; candidate is not byte-matching.')
 (OUT/'model.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
