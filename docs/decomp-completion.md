@@ -10390,3 +10390,29 @@ regeneration chain for this merged contribution. It does not establish
 animation interpreter command semantics or eliminate remaining assembly,
 runtime helpers and other executable-classification gaps. C instruction
 ownership remains unchanged.
+
+### Animation motion grammar and references validated
+
+The format was reviewed against `AnimInterpret` in `src/animedrv.c` and
+the decoding macros in `include/anime.h`. `scripts/audit_banim_commands.py`
+parses the entire 435,636-byte motion input corpus without treating operands
+as opcodes. It finds only 0x80 STOP (2,409), 0x85 queued COMMAND (14,421),
+and three-word 0x86 FRAME (30,693). No interpreter callback, script-pointer,
+or force-sprite opcode occurs in these streams. All command IDs fit the
+reviewed 0..0x7b source macro range.
+
+Each frame points at the start of a verified compressed sheet asset, with
+a twelve-byte-aligned OAM offset fitting both corresponding pools. All
+4,818 mode-table entries identify instruction boundaries and structurally
+reach a STOP when advancing over each complete record. Six malformed inputs
+reject: callback opcode, truncated frame, wrong sheet pointer, unaligned
+OAM offset, unknown command ID and a noncanonical stop payload. The receipt
+`docs/banim-command-classification.json` binds each stream and the interpreter
+source/header hashes to the current ELF.
+
+This completes static word classification for these motion streams and
+resolves the risk of mistaking callback operands for ordinary animation
+records in this corpus. It does not simulate wait-command release, queued
+command handlers, command-queue capacity, frame timing or actual rendering.
+A structural STOP is not a claim that execution always reaches it. Those
+limits remain explicit; native C instruction coverage is unchanged.
