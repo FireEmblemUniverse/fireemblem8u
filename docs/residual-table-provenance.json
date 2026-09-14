@@ -1,0 +1,903 @@
+{
+  "terrain_arrays": 109,
+  "terrain_values": 7085,
+  "terrain_unmapped_bytes": 7020,
+  "graphics": [
+    {
+      "object": "src/fontgrp.o",
+      "symbol": "debug_font_4bpp",
+      "asset": "graphics/debug_font.4bpp",
+      "bytes": 2048,
+      "sha256": "9a2334bb4fedf02ea8a3ba8a6f6d716d067f8232c4ead461750a65c55abe9fa5",
+      "source_sha256": "a812ad5a02a2130e0b55062d1d9fe83200ab9fb08f87d25d35dee140209daa53"
+    },
+    {
+      "object": "src/data/unit_icon/const_data_unit_icon_move.o",
+      "symbol": "unit_icon_move_Ephraim_Lord_sheet",
+      "asset": "graphics/unit_icon/move/unit_icon_move_Ephraim_Lord_sheet.4bpp.lz",
+      "bytes": 2480,
+      "sha256": "3a39c04e9392f6336b150022e9e30c73339d8613f87445be4f2f3a4e423a47ab",
+      "source_sha256": "edb06d8d3b71d6700d1741c611c61ee7a270baff6b12d226431bdb3a5c3dd780"
+    }
+  ],
+  "newly_bound_bytes": 11548,
+  "residual_bytes": 639,
+  "terrain_source_sha256": "cdeaab3f889e9e39851f6c222f6be3fd915d2b1ca6ac4e2a8025659f251ff509",
+  "terrain_header_sha256": "a6b123f55767458d366191456b762c2550741ce5d352290e0cfde817873c9dbd",
+  "elf_sha256": "429a0a8c91e6f70d5ebf2525d14ab8d37a5371c9a2229d3f00a124ce30d50af1",
+  "tables": [
+    {
+      "name": "TerrainTable_MovCost_CommonT2Normal",
+      "start": 142653448,
+      "end": 142653513,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "fa8e59711ec73ac61fafbaadc346e8b5a195fad5c2812859aa4985898f1c8f3f"
+    },
+    {
+      "name": "TerrainTable_MovCost_CommonT1Normal",
+      "start": 142653513,
+      "end": 142653578,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "15ef9edf99749fe534855798450b0f995cf14b6e5ffbfeaabc3140561fec9c77"
+    },
+    {
+      "name": "TerrainTable_MovCost_ArmorNormal",
+      "start": 142653578,
+      "end": 142653643,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4b70afdf6a6c3727c70463ca889120599a85681f2ca11a5e5d77df89f99b6ec0"
+    },
+    {
+      "name": "TerrainTable_MovCost_FighterNormal",
+      "start": 142653643,
+      "end": 142653708,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "7555170554d5d5189d8abf93f12d0fdf69beeabd3b8471fe5fbe8c2178e9970c"
+    },
+    {
+      "name": "TerrainTable_MovCost_BerserkerNormal",
+      "start": 142653708,
+      "end": 142653773,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "af394c98f5c8acc247803214727e7a20012cafc9827a8b7252ba8221e2077c92"
+    },
+    {
+      "name": "TerrainTable_MovCost_BrigandNormal",
+      "start": 142653773,
+      "end": 142653838,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "50e17097765d84bbd67b6053259a557a4cd95d3b39dacc6f63127ca32f82d154"
+    },
+    {
+      "name": "TerrainTable_MovCost_PirateNormal",
+      "start": 142653838,
+      "end": 142653903,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "cb83110358a6c39312959215d302b6dc827fb371dd0075bae67eea12e0d02370"
+    },
+    {
+      "name": "TerrainTable_MovCost_ThiefNormal",
+      "start": 142653903,
+      "end": 142653968,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "fa8e59711ec73ac61fafbaadc346e8b5a195fad5c2812859aa4985898f1c8f3f"
+    },
+    {
+      "name": "TerrainTable_MovCost_MagicNormal",
+      "start": 142653968,
+      "end": 142654033,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "3c611bb6730bfb62249208132b42e38393c210d26750bc56788c4c36f9150ae7"
+    },
+    {
+      "name": "TerrainTable_MovCost_CivilianNormal",
+      "start": 142654033,
+      "end": 142654098,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "15ef9edf99749fe534855798450b0f995cf14b6e5ffbfeaabc3140561fec9c77"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT1Normal",
+      "start": 142654098,
+      "end": 142654163,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "2001826f304b1673e03bc8ac6bc6316ef330a010cca910295be682ecc06f90ea"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT2Normal",
+      "start": 142654163,
+      "end": 142654228,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "6b860402ab9cbd21d75def7bf81a9f977ef62cda534804ae6b8e815ca041be5c"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT1Normal",
+      "start": 142654228,
+      "end": 142654293,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4e0283e4236e6ae2c12747f2c5eb53062f733c0c54d25a8165b52f49eeb7647e"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT2Normal",
+      "start": 142654293,
+      "end": 142654358,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "0129184976827d8e278349406dcb528d197f3c1e262d49c0dbd6583d87cfecb9"
+    },
+    {
+      "name": "TerrainTable_MovCost_FlyNormal",
+      "start": 142654358,
+      "end": 142654423,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "31dd450a99fc03ce8b8cb5c05205f24953167d5a0ff1763529e2355aedb7777b"
+    },
+    {
+      "name": "TerrainTable_MovCost_DemonKing",
+      "start": 142654423,
+      "end": 142654488,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "63d9808b2d2162ae3df13a7e7f803b9b380e9968ec91bf9f1818ec7b9e16360d"
+    },
+    {
+      "name": "TerrainMoveCost_Ballista",
+      "start": 142654488,
+      "end": 142654553,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "ac2eed958a887975b453690b59de5d4e3938d3fc373f9f1fe862315c9bd07452"
+    },
+    {
+      "name": "TerrainTable_MovCost_CommonT2Rain",
+      "start": 142654553,
+      "end": 142654618,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_CommonT1Rain",
+      "start": 142654618,
+      "end": 142654683,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_ArmorRain",
+      "start": 142654683,
+      "end": 142654748,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "346b1c260858810ab02cd3209fc80da0c175fda1a5d208e18860efb06864f993"
+    },
+    {
+      "name": "TerrainTable_MovCost_FighterRain",
+      "start": 142654748,
+      "end": 142654813,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "142cb1368fc8bf89564bf4c5ad31ebdc007be762fc6f538c001d248b8810cf89"
+    },
+    {
+      "name": "TerrainTable_MovCost_BerserkerRain",
+      "start": 142654813,
+      "end": 142654878,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "06b756c6a4e86b953dfb616c6a8302e8a5f6081f289aa90101d88808ca92f84e"
+    },
+    {
+      "name": "TerrainTable_MovCost_BrigandRain",
+      "start": 142654878,
+      "end": 142654943,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "95d1b225c695a392a02189eacd4a857a32b67a01b5338b7c90961462243cee52"
+    },
+    {
+      "name": "TerrainTable_MovCost_PirateRain",
+      "start": 142654943,
+      "end": 142655008,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4129d056e2b2a23b8b3fdd0be62360121dae93af79c729fe3f1e9425f416aea0"
+    },
+    {
+      "name": "TerrainTable_MovCost_ThiefRain",
+      "start": 142655008,
+      "end": 142655073,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_MagicRain",
+      "start": 142655073,
+      "end": 142655138,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_CivilianRain",
+      "start": 142655138,
+      "end": 142655203,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT1Rain",
+      "start": 142655203,
+      "end": 142655268,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4bedbf6c0ca28b989b910c91d2a0b9348a4b7649a5429e2cc60c546b0e1b146f"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT2Rain",
+      "start": 142655268,
+      "end": 142655333,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "6b6950a647cefa0d6521218bf6407445630aaa2b0c911ba0564b4d4d722f3663"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT1Rain",
+      "start": 142655333,
+      "end": 142655398,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "362dc570c77b06919e93eab37e15dd2a024446103381538e33a8255d8828c73b"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT2Rain",
+      "start": 142655398,
+      "end": 142655463,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "a62bea1105f305876c34d669d9d5d452c6201d1d25fffa508ef73bb72dea631e"
+    },
+    {
+      "name": "TerrainTable_MovCost_FlyRain",
+      "start": 142655463,
+      "end": 142655528,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "b91837d66b24f8ed810acab8bce03d3777a3ce5c61fb22cca069af7dd6242502"
+    },
+    {
+      "name": "Unk_TerrainTable_1",
+      "start": 142655528,
+      "end": 142655593,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "0265623a0ebe2401ba49ed55607e99b54018c852dcf3dcbe37b842ff17959c12"
+    },
+    {
+      "name": "TerrainTable_MovCost_CommonT2Snow",
+      "start": 142655593,
+      "end": 142655658,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_CommonT1Snow",
+      "start": 142655658,
+      "end": 142655723,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_ArmorSnow",
+      "start": 142655723,
+      "end": 142655788,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "346b1c260858810ab02cd3209fc80da0c175fda1a5d208e18860efb06864f993"
+    },
+    {
+      "name": "TerrainTable_MovCost_FighterSnow",
+      "start": 142655788,
+      "end": 142655853,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "142cb1368fc8bf89564bf4c5ad31ebdc007be762fc6f538c001d248b8810cf89"
+    },
+    {
+      "name": "TerrainTable_MovCost_BerserkerSnow",
+      "start": 142655853,
+      "end": 142655918,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "06b756c6a4e86b953dfb616c6a8302e8a5f6081f289aa90101d88808ca92f84e"
+    },
+    {
+      "name": "TerrainTable_MovCost_BrigandSnow",
+      "start": 142655918,
+      "end": 142655983,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "95d1b225c695a392a02189eacd4a857a32b67a01b5338b7c90961462243cee52"
+    },
+    {
+      "name": "TerrainTable_MovCost_PirateSnow",
+      "start": 142655983,
+      "end": 142656048,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4129d056e2b2a23b8b3fdd0be62360121dae93af79c729fe3f1e9425f416aea0"
+    },
+    {
+      "name": "TerrainTable_MovCost_ThiefSnow",
+      "start": 142656048,
+      "end": 142656113,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_MagicSnow",
+      "start": 142656113,
+      "end": 142656178,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_CivilianSnow",
+      "start": 142656178,
+      "end": 142656243,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d214fdd20ecfac9c831c485a54b9e45614ba90be9fd27d6ba43676eb09f90e51"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT1Snow",
+      "start": 142656243,
+      "end": 142656308,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4bedbf6c0ca28b989b910c91d2a0b9348a4b7649a5429e2cc60c546b0e1b146f"
+    },
+    {
+      "name": "TerrainTable_MovCost_HorseT2Snow",
+      "start": 142656308,
+      "end": 142656373,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "6b6950a647cefa0d6521218bf6407445630aaa2b0c911ba0564b4d4d722f3663"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT1Snow",
+      "start": 142656373,
+      "end": 142656438,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "362dc570c77b06919e93eab37e15dd2a024446103381538e33a8255d8828c73b"
+    },
+    {
+      "name": "TerrainTable_MovCost_AnimalT2Snow",
+      "start": 142656438,
+      "end": 142656503,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "a62bea1105f305876c34d669d9d5d452c6201d1d25fffa508ef73bb72dea631e"
+    },
+    {
+      "name": "TerrainTable_MovCost_FlySnow",
+      "start": 142656503,
+      "end": 142656568,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "b91837d66b24f8ed810acab8bce03d3777a3ce5c61fb22cca069af7dd6242502"
+    },
+    {
+      "name": "Unk_TerrainTable_2",
+      "start": 142656568,
+      "end": 142656633,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "0265623a0ebe2401ba49ed55607e99b54018c852dcf3dcbe37b842ff17959c12"
+    },
+    {
+      "name": "TerrainTable_Avo_Common",
+      "start": 142656633,
+      "end": 142656698,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "f0cd1b19ff832e4ab0dd89c7f07051142706c4cfc769ab31b0cd6f09cd7dcc17"
+    },
+    {
+      "name": "TerrainTable_Def_Common",
+      "start": 142656698,
+      "end": 142656763,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "24c757b214437380a205132afe660c724a03892b854ea9a8ec159adb685351e1"
+    },
+    {
+      "name": "TerrainTable_Res_Common",
+      "start": 142656763,
+      "end": 142656828,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "5539f9cda6537c4a6aabd4b5748410c77358c844a08ada6d2b714a87395a2433"
+    },
+    {
+      "name": "TerrainTable_Avo_Fly",
+      "start": 142656828,
+      "end": 142656893,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "98ce42deef51d40269d542f5314bef2c7468d401ad5d85168bfab4c0108f75f7"
+    },
+    {
+      "name": "TerrainTable_Def_Fly",
+      "start": 142656893,
+      "end": 142656958,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "98ce42deef51d40269d542f5314bef2c7468d401ad5d85168bfab4c0108f75f7"
+    },
+    {
+      "name": "TerrainTable_Res_Fly",
+      "start": 142656958,
+      "end": 142657023,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "5539f9cda6537c4a6aabd4b5748410c77358c844a08ada6d2b714a87395a2433"
+    },
+    {
+      "name": "Unk_TerrainTable_3",
+      "start": 142657023,
+      "end": 142657088,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "80309315a657a58a578ab2c1f3eb5050d3ecdca0751588838000a7c6294bb76b"
+    },
+    {
+      "name": "Unk_TerrainTable_4",
+      "start": 142657088,
+      "end": 142657153,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "12bbeb4f7cbf70cf3959f3fcdd68d9e58cbaef02f89d823d3ded56737f9b4e78"
+    },
+    {
+      "name": "Unk_TerrainTable_5",
+      "start": 142657153,
+      "end": 142657218,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "9f65a57504abc0fcfd00b4097fbe3d9abfb37bb200c6f109eca97a27af1eb753"
+    },
+    {
+      "name": "Unk_TerrainTable_6",
+      "start": 142657218,
+      "end": 142657283,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "591042051d1cd9f086db0dba20fb2200d4182110ff8954d77ca6627c55e0a5e0"
+    },
+    {
+      "name": "Unk_TerrainTable_7",
+      "start": 142657283,
+      "end": 142657348,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "b101c5f6be428f5a0bb57b6fa1648226ea8f9ac4019dc7b731d35ae1c5235c6d"
+    },
+    {
+      "name": "TerrainTable_HealAmount",
+      "start": 142657348,
+      "end": 142657413,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "c1ab5db4eb683936194151e1a7c198ba4ab9268bb857434e014626c0240954d5"
+    },
+    {
+      "name": "TerrainTable_HealsStatus",
+      "start": 142657413,
+      "end": 142657478,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "5d539018a3083a35b72251789ca38d7f957f8ba102a64a2b0b47f7fa6e1986fa"
+    },
+    {
+      "name": "BanimTerrainGroundDefault",
+      "start": 142657478,
+      "end": 142657543,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "966e272bec5750d4ab6f3d4a46e58825ff9c2636af15b1acd6f36040eb692b74"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset01",
+      "start": 142657543,
+      "end": 142657608,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "bbc05640d5bd6e03d32344db6e2e6b21c8fb4c2a8997ce01e365ed5a804dbd88"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset02",
+      "start": 142657608,
+      "end": 142657673,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "a6d887b3ddd4c2a2344af6b92d530a726a0578c6ddc103d294cb376b2d1b8108"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset03",
+      "start": 142657673,
+      "end": 142657738,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "277c570fd46221942ff5db6ab7dc6364df0b6ae478dac1f27796200a112175a8"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset04",
+      "start": 142657738,
+      "end": 142657803,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "2b6278fa7f43dee126249c085d40864739d855695bb4927a77b941d2835c0dfc"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset05",
+      "start": 142657803,
+      "end": 142657868,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "16d3bda6a891abc7eede325c8d1c09189515545f8ee9babddeec21c64ac99d42"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset06",
+      "start": 142657868,
+      "end": 142657933,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "124e5c56918733bf1c8f0e36e8b4d542740fc52b9bd9289f7cdf33e784a2b177"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset07",
+      "start": 142657933,
+      "end": 142657998,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "02108fdaed917f1779b4afc3246effb512a0d940e3cfe2cbddd1106abea33849"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset08",
+      "start": 142657998,
+      "end": 142658063,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "296d87425342c15f05b45f6cc1a83bbb4c4c7c35f55c6c0dc247ebed78ddf845"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset09",
+      "start": 142658063,
+      "end": 142658128,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "dad251737ca77d9c2c06854379abd611bb4d0bd664ddbe5154b0c1d744e375d4"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0A",
+      "start": 142658128,
+      "end": 142658193,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "1b4c5a8192e5896707fa73fc94774d88ca4e868f89aa7562823dab6a4c568e4d"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0B",
+      "start": 142658193,
+      "end": 142658258,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "3cfb2ab3c09970bf67ab8eac854318f092dbe0c600b092dbae57f23091c91dc5"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0C",
+      "start": 142658258,
+      "end": 142658323,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d50c0fea7e34ae27d1e58e70e0bc28db57ce62def59349e2c5c30ccdd8cb1042"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0D",
+      "start": 142658323,
+      "end": 142658388,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "f678822e890d3e0cb22aa5681ac24099e6f6ad8cc0a5fed9b29150db2f659679"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0E",
+      "start": 142658388,
+      "end": 142658453,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "bbe0c0a6634d0d2076e57d8bc71772cd1a53bac8e1a9df7a06baca1bbea288a3"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset0F",
+      "start": 142658453,
+      "end": 142658518,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "dad251737ca77d9c2c06854379abd611bb4d0bd664ddbe5154b0c1d744e375d4"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset10",
+      "start": 142658518,
+      "end": 142658583,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "20686220d07ee5cebb2a4b00ed952485dc4b2c5619ee5422d4d08ce2b435607a"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset11",
+      "start": 142658583,
+      "end": 142658648,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "114dd29e054c85d82c2cc495619a7b1e26bcd979453091a336a5e390072a929e"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset12",
+      "start": 142658648,
+      "end": 142658713,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "ce3bd7806dd55133694c427be0ccaadae5791bd6974b4d8cac41ba736da6257e"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset13",
+      "start": 142658713,
+      "end": 142658778,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "dad251737ca77d9c2c06854379abd611bb4d0bd664ddbe5154b0c1d744e375d4"
+    },
+    {
+      "name": "BanimTerrainGround_Tileset14",
+      "start": 142658778,
+      "end": 142658843,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "811989c494b889d8b6905e2474a7138a408425b3c1876c4dbac316570ec75987"
+    },
+    {
+      "name": "gBanimBGLutDefault",
+      "start": 142658843,
+      "end": 142658908,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "d68a09650738dddbb890af2fa69972be8f47e8bee456c438be3669052aefd952"
+    },
+    {
+      "name": "gBanimBGLut01",
+      "start": 142658908,
+      "end": 142658973,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "2ffdfa5943462bd6f392b3793c306c35bfc46e305acaf215ae0daf7c07edd036"
+    },
+    {
+      "name": "gBanimBGLut02",
+      "start": 142658973,
+      "end": 142659038,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "be6e68aa231e47cd607539553f43dcbaa824b032a2b4e1f3d1b21a807823ada5"
+    },
+    {
+      "name": "gBanimBGLut03",
+      "start": 142659038,
+      "end": 142659103,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "c5a8d8e706104ae60a55f62a73f5c66d98fb231b5e5024e5133c7c3bb950e660"
+    },
+    {
+      "name": "gBanimBGLut04",
+      "start": 142659103,
+      "end": 142659168,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "27faa1b28bc5d4d9f2796c31a5c199d50bae195da6a2ae64bebdec1c0bf47c9f"
+    },
+    {
+      "name": "gBanimBGLut05",
+      "start": 142659168,
+      "end": 142659233,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "38e18adcfc2d1bbf9468ef869bb4b76ec960a65e73a025f9b0603baa12aac591"
+    },
+    {
+      "name": "gBanimBGLut06",
+      "start": 142659233,
+      "end": 142659298,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "10b5ab249f349794085138194ba715b1fc7b088dc911ebbfc852a93e54260905"
+    },
+    {
+      "name": "gBanimBGLut07",
+      "start": 142659298,
+      "end": 142659363,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "7d73c4ba6597b44e8822b2636dd9e72db23af712c15b63f9fab551a5f6b1e612"
+    },
+    {
+      "name": "gBanimBGLut08",
+      "start": 142659363,
+      "end": 142659428,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "8b5434cebea4d75c59440e1bf9d36394086f4a38e839fd8714ed459e72330905"
+    },
+    {
+      "name": "gBanimBGLut09",
+      "start": 142659428,
+      "end": 142659493,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "052e6df547886019296406f6c6f913850bcb9bac418ed772a8ca6adce60d7825"
+    },
+    {
+      "name": "gBanimBGLut0A",
+      "start": 142659493,
+      "end": 142659558,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "41e7693caa98e78b25894b3bd48d63109e4b0c023a9bea557acc7eb52b3faec4"
+    },
+    {
+      "name": "gBanimBGLut0B",
+      "start": 142659558,
+      "end": 142659623,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "03ce6f5e099b21eac58a06db915b6bfaa2c8244b962fe8abff0025d0e741c81f"
+    },
+    {
+      "name": "gBanimBGLut0C",
+      "start": 142659623,
+      "end": 142659688,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "796f6e8c2bad69fd382d7fb8db5badf1c209dc2947bcada08eccefa8f792706a"
+    },
+    {
+      "name": "gBanimBGLut0D",
+      "start": 142659688,
+      "end": 142659753,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "939acd50d474afa0936e04628e41bbc05bee56692049b4222f021aa256e8dfac"
+    },
+    {
+      "name": "gBanimBGLut0E",
+      "start": 142659753,
+      "end": 142659818,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "3be3803db17975854f3efd23004144feadd44dbf6f4b1db19bb79bfa16f54c6b"
+    },
+    {
+      "name": "gBanimBGLut0F",
+      "start": 142659818,
+      "end": 142659883,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "90b098bf9545ce70d507c11117694559e4923c04d19e913692465840d9e3b8c9"
+    },
+    {
+      "name": "gBanimBGLut10",
+      "start": 142659883,
+      "end": 142659948,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "bb67f5e2d99dfaa2dba7e4715eedcded1413b594f7df7450e3864e8611181f59"
+    },
+    {
+      "name": "gBanimBGLut11",
+      "start": 142659948,
+      "end": 142660013,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "95abe2836025729b42fd067096b56056dc26907467ebfad93efc42f5396ed4b0"
+    },
+    {
+      "name": "gBanimBGLut12",
+      "start": 142660013,
+      "end": 142660078,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "b269c16aaf103c0eaa94e7eec212eaa1e0e6c3a6ba5e2558831c171f76bd1816"
+    },
+    {
+      "name": "gBanimBGLut13",
+      "start": 142660078,
+      "end": 142660143,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "24c146cbfa7891d670e658222e8d0a11a4f1a16b6ea74bfdda03c77665f8e8bc"
+    },
+    {
+      "name": "gBanimBGLut14",
+      "start": 142660143,
+      "end": 142660208,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "232715bb5efce4610dfeee91bb0c33352c7b8a477dd9e077b3ae3967fc86b056"
+    },
+    {
+      "name": "Unk_TerrainTable_8",
+      "start": 142660208,
+      "end": 142660273,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "6170fe6a9d0f646eb799d6d92d16ceef835ca928735cbb269f0f5edfcea783aa"
+    },
+    {
+      "name": "Unk_TerrainTable_9",
+      "start": 142660273,
+      "end": 142660338,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "4f99208d3848b9ec4b7acb6d395a690a27ec628b64df535bbaf464ad86ba4af8"
+    },
+    {
+      "name": "Unk_TerrainTable_10",
+      "start": 142660338,
+      "end": 142660403,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "df1f7f06506dacb439c2500f59aa6bd8ca6647f0cd2c54b4bd4d47f6d1f9cd2f"
+    },
+    {
+      "name": "Unk_TerrainTable_11",
+      "start": 142660403,
+      "end": 142660468,
+      "bytes": 65,
+      "kind": "s8",
+      "sha256": "27d98e566d04408bc4ac5c521cfc12bbc05733bfcbe7096e0b79b01778f6f87b"
+    },
+    {
+      "name": "gTerrains_0",
+      "start": 142660468,
+      "end": 142660598,
+      "bytes": 130,
+      "kind": "u16",
+      "sha256": "40c8fe4c83ba2b54e70e2364689fd1bafdd705e88d01781af8c8029e0910c7da"
+    }
+  ],
+  "scope": "Explicit numeric terrain initializers and source-bound font/icon assets match the residual ROM intervals; font PNG rebuild also matches. No general no-execution proof or whole-game completion claim."
+}

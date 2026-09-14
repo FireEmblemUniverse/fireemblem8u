@@ -10439,3 +10439,25 @@ This is an asset-provenance result, not compressed-data semantic validation
 or a no-execution proof. The mapping inventory remains intentionally
 unchanged; the separate receipt explains the source-bound portion of its
 unmapped count while preserving the unresolved remainder.
+
+### Largest residual data tables verified against source
+
+`scripts/audit_residual_tables.py` independently interprets the terrain enum
+constants and the designated numeric initializers in `src/data_terrains.c`.
+All 109 arrays (7,085 values) match their ELF symbol sizes and ROM bytes.
+Integer values are serialized at their declared width, including the target's
+low-byte representation of signed-byte hex initializers. The first 108 byte
+arrays exactly cover the 7,020-byte unmapped terrain interval; the final
+16-bit table is also checked but does not inflate that newly bound count.
+
+The 2,048-byte debug-font interval is bound to its included graphics asset
+and rebuilt exactly from `graphics/debug_font.png`. The 2,480-byte moving
+Ephraim icon sheet is bound to the explicit assembly incbin and its linked
+label. This last binding covers only the image bytes, not neighboring motion
+metadata. Together these checks explain 11,548 of the previously unbound
+12,187 bytes, leaving 639 bytes for explicit review.
+
+`docs/residual-table-provenance.json` records table/asset/source hashes and
+the current ELF hash. Whole-ROM equality remains verified; production and
+C ownership do not change. The result establishes numeric/asset provenance
+without inferring that arbitrary data cannot be executed.
