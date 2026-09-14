@@ -9,11 +9,18 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--source',type=Path,default=ROOT/'research/bios/wrappers.c')
 parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba')
 parser.add_argument('--integrated',action='store_true')
+parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+parser.add_argument('--plugin',type=Path)
+parser.add_argument('--wrappers',nargs='+')
+parser.add_argument('--expected-mismatch',nargs='*',default=['DivRem','ArcTan2','Sqrt'])
+parser.add_argument('--seeds',type=int,default=4)
 args=parser.parse_args()
 source=args.source
-subprocess.run(['arm-none-eabi-gcc','-c','-O2','-falign-functions=2','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-ffunction-sections','-I',str(ROOT/'include'),str(source),'-o',str(OUT/'candidate.o')],check=True)
+assert args.seeds > 0
+subprocess.run([args.compiler,*(['-fplugin='+str(args.plugin.resolve()),'-Werror=attributes'] if args.plugin else []),'-c','-O2','-falign-functions=2','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-ffunction-sections','-I',str(ROOT/'include'),str(source),'-o',str(OUT/'candidate.o')],check=True)
 names=['ArcTan2','BgAffineSet','CpuFastSet','CpuSet','Div','DivArm','DivRem','HuffUnComp','LZ77UnCompVram','LZ77UnCompWram','MultiBoot','ObjAffineSet','RLUnCompVram','RLUnCompWram','RegisterRamReset','SoundBiasReset','SoundBiasSet','Sqrt','VBlankIntrWait']
 if args.integrated:names=[name for name in names if name not in ('ArcTan2','DivRem','Sqrt')]
+if args.wrappers:names=args.wrappers
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
 rom=args.rom.read_bytes();reports=[];rng=random.Random(0xdf4770)
 for name in names:
@@ -24,10 +31,10 @@ for name in names:
  svc=next(int.from_bytes(original[n:n+2],'little')&255 for n in range(0,len(original),2) if original[n+1]==0xdf)
  diffs=0;flagdiffs=0;regdiffs=0
  for flags in range(16):
-  for seed in range(4):
+  for seed in range(args.seeds):
    inputs=[rng.getrandbits(32) for _ in range(13)]
    outputs={n:rng.getrandbits(32) for n in (0,1,2,3,12)}
-   if name in ('ArcTan2','Sqrt'):outputs[0]=(0,1,0x8000,0xffff)[seed]
+   if name in ('ArcTan2','Sqrt'):outputs[0]=(0,1,0x8000,0xffff)[seed % 4]
    snapshots=[];handoffs=[]
    for draft in (False,True):
     u=Uc(UC_ARCH_ARM,UC_MODE_THUMB);u.mem_map(0x08000000,len(rom));u.mem_write(0x08000000,rom)
@@ -56,7 +63,7 @@ for name in names:
    diff=snapshots[0]!=snapshots[1];diffs+=diff
    regdiffs+=snapshots[0][:-1]!=snapshots[1][:-1];flagdiffs+=snapshots[0][-1]!=snapshots[1][-1]
  exact=candidate==original
- if name not in ('DivRem','ArcTan2','Sqrt'):assert exact and diffs==0,name
+ if name not in args.expected_mismatch:assert exact and diffs==0,name
  else:assert not exact and flagdiffs>0 and regdiffs==0,name
- reports.append(dict(name=name,original_instruction_bytes=size,candidate_bytes=len(candidate),instruction_bytes_exact=exact,cases=64,register_difference_cases=regdiffs,flag_difference_cases=flagdiffs,svc=svc))
-print(json.dumps(dict(source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),wrappers=reports,exact_wrappers=sum(x['instruction_bytes_exact'] for x in reports),total_cases=sum(x['cases'] for x in reports),production_integrated=args.integrated,scope='Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft.'),indent=2))
+ reports.append(dict(name=name,original_instruction_bytes=size,candidate_bytes=len(candidate),instruction_bytes_exact=exact,cases=16*args.seeds,register_difference_cases=regdiffs,flag_difference_cases=flagdiffs,svc=svc))
+print(json.dumps(dict(compiler_version=subprocess.check_output([args.compiler,'--version'],text=True).splitlines()[0],plugin_sha256=hashlib.sha256(args.plugin.read_bytes()).hexdigest() if args.plugin else None,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),wrappers=reports,exact_wrappers=sum(x['instruction_bytes_exact'] for x in reports),total_cases=sum(x['cases'] for x in reports),production_integrated=args.integrated,scope='Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft.'),indent=2))

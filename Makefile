@@ -321,6 +321,10 @@ src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN
 src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_reverb.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_BYTE_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanSetup -fplugin-arg-pc_address-offset=47
 
+src/bios_divrem.o: $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/bios_divrem.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/bios_divrem.o: CC1FLAGS := -std=gnu89 -O2 -falign-functions=2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -Werror=attributes -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
 src/m4a_multiply_high.o: $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/m4a_multiply_high.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_multiply_high.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

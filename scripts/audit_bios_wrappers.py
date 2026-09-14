@@ -20,6 +20,14 @@ for row in expected:
  site=next(s for s in sites if s['function']==name);offset=int(site['address'],16)-0x08000000
  assert rom[offset:offset+2]==bytes([row['svc'],0xdf])
  regions.append(dict(name=name,start=hex(start),instruction_bytes=row['original_instruction_bytes'],retained_swi_bytes=2))
-remaining=next(x for x in own['objects'] if x['object']=='src/libagbsyscall.o');assert remaining['instruction_bytes']==28
-report=dict(wrappers=regions,total_instruction_bytes=72,c_generated_instruction_bytes=40,retained_swi_bytes=32,remaining_assembly_wrapper_bytes=28,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly.')
+divrem=next(x for x in own['objects'] if x['object']=='src/bios_divrem.o')
+assert divrem['category']=='c_with_assembly' and divrem['instruction_bytes']==6
+start=symbols['DivRem'];assert start==0x080d1684
+assert rom[start-0x08000000:start-0x08000000+6]==bytes.fromhex('06df081c7047')
+assert 'src/bios_divrem.o(.text.DivRem);' in (ROOT/'ldscript.txt').read_text()
+site=next(s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_divrem.c')
+assert site['instruction_bytes']==2 and int(site['address'],16)==start
+regions.append(dict(name='DivRem',start=hex(start),instruction_bytes=6,retained_swi_bytes=2))
+remaining=next(x for x in own['objects'] if x['object']=='src/libagbsyscall.o');assert remaining['instruction_bytes']==22
+report=dict(wrappers=regions,total_instruction_bytes=78,c_generated_instruction_bytes=44,retained_swi_bytes=34,remaining_assembly_wrapper_bytes=22,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),divrem_source_sha256=hashlib.sha256((ROOT/'src/bios_divrem.c').read_bytes()).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly.')
 (ROOT/'docs/bios-wrappers-code-regions.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

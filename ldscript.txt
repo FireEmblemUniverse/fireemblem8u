@@ -2053,7 +2053,7 @@ SECTIONS
         src/bios_wrappers.o(.text.Div);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.DivArm);
-        src/libagbsyscall.o(.text.DivRem);
+        src/bios_divrem.o(.text.DivRem);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.HuffUnComp);
         . = ALIGN(4);

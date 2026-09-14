@@ -11391,3 +11391,36 @@ Expanded payload assembly remains 420 bytes; all 3,172,286 unmapped-input
 bytes remain accounted for, including the final 812-byte residual. Runtime
 assembly and complete executable classification still prevent a reliable
 overall completion percentage.
+
+
+### DivRem return flags preserved in production C
+
+`src/bios_divrem.c` retains the explicit SWI 6 boundary and returns its r1
+result from C. The existing `matching_thumb_copy_add_zero` compiler contract
+selects ADDS r0,r1,#0 instead of MOVS, preserving the original N/Z behavior
+and clearing C/V. No compiler backend changes were required. The six-byte
+function matches exactly: two SWI bytes and four C-generated copy/return bytes.
+It replaces the corresponding assembly section at 0x080D1684.
+
+The production-source synthetic service model passes 512 cases covering all
+sixteen returned flag combinations and 32 seeded register/result states.
+Incoming registers/flags, final registers/flags, stack writes and return are
+checked. This still does not implement or validate actual BIOS services.
+Existing compiler controls accept ARM/Thumb copies, reject eight original
+unsupported contracts and five high-copy option forms, and preserve
+unannotated output. `docs/bios-divrem-integrated-model.json` records the model;
+`docs/bios-wrappers-code-regions.json` audits all seventeen integrated wrappers.
+The research fixture and receipt remain separately available.
+
+An ordinary-GCC experiment declaring ArcTan2/Sqrt SWI outputs as u16 tied to
+full-width inputs still emitted the flag-changing LSLS/LSRS pair. Those two
+wrappers remain assembly, together with SoftReset: 22 instruction bytes.
+
+The full ROM and all four fresh runtime images/exported symbols match; all
+code/data-provenance audits pass. Reviewed main non-library assembly is now
+130 bytes (46 source and 84 inline), down four bytes. The main mapped
+instruction denominator remains 777,630, with 740,014 whole-object C-owned,
+15,778 mixed C/assembly, and 21,792 runtime-archive bytes. There are 604 tracked
+main C files. Expanded payload assembly, unmapped-input provenance and ROM
+padding accounting are unchanged. Complete executable classification and
+runtime assembly remain unfinished.

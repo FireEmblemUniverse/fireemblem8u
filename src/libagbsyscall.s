@@ -11,16 +11,6 @@ ArcTan2: @ 0x080D166C
 	THUMB_FUNC_END ArcTan2
     .align 2, 0
 
-.section .text.DivRem,"ax",%progbits
-	THUMB_FUNC_START DivRem
-DivRem: @ 0x080D1684
-	swi #6
-	adds r0, r1, #0
-	bx lr
-
-	THUMB_FUNC_END DivRem
-    .align 2, 0
-
 .section .text.SoftReset,"ax",%progbits
 	THUMB_FUNC_START SoftReset
 SoftReset: @ 0x080D16B0

@@ -95,14 +95,21 @@
       "start": "0x80d16dc",
       "instruction_bytes": 6,
       "retained_swi_bytes": 2
+    },
+    {
+      "name": "DivRem",
+      "start": "0x80d1684",
+      "instruction_bytes": 6,
+      "retained_swi_bytes": 2
     }
   ],
-  "total_instruction_bytes": 72,
-  "c_generated_instruction_bytes": 40,
-  "retained_swi_bytes": 32,
-  "remaining_assembly_wrapper_bytes": 28,
+  "total_instruction_bytes": 78,
+  "c_generated_instruction_bytes": 44,
+  "retained_swi_bytes": 34,
+  "remaining_assembly_wrapper_bytes": 22,
   "full_rom_exact": true,
   "source_sha256": "116b3ec290814d02ace77da44fdc394c08af58edae75296fe01106eef13942f2",
-  "elf_sha256": "5b1b4e3f5fec420204032365502e480fc564a85de7eb12ca3bd4492e447890c1",
+  "divrem_source_sha256": "0484ebe8d0ddff13e8e530fd8f2ecefeac1ea698fad6c6745740fa9b46d201f9",
+  "elf_sha256": "06efd81b42ffe87fad647a192a2e8d5a88762b833d3a64db4853df5d450fc09f",
   "scope": "Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly."
 }
