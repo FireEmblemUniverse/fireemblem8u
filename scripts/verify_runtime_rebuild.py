@@ -54,6 +54,9 @@ def main():
         member = a.udiv_member.resolve()
         assert member.name == '_udivsi3.o'
         run(['arm-none-eabi-ar', 'r', str(out / 'libgcc/libgcc.a'), str(member)], ROOT, 'udiv-replacement.log')
+    if not a.umod_member:
+        run(['python3', str(ROOT / 'scripts/build_runtime_umod.py'), '--output-dir', str(out / 'runtime-modulus')], ROOT, 'umod-build.log')
+        a.umod_member = out / 'runtime-modulus/_umodsi3.o'
     if a.umod_member:
         member = a.umod_member.resolve()
         assert member.name == '_umodsi3.o'

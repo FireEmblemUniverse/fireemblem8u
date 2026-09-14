@@ -7,7 +7,7 @@
     "src/m4a_multiply_entry.o": 4,
     "src/m4a_multiply_high.o": 12
   },
-  "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
+  "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
   "regions": [
     {
       "start": 135066808,

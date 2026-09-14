@@ -12210,3 +12210,28 @@ the recovered modulus sources/build into the production runtime target,
 make fresh verification include it by default, and update runtime-source
 ownership accounting. The current production assembly total remains 606
 instruction bytes per audited image pending that integration.
+
+
+### Default unsigned-modulus integration (September 14, 2026)
+
+Baseline `bc7144be`. Runtime C sources now include the modulus entry and
+core. `build_runtime_umod.py` rebuilds its plugins in a separate output
+directory, validates member layout and exports the original __umodsi3 size.
+The derived archive depends on and includes both recovered members. Separate
+plugin directories avoid races between the two parallel member recipes.
+Default isolated runtime verification independently rebuilds both members.
+
+`make compare -j8` passes, both dated payloads relink, and all four fresh
+runtime image links reproduce exact binaries and exported symbols. The
+runtime-source audit checks the derived archive/source fingerprints and
+classifies both recovered members as verified C. Assembly instruction totals
+fall from 606 to 414 per audited image; verified runtime C-source totals are
+21,378 in the main ROM and 406 in the payload. Runtime archive category totals
+and the separately reported whole-object C ownership percentage do not change.
+
+The remaining assembly members are signed division (146 bytes), signed
+modulus (206), indirect-call veneers (60) and __div0 (2). Syscall inline
+assembly, expanded payload assembly and mapped-data/executable classification
+remain unfinished. This integration does not establish overall completion.
+Code/inline-region and data-provenance receipts are refreshed for the new
+ELF/map identities.

@@ -341,12 +341,12 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
-      "map_sha256": "041286b08256e6e52871b2551615f241e9be494bcecfe6398c3530a833ba082f"
+      "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
+      "map_sha256": "947eb1bbe86fb6bd4c2469b3de59ac9a78583afc4cc9b2584b6a6242b7acd9a1"
     },
     "mgfembp": {
-      "elf_sha256": "21b16ae32ab984d9aca1b136ef9f9f5d060c05a9bfa0ddbe3e2f0469adc6b649",
-      "map_sha256": "a6cfbcfb9802c140a13f680aa8a4daf60d43a8daee09d1506a32579719c96797"
+      "elf_sha256": "8a795599b6801770a220e68c926d92de22a323aa5041860a07b31215cbe3c4a7",
+      "map_sha256": "95dc3831ad9b0def6930a094a8aab638e724e113932d67b1b2932d11856d56c3"
     }
   }
 }

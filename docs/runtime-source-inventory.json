@@ -2,14 +2,14 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
     "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
-    "libgcc.a": "8314ad3b8e2f8bffdecd5c4472cca9afac78c1c1fb276ba56873c1cd581a9f16"
+    "libgcc.a": "679a998f2b25c81919b4ce002253b021ad18d0401d7fe7806789cd845c0f25eb"
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
-      "assembly_instruction_bytes": 606,
+      "elf_sha256": "274e04662d1c700979fd88b0fa5ecf2a4e03742372364d26446e44a29d9eeb41",
+      "assembly_instruction_bytes": 414,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 21186,
+      "C_source_rebuilt_instruction_bytes": 21378,
       "rebuilt_syscalls_object_instruction_bytes": 1014,
       "members": [
         {
@@ -101,11 +101,15 @@
         {
           "object": ".deps/runtime-c/libgcc.a(_umodsi3.o)",
           "instruction_bytes": 192,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 192,
-          "text_sha256": "cff75b95f09ef0d5116d3b9643fe49e7e4bb56bb43d6618e802a3cce2823882c"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "tools/agbcc/lib/libc.a(stdio.o)",
@@ -151,7 +155,9 @@
           "source_sha256": {
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
-            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
           "status": "C_source_rebuild_verified"
         },
@@ -372,10 +378,10 @@
       ]
     },
     "mgfembp": {
-      "elf_sha256": "21b16ae32ab984d9aca1b136ef9f9f5d060c05a9bfa0ddbe3e2f0469adc6b649",
-      "assembly_instruction_bytes": 606,
+      "elf_sha256": "8a795599b6801770a220e68c926d92de22a323aa5041860a07b31215cbe3c4a7",
+      "assembly_instruction_bytes": 414,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 214,
+      "C_source_rebuilt_instruction_bytes": 406,
       "rebuilt_syscalls_object_instruction_bytes": 0,
       "members": [
         {
@@ -390,11 +396,15 @@
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_umodsi3.o)",
           "instruction_bytes": 192,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 192,
-          "text_sha256": "cff75b95f09ef0d5116d3b9643fe49e7e4bb56bb43d6618e802a3cce2823882c"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_divsi3.o)",
@@ -412,7 +422,9 @@
           "source_sha256": {
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
-            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
           },
           "status": "C_source_rebuild_verified"
         },
@@ -444,7 +456,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "7fb97bf96c3e89dc741cefb6f3e64bd54ba44c158d1fabd63fb4ec5929a2b478",
+  "rebuild_report_sha256": "184e21ed06281091565b82bd25aad06ceb6779769795d88bb02ebdb1cda61ab5",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

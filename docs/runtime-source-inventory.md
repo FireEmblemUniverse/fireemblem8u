@@ -4,10 +4,10 @@ Local source pin: `da598c1d918402c42c0c0d7128ba14567f3175e9`. Installed archives
 
 | Image | Reproduced assembly instructions | Matching C source rebuild | C source located; rebuild unverified |
 |---|---:|---:|---:|
-| main_rom | 606 | 21,186 | 0 |
-| mgfembp | 606 | 214 | 0 |
+| main_rom | 414 | 21,378 | 0 |
+| mgfembp | 414 | 406 | 0 |
 
-Fresh pinned libc/libgcc builds with the recovered C division member reproduce the entire 16 MiB main ROM and all three embedded payload binaries. Exported symbol addresses/sizes also match, including RAM symbols. [Rebuild evidence](runtime-rebuild.json) fingerprints the source snapshot, compiler, tools, archives and original images. Reproduce with `python3 scripts/verify_runtime_rebuild.py --json docs/runtime-rebuild.json`, then rerun this inventory.
+Fresh pinned libc/libgcc builds with the recovered C division and modulus members reproduce the entire 16 MiB main ROM and all three embedded payload binaries. Exported symbol addresses/sizes also match, including RAM symbols. [Rebuild evidence](runtime-rebuild.json) fingerprints the source snapshot, compiler, tools, archives and original images. Reproduce with `python3 scripts/verify_runtime_rebuild.py --json docs/runtime-rebuild.json`, then rerun this inventory.
 
 The C-source total includes 1,014 main-ROM instruction bytes in syscalls.o, which contains inline assembly. That is the whole object size, not a count of its assembly instructions.
 
@@ -16,14 +16,13 @@ The C-source total includes 1,014 main-ROM instruction bytes in syscalls.o, whic
 | Member | Mapped instruction bytes per image | Reproduced text bytes including padding |
 |---|---:|---:|
 | `.deps/runtime-c/libgcc.a(_modsi3.o)` | 206 | 208 |
-| `.deps/runtime-c/libgcc.a(_umodsi3.o)` | 192 | 192 |
 | `.deps/runtime-c/libgcc.a(_divsi3.o)` | 146 | 148 |
 | `.deps/runtime-c/libgcc.a(_call_via_rX.o)` | 60 | 60 |
 | `.deps/runtime-c/libgcc.a(_dvmd_tls.o)` | 2 | 4 |
 
 ## Remaining verification
 
-Five assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.
+Four assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.
 
 - Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.
 - Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.
