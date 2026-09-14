@@ -9764,3 +9764,64 @@ runtime helpers, unit-list/transfer code and complete executable classification.
 The valid production layout links and all 261 altered layouts reject, including
 eleven new call extent/continuation cases. Evidence:
 `.deps/soundmain-packed/ply-note/invocations-production-layout.log`.
+
+
+## September 13, 2026 — Note argument setup integrated
+
+On baseline `7d1e65a0`, three C fragments replace twelve assembly instruction
+bytes: ClearChain input at 080CFF84..080CFF86, track-volume inputs at
+080CFFAA..080CFFAE, and PCM frequency inputs at 080D0012..080D0018.
+The existing private adjacent-tail and ADD-zero copy contracts suffice. Ordered
+volatile reads preserve the stack word and pitch-byte access. Empty compiler
+barriers retain assignment order without encoding instructions. Final ADD-zero
+copies reproduce N/Z and clear C/V. Linker guards require exact entry offsets,
+extents and immediate continuations.
+
+`check_ply_note_argument_setup.py` checks exact original/candidate instructions
+and independent models. All 773,120 cases pass: 75,264 each for clear/track
+setup and 622,592 for PCM setup. Cases span every incoming NZCV, signed and
+unsigned boundaries, each individual bit, four frame positions, and all pitch
+bytes. PCM reads include aliases at SP, SP+1 and the last RAM byte. Full-width
+arguments are sampled. Every case checks all registers, SP/LR, exact flags,
+unchanged RAM and ordered reads. The checks stop before calls and do not claim
+independent verification of callee behavior or full ply_note execution. Six
+unsupported compiler contracts per fragment reject (eighteen total), while
+unannotated object output is unchanged.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. Refreshed mixer,
+SoundMain, MPlayMain and PCM-selection receipts retain their C ownership.
+Main-ROM ownership is 721,202 C-owned (92.74%), 33,870 mixed C/assembly, 766
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,176 main-ROM and 420 payload bytes. Inventory
+contains 586 tracked main C files and 29 assembly entry markers.
+
+Remaining ply_note assembly instructions total 58 bytes:
+
+| Range | Bytes | Remaining work |
+|---|---:|---|
+| 080CFE44..080CFE64 | 32 | Entry frame, literal reads and gate-time setup |
+| 080CFF9C..080CFFA6 | 10 | LFO delay/reset test and argument setup |
+| 080D002A..080D003A | 16 | Saved-frame return |
+
+Production ELF SHA-256:
+`e6c326d170337e5e4d5f8be8c874b9293084bf6c4531cb4f2a7c25dabd281b19`.
+Evidence under `.deps/soundmain-packed/ply-note/`: `arguments-report.json`,
+`arguments-check.log`, `arguments-production-check.log`,
+`arguments-production-build.log`, `arguments-runtime.log`,
+`arguments-ownership.log`, `arguments-source.json`, `arguments-linked.json`,
+region audit logs and `arguments/*` per-fragment objects and rejection logs.
+
+The separate `research/audio/ply_note_lfo_delay.c` experiment is not integrated
+or matching. Its direct register-equality branch is outside the current
+`thumb_direct_tails` patterns, which reject with “expected 1 transfers, found 0”.
+The exact command and diagnostic are retained in `lfo-delay-rejection.json`.
+Next steps are adding narrowly validated register-equality continuation support
+and adapting frame restoration for the 60-byte frame with return target r0.
+The existing grouped-return contract supports only 36/64-byte frames and r3.
+Runtime helpers, unit-list/transfer code and executable classification also remain.
+
+Production verification also passes all 773,120 cases with source and object
+identity. The valid layout links and all 267 altered layouts reject, including
+six new argument extent/continuation mutations. Evidence:
+`.deps/soundmain-packed/ply-note/arguments-production-layout.log`.

@@ -1768,6 +1768,10 @@ SECTIONS
         src/m4a_ply_note_pcm_advance.o(.text);
         __ply_note_pcm_advance_end = .;
         src/m4a_1.o(.text.after_ply_note_pcm_advance);
+        __ply_note_clear_setup_start = .;
+        src/m4a_ply_note_clear_setup.o(.text);
+        __ply_note_clear_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_clear_setup);
         __ply_note_clear_invoke_start = .;
         src/m4a_ply_note_clear_invoke.o(.text);
         __ply_note_clear_invoke_end = .;
@@ -1780,6 +1784,10 @@ SECTIONS
         src/m4a_ply_note_mod_invoke.o(.text);
         __ply_note_mod_invoke_end = .;
         src/m4a_1.o(.text.after_ply_note_mod_invoke);
+        __ply_note_track_volume_setup_start = .;
+        src/m4a_ply_note_track_volume_setup.o(.text);
+        __ply_note_track_volume_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_track_volume_setup);
         __ply_note_track_volume_invoke_start = .;
         src/m4a_ply_note_track_volume_invoke.o(.text);
         __ply_note_track_volume_invoke_end = .;
@@ -1800,6 +1808,10 @@ SECTIONS
         src/m4a_ply_note_cgb_frequency_invoke.o(.text);
         __ply_note_cgb_frequency_invoke_end = .;
         src/m4a_1.o(.text.after_ply_note_cgb_frequency_invoke);
+        __ply_note_pcm_frequency_setup_start = .;
+        src/m4a_ply_note_pcm_frequency_setup.o(.text);
+        __ply_note_pcm_frequency_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_pcm_frequency_setup);
         __ply_note_pcm_frequency_invoke_start = .;
         src/m4a_ply_note_pcm_frequency_invoke.o(.text);
         __ply_note_pcm_frequency_invoke_end = .;
@@ -1808,6 +1820,21 @@ SECTIONS
         src/m4a_ply_note_finish.o(.text);
         __ply_note_finish_end = .;
         src/m4a_1.o(.text.after_ply_note_finish);
+        ASSERT((PlyNoteClearSetupBody & ~1) == PlyNoteChannelAttach &&
+               __ply_note_clear_setup_start == (ply_note & ~1) + 320 &&
+               __ply_note_clear_setup_end - __ply_note_clear_setup_start == 2 &&
+               PlyNoteClearInvoke == __ply_note_clear_setup_end,
+               "ply_note clear_setup extent or continuation changed");
+        ASSERT((PlyNoteTrackVolumeSetupBody & ~1) == PlyNoteTrackVolumeSetup &&
+               __ply_note_track_volume_setup_start == (ply_note & ~1) + 358 &&
+               __ply_note_track_volume_setup_end - __ply_note_track_volume_setup_start == 4 &&
+               PlyNoteTrackVolumeInvoke == __ply_note_track_volume_setup_end,
+               "ply_note track_volume_setup extent or continuation changed");
+        ASSERT((PlyNotePcmFrequencySetupBody & ~1) == PlyNotePcmFrequencySetup &&
+               __ply_note_pcm_frequency_setup_start == (ply_note & ~1) + 462 &&
+               __ply_note_pcm_frequency_setup_end - __ply_note_pcm_frequency_setup_start == 6 &&
+               PlyNotePcmFrequencyInvoke == __ply_note_pcm_frequency_setup_end,
+               "ply_note pcm_frequency_setup extent or continuation changed");
         ASSERT((PlyNoteClearInvokeBody & ~1) == PlyNoteClearInvoke &&
                __ply_note_clear_invoke_start == (ply_note & ~1) + 322 &&
                __ply_note_clear_invoke_end - __ply_note_clear_invoke_start == 4 &&

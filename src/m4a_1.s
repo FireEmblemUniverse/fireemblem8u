@@ -569,7 +569,7 @@ _081DDC34:
 	.global PlyNoteChannelAttach
 PlyNoteChannelAttach:
 _081DDC40:
-	adds r0, r4, 0
+	.section .text.after_ply_note_clear_setup, "ax", %progbits
 	.global PlyNoteClearInvoke
 PlyNoteClearInvoke:
 	.section .text.after_ply_note_clear_invoke, "ax", %progbits
@@ -589,8 +589,7 @@ PlyNoteModInvoke:
 	.global PlyNoteTrackVolumeSetup
 PlyNoteTrackVolumeSetup:
 _081DDC66:
-	ldr r0, [sp]
-	adds r1, r5, 0
+	.section .text.after_ply_note_track_volume_setup, "ax", %progbits
 	.global PlyNoteTrackVolumeInvoke
 PlyNoteTrackVolumeInvoke:
 	.section .text.after_ply_note_track_volume_invoke, "ax", %progbits
@@ -609,9 +608,7 @@ PlyNoteCgbFrequencyInvoke:
 	.global PlyNotePcmFrequencySetup
 PlyNotePcmFrequencySetup:
 _081DDCCE:
-	ldrb r2, [r5, 0x9]
-	adds r1, r3, 0
-	adds r0, r7, 0
+	.section .text.after_ply_note_pcm_frequency_setup, "ax", %progbits
 	.global PlyNotePcmFrequencyInvoke
 PlyNotePcmFrequencyInvoke:
 	.section .text.after_ply_note_pcm_frequency_invoke, "ax", %progbits

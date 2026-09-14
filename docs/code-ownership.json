@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "15cffcad151ad390ecc867fd9b75337feffff6e7",
+  "baseline_commit": "7d1e65a00f722c07f23f66a14525910cfc41b713",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 778,
-        "c_owned": 721190,
+        "assembly_source": 766,
+        "c_owned": 721202,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1787,11 +1787,6 @@
           "instruction_bytes": 78
         },
         {
-          "object": "src/m4a_1.o",
-          "category": "assembly_source",
-          "instruction_bytes": 74
-        },
-        {
           "object": "src/arm/checksum.o",
           "category": "c_owned",
           "instruction_bytes": 72
@@ -1834,6 +1829,11 @@
         {
           "object": "src/classdisplayfont.o",
           "category": "c_owned",
+          "instruction_bytes": 62
+        },
+        {
+          "object": "src/m4a_1.o",
+          "category": "assembly_source",
           "instruction_bytes": 62
         },
         {
@@ -2472,6 +2472,11 @@
           "instruction_bytes": 6
         },
         {
+          "object": "src/m4a_ply_note_pcm_frequency_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 6
+        },
+        {
           "object": "tools/agbcc/lib/libc.a(errno.o)",
           "category": "runtime_archive",
           "instruction_bytes": 6
@@ -2572,6 +2577,11 @@
           "instruction_bytes": 4
         },
         {
+          "object": "src/m4a_ply_note_track_volume_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 4
+        },
+        {
           "object": "src/m4a_ply_note_volume_invoke.o",
           "category": "c_owned",
           "instruction_bytes": 4
@@ -2617,18 +2627,23 @@
           "instruction_bytes": 2
         },
         {
+          "object": "src/m4a_ply_note_clear_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 2
+        },
+        {
           "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "ca0e3f8d6455dd5352db791588998bdfae32fb7dedb3bb255dc85bf4b045b158",
-      "map_sha256": "4981d0c8de7ee662011a1b0ab7f2e308e3908eed1627581e3b605b23c9e174df",
+      "elf_sha256": "e6c326d170337e5e4d5f8be8c874b9293084bf6c4531cb4f2a7c25dabd281b19",
+      "map_sha256": "345a8e867e0a51a77e6cc044f7d13f7be89e4a388d070df61f73ac7cc3105779",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1188
+      "known_nonarchive_assembly_bytes": 1176
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

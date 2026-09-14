@@ -1270,3 +1270,18 @@ src/m4a_ply_note_pcm_frequency_invoke.o: $(THUMB_CALLBACK_TAIL_PLUGIN)
 src/m4a_ply_note_pcm_frequency_invoke.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_pcm_frequency_invoke.o: C_END_ALIGN := 1
 src/m4a_ply_note_pcm_frequency_invoke.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_CALLBACK_TAIL_PLUGIN) -fplugin-arg-thumb_callback_tail-direct-callee=MidiKeyToFreq -fplugin-arg-thumb_callback_tail-continuation=PlyNoteFinish -fplugin-arg-thumb_callback_tail-fallthrough
+
+src/m4a_ply_note_clear_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_ply_note_clear_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_clear_setup.o: C_END_ALIGN := 1
+src/m4a_ply_note_clear_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteClearInvoke -fplugin-arg-tail_transfer-adjacent-destination=PlyNoteClearInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_ply_note_track_volume_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_ply_note_track_volume_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_track_volume_setup.o: C_END_ALIGN := 1
+src/m4a_ply_note_track_volume_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteTrackVolumeInvoke -fplugin-arg-tail_transfer-adjacent-destination=PlyNoteTrackVolumeInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_ply_note_pcm_frequency_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_ply_note_pcm_frequency_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_pcm_frequency_setup.o: C_END_ALIGN := 1
+src/m4a_ply_note_pcm_frequency_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNotePcmFrequencyInvoke -fplugin-arg-tail_transfer-adjacent-destination=PlyNotePcmFrequencyInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
