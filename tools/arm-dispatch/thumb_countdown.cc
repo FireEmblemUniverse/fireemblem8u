@@ -51,10 +51,11 @@ public:
    rtx_insn *jump=next_op(sub);if(!jump||!JUMP_P(jump)||GET_CODE(PATTERN(jump))!=SET||SET_DEST(PATTERN(jump))!=pc_rtx) continue;
    rtx choice=SET_SRC(PATTERN(jump));if(GET_CODE(choice)!=IF_THEN_ELSE) continue;
    rtx test=XEXP(choice,0);
-   if(GET_CODE(test)!=LT||!rtx_equal_p(XEXP(test,0),step)||!rtx_equal_p(XEXP(test,1),tmp)
+   if(!((GET_CODE(test)==LT&&rtx_equal_p(XEXP(test,0),step)&&rtx_equal_p(XEXP(test,1),tmp))
+        ||(GET_CODE(test)==GT&&rtx_equal_p(XEXP(test,0),tmp)&&rtx_equal_p(XEXP(test,1),step)))
       ||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx||!find_reg_note(jump,REG_DEAD,tmp)) continue;
    rtx_insn *label=as_a<rtx_insn *>(XEXP(XEXP(choice,1),0));
-   if(LABEL_NUSES(label)!=1||next_op(label)!=i) continue;
+   if(next_op(label)!=i) continue;
    // Whole-function proof: temporary is used only by the copy and comparison.
    bool private_tmp=true;
    for(rtx_insn *j=get_insns();j;j=NEXT_INSN(j))

@@ -13393,3 +13393,25 @@ Production remains unchanged. The next step is integration with the PC-derived
 step setup and complete calibrated wait, followed by full-image/compiler
 regression verification. This isolated loop match does not claim that the
 entire delay function or other compiler clients have yet been rebuilt.
+
+
+### Complete multiboot wait candidate (September 14, 2026)
+
+Baseline `84c79d7b`. `research/multiboot/wait_cycles.c` now reproduces the
+complete 24-byte MultiBootWaitCycles region. A signed step variable avoids
+an extra saved comparison operand while the unsigned cycle subtraction still
+wraps by definition. Reserving r2 prevents its region value from becoming a
+scratch register. The pass now accepts equivalent LT/GT operand order and
+multiple incoming branches to the exact loop start; its whole-function
+restriction on temporary uses remains intact.
+
+`research/multiboot/check_wait_cycles.py` passes 1,548 full-function cases in
+ROM, EWRAM and IWRAM, checking step selection (13/12/4), loop instruction
+counts, all register results, return and absence of writes. Cases include
+small positive counts and signed-negative/overflow boundaries. The separate
+12,315 loop cases and rejection/control checks still pass. Evidence:
+`docs/multiboot-wait-research.json` and updated loop matching receipt.
+
+Exact bytes and instruction counts are verified; bus wait-state timing is
+not independently emulated. The two-byte PC read remains explicit assembly.
+Production is unchanged pending integration and full-ROM/compiler checks.
