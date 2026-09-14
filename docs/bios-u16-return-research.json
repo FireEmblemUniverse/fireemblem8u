@@ -1,0 +1,31 @@
+{
+  "compiler_version": "arm-none-eabi-gcc (GCC) 16.2.0",
+  "plugin_sha256": "25219049b8737bcf49cc6973844381e7cf458ed433924828e1d2ed87c09255be",
+  "source_sha256": "165b12c2490fd94cc7d7c04689e142461f679fc23a7072d41a67e427fdebd3fa",
+  "wrappers": [
+    {
+      "name": "ArcTan2",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 512,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 10
+    },
+    {
+      "name": "Sqrt",
+      "original_instruction_bytes": 4,
+      "candidate_bytes": 4,
+      "instruction_bytes_exact": true,
+      "cases": 512,
+      "register_difference_cases": 0,
+      "flag_difference_cases": 0,
+      "svc": 8
+    }
+  ],
+  "exact_wrappers": 2,
+  "total_cases": 1024,
+  "production_integrated": false,
+  "scope": "Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft."
+}

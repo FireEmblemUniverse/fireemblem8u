@@ -1130,3 +1130,24 @@ requires and folds two isolated immutable NE halt blocks.
 private call only under an external adjacency contract. The production
 linker assertion and `scripts/audit_irq_search.py` enforce that contract.
 No instruction templates or opcode postprocessing implement these changes.
+
+
+### BIOS u16 return contract (research)
+
+`bios_u16_return.cc` recognizes only explicitly annotated Thumb leaf wrappers
+for BIOS service 8 or 10 whose declared return is unsigned 16-bit. The service
+contract guarantees r0 is already zero-extended; after validating the complete
+seven-operation RTL shape, the pass removes the redundant two narrowing
+shifts and preserves returned CPU flags. SWI remains explicit source assembly.
+Other shapes reject; unannotated functions are unchanged.
+
+Build and check:
+
+```sh
+python3 tools/arm-dispatch/build_bios_u16_return.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/bios-wrappers
+python3 research/bios/check_u16_return.py
+.deps/arm-oracle-venv/bin/python research/bios/check_wrappers.py --source research/bios/u16_return.c --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --plugin .deps/bios-wrappers/bios_u16_return.so --wrappers ArcTan2 Sqrt --seeds 32 --expected-mismatch
+```
+
+The execution check supplies synthetic in-range BIOS results; actual BIOS
+service behavior and hardware effects are outside this check.

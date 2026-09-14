@@ -11424,3 +11424,43 @@ instruction denominator remains 777,630, with 740,014 whole-object C-owned,
 main C files. Expanded payload assembly, unmapped-input provenance and ROM
 padding accounting are unchanged. Complete executable classification and
 runtime assembly remain unfinished.
+
+
+### Exact ArcTan2/Sqrt return-contract candidates
+
+`research/bios/u16_return.c` keeps the existing u16 API and explicit BIOS SWI
+boundaries. `tools/arm-dispatch/bios_u16_return.cc` implements the opt-in
+`matching_bios_u16_return` contract: services 8 and 10 supply an already
+zero-extended 16-bit r0 result, so the compiler's final LSLS/LSRS narrowing
+pair is redundant. Removing the pair preserves the service's returned flags.
+The pass emits no replacement instruction templates; the compiler's return
+remains intact. This contract relies on the service result range; it is not
+a general optimization for arbitrary inline assembly or arbitrary r0 outputs.
+
+Before removing either instruction, the pass checks Thumb-1 mode, unsigned
+16-bit result type, exactly seven RTL operations, exact volatile SWI template,
+fixed input/output registers and tied constraints, the expected clobbers,
+both r0 shifts by 16, SP/register-use markers and the leaf return. It rejects
+labels, calls, additional operations and mismatching shapes. Source functions
+without the attribute are untouched. The existing pinned GCC builds this
+plugin without a backend rebuild.
+
+Both candidates match their original four bytes. The synthetic service model
+passes 1,024 cases: two wrappers, sixteen flag combinations, 32 seeded states,
+with result edges 0/1/0x8000/0xffff and additional seeded 16-bit results.
+It checks identical incoming registers/flags, final registers/flags, return
+and absence of wrapper stack writes. It does not implement BIOS services or
+validate actual service memory effects, timing, hardware interrupts, or
+out-of-contract results. `docs/bios-u16-return-research.json` records this run.
+
+`research/bios/check_u16_return.py` verifies exact candidate sections and
+rejects ten altered forms: ARM mode, wrong service, extra instruction, signed
+or wide return, different narrowing mask, missing flag clobber, extra register
+clobber, nonvolatile assembly and extra memory store. Unannotated code is
+identical with and without the plugin. The source/plugin hashes and controls
+are recorded in `docs/bios-u16-return-controls.json`.
+
+These are research candidates, not production integration. Main-ROM reviewed
+non-library assembly remains 130 bytes (46 source plus 84 inline). The next
+step is to integrate both candidates and refresh full-ROM, runtime and
+ownership verification. The overall decompilation remains unfinished.

@@ -34,7 +34,7 @@ for name in names:
   for seed in range(args.seeds):
    inputs=[rng.getrandbits(32) for _ in range(13)]
    outputs={n:rng.getrandbits(32) for n in (0,1,2,3,12)}
-   if name in ('ArcTan2','Sqrt'):outputs[0]=(0,1,0x8000,0xffff)[seed % 4]
+   if name in ('ArcTan2','Sqrt'):outputs[0]=(0,1,0x8000,0xffff)[seed] if seed < 4 else rng.getrandbits(16)
    snapshots=[];handoffs=[]
    for draft in (False,True):
     u=Uc(UC_ARCH_ARM,UC_MODE_THUMB);u.mem_map(0x08000000,len(rom));u.mem_write(0x08000000,rom)
