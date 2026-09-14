@@ -1,0 +1,18 @@
+{
+  "private_frame": true,
+  "compared_instruction_words": 32,
+  "exact_words": 30,
+  "mismatches": [
+    {
+      "address": "0x8b1a1c4",
+      "original": "8c009fe5",
+      "candidate": "7c009fe5"
+    },
+    {
+      "address": "0x8b1a208",
+      "original": "4c309fe5",
+      "candidate": "3c309fe5"
+    }
+  ],
+  "scope": "Aligned 128-byte pre-BIOS handshake only. Missing BIOS suffix and literal pool prevent full matching; the ordinary build also has an extra entry save. No output bytes are patched."
+}

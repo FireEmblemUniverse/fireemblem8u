@@ -12,7 +12,12 @@ static __inline__ int poll_failed(void)
     asm volatile("" : "=@cceq"(succeeded));
     return !succeeded;
 }
-void __attribute__((noreturn)) SerialReset(void)
+#ifdef SERIAL_PRIVATE_FRAME
+#define SERIAL_FRAME __attribute__((matching_arm_noreturn_frame))
+#else
+#define SERIAL_FRAME
+#endif
+void SERIAL_FRAME __attribute__((noreturn)) SerialReset(void)
 {
     unsigned accepted;
     serialBase = (volatile unsigned short *)0x04000120;

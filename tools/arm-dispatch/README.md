@@ -1098,3 +1098,16 @@ The linker must check the direct conditional destination's alignment and range.
 full-width boundary cases, and 37,369 complete selection cases. The standalone
 `check_ply_note_pcm_advance_model.py` exercises every incoming NZCV and checks
 all registers, SP/LR and absence of data-memory access through the three exits.
+
+## Experimental ARM noreturn private frame
+
+`build_arm_noreturn_frame.py` builds the opt-in
+`matching_arm_noreturn_frame` backend. Supply a repeated
+`-fplugin-arg-arm_noreturn_frame-callee=NAME` for each private callee. The
+contract permits removal of an unused incoming LR stack slot only for
+nonreturning, argument-free ARM void code with no remaining stack or LR
+data references. Callees must accept the unchanged entry SP and no arguments.
+It rejects debug/unwind builds, instruction assembly, indirect calls and
+nonlocal jumps. This is currently serial-reset research, not a production
+build dependency. See `research/serial/check_private_frame.py` and the
+private-frame receipts in `docs/`.

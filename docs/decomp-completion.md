@@ -10597,3 +10597,34 @@ integration. Reserving LR via either a global register declaration or
 attribute probe suppresses it, but has not been adopted as the compiler
 contract for this C body. A validated private-frame backend and the actual
 BIOS/terminal transfer remain next work. Production ownership is unchanged.
+
+### Serial-reset private-frame compiler contract
+
+`tools/arm-dispatch/arm_noreturn_frame.cc` adds the opt-in
+`matching_arm_noreturn_frame` attribute. On GCC 16.2.0 it removes only a sole
+entry LR save, after requiring a nonreturning zero-frame ARM void function
+without arguments, debug or unwind metadata. It rejects body stack accesses,
+LR data use, executable assembly, nonlocal/indirect jumps, and calls outside
+an explicit private-callee list. Calls must have no stack or register argument
+usage in RTL. The caller contract deliberately has no incoming LR result and
+never returns; private callees must accept entry SP without the removed slot.
+No assembly output or instruction bytes are patched.
+
+Build with `python3 tools/arm-dispatch/build_arm_noreturn_frame.py
+--output-dir .deps/serial-reset`. The reset draft opts in only when
+`SERIAL_PRIVATE_FRAME` is defined. The exact flags and candidate hash are
+recorded in `docs/serial-reset-private-frame-research.json`. All 272 protocol
+cases pass; all 208 successful handoffs match SP, r0-r12 and CPSR exactly.
+The candidate is 140 bytes, still with a placeholder terminal call.
+LR, halted register state, physical timing and BIOS behavior remain outside
+this check. `compare_reset.py --private-frame` confirms 30/32 aligned words;
+only two literal displacements differ within that pre-BIOS window.
+
+`research/serial/check_private_frame.py` rejects ten unsupported contracts
+(debug, Thumb, unwind, returning body, arguments, stack locals, instruction
+assembly, LR data use, unknown call, indirect call) and verifies byte-identical
+unannotated control output. Its receipt is
+`docs/serial-reset-private-frame-rejections.json`. An initial returning test
+was corrected to contain an actual return, since GCC inferred noreturn when
+only the declaration annotation was removed. Production remains unchanged;
+the actual BIOS suffix and complete region/pool layout are still required.

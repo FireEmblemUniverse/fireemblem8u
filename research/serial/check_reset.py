@@ -31,6 +31,7 @@ def main():
  parser=argparse.ArgumentParser()
  parser.add_argument('--source',type=Path,default=ROOT/'research/serial/reset.c')
  parser.add_argument('--check-handoff-registers',action='store_true')
+ parser.add_argument('--stack-delta',type=int,default=-4)
  parser.add_argument('--cflag',action='append',default=[])
  args=parser.parse_args()
  OUT.mkdir(exist_ok=True);cc='arm-none-eabi-gcc'
@@ -67,8 +68,8 @@ def main():
     if state['outcome']=='handoff':handoffs.append(([uc.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(13)],uc.reg_read(r.UC_ARM_REG_CPSR),uc.reg_read(r.UC_ARM_REG_SP)))
    if args.check_handoff_registers and handoffs:
     assert handoffs[0][:2]==handoffs[1][:2],handoffs
-    assert handoffs[1][2]==handoffs[0][2]-4,handoffs
+    assert handoffs[1][2]==handoffs[0][2]+args.stack_delta,handoffs
    cases+=1;outcomes[expected[2]]=outcomes.get(expected[2],0)+1
- report=dict(handoff_register_check=args.check_handoff_registers,compiler_flags=args.cflag,source=str(args.source.resolve().relative_to(ROOT)),cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the known candidate SP decrement of four; LR and halt-state registers are excluded. Candidate does not byte-match.')
+ report=dict(expected_stack_delta=args.stack_delta,handoff_register_check=args.check_handoff_registers,compiler_flags=args.cflag,source=str(args.source.resolve().relative_to(ROOT)),cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the requested candidate SP delta; LR and halt-state registers are excluded. Candidate does not byte-match.')
  (OUT/'model.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

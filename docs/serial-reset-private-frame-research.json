@@ -1,0 +1,21 @@
+{
+  "expected_stack_delta": 0,
+  "handoff_register_check": true,
+  "compiler_flags": [
+    "-fno-cse-follow-jumps",
+    "-DSERIAL_PRIVATE_FRAME",
+    "-fplugin=.deps/serial-reset/arm_noreturn_frame.so",
+    "-fplugin-arg-arm_noreturn_frame-callee=sio_polling",
+    "-fplugin-arg-arm_noreturn_frame-callee=SerialDecompressAndJump"
+  ],
+  "source": "research/serial/reset_constrained.c",
+  "cases": 272,
+  "outcomes": {
+    "handoff": 208,
+    "halt": 64
+  },
+  "candidate_bytes": 140,
+  "candidate_sha256": "09a5d273bf2d4935f56370e97334e89e3f6fb29388cbb1bf8d59adf201f3632f",
+  "production_integrated": false,
+  "scope": "Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the requested candidate SP delta; LR and halt-state registers are excluded. Candidate does not byte-match."
+}
