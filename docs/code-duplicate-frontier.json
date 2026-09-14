@@ -1,0 +1,29 @@
+{
+  "scope": "Exact whole-function copies at halfword-aligned locations contained in a single mapped-data/unmapped input region. Functions below 32 bytes, modified/relocated copies, compressed code, region-spanning copies and ROM gaps are excluded. Exact equality indicates code-like content, not execution or independent decompilation.",
+  "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+  "functions_scanned": 6373,
+  "matches": 2,
+  "owners": [
+    "src/data_B1FE7C.o"
+  ],
+  "records": [
+    {
+      "function": "sio_polling",
+      "source": "0x8b1a198",
+      "duplicate": "0x8b248d4",
+      "bytes": 44,
+      "thumb": false,
+      "owner": "src/data_B1FE7C.o",
+      "mapping": "data"
+    },
+    {
+      "function": "SerialReset",
+      "source": "0x8b1a1c4",
+      "duplicate": "0x8b24900",
+      "bytes": 164,
+      "thumb": false,
+      "owner": "src/data_B1FE7C.o",
+      "mapping": "data"
+    }
+  ]
+}

@@ -13967,3 +13967,19 @@ map the generated array as data, so this explicit overlay must accompany future
 coverage accounting. Expanded instructions are not added to physical ROM byte
 totals, and repeated content is not treated as newly recovered unique source.
 The complete executable denominator and reachability review remain open.
+
+## Exact whole-function duplicate scan — September 14, 2026
+
+Baseline `568eb479`. `scripts/audit_code_duplicates.py` indexes the first 32 bytes
+of 6,373 declared ROM functions and scans halfword-aligned positions in every
+noninstruction input region. Hits require exact equality over the whole declared
+function extent, full containment within one region and ARM alignment where
+applicable. The known copied sio_polling function is a positive control.
+
+Only two whole-function copies match, both in src/data_B1FE7C.o, the already
+accounted-for generated duplicate. `docs/code-duplicate-frontier.json` records
+the matches and ROM hash. This rules out additional exact copies only within
+this search definition. Functions shorter than 32 bytes, modified/relocated code,
+compressed content, ROM gaps and copies spanning region boundaries remain
+outside the scan. It does not close executable classification or reachability.
+Production source is unchanged.

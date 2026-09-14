@@ -52,6 +52,8 @@ Latest production integration (baseline `22975adb`): gUnkData_108 now uses gener
 
 Latest copied-code accounting (baseline `d0626e97`): the generated duplicate contains 200 native instruction bytes and a 21,452-byte compressed payload. Both payload copies expand exactly to mgfembp: 25,714 mapped instruction bytes (1,108 ARM and 24,606 Thumb). These are explicit content overlays, not a reachability claim or a new overall denominator. Receipt: `docs/duplicate-executable-content.json`.
 
+Latest exact-code duplicate scan (baseline `568eb479`): 6,373 declared functions of at least 32 bytes were checked against halfword-aligned positions in noninstruction input regions. Two exact whole-function copies were found, both in the known generated duplicate. Short, modified, compressed, gap-resident and region-spanning code remain outside this scan. Receipt: `docs/code-duplicate-frontier.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
