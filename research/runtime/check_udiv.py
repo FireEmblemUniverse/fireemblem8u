@@ -6,9 +6,17 @@ from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/runtime-division';OUT.mkdir(exist_ok=True)
 source=ROOT/'research/runtime/udiv.c'
-parser=argparse.ArgumentParser();parser.add_argument('--initial-bit-one',action='store_true');parser.add_argument('--require-state-match',action='store_true');parser.add_argument('--division-needed',action='store_true');parser.add_argument('--operation',choices=['division','modulus'],default='division');parser.add_argument('--assembled-helper',type=Path);parser.add_argument('--require-exact-helper',action='store_true');parser.add_argument('--compiler-flag',action='append',default=[]);parser.add_argument('--require-exact-core',action='store_true');parser.add_argument('--nonzero-only',action='store_true');parser.add_argument('--extra-plugin',type=Path,action='append',default=[]);parser.add_argument('--compiler',default='arm-none-eabi-gcc');parser.add_argument('--plugin',type=Path);parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
-helper_symbol='__umodsi3' if args.operation=='modulus' else '__udivsi3'
-helper_size=192 if args.operation=='modulus' else 120
+parser=argparse.ArgumentParser();parser.add_argument('--initial-bit-one',action='store_true');parser.add_argument('--require-state-match',action='store_true');parser.add_argument('--division-needed',action='store_true');parser.add_argument('--operation',choices=['division','modulus','signed-division'],default='division');parser.add_argument('--assembled-helper',type=Path);parser.add_argument('--require-exact-helper',action='store_true');parser.add_argument('--compiler-flag',action='append',default=[]);parser.add_argument('--require-exact-core',action='store_true');parser.add_argument('--nonzero-only',action='store_true');parser.add_argument('--extra-plugin',type=Path,action='append',default=[]);parser.add_argument('--compiler',default='arm-none-eabi-gcc');parser.add_argument('--plugin',type=Path);parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
+helper_symbol={'modulus':'__umodsi3','division':'__udivsi3','signed-division':'__divsi3'}[args.operation]
+helper_size={'modulus':192,'division':120,'signed-division':146}[args.operation]
+def oracle(n,d):
+ if not d:return 0
+ if args.operation=='signed-division':
+  n=n if n<0x80000000 else n-0x100000000
+  d=d if d<0x80000000 else d-0x100000000
+  q=abs(n)//abs(d)
+  return (-q if (n<0)!=(d<0) else q)&0xffffffff
+ return n%d if args.operation=='modulus' else n//d
 if not args.assembled_helper:
  subprocess.run([args.compiler,*(['-fplugin='+str(args.plugin.resolve()),'-DMATCHING_COPY_ADD_ZERO','-Werror=attributes'] if args.plugin else []),*['-fplugin='+str(p.resolve()) for p in args.extra_plugin],*args.compiler_flag,'-S','-'+args.optimization,'-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(source),'-o',str(OUT/'udiv.s')],check=True)
  subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'udiv.s'),'-o',str(OUT/'udiv.o')],check=True)
@@ -29,6 +37,9 @@ cases += [(rng.getrandbits(32),rng.getrandbits(32),f) for f in range(16) for _ i
 cases += [(x,0,f) for x in edge for f in range(16)]
 # Force every normalization boundary and near-exact quotient with every flag profile.
 cases += [(x,y,f) for f in range(16) for bit in range(32) for y in [1<<bit] for x in [y-1,y,min(0xffffffff,y+1)]]
+if args.operation=='signed-division':
+ magnitudes=[1,2,15,16,17,0x7fffffff,0x80000000]
+ cases += [((x if sx==1 else -x)&0xffffffff,(y if sy==1 else -y)&0xffffffff,f) for x in magnitudes for y in magnitudes for sx in (-1,1) for sy in (-1,1) for f in range(16)]
 if args.division_needed:cases=[case for case in cases if case[1] and case[0]>=case[1]]
 if args.nonzero_only:cases=[case for case in cases if case[1]!=0]
 flagdiffs=0;callerdiffs=0;zero_cases=0;zero_flagdiffs=0;nonzero_flagdiffs=0
@@ -52,7 +63,7 @@ for numerator,denominator,flags in cases:
   u.emu_start((candidate_address if draft else symbols[helper_symbol])|1,0,count=2000)
   assert state['returned'] and state['div0']==int(denominator==0),(numerator,denominator,draft,state)
   snapshot=[u.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(15)]+[u.reg_read(r.UC_ARM_REG_CPSR)]
-  assert snapshot[0]==((numerator%denominator if args.operation=='modulus' else numerator//denominator) if denominator else 0),(numerator,denominator,draft,snapshot[0])
+  assert snapshot[0]==oracle(numerator,denominator),(numerator,denominator,draft,snapshot[0])
   assert snapshot[4:12]==initial[4:12] and snapshot[13]==0x03007000
   snapshots.append(snapshot);write_records.append(state['writes'])
  for n in range(15):register_diffs[str(n)]+=snapshots[0][n]!=snapshots[1][n]
@@ -65,7 +76,7 @@ for numerator,denominator,flags in cases:
  zero_cases+=denominator==0
 
 if args.require_state_match:assert not flagdiffs and not stack_diffs and not any(register_diffs.values())
-core_start,core_end=(12,182) if args.operation=='modulus' else (4,110)
+core_start,core_end={'modulus':(12,182),'division':(4,110),'signed-division':(4,136)}[args.operation]
 core_exact=code==rom[symbols[helper_symbol]-0x08000000+core_start:symbols[helper_symbol]-0x08000000+core_end]
 if args.require_exact_core:assert (args.division_needed if args.operation=='modulus' else args.nonzero_only) and core_exact and not flagdiffs and not callerdiffs and not stack_diffs and not any(register_diffs.values())
 original=rom[symbols[helper_symbol]-0x08000000:symbols[helper_symbol]-0x08000000+helper_size]

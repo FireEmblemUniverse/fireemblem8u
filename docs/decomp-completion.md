@@ -12235,3 +12235,29 @@ assembly, expanded payload assembly and mapped-data/executable classification
 remain unfinished. This integration does not establish overall completion.
 Code/inline-region and data-provenance receipts are refreshed for the new
 ELF/map identities.
+
+
+### Signed-division arithmetic recovery (September 14, 2026)
+
+Baseline `f96889f0`. `research/runtime/sdiv.c` recovers the original
+normalization/unrolled-subtraction algorithm with sign capture, unsigned
+magnitude conversion and unsigned result negation. It retains the source
+license and avoids signed overflow even for INT_MIN. The returning zero
+path calls the actual __div0 helper.
+
+The checker supports signed division with a Python magnitude quotient and
+sign restoration (truncation toward zero), masking the result to 32 bits
+to match legacy INT_MIN/-1 behavior. Its 6,312 cases include the existing
+boundary/random/zero cases plus all sign combinations of seven selected
+magnitudes and sixteen initial flag states. The 144-byte -Os candidate
+passes all results, callee-saved registers and restored SP; the original
+helper contains 146 instruction bytes. Flags differ on
+2600 cases, caller registers on
+6312 cases and stack writes on
+6312 cases. The source hash and detailed
+measurements are in `docs/runtime-sdiv-research.json`.
+
+Next bind the original r0-r4 arithmetic state and r12 sign state, then
+recover the frame, sign-restoration flags and exact layout. This candidate
+is not integrated; production runtime assembly remains 414 bytes per
+audited image and overall completion is unproven.
