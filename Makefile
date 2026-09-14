@@ -1440,3 +1440,9 @@ $(RUNTIME_C_DIR)/libc.a: $(RUNTIME_C_DIR)/syscalls/syscalls.o tools/agbcc/lib/li
 	cp tools/agbcc/lib/libc.a $@.tmp
 	arm-none-eabi-ar r $@.tmp $(RUNTIME_C_DIR)/syscalls/syscalls.o
 	mv $@.tmp $@
+
+EVENT_NOP_CC := .deps/event-nop/agbcc
+$(EVENT_NOP_CC): tools/agbcc-nop/build.py
+	$(PYTHON) tools/agbcc-nop/build.py
+src/eventinfo.o: $(EVENT_NOP_CC)
+src/eventinfo.o: CC1 := $(EVENT_NOP_CC)

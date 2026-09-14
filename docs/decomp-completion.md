@@ -13514,3 +13514,27 @@ Production remains unchanged. A reproducible production compiler build,
 replacement of the two source templates and full-ROM/ownership verification
 remain before claiming the four-byte inline reduction. Broader builtin-control
 coverage and final executable/data classification remain open.
+
+
+### Event NOP builtin production integration (September 14, 2026)
+
+Baseline `2543832f`. The two eventinfo NOP templates now call the pinned
+compiler's zero-argument void builtin. `tools/agbcc-nop/build.py` builds the
+variant reproducibly from committed agbcc sources and records compiler/source
+hashes. Only eventinfo uses this compiler. Distinct compiler UIDs in the volatile
+NOP RTL preserve the original separate switch paths without emitted tag data.
+
+The complete 6,656-byte event text and its text relocations match, as do
+unmodified-source controls. Invalid builtin arguments/results reject. The main
+ROM checksum and fresh four-image/runtime-symbol checks pass. Evidence:
+`event-nop-builtin.json`, refreshed ownership/inline/platform/runtime receipts,
+and the original 512-case return-path model for the unchanged byte region.
+
+Main inline assembly falls four bytes to 84. The entire event object now has
+no detected instruction templates, moving 6,030 mapped instruction bytes from
+mixed to C-owned classification: 746,068 C-owned (95.94%), 9,770 mixed, 21,792
+runtime. This object-wide shift is not 6,030 newly recovered instruction bytes.
+Payload inline assembly remains 58 bytes. All remaining reviewed nonlibrary
+inline sites are software interrupts, status operations or the PC read; this
+purpose classification does not prove those operations cannot use intrinsics.
+Full embedded-executable classification and the decompilation goal remain open.

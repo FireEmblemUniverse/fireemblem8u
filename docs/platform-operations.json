@@ -1,6 +1,6 @@
 {
   "scope": "Purpose classification of all currently reviewed nonlibrary inline sites. Does not prove complete executable coverage or that hardware operations cannot be expressed by compiler intrinsics.",
-  "inline_receipt_sha256": "200d364d6b7550ec8071da1f745632b9c64982bba6c50463a4f9809a5359f759",
+  "inline_receipt_sha256": "f1cd7122948e05beacbf5a15a225e9fc1fc6463da9bd92317dc50bd03a8740ce",
   "categories": {
     "mgfembp": {
       "processor_status": 32,
@@ -9,7 +9,6 @@
     "main_rom": {
       "software_interrupt": 50,
       "processor_status": 32,
-      "explicit_nop": 4,
       "execution_address": 2
     }
   },
@@ -355,24 +354,6 @@
       "instruction_bytes": 4,
       "category": "software_interrupt",
       "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
-    },
-    {
-      "image": "main_rom",
-      "source": "src/eventinfo.c",
-      "function": "StartAvailableTileEvent",
-      "address": "0x8084320",
-      "instruction_bytes": 2,
-      "category": "explicit_nop",
-      "reason": "Exact instruction retained in event switch; ordinary compiler recovery remains open"
-    },
-    {
-      "image": "main_rom",
-      "source": "src/eventinfo.c",
-      "function": "StartAvailableTileEvent",
-      "address": "0x8084324",
-      "instruction_bytes": 2,
-      "category": "explicit_nop",
-      "reason": "Exact instruction retained in event switch; ordinary compiler recovery remains open"
     },
     {
       "image": "main_rom",

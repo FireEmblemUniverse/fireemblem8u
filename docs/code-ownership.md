@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `1c9d289a`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `2543832f`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
@@ -13,8 +13,8 @@ Build baseline: `1c9d289a`. Regenerate with `python3 scripts/audit_code_ownershi
 
 | Ownership | Instruction bytes | Share of mapped instructions |
 |---|---:|---:|
-| C-owned objects | 740,038 | 95.17% |
-| C objects containing assembly | 15,800 | 2.03% |
+| C-owned objects | 746,068 | 95.94% |
+| C objects containing assembly | 9,770 | 1.26% |
 | Assembly-source objects | 0 | 0.00% |
 | Runtime archive objects | 21,792 | 2.80% |
 | Unresolved ownership | 0 | 0.00% |
@@ -28,7 +28,6 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 
 | Object | Instruction bytes |
 |---|---:|
-| `src/eventinfo.o` | 6,030 |
 | `src/m4a.o` | 4,808 |
 | `src/hardware.o` | 4,550 |
 | `src/serial_reset.o` | 148 |
@@ -71,7 +70,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 
 | Scope | Inline instruction bytes | Assembly sources + reviewed inline |
 |---|---:|---:|
-| main_rom | 88 | 88 |
+| main_rom | 84 | 84 |
 | mgfembp | 58 | 58 |
 
 The table above reports current reviewed inline bytes; mixed-object sizes are not remaining assembly counts. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.

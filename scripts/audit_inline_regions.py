@@ -49,8 +49,6 @@ SITES=[
  ('main_rom','src/irq_continuation.c','IrqSelected',0x08000208,'03f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
  ('main_rom','src/irq_continuation.c','IrqSelected',0x08000214,'00f069e1',4,'asm volatile("msr spsr_fc, %0"'),
  ('main_rom','src/serial_reset.c','SerialReset',0x08b1a24c,'000011ef',4,'asm volatile("svc #0x110000"'),
- ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084320,'c046',2,'asm("nop")'),
- ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084324,'c046',2,'asm("nop")'),
  ('main_rom','src/hardware.c','EnterSleepMode',0x08001ce2,'03df',2,'asm("swi 3")'),
  ('main_rom','src/m4a.c','MusicPlayerJumpTableCopy',0x080d054c,'2adf',2,'asm("swi 0x2A")'),
  ('main_rom','src/sio_multiboot_wait.c','MultiBootWaitCycles',0x0804e024,'7a46',2,'asm("mov %0, pc"'),

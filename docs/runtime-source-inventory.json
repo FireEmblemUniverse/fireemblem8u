@@ -587,7 +587,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "85502a9f32b369fd092bf999c4f4c95d36c8a8d34e73fd811d20f0d42c848f3e",
+  "rebuild_report_sha256": "5ae4d2572db555c76dc807196b0a715719d378091078dd0c0bdcae12b2730442",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

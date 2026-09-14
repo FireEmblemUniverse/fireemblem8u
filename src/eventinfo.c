@@ -1575,11 +1575,11 @@ void StartAvailableTileEvent(s8 x, s8 y) {
 
 #if !NONMATCHING
         case TILE_COMMAND_SHOP_UNK:
-            asm("nop");
+            __builtin_matching_nop();
             return;
 
         case TILE_COMMAND_NONE:
-            asm("nop");
+            __builtin_matching_nop();
             return;
 #endif
     }

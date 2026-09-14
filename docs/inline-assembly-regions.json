@@ -2,7 +2,7 @@
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
     "mgfembp": 58,
-    "main_rom": 88
+    "main_rom": 84
   },
   "sites": [
     {
@@ -345,24 +345,6 @@
       "address": "0x8b1a24c",
       "region_bytes": 4,
       "instruction_bytes": 4,
-      "literal_alignment_bytes": 0
-    },
-    {
-      "image": "main_rom",
-      "source": "src/eventinfo.c",
-      "function": "StartAvailableTileEvent",
-      "address": "0x8084320",
-      "region_bytes": 2,
-      "instruction_bytes": 2,
-      "literal_alignment_bytes": 0
-    },
-    {
-      "image": "main_rom",
-      "source": "src/eventinfo.c",
-      "function": "StartAvailableTileEvent",
-      "address": "0x8084324",
-      "region_bytes": 2,
-      "instruction_bytes": 2,
       "literal_alignment_bytes": 0
     },
     {
