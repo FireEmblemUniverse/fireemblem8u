@@ -12163,3 +12163,27 @@ credit is taken yet.
 
 `make compare -j8` passes after rebuilding the updated plugin; the
 production ELF remains identical to the integrated runtime receipt.
+
+
+### Complete unsigned-modulus research match (September 14, 2026)
+
+Baseline `7c34b686`. `umod_entry.c` uses the private r0/r1/r3 convention,
+a zero-divisor terminal call, r3=1 assignment and unsigned comparison to a
+terminal core call. The umod_entry pass accepts only the exact LR-only
+frame, two validated noreturn calls, comparisons, bit assignment and empty
+return epilogue. It emits existing zero-tail and unsigned-register-tail
+operations plus MOV-PC, preserving the original caller LR and r0.
+
+`check_umod_complete.py` links the 12-byte entry, 170-byte core and reused
+ten-byte zero path at the original 0x080D1B4C address. Layout assertions
+require offsets 12/182, total length 192 and entry alignment. All 192 bytes
+match. All 3,176 full-helper cases pass result, r0-r14, CPSR and stack-write
+comparison, including 252 zero divisors through the actual __div0 routine.
+The full model does not seed a private r3 value; the new entry initializes it.
+Source/plugin hashes and layout are in runtime-umod-complete-research.json.
+
+Eight rejection controls cover bit value, signed comparison, wrong target,
+extra work, returnable calls, ARM mode, debug and unwind. Unannotated output
+is unchanged. Next package the complete helper as a relocatable _umodsi3.o,
+verify all four linked image layouts, then integrate and update provenance.
+No production coverage totals change at this research milestone.

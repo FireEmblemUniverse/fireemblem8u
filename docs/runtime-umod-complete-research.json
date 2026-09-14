@@ -1,0 +1,63 @@
+{
+  "exact_nonzero_core": false,
+  "compiler_extra_flags": [],
+  "nonzero_only": false,
+  "extra_plugin_sha256": [],
+  "zero_divisor_flag_difference_cases": 0,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": null,
+  "register_difference_cases": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0
+  },
+  "stack_write_difference_cases": 0,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 0,
+      "candidate_offset": 0,
+      "bytes": 192
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": null,
+  "assembled_helper_sha256": "990e7a83ea9174bb9bc7c40ad70997c7884a27316bd9e3c778fde8c05fe4635c",
+  "cases": 3176,
+  "divide_by_zero_cases": 252,
+  "initial_bit_one": false,
+  "division_needed": false,
+  "operation": "modulus",
+  "original_instruction_bytes": 192,
+  "candidate_section_bytes": 192,
+  "result_and_preserved_registers_match": true,
+  "flag_difference_cases": 0,
+  "caller_register_difference_cases": 0,
+  "bytes_exact": true,
+  "production_integrated": false,
+  "scope": "Full helper at original address: exact bytes, quotient, all r0-r14, CPSR and stack writes; actual __div0, Thumb caller only. Research, not integrated.",
+  "fragment_sha256": {
+    "umod_entry": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658",
+    "umod_entry_state": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+    "divzero": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+  },
+  "compiler_plugin_sha256": {
+    "umod_entry": "fde04e5207b34cb232d26e057f494b94164134934c2b9891d700c34ffda73639",
+    "leaf_frame": "edcdebfad41ba07147ad91abf16d305da255cc89c382dc82e486ae7b445c4ca7",
+    "leaf_r4_frame": "8643113cdc5f4b768cf7bd8620f152ef8e462a5fa8192ba5c6b3619ca8f55c94",
+    "divzero_return": "e1d2368284f36d22c62898af19b0fad583ea03e8306ba45dedc43b8a16bc372f"
+  },
+  "linker_script": "SECTIONS { .text 0x080d1b4c : { /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/mod-complete-umod_entry.o(.text) /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/mod-complete-umod_entry_state.o(.text) /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/mod-complete-divzero.o(.text) } }\nASSERT(runtime_umod == runtime_mod_entry + 12, \"core must fall through\")\nASSERT(runtime_divzero == runtime_mod_entry + 182, \"zero path misplaced\")\nASSERT(SIZEOF(.text) == 192, \"helper size\")\nASSERT((runtime_mod_entry & 3) == 0, \"entry alignment\")\n"
+}

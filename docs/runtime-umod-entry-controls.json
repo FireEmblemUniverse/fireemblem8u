@@ -1,0 +1,13 @@
+{
+  "rejected_contracts": [
+    "wrong-bit",
+    "signed-compare",
+    "wrong-target",
+    "extra-work",
+    "returnable-call",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true
+}
