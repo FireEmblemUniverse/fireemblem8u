@@ -12323,3 +12323,25 @@ the production ELF is unchanged from the integrated runtime receipt.
 Next combine the four-byte zero guard and ten-byte zero path with this core,
 then verify the full 146-byte helper and all-image archive replacement.
 No production signed-division ownership credit is taken yet.
+
+
+### Complete signed division and relocatable verification (September 14, 2026)
+
+Baseline `fe9074a3`. `check_sdiv_complete.py` reuses the checked division
+entry by compiling the signed core under its private target name. Layout
+assertions enforce offsets 4/136, 146 total instruction bytes and entry
+alignment at 0x080D18FC. The full original helper matches. All 6,312 cases,
+including 252 zero divisors, pass final r0-r14, CPSR and stack-write checks.
+The receipt fingerprints every fragment and plugin.
+
+`build_sdiv_member.py` rebuilds the required plugins and packages a relocatable
+_divsi3.o with a 146-byte public symbol and 148-byte text section. The first
+all-image test exposed only the assembler's default two-byte Thumb NOP
+padding at ROM 0xD198E; specifying zero fill reproduces the original archive
+padding. The corrected member passes all four fresh image and exported-symbol
+comparisons through `verify_runtime_rebuild.py --sdiv-member`. Evidence is
+in runtime-sdiv-complete-research.json and runtime-sdiv-four-images.json.
+
+Next adopt the signed member in the default runtime C archive, rerun the
+production builds and update ownership/provenance. No production signed
+assembly bytes are reclassified at this research milestone.

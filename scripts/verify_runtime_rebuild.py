@@ -25,6 +25,7 @@ def main():
     p.add_argument('--json', type=Path, required=True)
     p.add_argument('--udiv-member', type=Path, help='Research C member replacing _udivsi3.o in the fresh archive')
     p.add_argument('--umod-member', type=Path, help='Research C member replacing _umodsi3.o in the fresh archive')
+    p.add_argument('--sdiv-member', type=Path, help='Research C member replacing _divsi3.o in the fresh archive')
     a = p.parse_args()
     parent = ROOT / '.deps/runtime-rebuild'
     parent.mkdir(exist_ok=True)
@@ -61,6 +62,10 @@ def main():
         member = a.umod_member.resolve()
         assert member.name == '_umodsi3.o'
         run(['arm-none-eabi-ar', 'r', str(out / 'libgcc/libgcc.a'), str(member)], ROOT, 'umod-replacement.log')
+    if a.sdiv_member:
+        member = a.sdiv_member.resolve()
+        assert member.name == '_divsi3.o'
+        run(['arm-none-eabi-ar', 'r', str(out / 'libgcc/libgcc.a'), str(member)], ROOT, 'sdiv-replacement.log')
     library_args = ['-L' + str(out / 'libc'), '-L' + str(out / 'libgcc')]
     images = {}
 
@@ -104,7 +109,7 @@ def main():
                    if line.startswith('LOAD ') and line.endswith('.o')]
         assert objects and all((cwd / x).is_file() for x in objects)
         check_image(name, original, ['arm-none-eabi-ld', '-T', '../../mgfembp.lds', *objects], cwd)
-    report = dict(umod_replacement_sha256=sha(a.umod_member) if a.umod_member else None, derived_archive_sha256=sha(ROOT / '.deps/runtime-c/libgcc.a'), runtime_c_sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}, udiv_replacement_sha256=sha(a.udiv_member) if a.udiv_member else None, source_commit=PIN, source_archive_sha256=hashlib.sha256(blob).hexdigest(),
+    report = dict(sdiv_replacement_sha256=sha(a.sdiv_member) if a.sdiv_member else None, umod_replacement_sha256=sha(a.umod_member) if a.umod_member else None, derived_archive_sha256=sha(ROOT / '.deps/runtime-c/libgcc.a'), runtime_c_sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}, udiv_replacement_sha256=sha(a.udiv_member) if a.udiv_member else None, source_commit=PIN, source_archive_sha256=hashlib.sha256(blob).hexdigest(),
                   compiler_sha256=sha(compiler), build_directory=str(out),
                   tool_versions={name: subprocess.check_output([name, '--version'], text=True).splitlines()[0]
                                  for name in ('arm-none-eabi-cpp', 'arm-none-eabi-as', 'arm-none-eabi-ld')},
