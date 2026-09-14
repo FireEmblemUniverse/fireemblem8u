@@ -1,0 +1,12 @@
+{
+  "exact_core_bytes": 132,
+  "rejected_contracts": [
+    "wrong-register",
+    "wrong-threshold",
+    "missing-test",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true
+}

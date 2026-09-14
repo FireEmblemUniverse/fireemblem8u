@@ -12300,3 +12300,26 @@ separately in `docs/runtime-sdiv-sign-probes.json`, and do not receive runtime
 verification credit. The result supports using a checked compare-zero sign
 branch encoding rather than further source spelling changes. Production
 compiler patterns and libraries remain unchanged.
+
+
+### Exact signed-division core (September 14, 2026)
+
+Baseline `b88db7f3`. The matching backend now has an explicit Thumb
+compare-zero/nonnegative operation, emitting CMP #0 followed by BPL.
+Because the fresh compare clears V, the signed GE-zero expression and BPL
+choose the same edge. The operation explicitly clobbers condition state.
+The `matching_thumb_sign_branches` pass accepts exactly three low-register
+GE-zero tests in r1/r0/r4 order, with local labels, Thumb mode and no debug,
+unwind or exception metadata. Other branch kinds are left alone.
+
+`sdiv_sign.c` compiles to all 132 original core bytes. All 6,060 nonzero
+cases pass mandatory exact-core and r0-r14/CPSR/stack-write assertions.
+`check_sdiv_sign.py` rejects changed registers, thresholds, missing tests,
+ARM mode, debug and unwind; unannotated output is unchanged. Receipts are
+runtime-sdiv-exact-core-research.json and runtime-sdiv-sign-controls.json.
+
+The matching compiler rebuilt successfully. `make compare -j8` passes and
+the production ELF is unchanged from the integrated runtime receipt.
+Next combine the four-byte zero guard and ten-byte zero path with this core,
+then verify the full 146-byte helper and all-image archive replacement.
+No production signed-division ownership credit is taken yet.

@@ -579,3 +579,14 @@
   "TARGET_THUMB1"
   "pop\t{pc}"
   [(set_attr "type" "load_4") (set_attr "length" "2")])
+
+;; A fresh CMP #0 makes V=0, so the nonnegative test uses the legacy BPL.
+(define_insn "match_thumb_cmp_zero_nonnegative"
+  [(set (pc)
+        (if_then_else
+          (ge (match_operand:SI 0 "low_register_operand" "l") (const_int 0))
+          (label_ref (match_operand 1 "" "")) (pc)))
+   (clobber (reg:CC CC_REGNUM))]
+  "TARGET_THUMB1"
+  "cmp\t%0, #0\n\tbpl\t%l1"
+  [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
