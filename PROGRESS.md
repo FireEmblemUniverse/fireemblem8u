@@ -10,6 +10,8 @@ Latest format closure (baseline `7ea7a0ce`): all 439 direct-sound records rebuil
 
 All 439 sound samples also have verified direct-sound instrument references: 1,575 complete 12-byte records match ROM and their owning input sections. Receipt: `docs/sound-sample-references.json`. Song reachability and other possible references are not yet closed. Next: continue consumer/control-flow and animation/embedded-code classification. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
 
+Latest reference audit (baseline `15c44ba0`): 1,328 directly linked objects contain exactly 1,575 named sample relocations, all at verified instrument pointers. An independent scan of every aligned ROM word finds exactly the same 1,575 sample-start pointers and no extras. Interior, unaligned and computed pointers remain outside this check. Receipt: `docs/sound-relocations.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
@@ -593,9 +595,9 @@ and fresh objects for all three payload versions passed their checksum gates.
 | Scope | Current verified inventory |
 |---|---|
 | Main assembly-source instructions | 0 mapped instruction bytes; remaining assembly files may contain data |
-| Main reviewed inline assembly | 92 instruction bytes, including BIOS SWIs and startup/IRQ status operations |
-| Expanded payload assembly | 420 instruction bytes: 418 source plus 2 inline |
-| Runtime and classification | Runtime archive assembly and complete executable classification remain open |
+| Main reviewed inline assembly | 84 instruction bytes: software interrupts, processor-status access and PC read |
+| Expanded payload assembly | 0 assembly-source instruction bytes; 58 inline hardware-interface bytes |
+| Runtime and classification | C-source runtime rebuild verified; 26 inline SWI bytes retained; complete executable classification remains open |
 
 These counts exclude runtime archives and do not establish an overall completion
 percentage. Empty compiler constraints and register bindings are not counted as

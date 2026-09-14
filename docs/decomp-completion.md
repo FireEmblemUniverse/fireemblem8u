@@ -13597,3 +13597,20 @@ This establishes declared instrument use, not complete runtime reachability.
 It does not rule out additional pointers, arbitrary code targets into data,
 or unreachable instruments. Song/consumer and other executable-classification
 work remain open. The ROM and instruction ownership totals are unchanged.
+
+## Sound sample relocation cross-check — September 14, 2026
+
+Baseline `15c44ba0`. `scripts/audit_sound_relocations.py` scans relocations in
+all 1,328 directly linked main-ROM objects. Exactly 1,575 relocations name the
+439 audited sample symbols; all are ABS32 pointers at the independently verified
+instrument-record offsets. No expected pointer is missing and no other named
+sample relocation appears. The linked map and reference receipt are hashed.
+
+An independent whole-ROM scan of aligned 32-bit words finds exactly those same
+1,575 sample-start addresses, with no additional occurrences. This also checks
+numeric and section-relative pointer origins at these alignments. The ROM hash
+is recorded in `docs/sound-relocations.json`. Unaligned addresses, sample-interior
+references, computed pointers and indirect execution targets remain outside the
+check. The named-relocation scan excludes runtime archives and unlinked objects.
+This closes one reference inventory, not executable classification or overall
+decompilation. Production source and ROM are unchanged.
