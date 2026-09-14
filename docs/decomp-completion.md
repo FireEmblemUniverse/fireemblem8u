@@ -11666,3 +11666,36 @@ frame and instruction-layout matching is required before integration.
 No production changes or coverage reductions are claimed; main reviewed
 inline assembly remains 92 bytes, and runtime/payload assembly and executable
 classification remain unfinished.
+
+
+### Unsigned division register recovery narrows matching work
+
+`research/runtime/udiv_registers.c` retains the recovered algorithm and its
+original license, binding dividend/divisor/result/current-bit/work to
+r0/r1/r2/r3/r4 at empty compiler constraints. There are no instruction templates
+in this C draft. Ordinary GCC -Os emits 122 bytes, versus 124 for the earlier
+size-oriented draft and 120 for the original routine.
+
+The main subtract/shift/OR sequence contains 46 consecutive exact bytes:
+original offset 48 and candidate offset 58. This is a measured aligned
+halfword span, not a claim that the whole routine matches or that nonadjacent
+matching spans establish semantic equivalence. The normalization and control
+layout, prologue, and return are still different.
+
+The enhanced checker records every final register difference and all stack
+writes. All 3,176 cases pass the quotient/original/integer-oracle checks and
+preserve r4-r11 plus SP. Moreover, r2, r3 and r12 now match in every case.
+Only r1 differs throughout (the candidate uses it for the popped return
+address), and LR differs on the 252 divide-by-zero paths. LR differences
+include the relocated call-site address, so this alone is not evidence of
+an ABI failure. Flags differ in 1,894 cases, and stack writes differ in all
+cases because the compiler uses a larger entry frame than the original.
+`docs/runtime-udiv-register-research.json` records exact counts, source hash,
+size and matching span.
+
+The checker now accepts `--source` so the original algorithm and the
+fixed-register draft remain independently reproducible. Reproduce this run
+with `--source research/runtime/udiv_registers.c --optimization Os` using
+the existing runtime checker. No production files changed; coverage remains
+unchanged. The next matching work is the conditional frame/return convention,
+then the remaining normalization and branch layout.

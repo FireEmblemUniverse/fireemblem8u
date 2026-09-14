@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Compare recovered unsigned division against the ROM and an integer oracle."""
-import argparse,hashlib,json,random,subprocess
+import argparse,difflib,hashlib,json,random,subprocess
 from pathlib import Path
-from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE
+from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/runtime-division';OUT.mkdir(exist_ok=True)
 source=ROOT/'research/runtime/udiv.c'
-parser=argparse.ArgumentParser();parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
 subprocess.run(['arm-none-eabi-gcc','-S','-'+args.optimization,'-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(source),'-o',str(OUT/'udiv.s')],check=True)
 subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'udiv.s'),'-o',str(OUT/'udiv.o')],check=True)
 symbols={x.split()[-1]:int(x.split()[0],16) for x in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(x.split())==3}
@@ -21,27 +21,35 @@ cases += [(x,0,f) for x in edge for f in range(16)]
 # Force every normalization boundary and near-exact quotient with every flag profile.
 cases += [(x,y,f) for f in range(16) for bit in range(32) for y in [1<<bit] for x in [y-1,y,min(0xffffffff,y+1)]]
 flagdiffs=0;callerdiffs=0;zero_cases=0
+register_diffs={str(n):0 for n in range(15)};stack_diffs=0
 for numerator,denominator,flags in cases:
  initial=[numerator,denominator]+[rng.getrandbits(32) for _ in range(11)]
- snapshots=[]
+ snapshots=[];write_records=[]
  for draft in (False,True):
   u=Uc(UC_ARCH_ARM,UC_MODE_THUMB);u.mem_map(0x08000000,len(rom));u.mem_write(0x08000000,rom);u.mem_map(0x03000000,0x8000)
   if draft:u.mem_write(0x080f0000,code)
   for n,value in enumerate(initial):u.reg_write(getattr(r,f'UC_ARM_REG_R{n}'),value)
   u.reg_write(r.UC_ARM_REG_CPSR,0x3f|(flags<<28));u.reg_write(r.UC_ARM_REG_SP,0x03007000);u.reg_write(r.UC_ARM_REG_LR,0x080ff001)
-  state={'returned':False,'div0':0}
+  state={'returned':False,'div0':0,'writes':[]}
   def hook(u,address,size,state):
    if address==symbols['__div0']:state['div0']+=1
    if address==0x080ff000:state['returned']=True;u.emu_stop()
+  def write(u,access,address,size,value,state):state['writes'].append((address,size,value))
+  u.hook_add(UC_HOOK_MEM_WRITE,write,state)
   u.hook_add(UC_HOOK_CODE,hook,state)
   u.emu_start((0x080f0000 if draft else symbols['__udivsi3'])|1,0,count=2000)
   assert state['returned'] and state['div0']==int(denominator==0),(numerator,denominator,draft,state)
   snapshot=[u.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(15)]+[u.reg_read(r.UC_ARM_REG_CPSR)]
   assert snapshot[0]==(numerator//denominator if denominator else 0),(numerator,denominator,draft,snapshot[0])
   assert snapshot[4:12]==initial[4:12] and snapshot[13]==0x03007000
-  snapshots.append(snapshot)
+  snapshots.append(snapshot);write_records.append(state['writes'])
+ for n in range(15):register_diffs[str(n)]+=snapshots[0][n]!=snapshots[1][n]
+ stack_diffs+=write_records[0]!=write_records[1]
  flagdiffs+=snapshots[0][-1]!=snapshots[1][-1]
  callerdiffs+=any(snapshots[0][n]!=snapshots[1][n] for n in (1,2,3,12,14))
  zero_cases+=denominator==0
 assert len(code)!=120
-print(json.dumps(dict(optimization=args.optimization,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),cases=len(cases),divide_by_zero_cases=zero_cases,original_instruction_bytes=120,candidate_section_bytes=len(code),quotient_and_preserved_registers_match=True,flag_difference_cases=flagdiffs,caller_register_difference_cases=callerdiffs,bytes_exact=False,production_integrated=False,scope='Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; transient stack layout and exact instructions are not matched. No production replacement.'),indent=2))
+original=rom[symbols['__udivsi3']-0x08000000:symbols['__udivsi3']-0x08000000+120]
+a=[original[i:i+2] for i in range(0,len(original),2)];b=[code[i:i+2] for i in range(0,len(code),2)]
+spans=[dict(original_offset=m.a*2,candidate_offset=m.b*2,bytes=m.size*2) for m in difflib.SequenceMatcher(None,a,b,autojunk=False).get_matching_blocks() if m.size>=4]
+print(json.dumps(dict(register_difference_cases=register_diffs,stack_write_difference_cases=stack_diffs,matching_halfword_spans_at_least_eight_bytes=spans,optimization=args.optimization,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),cases=len(cases),divide_by_zero_cases=zero_cases,original_instruction_bytes=120,candidate_section_bytes=len(code),quotient_and_preserved_registers_match=True,flag_difference_cases=flagdiffs,caller_register_difference_cases=callerdiffs,bytes_exact=False,production_integrated=False,scope='Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement.'),indent=2))
