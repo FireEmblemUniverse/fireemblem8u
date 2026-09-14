@@ -10938,3 +10938,40 @@ selection, private transfers and literal placement remain open. Evidence is in
 `docs/irq-continuation-callback-research.json` and
 `docs/irq-continuation-callback-negative.json`; the 256-case prefix receipt
 was also refreshed for the improved source.
+
+### IRQ continuation private frame and complete synthetic return
+
+The isolated `research/irq/irq_frame.cc` backend uses an explicit research
+attribute and checks a bounded, linear ARM RTL skeleton before altering it.
+It validates the entry LR save, banked status constraints, System LR save/pop,
+IRQ-frame register/offset layout, stack increments and two private calls. Other
+operations cannot introduce stack, LR, executable assembly or control effects.
+The transformations remove the unwanted compiler entry save, replace the
+terminal LR call with GCC's standard simple-return pattern, and combine the
+four IRQ-frame loads with their following SP advance using the standard
+writeback LDM pattern. Five status-register instructions remain assembly.
+
+The candidate is now 88 bytes including its literal (84 instruction bytes,
+versus the original continuation's 80). It is not integrated or byte-matching.
+Remaining differences include the two-instruction System LR push, single-load
+System LR pop encoding, MOV rather than ADD-zero callback return-address setup,
+and literal placement around the original shared startup pool.
+
+Run `.deps/arm-oracle-venv/bin/python research/irq/check_frame_backend.py`
+to build the isolated backend and fresh candidate, execute the relocated
+continuation in the original dispatcher model, and run rejection/control tests.
+All 4,115 cases pass: 3,107 complete returns (1,571 ARM and 1,536 Thumb handlers)
+and 1,008 Game Pak halts. Saved SPSR, restored IE, both banked SP/LR pairs and
+final registers/flags are checked. The original model without the optional
+continuation also still passes. Hardware entry, BIOS epilogue, nested interrupts,
+actual handlers and hardware IF semantics remain outside the model.
+
+Nine negative configurations reject: Thumb, debug, unwind, arguments, altered
+System stack decrement, altered IRQ-frame advance, wrong restored LR offset,
+generic SP mode constraint and an extra call. The wrong-LR-offset fixture uses
+`-fno-late-combine-instructions` because GCC's earlier late-combine pass otherwise
+crashes before the research validator runs; that compiler crash is not counted
+as a backend rejection. An unannotated source produces identical text with and
+without the loaded plugin. The complete receipt is
+`docs/irq-continuation-frame-research.json`. No production coverage changes are
+claimed from this experiment.

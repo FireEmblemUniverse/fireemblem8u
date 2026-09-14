@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Build and validate the isolated IRQ frame experiment; no production edits."""
+from pathlib import Path
+import hashlib,json,subprocess,sys
+ROOT=Path(__file__).resolve().parents[2]
+OUT=ROOT/'.deps/irq-frame-backend';OUT.mkdir(parents=True,exist_ok=True)
+subprocess.run([sys.executable,str(ROOT/'research/irq/build_irq_frame.py')],check=True,capture_output=True)
+source=(ROOT/'research/irq/continuation.c').read_text()
+flags=['arm-none-eabi-gcc','-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables']
+plugin=['-fplugin='+str(OUT/'irq_frame.so')]
+def compile(name,text,extra):
+ src=OUT/(name+'.c');src.write_text(text)
+ return subprocess.run(flags+extra+[str(src),'-o',str(OUT/(name+'.o'))],capture_output=True,text=True)
+r=compile('candidate',source,plugin+['-DRESEARCH_IRQ_FRAME']);assert r.returncode==0,r.stderr
+(OUT/'candidate.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } gIRQHandlers = 0x030030f0; }')
+subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'candidate.ld'),str(OUT/'candidate.o'),'-o',str(OUT/'candidate.elf')],check=True)
+subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'candidate.elf'),str(OUT/'candidate.bin')],check=True)
+run=subprocess.run([sys.executable,str(ROOT/'research/irq/check_dispatch.py'),'--continuation',str(OUT/'candidate.bin')],capture_output=True,text=True,check=True)
+report=json.loads(run.stdout)
+mutants=[
+ ('thumb',source,['-mthumb']),
+ ('debug',source,['-g']),
+ ('unwind',source,['-funwind-tables']),
+ ('argument',source.replace('IrqContinuation(void)','IrqContinuation(unsigned unused)'),[]),
+ ('stack_decrement',source.replace('irqStack--;','irqStack -= 2;'),[]),
+ ('frame_advance',source.replace('irqStack += 4;','irqStack += 5;'),[]),
+ ('restore_wrong_lr',source.replace('irqLink = irqStack[3];','irqLink = irqStack[2];'),['-fno-late-combine-instructions']),
+ ('mode_stack_constraint',source.replace('"+k"(irqStack), "+r"(irqLink)','"+r"(irqStack), "+r"(irqLink)'),[]),
+ ('extra_call',source.replace('irqStack--;','((void (*)(void))irqValue)();\n    irqStack--;'),[]),
+]
+rejected=[]
+for name,text,extra in mutants:
+ result=compile(name,text,plugin+['-DRESEARCH_IRQ_FRAME']+extra)
+ assert result.returncode!=0 and 'IRQ research' in result.stderr,(name,result.stderr)
+ rejected.append(name)
+# Plugin loading without opt-in must not alter the emitted instructions.
+for name,extra in [('plain',[]),('unannotated',plugin)]:
+ result=compile(name,source,extra);assert result.returncode==0,result.stderr
+ subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/(name+'.o')),str(OUT/(name+'.bin'))],check=True)
+assert (OUT/'plain.bin').read_bytes()==(OUT/'unannotated.bin').read_bytes()
+report.update(rejected_cases=rejected,unannotated_control_unchanged=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'research/irq/irq_frame.cc').read_bytes()).hexdigest())
+print(json.dumps(report,indent=2))

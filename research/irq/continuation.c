@@ -6,7 +6,12 @@ register unsigned irqStatus asm("r3");
 register unsigned *irqStack asm("sp");
 register unsigned irqLink asm("lr");
 extern unsigned gIRQHandlers[14];
-void __attribute__((noreturn)) IrqContinuation(void)
+#ifdef RESEARCH_IRQ_FRAME
+#define IRQ_FRAME __attribute__((research_arm_irq_frame))
+#else
+#define IRQ_FRAME
+#endif
+void __attribute__((noreturn)) IRQ_FRAME IrqContinuation(void)
 {
     *(volatile unsigned short *)(irqStatus + 2) = irqValue;
     asm volatile("mrs %0, cpsr" : "=r"(irqStatus));

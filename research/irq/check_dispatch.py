@@ -7,10 +7,24 @@ from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2]
 parser=argparse.ArgumentParser()
 parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba')
+parser.add_argument('--continuation',type=Path,help='Research-only relocated continuation at 0x080f0000')
 args=parser.parse_args()
 rom=args.rom.read_bytes()
+callback_return=0x080001f8
+candidate=None
+if args.continuation:
+ candidate=args.continuation.read_bytes()
+ words=[int.from_bytes(candidate[i:i+4],'little') for i in range(0,len(candidate),4)]
+ call=words.index(0xe12fff10)
+ assert words[call-1] in (0xe1a0e00f,0xe28fe000)
+ callback_return=0x080f0000+4*(call+1)
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
 u=Uc(UC_ARCH_ARM,UC_MODE_ARM);u.mem_map(0x08000000,len(rom));u.mem_write(0x08000000,rom)
+if candidate is not None:
+ u.mem_write(0x080f0000,candidate)
+ # Redirect the original priority search's fallthrough into the research body.
+ branch=0xea000000|(((0x080f0000-0x080001cc-8)//4)&0xffffff)
+ u.mem_write(0x080001cc,branch.to_bytes(4,'little'))
 u.mem_map(0x02000000,0x40000);u.mem_map(0x03000000,0x8000);u.mem_map(0x04000000,0x1000)
 # Handler instructions are only BX LR; hooks supply caller-saved effects.
 u.mem_write(0x02020000,bytes.fromhex('1eff2fe1'));u.mem_write(0x02021000,bytes.fromhex('7047'))
@@ -23,7 +37,7 @@ def code(u,address,size,state):
   assert cpsr&0xff==(0x3f if state['thumb'] else 0x1f),hex(cpsr)
   assert u.reg_read(r.UC_ARM_REG_R1)==symbols['gIRQHandlers']+4*state['slot']
   assert u.reg_read(r.UC_ARM_REG_SP)==0x03006ffc
-  assert u.reg_read(r.UC_ARM_REG_LR)==0x080001f8
+  assert u.reg_read(r.UC_ARM_REG_LR)==callback_return
   assert int.from_bytes(u.mem_read(0x03006ffc,4),'little')==0x03006000
   frame=[int.from_bytes(u.mem_read(0x03007df0+4*n,4),'little') for n in range(4)]
   assert frame==[state['spsr'],state['ie'],0x04000200,0x080ff000],frame
@@ -68,4 +82,7 @@ for index,word in enumerate(words):
  assert u.reg_read(r.UC_ARM_REG_SP)==0x03007000 and u.reg_read(r.UC_ARM_REG_LR)==0x03006000
  outcomes['returned']+=1;modes['thumb' if thumb else 'arm']+=1
 report=dict(rom_sha256=hashlib.sha256(rom).hexdigest(),cases=len(words),outcomes=outcomes,handler_modes=modes,original_block_sha256=hashlib.sha256(rom[0xfc:0x21c]).hexdigest(),scope='Original ROM IRQ entry/search/exit with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.')
+if candidate is not None:
+ report.update(candidate_sha256=hashlib.sha256(candidate).hexdigest(),candidate_bytes=len(candidate),production_integrated=False)
+ report['scope']=report['scope'].replace('Original ROM IRQ entry/search/exit', 'Original ROM IRQ entry/search with relocated research continuation')
 print(json.dumps(report,indent=2))
