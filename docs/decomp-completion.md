@@ -12602,3 +12602,22 @@ identities. The only assembly member left in the runtime archive is the
 fifteen-entry indirect-call veneer table. Syscall inline assembly, expanded
 payload assembly and mapped-data/executable classification remain separate
 unfinished requirements; overall completion is not claimed.
+
+
+### Runtime indirect-call C probe (September 14, 2026)
+
+Baseline `98dc363c`. `research/runtime/probe_call_veneers.py` rebuilds the
+existing tail-transfer plugin and compiles fixed global function-pointer calls
+for all fifteen destination registers. It extracts the production archive's
+original member and compares assembled candidate transfer bytes. For r0–r7,
+the C function body `destination();` yields the exact original BX instruction
+with no frame or other instructions. The existing plugin explicitly rejects
+r8–r14 at option validation; this does not establish that GCC cannot represent
+those handoffs. `docs/runtime-call-veneer-probe.json` records all results and
+source/reference fingerprints.
+
+This is research evidence only. The candidates are two bytes versus the
+original four-byte symbols (which include an unreachable NOP). No archive was
+replaced. High-register handling, particularly incoming SP/LR semantics, full
+symbol layout and interworking execution-model coverage remain required before
+integration. The production runtime assembly count stays at 60 bytes.
