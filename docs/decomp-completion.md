@@ -13116,3 +13116,26 @@ verified recovery bundle. Payload assembly-source instructions fall from
 bytes. With 26 inline bytes, expanded assembly is 166 bytes. C ownership rises
 20 bytes to 18,364; other instruction categories and total bytes are unchanged.
 Complete executable/data classification remains open.
+
+
+### Payload IRQ saved-frame candidate (September 14, 2026)
+
+Baseline `60ffabd2`. `research/payload/irq_save_frame.c` adapts the main-ROM
+saved-frame C to PayloadIrqSearch. A freshly built IRQ frame pass generates
+the stack writeback and four saved words from C; the SPSR read remains an
+explicit four-byte instruction template. The complete eight-byte region
+matches offsets 0x50–0x58 in all three payload images.
+
+`research/payload/check_irq_save_frame.py` passes 4,096 deterministic cases
+in IRQ mode, varying registers, saved ARM/Thumb status and all 16 NZCV
+profiles. It checks exact registers, CPSR/SPSR, final PC, all four memory
+writes and surrounding stack guards. Eight unsupported contracts reject:
+wrong status source, frame size, saved register, target, argument, debug,
+unwind and Thumb compilation. A displaced search destination also rejects;
+compiling without the attribute produces unchanged code with/without the pass.
+Receipt: `docs/payload-irq-save-frame-research.json`.
+
+Production remains unchanged. This validates an isolated saved-frame block,
+not hardware interrupt entry or the complete dispatcher. Integration with
+production layout and refreshed ownership is the next step; four bytes of
+status-read assembly will remain after this candidate is integrated.
