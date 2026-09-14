@@ -6,7 +6,7 @@ from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/runtime-division';OUT.mkdir(exist_ok=True)
 source=ROOT/'research/runtime/udiv.c'
-parser=argparse.ArgumentParser();parser.add_argument('--division-needed',action='store_true');parser.add_argument('--operation',choices=['division','modulus'],default='division');parser.add_argument('--assembled-helper',type=Path);parser.add_argument('--require-exact-helper',action='store_true');parser.add_argument('--compiler-flag',action='append',default=[]);parser.add_argument('--require-exact-core',action='store_true');parser.add_argument('--nonzero-only',action='store_true');parser.add_argument('--extra-plugin',type=Path,action='append',default=[]);parser.add_argument('--compiler',default='arm-none-eabi-gcc');parser.add_argument('--plugin',type=Path);parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
+parser=argparse.ArgumentParser();parser.add_argument('--require-state-match',action='store_true');parser.add_argument('--division-needed',action='store_true');parser.add_argument('--operation',choices=['division','modulus'],default='division');parser.add_argument('--assembled-helper',type=Path);parser.add_argument('--require-exact-helper',action='store_true');parser.add_argument('--compiler-flag',action='append',default=[]);parser.add_argument('--require-exact-core',action='store_true');parser.add_argument('--nonzero-only',action='store_true');parser.add_argument('--extra-plugin',type=Path,action='append',default=[]);parser.add_argument('--compiler',default='arm-none-eabi-gcc');parser.add_argument('--plugin',type=Path);parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
 helper_symbol='__umodsi3' if args.operation=='modulus' else '__udivsi3'
 helper_size=192 if args.operation=='modulus' else 120
 if not args.assembled_helper:
@@ -63,6 +63,7 @@ for numerator,denominator,flags in cases:
  callerdiffs+=any(snapshots[0][n]!=snapshots[1][n] for n in (1,2,3,12,14))
  zero_cases+=denominator==0
 
+if args.require_state_match:assert not flagdiffs and not stack_diffs and not any(register_diffs.values())
 core_exact=args.operation=='division' and code==rom[symbols[helper_symbol]-0x08000000+4:symbols[helper_symbol]-0x08000000+0x6e]
 if args.require_exact_core:assert args.nonzero_only and core_exact and not flagdiffs and not callerdiffs and not stack_diffs and not any(register_diffs.values())
 original=rom[symbols[helper_symbol]-0x08000000:symbols[helper_symbol]-0x08000000+helper_size]

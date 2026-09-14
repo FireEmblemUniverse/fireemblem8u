@@ -12092,3 +12092,25 @@ flag differences and 1724 stack-write differences.
 The r5 temporary persists, so no frame-pruning plugin was relaxed or changed.
 Next eliminate that lifetime or separate normalization from its frame, then
 recover exact layout and entry handoffs. Production libraries are unchanged.
+
+
+### Modulus private-core stack match (September 14, 2026)
+
+Baseline `ba15e4d7`. `umod_r4_core.c` keeps normalization state together in
+one empty constraint at loop updates and the transition between four-bit
+and one-bit normalization. GCC no longer keeps a live copy in r5. The
+unchanged matching_leaf_r4_frame contract accepts the resulting body and
+emits one saved-r4 word and the legacy MOV-PC return.
+
+The 168-byte candidate passes all 1,724 applicable cases with identical
+r0-r14, CPSR and stack-write sequences. `--require-state-match` now makes
+these observations mandatory assertions. Exact spans cover 116 consecutive
+bytes of initialization/normalization/subtraction and 46 bytes of correction
+and return. `docs/runtime-umod-r4-core-research.json` fingerprints the source
+and plugins and records the zero-difference counts.
+
+This is still a private-core result. It initializes r3 itself, while the
+original entry does that before reaching the saved-r4 core. GCC also merges
+the original two returns. Those layout differences and the early-return/
+zero paths remain before a full 192-byte helper can replace the archive
+member. No compiler plugin or production library changed this turn.
