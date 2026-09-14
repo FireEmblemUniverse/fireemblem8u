@@ -12022,3 +12022,27 @@ refreshed for the new ELF/map identities. The five remaining runtime assembly
 members are signed division, signed/unsigned modulus, indirect-call veneers
 and __div0. Syscall inline assembly, expanded payload assembly and complete
 mapped-data/executable classification remain unfinished.
+
+
+### Unsigned-modulus arithmetic recovery (September 14, 2026)
+
+Baseline `d1497f91`. `research/runtime/umod.c` recovers the pinned
+lib1thumb.asm algorithm, retaining its license: normalization by four then
+one bit, four speculative subtractions, rotated-bit tracking, and final
+high-bit correction. It uses unsigned arithmetic and defined shifts.
+The checker now selects division or modulus explicitly and uses the
+corresponding original helper and Python arithmetic oracle.
+
+GCC 16.2.0 at -Os produces 180 bytes versus the original 192. All 3,176
+cases pass for remainder, callee-saved registers, restored SP and actual
+__div0 invocation, including 252 zero divisors. There are
+2424 flag-difference cases,
+3176 caller-register-difference cases and
+3176 stack-write-difference cases.
+`docs/runtime-umod-research.json` records the source/output hashes and
+matching instruction spans. No exact-layout or production conversion is
+claimed. Next constrain register lifetimes and reproduce the original
+entry/frame and correction-loop layout before integrating this helper.
+
+The exact unsigned-division helper regression also passes all 3,176 cases
+through the extended checker, including full state and stack equality.
