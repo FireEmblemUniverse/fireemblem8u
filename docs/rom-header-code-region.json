@@ -7,6 +7,6 @@
   "fresh_compilation_exact": true,
   "source_sha256": "31bc27fff5b9591286e8f65fc5a62d99da2dfee22d6b5b56c612eafafa81d1dc",
   "region_sha256": "c618c097956db2b0f8daa65f577a0f0a80ca874c9ce8978ba1b74967cf254fa4",
-  "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
+  "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
   "scope": "Ordinary ARM C tail branch and explicit header arrays; all 192 bytes and named entry/logo positions exact. No backend plugin or instruction-bearing source assembly."
 }

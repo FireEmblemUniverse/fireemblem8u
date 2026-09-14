@@ -9,7 +9,7 @@
     "category": "c_owned",
     "instruction_bytes": 18458
   },
-  "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
+  "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
   "region_sha256": "73011f6fac7bfe346f4511f8ece1025e3796ea4d10a7826dcded5210c2f81e71",
   "full_rom_exact": true,
   "regions": [

@@ -7,6 +7,6 @@
   "full_rom_exact": true,
   "source_sha256": "1290c736a9b3a795cd40b5dad5a5d0e773d10b1a8ae37095fd5823dcf74ae853",
   "region_sha256": "9388b912fba6d430acb4fc17f2d20a23e0ca7ce6079ab748ad8bd3619fb52c3d",
-  "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
+  "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
   "scope": "Exact integrated SPSR capture and four-register frame; MRS remains assembly-owned. Adjacent handoff verified through symbols and linker assertion; no hardware interrupt-entry claim."
 }

@@ -9,8 +9,8 @@
   "internal_alignment_bytes": 2,
   "source_sha256": "6873ce608c5244c01d7aeec6b4bacadf01e4f93c2cb4945c415a6b4d4b380d65",
   "header_sha256": "8c54941ed67bb9b8ae653ae4187a9312f79373bd58cb96d18f2feb762eca9d7c",
-  "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
-  "map_sha256": "0903809f1ad34363f3f3c90d61809693a2c61399907a54410d9f095c9daa23cb",
+  "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
+  "map_sha256": "4415a49479067b32088d9eddc9bcf58e3924b0f05451719377568bc2628efca3",
   "rejected_checks": [
     "trailing-byte",
     "truncated-stream",

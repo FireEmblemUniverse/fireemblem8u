@@ -12578,3 +12578,27 @@ image rebuilds before integration. The other remaining runtime member has
 fifteen BX-register veneers, each followed by an unreachable NOP; their
 interworking semantics and exact symbol sizes still require recovery.
 Production runtime assembly remains 62 bytes per audited image.
+
+
+### Empty-hook archive and default integration (September 14, 2026)
+
+Baseline `16041417`. `build_div0_member.py` packages the recovered empty
+function as _dvmd_tls.o, preserving the two-byte __div0 symbol and two zero
+padding bytes. Its replacement in a fresh archive reproduces all four image
+binaries and exported symbols; runtime-div0-four-images.json records that
+independent pre-integration result.
+
+The production source is now runtime/div0.c. The default runtime archive
+and isolated verifier build it through build_runtime_div0.py in a dedicated
+plugin/output directory. `make compare -j8` passes, the dated payloads relink,
+and all four fresh image/symbol comparisons pass. The source inventory now
+classifies this member as verified C; runtime assembly falls from 62 to 60
+instruction bytes per audited image. Runtime C-source totals are 21,732
+main-ROM and 760 payload instruction bytes. The separate runtime archive
+category and whole-object C ownership percentage are unchanged.
+
+Code-region and data-provenance receipts are refreshed for the new ELF/map
+identities. The only assembly member left in the runtime archive is the
+fifteen-entry indirect-call veneer table. Syscall inline assembly, expanded
+payload assembly and mapped-data/executable classification remain separate
+unfinished requirements; overall completion is not claimed.

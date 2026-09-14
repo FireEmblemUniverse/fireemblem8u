@@ -6,6 +6,6 @@
   "full_rom_exact": true,
   "source_sha256": "53306b95c6518dc5bf5de2388c4efb33345034b4aad0f51a9206f06937c370ae",
   "region_sha256": "ad7a4bb1df7f03f3a711cb45240553df6226f49757e963181f2261bb62f819c6",
-  "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
+  "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
   "scope": "Exact low-entry register frame, cursor load and shared-body branch; C pointer and linker assertions verified. Execution model is documented separately."
 }

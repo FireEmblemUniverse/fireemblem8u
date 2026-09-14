@@ -2,14 +2,14 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
     "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
-    "libgcc.a": "94fcd3bb4cecb461c61b3d4c9104ad3a26b65fb212910380ed33d57b701f3969"
+    "libgcc.a": "deced6fa92ded9392f6b6e72b8074a33d06db832468cbb9c1c0a0a4c893d15ee"
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
-      "assembly_instruction_bytes": 62,
+      "elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
+      "assembly_instruction_bytes": 60,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 21730,
+      "C_source_rebuilt_instruction_bytes": 21732,
       "rebuilt_syscalls_object_instruction_bytes": 1014,
       "members": [
         {
@@ -96,6 +96,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -112,6 +113,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -142,6 +144,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -172,6 +175,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -389,19 +393,27 @@
         {
           "object": ".deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "instruction_bytes": 2,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 4,
-          "text_sha256": "aad34e7f7239f66b87e511a5ad008715fe86a4b977201c5fec08c3777a9011d0"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
+            "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         }
       ]
     },
     "mgfembp": {
-      "elf_sha256": "419787fc204a5e95f2e065dfcddb1fed39d84412029b86d143bd7779281d42be",
-      "assembly_instruction_bytes": 62,
+      "elf_sha256": "07f86baad6e5f02e0a1c8c49e16e20070ed76d7a11367507a8fbff77c282cf39",
+      "assembly_instruction_bytes": 60,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 758,
+      "C_source_rebuilt_instruction_bytes": 760,
       "rebuilt_syscalls_object_instruction_bytes": 0,
       "members": [
         {
@@ -411,6 +423,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -427,6 +440,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -443,6 +457,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -459,6 +474,7 @@
           "source_sha256": {
             "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
             "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
             "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
             "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
             "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -487,16 +503,24 @@
         {
           "object": "../../../.deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "instruction_bytes": 2,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 4,
-          "text_sha256": "aad34e7f7239f66b87e511a5ad008715fe86a4b977201c5fec08c3777a9011d0"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
+            "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
+            "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+            "sdiv_sign.c": "613f859b98e6ee5b7f85fe6530114c1a0c23b1fa2513119b14f3f19291503a23",
+            "umod_entry_state.c": "f4e6c3d8ef506228f767e147dc5b3c3c947e486d18f28ec730aa2f63b7b50b8c",
+            "umod_entry.c": "e616042167b4c4fa216d6873755a5522fa2470b76659323a6b6469169c3fa658"
+          },
+          "status": "C_source_rebuild_verified"
         }
       ]
     }
   },
-  "rebuild_report_sha256": "5f5d50228ae761c56a8eddbdbb250403e8622ca084c2059ef4f60c8b8354c189",
+  "rebuild_report_sha256": "1eee2d85e6901722366ee33b0dc55b5ae1dec48d0074e4d03549453896d31c4c",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

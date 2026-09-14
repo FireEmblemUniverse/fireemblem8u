@@ -3,11 +3,10 @@
   "smod_replacement_sha256": "f1bda81eb5c120ae1bc8de58b7bd6875cdcff6ead7ae12780f7a4e3745f4fc63",
   "sdiv_replacement_sha256": "da8f39a5bd4a97d1afe136bf13b66248ed1bf311cb32f8d942cac5f93e5688a5",
   "umod_replacement_sha256": "c07969a6eedcd5a9d66d99a8bd0b5b632b13caf7b35d3f4728b60d7f98a82809",
-  "derived_archive_sha256": "deced6fa92ded9392f6b6e72b8074a33d06db832468cbb9c1c0a0a4c893d15ee",
+  "derived_archive_sha256": "94fcd3bb4cecb461c61b3d4c9104ad3a26b65fb212910380ed33d57b701f3969",
   "runtime_c_sources": {
     "smod_entry.c": "c13f6ec259a4b7094a7466bae99b5b4018fe22c088bcc6fa446b8e35311ff7d4",
     "smod_shared_flags.c": "d1e252b9fa280f0df2b2166a949a94e24bc944985f9784aaeace75b7555f4565",
-    "div0.c": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
     "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
     "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
     "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
@@ -19,7 +18,7 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
   "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
-  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-yz2twh7l",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-2l7mv_uj",
   "tool_versions": {
     "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
     "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
@@ -30,39 +29,39 @@
     "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
   },
   "rebuilt_archive_sha256": {
-    "libc": "7979a6378884c220b7ad012a6bbf22d5576eb841d867a670c3c67fdcb441c2ac",
-    "libgcc": "3fbdfa2f60d7465d0b1d1a2a18c13ad142d5b83d5e561282cc7aec99c296985e"
+    "libc": "a1c0c1899cef8eb5dbaa5814904bec339f79faeeda1956612a78801e5933a8bf",
+    "libgcc": "f36754788d37a638cbad354de76cd7453cd6845ab3de8c71848975fe32814ba9"
   },
   "images": {
     "main_rom": {
       "bytes": 16777216,
       "sha1": "c25b145e37456171ada4b0d440bf88a19f4d509f",
-      "original_elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
-      "original_map_sha256": "4415a49479067b32088d9eddc9bcf58e3924b0f05451719377568bc2628efca3",
+      "original_elf_sha256": "932648108a5af953d2c42de83105321a1703f122eecb031edf6ae1bf2d67dab7",
+      "original_map_sha256": "0903809f1ad34363f3f3c90d61809693a2c61399907a54410d9f095c9daa23cb",
       "rebuilt_elf_sha256": "3fc73f3786564ba6216e8cbe0f01a443e02948475af6ae027954d7b9d338ed1a",
       "global_symbols_match": true
     },
     "mgfembp": {
       "bytes": 34956,
       "sha1": "8a81a47d88f6b0a3f91c49784b9f7b317382abac",
-      "original_elf_sha256": "07f86baad6e5f02e0a1c8c49e16e20070ed76d7a11367507a8fbff77c282cf39",
-      "original_map_sha256": "9bdd5925b0155294a6a86b250481bd31eed32471b2a5bb0ad56b3ca7cb048e6b",
+      "original_elf_sha256": "419787fc204a5e95f2e065dfcddb1fed39d84412029b86d143bd7779281d42be",
+      "original_map_sha256": "8085c8a18e1cc63f6e07156e31c4bf31180d65e3f01061ee44205b31b3cb406b",
       "rebuilt_elf_sha256": "8a17428ca2f89d134f60ed5a3d420adb7111ca56edaa7ad1c623e8cc721bfaa6",
       "global_symbols_match": true
     },
     "mgfembp_20030206": {
       "bytes": 34788,
       "sha1": "6674fc5b5ee26433665c44b842cdb26bcf785051",
-      "original_elf_sha256": "6c16b97006b21256e747a88882b496969173bceb23e2eee04ef2dff2e6e4da76",
-      "original_map_sha256": "0749e9f4afe05d7fe6fc9e6cb972ac9903211bc8a9d40e55f53647cb48e42791",
+      "original_elf_sha256": "ada63e4e36a6b299e9cbc90b9f84de10a5eb8e79d2963a59b0815df4f597584e",
+      "original_map_sha256": "e41e822f865059a0ae6c36f686da09b75e22bbf38f6ca1f2b80622f47955448e",
       "rebuilt_elf_sha256": "d6aa948072409e944f6f4b35d68f7d2ff9158960ebd86bb60aa03ae339770f91",
       "global_symbols_match": true
     },
     "mgfembp_20030219": {
       "bytes": 34196,
       "sha1": "ad3ffdb4fc50206f944972a0a7ad26bfa8b5ef74",
-      "original_elf_sha256": "3d7bbfae5c232e1427fb57e21d2c67a98b2a1932e59eb6f976ffb82b288412f5",
-      "original_map_sha256": "a0720409908b513b7587c45644980ee0ee9edffcd1e5b696cf90ec63f0c4f8a2",
+      "original_elf_sha256": "d1b2124739ca2ee549d71a1097adaf81e8b52ac4d4a62bc3309ba4ff966cde69",
+      "original_map_sha256": "595da87ee9a6c51e6521cb038294d18e0ff5c0fa6210c529477ac4e387162261",
       "rebuilt_elf_sha256": "417617f815d0d5aa50dc7706e0c90b3c9056784ac0625f0ee6743d2f97640896",
       "global_symbols_match": true
     }
