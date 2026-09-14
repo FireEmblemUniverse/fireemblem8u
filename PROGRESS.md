@@ -4,7 +4,9 @@
 
 Updated: September 14, 2026. Latest integration (baseline `ec96265f`): the payload IRQ saved frame now builds from C with an explicit SPSR read. All three payloads and the main ROM match their references; 4,096 production-source stack/register cases, eight unsupported-contract rejections and 12 displaced-layout checks pass. Fresh runtime builds reproduce all four images and exported symbols. Expanded payload assembly is now 162 bytes: 132 startup/IRQ assembly-source bytes plus 30 inline bytes. Payload mapped instruction bytes remain 25,714 (18,364 C-owned, 6,398 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Remaining startup/IRQ code, platform operations and complete executable/data classification are unfinished; no overall completion percentage is claimed.
 
-Next IRQ milestone: recover the payload continuation and startup. The eight-byte saved frame has four C-generated stack-save bytes and four retained SPSR-read bytes. Production evidence: `docs/payload-irq-save-frame.json`.
+Latest research (baseline `9f157487`): a C continuation candidate matches all 80 instruction bytes and the 12-byte shared pool in all three payloads; three displaced pools reject. It has 60 C-generated instruction bytes and 20 retained status-register bytes. Production totals are unchanged. Independent callback/mode/return modeling and a payload-specific handler-symbol contract are next before integration. Evidence: `docs/payload-irq-continuation-research.json`.
+
+Next IRQ milestone: validate and integrate the payload continuation, then recover startup. The eight-byte saved frame has four C-generated stack-save bytes and four retained SPSR-read bytes. Production evidence: `docs/payload-irq-save-frame.json`.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

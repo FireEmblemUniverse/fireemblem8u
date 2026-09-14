@@ -13165,3 +13165,26 @@ C/assembly category rises eight bytes to 6,398; C-owned bytes remain 18,364
 because the recovered stack instruction shares an object with the SPSR read.
 The remaining assembly source is 52 startup and 80 continuation bytes.
 Complete executable/data classification remains unfinished.
+
+
+### Payload IRQ continuation byte candidate (September 14, 2026)
+
+Baseline `9f157487`. `research/payload/irq_continuation.c` adapts the main-ROM
+continuation. A fresh build of the existing IRQ frame pass reproduces all
+80 instruction bytes, including the callback return address and banked
+stack operations, plus the original 12-byte shared literal pool in each of
+the three payload versions. Sixty instruction bytes are compiler-generated;
+20 bytes remain explicit status-register operations. Three four-byte pool
+displacements are rejected by linker assertions.
+
+The isolated fixture binds the research gIRQHandlers symbol to each payload's
+gIrqFuncTable address. Its Main pointer includes the Thumb state bit; raw nm
+symbol values omit that bit, so the linker fixture explicitly restores it.
+The eight-byte pool prefix is fixture data, not recovered production C data.
+Evidence: `research/payload/check_irq_continuation.py` and
+`docs/payload-irq-continuation-research.json`.
+
+Production is unchanged. Exact byte matching does not replace independent
+callback/mode/return checks. Those checks and a parameterized or otherwise
+verified payload handler-symbol contract are required before integration;
+the compiler currently validates the main-ROM handler symbol by name.
