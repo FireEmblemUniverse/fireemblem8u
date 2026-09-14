@@ -4,6 +4,8 @@
 
 Updated: September 14, 2026. Latest integration (baseline `2968bf58`): all eleven payload BIOS wrappers now build from C with explicit SWI boundaries. The complete 76-byte regions and all payload checksums match; 2,016 production-source boundary cases pass. Thirty-six wrapper instruction bytes now compile from C, 24 SWI bytes remain inline, and the unchanged two-byte reset tail is classified as alignment data. Expanded payload assembly is now 354 bytes: 328 startup assembly-source bytes plus 26 inline bytes. Payload mapped instruction bytes total 25,714 (18,176 C-owned, 6,390 mixed C/assembly, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed bytes and 21,792 runtime bytes. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Full-ROM and fresh four-image runtime checks pass. Complete mapped-data/executable classification, startup recovery and platform instructions remain unfinished; no overall completion percentage is claimed.
 
+Payload startup research (baseline `6319d0e6`): the 168-byte IRQ priority-search block now has an exact C candidate in all three payloads. Its payload-specific grouped 0xC0 priority is preserved. All 16,384 fourteen-bit pending masks pass the selection/halt model with IE=0xffff; preserved registers and absence of stack writes are checked. Default startup integration remains pending, so expanded assembly stays 354 bytes.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

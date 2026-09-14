@@ -1,0 +1,12 @@
+{
+  "exact_images": [
+    "mgfembp",
+    "mgfembp_20030206",
+    "mgfembp_20030219"
+  ],
+  "exact_code_bytes": 168,
+  "pending_masks_tested": 16384,
+  "grouped_priority_mask": "0xc0",
+  "source_sha256": "0721a486f42efeecc3263cdda9749b02ed9e8239e138028cb372f6913d25cbb6",
+  "scope": "Research priority-search block only. Enumerates all 14-bit pending masks with IE=0xffff, including bit13 halt. Checks selected mask/table offset and preserved registers; not full IRQ entry, mode switching or callback execution."
+}

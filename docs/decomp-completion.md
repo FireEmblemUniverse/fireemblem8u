@@ -13016,3 +13016,27 @@ remain open; full decompilation is not claimed.
 The main-ROM BIOS audit now filters reviewed sites by image as well as source
 path, since the payload legitimately uses the same wrapper filenames. Its
 main-ROM expectations remain unchanged.
+
+
+### Payload IRQ-search C candidate (September 14, 2026)
+
+Baseline `6319d0e6`. Inspection separates the remaining crt0 code into startup,
+IRQ entry/frame, priority search and continuation. The payload search differs
+from the main-ROM priority chain: mask 0xC0 (bits six/seven together) comes
+first, followed by individual sources. research/payload/irq_search.c preserves
+that order, combined IE/IF masking, byte offset accumulation and bit-13 halt.
+Explicit cold-loop hints retain the isolated halt layout expected by the
+existing arm_noreturn_frame pass; no backend changes are needed.
+
+check_irq_search.py builds the candidate at 0x02010058 with selection
+continuation 0x02010100. All 168 bytes match all three linked payloads. The
+model enumerates every fourteen-bit pending value with IE=0xffff (16,384
+cases), verifying grouped/individual selection, four-byte table offsets,
+zero-pending behavior, bit-13 self-halt, r3–r14 preservation and no memory
+writes. It does not model the complete IRQ entry, mode switch, callback or
+return path. Arbitrary independent IE/IF combinations remain a useful
+integration-stage extension; this model's enumeration is scoped explicitly.
+
+Receipt: payload-irq-search-research.json. Production crt0.s is unchanged.
+This is the next integration target; expanded assembly remains 354 bytes
+until the candidate is integrated and ownership/image checks are refreshed.
