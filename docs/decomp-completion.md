@@ -12910,3 +12910,25 @@ The recovery bundle includes the complete local history on the expected
 refs/heads/decomp-completion ref and passes git bundle verify. Remaining
 payload startup, BIOS wrappers and two interworking veneers are still assembly;
 full executable/data classification and platform instructions also remain open.
+
+
+### Payload interworking C candidates (September 14, 2026)
+
+Baseline `e431656f`. research/payload/thumb_entries.c uses the existing
+matching_thumb_arm_entry private handoff contract; arm_entries.c supplies
+ordinary C tail-call wrappers for ClearOam and Checksum32. The linked C
+sections reproduce each original BX-PC/NOP/ARM-branch veneer, sixteen bytes
+total, at all three payload layouts. No new backend operations are introduced.
+
+check_interworking.py enforces adjacency, size and alignment. Its 768 cases
+span both veneers, all three payloads, sixteen NZCV combinations and eight
+register seeds. Execution checks the BX-PC transition and ARM branch,
+skipping the original unreachable NOP; every r0–r14 value and all non-T
+CPSR bits survive, and PC reaches the original target in ARM mode. Six
+invalid layouts (gap and incorrect adjacency per image) reject. The model
+stops at the destination and does not test ClearOam/Checksum32 execution.
+
+The receipt is payload-interworking-research.json. These are research-only
+candidates; fake_glue.s remains in the default payload build. Integration,
+fresh image verification and bundle/pin refresh are next. No production
+assembly reduction is claimed yet; expanded payload assembly stays 408 bytes.

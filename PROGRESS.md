@@ -6,6 +6,8 @@ Updated: September 14, 2026. Latest integration (baseline `3d0f5950`): the defau
 
 Latest payload integration (baseline `334334aa`): PutOamLo now uses the checked C entry in all three payload versions. Full payload bytes match their references, and 384 frame/register/flag cases pass. Payload assembly-source ownership falls from 418 to 406 bytes; with two inline bytes, expanded assembly totals 408. Fresh four-image runtime checks and code/data audits pass. The recovery bundle pins payload `33d1fddf`. Existing symbol addresses remain unchanged; the recovered entry now has a 12-byte size and its cursor pointer is named.
 
+Payload veneer research (baseline `e431656f`): C Thumb handoffs and ordinary ARM tail-call wrappers reproduce both eight-byte veneers in all three payloads. The full 16-byte regions match; 768 state-transfer cases pass and six invalid layouts reject. No new compiler extension is needed. Default payload integration remains pending, so expanded assembly stays at 408 bytes.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
