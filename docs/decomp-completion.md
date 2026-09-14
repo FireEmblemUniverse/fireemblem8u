@@ -13347,3 +13347,24 @@ now zero; 58 inline instruction bytes remain. Mixed ownership is 6,530 bytes,
 C-owned ownership 18,364 and runtime 820, totaling 25,714. Removing assembly
 source ownership does not establish full decompilation: retained platform
 operations and complete mapped-data/executable classification remain open.
+
+
+### Multiboot countdown semantics (September 14, 2026)
+
+Baseline `c2313fcd`. The retained delay loop at 0x0804e036 contains SUBS/BGT.
+Its signed branch condition compares the pre-subtraction operands; simply
+checking the wrapped result for positivity changes behavior when subtraction
+overflows. `research/multiboot/delay.c` uses unsigned subtraction and a signed
+comparison of the previous cycle value to preserve the original decision.
+
+`research/multiboot/check_delay.py` compiles that source and checks one loop
+iteration against both the original two instructions and an independent
+arithmetic model. All 12,315 cases pass across steps 4, 12 and 13, including
+signed extrema and random 32-bit cycle words. The receipt records concrete
+overflow cases where a wrapped-positive countdown would incorrectly repeat.
+Evidence: `docs/multiboot-delay-research.json`.
+
+The compiler currently emits MOV/SUB/CMP/BLT rather than SUB/BGT. The candidate
+therefore is not timing-exact and does not preserve the original clobbers or
+final flags; production remains unchanged. Exact compiler recovery of the
+four-byte loop is the next target. The PC read remains a platform operation.

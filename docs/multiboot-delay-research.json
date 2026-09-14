@@ -1,0 +1,58 @@
+{
+  "cases": 12315,
+  "steps": [
+    4,
+    12,
+    13
+  ],
+  "original_loop_bytes": 4,
+  "candidate_loop_bytes": 8,
+  "source_sha256": "5ba9e71a78ef4fd54d027e8f88d18326d9e718503b1417aab63d69a3296340d8",
+  "candidate_sha256": "92ec24364532bb428adc53cec0e2a0b5e16d1db6dd7bae7e64165dab384b9f48",
+  "overflow_examples": [
+    {
+      "cycles": "0x80000000",
+      "step": 4,
+      "result": "0x7ffffffc",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    },
+    {
+      "cycles": "0x80000001",
+      "step": 4,
+      "result": "0x7ffffffd",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    },
+    {
+      "cycles": "0x80000000",
+      "step": 12,
+      "result": "0x7ffffff4",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    },
+    {
+      "cycles": "0x80000001",
+      "step": 12,
+      "result": "0x7ffffff5",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    },
+    {
+      "cycles": "0x80000000",
+      "step": 13,
+      "result": "0x7ffffff3",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    },
+    {
+      "cycles": "0x80000001",
+      "step": 13,
+      "result": "0x7ffffff4",
+      "original_repeats": false,
+      "wrapped_positive_repeats": true
+    }
+  ],
+  "production_integrated": false,
+  "scope": "One countdown iteration, wrapped result and branch decision from original SUBS/BGT and compiled defined C. Covers directed signed-overflow boundaries and random words. Candidate has extra MOV/CMP and is not timing-exact; flags/register clobbers and full calibrated wait are not equivalent yet."
+}
