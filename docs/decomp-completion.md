@@ -12525,3 +12525,32 @@ also pass. `make compare -j8` passes after the backend rebuild, and the
 production ELF is unchanged. Next package the full helper as a relocatable
 _modsi3.o with original padding, verify all image layouts, then integrate.
 Production signed-modulus ownership remains unchanged until that step.
+
+
+### Signed-modulus relocation and default integration (September 14, 2026)
+
+Baseline `ff14412c`. `build_smod_member.py` packages the verified fragments
+into a relocatable _modsi3.o with the original 206-byte public symbol and
+two-byte zero padding. Its independent plugin/runtime rebuild reproduces
+all four images and exported symbols; runtime-smod-four-images.json records
+that pre-integration evidence.
+
+The sources now reside under runtime/ and build_runtime_smod.py rebuilds
+their plugins in a separate directory. The default archive depends on all
+four recovered arithmetic members. Fresh verification also builds signed
+modulus by default. `make compare -j8` passes, both dated payloads relink,
+and the fresh four-image binary/symbol comparisons pass. Runtime provenance
+classifies all four arithmetic members as verified C from fingerprinted
+sources and archive contents.
+
+Runtime assembly falls from 268 to 62 instruction bytes per audited image.
+The remaining members are indirect-call veneers (60) and __div0 (2).
+Verified runtime C-source totals are 21,730 main-ROM and 758 payload bytes;
+the main runtime archive total stays 21,792 and is still reported separately
+from whole-object C ownership. Region and data-provenance receipts are
+refreshed for the new ELF/map identities.
+
+This completes recovery of these four arithmetic helpers, not the overall
+goal. Remaining platform/inline instructions, the two runtime assembly
+members, expanded payload assembly and full mapped-data/executable
+classification still require work.
