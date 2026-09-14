@@ -8,6 +8,8 @@ Runtime inline inventory (baseline `5f5b4a03`): the active Angel monitor syscall
 
 Syscall move research (baseline `c30d1ca1`): two C fixed-register assignment variants compile with the pinned legacy compiler and retain all 13 SWIs, but both produce identical 1,024-byte text versus the original 1,124 bytes. The reproduced baseline matches exactly. Assignments change surrounding allocation and instruction selection; the candidates are not integrated or credited as matching C recovery. A constrained lowering strategy is needed.
 
+Isolated syscall cores (baseline `36984bcf`): fixed-register C assignments around the retained SWI reproduce 11/13 contiguous eight-byte reference cores. Two r8-result cases still introduce compiler save/restore work. Low-register copies require the original ADDS #0 encoding and flags; explicit SP-copy opt-in preserves the high-register move. Two invalid contracts reject. The production ROM comparison passes and its ELF is unchanged; full syscall-member recovery remains pending.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

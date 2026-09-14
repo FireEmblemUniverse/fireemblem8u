@@ -12746,3 +12746,21 @@ source/compiler fingerprints and text hashes in runtime-syscall-move-probe.json.
 A matching conversion must preserve the original allocation and move semantics
 through more precise compiler control rather than adopting this ordinary
 fixed-register rewrite as-is.
+
+
+### Isolated C syscall cores (September 14, 2026)
+
+Baseline `36984bcf`. `probe_syscall_cores.py` expresses arguments and results
+as fixed-register C assignments around a retained SWI. Eleven of thirteen
+contiguous eight-byte reference sequences match exactly with the copy_add_zero
+pass. Original low-register MOV spellings assemble as ADDS #0; those flag
+semantics must be retained. New preserve-thumb-sp-copies opt-in leaves
+SP-to-low-register copies unchanged while applying existing low-copy lowering.
+Missing SP opt-in and ARM-mode contracts reject. Default behavior is unchanged.
+
+Two r8-result cases introduce compiler save/restore work. Caller context,
+service clobbers, execution behavior and complete-member integration remain
+unverified. This is isolated byte-match evidence, not production recovery.
+`make compare -j8` passes and the production ELF is unchanged. Rebuilding the
+archive changed its identity, requiring fresh runtime verification receipts.
+See runtime-syscall-core-probe.json for all candidate bytes.
