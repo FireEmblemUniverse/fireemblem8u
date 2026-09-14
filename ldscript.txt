@@ -1760,6 +1760,19 @@ SECTIONS
         src/m4a_ply_note_pcm_setup.o(.text);
         __ply_note_pcm_setup_end = .;
         src/m4a_1.o(.text.after_ply_note_pcm_setup);
+        __ply_note_pcm_choose_start = .;
+        src/m4a_ply_note_pcm_choose.o(.text);
+        __ply_note_pcm_choose_end = .;
+        src/m4a_1.o(.text.after_ply_note_pcm_choose);
+        ASSERT((PlyNotePcmChoose & ~1) == PlyNotePcmLoop &&
+               __ply_note_pcm_choose_start == (ply_note & ~1) + 250 &&
+               __ply_note_pcm_choose_end - __ply_note_pcm_choose_start == 58 &&
+               PlyNotePcmAdvance == __ply_note_pcm_choose_end,
+               "ply_note PCM choice extent or continuation changed");
+        ASSERT((PlyNoteChannelAttach & 1) == 0 &&
+               PlyNoteChannelAttach >= __ply_note_pcm_choose_start + 10 &&
+               PlyNoteChannelAttach <= __ply_note_pcm_choose_start + 10 + 254,
+               "ply_note PCM choice attach transfer out of range");
         ASSERT((PlyNotePcmSetup & ~1) == PlyNotePcmSelect &&
                __ply_note_pcm_setup_start == (ply_note & ~1) + 236 &&
                __ply_note_pcm_setup_end - __ply_note_pcm_setup_start == 14 &&

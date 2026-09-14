@@ -9392,3 +9392,47 @@ Evidence in `.deps/soundmain-packed/ply-note/`: `pcm-choose-report.json`,
 `pcm-envelope-regression.log`. Next: integrate with full-ROM, runtime, ownership
 and layout verification, then recover the twelve-byte loop advancement and
 remaining allocation/setup/frame paths.
+
+
+## September 13, 2026 — PCM channel choice integrated
+
+On baseline `3a7e914f`, `src/m4a_ply_note_pcm_choose.c` replaces the fifty-eight
+assembly instruction bytes at 080CFF3E..080CFF78. The production source matches
+the verified candidate apart from its function name. An assembly boundary
+keeps `PlyNotePcmLoop` at the original address, preserving the setup fallthrough
+and remaining assembly backedge. The linker requires entry+250, extent 58,
+immediate advancement continuation, and an even forward attach target within
+the Thumb conditional transfer range.
+
+`make compare -j8` passes. The production checker verifies source identity,
+production object bytes relocated at the original address, and whole-ROM
+identity. All 37,369 selection cases pass, thirteen unsupported compiler
+contracts reject and unannotated output is unchanged. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. The valid layout
+links and all 231 altered layouts reject, including five new choice extent,
+continuation and attach-range cases. Full allocation/callback execution and
+full ply_note behavior remain outside the selection-model scope.
+
+Mapped main-ROM ownership is 721,034 C-owned (92.72%), 33,870 mixed C/assembly,
+934 assembly-source and 21,792 runtime-archive instruction bytes, totaling
+777,630. Reviewed non-library assembly is 1,344 main-ROM and 420 payload bytes.
+There are 572 tracked main C files and 29 assembly entry markers. ply_note
+retains 226 assembly instruction bytes. Mixer, SoundMain and all 602 mapped
+MPlayMain instruction bytes retain C ownership. Refreshed runtime, ownership
+and audio-region receipts fingerprint production ELF SHA-256
+`2de5ddac2adfd5c27d60767818d990541162c2548b92dfa2e137217b2533e783`.
+
+Evidence in `.deps/soundmain-packed/ply-note/`: `pcm-choose-production-build.log`,
+`pcm-choose-production-check.log`, `pcm-choose-production.{elf,bin}`,
+`pcm-choose-report.json`, `pcm-choose-runtime.log`,
+`pcm-choose-production-layout.log`, `pcm-choose-ownership.log`,
+`pcm-choose-source.json`, `pcm-choose-linked.json` and the mixer/SoundMain/
+MPlayMain audit logs. Tracked ownership/runtime/inline/audio receipts refreshed.
+
+Next: recover the twelve-byte loop advancement at 080CFF78..080CFF84 and
+remaining allocation/setup/frame paths. The initial C probe
+`research/audio/ply_note_pcm_advance.c` compiles using existing private-tail,
+fork-decrement and direct-exit support, but emits fourteen bytes: SUBS/BLE plus
+an unconditional loop transfer in place of the original SUBS/BGT. It needs a
+proven direct decrement-and-repeat transfer; it is not integrated or credited
+as matching C. Probe evidence: `pcm-advance-probe.{s,log}`.

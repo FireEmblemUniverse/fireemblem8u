@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--compiler', required=True)
+    parser.add_argument('--production', action='store_true')
     args = parser.parse_args()
     out = ROOT / '.deps/soundmain-packed/ply-note'
     out.mkdir(parents=True, exist_ok=True)
@@ -49,6 +50,15 @@ def main():
     rom = (ROOT / 'baserom.gba').read_bytes()
     assert hashlib.sha1(rom).hexdigest() == 'c25b145e37456171ada4b0d440bf88a19f4d509f'
     assert binary.read_bytes() == rom[0xcff3e:0xcff78], binary.read_bytes().hex()
+    if args.production:
+        assert (ROOT / 'src/m4a_ply_note_pcm_choose.c').read_text() == source.replace('PlyNotePcmChooseCandidate', 'PlyNotePcmChoose')
+        assert (ROOT / 'fireemblem8.gba').read_bytes() == rom
+        # Relink the actual production object at the original addresses.
+        production_elf = out / 'pcm-choose-production.elf'
+        production_bin = out / 'pcm-choose-production.bin'
+        subprocess.run(['arm-none-eabi-ld', '-T', str(script), str(ROOT / 'src/m4a_ply_note_pcm_choose.o'), '-o', str(production_elf)], check=True)
+        subprocess.run(['arm-none-eabi-objcopy', '-O', 'binary', '-j', '.text', str(production_elf), str(production_bin)], check=True)
+        assert production_bin.read_bytes() == binary.read_bytes()
     invalid = [
         ('missing_private', source, tail[:1]+tail[2:]+direct+layout),
         ('wrong_destination', source.replace('PlyNoteChannelAttach();', 'Other();'), tail+direct+layout),
@@ -78,7 +88,7 @@ def main():
     subprocess.run([sys.executable, str(ROOT / 'research/audio/check_ply_note_pcm_model.py'),
                     '--candidate-bin', str(composite)], check=True)
     report = dict(exact_c_candidate_bytes=58, original_setup_and_advance_bytes=26,
-                  production_integrated=False, invalid_contracts=len(invalid),
+                  production_integrated=args.production, invalid_contracts=len(invalid),
                   unannotated_unchanged=True,
                   source_sha256=hashlib.sha256(source.encode()).hexdigest(),
                   model=json.loads((out / 'pcm-candidate-model.json').read_text()))

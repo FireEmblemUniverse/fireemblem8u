@@ -561,40 +561,9 @@ _081DDBEC:
 	.global PlyNotePcmLoop
 PlyNotePcmLoop:
 _081DDBFA:
-	ldrb r1, [r4]
-	movs r0, 0xC7
-	tst r0, r1
-	beq _081DDC40
-	movs r0, 0x40
-	tst r0, r1
-	beq _081DDC14
-	cmp r2, 0
-	bne _081DDC18
-	adds r2, 0x1
-	ldrb r6, [r4, 0x13]
-	ldr r7, [r4, 0x2C]
-	b _081DDC32
-_081DDC14:
-	cmp r2, 0
-	bne _081DDC34
-_081DDC18:
-	ldrb r0, [r4, 0x13]
-	cmp r0, r6
-	bcs _081DDC24
-	adds r6, r0, 0
-	ldr r7, [r4, 0x2C]
-	b _081DDC32
-_081DDC24:
-	bhi _081DDC34
-	ldr r0, [r4, 0x2C]
-	cmp r0, r7
-	bls _081DDC30
-	adds r7, r0, 0
-	b _081DDC32
-_081DDC30:
-	bcc _081DDC34
-_081DDC32:
-	mov r8, r4
+	.section .text.after_ply_note_pcm_choose, "ax", %progbits
+	.global PlyNotePcmAdvance
+PlyNotePcmAdvance:
 _081DDC34:
 	adds r4, 0x40
 	subs r3, 0x1

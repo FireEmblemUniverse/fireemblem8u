@@ -225,6 +225,11 @@ def main():
  for name,offset in [('note_pcm_loop_wrong',252),('note_pcm_loop_odd',251)]:
   needle='        ASSERT((PlyNotePcmSetup & ~1) =='
   cases.append((name,source.replace(needle,'        PlyNotePcmLoop = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM setup extent or continuation'))
+ cases += [('note_pcm_choose_extent',source.replace('        __ply_note_pcm_choose_end = .;','        . += 2;\n        __ply_note_pcm_choose_end = .;'),'ply_note PCM choice extent or continuation'),
+           ('note_pcm_choose_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_pcm_choose);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_pcm_choose);'),'ply_note PCM choice extent or continuation')]
+ for name,offset in [('note_pcm_choose_attach_far',1024),('note_pcm_choose_attach_backward',0),('note_pcm_choose_attach_odd',321)]:
+  needle='        ASSERT((PlyNoteChannelAttach & 1) =='
+  cases.append((name,source.replace(needle,'        PlyNoteChannelAttach = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM choice attach transfer'))
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

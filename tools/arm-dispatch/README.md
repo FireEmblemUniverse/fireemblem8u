@@ -1077,5 +1077,6 @@ and unannotated functions do not enable this transformation.
 `research/audio/check_ply_note_pcm_choose.py --compiler COMPILER` verifies the
 58-byte choice candidate, rejected compiler contracts, unchanged unannotated
 output, and complete PCM-selection model behavior when combined with the
-original setup and advancement bytes. This candidate is not yet integrated
-into the production ROM; its final twelve-byte loop advancement remains assembly.
+original setup and advancement bytes. Pass `--production` to verify the
+integrated source/object and ROM identity. Its final twelve-byte loop
+advancement remains assembly.
