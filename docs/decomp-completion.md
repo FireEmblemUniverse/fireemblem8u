@@ -10743,3 +10743,33 @@ instead of 639, and total unmapped-input provenance is 3,172,290 bytes.
 This is an inventory classification change, not changed ROM content or an
 execution-safety claim. The final provenance gate initially failed on the
 unrecognized slice and passes with this explicit source reconstruction.
+
+### IRQ priority-search model and C draft
+
+The next native region is `irq_search` at 08000118..080001CC, before IRQ
+acknowledgement and mode switching. `research/irq/search.c` models its
+priority order. `search_constrained.c` uses empty register constraints to
+retain the original data-register choices; it is a 196-byte isolated draft
+with a placeholder handoff, versus the original 180-byte search region.
+It is not integrated or claimed byte-matching.
+
+`research/irq/check_search.py --source research/irq/search_constrained.c
+--check-state` compares the original and candidate with an independent
+lowest-set-bit model across all 65,536 pending masks plus 4,096 seeded
+combined IE/IF words. All 69,632 cases pass: 35,871 dispatches and 33,761
+Game Pak halts. All dispatches agree on r0-r12 and CPSR; the candidate SP
+is exactly four bytes lower because GCC saves LR before its handoff call.
+Incoming register values and flags vary across the cases.
+
+An important original edge case is preserved: no recognized pending bit
+selects handler-table offset 52 with acknowledgement mask zero, rather than
+returning without dispatch. There are 86 such inputs in the suite. Pending
+Game Pak interrupts halt before ordinary priority selection; unrecognized
+upper bits do not select a handler. The basic unconstrained draft also
+passes decision checks but uses extra scratch registers.
+
+Evidence is in `docs/irq-search-research.json`. Halt-state register equality,
+IRQ entry/exit, mode transitions, acknowledgement writes and actual handler
+execution remain outside the model. Next work is the flag-loop layout,
+private frame and adjacent handoff needed for exact region generation.
+Production code and ownership totals remain unchanged this milestone.

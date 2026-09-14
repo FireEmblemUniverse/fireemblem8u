@@ -1,0 +1,16 @@
+{
+  "source": "research/irq/search_constrained.c",
+  "selected_state_check": true,
+  "cases": 69632,
+  "exhaustive_pending_masks": 65536,
+  "seeded_ie_if_words": 4096,
+  "outcomes": {
+    "selected": 35871,
+    "halt": 33761
+  },
+  "zero_mask_dispatches": 86,
+  "candidate_bytes": 196,
+  "candidate_sha256": "e43c0d000b840794bc62262715282b1c8939bbf278b7b7523b1060637db05455",
+  "production_integrated": false,
+  "scope": "Original and C draft agree with independent lowest-set-bit model on Game Pak halt or acknowledgement mask, pending word and handler-table offset. No recognized pending bit selects offset 52 with mask zero. Optional selected-state checks cover r0-r12/CPSR and the known four-byte candidate stack decrement. Halt-state parity, IRQ mode transitions and actual handler execution are not checked; candidate is not byte-matching."
+}
