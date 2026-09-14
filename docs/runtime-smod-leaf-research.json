@@ -1,0 +1,58 @@
+{
+  "exact_nonzero_core": false,
+  "compiler_extra_flags": [],
+  "nonzero_only": true,
+  "extra_plugin_sha256": [
+    "89768bab39574d097f3503847e40439323997c9a46fa8ad47c882c6ee0b8c786"
+  ],
+  "zero_divisor_flag_difference_cases": 0,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": ".deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": null,
+  "register_difference_cases": {
+    "0": 0,
+    "1": 5020,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0
+  },
+  "stack_write_difference_cases": 6060,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 58,
+      "candidate_offset": 46,
+      "bytes": 66
+    },
+    {
+      "original_offset": 134,
+      "candidate_offset": 134,
+      "bytes": 50
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": "18ab50e87e99b12a8323217b79b2b1d25456c51d950481ae70046f1452d60bd6",
+  "assembled_helper_sha256": "45eff138daa9d590a5536e68ae835f35b34f066dc89075babef4be966c252cdc",
+  "cases": 6060,
+  "divide_by_zero_cases": 0,
+  "initial_bit_one": false,
+  "division_needed": false,
+  "operation": "signed-modulus",
+  "original_instruction_bytes": 206,
+  "candidate_section_bytes": 196,
+  "result_and_preserved_registers_match": true,
+  "flag_difference_cases": 0,
+  "caller_register_difference_cases": 5020,
+  "bytes_exact": false,
+  "production_integrated": false,
+  "scope": "Checks arithmetic result against original ROM and Python integer arithmetic, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement."
+}

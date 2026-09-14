@@ -12393,3 +12393,24 @@ stack writes on 6312 cases. The detailed receipt
 is `docs/runtime-smod-research.json`. Next bind the arithmetic registers and
 recover the stacked dividend sign while retaining r12 for rotation state.
 Production runtime assembly remains 268 instruction bytes per audited image.
+
+
+### Signed-modulus register and leaf recovery (September 14, 2026)
+
+Baseline `c75216b1`. `smod_registers.c` binds r0/r1/r2/r3/r4 arithmetic
+state and r12 rotation state; a volatile stack local preserves the original
+dividend sign. All 6,312 arithmetic/callee-preservation cases pass. r2/r3/r12
+now match throughout; only r1 (all cases) and LR (252 zero cases) differ.
+The 214-byte candidate has a 66-byte exact subtraction span and additional
+correction spans. Flags differ on 972 cases. The full candidate receipt is
+`runtime-smod-register-research.json`.
+
+`smod_leaf.c` removes the zero path under a private nonzero precondition
+and enables the existing leaf-frame contract. It emits 196 bytes and passes
+6060 nonzero arithmetic/callee-preservation cases. Flags differ on
+0 cases, r1 on 5020
+cases, and stack writes on 6060 cases. GCC
+loads the saved sign through SP and reclaims the slot with a pop into r1;
+the original instead pops the saved dividend into r4 before checking its
+sign, then restores the original r4. A checked local-slot/frame transformation
+must reproduce that order before exact layout. No production library changed.
