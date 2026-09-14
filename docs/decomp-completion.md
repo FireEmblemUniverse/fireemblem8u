@@ -13259,3 +13259,24 @@ bytes; inline instructions rise to 50 bytes, totaling 102 expanded assembly
 bytes. Mixed object ownership rises to 6,478 bytes; C-owned ownership remains
 18,364 because the continuation object contains retained status instructions.
 The complete executable/data classification and full decompilation remain open.
+
+
+### Payload startup byte candidate (September 14, 2026)
+
+Baseline `d967b5d7`. `research/payload/startup.c` reuses the main-ROM startup
+C under a private PayloadStartup entry. The existing startup frame pass
+reproduces all 52 instructions bytes and 16 pointer-data bytes in each payload.
+Forty-four instruction bytes are C-generated; the two processor-mode writes
+retain eight explicit assembly bytes. The stack constants are 0x03007fa0
+and 0x03007e00, and the far pool begins at payload offset 0x150. Main's Thumb
+address is taken from readelf's function symbol, preserving its state bit.
+
+`research/payload/check_startup.py` builds the pass and source afresh and
+checks both exact regions. Each payload rejects displaced IRQ ADR, stack
+pool and far pool layouts, totaling nine rejections. Evidence:
+`docs/payload-startup-research.json`.
+
+The isolated fixture currently binds the main-ROM symbol contract names to
+payload addresses. Independent startup execution, payload symbol contracts
+and production integration are still required. Production is unchanged;
+complete decompilation and executable/data classification remain unfinished.

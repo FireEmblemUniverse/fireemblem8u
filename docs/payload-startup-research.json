@@ -1,0 +1,38 @@
+{
+  "images": [
+    {
+      "image": "mgfembp",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    },
+    {
+      "image": "mgfembp_20030206",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    },
+    {
+      "image": "mgfembp_20030219",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    }
+  ],
+  "instruction_bytes": 52,
+  "c_generated_instruction_bytes": 44,
+  "retained_mode_write_bytes": 8,
+  "c_data_bytes": 16,
+  "source_sha256": "64476a07b84968332b3fe756206bc866be299e8468661c4471f115089775fc62",
+  "production_integrated": false,
+  "scope": "Exact startup instructions and stack/far pointer data, with linker fixtures binding main-ROM symbol names to payload addresses. No independent startup execution model yet."
+}
