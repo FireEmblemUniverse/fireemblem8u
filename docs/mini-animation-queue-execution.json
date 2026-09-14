@@ -1,6 +1,9 @@
 {
-  "cases": 4000,
-  "command_ids": 250,
+  "cases": 8608,
+  "command_ids": 253,
+  "mixed_queue_cases": 512,
+  "helper_entry": "0x805a580",
+  "helper_bytes": 40,
   "queue_sizes": [
     0,
     1,
@@ -12,16 +15,13 @@
     7
   ],
   "excluded_helper_commands": [
-    1,
-    2,
     5,
     13,
-    14,
-    24
+    14
   ],
   "entry": "0x805a3dc",
   "region_bytes": 420,
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "source_sha256": "fc3989245973d47edc0302ee67d0224d8751e73115a0366cb4a86797abe4fffd",
-  "scope": "Entire mini-handler executed for 250 byte-valued command IDs, homogeneous queues of sizes 0..7, command-only and command-plus-stop states. Full Anim result, callee-saved registers, stack, write bounds and absence of helper calls checked. Includes unused IDs to verify default dispatch. Excludes helper commands, frame graphics processing, mixed queues and scheduler behavior."
+  "scope": "Entire mini-handler plus original round-end helper executed for 253 byte-valued command IDs, queue sizes 0..7, both hit-effect states and command-only/command-plus-stop states, plus 512 mixed queues. Full Anim result, callee-saved registers, stack and write bounds checked; execution confined to these two functions. Includes unused default IDs. Excludes spell/graphics helpers for commands 5,13,14, frame processing and scheduling."
 }

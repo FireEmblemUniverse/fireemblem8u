@@ -20,6 +20,8 @@ Latest interpreter execution (baseline `8ea03a9e`): all 47,523 recovered motion 
 
 Latest mini-handler execution (baseline `6ee35a33`): 4,000 complete queue-drain cases pass for 250 command IDs, queue sizes 0–7 and command/command-plus-stop states. Checks cover full Anim output, script advancement, register/stack preservation, write bounds and no external calls. Six helper-command IDs and graphics/scheduling remain outside this check. Receipt: `docs/mini-animation-queue-execution.json`.
 
+Latest round-end integration check (baseline `fec152d3`): the mini-handler execution suite now passes 8,608 cases across 253 IDs, both hit-effect states, queue sizes 0–7 and 512 mixed queues. The actual 40-byte round-end helper executes for commands 1, 2 and 24; script release and STOP precedence match the independent model. Commands 5, 13 and 14, frame processing and scheduling remain open. Receipt: `docs/mini-animation-queue-execution.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

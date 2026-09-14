@@ -13693,3 +13693,22 @@ This is execution evidence for queue consumption under the stated inputs.
 It excludes mixed queues, helper effects, frame-graphics processing and external
 scheduling; it does not establish complete animation behavior or overall
 executable coverage. No production source changed.
+
+## Mini-animation round-end helper integration — September 14, 2026
+
+Baseline `fec152d3`. The mini queue execution suite now includes the actual
+40-byte `EkrMainMini_AnimMarkRoundEnd` helper at 0x0805A580, byte-checked against
+the original ROM. Commands 1, 2 and 24 are no longer excluded. The 8,608 passing
+cases cover 253 command IDs, queue sizes zero through seven, both values of the
+hit-effect bit, command/command-plus-stop states and 512 mixed queues.
+
+The independent model consumes queues in reverse order. Round-end commands set
+nextRoundId to -2; with the hit-effect bit set they retain only that state3 bit,
+set nextRoundId to zero and advance the script pointer. A simultaneous STOP
+state subsequently sets nextRoundId to -1. Full Anim memory, saved registers,
+stack restoration and write bounds agree. Execution is restricted to the main
+handler and real round-end helper, with no substituted callbacks.
+
+The updated `docs/mini-animation-queue-execution.json` records this broader
+coverage. Commands 5, 13 and 14 still need spell/graphics helper verification;
+frame processing and scheduling remain open. Production source is unchanged.
