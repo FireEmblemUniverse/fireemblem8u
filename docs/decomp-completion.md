@@ -11771,3 +11771,37 @@ forms and preserves unannotated output. Evidence is in
 production ELF remains unchanged. These research changes do not replace
 runtime assembly or change coverage totals. Matching the conditional frame,
 register restore and remaining branch/instruction layout is still required.
+
+
+### Private nonzero division core matches final machine state
+
+`research/runtime/udiv_leaf.c` isolates the arithmetic core under an explicit
+nonzero-divisor precondition. Its zero check uses __builtin_unreachable only
+to express that private precondition; this is not a replacement for the public
+helper's divide-by-zero behavior. A separate entry/zero-path implementation
+is still required before any full-helper integration.
+
+The existing `matching_leaf_frame` support removes LR from the leaf save and
+returns through LR directly. Combined with the scoped r2-to-r0 ADD-zero
+contract, the 108-byte draft passes 2,924 nonzero cases with no final r0-r14,
+SP or flag differences against the original helper. This eliminates the
+previous popped-r1 return-address difference on the normal path. The checker
+now accepts additional compiler plugins and an explicit --nonzero-only filter,
+recording both in `docs/runtime-udiv-leaf-research.json`.
+
+Exact frame/layout matching remains open. GCC emits PUSH/POP r4-r6, although
+the original normal path saves only r4, so stack writes still differ. The
+46-byte arithmetic span matches at candidate offset 32 and original offset
+48. The return uses BX LR instead of the original MOV PC,LR. The model enters
+and returns in Thumb mode; it does not validate an ARM return address.
+
+O1 and O2 probes also retained r4-r6. A probe reserving r5-r11 with compiler
+flags was observed running at full CPU without completing for over forty
+seconds and was explicitly terminated; this is an inconclusive allocation
+experiment, not evidence that compilation is impossible. The existing leaf
+support regression passed 5,760 baseline/matching executions, unchanged
+unannotated output and five rejected contracts.
+
+No production or coverage totals changed. The full objective still requires
+a matching zero-divisor path, the original frame/return convention and exact
+instruction layout, alongside the other runtime and classification work.
