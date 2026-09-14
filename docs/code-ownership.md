@@ -74,7 +74,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 | main_rom | 88 | 88 |
 | mgfembp | 58 | 58 |
 
-The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
+The table above reports current reviewed inline bytes; mixed-object sizes are not remaining assembly counts. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
 
 ## Interpretation
 

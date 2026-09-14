@@ -1,0 +1,523 @@
+{
+  "scope": "Purpose classification of all currently reviewed nonlibrary inline sites. Does not prove complete executable coverage or that hardware operations cannot be expressed by compiler intrinsics.",
+  "inline_receipt_sha256": "200d364d6b7550ec8071da1f745632b9c64982bba6c50463a4f9809a5359f759",
+  "categories": {
+    "mgfembp": {
+      "processor_status": 32,
+      "software_interrupt": 26
+    },
+    "main_rom": {
+      "software_interrupt": 50,
+      "processor_status": 32,
+      "explicit_nop": 4,
+      "execution_address": 2
+    }
+  },
+  "sites": [
+    {
+      "image": "mgfembp",
+      "source": "src/crt0.c",
+      "function": "_start",
+      "address": "0x2010004",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/crt0.c",
+      "function": "_start",
+      "address": "0x2010010",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010104",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010110",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010130",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x201013c",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_continuation.c",
+      "function": "PayloadIrqSelected",
+      "address": "0x2010148",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/irq_save_frame.c",
+      "function": "PayloadIrqSaveFrame",
+      "address": "0x2010050",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_soft_reset.c",
+      "function": "SoftReset",
+      "address": "0x80d16ba",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_soft_reset.c",
+      "function": "SoftReset",
+      "address": "0x80d16bc",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_u16_return.c",
+      "function": "ArcTan2",
+      "address": "0x80d166c",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_u16_return.c",
+      "function": "Sqrt",
+      "address": "0x80d16d8",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_divrem.c",
+      "function": "DivRem",
+      "address": "0x80d1684",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "BgAffineSet",
+      "address": "0x80d1670",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "CpuFastSet",
+      "address": "0x80d1674",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "CpuSet",
+      "address": "0x80d1678",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "Div",
+      "address": "0x80d167c",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "DivArm",
+      "address": "0x80d1680",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "HuffUnComp",
+      "address": "0x80d168c",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "LZ77UnCompVram",
+      "address": "0x80d1690",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "LZ77UnCompWram",
+      "address": "0x80d1694",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "MultiBoot",
+      "address": "0x80d169a",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "ObjAffineSet",
+      "address": "0x80d16a0",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "RLUnCompVram",
+      "address": "0x80d16a4",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "RLUnCompWram",
+      "address": "0x80d16a8",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "RegisterRamReset",
+      "address": "0x80d16ac",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "SoundBiasReset",
+      "address": "0x80d16ca",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "SoundBiasSet",
+      "address": "0x80d16d2",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/bios_wrappers.c",
+      "function": "VBlankIntrWait",
+      "address": "0x80d16de",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/crt0.c",
+      "function": "crt0",
+      "address": "0x80000c4",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/crt0.c",
+      "function": "crt0",
+      "address": "0x80000d0",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_save_frame.c",
+      "function": "IrqSaveFrame",
+      "address": "0x8000110",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_continuation.c",
+      "function": "IrqSelected",
+      "address": "0x80001d0",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_continuation.c",
+      "function": "IrqSelected",
+      "address": "0x80001dc",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_continuation.c",
+      "function": "IrqSelected",
+      "address": "0x80001fc",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_continuation.c",
+      "function": "IrqSelected",
+      "address": "0x8000208",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/irq_continuation.c",
+      "function": "IrqSelected",
+      "address": "0x8000214",
+      "instruction_bytes": 4,
+      "category": "processor_status",
+      "reason": "Processor mode, banked registers or saved status access"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/serial_reset.c",
+      "function": "SerialReset",
+      "address": "0x8b1a24c",
+      "instruction_bytes": 4,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/eventinfo.c",
+      "function": "StartAvailableTileEvent",
+      "address": "0x8084320",
+      "instruction_bytes": 2,
+      "category": "explicit_nop",
+      "reason": "Exact instruction retained in event switch; ordinary compiler recovery remains open"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/eventinfo.c",
+      "function": "StartAvailableTileEvent",
+      "address": "0x8084324",
+      "instruction_bytes": 2,
+      "category": "explicit_nop",
+      "reason": "Exact instruction retained in event switch; ordinary compiler recovery remains open"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/hardware.c",
+      "function": "EnterSleepMode",
+      "address": "0x8001ce2",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/m4a.c",
+      "function": "MusicPlayerJumpTableCopy",
+      "address": "0x80d054c",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "main_rom",
+      "source": "src/sio_multiboot_wait.c",
+      "function": "MultiBootWaitCycles",
+      "address": "0x804e024",
+      "instruction_bytes": 2,
+      "category": "execution_address",
+      "reason": "Current PC selects the calibrated memory-region delay"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/hardware.c",
+      "function": "func_02011F4C",
+      "address": "0x2011fa4",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiCpuFastSet",
+      "address": "0x2016a9c",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiCpuSet",
+      "address": "0x2016aa0",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiHuffUnCompReadNormal",
+      "address": "0x2016aa4",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiLZ77UnCompReadNormalWrite16bit",
+      "address": "0x2016aa8",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiLZ77UnCompReadNormalWrite8bit",
+      "address": "0x2016aac",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiRLUnCompReadNormalWrite16bit",
+      "address": "0x2016ab0",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiRLUnCompReadNormalWrite8bit",
+      "address": "0x2016ab4",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_soft_reset.c",
+      "function": "SwiSoftReset",
+      "address": "0x2016ac2",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_soft_reset.c",
+      "function": "SwiSoftReset",
+      "address": "0x2016ac4",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiSoundBiasReset",
+      "address": "0x2016ad2",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiSoundBiasSet",
+      "address": "0x2016ada",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiVBlankIntrWait",
+      "address": "0x2016ae2",
+      "instruction_bytes": 2,
+      "category": "software_interrupt",
+      "reason": "BIOS or monitor service invocation; platform semantics remain explicit"
+    }
+  ],
+  "runtime_scope": "Runtime syscall SWIs are tracked separately in runtime-syscall-inline.json; not included in these totals."
+}

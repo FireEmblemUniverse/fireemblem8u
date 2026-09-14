@@ -13437,3 +13437,20 @@ Main nonlibrary inline assembly falls from 92 to 88 bytes. Object ownership
 categories do not change because the same object retains its PC-read assembly.
 Payload inline assembly remains 58 bytes and runtime syscalls 26 bytes.
 Full executable/data classification and the decompilation goal remain open.
+
+
+### Remaining inline-operation purpose audit (September 14, 2026)
+
+Baseline `e7e52055`. `scripts/audit_platform_operations.py` accounts for every
+site in the checked inline receipt, verifies its source marker and image bytes,
+and rejects unclassified encodings. Main-ROM totals are 50 software-interrupt,
+32 processor-status, two execution-address and four explicit NOP bytes. Payload
+totals are 26 software-interrupt and 32 processor-status bytes. Runtime syscalls
+remain separately tracked (26 SWI bytes). Evidence: `platform-operations.json`.
+
+The two event switch NOPs are the remaining ordinary instruction sites in this
+inventory. Platform categories describe purpose, not a proof that compiler
+intrinsics cannot replace them. Neither this audit nor zero assembly-source
+ownership proves complete embedded-executable classification. An obsolete
+paragraph about the already-recovered unit-list fallback was also corrected
+in the ownership report and its generator; measured totals are unchanged.

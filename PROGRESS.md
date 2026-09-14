@@ -4,7 +4,9 @@
 
 Updated: September 14, 2026. Latest integration (baseline `1c9d289a`): the calibrated multiboot countdown now builds from defined C with exact SUBS/BGT code generation. The complete 24-byte function and full ROM match; 1,548 production-object execution cases pass. Fresh runtime builds reproduce all four images and exported symbols. Main nonlibrary inline assembly falls to 88 bytes; payload inline assembly remains 58 bytes and runtime syscalls retain 26 SWI bytes. Mapped assembly-source instruction ownership remains zero. Main-ROM ownership is unchanged at 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Payload mapped instructions remain 25,714 (18,364 C-owned, 6,530 mixed, 820 runtime). Retained platform operations and complete executable/data classification remain unfinished; no overall completion percentage is claimed.
 
-Next: audit remaining inline/platform operations and close executable/data classification. The countdown's two-byte PC read remains explicitly assembly-owned.
+Latest inventory (baseline `e7e52055`): all 146 reviewed nonlibrary inline bytes are purpose-classified: 76 software-interrupt bytes, 64 processor-status bytes, two PC-read bytes and four explicit NOP bytes. The payload contains only software interrupts/status operations. This does not close hidden-executable coverage. Evidence: `docs/platform-operations.json`.
+
+Next: recover the two event NOP sites and close executable/data classification. The countdown's two-byte PC read remains explicitly assembly-owned.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

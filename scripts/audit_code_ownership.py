@@ -71,7 +71,7 @@ def main():
     lines += ['','## Reviewed assembly inside C','', '| Scope | Inline instruction bytes | Assembly sources + reviewed inline |','|---|---:|---:|']
     for name,img in images.items():
         lines.append(f"| {name} | {img['reviewed_inline_instruction_bytes']:,} | {img['known_nonarchive_assembly_bytes']:,} |")
-    lines += ['', 'The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.']
+    lines += ['', 'The table above reports current reviewed inline bytes; mixed-object sizes are not remaining assembly counts. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.']
     lines += ['','## Interpretation','']+['- '+x for x in report['limitations']]
     a.markdown.write_text('\n'.join(lines)+'\n')
     print(json.dumps({name:dict(mapped_instruction_bytes=x['mapped_instruction_bytes'],categories=x['categories']) for name,x in images.items()},indent=2))
