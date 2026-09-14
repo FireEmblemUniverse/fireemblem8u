@@ -13712,3 +13712,19 @@ handler and real round-end helper, with no substituted callbacks.
 The updated `docs/mini-animation-queue-execution.json` records this broader
 coverage. Commands 5, 13 and 14 still need spell/graphics helper verification;
 frame processing and scheduling remain open. Production source is unchanged.
+
+## Class-reel spell indirect targets — September 14, 2026
+
+Baseline `dc35446a`. `scripts/audit_class_reel_dispatch.py` reads all 65 linked
+ClassReelEnt records (20-byte stride, magicFx at offset eight) and verifies that
+each selector is within the nine-entry `gClassReelSpellAnimFuncLut`. Each ROM
+callback word matches its C initializer and a Thumb FUNC symbol wholly owned by
+`src/banim-efxop.o`. The ROM hash and callback-source hash are recorded in
+`docs/class-reel-dispatch.json`.
+
+The reviewed source assigns `gClassReelMagicAnim.magicFuncIdx` from the class
+entry in `src/opinfo.c`; `StartClassReelSpellAnim` indexes this callback table.
+This accounts for the static selector values and indirect target set. It does
+not prove runtime selector immutability, class-entry selection bounds or callback
+effects. Production source is unchanged; complete executable classification
+remains open.
