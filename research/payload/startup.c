@@ -4,9 +4,9 @@ register unsigned startupPointer asm("r1");
 register unsigned *startupStack asm("sp");
 register unsigned startupLink asm("lr");
 extern unsigned __sp_irq[], __sp_usr[];
-extern void IrqMain(void), AgbMain(void);
+extern void IntrMain(void), Main(void);
 unsigned const StartupStackPointers[2] __attribute__((used,section(".rodata.startup_stack"))) = {(unsigned)__sp_usr, (unsigned)__sp_irq};
-unsigned const StartupFarPointers[2] __attribute__((used,section(".rodata.startup_far"))) = {0x03007ffc, (unsigned)AgbMain};
+unsigned const StartupFarPointers[2] __attribute__((used,section(".rodata.startup_far"))) = {0x03007ffc, (unsigned)Main};
 void __attribute__((noreturn)) __attribute__((matching_arm_startup_frame)) PayloadStartup(void)
 {
     for (;;) {
@@ -22,10 +22,10 @@ void __attribute__((noreturn)) __attribute__((matching_arm_startup_frame)) Paylo
         asm volatile("" : "+k"(startupStack));
         startupPointer = 0x03007ffc;
         asm volatile("" : "+r"(startupPointer));
-        startupValue = (unsigned)IrqMain;
+        startupValue = (unsigned)IntrMain;
         asm volatile("" : "+r"(startupValue));
         *(unsigned *)startupPointer = startupValue;
-        startupPointer = (unsigned)AgbMain;
+        startupPointer = (unsigned)Main;
         asm volatile("" : "+r"(startupPointer));
         ((void (*)(void))startupPointer)();
     }

@@ -13301,3 +13301,23 @@ Receipts are `payload-startup-model-mgfembp.json`,
 
 Production remains unchanged. Payload-specific compiler symbol contracts and
 integration are next; the full decompilation goal remains unfinished.
+
+
+### Payload startup compiler profile (September 14, 2026)
+
+Baseline `68c3a097`. The startup pass now offers an explicit `payload-layout`
+profile in addition to the existing `layout` profile. It validates IntrMain
+and Main as the IRQ and application pool symbols; the main-ROM profile still
+validates IrqMain and AgbMain. Both profiles retain the same bounded frame,
+mode-write, pool, call and restart constraints. Unknown or combined options
+are rejected by the single-option parser.
+
+The payload research source now uses real entry-point names. All three byte
+comparisons, nine displaced layouts and 288 startup execution cases pass.
+Wrong IRQ symbol, wrong Main symbol and use of the main-ROM profile reject.
+The existing main-ROM startup regression suite passes, including byte regions,
+models, unsupported contracts and unchanged unannotated controls. Evidence:
+`payload-startup-contract.json` and updated startup research/model receipts.
+
+Production payload startup remains assembly. Integration and full-image audit
+refresh are next; assembly ownership totals remain unchanged.

@@ -164,6 +164,7 @@ bool literal_load(rtx p,unsigned reg) {
     return GET_CODE(address)==LABEL_REF;
 }
 bool exact_layout=false;
+bool payload_layout=false;
 const pass_data data={RTL_PASS,"startup_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -227,7 +228,7 @@ public:
                 }
             }
             if(pool.size()!=5 || !pool_label) fatal_error(UNKNOWN_LOCATION,"Startup frame requires five-word source pool");
-            const char *names[]={"__sp_irq","__sp_usr",nullptr,"IrqMain","AgbMain"};
+            const char *names[]={"__sp_irq","__sp_usr",nullptr,payload_layout?"IntrMain":"IrqMain",payload_layout?"Main":"AgbMain"};
             int indexes[]={3,7,9,11,14};
             for(int n=0;n<5;n++) {
                 rtx x=PATTERN(pool[n]);
@@ -269,7 +270,10 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version)) return 1;
     if(info->argc) {
-        if(info->argc!=1 || std::string(info->argv[0].key)!="layout" || info->argv[0].value) return 1;
+        if(info->argc!=1 || info->argv[0].value) return 1;
+        std::string key=info->argv[0].key;
+        if(key!="layout" && key!="payload-layout") return 1;
+        payload_layout=key=="payload-layout";
         exact_layout=true;
     }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);

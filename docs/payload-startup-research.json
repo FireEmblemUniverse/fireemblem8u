@@ -1,4 +1,9 @@
 {
+  "rejected_contracts": [
+    "adr",
+    "stack",
+    "far"
+  ],
   "images": [
     {
       "image": "mgfembp",
@@ -32,7 +37,7 @@
   "c_generated_instruction_bytes": 44,
   "retained_mode_write_bytes": 8,
   "c_data_bytes": 16,
-  "source_sha256": "64476a07b84968332b3fe756206bc866be299e8468661c4471f115089775fc62",
+  "source_sha256": "11818f1b2b778b2a8ecbb789316725f1dcbb5ec39115a25d350a7ea756b9a69a",
   "production_integrated": false,
-  "scope": "Exact startup instructions and stack/far pointer data, with linker fixtures binding main-ROM symbol names to payload addresses. No independent startup execution model yet."
+  "scope": "Exact startup instructions and stack/far pointer data, with an explicit payload-layout compiler contract. No independent startup execution model yet."
 }
