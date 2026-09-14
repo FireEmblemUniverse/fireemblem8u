@@ -12187,3 +12187,26 @@ extra work, returnable calls, ARM mode, debug and unwind. Unannotated output
 is unchanged. Next package the complete helper as a relocatable _umodsi3.o,
 verify all four linked image layouts, then integrate and update provenance.
 No production coverage totals change at this research milestone.
+
+
+### Relocatable modulus member and four-image verification (September 14, 2026)
+
+Baseline `23c3811b`. `build_umod_member.py` rebuilds its four compiler plugins,
+compiles the three C fragments, namespaces compiler-local labels, sets the
+public function size to 192, and checks fragment offsets 0/12/182. It exports
+__umodsi3 and localizes the two private targets. The __div0 relocation stays
+unresolved until the image link; no original ROM bytes are inserted.
+
+`verify_runtime_rebuild.py --umod-member` replaces this member in an isolated
+fresh libgcc archive alongside the already integrated C division member.
+The main ROM and all three payloads reproduce exactly, including every
+exported symbol address and size. `docs/runtime-umod-four-images.json`
+fingerprints the replacement, rebuilt archives and image results. This
+proves relocation across all four image layouts, beyond the earlier
+fixed-address 3,176-case model.
+
+The default archive still supplies the assembly modulus member. Next move
+the recovered modulus sources/build into the production runtime target,
+make fresh verification include it by default, and update runtime-source
+ownership accounting. The current production assembly total remains 606
+instruction bytes per audited image pending that integration.
