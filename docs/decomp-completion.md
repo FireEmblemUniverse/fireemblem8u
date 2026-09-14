@@ -13538,3 +13538,25 @@ Payload inline assembly remains 58 bytes. All remaining reviewed nonlibrary
 inline sites are software interrupts, status operations or the PC read; this
 purpose classification does not prove those operations cannot use intrinsics.
 Full embedded-executable classification and the decompilation goal remain open.
+
+
+### Executable classification review frontier (September 14, 2026)
+
+Baseline `f4a13197`. `scripts/audit_executable_frontier.py` partitions linked
+input regions using the existing bounded ELF/map parser, inventories every
+data/unmapped owner and checks declared FUNC entry addresses against those
+regions. All 8,663 main-ROM entries and 340/340/339 payload entries begin in
+instruction-mapped regions. No missing entry mapping was found in that scope.
+
+The main image contains 10,252,493 data-mapped and 3,172,286 unmapped input
+bytes. The latter already have provenance receipts; provenance is not absence
+of embedded code. The largest data-mapped owner is sound/direct_sound_data.o
+(3,272,220 bytes), followed by animation data. JSON records all owners and
+image hashes; Markdown lists the largest 25 per image. Evidence:
+`executable-frontier.json` and `executable-frontier.md`.
+
+This establishes a review queue, not a denominator closure. Untyped labels,
+indirect targets, copied code, compressed executables, literal pools and
+reachability remain outside the declared-function-entry check. Consumer and
+format evidence must classify those regions before any overall completion
+percentage is claimed.

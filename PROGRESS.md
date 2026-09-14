@@ -4,7 +4,9 @@
 
 Updated: September 14, 2026. Latest integration (baseline `2543832f`): both event NOPs now use a pinned compiler builtin with distinct internal call identities. The full event text and relocations, main ROM checksum and fresh four-image/runtime-symbol rebuild pass. Main nonlibrary inline assembly falls to 84 bytes; payload inline assembly remains 58 and runtime syscalls retain 26 SWI bytes. Every reviewed remaining nonlibrary inline operation is a software interrupt, processor-status access or PC read. Main-ROM ownership is now 746,068/777,630 C-owned instruction bytes (95.94% rounded), 9,770 mixed and 21,792 runtime. This 6,030-byte category shift reflects the entire event object losing its last inline instruction templates; only four instruction bytes were recovered in this change. Payload mapped instructions remain 25,714 (18,364 C-owned, 6,530 mixed, 820 runtime). Complete executable/data classification remains unfinished; no overall completion percentage is claimed.
 
-Next: audit embedded-executable coverage and the remaining platform-operation contracts. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
+Latest coverage inventory (baseline `f4a13197`): all 8,663 main-ROM declared function entries and all 340/340/339 payload entries lie in instruction-mapped regions. The review frontier includes 10,252,493 data-mapped main input bytes and 3,172,286 unmapped input bytes; existing provenance receipts do not themselves prove absence of embedded code. Largest owners and all four image hashes are recorded in `docs/executable-frontier.json`.
+
+Next: bind the largest data regions to their consumers and executable/nonexecutable evidence, starting with sound/animation assets, while auditing platform-operation contracts. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
