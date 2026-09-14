@@ -13493,3 +13493,24 @@ hashes. This receipt checks object text, not complete linked relocations.
 Production remains unchanged. The next requirement is a bounded compiler
 contract preserving distinct source paths while retaining NOP emission. No
 inline-byte reduction is claimed by this experiment.
+
+
+### Exact event NOP builtin candidate (September 14, 2026)
+
+Baseline `80b16eca`. The experimental builtin now carries the compiler's next
+instruction UID as an internal constant operand of the volatile NOP operation.
+The identity has no emitted bytes or game-specific meaning; it prevents two
+explicit source calls from becoming identical tail-merging candidates. Each
+call still emits the canonical MOV r8,r8 instruction.
+
+The complete event object text now matches all 6,656 bytes, and its .text
+relocation records match the baseline. Unmodified-source controls compiled
+with the new and installed compilers also match text and relocations. Passing
+an argument or using the void builtin as a result is rejected. Evidence:
+updated `docs/event-nop-builtin-research.json`, recording the freshly built
+pinned compiler and source hashes.
+
+Production remains unchanged. A reproducible production compiler build,
+replacement of the two source templates and full-ROM/ownership verification
+remain before claiming the four-byte inline reduction. Broader builtin-control
+coverage and final executable/data classification remain open.
