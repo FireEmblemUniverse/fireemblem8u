@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Compare bootstrap handshake traces; intentionally stops before BIOS handoff."""
 from pathlib import Path
-import itertools,json,subprocess,hashlib
+import argparse,itertools,json,subprocess,hashlib
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/serial-reset'
@@ -28,8 +28,11 @@ def model(trace,header):
    if index: writes.append(0);return i,writes,'handoff'
    stage='header1'
 def main():
+ parser=argparse.ArgumentParser()
+ parser.add_argument('--source',type=Path,default=ROOT/'research/serial/reset.c')
+ args=parser.parse_args()
  OUT.mkdir(exist_ok=True);cc='arm-none-eabi-gcc'
- subprocess.run([cc,'-c','-O2','-std=gnu89','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(ROOT/'research/serial/reset.c'),'-o',str(OUT/'reset.o')],check=True,capture_output=True)
+ subprocess.run([cc,'-c','-O2','-std=gnu89','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(args.source),'-o',str(OUT/'reset.o')],check=True,capture_output=True)
  (OUT/'probe.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } sio_polling = 0x08b1a198; SerialDecompressAndJump = 0x080ff000; }')
  subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'probe.ld'),str(OUT/'reset.o'),'-o',str(OUT/'reset.elf')],check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'reset.elf'),str(OUT/'reset.bin')],check=True)
@@ -58,6 +61,6 @@ def main():
     uc.hook_add(UC_HOOK_CODE,hook,state);uc.hook_add(UC_HOOK_MEM_WRITE,write,state,0x04000000,0x04000fff);uc.emu_start(0x080f0000 if candidate else 0x08b1a1c4,0,count=2000)
     assert (state['polls'],state['writes'],state['outcome'])==expected,(candidate,trace,state,expected)
    cases+=1;outcomes[expected[2]]=outcomes.get(expected[2],0)+1
- report=dict(cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; stack, final register/flag equality, decompression and physical link timing are not validated. Candidate does not byte-match.')
+ report=dict(source=str(args.source.resolve().relative_to(ROOT)),cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; stack, final register/flag equality, decompression and physical link timing are not validated. Candidate does not byte-match.')
  (OUT/'model.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

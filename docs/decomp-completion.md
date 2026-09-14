@@ -10537,3 +10537,22 @@ errors or mismatches enter a permanent halt. Poll results are synthetic and
 the harness stops before the BIOS transfer. Stack/final-register equivalence,
 physical timing and decompression are outside this model. Evidence is in
 `docs/serial-reset-research.json`; production remains unchanged.
+
+### Serial-reset condition-code and register constraints
+
+The separate `research/serial/reset_constrained.c` candidate captures the
+poller’s Z result as success and inverts it in C. Empty volatile register
+constraints preserve the initial send/compare order, the expected-value shift
+register, and the header pointer load. GCC 16 emits zero predicate moves
+versus four in the initial draft; the isolated linked candidate is 148 bytes
+versus 164. This size reduction is not a byte-match claim: both drafts still
+use a placeholder BIOS handoff, and the new candidate retains an LR stack
+save, an extra cached-zero register, and different failure-branch layout.
+
+All 272 protocol cases pass for the constrained source (208 handoffs and
+64 halts). `check_reset.py --source research/serial/reset_constrained.c`
+reproduces the check. `probe_reset.py --source` provides twelve compiler
+option probes; all twelve retain 148 bytes and zero predicate moves for
+this candidate. The receipt is `docs/serial-reset-constrained-research.json`.
+These checks have the same synthetic-poller and pre-BIOS limits as the
+original model. Production code and ownership totals remain unchanged.
