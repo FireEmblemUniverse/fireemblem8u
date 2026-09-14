@@ -19,6 +19,7 @@
 #include "insn-flags.h"
 int plugin_is_GPL_compatible;
 static bool preserve_thumb_high_copies=false;
+static bool preserve_thumb_sp_copies=false;
 static tree validate(tree *node, tree, tree, int, bool *no_add) {
     if (TREE_CODE(*node) != FUNCTION_DECL) {
         error("matching_copy_add_zero requires a function");
@@ -52,13 +53,13 @@ public:
         if (!arm&&!thumb&&!pair) return 0;
         unsigned pair_dst=0,pair_src=0;
         if (pair) {
-            if (arm||thumb||preserve_thumb_high_copies)
+            if (arm||thumb||preserve_thumb_high_copies||preserve_thumb_sp_copies)
                 fatal_error(UNKNOWN_LOCATION,"copy add zero pair requires an exclusive contract");
             tree args=TREE_VALUE(pair);
             pair_dst=tree_to_uhwi(TREE_VALUE(args));pair_src=tree_to_uhwi(TREE_VALUE(TREE_CHAIN(args)));
             thumb=true;
         }
-        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1)||(preserve_thumb_high_copies&&!thumb))
+        if (arm==thumb||(arm&&!TARGET_ARM)||(thumb&&!TARGET_THUMB1)||((preserve_thumb_high_copies||preserve_thumb_sp_copies)&&!thumb))
             fatal_error(UNKNOWN_LOCATION,"copy add zero requires one mode-specific contract");
         unsigned copies=0;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
@@ -66,6 +67,7 @@ public:
             rtx set=PATTERN(i),dst=SET_DEST(set),src=SET_SRC(set);
             if (!REG_P(dst)||!REG_P(src)||GET_MODE(dst)!=SImode||GET_MODE(src)!=SImode) continue;
             if (pair&&(REGNO(dst)!=pair_dst||REGNO(src)!=pair_src)) continue;
+            if (thumb&&preserve_thumb_sp_copies&&REGNO(dst)<8&&REGNO(src)==13) continue;
             if (thumb&&preserve_thumb_high_copies&&REGNO(dst)<13&&REGNO(src)<13
                 &&REGNO(dst)!=REGNO(src)&&(REGNO(dst)>=8||REGNO(src)>=8)) continue;
             if (REGNO(dst)>=(thumb?8:13)||REGNO(src)>=(thumb?8:13)||REGNO(dst)==REGNO(src))
@@ -83,6 +85,7 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (!strcmp(info->argv[n].key,"preserve-thumb-sp-copies")&&!info->argv[n].value&&!preserve_thumb_sp_copies) { preserve_thumb_sp_copies=true;continue; }
         if (strcmp(info->argv[n].key,"preserve-thumb-high-copies")||info->argv[n].value||preserve_thumb_high_copies) return 1;
         preserve_thumb_high_copies=true;
     }

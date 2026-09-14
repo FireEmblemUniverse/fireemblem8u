@@ -1,0 +1,128 @@
+{
+  "rejected_controls": [
+    "sp_without_opt_in",
+    "arm_mode"
+  ],
+  "exact_cores": 11,
+  "total_cores": 13,
+  "sites": [
+    {
+      "site": 0,
+      "function": "initialise_monitor_handles",
+      "source_sha256": "44a1851fb9dd41d94836e60a2f1b87a4a2744fded64f0cb9486034026ec39f81",
+      "text_hex": "281c6946abdf021c7047",
+      "reference_core_hex": "281c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 1,
+      "function": "initialise_monitor_handles",
+      "source_sha256": "bd85a09b839656242eaaf817a5cdd51901ea02ab53296c7553a2bb43c6aa8054",
+      "text_hex": "201c6946abdf021c7047",
+      "reference_core_hex": "201c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 2,
+      "function": "get_errno",
+      "source_sha256": "e53902d82f38727e0c3ea2efaebc99eadd5acdb0a658b09aa10e566feb23c0e5",
+      "text_hex": "181c211cabdf021c7047",
+      "reference_core_hex": "181c211cabdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 3,
+      "function": "_swiread",
+      "source_sha256": "60f691d3cfbf4dfd40ef86c844de2bc0957ca4cbe4d10c6de528109785bc6b90",
+      "text_hex": "181c6946abdf021c7047",
+      "reference_core_hex": "181c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 4,
+      "function": "_swilseek",
+      "source_sha256": "60f691d3cfbf4dfd40ef86c844de2bc0957ca4cbe4d10c6de528109785bc6b90",
+      "text_hex": "181c6946abdf021c7047",
+      "reference_core_hex": "181c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 5,
+      "function": "_swilseek",
+      "source_sha256": "60f691d3cfbf4dfd40ef86c844de2bc0957ca4cbe4d10c6de528109785bc6b90",
+      "text_hex": "181c6946abdf021c7047",
+      "reference_core_hex": "181c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 6,
+      "function": "_swiwrite",
+      "source_sha256": "60f691d3cfbf4dfd40ef86c844de2bc0957ca4cbe4d10c6de528109785bc6b90",
+      "text_hex": "181c6946abdf021c7047",
+      "reference_core_hex": "181c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 7,
+      "function": "_swiopen",
+      "source_sha256": "8ccaae99183b987630e33fd0594323cef3aab15b9a66f34d78eda7e8b567650a",
+      "text_hex": "101c6946abdf031c7047",
+      "reference_core_hex": "101c6946abdf031c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 8,
+      "function": "_swiclose",
+      "source_sha256": "60f691d3cfbf4dfd40ef86c844de2bc0957ca4cbe4d10c6de528109785bc6b90",
+      "text_hex": "181c6946abdf021c7047",
+      "reference_core_hex": "181c6946abdf021c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 9,
+      "function": "_exit",
+      "source_sha256": "4832a0a2c83f2a7d0277386da3b01aa1b62eb627f0b22bb2efd1c26862d4200c",
+      "text_hex": "80b44746101c80b4191cabdf804680bcb84680bc7047",
+      "reference_core_hex": "101c191cabdf8046",
+      "exact_contiguous_core": false,
+      "core_offset": -1
+    },
+    {
+      "site": 10,
+      "function": "_kill",
+      "source_sha256": "4832a0a2c83f2a7d0277386da3b01aa1b62eb627f0b22bb2efd1c26862d4200c",
+      "text_hex": "80b44746101c80b4191cabdf804680bcb84680bc7047",
+      "reference_core_hex": "101c191cabdf8046",
+      "exact_contiguous_core": false,
+      "core_offset": -1
+    },
+    {
+      "site": 11,
+      "function": "_gettimeofday",
+      "source_sha256": "7023cd1476a90e817fa3a71927e00572ae68fcda78544abf4a343d6d51025f00",
+      "text_hex": "201c291cabdf051c7047",
+      "reference_core_hex": "201c291cabdf051c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    },
+    {
+      "site": 12,
+      "function": "_times",
+      "source_sha256": "8ecae7221a5b9bcfa5112a8fec3517805df047f464f4022b4e4b080083ba606c",
+      "text_hex": "201c291cabdf031c7047",
+      "reference_core_hex": "201c291cabdf031c",
+      "exact_contiguous_core": true,
+      "core_offset": 0
+    }
+  ],
+  "scope": "Research-only isolated snippets; ordinary high-register frames prevent two contiguous cores. The SWI remains inline. Caller context, monitor clobbers, behavior and full-member integration are not verified."
+}
