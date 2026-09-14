@@ -1,0 +1,15 @@
+{
+  "rejected_contracts": [
+    "wrong-condition",
+    "wrong-register",
+    "wrong-target",
+    "added-work",
+    "returnable-targets",
+    "parameters",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true,
+  "displaced_core_rejected": true
+}

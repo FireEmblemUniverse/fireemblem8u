@@ -11920,3 +11920,32 @@ is unchanged. The ten-byte zero path and 106-byte nonzero core are still
 research candidates. The four-byte entry check must be generated and all
 three pieces verified together before replacing the 120-byte runtime helper.
 No production ownership or overall-completion claim is made.
+
+
+### Full unsigned-division research match (September 14, 2026)
+
+Baseline `937f4a5c`. The four-byte entry guard now compiles from
+`research/runtime/udiv_entry.c` through the narrowly checked `udiv_entry`
+pass. It accepts only a private r1 zero comparison, an LR-only frame and
+the two declared terminal targets. The private calling convention retains
+incoming r0/r1 and LR; the fragments are not ordinary separately callable C
+functions. The pass reuses the existing conditional zero-tail pattern.
+Mandatory linker assertions enforce nonzero fallthrough at entry+4,
+zero path at entry+110, four-byte entry alignment and total length 120.
+
+`check_udiv_complete.py` builds and links all three fragments at 0x080D1AD4.
+The entire 120 bytes equal the reference ROM. The extended `check_udiv.py`
+executes 3,176 original/candidate pairs, including 252 zero divisors, against
+Python integer division and the actual returning __div0 routine. All r0-r14,
+CPSR and stack-write sequences match. This model uses a Thumb caller.
+`docs/runtime-udiv-complete-research.json` records bytes, source/plugin hashes
+and the enforced linker layout. `check_udiv_entry.py` rejects nine altered
+contracts (condition, register, target, extra work, returnable targets,
+parameters, ARM, debug and unwind), verifies unannotated output is unchanged,
+and rejects a halfword inserted before the core.
+
+This closes the full-helper research match, not production integration.
+The production runtime archive still supplies __udivsi3. Next replace that
+archive member through a reproducible C build for all four images, then
+update the runtime provenance audit and rerun ROM comparison. No production
+coverage total changes at this milestone.

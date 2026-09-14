@@ -1,0 +1,61 @@
+{
+  "exact_nonzero_core": false,
+  "compiler_extra_flags": [],
+  "nonzero_only": false,
+  "extra_plugin_sha256": [],
+  "zero_divisor_flag_difference_cases": 0,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": null,
+  "register_difference_cases": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0
+  },
+  "stack_write_difference_cases": 0,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 0,
+      "candidate_offset": 0,
+      "bytes": 120
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": null,
+  "assembled_helper_sha256": "194e04924a7a5249db31553a27dbe6b37d2e0678e12273061a8a2f1b94c9c5b2",
+  "cases": 3176,
+  "divide_by_zero_cases": 252,
+  "original_instruction_bytes": 120,
+  "candidate_section_bytes": 120,
+  "quotient_and_preserved_registers_match": true,
+  "flag_difference_cases": 0,
+  "caller_register_difference_cases": 0,
+  "bytes_exact": true,
+  "production_integrated": false,
+  "scope": "Full helper at original address: exact bytes, quotient, all r0-r14, CPSR and stack writes; actual __div0, Thumb caller only. Research, not integrated.",
+  "fragment_sha256": {
+    "udiv_entry": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+    "udiv_layout": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+    "divzero": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+  },
+  "compiler_plugin_sha256": {
+    "udiv_entry": "09f7f8d1f97c54757a492e0a9648b9f5639eaaeebafaca97a8b914f8c4948214",
+    "copy_add_zero": "b98ecf44d9b5adc352464c351aa06ae94d634b561f704ce28cc918a9699103fd",
+    "leaf_frame": "edcdebfad41ba07147ad91abf16d305da255cc89c382dc82e486ae7b445c4ca7",
+    "leaf_r4_frame": "0ecbfd9155e3378b467936d37d6e87d1067dc25ac19032da064d519225218494",
+    "divzero_return": "e1d2368284f36d22c62898af19b0fad583ea03e8306ba45dedc43b8a16bc372f"
+  },
+  "linker_script": "SECTIONS { .text 0x080d1ad4 : { /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/complete-udiv_entry.o(.text) /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/complete-udiv_layout.o(.text) /Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-division/complete-divzero.o(.text) } }\nASSERT(runtime_udiv == runtime_entry + 4, \"core must fall through\")\nASSERT(runtime_divzero == runtime_entry + 110, \"zero path misplaced\")\nASSERT(SIZEOF(.text) == 120, \"helper size\")\nASSERT((runtime_entry & 3) == 0, \"entry alignment\")\n"
+}
