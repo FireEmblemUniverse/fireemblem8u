@@ -12046,3 +12046,27 @@ entry/frame and correction-loop layout before integrating this helper.
 
 The exact unsigned-division helper regression also passes all 3,176 cases
 through the extended checker, including full state and stack equality.
+
+
+### Unsigned-modulus register recovery (September 14, 2026)
+
+Baseline `04c9d553`. `umod_registers.c` binds dividend/divisor/overdone/bit/
+work/saved to r0/r1/r2/r3/r4/r12 and uses empty constraints to preserve
+observable arithmetic lifetimes. Rotate expressions use defined unsigned
+shifts. GCC -Os emits 194 bytes. All 3,176 arithmetic and callee-preservation
+cases pass. r2, r3 and r12 now match the original on every case; remaining
+register differences are r1 on all cases and LR on 252 zero-divisor cases.
+The subtraction loop contains a consecutive 66-byte exact span, and the
+correction region has two 12-byte exact spans. Flags differ on 2,464 cases;
+stack writes and full layout still differ. Evidence is in
+`docs/runtime-umod-register-research.json`.
+
+`umod_nonzero.c` tests excluding division by zero and allowing the masked
+AND to supply its own branch flags. All 2,924 nonzero arithmetic cases pass,
+but GCC merges returns through r2. Its 182-byte output is not a stronger
+full-state match: flags differ on 1928 cases and
+r2 differs on 2388 cases. The separate
+receipt preserves this experiment without replacing the full candidate.
+Next isolate the early-return guard from the private arithmetic core and
+recover the original saved-r4 frame and MOV-PC return before layout work.
+No production library or ownership totals changed.
