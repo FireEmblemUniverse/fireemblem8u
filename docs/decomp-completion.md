@@ -12070,3 +12070,25 @@ receipt preserves this experiment without replacing the full candidate.
 Next isolate the early-return guard from the private arithmetic core and
 recover the original saved-r4 frame and MOV-PC return before layout work.
 No production library or ownership totals changed.
+
+
+### Modulus private-core final-state match (September 14, 2026)
+
+Baseline `fc728ef8`. `umod_core.c` excludes zero divisors and dividend below
+divisor using explicit private preconditions, and enables matching_leaf_frame.
+The checker adds `--division-needed` to restrict inputs accordingly while
+still executing the complete original helper for the reference result.
+All 1,724 applicable cases match remainder, every r0-r14 register and CPSR.
+The candidate is 170 bytes; stack writes differ because GCC saves r4/r5
+while the original saves only r4. `runtime-umod-core-research.json` records
+these results. This scope does not claim coverage of the removed entry paths.
+
+The stricter matching_leaf_r4_frame contract rejects this body because r5
+holds a live normalization limit; removing its save would be incorrect.
+`umod_core_frame.c` records an explicit normalization-layout experiment with
+only the ordinary leaf-frame attribute after the strict contract rejected it.
+It emits 170 bytes, with 0
+flag differences and 1724 stack-write differences.
+The r5 temporary persists, so no frame-pruning plugin was relaxed or changed.
+Next eliminate that lifetime or separate normalization from its frame, then
+recover exact layout and entry handoffs. Production libraries are unchanged.
