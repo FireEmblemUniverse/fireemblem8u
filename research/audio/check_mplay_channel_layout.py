@@ -270,6 +270,14 @@ def main():
            ('note_lfo_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_lfo_delay);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_lfo_delay);'),'ply_note LFO extent or continuation')]
  for name,value in [('far','__ply_note_lfo_delay_start + 266'),('backward','__ply_note_lfo_delay_start + 8'),('odd','__ply_note_lfo_delay_start + 11')]:
   cases.append(('note_lfo_'+name,source.replace('        ASSERT((PlyNoteTrackVolumeSetup & 1)', '        PlyNoteTrackVolumeSetup = '+value+';\n        ASSERT((PlyNoteTrackVolumeSetup & 1)'), 'ply_note LFO equality target outside forward conditional range'))
+ cases += [('note_entry_frame_extent',source.replace('        __ply_note_entry_frame_end = .;','        . += 2;\n        __ply_note_entry_frame_end = .;'),'ply_note entry frame extent or continuation'),
+           ('note_entry_frame_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_entry_frame);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_entry_frame);'),'ply_note entry frame extent or continuation')]
+ cases += [('note_entry_setup_extent',source.replace('        __ply_note_entry_setup_end = .;','        . += 2;\n        __ply_note_entry_setup_end = .;'),'ply_note entry setup extent or continuation'),
+           ('note_entry_setup_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_entry_setup);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_entry_setup);'),'ply_note entry setup extent or continuation')]
+ for name,value in [('far','((__ply_note_entry_setup_start + 8) & ~3) + 1024'),('backward','((__ply_note_entry_setup_start + 8) & ~3) - 4'),('odd','((__ply_note_entry_setup_start + 8) & ~3) + 2')]:
+  cases.append(('note_entry_sound-info_'+name,source.replace('        ASSERT((lt_PlyNoteSoundInfo & 3)', '        lt_PlyNoteSoundInfo = '+value+';\n        ASSERT((lt_PlyNoteSoundInfo & 3)'), 'ply_note sound-info entry literal outside forward range'))
+ for name,value in [('far','((__ply_note_entry_setup_start + 14) & ~3) + 1024'),('backward','((__ply_note_entry_setup_start + 14) & ~3) - 4'),('odd','((__ply_note_entry_setup_start + 14) & ~3) + 2')]:
+  cases.append(('note_entry_clock_'+name,source.replace('        ASSERT((lt_PlyNoteClockTable & 3)', '        lt_PlyNoteClockTable = '+value+';\n        ASSERT((lt_PlyNoteClockTable & 3)'), 'ply_note clock entry literal outside forward range'))
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

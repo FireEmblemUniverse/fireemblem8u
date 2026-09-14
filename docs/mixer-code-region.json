@@ -8,7 +8,7 @@
     "arm": 572
   },
   "all_regions_c_owned": true,
-  "elf_sha256": "59476175d256857ff6bda9109e7d539c183995d9a4f94f7287f9059f80c25241",
+  "elf_sha256": "cbc3b11fb78f0113eee04c294313bbc459a6aca30384fcbbba58203fb671587a",
   "regions": [
     {
       "start": "0x80cf54c",

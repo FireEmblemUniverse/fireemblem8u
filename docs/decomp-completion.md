@@ -9949,3 +9949,73 @@ executable classification.
 The valid layout links and all 274 altered layouts reject, including five new
 LFO extent/continuation and forward/backward/odd-target mutations. Evidence:
 `.deps/soundmain-packed/ply-note/lfo-production-layout.log`.
+
+
+## September 14, 2026 — Complete ply_note instruction ownership
+
+On baseline `72921b75`, `src/m4a_ply_note_entry_frame.c` and
+`src/m4a_ply_note_entry_setup.c` replace the final 32 assembly instruction bytes
+at 080CFE44..080CFE64. The fourteen-byte frame fragment saves r4-r7/LR, copies
+r8-r11 into the low bank, saves that bank and reserves 24 local bytes. The
+18-byte setup fragment saves the player pointer, selects the track, loads the
+sound-info pointer and clock-table address through the original shared pool,
+saves sound info and stores the selected gate time. Ordered C accesses and
+empty compiler ties retain the original sequence.
+
+The saved-entry-frame compiler contract adds opt-in `saved-lr-frame60` support.
+It verifies the exact two banks, high-register copies, LR stack slot, 60-byte
+allocation and declared continuation. The compiler-generated low-register
+temporary used to store LR must be disposable and unbound; it is eliminated
+when existing grouped-push patterns are selected. The initial LR-only compiler
+frame and call/epilogue are removed after the entire operation sequence is
+validated. The original MPlayMain POP/PUSH mode is unchanged. No backend
+instruction patterns were added. Existing shared-literal/tail/copy support
+suffices for setup, using symbolic `gClockTable` rather than embedding its ROM
+address in C. Linker assertions pin extents, continuations and both literal
+alignment/displacement ranges.
+
+`check_ply_note_entry.py --production` verifies both source identities, exact
+production object bytes and the full ROM. Independent models pass 33,280 cases:
+8,192 frame-only and 25,088 complete-entry cases. Complete entry covers all 49
+clock-table indices, every incoming NZCV, four stack positions and eight track
+aliases. These include saved pointer/register/return words, the last RAM byte
+and the sound-info global pointer. Frame-only cases preserve arbitrary NZCV.
+Saved words, incoming LR and sound-info values are sampled. All registers,
+SP/LR, SP at each instruction, both RAM blocks and ordered reads/writes match.
+Thirteen malformed frame contracts and six malformed setup contracts reject.
+Unannotated code is unchanged, retaining shared-literal placement in both setup
+comparison objects because that existing pass applies at object scope.
+
+The shared MPlayMain entry-frame regression passes all 26,880 cases and fifteen
+malformed contracts, with unchanged unannotated output. `make compare -j8`
+passes for all 16,777,216 ROM bytes. Fresh pinned runtime libraries reproduce
+all four images and exported symbols. Mixer, SoundMain, MPlayMain and PCM
+selection retain their existing ownership receipts.
+
+The new `scripts/audit_ply_note_region.py` receipt proves contiguous C ownership
+of all 502 mapped instruction bytes at 080CFE44..080D003A, with ten following
+padding/literal bytes classified as assembly data. Every instruction region must
+belong to an audited C-owned ply_note object. The zero-size assembly entry label
+preserves the public symbol without owning instructions. This proves instruction
+ownership, not independent execution of every complete note path or full-game
+completion. Entry execution checks stop at command decoding.
+
+Main-ROM ownership is 721,260 C-owned (92.75%), 33,870 mixed C/assembly, 708
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,118 main-ROM and 420 payload bytes. Inventory
+has 590 tracked main C files and 29 assembly entry markers. The only remaining
+instructions in m4a_1.s are the four-byte ADR/BX multiplication interworking stub.
+Production ELF SHA-256:
+`cbc3b11fb78f0113eee04c294313bbc459a6aca30384fcbbba58203fb671587a`.
+
+Evidence under `.deps/soundmain-packed/ply-note/`: `entry/report.json`,
+`entry-check.log`, `entry-production-check.log`, `entry-production-build.log`,
+`entry-frame-plugin.log`, `entry-mplay-regression.log`, `entry-runtime.log`,
+`entry-ownership.log`, `entry-source.json`, `entry-linked.json`,
+`entry-note-region.log` and current region receipts, including
+`docs/ply-note-code-region.json`. Next: multiplication interworking, runtime
+helpers, unit-list/transfer code and complete executable classification.
+
+The valid layout links and all 284 altered layouts reject, including ten new
+entry extent/continuation and literal alignment/displacement cases. Evidence:
+`.deps/soundmain-packed/ply-note/entry-production-layout.log`.

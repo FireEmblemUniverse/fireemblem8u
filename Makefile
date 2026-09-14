@@ -1295,3 +1295,12 @@ src/m4a_ply_note_lfo_delay.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_
 src/m4a_ply_note_lfo_delay.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_lfo_delay.o: C_END_ALIGN := 1
 src/m4a_ply_note_lfo_delay.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteModInvoke -fplugin-arg-tail_transfer-destination=PlyNoteTrackVolumeSetup -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=PlyNoteModInvoke -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN) -fplugin=$(THUMB_DIRECT_TAILS_PLUGIN) -fplugin-arg-thumb_direct_tails-destination=PlyNoteTrackVolumeSetup -fplugin-arg-thumb_direct_tails-expected-transfers=1 -fplugin-arg-thumb_direct_tails-register-equality
+
+src/m4a_ply_note_entry_frame.o: $(THUMB_SAVED_ENTRY_FRAME_PLUGIN)
+src/m4a_ply_note_entry_frame.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_entry_frame.o: C_END_ALIGN := 1
+src/m4a_ply_note_entry_frame.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SAVED_ENTRY_FRAME_PLUGIN) -fplugin-arg-thumb_saved_entry_frame-continuation=PlyNoteEntrySetup -fplugin-arg-thumb_saved_entry_frame-saved-lr-frame60
+src/m4a_ply_note_entry_setup.o: $(THUMB_SHARED_PLUGIN) $(THUMB_TAIL_TRANSFER_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN)
+src/m4a_ply_note_entry_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_entry_setup.o: C_END_ALIGN := 1
+src/m4a_ply_note_entry_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=0x03007ff0,lt_PlyNoteSoundInfo -fplugin-arg-thumb_shared_literal-symbol-literal=gClockTable,lt_PlyNoteClockTable -fplugin-arg-thumb_shared_literal-omit-pool-alignment -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-after-shared-literals -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteCommandBoundary -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=PlyNoteCommandBoundary -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

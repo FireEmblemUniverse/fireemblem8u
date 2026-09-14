@@ -1,0 +1,228 @@
+{
+  "assembly_data_bytes": 10,
+  "start": "0x80cfe44",
+  "end": "0x80d003a",
+  "c_owned_instruction_bytes": 502,
+  "objects": {
+    "src/m4a_ply_note_entry_frame.o": 14,
+    "src/m4a_ply_note_entry_setup.o": 18,
+    "src/m4a_ply_note_command.o": 38,
+    "src/m4a_ply_note_tone.o": 86,
+    "src/m4a_ply_note_priority.o": 30,
+    "src/m4a_ply_note_cgb_select.o": 50,
+    "src/m4a_ply_note_pcm_setup.o": 14,
+    "src/m4a_ply_note_pcm_choose.o": 58,
+    "src/m4a_ply_note_pcm_advance.o": 12,
+    "src/m4a_ply_note_clear_setup.o": 2,
+    "src/m4a_ply_note_clear_invoke.o": 4,
+    "src/m4a_ply_note_channel_link.o": 18,
+    "src/m4a_ply_note_lfo_delay.o": 10,
+    "src/m4a_ply_note_mod_invoke.o": 4,
+    "src/m4a_ply_note_track_volume_setup.o": 4,
+    "src/m4a_ply_note_track_volume_invoke.o": 4,
+    "src/m4a_ply_note_channel_init.o": 34,
+    "src/m4a_ply_note_volume_invoke.o": 4,
+    "src/m4a_ply_note_frequency_setup.o": 52,
+    "src/m4a_ply_note_cgb_frequency_invoke.o": 6,
+    "src/m4a_ply_note_pcm_frequency_setup.o": 6,
+    "src/m4a_ply_note_pcm_frequency_invoke.o": 4,
+    "src/m4a_ply_note_finish.o": 14,
+    "src/m4a_ply_note_exit_restore.o": 16
+  },
+  "elf_sha256": "cbc3b11fb78f0113eee04c294313bbc459a6aca30384fcbbba58203fb671587a",
+  "regions": [
+    {
+      "start": 135069252,
+      "end": 135069266,
+      "section": ".text",
+      "object": "src/m4a_ply_note_entry_frame.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069266,
+      "end": 135069284,
+      "section": ".text",
+      "object": "src/m4a_ply_note_entry_setup.o",
+      "size": 18,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069284,
+      "end": 135069322,
+      "section": ".text",
+      "object": "src/m4a_ply_note_command.o",
+      "size": 38,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069322,
+      "end": 135069408,
+      "section": ".text",
+      "object": "src/m4a_ply_note_tone.o",
+      "size": 86,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069408,
+      "end": 135069438,
+      "section": ".text",
+      "object": "src/m4a_ply_note_priority.o",
+      "size": 30,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069438,
+      "end": 135069488,
+      "section": ".text",
+      "object": "src/m4a_ply_note_cgb_select.o",
+      "size": 50,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069488,
+      "end": 135069502,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_setup.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069502,
+      "end": 135069560,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_choose.o",
+      "size": 58,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069560,
+      "end": 135069572,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_advance.o",
+      "size": 12,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069572,
+      "end": 135069574,
+      "section": ".text",
+      "object": "src/m4a_ply_note_clear_setup.o",
+      "size": 2,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069574,
+      "end": 135069578,
+      "section": ".text",
+      "object": "src/m4a_ply_note_clear_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069578,
+      "end": 135069596,
+      "section": ".text",
+      "object": "src/m4a_ply_note_channel_link.o",
+      "size": 18,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069596,
+      "end": 135069606,
+      "section": ".text",
+      "object": "src/m4a_ply_note_lfo_delay.o",
+      "size": 10,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069606,
+      "end": 135069610,
+      "section": ".text",
+      "object": "src/m4a_ply_note_mod_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069610,
+      "end": 135069614,
+      "section": ".text",
+      "object": "src/m4a_ply_note_track_volume_setup.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069614,
+      "end": 135069618,
+      "section": ".text",
+      "object": "src/m4a_ply_note_track_volume_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069618,
+      "end": 135069652,
+      "section": ".text",
+      "object": "src/m4a_ply_note_channel_init.o",
+      "size": 34,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069652,
+      "end": 135069656,
+      "section": ".text",
+      "object": "src/m4a_ply_note_volume_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069656,
+      "end": 135069708,
+      "section": ".text",
+      "object": "src/m4a_ply_note_frequency_setup.o",
+      "size": 52,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069708,
+      "end": 135069714,
+      "section": ".text",
+      "object": "src/m4a_ply_note_cgb_frequency_invoke.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069714,
+      "end": 135069720,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_frequency_setup.o",
+      "size": 6,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069720,
+      "end": 135069724,
+      "section": ".text",
+      "object": "src/m4a_ply_note_pcm_frequency_invoke.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069724,
+      "end": 135069738,
+      "section": ".text",
+      "object": "src/m4a_ply_note_finish.o",
+      "size": 14,
+      "kind": "thumb"
+    },
+    {
+      "start": 135069738,
+      "end": 135069754,
+      "section": ".text",
+      "object": "src/m4a_ply_note_exit_restore.o",
+      "size": 16,
+      "kind": "thumb"
+    }
+  ],
+  "scope": "All mapped ply_note instructions belong to C-owned objects. Ten padding/literal bytes follow in assembly data. This verifies instruction ownership, not independent full-note behavior or whole-game completion."
+}

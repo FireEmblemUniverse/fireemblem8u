@@ -523,25 +523,11 @@ lt2_ID_NUMBER:      .word ID_NUMBER
 
 	thumb_func_start ply_note
 ply_note:
-	push {r4-r7,lr}
-	mov r4, r8
-	mov r5, r9
-	mov r6, r10
-	mov r7, r11
-	push {r4-r7}
-	sub sp, 0x18
-	str r1, [sp]
-	adds r5, r2, 0
-	ldr r1, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_PlyNoteSoundInfo
-	ldr r1, [r1]
-	str r1, [sp, 0x4]
-	ldr r1, [pc, #1020]
-	.reloc .-2, R_ARM_THM_PC8, lt_PlyNoteClockTable
-	adds r0, r1
-	ldrb r0, [r0]
-	strb r0, [r5, o_MusicPlayerTrack_gateTime]
 	thumb_func_end ply_note
+	.section .text.after_ply_note_entry_frame, "ax", %progbits
+	.global PlyNoteEntrySetup
+PlyNoteEntrySetup:
+	.section .text.after_ply_note_entry_setup, "ax", %progbits
 	.global PlyNoteCommandBoundary
 PlyNoteCommandBoundary:
 	.section .text.after_ply_note_command, "ax", %progbits

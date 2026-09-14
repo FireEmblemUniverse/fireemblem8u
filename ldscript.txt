@@ -1740,6 +1740,31 @@ SECTIONS
         src/m4a_track_stop.o(.text);
         src/m4a_channel_volume.o(.text);
         src/m4a_1.o(.text.after_channel_volume);
+        __ply_note_entry_frame_start = .;
+        src/m4a_ply_note_entry_frame.o(.text);
+        __ply_note_entry_frame_end = .;
+        src/m4a_1.o(.text.after_ply_note_entry_frame);
+        __ply_note_entry_setup_start = .;
+        src/m4a_ply_note_entry_setup.o(.text);
+        __ply_note_entry_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_entry_setup);
+        ASSERT((PlyNoteEntryFrameBody & ~1) == (ply_note & ~1) &&
+               __ply_note_entry_frame_end - __ply_note_entry_frame_start == 14 &&
+               PlyNoteEntrySetup == __ply_note_entry_frame_end,
+               "ply_note entry frame extent or continuation changed");
+        ASSERT((PlyNoteEntrySetupBody & ~1) == PlyNoteEntrySetup &&
+               __ply_note_entry_setup_start == (ply_note & ~1) + 14 &&
+               __ply_note_entry_setup_end - __ply_note_entry_setup_start == 18 &&
+               PlyNoteCommandBoundary == __ply_note_entry_setup_end,
+               "ply_note entry setup extent or continuation changed");
+        ASSERT((lt_PlyNoteSoundInfo & 3) == 0 &&
+               lt_PlyNoteSoundInfo >= ((__ply_note_entry_setup_start + 8) & ~3) &&
+               lt_PlyNoteSoundInfo <= ((__ply_note_entry_setup_start + 8) & ~3) + 1020,
+               "ply_note sound-info entry literal outside forward range");
+        ASSERT((lt_PlyNoteClockTable & 3) == 0 &&
+               lt_PlyNoteClockTable >= ((__ply_note_entry_setup_start + 14) & ~3) &&
+               lt_PlyNoteClockTable <= ((__ply_note_entry_setup_start + 14) & ~3) + 1020,
+               "ply_note clock entry literal outside forward range");
         __ply_note_command_start = .;
         src/m4a_ply_note_command.o(.text);
         __ply_note_command_end = .;

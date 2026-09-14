@@ -26,6 +26,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 std::string continuation;
+bool saved_lr_frame60=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
  if (TREE_CODE(*node)!=FUNCTION_DECL) {error("saved entry frame requires a function");*no_add=true;}
  return NULL_TREE;
@@ -69,15 +70,26 @@ public:
    if (LABEL_P(i)) fatal_error(UNKNOWN_LOCATION,"saved entry frame cannot contain control-flow labels");
    if (NONDEBUG_INSN_P(i)) ops.push_back(i);
   }
-  if (ops.size()!=19) fatal_error(UNKNOWN_LOCATION,"saved entry frame operation count changed");
+  const unsigned call_index=saved_lr_frame60?18:16;
+  if (ops.size()!=(saved_lr_frame60?21:19)) fatal_error(UNKNOWN_LOCATION,"saved entry frame operation count changed");
   auto p=[&](unsigned n){return PATTERN(ops[n]);};
-  if (!lr_push(p(0))||GET_CODE(p(1))!=SET||!reg(SET_DEST(p(1)),0)||!memory(SET_SRC(p(1)),0)
-   ||!add(p(2),SP_REGNUM,-12)||!add(p(11),SP_REGNUM,-16))
+  if (!lr_push(p(0))||!add(p(saved_lr_frame60?12:11),SP_REGNUM,-16))
+   fatal_error(UNKNOWN_LOCATION,"saved entry frame initial push or second bank changed");
+  if (saved_lr_frame60) {
+   rtx copy=p(6);
+   if (GET_CODE(copy)!=SET||!REG_P(SET_DEST(copy))||REGNO(SET_DEST(copy))>=4
+       ||global_regs[REGNO(SET_DEST(copy))]||!move(copy,REGNO(SET_DEST(copy)),LR_REGNUM))
+    fatal_error(UNKNOWN_LOCATION,"saved LR frame requires a disposable low-register store temporary");
+   if (!global_regs[LR_REGNUM]||!add(p(1),SP_REGNUM,-20)
+       ||!store(p(7),16,REGNO(SET_DEST(copy)))||!add(p(17),SP_REGNUM,-24))
+    fatal_error(UNKNOWN_LOCATION,"saved LR frame requires exact 60-byte allocation and saved LR word");
+  } else if (GET_CODE(p(1))!=SET||!reg(SET_DEST(p(1)),0)||!memory(SET_SRC(p(1)),0)
+       ||!add(p(2),SP_REGNUM,-12))
    fatal_error(UNKNOWN_LOCATION,"saved entry frame load/stack order changed");
-  for (unsigned n=0;n<4;n++) if (!store(p(3+n),4*n,4+n)||!move(p(7+n),4+n,8+n)||!store(p(12+n),4*n,4+n))
+  for (unsigned n=0;n<4;n++) if (!store(p((saved_lr_frame60?2:3)+n),4*n,4+n)||!move(p((saved_lr_frame60?8:7)+n),4+n,8+n)||!store(p((saved_lr_frame60?13:12)+n),4*n,4+n))
    fatal_error(UNKNOWN_LOCATION,"saved entry frame register bank order changed");
-  rtx c=p(16);
-  if (!CALL_P(ops[16])||SIBLING_CALL_P(ops[16])||CALL_INSN_FUNCTION_USAGE(ops[16])
+  rtx c=p(call_index);
+  if (!CALL_P(ops[call_index])||SIBLING_CALL_P(ops[call_index])||CALL_INSN_FUNCTION_USAGE(ops[call_index])
    ||GET_CODE(c)!=PARALLEL||XVECLEN(c,0)!=3)
    fatal_error(UNKNOWN_LOCATION,"saved entry frame continuation shape changed");
   rtx call=XVECEXP(c,0,0),use=XVECEXP(c,0,1),clobber=XVECEXP(c,0,2);
@@ -85,15 +97,23 @@ public:
    ||continuation!=XSTR(XEXP(XEXP(call,0),0),0)||XEXP(call,1)!=const0_rtx
    ||GET_CODE(use)!=USE||XEXP(use,0)!=const0_rtx||GET_CODE(clobber)!=CLOBBER||!reg(XEXP(clobber,0),LR_REGNUM))
    fatal_error(UNKNOWN_LOCATION,"saved entry frame requires its declared no-argument continuation");
-  if (GET_CODE(p(17))!=UNSPEC||XINT(p(17),1)!=UNSPEC_REGISTER_USE||XVECLEN(p(17),0)!=1||!reg(XVECEXP(p(17),0,0),SP_REGNUM)
-   ||!JUMP_P(ops[18])||GET_CODE(p(18))!=UNSPEC_VOLATILE||XINT(p(18),1)!=VUNSPEC_EPILOGUE)
+  if (GET_CODE(p(call_index+1))!=UNSPEC||XINT(p(call_index+1),1)!=UNSPEC_REGISTER_USE||XVECLEN(p(call_index+1),0)!=1||!reg(XVECEXP(p(call_index+1),0,0),SP_REGNUM)
+   ||!JUMP_P(ops[call_index+2])||GET_CODE(p(call_index+2))!=UNSPEC_VOLATILE||XINT(p(call_index+2),1)!=VUNSPEC_EPILOGUE)
    fatal_error(UNKNOWN_LOCATION,"saved entry frame return shape changed");
-  if (!validate_change(ops[1],&PATTERN(ops[1]),gen_match_thumb_pop_word(gen_rtx_REG(SImode,0)),false)
-   ||!validate_change(ops[2],&PATTERN(ops[2]),gen_match_thumb_push_saved4(),false)
-   ||!validate_change(ops[11],&PATTERN(ops[11]),gen_match_thumb_push_saved4(),false))
-   fatal_error(UNKNOWN_LOCATION,"saved entry frame grouped operations rejected");
-  REG_NOTES(ops[1])=REG_NOTES(ops[2])=REG_NOTES(ops[11])=nullptr;
-  for (unsigned n=0;n<19;n++) if (n==0||(n>=3&&n<=6)||(n>=12)) delete_insn(ops[n]);
+  if (saved_lr_frame60) {
+   if (!validate_change(ops[1],&PATTERN(ops[1]),gen_match_thumb_push_saved5(),false)
+       ||!validate_change(ops[12],&PATTERN(ops[12]),gen_match_thumb_push_saved4(),false))
+    fatal_error(UNKNOWN_LOCATION,"saved LR entry grouped operations rejected");
+   REG_NOTES(ops[1])=REG_NOTES(ops[12])=nullptr;
+   for (unsigned n=0;n<21;n++) if (n==0||(n>=2&&n<=7)||(n>=13&&n<=16)||n>=18) delete_insn(ops[n]);
+  } else {
+   if (!validate_change(ops[1],&PATTERN(ops[1]),gen_match_thumb_pop_word(gen_rtx_REG(SImode,0)),false)
+    ||!validate_change(ops[2],&PATTERN(ops[2]),gen_match_thumb_push_saved4(),false)
+    ||!validate_change(ops[11],&PATTERN(ops[11]),gen_match_thumb_push_saved4(),false))
+    fatal_error(UNKNOWN_LOCATION,"saved entry frame grouped operations rejected");
+   REG_NOTES(ops[1])=REG_NOTES(ops[2])=REG_NOTES(ops[11])=nullptr;
+   for (unsigned n=0;n<19;n++) if (n==0||(n>=3&&n<=6)||(n>=12)) delete_insn(ops[n]);
+  }
   return 0;
  }
 };
@@ -101,7 +121,8 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
  if (!plugin_default_version_check(version,&gcc_version)) return 1;
  for (int n=0;n<info->argc;n++) {
-  if (!strcmp(info->argv[n].key,"continuation")&&info->argv[n].value&&*info->argv[n].value&&continuation.empty()) continuation=info->argv[n].value;
+  if (!strcmp(info->argv[n].key,"saved-lr-frame60")&&!info->argv[n].value&&!saved_lr_frame60) saved_lr_frame60=true;
+  else if (!strcmp(info->argv[n].key,"continuation")&&info->argv[n].value&&*info->argv[n].value&&continuation.empty()) continuation=info->argv[n].value;
   else return 1;
  }
  if (continuation.empty()) return 1;
