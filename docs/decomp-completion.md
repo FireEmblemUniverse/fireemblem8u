@@ -13745,3 +13745,22 @@ does not prove those waits terminate or validate the effects of the called
 animation routines. `docs/class-reel-dispatch.json` contains per-script sizes,
 opcode lists, first-END positions, trailing-END counts and all class pointers.
 Production source is unchanged; the full decompilation goal remains open.
+
+## Main-ROM indirect-target review frontier — September 14, 2026
+
+Baseline `4f9d4095`. `scripts/audit_function_pointer_frontier.py` scans every
+aligned ROM word outside instruction-mapped regions for exact matches to declared
+FUNC addresses, preserving Thumb pointer bits. It validates target instruction
+mapping, requires each source word to remain inside its region, and records both
+source and target ownership plus current ROM/ELF/map hashes.
+
+The scan finds 5,561 candidates, 3,668 distinct targets and 288 source owners.
+Largest groups are menu_def (484), mapanim_spellassoc (173), event (161),
+data/opanim (139) and sio_postbattle (127). The full receipt is
+`docs/function-pointer-frontier.json`; the top-30 review list is in the companion
+Markdown. This broadens callback-table review beyond the class-reel table.
+
+Candidate equality does not establish that a word is used as a pointer. The scan
+excludes instruction immediates, unaligned/interior/untyped targets, RAM targets,
+compressed pointers and computed dispatch. It is a review frontier, not closure
+of executable coverage or reachability. Production source is unchanged.

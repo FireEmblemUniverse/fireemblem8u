@@ -26,6 +26,8 @@ Latest indirect-target audit (baseline `dc35446a`): all 65 class-reel magic sele
 
 Latest class-script closure (baseline `a99b9957`): all 14 class-reel scripts (100 two-byte records) reconstruct exactly from source macros; all 65 class-entry script pointers target their starts. Only defined control/wait opcodes occur, with structural END termination; Gorgon has one extra trailing END. Wait completion and interpreter effects remain open. Receipt: `docs/class-reel-dispatch.json`.
 
+Latest main-ROM pointer frontier (baseline `4f9d4095`): 5,561 aligned noninstruction words match 3,668 declared function pointers across 288 source owners. Menu definitions, spell associations and event data lead the review list. These are candidates, not proven references or complete indirect coverage. Receipt: `docs/function-pointer-frontier.json`; summary: `docs/function-pointer-frontier.md`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
