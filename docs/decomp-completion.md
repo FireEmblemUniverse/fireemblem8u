@@ -12621,3 +12621,26 @@ original four-byte symbols (which include an unreachable NOP). No archive was
 replaced. High-register handling, particularly incoming SP/LR semantics, full
 symbol layout and interworking execution-model coverage remain required before
 integration. The production runtime assembly count stays at 60 bytes.
+
+
+### High-register veneer lowering (September 14, 2026)
+
+Baseline `e6ebf49d`. The dedicated `matching_register_veneer` pass validates
+a complete four- or five-operation RTL sequence: compiler-only frame, one
+no-argument register call, SP marker and return. For r8–r11 it additionally
+checks the exact high-register preservation copy and two-word push. It rejects
+arguments, nonvoid results, extra work, debug/unwind and non-Thumb compilation.
+Only a declared global destination register is accepted. The pass removes the
+validated frame and emits the existing BX return pattern.
+
+`research/runtime/probe_register_veneers.py` verifies 14 original two-byte
+transfers, including r8–r12 and LR, and seven negative controls. The original
+compiler's LR call fails in final emission; replacing the validated call before
+that stage avoids its unsupported call trampoline. SP requires a backend
+pattern change: the current BX operand constraint excludes SP. The pass now
+rejects that case explicitly before producing invalid RTL. The receipt is
+`docs/runtime-register-veneer-probe.json`.
+
+No production dependencies or archive members changed. Full four-byte symbol
+padding, SP support, interworking state-model verification and fresh image
+integration remain required. Runtime assembly remains 60 bytes.

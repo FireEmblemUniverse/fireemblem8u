@@ -6,6 +6,8 @@ Updated: September 14, 2026. Current integrated runtime milestone (baseline `160
 
 Research update (baseline `98dc363c`): C fixed-register calls through r0–r7 generate the exact two-byte transfer instructions of eight runtime veneers using the existing checked tail-transfer pass. The reproducible probe records seven explicit high-register contract rejections. Original four-byte symbol padding, high-register/SP/LR handling, execution-model verification and archive integration remain open; production runtime assembly remains 60 bytes.
 
+Latest veneer research (baseline `e6ebf49d`): a dedicated checked register-call pass produces exact transfer instructions for 14/15 veneers, including r8–r12 and LR. Seven invalid contracts reject. SP now rejects explicitly because the existing backend BX pattern excludes it; backend support, full symbol padding, execution verification and integration remain open. Production coverage is unchanged.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

@@ -1,0 +1,161 @@
+{
+  "negative_controls": [
+    {
+      "name": "argument",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "nonvoid",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "store",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "two_calls",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "arm",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "debug",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "name": "unwind",
+      "rejected": true,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    }
+  ],
+  "scope": "Research only: transfer instruction comparison; SP backend support, padding, execution model and archive integration remain unverified.",
+  "reference_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73",
+  "plugin_source_sha256": "70d64abbfaafae2dca086c7d53638fc155cfdcc7cb944ce7e34babff10713658",
+  "results": [
+    {
+      "register": 0,
+      "exit": 0,
+      "diagnostics": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-veneers/r0.c:1:17: warning: call-clobbered register used for global register variable\n    1 | register void (*destination)(void) __asm__(\"r0\");\n      |                 ^~~~~~~~~~~\n",
+      "candidate_hex": "0047",
+      "reference_entry_hex": "0047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 1,
+      "exit": 0,
+      "diagnostics": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-veneers/r1.c:1:17: warning: call-clobbered register used for global register variable\n    1 | register void (*destination)(void) __asm__(\"r1\");\n      |                 ^~~~~~~~~~~\n",
+      "candidate_hex": "0847",
+      "reference_entry_hex": "0847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 2,
+      "exit": 0,
+      "diagnostics": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-veneers/r2.c:1:17: warning: call-clobbered register used for global register variable\n    1 | register void (*destination)(void) __asm__(\"r2\");\n      |                 ^~~~~~~~~~~\n",
+      "candidate_hex": "1047",
+      "reference_entry_hex": "1047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 3,
+      "exit": 0,
+      "diagnostics": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-veneers/r3.c:1:17: warning: call-clobbered register used for global register variable\n    1 | register void (*destination)(void) __asm__(\"r3\");\n      |                 ^~~~~~~~~~~\n",
+      "candidate_hex": "1847",
+      "reference_entry_hex": "1847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 4,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "2047",
+      "reference_entry_hex": "2047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 5,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "2847",
+      "reference_entry_hex": "2847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 6,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "3047",
+      "reference_entry_hex": "3047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 7,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "3847",
+      "reference_entry_hex": "3847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 8,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "4047",
+      "reference_entry_hex": "4047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 9,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "4847",
+      "reference_entry_hex": "4847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 10,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "5047",
+      "reference_entry_hex": "5047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 11,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "5847",
+      "reference_entry_hex": "5847c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 12,
+      "exit": 0,
+      "diagnostics": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-veneers/r12.c:1:17: warning: call-clobbered register used for global register variable\n    1 | register void (*destination)(void) __asm__(\"r12\");\n      |                 ^~~~~~~~~~~\n",
+      "candidate_hex": "6047",
+      "reference_entry_hex": "6047c046",
+      "transfer_exact": true
+    },
+    {
+      "register": 13,
+      "exit": 1,
+      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+    },
+    {
+      "register": 14,
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "7047",
+      "reference_entry_hex": "7047c046",
+      "transfer_exact": true
+    }
+  ]
+}
