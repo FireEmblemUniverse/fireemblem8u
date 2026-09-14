@@ -1,0 +1,19 @@
+{
+  "exact_instruction_bytes": 2,
+  "cases": 384,
+  "all_registers_flags_and_stack_preserved": true,
+  "rejected_contracts": [
+    "nonvoid",
+    "argument",
+    "store",
+    "call",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true,
+  "source_sha256": "87e9a17efe7607b9ceb2ca1ea94798c2435ad1b6888ec7d6a850fea604110bd2",
+  "plugin_sha256": "7972da5c0fd4ffdcacec49cca7f0052b3f36407d07bb1fb5bf22308c988098ae",
+  "production_integrated": false,
+  "scope": "Thumb caller only; original MOV-PC return does not implement interworking."
+}

@@ -12554,3 +12554,27 @@ This completes recovery of these four arithmetic helpers, not the overall
 goal. Remaining platform/inline instructions, the two runtime assembly
 members, expanded payload assembly and full mapped-data/executable
 classification still require work.
+
+
+### Empty zero-division hook recovery (September 14, 2026)
+
+Baseline `798d6282`. The pinned __div0 helper contains only MOV pc,lr and
+zero alignment padding. `research/runtime/div0.c` expresses its empty void
+behavior. The matching_empty_thumb_return pass accepts only a no-argument
+void Thumb function with the three expected epilogue operations (SP marker,
+LR use and return), no calls or labels and no debug/unwind/exception metadata.
+It substitutes the existing MOV-PC return operation, preserving Thumb mode.
+
+The two instruction bytes match the ROM at 0x080D1990 exactly. The model
+passes 384 cases spanning all sixteen initial NZCV profiles, eight register
+seeds and three stack positions. All r0-r14 and CPSR remain unchanged; no
+memory writes occur. Seven controls reject return values, parameters,
+stores, calls, ARM mode, debug and unwind, and unannotated output is unchanged.
+The receipt is docs/runtime-div0-research.json. This convention models Thumb
+callers only, as does the original instruction.
+
+Next package _dvmd_tls.o with the original zero padding and verify the four
+image rebuilds before integration. The other remaining runtime member has
+fifteen BX-register veneers, each followed by an unreachable NOP; their
+interworking semantics and exact symbol sizes still require recovery.
+Production runtime assembly remains 62 bytes per audited image.
