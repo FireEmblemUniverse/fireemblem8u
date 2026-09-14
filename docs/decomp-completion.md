@@ -13454,3 +13454,20 @@ intrinsics cannot replace them. Neither this audit nor zero assembly-source
 ownership proves complete embedded-executable classification. An obsolete
 paragraph about the already-recovered unit-list fallback was also corrected
 in the ownership report and its generator; measured totals are unchanged.
+
+
+### Event NOP return-path boundary (September 14, 2026)
+
+Baseline `07e0d630`. The event switch's two canonical Thumb NOPs are MOV r8,r8
+at 0x08084320 and 0x08084324. Their shared return restores r4/r5 and the saved
+return address after releasing 28 local-stack bytes. All 512 randomized
+return-path cases pass, covering both starts and every NZCV profile, exact
+register/stack results and absence of memory writes.
+
+`research/event/nop.c` tests a volatile global-register C identity. Ordinary
+GCC eliminates it, leaving a two-byte BX LR function. Object alignment may
+contain a NOP, so the checker uses the ELF function size rather than mistaking
+padding for the source operation. Evidence: `docs/event-nop-research.json`.
+Production remains unchanged. A compiler identity/builtin contract and the
+original switch layout still need recovery; full event dispatch is outside
+this return-path model's scope.

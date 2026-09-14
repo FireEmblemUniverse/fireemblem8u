@@ -1,0 +1,13 @@
+{
+  "cases": 512,
+  "paths": [
+    "0x08084320",
+    "0x08084324"
+  ],
+  "retained_nop_bytes": 4,
+  "source_sha256": "11e0fb794ad4449c949d5e9fe0883763203ee52721c2244132d1eddc0620e1f0",
+  "direct_c_bytes": "7047",
+  "direct_c_identity_eliminated": true,
+  "production_changed": false,
+  "scope": "Original NOP/shared-return paths with randomized saved registers and all flag profiles. Direct volatile r8 self-assignment is eliminated by GCC and is not a matching replacement. Does not execute event search, dispatch or game actions."
+}
