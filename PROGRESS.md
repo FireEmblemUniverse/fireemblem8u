@@ -44,6 +44,8 @@ New executable-classification finding (baseline `2c476bb7`): the first 40,952 by
 
 Latest orphan suffix analysis (baseline `a29ebb06`): 42,812 bytes reconstruct from the earlier region with 260 runtime-data pointers shifted by 0xA73C and one explicit unresolved word substitution. The final 76 bytes are recorded separately. This is byte-level evidence, not a recovered source representation or proof of reachability. Receipt: `docs/orphan-runtime-copy.json`.
 
+Latest orphan-tail accounting (baseline `f0e0123a`): the final 76 bytes match the runtime allocator tail at 0x08B1FE30 with four pointers shifted by 0xA788. The full 42,888-byte block now has a byte-reconstruction model, with one exceptional runtime rodata word still semantically unresolved. Source-based production reconstruction and executable classification remain open. Receipt: `docs/orphan-runtime-copy.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

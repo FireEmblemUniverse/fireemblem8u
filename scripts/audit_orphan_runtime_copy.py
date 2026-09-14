@@ -20,5 +20,12 @@ assert exceptions==[dict(offset='0xa028',original='0x8587790',duplicate='0x85913
 struct.pack_into('<I',rebuilt,0xa028,0x085913f0)
 assert rebuilt==r[target:target+span]
 tail=r[target+span:target+size];assert len(tail)==76
-report=dict(scope='Byte-level reconstruction evidence only. 260 changed words point into the copied runtime-data range with a uniform delta. One exceptional word and a 76-byte tail are recorded without claiming recovered semantics. Historical build origin and reachability are unproven.',rom_sha256=hashlib.sha256(r).hexdigest(),source=hex(source+0x08000000),target=hex(target+0x08000000),reconstructed_prefix_bytes=span,uniform_delta=hex(span),shifted_words=shifted,exceptional_words=exceptions,tail_bytes=len(tail),tail_words=[hex(x[0]) for x in struct.iter_unpack('<I',tail)],tail_sha256=hashlib.sha256(tail).hexdigest())
-(ROOT/'docs/orphan-runtime-copy.json').write_text(json.dumps(report,indent=2)+'\n');print(span,'bytes reconstructed with 260 uniform pointer shifts and one explicit exception;',len(tail),'tail bytes remain')
+tail_source=0xb1fe30;tail_target=target+span
+model_tail=bytearray(r[tail_source:tail_source+76])
+for offset in range(0,16,4):
+ value=struct.unpack_from('<I',model_tail,offset)[0]
+ struct.pack_into('<I',model_tail,offset,value+(tail_target-tail_source))
+assert model_tail==tail
+assert rebuilt+model_tail==r[target:target+size]
+report=dict(scope='Byte-level reconstruction evidence only. 260 changed words point into the copied runtime-data range with a uniform delta. One exceptional word is unresolved semantically. The 76-byte tail matches the earlier allocator tail with four relocated pointers. Historical build origin and reachability are unproven.',rom_sha256=hashlib.sha256(r).hexdigest(),source=hex(source+0x08000000),target=hex(target+0x08000000),reconstructed_prefix_bytes=span,uniform_delta=hex(span),shifted_words=shifted,exceptional_words=exceptions,tail_source=hex(tail_source+0x08000000),tail_delta=hex(tail_target-tail_source),tail_shifted_words=4,full_block_reconstruction_bytes=size,tail_bytes=len(tail),tail_words=[hex(x[0]) for x in struct.iter_unpack('<I',tail)],tail_sha256=hashlib.sha256(tail).hexdigest())
+(ROOT/'docs/orphan-runtime-copy.json').write_text(json.dumps(report,indent=2)+'\n');print(span,'bytes reconstructed with 260 uniform pointer shifts and one explicit exception;',len(tail),'tail bytes match allocator-tail model')

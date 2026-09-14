@@ -13892,3 +13892,20 @@ suggests a differently linked runtime-data copy, but historical origin is an
 inference. It does not establish that the copy executes or that its exceptional
 pointer is meaningful in the current image. Source reconstruction, copied code
 coverage and the tail's semantics remain open; no production source changed.
+
+## Orphan allocator tail correspondence — September 14, 2026
+
+Baseline `f0e0123a`. The final 76 orphan bytes match ROM at 0x08B1FE30 after
+shifting the first four pointer words by 0xA788. The remaining words match
+allocator settings and zero-initialized statistics exactly. Combined with the
+previous prefix model, all 42,888 block bytes now reconstruct byte-for-byte.
+This model still explicitly substitutes the exceptional word at offset 0xA028;
+it is not a recovered source implementation.
+
+The original exceptional slot corresponds to impure.o's .data relocation at
+0x34, targeting .rodata. Its original value points to the string "C"; the copied
+value 0x085913F0 points into gProcScr_TalkWaitForInput in the current image.
+That mismatch supports a stale linked-copy interpretation, not validated current
+runtime semantics. Historical provenance and reachability remain unproven.
+The updated receipt records the allocator-tail source, displacement and full-block
+reconstruction size. Production source remains unchanged.

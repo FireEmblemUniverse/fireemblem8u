@@ -1,5 +1,5 @@
 {
-  "scope": "Byte-level reconstruction evidence only. 260 changed words point into the copied runtime-data range with a uniform delta. One exceptional word and a 76-byte tail are recorded without claiming recovered semantics. Historical build origin and reachability are unproven.",
+  "scope": "Byte-level reconstruction evidence only. 260 changed words point into the copied runtime-data range with a uniform delta. One exceptional word is unresolved semantically. The 76-byte tail matches the earlier allocator tail with four relocated pointers. Historical build origin and reachability are unproven.",
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "source": "0x8b15740",
   "target": "0x8b1fe7c",
@@ -1314,6 +1314,10 @@
       "duplicate": "0x85913f0"
     }
   ],
+  "tail_source": "0x8b1fe30",
+  "tail_delta": "0xa788",
+  "tail_shifted_words": 4,
+  "full_block_reconstruction_bytes": 42888,
   "tail_bytes": 76,
   "tail_words": [
     "0x8b2a5b0",
