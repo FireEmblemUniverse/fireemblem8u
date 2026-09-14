@@ -10367,3 +10367,26 @@ semantics or PNG/palette regeneration. The current linked symbol table is
 the authoritative source of relocation target addresses; validating their
 intended interpreter use remains separate. No C coverage increase or whole-
 game completion is claimed.
+
+### Battle-animation graphics and compressed-stream regeneration verified
+
+`scripts/audit_banim_graphics_rebuild.py` uses temporary outputs to rebuild
+all 470 linked PNG sheets with the production graphics converter. Every
+result matches its uncompressed tile input exactly. The other 201 graphics
+inputs are tracked `.agbpal` binary source files; these are explicit source
+leaves, not falsely attributed to nonexistent PNG palette sources. Their
+source paths and hashes are recorded.
+
+All 1,274 compressed animation inputs—graphics, OAM and relocated motion—
+are freshly recompressed, reproducing all 2,360,888 compressed bytes from
+6,191,020 expanded bytes. The verifier ties its inputs to the prior asset
+receipt and current ELF hash, and records the graphics-converter hash. No
+working asset or production output is overwritten. Detailed evidence is
+`docs/banim-graphics-rebuild.json`.
+
+Combined with the fresh motion/OAM/mode assembly audit and the complete
+ROM asset-interval/decompression audit, this establishes the source-to-asset
+regeneration chain for this merged contribution. It does not establish
+animation interpreter command semantics or eliminate remaining assembly,
+runtime helpers and other executable-classification gaps. C instruction
+ownership remains unchanged.
