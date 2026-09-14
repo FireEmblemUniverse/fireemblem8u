@@ -40,6 +40,8 @@ Latest residual closure (baseline `7dd72d4f`): six assembly-defined animation ma
 
 Latest world-map residual (baseline `81642671`): the 56-byte gWorldmapSprite_26 table rebuilds from directives and parses as five rectangles with tile halfwords and a terminator. Its pointer-shaped word is two tile entries. Forty of 41 data-owner residuals are accounted for; the sole remaining candidate lies inside the unclassified 42,888-byte gUnkData_108 block. Receipt: `docs/function-pointer-data-owners.json`.
 
+New executable-classification finding (baseline `2c476bb7`): the first 40,952 bytes of gUnkData_108 exactly duplicate ROM at 0x08B15740, including FE6 serial payload and recovered serial routines. The remaining 1,936-byte suffix differs. The duplicate must be accounted for as embedded-code content; reachability and reproducible source representation remain open. Receipt: `docs/orphan-duplicate.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

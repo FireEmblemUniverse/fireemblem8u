@@ -13861,3 +13861,18 @@ The sole remaining candidate at 0x08B22960 lies 0x2AE4 bytes inside the 42,888-b
 bytes and lack of an obvious reference do not establish its meaning or exclude
 embedded code. It remains explicitly open, alongside broader executable coverage.
 Production source is unchanged.
+
+## Unclassified block contains duplicated payload/code — September 14, 2026
+
+Baseline `2c476bb7`. `scripts/audit_orphan_duplicate.py` verifies that the first
+40,952 bytes of gUnkData_108 at 0x08B1FE7C exactly duplicate the earlier ROM range
+starting at 0x08B15740. Original ownership spans data_B12A60 graphics, guide
+configuration, asm/fe6sio.o, serial boot/poll/reset C objects and initial libc
+impure data. The remaining 1,936-byte suffix differs and requires separate review.
+
+This is a substantive executable-classification finding: a u8 initializer hides
+copies of known payload/code bytes. Lack of an obvious pointer to this block is
+not sufficient to exclude that content. `docs/orphan-duplicate.json` records
+source/destination ranges and owners. Reachability, suffix interpretation and
+reproducible representation from recovered sources remain unfinished. The current
+ROM is unchanged and completion is not claimed.

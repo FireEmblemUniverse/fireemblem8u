@@ -1,0 +1,128 @@
+{
+  "scope": "Exact duplicated bytes and original linked ownership, not proof the duplicate is reached. The duplicate contains embedded-payload bytes and must not be classified nonexecutable solely from its u8 array declaration. Remaining suffix differs and needs separate analysis.",
+  "source": "0x8b15740",
+  "duplicate": "0x8b1fe7c",
+  "block_bytes": 42888,
+  "exact_prefix_bytes": 40952,
+  "remaining_suffix_bytes": 1936,
+  "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+  "pieces": [
+    {
+      "source_start": "0x8b15740",
+      "duplicate_start": "0x8b1fe7c",
+      "bytes": 7692,
+      "source_mapping": "unmapped",
+      "source_owner": "src/data/data_B12A60.o"
+    },
+    {
+      "source_start": "0x8b1754c",
+      "duplicate_start": "0x8b21c88",
+      "bytes": 10432,
+      "source_mapping": "data",
+      "source_owner": "src/data/data_B12A60.o"
+    },
+    {
+      "source_start": "0x8b19e0c",
+      "duplicate_start": "0x8b24548",
+      "bytes": 684,
+      "source_mapping": "data",
+      "source_owner": "src/bmguide_config.o"
+    },
+    {
+      "source_start": "0x8b1a0b8",
+      "duplicate_start": "0x8b247f4",
+      "bytes": 4,
+      "source_mapping": "arm",
+      "source_owner": "src/serial_boot.o"
+    },
+    {
+      "source_start": "0x8b1a0bc",
+      "duplicate_start": "0x8b247f8",
+      "bytes": 177,
+      "source_mapping": "unmapped",
+      "source_owner": "asm/fe6sio.o"
+    },
+    {
+      "source_start": "0x8b1a16d",
+      "duplicate_start": "0x8b248a9",
+      "bytes": 11,
+      "source_mapping": "data",
+      "source_owner": "asm/fe6sio.o"
+    },
+    {
+      "source_start": "0x8b1a178",
+      "duplicate_start": "0x8b248b4",
+      "bytes": 4,
+      "source_mapping": "arm",
+      "source_owner": "src/serial_boot.o"
+    },
+    {
+      "source_start": "0x8b1a17c",
+      "duplicate_start": "0x8b248b8",
+      "bytes": 28,
+      "source_mapping": "data",
+      "source_owner": "asm/fe6sio.o"
+    },
+    {
+      "source_start": "0x8b1a198",
+      "duplicate_start": "0x8b248d4",
+      "bytes": 44,
+      "source_mapping": "arm",
+      "source_owner": "src/serial_poll.o"
+    },
+    {
+      "source_start": "0x8b1a1c4",
+      "duplicate_start": "0x8b24900",
+      "bytes": 148,
+      "source_mapping": "arm",
+      "source_owner": "src/serial_reset.o"
+    },
+    {
+      "source_start": "0x8b1a258",
+      "duplicate_start": "0x8b24994",
+      "bytes": 16,
+      "source_mapping": "data",
+      "source_owner": "src/serial_reset.o"
+    },
+    {
+      "source_start": "0x8b1a268",
+      "duplicate_start": "0x8b249a4",
+      "bytes": 21708,
+      "source_mapping": "data",
+      "source_owner": "asm/fe6sio.o"
+    },
+    {
+      "source_start": "0x8b1f734",
+      "duplicate_start": "0x8b29e70",
+      "bytes": 4,
+      "source_mapping": "data",
+      "source_owner": ".deps/runtime-c/libc.a(impure.o)"
+    }
+  ],
+  "declared_main_elf_functions_in_source": [
+    {
+      "name": "sio_polling",
+      "source": "0x8b1a198",
+      "duplicate": "0x8b248d4",
+      "bytes": 44
+    },
+    {
+      "name": "FE6SIO_Init",
+      "source": "0x8b1a178",
+      "duplicate": "0x8b248b4",
+      "bytes": 4
+    },
+    {
+      "name": "FE6SIO_Entry",
+      "source": "0x8b1a0b8",
+      "duplicate": "0x8b247f4",
+      "bytes": 4
+    },
+    {
+      "name": "SerialReset",
+      "source": "0x8b1a1c4",
+      "duplicate": "0x8b24900",
+      "bytes": 164
+    }
+  ]
+}
