@@ -10487,3 +10487,28 @@ or finish the audit of 10,252,672 assembler-mapped data bytes and embedded
 executables. Remaining native assembly, runtime helpers and executable
 classification still prevent a full-decompilation claim. Production ROM
 and C ownership remain unchanged.
+
+### Serial bootstrap polling routine integrated as C
+
+`src/serial_poll.c` now supplies the 44-byte routine at 0x08b1a198. The
+private ABI retains the serial base in r0 and status/data in r1. Volatile
+halfword reads wait for bit 7 to assert and clear; a final bit-6 test either
+returns status or loads the received halfword. Empty register constraints
+keep the intermediate status reads in r1 and preserve the separate early
+return, giving the original conditional BX and final load/BX sequence. No
+instruction template or compiler plugin is involved. The final TST flags,
+including Z consumed by `_reset`, are preserved by exact instruction equality.
+
+The assembly source is split around the C routine and the linker retains
+its original address and surrounding bootstrap branches. `make compare -j8`
+passes; all four fresh runtime rebuilds reproduce images and symbols.
+`scripts/audit_serial_poll.py` verifies the complete region is mapped ARM
+instructions in a C-owned object and that the full ROM is unchanged. Existing
+code-ownership and data-provenance receipts are refreshed. No physical serial
+link timing test or complete bootstrap conversion is claimed.
+
+Main-ROM C ownership is now 739,790/777,630 (95.13%). Assembly-source bytes
+fall from 680 to 636; together with 14 inline bytes, reviewed non-library
+main-ROM assembly is 650 bytes. There are 593 tracked main C files. The
+remaining reset/transfer logic, startup, Thumb scaffolding, runtime helpers
+and executable-classification work stay in scope.

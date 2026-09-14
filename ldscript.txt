@@ -2693,6 +2693,8 @@ SECTIONS
         . = ALIGN(4); src/data/data_B12A60.o(.data);
         . = ALIGN(4); src/bmguide_config.o(.data);
         . = ALIGN(4); asm/fe6sio.o(.data);
+        src/serial_poll.o(.text);
+        asm/fe6sio.o(.data.after_poll);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

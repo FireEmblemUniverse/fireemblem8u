@@ -23,20 +23,9 @@ FE6SIO_Init: @ 08B1A178
     .WORD 0
     .WORD 0
 
-sio_polling: @ 0x08B1A198
-1:
-    ldrh r1, [r0, #8]
-    tst r1, #0x80
-    beq 1b
-1:
-    ldrh r1, [r0, #8]
-    tst r1, #0x80
-    bne 1b
-    ldrh r1, [r0, #8]
-    tst r1, #0x40
-    bxne lr
-    ldrh r1, [r0]
-    bx lr
+    @ sio_polling is generated from src/serial_poll.c.
+    .section .data.after_poll
+    .ARM
 
 _reset: @ 0x08B1A1C4
     ldr r0, .L_REG_SIODATA32
