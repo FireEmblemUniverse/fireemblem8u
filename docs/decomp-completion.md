@@ -12790,3 +12790,31 @@ No production dependency or runtime source changes are made. These isolated
 results do not verify original caller allocation, actual monitor behavior,
 full syscall functions or integration. All 104 production inline syscall
 bytes remain in the inventory until complete-member recovery is verified.
+
+
+### Full syscall-member compiler bridge (September 14, 2026)
+
+Baseline `eb7ed79c`. probe_syscall_member.py recompiles all thirteen isolated
+C cores, then recompiles the fresh pinned preprocessed syscall source after
+replacing its executable Angel template with an allocation-only comment
+marker. The original operand constraints and clobbers remain, preserving
+legacy register allocation. Every emitted marker's result/reason/argument
+registers must match the audited original site. The bridge substitutes the
+matching compiler's four generated instructions and syntax directives,
+omitting only the isolated snippet return. No instruction bytes are emitted
+as data or copied from the reference object.
+
+The combined member reproduces the entire 1,124-byte text, complete nm symbol
+table and readelf relocations. The optional --syscall-member verification
+path inserts it into freshly rebuilt libc; all four binaries and exported
+symbols match exactly. Receipts runtime-syscall-member-probe.json and
+runtime-syscall-four-images.json fingerprint the member and comparisons.
+The four-image receipt's member hash matches the final candidate.
+
+This is a research bridge, not default integration. Marker-only source is
+not independently executable; its behavior requires the generated C-core
+substitution. Production packaging must make that dependency explicit and
+validate the combined source contract. The earlier synthetic core model
+remains scoped to register/flag transfers rather than actual monitor service
+behavior. All production inline syscall bytes remain unchanged pending
+integration; SWI instructions are still intentionally present in the cores.

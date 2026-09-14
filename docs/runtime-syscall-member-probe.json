@@ -1,0 +1,10 @@
+{
+  "core_probe_sha256": "27afe2e6b5bea4fcbe3a53b8c229c3ca2f1c357bafd9fb2f14b7956239601faf",
+  "exact_text_bytes": 1124,
+  "exact_symbol_table": true,
+  "exact_relocations": true,
+  "compiled_core_sites": 13,
+  "member_sha256": "d551c1c1951bd2ca6db659cb5c776f54f5bb40cde1db2cf28408eb56d339117b",
+  "marker_source_sha256": "9cd94e376f81cee7d31ee41bc3f94c74090920087a98558490f93ffdda66012a",
+  "scope": "Research two-compiler bridge. Marker-only source requires externally generated C cores and is not independently executable. Production unchanged; formal bridge validation and integration remain pending."
+}

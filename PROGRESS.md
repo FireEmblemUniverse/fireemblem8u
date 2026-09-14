@@ -12,6 +12,8 @@ Isolated syscall cores (baseline `36984bcf`): fixed-register C assignments aroun
 
 Complete isolated syscall cores (baseline `59c85b71`): all 13 eight-byte move/SWI sequences now match. A checked private r8-result pass removes only the exact compiler save/restore frame in the two high-register cases. Eight negative controls reject; 1,664 synthetic monitor cases verify all registers and flags at the core boundary with no memory writes. Full syscall context, monitor semantics and default-build integration remain open; production inline counts are unchanged.
 
+Whole syscall member research (baseline `eb7ed79c`): a two-compiler bridge preserves legacy operand allocation with a non-executable marker and replaces all 13 markers with generated C cores. The complete 1,124-byte text, symbol table and relocations match. A fresh runtime archive with this member reproduces all four images and exported symbols exactly. Production integration and a durable bridge/source contract remain pending; no production inline-byte reduction is claimed.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
