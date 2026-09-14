@@ -10343,3 +10343,27 @@ review against the animation interpreter. Original PNG/palette regeneration
 and fresh motion-source assembly are not established by this check. These
 limits remain explicit, and the contribution is not counted as C instructions
 or used to claim a complete executable denominator.
+
+### Fresh battle-animation motion/OAM/mode source rebuild
+
+`scripts/audit_banim_source_rebuild.py` assembles all 201 motion sources in
+a temporary directory using the ARM7 assembler and the checked-in animation
+macros. It extracts four sections per source: motion commands, left OAM,
+right OAM and mode tables. Rather than trusting the saved linked objects,
+it independently applies each fresh R_ARM_ABS32 relocation as its encoded
+addend plus the target's current ELF address. Unknown relocation kinds,
+unexpected relocation sections, duplicate/unaligned/out-of-bounds offsets,
+missing symbols and byte mismatches reject.
+
+All 804 sections reproduce their build inputs: 2,334,324 bytes, including
+30,693 resolved references. No production source or asset is overwritten.
+`docs/banim-source-rebuild.json` records each source and macro-header hash,
+section lengths and hashes, relocation counts, and the linked ELF hash.
+The complete asset-concatenation/LZ audit is rerun successfully, tying these
+freshly rebuilt inputs back to the exact compressed ROM asset intervals.
+
+This closes motion/OAM/mode source regeneration, not animation-command
+semantics or PNG/palette regeneration. The current linked symbol table is
+the authoritative source of relocation target addresses; validating their
+intended interpreter use remains separate. No C coverage increase or whole-
+game completion is claimed.
