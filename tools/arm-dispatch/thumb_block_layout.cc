@@ -26,6 +26,7 @@
 int plugin_is_GPL_compatible;
 namespace {
 bool tone_selection=false;
+bool pcm_selection=false;
 tree validate(tree *node,tree,tree,int,bool *no_add) {
     if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_thumb_block_layout requires a function");*no_add=true; }
     return NULL_TREE;
@@ -51,7 +52,7 @@ rtx_insn *next_op(rtx_insn *i) {
     return nullptr;
 }
 bool empty_tie(rtx p) {
-    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))>=(tone_selection?12:8)) return false;
+    if (GET_CODE(p)!=SET||!REG_P(SET_DEST(p))||REGNO(SET_DEST(p))>=((tone_selection||pcm_selection)?12:8)) return false;
     rtx a=SET_SRC(p);
     return GET_CODE(a)==ASM_OPERANDS&&!ASM_OPERANDS_TEMPLATE(a)[0]
         &&!strcmp(ASM_OPERANDS_OUTPUT_CONSTRAINT(a),"=r")&&ASM_OPERANDS_INPUT_LENGTH(a)==1
@@ -78,18 +79,23 @@ bool chosen_test(rtx_insn *branch) {
     if (!JUMP_P(branch)||GET_CODE(PATTERN(branch))!=SET||SET_DEST(PATTERN(branch))!=pc_rtx) return false;
     rtx choice=SET_SRC(PATTERN(branch));if (GET_CODE(choice)!=IF_THEN_ELSE) return false;
     rtx test=XEXP(choice,0);
+    if (pcm_selection && (GET_CODE(test)==LTU||GET_CODE(test)==GTU)
+        && GET_CODE(XEXP(choice,1))==LABEL_REF && XEXP(choice,2)==pc_rtx) {
+        for (int n=0;n<2;n++) if (!REG_P(XEXP(test,n))||GET_MODE(XEXP(test,n))!=SImode||REGNO(XEXP(test,n))>=8) return false;
+        return true;
+    }
     if (GET_CODE(test)!=NE||XEXP(test,1)!=const0_rtx||GET_CODE(XEXP(test,0))!=AND
         ||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx) return false;
     rtx and_expr=XEXP(test,0);
     for (int n=0;n<2;n++) if (!REG_P(XEXP(and_expr,n))||GET_MODE(XEXP(and_expr,n))!=SImode||REGNO(XEXP(and_expr,n))>=8) return false;
     rtx_insn *fall=next_op(branch);
-    if (unconditional(fall)&&GET_CODE(SET_SRC(PATTERN(fall)))==LABEL_REF) return true;
+    if (!pcm_selection&&unconditional(fall)&&GET_CODE(SET_SRC(PATTERN(fall)))==LABEL_REF) return true;
     // Select the explicit 0x80 mask by default, or the tone 0xc0/0x40
     // masks in tone-selection mode, each retained through an empty self-tie.
     rtx_insn *tie=prev_op(branch),*load=tie?prev_op(tie):nullptr;
     if (!tie||!load||!empty_tie(PATTERN(tie))||GET_CODE(PATTERN(load))!=SET) return false;
     rtx p=PATTERN(load),reg=SET_DEST(p);
-    return CONST_INT_P(SET_SRC(p))&&(tone_selection ? (INTVAL(SET_SRC(p))==192||INTVAL(SET_SRC(p))==64) : INTVAL(SET_SRC(p))==128)
+    return CONST_INT_P(SET_SRC(p))&&(pcm_selection ? INTVAL(SET_SRC(p))==64 : tone_selection ? (INTVAL(SET_SRC(p))==192||INTVAL(SET_SRC(p))==64) : INTVAL(SET_SRC(p))==128)
         &&rtx_equal_p(reg,SET_DEST(PATTERN(tie)))
         &&(rtx_equal_p(reg,XEXP(and_expr,0))||rtx_equal_p(reg,XEXP(and_expr,1)));
 }
@@ -109,14 +115,16 @@ public:
             if (CALL_P(i)||GET_CODE(p)==UNSPEC_VOLATILE||(asm_noperands(p)>=0&&!empty_tie(p)))
                 fatal_error(UNKNOWN_LOCATION,"Thumb layout requires resolved tails, no data and only empty ties");
         }
-        unsigned moved=0,removed=0;
+        unsigned moved=0,removed=0,pcm_mask_moves=0,pcm_compare_moves=0;
         bool again=true;
         while (again) {
             again=false;
             for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
                 if (!chosen_test(i)) continue;
                 rtx_insn *label=as_a<rtx_insn *>(XEXP(XEXP(SET_SRC(PATTERN(i)),1),0));
-                if (tone_selection) {
+                enum rtx_code condition=GET_CODE(XEXP(SET_SRC(PATTERN(i)),0));
+                enum rtx_code inverse=condition==LTU?GEU:condition==GTU?LEU:EQ;
+                if (tone_selection || (pcm_selection && condition==GTU)) {
                     // Swap a closed fallthrough arm with the following arm that
                     // falls into their shared join. Move the existing join jump
                     // to the end of the moved arm; never add/remove an edge.
@@ -128,25 +136,27 @@ public:
                     bool forward=false,plain=true;
                     for (rtx_insn *j=NEXT_INSN(label);j;j=NEXT_INSN(j)) if (j==join) {forward=true;break;}
                     for (rtx_insn *j=NEXT_INSN(i);j&&j!=jump;j=NEXT_INSN(j))
-                        if (LABEL_P(j)||JUMP_P(j)||CALL_P(j)) plain=false;
+                        if (LABEL_P(j)||CALL_P(j)||(JUMP_P(j)&&(!pcm_selection||unconditional(j)))) plain=false;
                     rtx_insn *last=prev_op(join);
                     if (!forward||!plain||!last||JUMP_P(last)||CALL_P(last)) continue;
                     rtx_insn *end=PREV_INSN(join);
                     rtx_code_label *fall=gen_label_rtx();emit_label_after(fall,i);
                     rtx replacement=copy_rtx(PATTERN(i));rtx choice=SET_SRC(replacement);
-                    PUT_CODE(XEXP(choice,0),EQ);XEXP(choice,1)=gen_rtx_LABEL_REF(VOIDmode,fall);
+                    PUT_CODE(XEXP(choice,0),inverse);XEXP(choice,1)=gen_rtx_LABEL_REF(VOIDmode,fall);
                     if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"Thumb tone diamond inversion rejected");
                     LABEL_NUSES(label)--;LABEL_NUSES(fall)++;JUMP_LABEL(i)=fall;REG_NOTES(i)=nullptr;
                     reorder_insns(label,end,i);
                     reorder_insns(jump,barrier,end);
+                    if (pcm_selection) { if (condition==NE) pcm_mask_moves++; else pcm_compare_moves++; }
                     moved++;again=true;break;
                 }
                 rtx_insn *end=closed_end(i,label);if (!end) continue;
                 rtx_code_label *fall=gen_label_rtx();emit_label_after(fall,i);
                 rtx replacement=copy_rtx(PATTERN(i));rtx choice=SET_SRC(replacement);
-                PUT_CODE(XEXP(choice,0),EQ);XEXP(choice,1)=gen_rtx_LABEL_REF(VOIDmode,fall);
+                PUT_CODE(XEXP(choice,0),inverse);XEXP(choice,1)=gen_rtx_LABEL_REF(VOIDmode,fall);
                 if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"Thumb layout inversion rejected");
                 LABEL_NUSES(label)--;LABEL_NUSES(fall)++;JUMP_LABEL(i)=fall;REG_NOTES(i)=nullptr;
+                if (pcm_selection) { if (condition==NE) pcm_mask_moves++; else pcm_compare_moves++; }
                 reorder_insns(label,end,i);moved++;again=true;break;
             }
         }
@@ -166,6 +176,45 @@ public:
                 }
                 delete_insn(i);delete_insn(barrier);removed++;again=true;break;
             }
+        }
+        if (pcm_selection) {
+            unsigned reused=0;
+            for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+                if (!JUMP_P(i)||GET_CODE(PATTERN(i))!=SET||SET_DEST(PATTERN(i))!=pc_rtx) continue;
+                rtx choice=SET_SRC(PATTERN(i));
+                if (GET_CODE(choice)!=IF_THEN_ELSE||GET_CODE(XEXP(choice,1))!=LABEL_REF||XEXP(choice,2)!=pc_rtx) continue;
+                rtx test=XEXP(choice,0);
+                if (GET_CODE(test)!=GTU&&GET_CODE(test)!=LTU) continue;
+                rtx_insn *before=PREV_INSN(i);
+                while (before&&(NOTE_P(before)||DEBUG_INSN_P(before))) before=PREV_INSN(before);
+                if (!before||!LABEL_P(before)) continue;
+                auto *label=as_a<rtx_code_label *>(before);
+                if (LABEL_PRESERVE_P(label)||LABEL_NUSES(label)!=1) continue;
+                // No physical fallthrough or aliased label may supply flags.
+                rtx_insn *prior=prev_op(label);
+                if (!unconditional(prior)||!NEXT_INSN(prior)||!BARRIER_P(NEXT_INSN(prior))) continue;
+                rtx_insn *incoming=nullptr;
+                for (rtx_insn *j=get_insns();j&&j!=label;j=NEXT_INSN(j)) {
+                    if (!JUMP_P(j)||GET_CODE(PATTERN(j))!=SET||SET_DEST(PATTERN(j))!=pc_rtx) continue;
+                    rtx c=SET_SRC(PATTERN(j));
+                    if (GET_CODE(c)==IF_THEN_ELSE&&GET_CODE(XEXP(c,1))==LABEL_REF
+                        &&XEXP(XEXP(c,1),0)==label&&XEXP(c,2)==pc_rtx) incoming=j;
+                }
+                if (!incoming) continue;
+                rtx initial=XEXP(SET_SRC(PATTERN(incoming)),0);
+                if (GET_CODE(initial)!=(GET_CODE(test)==GTU?GEU:LEU)) continue;
+                bool same=true;
+                for (int n=0;n<2;n++) {
+                    rtx reg=XEXP(test,n);
+                    if (!REG_P(reg)||GET_MODE(reg)!=SImode||REGNO(reg)>=8||!rtx_equal_p(reg,XEXP(initial,n))) same=false;
+                }
+                if (!same) continue;
+                rtx replacement=gen_match_thumb_incoming_compare(copy_rtx(XEXP(test,0)),copy_rtx(XEXP(test,1)),
+                    copy_rtx(test),XEXP(XEXP(choice,1),0));
+                if (!validate_change(i,&PATTERN(i),replacement,false)) fatal_error(UNKNOWN_LOCATION,"Thumb incoming compare rejected");
+                REG_NOTES(i)=nullptr;reused++;
+            }
+            if (reused!=2) fatal_error(UNKNOWN_LOCATION,"Thumb PCM layout requires two proven incoming comparisons (found %u)",reused);
         }
         // Canonical private-ABI encodings: low-register TST order, ADD #0
         // copies, and the equivalent strict unsigned immediate bound.
@@ -194,7 +243,7 @@ public:
             }
             if (changed&&!validate_change(i,&PATTERN(i),p,false)) fatal_error(UNKNOWN_LOCATION,"Thumb layout encoding normalization rejected");
         }
-        if (tone_selection ? (moved!=2||removed!=0) : (!moved||!removed)) fatal_error(UNKNOWN_LOCATION,"Thumb layout found no closed-region improvement (moved %u, removed %u)",moved,removed);
+        if (pcm_selection ? (moved!=3||removed!=2||pcm_mask_moves!=1||pcm_compare_moves!=2) : tone_selection ? (moved!=2||removed!=0) : (!moved||!removed)) fatal_error(UNKNOWN_LOCATION,"Thumb layout found no closed-region improvement (moved %u, removed %u)",moved,removed);
         return 0;
     }
 };
@@ -203,8 +252,10 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
         if (!strcmp(info->argv[n].key,"tone-selection")&&!info->argv[n].value&&!tone_selection) tone_selection=true;
+        else if (!strcmp(info->argv[n].key,"pcm-selection")&&!info->argv[n].value&&!pcm_selection) pcm_selection=true;
         else return 1;
     }
+    if (pcm_selection&&tone_selection) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

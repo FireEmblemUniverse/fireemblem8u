@@ -9343,3 +9343,52 @@ Evidence in `.deps/soundmain-packed/ply-note/`: `pcm-setup-production-build.log`
 and the mixer/SoundMain/MPlayMain audit logs. Next: recover the seventy-byte
 PCM selection loop and remaining allocation/setup/frame paths, then runtime
 helpers, unit-list/transfer code and final executable classification.
+
+
+## September 13, 2026 — PCM channel-choice candidate matches
+
+On baseline `68174573`, `research/audio/ply_note_pcm_choose.c` generates the
+exact fifty-eight bytes at 080CFF3E..080CFF78. The initial candidate had correct
+operations but different branch layout. Disabling branch-probability guessing
+and using a constrained closed-region pass restores the original masked-test,
+priority and owner-tie layout. Two redundant target-side comparisons initially
+added four bytes; a new proven-incoming-comparison pattern removes them.
+
+The opt-in PCM layout mode requires one 0x40 masked-test arm move, two unsigned
+comparison-arm moves, and two eliminated jumps to an immediately following
+label. The incoming-flags proof requires a non-preserved label with exactly one
+use, no physical fallthrough or aliased entry, an immediate repeated comparison,
+and a forward incoming GEU/LEU comparison of the same low-register operands.
+Only GTU after GEU and LTU after LEU are supported. Both comparison sites must
+pass. The backend retains the C comparison in RTL with a proof marker and emits
+the conditional branch; no original instruction bytes are embedded in C.
+
+`check_ply_note_pcm_choose.py` passes exact candidate bytes, all 37,369 complete
+selection cases when combined with the original setup/advance bytes, thirteen
+rejected compiler contracts, and unannotated object identity. Rejections cover
+missing private-frame ABI, undeclared destination, signed or changed owner tests,
+changed release mask, high-register operands, intervening operand/flag writes,
+changed repeated-comparison operands, another incoming path, mixed modes,
+duplicate mode and unknown option. The retained 26 harness bytes are not counted
+as candidate C ownership; fourteen already belong to integrated setup C.
+
+The pinned backend rebuild passes. Existing tone-selection checks pass 92,160
+cases and eleven invalid contracts, retaining exact bytes and unannotated
+identity. SoundMain envelope checks pass 196,608 cases with no register or flag
+mismatches and eleven invalid contracts; unannotated output is unchanged.
+These regressions cover both existing layout modes. No fresh full-ROM or runtime
+build is claimed for this candidate milestone. Production remains at 720,976
+C-owned mapped instruction bytes and 284 ply_note assembly bytes. Full selection
+allocation, callback behavior and full-routine execution are outside this model.
+
+Sources: `research/audio/ply_note_pcm_choose.c`, its checker,
+`tools/arm-dispatch/thumb_block_layout.cc`, `matching.md` and `README.md`.
+Evidence in `.deps/soundmain-packed/ply-note/`: `pcm-choose-report.json`,
+`pcm-choose-check.log`, `pcm-choose-candidate.{c,o,elf,bin,ld,log}`,
+`reject-pcm-choose-*.log`, `pcm-choose-with-original-frame.bin`,
+`pcm-candidate-model.json`, `pcm-incoming-backend-build.log`,
+`pcm-incoming-backend-build-info.json`, `pcm-layout-build.log`,
+`pcm-layout-build-info.json`, `pcm-tone-regression.log` and
+`pcm-envelope-regression.log`. Next: integrate with full-ROM, runtime, ownership
+and layout verification, then recover the twelve-byte loop advancement and
+remaining allocation/setup/frame paths.

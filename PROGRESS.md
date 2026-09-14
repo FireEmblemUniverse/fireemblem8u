@@ -7,7 +7,16 @@ Updated: September 13, 2026. Latest integrated milestone (baseline `3b1eca52`): 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: recover the PCM selection loop/allocation and remaining ply_note setup/frame paths (284
+Current candidate work (baseline `68174573`): the 58-byte PCM channel-choice
+body now matches original bytes with constrained branch layout and proven
+incoming-comparison flag reuse. All 37,369 selection cases pass; thirteen
+unsupported compiler contracts reject and unannotated output is unchanged.
+Tone-selection (92,160 cases) and envelope (196,608 cases) regressions pass.
+It is not production-integrated; ownership totals are unchanged.
+
+Next: integrate the verified PCM choice candidate with full ROM, runtime and
+layout checks, then recover the twelve-byte loop advancement and remaining
+allocation/setup/frame paths (284
 production assembly instruction bytes total). The setup is integrated; the
 70-byte selection loop still uses assembly. MPlayMain's
 ownership receipt is `docs/mplay-code-region.json`; it does not assert full-game

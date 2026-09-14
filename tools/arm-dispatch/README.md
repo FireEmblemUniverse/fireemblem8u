@@ -1055,3 +1055,27 @@ The priority checker requires all thirty original bytes, rejects twelve unsuppor
 contracts, checks unchanged unannotated output and runs 147,456 independent cases.
 Those cases include the priority-comparison carry and ordered stack aliases;
 they stop at channel selection, not at allocation or full ply_note return.
+
+PCM channel selection uses the opt-in `matching_thumb_block_layout` attribute
+with `-fplugin-arg-thumb_block_layout-pcm-selection`. This mode requires one
+closed masked-test arm move, two unsigned comparison-arm moves, and removal of
+two jumps to the immediately following label. It accepts a low-register 0x40
+mask and unsigned register comparisons, preserving all control-flow edges.
+The owner-comparison diamond may contain a conditional exit in its other arm.
+It cannot be combined with tone-selection mode.
+
+Two repeated comparisons may use incoming condition flags only when the target
+label has one use, is not preserved, has no fallthrough or aliased entry, and
+immediately precedes the repeated comparison. Its sole incoming edge must be a
+forward unsigned comparison of the same low-register operands: GEU followed by
+GTU, or LEU followed by LTU. The backend `match_thumb_incoming_compare` pattern
+retains the C comparison in RTL, adds a proof marker, and emits only its branch.
+No code executes between the incoming comparison and that target branch. The
+mode rejects a candidate unless both comparisons have this proof. Other modes
+and unannotated functions do not enable this transformation.
+
+`research/audio/check_ply_note_pcm_choose.py --compiler COMPILER` verifies the
+58-byte choice candidate, rejected compiler contracts, unchanged unannotated
+output, and complete PCM-selection model behavior when combined with the
+original setup and advancement bytes. This candidate is not yet integrated
+into the production ROM; its final twelve-byte loop advancement remains assembly.

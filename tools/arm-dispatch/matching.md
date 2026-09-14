@@ -498,3 +498,18 @@
   return "b%d2\t%3";
 }
   [(set_attr "length" "4") (set_attr "type" "branch") (set_attr "conds" "clob")])
+
+;; The closed-layout pass proves that this branch is reached only from a
+;; comparison of the same operands, with no intervening instructions. Retain
+;; the C comparison in RTL and mark the proven incoming condition codes.
+(define_insn "match_thumb_incoming_compare"
+  [(set (pc)
+        (if_then_else
+         (match_operator 2 "comparison_operator"
+          [(match_operand:SI 0 "low_register_operand" "l")
+           (match_operand:SI 1 "low_register_operand" "l")])
+         (label_ref (match_operand 3 "" "")) (pc)))
+   (use (const_int 847))]
+  "TARGET_THUMB1 && (GET_CODE (operands[2]) == GTU || GET_CODE (operands[2]) == LTU)"
+  "b%d2\t%l3"
+  [(set_attr "length" "2") (set_attr "type" "branch") (set_attr "conds" "clob")])
