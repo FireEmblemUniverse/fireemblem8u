@@ -1,0 +1,13 @@
+{
+  "rejected_contracts": [
+    "wrong-store",
+    "extra-store",
+    "extra-load",
+    "wrong-load-destination",
+    "arm",
+    "debug",
+    "unwind"
+  ],
+  "unannotated_unchanged": true,
+  "two_pushes_and_pops": true
+}

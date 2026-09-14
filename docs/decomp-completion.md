@@ -12438,3 +12438,27 @@ the sign reload with pop-r4, and restore the original r4 before returning.
 It must reject any additional stack accesses or live pruned registers and
 verify exact stack-write order. Production runtime assembly remains 268 bytes
 per audited image.
+
+
+### Signed-modulus saved-sign frame match (September 14, 2026)
+
+Baseline `257bb3a9`. The new `matching_saved_sign_frame` pass requires a
+Thumb leaf with exactly the r0/r4/r5 frame, one SP-local store of r0, one
+SP-local load into r4, and the validated epilogue. It rejects other memory,
+calls, live r5/SP/LR use and prefix r4 use. Branches must stay within the
+regions before the sign store, between store and load, or after the load,
+preventing paths from bypassing the changed stack transitions.
+
+It replaces the original frame with push-r4 and push-r0 at the sign store,
+replaces the sign load with pop-r4, and finishes with pop-r4/MOV-PC. All
+6,060 nonzero cases pass mandatory r0-r14/CPSR/stack-write equality. The
+candidate remains 194 bytes, with the original stack-write sequence now
+reproduced. `runtime-smod-frame-research.json` records the verified source
+and plugin. Seven rejection controls cover wrong saved source, extra store,
+extra load, changed load destination, ARM, debug and unwind; unannotated
+compilation is unchanged. These controls are recorded separately.
+
+No production compiler dependency or archive is changed. Next reuse the
+compare-zero sign-branch contract and recover the zero-divisor entry before
+full 206-byte helper tests and integration. Production runtime assembly
+remains 268 bytes per audited image.
