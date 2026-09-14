@@ -11,8 +11,12 @@
     "missing_tie",
     "wrong_register",
     "scratch_contract",
-    "return"
+    "return",
+    "prefix_unknown_call",
+    "prefix_stack",
+    "prefix_lr",
+    "prefix_instruction"
   ],
   "unchanged_control_sha256": "ede52aa6fe7a0e51071385c6213b397ec059623f2f84f99f0b5c74437802f7ce",
-  "plugin_source_sha256": "adba31470606723e928ff70aeec8a1ba31bb40f46b5306aafc3e989773a505b0"
+  "plugin_source_sha256": "f0fd95efc02d751c1f9145b091e31dd897376b1ffb880447b6fd15a4b4d3598b"
 }

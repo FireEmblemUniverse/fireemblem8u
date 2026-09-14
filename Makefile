@@ -121,6 +121,13 @@ src/arm/call_wrappers.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-th
 src/serial_poll.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/serial_poll.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables
 
+SERIAL_RESET_PLUGIN := .deps/serial-reset-backend/arm_lr_transfer.so
+$(SERIAL_RESET_PLUGIN): tools/arm-dispatch/arm_lr_transfer.cc tools/arm-dispatch/build_arm_lr_transfer.py
+	$(PYTHON) tools/arm-dispatch/build_arm_lr_transfer.py --compiler $(PREFIX)gcc$(EXE) --output-dir .deps/serial-reset-backend
+src/serial_reset.o: $(SERIAL_RESET_PLUGIN)
+src/serial_reset.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/serial_reset.o: CC1FLAGS := -std=gnu89 -O2 -fno-cse-follow-jumps -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -fplugin=$(SERIAL_RESET_PLUGIN) -fplugin-arg-arm_lr_transfer-callee=sio_polling
+
 MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
 $(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g

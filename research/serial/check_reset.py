@@ -31,6 +31,7 @@ def main():
  parser=argparse.ArgumentParser()
  parser.add_argument('--source',type=Path,default=ROOT/'research/serial/reset.c')
  parser.add_argument('--check-handoff-registers',action='store_true')
+ parser.add_argument('--handoff-offset',type=int)
  parser.add_argument('--stack-delta',type=int,default=-4)
  parser.add_argument('--cflag',action='append',default=[])
  args=parser.parse_args()
@@ -58,7 +59,7 @@ def main():
      if address==0x08b1a198:
       error,value=trace[state['polls']];state['polls']+=1;u.reg_write(r.UC_ARM_REG_R1,value);flags=u.reg_read(r.UC_ARM_REG_CPSR)&0x3fffffff
       u.reg_write(r.UC_ARM_REG_CPSR,flags|(0 if error else 0x40000000));u.reg_write(r.UC_ARM_REG_PC,u.reg_read(r.UC_ARM_REG_LR));return
-     if address==(0x080ff000 if candidate else 0x08b1a244):state['outcome']='handoff';u.emu_stop();return
+     if address==((0x080f0000+args.handoff_offset if args.handoff_offset is not None else 0x080ff000) if candidate else 0x08b1a244):state['outcome']='handoff';u.emu_stop();return
      state['repeats']=state['repeats']+1 if address==state['last'] else 0;state['last']=address
      if state['repeats']>8:state['outcome']='halt';u.emu_stop()
     def write(u,access,address,size,value,state):

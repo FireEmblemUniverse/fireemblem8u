@@ -8,6 +8,7 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('main_rom','src/serial_reset.c','SerialReset',0x08b1a24c,'000011ef',4,'asm volatile("svc #0x110000"'),
  ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084320,'c046',2,'asm("nop")'),
  ('main_rom','src/eventinfo.c','StartAvailableTileEvent',0x08084324,'c046',2,'asm("nop")'),
  ('main_rom','src/hardware.c','EnterSleepMode',0x08001ce2,'03df',2,'asm("swi 3")'),

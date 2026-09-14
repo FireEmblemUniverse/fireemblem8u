@@ -1,0 +1,20 @@
+{
+  "expected_stack_delta": 0,
+  "handoff_register_check": true,
+  "compiler_flags": [
+    "-fno-cse-follow-jumps",
+    "-DSERIAL_LR_TRANSFER",
+    "-fplugin=.deps/serial-reset/arm_lr_transfer.so",
+    "-fplugin-arg-arm_lr_transfer-callee=sio_polling"
+  ],
+  "source": "research/serial/reset_complete.c",
+  "cases": 272,
+  "outcomes": {
+    "handoff": 208,
+    "halt": 64
+  },
+  "candidate_bytes": 164,
+  "candidate_sha256": "0f0ae89e13193c101a1772e275f7fcce83e56b85817e4a76ea04ce025f9ddc72",
+  "production_integrated": false,
+  "scope": "Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the requested candidate SP delta; LR and halt-state registers are excluded. Candidate does not byte-match."
+}

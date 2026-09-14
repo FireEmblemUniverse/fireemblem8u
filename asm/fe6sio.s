@@ -14,7 +14,7 @@ FE6_RomHeader: @ 0xB1A0BC
     .include "src/data/fe6_rom_header.inc"
 
 FE6SIO_Init: @ 08B1A178
-    b _reset
+    b SerialReset
     .WORD 0
     .WORD 0
     .WORD 0
@@ -23,57 +23,9 @@ FE6SIO_Init: @ 08B1A178
     .WORD 0
     .WORD 0
 
-    @ sio_polling is generated from src/serial_poll.c.
-    .section .data.after_poll
+    @ Polling and reset instructions are generated from the serial C sources.
+    .section .data.after_reset
     .ARM
-
-_reset: @ 0x08B1A1C4
-    ldr r0, .L_REG_SIODATA32
-1:
-    bl sio_polling
-    bne 1b
-    mov r2, #0
-    strh r2, [r0, #0xa]
-    cmp r1, #0
-    bne 1b
-    mov r2, #0x8000
-2:
-    mov r1, #0
-3:
-    strh r1, [r0, #0xa]
-    bl sio_polling
-    bne 1b
-    cmp r1, r2
-    bne 2b
-    lsr r2, r2, #5
-    cmp r1, #0
-    bne 3b
-    ldr r3, .L_0x020000AC
-    ldrh r2, [r3]
-    strh r2, [r0, #0xa]
-    bl sio_polling
-4:
-    bne 4b
-    cmp r1, r2
-    bne 4b
-    ldrh r2, [r3, #2]
-    strh r2, [r0, #0xa]
-    bl sio_polling
-    bne 4b
-    cmp r1, r2
-    bne 4b
-    mov r1, #0
-    strh r1, [r0, #0xa]
-    ldr r0, .L_0x020002B0
-    ldr r1, .L_0x02010000
-    svc #0x110000
-    ldr lr, .L_0x02010000
-    bx lr
-    .align 2, 0
-.L_REG_SIODATA32: .4byte REG_SIODATA32
-.L_0x020000AC: .4byte 0x020000AC
-.L_0x020002B0: .4byte 0x020002B0
-.L_0x02010000: .4byte 0x02010000
 
     .space 0x100
 

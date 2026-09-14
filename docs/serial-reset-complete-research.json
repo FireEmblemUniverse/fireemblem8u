@@ -1,0 +1,9 @@
+{
+  "region_bytes": 164,
+  "instruction_bytes": 148,
+  "c_generated_instruction_bytes": 144,
+  "retained_svc_assembly_bytes": 4,
+  "literal_bytes": 16,
+  "region_sha256": "ec04f2bad87474d3b3d7c2a5d78fe39e6e96287241f152e7093f39d4a95715c8",
+  "production_integrated": false
+}

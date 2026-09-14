@@ -10677,3 +10677,36 @@ ordinary source now has an LR tie, so its unmodified baseline discrepancy
 is r12/SP/LR rather than the earlier r3/SP/LR. Combined handshake/suffix
 layout, shared literal placement and production integration remain open.
 No actual BIOS/decompression validation or full C conversion is claimed.
+
+### Integrated serial reset: 144 instruction bytes converted
+
+`src/serial_reset.c` combines the protocol and BIOS suffix into one function.
+The resulting 164-byte region at 08B1A1C4..08B1A268 matches the ROM exactly:
+148 instruction bytes (144 generated from C and four retained SVC bytes)
+plus sixteen literal bytes. `asm/fe6sio.s` now contains only the two bootstrap
+branches, header/padding and compressed payload. The linker inserts the C
+reset after the existing C poller, preserving every byte and address.
+
+The LR-transfer backend now accepts a bounded prefix with explicitly named
+private callees and local branches. It rejects stack or LR data references,
+instruction assembly in the prefix, unlisted/indirect calls and branches
+that bypass terminal setup. The seven-operation suffix contract remains.
+Sixteen negative cases reject, and the unannotated suffix control is unchanged.
+The full research draft passes 272 protocol cases with exact SP/r0-r12/CPSR
+at pre-BIOS handoff; the suffix's 32 synthetic return cases still match.
+Complete byte equality closes the instruction/literal layout check.
+
+`make compare -j8` and all four fresh runtime rebuilds pass. Existing audio,
+unit-list, ARM wrapper, poller, runtime and data-provenance audits are refreshed.
+`scripts/audit_serial_reset.py` verifies the complete mixed region and its
+separately reviewed four-byte SVC; `audit_inline_regions.py` now reviews
+eighteen main-ROM inline instruction bytes. No actual BIOS emulation or
+physical link timing test is claimed.
+
+Assembly-source instruction bytes fall from 636 to 488. Adding eighteen
+reviewed inline bytes gives 506 main-ROM non-library assembly bytes, down
+from 650; expanded-payload assembly remains 420. Whole-object C ownership
+stays at 739,790/777,630 (95.13%) because the new 148-byte object is classified
+as mixed C/assembly, whose total rises to 15,560. There are now 594 tracked
+main C files. Startup, Thumb entry scaffolding, BIOS instructions, runtime
+helpers and complete executable classification remain unfinished.

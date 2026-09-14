@@ -1114,7 +1114,13 @@ private-frame receipts in `docs/`.
 
 `build_arm_lr_transfer.py` builds the experimental
 `matching_arm_lr_transfer` pass for the serial BIOS suffix. It requires
-a fixed structural contract, ARMv4T interworking, an explicit existing
+a bounded private prefix and fixed terminal contract, ARMv4T interworking, an explicit existing
 SVC and a terminal private transfer through loaded LR. The SVC stays
 assembly-owned; the backend changes only frame/terminal-transfer RTL.
 `research/serial/check_lr_transfer.py` exercises its rejection boundary.
+
+The combined pass is now used by `src/serial_reset.c`. Prefix calls require
+`-fplugin-arg-arm_lr_transfer-callee=NAME`; prefix branches must stay within
+the prefix and may not bypass terminal setup. The retained SVC is explicitly
+reviewed as four assembly bytes. `scripts/audit_serial_reset.py` verifies the
+production region, including all literals, against the original ROM.

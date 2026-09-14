@@ -2694,7 +2694,8 @@ SECTIONS
         . = ALIGN(4); src/bmguide_config.o(.data);
         . = ALIGN(4); asm/fe6sio.o(.data);
         src/serial_poll.o(.text);
-        asm/fe6sio.o(.data.after_poll);
+        src/serial_reset.o(.text);
+        asm/fe6sio.o(.data.after_reset);
         . = ALIGN(4); *libc.a:impure.o(.data);
         . = ALIGN(4); *libc.a:locale.o(.data);
         . = ALIGN(4); *libc.a:mallocr.o(.data);

@@ -92,6 +92,7 @@ bool bios_asm(rtx p) {
     }
     return true;
 }
+std::set<std::string> callees;
 const pass_data data={RTL_PASS,"arm_lr_transfer",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -109,15 +110,61 @@ public:
             fatal_error(UNKNOWN_LOCATION,"ARM LR transfer requires private noreturn ARM void frame");
         std::vector<rtx_insn *> ops;
         for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
-            if (LABEL_P(i) && LABEL_NUSES(i)) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer disallows branch labels");
+
             if (!NONDEBUG_INSN_P(i)) continue;
             rtx p=PATTERN(i);
             if (GET_CODE(p)==UNSPEC_VOLATILE && (XINT(p,1)==VUNSPEC_ALIGN
                 || XINT(p,1)==VUNSPEC_POOL_4 || XINT(p,1)==VUNSPEC_POOL_END)) continue;
             ops.push_back(i);
         }
-        if (ops.size()!=7 || !lr_push(PATTERN(ops[0])) || !bios_asm(PATTERN(ops[3])))
-            fatal_error(UNKNOWN_LOCATION,"ARM LR transfer requires sole save, two inputs, BIOS, LR load/tie and terminal call");
+        if (ops.size()<7 || ops.size()>96 || !lr_push(PATTERN(ops[0])))
+            fatal_error(UNKNOWN_LOCATION,"ARM LR transfer requires bounded body and sole entry save");
+        const unsigned tail=ops.size()-6;
+        std::set<rtx> labels,targets;
+        bool past_save=false;
+        for (rtx_insn *i=get_insns();i && i!=ops[tail];i=NEXT_INSN(i)) {
+            if (i==ops[0]) past_save=true;
+            if (LABEL_P(i) && LABEL_NUSES(i)) {
+                if (!past_save) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer label before save");
+                labels.insert(i);
+            }
+        }
+        for (unsigned n=1;n<tail;n++) {
+            rtx_insn *i=ops[n];rtx p=PATTERN(i);
+            if (mentions(p,SP_REGNUM) || executable_asm(p))
+                fatal_error(UNKNOWN_LOCATION,"ARM LR transfer prefix stack/assembly rejected");
+            if (CALL_P(i)) {
+                if (SIBLING_CALL_P(i) || GET_CODE(p)!=PARALLEL || XVECLEN(p,0)!=3
+                    || CALL_INSN_FUNCTION_USAGE(i)) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer prefix call rejected");
+                rtx c=XVECEXP(p,0,0),u=XVECEXP(p,0,1),k=XVECEXP(p,0,2);
+                if (GET_CODE(c)!=CALL || !MEM_P(XEXP(c,0))
+                    || GET_CODE(XEXP(XEXP(c,0),0))!=SYMBOL_REF || XEXP(c,1)!=const0_rtx
+                    || GET_CODE(u)!=USE || XEXP(u,0)!=const0_rtx
+                    || GET_CODE(k)!=CLOBBER || !reg_is(XEXP(k,0),LR_REGNUM)
+                    || !callees.count(XSTR(XEXP(XEXP(c,0),0),0)))
+                    fatal_error(UNKNOWN_LOCATION,"ARM LR transfer prefix callee contract rejected");
+                continue;
+            }
+            if (mentions(p,LR_REGNUM)) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer prefix LR data rejected");
+            if (JUMP_P(i)) {
+                if (GET_CODE(p)!=SET || SET_DEST(p)!=pc_rtx)
+                    fatal_error(UNKNOWN_LOCATION,"ARM LR transfer prefix jump rejected");
+                rtx target=SET_SRC(p);
+                if (GET_CODE(target)==IF_THEN_ELSE) {
+                    if (XEXP(target,2)!=pc_rtx) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer complex conditional rejected");
+                    target=XEXP(target,1);
+                }
+                if (GET_CODE(target)!=LABEL_REF) fatal_error(UNKNOWN_LOCATION,"ARM LR transfer nonlocal jump rejected");
+                targets.insert(XEXP(target,0));
+            }
+        }
+        for (rtx target:targets) if (!labels.count(target))
+            fatal_error(UNKNOWN_LOCATION,"ARM LR transfer branch bypasses terminal setup");
+        rtx_insn *save=ops[0];
+        std::vector<rtx_insn *> suffix{save};
+        suffix.insert(suffix.end(),ops.begin()+tail,ops.end());ops=suffix;
+        if (!bios_asm(PATTERN(ops[3])))
+            fatal_error(UNKNOWN_LOCATION,"ARM LR transfer requires two inputs, BIOS, LR load/tie and terminal call");
         for (int n:{1,2,4}) {
             rtx p=PATTERN(ops[n]);unsigned reg=n==4?LR_REGNUM:n-1;
             if (GET_CODE(p)!=SET || !reg_is(SET_DEST(p),reg) || !MEM_P(SET_SRC(p))
@@ -150,7 +197,11 @@ public:
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if (!plugin_default_version_check(version,&gcc_version) || info->argc) return 1;
+    if (!plugin_default_version_check(version,&gcc_version)) return 1;
+    for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)!="callee" || !info->argv[n].value || !*info->argv[n].value) return 1;
+        callees.insert(info->argv[n].value);
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

@@ -20,6 +20,16 @@ for name,text,flags in mutations:
  result=subprocess.run(base+plugin+['-DSERIAL_LR_TRANSFER',*flags,str(p),'-o',str(p.with_suffix('.o'))],capture_output=True,text=True)
  assert result.returncode and 'ARM LR transfer' in result.stderr,(name,result.stderr)
  rejected.append(name)
+complete=(ROOT/'research/serial/reset_complete.c').read_text()
+for name,text in [
+ ('prefix_unknown_call',complete.replace('sio_polling','unknown_poll')),
+ ('prefix_stack',complete.replace('    unsigned accepted;', '    volatile unsigned local[4]; local[0]=1;\n    unsigned accepted;')),
+ ('prefix_lr',complete.replace('    unsigned accepted;', '    asm volatile("" : "+r"(serialEntry));\n    unsigned accepted;')),
+ ('prefix_instruction',complete.replace('    unsigned accepted;', '    asm volatile("nop");\n    unsigned accepted;'))]:
+ p=OUT/(name+'.c');p.write_text(text)
+ result=subprocess.run(base+plugin+['-fno-cse-follow-jumps','-DSERIAL_LR_TRANSFER','-fplugin-arg-arm_lr_transfer-callee=sio_polling',str(p),'-o',str(p.with_suffix('.o'))],capture_output=True,text=True)
+ assert result.returncode and 'ARM LR transfer' in result.stderr,(name,result.stderr)
+ rejected.append(name)
 controls=[]
 for name,flags in [('plain',[]),('plugin',plugin)]:
  obj=OUT/('transfer-control-'+name+'.o');binary=obj.with_suffix('.bin')
