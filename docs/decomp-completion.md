@@ -11974,3 +11974,24 @@ This verifies the replacement across all linked image layouts. Default
 Makefile integration, reproducible plugin build dependencies and runtime
 source-ownership accounting still need to adopt the replacement. Installed
 production libraries were not modified and coverage totals are unchanged.
+
+
+### Reproducible runtime C build target (September 14, 2026)
+
+Baseline `66efd340`. The recovered fragments are now tracked under `runtime/`.
+`scripts/build_runtime_udiv.py` rebuilds all five compiler plugins into its
+own output directory, compiles these sources, validates member layout and
+writes source/compiler/plugin fingerprints. It does not consume the research
+plugin cache. `make runtime-c-archive` declares the compiler, C sources,
+builder and plugin source/build scripts as dependencies. It creates a derived
+libgcc archive by replacing only _udivsi3.o, with an atomic final rename.
+The installed archive remains the input baseline.
+
+The target builds successfully and a subsequent `make -q runtime-c-archive`
+returns zero. A new isolated runtime rebuild using this member reproduces
+all four image binaries and all exported symbol addresses/sizes exactly;
+`docs/runtime-c-build-verification.json` records this independent result.
+Default linker paths still select the original installed archives. Next wire
+the derived archive into the main and payload link prerequisites, rebuild,
+and update the fresh-rebuild and runtime-source audits to classify this C
+member. Current production ownership totals remain unchanged.

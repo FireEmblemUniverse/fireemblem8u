@@ -1393,3 +1393,19 @@ src/m4a_multiply_entry.o: $(THUMB_PC_HANDOFF_PLUGIN)
 src/m4a_multiply_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_multiply_entry.o: C_END_ALIGN := 1
 src/m4a_multiply_entry.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_PC_HANDOFF_PLUGIN) -fplugin-arg-thumb_pc_handoff-symbol=multiply_high_arm -fplugin-arg-thumb_pc_handoff-site=0 -fplugin-arg-thumb_pc_handoff-offset=0 -fplugin-arg-thumb_pc_handoff-r2-entry
+
+
+# Recovered runtime member, built independently of research output caches.
+RUNTIME_C_DIR := .deps/runtime-c
+RUNTIME_C_PASSES := udiv_entry copy_add_zero leaf_frame leaf_r4_frame divzero_return
+RUNTIME_C_INPUTS := $(wildcard runtime/*.c) scripts/build_runtime_udiv.py $(foreach p,$(RUNTIME_C_PASSES),tools/arm-dispatch/$(p).cc tools/arm-dispatch/build_$(p).py)
+$(RUNTIME_C_DIR)/_udivsi3.o: $(ARM_DISPATCH_CC) $(RUNTIME_C_INPUTS)
+	$(PYTHON) scripts/build_runtime_udiv.py --output-dir $(RUNTIME_C_DIR)
+
+$(RUNTIME_C_DIR)/libgcc.a: $(RUNTIME_C_DIR)/_udivsi3.o tools/agbcc/lib/libgcc.a
+	cp tools/agbcc/lib/libgcc.a $@.tmp
+	arm-none-eabi-ar r $@.tmp $(RUNTIME_C_DIR)/_udivsi3.o
+	mv $@.tmp $@
+
+.PHONY: runtime-c-archive
+runtime-c-archive: $(RUNTIME_C_DIR)/libgcc.a
