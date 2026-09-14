@@ -1,0 +1,13 @@
+{
+  "cases": 272,
+  "outcomes": {
+    "handoff": 208,
+    "halt": 64
+  },
+  "candidate_bytes": 164,
+  "candidate_sha256": "af7b5d2c94a6eccbcbf331cd5e5d193b36a4a67ec59def869ffe83f75a33c08a",
+  "production_integrated": false,
+  "scope": "Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; stack, final register/flag equality, decompression and physical link timing are not validated. Candidate does not byte-match.",
+  "source_sha256": "dd3a50e043ab9d27d47c3db5827c59e5b71d0a110ab6dd2c216fe56e8a38f1c1",
+  "baseline_commit": "71292f54"
+}

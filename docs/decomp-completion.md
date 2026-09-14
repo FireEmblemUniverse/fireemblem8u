@@ -10512,3 +10512,28 @@ fall from 680 to 636; together with 14 inline bytes, reviewed non-library
 main-ROM assembly is 650 bytes. There are 593 tracked main C files. The
 remaining reset/transfer logic, startup, Thumb scaffolding, runtime helpers
 and executable-classification work stay in scope.
+
+### Serial-reset handshake draft and protocol model
+
+`research/serial/reset.c` expresses the remaining bootstrap handshake in C
+using an ARM condition-code output after each call to the private poller.
+GCC emits the required conditional branches, but the 164-byte isolated
+draft still adds an LR stack save, materializes some predicates and changes
+register/instruction selection. Its final BIOS/decompression transfer is a
+placeholder external handoff. It is not integrated or claimed byte-exact.
+
+`research/serial/check_reset.py` compares the original and draft against an
+independent protocol model for 272 traces over sixteen header pairs: normal
+handshakes, initial nonzero replies, link errors at each handshake stage,
+challenge mismatches and both header failure paths. All cases agree on
+poll consumption, ordered halfword sends, and handoff versus permanent halt
+(208 handoffs and 64 halts). Incoming flags cycle across the cases.
+
+The original exposed an incorrect initial model assumption: a challenge
+mismatch clears the outgoing value but preserves the current expected
+challenge; it does not restore 0x8000. The corrected model and C draft agree
+with the original. Link errors return to the initial handshake; header
+errors or mismatches enter a permanent halt. Poll results are synthetic and
+the harness stops before the BIOS transfer. Stack/final-register equivalence,
+physical timing and decompression are outside this model. Evidence is in
+`docs/serial-reset-research.json`; production remains unchanged.
