@@ -27,9 +27,9 @@ for r in range(15):
         row.update(candidate_hex=actual.hex(),reference_entry_hex=reference[r*4:r*4+4].hex(),transfer_exact=actual==reference[r*4:r*4+2])
         assert row['transfer_exact']
     else:
-        assert r==13 and 'register veneer requires' in result.stderr
+        raise AssertionError(result.stderr)
     rows.append(row)
-assert sum(row.get('transfer_exact',False) for row in rows)==14
+assert sum(row.get('transfer_exact',False) for row in rows)==15
 controls=[]
 base='register void (*destination)(void) __asm__("r8");\n'
 for name,body,extra in [
@@ -48,6 +48,15 @@ for name,body,extra in [
     result=subprocess.run(args,text=True,capture_output=True)
     assert result.returncode and 'register veneer requires' in result.stderr,(name,result.stderr)
     controls.append(dict(name=name,rejected=True,diagnostics=result.stderr))
-report=dict(negative_controls=controls,scope='Research only: transfer instruction comparison; SP backend support, padding, execution model and archive integration remain unverified.',reference_sha256=hashlib.sha256(reference).hexdigest(),plugin_source_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/tail_transfer.cc').read_bytes()).hexdigest(),results=rows)
+plain=out/'plain.c';plain.write_text(base+'void veneer(void) { destination(); }\n')
+assemblies=[]
+for with_plugin in (False,True):
+    asm=out/('plain-plugin.s' if with_plugin else 'plain.s')
+    args=[x for x in command[:-3] if with_plugin or not x.startswith('-fplugin=')]
+    result=subprocess.run(args+[str(plain),'-o',str(asm)],text=True,capture_output=True)
+    assert result.returncode==0,result.stderr
+    assemblies.append(asm.read_text())
+assert assemblies[0]==assemblies[1]
+report=dict(unannotated_unchanged=True,negative_controls=controls,scope='Research only: transfer instruction comparison; padding, execution model and archive integration remain unverified.',reference_sha256=hashlib.sha256(reference).hexdigest(),plugin_source_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/register_veneer.cc').read_bytes()).hexdigest(),results=rows)
 (ROOT/'docs/runtime-register-veneer-probe.json').write_text(json.dumps(report,indent=2)+'\n')
-print('14/15 register transfers exact; SP explicitly rejected; no production replacement')
+print('15/15 register transfers exact; no production replacement')

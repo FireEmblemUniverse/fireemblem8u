@@ -1,0 +1,87 @@
+{
+  "reference_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73",
+  "probe_receipt_sha256": "8961226d7b0c85c5b5d13490402a389cd417d8f509df2918ccd7cd04f6110415",
+  "cases": 3840,
+  "registers": [
+    {
+      "register": 0,
+      "cases": 256,
+      "transfer_sha256": "81904e68a8b9a2427e9e87e2c61b1098057608d18357d70d9281e8513941cf53"
+    },
+    {
+      "register": 1,
+      "cases": 256,
+      "transfer_sha256": "bac8ca6ee9f77b46c7ab5824c7c59d99fd0ca53ae998ea2872b78bb6a5189cc5"
+    },
+    {
+      "register": 2,
+      "cases": 256,
+      "transfer_sha256": "dd9261f0471768edc33bf979649f6297463be423da17c3f881684f5747e163a1"
+    },
+    {
+      "register": 3,
+      "cases": 256,
+      "transfer_sha256": "477db9ac7ca5efc12e37f882656b8fe5a363ffeb99b2e565a953d10c3c91ab21"
+    },
+    {
+      "register": 4,
+      "cases": 256,
+      "transfer_sha256": "da39319503780ab8cc23284c29e5bfe806a13f6ac32949fddf3ffa401e17c849"
+    },
+    {
+      "register": 5,
+      "cases": 256,
+      "transfer_sha256": "d2303cc637145389f9626b15bf95396724b01e62d09d3cf3f08b3e9c2e91207f"
+    },
+    {
+      "register": 6,
+      "cases": 256,
+      "transfer_sha256": "8726ef5c42206476b80835e7e75d7377ac67a1d964a577f875d20c9dcc98dd97"
+    },
+    {
+      "register": 7,
+      "cases": 256,
+      "transfer_sha256": "55112ca377cb9d32aedcf68674a5cd6e8512783956b7198b276fc762a02ad442"
+    },
+    {
+      "register": 8,
+      "cases": 256,
+      "transfer_sha256": "6da375573b01f5e516b65d63236ed5c3c2b441b4e5ec838f9bbf4ee22397ab29"
+    },
+    {
+      "register": 9,
+      "cases": 256,
+      "transfer_sha256": "68e29784d1a114fda63d38f9458caa7a591f5186766ac67440b6a736182222ee"
+    },
+    {
+      "register": 10,
+      "cases": 256,
+      "transfer_sha256": "91f026c996feb33556b5d418d17e015945f305c96666b62e5c6284cc1df22a09"
+    },
+    {
+      "register": 11,
+      "cases": 256,
+      "transfer_sha256": "1cdc2677cb4f774d0ed3941701e31765cb71fe533b6f323a46c8e3f0bcd7b301"
+    },
+    {
+      "register": 12,
+      "cases": 256,
+      "transfer_sha256": "ade1a7fc692f765e6196381476a1c5f3f77c42947cac0cc917ca19c519c0dc0d"
+    },
+    {
+      "register": 13,
+      "cases": 256,
+      "transfer_sha256": "c26093378d04fd5a331b2cb270c930da0ddba635bffdb8fe289ea31f19657e37"
+    },
+    {
+      "register": 14,
+      "cases": 256,
+      "transfer_sha256": "c7dfbb7d02759eacb64dbc916c1bb6f21eabaff1c1032ea5c9176abf7fd28df8"
+    }
+  ],
+  "all_r0_r14_preserved": true,
+  "no_memory_writes": true,
+  "nzcv_preserved": true,
+  "arm_and_thumb_destinations": true,
+  "scope": "One-instruction terminal handoff, including SP/LR destinations. Stops before destination executes. Padding and archive integration are separate checks."
+}

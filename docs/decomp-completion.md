@@ -12644,3 +12644,35 @@ rejects that case explicitly before producing invalid RTL. The receipt is
 No production dependencies or archive members changed. Full four-byte symbol
 padding, SP support, interworking state-model verification and fresh image
 integration remain required. Runtime assembly remains 60 bytes.
+
+
+### Complete runtime veneer research replacement (September 14, 2026)
+
+Baseline `b764b510`. The backend now has an SP-specific BX pattern; its
+operand uses the STACK_REG constraint and the existing general-register return
+pattern explicitly excludes SP. The checked pass recognizes the compiler's
+SP-to-r3 call temporary and removes it together with the validated compiler
+frame. This contract denotes an incoming-register terminal transfer: incoming
+SP is the destination, not the stack value after a normal C call prologue.
+
+All fifteen transfers match the original member. Seven negative contracts
+reject, and unannotated assembly is unchanged. The model runs 3,840 cases
+(15 registers × 2 target modes × 16 NZCV combinations × 8 seeds), comparing
+both original and generated instructions with an independent expected-state
+check. Every r0–r14 value survives, NZCV survives, PC reaches the selected
+destination, T follows its low bit, and no memory writes occur. The model
+stops before destination execution; it makes no claim about arbitrary callees.
+
+`register_veneer.c` supplies the parameterized source. The member builder uses
+assembler code alignment before each size directive to retain the original
+unreachable NOP and four-byte symbol size. All sixty text bytes and fifteen
+addresses/sizes match. The optional `--veneer-member` fresh-runtime verifier
+path reproduces all four image binaries and exported symbols exactly. Receipts:
+`runtime-register-veneer-probe.json`, `runtime-register-veneer-model.json`,
+`runtime-veneer-member.json`, and `runtime-veneer-four-images.json`.
+
+`make compare -j8` also passes after rebuilding the compiler. The production
+main ELF hash remains the current runtime receipt's value. Default runtime
+archive integration is still pending, so production assembly inventory stays
+at 60 bytes; syscall inline assembly, expanded payload assembly and complete
+executable/data classification remain unfinished.

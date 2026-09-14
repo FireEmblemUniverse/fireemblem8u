@@ -119,7 +119,7 @@
 (define_insn "match_thumb_private_return"
   [(return)
    (use (match_operand:SI 0 "register_operand" "r"))]
-  "TARGET_THUMB1"
+  "TARGET_THUMB1 && REGNO (operands[0]) != SP_REGNUM"
   "bx\t%0"
   [(set_attr "length" "2") (set_attr "type" "branch")])
 
@@ -599,3 +599,11 @@
   "TARGET_THUMB1"
   "bpl\t%l0"
   [(set_attr "length" "2") (set_attr "type" "branch") (set_attr "conds" "use")])
+
+;; Incoming SP handoff for the checked no-frame runtime veneer contract.
+(define_insn "match_thumb_sp_handoff"
+  [(return)
+   (use (match_operand:SI 0 "register_operand" "k"))]
+  "TARGET_THUMB1 && REGNO (operands[0]) == SP_REGNUM"
+  "bx\t%0"
+  [(set_attr "length" "2") (set_attr "type" "branch")])

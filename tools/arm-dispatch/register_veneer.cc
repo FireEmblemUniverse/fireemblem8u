@@ -55,11 +55,10 @@ unsigned int execute(function*fn)override{
  if(ci==2&&copy(PATTERN(ops[1]),3,13)&&target==3){target=13;if(!push(PATTERN(ops[0]),false))fail();}
  else if(target>=8&&target<=11){if(ci!=2||!copy(PATTERN(ops[0]),3,target)||!push(PATTERN(ops[1]),true))fail();}
  else if(ci!=1||!push(PATTERN(ops[0]),false))fail();
- // The existing BX pattern excludes SP; reject before emitting invalid RTL.
- if(target==13||!global_regs[target])fail();
+ if(!global_regs[target])fail();
  p=PATTERN(ops[ci+1]);if(GET_CODE(p)!=UNSPEC||XINT(p,1)!=UNSPEC_REGISTER_USE||XVECLEN(p,0)!=1||!reg(XVECEXP(p,0,0),13))fail();
  p=PATTERN(ops[ci+2]);if(!JUMP_P(ops[ci+2])||GET_CODE(p)!=UNSPEC_VOLATILE||XINT(p,1)!=VUNSPEC_EPILOGUE||XVECLEN(p,0)!=1||GET_CODE(XVECEXP(p,0,0))!=RETURN)fail();
- auto*j=emit_jump_insn_before(gen_match_thumb_private_return(gen_rtx_REG(SImode,target)),ops[0]);if(recog_memoized(j)<0)fail();
+ auto*j=emit_jump_insn_before((target==13?gen_match_thumb_sp_handoff(gen_rtx_REG(SImode,target)):gen_match_thumb_private_return(gen_rtx_REG(SImode,target))),ops[0]);if(recog_memoized(j)<0)fail();
  for(auto*i:ops)delete_insn(i);return 0;
 }
 };

@@ -8,6 +8,8 @@ Research update (baseline `98dc363c`): C fixed-register calls through r0–r7 ge
 
 Latest veneer research (baseline `e6ebf49d`): a dedicated checked register-call pass produces exact transfer instructions for 14/15 veneers, including r8–r12 and LR. Seven invalid contracts reject. SP now rejects explicitly because the existing backend BX pattern excludes it; backend support, full symbol padding, execution verification and integration remain open. Production coverage is unchanged.
 
+Verified veneer replacement (baseline `b764b510`): all 15 C-generated register transfers now match, including SP. The new checked SP backend pattern passes 3,840 ARM/Thumb handoff cases with all incoming registers/NZCV preserved and no writes; seven invalid contracts reject and unannotated compilation is unchanged. The packaged member matches all 60 bytes and fifteen four-byte symbols. A fresh runtime archive using that member reproduces all four images and exported symbols exactly. Default-build integration is next; production runtime assembly remains 60 bytes until integrated. `make compare` passes and the production ELF identity is unchanged.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

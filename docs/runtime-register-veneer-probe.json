@@ -1,4 +1,5 @@
 {
+  "unannotated_unchanged": true,
   "negative_controls": [
     {
       "name": "argument",
@@ -36,9 +37,9 @@
       "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
     }
   ],
-  "scope": "Research only: transfer instruction comparison; SP backend support, padding, execution model and archive integration remain unverified.",
+  "scope": "Research only: transfer instruction comparison; padding, execution model and archive integration remain unverified.",
   "reference_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73",
-  "plugin_source_sha256": "70d64abbfaafae2dca086c7d53638fc155cfdcc7cb944ce7e34babff10713658",
+  "plugin_source_sha256": "63371133e087d62a033e3ce5fc23ad7da4781d32e43d722f49a8b5ea88873d56",
   "results": [
     {
       "register": 0,
@@ -146,8 +147,11 @@
     },
     {
       "register": 13,
-      "exit": 1,
-      "diagnostics": "In function 'veneer':\ncc1: fatal error: register veneer requires a single no-argument fixed-register call and its compiler frame\ncompilation terminated.\n"
+      "exit": 0,
+      "diagnostics": "",
+      "candidate_hex": "6847",
+      "reference_entry_hex": "6847c046",
+      "transfer_exact": true
     },
     {
       "register": 14,
