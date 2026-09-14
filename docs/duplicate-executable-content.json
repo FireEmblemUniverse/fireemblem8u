@@ -1,0 +1,49 @@
+{
+  "scope": "Physical copied-code content, distinct from reachability and unique-source coverage. Main ELF labels the generated copy as data; these overlay records explicitly account for matching instructions and the compressed source payload. Expanded instructions are not added to physical ROM byte totals.",
+  "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+  "copied_native_instruction_bytes": 200,
+  "native_regions": [
+    {
+      "source": "0x8b1a0b8",
+      "duplicate": "0x8b247f4",
+      "bytes": 4,
+      "kind": "arm",
+      "source_object": "src/serial_boot.o"
+    },
+    {
+      "source": "0x8b1a178",
+      "duplicate": "0x8b248b4",
+      "bytes": 4,
+      "kind": "arm",
+      "source_object": "src/serial_boot.o"
+    },
+    {
+      "source": "0x8b1a198",
+      "duplicate": "0x8b248d4",
+      "bytes": 44,
+      "kind": "arm",
+      "source_object": "src/serial_poll.o"
+    },
+    {
+      "source": "0x8b1a1c4",
+      "duplicate": "0x8b24900",
+      "bytes": 148,
+      "kind": "arm",
+      "source_object": "src/serial_reset.o"
+    }
+  ],
+  "compressed_payload": {
+    "source": "0x8b1a368",
+    "duplicate": "0x8b24aa4",
+    "bytes": 21452,
+    "consumed_bytes": 21451,
+    "expanded_bytes": 34956,
+    "expanded_sha256": "d3011f8a257e8000bb32612717f84e2389f5eb1897b70f27535910be22cf81d5",
+    "source_image": "mgfembp/mgfembp.bin",
+    "expanded_mapping_bytes": {
+      "arm": 1108,
+      "data": 9235,
+      "thumb": 24606
+    }
+  }
+}
