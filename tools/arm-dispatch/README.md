@@ -1157,3 +1157,24 @@ Production `src/bios_u16_return.c` uses the same contract. Makefile builds
 controls against this source/plugin, pass `--source src/bios_u16_return.c
 --plugin .deps/flood-core-new-backend/bios_u16_return.so` to
 `research/bios/check_u16_return.py`.
+
+
+### Private Thumb-to-ARM entry handoffs (research)
+
+`thumb_arm_entry.cc` lowers an explicit
+`matching_thumb_arm_entry("destination")` terminal call with an LR-only
+frame into `match_thumb_arm_handoff`. This generates BX PC and NOP, preserving
+the caller's LR and entering ARM at the following word. The destination must
+be word-aligned and exactly four bytes after the entry. Link-time assertions
+are mandatory; the instruction has no displacement relocation to enforce them.
+The private noreturn declaration describes abandonment of the entry frame,
+with the ARM body returning directly to the original caller.
+
+```sh
+python3 tools/arm-dispatch/build_backend.py
+python3 tools/arm-dispatch/build_thumb_arm_entry.py --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir .deps/arm-veneers
+.deps/arm-oracle-venv/bin/python research/arm/check_thumb_arm_entry.py
+```
+
+The checker covers exact bytes, unsupported contracts, displaced/misaligned
+layouts and direct handoffs; it stops before the ARM routines execute.

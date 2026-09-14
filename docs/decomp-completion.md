@@ -11557,3 +11557,44 @@ No production files changed. The remaining main assembly-source instructions
 are still the 24 bytes of six Thumb entries, and reviewed main non-library
 assembly remains 116 bytes. A controlled layout/compiler interworking approach
 is still needed; the direct ordinary-linker recipe has been ruled out.
+
+
+### Matching Thumb-to-ARM entry candidates
+
+`research/arm/thumb_arm_entry.c` expresses six private terminal handoffs to
+the existing C ARM bodies. The private declarations are noreturn relative
+to the entry frame: the ARM routines eventually return directly through the
+original caller's LR. `matching_thumb_arm_entry("destination")` makes this
+nonstandard entry convention explicit.
+
+The new `thumb_arm_entry.cc` pass accepts only Thumb-1 code with exactly an
+LR-only save and one declared noreturn call. It validates the destination,
+call operands, LR clobber and register-only r0-r3 arguments, and rejects
+labels, extra operations, unwind/exceptions and debug output. It removes
+the unneeded frame/call and emits the new `match_thumb_arm_handoff` backend
+operation, representing transfer to the declared symbol. The operation emits
+BX PC plus the original NOP halfword. Correctness additionally requires link
+assertions enforcing word alignment and body == entry + 4; the backend
+operation alone cannot establish layout.
+
+`research/arm/check_thumb_arm_entry.py` compiles all six candidates using
+the production compile-then-assemble workflow and links them to the existing
+C ARM branches. All 48 bytes match the original region. Seven unsupported
+contracts reject, as do displaced and forcibly misaligned layouts. Input
+section alignment otherwise repairs an output-section misalignment, so the
+negative alignment probe uses SUBALIGN(2) to actually violate the contract.
+Unannotated code remains byte-identical with and without the plugin.
+
+The model passes 768 handoffs (six entries, sixteen NZCV combinations, four
+register seeds and two LR mode bits). It verifies the exact trace skips the
+NOP, switches to ARM, reaches the original target, preserves all r0-r14 and
+flags, and performs no memory writes. It stops before executing the target
+routines and makes no new whole-game execution claim. Evidence is in
+`docs/thumb-arm-entry-research.json`.
+
+The matching compiler rebuilt successfully with the new operation. Running
+`make compare -j8` with that compiler reproduced the original full ROM and
+left the production ELF unchanged. The candidates are not integrated yet;
+reviewed main non-library assembly remains 116 bytes, including 24 bytes in
+six assembly-source Thumb entries. Integration must retain the link assertions
+and refresh ownership/runtime evidence.

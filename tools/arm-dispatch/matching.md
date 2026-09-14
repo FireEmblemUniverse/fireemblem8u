@@ -559,3 +559,13 @@
   "TARGET_ARM && arm_arch4t && !arm_arch5t && REGNO (operands[0]) != LR_REGNUM && REGNO (operands[0]) != PC_REGNUM"
   "add%?\t%|lr, %|pc, #0\;bx%?\t%0"
   [(set_attr "length" "8") (set_attr "type" "call")])
+
+;; A Thumb entry transfers into the adjacent ARM word without changing LR.
+;; The caller must prove word alignment and target == entry + 4 at link time.
+(define_c_enum "unspec" [UNSPEC_MATCH_THUMB_ARM_HANDOFF])
+(define_insn "match_thumb_arm_handoff"
+  [(set (pc) (unspec:SI [(match_operand:SI 0 "" "X")]
+                        UNSPEC_MATCH_THUMB_ARM_HANDOFF))]
+  "TARGET_THUMB1 && GET_CODE (operands[0]) == SYMBOL_REF"
+  "bx\tpc\n\tnop"
+  [(set_attr "type" "branch") (set_attr "length" "4")])
