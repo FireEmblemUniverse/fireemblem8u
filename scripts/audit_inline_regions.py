@@ -8,6 +8,8 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('main_rom', 'src/bios_u16_return.c', 'ArcTan2', 0x080D166C, '0adf', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_u16_return.c', 'Sqrt', 0x080D16D8, '08df', 2, 'asm volatile('),
  ('main_rom', 'src/bios_divrem.c', 'DivRem', 0x080D1684, '06df', 2, 'asm volatile('),
  ('main_rom', 'src/bios_wrappers.c', 'BgAffineSet', 135075440, '0edf', 2, 'asm volatile('),
  ('main_rom', 'src/bios_wrappers.c', 'CpuFastSet', 135075444, '0cdf', 2, 'asm volatile('),

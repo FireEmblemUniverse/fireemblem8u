@@ -321,6 +321,13 @@ src/m4a_reverb.o: $(ARM_BYTE_POSTINCREMENT_PLUGIN) $(ARM_SUBTRACT_COMPARE_PLUGIN
 src/m4a_reverb.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_reverb.o: CC1FLAGS := -std=gnu89 -O1 -foptimize-sibling-calls -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(ARM_BYTE_POSTINCREMENT_PLUGIN) -fplugin=$(ARM_SUBTRACT_COMPARE_PLUGIN) -fplugin=$(ARM_PC_ADDRESS_PLUGIN) -fplugin-arg-pc_address-symbol=SoundMainRAM_ChanSetup -fplugin-arg-pc_address-offset=47
 
+BIOS_U16_RETURN_PLUGIN := $(ARM_DISPATCH_DIR)/bios_u16_return.so
+$(BIOS_U16_RETURN_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/bios_u16_return.cc tools/arm-dispatch/build_bios_u16_return.py
+	$(PYTHON) tools/arm-dispatch/build_bios_u16_return.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/bios_u16_return.o: $(BIOS_U16_RETURN_PLUGIN)
+src/bios_u16_return.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/bios_u16_return.o: CC1FLAGS := -std=gnu89 -O2 -falign-functions=2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -Werror=attributes -fplugin=$(BIOS_U16_RETURN_PLUGIN)
+
 src/bios_divrem.o: $(ARM_COPY_ADD_ZERO_PLUGIN)
 src/bios_divrem.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/bios_divrem.o: CC1FLAGS := -std=gnu89 -O2 -falign-functions=2 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -ffunction-sections -Werror=attributes -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)

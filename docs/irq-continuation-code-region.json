@@ -8,6 +8,6 @@
   "full_rom_exact": true,
   "source_sha256": "8d7f4946dbe430fb0400a6689f0a40f217a621f5e1c0d5ec2f7f796f730958ce",
   "region_sha256": "55211d1f64cb6d52103f1e8b227aafd99330bdc3c9e021447a9a8a91434dd2bc",
-  "elf_sha256": "06efd81b42ffe87fad647a192a2e8d5a88762b833d3a64db4853df5d450fc09f",
+  "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
   "scope": "Exact integrated continuation and shared literal placement; five status instructions remain assembly-owned. Whole-object ownership remains mixed. Dispatcher execution is documented separately; no hardware execution claim."
 }

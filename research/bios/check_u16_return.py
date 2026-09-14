@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check the narrowly scoped BIOS return compiler contract and opt-in behavior."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -9,8 +10,12 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / '.deps/bios-wrappers/u16-controls'
 OUT.mkdir(parents=True, exist_ok=True)
 CC = ROOT / '.deps/gcc16-matching/install/bin/arm-none-eabi-gcc'
-PLUGIN = ROOT / '.deps/bios-wrappers/bios_u16_return.so'
-source = (ROOT / 'research/bios/u16_return.c').read_text()
+parser = argparse.ArgumentParser()
+parser.add_argument('--source', type=Path, default=ROOT / 'research/bios/u16_return.c')
+parser.add_argument('--plugin', type=Path, default=ROOT / '.deps/bios-wrappers/bios_u16_return.so')
+args = parser.parse_args()
+PLUGIN = args.plugin.resolve()
+source = args.source.read_text()
 attribute = '__attribute__((matching_bios_u16_return))\n'
 
 def compile_case(name, text, mode='-mthumb', plugin=True):

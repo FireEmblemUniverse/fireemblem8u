@@ -2042,7 +2042,7 @@ SECTIONS
         src/m4a_reset_setters.o(.text.ply_mod);
         src/m4a_1.o(.text.after_ply_mod);
         src/m4a.o(.text);
-        src/libagbsyscall.o(.text.ArcTan2);
+        src/bios_u16_return.o(.text.ArcTan2);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.BgAffineSet);
         . = ALIGN(4);
@@ -2075,7 +2075,8 @@ SECTIONS
         src/bios_wrappers.o(.text.SoundBiasReset);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.SoundBiasSet);
-        src/libagbsyscall.o(.text.Sqrt);
+        . = ALIGN(4);
+        src/bios_u16_return.o(.text.Sqrt);
         . = ALIGN(4);
         src/bios_wrappers.o(.text.VBlankIntrWait);
         . = ALIGN(4);

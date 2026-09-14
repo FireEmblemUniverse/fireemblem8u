@@ -1158,8 +1158,8 @@
       "sha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546"
     }
   ],
-  "elf_sha256": "06efd81b42ffe87fad647a192a2e8d5a88762b833d3a64db4853df5d450fc09f",
-  "map_sha256": "9112bbbc63d9b25bb2c3d4aea2760fad1e31ea18daef2e73e736bdbda320f05a",
+  "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
+  "map_sha256": "83d67bd63f07ef8afb2ca5753c6abe7f3c85ead009fe184ba58fea84080afd8d",
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "elf_rom_load_end": "0x8ffff00",
   "objcopy_policy": "--pad-to 0x9000000 --gap-fill=0xff",

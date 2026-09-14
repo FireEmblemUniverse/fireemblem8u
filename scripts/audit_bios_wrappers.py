@@ -28,6 +28,19 @@ assert 'src/bios_divrem.o(.text.DivRem);' in (ROOT/'ldscript.txt').read_text()
 site=next(s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_divrem.c')
 assert site['instruction_bytes']==2 and int(site['address'],16)==start
 regions.append(dict(name='DivRem',start=hex(start),instruction_bytes=6,retained_swi_bytes=2))
-remaining=next(x for x in own['objects'] if x['object']=='src/libagbsyscall.o');assert remaining['instruction_bytes']==22
-report=dict(wrappers=regions,total_instruction_bytes=78,c_generated_instruction_bytes=44,retained_swi_bytes=34,remaining_assembly_wrapper_bytes=22,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),divrem_source_sha256=hashlib.sha256((ROOT/'src/bios_divrem.c').read_bytes()).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly.')
+u16obj=next(x for x in own['objects'] if x['object']=='src/bios_u16_return.o')
+assert u16obj['category']=='c_with_assembly' and u16obj['instruction_bytes']==8
+u16sites=[s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_u16_return.c']
+assert len(u16sites)==2
+for name,address,svc in [('ArcTan2',0x080d166c,10),('Sqrt',0x080d16d8,8)]:
+ assert symbols[name]==address and rom[address-0x08000000:address-0x08000000+4]==bytes([svc,0xdf,0x70,0x47])
+ assert f'src/bios_u16_return.o(.text.{name});' in (ROOT/'ldscript.txt').read_text()
+ found=[r for r in linked['regions'] if r['start']<address+4 and r['end']>address]
+ assert sum(min(address+4,r['end'])-max(address,r['start']) for r in found)==4
+ assert all(r['kind']=='thumb' and r['object']=='src/bios_u16_return.o' for r in found)
+ site=next(s for s in u16sites if s['function']==name)
+ assert site['instruction_bytes']==2 and int(site['address'],16)==address
+ regions.append(dict(name=name,start=hex(address),instruction_bytes=4,retained_swi_bytes=2))
+remaining=next(x for x in own['objects'] if x['object']=='src/libagbsyscall.o');assert remaining['instruction_bytes']==14
+report=dict(wrappers=regions,total_instruction_bytes=86,c_generated_instruction_bytes=48,retained_swi_bytes=38,remaining_assembly_wrapper_bytes=14,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),divrem_source_sha256=hashlib.sha256((ROOT/'src/bios_divrem.c').read_bytes()).hexdigest(),u16_source_sha256=hashlib.sha256((ROOT/'src/bios_u16_return.c').read_bytes()).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly.')
 (ROOT/'docs/bios-wrappers-code-regions.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

@@ -11464,3 +11464,32 @@ These are research candidates, not production integration. Main-ROM reviewed
 non-library assembly remains 130 bytes (46 source plus 84 inline). The next
 step is to integrate both candidates and refresh full-ROM, runtime and
 ownership verification. The overall decompilation remains unfinished.
+
+
+### ArcTan2 and Sqrt integrated with their u16 return contract
+
+`src/bios_u16_return.c` now supplies both production wrappers, using the
+existing checked `matching_bios_u16_return` pass built through Makefile.
+The linker selects their function sections at the original addresses,
+0x080D166C and 0x080D16D8. All eight instruction bytes match: four retained
+SWI bytes and four C-generated return bytes. SoftReset is the sole wrapper
+remaining in `src/libagbsyscall.s`, with fourteen instruction bytes.
+
+The freshly compiled production source passes 1,024 synthetic BIOS boundary
+cases. Ten altered forms reject using the production plugin; unannotated
+code remains unchanged. These results are recorded in
+`docs/bios-u16-return-integrated-model.json` and
+`docs/bios-u16-return-integrated-controls.json`. The range contract and model
+limitations described above remain applicable; actual BIOS services are not
+implemented or proved by these wrappers. All nineteen integrated wrappers
+are checked in `docs/bios-wrappers-code-regions.json`.
+
+The full 16,777,216-byte ROM, all four freshly rebuilt runtime images and
+exported symbols match; all code/data-provenance audits pass. Main-ROM
+reviewed non-library assembly decreases from 130 to 126 bytes (38 source
+and 88 inline). Whole-object C ownership remains 740,014/777,630 (95.16%
+rounded), mixed C/assembly ownership increases to 15,786 bytes, and there
+are 605 tracked main C files. Expanded payload assembly remains 420 bytes.
+Unmapped-input provenance and generated-fill accounting are unchanged.
+SoftReset, Thumb entries, retained platform instructions, runtime assembly,
+and complete executable classification remain unfinished.

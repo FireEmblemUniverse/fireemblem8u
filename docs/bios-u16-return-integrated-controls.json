@@ -1,0 +1,18 @@
+{
+  "accepted_wrappers": 2,
+  "rejected_cases": [
+    "arm-mode",
+    "wrong-service",
+    "extra-instruction",
+    "signed-return",
+    "wide-return",
+    "different-mask",
+    "missing-cc",
+    "extra-clobber",
+    "nonvolatile",
+    "extra-store"
+  ],
+  "unannotated_unchanged": true,
+  "plugin_source_sha256": "140dc35500012cea5a3b2e831d4825a28ce492fad047783cb7451224841562bb",
+  "plugin_sha256": "97b3b8d90a9eabb9825df6ec72ff0abb4aadd98ea72c932a62779e4073ec1c09"
+}

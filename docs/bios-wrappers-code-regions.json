@@ -101,15 +101,28 @@
       "start": "0x80d1684",
       "instruction_bytes": 6,
       "retained_swi_bytes": 2
+    },
+    {
+      "name": "ArcTan2",
+      "start": "0x80d166c",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "Sqrt",
+      "start": "0x80d16d8",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
     }
   ],
-  "total_instruction_bytes": 78,
-  "c_generated_instruction_bytes": 44,
-  "retained_swi_bytes": 34,
-  "remaining_assembly_wrapper_bytes": 22,
+  "total_instruction_bytes": 86,
+  "c_generated_instruction_bytes": 48,
+  "retained_swi_bytes": 38,
+  "remaining_assembly_wrapper_bytes": 14,
   "full_rom_exact": true,
   "source_sha256": "116b3ec290814d02ace77da44fdc394c08af58edae75296fe01106eef13942f2",
   "divrem_source_sha256": "0484ebe8d0ddff13e8e530fd8f2ecefeac1ea698fad6c6745740fa9b46d201f9",
-  "elf_sha256": "06efd81b42ffe87fad647a192a2e8d5a88762b833d3a64db4853df5d450fc09f",
+  "u16_source_sha256": "83a68391555e7da03cc5d287ff2bf3aa1a78fa16f866c5d32ffb7330218b418f",
+  "elf_sha256": "e1d8a2c1766f0ea378b8c6dc82d76c892a047b846140a3a544838dc6aca3cfb6",
   "scope": "Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly."
 }

@@ -1132,7 +1132,7 @@ linker assertion and `scripts/audit_irq_search.py` enforce that contract.
 No instruction templates or opcode postprocessing implement these changes.
 
 
-### BIOS u16 return contract (research)
+### BIOS u16 return contract
 
 `bios_u16_return.cc` recognizes only explicitly annotated Thumb leaf wrappers
 for BIOS service 8 or 10 whose declared return is unsigned 16-bit. The service
@@ -1151,3 +1151,9 @@ python3 research/bios/check_u16_return.py
 
 The execution check supplies synthetic in-range BIOS results; actual BIOS
 service behavior and hardware effects are outside this check.
+
+Production `src/bios_u16_return.c` uses the same contract. Makefile builds
+`bios_u16_return.so` in the standard matching-plugin directory. To run the
+controls against this source/plugin, pass `--source src/bios_u16_return.c
+--plugin .deps/flood-core-new-backend/bios_u16_return.so` to
+`research/bios/check_u16_return.py`.
