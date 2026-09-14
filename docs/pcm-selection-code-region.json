@@ -7,7 +7,7 @@
     "src/m4a_ply_note_pcm_choose.o": 58,
     "src/m4a_ply_note_pcm_advance.o": 12
   },
-  "elf_sha256": "eb37369ebfcd77457e2153a40e4b15659482dd718514513eca97c11d89416660",
+  "elf_sha256": "8886be217e414f754c50e413aa64c471e3fa3ef564cde2da4452d59688c6eccb",
   "regions": [
     {
       "start": 135069488,

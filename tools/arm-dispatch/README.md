@@ -1108,8 +1108,7 @@ contract permits removal of an unused incoming LR stack slot only for
 nonreturning, argument-free ARM void code with no remaining stack or LR
 data references. Callees must accept the unchanged entry SP and no arguments.
 It rejects debug/unwind builds, instruction assembly, indirect calls and
-nonlocal jumps. This is currently serial-reset research, not a production
-build dependency. See `research/serial/check_private_frame.py` and the
+nonlocal jumps. This backend is now a production dependency for the IRQ priority search. See `research/serial/check_private_frame.py` and the
 private-frame receipts in `docs/`.
 
 `build_arm_lr_transfer.py` builds the experimental
@@ -1124,3 +1123,10 @@ The combined pass is now used by `src/serial_reset.c`. Prefix calls require
 the prefix and may not bypass terminal setup. The retained SVC is explicitly
 reviewed as four assembly bytes. `scripts/audit_serial_reset.py` verifies the
 production region, including all literals, against the original ROM.
+
+For `src/irq_search.c`, `-fplugin-arg-arm_noreturn_frame-fold-halts=2`
+requires and folds two isolated immutable NE halt blocks.
+`-fplugin-arg-arm_noreturn_frame-adjacent=IrqSelected` removes a sole final
+private call only under an external adjacency contract. The production
+linker assertion and `scripts/audit_irq_search.py` enforce that contract.
+No instruction templates or opcode postprocessing implement these changes.

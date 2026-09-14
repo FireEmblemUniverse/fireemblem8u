@@ -1,0 +1,29 @@
+{
+  "handoff_offset": 180,
+  "selected_lr_check": true,
+  "compiler_flags": [
+    "-fno-cse-follow-jumps",
+    "-fno-shrink-wrap",
+    "-DIRQ_PRIVATE_FRAME",
+    "-fplugin=.deps/irq-search/arm_noreturn_frame.so",
+    "-fplugin-arg-arm_noreturn_frame-callee=IrqSelected",
+    "-fplugin-arg-arm_noreturn_frame-fold-halts=2",
+    "-fplugin-arg-arm_noreturn_frame-adjacent=IrqSelected"
+  ],
+  "expected_stack_delta": 0,
+  "halt_state_check": true,
+  "source": "research/irq/search_constrained.c",
+  "selected_state_check": true,
+  "cases": 69632,
+  "exhaustive_pending_masks": 65536,
+  "seeded_ie_if_words": 4096,
+  "outcomes": {
+    "selected": 35871,
+    "halt": 33761
+  },
+  "zero_mask_dispatches": 86,
+  "candidate_bytes": 180,
+  "candidate_sha256": "9e03c635ec9b427d790fdbf96f458e4c848f986c0523c686bbd04730500f833b",
+  "production_integrated": false,
+  "scope": "Original and C draft agree with independent lowest-set-bit model on Game Pak halt or acknowledgement mask, pending word and handler-table offset. No recognized pending bit selects offset 52 with mask zero. Optional selected-state checks cover r0-r12/CPSR and the specified candidate stack delta. Optional halt-state checks additionally compare LR and SP. IRQ mode transitions and actual handler execution are not checked; byte matching is checked separately."
+}

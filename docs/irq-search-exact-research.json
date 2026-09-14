@@ -1,0 +1,10 @@
+{
+  "fold_halts": true,
+  "adjacent": true,
+  "compared_instruction_words": 45,
+  "matching_instruction_words": 45,
+  "candidate_total_bytes": 180,
+  "mismatches": [],
+  "production_integrated": false,
+  "scope": "Original 180-byte search window. Adjacent mode additionally requires section end equal the original IrqSelected address and exact complete bytes. Otherwise extra handoff/loop code remains outside the comparison."
+}

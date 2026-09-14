@@ -10798,3 +10798,41 @@ reading flags; the retained source continues to use value-based C loops.
 Next work is to fold proven immutable halt blocks into their conditional
 branches and replace the private terminal call with validated adjacency.
 No production code or completion totals change at this research milestone.
+
+### Integrated IRQ priority search: 180 instruction bytes converted
+
+`src/irq_search.c` now replaces the complete search at 08000118..080001CC.
+All 45 instruction words match. The existing private-frame backend adds
+optional immutable-halt folding: a NE branch targeting an isolated
+unconditional self-loop becomes a conditional self-loop at the original
+branch. It requires precisely two label uses, a barrier before the loop,
+no preserved label, and no loop operation besides the self-branch. Since
+the conditional branch changes no flags or registers, its true condition
+remains true forever. The requested one/two-loop count must match.
+
+An explicit adjacent destination permits removal of the sole final private
+call, with no instruction or pool after it. The production linker asserts
+`IrqSelected == IrqSearch + 180`, and `audit_irq_search.py` verifies the
+actual symbols, C ownership, self-loop opcodes and full-ROM equality. Seven
+invalid layout cases reject, a four-byte displacement fails the linker
+assertion, and an unannotated control is unchanged. The ten existing
+private-frame rejection tests also pass after rebuilding the plugin.
+
+`src/crt0.s` is split around the C search. Its startup literal loads use
+explicit R_ARM_LDR_PC_G0 relocations with the ARM PC bias encoded in the
+instruction addend; the original literal pool stays after the IRQ tail.
+The entire 360-byte startup/IRQ block and the full ROM match. The assembler
+cannot directly resolve ordinary literal-label loads across this section
+split, so explicit relocations are required; no instruction bytes are
+postprocessed.
+
+All 69,632 search cases pass with r0-r12/CPSR/SP/LR equality on both paths:
+35,871 dispatches, 33,761 halts and 86 zero-mask dispatches. These checks
+still stop before acknowledgement and mode switching. `make compare -j8`,
+all four fresh runtime rebuilds, and existing code/data-provenance audits
+pass. Main-ROM assembly-source bytes fall from 480 to 300; adding eighteen
+inline bytes gives 318 reviewed non-library assembly bytes. C ownership
+rises to 739,978/777,630 (95.16%), and tracked main C files rise to 596.
+Expanded-payload assembly remains 420 bytes. Startup and IRQ mode/state
+transitions, Thumb entry scaffolding, BIOS instructions, runtime helpers
+and complete executable classification remain in scope.

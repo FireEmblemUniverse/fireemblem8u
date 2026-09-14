@@ -131,6 +131,13 @@ src/serial_reset.o: $(SERIAL_RESET_PLUGIN)
 src/serial_reset.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/serial_reset.o: CC1FLAGS := -std=gnu89 -O2 -fno-cse-follow-jumps -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -fplugin=$(SERIAL_RESET_PLUGIN) -fplugin-arg-arm_lr_transfer-callee=sio_polling
 
+IRQ_SEARCH_PLUGIN := .deps/irq-search-backend/arm_noreturn_frame.so
+$(IRQ_SEARCH_PLUGIN): tools/arm-dispatch/arm_noreturn_frame.cc tools/arm-dispatch/build_arm_noreturn_frame.py
+	$(PYTHON) tools/arm-dispatch/build_arm_noreturn_frame.py --compiler $(PREFIX)gcc$(EXE) --output-dir .deps/irq-search-backend
+src/irq_search.o: $(IRQ_SEARCH_PLUGIN)
+src/irq_search.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/irq_search.o: CC1FLAGS := -std=gnu89 -O2 -fno-cse-follow-jumps -fno-shrink-wrap -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -fplugin=$(IRQ_SEARCH_PLUGIN) -fplugin-arg-arm_noreturn_frame-callee=IrqSelected -fplugin-arg-arm_noreturn_frame-fold-halts=2 -fplugin-arg-arm_noreturn_frame-adjacent=IrqSelected
+
 MODERN_ARM_OBJECTS := src/arm/checksum.o src/arm/tm_apply_tsa.o
 $(MODERN_ARM_OBJECTS): CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 $(MODERN_ARM_OBJECTS): CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -g

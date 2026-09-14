@@ -16,12 +16,16 @@ crt0:
 	ldr sp, ___sp_usr
 
 	@ Setup IRQ
-	ldr r1, =INTR_VECTOR
+	@ REL addend accounts for the ARM PC bias across the C section.
+	ldr r1, [pc, #-8]
+	.reloc .-4, R_ARM_LDR_PC_G0, .LIntrVector
 	adr r0, IrqMain
 	str r0, [r1]
 
 	@ Jump to main
-	ldr r1, =AgbMain
+	@ REL addend accounts for the ARM PC bias across the C section.
+	ldr r1, [pc, #-8]
+	.reloc .-4, R_ARM_LDR_PC_G0, .LMain
 	mov lr, pc
 	bx r1
 	b crt0
@@ -40,60 +44,9 @@ IrqMain:
 	mrs r0, spsr
 	push {r0, r1, r3, lr}
 
-irq_search:
-	and r1, r2, r2, lsr #16
-	ands r0, r1, INTR_FLAG_GAMEPAK
-
-@ when the cart is removed from the GBA.
-panic_gamepak:
-	bne panic_gamepak
-
-	mov r2, #0
-	ands r0, r1, INTR_FLAG_VBLANK
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_HBLANK
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_VCOUNT
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_TIMER0
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_TIMER1
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_TIMER2
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_TIMER3
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_SERIAL
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_DMA0
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_DMA1
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_DMA2
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_DMA3
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_KEYPAD
-	bne handle_normal_irq
-	add r2, r2, #4
-	ands r0, r1, INTR_FLAG_GAMEPAK
-
-@ when the cart is removed from the GBA.
-panic_gamepak2:
-	bne panic_gamepak2
-
+.section .text.irq_after_search,"ax",%progbits
+.global IrqSelected
+IrqSelected:
 handle_normal_irq:
 	strh r0, [r3, #2]
 
@@ -104,7 +57,7 @@ handle_normal_irq:
 	msr cpsr_fc, r3
 
 	@ jump to irq-handler
-	ldr r1, =gIRQHandlers
+	ldr r1, .LHandlers
 	add r1, r1, r2
 	ldr r0, [r1]
 	stmdb sp!, {lr}
@@ -124,3 +77,7 @@ post_irq:
 	strh r1, [r3]
 	msr spsr_fc, r0
 	bx lr
+
+.LIntrVector: .word INTR_VECTOR
+.LMain: .word AgbMain
+.LHandlers: .word gIRQHandlers

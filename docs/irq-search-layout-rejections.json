@@ -1,0 +1,14 @@
+{
+  "displaced_link_rejected": true,
+  "rejected": [
+    "wrong_halt_count",
+    "removed_loop",
+    "mutable_loop",
+    "memory_loop",
+    "inverse_loop",
+    "wrong_adjacent",
+    "extra_call"
+  ],
+  "unchanged_unannotated_control_sha256": "c761ed34f22a6ee9368c163f13b6abeb9e8558f434b48e055d5595177ed336e6",
+  "plugin_source_sha256": "8b92ac050b928595c31ae130424682de2c161dd90e5194a3e2bf9941b5a3d0f8"
+}

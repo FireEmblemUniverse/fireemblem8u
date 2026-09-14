@@ -71,6 +71,44 @@ bool executable_asm(rtx x) {
     return false;
 }
 
+
+unsigned halt_count=0;
+std::string adjacent;
+void fold_halts() {
+    struct halt { rtx_insn *entry,*loop; rtx_code_label *label; };
+    std::vector<halt> matches;
+    for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+        if (!JUMP_P(i) || GET_CODE(PATTERN(i))!=SET) continue;
+        rtx p=PATTERN(i),choice=SET_SRC(p);
+        if (SET_DEST(p)!=pc_rtx || GET_CODE(choice)!=IF_THEN_ELSE) continue;
+        rtx condition=XEXP(choice,0),target=XEXP(choice,1);
+        if (GET_CODE(condition)!=NE || !REG_P(XEXP(condition,0))
+            || REGNO(XEXP(condition,0))!=CC_REGNUM || XEXP(condition,1)!=const0_rtx
+            || GET_CODE(target)!=LABEL_REF || XEXP(choice,2)!=pc_rtx) continue;
+        rtx_code_label *label=as_a<rtx_code_label *>(XEXP(target,0));
+        if (LABEL_NUSES(label)!=2 || LABEL_PRESERVE_P(label)) continue;
+        rtx_insn *previous=PREV_INSN(label),*loop=NEXT_INSN(label);
+        while (previous && (NOTE_P(previous)||DEBUG_INSN_P(previous))) previous=PREV_INSN(previous);
+        while (loop && (NOTE_P(loop)||DEBUG_INSN_P(loop))) loop=NEXT_INSN(loop);
+        if (!previous || !BARRIER_P(previous) || !loop || !JUMP_P(loop)) continue;
+        rtx body=PATTERN(loop);
+        if (GET_CODE(body)!=SET || SET_DEST(body)!=pc_rtx || GET_CODE(SET_SRC(body))!=LABEL_REF
+            || XEXP(SET_SRC(body),0)!=label || JUMP_LABEL(loop)!=label) continue;
+        matches.push_back({i,loop,label});
+    }
+    if (matches.size()!=halt_count) fatal_error(UNKNOWN_LOCATION,"ARM noreturn frame halt contract mismatch");
+    for (auto match:matches) {
+        rtx_code_label *self=gen_label_rtx();emit_label_before(self,match.entry);
+        rtx replacement=copy_rtx(PATTERN(match.entry));
+        XEXP(SET_SRC(replacement),1)=gen_rtx_LABEL_REF(Pmode,self);
+        if (!validate_change(match.entry,&PATTERN(match.entry),replacement,false))
+            fatal_error(UNKNOWN_LOCATION,"ARM noreturn frame self-branch rejected");
+        JUMP_LABEL(match.entry)=self;LABEL_NUSES(self)=1;REG_NOTES(match.entry)=nullptr;
+        // The branch changes neither registers nor flags. Its true condition
+        // therefore remains true forever, exactly like the isolated halt block.
+        delete_insn(match.loop);LABEL_NUSES(match.label)=0;delete_insn(match.label);
+    }
+}
 const pass_data data={RTL_PASS,"arm_noreturn_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 std::set<std::string> callees;
 class pass:public rtl_opt_pass {
@@ -124,6 +162,19 @@ public:
         if (!push || !calls) fatal_error(UNKNOWN_LOCATION,"ARM noreturn frame missing save or calls");
         // The explicit private ABI observes no incoming LR and does not return.
         // No remaining instruction or call can access the removed stack slot.
+        if (halt_count) fold_halts();
+        if (!adjacent.empty()) {
+            rtx_insn *last=nullptr;
+            for (rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) if (NONDEBUG_INSN_P(i)) last=i;
+            if (calls!=1 || !last || !CALL_P(last))
+                fatal_error(UNKNOWN_LOCATION,"ARM noreturn frame adjacent transfer must be the sole final call");
+            rtx call=XVECEXP(PATTERN(last),0,0);
+            if (adjacent!=XSTR(XEXP(XEXP(call,0),0),0))
+                fatal_error(UNKNOWN_LOCATION,"ARM noreturn frame adjacent destination mismatch");
+            // The link contract must place this destination at section end.
+            // No instruction or literal pool may follow the removed call.
+            delete_insn(last);
+        }
         delete_insn(push);
         return 0;
     }
@@ -132,10 +183,18 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (std::string(info->argv[n].key)=="adjacent" && info->argv[n].value && *info->argv[n].value) {
+            adjacent=info->argv[n].value;continue;
+        }
+        if (std::string(info->argv[n].key)=="fold-halts" && info->argv[n].value) {
+            std::string value=info->argv[n].value;
+            if (value!="1" && value!="2") return 1;
+            halt_count=value=="1"?1:2;continue;
+        }
         if (std::string(info->argv[n].key)!="callee" || !info->argv[n].value || !*info->argv[n].value) return 1;
         callees.insert(info->argv[n].value);
     }
-    if (callees.empty()) return 1;
+    if (callees.empty() || (!adjacent.empty() && !callees.count(adjacent))) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);
