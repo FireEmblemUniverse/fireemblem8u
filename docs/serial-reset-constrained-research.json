@@ -1,4 +1,8 @@
 {
+  "handoff_register_check": true,
+  "compiler_flags": [
+    "-fno-cse-follow-jumps"
+  ],
   "source": "research/serial/reset_constrained.c",
   "cases": 272,
   "outcomes": {
@@ -6,106 +10,7 @@
     "halt": 64
   },
   "candidate_bytes": 148,
-  "candidate_sha256": "5dd8d4b1232e57f261128ec81da98648839ddc6d9da8807344141e4a578dd724",
+  "candidate_sha256": "0e01b7f9b49d0106d9e99a117e9c4c066e43e575de0386765bcbe9aea5f191da",
   "production_integrated": false,
-  "scope": "Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; stack, final register/flag equality, decompression and physical link timing are not validated. Candidate does not byte-match.",
-  "compiler_option_probes": [
-    {
-      "options": [],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-0.s"
-    },
-    {
-      "options": [
-        "-fno-tree-dominator-opts"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-1.s"
-    },
-    {
-      "options": [
-        "-fno-tree-vrp"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-2.s"
-    },
-    {
-      "options": [
-        "-fno-tree-ccp"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-3.s"
-    },
-    {
-      "options": [
-        "-fno-tree-forwprop"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-4.s"
-    },
-    {
-      "options": [
-        "-fno-if-conversion"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-5.s"
-    },
-    {
-      "options": [
-        "-fno-if-conversion2"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-6.s"
-    },
-    {
-      "options": [
-        "-fno-crossjumping"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-7.s"
-    },
-    {
-      "options": [
-        "-fno-schedule-insns"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-8.s"
-    },
-    {
-      "options": [
-        "-fno-schedule-insns2"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-9.s"
-    },
-    {
-      "options": [
-        "-fno-tree-dominator-opts",
-        "-fno-tree-vrp"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-10.s"
-    },
-    {
-      "options": [
-        "-fno-tree-dominator-opts",
-        "-fno-tree-ccp",
-        "-fno-tree-vrp"
-      ],
-      "bytes": 148,
-      "predicate_moves": 0,
-      "assembly": ".deps/serial-reset/option-11.s"
-    }
-  ]
+  "scope": "Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the known candidate SP decrement of four; LR and halt-state registers are excluded. Candidate does not byte-match."
 }

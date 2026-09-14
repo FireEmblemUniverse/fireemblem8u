@@ -1,0 +1,37 @@
+{
+  "compared_instruction_words": 32,
+  "exact_words": 26,
+  "mismatches": [
+    {
+      "address": "0x8b1a1c4",
+      "original": "8c009fe5",
+      "candidate": "80009fe5"
+    },
+    {
+      "address": "0x8b1a208",
+      "original": "4c309fe5",
+      "candidate": "40309fe5"
+    },
+    {
+      "address": "0x8b1a218",
+      "original": "feffff1a",
+      "candidate": "0a00001a"
+    },
+    {
+      "address": "0x8b1a220",
+      "original": "fcffff1a",
+      "candidate": "0800001a"
+    },
+    {
+      "address": "0x8b1a230",
+      "original": "f8ffff1a",
+      "candidate": "0400001a"
+    },
+    {
+      "address": "0x8b1a238",
+      "original": "f6ffff1a",
+      "candidate": "0200001a"
+    }
+  ],
+  "scope": "Aligned 128-byte pre-BIOS handshake only. Extra entry stack save, missing BIOS suffix, literal pool and failure-loop placement prevent full matching. No output bytes are patched."
+}

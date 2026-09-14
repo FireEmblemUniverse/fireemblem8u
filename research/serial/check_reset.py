@@ -30,9 +30,11 @@ def model(trace,header):
 def main():
  parser=argparse.ArgumentParser()
  parser.add_argument('--source',type=Path,default=ROOT/'research/serial/reset.c')
+ parser.add_argument('--check-handoff-registers',action='store_true')
+ parser.add_argument('--cflag',action='append',default=[])
  args=parser.parse_args()
  OUT.mkdir(exist_ok=True);cc='arm-none-eabi-gcc'
- subprocess.run([cc,'-c','-O2','-std=gnu89','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(args.source),'-o',str(OUT/'reset.o')],check=True,capture_output=True)
+ subprocess.run([cc,'-c','-O2','-std=gnu89','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',*args.cflag,str(args.source),'-o',str(OUT/'reset.o')],check=True,capture_output=True)
  (OUT/'probe.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } sio_polling = 0x08b1a198; SerialDecompressAndJump = 0x080ff000; }')
  subprocess.run(['arm-none-eabi-ld','-T',str(OUT/'probe.ld'),str(OUT/'reset.o'),'-o',str(OUT/'reset.elf')],check=True)
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/'reset.elf'),str(OUT/'reset.bin')],check=True)
@@ -45,10 +47,12 @@ def main():
    traces.append(base[:stage]+[(True,0x40)]);traces.append(base[:stage]+[(False,header[stage-6]^1)])
   for trace in traces:
    expected=model(trace,header)
+   handoffs=[]
    for candidate in (False,True):
     uc=Uc(UC_ARCH_ARM,UC_MODE_ARM);uc.mem_map(0x08000000,len(rom));uc.mem_write(0x08000000,rom);uc.mem_map(0x02000000,0x40000);uc.mem_map(0x03000000,0x8000);uc.mem_map(0x04000000,0x1000)
     if candidate:uc.mem_write(0x080f0000,code)
     uc.mem_write(0x020000ac,b''.join(x.to_bytes(2,'little') for x in header));uc.reg_write(r.UC_ARM_REG_SP,0x03007000);uc.reg_write(r.UC_ARM_REG_CPSR,0x13|((cases%16)<<28));state=dict(polls=0,writes=[],outcome=None,last=None,repeats=0)
+    for register in range(4,13):uc.reg_write(getattr(r,f'UC_ARM_REG_R{register}'),(0x13579bdf*(register+cases+1))&0xffffffff)
     def hook(u,address,size,state):
      if address==0x08b1a198:
       error,value=trace[state['polls']];state['polls']+=1;u.reg_write(r.UC_ARM_REG_R1,value);flags=u.reg_read(r.UC_ARM_REG_CPSR)&0x3fffffff
@@ -60,7 +64,11 @@ def main():
      assert address==0x0400012a and size==2;state['writes'].append(value&0xffff)
     uc.hook_add(UC_HOOK_CODE,hook,state);uc.hook_add(UC_HOOK_MEM_WRITE,write,state,0x04000000,0x04000fff);uc.emu_start(0x080f0000 if candidate else 0x08b1a1c4,0,count=2000)
     assert (state['polls'],state['writes'],state['outcome'])==expected,(candidate,trace,state,expected)
+    if state['outcome']=='handoff':handoffs.append(([uc.reg_read(getattr(r,f'UC_ARM_REG_R{n}')) for n in range(13)],uc.reg_read(r.UC_ARM_REG_CPSR),uc.reg_read(r.UC_ARM_REG_SP)))
+   if args.check_handoff_registers and handoffs:
+    assert handoffs[0][:2]==handoffs[1][:2],handoffs
+    assert handoffs[1][2]==handoffs[0][2]-4,handoffs
    cases+=1;outcomes[expected[2]]=outcomes.get(expected[2],0)+1
- report=dict(source=str(args.source.resolve().relative_to(ROOT)),cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; stack, final register/flag equality, decompression and physical link timing are not validated. Candidate does not byte-match.')
+ report=dict(handoff_register_check=args.check_handoff_registers,compiler_flags=args.cflag,source=str(args.source.resolve().relative_to(ROOT)),cases=cases,outcomes=outcomes,candidate_bytes=len(code),candidate_sha256=hashlib.sha256(code).hexdigest(),production_integrated=False,scope='Original and C draft agree with independent handshake model on poll consumption, ordered halfword sends, permanent halt or pre-BIOS handoff. Poll results are synthetic; decompression and physical link timing are not validated. Optional handoff check compares r0-r12 and CPSR, seeds r4-r12, and verifies the known candidate SP decrement of four; LR and halt-state registers are excluded. Candidate does not byte-match.')
  (OUT/'model.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -10556,3 +10556,25 @@ option probes; all twelve retain 148 bytes and zero predicate moves for
 this candidate. The receipt is `docs/serial-reset-constrained-research.json`.
 These checks have the same synthetic-poller and pre-BIOS limits as the
 original model. Production code and ownership totals remain unchanged.
+
+### Serial-reset register parity and aligned instruction comparison
+
+The constrained draft now marks header failures unlikely. Compiling with
+`-fno-cse-follow-jumps` removes the cached-zero register and restores the
+original success-path ordering. The isolated candidate remains 148 bytes.
+All 272 protocol cases pass; with `--check-handoff-registers`, all 208
+handoffs also agree on r0-r12 and CPSR. The harness seeds r4-r12 and verifies
+that the candidate SP is exactly four bytes below the original, confirming
+the still-unwanted entry LR save. LR and halt-state registers are excluded.
+
+`research/serial/compare_reset.py` links the candidate four bytes before the
+original reset address to align instructions after its extra push. It
+compares unmodified compiler output against the 128-byte pre-BIOS region:
+26 of 32 instruction words match exactly. The six differences are two
+literal-load displacements and four branches to the separate halt loop.
+This does not count as production conversion: entry framing, failure-loop
+placement, literal pools and the BIOS suffix remain unfinished. Receipts
+are `docs/serial-reset-constrained-research.json` and
+`docs/serial-reset-aligned-research.json`. The earlier twelve-option result
+describes the prior source revision; the probe now also includes the CSE
+option that resolved register selection.

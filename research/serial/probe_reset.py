@@ -7,7 +7,7 @@ parser=argparse.ArgumentParser()
 parser.add_argument('--source',type=Path,default=ROOT/'research/serial/reset.c')
 args=parser.parse_args()
 OUT.mkdir(exist_ok=True)
-flags=['-fno-tree-dominator-opts','-fno-tree-vrp','-fno-tree-ccp','-fno-tree-forwprop','-fno-if-conversion','-fno-if-conversion2','-fno-crossjumping','-fno-schedule-insns','-fno-schedule-insns2']
+flags=['-fno-cse-follow-jumps','-fno-tree-dominator-opts','-fno-tree-vrp','-fno-tree-ccp','-fno-tree-forwprop','-fno-if-conversion','-fno-if-conversion2','-fno-crossjumping','-fno-schedule-insns','-fno-schedule-insns2']
 sets=[[]]+[[f] for f in flags]+[['-fno-tree-dominator-opts','-fno-tree-vrp'],['-fno-tree-dominator-opts','-fno-tree-ccp','-fno-tree-vrp']]
 reports=[]
 for index,options in enumerate(sets):

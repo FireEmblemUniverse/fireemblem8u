@@ -39,12 +39,12 @@ exchange:
     asm volatile("" : "+r"(serialHeader));
     serialExpected = serialHeader[0];
     serialBase[5] = serialExpected;
-    if (poll_failed()) goto failed;
-    if (serialValue != serialExpected) goto failed;
+    if (__builtin_expect(poll_failed(), 0)) goto failed;
+    if (__builtin_expect(serialValue != serialExpected, 0)) goto failed;
     serialExpected = serialHeader[1];
     serialBase[5] = serialExpected;
-    if (poll_failed()) goto failed;
-    if (serialValue != serialExpected) goto failed;
+    if (__builtin_expect(poll_failed(), 0)) goto failed;
+    if (__builtin_expect(serialValue != serialExpected, 0)) goto failed;
     asm volatile("" : : : "r1");
     serialValue = 0;
     asm volatile("" : "+r"(serialValue));
