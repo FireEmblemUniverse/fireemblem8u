@@ -8,6 +8,6 @@
   "full_rom_exact": true,
   "source_sha256": "b7ba4a48796e9fa7b376c2bb344f3253cc684d90cc6869ee84e0ce65aae459ac",
   "region_sha256": "ec04f2bad87474d3b3d7c2a5d78fe39e6e96287241f152e7093f39d4a95715c8",
-  "elf_sha256": "bb0c803bb7b6d1475cf474f874722d441a69465440b6f53892505e1f2f784f69",
+  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
   "scope": "Complete reset region matches original bytes, preserving the private poll ABI, halt/retry branches and BIOS transfer. SVC remains assembly-owned and the object remains classified mixed C/assembly. No physical-link or actual BIOS execution claim."
 }

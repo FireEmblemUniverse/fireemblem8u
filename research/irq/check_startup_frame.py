@@ -3,7 +3,7 @@
 from pathlib import Path
 import hashlib,json,subprocess,sys
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/startup-frame-backend'
-subprocess.run([sys.executable,str(ROOT/'research/irq/build_startup_frame.py')],check=True,capture_output=True)
+subprocess.run([sys.executable,str(ROOT/'tools/arm-dispatch/build_startup_frame.py')],check=True,capture_output=True)
 compiler=str(ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc')
 plugin=OUT/'startup_frame.so';source=(ROOT/'research/irq/startup.c').read_text()
 r=subprocess.run([sys.executable,str(ROOT/'research/irq/check_startup.py'),'--plugin',str(plugin),'--compiler',compiler],check=True,capture_output=True,text=True)
@@ -20,7 +20,7 @@ for name,extra in [('plain',[]),('unannotated',['-fplugin='+str(plugin)])]:
  r=compile(name,source,extra);assert r.returncode==0,r.stderr
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text',str(OUT/(name+'.o')),str(OUT/(name+'.bin'))],check=True)
 assert (OUT/'plain.bin').read_bytes()==(OUT/'unannotated.bin').read_bytes()
-report.update(rejected=[m[0] for m in mutants],unannotated_control_unchanged=True,backend_sha256=hashlib.sha256((ROOT/'research/irq/startup_frame.cc').read_bytes()).hexdigest())
+report.update(rejected=[m[0] for m in mutants],unannotated_control_unchanged=True,backend_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/startup_frame.cc').read_bytes()).hexdigest())
 # Exercise the exact layout with synthetic ARM and Thumb main targets.
 r=subprocess.run([sys.executable,str(ROOT/'research/irq/check_startup.py'),'--plugin',str(plugin),'--compiler',compiler,'--layout'],check=True,capture_output=True,text=True)
 report['layout_model']=json.loads(r.stdout)

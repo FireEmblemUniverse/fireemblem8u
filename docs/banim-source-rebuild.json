@@ -3,7 +3,7 @@
   "rebuilt_sections": 804,
   "verified_bytes": 2334324,
   "abs32_relocations": 30693,
-  "elf_sha256": "bb0c803bb7b6d1475cf474f874722d441a69465440b6f53892505e1f2f784f69",
+  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
   "linker_script_sha256": "2182e000f2f66ac8bd4ceb4d65f446ed36288585dcb458f1db2a0c0e63ea83e0",
   "macro_headers": {
     "include/banim_sheet.inc": "ab25ad7c382579dd58ddaab2898929a7e656a4ac5e910800f9975a65eb5ec776",

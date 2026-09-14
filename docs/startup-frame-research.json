@@ -17,7 +17,7 @@
     "arm": "0c81a3424ed4636d5bea6155fe99b4253cdabb1083b26907b2579b593b9f0f73",
     "thumb": "5502f374ae41fa7ce3888244e5b828494f762b77c5ca4230597acd6b5c71fcd7"
   },
-  "source_sha256": "3a5ed10d389f6c52331d9641ddaba900dffe48a8107f193248f4d6c8cbda13f7",
+  "source_sha256": "f189323ccf6ff7c4676364cdbd971cb1f71eca2a2260c64dca48c991e1441319",
   "extra_entry_stack_write_bytes": 0,
   "production_integrated": false,
   "scope": "Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. No initial-stack writes; Supervisor SP is preserved. Modeled memory-write traces agree exactly. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered.",
@@ -31,7 +31,7 @@
     "thumb"
   ],
   "unannotated_control_unchanged": true,
-  "backend_sha256": "2fe69ab083c874951221bd9f812e0a74be74cdb97a3930009a4f1a779dd0af78",
+  "backend_sha256": "17f9cd88dcaca326d8e79218fd387b99e7a08b316817c0a5791354b3143b43a5",
   "layout_model": {
     "exact_layout": true,
     "cases": 96,
@@ -51,7 +51,7 @@
       "arm": "6da5ec8c439e2c8da487ea009d660b5d4b5bfd5b927d420b6680a26665f6b27e",
       "thumb": "96db94c3d77321f97b44b7cd534b2bc7d84a44fadf1e9152610ee190ecf53a29"
     },
-    "source_sha256": "3a5ed10d389f6c52331d9641ddaba900dffe48a8107f193248f4d6c8cbda13f7",
+    "source_sha256": "f189323ccf6ff7c4676364cdbd971cb1f71eca2a2260c64dca48c991e1441319",
     "extra_entry_stack_write_bytes": 0,
     "production_integrated": false,
     "scope": "Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. No initial-stack writes; Supervisor SP is preserved. Modeled memory-write traces agree exactly. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered."

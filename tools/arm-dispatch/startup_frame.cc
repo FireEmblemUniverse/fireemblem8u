@@ -29,11 +29,11 @@ int plugin_is_GPL_compatible;
 namespace {
 
 tree validate(tree *node,tree,tree,int,bool *no_add) {
-    if (TREE_CODE(*node)!=FUNCTION_DECL) { error("research_arm_startup_frame requires a function");*no_add=true; }
+    if (TREE_CODE(*node)!=FUNCTION_DECL) { error("matching_arm_startup_frame requires a function");*no_add=true; }
     if (!TARGET_ARM) { error("Startup frame requires ARM mode"); *no_add=true; }
     return NULL_TREE;
 }
-const attribute_spec contract={"research_arm_startup_frame",0,0,true,false,false,false,validate,nullptr};
+const attribute_spec contract={"matching_arm_startup_frame",0,0,true,false,false,false,validate,nullptr};
 void attributes(void *,void *) { register_attribute(&contract); }
 bool reg_is(rtx x,unsigned reg) { return REG_P(x) && GET_MODE(x)==SImode && REGNO(x)==reg; }
 bool mentions(rtx x,unsigned reg) {
@@ -169,7 +169,7 @@ class pass:public rtl_opt_pass {
 public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
-        if(!lookup_attribute("research_arm_startup_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
+        if(!lookup_attribute("matching_arm_startup_frame",DECL_ATTRIBUTES(fn->decl))) return 0;
         if(!TARGET_ARM || !TARGET_INTERWORK || !arm_arch4t || arm_arch5t
             || lookup_attribute("interrupt",DECL_ATTRIBUTES(fn->decl))
             || lookup_attribute("isr",DECL_ATTRIBUTES(fn->decl))

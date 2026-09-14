@@ -18,7 +18,7 @@ rom=(ROOT/'fireemblem8.gba').read_bytes();assert rom==(ROOT/'baserom.gba').read_
 assert rom[0x110:0x118]==bytes.fromhex('00004fe10b402de9')
 source=(ROOT/'src/irq_save_frame.c').read_text()
 assert source.count('asm volatile("mrs %0, spsr"')==1
-assert 'IrqSaveFrame:' not in (ROOT/'src/crt0.s').read_text()
+assert 'src/crt0.s' not in next(line for line in (ROOT/'Makefile').read_text().splitlines() if line.startswith('SRC_S_FILES'))
 report=dict(start=hex(start),end=hex(end),instruction_bytes=8,c_generated_instruction_bytes=4,retained_status_assembly_bytes=4,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),region_sha256=hashlib.sha256(rom[0x110:0x118]).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated SPSR capture and four-register frame; MRS remains assembly-owned. Adjacent handoff verified through symbols and linker assertion; no hardware interrupt-entry claim.')
 (ROOT/'docs/irq-save-frame-code-region.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

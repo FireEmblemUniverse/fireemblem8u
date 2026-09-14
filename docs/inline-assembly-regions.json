@@ -1,10 +1,28 @@
 {
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
-    "main_rom": 42,
+    "main_rom": 50,
     "mgfembp": 2
   },
   "sites": [
+    {
+      "image": "main_rom",
+      "source": "src/crt0.c",
+      "function": "crt0",
+      "address": "0x80000c4",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "main_rom",
+      "source": "src/crt0.c",
+      "function": "crt0",
+      "address": "0x80000d0",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
     {
       "image": "main_rom",
       "source": "src/irq_save_frame.c",
@@ -134,8 +152,8 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "bb0c803bb7b6d1475cf474f874722d441a69465440b6f53892505e1f2f784f69",
-      "map_sha256": "1d3ce04305efee1c5295be5d3c6d1e495872e610ef3961a3de4a8902cbe071f9"
+      "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
+      "map_sha256": "b0f723a47aa047b1f938ecf3136244e4c39f1e00b14ba985b99154020536d8fd"
     },
     "mgfembp": {
       "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",

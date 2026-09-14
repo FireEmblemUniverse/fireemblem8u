@@ -11198,3 +11198,32 @@ candidate.
 candidate is still isolated, with production integration and ownership audits
 remaining. Full hardware reset/BIOS entry and real AgbMain execution remain
 outside the synthetic model.
+
+### Integrated startup C and literal ownership
+
+`src/crt0.c` replaces the tracked startup assembly source, with crt0's ARM
+entry point unchanged. Its C arrays supply the original System/IRQ stack
+pointers at 080000F4 and the vector/main pointers at 0800021C. The backend
+and builder move to `tools/arm-dispatch/startup_frame.cc` and
+`build_startup_frame.py`, with `matching_arm_startup_frame` as the opt-in
+contract. Production linker assertions fix the ADR target and both pools.
+The generated `src/crt0.s` is now a build intermediate, not tracked source.
+
+`audit_startup.py` verifies the linked 52-byte mixed object, both literal
+regions, typed Thumb AgbMain pointer, exact ADR, status opcodes and assertions
+against the full ROM. The inline audit records the two retained MSR sites.
+Forty-four instruction bytes are C-generated; eight remain assembly-owned.
+Assembly-source bytes fall from 192 to 140, and reviewed inline bytes rise
+from 42 to 50, for 190 main-ROM non-library assembly bytes. There are now
+600 tracked main C files. Whole-object C ownership remains 739,998/777,630
+(95.16%) because startup is correctly classified as mixed C/assembly.
+
+`make compare -j8` passes. All four fresh runtime images and exported symbols
+match. The startup checker now accepts `--rom`; its 96-case exact-layout model
+passes against the built ROM, and the 4,115-case IRQ dispatcher also passes.
+The moved startup backend's fresh isolated models, rejection suite and
+unannotated control pass. Existing code and data-provenance audits have
+been refreshed to the integrated ELF and pass. Hardware reset/BIOS entry,
+real AgbMain execution and complete executable classification remain outside
+these checks. Evidence includes `docs/startup-code-regions.json`,
+`docs/startup-built-model.json`, and the refreshed startup backend receipt.

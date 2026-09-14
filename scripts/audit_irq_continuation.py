@@ -25,7 +25,7 @@ source=(ROOT/'src/irq_continuation.c').read_text()
 assert source.count('asm volatile("mrs %0, cpsr"')==2
 assert source.count('asm volatile("msr cpsr_fc, %2"')==2
 assert source.count('asm volatile("msr spsr_fc, %0"')==1
-assert '.LHandlers' not in (ROOT/'src/crt0.s').read_text()
+assert 'src/crt0.s' not in next(line for line in (ROOT/'Makefile').read_text().splitlines() if line.startswith('SRC_S_FILES'))
 report=dict(start=hex(start),end=hex(end),instruction_bytes=80,c_generated_instruction_bytes=60,retained_status_assembly_bytes=20,c_pointer_bytes=4,full_rom_exact=True,source_sha256=hashlib.sha256(source.encode()).hexdigest(),region_sha256=hashlib.sha256(rom[0x1cc:0x228]).hexdigest(),elf_sha256=linked['elf_sha256'],scope='Exact integrated continuation and shared literal placement; five status instructions remain assembly-owned. Whole-object ownership remains mixed. Dispatcher execution is documented separately; no hardware execution claim.')
 (ROOT/'docs/irq-continuation-code-region.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

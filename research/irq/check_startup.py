@@ -6,6 +6,7 @@ from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/startup';OUT.mkdir(parents=True,exist_ok=True)
 parser=argparse.ArgumentParser()
+parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba')
 parser.add_argument('--source',type=Path,default=ROOT/'research/irq/startup.c')
 parser.add_argument('--plugin',type=Path)
 parser.add_argument('--compiler',default='arm-none-eabi-gcc')
@@ -18,7 +19,7 @@ if args.layout:
 source=args.source
 subprocess.run([args.compiler,'-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',]+extra+[str(source),'-o',str(OUT/'startup.o')],check=True,capture_output=True)
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
-rom=(ROOT/'baserom.gba').read_bytes();rng=random.Random(0xc0fa);cases=0;hashes={}
+rom=args.rom.read_bytes();rng=random.Random(0xc0fa);cases=0;hashes={}
 candidate_base=0x080000c0 if args.layout else 0x080f0000
 for thumb in (False,True):
  target=0x02021001 if thumb else 0x02020000

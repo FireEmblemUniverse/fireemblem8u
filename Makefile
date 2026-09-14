@@ -80,7 +80,7 @@ ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
 ASM_S_FILES  := $(wildcard $(ASM_SUBDIR)/*.s)
-SRC_S_FILES  := src/rom_header.s src/crt0.s src/m4a_1.s src/libagbsyscall.s
+SRC_S_FILES  := src/rom_header.s src/m4a_1.s src/libagbsyscall.s
 DATA_S_FILES := $(wildcard $(DATA_SUBDIR)/*.s)
 DATA_SRC_C_FILES := $(wildcard $(DATA_SRC_SUBDIR)/*.c $(DATA_SRC_SUBDIR)/mapanim/*.c $(DATA_SRC_SUBDIR)/menu/*.c $(DATA_SRC_SUBDIR)/ending/*.c $(DATA_SRC_SUBDIR)/worldmap/*.c $(DATA_SRC_SUBDIR)/ui/*.c)
 DATA_SRC_C_OBJECTS := $(DATA_SRC_C_FILES:.c=.o)
@@ -162,6 +162,13 @@ ARM_DISPATCH_TABLE := $(ARM_DISPATCH_DIR)/branch_tables.so
 ARM_DISPATCH_XOR := $(ARM_DISPATCH_DIR)/xor_flags.so
 $(ARM_DISPATCH_CC): tools/arm-dispatch/build_backend.py tools/arm-dispatch/matching.md tools/arm-dispatch/thumb-leaf-frame.patch
 	$(PYTHON) tools/arm-dispatch/build_backend.py
+
+STARTUP_FRAME_PLUGIN := .deps/startup-frame-backend/startup_frame.so
+$(STARTUP_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/startup_frame.cc tools/arm-dispatch/build_startup_frame.py
+	$(PYTHON) tools/arm-dispatch/build_startup_frame.py --compiler $(ARM_DISPATCH_CC) --output-dir .deps/startup-frame-backend
+src/crt0.o: $(STARTUP_FRAME_PLUGIN)
+src/crt0.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/crt0.o: CC1FLAGS := -std=gnu89 -O2 -fno-schedule-insns2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(STARTUP_FRAME_PLUGIN) -fplugin-arg-startup_frame-layout
 
 IRQ_FRAME_PLUGIN := .deps/irq-frame-backend/irq_frame.so
 $(IRQ_FRAME_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/irq_frame.cc tools/arm-dispatch/build_irq_frame.py

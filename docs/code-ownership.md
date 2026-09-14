@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `cfaee817`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `f63e613f`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
@@ -14,8 +14,8 @@ Build baseline: `cfaee817`. Regenerate with `python3 scripts/audit_code_ownershi
 | Ownership | Instruction bytes | Share of mapped instructions |
 |---|---:|---:|
 | C-owned objects | 739,998 | 95.16% |
-| C objects containing assembly | 15,648 | 2.01% |
-| Assembly-source objects | 192 | 0.02% |
+| C objects containing assembly | 15,700 | 2.02% |
+| Assembly-source objects | 140 | 0.02% |
 | Runtime archive objects | 21,792 | 2.80% |
 | Unresolved ownership | 0 | 0.00% |
 
@@ -24,7 +24,6 @@ Assembly-source objects, largest first:
 | Object | Instruction bytes |
 |---|---:|
 | `src/libagbsyscall.o` | 100 |
-| `src/crt0.o` | 52 |
 | `asm/arm_call.o` | 24 |
 | `asm/arm.o` | 12 |
 | `src/rom_header.o` | 4 |
@@ -38,6 +37,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 | `src/hardware.o` | 4,550 |
 | `src/serial_reset.o` | 148 |
 | `src/irq_continuation.o` | 80 |
+| `src/crt0.o` | 52 |
 | `src/sio_multiboot_wait.o` | 24 |
 | `src/irq_save_frame.o` | 8 |
 
@@ -70,7 +70,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 
 | Scope | Inline instruction bytes | Assembly sources + reviewed inline |
 |---|---:|---:|
-| main_rom | 42 | 234 |
+| main_rom | 50 | 190 |
 | mgfembp | 2 | 420 |
 
 The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
