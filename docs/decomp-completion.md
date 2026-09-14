@@ -11099,3 +11099,35 @@ code and data-provenance audits have been refreshed and pass. Hardware
 interrupt entry and full executable classification remain outside these checks.
 The progress panel's old source-marker table has been replaced with the
 current verified remaining-byte inventory.
+
+### Startup C draft and initialization/restart model
+
+`research/irq/startup.c` describes the remaining startup loop, retaining
+the two processor-mode writes as explicit assembly. The stack-register
+constraint preserves SP's banked behavior. A value tie after loading IrqMain
+keeps the vector value in r0 and prevents the compiler from hoisting it into
+r4 across the loop. With the tie, GCC emits 56 instruction bytes and twenty
+literal bytes. It still inserts an initial LR stack save, uses a literal
+load instead of ADR, and orders its literals differently from the original.
+
+`research/irq/check_startup.py` freshly compiles the draft and compares
+96 pairs of original/draft runs: IRQ, Supervisor and System initial modes,
+sixteen NZCV profiles, and ARM/Thumb synthetic main targets. Each run checks
+two entries to the synthetic main, whose first return changes caller-saved
+registers and flags. Vector writes, IRQ/System SP values, main r0-r12, mode
+and flags agree; callback return addresses are verified relative to their
+respective code locations. The test also checks stack guards and the exact
+memory-write trace.
+
+The model explicitly confirms the remaining defect: the draft writes initial
+LR to initial SP minus four once. If initially in Supervisor mode, that bank's
+SP remains four bytes too low after initialization. IRQ/System SP reset masks
+the pointer discrepancy in those initial modes, but the unwanted memory write
+remains. Removing the value tie fails register parity because r4 is clobbered;
+the negative receipt records both differing main-entry snapshots.
+
+Evidence is in `docs/startup-research.json` and
+`docs/startup-negative-research.json`. This draft is not integrated or declared
+correct for startup entry. The model excludes actual BIOS/reset entry and real
+AgbMain execution; exact byte equality is unfinished. Production remains at
+234 reviewed main-ROM non-library assembly bytes.

@@ -1,0 +1,5 @@
+{
+  "rejected": true,
+  "mutation": "Remove the r0 value tie after loading IrqMain",
+  "diagnostic": "AssertionError: [(0, 4, '0x7558631a', '0x80000fc'), (1, 4, '0x7558631a', '0x80000fc')]"
+}

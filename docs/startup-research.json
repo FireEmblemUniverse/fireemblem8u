@@ -1,0 +1,23 @@
+{
+  "cases": 96,
+  "handoffs_per_case": 2,
+  "initial_modes": [
+    "IRQ",
+    "Supervisor",
+    "System"
+  ],
+  "flag_profiles": 16,
+  "handler_modes": [
+    "ARM",
+    "Thumb"
+  ],
+  "candidate_bytes": 76,
+  "candidate_sha256": {
+    "arm": "9c6ce712a81051fc0be02b7b9ff4e7a651bafea2a089f7af4accd769e75423df",
+    "thumb": "1217eb345fa62cb46819052c367c9d46c1bc05d16961aacba09f0acb4108f122"
+  },
+  "source_sha256": "f118df92da81fe34e5bbe8b6f0747dae42a1919492d6aed89150f3fde9e0d62e",
+  "extra_entry_stack_write_bytes": 4,
+  "production_integrated": false,
+  "scope": "Synthetic main entry and return/restart: vector value, IRQ/System SP setup, main registers/flags and mode agree. Relocated return addresses are checked separately. Draft writes LR to the initial stack once; Supervisor SP also remains four bytes low when entered in Supervisor mode. Hardware reset/BIOS entry, real AgbMain and exact byte equality are not covered."
+}
