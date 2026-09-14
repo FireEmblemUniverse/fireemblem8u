@@ -10,7 +10,7 @@ original=json.loads((ROOT/'docs/bios-wrapper-research.json').read_text())['wrapp
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
 rom=(ROOT/'fireemblem8.gba').read_bytes();assert rom==(ROOT/'baserom.gba').read_bytes()
 source=(ROOT/'src/bios_wrappers.c').read_text();assert source.count('asm volatile(')==16
-sites=json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'];sites=[s for s in sites if s['source']=='src/bios_wrappers.c'];assert len(sites)==16 and sum(s['instruction_bytes'] for s in sites)==32
+sites=json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'];sites=[s for s in sites if s['image']=='main_rom' and s['source']=='src/bios_wrappers.c'];assert len(sites)==16 and sum(s['instruction_bytes'] for s in sites)==32
 regions=[]
 for row in expected:
  name=row['name'];start=symbols[name];end=start+row['original_instruction_bytes'];found=[r for r in linked['regions'] if r['start']<end and r['end']>start]
@@ -25,12 +25,12 @@ assert divrem['category']=='c_with_assembly' and divrem['instruction_bytes']==6
 start=symbols['DivRem'];assert start==0x080d1684
 assert rom[start-0x08000000:start-0x08000000+6]==bytes.fromhex('06df081c7047')
 assert 'src/bios_divrem.o(.text.DivRem);' in (ROOT/'ldscript.txt').read_text()
-site=next(s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_divrem.c')
+site=next(s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['image']=='main_rom' and s['source']=='src/bios_divrem.c')
 assert site['instruction_bytes']==2 and int(site['address'],16)==start
 regions.append(dict(name='DivRem',start=hex(start),instruction_bytes=6,retained_swi_bytes=2))
 u16obj=next(x for x in own['objects'] if x['object']=='src/bios_u16_return.o')
 assert u16obj['category']=='c_with_assembly' and u16obj['instruction_bytes']==8
-u16sites=[s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_u16_return.c']
+u16sites=[s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['image']=='main_rom' and s['source']=='src/bios_u16_return.c']
 assert len(u16sites)==2
 for name,address,svc in [('ArcTan2',0x080d166c,10),('Sqrt',0x080d16d8,8)]:
  assert symbols[name]==address and rom[address-0x08000000:address-0x08000000+4]==bytes([svc,0xdf,0x70,0x47])
@@ -47,7 +47,7 @@ assert not any(x['object']=='src/libagbsyscall.o' for x in own['objects'])
 start=symbols['SoftReset'];assert start==0x080d16b0
 assert rom[start-0x08000000:start-0x08000000+24]==bytes.fromhex('034b00221a7003498d4601df00df000008020004007f0003')
 assert 'src/bios_soft_reset.o(.text);' in (ROOT/'ldscript.txt').read_text()
-softsites=[s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['source']=='src/bios_soft_reset.c']
+softsites=[s for s in json.loads((ROOT/'docs/inline-assembly-regions.json').read_text())['sites'] if s['image']=='main_rom' and s['source']=='src/bios_soft_reset.c']
 assert len(softsites)==2 and sum(s['instruction_bytes'] for s in softsites)==4
 assert sorted(int(s['address'],16) for s in softsites)==[start+10,start+12]
 regions.append(dict(name='SoftReset',start=hex(start),instruction_bytes=14,retained_swi_bytes=4))

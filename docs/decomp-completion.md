@@ -12983,3 +12983,36 @@ Receipts: payload-bios-byte-research.json and payload-bios-model-research.json.
 Production gbasvc.s remains unchanged pending integration and ownership
 refresh. The research does not yet reduce the 392-byte expanded assembly
 inventory or establish complete executable/data classification.
+
+
+### Payload BIOS-wrapper integration (September 14, 2026)
+
+Baseline `2968bf58`. Production bios_wrappers.c and bios_soft_reset.c replace
+gbasvc.s. Ordinary GCC emits the setup, return and reset code; explicit SWIs
+remain. The linker orders function sections with the original alignment.
+All three payload checksums and complete 76-byte BIOS regions match, and
+the production sources pass 1,920 synthetic returning-wrapper cases plus
+96 reset cases. The model does not implement BIOS internals and stops at
+terminal reset SWI 0.
+
+Ownership identifies sixty mapped wrapper instruction bytes: 36 C-generated
+and 24 retained SWI bytes. The two zero bytes after the terminal reset now
+have data/alignment mapping rather than the old explicit MOVS spelling.
+This changes classification, not bytes, and is not a general reachability
+proof. Payload mapped instruction count therefore changes from 25,716 to
+25,714. The new wrapper objects remain in the mixed C/assembly category.
+Assembly-source ownership is 328 bytes (startup only); combined with
+26 inline bytes, expanded assembly totals 354.
+
+Twelve explicit payload SWI sites are added to audit_inline_regions.py, which
+now reports 26 payload inline bytes including the existing hardware site.
+The main ROM comparison and fresh four-image/runtime-symbol comparisons
+pass. Runtime/code/data receipts are refreshed. Main ownership is unchanged.
+Payload commit 8ef38e4ef6f7721ebd0b972b9870bb467ed4b317 is included in the
+verified recovery bundle on its expected branch ref. Complete startup
+recovery, platform instruction handling and executable/data classification
+remain open; full decompilation is not claimed.
+
+The main-ROM BIOS audit now filters reviewed sites by image as well as source
+path, since the payload legitimately uses the same wrapper filenames. Its
+main-ROM expectations remain unchanged.

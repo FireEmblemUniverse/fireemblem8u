@@ -2,7 +2,7 @@
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
     "main_rom": 92,
-    "mgfembp": 2
+    "mgfembp": 26
   },
   "sites": [
     {
@@ -337,6 +337,114 @@
       "region_bytes": 2,
       "instruction_bytes": 2,
       "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiCpuFastSet",
+      "address": "0x2016a9c",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiCpuSet",
+      "address": "0x2016aa0",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiHuffUnCompReadNormal",
+      "address": "0x2016aa4",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiLZ77UnCompReadNormalWrite16bit",
+      "address": "0x2016aa8",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiLZ77UnCompReadNormalWrite8bit",
+      "address": "0x2016aac",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiRLUnCompReadNormalWrite16bit",
+      "address": "0x2016ab0",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiRLUnCompReadNormalWrite8bit",
+      "address": "0x2016ab4",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_soft_reset.c",
+      "function": "SwiSoftReset",
+      "address": "0x2016ac2",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_soft_reset.c",
+      "function": "SwiSoftReset",
+      "address": "0x2016ac4",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiSoundBiasReset",
+      "address": "0x2016ad2",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiSoundBiasSet",
+      "address": "0x2016ada",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/bios_wrappers.c",
+      "function": "SwiVBlankIntrWait",
+      "address": "0x2016ae2",
+      "region_bytes": 2,
+      "instruction_bytes": 2,
+      "literal_alignment_bytes": 0
     }
   ],
   "images": {
@@ -345,8 +453,8 @@
       "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
     },
     "mgfembp": {
-      "elf_sha256": "f2228c8b0693e81a3339e75cd91e4ce83564b540b7a09ff6fac84521e262694b",
-      "map_sha256": "fef7a89f71e48b7a63e18e588295164ec22f83f3665260db26b75154e77b4d37"
+      "elf_sha256": "f3cce81777c6c611824685b6892a98f62396eef6c2c3ea4fec32f14676fbfe37",
+      "map_sha256": "103c94dda8a38da7e07b65aeae55e4d3ea7a028a862847160b572df10f1fe054"
     }
   }
 }

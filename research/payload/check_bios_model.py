@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Model payload wrapper boundaries with synthetic BIOS responses, not BIOS internals."""
-import hashlib,json,random,subprocess
+import argparse,hashlib,json,random,subprocess
 from pathlib import Path
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_INTR,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];out=ROOT/'.deps/payload-bios'
+parser=argparse.ArgumentParser();parser.add_argument('--byte-receipt',type=Path,default=ROOT/'docs/payload-bios-byte-research.json');parser.add_argument('--json',type=Path,default=ROOT/'docs/payload-bios-model-research.json');args=parser.parse_args()
 services={'SwiCpuFastSet':12,'SwiCpuSet':11,'SwiHuffUnCompReadNormal':19,'SwiLZ77UnCompReadNormalWrite16bit':18,'SwiLZ77UnCompReadNormalWrite8bit':17,'SwiRLUnCompReadNormalWrite16bit':21,'SwiRLUnCompReadNormalWrite8bit':20,'SwiSoundBiasReset':25,'SwiSoundBiasSet':25,'SwiVBlankIntrWait':5}
 regs=[getattr(r,f'UC_ARM_REG_R{n}') for n in range(15)];rng=random.Random(0xb105);cases=0;reset_cases=0
 for image in ('mgfembp','mgfembp_20030206','mgfembp_20030219'):
@@ -58,5 +59,5 @@ for image in ('mgfembp','mgfembp_20030206','mgfembp_20030219'):
    assert calls==[1,0] and writes==[(0x04000208,1,0)]
    assert [u.reg_read(reg) for reg in regs[4:13]]==initial[4:13]
    assert u.reg_read(regs[14])==initial[14];reset_cases+=1
-report=dict(returning_wrapper_cases=cases,reset_cases=reset_cases,total_cases=cases+reset_cases,byte_receipt_sha256=hashlib.sha256((ROOT/'docs/payload-bios-byte-research.json').read_bytes()).hexdigest(),scope='Synthetic BIOS boundary behavior only. Checks argument setup, service number, return mode, registers/flags and reset stack/MMIO sequence. Stops at reset SWI 0; does not implement BIOS services.')
-(ROOT/'docs/payload-bios-model-research.json').write_text(json.dumps(report,indent=2)+'\n');print(report)
+report=dict(returning_wrapper_cases=cases,reset_cases=reset_cases,total_cases=cases+reset_cases,byte_receipt_sha256=hashlib.sha256(args.byte_receipt.read_bytes()).hexdigest(),scope='Synthetic BIOS boundary behavior only. Checks argument setup, service number, return mode, registers/flags and reset stack/MMIO sequence. Stops at reset SWI 0; does not implement BIOS services.')
+args.json.write_text(json.dumps(report,indent=2)+'\n');print(report)

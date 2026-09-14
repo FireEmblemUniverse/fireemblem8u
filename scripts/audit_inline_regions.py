@@ -46,6 +46,18 @@ SITES=[
  ('main_rom','src/sio_multiboot_wait.c','MultiBootWaitCycles',0x0804e024,'7a46',2,'asm("mov %0, pc"'),
  ('main_rom','src/sio_multiboot_wait.c','MultiBootWaitCycles',0x0804e036,'401afddc',4,'1: subs %0, %0, %1'),
  ('mgfembp','src/hardware.c','func_02011F4C',0x02011fa4,'03df',2,'asm("swi 3")'),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiCpuFastSet', 0x2016a9c, '0cdf', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiCpuSet', 0x2016aa0, '0bdf', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiHuffUnCompReadNormal', 0x2016aa4, '13df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiLZ77UnCompReadNormalWrite16bit', 0x2016aa8, '12df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiLZ77UnCompReadNormalWrite8bit', 0x2016aac, '11df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiRLUnCompReadNormalWrite16bit', 0x2016ab0, '15df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiRLUnCompReadNormalWrite8bit', 0x2016ab4, '14df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_soft_reset.c', 'SwiSoftReset', 0x2016ac2, '01df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_soft_reset.c', 'SwiSoftReset', 0x2016ac4, '00df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiSoundBiasReset', 0x2016ad2, '19df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiSoundBiasSet', 0x2016ada, '19df', 2, 'asm volatile('),
+ ('mgfembp', 'src/bios_wrappers.c', 'SwiVBlankIntrWait', 0x2016ae2, '05df', 2, 'asm volatile('),
 ]
 
 def main():

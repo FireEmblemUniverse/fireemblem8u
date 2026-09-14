@@ -52,3 +52,7 @@ from the parent build when it is absent.
 The two embedded interworking veneers now use explicit C Thumb handoffs and
 ARM tail-call wrappers, replacing fake_glue.s. Parent compiler dependencies
 and linker adjacency assertions are part of the bundled payload build.
+
+Payload BIOS wrappers now use ordinary C setup/returns and explicit inline
+SWIs, including the stack-changing reset sequence. All three complete BIOS
+regions remain byte-identical; linker ordering preserves their entry points.

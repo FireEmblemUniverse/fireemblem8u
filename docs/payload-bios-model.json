@@ -1,0 +1,7 @@
+{
+  "returning_wrapper_cases": 1920,
+  "reset_cases": 96,
+  "total_cases": 2016,
+  "byte_receipt_sha256": "f15e9b371b044661157badea83c48740810d2ac4484ad94550ef6d1c5895c95a",
+  "scope": "Synthetic BIOS boundary behavior only. Checks argument setup, service number, return mode, registers/flags and reset stack/MMIO sequence. Stops at reset SWI 0; does not implement BIOS services."
+}

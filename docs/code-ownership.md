@@ -1,13 +1,13 @@
 # Linked instruction ownership
 
-Build baseline: `165169e5`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `2968bf58`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
 | Scope | Mapped instruction bytes |
 |---|---:|
 | main_rom | 777,630 |
-| mgfembp | 25,716 |
+| mgfembp | 25,714 |
 
 ## main_rom
 
@@ -45,9 +45,9 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 
 | Ownership | Instruction bytes | Share of mapped instructions |
 |---|---:|---:|
-| C-owned objects | 18,176 | 70.68% |
-| C objects containing assembly | 6,330 | 24.62% |
-| Assembly-source objects | 390 | 1.52% |
+| C-owned objects | 18,176 | 70.69% |
+| C objects containing assembly | 6,390 | 24.85% |
+| Assembly-source objects | 328 | 1.28% |
 | Runtime archive objects | 820 | 3.19% |
 | Unresolved ownership | 0 | 0.00% |
 
@@ -56,20 +56,21 @@ Assembly-source objects, largest first:
 | Object | Instruction bytes |
 |---|---:|
 | `src/crt0.o` | 328 |
-| `src/gbasvc.o` | 62 |
 
 C objects needing assembly review (whole-object sizes, **not** remaining assembly bytes):
 
 | Object | Instruction bytes |
 |---|---:|
 | `src/hardware.o` | 6,330 |
+| `src/bios_wrappers.o` | 46 |
+| `src/bios_soft_reset.o` | 14 |
 
 ## Reviewed assembly inside C
 
 | Scope | Inline instruction bytes | Assembly sources + reviewed inline |
 |---|---:|---:|
 | main_rom | 92 | 92 |
-| mgfembp | 2 | 392 |
+| mgfembp | 26 | 354 |
 
 The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
 

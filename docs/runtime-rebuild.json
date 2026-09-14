@@ -25,7 +25,7 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
   "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
-  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-a4vbrri3",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-7awdhq7m",
   "tool_versions": {
     "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
     "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
@@ -36,8 +36,8 @@
     "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
   },
   "rebuilt_archive_sha256": {
-    "libc": "14ab6ca4ff304d70fbc6d5b260f1ac7aef1a752243f805b9cd92418308e9c3bc",
-    "libgcc": "dc63329e1aafe474b04c9d2db4920ecf1ff98dc0a43e4242bfc95907450e5a8f"
+    "libc": "72bd97a6852c5ebf0dfd3668922eace4f317131b65433cd054e0cd559f737a6e",
+    "libgcc": "da7806ea831fbe8d3e3de3e4c7d8409f87a53775f8a6db0e6cf5148cb3708755"
   },
   "images": {
     "main_rom": {
@@ -51,25 +51,25 @@
     "mgfembp": {
       "bytes": 34956,
       "sha1": "8a81a47d88f6b0a3f91c49784b9f7b317382abac",
-      "original_elf_sha256": "f2228c8b0693e81a3339e75cd91e4ce83564b540b7a09ff6fac84521e262694b",
-      "original_map_sha256": "fef7a89f71e48b7a63e18e588295164ec22f83f3665260db26b75154e77b4d37",
-      "rebuilt_elf_sha256": "d841c3a729f9ea71d231fea53262f381cb4c14288af47b3f71b2128e2aae4e19",
+      "original_elf_sha256": "f3cce81777c6c611824685b6892a98f62396eef6c2c3ea4fec32f14676fbfe37",
+      "original_map_sha256": "103c94dda8a38da7e07b65aeae55e4d3ea7a028a862847160b572df10f1fe054",
+      "rebuilt_elf_sha256": "ac2860493359186d1cf7a8a03b2597240ed60fdedf079c77809eb27752cffe86",
       "global_symbols_match": true
     },
     "mgfembp_20030206": {
       "bytes": 34788,
       "sha1": "6674fc5b5ee26433665c44b842cdb26bcf785051",
-      "original_elf_sha256": "5ac774a50036504faf37f2104cbffc5021de8ee7bc352640e7a0368a1ff14a2a",
-      "original_map_sha256": "7217b7e7a2301388dd84395b86132d91ad7197b311a58beabf3bad1447c7db40",
-      "rebuilt_elf_sha256": "c82caa75f8d31b2593a979454944eb087c9df0fe218c9653b6430035c782da7f",
+      "original_elf_sha256": "f1fc7ab974d97cc5d1f12fa3c2e424eea71e025b773aaef9ea7ad5860219f250",
+      "original_map_sha256": "1a91f10c8d19f84351b89deb92f75c1ba0238e0c860f8befa53889d194e68676",
+      "rebuilt_elf_sha256": "6be0e0f0a8f8ccfb7a09201350916b2e6169d62e65de8ad04f7b7b6647485c38",
       "global_symbols_match": true
     },
     "mgfembp_20030219": {
       "bytes": 34196,
       "sha1": "ad3ffdb4fc50206f944972a0a7ad26bfa8b5ef74",
-      "original_elf_sha256": "7768aa41849a4b919abfd00c55e2bd4b56c52f04b19c7a9f54a25e4995b318a0",
-      "original_map_sha256": "2551c78c72885938721ebfef78100c8ac24e462f172d28785a7d7bec5de29c83",
-      "rebuilt_elf_sha256": "b268a46ba7686c012aeae55f1af01f2eea0c51177441d1bca8a942a5c30e29c9",
+      "original_elf_sha256": "a82a57c359842d4b895bdd8769949109aa16df6b6a9d3a8aaf5218ff7e53e850",
+      "original_map_sha256": "014201a772ffc2597c9ffd4906186f894a0c5f62a4619019d8da6360d35f523e",
+      "rebuilt_elf_sha256": "91be470714eed18b1ab3fb2baa9dbae32ebde2132e3aa97aac0726f06cc549b9",
       "global_symbols_match": true
     }
   },
