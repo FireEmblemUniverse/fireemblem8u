@@ -10710,3 +10710,36 @@ stays at 739,790/777,630 (95.13%) because the new 148-byte object is classified
 as mixed C/assembly, whose total rises to 15,560. There are now 594 tracked
 main C files. Startup, Thumb entry scaffolding, BIOS instructions, runtime
 helpers and complete executable classification remain unfinished.
+
+### Integrated serial bootstrap branch entries
+
+`src/serial_boot.c` replaces both remaining bootstrap branches at 08B1A0B8
+and 08B1A178 with C tail transfers. The init function is marked noinline
+to retain the first branch's original destination instead of folding both
+transfers into a direct branch to reset. ARM GCC's ordinary tail-call
+generation emits the exact two B instructions with no compiler plugin.
+The linker places the function sections around the original embedded ROM
+header; `asm/fe6sio.s` now contains only data and padding.
+
+`scripts/audit_serial_boot.py` verifies eight C-owned instruction bytes,
+decodes both branch destinations and requires full-ROM equality. Exact
+instruction equality preserves LR, SP, flags and all data registers.
+`make compare -j8` and all four fresh runtime rebuilds pass. Code-region
+and data-provenance audits are refreshed. The four-byte SVC in the reset
+remains the serial bootstrap's only instruction assembly.
+
+Main-ROM assembly-source bytes fall from 488 to 480; with eighteen inline
+bytes, reviewed non-library assembly is now 498 bytes. Whole-object C
+ownership rises to 739,798/777,630 (still 95.13% rounded), and tracked main C
+files rise to 595. Expanded-payload assembly remains 420 bytes. Startup,
+Thumb entries, BIOS instructions, runtime helpers and comprehensive
+executable classification are still unfinished.
+
+The branch split changes assembler mapping metadata for the header's first
+177 bytes: they are now unmapped input bytes rather than data-mapped bytes.
+`audit_final_unmapped.py` freshly assembles the tracked 188-byte header and
+verifies the newly unmapped slice. Its residual receipt now covers 816 bytes
+instead of 639, and total unmapped-input provenance is 3,172,290 bytes.
+This is an inventory classification change, not changed ROM content or an
+execution-safety claim. The final provenance gate initially failed on the
+unrecognized slice and passes with this explicit source reconstruction.

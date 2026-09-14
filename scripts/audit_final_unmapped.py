@@ -27,6 +27,16 @@ def main():
     output=tmp/'section.bin';subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j',c['section'],str(done[obj]),str(output)],check=True,capture_output=True)
     data=output.read_bytes()[start-c['start']:end-c['start']];assert data==wanted,(obj,c['section'])
     record.update(method='fresh C compilation',source_sha256=sha(source.read_bytes()),section=c['section'])
+   elif obj=='asm/fe6sio.o':
+    source=ROOT/'src/data/fe6_rom_header.inc'
+    wrapper=tmp/'serial_header.s';fresh=tmp/'serial_header.o';output=tmp/'serial_header.bin'
+    wrapper.write_text('.section .data\n.include "src/data/fe6_rom_header.inc"\n')
+    subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(wrapper),'-o',str(fresh)],cwd=ROOT,check=True,capture_output=True)
+    subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.data',str(fresh),str(output)],check=True,capture_output=True)
+    contribution=next(c for c in contributions if c['object']==obj and c['section']=='.data.serial_header')
+    offset=start-contribution['start'];data=output.read_bytes()
+    assert len(data)==188 and data[offset:offset+len(wanted)]==wanted
+    record.update(method='fresh assembly of explicit header data',source_sha256=sha(source.read_bytes()),section=contribution['section'])
    elif obj=='asm/arm.o':
     source=(ROOT/'asm/arm.s').read_bytes();assert b'.LOamLoPutIt: .4byte gOamLoPutIt' in source
     lines=subprocess.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines();address=int(next(x.split()[0] for x in lines if x.endswith(' gOamLoPutIt')),16)
@@ -38,6 +48,6 @@ def main():
     assert b"{'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'}" in source
     assert wanted==b' '*16+b'0'*16;record.update(method='explicit libc padding arrays',source_sha256=sha(source))
    record['sha256']=sha(wanted);records.append(record)
- report=dict(verified_bytes=sum(r['bytes'] for r in records),regions=len(records),fresh_c_objects=len(done),remaining_unbound_bytes=0,elf_sha256=sha(elf.read_bytes()),map_sha256=sha((ROOT/'fireemblem8.map').read_bytes()),compiler_sha256=sha((ROOT/'tools/agbcc/bin/agbcc').read_bytes()),records=records,scope='Final 639 residual bytes reproduce from fresh C translation units or explicit pointer/libc source definitions. Completes provenance of the previously unmapped-input inventory together with prior receipts; not a no-execution proof, mapped-data audit or whole-game completion.')
+ report=dict(verified_bytes=sum(r['bytes'] for r in records),regions=len(records),fresh_c_objects=len(done),remaining_unbound_bytes=0,elf_sha256=sha(elf.read_bytes()),map_sha256=sha((ROOT/'fireemblem8.map').read_bytes()),compiler_sha256=sha((ROOT/'tools/agbcc/bin/agbcc').read_bytes()),records=records,scope='Residual bytes reproduce from fresh C translation units, explicit serial-header assembly data, or pointer/libc source definitions. Completes provenance of the previously unmapped-input inventory together with prior receipts; not a no-execution proof, mapped-data audit or whole-game completion.')
  (ROOT/'docs/final-unmapped-provenance.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items() if k!='records'},indent=2))
 if __name__=='__main__':main()

@@ -1,5 +1,5 @@
 
-    .section .data
+    .section .data.serial_header
     .INCLUDE "gba.inc"
     @ This part of data seems unused
     @ The data is just the same in FE7
@@ -8,13 +8,13 @@
 
     .ARM
 
-    b FE6SIO_Init
+    @ The entry branch is generated from src/serial_boot.c.
 
 FE6_RomHeader: @ 0xB1A0BC
     .include "src/data/fe6_rom_header.inc"
 
-FE6SIO_Init: @ 08B1A178
-    b SerialReset
+    .section .data.serial_padding
+    @ The init branch is generated from src/serial_boot.c.
     .WORD 0
     .WORD 0
     .WORD 0

@@ -1,0 +1,19 @@
+{
+  "c_owned_instruction_bytes": 8,
+  "transfers": [
+    {
+      "address": "0x8b1a0b8",
+      "target": "0x8b1a178",
+      "instruction_bytes": 4
+    },
+    {
+      "address": "0x8b1a178",
+      "target": "0x8b1a1c4",
+      "instruction_bytes": 4
+    }
+  ],
+  "source_sha256": "2bbdf3c288e63f2679a59d75c53da24bdb34818ab8800b2f435c9a4ec59e7ced",
+  "elf_sha256": "eb37369ebfcd77457e2153a40e4b15659482dd718514513eca97c11d89416660",
+  "full_rom_exact": true,
+  "scope": "Exact ARM B instructions preserve LR, SP, flags and other registers while reaching the original bootstrap destinations. Header and padding remain data."
+}

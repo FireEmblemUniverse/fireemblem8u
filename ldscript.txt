@@ -2692,7 +2692,10 @@ SECTIONS
         . = ALIGN(4); src/bmguide.o(.data);
         . = ALIGN(4); src/data/data_B12A60.o(.data);
         . = ALIGN(4); src/bmguide_config.o(.data);
-        . = ALIGN(4); asm/fe6sio.o(.data);
+        . = ALIGN(4); src/serial_boot.o(.text.serial_entry);
+        asm/fe6sio.o(.data.serial_header);
+        src/serial_boot.o(.text.serial_init);
+        asm/fe6sio.o(.data.serial_padding);
         src/serial_poll.o(.text);
         src/serial_reset.o(.text);
         asm/fe6sio.o(.data.after_reset);

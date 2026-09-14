@@ -2,7 +2,7 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `b1e96188`): the complete 164-byte serial reset region is exact, with 144 C-generated instruction bytes, a retained four-byte BIOS SVC and 16 literal bytes. The bounded private LR-transfer backend passes sixteen rejection cases; the protocol draft passes 272 cases and the suffix passes 32 synthetic BIOS-return cases. Full-ROM comparison, all four runtime rebuilds, and existing code/data-provenance audits pass. Reviewed non-library assembly is now 506 main-ROM bytes and 420 expanded-payload bytes, with 594 tracked main C files. Main-ROM whole-object C ownership remains 739,790/777,630 mapped instruction bytes (95.13%): the reset object is conservatively mixed C/assembly because of its SVC. All unmapped-input bytes and ROM gaps have source/build provenance receipts; mapped-data and executable classification remain open. Native startup/transfer code, Thumb entries, BIOS instructions and runtime helpers remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `a10a256f`): both serial bootstrap branches are exact eight-byte C tail transfers, with the original header/padding layout preserved. The preceding reset milestone remains verified: the complete 164-byte serial reset region is exact, with 144 C-generated instruction bytes, a retained four-byte BIOS SVC and 16 literal bytes. The bounded private LR-transfer backend passes sixteen rejection cases; the protocol draft passes 272 cases and the suffix passes 32 synthetic BIOS-return cases. Full-ROM comparison, all four runtime rebuilds, and existing code/data-provenance audits pass. Reviewed non-library assembly is now 498 main-ROM bytes and 420 expanded-payload bytes, with 595 tracked main C files. Main-ROM whole-object C ownership is 739,798/777,630 mapped instruction bytes (95.13%): the reset object is conservatively mixed C/assembly because of its SVC. All unmapped-input bytes and ROM gaps have source/build provenance receipts; mapped-data and executable classification remain open. Native startup/transfer code, Thumb entries, BIOS instructions and runtime helpers remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -20,7 +20,7 @@ they do not attribute the entire decompilation to this task.
 | Meter | Verified progress |
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
-| Unmapped-input provenance closure | **3,172,113/3,172,113 bytes accounted for across receipts; final 639 bytes verified; mapped data and execution classification remain open** |
+| Unmapped-input provenance closure | **3,172,290/3,172,290 bytes accounted for across receipts; final 816 bytes verified; mapped data and execution classification remain open** |
 | Residual table/font/icon provenance | **11,548 additional bytes verified; 639 bytes remain unbound; 109 terrain arrays and font PNG checked** |
 | Remaining unmapped asset provenance | **157 bindings verify 312,032 bytes; 12,187 bytes remain explicitly unbound** |
 | Animation command structure | **201 streams fully parsed; 4,818 valid mode entries; no callback/pointer opcodes; six invalid cases rejected** |
@@ -31,9 +31,10 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **141/141 gaps accounted for: 2,574,801 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.13%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **506 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **498 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Integrated serial bootstrap branches | **8/8 bytes exact C; original destinations, registers and header/padding placement preserved** |
 | Integrated serial reset | **164-byte region exact: 144 C-generated instruction bytes, four retained SVC bytes, 16 literals; full ROM/runtime match** |
 | Integrated serial polling | **44/44 ARM instruction bytes exact C; private r0/r1 and returned flags preserved; full ROM/runtime match** |
 | Integrated ARM call bodies | **24/24 ARM bytes C-owned; all six eight-byte veneers exact; 24 Thumb entry bytes still assembly** |

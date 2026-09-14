@@ -118,6 +118,9 @@ src/arm/clear_oam.o: CC1FLAGS := -quiet -mthumb-interwork -Wimplicit -Wparenthes
 src/arm/call_wrappers.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/arm/call_wrappers.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-builtin -fomit-frame-pointer -fno-unwind-tables -fno-asynchronous-unwind-tables
 
+src/serial_boot.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
+src/serial_boot.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mno-thumb-interwork -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables
+
 src/serial_poll.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/serial_poll.o: CC1FLAGS := -std=gnu89 -O2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables
 

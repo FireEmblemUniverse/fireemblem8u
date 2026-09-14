@@ -1,10 +1,10 @@
 {
-  "verified_bytes": 639,
-  "regions": 17,
+  "verified_bytes": 816,
+  "regions": 18,
   "fresh_c_objects": 14,
   "remaining_unbound_bytes": 0,
-  "elf_sha256": "007aa1e8997cb491820d38244396e896e77a038d6ec28d6c6d16a7e84579dfa9",
-  "map_sha256": "d19fa2a444500612cbde3245d96892baabfb544300a995265f72ea62f6efd290",
+  "elf_sha256": "eb37369ebfcd77457e2153a40e4b15659482dd718514513eca97c11d89416660",
+  "map_sha256": "03b3f3f43c9c116ed2bd63a5744a547100228283239d5ff382654f4eed726f5d",
   "compiler_sha256": "05c3eee224f7543df30dfdf9b3e107d728d314fcd57695e019b26a4c2c757c88",
   "records": [
     {
@@ -16,6 +16,16 @@
       "target": "gOamLoPutIt",
       "source_sha256": "0f857fa49c41134b948dd7be216979e457f264570d2c0a585c969190c51e3098",
       "sha256": "9d8b7c14ce4f2c0f767d4f57fcd6423b6d000d5c3e570ff5b97fedb249506642"
+    },
+    {
+      "object": "asm/fe6sio.o",
+      "start": "0x8b1a0bc",
+      "end": "0x8b1a16d",
+      "bytes": 177,
+      "method": "fresh assembly of explicit header data",
+      "source_sha256": "4c19d602829e856b4eff8b9329c84fd0d8a69900724b4f2efd70ac33fe6a5357",
+      "section": ".data.serial_header",
+      "sha256": "eb0501be419d34434b3e03ea8df6c4ae2df5a31df18a6e4e2cd863975f0c08e3"
     },
     {
       "object": "src/banim-ekrmain.o",
@@ -177,5 +187,5 @@
       "sha256": "97fec1b1f0590aae7f183f80616a56a2025d734bf9288dcbfdae512678816fc2"
     }
   ],
-  "scope": "Final 639 residual bytes reproduce from fresh C translation units or explicit pointer/libc source definitions. Completes provenance of the previously unmapped-input inventory together with prior receipts; not a no-execution proof, mapped-data audit or whole-game completion."
+  "scope": "Residual bytes reproduce from fresh C translation units, explicit serial-header assembly data, or pointer/libc source definitions. Completes provenance of the previously unmapped-input inventory together with prior receipts; not a no-execution proof, mapped-data audit or whole-game completion."
 }
