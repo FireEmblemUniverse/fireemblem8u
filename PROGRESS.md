@@ -14,6 +14,8 @@ Latest reference audit (baseline `15c44ba0`): 1,328 directly linked objects cont
 
 Latest source clarification (baseline `0715b0bb`): the mini-animation command handler now reads `commandQueue[commandQueueSize - 1]` directly, replacing an unexplained shifted struct-pointer cast. The full production ROM still matches. Queue bounds and handler behavior remain separate verification work. Receipt: `docs/mini-command-queue.json`.
 
+Latest animation dispatch inventory (baseline `a7019e4c`): 14,421 command records use 93 IDs across 201 streams; all 30,693 frames have nonzero delays. Four observed IDs (0x0E, 0x53–0x55) have no explicit main-handler case; the queue-consumption path still handles their removal. Mini-animation has separate cases/default behavior. Execution and mode reachability are still open. Receipt: `docs/banim-command-dispatch.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

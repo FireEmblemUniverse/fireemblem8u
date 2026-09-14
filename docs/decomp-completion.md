@@ -13628,3 +13628,24 @@ array expression, removing the unexplained struct-pointer cast and its FIXME.
 upstream queue bounds, wait release and complete handler behavior remain open.
 Existing ELF-hashed audit receipts describe their recorded build, since changing
 source/debug information can change ELF hashes even when the ROM is identical.
+
+## Animation command dispatch inventory — September 14, 2026
+
+Baseline `a7019e4c`. `scripts/audit_banim_command_dispatch.py` verifies expanded
+motion hashes against the grammar receipt, then inventories all 14,421 command
+records and 30,693 frames across 201 streams. There are 93 distinct command IDs
+and no zero-delay frames. Outer-switch extraction excludes nested round-type
+switch labels and comments; a nested-switch regression checks that distinction.
+
+Four observed IDs lack an explicit main battle switch case: 0x0E, 0x53, 0x54,
+and 0x55. The existing switch has no default and falls through to decrementing
+the queue size for these IDs. This is source behavior, not evidence of missing
+code. The mini-animation switch explicitly handles 0x0E by starting class-reel
+spell animation and has a default no-op for higher IDs. Its restricted behavior
+must be evaluated with the modes actually used by that consumer.
+
+`docs/banim-command-dispatch.json` records command frequencies, frame delays,
+source hashes and each handler's case inventory. This does not prove handler
+execution, queue bounds, wait release or mode reachability. In particular, the
+absence of zero-delay frames is only one ingredient in checking update/queue
+behavior; command handlers and external scheduling remain to be verified.
