@@ -2,16 +2,17 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 14, 2026. Current research: the unit-list page transition has a reproducible 436-byte C candidate with eleven differing Thumb halfwords; all 5,520 independent tile-copy/callback model cases pass. Forty-two compiler/source probes found no exact match, so production coverage is unchanged. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: continue runtime helpers, unit-list/transfer code and executable
-classification. `docs/multiply-code-region.json` verifies the complete
-sixteen-byte multiplication routine and confirms that m4a_1.o contains no
-mapped instructions. Its remaining assembly labels and literals are data or
-zero-size boundaries; this does not establish whole-game completion.
+Next: resolve register allocation in the two unit-list tile-copy loops. The
+checked research candidate differs at section offsets 0x72..0x94 and
+0x132..0x134; its control-flow layout, calls and pools match.
+`docs/unitlist-page-in-research.json` records the candidate and model evidence.
+The routine remains assembly in production. Runtime helpers, transfer/startup
+code and executable classification also remain unfinished.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -29,6 +30,7 @@ they do not attribute the entire decompilation to this task.
 | Reviewed non-library assembly | **1,114 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Unit-list page transition research | **425/436 section bytes agree; eleven Thumb halfwords differ; 5,520 model cases pass; not integrated** |
 | Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note LFO delay | **10/10 bytes exact; 163,840 production cases pass; twelve unsupported contracts and 274 altered layouts reject; full ROM/runtime match** |

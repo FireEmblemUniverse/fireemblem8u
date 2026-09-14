@@ -10078,3 +10078,45 @@ The valid layout links and all 287 altered layouts reject, including three new
 entry extent/alignment/target cases. The alignment perturbation is inserted
 after the assembly input section, since its input alignment absorbed the first
 attempt. Evidence: `.deps/audio-interwork-match/exact-production-layout.log`.
+
+
+## September 14, 2026 — Unit-list page transition characterized
+
+Research baseline `2039044d`. The existing NONMATCHING C implementation of
+`UnitList_PageChangeIn_Loop` is isolated in `research/unitlist/page_change_in.c`.
+The original region at 08091F10..080920C4 contains 396 instruction bytes and
+40 literal/alignment bytes. With the repository's agbcc, the isolated C candidate
+has the same 436-byte layout; 425 bytes agree and eleven Thumb halfwords differ.
+All differences are register allocation in two tile-copy expressions, at section
+offsets 0x72, 0x78, 0x7C, 0x7E, 0x8C, 0x8E, 0x91, 0x92, 0x94, 0x132 and 0x134.
+The byte at 0x91 is the high byte of the halfword at 0x90. Calls, control-flow
+layout and literal words match. Byte similarity includes data and must not be
+reported as production C coverage or overall decompilation percentage.
+
+`probe_page_change_in.py --search` compiles 42 baseline/source/option probes.
+Forty compile, while two scheduling options are unsupported by agbcc. Explicit
+row/column/pointer register bindings, empty operand ties, temporary lifetime
+changes, regmove/strength-reduction options and the older compiler produce no
+better candidate. The original candidate remains the best. The standalone linker
+must receive real Thumb FUNC symbols for the two external calls; plain absolute
+assignments produced unnecessary interworking veneers, even with the low bit set.
+The corrected probe uses typed absolute symbols and no synthetic executable stubs.
+
+`check_page_change_in_model.py` passes 5,520 original/C cases against an independent
+model: all ten transition-speed indices, widths 0..20 plus 250/255 overflow cases,
+eight scroll boundaries, forward/backward/equal page relations, and cycling NZCV.
+There are 1,840 forward and 3,680 backward/equal cases, 1,008 break calls and
+216 byte-wrap cases. The model checks the complete EWRAM result, exact ordered
+writes, callback count/arguments, and original/C final registers, LR, flags and
+IWRAM stack contents. Callback stubs deliberately clobber caller-save registers
+and flags; real BG sync and Proc_Break implementations are not validated here.
+The write trace masks values to the store width, matching actual byte truncation.
+Arbitrary aliases, all Cartesian flag combinations and physical timing are outside
+this model. The candidate is behaviorally checked over this domain but not exact.
+
+Production is unchanged and `make compare -j8` still passes. Main-ROM C ownership
+remains 721,264/777,630 (92.75%); the 396-byte inline-assembly routine remains in
+scope. The next step is matching the temporary-register choices in its two inner
+loops without changing layout or behavior. Evidence: `docs/unitlist-page-in-research.json`
+and `.deps/unitlist-page-in/{probe-report.json,model-report.json,probe.log,model.log,
+production-compare.log}` plus each generated candidate/object/link output.
