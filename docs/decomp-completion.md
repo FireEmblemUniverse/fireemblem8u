@@ -10120,3 +10120,23 @@ scope. The next step is matching the temporary-register choices in its two inner
 loops without changing layout or behavior. Evidence: `docs/unitlist-page-in-research.json`
 and `.deps/unitlist-page-in/{probe-report.json,model-report.json,probe.log,model.log,
 production-compare.log}` plus each generated candidate/object/link output.
+
+### Unit-list allocation investigation (September 14, 2026)
+
+The reproducible probe now supports `--clobbers` (all 256 pairs of low-register
+clobber subsets at the two existing empty barriers) and `--lifetimes` (20
+shift-result operand constraints, including early-clobber and fixed registers).
+All 276 additional variants compile; none improves the 425/436-byte baseline.
+The best lifetime variant is only 240 matching bytes in a 432-byte section,
+so these source changes are not production candidates. Logs are retained in
+`.deps/unitlist-page-in/{clobber-probe.log,lifetime-probe.log}`. Each mode also
+runs the baseline; repeated baseline runs are excluded from the additional count.
+
+An agbcc `-da` dump narrows the next investigation. In `.regmove`, forward-loop
+instruction 200 shifts row pseudo 91 by six into distinct pseudo 112 and marks
+the row REG_DEAD. Regmove adds two-address copies for the AND operations but
+does not collapse this shift assignment. The register reuse visible in the
+final code therefore occurs later; inspect local-allocation quantity coalescing
+rather than globally disabling regmove. Dumps are retained beside `baseline.i`.
+This is diagnostic evidence, not a candidate improvement or new C ownership.
+Production sources and the previously verified ROM are unchanged.

@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'.deps/unitlist-page-in'
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--search',action='store_true');a=p.parse_args();OUT.mkdir(exist_ok=True)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--search',action='store_true');p.add_argument('--clobbers',action='store_true');p.add_argument('--lifetimes',action='store_true');a=p.parse_args();OUT.mkdir(exist_ok=True)
  source=(ROOT/'research/unitlist/page_change_in.c').read_text();rom=(ROOT/'baserom.gba').read_bytes();original=rom[0x91f10:0x920c4]
  symbols={v.split()[-1]:int(v.split()[1],16) for v in subprocess.check_output(['arm-none-eabi-readelf','-sW',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(v.split())>=8 and v.split()[0].rstrip(':').isdigit()}
  for name in ('BG_EnableSyncByMask','Proc_Break'):symbols[name]|=1
@@ -37,6 +37,21 @@ def main():
   for flag in ('-fno-regmove','-fno-schedule-insns','-fno-schedule-insns2','-fno-caller-saves','-fno-strength-reduce'):
    variants.append(('flag'+flag,source))
   variants.append(('old-compiler',source))
+ if a.clobbers:
+  pieces=source.split('asm("" ::: "r1");');assert len(pieces)==3
+  for left,right in itertools.product(range(16),repeat=2):
+   def barrier(mask):
+    regs=[f'"r{n}"' for n in range(4) if mask&(1<<n)]
+    return 'asm(""'+(' ::: '+', '.join(regs) if regs else '')+');'
+   variants.append((f'clobber-{left}-{right}',pieces[0]+barrier(left)+pieces[1]+barrier(right)+pieces[2]))
+ if a.lifetimes:
+  for constraint in ('+r','+&r'):
+   for reg in ('','r0','r1','r2','r3'):
+    for operand in ('row','r4'):
+     decl=('register int offset asm("'+reg+'")' if reg else 'int offset')
+     expr='({ int row = r4 & 31; '+decl+' = row * 64; asm("" : "'+constraint+'"(offset) : "r"('+operand+')); offset; })'
+     text=source.replace('gUnitlistscreen_0[r4 & 0x1f][r5 + 8]', '*(u16 *)((u8 *)gUnitlistscreen_0 + '+expr+' + (r5 + 8) * 2)').replace('gUnitlistscreen_0[r4 & 0x1f][({r5 + 0x1c;}) - proc->unk_38]', '*(u16 *)((u8 *)gUnitlistscreen_0 + '+expr+' + (r5 + 28 - proc->unk_38) * 2)')
+     variants.append(('lifetime-'+str(len(variants)),text))
  reports=[]
  for name,text in variants:
   src=OUT/(name+'.c');src.write_text(text);pp=OUT/(name+'.i');asm=OUT/(name+'.s');obj=OUT/(name+'.o');elf=OUT/(name+'.elf');binary=OUT/(name+'.bin')

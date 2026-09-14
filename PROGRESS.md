@@ -2,12 +2,12 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Current research: the unit-list page transition has a reproducible 436-byte C candidate with eleven differing Thumb halfwords; all 5,520 independent tile-copy/callback model cases pass. Forty-two compiler/source probes found no exact match, so production coverage is unchanged. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 14, 2026. Current research: the unit-list page transition has a reproducible 436-byte C candidate with eleven differing Thumb halfwords; all 5,520 independent tile-copy/callback model cases pass. The initial 42 compiler/source probes, 256 clobber combinations and 20 operand-lifetime variants found no exact match, so production coverage is unchanged. RTL inspection localizes the row/shift register reuse to allocation after regmove. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: resolve register allocation in the two unit-list tile-copy loops. The
+Next: inspect local-allocation coalescing of the dead row input and shift output in the two unit-list tile-copy loops. The
 checked research candidate differs at section offsets 0x72..0x94 and
 0x132..0x134; its control-flow layout, calls and pools match.
 `docs/unitlist-page-in-research.json` records the candidate and model evidence.

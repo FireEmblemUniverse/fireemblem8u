@@ -43,5 +43,21 @@
   },
   "source_sha256": "de5eacd9314575099d30cb5e2e0153c92b41cc0e597729ecf322313640a6dab6",
   "elf_sha256": "7d1c5877487db4d3767e9f1c28bc24c7216cc77868e34acc99b6aab35cb45c83",
-  "scope": "Research receipt, not production C coverage. Byte similarity includes literals/alignment and is not a decompilation percentage."
+  "scope": "Research receipt, not production C coverage. Byte similarity includes literals/alignment and is not a decompilation percentage.",
+  "additional_probes": {
+    "clobber_combinations": 256,
+    "clobber_successful_compiles": 256,
+    "lifetime_constraints": 20,
+    "lifetime_successful_compiles": 20,
+    "best_matching_bytes": 425,
+    "production_integrated": false
+  },
+  "rtl_findings": {
+    "compiler": "tools/agbcc/bin/agbcc -mthumb-interwork -O2 -fhex-asm -ffix-debug-line -da",
+    "forward_row_pseudo": 91,
+    "forward_shift_result_pseudo": 112,
+    "forward_shift_insn": 200,
+    "observation": "At regmove output, instruction 200 shifts row pseudo 91 by six into pseudo 112 and marks pseudo 91 REG_DEAD. The shift remains a distinct pseudo assignment before allocation. Regmove inserts two-address copies for the AND operations; it does not collapse this shift assignment.",
+    "next_step": "Inspect local allocation quantity coalescing for the dead row input and shift output; operand-lifetime constraints tried here change section layout."
+  }
 }
