@@ -10140,3 +10140,22 @@ final code therefore occurs later; inspect local-allocation quantity coalescing
 rather than globally disabling regmove. Dumps are retained beside `baseline.i`.
 This is diagnostic evidence, not a candidate improvement or new C ownership.
 Production sources and the previously verified ROM are unchanged.
+
+### Reverse-loop register merge isolated (September 14, 2026)
+
+The local allocation dump assigns row/shift pseudos 91/112 to r2 in the
+forward loop and 167/186 to r3 in the reverse loop. The diagnostic patch
+`research/unitlist/no-shift-merge.patch` selectively declines `combine_regs`
+for shifts by six, without rewriting any instructions. Environment unset
+reproduces the baseline at 425/436 bytes. Selecting RTL UID 401 fixes both
+reverse-loop halfwords and gives 427/436; selecting UID 200 gives 403/436,
+and disabling all such shift merges gives 405/436. All sections remain 436
+bytes. This establishes the reverse-loop cause, but the forward allocation
+responds differently. UID selectors are diagnostic only, not a production
+contract or accepted decompilation. Nine source-level post-store row-liveness
+variants compile but do not improve baseline (best 425).
+
+The patched experimental compiler source and executable were restored after
+measurement; installed production compilers were never changed. The patch,
+reproduction instructions, and JSON receipt preserve the experiment. No
+production sources changed or new behavior-model coverage is claimed.

@@ -50,7 +50,9 @@
     "lifetime_constraints": 20,
     "lifetime_successful_compiles": 20,
     "best_matching_bytes": 425,
-    "production_integrated": false
+    "production_integrated": false,
+    "row_live_constraints": 9,
+    "row_live_successful_compiles": 9
   },
   "rtl_findings": {
     "compiler": "tools/agbcc/bin/agbcc -mthumb-interwork -O2 -fhex-asm -ffix-debug-line -da",
@@ -59,5 +61,120 @@
     "forward_shift_insn": 200,
     "observation": "At regmove output, instruction 200 shifts row pseudo 91 by six into pseudo 112 and marks pseudo 91 REG_DEAD. The shift remains a distinct pseudo assignment before allocation. Regmove inserts two-address copies for the AND operations; it does not collapse this shift assignment.",
     "next_step": "Inspect local allocation quantity coalescing for the dead row input and shift output; operand-lifetime constraints tried here change section layout."
-  }
+  },
+  "allocation_diagnostic": [
+    {
+      "uid": 0,
+      "size": 436,
+      "matching_bytes": 425,
+      "different_offsets": [
+        114,
+        120,
+        124,
+        126,
+        140,
+        142,
+        145,
+        146,
+        148,
+        306,
+        308
+      ]
+    },
+    {
+      "uid": 1,
+      "size": 436,
+      "matching_bytes": 405,
+      "different_offsets": [
+        99,
+        100,
+        102,
+        114,
+        120,
+        124,
+        126,
+        140,
+        142,
+        145,
+        146,
+        167,
+        168,
+        172,
+        174,
+        177,
+        178,
+        210,
+        212,
+        244,
+        246,
+        252,
+        254,
+        266,
+        268,
+        335,
+        336,
+        376,
+        378,
+        389,
+        390
+      ]
+    },
+    {
+      "uid": 200,
+      "size": 436,
+      "matching_bytes": 403,
+      "different_offsets": [
+        99,
+        100,
+        102,
+        114,
+        120,
+        124,
+        126,
+        140,
+        142,
+        145,
+        146,
+        167,
+        168,
+        172,
+        174,
+        177,
+        178,
+        210,
+        212,
+        244,
+        246,
+        252,
+        254,
+        266,
+        268,
+        306,
+        308,
+        335,
+        336,
+        376,
+        378,
+        389,
+        390
+      ]
+    },
+    {
+      "uid": 401,
+      "size": 436,
+      "matching_bytes": 427,
+      "different_offsets": [
+        114,
+        120,
+        124,
+        126,
+        140,
+        142,
+        145,
+        146,
+        148
+      ]
+    }
+  ],
+  "allocation_diagnostic_scope": "Research compiler patch only. UID selectors are diagnostic, not an accepted production compiler contract. UID 401 disables reverse row/shift coalescing and fixes both reverse-loop differing halfwords. UID 200 disrupts broader allocation. Production and baseline C remain unchanged."
 }

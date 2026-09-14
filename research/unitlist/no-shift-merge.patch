@@ -1,0 +1,12 @@
+--- a/local-alloc.c
++++ b/local-alloc.c
+@@ -1554,0 +1555,9 @@
++
++  /* Research-only: isolate shift coalescing, with no instruction rewriting. */
++  if (getenv ("UNITLIST_NO_SHIFT_MERGE") && GET_CODE (PATTERN (insn)) == SET
++      && GET_CODE (SET_SRC (PATTERN (insn))) == ASHIFT
++      && GET_CODE (XEXP (SET_SRC (PATTERN (insn)), 1)) == CONST_INT
++      && INTVAL (XEXP (SET_SRC (PATTERN (insn)), 1)) == 6
++      && (atoi(getenv("UNITLIST_NO_SHIFT_MERGE")) == 1
++          || atoi(getenv("UNITLIST_NO_SHIFT_MERGE")) == INSN_UID(insn)))
++    return 0;
