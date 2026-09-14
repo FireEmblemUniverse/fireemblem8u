@@ -12369,3 +12369,27 @@ identities. Remaining runtime assembly consists of signed modulus (206),
 indirect-call veneers (60) and __div0 (2). Syscall inline assembly, expanded
 payload assembly and complete mapped-data/executable classification remain
 open; overall completion is not claimed.
+
+
+### Signed-modulus arithmetic recovery (September 14, 2026)
+
+Baseline `5953a546`. `research/runtime/smod.c` recovers unsigned magnitude
+normalization, speculative subtractions, over-subtraction correction and
+restoration of the dividend's sign. Unsigned negation handles INT_MIN without
+signed-overflow undefined behavior. The early small-dividend path also
+restores the original sign, and the zero path calls __div0.
+
+The checker now supports signed modulus with a Python magnitude remainder
+and the dividend's sign; it does not use Python's negative-divisor modulo
+semantics. All sign combinations of selected normalization-edge magnitudes
+are included alongside random, unsigned-boundary and zero cases. Exact
+machine-state and layout recovery remain separate from this arithmetic test.
+
+The GCC -Os candidate emits 200 bytes versus the original 206 instruction
+bytes. All 6312 cases pass result, callee-saved registers, SP restoration
+and expected __div0 invocation. Flags differ on 972
+cases, caller registers on 6312 cases and
+stack writes on 6312 cases. The detailed receipt
+is `docs/runtime-smod-research.json`. Next bind the arithmetic registers and
+recover the stacked dividend sign while retaining r12 for rotation state.
+Production runtime assembly remains 268 instruction bytes per audited image.
