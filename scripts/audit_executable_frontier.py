@@ -39,5 +39,5 @@ for name,x in images.items():
  lines += [f'## {name}','',f"Declared function entries: {x['declared_function_entries']}; entries without instruction mappings: {len(x['function_entries_without_instruction_mapping'])}.",'','| Owner | Data-mapped bytes | Unmapped bytes |','|---|---:|---:|']
  for row in x['owners'][:25]:lines.append(f"| `{row['object']}` | {row['data_bytes']:,} | {row['unmapped_bytes']:,} |")
  lines+=['']
-(ROOT/'docs/executable-frontier.md').write_text('\n'.join(lines)+'\n')
+(ROOT/'docs/executable-frontier.md').write_text('\n'.join(lines).rstrip()+'\n')
 print(json.dumps({k:{n:v for n,v in x.items() if n!='owners'} for k,x in images.items()},indent=2))

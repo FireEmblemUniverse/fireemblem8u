@@ -6,7 +6,9 @@ Updated: September 14, 2026. Latest integration (baseline `2543832f`): both even
 
 Latest coverage inventory (baseline `f4a13197`): all 8,663 main-ROM declared function entries and all 340/340/339 payload entries lie in instruction-mapped regions. The review frontier includes 10,252,493 data-mapped main input bytes and 3,172,286 unmapped input bytes; existing provenance receipts do not themselves prove absence of embedded code. Largest owners and all four image hashes are recorded in `docs/executable-frontier.json`.
 
-Next: bind the largest data regions to their consumers and executable/nonexecutable evidence, starting with sound/animation assets, while auditing platform-operation contracts. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
+Latest format closure (baseline `7ea7a0ce`): all 439 direct-sound records rebuild exactly from AIFF sources, accounting for the entire 3,272,220-byte region, including 707 zero-alignment bytes. Audio-format provenance is verified; references/control-flow evidence remain separate. Receipt: `docs/sound-sample-data.json`.
+
+Next: bind these sound records to consumers and continue animation/embedded-code classification while auditing platform-operation contracts. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.

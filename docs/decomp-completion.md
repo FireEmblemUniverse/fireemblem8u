@@ -13560,3 +13560,23 @@ indirect targets, copied code, compressed executables, literal pools and
 reachability remain outside the declared-function-entry check. Consumer and
 format evidence must classify those regions before any overall completion
 percentage is claimed.
+
+
+### Direct-sound region format/provenance closure (September 14, 2026)
+
+Baseline `7ea7a0ce`. `scripts/audit_sound_sample_data.py` parses every source
+incbin binding and rebuilds each of 439 records from its AIFF using aif2pcm.
+Every rebuilt record equals its source binary and linked ROM bytes. The audit
+checks declared symbol addresses, uncompressed WaveData type/status fields,
+frequency, sample count, loop bounds and the exact 16-byte header plus sample
+count plus one terminal sample layout. It reconstructs all inter-record and
+final zero alignment and matches the entire input section.
+
+All 3,272,220 region bytes are accounted for, including 707 alignment bytes.
+There are no uncovered tails in that input contribution. Evidence:
+`docs/sound-sample-data.json`, with per-record source and byte hashes.
+
+This establishes audio format/provenance and source reconstruction, not a proof
+that arbitrary control flow cannot target data. Consumer/reference analysis
+and the remaining embedded-executable classification are still required.
+The ROM and instruction-ownership totals are unchanged.
