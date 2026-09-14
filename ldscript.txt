@@ -1780,6 +1780,15 @@ SECTIONS
         src/m4a_ply_note_frequency_setup.o(.text);
         __ply_note_frequency_setup_end = .;
         src/m4a_1.o(.text.after_ply_note_frequency_setup);
+        __ply_note_finish_start = .;
+        src/m4a_ply_note_finish.o(.text);
+        __ply_note_finish_end = .;
+        src/m4a_1.o(.text.after_ply_note_finish);
+        ASSERT((PlyNoteFinishBody & ~1) == PlyNoteFinish &&
+               __ply_note_finish_start == (ply_note & ~1) + 472 &&
+               __ply_note_finish_end - __ply_note_finish_start == 14 &&
+               PlyNoteExit == __ply_note_finish_end,
+               "ply_note completion extent or continuation changed");
         ASSERT((PlyNoteFrequencySetupBody & ~1) == PlyNoteFrequencySetup &&
                __ply_note_frequency_setup_start == (ply_note & ~1) + 404 &&
                __ply_note_frequency_setup_end - __ply_note_frequency_setup_start == 52 &&

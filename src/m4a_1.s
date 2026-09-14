@@ -607,13 +607,9 @@ _081DDCCE:
 	adds r0, r7, 0
 	bl MidiKeyToFreq
 _081DDCDC:
-	str r0, [r4, 0x20]
-	movs r0, 0x80
-	strb r0, [r4]
-	ldrb r1, [r5]
-	movs r0, 0xF0
-	ands r0, r1
-	strb r0, [r5]
+	.global PlyNoteFinish
+PlyNoteFinish:
+	.section .text.after_ply_note_finish, "ax", %progbits
 	.global PlyNoteExit
 PlyNoteExit:
 _081DDCEA:

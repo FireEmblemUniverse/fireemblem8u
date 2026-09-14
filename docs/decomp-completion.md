@@ -9649,3 +9649,60 @@ paths, then runtime helpers, unit-list/transfer code and executable classificati
 The valid production layout links and all 248 altered layouts reject, including
 five new frequency-setup extent/continuation and PCM transfer cases. Evidence:
 `.deps/soundmain-packed/ply-note/frequency-setup-production-layout.log`.
+
+
+## September 13, 2026 — Note-completion stores integrated
+
+On baseline `c2a43d74`, `src/m4a_ply_note_finish.c` replaces fourteen assembly
+instruction bytes at 080D001C..080D002A. It stores the frequency result, starts
+the selected channel with status 0x80, and masks the track status to its upper
+nibble. Ordered volatile stores and loads preserve aliases. MOVS and ANDS
+retain incoming carry/overflow while updating N/Z. Existing private adjacent
+tail support suffices; no compiler changes were required. The linker requires
+entry+472, extent fourteen and immediate shared-return continuation.
+
+The original-ROM and candidate models each pass 286,720 cases: every status
+byte and NZCV, seven full-width frequency values, and ten track offsets covering
+channel-status overlap, each byte of the stored frequency, and disjoint data.
+The model checks full registers, SP/LR, full RAM and ordered accesses. These
+synthetic byte-access aliases include unaligned track addresses without any
+unaligned word access. Frequency values are sampled. Execution starts after
+frequency calculation and stops at the return entry, without either callback
+or saved-frame restoration.
+
+`make compare -j8` passes. The production checker verifies source identity,
+production object bytes and full-ROM identity. All 286,720 model cases pass,
+seven unsupported compiler contracts reject, and unannotated output is unchanged.
+Fresh pinned runtime libraries reproduce all four images and exported symbols.
+PCM selection retains its complete 84-byte C ownership; mixer, SoundMain and all
+602 mapped MPlayMain instruction bytes retain C ownership.
+
+Main-ROM ownership is 721,164 C-owned (92.74%), 33,870 mixed C/assembly, 804
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,214 main-ROM and 420 payload bytes. There
+are 577 tracked main C files and 29 assembly entry markers. The refreshed linked
+inventory locates exactly 96 remaining ply_note assembly instruction bytes:
+
+| Range | Bytes | Remaining work |
+|---|---:|---|
+| 080CFE44..080CFE64 | 32 | Entry frame, literal reads and gate-time setup |
+| 080CFF84..080CFF8A | 6 | ClearChain input and invocation |
+| 080CFF9C..080CFFB2 | 22 | LFO/reset path and TrkVolPitSet setup/invocation |
+| 080CFFD4..080CFFD8 | 4 | Channel volume invocation |
+| 080D000C..080D001C | 16 | CGB invocation/continuation and PCM setup/invocation |
+| 080D002A..080D003A | 16 | Saved-frame return |
+
+Production ELF SHA-256:
+`d7a027013ae6af310c6d3b754f5b1ad0dd12232b8c0d88f44410edfcd576f545`.
+Evidence in `.deps/soundmain-packed/ply-note/`: `finish-report.json`,
+`finish-original-model.log`, `finish-check.log`, `finish-production-check.log`,
+`finish-production-build.log`, `finish-candidate.{c,o,bin,log}`,
+`finish-production.bin`, `finish-model.json`, `reject-finish-*.log`,
+`finish-runtime.log`, `finish-ownership.log`, `finish-source.json`,
+`finish-linked.json` and the refreshed region audit logs/receipts. Next: the
+remaining setup/callback/frame regions, then runtime helpers, unit-list/transfer
+code and executable classification.
+
+The valid production layout links and all 250 altered layouts reject, including
+two new completion extent/continuation cases. Evidence:
+`.deps/soundmain-packed/ply-note/finish-production-layout.log`.

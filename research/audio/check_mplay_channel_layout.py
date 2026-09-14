@@ -245,6 +245,8 @@ def main():
  for name,offset in [('far',1024),('backward',0),('odd',463)]:
   needle='        ASSERT(PlyNotePcmFrequencySetup =='
   cases.append(('note_frequency_pcm_'+name,source.replace(needle,'        PlyNotePcmFrequencySetup = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note frequency PCM transfer'))
+ cases += [('note_finish_extent',source.replace('        __ply_note_finish_end = .;','        . += 2;\n        __ply_note_finish_end = .;'),'ply_note completion extent or continuation'),
+           ('note_finish_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_finish);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_finish);'),'ply_note completion extent or continuation')]
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

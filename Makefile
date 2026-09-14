@@ -1193,6 +1193,11 @@ src/m4a_ply_note_tone.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb 
 THUMB_SHARED_TAILS_PLUGIN := $(ARM_DISPATCH_DIR)/thumb_shared_tails.so
 $(THUMB_SHARED_TAILS_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/thumb_shared_tails.cc tools/arm-dispatch/build_thumb_shared_tails.py
 	python3 tools/arm-dispatch/build_thumb_shared_tails.py --compiler $(ARM_DISPATCH_CC) --output-dir $(ARM_DISPATCH_DIR)
+src/m4a_ply_note_finish.o: $(THUMB_TAIL_TRANSFER_PLUGIN)
+src/m4a_ply_note_finish.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_ply_note_finish.o: C_END_ALIGN := 1
+src/m4a_ply_note_finish.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteExit -fplugin-arg-tail_transfer-adjacent-destination=PlyNoteExit
+
 src/m4a_ply_note_frequency_setup.o: $(THUMB_TAIL_TRANSFER_PLUGIN) $(THUMB_ADD_SIGN_BRANCH_PLUGIN) $(ARM_COPY_ADD_ZERO_PLUGIN) $(THUMB_DIRECT_TAILS_PLUGIN)
 src/m4a_ply_note_frequency_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_frequency_setup.o: C_END_ALIGN := 1
