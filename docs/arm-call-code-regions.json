@@ -1,7 +1,7 @@
 {
   "c_owned_instruction_bytes": 48,
   "assembly_entry_instruction_bytes": 0,
-  "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
+  "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
   "full_rom_exact": true,
   "veneers": [
     {

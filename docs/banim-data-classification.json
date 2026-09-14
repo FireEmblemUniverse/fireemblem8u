@@ -12,8 +12,8 @@
   "start": "0x8c02000",
   "end": "0x8e47180",
   "script_sha256": "2182e000f2f66ac8bd4ceb4d65f446ed36288585dcb458f1db2a0c0e63ea83e0",
-  "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-  "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468",
+  "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
+  "map_sha256": "9c17e202effc688818b500001c8f2f6d9f11f2567e31c29d3d05820057f16913",
   "rejected_checks": [
     "bad-header",
     "missing-flags",

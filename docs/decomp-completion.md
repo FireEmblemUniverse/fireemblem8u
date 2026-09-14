@@ -13415,3 +13415,25 @@ small positive counts and signed-negative/overflow boundaries. The separate
 Exact bytes and instruction counts are verified; bus wait-state timing is
 not independently emulated. The two-byte PC read remains explicit assembly.
 Production is unchanged pending integration and full-ROM/compiler checks.
+
+
+### Multiboot countdown production integration (September 14, 2026)
+
+Baseline `1c9d289a`. Production sio_multiboot_wait.c replaces the four-byte
+inline SUBS/BGT template with unsigned C subtraction and a signed comparison
+of the original operands. The signed r1 step and reserved r2 allocation keep
+the original setup and region register. The Makefile uses the matching compiler
+and opt-in countdown pass without debug emission. The hardware PC read remains
+explicit assembly.
+
+The full-ROM checksum passes, and all 1,548 full-function cases pass against
+the actual production object. Its complete 24-byte text matches the reference.
+The model checks ROM/EWRAM/IWRAM step selection, instruction counts, registers,
+return and no memory writes; it does not independently simulate bus wait states.
+Fresh runtime rebuilds reproduce all four images and exported symbols.
+Evidence: `docs/multiboot-wait.json` and refreshed code/inline/runtime receipts.
+
+Main nonlibrary inline assembly falls from 92 to 88 bytes. Object ownership
+categories do not change because the same object retains its PC-read assembly.
+Payload inline assembly remains 58 bytes and runtime syscalls 26 bytes.
+Full executable/data classification and the decompilation goal remain open.

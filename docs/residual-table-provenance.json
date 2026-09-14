@@ -24,7 +24,7 @@
   "residual_bytes": 812,
   "terrain_source_sha256": "cdeaab3f889e9e39851f6c222f6be3fd915d2b1ca6ac4e2a8025659f251ff509",
   "terrain_header_sha256": "a6b123f55767458d366191456b762c2550741ce5d352290e0cfde817873c9dbd",
-  "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
+  "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
   "tables": [
     {
       "name": "TerrainTable_MovCost_CommonT2Normal",

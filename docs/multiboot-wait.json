@@ -1,0 +1,15 @@
+{
+  "cases": 1548,
+  "exact_instruction_bytes": 24,
+  "retained_pc_read_bytes": 2,
+  "recovered_loop_bytes": 4,
+  "regions": [
+    "ROM",
+    "EWRAM",
+    "IWRAM"
+  ],
+  "source_sha256": "8e6c2860f45b8aa9328cb418d81ca171d966eb9ee1183f30637d0d883157cdad",
+  "code_sha256": "edd0a8387c6853fa3cb07bed651a6faacd81dd1c8c128be0a5d230eb1972828a",
+  "production_integrated": true,
+  "scope": "Full function with region-dependent PC read, exact instruction count, register results, no writes and return. Instruction-count parity is not a model of memory wait-state timing; hardware PC read remains assembly."
+}

@@ -2,7 +2,7 @@
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
     "mgfembp": 58,
-    "main_rom": 92
+    "main_rom": 88
   },
   "sites": [
     {
@@ -393,15 +393,6 @@
       "literal_alignment_bytes": 0
     },
     {
-      "image": "main_rom",
-      "source": "src/sio_multiboot_wait.c",
-      "function": "MultiBootWaitCycles",
-      "address": "0x804e036",
-      "region_bytes": 4,
-      "instruction_bytes": 4,
-      "literal_alignment_bytes": 0
-    },
-    {
       "image": "mgfembp",
       "source": "src/hardware.c",
       "function": "func_02011F4C",
@@ -521,8 +512,8 @@
   ],
   "images": {
     "main_rom": {
-      "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
-      "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
+      "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
+      "map_sha256": "9c17e202effc688818b500001c8f2f6d9f11f2567e31c29d3d05820057f16913"
     },
     "mgfembp": {
       "elf_sha256": "defa0227e8e8067ee58b080a768055caa7959525ce227f20a125d40dae3462ed",

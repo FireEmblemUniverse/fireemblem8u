@@ -29,7 +29,7 @@
     "src/m4a_ply_note_finish.o": 14,
     "src/m4a_ply_note_exit_restore.o": 16
   },
-  "elf_sha256": "e7e0302a8bb73dbaeb4f867d54fd24f2c5144b2fa8395b3a9c37607422ad0932",
+  "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
   "regions": [
     {
       "start": 135069252,
