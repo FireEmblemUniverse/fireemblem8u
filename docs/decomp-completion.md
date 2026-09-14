@@ -13068,3 +13068,26 @@ payload-irq-layout.json, with refreshed runtime/code/data audit receipts.
 The remaining assembly comprises 52 startup bytes, 28 IRQ entry/frame bytes
 and 80 continuation bytes. Complete mode/callback/return recovery and full
 executable/data classification remain open.
+
+
+### Payload IRQ-entry candidate (September 14, 2026)
+
+Baseline `0bbac796`. `research/payload/irq_entry.c` adapts the main-ROM C
+register setup to the payload private continuation. The existing validated
+ARM noreturn-frame compiler pass produces all five original instructions:
+20 bytes match each of the three payload binaries at offset 0x3c. The
+candidate contains only empty register constraints, with no instruction
+assembly templates.
+
+`research/payload/check_irq_entry.py` builds the pass and candidate afresh,
+checks all three byte ranges, rejects a four-byte displaced frame target,
+and runs 512 deterministic independent model cases. These cover random
+IE/IF words and register contents across all 16 condition-flag combinations
+in IRQ mode. The enabled low halfword, loaded word and IO base are checked,
+as are every other register, condition flags, final PC and absence of writes.
+Receipt: `docs/payload-irq-entry-research.json`.
+
+This is research only: production startup and ownership totals are unchanged.
+The checks exclude SPSR capture, stack-frame save, startup ADR relocation,
+mode switching and callback dispatch. Integrating the entry and saved frame
+with checked production layout is the next step.

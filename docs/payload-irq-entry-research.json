@@ -1,0 +1,14 @@
+{
+  "exact_images": [
+    "mgfembp",
+    "mgfembp_20030206",
+    "mgfembp_20030219"
+  ],
+  "exact_code_bytes": 20,
+  "model_cases": 512,
+  "displaced_layout_rejected": true,
+  "production_integrated": false,
+  "source_sha256": "b2f274718da92f04dd6fbdbd552e17cae49657a51d51a487c135337001b683bc",
+  "code_sha256": "c7250d65bbba8c56f8a7aee1274b31bdaa8ef646d84cf905ca38002eb5f96761",
+  "scope": "IRQ register setup only; all condition flags and random IE/IF words, registers and no writes. Excludes SPSR capture, saved frame, startup ADR and dispatch."
+}

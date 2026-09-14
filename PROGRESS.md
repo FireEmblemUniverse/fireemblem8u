@@ -4,6 +4,8 @@
 
 Updated: September 14, 2026. Latest integration (baseline `53e4869b`): the payload's 168-byte IRQ priority search now builds from C, including its grouped 0xC0 priority and bit-13 halt. All three payloads and the main ROM match their references; 17,408 search cases and six displaced-layout rejection checks pass. Fresh runtime builds reproduce all four images and exported symbols. Expanded payload assembly is now 186 bytes: 160 startup/IRQ assembly-source bytes plus 26 inline bytes. Payload mapped instruction bytes remain 25,714 (18,344 C-owned, 6,390 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Remaining startup/IRQ code, platform operations and complete executable/data classification are unfinished; no overall completion percentage is claimed.
 
+Latest research (baseline `0bbac796`): a C candidate reproduces the payload IRQ entry setup exactly (20 bytes in all three payloads). An independent model passes 512 random IE/IF and register cases across all 16 condition-flag combinations; a displaced frame target is rejected. Production ownership totals above are unchanged. Next: integrate this entry with the saved-frame boundary and verify startup ADR placement. Evidence: `docs/payload-irq-entry-research.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
