@@ -10628,3 +10628,23 @@ unannotated control output. Its receipt is
 was corrected to contain an actual return, since GCC inferred noreturn when
 only the declaration annotation was removed. Production remains unchanged;
 the actual BIOS suffix and complete region/pool layout are still required.
+
+### Serial BIOS suffix ABI probe
+
+`research/serial/handoff.c` isolates the five-instruction suffix at
+08B1A244. Its SVC remains explicit instruction assembly and is not claimed
+as C-owned code. GCC produces the input/output literal loads but adds a
+stack save and a normal indirect call sequence instead of loading LR and
+branching through it. The isolated section is 40 bytes including literals.
+Neither this suffix nor the handshake draft is integrated.
+
+`research/serial/check_handoff.py` compares original and draft across 32
+synthetic BIOS-return states. Both issue ARM SVC 0x110000 with r0=020002B0
+and r1=02010000 and reach ARM entry 02010000. The original preserves entry
+SP and sets LR to 02010000; the draft differs in r3, SP and LR. The checker
+asserts those specific differences while varying BIOS scratch values and
+flags. It does not emulate decompression or claim an actual BIOS contract
+for those arbitrary scratch results. Evidence is
+`docs/serial-handoff-research.json`. The next terminal-transfer work must
+remove these differences while preserving the separately accounted SVC.
+The inspected ARM machine descriptions have no SVC pattern to reuse.
