@@ -163,6 +163,7 @@ bool literal_load(rtx p,unsigned reg) {
     }
     return GET_CODE(address)==LABEL_REF;
 }
+bool exact_layout=false;
 const pass_data data={RTL_PASS,"startup_frame",OPTGROUP_NONE,TV_NONE,0,0,0,0,0};
 class pass:public rtl_opt_pass {
 public:
@@ -213,13 +214,64 @@ public:
         while(next && !NONDEBUG_INSN_P(next)) next=NEXT_INSN(next);
         if(next!=ops[1] || LABEL_NUSES(labels[0])!=1)
             fatal_error(UNKNOWN_LOCATION,"Startup frame restart must precede first mode assignment");
+        if(exact_layout) {
+            std::vector<rtx_insn *> pool;
+            rtx pool_label=nullptr,last=nullptr;
+            for(rtx_insn *i=get_insns();i;i=NEXT_INSN(i)) {
+                if(LABEL_P(i)) last=i;
+                if(!NONDEBUG_INSN_P(i)) continue;
+                rtx x=PATTERN(i);
+                if(GET_CODE(x)==UNSPEC_VOLATILE && XINT(x,1)==VUNSPEC_POOL_4) {
+                    if(pool.empty()) pool_label=last;
+                    pool.push_back(i);
+                }
+            }
+            if(pool.size()!=5 || !pool_label) fatal_error(UNKNOWN_LOCATION,"Startup frame requires five-word source pool");
+            const char *names[]={"__sp_irq","__sp_usr",nullptr,"IrqMain","AgbMain"};
+            int indexes[]={3,7,9,11,14};
+            for(int n=0;n<5;n++) {
+                rtx x=PATTERN(pool[n]);
+                if(XVECLEN(x,0)!=1) fatal_error(UNKNOWN_LOCATION,"Startup frame invalid pool word");
+                rtx value=XVECEXP(x,0,0);
+                if(names[n] ? (GET_CODE(value)!=SYMBOL_REF || std::string(XSTR(value,0))!=names[n])
+                    : (!CONST_INT_P(value) || INTVAL(value)!=0x03007ffc))
+                    fatal_error(UNKNOWN_LOCATION,"Startup frame source pool value rejected");
+                rtx address=XEXP(SET_SRC(p(indexes[n])),0);
+                if(n) {
+                    if(GET_CODE(address)!=CONST || GET_CODE(XEXP(address,0))!=PLUS)
+                        fatal_error(UNKNOWN_LOCATION,"Startup frame pool offset rejected");
+                    address=XEXP(address,0);
+                    if(!CONST_INT_P(XEXP(address,1)) || INTVAL(XEXP(address,1))!=4*n)
+                        fatal_error(UNKNOWN_LOCATION,"Startup frame pool displacement rejected");
+                    address=XEXP(address,0);
+                }
+                if(GET_CODE(address)!=LABEL_REF || XEXP(address,0)!=pool_label)
+                    fatal_error(UNKNOWN_LOCATION,"Startup frame pool label rejected");
+                rtx replacement;
+                if(n==3) replacement=gen_match_arm_pc_address(copy_rtx(SET_DEST(p(indexes[n]))),GEN_INT(24));
+                else {
+                    rtx symbol=gen_rtx_SYMBOL_REF(SImode,ggc_strdup(n<2?"StartupStackPointers":"StartupFarPointers"));
+                    int offset=n==0 || n==4 ? 4 : 0;
+                    if(offset) symbol=gen_rtx_CONST(SImode,gen_rtx_PLUS(SImode,symbol,GEN_INT(offset)));
+                    replacement=gen_match_arm_literal(copy_rtx(SET_DEST(p(indexes[n]))),symbol);
+                }
+                if(!validate_change(ops[indexes[n]],&PATTERN(ops[indexes[n]]),replacement,false))
+                    fatal_error(UNKNOWN_LOCATION,"Startup frame address pattern %d rejected",n);
+                REG_NOTES(ops[indexes[n]])=nullptr;
+            }
+            for(rtx_insn *word:pool) delete_insn(word);
+        }
         delete_insn(ops[0]);
         return 0;
     }
 };
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
-    if(!plugin_default_version_check(version,&gcc_version) || info->argc) return 1;
+    if(!plugin_default_version_check(version,&gcc_version)) return 1;
+    if(info->argc) {
+        if(info->argc!=1 || std::string(info->argv[0].key)!="layout" || info->argv[0].value) return 1;
+        exact_layout=true;
+    }
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

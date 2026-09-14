@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--compiler',default='arm-none-eabi-gcc')
+    parser.add_argument('--compiler',default=str(ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc'))
     parser.add_argument('--output-dir',type=Path,default=ROOT/'.deps/startup-frame-backend')
     args=parser.parse_args()
     version = subprocess.check_output([args.compiler, '-dumpfullversion'], text=True).strip()

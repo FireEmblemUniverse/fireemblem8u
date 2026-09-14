@@ -5,6 +5,10 @@ register unsigned *startupStack asm("sp");
 register unsigned startupLink asm("lr");
 extern unsigned __sp_irq[], __sp_usr[];
 extern void IrqMain(void), AgbMain(void);
+#ifdef RESEARCH_STARTUP_LAYOUT
+unsigned const StartupStackPointers[2] __attribute__((used,section(".rodata.startup_stack"))) = {(unsigned)__sp_usr, (unsigned)__sp_irq};
+unsigned const StartupFarPointers[2] __attribute__((used,section(".rodata.startup_far"))) = {0x03007ffc, (unsigned)AgbMain};
+#endif
 #ifdef RESEARCH_STARTUP_FRAME
 #define STARTUP_FRAME __attribute__((research_arm_startup_frame))
 #else

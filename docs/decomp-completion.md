@@ -11161,3 +11161,40 @@ assembly. ADR selection, literal ownership/placement and whole byte equality
 remain unfinished. This candidate is not integrated, and production remains
 unchanged. Evidence is in `docs/startup-frame-research.json`; the default
 stock-draft receipt was also refreshed for the optional-attribute source.
+
+### Exact isolated startup ADR and literal layout
+
+The startup backend's optional layout mode validates the five original
+compiler pool values and their direct load offsets, then replaces them with
+four external-literal loads and the existing ADD-PC address pattern. The
+IrqMain address uses offset 24 at the original ADR site; the isolated linker
+asserts `IrqMain == Startup + 60` and a 52-byte instruction section.
+Two C arrays supply the original System/IRQ stack-pointer order and the
+vector/main-pointer words in separate sections. Their offsets from Startup
+are asserted as 52 and 348 bytes.
+
+The ARM external-literal pattern now permits the stack-register constraint
+(`=rk`); its previous `=r` constraint rejected startup's SP loads. The matching
+compiler was rebuilt, and the startup plugin/model can select that compiler
+explicitly. The former non-layout model and unannotated control still pass.
+
+`check_startup_frame.py` now proves exact regions 080000C0..080000FC
+(52 instruction plus eight stack-pointer bytes) and 0800021C..08000224
+(eight vector/main-pointer bytes). The gap in the isolated binary is merely
+linker fixture space and is not counted as recovered startup content. The
+fixture reads AgbMain's typed ELF symbol value to preserve its Thumb bit;
+`nm`'s display clears that bit and initially exposed a mismatching pointer.
+
+Both model variants pass 96 cases each, including the exact-address layout
+with synthetic ARM/Thumb main routines. Seven invalid configurations and the
+unannotated control remain verified. A changed source pool symbol is rejected
+by the backend; displaced ADR, stack-pool and far-pool layouts fail explicit
+link assertions. The updated receipt includes exact region bounds, hashes
+and the compiler-extension hash. Two MSR instructions (eight bytes) remain
+assembly-owned; 44 startup instruction bytes are C-generated in the isolated
+candidate.
+
+`make compare -j8` passes after the compiler extension rebuild. The startup
+candidate is still isolated, with production integration and ownership audits
+remaining. Full hardware reset/BIOS entry and real AgbMain execution remain
+outside the synthetic model.

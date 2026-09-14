@@ -27,7 +27,7 @@
 ;; Read a word from a link-time symbol address using an ARM PC-relative
 ;; relocation. The memory expression preserves the load's memory semantics.
 (define_insn "match_arm_literal"
-  [(set (match_operand:SI 0 "s_register_operand" "=r")
+  [(set (match_operand:SI 0 "s_register_operand" "=rk")
         (mem:SI (unspec:SI [(match_operand:SI 1 "immediate_operand" "i")]
                           UNSPEC_MATCH_ARM_LITERAL)))]
   "TARGET_ARM"
