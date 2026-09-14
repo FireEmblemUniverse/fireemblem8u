@@ -12725,3 +12725,24 @@ offset, ROM address and exact bytes. Inactive alternate-monitor source
 branches contribute no linked sites. This establishes provenance only, not
 reachability or BIOS behavior; it replaces no instructions. Recovery of the
 repeated argument/result moves is the next concrete runtime target.
+
+
+### Syscall C-assignment probe (September 14, 2026)
+
+Baseline `c30d1ca1`. `research/runtime/probe_syscall_moves.py` replaces the
+active preprocessed Angel helper with local r0/r1 register variables, leaving
+only the SWI in inline assembly. It tests both a tied input/output and a
+read/write operand formulation using the same pinned old_agbcc and production
+optimization flags. The probe reproduces the original 1,124-byte object text
+exactly, including the build's final alignment, before evaluating candidates.
+
+Both variants compile and assemble, retain thirteen SWI instructions and
+produce identical 1,024-byte text. Neither matches the reference. Inspection
+of initialise_monitor_handles shows changed allocation outside the inline
+site, removed result copies and changed subsequent handle/table setup. The
+100-byte text reduction is not a decompilation coverage gain. No behavioral
+equivalence is asserted or production replacement made. The receipt records
+source/compiler fingerprints and text hashes in runtime-syscall-move-probe.json.
+A matching conversion must preserve the original allocation and move semantics
+through more precise compiler control rather than adopting this ordinary
+fixed-register rewrite as-is.

@@ -1,0 +1,42 @@
+{
+  "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
+  "variants": [
+    {
+      "variant": "baseline",
+      "compile_exit": 0,
+      "diagnostics": "",
+      "source_sha256": "05e06044498e88f648adf1a2c1b6addc3f9cdc02c5a499e2cf5f3b141ec631f2",
+      "assemble_exit": 0,
+      "assemble_diagnostics": "",
+      "text_bytes": 1124,
+      "text_sha256": "dcf5c21d01204048ca727aac49c3ae851672fe70a5723641d3d66d01596168a2",
+      "exact_reference_text": true,
+      "swi_sites": 13
+    },
+    {
+      "variant": "tied",
+      "compile_exit": 0,
+      "diagnostics": "",
+      "source_sha256": "e83c6e2850610edd20e85d81b0b0a7a8d267f1661ff40375d41d77d44180593e",
+      "assemble_exit": 0,
+      "assemble_diagnostics": "",
+      "text_bytes": 1024,
+      "text_sha256": "3559ef76699053c865eb8e07d5c727101998f19d7947001f92b4cb448744d577",
+      "exact_reference_text": false,
+      "swi_sites": 13
+    },
+    {
+      "variant": "readwrite",
+      "compile_exit": 0,
+      "diagnostics": "",
+      "source_sha256": "9cbc161c1677148395aac4f4143b23a71fdec3498a5557b81d7c6f231ac7091e",
+      "assemble_exit": 0,
+      "assemble_diagnostics": "",
+      "text_bytes": 1024,
+      "text_sha256": "3559ef76699053c865eb8e07d5c727101998f19d7947001f92b4cb448744d577",
+      "exact_reference_text": false,
+      "swi_sites": 13
+    }
+  ],
+  "scope": "Research only; byte comparison of complete unrelocated syscall text. No semantic or integration claim."
+}

@@ -6,6 +6,8 @@ Updated: September 14, 2026. Latest integrated milestone (baseline `1968d0f0`): 
 
 Runtime inline inventory (baseline `5f5b4a03`): the active Angel monitor syscall template expands to 13 exact ROM-bound sites, totaling 104 inline instruction bytes (26 SWI bytes and 78 register-move bytes). The 1,014-byte syscall object size is not its inline assembly count. No instructions were replaced in this audit; the repeated argument/result move template is the next runtime conversion target.
 
+Syscall move research (baseline `c30d1ca1`): two C fixed-register assignment variants compile with the pinned legacy compiler and retain all 13 SWIs, but both produce identical 1,024-byte text versus the original 1,124 bytes. The reproduced baseline matches exactly. Assignments change surrounding allocation and instruction selection; the candidates are not integrated or credited as matching C recovery. A constrained lowering strategy is needed.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
