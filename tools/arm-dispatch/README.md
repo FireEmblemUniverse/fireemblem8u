@@ -1219,3 +1219,14 @@ interworking return. Omit the flag for the original BX LR behavior. Pass
 `-fplugin-arg-leaf_r4_frame-thumb-return` after loading the plugin.
 The division layout probe and --require-exact-core model gate verify the
 complete 106-byte core; the public zero-divisor dispatcher remains separate.
+
+
+### Legacy division-zero return (research)
+
+`matching_divzero_return` validates an LR-only, zero-argument Thumb call to
+__div0 followed by returning zero, then replaces the implicit return with
+`match_thumb_pop_pc`. It preserves the saved LR frame and all other registers.
+It is a private legacy Thumb return convention; debug/unwind and altered
+shapes reject. `research/runtime/check_divzero.py` checks exact bytes at the
+original address, full state and stack writes, eight rejections and unchanged
+unannotated code. The public division dispatcher is still separate work.

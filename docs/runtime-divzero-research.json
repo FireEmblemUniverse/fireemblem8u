@@ -1,0 +1,19 @@
+{
+  "exact_bytes": 10,
+  "cases": 192,
+  "rejected_contracts": [
+    "wrong-call",
+    "nonzero-result",
+    "store",
+    "extra-call",
+    "arguments",
+    "arm-mode",
+    "unwind",
+    "debug"
+  ],
+  "unannotated_unchanged": true,
+  "source_sha256": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f",
+  "plugin_sha256": "e1d2368284f36d22c62898af19b0fad583ea03e8306ba45dedc43b8a16bc372f",
+  "production_integrated": false,
+  "scope": "Isolated legacy zero path at original address, executing actual __div0. Checks registers, flags, one saved LR write and restored SP. Thumb return address only; full dispatcher and runtime integration remain pending."
+}

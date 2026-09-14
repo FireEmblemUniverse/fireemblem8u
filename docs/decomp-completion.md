@@ -11886,3 +11886,37 @@ leaf_r4_frame.so, plus
 --require-exact-core`. The public helper is still unfinished: its four-byte
 zero check and ten-byte zero path must be generated and linked with this
 core. No runtime replacement or production ownership change is claimed.
+
+
+### Division-zero path matches all ten bytes
+
+`research/runtime/divzero.c` calls __div0 and returns zero. Ordinary GCC
+already generates the correct LR-only push, call and MOVS result, but uses
+POP r1 / BX r1 instead of the original POP PC. `divzero_return.cc` validates
+the complete six-operation RTL shape: one LR-only frame, one zero-argument
+call to __div0, the SP marker, constant-zero r0 result, result use and leaf
+return marker. It rejects parameters, additional operations, changed targets,
+unsupported modes and debug/unwind output before selecting a new explicit
+Thumb POP-PC backend operation. Other instructions are left intact.
+
+The matching compiler rebuilt successfully with this return operation.
+`research/runtime/check_divzero.py` links the candidate at the original
+0x080D1B42 address and verifies all ten bytes. It executes the actual __div0
+routine and passes 192 cases covering sixteen initial flag profiles, four
+register seeds and three stack positions. All r1-r12 are preserved, r0 is
+zero, flags match, exactly one saved-LR word is written, SP is restored and
+LR has the original call-site value. The return address is Thumb; arbitrary
+ARM callers are outside this private convention/model.
+
+Eight altered contracts reject: wrong call, nonzero result, extra store,
+extra call, parameters, ARM mode, unwind and debug. Unannotated code is
+unchanged. `docs/runtime-divzero-research.json` records exact bytes, cases,
+rejections and source/plugin hashes. Build with `build_divzero_return.py`
+against the matching compiler into `.deps/runtime-division`, then run the
+checker with the Unicorn Python environment.
+
+`make compare -j8` passes after the compiler rebuild, and the production ELF
+is unchanged. The ten-byte zero path and 106-byte nonzero core are still
+research candidates. The four-byte entry check must be generated and all
+three pieces verified together before replacing the 120-byte runtime helper.
+No production ownership or overall-completion claim is made.

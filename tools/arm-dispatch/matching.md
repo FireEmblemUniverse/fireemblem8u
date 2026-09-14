@@ -569,3 +569,13 @@
   "TARGET_THUMB1 && GET_CODE (operands[0]) == SYMBOL_REF"
   "bx\tpc\n\tnop"
   [(set_attr "type" "branch") (set_attr "length" "4")])
+
+;; Private Thumb-1 stack return, preserving the current instruction set state.
+;; The selecting pass proves the single saved LR word and no other frame data.
+(define_insn "match_thumb_pop_pc"
+  [(set (pc) (mem:SI (reg:SI SP_REGNUM)))
+   (set (reg:SI SP_REGNUM)
+        (plus:SI (reg:SI SP_REGNUM) (const_int 4)))]
+  "TARGET_THUMB1"
+  "pop\t{pc}"
+  [(set_attr "type" "load_4") (set_attr "length" "2")])
