@@ -1,12 +1,12 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "faa3d81dcb3d0f44f857f193f38a635d0afcb173",
+  "baseline_commit": "3b1eca5201f0b746725eeb9602927f8ea3eae877",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 1006,
-        "c_owned": 720962,
+        "assembly_source": 992,
+        "c_owned": 720976,
         "c_with_assembly": 33870,
         "runtime_archive": 21792
       },
@@ -1539,7 +1539,7 @@
         {
           "object": "src/m4a_1.o",
           "category": "assembly_source",
-          "instruction_bytes": 302
+          "instruction_bytes": 288
         },
         {
           "object": "src/eventfx-earthquake.o",
@@ -2227,6 +2227,11 @@
           "instruction_bytes": 14
         },
         {
+          "object": "src/m4a_ply_note_pcm_setup.o",
+          "category": "c_owned",
+          "instruction_bytes": 14
+        },
+        {
           "object": "asm/arm.o",
           "category": "assembly_source",
           "instruction_bytes": 12
@@ -2557,13 +2562,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "633a5b23609cfa936cbbf16008a0823aabf556e53f0b843771c85003bb151437",
-      "map_sha256": "db5b47f21b068c1a55708469a383a60ea3d01115ca502945e32d77b9502215af",
+      "elf_sha256": "cf0c5532e8f6ae55f088bbec001924eb259f62f24399af923e2f781fd299e86b",
+      "map_sha256": "40e981e30c0e1853aaf5fcbffa1ddaeb13e790410fda8731f6a6b9445980c6e5",
       "unmapped_input_bytes": 3172113,
       "data_mapped_bytes": 10252672,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 410,
-      "known_nonarchive_assembly_bytes": 1416
+      "known_nonarchive_assembly_bytes": 1402
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

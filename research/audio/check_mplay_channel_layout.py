@@ -220,7 +220,13 @@ def main():
  for name,offset in [('note_cgb_attach_far',1024),('note_cgb_attach_backward',0),('note_cgb_attach_odd',321)]:
   needle='        ASSERT(PlyNoteChannelAttach =='
   cases.append((name,source.replace(needle,'        PlyNoteChannelAttach = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note CGB attach transfer'))
+ cases += [('note_pcm_setup_extent',source.replace('        __ply_note_pcm_setup_end = .;','        . += 2;\n        __ply_note_pcm_setup_end = .;'),'ply_note PCM setup extent or continuation'),
+           ('note_pcm_setup_continuation',source.replace('        src/m4a_1.o(.text.after_ply_note_pcm_setup);','        . += 2;\n        src/m4a_1.o(.text.after_ply_note_pcm_setup);'),'ply_note PCM setup extent or continuation')]
+ for name,offset in [('note_pcm_loop_wrong',252),('note_pcm_loop_odd',251)]:
+  needle='        ASSERT((PlyNotePcmSetup & ~1) =='
+  cases.append((name,source.replace(needle,'        PlyNotePcmLoop = (ply_note & ~1) + '+str(offset)+';\n'+needle,1),'ply_note PCM setup extent or continuation'))
  for name,text,message in cases:
+  assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)
  report=dict(valid_layouts=1,rejected_layouts=len(cases),scope='Full production link; altered fragment size/continuation and isolated forward/backward/odd conditional-target constraints.')
  (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

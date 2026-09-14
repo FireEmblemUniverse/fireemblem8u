@@ -1756,6 +1756,15 @@ SECTIONS
         src/m4a_ply_note_cgb_select.o(.text);
         __ply_note_cgb_end = .;
         src/m4a_1.o(.text.after_ply_note_cgb);
+        __ply_note_pcm_setup_start = .;
+        src/m4a_ply_note_pcm_setup.o(.text);
+        __ply_note_pcm_setup_end = .;
+        src/m4a_1.o(.text.after_ply_note_pcm_setup);
+        ASSERT((PlyNotePcmSetup & ~1) == PlyNotePcmSelect &&
+               __ply_note_pcm_setup_start == (ply_note & ~1) + 236 &&
+               __ply_note_pcm_setup_end - __ply_note_pcm_setup_start == 14 &&
+               PlyNotePcmLoop == __ply_note_pcm_setup_end,
+               "ply_note PCM setup extent or continuation changed");
         ASSERT((PlyNoteCgbSelect & ~1) == PlyNoteCgbBoundary &&
                __ply_note_cgb_start == (ply_note & ~1) + 186 &&
                __ply_note_cgb_end - __ply_note_cgb_start == 50 &&

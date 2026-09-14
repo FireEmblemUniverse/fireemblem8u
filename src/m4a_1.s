@@ -557,13 +557,9 @@ PlyNoteCgbBoundary:
 	.global PlyNotePcmSelect
 PlyNotePcmSelect:
 _081DDBEC:
-	ldr r6, [sp, 0x10]
-	adds r7, r5, 0
-	movs r2, 0
-	mov r8, r2
-	ldr r4, [sp, 0x4]
-	ldrb r3, [r4, 0x6]
-	adds r4, 0x50
+	.section .text.after_ply_note_pcm_setup, "ax", %progbits
+	.global PlyNotePcmLoop
+PlyNotePcmLoop:
 _081DDBFA:
 	ldrb r1, [r4]
 	movs r0, 0xC7
