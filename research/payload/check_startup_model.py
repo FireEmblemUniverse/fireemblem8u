@@ -5,11 +5,11 @@ import argparse,hashlib,json,random,subprocess
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_ARM,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2]
-parser=argparse.ArgumentParser();parser.add_argument('--image',default='mgfembp',choices=['mgfembp','mgfembp_20030206','mgfembp_20030219']);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=ROOT/'research/payload/startup.c');parser.add_argument('--image',default='mgfembp',choices=['mgfembp','mgfembp_20030206','mgfembp_20030219']);args=parser.parse_args()
 rom=(ROOT/f'mgfembp/{args.image}.bin').read_bytes()
 original_candidate=(ROOT/f'.deps/payload-startup/{args.image}.bin').read_bytes()
 assert original_candidate[:60]==rom[:60] and original_candidate[336:344]==rom[336:344]
-source=ROOT/'research/payload/startup.c'
+source=args.source
 symbols={'__sp_irq':0x03007fa0,'__sp_usr':0x03007e00}
 rng=random.Random(0xc0fa);cases=0;hashes={}
 candidate_base=0x02010000
@@ -61,6 +61,6 @@ for thumb in (False,True):
     snapshots.append(state['snapshots'])
    assert snapshots[0]==snapshots[1], [(entry,n,hex(a),hex(b)) for entry,(left,right) in enumerate(zip(*snapshots)) for n,(a,b) in enumerate(zip(left,right)) if a!=b]
    cases+=1
-report=dict(image=args.image,cases=cases,handoffs_per_case=2,initial_modes=['IRQ','Supervisor','System'],flag_profiles=16,handler_modes=['ARM','Thumb'],candidate_sha256=hashlib.sha256(original_candidate).hexdigest(),source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),production_integrated=False,scope='Original payload and C candidate startup with synthetic ARM/Thumb main return and restart. Checks exact vector writes, register parity, flags, stack banks and untouched initial stack guards. Main target literal is patched for synthetic callbacks. No hardware reset/BIOS or real Main behavior claim.')
+report=dict(image=args.image,cases=cases,handoffs_per_case=2,initial_modes=['IRQ','Supervisor','System'],flag_profiles=16,handler_modes=['ARM','Thumb'],candidate_sha256=hashlib.sha256(original_candidate).hexdigest(),source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),production_integrated=source.resolve()==ROOT/'mgfembp/src/crt0.c',scope='Original payload and C candidate startup with synthetic ARM/Thumb main return and restart. Checks exact vector writes, register parity, flags, stack banks and untouched initial stack guards. Main target literal is patched for synthetic callbacks. No hardware reset/BIOS or real Main behavior claim.')
 (ROOT/f'docs/payload-startup-model-{args.image}.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(report,indent=2))

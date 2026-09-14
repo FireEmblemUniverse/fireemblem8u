@@ -13,7 +13,7 @@
     "Thumb"
   ],
   "candidate_sha256": "d0cb08d0cf5833b9a24e35b5c9f05d92d6fc425f8b5b156c605fd7d5ee731d42",
-  "source_sha256": "11818f1b2b778b2a8ecbb789316725f1dcbb5ec39115a25d350a7ea756b9a69a",
-  "production_integrated": false,
+  "source_sha256": "b1190498b15ecd7bdd31197e531c5a0e4081aa9f277796f1ef47bfb95c4d6a46",
+  "production_integrated": true,
   "scope": "Original payload and C candidate startup with synthetic ARM/Thumb main return and restart. Checks exact vector writes, register parity, flags, stack banks and untouched initial stack guards. Main target literal is patched for synthetic callbacks. No hardware reset/BIOS or real Main behavior claim."
 }

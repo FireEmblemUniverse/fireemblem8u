@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `20c16d4e`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `b4723bdd`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
@@ -46,8 +46,8 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 | Ownership | Instruction bytes | Share of mapped instructions |
 |---|---:|---:|
 | C-owned objects | 18,364 | 71.42% |
-| C objects containing assembly | 6,478 | 25.19% |
-| Assembly-source objects | 52 | 0.20% |
+| C objects containing assembly | 6,530 | 25.39% |
+| Assembly-source objects | 0 | 0.00% |
 | Runtime archive objects | 820 | 3.19% |
 | Unresolved ownership | 0 | 0.00% |
 
@@ -55,7 +55,6 @@ Assembly-source objects, largest first:
 
 | Object | Instruction bytes |
 |---|---:|
-| `src/crt0.o` | 52 |
 
 C objects needing assembly review (whole-object sizes, **not** remaining assembly bytes):
 
@@ -63,6 +62,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 |---|---:|
 | `src/hardware.o` | 6,330 |
 | `src/irq_continuation.o` | 80 |
+| `src/crt0.o` | 52 |
 | `src/bios_wrappers.o` | 46 |
 | `src/bios_soft_reset.o` | 14 |
 | `src/irq_save_frame.o` | 8 |
@@ -72,7 +72,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 | Scope | Inline instruction bytes | Assembly sources + reviewed inline |
 |---|---:|---:|
 | main_rom | 92 | 92 |
-| mgfembp | 50 | 102 |
+| mgfembp | 58 | 58 |
 
 The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.
 

@@ -13321,3 +13321,29 @@ models, unsupported contracts and unchanged unannotated controls. Evidence:
 
 Production payload startup remains assembly. Integration and full-image audit
 refresh are next; assembly ownership totals remain unchanged.
+
+
+### Payload startup integration (September 14, 2026)
+
+Baseline `b4723bdd`. Production crt0.c replaces crt0.s, generating 44 of the
+52 startup instruction bytes and all 16 stack/far pointer-data bytes. Two
+processor-mode writes retain eight explicit inline bytes. The payload-layout
+compiler profile validates IntrMain and Main. Linker assertions bind the
+stack pool, far pool and IRQ address calculation to _start. Stack symbols
+are explicitly ABSOLUTE: assignments inside the output section otherwise
+add its base, which the initial full-image comparison caught and was corrected.
+
+All three payload checksums and the main-ROM checksum pass. Fresh runtime
+builds reproduce all four images and exported symbols. The production-source
+byte fixture passes all three versions and nine displaced startup layouts;
+twelve IRQ layouts reject. All 288 startup execution cases pass against the
+fresh production-source candidate. Evidence: `payload-startup.json`, updated
+per-image startup model receipts, and refreshed ownership/inline/runtime
+receipts. Synthetic Main, hardware-reset and BIOS scope limits remain explicit.
+
+Payload commit `fd0d44d2e3ca4e19980573c738f3fd1ffaaab50f` is retained in the
+verified recovery bundle. Payload assembly-source instruction ownership is
+now zero; 58 inline instruction bytes remain. Mixed ownership is 6,530 bytes,
+C-owned ownership 18,364 and runtime 820, totaling 25,714. Removing assembly
+source ownership does not establish full decompilation: retained platform
+operations and complete mapped-data/executable classification remain open.

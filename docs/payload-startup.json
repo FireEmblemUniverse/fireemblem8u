@@ -1,0 +1,43 @@
+{
+  "rejected_contracts": [
+    "adr",
+    "stack",
+    "far"
+  ],
+  "images": [
+    {
+      "image": "mgfembp",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    },
+    {
+      "image": "mgfembp_20030206",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    },
+    {
+      "image": "mgfembp_20030219",
+      "exact_region_sha256": "5a9f04dcbf4576f6ffe2e2f75092cb2d1306243cd793dddcebb858f74a6138e1",
+      "rejected_layouts": [
+        "adr",
+        "stack",
+        "far"
+      ]
+    }
+  ],
+  "instruction_bytes": 52,
+  "c_generated_instruction_bytes": 44,
+  "retained_mode_write_bytes": 8,
+  "c_data_bytes": 16,
+  "source_sha256": "b1190498b15ecd7bdd31197e531c5a0e4081aa9f277796f1ef47bfb95c4d6a46",
+  "production_integrated": true,
+  "scope": "Exact startup instructions and stack/far pointer data, with an explicit payload-layout compiler contract. No independent startup execution model yet."
+}

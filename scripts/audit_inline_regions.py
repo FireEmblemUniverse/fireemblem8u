@@ -8,6 +8,9 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+('mgfembp', 'src/crt0.c', '_start', 33619972, '00f029e1', 4, 'asm volatile("msr cpsr_fc, %2"'),
+('mgfembp', 'src/crt0.c', '_start', 33619984, '00f029e1', 4, 'asm volatile("msr cpsr_fc, %2"'),
+
 ('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620228, '00300fe1', 4, 'asm volatile("mrs %0, cpsr"'),
 ('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620240, '03f029e1', 4, 'asm volatile("msr cpsr_fc, %2"'),
 ('mgfembp', 'src/irq_continuation.c', 'PayloadIrqSelected', 33620272, '00300fe1', 4, 'asm volatile("mrs %0, cpsr"'),

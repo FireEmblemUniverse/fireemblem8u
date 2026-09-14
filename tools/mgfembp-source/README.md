@@ -72,3 +72,7 @@ Makefile builds the pass on demand and retains the checked search adjacency.
 The payload IRQ continuation now builds from C with explicit status-register
 operations. Its handler table uses the explicit gIrqFuncTable compiler contract,
 and the linker checks its shared C pointer placement after startup literals.
+
+Payload startup now builds from C, including stack and far pointer data.
+The payload-layout compiler profile validates IntrMain/Main; absolute stack
+symbols and linker assertions preserve the original startup layout.

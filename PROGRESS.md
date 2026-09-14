@@ -2,11 +2,9 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integration (baseline `20c16d4e`): the payload IRQ continuation now builds from C, recovering 60 instruction bytes and retaining 20 status-register bytes. All three payloads and the main ROM match their references; 110,649 dispatcher cases, compiler-contract checks and 12 displaced-layout checks pass. Fresh runtime builds reproduce all four images and exported symbols. Expanded payload assembly is now 102 bytes: 52 startup assembly-source bytes plus 50 inline bytes. Payload mapped instruction bytes remain 25,714 (18,364 C-owned, 6,478 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Startup, platform operations and complete executable/data classification remain unfinished; no overall completion percentage is claimed.
+Updated: September 14, 2026. Latest integration (baseline `b4723bdd`): payload startup and its 16 pointer-data bytes now build from C, recovering 44 instruction bytes and retaining eight mode-write bytes. All three payloads and the main ROM match their references; 288 production-source startup cases and layout/contract checks pass. Fresh runtime builds reproduce all four images and exported symbols. Mapped payload assembly-source instruction ownership is now zero; 58 inline instruction bytes remain. Payload mapped instruction bytes remain 25,714 (18,364 C-owned, 6,530 mixed, 820 runtime). Main-ROM ownership remains 740,038/777,630 C-owned bytes (95.17% rounded), 15,800 mixed and 21,792 runtime. Main nonlibrary inline assembly remains 92 bytes; runtime syscalls retain 26 SWI bytes. Platform operations and complete executable/data classification remain unfinished; no overall completion percentage is claimed.
 
-Latest research (baseline `d967b5d7`): startup C matches all 52 instruction bytes and 16 pointer-data bytes in all three payloads, with nine displaced layouts rejected. It generates 44 instruction bytes from C and retains eight mode-write bytes. Production totals are unchanged. Evidence: `docs/payload-startup-research.json`.
-
-Startup execution modeling now passes 288 cases across all three versions, covering ARM/Thumb Main callbacks, three initial modes, all flag profiles and restart. The explicit payload-layout compiler profile now validates IntrMain/Main, rejects wrong symbols/profile, and passes the main-ROM regression suite. Next IRQ milestone: integrate payload startup and refresh full-image/ownership audits. The entry, saved frame, search and continuation now build from C with explicit retained processor-status instructions. Production evidence: `docs/payload-irq-continuation.json`.
+Next: audit the remaining inline/platform operations and close executable/data classification. Eliminating assembly-source instruction ownership does not establish full C decompilation.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
@@ -35,7 +33,7 @@ they do not attribute the entire decompilation to this task.
 | ROM gaps by build provenance | **144/144 gaps accounted for: 2,574,807 generated-fill bytes; five invalid cases rejected; no reachability claim** |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **95.17%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **92 inline instruction bytes in main ROM; 102 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **92 inline instruction bytes in main ROM; 58 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime inline syscall assembly | **26 SWI bytes retained; 78 argument/result move bytes now generated from C across 13 sites** |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,792 main-ROM and 820 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |

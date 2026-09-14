@@ -1,10 +1,28 @@
 {
   "scope": "Reviewed instruction-bearing inline sites; mapped instruction sizes exclude literals/alignment. Not an overall completion percentage.",
   "totals": {
-    "mgfembp": 50,
+    "mgfembp": 58,
     "main_rom": 92
   },
   "sites": [
+    {
+      "image": "mgfembp",
+      "source": "src/crt0.c",
+      "function": "_start",
+      "address": "0x2010004",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
+    {
+      "image": "mgfembp",
+      "source": "src/crt0.c",
+      "function": "_start",
+      "address": "0x2010010",
+      "region_bytes": 4,
+      "instruction_bytes": 4,
+      "literal_alignment_bytes": 0
+    },
     {
       "image": "mgfembp",
       "source": "src/irq_continuation.c",
@@ -507,8 +525,8 @@
       "map_sha256": "2ee1da3c9d708c1f1ee894b579c01af01e24409dc49511b42d16b0696cefe468"
     },
     "mgfembp": {
-      "elf_sha256": "7ace166d892708d403d15795519fb8ed7983c40f1c9283e5e08fec3e9ed45be4",
-      "map_sha256": "4fc3a525de5574a105d90c1008ae8de2881b0676c3ebb32589bcda6c5343569b"
+      "elf_sha256": "defa0227e8e8067ee58b080a768055caa7959525ce227f20a125d40dae3462ed",
+      "map_sha256": "c8aaab63ea4d54806c3f13812e9653e57196cef042c7b41e22d9a16aeb991638"
     }
   }
 }
