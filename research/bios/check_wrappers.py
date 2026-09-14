@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """Compare wrapper code and synthetic BIOS handoff/return behavior."""
 from pathlib import Path
-import hashlib,json,random,subprocess
+import argparse,hashlib,json,random,subprocess
 from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/bios-wrappers';OUT.mkdir(parents=True,exist_ok=True)
-source=ROOT/'research/bios/wrappers.c'
+parser=argparse.ArgumentParser()
+parser.add_argument('--source',type=Path,default=ROOT/'research/bios/wrappers.c')
+parser.add_argument('--rom',type=Path,default=ROOT/'baserom.gba')
+parser.add_argument('--integrated',action='store_true')
+args=parser.parse_args()
+source=args.source
 subprocess.run(['arm-none-eabi-gcc','-c','-O2','-falign-functions=2','-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables','-ffunction-sections','-I',str(ROOT/'include'),str(source),'-o',str(OUT/'candidate.o')],check=True)
 names=['ArcTan2','BgAffineSet','CpuFastSet','CpuSet','Div','DivArm','DivRem','HuffUnComp','LZ77UnCompVram','LZ77UnCompWram','MultiBoot','ObjAffineSet','RLUnCompVram','RLUnCompWram','RegisterRamReset','SoundBiasReset','SoundBiasSet','Sqrt','VBlankIntrWait']
+if args.integrated:names=[name for name in names if name not in ('ArcTan2','DivRem','Sqrt')]
 symbols={line.split()[-1]:int(line.split()[0],16) for line in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(line.split())==3}
-rom=(ROOT/'baserom.gba').read_bytes();reports=[];rng=random.Random(0xdf4770)
+rom=args.rom.read_bytes();reports=[];rng=random.Random(0xdf4770)
 for name in names:
  subprocess.run(['arm-none-eabi-objcopy','-O','binary','-j','.text.'+name,str(OUT/'candidate.o'),str(OUT/'wrapper.bin')],check=True)
  candidate=(OUT/'wrapper.bin').read_bytes();start=symbols[name]
@@ -53,4 +59,4 @@ for name in names:
  if name not in ('DivRem','ArcTan2','Sqrt'):assert exact and diffs==0,name
  else:assert not exact and flagdiffs>0 and regdiffs==0,name
  reports.append(dict(name=name,original_instruction_bytes=size,candidate_bytes=len(candidate),instruction_bytes_exact=exact,cases=64,register_difference_cases=regdiffs,flag_difference_cases=flagdiffs,svc=svc))
-print(json.dumps(dict(source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),wrappers=reports,exact_wrappers=sum(x['instruction_bytes_exact'] for x in reports),total_cases=sum(x['cases'] for x in reports),production_integrated=False,scope='Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft.'),indent=2))
+print(json.dumps(dict(source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),wrappers=reports,exact_wrappers=sum(x['instruction_bytes_exact'] for x in reports),total_cases=sum(x['cases'] for x in reports),production_integrated=args.integrated,scope='Synthetic BIOS hook checks incoming registers/flags, prescribed output registers/flags, no wrapper stack writes and final return. ArcTan2/Sqrt outputs stay within their declared 16-bit range. Does not implement or validate BIOS services, memory effects, timing, errors or hardware interrupt behavior. SoftReset remains outside this draft.'),indent=2))

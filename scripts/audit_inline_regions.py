@@ -8,6 +8,23 @@ import sys
 ROOT=Path(__file__).resolve().parents[1]
 # Explicit reviewed locations; fail closed when implementation or placement changes.
 SITES=[
+ ('main_rom', 'src/bios_wrappers.c', 'BgAffineSet', 135075440, '0edf', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'CpuFastSet', 135075444, '0cdf', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'CpuSet', 135075448, '0bdf', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'Div', 135075452, '06df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'DivArm', 135075456, '07df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'HuffUnComp', 135075468, '13df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'LZ77UnCompVram', 135075472, '12df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'LZ77UnCompWram', 135075476, '11df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'MultiBoot', 135075482, '25df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'ObjAffineSet', 135075488, '0fdf', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'RLUnCompVram', 135075492, '15df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'RLUnCompWram', 135075496, '14df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'RegisterRamReset', 135075500, '01df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'SoundBiasReset', 135075530, '19df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'SoundBiasSet', 135075538, '19df', 2, 'asm volatile('),
+ ('main_rom', 'src/bios_wrappers.c', 'VBlankIntrWait', 135075550, '05df', 2, 'asm volatile('),
+
  ('main_rom','src/crt0.c','crt0',0x080000c4,'00f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
  ('main_rom','src/crt0.c','crt0',0x080000d0,'00f029e1',4,'asm volatile("msr cpsr_fc, %2"'),
  ('main_rom','src/irq_save_frame.c','IrqSaveFrame',0x08000110,'00004fe1',4,'asm volatile("mrs %0, spsr"'),

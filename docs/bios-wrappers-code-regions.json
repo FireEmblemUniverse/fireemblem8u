@@ -1,0 +1,108 @@
+{
+  "wrappers": [
+    {
+      "name": "BgAffineSet",
+      "start": "0x80d1670",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "CpuFastSet",
+      "start": "0x80d1674",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "CpuSet",
+      "start": "0x80d1678",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "Div",
+      "start": "0x80d167c",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "DivArm",
+      "start": "0x80d1680",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "HuffUnComp",
+      "start": "0x80d168c",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "LZ77UnCompVram",
+      "start": "0x80d1690",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "LZ77UnCompWram",
+      "start": "0x80d1694",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "MultiBoot",
+      "start": "0x80d1698",
+      "instruction_bytes": 6,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "ObjAffineSet",
+      "start": "0x80d16a0",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "RLUnCompVram",
+      "start": "0x80d16a4",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "RLUnCompWram",
+      "start": "0x80d16a8",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "RegisterRamReset",
+      "start": "0x80d16ac",
+      "instruction_bytes": 4,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "SoundBiasReset",
+      "start": "0x80d16c8",
+      "instruction_bytes": 6,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "SoundBiasSet",
+      "start": "0x80d16d0",
+      "instruction_bytes": 6,
+      "retained_swi_bytes": 2
+    },
+    {
+      "name": "VBlankIntrWait",
+      "start": "0x80d16dc",
+      "instruction_bytes": 6,
+      "retained_swi_bytes": 2
+    }
+  ],
+  "total_instruction_bytes": 72,
+  "c_generated_instruction_bytes": 40,
+  "retained_swi_bytes": 32,
+  "remaining_assembly_wrapper_bytes": 28,
+  "full_rom_exact": true,
+  "source_sha256": "116b3ec290814d02ace77da44fdc394c08af58edae75296fe01106eef13942f2",
+  "elf_sha256": "5b1b4e3f5fec420204032365502e480fc564a85de7eb12ca3bd4492e447890c1",
+  "scope": "Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; remaining wrappers stay assembly."
+}

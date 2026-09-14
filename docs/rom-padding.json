@@ -1,7 +1,7 @@
 {
-  "outside_input_bytes": 2574801,
-  "gap_count": 141,
-  "linker_fill_bytes": 2574545,
+  "outside_input_bytes": 2574807,
+  "gap_count": 144,
+  "linker_fill_bytes": 2574551,
   "objcopy_padding_bytes": 256,
   "unclassified_outside_input_bytes": 0,
   "regions": [
@@ -56,6 +56,30 @@
     {
       "start": 135069886,
       "end": 135069888,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135075486,
+      "end": 135075488,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135075534,
+      "end": 135075536,
+      "pattern": "00000000",
+      "kind": "linker_fill",
+      "size": 2,
+      "sha256": "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"
+    },
+    {
+      "start": 135075542,
+      "end": 135075544,
       "pattern": "00000000",
       "kind": "linker_fill",
       "size": 2,
@@ -1134,8 +1158,8 @@
       "sha256": "3d6876a0146de8576eb2395a858de1213d1b92c65b779df3a331cfd5a4584546"
     }
   ],
-  "elf_sha256": "1ea08dbf9fb9cec010c6bc7599cd5bde30a683b45cee7876a2e7937f81e0debd",
-  "map_sha256": "336d78853875835dd2ded265709f8d938c91f98164b341ec8942622c8ac3c144",
+  "elf_sha256": "5b1b4e3f5fec420204032365502e480fc564a85de7eb12ca3bd4492e447890c1",
+  "map_sha256": "3a499b9f469d35caca3a3a0acb4f2573e8abc43c90a64c0d9e7cd35884919e54",
   "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
   "elf_rom_load_end": "0x8ffff00",
   "objcopy_policy": "--pad-to 0x9000000 --gap-fill=0xff",

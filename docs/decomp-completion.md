@@ -11356,3 +11356,38 @@ error behavior or hardware interrupts. Evidence is in
 `docs/bios-wrapper-research.json`. No production integration or assembly
 coverage change is claimed yet; reviewed main-ROM non-library assembly
 remains 174 bytes.
+
+
+### Sixteen production BIOS wrappers integrated
+
+`src/bios_wrappers.c` now supplies the sixteen exact drafts using ordinary
+GCC and the existing syscall declarations. Their 72 instruction bytes comprise
+40 C-generated setup/return bytes and 32 retained SWI bytes. ArcTan2, DivRem,
+SoftReset and Sqrt remain in `src/libagbsyscall.s`, totaling 28 instruction
+bytes. The linker selects each function section in its original position.
+Explicit zero alignment preserves the original padding, including DivRem's
+two bytes that would otherwise become an assembler NOP. Six other padding
+bytes move from input sections to linker fill; all 144 outside-input gaps
+now account for 2,574,807 bytes without changing the ROM.
+
+The production source is freshly compiled and passes 1,024 synthetic service
+boundary cases with exact instruction bytes, incoming registers/flags,
+returned registers/flags and wrapper stack behavior. This models prescribed
+BIOS results; it does not implement BIOS services or verify their memory
+effects, timing, errors or hardware interrupt behavior. Evidence is in
+`docs/bios-wrappers-integrated-model.json` and
+`docs/bios-wrappers-code-regions.json`. The nineteen-draft research receipt
+remains historical evidence of the three flag mismatches.
+
+`make compare -j8` matches all 16,777,216 bytes; all four fresh runtime images
+and exported symbols match, and code/data-provenance audits pass. The linked
+ELF SHA-256 is `5b1b4e3f5fec420204032365502e480fc564a85de7eb12ca3bd4492e447890c1`.
+Main assembly-source instructions decrease from 124 to 52 bytes; reviewed
+inline instructions increase from 50 to 82, leaving 134 non-library assembly
+bytes, a net reduction of 40. Whole-object C ownership remains 740,014 of
+777,630 mapped instruction bytes (95.16% rounded), while mixed C/assembly
+ownership increases to 15,772 bytes. There are 603 tracked main C files.
+Expanded payload assembly remains 420 bytes; all 3,172,286 unmapped-input
+bytes remain accounted for, including the final 812-byte residual. Runtime
+assembly and complete executable classification still prevent a reliable
+overall completion percentage.
