@@ -10317,3 +10317,29 @@ that arbitrary data cannot execute. No C instruction ownership changes are
 claimed. The 2,380,160-byte battle-animation contribution remains the largest
 unmapped input classification target; other data, runtime helpers, payload
 assembly and startup/transfer code remain in scope.
+
+### Battle-animation merged asset bytes accounted for
+
+`scripts/audit_banim_data.py` walks `linker_script_banim.txt` in link order,
+resolves binary and relocated compressed-motion inputs, and compares every
+asset byte against the object's actual ROM contribution at 0x08c02000 through
+0x08e47180. Concatenation covers all 2,380,160 bytes without gaps or overlaps
+and agrees with `banim/data_banim.bin`. There are 671 graphics assets, 402
+OAM streams, 201 relocated motion streams and 201 mode tables: 1,475 total.
+
+The independent LZ decoder checks each stream's header, output length,
+literal and backreference bounds, overlapping-copy behavior and trailing
+alignment extent. All 1,274 compressed assets expand to their uncompressed
+build inputs, totaling 6,191,020 bytes. Invalid headers, missing flags,
+invalid distances, output overruns and excessive trailing data reject.
+`docs/banim-data-classification.json` records every linked interval and
+compressed/expanded hash, plus linker-script and ELF/map hashes. The full
+ROM still equals the base image; no production code changed.
+
+This proves current asset/build-input provenance and complete LZ expansion,
+not full semantic classification. The motion source uses animation command
+macros in `.data.script`; command and relocation semantics still require
+review against the animation interpreter. Original PNG/palette regeneration
+and fresh motion-source assembly are not established by this check. These
+limits remain explicit, and the contribution is not counted as C instructions
+or used to claim a complete executable denominator.
