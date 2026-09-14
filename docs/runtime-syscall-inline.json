@@ -1,0 +1,149 @@
+{
+  "source_pin": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+  "source_sha256": "ec0dd10f8608a507f7a822f78d0f7fb612214bbb16ef52e0c20446017e852a7f",
+  "rebuild_receipt_sha256": "34fdc53a6ea47d3ad3007e820791c983413aa4f4c2d67126554ae109e945f708",
+  "assembly_sha256": "6a207eab073c1caeb0293e4f12dc3c46eda758b049acdf1e8fa52394a17ddb94",
+  "object_text_sha256": "dcf5c21d01204048ca727aac49c3ae851672fe70a5723641d3d66d01596168a2",
+  "inline_sites": 13,
+  "inline_instruction_bytes": 104,
+  "swi_instruction_bytes": 26,
+  "register_move_instruction_bytes": 78,
+  "whole_object_mapped_instruction_bytes": 1014,
+  "sites": [
+    {
+      "function": "initialise_monitor_handles",
+      "assembly": "mov r0, r5; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 126,
+      "rom_address": "0x80d580a",
+      "bytes": 8,
+      "hex": "281c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "initialise_monitor_handles",
+      "assembly": "mov r0, r4; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 150,
+      "rom_address": "0x80d5822",
+      "bytes": 8,
+      "hex": "201c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "get_errno",
+      "assembly": "mov r0, r3; mov r1, r4; swi 171; mov r2, r0",
+      "object_offset": 226,
+      "rom_address": "0x80d586e",
+      "bytes": 8,
+      "hex": "181c211cabdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swiread",
+      "assembly": "mov r0, r3; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 304,
+      "rom_address": "0x80d58bc",
+      "bytes": 8,
+      "hex": "181c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swilseek",
+      "assembly": "mov r0, r3; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 454,
+      "rom_address": "0x80d5952",
+      "bytes": 8,
+      "hex": "181c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swilseek",
+      "assembly": "mov r0, r3; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 476,
+      "rom_address": "0x80d5968",
+      "bytes": 8,
+      "hex": "181c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swiwrite",
+      "assembly": "mov r0, r3; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 556,
+      "rom_address": "0x80d59b8",
+      "bytes": 8,
+      "hex": "181c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swiopen",
+      "assembly": "mov r0, r2; mov r1, sp; swi 171; mov r3, r0",
+      "object_offset": 750,
+      "rom_address": "0x80d5a7a",
+      "bytes": 8,
+      "hex": "101c6946abdf031c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_swiclose",
+      "assembly": "mov r0, r3; mov r1, sp; swi 171; mov r2, r0",
+      "object_offset": 862,
+      "rom_address": "0x80d5aea",
+      "bytes": 8,
+      "hex": "181c6946abdf021c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_exit",
+      "assembly": "mov r0, r2; mov r1, r3; swi 171; mov r8, r0",
+      "object_offset": 904,
+      "rom_address": "0x80d5b14",
+      "bytes": 8,
+      "hex": "101c191cabdf8046",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_kill",
+      "assembly": "mov r0, r2; mov r1, r3; swi 171; mov r8, r0",
+      "object_offset": 936,
+      "rom_address": "0x80d5b34",
+      "bytes": 8,
+      "hex": "101c191cabdf8046",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_gettimeofday",
+      "assembly": "mov r0, r4; mov r1, r5; swi 171; mov r5, r0",
+      "object_offset": 1058,
+      "rom_address": "0x80d5bae",
+      "bytes": 8,
+      "hex": "201c291cabdf051c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    },
+    {
+      "function": "_times",
+      "assembly": "mov r0, r4; mov r1, r5; swi 171; mov r3, r0",
+      "object_offset": 1096,
+      "rom_address": "0x80d5bd4",
+      "bytes": 8,
+      "hex": "201c291cabdf031c",
+      "swi_bytes": 2,
+      "register_move_bytes": 6
+    }
+  ],
+  "limitations": [
+    "Counts the active ARM_RDI_MONITOR variant only; inactive source branches are not linked instructions.",
+    "This is byte provenance, not a claim of reachability or GBA BIOS semantics for the monitor service.",
+    "No inline instructions have been replaced."
+  ]
+}

@@ -4,6 +4,8 @@
 
 Updated: September 14, 2026. Latest integrated milestone (baseline `1968d0f0`): all fifteen runtime register-call veneers now build from production C. The member preserves all 60 bytes and symbol sizes; fresh default runtime builds reproduce all four images and exported symbols exactly. No assembly-source runtime instruction bytes remain. Verified runtime C-source totals are 21,792 main-ROM and 820 payload bytes, including the syscall object that still contains inline assembly. Main-ROM whole-object C ownership remains 740,038/777,630 mapped instruction bytes (95.17% rounded), with 15,800 mixed C/assembly bytes and runtime archives counted separately. Reviewed main-ROM nonlibrary assembly remains 92 inline bytes; expanded payload assembly remains 420 bytes. Main mapped assembly-source ownership remains zero. Full-ROM matching passes. Complete mapped-data/executable classification, inline assembly recovery and expanded payload assembly remain unfinished; no overall completion percentage is claimed.
 
+Runtime inline inventory (baseline `5f5b4a03`): the active Angel monitor syscall template expands to 13 exact ROM-bound sites, totaling 104 inline instruction bytes (26 SWI bytes and 78 register-move bytes). The 1,014-byte syscall object size is not its inline assembly count. No instructions were replaced in this audit; the repeated argument/result move template is the next runtime conversion target.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

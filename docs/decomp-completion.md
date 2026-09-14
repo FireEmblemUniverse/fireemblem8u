@@ -12704,3 +12704,24 @@ reference inputs, with recovered members replaced by the default derived build.
 The outstanding goal still includes syscall/platform inline assembly, 420
 expanded payload assembly bytes, and complete mapped-data/executable
 classification. Full decompilation is not claimed.
+
+
+### Runtime syscall inline byte provenance (September 14, 2026)
+
+Baseline `5f5b4a03`. `scripts/audit_runtime_syscalls.py` binds the active
+ARM_RDI_MONITOR inline template to the fresh rebuild's generated assembly,
+archive object and linked main ROM. It verifies the pinned source, current
+ELF/map identities and ROM hash, adds zero-size labels around each expansion,
+and proves that assembling those labels leaves the entire text unchanged.
+The fresh object's text also equals the installed reference member. Each
+labeled eight-byte region then matches its linked ROM range.
+
+There are thirteen sites, all using the four-instruction Angel template:
+argument moves into r0/r1, SWI 171, and a result move from r0. Their total is
+104 inline instruction bytes: 26 SWI bytes and 78 move bytes. This refines
+the prior whole-object inventory of 1,014 mapped syscall instruction bytes.
+`docs/runtime-syscall-inline.json` records each containing function, object
+offset, ROM address and exact bytes. Inactive alternate-monitor source
+branches contribute no linked sites. This establishes provenance only, not
+reachability or BIOS behavior; it replaces no instructions. Recovery of the
+repeated argument/result moves is the next concrete runtime target.
