@@ -38,6 +38,8 @@ Latest residual asset binding (baseline `1758398a`): fifteen additional pointer-
 
 Latest residual closure (baseline `7dd72d4f`): six assembly-defined animation matches bind to complete exact INCBIN assets; the preparation-screen word is verified as two OAM halfwords. The residual data-owner audit now accounts for 39/41 inputs, leaving the world-map table and unclassified raw block open. Receipt: `docs/function-pointer-data-owners.json`.
 
+Latest world-map residual (baseline `81642671`): the 56-byte gWorldmapSprite_26 table rebuilds from directives and parses as five rectangles with tile halfwords and a terminator. Its pointer-shaped word is two tile entries. Forty of 41 data-owner residuals are accounted for; the sole remaining candidate lies inside the unclassified 42,888-byte gUnkData_108 block. Receipt: `docs/function-pointer-data-owners.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

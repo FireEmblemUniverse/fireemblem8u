@@ -1,7 +1,7 @@
 {
   "scope": "Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.",
-  "classified": 39,
-  "remaining": 2,
+  "classified": 40,
+  "remaining": 1,
   "prior_sha256": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
   "unit_header_sha256": "10548dc46626ae9ffbc1433cb0d350ed09912199c42d9e031f7ab3ba18b2b59e",
   "records": [
@@ -453,7 +453,14 @@
       ],
       "target_owner": "src/banim-ekrbattle.o",
       "containing_symbols": [],
-      "classification": "needs_data_provenance"
+      "classification": "worldmap_rectangle_tile_halfwords",
+      "asset_symbol": "gWorldmapSprite_26",
+      "rectangles": 5,
+      "halfwords": [
+        1,
+        2053
+      ],
+      "table_sha256": "6ed7266b7ed23c8ffad23fcca1369766b8df84a747ca3eb403604f3858d2b260"
     },
     {
       "address": "0x8ac1c4c",

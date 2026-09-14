@@ -54,6 +54,26 @@ for row in rows:
   assert rom[start-0x08000000:start-0x08000000+len(expected)]==expected
   assert a==start+4
   item.update(classification='sprite_oam_halfwords',field_group='first sprite attr1 and attr2',halfwords=[0,0x0800])
+ if row['owner']=='src/data/worldmap/anim_worldmap_sprite.o':
+  source=(ROOT/'src/data/worldmap/anim_worldmap_sprite.s').read_text()
+  body=source.split('gWorldmapSprite_26:',1)[1].split('.L_end_',1)[0]
+  data=bytearray()
+  for line in body.splitlines():
+   m=re.match(r'\s*\.(byte|2byte)\s+([^@]+)',line)
+   if m:
+    width=1 if m[1]=='byte' else 2
+    for value in m[2].split(','):data.extend(int(value.strip(),0).to_bytes(width,'little'))
+  start=all_symbols['gWorldmapSprite_26'];assert len(data)==56
+  assert rom[start-0x08000000:start-0x08000000+len(data)]==data
+  cursor=0;tile_offsets=set();rectangles=0
+  while data[cursor]!=255:
+   x,y,w,h=data[cursor:cursor+4];assert w and h and x+w<=64 and y+h<=32
+   cursor+=4
+   for offset in range(cursor,cursor+2*w*h,2):tile_offsets.add(offset)
+   cursor+=2*w*h;rectangles+=1
+  assert all(x==0 for x in data[cursor+1:])
+  offset=a-start;assert offset in tile_offsets and offset+2 in tile_offsets
+  item.update(classification='worldmap_rectangle_tile_halfwords',asset_symbol='gWorldmapSprite_26',rectangles=rectangles,halfwords=list(struct.unpack_from('<HH',data,offset)),table_sha256=hashlib.sha256(data).hexdigest())
  result.append(item)
 remaining=[x for x in result if x['classification']=='needs_data_provenance']
 report=dict(scope='Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.',classified=len(result)-len(remaining),remaining=len(remaining),prior_sha256=hashlib.sha256(prior.read_bytes()).hexdigest(),unit_header_sha256=hashlib.sha256((ROOT/'include/bmunit.h').read_bytes()).hexdigest(),records=result)

@@ -13846,3 +13846,18 @@ three-sprite OAM definition matches all 20 bytes.
 The data-owner receipt now classifies 39 of its original 41 inputs. The world-map
 animation table and the unclassified raw block remain open. These are provenance
 advances, not proof of complete executable coverage. Production source is unchanged.
+
+## World-map rectangle residual — September 14, 2026
+
+Baseline `81642671`. The data-owner audit reconstructs all 56 bytes of
+`gWorldmapSprite_26` from its byte/halfword directives and compares them to ROM.
+It parses five rectangles, checking nonzero dimensions, coordinate bounds, tile
+payload extents, terminator and zero trailing padding. The candidate at
+0x08A984F4 occupies two tile halfwords, not a pointer field.
+
+Forty of the original 41 data-owner residuals now have field/asset provenance.
+The sole remaining candidate at 0x08B22960 lies 0x2AE4 bytes inside the 42,888-byte
+`gUnkData_108` block. Its source labels the block unclassified; copied initializer
+bytes and lack of an obvious reference do not establish its meaning or exclude
+embedded code. It remains explicitly open, alongside broader executable coverage.
+Production source is unchanged.
