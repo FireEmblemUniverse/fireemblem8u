@@ -5,8 +5,8 @@ register unsigned irqOffset asm("r2");
 register unsigned irqStatus asm("r3");
 register unsigned *irqStack asm("sp");
 register unsigned irqLink asm("lr");
-extern unsigned gIRQHandlers[14];
-unsigned *const PayloadIrqHandlersPointer __attribute__((used,section(".rodata.irq_handlers"))) = gIRQHandlers;
+extern unsigned gIrqFuncTable[13];
+unsigned *const PayloadIrqHandlersPointer __attribute__((used,section(".rodata.irq_handlers"))) = gIrqFuncTable;
 
 void __attribute__((noreturn)) __attribute__((matching_arm_irq_frame)) PayloadIrqSelected(void)
 {
@@ -16,7 +16,7 @@ void __attribute__((noreturn)) __attribute__((matching_arm_irq_frame)) PayloadIr
     // Mode changes select different SP/LR banks; k constrains SP itself.
     asm volatile("msr cpsr_fc, %2" : "+k"(irqStack), "+r"(irqLink)
                  : "r"(irqStatus) : "memory");
-    irqPointer = (unsigned)gIRQHandlers;
+    irqPointer = (unsigned)gIrqFuncTable;
     irqPointer += irqOffset;
     asm volatile("" : "+r"(irqPointer));
     irqValue = *(unsigned *)irqPointer;

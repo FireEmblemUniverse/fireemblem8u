@@ -13213,3 +13213,22 @@ This models dispatcher boundaries, not hardware interrupt entry, nested
 interrupts, real handlers, BIOS epilogue or IF write-one-to-clear hardware.
 Production remains unchanged. The payload-specific compiler handler-symbol
 contract and production integration are next; assembly totals are unchanged.
+
+
+### Explicit payload IRQ handler-symbol contract (September 14, 2026)
+
+Baseline `9dbb578d`. The IRQ frame pass now accepts an optional
+`handler-symbol` argument with a validated identifier. It requires an external
+pool contract, rejects duplicate arguments and use with saved-frame mode,
+and compares the sole compiler-generated pool symbol against the requested
+name. The default remains gIRQHandlers for existing main-ROM builds.
+
+The payload research source now names gIrqFuncTable directly (13 slots), with
+an explicit matching compiler contract. All three continuation regions remain
+exact. Wrong table, wrong contract, malformed and empty identifier checks
+reject. The existing main-ROM frame regression suite passes, including its
+model, unsupported contracts, shared-pool layout and unchanged unannotated
+controls. Evidence: `docs/payload-irq-handler-contract.json` and updated
+`docs/payload-irq-continuation-research.json`. Payload dispatcher checks were
+rerun against the rebuilt candidate. Production payload integration and its
+full ownership/build audit refresh remain next.

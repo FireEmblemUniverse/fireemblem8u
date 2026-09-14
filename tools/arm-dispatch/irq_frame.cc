@@ -149,6 +149,7 @@ bool frame_load(rtx p) {
     return true;
 }
 std::string external_pool,save_adjacent;
+std::string handler_symbol = "gIRQHandlers";
 void convert_save_frame(const std::vector<rtx_insn *> &ops) {
     if(ops.size()!=6 || !lr_push(PATTERN(ops[0])) || save_adjacent.empty())
         fatal_error(UNKNOWN_LOCATION,"IRQ frame save requires six operations and adjacent target");
@@ -262,7 +263,7 @@ public:
                 rtx x=PATTERN(i);
                 if(GET_CODE(x)!=UNSPEC_VOLATILE || XINT(x,1)!=VUNSPEC_POOL_4) continue;
                 if(word || last!=label || XVECLEN(x,0)!=1 || GET_CODE(XVECEXP(x,0,0))!=SYMBOL_REF
-                    || std::string(XSTR(XVECEXP(x,0,0),0))!="gIRQHandlers")
+                    || std::string(XSTR(XVECEXP(x,0,0),0))!=handler_symbol)
                     fatal_error(UNKNOWN_LOCATION,"IRQ frame requires sole handler symbol word");
                 word=i;
             }
@@ -298,7 +299,16 @@ public:
 }
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if(!plugin_default_version_check(version,&gcc_version)) return 1;
+    bool handler_option = false;
     for(int n=0;n<info->argc;n++) {
+        if(std::string(info->argv[n].key)=="handler-symbol") {
+            if(handler_option || !info->argv[n].value || !*info->argv[n].value) return 1;
+            handler_option = true;
+            handler_symbol = info->argv[n].value;
+            for(char c:handler_symbol) if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='_')) return 1;
+            if(handler_symbol[0]>='0'&&handler_symbol[0]<='9') return 1;
+            continue;
+        }
         if(std::string(info->argv[n].key)=="save-adjacent" && info->argv[n].value && *info->argv[n].value && save_adjacent.empty()) {
             save_adjacent=info->argv[n].value; continue;
         }
@@ -308,6 +318,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
         for(char c:external_pool) if(!((c>='a'&&c<='z')||(c>='A'&&c<='Z')||(c>='0'&&c<='9')||c=='_')) return 1;
         if(external_pool[0]>='0'&&external_pool[0]<='9') return 1;
     }
+    if(handler_option && (external_pool.empty() || !save_adjacent.empty())) return 1;
     register_callback(info->base_name,PLUGIN_ATTRIBUTES,attributes,nullptr);
     register_pass_info p={new pass(g),"shorten",1,PASS_POS_INSERT_BEFORE};
     register_callback(info->base_name,PLUGIN_PASS_MANAGER_SETUP,nullptr,&p);

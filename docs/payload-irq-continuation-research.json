@@ -1,4 +1,10 @@
 {
+  "rejected_contracts": [
+    "wrong_table",
+    "wrong_contract",
+    "invalid_identifier",
+    "empty_identifier"
+  ],
   "images": [
     {
       "image": "mgfembp",
@@ -24,7 +30,7 @@
   "retained_status_assembly_bytes": 20,
   "fixture_pool_prefix_bytes": 8,
   "c_pointer_bytes": 4,
-  "source_sha256": "4489bfe94b042a8ea6a14438106c38951a28f968476bdc63a5ca1d4f0b74bee1",
+  "source_sha256": "9dd3a36f6c312624407ed7c90aacb161d3f51cd129012edb25cd2f7154b8c71a",
   "production_integrated": false,
-  "scope": "Exact continuation and shared-pool bytes in all three payloads. Research gIRQHandlers symbol is bound to each payload gIrqFuncTable address. No independent callback/mode/return model yet."
+  "scope": "Exact continuation and shared-pool bytes in all three payloads. Explicit handler-symbol contract binds gIrqFuncTable. No independent callback/mode/return model yet."
 }

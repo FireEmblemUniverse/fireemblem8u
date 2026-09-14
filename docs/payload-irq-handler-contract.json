@@ -1,0 +1,65 @@
+{
+  "backend_sha256": "1b51dcc8f3f1c395a8fc8b48f75fa6b5ed54f6744a9c2a8eaf82d9646a0f6494",
+  "main_regression": {
+    "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+    "cases": 4115,
+    "outcomes": {
+      "returned": 3107,
+      "halted": 1008
+    },
+    "handler_modes": {
+      "arm": 1571,
+      "thumb": 1536
+    },
+    "original_block_sha256": "5ad90b88272b8a2f2f425121a98e5b24b83836975c7f0e23ea6ba596cd7ba602",
+    "scope": "Original ROM IRQ entry/search with relocated research continuation with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.",
+    "candidate_sha256": "46bf52e6a26b0f40dcd0b2a5005021c6b30dff9eef17ab399047dd0f3f2496eb",
+    "candidate_bytes": 84,
+    "production_integrated": false,
+    "rejected_cases": [
+      "thumb",
+      "debug",
+      "unwind",
+      "argument",
+      "stack_decrement",
+      "frame_advance",
+      "restore_wrong_lr",
+      "mode_stack_constraint",
+      "extra_call"
+    ],
+    "unannotated_control_unchanged": true,
+    "source_sha256": "e0c0c47d613336fb10b46f1feef2c8c222d45b5dcb5370e136d133d18cf71f96",
+    "backend_sha256": "1b51dcc8f3f1c395a8fc8b48f75fa6b5ed54f6744a9c2a8eaf82d9646a0f6494",
+    "wrong_pool_symbol_rejected": true,
+    "external_pool_model": {
+      "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+      "cases": 4115,
+      "outcomes": {
+        "returned": 3107,
+        "halted": 1008
+      },
+      "handler_modes": {
+        "arm": 1571,
+        "thumb": 1536
+      },
+      "original_block_sha256": "5ad90b88272b8a2f2f425121a98e5b24b83836975c7f0e23ea6ba596cd7ba602",
+      "scope": "Original ROM IRQ entry/search with relocated research continuation with synthetic caller-saved handler effects: checks IE acknowledgement/restoration, IRQ/System banked stacks/LRs, saved SPSR restoration, ARM/Thumb handler entry and final registers/flags. Game Pak cases halt without acknowledgement or handler call. Does not emulate hardware interrupt entry, BIOS epilogue, nested interrupts, IF write-one-to-clear hardware or real handlers.",
+      "candidate_sha256": "55211d1f64cb6d52103f1e8b227aafd99330bdc3c9e021447a9a8a91434dd2bc",
+      "candidate_bytes": 92,
+      "production_integrated": false
+    },
+    "isolated_original_region_match": {
+      "start": "0x080001cc",
+      "end": "0x08000228",
+      "bytes": 92,
+      "instruction_bytes": 80,
+      "retained_status_assembly_bytes": 20,
+      "fixture_pool_prefix_bytes": 8,
+      "c_pointer_bytes": 4
+    },
+    "displaced_pool_rejected": true,
+    "compiler_extension_sha256": "3a0587b4eb231a59c7610913cf88dc5163f3197fe7c2178df2e227d6ee11983c"
+  },
+  "payload_contract_receipt": "payload-irq-continuation-research.json",
+  "production_payload_integrated": false
+}
