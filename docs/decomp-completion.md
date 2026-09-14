@@ -11699,3 +11699,38 @@ with `--source research/runtime/udiv_registers.c --optimization Os` using
 the existing runtime checker. No production files changed; coverage remains
 unchanged. The next matching work is the conditional frame/return convention,
 then the remaining normalization and branch layout.
+
+
+### Unsigned division normal-return flags and loop offset recovered
+
+`research/runtime/udiv_returns.c` refines the fixed-register draft: it places
+the work-register initialization after the early-result branch, constrains
+work at the normalization boundary, and explicitly binds returned values to
+r0. This removes the extra normal-result copy through r4. An opt-in macro
+applies the existing `matching_thumb_copy_add_zero` compiler contract, which
+selects ADDS rather than MOVS for register copies. The original normal return
+uses this ADD-zero behavior, including clearing carry and overflow.
+
+The checker now accepts compiler/plugin options and records their identity.
+With the pinned matching compiler and existing copy pass, the candidate remains
+122 bytes, but its 46-byte matching subtract/shift/OR span is now at offset
+48 in both original and candidate. All 3,176 quotient/oracle and preserved
+register checks pass. Flag differences decrease from 1,894 to 252, exclusively
+on zero-divisor inputs; all nonzero-path flags match. The pass's existing
+controls accept ARM/Thumb copies, reject thirteen unsupported forms, and
+leave unannotated output unchanged.
+
+This does not yet match the whole helper. r1 is still overwritten by the
+candidate's popped return address in every case, stack writes differ in all
+cases, and LR differs on the 252 zero paths (including relocated call-site
+addresses). The original zero path initializes the returned zero with an
+immediate move; the candidate uses a register copy, so applying ADD-zero to
+that path changes flags. The next step is to preserve that path's flag
+behavior and reproduce the original conditional frame and return layout.
+
+`docs/runtime-udiv-return-research.json` records split zero/nonzero flag counts,
+register differences, stack differences and exact matching span. Reproduce
+with `research/runtime/check_udiv.py --source research/runtime/udiv_returns.c
+--optimization Os --compiler .deps/gcc16-matching/install/bin/arm-none-eabi-gcc
+--plugin .deps/flood-core-new-backend/copy_add_zero.so` using the Unicorn Python
+environment. No production code or decompilation ownership totals changed.

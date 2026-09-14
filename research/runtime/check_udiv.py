@@ -6,8 +6,8 @@ from unicorn import Uc,UC_ARCH_ARM,UC_MODE_THUMB,UC_HOOK_CODE,UC_HOOK_MEM_WRITE
 from unicorn import arm_const as r
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/runtime-division';OUT.mkdir(exist_ok=True)
 source=ROOT/'research/runtime/udiv.c'
-parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
-subprocess.run(['arm-none-eabi-gcc','-S','-'+args.optimization,'-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(source),'-o',str(OUT/'udiv.s')],check=True)
+parser=argparse.ArgumentParser();parser.add_argument('--compiler',default='arm-none-eabi-gcc');parser.add_argument('--plugin',type=Path);parser.add_argument('--source',type=Path,default=source);parser.add_argument('--optimization',choices=['O1','O2','Os'],default='O2');args=parser.parse_args();source=args.source
+subprocess.run([args.compiler,*(['-fplugin='+str(args.plugin.resolve()),'-DMATCHING_COPY_ADD_ZERO','-Werror=attributes'] if args.plugin else []),'-S','-'+args.optimization,'-mthumb','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables',str(source),'-o',str(OUT/'udiv.s')],check=True)
 subprocess.run(['arm-none-eabi-as','-mcpu=arm7tdmi',str(OUT/'udiv.s'),'-o',str(OUT/'udiv.o')],check=True)
 symbols={x.split()[-1]:int(x.split()[0],16) for x in subprocess.check_output(['arm-none-eabi-nm',str(ROOT/'fireemblem8.elf')],text=True).splitlines() if len(x.split())==3}
 (OUT/'udiv.ld').write_text('SECTIONS { .text 0x080f0000 : { *(.text) } }\n')
@@ -20,7 +20,7 @@ cases += [(rng.getrandbits(32),rng.getrandbits(32),f) for f in range(16) for _ i
 cases += [(x,0,f) for x in edge for f in range(16)]
 # Force every normalization boundary and near-exact quotient with every flag profile.
 cases += [(x,y,f) for f in range(16) for bit in range(32) for y in [1<<bit] for x in [y-1,y,min(0xffffffff,y+1)]]
-flagdiffs=0;callerdiffs=0;zero_cases=0
+flagdiffs=0;callerdiffs=0;zero_cases=0;zero_flagdiffs=0;nonzero_flagdiffs=0
 register_diffs={str(n):0 for n in range(15)};stack_diffs=0
 for numerator,denominator,flags in cases:
  initial=[numerator,denominator]+[rng.getrandbits(32) for _ in range(11)]
@@ -45,11 +45,14 @@ for numerator,denominator,flags in cases:
   snapshots.append(snapshot);write_records.append(state['writes'])
  for n in range(15):register_diffs[str(n)]+=snapshots[0][n]!=snapshots[1][n]
  stack_diffs+=write_records[0]!=write_records[1]
- flagdiffs+=snapshots[0][-1]!=snapshots[1][-1]
+ different_flags=snapshots[0][-1]!=snapshots[1][-1]
+ flagdiffs+=different_flags
+ zero_flagdiffs+=different_flags and denominator==0
+ nonzero_flagdiffs+=different_flags and denominator!=0
  callerdiffs+=any(snapshots[0][n]!=snapshots[1][n] for n in (1,2,3,12,14))
  zero_cases+=denominator==0
 assert len(code)!=120
 original=rom[symbols['__udivsi3']-0x08000000:symbols['__udivsi3']-0x08000000+120]
 a=[original[i:i+2] for i in range(0,len(original),2)];b=[code[i:i+2] for i in range(0,len(code),2)]
 spans=[dict(original_offset=m.a*2,candidate_offset=m.b*2,bytes=m.size*2) for m in difflib.SequenceMatcher(None,a,b,autojunk=False).get_matching_blocks() if m.size>=4]
-print(json.dumps(dict(register_difference_cases=register_diffs,stack_write_difference_cases=stack_diffs,matching_halfword_spans_at_least_eight_bytes=spans,optimization=args.optimization,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),cases=len(cases),divide_by_zero_cases=zero_cases,original_instruction_bytes=120,candidate_section_bytes=len(code),quotient_and_preserved_registers_match=True,flag_difference_cases=flagdiffs,caller_register_difference_cases=callerdiffs,bytes_exact=False,production_integrated=False,scope='Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement.'),indent=2))
+print(json.dumps(dict(zero_divisor_flag_difference_cases=zero_flagdiffs,nonzero_divisor_flag_difference_cases=nonzero_flagdiffs,compiler=args.compiler,plugin_sha256=hashlib.sha256(args.plugin.read_bytes()).hexdigest() if args.plugin else None,register_difference_cases=register_diffs,stack_write_difference_cases=stack_diffs,matching_halfword_spans_at_least_eight_bytes=spans,optimization=args.optimization,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),cases=len(cases),divide_by_zero_cases=zero_cases,original_instruction_bytes=120,candidate_section_bytes=len(code),quotient_and_preserved_registers_match=True,flag_difference_cases=flagdiffs,caller_register_difference_cases=callerdiffs,bytes_exact=False,production_integrated=False,scope='Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement.'),indent=2))

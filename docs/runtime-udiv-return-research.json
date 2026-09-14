@@ -1,0 +1,43 @@
+{
+  "zero_divisor_flag_difference_cases": 252,
+  "nonzero_divisor_flag_difference_cases": 0,
+  "compiler": ".deps/gcc16-matching/install/bin/arm-none-eabi-gcc",
+  "plugin_sha256": "6c6cd41f0b2d1ac64f9d758b95c6272788422674320e5041ed93b28b3c9a6b9a",
+  "register_difference_cases": {
+    "0": 0,
+    "1": 3176,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 252
+  },
+  "stack_write_difference_cases": 3176,
+  "matching_halfword_spans_at_least_eight_bytes": [
+    {
+      "original_offset": 48,
+      "candidate_offset": 48,
+      "bytes": 46
+    }
+  ],
+  "optimization": "Os",
+  "source_sha256": "f3c26c83dc8747a5249d4bbb711e94c84d8187d7792dd83854b029d071041e53",
+  "cases": 3176,
+  "divide_by_zero_cases": 252,
+  "original_instruction_bytes": 120,
+  "candidate_section_bytes": 122,
+  "quotient_and_preserved_registers_match": true,
+  "flag_difference_cases": 252,
+  "caller_register_difference_cases": 3176,
+  "bytes_exact": false,
+  "production_integrated": false,
+  "scope": "Checks quotient against original ROM and Python integer division, actual returning __div0 hook, callee-saved registers and restored SP. Caller registers/flags are observed and may differ; stack write differences and matching halfword spans are measured; exact layout is not matched. No production replacement."
+}
