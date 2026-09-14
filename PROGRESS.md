@@ -32,6 +32,8 @@ Latest pointer provenance (baseline `9f322578`): named ABS32 relocations confirm
 
 Latest pointer residual review (baseline `0c2bf28b`): nine runtime-archive candidates are confirmed named function references; 37 sound candidates lie inside exact verified PCM payloads. This leaves 41 candidates for further provenance review. PCM address equality is not classified as a callback. Receipt: `docs/function-pointer-residuals.json`.
 
+Latest residual data ownership (baseline `997cd2ef`): eleven address matches bind to exact animation assets and six fall in scalar UnitDefinition fields rather than its pointer field. This leaves 24 candidates requiring data provenance; containing symbols are recorded where available. Receipt: `docs/function-pointer-data-owners.json`.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 

@@ -1,0 +1,667 @@
+{
+  "scope": "Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.",
+  "classified": 17,
+  "remaining": 24,
+  "prior_sha256": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
+  "unit_header_sha256": "10548dc46626ae9ffbc1433cb0d350ed09912199c42d9e031f7ab3ba18b2b59e",
+  "records": [
+    {
+      "address": "0x81b1aa0",
+      "owner": "src/data/const_data_chapter_maps.o",
+      "mapping": "data",
+      "pointer": "0x802a401",
+      "functions": [
+        "BattleGenerateUiStats"
+      ],
+      "target_owner": "src/bmbattle.o",
+      "containing_symbols": [
+        {
+          "name": "LagdouRuins1Map",
+          "offset": "0x14"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8639fd0",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8000fc5",
+      "functions": [
+        "BG_GetTileMapOffset"
+      ],
+      "target_owner": "src/hardware.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x863a44c",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8006b11",
+      "functions": [
+        "SetTalkPrintColor"
+      ],
+      "target_owner": "src/scene.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8643524",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8000304",
+      "functions": [
+        "ClearOam"
+      ],
+      "target_owner": "src/arm/clear_oam.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x866def4",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x86d4118",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x870d07c",
+      "owner": "src/data/banim/data_banim.o",
+      "mapping": "data",
+      "pointer": "0x8007fdd",
+      "functions": [
+        "TalkShiftClear_OnIdle"
+      ],
+      "target_owner": "src/scene.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x876e3a8",
+      "owner": "src/data/data_btl_bg.o",
+      "mapping": "data",
+      "pointer": "0x8080409",
+      "functions": [
+        "MapEventcallFx2_HBlankWobble"
+      ],
+      "target_owner": "src/mapanim_eventcall.o",
+      "containing_symbols": [
+        {
+          "name": "btl_bg_14_map",
+          "offset": "0x58"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8781dbc",
+      "owner": "src/data/data_btl_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "btl_bg_55_palette",
+          "offset": "0x28"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8790098",
+      "owner": "src/data/banim-ekrdragonfx.o",
+      "mapping": "unmapped",
+      "pointer": "0x8005515",
+      "functions": [
+        "GetPortraitData"
+      ],
+      "target_owner": "src/face.o",
+      "containing_symbols": [
+        {
+          "name": "Img_EfxDracoZombie",
+          "offset": "0x2a50"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x88250f8",
+      "owner": "src/data/data_portrait.o",
+      "mapping": "data",
+      "pointer": "0x80c0201",
+      "functions": [
+        "EndGmMuEntry"
+      ],
+      "target_owner": "src/worldmap_entry.o",
+      "containing_symbols": [
+        {
+          "name": "portrait_Mage_card",
+          "offset": "0x64c"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x88b4588",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_Event_Ch3Ally",
+          "offset": "0x14"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 1,
+      "record_offset": 0,
+      "field_group": "character/class/leader/level flags"
+    },
+    {
+      "address": "0x88b492c",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_Event_Ch4Ally",
+          "offset": "0x28"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 2,
+      "record_offset": 0,
+      "field_group": "character/class/leader/level flags"
+    },
+    {
+      "address": "0x88b49e0",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_Ch4Ally_0",
+          "offset": "0x14"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 1,
+      "record_offset": 0,
+      "field_group": "character/class/leader/level flags"
+    },
+    {
+      "address": "0x88b83e4",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_Ch9AAlly_2",
+          "offset": "0x50"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 4,
+      "record_offset": 0,
+      "field_group": "character/class/leader/level flags"
+    },
+    {
+      "address": "0x88c26dc",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8000110",
+      "functions": [
+        "IrqSaveFrame"
+      ],
+      "target_owner": "src/irq_save_frame.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_Ch9BMixed_0",
+          "offset": "0x4"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 0,
+      "record_offset": 4,
+      "field_group": "position/spawn flags/extra data/reda count"
+    },
+    {
+      "address": "0x88d1ba0",
+      "owner": "src/events_udefs.o",
+      "mapping": "data",
+      "pointer": "0x8004505",
+      "functions": [
+        "Text_DrawCharacterAscii"
+      ],
+      "target_owner": "src/fontgrp.o",
+      "containing_symbols": [
+        {
+          "name": "UnitDef_UnusedAlly_18",
+          "offset": "0x0"
+        }
+      ],
+      "classification": "unit_definition_scalar_fields",
+      "unit_record": 0,
+      "record_offset": 0,
+      "field_group": "character/class/leader/level flags"
+    },
+    {
+      "address": "0x88d8b64",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x80d0013",
+      "functions": [
+        "PlyNotePcmFrequencySetupBody"
+      ],
+      "target_owner": "src/m4a_ply_note_pcm_frequency_setup.o",
+      "containing_symbols": [
+        {
+          "name": "bg_Caer_Pelyn_tiles",
+          "offset": "0x288c"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x88f112c",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "bg_Castle_Night_palette",
+          "offset": "0x20"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x88f116c",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "bg_Castle_Night_palette",
+          "offset": "0x60"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x890a470",
+      "owner": "src/data/data_bg.o",
+      "mapping": "data",
+      "pointer": "0x800ee55",
+      "functions": [
+        "ConvoBackgroundFade_RestoreMap"
+      ],
+      "target_owner": "src/eventscr.o",
+      "containing_symbols": [
+        {
+          "name": "bg_Grass_Plains_2_tiles",
+          "offset": "0x58"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x89bff28",
+      "owner": "src/data/mapanim/mapanim_eventcall.o",
+      "mapping": "data",
+      "pointer": "0x8003451",
+      "functions": [
+        "Proc_SetRepeatCb"
+      ],
+      "target_owner": "src/proc.o",
+      "containing_symbols": [
+        {
+          "name": "gMapanimEventcall_35",
+          "offset": "0x92c"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8a18e20",
+      "owner": "src/prep_itemscreen.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "gSprite_PrepItemscreen_0",
+          "offset": "0x4"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8a984f4",
+      "owner": "src/data/worldmap/anim_worldmap_sprite.o",
+      "mapping": "data",
+      "pointer": "0x8050001",
+      "functions": [
+        "ekrBattleMain"
+      ],
+      "target_owner": "src/banim-ekrbattle.o",
+      "containing_symbols": [],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8ac1c4c",
+      "owner": "src/data/data_opanim_gfx.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "Tsa_OpAnimEphraimClose2",
+          "offset": "0xb4"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8af1b7c",
+      "owner": "src/data/data_opanim_gfx.o",
+      "mapping": "data",
+      "pointer": "0x800c0b9",
+      "functions": [
+        "Event8A_WmShowCursor_Unsure"
+      ],
+      "target_owner": "src/eventscr_gmap.o",
+      "containing_symbols": [
+        {
+          "name": "Img_opanim_unk1",
+          "offset": "0x44"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8b18224",
+      "owner": "src/data/data_B12A60.o",
+      "mapping": "data",
+      "pointer": "0x8082a7d",
+      "functions": [
+        "HBlank_ScrollBG1"
+      ],
+      "target_owner": "src/mapanim_scanline.o",
+      "containing_symbols": [
+        {
+          "name": "Img_ChapterIntro_LensFlare",
+          "offset": "0x6c0"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8b22960",
+      "owner": "src/data_B1FE7C.o",
+      "mapping": "data",
+      "pointer": "0x8082a7d",
+      "functions": [
+        "HBlank_ScrollBG1"
+      ],
+      "target_owner": "src/mapanim_scanline.o",
+      "containing_symbols": [
+        {
+          "name": "gUnkData_108",
+          "offset": "0x2ae4"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8c1aa24",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80310f9",
+      "functions": [
+        "RefreshBMapDisplay_FromBattle"
+      ],
+      "target_owner": "src/bmio.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_lomf_sw1_sheet_2.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 1536
+    },
+    {
+      "address": "0x8c32a90",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800043c",
+      "functions": [
+        "TmApplyTsa"
+      ],
+      "target_owner": "src/arm/tm_apply_tsa.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "banim/banim_bram_sw1_2_motion.o.bin.lz",
+      "asset_kind": "relocated_motion_stream",
+      "asset_offset": 1608
+    },
+    {
+      "address": "0x8c70794",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8014001",
+      "functions": [
+        "FadeOutWhiteSpeed10Locking"
+      ],
+      "target_owner": "src/bmlib.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_snim_ar1_sheet_2.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 76
+    },
+    {
+      "address": "0x8c89c90",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_sokm_sp1_sheet_3.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 3556
+    },
+    {
+      "address": "0x8cc2554",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80b40d1",
+      "functions": [
+        "StartClassStatsDisplay"
+      ],
+      "target_owner": "src/opinfo.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "banim/banim_genm_al1_oam_l.bin.lz",
+      "asset_kind": "oam",
+      "asset_offset": 1856
+    },
+    {
+      "address": "0x8cc8324",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x80b40d1",
+      "functions": [
+        "StartClassStatsDisplay"
+      ],
+      "target_owner": "src/opinfo.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "banim/banim_genm_al1_5_oam_l.bin.lz",
+      "asset_kind": "oam",
+      "asset_offset": 1856
+    },
+    {
+      "address": "0x8d6cd50",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800114d",
+      "functions": [
+        "FlushBackgrounds"
+      ],
+      "target_owner": "src/hardware.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_shaf_mg1_sheet_2.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 1600
+    },
+    {
+      "address": "0x8d8fe54",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8009761",
+      "functions": [
+        "APProc_OnUpdate"
+      ],
+      "target_owner": "src/ap.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_thim_sw1_sheet_1.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 700
+    },
+    {
+      "address": "0x8e009a4",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8000118",
+      "functions": [
+        "IrqSearch"
+      ],
+      "target_owner": "src/irq_search.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_mcd_ax1_sheet_5.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 640
+    },
+    {
+      "address": "0x8e1bd7c",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x8009aed",
+      "functions": [
+        "GameControl_PostIntro"
+      ],
+      "target_owner": "src/gamecontrol.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_gar_sp1_sheet_3.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 1872
+    },
+    {
+      "address": "0x8e3bf94",
+      "owner": "banim/data_banim.o",
+      "mapping": "unmapped",
+      "pointer": "0x800cd89",
+      "functions": [
+        "EventC7_"
+      ],
+      "target_owner": "src/eventscr_gmap.o",
+      "containing_symbols": [],
+      "classification": "verified_animation_asset_bytes",
+      "asset": "graphics/banim/banim_fifd_mg1_sheet_7.4bpp.lz",
+      "asset_kind": "graphics",
+      "asset_offset": 1048
+    },
+    {
+      "address": "0x8fe14d8",
+      "owner": "src/data/data_FE0000.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "gUnkData_109",
+          "offset": "0x14d8"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    },
+    {
+      "address": "0x8fe200c",
+      "owner": "src/data/data_FE0000.o",
+      "mapping": "data",
+      "pointer": "0x8000000",
+      "functions": [
+        "Init"
+      ],
+      "target_owner": "src/rom_header.o",
+      "containing_symbols": [
+        {
+          "name": "gUnkData_109",
+          "offset": "0x200c"
+        }
+      ],
+      "classification": "needs_data_provenance"
+    }
+  ]
+}

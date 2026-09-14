@@ -13802,3 +13802,19 @@ flow into sample memory.
 The remaining 41 candidates are listed in `docs/function-pointer-residuals.json`.
 Further data/table provenance and computed/untyped target classification remain
 open. Production source is unchanged.
+
+## Residual pointer-shaped data ownership — September 14, 2026
+
+Baseline `997cd2ef`. `scripts/audit_pointer_data_owners.py` locates all 41 residual
+matches using current symbol extents. Eleven merged animation-data matches bind
+to hashed source assets and exact ROM bytes. Six unit-definition matches occur
+at offsets zero or four modulo the 20-byte UnitDefinition record size: character,
+class, leader and level flags, or packed position/spawn metadata. None occupies
+the redas pointer at offset eight. Their scalar-field interpretation follows
+`include/bmunit.h`, whose hash is recorded.
+
+This accounts for 17 more pointer-shaped data words, leaving 24 requiring further
+provenance. `docs/function-pointer-data-owners.json` records classifications and
+containing symbols where available. Symbol names alone are not treated as proof
+that data cannot execute. Production source remains unchanged; complete
+executable classification remains open.
