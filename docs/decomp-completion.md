@@ -12414,3 +12414,27 @@ loads the saved sign through SP and reclaims the slot with a pop into r1;
 the original instead pops the saved dividend into r4 before checking its
 sign, then restores the original r4. A checked local-slot/frame transformation
 must reproduce that order before exact layout. No production library changed.
+
+
+### Signed-modulus normalization and frame isolation (September 14, 2026)
+
+Baseline `4a9bd9bf`. `smod_layout.c` applies the verified normalization
+layout and combined register constraints to signed modulus. It eliminates
+the live r5 normalization temporary and reduces the nonzero candidate from
+196 to 194 bytes. All 6,060 nonzero arithmetic/callee-preservation cases pass;
+flags differ on 0 cases and r1 still differs on
+5020 cases due to stack-slot reclamation.
+The detailed instruction-span/state receipt is runtime-smod-layout-research.json.
+
+`probe_smod_frame.py` independently recompiles and checks the remaining
+assembly shape: r5 appears only in push/pop lists, there are no calls, and
+explicit memory operations are exactly STR r0,[sp] and LDR r4,[sp]. This is
+structural evidence, not a proof of a replacement frame. The corresponding
+source/plugin fingerprints and observations are in runtime-smod-frame-shape.json.
+
+Next implement a strict saved-sign frame contract: delay the saved-r4 push
+to the sign store, use a separate push-r0 for the original dividend, replace
+the sign reload with pop-r4, and restore the original r4 before returning.
+It must reject any additional stack accesses or live pruned registers and
+verify exact stack-write order. Production runtime assembly remains 268 bytes
+per audited image.

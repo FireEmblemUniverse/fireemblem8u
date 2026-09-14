@@ -1,0 +1,14 @@
+{
+  "source_sha256": "9d75bd1b6200cd230e640898a636fdb707cef3ba0fbca9b46be145c0684c318d",
+  "plugin_sha256": "89768bab39574d097f3503847e40439323997c9a46fa8ad47c882c6ee0b8c786",
+  "r5_references": [
+    "push\t{r0, r4, r5}",
+    "pop\t{r1, r4, r5}"
+  ],
+  "explicit_memory_operations": [
+    "str\tr0, [sp]",
+    "ldr\tr4, [sp]"
+  ],
+  "no_calls": true,
+  "scope": "Compiler-output structural probe: r5 appears only in save/restore; the sign uses one SP-local store/load. Does not yet transform or prove a replacement frame."
+}
