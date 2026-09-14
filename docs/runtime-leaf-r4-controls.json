@@ -1,4 +1,6 @@
 {
+  "exact_legacy_core": true,
+  "rejected_valued_option": true,
   "accepted_single_r4_save_restore": true,
   "unannotated_unchanged": true,
   "rejected_cases": [
@@ -14,6 +16,6 @@
     "debug",
     "arm-mode"
   ],
-  "plugin_source_sha256": "be6609fdd69d08d9a7133135ee1ee96c3acc7a44fea504025b257537f5b21735",
-  "plugin_sha256": "f8a1532604716f6db807861703d2e77a68da7a301d5992d01719ac7ef076ce66"
+  "plugin_source_sha256": "bae0ee78f3797c5878864306945c9a80b66158f904e73e56218e34e4cfd14b79",
+  "plugin_sha256": "0ecbfd9155e3378b467936d37d6e87d1067dc25ac19032da064d519225218494"
 }

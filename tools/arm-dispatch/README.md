@@ -1209,3 +1209,13 @@ Build with `build_leaf_r4_frame.py --compiler
 .deps/gcc16-matching/install/bin/arm-none-eabi-gcc --output-dir
 .deps/runtime-division`. `research/runtime/check_leaf_r4_frame.py` verifies
 acceptance, eleven rejected forms and unchanged unannotated code.
+
+
+The r4-frame pass now accepts either the exact r4-r5 or r4-r6 stale frame,
+checking the corresponding stack adjustment and clobber mask. Its explicit
+`thumb-return` flag selects GCC's existing MOV PC,LR operation after frame
+validation. This preserves Thumb mode rather than providing a general
+interworking return. Omit the flag for the original BX LR behavior. Pass
+`-fplugin-arg-leaf_r4_frame-thumb-return` after loading the plugin.
+The division layout probe and --require-exact-core model gate verify the
+complete 106-byte core; the public zero-divisor dispatcher remains separate.

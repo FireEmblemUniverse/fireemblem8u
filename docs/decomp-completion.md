@@ -11846,3 +11846,43 @@ leaf_frame.so to the unsigned-division checker with --nonzero-only.
 No production changes or coverage reductions are claimed. Exact instruction
 layout, return encoding and a complete zero-divisor dispatcher are required
 before replacing the runtime helper.
+
+
+### Complete nonzero division core matches all 106 bytes
+
+`research/runtime/udiv_layout.c` expresses the two normalization loops with
+explicit exits and branch-likelihood hints. This restores the original
+fallthrough order. An empty register constraint at the division boundary
+prevents the second normalization comparison from being reversed/reused
+across the main loop entry. That change also reduces the stale frame from
+r4-r6 to r4-r5; the frame pass now validates and prunes either exact shape,
+with the expected adjustment and epilogue clobber mask for each.
+
+The frame pass's explicit `thumb-return` option selects GCC's existing Thumb
+indirect-jump SET-PC-from-LR operation, emitting MOV PC,LR. Its default still
+uses BX LR. This is a private Thumb return convention, not a general
+interworking return transformation. No new backend pattern or compiler
+rebuild was needed.
+
+All 106 bytes now equal the original helper's offsets 4 through 0x6e,
+including the entire normalization, arithmetic, frame and return sequence.
+All eight compiler-option probes produce the same exact core; no extra
+optimization-disabling option is required. The probe was corrected to pass
+plugin arguments after the plugin definition before collecting the final
+receipt. `docs/runtime-udiv-layout-options.json` records the results.
+
+The checker adds an explicit --require-exact-core gate that requires both
+--nonzero-only and zero byte/state/stack differences for the core. The final
+run passes all 2,924 nonzero cases, as recorded in
+`docs/runtime-udiv-exact-core-research.json`. Eleven altered contracts still
+reject; an option with an unsupported value rejects; default unannotated
+code stays unchanged. `docs/runtime-leaf-r4-controls.json` also checks the
+new option's full exact core bytes.
+
+Reproduce with the existing unsigned-division checker, source
+`research/runtime/udiv_layout.c`, -Os, copy_add_zero.so, leaf_frame.so and
+leaf_r4_frame.so, plus
+`--compiler-flag=-fplugin-arg-leaf_r4_frame-thumb-return --nonzero-only
+--require-exact-core`. The public helper is still unfinished: its four-byte
+zero check and ten-byte zero path must be generated and linked with this
+core. No runtime replacement or production ownership change is claimed.

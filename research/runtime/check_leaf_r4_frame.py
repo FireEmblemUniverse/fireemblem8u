@@ -37,4 +37,8 @@ variants={
 for name,(text,extra) in variants.items():
  r,_=compile_case(name,text,extra);assert r.returncode,(name,'unexpected acceptance')
  assert 'leaf' in r.stderr or 'copy add zero' in r.stderr,(name,r.stderr)
-print(json.dumps(dict(accepted_single_r4_save_restore=True,unannotated_unchanged=True,rejected_cases=list(variants),plugin_source_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/leaf_r4_frame.cc').read_bytes()).hexdigest(),plugin_sha256=hashlib.sha256(plugins[2].read_bytes()).hexdigest()),indent=2))
+layout=(ROOT/'research/runtime/udiv_layout.c').read_text()
+r,legacy=compile_case('legacy-return',layout,('-fplugin-arg-leaf_r4_frame-thumb-return',));assert r.returncode==0,r.stderr
+assert legacy==(ROOT/'baserom.gba').read_bytes()[0xd1ad8:0xd1b42]
+r,_=compile_case('valued-option',layout,('-fplugin-arg-leaf_r4_frame-thumb-return=yes',));assert r.returncode
+print(json.dumps(dict(exact_legacy_core=True,rejected_valued_option=True,accepted_single_r4_save_restore=True,unannotated_unchanged=True,rejected_cases=list(variants),plugin_source_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/leaf_r4_frame.cc').read_bytes()).hexdigest(),plugin_sha256=hashlib.sha256(plugins[2].read_bytes()).hexdigest()),indent=2))
