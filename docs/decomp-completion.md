@@ -11995,3 +11995,30 @@ Default linker paths still select the original installed archives. Next wire
 the derived archive into the main and payload link prerequisites, rebuild,
 and update the fresh-rebuild and runtime-source audits to classify this C
 member. Current production ownership totals remain unchanged.
+
+
+### Default unsigned-division integration (September 14, 2026)
+
+Baseline `1c42a29d`. Main-ROM and payload links now prefer the derived
+`.deps/runtime-c/libgcc.a`, and both depend on that archive. Standalone
+payload builds request its up-to-date parent build. The payload commit
+f63d4c87d5cd568c9b353dfb006aaf8a95fe8ffd is retained in the verified recovery
+bundle. Installed historical archives remain inputs for unrecovered members.
+
+`make compare -j8` passes. Both dated payloads were relinked, and the default
+fresh runtime verifier now builds the C member and its five plugins in its
+isolated directory before replacing _udivsi3.o. All four complete binaries
+and exported symbol addresses/sizes match. The verifier fingerprints local
+runtime sources and the derived archive; the runtime-source audit checks
+these fingerprints and attributes the recovered member to runtime C.
+Assembly instruction totals fall from 726 to 606 per audited image. Main
+runtime C-source instructions rise from 21,066 to 21,186, and payload runtime
+C-source instructions rise from 94 to 214. The main runtime archive category
+still totals 21,792 instruction bytes and remains separate from whole-object
+C ownership; no overall completion percentage is inferred.
+
+Code ownership, inline-region and region/data provenance receipts are
+refreshed for the new ELF/map identities. The five remaining runtime assembly
+members are signed division, signed/unsigned modulus, indirect-call veneers
+and __div0. Syscall inline assembly, expanded payload assembly and complete
+mapped-data/executable classification remain unfinished.

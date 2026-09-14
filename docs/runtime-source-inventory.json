@@ -2,14 +2,14 @@
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
     "libc.a": "a9a7514f8f586166e29e0b52d0b52b1877b3f14b1d052512d13f2c586c71e32f",
-    "libgcc.a": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
+    "libgcc.a": "8314ad3b8e2f8bffdecd5c4472cca9afac78c1c1fb276ba56873c1cd581a9f16"
   },
   "images": {
     "main_rom": {
-      "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
-      "assembly_instruction_bytes": 726,
+      "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
+      "assembly_instruction_bytes": 606,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 21066,
+      "C_source_rebuilt_instruction_bytes": 21186,
       "rebuilt_syscalls_object_instruction_bytes": 1014,
       "members": [
         {
@@ -27,14 +27,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(dp-bit.o)",
+          "object": ".deps/runtime-c/libgcc.a(dp-bit.o)",
           "instruction_bytes": 3310,
           "source": "libgcc/fp-bit-base.c",
           "source_sha256": "9aa27be26b945edde2c6ef81d0289724d1d9ca1e756a1a98230ab58de46091eb",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(fp-bit.o)",
+          "object": ".deps/runtime-c/libgcc.a(fp-bit.o)",
           "instruction_bytes": 2302,
           "source": "libgcc/fp-bit-base.c",
           "source_sha256": "9aa27be26b945edde2c6ef81d0289724d1d9ca1e756a1a98230ab58de46091eb",
@@ -90,7 +90,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_modsi3.o)",
           "instruction_bytes": 206,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -99,7 +99,7 @@
           "text_sha256": "b6cff6667b7e1a6335e2f82f82db5fa64e135b0a3defb14c7f0b49f600a2b031"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_umodsi3.o)",
           "instruction_bytes": 192,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -122,7 +122,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_divsi3.o)",
           "instruction_bytes": 146,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -145,13 +145,15 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_udivsi3.o)",
           "instruction_bytes": 120,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 120,
-          "text_sha256": "ef44b6e0f7b9f3f9bb0d72fcad4e9b09c2f7369e86c39f00541475629a293afb"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "tools/agbcc/lib/libc.a(memchr.o)",
@@ -168,7 +170,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_muldi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_muldi3.o)",
           "instruction_bytes": 108,
           "source": "libgcc/libgcc2.c",
           "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
@@ -231,7 +233,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "object": ".deps/runtime-c/libgcc.a(_call_via_rX.o)",
           "instruction_bytes": 60,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -247,14 +249,14 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_ashldi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_ashldi3.o)",
           "instruction_bytes": 50,
           "source": "libgcc/libgcc2.c",
           "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_lshrdi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_lshrdi3.o)",
           "instruction_bytes": 50,
           "source": "libgcc/libgcc2.c",
           "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
@@ -331,17 +333,17 @@
           "status": "C_source_rebuild_verified"
         },
         {
+          "object": ".deps/runtime-c/libgcc.a(_negdi2.o)",
+          "instruction_bytes": 22,
+          "source": "libgcc/libgcc2.c",
+          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
+          "status": "C_source_rebuild_verified"
+        },
+        {
           "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
           "instruction_bytes": 22,
           "source": "libc/math/s_isnan.c",
           "source_sha256": "2e0359c2f4855d1a1910c934356396cea927aaca54048f9209fb7f56dea7bf01",
-          "status": "C_source_rebuild_verified"
-        },
-        {
-          "object": "tools/agbcc/lib/libgcc.a(_negdi2.o)",
-          "instruction_bytes": 22,
-          "source": "libgcc/libgcc2.c",
-          "source_sha256": "c3ed778d0fb6787db6b6671ef2868d1478a2b71f1c5caba3eb2b7d65a599ff6d",
           "status": "C_source_rebuild_verified"
         },
         {
@@ -359,7 +361,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "object": ".deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "instruction_bytes": 2,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -370,14 +372,14 @@
       ]
     },
     "mgfembp": {
-      "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
-      "assembly_instruction_bytes": 726,
+      "elf_sha256": "21b16ae32ab984d9aca1b136ef9f9f5d060c05a9bfa0ddbe3e2f0469adc6b649",
+      "assembly_instruction_bytes": 606,
       "C_source_located_instruction_bytes": 0,
-      "C_source_rebuilt_instruction_bytes": 94,
+      "C_source_rebuilt_instruction_bytes": 214,
       "rebuilt_syscalls_object_instruction_bytes": 0,
       "members": [
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_modsi3.o)",
           "instruction_bytes": 206,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -386,7 +388,7 @@
           "text_sha256": "b6cff6667b7e1a6335e2f82f82db5fa64e135b0a3defb14c7f0b49f600a2b031"
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_umodsi3.o)",
           "instruction_bytes": 192,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -395,7 +397,7 @@
           "text_sha256": "cff75b95f09ef0d5116d3b9643fe49e7e4bb56bb43d6618e802a3cce2823882c"
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_divsi3.o)",
           "instruction_bytes": 146,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -404,13 +406,15 @@
           "text_sha256": "e9dfbdbf898414c3ec6199436297d3e9b626e2ca53de311c0557df32ffd3ebfa"
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_udivsi3.o)",
           "instruction_bytes": 120,
-          "source": "libgcc/lib1thumb.asm",
-          "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
-          "status": "assembly_reproduced",
-          "text_bytes": 120,
-          "text_sha256": "ef44b6e0f7b9f3f9bb0d72fcad4e9b09c2f7369e86c39f00541475629a293afb"
+          "source": "runtime/*.c",
+          "source_sha256": {
+            "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+            "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+            "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+          },
+          "status": "C_source_rebuild_verified"
         },
         {
           "object": "../../tools/agbcc/lib/libc.a(memcpy.o)",
@@ -420,7 +424,7 @@
           "status": "C_source_rebuild_verified"
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_call_via_rX.o)",
           "instruction_bytes": 60,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -429,7 +433,7 @@
           "text_sha256": "074f3ace44a2eb0745a927fc7ef482e0f52b4c91c32643ac56cf0c4af34a6d73"
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "instruction_bytes": 2,
           "source": "libgcc/lib1thumb.asm",
           "source_sha256": "8c1f8305f4fcf59f18d3140e32a77988ea76026d442e6bbcfe3c1c0b821362f4",
@@ -440,7 +444,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "0e0c443d85ae191047d83c27e48cfa7544b85e017abc2863da24743bfc3944d9",
+  "rebuild_report_sha256": "7fb97bf96c3e89dc741cefb6f3e64bd54ba44c158d1fabd63fb4ec5929a2b478",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",

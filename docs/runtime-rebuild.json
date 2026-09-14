@@ -1,8 +1,15 @@
 {
+  "derived_archive_sha256": "8314ad3b8e2f8bffdecd5c4472cca9afac78c1c1fb276ba56873c1cd581a9f16",
+  "runtime_c_sources": {
+    "udiv_layout.c": "20db293076693eeed2e32194dc93f1a4aa5fb7379f049363f605e3b8859aac0b",
+    "udiv_entry.c": "9203a267e4cf77c8c664d350a144b312642e1e14ff7260baad2d490e7523e44e",
+    "divzero.c": "27ef8435adafeb4ca6d2b17dffa54bd06c47c7f0e8ae3bf6b292cf69e496639f"
+  },
+  "udiv_replacement_sha256": "e9c128ba4ca78af9b294de5d8f206ea1e6b3b5dff506092563a0697d502f8b29",
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "source_archive_sha256": "8ab8651abbf325f9a02315adfe6e6da6806fe45e7611d896547788edff9bdbb7",
   "compiler_sha256": "fbfac272629e2eca066a0117329608d9e63e656a5efec946a13d4beb075c7150",
-  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-kbh75c_z",
+  "build_directory": "/Users/antnee/Documents/Projects/fe8decomp/fireemblem8u/.deps/runtime-rebuild/verified-p0oskult",
   "tool_versions": {
     "arm-none-eabi-cpp": "arm-none-eabi-cpp (GCC) 16.2.0",
     "arm-none-eabi-as": "GNU assembler (GNU Binutils) 2.47.20260726",
@@ -13,40 +20,40 @@
     "libgcc": "8a3a60ca874982b124fd28493042557e82232fa290e77f0986b856bf9f6b944e"
   },
   "rebuilt_archive_sha256": {
-    "libc": "c15c55e7f586fa6463edf66c6f9d14c4d02c05809626d503e25e6d42d93597f8",
-    "libgcc": "3083f75773a550cd5e62edee982ffa6416bc7b0df8babeac01be22f732ab6244"
+    "libc": "1d765f4f06c0515e9200ca9a567d431a286eafe370e4f3db492bd0ff2e77d552",
+    "libgcc": "adfd7c3c91476fb269d713f1587878d1b60eb6a4129506193d0c12cc42604bda"
   },
   "images": {
     "main_rom": {
       "bytes": 16777216,
       "sha1": "c25b145e37456171ada4b0d440bf88a19f4d509f",
-      "original_elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
-      "original_map_sha256": "4c6109b8b64edca11037d4d4b8780ec8dc44954717262f857db83c291b81e9de",
-      "rebuilt_elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
+      "original_elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
+      "original_map_sha256": "041286b08256e6e52871b2551615f241e9be494bcecfe6398c3530a833ba082f",
+      "rebuilt_elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
       "global_symbols_match": true
     },
     "mgfembp": {
       "bytes": 34956,
       "sha1": "8a81a47d88f6b0a3f91c49784b9f7b317382abac",
-      "original_elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
-      "original_map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0",
-      "rebuilt_elf_sha256": "dded0bf7cb7c48321705db84f127a8c94af840f3d8670136b32e2e05d09a570d",
+      "original_elf_sha256": "21b16ae32ab984d9aca1b136ef9f9f5d060c05a9bfa0ddbe3e2f0469adc6b649",
+      "original_map_sha256": "a6cfbcfb9802c140a13f680aa8a4daf60d43a8daee09d1506a32579719c96797",
+      "rebuilt_elf_sha256": "6211fb6f7e50ebfef77351cafcc4aff3c331e3d0bb8ec3bce68184cd0d2625f1",
       "global_symbols_match": true
     },
     "mgfembp_20030206": {
       "bytes": 34788,
       "sha1": "6674fc5b5ee26433665c44b842cdb26bcf785051",
-      "original_elf_sha256": "b96cde28ce5c2dc0a6a24bbac7279d70b97be0776e37acd0f9ba039306c88a92",
-      "original_map_sha256": "46ce86b1c6b913d685492c3e9f80f1edaf967d0f30dd44ba50766275db21bcd3",
-      "rebuilt_elf_sha256": "0aa92a9828859ea19baffa5d9879a293e6b6eebb6ec1d0a9156ef3012db98383",
+      "original_elf_sha256": "abaf2154bcb86f9a04d271e4a3d154317b51eeed25449b101684cd092626d896",
+      "original_map_sha256": "ad33896c241a10d43578cedaa31fb95a52f067aac3934803f53d13d06267870b",
+      "rebuilt_elf_sha256": "e722b437da36ee71d87a5bbc5de427059c7b3edd7e0804f36a076945152e1339",
       "global_symbols_match": true
     },
     "mgfembp_20030219": {
       "bytes": 34196,
       "sha1": "ad3ffdb4fc50206f944972a0a7ad26bfa8b5ef74",
-      "original_elf_sha256": "53acfd94c1dce30f21894688edfc1275ab6b65b373a54b431d93856034a7f7ed",
-      "original_map_sha256": "0d552831e4991120b0d22f76dae5f327745cddb58c1c841c236b8d51ca4ec4ad",
-      "rebuilt_elf_sha256": "337a32b5bb63694c44c67d8320d1be6c193a270a232a7f82553ba420cd1cd153",
+      "original_elf_sha256": "369a61ee287cc7f428bf69029c05cb3ccb1e2e1fcbf1cd63cd404d519812868d",
+      "original_map_sha256": "8549fee5b3187bf7e66f76aca136f23c1b83c0812626e42bbaeb7dfd2ea5306c",
+      "rebuilt_elf_sha256": "1da490ae1232568f15bf9fcdbdd117055eb9dbf9efadfa49d02c5c768142d686",
       "global_symbols_match": true
     }
   },

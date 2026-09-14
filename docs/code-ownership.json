@@ -1,6 +1,6 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "e1833927c778ce44e1ecf91c9d51fcd7117047e4",
+  "baseline_commit": "1c42a29db8d5f05949d8b662271463a6794f7542",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
@@ -436,7 +436,7 @@
           "instruction_bytes": 3336
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(dp-bit.o)",
+          "object": ".deps/runtime-c/libgcc.a(dp-bit.o)",
           "category": "runtime_archive",
           "instruction_bytes": 3310
         },
@@ -626,7 +626,7 @@
           "instruction_bytes": 2304
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(fp-bit.o)",
+          "object": ".deps/runtime-c/libgcc.a(fp-bit.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2302
         },
@@ -1566,13 +1566,13 @@
           "instruction_bytes": 208
         },
         {
-          "object": "src/eventfx-stoneshatter.o",
-          "category": "c_owned",
+          "object": ".deps/runtime-c/libgcc.a(_modsi3.o)",
+          "category": "runtime_archive",
           "instruction_bytes": 206
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_modsi3.o)",
-          "category": "runtime_archive",
+          "object": "src/eventfx-stoneshatter.o",
+          "category": "c_owned",
           "instruction_bytes": 206
         },
         {
@@ -1591,7 +1591,7 @@
           "instruction_bytes": 198
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_umodsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 192
         },
@@ -1651,7 +1651,7 @@
           "instruction_bytes": 148
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_divsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 146
         },
@@ -1691,7 +1691,7 @@
           "instruction_bytes": 122
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_udivsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 120
         },
@@ -1711,7 +1711,7 @@
           "instruction_bytes": 110
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_muldi3.o)",
+          "object": ".deps/runtime-c/libgcc.a(_muldi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 108
         },
@@ -1841,7 +1841,7 @@
           "instruction_bytes": 62
         },
         {
-          "object": "tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "object": ".deps/runtime-c/libgcc.a(_call_via_rX.o)",
           "category": "runtime_archive",
           "instruction_bytes": 60
         },
@@ -1891,6 +1891,16 @@
           "instruction_bytes": 52
         },
         {
+          "object": ".deps/runtime-c/libgcc.a(_ashldi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 50
+        },
+        {
+          "object": ".deps/runtime-c/libgcc.a(_lshrdi3.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 50
+        },
+        {
           "object": "src/eventcmd_warp.o",
           "category": "c_owned",
           "instruction_bytes": 50
@@ -1898,16 +1908,6 @@
         {
           "object": "src/m4a_ply_note_cgb_select.o",
           "category": "c_owned",
-          "instruction_bytes": 50
-        },
-        {
-          "object": "tools/agbcc/lib/libgcc.a(_ashldi3.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 50
-        },
-        {
-          "object": "tools/agbcc/lib/libgcc.a(_lshrdi3.o)",
-          "category": "runtime_archive",
           "instruction_bytes": 50
         },
         {
@@ -2126,6 +2126,11 @@
           "instruction_bytes": 24
         },
         {
+          "object": ".deps/runtime-c/libgcc.a(_negdi2.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 22
+        },
+        {
           "object": "src/m4a_address_filter.o",
           "category": "c_owned",
           "instruction_bytes": 22
@@ -2152,11 +2157,6 @@
         },
         {
           "object": "tools/agbcc/lib/libc.a(s_isnan.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 22
-        },
-        {
-          "object": "tools/agbcc/lib/libgcc.a(_negdi2.o)",
           "category": "runtime_archive",
           "instruction_bytes": 22
         },
@@ -2666,6 +2666,11 @@
           "instruction_bytes": 4
         },
         {
+          "object": ".deps/runtime-c/libgcc.a(_dvmd_tls.o)",
+          "category": "runtime_archive",
+          "instruction_bytes": 2
+        },
+        {
           "object": "src/m4a_byte_load.o",
           "category": "c_owned",
           "instruction_bytes": 2
@@ -2699,15 +2704,10 @@
           "object": "src/m4a_ply_note_clear_setup.o",
           "category": "c_owned",
           "instruction_bytes": 2
-        },
-        {
-          "object": "tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
-          "category": "runtime_archive",
-          "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
-      "map_sha256": "4c6109b8b64edca11037d4d4b8780ec8dc44954717262f857db83c291b81e9de",
+      "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
+      "map_sha256": "041286b08256e6e52871b2551615f241e9be494bcecfe6398c3530a833ba082f",
       "unmapped_input_bytes": 3172286,
       "data_mapped_bytes": 10252493,
       "outside_input_bytes": 2574807,
@@ -2794,12 +2794,12 @@
           "instruction_bytes": 208
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_modsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_modsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 206
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_umodsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_umodsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 192
         },
@@ -2814,12 +2814,12 @@
           "instruction_bytes": 156
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_divsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_divsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 146
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_udivsi3.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_udivsi3.o)",
           "category": "runtime_archive",
           "instruction_bytes": 120
         },
@@ -2859,7 +2859,7 @@
           "instruction_bytes": 62
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_call_via_rX.o)",
           "category": "runtime_archive",
           "instruction_bytes": 60
         },
@@ -2879,13 +2879,13 @@
           "instruction_bytes": 12
         },
         {
-          "object": "../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)",
+          "object": "../../../.deps/runtime-c/libgcc.a(_dvmd_tls.o)",
           "category": "runtime_archive",
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "67190fe72156720a55ca5e1d64f58a528439c3b8ab8c29101af9ec4999b996ca",
-      "map_sha256": "b2c41013d3796313facbcba8e0a5a0cfa3e61535a43dd5985448df17e1f1c9b0",
+      "elf_sha256": "21b16ae32ab984d9aca1b136ef9f9f5d060c05a9bfa0ddbe3e2f0469adc6b649",
+      "map_sha256": "a6cfbcfb9802c140a13f680aa8a4daf60d43a8daee09d1506a32579719c96797",
       "unmapped_input_bytes": 0,
       "data_mapped_bytes": 9239,
       "outside_input_bytes": 1,

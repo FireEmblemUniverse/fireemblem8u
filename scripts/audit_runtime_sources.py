@@ -8,7 +8,7 @@ import re
 import subprocess
 ROOT=Path(__file__).resolve().parents[1]
 PIN='da598c1d918402c42c0c0d7128ba14567f3175e9'
-ASM_NAMES={'_udivsi3','_divsi3','_umodsi3','_modsi3','_dvmd_tls','_call_via_rX'}
+ASM_NAMES={'_divsi3','_umodsi3','_modsi3','_dvmd_tls','_call_via_rX'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source',type=Path,default=ROOT/'.deps/agbcc');p.add_argument('--markdown',type=Path);p.add_argument('--rebuild-report',type=Path,default=ROOT/'docs/runtime-rebuild.json');a=p.parse_args();source=a.source.resolve()
@@ -16,12 +16,14 @@ def main():
     out=ROOT/'.deps/runtime-audit';out.mkdir(exist_ok=True)
     ownership=json.loads((ROOT/'docs/code-ownership.json').read_text())
     archives={name:ROOT/'tools/agbcc/lib'/name for name in ('libc.a','libgcc.a')}
+    archives['libgcc.a']=ROOT/'.deps/runtime-c/libgcc.a'
     rebuild=None
     if a.rebuild_report.exists():
         rebuild=json.loads(a.rebuild_report.read_text())
         assert rebuild['source_commit']==PIN
         assert rebuild['compiler_sha256']==sha(ROOT/'tools/agbcc/bin/old_agbcc')
-        for name,path in archives.items():assert rebuild['installed_archive_sha256'][name[:-2]]==sha(path)
+        for name,path in archives.items():
+            assert (rebuild['derived_archive_sha256'] if name=='libgcc.a' else rebuild['installed_archive_sha256'][name[:-2]])==sha(path)
         for name,info in rebuild['images'].items():
             original=ROOT/('fireemblem8' if name=='main_rom' else 'mgfembp/'+name)
             assert info['original_elf_sha256']==sha(original.with_suffix('.elf')),'Rerun verify_runtime_rebuild.py after rebuilding'
@@ -53,6 +55,13 @@ def main():
             if obj['category']!='runtime_archive':continue
             match=re.search(r'(lib(?:c|gcc)\.a)\(([^)]+)\.o\)$',obj['object']);assert match,obj
             archive,name=match.groups()
+            if archive=='libgcc.a' and name=='_udivsi3':
+                assert rebuild, 'Recovered runtime requires fresh rebuild evidence'
+                sources={path.name:sha(path) for path in (ROOT/'runtime').glob('*.c')}
+                assert sources==rebuild['runtime_c_sources']
+                rebuilt_bytes+=obj['instruction_bytes']
+                rows.append(dict(object=obj['object'],instruction_bytes=obj['instruction_bytes'],source='runtime/*.c',source_sha256=sources,status='C_source_rebuild_verified'))
+                continue
             if archive=='libgcc.a' and name in ASM_NAMES:
                 path=asm;status='assembly_reproduced';assembly_bytes+=obj['instruction_bytes']
             else:
@@ -81,11 +90,11 @@ def main():
         lines=['# Runtime source inventory','',f'Local source pin: `{PIN}`. Installed archives and selected source files are fingerprinted in [the JSON report](runtime-source-inventory.json).','','| Image | Reproduced assembly instructions | Matching C source rebuild | C source located; rebuild unverified |','|---|---:|---:|---:|']
         for image,info in images.items():lines.append(f"| {image} | {info['assembly_instruction_bytes']:,} | {info['C_source_rebuilt_instruction_bytes']:,} | {info['C_source_located_instruction_bytes']:,} |")
         if rebuild:
-            lines += ['', 'Fresh pinned libc/libgcc builds reproduce the entire 16 MiB main ROM and all three embedded payload binaries. Exported symbol addresses/sizes also match, including RAM symbols. [Rebuild evidence](runtime-rebuild.json) fingerprints the source snapshot, compiler, tools, archives and original images. Reproduce with `python3 scripts/verify_runtime_rebuild.py --json docs/runtime-rebuild.json`, then rerun this inventory.', '', 'The C-source total includes 1,014 main-ROM instruction bytes in syscalls.o, which contains inline assembly. That is the whole object size, not a count of its assembly instructions.']
+            lines += ['', 'Fresh pinned libc/libgcc builds with the recovered C division member reproduce the entire 16 MiB main ROM and all three embedded payload binaries. Exported symbol addresses/sizes also match, including RAM symbols. [Rebuild evidence](runtime-rebuild.json) fingerprints the source snapshot, compiler, tools, archives and original images. Reproduce with `python3 scripts/verify_runtime_rebuild.py --json docs/runtime-rebuild.json`, then rerun this inventory.', '', 'The C-source total includes 1,014 main-ROM instruction bytes in syscalls.o, which contains inline assembly. That is the whole object size, not a count of its assembly instructions.']
         lines += ['', '## Reproduced assembly members','', '| Member | Mapped instruction bytes per image | Reproduced text bytes including padding |','|---|---:|---:|']
         for row in images['main_rom']['members']:
             if row['status']=='assembly_reproduced':lines.append(f"| `{row['object']}` | {row['instruction_bytes']} | {row['text_bytes']} |")
-        lines += ['', '## Remaining verification','', 'Six assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
+        lines += ['', '## Remaining verification','', 'Five assembly helpers remain assembly. syscalls.c needs instruction-level inline assembly review and recovery. Fresh builds cover allocator and floating-point macro variants and their pinned headers when rebuild evidence is present; source location alone receives no rebuild credit.','']+['- '+x for x in report['limitations']]
         a.markdown.write_text('\n'.join(lines)+'\n')
     print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -681,7 +681,7 @@ $(OBJECTS_LST): $(ALL_OBJECTS) Makefile
 	@echo $(ALL_OBJECTS) > $@
 
 $(ELF): $(ALL_OBJECTS) $(OBJECTS_LST) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) @$(OBJECTS_LST) -R $(BANIM_OBJECT).sym.o -L tools/agbcc/lib -o $@ -lc -lgcc
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) @$(OBJECTS_LST) -R $(BANIM_OBJECT).sym.o -L .deps/runtime-c -L tools/agbcc/lib -o $@ -lc -lgcc
 	$(STRIP) -N .gcc2_compiled. $@
 
 %.gba: %.elf
@@ -1409,3 +1409,6 @@ $(RUNTIME_C_DIR)/libgcc.a: $(RUNTIME_C_DIR)/_udivsi3.o tools/agbcc/lib/libgcc.a
 
 .PHONY: runtime-c-archive
 runtime-c-archive: $(RUNTIME_C_DIR)/libgcc.a
+
+$(ELF): $(RUNTIME_C_DIR)/libgcc.a
+mgfembp/mgfembp.bin: $(RUNTIME_C_DIR)/libgcc.a

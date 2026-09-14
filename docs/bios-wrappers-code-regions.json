@@ -130,6 +130,6 @@
   "divrem_source_sha256": "0484ebe8d0ddff13e8e530fd8f2ecefeac1ea698fad6c6745740fa9b46d201f9",
   "soft_reset_source_sha256": "9e9a6a1d7e7ed264a5e24cfe23a685314806a9ca9f83b173b3d4f9134d548484",
   "u16_source_sha256": "83a68391555e7da03cc5d287ff2bf3aa1a78fa16f866c5d32ffb7330218b418f",
-  "elf_sha256": "e991dbd7c15f2918bfac9bbc6454912a33b366b989c00e91bef858584395920a",
+  "elf_sha256": "cf580878b6979c76181b2cb5c86b13a1d94f9c6227d5b5cefa37d90d37b1a976",
   "scope": "Exact integrated setup/return code around explicit SWI boundaries. BIOS service behavior is not implemented or proved; all twenty wrappers are integrated with explicit BIOS boundaries."
 }
