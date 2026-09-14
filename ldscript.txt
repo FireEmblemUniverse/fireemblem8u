@@ -587,6 +587,15 @@ SECTIONS
         src/classchg-postconfirm.o(.text);
         src/bmguide.o(.text);
         src/m4a_1.o(.text);
+        __multiply_entry_start = .;
+        src/m4a_multiply_entry.o(.text);
+        __multiply_entry_end = .;
+        src/m4a_1.o(.text.after_multiply_entry);
+        ASSERT((MultiplyEntryBody & ~1) == (umul3232H32 & ~1) &&
+               (__multiply_entry_start & 3) == 0 &&
+               __multiply_entry_end - __multiply_entry_start == 4 &&
+               multiply_high_arm == __multiply_entry_end,
+               "multiply entry alignment, extent or ARM target changed");
         src/m4a_multiply_high.o(.text);
         ASSERT(multiply_high_arm == (umul3232H32 & ~1) + 4,
                "multiply ARM body must follow Thumb entry");

@@ -278,6 +278,9 @@ def main():
   cases.append(('note_entry_sound-info_'+name,source.replace('        ASSERT((lt_PlyNoteSoundInfo & 3)', '        lt_PlyNoteSoundInfo = '+value+';\n        ASSERT((lt_PlyNoteSoundInfo & 3)'), 'ply_note sound-info entry literal outside forward range'))
  for name,value in [('far','((__ply_note_entry_setup_start + 14) & ~3) + 1024'),('backward','((__ply_note_entry_setup_start + 14) & ~3) - 4'),('odd','((__ply_note_entry_setup_start + 14) & ~3) + 2')]:
   cases.append(('note_entry_clock_'+name,source.replace('        ASSERT((lt_PlyNoteClockTable & 3)', '        lt_PlyNoteClockTable = '+value+';\n        ASSERT((lt_PlyNoteClockTable & 3)'), 'ply_note clock entry literal outside forward range'))
+ cases += [('multiply_entry_extent',source.replace('        __multiply_entry_end = .;','        . += 2;\n        __multiply_entry_end = .;'),'multiply entry alignment, extent or ARM target'),
+           ('multiply_entry_alignment',source.replace('        __multiply_entry_start = .;','        . += 2;\n        __multiply_entry_start = .;'),'multiply entry alignment, extent or ARM target'),
+           ('multiply_entry_target',source.replace('        src/m4a_multiply_high.o(.text);','        . += 4;\n        src/m4a_multiply_high.o(.text);'),'multiply entry alignment, extent or ARM target')]
  for name,text,message in cases:
   assert text != source, name
   r=link(name,text);assert r.returncode and message in r.stderr,(name,r.stderr)

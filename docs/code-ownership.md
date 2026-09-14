@@ -1,6 +1,6 @@
 # Linked instruction ownership
 
-Build baseline: `72921b75`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
+Build baseline: `1bf8f721`. Regenerate with `python3 scripts/audit_code_ownership.py --json docs/code-ownership.json --markdown docs/code-ownership.md`.
 
 **This is a size-weighted inventory, not an overall completion percentage.**
 
@@ -13,9 +13,9 @@ Build baseline: `72921b75`. Regenerate with `python3 scripts/audit_code_ownershi
 
 | Ownership | Instruction bytes | Share of mapped instructions |
 |---|---:|---:|
-| C-owned objects | 721,260 | 92.75% |
+| C-owned objects | 721,264 | 92.75% |
 | C objects containing assembly | 33,870 | 4.36% |
-| Assembly-source objects | 708 | 0.09% |
+| Assembly-source objects | 704 | 0.09% |
 | Runtime archive objects | 21,792 | 2.80% |
 | Unresolved ownership | 0 | 0.00% |
 
@@ -28,7 +28,6 @@ Assembly-source objects, largest first:
 | `src/libagbsyscall.o` | 100 |
 | `asm/arm_call.o` | 48 |
 | `asm/arm.o` | 12 |
-| `src/m4a_1.o` | 4 |
 | `src/rom_header.o` | 4 |
 
 C objects needing assembly review (whole-object sizes, **not** remaining assembly bytes):
@@ -70,7 +69,7 @@ C objects needing assembly review (whole-object sizes, **not** remaining assembl
 
 | Scope | Inline instruction bytes | Assembly sources + reviewed inline |
 |---|---:|---:|
-| main_rom | 410 | 1,118 |
+| main_rom | 410 | 1,114 |
 | mgfembp | 2 | 420 |
 
 The main unit-list fallback contributes 396 instruction bytes plus 40 literal/alignment bytes. Other reviewed inline sites contribute 14 main-ROM bytes and two payload bytes. These totals exclude runtime archives and do not establish that mapped data contains no hidden code. Run `python3 scripts/audit_inline_regions.py` for checked source/symbol/byte locations.

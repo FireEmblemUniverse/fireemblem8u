@@ -2,17 +2,16 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integrated milestone (baseline `72921b75`): all 502 mapped ply_note instruction bytes are C-owned. Its final 32-byte entry now matches C; 33,280 production entry/frame cases pass and nineteen unsupported compiler contracts reject. The 26,880-case MPlayMain frame regression passes. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,260/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,118 bytes, with 590 tracked C files. The valid layout links and all 284 altered layouts reject. Ten ply_note padding/literal bytes remain assembly data. PCM selection's 84 bytes and MPlayMain's 602 mapped instruction bytes remain C-owned. The multiplication interworking stub, runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
+Updated: September 14, 2026. Latest integrated milestone (baseline `1bf8f721`): the complete sixteen-byte multiply-high routine, including its four-byte Thumb/ARM entry, is C-owned. All 69,632 production entry/multiply cases pass on four ROM/copied-RAM machines; eleven unsupported compiler contracts reject. The shared PC-handoff regressions pass. The full ROM and fresh runtime builds match. Main-ROM C ownership is 721,264/777,630 mapped instruction bytes (92.75%); reviewed non-library assembly is 1,114 bytes, with 591 tracked C files. The valid layout links and all 287 altered layouts reject. m4a_1.o has zero mapped assembly instructions. All 502 ply_note and 602 MPlayMain instruction bytes remain C-owned. Runtime helpers, unit-list/transfer code and final executable classification remain unfinished.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: recover the four-byte multiplication interworking stub, then continue
-runtime helpers, unit-list/transfer code and executable classification.
-`docs/ply-note-code-region.json` verifies all mapped ply_note instructions and
-its ten following data bytes. Entry checks stop before command decoding; the
-ownership receipt does not independently validate every full-note path or
-claim overall game completion.
+Next: continue runtime helpers, unit-list/transfer code and executable
+classification. `docs/multiply-code-region.json` verifies the complete
+sixteen-byte multiplication routine and confirms that m4a_1.o contains no
+mapped instructions. Its remaining assembly labels and literals are data or
+zero-size boundaries; this does not establish whole-game completion.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -27,9 +26,10 @@ they do not attribute the entire decompilation to this task.
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
 | Main-ROM instruction ownership | **92.75%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **1,118 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **1,114 instruction bytes in main ROM; 420 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,066 main-ROM and 94 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
+| Complete multiply-high instruction ownership | **16/16 bytes C-owned; 69,632 cases on four machines; eleven unsupported contracts and 287 altered layouts reject; full ROM/runtime match** |
 | Complete ply_note instruction ownership | **502/502 instruction bytes C-owned; final 32-byte entry passes 33,280 cases; nineteen unsupported contracts and 284 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note LFO delay | **10/10 bytes exact; 163,840 production cases pass; twelve unsupported contracts and 274 altered layouts reject; full ROM/runtime match** |
 | Integrated ply_note saved-frame return | **16/16 bytes exact; 32,768 production cases pass; fourteen unsupported contracts and 269 altered layouts reject; full ROM/runtime match** |
@@ -382,25 +382,25 @@ All eight detected instruction-bearing inline sites now have source/symbol/byte
 checks. They contribute 410 main-ROM instruction bytes and two payload bytes.
 The unit-list fallback accounts for 396 of those main-ROM bytes, plus 40 bytes
 of literals/alignment. Combined with assembly sources, reviewed non-library
-assembly totals 2,328 main-ROM bytes and 420 expanded-payload bytes. This is
+assembly totals 1,114 main-ROM bytes and 420 expanded-payload bytes. This is
 still not a complete whole-ROM C percentage.
 The [size-weighted inventory](docs/code-ownership.md) is now reproducible from
 current ELF/map files. Main-ROM mapped instructions total 777,630 bytes:
-720,050 C-owned, 33,870 in C objects containing assembly, 1,918 in assembly
+721,264 C-owned, 33,870 in C objects containing assembly, 704 in assembly
 sources, and 21,792 in runtime archives. Mixed-object sizes are not remaining
 assembly sizes. The expanded payload is measured separately: 25,716 mapped
 instruction bytes, including 418 in assembly sources. The 200-byte transfer
 bootstrap is already included in the main assembly total, not counted twice.
-The interworking-entry C probe passes 20,992 result/preserved-register cases,
-but uses 24 bytes including a veneer versus four original entry bytes and
-changes r1. It remains research-only; production is unchanged.
+The earlier interworking-entry C probe used 24 bytes including a veneer and
+changed r1. The exact four-byte entry now replaces it in production; 69,632
+entry/multiply cases pass with all registers and flags checked.
 The byte-load entry is integrated as C: its two bytes match exactly, and the
 linker requires the filter to follow immediately. All 49,152 production cases
 and 32,832 sequence-jump caller cases pass. Full ROM comparison passes.
 The multiply-high ARM body is integrated as C: all 12 bytes match. Its 41,984
 production cases pass through both ARM and original Thumb entries, preserving
 r0-r12, flags, SP and both return modes. The full ROM checksum passes.
-The two-instruction Thumb entry remains assembly and is still in scope.
+The two-instruction Thumb entry is now matching C as well.
 The shared address filter is integrated as C: all 22 instruction bytes match
 at 080CF972, with the shared literal retained at 080CF988. The complete ROM
 checksum passes, and 206,592 production filter cases pass, including flags,

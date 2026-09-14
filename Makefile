@@ -1304,3 +1304,8 @@ src/m4a_ply_note_entry_setup.o: $(THUMB_SHARED_PLUGIN) $(THUMB_TAIL_TRANSFER_PLU
 src/m4a_ply_note_entry_setup.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
 src/m4a_ply_note_entry_setup.o: C_END_ALIGN := 1
 src/m4a_ply_note_entry_setup.o: CC1FLAGS := -std=gnu89 -O1 -fno-reorder-blocks -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_SHARED_PLUGIN) -fplugin-arg-thumb_shared_literal-literal=0x03007ff0,lt_PlyNoteSoundInfo -fplugin-arg-thumb_shared_literal-symbol-literal=gClockTable,lt_PlyNoteClockTable -fplugin-arg-thumb_shared_literal-omit-pool-alignment -fplugin=$(THUMB_TAIL_TRANSFER_PLUGIN) -fplugin-arg-tail_transfer-after-shared-literals -fplugin-arg-tail_transfer-private-frame64 -fplugin-arg-tail_transfer-destination=PlyNoteCommandBoundary -fplugin-arg-tail_transfer-acyclic-branches -fplugin-arg-tail_transfer-terminal-adjacent-destination=PlyNoteCommandBoundary -fplugin=$(ARM_COPY_ADD_ZERO_PLUGIN)
+
+src/m4a_multiply_entry.o: $(THUMB_PC_HANDOFF_PLUGIN)
+src/m4a_multiply_entry.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/m4a_multiply_entry.o: C_END_ALIGN := 1
+src/m4a_multiply_entry.o: CC1FLAGS := -std=gnu89 -O1 -mthumb -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -Werror=attributes -fplugin=$(THUMB_PC_HANDOFF_PLUGIN) -fplugin-arg-thumb_pc_handoff-symbol=multiply_high_arm -fplugin-arg-thumb_pc_handoff-site=0 -fplugin-arg-thumb_pc_handoff-offset=0 -fplugin-arg-thumb_pc_handoff-r2-entry

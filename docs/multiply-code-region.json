@@ -1,0 +1,30 @@
+{
+  "m4a_1_assembly_instruction_bytes": 0,
+  "start": "0x80cf4b8",
+  "end": "0x80cf4c8",
+  "c_owned_instruction_bytes": 16,
+  "objects": {
+    "src/m4a_multiply_entry.o": 4,
+    "src/m4a_multiply_high.o": 12
+  },
+  "elf_sha256": "7d1c5877487db4d3767e9f1c28bc24c7216cc77868e34acc99b6aab35cb45c83",
+  "regions": [
+    {
+      "start": 135066808,
+      "end": 135066812,
+      "section": ".text",
+      "object": "src/m4a_multiply_entry.o",
+      "size": 4,
+      "kind": "thumb"
+    },
+    {
+      "start": 135066812,
+      "end": 135066824,
+      "section": ".text",
+      "object": "src/m4a_multiply_high.o",
+      "size": 12,
+      "kind": "arm"
+    }
+  ],
+  "scope": "All mapped multiply-high entry/body instructions belong to C-owned objects. m4a_1.o has no mapped instructions. This is not proof of whole-game completion."
+}

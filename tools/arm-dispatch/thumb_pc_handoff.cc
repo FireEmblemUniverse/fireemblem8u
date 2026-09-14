@@ -30,6 +30,7 @@ int plugin_is_GPL_compatible;
 namespace {
 std::string symbol;
 long offset=-1,site=-1;
+bool r2_entry=false;
 bool references(rtx x,rtx label) {
     if (!x) return false;
     if (GET_CODE(x)==LABEL_REF) return XEXP(x,0)==label;
@@ -64,9 +65,10 @@ public:
     pass(gcc::context *c):rtl_opt_pass(data,c) {}
     unsigned int execute(function *fn) override {
         if (!lookup_attribute("matching_thumb_pc_handoff",DECL_ATTRIBUTES(fn->decl))) return 0;
+        const unsigned target_reg=r2_entry?2:0;
         if (!TARGET_THUMB1||frame_pointer_needed||!known_eq(get_frame_size(),0)||crtl->profile
             ||flag_unwind_tables||flag_asynchronous_unwind_tables||flag_exceptions||debug_info_level!=DINFO_LEVEL_NONE
-            ||!global_regs[0]||!global_regs[SP_REGNUM]||DECL_ARGUMENTS(fn->decl)||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
+            ||!global_regs[target_reg]||!global_regs[SP_REGNUM]||DECL_ARGUMENTS(fn->decl)||TREE_CODE(TREE_TYPE(TREE_TYPE(fn->decl)))!=VOID_TYPE)
             fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff requires a zero-frame private void Thumb-1 entry without debug/unwind");
         std::vector<rtx_insn *> ops;
         bool ended=false;unsigned stage=0;
@@ -92,7 +94,7 @@ public:
             if (GET_CODE(p)==UNSPEC_VOLATILE&&XINT(p,1)==VUNSPEC_EPILOGUE) ended=true;
         }
         if (stage!=3) fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff missing symbol pool");
-        if (ops.size()<4) fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff missing complete leaf tail");
+        if (ops.size()<4 || (r2_entry&&ops.size()!=4)) fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff missing complete leaf tail");
         unsigned n=ops.size();rtx_insn *spuse=ops[n-3],*lruse=ops[n-2],*ret=ops[n-1];
         rtx sp=PATTERN(spuse),lr=PATTERN(lruse),ep=PATTERN(ret);
         if (GET_CODE(sp)!=UNSPEC||XINT(sp,1)!=UNSPEC_REGISTER_USE||XVECLEN(sp,0)!=1
@@ -102,10 +104,10 @@ public:
             ||XVECLEN(ep,0)!=1||GET_CODE(XVECEXP(ep,0,0))!=RETURN)
             fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff leaf epilogue changed");
         rtx_insn *load=ops[n-4];rtx lp=PATTERN(load);
-        if (GET_CODE(lp)!=SET||!REG_P(SET_DEST(lp))||REGNO(SET_DEST(lp))!=0||GET_MODE(SET_DEST(lp))!=SImode
+        if (GET_CODE(lp)!=SET||!REG_P(SET_DEST(lp))||REGNO(SET_DEST(lp))!=target_reg||GET_MODE(SET_DEST(lp))!=SImode
             ||!MEM_P(SET_SRC(lp))||GET_MODE(SET_SRC(lp))!=SImode||MEM_VOLATILE_P(SET_SRC(lp))
             ||GET_CODE(XEXP(SET_SRC(lp),0))!=LABEL_REF||XEXP(XEXP(SET_SRC(lp),0),0)!=pool)
-            fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff requires final r0 target load");
+            fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff requires final declared-register target load");
         unsigned bytes=0,uses=0;
         for (rtx_insn *i:ops) {
             if (references(PATTERN(i),pool)) uses++;
@@ -130,8 +132,8 @@ public:
             if (!REG_P(address)||REGNO(address)!=SP_REGNUM||offset<0||offset>60||(offset&3))
                 fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff frame read outside aligned 64-byte contract");
         }
-        if (!validate_change(load,&PATTERN(load),gen_match_thumb_pc_address(gen_rtx_REG(SImode,0),GEN_INT(offset)),false)
-            ||!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,0)),false)
+        if (!validate_change(load,&PATTERN(load),gen_match_thumb_pc_address(gen_rtx_REG(SImode,target_reg),GEN_INT(offset)),false)
+            ||!validate_change(ret,&PATTERN(ret),gen_match_thumb_private_return(gen_rtx_REG(SImode,target_reg)),false)
             ||!validate_change(align,&PATTERN(align),gen_match_thumb_zero_pool_align(),false))
             fatal_error(UNKNOWN_LOCATION,"Thumb PC handoff instruction selection rejected");
         REG_NOTES(load)=nullptr;REG_NOTES(ret)=nullptr;
@@ -143,6 +145,7 @@ public:
 int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
     if (!plugin_default_version_check(version,&gcc_version)) return 1;
     for (int n=0;n<info->argc;n++) {
+        if (!strcmp(info->argv[n].key,"r2-entry")&&!info->argv[n].value&&!r2_entry) {r2_entry=true;continue;}
         if (!info->argv[n].value) return 1;
         std::string key=info->argv[n].key;
         if (key=="symbol"&&symbol.empty()) symbol=info->argv[n].value;
@@ -152,6 +155,7 @@ int plugin_init(plugin_name_args *info,plugin_gcc_version *version) {
             if (key=="offset") offset=value;else site=value;
         } else return 1;
     }
+    if (r2_entry&&(offset!=0||site!=0)) return 1;
     if (symbol.empty()||offset<0||site<0||(offset&3)||(site&1)) return 1;
     for (char c:symbol) if (!(ISALNUM(c)||c=='_')) return 1;
     if (!(ISALPHA(symbol[0])||symbol[0]=='_')) return 1;

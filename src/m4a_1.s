@@ -14,10 +14,9 @@
 
 	thumb_func_start umul3232H32
 umul3232H32:
-	adr r2, __umul3232H32
-	bx r2
 	thumb_func_end umul3232H32
-@ ARM body is linked here from m4a_multiply_high.c; ADR targets this boundary.
+	.section .text.after_multiply_entry, "ax", %progbits
+@ C Thumb entry falls into the ARM body through its PC-relative interworking target.
 __umul3232H32:
 	.section .text.after_multiply_high, "ax", %progbits
 

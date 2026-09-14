@@ -10019,3 +10019,62 @@ helpers, unit-list/transfer code and complete executable classification.
 The valid layout links and all 284 altered layouts reject, including ten new
 entry extent/continuation and literal alignment/displacement cases. Evidence:
 `.deps/soundmain-packed/ply-note/entry-production-layout.log`.
+
+
+## September 14, 2026 — Complete multiply-high C interworking
+
+On baseline `1bf8f721`, `src/m4a_multiply_entry.c` replaces the remaining four
+assembly instruction bytes at 080CF4B8..080CF4BC (ADR r2/BX r2). Together with
+the existing twelve-byte ARM body, all sixteen multiply-high instruction bytes
+are now C-owned. The C entry materializes the ARM function address in its private
+r2 binding. The existing PC-handoff contract adds a narrow opt-in `r2-entry`
+mode: exactly one target load, zero site/offset, no other body instructions,
+private void entry and unchanged stack/LR. Existing compiler ADR/BX patterns
+suffice; no backend instruction patterns were added. Linker guards fix word
+alignment, extent and the immediately following ARM target. The public Thumb
+symbol remains a zero-size boundary at the C object's address.
+
+`check_multiply_entry_exact.py --production` verifies source identity, production
+object bytes and full-ROM identity. Independent models pass 69,632 cases on
+four machines each: original/C in ROM and copied RAM, covering 34,816 entry-only
+and 34,816 complete-multiplication cases. Inputs include boundary and seeded
+full-width operands, every NZCV, both return modes and four SP values. All
+registers, SP/LR/CPSR, unchanged data RAM and zero data accesses are checked.
+The complete model verifies both product words and the high-word return value;
+the entry model verifies r2's relocated ARM address and mode transition. Eleven
+unsupported contracts reject, while unannotated output is unchanged. Operands
+are sampled; physical timing and asynchronous observations are not modeled.
+
+All 24,576 shared PC-handoff regression cases preserve the existing r0 path,
+exact copied-RAM transfer and frame/channel reads. The guard suite rejects thirteen unsupported
+configurations and eight wrong placements, accepts two correct placements and
+preserves unannotated code. All 512 generated ADR checks pass over eight offsets,
+both halfword alignments, ROM/RAM and all NZCV.
+
+`make compare -j8` passes for all 16,777,216 ROM bytes. Fresh pinned runtime
+libraries reproduce all four images and exported symbols. Existing mixer,
+SoundMain, MPlayMain, PCM and ply_note region receipts retain C ownership.
+`scripts/audit_multiply_region.py` verifies the four Thumb plus twelve ARM bytes
+and confirms no mapped ARM/Thumb instructions remain in `src/m4a_1.o`.
+This is a source-ownership milestone, not overall completion or a claim that
+all executable classification gaps are resolved.
+
+Main-ROM ownership is 721,264 C-owned (92.75%), 33,870 mixed C/assembly, 704
+assembly-source and 21,792 runtime-archive instruction bytes, totaling 777,630.
+Reviewed non-library assembly is 1,114 main-ROM and 420 payload bytes. There
+are 591 tracked main C files and 29 assembly entry markers. Production ELF SHA-256:
+`7d1c5877487db4d3767e9f1c28bc24c7216cc77868e34acc99b6aab35cb45c83`.
+
+Evidence under `.deps/audio-interwork-match/`: `exact/report.json`,
+`exact-check.log`, `exact-production-check.log`, `exact-production-build.log`,
+`exact-plugin-build.log`, `exact-handoff-regression.log`,
+`exact-handoff-guards.log`, `exact-address-regression.log`, `exact-runtime.log`,
+`exact-ownership.log`, `exact-source.json`, `exact-linked.json`, `exact-region.log`
+and current region receipts, including `docs/multiply-code-region.json`.
+Remaining work: runtime helpers, unit-list/transfer code and final executable
+classification.
+
+The valid layout links and all 287 altered layouts reject, including three new
+entry extent/alignment/target cases. The alignment perturbation is inserted
+after the assembly input section, since its input alignment absorbed the first
+attempt. Evidence: `.deps/audio-interwork-match/exact-production-layout.log`.
