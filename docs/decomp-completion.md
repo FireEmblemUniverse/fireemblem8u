@@ -11257,3 +11257,35 @@ does not change the unannotated control. Evidence is in
 `docs/oam-low-entry-research.json`. This candidate is not integrated; production
 remains at 190 reviewed main-ROM non-library assembly bytes. Integration must
 also update the provenance receipt for the existing four-byte low-cursor word.
+
+### Integrated PutOamLo entry and mapped C cursor pointer
+
+`src/arm/put_oam_lo.c` now supplies the exact low-entry frame, cursor load
+and shared-body branch. The pointer declaration agrees with the existing
+`void *gOamLoPutIt` type. The backend and builder move to
+`tools/arm-dispatch/oam_entry.cc` and `build_oam_entry.py`, using
+`matching_arm_oam_entry` as their explicit contract. The source is included
+in the Makefile's explicit ARM C list. `asm/arm.s` now contains no instructions
+or pointer data; its empty layout sections remain available to the linker.
+
+The linker places the C cursor word before PutOamLo and asserts both that
+relationship and the shared-body entry offset. `audit_oam_low_entry.py`
+verifies all sixteen linked bytes, C ownership, source, symbols, cursor target
+and full-ROM equality. All twelve instruction bytes are C-owned, with no
+instruction-bearing inline assembly. Whole-object C ownership rises to
+740,010/777,630 (95.16% rounded), and there are 601 tracked main C files.
+Main assembly-source bytes fall from 140 to 128; reviewed inline bytes remain
+50, for 178 main-ROM non-library assembly bytes.
+
+The four-byte cursor word now has data mapping in the C object, so it leaves
+the unmapped-input inventory. The previous explicit assembly-pointer rule is
+removed from the final-residual audit. Fully accounted unmapped-input bytes
+are now 3,172,286, with a final residual of 812 bytes. This reclassification
+does not claim to complete mapped-data or executable coverage.
+
+`make compare -j8` passes. All 1,280 low-entry/shared-body cases pass with no
+register/NZCV differences, and the backend's rejection/control cases pass.
+All four fresh runtime images and exported symbols match. Existing linked
+code and data-provenance audits have been refreshed and pass. The final
+pointer type correction leaves the integrated ELF unchanged; the entry-source
+and residual-provenance audits were rerun after that correction.

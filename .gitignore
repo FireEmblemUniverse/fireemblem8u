@@ -1007,3 +1007,6 @@ src/arm/*.s
 /tools/agbcc-row-shift/agbcc.exe
 /tools/agbcc-row-shift/*.tmp
 /tools/agbcc-row-shift/*.provenance.json
+
+# C startup assembly output (formerly tracked hand-written source).
+/src/crt0.s

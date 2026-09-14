@@ -271,7 +271,10 @@ SECTIONS
         src/arm/tm_apply_tsa.o(.text);
         src/arm/put_oam.o(.text);
         PutOamSharedBody = PutOamHi + 8;
-        asm/arm.o(.text.after_tm_apply_tsa);
+        src/arm/put_oam_lo.o(.rodata.oam_lo_cursor);
+        src/arm/put_oam_lo.o(.text);
+        ASSERT(PutOamLo == PutOamLoCursorPointer + 4, "OAM cursor pool moved");
+        ASSERT(PutOamSharedBody == PutOamHi + 8, "OAM shared frame entry moved");
         src/arm/draw_glyph.o(.rodata);
         DrawGlyphPointerPool = .;
         src/arm/draw_glyph.o(.text);

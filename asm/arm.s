@@ -15,15 +15,7 @@
 	.section .text.after_tm_apply_tsa, "ax", %progbits
 
 @ PutOamHi and its pointer pool are generated from matching C.
-.LOamLoPutIt: .4byte gOamLoPutIt @ pool
-
-@ void PutOamLo(int x, int y, u16 const * oam_list, int oam2)
-	ARM_FUNC_START PutOamLo
-PutOamLo: @ 0x08000534
-	push {r4, r5, r6, r7}
-	ldr r7, .LOamLoPutIt
-	b PutOamSharedBody
-	ARM_FUNC_END PutOamLo
+@ PutOamLo and its cursor pointer are generated from C.
 
 @ DrawGlyph and its shift table/pointer pool are generated from matching C.
 	.section .text.after_draw_glyph, "ax", %progbits

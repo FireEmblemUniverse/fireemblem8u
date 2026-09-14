@@ -3,7 +3,7 @@
 from pathlib import Path
 import hashlib,json,subprocess,sys
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'.deps/oam-entry-backend'
-subprocess.run([sys.executable,str(ROOT/'research/arm/build_oam_entry.py')],check=True,capture_output=True)
+subprocess.run([sys.executable,str(ROOT/'tools/arm-dispatch/build_oam_entry.py')],check=True,capture_output=True)
 source=(ROOT/'research/arm/put_oam_lo.c').read_text();compiler=str(ROOT/'.deps/gcc16-matching/install/bin/arm-none-eabi-gcc')
 flags=[compiler,'-c','-O2','-fno-schedule-insns2','-marm','-mcpu=arm7tdmi','-mabi=apcs-gnu','-ffreestanding','-fno-unwind-tables','-fno-asynchronous-unwind-tables']
 plugin=['-fplugin='+str(OUT/'oam_entry.so')]
@@ -36,4 +36,4 @@ for name,old,new in [('pool','.pool 0x08000530','.pool 0x0800052c'),('body','Put
 with (OUT/'execution.log').open('w') as log:
  subprocess.run([sys.executable,str(ROOT/'research/arm/check_put_oam.py'),'--plugin',str(ROOT/'.deps/arm-matching-plugin/zero_test.so'),'--low','--low-candidate',str(OUT/'candidate.bin')],stdout=log,stderr=subprocess.STDOUT,check=True)
 execution=json.loads((ROOT/'.deps/put-oam-match/execution-low-report.json').read_text())
-print(json.dumps(dict(bytes=16,instruction_bytes=12,c_pointer_bytes=4,sha256=hashlib.sha256(code).hexdigest(),source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'research/arm/oam_entry.cc').read_bytes()).hexdigest(),rejected=[m[0] for m in mutants],displaced_layouts_rejected=['pool','body'],unannotated_control_unchanged=True,execution=execution,production_integrated=False),indent=2))
+print(json.dumps(dict(bytes=16,instruction_bytes=12,c_pointer_bytes=4,sha256=hashlib.sha256(code).hexdigest(),source_sha256=hashlib.sha256(source.encode()).hexdigest(),backend_sha256=hashlib.sha256((ROOT/'tools/arm-dispatch/oam_entry.cc').read_bytes()).hexdigest(),rejected=[m[0] for m in mutants],displaced_layouts_rejected=['pool','body'],unannotated_control_unchanged=True,execution=execution,production_integrated=False),indent=2))

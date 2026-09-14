@@ -1,11 +1,11 @@
 {
-  "input_regions": 60,
-  "input_bytes": 324396,
+  "input_regions": 59,
+  "input_bytes": 324392,
   "verified_asset_bindings": 157,
   "asset_bound_bytes": 312032,
-  "residual_bytes": 12364,
-  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
-  "map_sha256": "b0f723a47aa047b1f938ecf3136244e4c39f1e00b14ba985b99154020536d8fd",
+  "residual_bytes": 12360,
+  "elf_sha256": "51d537cb0e53526a93cb478da4f3cabf88280df28129c8e6b533944d2a5e660a",
+  "map_sha256": "43d2f8f489b46ea57f3172d11e2109610163a15b059c9570d93cc8ef0656dab4",
   "sources": {
     "src/banim-ekrmain.c": "87d73839a7d460f93228c028d2aa68cb7aa02edb6155bbde492d4a845bec7cbc",
     "src/bksel.c": "40a335715a5d31a302e31326fd7ba1df91b8cd57df2785b5ef93d98ea15a5ebb",
@@ -1479,12 +1479,6 @@
     }
   ],
   "residual": [
-    {
-      "object": "asm/arm.o",
-      "start": "0x8000530",
-      "end": "0x8000534",
-      "bytes": 4
-    },
     {
       "object": "asm/fe6sio.o",
       "start": "0x8b1a0bc",

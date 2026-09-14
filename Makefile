@@ -75,7 +75,7 @@ LDSCRIPT     := ldscript.txt
 SYM_FILES    := sym_iwram.txt
 CFILES_GENERATED := $(C_SUBDIR)/msg_data.c
 CFILES       := $(wildcard $(C_SUBDIR)/*.c)
-CFILES       += src/arm/call_wrappers.c src/arm/map_flood_core.c src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
+CFILES       += src/arm/put_oam_lo.c src/arm/call_wrappers.c src/arm/map_flood_core.c src/arm/put_oam.c src/arm/decode_string.c src/arm/draw_glyph.c src/arm/tm_fill_rect.c src/arm/tm_copy_rect.c src/arm/map_flood_step.c src/arm/color_fade_tick.c src/arm/clear_oam.c src/arm/checksum.c src/arm/tm_apply_tsa.c
 ifeq (,$(findstring $(CFILES_GENERATED),$(CFILES)))
 CFILES       += $(CFILES_GENERATED)
 endif
@@ -205,6 +205,13 @@ src/arm/tm_fill_rect.o: CC1FLAGS := -std=gnu89 -O1 -marm -mcpu=arm7tdmi -mabi=ap
 src/arm/draw_glyph.o: $(ARM_MATCH_PLUGIN)
 src/arm/draw_glyph.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -
 src/arm/draw_glyph.o: CC1FLAGS := -std=gnu89 -O2 -fno-section-anchors -fno-toplevel-reorder -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-builtin -fno-strict-aliasing -ffixed-r14 -fomit-frame-pointer -fno-schedule-insns -fno-schedule-insns2 -fno-auto-inc-dec -fno-ivopts -fno-if-conversion -fno-if-conversion2 -fno-reorder-blocks -fno-move-loop-invariants -fno-tree-loop-im -fplugin=$(ARM_MATCH_PLUGIN) -fplugin-arg-zero_test-prefix-pool=bitTable -fplugin-arg-zero_test-share-prefix-pool
+
+OAM_ENTRY_PLUGIN := .deps/oam-entry-backend/oam_entry.so
+$(OAM_ENTRY_PLUGIN): $(ARM_DISPATCH_CC) tools/arm-dispatch/oam_entry.cc tools/arm-dispatch/build_oam_entry.py
+	$(PYTHON) tools/arm-dispatch/build_oam_entry.py --compiler $(ARM_DISPATCH_CC) --output-dir .deps/oam-entry-backend
+src/arm/put_oam_lo.o: $(OAM_ENTRY_PLUGIN)
+src/arm/put_oam_lo.o: CC1 := $(ARM_DISPATCH_CC) -S -x cpp-output -
+src/arm/put_oam_lo.o: CC1FLAGS := -std=gnu89 -O2 -fno-schedule-insns2 -marm -mcpu=arm7tdmi -mabi=apcs-gnu -ffreestanding -fno-unwind-tables -fno-asynchronous-unwind-tables -Werror=attributes -fplugin=$(OAM_ENTRY_PLUGIN)
 
 src/arm/put_oam.o: $(ARM_MATCH_PLUGIN)
 src/arm/put_oam.o: CC1 := $(PREFIX)gcc$(EXE) -S -x cpp-output -

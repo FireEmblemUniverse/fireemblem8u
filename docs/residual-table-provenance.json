@@ -21,10 +21,10 @@
     }
   ],
   "newly_bound_bytes": 11548,
-  "residual_bytes": 816,
+  "residual_bytes": 812,
   "terrain_source_sha256": "cdeaab3f889e9e39851f6c222f6be3fd915d2b1ca6ac4e2a8025659f251ff509",
   "terrain_header_sha256": "a6b123f55767458d366191456b762c2550741ce5d352290e0cfde817873c9dbd",
-  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
+  "elf_sha256": "51d537cb0e53526a93cb478da4f3cabf88280df28129c8e6b533944d2a5e660a",
   "tables": [
     {
       "name": "TerrainTable_MovCost_CommonT2Normal",

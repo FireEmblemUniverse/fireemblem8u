@@ -37,10 +37,6 @@ def main():
     offset=start-contribution['start'];data=output.read_bytes()
     assert len(data)==188 and data[offset:offset+len(wanted)]==wanted
     record.update(method='fresh assembly of explicit header data',source_sha256=sha(source.read_bytes()),section=contribution['section'])
-   elif obj=='asm/arm.o':
-    source=(ROOT/'asm/arm.s').read_bytes();assert b'.LOamLoPutIt: .4byte gOamLoPutIt' in source
-    lines=subprocess.check_output(['arm-none-eabi-nm',str(elf)],text=True).splitlines();address=int(next(x.split()[0] for x in lines if x.endswith(' gOamLoPutIt')),16)
-    assert wanted==address.to_bytes(4,'little');record.update(method='explicit pointer pool',target='gOamLoPutIt',source_sha256=sha(source))
    else:
     assert obj=='tools/agbcc/lib/libc.a(vfprintf.o)'
     source=(ROOT/'.deps/agbcc/libc/stdio/vfprintf.c').read_bytes();assert b'#define\tPADSIZE\t16' in source

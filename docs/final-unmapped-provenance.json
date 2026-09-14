@@ -1,22 +1,12 @@
 {
-  "verified_bytes": 816,
-  "regions": 18,
+  "verified_bytes": 812,
+  "regions": 17,
   "fresh_c_objects": 14,
   "remaining_unbound_bytes": 0,
-  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
-  "map_sha256": "b0f723a47aa047b1f938ecf3136244e4c39f1e00b14ba985b99154020536d8fd",
+  "elf_sha256": "51d537cb0e53526a93cb478da4f3cabf88280df28129c8e6b533944d2a5e660a",
+  "map_sha256": "43d2f8f489b46ea57f3172d11e2109610163a15b059c9570d93cc8ef0656dab4",
   "compiler_sha256": "05c3eee224f7543df30dfdf9b3e107d728d314fcd57695e019b26a4c2c757c88",
   "records": [
-    {
-      "object": "asm/arm.o",
-      "start": "0x8000530",
-      "end": "0x8000534",
-      "bytes": 4,
-      "method": "explicit pointer pool",
-      "target": "gOamLoPutIt",
-      "source_sha256": "0f857fa49c41134b948dd7be216979e457f264570d2c0a585c969190c51e3098",
-      "sha256": "9d8b7c14ce4f2c0f767d4f57fcd6423b6d000d5c3e570ff5b97fedb249506642"
-    },
     {
       "object": "asm/fe6sio.o",
       "start": "0x8b1a0bc",

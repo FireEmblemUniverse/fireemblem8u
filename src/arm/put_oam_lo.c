@@ -6,13 +6,8 @@ register unsigned cursor asm("r7");
 register unsigned *entryStack asm("sp");
 extern void *gOamLoPutIt;
 extern void PutOamSharedBody(void) __attribute__((noreturn));
-#ifdef RESEARCH_OAM_ENTRY
 void **const PutOamLoCursorPointer __attribute__((used,section(".rodata.oam_lo_cursor"))) = &gOamLoPutIt;
-#define OAM_ENTRY __attribute__((matching_arm_oam_entry))
-#else
-#define OAM_ENTRY
-#endif
-void __attribute__((noreturn)) OAM_ENTRY PutOamLo(unsigned x, unsigned y, const unsigned short *list, unsigned attr)
+void __attribute__((noreturn)) __attribute__((matching_arm_oam_entry)) PutOamLo(unsigned x, unsigned y, const unsigned short *list, unsigned attr)
 {
     entryStack -= 4;
     asm volatile("" : "+k"(entryStack));

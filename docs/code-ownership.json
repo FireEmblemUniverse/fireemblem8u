@@ -1,13 +1,13 @@
 {
   "scope": "Current mapped ARM/Thumb instruction bytes by source ownership; not a decompilation percentage.",
-  "baseline_commit": "f63e613f139055cb808f48c20d0764bff3954490",
+  "baseline_commit": "8ead296522572b9917042fcff76bacff7822f278",
   "images": {
     "main_rom": {
       "mapped_instruction_bytes": 777630,
       "categories": {
-        "assembly_source": 140,
+        "assembly_source": 128,
         "c_with_assembly": 15700,
-        "c_owned": 739998,
+        "c_owned": 740010,
         "runtime_archive": 21792
       },
       "objects": [
@@ -2292,8 +2292,8 @@
           "instruction_bytes": 14
         },
         {
-          "object": "asm/arm.o",
-          "category": "assembly_source",
+          "object": "src/arm/put_oam_lo.o",
+          "category": "c_owned",
           "instruction_bytes": 12
         },
         {
@@ -2692,13 +2692,13 @@
           "instruction_bytes": 2
         }
       ],
-      "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
-      "map_sha256": "b0f723a47aa047b1f938ecf3136244e4c39f1e00b14ba985b99154020536d8fd",
-      "unmapped_input_bytes": 3172290,
-      "data_mapped_bytes": 10252495,
+      "elf_sha256": "51d537cb0e53526a93cb478da4f3cabf88280df28129c8e6b533944d2a5e660a",
+      "map_sha256": "43d2f8f489b46ea57f3172d11e2109610163a15b059c9570d93cc8ef0656dab4",
+      "unmapped_input_bytes": 3172286,
+      "data_mapped_bytes": 10252499,
       "outside_input_bytes": 2574801,
       "reviewed_inline_instruction_bytes": 50,
-      "known_nonarchive_assembly_bytes": 190
+      "known_nonarchive_assembly_bytes": 178
     },
     "mgfembp": {
       "mapped_instruction_bytes": 25716,

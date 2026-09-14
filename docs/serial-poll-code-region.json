@@ -5,6 +5,6 @@
   "full_rom_exact": true,
   "region_sha256": "7224a7376f930bb6acedc678833671fe093c23dddcf800a0bd03ddf7a188544e",
   "source_sha256": "4baaa90a1feb211e49a135c200f430df0c10f09f34373086a206c61fe8efe4d6",
-  "elf_sha256": "5da4bcc5a33c90f5b236ed75148f8020e8177ca3c785f91c483bac863822a757",
+  "elf_sha256": "51d537cb0e53526a93cb478da4f3cabf88280df28129c8e6b533944d2a5e660a",
   "scope": "Exact original private ARM polling ABI: r0 serial base preserved, r1 data/status, Z from the final bit-6 TST, other registers and stack preserved. Full instruction equality proves unchanged polling and flag behavior; no physical serial-link timing test or full bootstrap conversion is claimed."
 }
