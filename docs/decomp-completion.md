@@ -13983,3 +13983,29 @@ this search definition. Functions shorter than 32 bytes, modified/relocated code
 compressed content, ROM gaps and copies spanning region boundaries remain
 outside the scan. It does not close executable classification or reachability.
 Production source is unchanged.
+
+## Physical ROM ledger and resumed work — September 27, 2026
+
+Baseline `1259276d`. `scripts/audit_rom_coverage_ledger.py` was revalidated after
+the pause and records every physical ROM byte exactly once. Input contributions
+and hash-verified fill cover the entire image without gaps/overlaps. Explicit
+code/payload overlays split their containing data regions. Counts: 777,630 mapped
+native instruction bytes, 200 copied native instruction bytes, 42,904 compressed
+payload bytes, 2,574,807 fill bytes and 13,381,675 still-open input-data bytes.
+ROM/ELF/map and dependency-receipt hashes are retained, as are original mappings
+and overlay source attribution. Expanded instructions are not mixed into physical
+storage totals. This ledger is not a completed executable denominator.
+
+Jev 1.13.0 reviewed the narrow physical-partition claim using the actual script
+and successful output (request fingerprint
+6490fe81cfc09ee6226d0a4a43440cd908b0edde6787611031b6091f29d30289), returning
+supported. That advisory does not substitute for the executed assertions or imply
+project completion. User subsequently authorized extensive Luna/max workhorse
+parallelism. One batched Jev selection endorsed build recovery, coverage analysis
+and asset-provenance indexing with that configuration. No other subagent models
+were launched. The local tools/luna.sh wrapper is absent, so native collaboration
+with the same model/effort is used.
+
+The .deps generated dependency directory was absent at resume. Installed agbcc
+binaries and existing ROM/ELF/payload artifacts remain available. Fresh-build
+reproducibility must be re-established; three bounded workstreams are underway.

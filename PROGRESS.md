@@ -54,6 +54,8 @@ Latest copied-code accounting (baseline `d0626e97`): the generated duplicate con
 
 Latest exact-code duplicate scan (baseline `568eb479`): 6,373 declared functions of at least 32 bytes were checked against halfword-aligned positions in noninstruction input regions. Two exact whole-function copies were found, both in the known generated duplicate. Short, modified, compressed, gap-resident and region-spanning code remain outside this scan. Receipt: `docs/code-duplicate-frontier.json`.
 
+Resumed September 27, 2026 (baseline `1259276d`): the physical ROM coverage ledger verifies all 16,777,216 bytes with no gaps or overlaps. It records 777,630 mapped native instruction bytes, 200 copied instruction bytes, 42,904 compressed-payload storage bytes, 2,574,807 verified fill bytes and 13,381,675 input-data bytes whose execution classification remains open. This is not an overall completion percentage. Local generated .deps dependencies were absent on resume; recovery is in progress.
+
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
