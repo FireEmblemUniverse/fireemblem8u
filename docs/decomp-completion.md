@@ -14076,3 +14076,21 @@ computed PC writes and native-copy paths are outside this bounded check.
 full reproducible branch lists are retained in `.deps/direct-branch-review/`.
 Parser controls cover a hexadecimal-looking branch mnemonic, Thumb B suffix,
 a two-halfword BL, and rejection of register branches/returns.
+
+### Direct-branch decoder hardening
+
+The initial branch count was correct, but a complete-byte traversal check found
+an objdump limitation: odd-valued `SoundMainRAM_IndirectReturn` at 0x080CF8EB
+splits the valid Thumb instruction at 0x080CF8EA. The disassembler skips/misreads
+those nonbranch bytes. The audit now directly decodes ARMv4T B/BL encodings
+from image bytes and mapping modes instead of relying on symbolic disassembly.
+It traverses every mapped byte exactly once: 777,630 in the main ROM and
+25,714/26,124/25,666 in the three payload variants. The branch counts and zero
+unaccounted targets are unchanged.
+
+Independent assembler-generated fixtures cover 48 branches (every legal
+condition, links and forward/backward targets); five nonbranch and four invalid
+encoding checks also pass. Jev selected the direct decoder over symbol
+sanitization after receiving the exact odd-alias failure, probability 1.0,
+request fingerprint `0fadc4cc62fec1b51e4f29bca1fc57b1d121a7feb839677cbd6504beac6a871b`.
+This is a bounded target audit, not a proof of indirect reachability.

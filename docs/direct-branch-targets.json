@@ -1,7 +1,11 @@
 {
-  "scope": "All parsed direct B/BL conditional and unconditional branches originating in mapped ARM/Thumb instructions of the current four images. Each decoded instruction matches image bytes and each target lies in an instruction mapping. Excludes indirect branches, returns, computed PC writes, copied/decompressed execution and arbitrary corruption; not a complete reachability proof.",
-  "script_sha256": "48885d4be37e29b920dfaadebde1b23c0d558526fc761fc6678f6ab7f71b7b7f",
-  "tool_version": "GNU objdump (GNU Binutils) 2.47.20260726",
+  "scope": "Direct ARMv4T B/BL targets decoded from every mapped ARM/Thumb instruction byte in all four images, independent of symbol-driven disassembly. Every target has an instruction owner with matching mode and alignment. Excludes indirect branches, returns, computed PC writes, copied/decompressed execution and arbitrary corruption; not complete reachability.",
+  "script_sha256": "03eb0bdc887622cb82f26151213d743844b741417163a2c2e77258ec98dd9a61",
+  "decoder_checks": {
+    "assembler_branch_cases": 48,
+    "nonbranch_cases": 5,
+    "rejected_invalid_cases": 4
+  },
   "images": {
     "main_rom": {
       "hashes": {
@@ -9,12 +13,12 @@
         "map": "9c17e202effc688818b500001c8f2f6d9f11f2567e31c29d3d05820057f16913",
         "binary": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f"
       },
+      "decoded_mapped_instruction_bytes": 777630,
       "branch_sites": 57756,
       "target_mappings": {
         "arm": 137,
         "thumb": 57619
       },
-      "decoded_data_rows_excluded": 5,
       "unaccounted_targets": [],
       "detail_sha256": "6bdfdcc33b0540261896bad5b12a3bd5b287d3460b028e9b0b365f6ab2788260",
       "detail_path": ".deps/direct-branch-review/main_rom-branches.json"
@@ -25,12 +29,12 @@
         "map": "c8aaab63ea4d54806c3f13812e9653e57196cef042c7b41e22d9a16aeb991638",
         "binary": "d3011f8a257e8000bb32612717f84e2389f5eb1897b70f27535910be22cf81d5"
       },
+      "decoded_mapped_instruction_bytes": 25714,
       "branch_sites": 1213,
       "target_mappings": {
         "arm": 42,
         "thumb": 1171
       },
-      "decoded_data_rows_excluded": 0,
       "unaccounted_targets": [],
       "detail_sha256": "96963d85371a18c2bbbf97776d95b15c2fb689a9e2a64fe44e0a934d41ddea44",
       "detail_path": ".deps/direct-branch-review/mgfembp-branches.json"
@@ -41,12 +45,12 @@
         "map": "466671bd0617e5e952428de5e083dbc4f69859c2ad671cb632095db140521392",
         "binary": "e88eb13d9f1d8b51b65cfcebf7c82ffcbc88f31afa83eab0fe351a88accea8bc"
       },
+      "decoded_mapped_instruction_bytes": 26124,
       "branch_sites": 1241,
       "target_mappings": {
         "arm": 42,
         "thumb": 1199
       },
-      "decoded_data_rows_excluded": 0,
       "unaccounted_targets": [],
       "detail_sha256": "dd060b92d8bc89aa56b17d50102f723805ca13f997c215b247b5ce711b32acd4",
       "detail_path": ".deps/direct-branch-review/mgfembp_20030206-branches.json"
@@ -57,12 +61,12 @@
         "map": "f3cff03e37ac7c63fc9fba20276daaa4d7b897940783a0337da712cef2226e5d",
         "binary": "06f61b8519b3ef372edf6d2e4c285944a3d8d653c85dbb60d79db9f8fe0de9d0"
       },
+      "decoded_mapped_instruction_bytes": 25666,
       "branch_sites": 1210,
       "target_mappings": {
         "arm": 42,
         "thumb": 1168
       },
-      "decoded_data_rows_excluded": 0,
       "unaccounted_targets": [],
       "detail_sha256": "a4830a03560eabf27c450f6296d8f484d397f21eea1501a3fac81462242e26e2",
       "detail_path": ".deps/direct-branch-review/mgfembp_20030219-branches.json"

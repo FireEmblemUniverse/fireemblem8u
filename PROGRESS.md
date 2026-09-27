@@ -27,8 +27,9 @@ execution classification remains open. Existing asset provenance is being indexe
 across that last category; it is not evidence of 13.38 MB of missing code.
 
 A new direct-branch audit checks 57,756 main-ROM branches and 1,213/1,241/1,210
-in the three payload variants. Every target is instruction-mapped, correctly
-aligned and in the same instruction mode; indirect targets remain separate.
+in the three payload variants. The decoder traverses every mapped instruction byte exactly once; every target
+is instruction-mapped, correctly aligned and in the same mode. Indirect targets
+remain separate.
 
 The bounded function-pointer candidate review is closed: all 5,561 candidates
 have disjoint provenance (5,483 named function references and 78 data words).
