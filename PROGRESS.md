@@ -25,6 +25,9 @@ The physical ledger covers all 16,777,216 bytes with no gaps or overlaps:
 storage bytes, 2,574,807 verified fill bytes and 13,381,675 input-data bytes whose
 execution classification remains open. Existing asset provenance is being indexed
 across that last category; it is not evidence of 13.38 MB of missing code.
+The consolidated index now verifies 6,535,922 unique bytes through 5,981
+intervals and 14 fresh receipts, removing 70,808 bytes of duplicate claims.
+Eight rejection/union checks pass; provenance remains separate from execution.
 
 A new direct-branch audit checks 57,756 main-ROM branches and 1,213/1,241/1,210
 in the three payload variants. The decoder traverses every mapped instruction byte exactly once; every target
@@ -60,6 +63,7 @@ they do not attribute the entire decompilation to this task.
 | Meter | Verified progress |
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
+| Consolidated asset provenance | **6,535,922 unique physical bytes; 5,981 intervals; 14 fresh receipts; overlaps removed; no execution exclusion claim** |
 | Unmapped-input provenance closure | **3,172,286/3,172,286 bytes accounted for across receipts; final 812 bytes verified; mapped data and execution classification remain open** |
 | Residual table/font/icon provenance | **11,548 additional bytes verified; 639 bytes remain unbound; 109 terrain arrays and font PNG checked** |
 | Remaining unmapped asset provenance | **157 bindings verify 312,032 bytes; 12,187 bytes remain explicitly unbound** |

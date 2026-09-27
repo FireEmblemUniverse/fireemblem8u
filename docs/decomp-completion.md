@@ -14094,3 +14094,33 @@ encoding checks also pass. Jev selected the direct decoder over symbol
 sanitization after receiving the exact odd-alias failure, probability 1.0,
 request fingerprint `0fadc4cc62fec1b51e4f29bca1fc57b1d121a7feb839677cbd6504beac6a871b`.
 This is a bounded target audit, not a proof of indirect reachability.
+
+## September 27 — consolidated asset provenance index
+
+Luna implemented `scripts/audit_asset_provenance_index.py`; the parent inspected
+the adapters, physical union, eligibility and fixture checks, requested two
+corrections and independently reran the completed audit. It validates 5,981
+intervals from 14 current receipts: 6,606,730 claimed bytes become 6,535,922
+unique physical bytes after removing 70,808 duplicate claims. All indexed
+bytes intersect the ledger's open data category; none are silently classified
+as nonexecutable. Message addresses are reconstructed from current source and
+ELF evidence for 3,404 streams plus structure/alignment intervals.
+
+All 20 historical residual ranges (12,360 bytes) are covered by later receipts.
+Eight pointer-word locators (32 bytes) do not provide complete asset extents and
+remain explicitly unmatched. Three receipts are inventoried as unsupported for
+physical asset extents. Sound validation checks current binary source assets,
+ROM bytes, declaration and converter source; the original sound receipt lacks
+AIFF hashes, so this index does not certify unchanged AIFF inputs.
+
+Eight synthetic checks exercise the real receipt/hash/interval pipeline without
+mutating production files: overlap deduplication, stale pins, same-length source
+mismatch, invalid bounds, valid ledger acceptance, malformed and overlapping
+ledger rejection, and exclusion of claims against an invalid ledger. All pass.
+The parent strengthened eligibility to require actual source/ROM byte equality
+when available through a requested Luna follow-up.
+
+Jev `jev-1.13.0` supported the bounded index handoff (0.92; contradiction 0.05,
+insufficient 0.03) and independent direct-branch evidence (1.0). These are
+advisory results, not overall completion. Request fingerprint:
+`efcb51161e4500069e0e50741ad34466dc0b937094338e5e023e60e9da499020`.
