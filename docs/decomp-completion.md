@@ -14034,3 +14034,26 @@ approval, inspected the provenance links, added explicit receipt-chain hash
 checks and reran the deterministic closure successfully. No production behavior
 changed. Current artifact hashes and platform inline checks were also revalidated;
 fresh toolchain/build recovery remains in progress.
+
+## September 27 — bounded gap inventory and restored incremental build
+
+The new `docs/executable-gap-inventory-20260927.md` consolidates actual receipt
+coverage and limitations. There are no confirmed unowned native instruction
+bytes in the currently mapped main ROM or expanded payload. This is not a
+claim that all intended native load paths have been audited. Full-game behavior
+testing is not an added completion requirement; actual VM consumers matter
+where they identify embedded executable content or source ownership.
+
+Restored pinned dependencies pass `make -j4 compare` and the canonical checksum.
+The recovery log reports 149 of 1,327 main objects rebuilt and 1,178 reused;
+a fresh production rebuild remains open. The normal generated-orphan recipe
+sets its receipt `reference_compared` to false because it does not read the
+reference ROM; the final full-ROM comparison still passes.
+
+Parent inspected the coverage report and original completion requirements. Jev
+`jev-1.13.0` supported the bounded no-confirmed-unowned-bytes finding (0.99),
+selected actual native loader/copy-path inventory as the next coverage action
+(1.0), and selected the explicitly authorized GPT-6-Luna/max workhorse (1.0).
+Request fingerprint: `3647c013b386a693e5f87202c3ac7635c8ee732abcf1710df9bbd1412021fbb7`.
+The same Luna worker is tracing loaders and orphan consumers; the parent retains
+final decisions. Asset indexing and fresh build verification proceed independently.

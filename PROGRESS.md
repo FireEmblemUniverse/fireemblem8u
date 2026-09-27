@@ -2,12 +2,13 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 27, 2026. Current ledger baseline: `b9f6beda`.
+Updated: September 27, 2026. Current pointer-closure baseline: `47eef088`.
 
-The existing 16 MiB main ROM still matches the canonical checksum; all three
-payload binaries also retain their verified hashes. This verifies current
-artifacts, not a fresh build. The generated `.deps` directory was absent on
-resume; recovery of the pinned compiler, plugins and runtime libraries is underway.
+The restored pinned dependencies now pass the normal full-ROM comparison.
+That incremental build rebuilt 149 of 1,327 main objects and reused 1,178;
+a fresh build of every production object is now being prepared. All three
+payload binaries retain their verified hashes. Generated build dependencies
+were absent on resume and have been restored.
 
 Known main-ROM instruction ownership remains 746,068 C-owned, 9,770 mixed and
 21,792 runtime bytes (777,630 mapped bytes total). The 95.94% C-object share is
@@ -30,16 +31,18 @@ have disjoint provenance (5,483 named function references and 78 data words).
 The final match was traced through the generated duplicate to the verified
 lens-flare asset. This does not claim all indirect targets are known.
 
-Current parallel work uses GPT-6-Luna/max, with Jev advisory checks: restore build
-dependencies, identify concrete remaining executable/source gaps, and consolidate
-verified asset intervals without double-counting. Historical pointer meaning and
-complete executable accounting remain open. No overall completion percentage is
-claimed. Detailed milestones and verification remain in `docs/decomp-completion.md`.
+The coverage inventory identifies no confirmed unowned native instruction bytes
+in the main ROM or expanded payload. GPT-6-Luna/max is now tracing actual native
+load/copy paths, rebuilding production inputs and consolidating asset provenance.
+Jev supported the bounded inventory finding and selected the loader-path check
+as the next coverage step. Historical pointer meaning and complete executable
+accounting remain open. No overall completion percentage is claimed. Detailed
+milestones and verification remain in `docs/decomp-completion.md`.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: finish dependency recovery, rerun the full matching build, integrate the asset-provenance index, and resolve the concrete executable gaps identified by the current coverage review. Do not substitute arbitrary-memory-corruption reachability proofs for intended program coverage.
+Next: finish the fresh production rebuild, integrate the asset-provenance index, and account for the intended native loader/copy paths. Do not substitute arbitrary-memory-corruption reachability proofs or exhaustive game behavior testing for decompilation coverage.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
