@@ -1,60 +1,42 @@
 # Sacred Stones decompilation progress
 
-**Status: active — not yet 100% decompiled.**
+**Status: matching native-source recovery complete, with explicit hardware interfaces retained.**
 
-Updated: September 27, 2026. Fresh rebuild and refreshed audit baseline: `94834928`.
+Verified September 27, 2026, on production baseline `b1902c4d` plus the final
+native-loader and data-owner audit receipts. The completion assessment is
+[docs/native-source-completion.md](docs/native-source-completion.md).
 
-The fresh build passes: all 1,327 main-ROM objects and 99 linked payload objects
-were recreated from source. Every rebuilt object matches its saved pre-build
-hash; all four images match their canonical checksums. Fresh pinned runtime
-libraries independently reproduce all four images and exported symbols. The
-parent reran eleven ownership, hardware, target and provenance audits successfully.
-Generated dependencies missing on resume have been restored.
+All 1,327 main objects and 99 linked payload objects were freshly rebuilt.
+Every object matches its saved pre-build hash; the entire USA ROM and all three
+payload variants match their canonical checksums. Fresh pinned runtime libraries
+also reproduce all four images and exported symbols.
 
-Known main-ROM instruction ownership remains 746,068 C-owned, 9,770 mixed and
-21,792 runtime bytes (777,630 mapped bytes total). The 95.94% C-object share is
-not overall completion. Reviewed main inline instructions total 84 bytes;
-payload inline instructions total 58. All are documented hardware operations.
-There are no mapped assembly-source instruction owners or direct baserom includes.
-Fresh compiler-log evidence now binds all 490 main native C owners (755,838
-instruction bytes), plus 21,792 verified runtime C-source bytes. Each payload
-variant has 31 verified C owners plus the same 820-byte recovered runtime set.
+Every mapped native owner has actual C compiler-command evidence or a verified
+runtime C-source rebuild: 777,630 main instruction bytes, plus the separately
+inventoried 200 copied native bytes and expanded payloads. Four main and three
+payload RAM-copy mechanisms have source owners. No additional missing native
+routine was identified by the entry, direct-branch, bounded pointer, duplicate,
+loader or remaining source-data reviews.
 
-The formerly opaque 42,888-byte duplicate now rebuilds from recovered objects.
-It contains 200 copied native instruction bytes and a second compressed payload
-copy. These are explicitly accounted for outside the ordinary mapping totals.
+Hardware assembly remains explicitly counted: 110 bytes in the mapped main
+image including runtime software interrupts, four duplicated software-interrupt
+bytes in the copied overlay, and 58 bytes in the expanded default payload.
+These are platform interfaces, not hidden C-completion credit.
 
-The physical ledger covers all 16,777,216 bytes with no gaps or overlaps:
-777,630 mapped instructions, 200 copied instructions, 42,904 compressed-payload
-storage bytes, 2,574,807 verified fill bytes and 13,381,675 input-data bytes whose
-execution classification remains open. Existing asset provenance is being indexed
-across that last category; it is not evidence of 13.38 MB of missing code.
-The consolidated index now verifies 6,535,922 unique bytes through 5,981
-intervals and 14 fresh receipts, removing 70,808 bytes of duplicate claims.
-Eight rejection/union checks pass; provenance remains separate from execution.
+All 16,777,216 physical ROM bytes have a disjoint ledger entry. The asset index
+covers 6,535,922 unique bytes, including all 3,172,286 originally unmapped input
+bytes. The remaining 6,845,753 input-data bytes have linked source owners.
+Data provenance is kept separate from proof of nonexecution; the conservative
+ledger classification is retained. Historical data meaning, complete computed
+control flow and exhaustive game-behavior documentation are not claimed.
 
-A new direct-branch audit checks 57,756 main-ROM branches and 1,213/1,241/1,210
-in the three payload variants. The decoder traverses every mapped instruction byte exactly once; every target
-is instruction-mapped, correctly aligned and in the same mode. Indirect targets
-remain separate.
+GPT-6-Luna/max completed the build, loader and data workstreams. The parent
+independently reran their checks; Jev reviewed the bounded evidence and claim
+limits. No remaining matching native-source implementation was identified under
+the original GBA decompilation criteria. A native-engine port is separate work.
 
-The bounded function-pointer candidate review is closed: all 5,561 candidates
-have disjoint provenance (5,483 named function references and 78 data words).
-The final match was traced through the generated duplicate to the verified
-lens-flare asset. This does not claim all indirect targets are known.
-
-The coverage inventory identifies no confirmed unowned native instruction bytes
-in the main ROM or expanded payload. GPT-6-Luna/max is now finishing the actual native
-load/copy-path inventory; fresh build and consolidated asset provenance pass.
-Jev supported the bounded inventory finding and selected the loader-path check
-as the next coverage step. Historical pointer meaning and complete executable
-accounting remain open. No overall completion percentage is claimed. Detailed
-milestones and verification remain in `docs/decomp-completion.md`.
-
-This file is the standing progress panel; it is updated after meaningful verified
-advances, integration results, or changes in the current blocker.
-
-Next: finish the native loader/copy-path inventory and inspect the remaining data-source representations for concrete unexplained code candidates, then assess the original completion requirements against the refreshed evidence. Do not substitute arbitrary-memory-corruption reachability proofs or exhaustive game behavior testing for decompilation coverage.
+This file records the accepted current state. Detailed matching experiments,
+verification history and limitations remain in `docs/decomp-completion.md`.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files
@@ -68,18 +50,18 @@ they do not attribute the entire decompilation to this task.
 |---|---|
 | Full ROM byte match | `████████████████████` **100%** — all 16,777,216 bytes match |
 | Consolidated asset provenance | **6,535,922 unique physical bytes; 5,981 intervals; 14 fresh receipts; overlaps removed; no execution exclusion claim** |
-| Unmapped-input provenance closure | **3,172,286/3,172,286 bytes accounted for across receipts; final 812 bytes verified; mapped data and execution classification remain open** |
-| Residual table/font/icon provenance | **11,548 additional bytes verified; 639 bytes remain unbound; 109 terrain arrays and font PNG checked** |
-| Remaining unmapped asset provenance | **157 bindings verify 312,032 bytes; 12,187 bytes remain explicitly unbound** |
+| Unmapped-input provenance closure | **3,172,286/3,172,286 bytes accounted for across receipts; final 812 bytes verified; remaining mapped data now has source owners; execution classification remains conservative** |
+| Residual table/font/icon provenance | **11,548 additional bytes verified; 109 terrain arrays and font PNG checked; earlier residual ranges are covered by the consolidated index** |
+| Remaining unmapped asset provenance | **157 bindings verify 312,032 bytes; all 20 historical residual ranges are covered by later indexed receipts** |
 | Animation command structure | **201 streams fully parsed; 4,818 valid mode entries; no callback/pointer opcodes; six invalid cases rejected** |
 | Battle-animation graphics rebuild | **470/470 PNG sheets exact; 201 binary palette sources; 1,274/1,274 LZ streams recompress byte-for-byte** |
 | Battle-animation source rebuild | **201/201 motion sources reproduce 804 sections, 2,334,324 bytes and 30,693 independently resolved relocations** |
 | Battle-animation asset provenance | **1,475/1,475 assets match all 2,380,160 merged bytes; 1,274 LZ streams match expanded inputs; five invalid streams rejected** |
 | Message-data provenance | **3,404/3,404 streams regenerate, match ROM, and decode to source tokens; 467,734 unmapped bytes explained; three invalid streams rejected** |
 | ROM gaps by build provenance | **144/144 gaps accounted for: 2,574,807 generated-fill bytes; five invalid cases rejected; no reachability claim** |
-| Overall C decompilation | **Not yet measurable reliably** — complete executable classification remains unfinished |
+| Matching native-source recovery | **Complete for the audited native inventory, with documented hardware interfaces** — not a claim of 100% portable C or formal whole-program reachability |
 | Main-ROM instruction ownership | **95.94%** of 777,630 mapped instruction bytes belong to C objects without detected instruction templates; this includes inherited work and is not overall completion |
-| Reviewed non-library assembly | **84 inline instruction bytes in main ROM; 58 in expanded payload** — assembly sources plus verified inline sites; runtime archives and classification gaps remain |
+| Reviewed non-library assembly | **84 inline instruction bytes in main ROM; 58 in expanded payload** — assembly sources plus verified inline sites; runtime SWIs and overall executable scope are tracked separately |
 | Runtime inline syscall assembly | **26 SWI bytes retained; 78 argument/result move bytes now generated from C across 13 sites** |
 | Runtime source rebuild | `████████████████████` **Fresh libc/libgcc reproduce all four images; 21,792 main-ROM and 820 payload C-source instruction bytes verified, including the mixed syscall object** |
 | Integrated palette routine | `████████████████████` **52/52 instruction words (100%); full 220-byte section exact** |
@@ -625,22 +607,22 @@ and fresh objects for all three payload versions passed their checksum gates.
 - [x] Replace TrackStop with matching C and validate live AND/zero compiler folding.
 - [x] Replace the tied-note release handler with matching C and validate its Thumb leaf frame.
 - [x] Replace stereo channel-volume calculation with matching C.
-- [ ] Replace remaining recoverable assembly, including startup, platform interfaces and runtime code.
+- [x] Recover the inventoried startup, audio, embedded and runtime routines as matching C; explicitly retain and count hardware interfaces.
 - [x] Rebuild pinned runtime libraries and verify exact main/all three payload images and exported symbols.
-- [ ] Complete executable coverage accounting, including embedded code and hardware interfaces.
-- [ ] Run and document the final complete decompilation verification.
+- [x] Complete the native-source inventory, including embedded/copied code and explicit hardware interfaces; preserve bounded control-flow limits.
+- [x] Run and document the final matching-source verification against the original GBA scope.
 
-## Remaining inventory
+## Retained hardware and scope limits
 
 | Scope | Current verified inventory |
 |---|---|
 | Main assembly-source instructions | 0 mapped instruction bytes; remaining assembly files may contain data |
 | Main reviewed inline assembly | 84 instruction bytes: software interrupts, processor-status access and PC read |
 | Expanded payload assembly | 0 assembly-source instruction bytes; 58 inline hardware-interface bytes |
-| Runtime and classification | C-source runtime rebuild verified; 26 inline SWI bytes retained; complete executable classification remains open |
+| Runtime and classification | C-source runtime rebuild verified; 26 inline SWI bytes retained; physical-data nonexecution is not formally proved |
 
-These counts exclude runtime archives and do not establish an overall completion
-percentage. Empty compiler constraints and register bindings are not counted as
+Non-library inline counts and runtime counts are listed separately. They do not
+establish a percentage of portable C. Empty compiler constraints and register bindings are not counted as
 assembly instructions.
 
 The immediate goal is the original GBA decompilation. The root blueprint's native

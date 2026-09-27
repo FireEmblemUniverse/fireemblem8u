@@ -12,6 +12,21 @@ feasibility blueprint in the parent folder describes the broader ROM-importing
 LÖVE/Lua product direction; a matching GBA decompilation alone does not implement
 that native engine or its mod platform.
 
+## Current accepted status — September 27, 2026
+
+Matching native-source recovery is complete under the original GBA requirements
+listed in this document: exact fresh program/runtime builds, native instruction
+and copy/payload inventories, matching C recovery with explicit hardware
+interfaces, separate data accounting and reproducible evidence. See
+[native-source-completion.md](native-source-completion.md) for the acceptance
+record and [../PROGRESS.md](../PROGRESS.md) for the current panel.
+
+This does not claim 100% portable C, a formal proof of all computed control flow,
+or a completed native-engine port. The physical data ledger retains conservative
+execution-classification uncertainty. The dated sections below preserve earlier
+states and experiments; statements of then-remaining routines are historical and
+are superseded by later integrations and this acceptance record.
+
 ## Buffer candidate literal loads and flags — September 10, 2026
 
 Research baseline `d790aa3b`. The opt-in `matching_thumb_literal_constants`
@@ -14176,3 +14191,44 @@ and this does not claim all possible indirect targets are established.
 The audit passes against the preserved forced-build logs and writes
 `docs/compile-provenance.json`. Production headers were also searched for
 assembly templates; no additional include-header assembly sites were found.
+
+## September 27 — final loader/data handoffs and source-recovery acceptance
+
+GPT-6-Luna/max completed `audit_native_load_paths.py` and
+`audit_data_source_remainder.py`. Parent inspection and independent reruns pass.
+The loader inventory includes four main and three expanded-payload RAM-copy
+mechanisms, including manually copied SRAM routines, plus serial compressed
+entry and generic MultiBoot capability. Their native source owners are present
+in the fresh compiler-provenance receipt. FE6 transport activation and computed
+aliases remain expressly bounded uncertainties, not identified absent routines.
+
+The source-data remainder is 6,845,753 bytes in 12,018 intervals / 1,223 owner
+groups. All bytes match linked input sections; zero originally unmapped input
+bytes remain outside the validated asset union. The 44 runtime data groups have
+pinned external C sources: 43 member-level rebuild records and the data-only
+`libc.a(impure.o)` source. Parent independently confirmed those 43 records and
+`.deps/agbcc/libc/reent/impure.c`. No additional concrete opaque native-code
+candidate was found. The generated duplicate's exact source reconstruction is
+separate from unresolved historical meaning and reachability.
+
+Parent reran actual compiler provenance and rechecked all 583 native C
+source/object hash pairs. The earlier full fresh build verified all 1,426 program
+objects and four images; no production source changed during final audits.
+
+Jev `jev-1.13.0` reviewed the actual reports, compiler-audit source, successful
+parent reruns and explicit limitations in one four-question request. Fingerprint:
+`ac6f24da91750b90e8672823a31e25e17b307567a4390ce0e5924bc1db07f354`.
+Native loader evidence was supported at 1.0, remainder attribution at 0.99 and
+compiler provenance at 0.98 probability. Claim-boundary support was mixed
+(0.74 supported / 0.25 contradicted / 0.01 insufficient). Parent therefore kept
+the acceptance expressly scoped to audited matching native-source recovery,
+retained the conservative data ledger and hardware counts, and did not assert
+an overall pure-C percentage or formal reachability proof. No repeat query was
+used to seek agreement. Jev did not decide overall project completion.
+
+The host accepts the original source-recovery criteria as satisfied by the
+combined evidence. Every inventoried recoverable routine has matching C;
+remaining instruction templates are documented hardware interfaces. Further
+historical data/VM explanation, exhaustive behavior proof and the native-engine
+blueprint are outside this matching-source milestone. Full acceptance details
+and reproduction commands are in `native-source-completion.md`.

@@ -1,0 +1,1319 @@
+{
+  "checks": {
+    "all_production_code_objects_available_for_relocation_scan": true,
+    "arm_routine_source_span_present_in_rom": true,
+    "expanded_payload_hash_matches_duplicate_receipt": true,
+    "fe6_duplicate_equals_primary_payload": true,
+    "fe6_primary_payload_equals_incbin_asset": true,
+    "irq_copy_source_span_present_in_rom": true,
+    "linked_elf_has_relocation_sections": false,
+    "literal_generic_decompress_to_named_native_buffers": [],
+    "literal_native_destination_copy_callsites": [
+      {
+        "call": "CpuFastCopy",
+        "destination_expression": "IntrMainRam",
+        "line": 21,
+        "native_buffers": [
+          "IntrMainRam"
+        ],
+        "path": "mgfembp/src/interrupts.c",
+        "text": "CpuFastCopy(IntrMain, IntrMainRam, sizeof IntrMainRam)"
+      },
+      {
+        "call": "CpuCopy16",
+        "destination_expression": "RamFuncArea",
+        "line": 21,
+        "native_buffers": [
+          "RamFuncArea"
+        ],
+        "path": "mgfembp/src/ramfunc.c",
+        "text": "CpuCopy16(ArmCodeStart, RamFuncArea, size)"
+      },
+      {
+        "call": "CpuFastCopy",
+        "destination_expression": "IntrMain_Buffer",
+        "line": 17,
+        "native_buffers": [
+          "IntrMain_Buffer"
+        ],
+        "path": "src/irq.c",
+        "text": "CpuFastCopy(IrqMain, IntrMain_Buffer, sizeof IntrMain_Buffer)"
+      },
+      {
+        "call": "CpuCopy32",
+        "destination_expression": "SoundMainRAM_Buffer",
+        "line": 69,
+        "native_buffers": [
+          "SoundMainRAM_Buffer"
+        ],
+        "path": "src/m4a.c",
+        "text": "CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer))"
+      },
+      {
+        "call": "CpuCopy16",
+        "destination_expression": "gUnk_68",
+        "line": 28,
+        "native_buffers": [
+          "gUnk_68"
+        ],
+        "path": "src/ramfunc.c",
+        "text": "CpuCopy16(ARMCodeToCopy_Start, gUnk_68, armCodeSize + (armCodeSize >> 31))"
+      }
+    ],
+    "main_sram_read_copy_span_present_in_rom": true,
+    "main_sram_verify_copy_span_present_in_rom": true,
+    "missing_production_code_objects_for_optional_relocation_scan": 0,
+    "mixer_copy_source_span_present_in_rom": true,
+    "optional_object_reference_hits": [],
+    "orphan_aligned_base_pointer_sites": [],
+    "orphan_exceptional_word_equals_proc_script_symbol": true,
+    "payload_arm_functions_span_in_expanded_image": true,
+    "payload_irq_span_in_expanded_image": true,
+    "payload_sram_copy_spans_in_expanded_image": true,
+    "source_mentions": {
+      "FE6SIO_Entry": [
+        {
+          "line": 7,
+          "path": "src/serial_boot.c",
+          "text": "void __attribute__((section(\".text.serial_entry\"))) FE6SIO_Entry(void)"
+        }
+      ],
+      "FE6SIO_Payload": [
+        {
+          "line": 34,
+          "path": "asm/fe6sio.s",
+          "text": "FE6SIO_Payload:"
+        }
+      ],
+      "MultiBootStartMaster": [
+        {
+          "line": 892,
+          "path": "include/sio.h",
+          "text": "void MultiBootStartMaster(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed);"
+        },
+        {
+          "line": 327,
+          "path": "src/sio_multiboot.c",
+          "text": "void MultiBootStartMaster(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed)"
+        }
+      ],
+      "MultiBootStartMaster_direct_source_calls": [],
+      "gUnkData_108": [
+        {
+          "line": 7,
+          "path": "src/data_B1FE7C.c",
+          "text": "CONST_DATA u8 gUnkData_108[0xA788] = {"
+        }
+      ]
+    }
+  },
+  "compile_provenance": {
+    "images": {
+      "main_rom": {
+        "C_compiled_instruction_bytes": 755838,
+        "C_compiled_owners": 490,
+        "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
+        "map_sha256": "9c17e202effc688818b500001c8f2f6d9f11f2567e31c29d3d05820057f16913",
+        "runtime_archive_instruction_bytes": 21792,
+        "runtime_archive_owners": 49,
+        "source_owner_suffixes": [
+          ".c"
+        ]
+      },
+      "mgfembp": {
+        "C_compiled_instruction_bytes": 24894,
+        "C_compiled_owners": 31,
+        "elf_sha256": "defa0227e8e8067ee58b080a768055caa7959525ce227f20a125d40dae3462ed",
+        "map_sha256": "c8aaab63ea4d54806c3f13812e9653e57196cef042c7b41e22d9a16aeb991638",
+        "runtime_archive_instruction_bytes": 820,
+        "runtime_archive_owners": 7,
+        "source_owner_suffixes": [
+          ".c"
+        ]
+      },
+      "mgfembp_20030206": {
+        "C_compiled_instruction_bytes": 25304,
+        "C_compiled_owners": 31,
+        "elf_sha256": "cfa41777547570c45b943681e01365ad91df5f984e7c1cfb63501993524d6ffc",
+        "map_sha256": "466671bd0617e5e952428de5e083dbc4f69859c2ad671cb632095db140521392",
+        "runtime_archive_instruction_bytes": 820,
+        "runtime_archive_owners": 7,
+        "source_owner_suffixes": [
+          ".c"
+        ]
+      },
+      "mgfembp_20030219": {
+        "C_compiled_instruction_bytes": 24846,
+        "C_compiled_owners": 31,
+        "elf_sha256": "d51f57261bc5960b9a267988183727ed4ba13a36eda1de779bf4de12a8ca0297",
+        "map_sha256": "f3cff03e37ac7c63fc9fba20276daaa4d7b897940783a0337da712cef2226e5d",
+        "runtime_archive_instruction_bytes": 820,
+        "runtime_archive_owners": 7,
+        "source_owner_suffixes": [
+          ".c"
+        ]
+      }
+    },
+    "interpretation": "For these four image receipts, every mapped source owner is a C source; runtime archive instructions are itemized separately. The arm.s/armfunc.s files listed by native-copy sections provide linker layout markers only, not remaining standalone assembly routine owners.",
+    "linker_layout_sources": [
+      {
+        "path": "asm/arm.s",
+        "role": "section-boundary directives only; no standalone instruction bytes"
+      },
+      {
+        "path": "mgfembp/src/armfunc.s",
+        "role": "section-boundary directives only; no standalone instruction bytes"
+      }
+    ],
+    "native_main_source_owners_missing_from_receipt": [],
+    "native_payload_source_owners_missing_from_receipt": []
+  },
+  "generic_multiboot": {
+    "bios_wrapper": {
+      "line": 71,
+      "path": "src/bios_wrappers.c",
+      "text": "asm volatile(\"swi 0x25\" : \"+r\"(r0), \"+r\"(r1) : : \"r2\", \"r3\", \"cc\", \"memory\");"
+    },
+    "buffer_setup": {
+      "line": 337,
+      "path": "src/sio_multiboot.c",
+      "text": "mp->boot_srcp = srcp;"
+    },
+    "driver_bios_callsite": {
+      "line": 234,
+      "path": "src/sio_multiboot.c",
+      "text": "i = MultiBoot(mp);"
+    },
+    "fe6_payload_named_references_in_multiboot_source": [],
+    "interpretation": "The standard BIOS MultiBoot driver has a concrete transfer path, but MultiBootStartMaster has no named source caller and this inventory finds no named FE6SIO_Payload source edge into it. This is a generic external transfer capability, separate from the FE6 serial-reset SWI 0x11 path that enters 0x02010000.",
+    "rounded_buffer_end": {
+      "line": 345,
+      "path": "src/sio_multiboot.c",
+      "text": "mp->boot_endp = srcp + length;"
+    },
+    "start_helper": {
+      "line": 327,
+      "path": "src/sio_multiboot.c",
+      "text": "void MultiBootStartMaster(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed)"
+    },
+    "start_helper_named_callers": []
+  },
+  "inputs": {
+    "compile_provenance": "docs/compile-provenance.json",
+    "compile_provenance_sha256": "b2cf308b6eb26843fec3ffb92713994f2aaee5980fd090d0c3e4a6459b2653e4",
+    "compressed_payload_sha256": "18aeda64457c7abcb2cd25d03ea3d5ebda7f4b8d07ec3747be80ac18e9d61293",
+    "elf": "fireemblem8.elf",
+    "elf_sha256": "2ebdb4aaa227a31ed2a652486c5eaa1e81a3cf107685a490ff57f61fd762e1bc",
+    "expanded_payload_elf_sha256": "defa0227e8e8067ee58b080a768055caa7959525ce227f20a125d40dae3462ed",
+    "expanded_payload_map_sha256": "c8aaab63ea4d54806c3f13812e9653e57196cef042c7b41e22d9a16aeb991638",
+    "expanded_payload_sha256": "d3011f8a257e8000bb32612717f84e2389f5eb1897b70f27535910be22cf81d5",
+    "map": "fireemblem8.map",
+    "map_sha256": "9c17e202effc688818b500001c8f2f6d9f11f2567e31c29d3d05820057f16913",
+    "reference_rom": "baserom.gba",
+    "rom": "fireemblem8.gba",
+    "rom_exactly_matches_reference": true,
+    "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f"
+  },
+  "known_copied_or_compressed_native_content": {
+    "compressed_payload": {
+      "bytes": 21452,
+      "consumed_bytes": 21451,
+      "duplicate": "0x8b24aa4",
+      "expanded_bytes": 34956,
+      "expanded_mapping_bytes": {
+        "arm": 1108,
+        "data": 9235,
+        "thumb": 24606
+      },
+      "expanded_sha256": "d3011f8a257e8000bb32612717f84e2389f5eb1897b70f27535910be22cf81d5",
+      "source": "0x8b1a368",
+      "source_image": "mgfembp/mgfembp.bin"
+    },
+    "copied_native_instruction_bytes_in_orphan": 200,
+    "duplicate_receipt": "docs/duplicate-executable-content.json",
+    "native_regions": [
+      {
+        "bytes": 4,
+        "duplicate": "0x8b247f4",
+        "kind": "arm",
+        "source": "0x8b1a0b8",
+        "source_object": "src/serial_boot.o"
+      },
+      {
+        "bytes": 4,
+        "duplicate": "0x8b248b4",
+        "kind": "arm",
+        "source": "0x8b1a178",
+        "source_object": "src/serial_boot.o"
+      },
+      {
+        "bytes": 44,
+        "duplicate": "0x8b248d4",
+        "kind": "arm",
+        "source": "0x8b1a198",
+        "source_object": "src/serial_poll.o"
+      },
+      {
+        "bytes": 148,
+        "duplicate": "0x8b24900",
+        "kind": "arm",
+        "source": "0x8b1a1c4",
+        "source_object": "src/serial_reset.o"
+      }
+    ]
+  },
+  "loaders": [
+    {
+      "evidence": [
+        {
+          "line": 9,
+          "path": "src/crt0.c",
+          "text": "unsigned const StartupFarPointers[2] __attribute__((used,section(\".rodata.startup_far\"))) = {0x03007ffc, (unsigned)AgbMain};"
+        },
+        {
+          "line": 27,
+          "path": "src/main.c",
+          "text": "DmaFill32(3, 0, (void *)IWRAM_START, 0x7F80); // reset the area for the IWRAM ARM section."
+        }
+      ],
+      "finding": "The reset path executes linked ROM code; crt0 installs the initial ROM IRQ pointer and transfers to AgbMain.",
+      "id": "reset-vector-and-AgbMain",
+      "kind": "fixed ROM-native boot path",
+      "linked_symbols": {
+        "AgbMain": "0x8000a20",
+        "IrqMain": "0x80000fc",
+        "crt0": "0x80000c0"
+      },
+      "rom_entry": "0x8000000",
+      "source_owners": [
+        "src/crt0.c",
+        "src/main.c"
+      ]
+    },
+    {
+      "caller": "AgbMain",
+      "consumer": "INTR_VECTOR is set to IntrMain_Buffer by StoreIRQToIRAM.",
+      "destination": {
+        "bytes": 2048,
+        "end_exclusive": "0x3004960",
+        "start": "0x3004160",
+        "symbol": "IntrMain_Buffer"
+      },
+      "evidence": [
+        {
+          "line": 17,
+          "path": "src/irq.c",
+          "text": "CpuFastCopy(IrqMain, IntrMain_Buffer, sizeof IntrMain_Buffer);"
+        },
+        {
+          "line": 20,
+          "path": "src/main.c",
+          "text": "void StoreIRQToIRAM();"
+        }
+      ],
+      "finding": "The source span is a fixed 0x800-byte copy from IrqMain; it includes the linked IRQ chain and later ROM bytes as a conservative fixed-width copied tail.",
+      "id": "irq-code-to-IWRAM",
+      "kind": "BIOS CpuFastSet native code copy",
+      "source": {
+        "bytes": 2048,
+        "end_exclusive": "0x80008fc",
+        "start": "0x80000fc"
+      },
+      "source_owners": [
+        "src/irq_entry.c",
+        "src/irq_save_frame.c",
+        "src/irq_search.c",
+        "src/irq_continuation.c",
+        "src/irq.c"
+      ]
+    },
+    {
+      "caller": "AgbMain",
+      "consumer": "StoreRoutinesToIRAM installs six callable addresses into IWRAM pointers (DrawGlyph, DecodeString, PutOamHi/Lo, MapFloodCoreStep/Core).",
+      "destination": {
+        "bytes": 2040,
+        "end_exclusive": "0x3003f48",
+        "start": "0x3003750",
+        "symbol": "gUnk_68"
+      },
+      "evidence": [
+        {
+          "line": 28,
+          "path": "src/ramfunc.c",
+          "text": "CpuCopy16(ARMCodeToCopy_Start, gUnk_68, armCodeSize + (armCodeSize >> 31));"
+        },
+        {
+          "line": 54,
+          "path": "src/main.c",
+          "text": "StoreRoutinesToIRAM();"
+        }
+      ],
+      "finding": "Linker-defined contiguous source and explicit per-function destination offsets cover the copied routine bundle; its 0x7f8 span includes adjacent literal pools.",
+      "id": "ARM-routines-to-IWRAM",
+      "kind": "BIOS CpuSet native code copy",
+      "linker_layout_sources": [
+        {
+          "path": "asm/arm.s",
+          "role": "section-boundary directives only; no standalone instruction bytes"
+        }
+      ],
+      "source": {
+        "bytes": 2040,
+        "end_exclusive": "0x8000a20",
+        "start": "0x8000228",
+        "symbol": "ARMCodeToCopy_Start"
+      },
+      "source_owners": [
+        "src/arm/color_fade_tick.c",
+        "src/arm/clear_oam.c",
+        "src/arm/checksum.c",
+        "src/arm/tm_fill_rect.c",
+        "src/arm/tm_copy_rect.c",
+        "src/arm/tm_apply_tsa.c",
+        "src/arm/put_oam.c",
+        "src/arm/put_oam_lo.c",
+        "src/arm/draw_glyph.c",
+        "src/arm/decode_string.c",
+        "src/arm/map_flood_step.c",
+        "src/arm/map_flood_core.c"
+      ]
+    },
+    {
+      "caller": "AgbMain via m4aSoundInit",
+      "consumer": "SoundMainBufferEntry transfers to SoundMainRAM_BufferThumb; copied Thumb/ARM mixer pieces have linker adjacency and branch-range assertions.",
+      "copied_tail": {
+        "bytes": 92,
+        "owners_from_map": [
+          {
+            "copied_bytes": 24,
+            "object": "src/m4a_clear_block.o",
+            "source_owner": "src/m4a_clear_block.c"
+          },
+          {
+            "copied_bytes": 32,
+            "object": "src/m4a_clear_chain.o",
+            "source_owner": "src/m4a_clear_chain.c"
+          },
+          {
+            "copied_bytes": 36,
+            "object": "src/m4a_fine.o",
+            "source_owner": "src/m4a_fine.c"
+          }
+        ],
+        "start": "0x80cf8f0",
+        "status": "adjacent already-owned code copied because the buffer copy is 0x400 bytes; not an extra unsourced routine"
+      },
+      "destination": {
+        "bytes": 1024,
+        "end_exclusive": "0x3003060",
+        "start": "0x3002c60",
+        "symbol": "SoundMainRAM_Buffer"
+      },
+      "evidence": [
+        {
+          "line": 69,
+          "path": "src/m4a.c",
+          "text": "CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));"
+        },
+        {
+          "line": 66,
+          "path": "src/main.c",
+          "text": "m4aSoundInit();"
+        }
+      ],
+      "finding": "The linker marks 0x3a4 bytes as the mixer; m4aSoundInit copies 0x400 bytes, so 0x5c bytes after SoundMainRAM_End are also copied.",
+      "id": "SoundMainRAM-to-IWRAM",
+      "kind": "BIOS CpuSet native code copy",
+      "linker_map_source_sections": [
+        {
+          "copied_bytes": 12,
+          "copied_overlap_start": "0x80cf54c",
+          "copied_tail_bytes": 0,
+          "native_bytes": 12,
+          "object": "src/m4a_mixer_entry.o",
+          "section_bytes": 12,
+          "section_start": "0x80cf54c",
+          "source_owner": "src/m4a_mixer_entry.c"
+        },
+        {
+          "copied_bytes": 84,
+          "copied_overlap_start": "0x80cf558",
+          "copied_tail_bytes": 0,
+          "native_bytes": 84,
+          "object": "src/m4a_reverb.o",
+          "section_bytes": 84,
+          "section_start": "0x80cf558",
+          "source_owner": "src/m4a_reverb.c"
+        },
+        {
+          "copied_bytes": 46,
+          "copied_overlap_start": "0x80cf5ac",
+          "copied_tail_bytes": 0,
+          "native_bytes": 46,
+          "object": "src/m4a_no_reverb.o",
+          "section_bytes": 46,
+          "section_start": "0x80cf5ac",
+          "source_owner": "src/m4a_no_reverb.c"
+        },
+        {
+          "copied_bytes": 10,
+          "copied_overlap_start": "0x80cf5da",
+          "copied_tail_bytes": 0,
+          "native_bytes": 10,
+          "object": "src/m4a_channel_setup.o",
+          "section_bytes": 10,
+          "section_start": "0x80cf5da",
+          "source_owner": "src/m4a_channel_setup.c"
+        },
+        {
+          "copied_bytes": 32,
+          "copied_overlap_start": "0x80cf5e4",
+          "copied_tail_bytes": 0,
+          "native_bytes": 32,
+          "object": "src/m4a_deadline.o",
+          "section_bytes": 32,
+          "section_start": "0x80cf5e4",
+          "source_owner": "src/m4a_deadline.c"
+        },
+        {
+          "copied_bytes": 160,
+          "copied_overlap_start": "0x80cf604",
+          "copied_tail_bytes": 0,
+          "native_bytes": 160,
+          "object": "src/m4a_envelope.o",
+          "section_bytes": 160,
+          "section_start": "0x80cf604",
+          "source_owner": "src/m4a_envelope.c"
+        },
+        {
+          "copied_bytes": 52,
+          "copied_overlap_start": "0x80cf6a4",
+          "copied_tail_bytes": 0,
+          "native_bytes": 52,
+          "object": "src/m4a_volume.o",
+          "section_bytes": 52,
+          "section_start": "0x80cf6a4",
+          "source_owner": "src/m4a_volume.c"
+        },
+        {
+          "copied_bytes": 12,
+          "copied_overlap_start": "0x80cf6d8",
+          "copied_tail_bytes": 0,
+          "native_bytes": 12,
+          "object": "src/m4a_sample_handoff.o",
+          "section_bytes": 12,
+          "section_start": "0x80cf6d8",
+          "source_owner": "src/m4a_sample_handoff.c"
+        },
+        {
+          "copied_bytes": 32,
+          "copied_overlap_start": "0x80cf6e4",
+          "copied_tail_bytes": 0,
+          "native_bytes": 32,
+          "object": "src/m4a_sample_entry.o",
+          "section_bytes": 32,
+          "section_start": "0x80cf6e4",
+          "source_owner": "src/m4a_sample_entry.c"
+        },
+        {
+          "copied_bytes": 44,
+          "copied_overlap_start": "0x80cf704",
+          "copied_tail_bytes": 0,
+          "native_bytes": 44,
+          "object": "src/m4a_fixed_setup.o",
+          "section_bytes": 44,
+          "section_start": "0x80cf704",
+          "source_owner": "src/m4a_fixed_setup.c"
+        },
+        {
+          "copied_bytes": 68,
+          "copied_overlap_start": "0x80cf730",
+          "copied_tail_bytes": 0,
+          "native_bytes": 68,
+          "object": "src/m4a_packed.o",
+          "section_bytes": 68,
+          "section_start": "0x80cf730",
+          "source_owner": "src/m4a_packed.c"
+        },
+        {
+          "copied_bytes": 44,
+          "copied_overlap_start": "0x80cf774",
+          "copied_tail_bytes": 0,
+          "native_bytes": 44,
+          "object": "src/m4a_short.o",
+          "section_bytes": 44,
+          "section_start": "0x80cf774",
+          "source_owner": "src/m4a_short.c"
+        },
+        {
+          "copied_bytes": 8,
+          "copied_overlap_start": "0x80cf7a0",
+          "copied_tail_bytes": 0,
+          "native_bytes": 8,
+          "object": "src/m4a_fixed_lane.o",
+          "section_bytes": 8,
+          "section_start": "0x80cf7a0",
+          "source_owner": "src/m4a_fixed_lane.c"
+        },
+        {
+          "copied_bytes": 20,
+          "copied_overlap_start": "0x80cf7a8",
+          "copied_tail_bytes": 0,
+          "native_bytes": 20,
+          "object": "src/m4a_fixed_word_finish.o",
+          "section_bytes": 20,
+          "section_start": "0x80cf7a8",
+          "source_owner": "src/m4a_fixed_word_finish.c"
+        },
+        {
+          "copied_bytes": 20,
+          "copied_overlap_start": "0x80cf7bc",
+          "copied_tail_bytes": 0,
+          "native_bytes": 20,
+          "object": "src/m4a_resample_loop.o",
+          "section_bytes": 20,
+          "section_start": "0x80cf7bc",
+          "source_owner": "src/m4a_resample_loop.c"
+        },
+        {
+          "copied_bytes": 16,
+          "copied_overlap_start": "0x80cf7d0",
+          "copied_tail_bytes": 0,
+          "native_bytes": 16,
+          "object": "src/m4a_wrap.o",
+          "section_bytes": 16,
+          "section_start": "0x80cf7d0",
+          "source_owner": "src/m4a_wrap.c"
+        },
+        {
+          "copied_bytes": 12,
+          "copied_overlap_start": "0x80cf7e0",
+          "copied_tail_bytes": 0,
+          "native_bytes": 12,
+          "object": "src/m4a_stop.o",
+          "section_bytes": 12,
+          "section_start": "0x80cf7e0",
+          "source_owner": "src/m4a_stop.c"
+        },
+        {
+          "copied_bytes": 16,
+          "copied_overlap_start": "0x80cf7ec",
+          "copied_tail_bytes": 0,
+          "native_bytes": 16,
+          "object": "src/m4a_loop.o",
+          "section_bytes": 16,
+          "section_start": "0x80cf7ec",
+          "source_owner": "src/m4a_loop.c"
+        },
+        {
+          "copied_bytes": 40,
+          "copied_overlap_start": "0x80cf7fc",
+          "copied_tail_bytes": 0,
+          "native_bytes": 40,
+          "object": "src/m4a_partial.o",
+          "section_bytes": 40,
+          "section_start": "0x80cf7fc",
+          "source_owner": "src/m4a_partial.c"
+        },
+        {
+          "copied_bytes": 28,
+          "copied_overlap_start": "0x80cf824",
+          "copied_tail_bytes": 0,
+          "native_bytes": 28,
+          "object": "src/m4a_resample_setup.o",
+          "section_bytes": 28,
+          "section_start": "0x80cf824",
+          "source_owner": "src/m4a_resample_setup.c"
+        },
+        {
+          "copied_bytes": 52,
+          "copied_overlap_start": "0x80cf840",
+          "copied_tail_bytes": 0,
+          "native_bytes": 52,
+          "object": "src/m4a_resample.o",
+          "section_bytes": 52,
+          "section_start": "0x80cf840",
+          "source_owner": "src/m4a_resample.c"
+        },
+        {
+          "copied_bytes": 32,
+          "copied_overlap_start": "0x80cf874",
+          "copied_tail_bytes": 0,
+          "native_bytes": 32,
+          "object": "src/m4a_advance.o",
+          "section_bytes": 32,
+          "section_start": "0x80cf874",
+          "source_owner": "src/m4a_advance.c"
+        },
+        {
+          "copied_bytes": 8,
+          "copied_overlap_start": "0x80cf894",
+          "copied_tail_bytes": 0,
+          "native_bytes": 8,
+          "object": "src/m4a_resample_lane.o",
+          "section_bytes": 8,
+          "section_start": "0x80cf894",
+          "source_owner": "src/m4a_resample_lane.c"
+        },
+        {
+          "copied_bytes": 16,
+          "copied_overlap_start": "0x80cf89c",
+          "copied_tail_bytes": 0,
+          "native_bytes": 16,
+          "object": "src/m4a_word_finish.o",
+          "section_bytes": 16,
+          "section_start": "0x80cf89c",
+          "source_owner": "src/m4a_word_finish.c"
+        },
+        {
+          "copied_bytes": 8,
+          "copied_overlap_start": "0x80cf8ac",
+          "copied_tail_bytes": 0,
+          "native_bytes": 8,
+          "object": "src/m4a_resample_finish.o",
+          "section_bytes": 8,
+          "section_start": "0x80cf8ac",
+          "source_owner": "src/m4a_resample_finish.c"
+        },
+        {
+          "copied_bytes": 24,
+          "copied_overlap_start": "0x80cf8b4",
+          "copied_tail_bytes": 0,
+          "native_bytes": 24,
+          "object": "src/m4a_save_channel.o",
+          "section_bytes": 24,
+          "section_start": "0x80cf8b4",
+          "source_owner": "src/m4a_save_channel.c"
+        },
+        {
+          "copied_bytes": 10,
+          "copied_overlap_start": "0x80cf8cc",
+          "copied_tail_bytes": 0,
+          "native_bytes": 10,
+          "object": "src/m4a_channel_advance.o",
+          "section_bytes": 10,
+          "section_start": "0x80cf8cc",
+          "source_owner": "src/m4a_channel_advance.c"
+        },
+        {
+          "copied_bytes": 2,
+          "copied_overlap_start": "0x80cf8d6",
+          "copied_tail_bytes": 0,
+          "native_bytes": 2,
+          "object": "src/m4a_exit_info.o",
+          "section_bytes": 2,
+          "section_start": "0x80cf8d6",
+          "source_owner": "src/m4a_exit_info.c"
+        },
+        {
+          "copied_bytes": 24,
+          "copied_overlap_start": "0x80cf8d8",
+          "copied_tail_bytes": 0,
+          "native_bytes": 24,
+          "object": "src/m4a_exit_restore.o",
+          "section_bytes": 24,
+          "section_start": "0x80cf8d8",
+          "source_owner": "src/m4a_exit_restore.c"
+        }
+      ],
+      "source": {
+        "copied_bytes": 1024,
+        "copy_end_exclusive": "0x80cf94c",
+        "native_bytes": 932,
+        "native_end_exclusive": "0x80cf8f0",
+        "start": "0x80cf54c"
+      },
+      "source_owners": [
+        "src/m4a_mixer_entry.c",
+        "src/m4a_reverb.c",
+        "src/m4a_no_reverb.c",
+        "src/m4a_channel_setup.c",
+        "src/m4a_deadline.c",
+        "src/m4a_envelope.c",
+        "src/m4a_volume.c",
+        "src/m4a_sample_handoff.c",
+        "src/m4a_sample_entry.c",
+        "src/m4a_fixed_setup.c",
+        "src/m4a_packed.c",
+        "src/m4a_short.c",
+        "src/m4a_fixed_lane.c",
+        "src/m4a_fixed_word_finish.c",
+        "src/m4a_resample_loop.c",
+        "src/m4a_wrap.c",
+        "src/m4a_stop.c",
+        "src/m4a_loop.c",
+        "src/m4a_partial.c",
+        "src/m4a_resample_setup.c",
+        "src/m4a_resample.c",
+        "src/m4a_advance.c",
+        "src/m4a_resample_lane.c",
+        "src/m4a_word_finish.c",
+        "src/m4a_resample_finish.c",
+        "src/m4a_save_channel.c",
+        "src/m4a_channel_advance.c",
+        "src/m4a_exit_info.c",
+        "src/m4a_exit_restore.c"
+      ]
+    },
+    {
+      "caller": "AgbMain calls SramInit; SramInit calls SetSramFastFunc before SRAM checks.",
+      "consumer": "SetSramFastFunc installs Thumb-bit-set pointers to the copied routines; save code calls ReadSramFast and VerifySramFast.",
+      "copies": [
+        {
+          "buffer_bytes": 128,
+          "bytes": 64,
+          "destination": "0x3002b08",
+          "installed_pointer_symbol": "ReadSramFast",
+          "source": "0x80d16e4",
+          "source_end_exclusive": "0x80d1724",
+          "symbol": "ReadSramFast_Core"
+        },
+        {
+          "buffer_bytes": 160,
+          "bytes": 76,
+          "destination": "0x3002a68",
+          "installed_pointer_symbol": "VerifySramFast",
+          "source": "0x80d1764",
+          "source_end_exclusive": "0x80d17b0",
+          "symbol": "VerifySramFast_Core",
+          "trailing_copy_padding_bytes": 2
+        }
+      ],
+      "evidence": [
+        {
+          "line": 48,
+          "path": "src/agb_sram.c",
+          "text": "size = ((uintptr_t)WriteSramFast - (uintptr_t)ReadSramFast_Core) / 2;"
+        },
+        {
+          "line": 67,
+          "path": "src/bmsave-lib.c",
+          "text": "SetSramFastFunc();"
+        },
+        {
+          "line": 55,
+          "path": "src/main.c",
+          "text": "SramInit();"
+        }
+      ],
+      "finding": "Both source spans are bounded by next linked functions and copied as 16-bit units. The Verify copy contains a 2-byte alignment gap before SetSramFastFunc.",
+      "id": "main-SRAM-fast-functions-to-IWRAM",
+      "kind": "manual Thumb halfword copies into callable IWRAM buffers",
+      "source_owners": [
+        "src/agb_sram.c",
+        "src/bmsave-lib.c"
+      ]
+    },
+    {
+      "entry_symbols": {
+        "FE6SIO_Entry": "0x8b1a0b8",
+        "FE6SIO_Init": "0x8b1a178",
+        "SerialReset": "0x8b1a1c4"
+      },
+      "evidence": [
+        {
+          "line": 34,
+          "path": "asm/fe6sio.s",
+          "text": "FE6SIO_Payload:"
+        },
+        {
+          "line": 7,
+          "path": "src/serial_boot.c",
+          "text": "void __attribute__((section(\".text.serial_entry\"))) FE6SIO_Entry(void)"
+        },
+        {
+          "line": 18,
+          "path": "src/serial_reset.c",
+          "text": "serialBase = (volatile unsigned short *)0x04000120;"
+        },
+        {
+          "line": 58,
+          "path": "src/serial_reset.c",
+          "text": "serialBase=(volatile unsigned short *)0x020002b0;"
+        },
+        {
+          "line": 59,
+          "path": "src/serial_reset.c",
+          "text": "serialValue=0x02010000;"
+        },
+        {
+          "line": 60,
+          "path": "src/serial_reset.c",
+          "text": "asm volatile(\"svc #0x110000\" : \"+r\"(serialBase), \"+r\"(serialValue)"
+        },
+        {
+          "line": 62,
+          "path": "src/serial_reset.c",
+          "text": "serialEntry=(void (*)(void))0x02010000;"
+        },
+        {
+          "line": 64,
+          "path": "src/serial_reset.c",
+          "text": "serialEntry();"
+        }
+      ],
+      "finding": "The sidecar source documents the compressed payload and 0x02010000 destination. The reset stub polls external SIO, invokes BIOS SWI 0x11 with staging source 0x020002B0 and destination 0x02010000, then enters that address. The link from the local FE6SIO_Payload label to the bytes supplied to the receive buffer has no named FE8 caller in the current source; retain that activation/transport edge as unresolved.",
+      "id": "FE6SIO-serial-LZ-entry",
+      "kind": "external serial receive, BIOS LZ77 expansion, fixed native entry",
+      "serial_hardware_base": "0x04000120",
+      "serial_receive_staging": "0x020002B0",
+      "source_owners": [
+        "asm/fe6sio.s",
+        "src/serial_boot.c",
+        "src/serial_poll.c",
+        "src/serial_reset.c",
+        "mgfembp/mgfembp.bin and its source tree"
+      ],
+      "stored_payload": {
+        "compressed_bytes": 21452,
+        "duplicate": "0x8b24aa4",
+        "expanded_bytes": 34956,
+        "expanded_destination": "0x02010000",
+        "expanded_instruction_bytes": 25714,
+        "source": "0x8b1a368"
+      }
+    },
+    {
+      "caller": "MGFEMBP Main calls InitIntrs during payload startup.",
+      "consumer": "InitIntrs installs IntrMainRam as INTR_VECTOR.",
+      "destination": {
+        "bytes": 2048,
+        "end_exclusive": "0x3001c20",
+        "start": "0x3001420",
+        "symbol": "IntrMainRam"
+      },
+      "evidence": [
+        {
+          "line": 21,
+          "path": "mgfembp/src/interrupts.c",
+          "text": "CpuFastCopy(IntrMain, IntrMainRam, sizeof IntrMainRam);"
+        },
+        {
+          "line": 23,
+          "path": "mgfembp/src/main.c",
+          "text": "InitIntrs();"
+        }
+      ],
+      "finding": "The standalone payload has its own fixed 0x800-byte IRQ copy, separate from the main game's IRQ copy.",
+      "id": "MGFEMBP-IRQ-code-to-IWRAM",
+      "kind": "payload BIOS CpuFastSet native code copy",
+      "source": {
+        "bytes": 2048,
+        "end_exclusive": "0x201083c",
+        "start": "0x201003c"
+      },
+      "source_owners": [
+        "mgfembp/src/irq_entry.c",
+        "mgfembp/src/irq_save_frame.c",
+        "mgfembp/src/irq_search.c",
+        "mgfembp/src/irq_continuation.c",
+        "mgfembp/src/interrupts.c"
+      ]
+    },
+    {
+      "caller": "MGFEMBP Main calls InitRamFuncs during payload startup.",
+      "consumer": "InitRamFuncs installs PutOamHiRamFunc and PutOamLoRamFunc at copied code offsets.",
+      "destination": {
+        "buffer_bytes": 2560,
+        "bytes": 792,
+        "end_exclusive": "0x3000d28",
+        "start": "0x3000a10",
+        "symbol": "RamFuncArea"
+      },
+      "evidence": [
+        {
+          "line": 21,
+          "path": "mgfembp/src/ramfunc.c",
+          "text": "CpuCopy16(ArmCodeStart, RamFuncArea, size);"
+        },
+        {
+          "line": 32,
+          "path": "mgfembp/src/main.c",
+          "text": "InitRamFuncs();"
+        }
+      ],
+      "finding": "The standalone payload copies its linker-delimited 0x318-byte native helper bundle into IWRAM; the destination buffer is 0xA00 bytes.",
+      "id": "MGFEMBP-ARM-routines-to-IWRAM",
+      "kind": "payload BIOS CpuSet native code copy",
+      "linker_layout_sources": [
+        {
+          "path": "mgfembp/src/armfunc.s",
+          "role": "section-boundary directives only; no standalone instruction bytes"
+        }
+      ],
+      "source": {
+        "bytes": 792,
+        "end_exclusive": "0x2010474",
+        "start": "0x201015c",
+        "symbol": "ArmCodeStart"
+      },
+      "source_owners": [
+        "mgfembp/src/ramfunc.c",
+        "mgfembp/src/color_fade_tick.c",
+        "mgfembp/src/clear_oam.c",
+        "mgfembp/src/checksum.c",
+        "mgfembp/src/tm_fill_rect.c",
+        "mgfembp/src/tm_copy_rect.c",
+        "mgfembp/src/tm_apply_tsa.c",
+        "mgfembp/src/put_oam.c",
+        "mgfembp/src/put_oam_lo.c"
+      ]
+    },
+    {
+      "caller": "MGFEMBP Main calls SramInit after the key wait; SramInit calls SetSramFastFunc.",
+      "consumer": "SetSramFastFunc installs Thumb-bit-set pointers used by payload save code.",
+      "copies": [
+        {
+          "buffer_bytes": 128,
+          "bytes": 64,
+          "destination": "0x30002c0",
+          "installed_pointer_symbol": "ReadSramFast",
+          "source": "0x2016ae8",
+          "source_end_exclusive": "0x2016b28",
+          "symbol": "ReadSramFast_Core"
+        },
+        {
+          "buffer_bytes": 160,
+          "bytes": 76,
+          "destination": "0x3000220",
+          "installed_pointer_symbol": "VerifySramFast",
+          "source": "0x2016b68",
+          "source_end_exclusive": "0x2016bb4",
+          "symbol": "VerifySramFast_Core",
+          "trailing_copy_padding_bytes": 2
+        }
+      ],
+      "evidence": [
+        {
+          "line": 52,
+          "path": "mgfembp/src/gbasram.c",
+          "text": "size = ((uptr)WriteSramFast - (uptr)ReadSramFast_Core) / 2;"
+        },
+        {
+          "line": 42,
+          "path": "mgfembp/src/main.c",
+          "text": "SramInit();"
+        }
+      ],
+      "finding": "The standalone payload independently contains the same two source-bounded IWRAM SRAM helpers, including the 2-byte Verify-span alignment gap.",
+      "id": "MGFEMBP-SRAM-fast-functions-to-IWRAM",
+      "kind": "payload manual Thumb halfword copies into callable IWRAM buffers",
+      "source_owners": [
+        "mgfembp/src/gbasram.c",
+        "mgfembp/src/save.c"
+      ]
+    }
+  ],
+  "native_loader_callsites": {
+    "fe6_serial_decompress_and_entry": [
+      {
+        "line": 18,
+        "path": "src/serial_reset.c",
+        "text": "serialBase = (volatile unsigned short *)0x04000120;"
+      },
+      {
+        "line": 58,
+        "path": "src/serial_reset.c",
+        "text": "serialBase=(volatile unsigned short *)0x020002b0;"
+      },
+      {
+        "line": 59,
+        "path": "src/serial_reset.c",
+        "text": "serialValue=0x02010000;"
+      },
+      {
+        "line": 60,
+        "path": "src/serial_reset.c",
+        "text": "asm volatile(\"svc #0x110000\" : \"+r\"(serialBase), \"+r\"(serialValue)"
+      },
+      {
+        "line": 62,
+        "path": "src/serial_reset.c",
+        "text": "serialEntry=(void (*)(void))0x02010000;"
+      },
+      {
+        "line": 64,
+        "path": "src/serial_reset.c",
+        "text": "serialEntry();"
+      }
+    ],
+    "generic_multiboot_hardware_transfer": {
+      "bios_call": {
+        "line": 234,
+        "path": "src/sio_multiboot.c",
+        "text": "i = MultiBoot(mp);"
+      },
+      "configuration_end": {
+        "line": 345,
+        "path": "src/sio_multiboot.c",
+        "text": "mp->boot_endp = srcp + length;"
+      },
+      "configuration_source_buffer": {
+        "line": 337,
+        "path": "src/sio_multiboot.c",
+        "text": "mp->boot_srcp = srcp;"
+      },
+      "named_start_helper_callers": []
+    },
+    "main_arm_bundle_copy": {
+      "line": 28,
+      "path": "src/ramfunc.c",
+      "text": "CpuCopy16(ARMCodeToCopy_Start, gUnk_68, armCodeSize + (armCodeSize >> 31));"
+    },
+    "main_game_startup": [
+      {
+        "line": 20,
+        "path": "src/main.c",
+        "text": "void StoreIRQToIRAM();"
+      },
+      {
+        "line": 54,
+        "path": "src/main.c",
+        "text": "StoreRoutinesToIRAM();"
+      },
+      {
+        "line": 55,
+        "path": "src/main.c",
+        "text": "SramInit();"
+      },
+      {
+        "line": 66,
+        "path": "src/main.c",
+        "text": "m4aSoundInit();"
+      }
+    ],
+    "main_irq_copy": {
+      "line": 17,
+      "path": "src/irq.c",
+      "text": "CpuFastCopy(IrqMain, IntrMain_Buffer, sizeof IntrMain_Buffer);"
+    },
+    "main_manual_sram_copies": {
+      "line": 48,
+      "path": "src/agb_sram.c",
+      "text": "size = ((uintptr_t)WriteSramFast - (uintptr_t)ReadSramFast_Core) / 2;"
+    },
+    "main_mixer_copy": {
+      "line": 69,
+      "path": "src/m4a.c",
+      "text": "CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));"
+    },
+    "mgfembp_arm_bundle_copy": {
+      "line": 21,
+      "path": "mgfembp/src/ramfunc.c",
+      "text": "CpuCopy16(ArmCodeStart, RamFuncArea, size);"
+    },
+    "mgfembp_irq_copy": {
+      "line": 21,
+      "path": "mgfembp/src/interrupts.c",
+      "text": "CpuFastCopy(IntrMain, IntrMainRam, sizeof IntrMainRam);"
+    },
+    "mgfembp_manual_sram_copies": {
+      "line": 52,
+      "path": "mgfembp/src/gbasram.c",
+      "text": "size = ((uptr)WriteSramFast - (uptr)ReadSramFast_Core) / 2;"
+    },
+    "mgfembp_startup": [
+      {
+        "line": 23,
+        "path": "mgfembp/src/main.c",
+        "text": "InitIntrs();"
+      },
+      {
+        "line": 32,
+        "path": "mgfembp/src/main.c",
+        "text": "InitRamFuncs();"
+      },
+      {
+        "line": 42,
+        "path": "mgfembp/src/main.c",
+        "text": "SramInit();"
+      }
+    ]
+  },
+  "orphan_pointer": {
+    "address": "0x8b1fe7c",
+    "bytes": 42888,
+    "exceptional_address": "0x8b29ea4",
+    "exceptional_offset": "0xa028",
+    "interpretation": "No named source reference or aligned literal pointer to gUnkData_108 was found. The exceptional word points to a ProcCmd table, not a native function entry. This narrows the supported-consumer evidence but does not exclude computed/data-driven access.",
+    "symbol": "gUnkData_108",
+    "target_source_kind": "struct ProcCmd table interpreted by the Proc system",
+    "target_symbol": "gProcScr_TalkWaitForInput",
+    "value": "0x85913f0"
+  },
+  "remaining_uncertainties": [
+    "The local FE6SIO_Payload storage has no named source-level consumer. SerialReset proves a protocol-fed LZ77-to-0x02010000-and-enter path, but this audit does not establish that the ROM-resident compressed label is the exact buffer contents supplied by that protocol.",
+    "The BIOS MultiBoot driver receives its image pointer through MultiBootStartMaster's caller; no named source caller or FE6SIO_Payload edge is present. This is an unresolved generic transfer input/activation edge, not an identified missing payload routine.",
+    "The source-level scan and exact aligned-base-pointer scan do not prove absence of aliases, computed addresses, or access through an external serial participant. The linked ROM ELF has no relocation sections; production input-object relocations are included only when that complete object set is already present, and this audit never builds it.",
+    "Generic copy and decompression helpers accept dynamic destinations. The authored-C call scan records direct copy/decompression calls whose second argument names one of the tracked IWRAM code buffers; it does not establish absence of aliases, computed destinations, or hand-written assembly transfers elsewhere."
+  ],
+  "schema_version": 1,
+  "scope": "Source-linked inventory of production native-code copy and compressed-entry mechanisms for intended FE8U execution. Not a proof against arbitrary computed pointers or memory corruption. Ordinary art/text/audio and battle-animation VM interpretation are outside the native-loader list.",
+  "source_evidence": {
+    "bios_lz_wrapper": {
+      "line": 60,
+      "path": "src/bios_wrappers.c",
+      "text": "void LZ77UnCompWram(const void *src, void *dst)"
+    },
+    "exceptional_target_owner": {
+      "line": 111,
+      "path": "src/scene.c",
+      "text": "struct ProcCmd CONST_DATA gProcScr_TalkWaitForInput[] ="
+    },
+    "irq_copy": {
+      "line": 17,
+      "path": "src/irq.c",
+      "text": "CpuFastCopy(IrqMain, IntrMain_Buffer, sizeof IntrMain_Buffer);"
+    },
+    "main_irq_copy_call": {
+      "line": 20,
+      "path": "src/main.c",
+      "text": "void StoreIRQToIRAM();"
+    },
+    "main_iwram_clear": {
+      "line": 27,
+      "path": "src/main.c",
+      "text": "DmaFill32(3, 0, (void *)IWRAM_START, 0x7F80); // reset the area for the IWRAM ARM section."
+    },
+    "main_routine_copy_call": {
+      "line": 54,
+      "path": "src/main.c",
+      "text": "StoreRoutinesToIRAM();"
+    },
+    "main_sound_copy_call": {
+      "line": 66,
+      "path": "src/main.c",
+      "text": "m4aSoundInit();"
+    },
+    "main_sram_copy": {
+      "line": 48,
+      "path": "src/agb_sram.c",
+      "text": "size = ((uintptr_t)WriteSramFast - (uintptr_t)ReadSramFast_Core) / 2;"
+    },
+    "main_sram_init": {
+      "line": 67,
+      "path": "src/bmsave-lib.c",
+      "text": "SetSramFastFunc();"
+    },
+    "main_sram_init_call": {
+      "line": 55,
+      "path": "src/main.c",
+      "text": "SramInit();"
+    },
+    "multiboot_bios_call": {
+      "line": 234,
+      "path": "src/sio_multiboot.c",
+      "text": "i = MultiBoot(mp);"
+    },
+    "multiboot_bios_wrapper": {
+      "line": 71,
+      "path": "src/bios_wrappers.c",
+      "text": "asm volatile(\"swi 0x25\" : \"+r\"(r0), \"+r\"(r1) : : \"r2\", \"r3\", \"cc\", \"memory\");"
+    },
+    "multiboot_start_buffer": {
+      "line": 337,
+      "path": "src/sio_multiboot.c",
+      "text": "mp->boot_srcp = srcp;"
+    },
+    "multiboot_start_helper": {
+      "line": 327,
+      "path": "src/sio_multiboot.c",
+      "text": "void MultiBootStartMaster(struct MultiBootParam * mp, const u8 * srcp, int length, u8 palette_color, s8 palette_speed)"
+    },
+    "multiboot_start_limit": {
+      "line": 345,
+      "path": "src/sio_multiboot.c",
+      "text": "mp->boot_endp = srcp + length;"
+    },
+    "orphan_definition": {
+      "line": 7,
+      "path": "src/data_B1FE7C.c",
+      "text": "CONST_DATA u8 gUnkData_108[0xA788] = {"
+    },
+    "payload_arm_copy": {
+      "line": 21,
+      "path": "mgfembp/src/ramfunc.c",
+      "text": "CpuCopy16(ArmCodeStart, RamFuncArea, size);"
+    },
+    "payload_irq_copy": {
+      "line": 21,
+      "path": "mgfembp/src/interrupts.c",
+      "text": "CpuFastCopy(IntrMain, IntrMainRam, sizeof IntrMainRam);"
+    },
+    "payload_main_irq_call": {
+      "line": 23,
+      "path": "mgfembp/src/main.c",
+      "text": "InitIntrs();"
+    },
+    "payload_main_ramfunc_call": {
+      "line": 32,
+      "path": "mgfembp/src/main.c",
+      "text": "InitRamFuncs();"
+    },
+    "payload_main_sram_call": {
+      "line": 42,
+      "path": "mgfembp/src/main.c",
+      "text": "SramInit();"
+    },
+    "payload_sram_copy": {
+      "line": 52,
+      "path": "mgfembp/src/gbasram.c",
+      "text": "size = ((uptr)WriteSramFast - (uptr)ReadSramFast_Core) / 2;"
+    },
+    "routine_copy": {
+      "line": 28,
+      "path": "src/ramfunc.c",
+      "text": "CpuCopy16(ARMCodeToCopy_Start, gUnk_68, armCodeSize + (armCodeSize >> 31));"
+    },
+    "serial_boot_entry": {
+      "line": 64,
+      "path": "src/serial_reset.c",
+      "text": "serialEntry();"
+    },
+    "serial_boot_handoff": {
+      "line": 60,
+      "path": "src/serial_reset.c",
+      "text": "asm volatile(\"svc #0x110000\" : \"+r\"(serialBase), \"+r\"(serialValue)"
+    },
+    "serial_entry": {
+      "line": 7,
+      "path": "src/serial_boot.c",
+      "text": "void __attribute__((section(\".text.serial_entry\"))) FE6SIO_Entry(void)"
+    },
+    "serial_entry_pointer": {
+      "line": 62,
+      "path": "src/serial_reset.c",
+      "text": "serialEntry=(void (*)(void))0x02010000;"
+    },
+    "serial_expand_destination": {
+      "line": 59,
+      "path": "src/serial_reset.c",
+      "text": "serialValue=0x02010000;"
+    },
+    "serial_hw_base": {
+      "line": 18,
+      "path": "src/serial_reset.c",
+      "text": "serialBase = (volatile unsigned short *)0x04000120;"
+    },
+    "serial_payload": {
+      "line": 34,
+      "path": "asm/fe6sio.s",
+      "text": "FE6SIO_Payload:"
+    },
+    "serial_receive_source": {
+      "line": 58,
+      "path": "src/serial_reset.c",
+      "text": "serialBase=(volatile unsigned short *)0x020002b0;"
+    },
+    "sound_copy": {
+      "line": 69,
+      "path": "src/m4a.c",
+      "text": "CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));"
+    },
+    "startup": {
+      "line": 9,
+      "path": "src/crt0.c",
+      "text": "unsigned const StartupFarPointers[2] __attribute__((used,section(\".rodata.startup_far\"))) = {0x03007ffc, (unsigned)AgbMain};"
+    }
+  }
+}

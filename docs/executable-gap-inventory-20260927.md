@@ -2,11 +2,13 @@
 
 ## Finding
 
-The current receipts identify no unowned native instruction bytes in the
-intended main ROM or the expanded FE6 save-report payload. They do show finite
-source-history and behavior-evidence gaps, plus a large byte-classification
-frontier that must be closed through known game loaders and interpreters. The
-13,381,675 bytes in that frontier are not 13 MB of missing code.
+The completed source inventory identifies no unowned native instruction bytes
+in the main ROM or expanded FE6 save-report payload. The fresh build, native
+copy-path inventory and remaining data-owner review are now complete. See
+[native-source-completion.md](native-source-completion.md) for the original
+matching-source acceptance criteria and explicit limits. The physical ledger
+retains conservative execution-classification uncertainty for data; it is not
+evidence of 13,381,675 bytes of missing code.
 
 The scope here is valid execution of the original USA GBA program: reset and
 interrupt entries, ordinary calls and branches, declared function-pointer
@@ -83,33 +85,32 @@ which is offset 0x6C0 within the verified compressed asset
 `verified_duplicate_asset_bytes`. It is not a newly discovered instruction or
 missing function.
 
-## Bounded remaining work
+## Disposition of the earlier gaps
 
-| Item | What remains | Finite acceptance evidence |
-|---|---|---|
-| Fresh build recovery | Current ROM/ELF/map and receipts predate removal of the generated `.deps` directory. This is a build reproducibility blocker, not evidence of missing source. | Rebuild the current production inputs, compare the complete USA ROM and embedded payload hashes, then regenerate receipts against the fresh ELF/map. The dependency-recovery workstream owns this. |
-| Intended execution closure | The physical ledger leaves 13,381,675 input-data bytes open because mapping as data or lacking an ELF instruction map does not establish whether valid game code interprets a range. Large portions already have source/format receipts: direct sound (3,272,220 bytes), messages (492,968 object bytes), battle-animation inputs (2,380,160 bytes), and the duplicate block (42,888 bytes). These classes overlap the ledger and must not be summed as additional ROM space. | Trace the program-defined reset/IRQ/callback roots and valid copy/decompression/interpreter inputs to their destinations. Count only ranges reached as native code or as defined VM streams. Leave ordinary asset provenance separate. No arbitrary-corruption scan is needed. |
-| Orphan copy's exceptional word | At `gUnkData_108 + 0xA028`, the earlier linked data has 0x08587790 while the generated duplicate has 0x085913F0. Prior analysis identifies the old target as the string `"C"` and the copied target as `gProcScr_TalkWaitForInput`; the generator preserves the latter as an explicit historical constant. This is an unresolved four-byte source-history/meaning question, not an absent routine. | Determine whether a supported current-game path reads this copied runtime-data word. If none does, record it as stale copied-link residue and keep the exact constant for fidelity. If a valid path does, document its expected owner/relocation. |
-| Battle-animation behavior evidence | The byte source is in place: 201 motion sources freshly assemble into 804 sections (2,334,324 bytes) with 30,693 resolved relocations; 201 streams are parsed and all 1,475 inputs in the merged contribution are source-bound. The existing completion log still leaves effects for command IDs 5, 13, and 14, frame processing, and scheduling open. | If behavior-level source completeness is part of the goal, close those named commands and the top-level frame/scheduler path with bounded consumer traces. This is VM semantics evidence; current receipts do not show missing native code for these handlers. |
+| Earlier item | Final disposition |
+|---|---|
+| Fresh build recovery | Closed. All 1,327 main objects and 99 linked payload objects were rebuilt; canonical images and fresh runtime/export comparisons pass. See `build-recovery-20260927.md`. |
+| Native copy/decompression inventory | Completed in `native-load-paths.md`: four main and three payload copy mechanisms, serial decompression/entry, and generic MultiBoot capability. The exact FE6 serial transport edge is not fully established, but its receiver and expanded payload have matching source. No missing native implementation was found. |
+| Input-data source accounting | Completed by `asset-provenance-index.md` and `data-source-remainder.md`. All previously unmapped input bytes have provenance; the remainder has linked source owners. This does not prove data is unreachable as code. |
+| Orphan copy's exceptional word | Its value is exactly preserved and targets the existing `gProcScr_TalkWaitForInput` script-data table. No named source consumer or aligned base-pointer reference was found. Historical meaning and possible computed aliases remain uncertain; no missing native routine is established. |
+| Battle-animation behavior documentation | Motion/asset source bytes and native handlers are present. Further explanation of command IDs 5, 13 and 14, frame processing and scheduling is semantic documentation beyond matching-source recovery, not an identified native implementation gap. |
 
 The largest raw/encoded classes are not equivalent to missing instruction
 sources. Direct-sound records rebuild from 439 AIFF inputs; 3,404 compressed
 messages regenerate and decode to source tokens; the merged battle-animation
 contribution has a source list for all 1,475 assets and complete LZ boundaries;
-and the FE6 multiboot payload is explicitly decompressed and mapped. The
-remaining data work is to establish which of these formats the original game
-actually interprets as code or script, rather than to disassemble every byte
-that could be entered only after corrupting memory.
+and the FE6 multiboot payload is explicitly decompressed and mapped.
+The source/data inventory is complete for this review. No raw byte range is
+called nonexecutable solely because of its filename, source directory, format,
+or ELF data marker.
 
-## Delivery criteria
+## Acceptance scope
 
-The source/code portion can be treated as closed for intended native execution
-when a fresh build reproduces the canonical image, every reachable ARM/Thumb
-range has a source owner or an explicitly documented hardware operation, every
-valid copied/decompressed executable is separately mapped to source, and each
-game-authored VM stream consumed on supported paths has a bounded parser and
-dispatch account. The current artifacts satisfy the owner, payload-source,
-candidate-pointer, and byte-reconstruction portions. Fresh build recovery,
-the four-byte historical pointer decision, and intended-path closure for
-scripted execution remain the targeted open items. These are discrete checks,
-not a denominator based on all bytes the CPU could theoretically fetch.
+The original requirements are matching-source recovery of the GBA program,
+explicit accounting for embedded/copied code and hardware interfaces, separate
+ROM-data accounting, and reproducible verification. The completed receipts
+satisfy those source-recovery checks. An exhaustive indirect-control-flow proof,
+every historical data meaning, every VM behavior explanation, and a native-engine
+port are not claimed. `native-source-completion.md` records the detailed
+assessment without treating ROM equality or a pure-C-object percentage as overall
+C coverage.
