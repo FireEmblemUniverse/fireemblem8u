@@ -14124,3 +14124,33 @@ Jev `jev-1.13.0` supported the bounded index handoff (0.92; contradiction 0.05,
 insufficient 0.03) and independent direct-branch evidence (1.0). These are
 advisory results, not overall completion. Request fingerprint:
 `efcb51161e4500069e0e50741ad34466dc0b937094338e5e023e60e9da499020`.
+
+## September 27 — complete fresh program and runtime rebuild
+
+Build recovery is complete; see `docs/build-recovery-20260927.md` for commands,
+pins and evidence hashes. The bounded cache removal and rebuild recreated all
+1,327 main objects and 99 currently linked payload objects. The parent verified
+all 1,426 object sizes/hashes against the saved manifest and verified all twelve
+report evidence-file hashes. Six source-less/unlinked payload cache objects are
+explicitly excluded and preserved in a verified archive. No production object
+is being credited merely because it survived an incremental build.
+
+The main ROM and all three payloads match their canonical hashes. Fresh pinned
+libc/libgcc sources reproduce all four images and exported symbol addresses and
+sizes. The orphan regeneration with `--verify` passes. Installed old_agbcc is
+fingerprinted and reused; a complete bootstrap of that host compiler is not
+claimed. The matching GCC backend and event-NOP compiler dependency are restored.
+
+Parent regenerated ownership, runtime source, runtime syscall, inline hardware,
+platform, function-entry frontier, duplicate executable, full physical ledger,
+asset index, direct-branch and pointer-closure evidence. All eleven audits pass;
+ELF/map hashes and ownership counts remain unchanged. Logs are under
+`.deps/fresh-evidence-review/`. Runtime archive fingerprints were refreshed;
+full image and exported-symbol equality is the relevant output evidence.
+
+Jev supported the bounded fresh-build handoff (1.0), request fingerprint
+`1f15fee43a582d76f0866ed0ebb309103e7a367c6b28270c665723af5544d584`.
+Remaining work is the intended native-load inventory and a finite review of
+source representations outside the asset index for actual unexplained code
+candidates. Jev selected reuse of GPT-6-Luna/max for that factual remainder
+inventory (0.99), request `8f436e8016b9c3900cc8ce627ac93638826607d801c86327c52ea105d43976b8`.

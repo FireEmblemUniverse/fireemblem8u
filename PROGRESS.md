@@ -2,13 +2,14 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 27, 2026. Current pointer-closure baseline: `47eef088`.
+Updated: September 27, 2026. Fresh rebuild and refreshed audit baseline: `94834928`.
 
-The restored pinned dependencies now pass the normal full-ROM comparison.
-That incremental build rebuilt 149 of 1,327 main objects and reused 1,178;
-a fresh build of every production object is now being prepared. All three
-payload binaries retain their verified hashes. Generated build dependencies
-were absent on resume and have been restored.
+The fresh build passes: all 1,327 main-ROM objects and 99 linked payload objects
+were recreated from source. Every rebuilt object matches its saved pre-build
+hash; all four images match their canonical checksums. Fresh pinned runtime
+libraries independently reproduce all four images and exported symbols. The
+parent reran eleven ownership, hardware, target and provenance audits successfully.
+Generated dependencies missing on resume have been restored.
 
 Known main-ROM instruction ownership remains 746,068 C-owned, 9,770 mixed and
 21,792 runtime bytes (777,630 mapped bytes total). The 95.94% C-object share is
@@ -40,8 +41,8 @@ The final match was traced through the generated duplicate to the verified
 lens-flare asset. This does not claim all indirect targets are known.
 
 The coverage inventory identifies no confirmed unowned native instruction bytes
-in the main ROM or expanded payload. GPT-6-Luna/max is now tracing actual native
-load/copy paths, rebuilding production inputs and consolidating asset provenance.
+in the main ROM or expanded payload. GPT-6-Luna/max is now finishing the actual native
+load/copy-path inventory; fresh build and consolidated asset provenance pass.
 Jev supported the bounded inventory finding and selected the loader-path check
 as the next coverage step. Historical pointer meaning and complete executable
 accounting remain open. No overall completion percentage is claimed. Detailed
@@ -50,7 +51,7 @@ milestones and verification remain in `docs/decomp-completion.md`.
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: finish the fresh production rebuild, integrate the asset-provenance index, and account for the intended native loader/copy paths. Do not substitute arbitrary-memory-corruption reachability proofs or exhaustive game behavior testing for decompilation coverage.
+Next: finish the native loader/copy-path inventory and inspect the remaining data-source representations for concrete unexplained code candidates, then assess the original completion requirements against the refreshed evidence. Do not substitute arbitrary-memory-corruption reachability proofs or exhaustive game behavior testing for decompilation coverage.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files

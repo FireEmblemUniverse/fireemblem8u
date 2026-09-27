@@ -1,8 +1,8 @@
 {
   "source_commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
   "archive_sha256": {
-    "libc.a": "b0a7c776b1d2b3d0e2058ffcc45ac0fd053d41b49bd28d3523a345bef30e768d",
-    "libgcc.a": "35cb79e88e8b816fd0eda6cf169637ec93a5703dc0115006398894aa3f5c930e"
+    "libc.a": "171780191ea57c852398cd453fdce7f4f19acf1b6fd0b4a0923dc7af6918dfbe",
+    "libgcc.a": "985da1a5032c32dada2cb50af95962e083ff224b8a013072bb021cd0edd4e39e"
   },
   "images": {
     "main_rom": {
@@ -587,7 +587,7 @@
       ]
     }
   },
-  "rebuild_report_sha256": "5ae4d2572db555c76dc807196b0a715719d378091078dd0c0bdcae12b2730442",
+  "rebuild_report_sha256": "3e2c65c4a71553de6801a701900b9959abbc31e7a9e7ea90601a3473eaa1fbdb",
   "limitations": [
     "Matching C source rebuild does not prove no inline assembly; syscalls.c explicitly contains assembly and its object size is not the inline instruction count.",
     "Assembly text reproduction includes local padding/literals; reported instruction totals come from linked ARM/Thumb mappings.",
