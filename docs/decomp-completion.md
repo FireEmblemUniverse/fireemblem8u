@@ -14057,3 +14057,22 @@ selected actual native loader/copy-path inventory as the next coverage action
 Request fingerprint: `3647c013b386a693e5f87202c3ac7635c8ee732abcf1710df9bbd1412021fbb7`.
 The same Luna worker is tracing loaders and orphan consumers; the parent retains
 final decisions. Asset indexing and fresh build verification proceed independently.
+
+## September 27 — direct branch destination coverage
+
+`scripts/audit_direct_branches.py` checks immediate B/BL destinations separately
+from declared FUNC entries and pointer candidates. It isolates the instruction
+section of a temporary ELF without modifying the production image, parses
+conditional/unconditional ARM and Thumb branches, and checks the decoded bytes
+against the original binary. Source and target must both have instruction
+mappings, the mode must agree, and target alignment must be valid. Input hashes
+are checked again at the end to reject concurrent build changes.
+
+All 57,756 main-ROM sites and 1,213/1,241/1,210 sites in the three payload
+variants pass. Five branch-looking rows decoded from the main multiboot header
+are excluded because their source mapping is data. Register branches, returns,
+computed PC writes and native-copy paths are outside this bounded check.
+`docs/direct-branch-targets.json` stores image/tool/script hashes and counts;
+full reproducible branch lists are retained in `.deps/direct-branch-review/`.
+Parser controls cover a hexadecimal-looking branch mnemonic, Thumb B suffix,
+a two-halfword BL, and rejection of register branches/returns.
