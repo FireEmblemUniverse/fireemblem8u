@@ -14154,3 +14154,25 @@ Remaining work is the intended native-load inventory and a finite review of
 source representations outside the asset index for actual unexplained code
 candidates. Jev selected reuse of GPT-6-Luna/max for that factual remainder
 inventory (0.99), request `8f436e8016b9c3900cc8ce627ac93638826607d801c86327c52ea105d43976b8`.
+
+## September 27 — actual compiler provenance for every native owner
+
+`scripts/audit_compile_provenance.py` closes the distinction between a same-named
+C file and actual compilation evidence. Every nonarchive mapped instruction
+owner must have a recorded fresh C-preprocessor/compiler pipeline producing
+its assembly output, an existing C source and matching production object.
+The receipt fingerprints source/object files, compiler executables, command
+lines, build logs and Makefiles. Archive owners are independently joined to
+matching byte counts and verified C-source statuses in the refreshed runtime
+inventory; no archive owner is silently skipped as unknown.
+
+All 490 main C instruction owners pass (755,838 instruction bytes), plus the
+21,792 runtime bytes. All three payloads have 31 C instruction owners each:
+24,894 / 25,304 / 24,846 bytes, plus the same 820-byte runtime set. Thus every
+mapped instruction owner in all four images has fresh C compilation or runtime
+C-source rebuild evidence. Inline hardware bytes remain separately counted,
+and this does not claim all possible indirect targets are established.
+
+The audit passes against the preserved forced-build logs and writes
+`docs/compile-provenance.json`. Production headers were also searched for
+assembly templates; no additional include-header assembly sites were found.

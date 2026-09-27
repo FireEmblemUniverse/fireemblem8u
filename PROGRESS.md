@@ -16,6 +16,9 @@ Known main-ROM instruction ownership remains 746,068 C-owned, 9,770 mixed and
 not overall completion. Reviewed main inline instructions total 84 bytes;
 payload inline instructions total 58. All are documented hardware operations.
 There are no mapped assembly-source instruction owners or direct baserom includes.
+Fresh compiler-log evidence now binds all 490 main native C owners (755,838
+instruction bytes), plus 21,792 verified runtime C-source bytes. Each payload
+variant has 31 verified C owners plus the same 820-byte recovered runtime set.
 
 The formerly opaque 42,888-byte duplicate now rebuilds from recovered objects.
 It contains 200 copied native instruction bytes and a second compressed payload
