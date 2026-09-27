@@ -14009,3 +14009,28 @@ with the same model/effort is used.
 The .deps generated dependency directory was absent at resume. Installed agbcc
 binaries and existing ROM/ELF/payload artifacts remain available. Fresh-build
 reproducibility must be re-established; three bounded workstreams are underway.
+
+## Bounded pointer-candidate provenance closure — September 27, 2026
+
+Baseline `b9f6beda`. Luna coverage analysis identified the final residual at
+0x08B22960 as a copy of 0x08B18224, offset 0x6C0 inside the verified lens-flare
+compressed asset. The parent independently verified the bytes and updated
+`audit_pointer_data_owners.py` to derive the correspondence from the duplicate
+receipt, require containment in its exact prefix, and require the source row to
+have full-file asset provenance. All 41 data-owner residuals now classify.
+
+`audit_function_pointer_closure.py` verifies a disjoint exact union of the earlier
+5,561 candidates: 5,474 direct-object named relocations, nine archive references,
+37 PCM matches and 41 other data words. It verifies receipt-chain hashes and
+rejects missing, duplicate or out-of-inventory addresses. The current ROM hash
+matches the frontier. This closes the bounded aligned exact-FUNC-address scan,
+not general indirect-target coverage or overall decompilation.
+
+Jev reviewed the actual source and successful output (request fingerprint
+04d9548bffbde98f9e929cf2ffac33fed6c8621590bec7a41b7595347cedf2bb), selecting
+supported with a mixed distribution (0.61 supported, 0.27 contradicted, 0.12
+insufficient). The parent retained that uncertainty rather than treating it as
+approval, inspected the provenance links, added explicit receipt-chain hash
+checks and reran the deterministic closure successfully. No production behavior
+changed. Current artifact hashes and platform inline checks were also revalidated;
+fresh toolchain/build recovery remains in progress.

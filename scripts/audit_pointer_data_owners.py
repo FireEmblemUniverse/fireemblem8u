@@ -74,6 +74,16 @@ for row in rows:
   assert all(x==0 for x in data[cursor+1:])
   offset=a-start;assert offset in tile_offsets and offset+2 in tile_offsets
   item.update(classification='worldmap_rectangle_tile_halfwords',asset_symbol='gWorldmapSprite_26',rectangles=rectangles,halfwords=list(struct.unpack_from('<HH',data,offset)),table_sha256=hashlib.sha256(data).hexdigest())
+ if row['owner']=='src/data_B1FE7C.o':
+  duplicate=json.loads((ROOT/'docs/orphan-duplicate.json').read_text())
+  delta=int(duplicate['duplicate'],16)-int(duplicate['source'],16)
+  source_address=a-delta
+  assert int(duplicate['duplicate'],16)<=a and a+4<=int(duplicate['duplicate'],16)+duplicate['exact_prefix_bytes']
+  source_rows=[r for r in result if int(r['address'],16)==source_address and r['classification']=='verified_incbin_asset_bytes']
+  assert len(source_rows)==1,row
+  original=source_rows[0]
+  assert rom[a-0x08000000:a-0x08000000+4]==rom[source_address-0x08000000:source_address-0x08000000+4]
+  item.update(classification='verified_duplicate_asset_bytes',asset=original['asset'],asset_offset=original['asset_offset'],asset_sha256=original['asset_sha256'],source_address=hex(source_address),duplicate_delta=hex(delta))
  result.append(item)
 remaining=[x for x in result if x['classification']=='needs_data_provenance']
 report=dict(scope='Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.',classified=len(result)-len(remaining),remaining=len(remaining),prior_sha256=hashlib.sha256(prior.read_bytes()).hexdigest(),unit_header_sha256=hashlib.sha256((ROOT/'include/bmunit.h').read_bytes()).hexdigest(),records=result)

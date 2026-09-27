@@ -1,0 +1,25 @@
+{
+  "scope": "Closure of the specific aligned exact-FUNC-address candidate inventory only. Named relocations prove references; other words have data provenance. Does not establish all indirect targets, reachability, absence of hidden code, or overall decompilation.",
+  "rom_sha256": "638cda9d9b72657220fbf7e7a500cd3b64d9686c36e8a56fca69d26d13886f2f",
+  "candidates": 5561,
+  "accounted": 5561,
+  "unaccounted": 0,
+  "categories": {
+    "named_function_reference": 5474,
+    "named_archive_function_reference": 9,
+    "sample_payload_bytes_equal_function_address": 37,
+    "verified_incbin_asset_bytes": 15,
+    "verified_assembly_incbin_asset_bytes": 6,
+    "unit_definition_scalar_fields": 6,
+    "sprite_oam_halfwords": 1,
+    "worldmap_rectangle_tile_halfwords": 1,
+    "verified_duplicate_asset_bytes": 1,
+    "verified_animation_asset_bytes": 11
+  },
+  "receipt_hashes": {
+    "frontier": "86ae3e875c3f5ae71fffb3de52135811a1805a578b1ac00c54cd0b87f0823f32",
+    "named": "2fc3a74d3ef5959379d90ea00d9c4eee0f77abdfbba2d1d0423822fe53f80c6d",
+    "residual": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
+    "data": "62568f9a54bfb4b5970192c640bbc1a04d129448b3ca8cc99471e9cc291b8f78"
+  }
+}

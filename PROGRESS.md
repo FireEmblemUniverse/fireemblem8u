@@ -2,64 +2,44 @@
 
 **Status: active — not yet 100% decompiled.**
 
-Updated: September 14, 2026. Latest integration (baseline `2543832f`): both event NOPs now use a pinned compiler builtin with distinct internal call identities. The full event text and relocations, main ROM checksum and fresh four-image/runtime-symbol rebuild pass. Main nonlibrary inline assembly falls to 84 bytes; payload inline assembly remains 58 and runtime syscalls retain 26 SWI bytes. Every reviewed remaining nonlibrary inline operation is a software interrupt, processor-status access or PC read. Main-ROM ownership is now 746,068/777,630 C-owned instruction bytes (95.94% rounded), 9,770 mixed and 21,792 runtime. This 6,030-byte category shift reflects the entire event object losing its last inline instruction templates; only four instruction bytes were recovered in this change. Payload mapped instructions remain 25,714 (18,364 C-owned, 6,530 mixed, 820 runtime). Complete executable/data classification remains unfinished; no overall completion percentage is claimed.
+Updated: September 27, 2026. Current ledger baseline: `b9f6beda`.
 
-Latest coverage inventory (baseline `f4a13197`): all 8,663 main-ROM declared function entries and all 340/340/339 payload entries lie in instruction-mapped regions. The review frontier includes 10,252,493 data-mapped main input bytes and 3,172,286 unmapped input bytes; existing provenance receipts do not themselves prove absence of embedded code. Largest owners and all four image hashes are recorded in `docs/executable-frontier.json`.
+The existing 16 MiB main ROM still matches the canonical checksum; all three
+payload binaries also retain their verified hashes. This verifies current
+artifacts, not a fresh build. The generated `.deps` directory was absent on
+resume; recovery of the pinned compiler, plugins and runtime libraries is underway.
 
-Latest format closure (baseline `7ea7a0ce`): all 439 direct-sound records rebuild exactly from AIFF sources, accounting for the entire 3,272,220-byte region, including 707 zero-alignment bytes. Audio-format provenance is verified; references/control-flow evidence remain separate. Receipt: `docs/sound-sample-data.json`.
+Known main-ROM instruction ownership remains 746,068 C-owned, 9,770 mixed and
+21,792 runtime bytes (777,630 mapped bytes total). The 95.94% C-object share is
+not overall completion. Reviewed main inline instructions total 84 bytes;
+payload inline instructions total 58. All are documented hardware operations.
+There are no mapped assembly-source instruction owners or direct baserom includes.
 
-All 439 sound samples also have verified direct-sound instrument references: 1,575 complete 12-byte records match ROM and their owning input sections. Receipt: `docs/sound-sample-references.json`. Song reachability and other possible references are not yet closed. Next: continue consumer/control-flow and animation/embedded-code classification. Zero assembly-source instruction ownership and the absence of ordinary inline instructions do not establish full decompilation.
+The formerly opaque 42,888-byte duplicate now rebuilds from recovered objects.
+It contains 200 copied native instruction bytes and a second compressed payload
+copy. These are explicitly accounted for outside the ordinary mapping totals.
 
-Latest reference audit (baseline `15c44ba0`): 1,328 directly linked objects contain exactly 1,575 named sample relocations, all at verified instrument pointers. An independent scan of every aligned ROM word finds exactly the same 1,575 sample-start pointers and no extras. Interior, unaligned and computed pointers remain outside this check. Receipt: `docs/sound-relocations.json`.
+The physical ledger covers all 16,777,216 bytes with no gaps or overlaps:
+777,630 mapped instructions, 200 copied instructions, 42,904 compressed-payload
+storage bytes, 2,574,807 verified fill bytes and 13,381,675 input-data bytes whose
+execution classification remains open. Existing asset provenance is being indexed
+across that last category; it is not evidence of 13.38 MB of missing code.
 
-Latest source clarification (baseline `0715b0bb`): the mini-animation command handler now reads `commandQueue[commandQueueSize - 1]` directly, replacing an unexplained shifted struct-pointer cast. The full production ROM still matches. Queue bounds and handler behavior remain separate verification work. Receipt: `docs/mini-command-queue.json`.
+The bounded function-pointer candidate review is closed: all 5,561 candidates
+have disjoint provenance (5,483 named function references and 78 data words).
+The final match was traced through the generated duplicate to the verified
+lens-flare asset. This does not claim all indirect targets are known.
 
-Latest animation dispatch inventory (baseline `a7019e4c`): 14,421 command records use 93 IDs across 201 streams; all 30,693 frames have nonzero delays. Four observed IDs (0x0E, 0x53–0x55) have no explicit main-handler case; the queue-consumption path still handles their removal. Mini-animation has separate cases/default behavior. Execution and mode reachability are still open. Receipt: `docs/banim-command-dispatch.json`.
-
-Latest interpreter execution (baseline `8ea03a9e`): all 47,523 recovered motion records pass independent state-model checks against the production interpreter, whose 384-byte region matches the original ROM. Checks cover full Anim output, command queues, wait rewind, frame advancement, return, preserved registers and write bounds. Scheduling and handler effects remain open. Receipt: `docs/animation-interpreter-execution.json`.
-
-Latest mini-handler execution (baseline `6ee35a33`): 4,000 complete queue-drain cases pass for 250 command IDs, queue sizes 0–7 and command/command-plus-stop states. Checks cover full Anim output, script advancement, register/stack preservation, write bounds and no external calls. Six helper-command IDs and graphics/scheduling remain outside this check. Receipt: `docs/mini-animation-queue-execution.json`.
-
-Latest round-end integration check (baseline `fec152d3`): the mini-handler execution suite now passes 8,608 cases across 253 IDs, both hit-effect states, queue sizes 0–7 and 512 mixed queues. The actual 40-byte round-end helper executes for commands 1, 2 and 24; script release and STOP precedence match the independent model. Commands 5, 13 and 14, frame processing and scheduling remain open. Receipt: `docs/mini-animation-queue-execution.json`.
-
-Latest indirect-target audit (baseline `dc35446a`): all 65 class-reel magic selectors are within the nine-entry spell callback table. All nine ROM pointers match source initializers and linked C function symbols in `src/banim-efxop.o`. Callback effects and runtime selector provenance remain separate. Receipt: `docs/class-reel-dispatch.json`.
-
-Latest class-script closure (baseline `a99b9957`): all 14 class-reel scripts (100 two-byte records) reconstruct exactly from source macros; all 65 class-entry script pointers target their starts. Only defined control/wait opcodes occur, with structural END termination; Gorgon has one extra trailing END. Wait completion and interpreter effects remain open. Receipt: `docs/class-reel-dispatch.json`.
-
-Latest main-ROM pointer frontier (baseline `4f9d4095`): 5,561 aligned noninstruction words match 3,668 declared function pointers across 288 source owners. Menu definitions, spell associations and event data lead the review list. These are candidates, not proven references or complete indirect coverage. Receipt: `docs/function-pointer-frontier.json`; summary: `docs/function-pointer-frontier.md`.
-
-Latest pointer provenance (baseline `9f322578`): named ABS32 relocations confirm 5,474 of the 5,561 candidate function-pointer words. The remaining 87 include nine runtime-archive words and matches in sound/graphics/data regions; these remain unconfirmed rather than being counted as callbacks. Receipt: `docs/function-pointer-relocations.json`.
-
-Latest pointer residual review (baseline `0c2bf28b`): nine runtime-archive candidates are confirmed named function references; 37 sound candidates lie inside exact verified PCM payloads. This leaves 41 candidates for further provenance review. PCM address equality is not classified as a callback. Receipt: `docs/function-pointer-residuals.json`.
-
-Latest residual data ownership (baseline `997cd2ef`): eleven address matches bind to exact animation assets and six fall in scalar UnitDefinition fields rather than its pointer field. This leaves 24 candidates requiring data provenance; containing symbols are recorded where available. Receipt: `docs/function-pointer-data-owners.json`.
-
-Latest residual asset binding (baseline `1758398a`): fifteen additional pointer-shaped words lie in INCBIN asset arrays whose complete files and symbol extents match the ROM. The data-owner audit now accounts for 32 of its original 41 residuals, leaving nine. Receipt: `docs/function-pointer-data-owners.json`.
-
-Latest residual closure (baseline `7dd72d4f`): six assembly-defined animation matches bind to complete exact INCBIN assets; the preparation-screen word is verified as two OAM halfwords. The residual data-owner audit now accounts for 39/41 inputs, leaving the world-map table and unclassified raw block open. Receipt: `docs/function-pointer-data-owners.json`.
-
-Latest world-map residual (baseline `81642671`): the 56-byte gWorldmapSprite_26 table rebuilds from directives and parses as five rectangles with tile halfwords and a terminator. Its pointer-shaped word is two tile entries. Forty of 41 data-owner residuals are accounted for; the sole remaining candidate lies inside the unclassified 42,888-byte gUnkData_108 block. Receipt: `docs/function-pointer-data-owners.json`.
-
-New executable-classification finding (baseline `2c476bb7`): the first 40,952 bytes of gUnkData_108 exactly duplicate ROM at 0x08B15740, including FE6 serial payload and recovered serial routines. The remaining 1,936-byte suffix differs. The duplicate must be accounted for as embedded-code content; reachability and reproducible source representation remain open. Receipt: `docs/orphan-duplicate.json`.
-
-Latest orphan suffix analysis (baseline `a29ebb06`): 42,812 bytes reconstruct from the earlier region with 260 runtime-data pointers shifted by 0xA73C and one explicit unresolved word substitution. The final 76 bytes are recorded separately. This is byte-level evidence, not a recovered source representation or proof of reachability. Receipt: `docs/orphan-runtime-copy.json`.
-
-Latest orphan-tail accounting (baseline `f0e0123a`): the final 76 bytes match the runtime allocator tail at 0x08B1FE30 with four pointers shifted by 0xA788. The full 42,888-byte block now has a byte-reconstruction model, with one exceptional runtime rodata word still semantically unresolved. Source-based production reconstruction and executable classification remain open. Receipt: `docs/orphan-runtime-copy.json`.
-
-Latest source-object rebuild candidate (baseline `fcd0775c`): all 42,888 orphan bytes rebuild exactly from a fresh provisional link with the opaque object replaced by verified zero storage. The candidate uses recovered objects, documented pointer adjustments and one historical rodata constant; baserom is consulted only for final comparison. Production integration remains next. Receipt: `docs/orphan-object-rebuild.json`.
-
-Latest production integration (baseline `22975adb`): gUnkData_108 now uses generated bytes from recovered objects instead of the opaque byte initializer. The normal build and missing-include regeneration both reproduce the complete ROM exactly; fresh runtime verification passes all four images and exported symbols. Copied-code accounting/reachability and the historical pointer meaning remain open. Receipt: `docs/orphan-object-rebuild.json`.
-
-Latest copied-code accounting (baseline `d0626e97`): the generated duplicate contains 200 native instruction bytes and a 21,452-byte compressed payload. Both payload copies expand exactly to mgfembp: 25,714 mapped instruction bytes (1,108 ARM and 24,606 Thumb). These are explicit content overlays, not a reachability claim or a new overall denominator. Receipt: `docs/duplicate-executable-content.json`.
-
-Latest exact-code duplicate scan (baseline `568eb479`): 6,373 declared functions of at least 32 bytes were checked against halfword-aligned positions in noninstruction input regions. Two exact whole-function copies were found, both in the known generated duplicate. Short, modified, compressed, gap-resident and region-spanning code remain outside this scan. Receipt: `docs/code-duplicate-frontier.json`.
-
-Resumed September 27, 2026 (baseline `1259276d`): the physical ROM coverage ledger verifies all 16,777,216 bytes with no gaps or overlaps. It records 777,630 mapped native instruction bytes, 200 copied instruction bytes, 42,904 compressed-payload storage bytes, 2,574,807 verified fill bytes and 13,381,675 input-data bytes whose execution classification remains open. This is not an overall completion percentage. Local generated .deps dependencies were absent on resume; recovery is in progress.
+Current parallel work uses GPT-6-Luna/max, with Jev advisory checks: restore build
+dependencies, identify concrete remaining executable/source gaps, and consolidate
+verified asset intervals without double-counting. Historical pointer meaning and
+complete executable accounting remain open. No overall completion percentage is
+claimed. Detailed milestones and verification remain in `docs/decomp-completion.md`.
 
 This file is the standing progress panel; it is updated after meaningful verified
 advances, integration results, or changes in the current blocker.
 
-Next: continue remaining native assembly conversion and audit mapped-data/embedded-executable coverage and verify remaining animation command-handler behavior, while continuing platform and runtime assembly. `docs/rom-padding.json` verifies the now-accounted-for gaps. Mapped input data and compressed payloads still require executable classification; no overall completion denominator is claimed.
+Next: finish dependency recovery, rerun the full matching build, integrate the asset-provenance index, and resolve the concrete executable gaps identified by the current coverage review. Do not substitute arbitrary-memory-corruption reachability proofs for intended program coverage.
 
 This task builds on existing community work. The starting checkout was
 `FireEmblemUniverse/fireemblem8u` at `ecc6798b` (recorded inventory: 358 C files

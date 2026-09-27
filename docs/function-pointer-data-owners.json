@@ -1,7 +1,7 @@
 {
   "scope": "Source-data ownership, not reachability. Unit-definition matches are in scalar fields (not the redas pointer). Animation asset bytes match their hashed source. Other containing symbols are locators only; no inference of nonexecution from symbol names.",
-  "classified": 40,
-  "remaining": 1,
+  "classified": 41,
+  "remaining": 0,
   "prior_sha256": "8bbfc4e3299273ae287e4d17f618b27992e76e5bde7b4a6f279e98763e7889d3",
   "unit_header_sha256": "10548dc46626ae9ffbc1433cb0d350ed09912199c42d9e031f7ab3ba18b2b59e",
   "records": [
@@ -537,7 +537,12 @@
           "offset": "0x2ae4"
         }
       ],
-      "classification": "needs_data_provenance"
+      "classification": "verified_duplicate_asset_bytes",
+      "asset": "graphics/misc/Img_ChapterIntro_LensFlare.4bpp.lz",
+      "asset_offset": 1728,
+      "asset_sha256": "53a4d4f1aff5ef4fa0d1f1f7f67de39bb73fd4d6e75df639bdd0a92c20a9f6e1",
+      "source_address": "0x8b18224",
+      "duplicate_delta": "0xa73c"
     },
     {
       "address": "0x8c1aa24",
