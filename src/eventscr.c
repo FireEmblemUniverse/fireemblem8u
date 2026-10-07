@@ -2368,15 +2368,12 @@ void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefition,
         MuCtr_StartDefinedMove(unit, unitDefition->redas, unitDefition->redaCount, flags);
 }
 
-#if NONMATCHING
-
-/* https://decomp.me/scratch/IyKOH */
-
 //! FE8U = 0x0800F914
-struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
+struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * source, s16 count, u8 arg2, s8 arg3, s8 arg4)
 {
-    u8  array[0x40];
+    u8 array[0x40];
     u16 r;
+    u16 r3;
     u16 i;
     u16 arraySize;
     const struct UnitDefinition * itSource;
@@ -2386,12 +2383,11 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
     } mask;
 
     arraySize = 0;
-    i = 0;
+    r3 = 0;
     if (arg2)
     {
         itSource = source;
-        ++i; --i;
-        for (; i < count; i++)
+        for (i = 0; i < count; i++)
         {
             if (itSource->sumFlag)
             {
@@ -2402,16 +2398,16 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
             itSource++;
         }
 
-        i = Div((arraySize * arg2) + 50, 100);
+        r3 = Div((arraySize * arg2) + 50, 100);
     }
 
-#define MASK_BIT_GET(i) (((i) < 0x20) ? (mask.loBits & (1 << (i))) : (mask.hiBits & (1 << ((i)-0x20))))
-#define MASK_BIT_SET(i) (((i) < 0x20) ? (mask.loBits |= (1 << (i))) : (mask.hiBits |= (1 << ((i)-0x20))))
+#define MASK_BIT_GET(i) (((i) < 0x20) ? (mask.loBits & (1 << (i))) : (mask.hiBits & (1 << ((i) - 0x20))))
+#define MASK_BIT_SET(i) (((i) < 0x20) ? (mask.loBits |= (1 << (i))) : (mask.hiBits |= (1 << ((i) - 0x20))))
 
     mask.loBits = 0;
     mask.hiBits = 0;
 
-    while (i)
+    while (r3 != 0)
     {
         r = NextRN_N(arraySize);
         r = array[r];
@@ -2419,7 +2415,7 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
         if (!MASK_BIT_GET(r))
         {
             MASK_BIT_SET(r);
-            i--;
+            r3--;
         }
     }
     itSource = source;
@@ -2454,7 +2450,7 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
         for (i = 0; i < count; i++)
         {
             source->redaCount = 0;
-            source->redas     = NULL;
+            source->redas = NULL;
             source++;
         }
     }
@@ -2469,297 +2465,6 @@ struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * so
 
     return source;
 }
-
-#else // #if !NONMATCHING
-
-__attribute__((naked))
-struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * source, short count, u8 arg2, s8 arg3, s8 arg4)
-{
-    asm(".syntax unified\n"
-
-        "push {r4, r5, r6, r7, lr}\n"
-        "mov r7, sl\n"
-        "mov r6, r9\n"
-        "mov r5, r8\n"
-        "push {r5, r6, r7}\n"
-        "sub sp, #0x60\n"
-        "adds r6, r0, #0\n"
-        "ldr r0, [sp, #0x80]\n"
-        "lsls r1, r1, #0x10\n"
-        "lsrs r1, r1, #0x10\n"
-        "mov sl, r1\n"
-        "lsls r2, r2, #0x18\n"
-        "lsrs r2, r2, #0x18\n"
-        "mov ip, r2\n"
-        "lsls r3, r3, #0x18\n"
-        "lsrs r3, r3, #0x18\n"
-        "str r3, [sp, #0x40]\n"
-        "lsls r0, r0, #0x18\n"
-        "lsrs r0, r0, #0x18\n"
-        "str r0, [sp, #0x44]\n"
-        "movs r0, #0\n"
-        "mov r8, r0\n"
-        "movs r3, #0\n"
-        "cmp r2, #0\n"
-        "beq _0800F994\n"
-        "str r6, [sp, #0x54]\n"
-        "lsls r0, r1, #0x10\n"
-        "asrs r0, r0, #0x10\n"
-        "cmp r3, r0\n"
-        "bge _0800F982\n"
-        "movs r1, #0x40\n"
-        "mov r9, r1\n"
-        "adds r7, r0, #0\n"
-    "_0800F956:\n"
-        "ldr r2, [sp, #0x54]\n"
-        "ldrb r1, [r2, #5]\n"
-        "mov r0, r9\n"
-        "ands r0, r1\n"
-        "cmp r0, #0\n"
-        "beq _0800F972\n"
-        "mov r0, sp\n"
-        "add r0, r8\n"
-        "strb r3, [r0]\n"
-        "mov r0, r8\n"
-        "adds r0, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r0, r0, #0x10\n"
-        "mov r8, r0\n"
-    "_0800F972:\n"
-        "ldr r4, [sp, #0x54]\n"
-        "adds r4, #0x14\n"
-        "str r4, [sp, #0x54]\n"
-        "adds r0, r3, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-        "cmp r3, r7\n"
-        "blt _0800F956\n"
-    "_0800F982:\n"
-        "mov r5, ip\n"
-        "mov r0, r8\n"
-        "muls r0, r5, r0\n"
-        "adds r0, #0x32\n"
-        "movs r1, #0x64\n"
-        "bl Div\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-    "_0800F994:\n"
-        "movs r0, #0\n"
-        "str r0, [sp, #0x58]\n"
-        "str r0, [sp, #0x5c]\n"
-        "mov r1, sl\n"
-        "lsls r1, r1, #0x10\n"
-        "mov r9, r1\n"
-        "ldr r2, [sp, #0x44]\n"
-        "lsls r2, r2, #0x18\n"
-        "str r2, [sp, #0x4c]\n"
-        "ldr r4, [sp, #0x40]\n"
-        "lsls r4, r4, #0x18\n"
-        "str r4, [sp, #0x48]\n"
-        "cmp r3, #0\n"
-        "beq _0800FA0C\n"
-        "movs r7, #1\n"
-    "_0800F9B2:\n"
-        "mov r0, r8\n"
-        "str r3, [sp, #0x50]\n"
-        "bl NextRN_N\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r2, r0, #0x10\n"
-        "mov r5, sp\n"
-        "adds r0, r5, r2\n"
-        "ldrb r2, [r0]\n"
-        "ldr r3, [sp, #0x50]\n"
-        "cmp r2, #0x1f\n"
-        "bhi _0800F9D4\n"
-        "adds r0, r7, #0\n"
-        "lsls r0, r2\n"
-        "ldr r1, [sp, #0x58]\n"
-        "ands r0, r1\n"
-        "b _0800F9E0\n"
-    "_0800F9D4:\n"
-        "adds r1, r2, #0\n"
-        "subs r1, #0x20\n"
-        "adds r0, r7, #0\n"
-        "lsls r0, r1\n"
-        "ldr r4, [sp, #0x5c]\n"
-        "ands r0, r4\n"
-    "_0800F9E0:\n"
-        "cmp r0, #0\n"
-        "bne _0800FA08\n"
-        "cmp r2, #0x1f\n"
-        "bhi _0800F9F4\n"
-        "adds r0, r7, #0\n"
-        "lsls r0, r2\n"
-        "ldr r5, [sp, #0x58]\n"
-        "orrs r5, r0\n"
-        "str r5, [sp, #0x58]\n"
-        "b _0800FA02\n"
-    "_0800F9F4:\n"
-        "adds r1, r2, #0\n"
-        "subs r1, #0x20\n"
-        "adds r0, r7, #0\n"
-        "lsls r0, r1\n"
-        "ldr r1, [sp, #0x5c]\n"
-        "orrs r1, r0\n"
-        "str r1, [sp, #0x5c]\n"
-    "_0800FA02:\n"
-        "subs r0, r3, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-    "_0800FA08:\n"
-        "cmp r3, #0\n"
-        "bne _0800F9B2\n"
-    "_0800FA0C:\n"
-        "str r6, [sp, #0x54]\n"
-        "ldr r6, _0800FA34\n" // end
-        "movs r3, #0\n"
-        "mov r2, r9\n"
-        "asrs r0, r2, #0x10\n"
-        "mov ip, r6\n"
-        "cmp r3, r0\n"
-        "bge _0800FA70\n"
-        "movs r4, #0x41\n"
-        "negs r4, r4\n"
-        "mov sl, r4\n"
-        "mov r8, r0\n"
-    "_0800FA24:\n"
-        "cmp r3, #0x1f\n"
-        "bhi _0800FA38\n"
-        "movs r0, #1\n"
-        "lsls r0, r3\n"
-        "ldr r5, [sp, #0x58]\n"
-        "ands r0, r5\n"
-        "b _0800FA44\n"
-        ".align 2, 0\n"
-    "_0800FA34: .4byte gLoadUnitBuffer\n"
-    "_0800FA38:\n"
-        "adds r1, r3, #0\n"
-        "subs r1, #0x20\n"
-        "movs r0, #1\n"
-        "lsls r0, r1\n"
-        "ldr r1, [sp, #0x5c]\n"
-        "ands r0, r1\n"
-    "_0800FA44:\n"
-        "cmp r0, #0\n"
-        "bne _0800FA66\n"
-        "lsls r0, r3, #2\n"
-        "adds r0, r0, r3\n"
-        "lsls r0, r0, #2\n"
-        "adds r1, r6, #0\n"
-        "ldr r2, [sp, #0x54]\n"
-        "adds r0, r0, r2\n"
-        "ldm r0!, {r2, r4, r5}\n"
-        "stm r1!, {r2, r4, r5}\n"
-        "ldm r0!, {r4, r5}\n"
-        "stm r1!, {r4, r5}\n"
-        "ldrb r1, [r6, #5]\n"
-        "mov r0, sl\n"
-        "ands r0, r1\n"
-        "strb r0, [r6, #5]\n"
-        "adds r6, #0x14\n"
-    "_0800FA66:\n"
-        "adds r0, r3, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-        "cmp r3, r8\n"
-        "blt _0800FA24\n"
-    "_0800FA70:\n"
-        "movs r3, #0\n"
-        "mov r1, r9\n"
-        "asrs r0, r1, #0x10\n"
-        "cmp r3, r0\n"
-        "bge _0800FACA\n"
-        "movs r2, #1\n"
-        "mov sl, r2\n"
-        "mov r8, r0\n"
-    "_0800FA80:\n"
-        "cmp r3, #0x1f\n"
-        "bhi _0800FA92\n"
-        "mov r0, sl\n"
-        "lsls r0, r3\n"
-        "ldr r4, [sp, #0x58]\n"
-        "ands r0, r4\n"
-        "cmp r0, #0\n"
-        "bne _0800FAA2\n"
-        "b _0800FAC0\n"
-    "_0800FA92:\n"
-        "adds r1, r3, #0\n"
-        "subs r1, #0x20\n"
-        "mov r0, sl\n"
-        "lsls r0, r1\n"
-        "ldr r5, [sp, #0x5c]\n"
-        "ands r0, r5\n"
-        "cmp r0, #0\n"
-        "beq _0800FAC0\n"
-    "_0800FAA2:\n"
-        "lsls r0, r3, #2\n"
-        "adds r0, r0, r3\n"
-        "lsls r0, r0, #2\n"
-        "adds r1, r6, #0\n"
-        "ldr r2, [sp, #0x54]\n"
-        "adds r0, r0, r2\n"
-        "ldm r0!, {r2, r4, r5}\n"
-        "stm r1!, {r2, r4, r5}\n"
-        "ldm r0!, {r4, r5}\n"
-        "stm r1!, {r4, r5}\n"
-        "ldrb r0, [r6, #5]\n"
-        "movs r1, #0x40\n"
-        "orrs r0, r1\n"
-        "strb r0, [r6, #5]\n"
-        "adds r6, #0x14\n"
-    "_0800FAC0:\n"
-        "adds r0, r3, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-        "cmp r3, r8\n"
-        "blt _0800FA80\n"
-    "_0800FACA:\n"
-        "movs r0, #0\n"
-        "strb r0, [r6]\n"
-        "ldr r1, [sp, #0x4c]\n"
-        "asrs r0, r1, #0x18\n"
-        "cmp r0, #1\n"
-        "bne _0800FAF6\n"
-        "mov r6, ip\n"
-        "movs r3, #0\n"
-        "mov r2, r9\n"
-        "asrs r0, r2, #0x10\n"
-        "cmp r3, r0\n"
-        "bge _0800FAF6\n"
-        "movs r2, #0\n"
-        "adds r1, r0, #0\n"
-    "_0800FAE6:\n"
-        "strb r2, [r6, #7]\n"
-        "str r2, [r6, #8]\n"
-        "adds r6, #0x14\n"
-        "adds r0, r3, #1\n"
-        "lsls r0, r0, #0x10\n"
-        "lsrs r3, r0, #0x10\n"
-        "cmp r3, r1\n"
-        "blt _0800FAE6\n"
-    "_0800FAF6:\n"
-        "mov r6, ip\n"
-        "ldr r4, [sp, #0x48]\n"
-        "asrs r0, r4, #0x18\n"
-        "cmp r0, #1\n"
-        "bne _0800FB06\n"
-        "adds r0, r6, #0\n"
-        "bl sub_80125C0\n"
-    "_0800FB06:\n"
-        "adds r0, r6, #0\n"
-        "add sp, #0x60\n"
-        "pop {r3, r4, r5}\n"
-        "mov r8, r3\n"
-        "mov r9, r4\n"
-        "mov sl, r5\n"
-        "pop {r4, r5, r6, r7}\n"
-        "pop {r1}\n"
-        "bx r1\n"
-
-        ".syntax divided\n");
-}
-
-#endif // !NONMATCHING
 
 //! FE8U = 0x0800FB18
 u8 Event2B_ConfigLoadUnit(struct EventEngineProc * proc)
