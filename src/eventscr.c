@@ -2348,28 +2348,28 @@ void LoadUnit_800F704(const struct UnitDefinition * def, u16 b, s8 quiet, s8 d)
 }
 
 //! FE8U = 0x0800F8A8
-void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefition, u16 flags, s8 unk)
+void sub_800F8A8(struct Unit * unit, const struct UnitDefinition * unitDefinition, u16 flags, s8 unk)
 {
     if (!unit)
         return;
 
-    if (unitDefition->sumFlag == 1)
+    if (unitDefinition->sumFlag == 1)
         flags |= 0x0002;
 
-    if (!unitDefition->redaCount)
+    if (!unitDefinition->redaCount)
     {
-        MoveUnit_(unit, unitDefition->xPosition, unitDefition->yPosition, flags);
+        MoveUnit_(unit, unitDefinition->xPosition, unitDefinition->yPosition, flags);
         return;
     }
 
     if (unk == 1 || (unit->state & US_UNDER_A_ROOF))
-        MoveUnitExt(unit, unitDefition->redas, unitDefition->redaCount, flags);
+        MoveUnitExt(unit, unitDefinition->redas, unitDefinition->redaCount, flags);
     else
-        MuCtr_StartDefinedMove(unit, unitDefition->redas, unitDefition->redaCount, flags);
+        MuCtr_StartDefinedMove(unit, unitDefinition->redas, unitDefinition->redaCount, flags);
 }
 
 //! FE8U = 0x0800F914
-struct UnitDefinition * GetUnitDefinitionFormEventScr(struct UnitDefinition * source, s16 count, u8 arg2, s8 arg3, s8 arg4)
+struct UnitDefinition * GetUnitDefinitionFromEventScr(struct UnitDefinition * source, s16 count, u8 arg2, s8 arg3, s8 arg4)
 {
     u8 array[0x40];
     u16 r;
@@ -2527,7 +2527,7 @@ u8 Event2C_LoadUnits(struct EventEngineProc * proc)
     if (count == 0)
         count = GetLoadUnitsAmount(ud);
 
-    ud = GetUnitDefinitionFormEventScr((void *)ud, count, proc->chance, subcode == 2, proc->diable_REDA);
+    ud = GetUnitDefinitionFromEventScr((void *)ud, count, proc->chance, subcode == 2, proc->diable_REDA);
 
     BmMapFill(gBmMapOther, 0);
 

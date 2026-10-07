@@ -418,7 +418,7 @@ u8 Event2A_MoveToChapter(struct EventEngineProc * proc);
 void EventLoadUnitSliently(const struct UnitDefinition* def, s16 count, u8 param);
 void LoadUnit_800F704(const struct UnitDefinition *, u16, s8, s8);
 void sub_800F8A8(struct Unit*, const struct UnitDefinition*, u16, s8);
-// ??? GetUnitDefinitionFormEventScr(???);
+// ??? GetUnitDefinitionFromEventScr(???);
 u8 Event2B_ConfigLoadUnit(struct EventEngineProc * proc);
 u8 Event2C_LoadUnits(struct EventEngineProc * proc);
 u8 TryPrepareEventUnitMovement(struct EventEngineProc * proc, int x, int y);
