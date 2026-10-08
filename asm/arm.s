@@ -639,12 +639,12 @@ _08000810:
 .LMovMapFillStPool2: .4byte gMovMapFillStPool2 @ pool
 
 _08000858:
-	b _08000994
-	b _080009C8
-	b _08000960
-	b _0800092C
-	b _08000A14
-	b _080008E8
+	b .LMapFloodCore_case4
+	b .LMapFloodCore_case5
+	b .LMapFloodCore_case3
+	b .LMapFloodCore_case2
+	b .LMapFloodCoreLoop2Exit
+	b .LMapFloodCore_case1
 
 	.4byte _08000858
 
@@ -722,7 +722,7 @@ MapFloodCore: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
 	ldr r5, .LMovMapFillState  @ gMovMapFillState
-.LMapFloodCoreLoop:
+.LMapFloodCoreLoop1:
 	eors r4, r4, #1
 	beq _0800089C
 	ldr r0, .LMovMapFillStPool1  @ gMovMapFillStPool1
@@ -739,20 +739,20 @@ _080008AC:
 	ldr r6, [r5]
 	ldrb r6, [r6, #2]
 	cmp r6, #4
-	beq _08000A18
-_080008BC:
+	beq .LMapFloodCoreRet
+.LMapFloodCoreLoop2:
 	ldr r6, [r5]
 	ldrb r6, [r6, #2]
 	mov r0, pc
 	add r0, r0, #8
 	add r0, r0, r6, lsl #2
 	bx r0
-	b _08000994
-	b _080009C8
-	b _08000960
-	b _0800092C
-	b _08000A14
-_080008E8:
+	b .LMapFloodCore_case4
+	b .LMapFloodCore_case5
+	b .LMapFloodCore_case3
+	b .LMapFloodCore_case2
+	b .LMapFloodCoreLoop2Exit
+.LMapFloodCore_case1:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
@@ -769,8 +769,8 @@ _080008E8:
 	mov r1, #1
 	mov r2, #0
 	bl MapFloodCoreStep
-	b _080009F8
-_0800092C:
+	b .LMapFloodCore_default
+.LMapFloodCore_case2:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
@@ -783,8 +783,8 @@ _0800092C:
 	mov r1, #1
 	mov r2, #0
 	bl MapFloodCoreStep
-	b _080009F8
-_08000960:
+	b .LMapFloodCore_default
+.LMapFloodCore_case3:
 	mov r0, #2
 	mov r1, #0
 	mov r2, #1
@@ -797,8 +797,8 @@ _08000960:
 	mov r1, #1
 	mov r2, #0
 	bl MapFloodCoreStep
-	b _080009F8
-_08000994:
+	b .LMapFloodCore_default
+.LMapFloodCore_case4:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
@@ -811,8 +811,8 @@ _08000994:
 	mvn r1, #0
 	mov r2, #0
 	bl MapFloodCoreStep
-	b _080009F8
-_080009C8:
+	b .LMapFloodCore_default
+.LMapFloodCore_case5:
 	mov r0, #3
 	mov r1, #0
 	mvn r2, #0
@@ -825,17 +825,17 @@ _080009C8:
 	mov r1, #1
 	mov r2, #0
 	bl MapFloodCoreStep
-_080009F8:
+.LMapFloodCore_default:
 	ldr r6, [r5, #4]
 	mov r0, #4
 	strb r0, [r6, #2]
 	ldr r6, [r5]
 	add r6, r6, #4
 	str r6, [r5]
-	b _080008BC
-_08000A14:
-	b .LMapFloodCoreLoop
-_08000A18:
+	b .LMapFloodCoreLoop2
+.LMapFloodCoreLoop2Exit:
+	b .LMapFloodCoreLoop1
+.LMapFloodCoreRet:
 	pop {r4, r5, r6, lr}
 	bx lr
 	ARM_FUNC_END MapFloodCore
