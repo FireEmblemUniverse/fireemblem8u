@@ -1,7 +1,7 @@
-# Background TSA Maps as Text: Cell, Grass_Plains_2, Interior_Black
+# Background TSA Maps as Text: Eight Backgrounds
 
 ## Objective
-Remove the raw binary tile maps (`.bin`) for three backgrounds from the repository. These are the backgrounds still built with `.4bpp.lz` tiles and a raw `.bin` map (see `data/data_bg.s`), instead of the generated `.feimg2.bin` / `.fetsa2.bin` pair that most other backgrounds use.
+Remove the raw binary tile maps (`.bin`) for eight backgrounds from the repository. The first section covers Cell, Grass_Plains_2, and Interior_Black. The section "Five More Maps" below covers the other five. These are the backgrounds still built with `.4bpp.lz` tiles and a raw `.bin` map (see `data/data_bg.s`), instead of the generated `.feimg2.bin` / `.fetsa2.bin` pair that most other backgrounds use.
 
 ## Format
 A background map is a TSA: one byte of width-1, one byte of height-1, then width × height little-endian 16-bit entries, row by row from the top-left. Each entry is:
@@ -33,7 +33,7 @@ Matching the original tile order would need a tile-order option in the generator
 
 ## Not in this change
 - `bg_Stone_Chamber.bin` and `bg_Throne_Normal.bin` are no longer referenced by `data/data_bg.s`, which uses the generated files instead. They look like leftovers and could be deleted separately.
-- The remaining raw backgrounds are Castle_Back, Garden, Manse_Back, Serafew_Village, and Volcano. Each would need the same check.
+- The five remaining raw backgrounds (Castle_Back, Garden, Manse_Back, Serafew_Village, and Volcano) are converted in the section "Five More Maps" below, so no raw background maps remain from this list.
 
 ## Five More Maps: Castle_Back, Garden, Manse_Back, Serafew_Village, Volcano
 
