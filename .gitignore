@@ -967,3 +967,8 @@ include/msg_data.h
 !src/crt0.s
 !src/m4a_1.s
 !src/libagbsyscall.s
+
+# Generated from graphics/bg/*.tsa.txt by scripts/tsa_text.py
+/graphics/bg/bg_Cell.bin
+/graphics/bg/bg_Grass_Plains_2.bin
+/graphics/bg/bg_Interior_Black.bin
