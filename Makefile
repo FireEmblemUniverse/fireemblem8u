@@ -35,7 +35,7 @@ TEXTENCODE := tools/textencode/textencode$(EXE)
 JSONPROC   := tools/jsonproc/jsonproc$(EXE)
 FETSATOOL  := scripts/gfxtools/tsa_generator.py
 TMAP2TSA   := scripts/tmap2tsa.py
-TSATEXT    := scripts/tsa_text.py
+PNG2TSA    := scripts/tsa_png.py
 MARTOMAP   := scripts/mar_to_map.py
 PYTHON    ?= python3
 PAL2GBAPAL := $(GBAGFX)
@@ -193,7 +193,7 @@ include json_data_rules.mk
 %.rl: % ; $(GBAGFX) $< $@
 %.fk: % ; ./scripts/compressor.py $< fk
 %.bin: %.mar  ; $(MARTOMAP)  $< $@
-%.bin: %.tsa.txt ; $(PYTHON) $(TSATEXT) $< $@
+%.bin: %.screen.png %.png ; $(PYTHON) $(PNG2TSA) build $*.screen.png $*.png $@ $(if $(wildcard $*.overrides),--overrides $*.overrides)
 sound/%.bin: sound/%.aif ; $(AIF2PCM) $< $@
 
 %.4bpp.h: %.4bpp
