@@ -27,6 +27,9 @@ To change a background, edit its `.screen.png` and rebuild. To use it for a new 
 
     python3 scripts/tsa_png.py render map.bin tiles.png palette.pal screen.png
 
+## How the tile sheet is read
+The tile sheets are 4-bit grayscale PNGs. `gbagfx` reads a PNG without a palette inverted, so a pixel's colour is `15 - gray level` (Pillow shows the gray levels as 0, 17, …, 255). `scripts/tsa_png.py` follows the same rule, so a screen PNG painted with the game palette lines up with the sheet.
+
 ## How the map is built from the picture
 For each 8 × 8 cell, the script looks up the cell's pixels in the tile sheet, with and without flips, and takes the palette bank from the pixel indices. If a cell uses pixels that are not in the tile sheet, or more than one palette bank, the script stops with a message that names the cell.
 

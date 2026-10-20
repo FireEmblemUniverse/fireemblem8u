@@ -12,8 +12,10 @@
 #
 # Screen PNG: indexed colour, a multiple of 8 pixels in each direction. A
 # pixel's palette index is (palette bank * 16 + colour in the bank).
-# Tile sheet PNG: 8 pixels wide, tiles stacked from the top. Pixels are gray
-# levels 0, 17, ..., 255 (colour 0..15), or an indexed image with colour 0..15.
+# Tile sheet PNG: 8 pixels wide, tiles stacked from the top. It is either a
+# 4-bit grayscale image, which gbagfx reads inverted (colour = 15 - gray level,
+# and Pillow shows the gray levels as 0, 17, ..., 255), or an indexed image
+# whose indices are the colours 0..15.
 #
 # Map binary layout: one byte width-1, one byte height-1, then width*height
 # little-endian 16-bit entries (tile | hflip << 10 | vflip << 11 | bank << 12).
@@ -43,7 +45,8 @@ def read_tile_sheet(path):
     if im.mode == "L":
         if (a % 17).any():
             fail(f"{path}: gray levels must be multiples of 17")
-        a = a // 17
+        # gbagfx reads a PNG without a palette inverted: colour = 15 - gray level.
+        a = 15 - a // 17
     elif im.mode == "P":
         a = a & 15
     else:
