@@ -152,7 +152,7 @@ extern struct Font gFontClassChgMenu;
 extern struct Font gFontClassChg;
 extern s8 gUnknown_03005398;
 
-// extern ??? gUnknown_030053E0
+// extern ??? gClassChgEkrMagiDesc
 extern u16 gUnknown_03005408[];
 // extern ??? gSoundInfo
 extern struct MusicPlayerInfo gMPlayInfo_SE4_BMP2;

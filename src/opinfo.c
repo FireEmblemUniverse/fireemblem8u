@@ -22,12 +22,7 @@
 #include "constants/classes.h"
 #include "constants/msg.h"
 
-EWRAM_OVERLAY(gamestart) struct AnimBuffer gOpInfoData = { 0 };
-
-// TODO: Move elsewhere
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
+EWRAM_OVERLAY(gamestart) struct EkrMainMiniDesc gOpInfoData = { 0 };
 
 // TODO: Forward declarations
 
@@ -1148,21 +1143,21 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
 
     SetTalkPrintDelay(4);
 
-    gOpInfoData.charPalId = proc->classReelEnt->paletteId;
-    gOpInfoData.xPos = 260;
-    gOpInfoData.yPos = 88;
-    gOpInfoData.animId = proc->classReelEnt->banimId;
-    gOpInfoData.roundType = 6;
-    gOpInfoData.genericPalId = proc->classReelEnt->unk_06;
-    gOpInfoData.state2 = 1;
-    gOpInfoData.oam2Tile = 0x180;
-    gOpInfoData.oam2Pal = 2;
-    gOpInfoData.pImgSheetBuf = &gEkrBg0QuakeVec;
-    gOpInfoData.unk_24 = gUnknown_02002038;
-    gOpInfoData.unk_20 = gUnknown_02007838;
-    gOpInfoData.unk_28 = gUnknown_020078D8;
+    gOpInfoData.char_pal = proc->classReelEnt->paletteId;
+    gOpInfoData.x = 260;
+    gOpInfoData.y = 88;
+    gOpInfoData.bid = proc->classReelEnt->banimId;
+    gOpInfoData.round_type = 6;
+    gOpInfoData.faction_pal = proc->classReelEnt->unk_06;
+    gOpInfoData.pos = 1;
+    gOpInfoData.oam2_chr = 0x180;
+    gOpInfoData.oam2_pal = 2;
+    gOpInfoData.img_buf = &gEkrBg0QuakeVec;
+    gOpInfoData.oam_buf = gUnknown_02002038;
+    gOpInfoData.pal_buf = gUnknown_02007838;
+    gOpInfoData.scr_buf = gUnknown_020078D8;
 
-    gOpInfoData.unk_30 = &gClassReelMagicAnim;
+    gOpInfoData.magicfx_desc = &gClassReelMagicAnim;
 
     gClassReelMagicAnim.magicFuncIdx = proc->classReelEnt->magicFx;
     gClassReelMagicAnim.xOffsetBg = proc->classReelEnt->unk_09;
@@ -1189,13 +1184,13 @@ void ClassInfoDisplay_Init(struct OpInfoClassDisplayProc * proc)
     gUnk_Opinfo_0201DB00.pal_r = 11;
     gUnk_Opinfo_0201DB00.chr_r = 0x3C0;
     gUnk_Opinfo_0201DB00.distance = 0;
-    gUnk_Opinfo_0201DB00.unk0E = -1;
+    gUnk_Opinfo_0201DB00.bg_index = -1;
 
-    gUnk_Opinfo_0201DB00.unk1C = OBJ_CHR_ADDR(0x0);
-    gUnk_Opinfo_0201DB00.unk20 = &gUnk_OpInfo_0201DB28;
+    gUnk_Opinfo_0201DB00.vram_offset = OBJ_CHR_ADDR(0x0);
+    gUnk_Opinfo_0201DB00.img_buf = &gUnk_OpInfo_0201DB28;
 
-    sub_805AA68(&gUnk_Opinfo_0201DB00);
-    sub_805AE40(&gUnk_Opinfo_0201DB00, 0xD0, 0x68, 0x130, 0x68);
+    NewEkrTerrainfx(&gUnk_Opinfo_0201DB00);
+    EkrTerrainfx_SetPosition(&gUnk_Opinfo_0201DB00, 0xD0, 0x68, 0x130, 0x68);
 
     SetPrimaryHBlankHandler(sub_80B36E0);
 
@@ -1261,8 +1256,8 @@ void ClassInfoDisplay_LoopWindowIn(struct OpInfoClassDisplayProc * proc)
         proc->unk_2a += 4;
     }
 
-    sub_805A940(&gOpInfoData, proc->unk_46, 88);
-    sub_805AE40(&gUnk_Opinfo_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
+    EkrMainMini_SetAnimPosition(&gOpInfoData, proc->unk_46, 88);
+    EkrTerrainfx_SetPosition(&gUnk_Opinfo_0201DB00, proc->unk_46 - 48, 104, proc->unk_46 + 48, 104);
 
     sub_80B40E4(proc->unk_3c, 100);
 
@@ -1280,32 +1275,32 @@ void ClassInfoDisplay_ExecScript(struct OpInfoClassDisplayProc * proc)
             break;
 
         case CLASS_REEL_OP_HIT_CLOSE:
-            gOpInfoData.roundType = ANIM_ROUND_HIT_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            gOpInfoData.round_type = ANIM_ROUND_HIT_CLOSE;
+            EkrMainMini_UpdateAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_CRIT_CLOSE:
-            gOpInfoData.roundType = ANIM_ROUND_CRIT_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            gOpInfoData.round_type = ANIM_ROUND_CRIT_CLOSE;
+            EkrMainMini_UpdateAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_RETURN_TO_STANDING:
         case CLASS_REEL_OP_RETURN_TO_STANDING_ALT:
-            sub_805A990(&gOpInfoData);
+            EkrMainMini_EndBlock(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_HIT_FAR:
-            gOpInfoData.roundType = ANIM_ROUND_NONCRIT_FAR;
-            sub_805A7B4(&gOpInfoData);
+            gOpInfoData.round_type = ANIM_ROUND_NONCRIT_FAR;
+            EkrMainMini_UpdateAnim(&gOpInfoData);
 
             break;
 
         case CLASS_REEL_OP_DODGE:
-            gOpInfoData.roundType = ANIM_ROUND_TAKING_MISS_CLOSE;
-            sub_805A7B4(&gOpInfoData);
+            gOpInfoData.round_type = ANIM_ROUND_TAKING_MISS_CLOSE;
+            EkrMainMini_UpdateAnim(&gOpInfoData);
 
             break;
 
@@ -1349,7 +1344,7 @@ void ClassInfoDisplay_LoopScript(struct OpInfoClassDisplayProc * proc)
             break;
 
         case CLASS_REEL_OP_ROUND_END:
-            if (sub_805A96C(&gOpInfoData) != 0)
+            if (EkrMainMini_CheckBlocking(&gOpInfoData) != 0)
             {
                 proc->script++;
                 Proc_Break(proc);
@@ -1366,9 +1361,9 @@ void ClassInfoDisplay_OnEnd(struct OpInfoClassDisplayProc * proc)
 
     EndTalk();
     EndActiveClassReelBgColorProc();
-    sub_805AE14(&gUnk_Opinfo_0201DB00);
+    EndEkrTerrainfx(&gUnk_Opinfo_0201DB00);
     EndActiveClassReelSpell();
-    sub_805AA28(&gOpInfoData);
+    EndEkrMainMini(&gOpInfoData);
 
     if (proc->unk_3c != 0)
     {

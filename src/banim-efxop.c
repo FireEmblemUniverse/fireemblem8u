@@ -62,7 +62,7 @@ void SetActiveCRSpellBgColorProc(ProcPtr proc)
 //! FE8U = 0x0806E954
 struct AnimMagicFxBuffer * GetMagicEffectBufferFor(struct Anim * anim)
 {
-    return ((struct AnimBuffer *)(anim->pUnk44))->unk_30;
+    return ((struct EkrMainMiniDesc *)(anim->pUnk44))->magicfx_desc;
 }
 
 //! FE8U = 0x0806E95C

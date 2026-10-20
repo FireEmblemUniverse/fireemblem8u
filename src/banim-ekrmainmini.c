@@ -7,32 +7,8 @@
 #include "banim_data.h"
 #include "ctc.h"
 
-struct BanimUnkStructCommPriv
-{
-    PROC_HEADER;
-
-    /* 29 */ STRUCT_PAD(0x29, 0x32);
-
-    /* 32 */ s16 unk32;
-
-    /* 34 */ STRUCT_PAD(0x34, 0x3A);
-
-    /* 3A */ s16 unk3A;
-
-    /* 3C */ STRUCT_PAD(0x3C, 0x4C);
-
-    /* 4C */ int unk4C;
-};
-
-struct ProcEkrUnitMainMini
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x5C);
-    /* 5C */ void * unk_5C;
-};
-
 //! FE8U = 0x0805A3DC
-void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
+void EkrMainMini_ExecCommands(struct EkrMainMiniDesc * desc, struct Anim * anim)
 {
     int _tmp;
     int r0;
@@ -73,7 +49,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
             case 1:
             case 2:
                 // _0805A4F0
-                sub_805A580(anim);
+                EkrMainMini_C01_Blocking(anim);
                 break;
 
             case 5:
@@ -93,7 +69,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
             case 13:
                 // _0805A510
-                sub_805A5A8(anim);
+                EkrMainMini_C0D_ExecNextRoundAfterAttack(anim);
                 break;
 
             case 14:
@@ -103,7 +79,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
             case 24:
                 // _0805A520
-                sub_805A580(anim);
+                EkrMainMini_C01_Blocking(anim);
                 break;
 
             case 0:
@@ -164,10 +140,10 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 
     if (animState2 & 0x2000)
     {
-        if ((GetAISLayerId(anim) == 0) && (pAnimBuf->unk_2C != anim->pImgSheet))
+        if ((GetAISLayerId(anim) == 0) && (desc->img_sheet != anim->pImgSheet))
         {
             RegisterAISSheetGraphics(anim);
-            pAnimBuf->unk_2C = anim->pImgSheet;
+            desc->img_sheet = anim->pImgSheet;
         }
 
         anim->state2 &= 0xd700;
@@ -184,7 +160,7 @@ void sub_805A3DC(struct AnimBuffer * pAnimBuf, struct Anim * anim)
 }
 
 //! FE8U = 0x0805A580
-void sub_805A580(struct Anim * anim)
+void EkrMainMini_C01_Blocking(struct Anim * anim)
 {
     anim->nextRoundId = -2;
 
@@ -199,21 +175,21 @@ void sub_805A580(struct Anim * anim)
 }
 
 //! FE8U = 0x0805A5A8
-void sub_805A5A8(struct Anim * anim)
+void EkrMainMini_C0D_ExecNextRoundAfterAttack(struct Anim * anim)
 {
-    struct AnimBuffer * pAnimBuffer = anim->pUnk44;
+    struct EkrMainMiniDesc * desc = anim->pUnk44;
     struct BattleAnim * banim = banim_data;
     void * pool;
 
     if (GetAISLayerId(anim) == 0)
     {
         int mode = BanimDefaultModeConfig[0x18];
-        int * whoKnows = banim[pAnimBuffer->animId].modes;
+        int * whoKnows = banim[desc->bid].modes;
 
-        struct Anim * anim1 = pAnimBuffer->anim1;
-        struct Anim * anim2 = pAnimBuffer->anim2;
+        struct Anim * anim1 = desc->anim1;
+        struct Anim * anim2 = desc->anim2;
 
-        const void * unk28 = pAnimBuffer->unk_28;
+        const void * unk28 = desc->scr_buf;
 #ifndef NONMATCHING
         register struct BanimModeData * frameData asm("r1") = (void *)unk28 + whoKnows[mode];
         register u32 r1 asm("r1");
@@ -233,10 +209,10 @@ void sub_805A5A8(struct Anim * anim)
         anim2->pSpriteData = anim2->pSpriteDataPool + 0x000057F0;
 #endif
 
-        if (pAnimBuffer->unk_2C != anim->pImgSheet)
+        if (desc->img_sheet != anim->pImgSheet)
         {
             NewEkrChienCHR(anim);
-            pAnimBuffer->unk_2C = anim->pImgSheet;
+            desc->img_sheet = anim->pImgSheet;
         }
     }
 
@@ -244,7 +220,7 @@ void sub_805A5A8(struct Anim * anim)
 }
 
 //! FE8U = 0x0805A60C
-void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
+void EkrMainMini_InitAnim(struct EkrMainMiniDesc * desc)
 {
     u32 modeA;
     u32 configA;
@@ -263,16 +239,16 @@ void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
 
     ba = banim_data;
 
-    modeA = BanimDefaultModeConfig[pAnimBuf->roundType * 4];
-    configA = BanimDefaultModeConfig[pAnimBuf->roundType * 4 + 1];
-    modeB = BanimDefaultModeConfig[pAnimBuf->roundType * 4 + 2];
-    configB = BanimDefaultModeConfig[pAnimBuf->roundType * 4 + 3];
+    modeA = BanimDefaultModeConfig[desc->round_type * 4];
+    configA = BanimDefaultModeConfig[desc->round_type * 4 + 1];
+    modeB = BanimDefaultModeConfig[desc->round_type * 4 + 2];
+    configB = BanimDefaultModeConfig[desc->round_type * 4 + 3];
 
-    LZ77UnCompWram(ba[pAnimBuf->animId].script, (void *)pAnimBuf->unk_28);
+    LZ77UnCompWram(ba[desc->bid].script, (void *)desc->scr_buf);
 
-    ba2 = ba + pAnimBuf->animId;
+    ba2 = ba + desc->bid;
     modes = ba2->modes;
-    scr = (u32 *)pAnimBuf->unk_28;
+    scr = (u32 *)desc->scr_buf;
 
     scrA = BanimScr_DefaultAnim;
     if (modeA != 0xff)
@@ -286,10 +262,10 @@ void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
         scrB = (void *)scr + modes[modeB];
     }
 
-    if (pAnimBuf->state2 == 0)
+    if (desc->pos == 0)
     {
         int * p;
-        puVar8 = pAnimBuf->unk_24;
+        puVar8 = desc->oam_buf;
         LZ77UnCompWram(ba2->oam_l, puVar8);
         p = (puVar8 + 0x15FC);
         *p = 1;
@@ -297,7 +273,7 @@ void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
     else
     {
         int * p;
-        puVar8 = pAnimBuf->unk_24;
+        puVar8 = desc->oam_buf;
         LZ77UnCompWram(ba2->oam_r, puVar8);
         p = (puVar8 + 0x15FC);
         *p = 1;
@@ -305,61 +281,61 @@ void InitMainMiniAnim(struct AnimBuffer * pAnimBuf)
 
     anim = AnimCreate(scrA, configA);
 
-    anim->pSpriteDataPool = pAnimBuf->unk_24;
+    anim->pSpriteDataPool = desc->oam_buf;
 
-    anim->xPosition = pAnimBuf->xPos;
-    anim->yPosition = pAnimBuf->yPos;
+    anim->xPosition = desc->x;
+    anim->yPosition = desc->y;
 
-    anim->oam2Base = (pAnimBuf->oam2Pal << 0xc) | 0x800 | pAnimBuf->oam2Tile;
-    anim->state2 = (pAnimBuf->state2 << 9) | 0x400 | anim->state2;
+    anim->oam2Base = (desc->oam2_pal << 0xc) | 0x800 | desc->oam2_chr;
+    anim->state2 = (desc->pos << 9) | 0x400 | anim->state2;
     anim->nextRoundId = 0;
-    anim->currentRoundType = pAnimBuf->roundType;
-    anim->pImgSheetBuf = pAnimBuf->pImgSheetBuf;
+    anim->currentRoundType = desc->round_type;
+    anim->pImgSheetBuf = desc->img_buf;
 
-    pAnimBuf->anim1 = anim;
-    anim->pUnk44 = pAnimBuf;
+    desc->anim1 = anim;
+    anim->pUnk44 = desc;
 
-    if (pAnimBuf->animId == 0xc4)
+    if (desc->bid == 0xc4)
     {
-        pAnimBuf->anim2 = 0;
+        desc->anim2 = 0;
     }
     else
     {
         anim = AnimCreate(scrB, configB);
 
-        anim->pSpriteDataPool = pAnimBuf->unk_24;
+        anim->pSpriteDataPool = desc->oam_buf;
 
-        anim->xPosition = pAnimBuf->xPos;
-        anim->yPosition = pAnimBuf->yPos;
+        anim->xPosition = desc->x;
+        anim->yPosition = desc->y;
 
-        anim->oam2Base = (pAnimBuf->oam2Pal << 0xc) | 0x800 | pAnimBuf->oam2Tile;
-        anim->state2 = (pAnimBuf->state2 << 9) | 0x500 | anim->state2;
+        anim->oam2Base = (desc->oam2_pal << 0xc) | 0x800 | desc->oam2_chr;
+        anim->state2 = (desc->pos << 9) | 0x500 | anim->state2;
 
         anim->nextRoundId = 0;
-        anim->currentRoundType = pAnimBuf->roundType;
-        anim->pImgSheetBuf = pAnimBuf->pImgSheetBuf;
+        anim->currentRoundType = desc->round_type;
+        anim->pImgSheetBuf = desc->img_buf;
 
-        pAnimBuf->anim2 = anim;
-        anim->pUnk44 = pAnimBuf;
+        desc->anim2 = anim;
+        anim->pUnk44 = desc;
     }
 
-    LZ77UnCompWram(ba[pAnimBuf->animId].pal, pAnimBuf->unk_20);
+    LZ77UnCompWram(ba[desc->bid].pal, desc->pal_buf);
 
-    if (pAnimBuf->charPalId != -1)
+    if (desc->char_pal != -1)
     {
-        struct BattleAnimCharaPal * cbap = &character_battle_animation_palette_table[pAnimBuf->charPalId];
-        LZ77UnCompWram(cbap->pal, pAnimBuf->unk_20);
+        struct BattleAnimCharaPal * cbap = &character_battle_animation_palette_table[desc->char_pal];
+        LZ77UnCompWram(cbap->pal, desc->pal_buf);
     }
 
-    CpuFastSet(pAnimBuf->unk_20 + pAnimBuf->genericPalId * 0x20, pAnimBuf->oam2Pal * 0x10 + gPaletteBuffer + 0x100, 8);
+    CpuFastSet(desc->pal_buf + desc->faction_pal * 0x20, desc->oam2_pal * 0x10 + gPaletteBuffer + 0x100, 8);
 
     EnablePaletteSync();
 
-    pAnimBuf->unk_2C = 0;
+    desc->img_sheet = 0;
 }
 
 //! FE8U = 0x0805A7B4
-void sub_805A7B4(struct AnimBuffer * pAnimBuf)
+void EkrMainMini_UpdateAnim(struct EkrMainMiniDesc * desc)
 {
     struct BattleAnimCharaPal * cbapt = character_battle_animation_palette_table;
     u32 modeA;
@@ -379,14 +355,14 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
 
     ba = banim_data;
 
-    modeA = BanimDefaultModeConfig[pAnimBuf->roundType * 4];
-    modeB = BanimDefaultModeConfig[pAnimBuf->roundType * 4 + 2];
+    modeA = BanimDefaultModeConfig[desc->round_type * 4];
+    modeB = BanimDefaultModeConfig[desc->round_type * 4 + 2];
 
-    LZ77UnCompWram(ba[pAnimBuf->animId].script, (void *)pAnimBuf->unk_28);
+    LZ77UnCompWram(ba[desc->bid].script, (void *)desc->scr_buf);
 
-    ba2 = ba + pAnimBuf->animId;
+    ba2 = ba + desc->bid;
     modes = ba2->modes;
-    scr = (u32 *)pAnimBuf->unk_28;
+    scr = (u32 *)desc->scr_buf;
 
     scrA = BanimScr_DefaultAnim;
     if (modeA != 0xff)
@@ -400,10 +376,10 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
         scrB = (void *)scr + modes[modeB];
     }
 
-    if (pAnimBuf->state2 == 0)
+    if (desc->pos == 0)
     {
         int * p;
-        puVar8 = pAnimBuf->unk_24;
+        puVar8 = desc->oam_buf;
         LZ77UnCompWram(ba2->oam_l, puVar8);
         p = (puVar8 + 0x15FC);
         *p = 1;
@@ -411,62 +387,62 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
     else
     {
         int * p;
-        puVar8 = pAnimBuf->unk_24;
+        puVar8 = desc->oam_buf;
         LZ77UnCompWram(ba2->oam_r, puVar8);
         p = (puVar8 + 0x15FC);
         *p = 1;
     }
 
-    anim = pAnimBuf->anim1;
+    anim = desc->anim1;
 
     anim->pScrStart = scrA;
     anim->pScrCurrent = scrA;
 
-    anim->pSpriteDataPool = pAnimBuf->unk_24;
+    anim->pSpriteDataPool = desc->oam_buf;
 
-    anim->xPosition = pAnimBuf->xPos;
-    anim->yPosition = pAnimBuf->yPos;
+    anim->xPosition = desc->x;
+    anim->yPosition = desc->y;
 
-    anim->oam2Base = (pAnimBuf->oam2Pal << 0xc) | 0x800 | pAnimBuf->oam2Tile;
+    anim->oam2Base = (desc->oam2_pal << 0xc) | 0x800 | desc->oam2_chr;
     anim->state2 = (anim->state2 & 0x700);
 
     anim->state3 = 0;
     anim->timer = 0;
     anim->nextRoundId = 0;
-    anim->currentRoundType = pAnimBuf->roundType;
-    anim->pImgSheetBuf = pAnimBuf->pImgSheetBuf;
+    anim->currentRoundType = desc->round_type;
+    anim->pImgSheetBuf = desc->img_buf;
 
     anim->commandQueueSize = 0;
-    pAnimBuf->anim1 = anim;
+    desc->anim1 = anim;
 
-    anim = pAnimBuf->anim2;
+    anim = desc->anim2;
 
     anim->pScrStart = scrB;
     anim->pScrCurrent = scrB;
 
-    anim->pSpriteDataPool = pAnimBuf->unk_24;
+    anim->pSpriteDataPool = desc->oam_buf;
 
-    anim->xPosition = pAnimBuf->xPos;
-    anim->yPosition = pAnimBuf->yPos;
+    anim->xPosition = desc->x;
+    anim->yPosition = desc->y;
 
-    anim->oam2Base = (pAnimBuf->oam2Pal << 0xc) | 0x800 | pAnimBuf->oam2Tile;
+    anim->oam2Base = (desc->oam2_pal << 0xc) | 0x800 | desc->oam2_chr;
     anim->state2 = (anim->state2 & 0x700);
 
     anim->state3 = 0;
     anim->timer = 0;
     anim->nextRoundId = 0;
-    anim->currentRoundType = pAnimBuf->roundType;
-    anim->pImgSheetBuf = pAnimBuf->pImgSheetBuf;
+    anim->currentRoundType = desc->round_type;
+    anim->pImgSheetBuf = desc->img_buf;
 
     anim->commandQueueSize = 0;
-    pAnimBuf->anim2 = anim;
+    desc->anim2 = anim;
 
-    LZ77UnCompWram(ba[pAnimBuf->animId].pal, pAnimBuf->unk_20);
+    LZ77UnCompWram(ba[desc->bid].pal, desc->pal_buf);
 
-    if (pAnimBuf->charPalId != -1)
-        LZ77UnCompWram(cbapt[pAnimBuf->charPalId].pal, pAnimBuf->unk_20);
+    if (desc->char_pal != -1)
+        LZ77UnCompWram(cbapt[desc->char_pal].pal, desc->pal_buf);
 
-    CpuFastCopy(pAnimBuf->unk_20 + pAnimBuf->genericPalId * 0x20, pAnimBuf->oam2Pal * 0x10 + gPaletteBuffer + 0x100, 0x20);
+    CpuFastCopy(desc->pal_buf + desc->faction_pal * 0x20, desc->oam2_pal * 0x10 + gPaletteBuffer + 0x100, 0x20);
 
     EnablePaletteSync();
 
@@ -474,54 +450,54 @@ void sub_805A7B4(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A930
-void sub_805A930(struct AnimBuffer * pAnimBuf, int animId, int charPalId)
+void EkrMainMini_ChangeAnim(struct EkrMainMiniDesc * desc, int bid, int char_pal)
 {
-    pAnimBuf->animId = animId;
-    pAnimBuf->charPalId = charPalId;
+    desc->bid = bid;
+    desc->char_pal = char_pal;
 
-    sub_805A7B4(pAnimBuf);
+    EkrMainMini_UpdateAnim(desc);
 
     return;
 }
 
 //! FE8U = 0x0805A940
-void sub_805A940(struct AnimBuffer * pAnimBuf, u16 x, u16 y)
+void EkrMainMini_SetAnimPosition(struct EkrMainMiniDesc * desc, u16 x, u16 y)
 {
     struct Anim * anim;
 
-    pAnimBuf->xPos = x;
-    pAnimBuf->yPos = y;
+    desc->x = x;
+    desc->y = y;
 
-    anim = pAnimBuf->anim1;
-    anim->xPosition = pAnimBuf->xPos;
-    anim->yPosition = pAnimBuf->yPos;
+    anim = desc->anim1;
+    anim->xPosition = desc->x;
+    anim->yPosition = desc->y;
 
-    anim = pAnimBuf->anim2;
-    anim->xPosition = pAnimBuf->xPos;
-    anim->yPosition = pAnimBuf->yPos;
+    anim = desc->anim2;
+    anim->xPosition = desc->x;
+    anim->yPosition = desc->y;
 
     return;
 }
 
 //! FE8U = 0x0805A95C
-void sub_805A95C(struct AnimBuffer * pAnimBuf, u16 layer)
+void EkrMainMini_SetAnimLayer(struct EkrMainMiniDesc * desc, u16 layer)
 {
     struct Anim * anim;
 
-    anim = pAnimBuf->anim1;
+    anim = desc->anim1;
     anim->oam2Base = layer << 10;
 
-    anim = pAnimBuf->anim2;
+    anim = desc->anim2;
     anim->oam2Base = layer << 10;
 
     return;
 }
 
 //! FE8U = 0x0805A96C
-bool sub_805A96C(struct AnimBuffer * pAnimBuf)
+bool EkrMainMini_CheckBlocking(struct EkrMainMiniDesc * desc)
 {
-    struct Anim * anim1 = pAnimBuf->anim1;
-    struct Anim * anim2 = pAnimBuf->anim2;
+    struct Anim * anim1 = desc->anim1;
+    struct Anim * anim2 = desc->anim2;
 
     if (anim1->nextRoundId == (u16)-2)
     {
@@ -537,23 +513,23 @@ bool sub_805A96C(struct AnimBuffer * pAnimBuf)
 }
 
 //! FE8U = 0x0805A990
-void sub_805A990(struct AnimBuffer * pAnimBuf)
+void EkrMainMini_EndBlock(struct EkrMainMiniDesc * desc)
 {
     struct Anim * anim;
 
-    anim = pAnimBuf->anim1;
+    anim = desc->anim1;
     anim->state3 |= ANIM_BIT3_HIT_EFFECT_APPLIED;
 
-    anim = pAnimBuf->anim2;
+    anim = desc->anim2;
     anim->state3 |= ANIM_BIT3_HIT_EFFECT_APPLIED;
 
     return;
 }
 
 //! FE8U = 0x0805A9A4
-bool sub_805A9A4(struct AnimBuffer * pAnimBuf)
+bool EkrMainMini_CheckDone(struct EkrMainMiniDesc * desc)
 {
-    struct Anim * anim = pAnimBuf->anim1;
+    struct Anim * anim = desc->anim1;
 
     if (anim->nextRoundId != (u16)-1)
     {
@@ -565,10 +541,10 @@ bool sub_805A9A4(struct AnimBuffer * pAnimBuf)
 
 // clang-format off
 
-struct ProcCmd CONST_DATA gProc_efxAnimeDrvProc[] =
+struct ProcCmd CONST_DATA ProcScr_EfxAnimeDrv[] =
 {
     PROC_NAME("ekrAnimeDrvProc"),
-    PROC_REPEAT(ExecAllAIS),
+    PROC_REPEAT(EkrAnimeDrv_Loop),
     PROC_END,
 };
 
@@ -578,7 +554,7 @@ struct ProcCmd CONST_DATA gProc_efxAnimeDrvProc[] =
 void NewEfxAnimeDrvProc(void)
 {
     void ** ptr = &gpProcEfxAnimeDrv;
-    *ptr = Proc_Start(gProc_efxAnimeDrvProc, PROC_TREE_4);
+    *ptr = Proc_Start(ProcScr_EfxAnimeDrv, PROC_TREE_4);
 
     AnimClearAll();
 
@@ -593,66 +569,64 @@ void EndEfxAnimeDrvProc(void)
 }
 
 //! FE8U = 0x0805A9F4
-void ExecAllAIS(void)
+void EkrAnimeDrv_Loop(void)
 {
     AnimUpdateAll();
     return;
 }
 
-void EkrUnitMainMiniMain(struct ProcEkrUnitMainMini * proc);
-
 // clang-format off
 
-struct ProcCmd CONST_DATA ProcScr_ekrUnitMainMini[] =
+struct ProcCmd CONST_DATA ProcScr_EkrUnitMainMini[] =
 {
     PROC_NAME("ekrUnitMainMini"),
-    PROC_REPEAT(EkrUnitMainMiniMain),
+    PROC_REPEAT(EkrMainMini_Loop),
     PROC_END,
 };
 
 // clang-format on
 
 //! FE8U = 0x0805AA00
-void NewEkrUnitMainMini(struct AnimBuffer * pAnimBuf)
+void NewEkrUnitMainMini(struct EkrMainMiniDesc * desc)
 {
-    struct ProcEkrUnitMainMini * proc = Proc_Start(ProcScr_ekrUnitMainMini, PROC_TREE_4);
-    InitMainMiniAnim(pAnimBuf);
+    struct ProcEkrUnitMainMini * proc = Proc_Start(ProcScr_EkrUnitMainMini, PROC_TREE_4);
+    EkrMainMini_InitAnim(desc);
 
-    proc->unk_5C = pAnimBuf;
+    proc->desc = desc;
 
-    pAnimBuf->unk_34 = proc;
-    pAnimBuf->unk_00 = 1;
+    desc->proc = proc;
+    desc->valid = 1;
 
     return;
 }
 
 //! FE8U = 0x0805AA28
-void sub_805AA28(struct AnimBuffer * pAnimBuf)
+void EndEkrMainMini(struct EkrMainMiniDesc * desc)
 {
-    AnimDelete(pAnimBuf->anim1);
-    AnimDelete(pAnimBuf->anim2);
+    AnimDelete(desc->anim1);
+    AnimDelete(desc->anim2);
 
-    pAnimBuf->anim1 = 0;
-    pAnimBuf->anim2 = 0;
+    desc->anim1 = 0;
+    desc->anim2 = 0;
 
-    Proc_End(pAnimBuf->unk_34);
+    Proc_End(desc->proc);
 
     return;
 }
 
 //! FE8U = 0x0805AA4C
-void EkrUnitMainMiniMain(struct ProcEkrUnitMainMini * proc)
+void EkrMainMini_Loop(struct ProcEkrUnitMainMini * proc)
 {
-    struct AnimBuffer * pAnimBuf = proc->unk_5C;
+    struct EkrMainMiniDesc * desc = proc->desc;
 
-    sub_805A3DC(pAnimBuf, pAnimBuf->anim1);
-    sub_805A3DC(pAnimBuf, pAnimBuf->anim2);
+    EkrMainMini_ExecCommands(desc, desc->anim1);
+    EkrMainMini_ExecCommands(desc, desc->anim2);
 
     return;
 }
 
 //! FE8U = 0x0805AA68
-void sub_805AA68(struct BanimUnkStructComm * buf)
+void NewEkrTerrainfx(struct EkrTerrainfxDesc * desc)
 {
     struct BattleAnimTerrain * a;
     struct BattleAnimTerrain * b;
@@ -663,39 +637,39 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
     s16 oam2Pal;
     u16 oam2;
 
-    a = &battle_terrain_table[buf->terrain_l];
-    b = &battle_terrain_table[buf->terrain_r];
+    a = &battle_terrain_table[desc->terrain_l];
+    b = &battle_terrain_table[desc->terrain_r];
 
-    if (buf->terrain_l != -1)
+    if (desc->terrain_l != -1)
     {
-        LZ77UnCompWram(a->tileset, buf->unk20);
+        LZ77UnCompWram(a->tileset, desc->img_buf);
     }
 
-    if (buf->terrain_r != -1)
+    if (desc->terrain_r != -1)
     {
-        LZ77UnCompWram(b->tileset, buf->unk20 + 0x1000);
+        LZ77UnCompWram(b->tileset, desc->img_buf + 0x1000);
     }
 
-    switch (buf->distance) {
+    switch (desc->distance) {
     case 0:
     case 4:
-        vramA = buf->unk20;
-        vramB = buf->unk20 + 0x1000;
+        vramA = desc->img_buf;
+        vramB = desc->img_buf + 0x1000;
         break;
 
     case 1:
     case 2:
     case 3:
     default:
-        vramA = buf->unk20 + 0x800;
-        vramB = buf->unk20 + 0x1800;
+        vramA = desc->img_buf + 0x800;
+        vramB = desc->img_buf + 0x1800;
         break;
     }
 
     palA = a->palette;
     palB = b->palette;
 
-    switch (buf->unk0E) {
+    switch (desc->bg_index) {
     case -1:
     case 0:
     case 1:
@@ -707,43 +681,43 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
         break;
     }
 
-    if (buf->unk0E != -1)
+    if (desc->bg_index != -1)
     {
-        if (buf->unk0E >= -1)
+        if (desc->bg_index >= -1)
         {
-            if (buf->unk0E < 4)
+            if (desc->bg_index < 4)
             {
-                int vram = ((buf->chr_l + 0x40) * 0x20 + VRAM);
-                RegisterDataMove(vramA, (void *)(buf->unk1C + vram), 0x800);
-                vram = (buf->chr_r * 0x20 + VRAM);
-                RegisterDataMove(vramB, (void *)(buf->unk1C + vram), 0x800);
+                int vram = ((desc->chr_l + 0x40) * 0x20 + VRAM);
+                RegisterDataMove(vramA, (void *)(desc->vram_offset + vram), 0x800);
+                vram = (desc->chr_r * 0x20 + VRAM);
+                RegisterDataMove(vramB, (void *)(desc->vram_offset + vram), 0x800);
 
-                CpuFastCopy(palA, gPaletteBuffer + buf->pal_l * 0x10, 0x20);
-                CpuFastCopy(palB, gPaletteBuffer + buf->pal_r * 0x10, 0x20);
+                CpuFastCopy(palA, gPaletteBuffer + desc->pal_l * 0x10, 0x20);
+                CpuFastCopy(palB, gPaletteBuffer + desc->pal_r * 0x10, 0x20);
 
                 EnablePaletteSync();
-                sub_805AE58(buf);
+                EkrTerrainfx_PutTiles(desc);
             }
         }
     }
     else
     {
-        if (buf->terrain_l != -1)
+        if (desc->terrain_l != -1)
         {
-            RegisterDataMove(vramA, (void *)(buf->unk1C + buf->chr_l * 0x20), 0x800);
-            CpuFastCopy(palA, buf->pal_l * 0x10 + gPaletteBuffer + 0x100, 0x20);
+            RegisterDataMove(vramA, (void *)(desc->vram_offset + desc->chr_l * 0x20), 0x800);
+            CpuFastCopy(palA, desc->pal_l * 0x10 + gPaletteBuffer + 0x100, 0x20);
         }
 
-        if (buf->terrain_r != -1)
+        if (desc->terrain_r != -1)
         {
-            RegisterDataMove(vramB, (void *)(buf->unk1C + buf->chr_r * 0x20), 0x800);
-            CpuFastCopy(palB, buf->pal_r * 0x10 + gPaletteBuffer + 0x100, 0x20);
+            RegisterDataMove(vramB, (void *)(desc->vram_offset + desc->chr_r * 0x20), 0x800);
+            CpuFastCopy(palB, desc->pal_r * 0x10 + gPaletteBuffer + 0x100, 0x20);
         }
 
         EnablePaletteSync();
     }
 
-    switch (buf->unk0E) {
+    switch (desc->bg_index) {
     case 0:
         BG_EnableSyncByMask(BG0_SYNC_BIT);
         return;
@@ -761,65 +735,65 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
         return;
 
     case -1:
-        buf->proc14 = NULL;
-        buf->proc18 = NULL;
+        desc->proc1 = NULL;
+        desc->proc2 = NULL;
 
-        if (buf->terrain_r != -1)
+        if (desc->terrain_r != -1)
         {
-            switch (buf->distance) {
+            switch (desc->distance) {
             case 0:
             case 4:
-                oam2Pal = buf->pal_r;
-                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
-                buf->proc18 = NewEkrsubAnimeEmulator(0xa8, 0x68, AnimScr_EkrMainMini_L_Close, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_r;
+                oam2 = (oam2Pal << 0xc) | desc->chr_r | OAM2_LAYER(3);
+                desc->proc2 = NewEkrsubAnimeEmulator(0xa8, 0x68, AnimScr_EkrMainMini_L_Close, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 1:
-                oam2Pal = buf->pal_r;
-                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
-                buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_r;
+                oam2 = (oam2Pal << 0xc) | desc->chr_r | OAM2_LAYER(3);
+                desc->proc2 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 2:
-                oam2Pal = buf->pal_r;
-                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
-                buf->proc18 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_r;
+                oam2 = (oam2Pal << 0xc) | desc->chr_r | OAM2_LAYER(3);
+                desc->proc2 = NewEkrsubAnimeEmulator(0xb0, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 3:
-                oam2Pal = buf->pal_r;
-                oam2 = (oam2Pal << 0xc) | buf->chr_r | OAM2_LAYER(3);
-                buf->proc18 = NewEkrsubAnimeEmulator(0x80, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_r;
+                oam2 = (oam2Pal << 0xc) | desc->chr_r | OAM2_LAYER(3);
+                desc->proc2 = NewEkrsubAnimeEmulator(0x80, 0x68, AnimScr_EkrMainMini_L_Far, 2, oam2, 0, PROC_TREE_4);
                 break;
             }
         }
 
-        if ((buf->terrain_l != -1))
+        if ((desc->terrain_l != -1))
         {
-            switch (buf->distance) {
+            switch (desc->distance) {
             case 0:
             case 4:
-                oam2Pal = buf->pal_l;
-                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
-                buf->proc14 = NewEkrsubAnimeEmulator(0x48, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_l;
+                oam2 = (oam2Pal << 0xc) | desc->chr_l | OAM2_LAYER(3);
+                desc->proc1 = NewEkrsubAnimeEmulator(0x48, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 1:
-                oam2Pal = buf->pal_l;
-                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
-                buf->proc14 = NewEkrsubAnimeEmulator(0x20, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_l;
+                oam2 = (oam2Pal << 0xc) | desc->chr_l | OAM2_LAYER(3);
+                desc->proc1 = NewEkrsubAnimeEmulator(0x20, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 2:
-                oam2Pal = buf->pal_l;
-                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
-                buf->proc14 = NewEkrsubAnimeEmulator(0x40, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_l;
+                oam2 = (oam2Pal << 0xc) | desc->chr_l | OAM2_LAYER(3);
+                desc->proc1 = NewEkrsubAnimeEmulator(0x40, 0x68, AnimScr_EkrMainMini_R_Far, 2, oam2, 0, PROC_TREE_4);
                 break;
 
             case 3:
-                oam2Pal = buf->pal_l;
-                oam2 = (oam2Pal << 0xc) | buf->chr_l | OAM2_LAYER(3);
-                buf->proc14 = NewEkrsubAnimeEmulator(0x78, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
+                oam2Pal = desc->pal_l;
+                oam2 = (oam2Pal << 0xc) | desc->chr_l | OAM2_LAYER(3);
+                desc->proc1 = NewEkrsubAnimeEmulator(0x78, 0x68, AnimScr_EkrMainMini_R_Close, 2, oam2, 0, PROC_TREE_4);
                 break;
             }
         }
@@ -829,34 +803,34 @@ void sub_805AA68(struct BanimUnkStructComm * buf)
 }
 
 //! FE8U = 0x0805AE14
-void sub_805AE14(struct BanimUnkStructComm * buf)
+void EndEkrTerrainfx(struct EkrTerrainfxDesc * desc)
 {
-    if (buf->unk0E == -1)
+    if (desc->bg_index == -1)
     {
-        if (buf->proc14)
-            Proc_End(buf->proc14);
+        if (desc->proc1)
+            Proc_End(desc->proc1);
 
-        if (buf->proc18)
-            Proc_End(buf->proc18);
+        if (desc->proc2)
+            Proc_End(desc->proc2);
     }
 }
 
 //! FE8U = 0x0805AE40
-void sub_805AE40(struct BanimUnkStructComm * buf, s16 a, s16 b, s16 c, s16 d)
+void EkrTerrainfx_SetPosition(struct EkrTerrainfxDesc * desc, s16 x1, s16 y1, s16 x2, s16 y2)
 {
-    struct BanimUnkStructCommPriv * priv;
+    struct ProcEkrSubAnimeEmulator * proc;
 
-    priv = buf->proc14;
-    priv->unk32 = a;
-    priv->unk3A = b;
+    proc = desc->proc1;
+    proc->x1 = x1;
+    proc->y1 = y1;
 
-    priv = buf->proc18;
-    priv->unk32 = c;
-    priv->unk3A = d;
+    proc = desc->proc2;
+    proc->x1 = x2;
+    proc->y1 = y2;
 }
 
 //! FE8U = 0x0805AE58
-void sub_805AE58(struct BanimUnkStructComm * buf)
+void EkrTerrainfx_PutTiles(struct EkrTerrainfxDesc * desc)
 {
     int tmp;
     int offsetC;
@@ -864,12 +838,12 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
     int offsetA = 0;
     int offsetB = 0;
 
-    u16 * tmA = TsaConfs_BanimTmA[buf->distance * 2 + 0];
-    u16 * tmB = TsaConfs_BanimTmA[buf->distance * 2 + 1];
+    u16 * tmA = TsaConfs_BanimTmA[desc->distance * 2 + 0];
+    u16 * tmB = TsaConfs_BanimTmA[desc->distance * 2 + 1];
 
     sub_80559B0(0);
 
-    switch (buf->distance)
+    switch (desc->distance)
     {
         case 0:
         case 4:
@@ -912,13 +886,13 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 
         case 3:
         default:
-            if (buf->terrain_l != -1)
+            if (desc->terrain_l != -1)
             {
                 offsetA = 39;
                 offsetB = 3;
             }
 
-            if (buf->terrain_r != -1)
+            if (desc->terrain_r != -1)
             {
                 offsetA = 3;
                 offsetB = 42;
@@ -931,8 +905,8 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 
     tmp = 0x35A;
 
-    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, buf->pal_l, buf->chr_l);
-    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, buf->pal_r, buf->chr_r);
+    EfxTmCpyExt(tmA, -1, gTmA_Banim + 0x35A + offsetA, 0x42, 0xf, 5, desc->pal_l, desc->chr_l);
+    EfxTmCpyExt(tmB, -1, gTmA_Banim + 0x35A + offsetB, 0x42, 0xf, 5, desc->pal_r, desc->chr_r);
 
     EfxTmCpyExt((gTmA_Banim + tmp + offsetC) - 0x2B5, 0x42, gBG2TilemapBuffer, 0x20, 0x20, 0x14, -1, -1);
 
@@ -942,7 +916,7 @@ void sub_805AE58(struct BanimUnkStructComm * buf)
 }
 
 //! FE8U = 0x0805AFA0
-void sub_805AFA0(s16 distance, s16 position)
+void BanimCopyBgTM(s16 distance, s16 position)
 {
     int offset;
 

@@ -1,9 +1,5 @@
 #include "gbafe.h"
 
-void sub_805AA68(void *);
-void sub_805AE14(void *);
-void sub_805AE40(void *, s16, s16, s16, s16);
-
 CONST_DATA struct ProcCmd gProc_ekrDispUP[] = {
     PROC_NAME("ekrDispUP"),
     PROC_REPEAT(ekrDispUPMain),
@@ -178,7 +174,7 @@ void EfxClearScreenFx(void)
 
 void sub_8051E00(void)
 {
-    struct BanimUnkStructComm * unk0201FADC = &gUnknown_0201FADC;
+    struct EkrTerrainfxDesc * unk0201FADC = &gUnknown_0201FADC;
     struct BattleAnimTerrain * terrain1 = &battle_terrain_table[gBanimFloorfx[0]];
     struct BattleAnimTerrain * terrain2 = &battle_terrain_table[gBanimFloorfx[1]];
 
@@ -221,11 +217,11 @@ void sub_8051E00(void)
     unk0201FADC->pal_r = 5;
     unk0201FADC->chr_r = 640;
     unk0201FADC->distance = gEkrDistanceType;
-    unk0201FADC->unk0E = 2;
-    unk0201FADC->unk1C = 0;
-    unk0201FADC->unk20 = &gUnk_Banim_020145C8[0];
-    unk0201FADC->unk10 = (u16)gEkrSnowWeather;
-    sub_805AA68(unk0201FADC);
+    unk0201FADC->bg_index = 2;
+    unk0201FADC->vram_offset = 0;
+    unk0201FADC->img_buf = &gUnk_Banim_020145C8[0];
+    unk0201FADC->unk_10 = (u16)gEkrSnowWeather;
+    NewEkrTerrainfx(unk0201FADC);
 }
 
 void EfxPrepareScreenFx(void)
