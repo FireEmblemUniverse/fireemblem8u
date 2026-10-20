@@ -1152,7 +1152,7 @@ void efxHitQuake_Loop(struct ProcEfxQuake * proc)
         if (proc->unk_64 != NULL)
         {
             AnimDelete(proc->unk_64);
-            EkrTerrainfx_PutTiles(&gUnknown_0201FADC);
+            EkrTerrainfx_PutTiles(&gEkrTerrainfxDesc);
         }
 
         x1 = gEkrXPosReal[0] - gEkrBgPosition;

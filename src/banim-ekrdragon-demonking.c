@@ -271,7 +271,7 @@ ProcPtr NewEkrDragonBaseAppear(struct Anim * anim)
     proc->finished = false;
     proc->timer = 0;
     FillBGRect(gBG2TilemapBuffer, 0x20, 0x20, 0, 0);
-    NewEkrTerrainfx(&gUnknown_0201FADC);
+    NewEkrTerrainfx(&gEkrTerrainfxDesc);
     CpuFastCopy(PAL_BG(4), gEkrBgPaletteBackup, 0x40);
     EfxPalBlackInOut(PAL_BG(0), 4, 2, 0x10);
     return proc;

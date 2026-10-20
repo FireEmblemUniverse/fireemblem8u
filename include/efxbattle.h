@@ -216,7 +216,7 @@ struct ProcEfxMagicQuake
 extern struct EkrMainMiniDesc gClassChgEkrMiniDesc;
 extern struct AnimMagicFxBuffer gClassChgEkrMagiDesc;
 
-extern struct EkrTerrainfxDesc gUnknown_0201FADC;
+extern struct EkrTerrainfxDesc gEkrTerrainfxDesc;
 
 struct ProcEfxFlashing {
     PROC_HEADER;

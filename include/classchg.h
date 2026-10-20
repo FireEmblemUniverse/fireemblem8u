@@ -81,25 +81,28 @@ enum classchg_proc_label {
 
 struct ProcPromoSel {
     PROC_HEADER;
-    s8 _u29;
-    s8 _u2a;
-    s8 _u2b;
-    u16 jid[3];
-    u16 sprite[3];
-    s16 msg_desc[3];
-    u16 _u3e;
-    u8 stat;
-    u8 main_select;
-    u16 pid;
-    u16 u44;
-    u8 u46;
-    u8 u47;
-    u16 weapon;
-    u8 use_wpn[3];
-    u8 _u4d[3];
-    u32 u50;
-    ProcPtr menu_proc;
-    /* ... more maybe */
+
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+
+    /* 2C */ u16 jid[3];
+    /* 32 */ u16 sprite[3];
+    /* 38 */ s16 msg_desc[3];
+
+    /* 3E */ STRUCT_PAD(0x3E, 0x40);
+
+    /* 40 */ u8 stat;
+    /* 41 */ u8 main_select;
+    /* 42 */ u16 pid;
+    /* 44 */ u16 timer;
+    /* 46 */ u8 name_width;
+    /* 47 */ u8 name_x;
+    /* 48 */ u16 weapon;
+    /* 4A */ u8 use_wpn[3];
+
+    /* 4D */ STRUCT_PAD(0x4D, 0x50);
+
+    /* 50 */ u32 terrain;
+    /* 54 */ ProcPtr menu_proc;
 };
 
 struct ProcPromoTraineeEvent {
@@ -153,26 +156,26 @@ void StartBmPromotion(ProcPtr);
 void ChangeClassDescription(u32 msg);
 void LoadClassReelFontPalette(struct ProcPromoSel *proc, int class_id);
 void LoadClassNameInClassReelFont(struct ProcPromoSel *proc);
-void ClassChgLoadEfxTerrain(void);
+void ClassChgEndEkrPreview(void);
 void ClassChgLoadUI(void);
-// ??? ClassChgSelDrawPidName(???);
+void ClassChgSel_DrawClassNames(struct ProcPromoSel *proc);
 bool Check3rdTraineeEnabled(void);
 void RegisterTsaWithOffset(u16 *_dst, u16 *_src, u32 offset);
 ProcPtr StartPromoClassSelect(ProcPtr parent);
-// ??? NewClassChgMenuSelect(???);
-// ??? sub_80CCF60(???);
-// ??? LoadBattleSpritesForBranchScreen(???);
-// ??? sub_80CD1D4(???);
-// ??? PrepClassChgOnCancel(???);
-// ??? sub_80CD294(???);
-// ??? sub_80CD2CC(???);
-// ??? StartAndWaitPromoSelect(???);
-// ??? sub_80CD330(???);
-void sub_80CD34C(void);
-void sub_80CD408(u32, s16, s16);
-void sub_80CD47C(int, int, int, int, int);
+void PromoSel_Init(struct ProcPromoSel *proc);
+void PromoSel_StartClassDesc(struct ProcPromoSel *proc);
+void PromoSel_Loop(struct ProcPromoSel *proc);
+void PromoSel_EndOnMap(struct ProcPromoSel *proc);
+void PromoSel_OnPrepCancel(struct ProcPromoSel *proc);
+void PromoSel_RoutePreEnd(struct ProcPromoSel *proc);
+void PromoSel_RouteOnEnd(struct ProcPromoSel *proc);
+bool StartAndWaitPromoSelect(struct ProcPromoMain *proc);
+bool PromoMain_WaitSelection(struct ProcPromoMain *proc);
+void ClassChgMagi_ResetBlend(void);
+void ClassChg_InitTerrainfx(u32 terrain, s16 x, s16 y);
+void ClassChg_InitMainMini(int bid, int char_pal, int x, int y, int round_type);
 u8 LoadClassBattleSprite(s16*, u16, u16);
-// ??? NewCcramifyEnd(???);
+void StartPromoSelectEnd(void);
 // ??? sub_80CD62C(???);
 void PromoMain_SetupTraineeEvent(struct ProcPromoMain *proc);
 ProcPtr StartPromoTraineeEvent(ProcPtr proc);
